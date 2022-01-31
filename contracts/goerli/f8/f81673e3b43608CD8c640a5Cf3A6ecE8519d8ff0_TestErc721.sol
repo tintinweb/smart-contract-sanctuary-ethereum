@@ -1140,7 +1140,7 @@ interface IERC721Enumerable is IERC721 {
 }
 
 
-// File @openzeppelin/contracts/token/ERC721/extensions/[email protected]
+// File @openzeppelin/contracts/token/ERC721/extensions/ERC721Enum[email protected]
 
 // OpenZeppelin Contracts v4.4.1 (token/ERC721/extensions/ERC721Enumerable.sol)
 
