@@ -19944,3 +19944,4 @@
 {"address": "0x02C869F27B0D09004107818B1150e354d38Cb189", "name": "DummyERC721", "compiler": "0.6.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/4/2022"}
 {"address": "0x69646FFCBA6253A4fEa68fE2945Cb95DBf2dCF6B", "name": "WETH9", "compiler": "0.4.26", "balance": "-", "txcount": 0, "settings": "-", "date": "2/4/2022"}
 {"address": "0x5400ff2803838c070954748718bf5d82d9462af7", "name": "MyContract", "compiler": "0.5.17", "balance": "-", "txcount": 0, "settings": "-", "date": "2/4/2022"}
+{"address": "0x000000000000cd17345801aa8147b8D3950260FF", "name": "Poster", "compiler": "0.8.0", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/4/2022"}
