@@ -20006,3 +20006,35 @@
 {"address": "0xc2461f72F16398D0CC25d3D391de01D4f53940Cf", "name": "PolymorphMock", "compiler": "0.8.0", "balance": "-", "txcount": 0, "settings": "", "date": "2/5/2022"}
 {"address": "0x94dC03e8BC991c92A0A9B1f70DF79A7179Bc34D4", "name": "ENSTogether", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "2/5/2022"}
 {"address": "0xb08Ae039fE032F57551F8d08610e76a901a5C179", "name": "UsersContract", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "2/5/2022"}
+{"address": "0x61c4de5f33cC2FD78eF4C7d0f7DBA8a680928ed0", "name": "NAIA", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0xE9F8a4c2324A075c80E893245CFBeBb0edEFd3e7", "name": "TESTUTIL", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0xB591b0B305Aa5d3f5a02c337F3Fc8c5969Bcf98f", "name": "CATBLOX", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0xAb80CD2CEB6614BBaf1720A9eC546F1BC1f16ecA", "name": "DummyToken", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x3E2A8b035dC9Eb9218CB146224b0405c3B5feC58", "name": "JungleSerum", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x486bb82fc856e0005b895d12486169b245e01978", "name": "CultOfLaughter", "compiler": "0.8.2", "balance": "0.042 Ether", "txcount": 0, "settings": "-", "date": "2/6/2022"}
+{"address": "0xc10cb177270f6251e13a409339d6d45944557e58", "name": "CultOfLaughter", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "-", "date": "2/6/2022"}
+{"address": "0xF387CDce0Ec6Dc0C9F55D105aDe6dd1FD500a862", "name": "token", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "-", "date": "2/6/2022"}
+{"address": "0xe820b2aeaebc8972d72f7db7a80ebf142241509f", "name": "testCharDevNFT", "compiler": "0.8.7", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x90033333A369B041B854e12FEEb919CFf557645f", "name": "ENSTogether", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "2/6/2022"}
+{"address": "0x53f742761c052f0512675eee713fae30750f4793", "name": "Hero", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x23EdAf76c0163cC1DD51b7D9c98485D3f906223F", "name": "FansToken", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x0ed07a6E305A323C37662E97bC1425010A301e65", "name": "OptimizedTransparentUpgradeableProxy", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x738E937dE2a2734Dd1e91bB264481beC9DD11FD4", "name": "CryptizenCids", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "-", "date": "2/6/2022"}
+{"address": "0xba1f1df067da11e2b08fafe50dcafa5a91f32387", "name": "NanoTest", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0xb7f4f9762cad981d61f674564939f4804ccef68d", "name": "AtopiaShop", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x71d05f3f9baeec63299123080dd976e3cba680c2", "name": "RinkAtopia", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x24c8f6326244a81ab0c32e28b28a53b12b69ad89", "name": "FakeArtMinter", "compiler": "0.8.7", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x22730e802bDc20D575915A1ba479b17329E175cB", "name": "SAC", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "-", "date": "2/6/2022"}
+{"address": "0x8a93bfe6c5ba116b0e7b3b2a82ebbaf901946ec5", "name": "FakeArtMinter", "compiler": "0.8.7", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x93af0d430530d8ad9598359b4a9e4017cd52ab6d", "name": "Calc", "compiler": "0.7.1", "balance": "-", "txcount": 0, "settings": "-", "date": "2/6/2022"}
+{"address": "0x6421FffE1125b72B299Cf1290d14Eb376fA5E9F5", "name": "DiscordCoin", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0xD8437e2135B003fEd87c3C15aaAA657388Af35B6", "name": "TransparentUpgradeableProxy", "compiler": "0.8.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0xBF0dBc3ceEF00a15d35452023E578bAda1623de3", "name": "CosmodinosOmega", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x0788e1af499cf86943bcdaddd1a4fde962c62c7d", "name": "Storage", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "-", "date": "2/6/2022"}
+{"address": "0xd3809cdc3c03ddf0ff465fce0976dce302ffbe38", "name": "Matra", "compiler": "0.5.17", "balance": "-", "txcount": 0, "settings": "-", "date": "2/6/2022"}
+{"address": "0x2Dbb73607f046013aa510d05068A339C170EdfF4", "name": "VeToken", "compiler": "0.8.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x0f0c59397f6C509fbD13f2972132114dDc3eF5eA", "name": "TestRock", "compiler": "0.8.7", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x92966ac83e2a5160f2239bb56cf6a886756c2542", "name": "LatraToken", "compiler": "0.4.26", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x173a6664EE3e93B8F4b03efF3788f5B3aba223cc", "name": "VeToken", "compiler": "0.8.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0x80093dAb182694833e8B67F776c41377F881ED99", "name": "BeaconProxy", "compiler": "0.8.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
+{"address": "0xa4098034079F8E04139b969d4c7FED54004F4272", "name": "VeToken", "compiler": "0.8.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/6/2022"}
