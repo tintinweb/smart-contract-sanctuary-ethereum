@@ -20472,3 +20472,17 @@
 {"address": "0x8A08e91326Ac93fBcfcFb13912cEDdcb7Fc28f71", "name": "AutomationBot", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
 {"address": "0x5e45242c2c64F445Fc7a444FeFd235EB6B3D9C22", "name": "TXTToken", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
 {"address": "0xdA10E01d03EA121a42dB6157f563b130761bB8f1", "name": "ResolverTest", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xE8CeB56AE40542b01911bdD738A260c206b61d74", "name": "SmartVault", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x191511e10a54B47d0918D2b5df7066d7fA46dEBb", "name": "Vault", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xE5cF7f7d07D3158674310f4865FF17645500c083", "name": "Registry", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x9f1130B3F96a6B6885F9687bFa0c88b6CE7C4317", "name": "DAO", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x3d66042F1Eb08B818166574162287EF2F5d8B2C6", "name": "Bridge", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xf1F4ed500708cf69E093397d0b591a0A582c1576", "name": "MetaClubDAO", "compiler": "0.8.9", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x652ed024dcc6f7a49faad1eee5d454313b78f958", "name": "MyNFT", "compiler": "0.8.0", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0xe9f6725604598C1851324ef0b405AF6B108D1fac", "name": "CESFork_RwaSpell", "compiler": "0.6.12", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0x7b30Dc0daB2987704A015bd81F1A7bE4D3eB80f3", "name": "C8Test", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xb6742345463e0ce3016b10f061e9c8f424d19c9b", "name": "Hackaton", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0xBCdbb0Bf39899BAc2B33534a5584997D0B849ea9", "name": "CryptoGeek", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0xcefee7e8d5fd3fc7a0dfb3ad524a7b11e4e32d51", "name": "Hackaton", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0x057b21ceb4fc50cf572977fc41a8e7d87082f31b", "name": "Contracting", "compiler": "0.5.12", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xd93Ab632C8e453751D565C71baCAeAc55C323deb", "name": "DGLDToken", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
