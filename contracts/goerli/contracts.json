@@ -20454,3 +20454,21 @@
 {"address": "0x68E7b619b07BFC28731757781Ae829563bFBdAFf", "name": "DummyToken", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
 {"address": "0x4b3d863888eca5df3703a42b7930b28ef6762cf5", "name": "DcLowGas", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
 {"address": "0xE4ABad7Fa17504583dF85A957F5f3BcF053AFA89", "name": "NFT", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/10/2022"}
+{"address": "0xa6A3b7c425Cfe0115891117E9da992041C027aC5", "name": "CESFork_RwaSpell", "compiler": "0.6.12", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0xaf26808e856731a62cce222b2a9ad234b7547648", "name": "NukeNFT", "compiler": "0.6.11", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0xdBCA4307AEa48fE008dc37693F7D126cc543e122", "name": "CycleRolloverTracker", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x4A6658AfaD390996FcA7a76e32E7f6D49ea32e14", "name": "DGLDToken", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0xcb014643e0f39281be5aa755bb4dc32680ecb129", "name": "MetaClubDAO", "compiler": "0.8.9", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x3710dace7062a1e2641bf75386fd18a7cf59b9d2", "name": "ORBRToken", "compiler": "0.8.0", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xEE28bdfBB91dE63bfBDA454082Bb1850f7804B09", "name": "OffchainResolver", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x8Bd67110b76F4F83a94ACe604154D90BcBE393c8", "name": "McdUtils", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x0d6BaeFF47fB6b9E64E638a540E09302bf52B87E", "name": "DiamondInit", "compiler": "0.8.6", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0x1914E69E5E9BA5f09E82dA7684bb0Aac7cB81D9C", "name": "DiamondCutFacet", "compiler": "0.8.6", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0x31E4472aD3f33eEAE0363199cD16517313b249ea", "name": "DopexNFT", "compiler": "0.8.10", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0x2635B5ba5991fdB5a2CD843a47Ab567940b8d5ce", "name": "RootToken", "compiler": "0.6.12", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xEfb6b9C0D6d8D9d6FD0c654BDFECC7168aDF7A22", "name": "RootDeployer", "compiler": "0.6.12", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xef3029a2798e97776738d87bb78e5a2292c6a713", "name": "EGGTToken", "compiler": "0.5.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x28b5364b82909b0Ea6336EaE2a17B0FCb4E2942F", "name": "AutomationExecutor", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x8A08e91326Ac93fBcfcFb13912cEDdcb7Fc28f71", "name": "AutomationBot", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x5e45242c2c64F445Fc7a444FeFd235EB6B3D9C22", "name": "TXTToken", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0xdA10E01d03EA121a42dB6157f563b130761bB8f1", "name": "ResolverTest", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
