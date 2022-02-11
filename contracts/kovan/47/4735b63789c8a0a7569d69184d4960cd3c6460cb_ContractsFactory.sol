@@ -1,0 +1,23 @@
+import "./WinAnswer.sol";
+
+contract ContractsFactory {
+    address[] public contracts;
+    Referrals referrals;
+    address platform;
+
+    constructor(){
+        platform = msg.sender;
+    }
+
+    function create() public returns(address) {
+        WinAnswer winAnswer = new WinAnswer(msg.sender, address(referrals));
+        contracts.push(address(winAnswer));
+        referrals.addReferralOnNewContractCreation(address(winAnswer));
+        return address(winAnswer);
+    }
+
+    function setReferrals(address _referrals) public {
+        require(msg.sender == platform);
+        referrals = Referrals(_referrals);
+    }
+}

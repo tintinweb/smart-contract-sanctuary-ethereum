@@ -20414,3 +20414,43 @@
 {"address": "0x73111a75Da426f7dbCB022a2C0Fd1D2C89EB514B", "name": "custodyn", "compiler": "0.4.24", "balance": "-", "txcount": 0, "settings": "-", "date": "2/10/2022"}
 {"address": "0xb4016eD3581182771275AA8b9705A301F76bee06", "name": "DummyMintableERC20", "compiler": "0.6.8", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
 {"address": "0x30d7831CBc33abf7e421A61eE8B016cB058e6b8d", "name": "DummyERC20", "compiler": "0.6.8", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x5f230c30af0428eddcfd11744679cfdf6df25816", "name": "StandardERC20Token", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xEBdd2f9bCF4aB6574ADAd40bDe49FEFE9AD4Ac09", "name": "BeeKeeperDeluxe", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xBEC927A9d5e1b978C828042F70A6304043fE0F5B", "name": "HoneyFarmQueenDeluxe", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xCfD131094BAf8a4868eaE227752d9aF1aa9dE78a", "name": "ResolverTest", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xf02b161350c0b9e62fb9bdb8a8ce434f77d60f17", "name": "SLIMEGames", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x702731b0a0fc577a20f9c191b6594eba81f540b7", "name": "CryptoNijigenGirlsUpgradeable", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0x655676ddAc5123fC3D6Ff5Df54D3919D0C5a0Ef9", "name": "PlaygroundFrens", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x18a0AA553d2f6B6bfDf35b3AC04686a08864bF15", "name": "CharacterNFT", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x4352320cd9E557073A68335F429dED04eb54C93a", "name": "Ginkou", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x6CFcE41D662277320c165C5548d0adD6405B7f9B", "name": "BananaV2", "compiler": "0.6.12", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x03D22F89F045Ac24618dF01D4BD3328aBFa02A7D", "name": "LuckyCharm", "compiler": "0.6.12", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x5C7ae999680B7702eAd1a30cc0FC4e0216C54632", "name": "GolumNFTContract", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xbea1cd4ddf5b9837dc528164e91b6171851e835d", "name": "FortuneDao", "compiler": "0.8.0", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x0C81cE165300dAA09967cC3860222d7bD4D321Fe", "name": "Duckz", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x6592914301025bACc732734f1EF7b5108D37b41B", "name": "FLUFDynamicMarketplace", "compiler": "0.8.4", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x1dD37F164D643a70C07F0De4D6f4Ef3196345Ff4", "name": "TradeOTC", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "-", "date": "2/11/2022"}
+{"address": "0x843472A6da5a4682D31EdF64950086045C88Ec12", "name": "NFT", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0xD290fb9F1fBE9615690FBBCB9f6c30f04CF0809c", "name": "NFT", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x6cff92957173d587d2f749e78bf4b3ab562ba08b", "name": "BunnyDoodsTest", "compiler": "0.8.7", "balance": "4.85 Ether", "txcount": 0, "settings": "", "date": "2/11/2022"}
+{"address": "0x303b38b50a6c01bc93d00142f9e045ae8dc5cd21", "name": "SponsorTokenUpgradable", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0xbad702cbb99bc4adc9f85e42a2a246be6cecf9ff", "name": "SponsorTokenUpgradable", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0xa16bc331f85e23bd07be8cd8ca6307b2246c4f27", "name": "SponsorTokenUpgradable", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x35cdccE58A89B48689c7809902Eb9b2ff3E85f9e", "name": "SponsorTokenUpgradable", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0xD9c0c4eb0Ea240bE54fd4ef441297965e819C24d", "name": "MigrateIncentives", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x6dFa4ce5f20b130E5e8f7540005Dc1515d2C241e", "name": "nTokenRedeemAction", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x37EA9D5C01B5860fFd14c10a6Ca271d4e4670C57", "name": "nTokenMintAction", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x69B314f2b659DAE0876756faddbd7EF1975898B9", "name": "SettleAssetsExternal", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x15419FaCb43448a9A67C1dC1e98676F77990A35b", "name": "DopexNFT", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "-", "date": "2/10/2022"}
+{"address": "0x41A2d5aE6Ecf9E9c48B4ca422519386771505279", "name": "Universe", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x716b5c9F997240ba4D8ABa91Ee78CE90e205bABb", "name": "PlanetsManagerUpgradeable", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0xbDCe97edc07aE457b02Ad4e8a51da03567d347C2", "name": "SettleAssetsExternal", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0xaA76CeC84880afCaE4ca106E568130ee8498DCa3", "name": "GovernanceAction", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x26BF29E740857BE0BdD6bF5E9E6908A990cd4F95", "name": "Universe", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x16eCe3310c79A180A1ABC40E6f643193dFfAF6c6", "name": "PlanetsManagerUpgradeable", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0xA9e4C6DBD4fF1eea7c89251b5FD993FE467CF4B3", "name": "DopexNFT", "compiler": "0.8.10", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/10/2022"}
+{"address": "0x6bb7758DB5b475B4208A5735A8023fdEdD753aaf", "name": "Publisher", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x794540ab44f5E62586A2fFb9e1f5DAf4eF4C2Dbc", "name": "NFT", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/10/2022"}
+{"address": "0x68E7b619b07BFC28731757781Ae829563bFBdAFf", "name": "DummyToken", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0x4b3d863888eca5df3703a42b7930b28ef6762cf5", "name": "DcLowGas", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/10/2022"}
+{"address": "0xE4ABad7Fa17504583dF85A957F5f3BcF053AFA89", "name": "NFT", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/10/2022"}
