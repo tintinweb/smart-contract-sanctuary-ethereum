@@ -1,0 +1,19 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-02-11
+*/
+
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.11;
+
+contract HelloWorld
+{
+    string public hello;
+
+    function setHello(string memory _hello) public {
+        hello = _hello;
+    }
+
+    function getHello() public view returns(string memory){
+        return hello;
+    }
+}
