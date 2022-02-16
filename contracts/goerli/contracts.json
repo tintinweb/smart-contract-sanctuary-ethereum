@@ -20850,3 +20850,39 @@
 {"address": "0x29AFC315b6e4BBdaA4667722a2d49A7876913f01", "name": "DropERC721", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/15/2022"}
 {"address": "0x311933777bABaFe6296fF46B777d815E9C2B0EBB", "name": "TWFee", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/15/2022"}
 {"address": "0xE66b7B5Ca5c06023e6d0c115FB74C68cb1f6AD0a", "name": "TWFactory", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/15/2022"}
+{"address": "0x7652636f6010573ad70cebf06c8f7aa0fdf1e2be", "name": "CryptoNijigenGirlsUpgradeable", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/16/2022"}
+{"address": "0xa7b1576bdd15976aa49812ebc438dffc84880b06", "name": "YBiBToken", "compiler": "0.4.26", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0x2b5198136701cca22f70B6EcA2B01C813EfeC568", "name": "HoneyFarmQueenDeluxe", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0x1098c52c4cd0a3bc96f6d72dd668441e7a4efc5f", "name": "MCPE", "compiler": "0.8.7", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0xd785A15F50FCe2beDb1bbfde962Bcd5c2AB36710", "name": "HoneyFarmQueenDeluxe", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0x90Ab064291356f3ca337389fFd3BE93f5154EfF8", "name": "LTOKEN", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0xB9c44d3BdD01079Ec07a47AD2037f7813d56f93F", "name": "BoxV2", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "-", "date": "2/16/2022"}
+{"address": "0x9DD9D3FDb39BCDCC7a0C3A1b466b4309E93cFe48", "name": "Box", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "-", "date": "2/16/2022"}
+{"address": "0x0C2454fa6dD0605593d0e9eB8111cD8D98E5aB9d", "name": "HoneyFarmQueenDeluxe", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0x9bcf526fa3a5460f79b1a3ad646f5a7f58fcd521", "name": "Calc", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "2/16/2022"}
+{"address": "0x5C5a16A42b68df1e81F00B2c9560765BeB84f578", "name": "HoneyFarmQueenDeluxe", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0x197D31a1e7cf562A9148FC73287db88ad93E79CE", "name": "HoneyFarmQueenDeluxe", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0xB4eB1E8Ca1912916DB6C71e1750cFbFD0440ee20", "name": "HoneyFarmQueenDeluxe", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0x803bDeC155B40c6878632137Ab7cBF9600a9fFF5", "name": "HoneyFarmQueenDeluxe", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0xfF2c41d306098Ce69316C781137EaF05FABDFF6b", "name": "Setup", "compiler": "0.8.4", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0xa85e35ced767fac678ad2f21974717f216c31fd1", "name": "NUKEIT", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "-", "date": "2/16/2022"}
+{"address": "0x8439b446802B4B62d1eB4f50386e09a6CDfF2a33", "name": "Universe", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0x985155206a2673c693af0b4faf15f48b7433ba85", "name": "Cryptold", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/16/2022"}
+{"address": "0x9673a108feace7960f34ad79b90d9178df29f7f0", "name": "MoonFlip", "compiler": "0.8.11", "balance": "6.00394272 Ether", "txcount": 0, "settings": "-", "date": "2/15/2022"}
+{"address": "0xD94c0CE4f8eEfA4Ebf44bf6665688EdEEf213B33", "name": "SplitWallet", "compiler": "0.8.4", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/15/2022"}
+{"address": "0x382c9baf110927dc4c7c0da055f34f521adc008b", "name": "MoonFlip", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/15/2022"}
+{"address": "0x3F4b27e7C7914F420C4E5b13a51C82dBEc281B14", "name": "MoonFlip", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/15/2022"}
+{"address": "0xfe0df6d17ffda21fef7fe59f0a1f630b6c4e14b4", "name": "CerealClub", "compiler": "0.8.7", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/15/2022"}
+{"address": "0xdcd97b7317c2A83F307bfC320ba0CFE0E8f2eB7A", "name": "PlanetsManagerUpgradeable", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/15/2022"}
+{"address": "0x86Fe72722fb78FAbdB524191D0a6A912531E85FE", "name": "BattleshipGame", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/15/2022"}
+{"address": "0xA36c3670dd2DDB77E7950F52F6862291587D44c6", "name": "FNDNFTMarket", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/15/2022"}
+{"address": "0x7108a2A51abF71a0576970414205d7a6ef789d5E", "name": "FETH", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/15/2022"}
+{"address": "0x240CE6C334d800D39E900Fb4Aab5a0a36D495496", "name": "Token", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/15/2022"}
+{"address": "0x496D25822927Ca1b904bf089bC5d09bb97e0c376", "name": "NFT", "compiler": "0.8.4", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/15/2022"}
+{"address": "0xd36ACE93b1cAB8a5A618740e9bb5AEbe40f32265", "name": "NFT", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/15/2022"}
+{"address": "0xF9043f5EAE9Baf170fBed2f7FfA12F8df6CC7Ac1", "name": "NFT", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/15/2022"}
+{"address": "0x4d5344DB74236d1246C2eaf86620fFa47e7f8Ec1", "name": "NFT", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/15/2022"}
+{"address": "0x0FfBEB29efC64c5A675E21d821E26E353706A21E", "name": "NFT", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/15/2022"}
+{"address": "0x16051547CbaD42bBec882A7E9e6091796d0D1f50", "name": "BitMania", "compiler": "0.8.4", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/15/2022"}
+{"address": "0xA083913ed673b23dC5FB921b3909021CacFD794C", "name": "Setup", "compiler": "0.8.4", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/15/2022"}
+{"address": "0xc3ca45a22e3b9f90cc0524edb1f5b53163e040b8", "name": "HeroGalaxy", "compiler": "0.8.11", "balance": "0.106 Ether", "txcount": 0, "settings": "", "date": "2/15/2022"}
