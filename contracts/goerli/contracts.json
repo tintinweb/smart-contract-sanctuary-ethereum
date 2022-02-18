@@ -21073,3 +21073,12 @@
 {"address": "0x8623F190d5308Cf69dCD89c8eC558CCC185a671e", "name": "Staking", "compiler": "0.6.11", "balance": "-", "txcount": 0, "settings": "", "date": "2/17/2022"}
 {"address": "0x22dc7dC1cD6c65764f652d84Ba977fEf3f13379C", "name": "CryptoDoziesTest", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "2/17/2022"}
 {"address": "0x2cb486f718ed7d87c6a6c92921476e277c2cd4c0", "name": "NFTContractSheepy", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/17/2022"}
+{"address": "0xdb09755e67f1026356d38ee097452428d4a4acaa", "name": "NFT", "compiler": "0.6.6", "balance": "-", "txcount": 0, "settings": "-", "date": "2/18/2022"}
+{"address": "0x06Ad3DC1c8e07243EA7E2D59195DF8f4544661fD", "name": "SayWhat", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "2/18/2022"}
+{"address": "0xde37597fa99604553f030ec6c8694f5da7222d8f", "name": "ApeSkull", "compiler": "0.8.1", "balance": "-", "txcount": 0, "settings": "", "date": "2/18/2022"}
+{"address": "0xcf546f7a4879d86447511202221fddbce8e38402", "name": "FakeArtMinter", "compiler": "0.8.7", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "2/18/2022"}
+{"address": "0x78470f49a7f865c56197602431891b6eb894ecfd", "name": "ActiveVault", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "", "date": "2/18/2022"}
+{"address": "0x2C173A97ED9beC4b292c7786811510268fd5e170", "name": "Staker", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/18/2022"}
+{"address": "0xbc48eBEf508bBBa3d4fba55F19E0f5E3CaFf8e8a", "name": "PokePesos", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "2/18/2022"}
+{"address": "0xAE268dABdF8462087efe37041050855ccb1c6672", "name": "Airdrop", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "2/18/2022"}
+{"address": "0xe7194009070f3020bfbe070f795f12d8f7665fe3", "name": "Community", "compiler": "0.8.1", "balance": "-", "txcount": 0, "settings": "", "date": "2/18/2022"}
