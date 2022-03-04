@@ -22600,3 +22600,46 @@
 {"address": "0xBa1e703Dc94Fb3eA4398E64Dc836a5e801e20E34", "name": "UniqueNameToken", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/24/2022", "err": "UnboundLocalError(\"local variable 'e' referenced before assignment\")"}
 {"address": "0x8aea57a39220493ec5a401b61adf67b36734a43a", "name": "OneRingNFTMarketplace", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "2/24/2022", "err": "UnboundLocalError(\"local variable 'e' referenced before assignment\")"}
 {"address": "0x58b0e0b0c1064b6e7ec26c7c6cf3cdf11678c969", "name": "OneRingNFT", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "-", "date": "2/24/2022", "err": "UnboundLocalError(\"local variable 'e' referenced before assignment\")"}
+{"address": "0xB2B36154b4707b491cb0011fa191e88bF2393a30", "name": "TFTokens", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "3/4/2022"}
+{"address": "0x0dde638B61d9B68dbf658B7354A38354f549a423", "name": "Score", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x1542Ac6e42940476c729680ff147E0CEDcFcFCf2", "name": "CacheGold", "compiler": "0.5.16", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x55BE0F3298c480712698c72Aa6C6b7696f902C2c", "name": "Storage", "compiler": "0.4.17", "balance": "-", "txcount": 0, "settings": "-", "date": "3/4/2022"}
+{"address": "0xddab176a78ae9299802a477a2a9a72c03a5044cc", "name": "Storage", "compiler": "0.4.17", "balance": "-", "txcount": 0, "settings": "-", "date": "3/4/2022"}
+{"address": "0x8AdC8BeEdcd5D16A0D975253108E4b57713C2504", "name": "banklessOdyssey", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x845aB8D947aF61BaB8bD49087F43e99F8Db67099", "name": "BunnieSway", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "3/4/2022"}
+{"address": "0xEBd830f00cB1f05620217eF68d5BC267AaCe7BC8", "name": "ERC721LuxyFactory", "compiler": "0.8.3", "balance": "-", "txcount": 0, "settings": "-", "date": "3/4/2022"}
+{"address": "0x79ae30Df2Fac9110f3f1631B23C4D3CF6f57F9c2", "name": "Teacher", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0xB634F98aa7037479CfA4ab10266bfB88BAd52d8b", "name": "Score", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x232d20288fa9a3a698c4109fa6a4c5681eba1376", "name": "MechGuild", "compiler": "0.8.0", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x87460d6E38879493da75ce304335aeDE272C5cBB", "name": "DssProxyActions", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0xb4275bD6161411E04c2e76718CEf8A54E9950EEF", "name": "DssCdpManager", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x2751fEc68594a38A31c8704447630004AB6fEB06", "name": "Spotter", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x1F20F26b5966A95CAfA0CCeeb476066a12f6dAb8", "name": "Jug", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x56a3C5F8FEe25A40adfFe203522F3f25b8fedD6c", "name": "USBJoin", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x184cf1e6c580a766b31fb5d24c893d1d53fe086d", "name": "Mythologic", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "3/4/2022"}
+{"address": "0xBa0A664C786B9657f4dCE6Fcb023195f774D74D8", "name": "USB", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x8253A8842e6FbD7ebE94e7f96BE214Ea793ff4D8", "name": "Vat", "compiler": "0.8.9", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x7EF9968A5E1c94b62Bc77311A3c68089662aF01e", "name": "MorphsEngine", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x4a4915bb795acf18f3c629f60e8160eb5d0cdaa6", "name": "BobDaemon", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "-", "date": "3/4/2022"}
+{"address": "0x0B5C9B42E8dDE21e134de6FCAE48b401Fb737fFb", "name": "SVGTextExample", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0xE50AE0158d91c6EEEAF041Fbe4B0dE86d44d31F6", "name": "MorphsEngine", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x42C2Ad42357A3BFbE16cD8bEeaC767C8d2d0843f", "name": "ShellERC721", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x0Ff2BC06b7faF18f1AD0C3086DDb26738A532351", "name": "ShellFactory", "compiler": "0.8.12", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x709d30f1f60F03D85A0EF33142eF3259392dC9e1", "name": "LoserClub", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0xC0877d217B1B83a3347C1703032aE1e013A8Fd9F", "name": "SVGTextExample", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "3/4/2022"}
+{"address": "0x57346b7087c0F4470D9900d958A4c0332D56f64f", "name": "Lumerin", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "-", "date": "3/4/2022"}
+{"address": "0x20dB23C92D15acb0d719557441971e6a85c8038A", "name": "Lumerin", "compiler": "0.8.2", "balance": "-", "txcount": 0, "settings": "-", "date": "3/4/2022"}
+{"address": "0xc07cD6Cba984aA71AA99Bd45F9D0618CDc11533c", "name": "LiquidityProviders", "compiler": "0.8.0", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "3/3/2022"}
+{"address": "0xb0283bb0001002cf16bc82bb955023056788d282", "name": "MarshallRoganInu", "compiler": "0.8.10", "balance": "-", "txcount": 0, "settings": "-", "date": "3/3/2022"}
+{"address": "0xA734D609eE68e5b7D769ac6c109A64c2fEae3601", "name": "Bank", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "", "date": "3/3/2022"}
+{"address": "0xE61A9367902B2b6834154Ffd92293738C23A8876", "name": "CashMoneyPresentedToYouSpecificallyByRogue", "compiler": "0.8.7", "balance": "-", "txcount": 0, "settings": "-", "date": "3/3/2022"}
+{"address": "0xfF0af2cAf6CF1E37b5794637F28d6b8F6F1e113B", "name": "CandleBurner", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "3/3/2022"}
+{"address": "0xd5f6bdb79a466fd2be68b73dcca2c0b8fbd5a32b", "name": "WunkyFunkDunks", "compiler": "0.8.0", "balance": "-", "txcount": 0, "settings": "-", "date": "3/3/2022"}
+{"address": "0x255a08075D85Fd6341BCf8EA2f13dd0141d6d063", "name": "BridgeToken", "compiler": "0.8.3", "balance": "-", "txcount": 0, "settings": "", "date": "3/3/2022"}
+{"address": "0x32E14D3098849f3C9F3e7Ce1F43Ae92D94182423", "name": "CandleBurner", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "3/3/2022"}
+{"address": "0x2e6d30cD1043BE29bF8D7fAb067345362550d71f", "name": "CandleBurner", "compiler": "0.8.4", "balance": "-", "txcount": 0, "settings": "", "date": "3/3/2022"}
+{"address": "0xEEb7e2498c927faaDe75A70868cDeC4BbDDc581F", "name": "BridgeToken", "compiler": "0.8.3", "balance": "-", "txcount": 0, "settings": "", "date": "3/3/2022"}
+{"address": "0x3B9935ee98da41c8AdF293873570Ac15B93E1CBB", "name": "VerifyCheck", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/24/2022", "err": "Exception('unable to find source-code. rate limited? retry..')"}
+{"address": "0xa2C1FB9EcD74fcc548cE7d66D010675794dc2f7c", "name": "Test", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/24/2022", "err": "UnboundLocalError(\"local variable 'e' referenced before assignment\")"}
+{"address": "0xf66c0bF23A18Ee9456FA79cB42599498F67F8F22", "name": "VerifyCheck", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/24/2022", "err": "UnboundLocalError(\"local variable 'e' referenced before assignment\")"}
+{"address": "0xa8311Dc5d2bE703883ADB8d35D94F214fb10D540", "name": "Test", "compiler": "0.8.11", "balance": "0 Ether", "txcount": 0, "settings": "-", "date": "2/24/2022", "err": "UnboundLocalError(\"local variable 'e' referenced before assignment\")"}
