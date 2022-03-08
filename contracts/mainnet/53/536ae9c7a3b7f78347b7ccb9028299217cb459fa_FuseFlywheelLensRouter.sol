@@ -1,0 +1,740 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-03-08
+*/
+
+// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.10;
+
+/// @notice Modern and gas efficient ERC20 + EIP-2612 implementation.
+/// @author Solmate (https://github.com/Rari-Capital/solmate/blob/main/src/tokens/ERC20.sol)
+/// @author Modified from Uniswap (https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/UniswapV2ERC20.sol)
+/// @dev Do not manually set balances without updating totalSupply, as the sum of all user balances must not exceed it.
+abstract contract ERC20 {
+    /*///////////////////////////////////////////////////////////////
+                                  EVENTS
+    //////////////////////////////////////////////////////////////*/
+
+    event Transfer(address indexed from, address indexed to, uint256 amount);
+
+    event Approval(address indexed owner, address indexed spender, uint256 amount);
+
+    /*///////////////////////////////////////////////////////////////
+                             METADATA STORAGE
+    //////////////////////////////////////////////////////////////*/
+
+    string public name;
+
+    string public symbol;
+
+    uint8 public immutable decimals;
+
+    /*///////////////////////////////////////////////////////////////
+                              ERC20 STORAGE
+    //////////////////////////////////////////////////////////////*/
+
+    uint256 public totalSupply;
+
+    mapping(address => uint256) public balanceOf;
+
+    mapping(address => mapping(address => uint256)) public allowance;
+
+    /*///////////////////////////////////////////////////////////////
+                             EIP-2612 STORAGE
+    //////////////////////////////////////////////////////////////*/
+
+    uint256 internal immutable INITIAL_CHAIN_ID;
+
+    bytes32 internal immutable INITIAL_DOMAIN_SEPARATOR;
+
+    mapping(address => uint256) public nonces;
+
+    /*///////////////////////////////////////////////////////////////
+                               CONSTRUCTOR
+    //////////////////////////////////////////////////////////////*/
+
+    constructor(
+        string memory _name,
+        string memory _symbol,
+        uint8 _decimals
+    ) {
+        name = _name;
+        symbol = _symbol;
+        decimals = _decimals;
+
+        INITIAL_CHAIN_ID = block.chainid;
+        INITIAL_DOMAIN_SEPARATOR = computeDomainSeparator();
+    }
+
+    /*///////////////////////////////////////////////////////////////
+                              ERC20 LOGIC
+    //////////////////////////////////////////////////////////////*/
+
+    function approve(address spender, uint256 amount) public virtual returns (bool) {
+        allowance[msg.sender][spender] = amount;
+
+        emit Approval(msg.sender, spender, amount);
+
+        return true;
+    }
+
+    function transfer(address to, uint256 amount) public virtual returns (bool) {
+        balanceOf[msg.sender] -= amount;
+
+        // Cannot overflow because the sum of all user
+        // balances can't exceed the max uint256 value.
+        unchecked {
+            balanceOf[to] += amount;
+        }
+
+        emit Transfer(msg.sender, to, amount);
+
+        return true;
+    }
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) public virtual returns (bool) {
+        uint256 allowed = allowance[from][msg.sender]; // Saves gas for limited approvals.
+
+        if (allowed != type(uint256).max) allowance[from][msg.sender] = allowed - amount;
+
+        balanceOf[from] -= amount;
+
+        // Cannot overflow because the sum of all user
+        // balances can't exceed the max uint256 value.
+        unchecked {
+            balanceOf[to] += amount;
+        }
+
+        emit Transfer(from, to, amount);
+
+        return true;
+    }
+
+    /*///////////////////////////////////////////////////////////////
+                              EIP-2612 LOGIC
+    //////////////////////////////////////////////////////////////*/
+
+    function permit(
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) public virtual {
+        require(deadline >= block.timestamp, "PERMIT_DEADLINE_EXPIRED");
+
+        // Unchecked because the only math done is incrementing
+        // the owner's nonce which cannot realistically overflow.
+        unchecked {
+            bytes32 digest = keccak256(
+                abi.encodePacked(
+                    "\x19\x01",
+                    DOMAIN_SEPARATOR(),
+                    keccak256(
+                        abi.encode(
+                            keccak256(
+                                "Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)"
+                            ),
+                            owner,
+                            spender,
+                            value,
+                            nonces[owner]++,
+                            deadline
+                        )
+                    )
+                )
+            );
+
+            address recoveredAddress = ecrecover(digest, v, r, s);
+
+            require(recoveredAddress != address(0) && recoveredAddress == owner, "INVALID_SIGNER");
+
+            allowance[recoveredAddress][spender] = value;
+        }
+
+        emit Approval(owner, spender, value);
+    }
+
+    function DOMAIN_SEPARATOR() public view virtual returns (bytes32) {
+        return block.chainid == INITIAL_CHAIN_ID ? INITIAL_DOMAIN_SEPARATOR : computeDomainSeparator();
+    }
+
+    function computeDomainSeparator() internal view virtual returns (bytes32) {
+        return
+            keccak256(
+                abi.encode(
+                    keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)"),
+                    keccak256(bytes(name)),
+                    keccak256("1"),
+                    block.chainid,
+                    address(this)
+                )
+            );
+    }
+
+    /*///////////////////////////////////////////////////////////////
+                       INTERNAL MINT/BURN LOGIC
+    //////////////////////////////////////////////////////////////*/
+
+    function _mint(address to, uint256 amount) internal virtual {
+        totalSupply += amount;
+
+        // Cannot overflow because the sum of all user
+        // balances can't exceed the max uint256 value.
+        unchecked {
+            balanceOf[to] += amount;
+        }
+
+        emit Transfer(address(0), to, amount);
+    }
+
+    function _burn(address from, uint256 amount) internal virtual {
+        balanceOf[from] -= amount;
+
+        // Cannot underflow because a user's balance
+        // will never be larger than the total supply.
+        unchecked {
+            totalSupply -= amount;
+        }
+
+        emit Transfer(from, address(0), amount);
+    }
+}/// @notice Provides a flexible and updatable auth pattern which is completely separate from application logic.
+/// @author Solmate (https://github.com/Rari-Capital/solmate/blob/main/src/auth/Auth.sol)
+/// @author Modified from Dappsys (https://github.com/dapphub/ds-auth/blob/master/src/auth.sol)
+abstract contract Auth {
+    event OwnerUpdated(address indexed user, address indexed newOwner);
+
+    event AuthorityUpdated(address indexed user, Authority indexed newAuthority);
+
+    address public owner;
+
+    Authority public authority;
+
+    constructor(address _owner, Authority _authority) {
+        owner = _owner;
+        authority = _authority;
+
+        emit OwnerUpdated(msg.sender, _owner);
+        emit AuthorityUpdated(msg.sender, _authority);
+    }
+
+    modifier requiresAuth() {
+        require(isAuthorized(msg.sender, msg.sig), "UNAUTHORIZED");
+
+        _;
+    }
+
+    function isAuthorized(address user, bytes4 functionSig) internal view virtual returns (bool) {
+        Authority auth = authority; // Memoizing authority saves us a warm SLOAD, around 100 gas.
+
+        // Checking if the caller is the owner only after calling the authority saves gas in most cases, but be
+        // aware that this makes protected functions uncallable even to the owner if the authority is out of order.
+        return (address(auth) != address(0) && auth.canCall(user, address(this), functionSig)) || user == owner;
+    }
+
+    function setAuthority(Authority newAuthority) public virtual {
+        // We check if the caller is the owner first because we want to ensure they can
+        // always swap out the authority even if it's reverting or using up a lot of gas.
+        require(msg.sender == owner || authority.canCall(msg.sender, address(this), msg.sig));
+
+        authority = newAuthority;
+
+        emit AuthorityUpdated(msg.sender, newAuthority);
+    }
+
+    function setOwner(address newOwner) public virtual requiresAuth {
+        owner = newOwner;
+
+        emit OwnerUpdated(msg.sender, newOwner);
+    }
+}
+
+/// @notice A generic interface for a contract which provides authorization data to an Auth instance.
+/// @author Solmate (https://github.com/Rari-Capital/solmate/blob/main/src/auth/Auth.sol)
+/// @author Modified from Dappsys (https://github.com/dapphub/ds-auth/blob/master/src/auth.sol)
+interface Authority {
+    function canCall(
+        address user,
+        address target,
+        bytes4 functionSig
+    ) external view returns (bool);
+}/// @notice Safe ETH and ERC20 transfer library that gracefully handles missing return values.
+/// @author Solmate (https://github.com/Rari-Capital/solmate/blob/main/src/utils/SafeTransferLib.sol)
+/// @author Modified from Gnosis (https://github.com/gnosis/gp-v2-contracts/blob/main/src/contracts/libraries/GPv2SafeERC20.sol)
+/// @dev Use with caution! Some functions in this library knowingly create dirty bits at the destination of the free memory pointer.
+/// @dev Note that none of the functions in this library check that a token has code at all! That responsibility is delegated to the caller.
+library SafeTransferLib {
+    /*///////////////////////////////////////////////////////////////
+                            ETH OPERATIONS
+    //////////////////////////////////////////////////////////////*/
+
+    function safeTransferETH(address to, uint256 amount) internal {
+        bool callStatus;
+
+        assembly {
+            // Transfer the ETH and store if it succeeded or not.
+            callStatus := call(gas(), to, amount, 0, 0, 0, 0)
+        }
+
+        require(callStatus, "ETH_TRANSFER_FAILED");
+    }
+
+    /*///////////////////////////////////////////////////////////////
+                           ERC20 OPERATIONS
+    //////////////////////////////////////////////////////////////*/
+
+    function safeTransferFrom(
+        ERC20 token,
+        address from,
+        address to,
+        uint256 amount
+    ) internal {
+        bool callStatus;
+
+        assembly {
+            // Get a pointer to some free memory.
+            let freeMemoryPointer := mload(0x40)
+
+            // Write the abi-encoded calldata to memory piece by piece:
+            mstore(freeMemoryPointer, 0x23b872dd00000000000000000000000000000000000000000000000000000000) // Begin with the function selector.
+            mstore(add(freeMemoryPointer, 4), and(from, 0xffffffffffffffffffffffffffffffffffffffff)) // Mask and append the "from" argument.
+            mstore(add(freeMemoryPointer, 36), and(to, 0xffffffffffffffffffffffffffffffffffffffff)) // Mask and append the "to" argument.
+            mstore(add(freeMemoryPointer, 68), amount) // Finally append the "amount" argument. No mask as it's a full 32 byte value.
+
+            // Call the token and store if it succeeded or not.
+            // We use 100 because the calldata length is 4 + 32 * 3.
+            callStatus := call(gas(), token, 0, freeMemoryPointer, 100, 0, 0)
+        }
+
+        require(didLastOptionalReturnCallSucceed(callStatus), "TRANSFER_FROM_FAILED");
+    }
+
+    function safeTransfer(
+        ERC20 token,
+        address to,
+        uint256 amount
+    ) internal {
+        bool callStatus;
+
+        assembly {
+            // Get a pointer to some free memory.
+            let freeMemoryPointer := mload(0x40)
+
+            // Write the abi-encoded calldata to memory piece by piece:
+            mstore(freeMemoryPointer, 0xa9059cbb00000000000000000000000000000000000000000000000000000000) // Begin with the function selector.
+            mstore(add(freeMemoryPointer, 4), and(to, 0xffffffffffffffffffffffffffffffffffffffff)) // Mask and append the "to" argument.
+            mstore(add(freeMemoryPointer, 36), amount) // Finally append the "amount" argument. No mask as it's a full 32 byte value.
+
+            // Call the token and store if it succeeded or not.
+            // We use 68 because the calldata length is 4 + 32 * 2.
+            callStatus := call(gas(), token, 0, freeMemoryPointer, 68, 0, 0)
+        }
+
+        require(didLastOptionalReturnCallSucceed(callStatus), "TRANSFER_FAILED");
+    }
+
+    function safeApprove(
+        ERC20 token,
+        address to,
+        uint256 amount
+    ) internal {
+        bool callStatus;
+
+        assembly {
+            // Get a pointer to some free memory.
+            let freeMemoryPointer := mload(0x40)
+
+            // Write the abi-encoded calldata to memory piece by piece:
+            mstore(freeMemoryPointer, 0x095ea7b300000000000000000000000000000000000000000000000000000000) // Begin with the function selector.
+            mstore(add(freeMemoryPointer, 4), and(to, 0xffffffffffffffffffffffffffffffffffffffff)) // Mask and append the "to" argument.
+            mstore(add(freeMemoryPointer, 36), amount) // Finally append the "amount" argument. No mask as it's a full 32 byte value.
+
+            // Call the token and store if it succeeded or not.
+            // We use 68 because the calldata length is 4 + 32 * 2.
+            callStatus := call(gas(), token, 0, freeMemoryPointer, 68, 0, 0)
+        }
+
+        require(didLastOptionalReturnCallSucceed(callStatus), "APPROVE_FAILED");
+    }
+
+    /*///////////////////////////////////////////////////////////////
+                         INTERNAL HELPER LOGIC
+    //////////////////////////////////////////////////////////////*/
+
+    function didLastOptionalReturnCallSucceed(bool callStatus) private pure returns (bool success) {
+        assembly {
+            // If the call reverted:
+            if iszero(callStatus) {
+                // Copy the revert message into memory.
+                returndatacopy(0, 0, returndatasize())
+
+                // Revert with the same message.
+                revert(0, returndatasize())
+            }
+
+            switch returndatasize()
+            case 32 {
+                // Copy the return data into memory.
+                returndatacopy(0, 0, returndatasize())
+
+                // Set success to whether it returned true.
+                success := iszero(iszero(mload(0)))
+            }
+            case 0 {
+                // There was no return data.
+                success := 1
+            }
+            default {
+                // It returned some malformed output.
+                success := 0
+            }
+        }
+    }
+}
+/**
+ @title Rewards Module for Flywheel
+ @notice The rewards module is a minimal interface for determining the quantity of rewards accrued to a flywheel market.
+
+ Different module strategies include:
+  * a static reward rate per second
+  * a decaying reward rate
+  * a dynamic just-in-time reward stream
+  * liquid governance reward delegation
+ */
+interface IFlywheelRewards {
+    function getAccruedRewards(ERC20 market, uint32 lastUpdatedTimestamp) external returns (uint256 rewards);
+}/**
+ @title Balance Booster Module for Flywheel
+ @notice An optional module for virtually boosting user balances. This allows a Flywheel Core to plug into some balance boosting logic.
+
+ Boosting logic can be associated with referrals, vote-escrow, or other strategies. It can even be used to model exotic strategies like borrowing.
+ */
+interface IFlywheelBooster {
+    function boostedTotalSupply(ERC20 market) external view returns(uint256);
+
+    function boostedBalanceOf(ERC20 market, address user) external view returns(uint256);
+}
+/**
+ @title Flywheel Core Incentives Manager
+ @notice Flywheel is a general framework for managing token incentives.
+         It is comprised of the Core (this contract), Rewards module, and optional Booster module.
+
+         Core is responsible for maintaining reward accrual through reward indexes.
+         It delegates the actual accrual logic to the Rewards Module.
+
+         For maximum accuracy and to avoid exploits, rewards accrual should be notified atomically through the accrue hook.
+         Accrue should be called any time tokens are transferred, minted, or burned.
+ */
+contract FlywheelCore is Auth {
+    using SafeTransferLib for ERC20;
+
+    event AddMarket(address indexed newMarket);
+
+    event FlywheelRewardsUpdate(address indexed oldFlywheelRewards, address indexed newFlywheelRewards);
+
+    event AccrueRewards(ERC20 indexed cToken, address indexed owner, uint rewardsDelta, uint rewardsIndex);
+
+    event ClaimRewards(address indexed owner, uint256 amount);
+
+    struct RewardsState {
+        /// @notice The market's last updated index
+        uint224 index;
+
+        /// @notice The timestamp the index was last updated at
+        uint32 lastUpdatedTimestamp;
+    }
+
+    /// @notice The token to reward
+    ERC20 public immutable rewardToken;
+
+    /// @notice the rewards contract for managing streams
+    IFlywheelRewards public flywheelRewards;
+
+    /// @notice optional booster module for calculating virtual balances on markets
+    IFlywheelBooster public immutable flywheelBooster;
+
+    /// @notice the fixed point factor of flywheel
+    uint224 public constant ONE = 1e18;
+
+    /// @notice The market index and last updated per market
+    mapping(ERC20 => RewardsState) public marketState;
+
+    /// @notice user index per market
+    mapping(ERC20 => mapping(address => uint224)) public userIndex;
+
+    /// @notice The accrued but not yet transferred rewards for each user
+    mapping(address => uint256) public rewardsAccrued;
+
+    /// @dev immutable flag for short-circuiting boosting logic
+    bool internal immutable applyBoosting;
+
+    constructor(
+        ERC20 _rewardToken,
+        IFlywheelRewards _flywheelRewards,
+        IFlywheelBooster _flywheelBooster,
+        address _owner,
+        Authority _authority
+    ) Auth(_owner, _authority) {
+        rewardToken = _rewardToken;
+        flywheelRewards = _flywheelRewards;
+        flywheelBooster = _flywheelBooster;
+
+        applyBoosting = address(_flywheelBooster) != address(0);
+    }
+
+    /// @notice initialize a new market
+    function addMarketForRewards(ERC20 market) external requiresAuth {
+        require(marketState[market].index == 0, "market");
+        marketState[market] = RewardsState({
+            index: ONE,
+            lastUpdatedTimestamp: uint32(block.timestamp)
+        });
+
+        emit AddMarket(address(market));
+    }
+
+    /// @notice swap out the flywheel rewards contract
+    function setFlywheelRewards(IFlywheelRewards newFlywheelRewards) external requiresAuth {
+        address oldFlywheelRewards = address(flywheelRewards);
+
+        flywheelRewards = newFlywheelRewards;
+
+        emit FlywheelRewardsUpdate(oldFlywheelRewards, address(newFlywheelRewards));
+    }
+
+    /// @notice accrue rewards for a single user on a market
+    function accrue(ERC20 market, address user) public returns (uint256) {
+        RewardsState memory state = marketState[market];
+
+        if (state.index == 0) return 0;
+
+        state = accrueMarket(market, state);
+        return accrueUser(market, user, state);
+    }
+
+    /// @notice accrue rewards for two users on a market
+    function accrue(ERC20 market, address user, address secondUser) public returns (uint256, uint256) {
+        RewardsState memory state = marketState[market];
+
+        if (state.index == 0) return (0, 0);
+
+        state = accrueMarket(market, state);
+        return (accrueUser(market, user, state), accrueUser(market, secondUser, state));
+    }
+
+    /// @notice claim rewards for a given owner
+    function claimRewards(address owner) external {
+        uint256 accrued = rewardsAccrued[owner];
+
+        if (accrued != 0) {
+            rewardsAccrued[owner] = 0;
+
+            rewardToken.safeTransfer(owner, accrued);
+
+            emit ClaimRewards(owner, accrued);
+        }
+    }
+
+    /// @notice accumulate global rewards on a market
+    function accrueMarket(ERC20 market, RewardsState memory state) private returns(RewardsState memory rewardsState) {
+        // calculate accrued rewards through module
+        uint256 marketRewardsAccrued = flywheelRewards.getAccruedRewards(market, state.lastUpdatedTimestamp);
+
+        rewardsState = state;
+        if (marketRewardsAccrued > 0) {
+            // use the booster or token supply to calculate reward index denominator
+            uint256 supplyTokens = applyBoosting ? flywheelBooster.boostedTotalSupply(market): market.totalSupply();
+
+            // accumulate rewards per token onto the index, multiplied by fixed-point factor
+            rewardsState = RewardsState({
+                index: state.index + uint224(marketRewardsAccrued * ONE / supplyTokens),
+                lastUpdatedTimestamp: uint32(block.timestamp)
+            });
+            marketState[market] = rewardsState;
+        }
+    }
+
+    /// @notice accumulate rewards on a market for a specific user
+    function accrueUser(ERC20 market, address user, RewardsState memory state) private returns (uint256) {
+        // load indices
+        uint224 supplyIndex = state.index;
+        uint224 supplierIndex = userIndex[market][user];
+
+        // sync user index to global
+        userIndex[market][user] = supplyIndex;
+
+        // if user hasn't yet accrued rewards, grant them interest from the market beginning if they have a balance
+        // zero balances will have no effect other than syncing to global index
+        if (supplierIndex == 0) {
+            supplierIndex = ONE;
+        }
+
+        uint224 deltaIndex = supplyIndex - supplierIndex;
+        // use the booster or token balance to calculate reward balance multiplier
+        uint256 supplierTokens = applyBoosting ? flywheelBooster.boostedBalanceOf(market, user) : market.balanceOf(user);
+
+        // accumulate rewards by multiplying user tokens by rewardsPerToken index and adding on unclaimed
+        uint256 supplierDelta = supplierTokens * deltaIndex / ONE;
+        uint256 supplierAccrued = rewardsAccrued[user] + supplierDelta;
+
+        rewardsAccrued[user] = supplierAccrued;
+
+        emit AccrueRewards(market, user, supplierDelta, supplyIndex);
+
+        return supplierAccrued;
+    }
+}
+abstract contract CToken is ERC20 {
+    function plugin() external view virtual returns(Plugin);
+
+    function exchangeRateCurrent() external virtual returns(uint256);
+
+    function PRECISION() external view virtual returns(uint256);
+}
+
+interface PriceOracle {
+    function getUnderlyingPrice(CToken cToken) external view returns (uint);
+
+    function price(address underlying) external view returns (uint);
+}
+
+interface Comptroller {
+    function getRewardsDistributors() external view returns (FlywheelCore[] memory);
+
+    function getAllMarkets() external view returns(CToken[] memory);
+
+    function oracle() external view returns(PriceOracle);
+
+    function admin() external returns (address);
+
+    function _addRewardsDistributor(address distributor) external returns (uint);
+}
+
+interface Plugin {
+    function claimRewards() external;
+}
+
+contract FuseFlywheelLensRouter {
+
+    struct MarketRewardsInfo {
+        /// @dev comptroller oracle price of market underlying
+        uint256 underlyingPrice;
+        CToken market;
+        RewardsInfo[] rewardsInfo;
+    }
+
+    struct RewardsInfo {
+        /// @dev rewards in `rewardToken` paid per underlying staked token in `market` per second
+        uint256 rewardSpeedPerSecondPerToken;
+
+        /// @dev comptroller oracle price of reward token
+        uint256 rewardTokenPrice;
+
+        /// @dev APR scaled by 1e18. Calculated as rewardSpeedPerSecondPerToken * rewardTokenPrice * 365.25 days / underlyingPrice * market.PRECISION() / market.exchangeRateCurrent()
+        uint256 formattedAPR;
+
+        address flywheel;
+        address rewardToken;
+    }
+
+    function getMarketRewardsInfo(Comptroller comptroller) external returns(MarketRewardsInfo[] memory) {
+        CToken[] memory markets = comptroller.getAllMarkets();
+        FlywheelCore[] memory flywheels = comptroller.getRewardsDistributors();
+        address[] memory rewardTokens = new address[](flywheels.length);
+        uint256[] memory rewardTokenPrices = new uint256[](flywheels.length);
+        PriceOracle oracle = comptroller.oracle();
+
+        MarketRewardsInfo[] memory infoList = new MarketRewardsInfo[](markets.length);
+        for (uint256 i = 0; i < markets.length; i++) {
+            RewardsInfo[] memory rewardsInfo = new RewardsInfo[](flywheels.length);
+
+            CToken market = markets[i];
+            uint256 price = oracle.getUnderlyingPrice(market);
+
+            try market.plugin() returns(Plugin plugin) {
+                try plugin.claimRewards() {} catch {}
+            } catch {}
+
+            for (uint256 j = 0; j < flywheels.length; j++) {
+                FlywheelCore flywheel = flywheels[j];
+                if (i == 0) {
+                    address rewardToken = address(flywheel.rewardToken());
+                    rewardTokens[j] = rewardToken;
+                    rewardTokenPrices[j] = oracle.price(rewardToken);
+                }
+                uint256 rewardSpeedPerSecondPerToken;
+                {
+
+                    (uint224 indexBefore, uint32 lastUpdatedTimestampBefore) = flywheel.marketState(market);
+                    flywheel.accrue(market, address(0));
+                    (uint224 indexAfter, uint32 lastUpdatedTimestampAfter) = flywheel.marketState(market);
+                    if (lastUpdatedTimestampAfter > lastUpdatedTimestampBefore) {
+                        rewardSpeedPerSecondPerToken = (indexAfter - indexBefore) / (lastUpdatedTimestampAfter - lastUpdatedTimestampBefore);
+                    }
+                }
+                rewardsInfo[j] = RewardsInfo({
+                    rewardSpeedPerSecondPerToken: rewardSpeedPerSecondPerToken,
+                    rewardTokenPrice: rewardTokenPrices[j],
+                    formattedAPR: rewardSpeedPerSecondPerToken * rewardTokenPrices[j] * 365.25 days / price * market.PRECISION() / market.exchangeRateCurrent(),
+                    flywheel: address(flywheel),
+                    rewardToken: rewardTokens[j]
+                });
+            }
+
+            infoList[i] = MarketRewardsInfo({
+                market: market,
+                rewardsInfo: rewardsInfo,
+                underlyingPrice: price
+            });
+        }
+
+        return infoList;
+    }
+
+    function getUnclaimedRewardsForMarket(address user, CToken market, FlywheelCore[] calldata flywheels, bool[] calldata accrue, bool claimPlugin) external returns(uint256[] memory rewards) {
+        uint size = flywheels.length;
+        rewards = new uint[](size);
+
+        if (claimPlugin) {
+            market.plugin().claimRewards();
+        }
+
+        for (uint256 i = 0; i < size; i++) {
+            if (accrue[i]) {
+                rewards[i] = flywheels[i].accrue(market, user);
+            } else {
+                rewards[i] = flywheels[i].rewardsAccrued(user);
+            }
+
+            flywheels[i].claimRewards(user);
+        }
+    }
+
+    function getUnclaimedRewardsByMarkets(address user, CToken[] calldata markets, FlywheelCore[] calldata flywheels, bool[] calldata accrue, bool[] calldata claimPlugins) external returns(uint256[] memory rewards) {
+        rewards = new uint[](flywheels.length);
+
+        for (uint256 i = 0; i < flywheels.length; i++) {
+            for (uint256 j = 0; j < markets.length; j++) {
+                CToken market = markets[j];
+                if (claimPlugins[j]) {
+                    market.plugin().claimRewards();
+                }
+
+                // Overwrite, because rewards are cumulative
+                if (accrue[i]) {
+                    rewards[i] = flywheels[i].accrue(market, user);
+                } else {
+                    rewards[i] = flywheels[i].rewardsAccrued(user);
+                }
+            }
+
+            flywheels[i].claimRewards(user);
+        }
+    }
+}
