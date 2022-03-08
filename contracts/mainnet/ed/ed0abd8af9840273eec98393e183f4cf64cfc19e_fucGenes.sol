@@ -1,0 +1,86 @@
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.2;
+
+
+library stringer {
+    function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
+        if (_i == 0) {
+            return "0";
+        }
+        uint j = _i;
+        uint len;
+        while (j != 0) {
+            len++;
+            j /= 10;
+        }
+        bytes memory bstr = new bytes(len);
+        uint k = len;
+        while (_i != 0) {
+            k = k-1;
+            uint8 temp = (48 + uint8(_i - _i / 10 * 10));
+            bytes1 b1 = bytes1(temp);
+            bstr[k] = b1;
+            _i /= 10;
+        }
+        return string(bstr);
+    }
+}
+contract fucGenes{
+
+
+    function gender(uint _type, uint _id) public pure returns (string memory) {
+        string[2] memory _gg = ['M15 3h3M15 4h3M15 5h3M15 6h3M15 7h3M5 11h1M5 12h2M5 13h2M5 14h2M5 15h2M5 16h2M6 17h1','M15 5h3M15 6h3M15 7h3M5 14h1M5 15h2M5 16h2M6 17h1'];
+        
+        return string(abi.encodePacked('<path stroke="',colors2(_id),'" d="',_gg[_type],'" />'));
+    }
+
+    function colors(uint _id) public pure returns (string memory){
+        string[82] memory _colors = ['#ff80ed','#065535','#133337','#ffc0cb','#ffe4e1','#008080','#ff0000','#e6e6fa','#ffd700','#ffa500','#00ffff','#ff7373','#40e0d0','#0000ff','#d3ffce','#f0f8ff','#c6e2ff','#b0e0e6','#666666','#faebd7','#bada55','#003366','#ffb6c1','#ffff00','#fa8072','#c0c0c0','#800000','#7fffd4','#800080','#c39797','#eeeeee','#f08080','#cccccc','#fff68f','#00ff00','#20b2aa','#333333','#ffc3a0','#66cdaa','#ff6666','#ffdab9','#c0d6e4','#ff00ff','#ff7f50','#afeeee','#468499','#cbbeb5','#008000','#00ced1','#b4eeb4','#f6546a','#b6fcd5','#660066','#0e2f44','#daa520','#990000','#696969','#808080','#088da5','#f5f5f5','#6897bb','#8b0000','#000080','#f5f5dc','#101010','#ffff66','#8a2be2','#dddddd','#81d8d0','#0a75ad','#2acaea','#ff4040','#ccff00','#66cccc','#420420','#00ff7f','#794044','#a0db8e','#ff1493','#3399ff','#cc0000','#999999'];
+        return _colors[_id];
+    }
+    function colors2(uint _id) public pure returns (string memory){
+        string[29] memory colors = ['#FFFF00','#FFFF33','#F2EA02','#E6FB04','#FF0000','#FD1C03','#FF3300','#FF6600','#00FF00','#00FF33','#00FF66','#33FF00','#00FFFF','#099FFF','#0062FF','#0033FF','#FF00FF','#FF00CC','#FF0099','#CC00FF','#9D00FF','#CC00FF','#6E0DD0','#9900FF','#4deeea','#74ee15','#ffe700','#f000ff','#001eff'];
+        return colors[_id];
+    }
+    function base(uint _id) public pure returns (string memory) {
+        string memory _base = string(abi.encodePacked('<path style="opacity:0.8" stroke="#000000" d="M15 4h3M14 5h1M18 5h1M14 6h1M18 6h1M14 7h1M18 7h1M14 8h1M18 8h1M14 9h1M18 9h1M14 10h1M18 10h1M11 11h4M18 11h4M10 12h1M14 12h1M18 12h1M22 12h4M5 13h3M10 13h1M14 13h1M18 13h1M22 13h1M26 13h1M4 14h1M8 14h1M10 14h1M14 14h1M18 14h1M22 14h1M26 14h1M4 15h1M9 15h2M14 15h1M18 15h1M22 15h1M26 15h1M4 16h1M10 16h1M22 16h1M26 16h1M5 17h1M10 17h1M22 17h1M26 17h1M5 18h1M10 18h1M22 18h1M26 18h1M5 19h1M26 19h1M6 20h1M26 20h1M6 21h1M25 21h1M6 22h1M25 22h1M7 23h1M25 23h1M7 24h1M25 24h1M8 25h1M24 25h1M8 26h1M24 26h1M8 27h1M24 27h1M8 28h1M24 28h1M9 29h15" /><path stroke="',colors(_id),'" d="M15 5h3M15 6h3M15 7h3M15 8h3M15 9h3M15 10h3M15 11h3M11 12h3M15 12h3M19 12h3M11 13h3M15 13h3M19 13h3M23 13h3M5 14h3M11 14h3M15 14h3M19 14h3M23 14h3M5 15h4M11 15h3M15 15h3M19 15h3M23 15h3M5 16h5M11 16h11M23 16h3M6 17h4M11 17h11M23 17h3M6 18h4M11 18h11M23 18h3M6 19h20M7 20h19M7 21h18M7 22h18M8 23h17M8 24h17M9 25h15M9 26h15M9 27h15M9 28h15" />'));
+        return _base;
+    }
+
+    function mouths(uint _ind) public pure returns (string memory) { 
+        string[28] memory _mouths = ['M12 26h3M16 26h1M18 26h3M11 27h2M14 27h5M20 27h2', 'M11 26h2M15 26h3M20 26h2M12 27h4M17 27h4', 'M11 26h1M13 26h2M16 26h1M18 26h2M21 26h1', 'M11 26h2M14 26h5M20 26h2M12 27h1M14 27h5M20 27h1', 'M12 26h1M20 26h1M13 27h7', 'M11 26h2M15 26h3M20 26h2M11 27h11', 'M12 25h1M20 25h1M13 26h7M12 27h1M20 27h1', 'M15 25h3M13 26h7M15 27h3', 'M15 26h3M15 27h3', 'M10 26h1M13 26h3M17 26h3M22 26h1M10 27h3M15 27h3M20 27h3', 'M11 26h1M14 26h1M18 26h1M21 26h1M11 27h3M15 27h3M19 27h3', 'M12 26h9M11 27h1M21 27h1', 'M11 26h3M19 26h3M14 27h5', 'M12 26h1M15 26h3M20 26h1M12 27h3M18 27h3', 'M12 26h1M14 26h1M18 26h1M20 26h1M13 27h1M15 27h3M19 27h1', 'M12 26h2M15 26h3M19 26h2M14 27h1M18 27h1', 'M11 26h1M13 26h1M15 26h1M17 26h1M19 26h1M21 26h1M12 27h1M14 27h1M16 27h1M18 27h1M20 27h1', 'M12 26h1M16 26h1M20 26h1M13 27h3M17 27h3', 'M13 25h7M11 26h11M11 27h11', 'M12 26h9M11 27h11', 'M12 26h9', 'M13 27h7', 'M12 26h2M15 26h3M19 26h2M12 27h2M15 27h3M19 27h2M12 28h9', 'M12 26h9M11 27h2M14 27h5M20 27h2', 'M14 26h5', 'M14 26h5M15 27h3', 'M12 26h1M14 26h2M17 26h2M20 26h1', 'M13 26h7'];
+        return string(abi.encodePacked('<path style="opacity:0.9" stroke="#000000" d="',_mouths[_ind],'" />'));
+    }
+
+    function eyes(uint _ind,uint _col) public pure returns (string memory) {
+        string[56] memory _eyespart1 = ['M13 20h1M19 20h1M12 22h3M18 22h3', 'M12 20h1M20 20h1M11 21h1M13 21h1M19 21h1M21 21h1M12 22h2M19 22h2M13 23h1M19 23h1', 'M13 20h1M19 20h1M12 22h3M18 22h3', 'M13 20h1M19 20h1M12 21h1M14 21h1M18 21h1M20 21h1M12 22h1M14 22h1M18 22h1M20 22h1M13 23h1M19 23h1', 'M12 19h1M20 19h1M11 20h1M13 20h1M19 20h1M21 20h1M10 21h1M12 21h1M14 21h1M18 21h1M20 21h1M22 21h1M10 22h1M12 22h1M14 22h1M18 22h1M20 22h1M22 22h1M11 23h1M13 23h2M18 23h2M21 23h1M12 24h1M20 24h1', 'M12 20h1M20 20h1M11 21h3M19 21h3M11 22h1M13 22h1M19 22h1M21 22h1M13 23h1M19 23h1', 'M13 20h1M19 20h1M13 22h1M19 22h1', 'M13 19h2M18 19h2M12 20h3M18 20h3M11 21h3M19 21h3M11 22h2M14 22h1M18 22h1M20 22h2', 'M12 19h2M19 19h2M11 20h1M14 20h1M18 20h1M21 20h1M10 21h1M12 21h2M15 21h1M17 21h1M19 21h2M22 21h1M10 22h1M12 22h1M14 22h1M18 22h1M20 22h1M22 22h1M11 23h1M13 23h1M19 23h1M21 23h1', 'M12 21h2M19 21h2M12 22h2M19 22h2', 'M13 19h1M19 19h1M12 20h3M18 20h3M11 21h1M13 21h3M17 21h3M21 21h1M11 22h1M14 22h1M18 22h1M21 22h1M11 23h3M19 23h3', 'M12 20h1M14 20h1M18 20h1M20 20h1M12 22h1M14 22h1M18 22h1M20 22h1', 'M12 20h2M19 20h2M12 21h2M19 21h2M12 22h1M20 22h1', 'M13 21h1M19 21h1', 'M11 20h3M19 20h3M11 21h1M21 21h1M11 22h1M21 22h1', 'M12 20h9M12 21h2M15 21h3M19 21h2M12 22h9', 'M14 19h1M18 19h1M11 20h3M19 20h3M13 21h1M19 21h1M10 22h1M13 22h1M19 22h1M22 22h1', 'M13 20h1M19 20h1M13 21h1M19 21h1M13 22h1M19 22h1', 'M12 20h2M15 20h1M17 20h1M19 20h2M13 21h1M15 21h1M17 21h1M19 21h1M13 22h3M17 22h3', 'M13 20h2M18 20h2M11 21h1M13 21h3M17 21h3M21 21h1M11 22h3M19 22h3', 'M11 20h3M19 20h3M12 21h3M18 21h3M13 22h1M19 22h1', 'M12 19h3M18 19h3M12 20h3M18 20h3M13 21h3M17 21h3M13 22h3M17 22h3', 'M11 20h1M15 20h1M17 20h1M21 20h1M11 21h1M15 21h1M17 21h1M21 21h1', 'M14 19h1M18 19h1M13 20h1M19 20h1M13 21h1M19 21h1M13 22h2M18 22h2', 'M12 19h4M17 19h4M12 20h4M17 20h4', 'M13 19h1M19 19h1M12 20h3M18 20h3M13 21h1M19 21h1', 'M13 19h1M19 19h1M11 20h2M14 20h1M18 20h1M20 20h2M11 21h1M13 21h1M19 21h1M21 21h1', 'M11 20h3M19 20h3M13 21h1M19 21h1M13 22h1M19 22h1', 'M13 19h1M15 19h1M17 19h1M19 19h1M12 20h1M14 20h5M20 20h1M13 21h1M15 21h1M17 21h1M19 21h1', 'M12 19h1M20 19h1M12 20h1M20 20h1', 'M12 19h1M14 19h1M18 19h1M20 19h1M12 20h3M18 20h3', 'M12 20h3M18 20h3M11 21h2M20 21h2M12 22h3M18 22h3', 'M13 20h1M19 20h1M13 21h1M19 21h1M13 22h1M19 22h1', 'M13 19h1M19 19h1M13 20h2M18 20h2M13 21h1M15 21h1M17 21h1M19 21h1M14 22h1M18 22h1', 'M12 19h3M18 19h3M13 20h1M19 20h1M12 21h3M18 21h3M13 22h1M19 22h1', 'M13 19h1M19 19h1M13 20h2M18 20h2M13 21h1M15 21h1M17 21h1M19 21h1M14 22h1M18 22h1', 'M12 19h1M14 19h1M18 19h1M20 19h1M11 20h1M13 20h1M15 20h1M17 20h1M19 20h1M21 20h1M12 21h3M18 21h3M11 22h1M13 22h1M15 22h1M17 22h1M19 22h1M21 22h1M12 23h1M14 23h1M18 23h1M20 23h1', 'M12 20h3M18 20h3M13 21h1M19 21h1M12 22h3M18 22h3M12 23h3M18 23h3', 'M13 21h2M18 21h2M12 22h1M14 22h1M18 22h1M20 22h1M12 23h2M19 23h2', 'M13 20h2M14 21h1M13 22h2M18 22h1M13 23h2M18 23h2', 'M12 21h4M17 21h4M13 22h1M19 22h1M13 23h1M19 23h1', 'M13 20h1M19 20h1M12 21h3M18 21h3M11 22h2M14 22h2M17 22h2M20 22h2M12 23h3M18 23h3M13 24h1M19 24h1', 'M12 22h1M14 22h1M18 22h1M20 22h1M12 23h3M18 23h3', 'M12 20h3M18 20h3M12 21h1M14 21h1M18 21h1M20 21h1M12 23h3M18 23h3', 'M12 22h1M14 22h1M18 22h1M20 22h1M12 23h3M18 23h3', 'M12 22h1M14 22h1M18 22h1M20 22h1M12 23h3M18 23h3', 'M12 20h2M19 20h2M12 21h3M18 21h3M12 22h1M14 22h1M18 22h1M20 22h1M12 23h3M18 23h3','M12 20h3M18 20h3M11 21h2M14 21h2M17 21h2M20 21h2M11 22h1M13 22h1M15 22h1M17 22h1M19 22h1M21 22h1M11 23h5M17 23h5', 'M12 20h3M18 20h3M13 21h1M19 21h1M12 22h3M18 22h3', 'M10 20h5M18 20h5M10 21h1M13 21h1M19 21h1M22 21h1M10 22h1M13 22h1M19 22h1M22 22h1M10 23h5M18 23h5', 'M11 20h1M15 20h1M17 20h1M21 20h1M12 21h3M18 21h3M11 22h1M15 22h1M17 22h1M21 22h1', 'M12 17h1M14 17h1M18 17h1M20 17h1M12 18h4M17 18h4M15 19h1M17 19h1M11 20h1M13 20h1M15 20h1M17 20h1M19 20h1M21 20h1M10 21h2M15 21h1M17 21h1M21 21h2M11 22h5M17 22h5M10 23h1M12 23h4M17 23h4M22 23h1', 'M13 19h1M19 19h1M11 20h5M17 20h5M12 21h1M14 21h1M18 21h1M20 21h1M9 22h1M11 22h2M14 22h1M18 22h1M20 22h2M23 22h1M9 23h7M17 23h7M12 24h1M15 24h1M17 24h1M21 24h1', 'M15 18h3M14 19h2M17 19h2M13 20h2M16 20h1M18 20h2M13 21h2M16 21h1M18 21h2M14 22h2M17 22h2M15 23h3', 'M12 20h4M17 20h4M14 21h2M17 21h2M14 22h2M17 22h2M12 23h4M17 23h4', 'M12 19h2M19 19h2M10 20h5M18 20h5M10 21h6M17 21h6M10 22h1M12 22h1M14 22h2M17 22h2M20 22h1M22 22h1'];
+        string[56] memory _eyespart2 = ['M13 21h1M19 21h1', 'M12 21h1M20 21h1', 'M13 21h1M19 21h1', 'M13 21h1M19 21h1M13 22h1M19 22h1', 'M13 21h1M19 21h1M13 22h1M19 22h1', 'M12 22h1M20 22h1', 'M13 19h1M19 19h1M12 20h1M14 20h1M18 20h1M20 20h1M13 21h1M19 21h1', 'M14 21h1M18 21h1M13 22h1M19 22h1', 'M12 20h2M19 20h2M11 21h1M14 21h1M18 21h1M21 21h1M11 22h1M13 22h1M19 22h1M21 22h1M12 23h1M20 23h1', 'M12 20h2M19 20h2M11 21h1M21 21h1M11 22h1M21 22h1M12 23h2M19 23h2', 'M12 21h1M20 21h1M12 22h2M19 22h2', 'M13 22h1M19 22h1', 'M13 21h1M19 21h1', 'M12 19h2M19 19h2M12 20h2M19 20h2M12 21h1M20 21h1', 'M13 22h1M19 22h1', 'M14 21h1M18 21h1', 'M11 22h2M20 22h2', 'M11 21h2M14 21h2M17 21h2M20 21h2', 'M14 21h1M18 21h1', 'M14 22h2M17 22h2', 'M12 22h1M14 22h1M18 22h1M20 22h1', 'M14 23h1M18 23h1', 'M13 20h1M19 20h1M13 21h1M19 21h1M13 22h1M19 22h1', 'M14 20h1M18 20h1M14 21h1M18 21h1', 'M13 21h1M19 21h1', 'M12 19h1M20 19h1', 'M13 20h1M19 20h1', 'M11 22h1M21 22h1', 'M13 20h1M19 20h1', 'M13 19h1M19 19h1M13 20h1M19 20h1M12 21h2M19 21h2', 'M13 21h1M19 21h1M13 22h1M19 22h1', 'M13 21h2M18 21h2', 'M12 19h1M20 19h1M12 20h1M20 20h1M12 21h1M14 21h1M18 21h1M20 21h1', 'M14 21h1M18 21h1', 'M12 20h1M14 20h1M18 20h1M20 20h1', 'M14 21h1M18 21h1', 'M12 20h1M14 20h1M18 20h1M20 20h1M12 22h1M14 22h1M18 22h1M20 22h1', 'M12 21h1M14 21h1M18 21h1M20 21h1', 'M13 22h1M19 22h1', 'M13 21h1M19 22h1', 'M14 22h1M18 22h1M14 23h1M18 23h1', 'M13 22h1M19 22h1', 'M13 21h1M19 21h1M13 22h1M19 22h1', 'M13 21h1M19 21h1M13 22h1M19 22h1', 'M13 22h1M19 22h1', 'M13 22h1M19 22h1', 'M13 22h1M19 22h1','M13 21h1M19 21h1M12 22h1M14 22h1M18 22h1M20 22h1', 'M12 19h3M18 19h3M11 20h1M15 20h1M17 20h1M21 20h1M11 21h2M14 21h2M17 21h2M20 21h2M11 22h1M15 22h1M17 22h1M21 22h1M12 23h3M18 23h3', 'M11 21h2M14 21h1M18 21h1M20 21h2M11 22h2M14 22h1M18 22h1M20 22h2', 'M12 20h3M18 20h3M11 21h1M15 21h1M17 21h1M21 21h1M12 22h3M18 22h3', 'M12 19h3M18 19h3M12 20h1M14 20h1M18 20h1M20 20h1M12 21h3M18 21h3', 'M13 21h1M19 21h1M13 22h1M19 22h1', 'M16 19h1M15 20h1M17 20h1M15 21h1M17 21h1M16 22h1', 'M12 21h2M19 21h2M12 22h1M20 22h1', 'M11 22h1M13 22h1M19 22h1M21 22h1M11 23h3M19 23h3'];
+        return string(abi.encodePacked('<path  style="opacity:0.9" stroke="#000000" d="',_eyespart1[_ind],'" />','<path stroke="',colors2(_col),'" d="',_eyespart2[_ind],'" />'));
+    }
+    
+
+     function getGenes(uint256 _seed) public pure returns (uint[11] memory) {
+        uint _color = _seed % 81;
+        uint _eye = _seed % 55;
+        uint _mouth = _seed % 27;
+        
+        uint _gender = _seed % 4 > 2 ? 0 : 1;
+        uint _color3 = _seed % 28;
+        uint _color2 = uint256(keccak256(abi.encodePacked(_seed,_color3))) % 28;
+        
+        uint _color4 = uint256(keccak256(abi.encodePacked(_color3,_color2,_color,_seed))) % 81;
+        uint _basefreq = _seed % 9 > 0 ? _seed % 9 : 1;
+        uint _basefreq2 = _seed % 3;
+        uint _bseed = _seed % 3453;
+        uint _anim = _seed % 69 > 60 ? 1 : 0;
+        return [_color,_color2,_color3,_color4,_eye,_mouth,_gender,_basefreq,_bseed,_basefreq2,_anim];
+     }
+    function svg(uint256 _seed) public pure returns (string memory) {
+        uint[11] memory _genes = getGenes(_seed);
+        string memory a1 = stringer.uint2str(_genes[8]);
+        string memory a2 = stringer.uint2str(_genes[9]);
+        return string(abi.encodePacked('<svg style="width:352px;background:',colors(_genes[3]),'" xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 352 352" shape-rendering="crispEdges"><filter  id="filters"> <feTurbulence  baseFrequency="0.',a2,stringer.uint2str(_genes[7]),'" seed="',a1,'"/></filter> <rect width="352px" height="352px" filter="url(#filters)"/><g style="transform:scale(11)">',base(_genes[0]),eyes(_genes[4],_genes[2]),mouths(_genes[5]),gender(_genes[6],_genes[1]),'</g></svg>'));
+    }
+ 
+
+}
