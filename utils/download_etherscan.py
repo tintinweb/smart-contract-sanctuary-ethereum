@@ -71,11 +71,11 @@ def main():
                 if not len(source):
                     raise Exception(c)
                 f.write("%s\n"%json.dumps(c))
-            except Exception as e:
-                print(e)
+            except Exception as ex:
+                print(ex)
                 if DEBUG_RAISE:
                     raise
-                c["err"]=repr(e)
+                c["err"]=repr(ex)
                 f.write("%s\n"%json.dumps(c))
                 continue
 
