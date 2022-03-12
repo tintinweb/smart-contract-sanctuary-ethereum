@@ -23227,3 +23227,15 @@
 {"address": "0xF8078E4feA768BA6703307712c91Aff66cb0BD22", "name": "PLGToken", "compiler": "0.8.6", "balance": "-", "txcount": 0, "settings": "", "date": "3/11/2022"}
 {"address": "0x5ff219ab7058efac1d3607b43c527c8a2c0900d7", "name": "PaymentManager", "compiler": "0.8.11", "balance": "-", "txcount": 0, "settings": "", "date": "3/11/2022"}
 {"address": "0x14A8FdC52BeBa9D9b53994673331944067FEDe49", "name": "Kizuna", "compiler": "0.8.6", "balance": "0.48 Ether", "txcount": 0, "settings": "", "date": "3/11/2022"}
+{"address": "0x3220fc8a816911d3c24f83c3e73b5c8fcf2f0e22", "name": "InputFormat", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "3/12/2022"}
+{"address": "0x29ced6807941417fca39c154aafc54b9af132938", "name": "Token", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "-", "date": "3/12/2022"}
+{"address": "0xBA1B85D16E2Dbe023e980C9E00B655E4e3ec81AB", "name": "MessageENS", "compiler": "0.8.8", "balance": "-", "txcount": 0, "settings": "", "date": "3/12/2022"}
+{"address": "0x478982b915f19372f9744810d170ad6efe1788ff", "name": "Token", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "-", "date": "3/12/2022"}
+{"address": "0xf3a9e320b1c35ad421d2c2401be348ff030588ab", "name": "Token", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "-", "date": "3/12/2022"}
+{"address": "0x283c7b28211260d749db8ab898cea0584d855dfe", "name": "Token", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "-", "date": "3/12/2022"}
+{"address": "0xc01fdefa2c43c61266d6b98bdc57c4cf5fac4fd7", "name": "Token", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "-", "date": "3/12/2022"}
+{"address": "0xb109c5b8fe82da0d792ea0a8a5f38cbfe3221525", "name": "Token", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "-", "date": "3/12/2022"}
+{"address": "0xa9cfa5a7a7ee9c2e70f2a41c80031f46e457442b", "name": "Token", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "-", "date": "3/12/2022"}
+{"address": "0x76775cd6e8a2cd17e761836b985e4ee5d368839f", "name": "EtherRock", "compiler": "0.4.26", "balance": "-", "txcount": 0, "settings": "-", "date": "3/11/2022"}
+{"address": "0x74f82bec18b6211f5ddcb5721ed5a713251b4b81", "name": "FakeERC20", "compiler": "0.7.6", "balance": "-", "txcount": 0, "settings": "-", "date": "3/11/2022"}
+{"address": "0x1340daa8db39342bc6d66ab9e62b8f7748f666e9", "name": "Consonants", "compiler": "0.8.12", "balance": "-", "txcount": 0, "settings": "", "date": "3/11/2022"}
