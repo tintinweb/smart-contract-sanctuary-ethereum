@@ -1,0 +1,64 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-03-13
+*/
+
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+
+contract Transaction{
+
+    string transaction_no;
+    struct Buyer{
+        string buy_id;
+        string buy_name;
+    }
+    struct Seller{
+        string sell_id;
+        string sell_name;
+    }
+    struct Commodity{
+        string com_id;
+        string com_name;
+        uint com_price;
+        uint com_amount;
+    }
+    mapping(uint=>Commodity) commodity_hash;
+
+    //輸入訂單編號
+    function setNO(string memory no) public{
+        transaction_no=no;
+    }
+
+    //輸入買家資訊
+    Buyer b1;
+    function setBuyer(string memory _buy_id,string memory _buy_name) public{
+        b1=Buyer({buy_id:_buy_id,buy_name:_buy_name});
+    }
+
+    //輸入賣家資訊
+    Seller s1;
+    function setSeller(string memory _sell_id,string memory _sell_name) public{
+        s1=Seller({sell_id:_sell_id,sell_name:_sell_name});
+    }
+
+    //輸入商品資訊
+    //uint x=3;   //假設有x樣商品
+    function setCommodity(uint id, string memory _com_id,string memory _com_name,uint _com_price,uint _com_amount) public{
+        
+        commodity_hash[id]=Commodity({com_id:_com_id,com_name:_com_name,com_price:_com_price,com_amount:_com_amount});
+
+    }
+    
+    Commodity c1;
+    function queryCommodity(uint id) public{
+        c1=commodity_hash[id];
+    }
+
+    //顯示資料
+    string str_buy_id = "";
+
+    function showInformation() public view returns(string memory,string memory,string memory,string memory,string memory){
+        return (transaction_no,b1.buy_id,b1.buy_name,s1.sell_id,s1.sell_name); 
+    }
+
+}
