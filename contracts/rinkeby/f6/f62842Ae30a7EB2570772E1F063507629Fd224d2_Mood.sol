@@ -1,0 +1,976 @@
+//SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.0;
+
+import "./Utils.sol";
+import "./SVG.sol";
+import "./WatchData.sol";
+
+enum EyeType {
+    Open,
+    Closed,
+    TopHalf,
+    BottomHalf,
+    Wink
+}
+
+enum EyeTickLineType {
+    Outside,
+    InsideTop,
+    InsideBottom
+}
+
+enum EyePosition {
+    Left,
+    Right
+}
+
+enum MouthType {
+    Line,
+    BottomStroke,
+    BottomFill,
+    TopFill,
+    WholeFill
+}
+
+library Mood {
+    using utils for uint256;
+
+    function render(uint256 _id) public pure returns (string memory) {
+        WatchData.MoodId moodId = WatchData.MoodId(_id);
+
+        if (moodId == WatchData.MoodId.Surprised) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.WholeFill),
+                        renderEye(EyeType.Open, EyePosition.Left),
+                        renderEye(EyeType.Open, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Happy) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.BottomStroke),
+                        renderEye(EyeType.TopHalf, EyePosition.Left),
+                        renderEye(EyeType.TopHalf, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Relaxed) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.BottomStroke),
+                        renderEye(EyeType.Closed, EyePosition.Left),
+                        renderEye(EyeType.Closed, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Excited) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderEye(EyeType.Open, EyePosition.Left),
+                        renderEye(EyeType.Open, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Speechless) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.WholeFill),
+                        renderEye(EyeType.Open, EyePosition.Left),
+                        renderEye(EyeType.Open, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Chilling) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.BottomFill),
+                        renderEye(EyeType.BottomHalf, EyePosition.Left),
+                        renderEye(EyeType.BottomHalf, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Annoyed) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.TopFill),
+                        renderEye(EyeType.BottomHalf, EyePosition.Left),
+                        renderEye(EyeType.BottomHalf, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Sleepy) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.WholeFill),
+                        renderEye(EyeType.Closed, EyePosition.Left),
+                        renderEye(EyeType.Closed, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Unimpressed) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.Line),
+                        renderEye(EyeType.BottomHalf, EyePosition.Left),
+                        renderEye(EyeType.BottomHalf, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Meditating) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.Line),
+                        renderEye(EyeType.Closed, EyePosition.Left),
+                        renderEye(EyeType.Closed, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Relieved) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.BottomFill),
+                        renderEye(EyeType.Closed, EyePosition.Left),
+                        renderEye(EyeType.Closed, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Cheeky) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.BottomFill),
+                        renderEye(EyeType.TopHalf, EyePosition.Left),
+                        renderEye(EyeType.Wink, EyePosition.Right)
+                    )
+                );
+        } else if (moodId == WatchData.MoodId.Sus) {
+            return
+                svg.g(
+                    utils.NULL,
+                    string.concat(
+                        renderMouth(MouthType.Line),
+                        renderEye(EyeType.Wink, EyePosition.Left),
+                        renderEye(EyeType.Wink, EyePosition.Right)
+                    )
+                );
+        }
+
+        return utils.NULL;
+    }
+
+    function renderEye(EyeType _type, EyePosition _position)
+        public
+        pure
+        returns (string memory)
+    {
+        if (_type == EyeType.Open) {
+            return
+                eyeContainer(
+                    _position,
+                    string.concat(
+                        renderEyePupil(_type),
+                        renderEyeTicklines(EyeTickLineType.InsideTop)
+                    )
+                );
+        } else if (_type == EyeType.Closed) {
+            return
+                eyeContainer(
+                    _position,
+                    string.concat(
+                        renderEyePupil(_type),
+                        renderEyeTicklines(EyeTickLineType.Outside)
+                    )
+                );
+        } else if (_type == EyeType.BottomHalf) {
+            return
+                eyeContainer(
+                    _position,
+                    string.concat(
+                        renderEyePupil(_type),
+                        renderEyeTicklines(EyeTickLineType.InsideTop)
+                    )
+                );
+        } else if (_type == EyeType.TopHalf) {
+            return
+                eyeContainer(
+                    _position,
+                    string.concat(
+                        renderEyePupil(_type),
+                        renderEyeTicklines(EyeTickLineType.InsideTop)
+                    )
+                );
+        } else if (_type == EyeType.Wink) {
+            return
+                eyeContainer(
+                    _position,
+                    string.concat(
+                        renderEyePupil(_type),
+                        renderEyeTicklines(EyeTickLineType.InsideBottom)
+                    )
+                );
+        }
+        return "";
+    }
+
+    // Eye and Eye helpers
+    // Contains all contents and purely deals with setting the x/y position.
+    function eyeContainer(EyePosition _position, string memory _children)
+        private
+        pure
+        returns (string memory)
+    {
+        uint256 xPos = _position == EyePosition.Left
+            ? 124 /* left */
+            : 236; /* right */
+        uint256 yPos = 140;
+
+        return
+            svg.g(
+                svg.prop(
+                    "transform",
+                    string.concat(
+                        "translate(",
+                        xPos.toString(),
+                        " ",
+                        yPos.toString(),
+                        ")"
+                    )
+                ),
+                string.concat(
+                    // always use this background circle behind every eye combo / contents.
+                    svg.circle(
+                        string.concat(
+                            svg.prop("cx", utils.uint2str(0)),
+                            svg.prop("cy", utils.uint2str(0)),
+                            svg.prop("r", utils.uint2str(36)),
+                            svg.prop("fill", utils.getCssVar("fs")),
+                            svg.prop("filter", utils.getDefURL("insetShadow")),
+                            svg.prop("stroke", utils.getCssVar("fa")),
+                            svg.prop("stroke-opacity", "0.5")
+                        ),
+                        utils.NULL
+                    ),
+                    _children
+                )
+            );
+    }
+
+    function renderEyePupil(EyeType _type)
+        private
+        pure
+        returns (string memory)
+    {
+        if (_type == EyeType.Open) {
+            return
+                svg.circle(
+                    string.concat(
+                        svg.prop("r", utils.uint2str(8)),
+                        svg.prop("fill", utils.getCssVar("fa")),
+                        svg.prop("opacity", "0.5")
+                    ),
+                    utils.NULL
+                );
+        } else if (_type == EyeType.Closed) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("fill", "none"),
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop("d", "M-32.4 0a32.4 32.4 0 0 0 64.8 0"),
+                        svg.prop("opacity", "0.5")
+                    ),
+                    utils.NULL
+                );
+        } else if (_type == EyeType.BottomHalf) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("fill", utils.getCssVar("fa")),
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop("d", "M-9 0A9 9 0 0 0 9 0Z"),
+                        svg.prop("opacity", "0.5")
+                    ),
+                    utils.NULL
+                );
+        } else if (_type == EyeType.TopHalf) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("fill", utils.getCssVar("fa")),
+                        svg.prop("d", "M9 0A9 9 0 0 0-9 0Z"),
+                        svg.prop("opacity", "0.5")
+                    ),
+                    utils.NULL
+                );
+        } else if (_type == EyeType.Wink) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop("d", "M-8.1-2H8.1"),
+                        svg.prop("opacity", "0.5")
+                    ),
+                    utils.NULL
+                );
+        }
+        return utils.NULL;
+    }
+
+    function renderEyeTicklines(EyeTickLineType _type)
+        private
+        pure
+        returns (string memory)
+    {
+        if (_type == EyeTickLineType.Outside) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop(
+                            "d",
+                            "M43.2 0h-4m3.1 9-3.91259-.83165M39.5 17.6l-3.65418-1.62695M34.9 25.4l-3.23607-2.35114M28.9 32.1l-2.67652-2.97258M21.6 37.4l-2-3.4641M13.3 41.1l-1.23607-3.80423M4.5 43l-.41811-3.97809M-4.5 43l.41811-3.97809M-13.3 41.1l1.23607-3.80423M-21.6 37.4l2-3.4641M-28.9 32.1l2.67652-2.97258M-34.9 25.4l3.23607-2.35114M-39.5 17.6l3.65418-1.62695M-42.3 9l3.91259-.83165M-43.2 0h4"
+                        ),
+                        svg.prop("opacity", "0.5")
+                    ),
+                    utils.NULL
+                );
+        } else if (_type == EyeTickLineType.InsideTop) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop("opacity", "0.5"),
+                        svg.prop(
+                            "d",
+                            "m-31.7-6.7 3.91259.83165M-29.6-13.2l3.65418 1.62695M-26.2-19l3.23607 2.35114M-21.7-24.1l2.67652 2.97258M-16.2-28.1l2 3.4641M-10-30.8l1.23607 3.80423M-3.4-32.2l.41811 3.97809M3.4-32.2l-.41811 3.97809M10-30.8l-1.23607 3.80423M16.2-28.1l-2 3.4641m7.5.5359-2.67652 2.97258M26.2-19l-3.23607 2.35114M29.6-13.2l-3.65418 1.62695M31.7-6.7l-3.91259.83165"
+                        )
+                    ),
+                    utils.NULL
+                );
+        } else if (_type == EyeTickLineType.InsideBottom) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop("opacity", "0.5"),
+                        svg.prop(
+                            "d",
+                            "M32.4 0h-4m3.3 6.7-3.91259-.83165M29.6 13.2l-3.65418-1.62695M26.2 19l-3.23607-2.35114M21.7 24.1l-2.67652-2.97258M16.2 28.1l-2-3.4641M10 30.8l-1.23607-3.80423M3.4 32.2l-.41811-3.97809M-3.4 32.2l.41811-3.97809M-10 30.8l1.23607-3.80423M-16.2 28.1l2-3.4641m-7.5-.5359 2.67652-2.97258M-26.2 19l3.23607-2.35114M-29.6 13.2l3.65418-1.62695M-31.7 6.7l3.91259-.83165M-32.4 0h4"
+                        )
+                    ),
+                    utils.NULL
+                );
+        }
+
+        return utils.NULL;
+    }
+
+    // Mouth and Mouth helpers
+    function renderMouth(MouthType _type) public pure returns (string memory) {
+        if (_type == MouthType.Line) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop("opacity", "0.5"),
+                        svg.prop("d", "M157.5 223h45")
+                    ),
+                    utils.NULL
+                );
+        } else if (_type == MouthType.BottomStroke) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("fill", "none"),
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop("opacity", "0.5"),
+                        svg.prop("d", "M164.41154 217a18 18 0 0 0 31.17692 0")
+                    ),
+                    utils.NULL
+                );
+        } else if (_type == MouthType.BottomFill) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("fill", utils.getCssVar("fs")),
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop("stroke-opacity", "0.5"),
+                        svg.prop("filter", utils.getDefURL("insetShadow")),
+                        svg.prop("d", "M157.5 216a22.5 22.5 0 0 0 45 0Z")
+                    ),
+                    utils.NULL
+                );
+        } else if (_type == MouthType.TopFill) {
+            return
+                svg.path(
+                    string.concat(
+                        svg.prop("fill", utils.getCssVar("fs")),
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop("stroke-opacity", "0.5"),
+                        svg.prop("filter", utils.getDefURL("insetShadow")),
+                        svg.prop("d", "M202.5 240a22.5 22.5 0 0 0-45 0Z")
+                    ),
+                    utils.NULL
+                );
+        } else if (_type == MouthType.WholeFill) {
+            return
+                svg.circle(
+                    string.concat(
+                        svg.prop("r", utils.uint2str(11)),
+                        svg.prop("cx", utils.uint2str(180)),
+                        svg.prop("cy", utils.uint2str(225)),
+                        svg.prop("fill", utils.getCssVar("fs")),
+                        svg.prop("stroke", utils.getCssVar("fa")),
+                        svg.prop("filter", utils.getDefURL("insetShadow")),
+                        svg.prop("stroke-opacity", "0.25")
+                    ),
+                    utils.NULL
+                );
+        }
+        return utils.NULL;
+    }
+}
+
+//SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.0;
+
+library utils {
+    string internal constant NULL = "";
+
+    function setCssVar(string memory _key, string memory _val)
+        internal
+        pure
+        returns (string memory)
+    {
+        return string.concat("--", _key, ":", _val, ";");
+    }
+
+    function getCssVar(string memory _key)
+        internal
+        pure
+        returns (string memory)
+    {
+        return string.concat("var(--", _key, ")");
+    }
+
+    function getDefURL(string memory _id)
+        internal
+        pure
+        returns (string memory)
+    {
+        return string.concat("url(#", _id, ")");
+    }
+
+    function white_a(uint256 _a) internal pure returns (string memory) {
+        return rgba(255, 255, 255, _a);
+    }
+
+    function black_a(uint256 _a) internal pure returns (string memory) {
+        return rgba(0, 0, 0, _a);
+    }
+
+    function rgba(
+        uint256 _r,
+        uint256 _g,
+        uint256 _b,
+        uint256 _a
+    ) internal pure returns (string memory) {
+        string memory formattedA = _a < 100
+            ? string.concat("0.", utils.uint2str(_a))
+            : "1";
+        return
+            string.concat(
+                "rgba(",
+                utils.uint2str(_r),
+                ",",
+                utils.uint2str(_g),
+                ",",
+                utils.uint2str(_b),
+                ",",
+                formattedA,
+                ")"
+            );
+    }
+
+    function stringsEqual(string memory _a, string memory _b)
+        internal
+        pure
+        returns (bool)
+    {
+        return
+            keccak256(abi.encodePacked(_a)) == keccak256(abi.encodePacked(_b));
+    }
+
+    function utfStringLength(string memory _str)
+        internal
+        pure
+        returns (uint256 length)
+    {
+        uint256 i = 0;
+        bytes memory string_rep = bytes(_str);
+
+        while (i < string_rep.length) {
+            if (string_rep[i] >> 7 == 0) i += 1;
+            else if (string_rep[i] >> 5 == bytes1(uint8(0x6))) i += 2;
+            else if (string_rep[i] >> 4 == bytes1(uint8(0xE))) i += 3;
+            else if (string_rep[i] >> 3 == bytes1(uint8(0x1E)))
+                i += 4;
+                //For safety
+            else i += 1;
+
+            length++;
+        }
+    }
+
+    function toString(uint256 _i)
+        internal
+        pure
+        returns (string memory _uintAsString)
+    {
+        return uint2str(uint256(_i));
+    }
+
+    function uint2str(uint256 _i)
+        internal
+        pure
+        returns (string memory _uintAsString)
+    {
+        if (_i == 0) {
+            return "0";
+        }
+        uint256 j = _i;
+        uint256 len;
+        while (j != 0) {
+            len++;
+            j /= 10;
+        }
+        bytes memory bstr = new bytes(len);
+        uint256 k = len;
+        while (_i != 0) {
+            k = k - 1;
+            uint8 temp = (48 + uint8(_i - (_i / 10) * 10));
+            bytes1 b1 = bytes1(temp);
+            bstr[k] = b1;
+            _i /= 10;
+        }
+        return string(bstr);
+    }
+}
+
+//SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.0;
+import "./Utils.sol";
+
+library svg {
+    /** MAIN ELEMENTS */
+    function g(string memory _props, string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el("g", _props, _children);
+    }
+
+    function path(string memory _props, string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el("path", _props, _children);
+    }
+
+    function text(string memory _props, string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el("text", _props, _children);
+    }
+
+    function line(string memory _props, string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el("line", _props, _children);
+    }
+
+    function circle(string memory _props, string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el("circle", _props, _children);
+    }
+
+    function rect(string memory _props, string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el("rect", _props, _children);
+    }
+
+    function filter(string memory _props, string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el("filter", _props, _children);
+    }
+
+    /** GRADIENTS */
+    function radialGradient(string memory _props, string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el("radialGradient", _props, _children);
+    }
+
+    function linearGradient(string memory _props, string memory _children)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el("linearGradient", _props, _children);
+    }
+
+    function gradientStop(
+        uint256 offset,
+        string memory stopColor,
+        string memory _props
+    ) internal pure returns (string memory) {
+        return
+            el(
+                "stop",
+                string.concat(
+                    prop("stop-color", stopColor),
+                    " ",
+                    prop("offset", string.concat(utils.uint2str(offset), "%")),
+                    " ",
+                    _props
+                ),
+                utils.NULL
+            );
+    }
+
+    function animateTransform(string memory _props)
+        internal
+        pure
+        returns (string memory)
+    {
+        return el("animateTransform", _props, utils.NULL);
+    }
+
+    /** COMMON */
+    function el(
+        string memory _tag,
+        string memory _props,
+        string memory _children
+    ) internal pure returns (string memory) {
+        return
+            string.concat(
+                "<",
+                _tag,
+                " ",
+                _props,
+                ">",
+                _children,
+                "</",
+                _tag,
+                ">"
+            );
+    }
+
+    function prop(string memory _key, string memory _val)
+        internal
+        pure
+        returns (string memory)
+    {
+        return string.concat(_key, "=", '"', _val, '" ');
+    }
+}
+
+//SPDX-License-Identifier: Unlicense
+
+pragma solidity ^0.8.0;
+import "./Utils.sol";
+
+library WatchData {
+    uint256 public constant WATCH_SIZE = 360;
+    uint256 public constant CENTER = 180;
+    // change to outer bezel radius
+    uint256 public constant BEZEL_RADIUS = 180;
+    uint256 public constant INNER_BEZEL_RADIUS = 152;
+    uint256 public constant FACE_RADIUS = 144; // BEZEL_RADIUS * 0.8
+    // used to detect
+    uint8 public constant GLOW_IN_THE_DARK_ID = 99;
+
+    enum MaterialId {
+        Pearl,
+        Copper,
+        Onyx,
+        Quartz,
+        Emerald,
+        Ruby,
+        Sapphire,
+        Amber,
+        Amethyst,
+        Obsidian,
+        Gold,
+        Diamond
+    }
+
+    enum MoodId {
+        Surprised,
+        Happy,
+        Relaxed,
+        Excited,
+        Speechless,
+        Chilling,
+        Annoyed,
+        Sleepy,
+        Unimpressed,
+        Meditating,
+        Relieved,
+        Cheeky,
+        Sus
+    }
+
+    enum GlassesId {
+        None,
+        LeftMonocle,
+        RightMonocle,
+        Flip,
+        Valentine,
+        Shutters,
+        ThreeD,
+        Ski,
+        Monolens
+    }
+
+    struct Material {
+        MaterialId id;
+        string name;
+        string[2] vals;
+        uint256 supply;
+        // divide by 1000
+        uint256 price;
+    }
+
+    struct Glasses {
+        GlassesId id;
+        string name;
+        uint256 supply;
+        // divide by 1000
+        uint256 price;
+    }
+
+    struct Mood {
+        MoodId id;
+        string name;
+        uint256 supply;
+        // divide by 1000
+        uint256 price;
+    }
+
+    struct GlowInTheDarkData {
+        string[2] light;
+        string[2] dark;
+        string name;
+    }
+
+    function getGlowInTheDarkData()
+        internal
+        pure
+        returns (GlowInTheDarkData memory)
+    {
+        return
+            GlowInTheDarkData(
+                ["#fbfffc", "#d7ffd7"],
+                ["#052925", "#a4ffa1"],
+                "Glow In The Dark"
+            );
+    }
+
+    /* Primary data retrieval functions */
+    function getMaterial(uint256 _materialId)
+        internal
+        pure
+        returns (Material memory)
+    {
+        Material[12] memory materials = [
+            Material(
+                MaterialId.Pearl,
+                "Ocean Pearl",
+                ["#ffffff", "#f6e6ff"],
+                840,
+                25
+            ),
+            Material(
+                MaterialId.Copper,
+                "Resistor Copper",
+                ["#f7d1bf", "#5a2c1d"],
+                840,
+                25
+            ),
+            Material(
+                MaterialId.Onyx,
+                "Ocean Pearl",
+                ["#615c5c", "#0f0f0f"],
+                840,
+                25
+            ),
+            Material(
+                MaterialId.Quartz,
+                "Block Quartz",
+                ["#ffb4be", "#81004e"],
+                840,
+                50
+            ),
+            Material(
+                MaterialId.Emerald,
+                "Matrix Emerald",
+                ["#97ff47", "#011601"],
+                840,
+                50
+            ),
+            Material(
+                MaterialId.Ruby,
+                "404 Ruby",
+                ["#d21925", "#3b0007"],
+                840,
+                50
+            ),
+            Material(
+                MaterialId.Sapphire,
+                "Hyperlink Sapphire",
+                ["#4668ff", "#000281"],
+                840,
+                50
+            ),
+            Material(
+                MaterialId.Amber,
+                "Sunset Amber",
+                ["#ffa641", "#30031f"],
+                840,
+                150
+            ),
+            Material(
+                MaterialId.Amethyst,
+                "Candy Amethyst",
+                ["#f7dfff", "#3671ca"],
+                840,
+                150
+            ),
+            Material(
+                MaterialId.Obsidian,
+                "Nether Obsidian",
+                ["#6f00ff", "#2b003b"],
+                840,
+                150
+            ),
+            Material(
+                MaterialId.Gold,
+                "Electric Gold",
+                ["#fcba7d", "#864800"],
+                840,
+                150
+            ),
+            Material(
+                MaterialId.Diamond,
+                "Ethereal Diamond",
+                ["#b5f9ff", "#30c2c2"],
+                840,
+                600
+            )
+        ];
+
+        return materials[_materialId];
+    }
+
+    function getMood(uint256 _moodId) internal pure returns (Mood memory) {
+        Mood[13] memory moods = [
+            Mood(MoodId.Surprised, "Surprised", 840, 25),
+            Mood(MoodId.Happy, "Happy", 840, 25),
+            Mood(MoodId.Relaxed, "Relaxed", 840, 25),
+            Mood(MoodId.Excited, "Excited", 840, 25),
+            Mood(MoodId.Speechless, "Speechless", 840, 25),
+            Mood(MoodId.Chilling, "Chilling", 840, 25),
+            Mood(MoodId.Annoyed, "Annoyed", 840, 25),
+            Mood(MoodId.Sleepy, "Sleepy", 840, 25),
+            Mood(MoodId.Unimpressed, "Unimpressed", 840, 25),
+            Mood(MoodId.Meditating, "Meditating", 840, 25),
+            Mood(MoodId.Relieved, "Relieved", 840, 25),
+            Mood(MoodId.Cheeky, "Cheeky", 840, 25),
+            Mood(MoodId.Sus, "Sus", 840, 25)
+        ];
+
+        return moods[_moodId];
+    }
+
+    function getGlasses(uint256 _glassesId)
+        internal
+        pure
+        returns (Glasses memory)
+    {
+        Glasses[9] memory glasses = [
+            Glasses(GlassesId.None, "None", 840, 25),
+            Glasses(GlassesId.LeftMonocle, "Left Monocle", 840, 25),
+            Glasses(GlassesId.RightMonocle, "Right Monocle", 840, 25),
+            Glasses(GlassesId.Flip, "Flip", 840, 25),
+            Glasses(GlassesId.Valentine, "Valentine", 840, 25),
+            Glasses(GlassesId.Shutters, "Shutters", 840, 25),
+            Glasses(GlassesId.ThreeD, "3D", 840, 25),
+            Glasses(GlassesId.Ski, "Ski", 840, 25),
+            Glasses(GlassesId.Monolens, "Monolens", 840, 25)
+        ];
+
+        return glasses[_glassesId];
+    }
+
+    /* Other utils */
+
+    function isLightMaterial(MaterialId _id) internal pure returns (bool) {
+        return _id == MaterialId.Pearl || _id == MaterialId.Diamond;
+    }
+
+    function getMaterialAccentColor(MaterialId _id)
+        internal
+        pure
+        returns (string memory)
+    {
+        if (isLightMaterial(_id)) {
+            return utils.getCssVar("black");
+        }
+
+        return utils.getCssVar("white");
+    }
+
+    function getMaterialShadow(MaterialId _id)
+        internal
+        pure
+        returns (string memory)
+    {
+        if (isLightMaterial(_id)) {
+            return utils.black_a(85);
+        }
+
+        return utils.white_a(85);
+    }
+}
