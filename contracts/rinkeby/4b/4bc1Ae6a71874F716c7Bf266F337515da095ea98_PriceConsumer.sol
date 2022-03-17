@@ -1,0 +1,136 @@
+// SPDX-License-Identifier: MIT
+pragma solidity =0.8.4;
+
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
+contract PriceConsumer {
+	/**
+	 * Network: Rinkeby
+	 * Aggregators: ETH/USD, BTC/USD, XAU/USD, XFT/USD
+	 */
+
+	AggregatorV3Interface internal priceFeed;
+	uint8 internal constant _decimalmax = 18;
+
+	constructor() {}
+
+	function getDerivedPrice(string memory baseAggr, string memory quoteAggr)
+		public
+		view
+		returns (uint256, uint8)
+	{
+		(int256 _basePrice, uint8 _baseDecimals) = getLatestPrice(baseAggr);
+		(int256 _quotePrice, uint8 _quoteDecimals) = getLatestPrice(quoteAggr);
+
+		(_basePrice, _baseDecimals) = scalePrice(_basePrice, _baseDecimals, _decimalmax);
+		(_quotePrice, _quoteDecimals) = scalePrice(_quotePrice, _quoteDecimals, _decimalmax);
+
+		return (
+			uint256((_basePrice * (int256(10**uint256(_baseDecimals)))) / _quotePrice),
+			_quoteDecimals
+		);
+	}
+
+	function exchangeAssets(
+		string memory exchAggr,
+		string memory quoteAggr,
+		uint256 exchAmount
+	) public view returns (uint256, uint8) {
+		require(!isEqualAggr(exchAggr, quoteAggr), "Aggregator names are the same");
+		(uint256 _quotePrice, uint8 _quoteDecimal) = getDerivedPrice(exchAggr, quoteAggr);
+
+		return (uint256(exchAmount * _quotePrice) / (uint256(10**_quoteDecimal)), _quoteDecimal);
+	}
+
+	/**
+	 * @dev Returns the latest price.
+	 * @param aggregator Token name.
+	 * @return price and decimals
+	 */
+	function getLatestPrice(string memory aggregator) public view returns (int256, uint8) {
+		//aggregator need be capital letters
+		if (isEqualAggr(aggregator, "USD")) {
+			return (int256(10**uint256(_decimalmax)), _decimalmax);
+		}
+		address _addrAggr = getAddrAggregator(aggregator);
+		require(_addrAggr != address(0), "Adress aggregator cannot be zero.");
+		(, int256 _price, , , ) = AggregatorV3Interface(_addrAggr).latestRoundData();
+		uint8 _decimals = AggregatorV3Interface(_addrAggr).decimals();
+		return (_price, _decimals);
+	}
+
+	function getAddrAggregator(string memory _aggregator) internal pure returns (address) {
+		address _addrAggregator;
+
+		if (isEqualAggr(_aggregator, "BTC"))
+			_addrAggregator = 0xECe365B379E1dD183B20fc5f022230C044d51404;
+
+		if (isEqualAggr(_aggregator, "ETH"))
+			_addrAggregator = 0x8A753747A1Fa494EC906cE90E9f37563A8AF630e;
+
+		if (isEqualAggr(_aggregator, "XAU"))
+			_addrAggregator = 0x81570059A0cb83888f1459Ec66Aad1Ac16730243;
+
+		if (isEqualAggr(_aggregator, "XFT"))
+			_addrAggregator = 0xab4a352ac35dFE83221220D967Db41ee61A0DeFa;
+
+		return _addrAggregator;
+	}
+
+	function scalePrice(
+		int256 _price,
+		uint8 _priceDecimals,
+		uint8 _decimals
+	) internal pure returns (int256, uint8) {
+		if (_priceDecimals < _decimals) {
+			return (_price * int256(10**uint256(_decimals - _priceDecimals)), _decimals);
+		} else if (_priceDecimals > _decimals) {
+			return (_price / int256(10**uint256(_priceDecimals - _decimals)), _priceDecimals);
+		}
+		return (_price, _priceDecimals);
+	}
+
+	function isEqualAggr(string memory _aggr, string memory _name) internal pure returns (bool) {
+		bool _isEq = bytes(_aggr).length == bytes(_name).length;
+		for (uint8 i = 0; i < bytes(_aggr).length; i++) {
+			_isEq = _isEq && (bytes(_aggr)[i] == bytes(_name)[i]);
+		}
+		return _isEq;
+	}
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface AggregatorV3Interface {
+  function decimals() external view returns (uint8);
+
+  function description() external view returns (string memory);
+
+  function version() external view returns (uint256);
+
+  // getRoundData and latestRoundData should both raise "No data present"
+  // if they do not have data to report, instead of returning unset values
+  // which could be misinterpreted as actual reported values.
+  function getRoundData(uint80 _roundId)
+    external
+    view
+    returns (
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
+    );
+
+  function latestRoundData()
+    external
+    view
+    returns (
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
+    );
+}
