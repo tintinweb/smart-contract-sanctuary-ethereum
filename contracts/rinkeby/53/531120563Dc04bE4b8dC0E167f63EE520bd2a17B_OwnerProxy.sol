@@ -1,0 +1,365 @@
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (security/ReentrancyGuard.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Contract module that helps prevent reentrant calls to a function.
+ *
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
+ * (reentrant) calls to them.
+ *
+ * Note that because there is a single `nonReentrant` guard, functions marked as
+ * `nonReentrant` may not call one another. This can be worked around by making
+ * those functions `private`, and then adding `external` `nonReentrant` entry
+ * points to them.
+ *
+ * TIP: If you would like to learn more about reentrancy and alternative ways
+ * to protect against it, check out our blog post
+ * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ */
+abstract contract ReentrancyGuard {
+    // Booleans are more expensive than uint256 or any type that takes up a full
+    // word because each write operation emits an extra SLOAD to first read the
+    // slot's contents, replace the bits taken up by the boolean, and then write
+    // back. This is the compiler's defense against contract upgrades and
+    // pointer aliasing, and it cannot be disabled.
+
+    // The values being non-zero value makes deployment a bit more expensive,
+    // but in exchange the refund on every call to nonReentrant will be lower in
+    // amount. Since refunds are capped to a percentage of the total
+    // transaction's gas, it is best to keep them low in cases like this one, to
+    // increase the likelihood of the full refund coming into effect.
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        // On the first call to nonReentrant, _notEntered will be true
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+
+        _;
+
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
+    }
+}
+
+//*~~~> SPDX-License-Identifier: MIT
+
+/*~~~> PHUNKS
+    Thank you Phunks, your inspiration and phriendship meant the world to me and helped me through hard times.
+      Never stop phighting, never surrender, always stand up for what is right and make the best of all situations towards all people.
+      Phunks are phreedom phighters!
+        "When the power of love overcomes the love of power the world will know peace." - Jimi Hendrix <3
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@(((((((((((((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@(((((((((((((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((((((((((((((((((((((@@@@@##############################%%%%%@@@@@((((((((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((((((((((((((((((((((@@@@@##############################%%%%%@@@@@((((((((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((@@@@@########################################%%%%%@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((@@@@@########################################%%%%%@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((((((((((((@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@###############@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((((((((((((@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@###############@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@##########@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@##########@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@/////////////////////////////////////////////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@/////////////////////////////////////////////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@#PHUNKYJON///////////////#PHUNKYJON//////////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@#PHUNKYJON///////////////#PHUNKYJON//////////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@/////@EYES////////////////////@EYES///////////////@@@@@((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@/////@EYES////////////////////@EYES///////////////[email protected]@((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@//////////////////////////////////////////////////[email protected]@((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@//////////////////////////////////////////////////[email protected]@((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@/////////////////////////////////////////////@@@@@@@@@@((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@/////////////////////////////////////////////@@@@@@@@@@((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@//////////[email protected]@////////////////////#####@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((SMOKE((((((((((@@@@@//////////[email protected]@////////////////////#####@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((@@@@@#####//////////////////////////////##########@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((@@@@@#####//////////////////////////////##########@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((@[email protected]@[email protected]@@###################################@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((@[email protected]@[email protected]@@###################################@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((EMBER(((((,,,,,,,,,,,,,,,,,,,,,,,,,@@@@@MOUTH&&&&&####################@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((EMBER(((((,,,,,,,,,,,,,,,,,,,,,,,,,@@@@@MOUTH&&&&&####################@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((@[email protected]@[email protected]@@##############################/////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((@[email protected]@[email protected]@@##############################/////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((((((((((((((((((((((@@@@@##############################//////////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%(((((((((((((((((((((((((((((((((((@@@@@##############################//////////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((@@@@@@@@@@@@@@@@@@@@@@@@@///////////////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((@@@@@@@@@@@@@@@@@@@@@@@@@///////////////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((@@@@@///////////////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((@@@@@///////////////@@@@@(((((((((((((((((((((((((%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@///////////////@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%@@@@@///////////////@@@@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ <~~~*/
+ 
+pragma solidity  0.8.7;
+
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "./interfaces/ICollections.sol";
+import "./interfaces/IRoleProvider.sol";
+import "./interfaces/IRewardsController.sol";
+
+///@notice
+/*~~~>
+Interface declarations for upgradable contracts accessibility
+<~~~*/
+interface NFT {
+  function grantRole(bytes32 role, address account) external;
+  function revokeRole(bytes32 role, address account) external;
+}
+interface MarketMint {
+  function setDeployAmnt(uint _deplyAmnt) external;
+  function setNewRedemption(uint amount, address _toke) external;
+  function resetRedemptionToken(uint64 _redeemAmount, address _contract) external;
+}
+interface RoleProvider is IRoleProvider {
+  function setMarketMintAdd(address _mintAdd) external returns(bool);
+  function setNftAdd(address _nftAdd) external returns(bool);
+  function setCollectionsAdd(address _collAdd) external returns(bool);
+  function setOffersAdd(address _offAdd) external returns(bool);
+  function setTradesAdd(address _tradAdd) external returns(bool);
+  function setBidsAdd(address _bidsAdd) external returns(bool);
+  function setRwdsAdd(address _rwdsAdd) external returns(bool);
+  function setProxyRoleAddress(address _role) external returns(bool);
+  function setOwnerProxyAdd(address _proxyAdd) external returns(bool);
+  function setPhunkyAdd(address _phunky) external returns(bool);
+  function setDevSigAddress(address _sig) external returns(bool);
+  function setAddressGivenSwitch(address _sig, uint _switch) external returns(bool);
+  function setMarketAdd(address _mrktAdd) external returns(bool);
+}
+
+contract OwnerProxy is ReentrancyGuard {
+  /*~~~>
+    State Address Variables
+  <~~~*/
+  //*~~~> global address variable from Role Provider contract
+  bytes32 public constant REWARDS = keccak256("REWARDS");
+
+  bytes32 public constant COLLECTION = keccak256("COLLECTION");
+  
+  bytes32 public constant BIDS = keccak256("BIDS");
+  
+  bytes32 public constant OFFERS = keccak256("OFFERS");
+  
+  bytes32 public constant TRADES = keccak256("TRADES");
+
+  bytes32 public constant NFTADD = keccak256("NFT");
+
+  bytes32 public constant MINT = keccak256("MINT");
+
+  bytes32 public constant MARKET = keccak256("MARKET");
+
+  bytes32 public constant PROXY = keccak256("PROXY");
+
+  bytes32 public constant DEV = keccak256("DEV");
+
+  address public roleAdd;
+
+  //*~~~> Roles for designated accessibility
+  bytes32 public constant PROXY_ROLE = keccak256("PROXY_ROLE"); 
+  bytes32 public constant DEV_ROLE = keccak256("DEV_ROLE");
+  modifier hasAdmin(){
+    require(RoleProvider(roleAdd).hasTheRole(PROXY_ROLE, msg.sender), "DOES NOT HAVE ADMIN ROLE");
+    _;
+  }
+  modifier hasDevAdmin(){
+    require(RoleProvider(roleAdd).hasTheRole(DEV_ROLE, msg.sender), "DOES NOT HAVE DEV ROLE");
+    _;
+  }
+
+  constructor(address _role){
+    roleAdd = _role;
+  }
+
+  /// @notice
+  /*~~~>
+    For setting the platform fees on RewardsController.sol
+    Base fee set at 2% (i.e. value * 200 / 10,000) 
+    Future fees can be set by the controlling DAO 
+  <~~~*/
+  function setFee(uint _fee) public hasAdmin returns (bool) {
+    address rewardsAdd = RoleProvider(roleAdd).fetchAddress(REWARDS);
+    IRewardsController(rewardsAdd).setFee(_fee);
+    return true;
+  }
+
+  ///@notice
+  /*~~~>
+    For setting the state address variables
+  <~~~*/
+  function setMarketAdd(address _mrktAdd) hasDevAdmin public returns(bool){
+    RoleProvider(roleAdd).setMarketAdd(_mrktAdd);
+    return true;
+  }
+  function setNftAdd(address _nft) hasDevAdmin public returns(bool){
+    RoleProvider(roleAdd).setNftAdd(_nft);
+    return true;
+  }
+  function setMarketMintAdd(address _mintAdd) hasDevAdmin public returns(bool){
+    RoleProvider(roleAdd).setMarketMintAdd(_mintAdd);
+    return true;
+  }
+   function setCollectionsAdd(address _collAdd) hasDevAdmin public returns(bool){
+    RoleProvider(roleAdd).setCollectionsAdd(_collAdd);
+    return true;
+  }
+  function setOffersAdd(address _offAdd) hasDevAdmin public returns(bool){
+    RoleProvider(roleAdd).setOffersAdd(_offAdd);
+    return true;
+  }
+  function setTradesAdd(address _tradAdd) hasDevAdmin public returns(bool){
+    RoleProvider(roleAdd).setTradesAdd(_tradAdd);
+    return true;
+  }
+  function setBidsAdd(address _bidsAdd) hasDevAdmin public returns(bool){
+    RoleProvider(roleAdd).setBidsAdd(_bidsAdd);
+    return true;
+  }
+  function setRwdsAdd(address _rwdsAdd) hasDevAdmin public returns(bool){
+    RoleProvider(roleAdd).setRwdsAdd(_rwdsAdd);
+    return true;
+  }
+  function setRoleAdd(address _role) hasDevAdmin public returns(bool){
+    roleAdd = _role;
+    return true;
+  }
+  function setDevAdd(address _devAdd) hasDevAdmin public returns(bool){
+    RoleProvider(roleAdd).setDevSigAddress(_devAdd);
+    return true;
+  }
+
+  ///@notice
+  /*~~~>
+    For setting the proxy role in the role provider contract
+  <~~~*/
+  function setProxyRole(address _sig) hasDevAdmin public returns(bool){
+    RoleProvider(roleAdd).setProxyRoleAddress(_sig);
+    return true;
+  }
+
+  ///@notice
+  /*~~~>
+    For controlling the Collection contract
+  <~~~*/
+  function editMarketplaceContracts(bool[] calldata restricted, address[] calldata nftContract) hasAdmin public returns(bool){
+    address collectionsAdd = RoleProvider(roleAdd).fetchAddress(COLLECTION);
+    ICollections(collectionsAdd).editMarketplaceContracts(restricted, nftContract);
+    return true;
+  }
+
+  ///@notice
+  /*~~~> 
+    For setting the Token List(s)
+  <~~~*/
+  function setTokenLists(bool[] calldata _canOffer, address[] calldata _token) hasAdmin public returns(bool){
+    address collectionsAdd = RoleProvider(roleAdd).fetchAddress(COLLECTION);
+    ICollections(collectionsAdd).setTokenLists(_canOffer, _token);
+    return true;
+  }
+
+  ///@notice
+  /*~~~>
+  For controlling MarketMint contract
+  <~~~*/
+  function setNewMintRedemption(uint amount, address _toke) hasAdmin public returns(bool){
+    address marketMintAdd = RoleProvider(roleAdd).fetchAddress(MINT);
+    MarketMint(marketMintAdd).setNewRedemption(amount, _toke);
+    return true;
+  }
+  function resetMintRedemptionToken(uint64 _redeemAmount, address _contract) hasAdmin public returns(bool){
+    address marketMintAdd = RoleProvider(roleAdd).fetchAddress(MINT);
+    MarketMint(marketMintAdd).resetRedemptionToken(_redeemAmount, _contract);
+    return true;
+  }
+  function setMintDeployAmnt(uint dplyAmnt) hasAdmin public returns(bool){
+    address marketMintAdd = RoleProvider(roleAdd).fetchAddress(MINT);
+    MarketMint(marketMintAdd).setDeployAmnt(dplyAmnt);
+    return true;
+  }
+
+  /// @notice
+  /*~~~>
+    For controlling the NFT contract accessibility roles after initial deployment
+  <~~~*/
+  function grantNFTRoles(bytes32 role, address account) hasAdmin public returns(bool) {
+    address nftAdd = RoleProvider(roleAdd).fetchAddress(NFTADD);
+    NFT(nftAdd).grantRole(role, account);
+    return true;
+  }
+  function revokeNFTRoles(bytes32 role, address account) hasAdmin public returns(bool) {
+    address nftAdd = RoleProvider(roleAdd).fetchAddress(NFTADD);
+    NFT(nftAdd).revokeRole(role, account);
+    return true;
+  }
+
+  /*~~~>
+  Fallback functions
+  <~~~*/
+  /*~~~> External ETH transfer forwarded to role provider contract <~~~*/
+  event FundsForwarded(uint value, address _from, address _to);
+  receive() external payable {
+    payable(roleAdd).transfer(msg.value);
+      emit FundsForwarded(msg.value, msg.sender, roleAdd);
+  }
+}
+
+//*~~~> SPDX-License-Identifier: MIT
+pragma solidity 0.8.7;
+
+interface ICollections {
+  function isRestricted(address nftContract) external returns(bool);
+  function canOfferToken(address token) external returns (bool);
+  function editMarketplaceContracts( bool[] memory restricted, address[] memory nftContract) external returns (bool);
+  function setTokenLists(bool[] calldata _canOffer, address[] calldata _token) external returns(bool);
+}
+
+//*~~~> SPDX-License-Identifier: MIT
+pragma solidity 0.8.7;
+
+interface IRewardsController {
+  function createNftHodler(uint tokenId) external returns (bool);
+  function depositERC20Rewards(uint amount, address tokenAddress) external returns(bool);
+  function getFee() external view returns(uint);
+  function setFee(uint _fee) external returns (bool);
+  function depositEthRewards(uint reward) external payable returns(bool);
+  function createUser(address userAddress) external returns(bool);
+  function setUser(bool canClaim, address userAddress) external returns(bool);
+}
+
+//*~~~> SPDX-License-Identifier: MIT
+pragma solidity 0.8.7;
+
+interface IRoleProvider {
+  function hasTheRole(bytes32 role, address _address) external returns(bool);
+  function fetchAddress(bytes32 _var) external returns(address);
+  function hasContractRole(address _address) external view returns(bool);
+}
