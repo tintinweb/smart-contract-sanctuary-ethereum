@@ -1,0 +1,1054 @@
+// SPDX-License-Identifier: MIT
+/*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@              @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                      @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@                    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+// @dev: @brougkr
+pragma solidity 0.8.13;
+import {IERC721} from '@openzeppelin/contracts/interfaces/IERC721.sol';
+import {IERC20} from '@openzeppelin/contracts/interfaces/IERC20.sol';
+import {Pausable} from '@openzeppelin/contracts/security/Pausable.sol';
+import {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';
+import {ReentrancyGuard} from '@openzeppelin/contracts/security/ReentrancyGuard.sol';
+import {IArtBlocks} from './IArtBlocks.sol';
+
+contract CryptoCitizenLiveMint is Ownable, Pausable, ReentrancyGuard
+{   
+    /*-------------------*/
+    /*  STATE VARIABLES  */
+    /*-------------------*/
+
+    // address public immutable _BRTMULTISIG = 0xB96E81f80b3AEEf65CB6d0E280b15FD5DBE71937;              // Bright Moments Multisig Contract Address    
+    address public immutable _BRTMULTISIG = 0x5778B0B140Fa7a62B96c193cC8621e6E96c088A5; //testnet
+    bytes32 private immutable _MINTER_ROLE = keccak256("MINTER_ROLE");                               // Minter Role
+    bytes32 private immutable _DEACTIVATED_ROLE = keccak256("DELISTED_ROLE");                        // Deactivated Role
+    address public _ERC20_BRT_TokenAddress = 0xaa6e5Db9977dB33d33f7351b80F2DF6B3979d603;             // BRT Contract Address   
+    address public _ArtBlocksMintingContractAddress = 0x296FF13607C80b550dd136435983734c889Ccca4;    // ArtBlocks Minting Contract Address
+    address public _ArtBlocksCoreContractAddress = 0x24CCA47Fcc4fe09b51aBE8A8124C3da01765bE14;       // Artblocks NFT Collection Contract Address
+    address public _GoldenTokenAddress = 0x8b68b0d0BFE370F9cb6f0107a6F1b8B1372De8ba;                 // Golden Token Contract Address
+    uint public _ArtBlocksProjectID = 1;                                                             // ArtBlocks Project ID
+    uint public _CurrentCityIndex;                                                                   // Current City Index
+
+    /*-------------------*/
+    /*  PUBLIC MAPPINGS  */
+    /*-------------------*/
+
+    /**
+     * @dev Mapping `CurrentCityIndex` => `TicketTokenID` => `State Variable`
+     **/
+    mapping(uint => mapping(uint => address)) public mintingBrightList; //Returns Address Of Minting Receiver For Citizen Mint At Index
+    mapping(uint => mapping(uint => address)) public mintingBrightListArtist; //Returns Address Of Minting Receiver For Artist Mint 
+    mapping(uint => mapping(uint => address)) public ArtistMintPasses; //Returns Contract Address Of Artist Mint Pass NFT 
+    mapping(uint => mapping(uint => address)) public ArtistContracts; //Returns Contract Address Of Artist Collection NFT
+    mapping(uint => mapping(uint => uint)) public ArtistIndex; //Returns Index Of Next Minting NFT Index
+
+    /**
+     * @dev Mapping `TicketTokenID` => `minted`
+     **/
+    mapping (uint => mapping(uint => bool)) public minted; 
+
+    /**
+     * @dev Mapping `ArtistTicketID` => `minted`
+     */
+    mapping (uint => mapping(uint => bool)) public mintedArtist;
+
+    /*-------------------*/
+    /*  PRIVATE MAPPINGS */
+    /*-------------------*/
+
+    /**
+     * @dev Mapping `address` => `role`
+     **/
+    mapping (address => bytes32) private role;
+
+    /*-------------------*/
+    /*      EVENTS       */
+    /*-------------------*/
+
+    /**
+     * @dev Emitted When `Redeemer` IRL-mints CryptoCitizen Corresponding To Their Redeemed `TicketTokenID`.
+     **/
+    event LiveMintComplete(address indexed Redeemer, uint indexed TicketTokenID, uint indexed CitizenTokenID);
+
+    /**
+     * @dev Emitted When `Redeemer` IRL-mints Artist Corresponding To `ArtistID`
+     */
+    event LiveMintArtistComplete(address indexed Redeemer, uint indexed TicketTokenID, uint indexed ArtistID);
+
+    /**
+     * @dev Emitted When `Redeemer` Redeems Golden Token Corresponding To `TicketTokenID` 
+     **/
+    event GoldenTokenRedeemed(address indexed Redeemer, uint indexed TicketTokenID);
+
+    /**
+     * @dev Emitted When `Redeemer` Unredeems Golden Token Corresponding To `TicketTokenID` 
+     **/
+    event GoldenTokenUnRedeemed(address indexed Redeemer, uint indexed TicketTokenID);
+
+    /**
+     * @dev Emitted When `Redeemer` Redeems Artist Mint Pass Corresponding To `TicketTokenID`
+     */
+    event ArtistMintPassRedeemed(address indexed Redeemer, uint indexed ArtistID, uint indexed TicketTokenID);
+
+    /**
+     * @dev Emitted When `Redeemer` UnRedeems Artist Mint Pass Corresponding To `TicketTokenID`
+     */
+    event ArtistMintPassUnRedeemed(address indexed Redeemer, uint indexed ArtistID, uint indexed TicketTokenID);
+
+    /**
+     * @dev Emitted When `NewMinter` Is Added To BRT Minter List
+     */
+    event MinterAdded(address NewMinter);
+
+    /**
+     * @dev Emitted When `RemovedMinter` Is Removed From BRT Minter List
+     */
+    event MinterRemoved(address RemovedMinter);
+
+    /**
+     * @dev Emitted When `NewProjectID` Replaces `OldProjectID`
+     */
+    event ModifiedProjectID(uint OldProjectID, uint NewProjectID);
+
+    /**
+     * @dev Emitted When `NewMintingAddress` Replaces `OldMintingAddress`
+     */
+    event ArtBlocksMintingAddressChanged(address OldMintingAddress, address NewMintingAddress);
+
+    /**
+     * @dev Emitted When `NewCoreAddress` Replaces `OldCoreAddress`
+     */
+    event ArtBlocksCoreAddressChanged(address OldCoreAddress, address NewCoreAddress);
+
+    /**
+     * @dev Emitted When `NewGTAddress` Replaces `OldGTAddress`
+     */
+    event GoldenTokenAddressChanged(address OldGTAddress, address NewGTAddress);
+
+    /**
+     * @dev Emitted When `NewERC20Address` Replaces `OldERC20Address`
+     */
+    event ERC20AddressChanged(address OldERC20Address, address NewERC20Address);
+
+    /**
+     * @dev Emitted When `NewIndex` Replaces `OldIndex`
+     */
+    event CurrentCityIndexChanged(uint OldIndex, uint NewIndex);
+           
+    /**
+     * @dev Emitted When New City State Variables Are Modified 
+     */
+    event NewCityStarted(
+        address ERC20_BRT_TokenAddress,
+        address ArtBlocksMintingContractAddress,
+        address ArtBlocksCoreContractAddress,
+        address GoldenTokenAddress,
+        uint ArtBlocksProjectID,
+        uint CurrentCityIndex
+    );
+
+    /**
+     * @dev Emitted When New Artists Are Seeded Into The Contract
+     */
+    event NewArtists(uint[] ArtistIDs, address[] MintPasses, address[] MintingAddresses);
+
+    /*-------------------*/
+    /*    CONSTRUCTOR    */
+    /*-------------------*/
+
+    /**
+     * @dev Pre-Approves 1000 BRT For Purchasing, Grants BRT Minter Roles, & Transfers Ownership To BRT Multisig
+     **/
+    constructor() 
+    { 
+        role[0x5778B0B140Fa7a62B96c193cC8621e6E96c088A5] = _MINTER_ROLE; // BRT Minter #1
+        role[0xfd0cA120bcd30a700165294Aa9a89642732C1583] = _MINTER_ROLE;
+        role[msg.sender] = _MINTER_ROLE;
+        // transferOwnership(_BRTMULTISIG); //for mainnet
+    }
+
+    /*-------------------*/
+    /*  PUBLIC FUNCTIONS */
+    /*-------------------*/
+
+    /**
+     * @dev Redeems Golden Token & BrightLists Address To Receive CryptoCitizen
+     **/
+    function RedeemGT(uint TicketTokenID) public nonReentrant whenNotPaused
+    {
+        require(IERC721(_GoldenTokenAddress).ownerOf(TicketTokenID) == msg.sender, "Sender Does Not Own Token With The Input Token ID");
+        IERC721(_GoldenTokenAddress).transferFrom(msg.sender, _BRTMULTISIG, TicketTokenID);
+        require(IERC721(_GoldenTokenAddress).ownerOf(TicketTokenID) == _BRTMULTISIG, "ERC721: Golden Token Redemption Failed");
+        mintingBrightList[_CurrentCityIndex][TicketTokenID] = msg.sender;
+        emit GoldenTokenRedeemed(msg.sender, TicketTokenID);
+    }
+
+    /**
+     * @dev Redeems Golden Token & BrightLists Address To Receive CryptoCitizen
+     **/
+    function RedeemArtistPass(uint ArtistID, uint TicketTokenID) public nonReentrant whenNotPaused
+    {
+        address ArtistMintPass = resolveArtistMintPass(ArtistID);
+        require(IERC721(ArtistMintPass).ownerOf(TicketTokenID) == msg.sender, "Sender Does Not Own Token With The Input Token ID");
+        IERC721(ArtistMintPass).transferFrom(msg.sender, _BRTMULTISIG, TicketTokenID);
+        require(IERC721(ArtistMintPass).ownerOf(TicketTokenID) == _BRTMULTISIG, "ERC721: Golden Token Redemption Failed");
+        mintingBrightListArtist[ArtistID][TicketTokenID] = msg.sender;
+        emit ArtistMintPassRedeemed(msg.sender, ArtistID, TicketTokenID);
+    }
+
+    /**
+     * @dev Un-Redeems Golden Token & Refunds The User Their Token
+     **/
+    function UnRedeemGT(uint TicketTokenID) public nonReentrant whenNotPaused
+    {
+        require(mintingBrightList[_CurrentCityIndex][TicketTokenID] == msg.sender, "Sender Has Not Redeemed Golden Token With The Input TokenID");
+        require(!minted[_CurrentCityIndex][TicketTokenID], "TokenTokenID Has Been Redeemed & Minted & Is No Longer Valid");
+        mintingBrightList[_CurrentCityIndex][TicketTokenID] = address(0);
+        IERC721(_GoldenTokenAddress).transferFrom(_BRTMULTISIG, msg.sender, TicketTokenID);
+        emit GoldenTokenUnRedeemed(msg.sender, TicketTokenID);
+    }
+
+    /*-------------------*/
+    /*     BRT STAFF     */
+    /*-------------------*/
+
+    /**
+     * @dev IRL Minting Function Available Only At Bright Moments NFT Art Gallery 
+     **/
+    function _LiveMint(uint TicketTokenID) public onlyMinter whenNotPaused 
+    {
+        address to = readBrightList(TicketTokenID);
+        require(to != address(0), "Golden Token Entered Is Not Brightlisted");
+        require(!minted[_CurrentCityIndex][TicketTokenID], "Golden Token Already Minted");
+        mintingBrightList[_CurrentCityIndex][TicketTokenID] = address(0);
+        minted[_CurrentCityIndex][TicketTokenID] = true;
+        uint CitizenTokenID = IArtBlocks(_ArtBlocksMintingContractAddress).purchase(_ArtBlocksProjectID);
+        IERC721(_ArtBlocksCoreContractAddress).transferFrom(address(this), to, CitizenTokenID);
+        emit LiveMintComplete(to, TicketTokenID, CitizenTokenID);
+    }
+
+    /**
+     * @dev IRL Minting Function Available Only At Bright Moments NFT Art Gallery 
+     **/
+    function _LiveMintArtist(uint ArtistID, uint TicketTokenID) public onlyMinter whenNotPaused 
+    {
+        address to = readBrightListArtist(ArtistID, TicketTokenID);
+        require(to != address(0), "Mint Pass Entered Is Not Brightlisted");
+        require(!mintedArtist[ArtistID][TicketTokenID], "Artist Mint Pass Already Minted");
+        mintingBrightListArtist[ArtistID][TicketTokenID] = address(0);
+        mintedArtist[ArtistID][TicketTokenID] = true;
+        address ArtistContractAddress = resolveArtistContract(ArtistID);
+        IERC721(ArtistContractAddress).transferFrom(_BRTMULTISIG, to, ArtistIndex[_CurrentCityIndex][ArtistID]);
+        emit LiveMintArtistComplete(to, ArtistID, ArtistIndex[_CurrentCityIndex][ArtistID]);
+        ArtistIndex[_CurrentCityIndex][ArtistID]++;
+    }
+
+    /*-------------------*/
+    /*  ADMIN FUNCTIONS  */
+    /*-------------------*/
+
+    /**
+     * @dev Approves BRT For Purchasing On ArtBlocks Contract
+     **/
+    function __approveBRT(address contractAddress, uint amount) external onlyOwner 
+    { 
+        IERC20(contractAddress).approve(_ArtBlocksMintingContractAddress, amount); 
+    }
+
+    /**
+     * @dev Grants Address BRT Minter Role
+     **/
+    function __minterAdd(address Minter) external onlyOwner 
+    { 
+        role[Minter] = _MINTER_ROLE; 
+        emit MinterAdded(Minter);
+    }
+
+    /**
+     * @dev Deactivates Address From BRT Minter Role
+     **/
+    function __minterRemove(address Minter) external onlyOwner 
+    { 
+        role[Minter] = _DEACTIVATED_ROLE; 
+        emit MinterRemoved(Minter);
+    }
+
+    /**
+     * @dev Modifies ArtBlocks Minting Address
+     */
+    function __changeArtBlocksMintingAddress(address NewMintingAddress) external onlyOwner
+    {
+        address OldMintingAddress = _ArtBlocksMintingContractAddress;
+        _ArtBlocksMintingContractAddress = NewMintingAddress;
+        emit ArtBlocksMintingAddressChanged(OldMintingAddress, _ArtBlocksMintingContractAddress);
+    }
+
+    /**
+     * @dev Modifies ArtBlocks Core Address
+     */
+    function __changeArtBlocksCoreAddress(address NewMintingAddress) external onlyOwner
+    {
+        address OldMintingAddress = _ArtBlocksCoreContractAddress;
+        _ArtBlocksCoreContractAddress = NewMintingAddress;
+        emit ArtBlocksCoreAddressChanged(OldMintingAddress, _ArtBlocksCoreContractAddress);
+    }
+
+    /**
+     * @dev Modifies The Current ArtBlocks ProjectID
+     **/
+    function __changeArtBlocksProjectID(uint ArtBlocksProjectID) external onlyOwner 
+    { 
+        uint OldProjectID = _ArtBlocksProjectID;
+        _ArtBlocksProjectID = ArtBlocksProjectID; 
+        emit ModifiedProjectID(OldProjectID, _ArtBlocksProjectID);
+    }
+
+    /**
+     * @dev Modifies Golden Token Address
+     */
+    function __changeGoldenTokenAddress(address NewGTAddress) external onlyOwner
+    {
+        address OldAddress = _GoldenTokenAddress;
+        _GoldenTokenAddress = NewGTAddress;
+        emit GoldenTokenAddressChanged(OldAddress, _GoldenTokenAddress);
+    }
+
+    /**
+     * @dev Modifies ERC20 BRT Minting Token Address
+     */
+    function __changeERC20Address(address NewERC20Address) external onlyOwner
+    {
+        address OldAddress = _ERC20_BRT_TokenAddress;
+        _ERC20_BRT_TokenAddress = NewERC20Address;
+        emit ERC20AddressChanged(OldAddress, _ERC20_BRT_TokenAddress);
+    }
+
+    /**
+     * @dev Modifies Current City Index
+     */
+    function __changeCityIndex(uint Index) external onlyOwner
+    {
+        uint OldIndex = _CurrentCityIndex;
+        _CurrentCityIndex = Index;
+        emit CurrentCityIndexChanged(OldIndex, _CurrentCityIndex);
+    }
+
+    /**
+     * @dev Batch Changes State Variables For LiveMint
+     * note: __ApproveBRT(_ERC20_BRT_TokenAddress) Will Need To Be Called On This Contract After This Function
+     * note: This Is So That Variables Can Be Double Checked & Mint Will Not Be Active Until That Is Complete
+     */
+    function __NewCity(
+        address ERC20TokenAddress,
+        address ArtBlocksMintingContractAddress,
+        address ArtBlocksCoreContractAddress,
+        address GoldenTokenAddress,
+        uint ArtBlocksProjectID,
+        uint CurrentCityIndex) 
+    external onlyOwner 
+    {
+        _ERC20_BRT_TokenAddress = ERC20TokenAddress;
+        _ArtBlocksMintingContractAddress = ArtBlocksMintingContractAddress;
+        _ArtBlocksCoreContractAddress = ArtBlocksCoreContractAddress;
+        _GoldenTokenAddress = GoldenTokenAddress;
+        _ArtBlocksProjectID = ArtBlocksProjectID;
+        _CurrentCityIndex = CurrentCityIndex;
+        emit NewCityStarted(
+            _ERC20_BRT_TokenAddress,
+            _ArtBlocksMintingContractAddress,
+            _ArtBlocksCoreContractAddress, 
+            _GoldenTokenAddress, 
+            _ArtBlocksProjectID, 
+            _CurrentCityIndex
+        );
+    }
+
+    /**
+     * @dev Instantiates New Artist Mint Addresses
+     */
+    function __NewArtistMintContract(uint[] calldata ArtistIDs, address[] calldata ArtistContractAddresses) external onlyOwner
+    {
+        require(ArtistIDs.length == ArtistContractAddresses.length, "Arrays Need To Be Equal Length");
+        for(uint i; i < ArtistContractAddresses.length; i++) 
+        { 
+            ArtistContracts[_CurrentCityIndex][ArtistIDs[i]] = ArtistContractAddresses[i]; 
+        }
+    }
+
+    /**
+     * @dev Instantiates New Artist MintPass Addresses
+     */
+    function __NewArtistMintPasses(uint[] calldata ArtistIDs, address[] calldata ArtistContractAddresses) external onlyOwner
+    {
+        require(ArtistIDs.length == ArtistContractAddresses.length, "Arrays Need To Be Equal Length");
+        for(uint i; i < ArtistContractAddresses.length; i++) 
+        { 
+            ArtistMintPasses[_CurrentCityIndex][ArtistIDs[i]] = ArtistContractAddresses[i]; 
+        }
+    }
+
+    /**
+     * @dev Instantiates New Artists At `CurrentCityIndex` => `ArtistID[i]`
+     */
+    function __NewArtists(
+        uint[] calldata ArtistIDs, 
+        address[] calldata MintPasses, 
+        address[] calldata MintingAddresses
+    ) external onlyOwner {
+        require(
+            ArtistIDs.length == MintPasses.length && MintPasses.length == MintingAddresses.length, 
+            "Array Length Must Be Of Equal Value"
+        );
+        for(uint i; i < ArtistIDs.length; i++)
+        {
+            ArtistMintPasses[_CurrentCityIndex][ArtistIDs[i]] = MintingAddresses[i];
+            ArtistContracts[_CurrentCityIndex][ArtistIDs[i]] = MintingAddresses[i];
+        }
+    }
+
+    /**
+     * @dev Withdraws Any Ether Sent to Contract to Multisig
+     **/
+    function __withdrawEther() external onlyOwner { payable(msg.sender).transfer(address(this).balance); }
+
+    /**
+     * @dev Withdraws ERC20 Tokens to Multisig
+     **/
+    function __withdrawERC20(address tokenAddress) external onlyOwner 
+    { 
+        IERC20 erc20Token = IERC20(tokenAddress);
+        uint balance = erc20Token.balanceOf(address(this));
+        require(balance > 0, "0 ERC20 Balance At `tokenAddress`");
+        erc20Token.transfer(msg.sender, balance);
+    }
+
+    /**
+     * @dev Withdraws Any NFT Mistakenly Sent To This Contract.
+     */
+    function __withdrawERC721(address ContractAddress, address Recipient, uint TokenID) external onlyOwner
+    {
+        IERC721(ContractAddress).transferFrom(address(this), Recipient, TokenID);
+    }
+
+    /*-------------------*/
+    /*    PUBLIC VIEW    */
+    /*-------------------*/
+
+    /**
+     * @dev Returns BrightListed Address Corresponding to GoldenToken `TicketTokenID`
+     **/
+    function readBrightList(uint TicketTokenID) public view returns(address) { return mintingBrightList[_CurrentCityIndex][TicketTokenID]; }
+
+    /**
+     * @dev Returns BrightListed Address Corresponding to Mint Pass `ArtistID` & `TicketTokenID`
+     */
+    function readBrightListArtist(uint ArtistID, uint TicketTokenID) public view returns(address) { return mintingBrightListArtist[ArtistID][TicketTokenID]; }
+
+    /**
+     * @dev Returns Artist NFT Contract Address Correpsonding To ArtistID (1 through 10)
+     */
+    function resolveArtistContract(uint ArtistID) public view returns(address) { return ArtistContracts[_CurrentCityIndex][ArtistID]; }
+
+    /**
+     * @dev Returns Artist Mint Pass Contract Address Correpsonding To ArtistID
+     */
+    function resolveArtistMintPass(uint ArtistID) public view returns(address) { return ArtistMintPasses[_CurrentCityIndex][ArtistID]; }
+
+    /*-------------------*/
+    /*      MODIFIERS    */
+    /*-------------------*/
+
+    /**
+     * @dev Function Modifier That Allows Only BrightListed BRT Minters To Access
+     **/
+    modifier onlyMinter() 
+    {
+        require(role[msg.sender] == _MINTER_ROLE, "OnlyMinter: Caller Is Not Approved BRT Minter");
+        _;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (interfaces/IERC721.sol)
+
+pragma solidity ^0.8.0;
+
+import "../token/ERC721/IERC721.sol";
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (interfaces/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+import "../token/ERC20/IERC20.sol";
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (security/Pausable.sol)
+
+pragma solidity ^0.8.0;
+
+import "../utils/Context.sol";
+
+/**
+ * @dev Contract module which allows children to implement an emergency stop
+ * mechanism that can be triggered by an authorized account.
+ *
+ * This module is used through inheritance. It will make available the
+ * modifiers `whenNotPaused` and `whenPaused`, which can be applied to
+ * the functions of your contract. Note that they will not be pausable by
+ * simply including this module, only once the modifiers are put in place.
+ */
+abstract contract Pausable is Context {
+    /**
+     * @dev Emitted when the pause is triggered by `account`.
+     */
+    event Paused(address account);
+
+    /**
+     * @dev Emitted when the pause is lifted by `account`.
+     */
+    event Unpaused(address account);
+
+    bool private _paused;
+
+    /**
+     * @dev Initializes the contract in unpaused state.
+     */
+    constructor() {
+        _paused = false;
+    }
+
+    /**
+     * @dev Returns true if the contract is paused, and false otherwise.
+     */
+    function paused() public view virtual returns (bool) {
+        return _paused;
+    }
+
+    /**
+     * @dev Modifier to make a function callable only when the contract is not paused.
+     *
+     * Requirements:
+     *
+     * - The contract must not be paused.
+     */
+    modifier whenNotPaused() {
+        require(!paused(), "Pausable: paused");
+        _;
+    }
+
+    /**
+     * @dev Modifier to make a function callable only when the contract is paused.
+     *
+     * Requirements:
+     *
+     * - The contract must be paused.
+     */
+    modifier whenPaused() {
+        require(paused(), "Pausable: not paused");
+        _;
+    }
+
+    /**
+     * @dev Triggers stopped state.
+     *
+     * Requirements:
+     *
+     * - The contract must not be paused.
+     */
+    function _pause() internal virtual whenNotPaused {
+        _paused = true;
+        emit Paused(_msgSender());
+    }
+
+    /**
+     * @dev Returns to normal state.
+     *
+     * Requirements:
+     *
+     * - The contract must be paused.
+     */
+    function _unpause() internal virtual whenPaused {
+        _paused = false;
+        emit Unpaused(_msgSender());
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (access/Ownable.sol)
+
+pragma solidity ^0.8.0;
+
+import "../utils/Context.sol";
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+        _;
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (security/ReentrancyGuard.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Contract module that helps prevent reentrant calls to a function.
+ *
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
+ * (reentrant) calls to them.
+ *
+ * Note that because there is a single `nonReentrant` guard, functions marked as
+ * `nonReentrant` may not call one another. This can be worked around by making
+ * those functions `private`, and then adding `external` `nonReentrant` entry
+ * points to them.
+ *
+ * TIP: If you would like to learn more about reentrancy and alternative ways
+ * to protect against it, check out our blog post
+ * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ */
+abstract contract ReentrancyGuard {
+    // Booleans are more expensive than uint256 or any type that takes up a full
+    // word because each write operation emits an extra SLOAD to first read the
+    // slot's contents, replace the bits taken up by the boolean, and then write
+    // back. This is the compiler's defense against contract upgrades and
+    // pointer aliasing, and it cannot be disabled.
+
+    // The values being non-zero value makes deployment a bit more expensive,
+    // but in exchange the refund on every call to nonReentrant will be lower in
+    // amount. Since refunds are capped to a percentage of the total
+    // transaction's gas, it is best to keep them low in cases like this one, to
+    // increase the likelihood of the full refund coming into effect.
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        // On the first call to nonReentrant, _notEntered will be true
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+
+        _;
+
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+interface IArtBlocks { function purchase(uint256 _projectId) payable external returns (uint tokenID); }
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (token/ERC721/IERC721.sol)
+
+pragma solidity ^0.8.0;
+
+import "../../utils/introspection/IERC165.sol";
+
+/**
+ * @dev Required interface of an ERC721 compliant contract.
+ */
+interface IERC721 is IERC165 {
+    /**
+     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.
+     */
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.
+     */
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+
+    /**
+     * @dev Returns the number of tokens in ``owner``'s account.
+     */
+    function balanceOf(address owner) external view returns (uint256 balance);
+
+    /**
+     * @dev Returns the owner of the `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function ownerOf(uint256 tokenId) external view returns (address owner);
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
+     * are aware of the ERC721 protocol to prevent tokens from being forever locked.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Transfers `tokenId` token from `from` to `to`.
+     *
+     * WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Gives permission to `to` to transfer `tokenId` token to another account.
+     * The approval is cleared when the token is transferred.
+     *
+     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.
+     *
+     * Requirements:
+     *
+     * - The caller must own the token or be an approved operator.
+     * - `tokenId` must exist.
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address to, uint256 tokenId) external;
+
+    /**
+     * @dev Returns the account approved for `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function getApproved(uint256 tokenId) external view returns (address operator);
+
+    /**
+     * @dev Approve or remove `operator` as an operator for the caller.
+     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.
+     *
+     * Requirements:
+     *
+     * - The `operator` cannot be the caller.
+     *
+     * Emits an {ApprovalForAll} event.
+     */
+    function setApprovalForAll(address operator, bool _approved) external;
+
+    /**
+     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.
+     *
+     * See {setApprovalForAll}
+     */
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes calldata data
+    ) external;
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC165 standard, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-165[EIP].
+ *
+ * Implementers can declare support of contract interfaces, which can then be
+ * queried by others ({ERC165Checker}).
+ *
+ * For an implementation, see {ERC165}.
+ */
+interface IERC165 {
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.5.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
