@@ -1,0 +1,79 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "./ERC721A.sol";
+
+contract LazyMutantLion is ERC721A {
+
+    constructor(string memory baseURI) ERC721A("LazyMutantLion", "LML") {
+        setBaseURI(baseURI);
+    }
+
+    uint256 public constant MAX_SUPPLY = 5000;
+
+    uint256 private mintCount = 0;
+
+    uint256 public price = 20000000000000000;
+
+    uint256 public referralPer = 10;
+
+    string private baseTokenURI;
+      
+    bool public saleOpen = false;
+
+    event Minted(uint256 totalMinted);
+      
+    function totalSupply() public view override returns (uint256) {
+        return mintCount;
+    }
+
+    function setBaseURI(string memory baseURI) public onlyOwner {
+        baseTokenURI = baseURI;
+    }
+
+    function changePrice(uint256 _newPrice) external onlyOwner {
+        price = _newPrice;
+    }
+
+    function flipSale() external onlyOwner {
+        saleOpen = !saleOpen;
+    }
+
+    function setreferralper(uint256 _newPercentage) external onlyOwner {
+        referralPer = _newPercentage;
+    }
+
+    function withdraw() external onlyOwner {
+        (bool success, ) = payable(msg.sender).call{value: address(this).balance}("");
+        require(success, "Transfer failed.");
+    }
+
+    function mint(uint256 _count, address _referral) external payable {
+        uint256 supply = totalSupply();
+
+        require(supply + _count <= MAX_SUPPLY, "Exceeds maximum supply");
+        require(_count > 0, "Minimum 1 NFT has to be minted per transaction");
+
+        if (msg.sender != owner()) {
+            require(saleOpen, "Sale is not open yet");
+            require(
+                _count <= 20,
+                "Maximum 20 NFTs can be minted per transaction"
+            );
+            require(
+                msg.value >= price * _count,
+                "Ether sent with this transaction is not correct"
+            );
+        }
+        mintCount += _count;      
+        _safeMint(msg.sender, _count);
+        if(_referral != address(0) && _referral != msg.sender){
+            payable(_referral).transfer(msg.value * referralPer / 100);
+        }
+        emit Minted(_count);       
+    }
+
+    function _baseURI() internal view virtual override returns (string memory) {
+        return baseTokenURI;
+    }
+}
