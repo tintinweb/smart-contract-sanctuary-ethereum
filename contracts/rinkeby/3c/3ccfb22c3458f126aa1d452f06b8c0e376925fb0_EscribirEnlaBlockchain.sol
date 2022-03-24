@@ -1,0 +1,17 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-03-24
+*/
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.7.0 <0.8.0;
+
+contract EscribirEnlaBlockchain {
+    string texto;
+    function Escribir(string calldata _texto) public {
+        texto = _texto;
+    }
+    function Leer() public view returns (string memory){
+        return texto;
+    }
+}
