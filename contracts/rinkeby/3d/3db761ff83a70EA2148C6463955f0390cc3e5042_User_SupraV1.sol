@@ -1,0 +1,53 @@
+/**
+   User can access service
+        
+    1. Price 
+            - Current Price
+
+*/
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface IOracleContract {
+    function getCurrentPrice(string memory currencyPair) external view returns (string memory, uint256);
+   
+}
+
+interface IProxy {
+    function getProxyImplementation(address _proxy) external view returns (address);                      // TransparentUpgradableProxy
+}
+
+contract User_SupraV1 {
+
+    IOracleContract internal oracleInstance;
+    IProxy internal iproxyVariable;
+    address proxyAddress;
+    
+    constructor() {
+        proxyAddress = 0x50D64998EAFc6Ada6c76c9A9C9480e0eAb3ea2c2; // transparent
+       
+    }
+    
+    // ProxyAdmin [TransparentUpgradableProxy] ==> Implementation address 
+    function getCurrentImplementation(address _proxy) public view returns (address){
+        return IProxy(0x3426e4d35ae0725F703e8959d250B7DeA1492d65).getProxyImplementation(_proxy);  // Proxy Admin 
+    }
+
+    /*
+        Following function is only available to : 
+            1. whitelisted users
+            2. Who has purchased access time
+    **/
+
+    // function currentPrice(address _proxyAddress, string memory currencyPair) public view returns(string memory, uint256){
+    //    return IOracleContract(getCurrentImplementation(_proxyAddress)).getCurrentPrice(currencyPair); 
+    // }
+    
+    
+    // +  ++++++++++++++++
+    function currentPrice(string memory currencyPair) public view returns(string memory, uint256){
+       return IOracleContract(0xbAE0A23Ca73A70fbC6c94E65E1dcda5E5B64cf74).getCurrentPrice(currencyPair); 
+    } 
+
+}
