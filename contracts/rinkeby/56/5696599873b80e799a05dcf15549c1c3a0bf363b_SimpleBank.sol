@@ -1,0 +1,99 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-03-28
+*/
+
+// SPDX-License-Identifier: MIT
+
+// 3/15 作業，設計出一個簡易的去中心化銀行，功能有存錢、領錢、轉帳、查詢餘額，寫出註解下方的程式碼。
+// 另外，請善用 msg.sender、msg.value。最後，將作業開源至Etherscan，上傳合約地址到 Moodle。
+
+pragma solidity ^0.8.0;
+
+contract SimpleBank{
+
+    // 需要一個 mapping 用於存放某地址目前的餘額（使用private!!）
+    mapping(address =>uint)private balance;
+        
+    
+    // 需要兩個全域變數（分別是銀行的模樣，請使用ipfs Hash上傳；銀行的名字。使用public!!）
+    address private owner;
+    string public bankPicture; 
+    string public bankName;
+
+    // 建構子constructor（為合約部署上區塊鏈後執行的第一個方法）
+    constructor(string memory _name, string memory ipfsHash) {
+        
+        owner=msg.sender; //讓第一個掛上智能合約的帳戶設為管理者
+        // 指定名字
+        bankName = _name;
+        
+        // 指定圖片
+        bankPicture = string(abi.encodePacked("https://ipfs.io/ipfs/Qme7SgerrVdFHbiSZHpqVDqPy6L93gMsoxiPLNzPMQSQh9",ipfsHash));
+        
+    } 
+    // 存錢 方法
+    function deposit() public payable returns(uint balances, bool success){
+        // require()內必須為true，才會繼續執行下方的程式碼(使用require()) 
+        require((msg.value+balance[msg.sender]) >= balance[msg.sender]);
+        //用balances[msg.sender]可讀取帳戶中有多少錢，沒錢不能存錢
+        // 存錢者增加餘額
+        balance[msg.sender] += msg.value;
+        // 回傳兩個數 --> 1.存的餘額 2.成功存入（以boolean代表）
+        return (balance[msg.sender],true);
+    }
+    
+    // 領錢 方法
+    function withdraw(uint withdrawAmount) public returns(uint remainingBal, bool success){
+
+        // 先判斷提領的數量必小於或等於提領者的餘額(使用require()) 
+    require(withdrawAmount <=balance[msg.sender]);
+        // 提領者餘額減少
+    balance[msg.sender] -= withdrawAmount;
+        // 將提領的錢轉給提領者
+        payable(msg.sender).transfer(withdrawAmount);
+        // 回傳兩個數 --> 1.剩餘餘額 2.成功提領（以boolean代表）
+    return (balance[msg.sender],true);  
+    }
+
+    // 轉幣 方法
+    function _transfer(address _to, uint _value)public returns(uint remainingBal, bool success) {
+        
+        // 先判斷轉帳的數量必小於或等於轉帳者的餘額(使用require()) 
+        require(balance[msg.sender] >= _value);
+        
+        // 轉幣者將餘額扣除轉走的數量
+        balance[msg.sender] -= _value;
+        
+        // 收錢者增加餘額數量
+         balance[_to] += _value;
+
+        // 回傳兩個數 --> 1.剩餘餘額 2.成功提領（以boolean代表）
+        return(balance[msg.sender],true);
+
+    }
+
+    // 查詢某地址地餘額 方法
+    function balanceOf(address _addr)public view returns(uint){
+                                        
+       // 只有自己可以查看自己的餘額 (使用require()) 
+        require(_addr == msg.sender);   
+
+       // 回傳查詢者的餘額
+       return(balance[msg.sender]);
+    }
+
+   // 修改銀行名稱 理論上這裡應該要用owner權限才能做
+    function setName(string calldata _name)public{
+
+        bankName = _name;
+
+    }
+   // 修改銀行圖片 理論上這裡應該要用owner權限才能做
+    function setPicture(string calldata _picture)public{
+        bankPicture = _picture;
+    }                                                                                     
+
+    
+
+}
+//view  pure
