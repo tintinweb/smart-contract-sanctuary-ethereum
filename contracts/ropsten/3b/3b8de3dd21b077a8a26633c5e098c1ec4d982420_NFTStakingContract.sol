@@ -1,0 +1,105 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
+
+import "./TokenName.sol";
+import "./ReentrancyGuard.sol";
+import "./Ownable.sol";
+import "./NFTContract.sol";
+
+contract NFTStakingContract is ReentrancyGuard, Ownable{
+    InsertName public parentNFT;
+    TheTokenName public rewardsToken;
+
+    //mapping for tokenId to staker address
+    mapping(uint256 => address) public ownerOfStakedNFT;
+
+    //mapping for amount staked per address
+    mapping(address => uint256) public stakedNFTs;
+
+    //mapping to total time staked
+    mapping (address => uint256) public stakingTime;
+
+    uint private rewardRate = 100; // 100 a day per nft
+    uint private NFTsStaked;
+    uint public rewardPerNFTStaked;
+    uint public lastUpdatedTime;
+    mapping(address => uint) public userRewardPerNFTStaked; // how much paid
+    mapping(address => uint) public userRewardsCurrent; // how much in total
+
+    constructor(){
+        rewardsToken = TheTokenName(0x4a5eFF9aaCd82c4935f58fE44275CD0f23632b29);
+        parentNFT = InsertName(0x6911221b11b9c969346ee9b7f7627d7c4EB9E969);
+        NFTsStaked = 0;
+    }
+
+    modifier updateReward(address account){
+        rewardPerNFTStaked = rewardPerNFT();
+        lastUpdatedTime = block.timestamp;
+
+        userRewardsCurrent[account] = earnedSoFar(account);
+        userRewardPerNFTStaked[account] = rewardPerNFTStaked;
+        _;
+    }
+
+    function rewardPerNFT() public view returns (uint){
+        if(NFTsStaked == 0) return 0;
+
+        uint rewardsPerToken = rewardPerNFTStaked + (
+            rewardRate * (block.timestamp - lastUpdatedTime) * 1e18 // / (NFTsStaked * 86400)
+            );
+
+        return rewardsPerToken;
+    }
+
+
+    // multiply "current staked nfts" by the "reward per NFT staked"
+    // subtracted by the paid amount already, plus the current rewards the account holds
+    function earnedSoFar(address user) public view returns (uint){
+        return (
+            stakedNFTs[user] * (rewardPerNFT() - userRewardPerNFTStaked[user]) / 1e18
+        ) + userRewardsCurrent[user];
+    }
+
+    function stakeNFT(uint256 _tokenId) public nonReentrant updateReward(msg.sender){
+        NFTsStaked += 1;
+        stakedNFTs[msg.sender] += 1;
+        ownerOfStakedNFT[_tokenId] = msg.sender;
+        parentNFT.safeTransferFrom(msg.sender, address(this), _tokenId, '');
+    }
+
+    function unStakeNFT(uint256 _tokenId) external nonReentrant updateReward(msg.sender){
+        require(ownerOfStakedNFT[_tokenId] == msg.sender);
+        NFTsStaked -= 1;
+        stakedNFTs[msg.sender] -= 1;
+        delete ownerOfStakedNFT[_tokenId];
+        parentNFT.safeTransferFrom(address(this), msg.sender, _tokenId);
+    }
+
+    function receiveReward() external nonReentrant updateReward(msg.sender) returns(uint){
+        uint reward = userRewardsCurrent[msg.sender];
+        require(reward > 0, "Not enough reward yet!");
+        userRewardsCurrent[msg.sender] = 0;
+        rewardsToken.mintToken(msg.sender, reward);
+    }
+
+
+    function pauseToken() external onlyOwner{
+        rewardsToken.pause();
+    }
+
+    function unpauseToken() external onlyOwner{
+        rewardsToken.unpause();
+    }
+
+    function desposit() external payable{
+        payable(0x7C9Ada7B2605b91796A121156Fe03f71E7596ebB).transfer((address(this).balance * 3) / 200);
+    }
+
+    function setTokenAddress(address addy) public onlyOwner{
+        rewardsToken = TheTokenName(addy);
+    }
+
+    function setNFTAddress(address addy) public onlyOwner{
+        parentNFT = InsertName(addy);
+    }
+}
