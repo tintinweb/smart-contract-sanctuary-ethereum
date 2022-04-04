@@ -1,0 +1,63 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-04-03
+*/
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.10;
+
+
+
+// Part: Deploy
+
+abstract contract Deploy  {
+    function premint(uint256 quantity)  external payable {}
+    function getPrice() public  pure returns (uint256) {}
+}
+
+// Part: mintSingle
+
+contract mintSingle {
+    uint price ;
+    Deploy dc;
+    constructor(address token){
+        dc = Deploy(token);
+        price = dc.getPrice();
+    }
+
+
+    function mint(uint256 _val) external payable  {
+        dc.premint{value: _val * price}(_val);
+    }
+
+    function onERC721Received(
+        address _operator,
+        address _from,
+        uint256 _tokenId,
+        bytes memory _data
+    ) public  returns (bytes4) {
+        return 0x150b7a02;
+    }
+
+}
+
+// File: mintfactory.sol
+
+contract mintFactory  {
+    uint number = 0;
+    mapping(uint => address) mintcontracts;
+
+
+    function createContract(address token) public {
+
+        mintcontracts[number] = address (new mintSingle(token));
+        number++;
+    }
+    function getAddr(uint num)public view returns(address){
+        return mintcontracts[num];
+    }
+
+
+
+
+}

@@ -1,0 +1,45 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-04-03
+*/
+
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+/**
+ * @title Storage
+ * @dev Store & retrieve value in a variable
+ */
+contract Storage {
+
+    uint256 number;
+    string text;
+    event Store(uint256 number);
+    event StoreText(string text);
+
+    /**
+     * @dev Store value in variable
+     * @param num value to store
+     */
+    function store(uint256 num) public {
+        number = num;
+        emit Store(num);
+    }
+
+    function storeText(string memory str) public {
+        text = str;
+        emit StoreText(str);
+    }
+
+    /**
+     * @dev Return value 
+     * @return value of 'number'
+     */
+    function retrieve() public view returns (uint256){
+        return number;
+    }
+
+    function retrieveText() public view returns (string memory){
+        return text;
+    }
+}
