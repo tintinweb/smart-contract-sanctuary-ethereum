@@ -1,0 +1,233 @@
+//SPDX-License-Identifier: MiT
+pragma solidity ^0.6.0;
+
+import "AggregatorV3Interface.sol";
+import "SafeMathChainlink.sol";
+
+contract FundMe {
+    //volem que aquest contracte pugui acceptar pagaments
+
+    mapping(address => uint256) public addressToAmountFunded;
+    address[] public funders;
+    address public owner;
+    AggregatorV3Interface public priceFeed;
+
+    constructor(address _priceFeed) public {
+        owner = msg.sender;
+        priceFeed = AggregatorV3Interface(_priceFeed);
+    }
+
+    function fund() public payable {
+        uint256 minimumUSD = 50 * 10**18;
+        //require(getConversionRate(msg.value)>=minimumUSD,"Input value is too low");// si no es compleix la condiciÃ³ la transacciÃ³ es cancelarÃ , l'usuari recuperarÃ  els tokens de la transacciÃ³ i no perdrÃ  gas. (revert)
+        addressToAmountFunded[msg.sender] += msg.value; //msg sender Ã©s qui crida la funciÃ³(addressa) i value Ã©s la quantitat que envia. Amb aquest lÃ­nia podem tenir registre de quan ha enviat cada adressa
+        funders.push(msg.sender);
+    }
+
+    // retorna la quantitat en $E18 aportats al contracte per una adressa
+    function aportat(address adressa) public view returns (uint256) {
+        uint256 aportacioWei = addressToAmountFunded[adressa];
+        return getConversionRate(aportacioWei);
+    }
+
+    //aquesta funciÃ³ ens dona la versiÃ³ de l'interficie
+    function getVersion() public view returns (uint256) {
+        /*AggregatorV3Interface priceFeed = AggregatorV3Interface(
+            0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);*/
+        //AixÃ² ja no fa falta perquÃ© hem creat la variable global (5:24:00)
+        //tenim un contracte (el de l'adreÃ§a) amb les funcions definides a AggregatorV3Interface
+        return priceFeed.version();
+    }
+
+    //funciÃ³ que retorni el preu de ether en usd*10^18. retorna el preu amb 18 decimals pero per obtenir el preu real s'ha de dividir el return per 10E18
+    function getPrice() public view returns (uint256) {
+        /*AggregatorV3Interface priceFeed = AggregatorV3Interface(
+            0x8A753747A1Fa494EC906cE90E9f37563A8AF630e);*/
+        //JA no fa falta perquÃ© hem creat la variable global
+
+        (, int256 answer, , , ) = priceFeed.latestRoundData();
+        return uint256(answer * (10**10)); //multipliquem per tenir 18 decimals
+    }
+
+    //donada una quantitat de wei (o ethE18), retorna el preu que l'hi correspon a la quantitat en $E18
+    function getConversionRate(uint256 ethAmount)
+        public
+        view
+        returns (uint256)
+    {
+        uint256 ethPrice = getPrice();
+        uint256 ethAmountInUsd = (ethAmount * ethPrice) / (10**18);
+        return ethAmountInUsd;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Insuficient permisions");
+        _;
+    }
+
+    //funciÃ³ per pagar a un usuari amb els diners del contracte
+    //volem que nomÃ©s la pugui executar un admin o un owner del contracte. Ho fem en el require. En el constructor hem definit qui Ã©s owner.
+    //constructor Ã©s el codi que s'executa just en el moment de la creaciÃ³ del contracte.
+    function withdraw() public payable onlyOwner {
+        msg.sender.transfer(address(this).balance);
+        for (
+            uint256 funderIndex = 0;
+            funderIndex < funders.length;
+            funderIndex++
+        ) {
+            address funder = funders[funderIndex];
+            addressToAmountFunded[funder] = 0;
+        }
+    }
+
+    function getEntranceFee() public view returns (uint256) {
+        uint256 minimumUSD = 50 * 10**18;
+        uint256 price = getPrice();
+        uint256 precision = 1 * 10**18;
+        return (minimumUSD * precision) / price;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.6.0;
+
+interface AggregatorV3Interface {
+
+  function decimals() external view returns (uint8);
+  function description() external view returns (string memory);
+  function version() external view returns (uint256);
+
+  // getRoundData and latestRoundData should both raise "No data present"
+  // if they do not have data to report, instead of returning unset values
+  // which could be misinterpreted as actual reported values.
+  function getRoundData(uint80 _roundId)
+    external
+    view
+    returns (
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
+    );
+  function latestRoundData()
+    external
+    view
+    returns (
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
+    );
+
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.6.0;
+
+/**
+ * @dev Wrappers over Solidity's arithmetic operations with added overflow
+ * checks.
+ *
+ * Arithmetic operations in Solidity wrap on overflow. This can easily result
+ * in bugs, because programmers usually assume that an overflow raises an
+ * error, which is the standard behavior in high level programming languages.
+ * `SafeMath` restores this intuition by reverting the transaction when an
+ * operation overflows.
+ *
+ * Using this library instead of the unchecked operations eliminates an entire
+ * class of bugs, so it's recommended to use it always.
+ */
+library SafeMathChainlink {
+  /**
+    * @dev Returns the addition of two unsigned integers, reverting on
+    * overflow.
+    *
+    * Counterpart to Solidity's `+` operator.
+    *
+    * Requirements:
+    * - Addition cannot overflow.
+    */
+  function add(uint256 a, uint256 b) internal pure returns (uint256) {
+    uint256 c = a + b;
+    require(c >= a, "SafeMath: addition overflow");
+
+    return c;
+  }
+
+  /**
+    * @dev Returns the subtraction of two unsigned integers, reverting on
+    * overflow (when the result is negative).
+    *
+    * Counterpart to Solidity's `-` operator.
+    *
+    * Requirements:
+    * - Subtraction cannot overflow.
+    */
+  function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+    require(b <= a, "SafeMath: subtraction overflow");
+    uint256 c = a - b;
+
+    return c;
+  }
+
+  /**
+    * @dev Returns the multiplication of two unsigned integers, reverting on
+    * overflow.
+    *
+    * Counterpart to Solidity's `*` operator.
+    *
+    * Requirements:
+    * - Multiplication cannot overflow.
+    */
+  function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
+    // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
+    if (a == 0) {
+      return 0;
+    }
+
+    uint256 c = a * b;
+    require(c / a == b, "SafeMath: multiplication overflow");
+
+    return c;
+  }
+
+  /**
+    * @dev Returns the integer division of two unsigned integers. Reverts on
+    * division by zero. The result is rounded towards zero.
+    *
+    * Counterpart to Solidity's `/` operator. Note: this function uses a
+    * `revert` opcode (which leaves remaining gas untouched) while Solidity
+    * uses an invalid opcode to revert (consuming all remaining gas).
+    *
+    * Requirements:
+    * - The divisor cannot be zero.
+    */
+  function div(uint256 a, uint256 b) internal pure returns (uint256) {
+    // Solidity only automatically asserts when dividing by 0
+    require(b > 0, "SafeMath: division by zero");
+    uint256 c = a / b;
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
+
+    return c;
+  }
+
+  /**
+    * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+    * Reverts when dividing by zero.
+    *
+    * Counterpart to Solidity's `%` operator. This function uses a `revert`
+    * opcode (which leaves remaining gas untouched) while Solidity uses an
+    * invalid opcode to revert (consuming all remaining gas).
+    *
+    * Requirements:
+    * - The divisor cannot be zero.
+    */
+  function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+    require(b != 0, "SafeMath: modulo by zero");
+    return a % b;
+  }
+}
