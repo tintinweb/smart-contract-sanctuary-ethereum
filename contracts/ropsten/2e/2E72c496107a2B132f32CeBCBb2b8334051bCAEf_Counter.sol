@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: Apache-2.0
+pragma solidity 0.8.10;
+
+contract Counter {
+    uint256 public count;
+    uint256 public lastExecuted;
+
+    function increaseCount(uint256 amount) external {
+        require(
+            ((block.timestamp - lastExecuted) > 180),
+            "Counter: increaseCount: Time not elapsed"
+        );
+
+        count += amount;
+        lastExecuted = block.timestamp;
+    }
+}

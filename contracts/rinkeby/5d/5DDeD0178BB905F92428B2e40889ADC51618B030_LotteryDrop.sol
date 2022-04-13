@@ -1,0 +1,278 @@
+// SPDX-License-Identifier: None
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+  /**
+   * @dev Returns the amount of tokens in existence.
+   */
+  function totalSupply() external view returns (uint256);
+
+  /**
+   * @dev Returns the token decimals.
+   */
+  function decimals() external view returns (uint8);
+
+  /**
+   * @dev Returns the token symbol.
+   */
+  function symbol() external view returns (string memory);
+
+  /**
+  * @dev Returns the token name.
+  */
+  function name() external view returns (string memory);
+
+  /**
+   * @dev Returns the bep token owner.
+   */
+  function getOwner() external view returns (address);
+
+  /**
+   * @dev Returns the amount of tokens owned by `account`.
+   */
+  function balanceOf(address account) external view returns (uint256);
+
+  /**
+   * @dev Moves `amount` tokens from the caller's account to `recipient`.
+   *
+   * Returns a boolean value indicating whether the operation succeeded.
+   *
+   * Emits a {Transfer} event.
+   */
+  function transfer(address recipient, uint256 amount) external returns (bool);
+
+  /**
+   * @dev Returns the remaining number of tokens that `spender` will be
+   * allowed to spend on behalf of `owner` through {transferFrom}. This is
+   * zero by default.
+   *
+   * This value changes when {approve} or {transferFrom} are called.
+   */
+  function allowance(address _owner, address spender) external view returns (uint256);
+
+  /**
+   * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+   *
+   * Returns a boolean value indicating whether the operation succeeded.
+   *
+   * IMPORTANT: Beware that changing an allowance with this method brings the risk
+   * that someone may use both the old and the new allowance by unfortunate
+   * transaction ordering. One possible solution to mitigate this race
+   * condition is to first reduce the spender's allowance to 0 and set the
+   * desired value afterwards:
+   * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+   *
+   * Emits an {Approval} event.
+   */
+  function approve(address spender, uint256 amount) external returns (bool);
+
+  /**
+   * @dev Moves `amount` tokens from `sender` to `recipient` using the
+   * allowance mechanism. `amount` is then deducted from the caller's
+   * allowance.
+   *
+   * Returns a boolean value indicating whether the operation succeeded.
+   *
+   * Emits a {Transfer} event.
+   */
+  function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+
+  /**
+   * @dev Emitted when `value` tokens are moved from one account (`from`) to
+   * another (`to`).
+   *
+   * Note that `value` may be zero.
+   */
+  event Transfer(address indexed from, address indexed to, uint256 value);
+
+  /**
+   * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+   * a call to {approve}. `value` is the new allowance.
+   */
+  event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable {
+    address private _owner;
+    mapping (address => bool) public admins;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(msg.sender);
+        admins[owner()] = true;
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(owner() == msg.sender, "Ownable: caller is not the owner");
+        _;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the admin(s).
+     */
+    modifier onlyAdmin() {
+        require(admins[msg.sender], "Ownable: caller is not an admin");
+        _;
+    }
+
+    function addAdmin(address _admin) public virtual onlyOwner {
+        admins[_admin] = true;
+    }
+
+    function removeAdmin(address _admin) public virtual onlyOwner {
+        admins[_admin] = false;
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+contract LotteryDrop is Ownable {
+    struct ticket {
+        address owner;
+    }
+    mapping(address => uint256) private balances;
+    // uint256 public MAX_TICKETS = 1000000;
+    enum LotteryState { Open, Finished }
+    LotteryState public state;
+    uint256[] public lotteryPlans = [100, 1_000, 5_000, 10_000, 100_000, 1_000_000];
+    uint256 public currentPlan = 0;
+    uint256 public _totalRaffles = 0;
+    ticket[] internal tickets;
+
+    uint256 public ownersFee = 10;
+
+    event LotteryStateChanged(LotteryState newState);
+	event LotteryWinner(uint256 ticketID, address indexed owner);
+    event NewLotteryDrop(uint256 jackpotSize);
+    event NewRaffle(address indexed owner, uint256 indexed raffles);
+
+    modifier isState(LotteryState _state) {
+        require(state == _state, "Wrong state for this action");
+        _;
+    }
+
+    // IERC20 internal usdc = IERC20(0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174); //usdc address on polygon main net
+    IERC20 internal usdc = IERC20(0xf905d6B4Ce89cfFbC1D18541cAA8BBf24062adDc); //custom rinkby erc20 for testing
+
+    function buyTicket(uint256 _amount) public isState(LotteryState.Open) {
+        address _buyer = msg.sender;
+        require(_amount>0 && _totalRaffles+_amount <= lotteryPlans[currentPlan], "Cannot purchase that many tokens");
+
+        // check if allowance is enough
+        uint256 allowance = usdc.allowance(msg.sender, address(this));
+        require(allowance >= _amount*10**usdc.decimals()*(100+ownersFee)/100, "Check the token allowance"); //allowance should include 10% fee
+        usdc.transferFrom(_buyer, address(this), _amount*10**usdc.decimals()); //pay to LD contract
+        usdc.transferFrom(_buyer, owner(), _amount*10**usdc.decimals()*ownersFee/100); //owner's cut
+        for(uint i=0; i<_amount; i++) {
+            tickets.push(ticket(_buyer));
+        }
+        balances[_buyer] += _amount;
+        _totalRaffles += _amount;
+        emit NewRaffle(_buyer, _amount);
+    }
+
+    function balanceOf(address tokenOwner) public view returns (uint256 balance) {
+        return balances[tokenOwner];
+    }
+
+    function _pickJackpotWinner()
+        internal
+        view
+        returns(uint256)
+    {
+        uint256 seed = uint256(keccak256(abi.encodePacked(
+            block.timestamp + block.difficulty +
+            ((uint256(keccak256(abi.encodePacked(block.coinbase)))) / (block.timestamp)) +
+            block.gaslimit + 
+            ((uint256(keccak256(abi.encodePacked(msg.sender)))) / (block.timestamp)) +
+            block.number
+        )));
+        return (seed - ((seed / tickets.length) * tickets.length));
+    }
+
+    function pickJackpotWinner() public onlyAdmin isState(LotteryState.Open) {
+        uint256 jackpotWinner = _pickJackpotWinner();
+        usdc.transfer(tickets[jackpotWinner].owner, tickets.length*10**usdc.decimals());
+        emit LotteryWinner(jackpotWinner, tickets[jackpotWinner].owner);
+        _changeState(LotteryState.Finished);
+    }
+
+    function initializeJackpot(uint256 _lotteryPlan) public onlyAdmin isState(LotteryState.Finished) {
+        require(_lotteryPlan>=0 && _lotteryPlan < lotteryPlans.length, "Invalid lottery plan");
+        currentPlan = _lotteryPlan;
+        for(uint i=0; i<tickets.length; i++) { //reset balances
+            balances[tickets[i].owner] -= 1;
+        }
+        delete tickets; //delete old tickets
+        _totalRaffles = 0;
+        emit NewLotteryDrop(lotteryPlans[currentPlan]);
+        _changeState(LotteryState.Open);
+    }
+
+    function _changeState(LotteryState _newState) private {
+		state = _newState;
+		emit LotteryStateChanged(state);
+	}
+
+    function setOwnersFee(uint256 _fee) public onlyOwner {
+        require(_fee>=0 && _fee<=100, "Invalid fee");
+        ownersFee = _fee;
+    }
+}
