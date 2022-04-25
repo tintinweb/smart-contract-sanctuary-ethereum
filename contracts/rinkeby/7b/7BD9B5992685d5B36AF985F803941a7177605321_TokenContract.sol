@@ -1,0 +1,69 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.5.0;
+
+// _______      _                    ______                                       
+//(_______)    | |                  / _____)           _                     _    
+// _       ___ | |  _ ____ ____    | /      ___  ____ | |_   ____ ____  ____| |_  
+//| |     / _ \| | / ) _  )  _ \   | |     / _ \|  _ \|  _) / ___) _  |/ ___)  _) 
+//| |____| |_| | |< ( (/ /| | | |  | \____| |_| | | | | |__| |  ( ( | ( (___| |__ 
+// \______)___/|_| \_)____)_| |_|   \______)___/|_| |_|\___)_|   \_||_|\____)\___)
+//
+
+// ERC Token Standard Interface
+contract ERC20Interface {
+    function totalSupply() public view returns (uint);
+    function balanceOf(address tokenOwner) public view returns (uint balance);
+    function transfer(address to, uint tokens) public returns (bool success);
+
+    event Transfer(address indexed from, address indexed to, uint tokens);
+    event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
+}
+
+// Safe Math Library
+contract SafeMath {
+    function safeAdd(uint a, uint b) internal pure returns (uint c) {c = a + b;require(c >= a);}
+    function safeSub(uint a, uint b) internal pure returns (uint c) {require(b <= a); c = a - b;}
+    function safeMul(uint a, uint b) internal pure returns (uint c) {c = a * b; require(a == 0 || c / a == b);}
+    function safeDiv(uint a, uint b) internal pure returns (uint c) {require(b > 0); c = a / b;}
+}
+
+contract TokenContract is ERC20Interface, SafeMath {
+    string public name;
+    string public symbol;
+    uint8 public decimals; // 18 decimals is the strongly suggested default, avoid changing it
+
+    uint256 public _totalSupply;
+
+    mapping(address => uint) balances;
+    mapping(address => mapping(address => uint)) allowed;
+
+    /**
+     * Constrctor function
+     *
+     * Initializes contract with initial supply tokens to the creator of the contract
+     */
+    constructor() public {
+        name = "Ballot Token";
+        symbol = "BTKN";
+        decimals = 18;
+        _totalSupply = 100000000000000000000;
+
+        balances[msg.sender] = _totalSupply;
+        emit Transfer(address(0), msg.sender, _totalSupply);
+    }
+
+    function totalSupply() public view returns (uint) {
+        return _totalSupply;
+    }
+
+    function balanceOf(address tokenOwner) public view returns (uint balance) {
+        return balances[tokenOwner];
+    }
+
+    function transfer(address to, uint tokens) public returns (bool success) {
+        balances[msg.sender] = safeSub(balances[msg.sender], tokens);
+        balances[to] = safeAdd(balances[to], tokens);
+        emit Transfer(msg.sender, to, tokens);
+        return true;
+    }
+}
