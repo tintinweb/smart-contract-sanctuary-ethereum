@@ -1,0 +1,751 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-04-26
+*/
+
+//SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.4;
+
+abstract contract ERC20Basic {
+  function totalSupply() public view virtual returns (uint256);
+  // function balanceOf(address who) public view returns (uint256);
+  function transfer(address to, uint256 value) public virtual returns (bool);
+  event Transfer(address indexed from, address indexed to, uint256 value);
+}
+
+
+pragma solidity 0.8.4;
+
+abstract contract ERC20 is ERC20Basic {
+  function allowance(address owner, address spender)
+    public view virtual returns (uint256);
+
+  function transferFrom(address from, address to, uint256 value)
+    public virtual returns (bool);
+
+  // function approve(address spender, uint256 value) public returns (bool);
+  event Approval(
+    address indexed owner,
+    address indexed spender,
+    uint256 value
+  );
+}
+
+pragma solidity 0.8.4;
+
+
+
+/**
+ * @title Basic token
+ * @dev Basic version of StandardToken, with no allowances.
+ */
+contract BasicToken is ERC20Basic {
+
+  mapping(address => uint256) balances;
+
+  uint256 totalSupply_;
+
+  /**
+  * @dev total number of tokens in existence
+  */
+  function totalSupply() public view override returns (uint256) {
+    return totalSupply_;
+  }
+
+  /**
+  * @dev transfer token for a specified address
+  * @param _to The address to transfer to.
+  * @param _value The amount to be transferred.
+  */
+  function transfer(address _to, uint256 _value) public override virtual returns (bool) {
+    require(_to != address(0));
+    require(_value <= balances[msg.sender]);
+
+    balances[msg.sender] = balances[msg.sender]-(_value);
+    balances[_to] = balances[_to]+(_value);
+    emit Transfer(msg.sender, _to, _value);
+    return true;
+  }
+
+  /**
+  * @dev Gets the balance of the specified address.
+  * @param _owner The address to query the the balance of.
+  * @return An uint256 representing the amount owned by the passed address.
+  */
+  function balanceOf(address _owner) public view returns (uint256) {
+    return balances[_owner];
+  }
+
+}
+
+pragma solidity 0.8.4;
+
+ 
+contract StandardToken is ERC20, BasicToken {
+
+  mapping (address => mapping (address => uint256)) internal allowed;
+
+
+  /**
+   * @dev Transfer tokens from one address to another
+   * @param _from address The address which you want to send tokens from
+   * @param _to address The address which you want to transfer to
+   * @param _value uint256 the amount of tokens to be transferred
+   */
+  function transferFrom(
+    address _from,
+    address _to,
+    uint256 _value
+  )
+    public
+    override
+    virtual
+    returns (bool)
+  {
+    require(_to != address(0));
+    require(_value <= balances[_from]);
+    require(_value <= allowed[_from][msg.sender]);
+
+    balances[_from] = balances[_from]-(_value);
+    balances[_to] = balances[_to]+(_value);
+    allowed[_from][msg.sender] = allowed[_from][msg.sender]-(_value);
+    emit Transfer(_from, _to, _value);
+    return true;
+  }
+
+  /**
+   * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
+   * @param _value The amount of tokens to be spent.
+   */
+  function approve(address _spender, uint256 _value) public virtual returns (bool) {
+    allowed[msg.sender][_spender] = _value;
+    emit Approval(msg.sender, _spender, _value);
+    return true;
+  }
+
+
+  function allowance(
+    address _owner,
+    address _spender
+   )
+    public
+    view
+    override
+    returns (uint256)
+  {
+    return allowed[_owner][_spender];
+  }
+
+  /**
+   * @dev Increase the amount of tokens that an owner allowed to a spender.
+   *
+   * approve should be called when allowed[_spender] == 0. To increment
+   * allowed value is better to use this function to avoid 2 calls (and wait until
+   * the first transaction is mined)
+   * From MonolithDAO Token.sol
+   * @param _spender The address which will spend the funds.
+   * @param _addedValue The amount of tokens to increase the allowance by.
+   */
+  function increaseApproval(
+    address _spender,
+    uint _addedValue
+  )
+    public
+    virtual
+    returns (bool)
+  {
+    allowed[msg.sender][_spender] = (
+      allowed[msg.sender][_spender]+(_addedValue));
+    emit Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
+    return true;
+  }
+
+  /**
+   * @dev Decrease the amount of tokens that an owner allowed to a spender.
+   *
+   * approve should be called when allowed[_spender] == 0. To decrement
+   * allowed value is better to use this function to avoid 2 calls (and wait until
+   * the first transaction is mined)
+   * From MonolithDAO Token.sol
+   * @param _spender The address which will spend the funds.
+   * @param _subtractedValue The amount of tokens to decrease the allowance by.
+   */
+  function decreaseApproval(
+    address _spender,
+    uint _subtractedValue
+  )
+    public
+    virtual
+    returns (bool)
+  {
+    uint oldValue = allowed[msg.sender][_spender];
+    if (_subtractedValue > oldValue) {
+      allowed[msg.sender][_spender] = 0;
+    } else {
+      allowed[msg.sender][_spender] = oldValue-(_subtractedValue);
+    }
+    emit Approval(msg.sender, _spender, allowed[msg.sender][_spender]);
+    return true;
+  }
+
+}
+
+
+pragma solidity 0.8.4;
+
+
+/**
+ * @title Ownable
+ * @dev The Ownable contract has an owner address, and provides basic authorization control
+ * functions, this simplifies the implementation of "user permissions".
+ */
+abstract contract Ownable {
+  address public owner;
+
+
+  event OwnershipRenounced(address indexed previousOwner);
+  event OwnershipTransferred(
+    address indexed previousOwner,
+    address indexed newOwner
+  );
+
+
+  /**
+   * @dev The Ownable constructor sets the original `owner` of the contract to the sender
+   * account.
+   */
+  constructor() {
+    owner = msg.sender;
+  }
+
+  /**
+   * @dev Throws if called by any account other than the owner.
+   */
+  modifier onlyOwner() {
+    require(msg.sender == owner);
+    _;
+  }
+
+  /**
+   * @dev Allows the current owner to relinquish control of the contract.
+   */
+  function renounceOwnership() public onlyOwner {
+    emit OwnershipRenounced(owner);
+    owner = address(0);
+  }
+
+  /**
+   * @dev Allows the current owner to transfer control of the contract to a newOwner.
+   * @param _newOwner The address to transfer ownership to.
+   */
+  function transferOwnership(address _newOwner) public onlyOwner {
+    _transferOwnership(_newOwner);
+  }
+
+  /**
+   * @dev Transfers control of the contract to a newOwner.
+   * @param _newOwner The address to transfer ownership to.
+   */
+  function _transferOwnership(address _newOwner) internal {
+    require(_newOwner != address(0));
+    emit OwnershipTransferred(owner, _newOwner);
+    owner = _newOwner;
+  }
+}
+
+pragma solidity 0.8.4;
+
+/**
+ * @title Pausable
+ * @dev Base contract which allows children to implement an emergency stop mechanism.
+ */
+contract Pausable is Ownable {
+  event Pause();
+  event Unpause();
+
+  bool public paused = false;
+
+
+  /**
+   * @dev Modifier to make a function callable only when the contract is not paused.
+   */
+  modifier whenNotPaused() {
+    require(!paused);
+    _;
+  }
+
+  /**
+   * @dev Modifier to make a function callable only when the contract is paused.
+   */
+  modifier whenPaused() {
+    require(paused);
+    _;
+  }
+
+  /**
+   * @dev called by the owner to pause, triggers stopped state
+   */
+  function pause() onlyOwner whenNotPaused public {
+    paused = true;
+    emit Pause();
+  }
+
+  /**
+   * @dev called by the owner to unpause, returns to normal state
+   */
+  function unpause() onlyOwner whenPaused public {
+    paused = false;
+    emit Unpause();
+  }
+}
+
+
+pragma solidity 0.8.4;
+
+
+/**
+ * @title Pausable token
+ * @dev StandardToken modified with pausable transfers.
+ **/
+contract PausableToken is StandardToken, Pausable {
+
+  function transferFrom(
+    address _from,
+    address _to,
+    uint256 _value
+  )
+    public
+    override
+    whenNotPaused
+    returns (bool)
+  {
+    return super.transferFrom(_from, _to, _value);
+  }
+
+  function approve(
+    address _spender,
+    uint256 _value
+  )
+    public
+    override
+    whenNotPaused
+    returns (bool)
+  {
+    return super.approve(_spender, _value);
+  }
+
+  function increaseApproval(
+    address _spender,
+    uint _addedValue
+  )
+    public
+    override
+    whenNotPaused
+    returns (bool success)
+  {
+    return super.increaseApproval(_spender, _addedValue);
+  }
+
+  function decreaseApproval(
+    address _spender,
+    uint _subtractedValue
+  )
+    public
+    override
+    whenNotPaused
+    returns (bool success)
+  {
+    return super.decreaseApproval(_spender, _subtractedValue);
+  }
+}
+
+
+pragma solidity 0.8.4;
+
+
+
+/**
+ */
+contract MintableToken is StandardToken, Ownable {
+  event Mint(address indexed to, uint256 amount);
+  event MintFinished();
+
+  bool public mintingFinished = false;
+
+
+  modifier canMint() {
+    require(!mintingFinished);
+    _;
+  }
+
+  modifier hasMintPermission() {
+    require(msg.sender == owner);
+    _;
+  }
+
+  /**
+   * @dev Function to mint tokens
+   * @param _to The address that will receive the minted tokens.
+   * @param _amount The amount of tokens to mint.
+   * @return A boolean that indicates if the operation was successful.
+   */
+  function mint(
+    address _to,
+    uint256 _amount
+  )
+    hasMintPermission
+    canMint
+    public
+    returns (bool)
+  {
+    totalSupply_ = totalSupply_-(_amount);
+    balances[_to] = balances[_to]+(_amount);
+    emit Mint(_to, _amount);
+    emit Transfer(address(0), _to, _amount);
+    return true;
+  }
+
+  /**
+   * @dev Function to stop minting new tokens.
+   * @return True if the operation was successful.
+   */
+  function finishMinting() onlyOwner canMint public returns (bool) {
+    mintingFinished = true;
+    emit MintFinished();
+    return true;
+  }
+}
+
+
+pragma solidity 0.8.4;
+
+/**
+ * @title TokenTimelock
+ * @dev TokenTimelock is a token holder contract that will allow a
+ * beneficiary to extract the tokens after a given release time
+ */
+contract TokenTimelock {
+//   using SafeERC20 for ERC20Basic;
+
+  // ERC20 basic token contract being held
+  ERC20Basic public token;
+
+  // beneficiary of tokens after they are released
+  address public beneficiary;
+
+  // timestamp when token release is enabled
+  uint256 public releaseTime;
+
+  constructor(
+    ERC20Basic _token,
+    address _beneficiary,
+    uint256 _releaseTime
+  )
+    
+  {
+    // solium-disable-next-line security/no-block-members
+    require(_releaseTime > block.timestamp);
+    token = _token;
+    beneficiary = _beneficiary;
+    releaseTime = _releaseTime;
+  }
+
+  /**
+   * @notice Transfers tokens held by timelock to beneficiary.
+   */
+  function release() public view {
+    // solium-disable-next-line security/no-block-members
+    require(block.timestamp >= releaseTime);
+
+    // uint256 amount = token.balanceOf(this);
+    // require(amount > 0);
+
+    // token.safeTransfer(beneficiary, amount);
+  }
+}
+
+
+pragma solidity 0.8.4;
+
+
+/**
+ * @title Crowdsale
+ * @dev Crowdsale is a base contract for managing a token crowdsale,
+ * allowing investors to purchase tokens with ether. This contract implements
+ * such functionality in its most fundamental form and can be extended to provide additional
+ * functionality and/or custom behavior.
+ * The external interface represents the basic interface for purchasing tokens, and conform
+ * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
+ * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
+ * behavior.
+ */
+contract Crowdsale {
+
+  // The token being sold
+  ERC20 public token;
+
+  // Address where funds are collected
+  address public wallet;
+
+  // How many token units a buyer gets per wei.
+  // The rate is the conversion between wei and the smallest and indivisible token unit.
+  // So, if you are using a rate of 1 with a DetailedERC20 token with 3 decimals called TOK
+  // 1 wei will give you 1 unit, or 0.001 TOK.
+  uint256 public rate;
+
+  // Amount of wei raised
+  uint256 public weiRaised;
+
+  /**
+   * Event for token purchase logging
+   * @param purchaser who paid for the tokens
+   * @param beneficiary who got the tokens
+   * @param value weis paid for purchase
+   * @param amount amount of tokens purchased
+   */
+  event TokenPurchase(
+    address indexed purchaser,
+    address indexed beneficiary,
+    uint256 value,
+    uint256 amount
+  );
+
+  /**
+   * @param _rate Number of token units a buyer gets per wei
+   * @param _wallet Address where collected funds will be forwarded to
+   * @param _token Address of the token being sold
+   */
+  constructor(uint256 _rate, address _wallet, ERC20 _token) {
+    require(_rate > 0);
+    require(_wallet != address(0));
+    // require(_token != address(0));
+
+    rate = _rate;
+    wallet = _wallet;
+    token = _token;
+  }
+
+  /**
+   * @dev Source of tokens. Override this method to modify the way in which the crowdsale ultimately gets and sends its tokens.
+   * @param _beneficiary Address performing the token purchase
+   * @param _tokenAmount Number of tokens to be emitted
+   */
+  function _deliverTokens(
+    address _beneficiary,
+    uint256 _tokenAmount
+  )
+    internal virtual
+  {
+    token.transfer(_beneficiary, _tokenAmount);
+  }
+
+  /**
+   * @dev Executed when a purchase has been validated and is ready to be executed. Not necessarily emits/sends tokens.
+   * @param _beneficiary Address receiving the tokens
+   * @param _tokenAmount Number of tokens to be purchased
+   */
+  function _processPurchase(
+    address _beneficiary,
+    uint256 _tokenAmount
+  )
+    internal
+  {
+    _deliverTokens(_beneficiary, _tokenAmount);
+  }
+
+  /**
+   * @dev Override to extend the way in which ether is converted to tokens.
+   * @param _weiAmount Value in wei to be converted into tokens
+   * @return Number of tokens that can be purchased with the specified _weiAmount
+   */
+  function _getTokenAmount(uint256 _weiAmount)
+    internal view returns (uint256)
+  {
+    return _weiAmount*(rate);
+  }
+}
+
+
+
+pragma solidity 0.8.4;
+
+
+/**
+ * @title CappedCrowdsale
+ * @dev Crowdsale with a limit for total contributions.
+ */
+abstract contract CappedCrowdsale is Crowdsale {
+  // using SafeMath for uint256;
+
+  uint256 public cap;
+
+  /**
+   * @dev Constructor, takes maximum amount of wei accepted in the crowdsale.
+   * @param _cap Max amount of wei to be contributed
+   */
+  constructor(uint256 _cap)  {
+    require(_cap > 0);
+    cap = _cap;
+  }
+
+  /**
+   * @dev Checks whether the cap has been reached.
+   * @return Whether the cap was reached
+   */
+  function capReached() public view returns (bool) {
+    return weiRaised >= cap;
+  }
+
+}
+
+
+pragma solidity 0.8.4;
+
+
+/**
+ * @title TimedCrowdsale
+ * @dev Crowdsale accepting contributions only within a time frame.
+ */
+abstract contract TimedCrowdsale is Crowdsale {
+  // using SafeMath for uint256;
+
+  uint256 public openingTime;
+  uint256 public closingTime;
+
+  /**
+   * @dev Reverts if not in crowdsale time range.
+   */
+  modifier onlyWhileOpen {
+    // solium-disable-next-line security/no-block-members
+    require(block.timestamp >= openingTime && block.timestamp <= closingTime);
+    _;
+  }
+
+  /**
+   * @dev Constructor, takes crowdsale opening and closing times.
+   * @param _openingTime Crowdsale opening time
+   * @param _closingTime Crowdsale closing time
+   */
+  constructor(uint256 _openingTime, uint256 _closingTime)  {
+    // solium-disable-next-line security/no-block-members
+    require(_openingTime < _closingTime);
+    require(_closingTime >= _openingTime);
+
+    openingTime = _openingTime;
+    closingTime = _closingTime;
+  }
+
+  /**
+   * @dev Checks whether the period in which the crowdsale is open has already elapsed.
+   * @return Whether crowdsale period has elapsed
+   */
+  function hasClosed() public view returns (bool) {
+    // solium-disable-next-line security/no-block-members
+    return block.timestamp > closingTime;
+  }
+
+}
+
+pragma solidity 0.8.4;
+
+
+/**
+ * @title WhitelistedCrowdsale
+ * @dev Crowdsale in which only whitelisted users can contribute.
+ */
+abstract contract WhitelistedCrowdsale is Crowdsale, Ownable {
+
+  mapping(address => bool) public whitelist;
+
+  /**
+   * @dev Reverts if beneficiary is not whitelisted. Can be used when extending this contract.
+   */
+  modifier isWhitelisted(address _beneficiary) {
+    require(whitelist[_beneficiary]);
+    _;
+  }
+
+  /**
+   * @dev Adds single address to whitelist.
+   * @param _beneficiary Address to be added to the whitelist
+   */
+  function addToWhitelist(address _beneficiary) external onlyOwner {
+    whitelist[_beneficiary] = true;
+  }
+
+  /**
+   * @dev Adds list of addresses to whitelist. Not overloaded due to limitations with truffle testing.
+   * @param _beneficiaries Addresses to be added to the whitelist
+   */
+  function addManyToWhitelist(address[] calldata _beneficiaries) external onlyOwner {
+    for (uint256 i = 0; i < _beneficiaries.length; i++) {
+      whitelist[_beneficiaries[i]] = true;
+    }
+  }
+
+  /**
+   * @dev Removes single address from whitelist.
+   * @param _beneficiary Address to be removed to the whitelist
+   */
+  function removeFromWhitelist(address _beneficiary) external onlyOwner {
+    whitelist[_beneficiary] = false;
+  }
+
+}
+
+pragma solidity 0.8.4;
+
+contract MyWhitelistedCrowdsale is Crowdsale, CappedCrowdsale, TimedCrowdsale, WhitelistedCrowdsale {
+
+  // Track investor contributions
+  uint256 public investorMinCap = 2000000000000000; // 0.002 ether
+  uint256 public investorHardCap = 50000000000000000000; // 50 ether
+  mapping(address => uint256) public contributions;
+
+  constructor(
+    uint256 _rate,
+    address _wallet,
+    ERC20 _token,
+    uint256 _cap,
+    uint256 _openingTime,
+    uint256 _closingTime
+  )
+    Crowdsale(_rate, _wallet, _token)
+    CappedCrowdsale(_cap)
+    TimedCrowdsale(_openingTime, _closingTime)
+    
+  {
+
+  }
+
+  /**
+  * @dev Returns the amount contributed so far by a sepecific user.
+  * @param _beneficiary Address of contributor
+  * @return User contribution so far
+  */
+  function getUserContribution(address _beneficiary)
+    public view returns (uint256)
+  {
+    return contributions[_beneficiary];
+  }
+
+  /**
+  * @dev Extend parent behavior requiring purchase to respect investor min/max funding cap.
+  * @param _beneficiary Token purchaser
+  * @param _weiAmount Amount of wei contributed
+  */
+  function _preValidatePurchase(
+    address _beneficiary,
+    uint256 _weiAmount
+  )
+    internal
+  {
+    _preValidatePurchase(_beneficiary, _weiAmount);
+    uint256 _existingContribution = contributions[_beneficiary];
+    uint256 _newContribution = _existingContribution+(_weiAmount);
+    require(_newContribution >= investorMinCap && _newContribution <= investorHardCap);
+    contributions[_beneficiary] = _newContribution;
+  }
+
+}
