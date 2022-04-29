@@ -1,0 +1,862 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-04-29
+*/
+
+// File: IAllowsProxy.sol
+
+
+pragma solidity >=0.8.4;
+
+interface IAllowsProxy {
+    function isProxyActive() external view returns (bool);
+
+    function proxyAddress() external view returns (address);
+
+    function isApprovedForProxy(address _owner, address _operator)
+        external
+        view
+        returns (bool);
+}
+
+// File: IFactoryMintable.sol
+
+
+pragma solidity >=0.8.4;
+
+interface IFactoryMintable {
+    function factoryMint(uint256 _optionId, address _to) external;
+
+    function factoryCanMint(uint256 _optionId) external returns (bool);
+}
+
+// File: @openzeppelin/contracts/security/ReentrancyGuard.sol
+
+
+// OpenZeppelin Contracts v4.4.1 (security/ReentrancyGuard.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Contract module that helps prevent reentrant calls to a function.
+ *
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
+ * (reentrant) calls to them.
+ *
+ * Note that because there is a single `nonReentrant` guard, functions marked as
+ * `nonReentrant` may not call one another. This can be worked around by making
+ * those functions `private`, and then adding `external` `nonReentrant` entry
+ * points to them.
+ *
+ * TIP: If you would like to learn more about reentrancy and alternative ways
+ * to protect against it, check out our blog post
+ * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ */
+abstract contract ReentrancyGuard {
+    // Booleans are more expensive than uint256 or any type that takes up a full
+    // word because each write operation emits an extra SLOAD to first read the
+    // slot's contents, replace the bits taken up by the boolean, and then write
+    // back. This is the compiler's defense against contract upgrades and
+    // pointer aliasing, and it cannot be disabled.
+
+    // The values being non-zero value makes deployment a bit more expensive,
+    // but in exchange the refund on every call to nonReentrant will be lower in
+    // amount. Since refunds are capped to a percentage of the total
+    // transaction's gas, it is best to keep them low in cases like this one, to
+    // increase the likelihood of the full refund coming into effect.
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        // On the first call to nonReentrant, _notEntered will be true
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+
+        _;
+
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
+    }
+}
+
+// File: @openzeppelin/contracts/utils/introspection/IERC165.sol
+
+
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC165 standard, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-165[EIP].
+ *
+ * Implementers can declare support of contract interfaces, which can then be
+ * queried by others ({ERC165Checker}).
+ *
+ * For an implementation, see {ERC165}.
+ */
+interface IERC165 {
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+}
+
+// File: @openzeppelin/contracts/token/ERC721/IERC721.sol
+
+
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC721/IERC721.sol)
+
+pragma solidity ^0.8.0;
+
+
+/**
+ * @dev Required interface of an ERC721 compliant contract.
+ */
+interface IERC721 is IERC165 {
+    /**
+     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.
+     */
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.
+     */
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+
+    /**
+     * @dev Returns the number of tokens in ``owner``'s account.
+     */
+    function balanceOf(address owner) external view returns (uint256 balance);
+
+    /**
+     * @dev Returns the owner of the `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function ownerOf(uint256 tokenId) external view returns (address owner);
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes calldata data
+    ) external;
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
+     * are aware of the ERC721 protocol to prevent tokens from being forever locked.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Transfers `tokenId` token from `from` to `to`.
+     *
+     * WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Gives permission to `to` to transfer `tokenId` token to another account.
+     * The approval is cleared when the token is transferred.
+     *
+     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.
+     *
+     * Requirements:
+     *
+     * - The caller must own the token or be an approved operator.
+     * - `tokenId` must exist.
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address to, uint256 tokenId) external;
+
+    /**
+     * @dev Approve or remove `operator` as an operator for the caller.
+     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.
+     *
+     * Requirements:
+     *
+     * - The `operator` cannot be the caller.
+     *
+     * Emits an {ApprovalForAll} event.
+     */
+    function setApprovalForAll(address operator, bool _approved) external;
+
+    /**
+     * @dev Returns the account approved for `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function getApproved(uint256 tokenId) external view returns (address operator);
+
+    /**
+     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.
+     *
+     * See {setApprovalForAll}
+     */
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
+}
+
+// File: @openzeppelin/contracts/utils/Context.sol
+
+
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+// File: @openzeppelin/contracts/access/Ownable.sol
+
+
+// OpenZeppelin Contracts v4.4.1 (access/Ownable.sol)
+
+pragma solidity ^0.8.0;
+
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+        _;
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// File: AllowsConfigurableProxy.sol
+
+
+pragma solidity >=0.8.4;
+
+
+
+contract OwnableDelegateProxy {}
+
+/**
+ * Used to delegate ownership of a contract to another address, to save on unneeded transactions to approve contract use for users
+ */
+contract ProxyRegistry {
+    mapping(address => OwnableDelegateProxy) public proxies;
+}
+
+contract AllowsConfigurableProxy is IAllowsProxy, Ownable {
+    bool internal isProxyActive_;
+    address internal proxyAddress_;
+
+    constructor(address _proxyAddress, bool _isProxyActive) {
+        proxyAddress_ = _proxyAddress;
+        isProxyActive_ = _isProxyActive;
+    }
+
+    function setIsProxyActive(bool _isProxyActive) external onlyOwner {
+        isProxyActive_ = _isProxyActive;
+    }
+
+    function setProxyAddress(address _proxyAddress) public onlyOwner {
+        proxyAddress_ = _proxyAddress;
+    }
+
+    function proxyAddress() public view override returns (address) {
+        return proxyAddress_;
+    }
+
+    function isProxyActive() public view override returns (bool) {
+        return isProxyActive_;
+    }
+
+    function isApprovedForProxy(address owner, address _operator)
+        public
+        view
+        override
+        returns (bool)
+    {
+        if (isProxyActive_ && proxyAddress_ == _operator) {
+            return true;
+        }
+        ProxyRegistry proxyRegistry = ProxyRegistry(proxyAddress_);
+        if (
+            isProxyActive_ && address(proxyRegistry.proxies(owner)) == _operator
+        ) {
+            return true;
+        }
+        return false;
+    }
+}
+
+// File: FactoryMintable.sol
+
+
+pragma solidity ^0.8.7;
+
+
+
+abstract contract FactoryMintable is IFactoryMintable, Context {
+    address public tokenFactory;
+
+    error NotTokenFactory();
+    error FactoryCannotMint();
+
+    modifier onlyFactory() {
+        if (_msgSender() != tokenFactory) {
+            revert NotTokenFactory();
+        }
+        _;
+    }
+
+    modifier canMint(uint256 _optionId) {
+        if (!factoryCanMint(_optionId)) {
+            revert FactoryCannotMint();
+        }
+        _;
+    }
+
+    function factoryMint(uint256 _optionId, address _to)
+        external
+        virtual
+        override;
+
+    function factoryCanMint(uint256 _optionId)
+        public
+        view
+        virtual
+        override
+        returns (bool);
+}
+
+// File: @openzeppelin/contracts/security/Pausable.sol
+
+
+// OpenZeppelin Contracts v4.4.1 (security/Pausable.sol)
+
+pragma solidity ^0.8.0;
+
+
+/**
+ * @dev Contract module which allows children to implement an emergency stop
+ * mechanism that can be triggered by an authorized account.
+ *
+ * This module is used through inheritance. It will make available the
+ * modifiers `whenNotPaused` and `whenPaused`, which can be applied to
+ * the functions of your contract. Note that they will not be pausable by
+ * simply including this module, only once the modifiers are put in place.
+ */
+abstract contract Pausable is Context {
+    /**
+     * @dev Emitted when the pause is triggered by `account`.
+     */
+    event Paused(address account);
+
+    /**
+     * @dev Emitted when the pause is lifted by `account`.
+     */
+    event Unpaused(address account);
+
+    bool private _paused;
+
+    /**
+     * @dev Initializes the contract in unpaused state.
+     */
+    constructor() {
+        _paused = false;
+    }
+
+    /**
+     * @dev Returns true if the contract is paused, and false otherwise.
+     */
+    function paused() public view virtual returns (bool) {
+        return _paused;
+    }
+
+    /**
+     * @dev Modifier to make a function callable only when the contract is not paused.
+     *
+     * Requirements:
+     *
+     * - The contract must not be paused.
+     */
+    modifier whenNotPaused() {
+        require(!paused(), "Pausable: paused");
+        _;
+    }
+
+    /**
+     * @dev Modifier to make a function callable only when the contract is paused.
+     *
+     * Requirements:
+     *
+     * - The contract must be paused.
+     */
+    modifier whenPaused() {
+        require(paused(), "Pausable: not paused");
+        _;
+    }
+
+    /**
+     * @dev Triggers stopped state.
+     *
+     * Requirements:
+     *
+     * - The contract must not be paused.
+     */
+    function _pause() internal virtual whenNotPaused {
+        _paused = true;
+        emit Paused(_msgSender());
+    }
+
+    /**
+     * @dev Returns to normal state.
+     *
+     * Requirements:
+     *
+     * - The contract must be paused.
+     */
+    function _unpause() internal virtual whenPaused {
+        _paused = false;
+        emit Unpaused(_msgSender());
+    }
+}
+
+// File: @openzeppelin/contracts/utils/Strings.sol
+
+
+// OpenZeppelin Contracts v4.4.1 (utils/Strings.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev String operations.
+ */
+library Strings {
+    bytes16 private constant _HEX_SYMBOLS = "0123456789abcdef";
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation.
+     */
+    function toHexString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0x00";
+        }
+        uint256 temp = value;
+        uint256 length = 0;
+        while (temp != 0) {
+            length++;
+            temp >>= 8;
+        }
+        return toHexString(value, length);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation with fixed length.
+     */
+    function toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+        bytes memory buffer = new bytes(2 * length + 2);
+        buffer[0] = "0";
+        buffer[1] = "x";
+        for (uint256 i = 2 * length + 1; i > 1; --i) {
+            buffer[i] = _HEX_SYMBOLS[value & 0xf];
+            value >>= 4;
+        }
+        require(value == 0, "Strings: hex length insufficient");
+        return string(buffer);
+    }
+}
+
+// File: NFTFactory.sol
+
+
+pragma solidity ^0.8.7;
+
+
+
+
+
+
+
+contract NFTFactory is
+    IERC721,
+    AllowsConfigurableProxy,
+    Pausable,
+    ReentrancyGuard
+{
+    using Strings for uint256;
+    uint256 public NUM_OPTIONS;
+    /// @notice Base URI for constructing tokenURI values for options.
+    string public optionURI;
+    /// @notice Contract that deployed this factory.
+    FactoryMintable public token;
+
+    constructor(
+        string memory _baseOptionURI,
+        address _owner,
+        uint256 _numOptions,
+        address _proxyAddress
+    ) AllowsConfigurableProxy(_proxyAddress, true) {
+        token = FactoryMintable(msg.sender);
+        NUM_OPTIONS = _numOptions;
+        optionURI = _baseOptionURI;
+        transferOwnership(_owner);
+        createOptionsAndEmitTransfers();
+    }
+
+    error NotOwnerOrProxy();
+    error InvalidOptionId();
+
+    modifier onlyOwnerOrProxy() {
+        if (
+            _msgSender() != owner() &&
+            !isApprovedForProxy(owner(), _msgSender())
+        ) {
+            revert NotOwnerOrProxy();
+        }
+        _;
+    }
+
+    modifier checkValidOptionId(uint256 _optionId) {
+        // options are 1-indexed so check should be inclusive
+        if (_optionId > NUM_OPTIONS) {
+            revert InvalidOptionId();
+        }
+        _;
+    }
+
+    modifier interactBurnInvalidOptionId(uint256 _optionId) {
+        _;
+        _burnInvalidOptions();
+    }
+
+    /// @notice Sets the nft address for FactoryMintable.
+    function setNFT(address _token) external onlyOwner {
+        token = FactoryMintable(_token);
+    }
+
+    /// @notice Sets the base URI for constructing tokenURI values for options.
+    function setBaseOptionURI(string memory _baseOptionURI) public onlyOwner {
+        optionURI = _baseOptionURI;
+    }
+
+    /**
+    @notice Returns a URL specifying option metadata, conforming to standard
+    ERC1155 metadata format.
+     */
+    function tokenURI(uint256 _optionId) external view returns (string memory) {
+        return string(abi.encodePacked(optionURI, _optionId.toString()));
+    }
+
+    /**
+    @dev Return true if operator is an approved proxy of Owner
+     */
+    function isApprovedForAll(address _owner, address _operator)
+        public
+        view
+        override
+        returns (bool)
+    {
+        return isApprovedForProxy(_owner, _operator);
+    }
+
+    ///@notice public facing method for _burnInvalidOptions in case state of tokenContract changes
+    function burnInvalidOptions() public onlyOwner {
+        _burnInvalidOptions();
+    }
+
+    ///@notice "burn" option by sending it to 0 address. This will hide all active listings. Called as part of interactBurnInvalidOptionIds
+    function _burnInvalidOptions() internal {
+        for (uint256 i = 1; i <= NUM_OPTIONS; ++i) {
+            if (!token.factoryCanMint(i)) {
+                emit Transfer(owner(), address(0), i);
+            }
+        }
+    }
+
+    /**
+    @notice emit a transfer event for a "burn" option back to the owner if factoryCanMint the optionId
+    @dev will re-validate listings on OpenSea frontend if an option becomes eligible to mint again
+    eg, if max supply is increased
+    */
+    function restoreOption(uint256 _optionId) external onlyOwner {
+        if (token.factoryCanMint(_optionId)) {
+            emit Transfer(address(0), owner(), _optionId);
+        }
+    }
+
+    /**
+    @notice Emits standard ERC721.Transfer events for each option so NFT indexers pick them up.
+    Does not need to fire on contract ownership transfer because once the tokens exist, the `ownerOf`
+    check will always pass for contract owner.
+     */
+    function createOptionsAndEmitTransfers() internal {
+        for (uint256 i = 1; i <= NUM_OPTIONS; i++) {
+            emit Transfer(address(0), owner(), i);
+        }
+    }
+
+    function approve(address operator, uint256) external override onlyOwner {
+        setProxyAddress(operator);
+    }
+
+    function getApproved(uint256)
+        external
+        view
+        override
+        returns (address operator)
+    {
+        return proxyAddress();
+    }
+
+    function setApprovalForAll(address operator, bool)
+        external
+        override
+        onlyOwner
+    {
+        setProxyAddress(operator);
+    }
+
+    function supportsFactoryInterface() public pure returns (bool) {
+        return true;
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override
+        returns (bool)
+    {
+        return
+            interfaceId == type(IERC721).interfaceId ||
+            interfaceId == type(IERC165).interfaceId;
+    }
+
+    function balanceOf(address _owner)
+        external
+        view
+        override
+        returns (uint256)
+    {
+        return _owner == owner() ? NUM_OPTIONS : 0;
+    }
+
+    /**
+    @notice Returns owner if _optionId is valid so posted orders pass validation
+     */
+    function ownerOf(uint256 _optionId) public view override returns (address) {
+        return token.factoryCanMint(_optionId) ? owner() : address(0);
+    }
+
+    function safeTransferFrom(
+        address,
+        address _to,
+        uint256 _optionId
+    )
+        public
+        override
+        nonReentrant
+        onlyOwnerOrProxy
+        whenNotPaused
+        interactBurnInvalidOptionId(_optionId)
+    {
+        token.factoryMint(_optionId, _to);
+    }
+
+    function safeTransferFrom(
+        address,
+        address _to,
+        uint256 _optionId,
+        bytes calldata
+    ) external override {
+        safeTransferFrom(_to, _to, _optionId);
+    }
+
+    /**
+    @notice hack: transferFrom is called on sale , this method mints the real token
+     */
+    function transferFrom(
+        address,
+        address _to,
+        uint256 _optionId
+    )
+        public
+        override
+        nonReentrant
+        onlyOwnerOrProxy
+        whenNotPaused
+        interactBurnInvalidOptionId(_optionId)
+    {
+        token.factoryMint(_optionId, _to);
+    }
+}
