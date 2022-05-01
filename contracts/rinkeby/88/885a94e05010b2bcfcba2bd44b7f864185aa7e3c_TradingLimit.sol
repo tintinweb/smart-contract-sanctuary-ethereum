@@ -1,0 +1,93 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-04-30
+*/
+
+//SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.0;
+
+//import "hardhat/console.sol";
+
+contract TradingLimit {
+
+    uint cash = 24562530;
+    uint totalBuy = 24650300;
+    uint totalSell = 16423500;
+    uint fees = 125;
+    int t1 = -18853000;
+    uint t2 = 12188000;
+    int tradingLimit;
+    uint totalFees;
+    int t0;
+
+    function getCash() public view returns (uint) {
+        return cash;
+    }
+
+    function setCash(uint _cash) public {
+        //console.log("Changing cash from '%s' to '%s'", cash, _cash);
+        cash = _cash;
+    }
+
+    function getTotalBuy() public view returns (uint) {
+        return totalBuy;
+    }
+
+    function setTotalBuy(uint _totalBuy) public {
+        //console.log("Changing total buy from '%s' to '%s'", totalBuy, _totalBuy);
+        totalBuy = _totalBuy;
+    }
+
+    function getTotalSell() public view returns (uint) {
+        return totalSell;
+    }
+
+    function setTotalSell(uint _totalSell) public {
+        //console.log("Changing total sell from '%s' to '%s'", totalSell, _totalSell);
+        totalSell = _totalSell;
+    }
+
+   function getFees() public view returns (uint) {
+        return fees;
+    }
+
+    function setFees(uint _fees) public {
+        fees = _fees;
+    }
+
+    function getT1() public view returns (int) {
+        return t1;
+    }
+
+    function setT1(int _t1) public {
+        //console.log("Changing T1 from '%s' to '%s'", t1, _t1);
+        t1 = _t1;
+    }
+
+    function getT2() public view returns (uint) {
+        return t2;
+    }
+
+    function setT2(uint _t2) public {
+        //console.log("Changing T2 from '%s' to '%s'", t2, _t2);
+        t2 = _t2;
+    }
+
+    function setTradingLimit() public {
+        totalFees = (totalSell + totalBuy) * fees / 100000;
+        t0 = int(totalSell) - int(totalBuy) - int(totalFees);
+        tradingLimit = (int(cash) + t0 + int(t1) + int(t2));
+    }
+
+    function getTradingLimit() public view returns (int) {
+        return tradingLimit;
+    }
+
+    function getTotalFees() public view returns (uint) {
+        return totalFees;
+    }
+
+    function getT0() public view returns (int) {
+        return t0;
+    }
+    
+}
