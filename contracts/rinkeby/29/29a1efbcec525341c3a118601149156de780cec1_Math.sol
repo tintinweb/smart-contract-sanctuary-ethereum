@@ -1,0 +1,22 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-05-06
+*/
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
+
+contract Math{
+    function multiplyby20(uint v) external pure returns(uint){
+        return v*20;
+    }
+    function Substractby20(uint v) external pure returns(uint){
+        return v-20;
+    }
+    function Addby20(uint v) external pure returns(uint){
+        return v+20;
+    }
+    function Divideby20(uint v) external pure returns(uint){
+        return v/20;
+    }
+
+}
