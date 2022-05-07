@@ -1,0 +1,10 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-05-07
+*/
+
+pragma solidity ^0.8.7;
+contract Math {
+    function multiplyBy20(uint v) public view returns(uint){
+        return v*20;
+    }
+}

@@ -1,0 +1,18 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-05-07
+*/
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+
+contract MyToken {
+
+    constructor() {}
+
+    bool public mint;
+
+    function safeMint() public {
+        mint = true;
+    }
+}
