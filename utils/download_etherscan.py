@@ -53,8 +53,12 @@ def main():
             dst = os.path.join(output_directory, c["address"].replace("0x", "")[:2].lower())  # index by 1st byte
             if not os.path.isdir(dst):
                 os.makedirs(dst)
-            fpath = os.path.join(dst, "%s_%s.sol" % (
-            c["address"].replace("0x", ""), str(c['name']).replace("\\", "_").replace("/", "_")))
+            fpath = os.path.join(dst, "%s_%s.%s" % (
+                c["address"].replace("0x", ""), 
+                str(c['name']).replace("\\", "_").replace("/", "_"),
+                "vy" if "vyper:" in c["compiler"].lower() else "sol"
+                )
+            )
             if not overwrite and os.path.exists(fpath):
                 print(
                     "[%d/%d] skipping, already exists --> %s (%-20s) -> %s" % (nr, amount, c["address"], c["name"], fpath))
