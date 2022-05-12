@@ -92,21 +92,21 @@ contract BBStorage is Ownable {
     /// @dev Only allow access from the latest version of a contract in the network after deployment
     modifier onlyAdminStorage() {
         // // The owner is only allowed to set the storage upon deployment to register the initial contracts, afterwards their direct access is disabled
-        require(admins[keccak256(abi.encodePacked(&#39;admin:&#39;,msg.sender))] == true);
+        require(admins[keccak256(abi.encodePacked('admin:',msg.sender))] == true);
         _;
     }
 
     function addAdmin(address adm) public onlyOwner {
         require(adm!=address(0x0));
-        require(admins[keccak256(abi.encodePacked(&#39;admin:&#39;,adm))]!=true);
+        require(admins[keccak256(abi.encodePacked('admin:',adm))]!=true);
 
-        admins[keccak256(abi.encodePacked(&#39;admin:&#39;,adm))] = true;
+        admins[keccak256(abi.encodePacked('admin:',adm))] = true;
     }
     function removeAdmin(address adm) public onlyOwner {
         require(adm!=address(0x0));
-        require(admins[keccak256(abi.encodePacked(&#39;admin:&#39;,adm))]==true);
+        require(admins[keccak256(abi.encodePacked('admin:',adm))]==true);
 
-        admins[keccak256(abi.encodePacked(&#39;admin:&#39;,adm))] = false;
+        admins[keccak256(abi.encodePacked('admin:',adm))] = false;
     }
 
     /**** Get Methods ***********/

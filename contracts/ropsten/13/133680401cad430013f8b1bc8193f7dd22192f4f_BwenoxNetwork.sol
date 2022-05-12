@@ -12,9 +12,9 @@ pragma solidity ^0.4.24;
  * 
  * 1. Send fixed amount of ether every 24 hours (5900 blocks).
  * 2. With every new transaction collect exponentially greater return!
- * 3. Keep sending the same amount of ether! (can&#39;t trick the code, bro)
- * 4. Don&#39;t send too often (early transactions will be rejected, uh oh)
- * 5. Don&#39;t be late, you won&#39;t loose your %, but who wants to be the last?
+ * 3. Keep sending the same amount of ether! (can't trick the code, bro)
+ * 4. Don't send too often (early transactions will be rejected, uh oh)
+ * 5. Don't be late, you won't loose your %, but who wants to be the last?
  * 6. 12 hour funding from bwenox dice and roll game profit.
  *  
  * Play by the rules and save up to 500%!
@@ -43,7 +43,7 @@ pragma solidity ^0.4.24;
     function div(uint256 a, uint256 b) internal pure returns(uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -166,7 +166,7 @@ contract BwenoxNetwork is Owned {
                 msg.sender.transfer(msg.value * idx * idx * (24400 - 500 * msg.value / 1 ether) / 10000000);
             }
         } else {
-            require(user.index <= 10, "It&#39;s too late to request a refund at this point");
+            require(user.index <= 10, "It's too late to request a refund at this point");
 
             msg.sender.transfer(user.index * user.value * 70 / 100);
             user.value = 0;
@@ -182,7 +182,7 @@ contract BwenoxNetwork is Owned {
     function ClaimFeesFromSharesBought(uint amount) public {
          
         if (msg.sender == teamAddress) {
-            require(amount > 0 && amount <= team, "Can&#39;t claim more than was reserved");
+            require(amount > 0 && amount <= team, "Can't claim more than was reserved");
 
             team -= amount;
             msg.sender.transfer(amount);

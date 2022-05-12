@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract Flercoin is BaseToken, AirdropToken, ICOToken {
     function Flercoin() public {
         totalSupply = 100000000000000000000000;
-        name = &#39;Flercoin&#39;;
-        symbol = &#39;FLER&#39;;
+        name = 'Flercoin';
+        symbol = 'FLER';
         decimals = 18;
         balanceOf[0x0cB3B65CE60380aa5820207eE3f2730caec27795] = totalSupply;
         Transfer(address(0), 0x0cB3B65CE60380aa5820207eE3f2730caec27795, totalSupply);

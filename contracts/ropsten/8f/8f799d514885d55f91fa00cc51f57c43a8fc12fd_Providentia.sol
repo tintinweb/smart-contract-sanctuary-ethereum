@@ -95,7 +95,7 @@ contract Providentia is Ownable, ERC20, ERC1155MixedFungibleMintable{
     }
 
     modifier hasActiveLoan(){
-      require(studentHasLoan[msg.sender] == true, "This address doesn&#39;t have a loan associated");
+      require(studentHasLoan[msg.sender] == true, "This address doesn't have a loan associated");
       _;
     }
 
@@ -145,7 +145,7 @@ contract Providentia is Ownable, ERC20, ERC1155MixedFungibleMintable{
         require(bytes(addressToData[_addressStudent].name).length == 0,
         "An address can only have one Student associated");
 
-        require(addressToUniversity[_university] != address(0), "University hasn&#39;t been added yet");
+        require(addressToUniversity[_university] != address(0), "University hasn't been added yet");
 
         uint _type = _token.create(_uri, true);
         _token.mintNonFungible(_type, sendTokens);
@@ -189,13 +189,13 @@ contract Providentia is Ownable, ERC20, ERC1155MixedFungibleMintable{
 
         //Check if the Student has been added before letting him request a loan
         require(bytes(addressToData[msg.sender].name).length != 0,
-        "Student hasn&#39;t been added yet");
+        "Student hasn't been added yet");
 
         //Update the Mapping
         addressToLoan[msg.sender] = StudentLoan(50000, _interestLoan, 0, now, now.addYears(5), false, false);
 
         addressToBalance[msg.sender] = 0;
-        // When requesting a loan the Student hasn&#39;t accept it yet
+        // When requesting a loan the Student hasn't accept it yet
         studentHasLoan[msg.sender] = false;
 
     }
@@ -280,7 +280,7 @@ else{
       @notice Function used by the Student to repay the Loan
       @dev First you need to call an approve transaction
     */
-    //Check the logic here as it&#39;s a bit flawed
+    //Check the logic here as it's a bit flawed
     function repayLoan() public hasActiveLoan{
 
         ERC20 stableCoinContract = ERC20(stableCoinAddress);

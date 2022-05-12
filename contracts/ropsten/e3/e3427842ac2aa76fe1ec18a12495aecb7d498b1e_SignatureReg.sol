@@ -35,7 +35,7 @@ contract SignatureReg is Owned {
 
   // constructor with self-registration
   function SignatureReg() {
-    register(&#39;register(string)&#39;);
+    register('register(string)');
   }
 
   // registers a method mapping

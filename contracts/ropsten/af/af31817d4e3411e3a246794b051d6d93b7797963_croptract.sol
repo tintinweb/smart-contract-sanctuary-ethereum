@@ -152,7 +152,7 @@ contract croptract{
     }
 
     /*
-    main function 4: drivers mark the goods they&#39;ve picked up 
+    main function 4: drivers mark the goods they've picked up 
     */        
     function pickUp (uint _Id) isDriver (msg.sender) public {
         require (OrderById[_Id].orderStatus == status.locked || 

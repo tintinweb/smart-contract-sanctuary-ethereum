@@ -231,7 +231,7 @@ contract ERC721Base {
     //
 
     /**
-     * @dev Authorize a third party operator to manage (send) msg.sender&#39;s asset
+     * @dev Authorize a third party operator to manage (send) msg.sender's asset
      * @param operator address to be approved
      * @param authorized bool set to true to authorize, false to withdraw authorization
      */
@@ -364,7 +364,7 @@ contract ERC721Base {
     }
 
     /**
-     * @dev Alias of `safeTransferFrom(from, to, assetId, &#39;&#39;)`
+     * @dev Alias of `safeTransferFrom(from, to, assetId, '')`
      *
      * @param from address that currently owns an asset
      * @param to address to receive the ownership of the asset
@@ -377,7 +377,7 @@ contract ERC721Base {
     /**
      * @dev Securely transfers the ownership of a given asset from one address to
      * another address, calling the method `onNFTReceived` on the target address if
-     * there&#39;s code associated with it
+     * there's code associated with it
      *
      * @param from address that currently owns an asset
      * @param to address to receive the ownership of the asset

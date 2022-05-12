@@ -178,10 +178,10 @@ contract ERC20Token is ERC20TokenInterface, admined { //Standard definition of a
 * @dev Initial supply creation
 */
 contract AssetPRIME is ERC20Token {
-    string public name = &#39;PEERPRIME&#39;;
+    string public name = 'PEERPRIME';
     uint8 public decimals = 18;
-    string public symbol = &#39;PRIME&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'PRIME';
+    string public version = '1';
 
     constructor() public {
         totalSupply = 102175000 * (10**uint256(decimals)); //initial token creation

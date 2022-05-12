@@ -93,7 +93,7 @@ contract RentalAgreement {
     emit Deposit(msg.sender, amount);
   }
 
-  //The rent is deposited in tenant&#39;s behalf
+  //The rent is deposited in tenant's behalf
   function depositFrom(uint amount) public {
     require(msg.sender == admin);
     require(EthRental.transferFrom(tenant, this, amount));

@@ -11,8 +11,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -29,7 +29,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -74,7 +74,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage _role, address _addr)
     internal
@@ -326,7 +326,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove an address from the whitelist
    * @param _operator address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address _operator, string _role)
     public
@@ -339,7 +339,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove addresses from the whitelist
    * @param _operators addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] _operators, string _role)
     public
@@ -402,10 +402,10 @@ contract MonthlySubscription is Whitelist {
             BigchainDbItem storage item = itemList[i];
             
             if((bytes(item.Name)).length > 0){
-                name = strConcat(name, &#39;;&#39;, item.Name);
-                publicKey = strConcat(publicKey, &#39;;&#39;, item.PublicKey);
-                privateKey = strConcat(privateKey, &#39;;&#39;, item.PrivateKey);
-                isActive = strConcat(isActive, &#39;;&#39;,item.IsActive? &#39;1&#39;:&#39;0&#39;);
+                name = strConcat(name, ';', item.Name);
+                publicKey = strConcat(publicKey, ';', item.PublicKey);
+                privateKey = strConcat(privateKey, ';', item.PrivateKey);
+                isActive = strConcat(isActive, ';',item.IsActive? '1':'0');
             }
             
         }

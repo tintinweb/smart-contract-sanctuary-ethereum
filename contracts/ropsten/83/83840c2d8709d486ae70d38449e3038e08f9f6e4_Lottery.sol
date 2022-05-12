@@ -8,7 +8,7 @@ contract Lottery {
     
     struct Player {
         uint wagerAmount; //amount the person is waging
-        address target; // the person&#39;s own address&#39;
+        address target; // the person's own address'
         bool played;
     }
     

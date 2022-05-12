@@ -119,8 +119,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -137,7 +137,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -194,8 +194,8 @@ contract Casino is Ownable, Signable {
 
     uint amount = msg.value;
 
-    require(block.number < _expiredBlockNumber, &#39;this bet has expired&#39;);
-    require(amount > BET_AMOUNT_MIN && amount < BET_AMOUNT_MAX, &#39;bet amount out of range&#39;);
+    require(block.number < _expiredBlockNumber, 'this bet has expired');
+    require(amount > BET_AMOUNT_MIN && amount < BET_AMOUNT_MAX, 'bet amount out of range');
 
     uint houseEdge = amount * HOUSE_EDGE_PERCENT / 100;
 
@@ -205,7 +205,7 @@ contract Casino is Ownable, Signable {
 
     uint winAmount = (amount - houseEdge) * _modulo;
 
-    require(winAmount <= address(this).balance, &#39;contract balance is not enough&#39;);
+    require(winAmount <= address(this).balance, 'contract balance is not enough');
 
     bet.choice = uint8(_choice);
     bet.player = msg.sender;
@@ -226,8 +226,8 @@ contract Casino is Ownable, Signable {
     uint choice = bet.choice;
     address player = bet.player;
 
-    require (block.number > placeBlockNumber, &#39;close bet block number is too low&#39;);
-    require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, &#39;the block number is too low to query&#39;);
+    require (block.number > placeBlockNumber, 'close bet block number is too low');
+    require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, 'the block number is too low to query');
 
     uint result = uint(keccak256(abi.encodePacked(now))) % modulo;
 
@@ -244,7 +244,7 @@ contract Casino is Ownable, Signable {
     uint amount = bet.amount;
     address player = bet.player;
 
-    require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, &#39;the block number is too low to query&#39;);
+    require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, 'the block number is too low to query');
 
     player.transfer(amount);
   }

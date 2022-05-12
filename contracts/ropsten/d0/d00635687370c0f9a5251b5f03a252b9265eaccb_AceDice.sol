@@ -134,7 +134,7 @@ contract AceDice {
     // - 100 for etheroll
     // - 37 for roulette
     // etc.
-    // It&#39;s called so because 256-bit entropy is treated like a huge integer and
+    // It's called so because 256-bit entropy is treated like a huge integer and
     // the remainder of its division by modulo is considered bet outcome.
     // uint constant MAX_MODULO = 100;
 
@@ -262,7 +262,7 @@ contract AceDice {
         owner = nextOwner;
     }
 
-    // Fallback function deliberately left empty. It&#39;s primary use case
+    // Fallback function deliberately left empty. It's primary use case
     // is to top up the bank roll.
     function () external payable {
     }
@@ -334,9 +334,9 @@ contract AceDice {
     }
 
     function placeBet(uint betMask, uint commitLastBlock, uint commit, uint8 v, bytes32 r, bytes32 s) external payable {
-        // Check that the bet is in &#39;clean&#39; state.
+        // Check that the bet is in 'clean' state.
         Bet storage bet = bets[commit];
-        require (bet.gambler == address(0), "Bet should be in a &#39;clean&#39; state.");
+        require (bet.gambler == address(0), "Bet should be in a 'clean' state.");
 
         // Validate input data ranges.
         uint amount = msg.value;
@@ -429,9 +429,9 @@ contract AceDice {
     }
 
     function placeBetWithInviter(uint betMask, uint commitLastBlock, uint commit, uint8 v, bytes32 r, bytes32 s, address payable inviter) external payable {
-        // Check that the bet is in &#39;clean&#39; state.
+        // Check that the bet is in 'clean' state.
         Bet storage bet = bets[commit];
-        require (bet.gambler == address(0), "Bet should be in a &#39;clean&#39; state.");
+        require (bet.gambler == address(0), "Bet should be in a 'clean' state.");
 
         // Validate input data ranges.
         uint amount = msg.value;
@@ -509,7 +509,7 @@ contract AceDice {
 
         // Check that bet has not expired yet (see comment to BET_EXPIRATION_BLOCKS).
         require (block.number > placeBlockNumber, "settleBet in the same block as placeBet, or before.");
-        require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
         require (blockhash(placeBlockNumber) == blockHash);
 
         // Settle bet using reveal and blockHash as entropy sources.
@@ -524,12 +524,12 @@ contract AceDice {
         uint rollUnder = bet.rollUnder;
         address payable gambler = bet.gambler;
 
-        // Check that bet is in &#39;active&#39; state.
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        // Check that bet is in 'active' state.
+        require (amount != 0, "Bet should be in an 'active' state");
 
         applyVIPLevel(gambler, amount);
 
-        // Move bet into &#39;processed&#39; state already.
+        // Move bet into 'processed' state already.
         bet.amount = 0;
 
         // The RNG - combine "reveal" and blockhash of placeBet using Keccak256. Miners
@@ -601,16 +601,16 @@ contract AceDice {
     // in a situation like this, just contact the AceDice support, however nothing
     // precludes you from invoking this method yourself.
     function refundBet(uint commit) external {
-        // Check that bet is in &#39;active&#39; state.
+        // Check that bet is in 'active' state.
         Bet storage bet = bets[commit];
         uint amount = bet.amount;
 
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        require (amount != 0, "Bet should be in an 'active' state");
 
         // Check that bet has already expired.
-        require (block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
-        // Move bet into &#39;processed&#39; state, release funds.
+        // Move bet into 'processed' state, release funds.
         bet.amount = 0;
 
         uint diceWinAmount;
@@ -636,7 +636,7 @@ contract AceDice {
         houseEdge = HOUSE_EDGE_MINIMUM_AMOUNT;
         }
 
-        require (houseEdge + jackpotFee <= amount, "Bet doesn&#39;t even cover house edge.");
+        require (houseEdge + jackpotFee <= amount, "Bet doesn't even cover house edge.");
         winAmount = (amount - houseEdge - jackpotFee) * 100 / rollUnder;
     }
 

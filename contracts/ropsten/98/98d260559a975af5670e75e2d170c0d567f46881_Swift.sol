@@ -36,7 +36,7 @@ contract Swift {
 
     function Swift() {
         totalSupply = 15000000000;
-        symbol = &#39;ETHS&#39;;
+        symbol = 'ETHS';
         owner = 0xf2b75149A1b2901768Bde68B9DFc95d19e75a2a8;
         balances[owner] = totalSupply;
         decimals = 2;

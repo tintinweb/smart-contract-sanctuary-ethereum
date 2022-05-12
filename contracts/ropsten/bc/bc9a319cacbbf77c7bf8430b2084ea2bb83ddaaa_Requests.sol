@@ -7,7 +7,7 @@ contract Requests {
         Initial,
         // Request approved by the user, at this step an IPFS locator is included in the request
         UserApproved,
-        // Request is denied by the user, at this point Seeker&#39;s deposit becomes refundable
+        // Request is denied by the user, at this point Seeker's deposit becomes refundable
         UserDenied,
         // Certificate is received by the Seeker and successfully verified against the certificate hash
         SeekerCompleted,

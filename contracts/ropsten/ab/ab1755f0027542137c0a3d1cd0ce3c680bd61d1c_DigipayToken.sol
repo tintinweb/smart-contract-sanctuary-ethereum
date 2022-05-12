@@ -74,7 +74,7 @@ contract ERC20Basic {
   // Get the account balance of another account with address `who`
 
   function transfer(address to, uint256 value) public returns (bool);
-  // Send `value&#39; amount of tokens to address `to&#39;
+  // Send `value' amount of tokens to address `to'
 
   event Transfer(address indexed from, address indexed to, uint256 value);
   // Triggered when tokens are transferred.
@@ -189,8 +189,8 @@ contract DigipayToken is ERC20, Ownable {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint256 tokens) public returns (bool) {
@@ -206,7 +206,7 @@ contract DigipayToken is ERC20, Ownable {
     
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     // ------------------------------------------------------------------------
     function approve(address spender, uint256 tokens) public returns (bool){
         allowed[msg.sender][spender] = tokens;
@@ -235,7 +235,7 @@ contract DigipayToken is ERC20, Ownable {
     }
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];

@@ -46,7 +46,7 @@ library SafeMath {
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {uint256 c = a * b; assert(a == 0 || c / a == b); return c;}
  
     // assert(b > 0); // Solidity automatically throws when dividing by 0
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
   function div(uint256 a, uint256 b) internal pure returns (uint256) {uint256 c = a / b; return c;}
  
   function sub(uint256 a, uint256 b) internal pure returns (uint256) {assert(b <= a); return a - b;}

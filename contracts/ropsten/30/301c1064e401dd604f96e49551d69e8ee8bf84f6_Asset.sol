@@ -30,8 +30,8 @@ library SafeMath {
 contract token {
 
     function balanceOf(address _owner) public constant returns (uint256 balance);
-    //Since some tokens doesn&#39;t return a bool on transfer, this general interface
-    //doesn&#39;t include a return on the transfer fucntion to be widely compatible
+    //Since some tokens doesn't return a bool on transfer, this general interface
+    //doesn't include a return on the transfer fucntion to be widely compatible
     function transfer(address _to, uint256 _value) public;
 
 }
@@ -205,10 +205,10 @@ contract ERC20Token is ERC20TokenInterface, admined { //Standard definition of a
 * @dev Initial supply creation
 */
 contract Asset is ERC20Token {
-    string public name = &#39;Pri-Sale Wager Token V2&#39;;
+    string public name = 'Pri-Sale Wager Token V2';
     uint8 public decimals = 18;
-    string public symbol = &#39;PRIWGR2&#39;;
-    string public version = &#39;2&#39;;
+    string public symbol = 'PRIWGR2';
+    string public version = '2';
 
     constructor() public {
         totalSupply = 10000000 * (10**uint256(decimals)); //initial token creation

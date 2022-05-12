@@ -9,7 +9,7 @@ contract Utils {
     function Utils() {
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -69,7 +69,7 @@ contract Utils {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public constant returns (string) { name; }
     function symbol() public constant returns (string) { symbol; }
     function decimals() public constant returns (uint8) { decimals; }
@@ -120,7 +120,7 @@ contract ERC20Token is IERC20Token, Utils {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transfer(address _to, uint256 _value)
         public
@@ -141,7 +141,7 @@ contract ERC20Token is IERC20Token, Utils {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transferFrom(address _from, address _to, uint256 _value)
         public
@@ -167,14 +167,14 @@ contract ERC20Token is IERC20Token, Utils {
         @param _spender approved address
         @param _value   allowance amount
 
-        @return true if the approval was successful, false if it wasn&#39;t
+        @return true if the approval was successful, false if it wasn't
     */
     function approve(address _spender, uint256 _value)
         public
         validAddress(_spender)
         returns (bool success)
     {
-        // if the allowance isn&#39;t 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
+        // if the allowance isn't 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
         require(_value == 0 || allowance[msg.sender][_spender] == 0);
 
         allowance[msg.sender][_spender] = _value;
@@ -187,7 +187,7 @@ contract ERC20Token is IERC20Token, Utils {
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public constant returns (address) { owner; }
 
     function transferOwnership(address _newOwner) public;
@@ -291,7 +291,7 @@ contract TCLRToken is ERC20Token, TokenHolder {
 
     address public icoAddress;   // ico address
     address public companyAddress;                                             // Address of the company
-    address public advisorAddress;                                               // TCLRin advisor&#39;s address
+    address public advisorAddress;                                               // TCLRin advisor's address
     address public bonusAddress;                                   // Address that holds the bonus 
     address public TCLRinTeamAddress;                              // TCLRin Team address
     address public bountyAddress;                                            // Bounty address
@@ -352,7 +352,7 @@ contract TCLRToken is ERC20Token, TokenHolder {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, throws if it wasn&#39;t
+        @return true if the transfer was successful, throws if it wasn't
     */
     function transfer(address _to, uint256 _value) public returns (bool success) {
         if (isTransferAllowed() == true) {
@@ -371,7 +371,7 @@ contract TCLRToken is ERC20Token, TokenHolder {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, throws if it wasn&#39;t
+        @return true if the transfer was successful, throws if it wasn't
     */
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
         if (isTransferAllowed() == true ) {        

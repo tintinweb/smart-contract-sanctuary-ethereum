@@ -102,7 +102,7 @@ contract Election {
     }
 
     function vote (uint8 _candidateid, address sender) public {
-        // require that they haven&#39;t voted before
+        // require that they haven't voted before
         require(!voters[sender]);
 
         // record that voter has voted

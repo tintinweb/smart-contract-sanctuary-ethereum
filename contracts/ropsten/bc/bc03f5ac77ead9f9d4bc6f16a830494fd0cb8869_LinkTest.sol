@@ -363,8 +363,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -381,7 +381,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -491,7 +491,7 @@ library linkSafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -621,9 +621,9 @@ contract linkStandardToken is linkERC20, linkBasicToken {
 contract LinkToken is linkStandardToken, ERC677Token {
 
   uint public constant totalSupply = 10**27;
-  string public constant name = &#39;ChainLink Token&#39;;
+  string public constant name = 'ChainLink Token';
   uint8 public constant decimals = 18;
-  string public constant symbol = &#39;LINK&#39;;
+  string public constant symbol = 'LINK';
 
   function LinkToken()
     public
@@ -791,7 +791,7 @@ contract Oracle is Ownable {
     Callback memory callback = callbacks[_internalId];
     withdrawableWei = withdrawableWei.add(callback.amount);
     delete callbacks[_internalId];
-    // All updates to the oracle&#39;s fulfillment should come before calling the
+    // All updates to the oracle's fulfillment should come before calling the
     // callback(addr+functionId) as it is untrusted.
     // See: https://solidity.readthedocs.io/en/develop/security-considerations.html#use-the-checks-effects-interactions-pattern
     callback.addr.call(callback.functionId, callback.externalId, _data); // solium-disable-line security/no-low-level-calls

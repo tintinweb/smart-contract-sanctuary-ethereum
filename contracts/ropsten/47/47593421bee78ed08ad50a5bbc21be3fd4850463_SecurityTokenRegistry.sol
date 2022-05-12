@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -167,7 +167,7 @@ interface ISecurityTokenRegistry {
     /**
      * @notice Registers the token ticker for its particular owner
      * @notice once the token ticker is registered to its owner then no other issuer can claim
-     * @notice its ownership. If the ticker expires and its issuer hasn&#39;t used it, then someone else can take it.
+     * @notice its ownership. If the ticker expires and its issuer hasn't used it, then someone else can take it.
      * @param _owner Address of the owner of the token
      * @param _ticker Token ticker
      * @param _tokenName Name of the token
@@ -505,7 +505,7 @@ contract EternalStorage {
     /// @notice used to intialize the array
     /// Ex1- mapping (address => address[]) public reputation;
     /// reputation[0x1] = new address[](0); It can be replaced as
-    /// setArray(hash(&#39;reputation&#39;, 0x1), new address[](0)); 
+    /// setArray(hash('reputation', 0x1), new address[](0)); 
     
     function setArray(bytes32 _key, address[] _value) internal {
         addressArrayStorage[_key] = _value;
@@ -554,7 +554,7 @@ contract EternalStorage {
     /// @notice set the value of particular index of the address array
     /// Ex1- mapping(bytes32 => address[]) moduleList;
     /// general way is -- moduleList[moduleType][index] = temp; 
-    /// It can be re-write as -- setArrayIndexValue(keccak256(abi.encodePacked(&#39;moduleList&#39;, moduleType)), index, temp); 
+    /// It can be re-write as -- setArrayIndexValue(keccak256(abi.encodePacked('moduleList', moduleType)), index, temp); 
 
     function setArrayIndexValue(bytes32 _key, uint256 _index, address _value) internal {
         addressArrayStorage[_key][_index] = _value;
@@ -1041,7 +1041,7 @@ contract SecurityTokenRegistry is ISecurityTokenRegistry, EternalStorage {
     /**
      * @notice Registers the token ticker to the selected owner
      * @notice Once the token ticker is registered to its owner then no other issuer can claim
-     * @notice its ownership. If the ticker expires and its issuer hasn&#39;t used it, then someone else can take it.
+     * @notice its ownership. If the ticker expires and its issuer hasn't used it, then someone else can take it.
      * @param _owner is address of the owner of the token
      * @param _ticker is unique token ticker
      * @param _tokenName is the name of the token
@@ -1144,7 +1144,7 @@ contract SecurityTokenRegistry is ISecurityTokenRegistry, EternalStorage {
     function removeTicker(string _ticker) external onlyOwner {
         string memory ticker = Util.upper(_ticker);
         address owner = _tickerOwner(ticker);
-        require(owner != address(0), "Ticker doesn&#39;t exist");
+        require(owner != address(0), "Ticker doesn't exist");
         _deleteTickerOwnership(owner, ticker);
         set(Encoder.getKey("tickerToSecurityToken", ticker), address(0));
         _storeTickerDetails(ticker, address(0), 0, 0, "", false);

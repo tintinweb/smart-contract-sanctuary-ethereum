@@ -58,9 +58,9 @@ contract FtechizTestToken is owned,IERC20{
     
     uint256 public constant _totalSupply = 10000000000000;
  
-    string public constant symbol = &#39;FTT&#39;;
+    string public constant symbol = 'FTT';
 
-    string public constant name = &#39;Ftechiz Test Token&#39;;
+    string public constant name = 'Ftechiz Test Token';
     
     uint8 public constant decimals = 8;
     

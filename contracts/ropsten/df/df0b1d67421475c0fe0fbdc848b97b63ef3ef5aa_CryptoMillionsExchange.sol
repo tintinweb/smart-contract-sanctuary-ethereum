@@ -59,23 +59,23 @@ contract CryptoMillionsExchange {
         if( _type == 0 ){
             require(addressMarketing == 0x0);
             addressMarketing = _addr;
-            emit eventSetAddress(_addr , now , &#39;Marketing&#39;);
+            emit eventSetAddress(_addr , now , 'Marketing');
 		} else if( _type == 1 ){
             require(addressLegal == 0x0);
             addressLegal = _addr;
-            emit eventSetAddress(_addr , now , &#39;Legal&#39;);
+            emit eventSetAddress(_addr , now , 'Legal');
 		} else if( _type == 2 ){
             require(addressDevelopers == 0x0);
             addressDevelopers = _addr;
-            emit eventSetAddress(_addr , now , &#39;Developers&#39;);
+            emit eventSetAddress(_addr , now , 'Developers');
 		} else if( _type == 3 ){
             require(addressOperations == 0x0);
             addressOperations = _addr;
-            emit eventSetAddress(_addr , now , &#39;Operations&#39;);
+            emit eventSetAddress(_addr , now , 'Operations');
 		} else if( _type == 4 ){
             require(addressWarranty == 0x0);
             addressWarranty = _addr;
-            emit eventSetAddress(_addr , now , &#39;Warranty&#39;);
+            emit eventSetAddress(_addr , now , 'Warranty');
         }
         return true;
     }

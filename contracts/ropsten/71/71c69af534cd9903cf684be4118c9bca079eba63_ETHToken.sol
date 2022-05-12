@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -112,7 +112,7 @@ library RLP {
  }
 
  struct Iterator {
-     RLPItem _unsafe_item;   // Item that&#39;s being iterated over.
+     RLPItem _unsafe_item;   // Item that's being iterated over.
      uint _unsafe_nextPtr;   // Position of the next item in the list.
  }
 
@@ -179,14 +179,14 @@ library RLP {
 
  /// @dev Check if the RLP item is null.
  /// @param self The RLP item.
- /// @return &#39;true&#39; if the item is null.
+ /// @return 'true' if the item is null.
  function isNull(RLPItem memory self) internal pure returns (bool ret) {
      return self._unsafe_length == 0;
  }
 
  /// @dev Check if the RLP item is a list.
  /// @param self The RLP item.
- /// @return &#39;true&#39; if the item is a list.
+ /// @return 'true' if the item is a list.
  function isList(RLPItem memory self) internal pure returns (bool ret) {
      if (self._unsafe_length == 0)
          return false;
@@ -198,7 +198,7 @@ library RLP {
 
  /// @dev Check if the RLP item is data.
  /// @param self The RLP item.
- /// @return &#39;true&#39; if the item is data.
+ /// @return 'true' if the item is data.
  function isData(RLPItem memory self) internal pure returns (bool ret) {
      if (self._unsafe_length == 0)
          return false;
@@ -210,7 +210,7 @@ library RLP {
 
  /// @dev Check if the RLP item is empty (string or list).
  /// @param self The RLP item.
- /// @return &#39;true&#39; if the item is null.
+ /// @return 'true' if the item is null.
  function isEmpty(RLPItem memory self) internal pure returns (bool ret) {
      if (isNull(self)) {
          return false;
@@ -246,7 +246,7 @@ library RLP {
 
  /// @dev Create an iterator.
  /// @param self The RLP item.
- /// @return An &#39;Iterator&#39; over the item.
+ /// @return An 'Iterator' over the item.
  function iterator(RLPItem memory self) internal constant returns (Iterator memory it) {
      if (!isList(self))
          revert();
@@ -466,7 +466,7 @@ library RLP {
 
  // Assumes that enough memory has been allocated to store in target.
  function _copyToBytes(uint btsPtr, bytes memory tgt, uint btsLen) private constant {
-     // Exploiting the fact that &#39;tgt&#39; was the last thing to be allocated,
+     // Exploiting the fact that 'tgt' was the last thing to be allocated,
      // we can write entire words, and just overwrite any excess.
      assembly {
          {

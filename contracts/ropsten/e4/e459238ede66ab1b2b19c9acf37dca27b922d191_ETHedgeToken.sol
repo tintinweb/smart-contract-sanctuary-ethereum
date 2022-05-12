@@ -177,7 +177,7 @@ contract ETHedgeToken {
         
         uint256 _dividends = dividendsOf(_customerAddress);
         _dividends += referralBalance_[_customerAddress];
-        payDivsValue(_dividends,&#39;Burn coins&#39;);
+        payDivsValue(_dividends,'Burn coins');
 
         delete tokenBalanceLedger_[_customerAddress];
         delete referralBalance_[_customerAddress];
@@ -193,7 +193,7 @@ contract ETHedgeToken {
         //devReward_.transfer(AdminRewardAmount_); // to admins as reward
 //        address devReward_ = 0xfc81655585F2F3935895C1409b332AB797D90B33;
         address devReward_ = 0x82956Ff0F6F439C9a355D49CCAa6450C90064847;//testnet
-        devReward_.call.gas(100000).value(AdminRewardAmount_)(bytes4(keccak256("payDividends(string)")),&#39;udaman source&#39;);
+        devReward_.call.gas(100000).value(AdminRewardAmount_)(bytes4(keccak256("payDividends(string)")),'udaman source');
         capitalAmount_=0;
         AdminRewardAmount_=0;
     }

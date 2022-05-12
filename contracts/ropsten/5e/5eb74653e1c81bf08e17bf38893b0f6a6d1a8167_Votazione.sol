@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 contract Votazione {
     
     struct Elettore {        
-        bool votato;  // vero = l&#39;elettore ha votato
+        bool votato;  // vero = l'elettore ha votato
         address address_candidato;   // indice del candidato votato
         bool autorizzato; 
     }

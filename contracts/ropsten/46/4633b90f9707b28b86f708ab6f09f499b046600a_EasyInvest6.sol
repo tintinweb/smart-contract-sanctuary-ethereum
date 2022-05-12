@@ -4,14 +4,14 @@ pragma solidity ^0.4.25;
  *
  * Easy Investment Contract
  *  - GAIN 6% PER 24 HOURS
- *  - NO COMMISSION on your investment (every ether stays on contract&#39;s balance)
+ *  - NO COMMISSION on your investment (every ether stays on contract's balance)
  *  - NO FEES are collected by the owner, in fact, there is no owner at all (just look at the code)
  *  - Rapid growth PROTECTION. The balance of the contract can not grow faster than 40% of the total investment every day
  *	- Maximum single deposit is 4 ether, so that everyone can participate and whales do not slow down and do not scare investors
  *
  * How to use:
  *  1. Send any amount of ether to make an investment
- *  2a. Claim your profit by sending 0 ether transaction (every day, every week, i don&#39;t care unless you&#39;re spending too much on GAS)
+ *  2a. Claim your profit by sending 0 ether transaction (every day, every week, i don't care unless you're spending too much on GAS)
  *  OR
  *  2b. Send more ether to reinvest AND get your profit at the same time
  *

@@ -76,7 +76,7 @@ contract Airdrop is Owned, SafeMath {
     }
     
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function() public payable {
         revert();

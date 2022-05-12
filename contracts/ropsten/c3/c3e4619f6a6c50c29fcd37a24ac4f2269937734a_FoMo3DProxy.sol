@@ -297,7 +297,7 @@ contract Ownable {
 // "./PlayerBookInterface.sol";
 // "./SafeMath.sol";
 // "./NameFilter.sol";
-// &#39;openzeppelin-solidity/contracts/ownership/Ownable.sol&#39;;
+// 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 
 //==============================================================================
 //     _    _  _ _|_ _  .
@@ -727,7 +727,7 @@ contract FoMo3DLong is modularLong, Ownable, FoMo3DLongInterface {
     //     // manage affiliate residuals
     //     uint256 _affID;
     //     // if no affiliate code was given or player tried to use their own, lolz
-    //     if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+    //     if (_affCode == '' || _affCode == plyr_[_pID].name)
     //     {
     //         // use last stored affiliate code
     //         _affID = plyr_[_pID].laff;
@@ -1726,7 +1726,7 @@ contract FoMo3DLong is modularLong, Ownable, FoMo3DLongInterface {
     // private
     // returns (F3Ddatasets.EventReturns memory)
     // {
-    //     // update player&#39;s last round played
+    //     // update player's last round played
     //     plyr_[_pID].lrnd = rID_;
 
     //     // set the joined round bool to true
@@ -1805,7 +1805,7 @@ contract FoMo3DLong is modularLong, Ownable, FoMo3DLongInterface {
         _rID++;
         round_[_rID].strt = now;
         round_[_rID].end = now.add(rndInit_).add(rndGap_);
-        // update player&#39;s last round played
+        // update player's last round played
         // plyr_[_pID].lrnd = rID_;
 
         return (_winTeam);

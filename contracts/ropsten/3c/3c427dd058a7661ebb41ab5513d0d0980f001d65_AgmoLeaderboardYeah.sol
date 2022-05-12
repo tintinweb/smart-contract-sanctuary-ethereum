@@ -50,8 +50,8 @@ contract AgmoLeaderboardYeah {
         string memory ret = "\x5B";
         
         for (uint i=0; i<leaderboards.length; i++) {
-            string memory result = strConcat(&#39;{"name": "&#39;, leaderboards[i].name , &#39;","score": "&#39;,
-                                uintToString(leaderboards[i].score), &#39;"}&#39;);
+            string memory result = strConcat('{"name": "', leaderboards[i].name , '","score": "',
+                                uintToString(leaderboards[i].score), '"}');
             if(i != leaderboards.length - 1){
                 result = strConcat(result, ",");
             }

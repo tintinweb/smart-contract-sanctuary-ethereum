@@ -46,7 +46,7 @@ interface ERC820ImplementerInterface {
 contract ERC820Registry {
     /// @notice ERC165 Invalid ID.
     bytes4 constant INVALID_ID = 0xffffffff;
-    /// @notice Method ID for the ERC165 supportsInterface method (= `bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))`).
+    /// @notice Method ID for the ERC165 supportsInterface method (= `bytes4(keccak256('supportsInterface(bytes4)'))`).
     bytes4 constant ERC165ID = 0x01ffc9a7;
     /// @notice Magic value which is returned if a contract implements an interface on behalf of some other address.
     bytes32 constant ERC820_ACCEPT_MAGIC = keccak256(abi.encodePacked("ERC820_ACCEPT_MAGIC"));
@@ -64,7 +64,7 @@ contract ERC820Registry {
     /// @param _addr Address being queried for the implementer of an interface.
     /// (If `_addr == 0` then `msg.sender` is assumed.)
     /// @param _interfaceHash keccak256 hash of the name of the interface as a string.
-    /// E.g., `web3.utils.keccak256(&#39;ERC777Token&#39;)`.
+    /// E.g., `web3.utils.keccak256('ERC777Token')`.
     /// @return The address of the contract which implements the interface `_interfaceHash` for `_addr`
     /// or `0x0` if `_addr` did not register an implementer for this interface.
     function getInterfaceImplementer(address _addr, bytes32 _interfaceHash) external view returns (address) {
@@ -81,7 +81,7 @@ contract ERC820Registry {
     /// (Each address is the manager for itself until it sets a new manager.)
     /// @param _addr Address to define the interface for. (If `_addr == 0` then `msg.sender` is assumed.)
     /// @param _interfaceHash keccak256 hash of the name of the interface as a string.
-    /// For example, `web3.utils.keccak256(&#39;ERC777TokensRecipient&#39;)` for the `ERC777TokensRecipient` interface.
+    /// For example, `web3.utils.keccak256('ERC777TokensRecipient')` for the `ERC777TokensRecipient` interface.
     function setInterfaceImplementer(address _addr, bytes32 _interfaceHash, address _implementer) external {
         address addr = _addr == 0 ? msg.sender : _addr;
         require(getManager(addr) == msg.sender, "Not the manager");

@@ -25,7 +25,7 @@ interface IOracle {
 
 /// @title Ownable has an owner address and provides basic authorization control functions.
 /// This contract is modified version of the MIT OpenZepplin Ownable contract
-/// This contract doesn&#39;t allow for multiple changeOwner operations
+/// This contract doesn't allow for multiple changeOwner operations
 /// https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/ownership/Ownable.sol
 contract Ownable {
     event TransferredOwnership(address _from, address _to);
@@ -423,8 +423,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -442,7 +442,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -786,7 +786,7 @@ contract SpendLimit is Controllable, Ownable {
         _updateSpendAvailable();
         // Set the daily limit to the provided amount.
         spendLimit = _amount;
-        // Lower the available limit if it&#39;s higher than the new daily limit.
+        // Lower the available limit if it's higher than the new daily limit.
         if (_spendAvailable > spendLimit) {
             _spendAvailable = spendLimit;
         }
@@ -845,8 +845,8 @@ contract Vault is Whitelist, SpendLimit, ERC165 {
         }
     }
 
-    /// @dev Transfers the specified asset to the recipient&#39;s address.
-    /// @param _to is the recipient&#39;s address.
+    /// @dev Transfers the specified asset to the recipient's address.
+    /// @param _to is the recipient's address.
     /// @param _asset is the address of an ERC20 token or 0x0 for ether.
     /// @param _amount is the amount of tokens to be transferred in base units.
     function transfer(address _to, address _asset, uint _amount) external onlyOwner isNotZero(_amount) {
@@ -996,7 +996,7 @@ contract Wallet is Vault {
         emit CancelledTopUpLimitChange(msg.sender, _amount);
     }
 
-    /// @dev Refill owner&#39;s gas balance.
+    /// @dev Refill owner's gas balance.
     /// @dev Revert if the transaction amount is too large
     /// @param _amount is the amount of ether to transfer to the owner account in wei.
     function topUpGas(uint _amount) external isNotZero(_amount) {
@@ -1006,10 +1006,10 @@ contract Wallet is Vault {
         _updateTopUpAvailable();
         // Make sure the available top up amount is not zero.
         require(_topUpAvailable != 0, "available top up limit cannot be zero");
-        // Fail if there isn&#39;t enough in the daily top up limit to perform topUp
+        // Fail if there isn't enough in the daily top up limit to perform topUp
         require(_amount <= _topUpAvailable, "available top up limit less than amount passed in");
         // Reduce the top up amount from available balance and transfer corresponding
-        // ether to the owner&#39;s account.
+        // ether to the owner's account.
         _topUpAvailable = _topUpAvailable.sub(_amount);
         owner().transfer(_amount);
         // Emit the gas top up event.
@@ -1023,7 +1023,7 @@ contract Wallet is Vault {
         _updateTopUpAvailable();
         // Set the daily limit to the provided amount.
         topUpLimit = _amount;
-        // Lower the available limit if it&#39;s higher than the new daily limit.
+        // Lower the available limit if it's higher than the new daily limit.
         if (_topUpAvailable > topUpLimit) {
             _topUpAvailable = topUpLimit;
         }

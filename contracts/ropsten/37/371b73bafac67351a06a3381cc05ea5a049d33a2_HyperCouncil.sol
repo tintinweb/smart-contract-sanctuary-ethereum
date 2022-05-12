@@ -95,8 +95,8 @@ contract HyperCouncil is owned, tokenRecipient {
         changeVotingRules(minimumQuorumForProposals, minutesForDebate, marginOfVotesForMajority);
         // It’s necessary to add an empty first member
         addMember(0, "");
-        // and let&#39;s add the founder, to save a step later
-        addMember(owner, &#39;founder&#39;);
+        // and let's add the founder, to save a step later
+        addMember(owner, 'founder');
     }
 
     /**
@@ -259,7 +259,7 @@ contract HyperCouncil is owned, tokenRecipient {
         p.numberOfVotes++;                              // Increase the number of votes
         if (supportsProposal) {                         // If they support the proposal
             p.currentResult++;                          // Increase score
-        } else {                                        // If they don&#39;t
+        } else {                                        // If they don't
             p.currentResult--;                          // Decrease the score
         }
 

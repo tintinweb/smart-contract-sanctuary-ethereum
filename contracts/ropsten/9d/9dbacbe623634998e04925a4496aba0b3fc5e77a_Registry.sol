@@ -39,7 +39,7 @@ contract Registry is Ownable, Mortal {
         return contracts;
     }
 
-    /// @notice sets the new addres as the latest one and pushes it to the history. I also sets the older contract &#39;depracated&#39;
+    /// @notice sets the new addres as the latest one and pushes it to the history. I also sets the older contract 'depracated'
     /// @param contractAddress the address of the most recent contract
     function register(address contractAddress) public onlyOwner {
         require(contractAddress != 0x0);

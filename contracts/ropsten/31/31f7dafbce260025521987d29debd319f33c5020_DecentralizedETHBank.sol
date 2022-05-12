@@ -3,10 +3,10 @@ pragma solidity ^0.4.25;
 /**
  * The First Decentralised ETH Bank
  * 
- * What&#39;s going on here?
+ * What's going on here?
  * 
- * It&#39;s works like real deposit in Bank. You will deposit ETH coin, and get dividends. 
- * It&#39;s not a ponzi scheme. Dividends are paid from the commission for opening / expanding 
+ * It's works like real deposit in Bank. You will deposit ETH coin, and get dividends. 
+ * It's not a ponzi scheme. Dividends are paid from the commission for opening / expanding 
  * and closing a deposit. The more time you hold a deposit, the more interest you earn.
  * 
  * The bank’s fund is completely decentralized and no one can transfer funds.
@@ -54,7 +54,7 @@ pragma solidity ^0.4.25;
  * 
  * WHAT CAN DO FINANCIAL ADMINISTRATOR?
  * 
- *      - Change Banking fee (from 0% to 2% - it&#39;s guaranteed by Contract)
+ *      - Change Banking fee (from 0% to 2% - it's guaranteed by Contract)
  *      - Receive Banking fee
  * 
  * HOW CAN I MAKE SURE THE TERMS OF THE CONTRACT?
@@ -65,7 +65,7 @@ pragma solidity ^0.4.25;
  * We take original code from the project TheWeakestHodler by CryptoManiac
  * https://etherscan.io/address/0x6288C6b68f06B1a3fd231C9c1Cb37113a531c912
  * 
- * What&#39;s new in this fork?
+ * What's new in this fork?
  * 
  *   - Accrual of dividends when opening and replenishing deposits
  *   - 10% of the dividend fund is divided into two parts.

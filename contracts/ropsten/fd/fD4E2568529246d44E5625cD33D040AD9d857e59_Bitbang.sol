@@ -2,11 +2,11 @@ pragma solidity ^0.4.25;
 
 /* ========================================================================== */
 /*   ______   _____  _________  ______        _       ____  _____   ______    */
-/*  |_   _ \ |_   _||  _   _  ||_   _ \      / \     |_   \|_   _|.&#39; ___  |   */
-/*    | |_) |  | |  |_/ | | \_|  | |_) |    / _ \      |   \ | | / .&#39;   \_|   */
-/*    |  __&#39;.  | |      | |      |  __&#39;.   / ___ \     | |\ \| | | |   ____   */
+/*  |_   _ \ |_   _||  _   _  ||_   _ \      / \     |_   \|_   _|.' ___  |   */
+/*    | |_) |  | |  |_/ | | \_|  | |_) |    / _ \      |   \ | | / .'   \_|   */
+/*    |  __'.  | |      | |      |  __'.   / ___ \     | |\ \| | | |   ____   */
 /*   _| |__) |_| |_    _| |_    _| |__) |_/ /   \ \_  _| |_\   |_\ `.___]  |  */
-/*  |_______/|_____|  |_____|  |_______/|____| |____||_____|\____|`._____.&#39;   */
+/*  |_______/|_____|  |_____|  |_______/|____| |____||_____|\____|`._____.'   */
 /*                                                                            */
 /* ========================================================================== */
 
@@ -518,8 +518,8 @@ library SafeMath {
      * @dev Multiplies two numbers, reverts on overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -537,7 +537,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0, "Invalid div"); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }

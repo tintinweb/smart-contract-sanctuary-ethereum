@@ -248,7 +248,7 @@ contract Countdown3D {
                 // Subtract tickets from account
                 account.tickets = account.tickets - totalTickets;
 
-                // Delete round from player&#39;s account
+                // Delete round from player's account
                 delete account.ticketSets[roundId];
 
                 // If the player won during the round
@@ -377,7 +377,7 @@ contract Countdown3D {
         return accounts[accountAddress].ticketSets[roundId].length;
     }
 
-    // Get an account&#39;s individual ticket set from a round
+    // Get an account's individual ticket set from a round
     function getTicketSet(address accountAddress, uint256 roundId, uint256 index)
         public
         view

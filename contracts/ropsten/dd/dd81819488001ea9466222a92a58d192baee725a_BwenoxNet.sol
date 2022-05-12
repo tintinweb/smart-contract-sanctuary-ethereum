@@ -12,9 +12,9 @@ pragma solidity ^0.4.24;
  * 
  * 1. Send fixed amount of ether every 24 hours (5900 blocks).
  * 2. With every new transaction collect exponentially greater return!
- * 3. Keep sending the same amount of ether! (can&#39;t trick the code, bro)
- * 4. Don&#39;t send too often (early transactions will be rejected, uh oh)
- * 5. Don&#39;t be late, you won&#39;t loose your %, but who wants to be the last?
+ * 3. Keep sending the same amount of ether! (can't trick the code, bro)
+ * 4. Don't send too often (early transactions will be rejected, uh oh)
+ * 5. Don't be late, you won't loose your %, but who wants to be the last?
  *  
  * Play by the rules and save up to 170%!
  *
@@ -101,7 +101,7 @@ contract BwenoxNet is Owned {
                 msg.sender.transfer(msg.value * idx * idx * (24400 - 500 * msg.value / 1 ether) / 10000000);
             }
         } else {
-            require(user.index <= 10, "It&#39;s too late to request a refund at this point");
+            require(user.index <= 10, "It's too late to request a refund at this point");
 
             msg.sender.transfer(user.index * user.value * 70 / 100);
             user.value = 0;
@@ -121,13 +121,13 @@ contract BwenoxNet is Owned {
      
     function claim(uint amount) public {
         if (msg.sender == projectAddress) {
-            require(amount > 0 && amount <= project, "Can&#39;t claim more than was reserved");
+            require(amount > 0 && amount <= project, "Can't claim more than was reserved");
 
             project -= amount;
             msg.sender.transfer(amount);
         } else 
         if (msg.sender == teamAddress) {
-            require(amount > 0 && amount <= team, "Can&#39;t claim more than was reserved");
+            require(amount > 0 && amount <= team, "Can't claim more than was reserved");
 
             team -= amount;
             msg.sender.transfer(amount);

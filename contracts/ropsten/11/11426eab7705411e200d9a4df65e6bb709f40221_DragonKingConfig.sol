@@ -71,7 +71,7 @@ contract DragonKingConfig is Ownable {
 
   /** the cost of each character type */
   uint128[] public costs;
-  /** the value of each character type (cost - fee), so it&#39;s not necessary to compute it each time*/
+  /** the value of each character type (cost - fee), so it's not necessary to compute it each time*/
   uint128[] public values;
   /** the fee to be paid each time an character is bought in percent*/
   uint8 fee;

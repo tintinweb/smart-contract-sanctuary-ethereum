@@ -47,7 +47,7 @@ contract BytesUtils {
     @dev Defines the interface of a standard RCN oracle.
 
     The oracle is an agent in the RCN network that supplies a convertion rate between RCN and any other currency,
-    it&#39;s primarily used by the exchange but could be used by any other agent.
+    it's primarily used by the exchange but could be used by any other agent.
 */
 contract Oracle is Ownable {
     uint256 public constant VERSION = 4;
@@ -268,7 +268,7 @@ interface ERC721 /* is ERC165 */ {
     function approve(address _approved, uint256 _tokenId) external payable returns(bool);
 
     /// @notice Enable or disable approval for a third party ("operator") to manage
-    ///  all of `msg.sender`&#39;s assets
+    ///  all of `msg.sender`'s assets
     /// @dev Emits the ApprovalForAll event. The contract MUST allow
     ///  multiple operators per owner.
     /// @param _operator Address to add to the set of authorized operators
@@ -450,7 +450,7 @@ contract ERC721Base {
     //
 
     /**
-     * @dev Authorize a third party operator to manage (send) msg.sender&#39;s asset
+     * @dev Authorize a third party operator to manage (send) msg.sender's asset
      * @param operator address to be approved
      * @param authorized bool set to true to authorize, false to withdraw authorization
      */
@@ -583,7 +583,7 @@ contract ERC721Base {
     }
 
     /**
-     * @dev Alias of `safeTransferFrom(from, to, assetId, &#39;&#39;)`
+     * @dev Alias of `safeTransferFrom(from, to, assetId, '')`
      *
      * @param from address that currently owns an asset
      * @param to address to receive the ownership of the asset
@@ -596,7 +596,7 @@ contract ERC721Base {
     /**
      * @dev Securely transfers the ownership of a given asset from one address to
      * another address, calling the method `onNFTReceived` on the target address if
-     * there&#39;s code associated with it
+     * there's code associated with it
      *
      * @param from address that currently owns an asset
      * @param to address to receive the ownership of the asset
@@ -1022,7 +1022,7 @@ contract PawnManager is Cosigner, ERC721Base, BytesUtils, Ownable {
 
         This cosigner does not have any risk or maintenance cost, so its free.
 
-        @return 0, because it&#39;s free
+        @return 0, because it's free
     */
     function cost(address , uint256 , bytes , bytes ) public view returns (uint256) {
         return 0;
@@ -1124,9 +1124,9 @@ contract PawnManager is Cosigner, ERC721Base, BytesUtils, Ownable {
     function _claim(address _engine, uint256 _loanId, bool _asBundle) internal returns(bool){
         uint256 pawnId = loanToLiability[_engine][_loanId];
         Pawn storage pawn = pawns[pawnId];
-        // Validate that the pawn wasn&#39;t claimed
+        // Validate that the pawn wasn't claimed
         require(pawn.status == Status.Ongoing, "Pawn not ongoing");
-        require(pawn.loanId == _loanId, "Pawn don&#39;t match loan id");
+        require(pawn.loanId == _loanId, "Pawn don't match loan id");
 
         if (pawn.engine.getStatus(_loanId) == Engine.Status.paid || pawn.engine.getStatus(_loanId) == Engine.Status.destroyed) {
             // The pawn is paid

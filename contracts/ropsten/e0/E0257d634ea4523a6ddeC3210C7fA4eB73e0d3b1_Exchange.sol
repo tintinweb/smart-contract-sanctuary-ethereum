@@ -10,7 +10,7 @@ deploy gas limit = 2223176, gas price = 1 GWei
 Ropsten  0xf3f5f80878f623f858c18beb782b595ba511ec34f562ecc3d398ab0e76854c89
 addr 0xE0257d634ea4523a6ddeC3210C7fA4eB73e0d3b1
 
-Event marks the end of a function call at this contract or other people&#39;s contracts, but not the confirmation of a transaction, which is decided by the miners and txn fee
+Event marks the end of a function call at this contract or other people's contracts, but not the confirmation of a transaction, which is decided by the miners and txn fee
 */
 contract Exchange {
     //https://0xproject.com/wiki#Message-Format

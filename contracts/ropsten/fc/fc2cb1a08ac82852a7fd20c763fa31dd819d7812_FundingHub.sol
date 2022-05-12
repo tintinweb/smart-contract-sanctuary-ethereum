@@ -23,7 +23,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -228,7 +228,7 @@ contract Database {
 
   //------------------------------------------------------------------------------------------------------------------
   // This contract is where users can fund assets or receive refunds from failed funding periods. Funding stages are represented by uints.
-  // Funding stages: 0: funding hasn&#39;t started, 1: currently being funded, 2: funding failed,  3: funding success, 4: asset is live
+  // Funding stages: 0: funding hasn't started, 1: currently being funded, 2: funding failed,  3: funding success, 4: asset is live
   //------------------------------------------------------------------------------------------------------------------
   contract FundingHub {
     using SafeMath for *;
@@ -247,7 +247,7 @@ contract Database {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    // Users can send Ether here to fund asset if funding goal hasn&#39;t been reached and the funding period isn&#39;t over.
+    // Users can send Ether here to fund asset if funding goal hasn't been reached and the funding period isn't over.
     // Invariants: Requires Eth be sent with transaction |  Must be in funding stage. Must be under goal | Must have KYC approved. | contract is not paused
     //------------------------------------------------------------------------------------------------------------------
     function fund(bytes32 _assetID)
@@ -363,7 +363,7 @@ contract Database {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    // Don&#39;t let function caller re-enter function before initial transaction finishes
+    // Don't let function caller re-enter function before initial transaction finishes
     //------------------------------------------------------------------------------------------------------------------
     modifier nonReentrant() {
       require(!rentrancy_lock);

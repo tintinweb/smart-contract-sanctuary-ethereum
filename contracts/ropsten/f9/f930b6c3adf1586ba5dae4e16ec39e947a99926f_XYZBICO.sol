@@ -118,7 +118,7 @@ contract XYZBICO is admined {
 
     //Contract details
     address public creator; //Creator address
-    string public version = &#39;0.1&#39;; //Contract version
+    string public version = '0.1'; //Contract version
 
     //Price related
     uint256 public USDPriceInWei; // 0.01 cent (0.0001$) in wei

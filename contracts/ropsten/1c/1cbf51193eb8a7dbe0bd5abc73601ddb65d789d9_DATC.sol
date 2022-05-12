@@ -245,7 +245,7 @@ contract TokenERC is ERC20, ERC223, Owned {
         balanceOf[_from] = balanceOf[_from].sub(_value);
         // Subtract from the targeted balance
         _allowances[_from][msg.sender] = _allowances[_from][msg.sender].sub(_value);
-        // Subtract from the sender&#39;s allowance
+        // Subtract from the sender's allowance
         totalSupply = totalSupply.sub(_value);
         // Update totalSupply
         emit Burn(_from, _value);
@@ -327,7 +327,7 @@ contract DATC is TokenERC {
         _transfer(msg.sender, this, amount, "");
         // makes the transfers
         msg.sender.transfer(amount.mul(sellPrice));
-        // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 
 }

@@ -318,7 +318,7 @@ contract TokenERC20 is ERC20Interface, SafeMath, Owned {
         require(balanceOf(_from) >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance(_from, msg.sender));    // Check allowance
         data.setBalance(_from, safeSub(balanceOf(_from), _value));                         // Subtract from the targeted balance
-        data.setAllowance(_from, msg.sender, safeSub(allowance(_from, msg.sender), _value));             // Subtract from the sender&#39;s allowance
+        data.setAllowance(_from, msg.sender, safeSub(allowance(_from, msg.sender), _value));             // Subtract from the sender's allowance
         data.setTotalSupply(safeSub(totalSupply(), _value));                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -402,7 +402,7 @@ contract UltimosToken is TokenERC20 {
         require(data.sellPrice() > 0);
         require(address(this).balance > safeMul(amount, data.sellPrice()));      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(safeMul(amount, data.sellPrice()));          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(safeMul(amount, data.sellPrice()));          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 
 

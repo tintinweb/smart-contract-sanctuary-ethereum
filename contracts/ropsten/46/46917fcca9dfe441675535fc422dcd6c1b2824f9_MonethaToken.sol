@@ -1,7 +1,7 @@
 /**
  *  The Monetha token contract complies with the ERC20 standard (see https://github.com/ethereum/EIPs/issues/20).
- *  The owner&#39;s share of tokens is locked for the first year and all tokens not
- *  being sold during the crowdsale but the owner&#39;s share + reserved tokend for bounty, loyalty program and future financing are burned.
+ *  The owner's share of tokens is locked for the first year and all tokens not
+ *  being sold during the crowdsale but the owner's share + reserved tokend for bounty, loyalty program and future financing are burned.
  *  Author: Julia Altenried
  *  Internal audit: Alex Bazhanau, Andrej Ruckij
  *  Audit: Blockchain & Smart Contract Security Group

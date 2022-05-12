@@ -12,8 +12,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -30,7 +30,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -205,15 +205,15 @@ interface IERC1155 /*is ERC165*/ {
     function safeBatchTransferFrom(address _from, address _to, uint256[] _ids, uint256[] _values, bytes _data) external;
 
     /**
-        @notice Get the balance of an account&#39;s Tokens
+        @notice Get the balance of an account's Tokens
         @param _owner  The address of the token holder
         @param _id     ID of the Token
-        @return        The _owner&#39;s balance of the Token type requested
+        @return        The _owner's balance of the Token type requested
      */
     function balanceOf(address _owner, uint256 _id) external view returns (uint256);
 
     /**
-        @notice Enable or disable approval for a third party ("operator") to manage all of `msg.sender`&#39;s tokens.
+        @notice Enable or disable approval for a third party ("operator") to manage all of `msg.sender`'s tokens.
         @dev MUST emit the ApprovalForAll event on success.
         @param _operator  Address to add to the set of authorized operators
         @param _approved  True if the operator is approved, false to revoke approval
@@ -249,7 +249,7 @@ contract ERC1155 is IERC1155, ERC165
 /////////////////////////////////////////// ERC165 //////////////////////////////////////////////
 
     /*
-        bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+        bytes4(keccak256('supportsInterface(bytes4)'));
     */
     bytes4 constant private INTERFACE_SIGNATURE_ERC165 = 0x01ffc9a7;
 
@@ -331,7 +331,7 @@ contract ERC1155 is IERC1155, ERC165
         require(_from == msg.sender || operatorApproval[_from][msg.sender] == true, "Need operator approval for 3rd party transfers.");
 
         // We assume _ids.length == _values.length
-        // we don&#39;t check since out of bound access will throw.
+        // we don't check since out of bound access will throw.
         for (i = 0; i < _ids.length; ++i) {
             id = _ids[i];
             value = _values[i];
@@ -348,10 +348,10 @@ contract ERC1155 is IERC1155, ERC165
     }
 
     /**
-        @notice Get the balance of an account&#39;s Tokens
+        @notice Get the balance of an account's Tokens
         @param _owner  The address of the token holder
         @param _id     ID of the Token
-        @return        The _owner&#39;s balance of the Token type requested
+        @return        The _owner's balance of the Token type requested
      */
     function balanceOf(address _owner, uint256 _id) external view returns (uint256) {
         // The balance of any account can be calculated from the Transfer events history.
@@ -361,7 +361,7 @@ contract ERC1155 is IERC1155, ERC165
     }
 
     /**
-        @notice Enable or disable approval for a third party ("operator") to manage all of `msg.sender`&#39;s tokens.
+        @notice Enable or disable approval for a third party ("operator") to manage all of `msg.sender`'s tokens.
         @dev MUST emit the ApprovalForAll event on success.
         @param _operator  Address to add to the set of authorized operators
         @param _approved  True if the operator is approved, false to revoke approval
@@ -555,7 +555,7 @@ contract ERC1155MixedFungibleMintable is ERC1155MixedFungible {
             emit TransferSingle(msg.sender, 0x0, dst, id, 1);
 
             if (dst.isContract()) {
-                require(IERC1155TokenReceiver(dst).onERC1155Received(msg.sender, msg.sender, id, 1, &#39;&#39;) == ERC1155_RECEIVED);
+                require(IERC1155TokenReceiver(dst).onERC1155Received(msg.sender, msg.sender, id, 1, '') == ERC1155_RECEIVED);
             }
         }
 
@@ -580,7 +580,7 @@ contract ERC1155MixedFungibleMintable is ERC1155MixedFungible {
             emit TransferSingle(msg.sender, 0x0, to, _id, quantity);
 
             if (to.isContract()) {
-                require(IERC1155TokenReceiver(to).onERC1155Received(msg.sender, msg.sender, _id, quantity, &#39;&#39;) == ERC1155_RECEIVED);
+                require(IERC1155TokenReceiver(to).onERC1155Received(msg.sender, msg.sender, _id, quantity, '') == ERC1155_RECEIVED);
             }
         }
     }

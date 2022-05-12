@@ -9,7 +9,7 @@
 pragma solidity ^0.5.10;
 
 /**
- * @dev Wrappers over Solidity&#39;s arithmetic operations with added overflow
+ * @dev Wrappers over Solidity's arithmetic operations with added overflow
  * checks.
  *
  * Arithmetic operations in Solidity wrap on overflow. This can easily result
@@ -19,14 +19,14 @@ pragma solidity ^0.5.10;
  * operation overflows.
  *
  * Using this library instead of the unchecked operations eliminates an entire
- * class of bugs, so it&#39;s recommended to use it always.
+ * class of bugs, so it's recommended to use it always.
  */
 library SafeMath {
     /**
      * @dev Returns the addition of two unsigned integers, reverting on
      * overflow.
      *
-     * Counterpart to Solidity&#39;s `+` operator.
+     * Counterpart to Solidity's `+` operator.
      *
      * Requirements:
      * - Addition cannot overflow.
@@ -42,7 +42,7 @@ library SafeMath {
      * @dev Returns the subtraction of two unsigned integers, reverting on
      * overflow (when the result is negative).
      *
-     * Counterpart to Solidity&#39;s `-` operator.
+     * Counterpart to Solidity's `-` operator.
      *
      * Requirements:
      * - Subtraction cannot overflow.
@@ -58,7 +58,7 @@ library SafeMath {
      * @dev Returns the multiplication of two unsigned integers, reverting on
      * overflow.
      *
-     * Counterpart to Solidity&#39;s `*` operator.
+     * Counterpart to Solidity's `*` operator.
      *
      * Requirements:
      * - Multiplication cannot overflow.
@@ -78,7 +78,7 @@ library SafeMath {
      * @dev Returns the integer division of two unsigned integers. Reverts on
      * division by zero. The result is rounded towards zero.
      *
-     * Counterpart to Solidity&#39;s `/` operator. Note: this function uses a
+     * Counterpart to Solidity's `/` operator. Note: this function uses a
      * `revert` opcode (which leaves remaining gas untouched) while Solidity
      * uses an invalid opcode to revert (consuming all remaining gas).
      *
@@ -96,7 +96,7 @@ library SafeMath {
      * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
      * Reverts when dividing by zero.
      *
-     * Counterpart to Solidity&#39;s `%` operator. This function uses a `revert`
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
      * opcode (which leaves remaining gas untouched) while Solidity uses an
      * invalid opcode to revert (consuming all remaining gas).
      *

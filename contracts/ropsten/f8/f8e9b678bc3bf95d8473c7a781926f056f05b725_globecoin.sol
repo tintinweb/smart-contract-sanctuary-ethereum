@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;Ethereum Crypto Trade Coin&#39; token contract
+// 'Ethereum Crypto Trade Coin' token contract
 //
 // Deployed to : 0xC8c169DF7D764e69E26832eFB22A21Ac01002e02
 // Symbol      : glbc

@@ -54,8 +54,8 @@ contract WorldCup {
         bytes32 team2;                      // second team
         bytes32 matchStartTime;             // match start time
 
-        uint256 resultTeam1;                // team1&#39;s score
-        uint256 resultTeam2;                // team2&#39;s score
+        uint256 resultTeam1;                // team1's score
+        uint256 resultTeam2;                // team2's score
 
         bool betEnd;                        // game can bet
                                             // n minutes after the start of the match, stop betting
@@ -66,8 +66,8 @@ contract WorldCup {
     // user structure
     struct User {
         address addr;                       // user address
-        uint256 scoreTeam1;                 // bet team1&#39;s score
-        uint256 scoreTeam2;                 // bet team2&#39;s score
+        uint256 scoreTeam1;                 // bet team1's score
+        uint256 scoreTeam2;                 // bet team2's score
         uint256 betWeight;                  // bet weight
         bool victory;
     }
@@ -93,7 +93,7 @@ contract WorldCup {
     }
 
     // bet function
-    // s1 = team1&#39;s score, s2 = team2&#39;s score
+    // s1 = team1's score, s2 = team2's score
     function bet(uint256 s1, uint256 s2, uint256 weight) public payable {
         require(game.betEnd == false);
         require(weight > 0 && weight <= 1000);
@@ -143,7 +143,7 @@ contract WorldCup {
         require(game.gameFinish == false);
         require(game.matchFinish == true);
 
-        uint256 victorsWeight = 0;          // all victors&#39; weight
+        uint256 victorsWeight = 0;          // all victors' weight
         uint256 bonus = 0;                  // the bonus every weight
         User u;
         uint256 i = 0;

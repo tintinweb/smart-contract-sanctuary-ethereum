@@ -66,7 +66,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -198,7 +198,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -288,7 +288,7 @@ contract Token is StandardToken, Ownable {
     address public assigner;    // The address allowed to assign or mint tokens during token sale.
     address public locker;      // The address allowed to lock/unlock addresses.
 
-    mapping(address => bool) public locked;        // If true, address&#39; tokens cannot be transferred.
+    mapping(address => bool) public locked;        // If true, address' tokens cannot be transferred.
 
     uint256 public currentTokenSaleId = 0;           // The id of the current token sale.
     mapping(address => uint256) public tokenSaleId;  // In which token sale the address participated.
@@ -483,7 +483,7 @@ contract Token is StandardToken, Ownable {
         return true;
     }
 
-    /// @dev Locks an address. A locked address cannot transfer its tokens or other addresses&#39; tokens out.
+    /// @dev Locks an address. A locked address cannot transfer its tokens or other addresses' tokens out.
     ///      Only addresses participating in the current token sale can be locked.
     ///      Only the locker account can lock addresses and only during the token sale.
     /// @param _address address The address to lock.
@@ -544,7 +544,7 @@ contract Token is StandardToken, Ownable {
 
     /// @dev Transfers tokens to the specified address. It prevents transferring tokens from a locked address.
     ///      Locked addresses can receive tokens.
-    ///      Current token sale&#39;s addresses cannot receive or send tokens until the token sale ends.
+    ///      Current token sale's addresses cannot receive or send tokens until the token sale ends.
     /// @param _to The address to transfer tokens to.
     /// @param _value The number of tokens to be transferred.
     function transfer(address _to, uint256 _value) public returns(bool) {
@@ -561,7 +561,7 @@ contract Token is StandardToken, Ownable {
     /// @dev Transfers tokens from one address to another. It prevents transferring tokens if the caller is locked or
     ///      if the allowed address is locked.
     ///      Locked addresses can receive tokens.
-    ///      Current token sale&#39;s addresses cannot receive or send tokens until the token sale ends.
+    ///      Current token sale's addresses cannot receive or send tokens until the token sale ends.
     /// @param _from address The address to transfer tokens from.
     /// @param _to address The address to transfer tokens to.
     /// @param _value The number of tokens to be transferred.
@@ -713,7 +713,7 @@ contract VestingTrustee is Ownable {
         external onlyVester {
 
         require(_to != address(0));
-        require(_to != address(this)); // Don&#39;t allow holder to be this contract.
+        require(_to != address(this)); // Don't allow holder to be this contract.
         require(_value > 0);
 
         // Require that every holder can be granted tokens only once.
@@ -784,12 +784,12 @@ contract VestingTrustee is Ownable {
     /// @param _time uint256 The time to be checked
     /// @return a uint256 Representing the amount of vested tokens of a specific grant.
     function calculateVestedTokens(Grant _grant, uint256 _time) private pure returns (uint256) {
-        // If we&#39;re before the cliff, then nothing is vested.
+        // If we're before the cliff, then nothing is vested.
         if (_time < _grant.cliff) {
             return 0;
         }
 
-        // If we&#39;re after the end of the vesting period - everything is vested;
+        // If we're after the end of the vesting period - everything is vested;
         if (_time >= _grant.end) {
             return _grant.value;
         }
@@ -808,7 +808,7 @@ contract VestingTrustee is Ownable {
     /// @dev Calculate the total amount of vested tokens of a holder at a given time.
     /// @param _holder address The address of the holder.
     /// @param _time uint256 The specific time to calculate against.
-    /// @return a uint256 Representing a holder&#39;s total amount of vested tokens.
+    /// @return a uint256 Representing a holder's total amount of vested tokens.
     function vestedTokens(address _holder, uint256 _time) external view returns (uint256) {
         Grant memory holderGrant = grants[_holder];
 
@@ -833,7 +833,7 @@ contract VestingTrustee is Ownable {
             return;
         }
 
-        // Make sure the holder doesn&#39;t transfer more than what he already has.
+        // Make sure the holder doesn't transfer more than what he already has.
         uint256 transferable = vested.sub(holderGrant.transferred);
         if (transferable == 0) {
             return;

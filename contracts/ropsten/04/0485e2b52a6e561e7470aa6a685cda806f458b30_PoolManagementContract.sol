@@ -9,7 +9,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -165,7 +165,7 @@ contract ICOPool is Ownable
         uint tokensReceived;
     }
 
-    // mapping to hold a contributor&#39;s information against his/her address    
+    // mapping to hold a contributor's information against his/her address    
     mapping (address=>ContributorInformation) contributor;
     
     // intermediate object to handle internal operations

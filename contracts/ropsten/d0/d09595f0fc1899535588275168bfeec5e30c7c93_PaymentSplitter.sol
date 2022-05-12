@@ -127,7 +127,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -159,13 +159,13 @@ contract PaymentSplitter is Recoverable {
     uint256 slices;
   }
 
-  /// @dev This is just a failsafe, so we can&#39;t initialize a contract where
+  /// @dev This is just a failsafe, so we can't initialize a contract where
   ///      splitting would not be succesful in the future (for example because
   ///      of decreased block gas limit):
   uint256 constant MAX_PARTIES = 100;
   /// @dev How many slices there are in total:
   uint256 public totalSlices;
-  /// @dev Array of "Party"s for each party&#39;s address and amount of slices:
+  /// @dev Array of "Party"s for each party's address and amount of slices:
   Party[] public parties;
 
   /// @dev This event is emitted when someone makes a payment:
@@ -192,7 +192,7 @@ contract PaymentSplitter is Recoverable {
 
   /// @dev Split the ethers, and send to parties according to slices.
   ///      This can be intentionally invoked by anyone: if some random person
-  ///      wants to pay for the gas, that&#39;s good for us.
+  ///      wants to pay for the gas, that's good for us.
   function split() external {
     uint256 totalBalance = address(this).balance;
     uint256 slice = totalBalance.div(totalSlices);

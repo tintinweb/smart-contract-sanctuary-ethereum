@@ -62,7 +62,7 @@ contract TTTVV is SafeMath {
     // event froze and un froze
     event FrozenAddress(address indexed _owner, uint256 _amount);
     event UnFrozenAddress(address indexed _owner, uint256 _amount);
-    // owner&#39;s token been burn
+    // owner's token been burn
     event Burn(address indexed _owner, uint256 indexed _amount);
 
     modifier onlyHolder() {

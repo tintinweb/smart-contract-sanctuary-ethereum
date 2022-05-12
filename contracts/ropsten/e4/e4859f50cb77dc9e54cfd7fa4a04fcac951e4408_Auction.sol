@@ -75,12 +75,12 @@ contract Auction {
             // increase the highestBindingBid and leave highestBidder alone.
 
             // note that this case is impossible if msg.sender == highestBidder because you can never
-            // bid less ETH than you&#39;ve already bid.
+            // bid less ETH than you've already bid.
 
             highestBindingBid = min(newBid + bidIncrement, highestBid);
         } else {
             // if msg.sender is already the highest bidder, they must simply be wanting to raise
-            // their maximum bid, in which case we shouldn&#39;t increase the highestBindingBid.
+            // their maximum bid, in which case we shouldn't increase the highestBindingBid.
 
             // if the user is NOT highestBidder, and has overbid highestBid completely, we set them
             // as the new highestBidder and recalculate highestBindingBid.
@@ -141,7 +141,7 @@ contract Auction {
         } else {
             // the auction finished without being canceled
             if (msg.sender == owner) {
-                // the auction&#39;s owner should be allowed to withdraw the highestBindingBid
+                // the auction's owner should be allowed to withdraw the highestBindingBid
                 withdrawalAccount = highestBidder;
                 withdrawalAmount = highestBindingBid;
                 ownerHasWithdrawn = true;

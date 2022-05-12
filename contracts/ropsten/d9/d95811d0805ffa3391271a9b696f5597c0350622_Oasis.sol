@@ -205,7 +205,7 @@ contract Oasis{
 		sysday = 600 seconds; //test
 		cksysday = 0 seconds;//test
 		
-        version = &#39;1.01&#39;;
+        version = '1.01';
 		balances[this] = _totalSupply;
 		owner = msg.sender;
 		emit Transfer(address(0), this, _totalSupply);

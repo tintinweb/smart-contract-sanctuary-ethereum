@@ -132,13 +132,13 @@ contract Authorizable is Ownable {
 
 contract BitmarkHotWallet is Authorizable, Pausable {
     bytes4 internal constant Interface_Transfer = 0xa9059cbb;
-    // bytes4(keccak256(&#39;transfer(address,uint256)&#39;))
+    // bytes4(keccak256('transfer(address,uint256)'))
     bytes4 internal constant Interface_TakeOwnership = 0xb2e6ceeb;
-    // bytes4(keccak256(&#39;transfer(address,uint256)&#39;))
+    // bytes4(keccak256('transfer(address,uint256)'))
     bytes4 internal constant Interface_TransferFrom = 0x23b872dd;
-    // bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;))
+    // bytes4(keccak256('transferFrom(address,address,uint256)'))
     bytes4 internal constant Interface_ERC721SafeTransferFrom = 0x42842e0e;
-    // bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;))
+    // bytes4(keccak256('safeTransferFrom(address,address,uint256)'))
 
     // ownedAssets keeps assets which are delegated to this smart contract
     mapping(address => mapping(uint256 => address)) internal ownedAssets;

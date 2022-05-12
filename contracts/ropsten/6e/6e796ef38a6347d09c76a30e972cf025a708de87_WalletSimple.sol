@@ -281,7 +281,7 @@ contract WalletSimple {
   }
 
   /**
-   * Gets the second signer&#39;s address using ecrecover
+   * Gets the second signer's address using ecrecover
    * @param operationHash the sha3 of the toAddress, value, data/tokenContractAddress and expireTime
    * @param signature the tightly packed signature of r, s, and v as an array of 65 bytes (returned by eth.sign)
    * returns address recovered from the signature

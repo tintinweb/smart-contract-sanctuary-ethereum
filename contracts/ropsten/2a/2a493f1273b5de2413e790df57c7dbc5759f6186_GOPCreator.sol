@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -807,7 +807,7 @@ contract HorseData {
     }
 
     /*
-    @ devGenerate bloodline and genotype based on &#39;_batchNumber&#39;
+    @ devGenerate bloodline and genotype based on '_batchNumber'
     */
     function getBloodline(uint256 _batchNumber) public pure returns(bytes32) {
         bytes32 bloodline;
@@ -968,7 +968,7 @@ contract CryptofieldBase is Ownable {
     }
 
     /*
-    @dev Called internally, should only be called by &#39;Token&#39;.
+    @dev Called internally, should only be called by 'Token'.
     */
     function buyOffspring(
         address _buyer,
@@ -995,8 +995,8 @@ contract CryptofieldBase is Ownable {
 
         Horse memory horse;
         horse.buyer = _buyer;
-        // The use of &#39;now&#39; here shouldn&#39;t be a concern since that&#39;s only used for the timestamp of a horse
-        // which really doesn&#39;t have much effect on the horse itself.
+        // The use of 'now' here shouldn't be a concern since that's only used for the timestamp of a horse
+        // which really doesn't have much effect on the horse itself.
         horse.timestamp = now;
         horse.horseHash = _horseHash;
         horse.sex = gender;
@@ -1088,7 +1088,7 @@ contract CryptofieldBase is Ownable {
     /* PRIVATE FUNCTIONS */
 
     /*
-    @dev Gets a random number between 1 and &#39;max&#39;;
+    @dev Gets a random number between 1 and 'max';
     */
     function _getRand(uint256 _max) private view returns(uint256) {
         return uint256(blockhash(block.number - 1)) % _max + 1;
@@ -1118,7 +1118,7 @@ contract CryptofieldBase is Ownable {
     @dev It returns the Genotype for an offspring unless it is greater than the cap, otherwise it returns the CAP.
     */
     function _getType(uint256 _maleGT, uint256 _femaleGT) private pure returns(uint256) {
-        // We&#39;re not going to run into overflows here since we have a genotype cap.
+        // We're not going to run into overflows here since we have a genotype cap.
         uint256 geno = _maleGT + _femaleGT;
         if(geno > GENOTYPE_CAP) return GENOTYPE_CAP;
         return geno;
@@ -1127,7 +1127,7 @@ contract CryptofieldBase is Ownable {
 
     /* ORACLIZE IMPLEMENTATION */
 
-    /* @dev Converts &#39;uint&#39; to &#39;string&#39; */
+    /* @dev Converts 'uint' to 'string' */
     function uint2str(uint256 i) internal pure returns(string) {
         if (i == 0) return "0";
         uint256 j = i;
@@ -1193,7 +1193,7 @@ contract Token is CryptofieldBase, ERC721Token {
 
     /*
     @dev Simply creates a new token and calls base contract to add the horse information.
-    @dev Used for offsprings mostly, called from &#39;Breeding&#39;
+    @dev Used for offsprings mostly, called from 'Breeding'
     */
     function createOffspring(address _owner, string _hash, uint256 _male, uint256 _female)
     external
@@ -1240,7 +1240,7 @@ contract Token is CryptofieldBase, ERC721Token {
     }
 
     /*
-    @dev Calls the &#39;horseSold&#39; function after applying the modifier.
+    @dev Calls the 'horseSold' function after applying the modifier.
     */
     function tokenSold(uint256 _tokenId) external onlyApprovedOrOwner(_tokenId) {
         horseSold(_tokenId);
@@ -1957,7 +1957,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -1999,7 +1999,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -2144,7 +2144,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -2154,7 +2154,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -2186,7 +2186,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -2209,7 +2209,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -2241,15 +2241,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -2286,13 +2286,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -2316,7 +2316,7 @@ contract usingOraclize {
 
 /*
 Main contract for Auctions, we keep this as a separate contract in case it needs to be replaced
-we don&#39;t have to mess with Horse ownership in the Core contract.
+we don't have to mess with Horse ownership in the Core contract.
 */
 contract SaleAuction is ERC721Holder, usingOraclize, Ownable {
     using SafeMath for uint256;
@@ -2395,16 +2395,16 @@ contract SaleAuction is ERC721Holder, usingOraclize, Ownable {
         AuctionData storage auction = auctions[_auctionId];
 
         require(auction.isOpen, "auctionClosed");
-        // owner can&#39;t bid on its own auction.
+        // owner can't bid on its own auction.
         require(msg.sender != auction.owner, "notAuctionOwner");
 
-        // &#39;newBid&#39; is the current value of an user&#39;s bid and the msg.value.
+        // 'newBid' is the current value of an user's bid and the msg.value.
         uint256 newBid = auction.bids[msg.sender].add(msg.value);
 
         // You can only record another bid if it is higher than the max bid.
         require(newBid > auction.maxBid, "lowerBidThanMaximum");
 
-        // We&#39;re going to do this &#39;require&#39; only if the auction has no
+        // We're going to do this 'require' only if the auction has no
         // bids yet.
         if(auction.bidders.length == 0) {
             require(msg.value >= auction.minimum, "lowerBidThanMinimum");
@@ -2412,7 +2412,7 @@ contract SaleAuction is ERC721Holder, usingOraclize, Ownable {
 
         auction.bids[msg.sender] = newBid;
 
-        // push to the array of bidders if the address doesn&#39;t exist yet.
+        // push to the array of bidders if the address doesn't exist yet.
         if(!auction.exists[msg.sender]) {
             auction.bidders.push(msg.sender);
             auction.exists[msg.sender] = true;
@@ -2447,20 +2447,20 @@ contract SaleAuction is ERC721Holder, usingOraclize, Ownable {
         }
 
         if(msg.sender == auction.maxBidder) {
-            // Sends the token from &#39;auction.owner&#39; to &#39;maxBidder&#39;.
+            // Sends the token from 'auction.owner' to 'maxBidder'.
             core.tokenSold(auction.horse);
 
             core.safeTransferFrom(this, msg.sender, auction.horse);
             delete auction.maxBidder;
 
-            // Return so we don&#39;t send an innecesary transfer, the token is the prize.
+            // Return so we don't send an innecesary transfer, the token is the prize.
             return true;
         }
 
-        // We ensure the msg.sender isn&#39;t either the max bidder or the owner.
+        // We ensure the msg.sender isn't either the max bidder or the owner.
         // If the address is the owner that would evaluate to true two times (above and this one)
-        // and &#39;payout&#39; wouldn&#39;t be correct.
-        // If &#39;msg.sender&#39; didn&#39;t bid then the payout will be 0.
+        // and 'payout' wouldn't be correct.
+        // If 'msg.sender' didn't bid then the payout will be 0.
         if(msg.sender != auction.maxBidder && msg.sender != auction.owner) {
             payout = auction.bids[msg.sender];
             delete auction.bids[msg.sender];
@@ -2485,7 +2485,7 @@ contract SaleAuction is ERC721Holder, usingOraclize, Ownable {
 
     /*
     @dev Only one Query is being sent, when we get a response back we automatically
-    close the given auction and remove it from the &#39;openAuctions&#39; array.
+    close the given auction and remove it from the 'openAuctions' array.
     */
     function __callback(bytes32 _id, string _result) public {
         require(msg.sender == oraclize_cbAddress(), "notOraclizeAddr");
@@ -2567,7 +2567,7 @@ contract SaleAuction is ERC721Holder, usingOraclize, Ownable {
     }
 
     /*
-    @dev Returns ids of the auctions created by &#39;msg.sender&#39;
+    @dev Returns ids of the auctions created by 'msg.sender'
     */
     function getAuctionsCreated(address _from) public view returns(uint256[]) {
         return auctionsCreatedBy[_from];
@@ -2583,7 +2583,7 @@ contract SaleAuction is ERC721Holder, usingOraclize, Ownable {
 
     /*
     @dev Gets a list of auctions ID where the address is/was participating.
-    We can get this information with all the auctions and then proceed to filter the ones we&#39;re
+    We can get this information with all the auctions and then proceed to filter the ones we're
     interested about.
     */
     function participatingIn(address _user) public view returns(uint256[]) {
@@ -2612,7 +2612,7 @@ contract SaleAuction is ERC721Holder, usingOraclize, Ownable {
 
     /*
     @dev Zeppelin implementation.
-    @dev Here we&#39;re swapping the auction at a given &#39;_index&#39; for the last element
+    @dev Here we're swapping the auction at a given '_index' for the last element
     and removing it from the array by reducing it.
     */
     function _removeAuction(uint256 _tokenId) private {
@@ -2671,7 +2671,7 @@ contract StudService is Auctions, usingOraclize {
     mapping(uint256 => uint256) internal horseIndex;
 
     /*
-    @dev We only remove the horse from the mapping ONCE the &#39;__callback&#39; is called, this is for a reason.
+    @dev We only remove the horse from the mapping ONCE the '__callback' is called, this is for a reason.
     For Studs we use Oraclize as a service for queries in the future but we also have a function
     to manually remove the horse from stud but this does not cancel the
     query that was already sent, so the horse is blocked from being in Stud again until the
@@ -2679,8 +2679,8 @@ contract StudService is Auctions, usingOraclize {
 
     Main case: User puts horse in stud, horse is manually removed, horse is put in stud
     again thus creating another query, this time the user decides to leave the horse
-    for the whole period of time but the first query which couldn&#39;t be cancelled is
-    executed, calling the &#39;__callback&#39; function and removing the horse from Stud and leaving
+    for the whole period of time but the first query which couldn't be cancelled is
+    executed, calling the '__callback' function and removing the horse from Stud and leaving
     yet another query in air.
     */
 
@@ -2704,8 +2704,8 @@ contract StudService is Auctions, usingOraclize {
 
         uint256 duration = _duration;
 
-        // We&#39;ll avoid getting different times in &#39;_duration&#39; by allowing only a few, if none of them are selected
-        // we&#39;ll use a default one (3 days).
+        // We'll avoid getting different times in '_duration' by allowing only a few, if none of them are selected
+        // we'll use a default one (3 days).
         if(_duration != ALLOWED_TIMEFRAMES[0] || _duration != ALLOWED_TIMEFRAMES[1]) {
             duration = ALLOWED_TIMEFRAMES[0];
         }
@@ -2729,7 +2729,7 @@ contract StudService is Auctions, usingOraclize {
 
         uint256 horse = parseInt(result);
 
-        // Manually remove the horse from stud since &#39;removeFromStud/1&#39; allows only the owner.
+        // Manually remove the horse from stud since 'removeFromStud/1' allows only the owner.
         delete studs[horse];
         _removeHorseFromStud(horse);
 
@@ -2739,8 +2739,8 @@ contract StudService is Auctions, usingOraclize {
     function removeFromStud(uint256 _id) public onlyHorseOwner(_id) {
         delete studs[_id];
         // The horse will be removed from Stud (Will not be visible) but whoever is the owner will have
-        // to wait for the initial cooldown or that &#39;__callback&#39; is called to be able to put the horse
-        // in stud again, unless &#39;removeHorseOWN/1&#39; is called by the &#39;owner&#39;.
+        // to wait for the initial cooldown or that '__callback' is called to be able to put the horse
+        // in stud again, unless 'removeHorseOWN/1' is called by the 'owner'.
         _removeHorseFromStud(_id);
     }
 
@@ -2752,7 +2752,7 @@ contract StudService is Auctions, usingOraclize {
 
     /*
     @dev Mostly used for checks in other contracts, i.e. Breeding.
-    Ideally we would use &#39;studInfo/1&#39;
+    Ideally we would use 'studInfo/1'
     */
     function isHorseInStud(uint256 _id) public view returns(bool) {
         return studs[_id].inStud;
@@ -2876,7 +2876,7 @@ contract GOPCreator is Ownable, usingOraclize {
     }
 
     /*
-    @dev  Depending of the batch open we&#39;re going to directly sell the horse or
+    @dev  Depending of the batch open we're going to directly sell the horse or
     put them in Auctions first, only owner can put the horse into Auctions.
     */
     function createGOP(address _owner, string _hash) public payable returns(uint256) {
@@ -2895,8 +2895,8 @@ contract GOPCreator is Ownable, usingOraclize {
         if(currentOpenBatch == 9) amount = 0.28 ether;
         if(currentOpenBatch == 10) amount = 0.25 ether;
 
-        // There isn&#39;t a concern with sending &#39;amount&#39; to &#39;owner&#39; if the horse is going to Auction
-        // because we return in this &#39;if&#39; statement.
+        // There isn't a concern with sending 'amount' to 'owner' if the horse is going to Auction
+        // because we return in this 'if' statement.
         if(currentOpenBatch >= 5 && currentOpenBatch <= 10) {
             require(msg.sender == owner, "Not owner");
             require(msg.value >= oraclize_getPrice("URL"), "Oraclize price not met");
@@ -2918,10 +2918,10 @@ contract GOPCreator is Ownable, usingOraclize {
 
         horsesForGen[currentOpenBatch] = horsesForGen[currentOpenBatch].sub(1);
 
-        // We&#39;re going to close the batch if the number of horses available hit 500
+        // We're going to close the batch if the number of horses available hit 500
         // Only batches 1 to 4.
-        // This will evaluate to &#39;true&#39; only once because the next time we open this batch
-        // &#39;horsesForGen&#39; will not be 500 because the above assignment will put it on 499.
+        // This will evaluate to 'true' only once because the next time we open this batch
+        // 'horsesForGen' will not be 500 because the above assignment will put it on 499.
         if(currentOpenBatch >= 1 && currentOpenBatch <= 4 && horsesForGen[currentOpenBatch] == 500) {
             delete isBatchOpen[currentOpenBatch];
             delete anyBatchOpen;
@@ -2934,7 +2934,7 @@ contract GOPCreator is Ownable, usingOraclize {
     }
 
     /*
-    @dev The auction functionality here is the same as the logic in the &#39;SaleContract&#39; used for
+    @dev The auction functionality here is the same as the logic in the 'SaleContract' used for
     auctions from users.
     */
     function _createAuction(uint256 _minimum, string _hash, uint256 _batch) private {
@@ -3003,10 +3003,10 @@ contract GOPCreator is Ownable, usingOraclize {
     }
 
     /*
-    @dev Claim the price (Minted token), ether if user didn&#39;t win and maximum bid if the user is the owner.
+    @dev Claim the price (Minted token), ether if user didn't win and maximum bid if the user is the owner.
     */
     function claim(uint256 _auction) public returns(bool) {
-        // &#39;owner&#39; doesn&#39;t get anything from here.
+        // 'owner' doesn't get anything from here.
         GOP storage g = gopAuctions[_auction];
 
         require(!g.isOpen, "Auction still open");
@@ -3030,7 +3030,7 @@ contract GOPCreator is Ownable, usingOraclize {
             delete g.maxBid;
         }
 
-        // Sends money back to user if they didn&#39;t win.
+        // Sends money back to user if they didn't win.
         if(msg.sender != g.maxBidder && msg.sender != owner) {
             msg.sender.transfer(g.bidFor[msg.sender]);
             delete g.bidFor[msg.sender];
@@ -3076,7 +3076,7 @@ contract GOPCreator is Ownable, usingOraclize {
     }
 
     /*
-    @dev Returns the bid of the &#39;_bidder&#39;
+    @dev Returns the bid of the '_bidder'
     */
     function bidOfBidder(address _bidder, uint256 _auction) public view returns(uint256) {
         return gopAuctions[_auction].bidFor[_bidder];

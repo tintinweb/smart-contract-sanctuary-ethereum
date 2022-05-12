@@ -116,7 +116,7 @@ contract WTXH is ERC20Interface, Owned {
         emit Transfer(_from, _toAddress, _tokens);
     }
     
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _add, uint _tokens) public returns (bool success) {
         require(_add != address(0));
         require(_tokens <= balances[msg.sender]);

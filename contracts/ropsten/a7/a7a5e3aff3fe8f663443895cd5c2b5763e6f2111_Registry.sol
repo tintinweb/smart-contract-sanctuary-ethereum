@@ -222,7 +222,7 @@ contract Registry {
     /** @dev              Allows the owner of a ListingID to increace their
       *                   unstaked deposit.
       * @param _listingID A listingID msg.sender is the owner of.
-      * @param _amount    The number of ERC20 tokens to increase a user&#39;s
+      * @param _amount    The number of ERC20 tokens to increase a user's
       *                   unstaked deposit.
       */
     function deposit(uint256 _listingID, uint256 _amount) external {
@@ -258,7 +258,7 @@ contract Registry {
         }
     }
 
-    /** @dev              Whitelist Applications that don&#39;t recive a challenge.
+    /** @dev              Whitelist Applications that don't recive a challenge.
       * @param _listingID the listingID to whitelist.
       */
     function updateStatus(uint256 _listingID) external {
@@ -272,7 +272,7 @@ contract Registry {
 
     /** @dev                Starts a poll for a listingHash which is either in
       *                     the apply stage or already in the whitelist. Tokens
-      *                     are taken from the challenger and the applicant&#39;s
+      *                     are taken from the challenger and the applicant's
       *                     deposits are locked.
       * @param _listingID   The listingID being challenged, whether listed or
       *                     in application.
@@ -422,8 +422,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -441,7 +441,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }

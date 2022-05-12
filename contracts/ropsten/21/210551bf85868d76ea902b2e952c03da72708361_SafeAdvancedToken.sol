@@ -36,7 +36,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -258,7 +258,7 @@ contract TokenERC20 is owned {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] = balanceOf[_from].sub(_value);    // Subtract from the targeted balance//!S!M
-        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value); // Subtract from the sender&#39;s allowance//!S!M
+        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value); // Subtract from the sender's allowance//!S!M
         totalSupply = totalSupply.sub(_value);                              // Update totalSupply//!S!M
         emit Burn(_from, _value);
         return true;
@@ -340,7 +340,7 @@ contract SafeAdvancedToken is TokenERC20 {
     event TimeOut(string command, int256 time);
     function isPreICO() public view returns(int8){
         if(ICOSet==true){
-            emit TimeOut(&#39;isPreICO&#39;, int256(preICOendTime - now));
+            emit TimeOut('isPreICO', int256(preICOendTime - now));
             if ((now>=preICOstartTime)&&(now<=preICOendTime)){
                 return 1;
             } else {
@@ -352,7 +352,7 @@ contract SafeAdvancedToken is TokenERC20 {
     }
     function isICO() public view returns(int8){
         if(ICOSet==true){
-            emit TimeOut(&#39;isICO&#39;, int256(ICOendTime - now));
+            emit TimeOut('isICO', int256(ICOendTime - now));
             if ((now>=ICOstartTime)&&(now<=ICOendTime)){
                 return 1;
             } else {
@@ -364,7 +364,7 @@ contract SafeAdvancedToken is TokenERC20 {
     }
     function isICOOver() public view returns(int8){        
         if(ICOSet==true){
-            emit TimeOut(&#39;isICOOver&#39;, int256(ICOendTime - now));
+            emit TimeOut('isICOOver', int256(ICOendTime - now));
             if (now>ICOendTime){            
                 return 1;
             } else {
@@ -497,7 +497,7 @@ contract SafeAdvancedToken is TokenERC20 {
         require(address(this).balance >= weiAmount);      // checks if the contract has enough ether to buy//!S!M
         _transfer(msg.sender, this, amount);              // makes the transfers        
         totalWei = totalWei.sub(weiAmount);
-        msg.sender.transfer(weiAmount);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks        
+        msg.sender.transfer(weiAmount);          // sends ether to the seller. It's important to do this last to avoid recursion attacks        
     }
     bool public refundEnabled = false;
     function setRefund(bool value) onlyOwner public{
@@ -518,7 +518,7 @@ contract SafeAdvancedToken is TokenERC20 {
         require(address(this).balance >= weiAmount);             // checks if the contract has enough ether to buy//!S!M
         _transfer(msg.sender, this, balanceOf[msg.sender]);              // makes the transfers        
         totalWei = totalWei.sub(weiAmount);
-        msg.sender.transfer(weiAmount);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks        
+        msg.sender.transfer(weiAmount);          // sends ether to the seller. It's important to do this last to avoid recursion attacks        
     }
     /// @notice Send ether to the owner
     /// @param amount amount of ether to transfer from contract to address

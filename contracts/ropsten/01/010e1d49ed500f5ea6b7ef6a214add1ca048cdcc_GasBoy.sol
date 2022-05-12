@@ -169,7 +169,7 @@ contract GasBoy is Claimable {
 
   // original forward function copied from https://github.com/uport-project/uport-identity/blob/develop/contracts/Proxy.sol
   /**
-  * @dev Forward signer&#39;s signed metatransaction from relayer to GasBoy
+  * @dev Forward signer's signed metatransaction from relayer to GasBoy
   * @param sig signature of transaction
   * @param signer signer of transaction
   * @param destination transaction is sent to this contract
@@ -180,7 +180,7 @@ contract GasBoy is Claimable {
   */
   function forward(bytes sig, address signer, address destination, uint value, bytes data, address rewardToken, uint rewardAmount) public onlyRelayer {
       bytes32 _hash = getHash(signer, destination, value, data, rewardToken, rewardAmount);
-      //increment the hash so this tx can&#39;t run again
+      //increment the hash so this tx can't run again
       nonce[signer]++;
       address _signer = recoverHashSigner(_hash, sig);
       require(_signer == signer, "signer did not sign transaction as claimed");
@@ -246,7 +246,7 @@ contract GasBoy is Claimable {
     }
   }
 
-  //borrowed from OpenZeppelin&#39;s ESDA:
+  //borrowed from OpenZeppelin's ESDA:
   //https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/cryptography/ECDSA.sol
   /**
   * @dev Recover signer address from a message by using their signature

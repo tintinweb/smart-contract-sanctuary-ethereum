@@ -17,7 +17,7 @@ library StringUtils {
   /**
    * @notice Returns the index within source ASCII string of the
    *      first occurrence of the query substring.
-   *      If source string doesn&#39;t contain query substring, then -1 is returned.
+   *      If source string doesn't contain query substring, then -1 is returned.
    * @param source the string to look in.
    * @param query the substring to search for.
    * @return the index of the first occurrence of the specified substring,
@@ -31,7 +31,7 @@ library StringUtils {
   /**
    * @notice Returns the index within source ASCII string of the
    *      first occurrence of the query substring, starting at the specified index.
-   *      If source string doesn&#39;t contain query substring, then -1 is returned.
+   *      If source string doesn't contain query substring, then -1 is returned.
    * @param source the string to look in.
    * @param query the substring to search for.
    * @param fromIndex the index from which to start the search.
@@ -39,10 +39,10 @@ library StringUtils {
    *      or -1 if there is no such occurrence.
    */
   function indexOf(string source, string query, uint256 fromIndex) internal pure returns (int256) {
-    // convert source into bytes, that&#39;s why only ASCII is supported
+    // convert source into bytes, that's why only ASCII is supported
     bytes memory sourceBytes = bytes(source);
 
-    // convert query into bytes, that&#39;s why only ASCII is supported
+    // convert query into bytes, that's why only ASCII is supported
     bytes memory queryBytes = bytes(query);
 
     // empty string exists in any string at index zero
@@ -82,7 +82,7 @@ library StringUtils {
 /**
  * @dev Access control module provides an API to check
  *      if specific operation is permitted globally and
- *      if particular user&#39;s has a permission to execute it
+ *      if particular user's has a permission to execute it
  */
 contract AccessControl {
   /// @notice Role manager is responsible for assigning the roles
@@ -125,20 +125,20 @@ contract AccessControl {
 
   /**
    * @dev Updates set of the globally enabled features (`f`),
-   *      taking into account sender&#39;s permissions.
+   *      taking into account sender's permissions.
    * @dev Requires sender to have `ROLE_FEATURE_MANAGER` permission.
    * @param mask bitmask representing a set of features to enable/disable
    */
   function updateFeatures(uint256 mask) public {
     // call sender nicely - caller
     address caller = msg.sender;
-    // read caller&#39;s permissions
+    // read caller's permissions
     uint256 p = userRoles[caller];
 
     // caller should have a permission to update global features
     require(__hasRole(p, ROLE_FEATURE_MANAGER));
 
-    // taking into account caller&#39;s permissions,
+    // taking into account caller's permissions,
     // 1) enable features requested
     features |= p & mask;
     // 2) disable features requested
@@ -153,7 +153,7 @@ contract AccessControl {
    *      some extended privileges over the smart contract,
    *      for example token minting, transferring on behalf, etc.
    * @dev Newly added `operator` cannot have any permissions which
-   *      transaction sender doesn&#39;t have.
+   *      transaction sender doesn't have.
    * @dev Requires transaction sender to have `ROLE_ROLE_MANAGER` permission.
    * @dev Cannot update existing operator. Throws if `operator` already exists.
    * @param operator address of the operator to add
@@ -164,10 +164,10 @@ contract AccessControl {
     // call sender gracefully - `manager`
     address manager = msg.sender;
 
-    // read manager&#39;s permissions (role)
+    // read manager's permissions (role)
     uint256 permissions = userRoles[manager];
 
-    // check that `operator` doesn&#39;t exist
+    // check that `operator` doesn't exist
     require(userRoles[operator] == 0);
 
     // manager must have a ROLE_ROLE_MANAGER role
@@ -217,9 +217,9 @@ contract AccessControl {
   /**
    * @dev Updates an existing `operator`, adding a specified role to it.
    * @dev Note that `operator` cannot receive permission which
-   *      transaction sender doesn&#39;t have.
+   *      transaction sender doesn't have.
    * @dev Requires transaction sender to have `ROLE_ROLE_MANAGER` permission.
-   * @dev Cannot create a new operator. Throws if `operator` doesn&#39;t exist.
+   * @dev Cannot create a new operator. Throws if `operator` doesn't exist.
    * @dev Existing permissions of the `operator` are preserved
    * @param operator address of the operator to update
    * @param role bitmask representing a set of permissions which
@@ -229,7 +229,7 @@ contract AccessControl {
     // call sender gracefully - `manager`
     address manager = msg.sender;
 
-    // read manager&#39;s permissions (role)
+    // read manager's permissions (role)
     uint256 permissions = userRoles[manager];
 
     // check that `operator` exists
@@ -245,7 +245,7 @@ contract AccessControl {
     // check if we still have some permissions (role) to add
     require(r != 0);
 
-    // update operator&#39;s permissions (roles) in the storage
+    // update operator's permissions (roles) in the storage
     userRoles[operator] |= r;
 
     // fire an event
@@ -254,7 +254,7 @@ contract AccessControl {
 
   /**
    * @dev Updates an existing `operator`, removing a specified role from it.
-   * @dev Note that  permissions which transaction sender doesn&#39;t have
+   * @dev Note that  permissions which transaction sender doesn't have
    *      cannot be removed.
    * @dev Requires transaction sender to have `ROLE_ROLE_MANAGER` permission.
    * @dev Cannot remove all permissions. Throws on such an attempt.
@@ -266,10 +266,10 @@ contract AccessControl {
     // call sender gracefully - `manager`
     address manager = msg.sender;
 
-    // read manager&#39;s permissions (role)
+    // read manager's permissions (role)
     uint256 permissions = userRoles[manager];
 
-    // check that we&#39;re not removing all the `operator`s permissions
+    // check that we're not removing all the `operator`s permissions
     // this is not really required and just causes inconveniences is function use
     //require(userRoles[operator] ^ role != 0);
 
@@ -277,13 +277,13 @@ contract AccessControl {
     require(__hasRole(permissions, ROLE_ROLE_MANAGER));
 
     // recalculate permissions (role) to remove:
-    // we cannot revoke permissions which calling `manager` doesn&#39;t have
+    // we cannot revoke permissions which calling `manager` doesn't have
     uint256 r = role & permissions;
 
     // check if we still have some permissions (role) to revoke
     require(r != 0);
 
-    // update operator&#39;s permissions (roles) in the storage
+    // update operator's permissions (roles) in the storage
     userRoles[operator] &= FULL_PRIVILEGES_MASK ^ r;
 
     // fire an event
@@ -298,7 +298,7 @@ contract AccessControl {
 
   /// @dev Checks if transaction sender `msg.sender` has all the required permissions `roleRequired`
   function __isSenderInRole(uint256 roleRequired) internal constant returns(bool) {
-    // read sender&#39;s permissions (role)
+    // read sender's permissions (role)
     uint256 userRole = userRoles[msg.sender];
 
     // delegate call to `__hasRole`
@@ -330,7 +330,7 @@ contract DeedStamp is AccessControl {
    * @dev A mapping of deed document hash to a timestamp when
    *      the document was added to this mapping
    * @dev Zero value in the mapping indicates
-   *      the document&#39;s proof of existence doesn&#39;t exist
+   *      the document's proof of existence doesn't exist
    * @dev Non-zero value in the mapping indicates
    *      a unix timestamp when the document was added
    * @dev Unix timestamp – number of seconds that have passed since Jan 1, 1970
@@ -350,7 +350,7 @@ contract DeedStamp is AccessControl {
 
   /**
    * @notice Iterable storage for all property addresses registered
-   * @dev Unordered, doesn&#39;t contain duplicates (entries with equal hash)
+   * @dev Unordered, doesn't contain duplicates (entries with equal hash)
    * @dev May be used as an entry point to iterate over all the deeds
    *      stored in smart contract:
    *      for propertyAddress in knownPropertyAddresses
@@ -371,7 +371,7 @@ contract DeedStamp is AccessControl {
    *      (timestamp of the Ethereum transaction which creates that mapping)
    * @dev Additionally stores a mapping between property address and the document
    * @dev Requires sender to have ROLE_DEED_REGISTRANT permission
-   * @dev Throws if deed document doesn&#39;t contain specified property address inside
+   * @dev Throws if deed document doesn't contain specified property address inside
    * @dev Throws if proof of existence for the deed document already exists
    * @param propertyAddress a property address, must be included into the document
    * @param document a deed document to create a proof of existence for
@@ -384,7 +384,7 @@ contract DeedStamp is AccessControl {
     // calculate the hash
     uint256 documentHash = uint256(keccak256(document));
 
-    // ensure document doesn&#39;t exist in the document registry mapping
+    // ensure document doesn't exist in the document registry mapping
     require(documentRegistry[documentHash] == 0);
 
     // ensure the document contains a property address specified
@@ -396,7 +396,7 @@ contract DeedStamp is AccessControl {
     // calculate property address hash
     uint256 propertyAddressHash = uint256(keccak256(propertyAddress));
 
-    // if property address is new (doesn&#39;t exist in address index mapping)
+    // if property address is new (doesn't exist in address index mapping)
     if(addressRegistry[propertyAddressHash].length == 0) {
       // add it to array of know property addresses
       knownPropertyAddresses.push(propertyAddress);

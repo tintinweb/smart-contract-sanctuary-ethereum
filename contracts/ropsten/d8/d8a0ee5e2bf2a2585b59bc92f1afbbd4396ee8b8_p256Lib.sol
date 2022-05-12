@@ -46,7 +46,7 @@ contract p256Lib {
           for {} eq(and(compare, mask), 0) {} {
               mask := div(mask, 2)
           }
-        } //Scope because we don&#39;t need compare long term
+        } //Scope because we don't need compare long term
 
         switch iszero(eq(and(u1, mask), 0))
         case 1 {
@@ -131,7 +131,7 @@ contract p256Lib {
            }
           } //We have cleared the context block so cleared the stack and avoided the inaccessable stack error
           // assembly needs a command to delete local varibles so I can manualy clear the stack
-          if iszero(eq(_u1, _u2)) { //If we don&#39;t check we will overwrite the other valid case
+          if iszero(eq(_u1, _u2)) { //If we don't check we will overwrite the other valid case
             _r2 :=  mulmod(_u2, mulmod(_p2, _q2, 115792089210356248762697446949407573530086143415290314195533631308867097853951), 115792089210356248762697446949407573530086143415290314195533631308867097853951)
           }
         }
@@ -277,7 +277,7 @@ contract p256Lib {
     }
 
 
-    //computing inverse by using fermat&#39;s theorem
+    //computing inverse by using fermat's theorem
     function invmod(uint256 _a, uint _p) internal returns(uint256 invA) {
         invA = modexp(_a, _p - 2, _p);
     }

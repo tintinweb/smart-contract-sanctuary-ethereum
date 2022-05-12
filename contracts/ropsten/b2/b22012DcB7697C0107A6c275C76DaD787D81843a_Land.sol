@@ -190,7 +190,7 @@ contract Land is Galleasset {
     bytes32 landParts1 = keccak256(id);
     bytes32 landParts2 = keccak256(landParts1);
 
-    //don&#39;t allow land at 0&#39;s (those are viewed as empty)
+    //don't allow land at 0's (those are viewed as empty)
     if(x==0) x=1;
     if(y==0) y=1;
 

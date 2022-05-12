@@ -234,17 +234,17 @@ contract OrcaToken is TokenRecoverable, ERC20Token, ERC777Token, ERC820Implement
     }
 
     modifier canMint() {
-        require(state == State.Minting, "Not in &#39;Minting&#39; state!");
+        require(state == State.Minting, "Not in 'Minting' state!");
       _;
     }
 
     modifier canTrade() {
-        require(state == State.Trading || state == State.Burning, "Not in &#39;Trading&#39; or &#39;Burning&#39; state!");
+        require(state == State.Trading || state == State.Burning, "Not in 'Trading' or 'Burning' state!");
         _;
     }
 
     modifier canBurn() {
-        require(state == State.Burning, "Not in &#39;Burning&#39; state!");
+        require(state == State.Burning, "Not in 'Burning' state!");
         _;
     }
 
@@ -274,7 +274,7 @@ contract OrcaToken is TokenRecoverable, ERC20Token, ERC777Token, ERC820Implement
         doSend(msg.sender, _to, _amount, _userData, msg.sender, "", true);
     }
 
-    /// @notice Authorize a third party `_operator` to manage (send) `msg.sender`&#39;s tokens.
+    /// @notice Authorize a third party `_operator` to manage (send) `msg.sender`'s tokens.
     /// @param _operator The operator that wants to be Authorized
     function authorizeOperator(address _operator) public {
         require(_operator != msg.sender);
@@ -282,7 +282,7 @@ contract OrcaToken is TokenRecoverable, ERC20Token, ERC777Token, ERC820Implement
         emit AuthorizedOperator(_operator, msg.sender);
     }
 
-    /// @notice Revoke a third party `_operator`&#39;s rights to manage (send) `msg.sender`&#39;s tokens.
+    /// @notice Revoke a third party `_operator`'s rights to manage (send) `msg.sender`'s tokens.
     /// @param _operator The operator that wants to be Revoked
     function revokeOperator(address _operator) public {
         require(_operator != msg.sender);
@@ -374,7 +374,7 @@ contract OrcaToken is TokenRecoverable, ERC20Token, ERC777Token, ERC820Implement
     /// @notice ERC20 backwards compatible transfer.
     /// @param _to The address of the recipient
     /// @param _amount The number of tokens to be transferred
-    /// @return `true`, if the transfer can&#39;t be done, it should fail.
+    /// @return `true`, if the transfer can't be done, it should fail.
     function transfer(address _to, uint256 _amount) public erc20 returns (bool success) {
         doSend(msg.sender, _to, _amount, "", msg.sender, "", false);
         return true;
@@ -384,7 +384,7 @@ contract OrcaToken is TokenRecoverable, ERC20Token, ERC777Token, ERC820Implement
     /// @param _from The address holding the tokens being transferred
     /// @param _to The address of the recipient
     /// @param _amount The number of tokens to be transferred
-    /// @return `true`, if the transfer can&#39;t be done, it should fail.
+    /// @return `true`, if the transfer can't be done, it should fail.
     function transferFrom(address _from, address _to, uint256 _amount) public erc20 returns (bool success) {
         require(_amount <= allowed[_from][msg.sender]);
 
@@ -398,7 +398,7 @@ contract OrcaToken is TokenRecoverable, ERC20Token, ERC777Token, ERC820Implement
     ///  `msg.sender` approves `_spender` to spend `_amount` tokens on its behalf.
     /// @param _spender The address of the account able to transfer the tokens
     /// @param _amount The number of tokens to be approved for transfer
-    /// @return `true`, if the approve can&#39;t be done, it should fail.
+    /// @return `true`, if the approve can't be done, it should fail.
     function approve(address _spender, uint256 _amount) public erc20 returns (bool success) {
         allowed[msg.sender][_spender] = _amount;
         emit Approval(msg.sender, _spender, _amount);
@@ -437,7 +437,7 @@ contract OrcaToken is TokenRecoverable, ERC20Token, ERC777Token, ERC820Implement
     /* -- Helper Functions -- */
     //
     /// @notice Internal function that ensures `_amount` is multiple of the granularity
-    /// @param _amount The quantity that want&#39;s to be checked
+    /// @param _amount The quantity that want's to be checked
     function requireMultiple(uint256 _amount) internal pure {
         require(_amount.div(granularity_).mul(granularity_) == _amount);
     }

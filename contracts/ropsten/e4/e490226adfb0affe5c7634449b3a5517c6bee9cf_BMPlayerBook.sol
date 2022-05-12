@@ -253,7 +253,7 @@ interface BMForwarderInterface {
 /// which name to be used. Players who buy affiliate memberships can
 /// receive affiliate payments from registered games.
 /// Players can withdraw affiliate payments at any time.
-/// @dev The address of the forwarder is hardcoded. Check &#39;TODO&#39; before
+/// @dev The address of the forwarder is hardcoded. Check 'TODO' before
 /// deploy.
 contract BMPlayerBook is Ownable {
     using NameFilter for string;
@@ -560,7 +560,7 @@ contract BMPlayerBook is Ownable {
     }
     
     /**
-     * @dev players use this to change back to one of your old names.  tip, you&#39;ll
+     * @dev players use this to change back to one of your old names.  tip, you'll
      * still need to push that info to existing games.
      * -functionhash- 0xb9291296
      * @param _nameString the name you want to use 

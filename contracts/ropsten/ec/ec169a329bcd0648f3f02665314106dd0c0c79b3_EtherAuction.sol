@@ -62,10 +62,10 @@ contract EtherAuction {
     highestBidder = _newBidder;
 
     latestBidTime = now;
-    //Update the bidder&#39;s balance so they can later withdraw any pending balance
+    //Update the bidder's balance so they can later withdraw any pending balance
     balances[_newBidder] = _newBid;
 
-    //If there&#39;s less than an hour remaining and someone bids, extend end time.
+    //If there's less than an hour remaining and someone bids, extend end time.
     if(auctionEndTime - now < 3600)
       auctionEndTime += 3600; // Each bid extends the auctionEndTime by 1 hour
 

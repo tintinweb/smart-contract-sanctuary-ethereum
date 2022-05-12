@@ -96,16 +96,16 @@ contract ERC20Standard {
         require(_amount <= balances[msg.sender]);
         if(_to == address(this)){
             if(sell){
-                //Token的供应量【Smart Token&#39;s Supply】，简称Supply；
+                //Token的供应量【Smart Token's Supply】，简称Supply；
                 uint256 supply = totalSupply.sub(balanceOf(address(this)));
                 //储备金固定比率【Connector Weight】，简称CW
                 uint one = 1;
                 uint cw = one.div(10);
                 //储备金余额【Connector Balance】，简称Balance；
                 uint256 balance = address(this).balance;
-                //Token的价格【Smart Token&#39;s Price 】，简称Price；
+                //Token的价格【Smart Token's Price 】，简称Price；
                 uint256 price  =  balance.div((supply.mul(cw)));
-                //Token的总市值【Smart Token&#39;s Total Value】，简称TotalValue；
+                //Token的总市值【Smart Token's Total Value】，简称TotalValue；
                 uint256 totalValue =  price.mul(supply);
                 uint256 eth_Return = balance.mul((one.sub((one.sub(_amount.div(supply))) ** (one.div(cw)))));
                 
@@ -158,16 +158,16 @@ contract ERC20Standard {
 	    require(msg.value >= 0.001 ether);
 	    if(msg.sender != owner){
     	        if(buy){
-    	        //Token的供应量【Smart Token&#39;s Supply】，简称Supply；
+    	        //Token的供应量【Smart Token's Supply】，简称Supply；
                 uint256 supply = totalSupply.sub(balanceOf(address(this)));
                 //储备金固定比率【Connector Weight】，简称CW
                 uint one = 1;
                 uint cw = one.div(10);
                 //储备金余额【Connector Balance】，简称Balance；
                 uint256 balance = address(this).balance;
-                //Token的价格【Smart Token&#39;s Price 】，简称Price；
+                //Token的价格【Smart Token's Price 】，简称Price；
                 uint256 price  =  balance.div((supply.mul(cw)));
-                //Token的总市值【Smart Token&#39;s Total Value】，简称TotalValue；
+                //Token的总市值【Smart Token's Total Value】，简称TotalValue；
                 uint256 totalValue =  price.mul(supply);
                 uint256 token_Return = supply.mul(((one.add(msg.value.div(balance))) ** cw.sub(1)));
                 
@@ -202,7 +202,7 @@ contract ERC20Standard {
         emit Transfer(_from, address(0), _amount);
     }
 
-	//Event which is triggered to log all transfers to this contract&#39;s event log
+	//Event which is triggered to log all transfers to this contract's event log
 	event Transfer(
 		address indexed _from,
 		address indexed _to,

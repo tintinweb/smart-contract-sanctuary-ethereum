@@ -179,7 +179,7 @@ contract StandardToken is ERC20, BasicToken {
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -267,8 +267,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (_a == 0) {
             return 0;
@@ -285,7 +285,7 @@ library SafeMath {
     function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
         // assert(_b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = _a / _b;
-        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
         return _a / _b;
     }
 
@@ -326,7 +326,7 @@ contract BurnableToken is BasicToken {
     function _burn(address _who, uint256 _value) internal {
         require(_value <= balances[_who]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         balances[_who] = balances[_who].sub(_value);
         totalSupply_ = totalSupply_.sub(_value);
@@ -463,7 +463,7 @@ library Roles {
     }
 
     /**
-     * @dev remove an address&#39; access to this role
+     * @dev remove an address' access to this role
      */
     function remove(Role storage _role, address _addr)
         internal
@@ -656,7 +656,7 @@ contract Whitelist is Ownable, RBAC {
      * @dev remove an address from the whitelist
      * @param _operator address
      * @return true if the address was removed from the whitelist,
-     * false if the address wasn&#39;t in the whitelist in the first place
+     * false if the address wasn't in the whitelist in the first place
      */
     function removeAddressFromWhitelist(address _operator)
         public
@@ -669,7 +669,7 @@ contract Whitelist is Ownable, RBAC {
      * @dev remove addresses from the whitelist
      * @param _operators addresses
      * @return true if at least one address was removed from the whitelist,
-     * false if all addresses weren&#39;t in the whitelist in the first place
+     * false if all addresses weren't in the whitelist in the first place
      */
     function removeAddressesFromWhitelist(address[] _operators)
         public
@@ -738,7 +738,7 @@ contract BBT is BurnableToken, PausableToken, Whitelist {
         releaseBBT(_to, _amount);
 
         //解锁团队bbt
-        unlockTeamBBT(getTeamUnlockAmountHelper(_amount), &#39;mine&#39;);
+        unlockTeamBBT(getTeamUnlockAmountHelper(_amount), 'mine');
 
         emit Mine(msg.sender, _to, _amount);
         return true;
@@ -768,7 +768,7 @@ contract BBT is BurnableToken, PausableToken, Whitelist {
         release(_to, _amount);
 
         //解锁团队bbt
-        unlockTeamBBT(getTeamUnlockAmountHelper(_amount), &#39;release&#39;);
+        unlockTeamBBT(getTeamUnlockAmountHelper(_amount), 'release');
 
         return true;
     }

@@ -348,7 +348,7 @@ contract MojoPresell is AccessControl(){
         require(msg.value == presellPrice,"presell value is not same with price");
 
         uint16 total = getPreSelledInPool();
-        // check to preselled general&#39;s count must great than zero
+        // check to preselled general's count must great than zero
         require(total > 0,"there is no general in presell pool");
 
         MojoAssetInterface asset = MojoAssetInterface(assetContract);

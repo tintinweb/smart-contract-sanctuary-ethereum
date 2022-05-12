@@ -177,8 +177,8 @@ contract IdentityStore is Ownable {
     function updateAddress(address oldUserAddress, address newUserAddress) onlyOwner internal {
         User memory existingUser = tenantAddressMapping[oldUserAddress];
         
-        require(!userAddressExists(newUserAddress), "There&#39;s already an account tied to this address");
-        require(userAddressExists(oldUserAddress), "There&#39;s no account tied to the address origin");
+        require(!userAddressExists(newUserAddress), "There's already an account tied to this address");
+        require(userAddressExists(oldUserAddress), "There's no account tied to the address origin");
 
         tenantHashMapping[existingUser.tenantHash] = newUserAddress;
         tenantAddressMapping[newUserAddress] = existingUser;

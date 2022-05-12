@@ -10,7 +10,7 @@ pragma solidity 0.4.24;
  * (1 address per choice, you choose by sending from a specific address).
  * This also probably will not be useful in a real-life scenario.
  *
- * Don&#39;t use it like this in a production setup!
+ * Don't use it like this in a production setup!
  *
  */
 
@@ -189,9 +189,9 @@ contract CanRescueERC20 is Ownable {
     public
     onlyOwner {
         uint256 balance = token.balanceOf(this);
-        // Caution: ERC-20 standard doesn&#39;t require to throw exception on failures
+        // Caution: ERC-20 standard doesn't require to throw exception on failures
         // (although most ERC-20 tokens do so), but instead returns a bool value.
-        // Therefore let&#39;s check if it really returned true, and throw otherwise.
+        // Therefore let's check if it really returned true, and throw otherwise.
         require(token.transfer(owner(), balance), "Token transfer failed, transfer() returned false.");
     }
 
@@ -203,7 +203,7 @@ contract CanRescueERC20 is Ownable {
  * This is just a DEMO! It contains a reset function and makes
  * other assumptions which only make sense in the context of a demo.
  *
- * Don&#39;t use it like this in a production setup!
+ * Don't use it like this in a production setup!
  *
  */
 contract Voting is Ownable, Destructible, CanRescueERC20 {
@@ -217,7 +217,7 @@ contract Voting is Ownable, Destructible, CanRescueERC20 {
 
     /**
      * @notice Only these adresses are allowed to send votes. Depending
-     *     on the sending address the voter&#39;s choice is dermined.
+     *     on the sending address the voter's choice is dermined.
      *     (i.e.: if sending from allowedSenderAdresses[0] means vote
      *     for choice 0.)
      */

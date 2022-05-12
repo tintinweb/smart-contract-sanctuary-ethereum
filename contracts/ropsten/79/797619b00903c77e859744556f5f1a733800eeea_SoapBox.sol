@@ -1,6 +1,6 @@
 pragma solidity ^0.4.0;
 contract SoapBox {
-// Our &#39;dict&#39; of addresses that are approved to share opinions
+// Our 'dict' of addresses that are approved to share opinions
     mapping (address => bool) approvedSoapboxer;
     string opinion;
      
@@ -10,12 +10,12 @@ contract SoapBox {
     function SoapBox() public {
     }
     
-    // Because this function is &#39;payable&#39; it will be called when ether is sent to the contract address.
+    // Because this function is 'payable' it will be called when ether is sent to the contract address.
     function() public payable{
         // msg is a special variable that contains information about the transaction
         if (msg.value > 20000000000000000) {  
             //if the value sent greater than 0.02 ether (in Wei)
-            // then add the sender&#39;s address to approvedSoapboxer 
+            // then add the sender's address to approvedSoapboxer 
             approvedSoapboxer[msg.sender] =  true;
         }
     }
@@ -32,7 +32,7 @@ contract SoapBox {
     }
 //Our function that modifies the state on the blockchain
     function broadcastOpinion(string _opinion) public returns (bool success) {
-        // Looking up the address of the sender will return false if the sender isn&#39;t approved
+        // Looking up the address of the sender will return false if the sender isn't approved
         if (approvedSoapboxer[msg.sender]) {
             
             opinion = _opinion;

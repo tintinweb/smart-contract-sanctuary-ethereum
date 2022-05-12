@@ -21,7 +21,7 @@ contract Lottery {
             do_bet(bet);
         } else {
             // This gasBurner helps MetaMask estimate gas limit better.
-            // You shouldn&#39;t actually send 0 to contract or you&#39;ll waste gas here.
+            // You shouldn't actually send 0 to contract or you'll waste gas here.
             dummyGasBurner();
         }
     }

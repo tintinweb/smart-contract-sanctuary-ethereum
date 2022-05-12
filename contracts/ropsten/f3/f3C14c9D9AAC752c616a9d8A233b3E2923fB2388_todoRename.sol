@@ -5,8 +5,8 @@ contract todoRename{
     uint _totalSupply = 10000000;
     uint public tokenCirculation;
     uint public decimals = 2;
-    string name = &#39;TACoin&#39;;
-    string symbol = &#39;TAC&#39;;
+    string name = 'TACoin';
+    string symbol = 'TAC';
     mapping(address=>uint) public balances;
     mapping(address=>mapping(address=>uint)) private _allowance;
     address public manager;

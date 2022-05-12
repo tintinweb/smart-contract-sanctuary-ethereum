@@ -97,12 +97,12 @@ interface tokenRecipient {
         
         if(balanceOf[_from] >= _value)
         {
-            error = &#39;You have Insufficient Balance&#39;;
+            error = 'You have Insufficient Balance';
         }
         
         if(balanceOf[_to] + _value > balanceOf[_to])
         {
-            error = &#39;Overflow&#39;;
+            error = 'Overflow';
         }
     }
     /**
@@ -198,7 +198,7 @@ interface tokenRecipient {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -235,12 +235,12 @@ mapping (address => bool) public frozenAccount;
         
          if(balanceOf[_from] >= _value)
         {
-            error = &#39;You have Insufficient Balance&#39;;
+            error = 'You have Insufficient Balance';
         }
         
         if(balanceOf[_to] + _value > balanceOf[_to])
         {
-            error = &#39;Overflow&#39;;
+            error = 'Overflow';
         }
         
         
@@ -279,11 +279,11 @@ mapping (address => bool) public frozenAccount;
         address myAddress = this;
         require(myAddress.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     
      if(myAddress.balance >= amount * sellPrice)
        {
-           error = &#39;Insufficient Ether balance&#39;;
+           error = 'Insufficient Ether balance';
        }
        
         return (myAddress.balance,error);

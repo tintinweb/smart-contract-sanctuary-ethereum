@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -362,7 +362,7 @@ contract GoldCards is ERC721 {
       emit DistributeGameDividend(dividendProfit);
     }
 
-    // to card&#39;s old owner
+    // to card's old owner
     oldOwner.send(oldOwnerProfit);
 
     msg.sender.transfer(purchaseExcess);
@@ -482,8 +482,8 @@ contract GoldCards is ERC721 {
       });
     uint newCardId = divCards.push(_divcard) - 1;
 
-    // It&#39;s probably never going to happen, 4 billion tokens are A LOT, but
-    // let&#39;s just be 100% sure we never let this happen.
+    // It's probably never going to happen, 4 billion tokens are A LOT, but
+    // let's just be 100% sure we never let this happen.
     require(newCardId == uint(uint32(newCardId)));
 
     emit Birth(newCardId, _name, _owner);
@@ -507,12 +507,12 @@ contract GoldCards is ERC721 {
   function _transfer(address _from, address _to, uint _divCardId)
   private
   {
-    // Since the number of cards is capped to 2^32 we can&#39;t overflow this
+    // Since the number of cards is capped to 2^32 we can't overflow this
     ownershipDivCardCount[_to]++;
     //transfer ownership
     divCardIndexToOwner[_divCardId] = _to;
 
-    // When creating new div cards _from is 0x0, but we can&#39;t account that address.
+    // When creating new div cards _from is 0x0, but we can't account that address.
     if (_from != address(0)) {
       ownershipDivCardCount[_from]--;
       // clear any previously approved ownership exchange
@@ -1002,7 +1002,7 @@ contract GoldGames is Ownable {
     if(getMyDividends(true) > 0) {
       uint _dividends = getMyDividends(false);
 
-      // Pay out requisite `virtual&#39; dividends.
+      // Pay out requisite `virtual' dividends.
       address _customerAddress            = msg.sender;
       payoutsTo_[_customerAddress]       += (int256) (_dividends * magnitude);
 
@@ -1025,7 +1025,7 @@ contract GoldGames is Ownable {
   {
     if(getMyGameDividends() > 0) {
       uint _dividends = getMyGameDividends();
-      // Pay out requisite `virtual&#39; dividends.
+      // Pay out requisite `virtual' dividends.
       address _customerAddress            = msg.sender;
       gamePayoutsTo_[_customerAddress]       += (int256) (_dividends * magnitude);
       uint _tokens                        = purchaseTokens(_dividends, 0x0);
@@ -1102,7 +1102,7 @@ contract GoldGames is Ownable {
     uint _frontEndTokensToBurn = _amountOfTokens;
 
     // Calculate how many dividend tokens this action burns.
-    // Computed as the caller&#39;s average dividend rate multiplied by the number of front-end tokens held.
+    // Computed as the caller's average dividend rate multiplied by the number of front-end tokens held.
     // As an additional guard, we ensure that the dividend rate is between 2 and 50 inclusive.
 
     uint userDivRate  = getUserAverageDividendRate(msg.sender);
@@ -1113,7 +1113,7 @@ contract GoldGames is Ownable {
     uint _ethereum = tokensToEthereum_(_frontEndTokensToBurn);
 
     if (_ethereum > currentEthInvested){
-      // Well, congratulations, you&#39;ve emptied the coffers.
+      // Well, congratulations, you've emptied the coffers.
       currentEthInvested = 0;
     } else { currentEthInvested = currentEthInvested - _ethereum; }
 
@@ -1197,7 +1197,7 @@ contract GoldGames is Ownable {
     / If the user has previously set a dividend rate, sending
     /   Ether directly to the contract simply purchases more at
     /   the most recent rate. If this is their first time, they
-    /   are automatically placed into the 20% rate `bucket&#39;.
+    /   are automatically placed into the 20% rate `bucket'.
     **/
     require(sellingPhase);
     address _customerAddress = msg.sender;
@@ -1436,7 +1436,7 @@ contract GoldGames is Ownable {
     return (uint) ((int256)(gameProfitPerDivToken * dividendTokenBalanceLedger_[_customerAddress]) - gamePayoutsTo_[_customerAddress]) / magnitude;
   }
 
-  // Get the sell price at the user&#39;s average dividend rate
+  // Get the sell price at the user's average dividend rate
   function sellPrice()
   public
   view
@@ -1457,7 +1457,7 @@ contract GoldGames is Ownable {
       price = (1e18 * 0.001 ether) / tokensReceivedForEth;
     }
 
-    // Factor in the user&#39;s average dividend rate
+    // Factor in the user's average dividend rate
     uint theSellPrice = price.sub((price.mul(getUserAverageDividendRate(msg.sender)).div(100)).div(magnitude));
 
     return theSellPrice;
@@ -1489,7 +1489,7 @@ contract GoldGames is Ownable {
     return  _amountOfTokens;
   }
 
-  // When selling tokens, we need to calculate the user&#39;s current dividend rate.
+  // When selling tokens, we need to calculate the user's current dividend rate.
   // This is different from their selected dividend rate.
   function calculateEthereumReceived(uint _tokensToSell)
   public
@@ -1508,7 +1508,7 @@ contract GoldGames is Ownable {
   }
 
   /*
-   * Get&#39;s a user&#39;s average dividend rate - which is just their divTokenBalance / tokenBalance
+   * Get's a user's average dividend rate - which is just their divTokenBalance / tokenBalance
    * We multiply by magnitude to avoid precision errors.
    */
   function getUserAverageDividendRate(address user) public view returns (uint) {
@@ -1592,7 +1592,7 @@ contract GoldGames is Ownable {
     /* Tax for dividends:
        Dividends = (ethereum * div%) / 100
     */
-    // Grab the user&#39;s dividend rate
+    // Grab the user's dividend rate
     uint dividendRate = userDividendRate[msg.sender];
 
     // Calculate the total dividends on this buy
@@ -1615,7 +1615,7 @@ contract GoldGames is Ownable {
 
 
     if(icoPhase) {
-      // Contracts aren&#39;t allowed to participate in the ICO.
+      // Contracts aren't allowed to participate in the ICO.
       require(address(this) != msg.sender);
       // Cannot purchase more then the limit per address during the ICO.
       ICOBuyIn[msg.sender] += remainingEth;
@@ -1660,7 +1660,7 @@ contract GoldGames is Ownable {
     payoutsTo_[msg.sender] += (int256) ((profitPerDivToken * dividendTokensBought) - fee);
     gamePayoutsTo_[msg.sender] += (int256) (gameProfitPerDivToken * dividendTokensBought);
 
-    // Update the buyer&#39;s token amounts
+    // Update the buyer's token amounts
     frontTokenBalanceLedger_[msg.sender] = frontTokenBalanceLedger_[msg.sender].add(tokensBought);
     dividendTokenBalanceLedger_[msg.sender] = dividendTokenBalanceLedger_[msg.sender].add(dividendTokensBought);
     if(!userSelectedRate[msg.sender])
@@ -1748,7 +1748,7 @@ contract GoldGames is Ownable {
 
   /**
     * Calculate token sell value.
-    * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+    * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
     * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
     */
   function tokensToEthereum_(uint256 _tokens)
@@ -1787,12 +1787,12 @@ contract GoldGames is Ownable {
     if(gameDividendOf(_customerAddress) > 0) gameWithdrawFrom(_customerAddress);
 
     // Calculate how many back-end dividend tokens to transfer.
-    // This amount is proportional to the caller&#39;s average dividend rate multiplied by the proportion of tokens being transferred.
+    // This amount is proportional to the caller's average dividend rate multiplied by the proportion of tokens being transferred.
     uint _amountOfDivTokens = _amountOfFrontEndTokens.mul(getUserAverageDividendRate(_customerAddress)).div(magnitude);
 
     if (_customerAddress != msg.sender){
       // Update the allowed balance.
-      // Don&#39;t update this if we are transferring our own tokens (via transfer or buyAndTransfer)
+      // Don't update this if we are transferring our own tokens (via transfer or buyAndTransfer)
       allowed[_customerAddress][msg.sender] -= _amountOfTokens;
     }
 

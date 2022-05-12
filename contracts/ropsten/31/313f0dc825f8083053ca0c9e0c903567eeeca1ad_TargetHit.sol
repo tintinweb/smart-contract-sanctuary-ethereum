@@ -55,8 +55,8 @@ contract TargetHit {
         require(stopped == false);
         amount = msg.value / price;                    // calculates the amount
         require(balanceOf[owner] >= amount);               // checks if it has enough to sell
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
-        balanceOf[owner] -= amount;                        // subtracts amount from seller&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
+        balanceOf[owner] -= amount;                        // subtracts amount from seller's balance
         owner.transfer(msg.value);
         emit Transfer(owner, msg.sender, amount);               // execute an event reflecting the change
         return amount;                                    // ends function and returns

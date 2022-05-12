@@ -22,7 +22,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -718,7 +718,7 @@ contract Pausable is Ownable {
 contract BlipToken is ERC721Token, Ownable {
 
   /**
-   * The contract&#39;s constructor
+   * The contract's constructor
    * @dev Calls the ERC721Token constructor
    *
    * @param _name   The name for the ERC721 token
@@ -818,7 +818,7 @@ contract BlipCompetition is Pausable {
   //============================================================================
 
   /**
-   * The contract&#39;s constructor
+   * The contract's constructor
    *
    * @param _tokenAddress The address of the BlipToken contract
    */
@@ -936,12 +936,12 @@ contract BlipCompetition is Pausable {
           _burnToken(winner, _competitionId);
         }
         else {
-          emit ErrorOnCompetition(_competitionId, &#39;send()&#39;, winner);
+          emit ErrorOnCompetition(_competitionId, 'send()', winner);
           totalSuccess = false;
         }
       }
       else {
-        emit InvalidActionOnCompetition(_competitionId, &#39;payoutWinners()&#39;, winner);
+        emit InvalidActionOnCompetition(_competitionId, 'payoutWinners()', winner);
         totalSuccess = false;
       }
     }
@@ -976,7 +976,7 @@ contract BlipCompetition is Pausable {
         _burnToken(owner, _competitionId);
       }
       else {
-        emit ErrorOnCompetition(_competitionId, &#39;send()&#39;, owner);
+        emit ErrorOnCompetition(_competitionId, 'send()', owner);
         totalSuccess = false;
       }
     }
@@ -1081,7 +1081,7 @@ contract BlipCompetition is Pausable {
   }
 
   /**
-   * Burns the token associated to the owner&#39;s competition entry and clears it from the lookup table
+   * Burns the token associated to the owner's competition entry and clears it from the lookup table
    *
    * @param _entryOwner    The address of the entry owner
    * @param _competitionId The ID of the competition

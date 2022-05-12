@@ -58,9 +58,9 @@ contract ChelleToken is owned,IERC20{
     
     uint256 public constant _totalSupply = 1000000000000000000;
  
-    string public constant symbol = &#39;CHL&#39;;
+    string public constant symbol = 'CHL';
 
-    string public constant name = &#39;Chelle Token&#39;;
+    string public constant name = 'Chelle Token';
     
     uint8 public constant decimals = 10;
     

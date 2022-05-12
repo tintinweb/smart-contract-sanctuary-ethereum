@@ -42,7 +42,7 @@ contract Wallet {
     }
     function sendTo(address recipient, ERC20 token, uint amount) public restrict allow(recipient) returns(bool) {
         require(isSendable(token, amount), "Insufficient balance!");
-        require(ERC20(recipient) != token, "The recipient&#39;s address cannot be the same as the token address!");
+        require(ERC20(recipient) != token, "The recipient's address cannot be the same as the token address!");
         if (ERC20(0) == token) recipient.transfer(amount);
         else if (!token.transfer(recipient, amount)) revert();
         emit Sent(recipient, token, amount);

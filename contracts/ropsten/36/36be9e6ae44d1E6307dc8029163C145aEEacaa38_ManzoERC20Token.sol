@@ -73,7 +73,7 @@ contract ManzoERC20Token is StandardToken {
     string public name;                   
     uint8 public decimals;                 
     string public symbol;                 
-    string public version = &#39;Test2.0&#39;;      
+    string public version = 'Test2.0';      
 
 
     function ManzoERC20Token(

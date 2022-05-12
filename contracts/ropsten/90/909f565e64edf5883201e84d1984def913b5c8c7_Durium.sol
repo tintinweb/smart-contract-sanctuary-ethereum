@@ -84,11 +84,11 @@ contract Durium {
     struct Document {
         uint documentId;       // id of the document
         string fileName;       // fileName of the document
-        string contentHash;    // hash of document&#39;s content
+        string contentHash;    // hash of document's content
         string location;       // location of the document
         uint blockNumber;      // number of the block in which the document was added
         uint validFrom;        // timestamp of when the document became valid
-        uint validTo;          // document&#39;s expiration timestamp
+        uint validTo;          // document's expiration timestamp
         uint updatedVersionId; // if document was updated; new version of the document
     }
 
@@ -104,7 +104,7 @@ contract Durium {
         _;
     }
 
-    // Restricts function use after contract&#39;s retirement
+    // Restricts function use after contract's retirement
     modifier ifNotRetired() {
         require(upgradedVersion == address(0), "You cannot use that function because this contract is retired.");
         _;
@@ -144,9 +144,9 @@ contract Durium {
     // ------------------------------------------------------------------------------------------ //
 
     constructor(address _owner) public {
-        owner = _owner;               // address given as a constructor parameter becomes the &#39;owner&#39;
+        owner = _owner;               // address given as a constructor parameter becomes the 'owner'
         actionId = 0;                 // first actionId is 0
-        baseUrl = "_";                // default baseUrl is &#39;_&#39;, but it can be freely changed by the owner
+        baseUrl = "_";                // default baseUrl is '_', but it can be freely changed by the owner
     }
 
     // ------------------------------------------------------------------------------------------ //
@@ -165,11 +165,11 @@ contract Durium {
     returns (
         uint documentId,           // id of the document
         string memory fileName,    // fileName of the document
-        string memory contentHash, // hash of document&#39;s content
+        string memory contentHash, // hash of document's content
         string memory location,    // location of the document
         uint blockNumber,          // number of the block in which the document was added
         uint validFrom,            // timestamp of when the document became valid
-        uint validTo,              // document&#39;s expiration timestamp
+        uint validTo,              // document's expiration timestamp
         uint updatedVersionId      // if document was updated; new version of the document
     )
     {

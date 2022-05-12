@@ -76,7 +76,7 @@ contract Pauseable {
   }
 
   function unpause() public whenPaused {
-      // can&#39;t unpause if contract was upgraded
+      // can't unpause if contract was upgraded
       paused = false;
   }
 }
@@ -108,7 +108,7 @@ contract MomaSpace is Ownable, Pauseable {
   }
 
   function unpause() public whenPaused onlyOwner {
-      // can&#39;t unpause if contract was upgraded
+      // can't unpause if contract was upgraded
       paused = false;
   }
 

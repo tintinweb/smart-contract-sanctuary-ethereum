@@ -282,8 +282,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -300,7 +300,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -437,7 +437,7 @@ contract ERC721Base is AssetRegistryStorage, IERC721Base, ERC165 {
   //
 
   /**
-   * @dev Authorize a third party operator to manage (send) msg.sender&#39;s asset
+   * @dev Authorize a third party operator to manage (send) msg.sender's asset
    * @param operator address to be approved
    * @param authorized bool set to true to authorize, false to withdraw authorization
    */
@@ -579,20 +579,20 @@ contract ERC721Base is AssetRegistryStorage, IERC721Base, ERC165 {
   }
 
   /**
-   * @dev Alias of `safeTransferFrom(from, to, assetId, &#39;&#39;)`
+   * @dev Alias of `safeTransferFrom(from, to, assetId, '')`
    *
    * @param from address that currently owns an asset
    * @param to address to receive the ownership of the asset
    * @param assetId uint256 ID of the asset to be transferred
    */
   function safeTransferFrom(address from, address to, uint256 assetId) external {
-    return _doTransferFrom(from, to, assetId, &#39;&#39;, true);
+    return _doTransferFrom(from, to, assetId, '', true);
   }
 
   /**
    * @dev Securely transfers the ownership of a given asset from one address to
    * another address, calling the method `onNFTReceived` on the target address if
-   * there&#39;s code associated with it
+   * there's code associated with it
    *
    * @param from address that currently owns an asset
    * @param to address to receive the ownership of the asset
@@ -613,7 +613,7 @@ contract ERC721Base is AssetRegistryStorage, IERC721Base, ERC165 {
    * @param assetId uint256 ID of the asset to be transferred
    */
   function transferFrom(address from, address to, uint256 assetId) external {
-    return _doTransferFrom(from, to, assetId, &#39;&#39;, false);
+    return _doTransferFrom(from, to, assetId, '', false);
   }
 
   function _doTransferFrom(

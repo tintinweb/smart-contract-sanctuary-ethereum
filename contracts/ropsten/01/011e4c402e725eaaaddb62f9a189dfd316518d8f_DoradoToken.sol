@@ -180,7 +180,7 @@ contract StandardToken is ERC20, BasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -262,7 +262,7 @@ contract DoradoToken is StandardToken, Owned {
     /// Base exchange rate is set to 1 ETH = 6667 DOR.
     uint256 public constant BASE_RATE = 6667;
 
-    /// seconds since 01.01.1970 to 07.02.2018 (16:00:00 o&#39;clock UTC)
+    /// seconds since 01.01.1970 to 07.02.2018 (16:00:00 o'clock UTC)
     /// HOT sale start time
     uint64 private constant dateHOTSale = 1517961600 + 16 hours;
 

@@ -17,7 +17,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -145,8 +145,8 @@ contract Whitelisted is owned {
     }
     
     /**
-     * Set User&#39;s Whitelisted ether amount to 0 so that 
-     * during second buy transaction user won&#39;t need to 
+     * Set User's Whitelisted ether amount to 0 so that 
+     * during second buy transaction user won't need to 
      * validate for Whitelisted amount
      */
     function resetUserWhiteListAmount()
@@ -158,7 +158,7 @@ contract Whitelisted is owned {
 
 
     /**
-     * Disable User from Whitelist so user can&#39;t buy token
+     * Disable User from Whitelist so user can't buy token
      * @param _addr User Wallet address
      */
     function disableWhitelistAddress(address _addr)
@@ -376,7 +376,7 @@ contract AdrCrowdsale is Whitelisted {
     }
     
     /**
-     * User can get their ether back if crowdsale didn&#39;t meet it&#39;s requirement 
+     * User can get their ether back if crowdsale didn't meet it's requirement 
      */
     function safeWithdrawal() public afterDeadline {
         if (returnFunds) {

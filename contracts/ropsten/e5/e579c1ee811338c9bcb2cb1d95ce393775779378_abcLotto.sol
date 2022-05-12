@@ -2,10 +2,10 @@ pragma solidity ~0.4.19;
 /**+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                             abcLotto: a Block Chain Lottery
 
-                            Don&#39;t trust anyone but the CODE!
+                            Don't trust anyone but the CODE!
  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 /**
- * @title SafeMath : it&#39;s from openzeppelin.
+ * @title SafeMath : it's from openzeppelin.
  * @dev Math operations with safety checks that throw on error
  */
 library SafeMath {
@@ -27,7 +27,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -172,7 +172,7 @@ library SafeMath {
      }
      
      /**
-     * @dev fallback funtion, the contract don&#39;t accept ether.
+     * @dev fallback funtion, the contract don't accept ether.
      */
      function() public payable { 
          revert();
@@ -191,7 +191,7 @@ library SafeMath {
      {
          //check number range 1-9, no repeat number.
          if(!isValidBet(nums)) revert();
-         //doesn&#39;t offer enough value ?
+         //doesn't offer enough value ?
          if(msg.value < SINGLE_BET_PRICE.mul(amount)) revert();
          
          //check daily amount is less than MAX_BET_AMOUNT
@@ -330,7 +330,7 @@ library SafeMath {
 
      //pure or view funtions
      /**
-     * @dev getSingleBet: get self&#39;s bet record.
+     * @dev getSingleBet: get self's bet record.
       */
     function getSingleBet(uint32 round, uint32 index) public view returns(uint32 amount, uint8[4] nums, bool payed1, bool payed2)
      {
@@ -366,7 +366,7 @@ library SafeMath {
      }
      
      /**
-     * @dev getDailyJackpot: some day&#39;s Jackpot.
+     * @dev getDailyJackpot: some day's Jackpot.
       */
      function getDailyJackpot(uint32 round) public view returns(uint8[4] jackpot, uint32 first, uint32 second){
          if(round == 0 || round > currentRound) return;
@@ -376,7 +376,7 @@ library SafeMath {
      }
 
      /**
-     * @dev getWeeklyJackpot: some week&#39;s Jackpot.
+     * @dev getWeeklyJackpot: some week's Jackpot.
       */
      function getWeeklyJackpot(uint32 week) public view returns(uint8[4] jackpot, uint32 first, uint32 second){
          if(week == 0 || week > currentRound/7) return;
@@ -463,7 +463,7 @@ library SafeMath {
         bytes4 _b;
         uint temp;
 
-        //mark daily entity&#39;s prize.-----------------------------------------------------------------------------------
+        //mark daily entity's prize.-----------------------------------------------------------------------------------
         uint8[4] memory _jackpot1 = sort(jackpot);
         dailyJackpot[currentRound-1]._results = _jackpot1;
 
@@ -500,7 +500,7 @@ library SafeMath {
          //end mark.-----------------------------------------------------------------------------------
 
 
-        //mark weekly entity&#39;s prize.---------------------------------------------------------------------------------------
+        //mark weekly entity's prize.---------------------------------------------------------------------------------------
         if((currentRound > 0) && (currentRound % 7 == 0)){
             uint32 _week = currentRound/7;
             weeklyJackpot[_week-1]._results = jackpot;
@@ -531,7 +531,7 @@ library SafeMath {
             betWeekly[_week-1]._entity[_first].prize = FIRST_PRIZE;
             if(betWeekly[_week-1]._entity[_first].amount > 0){
                 rolloverUsed[_week-1] = rollover.sub(1000000000);
-                rollover = 1000000000;   //keep rollover 1 gwei to next round. can&#39;t be reset to 0.
+                rollover = 1000000000;   //keep rollover 1 gwei to next round. can't be reset to 0.
                 weeklyJackpot[_week-1].amountFirst = betWeekly[_week-1]._entity[_first].amount;
             }
             else{
@@ -596,7 +596,7 @@ library SafeMath {
     
      /**
      * @dev sort 4 bet numbers.
-     *      we don&#39;t want to change input numbers sequence, so copy it at first.
+     *      we don't want to change input numbers sequence, so copy it at first.
      * @param nums : input numbers.
      */
     function sort(uint8[4] nums) internal pure returns(uint8[4]){

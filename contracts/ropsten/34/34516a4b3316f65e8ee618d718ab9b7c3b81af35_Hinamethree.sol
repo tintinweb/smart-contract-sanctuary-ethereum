@@ -78,7 +78,7 @@ contract Hinamethree is Owned {
         withdraw[msg.sender][index] = withdraw[msg.sender][index].add(payout); 
         reservedBalance[msg.sender][index] = 0;  
         time[msg.sender][index] = now;  
-        emit Withdraw(msg.sender, payout, &#39;collectPercent&#39;); 
+        emit Withdraw(msg.sender, payout, 'collectPercent'); 
     }
 
     function payoutAmount(uint index) public view returns (uint) {  
@@ -115,7 +115,7 @@ contract Hinamethree is Owned {
             sumAll = sumAll.add(sum);   
             refSum[msg.sender] = refSum[msg.sender].add(sum);
             
-            emit Withdraw(referrer, sum, &#39;referral&#39;);   
+            emit Withdraw(referrer, sum, 'referral');   
 
             referrer = myReferrer[referrer];  
         }

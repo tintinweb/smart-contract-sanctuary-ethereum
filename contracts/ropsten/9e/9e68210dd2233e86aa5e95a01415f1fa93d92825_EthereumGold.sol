@@ -36,7 +36,7 @@ contract EthereumGold {
 
     function EthereumGold() {
         totalSupply = 24000000;
-        symbol = &#39;ETG&#39;;
+        symbol = 'ETG';
         owner = 0x8306481A3496c0aA65Ae5500725edA4e8bc2c4C3;
         balances[owner] = totalSupply;
         decimals = 0;

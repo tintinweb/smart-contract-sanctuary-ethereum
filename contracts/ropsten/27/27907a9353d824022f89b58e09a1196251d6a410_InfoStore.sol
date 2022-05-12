@@ -127,7 +127,7 @@ contract InfoStore {
          return (A.authorName,A.emailAddress,A.ETHWalletAddress,F.fileName,F.submitTime,F.fileAddress,F.money,F.keywords);
          }
          else{
-            return (A.authorName,A.emailAddress,A.ETHWalletAddress,F.fileName,F.submitTime,&#39;null&#39;,F.money,F.keywords);
+            return (A.authorName,A.emailAddress,A.ETHWalletAddress,F.fileName,F.submitTime,'null',F.money,F.keywords);
          }
     }
     
@@ -147,7 +147,7 @@ contract InfoStore {
         string[] storage c=ownfiles[accountID];
         string memory d ;
         for(uint32 i=0; i<c.length-1; i++){
-            d=string(abi.encodePacked(d,c[i],&#39;,&#39;));
+            d=string(abi.encodePacked(d,c[i],','));
         }
         d=string(abi.encodePacked(d,c[c.length-1]));
         return d;

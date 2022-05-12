@@ -74,7 +74,7 @@ contract ALBtoken is SafeMath{
         symbol = "ALB";       // Set the symbol for display purposes
         decimals = 3;         // Amount of decimals for display purposes
         balanceOf[msg.sender] = totalSupply;  // Give the creator all initial tokens
-		owner = msg.sender;  //Set contrac&#39;s owner
+		owner = msg.sender;  //Set contrac's owner
 		vigencia =2178165600;
 		firstTime = false;
     }
@@ -249,7 +249,7 @@ contract ALBtoken is SafeMath{
        }
       
        
-       /*Register new mine&#39;s data*/
+       /*Register new mine's data*/
 	   participatingMines[_MineId] = Minas ({
 	       id: _MineId,
 		   name: _name,
@@ -257,12 +257,12 @@ contract ALBtoken is SafeMath{
 		   active: true
 	   });
 	   
-	   /*add to array new item with new mine&#39;s token supply */
+	   /*add to array new item with new mine's token supply */
 	   TokenMineSupply.push(_tokensupply);
 	   
-	   /*add to array new item with new mine&#39;s token supply */
+	   /*add to array new item with new mine's token supply */
 	   
-	   /*Uptade Albarit&#39;s total supply*/
+	   /*Uptade Albarit's total supply*/
 	    /*uint256*/ totalSupplyFloat = 0;
         for (uint8 i = 0; i < TokenMineSupply.length; i++)
         {
@@ -294,7 +294,7 @@ contract ALBtoken is SafeMath{
        /*uint256*/ subValue = 0;
        /*uint256*/ oldTotalSupply = totalSupply;
        /*uint256*/ TokensToModify = 0;
-      /*update mine&#39;s data*/ 
+      /*update mine's data*/ 
 	   participatingMines[_Id].active = _state;
 	   participatingMines[_Id].name = _name;
    	   participatingMines[_Id].tokensupply = _tokensupply;

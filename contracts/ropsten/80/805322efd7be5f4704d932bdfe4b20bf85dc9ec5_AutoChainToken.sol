@@ -34,9 +34,9 @@ contract AutoChainToken is AutoChainTokenInface {
     /* private variables of the token */
     uint256 private _localtotalSupply;		//总量
     string private _localname;                   //名称: eg Simon Bucks
-    uint8 private _localdecimals;               //最多的小数位数，How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 private _localdecimals;               //最多的小数位数，How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string private _localsymbol;               //token简称: eg SBX
-    string private _localversion = &#39;0.01&#39;;    //版本
+    string private _localversion = '0.01';    //版本
 
     mapping (address => uint256) private balances;
     mapping (address => mapping (address => uint256)) private allowed;
@@ -44,9 +44,9 @@ contract AutoChainToken is AutoChainTokenInface {
     function AutoChainToken() {
         balances[msg.sender] = 1000000000; // 初始token数量给予消息发送者
         _localtotalSupply = 1000000000;         // 设置初始总量
-        _localname = &#39;AutoChainTokenCandy&#39;;                   // token名称
+        _localname = 'AutoChainTokenCandy';                   // token名称
         _localdecimals = 4;           // 小数位数
-        _localsymbol = &#39;ATCx&#39;;             // token简称
+        _localsymbol = 'ATCx';             // token简称
     }
 
     function name() constant returns (string name){
@@ -112,7 +112,7 @@ contract AutoChainToken is AutoChainTokenInface {
     function approveAndCall(address _spender, uint256 _value, bytes _extraData) returns (bool success) {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         require(_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData));

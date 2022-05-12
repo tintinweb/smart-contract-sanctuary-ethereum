@@ -127,7 +127,7 @@ contract EthDegreeValidation {
         emit ModeratorRemoved(_moderatorAddress);
     }
     
-    //return hash of a degree by id (used only if it&#39;s needed to transfer degrees to new contract)
+    //return hash of a degree by id (used only if it's needed to transfer degrees to new contract)
     function getDegreeAtIndex(uint _index) public view returns (bytes32) {
         require(_index < sha256HashesOfDegrees.length, "The provided Index is higher than then total number of degrees. There is nothing there.");
         return sha256HashesOfDegrees[_index];

@@ -626,7 +626,7 @@ contract IndividualCapsFundraiser is BasicFundraiser {
     }
 
     /**
-     * @dev This validates the new amount doesn&#39;t surpass maximum contribution cap
+     * @dev This validates the new amount doesn't surpass maximum contribution cap
      */
     function handleTokens(address _address, uint256 _tokens) internal {
         require(individualMaxCapTokens == 0 || token.balanceOf(_address).plus(_tokens) <= individualMaxCapTokens);

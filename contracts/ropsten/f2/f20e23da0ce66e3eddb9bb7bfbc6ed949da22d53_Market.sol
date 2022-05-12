@@ -192,7 +192,7 @@ contract Market is Owned {
             validPrediction(_predictionId, _amount, _outcomeId) {
         
         // TODO: Add require that checks that user already forcasted
-        // require(predictions[_predictionId].userPayments[msg.sender] == _amount, "User haven&#39;t paid for the forecast");
+        // require(predictions[_predictionId].userPayments[msg.sender] == _amount, "User haven't paid for the forecast");
 
         uint amount = _amount.sub(predictions[_predictionId].fee);
         totalFeeCollected = totalFeeCollected.add(predictions[_predictionId].fee);

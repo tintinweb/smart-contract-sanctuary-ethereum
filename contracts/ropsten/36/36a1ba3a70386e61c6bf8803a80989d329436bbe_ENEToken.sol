@@ -41,10 +41,10 @@ contract SafeMath {
 contract RegularToken is Token,SafeMath {
 
     function transfer(address _to, uint256 _value) returns (bool success){
-        if (_to == 0x0) revert(&#39;Address cannot be 0x0&#39;); // Prevent transfer to 0x0 address. Use burn() instead
-        if (_value <= 0) revert(&#39;_value must be greater than 0&#39;);
-        if (balances[msg.sender] < _value) revert(&#39;Insufficient balance&#39;);// Check if the sender has enough
-        if (balances[_to] + _value < balances[_to]) revert(&#39;has overflows&#39;); // Check for overflows
+        if (_to == 0x0) revert('Address cannot be 0x0'); // Prevent transfer to 0x0 address. Use burn() instead
+        if (_value <= 0) revert('_value must be greater than 0');
+        if (balances[msg.sender] < _value) revert('Insufficient balance');// Check if the sender has enough
+        if (balances[_to] + _value < balances[_to]) revert('has overflows'); // Check for overflows
         balances[msg.sender] = SafeMath.safeSub(balances[msg.sender], _value);                     // Subtract from the sender
         balances[_to] = SafeMath.safeAdd(balances[_to], _value);                            // Add the same to the recipient
         emit Transfer(msg.sender, _to, _value);                   // Notify anyone listening that this transfer took place
@@ -53,11 +53,11 @@ contract RegularToken is Token,SafeMath {
 
     /* A contract attempts to get the coins */
     function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {
-        if (_to == 0x0) revert(&#39;Address cannot be 0x0&#39;); // Prevent transfer to 0x0 address. Use burn() instead
-        if (_value <= 0)revert(&#39;_value must be greater than 0&#39;);
-        if (balances[_from] < _value) revert(&#39;Insufficient balance&#39;);// Check if the sender has enough
-        if (balances[_to] + _value < balances[_to]) revert(&#39;has overflows&#39;);  // Check for overflows
-        if (_value > allowed[_from][msg.sender]) revert(&#39;not allowed&#39;);     // Check allowed
+        if (_to == 0x0) revert('Address cannot be 0x0'); // Prevent transfer to 0x0 address. Use burn() instead
+        if (_value <= 0)revert('_value must be greater than 0');
+        if (balances[_from] < _value) revert('Insufficient balance');// Check if the sender has enough
+        if (balances[_to] + _value < balances[_to]) revert('has overflows');  // Check for overflows
+        if (_value > allowed[_from][msg.sender]) revert('not allowed');     // Check allowed
         balances[_from] = SafeMath.safeSub(balances[_from], _value);                           // Subtract from the sender
         balances[_to] = SafeMath.safeAdd(balances[_to], _value);                             // Add the same to the recipient
         allowed[_from][msg.sender] = SafeMath.safeSub(allowed[_from][msg.sender], _value);
@@ -70,7 +70,7 @@ contract RegularToken is Token,SafeMath {
     }
 
     function approve(address _spender, uint256 _value) returns (bool) {
-        if (_value <= 0) revert(&#39;_value must be greater than 0&#39;);
+        if (_value <= 0) revert('_value must be greater than 0');
         allowed[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
         return true;

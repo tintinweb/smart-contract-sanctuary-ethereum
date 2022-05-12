@@ -1,8 +1,8 @@
 pragma solidity ^0.4.0;
 contract ZRGToken {
     /* Public variables of the token */
-    string public name = &#39;ZRGToken&#39;;
-    string public symbol = &#39;ZRG&#39;;
+    string public name = 'ZRGToken';
+    string public symbol = 'ZRG';
     uint8 public decimals = 18;
 
     /* This creates an array with all balances */
@@ -27,7 +27,7 @@ contract ZRGToken {
 
     /* Send coins */
     function transfer(address _to, uint256 _value) public {
-        /* If the sender doesn&#39;t have enough balance then stop */
+        /* If the sender doesn't have enough balance then stop */
         if (balanceOf[msg.sender] < _value) revert();
         if (balanceOf[_to] + _value < balanceOf[_to]) revert();
 

@@ -297,7 +297,7 @@ contract blackJack is Ownable {
             playerCards2[msg.sender].push(a);
         }
         else {
-            isPlayerActive[msg.sender] = false; //Player ends their turn, now dealer&#39;s turn
+            isPlayerActive[msg.sender] = false; //Player ends their turn, now dealer's turn
         }
         checkGameState();
     }
@@ -366,7 +366,7 @@ contract blackJack is Ownable {
             //The house cannot cheat here since the player is forcing the NEXT BLOCK to be the source of randomness for all hits, and this contract cannot voluntarily skip blocks.
             tempCard = randgen();
             if (blackJackHouseProhibited[msg.sender] != 0) {
-                while (cardsPower[(tempCard + 13) % 13] == blackJackHouseProhibited[msg.sender]) { //don&#39;t deal the first card as prohibited card
+                while (cardsPower[(tempCard + 13) % 13] == blackJackHouseProhibited[msg.sender]) { //don't deal the first card as prohibited card
                     tempCard = randgen();
                 }
                 blackJackHouseProhibited[msg.sender] = 0;
@@ -404,7 +404,7 @@ contract blackJack is Ownable {
                 }
                 else {
                     assert(hand1win || hand2win); //STATE SHOULD NEVER BE REACHED HERE
-                    //player double bust loss, this scenario should never be reached however as it&#39;s already handled in checkGameState()
+                    //player double bust loss, this scenario should never be reached however as it's already handled in checkGameState()
                 }
             }
             else if (hand1Checked == false && hand2Checked == false) { //neither hand busted
@@ -491,7 +491,7 @@ contract blackJack is Ownable {
                 msg.sender.transfer(betAmount[msg.sender]);
                 payoutAmount[msg.sender]=betAmount[msg.sender];
                 gamestatus[msg.sender] = 4;
-                isActive[msg.sender] = false; //let&#39;s declare this manually only here, since processHandEnd is not called. Not needed for other scenarios.
+                isActive[msg.sender] = false; //let's declare this manually only here, since processHandEnd is not called. Not needed for other scenarios.
             }
             else if (card2PowerConverter(playerCardstemp) > card2PowerConverter(houseCardstemp)) {
                 //player hand has more strength
@@ -538,8 +538,8 @@ contract blackJack is Ownable {
         blackJackHouseProhibited[msg.sender]=0; //set to 0 incase it already has a value
         bool houseIsBlackjack = false;
         bool playerIsBlackjack = false;
-        //First thing: For dealer check, ensure if dealer doesn&#39;t get blackjack they are prohibited from their first hit resulting in a blackjack
-        uint housePower = card2PowerConverter(houseCards[msg.sender]); //read the 1 and only house card, if it&#39;s 11 or 10, then deal temporary new card for bj check
+        //First thing: For dealer check, ensure if dealer doesn't get blackjack they are prohibited from their first hit resulting in a blackjack
+        uint housePower = card2PowerConverter(houseCards[msg.sender]); //read the 1 and only house card, if it's 11 or 10, then deal temporary new card for bj check
         if (housePower == 10 || housePower == 11) {
             uint _card = randgen();
             if (housePower == 10) {
@@ -549,7 +549,7 @@ contract blackJack is Ownable {
                     houseIsBlackjack = true;
                 }
                 else {
-                    blackJackHouseProhibited[msg.sender]=uint(11); //ensure dealerHit doesn&#39;t draw this powerMax
+                    blackJackHouseProhibited[msg.sender]=uint(11); //ensure dealerHit doesn't draw this powerMax
                 }
             }
             else if (housePower == 11) {
@@ -559,7 +559,7 @@ contract blackJack is Ownable {
                     houseIsBlackjack = true;
                 }
                 else{
-                    blackJackHouseProhibited[msg.sender]=uint(10); //ensure dealerHit doesn&#39;t draw this powerMax
+                    blackJackHouseProhibited[msg.sender]=uint(10); //ensure dealerHit doesn't draw this powerMax
                 }
             }
         }
@@ -571,10 +571,10 @@ contract blackJack is Ownable {
         //Third thing: Return all four possible outcomes: Win 1.5x, Push, Loss, or Nothing (no blackjack, continue game)
         uint winAmount;
         if (playerIsBlackjack == false && houseIsBlackjack == false) {
-            //do nothing. Call this first since it&#39;s the most likely outcome
+            //do nothing. Call this first since it's the most likely outcome
         }
         else if (playerIsBlackjack == true && houseIsBlackjack == false) {
-            //Player has blackjack, dealer doesn&#39;t, reward 1.5x bet (plus bet return)
+            //Player has blackjack, dealer doesn't, reward 1.5x bet (plus bet return)
             winAmount = betAmount[msg.sender] * 5/2; //player already lost half bet for insurance earlier in payable function
             if (insurancePurchased[msg.sender] == true) {
                 gamestatus[msg.sender] = 7;

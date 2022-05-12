@@ -44,8 +44,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -63,7 +63,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -162,7 +162,7 @@ contract ERC20 is IERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -290,7 +290,7 @@ contract ERC20 is IERC20 {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param value The amount that will be burnt.
@@ -372,7 +372,7 @@ contract GoatClash  {
     //  - 100 for etheroll
     //  - 37 for roulette
     //  etc.
-    // It&#39;s called so because 256-bit entropy is treated like a huge integer and
+    // It's called so because 256-bit entropy is treated like a huge integer and
     // the remainder of its division by modulo is considered bet outcome.
     uint constant MAX_MODULO = 100;
 
@@ -481,7 +481,7 @@ contract GoatClash  {
         owner = nextOwner;
     }
 
-    // Fallback function deliberately left empty. It&#39;s primary use case
+    // Fallback function deliberately left empty. It's primary use case
     // is to top up the bank roll.
     function () public payable {
     }
@@ -528,15 +528,15 @@ contract GoatClash  {
     /// *** Betting logic
 
     // Bet states:
-    //  amount == 0 && gambler == 0 - &#39;clean&#39; (can place a bet)
-    //  amount != 0 && gambler != 0 - &#39;active&#39; (can be settled or refunded)
-    //  amount == 0 && gambler != 0 - &#39;processed&#39; (can clean storage)
+    //  amount == 0 && gambler == 0 - 'clean' (can place a bet)
+    //  amount != 0 && gambler != 0 - 'active' (can be settled or refunded)
+    //  amount == 0 && gambler != 0 - 'processed' (can clean storage)
     //
     //  NOTE: Storage cleaning is not implemented in this contract version; it will be added
     //        with the next upgrade to prevent polluting Ethereum state with expired bets.
 
     // Bet placing transaction - issued by the player.
-    //  amount          - ADDED: Token bet amount (amount must be already &#39;approved&#39; by player)
+    //  amount          - ADDED: Token bet amount (amount must be already 'approved' by player)
     //  betMask         - bet outcomes bit mask for modulo <= MAX_MASK_MODULO,
     //                    [0, betMask) for larger modulos.
     //  modulo          - game modulo.
@@ -549,16 +549,16 @@ contract GoatClash  {
     //                    guaranteed to always equal 27.
     //
     // Commit, being essentially random 256-bit number, is used as a unique bet identifier in
-    // the &#39;bets&#39; mapping.
+    // the 'bets' mapping.
     //
     // Commits are signed with a block limit to ensure that they are used at most once - otherwise
     // it would be possible for a miner to place a bet with a known commit/reveal pair and tamper
     // with the blockhash. Croupier guarantees that commitLastBlock will always be not greater than
     // placeBet block number plus BET_EXPIRATION_BLOCKS. See whitepaper for details.
     function placeBet(uint amount, uint betMask, uint modulo, uint commitLastBlock, uint commit, bytes32 r, bytes32 s) external {         
-        // Check that the bet is in &#39;clean&#39; state.
+        // Check that the bet is in 'clean' state.
         Bet storage bet = bets[commit];
-        require (bet.gambler == address(0), "Bet should be in a &#39;clean&#39; state.");
+        require (bet.gambler == address(0), "Bet should be in a 'clean' state.");
 
         // Validate input data ranges.
         // MODIFIED: Using amount parameter not msg.value;
@@ -635,7 +635,7 @@ contract GoatClash  {
 
         // Check that bet has not expired yet (see comment to BET_EXPIRATION_BLOCKS).
         require (block.number > placeBlockNumber, "settleBet in the same block as placeBet, or before.");
-        require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
         require (blockhash(placeBlockNumber) == blockHash, "Blockhash does not match.");
 
         // Settle bet using reveal and blockHash as entropy sources.
@@ -654,7 +654,7 @@ contract GoatClash  {
         Bet storage bet = bets[commit];
 
         // Check that canonical block hash can still be verified.
-        require (block.number <= canonicalBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number <= canonicalBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
         // Verify placeBet receipt.
         requireCorrectReceipt(4 + 32 + 32 + 4);
@@ -677,10 +677,10 @@ contract GoatClash  {
         uint rollUnder = bet.rollUnder;
         address gambler = bet.gambler;
 
-        // Check that bet is in &#39;active&#39; state.
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        // Check that bet is in 'active' state.
+        require (amount != 0, "Bet should be in an 'active' state");
 
-        // Move bet into &#39;processed&#39; state already.
+        // Move bet into 'processed' state already.
         bet.amount = 0;
 
         // The RNG - combine "reveal" and blockhash of placeBet using Keccak256. Miners
@@ -745,16 +745,16 @@ contract GoatClash  {
     // in a situation like this, just contact the dice2.win support, however nothing
     // precludes you from invoking this method yourself.
     function refundBet(uint commit) external {
-        // Check that bet is in &#39;active&#39; state.
+        // Check that bet is in 'active' state.
         Bet storage bet = bets[commit];
         uint amount = bet.amount;
 
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        require (amount != 0, "Bet should be in an 'active' state");
 
         // Check that bet has already expired.
-        require (block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
-        // Move bet into &#39;processed&#39; state, release funds.
+        // Move bet into 'processed' state, release funds.
         bet.amount = 0;
 
         uint diceWinAmount;
@@ -780,7 +780,7 @@ contract GoatClash  {
             houseEdge = HOUSE_EDGE_MINIMUM_AMOUNT;
         }
 
-        require (houseEdge + jackpotFee <= amount, "Bet doesn&#39;t even cover house edge.");
+        require (houseEdge + jackpotFee <= amount, "Bet doesn't even cover house edge.");
         winAmount = (amount - houseEdge - jackpotFee) * modulo / rollUnder;
     }
 

@@ -376,7 +376,7 @@ contract WrapEtheremon is Utils2 {
         address kyberAddress = address(_kyber);
         uint tokenPrice;
 
-        // Get the starting token balance of the player&#39;s wallet
+        // Get the starting token balance of the player's wallet
         uint startTokenBalance = token.balanceOf(this);
 
         // Check that the player has transferred the token to this contract
@@ -395,7 +395,7 @@ contract WrapEtheremon is Utils2 {
         // Get the current price of the monster
         (,tokenPrice) = getMonsterPriceInTokens(_kyber, _etheremon, token, _classId);
 
-        // Swap player&#39;s token to ETH to send to Etheremon payments contract
+        // Swap player's token to ETH to send to Etheremon payments contract
         uint destAmount = _kyber.tradeWithHint(token, tokenQty, ETH_TOKEN_ADDRESS, address(this), maxDestQty, minRate, walletId, "");
 
         // Check that destAmount >= tokenPrice
@@ -412,7 +412,7 @@ contract WrapEtheremon is Utils2 {
 
     /// @dev Calculates token change and returns to player
     /// @param token ERC20 token address
-    /// @param startTokenBalance Starting token balance of the player&#39;s wallet
+    /// @param startTokenBalance Starting token balance of the player's wallet
     function calcPlayerChange(ERC20 token, uint startTokenBalance) private {
         // Calculate change of player
         uint change = token.balanceOf(this) - startTokenBalance;

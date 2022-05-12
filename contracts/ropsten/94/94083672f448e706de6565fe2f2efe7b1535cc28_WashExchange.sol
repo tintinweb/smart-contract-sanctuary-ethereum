@@ -58,9 +58,9 @@ contract WashExchange is owned,IERC20{
     
     uint256 public constant _totalSupply = 10000000000000000;
  
-    string public constant symbol = &#39;WASH&#39;;
+    string public constant symbol = 'WASH';
 
-    string public constant name = &#39;Washington Exchange&#39;;
+    string public constant name = 'Washington Exchange';
     
     uint8 public constant decimals = 8;
     

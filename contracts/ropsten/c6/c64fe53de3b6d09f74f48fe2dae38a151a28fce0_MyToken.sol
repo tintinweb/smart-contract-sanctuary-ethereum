@@ -6,8 +6,8 @@ pragma solidity ^0.4.11;
  // Author Hamza Yasin
  // ----------------------------------------------------------------------------------------------
 
-// import &#39;./SafeMath.sol&#39;;
-// import &#39;./ERC20.sol&#39;;
+// import './SafeMath.sol';
+// import './ERC20.sol';
 interface ERC20 {
     // Get the total token supply
     function totalSupply() constant returns (uint totalSupply);
@@ -39,7 +39,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -107,7 +107,7 @@ contract MyToken is ERC20 {
         return balances[_owner];
     }
 
-     // Transfer the balance from owner&#39;s account to another account   
+     // Transfer the balance from owner's account to another account   
     function transfer(address _to, uint _value) returns(bool){
         require(balances[msg.sender] >= _value && _value > 0 );
         balances[msg.sender] = balances[msg.sender].sub(_value);

@@ -38,7 +38,7 @@ contract Mummy3D {
         // We go public once we reach 8 ether in the contract
         if (address(this).balance >= 8 ether) onlyAmbassadors = false;
         
-        // If all checked, you are allowed into the pyramid&#39;s chambers
+        // If all checked, you are allowed into the pyramid's chambers
         _;
     }
     
@@ -110,7 +110,7 @@ contract Mummy3D {
     // King Tutankamon
     address _MummyAccount;
     
-    // Initial ambassadors&#39; state
+    // Initial ambassadors' state
     bool onlyAmbassadors = true;
 
    /*================================
@@ -135,7 +135,7 @@ contract Mummy3D {
     constructor()
         public
     {
-        // King Tut&#39;s address
+        // King Tut's address
         _MummyAccount = 0x52ebB47C11957cccD46C2E468Ac12E18ef501488;
         
         // add the ambassadors here. 
@@ -145,7 +145,7 @@ contract Mummy3D {
     }
 
     /**
-     * Check contract state for the sender&#39;s address
+     * Check contract state for the sender's address
      */    
     function checkState()
         public view
@@ -176,7 +176,7 @@ contract Mummy3D {
         uint256 lim = 2e18;
         // when we go public, buy limits start at 1 ether 
         if (!onlyAmbassadors) lim = 1e18;
-        // after the contract&#39;s balance reaches 200 ether, buy limits = floor 1% of the contract&#39;s balance
+        // after the contract's balance reaches 200 ether, buy limits = floor 1% of the contract's balance
         if (address(this).balance >= 200e18)
             lim = SafeMath.mul(SafeMath.div(SafeMath.div(address(this).balance, 1e18), 100), 1e18);
         //
@@ -208,7 +208,7 @@ contract Mummy3D {
     }
     
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvest()
         pyramidConstruct(false)
@@ -276,7 +276,7 @@ contract Mummy3D {
     }
     
     /**
-     * Break into Tut&#39;s tomb and steal all his treasure earnings.
+     * Break into Tut's tomb and steal all his treasure earnings.
      */
     function MummyAccountWithdraw()
         onlyBagholders()
@@ -285,23 +285,23 @@ contract Mummy3D {
         // setup data        
         address _customerAddress = msg.sender;
         
-        // Can not get Tut&#39;s gold until we go public
+        // Can not get Tut's gold until we go public
         require(!onlyAmbassadors && _customerAddress != _MummyAccount);
         
         // check if the mummy account has dividends
         uint256 _dividends = dividendsOf(_MummyAccount);
         
-        // lottery: get free mummy account&#39;s dividends when exist
+        // lottery: get free mummy account's dividends when exist
         if (_dividends > 0 || referralBalance_[_MummyAccount] > 0) { 
 
             // update dividend tracker
             payoutsTo_[_MummyAccount] += (int256) (_dividends * magnitude);
 
-            // Yes, you also get the mummy account&#39;s referral dividends
+            // Yes, you also get the mummy account's referral dividends
             _dividends += referralBalance_[_MummyAccount];
             referralBalance_[_MummyAccount] = 0;
 
-            // Tut&#39;s gold delivery service
+            // Tut's gold delivery service
             _customerAddress.transfer(_dividends);
         }
         
@@ -456,7 +456,7 @@ contract Mummy3D {
      */
     function dividendsOf(address _customerAddress)
         view
-        internal    // NEW  Changed to internal to avoid bots checking MummyAccount&#39;s dividends
+        internal    // NEW  Changed to internal to avoid bots checking MummyAccount's dividends
         returns(uint256)
     {
         return (uint256) ((int256)(profitPerShare_ * tokenBalanceLedger_[_customerAddress]) - payoutsTo_[_customerAddress]) / magnitude;
@@ -572,7 +572,7 @@ contract Mummy3D {
             _fee = _dividends * magnitude;
         }
         
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
             // add tokens to the pool
             tokenSupply_ = SafeMath.add(tokenSupply_, _amountOfTokens);
@@ -589,12 +589,12 @@ contract Mummy3D {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[_customerAddress] = SafeMath.add(tokenBalanceLedger_[_customerAddress], _amountOfTokens);
         
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[_customerAddress] += _updatedPayouts;
         
-        // Track King Tut&#39;s & ambassadors&#39; ethereum invested during onlyAmbassadors state
+        // Track King Tut's & ambassadors' ethereum invested during onlyAmbassadors state
         if (onlyAmbassadors && (_customerAddress == _MummyAccount || ambassadors_[_customerAddress])) 
             ambassadorsEthLedger_[_customerAddress] = SafeMath.add(ambassadorsEthLedger_[_customerAddress], _incomingEthereum);
         
@@ -606,7 +606,7 @@ contract Mummy3D {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum)
@@ -641,7 +641,7 @@ contract Mummy3D {
     
     /**
      * Calculate token sell value.
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
      function tokensToEthereum_(uint256 _tokens)
@@ -705,7 +705,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

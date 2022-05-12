@@ -86,7 +86,7 @@ contract WhitepaperVersioning {
             require(_contract.owner() == msg.sender);
             authors[_contract] = msg.sender;
         }else{
-            // Check if the initial version whitepaper&#39;s author is the msg.sender
+            // Check if the initial version whitepaper's author is the msg.sender
             require(authors[_contract] == msg.sender);
             // Check if the version is greater than the previous version
             require(whitepapers[_contract][num-1].version < _version);

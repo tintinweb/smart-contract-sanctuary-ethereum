@@ -18,7 +18,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -67,7 +67,7 @@ library StringUtils {
     	bytes memory n = bytes(_needle);
     	if(h.length < 1 || n.length < 1 || (n.length > h.length)) 
     		return -1;
-    	else if(h.length > (2**128 -1)) // since we have to be able to return -1 (if the char isn&#39;t found or input error), this function must return an "int" type with a max length of (2^128 - 1)
+    	else if(h.length > (2**128 -1)) // since we have to be able to return -1 (if the char isn't found or input error), this function must return an "int" type with a max length of (2^128 - 1)
     		return -1;									
     	else
     	{
@@ -77,7 +77,7 @@ library StringUtils {
     			if (h[i] == n[0]) // found the first char of b
     			{
     				subindex = 1;
-    				while(subindex < n.length && (i + subindex) < h.length && h[i + subindex] == n[subindex]) // search until the chars don&#39;t match or until we reach the end of a or b
+    				while(subindex < n.length && (i + subindex) < h.length && h[i + subindex] == n[subindex]) // search until the chars don't match or until we reach the end of a or b
     				{
     					subindex++;
     				}	
@@ -210,20 +210,20 @@ struct F46{
      
       if(_userType.equal("RO"))
       {
-        require(users[msg.sender].userType.equal(&#39;RO&#39;));      
+        require(users[msg.sender].userType.equal('RO'));      
           
         status45[_consistancy][_pollingstation]= Approveps45(status45[_consistancy][_pollingstation].ECPVerify,status45[_consistancy][_pollingstation].CANDVerify,true);//status[_consistancy][_pollingstation][ECPVerify];
 
       }
       
      else if(_userType.equal("ECP")){
-        require(users[msg.sender].userType.equal(&#39;ECP&#39;));      
+        require(users[msg.sender].userType.equal('ECP'));      
           
         status45[_consistancy][_pollingstation]= Approveps45(true,status45[_consistancy][_pollingstation].CANDVerify,status45[_consistancy][_pollingstation].ROVerify);//status[_consistancy][_pollingstation][ECPVerify];
 
       }
     else  if(_userType.equal("CAND")){
-        require(users[msg.sender].userType.equal(&#39;CAND&#39;));      
+        require(users[msg.sender].userType.equal('CAND'));      
           
         status45[_consistancy][_pollingstation]= Approveps45(status45[_consistancy][_pollingstation].ECPVerify,true,status45[_consistancy][_pollingstation].ROVerify);//status[_consistancy][_pollingstation][ECPVerify];
 
@@ -235,20 +235,20 @@ struct F46{
      
       if(_userType.equal("RO"))
       {
-        require(users[msg.sender].userType.equal(&#39;RO&#39;));      
+        require(users[msg.sender].userType.equal('RO'));      
           
         status46[_consistancy][_pollingstation]= Approveps46(status46[_consistancy][_pollingstation].ECPVerify,status46[_consistancy][_pollingstation].CANDVerify,true);//status[_consistancy][_pollingstation][ECPVerify];
 
       }
       
      else if(_userType.equal("ECP")){
-        require(users[msg.sender].userType.equal(&#39;ECP&#39;));      
+        require(users[msg.sender].userType.equal('ECP'));      
           
         status46[_consistancy][_pollingstation]= Approveps46(true,status46[_consistancy][_pollingstation].CANDVerify,status46[_consistancy][_pollingstation].ROVerify);//status[_consistancy][_pollingstation][ECPVerify];
 
       }
     else  if(_userType.equal("CAND")){
-        require(users[msg.sender].userType.equal(&#39;CAND&#39;));      
+        require(users[msg.sender].userType.equal('CAND'));      
           
         status46[_consistancy][_pollingstation]= Approveps46(status46[_consistancy][_pollingstation].ECPVerify,true,status46[_consistancy][_pollingstation].ROVerify);//status[_consistancy][_pollingstation][ECPVerify];
 
@@ -323,7 +323,7 @@ struct F46{
               return true;
                       }
      function addPollingStation(address _poAddress,  address _caddress, address _ecpaddress, address _roaddress,uint _pollingstationNo,string memory _name,uint  _consistencyNo) onlyPresidindOfficer public  returns(bool){
-            require(!consistencies[_consistencyNo].name.equal(&#39;&#39;));
+            require(!consistencies[_consistencyNo].name.equal(''));
             pollingstations[_consistencyNo][_pollingstationNo] = PollingStation(_name,_consistencyNo,_ecpaddress, _roaddress,_poAddress ,_caddress); 
             return true;
     }

@@ -81,7 +81,7 @@ library ECVerify {
             r := mload(add(signature, 32))
             s := mload(add(signature, 64))
 
-            // Here we are loading the last 32 bytes, including 31 bytes of &#39;s&#39;.
+            // Here we are loading the last 32 bytes, including 31 bytes of 's'.
             v := byte(0, mload(add(signature, 96)))
         }
 
@@ -183,7 +183,7 @@ contract TokenNetwork is Utils {
     // opened channels in this contract
     uint256 public channel_counter;
 
-    string public constant signature_prefix = &#39;\x19Ethereum Signed Message:\n&#39;;
+    string public constant signature_prefix = '\x19Ethereum Signed Message:\n';
 
     // channel_identifier => Channel
     // channel identifier is the channel_counter value at the time of opening
@@ -207,7 +207,7 @@ contract TokenNetwork is Utils {
     struct Participant {
         // Total amount of tokens transferred to this smart contract through
         // the `setTotalDeposit` function, for a specific channel, in the
-        // participant&#39;s benefit.
+        // participant's benefit.
         // This is a strictly monotonic value. Note that direct token transfer
         // cannot be tracked and will be burned.
         uint256 deposit;
@@ -457,7 +457,7 @@ contract TokenNetwork is Utils {
         // the participant_state.deposit = total_deposit, while we transfer `added_deposit` tokens.
         assert(participant_state.deposit + added_deposit == total_deposit);
 
-        // Update the participant&#39;s channel deposit
+        // Update the participant's channel deposit
         participant_state.deposit = total_deposit;
 
         // Calculate the entire channel deposit, to avoid overflow
@@ -484,9 +484,9 @@ contract TokenNetwork is Utils {
     /// amount.
     /// @param total_withdraw Total amount of tokens that are marked as
     /// withdrawn from the channel during the channel lifecycle.
-    /// @param participant_signature Participant&#39;s signature on the withdraw
+    /// @param participant_signature Participant's signature on the withdraw
     /// data.
-    /// @param partner_signature Partner&#39;s signature on the withdraw data.
+    /// @param partner_signature Partner's signature on the withdraw data.
     function setTotalWithdraw(
         uint256 channel_identifier,
         address participant,
@@ -581,7 +581,7 @@ contract TokenNetwork is Utils {
     /// @param additional_hash Computed from the message. Used for message
     /// authentication.
     /// @param nonce Strictly monotonic value used to order transfers.
-    /// @param signature Partner&#39;s signature of the balance proof data.
+    /// @param signature Partner's signature of the balance proof data.
     function closeChannel(
         uint256 channel_identifier,
         address partner,
@@ -633,7 +633,7 @@ contract TokenNetwork is Utils {
 
     /// @notice Called on a closed channel, the function allows the non-closing
     /// participant to provide the last balance proof, which modifies the
-    /// closing participant&#39;s state. Can be called multiple times by anyone.
+    /// closing participant's state. Can be called multiple times by anyone.
     /// @param channel_identifier Identifier for the channel on which this
     /// operation takes place.
     /// @param closing_participant Channel participant who closed the channel.
@@ -644,7 +644,7 @@ contract TokenNetwork is Utils {
     /// @param additional_hash Computed from the message. Used for message
     /// authentication.
     /// @param nonce Strictly monotonic value used to order transfers.
-    /// @param closing_signature Closing participant&#39;s signature of the balance
+    /// @param closing_signature Closing participant's signature of the balance
     /// proof data.
     /// @param non_closing_signature Non-closing participant signature of the
     /// balance proof data.
@@ -825,7 +825,7 @@ contract TokenNetwork is Utils {
         delete channel.participants[participant2];
         delete channels[channel_identifier];
 
-        // Remove the pair&#39;s channel counter
+        // Remove the pair's channel counter
         delete participants_hash_to_channel_identifier[pair_hash];
 
         // Store balance data needed for `unlock`, including the calculated
@@ -921,14 +921,14 @@ contract TokenNetwork is Utils {
         // Transaction must fail
         require(locked_amount > 0);
 
-        // Make sure we don&#39;t transfer more tokens than previously reserved in
+        // Make sure we don't transfer more tokens than previously reserved in
         // the smart contract.
         unlocked_amount = min(unlocked_amount, locked_amount);
 
         // Transfer the rest of the tokens back to the partner
         returned_tokens = locked_amount - unlocked_amount;
 
-        // Remove partner&#39;s unlock data
+        // Remove partner's unlock data
         delete unlock_identifier_to_unlock_data[unlock_key];
 
         emit ChannelUnlocked(
@@ -1040,7 +1040,7 @@ contract TokenNetwork is Utils {
         delete channel.participants[participant2];
         delete channels[channel_identifier];
 
-        // Remove the pair&#39;s channel counter
+        // Remove the pair's channel counter
         delete participants_hash_to_channel_identifier[pair_hash];
 
         emit ChannelSettled(channel_identifier, participant1_balance, participant2_balance);
@@ -1130,7 +1130,7 @@ contract TokenNetwork is Utils {
     /// @param participant Address of the channel participant whose data will be
     /// returned.
     /// @param partner Address of the channel partner.
-    /// @return Participant&#39;s deposit, withdrawn_amount, whether the participant
+    /// @return Participant's deposit, withdrawn_amount, whether the participant
     /// has called `closeChannel` or not, balance_hash, nonce, locksroot,
     /// locked_amount.
     function getChannelParticipantInfo(
@@ -1311,7 +1311,7 @@ contract TokenNetwork is Utils {
         // SL2 = min(RmaxP1, L2)
         // S1 = RmaxP1 - SL2
         // Both operations are done by failsafe_subtract
-        // We take out participant2&#39;s pending transfers locked amount, bounding
+        // We take out participant2's pending transfers locked amount, bounding
         // it by the maximum receivable amount of participant1
         (participant1_amount, participant2_locked_amount) = failsafe_subtract(
             participant1_amount,
@@ -1321,7 +1321,7 @@ contract TokenNetwork is Utils {
         // SL1 = min(RmaxP2, L1)
         // S2 = RmaxP2 - SL1
         // Both operations are done by failsafe_subtract
-        // We take out participant1&#39;s pending transfers locked amount, bounding
+        // We take out participant1's pending transfers locked amount, bounding
         // it by the maximum receivable amount of participant2
         (participant2_amount, participant1_locked_amount) = failsafe_subtract(
             participant2_amount,
@@ -1393,7 +1393,7 @@ contract TokenNetwork is Utils {
             participant1_max_transferred
         );
 
-        // Next, we add the participant1&#39;s deposit and subtract the already
+        // Next, we add the participant1's deposit and subtract the already
         // withdrawn amount
         participant1_max_amount = failsafe_addition(
             participant1_net_max_received,
@@ -1449,7 +1449,7 @@ contract TokenNetwork is Utils {
         returns (address signature_address)
     {
         // Length of the actual message: 20 + 32 + 32 + 32 + 32 + 32 + 32
-        string memory message_length = &#39;212&#39;;
+        string memory message_length = '212';
 
         bytes32 message_hash = keccak256(abi.encodePacked(
             signature_prefix,
@@ -1479,7 +1479,7 @@ contract TokenNetwork is Utils {
         returns (address signature_address)
     {
         // Length of the actual message: 20 + 32 + 32 + 32 + 32 + 32 + 32 + 65
-        string memory message_length = &#39;277&#39;;
+        string memory message_length = '277';
 
         bytes32 message_hash = keccak256(abi.encodePacked(
             signature_prefix,
@@ -1510,7 +1510,7 @@ contract TokenNetwork is Utils {
         returns (address signature_address)
     {
         // Length of the actual message: 20 + 32 + 32 + 32 + 20 + 32 + 20 + 32
-        string memory message_length = &#39;220&#39;;
+        string memory message_length = '220';
 
         bytes32 message_hash = keccak256(abi.encodePacked(
             signature_prefix,
@@ -1539,7 +1539,7 @@ contract TokenNetwork is Utils {
         returns (address signature_address)
     {
         // Length of the actual message: 20 + 32 + 32 + 32 + 20 + 32
-        string memory message_length = &#39;168&#39;;
+        string memory message_length = '168';
 
         bytes32 message_hash = keccak256(abi.encodePacked(
             signature_prefix,
@@ -1633,9 +1633,9 @@ contract TokenNetwork is Utils {
         // Calculate the lockhash for computing the merkle root
         lockhash = keccak256(abi.encodePacked(expiration_block, locked_amount, secrethash));
 
-        // Check if the lock&#39;s secret was revealed in the SecretRegistry The
+        // Check if the lock's secret was revealed in the SecretRegistry The
         // secret must have been revealed in the SecretRegistry contract before
-        // the lock&#39;s expiration_block in order for the hash time lock transfer
+        // the lock's expiration_block in order for the hash time lock transfer
         // to be successful.
         reveal_block = secret_registry.getSecretRevealBlockHeight(secrethash);
         if (reveal_block == 0 || expiration_block <= reveal_block) {

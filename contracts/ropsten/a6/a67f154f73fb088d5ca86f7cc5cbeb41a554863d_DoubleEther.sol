@@ -386,7 +386,7 @@ pragma solidity 0.5.1;
          * Those people who did not get the ETH will recieve tokens multiplied by 200
          * Which is: Ether amount * 200 tokens
          * 
-         * Due to block&#39;s gas limit, there can be only 35 addresses removed in one transaction. 
+         * Due to block's gas limit, there can be only 35 addresses removed in one transaction. 
          * So, for more addresses, owner has to call this function multiple times until entire queue is emty
          * 
          * Ether will remained in the contract will be used toward the next round

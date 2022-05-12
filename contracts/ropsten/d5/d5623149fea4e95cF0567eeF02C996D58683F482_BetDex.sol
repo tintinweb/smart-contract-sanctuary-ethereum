@@ -7,7 +7,7 @@ contract BetDex {
   address public houseFeeAddress;
   uint public houseFeePercent = 3;
   uint public minimumBetAmount = 0.01 ether;
-  string public version = &#39;1.1.5&#39;;
+  string public version = '1.1.5';
 
   struct Event {
     bytes32 eventId;
@@ -178,7 +178,7 @@ contract BetDex {
     uint transferAmount = calculateWinnings(_eventId, msg.sender);
     if (transferAmount > 0) {
       events[_eventId].bettorsIndex[msg.sender].rewarded = true;
-      emit Withdrawal(_eventId, events[_eventId].category, msg.sender, stringToBytes32(&#39;winnings&#39;), transferAmount, events[_eventId].firstScenarioName, events[_eventId].secondScenarioName, now);
+      emit Withdrawal(_eventId, events[_eventId].category, msg.sender, stringToBytes32('winnings'), transferAmount, events[_eventId].firstScenarioName, events[_eventId].secondScenarioName, now);
       msg.sender.transfer(transferAmount);
     }
   }
@@ -191,7 +191,7 @@ contract BetDex {
     require(events[_eventId].bettorsIndex[msg.sender].totalBet > 0, "Address did not place a bet on this event");
 
     events[_eventId].bettorsIndex[msg.sender].refunded = true;
-    emit Withdrawal(_eventId, events[_eventId].category, msg.sender, stringToBytes32(&#39;refund&#39;), events[_eventId].bettorsIndex[msg.sender].totalBet, events[_eventId].firstScenarioName, events[_eventId].secondScenarioName, now);
+    emit Withdrawal(_eventId, events[_eventId].category, msg.sender, stringToBytes32('refund'), events[_eventId].bettorsIndex[msg.sender].totalBet, events[_eventId].firstScenarioName, events[_eventId].secondScenarioName, now);
     msg.sender.transfer(events[_eventId].bettorsIndex[msg.sender].totalBet);
   }
 

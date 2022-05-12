@@ -123,7 +123,7 @@ function register_chain( string calldata info, ChainValidator validator, uint ve
    }
    function _vest_in_chain( uint id, uint vesting, address user ) private {
       if(vesting > 0 ){
-         require( chains[id].active, "can&#39;t vest into non-existing chain" );
+         require( chains[id].active, "can't vest into non-existing chain" );
          require( chains[id].validator.check_participant( vesting, user ), "user does not meet chain criteria");
       }
       if( chains[id].users[user].vesting > vesting ){
@@ -146,7 +146,7 @@ function register_chain( string calldata info, ChainValidator validator, uint ve
    //TODO - rework so withdrawals are not processed immediatelly but after notary window
    function _deposit_in_chain( uint id, uint deposit, address user ) private {
       if(deposit > 0){
-         require( chains[id].active, "can&#39;t deposit into non-existing chain" );
+         require( chains[id].active, "can't deposit into non-existing chain" );
       }
       if( chains[id].users[user].deposit > deposit ){
          uint to_withdraw = chains[id].users[user].deposit - deposit;

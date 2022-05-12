@@ -26,7 +26,7 @@ contract MoreSpendTest{
         uint arrayLength = listUsers.length;
         uint i = 0;
 
-        spendQty[user] = 0; // Aunque no haria falta ponerlo a 0 ya que al buscar el mejor no va a analizar este gasto al no estar array, asi &#39;limpiamos&#39; su rastro
+        spendQty[user] = 0; // Aunque no haria falta ponerlo a 0 ya que al buscar el mejor no va a analizar este gasto al no estar array, asi 'limpiamos' su rastro
         
         for (i=0; i<arrayLength; i++) {
             if (listUsers[i] == user) {

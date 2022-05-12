@@ -64,7 +64,7 @@ contract multiowned {
     // Revokes a prior confirmation of the given operation
     function revoke(bytes32 _operation) external {
         uint ownerIndex = m_ownerIndex[uint(msg.sender)];
-        // make sure they&#39;re an owner
+        // make sure they're an owner
         if (ownerIndex == 0) return;
         uint ownerIndexBit = 2**ownerIndex;
         var pending = m_pending[_operation];
@@ -129,7 +129,7 @@ contract multiowned {
         var pending = m_pending[_operation];
         uint ownerIndex = m_ownerIndex[uint(_owner)];
 
-        // make sure they&#39;re an owner
+        // make sure they're an owner
         if (ownerIndex == 0) return false;
 
         // determine the bit to set for this owner.
@@ -146,11 +146,11 @@ contract multiowned {
     function confirmAndCheck(bytes32 _operation) internal returns (bool) {
         // determine what index the present sender is:
         uint ownerIndex = m_ownerIndex[uint(msg.sender)];
-        // make sure they&#39;re an owner
+        // make sure they're an owner
         if (ownerIndex == 0) return;
 
         var pending = m_pending[_operation];
-        // if we&#39;re not yet working on this operation, switch over and reset the confirmation status.
+        // if we're not yet working on this operation, switch over and reset the confirmation status.
         if (pending.yetNeeded == 0) {
             // reset count of confirmations needed.
             pending.yetNeeded = m_required;
@@ -161,7 +161,7 @@ contract multiowned {
         }
         // determine the bit to set for this owner.
         uint ownerIndexBit = 2**ownerIndex;
-        // make sure we (the message sender) haven&#39;t confirmed this operation previously.
+        // make sure we (the message sender) haven't confirmed this operation previously.
         if (pending.ownersDone & ownerIndexBit == 0) {
             Confirmation(msg.sender, _operation);
             // ok - check if count is enough to go ahead.
@@ -228,9 +228,9 @@ contract multisig {
     // logged events:
     // Funds has arrived into the wallet (record how much).
     event Deposit(address from, uint value);
-    // Single transaction going out of the wallet (record who signed for it, how much, and to whom it&#39;s going).
+    // Single transaction going out of the wallet (record who signed for it, how much, and to whom it's going).
     event SingleTransact(address owner, uint value, address to, bytes data);
-    // Multi-sig transaction going out of the wallet (record who signed for it last, the operation hash, how much, and to whom it&#39;s going).
+    // Multi-sig transaction going out of the wallet (record who signed for it last, the operation hash, how much, and to whom it's going).
     event MultiTransact(address owner, bytes32 operation, uint value, address to, bytes data);
     // Confirmation still needed for a transaction.
     event ConfirmationNeeded(bytes32 operation, address initiator, uint value, address to, bytes data);

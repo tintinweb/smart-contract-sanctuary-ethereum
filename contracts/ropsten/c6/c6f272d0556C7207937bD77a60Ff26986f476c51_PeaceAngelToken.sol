@@ -177,7 +177,7 @@ contract PeaceAngelToken is StarndardToken {
     }
     
     /**
-     * Function allow give token to a specific account, because tokens can&#39;t be tradeable,
+     * Function allow give token to a specific account, because tokens can't be tradeable,
      * until de ICO ends.
      * @param _to address to give tokens by the issuer.
      * @param _value uint256 Amount of tokens to deliver by the issuer.

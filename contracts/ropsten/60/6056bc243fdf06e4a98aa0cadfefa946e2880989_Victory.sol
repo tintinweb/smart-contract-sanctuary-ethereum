@@ -134,14 +134,14 @@ contract Victory is ERC20Token {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
 
     function Victory() {
         totalSupply = 1000000000 * 1000000000000000000;
         balances[msg.sender] = totalSupply;
-        name = &#39;Victory&#39;;
+        name = 'Victory';
         decimals = 18;
-        symbol = &#39;VIC&#39;;
+        symbol = 'VIC';
         price = 714285714285714;
         limit = 0;
     }

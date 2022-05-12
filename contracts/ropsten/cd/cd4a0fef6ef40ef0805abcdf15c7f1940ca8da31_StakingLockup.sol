@@ -67,7 +67,7 @@ contract Token is StandardToken {
     string public name = "BASIC";
     uint8 public decimals = 8;
     string public symbol = "BASIC";
-    string public version = &#39;BASIC 0.1&#39;;
+    string public version = 'BASIC 0.1';
 
     function Token() public {
         totalSupply = 1000000000000000; // 10 million
@@ -104,7 +104,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -210,7 +210,7 @@ contract AirdropComponent {
   }
 
   /**
-   * @dev Helper function that returns the timestamp for when a user&#39;s airdropped tokens will unlock
+   * @dev Helper function that returns the timestamp for when a user's airdropped tokens will unlock
    * @param _address address of airdropped user
    * @return uint256 timestamp
    */
@@ -262,7 +262,7 @@ contract AirdropComponent {
     // Check that the airdropped tokens are unlocked & matches the given withdraw amount
     require(
       airdrop.unlockTimestamp <= now,
-      "The airdrop hasn&#39;t unlocked yet");
+      "The airdrop hasn't unlocked yet");
 
     require(
       airdrop.amount == _amount,
@@ -353,7 +353,7 @@ contract StakingLockup is ERC900, AirdropComponent {
   // To save on gas, rather than create a separate mapping for totalStakedFor & personalStakes,
   //  both data structures are stored in a single mapping for a given addresses.
   //
-  // It&#39;s possible to have a non-existing personalStakes, but have tokens in totalStakedFor
+  // It's possible to have a non-existing personalStakes, but have tokens in totalStakedFor
   //  if other users are staking on behalf of a given address.
   mapping (address => StakeContainer) public stakeHolders;
 
@@ -429,7 +429,7 @@ contract StakingLockup is ERC900, AirdropComponent {
 
   /**
    * @dev Modifier that checks if a user is improperly using stakeFor to stake for themselves.
-   * Used for ensuring a user can&#39;t use stakeFor to stake for themselves.
+   * Used for ensuring a user can't use stakeFor to stake for themselves.
    * @param _address address being staked for.
    */
   modifier checkStakeFor(address _address) {
@@ -538,7 +538,7 @@ contract StakingLockup is ERC900, AirdropComponent {
     // Check that the current stake has unlocked & matches the unstake amount
     require(
       personalStake.unlockedTimestamp <= now,
-      "The current stake hasn&#39;t unlocked yet");
+      "The current stake hasn't unlocked yet");
 
     require(
       personalStake.amount == _amount,
@@ -602,7 +602,7 @@ contract StakingLockup is ERC900, AirdropComponent {
 
     /**
    * @notice MUST return true if the optional history functions are implemented, otherwise false
-   * @dev Since we don&#39;t implement the optional interface, this always returns false
+   * @dev Since we don't implement the optional interface, this always returns false
    * @return bool Whether or not the optional history functions are implemented
    */
   function supportsHistory() public pure returns (bool) {

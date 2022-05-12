@@ -52,7 +52,7 @@ contract YioCoin is ERC20Interface, SafeMath{
 
     //  ERC20 methods
     function totalSupply() public constant returns (uint) {
-        //send to address[0] means burning the coins, thus don&#39;t count them in the total
+        //send to address[0] means burning the coins, thus don't count them in the total
         //address(0) 比較像是官方地址，所以不算流通量
         //https://ethereum.stackexchange.com/questions/42717/what-does-address0-mean/42718#42718
         return  _totalSupply - balances[address(0)];

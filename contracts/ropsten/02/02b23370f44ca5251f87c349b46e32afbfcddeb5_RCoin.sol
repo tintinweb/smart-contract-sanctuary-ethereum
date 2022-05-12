@@ -138,15 +138,15 @@ contract RCoin is StandardToken, SafeMath {
 
     function finalize() external {
         require(!isFinalized);
-        require(msg.sender == ethFundDeposit,"you don&#39;t have permission to call this"); 
+        require(msg.sender == ethFundDeposit,"you don't have permission to call this"); 
         require(totalSupply > tokenCreationMin);  
         isFinalized = true;
         ethFundDeposit.transfer(address(this).balance); 
     }
 
     function refund() external {
-        require(!isFinalized,"Project finalized can&#39;t refund") ;                      
-        require(totalSupply < tokenCreationMin,"reached min target can&#39;t refund");
+        require(!isFinalized,"Project finalized can't refund") ;                      
+        require(totalSupply < tokenCreationMin,"reached min target can't refund");
         uint256 RCTVal = balances[msg.sender];
         require(RCTVal != 0);
         balances[msg.sender] = 0;

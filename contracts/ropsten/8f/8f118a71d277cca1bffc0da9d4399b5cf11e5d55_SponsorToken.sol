@@ -162,7 +162,7 @@ contract SponsorToken is OwnerableContract{
 
     addTipBalance(_id, msg.sender, tipValue); 
 
-    // there&#39;s referrer
+    // there's referrer
     if (_referrer != address(0) && orderBook[_id].tip_balance[_referrer] != 0) {
       if (tipValue <= orderBook[_id].tip_balance[_referrer]) {
         withdrawTipBalance(_id, _referrer, tipValue);

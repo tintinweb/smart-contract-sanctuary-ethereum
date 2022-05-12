@@ -38,10 +38,10 @@ contract Zethroll is ZTHReceivingContract {
      * checks player profit, bet size and player number is within range
     */
     modifier betIsValid(uint _betSize, uint _playerNumber) {
-      emit Debug(_betSize, &#39;betsize&#39;);
-      emit Debug(minBet, &#39;minBet&#39;);
-      emit Debug(calculateProfit(_betSize, _playerNumber), &#39;calcProfit&#39;);
-      emit Debug(maxProfit, &#39;maxProfit&#39;);
+      emit Debug(_betSize, 'betsize');
+      emit Debug(minBet, 'minBet');
+      emit Debug(calculateProfit(_betSize, _playerNumber), 'calcProfit');
+      emit Debug(maxProfit, 'maxProfit');
         /*require( calculateProfit(_betSize, _playerNumber) < maxProfit
                  && _betSize > minBet
                  && _playerNumber > minNumber
@@ -121,7 +121,7 @@ contract Zethroll is ZTHReceivingContract {
     /*
      * events
     */
-    /* log bets + output to web3 for precise &#39;payout on win&#39; field in UI */
+    /* log bets + output to web3 for precise 'payout on win' field in UI */
     event LogBet(uint indexed BetID, address indexed PlayerAddress, uint indexed RewardValue, uint ProfitValue, uint BetValue, uint PlayerNumber);
     /* output to web3 UI on bet result*/
     /* Status: 0=lose, 1=win, 2=win + failed send, 3=refund, 4=refund + failed send*/
@@ -155,7 +155,7 @@ contract Zethroll is ZTHReceivingContract {
         ownerSetMaxProfitAsPercentOfHouse(10000);
         /* init min bet (1 ZTH) */
         ownerSetMinBet(1e18);
-        /* Allow &#39;unlimited&#39; token transfer by the bankroll */
+        /* Allow 'unlimited' token transfer by the bankroll */
         ZTHTKN.approve(zthbankrolladdr, MAX_INT);
         /* Set the bankroll */
         bankroll = zthbankrolladdr;
@@ -248,7 +248,7 @@ contract Zethroll is ZTHReceivingContract {
         else{
             playerDieResult[_rngId] = random(99, playerBlock[_rngId]) + 1;
         }
-        emit Debug(playerDieResult[_rngId], &#39;LuckyNumber&#39;);
+        emit Debug(playerDieResult[_rngId], 'LuckyNumber');
 
         TKN storage _tkn = playerTKN[_rngId];
         uint _rollUnder = playerRollUnder[_rngId];
@@ -440,7 +440,7 @@ library SafeMath {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

@@ -1468,7 +1468,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1478,7 +1478,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1510,7 +1510,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1533,7 +1533,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1565,15 +1565,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1610,13 +1610,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1759,7 +1759,7 @@ contract Etheroll is usingOraclize, DSSafeAddSub {
     /*
      * events
     */
-    /* log bets + output to web3 for precise &#39;payout on win&#39; field in UI */
+    /* log bets + output to web3 for precise 'payout on win' field in UI */
     event LogBet(bytes32 indexed BetID, address indexed PlayerAddress, uint indexed RewardValue, uint ProfitValue, uint BetValue, uint[] PlayerNumbers, uint RandomQueryID);      
     /* output to web3 UI on bet result*/
     /* Status: 0=lose, 1=win, 2=win + failed send, 3=refund, 4=refund + failed send*/
@@ -1811,11 +1811,11 @@ contract Etheroll is usingOraclize, DSSafeAddSub {
         */       
         randomQueryID += 1;
         //"ef2b0f21-2540-4c3c-8d5e-589cf32798ca"}}
-        string memory queryString1 = "[URL] [&#39;json(https://api.random.org/json-rpc/1/invoke).result.random[\"serialNumber\", \"data\"]&#39;, &#39;\\n{\"jsonrpc\":\"2.0\",\"method\":\"generateSignedIntegers\",\"id\":\"";
+        string memory queryString1 = "[URL] ['json(https://api.random.org/json-rpc/1/invoke).result.random[\"serialNumber\", \"data\"]', '\\n{\"jsonrpc\":\"2.0\",\"method\":\"generateSignedIntegers\",\"id\":\"";
         
         string memory queryString2 = uint2str(randomQueryID);
         
-        string memory queryString3 = "\",\"params\":{\"n\":\"1\",\"min\":1,\"max\":10,\"replacement\":true,\"base\":10,\"apiKey\":${[decrypt] BLggI9A5sIMnhmm7bZgaOyXi4I1riXU9etkMzvTMVQRsBOmhn+mrsErGiGfN8j9sNNRLtS49wuSjdleAcegaxzThA2e9/nINiF9ogBp1lOtEerdmOZx7QplmdbBKje5T5+CKfrCxgh72/5q8/yDmuVw312acBOGdXg==}}&#39;]";
+        string memory queryString3 = "\",\"params\":{\"n\":\"1\",\"min\":1,\"max\":10,\"replacement\":true,\"base\":10,\"apiKey\":${[decrypt] BLggI9A5sIMnhmm7bZgaOyXi4I1riXU9etkMzvTMVQRsBOmhn+mrsErGiGfN8j9sNNRLtS49wuSjdleAcegaxzThA2e9/nINiF9ogBp1lOtEerdmOZx7QplmdbBKje5T5+CKfrCxgh72/5q8/yDmuVw312acBOGdXg==}}']";
      
         string memory queryString1_2 = queryString1.toSlice().concat(queryString2.toSlice());
 
@@ -1858,7 +1858,7 @@ contract Etheroll is usingOraclize, DSSafeAddSub {
         /* keep oraclize honest by retrieving the serialNumber from random.org result */
         var sl_result = result.toSlice();
         sl_result.beyond("[".toSlice()).until("]".toSlice());
-        uint serialNumberOfResult = parseInt(sl_result.split(&#39;, &#39;.toSlice()).toString());          
+        uint serialNumberOfResult = parseInt(sl_result.split(', '.toSlice()).toString());          
 
         playerDieResult[myid] = parseInt(sl_result.beyond("[".toSlice()).until("]".toSlice()).toString());        
         /* get the playerAddress for this query id */

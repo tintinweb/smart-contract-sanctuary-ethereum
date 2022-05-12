@@ -98,7 +98,7 @@ contract BitByteCrowdsale is Ownable{
     rate = _rate;
     wallet = _wallet; //address del wallet che contiene i token destinati alla distribuzione. Alla fine conterr&#224; tutti gli ether della vendita.
     token = _token; //address del contratto del token
-    hardCap = _hardCap.mul(10**18); //il massimo di token trasferibili, dovrebbe coincidere con la quantit&#224; di token all&#39;interno del wallet sopra
+    hardCap = _hardCap.mul(10**18); //il massimo di token trasferibili, dovrebbe coincidere con la quantit&#224; di token all'interno del wallet sopra
     duration = _duration.mul(1 days); //durata in giorni
   }
 

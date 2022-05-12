@@ -881,7 +881,7 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface {
     /* solhint-disable code-complexity */
     // Not sure how solhing defines complexity. Anyway, from our point of view, below code follows the required
     //  algorithm to choose a reserve, it has been tested, reviewed and found to be clear enough.
-    //@dev this function always src or dest are ether. can&#39;t do token to token
+    //@dev this function always src or dest are ether. can't do token to token
     function searchBestRate(ERC20 src, ERC20 dest, uint srcAmount) public view returns(address, uint) {
         uint bestRate = 0;
         uint bestReserve = 0;
@@ -969,7 +969,7 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface {
         }
 
         if (add && i == reserveArr.length) {
-            //if reserve wasn&#39;t found add it
+            //if reserve wasn't found add it
             reserveArr.push(reserve);
         }
     }
@@ -1039,8 +1039,8 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface {
                 rateResult.rateEthToDest,
                 true));
 
-        //when src is ether, reserve1 is doing a "fake" trade. (ether to ether) - don&#39;t burn.
-        //when dest is ether, reserve2 is doing a "fake" trade. (ether to ether) - don&#39;t burn.
+        //when src is ether, reserve1 is doing a "fake" trade. (ether to ether) - don't burn.
+        //when dest is ether, reserve2 is doing a "fake" trade. (ether to ether) - don't burn.
         if (tradeInput.src != ETH_TOKEN_ADDRESS)
             require(feeBurnerContract.handleFees(weiAmount, rateResult.reserve1, tradeInput.walletId));
         if (tradeInput.dest != ETH_TOKEN_ADDRESS)
@@ -1193,7 +1193,7 @@ contract Ownable {
         @param _to Address of the new owner
     */
     function transferTo(address _to) public onlyOwner returns (bool) {
-        require(_to != address(0), "Can&#39;t transfer to address 0x0");
+        require(_to != address(0), "Can't transfer to address 0x0");
         emit SetOwner(_to);
         owner = _to;
         return true;
@@ -1266,7 +1266,7 @@ contract KyberConverter is TokenConverter, AvailableProvider, Ownable {
     }
 
     /*
-    @dev Swap the user&#39;s ETH to ERC20 token
+    @dev Swap the user's ETH to ERC20 token
     @param token destination token contract address
     @param destAddress address to send swapped tokens to
     */
@@ -1285,7 +1285,7 @@ contract KyberConverter is TokenConverter, AvailableProvider, Ownable {
     }
 
     /*
-    @dev Swap the user&#39;s ERC20 token to ETH
+    @dev Swap the user's ERC20 token to ETH
     @param token source token contract address
     @param tokenQty amount of source tokens
     @param destAddress address to send swapped ETH to
@@ -1299,7 +1299,7 @@ contract KyberConverter is TokenConverter, AvailableProvider, Ownable {
         // Check that the player has transferred the token to this contract
         require(token.transferFrom(msg.sender, this, tokenQty), "Error pulling tokens");
 
-        // Set the spender&#39;s token allowance to tokenQty
+        // Set the spender's token allowance to tokenQty
         require(token.approve(kyber, tokenQty), "Error pulling tokens");
 
         // Swap the ERC20 token to ETH
@@ -1313,7 +1313,7 @@ contract KyberConverter is TokenConverter, AvailableProvider, Ownable {
     }
 
     /*
-    @dev Swap the user&#39;s ERC20 token to another ERC20 token
+    @dev Swap the user's ERC20 token to another ERC20 token
     @param srcToken source token contract address
     @param srcQty amount of source tokens
     @param destToken destination token contract address
@@ -1329,7 +1329,7 @@ contract KyberConverter is TokenConverter, AvailableProvider, Ownable {
         // Check that the player has transferred the token to this contract
         require(srcToken.transferFrom(msg.sender, this, srcQty), "Error pulling tokens");
 
-        // Set the spender&#39;s token allowance to tokenQty
+        // Set the spender's token allowance to tokenQty
         require(srcToken.approve(kyber, srcQty), "Error approve transfer tokens");
 
         // Swap the ERC20 token to ERC20

@@ -33,7 +33,7 @@ contract StateMachine {
             checkNextState = false;
 
             bytes32 next = states[currentStateId].nextStateId;
-            // If one of the next state&#39;s conditions is met, go to this state and continue
+            // If one of the next state's conditions is met, go to this state and continue
 
             for (uint256 i = 0; i < states[next].startConditions.length; i++) {
                 if (states[next].startConditions[i](next)) {

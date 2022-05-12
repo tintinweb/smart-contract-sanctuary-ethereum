@@ -13,7 +13,7 @@ pragma solidity 0.4.25;
  * Blockchain-enabled smart contracts have opened a new era of trustless relationships without   intermediaries. 
  * This technology opens incredible financial possibilities. 
  * Our automated investment  distribution model is written into a smart contract, uploaded to the Ethereum    blockchain and can be  freely accessed online.
- * In order to insure our investors&#39; complete security, full control over the  project has been transferred from the organizers to the smart contract: nobody can influence the  system&#39;s permanent autonomous functioning.
+ * In order to insure our investors' complete security, full control over the  project has been transferred from the organizers to the smart contract: nobody can influence the  system's permanent autonomous functioning.
  */
 
 /**
@@ -26,8 +26,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -45,7 +45,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -207,7 +207,7 @@ contract GlobalInvestFund130Plus is ReentrancyGuard {
         investmentValue = investmentValue.sub(msg.value.mul(5).div(100));
         marketingAddress.transfer(msg.value.mul(5).div(100));
 
-        // if refferal address is not investor or if it&#39;s myself, fine
+        // if refferal address is not investor or if it's myself, fine
         if(!investors[_refferal].isInvestor || _refferal == msg.sender){
             marketingAddress.transfer(msg.value.mul(2).div(100));
             investmentValue = investmentValue.sub(msg.value.mul(2).div(100));

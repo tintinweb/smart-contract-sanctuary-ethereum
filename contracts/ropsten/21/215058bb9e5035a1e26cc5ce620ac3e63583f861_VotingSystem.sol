@@ -9,7 +9,7 @@ contract VotingSystem {
   
   mapping (bytes32 => uint8) public votesReceived;
   
-  /* Solidity doesn&#39;t let you pass in an array of strings in the constructor (yet).
+  /* Solidity doesn't let you pass in an array of strings in the constructor (yet).
   We will use an array of bytes32 instead to store the list of candidates
   */
   

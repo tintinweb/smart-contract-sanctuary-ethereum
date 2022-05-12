@@ -145,7 +145,7 @@ address constant private PRIZE	= 0x6E2c1214c10f72E35f005ae90b1f46c1BC5a2E80;
 
 					} else{
 
-							// Here we don&#39;t have enough money so partially pay to investor
+							// Here we don't have enough money so partially pay to investor
 							dep.depositor.send(money); // Send to him everything we have
 							dep.payout += money;       // Update the payout amount
 							break;                     // Exit cycle

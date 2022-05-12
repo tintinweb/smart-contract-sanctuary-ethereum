@@ -57,12 +57,12 @@ pragma solidity 0.4.24;
 //    It also contains permissions data, which ties in to ERC721
 //    functionality. Operators of an address are allowed to transfer
 //    ownership of all ships owned by their associated address
-//    (ERC721&#39;s approveAll()). A transfer proxy is allowed to transfer
-//    ownership of a single ship (ERC721&#39;s approve()).
+//    (ERC721's approveAll()). A transfer proxy is allowed to transfer
+//    ownership of a single ship (ERC721's approve()).
 //
 //    Since data stores are difficult to upgrade, this contract contains
 //    as little actual business logic as possible. Instead, the data stored
-//    herein can only be modified by this contract&#39;s owner, which can be
+//    herein can only be modified by this contract's owner, which can be
 //    changed and is thus upgradable/replacable.
 //
 //    Initially, this contract will be owned by the Constitution contract.
@@ -85,7 +85,7 @@ contract Ships is Ownable
   //
   event EscapeRequested(uint32 indexed ship, uint32 indexed sponsor);
 
-  //  EscapeCanceled: :ship&#39;s :sponsor request was canceled or rejected
+  //  EscapeCanceled: :ship's :sponsor request was canceled or rejected
   //
   event EscapeCanceled(uint32 indexed ship, uint32 indexed sponsor);
 
@@ -93,7 +93,7 @@ contract Ships is Ownable
   //
   event EscapeAccepted(uint32 indexed ship, uint32 indexed sponsor);
 
-  //  LostSponsor: :ship&#39;s sponsor is now refusing it service
+  //  LostSponsor: :ship's sponsor is now refusing it service
   //
   event LostSponsor(uint32 indexed ship, uint32 indexed sponsor);
 
@@ -176,7 +176,7 @@ contract Ships is Ownable
 
     //  sponsor: ship that supports this one on the network, or,
     //           if :hasSponsor is false, the last ship that supported it.
-    //           (by default, the ship&#39;s half-width prefix)
+    //           (by default, the ship's half-width prefix)
     //
     uint32 sponsor;
 
@@ -259,7 +259,7 @@ contract Ships is Ownable
 
     //  setDnsDomains(): set the base domains used for contacting galaxies
     //
-    //    Note: since a string is really just a byte[], and Solidity can&#39;t
+    //    Note: since a string is really just a byte[], and Solidity can't
     //    work with two-dimensional arrays yet, we pass in the three
     //    domains as individual strings.
     //
@@ -373,7 +373,7 @@ contract Ships is Ownable
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous owner&#39;s list of owned ships
+        //  i: current index in previous owner's list of owned ships
         //
         uint256 i = shipOwnerIndexes[prev][_ship];
 
@@ -398,7 +398,7 @@ contract Ships is Ownable
         shipOwnerIndexes[prev][_ship] = 0;
       }
 
-      //  update the owner list and the owner&#39;s index list
+      //  update the owner list and the owner's index list
       //
       ships[_ship].owner = _owner;
       shipsOwnedBy[_owner].push(_ship);
@@ -677,11 +677,11 @@ contract Ships is Ownable
 
       //  if the ship used to have a different spawn proxy, do some
       //  gymnastics to keep the reverse lookup gappless.  delete the ship
-      //  from the old proxy&#39;s list, then fill that gap with the list tail.
+      //  from the old proxy's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous proxy&#39;s list of spawning ships
+        //  i: current index in previous proxy's list of spawning ships
         //
         uint256 i = spawningForIndexes[prev][_ship];
 
@@ -769,11 +769,11 @@ contract Ships is Ownable
 
       //  if the ship used to have a different transfer proxy, do some
       //  gymnastics to keep the reverse lookup gappless.  delete the ship
-      //  from the old proxy&#39;s list, then fill that gap with the list tail.
+      //  from the old proxy's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous proxy&#39;s list of transferable ships
+        //  i: current index in previous proxy's list of transferable ships
         //
         uint256 i = transferringForIndexes[prev][_ship];
 
@@ -894,7 +894,7 @@ contract ReadsShips
   //
   Ships public ships;
 
-  //  constructor(): set the Ships contract&#39;s address
+  //  constructor(): set the Ships contract's address
   //
   constructor(Ships _ships)
     public
@@ -923,7 +923,7 @@ pragma solidity 0.4.24;
 //  Claims: simple identity management
 //
 //    This contract allows ships to document claims about their owner.
-//    Most commonly, these are about identity, with a claim&#39;s protocol
+//    Most commonly, these are about identity, with a claim's protocol
 //    defining the context or platform of the claim, and its dossier
 //    containing proof of its validity.
 //    Ships are limited to a maximum of 16 claims.
@@ -995,7 +995,7 @@ contract Claims is ReadsShips
     //
     uint8 cur = findClaim(_ship, _protocol, _claim);
 
-    //  if the claim doesn&#39;t yet exist, store it in state
+    //  if the claim doesn't yet exist, store it in state
     //
     if (cur == 0)
     {
@@ -1020,7 +1020,7 @@ contract Claims is ReadsShips
     external
     activeShipOwner(_ship)
   {
-    //  i: current index + 1 in _ship&#39;s list of claims
+    //  i: current index + 1 in _ship's list of claims
     //
     uint256 i = findClaim(_ship, _protocol, _claim);
 
@@ -1032,12 +1032,12 @@ contract Claims is ReadsShips
 
     //  clear out the claim
     //
-    claims[_ship][i] = Claim(&#39;&#39;, &#39;&#39;, &#39;&#39;);
+    claims[_ship][i] = Claim('', '', '');
 
     emit ClaimRemoved(_ship, _protocol, _claim);
   }
 
-  //  clearClaims(): unregister all of _ship&#39;s claims
+  //  clearClaims(): unregister all of _ship's claims
   //
   //    can also be called by the constitution during ship transfer
   //
@@ -1055,7 +1055,7 @@ contract Claims is ReadsShips
     //
     for (uint8 i = 0; i < maxClaims; i++)
     {
-      currClaims[i] = Claim(&#39;&#39;, &#39;&#39;, &#39;&#39;);
+      currClaims[i] = Claim('', '', '');
     }
   }
 
@@ -1068,7 +1068,7 @@ contract Claims is ReadsShips
     view
     returns (uint8 index)
   {
-    //  we use hashes of the string because solidity can&#39;t do string
+    //  we use hashes of the string because solidity can't do string
     //  comparison yet
     //
     bytes32 protocolHash = keccak256(bytes(_protocol));
@@ -1125,7 +1125,7 @@ library SafeMath8 {
   function div(uint8 a, uint8 b) internal pure returns (uint8) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint8 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -1167,7 +1167,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -1221,7 +1221,7 @@ pragma solidity 0.4.24;
 //
 //    Since data stores are difficult to upgrade, all of the logic unrelated
 //    to the voting itself (that is, determining who is eligible to vote)
-//    is expected to be implemented by this contract&#39;s owner.
+//    is expected to be implemented by this contract's owner.
 //
 //    Initially, this contract will be owned by the Constitution contract.
 //
@@ -1587,7 +1587,7 @@ contract Polls is Ownable
                //
                (block.timestamp > _poll.start.add(_poll.duration)) ||
                //
-               //  or because there aren&#39;t enough remaining voters to
+               //  or because there aren't enough remaining voters to
                //  tip the scale
                //
                (score > remainingVotes) ) );
@@ -1656,9 +1656,9 @@ pragma solidity 0.4.24;
 //
 //    This contract implements the upgrade logic for the Constitution.
 //    Newer versions of the Constitution are expected to provide at least
-//    the onUpgrade() function. If they don&#39;t, upgrading to them will fail.
+//    the onUpgrade() function. If they don't, upgrading to them will fail.
 //
-//    Note that even though this contract doesn&#39;t specify any required
+//    Note that even though this contract doesn't specify any required
 //    interface members aside from upgrade() and onUpgrade(), contracts
 //    and clients may still rely on the presence of certain functions
 //    provided by the Constitution proper. Keep this in mind when writing
@@ -1683,8 +1683,8 @@ contract ConstitutionBase is Ownable, ReadsShips
   address public previousConstitution;
 
   //  baseNode: namehash of the urbit ens node
-  //  subLabel: hash of the constitution&#39;s subdomain (without base domain)
-  //  subNode:  namehash of the constitution&#39;s subnode
+  //  subLabel: hash of the constitution's subdomain (without base domain)
+  //  subNode:  namehash of the constitution's subnode
   //
   bytes32 public baseNode;
   bytes32 public subLabel;
@@ -1704,7 +1704,7 @@ contract ConstitutionBase is Ownable, ReadsShips
     ens = _ensRegistry;
     subLabel = keccak256(abi.encodePacked(_subEns));
     baseNode = keccak256(abi.encodePacked(
-                 keccak256(abi.encodePacked( bytes32(0), keccak256(&#39;eth&#39;) )),
+                 keccak256(abi.encodePacked( bytes32(0), keccak256('eth') )),
                  keccak256(abi.encodePacked( _baseEns )) ));
     subNode = keccak256(abi.encodePacked( baseNode, subLabel ));
   }
@@ -1745,8 +1745,8 @@ contract ConstitutionBase is Ownable, ReadsShips
     //  make the ens resolver point to the new address, then transfer
     //  ownership of the urbit & constitution nodes to the new constitution.
     //
-    //    Note: we&#39;re assuming we only register a resolver for the base node
-    //          and don&#39;t have one registered for subnodes.
+    //    Note: we're assuming we only register a resolver for the base node
+    //          and don't have one registered for subnodes.
     //
     ResolverInterface resolver = ResolverInterface(ens.resolver(baseNode));
     resolver.setAddr(subNode, _new);
@@ -1947,7 +1947,7 @@ pragma solidity 0.4.24;
 //    be changed. In other words, it can be upgraded. It does this by passing
 //    ownership of the data contracts to a new Constitution contract.
 //
-//    Because of this, it is advised for clients to not store this contract&#39;s
+//    Because of this, it is advised for clients to not store this contract's
 //    address directly, but rather ask the Ships contract for its owner
 //    attribute to ensure transactions get sent to the latest Constitution.
 //
@@ -1988,7 +1988,7 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
   //  constructor(): set Urbit data addresses and signal interface support
   //
   //    Note: during first deploy, ownership of these contracts must be
-  //    manually transferred to this contract after it&#39;s on the chain and
+  //    manually transferred to this contract after it's on the chain and
   //    its address is known.
   //
   constructor(address _previous,
@@ -2064,7 +2064,7 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
     }
 
     //  safeTransferFrom(): transfer ship _tokenId from _from to _to,
-    //                      and call recipient if it&#39;s a contract
+    //                      and call recipient if it's a contract
     //
     function safeTransferFrom(address _from, address _to, uint256 _tokenId,
                               bytes _data)
@@ -2189,7 +2189,7 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
 
     //  configureKeys(): configure _ship with Urbit public keys _encryptionKey,
     //                   _authenticationKey, and corresponding
-    //                   _cryptoSuiteVersion, incrementing the ship&#39;s
+    //                   _cryptoSuiteVersion, incrementing the ship's
     //                   continuity number if needed
     //
     function configureKeys(uint32 _ship,
@@ -2215,8 +2215,8 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
     //    Requirements:
     //    - _ship must not be active,
     //    - _ship must not be a planet with a galaxy prefix,
-    //    - _ship&#39;s prefix must be active and under its spawn limit,
-    //    - :msg.sender must be either the owner of _ship&#39;s prefix,
+    //    - _ship's prefix must be active and under its spawn limit,
+    //    - :msg.sender must be either the owner of _ship's prefix,
     //      or an authorized spawn proxy for it.
     //
     function spawn(uint32 _ship,
@@ -2259,7 +2259,7 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
                ships.isSpawnProxy(prefix, msg.sender) );
 
       //  if the caller is spawning the ship to themselves,
-      //  assume it knows what it&#39;s doing and resolve right away
+      //  assume it knows what it's doing and resolve right away
       //
       if (msg.sender == _target)
       {
@@ -2273,9 +2273,9 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
       //
       //  when sending to a "foreign" address, enforce a withdraw pattern
       //  by approving the _target for transfer of the _ship.
-      //  we make the parent&#39;s owner the owner of this _ship in the mean time,
+      //  we make the parent's owner the owner of this _ship in the mean time,
       //  so that it may cancel the transfer (un-approve) if _target flakes.
-      //  we don&#39;t make _ship active yet, because it still belongs to its
+      //  we don't make _ship active yet, because it still belongs to its
       //  parent.
       //
       else
@@ -2323,7 +2323,7 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
       }
       else  //  class == Ships.Class.Planet
       {
-        //  planets can create moons, but moons aren&#39;t on the chain
+        //  planets can create moons, but moons aren't on the chain
         //
         return 0;
       }
@@ -2344,12 +2344,12 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
     //                  data and keys if _reset is true
     //
     //    Note: the _reset flag is useful when transferring the ship to
-    //    a recipient who doesn&#39;t trust the previous owner.
+    //    a recipient who doesn't trust the previous owner.
     //
     //    Requirements:
-    //    - :msg.sender must be either _ship&#39;s current owner, authorized
+    //    - :msg.sender must be either _ship's current owner, authorized
     //      to transfer _ship, or authorized to transfer the current
-    //      owner&#39;s ships.
+    //      owner's ships.
     //    - _target must not be the zero address.
     //
     function transferShip(uint32 _ship, address _target, bool _reset)
@@ -2367,7 +2367,7 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
               || ships.isOperator(old, msg.sender)
               || ships.isTransferProxy(_ship, msg.sender));
 
-      //  if the ship wasn&#39;t active yet, that means transferring it
+      //  if the ship wasn't active yet, that means transferring it
       //  is part of the "spawn" flow, so we need to activate it
       //
       if ( !ships.isActive(_ship) )
@@ -2377,7 +2377,7 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
 
       //  if the owner would actually change, change it
       //
-      //    the only time this deliberately wouldn&#39;t be the case is when a
+      //    the only time this deliberately wouldn't be the case is when a
       //    parent ship wants to activate a spawned but untransferred child.
       //
       if ( !ships.isOwner(_ship, _target) )
@@ -2428,8 +2428,8 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
     //  setTransferProxy(): give _transferProxy the right to transfer _ship
     //
     //    Requirements:
-    //    - :msg.sender must be either _ship&#39;s current owner, or be
-    //      allowed to manage the current owner&#39;s ships.
+    //    - :msg.sender must be either _ship's current owner, or be
+    //      allowed to manage the current owner's ships.
     //
     function setTransferProxy(uint32 _ship, address _transferProxy)
       public
@@ -2460,12 +2460,12 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
       view
       returns (bool canEscape)
     {
-      //  can&#39;t escape to a sponsor that hasn&#39;t been born
+      //  can't escape to a sponsor that hasn't been born
       //
       if ( !ships.hasBeenBooted(_sponsor) ) return false;
 
       //  Can only escape to a ship one class higher than ourselves,
-      //  except in the special case where the escaping ship hasn&#39;t
+      //  except in the special case where the escaping ship hasn't
       //  been booted yet -- in that case we may escape to ships of
       //  the same class, to support lightweight invitation chains.
       //
@@ -2492,8 +2492,8 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
                //
                ( (sponsorClass == shipClass) &&
                  //
-                 //  peer escape is only for ships that haven&#39;t been booted yet,
-                 //  because it&#39;s only for lightweight invitation chains
+                 //  peer escape is only for ships that haven't been booted yet,
+                 //  because it's only for lightweight invitation chains
                  //
                  !ships.hasBeenBooted(_ship) ) );
     }
@@ -2536,13 +2536,13 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
     {
       require(ships.isRequestingEscapeTo(_escapee, _sponsor));
 
-      //  _sponsor becomes _escapee&#39;s sponsor
+      //  _sponsor becomes _escapee's sponsor
       //  its escape request is reset to "not escaping"
       //
       ships.doEscape(_escapee);
     }
 
-    //  reject(): as the _sponsor, deny the _escapee&#39;s request
+    //  reject(): as the _sponsor, deny the _escapee's request
     //
     //    Requirements:
     //    - :msg.sender must be the owner of _sponsor,
@@ -2554,7 +2554,7 @@ contract Constitution is ConstitutionBase, ERC165Mapping, ERC721Metadata
     {
       require(ships.isRequestingEscapeTo(_escapee, _sponsor));
 
-      //  reset the _escapee&#39;s escape request to "not escaping"
+      //  reset the _escapee's escape request to "not escaping"
       //
       ships.cancelEscape(_escapee);
     }
@@ -2751,7 +2751,7 @@ contract DelegatedSending is ReadsShips
   mapping(uint16 => uint16) public limits;
 
   //  pools: per pool, the amount of planets that have been given away by
-  //         the pool&#39;s planet itself or the ones it invited
+  //         the pool's planet itself or the ones it invited
   //
   //    pools are associated with planets by number, pool n belongs to
   //    planet n - 1.
@@ -2766,7 +2766,7 @@ contract DelegatedSending is ReadsShips
   //    this is done so that all planets that were born outside of this
   //    contract start out with their own pool (0, solidity default),
   //    while we configure planets created through this contract to use
-  //    their inviter&#39;s pool.
+  //    their inviter's pool.
   //
   mapping(uint32 => uint64) public fromPool;
 
@@ -2897,7 +2897,7 @@ contract DelegatedSending is ReadsShips
   //  canReceive(): wether the _recipient is eligible to receive a planet
   //                from this contract or not
   //
-  //    only those who don&#39;t own or are entitled to any ships may receive
+  //    only those who don't own or are entitled to any ships may receive
   //
   function canReceive(address _recipient)
     public

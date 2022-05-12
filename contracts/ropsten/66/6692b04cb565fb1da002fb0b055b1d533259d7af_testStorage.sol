@@ -7,9 +7,9 @@ contract testStorage {
 	uint128 investmentsLimit = 17055;
 	uint32 investmentsDeadlineTimeStamp = uint32(now);
 
-	bytes16 string1 = &#39;test1&#39;;
-	bytes32 string2 = &#39;test1236&#39;;
-	string string3 = &#39;lets string something&#39;;
+	bytes16 string1 = 'test1';
+	bytes32 string2 = 'test1236';
+	string string3 = 'lets string something';
 
 	mapping (address => uint) uints1;
 	mapping (address => DeviceData) structs1;
@@ -30,14 +30,14 @@ contract testStorage {
 		uints1[address1] = 88;
 		uints1[address2] = 99;
 
-		structs1[address1] = DeviceData(&#39;deviceBrand&#39;, &#39;deviceYear&#39;, &#39;wearLevel&#39;);
-		structs1[address2] = DeviceData(&#39;deviceBrand&#39;, &#39;deviceYear&#39;, &#39;wearLevel&#39;);
+		structs1[address1] = DeviceData('deviceBrand', 'deviceYear', 'wearLevel');
+		structs1[address2] = DeviceData('deviceBrand', 'deviceYear', 'wearLevel');
 
 		uintarray.push(8000);
 		uintarray.push(9000);
 
-		deviceDataArray.push( DeviceData(&#39;deviceBrand&#39;, &#39;deviceYear&#39;, &#39;wearLevel&#39;));
-		deviceDataArray.push( DeviceData(&#39;deviceBrand&#39;, &#39;deviceYear&#39;, &#39;wearLevel&#39;));
+		deviceDataArray.push( DeviceData('deviceBrand', 'deviceYear', 'wearLevel'));
+		deviceDataArray.push( DeviceData('deviceBrand', 'deviceYear', 'wearLevel'));
 	}
 
 }

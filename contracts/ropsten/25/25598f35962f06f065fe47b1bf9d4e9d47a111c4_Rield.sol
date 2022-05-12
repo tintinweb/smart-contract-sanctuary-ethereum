@@ -41,11 +41,11 @@ contract Rield  {
     
     mapping(string => mapping(string => PollingDetails)) pollingDetailsMap;
     
-    string validationDocumentPrevHash = &#39;0&#39;;
+    string validationDocumentPrevHash = '0';
     
-    string purchaseDetailsPrevHash = &#39;0&#39;;
+    string purchaseDetailsPrevHash = '0';
     
-    string rentalDetailsPrevHash = &#39;0&#39;;
+    string rentalDetailsPrevHash = '0';
     
     function addValidationDocumentDetails(string memory propertyId,string memory propertyName,string memory currentHash) public{
         validationDocumentDetailsMap[propertyId][currentHash] = 

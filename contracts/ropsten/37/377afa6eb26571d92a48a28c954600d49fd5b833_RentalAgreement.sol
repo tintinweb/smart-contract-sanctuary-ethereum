@@ -223,7 +223,7 @@ contract RentalAgreement {
     clauses.finalDetails.disputeResolution.selectedDisputeResolutionCost = 2;
     clauses.finalDetails.additionalClauses.selectedAdditionalClause = 1;
 
-    require(msg.sender == clauses.parties.landlord.wallet, &#39;You are not the Landlord&#39;);
+    require(msg.sender == clauses.parties.landlord.wallet, 'You are not the Landlord');
 
     Notifier = notifier(0x561A407e8894c746d881eBf25a6033d24fd694aF); /*Event notifier*/
 
@@ -234,15 +234,15 @@ contract RentalAgreement {
 
   /*Tenant approves this this agreement*/
   function approveAgreement() public {
-    require(msg.sender == clauses.parties.tenant.wallet, &#39;You are not not the Tenant&#39;);
+    require(msg.sender == clauses.parties.tenant.wallet, 'You are not not the Tenant');
     agreementApproved = true;
     Notifier.approved(msg.sender);
     emit Approved(msg.sender, now);
   }
 
-  /*The smart contract won&#39;t process any action until Tenant Approves the Rental Agreement*/
+  /*The smart contract won't process any action until Tenant Approves the Rental Agreement*/
   modifier rentalAgreementApproved {
-    require(agreementApproved, &#39;Rental Agreement is not approved&#39;);
+    require(agreementApproved, 'Rental Agreement is not approved');
     _;
   }
 

@@ -9,22 +9,22 @@ pragma solidity ^0.4.21;
  * 
  * This code? IS NOT DESIGNED FOR ACTUAL USE.
  * 
- * The author of this code really wishes you wouldn&#39;t send your ETH to it, but it&#39;s been
+ * The author of this code really wishes you wouldn't send your ETH to it, but it's been
  * done with P3D and there are very happy users because of it.
  * 
- * No, seriously. It&#39;s probablly illegal anyway. So don&#39;t do it.
+ * No, seriously. It's probablly illegal anyway. So don't do it.
  * 
- * Let me repeat that: Don&#39;t actually send money to this contract. You are 
+ * Let me repeat that: Don't actually send money to this contract. You are 
  * likely breaking several local and national laws in doing so.
  * 
  * This code is intended to educate. Nothing else. If you use it, expect S.W.A.T 
  * teams at your door. I wrote this code because I wanted to experiment
  * with smart contracts, and I think code should be open source. So consider
  * it public domain, No Rights Reserved. Participating in pyramid schemes
- * is genuinely illegal so just don&#39;t even think about going beyond
+ * is genuinely illegal so just don't even think about going beyond
  * reading the code and understanding how it works.
  * 
- * Seriously. I&#39;m not kidding. It&#39;s probablly broken in some critical way anyway
+ * Seriously. I'm not kidding. It's probablly broken in some critical way anyway
  * and will suck all your money out your wallet, install a virus on your computer
  * sleep with your wife, kidnap your children and sell them into slavery,
  * make you forget to file your taxes, and give you cancer.
@@ -39,7 +39,7 @@ pragma solidity ^0.4.21;
  * The tokens collect dividends, which in turn pay into the payout pool
  * to be split 50/50.
  * 
- * If you&#39;re seeing this contract in it&#39;s initial configuration, it should be
+ * If you're seeing this contract in it's initial configuration, it should be
  * set to 200% (double deposits), and pointed at PoWH:
  * 0xB3775fB83F7D12A36E0475aBdD1FCA35c091efBe
  * 
@@ -207,7 +207,7 @@ contract IronHands is Owned {
             uint payoutToSend = balance < participants[payoutOrder].payout ? balance : participants[payoutOrder].payout;
             //if we have something to pay them
             if(payoutToSend > 0){
-                //subtract how much we&#39;ve spent
+                //subtract how much we've spent
                 balance -= payoutToSend;
                 //subtract the amount paid from the amount owed
                 backlog -= payoutToSend;
@@ -215,7 +215,7 @@ contract IronHands is Owned {
                 creditRemaining[participants[payoutOrder].etherAddress] -= payoutToSend;
                 //credit their account the amount they are being paid
                 participants[payoutOrder].payout -= payoutToSend;
-                //Try and pay them, making best effort. But if we fail? Run out of gas? That&#39;s not our problem any more.
+                //Try and pay them, making best effort. But if we fail? Run out of gas? That's not our problem any more.
                 if(participants[payoutOrder].etherAddress.call.value(payoutToSend).gas(1000000)()){
                     //Record that they were paid
                     emit Payout(payoutToSend, participants[payoutOrder].etherAddress);
@@ -233,7 +233,7 @@ contract IronHands is Owned {
                 // go to the next person in line
                 payoutOrder += 1;
             }
-            //If we&#39;ve run out of people to pay, stop
+            //If we've run out of people to pay, stop
             if(payoutOrder >= participants.length){
                 return;
             }

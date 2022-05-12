@@ -140,7 +140,7 @@ contract GasTracker {
 
         _; // modified function body inserted here
 
-        gasUsed = 0; // zero out the storage so we don&#39;t persist anything
+        gasUsed = 0; // zero out the storage so we don't persist anything
     }
 }
 

@@ -5,7 +5,7 @@
 pragma solidity ^0.5.0;
 
 // ----------------------------------------------------------------------------
-// &#39;ViewPlus&#39; Contract
+// 'ViewPlus' Contract
 //
 // Deployed to : 0xEf448011Dac23d3afe7c534FcbF73fDADBFca172
 // Symbol      : VEP

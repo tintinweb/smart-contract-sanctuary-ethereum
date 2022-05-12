@@ -20,7 +20,7 @@ pragma solidity ^0.4.25;
     initialiseValues(); This function is in charge of initialiseng all of the values for user who are withdrawing for the first time,
     its called directly from withdraw so theres no need to execute it independently.
     
-    _triggerCooldown(); This function makes sure all the appropriate values are updated when a user withdraws all his Allowance, again it&#39;s called 
+    _triggerCooldown(); This function makes sure all the appropriate values are updated when a user withdraws all his Allowance, again it's called 
     from withdrawal so there is not need to call it individually.
 */
 
@@ -129,7 +129,7 @@ contract TokenCardFinal{
     receiver = msg.sender;
     userStruct storage individualUser = users[receiver];
     
-    /// @notice This &#39;if&#39; statement functions as a fail safe. In case a user has forgotten to initialiseValues.     
+    /// @notice This 'if' statement functions as a fail safe. In case a user has forgotten to initialiseValues.     
     if (individualUser.userInitiliased == false){
       initialiseValues();
     }
@@ -145,7 +145,7 @@ contract TokenCardFinal{
     /// Subtract the withdrwal from the address allowance
     individualUser.userAllowance -= _Amount;
      
-    /// Transfer the funds from the smart contract to the user&#39;s address
+    /// Transfer the funds from the smart contract to the user's address
     receiver.transfer(_Amount);
         
     /// In case the allowance is depleted the Cooldown should be triggered.
@@ -154,7 +154,7 @@ contract TokenCardFinal{
     }
   }
   
-  /// @notice This is the withdrwal function for all the whitelisted addresses, it&#39;s not subject to cool downs or limits
+  /// @notice This is the withdrwal function for all the whitelisted addresses, it's not subject to cool downs or limits
   /// @param _Amount The amount to be withdrawn
   function withdrawWhiteList(uint _Amount)external onlyWhitelisted{
     receiver = msg.sender;

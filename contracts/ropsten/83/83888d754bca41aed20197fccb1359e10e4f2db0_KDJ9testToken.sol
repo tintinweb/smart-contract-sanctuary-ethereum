@@ -159,7 +159,7 @@ contract KDJ9testToken is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () external payable {
         revert();

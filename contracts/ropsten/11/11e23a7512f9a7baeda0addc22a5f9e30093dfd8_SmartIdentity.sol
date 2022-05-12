@@ -1,8 +1,8 @@
 pragma solidity ^0.4.0;
 
 /**
- * The contract is a Smart ID, and all derived &#39;Smart IDs&#39; should match the bytecode
- * of a known &#39;good SmartIdentity&#39; version. See the &#39;SmartIdentityRegistry&#39; contract
+ * The contract is a Smart ID, and all derived 'Smart IDs' should match the bytecode
+ * of a known 'good SmartIdentity' version. See the 'SmartIdentityRegistry' contract
  * for a mechanism for verifying valid SmartIdentities.
  */
 
@@ -197,7 +197,7 @@ contract SmartIdentity {
     function addEndorsement(bytes32 _attributeHash, bytes32 _endorsementHash) public returns(bool) {
         var attribute = attributes[_attributeHash];
         if (attribute.hash != _attributeHash) {
-            sendEvent(ERROR_EVENT, "Attribute doesn&#39;t exist");
+            sendEvent(ERROR_EVENT, "Attribute doesn't exist");
             revert();
         }
         var endorsement = attribute.endorsements[_endorsementHash];
@@ -228,19 +228,19 @@ contract SmartIdentity {
     function checkEndorsementExists(bytes32 _attributeHash, bytes32 _endorsementHash) public returns(bool) {
         var attribute = attributes[_attributeHash];
         if (attribute.hash != _attributeHash) {
-            sendEvent(ERROR_EVENT, "Attribute doesn&#39;t exist");
+            sendEvent(ERROR_EVENT, "Attribute doesn't exist");
             return false;
         }
         var endorsement = attribute.endorsements[_endorsementHash];
         if (endorsement.hash != _endorsementHash) {
-            sendEvent(ERROR_EVENT, "Endorsement doesn&#39;t exist");
+            sendEvent(ERROR_EVENT, "Endorsement doesn't exist");
             return false;
         }
         if (endorsement.accepted == true) {
             sendEvent(INFO_EVENT, "Endorsement exists for attribute");
             return true;
         } else {
-            sendEvent(ERROR_EVENT, "Endorsement hasn&#39;t been accepted");
+            sendEvent(ERROR_EVENT, "Endorsement hasn't been accepted");
             return false;
         }
     }

@@ -233,12 +233,12 @@ contract RPS {
 
 	// Function to get state of game
 	/* States : 			0  	Users have not locked yet
-							1  	User 2 has locked, user 1 hasn&#39;t
-							2  	User 1 has locked, user 2 hasn&#39;t
-							421	Both users have locked, user1 claimed &#39;paper&#39;, user2 claimed &#39;rock&#39;
-							413	Both users have locked, user1 claimed &#39;rock&#39;, user2 claimed &#39;scissors&#39;
-							402 Both users have locked, user1 hasn&#39;t claimed anything yet, user2 claimed &#39;scissors&#39;
-							441 Both users have locked, user1 coulnd&#39;t claim (timed-out), user2 claimed &#39;rock&#39;
+							1  	User 2 has locked, user 1 hasn't
+							2  	User 1 has locked, user 2 hasn't
+							421	Both users have locked, user1 claimed 'paper', user2 claimed 'rock'
+							413	Both users have locked, user1 claimed 'rock', user2 claimed 'scissors'
+							402 Both users have locked, user1 hasn't claimed anything yet, user2 claimed 'scissors'
+							441 Both users have locked, user1 coulnd't claim (timed-out), user2 claimed 'rock'
 	*/
 	function getState() public view returns (int) {
 	  	if(hash1==bytes32(0) && hash2==bytes32(0))

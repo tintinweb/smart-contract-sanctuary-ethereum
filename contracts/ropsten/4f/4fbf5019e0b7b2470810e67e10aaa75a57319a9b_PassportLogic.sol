@@ -641,7 +641,7 @@ contract TxDataStorageLogic is Storage {
     event TxDataDeleted(address indexed factProvider, bytes32 indexed key);
 
     /// @param _key The key for the record
-    /// @param _data The data for the record. Ignore "unused function parameter" warning, it&#39;s not commented out so that
+    /// @param _data The data for the record. Ignore "unused function parameter" warning, it's not commented out so that
     ///              it would remain in the ABI file.
     function setTxDataBlockNumber(bytes32 _key, bytes _data) allowedFactProvider external {
         txBytesStorage[msg.sender][_key] = BlockNumberValue({

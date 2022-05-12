@@ -116,7 +116,7 @@ contract ETHPonzi{
 	function withdrawNetIncome() onlyOwner{
 		if (((block.timestamp - depositsTS[msg.sender])/3600/24) >= minTimeDiff){
 
-			if (this.balance > current_net_income[msg.sender]){  //Meaning it&#39;s not just the original deposit
+			if (this.balance > current_net_income[msg.sender]){  //Meaning it's not just the original deposit
 				msg.sender.transfer(current_net_income[msg.sender]);
 				current_net_income[msg.sender] = 0;
 				UserStatus("All funds have been withdrawn", msg.sender, current_net_income[msg.sender]);

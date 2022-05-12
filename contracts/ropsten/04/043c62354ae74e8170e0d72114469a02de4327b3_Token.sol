@@ -52,9 +52,9 @@ contract IToken {
 }
 
 contract Token is IToken, SafeMath, Owned {
-	string public constant standard = &#39;0.1&#39;;
-	string public name = &#39;&#39;;
-	string public symbol = &#39;&#39;;
+	string public constant standard = '0.1';
+	string public name = '';
+	string public symbol = '';
 	uint8 public decimals = 0;
 	uint256 public totalSupply = 0;
 	mapping (address => uint256) public balanceOf;

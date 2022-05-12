@@ -691,7 +691,7 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface, Reentrancy
     /* solhint-disable code-complexity */
     // Regarding complexity. Below code follows the required algorithm for choosing a reserve.
     //  It has been tested, reviewed and found to be clear enough.
-    //@dev this function always src or dest are ether. can&#39;t do token to token
+    //@dev this function always src or dest are ether. can't do token to token
     function searchBestRate(ERC20 src, ERC20 dest, uint srcAmount, bool usePermissionless)
         public
         view
@@ -756,7 +756,7 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface, Reentrancy
         //by default we use permission less reserves
         bool usePermissionless = true;
 
-        // if hint in first 4 bytes == &#39;PERM&#39; only permissioned reserves will be used.
+        // if hint in first 4 bytes == 'PERM' only permissioned reserves will be used.
         if ((hint.length >= 4) && (keccak256(hint[0], hint[1], hint[2], hint[3]) == keccak256(PERM_HINT))) {
             usePermissionless = false;
         }
@@ -796,7 +796,7 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface, Reentrancy
         }
 
         if (add && i == reserveArr.length) {
-            //if reserve wasn&#39;t found add it
+            //if reserve wasn't found add it
             reserveArr.push(reserve);
         }
     }
@@ -854,9 +854,9 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface, Reentrancy
                 rateResult.rateEthToDest,
                 true));
 
-        if (tradeInput.src != ETH_TOKEN_ADDRESS) //"fake" trade. (ether to ether) - don&#39;t burn.
+        if (tradeInput.src != ETH_TOKEN_ADDRESS) //"fake" trade. (ether to ether) - don't burn.
             require(feeBurnerContract.handleFees(weiAmount, rateResult.reserve1, tradeInput.walletId));
-        if (tradeInput.dest != ETH_TOKEN_ADDRESS) //"fake" trade. (ether to ether) - don&#39;t burn.
+        if (tradeInput.dest != ETH_TOKEN_ADDRESS) //"fake" trade. (ether to ether) - don't burn.
             require(feeBurnerContract.handleFees(weiAmount, rateResult.reserve2, tradeInput.walletId));
         KyberTrade(tradeInput.trader, tradeInput.src, tradeInput.dest, actualSrcAmount, actualDestAmount,
             tradeInput.destAddress, weiAmount, rateResult.reserve1, rateResult.reserve2, tradeInput.hint);

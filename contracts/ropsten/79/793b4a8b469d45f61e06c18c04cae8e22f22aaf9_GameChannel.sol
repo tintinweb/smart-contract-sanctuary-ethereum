@@ -299,7 +299,7 @@ contract GameChannelBase is Destroyable, ConflictResolutionManager {
         /// @dev Game session status.
         GameStatus status;
 
-        /// @dev User&#39;s stake.
+        /// @dev User's stake.
         uint128 stake;
 
         /// @dev Last game round info if not regularly ended.
@@ -408,7 +408,7 @@ contract GameChannelBase is Destroyable, ConflictResolutionManager {
     /// @dev This event is fired when game session is ended.
     event LogGameEnded(address indexed user, uint indexed gameId, uint32 roundId, int balance, ReasonEnded reason);
 
-    /// @dev this event is fired when owner modifies user&#39;s stake limits.
+    /// @dev this event is fired when owner modifies user's stake limits.
     event LogStakeLimitsModified(uint minStake, uint maxStake);
 
     /**
@@ -554,7 +554,7 @@ contract GameChannelBase is Destroyable, ConflictResolutionManager {
      * @dev Close game session.
      * @param _game Game session data.
      * @param _gameId Id of game session.
-     * @param _userAddress User&#39;s address of game session.
+     * @param _userAddress User's address of game session.
      * @param _reason Reason for closing game session.
      * @param _balance Game session balance.
      */
@@ -579,9 +579,9 @@ contract GameChannelBase is Destroyable, ConflictResolutionManager {
 
     /**
      * @dev End game by paying out user and server.
-     * @param _userAddress User&#39;s address.
-     * @param _stake User&#39;s stake.
-     * @param _balance User&#39;s balance.
+     * @param _userAddress User's address.
+     * @param _stake User's stake.
+     * @param _balance User's balance.
      */
     function payOut(address _userAddress, uint128 _stake, int _balance) internal {
         int stakeInt = _stake;
@@ -921,7 +921,7 @@ contract GameChannelConflict is GameChannelBase {
     /**
      * @dev Cancel active game without playing. Useful if user starts game session and
      * does not play.
-     * @param _userAddress Users&#39; address.
+     * @param _userAddress Users' address.
      * @param _gameId Game session id.
      */
     function serverCancelActiveGame(address _userAddress, uint _gameId) public onlyServer {
@@ -945,7 +945,7 @@ contract GameChannelConflict is GameChannelBase {
     /**
     * @dev Force end of game if user does not respond. Only possible after a certain period of time
     * to give the user a chance to respond.
-    * @param _userAddress User&#39;s address.
+    * @param _userAddress User's address.
     */
     function serverForceGameEnd(address _userAddress, uint _gameId) public onlyServer {
         uint gameId = userGameId[_userAddress];
@@ -1001,10 +1001,10 @@ contract GameChannelConflict is GameChannelBase {
      * @param _num Number of bet.
      * @param _value Value of bet.
      * @param _balance Balance before this bet.
-     * @param _userHash Hash of user&#39;s seed for this bet.
-     * @param _userSeed User&#39;s seed for this bet.
+     * @param _userHash Hash of user's seed for this bet.
+     * @param _userSeed User's seed for this bet.
      * @param _gameId game Game session id.
-     * @param _userAddress User&#39;s address.
+     * @param _userAddress User's address.
      */
     function userEndGameConflictImpl(
         uint32 _roundId,
@@ -1061,11 +1061,11 @@ contract GameChannelConflict is GameChannelBase {
      * @param _num Number of bet.
      * @param _value Value of bet.
      * @param _balance Balance before this bet.
-     * @param _serverHash Hash of server&#39;s seed for this bet.
-     * @param _userHash Hash of user&#39;s seed for this bet.
-     * @param _serverSeed Server&#39;s seed for this bet.
-     * @param _userSeed User&#39;s seed for this bet.
-     * @param _userAddress User&#39;s address.
+     * @param _serverHash Hash of server's seed for this bet.
+     * @param _userHash Hash of user's seed for this bet.
+     * @param _serverSeed Server's seed for this bet.
+     * @param _userSeed User's seed for this bet.
+     * @param _userAddress User's address.
      */
     function serverEndGameConflictImpl(
         uint32 _roundId,
@@ -1120,7 +1120,7 @@ contract GameChannelConflict is GameChannelBase {
      * @dev End conflicting game without placed bets.
      * @param _game Game session data.
      * @param _gameId Game session id.
-     * @param _userAddress User&#39;s address.
+     * @param _userAddress User's address.
      */
     function cancelActiveGame(Game storage _game, uint _gameId, address _userAddress) private {
         // user need to pay a fee when conflict ended.
@@ -1141,7 +1141,7 @@ contract GameChannelConflict is GameChannelBase {
      * @dev End conflicting game.
      * @param _game Game session data.
      * @param _gameId Game session id.
-     * @param _userAddress User&#39;s address.
+     * @param _userAddress User's address.
      */
     function endGameConflict(Game storage _game, uint _gameId, address _userAddress) private {
         int newBalance = conflictRes.endGameConflict(
@@ -1184,10 +1184,10 @@ contract GameChannel is GameChannelConflict {
 
     /**
      * @notice Create games session request. msg.value needs to be valid stake value.
-     * @param _userEndHash Last entry of users&#39; hash chain.
-     * @param _previousGameId User&#39;s previous game id, initial 0.
+     * @param _userEndHash Last entry of users' hash chain.
+     * @param _previousGameId User's previous game id, initial 0.
      * @param _createBefore Game can be only created before this timestamp.
-     * @param _serverEndHash Last entry of server&#39;s hash chain.
+     * @param _serverEndHash Last entry of server's hash chain.
      * @param _serverSig Server signature. See verifyCreateSig
      */
     function createGame(
@@ -1216,12 +1216,12 @@ contract GameChannel is GameChannelConflict {
         userGameId[msg.sender] = gameId;
         Game storage newGame = gameIdGame[gameId];
 
-        newGame.stake = uint128(msg.value); // It&#39;s safe to cast msg.value as it is limited, see onlyValidValue
+        newGame.stake = uint128(msg.value); // It's safe to cast msg.value as it is limited, see onlyValidValue
         newGame.status = GameStatus.ACTIVE;
 
         activeGames = activeGames.add(1);
 
-        // It&#39;s safe to cast msg.value as it is limited, see onlyValidValue
+        // It's safe to cast msg.value as it is limited, see onlyValidValue
         emit LogGameCreated(msg.sender, gameId, uint128(msg.value), _serverEndHash,  _userEndHash);
     }
 
@@ -1234,12 +1234,12 @@ contract GameChannel is GameChannelConflict {
      * the user requested the termination of the current game session.
      * @param _roundId Round id of bet.
      * @param _balance Current balance.
-     * @param _serverHash Hash of server&#39;s seed for this bet.
-     * @param _userHash Hash of user&#39;s seed for this bet.
+     * @param _serverHash Hash of server's seed for this bet.
+     * @param _userHash Hash of user's seed for this bet.
      * @param _gameId Game session id.
      * @param _contractAddress Address of this contract.
      * @param _userAddress Address of user.
-     * @param _userSig User&#39;s signature of this bet.
+     * @param _userSig User's signature of this bet.
      */
     function serverEndGame(
         uint32 _roundId,
@@ -1276,11 +1276,11 @@ contract GameChannel is GameChannelConflict {
      * Can be used by user if server does not end game session.
      * @param _roundId Round id of bet.
      * @param _balance Current balance.
-     * @param _serverHash Hash of server&#39;s seed for this bet.
-     * @param _userHash Hash of user&#39;s seed for this bet.
+     * @param _serverHash Hash of server's seed for this bet.
+     * @param _userHash Hash of user's seed for this bet.
      * @param _gameId Game session id.
      * @param _contractAddress Address of this contract.
-     * @param _serverSig Server&#39;s signature of this bet.
+     * @param _serverSig Server's signature of this bet.
      */
     function userEndGame(
         uint32 _roundId,
@@ -1312,10 +1312,10 @@ contract GameChannel is GameChannelConflict {
 
     /**
      * @dev Verify server signature.
-     * @param _userAddress User&#39;s address.
-     * @param _previousGameId User&#39;s previous game id, initial 0.
+     * @param _userAddress User's address.
+     * @param _previousGameId User's previous game id, initial 0.
      * @param _createBefore Game can be only created before this timestamp.
-     * @param _serverEndHash Last entry of server&#39;s hash chain.
+     * @param _serverEndHash Last entry of server's hash chain.
      * @param _serverSig Server signature.
      */
     function verifyCreateSig(
@@ -1394,8 +1394,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -1410,8 +1410,8 @@ library SafeMath {
     * @dev Multiplies two signed integers, throws on overflow.
     */
     function mul(int256 a, int256 b) internal pure returns (int256) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -1427,7 +1427,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 

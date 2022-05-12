@@ -1,9 +1,9 @@
 pragma solidity ^0.5.7;
 
-import &#39;./Owned.sol&#39;;
-import &#39;./SafeMath.sol&#39;;
-import &#39;./ERC20Interface.sol&#39;;
-import &#39;./Rield.sol&#39;;
+import './Owned.sol';
+import './SafeMath.sol';
+import './ERC20Interface.sol';
+import './Rield.sol';
 
 contract SincerityToken is ERC20Interface, Owned, SafeMath, Rield {
     string public symbol;
@@ -75,7 +75,7 @@ contract SincerityToken is ERC20Interface, Owned, SafeMath, Rield {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () external payable {
         revert();

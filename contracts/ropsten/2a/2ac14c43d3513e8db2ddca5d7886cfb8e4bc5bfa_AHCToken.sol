@@ -1,8 +1,8 @@
 pragma solidity 0.4.16;
 
 contract AHCToken {
-    string public name = &#39;AHC&#39;;
-    string public symbol = &#39;AHC&#39;;
+    string public name = 'AHC';
+    string public symbol = 'AHC';
     uint8 public decimals = 18;  // decimals 可以有的小数点个数，最小的代币单位。18 是建议的默认值
     uint256 public totalSupply;
     address public owner;

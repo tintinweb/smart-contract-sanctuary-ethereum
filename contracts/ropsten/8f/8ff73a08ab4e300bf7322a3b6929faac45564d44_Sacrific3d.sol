@@ -101,7 +101,7 @@ contract Sacrific3d {
             
             //check if blockhash can be determined
             if(block.number - 256 <= stageToFinalize.blocknumber) {
-                //blocknumber of stage can not be equal to current block number -> blockhash() won&#39;t work
+                //blocknumber of stage can not be equal to current block number -> blockhash() won't work
                 if(block.number != stageToFinalize.blocknumber) {
                     
                     //determine sacrifice

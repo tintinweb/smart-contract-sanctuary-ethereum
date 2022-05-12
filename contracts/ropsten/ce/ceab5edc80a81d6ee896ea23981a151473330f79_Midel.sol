@@ -26,7 +26,7 @@ contract Token
 This implements ONLY the standard functions and NOTHING else.
 For a token like you would want to deploy in something like Mist, see HumanStandardToken.sol.
 
-If you deploy this, you won&#39;t have anything useful.
+If you deploy this, you won't have anything useful.
 
 Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 .*/
@@ -36,7 +36,7 @@ contract StandardToken is Token
 
     function transfer(address _to, uint256 _value) returns (bool success) 
 	{
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
 		
         if (balances[msg.sender] >= _value && _value > 0) 
@@ -108,9 +108,9 @@ contract Midel is StandardToken
 	string public name;                   // Token Name to be seen by the public
     uint8 public decimals;                // Standard compliant 18 is used.
     string public symbol;                 // The token symbol.
-    string public version = &#39;H1.0&#39;; 	  //human 1.0 standard. Just an arbitrary version scheme.
+    string public version = 'H1.0'; 	  //human 1.0 standard. Just an arbitrary version scheme.
     uint256 public unitsOneEthCanBuy;     // Setting the presale/ICO price.
-    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.  
+    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.  
     address public fundsWallet;           // Where the ETH raised is transferred?
 	uint256 public startDate;
     uint256 public bonusEnds;

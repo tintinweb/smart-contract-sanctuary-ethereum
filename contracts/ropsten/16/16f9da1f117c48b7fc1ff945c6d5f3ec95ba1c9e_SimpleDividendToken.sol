@@ -13,7 +13,7 @@ contract SimpleDividendToken {
     mapping(address => uint256) public balanceOf;
 
     function SimpleDividendToken() public {
-        // Initially assign all tokens to the contract&#39;s creator.
+        // Initially assign all tokens to the contract's creator.
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender, totalSupply);
     }

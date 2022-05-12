@@ -66,7 +66,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -157,11 +157,11 @@ contract ERC165 is IERC165 {
     bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
     /**
      * 0x01ffc9a7 ===
-     *     bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+     *     bytes4(keccak256('supportsInterface(bytes4)'))
      */
 
     /**
-     * @dev a mapping of interface id to whether or not it&#39;s supported
+     * @dev a mapping of interface id to whether or not it's supported
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -290,15 +290,15 @@ contract AgriCultureContracts is ERC165, IERC721 {
     bytes4 private constant _InterfaceId_ERC721 = 0x80ac58cd;
     /*
      * 0x80ac58cd ===
-     *     bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-     *     bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-     *     bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-     *     bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+     *     bytes4(keccak256('balanceOf(address)')) ^
+     *     bytes4(keccak256('ownerOf(uint256)')) ^
+     *     bytes4(keccak256('approve(address,uint256)')) ^
+     *     bytes4(keccak256('getApproved(uint256)')) ^
+     *     bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+     *     bytes4(keccak256('isApprovedForAll(address,address)')) ^
+     *     bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+     *     bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+     *     bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
      */
 
     constructor () public {
@@ -452,9 +452,9 @@ contract AgriCultureMeta is AgriCultureContracts, Ownable {
     bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
     /**
      * 0x5b5e139f ===
-     *     bytes4(keccak256(&#39;name()&#39;)) ^
-     *     bytes4(keccak256(&#39;symbol()&#39;)) ^
-     *     bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+     *     bytes4(keccak256('name()')) ^
+     *     bytes4(keccak256('symbol()')) ^
+     *     bytes4(keccak256('tokenURI(uint256)'))
      */
 
     /**

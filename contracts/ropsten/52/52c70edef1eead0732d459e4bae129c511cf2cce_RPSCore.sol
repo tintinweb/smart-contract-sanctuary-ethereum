@@ -18,28 +18,28 @@ contract AccessControl {
 
     /// @dev Access modifier for CEO-only functionality
     modifier onlyCEO() {
-        require(msg.sender == ceoAddress, "You&#39;re not a CEO!");
+        require(msg.sender == ceoAddress, "You're not a CEO!");
         _;
     }
 
     /// @dev Access modifier for CFO-only functionality
     modifier onlyCFO() {
-        require(msg.sender == cfoAddress, "You&#39;re not a CFO!");
+        require(msg.sender == cfoAddress, "You're not a CFO!");
         _;
     }
 
     /// @dev Access modifier for COO-only functionality
     modifier onlyCOO() {
-        require(msg.sender == cooAddress, "You&#39;re not a COO!");
+        require(msg.sender == cooAddress, "You're not a COO!");
         _;
     }
 
     modifier onlyCLevel() {
-        require((msg.sender == cooAddress || msg.sender == ceoAddress || msg.sender == cfoAddress), "You&#39;re not C-Level");
+        require((msg.sender == cooAddress || msg.sender == ceoAddress || msg.sender == cfoAddress), "You're not C-Level");
         _;
     }
 
-    /// @dev Wrong send eth! It&#39;s will tip for developer
+    /// @dev Wrong send eth! It's will tip for developer
     function () public payable{
         totalTipForDeveloper = totalTipForDeveloper + msg.value;
     }
@@ -113,7 +113,7 @@ contract AccessControl {
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
     function unpause() public onlyCEO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 }
@@ -209,7 +209,7 @@ contract RPSCore is AccessControl {
 
         GameInfo memory gameInfo = arrAvailableGames[idToIndexAvailableGames[_id]];
        
-        require(gameInfo.addressHost != msg.sender, "Don&#39;t play with yourself");
+        require(gameInfo.addressHost != msg.sender, "Don't play with yourself");
         require(msg.value == gameInfo.valueBet, "Value bet to battle not extractly with value bet of host");
         
         gestureHostCached = idToGameSecret[gameInfo.id].gestureHost;
@@ -274,7 +274,7 @@ contract RPSCore is AccessControl {
     function closeMyGame(uint _id) external payable verifiedHostOfGame(_id) verifiedGameAvailable(_id) {
         GameInfo storage gameInfo = arrAvailableGames[idToIndexAvailableGames[_id]];
 
-        require(gameInfo.valueBet > 0, "Can&#39;t close game!");
+        require(gameInfo.valueBet > 0, "Can't close game!");
 
         uint valueBet = gameInfo.valueBet;
         gameInfo.valueBet = 0;
@@ -322,7 +322,7 @@ contract RPSCore is AccessControl {
     }
 
     modifier verifiedGesture(uint _resultSelect) {
-        require((_resultSelect == ROCK || _resultSelect == PAPER || _resultSelect == SCISSOR), "Gesture can&#39;t verify");
+        require((_resultSelect == ROCK || _resultSelect == PAPER || _resultSelect == SCISSOR), "Gesture can't verify");
         _;
     }
 

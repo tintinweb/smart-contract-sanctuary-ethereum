@@ -42,7 +42,7 @@ contract WalletAbi {
 
   function changeRequirement(uint _newRequired) external;
 
-  // (re)sets the daily limit. needs many of the owners to confirm. doesn&#39;t alter the amount already spent today.
+  // (re)sets the daily limit. needs many of the owners to confirm. doesn't alter the amount already spent today.
   function setDailyLimit(uint _newLimit) external;
 
   function execute(address _to, uint _value, bytes _data) external returns (bytes32);
@@ -148,11 +148,11 @@ contract WalletEvents {
   // Funds has arrived into the wallet (record how much).
   event Deposit(address _from, uint value);
 
-  // Single transaction going out of the wallet (record who signed for it, how much, and to whom it&#39;s going).
+  // Single transaction going out of the wallet (record who signed for it, how much, and to whom it's going).
   event SingleTransact(address owner, uint value, address to, bytes data, address created);
 
   // Multi-sig transaction going out of the wallet
-  // (record who signed for it last, the operation hash, how much, and to whom it&#39;s going).
+  // (record who signed for it last, the operation hash, how much, and to whom it's going).
   event MultiTransact(address owner, bytes32 operation, uint value, address to, bytes data, address created);
 
   // Confirmation still needed for a transaction.
@@ -195,7 +195,7 @@ contract WalletAbiFunctions is WalletAbi, SoftDestruct {
     revert();
   }
 
-  // (re)sets the daily limit. needs many of the owners to confirm. doesn&#39;t alter the amount already spent today.
+  // (re)sets the daily limit. needs many of the owners to confirm. doesn't alter the amount already spent today.
   function setDailyLimit(uint) external onlyTarget {
     revert();
   }

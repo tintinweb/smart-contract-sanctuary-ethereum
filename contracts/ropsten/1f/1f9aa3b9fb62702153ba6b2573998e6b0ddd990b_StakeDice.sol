@@ -1019,7 +1019,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) throw;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1029,7 +1029,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1061,7 +1061,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, sha3(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1084,7 +1084,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1119,15 +1119,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1164,13 +1164,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1237,7 +1237,7 @@ contract StakeDiceGame
     ///////////////////////////////
     /////// GAME FUNCTIONALITY
     
-    // If we receive approval to transfer a gambler&#39;s tokens
+    // If we receive approval to transfer a gambler's tokens
     /*function receiveApproval(address _gambler, uint256 _amount, address _tokenContract, bytes) external returns (bool)
     {
         // Make sure that we are receiving STAKE tokens, and not some other token
@@ -1248,7 +1248,7 @@ contract StakeDiceGame
         require(_amount >= stakeDice.minimumBet());
         require(_amount <= maximumBet());
         
-        // Tranfer the STAKE tokens from the user&#39;s account to the StakeDice contract
+        // Tranfer the STAKE tokens from the user's account to the StakeDice contract
         stakeDice.stakeTokenContract().transferFrom(_gambler, stakeDice, _amount);
         
         // Notify the StakeDice contract that a bet has been placed
@@ -1359,7 +1359,7 @@ contract StakeDice is usingOraclize
         require(_amount >= minimumBet);
         require(_amount <= StakeDiceGame(gameContract).maximumBet());
         
-        // Tranfer the STAKE tokens from the user&#39;s account to the StakeDice contract
+        // Tranfer the STAKE tokens from the user's account to the StakeDice contract
         stakeTokenContract.transferFrom(msg.sender, this, _amount);
         
         // Request a random number from oraclize
@@ -1424,7 +1424,7 @@ contract StakeDice is usingOraclize
         Bet storage bet = bets[betIndex];
         require(bet.status == BetStatus.IN_PROGRESS);
 
-        // Now that we have generated a random number, let&#39;s use it..
+        // Now that we have generated a random number, let's use it..
         uint randomNumber = uint(keccak256(_result)) % 10000; // Get a random number from 0 to 9999
         
         // Store the roll in the blockchain permanently
@@ -1433,7 +1433,7 @@ contract StakeDice is usingOraclize
         // If the random number is smaller than the winningChance, the gambler won!
         if (randomNumber < bet.winningChance)
         {
-            // If we somehow don&#39;t have enough tokens to payout their winnings,
+            // If we somehow don't have enough tokens to payout their winnings,
             // cancel the bet and refund the gambler automatically
             if (stakeTokenContract.balanceOf(this) < bet.potentialRevenue)
             {
@@ -1546,7 +1546,7 @@ contract StakeDice is usingOraclize
         addNewStakeDiceGame(9500); // 95% chance
     }
     
-    // Allow the owner to cancel a bet when it&#39;s in progress.
+    // Allow the owner to cancel a bet when it's in progress.
     // This will probably never be needed, but it might some day be needed
     // to refund people if oraclize is not responding.
     function cancelBet(uint256 _betIndex) public

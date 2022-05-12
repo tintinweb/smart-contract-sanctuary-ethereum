@@ -60,7 +60,7 @@ contract TokenERC20 {
     }
 
     /**
-     * @dev Gets a spender&#39;s allowance from a token holder
+     * @dev Gets a spender's allowance from a token holder
      * @param _owner The address which allows spender to spend
      * @param _spender The address being allowed
      * @return Approved amount for `spender` to spend from `_owner`

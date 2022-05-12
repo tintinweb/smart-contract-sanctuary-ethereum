@@ -21,20 +21,20 @@ contract RegisterDrupal {
 
         if (_accounts[hash] == msg.sender) {
             // Hash all ready registered to address.
-            revert(&#39;Hash all ready registered to address.&#39;);
+            revert('Hash all ready registered to address.');
         }
         else if (_accounts[hash] > 0) {
             // Hash all ready registered to different address.
-            revert(&#39;Hash all ready registered to different address.&#39;);
+            revert('Hash all ready registered to different address.');
         }
         else if (hash.length > 32) {
             // Hash too long
-            revert(&#39;Hash too long.&#39;);
+            revert('Hash too long.');
 
         }
         else if (_registrationDisabled){
             // Registry is disabled because a newer version is available
-            revert(&#39;Registry is disabled because a newer version is available.&#39;);
+            revert('Registry is disabled because a newer version is available.');
         }
         else {
             _accounts[hash] = msg.sender;
@@ -82,7 +82,7 @@ contract RegisterDrupal {
 
     function adminDeleteRegistry() public {
         if (msg.sender == _registryAdmin) {
-            selfdestruct(_registryAdmin); // this is a predefined function, it deletes the contract and returns all funds to the admin&#39;s address
+            selfdestruct(_registryAdmin); // this is a predefined function, it deletes the contract and returns all funds to the admin's address
         }
     }
 

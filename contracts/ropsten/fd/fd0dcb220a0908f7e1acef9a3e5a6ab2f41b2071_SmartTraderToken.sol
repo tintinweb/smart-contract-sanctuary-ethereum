@@ -64,7 +64,7 @@ contract SmartTraderToken is Token {
         return allowed[_owner][_spender];		//允许_spender从_owner中转出的token数，也就是授权
     }
 	function hello()  public  constant returns (string){
-    return &#39;Hello World&#39;;
+    return 'Hello World';
 	}
 	mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;

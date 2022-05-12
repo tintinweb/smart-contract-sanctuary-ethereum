@@ -93,8 +93,8 @@ contract ERC20 {
 
 
 contract HTST is StandardToken {
-    string public name = &#39;Helix Test Standard Token&#39;;
-    string public symbol = &#39;HTST&#39;;
+    string public name = 'Helix Test Standard Token';
+    string public symbol = 'HTST';
     uint public decimals = 18;
 
     function showMeTheMoney(address _to, uint256 _value) {

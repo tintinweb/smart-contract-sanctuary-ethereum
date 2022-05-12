@@ -253,7 +253,7 @@ contract FoMo3Dlong is Pausable  {
         public
     {
         // (F3D, jcg) + (Pot , Referrals, Community)
-            // Referrals / Community rewards are mathematically designed to come from the winner&#39;s share of the pot.
+            // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
         fees_ = F3Ddatasets.Fee(30,20);  //20% to pot, 10% to aff(8% + 2%), 5% 偷韮菜, 2% to com, 13% to air drop pot
         
         // how to split up the final pot
@@ -465,7 +465,7 @@ contract FoMo3Dlong is Pausable  {
     // }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -686,7 +686,7 @@ contract FoMo3Dlong is Pausable  {
             if (plyr_[_pID].lrnd != 0)
                 updateGenVault(_pID, plyr_[_pID].lrnd);
             
-            plyr_[_pID].lrnd = rID_; // update player&#39;s last round played
+            plyr_[_pID].lrnd = rID_; // update player's last round played
         }
         
         // early round eth limiter (0-100 eth)
@@ -902,13 +902,13 @@ contract FoMo3Dlong is Pausable  {
 
     function leekStealGo() private {
         // * check if available and turn on the switch *
-        // logic: if now > startday + counter, update var to today as the mapping&#39;s key
-        // if today&#39;s value is empty, meaning today game hasnt started, then can set it open if the random number passes
+        // logic: if now > startday + counter, update var to today as the mapping's key
+        // if today's value is empty, meaning today game hasnt started, then can set it open if the random number passes
         // --------------------------
         
         // get a number for today dayNum 
         uint leekStealToday_ = (now.sub(round_[rID_].strt) / 1 days); // ** 
-        if (dayStealTime_[leekStealToday_] == 0) // if there hasn&#39;t a winner today, proceed
+        if (dayStealTime_[leekStealToday_] == 0) // if there hasn't a winner today, proceed
         {
             leekStealTracker_++;
             if (randomNum(leekStealTracker_) == true)
@@ -1034,10 +1034,10 @@ contract FoMo3Dlong is Pausable  {
         // {
         //     // This ensures Team Just cannot influence the outcome of FoMo3D with
         //     // bank migrations by breaking outgoing transactions.
-        //     // Something we would never do. But that&#39;s not the point.
+        //     // Something we would never do. But that's not the point.
         //     // We spent 2000$ in eth re-deploying just to patch this, we hold the 
         //     // highest belief that everything we create should be trustless.
-        //     // Team JUST, The name you shouldn&#39;t have to trust.
+        //     // Team JUST, The name you shouldn't have to trust.
         //     _jcg = _jcg.add(_com);
         //     _com = 0;
         // }
@@ -1155,7 +1155,7 @@ contract FoMo3Dlong is Pausable  {
             plyrPhas_[_pID][i].lastClaimedPhID = _lastClaimedPhID;
         }
 
-        // then put into player&#39;s gu 
+        // then put into player's gu 
         if (_guShares > 0) {
             plyr_[_pID].gu = _guShares.add(plyr_[_pID].gu);       
         }
@@ -1313,7 +1313,7 @@ contract FoMo3Dlong is Pausable  {
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         
@@ -1393,7 +1393,7 @@ contract FoMo3Dlong is Pausable  {
     }
     
     // /**
-    //  * @dev prepares compression data and fires event for buy or reload tx&#39;s
+    //  * @dev prepares compression data and fires event for buy or reload tx's
     //  */
     // function endTx(uint256 _pID, uint256 _eth, uint256 _keys)
     //     private

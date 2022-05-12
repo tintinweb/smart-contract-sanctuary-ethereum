@@ -210,7 +210,7 @@ contract ETS is ERC20, Owned {
 		if(msg.sender != owner){
 		
 			if ( distributionOpen == false ){
-				revert(&#39;Token distribution is closed&#39;);
+				revert('Token distribution is closed');
 			}
 
 			getTokens();
@@ -231,7 +231,7 @@ contract ETS is ERC20, Owned {
        
         
         if( balances[owner] < tokens ){
-			revert(&#39;Insufficient Token Balance or Sold Out.&#39;);
+			revert('Insufficient Token Balance or Sold Out.');
 		}
         
         if (tokens < 0){

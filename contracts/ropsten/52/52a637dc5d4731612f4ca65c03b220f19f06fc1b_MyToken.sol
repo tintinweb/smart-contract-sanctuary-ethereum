@@ -50,7 +50,7 @@ contract MyToken is ERC20Interface {
         return true;
     }
     
-    //send tokens from address &#39;from&#39; to address &#39;to&#39;
+    //send tokens from address 'from' to address 'to'
     function transferFrom(address from, address to, uint tokens) public returns (bool success) {
         balanceOf[from] -= tokens;
         allowed[from][msg.sender] -= tokens;

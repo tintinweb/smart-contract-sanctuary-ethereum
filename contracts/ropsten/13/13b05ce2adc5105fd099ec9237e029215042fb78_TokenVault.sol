@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -171,8 +171,8 @@ contract TokenVault {
     }
 
     /**
-     * @dev Allows the transfer of unlocked tokens to a set of beneficiaries&#39; addresses.
-     * @param beneficiaries Array of beneficiaries&#39; addresses that will receive the unlocked tokens.
+     * @dev Allows the transfer of unlocked tokens to a set of beneficiaries' addresses.
+     * @param beneficiaries Array of beneficiaries' addresses that will receive the unlocked tokens.
      */
     function batchRelease(address[] beneficiaries) external {
         uint256 length = beneficiaries.length;
@@ -189,7 +189,7 @@ contract TokenVault {
     }
 
     /**
-     * @dev Allows the caller to transfer unlocked tokens to the beneficiary&#39;s address.
+     * @dev Allows the caller to transfer unlocked tokens to the beneficiary's address.
      * @param beneficiary The address that will receive the unlocked tokens.
      */
     function releaseFor(address beneficiary) public {
@@ -211,9 +211,9 @@ contract TokenVault {
     /**
      * @notice To be called by the account that holds Mio tokens. The caller needs to first approve this vault to
      * transfer tokens on its behalf.
-     * The tokens to be locked will be transfered from the caller&#39;s account to this vault.
-     * The &#39;value&#39; will be added to the balance of &#39;account&#39; in this contract.
-     * @dev Allows a token holder to add to a another account&#39;s balance of locked tokens.
+     * The tokens to be locked will be transfered from the caller's account to this vault.
+     * The 'value' will be added to the balance of 'account' in this contract.
+     * @dev Allows a token holder to add to a another account's balance of locked tokens.
      * @param account Address that will have a balance of locked tokens.
      * @param value Amount of tokens to be locked in this vault.
      */
@@ -223,7 +223,7 @@ contract TokenVault {
     }
 
      /**
-    * @dev Gets the beneficiary&#39;s locked token balance
+    * @dev Gets the beneficiary's locked token balance
     * @param account Address of the beneficiary
     */
     function getLockedBalance(address account) public view returns (uint256) {

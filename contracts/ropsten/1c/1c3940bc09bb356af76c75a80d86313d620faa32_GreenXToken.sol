@@ -118,7 +118,7 @@ contract GreenXToken is ERC20Interface, Owned, SafeMath {
     }
 
     /**
-    * @notice Transfer the balance from token owner&#39;s account to to account
+    * @notice Transfer the balance from token owner's account to to account
     *
     * @param to transfer to this address
     * @param tokens number of tokens to transfer
@@ -131,7 +131,7 @@ contract GreenXToken is ERC20Interface, Owned, SafeMath {
     }
 
     /**
-    * @notice Token owner can approve for spender to transferFrom(...) tokens from the token owner&#39;s account
+    * @notice Token owner can approve for spender to transferFrom(...) tokens from the token owner's account
     *
     * @param spender spender address
     * @param tokens number of tokens allowed to transfer
@@ -158,7 +158,7 @@ contract GreenXToken is ERC20Interface, Owned, SafeMath {
     }
 
     /**
-    * @notice Returns the amount of tokens approved by the owner that can be transferred to the spender&#39;s account
+    * @notice Returns the amount of tokens approved by the owner that can be transferred to the spender's account
     *
     * @param tokenOwner token owner address
     * @param spender spender address
@@ -168,7 +168,7 @@ contract GreenXToken is ERC20Interface, Owned, SafeMath {
     }
 
     /**
-    * @notice Token owner can approve for spender to transferFrom(...) tokens from the token owner&#39;s account. The spender contract function receiveApproval(...) is then executed
+    * @notice Token owner can approve for spender to transferFrom(...) tokens from the token owner's account. The spender contract function receiveApproval(...) is then executed
     *
     * @param spender address of the spender
     * @param tokens number of tokens

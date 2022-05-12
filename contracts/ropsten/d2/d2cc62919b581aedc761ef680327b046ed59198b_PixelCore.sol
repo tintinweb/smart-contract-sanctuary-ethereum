@@ -16,8 +16,8 @@ contract AccessControl {
     //
     // It should be noted that these roles are distinct without overlap in their access abilities, the
     // abilities listed for each role above are exhaustive. In particular, while the CEO can assign any
-    // address to any role, the CEO address itself doesn&#39;t have the ability to act in those roles. This
-    // restriction is intentional so that we aren&#39;t tempted to use the CEO address frequently out of
+    // address to any role, the CEO address itself doesn't have the ability to act in those roles. This
+    // restriction is intentional so that we aren't tempted to use the CEO address frequently out of
     // convenience. The less we use an address, the less likely it is that we somehow compromise the
     // account.
 
@@ -155,7 +155,7 @@ contract PixelBase is AccessControl {
     mapping (uint256 => address) public pixelIndexToApproved;
 
     function _transfer(address _from, address _to, uint256 _tokenId) internal {
-        // Since the number of kittens is capped to 2^32 we can&#39;t overflow this
+        // Since the number of kittens is capped to 2^32 we can't overflow this
         ownershipTokenCount[_to]++;
 
         if (_from != address(0)) {
@@ -235,18 +235,18 @@ contract PixelOwnership is PixelBase, ERC721 {
     string public constant symbol = "CK";
 
     bytes4 constant InterfaceSignature_ERC165 =
-        bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+        bytes4(keccak256('supportsInterface(bytes4)'));
 
     bytes4 constant InterfaceSignature_ERC721 =
-        bytes4(keccak256(&#39;name()&#39;)) ^
-        bytes4(keccak256(&#39;symbol()&#39;)) ^
-        bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-        bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-        bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-        bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;tokensOfOwner(address)&#39;));
+        bytes4(keccak256('name()')) ^
+        bytes4(keccak256('symbol()')) ^
+        bytes4(keccak256('totalSupply()')) ^
+        bytes4(keccak256('balanceOf(address)')) ^
+        bytes4(keccak256('ownerOf(uint256)')) ^
+        bytes4(keccak256('approve(address,uint256)')) ^
+        bytes4(keccak256('transfer(address,uint256)')) ^
+        bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+        bytes4(keccak256('tokensOfOwner(address)'));
 
     /// @notice Introspection interface as per ERC-165 (https://github.com/ethereum/EIPs/issues/165).
     ///  Returns true for any standardized interfaces implemented by this contract. We implement
@@ -389,7 +389,7 @@ contract PixelOwnership is PixelBase, ERC721 {
 
     /// @notice Returns a list of all Kitty IDs assigned to an address.
     /// @param _owner The owner whose Kitties we are interested in.
-    /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+    /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
     ///  expensive (it walks the entire Kitty array looking for pixels belonging to owner),
     ///  but it also returns a dynamic array, which is only supported for web3 calls, and
     ///  not contract-to-contract calls.
@@ -423,7 +423,7 @@ contract PixelOwnership is PixelBase, ERC721 {
 
 /// @title CryptoKitties: Collectible, breedable, and oh-so-adorable cats on the Ethereum blockchain.
 /// @author Axiom Zen (https://www.axiomzen.co)
-/// @dev The main CryptoKitties contract, keeps track of kittens so they don&#39;t wander around and get lost.
+/// @dev The main CryptoKitties contract, keeps track of kittens so they don't wander around and get lost.
 contract PixelCore is PixelOwnership {
 
     // Set in case the core contract is broken and an upgrade is required
@@ -440,7 +440,7 @@ contract PixelCore is PixelOwnership {
 
     /// @dev Used to mark the smart contract as upgraded, in case there is a serious
     ///  breaking bug. This method does nothing but keep track of the new contract and
-    ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+    ///  emit a message indicating that the new address is set. It's up to clients of this
     ///  contract to update to the new contract address in that case. (This contract will
     ///  be paused indefinitely if such an upgrade takes place.)
     /// @param _v2Address new address

@@ -112,8 +112,8 @@ contract Organization is ERC20
     
     
     // Subcontracts can have full or partial power of attorney over this organization.
-    // They are able to perform any action on the organzation&#39;s behalf.
-    // A subcontract&#39;s abilities can be and in most cases should be
+    // They are able to perform any action on the organzation's behalf.
+    // A subcontract's abilities can be and in most cases should be
     // limited by its source code.
 
     mapping(address => uint256) public subcontract_to_arrayIndex;
@@ -132,15 +132,15 @@ contract Organization is ERC20
         address contractAddress;
         uint256 etherForwardingSetting;
         // etherForwardingSetting meaning:
-        //    0:  Don&#39;t forward ether     Don&#39;t set ether amount in message data
-        //    1:  Forward ether           Don&#39;t set ether amount in message data
+        //    0:  Don't forward ether     Don't set ether amount in message data
+        //    1:  Forward ether           Don't set ether amount in message data
         //    2:  Invalid
         //    3:  Invalid
-        // >= 4:  Don&#39;t forward ether     Set ether amount in message data at the specified byte index
+        // >= 4:  Don't forward ether     Set ether amount in message data at the specified byte index
         
         uint256 sourceAddressForwardingSetting;
         // sourceAddressPassingSetting meaning:
-        //    0:  Don&#39;t pass source address
+        //    0:  Don't pass source address
         //  1-3:  Invalid
         // >= 4:  Pass source address at the specified byte index
     }
@@ -885,14 +885,14 @@ contract Organization is ERC20
         // Select and load the voting rules we should obey when finalizing this proposal.
         VoteRules memory voteRules = _getVoteRulesOfProposal(proposals[_proposalIndex]);
         
-        // If this proposal does not require any votes, don&#39;t bother counting the votes.
+        // If this proposal does not require any votes, don't bother counting the votes.
         // We can accept the proposal immediately.
         if (voteRules.yesVotePermillageNeeded == 0 && voteRules.quorumPermillage_atStartOfReductionPeriod == 0)
         {
             _result = VoteResult.READY_TO_ACCEPT;
         }
         
-        // If this proposal is forbidden entirely by the voting rules, don&#39;t bother counting the votes.
+        // If this proposal is forbidden entirely by the voting rules, don't bother counting the votes.
         // We can reject the proposal immediately.
         else if (voteRules.yesVotePermillageNeeded >= 1001 || voteRules.quorumPermillage_atEndOfReductionPeriod >= 1001)
         {
@@ -906,7 +906,7 @@ contract Organization is ERC20
             {
                 if (_voters[i] == address(this)) continue;
                 
-                // Load the voter&#39;s VoteStatus. (this indicates what they voted)
+                // Load the voter's VoteStatus. (this indicates what they voted)
                 VoteStatus voteStatus = proposals[_proposalIndex].votes[_voters[i]];
                 
                 // Add up the votes.
@@ -1040,10 +1040,10 @@ contract Organization is ERC20
         // The proposal must currently be votable
         require(proposal.status == ProposalStatus.VOTE_IN_PROGRESS);
         
-        // Load the voter&#39;s current vote status
+        // Load the voter's current vote status
         VoteStatus currentVoteStatus = proposal.votes[msg.sender];
         
-        // If the voter already voted PERMANENT_YES or PERMANENT_NO, they can&#39;t change their vote.
+        // If the voter already voted PERMANENT_YES or PERMANENT_NO, they can't change their vote.
         require(currentVoteStatus != VoteStatus.PERMANENT_NO && currentVoteStatus != VoteStatus.PERMANENT_YES);
         
         // Validate the new vote input
@@ -1054,7 +1054,7 @@ contract Organization is ERC20
                 _newVoteStatus == VoteStatus.PASSIVE_ABSTAIN ||
                 _newVoteStatus == VoteStatus.ACTIVE_ABSTAIN);
         
-        // If this proposal&#39;s votes are permanent, voters are not allowed to use
+        // If this proposal's votes are permanent, voters are not allowed to use
         // the normal YES and NO. They must use PERMANENT_YES or PERMANENT_NO instead.
         if (proposal.votesArePermanent)
         {
@@ -1143,7 +1143,7 @@ contract Organization is ERC20
         assembly { codeSize := extcodesize(_subcontract) }
         require(codeSize > 0);
         
-        // Add the subcontract to the subcontracts array, if it isn&#39;t already in it.
+        // Add the subcontract to the subcontracts array, if it isn't already in it.
         if (subcontract_to_arrayIndex[_subcontract] == 0)
         {
             subcontract_to_arrayIndex[_subcontract] = subcontracts.length;
@@ -1207,7 +1207,7 @@ contract Organization is ERC20
         slot.dataPattern.data = _dataPattern;
         slot.dataPattern.mask = _dataMask;
         
-        // If it&#39;s the last array element, we can decrease the size of the array
+        // If it's the last array element, we can decrease the size of the array
         if (_subcontractAddress == 0x0 && _arrayIndex == subcontractAddressesAndDataPatterns.length-1)
         {
             subcontractAddressesAndDataPatterns.length--;
@@ -1776,14 +1776,14 @@ contract Organization is ERC20
         
         //// Update the shareholders array
         
-        // If the _from address now has 0 shares and it&#39;s in the shareholders array,
+        // If the _from address now has 0 shares and it's in the shareholders array,
         // remove it from the shareholders array.
         if (shareholder_to_shares[_from] == 0 && shareholder_to_arrayIndex[_from] != 0)
         {
             _deleteShareholder(_from);
         }
         
-        // If the _to address now has > 0 shares and it&#39;s not in the shareholders array,
+        // If the _to address now has > 0 shares and it's not in the shareholders array,
         // add it to the shareholders array.
         if (shareholder_to_shares[_to] > 0 && shareholder_to_arrayIndex[_to] == 0)
         {

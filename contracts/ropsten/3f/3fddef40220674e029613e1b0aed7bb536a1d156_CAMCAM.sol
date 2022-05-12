@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
 
-// &#39;CAMCAM&#39; token contract
+// 'CAMCAM' token contract
 
 //
 
@@ -278,9 +278,9 @@ contract CAMCAM is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
 
-    // Transfer the balance from token owner&#39;s account to to account
+    // Transfer the balance from token owner's account to to account
 
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // - Owner's account must have sufficient balance to transfer
 
     // - 0 value transfers are allowed
 
@@ -306,7 +306,7 @@ contract CAMCAM is ERC20Interface, Owned, SafeMath {
 
     // Token owner can approve for spender to transferFrom(...) tokens
 
-    // from the token owner&#39;s account
+    // from the token owner's account
 
     //
 
@@ -372,7 +372,7 @@ contract CAMCAM is ERC20Interface, Owned, SafeMath {
 
     // Returns the amount of tokens approved by the owner that can be
 
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
 
     // ------------------------------------------------------------------------
 
@@ -390,7 +390,7 @@ contract CAMCAM is ERC20Interface, Owned, SafeMath {
 
     // Token owner can approve for spender to transferFrom(...) tokens
 
-    // from the token owner&#39;s account. The spender contract function
+    // from the token owner's account. The spender contract function
 
     // receiveApproval(...) is then executed
 
@@ -414,7 +414,7 @@ contract CAMCAM is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
 
-    // Don&#39;t accept ETH
+    // Don't accept ETH
 
     // ------------------------------------------------------------------------
 

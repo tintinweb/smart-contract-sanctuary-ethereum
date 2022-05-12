@@ -19,7 +19,7 @@ contract SafeMath {
     function div(uint256 a, uint256 b) constant internal returns (uint256) {
         assert(b != 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -53,7 +53,7 @@ contract SafeMath {
 /// Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 /// @title Abstract token contract - Functions to be implemented by token contracts.
 contract AbstractToken {
-    // This is not an abstract function, because solc won&#39;t recognize generated getter functions for public variables as functions
+    // This is not an abstract function, because solc won't recognize generated getter functions for public variables as functions
     function totalSupply() constant returns (uint256) {}
     function balanceOf(address owner) constant returns (uint256 balance);
     function transfer(address to, uint256 value) returns (bool success);
@@ -79,7 +79,7 @@ contract StandardToken is AbstractToken {
     /*
      *  Read and write storage functions
      */
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param _to Address of token receiver.
     /// @param _value Number of tokens to transfer.
     function transfer(address _to, uint256 _value) returns (bool success) {
@@ -179,7 +179,7 @@ contract RobotTradingToken is StandardToken, SafeMath {
         icoContract = _icoContract;
     }
 
-    /// @dev Burns tokens from address. It&#39;s can be applied by account with address this.icoContract
+    /// @dev Burns tokens from address. It's can be applied by account with address this.icoContract
     /// @param _from Address of account, from which will be burned tokens
     /// @param _value Amount of tokens, that will be burned
     function burnTokens(address _from, uint _value) onlyIcoContract {
@@ -189,7 +189,7 @@ contract RobotTradingToken is StandardToken, SafeMath {
         balances[_from] = sub(balances[_from], _value);
     }
 
-    /// @dev Adds tokens to address. It&#39;s can be applied by account with address this.icoContract
+    /// @dev Adds tokens to address. It's can be applied by account with address this.icoContract
     /// @param _to Address of account to which the tokens will pass
     /// @param _value Amount of tokens
     function emitTokens(address _to, uint _value) onlyIcoContract {
@@ -429,7 +429,7 @@ contract RobotTradingIco is SafeMath {
         sentTokensToPartner = true;
     }
 
-    /// @dev Send limit tokens to Partner. Can&#39;t be sent no more limit 11%
+    /// @dev Send limit tokens to Partner. Can't be sent no more limit 11%
     function sendLimitTokensToPartner(uint _value) onlyManager whenInitialized {
         require(!sentTokensToPartner);
         uint partnerLimit = mulByFraction(supplyLimit, 11, 100); // calc token 11%
@@ -441,7 +441,7 @@ contract RobotTradingIco is SafeMath {
         robottradingToken.emitTokens(accPartner, partnerValue);
     }
 
-    /// @dev Send all tokens to founders. Can&#39;t be sent no more limit 30%
+    /// @dev Send all tokens to founders. Can't be sent no more limit 30%
     function sendTokensToCompany() onlyManager whenInitialized {
         require(!sentTokensToCompany);
 
@@ -457,7 +457,7 @@ contract RobotTradingIco is SafeMath {
         sentTokensToCompany = true;
     }
 
-    /// @dev Send limit tokens to company. Can&#39;t be sent no more limit 30%
+    /// @dev Send limit tokens to company. Can't be sent no more limit 30%
     function sendLimitTokensToCompany(uint _value) onlyManager whenInitialized {
         require(!sentTokensToCompany);
         uint companyLimit = mulByFraction(supplyLimit, 30, 100); // calc token 30%
@@ -500,7 +500,7 @@ contract RobotTradingIco is SafeMath {
         robottradingToken.emitTokens(accFounder, founderValue);
     }
 
-    /// @dev inc Supply tokens . Can&#39;t be inc no more 35%
+    /// @dev inc Supply tokens . Can't be inc no more 35%
     function incSupply(uint _percent) onlyManager whenInitialized {
         require(_percent<=35);
         supplyLimit = add(supplyLimit,mulByFraction(supplyLimit, _percent, 100));

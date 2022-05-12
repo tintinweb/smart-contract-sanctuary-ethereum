@@ -29,7 +29,7 @@ contract payrollSystem{
         _;
     }
     
-    //to add an employee to the company&#39;s list of employees
+    //to add an employee to the company's list of employees
     function addEmployee(address newEmployee, uint salary) onlyCompany{
         var _employee = employeeMapper[newEmployee];
         _employee.active = true;

@@ -222,7 +222,7 @@ contract RelayRecipientApi {
     function get_hub_addr() public view returns (address);
 
     /**
-     * return the contract&#39;s balance on the RelayHub.
+     * return the contract's balance on the RelayHub.
      * can be used to determine if the contract can pay for incoming calls,
      * before making any.
      */
@@ -273,10 +273,10 @@ contract RelayHub is RelayHubApi {
     uint constant timeout = 5 days; // XXX TBD
     uint constant minimum_stake = 1;    // XXX TBD
     uint constant minimum_unstake_delay = 0;    // XXX TBD
-    uint constant minimum_relay_balance = 0.5 ether;  // XXX TBD - can&#39;t register/refresh below this amount.
+    uint constant minimum_relay_balance = 0.5 ether;  // XXX TBD - can't register/refresh below this amount.
     uint constant low_ether = 1 ether;    // XXX TBD - relay still works, but owner should be notified to fund the relay soon.
     uint constant public gas_reserve = 99999; // XXX TBD - calculate how much reserve we actually need, to complete the post-call part of relay().
-    uint constant public gas_overhead = 47382;  // the total gas overhead of relay(), before the first gasleft() and after the last gasleft(). Assume that relay has non-zero balance (costs 15&#39;000 more otherwise).
+    uint constant public gas_overhead = 47382;  // the total gas overhead of relay(), before the first gasleft() and after the last gasleft(). Assume that relay has non-zero balance (costs 15'000 more otherwise).
 
     mapping (address => uint) public nonces;    // Nonces of senders, since their ether address nonce may never change.
 
@@ -328,7 +328,7 @@ contract RelayHub is RelayHubApi {
      * deposit ether for a contract.
      * This ether will be used to repay relay calls into this contract.
      * Contract owner should monitor the balance of his contract, and make sure
-     * to deposit more, otherwise the contract won&#39;t be able to receive relayed calls.
+     * to deposit more, otherwise the contract won't be able to receive relayed calls.
      * Unused deposited can be withdrawn with `withdraw()`
      */
     function depositFor(address target) public payable {
@@ -374,7 +374,7 @@ contract RelayHub is RelayHubApi {
         require(stakes[relay].owner == address(0) || stakes[relay].owner == msg.sender, "not owner");
         stakes[relay].owner = msg.sender;
         stakes[relay].stake += msg.value;
-        // Make sure that the relay doesn&#39;t decrease his delay if already registered
+        // Make sure that the relay doesn't decrease his delay if already registered
         require(unstake_delay >= stakes[relay].unstake_delay, "unstake_delay cannot be decreased");
         stakes[relay].unstake_delay = unstake_delay;
         validate_stake(relay);
@@ -386,7 +386,7 @@ contract RelayHub is RelayHubApi {
         if (stakes[relay].owner != msg.sender) {
             return false;
         }
-        if (relays[relay].timestamp != 0 || stakes[relay].unstake_time == 0)  // Relay still registered so unstake time hasn&#39;t been set
+        if (relays[relay].timestamp != 0 || stakes[relay].unstake_time == 0)  // Relay still registered so unstake time hasn't been set
             return false;
         return stakes[relay].unstake_time <= now;  // Finished the unstaking delay period?
     }
@@ -405,7 +405,7 @@ contract RelayHub is RelayHubApi {
 
     function register_relay(uint transaction_fee, string memory url, address optional_relay_removal) public lock_stake {
         // Anyone with a stake can register a relay.  Apps choose relays by their transaction fee, stake size and unstake delay,
-        // optionally crossed against a blacklist.  Apps verify the relay&#39;s action in realtime.
+        // optionally crossed against a blacklist.  Apps verify the relay's action in realtime.
 
         Stake storage relay_stake = stakes[msg.sender];
         // Penalized relay cannot reregister
@@ -439,7 +439,7 @@ contract RelayHub is RelayHubApi {
     }
 
     function remove_relay_by_owner(address relay) public relay_owner(relay) {
-        // The relay&#39;s owner can remove it at any time, to start the unstake countdown.
+        // The relay's owner can remove it at any time, to start the unstake countdown.
         remove_relay_internal(relay);
     }
 
@@ -449,7 +449,7 @@ contract RelayHub is RelayHubApi {
     }
 
     //check if the Hub can accept this relayed operation.
-    // it validates the caller&#39;s signature and nonce, and then delegates to the destination&#39;s accept_relayed_call
+    // it validates the caller's signature and nonce, and then delegates to the destination's accept_relayed_call
     // for contract-specific checks.
     // returns "0" if the relay is valid. other values represent errors.
     // values 1..10 are reserved for can_relay. other values can be used by accept_relayed_call of target contracts.
@@ -457,11 +457,11 @@ contract RelayHub is RelayHubApi {
         bytes memory packed = abi.encodePacked("rlx:", from, to, transaction, transaction_fee, gas_price, gas_limit, nonce, address(this));
         bytes32 hashed_message = keccak256(abi.encodePacked(packed, relay));
         bytes32 signed_message = keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hashed_message));
-        if (!check_sig(from, signed_message,  sig))  // Verify the sender&#39;s signature on the transaction
-            return 1;   // @from hasn&#39;t signed the transaction properly
+        if (!check_sig(from, signed_message,  sig))  // Verify the sender's signature on the transaction
+            return 1;   // @from hasn't signed the transaction properly
         if (nonces[from] != nonce)
             return 2;   // Not a current transaction.  May be a replay attempt.
-        // XXX check @to&#39;s balance, roughly estimate if it has enough balance to pay the transaction fee.  It&#39;s the relay&#39;s responsibility to verify, but check here too.
+        // XXX check @to's balance, roughly estimate if it has enough balance to pay the transaction fee.  It's the relay's responsibility to verify, but check here too.
         return to.accept_relayed_call(relay, from, transaction, gas_price, transaction_fee); // Check to.accept_relayed_call, see if it agrees to accept the charges.
     }
 
@@ -474,8 +474,8 @@ contract RelayHub is RelayHubApi {
      * @param gas_price gas price the client is willing to pay
      * @param gas_limit limit the client want to put on its transaction
      * @param transaction_fee fee (%) the relay takes over actual gas cost.
-     * @param nonce sender&#39;s nonce (in nonces[])
-     * @param sig client&#39;s signature over all params
+     * @param nonce sender's nonce (in nonces[])
+     * @param sig client's signature over all params
      */
     function relay(address from, address to, bytes memory encoded_function, uint transaction_fee, uint gas_price, uint gas_limit, uint nonce, bytes memory sig) public {
         uint initial_gas = gasleft();
@@ -489,7 +489,7 @@ contract RelayHub is RelayHubApi {
         // Recipient will trust this reported sender when msg.sender is the known RelayHub.
         bytes memory transaction = abi.encodePacked(encoded_function,from);
 
-        // gas_reserve must be high enough to complete relay()&#39;s post-call execution.
+        // gas_reserve must be high enough to complete relay()'s post-call execution.
         require(safe_sub(initial_gas,gas_limit) >= gas_reserve, "Not enough gasleft()");
         bool success = executeCallWithGas(gas_limit, to, 0, transaction); // transaction must end with @from at this point
         nonces[from]++;
@@ -546,7 +546,7 @@ contract RelayHub is RelayHubApi {
         require(keccak256(abi.encodePacked(decoded_tx1.data)) != keccak256(abi.encodePacked(decoded_tx2.data)), "tx.data is equal" ) ;
         // Checking that we do have addr1 as a staked relay
         require( stakes[addr1].stake > 0, "Unstaked relay" );
-        // Checking that the relay wasn&#39;t penalized yet
+        // Checking that the relay wasn't penalized yet
         require(!stakes[addr1].removed, "Relay already penalized");
         // compensating the sender with the stake of the relay
         uint amount = stakes[addr1].stake;

@@ -366,8 +366,8 @@ contract Ticket {
            got();
            roomBalance[Id][room] += msg.value.sub(cur);//modify net round roomBalance
            roundinfos[Id].eth +=msg.value.sub(cur);//modify this round balance
-           addrticket[Id][msg.sender] +=  ticketsCountLimit.sub(start) ; //modify one&#39;s ticket count
-           addrticket[Id][msg.sender] +=  _shares.sub(ticketsCountLimit.sub(start));//modify one&#39;s next round ticket count
+           addrticket[Id][msg.sender] +=  ticketsCountLimit.sub(start) ; //modify one's ticket count
+           addrticket[Id][msg.sender] +=  _shares.sub(ticketsCountLimit.sub(start));//modify one's next round ticket count
       }else{
            roomBalance[rId][room] += msg.value; //modify room balance
            roundinfos[rId].eth += msg.value;  

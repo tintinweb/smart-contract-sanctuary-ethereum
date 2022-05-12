@@ -31,8 +31,8 @@ contract Factory {
 
 
     /**
-     * @notice Will create a new derivative in which &#39;msg.sender&#39; is &#39;long&#39; and which expires at &#39;terminationDate&#39;
-     * @param leverage Will multiply percentage change of underlying value at terminationDate compared to &#39;strikePrice&#39;
+     * @notice Will create a new derivative in which 'msg.sender' is 'long' and which expires at 'terminationDate'
+     * @param leverage Will multiply percentage change of underlying value at terminationDate compared to 'strikePrice'
      */
     function createDerivative (bool long, uint8 leverage, uint256 dueDate, uint256 strikePrice, bytes16 underlying, uint256 minStake, uint256 takerDeadline)
         payable
@@ -74,7 +74,7 @@ contract Derivative {
 
     address factory;
 
-    // The derivative&#39;s attributes
+    // The derivative's attributes
     uint8 public leverage;
     uint256 public dueDate;
     uint256 public strikePrice;
@@ -89,10 +89,10 @@ contract Derivative {
     // Sell & buy derivatives
     mapping(address => uint256) public sellPrices;
 
-    // The maker&#39;s attributes
+    // The maker's attributes
     address private maker;
 
-    // The taker&#39;s attributes
+    // The taker's attributes
     uint8 public noOfTakers;
     uint256 public takerDeadline;
 
@@ -147,7 +147,7 @@ contract Derivative {
     /** --- contructor --- **/
 
     /**
-      * @dev Contructor for all &#39;Derivative&#39;s
+      * @dev Contructor for all 'Derivative's
       */
     constructor(bool _long,uint8 _leverage,uint256 _dueDate, uint256 _strikePrice, bytes16 _underlying, uint256 _minStake, uint256 _takerDeadline)
         payable
@@ -161,11 +161,11 @@ contract Derivative {
     /** --- functions --- **/
 
     // -----------------
-    // maker&#39;s functions
+    // maker's functions
     // -----------------
 
     /**
-      * @notice Intialization of &#39;Derivative&#39;
+      * @notice Intialization of 'Derivative'
       */
     function make (bool _long, uint8 _leverage,uint256 _dueDate, uint256 _strikePrice, bytes16 _underlying, uint256 _minStake, uint256 _takerDeadline)
         payable
@@ -173,12 +173,12 @@ contract Derivative {
         hasMaker(false)
         //derivativeIsTerminated(false)
     {
-        // Set maker&#39;s attributes:
+        // Set maker's attributes:
         maker = tx.origin;
         makerLong = _long;
         stakes[maker] = msg.value;
 
-        // Set derivative&#39;s attributes:
+        // Set derivative's attributes:
         strikePrice = _strikePrice;
         dueDate = _dueDate;
         leverage = _leverage;
@@ -230,7 +230,7 @@ contract Derivative {
     
     /**
      * @notice Maker can reduce stake down to totalStakeTaker
-     * @param amount Can be withdrawn from maker&#39;s stake
+     * @param amount Can be withdrawn from maker's stake
      */
     function reduceStake(uint256 amount)
         public
@@ -243,17 +243,17 @@ contract Derivative {
     }
 
     // -----------------
-    // taker&#39;s functions
+    // taker's functions
     // -----------------
 
     /**
-     * @notice  Send &#39;msg.value&#39; which fulfills
-     *          &#39;totalStakeTaker&#39; (after adding msg.value to existing total stakes)
-     *            < &#39;stakes[maker]&#39;
+     * @notice  Send 'msg.value' which fulfills
+     *          'totalStakeTaker' (after adding msg.value to existing total stakes)
+     *            < 'stakes[maker]'
      *          and
-     *          &#39;msg.value&#39; >= &#39;minStake&#39;
+     *          'msg.value' >= 'minStake'
      *          to take derivative
-     * @dev &#39;msg.value&#39; has to be equal to stakes[maker]
+     * @dev 'msg.value' has to be equal to stakes[maker]
      */
     function take ()
         payable
@@ -328,7 +328,7 @@ contract Derivative {
 
     /**
      * @notice Terminates active derivative and distributes win
-     * @param price Is value of underlying at &#39;terminationDate&#39; which will be compared to &#39;strikePrice&#39;
+     * @param price Is value of underlying at 'terminationDate' which will be compared to 'strikePrice'
      */
 
     /**

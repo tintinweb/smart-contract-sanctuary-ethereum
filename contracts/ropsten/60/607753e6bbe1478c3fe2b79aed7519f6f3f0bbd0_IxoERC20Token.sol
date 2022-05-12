@@ -32,8 +32,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
     function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (_a == 0) {
             return 0;
@@ -51,7 +51,7 @@ library SafeMath {
     function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
         require(_b > 0, "SafeMath failure"); // Solidity only automatically asserts when dividing by 0
         uint256 c = _a / _b;
-        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -143,7 +143,7 @@ contract Ownable {
    * @param _newOwner The address to transfer ownership to.
    */
     function _transferOwnership(address _newOwner) internal {
-        require(_newOwner != address(0), "Can&#39;t transfer to 0x0");
+        require(_newOwner != address(0), "Can't transfer to 0x0");
         emit OwnershipTransferred(owner, _newOwner);
         owner = _newOwner;
     }
@@ -249,7 +249,7 @@ contract IxoERC20Token is ERC20, Ownable {
   */
     function transfer(address _to, uint256 _value) public returns (bool) {
         require(_value <= balances[msg.sender], "Not enough funds");
-        require(_to != address(0), "Can&#39;t transfer to 0x0");
+        require(_to != address(0), "Can't transfer to 0x0");
 
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
@@ -261,7 +261,7 @@ contract IxoERC20Token is ERC20, Ownable {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -287,7 +287,7 @@ contract IxoERC20Token is ERC20, Ownable {
     {
         require(_value <= balances[_from], "Not enough funds");
         require(_value <= allowed[_from][msg.sender], "Not approved");
-        require(_to != address(0), "Can&#39;t transfer to 0x0");
+        require(_to != address(0), "Can't transfer to 0x0");
 
         balances[_from] = balances[_from].sub(_value);
         balances[_to] = balances[_to].add(_value);

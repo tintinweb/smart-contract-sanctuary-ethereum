@@ -107,7 +107,7 @@ pragma solidity ^0.4.11;
     function div(uint a, uint b) internal returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -201,9 +201,9 @@ pragma solidity ^0.4.11;
         isTokenTransfer
         checkLock
         returns (bool success) {
-            // if you don&#39;t have enough balance, throw
+            // if you don't have enough balance, throw
             require( _balances[from] >= value );
-            // if you don&#39;t have approval, throw
+            // if you don't have approval, throw
             require( _approvals[from][msg.sender] >= value );
             // transfer and return true
             _approvals[from][msg.sender] = _approvals[from][msg.sender].sub(value);

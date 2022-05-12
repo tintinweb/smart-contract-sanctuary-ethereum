@@ -221,10 +221,10 @@ contract ERC20Token is admined,ERC20TokenInterface { //Standard definition of an
 * @dev ERC20 Token compliant
 */
 contract TECH is ERC20Token {
-    string public name = &#39;TECH&#39;;
+    string public name = 'TECH';
     uint8 public decimals = 18;
-    string public symbol = &#39;TECH&#39;;
-    string public version = &#39;0.3&#39;;
+    string public symbol = 'TECH';
+    string public version = '0.3';
 
     /**
     * @notice token contructor.
@@ -245,7 +245,7 @@ contract TECH is ERC20Token {
 
 
     /**
-    * @notice this contract will revert on direct non-function calls, also it&#39;s not payable
+    * @notice this contract will revert on direct non-function calls, also it's not payable
     * @dev Function to handle callback calls to contract
     */
     function() public {

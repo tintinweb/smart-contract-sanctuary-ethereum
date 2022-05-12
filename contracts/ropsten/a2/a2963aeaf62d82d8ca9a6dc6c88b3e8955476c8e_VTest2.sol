@@ -120,8 +120,8 @@ contract VTest2 is ERC20Interface, Pausable {
     }
 
     constructor() public{
-        symbol = &#39;VTest2&#39;;
-        name = &#39;VTest2&#39;;
+        symbol = 'VTest2';
+        name = 'VTest2';
         decimals = 18;
         _totalSupply = 1000000000*10**uint(decimals);
         balances[owner] = _totalSupply;

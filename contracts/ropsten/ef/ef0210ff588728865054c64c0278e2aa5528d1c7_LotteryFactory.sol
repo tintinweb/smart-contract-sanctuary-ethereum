@@ -261,7 +261,7 @@ contract LotteryFactory {
 	/**
 	 * @dev Returns token ids by user address for current lottery
 	 * @param _user user address
-	 * @return array of user&#39;s token ids
+	 * @return array of user's token ids
 	 */
 	function tokensOf(address _user) public view returns(uint[]) {
 		Lottery storage lottery = lotteries[lotteryCount - 1];
@@ -381,7 +381,7 @@ contract LotteryFactory {
 		// foreach token on sale
 		for(uint i = 0; i < lottery.tokensToSellOnce.length; i++) {
 			uint tokenId = lottery.tokensToSellOnce[i];
-			// if token is on sale and this is not buyer&#39;s token
+			// if token is on sale and this is not buyer's token
 			if(lottery.tokenSell[tokenId] && lottery.tokenOwner[tokenId] != msg.sender) {
 				// save the old owner
 				address oldOwner = lottery.tokenOwner[tokenId];
@@ -478,7 +478,7 @@ contract LotteryFactory {
 		Lottery storage lottery = lotteries[lotteryCount - 1];
 		// check that total token count on sale is more that user has
 		require(lottery.tokenCountToSell >= lottery.ownerTokenCountToSell[msg.sender]);
-		// substitute user&#39;s token on sale count from total count
+		// substitute user's token on sale count from total count
 		uint tokenCountToSell = lottery.tokenCountToSell - lottery.ownerTokenCountToSell[msg.sender];
 		// if there are no tokens to sell then return 0
 		if(tokenCountToSell == 0) return 0;

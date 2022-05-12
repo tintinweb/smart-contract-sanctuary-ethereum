@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -150,7 +150,7 @@ contract BasicAssetToken is Ownable {
 // Variables
 ///////////////////
 
-    string public name;                 //The Token&#39;s name
+    string public name;                 //The Token's name
 
     uint8 public decimals = 0;          //Number of decimals of the smallest unit
 
@@ -325,7 +325,7 @@ contract BasicAssetToken is Ownable {
 
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public view returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -444,8 +444,8 @@ contract BasicAssetToken is Ownable {
 // Burn - only during minting 
 ////////////////
 
-    /** @dev Burn someone&#39;s tokens (only allowed during minting phase). 
-      * @param _who Eth address of person who&#39;s tokens should be burned.
+    /** @dev Burn someone's tokens (only allowed during minting phase). 
+      * @param _who Eth address of person who's tokens should be burned.
       */
     function burn(address _who, uint256 _value) public canMint onlyOwner {
         uint256 curTotalSupply = totalSupply();

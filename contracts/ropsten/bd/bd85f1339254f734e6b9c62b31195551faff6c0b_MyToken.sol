@@ -111,7 +111,7 @@ contract MyToken is SafeMath{
         emit Burn(msg.sender, _value);
     }
 	
-    /// @notice freeze `_value` token of &#39;_addr&#39; address
+    /// @notice freeze `_value` token of '_addr' address
     /// @param _addr The address to be freezed
     /// @param _value The amount of token to be freezed
 	function freeze(address _addr, uint256 _value) public {
@@ -123,7 +123,7 @@ contract MyToken is SafeMath{
         emit Freeze(_addr, _value);
     }
 	
-    /// @notice unfreeze `_value` token of &#39;_addr&#39; address
+    /// @notice unfreeze `_value` token of '_addr' address
     /// @param _addr The address to be unfreezed
     /// @param _value The amount of token to be unfreezed
 	function unfreeze(address _addr, uint256 _value) public {

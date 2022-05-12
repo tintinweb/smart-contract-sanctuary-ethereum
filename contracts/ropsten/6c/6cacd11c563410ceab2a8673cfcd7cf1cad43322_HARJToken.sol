@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 contract HARJToken {
     
     /* ERC20 Public variables of the token */
-    string public constant version = &#39;ASB0 0.1&#39;;
+    string public constant version = 'ASB0 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -34,7 +34,7 @@ contract HARJToken {
 
     /**
      * Initializes contract with initial supply tokens to the creator of the contract
-     * In our case, there&#39;s no initial supply. Tokens will be created as ether is sent
+     * In our case, there's no initial supply. Tokens will be created as ether is sent
      * to the fall-back function. Then tokens are burned when ether is withdrawn.
      */
     function HARJToken(

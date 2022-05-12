@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;CRP&#39; token contract
+// 'CRP' token contract
 //
 // Deployed to : 0xd8BD8f9727551f9020B2FB5f31fd70695a580E10
 // Symbol      : CRYPTX
@@ -105,7 +105,7 @@ contract CRYPTXToken is Interface, Own, SafeMath {
     event Burn(address indexed from, uint256 value);
     /* This generates a public event on the blockchain that will notify clients */
     event FrozenFunds(address target, bool frozen);
-    //This notifies the client&#39;s activity in storedAmount
+    //This notifies the client's activity in storedAmount
     event FixedDepositLog(address indexed from, uint256 amount, bytes32 action);
     // ------------------------------------------------------------------------
     // Constructor
@@ -137,8 +137,8 @@ contract CRYPTXToken is Interface, Own, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to to account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to to account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowance
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -165,7 +165,7 @@ contract CRYPTXToken is Interface, Own, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -231,14 +231,14 @@ contract CRYPTXToken is Interface, Own, SafeMath {
         return true;
     }
 
-    // @Fixed Deposit stored tokens can&#39;t be trade without taking out from FD
+    // @Fixed Deposit stored tokens can't be trade without taking out from FD
     function fixedDeposit(uint256 amount) public returns(bool success) {
 
         require(amount>0);
         require(balanceOf[msg.sender] >= amount);
-        //Store amount from user&#39;s balance
+        //Store amount from user's balance
         storedAmount[msg.sender] = safeAdd(storedAmount[msg.sender], amount);
-        //Update user&#39;s balance
+        //Update user's balance
         balanceOf[msg.sender] = safeSub(balanceOf[msg.sender], amount);
         emit FixedDepositLog(msg.sender, amount, "Credit");
         return true;
@@ -249,9 +249,9 @@ contract CRYPTXToken is Interface, Own, SafeMath {
 
         require(amount>0);
         require(storedAmount[msg.sender] >= amount);
-        //Withdraw amount from user&#39;s fixed balance
+        //Withdraw amount from user's fixed balance
         storedAmount[msg.sender] = safeSub(storedAmount[msg.sender], amount);
-        //Update user&#39;s balance
+        //Update user's balance
         balanceOf[msg.sender] = safeAdd(balanceOf[msg.sender], amount);
         emit FixedDepositLog(msg.sender, amount, "Debit");
         return true;
@@ -259,7 +259,7 @@ contract CRYPTXToken is Interface, Own, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

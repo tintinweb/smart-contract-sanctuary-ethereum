@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -156,7 +156,7 @@ contract Administratable is Claimable {
   event AdminAddressRemoved(address indexed addr);
 
   /**
-   * @dev Throws if called by any account that&#39;s not admin or owner.
+   * @dev Throws if called by any account that's not admin or owner.
    */
   modifier onlyAdmin() {
     require(admins[msg.sender] || msg.sender == owner);
@@ -180,7 +180,7 @@ contract Administratable is Claimable {
    * @dev remove an address from the admin list
    * @param addr address
    * @return true if the address was removed from the admin list,
-   * false if the address wasn&#39;t in the admin list in the first place
+   * false if the address wasn't in the admin list in the first place
    */
   function removeAddressFromAdmin(address addr) onlyOwner public returns(bool success) {
     if (admins[addr]) {
@@ -228,7 +228,7 @@ contract Callable is Claimable {
    * @dev remove an address from the caller list
    * @param addr address
    * @return true if the address was removed from the caller list,
-   * false if the address wasn&#39;t in the caller list in the first place
+   * false if the address wasn't in the caller list in the first place
    */
   function removeAddressFromCaller(address addr) onlyOwner public returns(bool success) {
     if (callers[addr]) {

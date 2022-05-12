@@ -36,7 +36,7 @@ interface IModuleRegistry {
     /**
      * @notice Used to get the reputation of a Module Factory
      * @param _factoryAddress address of the Module Factory
-     * @return address array which has the list of securityToken&#39;s uses that module factory
+     * @return address array which has the list of securityToken's uses that module factory
      */
     function getReputationByFactory(address _factoryAddress) external view returns(address[]);
 
@@ -216,7 +216,7 @@ interface ISecurityTokenRegistry {
     /**
      * @notice Registers the token ticker for its particular owner
      * @notice once the token ticker is registered to its owner then no other issuer can claim
-     * @notice its ownership. If the ticker expires and its issuer hasn&#39;t used it, then someone else can take it.
+     * @notice its ownership. If the ticker expires and its issuer hasn't used it, then someone else can take it.
      * @param _owner Address of the owner of the token
      * @param _ticker Token ticker
      * @param _tokenName Name of the token
@@ -738,7 +738,7 @@ contract EternalStorage {
     /// @notice used to intialize the array
     /// Ex1- mapping (address => address[]) public reputation;
     /// reputation[0x1] = new address[](0); It can be replaced as
-    /// setArray(hash(&#39;reputation&#39;, 0x1), new address[](0)); 
+    /// setArray(hash('reputation', 0x1), new address[](0)); 
     
     function setArray(bytes32 _key, address[] _value) internal {
         addressArrayStorage[_key] = _value;
@@ -787,7 +787,7 @@ contract EternalStorage {
     /// @notice set the value of particular index of the address array
     /// Ex1- mapping(bytes32 => address[]) moduleList;
     /// general way is -- moduleList[moduleType][index] = temp; 
-    /// It can be re-write as -- setArrayIndexValue(keccak256(abi.encodePacked(&#39;moduleList&#39;, moduleType)), index, temp); 
+    /// It can be re-write as -- setArrayIndexValue(keccak256(abi.encodePacked('moduleList', moduleType)), index, temp); 
 
     function setArrayIndexValue(bytes32 _key, uint256 _index, address _value) internal {
         addressArrayStorage[_key][_index] = _value;
@@ -916,7 +916,7 @@ interface ISecurityToken {
 
     /**
      * @notice Mints new tokens and assigns them to the target _investor.
-     * Can only be called by the STO attached to the token (Or by the ST owner if there&#39;s no STO attached yet)
+     * Can only be called by the STO attached to the token (Or by the ST owner if there's no STO attached yet)
      * @param _investor Address the tokens will be minted to
      * @param _value is the amount of tokens that will be minted to the investor
      */
@@ -924,7 +924,7 @@ interface ISecurityToken {
 
     /**
      * @notice Mints new tokens and assigns them to the target _investor.
-     * Can only be called by the STO attached to the token (Or by the ST owner if there&#39;s no STO attached yet)
+     * Can only be called by the STO attached to the token (Or by the ST owner if there's no STO attached yet)
      * @param _investor Address the tokens will be minted to
      * @param _value is The amount of tokens that will be minted to the investor
      * @param _data Data to indicate validation

@@ -19,8 +19,8 @@ contract CoinMimmo {
     mapping (address => uint) balances;  // tabella dei saldi degli account(address)
     
     constructor  (uint initialCoins) public {  // costruttore con un argomento:le monete totali da creare in wei
-        minter = msg.sender;   // l&#39;indirizzo del proprietario del contratto 
-        totalCoins = initialCoins;  // il costruttore stabilisce l&#39;ammontare delle monete totali 
+        minter = msg.sender;   // l'indirizzo del proprietario del contratto 
+        totalCoins = initialCoins;  // il costruttore stabilisce l'ammontare delle monete totali 
         balances[minter] = initialCoins; // tutte le monete create vengono assegnate al coniatore
         balamceMinter = balances[msg.sender];
     }
@@ -46,7 +46,7 @@ contract CoinMimmo {
     }
 
     function queryBalance(address addr) constant public returns (uint balance) {
-        return balances[addr];  // ritorna il saldo dell&#39;indirizzo passato in funzione
+        return balances[addr];  // ritorna il saldo dell'indirizzo passato in funzione
     }
  function queryBalanceMinter() constant public returns (uint balance) {
         return balamceMinter;  // ritorna il saldo del greatore del contratto

@@ -31,7 +31,7 @@ contract FourWaySplit {
     if(msg.value==0) throw;
 
     // ignoring values not evenly divisible by 4. We round down and keep the change.
-    // (No way to remove the loose change, so it&#39;s effectively destroyed.)
+    // (No way to remove the loose change, so it's effectively destroyed.)
 
     uint forth = msg.value / 4;
 

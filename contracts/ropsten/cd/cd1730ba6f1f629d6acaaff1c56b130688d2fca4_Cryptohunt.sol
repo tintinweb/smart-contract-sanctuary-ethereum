@@ -5,19 +5,19 @@ pragma solidity 0.4.25;
 *============================================================================================*
 *                                                             
 *     ,-.----.           ,--,              
-*     \    /  \        ,--.&#39;|    ,---,     
-*     |   :    \    ,--,  | :  .&#39;  .&#39; `\          ____                            __      
-*     |   |  .\ :,---.&#39;|  : &#39;,---.&#39;     \        / __ \________  ________  ____  / /______
+*     \    /  \        ,--.'|    ,---,     
+*     |   :    \    ,--,  | :  .'  .' `\          ____                            __      
+*     |   |  .\ :,---.'|  : ',---.'     \        / __ \________  ________  ____  / /______
 *     .   :  |: |;   : |  | ;|   |  .`\  |      / /_/ / ___/ _ \/ ___/ _ \/ __ \/ __/ ___/
-*     |   |   \ :|   | : _&#39; |:   : |  &#39;  |     / ____/ /  /  __(__  )  __/ / / / /_(__  ) 
-*     |   : .   /:   : |.&#39;  ||   &#39; &#39;  ;  :    /_/   /_/___\\\_/____/\_\\/_\_/_/\__/____/  
-*     ;   | |`-&#39; |   &#39; &#39;  ; :&#39;   | ;  .  |            /_  __/___      \ \/ /___  __  __   
-*     |   | ;    \   \  .&#39;. ||   | :  |  &#39;             / / / __ \      \  / __ \/ / / /   
-*     :   &#39; |     `---`:  | &#39;&#39;   : | /  ;             / / / /_/ /      / / /_/ / /_/ /    
-*     :   : :          &#39;  ; ||   | &#39;` ,/             /_/  \____/      /_/\____/\__,_/     
-*     |   | :          |  : ;;   :  .&#39;     
-*     `---&#39;.|          &#39;  ,/ |   ,.&#39;       
-*       `---`          &#39;--&#39;  &#39;---&#39;         
+*     |   |   \ :|   | : _' |:   : |  '  |     / ____/ /  /  __(__  )  __/ / / / /_(__  ) 
+*     |   : .   /:   : |.'  ||   ' '  ;  :    /_/   /_/___\\\_/____/\_\\/_\_/_/\__/____/  
+*     ;   | |`-' |   ' '  ; :'   | ;  .  |            /_  __/___      \ \/ /___  __  __   
+*     |   | ;    \   \  .'. ||   | :  |  '             / / / __ \      \  / __ \/ / / /   
+*     :   ' |     `---`:  | ''   : | /  ;             / / / /_/ /      / / /_/ / /_/ /    
+*     :   : :          '  ; ||   | '` ,/             /_/  \____/      /_/\____/\__,_/     
+*     |   | :          |  : ;;   :  .'     
+*     `---'.|          '  ,/ |   ,.'       
+*       `---`          '--'  '---'         
 *                 _______                             _                      
 *                (_______)                   _       | |                 _   
 *                 _        ____ _   _ ____ _| |_ ___ | |__  _   _ ____ _| |_ 
@@ -26,24 +26,24 @@ pragma solidity 0.4.25;
 *                 \______)_|    \__  |  __/  \__)___/|_| |_|____/|_| |_| \__)
 *                              (____/|_|                                     
 *                                            _.--.
-*                                        _.-&#39;_:-&#39;||
-*                                    _.-&#39;_.-::::&#39;||
-*                               _.-:&#39;_.-::::::&#39;  ||
-*                             .&#39;`-.-:::::::&#39;     ||
-*                            /.&#39;`;|:::::::&#39;      ||_
-*                           ||   ||::::::&#39;     _.;._&#39;-._
-*                           ||   ||:::::&#39;  _.-!oo @.!-._&#39;-.
-*                           \&#39;.  ||:::::.-!()oo @!()@.-&#39;_.|
-*                            &#39;.&#39;-;|:.-&#39;.&<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="36127618">[email&#160;protected]</a>& ()$%-&#39;o.&#39;\U||
-*                              `>&#39;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d60636c0d">[email&#160;protected]</a>%()@&#39;@_%-&#39;_.-o _.|&#39;||
-*                               ||-._&#39;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80adaec0aead">[email&#160;protected]</a>&#39;_.-&#39; _.-o  |&#39;||
-*                               ||=[ &#39;-._.-\U/.-&#39;    o |&#39;||
-*                               || &#39;-.]=|| |&#39;|      o  |&#39;||
-*                               ||      || |&#39;|        _| &#39;;
-*                               ||      || |&#39;|    _.-&#39;_.-&#39;
-*                               |&#39;-._   || |&#39;|_.-&#39;_.-&#39;
-*                                &#39;-._&#39;-.|| |&#39; `_.-&#39;
-*                                    &#39;-.||_/.-&#39;
+*                                        _.-'_:-'||
+*                                    _.-'_.-::::'||
+*                               _.-:'_.-::::::'  ||
+*                             .'`-.-:::::::'     ||
+*                            /.'`;|:::::::'      ||_
+*                           ||   ||::::::'     _.;._'-._
+*                           ||   ||:::::'  _.-!oo @.!-._'-.
+*                           \'.  ||:::::.-!()oo @!()@.-'_.|
+*                            '.'-;|:.-'.&<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="36127618">[email&#160;protected]</a>& ()$%-'o.'\U||
+*                              `>'<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d60636c0d">[email&#160;protected]</a>%()@'@_%-'_.-o _.|'||
+*                               ||-._'<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80adaec0aead">[email&#160;protected]</a>'_.-' _.-o  |'||
+*                               ||=[ '-._.-\U/.-'    o |'||
+*                               || '-.]=|| |'|      o  |'||
+*                               ||      || |'|        _| ';
+*                               ||      || |'|    _.-'_.-'
+*                               |'-._   || |'|_.-'_.-'
+*                                '-._'-.|| |' `_.-'
+*                                    '-.||_/.-'
 *                        _       __ _     _     _ _          ___       
 *                       /_\     /__(_) __| | __| | | ___    / __\_   _ 
 *                      //_\\   / \// |/ _` |/ _` | |/ _ \  /__\// | | |
@@ -62,7 +62,7 @@ pragma solidity 0.4.25;
 *==============================================================================*
 
 Right now you are wondering what is this token,
-and why you can&#39;t transfer it, so it must be broken!
+and why you can't transfer it, so it must be broken!
 
 To remove this token, one must be wise,
 and solve all the riddles to unlock the prize!
@@ -82,7 +82,7 @@ so get some more P4D while the timing is right!
 *********************************** Clue #1 ************************************
 *==============================================================================*
 
-Whenever you&#39;re stuck, just ask yourself; what&#39;s the meaning of life?
+Whenever you're stuck, just ask yourself; what's the meaning of life?
 
 */
 
@@ -240,20 +240,20 @@ contract Cryptohunt is ERC20_Basic {
 		_launchedTime = now;
 	}
 
-	// the solution to the ropsten version is just "I&#39;m not the real answer!"
+	// the solution to the ropsten version is just "I'm not the real answer!"
 	function attemptToSolve(string answer) public {
 		bytes32 hash = keccak256(abi.encodePacked(answer));
 		if (hash == 0x3b43d0f6b5703672561dc2c7cf3a471de6b172c4a15fcfc61d491d1916920bbd) {
 			if (!_hasBeenSolved) {
 				emit Transfer(src, address(0x0), amt);
-				emit Log("Well done! You&#39;ve deserved this!");
+				emit Log("Well done! You've deserved this!");
 				emit Log(answer);
 				_hasBeenSolved = true;
 				_solvedTime = now;
 			}
 			msg.sender.transfer(address(this).balance);
 		} else {
-			emit Log("Sorry, but that&#39;s not the correct answer!");
+			emit Log("Sorry, but that's not the correct answer!");
 		}
 	}
 
@@ -273,7 +273,7 @@ contract Cryptohunt is ERC20_Basic {
 		return false;
 	}
 
-	// ...and that&#39;s all you really need for a &#39;broken&#39; token
+	// ...and that's all you really need for a 'broken' token
 }
 
 /*===========================================================================================*

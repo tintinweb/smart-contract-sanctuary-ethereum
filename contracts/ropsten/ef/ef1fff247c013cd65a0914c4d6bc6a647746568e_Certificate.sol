@@ -109,14 +109,14 @@ contract Certificate {
     }
     
     function approveCertification(uint i) external hasPermission returns(bool,string){  //H&#224;m cấp chứng nhận cho sinh vi&#234;n request đ&#227; ho&#224;n tất kh&#243;a học với tham số truyền v&#224;o l&#224; số thứ tự của phần tử trong mảng stureqs v&#224; phải c&#243; quyền hasPermission
-        if(i+1>stureqcount)     return (false,"Request doesn&#39;t exist!");    //kiểm tra c&#243; tồn tại request kh&#244;ng
-        if(stureqs[i].status==0)    return (false,"Student isn&#39;t qualified");   //Kiểm tra sinh vi&#234;n request c&#243; ho&#224;n th&#224;nh kh&#243;a học chưa
+        if(i+1>stureqcount)     return (false,"Request doesn't exist!");    //kiểm tra c&#243; tồn tại request kh&#244;ng
+        if(stureqs[i].status==0)    return (false,"Student isn't qualified");   //Kiểm tra sinh vi&#234;n request c&#243; ho&#224;n th&#224;nh kh&#243;a học chưa
         stureqs[i].result=1;    //Nếu c&#243; tồn tại request v&#224; đ&#227; ho&#224;n th&#224;nh kh&#243;a học th&#236; đồng &#253; cấp (result=1) 
         return (true,"Successfully Approved!"); //return gi&#225; trị true b&#225;o cấp th&#224;nh c&#244;ng
     }
     
     function rejectCertification(uint i) external hasPermission returns(bool,string){   //H&#224;m từ chối cấp với tham số truyền v&#224;o l&#224; số thứ tự của phần tử trong mảng stureqs v&#224; phải c&#243; quyền hasPermission
-        if(i+1>stureqcount)     return (false,"Request doesn&#39;t exist!");    //Kiểm tra c&#243; tồn tại request kh&#244;ng
+        if(i+1>stureqcount)     return (false,"Request doesn't exist!");    //Kiểm tra c&#243; tồn tại request kh&#244;ng
         stureqs[i].result=0;    //Nếu tồn tại Request th&#236; từ chối cấp (result=0)
         return (true,"Request is rejected!");   //return gi&#225; trị true b&#225;o từ chối th&#224;nh c&#244;ng
     }
@@ -138,7 +138,7 @@ contract Certificate {
     }
     
     function checkCourse(uint i) public view returns(uint,string){  //H&#224;m kiểm tra chứng chỉ đ&#227; cấp thuộc kh&#243;a học n&#224;o v&#224; return courseid với tham số truyền v&#224;o l&#224; số thứ tự của phần tử trong mảng stureqs
-        if(i+1>stureqcount)     return (0,"Request doesn&#39;t exist!");    //kiểm tra xem c&#243; tồn tại request đ&#243; kh&#244;ng
+        if(i+1>stureqcount)     return (0,"Request doesn't exist!");    //kiểm tra xem c&#243; tồn tại request đ&#243; kh&#244;ng
         if(stureqs[i].result!=1) return (0,"Certificate is rejected or in queue!"); //Request c&#243; tồn tại nhưng chưa được cấp chứng chỉ
         return (stureqs[i].courseid,"Found!");  //Request tồn tại v&#224; đ&#227; được cấp chứng chỉ, return courseid
     }

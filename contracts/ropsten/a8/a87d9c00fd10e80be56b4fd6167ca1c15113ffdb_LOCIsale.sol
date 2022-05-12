@@ -99,7 +99,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -269,7 +269,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -312,9 +312,9 @@ contract LOCIcoin is StandardToken, Ownable, Contactable {
     }
 
     modifier onlyIfValidAddress(address _to) {
-        // prevent &#39;invalid&#39; addresses for transfer destinations
+        // prevent 'invalid' addresses for transfer destinations
         require(_to != 0x0);
-        // don&#39;t allow transferring to this contract&#39;s address
+        // don't allow transferring to this contract's address
         require(_to != address(this));
         _;
     }
@@ -378,11 +378,11 @@ contract LOCIcoin is StandardToken, Ownable, Contactable {
         // Note: re-entrancy concerns are also addressed within
         // `handleRefundRequest`
         // this will throw an exception if any
-        // problems or if refunding isn&#39;t enabled
+        // problems or if refunding isn't enabled
         _refundHandler.handleRefundRequest(msg.sender);
 
-        // If we&#39;ve gotten here, then the wei transfer above
-        // worked (didn&#39;t throw an exception) and it confirmed
+        // If we've gotten here, then the wei transfer above
+        // worked (didn't throw an exception) and it confirmed
         // that `msg.sender` had an ether balance on the contract.
         // Now do token transfer from `msg.sender` back to
         // `owner` completes the refund.
@@ -408,11 +408,11 @@ contract LOCIsale is Ownable, Pausable, IRefundHandler {
 
     uint256 public minFundingGoalWei;   /* we can set this to zero, but we might want to raise at least 20000 Ether */
     uint256 public minContributionWei;  /* individual contribution min. we require at least a 0.1 Ether investment, for example. */
-    uint256 public maxContributionWei;  /* individual contribution max. probably don&#39;t want someone to buy more than 60000 Ether */
+    uint256 public maxContributionWei;  /* individual contribution max. probably don't want someone to buy more than 60000 Ether */
 
     uint256 public weiRaised;       /* total of all weiContributions */
     uint256 public weiRaisedAfterDiscounts; /* wei raised after the discount periods end */
-    uint256 internal weiForRefund;  /* only applicable if we enable refunding, if we don&#39;t meet our expected raise */
+    uint256 internal weiForRefund;  /* only applicable if we enable refunding, if we don't meet our expected raise */
 
     uint256 public peggedETHUSD;    /* In whole dollars. $300 means use 300 */
     uint256 public hardCap;         /* In wei. Example: 64,000 cap = 64,000,000,000,000,000,000,000 */
@@ -483,7 +483,7 @@ contract LOCIsale is Ownable, Pausable, IRefundHandler {
         baseRateInCents = _baseRateInCents;
 
         // this will throw if the # of hours and
-        // discount % don&#39;t come in pairs
+        // discount % don't come in pairs
         uint256 _end = start;
 
         uint _tranche_round = 0;
@@ -524,7 +524,7 @@ contract LOCIsale is Ownable, Pausable, IRefundHandler {
         }
 
         // Example: there are 4 rounds, and we want to divide rounds 2-4 equally based on (starting-round1)/(discountTranches.length-1), move to next tranche
-        // But don&#39;t move past the last round. Note, the last round should not be capped. That&#39;s why we check for round < # tranches
+        // But don't move past the last round. Note, the last round should not be capped. That's why we check for round < # tranches
         if (_dt.round > 1 && _dt.roundTokensSold > 0 && _dt.round < discountTranches.length) {
             uint256 _trancheCountExceptForOne = discountTranches.length-1;
             uint256 _tokensSoldFirstRound = discountTranches[0].roundTokensSold;
@@ -575,13 +575,13 @@ contract LOCIsale is Ownable, Pausable, IRefundHandler {
             startingTokensAmount = _tokensRemaining; // set this once.
         }
 
-        // limit contribution&#39;s value based on max/previous contributions
+        // limit contribution's value based on max/previous contributions
         uint256 _weiContribution = msg.value;
         if (_weiContribution > _weiContributionAllowed) {
             _weiContribution = _weiContributionAllowed;
         }
 
-        // limit contribution&#39;s value based on hard cap of hardCap
+        // limit contribution's value based on hard cap of hardCap
         if (hardCap > 0 && weiRaised.add(_weiContribution) > hardCap) {
             _weiContribution = hardCap.sub( weiRaised );
         }
@@ -594,7 +594,7 @@ contract LOCIsale is Ownable, Pausable, IRefundHandler {
         }
 
         if (_tokens > _tokensRemaining) {
-            // there aren&#39;t enough tokens to fill the contribution amount, so recalculate the contribution amount
+            // there aren't enough tokens to fill the contribution amount, so recalculate the contribution amount
             _tokens = _tokensRemaining;
             if (_rate > 0) {
                 _weiContribution = _tokens.mul(_rate).div(100).div(peggedETHUSD);
@@ -685,7 +685,7 @@ contract LOCIsale is Ownable, Pausable, IRefundHandler {
     function ownerTransferWei(address _beneficiary, uint256 _value) external onlyOwner {
         require(_beneficiary != 0x0);
         require(_beneficiary != address(token));
-        // we cannot withdraw if we didn&#39;t reach the minimum funding goal
+        // we cannot withdraw if we didn't reach the minimum funding goal
         require(minFundingGoalWei == 0 || weiRaised >= minFundingGoalWei);
 
         // if zero requested, send the entire amount, otherwise the amount requested
@@ -707,7 +707,7 @@ contract LOCIsale is Ownable, Pausable, IRefundHandler {
 
     function handleRefundRequest(address _contributor) external {
         // Note that this method can only ever called by
-        // the token contract&#39;s `claimRefund()` method;
+        // the token contract's `claimRefund()` method;
         // everything that happens in here will only
         // succeed if `claimRefund()` works as well.
 
@@ -718,8 +718,8 @@ contract LOCIsale is Ownable, Pausable, IRefundHandler {
 
         uint256 _wei = contributions[_contributor];
 
-        // if this is zero, then `_contributor` didn&#39;t
-        // contribute or they&#39;ve already been refunded
+        // if this is zero, then `_contributor` didn't
+        // contribute or they've already been refunded
         require(_wei > 0);
 
         // prorata the amount if necessary
@@ -730,7 +730,7 @@ contract LOCIsale is Ownable, Pausable, IRefundHandler {
         }
 
         // zero out their contribution, so they cannot
-        // claim another refund; it&#39;s important (for
+        // claim another refund; it's important (for
         // avoiding re-entrancy attacks) that this zeroing
         // happens before the transfer below
         contributions[_contributor] = 0;

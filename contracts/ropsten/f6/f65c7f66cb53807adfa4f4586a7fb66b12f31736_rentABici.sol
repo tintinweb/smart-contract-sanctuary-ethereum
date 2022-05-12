@@ -43,7 +43,7 @@ contract rentABici{
     // La funci&#243;n BiciDevuelta puede ser llamada s&#243;lo por el oraculo,
     // registra el horario de devoluci&#243;n y llama a la funci&#243;n devolverBici.
     function BiciDevuelta () public {
-        require(msg.sender == oracle, &#39;Este no es el or&#225;culo&#39;);
+        require(msg.sender == oracle, 'Este no es el or&#225;culo');
         fechaYHoraDevolucion = block.timestamp;
         
         devolverBici();

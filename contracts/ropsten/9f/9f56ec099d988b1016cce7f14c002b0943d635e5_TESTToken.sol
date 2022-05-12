@@ -78,7 +78,7 @@ contract TESTToken {
     }
     
     function transfer(address _to, uint256 _value) external returns (bool) {
-        // Non transferable, revert so people don&#39;t loose as much ether
+        // Non transferable, revert so people don't loose as much ether
         revert(); //uses some gas, around 23000, only like 3 instructions
         // require(false); //uses some gas, around 23000, medium number of instructions
         // assert(false); //uses full gas limit
@@ -180,7 +180,7 @@ contract TESTToken {
         
         uint256 tokenValue = balances_[_who];
         uint256 weiValue = tokenValue.div(OPENING_RATE);
-        assert(weiValue != 0);                       //We don&#39;t allow transfers, but if we did this might happen from rounding
+        assert(weiValue != 0);                       //We don't allow transfers, but if we did this might happen from rounding
 
         require(address(this).balance >= weiValue);  //Must have enough wei in contract after payable to lock up
         totalRefunds_ = totalRefunds_.add(weiValue);

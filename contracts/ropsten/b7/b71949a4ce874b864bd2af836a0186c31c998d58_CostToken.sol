@@ -16,7 +16,7 @@ library SafeMath {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
 
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -170,7 +170,7 @@ contract BasicToken is ERC20Basic {
     }
 
     /**
-    * @dev Transfer the balance from owner&#39;s account to another account
+    * @dev Transfer the balance from owner's account to another account
     * @param _to The address to transfer to.
     * @param _value The amount to be transferred.
     * @return Returns true if transfer has been successful
@@ -198,7 +198,7 @@ contract StandardToken is BasicToken, ERC20 {
     mapping (address => mapping (address => uint256)) allowed;
 
     /**
-     * @dev Returns the amount of tokens approved by the owner that can be transferred to the spender&#39;s account
+     * @dev Returns the amount of tokens approved by the owner that can be transferred to the spender's account
      * @param _owner The address which owns the funds.
      * @param _spender The address which will spend the funds.
      * @return An uint256 specifying the amount of tokens still available for the spender.

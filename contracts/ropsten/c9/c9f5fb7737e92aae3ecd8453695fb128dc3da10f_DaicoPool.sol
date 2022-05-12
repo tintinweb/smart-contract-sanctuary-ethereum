@@ -223,7 +223,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -481,7 +481,7 @@ contract Voting{
 
     /// @dev Check if a proposal is about TAP raising or not.
     /// @param pid Index of a proposal.
-    /// @return True if it&#39;s TAP raising. False otherwise.
+    /// @return True if it's TAP raising. False otherwise.
     function isSubjectRaiseTap (uint256 pid) public view returns(bool) {
         require(pid < proposals.length);
         return proposals[pid].subject == Subject.RaiseTap;
@@ -489,7 +489,7 @@ contract Voting{
 
     /// @dev Check if a proposal is about self destruction or not.
     /// @param pid Index of a proposal.
-    /// @return True if it&#39;s self destruction. False otherwise.
+    /// @return True if it's self destruction. False otherwise.
     function isSubjectDestruction (uint256 pid) public view returns(bool) {
         require(pid < proposals.length);
         return proposals[pid].subject == Subject.Destruction;

@@ -181,9 +181,9 @@ contract CanRescueERC20 is Ownable {
     public
     onlyOwner {
         uint256 balance = token.balanceOf(this);
-        // Caution: ERC-20 standard doesn&#39;t require to throw exception on failures
+        // Caution: ERC-20 standard doesn't require to throw exception on failures
         // (although most ERC-20 tokens do so), but instead returns a bool value.
-        // Therefore let&#39;s check if it really returned true, and throw otherwise.
+        // Therefore let's check if it really returned true, and throw otherwise.
         require(token.transfer(owner(), balance), "Token transfer failed, transfer() returned false.");
     }
 
@@ -249,7 +249,7 @@ contract Voting is Ownable, Destructible, CanRescueERC20 {
         // but saves an SSTORE. In both cases the variable is layouted
         // as a "dynamically sized" array, as for constant sized array
         // layout the size would have to be a literal or a constant
-        // (and solidity doesn&#39;t support yet constants to be set in
+        // (and solidity doesn't support yet constants to be set in
         // the constructor) but with "new" operator solidity immediately
         // writes 0 at position 0 (storage is always 0 before 1st write,
         // so this is unnecessary).
@@ -337,7 +337,7 @@ contract Voting is Ownable, Destructible, CanRescueERC20 {
      *
      * @dev Note that this only will work for external callers, and not
      *      for other contracts (as of solidity 0.4.25 returning of dynamically
-     *      sized data is still not in stable, it&#39;s only available with the
+     *      sized data is still not in stable, it's only available with the
      *      experimental "ABIEncoderV2" pragma). Also some block-explorers,
      *      like etherscan, will have problems to display this correctly.
      */
@@ -367,7 +367,7 @@ contract Voting is Ownable, Destructible, CanRescueERC20 {
     view
     returns (uint8) {
         // save as we only initialize array length in constructor
-        // and there we check it&#39;s never larger than uint8.
+        // and there we check it's never larger than uint8.
         return uint8(currentVoteResults.length);
     }
 

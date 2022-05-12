@@ -287,14 +287,14 @@ contract TokedoExchange is Ownable, Adminable {
     
     //required: the signer is the same address of makerAddress
     require( _addresses[2] == ecrecover( keccak256( abi.encodePacked("\x19Ethereum Signed Message:\n32", orderHash) ), v[0], rs[0], rs[1]),
-            &#39;_addresses[2] == ecrecover( keccak256( abi.encodePacked("\x19Ethereum Signed Message:\n32", orderHash) ), v[0], rs[0], rs[1])&#39;);
+            '_addresses[2] == ecrecover( keccak256( abi.encodePacked("\x19Ethereum Signed Message:\n32", orderHash) ), v[0], rs[0], rs[1])');
     
     // tradeHash: OrderHash, amountBuyTaker, takerAddress, tradeNonceTaker
     bytes32 tradeHash = keccak256( abi.encodePacked(orderHash, _values[4], _addresses[3], _values[5]) ); 
     
     //required: the signer is the same address of takerAddress
     require( _addresses[3] == ecrecover( keccak256( abi.encodePacked("\x19Ethereum Signed Message:\n32", tradeHash) ), v[1], rs[2], rs[3]) , 
-            &#39;_addresses[3] == ecrecover( keccak256( abi.encodePacked("\x19Ethereum Signed Message:\n32", tradeHash) ), v[1], rs[2], rs[3])&#39; );
+            '_addresses[3] == ecrecover( keccak256( abi.encodePacked("\x19Ethereum Signed Message:\n32", tradeHash) ), v[1], rs[2], rs[3])' );
     
     //required: the same trade is not done
     require( !traded[tradeHash] , "!traded[tradeHash] ");

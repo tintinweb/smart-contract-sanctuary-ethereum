@@ -126,7 +126,7 @@ contract GasStation is Ownable {
 			&& (_gasAmount <= maxGas)
 			&& (_tokenAmount > 0)
 		);
-		// invalidate this deal&#39;s hash
+		// invalidate this deal's hash
 		usedhashes[hash] = true;
 		// take tokens
 		ERC20 token = ERC20(_tokenAddress);

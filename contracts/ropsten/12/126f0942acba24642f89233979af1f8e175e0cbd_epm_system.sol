@@ -84,10 +84,10 @@ contract epm_system  {
 	
 	function NewSmartSharingContract(string _website,uint _target,uint duration,string tags,string dlink,string others,string tSymbol) payable public {
         uint a;
-	    if (compare(&#39;ETH&#39;,tSymbol)) {
+	    if (compare('ETH',tSymbol)) {
 	        a = msg.value;
 	        }
-        if (compare(&#39;EPM&#39;,tSymbol)) {
+        if (compare('EPM',tSymbol)) {
             a = epm.balanceOf(msg.sender);
             }
         payments[msg.sender].tokenAmount = a;

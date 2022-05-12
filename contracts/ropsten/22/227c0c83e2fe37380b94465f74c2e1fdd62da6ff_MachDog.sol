@@ -7,7 +7,7 @@ contract MachDog {
         uint256 indexed dogId,	// 
 		uint256 indexed owner   //  
     );
-	// exchange dog&#39;s owner
+	// exchange dog's owner
 	event ExchangeOwner
     (
         uint256 indexed dogId,  // 

@@ -151,8 +151,8 @@ contract MerchantDealsHistory is Contactable, Restricted {
 
     /**
      *  recordDeal creates an event of completed deal
-     *  @param _orderId Identifier of deal&#39;s order
-     *  @param _clientAddress Address of client&#39;s account
+     *  @param _orderId Identifier of deal's order
+     *  @param _clientAddress Address of client's account
      *  @param _clientReputation Updated reputation of the client
      *  @param _merchantReputation Updated reputation of the merchant
      *  @param _isSuccess Identifies whether deal was successful or not
@@ -179,8 +179,8 @@ contract MerchantDealsHistory is Contactable, Restricted {
 
     /**
      *  recordDealCancelReason creates an event of not paid deal that was cancelled 
-     *  @param _orderId Identifier of deal&#39;s order
-     *  @param _clientAddress Address of client&#39;s account
+     *  @param _orderId Identifier of deal's order
+     *  @param _clientAddress Address of client's account
      *  @param _clientReputation Updated reputation of the client
      *  @param _merchantReputation Updated reputation of the merchant
      *  @param _dealHash Hashcode of the deal, describing the order (used for deal verification)
@@ -207,8 +207,8 @@ contract MerchantDealsHistory is Contactable, Restricted {
 
 /**
      *  recordDealRefundReason creates an event of not paid deal that was cancelled 
-     *  @param _orderId Identifier of deal&#39;s order
-     *  @param _clientAddress Address of client&#39;s account
+     *  @param _orderId Identifier of deal's order
+     *  @param _clientAddress Address of client's account
      *  @param _clientReputation Updated reputation of the client
      *  @param _merchantReputation Updated reputation of the merchant
      *  @param _dealHash Hashcode of the deal, describing the order (used for deal verification)

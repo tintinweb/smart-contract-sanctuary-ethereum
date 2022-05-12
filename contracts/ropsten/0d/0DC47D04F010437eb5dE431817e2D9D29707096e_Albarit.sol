@@ -175,7 +175,7 @@ contract Albarit is SafeMath{
    function RegisterMine(string _name, uint _tokensupply) onlyOwner
    {
        
-       /*Register new mine&#39;s data*/
+       /*Register new mine's data*/
 	   minasparticipantes[_MineId] = Minas ({
 	       id: _MineId,
 		   name: _name,
@@ -183,12 +183,12 @@ contract Albarit is SafeMath{
 		   active: true
 	   });
 	   
-	   /*add to array new item with new mine&#39;s token supply */
+	   /*add to array new item with new mine's token supply */
 	   TokenMineSupply.push(_tokensupply);
 	   
-	   /*add to array new item with new mine&#39;s token supply */
+	   /*add to array new item with new mine's token supply */
 	   
-	   /*Uptade Albarit&#39;s total supply*/
+	   /*Uptade Albarit's total supply*/
 	    /*uint256*/ totalSupplyFloat = 0;
         for (uint8 i = 0; i < TokenMineSupply.length; i++)
         {
@@ -209,7 +209,7 @@ contract Albarit is SafeMath{
        /*uint256*/ subValue = 0;
        /*uint256*/ oldTotalSupply = totalSupply;
        /*uint256*/ TokensToModify = 0;
-      /*update mine&#39;s data*/ 
+      /*update mine's data*/ 
 	   minasparticipantes[_Id].active = _state;
 	   minasparticipantes[_Id].name = _name;
    	   minasparticipantes[_Id].tokensupply = _tokensupply;

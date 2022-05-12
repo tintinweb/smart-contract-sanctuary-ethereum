@@ -26,27 +26,27 @@ contract JinVestingRule {
   uint period;
 
   constructor () public {
-    // rules[&#39;PRESALE1&#39;] = Rule(&#39;PRESALE1&#39;,  &#39;2018-12-01&#39;, 1543622400, 20, 10); /* 私人配售 */
-    // rules[&#39;PRESALE2&#39;] = Rule(&#39;PRESALE2&#39;,  &#39;2019-02-01&#39;, 1548979200, 20, 10);
-    // rules[&#39;PRESALE3&#39;] = Rule(&#39;PRESALE3&#39;,  &#39;2019-04-01&#39;, 1554076800, 20, 10);
-    // rules[&#39;PRESALE4&#39;] = Rule(&#39;PRESALE4&#39;,  &#39;2019-06-01&#39;, 1559347200, 20, 10);
-    // rules[&#39;PRESALE5&#39;] = Rule(&#39;PRESALE5&#39;,  &#39;2019-08-01&#39;, 1564617600, 20, 10);
-    // rules[&#39;CROWDSALE&#39;]= Rule(&#39;CROWDSALE&#39;, &#39;2019-09-01&#39;, 1567296000, 100, 0); /* 公開預售 */
-    // rules[&#39;STARTUP&#39;]  = Rule(&#39;STARTUP&#39;,   &#39;2020-01-01&#39;, 1577836800, 10, 10); /* 創始團隊 */
-    // rules[&#39;ANGELFUND&#39;]= Rule(&#39;ANGELFUND&#39;, &#39;2019-09-01&#39;, 1567296000, 10, 10); /* 天始投資 */
-    // rules[&#39;TECHTEAM&#39;] = Rule(&#39;TECHTEAM&#39;,  &#39;2019-09-01&#39;, 1567296000, 10, 10); /* 技術平台 */
+    // rules['PRESALE1'] = Rule('PRESALE1',  '2018-12-01', 1543622400, 20, 10); /* 私人配售 */
+    // rules['PRESALE2'] = Rule('PRESALE2',  '2019-02-01', 1548979200, 20, 10);
+    // rules['PRESALE3'] = Rule('PRESALE3',  '2019-04-01', 1554076800, 20, 10);
+    // rules['PRESALE4'] = Rule('PRESALE4',  '2019-06-01', 1559347200, 20, 10);
+    // rules['PRESALE5'] = Rule('PRESALE5',  '2019-08-01', 1564617600, 20, 10);
+    // rules['CROWDSALE']= Rule('CROWDSALE', '2019-09-01', 1567296000, 100, 0); /* 公開預售 */
+    // rules['STARTUP']  = Rule('STARTUP',   '2020-01-01', 1577836800, 10, 10); /* 創始團隊 */
+    // rules['ANGELFUND']= Rule('ANGELFUND', '2019-09-01', 1567296000, 10, 10); /* 天始投資 */
+    // rules['TECHTEAM'] = Rule('TECHTEAM',  '2019-09-01', 1567296000, 10, 10); /* 技術平台 */
     // period = 30 days;
 
     /* *** 2018-09-21 *** */
-    rules[&#39;PRESALE1&#39;] = Rule(&#39;PRESALE1&#39;,  &#39;2018-09-23&#39;, 1537660800, 20, 10); /* 私人配售 */
-    rules[&#39;PRESALE2&#39;] = Rule(&#39;PRESALE2&#39;,  &#39;2018-09-25&#39;, 1537833600, 20, 10);
-    rules[&#39;PRESALE3&#39;] = Rule(&#39;PRESALE3&#39;,  &#39;2018-09-27&#39;, 1538006400, 20, 10);
-    rules[&#39;PRESALE4&#39;] = Rule(&#39;PRESALE4&#39;,  &#39;2018-09-29&#39;, 1538179200, 20, 10);
-    rules[&#39;PRESALE5&#39;] = Rule(&#39;PRESALE5&#39;,  &#39;2018-10-01&#39;, 1538352000, 20, 10);
-    rules[&#39;CROWDSALE&#39;]= Rule(&#39;CROWDSALE&#39;, &#39;2018-10-08&#39;, 1538956800, 100, 0); /* 公開預售 */
-    rules[&#39;STARTUP&#39;]  = Rule(&#39;STARTUP&#39;,   &#39;2018-10-15&#39;, 1577836800, 10, 10); /* 創始團隊 */
-    rules[&#39;ANGELFUND&#39;]= Rule(&#39;ANGELFUND&#39;, &#39;2018-10-08&#39;, 1538956800, 10, 10); /* 天始投資 */
-    rules[&#39;TECHTEAM&#39;] = Rule(&#39;TECHTEAM&#39;,  &#39;2018-10-08&#39;, 1538956800, 10, 10); /* 技術平台 */
+    rules['PRESALE1'] = Rule('PRESALE1',  '2018-09-23', 1537660800, 20, 10); /* 私人配售 */
+    rules['PRESALE2'] = Rule('PRESALE2',  '2018-09-25', 1537833600, 20, 10);
+    rules['PRESALE3'] = Rule('PRESALE3',  '2018-09-27', 1538006400, 20, 10);
+    rules['PRESALE4'] = Rule('PRESALE4',  '2018-09-29', 1538179200, 20, 10);
+    rules['PRESALE5'] = Rule('PRESALE5',  '2018-10-01', 1538352000, 20, 10);
+    rules['CROWDSALE']= Rule('CROWDSALE', '2018-10-08', 1538956800, 100, 0); /* 公開預售 */
+    rules['STARTUP']  = Rule('STARTUP',   '2018-10-15', 1577836800, 10, 10); /* 創始團隊 */
+    rules['ANGELFUND']= Rule('ANGELFUND', '2018-10-08', 1538956800, 10, 10); /* 天始投資 */
+    rules['TECHTEAM'] = Rule('TECHTEAM',  '2018-10-08', 1538956800, 10, 10); /* 技術平台 */
     period = 1 days;
     /* *** 2018-09-21 *** */
   }
@@ -284,7 +284,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -399,8 +399,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -417,7 +417,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -487,13 +487,13 @@ contract JinToken is
     uint jins = 0;
 
     jins = totalSupply_.div(100).mul(20);
-    _transferToLock(_startup, jins, &#39;STARTUP&#39;);
+    _transferToLock(_startup, jins, 'STARTUP');
 
     jins = totalSupply_.div(100).mul(15);
-    _transferToLock(_angelfund, jins, &#39;ANGELFUND&#39;);
+    _transferToLock(_angelfund, jins, 'ANGELFUND');
 
     jins = totalSupply_.div(100).mul(5);
-    _transferToLock(_techteam, jins, &#39;TECHTEAM&#39;);
+    _transferToLock(_techteam, jins, 'TECHTEAM');
   }
 
   event TransferToLock(
@@ -517,7 +517,7 @@ contract JinToken is
 
     require(jins >= 0);
 
-    _transferToLock(user, jins, &#39;CROWDSALE&#39;);
+    _transferToLock(user, jins, 'CROWDSALE');
   }
 
   function _getTokenAmount(uint weiAmount) internal view returns (uint) {

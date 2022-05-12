@@ -49,7 +49,7 @@ contract IERC223Token {
 }
 
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     //function creator() public pure returns (address) {}
     function owner() public pure returns (address) {}
 
@@ -60,7 +60,7 @@ contract IOwned {
 }
 
 contract ICalled is IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     //function callers(address) public pure returns (bool) { }
 
     function appendCaller(ICaller _caller) public;  // ownerOnly
@@ -71,7 +71,7 @@ contract ICalled is IOwned {
 }
 
 contract IDummyToken is IERC20Token, IERC223Token, IERC223Receiver, ICaller, IOwned {
-    // these function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these function isn't abstract since the compiler emits automatically generated getter functions as external
     function operator() public pure returns(ITokenOperator) {}
     //ITokenOperator public operator;
 }
@@ -84,7 +84,7 @@ contract ISmartToken{
 }
 
 contract ITokenOperator is ISmartToken , ICaller{
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function dummy() public pure returns (IDummyToken) {}
     
     function updateChanges(address) public;

@@ -144,7 +144,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -169,7 +169,7 @@ library SafeMath {
 
 
 
-// change contract name to your contract&#39;s name
+// change contract name to your contract's name
 // i.e. "contract Bitcoin is ERC223Token"
 contract TFNcname is ERC223Token {
   using SafeMath for uint256;
@@ -178,7 +178,7 @@ contract TFNcname is ERC223Token {
   string public name = "TFName";
   // for example, "BTC"
   string public symbol = "TFN";
-  // set token&#39;s precision
+  // set token's precision
   // pick any number from 0 to 18
   // for example, 4 decimal points means that
   // smallest token using will be 0.0001 TKN

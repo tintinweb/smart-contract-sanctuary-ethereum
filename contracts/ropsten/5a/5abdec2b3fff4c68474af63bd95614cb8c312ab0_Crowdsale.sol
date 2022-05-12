@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -106,7 +106,7 @@ contract Token {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overridden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropriate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropriate to concatenate
  * behavior.
  */
 contract Crowdsale is Ownable {
@@ -295,16 +295,16 @@ contract Crowdsale is Ownable {
    */
 
   function getStageName () public view returns (string) {
-    if (currentStage == Stages.Pause) return &#39;Pause&#39;;
-    if (currentStage == Stages.PrivateIco) return &#39;Private ICO&#39;;
-    if (currentStage == Stages.PrivateIcoEnd) return &#39;Private ICO end&#39;;
-    if (currentStage == Stages.PreIco) return &#39;Prte ICO&#39;;
-    if (currentStage == Stages.PreIcoEnd) return &#39;Pre ICO end&#39;;
-    if (currentStage == Stages.Ico1) return &#39;ICO 1-st week&#39;;
-    if (currentStage == Stages.Ico2) return &#39;ICO 2-d week&#39;;
-    if (currentStage == Stages.Ico3) return &#39;ICO 3-d week&#39;;
-    if (currentStage == Stages.Ico4) return &#39;ICO 4-th week&#39;;
-    return &#39;ICO is over&#39;;
+    if (currentStage == Stages.Pause) return 'Pause';
+    if (currentStage == Stages.PrivateIco) return 'Private ICO';
+    if (currentStage == Stages.PrivateIcoEnd) return 'Private ICO end';
+    if (currentStage == Stages.PreIco) return 'Prte ICO';
+    if (currentStage == Stages.PreIcoEnd) return 'Pre ICO end';
+    if (currentStage == Stages.Ico1) return 'ICO 1-st week';
+    if (currentStage == Stages.Ico2) return 'ICO 2-d week';
+    if (currentStage == Stages.Ico3) return 'ICO 3-d week';
+    if (currentStage == Stages.Ico4) return 'ICO 4-th week';
+    return 'ICO is over';
   }
 
   /**
@@ -379,7 +379,7 @@ contract Crowdsale is Ownable {
 
   /**
    * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
-   * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method: 
+   * Example from CappedCrowdsale.sol's _preValidatePurchase method: 
    *   super._preValidatePurchase(_beneficiary, _weiAmount);
    *   require(weiRaised.add(_weiAmount) <= cap);
    * @param _beneficiary Address performing the token purchase

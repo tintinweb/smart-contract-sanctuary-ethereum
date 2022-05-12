@@ -29,8 +29,8 @@ library SafeMath {
 contract token {
 
     function balanceOf(address _owner) public view returns (uint256 balance);
-    //Since some tokens doesn&#39;t return a bool on transfer, this general interface
-    //doesn&#39;t include a return on the transfer fucntion to be widely compatible
+    //Since some tokens doesn't return a bool on transfer, this general interface
+    //doesn't include a return on the transfer fucntion to be widely compatible
     function transfer(address _to, uint256 _value) public;
 
 }
@@ -258,10 +258,10 @@ contract ERC20Token is ERC20TokenInterface, admined { //Standard definition of a
 * @dev Initial supply creation
 */
 contract Asset is ERC20Token {
-    string public name = &#39;XYZBuys&#39;;
+    string public name = 'XYZBuys';
     uint8 public decimals = 18;
-    string public symbol = &#39;XYZB&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'XYZB';
+    string public version = '1';
 
     constructor() public {
         totalSupply = 1000000000 * (10**uint256(decimals)); //initial token creation

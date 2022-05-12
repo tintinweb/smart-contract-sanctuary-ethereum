@@ -132,7 +132,7 @@ contract Zoom {
                         byte( 0, mload( add( ptr, 4 ) ) )
                     )
                     
-                    // find our result&#39;s address space
+                    // find our result's address space
                     let resultStartAddress := add(
                         // shift pointer by 32 bytes, to data space
                         add(internalAddresses, 32),
@@ -146,7 +146,7 @@ contract Zoom {
                         byte( 0, mload( add( ptr, 6 ) ) )
                     )
     
-                    // load the contract address we&#39;re going to "call"
+                    // load the contract address we're going to "call"
                     mstore (0x00, 
                         and( 
                             // load 32 bytes, 12 garbage + 20 address
@@ -170,7 +170,7 @@ contract Zoom {
                     // shift pointer by 8 bytes, to address space
                     ptr := add( ptr, 8 )
 
-                    // load the contract address we&#39;re going to "call"
+                    // load the contract address we're going to "call"
                     mstore (0x00, 
                         and( 
                             // load 32 bytes, 12 garbage + 20 address
@@ -220,13 +220,13 @@ contract Zoom {
                     // preparing return OutputBuffer
                     mstore( 
                         add(
-                            add( internalAddresses, 64), // add 32 so we&#39;re in the result space
+                            add( internalAddresses, 64), // add 32 so we're in the result space
                             mul( callNumber, 64)
                         ),
                         returndatasize() 
                     )
                     
-                    // shift pointer by data length.. so we&#39;re at next call
+                    // shift pointer by data length.. so we're at next call
                     ptr := add( ptr, dataLength )
 
                     // move write pointer 

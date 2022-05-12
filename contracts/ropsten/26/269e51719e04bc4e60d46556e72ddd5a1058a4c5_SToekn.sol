@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;FIXED&#39; SToken token contract
+// 'FIXED' SToken token contract
 //
 // Symbol      : STKN
 // Name        : S Token

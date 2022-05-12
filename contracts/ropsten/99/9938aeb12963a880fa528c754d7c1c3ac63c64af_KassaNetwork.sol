@@ -69,7 +69,7 @@ contract KassaNetwork is Ownable
 {
     using SafeMath for uint;
 
-    string  public constant name    = &#39;Kassa 100/40&#39;;
+    string  public constant name    = 'Kassa 100/40';
     uint public startTimestamp = now;
 
     uint public constant procKoef = 10000;

@@ -66,25 +66,25 @@ contract AnchorManager is AnchorManagerInterface {
     }
 
     function executeContraction(uint _doctValue) public {
-        require(msg.sender == anchorVotes, &#39;Access denied&#39;);
+        require(msg.sender == anchorVotes, 'Access denied');
         EToken2Interface eToken2 = anchorPhase.eToken2();
         bytes32 doctSymbol = anchorPhase.DOCT();
-        require(eToken2.reissueAsset(doctSymbol, _doctValue), &#39;DOCT reissue failed&#39;);
+        require(eToken2.reissueAsset(doctSymbol, _doctValue), 'DOCT reissue failed');
         ERC20Interface doct = anchorPhase.doct();
-        require(doct.transfer(address(anchorPhase), _doctValue), &#39;DOCT transfer to phase failed&#39;);
+        require(doct.transfer(address(anchorPhase), _doctValue), 'DOCT transfer to phase failed');
     }
 
     function executeExpansion(uint _anctValue) public {
-        require(msg.sender == anchorVotes, &#39;Access denied&#39;);
+        require(msg.sender == anchorVotes, 'Access denied');
         EToken2Interface eToken2 = anchorPhase.eToken2();
         bytes32 anctSymbol = anchorPhase.ANCT();
-        require(eToken2.reissueAsset(anctSymbol, _anctValue), &#39;ANCT reissue failed&#39;);
+        require(eToken2.reissueAsset(anctSymbol, _anctValue), 'ANCT reissue failed');
         ERC20Interface anct = anchorPhase.anct();
-        require(anct.transfer(address(anchorPhase), _anctValue), &#39;ANCT transfer to phase failed&#39;);
+        require(anct.transfer(address(anchorPhase), _anctValue), 'ANCT transfer to phase failed');
     }
 
     function execute(address _to, bytes memory _data) public {
-        require(msg.sender == anchorVotes, &#39;Access denied&#39;);
+        require(msg.sender == anchorVotes, 'Access denied');
         (bool success, bytes memory result) =  _to.call(_data);
         require(success, string(result));
     }

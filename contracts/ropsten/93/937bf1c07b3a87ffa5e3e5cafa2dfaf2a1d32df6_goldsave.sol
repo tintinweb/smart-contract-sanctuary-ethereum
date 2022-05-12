@@ -120,9 +120,9 @@ contract goldsave is owned, ERC20 {
         uint256 totalAmount = amount * (10 ** uint256(decimals));
         require (BalanceOf[contractAddress] >= totalAmount);                              // Check if it has enough to sell
         BalanceOf[contractAddress] = BalanceOf[contractAddress]-(totalAmount);                   // Subtract amount from balance
-        BalanceOf[msg.sender] = BalanceOf[msg.sender]+(totalAmount);       // Add the amount to buyer&#39;s balance
+        BalanceOf[msg.sender] = BalanceOf[msg.sender]+(totalAmount);       // Add the amount to buyer's balance
         emit Transfer(contractAddress, msg.sender, totalAmount);                                 // Execute an event reflecting the change
-        emit noted_transfer(contractAddress, msg.sender, totalAmount, &#39;BuyFromEth&#39;, block.number);
+        emit noted_transfer(contractAddress, msg.sender, totalAmount, 'BuyFromEth', block.number);
         return totalAmount;
     }
     /* User sells and gets Ether */
@@ -131,8 +131,8 @@ contract goldsave is owned, ERC20 {
         ethToBeClaimed = amountOFGoldsave * (sellPriceEth);                            // ethToBeClaimed = eth that will be send to the user
         uint256 amountOFGoldsaveWei =(amountOFGoldsave * (10 ** uint256(decimals)));
         emit Transfer(msg.sender, contractAddress, amountOFGoldsaveWei);                            // Execute an event reflecting on the change
-        emit noted_transfer(msg.sender, contractAddress, amountOFGoldsaveWei, &#39;SellToEth&#39;, block.number);
-        BalanceOf[msg.sender] -= amountOFGoldsaveWei;   // Subtract the amount from seller&#39;s balance
+        emit noted_transfer(msg.sender, contractAddress, amountOFGoldsaveWei, 'SellToEth', block.number);
+        BalanceOf[msg.sender] -= amountOFGoldsaveWei;   // Subtract the amount from seller's balance
         BalanceOf[contractAddress] +=(amountOFGoldsaveWei);               // Add the amount to balance
         msg.sender.transfer(ethToBeClaimed);
         return ethToBeClaimed;                                                 // End function and returns

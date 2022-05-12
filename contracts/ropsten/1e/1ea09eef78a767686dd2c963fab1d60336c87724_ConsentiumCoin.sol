@@ -17,7 +17,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -70,7 +70,7 @@ contract Ownable {
     _;
   }
   
-  /* Owner&#39;s Ability to modify authorizedCaller */
+  /* Owner's Ability to modify authorizedCaller */
   function modifyAuthorizedCaller(address _address) public onlyOwner {
       authorizedCaller = _address;
   }
@@ -398,7 +398,7 @@ contract UpgradeableToken is StandardToken {
    * Upgrade states.
    *
    * - NotAllowed: The child contract has not reached a condition where the upgrade can bgun
-   * - WaitingForAgent: Token allows upgrade, but we don&#39;t have a new agent yet
+   * - WaitingForAgent: Token allows upgrade, but we don't have a new agent yet
    * - ReadyToUpgrade: The agent is set, but not a single token has been upgraded yet
    * - Upgrading: Upgrade agent is set and the balance holders can upgrade their tokens
    *
@@ -535,7 +535,7 @@ contract ConsentiumCoin is Pausable, BlackList, UpgradeableToken {
         require(_value > 0);
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
         balances[msg.sender] = balances[msg.sender].sub(_value);
         _totalSupply = _totalSupply.sub(_value);
         emit Burn(msg.sender, _value);

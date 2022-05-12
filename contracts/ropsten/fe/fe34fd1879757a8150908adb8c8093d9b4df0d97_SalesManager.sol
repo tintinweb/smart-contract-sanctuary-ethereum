@@ -140,7 +140,7 @@ contract Pausable is Ownable {
  * the `migrationId`. Or, if the migration code must be applied only after
  * another migration has been already applied, use the `isMigration` modifier.
  * This helper supports multiple inheritance.
- * WARNING: It is the developer&#39;s responsibility to ensure that migrations are
+ * WARNING: It is the developer's responsibility to ensure that migrations are
  * applied in a correct order, or that they are run at all.
  * See `Initializable` for a simpler version.
  */
@@ -255,8 +255,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -273,7 +273,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -358,7 +358,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -409,7 +409,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -590,8 +590,8 @@ contract OrHubToken is DetailedERC20, PausableToken, StandardBurnableToken {
  * @title SalesManager
  *
  * @dev This is a token sale manager contract. The purchase is made off-chain,
- * so investors are KYC&#39;d beforehand. Only authorized wallets can carry out the purchasing.
- * Purchased tokens are sent to user&#39;s wallets right away.
+ * so investors are KYC'd beforehand. Only authorized wallets can carry out the purchasing.
+ * Purchased tokens are sent to user's wallets right away.
  * Deployer has all administrative rights, sale owner has rights to execute business
  * logic functions.
  */

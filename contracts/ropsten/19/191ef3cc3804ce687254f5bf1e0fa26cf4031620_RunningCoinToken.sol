@@ -164,7 +164,7 @@ contract StandardToken is Token {
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] -= _value;                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -352,11 +352,11 @@ contract RunningCoinToken is StandardToken, SafeMath, owned {
     //出售代币
     function sell(uint amount) public returns (uint revenue){
         require(balances[msg.sender] >= amount);         // checks if the sender has enough to sell
-        balances[this] += amount;                        // adds the amount to owner&#39;s balance
-        balances[msg.sender] -= amount;                  // subtracts the amount from seller&#39;s balance
+        balances[this] += amount;                        // adds the amount to owner's balance
+        balances[msg.sender] -= amount;                  // subtracts the amount from seller's balance
         //        revenue = amount * sellPrice;
         revenue = safeDiv(amount, tokenExchangeRate);
-        msg.sender.transfer(revenue);                     // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+        msg.sender.transfer(revenue);                     // sends ether to the seller: it's important to do this last to prevent recursion attacks
         emit Transfer(msg.sender, this, amount);               // executes an event reflecting on the change
         return revenue;                                   // ends function and returns
     }

@@ -93,7 +93,7 @@ interface Token {
 	// @return The balance of that account / address.
 	// function balanceOf(address _owner) external constant returns (uint256  balance);
 
-	// @notice Transfer &#39;_value&#39; token from &#39;msg.sender&#39; to &#39;_to&#39;.
+	// @notice Transfer '_value' token from 'msg.sender' to '_to'.
 	// @notice Emits Transfer event.
 	// @param _to The address of the recipient.
 	// @param _value The amount of token to be transferred.
@@ -101,7 +101,7 @@ interface Token {
 	// @return Whether the transfer was succesfull or not.
 	function transfer(address _to, uint256 _value) external constant returns (bool success);
 
-	// @notice Transfer &#39;_value&#39; token from &#39;_from&#39; to &#39;_to&#39; if amount is approved by &#39;_from&#39;.
+	// @notice Transfer '_value' token from '_from' to '_to' if amount is approved by '_from'.
 	// @notice Emits Transfer event.
     // @param _from The address of the sender.
     // @param _to The address of the recipient.
@@ -109,7 +109,7 @@ interface Token {
 	// @return Whether the transfer was succesfull or not.
 	function transferFrom(address _from, address _to, uint256 _value) external constant returns (bool success);
 
-	// @notice &#39;msg.sender&#39; approves &#39;_spender&#39; to spend &#39;_value&#39; tokens.
+	// @notice 'msg.sender' approves '_spender' to spend '_value' tokens.
 	// @notice Emits Approval event.
     // @param _spender The address of the account able to transfer the tokens.
     // @param _value The amount of Wei to be approved for transfer.
@@ -129,7 +129,7 @@ contract ERC20Token is Token, Accessible {
 	// Take the address of an owner and return the balance of that particular address.
 	mapping (address => uint256) public balanceOf;
 	
-	// Allowance map. &#39;owner&#39; as 1st key holds a map to all approvements with key &#39;spender&#39; and value &#39;amount&#39;.
+	// Allowance map. 'owner' as 1st key holds a map to all approvements with key 'spender' and value 'amount'.
 	mapping (address => mapping (address => uint256)) public allowance;
 
 	// function totalSupply() public constant returns (uint256 totalSupply) {
@@ -395,7 +395,7 @@ contract EduScience is Accessible {
   function votePopularity(bytes32 _title) public onlyExistingUser {
     // Check if data exists for this entry
     require (titleData[_title].time != 0);
-    // Can&#39;t increase your own popularity
+    // Can't increase your own popularity
     require (titleData[_title].publisher != msg.sender);
     // Make the transaction fee first
     require (tokenContract.transfer(msg.sender, titleData[_title].publisher, popularityFee));

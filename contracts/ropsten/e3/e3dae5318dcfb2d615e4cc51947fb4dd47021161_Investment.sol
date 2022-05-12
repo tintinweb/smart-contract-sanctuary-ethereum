@@ -14,7 +14,7 @@ library SafeMathLib{
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -114,7 +114,7 @@ contract Ownable {
  * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a4b584b494244434e6a44455e4e455e04444f5e">[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
- *      abstraction called a &#39;slice&#39;. A slice represents a part of a string -
+ *      abstraction called a 'slice'. A slice represents a part of a string -
  *      anything from the entire string to a single character, or even no
  *      characters at all (a 0-length slice). Since a slice only has to specify
  *      an offset and a length, copying and manipulating slices is a lot less
@@ -122,8 +122,8 @@ contract Ownable {
  *
  *      To further reduce gas costs, most functions on slice that need to return
  *      a slice modify the original one instead of allocating a new one; for
- *      instance, `s.split(".")` will return the text up to the first &#39;.&#39;,
- *      modifying s to only contain the remainder of the string after the &#39;.&#39;.
+ *      instance, `s.split(".")` will return the text up to the first '.',
+ *      modifying s to only contain the remainder of the string after the '.'.
  *      In situations where you do not want to modify the original slice, you
  *      can make a copy first with `.copy()`, for example:
  *      `s.copy().split(".")`. Try and avoid using this idiom in loops; since
@@ -141,7 +141,7 @@ contract Ownable {
  *
  *      For convenience, some functions are provided with non-modifying
  *      variants that create a new slice and return both; for instance,
- *      `s.splitNew(&#39;.&#39;)` leaves s unmodified, and returns two values
+ *      `s.splitNew('.')` leaves s unmodified, and returns two values
  *      corresponding to the left and right parts of the string.
  */
 
@@ -246,7 +246,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal pure returns (string) {
         string memory ret = new string(self._len);
@@ -847,7 +847,7 @@ contract UserData is Ownable {
     }
     
     /**
-     * @dev Investment contract has permission to modify user&#39;s holdings on a buy or sell.
+     * @dev Investment contract has permission to modify user's holdings on a buy or sell.
      * @param _beneficiary The user who is buying or selling tokens.
      * @param _cryptoIds The IDs of the cryptos being bought and sold.
      * @param _amounts The amount of each crypto being bought and sold.
@@ -2135,7 +2135,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -2145,7 +2145,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -2177,7 +2177,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -2200,7 +2200,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -2232,15 +2232,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -2277,13 +2277,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -2348,7 +2348,7 @@ contract Investment is Ownable, usingOraclize {
     // Even indices are normal cryptos, odd are inverses--empty string if either does not exist.
     string[] public cryptoSymbols;
 
-    // Balance of a user&#39;s free trades.
+    // Balance of a user's free trades.
     mapping(address => uint256) public freeTrades;
 
     event newOraclizeQuery(string description, bytes32 txHash, bytes32 queryId);
@@ -2417,7 +2417,7 @@ contract Investment is Ownable, usingOraclize {
 /** *************************** ApproveAndCall FallBack **************************** **/
   
     /**
-     * @dev ApproveAndCall will send us data, we&#39;ll determine if the beneficiary is the sender, then we&#39;ll call this contract.
+     * @dev ApproveAndCall will send us data, we'll determine if the beneficiary is the sender, then we'll call this contract.
     **/
     function receiveApproval(address _from, uint256 _amount, address _token, bytes _data) 
       public
@@ -2637,7 +2637,7 @@ contract Investment is Ownable, usingOraclize {
     
     /**
      * @dev For buys and sells we only want an approved broker or the buyer/seller
-     * @dev themselves to mess with the buyer/seller&#39;s portfolio
+     * @dev themselves to mess with the buyer/seller's portfolio
      * @param _beneficiary The buyer or seller whose portfolio is being modified
     **/
     modifier onlySenderOrToken(address _beneficiary)
@@ -2677,7 +2677,7 @@ contract Investment is Ownable, usingOraclize {
     {
         bytes32 txHash = keccak256(abi.encodePacked(_beneficiary, _cryptos, _amounts, _isCoin, _buy));
         if (oraclize_getPrice("URL") > address(this).balance) {
-            emit newOraclizeQuery("Oraclize query was NOT sent", txHash, &#39;0x0&#39;);
+            emit newOraclizeQuery("Oraclize query was NOT sent", txHash, '0x0');
         } else {
             string memory fullUrl = craftUrl(_cryptos, _isCoin);
             
@@ -2690,7 +2690,7 @@ contract Investment is Ownable, usingOraclize {
     /**
      * @dev Oraclize calls and should simply set the query array to the int results.
      * @param myid Unique ID of the Oraclize query, index for save idsAndAmts.
-     * @param result JSON string of CryptoCompare&#39;s return.
+     * @param result JSON string of CryptoCompare's return.
      * @param proof Proof of validity of the Oracle call--not used.
     **/
     function __callback(bytes32 myid, string result, bytes proof)
@@ -2754,7 +2754,7 @@ contract Investment is Ownable, usingOraclize {
     returns (uint256[] memory prices)
     {
         strings.slice memory s = _result.toSlice();
-        strings.slice memory delim = &#39;USD&#39;.toSlice();
+        strings.slice memory delim = 'USD'.toSlice();
         s.split(delim).toString();
 
         prices = new uint256[](_cryptos.length + 1);
@@ -2777,7 +2777,7 @@ contract Investment is Ownable, usingOraclize {
                 }
             }
             
-            // If the crypto is COIN or CASH buying itself we don&#39;t want it to split price (because CryptoCompare will only return the first query)
+            // If the crypto is COIN or CASH buying itself we don't want it to split price (because CryptoCompare will only return the first query)
             if ((prices[i+1] == 0 && _isCoin && (crypto == COIN_ID || crypto == COIN_INV)) ||
                 (prices[i+1] == 0 && !_isCoin && (crypto == CASH_ID || crypto == CASH_INV))) {
                 

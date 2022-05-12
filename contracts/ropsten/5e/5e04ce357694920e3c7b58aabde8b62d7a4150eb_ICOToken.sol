@@ -168,7 +168,7 @@ contract ERC20 is IERC20 {
 * @dev Approve the passed address to spend the specified amount of tokens on behafl of msg.sender.
 * Beware that changing an allowance with this method brings the risk that someone may use both the old
 * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-* race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+* race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
 * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
 * @param spender The address which will spend the funds.
 * @param value The amount of tokens to be spent.
@@ -271,7 +271,7 @@ contract ERC20 is IERC20 {
 
 /**
 * @dev Internal function that burns an amount of the token of a given
-* account, deducting from the sender&#39;s allowance for said account. Uses the
+* account, deducting from the sender's allowance for said account. Uses the
 * internal burn function.
 * @param account The account whose tokens will be burnt.
 * @param amount The amount that will be burnt.
@@ -502,7 +502,7 @@ contract ICOToken is ERC20, ERC20Burnable, Pausable, Ownable {
 * @dev Token transfer
 * @param to Address to transfer to
 * @param value Value to transfer
-* Overloaded function ERC20&#39;s transfer
+* Overloaded function ERC20's transfer
 */
     function transfer(address to,uint256 value)
     public
@@ -516,7 +516,7 @@ contract ICOToken is ERC20, ERC20Burnable, Pausable, Ownable {
 * @dev Approve the passed address to spend the specified amount of tokens on behafl of msg.sender.
 * @param spender The address which will spend
 * @param value The amount of tokens to be spent
-* Overloaded function ERC20&#39;s approve
+* Overloaded function ERC20's approve
 */
     function approve(address spender,uint256 value) 
     public
@@ -531,7 +531,7 @@ contract ICOToken is ERC20, ERC20Burnable, Pausable, Ownable {
 * @param from Address to transfer from
 * @param to Address to transfer to
 * @param value Value to transfer
-* Overload function ER20&#39;s transferFrom
+* Overload function ER20's transferFrom
 */
     function transferFrom(address from, address to, uint256 value)
     public
@@ -545,7 +545,7 @@ contract ICOToken is ERC20, ERC20Burnable, Pausable, Ownable {
 * @dev Increase Allowance
 * @param spender Adress which will spend fund
 * @param addedValue The amount of tokens to increase the allowance by.
-* Overload function ERC20&#39;s increaseAllowance
+* Overload function ERC20's increaseAllowance
 */
     function increaseAllowance(address spender, uint256 addedValue) 
     public 
@@ -559,7 +559,7 @@ contract ICOToken is ERC20, ERC20Burnable, Pausable, Ownable {
 * @dev Decrease the amount of tokens that an owner allowed to a spender.
 * @param spender The address which will spend the funds.
 * @param subtractedValue The amount of tokens to decrease the allowance by.
-* Overload function ERC20&#39;s decreaseAllowed
+* Overload function ERC20's decreaseAllowed
 */
     function decreaseAllowed(address spender, uint256 subtractedValue) 
     public
@@ -571,7 +571,7 @@ contract ICOToken is ERC20, ERC20Burnable, Pausable, Ownable {
 
 /**
 * @dev to pause, triggers stopped state
-* Overload fucntion ERC20Pausable&#39;s pause, only owner can call
+* Overload fucntion ERC20Pausable's pause, only owner can call
 */
     function pause() 
     public
@@ -582,7 +582,7 @@ contract ICOToken is ERC20, ERC20Burnable, Pausable, Ownable {
 
 /** 
 * @dev to unpause, returns to normal state 
-* Overload fucntion ERC20Pausable&#39;s unpause, only owner can call
+* Overload fucntion ERC20Pausable's unpause, only owner can call
 */
     function unpause() 
     public

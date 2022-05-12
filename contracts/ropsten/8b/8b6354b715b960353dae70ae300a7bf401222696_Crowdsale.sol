@@ -64,7 +64,7 @@ contract Crowdsale is Owned, SafeMath {
     address owner;
     address public tokenAddress;
     address public escrowAddress;
-    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.
+    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.
     
     //MyTestToken public token = new MyTestToken();
 

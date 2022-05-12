@@ -124,7 +124,7 @@ contract Airdrop is Ownable {
      */
 
     function whitelist(address[] _investorAddresses,uint256[] _tokenAmount) external onlyOwner {
-        require(_investorAddresses.length == _tokenAmount.length,"Input array&#39;s length mismatch");
+        require(_investorAddresses.length == _tokenAmount.length,"Input array's length mismatch");
         for (uint i = 0; i < _investorAddresses.length; i++) {
             whitelisted[_investorAddresses[i]] = true;
             investorDetails[_investorAddresses[i]] = Investor(_tokenAmount[i],false);
@@ -150,7 +150,7 @@ contract Airdrop is Ownable {
      * @return tokens Calling function to send the tokens
      */
     function airdropTokenDistributionMulti(address[] _investorsAdd, uint256[] _tokenVal) public onlyOwner  returns (bool success){
-        require(_investorsAdd.length == _tokenVal.length, "Input array&#39;s length mismatch");
+        require(_investorsAdd.length == _tokenVal.length, "Input array's length mismatch");
         for(uint i = 0; i < _investorsAdd.length; i++ ){
             require(airdropTokenDistribution(_investorsAdd[i], _tokenVal[i]));
         }

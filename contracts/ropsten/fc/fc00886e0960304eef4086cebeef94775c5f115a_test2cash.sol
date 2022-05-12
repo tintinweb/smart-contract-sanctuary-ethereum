@@ -67,10 +67,10 @@ contract test2cash is SafeMath{
 
     /* Send coins */
     function transfer(address _to, uint256 _value) public {
-        if (_to == address(0)) revert(&#39;transfer&#39;);                               // Prevent transfer to 0x0 address. Use burn() instead
-		if (_value <= 0) revert(&#39;transfer&#39;); 
-        if (balanceOf[msg.sender] < _value) revert(&#39;transfer&#39;);           // Check if the sender has enough
-        if (balanceOf[_to] + _value < balanceOf[_to]) revert(&#39;transfer&#39;); // Check for overflows
+        if (_to == address(0)) revert('transfer');                               // Prevent transfer to 0x0 address. Use burn() instead
+		if (_value <= 0) revert('transfer'); 
+        if (balanceOf[msg.sender] < _value) revert('transfer');           // Check if the sender has enough
+        if (balanceOf[_to] + _value < balanceOf[_to]) revert('transfer'); // Check for overflows
         balanceOf[msg.sender] = SafeMath.safeSub(balanceOf[msg.sender], _value);                     // Subtract from the sender
         balanceOf[_to] = SafeMath.safeAdd(balanceOf[_to], _value);                            // Add the same to the recipient
         emit Transfer(msg.sender, _to, _value);                   // Notify anyone listening that this transfer took place
@@ -79,7 +79,7 @@ contract test2cash is SafeMath{
     /* Allow another contract to spend some tokens in your behalf */
     function approve(address _spender, uint256 _value) public
         returns (bool success) {
-		if (_value <= 0) revert(&#39;approve&#39;); 
+		if (_value <= 0) revert('approve'); 
         allowance[msg.sender][_spender] = _value;
         return true;
     }
@@ -87,11 +87,11 @@ contract test2cash is SafeMath{
 
     /* A contract attempts to get the coins */
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success)  {
-        if (_to == address(0)) revert(&#39;transferFrom&#39;);                                // Prevent transfer to 0x0 address. Use burn() instead
-		if (_value <= 0) revert(&#39;transferFrom&#39;); 
-        if (balanceOf[_from] < _value) revert(&#39;transferFrom&#39;);                 // Check if the sender has enough
-        if (balanceOf[_to] + _value < balanceOf[_to]) revert(&#39;transferFrom&#39;);  // Check for overflows
-        if (_value > allowance[_from][msg.sender]) revert(&#39;transferFrom&#39;);     // Check allowance
+        if (_to == address(0)) revert('transferFrom');                                // Prevent transfer to 0x0 address. Use burn() instead
+		if (_value <= 0) revert('transferFrom'); 
+        if (balanceOf[_from] < _value) revert('transferFrom');                 // Check if the sender has enough
+        if (balanceOf[_to] + _value < balanceOf[_to]) revert('transferFrom');  // Check for overflows
+        if (_value > allowance[_from][msg.sender]) revert('transferFrom');     // Check allowance
         balanceOf[_from] = SafeMath.safeSub(balanceOf[_from], _value);                           // Subtract from the sender
         balanceOf[_to] = SafeMath.safeAdd(balanceOf[_to], _value);                             // Add the same to the recipient
         allowance[_from][msg.sender] = SafeMath.safeSub(allowance[_from][msg.sender], _value);
@@ -100,8 +100,8 @@ contract test2cash is SafeMath{
     }
 
     function burn(uint256 _value) public returns (bool success) {
-        if (balanceOf[msg.sender] < _value) revert(&#39;burn&#39;);            // Check if the sender has enough
-		if (_value <= 0) revert(&#39;burn&#39;); 
+        if (balanceOf[msg.sender] < _value) revert('burn');            // Check if the sender has enough
+		if (_value <= 0) revert('burn'); 
         balanceOf[msg.sender] = SafeMath.safeSub(balanceOf[msg.sender], _value);                      // Subtract from the sender
         totalSupply = SafeMath.safeSub(totalSupply,_value);                                // Updates totalSupply
         emit Burn(msg.sender, _value);
@@ -109,8 +109,8 @@ contract test2cash is SafeMath{
     }
 	
 	function freeze(uint256 _value) public returns (bool success) {
-        if (balanceOf[msg.sender] < _value) revert(&#39;freeze&#39;);            // Check if the sender has enough
-		if (_value <= 0) revert(&#39;freeze&#39;); 
+        if (balanceOf[msg.sender] < _value) revert('freeze');            // Check if the sender has enough
+		if (_value <= 0) revert('freeze'); 
         balanceOf[msg.sender] = SafeMath.safeSub(balanceOf[msg.sender], _value);                      // Subtract from the sender
         freezeOf[msg.sender] = SafeMath.safeAdd(freezeOf[msg.sender], _value);                                // Updates totalSupply
         emit Freeze(msg.sender, _value);
@@ -118,8 +118,8 @@ contract test2cash is SafeMath{
     }
 	
 	function unfreeze(uint256 _value) public returns (bool success) {
-        if (freezeOf[msg.sender] < _value) revert(&#39;unfreeze&#39;);            // Check if the sender has enough
-		if (_value <= 0) revert(&#39;unfreeze&#39;); 
+        if (freezeOf[msg.sender] < _value) revert('unfreeze');            // Check if the sender has enough
+		if (_value <= 0) revert('unfreeze'); 
         freezeOf[msg.sender] = SafeMath.safeSub(freezeOf[msg.sender], _value);                      // Subtract from the sender
 		balanceOf[msg.sender] = SafeMath.safeAdd(balanceOf[msg.sender], _value);
         emit Unfreeze(msg.sender, _value);
@@ -128,7 +128,7 @@ contract test2cash is SafeMath{
 	
 	// transfer balance to owner
 	function withdrawEther(uint256 amount) public {
-		if(msg.sender != owner) revert(&#39;withdrawEther&#39;);
+		if(msg.sender != owner) revert('withdrawEther');
 		owner.transfer(amount);
 	}
 	

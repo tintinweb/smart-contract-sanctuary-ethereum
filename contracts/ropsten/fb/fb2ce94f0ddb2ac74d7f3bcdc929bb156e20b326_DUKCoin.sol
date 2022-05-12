@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;DUK&#39; token contract
+// 'DUK' token contract
 //
 // Deployed to : 0x4D16BB6b1d67FcEd65cf0a83C7b5c82F90273ebc
 // Symbol      : DUK

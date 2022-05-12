@@ -70,7 +70,7 @@ contract Mortal is Ownable{
     }
     
     /**
-     * don&#39;t allow certain functions if playing has been stopped
+     * don't allow certain functions if playing has been stopped
      * */
     modifier active(){
         require(stopTS == 0, "playing has been stopped by the owner");

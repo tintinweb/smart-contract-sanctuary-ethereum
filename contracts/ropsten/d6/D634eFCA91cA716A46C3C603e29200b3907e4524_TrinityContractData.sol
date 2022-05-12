@@ -334,7 +334,7 @@ contract TrinityContractData is Owner{
 
         channelInfo.channelStatus = INIT;
 
-        // settle period have over and partner didn&#39;t provide final transaction information, contract will withdraw closer assets
+        // settle period have over and partner didn't provide final transaction information, contract will withdraw closer assets
         Mytoken.transfer(partnerA, updateBalanceA);
         Mytoken.transfer(partnerB, updateBalanceB);
 

@@ -42,7 +42,7 @@ library SafeMath {
   {
     uint256 c = _a / _b;
     // assert(b > 0); // Solidity automatically throws when dividing by 0
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -295,7 +295,7 @@ interface ERC721 {
 
   /**
    * @dev Enables or disables approval for a third party ("operator") to manage all of
-   * `msg.sender`&#39;s assets. It also emits the ApprovalForAll event.
+   * `msg.sender`'s assets. It also emits the ApprovalForAll event.
    * @notice The contract MUST allow multiple operators per owner.
    * @param _operator Address to add to the set of authorized operators.
    * @param _approved True if the operators is approved, false to revoke approval.
@@ -661,8 +661,8 @@ contract NFToken is Ownable, ERC721, SupportsInterface {
 
   /**
    * @dev Enables or disables approval for a third party ("operator") to manage all of
-   * `msg.sender`&#39;s assets. It also emits the ApprovalForAll event.
-   * @notice This works even if sender doesn&#39;t own any tokens at the time.
+   * `msg.sender`'s assets. It also emits the ApprovalForAll event.
+   * @notice This works even if sender doesn't own any tokens at the time.
    * @param _operator Address to add to the set of authorized operators.
    * @param _approved True if the operators is approved, false to revoke approval.
    */

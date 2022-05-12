@@ -54,7 +54,7 @@ contract Derivative {
 
     address factory;
 
-    // The derivative&#39;s attributes
+    // The derivative's attributes
     uint8 public leverage;
     uint256 public dueDate;
     uint256 public strikePrice;
@@ -65,10 +65,10 @@ contract Derivative {
     mapping(address => uint256) public stakes;
     uint256 public totalStakeAllTakers;
 
-    // The maker&#39;s attributes
+    // The maker's attributes
     address payable public maker;
 
-    // The taker&#39;s attributes
+    // The taker's attributes
     uint8 public numberOfTakers;
     uint256 public takerDeadline;
     uint256 public minTakerStake;
@@ -140,12 +140,12 @@ contract Derivative {
         factory = msg.sender;
         oracle = _oracle;
 
-        // Set maker&#39;s attributes:
+        // Set maker's attributes:
         maker = tx.origin;
         makerLong = _long;
         stakes[maker] = msg.value;
 
-        // Set derivative&#39;s attributes:
+        // Set derivative's attributes:
         strikePrice = _strikePrice;
         dueDate = _dueDate;
         leverage = _leverage;

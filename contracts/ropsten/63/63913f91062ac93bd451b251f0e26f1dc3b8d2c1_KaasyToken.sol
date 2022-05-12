@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;Kaasy&#39; CROWDSALE token contract
+// 'Kaasy' CROWDSALE token contract
 //
 // Deployed to : 0x63913f91062ac93Bd451b251f0E26F1dc3b8D2C1
 // Symbol      : KAAS
@@ -504,8 +504,8 @@ contract KaasyToken is ERC20Interface, Pausable, SafeMath {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     //  !! fund source is the address calling this function !!
     // ------------------------------------------------------------------------
@@ -522,7 +522,7 @@ contract KaasyToken is ERC20Interface, Pausable, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `destination` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -562,7 +562,7 @@ contract KaasyToken is ERC20Interface, Pausable, SafeMath {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the requester&#39;s account
+    // transferred to the requester's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address requester) public constant returns (uint remaining) {
         return allowed[tokenOwner][requester];
@@ -570,7 +570,7 @@ contract KaasyToken is ERC20Interface, Pausable, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `requester` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `requester` contract function
+    // from the token owner's account. The `requester` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address requester, uint tokens, bytes data) public whenNotPaused returns (bool success) {

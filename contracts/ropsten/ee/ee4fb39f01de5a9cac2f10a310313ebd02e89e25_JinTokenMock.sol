@@ -27,18 +27,18 @@ contract JinVestingRule {
   uint256 public crowdsaleStart; // Crowdsale
 
   constructor () public {
-    rules.push(Rule(&#39;PRESALE1&#39;,  1543622400, 20, 10)); // &#39;2018-12-01&#39; /* 私人配售 */
-    rules.push(Rule(&#39;PRESALE2&#39;,  1548979200, 20, 10)); // &#39;2019-02-01&#39;
-    rules.push(Rule(&#39;PRESALE3&#39;,  1554076800, 20, 10)); // &#39;2019-04-01&#39;
-    rules.push(Rule(&#39;PRESALE4&#39;,  1559347200, 20, 10)); // &#39;2019-06-01&#39;
-    rules.push(Rule(&#39;PRESALE5&#39;,  1564617600, 20, 10)); // &#39;2019-08-01&#39;
-    rules.push(Rule(&#39;CROWDSALE&#39;, 1567296000, 100, 0)); // &#39;2019-09-01&#39; /* 公開預售 */
-    rules.push(Rule(&#39;STARTUP&#39;,   1577836800, 10, 10)); // &#39;2020-01-01&#39; /* 創始團隊 */
-    rules.push(Rule(&#39;ANGELFUND&#39;, 1567296000, 10, 10)); // &#39;2019-09-01&#39; /* 天始投資 */
-    rules.push(Rule(&#39;TECHTEAM&#39;,  1567296000, 10, 10)); // &#39;2019-09-01&#39; /* 技術平台 */
+    rules.push(Rule('PRESALE1',  1543622400, 20, 10)); // '2018-12-01' /* 私人配售 */
+    rules.push(Rule('PRESALE2',  1548979200, 20, 10)); // '2019-02-01'
+    rules.push(Rule('PRESALE3',  1554076800, 20, 10)); // '2019-04-01'
+    rules.push(Rule('PRESALE4',  1559347200, 20, 10)); // '2019-06-01'
+    rules.push(Rule('PRESALE5',  1564617600, 20, 10)); // '2019-08-01'
+    rules.push(Rule('CROWDSALE', 1567296000, 100, 0)); // '2019-09-01' /* 公開預售 */
+    rules.push(Rule('STARTUP',   1577836800, 10, 10)); // '2020-01-01' /* 創始團隊 */
+    rules.push(Rule('ANGELFUND', 1567296000, 10, 10)); // '2019-09-01' /* 天始投資 */
+    rules.push(Rule('TECHTEAM',  1567296000, 10, 10)); // '2019-09-01' /* 技術平台 */
     ruleCount = rules.length;
 
-    crowdsaleStart = 1527897600; // &#39;2018-06-02&#39;
+    crowdsaleStart = 1527897600; // '2018-06-02'
   }
 }
 
@@ -250,7 +250,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -365,8 +365,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -383,7 +383,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -461,15 +461,15 @@ contract JinToken is
     uint256 jins = 0;
 
     jins = totalSupply_.div(100).mul(20);
-    assert(isStringEq(rules[6].name, &#39;STARTUP&#39;));
+    assert(isStringEq(rules[6].name, 'STARTUP'));
     _transferToLock(_startup, jins, 6);
 
     jins = totalSupply_.div(100).mul(15);
-    assert(isStringEq(rules[7].name, &#39;ANGELFUND&#39;));
+    assert(isStringEq(rules[7].name, 'ANGELFUND'));
     _transferToLock(_angelfund, jins, 7);
 
     jins = totalSupply_.div(100).mul(5);
-    assert(isStringEq(rules[8].name, &#39;TECHTEAM&#39;));
+    assert(isStringEq(rules[8].name, 'TECHTEAM'));
     _transferToLock(_techteam, jins, 8);
   }
 
@@ -501,7 +501,7 @@ contract JinToken is
     uint256 _type = 5;
 
     require(jins >= 0);
-    // assert(isStringEq(rules[_type].name, &#39;CROWDSALE&#39;));
+    // assert(isStringEq(rules[_type].name, 'CROWDSALE'));
 
     _transferToLock(user, jins, _type);
   }
@@ -558,13 +558,13 @@ contract JinToken is
     uint256 _type
   ) public validate(user, _type)
   returns (bool) {
-    // if (isStringEq(rules[_type].name, &#39;CROWDSALE&#39;)
-      // || isStringEq(rules[_type].name, &#39;PRESALE1&#39;)
-      // || isStringEq(rules[_type].name, &#39;PRESALE2&#39;)
-      // || isStringEq(rules[_type].name, &#39;PRESALE3&#39;)
-      // || isStringEq(rules[_type].name, &#39;PRESALE4&#39;)
-      // || isStringEq(rules[_type].name, &#39;PRESALE5&#39;)
-      // || isStringEq(rules[_type].name, &#39;STARTUP&#39;)) {
+    // if (isStringEq(rules[_type].name, 'CROWDSALE')
+      // || isStringEq(rules[_type].name, 'PRESALE1')
+      // || isStringEq(rules[_type].name, 'PRESALE2')
+      // || isStringEq(rules[_type].name, 'PRESALE3')
+      // || isStringEq(rules[_type].name, 'PRESALE4')
+      // || isStringEq(rules[_type].name, 'PRESALE5')
+      // || isStringEq(rules[_type].name, 'STARTUP')) {
 
       uint256 approved = approvedRatio(_type);
       uint256 availableToClaim =

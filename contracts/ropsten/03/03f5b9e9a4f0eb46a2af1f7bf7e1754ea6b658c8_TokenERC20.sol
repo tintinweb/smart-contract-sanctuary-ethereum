@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
  
@@ -47,8 +47,8 @@ contract owned {
     }
 
     /*
-    @notice Transer Ownership to &#39;newOwner&#39;.
-    @dev Transer Ownership to &#39;newOwner&#39;, the caller restricted to owner.
+    @notice Transer Ownership to 'newOwner'.
+    @dev Transer Ownership to 'newOwner', the caller restricted to owner.
     @param newOwner New owner address.
     */
     function transferOwnership(address newOwner) public onlyOwner {
@@ -106,10 +106,10 @@ contract TokenERC20 is owned {
         symbol = tokenSymbol;                               // Set the symbol for display purposes
     }
     /*
-    @notice Issue &#39;_value&#39; token to &#39;_to&#39;, the &#39;_value&#39; tokens was freeze,
-    and specify a freeze period is &#39;_freezePeriod&#39; day(s).
-    @dev Issue &#39;_value&#39; token to &#39;_to&#39;, the &#39;_value&#39; tokens was freeze,
-    and specify a freeze period is &#39;_freezePeriod&#39; day(s).
+    @notice Issue '_value' token to '_to', the '_value' tokens was freeze,
+    and specify a freeze period is '_freezePeriod' day(s).
+    @dev Issue '_value' token to '_to', the '_value' tokens was freeze,
+    and specify a freeze period is '_freezePeriod' day(s).
     @param _to Receiving address.
     @param _value Issue and freeze token amount.
     @param _freezePeriod Freeze Period(days).
@@ -126,8 +126,8 @@ contract TokenERC20 is owned {
     }
 
     /*
-    @notice Get Freeze Information of &#39;_target&#39;.
-    @dev Get Freeze Information of &#39;_target&#39;.
+    @notice Get Freeze Information of '_target'.
+    @dev Get Freeze Information of '_target'.
     @param _target Target address.
     @param _value Issue and freeze token amount.
     @return _freezeStartTime Freeze start time.
@@ -149,8 +149,8 @@ contract TokenERC20 is owned {
     }
 
     /*
-    @notice Transfer &#39;_value&#39; tokens to &#39;_to&#39;.
-    @dev Send &#39;_value&#39; tokens to &#39;_to&#39; from your account.
+    @notice Transfer '_value' tokens to '_to'.
+    @dev Send '_value' tokens to '_to' from your account.
     @param _to The address of the recipient.
     @param _value The token amount to send.
     */
@@ -160,7 +160,7 @@ contract TokenERC20 is owned {
 
     /*
     @notice Transfer tokens from other address.
-    @dev Send &#39;_value&#39; tokens to &#39;_to&#39; in behalf of &#39;_from&#39;.
+    @dev Send '_value' tokens to '_to' in behalf of '_from'.
     @param _from The address of the sender.
     @param _to The address of the recipient.
     @param _value The amount to send.
@@ -175,7 +175,7 @@ contract TokenERC20 is owned {
 
     /*
     @notice Set allowance for other address.
-    @dev Allows &#39;_spender&#39; to spend no more than &#39;_value&#39; tokens in your behalf.
+    @dev Allows '_spender' to spend no more than '_value' tokens in your behalf.
     @param _spender The address authorized to spend.
     @param _value The max amount they can spend.
     @return Whether succeed.
@@ -189,7 +189,7 @@ contract TokenERC20 is owned {
 
     /*
     @notice Set allowance for other address and notify
-    @dev Allows &#39;_spender&#39; to spend no more than &#39;_value&#39; tokens in your behalf, and then ping the contract about it.
+    @dev Allows '_spender' to spend no more than '_value' tokens in your behalf, and then ping the contract about it.
     @param _spender The address authorized to spend.
     @param _value The max amount they can spend.
     @param _extraData Some extra information to send to the approved contract.

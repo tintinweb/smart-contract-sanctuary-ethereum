@@ -165,9 +165,9 @@ contract BitrngDice {
   */
 
   // Game states:
-  //  betNAmount == 0 && gambler == 0 - &#39;clean&#39; (can place a bet)
-  //  betNAmount != 0 && gambler != 0 - &#39;active&#39; (can be settled or refunded)
-  //  betNAmount == 0 && gambler != 0 - &#39;processed&#39; (can clean storage)
+  //  betNAmount == 0 && gambler == 0 - 'clean' (can place a bet)
+  //  betNAmount != 0 && gambler != 0 - 'active' (can be settled or refunded)
+  //  betNAmount == 0 && gambler != 0 - 'processed' (can clean storage)
 
   // Betmask, total 22 bits.
   // <2bit big/small>
@@ -195,10 +195,10 @@ contract BitrngDice {
     require (bet1Amount + bet2Amount + bet3Amount + bet4Amount + bet5Amount == msg.value,
       "Place amount and payment should be equal.");
 
-    // Check that the game is in &#39;clean&#39; state.
+    // Check that the game is in 'clean' state.
     Game storage game = games[commit];
     require (game.gambler == address(0),
-      "Game should be in a &#39;clean&#39; state.");
+      "Game should be in a 'clean' state.");
 
     // Check that commit is valid - it has not expired and its signature is valid.
     // r = signature[0:64]
@@ -259,20 +259,20 @@ contract BitrngDice {
     address gambler = game.gambler;
     uint24 betMask = game.mask;
 
-    // Check that bet is in &#39;active&#39; state.
+    // Check that bet is in 'active' state.
     require (
       bet1Amount != 0 ||
       bet2Amount != 0 ||
       bet3Amount != 0 ||
       bet4Amount != 0 ||
       bet5Amount != 0,
-      "Bet should be in an &#39;active&#39; state");
+      "Bet should be in an 'active' state");
 
     // Check that bet has not expired yet (see comment to BET_EXPIRATION_BLOCKS).
     require (block.number > placeBlockNumber, "settleBet in the same block as placeBet, or before.");
-    require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+    require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
-    // Move bet into &#39;processed&#39; state already.
+    // Move bet into 'processed' state already.
     game.bet1Amount = 0;
     game.bet2Amount = 0;
     game.bet3Amount = 0;
@@ -330,7 +330,7 @@ contract BitrngDice {
   // in a situation like this, just contact the dice2.win support, however nothing
   // precludes you from invoking this method yourself.
   function refundBet(uint commit) external {
-    // Check that bet is in &#39;active&#39; state.
+    // Check that bet is in 'active' state.
     Game storage game = games[commit];
     uint bet1Amount = game.bet1Amount;
     uint bet2Amount = game.bet2Amount;
@@ -338,19 +338,19 @@ contract BitrngDice {
     uint bet4Amount = game.bet4Amount;
     uint bet5Amount = game.bet5Amount;
 
-    // Check that bet is in &#39;active&#39; state.
+    // Check that bet is in 'active' state.
     require (
       bet1Amount != 0 ||
       bet2Amount != 0 ||
       bet3Amount != 0 ||
       bet4Amount != 0 ||
       bet5Amount != 0,
-      "Bet should be in an &#39;active&#39; state");
+      "Bet should be in an 'active' state");
 
     // Check that bet has already expired.
-    require (block.number > game.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+    require (block.number > game.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
-    // Move bet into &#39;processed&#39; state already.
+    // Move bet into 'processed' state already.
     game.bet1Amount = 0;
     game.bet2Amount = 0;
     game.bet3Amount = 0;
@@ -372,7 +372,7 @@ contract BitrngDice {
     sendFunds(game.gambler, bet1Amount + bet2Amount + bet3Amount + bet4Amount + bet5Amount);
   }
 
-  // Helper routine to move &#39;processed&#39; bets into &#39;clean&#39; state.
+  // Helper routine to move 'processed' bets into 'clean' state.
   function clearProcessedBet(uint commit) private {
       Game storage game = games[commit];
 
@@ -675,7 +675,7 @@ contract BitrngDice {
       owner = nextOwner;
     }
 
-    // Fallback function deliberately left empty. It&#39;s primary use case
+    // Fallback function deliberately left empty. It's primary use case
     // is to top up the bank roll.
     function () public payable {
     }

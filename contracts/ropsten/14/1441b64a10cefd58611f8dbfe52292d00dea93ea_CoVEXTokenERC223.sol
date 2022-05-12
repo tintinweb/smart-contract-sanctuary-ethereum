@@ -45,7 +45,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -111,7 +111,7 @@ contract ERC223Token is ERC223Interface {
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      This function works the same with the previous one
-     *      but doesn&#39;t contain `_data` param.
+     *      but doesn't contain `_data` param.
      *      Added due to backwards compatibility reasons.
      *
      * @param _to    Receiver address.
@@ -233,7 +233,7 @@ contract CoVEXTokenERC223 is ERC223Token{
     function adminBurn(uint256 _value) public {
       require(_value <= balances[msg.sender]);
       // no need to require value <= totalSupply, since that would imply the
-      // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+      // sender's balance is greater than the totalSupply, which *should* be an assertion failure
       address burner = msg.sender;
       balances[burner] = balances[burner].sub(_value);
       totalSupply = totalSupply.sub(_value);

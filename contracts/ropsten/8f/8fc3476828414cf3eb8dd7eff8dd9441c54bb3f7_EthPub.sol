@@ -25,10 +25,10 @@ contract Ownable {
  * @author Yoshikazu Nishimura, G.U.Lab
  * @dev Digital rights management on Blockchain
  * @dev A content will be stored on any accessible storage encrypted by a "common" key.
- * @dev The "common" key is encrypted by an author&#39;s secret key, and get a "secret" key.
+ * @dev The "common" key is encrypted by an author's secret key, and get a "secret" key.
  * @dev This "secret" key is stored on the blockchain, but nobody other than the author can recover it.
  * @dev If an account obtained ownership (right to access a content) will receive encrypted common key
- * @dev by encrypting the "common" key by the account&#39;s public key.
+ * @dev by encrypting the "common" key by the account's public key.
  * @dev The ownership granted account can recover the original "common" key by decrypting it by his private key,
  * @dev and decrypt the content by using the "common" key recovered to get the original readable content.
  */
@@ -55,7 +55,7 @@ contract EthPub is Ownable{
     * @dev Newly publish a content
     * @param _contentHash bytes32 unique id of the content (it can be IPFS hash)
     * @param _contentPath string content path either of IPFS hash/path or web URL
-    * @param _contentSecret bytes32 [key used for content encryption] encrypted by the author&#39;s secret key
+    * @param _contentSecret bytes32 [key used for content encryption] encrypted by the author's secret key
     */
     function publish (bytes32 _contentHash, string _contentPath, bytes32 _contentSecret) public {
         require(contents[_contentHash].author == 0); // only if the content hash is not already used
@@ -69,7 +69,7 @@ contract EthPub is Ownable{
     * @dev Issue a content ownership a specified account
     * @param _to address address of an account who will obtain ownership of the content
     * @param _contentHash bytes32 unique id of the content (it can be IPFS hash)
-    * @param _key bytes32 a secret key encrypted by a new owner&#39;s public key
+    * @param _key bytes32 a secret key encrypted by a new owner's public key
     */
     function issue(address _to, bytes32 _contentHash, bytes32 _key) public onlyAuthor(_contentHash) {
         require(ownerships[_contentHash][_to] == 0); // only if the _to already has ownership
@@ -81,7 +81,7 @@ contract EthPub is Ownable{
     * @dev Transfer a content ownership from one to another account
     * @param _to address address of an account who will obtain ownership of the content
     * @param _contentHash bytes32 unique id of the content (it can be IPFS hash)
-    * @param _key bytes32 a secret key encrypted by a new owner&#39;s public key
+    * @param _key bytes32 a secret key encrypted by a new owner's public key
     */
     function transfer(address _to, bytes32 _contentHash, bytes32 _key) public {
         require(ownerships[_contentHash][msg.sender] != "");
@@ -91,10 +91,10 @@ contract EthPub is Ownable{
 
     /**
     * @dev Transfer a content authorship (right to issue content) from original author to another
-    * @dev (It&#39;s rarely used)
+    * @dev (It's rarely used)
     * @param _to address address of an account who will obtain authorship of the content
     * @param _contentHash bytes32 unique id of the content (it can be IPFS hash)
-    * @param _secret bytes32 [key used for content encryption] encrypted by the new author&#39;s secret key
+    * @param _secret bytes32 [key used for content encryption] encrypted by the new author's secret key
     */
     function transferAuthorship(address _to, bytes32 _contentHash, bytes32 _secret) public onlyAuthor(_contentHash) {
         contents[_contentHash].author = _to;

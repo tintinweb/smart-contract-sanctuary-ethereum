@@ -39,7 +39,7 @@ contract IERC721 is IERC165 {
     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
     /**
-     * @dev Returns the number of NFTs in `owner`&#39;s account.
+     * @dev Returns the number of NFTs in `owner`'s account.
      */
     function balanceOf(address owner) public view returns (uint256 balance);
 
@@ -111,7 +111,7 @@ contract IERC721Receiver {
 
 
 /**
- * @dev Wrappers over Solidity&#39;s arithmetic operations with added overflow
+ * @dev Wrappers over Solidity's arithmetic operations with added overflow
  * checks.
  *
  * Arithmetic operations in Solidity wrap on overflow. This can easily result
@@ -121,14 +121,14 @@ contract IERC721Receiver {
  * operation overflows.
  *
  * Using this library instead of the unchecked operations eliminates an entire
- * class of bugs, so it&#39;s recommended to use it always.
+ * class of bugs, so it's recommended to use it always.
  */
 library SafeMath {
     /**
      * @dev Returns the addition of two unsigned integers, reverting on
      * overflow.
      *
-     * Counterpart to Solidity&#39;s `+` operator.
+     * Counterpart to Solidity's `+` operator.
      *
      * Requirements:
      * - Addition cannot overflow.
@@ -144,7 +144,7 @@ library SafeMath {
      * @dev Returns the subtraction of two unsigned integers, reverting on
      * overflow (when the result is negative).
      *
-     * Counterpart to Solidity&#39;s `-` operator.
+     * Counterpart to Solidity's `-` operator.
      *
      * Requirements:
      * - Subtraction cannot overflow.
@@ -160,14 +160,14 @@ library SafeMath {
      * @dev Returns the multiplication of two unsigned integers, reverting on
      * overflow.
      *
-     * Counterpart to Solidity&#39;s `*` operator.
+     * Counterpart to Solidity's `*` operator.
      *
      * Requirements:
      * - Multiplication cannot overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -183,7 +183,7 @@ library SafeMath {
      * @dev Returns the integer division of two unsigned integers. Reverts on
      * division by zero. The result is rounded towards zero.
      *
-     * Counterpart to Solidity&#39;s `/` operator. Note: this function uses a
+     * Counterpart to Solidity's `/` operator. Note: this function uses a
      * `revert` opcode (which leaves remaining gas untouched) while Solidity
      * uses an invalid opcode to revert (consuming all remaining gas).
      *
@@ -194,7 +194,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0, "SafeMath: division by zero");
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -203,7 +203,7 @@ library SafeMath {
      * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
      * Reverts when dividing by zero.
      *
-     * Counterpart to Solidity&#39;s `%` operator. This function uses a `revert`
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
      * opcode (which leaves remaining gas untouched) while Solidity uses an
      * invalid opcode to revert (consuming all remaining gas).
      *
@@ -227,7 +227,7 @@ library Address {
      * @dev Returns true if `account` is a contract.
      *
      * This test is non-exhaustive, and there may be false-negatives: during the
-     * execution of a contract&#39;s constructor, its address will be reported as
+     * execution of a contract's constructor, its address will be reported as
      * not containing a contract.
      *
      * > It is unsafe to assume that an address for which this function returns
@@ -266,7 +266,7 @@ library Counters {
 
     struct Counter {
         // This variable should never be directly accessed by users of the library: interactions must be restricted to
-        // the library&#39;s function. As of Solidity v0.5.2, this cannot be enforced, though there is a proposal to add
+        // the library's function. As of Solidity v0.5.2, this cannot be enforced, though there is a proposal to add
         // this feature: see https://github.com/ethereum/solidity/issues/4637
         uint256 _value; // default: 0
     }
@@ -296,12 +296,12 @@ library Counters {
  */
 contract ERC165 is IERC165 {
     /*
-     * bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;)) == 0x01ffc9a7
+     * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
 
     /**
-     * @dev Mapping of interface ids to whether or not it&#39;s supported.
+     * @dev Mapping of interface ids to whether or not it's supported.
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -365,15 +365,15 @@ contract ERC721 is ERC165, IERC721 {
     mapping (address => mapping (address => bool)) private _operatorApprovals;
 
     /*
-     *     bytes4(keccak256(&#39;balanceOf(address)&#39;)) == 0x70a08231
-     *     bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) == 0x6352211e
-     *     bytes4(keccak256(&#39;approve(address,uint256)&#39;)) == 0x095ea7b3
-     *     bytes4(keccak256(&#39;getApproved(uint256)&#39;)) == 0x081812fc
-     *     bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) == 0xa22cb465
-     *     bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) == 0xe985e9c
-     *     bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) == 0x23b872dd
-     *     bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) == 0x42842e0e
-     *     bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;)) == 0xb88d4fde
+     *     bytes4(keccak256('balanceOf(address)')) == 0x70a08231
+     *     bytes4(keccak256('ownerOf(uint256)')) == 0x6352211e
+     *     bytes4(keccak256('approve(address,uint256)')) == 0x095ea7b3
+     *     bytes4(keccak256('getApproved(uint256)')) == 0x081812fc
+     *     bytes4(keccak256('setApprovalForAll(address,bool)')) == 0xa22cb465
+     *     bytes4(keccak256('isApprovedForAll(address,address)')) == 0xe985e9c
+     *     bytes4(keccak256('transferFrom(address,address,uint256)')) == 0x23b872dd
+     *     bytes4(keccak256('safeTransferFrom(address,address,uint256)')) == 0x42842e0e
+     *     bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)')) == 0xb88d4fde
      *
      *     => 0x70a08231 ^ 0x6352211e ^ 0x095ea7b3 ^ 0x081812fc ^
      *        0xa22cb465 ^ 0xe985e9c ^ 0x23b872dd ^ 0x42842e0e ^ 0xb88d4fde == 0x80ac58cd
@@ -667,9 +667,9 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
     mapping(uint256 => uint256) private _allTokensIndex;
 
     /*
-     *     bytes4(keccak256(&#39;totalSupply()&#39;)) == 0x18160ddd
-     *     bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) == 0x2f745c59
-     *     bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;)) == 0x4f6ccce7
+     *     bytes4(keccak256('totalSupply()')) == 0x18160ddd
+     *     bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) == 0x2f745c59
+     *     bytes4(keccak256('tokenByIndex(uint256)')) == 0x4f6ccce7
      *
      *     => 0x18160ddd ^ 0x2f745c59 ^ 0x4f6ccce7 == 0x780e9d63
      */
@@ -769,7 +769,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
     }
 
     /**
-     * @dev Private function to add a token to this extension&#39;s ownership-tracking data structures.
+     * @dev Private function to add a token to this extension's ownership-tracking data structures.
      * @param to address representing the new owner of the given token ID
      * @param tokenId uint256 ID of the token to be added to the tokens list of the given address
      */
@@ -779,7 +779,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
     }
 
     /**
-     * @dev Private function to add a token to this extension&#39;s token tracking data structures.
+     * @dev Private function to add a token to this extension's token tracking data structures.
      * @param tokenId uint256 ID of the token to be added to the tokens list
      */
     function _addTokenToAllTokensEnumeration(uint256 tokenId) private {
@@ -788,7 +788,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
     }
 
     /**
-     * @dev Private function to remove a token from this extension&#39;s ownership-tracking data structures. Note that
+     * @dev Private function to remove a token from this extension's ownership-tracking data structures. Note that
      * while the token is not assigned a new owner, the _ownedTokensIndex mapping is _not_ updated: this allows for
      * gas optimizations e.g. when performing a transfer operation (avoiding double writes).
      * This has O(1) time complexity, but alters the order of the _ownedTokens array.
@@ -796,7 +796,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
      * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
      */
     function _removeTokenFromOwnerEnumeration(address from, uint256 tokenId) private {
-        // To prevent a gap in from&#39;s tokens array, we store the last token in the index of the token to delete, and
+        // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
         uint256 lastTokenIndex = _ownedTokens[from].length.sub(1);
@@ -807,18 +807,18 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
             uint256 lastTokenId = _ownedTokens[from][lastTokenIndex];
 
             _ownedTokens[from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
-            _ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token&#39;s index
+            _ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
         }
 
         // This also deletes the contents at the last position of the array
         _ownedTokens[from].length--;
 
-        // Note that _ownedTokensIndex[tokenId] hasn&#39;t been cleared: it still points to the old slot (now occupied by
+        // Note that _ownedTokensIndex[tokenId] hasn't been cleared: it still points to the old slot (now occupied by
         // lastTokenId, or just over the end of the array if the token was the last one).
     }
 
     /**
-     * @dev Private function to remove a token from this extension&#39;s token tracking data structures.
+     * @dev Private function to remove a token from this extension's token tracking data structures.
      * This has O(1) time complexity, but alters the order of the _allTokens array.
      * @param tokenId uint256 ID of the token to be removed from the tokens list
      */
@@ -831,11 +831,11 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
 
         // When the token to delete is the last token, the swap operation is unnecessary. However, since this occurs so
         // rarely (when the last minted token is burnt) that we still do the swap here to avoid the gas cost of adding
-        // an &#39;if&#39; statement (like in _removeTokenFromOwnerEnumeration)
+        // an 'if' statement (like in _removeTokenFromOwnerEnumeration)
         uint256 lastTokenId = _allTokens[lastTokenIndex];
 
         _allTokens[tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
-        _allTokensIndex[lastTokenId] = tokenIndex; // Update the moved token&#39;s index
+        _allTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
 
         // This also deletes the contents at the last position of the array
         _allTokens.length--;
@@ -871,9 +871,9 @@ contract ERC721Metadata is ERC165, ERC721, IERC721Metadata {
     mapping(uint256 => string) private _tokenURIs;
 
     /*
-     *     bytes4(keccak256(&#39;name()&#39;)) == 0x06fdde03
-     *     bytes4(keccak256(&#39;symbol()&#39;)) == 0x95d89b41
-     *     bytes4(keccak256(&#39;tokenURI(uint256)&#39;)) == 0xc87b56dd
+     *     bytes4(keccak256('name()')) == 0x06fdde03
+     *     bytes4(keccak256('symbol()')) == 0x95d89b41
+     *     bytes4(keccak256('tokenURI(uint256)')) == 0xc87b56dd
      *
      *     => 0x06fdde03 ^ 0x95d89b41 ^ 0xc87b56dd == 0x5b5e139f
      */
@@ -978,7 +978,7 @@ library Roles {
     }
 
     /**
-     * @dev Remove an account&#39;s access to this role.
+     * @dev Remove an account's access to this role.
      */
     function remove(Role storage role, address account) internal {
         require(has(role, account), "Roles: account does not have role");

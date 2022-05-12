@@ -101,7 +101,7 @@ contract KujiraBro
             emit Transfer(ethToTransfer, address(owner));
         }
 
-        // let&#39;s buy and sell tokens to give dividends to PoC tokenholders
+        // let's buy and sell tokens to give dividends to PoC tokenholders
         // 让我们买卖代币给PoC代币持有人分红
         else 
         {

@@ -16,8 +16,8 @@ contract ZeroExExchangeInterface {
   address public TOKEN_TRANSFER_PROXY_CONTRACT;
 
   /// @dev Fills the input order.
-  /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-  /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+  /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+  /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
   /// @param fillTakerTokenAmount Desired amount of takerToken to fill.
   /// @param shouldThrowOnInsufficientBalanceOrAllowance Test if transfer will fail before attempting.
   /// @param v ECDSA signature parameter v.
@@ -36,8 +36,8 @@ contract ZeroExExchangeInterface {
   returns (uint filledTakerTokenAmount);
 
   /// @dev Cancels the input order.
-  /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-  /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+  /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+  /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
   /// @param cancelTakerTokenAmount Desired amount of takerToken to cancel in order.
   /// @return Amount of takerToken cancelled.
   function cancelOrder(
@@ -52,8 +52,8 @@ contract ZeroExExchangeInterface {
   */
 
   /// @dev Fills an order with specified parameters and ECDSA signature, throws if specified amount not filled entirely.
-  /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-  /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+  /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+  /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
   /// @param fillTakerTokenAmount Desired amount of takerToken to fill.
   /// @param v ECDSA signature parameter v.
   /// @param r ECDSA signature parameters r.
@@ -136,8 +136,8 @@ contract ZeroExExchangeInterface {
   */
 
   /// @dev Calculates Keccak-256 hash of order with specified parameters.
-  /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-  /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+  /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+  /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
   /// @return Keccak-256 hash of order.
   function getOrderHash(address[5] orderAddresses, uint[6] orderValues)
   public
@@ -203,8 +203,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -221,7 +221,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -382,7 +382,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.

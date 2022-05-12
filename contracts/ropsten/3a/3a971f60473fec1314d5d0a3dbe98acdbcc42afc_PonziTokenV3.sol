@@ -6,7 +6,7 @@ pragma solidity ^0.4.18;
 // 3. send 150000+ gas
 // That calls the getMeOutOfHere() method
 
-// Wacky version, 0-1 tokens takes 10eth (should be avg 200% gains), 1-2 takes another 30eth (avg 100% gains), and beyond that who the fuck knows but it&#39;s 50% gains
+// Wacky version, 0-1 tokens takes 10eth (should be avg 200% gains), 1-2 takes another 30eth (avg 100% gains), and beyond that who the fuck knows but it's 50% gains
 // 10% fees, price goes up crazy fast
 contract PonziTokenV3 {
 	uint256 constant PRECISION = 0x10000000000000000;  // 2^64
@@ -187,7 +187,7 @@ contract PonziTokenV3 {
 		totalSupply += numTokens;
 		// add numTokens to balance
 		balanceOfOld[sender] += numTokens;
-		// fix payouts so that sender doesn&#39;t get old earnings for the new tokens.
+		// fix payouts so that sender doesn't get old earnings for the new tokens.
 		// also add its buyerfee
 		var payoutDiff = (int256) ((earningsPerShare * numTokens) - buyerfee);
 		payouts[sender] += payoutDiff;

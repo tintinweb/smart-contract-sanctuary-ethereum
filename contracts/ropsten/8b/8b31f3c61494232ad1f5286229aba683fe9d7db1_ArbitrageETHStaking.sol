@@ -90,7 +90,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -150,7 +150,7 @@ contract ArbitrageETHStaking is Ownable {
     mapping(address => uint256) internal balanceLedger_; // users balance ledger
 
     // Configurations
-    uint256 minBuyIn = 0.001 ether; // can&#39;t buy less then 0.0001 ETH
+    uint256 minBuyIn = 0.001 ether; // can't buy less then 0.0001 ETH
     uint256 stakingPrecent = 2;
     uint256 internal globalFactor = 10e21; // global factor
     uint256 constant internal constantFactor = 10e21 * 10e21; // constant factor
@@ -217,7 +217,7 @@ contract ArbitrageETHStaking is Ownable {
         public
     {
         address _customerAddress = msg.sender;
-        // Set the sell amount to the user&#39;s full balance, don&#39;t sell if empty
+        // Set the sell amount to the user's full balance, don't sell if empty
         uint256 _sellEth = ethBalanceOf(_customerAddress);
         require(_sellEth > 0, "user cant call withdraw, when holds nothing");
         // Transfer balance and update user ledgers

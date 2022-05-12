@@ -3,7 +3,7 @@ pragma solidity >=0.4.0 <0.6.0;
 contract MainContract {
 
     address public owner;
-    bytes32 public code = &#39;&#39;;
+    bytes32 public code = '';
 
     constructor() public {
         owner = msg.sender;
@@ -14,13 +14,13 @@ contract MainContract {
     }
 
     function escrow(address created_address) public returns (bool) {
-        require (keccak256(at(created_address)) == code, &#39;not valid&#39;);
+        require (keccak256(at(created_address)) == code, 'not valid');
         created_address.transfer(address(this).balance);
         return true;
     }
 
     function setCode(bytes32 _code) public returns (bool) {
-        require (code == &#39;&#39;);
+        require (code == '');
         code = _code;
         return true;
     }

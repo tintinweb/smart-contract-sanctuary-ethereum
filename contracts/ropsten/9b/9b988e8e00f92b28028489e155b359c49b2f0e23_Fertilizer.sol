@@ -9,7 +9,7 @@ contract Prosperity {
     function buy(address _referredBy) public payable returns(uint256);
     
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvest() public;
     

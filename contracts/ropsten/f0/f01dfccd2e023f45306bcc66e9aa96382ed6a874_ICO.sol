@@ -33,7 +33,7 @@ contract BasicToken is ERC20Basic {
 
      * @dev The balanceOf function returns the balance of the queried address. This is a constant time function as 
 
-     * it has the &#39;view&#39; keyword meaning that this function can only read from the contract and not write to it. 
+     * it has the 'view' keyword meaning that this function can only read from the contract and not write to it. 
 
      * @param _who The address which will be queried
 
@@ -94,7 +94,7 @@ contract StandardToken is ERC20, BasicToken {
 
      * @dev The allowance() funtion gets the total amount of tokens which an owner address has allowed a spender 
 
-     * address to spend from the owner&#39;s balance.
+     * address to spend from the owner's balance.
 
      * @param _owner The address of the owner 
 
@@ -114,7 +114,7 @@ contract StandardToken is ERC20, BasicToken {
 
     /**
 
-     * @dev The approve() function lets the owner of tokens (i.e. the &#39;msg.sender&#39;) to allow a spender 
+     * @dev The approve() function lets the owner of tokens (i.e. the 'msg.sender') to allow a spender 
 
      * to spend up to a certain amount of tokens on behalf of the owner. 
 
@@ -146,9 +146,9 @@ contract StandardToken is ERC20, BasicToken {
 
      * owner which has previously approved the spender to transfer up to a certain amount of tokens from 
 
-     * the owner&#39;s balance. 
+     * the owner's balance. 
 
-     * @param _from This is the owner&#39;s address
+     * @param _from This is the owner's address
 
      * @param _to The address which will be receiving the tokens
 
@@ -252,7 +252,7 @@ contract Ownable {
 
      * @dev Allows the owner of the contract to transfer ownership to another address.
 
-     * Notice how this function has the &#39;onlyOwner&#39; modifier. This ensures that only 
+     * Notice how this function has the 'onlyOwner' modifier. This ensures that only 
 
      * the owner can invoke this function. 
 
@@ -306,7 +306,7 @@ contract ICO is Ownable{
 
     constructor() public {
 
-        //STEP 8 - instantiate a new instance of the HackSussexCoin in the HSC variable using the &#39;new&#39; keyword 
+        //STEP 8 - instantiate a new instance of the HackSussexCoin in the HSC variable using the 'new' keyword 
 
         HSC = new HackSussexCoin();
 
@@ -341,7 +341,7 @@ contract ICO is Ownable{
 
      * @dev Allows for the sale of tokens to be made in exchange for ETH. Notice the 
 
-     * &#39;payable&#39; modifier. This modifier basically states that this function can also accept 
+     * 'payable' modifier. This modifier basically states that this function can also accept 
 
      * ETH. 
 
@@ -355,31 +355,31 @@ contract ICO is Ownable{
 
     function buyTokens(address _investor) public payable returns(bool) {
 
-        //STEP 12 - using &#39;require()&#39; check that the address is not &#39;0x000...00&#39;. This can be simplified to 
+        //STEP 12 - using 'require()' check that the address is not '0x000...00'. This can be simplified to 
 
-        //&#39;address(0)&#39; or &#39;0x0&#39;.
+        //'address(0)' or '0x0'.
         
         require(_investor != address(0));
 
         
 
-        //STEP 13 - using &#39;require()&#39; check that the investor has invested a non-zero value. This check can 
+        //STEP 13 - using 'require()' check that the investor has invested a non-zero value. This check can 
 
         //be made with msg.value 
         
         require(msg.value != 0);
         
 
-        //STEP 14 - using &#39;require()&#39; check that the deadline of 30 days has not already passed. Here&#39;s a 
+        //STEP 14 - using 'require()' check that the deadline of 30 days has not already passed. Here's a 
 
-        //hint, use the &#39;now&#39; keyword when checking for this condition
+        //hint, use the 'now' keyword when checking for this condition
 
         require(now < deadline);
         
 
-        //STEP 15 - create a variable called &#39;toSend&#39; and assign it the amount of tokens to send to the 
+        //STEP 15 - create a variable called 'toSend' and assign it the amount of tokens to send to the 
 
-        //investor using a simple calculation involving the &#39;rate&#39; and the &#39;msg.value&#39;
+        //investor using a simple calculation involving the 'rate' and the 'msg.value'
 
 
         uint toSend = msg.value * rate;
@@ -389,7 +389,7 @@ contract ICO is Ownable{
 
         HSC.transfer(_investor, toSend);
 
-        //STEP 17 - update the &#39;investments&#39; mapping with the total amount of ETH the investor has invested
+        //STEP 17 - update the 'investments' mapping with the total amount of ETH the investor has invested
 
         investments[_investor] += msg.value;
         
@@ -415,9 +415,9 @@ contract ICO is Ownable{
 
      * it is bascically a defualt function which the contract falls back on when the contract does not know 
 
-     * what else to do. Notice how this function is &#39;payable&#39; which means it can accept ETH and that it also 
+     * what else to do. Notice how this function is 'payable' which means it can accept ETH and that it also 
 
-     * invokes the &#39;buyTokens()&#39; function whilst passing the address of the msg.sender. This is useful because 
+     * invokes the 'buyTokens()' function whilst passing the address of the msg.sender. This is useful because 
 
      * there is now a way to automate the token purchasing process. All the investor has to do is send ETH to 
 
@@ -435,7 +435,7 @@ contract ICO is Ownable{
 
     
 
-    //STEP 19 - add the &#39;onlyOwner&#39; modifier to the &#39;withdrawETH&#39; function to ensure that only the owner 
+    //STEP 19 - add the 'onlyOwner' modifier to the 'withdrawETH' function to ensure that only the owner 
 
     //can withdraw ETH from the contract
     
@@ -452,7 +452,7 @@ contract ICO is Ownable{
 
     function withdrawETH() public onlyOwner returns(bool) {
 
-        //STEP 20 - using &#39;require()&#39; check that the softCap has been reached (we don&#39;t want the owner 
+        //STEP 20 - using 'require()' check that the softCap has been reached (we don't want the owner 
 
         //to pull off some fraudulent activities such as exit scams)
 
@@ -465,9 +465,9 @@ contract ICO is Ownable{
 
         //This is a slighly complicated line of code so here are some hints of keywords and functions to use:  
 
-        //&#39;owner&#39;, the &#39;transfer()&#39; function, and the balance member of the &#39;address&#39; type (think of the addres
+        //'owner', the 'transfer()' function, and the balance member of the 'address' type (think of the addres
 
-        //of &#39;this&#39; contract)
+        //of 'this' contract)
         
         HSC.transfer(owner, address (this).balance);
         
@@ -497,18 +497,18 @@ contract ICO is Ownable{
 
     function claimRefund() public returns(bool) {
 
-        //STEP 22 - using &#39;require()&#39; check that the investor has and investment value in the &#39;investments&#39; 
+        //STEP 22 - using 'require()' check that the investor has and investment value in the 'investments' 
 
         //mapping which is > 0.
 
         require(investments[msg.sender] > 0);
         
 
-        //STEP 23 - using &#39;require()&#39; check that the deadline of the ICO has passed and that the softCap has not been reached
+        //STEP 23 - using 'require()' check that the deadline of the ICO has passed and that the softCap has not been reached
 
         require(deadline < now);
 
-        //STEP 24 - create a variable called &#39;toRefund&#39; of type uint and assign it the value which the 
+        //STEP 24 - create a variable called 'toRefund' of type uint and assign it the value which the 
 
         //investor has contributed. 
 
@@ -518,9 +518,9 @@ contract ICO is Ownable{
 
         investments[msg.sender] = 0;
 
-        //STEP 26 - transfer the value stored in &#39;toRefund&#39; to the investor. Here is a hint, use msg.sender, 
+        //STEP 26 - transfer the value stored in 'toRefund' to the investor. Here is a hint, use msg.sender, 
 
-        //and the &#39;transfer()&#39; function 
+        //and the 'transfer()' function 
 
         HSC.transfer(msg.sender, toRefund);
 
@@ -532,7 +532,7 @@ contract ICO is Ownable{
 
     
 
-    //STEP 27 - add the &#39;onlyOwner&#39; modifier to the &#39;withdrawTokens&#39; function to ensure that only the owner 
+    //STEP 27 - add the 'onlyOwner' modifier to the 'withdrawTokens' function to ensure that only the owner 
 
     //can withdraw ETH from the contract
 
@@ -552,21 +552,21 @@ contract ICO is Ownable{
 
     function withdrawTokens(address _recipient, uint _value) public onlyOwner returns(bool) {
 
-        //STEP 28 - using &#39;require()&#39; check that the _recipient is not &#39;0x000...00&#39;. This can be simplified to 
+        //STEP 28 - using 'require()' check that the _recipient is not '0x000...00'. This can be simplified to 
 
-        //&#39;address(0)&#39; or &#39;0x0&#39;.
+        //'address(0)' or '0x0'.
         
         require(_recipient != address(0));
         
 
         
 
-        //STEP 29 - using &#39;require()&#39; check that _value is > 0
+        //STEP 29 - using 'require()' check that _value is > 0
 
         require(_value > 0);        
 
 
-        //STEP 30 - invoke the &#39;transfer()&#39; function of the HSC object with the appropriate arguments
+        //STEP 30 - invoke the 'transfer()' function of the HSC object with the appropriate arguments
 
         HSC.transfer(_recipient, _value);
         

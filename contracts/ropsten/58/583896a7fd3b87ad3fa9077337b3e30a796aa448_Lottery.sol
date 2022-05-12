@@ -11,12 +11,12 @@ contract Lottery {
     
     function enterContract() public {
         participants[count] = msg.sender;
-        wagerAmount += msg.value;   //Add participant&#39;s waged amount
+        wagerAmount += msg.value;   //Add participant's waged amount
         count += 1;
         //Have enough participants when count = 4, call random
         if(count == 4){
             uint winner = random()%5;
-            //Send wagerAmount to winner&#39;s address
+            //Send wagerAmount to winner's address
             participants[winner].transfer(wagerAmount);
             wagerAmount = 0;
             count = 0;

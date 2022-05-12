@@ -185,7 +185,7 @@ contract Auction {
 
     function restart () internal {
 
-        // if it&#39;s time to start a new round, then do it
+        // if it's time to start a new round, then do it
         if (now > currentEnd) {
 
             balanceOf[currentLeader] = 0;

@@ -100,7 +100,7 @@ contract Exchange is Ownable {
         _;
     }
     
-    // check if order life time doesn&#39;t end
+    // check if order life time doesn't end
     modifier isOpen(uint _index) {
         require(block.timestamp < orders[_index].createdAt + orders[_index].lifeTime);
         _;

@@ -153,7 +153,7 @@ contract CryptoContracts {
             b.betName = betName;
     }
 
-    //Note: user can only bet 0 or 2, can&#39;t bet tie (1)
+    //Note: user can only bet 0 or 2, can't bet tie (1)
     function placeBet(uint gameId, uint BetId, string externalId) payable public onlyLive(gameId) returns (bool success) {
         Game storage a = games[gameId];
         //limit bet price range, but user can bet multiple times to exceed max

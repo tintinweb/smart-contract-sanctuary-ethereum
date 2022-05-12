@@ -56,14 +56,14 @@ contract  AcceptEth {
 
         balance[msg.sender] -= amountRequested;
 
-        msg.sender.transfer(amountRequested); // contract transfers ether to msg.sender&#39;s address
+        msg.sender.transfer(amountRequested); // contract transfers ether to msg.sender's address
     }
 }
 
 contract Nonpayable {
 
   // ------------------------------------------------------------------------
-  // Don&#39;t accept ETH
+  // Don't accept ETH
   // ------------------------------------------------------------------------
   function () public payable {
     revert();

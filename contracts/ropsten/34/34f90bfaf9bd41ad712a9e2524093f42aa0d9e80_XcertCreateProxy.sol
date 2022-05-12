@@ -22,8 +22,8 @@ library SafeMath
     pure
     returns (uint256 product)
   {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_factor1 == 0)
     {
@@ -51,7 +51,7 @@ library SafeMath
     // Solidity automatically asserts when dividing by 0, using all gas.
     require(_divisor > 0);
     quotient = _dividend / _divisor;
-    // assert(_dividend == _divisor * quotient + _dividend % _divisor); // There is no case in which this doesn&#39;t hold.
+    // assert(_dividend == _divisor * quotient + _dividend % _divisor); // There is no case in which this doesn't hold.
   }
 
   /**

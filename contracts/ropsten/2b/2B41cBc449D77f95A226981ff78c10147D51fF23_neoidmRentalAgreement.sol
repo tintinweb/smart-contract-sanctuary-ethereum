@@ -68,7 +68,7 @@ contract neoidmRentalAgreement {
         _;
     }
     modifier onlyTenant() {
-        require (msg.sender == tenant, "It&#39;s not tenant");
+        require (msg.sender == tenant, "It's not tenant");
         _;
     }
     modifier inState(State _state) {

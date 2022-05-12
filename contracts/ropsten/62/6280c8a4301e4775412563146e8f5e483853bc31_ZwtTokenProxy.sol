@@ -40,7 +40,7 @@ contract Proxy {
 
   /**
    * @dev Delegates execution to an implementation contract.
-   * This is a low level function that doesn&#39;t return to its internal call site.
+   * This is a low level function that doesn't return to its internal call site.
    * It will return to the external caller whatever the implementation returns.
    * @param implementation Address to delegate.
    */
@@ -52,7 +52,7 @@ contract Proxy {
       calldatacopy(0, 0, calldatasize)
 
       // Call the implementation.
-      // out and outsize are 0 because we don&#39;t know the size yet.
+      // out and outsize are 0 because we don't know the size yet.
       let result := delegatecall(gas, implementation, 0, calldatasize, 0, 0)
 
       // Copy the returned data.

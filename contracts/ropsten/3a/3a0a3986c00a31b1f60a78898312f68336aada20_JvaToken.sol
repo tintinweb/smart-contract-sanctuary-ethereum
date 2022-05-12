@@ -32,8 +32,8 @@ contract JvaToken is owned {
     uint                         public totalSupply;
     mapping (address => uint256) public balanceOf;
 
-    string  public standard    = &#39;Token 0.1&#39;;
-    string  public name        = &#39;LinkMTesting-JVA&#39;;
+    string  public standard    = 'Token 0.1';
+    string  public name        = 'LinkMTesting-JVA';
     string  public symbol      = "JVA";
     uint8   public decimals    = 8;
 

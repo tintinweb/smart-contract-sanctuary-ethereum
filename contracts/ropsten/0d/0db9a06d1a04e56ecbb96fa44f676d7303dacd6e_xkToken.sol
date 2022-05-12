@@ -40,7 +40,7 @@ contract xkToken {
         return balances[_owner];
     }
  
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to,uint256 _amount)public returns (bool success) {
     require(_to != address(0));
     require(_amount > 0 && _amount <= balances[msg.sender]);
@@ -82,7 +82,7 @@ contract xkToken {
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] -= _value;                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         _totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;

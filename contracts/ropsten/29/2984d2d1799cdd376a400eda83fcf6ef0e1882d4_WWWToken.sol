@@ -170,7 +170,7 @@ contract TokenERC20 is owned {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -264,6 +264,6 @@ contract WWWToken is TokenERC20 {
     /// @param amount amount of ETH to be harvested
     function harvest(uint256 amount) onlyOwner public {
         require(this.balance >= amount);      // checks if the contract has enough ether to buy
-        msg.sender.transfer(amount);          // sends ether to you. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount);          // sends ether to you. It's important to do this last to avoid recursion attacks
     }
 }

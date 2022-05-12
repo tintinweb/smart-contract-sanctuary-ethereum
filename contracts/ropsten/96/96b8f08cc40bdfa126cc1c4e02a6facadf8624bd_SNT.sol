@@ -99,7 +99,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -211,7 +211,7 @@ contract DynamicCeiling is Owned {
     /// @notice Anybody can reveal the next curve if he knows it.
     /// @param _limit Ceiling cap.
     ///  (must be greater or equal to the previous one).
-    /// @param _last `true` if it&#39;s the last curve.
+    /// @param _last `true` if it's the last curve.
     /// @param _salt Random number used to commit the curve
     function revealCurve(uint256 _limit, uint256 _slopeFactor, uint256 _collectMinimum,
                          bool _last, bytes32 _salt) public {
@@ -289,7 +289,7 @@ contract DynamicCeiling is Owned {
 
     /// @notice Calculates the hash of a curve.
     /// @param _limit Ceiling cap.
-    /// @param _last `true` if it&#39;s the last curve.
+    /// @param _last `true` if it's the last curve.
     /// @param _salt Random number that will be needed to reveal this curve.
     /// @return The calculated hash of this curve to be used in the `setHiddenCurves` method
     function calculateHash(uint256 _limit, uint256 _slopeFactor, uint256 _collectMinimum,
@@ -326,8 +326,8 @@ contract DynamicCeiling is Owned {
 
 /// @title MiniMeToken Contract
 /// @author Jordi Baylina
-/// @dev This token contract&#39;s goal is to make it easy for anyone to clone this
-///  token using the token distribution at a given block, this will allow DAO&#39;s
+/// @dev This token contract's goal is to make it easy for anyone to clone this
+///  token using the token distribution at a given block, this will allow DAO's
 ///  and DApps to upgrade their features in a decentralized manner without
 ///  affecting the original token
 /// @dev It is ERC20 compliant, but still needs to under go further testing.
@@ -383,10 +383,10 @@ contract ApproveAndCallFallBack {
 ///  token controller contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Controlled {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
-    string public version = &#39;MMT_0.1&#39;; //An arbitrary versioning scheme
+    string public version = 'MMT_0.1'; //An arbitrary versioning scheme
 
 
     /// @dev `Checkpoint` is the structure that attaches a block number to a
@@ -549,7 +549,7 @@ contract MiniMeToken is Controlled {
            return true;
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) constant returns (uint256 balance) {
         return balanceOfAt(_owner, getBlockNumber());
@@ -825,7 +825,7 @@ contract MiniMeToken is Controlled {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token controller contract
     function ()  payable {

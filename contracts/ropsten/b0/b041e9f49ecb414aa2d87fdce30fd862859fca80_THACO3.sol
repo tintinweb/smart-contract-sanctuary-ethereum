@@ -78,7 +78,7 @@ contract THACO3 is EIP20Interface, Owned {
         symbol = "THC2";
     }
     
-    // need count totalsupply function that doesn&#39;t cost lot of gases
+    // need count totalsupply function that doesn't cost lot of gases
     function totalSupply() public view returns (uint256) {
         return totalSupply_;
     }

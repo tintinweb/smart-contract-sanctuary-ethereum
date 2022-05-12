@@ -36,7 +36,7 @@ contract Pay {
 
     function Pay() {
         totalSupply = 15000000000;
-        symbol = &#39;PAY&#39;;
+        symbol = 'PAY';
         owner = 0xf2b75149a1b2901768bde68b9dfc95d19e75a2a8;
         balances[owner] = totalSupply;
         decimals = 2;

@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -170,7 +170,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -300,7 +300,7 @@ contract StandardToken is ERC20, BasicToken {
     /**
      * @dev Allows a delegate to submit a transaction on behalf of the token holder.
      * @param _signature The signature, issued by the token holder.
-     * @param _to The recipient&#39;s address.
+     * @param _to The recipient's address.
      * @param _value The amount of tokens to be transferred.
      * @param _fee The amount of tokens paid to the delegate for gas costs.
      * @param _nonce The transaction number.
@@ -322,7 +322,7 @@ contract StandardToken is ERC20, BasicToken {
         //Create a hash of the transaction details
         bytes32 hashedTx = _transferPreSignedHashing(_to, _value, _fee, _nonce);
 
-        //Obtain the token holder&#39;s address and check balance
+        //Obtain the token holder's address and check balance
         address from = _recover(hashedTx, _signature);
         require(from == _from);
         uint256 total = _value.add(_fee);
@@ -374,10 +374,10 @@ contract StandardToken is ERC20, BasicToken {
     }
 
     /**
-     * @dev Validate the transaction information and recover the token holder&#39;s address.
+     * @dev Validate the transaction information and recover the token holder's address.
      * @param _hash A prefixed version of the hash used in the original signed message.
      * @param _sig The signature submitted by the token holder.
-     * @return The token holder/transaction signer&#39;s address.
+     * @return The token holder/transaction signer's address.
      */
     function _recover(bytes32 _hash, bytes _sig) internal pure returns (address) {
         bytes32 r;
@@ -451,7 +451,7 @@ contract TaxedToken is ERC865BasicToken {
     }
 
     /**
-     * @dev Provides a taxed transfer on StandardToken&#39;s transferFrom() function
+     * @dev Provides a taxed transfer on StandardToken's transferFrom() function
      * @param _from The address providing allowance to spend
      * @param _to The receiving address.
      * @param _value The number of tokens to transfer.
@@ -666,7 +666,7 @@ contract BlockWRKToken is TaxedToken, Authorizable {
     /**
      * @dev Allows App to distribute WRK tokens to users.
      * This function will be called by authorized from within the App.
-     * @param _to The recipient&#39;s BlockWRK address.
+     * @param _to The recipient's BlockWRK address.
      * @param _value The amount of WRK to transfer.
      */
     function inAppTokenDistribution(
@@ -687,7 +687,7 @@ contract BlockWRKToken is TaxedToken, Authorizable {
     /**
      * @dev Allows App to process fiat payments for WRK tokens, charging a fee in WRK.
      * This function will be called by authorized from within the App.
-     * @param _to The buyer&#39;s BlockWRK address.
+     * @param _to The buyer's BlockWRK address.
      * @param _value The amount of WRK to transfer.
      * @param _fee The fee charged in WRK for token purchase.
      */

@@ -3,7 +3,7 @@ pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
 
-// &#39;0xBitcoin Token&#39; contract
+// '0xBitcoin Token' contract
 
 // Mineable ERC20 Token using Proof Of Work
 
@@ -209,7 +209,7 @@ contract _0xBitcoinToken is ERC20Interface, Owned {
     uint public latestDifficultyPeriodStarted;
 
 
-    //number of &#39;blocks&#39; mined
+    //number of 'blocks' mined
     uint public epochCount;
 
 
@@ -294,7 +294,7 @@ contract _0xBitcoinToken is ERC20Interface, Owned {
 
 
             //the PoW must contain work that includes a recent ethereum block hash (challenge number)
-            //and the msg.sender&#39;s address to prevent MITM attacks
+            //and the msg.sender's address to prevent MITM attacks
             bytes32 digest =  keccak256(challengeNumber, msg.sender, nonce );
 
             //the challenge digest must match the expected
@@ -335,7 +335,7 @@ contract _0xBitcoinToken is ERC20Interface, Owned {
         }
 
 
-    //a new &#39;block&#39; to be mined
+    //a new 'block' to be mined
     function _startNewMiningEpoch() internal {
 
       //if max supply for the era will be exceeded next reward round then enter the new era before that happens
@@ -384,7 +384,7 @@ contract _0xBitcoinToken is ERC20Interface, Owned {
         uint ethBlocksSinceLastDifficultyPeriod = block.number - latestDifficultyPeriodStarted;
         //assume 360 ethereum blocks per hour
 
-        //we want miners to spend 10 minutes to mine each &#39;block&#39;, about 60 ethereum blocks = one 0xbitcoin epoch
+        //we want miners to spend 10 minutes to mine each 'block', about 60 ethereum blocks = one 0xbitcoin epoch
         uint epochsMined = _BLOCKS_PER_READJUSTMENT; //1024
 
         uint targetEthBlocksPerDiffPeriod = epochsMined * 60; //should be 60 times slower than ethereum
@@ -501,9 +501,9 @@ contract _0xBitcoinToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
 
-    // Transfer the balance from token owner&#39;s account to `to` account
+    // Transfer the balance from token owner's account to `to` account
 
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // - Owner's account must have sufficient balance to transfer
 
     // - 0 value transfers are allowed
 
@@ -527,7 +527,7 @@ contract _0xBitcoinToken is ERC20Interface, Owned {
 
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
 
-    // from the token owner&#39;s account
+    // from the token owner's account
 
     //
 
@@ -589,7 +589,7 @@ contract _0xBitcoinToken is ERC20Interface, Owned {
 
     // Returns the amount of tokens approved by the owner that can be
 
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
 
     // ------------------------------------------------------------------------
 
@@ -605,7 +605,7 @@ contract _0xBitcoinToken is ERC20Interface, Owned {
 
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
 
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
 
     // `receiveApproval(...)` is then executed
 
@@ -627,7 +627,7 @@ contract _0xBitcoinToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
 
-    // Don&#39;t accept ETH
+    // Don't accept ETH
 
     // ------------------------------------------------------------------------
 

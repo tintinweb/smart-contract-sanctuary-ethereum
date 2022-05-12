@@ -125,7 +125,7 @@ contract BEST is SafeM{
         require(balanceOf[_from] >= _value);                // It checks if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Then it checks allowance
         balanceOf[_from] -= _value;                         // Subtracts from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtracts from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtracts from the sender's allowance
         totalSupply -= _value;                              // Finally Updates totalSupply
         emit Burn(_from, _value);
         return true;

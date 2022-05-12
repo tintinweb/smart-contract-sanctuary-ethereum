@@ -49,7 +49,7 @@ contract GameMarket  {
 	address public owner;
 
 	modifier onlyOwner() {
-		require(msg.sender == owner, &#39;sender is not owner!&#39;);
+		require(msg.sender == owner, 'sender is not owner!');
 		_;
 	}
 
@@ -123,7 +123,7 @@ contract GameMarket  {
     * @param id ID of contract
     */
 	function approveByIndex(uint id) onlyOwner public {
-		require(games[indexes[id]].developer != address(0), &#39;invalid developer address!&#39;);
+		require(games[indexes[id]].developer != address(0), 'invalid developer address!');
 		games[indexes[id]].status = true;
 		accepts[id] = indexes[id];
 		emit GameApproved(id);

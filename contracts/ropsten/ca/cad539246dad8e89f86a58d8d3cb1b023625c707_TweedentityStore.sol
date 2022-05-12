@@ -167,7 +167,7 @@ is HasNoEther
 
   /**
   * @dev Updates the checker for the store
-  * @param _address Checker&#39;s address
+  * @param _address Checker's address
   */
   function setNewChecker(
     address _address
@@ -182,7 +182,7 @@ is HasNoEther
 
   /**
   * @dev Sets the manager
-  * @param _address Manager&#39;s address
+  * @param _address Manager's address
   */
   function setManager(
     address _address
@@ -197,7 +197,7 @@ is HasNoEther
 
   /**
   * @dev Sets new manager
-  * @param _address New manager&#39;s address
+  * @param _address New manager's address
   */
   function setNewManager(
     address _address
@@ -319,7 +319,7 @@ is HasNoEther
     require(bytes(__uidByAddress[_address].lastUid).length > 0);
 
     string memory uid = __uidByAddress[_address].lastUid;
-    __uidByAddress[_address] = Uid(&#39;&#39;, __uidByAddress[_address].lastUpdate);
+    __uidByAddress[_address] = Uid('', __uidByAddress[_address].lastUpdate);
     __addressByUid[uid] = Address(address(0), __addressByUid[uid].lastUpdate);
     identities--;
     IdentityUnset(_address, uid);

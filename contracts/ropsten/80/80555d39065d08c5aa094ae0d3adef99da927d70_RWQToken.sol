@@ -76,7 +76,7 @@ contract RWQToken is StandardToken {
     string public name = "RWQToken";       //名称
     uint8 public decimals = 18;            //最多的小数位数
     string public symbol = "RWQ";          //token简称
-    string public version = &#39;0.1&#39;;         //版本
+    string public version = '0.1';         //版本
 
     function RWQToken(uint256 _initialAmount)  {
         balances[msg.sender] = _initialAmount*10**uint256(decimals); // 初始token数量给予消息发送者
@@ -88,7 +88,7 @@ contract RWQToken is StandardToken {
     function approveAndCall(address _spender, uint256 _value, bytes _extraData) public returns (bool success) {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         require(_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData));
@@ -110,7 +110,7 @@ contract RWQToken is StandardToken {
         lockParam param = lockParams[msg.sender];
         if (now-param.startTime<param.lockTime){//锁定中，未过期，校验锁定数量是否足够
 			uint remainderVal = balances[msg.sender] -  _value;
-			require(remainderVal>=param.amount,&#39;交易失败，账户可交易数量不足&#39;);
+			require(remainderVal>=param.amount,'交易失败，账户可交易数量不足');
         }    
         balances[msg.sender] -= _value;//从消息发送者账户中减去token数量_value
         balances[_to] += _value;//往接收账户增加token数量_value

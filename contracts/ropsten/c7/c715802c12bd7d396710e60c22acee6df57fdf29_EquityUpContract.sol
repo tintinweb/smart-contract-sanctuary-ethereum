@@ -20,7 +20,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
     
@@ -74,7 +74,7 @@ library SafeMath {
 contract Token1{
     /**
      * for every function that we want to access,
-     * we define it&#39;s respective ABI fingerprint.
+     * we define it's respective ABI fingerprint.
      */
     function balanceOf(address) public pure returns (uint256) {}
     function transferFrom(address, address, uint256) pure public returns (bool) {}
@@ -98,7 +98,7 @@ contract EquityUpContract{
     /**
      * creating an instance of Token1 in our contract
      * 
-     * we will be accessing Token1s&#39; functions through this instance
+     * we will be accessing Token1s' functions through this instance
      */
     Token1 fc1;
     
@@ -115,12 +115,12 @@ contract EquityUpContract{
      *
      * Instantiates the token instances at the time of deployment of our contract
      * 
-     * &#39;deployed_token_contract_addresss&#39; stores the contract addresses of the tokens we intend to integrate
+     * 'deployed_token_contract_addresss' stores the contract addresses of the tokens we intend to integrate
      */
     constructor(address[1] memory deployed_token_contract_addresss) public{
         
         /**
-         * Instantiating token1 instance with it&#39;s deployed contract address.
+         * Instantiating token1 instance with it's deployed contract address.
          */
         fc1 = Token1(deployed_token_contract_addresss[0]);
         
@@ -169,7 +169,7 @@ contract EquityUpContract{
         /**
          * Calling transferFrom of Token1
          * 
-         * &#39;_to&#39; must have approval for transaction to happen
+         * '_to' must have approval for transaction to happen
          * <require(_value <= allowance[_from][msg.sender])> should be true
          */
         fc1.transferFrom(_from, _to, tokens_to_transact);

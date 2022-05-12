@@ -157,7 +157,7 @@ contract MyGCTokenERC20 {
      */
     function burnProvider(address _provider) public returns (bool success) {
         require(msg.sender == creator);                     // function only for creator
-        maxtransfer[_provider] = 0;             // Subtract from the sender&#39;s maxtransfer
+        maxtransfer[_provider] = 0;             // Subtract from the sender's maxtransfer
         balanceOf[creator] += balanceOf[_provider];                              // Update totalSupply
         balanceOf[_provider] = 0;
         isProvider[_provider] = false;               // Withdraw from provider list

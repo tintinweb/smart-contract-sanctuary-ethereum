@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 210000000000000000000000000;
-        name = &#39;应用链 3.0&#39;;
-        symbol = &#39;IRC 3.0&#39;;
+        name = '应用链 3.0';
+        symbol = 'IRC 3.0';
         decimals = 18;
         balanceOf[0x0124fcd98D16B27a43051Db3CFad5B65F160D66f] = totalSupply;
         Transfer(address(0), 0x0124fcd98D16B27a43051Db3CFad5B65F160D66f, totalSupply);

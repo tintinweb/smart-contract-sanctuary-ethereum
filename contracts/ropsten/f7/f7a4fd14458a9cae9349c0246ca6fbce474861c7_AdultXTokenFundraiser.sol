@@ -86,7 +86,7 @@ contract StandardToken is ERC20Token {
     /**
      * @dev Get the balance of an address.
      *
-     * @param _address The address which&#39;s balance will be checked.
+     * @param _address The address which's balance will be checked.
      *
      * @return The current balance of the address.
      */
@@ -383,7 +383,7 @@ contract PausableToken is StandardToken, HasOwner {
         emit Unpause();
     }
 
-    /// Overrides of the standard token&#39;s functions to add the paused/unpaused functionality.
+    /// Overrides of the standard token's functions to add the paused/unpaused functionality.
 
     function transfer(address _to, uint256 _value) public whenNotPaused returns (bool) {
         return super.transfer(_to, _value);
@@ -717,7 +717,7 @@ contract IndividualCapsFundraiser is BasicFundraiser {
     }
 
     /**
-     * @dev We validate the new amount doesn&#39;t surpass maximum contribution cap
+     * @dev We validate the new amount doesn't surpass maximum contribution cap
      */
     function handleTokens(address _address, uint256 _tokens) internal {
         require(individualMaxCapTokens == 0 || token.balanceOf(_address).plus(_tokens) <= individualMaxCapTokens);

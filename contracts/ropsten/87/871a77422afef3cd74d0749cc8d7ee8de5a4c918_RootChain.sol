@@ -253,7 +253,7 @@ library RLPDecode {
     }
 
     struct Iterator {
-        RLPItem _unsafe_item;   // Item that&#39;s being iterated over.
+        RLPItem _unsafe_item;   // Item that's being iterated over.
         uint _unsafe_nextPtr;   // Position of the next item in the list.
     }
 
@@ -313,7 +313,7 @@ library RLPDecode {
     /**
      * @dev Check if the RLP item is null.
      * @param self The RLP item.
-     * @return &#39;true&#39; if the item is null.
+     * @return 'true' if the item is null.
      */
     function isNull(RLPItem memory self)
         internal
@@ -326,7 +326,7 @@ library RLPDecode {
     /**
      * @dev Check if the RLP item is a list.
      * @param self The RLP item.
-     * @return &#39;true&#39; if the item is a list.
+     * @return 'true' if the item is a list.
      */
     function isList(RLPItem memory self)
         internal
@@ -345,7 +345,7 @@ library RLPDecode {
     /**
      * @dev Check if the RLP item is data.
      * @param self The RLP item.
-     * @return &#39;true&#39; if the item is data.
+     * @return 'true' if the item is data.
      */
     function isData(RLPItem memory self)
         internal
@@ -364,7 +364,7 @@ library RLPDecode {
     /**
      * @dev Check if the RLP item is empty (string or list).
      * @param self The RLP item.
-     * @return &#39;true&#39; if the item is null.
+     * @return 'true' if the item is null.
      */
     function isEmpty(RLPItem memory self)
         internal
@@ -413,7 +413,7 @@ library RLPDecode {
     /**
      * @dev Create an iterator.
      * @param self The RLP item.
-     * @return An &#39;Iterator&#39; over the item.
+     * @return An 'Iterator' over the item.
      */
     function iterator(RLPItem memory self)
         internal
@@ -813,7 +813,7 @@ library RLPDecode {
         private
         view
     {
-        // Exploiting the fact that &#39;tgt&#39; was the last thing to be allocated,
+        // Exploiting the fact that 'tgt' was the last thing to be allocated,
         // we can write entire words, and just overwrite any excess.
         assembly {
             {
@@ -1124,7 +1124,7 @@ library PlasmaUtils {
     /**
      * @dev Given a UTXO position, returns the block number.
      * @param _utxoPosition UTXO position to decode.
-     * @return The output&#39;s block number.
+     * @return The output's block number.
      */
     function getBlockNumber(uint256 _utxoPosition) internal pure returns (uint256) {
         return _utxoPosition / BLOCK_OFFSET;
@@ -1133,7 +1133,7 @@ library PlasmaUtils {
     /**
      * @dev Given a UTXO position, returns the transaction index.
      * @param _utxoPosition UTXO position to decode.s
-     * @return The output&#39;s transaction index.
+     * @return The output's transaction index.
      */
     function getTxIndex(uint256 _utxoPosition) internal pure returns (uint256) {
         return (_utxoPosition % BLOCK_OFFSET) / TX_OFFSET;
@@ -1142,7 +1142,7 @@ library PlasmaUtils {
     /**
      * @dev Given a UTXO position, returns the output index.
      * @param _utxoPosition UTXO position to decode.
-     * @return The output&#39;s index.
+     * @return The output's index.
      */
     function getOutputIndex(uint256 _utxoPosition) internal pure returns (uint8) {
         return uint8(_utxoPosition % TX_OFFSET);
@@ -1272,7 +1272,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

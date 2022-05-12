@@ -155,7 +155,7 @@ contract ERC20and223TokenImpl is ERC20TokenInterface
         balances[_from] -= _value;
         balances[_to] += _value;
 
-        // only for &#39;transferFrom&#39;, &#39;transfer&#39; bypasses allowance
+        // only for 'transferFrom', 'transfer' bypasses allowance
         if( _dec_allowed ) {
             allowed[_from][msg.sender] -= _value;
         }
@@ -205,7 +205,7 @@ contract ERC20and223TokenImpl is ERC20TokenInterface
     /// @param _spender The address to approve
     /// @param _currentValue The previous value approved, which can be retrieved with allowance(msg.sender, _spender)
     /// @param _newValue The new value to approve, this will replace the _currentValue
-    /// @return bool Whether the approval was a success (see ERC20&#39;s `approve`)
+    /// @return bool Whether the approval was a success (see ERC20's `approve`)
     function compareAndApprove(address _spender, uint256 _currentValue, uint256 _newValue)
         onlyPayloadSize(3 * 32)
         public
@@ -424,18 +424,18 @@ contract SaferEcRecover
     
     // the following function has been written by Alex Beregszaszi (@axic),
     // use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s)
         internal
         returns (bool, address)
     {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 

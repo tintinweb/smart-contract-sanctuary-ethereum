@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 /**
-Write an Ethereum smart contract that can record a user&#39;s public address as having granted permission to another user’s public address. 
+Write an Ethereum smart contract that can record a user's public address as having granted permission to another user’s public address. 
 Assume that the contract will eventually be used by a DApp where users can grant permission and other users can check if they have permission for some entity(Token).
 
 Only the user calling the contract can grant permission for its public address. 

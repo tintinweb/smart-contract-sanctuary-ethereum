@@ -34,7 +34,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -163,7 +163,7 @@ library DataSet {
         RoundState                      state;              // round state
         uint256                         pond;               // amount refer to current round
         uint256                         winningNumber;      // winning number
-        address                         winner;             // winner&#39;s address
+        address                         winner;             // winner's address
     }
 
 }
@@ -239,7 +239,7 @@ contract Winner is Events {
     uint256     constant private    PRICE   = 0.01 ether;                                   // 0.01 ether every number
     uint256     constant private    MAX_DURATION = 5 days;                                  // max duration every round
     uint256     constant private    REFUND_RATE = 90;                                       // refund rate to player(%)
-    address     constant private    platform = 0xe379D8F62F07BFD179Eb8C071F1D63Af3AfFee2c;  // paltform&#39;s address
+    address     constant private    platform = 0xe379D8F62F07BFD179Eb8C071F1D63Af3AfFee2c;  // paltform's address
     uint256     private             curRoundID;                                             // current round
     uint256     private             drawnRoundID;                                           // already drawn round
     uint256     private             drawnBlockNumber;                                       // already drawn a round in block
@@ -249,7 +249,7 @@ contract Winner is Events {
 
     // (roundID => data) returns round data
     mapping (uint256 => DataSet.Round) private rounds;
-    // (roundID => address => numbers) returns player&#39;s numbers in round
+    // (roundID => address => numbers) returns player's numbers in round
     mapping (uint256 => mapping(address => uint256[])) private playerNumbers;
     mapping (address => bool) private administrators;
 
@@ -298,7 +298,7 @@ contract Winner is Events {
     }
 
     /**
-     * @dev check the bet&#39;s bound
+     * @dev check the bet's bound
      * @param _eth the eth amount
      * In order to ensure as many as possiable players envolve in the
      * game, you can only buy no more than 2 * issued_numbers every time.
@@ -428,12 +428,12 @@ contract Winner is Events {
 
     /**
      * @dev assign for a round
-     * @param _player the player&#39;s address
+     * @param _player the player's address
      * @param _roundID the round ID
      */
     function assign(address _player, uint256 _roundID) public isHuman() isActivated()
     {
-        require(rounds[_roundID].state == DataSet.RoundState.DRAWN, "it&#39;s not time for assigning");
+        require(rounds[_roundID].state == DataSet.RoundState.DRAWN, "it's not time for assigning");
 
         uint256[] memory numbers = playerNumbers[_roundID][_player];
         require(numbers.length > 0, "player did not involve in");
@@ -467,11 +467,11 @@ contract Winner is Events {
 
     /**
      * @dev refund to player and platform
-     * @param _player the player&#39;s address
+     * @param _player the player's address
      */
     function refund(address _player) public isActivated() isHuman()
     {
-        require(block.timestamp.sub(rounds[curRoundID].timestamp) >= MAX_DURATION, "it&#39;s not time for refunding");
+        require(block.timestamp.sub(rounds[curRoundID].timestamp) >= MAX_DURATION, "it's not time for refunding");
 
         // 1. count numbers owned by the player
         uint256[] storage numbers = playerNumbers[curRoundID][_player];
@@ -504,10 +504,10 @@ contract Winner is Events {
     }
 
     /**
-     * @dev return player&#39;s numbers in the round
+     * @dev return player's numbers in the round
      * @param _roundID round ID
-     * @param _palyer player&#39;s address
-     * @return uint256[], player&#39;s numbers
+     * @param _palyer player's address
+     * @return uint256[], player's numbers
      */
     function getPlayerRoundNumbers(uint256 _roundID, address _palyer) public view returns(uint256[])
     {
@@ -515,15 +515,15 @@ contract Winner is Events {
     }
 
     /**
-     * @dev return round&#39;s information
+     * @dev return round's information
      * @param _roundID round ID
-     * @return uint256, quantity of round&#39;s numbers
+     * @return uint256, quantity of round's numbers
      * @return uint256, block number refer to last bet
      * @return uint256, block number refer to draw winning number
-     * @return uint256, round&#39;s running state
-     * @return uint256, round&#39;s pond
-     * @return uint256, round&#39;s winning number if drawn
-     * @return address, round&#39;s winner if assigned
+     * @return uint256, round's running state
+     * @return uint256, round's pond
+     * @return uint256, round's winning number if drawn
+     * @return address, round's winner if assigned
      */
     function getRoundInfo(uint256 _roundID) public view
         returns(uint256, uint256, uint256, uint256, uint256, uint256, address)
@@ -540,7 +540,7 @@ contract Winner is Events {
     }
 
     /**
-     * @dev return game&#39;s information
+     * @dev return game's information
      * @return bool, game is active or not
      * @return uint256, bonus assigned to the winner
      * @return uint256, total numbers every round

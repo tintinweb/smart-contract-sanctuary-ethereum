@@ -267,7 +267,7 @@ contract Ownable {
 // "./PlayerBookInterface.sol";
 // "./SafeMath.sol";
 // "./NameFilter.sol";
-// &#39;openzeppelin-solidity/contracts/ownership/Ownable.sol&#39;;
+// 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 
 //==============================================================================
 //     _    _  _ _|_ _  .

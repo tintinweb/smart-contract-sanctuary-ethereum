@@ -36,8 +36,8 @@ pragma solidity ^0.4.25;
  *  - You can make a profit at any time. Consider your transaction costs (GAS).
  *  
  * Affiliate program *
- * - You have access to a single-level referral system for additional profit (10% of the referral&#39;s contribution).
- * - * - Affiliate fees will come from each referral&#39;s Deposit as long as it doesn&#39;t change your wallet address Ethereum on the other.
+ * - You have access to a single-level referral system for additional profit (10% of the referral's contribution).
+ * - * - Affiliate fees will come from each referral's Deposit as long as it doesn't change your wallet address Ethereum on the other.
  * 1. The depositor in the transfer of funds indicates the DATA in your e-wallet Ethereum.
  * 2. After successful transfer you will be charged 10% of the amount of his Deposit.
  * * 3. Your partner receives a "Refback bonus" in the amount of 3% of his contribution.
@@ -237,8 +237,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -256,7 +256,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }

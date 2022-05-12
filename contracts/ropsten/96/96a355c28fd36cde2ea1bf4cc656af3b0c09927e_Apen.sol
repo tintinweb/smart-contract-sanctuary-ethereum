@@ -122,7 +122,7 @@ contract Apen is Token {
     string public name;                   
     uint8 public decimals;                
     string public symbol;                 
-    string public version = &#39;A1.1&#39;; 
+    string public version = 'A1.1'; 
     uint256 public unitsPerEth;     
     uint256 public maxApenSell;         
     uint256 public totalEthPos;  

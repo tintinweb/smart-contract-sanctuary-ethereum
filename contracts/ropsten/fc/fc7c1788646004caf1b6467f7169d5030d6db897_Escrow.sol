@@ -254,7 +254,7 @@ contract Escrow is arbitrated {
             deal.feeAmount, 
             deal.feeCalculationMethod
         );
-        //Transfer from client&#39;s account to escrow account
+        //Transfer from client's account to escrow account
         require(coin.transferFrom(
             msg.sender, 
             this, 

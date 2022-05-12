@@ -40,7 +40,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -158,7 +158,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -387,7 +387,7 @@ contract ERC884 is ERC20 {
      *  `VerifiedAddressAdded(addr, hash, msg.sender)`.
      *  It MUST throw if the supplied address or hash are zero, or if the address has already been supplied.
      *  @param addr The address of the person represented by the supplied hash.
-     *  @param hash A cryptographic hash of the address holder&#39;s verified information.
+     *  @param hash A cryptographic hash of the address holder's verified information.
      */
     function addVerified(address addr, bytes32 hash) public;
 
@@ -408,7 +408,7 @@ contract ERC884 is ERC20 {
      *  no `VerifiedAddressUpdated` event is to be emitted.
      *  It MUST throw if the hash is zero, or if the address is unverified.
      *  @param addr The verified address of the person represented by the supplied hash.
-     *  @param hash A new cryptographic hash of the address holder&#39;s updated verified information.
+     *  @param hash A new cryptographic hash of the address holder's updated verified information.
      */
     function updateVerified(address addr, bytes32 hash) public;
 
@@ -428,7 +428,7 @@ contract ERC884 is ERC20 {
      *  The `transfer` function MUST NOT allow transfers to addresses that
      *  have not been verified and added to the contract.
      *  If the `to` address is not currently a shareholder then it MUST become one.
-     *  If the transfer will reduce `msg.sender`&#39;s balance to 0 then that address
+     *  If the transfer will reduce `msg.sender`'s balance to 0 then that address
      *  MUST be removed from the list of shareholders.
      */
     function transfer(address to, uint256 value) public returns (bool);
@@ -437,7 +437,7 @@ contract ERC884 is ERC20 {
      *  The `transferFrom` function MUST NOT allow transfers to addresses that
      *  have not been verified and added to the contract.
      *  If the `to` address is not currently a shareholder then it MUST become one.
-     *  If the transfer will reduce `from`&#39;s balance to 0 then that address
+     *  If the transfer will reduce `from`'s balance to 0 then that address
      *  MUST be removed from the list of shareholders.
      */
     function transferFrom(address from, address to, uint256 value) public returns (bool);
@@ -611,7 +611,7 @@ contract DwarfGem is ERC884, MintableToken {
      *  `VerifiedAddressAdded(addr, hash, msg.sender)`.
      *  It MUST throw if the supplied address or hash are zero, or if the address has already been supplied.
      *  @param addr The address of the person represented by the supplied hash.
-     *  @param hash A cryptographic hash of the address holder&#39;s verified information.
+     *  @param hash A cryptographic hash of the address holder's verified information.
      */
     function addVerified(address addr, bytes32 hash)
         public
@@ -651,7 +651,7 @@ contract DwarfGem is ERC884, MintableToken {
      *  no `VerifiedAddressUpdated` event is to be emitted.
      *  It MUST throw if the hash is zero, or if the address is unverified.
      *  @param addr The verified address of the person represented by the supplied hash.
-     *  @param hash A new cryptographic hash of the address holder&#39;s updated verified information.
+     *  @param hash A new cryptographic hash of the address holder's updated verified information.
      */
     function updateVerified(address addr, bytes32 hash)
         public
@@ -700,7 +700,7 @@ contract DwarfGem is ERC884, MintableToken {
      *  The `transfer` function MUST NOT allow transfers to addresses that
      *  have not been verified and added to the contract.
      *  If the `to` address is not currently a shareholder then it MUST become one.
-     *  If the transfer will reduce `msg.sender`&#39;s balance to 0 then that address
+     *  If the transfer will reduce `msg.sender`'s balance to 0 then that address
      *  MUST be removed from the list of shareholders.
      */
     function transfer(address to, uint256 value)
@@ -717,7 +717,7 @@ contract DwarfGem is ERC884, MintableToken {
      *  The `transferFrom` function MUST NOT allow transfers to addresses that
      *  have not been verified and added to the contract.
      *  If the `to` address is not currently a shareholder then it MUST become one.
-     *  If the transfer will reduce `from`&#39;s balance to 0 then that address
+     *  If the transfer will reduce `from`'s balance to 0 then that address
      *  MUST be removed from the list of shareholders.
      */
     function transferFrom(address from, address to, uint256 value)
@@ -823,7 +823,7 @@ contract DwarfGem is ERC884, MintableToken {
     /**
      *  If the address is not in the `shareholders` array then push it
      *  and update the `holderIndices` mapping.
-     *  @param addr The address to add as a shareholder if it&#39;s not already.
+     *  @param addr The address to add as a shareholder if it's not already.
      */
     function updateShareholders(address addr)
         internal
@@ -850,7 +850,7 @@ contract DwarfGem is ERC884, MintableToken {
         uint256 holderIndex = holderIndices[addr] - 1;
         uint256 lastIndex = shareholders.length - 1;
         address lastHolder = shareholders[lastIndex];
-        // overwrite the addr&#39;s slot with the last shareholder
+        // overwrite the addr's slot with the last shareholder
         shareholders[holderIndex] = lastHolder;
         // also copy over the index (thanks @mohoff for spotting this)
         // ref https://github.com/davesag/ERC884-reference-implementation/issues/20

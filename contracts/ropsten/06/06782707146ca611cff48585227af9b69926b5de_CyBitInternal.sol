@@ -16,7 +16,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -147,7 +147,7 @@ contract ERC223Token is ERC223Interface, Pausable {
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      This function works the same with the previous one
-     *      but doesn&#39;t contain `_data` param.
+     *      but doesn't contain `_data` param.
      *      Added due to backwards compatibility reasons.
      *
      * @param _to    Receiver address.
@@ -282,7 +282,7 @@ contract burnableERC223 is ERC20BackedERC223{
      * @param _value the amount of money to burn
      */
     function burn(uint256 _value) onlyOwner public returns (bool success) {
-        require(balances[msg.sender] >= _value, "Sender doesn&#39;t have enough balance");   // Check if the sender has enough
+        require(balances[msg.sender] >= _value, "Sender doesn't have enough balance");   // Check if the sender has enough
         balances[msg.sender] = balances[msg.sender].sub(_value);            // Subtract from the sender
         _CAP = _CAP.sub(_value);                      // Updates totalSupply
         _totalBurnedTokens = _totalBurnedTokens.add(_value);
@@ -303,7 +303,7 @@ contract burnableERC223 is ERC20BackedERC223{
         require(balances[_from] >= _value , "target balance is not enough");                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] = balances[_from].sub(_value);                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);             // Subtract from the sender's allowance
         _CAP = _CAP.sub(_value);                              // Update totalSupply
         emit Burn(_from, _value);
         emit Transfer(_from, address(0), _value);
@@ -388,7 +388,7 @@ contract CyBitInternal is mintableERC223{
     Some wallets/interfaces might not even bother to look at this information.
     */
     string public name;                   //Name Of Token
-    uint256 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint256 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
     string public version;                 //An Arbitrary versioning scheme.
 

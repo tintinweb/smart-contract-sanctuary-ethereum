@@ -5,7 +5,7 @@ ___________________________________________________________________
   _      _                                        ______           
   |  |  /          /                                /              
 --|-/|-/-----__---/----__----__---_--_----__-------/-------__------
-  |/ |/    /___) /   /   &#39; /   ) / /  ) /___)     /      /   )     
+  |/ |/    /___) /   /   ' /   ) / /  ) /___)     /      /   )     
 __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
 
 
@@ -355,7 +355,7 @@ contract SuNFT is ERC165, ERC721, ERC721Metadata, ERC721Enumerable, SupportsInte
     }
 
     /// @notice Enable or disable approval for a third party ("operator") to
-    ///  manage all of `msg.sender`&#39;s assets
+    ///  manage all of `msg.sender`'s assets
     /// @dev Emits the ApprovalForAll event. The contract MUST allow
     ///  multiple operators per owner.
     /// @param _operator Address to add to the set of authorized operators
@@ -532,7 +532,7 @@ contract SuNFT is ERC165, ERC721, ERC721Metadata, ERC721Enumerable, SupportsInte
     ///  In other words [0, 0, a, 0] is equivalent to [1, 2, a, 4] for address(this)
     mapping (address => uint256[]) private _tokensOfOwnerWithSubstitutions;
 
-    /// @dev (Location + 1) of each NFT in its owner&#39;s list
+    /// @dev (Location + 1) of each NFT in its owner's list
     ///  Nomenclature: arr[nftId] = value
     ///  If value != 0, _tokensOfOwnerWithSubstitutions[owner][value - 1] = nftId
     ///  If value == 0, _tokensOfOwnerWithSubstitutions[owner][nftId - 1] = nftId
@@ -642,7 +642,7 @@ contract SuOperation is SuNFT {
     /// @param _squareId The top-left is 1, to its right is 2, ..., top-right is
     ///  100 and then 101 is below 1... the last one at bottom-right is 10000
     /// @param _squareId A 10x10 image for your square, in 8-bit RGB words
-    ///  ordered like the squares are ordered. See Imagemagick&#39;s command
+    ///  ordered like the squares are ordered. See Imagemagick's command
     ///  convert -size 10x10 -depth 8 in.rgb out.png
     /// @param _title A description of your square (max 64 bytes UTF-8)
     /// @param _href A hyperlink for your square (max 96 bytes)

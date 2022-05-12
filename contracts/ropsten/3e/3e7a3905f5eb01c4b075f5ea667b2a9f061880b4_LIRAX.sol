@@ -18,8 +18,8 @@ contract LIRAX {
     )
         public
     {
-        name = &#39;LIRAX&#39;;
-        symbol = &#39;LRX&#39;;
+        name = 'LIRAX';
+        symbol = 'LRX';
         decimals = 18;
 
         totalSupply = _totalSupply;

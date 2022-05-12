@@ -363,8 +363,8 @@ contract FinalizableToken is ERC20Token, OpsManaged, Finalizable {
 
 contract PBTTTokenConfig {
 
-    string  public constant TOKEN_SYMBOL      = &#39;PBTT&#39;;
-    string  public constant TOKEN_NAME        = &#39;Purple Butterfly Token (PBTT)&#39;;
+    string  public constant TOKEN_SYMBOL      = 'PBTT';
+    string  public constant TOKEN_NAME        = 'Purple Butterfly Token (PBTT)';
     uint8   public constant TOKEN_DECIMALS    = 3;
 
     uint256 public constant DECIMALSFACTOR    = 10**uint256(TOKEN_DECIMALS);
@@ -384,7 +384,7 @@ contract PBTTToken is FinalizableToken, PBTTTokenConfig {
     uint256 public sellPriceEth = 0.2 finney;                               // Sell price for PBTT
     uint256 public gasForPBTT = 5 finney;                                   // Eth from contract against PBTT to pay tx (10 times sellPriceEth)
     uint256 public PBTTForGas = 1;                                          // PBTT to contract against eth to pay tx
-    uint256 public gasReserve = 1 ether;                                    // Eth amount that remains in the contract for gas and can&#39;t be sold
+    uint256 public gasReserve = 1 ether;                                    // Eth amount that remains in the contract for gas and can't be sold
     uint256 public minBalanceForAccounts = 10 finney;                       // Minimal eth balance of sender and recipient
     //
     // Events
@@ -456,7 +456,7 @@ contract PBTTToken is FinalizableToken, PBTTTokenConfig {
         amount = msg.value / buyPriceEth;                                   // Calculate the amount of PBTT
         if (balances[owner] < amount) revert();                             // Check if it has enough to sell
         
-        balances[msg.sender] = balances[msg.sender].add(amount);            // Add the amount to buyer&#39;s balance
+        balances[msg.sender] = balances[msg.sender].add(amount);            // Add the amount to buyer's balance
         balances[owner] = balances[owner].sub(amount);                      // Subtract amount from PBTT balance
         emit Transfer(owner, msg.sender, amount);                           // Execute an event reflecting the change
         
@@ -474,7 +474,7 @@ contract PBTTToken is FinalizableToken, PBTTTokenConfig {
         msg.sender.transfer(revenue);
 
         balances[owner] = balances[owner].add(amount);                      // Add the amount to Dentacoin balance
-        balances[msg.sender] = balances[msg.sender].sub(amount);            // Subtract the amount from seller&#39;s balance
+        balances[msg.sender] = balances[msg.sender].sub(amount);            // Subtract the amount from seller's balance
         emit Transfer(owner, msg.sender, revenue);                          // Execute an event reflecting on the change
         return revenue;                                                     // End function and returns
 
@@ -524,7 +524,7 @@ contract PBTTToken is FinalizableToken, PBTTTokenConfig {
         emit Transfer(this, msg.sender, eth);    // Execute an event reflecting on the change
     }
 
-    // Allows the owner to withdraw all fund from contract to owner&#39;s specific adress
+    // Allows the owner to withdraw all fund from contract to owner's specific adress
     function withdrawFundToAddress (address _ownerOtherAdress) public onlyOwner {
         //transfer to owner
         uint256 eth = address(this).balance; 

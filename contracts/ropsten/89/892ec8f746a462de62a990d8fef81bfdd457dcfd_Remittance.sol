@@ -25,7 +25,7 @@ contract Remittance {
         emit attemptedClaim(msg.sender, claimAddress, publicKeys[claimAddress], balance); // Send claim event
 
         require(keccak256(abi.encodePacked(privatekey1, privatekey2)) == publicKeys[claimAddress], "Invalid private keys."); // Check for matching privatekeys
-        require(msg.sender != claimAddress, "Cannot claim own balance (request a withdrawal instead)."); // Check that claimant isn&#39;t issuer
+        require(msg.sender != claimAddress, "Cannot claim own balance (request a withdrawal instead)."); // Check that claimant isn't issuer
 
         balances[claimAddress] = 0; // Reset balance
         balanceMaturity[claimAddress] = block.number; // Rest maturity

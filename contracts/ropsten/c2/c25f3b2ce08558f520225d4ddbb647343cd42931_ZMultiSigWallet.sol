@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -242,7 +242,7 @@ contract ERC20 is IERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -370,7 +370,7 @@ contract ERC20 is IERC20 {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param value The amount that will be burnt.
@@ -539,7 +539,7 @@ contract ZMultiSigWallet is CoOwnable {
     require (!(txs[txId].isExecuted));
 
     Tx storage tx_ = txs[txId];
-    // Make sure it&#39;s approved.
+    // Make sure it's approved.
     require(tx_.approvalCount >= numApprovalNeeded,
       "The number of approvals needs to be >= numApprovalNeeded");
     tx_.isExecuted = true;
@@ -547,7 +547,7 @@ contract ZMultiSigWallet is CoOwnable {
       ERC20 token = ERC20(tx_.erc20addr);
       // KP: Contract reference
       require(token.balanceOf(address(this)) > tx_.value);
-      // Should instead use ERC20.allowance() instead in prod. Well what if it doesn&#39;t?
+      // Should instead use ERC20.allowance() instead in prod. Well what if it doesn't?
       // KP: Contract reference
       require(token.transfer(tx_.receiver, tx_.value), "Transfer should success");
       // Contact calling

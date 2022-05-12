@@ -4,7 +4,7 @@ interface tokenRecipient { function receiveApproval(address _from, uint256 _valu
 
 contract srvskCoin {
     // Public variables of the token
-    string public name=&#39;SRVSKCOIN&#39;;
+    string public name='SRVSKCOIN';
     string public symbol="SRV";
     uint8 public decimals = 18;
     // 18 decimals is the strongly suggested default, avoid changing it
@@ -31,8 +31,8 @@ contract srvskCoin {
     function SRVSKCOIN() public {
         totalSupply = 500000000000000000000000000;  // Update total supply with the decimal amount
         balanceOf[msg.sender] = totalSupply;           // Give the creator all initial tokens
-        name = &#39;SRVSKCOIN&#39;;                      // Set the name for display purposes
-        symbol = &#39;SRV&#39;;                                // Set the symbol for display purposes
+        name = 'SRVSKCOIN';                      // Set the name for display purposes
+        symbol = 'SRV';                                // Set the symbol for display purposes
     }
 
     /**
@@ -146,7 +146,7 @@ contract srvskCoin {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;

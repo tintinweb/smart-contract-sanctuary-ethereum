@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two unsigned integers, reverts on overflow.
   */
   function mul(uint a, uint b) internal pure returns (uint) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) return 0;
     uint c = a * b;
@@ -63,7 +63,7 @@ interface IERC20 {
     function balanceOf(address account) external view returns (uint256);
 
     /**
-     * @dev Moves `amount` tokens from the caller&#39;s account to `recipient`.
+     * @dev Moves `amount` tokens from the caller's account to `recipient`.
      *
      * Returns a boolean value indicating whether the operation succeeded.
      *
@@ -72,14 +72,14 @@ interface IERC20 {
     function transfer(address recipient, uint256 amount) external returns (bool);
 
     /**
-     * @dev Sets `amount` as the allowance of `spender` over the caller&#39;s tokens.
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
      *
      * Returns a boolean value indicating whether the operation succeeded.
      *
      * > Beware that changing an allowance with this method brings the risk
      * that someone may use both the old and the new allowance by unfortunate
      * transaction ordering. One possible solution to mitigate this race
-     * condition is to first reduce the spender&#39;s allowance to 0 and set the
+     * condition is to first reduce the spender's allowance to 0 and set the
      * desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      *
@@ -89,7 +89,7 @@ interface IERC20 {
 
     /**
      * @dev Moves `amount` tokens from `sender` to `recipient` using the
-     * allowance mechanism. `amount` is then deducted from the caller&#39;s
+     * allowance mechanism. `amount` is then deducted from the caller's
      * allowance.
      *
      * Returns a boolean value indicating whether the operation succeeded.
@@ -532,7 +532,7 @@ contract Permissioned is IPermissioned, BaseDAO, PermissionedStorage {
       _submitOrVote(voter, proposalHashes[i], shares, index);
     }
     (, bytes memory retval) = address(this).delegatecall(wrappedCalldata);
-    // if this call throws it doesn&#39;t matter, allow anyone to pay the gas to submit offline signatures even in the absence of valid calldata
+    // if this call throws it doesn't matter, allow anyone to pay the gas to submit offline signatures even in the absence of valid calldata
     return retval;
   } */
 
@@ -554,7 +554,7 @@ contract Permissioned is IPermissioned, BaseDAO, PermissionedStorage {
   }
 
   /**
-   * @dev Determines whether a proposal would be accepted given the caller&#39;s votes.
+   * @dev Determines whether a proposal would be accepted given the caller's votes.
    */
   function _preProcessProposal(bytes32 proposalHash) internal view
   returns (uint64 shares, Indices.Index memory index, bool approved) {

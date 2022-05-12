@@ -113,7 +113,7 @@ contract StarndardToken is BasicToken, ERC20{
     }
     
     /**
-     * Function allow give token to a specific account, because tokens can&#39;t be tradeable,
+     * Function allow give token to a specific account, because tokens can't be tradeable,
      * until de ICO ends.
      **/
     function issuerGuiveToken(address _to,uint256 _value) isIssuer() public{

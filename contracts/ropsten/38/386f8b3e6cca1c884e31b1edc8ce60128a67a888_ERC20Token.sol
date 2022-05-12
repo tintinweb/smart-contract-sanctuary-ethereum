@@ -128,7 +128,7 @@ contract StandardToken {
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] -= _value;                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -142,7 +142,7 @@ contract ERC20Token is StandardToken, Ownable {
 
     string public name;
     string public symbol;
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
     uint256 public totalCoin;
     uint8 public decimals;
     uint256 public min;
@@ -159,7 +159,7 @@ contract ERC20Token is StandardToken, Ownable {
         decimals        = 18;
         totalCoin       = 20000000000;                       // Total Supply of Coin
         totalSupply     = totalCoin * 10**uint(decimals); // Total Supply of Coin
-        balances[owner] = totalSupply;                    // Total Supply sent to Owner&#39;s Address
+        balances[owner] = totalSupply;                    // Total Supply sent to Owner's Address
         exchangeRate    = 12000000;                            // 100 Coins per ETH   (changable)
         min        = 10000000000000000;
         symbol          = "GHI";                       // Your Ticker Symbol  (changable)

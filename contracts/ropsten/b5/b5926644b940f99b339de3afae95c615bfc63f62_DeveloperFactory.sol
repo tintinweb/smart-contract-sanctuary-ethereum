@@ -1,7 +1,7 @@
 pragma solidity ^0.4.22;
  
 contract DeveloperFactory {
-    // Let&#39;s create a Developer!
+    // Let's create a Developer!
  
     event NewDeveloper(uint devId, string name, uint age);
  

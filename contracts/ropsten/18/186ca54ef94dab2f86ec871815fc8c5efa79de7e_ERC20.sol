@@ -15,8 +15,8 @@ library SafeMath
 		return a - b;
 	}
 
-	//don&#39;t need modulus, subtraction, or multiplilcation in
-	//our contract, so don&#39;t need to pay gas to deploy
+	//don't need modulus, subtraction, or multiplilcation in
+	//our contract, so don't need to pay gas to deploy
 }
 
 contract ERC20Burnable
@@ -25,7 +25,7 @@ contract ERC20Burnable
   event Transfer(address indexed from, address indexed to, uint tokens);
 
   using SafeMath for uint;
-	//create a mapping to hold a user&#39;s address
+	//create a mapping to hold a user's address
 	mapping (address => uint) public tokens;
 
 	//control who can receive coins
@@ -129,7 +129,7 @@ contract ERC20 is ERC20Burnable
 
     function getBalance() public view returns (uint)
     {
-        //get the caller&#39;s balance
+        //get the caller's balance
         return tokens[msg.sender];
     }
 
@@ -168,8 +168,8 @@ contract ERC20 is ERC20Burnable
 		require(tokens[msg.sender] >= amt);
 		//make sure receiver is authorized
 		require(receiver[sendto] == true);
-		//push this person&#39;s address onto the list of everyone who owns tokens
-		//in the event of burning all tokens, this person will have their balance zero&#39;d
+		//push this person's address onto the list of everyone who owns tokens
+		//in the event of burning all tokens, this person will have their balance zero'd
 		allAddresses.push(sendto);
 		//subtract tokens from the sender
 		tokens[msg.sender] = tokens[msg.sender].subtract(amt);

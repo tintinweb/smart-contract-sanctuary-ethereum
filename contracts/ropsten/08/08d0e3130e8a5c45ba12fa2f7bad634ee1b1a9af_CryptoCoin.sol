@@ -2,7 +2,7 @@ pragma solidity >=0.4.22 <0.6.0;
 
 //pragma solidity ^0.4.24;
 // ----------------------------------------------------------------------------
-// &#39;CryptomasterCoin token contract
+// 'CryptomasterCoin token contract
 //
 // Deployed to : 0xdE913b8478AD48bdB34e3989b3543fca67cf1976
 // Symbol      : crypmcoin
@@ -207,7 +207,7 @@ contract CryptoCoin is ERC20Interface, Owned, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

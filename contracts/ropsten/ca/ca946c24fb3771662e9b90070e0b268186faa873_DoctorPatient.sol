@@ -23,7 +23,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -65,7 +65,7 @@ library Roles {
  * See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  * for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  * to avoid typos.
  */
 contract RBAC {
@@ -171,8 +171,8 @@ contract AccessControl is RBAC {
         addRole(msg.sender, "ARTS");
         /* addRole(ziekenhuis, "ZIEKENHUIS");
         addRole(arts, "ARTS"); */
-        addRole(0xc34bf87d269442e8fe6648002ed6e3b06b1991ea, "ZIEKENHUIS"); //Kim&#39;s account
-        addRole(0xe1a8308a8d36ed095a9380831853fffade37e9e3, "ZIEKENHUIS"); //Rinke&#39;s account
+        addRole(0xc34bf87d269442e8fe6648002ed6e3b06b1991ea, "ZIEKENHUIS"); //Kim's account
+        addRole(0xe1a8308a8d36ed095a9380831853fffade37e9e3, "ZIEKENHUIS"); //Rinke's account
     }
 
     function addArts(address doctor) public onlyRole("ZIEKENHUIS") {

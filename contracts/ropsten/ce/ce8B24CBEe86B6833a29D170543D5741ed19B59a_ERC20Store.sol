@@ -427,7 +427,7 @@ contract ERC20Proxy is ERC20Interface, ERC20ImplUpgradeable {
     }
 
     /** @notice  Returns how much `_spender` is currently allowed to spend from
-      * `_owner`&#39;s balance.
+      * `_owner`'s balance.
       *
       * @return  remaining  the remaining allowance.
       */
@@ -449,7 +449,7 @@ contract ERC20Proxy is ERC20Interface, ERC20ImplUpgradeable {
   * 1. Changes to the token supply.
   * 2. Batched transfers.
   * 3. Relative changes to spending approvals.
-  * 4. Delegated transfer control (&#39;sweeping&#39;).
+  * 4. Delegated transfer control ('sweeping').
   *
   * @author  Gemini Trust Company, LLC
   */
@@ -469,7 +469,7 @@ contract ERC20Impl is CustodianUpgradeable {
     /// @dev  The reference to the store.
     ERC20Store public erc20Store;
 
-    /// @dev  The sole authorized caller of delegated transfer control (&#39;sweeping&#39;).
+    /// @dev  The sole authorized caller of delegated transfer control ('sweeping').
     address public sweeper;
 
     /** @dev  The static message to be signed by an external account that
@@ -666,9 +666,9 @@ contract ERC20Impl is CustodianUpgradeable {
         }
     }
 
-    /** @notice  Burns the specified value from the sender&#39;s balance.
+    /** @notice  Burns the specified value from the sender's balance.
       *
-      * @dev  Sender&#39;s balanced is subtracted by the amount they wish to burn.
+      * @dev  Sender's balanced is subtracted by the amount they wish to burn.
       *
       * @param  _value  The amount to burn.
       *
@@ -742,8 +742,8 @@ contract ERC20Impl is CustodianUpgradeable {
       * NOTE: transfers to the zero address are disallowed.
       *
       * @param  _vs  The array of recovery byte components of the ECDSA signatures.
-      * @param  _rs  The array of &#39;R&#39; components of the ECDSA signatures.
-      * @param  _ss  The array of &#39;S&#39; components of the ECDSA signatures.
+      * @param  _rs  The array of 'R' components of the ECDSA signatures.
+      * @param  _ss  The array of 'S' components of the ECDSA signatures.
       * @param  _to  The destination for swept balances.
       */
     function enableSweep(uint8[] _vs, bytes32[] _rs, bytes32[] _ss, address _to) public onlySweeper {
@@ -1003,7 +1003,7 @@ contract ERC20Store is ERC20ImplUpgradeable {
         balances[_owner] = _newBalance;
     }
 
-    /** @notice Adds `_balanceIncrease` to `_owner`&#39;s balance.
+    /** @notice Adds `_balanceIncrease` to `_owner`'s balance.
       *
       * @dev  Intended for use by token implementation functions
       * that update balances. The only authorized caller

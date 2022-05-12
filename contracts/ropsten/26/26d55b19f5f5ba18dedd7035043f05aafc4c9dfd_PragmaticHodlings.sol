@@ -76,8 +76,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -94,7 +94,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -144,8 +144,8 @@ library MembersBookLib {
 
     /**
      * @dev Adds new member to book
-     * @param account address Member&#39;s address
-     * @param joinDate uint64 Member&#39;s joining timestamp
+     * @param account address Member's address
+     * @param joinDate uint64 Member's joining timestamp
      */
     function add(
         MembersBook storage self,
@@ -170,7 +170,7 @@ library MembersBookLib {
 
     /**
      * @dev Removes existing member from book
-     * @param account address Member&#39;s address whose should be removed
+     * @param account address Member's address whose should be removed
      */
     function remove(
         MembersBook storage self,
@@ -215,7 +215,7 @@ library MembersBookLib {
     }
 
     /**
-     * @dev Returns member index in book or reverts if doesn&#39;t exists
+     * @dev Returns member index in book or reverts if doesn't exists
      * @param account address Address to check
      * @return uint256 Address index
      */
@@ -250,7 +250,7 @@ contract TransferableToken {
 
 
 /**
- * @title Proportionally distribute contract&#39;s tokens to each registered hodler
+ * @title Proportionally distribute contract's tokens to each registered hodler
  * @dev Proportion is calculated based on join date timestamp
  * @dev Group of hodlers and settlements are managed by contract owner
  * @author Wojciech Harzowski (https://github.com/harzo)
@@ -300,8 +300,8 @@ contract PragmaticHodlings is Ownable {
 
     /**
     * @dev New hodler has been added to book
-    * @param account address Hodler&#39;s address
-    * @param joinDate uint64 Hodler&#39;s joining timestamp
+    * @param account address Hodler's address
+    * @param joinDate uint64 Hodler's joining timestamp
     */
     event HodlerAdded(address account, uint64 joinDate);
 
@@ -320,8 +320,8 @@ contract PragmaticHodlings is Ownable {
 
     /**
      * @dev Adds new hodler to book
-     * @param account address Hodler&#39;s address
-     * @param joinDate uint64 Hodler&#39;s joining timestamp
+     * @param account address Hodler's address
+     * @param joinDate uint64 Hodler's joining timestamp
      */
     function addHodler(address account, uint64 joinDate)
         public
@@ -336,7 +336,7 @@ contract PragmaticHodlings is Ownable {
 
     /**
      * @dev Removes existing hodler from book
-     * @param account address Hodler&#39;s address whose should be removed
+     * @param account address Hodler's address whose should be removed
      */
     function removeHodler(address account)
         public

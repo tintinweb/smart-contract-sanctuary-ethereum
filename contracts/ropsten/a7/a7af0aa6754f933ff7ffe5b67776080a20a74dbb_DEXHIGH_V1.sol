@@ -492,7 +492,7 @@ library SafeMath2 {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -569,8 +569,8 @@ contract Token {
 contract StandardToken is Token {
 
   function transfer(address _to, uint256 _value) returns (bool success) {
-    //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-    //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+    //Default assumes totalSupply can't be over max (2^256 - 1).
+    //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
     //Replace the if with this one instead.
     if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
     //if (balances[msg.sender] >= _value && _value > 0) {
@@ -636,7 +636,7 @@ contract AccountLevels {
   //given a user, returns an account level
   //0 = regular user (pays take fee and make fee)
   //1 = market maker silver (pays take fee, no make fee, gets rebate)
-  //2 = market maker gold (pays take fee, no make fee, gets entire counterparty&#39;s take fee as rebate)
+  //2 = market maker gold (pays take fee, no make fee, gets entire counterparty's take fee as rebate)
   function accountLevel(address user) constant returns(uint) {}
 }
 

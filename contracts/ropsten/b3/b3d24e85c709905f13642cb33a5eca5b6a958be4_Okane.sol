@@ -73,7 +73,7 @@ contract Okane is EIP20Interface {
     string public symbol;                 //An identifier: eg SBX
     uint256 public price;                 //How much ETH to buy Token
     uint256 public unitsOneEthCanBuy;     //How many units of your coin can be bought by 1 ETH?
-    uint256 public totalEthInWei;         //WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.  
+    uint256 public totalEthInWei;         //WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.  
     address public fundsWallet;           //Where should the raised ETH go?
 
     function Okane(

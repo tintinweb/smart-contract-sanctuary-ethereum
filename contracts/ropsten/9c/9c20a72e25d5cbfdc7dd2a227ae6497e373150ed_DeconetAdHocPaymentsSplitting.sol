@@ -8,8 +8,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -139,9 +139,9 @@ contract DeconetAdHocPaymentsSplitting {
         // prevent integer overflow when math with _sharesExponent happens
         // also ensures that low balances can be distributed because balance must always be >= 10**(sharesExponent + 2)
         require(_sharesExponent <= 4, "The maximum allowed sharesExponent is 4");
-        // ensure that lengths of arrays match so array out of bounds can&#39;t happen
+        // ensure that lengths of arrays match so array out of bounds can't happen
         require(_destinations.length == _sharesMantissa.length, "Length of destinations does not match length of sharesMantissa");
-        // ensure that lengths of arrays match so array out of bounds can&#39;t happen
+        // ensure that lengths of arrays match so array out of bounds can't happen
         require(_destinations.length == _outCurrencies.length, "Length of destinations does not match length of outCurrencies");
 
         uint balance = msg.value;
@@ -157,7 +157,7 @@ contract DeconetAdHocPaymentsSplitting {
             uint mantissa = _sharesMantissa[i];
             ERC20 outCurrency = _outCurrencies[i];
 
-            // calculate this user&#39;s share of ETH
+            // calculate this user's share of ETH
             uint amount = calculatePayout(balance, mantissa, _sharesExponent);
             uint sent = amount;
             if (outCurrency == ETH_TOKEN_ADDRESS) {

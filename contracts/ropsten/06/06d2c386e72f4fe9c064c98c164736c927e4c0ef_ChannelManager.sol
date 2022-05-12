@@ -10,8 +10,8 @@ library SafeMath {
      * @dev Multiplies two numbers, reverts on overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        /* Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-         * benefit is lost if &#39;b&#39; is also tested.
+        /* Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+         * benefit is lost if 'b' is also tested.
          * See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
          */
         if (a == 0) {
@@ -157,7 +157,7 @@ contract ERC20 is IERC20 {
      * @dev Approves the passed address to spend the specified amount of tokens on behalf of msg.sender.
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param spender The address which will spend the funds.
      * @param value The amount of tokens to be spent.
@@ -343,7 +343,7 @@ contract ChannelManager is IChannelManager {
     }
 
     /**
-     * @dev Returns the deposit amount left for the caller&#39;s channel.
+     * @dev Returns the deposit amount left for the caller's channel.
      * @param node Address of the manager node.
      * @return Creation timestamp and deposit of the channel.
      */
@@ -355,7 +355,7 @@ contract ChannelManager is IChannelManager {
     }
 
     /**
-     * @dev Settles the channel provided the caller has a valid signature from channel&#39;s node.
+     * @dev Settles the channel provided the caller has a valid signature from channel's node.
      */
     function settleChannel(address node, address[] recipients, uint256[] values, bytes nodesig) public returns (bool) {
         require(node != address(0));

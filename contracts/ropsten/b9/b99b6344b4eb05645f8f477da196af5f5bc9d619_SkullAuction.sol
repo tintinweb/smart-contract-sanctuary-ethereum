@@ -112,8 +112,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -131,7 +131,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -207,11 +207,11 @@ contract ERC165 is IERC165 {
   bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -277,15 +277,15 @@ contract ERC721 is ERC165, IERC721 {
   bytes4 private constant _InterfaceId_ERC721 = 0x80ac58cd;
   /*
    * 0x80ac58cd ===
-   *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-   *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-   *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('balanceOf(address)')) ^
+   *   bytes4(keccak256('ownerOf(uint256)')) ^
+   *   bytes4(keccak256('approve(address,uint256)')) ^
+   *   bytes4(keccak256('getApproved(uint256)')) ^
+   *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+   *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+   *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
    */
 
   constructor()
@@ -522,7 +522,7 @@ contract ERC721 is ERC165, IERC721 {
    * @dev Internal function to remove a token ID from the list of a given address
    * Note that this function is left internal to make ERC721Enumerable possible, but is not
    * intended to be called by custom derived contracts: in particular, it emits no Transfer event,
-   * and doesn&#39;t clear approvals.
+   * and doesn't clear approvals.
    * @param from address representing the previous owner of the given token ID
    * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
    */
@@ -609,9 +609,9 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
   bytes4 private constant _InterfaceId_ERC721Enumerable = 0x780e9d63;
   /**
    * 0x780e9d63 ===
-   *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+   *   bytes4(keccak256('totalSupply()')) ^
+   *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+   *   bytes4(keccak256('tokenByIndex(uint256)'))
    */
 
   /**
@@ -677,7 +677,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
    * @dev Internal function to remove a token ID from the list of a given address
    * This function is internal due to language limitations, see the note in ERC721.sol.
    * It is not intended to be called by custom derived contracts: in particular, it emits no Transfer event,
-   * and doesn&#39;t clear approvals.
+   * and doesn't clear approvals.
    * @param from address representing the previous owner of the given token ID
    * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
    */
@@ -765,9 +765,9 @@ contract ERC721Metadata is ERC165, ERC721, IERC721Metadata {
   bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
   /**
    * 0x5b5e139f ===
-   *   bytes4(keccak256(&#39;name()&#39;)) ^
-   *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+   *   bytes4(keccak256('name()')) ^
+   *   bytes4(keccak256('symbol()')) ^
+   *   bytes4(keccak256('tokenURI(uint256)'))
    */
 
   /**
@@ -971,8 +971,8 @@ contract SkullBase is ERC721Token {
     ///  is important because of the byte-packing rules used by Ethereum.
     ///  Ref: http://solidity.readthedocs.io/en/develop/miscellaneous.html
     struct Skull {
-        // The Kitty&#39;s genetic code is packed into these 256-bits, the format is
-        // sooper-sekret! A cat&#39;s genes never change.
+        // The Kitty's genetic code is packed into these 256-bits, the format is
+        // sooper-sekret! A cat's genes never change.
         uint256 genes;
         // The timestamp from the block when this cat came into existence.
         uint64 birthTime;
@@ -988,12 +988,12 @@ contract SkullBase is ERC721Token {
     Skull[] skulls;
 
     /// @dev An internal method that creates a new kitty and stores it. This
-    ///  method doesn&#39;t do any checking and should only be called when the
+    ///  method doesn't do any checking and should only be called when the
     ///  input data is known to be valid. Will generate both a Birth event
     ///  and a Transfer event.
     /// @param _attack The kitty ID of the matron of this cat (zero for gen0)
     /// @param _defend The kitty ID of the sire of this cat (zero for gen0)
-    /// @param _genes The kitty&#39;s genetic code.
+    /// @param _genes The kitty's genetic code.
     /// @param _tmpOwner The inital owner of this cat, must be non-zero (except for the unKitty, ID 0)
     function _createSkull(
         uint256 _attack,
@@ -1006,7 +1006,7 @@ contract SkullBase is ERC721Token {
     {
         // These requires are not strictly necessary, our calling code should make
         // sure that these conditions are never broken. However! _createKitty() is already
-        // an expensive call (for storage), and it doesn&#39;t hurt to be especially careful
+        // an expensive call (for storage), and it doesn't hurt to be especially careful
         // to ensure our data structures are always valid.
         require(_attack == uint256(uint16(_attack)));
         require(_defend == uint256(uint16(_defend)));
@@ -1298,7 +1298,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         nonFungibleContract = candidateContract;
     }
 
-    /// @dev Remove all Ether from the contract, which is the owner&#39;s cuts
+    /// @dev Remove all Ether from the contract, which is the owner's cuts
     ///  as well as any Ether sent directly to the contract address.
     ///  Always transfers to the NFT contract, but can be called either by
     ///  the owner or the NFT contract.
@@ -1327,7 +1327,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         external
         whenNotPaused
     {
-        // Sanity check that no inputs overflow how many bits we&#39;ve allocated
+        // Sanity check that no inputs overflow how many bits we've allocated
         // to store them in the auction struct.
         require(_startingPrice == uint256(uint128(_startingPrice)));
         require(_endingPrice == uint256(uint128(_endingPrice)));
@@ -1357,7 +1357,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         _transfer(msg.sender, _tokenId);
     }
 
-    /// @dev Cancels an auction that hasn&#39;t been won yet.
+    /// @dev Cancels an auction that hasn't been won yet.
     ///  Returns the NFT to original owner.
     /// @notice This is a state-modifying function that can
     ///  be called while the contract is paused.
@@ -1450,7 +1450,7 @@ contract SaleClockAuction is ClockAuction {
     )
         external
     {
-        // Sanity check that no inputs overflow how many bits we&#39;ve allocated
+        // Sanity check that no inputs overflow how many bits we've allocated
         // to store them in the auction struct.
         require(_startingPrice == uint256(uint128(_startingPrice)));
         require(_endingPrice == uint256(uint128(_endingPrice)));
@@ -1547,7 +1547,7 @@ contract SkullAuction is SkullBase, SkullAccessControl {
 
 /// @title CryptoKitties: Collectible, breedable, and oh-so-adorable cats on the Ethereum blockchain.
 /// @author Axiom Zen (https://www.axiomzen.co)
-/// @dev The main CryptoKitties contract, keeps track of kittens so they don&#39;t wander around and get lost.
+/// @dev The main CryptoKitties contract, keeps track of kittens so they don't wander around and get lost.
 contract SkullCore is SkullAuction {
 
     // Set in case the core contract is broken and an upgrade is required
@@ -1562,13 +1562,13 @@ contract SkullCore is SkullAuction {
         rootAddress = msg.sender;
         adminAddress = msg.sender;
 
-        // start with the mythical kitten 0 - so we don&#39;t have generation-0 parent issues
+        // start with the mythical kitten 0 - so we don't have generation-0 parent issues
         _createSkull(0, 0, 0, address(0));
     }
 
     /// @dev Used to mark the smart contract as upgraded, in case there is a serious
     ///  breaking bug. This method does nothing but keep track of the new contract and
-    ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+    ///  emit a message indicating that the new address is set. It's up to clients of this
     ///  contract to update to the new contract address in that case. (This contract will
     ///  be paused indefinitely if such an upgrade takes place.)
     /// @param _v2Address new address
@@ -1579,7 +1579,7 @@ contract SkullCore is SkullAuction {
     }
 
     /// @notice No tipping!
-    /// @dev Reject all Ether from being sent here, unless it&#39;s from one of the
+    /// @dev Reject all Ether from being sent here, unless it's from one of the
     ///  two auction contracts. (Hopefully, we can prevent user accidents.)
     function() external payable {
         require(
@@ -1607,7 +1607,7 @@ contract SkullCore is SkullAuction {
     }
 
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.

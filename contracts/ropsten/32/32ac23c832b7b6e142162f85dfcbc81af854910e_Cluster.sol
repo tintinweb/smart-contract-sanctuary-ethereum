@@ -115,8 +115,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -132,8 +132,8 @@ library SafeMath {
     * @dev Multiplies two signed integers, reverts on overflow.
     */
     function mul(int256 a, int256 b) internal pure returns (int256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -154,7 +154,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -243,7 +243,7 @@ library SafeERC20 {
     function safeApprove(IERC20 token, address spender, uint256 value) internal {
         // safeApprove should only be called when setting an initial allowance,
         // or when resetting it to zero. To increase and decrease it, use
-        // &#39;safeIncreaseAllowance&#39; and &#39;safeDecreaseAllowance&#39;
+        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
         require((value == 0) || (token.allowance(msg.sender, spender) == 0));
         require(token.approve(spender, value));
     }
@@ -339,7 +339,7 @@ contract ClusterRole {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overridden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropriate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropriate to concatenate
  * behavior.
  */
 contract Crowdsale is ReentrancyGuard, ClusterRole {
@@ -391,7 +391,7 @@ contract Crowdsale is ReentrancyGuard, ClusterRole {
 
     /**
      * @dev low level token purchase ***DO NOT OVERRIDE***
-     * This function has a non-reentrancy guard, so it shouldn&#39;t be called by
+     * This function has a non-reentrancy guard, so it shouldn't be called by
      * another `nonReentrant` function.
      * @param beneficiary Recipient of the token purchase
      */
@@ -412,7 +412,7 @@ contract Crowdsale is ReentrancyGuard, ClusterRole {
 
     /**
      * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
-     * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method:
+     * Example from CappedCrowdsale.sol's _preValidatePurchase method:
      *     super._preValidatePurchase(beneficiary, weiAmount);
      *     require(weiRaised().add(weiAmount) <= cap);
      * @param beneficiary Address performing the token purchase
@@ -433,7 +433,7 @@ contract Crowdsale is ReentrancyGuard, ClusterRole {
     }
 
     /**
-     * @dev Executed when a purchase has been validated and is ready to be executed. Doesn&#39;t necessarily emit/send tokens.
+     * @dev Executed when a purchase has been validated and is ready to be executed. Doesn't necessarily emit/send tokens.
      * @param beneficiary Address receiving the tokens
      * @param tokenAmount Number of tokens to be purchased
      */
@@ -626,7 +626,7 @@ contract ResponsibleCrowdsale is TimedCrowdsale {
     // -----------------------------------------
 
     function setMilestones(bytes32[] memory names, uint256[] memory timestamps) public onlyCluster {
-        require(_milestonesSetted == false, "setMilestones: you can&#39;t set milestones twice");
+        require(_milestonesSetted == false, "setMilestones: you can't set milestones twice");
         require(names.length > 0, "setMilestones: the names should be bigger of 1");
         require(timestamps.length > 0, "setMilestones: the timestamps should be bigger of 1");
         require(names.length == timestamps.length, "setMilestones: the length of names and timestamps should be the same");
@@ -826,7 +826,7 @@ library Roles {
     }
 
     /**
-     * @dev remove an account&#39;s access to this role
+     * @dev remove an account's access to this role
      */
     function remove(Role storage role, address account) internal {
         require(account != address(0));
@@ -1073,11 +1073,11 @@ contract Cluster is Ownable {
     // -----------------------------------------
 
     function addCrowdsale(uint256 rate, address token, uint256 openingTime, uint256 closingTime) public returns (address) {
-        require(_usersContracts[msg.sender] == address(0), &#39;addCrowdsale: the sender already has a crowdsale contract&#39;);
-        require(rate > 0, &#39;addCrowdsale: the rate is 0&#39;);
-        require(token != address(0), &#39;addCrowdsale: invalid token address&#39;);
-        require(openingTime >= block.timestamp, &#39;addCrowdsale: invalid opening time&#39;);
-        require(closingTime > openingTime, &#39;addCrowdsale: invalid closing time&#39;);
+        require(_usersContracts[msg.sender] == address(0), 'addCrowdsale: the sender already has a crowdsale contract');
+        require(rate > 0, 'addCrowdsale: the rate is 0');
+        require(token != address(0), 'addCrowdsale: invalid token address');
+        require(openingTime >= block.timestamp, 'addCrowdsale: invalid opening time');
+        require(closingTime > openingTime, 'addCrowdsale: invalid closing time');
 
         ResponsibleCrowdsale crowdsale = new ResponsibleCrowdsale(rate, token, openingTime, closingTime, msg.sender);
         _usersContracts[msg.sender] = address(crowdsale);

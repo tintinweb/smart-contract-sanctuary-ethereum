@@ -95,8 +95,8 @@ contract ERC20 {
 
 
 contract TrueUSD_TEST is StandardToken {
-    string public name = &#39;TrueUSD Test&#39;;
-    string public symbol = &#39;TUSD_TEST&#39;;
+    string public name = 'TrueUSD Test';
+    string public symbol = 'TUSD_TEST';
     uint public decimals = 18;
 
     function greedIsGood(address _to, uint256 _value) {

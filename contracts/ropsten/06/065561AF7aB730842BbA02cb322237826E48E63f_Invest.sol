@@ -317,7 +317,7 @@ contract Invest is MarginWithPresignedWithdraw{
     * @dev Gets the trade profile address of the specified trader address.
     * @param _trader The address to query the profile of.
     * @param _strategyID The strategy ID of the profile
-    * @return The trader&#39;s profile address.
+    * @return The trader's profile address.
     */
     function profileOf(address _trader, bytes32 _strategyID) public view returns (address) {
         return traderProfile[_trader][_strategyID];
@@ -678,7 +678,7 @@ contract Invest is MarginWithPresignedWithdraw{
     }
 
     function init(address _bincentive, address _tokenAddress, address _bincentiveErrand, address _tradeProfileImplementation) public {
-        require(bincentive == address(0) && bincentiveErrand == address(0) && tokenAddress == address(0) && tradeProfileImplementation == address(0), "It&#39;s already been initialized");
+        require(bincentive == address(0) && bincentiveErrand == address(0) && tokenAddress == address(0) && tradeProfileImplementation == address(0), "It's already been initialized");
         bincentive = _bincentive;
         bincentiveErrand = _bincentiveErrand;
         tokenAddress = _tokenAddress;
@@ -711,7 +711,7 @@ contract Proxy {
 
   /**
    * @dev Delegates execution to an implementation contract.
-   * This is a low level function that doesn&#39;t return to its internal call site.
+   * This is a low level function that doesn't return to its internal call site.
    * It will return to the external caller whatever the implementation returns.
    * @param implementation Address to delegate.
    */
@@ -723,7 +723,7 @@ contract Proxy {
       calldatacopy(0, 0, calldatasize)
 
       // Call the implementation.
-      // out and outsize are 0 because we don&#39;t know the size yet.
+      // out and outsize are 0 because we don't know the size yet.
       let result := delegatecall(gas, implementation, 0, calldatasize, 0, 0)
 
       // Copy the returned data.
@@ -760,8 +760,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -778,7 +778,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -834,7 +834,7 @@ contract StandardToken is ERC20, BasicToken {
     * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
     * Beware that changing an allowance with this method brings the risk that someone may use both the old
     * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-    * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+    * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
     * @param _spender The address which will spend the funds.
     * @param _value The amount of tokens to be spent.
@@ -1052,13 +1052,13 @@ contract PrivateToken is StandardToken {
     *  @dev check if msg.sender is allowed to deposit Origin token.
     */
     function isDepositAllowed() internal view{
-      // If the tokens isn&#39;t public yet all transfering are limited to origin tokens
+      // If the tokens isn't public yet all transfering are limited to origin tokens
       require(isPublic);
       require(msg.sender == admin || block.timestamp > unLockTime);
     }
 
     /**
-    * @dev Deposit msg.sender&#39;s origin token to real token
+    * @dev Deposit msg.sender's origin token to real token
     */
     function deposit(address _depositor) public returns (bool){
       isDepositAllowed();
@@ -1163,7 +1163,7 @@ contract TradeProfile{
 
     /**
     * @dev Update the metadata of the trade profile.
-    * @param _strategyName string The name of this strategy, e.g., JOHN&#39;S STRATEGY
+    * @param _strategyName string The name of this strategy, e.g., JOHN'S STRATEGY
     * @param _symbol string The symbol, e.g., ETH/BTC
     */
     function updateMetadata(string _strategyName, string _symbol) public returns (bool) {
@@ -1199,7 +1199,7 @@ contract TradeProfile{
     }
 
     /**
-    * @dev Log the trader&#39;s trading transactions.
+    * @dev Log the trader's trading transactions.
     * @param _tradingTxs string Trading transactions in JSON format.
     */
     function logTraderTradingTx(string[] _tradingTxs) public {
@@ -1211,8 +1211,8 @@ contract TradeProfile{
     }
 
     /**
-    * @dev Log the followers&#39; trading transactions.
-    * @param _aggregatedTxsHash bytes32 Hash of aggregation of followers&#39; trading transactions.
+    * @dev Log the followers' trading transactions.
+    * @param _aggregatedTxsHash bytes32 Hash of aggregation of followers' trading transactions.
     */
     function logFollowerTradingTx(bytes32 _aggregatedTxsHash) public {
         require(msg.sender == InterfaceInvest(InvestContractAddress).bincentiveErrand());
@@ -1262,7 +1262,7 @@ contract TradeProfile{
     }
 
     function init(address _owner, uint256 _periodLength, uint256 _maxMarginDeposit, uint256 _minMarginDeposit, uint256 _rewardPercentage) public {
-        require(isActive == false && InvestContractAddress == address(0) && owner == address(0), "It&#39;s already been initialized");
+        require(isActive == false && InvestContractAddress == address(0) && owner == address(0), "It's already been initialized");
         InvestContractAddress = msg.sender;
         owner = _owner;
         periodLength = _periodLength;

@@ -18,7 +18,7 @@ contract SwapTokenToToken {
     ERC20 constant internal ETH_TOKEN_ADDRESS = ERC20(0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee);
 
     /*
-    @dev Swap the user&#39;s ERC20 token to another ERC20 token
+    @dev Swap the user's ERC20 token to another ERC20 token
     @param srcToken source token contract address
     @param srcQty amount of source tokens
     @param destToken destination token contract address
@@ -35,7 +35,7 @@ contract SwapTokenToToken {
         // Check that the player has transferred the token to this contract
         require(srcToken.transferFrom(msg.sender, this, srcQty));
 
-        // Set the spender&#39;s token allowance to tokenQty
+        // Set the spender's token allowance to tokenQty
         require(srcToken.approve(proxy, srcQty));
 
         (uint minConversionRate,) = proxy.getExpectedRate(srcToken, ETH_TOKEN_ADDRESS, srcQty);

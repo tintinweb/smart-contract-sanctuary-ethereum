@@ -82,8 +82,8 @@ contract Almacert {
         require(student[_id].hash != 0x00);
         //prevent erroneous removed
         student[_id].hash = 0x00;
-        student[_id].fCode = &#39;&#39;;
-        student[_id].session = &#39;&#39;;
+        student[_id].fCode = '';
+        student[_id].session = '';
     }
 
     function changeOwner(address _old_owner, address _new_owner) public restricted {

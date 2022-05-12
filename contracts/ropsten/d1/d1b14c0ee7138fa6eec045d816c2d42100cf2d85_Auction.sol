@@ -44,11 +44,11 @@ contract Auction {
         // reject payments of 0 ETH
         if (msg.value == 0) throw;
 
-        // calculate the user&#39;s total bid based on the current amount they&#39;ve sent to the contract
+        // calculate the user's total bid based on the current amount they've sent to the contract
         // plus whatever has been sent with this transaction
         uint newBid = fundsByBidder[msg.sender] + msg.value;
 
-        // if the user isn&#39;t even willing to overbid the highest binding bid, there&#39;s nothing for us
+        // if the user isn't even willing to overbid the highest binding bid, there's nothing for us
         // to do except revert the transaction.
         if (newBid <= highestBindingBid) throw;
 
@@ -63,12 +63,12 @@ contract Auction {
             // increase the highestBindingBid and leave highestBidder alone.
 
             // note that this case is impossible if msg.sender == highestBidder because you can never
-            // bid less ETH than you&#39;ve already bid.
+            // bid less ETH than you've already bid.
 
             highestBindingBid = min(newBid + bidIncrement, highestBid);
         } else {
             // if msg.sender is already the highest bidder, they must simply be wanting to raise
-            // their maximum bid, in which case we shouldn&#39;t increase the highestBindingBid.
+            // their maximum bid, in which case we shouldn't increase the highestBindingBid.
 
             // if the user is NOT highestBidder, and has overbid highestBid completely, we set them
             // as the new highestBidder and recalculate highestBindingBid.
@@ -120,7 +120,7 @@ contract Auction {
             // the auction finished without being canceled
 
             if (msg.sender == owner) {
-                // the auction&#39;s owner should be allowed to withdraw the highestBindingBid
+                // the auction's owner should be allowed to withdraw the highestBindingBid
                 withdrawalAccount = highestBidder;
                 withdrawalAmount = highestBindingBid;
                 ownerHasWithdrawn = true;

@@ -105,7 +105,7 @@ contract MerkleProof {
       // calculate remaining elements in proof
       remaining = (proof.length - j + 32) / 32;
 
-      // we don&#39;t assume that the tree is padded to a power of 2
+      // we don't assume that the tree is padded to a power of 2
       // if the index is odd then the proof will start with a hash at a higher layer,
       // so we have to adjust the index to be the index at that layer
       while (remaining > 0 && index % 2 == 1 && index > 2 ** remaining) {
@@ -225,7 +225,7 @@ contract Ledger {
   /**
    * the Evm hasValue a limit of psuedo 16 local variables (including parameters and return parameters).
    * on exceeding this constraint, the Solidity compiler will bail out map:
-   *    &#39;Error: Stack too deep, try removing local variables&#39;
+   *    'Error: Stack too deep, try removing local variables'
    * so ... we opt to calculate the hash in chunks
    */
   function calculateEvmConstrainedHash(EntryType entryType, address[] addresses, uint[] uints) internal view returns (bytes32) {
@@ -589,7 +589,7 @@ contract Custodian is Stoppable, HasOwners, MerkleProof, Ledger {
   function claimExit(address[] addresses, uint[] uints, bytes signature, bytes proof, bytes32 root) external {
     Entry memory entry = extractEntry(addresses, uints);
     verifySignedBy(entry.hash, signature, operator);
-    require(entry.account == msg.sender, "claimant must be entry&#39;s account");
+    require(entry.account == msg.sender, "claimant must be entry's account");
     require(!hasExited(entry.account, entry.asset), "previously exited");
     require(proveInConfirmedBalances(proof, root, entry.hash), "invalid balance proof");
 
@@ -610,7 +610,7 @@ contract Custodian is Stoppable, HasOwners, MerkleProof, Ledger {
   function exitOnHalt(address[] addresses, uint[] uints, bytes signature, bytes proof, bytes32 root) external whenOff {
     Entry memory entry = extractEntry(addresses, uints);
     verifySignedBy(entry.hash, signature, operator);
-    require(entry.account == msg.sender, "claimant must be entry&#39;s account");
+    require(entry.account == msg.sender, "claimant must be entry's account");
     require(proveInConfirmedBalances(proof, root, entry.hash), "invalid balance proof");
     _exit_(entry);
   }
@@ -747,7 +747,7 @@ library Math {
   function div(uint a, uint b) internal pure returns (uint c) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
   }
 
 }
@@ -766,7 +766,7 @@ contract StandardToken is Token {
 
   function transfer(address _to, uint _value) public returns (bool success) {
     //Default assumes totalSupply can"t be over max (2^256 - 1).
-    //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+    //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
     //Replace the if map this one instead.
     //require(balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]);
     require(balances[msg.sender] >= _value, "sender has insufficient token balance");
@@ -819,7 +819,7 @@ contract Fee is HasOwners, StandardToken {
   event Burn(address indexed from, uint value);
 
   string public name;                   //fancy name: eg Simon Bucks
-  uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+  uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
   string public symbol;                 //An identifier: eg SBX
   string public version = "F0.2";       //human 0.1 standard. Just an arbitrary versioning scheme.
   address public minter;

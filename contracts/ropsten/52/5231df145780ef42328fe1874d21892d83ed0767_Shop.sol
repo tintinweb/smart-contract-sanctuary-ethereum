@@ -309,7 +309,7 @@ contract Shop {
     }
     
     //Admin function to change the owner with _password
-    //The new owner get the old owner&#39;s balance, have to give a new password too
+    //The new owner get the old owner's balance, have to give a new password too
     function changeShopOwner(bytes32 _password, bytes32 _newHashedPassword) public
     {
         require(hashedPassword == keccak256(abi.encodePacked(_password)));

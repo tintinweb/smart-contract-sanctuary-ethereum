@@ -39,8 +39,8 @@ contract Proxy {
   bytes32 public app_exec_id;
   address public app_index;
 
-  // Function selector for storage &#39;exec&#39; function
-  bytes4 internal constant EXEC_SEL = bytes4(keccak256(&#39;exec(address,bytes32,bytes)&#39;));
+  // Function selector for storage 'exec' function
+  bytes4 internal constant EXEC_SEL = bytes4(keccak256('exec(address,bytes32,bytes)'));
 
   // Event emitted in case of a revert from storage
   event StorageException(bytes32 indexed execution_id, string message);
@@ -62,9 +62,9 @@ contract Proxy {
 
   // Checks to see if an error message was returned with the failed call, and emits it if so -
   function checkErrors() internal {
-    // If the returned data begins with selector &#39;Error(string)&#39;, get the contained message -
+    // If the returned data begins with selector 'Error(string)', get the contained message -
     string memory message;
-    bytes4 err_sel = bytes4(keccak256(&#39;Error(string)&#39;));
+    bytes4 err_sel = bytes4(keccak256('Error(string)'));
     assembly {
       // Get pointer to free memory, place returned data at pointer, and update free memory pointer
       let ptr := mload(0x40)
@@ -319,7 +319,7 @@ contract DutchProxy is IDutchCrowdsale, TokenProxy {
   constructor (address _storage, bytes32 _registry_exec_id, address _provider, bytes32 _app_name) public
     Proxy(_storage, _registry_exec_id, _provider, _app_name) { }
 
-  // Constructor - creates a new instance of the application in storage, and sets this proxy&#39;s exec id
+  // Constructor - creates a new instance of the application in storage, and sets this proxy's exec id
   function init(address, uint, uint, uint, uint, uint, uint, bool, address, bool) external {
     require(msg.sender == proxy_admin && app_exec_id == 0 && app_name != 0);
     (app_exec_id, app_version) = app_storage.createInstance(
@@ -331,7 +331,7 @@ contract DutchProxy is IDutchCrowdsale, TokenProxy {
   // Executes an arbitrary function in this application
   function exec(bytes _calldata) external payable returns (bool success) {
     require(app_exec_id != 0 && _calldata.length >= 4);
-    // Call &#39;exec&#39; in AbstractStorage, passing in the sender&#39;s address, the app exec id, and the calldata to forward -
+    // Call 'exec' in AbstractStorage, passing in the sender's address, the app exec id, and the calldata to forward -
     app_storage.exec.value(msg.value)(msg.sender, app_exec_id, _calldata);
 
     // Get returned data

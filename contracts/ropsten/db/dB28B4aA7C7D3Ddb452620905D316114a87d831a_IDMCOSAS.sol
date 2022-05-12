@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 // ----------------------------------------------------------------------------
-// &#39;MCS&#39; token contract
+// 'MCS' token contract
 //
 // Сreator : 0xd0C7eFd2acc5223c5cb0A55e2F1D5f1bB904035d
 // Symbol      : MCS
@@ -79,7 +79,7 @@ contract Token {
 contract StandardToken is Token {
 
     function transfer(address _to, uint _value)public returns (bool) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[msg.sender] >= _value && balances[_to] + _value >= balances[_to]) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;

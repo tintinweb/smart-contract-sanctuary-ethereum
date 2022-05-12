@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract Shabu is BaseToken, AirdropToken, ICOToken {
     function Shabu() public {
         totalSupply = 1000000000000000;
-        name = &#39;Shabu&#39;;
-        symbol = &#39;SHB&#39;;
+        name = 'Shabu';
+        symbol = 'SHB';
         decimals = 8;
         balanceOf[0x0cB3B65CE60380aa5820207eE3f2730caec27795] = totalSupply;
         Transfer(address(0), 0x0cB3B65CE60380aa5820207eE3f2730caec27795, totalSupply);

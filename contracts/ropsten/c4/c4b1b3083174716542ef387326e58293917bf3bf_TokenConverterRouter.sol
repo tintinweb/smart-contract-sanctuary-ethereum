@@ -48,7 +48,7 @@ contract Ownable {
         @param _to Address of the new owner
     */
     function transferTo(address _to) public onlyOwner returns (bool) {
-        require(_to != address(0), "Can&#39;t transfer to address 0x0");
+        require(_to != address(0), "Can't transfer to address 0x0");
         emit SetOwner(_to);
         owner = _to;
         return true;

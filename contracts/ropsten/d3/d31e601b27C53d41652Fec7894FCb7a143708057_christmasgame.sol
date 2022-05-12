@@ -31,7 +31,7 @@ contract christmasgame {
     selector public firstselector; // will contain first selector to let him be the last receiver
     
     
-    bool public isregistrationphaseclosed = false; // it&#39;s a boolean that defines if this phase is closed
+    bool public isregistrationphaseclosed = false; // it's a boolean that defines if this phase is closed
     
     // this account will decide who will be the first selector
     address constant public gamemaster = 0x935D3a60C5b8E2204CCc4fBdb171559DEF0CCcb4;

@@ -16,7 +16,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -132,14 +132,14 @@ contract MonethaUsers is Contactable {
     event UpdatedUser(address indexed _userAddress, string _name, uint256 _newStarScore, uint256 _newReputationScore, uint256 _newSignedDealsCount, string _newNickname, bool _newIsVerified);
 
     /**
-     *  registerUser associates a Monetha user&#39;s ethereum address with his nickname and trust score
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _name corresponds to use&#39;s nickname
-     *  @param _starScore represents user&#39;s star score
-     *  @param _reputationScore represents user&#39;s reputation score
-     *  @param _signedDealsCount represents user&#39;s signed deal count
-     *  @param _nickname represents user&#39;s nickname
-     *  @param _isVerified represents whether user is verified (KYC&#39;ed)
+     *  registerUser associates a Monetha user's ethereum address with his nickname and trust score
+     *  @param _userAddress address of user's wallet
+     *  @param _name corresponds to use's nickname
+     *  @param _starScore represents user's star score
+     *  @param _reputationScore represents user's reputation score
+     *  @param _signedDealsCount represents user's signed deal count
+     *  @param _nickname represents user's nickname
+     *  @param _isVerified represents whether user is verified (KYC'ed)
      */
     function registerUser(address _userAddress, string _name, uint256 _starScore, uint256 _reputationScore, uint256 _signedDealsCount, string _nickname, bool _isVerified)
         external onlyOwner
@@ -158,8 +158,8 @@ contract MonethaUsers is Contactable {
 
     /**
      *  updateStarScore updates the star score of a Monetha user
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedStars represents user&#39;s new star score
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedStars represents user's new star score
      */
     function updateStarScore(address _userAddress, uint256 _updatedStars)
         external onlyOwner
@@ -186,8 +186,8 @@ contract MonethaUsers is Contactable {
 
     /**
      *  updateReputationScore updates the reputation score of a Monetha user
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedReputation represents user&#39;s new reputation score
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedReputation represents user's new reputation score
      */
     function updateReputationScore(address _userAddress, uint256 _updatedReputation)
         external onlyOwner
@@ -214,9 +214,9 @@ contract MonethaUsers is Contactable {
 
     /**
      *  updateTrustScore updates the trust score of a Monetha user
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedStars represents user&#39;s new star score
-     *  @param _updatedReputation represents user&#39;s new reputation score
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedStars represents user's new star score
+     *  @param _updatedReputation represents user's new reputation score
      */
     function updateTrustScore(address _userAddress, uint256 _updatedStars, uint256 _updatedReputation)
         external onlyOwner
@@ -246,8 +246,8 @@ contract MonethaUsers is Contactable {
 
     /**
      *  updateSignedDealsCount updates the signed deals count of a Monetha user
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedSignedDeals represents user&#39;s new signed deals count
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedSignedDeals represents user's new signed deals count
      */
     function updateSignedDealsCount(address _userAddress, uint256 _updatedSignedDeals)
         external onlyOwner
@@ -273,9 +273,9 @@ contract MonethaUsers is Contactable {
     }
 
     /**
-     *  updateNickname updates user&#39;s nickname
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedNickname represents user&#39;s new nickname
+     *  updateNickname updates user's nickname
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedNickname represents user's new nickname
      */
     function updateNickname(address _userAddress, string _updatedNickname)
         external onlyOwner
@@ -286,9 +286,9 @@ contract MonethaUsers is Contactable {
     }
 
     /**
-     *  updateIsVerified updates user&#39;s verified status
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _isVerified represents user&#39;s new verification status
+     *  updateIsVerified updates user's verified status
+     *  @param _userAddress address of user's wallet
+     *  @param _isVerified represents user's new verification status
      */
     function updateIsVerified(address _userAddress, bool _isVerified)
         external onlyOwner
@@ -336,8 +336,8 @@ contract MonethaUsers is Contactable {
 
     /**
      *  updateName updates the name of a Monetha user
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedName represents user&#39;s new name
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedName represents user's new name
      */
     function updateName(address _userAddress, string _updatedName)
         external onlyOwner

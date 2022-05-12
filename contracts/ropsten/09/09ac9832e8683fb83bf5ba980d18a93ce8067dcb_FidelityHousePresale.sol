@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -139,7 +139,7 @@ library SafeERC20 {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overridden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropriate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropriate to concatenate
  * behavior.
  */
 contract Crowdsale {
@@ -236,7 +236,7 @@ contract Crowdsale {
 
   /**
    * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
-   * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method: 
+   * Example from CappedCrowdsale.sol's _preValidatePurchase method: 
    *   super._preValidatePurchase(_beneficiary, _weiAmount);
    *   require(weiRaised.add(_weiAmount) <= cap);
    * @param _beneficiary Address performing the token purchase
@@ -481,7 +481,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -703,7 +703,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage _role, address _addr)
     internal
@@ -898,7 +898,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -968,11 +968,11 @@ contract SupportsInterfaceWithLookup is ERC165 {
   bytes4 public constant InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) internal supportedInterfaces;
 
@@ -1020,17 +1020,17 @@ contract ERC1363 is ERC20, ERC165 {
   /*
    * Note: the ERC-165 identifier for this interface is 0x4bbee2df.
    * 0x4bbee2df ===
-   *   bytes4(keccak256(&#39;transferAndCall(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferAndCall(address,uint256,bytes)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFromAndCall(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFromAndCall(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('transferAndCall(address,uint256)')) ^
+   *   bytes4(keccak256('transferAndCall(address,uint256,bytes)')) ^
+   *   bytes4(keccak256('transferFromAndCall(address,address,uint256)')) ^
+   *   bytes4(keccak256('transferFromAndCall(address,address,uint256,bytes)'))
    */
 
   /*
    * Note: the ERC-165 identifier for this interface is 0xfb9ec8ce.
    * 0xfb9ec8ce ===
-   *   bytes4(keccak256(&#39;approveAndCall(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approveAndCall(address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('approveAndCall(address,uint256)')) ^
+   *   bytes4(keccak256('approveAndCall(address,uint256,bytes)'))
    */
 
   /**
@@ -1079,7 +1079,7 @@ contract ERC1363 is ERC20, ERC165 {
    *  and then call `onApprovalReceived` on spender
    *  Beware that changing an allowance with this method brings the risk that someone may use both the old
    *  and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   *  race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   *  race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    *  https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender address The address which will spend the funds
    * @param _value uint256 The amount of tokens to be spent
@@ -1091,7 +1091,7 @@ contract ERC1363 is ERC20, ERC165 {
    *  and then call `onApprovalReceived` on spender
    *  Beware that changing an allowance with this method brings the risk that someone may use both the old
    *  and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   *  race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   *  race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    *  https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender address The address which will spend the funds
    * @param _value uint256 The amount of tokens to be spent
@@ -1184,18 +1184,18 @@ contract ERC1363BasicToken is SupportsInterfaceWithLookup, StandardToken, ERC136
   /*
    * Note: the ERC-165 identifier for this interface is 0x4bbee2df.
    * 0x4bbee2df ===
-   *   bytes4(keccak256(&#39;transferAndCall(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferAndCall(address,uint256,bytes)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFromAndCall(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFromAndCall(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('transferAndCall(address,uint256)')) ^
+   *   bytes4(keccak256('transferAndCall(address,uint256,bytes)')) ^
+   *   bytes4(keccak256('transferFromAndCall(address,address,uint256)')) ^
+   *   bytes4(keccak256('transferFromAndCall(address,address,uint256,bytes)'))
    */
   bytes4 internal constant InterfaceId_ERC1363Transfer = 0x4bbee2df;
 
   /*
    * Note: the ERC-165 identifier for this interface is 0xfb9ec8ce.
    * 0xfb9ec8ce ===
-   *   bytes4(keccak256(&#39;approveAndCall(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approveAndCall(address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('approveAndCall(address,uint256)')) ^
+   *   bytes4(keccak256('approveAndCall(address,uint256,bytes)'))
    */
   bytes4 internal constant InterfaceId_ERC1363Approve = 0xfb9ec8ce;
 
@@ -1400,7 +1400,7 @@ contract FidelityHouseToken is DetailedERC20, RBACMintableToken, BurnableToken, 
     );
     require(
       _value <= balances[_from].sub(lockedBalanceOf(_from)),
-      "Can&#39;t transfer more than unlocked tokens"
+      "Can't transfer more than unlocked tokens"
     );
     _;
   }
@@ -1804,7 +1804,7 @@ contract DefaultCrowdsale is TimedCrowdsale, TokenRecover {
   {
     require(
       _contributions != address(0),
-      "Contributions address can&#39;t be the zero address."
+      "Contributions address can't be the zero address."
     );
     contributions = Contributions(_contributions);
     minimumContribution = _minimumContribution;
@@ -1831,7 +1831,7 @@ contract DefaultCrowdsale is TimedCrowdsale, TokenRecover {
   {
     require(
       _weiAmount >= minimumContribution,
-      "Can&#39;t send less than the minimum contribution"
+      "Can't send less than the minimum contribution"
     );
     require(
       contributions.isAllowedPurchase(_beneficiary, _weiAmount),

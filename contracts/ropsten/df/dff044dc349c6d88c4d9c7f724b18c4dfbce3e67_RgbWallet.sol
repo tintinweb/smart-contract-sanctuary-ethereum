@@ -5,7 +5,7 @@ contract Owned {
   address public owner;
 
   modifier onlyOwner() {
-    require(msg.sender == owner, &#39;Authorization denied, only owner&#39;);
+    require(msg.sender == owner, 'Authorization denied, only owner');
     _;
   }
 
@@ -35,19 +35,19 @@ contract RgbWallet is Owned {
 
   /* Throw if the sender is not a player */
   modifier onlyPlayer() {
-    require(isPlayer(msg.sender), &#39;Not a player&#39;);
+    require(isPlayer(msg.sender), 'Not a player');
     _;
   }
 
   /* Throw if the game is over */
   modifier gameInProgress() {
-    require(now <= startTime + 1 weeks, &#39;Game over&#39;);
+    require(now <= startTime + 1 weeks, 'Game over');
     _;
   }
 
   /* Throw if the game is not over */
   modifier gameOver() {
-    require(now > startTime + 1 weeks, &#39;Game in progress&#39;);
+    require(now > startTime + 1 weeks, 'Game in progress');
     _;
   }
 
@@ -77,7 +77,7 @@ contract RgbWallet is Owned {
   /* Sender joins the game */
   function play() gameInProgress public {
     // The sender must not be already a player
-    require(!isPlayer(msg.sender), &#39;Already a player&#39;);
+    require(!isPlayer(msg.sender), 'Already a player');
     // Register the address in the array of player
     playerList.push(msg.sender);
     // Given the address, derive the corresponding rgb
@@ -112,9 +112,9 @@ contract RgbWallet is Owned {
     // Get the coin of otherPlayer
     Player memory otherCoin = wallets[otherPlayer];
     // The sender must at least send the interactionPrice of the other player
-    require(msg.value >= otherCoin.interactionPrice * 1 finney, &#39;Not enough Ether&#39;);
+    require(msg.value >= otherCoin.interactionPrice * 1 finney, 'Not enough Ether');
     // The color of the target must be the one in argument
-    require(targetRgbR == otherCoin.rgb.r && targetRgbG == otherCoin.rgb.g && targetRgbB == otherCoin.rgb.b, &#39;Target coin has changed&#39;);
+    require(targetRgbR == otherCoin.rgb.r && targetRgbG == otherCoin.rgb.g && targetRgbB == otherCoin.rgb.b, 'Target coin has changed');
     // Get the coin of the sender
     Player storage myCoin = wallets[msg.sender];
     // Blend your coin with the other one
@@ -130,7 +130,7 @@ contract RgbWallet is Owned {
   /* Sender blends his token with his default rgb code */
   function blendWithYourself() gameInProgress onlyPlayer public payable {
     // The sender must at least send 0.02 ethers
-    require(msg.value >= 20 finney, &#39;Not enough Ether&#39;);
+    require(msg.value >= 20 finney, 'Not enough Ether');
     // Get the default color of the sender
     uint defaultChoice = uint(msg.sender) % 3;
     Rgb memory otherCoin;

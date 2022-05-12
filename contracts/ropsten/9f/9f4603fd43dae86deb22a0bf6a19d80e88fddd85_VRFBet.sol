@@ -47,7 +47,7 @@ contract VRFBet is ApproveAndCallFallBack{
       _placeBet(tokens,from,data);
   }
   function placeBetEth(bytes victoryMessage) public payable{
-    require(indexBetPlace-index<MAX_SIMULTANEOUS_BETS);//ensures you don&#39;t get a situation where there are too many existing bets to process, locking VRF in the contract
+    require(indexBetPlace-index<MAX_SIMULTANEOUS_BETS);//ensures you don't get a situation where there are too many existing bets to process, locking VRF in the contract
     uint tokensBefore=vrfcontract.balanceOf(this);
     exchangecontract.buyTokens.value(msg.value)();
     _placeBet(vrfcontract.balanceOf(this).sub(tokensBefore),msg.sender,victoryMessage);

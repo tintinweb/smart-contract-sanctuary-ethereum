@@ -30,9 +30,9 @@ contract SafeMath {
 contract Kubera is SafeMath {
     /* Public variables of the token */
     
-    string public standard = &#39;ERC20&#39;;
-    string public name = &#39;Kubera Token&#39;;
-    string public symbol = &#39;KBR&#39;;
+    string public standard = 'ERC20';
+    string public name = 'Kubera Token';
+    string public symbol = 'KBR';
     uint8 public decimals = 0;
     uint256 public totalSupply;
     address public owner;

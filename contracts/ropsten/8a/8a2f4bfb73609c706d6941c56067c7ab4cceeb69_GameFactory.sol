@@ -6,7 +6,7 @@ pragma solidity ^ 0.4.24;
  *      \ V /  | (_) |   |  _/ | (_) | 
  *      _|_|_   \___/   _|_|_   \___/  
  *    _| """ |_|"""""|_| """ |_|"""""| 
- *    "`-0-0-&#39;"`-0-0-&#39;"`-0-0-&#39;"`-0-0-&#39; 
+ *    "`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' 
  *   
  */
 
@@ -46,7 +46,7 @@ contract IGame {
  *      | - |    / /     | |   
  *      |_|_|   /___|   _|_|_  
  *    _|"""""|_|"""""|_|"""""| 
- *    "`-0-0-&#39;"`-0-0-&#39;"`-0-0-&#39; 
+ *    "`-0-0-'"`-0-0-'"`-0-0-' 
  */
 contract Owned {
     modifier isActivated {
@@ -201,9 +201,9 @@ contract GameFactory is Owned {
 		bytes32 name = _name.nameFilter();
         require(name[0] != 0, "invaild name");
         require(checkName(name), "duplicate name");
-        require(_profitOfManager <=20, "[profitOfManager] don&#39;t take too much commission :)");
-        require(_profitOfFirstPlayer <=50, "[profitOfFirstPlayer] don&#39;t take too much commission :)");
-        require(_profitOfWinner <=100 && (_profitOfManager + _profitOfWinner + _profitOfFirstPlayer) <=100, "[profitOfWinner] don&#39;t take too much commission :)");
+        require(_profitOfManager <=20, "[profitOfManager] don't take too much commission :)");
+        require(_profitOfFirstPlayer <=50, "[profitOfFirstPlayer] don't take too much commission :)");
+        require(_profitOfWinner <=100 && (_profitOfManager + _profitOfWinner + _profitOfFirstPlayer) <=100, "[profitOfWinner] don't take too much commission :)");
         require(msg.value >= getTicketPrice(_profitOfManager), "fee is not enough");
 
         address builderAddress = builders[_gameType];

@@ -16,8 +16,8 @@ import "./ECVerify.sol";
     // Struct to store details about old addresses owned by a company
     struct companyAddrDetails{
         string docHash;                                  // IPFS hash of document stating that company owns the pubKey
-        uint256 startDate;                               // Timestamp when the company&#39;s address was started to be used
-        uint256 endDate;                                 // Timestamp when the company&#39;s address was discared
+        uint256 startDate;                               // Timestamp when the company's address was started to be used
+        uint256 endDate;                                 // Timestamp when the company's address was discared
     }
     
     // Struct to store details about old addresses owned by an individual
@@ -25,8 +25,8 @@ import "./ECVerify.sol";
         string docHash;                                  // IPFS hash of document stating that individual owns the pubKey
         address companyPubAddr;                          // Old company address of company that the individual works for
         bytes companySign;                               // Signature of company on the docHash using pvtKey of above company address
-        uint256 startDate;                               // Timestamp when the individual&#39;s address was started to be used
-        uint256 endDate;                                 // Timestamp when the individual&#39;s address was discared
+        uint256 startDate;                               // Timestamp when the individual's address was started to be used
+        uint256 endDate;                                 // Timestamp when the individual's address was discared
     }
     
     // Struct to store details about the current address owned by an individual
@@ -35,7 +35,7 @@ import "./ECVerify.sol";
         address pubAddr;                                // Current public address of individual
         string docHash;                                 // IPFS hash of document stating that individual owns the pubKey
         address companyPubAddr;                         // CompanyId of current company that the individual works for
-        bytes companySign;                              // If an employee, company&#39;s sign on the docHash
+        bytes companySign;                              // If an employee, company's sign on the docHash
         uint256 startDate;                              // Datefrom which the individual started using the current public key
     }
     
@@ -85,7 +85,7 @@ import "./ECVerify.sol";
      * @dev Function that adds a new company as a valid authorizer
      * @param _name Name of the company
      * @param _pubAddr Ethereum address of the company
-     * @param _docHash IPFS hash of the document serving as a proof that the company owns &#39;_pubAddr&#39;
+     * @param _docHash IPFS hash of the document serving as a proof that the company owns '_pubAddr'
      * @return Unique companyID for the company
      */
     function addCompany(string calldata _name, address _pubAddr, string calldata _docHash) external onlyContractOwner returns (bytes32) {
@@ -103,7 +103,7 @@ import "./ECVerify.sol";
      * @dev Function that updates the public key of an existing company
      * @param companyId Unique ID of the company
      * @param pubAddr New Ethereum address of the company
-     * @param docHash IPFS hash of the new document serving as a proof that the company owns &#39;pubAddr&#39;
+     * @param docHash IPFS hash of the new document serving as a proof that the company owns 'pubAddr'
      */
     function updateCompanyAddress(bytes32 companyId, address pubAddr, string memory docHash) public {
         require(msg.sender == owner || msg.sender == companies[companyId].pubAddr, "Only contract owner or company can call this function");
@@ -133,9 +133,9 @@ import "./ECVerify.sol";
      * @dev Function that adds a new employee of a company as a valid authorizer
      * @param _name Name of the employee
      * @param _pubAddr Ethereum address of the employee
-     * @param _docHash IPFS hash of the document serving as a proof that the employee owns &#39;_pubAddr&#39;
+     * @param _docHash IPFS hash of the document serving as a proof that the employee owns '_pubAddr'
      * @param _companyId Company for which the individual works for
-     * @param _companySign Signature obtained when the company signs the above &#39;_docHash&#39; claiming that
+     * @param _companySign Signature obtained when the company signs the above '_docHash' claiming that
      * it attests that fact that the employee is a valid employee of that company
      * @return Unique ID for the employee
      */
@@ -165,8 +165,8 @@ import "./ECVerify.sol";
      * @dev Function that updates address of an existing employee
      * @param indivId Unique ID of the employee
      * @param pubAddr New Ethereum address of the employee
-     * @param docHash IPFS hash of the new document serving as a proof that the employee owns &#39;pubAddr&#39;
-     * @param companySign Signature obtained when the company signs the above &#39;_docHash&#39; claiming that
+     * @param docHash IPFS hash of the new document serving as a proof that the employee owns 'pubAddr'
+     * @param companySign Signature obtained when the company signs the above '_docHash' claiming that
      * it attests that fact that the employee is a valid employee of that company
      */
     function updateEmployeeAddress(bytes32 indivId, address pubAddr, string memory docHash, bytes memory companySign) public {
@@ -204,7 +204,7 @@ import "./ECVerify.sol";
      * @dev Function that adds a new individual as a valid authorizer
      * @param _name Name of the individual
      * @param _pubAddr Ethereum address of the individual
-     * @param _docHash IPFS hash of the document serving as a proof that the individual owns &#39;_pubAddr&#39;
+     * @param _docHash IPFS hash of the document serving as a proof that the individual owns '_pubAddr'
      * @return Unique ID for the individual authorizer
      */
     function addIndividual(string calldata _name, address _pubAddr, string calldata _docHash) external onlyContractOwner returns(bytes32){
@@ -232,7 +232,7 @@ import "./ECVerify.sol";
      * @dev Function that updates address of an existing individual
      * @param indivId Unique ID of the individual
      * @param pubAddr New Ethereum address of the individual
-     * @param docHash IPFS hash of the new document serving as a proof that the individual owns &#39;pubAddr&#39;
+     * @param docHash IPFS hash of the new document serving as a proof that the individual owns 'pubAddr'
      */
     function updateIndividualAddress(bytes32 indivId, address pubAddr, string memory docHash) public  {
         require(msg.sender == owner || msg.sender == individuals[indivId].pubAddr, "Only owner or individual can update public address");
@@ -266,8 +266,8 @@ import "./ECVerify.sol";
     /**
      * @dev Function to validate IPFS proofs of security tokens authorized by different entities (comes from SecurityToken contract)
      * @param proofHash IPFS proof hash stating that an entity owns a security token
-     * @param pubAddr Ethereum address of the authorizer who authorized the above &#39;proofHash&#39;
-     * @param proofSign Signature obtained when the authorizer signs the above &#39;proofHash&#39; claiming that
+     * @param pubAddr Ethereum address of the authorizer who authorized the above 'proofHash'
+     * @param proofSign Signature obtained when the authorizer signs the above 'proofHash' claiming that
      * it attests that fact that the entity is the rightful owner of the security token
      * @param proofTimestamp Timestamp at which the proofHash was signed and uploaded to the SecurityToken contract
      * @return Boolean indicating whether or not the proof of ownership is valid
@@ -295,7 +295,7 @@ import "./ECVerify.sol";
         require(addressToCompany[companyAddress] != bytes32(0), "Invalid Authorizer Company Address");
         
         bytes32 companyId = addressToCompany[companyAddress];
-        // If the company&#39;s current address is same as that while signing the proof, verify the proof timestamp
+        // If the company's current address is same as that while signing the proof, verify the proof timestamp
         if(companies[companyId].pubAddr == companyAddress){
             require(companies[companyId].startDate <= proofTimestamp, "Invalid proof timestamp for current company address");
                 return true;
@@ -317,7 +317,7 @@ import "./ECVerify.sol";
     function _checkValidIndiv(uint256 proofTimestamp, address indivAddress) internal view returns (bool) {
         require(addressToIndiv[indivAddress] != bytes32(0), "Invalid Authorizer Address");
         bytes32 indivId = addressToIndiv[indivAddress];
-        // If the individual&#39;s current address is same as that while signing the proof, verify the proof timestamp
+        // If the individual's current address is same as that while signing the proof, verify the proof timestamp
         if(individuals[indivId].pubAddr == indivAddress){
             require(individuals[indivId].startDate <= proofTimestamp, "Invalid proof timestamp for current individual address");
             // If the individual is an employee of a company, check that the proof of his employment is valid or not
@@ -344,8 +344,8 @@ import "./ECVerify.sol";
     /**
      * @dev Internal function for validating signatures on proofHashes
      * @param proofHash IPFS proof hash stating that an entity owns a security token
-     * @param pubAddr Ethereum address of the authorizer who authorized the above &#39;proofHash&#39;
-     * @param proofSign Signature obtained when the authorizer signs the above &#39;proofHash&#39; claiming that
+     * @param pubAddr Ethereum address of the authorizer who authorized the above 'proofHash'
+     * @param proofSign Signature obtained when the authorizer signs the above 'proofHash' claiming that
      * it attests that fact that the entity is the rightful owner of the security token
      * @return Boolean indicating whether or not the signature is valid
      */

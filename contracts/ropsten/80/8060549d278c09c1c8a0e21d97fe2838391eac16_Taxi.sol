@@ -10,7 +10,7 @@ library SafeMath {
  function div(uint256 a, uint256 b) internal pure returns (uint256) {
     assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -134,7 +134,7 @@ contract Taxi is Ownable,ERC20Interface{
     }
      // ------------------------------------------------------------------------
      // Returns the amount of tokens approved by the owner that can be
-     // transferred to the spender&#39;s account
+     // transferred to the spender's account
      // ------------------------------------------------------------------------
      function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
          return allowed[tokenOwner][spender];
@@ -144,7 +144,7 @@ contract Taxi is Ownable,ERC20Interface{
          return tokenBalances[tokenOwner];
      }
     
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address to, uint tokens) public returns (bool success) {
          require(to != address(0));
          require(tokens <= tokenBalances[msg.sender]);

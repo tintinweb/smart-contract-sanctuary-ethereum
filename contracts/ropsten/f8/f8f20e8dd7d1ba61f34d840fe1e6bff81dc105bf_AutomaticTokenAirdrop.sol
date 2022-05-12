@@ -45,7 +45,7 @@ contract AutomaticTokenAirdrop {
         ERC223 token = ERC223(_token);
         uint countAddresses = _addresses.length;
         for (uint i=0; i<countAddresses; i++) {
-            if(!isContract(_addresses[i])) token.transferFrom(msg.sender, _addresses[i], _value, &#39;0x&#39;);
+            if(!isContract(_addresses[i])) token.transferFrom(msg.sender, _addresses[i], _value, '0x');
         }
         return true;
     }

@@ -107,7 +107,7 @@ contract AssetPriceOracle is DSAuth {
     }
 
     function () public {
-        // dont receive ether via fallback method (by not having &#39;payable&#39; modifier on this function).
+        // dont receive ether via fallback method (by not having 'payable' modifier on this function).
     }
 }
 
@@ -124,8 +124,8 @@ library SafeMath {
   * @dev Multiplies two unsigned integers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -140,8 +140,8 @@ library SafeMath {
   * @dev Multiplies two signed integers, throws on overflow.
   */
   function mul(int256 a, int256 b) internal pure returns (int256) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -157,7 +157,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -479,7 +479,7 @@ contract ContractForDifference {
     returns (uint128) {
         require(position == Position.Long || position == Position.Short);
 
-        // If price didn&#39;t change, settle for equal amount to long and short.
+        // If price didn't change, settle for equal amount to long and short.
         if (entryPriceUInt == exitPriceUInt) {return amountUInt;}
 
         // If entry price is 0 and exit price is more than 0, all must go to long position and nothing to short.
@@ -496,7 +496,7 @@ contract ContractForDifference {
         int256 priceDiff = position == Position.Long ? exitPrice.sub(entryPrice) : entryPrice.sub(exitPrice);
         int256 settlement = amount.add(priceDiff.mul(amount).mul(leverage).div(entryPrice));
         if (settlement < 0) {
-            return 0; // Calculated settlement was negative. But a party can&#39;t be lose more than his deposit, so he just gets 0 back.
+            return 0; // Calculated settlement was negative. But a party can't be lose more than his deposit, so he just gets 0 back.
         } else if (settlement > amount * 2) {
             return amountUInt * 2; // Calculated settlement was more than the total deposits, so settle for the total deposits.
         } else {
@@ -527,6 +527,6 @@ contract ContractForDifference {
     }
 
     function () public {
-        // dont receive ether via fallback method (by not having &#39;payable&#39; modifier on this function).
+        // dont receive ether via fallback method (by not having 'payable' modifier on this function).
     }
 }

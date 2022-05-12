@@ -129,7 +129,7 @@ contract InfoStore {
          return (A.authorName,A.emailAddress,A.ETHWalletAddress,F.fileName,F.submitTime,F.fileAddress,F.money,F.keywords);
          }
          else{
-            return (A.authorName,A.emailAddress,A.ETHWalletAddress,F.fileName,F.submitTime,&#39;null&#39;,F.money,F.keywords);
+            return (A.authorName,A.emailAddress,A.ETHWalletAddress,F.fileName,F.submitTime,'null',F.money,F.keywords);
          }
     }
     

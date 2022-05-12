@@ -7,7 +7,7 @@ contract TestToken2
 	address 	owner;
 
 
-    string 		public standard = &#39;Token 0.1&#39;;
+    string 		public standard = 'Token 0.1';
 	string 		public name = "TestToken2"; 
 	string 		public symbol = "TST2";
 	uint8 		public decimals = 12; 

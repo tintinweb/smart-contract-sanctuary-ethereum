@@ -3,8 +3,8 @@ pragma solidity ^0.4.24;
 library SafeMath {
 
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -22,7 +22,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -97,8 +97,8 @@ contract ERC20 {
   /**
    * @dev Informa a quantidade de tokens que um endereco pode gastar de outro endereco.
    * @param owner address O endereco do dono dos fundos.
-   * @param spender address O endereco de quem pode gastar (&#39;gastador&#39;).
-   * @return Um uint256 especificando a quantidade de tokens disponiveis para o endereco &#39;gastador&#39;.
+   * @param spender address O endereco de quem pode gastar ('gastador').
+   * @return Um uint256 especificando a quantidade de tokens disponiveis para o endereco 'gastador'.
    */
   function allowance(address owner, address spender) public view returns (uint256) {
     return _allowed[owner][spender];
@@ -135,7 +135,7 @@ contract ERC20 {
   }
 
   /**
-   * @dev Relizada a transacao de um endereco &#39;gastador&#39;, utilizando o
+   * @dev Relizada a transacao de um endereco 'gastador', utilizando o
    * endereco do possuidor real dos tokens.
    * @param from address Endereco de quem possui realmente os tokens
    * @param to address Endereco de quem ira receber os tokens
@@ -167,7 +167,7 @@ contract ERC20 {
 	}
 
   /**
-   * @dev Incrementa a quantidade de tokens que uma conta &#39;gastadora&#39; pode
+   * @dev Incrementa a quantidade de tokens que uma conta 'gastadora' pode
    * transacionar.
    * @param spender O endereco de quem ira transacionar os fundos.
    * @param addedValue A quantidade de tokens a ser incrementada.

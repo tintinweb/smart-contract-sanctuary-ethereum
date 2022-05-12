@@ -91,8 +91,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-      // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-      // benefit is lost if &#39;b&#39; is also tested.
+      // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+      // benefit is lost if 'b' is also tested.
       // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
       if (a == 0) {
           return 0;
@@ -111,7 +111,7 @@ library SafeMath {
       // Solidity only automatically asserts when dividing by 0
       require(b > 0);
       uint256 c = a / b;
-      // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+      // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
       return c;
   }
@@ -175,7 +175,7 @@ library SafeMath {
 contract ZBXToken is ERC20, Ownable {
   using SafeMath for uint256;
 
-  string public constant name = "Zillion Bits";  // The Token&#39;s name
+  string public constant name = "Zillion Bits";  // The Token's name
   string public constant symbol = "XT";    // Identifier 
   uint8 public constant decimals = 18;      // Number of decimals  
 
@@ -281,7 +281,7 @@ contract ZBXToken is ERC20, Ownable {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:  
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:  
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
    */

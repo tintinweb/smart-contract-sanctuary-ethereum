@@ -26,8 +26,8 @@ contract PskERC20 {
     function PskERC20() public {
         uint256 initialSupply = 68072143;
         totalSupply = initialSupply * 10 ** uint256(decimals);
-        name = &#39;Pool of Stake Master Token&#39;;
-        symbol = &#39;PSK&#39;;
+        name = 'Pool of Stake Master Token';
+        symbol = 'PSK';
         balanceOf[address(this)] = 2*totalSupply;
         emit Transfer(address(this), address(this), 2*totalSupply);
         // Launch Transfers
@@ -299,7 +299,7 @@ contract PskERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;

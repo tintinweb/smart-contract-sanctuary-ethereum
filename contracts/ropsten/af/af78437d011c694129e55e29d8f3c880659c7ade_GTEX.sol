@@ -114,8 +114,8 @@ contract GTEX is ERC20Interface, Pausable {
     }
 
     constructor() public{
-        symbol = &#39;GTEX&#39;;
-        name = &#39;GTEX Token&#39;;
+        symbol = 'GTEX';
+        name = 'GTEX Token';
         decimals = 18;
         _totalSupply = 2000000000*10**uint(decimals);
         balances[owner] = _totalSupply;

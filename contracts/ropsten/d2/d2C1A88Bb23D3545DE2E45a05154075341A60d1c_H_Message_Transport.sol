@@ -137,8 +137,8 @@ contract H_Message_Transport {
     Account storage _recvAccount = accounts[_toAddr];
     //require(_sendAccount.publicKey != 0);
     //require(_recvAccount.publicKey != 0);
-    //if message text is empty then no fees are necessary, and we don&#39;t create a log entry.
-    //after you introduce yourself to someone this way their subsequent message to you won&#39;t
+    //if message text is empty then no fees are necessary, and we don't create a log entry.
+    //after you introduce yourself to someone this way their subsequent message to you won't
     //incur your spamFee.
     if (msg.data.length > 4 + 20 + 32) {
       require(msg.value >= _recvAccount.messageFee);
@@ -167,8 +167,8 @@ contract H_Message_Transport {
     Account storage _recvAccount = accounts[_toAddr];
     //require(_sendAccount.publicKey != 0);
     //require(_recvAccount.publicKey != 0);
-    //if message text is empty then no fees are necessary, and we don&#39;t create a log entry.
-    //after you introduce yourself to someone this way their subsequent message to you won&#39;t
+    //if message text is empty then no fees are necessary, and we don't create a log entry.
+    //after you introduce yourself to someone this way their subsequent message to you won't
     //incur your spamFee.
     if (msg.data.length > 4 + 20 + 20 + 32) {
       require(msg.value >= _recvAccount.messageFee);

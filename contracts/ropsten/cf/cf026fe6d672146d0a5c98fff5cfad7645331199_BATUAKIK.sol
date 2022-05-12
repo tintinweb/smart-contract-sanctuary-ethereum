@@ -23,7 +23,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -314,12 +314,12 @@ contract BATUAKIK is ERC20, Owned {
         
         
         if ( icoFinished == true ){
-			revert(&#39;ICO Has Finished&#39;);
+			revert('ICO Has Finished');
 		}
         
         //remaining ballance
         if( balances[owner] < tokens ){
-			revert(&#39;Insufficient Token Balance or Sold Out.&#39;);
+			revert('Insufficient Token Balance or Sold Out.');
 		}
         
         if (tokens < 0){

@@ -19,7 +19,7 @@ contract tokenRecipient {function receiveApproval(address _from, uint256 _value,
 // "21000000","JSCoin","18","JSC"
 contract token{
     //虛擬幣 公共變數
-    string public standard = &#39;Token 0.1&#39;;
+    string public standard = 'Token 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;

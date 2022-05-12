@@ -430,7 +430,7 @@ contract ERC20Proxy is ERC20Interface, ERC20ImplUpgradeable {
     }
 
     /** @notice  Returns how much `_spender` is currently allowed to spend from
-      * `_owner`&#39;s balance.
+      * `_owner`'s balance.
       *
       * @return  remaining  the remaining allowance.
       */
@@ -782,7 +782,7 @@ contract ERC20Store is ERC20ImplUpgradeable {
         balances[_owner] = _newBalance;
     }
 
-    /** @notice Adds `_balanceIncrease` to `_owner`&#39;s balance.
+    /** @notice Adds `_balanceIncrease` to `_owner`'s balance.
       *
       * @dev  Intended for use by token implementation functions
       * that update balances. The only authorized caller
@@ -814,7 +814,7 @@ contract ERC20Store is ERC20ImplUpgradeable {
   * ERC20Impl and a custodian. The functionality of the custodianship over
   * the token implementation is preserved (printing and custodian changes),
   * but this contract adds the ability for an additional key
-  * (the &#39;limited printer&#39;) to increase the token supply up to a ceiling,
+  * (the 'limited printer') to increase the token supply up to a ceiling,
   * and this supply ceiling can only be raised by the custodian.
   *
   * @author  Gemini Trust Company, LLC
@@ -842,7 +842,7 @@ contract PrintLimiter is LockRequestable {
     /** @dev  The maximum that the token supply can be increased to
       * through use of the limited printing feature.
       * The difference between the current total supply and the supply
-      * ceiling is what is available to the &#39;limited printer&#39; account.
+      * ceiling is what is available to the 'limited printer' account.
       * The value of the ceiling can only be increased by the custodian.
       */
     uint256 public totalSupplyCeiling;
@@ -965,11 +965,11 @@ contract PrintLimiter is LockRequestable {
     }
 
     /** @notice  Pass-through control of print confirmation, allowing this
-      * contract&#39;s custodian to act as the custodian of the associated
+      * contract's custodian to act as the custodian of the associated
       * active token implementation.
       *
       * @dev  This contract is the direct custodian of the active token
-      * implementation, but this function allows this contract&#39;s custodian
+      * implementation, but this function allows this contract's custodian
       * to act as though it were the direct custodian of the active
       * token implementation. Therefore the custodian retains control of
       * unlimited printing.
@@ -982,11 +982,11 @@ contract PrintLimiter is LockRequestable {
     }
 
     /** @notice  Pass-through control of custodian change confirmation,
-      * allowing this contract&#39;s custodian to act as the custodian of
+      * allowing this contract's custodian to act as the custodian of
       * the associated active token implementation.
       *
       * @dev  This contract is the direct custodian of the active token
-      * implementation, but this function allows this contract&#39;s custodian
+      * implementation, but this function allows this contract's custodian
       * to act as though it were the direct custodian of the active
       * token implementation. Therefore the custodian retains control of
       * custodian changes.

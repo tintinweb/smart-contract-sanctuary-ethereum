@@ -210,7 +210,7 @@ contract Richer3D {
     
     //If no users participate in the game for 10 consecutive rounds, the administrator can destroy the contract
     function kill() public {
-        require(msg.sender == sysAdminAddress,"You can&#39;t do this");
+        require(msg.sender == sysAdminAddress,"You can't do this");
         require(roundNumber>=10,"Wait patiently");
         bool noPlayer;
         //Check if users have participated in the last 10 rounds
@@ -377,7 +377,7 @@ contract Richer3D {
         return(_holdEarnings);
     }
     
-    //Calculate user&#39;s P3D bonus
+    //Calculate user's P3D bonus
     function getUserP3DDivEarnings(address _userAddress) private view returns(uint256 _myP3DDivide) {
         if(rInfoXrID[roundNumber].totalDay <= 1) {
             return(0);

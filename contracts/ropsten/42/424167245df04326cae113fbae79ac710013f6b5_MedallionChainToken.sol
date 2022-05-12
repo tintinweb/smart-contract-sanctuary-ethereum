@@ -12,8 +12,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (_a == 0) {
             return 0;
@@ -31,7 +31,7 @@ library SafeMath {
     function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
         require(_b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = _a / _b;
-        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -228,7 +228,7 @@ contract ERC20Token {
 
     /**
      * @dev Internal function that burns an amount of the token of a given
-     * account, deducting from the sender&#39;s allowance for said account. Uses the
+     * account, deducting from the sender's allowance for said account. Uses the
      * internal _burn function.
      * @param _account The account whose tokens will be burnt.
      * @param _amount The amount that will be burnt.
@@ -347,7 +347,7 @@ contract MedallionChainToken is Owned, ERC20Token {
         _transfer(msg.sender, this, amount);
         // makes the transfers
         msg.sender.transfer(amount * sellPrice);
-        // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 
 

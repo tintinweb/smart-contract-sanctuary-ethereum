@@ -17,7 +17,7 @@ interface ERC20CompatibleToken {
  *   1.4. As a result, merchant gets `merchantId`, which is used to create recurring billing for customers.
  *   1.5. Merchant can change their `beneficiary`, `merchant` and authorized charge addresses by calling:
  *     1.4.1. Function `changeMerchantAccount`, which changes account that can control this merchant (`merchantId`).
- *     1.4.2. Function `changeMerchantBeneficiaryAddress`, which changes merchant&#39;s `beneficiary`.
+ *     1.4.2. Function `changeMerchantBeneficiaryAddress`, which changes merchant's `beneficiary`.
  *     1.4.3. Function `changeMerchantChargingAccount`, which (de)authorizes addresses to call `charge` on behalf of this merchant.
  * 2. According to an off-chain agreement with merchant, customer calls `allowRecurringBilling` and:
  *   2.1. Specifies `billingId`, which is given off-chain by merchant (merchant will listen blockchain Event on this ID).
@@ -31,9 +31,9 @@ interface ERC20CompatibleToken {
  *   3.3. Thus, to successfully charge an account, `charge` must be strictly called within 1 and 2 `period`s after the last charge.
  *   3.4. Calling `charge` errors if any of the following occur:
  *     3.4.1. Customer canceled recurring billing with `cancelRecurringBilling`.
- *     3.4.2. Customer&#39;s balance is lower than the chargeable amount.
+ *     3.4.2. Customer's balance is lower than the chargeable amount.
  *     3.4.3. Specified `billingId` does not exists.
- *     3.4.4. There&#39;s no `period` passed from the last charge.
+ *     3.4.4. There's no `period` passed from the last charge.
  * 4. Customer can cancel further billing by calling `cancelRecurringBilling` and passing `billingId`.
  * 5. TokenRecurringBilling smart contract implements `receiveApproval` function for allowing/cancelling billing within one call from
  *    the token smart contract. Parameter `data` is encoded using `encodeBillingMetadata`. Ensure that passed `bytes` parameter is
@@ -98,7 +98,7 @@ contract TokenRecurringBilling {
 
     /// ====================================================== Public Functions ====================================================== \\\
 
-    // Enables merchant with {merchantId} to charge transaction signer&#39;s account according to specified {value} and {period}.
+    // Enables merchant with {merchantId} to charge transaction signer's account according to specified {value} and {period}.
     function allowRecurringBilling (uint256 billingId, uint256 merchantId, uint256 value, uint256 period) public {
         allowRecurringBillingInternal(msg.sender, merchantId, billingId, value, period);
     }
@@ -123,7 +123,7 @@ contract TokenRecurringBilling {
         cancelRecurringBillingInternal(billingId);
     }
 
-    // Charges customer&#39;s account according to defined {billingId} billing rules. Only merchant&#39;s authorized accounts can charge the customer.
+    // Charges customer's account according to defined {billingId} billing rules. Only merchant's authorized accounts can charge the customer.
     function charge (uint256 billingId) public {
 
         BillingRecord storage billingRecord = billingRegistry[billingId];
@@ -152,7 +152,7 @@ contract TokenRecurringBilling {
     /**
      * Invoked by a token smart contract on approveAndCall. Allows or cancels recurring billing.
      * @param sender - Address that approved some tokens for this smart contract.
-     * @param data - Tightly-packed (uint256,uint256) of (metadata, billingId). Metadata&#39;s `lastChargeAt` is ignored.
+     * @param data - Tightly-packed (uint256,uint256) of (metadata, billingId). Metadata's `lastChargeAt` is ignored.
      */
     function receiveApproval (address sender, uint, address, bytes data) external tokenOnly {
 
@@ -164,7 +164,7 @@ contract TokenRecurringBilling {
 
         if (billingRegistry[billingId].customer == 0x0) { // If this id is not occupied, create new billing
             allowRecurringBillingInternal(sender, merchantId, billingId, value, period);
-        } else if (billingRegistry[billingId].customer == sender) { // Only billing&#39;s customer allowed to cancel their billing
+        } else if (billingRegistry[billingId].customer == sender) { // Only billing's customer allowed to cancel their billing
             cancelRecurringBillingInternal(billingId);
         } else {
             revert("Given billingId exists and sender is not a customer");
@@ -178,7 +178,7 @@ contract TokenRecurringBilling {
         emit MerchantAccountChanged(merchantId, newMerchantAccount);
     }
 
-    // Changes merchant&#39;s beneficiary address (address that receives charged tokens) to {newBeneficiaryAddress}.
+    // Changes merchant's beneficiary address (address that receives charged tokens) to {newBeneficiaryAddress}.
     function changeMerchantBeneficiaryAddress (uint256 merchantId, address newBeneficiaryAddress) public isMerchant(merchantId) {
         merchantRegistry[merchantId].beneficiary = newBeneficiaryAddress;
         emit MerchantBeneficiaryAddressChanged(merchantId, newBeneficiaryAddress);

@@ -77,8 +77,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -95,7 +95,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -154,11 +154,11 @@ contract ERC1155 is IERC1155, IERC1155Extended, IERC1155BatchTransfer, IERC1155B
     }
 
     function safeTransferFrom(address _from, address _to, uint256 _id, uint256 _value, bytes _data) external {
-        revert(&#39;TBD&#39;);
+        revert('TBD');
     }
 
     function approve(address _spender, uint256 _id, uint256 _currentValue, uint256 _value) external {
-        // if the allowance isn&#39;t 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
+        // if the allowance isn't 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
         require(_value == 0 || allowances[_id][msg.sender][_spender] == _currentValue);
         allowances[_id][msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _id, _currentValue, _value);
@@ -183,7 +183,7 @@ contract ERC1155 is IERC1155, IERC1155Extended, IERC1155BatchTransfer, IERC1155B
     }
 
     function safeTransfer(address _to, uint256 _id, uint256 _value, bytes _data) external {
-        revert(&#39;TBD&#39;);
+        revert('TBD');
     }
 
 //////////////////////////////////// IERC1155BatchTransfer ////////////////////////////////////////
@@ -219,7 +219,7 @@ contract ERC1155 is IERC1155, IERC1155Extended, IERC1155BatchTransfer, IERC1155B
     }
 
     function safeBatchTransferFrom(address _from, address _to, uint256[] _ids, uint256[] _values, bytes _data) external {
-        revert(&#39;TBD&#39;);
+        revert('TBD');
     }
 
     function batchApprove(address _spender, uint256[] _ids,  uint256[] _currentValues, uint256[] _values) external {
@@ -254,7 +254,7 @@ contract ERC1155 is IERC1155, IERC1155Extended, IERC1155BatchTransfer, IERC1155B
     }
 
     function safeBatchTransfer(address _to, uint256[] _ids, uint256[] _values, bytes _data) external {
-        revert(&#39;TBD&#39;);
+        revert('TBD');
     }
 
 //////////////////////////////// IERC1155BatchTransferExtended ////////////////////////////////////
@@ -298,7 +298,7 @@ contract ERC1155 is IERC1155, IERC1155Extended, IERC1155BatchTransfer, IERC1155B
     }
 
     function safeMulticastTransfer(address[] _to, uint256[] _ids, uint256[] _values, bytes _data) external {
-        revert(&#39;TBD&#39;);
+        revert('TBD');
     }
 }
 
@@ -348,8 +348,8 @@ contract RareChest is ERC1155Mintable {
     * @dev Constructor that creates all stuff
     */
     constructor(address owner) public {
-//        mint(&#39;Armor&#39;, 5, &#39;https://metadata.vaporwave.io/armor.json&#39;, 0, &#39;ARM&#39;);
-//        mint(&#39;Pants&#39;, 3, &#39;https://metadata.vaporwave.io/pants.json&#39;, 0, &#39;PNT&#39;);
-//        mint(&#39;Boots&#39;, 1, &#39;https://metadata.vaporwave.io/boots.json&#39;, 0, &#39;BTS&#39;);
+//        mint('Armor', 5, 'https://metadata.vaporwave.io/armor.json', 0, 'ARM');
+//        mint('Pants', 3, 'https://metadata.vaporwave.io/pants.json', 0, 'PNT');
+//        mint('Boots', 1, 'https://metadata.vaporwave.io/boots.json', 0, 'BTS');
     }
 }

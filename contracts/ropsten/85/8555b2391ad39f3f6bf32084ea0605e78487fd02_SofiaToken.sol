@@ -10,7 +10,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -68,7 +68,7 @@ contract SofiaToken is ERC20Interface,Controlled {
     mapping(address => mapping(address => uint)) allowed;
 
     /*
-     * @notice &#39;constructor()&#39; initiates the Token by setting its funding
+     * @notice 'constructor()' initiates the Token by setting its funding
        parameters
      * @param _totalSupply Total supply of tokens
      */

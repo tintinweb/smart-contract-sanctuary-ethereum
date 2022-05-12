@@ -463,7 +463,7 @@ contract UsernameRegistrar is Controlled, ApproveAndCallFallBack {
      * - SNT is deposited, not spent; the amount is locked up for 1 year.
      * - After 1 year, the user can release the name and receive their deposit back (at any time).
      * - User deposits are completely protected. The contract controller cannot access them.
-     * - User&#39;s address(es) will be publicly associated with the ENS name.
+     * - User's address(es) will be publicly associated with the ENS name.
      * - User must authorise the contract to transfer `price` `token.name()`  on their behalf.
      * - Usernames registered with less then `usernameMinLenght` characters can be slashed.
      * - Usernames contained in the merkle tree of root `reservedUsernamesMerkleRoot` can be slashed.

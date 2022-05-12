@@ -22,7 +22,7 @@ contract Token {
      * @param _owner is the address on which the current tokens are going to be 
      * obtained.
      * 
-     * @return the total number of tokens currently in the owner&#39;s address
+     * @return the total number of tokens currently in the owner's address
      */
      
     function balanceOf (address _owner) public view returns (uint256 balance);
@@ -776,7 +776,7 @@ contract Escrow {
         }
     }
     /**
-     * Function to pay the hold balance if it hasn&#39;t been paid
+     * Function to pay the hold balance if it hasn't been paid
      */ 
     function payBalance() private {
         escrow.transfer(address(this).balance / 100);

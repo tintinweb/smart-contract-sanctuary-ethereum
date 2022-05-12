@@ -11,7 +11,7 @@ contract Lottery {
     
     function participate() public payable{
         lotteryValue += msg.value;
-        if(playing[msg.sender] == 0){//check if player already is participating. If they are increase their participation amount (shouldn&#39;t have participated more than once)
+        if(playing[msg.sender] == 0){//check if player already is participating. If they are increase their participation amount (shouldn't have participated more than once)
             addressLookup[numPlayers] = msg.sender;
             numPlayers++;
         }

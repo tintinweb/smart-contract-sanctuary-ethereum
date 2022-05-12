@@ -13,8 +13,8 @@ pragma solidity ^0.4.20;
         /* Contract creator set the initial supply tokens */
         constructor () public {
             balanceOf[msg.sender] = 1000;
-            name = &#39;DFMcoin&#39;;
-            symbol = &#39;DFMc&#39;;
+            name = 'DFMcoin';
+            symbol = 'DFMc';
             decimals = 2;
         }
         

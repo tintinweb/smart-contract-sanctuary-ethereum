@@ -109,7 +109,7 @@ contract Bitconneeect is ERC20 {
 	//Internal transfer
 	function _transfer(address sender, address recipient, uint256 amount) internal {
 		
-		//Make sure recipient isn&#39;t 0x0 address, use burn() instead
+		//Make sure recipient isn't 0x0 address, use burn() instead
 		require(recipient != 0x0);
 		
 		//Make sure sender has enough funds to complete this txn
@@ -143,7 +143,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b) internal pure returns (uint256) {
 		assert(b > 0); // Solidity automatically throws when dividing by 0
 		uint256 c = a / b;
-		assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return c;
 	}
 	

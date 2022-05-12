@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -159,7 +159,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -302,7 +302,7 @@ contract Whitelist is Ownable {
     event WhitelistedAddressRemoved(address addr);
 
     /**
-    * @dev Throws if called by any account that&#39;s not whitelisted.
+    * @dev Throws if called by any account that's not whitelisted.
     */
     modifier onlyWhitelisted() {
         require(whitelist[msg.sender]);
@@ -340,7 +340,7 @@ contract Whitelist is Ownable {
     * @dev remove an address from the whitelist
     * @param addr address
     * @return true if the address was removed from the whitelist, 
-    * false if the address wasn&#39;t in the whitelist in the first place 
+    * false if the address wasn't in the whitelist in the first place 
     */
     function removeAddressFromWhitelist(address addr) onlyOwner public returns(bool success) {
         if (whitelist[addr]) {
@@ -354,7 +354,7 @@ contract Whitelist is Ownable {
     * @dev remove addresses from the whitelist
     * @param addrs addresses
     * @return true if at least one address was removed from the whitelist, 
-    * false if all addresses weren&#39;t in the whitelist in the first place
+    * false if all addresses weren't in the whitelist in the first place
     */
     function removeAddressesFromWhitelist(address[] addrs) onlyOwner public returns(bool success) {
         for (uint256 i = 0; i < addrs.length; i++) {
@@ -377,7 +377,7 @@ contract Whitelist is Ownable {
 * The external interface represents the basic interface for purchasing tokens, and conform
 * the base architecture for token sales. They are *not* intended to be modified / overriden.
 * The internal interface conforms the extensible and modifiable surface of token sales. Override
-* the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+* the methods to add functionality. Consider using 'super' where appropiate to concatenate
 * behavior.
 */
 
@@ -605,7 +605,7 @@ contract LibraTokenSale is Whitelist {
 
     /**
     * @dev low level process ***DO NOT OVERRIDE***
-    * Note: Buyers can collect tokens after depositing, even after Libra Team has revoked the buyer from whitelist (after buyer&#39;s deposit)
+    * Note: Buyers can collect tokens after depositing, even after Libra Team has revoked the buyer from whitelist (after buyer's deposit)
     */
     function collectTokens() public onlyWhileProcessingPhaseOpen OnlyIfIndividualWeiCapSet {
         address user = msg.sender;
@@ -634,7 +634,7 @@ contract LibraTokenSale is Whitelist {
 
     /**
     * @dev low level process ***DO NOT OVERRIDE***
-    * Note: Owner can collect manually distribute tokens to investors, even after Libra Team has revoked the buyer from whitelist (after buyer&#39;s deposit)
+    * Note: Owner can collect manually distribute tokens to investors, even after Libra Team has revoked the buyer from whitelist (after buyer's deposit)
     */
     function distributeTokens(address addr) public onlyOwner onlyWhileProcessingPhaseOpen OnlyIfIndividualWeiCapSet {
         address user = addr;
@@ -669,7 +669,7 @@ contract LibraTokenSale is Whitelist {
     * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use super to concatenate validations.
     * @param user Address performing the token purchase
     * @param _weiAmount Value in wei involved in the purchase
-    * Note: This function also prevents people who haven&#39;t deposited from collecting tokens
+    * Note: This function also prevents people who haven't deposited from collecting tokens
     */
     function _preValidatePurchase(address user, uint256 _weiAmount) pure internal {
         require(user != address(0));

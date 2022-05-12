@@ -92,7 +92,7 @@ contract Yumo {
     function becomeRenown(bytes32 name) public isHuman() payable {
         require(msg.value >= 1 * 10 ** 16, "Not enough ETH to be renowned!");
         require(!renownedPlayers[msg.sender].isRenowned, "You already registered as renowned!");
-        require(name.length != 0, "Name can&#39;t be empty!");
+        require(name.length != 0, "Name can't be empty!");
         require(!nameList[name], "Following name already exists");
         renownedPlayers[msg.sender].addr = msg.sender;
         renownedPlayers[msg.sender].name = name;
@@ -361,7 +361,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 

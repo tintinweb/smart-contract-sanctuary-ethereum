@@ -225,13 +225,13 @@ contract MintedCappedProxy is IMintedCapped, TokenProxy {
   }
 
   function exec(bytes32 _exec_id, bytes _calldata) external payable returns (bool success) {
-    // Call &#39;exec&#39; in AbstractStorage, passing in the sender&#39;s address, the app exec id, and the calldata to forward -
+    // Call 'exec' in AbstractStorage, passing in the sender's address, the app exec id, and the calldata to forward -
     app_storage.exec.value(msg.value)(msg.sender, _exec_id, _calldata);
 
     // Get returned data
     success = checkReturn();
     // If execution failed, revert -
-    require(success, &#39;Execution failed&#39;);
+    require(success, 'Execution failed');
 
     // Transfer any returned wei back to the sender
     address(msg.sender).transfer(address(this).balance);

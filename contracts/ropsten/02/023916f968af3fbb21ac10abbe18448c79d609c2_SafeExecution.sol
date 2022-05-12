@@ -5,14 +5,14 @@ contract SafeExecution {
     address public owner;
     
     modifier noOwner() {
-        require(owner == 0, &#39;level already completed&#39;);
+        require(owner == 0, 'level already completed');
         _;
     }
     
-    bytes4 internal constant SET = bytes4(keccak256(&#39;Set(uint256)&#39;));
+    bytes4 internal constant SET = bytes4(keccak256('Set(uint256)'));
     
     function execute(address _target) public noOwner {
-        require(_target.delegatecall(abi.encodeWithSelector(this.execute.selector)) == false, &#39;unsafe execution&#39;);
+        require(_target.delegatecall(abi.encodeWithSelector(this.execute.selector)) == false, 'unsafe execution');
         
         (bytes4 sel, uint val) = getRet();
         require(sel == SET);

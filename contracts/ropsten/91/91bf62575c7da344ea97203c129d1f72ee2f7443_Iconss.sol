@@ -75,7 +75,7 @@ contract Iconss is StandardToken {
     string public name = "BASIC TEST SALE";
     uint8 public decimals = 18;
     string public symbol = "BASIC";
-    string public version = &#39;BASIC 0.1&#39;;
+    string public version = 'BASIC 0.1';
     address public mintableAddress;
 
     function Iconss(address sale_address) {

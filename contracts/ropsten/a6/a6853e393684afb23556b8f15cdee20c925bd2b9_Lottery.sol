@@ -2,7 +2,7 @@ pragma solidity ^0.4.25;
 contract Lottery{
     address[] public players;
  
-// Makes way more sense to use builtin&#39;s for arrays
+// Makes way more sense to use builtin's for arrays
 //  function newBidder(address id) private {
 //      bidCount++;
 //      bidders[bidCount] = Bidder(id, 0);

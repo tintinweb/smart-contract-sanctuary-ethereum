@@ -87,7 +87,7 @@ contract UserDeposit is Utils {
     // Total amount of tokens that have been deposited. This is monotonous and
     // doing a transfer or withdrawing tokens will not decrease total_deposit!
     mapping(address => uint256) public total_deposit;
-    // Current user&#39;s balance, ignoring planned withdraws
+    // Current user's balance, ignoring planned withdraws
     mapping(address => uint256) public balances;
     mapping(address => WithdrawPlan) public withdraw_plans;
 
@@ -186,7 +186,7 @@ contract UserDeposit is Utils {
         require(whole_balance <= whole_balance_limit, "too much deposit");
 
         // Actual transfer.
-        require(token.transferFrom(msg.sender, address(this), added_deposit), "tokens didn&#39;t transfer");
+        require(token.transferFrom(msg.sender, address(this), added_deposit), "tokens didn't transfer");
     }
 
     /// @notice Internally transfer deposits between two addresses.
@@ -254,10 +254,10 @@ contract UserDeposit is Utils {
         emit BalanceReduced(msg.sender, balances[msg.sender]);
         delete withdraw_plans[msg.sender];
 
-        require(token.transfer(msg.sender, withdrawable), "tokens didn&#39;t transfer");
+        require(token.transfer(msg.sender, withdrawable), "tokens didn't transfer");
     }
 
-    /// @notice The owner&#39;s balance with planned withdrawals deducted
+    /// @notice The owner's balance with planned withdrawals deducted
     /// @param owner Address for which the balance should be returned
     /// @return The remaining balance after planned withdrawals
     function effectiveBalance(address owner)

@@ -10,7 +10,7 @@ contract message {
         message = _editMessage;
     }
     function showMessage() public view returns(string){
-        // message = &#39;abcd&#39;;
+        // message = 'abcd';
         return message;
     }
     function pay() public payable {

@@ -121,7 +121,7 @@ contract Adminable is Claimable {
 
     /**
      * @dev Accept a new administrator.
-     * @param admin The administrator&#39;s address.
+     * @param admin The administrator's address.
      */
     function accept(address admin) external onlyOwner {
         require(admin != address(0));
@@ -135,7 +135,7 @@ contract Adminable is Claimable {
 
     /**
      * @dev Reject an existing administrator.
-     * @param admin The administrator&#39;s address.
+     * @param admin The administrator's address.
      */
     function reject(address admin) external onlyOwner {
         AdminInfo storage adminInfo = adminTable[admin];
@@ -222,11 +222,11 @@ contract AuthorizationDataSource is IAuthorizationDataSource, Adminable {
 
     /**
      * @dev Insert or update a wallet.
-     * @param wallet The wallet&#39;s address.
-     * @param sequenceNum The operation&#39;s sequence-number.
+     * @param wallet The wallet's address.
+     * @param sequenceNum The operation's sequence-number.
      * @param isAuthorizedVal An indication of whether or not the wallet is authorized.
      * @param isRestrictedVal An indication of whether or not the wallet is restricted.
-     * @param tradingClassVal The wallet&#39;s trading-class ID.
+     * @param tradingClassVal The wallet's trading-class ID.
      */
     function _upsert(address wallet, uint sequenceNum, bool isAuthorizedVal, bool isRestrictedVal, uint tradingClassVal) private {
         require(wallet != address(0));
@@ -247,7 +247,7 @@ contract AuthorizationDataSource is IAuthorizationDataSource, Adminable {
 
     /**
      * @dev Remove a wallet.
-     * @param wallet The wallet&#39;s address.
+     * @param wallet The wallet's address.
      */
     function _remove(address wallet) private {
         require(wallet != address(0));

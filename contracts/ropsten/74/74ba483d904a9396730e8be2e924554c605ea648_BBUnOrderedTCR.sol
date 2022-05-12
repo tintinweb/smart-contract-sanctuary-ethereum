@@ -220,7 +220,7 @@ contract BBStorage is Ownable {
     /// @dev Only allow access from the latest version of a contract in the network after deployment
     modifier onlyAdminStorage() {
         // // The owner is only allowed to set the storage upon deployment to register the initial contracts, afterwards their direct access is disabled
-        require(admins[keccak256(abi.encodePacked(&#39;admin:&#39;,msg.sender))] == true);
+        require(admins[keccak256(abi.encodePacked('admin:',msg.sender))] == true);
         _;
     }
 
@@ -231,7 +231,7 @@ contract BBStorage is Ownable {
      */
     function addAdmin(address admin, bool add) public onlyOwner {
         require(admin!=address(0x0));
-        admins[keccak256(abi.encodePacked(&#39;admin:&#39;,admin))] = add;
+        admins[keccak256(abi.encodePacked('admin:',admin))] = add;
         emit AdminAdded(admin, add);
     }
     
@@ -349,8 +349,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -367,7 +367,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -485,9 +485,9 @@ contract BBVoting is BBStandard{
    */
   function requestVotingRights(uint256 numTokens) public {
     require(bbo.balanceOf(msg.sender) >= numTokens);
-    uint256 voteTokenBalance = bbs.getUint(BBLib.toB32(msg.sender,&#39;STAKED_VOTE&#39;));
+    uint256 voteTokenBalance = bbs.getUint(BBLib.toB32(msg.sender,'STAKED_VOTE'));
     require(bbo.transferFrom(msg.sender, address(this), numTokens));
-    bbs.setUint(BBLib.toB32(msg.sender,&#39;STAKED_VOTE&#39;), voteTokenBalance.add(numTokens));
+    bbs.setUint(BBLib.toB32(msg.sender,'STAKED_VOTE'), voteTokenBalance.add(numTokens));
     emit VotingRightsGranted(msg.sender, numTokens);
   }
   
@@ -497,11 +497,11 @@ contract BBVoting is BBStandard{
    */
   function withdrawVotingRights(uint256 numTokens) public 
   {
-    uint256 voteTokenBalance = bbs.getUint(BBLib.toB32(msg.sender,&#39;STAKED_VOTE&#39;));
+    uint256 voteTokenBalance = bbs.getUint(BBLib.toB32(msg.sender,'STAKED_VOTE'));
     require (voteTokenBalance > 0);
     require (numTokens > 0);
     require (numTokens<= voteTokenBalance);
-    bbs.setUint(BBLib.toB32(msg.sender,&#39;STAKED_VOTE&#39;), voteTokenBalance.sub(numTokens));
+    bbs.setUint(BBLib.toB32(msg.sender,'STAKED_VOTE'), voteTokenBalance.sub(numTokens));
     require(bbo.transfer(msg.sender, numTokens));
     emit VotingRightsWithdrawn(msg.sender, numTokens);
   }
@@ -514,9 +514,9 @@ contract BBVoting is BBStandard{
    */
   function commitVote(uint256 pollID, bytes32 secretHash, uint256 tokens) public 
   {
-    //uint256 minVotes = bbs.getUint(keccak256(&#39;MIN_VOTES&#39;));
-    //uint256 maxVotes = bbs.getUint(keccak256(&#39;MAX_VOTES&#39;));
-    uint256 pollStatus = bbs.getUint(BBLib.toB32(pollID,&#39;STATUS&#39;));
+    //uint256 minVotes = bbs.getUint(keccak256('MIN_VOTES'));
+    //uint256 maxVotes = bbs.getUint(keccak256('MAX_VOTES'));
+    uint256 pollStatus = bbs.getUint(BBLib.toB32(pollID,'STATUS'));
     require(pollStatus == 1);
     //require(tokens >= minVotes);
     //require(tokens <= maxVotes);
@@ -526,15 +526,15 @@ contract BBVoting is BBStandard{
     require(commitEndDate>now);
     require(secretHash != 0);
     
-    uint256 voteTokenBalance = bbs.getUint(BBLib.toB32(msg.sender,&#39;STAKED_VOTE&#39;));
+    uint256 voteTokenBalance = bbs.getUint(BBLib.toB32(msg.sender,'STAKED_VOTE'));
     if(voteTokenBalance<tokens){
       requestVotingRights(tokens.sub(voteTokenBalance));
     }
-    require(bbs.getUint(BBLib.toB32(msg.sender,&#39;STAKED_VOTE&#39;)) >= tokens);
+    require(bbs.getUint(BBLib.toB32(msg.sender,'STAKED_VOTE')) >= tokens);
     // add secretHash
 
-    bbs.setBytes(BBLib.toB32(pollID ,&#39;SECRET_HASH&#39;,msg.sender), abi.encodePacked(secretHash));
-    bbs.setUint(BBLib.toB32(pollID ,&#39;VOTES&#39;, msg.sender), tokens);
+    bbs.setBytes(BBLib.toB32(pollID ,'SECRET_HASH',msg.sender), abi.encodePacked(secretHash));
+    bbs.setUint(BBLib.toB32(pollID ,'VOTES', msg.sender), tokens);
     
     emit VoteCommitted(msg.sender, pollID);
   }
@@ -551,27 +551,27 @@ contract BBVoting is BBStandard{
     (,,,uint256 commitEndDate, uint256 revealEndDate) = helper.getPollStage(pollID);
     require(commitEndDate<now);
     require(revealEndDate>now);
-    uint256 pollStatus = bbs.getUint(BBLib.toB32(pollID,&#39;STATUS&#39;));
+    uint256 pollStatus = bbs.getUint(BBLib.toB32(pollID,'STATUS'));
     require(pollStatus >= 1);
-    uint256 voteTokenBalance = bbs.getUint(BBLib.toB32(msg.sender,&#39;STAKED_VOTE&#39;));
-    uint256 votes = bbs.getUint(BBLib.toB32(pollID,&#39;VOTES&#39;,msg.sender));
+    uint256 voteTokenBalance = bbs.getUint(BBLib.toB32(msg.sender,'STAKED_VOTE'));
+    uint256 votes = bbs.getUint(BBLib.toB32(pollID,'VOTES',msg.sender));
     // check staked vote
     require(voteTokenBalance>= votes);
 
     bytes32 choiceHash = BBLib.toB32(choice,salt);
 
-    bytes32 secretHash = BBLib.bytesToBytes32(bbs.getBytes(BBLib.toB32(pollID,&#39;SECRET_HASH&#39;,msg.sender)));
+    bytes32 secretHash = BBLib.bytesToBytes32(bbs.getBytes(BBLib.toB32(pollID,'SECRET_HASH',msg.sender)));
     require(choiceHash == secretHash);
     // make sure not reveal yet
-    require(bbs.getUint(BBLib.toB32(pollID,&#39;CHOICE&#39;,msg.sender)) == 0x0);
-    uint256 numVote = bbs.getUint(BBLib.toB32(pollID,&#39;VOTE_FOR&#39;,choice));
+    require(bbs.getUint(BBLib.toB32(pollID,'CHOICE',msg.sender)) == 0x0);
+    uint256 numVote = bbs.getUint(BBLib.toB32(pollID,'VOTE_FOR',choice));
     //save result poll
-    bbs.setUint(BBLib.toB32(pollID,&#39;VOTE_FOR&#39;,choice), numVote.add(votes));
+    bbs.setUint(BBLib.toB32(pollID,'VOTE_FOR',choice), numVote.add(votes));
     // save voter choice
-    bbs.setUint(BBLib.toB32(pollID,&#39;CHOICE&#39;,msg.sender), choice);
+    bbs.setUint(BBLib.toB32(pollID,'CHOICE',msg.sender), choice);
     // set has vote flag 
     if(pollStatus == 1)
-      bbs.setUint(BBLib.toB32(pollID,&#39;STATUS&#39;), 2);
+      bbs.setUint(BBLib.toB32(pollID,'STATUS'), 2);
     emit VoteRevealed(msg.sender, pollID);
   }
 
@@ -591,25 +591,25 @@ contract BBVoting is BBStandard{
   function _doCancel(uint256 pollID) private returns(bool success){
     // TODO here
     // set status to 0
-    bbs.setUint(BBLib.toB32(pollID,&#39;STATUS&#39;), 0);
+    bbs.setUint(BBLib.toB32(pollID,'STATUS'), 0);
     success = true;
     emit PollUpdated(pollID, true );
 
   }
 
   function _doExtendPoll(uint256 pollID, uint256 commitDuration,uint256 revealDuration) private returns(bool success){
-    bbs.setUint(BBLib.toB32(pollID,&#39;COMMIT_ENDDATE&#39;), block.timestamp.add(commitDuration));
-    bbs.setUint(BBLib.toB32(pollID,&#39;REVEAL_ENDDATE&#39;), block.timestamp.add(commitDuration).add(revealDuration));
+    bbs.setUint(BBLib.toB32(pollID,'COMMIT_ENDDATE'), block.timestamp.add(commitDuration));
+    bbs.setUint(BBLib.toB32(pollID,'REVEAL_ENDDATE'), block.timestamp.add(commitDuration).add(revealDuration));
     success = true;
     emit PollUpdated(pollID, false);
   }
 
   function startPoll(bytes extraData, uint256 addOptionDuration, uint256 commitDuration,uint256 revealDuration) public returns(uint256 pollID) {    
-    uint256 latestID  = bbs.getUint(BBLib.toB32(&#39;POLL_COUNTER&#39;));
+    uint256 latestID  = bbs.getUint(BBLib.toB32('POLL_COUNTER'));
     pollID = latestID.add(1);
-    bbs.setUint(BBLib.toB32(&#39;POLL_COUNTER&#39;), pollID);
+    bbs.setUint(BBLib.toB32('POLL_COUNTER'), pollID);
     // save startPoll address
-    bbs.setAddress(BBLib.toB32(pollID, &#39;OWNER&#39;), msg.sender);
+    bbs.setAddress(BBLib.toB32(pollID, 'OWNER'), msg.sender);
     // addPollOptionEndDate
     uint256 addPollOptionEndDate = block.timestamp.add(addOptionDuration);
     // commitEndDate
@@ -617,10 +617,10 @@ contract BBVoting is BBStandard{
     // revealEndDate
     uint256 revealEndDate = commitEndDate.add(revealDuration);
     // save addPollOption, commit, reveal EndDate
-    bbs.setUint(BBLib.toB32(pollID,&#39;STATUS&#39;), 1);
-    bbs.setUint(BBLib.toB32(pollID,&#39;ADDOPTION_ENDDATE&#39;), addPollOptionEndDate);
-    bbs.setUint(BBLib.toB32(pollID,&#39;COMMIT_ENDDATE&#39;), commitEndDate);
-    bbs.setUint(BBLib.toB32(pollID,&#39;REVEAL_ENDDATE&#39;), revealEndDate);
+    bbs.setUint(BBLib.toB32(pollID,'STATUS'), 1);
+    bbs.setUint(BBLib.toB32(pollID,'ADDOPTION_ENDDATE'), addPollOptionEndDate);
+    bbs.setUint(BBLib.toB32(pollID,'COMMIT_ENDDATE'), commitEndDate);
+    bbs.setUint(BBLib.toB32(pollID,'REVEAL_ENDDATE'), revealEndDate);
 
     _doAddPollOption(pollID, extraData);
 
@@ -633,20 +633,20 @@ contract BBVoting is BBStandard{
     require(pollStatus == 1);
     require(creator == msg.sender);
     //todo check msg.sender
-    require(bbs.getUint(BBLib.toB32(pollID,&#39;ADDOPTION_ENDDATE&#39;)) > now);
+    require(bbs.getUint(BBLib.toB32(pollID,'ADDOPTION_ENDDATE')) > now);
     return _doAddPollOption(pollID, pollOption);
   }
   
   function _doAddPollOption(uint256 pollID, bytes optionHashIPFS) private  returns(bool success){
     // check optionID make sure this hash not saved yet
-    require(bbs.getUint(BBLib.toB32(pollID, &#39;OPTION&#39;, optionHashIPFS))== 0x0);
+    require(bbs.getUint(BBLib.toB32(pollID, 'OPTION', optionHashIPFS))== 0x0);
     // get latestID + 1 for new ID
-    uint256 optionID = bbs.getUint(BBLib.toB32(pollID, &#39;OPTION_COUNTER&#39;)).add(1);
+    uint256 optionID = bbs.getUint(BBLib.toB32(pollID, 'OPTION_COUNTER')).add(1);
     // save latestID
-    bbs.setUint(BBLib.toB32(pollID, &#39;OPTION_COUNTER&#39;), optionID);
+    bbs.setUint(BBLib.toB32(pollID, 'OPTION_COUNTER'), optionID);
     // save option
-    bbs.setBytes(BBLib.toB32(pollID, &#39;IPFS_HASH&#39;, optionID), optionHashIPFS);
-    bbs.setAddress(BBLib.toB32(pollID, &#39;CREATOR&#39;, optionID), msg.sender);
+    bbs.setBytes(BBLib.toB32(pollID, 'IPFS_HASH', optionID), optionHashIPFS);
+    bbs.setAddress(BBLib.toB32(pollID, 'CREATOR', optionID), msg.sender);
     success = true;
     emit PollOptionAdded(pollID, optionID);
   }
@@ -669,26 +669,26 @@ contract BBVoting is BBStandard{
 contract BBVotingHelper is BBStandard{
 
   function getPollResult(uint256 pollID) public view returns(uint256[], uint256[]){
-    uint256 numOption = bbs.getUint(BBLib.toB32(pollID, &#39;OPTION_COUNTER&#39;));
+    uint256 numOption = bbs.getUint(BBLib.toB32(pollID, 'OPTION_COUNTER'));
     uint256[] memory opts = new uint256[](numOption.add(1));
     uint256[] memory votes = new uint256[](numOption.add(1));
     for(uint256 i = 0; i <= numOption ; i++){
       opts[i] = i;
-      votes[i] = (bbs.getUint(BBLib.toB32(pollID,&#39;VOTE_FOR&#39;,opts[i])));
+      votes[i] = (bbs.getUint(BBLib.toB32(pollID,'VOTE_FOR',opts[i])));
     }
 
     return (opts, votes);
   }
   function getPollID(uint256 pollType, uint256 relatedTo) public view returns(uint256 pollID){
-    pollID = bbs.getUint(BBLib.toB32(relatedTo, pollType,&#39;POLL&#39;));
+    pollID = bbs.getUint(BBLib.toB32(relatedTo, pollType,'POLL'));
   }
 
   function getPollStage(uint256 pollID) public view returns(uint256, address, uint256, uint256, uint256){
-    uint256 pollStatus = bbs.getUint(BBLib.toB32(pollID,&#39;STATUS&#39;));
-    address creator = bbs.getAddress(BBLib.toB32(pollID, &#39;OWNER&#39;));
-    uint256 addPollOptionEndDate = bbs.getUint(BBLib.toB32(pollID,&#39;ADDOPTION_ENDDATE&#39;));
-    uint256 commitEndDate = bbs.getUint(BBLib.toB32(pollID,&#39;COMMIT_ENDDATE&#39;));
-    uint256 revealEndDate = bbs.getUint(BBLib.toB32(pollID,&#39;REVEAL_ENDDATE&#39;));
+    uint256 pollStatus = bbs.getUint(BBLib.toB32(pollID,'STATUS'));
+    address creator = bbs.getAddress(BBLib.toB32(pollID, 'OWNER'));
+    uint256 addPollOptionEndDate = bbs.getUint(BBLib.toB32(pollID,'ADDOPTION_ENDDATE'));
+    uint256 commitEndDate = bbs.getUint(BBLib.toB32(pollID,'COMMIT_ENDDATE'));
+    uint256 revealEndDate = bbs.getUint(BBLib.toB32(pollID,'REVEAL_ENDDATE'));
     return (pollStatus, creator, addPollOptionEndDate, commitEndDate, revealEndDate); 
   }
     /**
@@ -699,22 +699,22 @@ contract BBVotingHelper is BBStandard{
   */
   function checkHash(uint256 pollID, uint256 choice, uint salt) public view returns(bool){
     bytes32 choiceHash = BBLib.toB32(choice,salt);
-    bytes32 secretHash = BBLib.bytesToBytes32(bbs.getBytes(BBLib.toB32(pollID,&#39;SECRET_HASH&#39;,msg.sender)));
+    bytes32 secretHash = BBLib.bytesToBytes32(bbs.getBytes(BBLib.toB32(pollID,'SECRET_HASH',msg.sender)));
     return (choiceHash==secretHash);
   }
   function checkStakeBalance() public view returns(uint256 tokens){
-    tokens = bbs.getUint(BBLib.toB32(msg.sender,&#39;STAKED_VOTE&#39;));
+    tokens = bbs.getUint(BBLib.toB32(msg.sender,'STAKED_VOTE'));
   }
   function hasVoting(uint256 pollType, uint256 relatedTo) public view returns(bool r){
     uint256 pollID = getPollID(pollType, relatedTo);
     if(pollID > 0) {
-      uint256 pollStatus = bbs.getUint(BBLib.toB32(pollID,&#39;STATUS&#39;));
-      uint256 revealEndDate = bbs.getUint(BBLib.toB32(pollID,&#39;REVEAL_ENDDATE&#39;));
+      uint256 pollStatus = bbs.getUint(BBLib.toB32(pollID,'STATUS'));
+      uint256 revealEndDate = bbs.getUint(BBLib.toB32(pollID,'REVEAL_ENDDATE'));
       r = (pollStatus >= 1 && revealEndDate < now);
     }
   }
   function getPollOption(uint256 pollID, uint256 optID) public view returns(bytes opt){
-    opt = bbs.getBytes(BBLib.toB32(pollID, &#39;IPFS_HASH&#39;, optID));
+    opt = bbs.getBytes(BBLib.toB32(pollID, 'IPFS_HASH', optID));
   }
   
   function getPollWinner(uint256 pollID)public constant returns(bool isFinished, uint256 winner, uint256 winnerVotes , bool hasVote, uint256 quorum) {
@@ -743,9 +743,9 @@ contract BBVotingHelper is BBStandard{
   function getNumPassingTokens(address voter, uint256 pollID) public constant returns (uint256 correctVotes) {
       (bool isFinished, uint256 winner,, bool hasVote,) = getPollWinner(pollID);
       if(isFinished==true && hasVote == true){
-        uint256 userChoice = bbs.getUint(BBLib.toB32(pollID,&#39;CHOICE&#39;, voter));
+        uint256 userChoice = bbs.getUint(BBLib.toB32(pollID,'CHOICE', voter));
         if (winner == userChoice){
-          correctVotes = bbs.getUint(BBLib.toB32(pollID ,&#39;VOTES&#39;, voter));
+          correctVotes = bbs.getUint(BBLib.toB32(pollID ,'VOTES', voter));
         }
       }
   }
@@ -760,25 +760,25 @@ contract BBVotingHelper is BBStandard{
 contract BBTCRHelper is BBStandard {
 
     function setParamsUnOrdered(uint256 listID, uint256 applicationDuration, uint256 commitDuration, uint256 revealDuration, uint256 minStake, uint256 initQuorum, uint256 exitDuration) onlyOwner public  {
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;APPLICATION_DURATION&#39;), applicationDuration);
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;COMMIT_DURATION&#39;), commitDuration);
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;REVEAL_DURATION&#39;), revealDuration);
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;MIN_STAKE&#39;), minStake);
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;MIN_STAKE&#39;), minStake);
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;QUORUM&#39;), initQuorum);
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;EXITDURATION&#39;), exitDuration);
+        bbs.setUint(BBLib.toB32('TCR', listID, 'APPLICATION_DURATION'), applicationDuration);
+        bbs.setUint(BBLib.toB32('TCR', listID, 'COMMIT_DURATION'), commitDuration);
+        bbs.setUint(BBLib.toB32('TCR', listID, 'REVEAL_DURATION'), revealDuration);
+        bbs.setUint(BBLib.toB32('TCR', listID, 'MIN_STAKE'), minStake);
+        bbs.setUint(BBLib.toB32('TCR', listID, 'MIN_STAKE'), minStake);
+        bbs.setUint(BBLib.toB32('TCR', listID, 'QUORUM'), initQuorum);
+        bbs.setUint(BBLib.toB32('TCR', listID, 'EXITDURATION'), exitDuration);
 
     }
 
     function getListParamsUnOrdered(uint256 listID) public view returns(uint256 applicationDuration, uint256 commitDuration, uint256 revealDuration, uint256 minStake){
-        applicationDuration = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;APPLICATION_DURATION&#39;));
-        commitDuration = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;COMMIT_DURATION&#39;));
-        revealDuration = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;REVEAL_DURATION&#39;));
-        minStake = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;MIN_STAKE&#39;));
+        applicationDuration = bbs.getUint(BBLib.toB32('TCR', listID, 'APPLICATION_DURATION'));
+        commitDuration = bbs.getUint(BBLib.toB32('TCR', listID, 'COMMIT_DURATION'));
+        revealDuration = bbs.getUint(BBLib.toB32('TCR', listID, 'REVEAL_DURATION'));
+        minStake = bbs.getUint(BBLib.toB32('TCR', listID, 'MIN_STAKE'));
     }
 
     function getStakedBalanceUnOrdered(uint256 listID, bytes32 itemHash) public constant returns (uint256) {
-        return  bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;STAKED&#39;));
+        return  bbs.getUint(BBLib.toB32('TCR', listID, itemHash, 'STAKED'));
     }
 
 }
@@ -808,22 +808,22 @@ contract BBUnOrderedTCR is BBStandard{
 
 
     function isOwnerItem(uint256 listID, bytes32 itemHash) private constant returns (bool r){
-        address owner = bbs.getAddress(BBLib.toB32(&#39;TCR&#39;,listID, itemHash, &#39;OWNER&#39;));
+        address owner = bbs.getAddress(BBLib.toB32('TCR',listID, itemHash, 'OWNER'));
          r = (owner == msg.sender && owner != address(0x0));
     }
 
      function canApply(uint256 listID, bytes32 itemHash) private constant returns (bool r){
-        address owner = bbs.getAddress(BBLib.toB32(&#39;TCR&#39;,listID, itemHash, &#39;OWNER&#39;));
+        address owner = bbs.getAddress(BBLib.toB32('TCR',listID, itemHash, 'OWNER'));
          r = (owner == msg.sender || owner == address(0x0));
     }
 
     //Lam sao user bi remove, kiem tra so deposit
     function depositToken(uint256 listID, bytes32 itemHash, uint amount) public returns(bool) {
         (,,, uint256 minStake) = tcrHelper.getListParamsUnOrdered(listID);
-        uint256 staked = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;STAKED&#39;));
+        uint256 staked = bbs.getUint(BBLib.toB32('TCR', listID, itemHash, 'STAKED'));
         require(staked.add(amount) >= minStake);
         require (bbo.transferFrom(msg.sender, address(this), amount));
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;STAKED&#39;), staked.add(amount));
+        bbs.setUint(BBLib.toB32('TCR', listID, itemHash, 'STAKED'), staked.add(amount));
         return true;
     }
     function apply(uint256 listID, uint256 amount, bytes32 itemHash, bytes data) public {
@@ -833,10 +833,10 @@ contract BBUnOrderedTCR is BBStandard{
     	(uint256 applicationDuration,,,) = tcrHelper.getListParamsUnOrdered(listID);
         require(depositToken(listID, itemHash,amount));
         // save creator
-        bbs.setAddress(BBLib.toB32(&#39;TCR&#39;,listID, itemHash, &#39;OWNER&#39;), msg.sender);
+        bbs.setAddress(BBLib.toB32('TCR',listID, itemHash, 'OWNER'), msg.sender);
         // save application endtime
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;APPLICATION_ENDTIME&#39;), block.timestamp.add(applicationDuration));
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;STAGE&#39;), 1);
+        bbs.setUint(BBLib.toB32('TCR', listID, itemHash, 'APPLICATION_ENDTIME'), block.timestamp.add(applicationDuration));
+        bbs.setUint(BBLib.toB32('TCR',listID, itemHash,'STAGE'), 1);
         // emit event
         emit ItemApplied(listID, itemHash, data);
     }
@@ -846,10 +846,10 @@ contract BBUnOrderedTCR is BBStandard{
     	//TODO allow withdraw unlocked token
         require (isOwnerItem(listID, itemHash));
         (,,, uint256 minStake) = tcrHelper.getListParamsUnOrdered(listID);
-        uint256 staked = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;STAKED&#39;));
+        uint256 staked = bbs.getUint(BBLib.toB32('TCR', listID, itemHash, 'STAKED'));
         require(staked - minStake >= _amount);
 
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;STAKED&#39;), staked.sub(_amount));
+        bbs.setUint(BBLib.toB32('TCR', listID, itemHash, 'STAKED'), staked.sub(_amount));
         assert(bbo.transfer(msg.sender, _amount));
     
     }
@@ -858,10 +858,10 @@ contract BBUnOrderedTCR is BBStandard{
     	//TODO Initialize an exit timer for a listing to leave the whitelist
         // exit timer 
         require (isOwnerItem(listID, itemHash));
-        require(bbs.getUint(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;STAGE&#39;)) == 3);
-        uint256 applicationExitDuration = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;EXITDURATION&#39;));
+        require(bbs.getUint(BBLib.toB32('TCR',listID, itemHash,'STAGE')) == 3);
+        uint256 applicationExitDuration = bbs.getUint(BBLib.toB32('TCR', listID, itemHash, 'EXITDURATION'));
         // save application exittime
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;EXITTIME&#39;), block.timestamp.add(applicationExitDuration));
+        bbs.setUint(BBLib.toB32('TCR', listID, itemHash, 'EXITTIME'), block.timestamp.add(applicationExitDuration));
 
     }
     // set state = 0, tra tien so huu
@@ -869,20 +869,20 @@ contract BBUnOrderedTCR is BBStandard{
         // TODO Allow a listing to leave the whitelist
         // after x timer will 
         require (isOwnerItem(listID, itemHash));
-        require(bbs.getUint(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;STAGE&#39;)) == 3);
-        uint256 applicationExitTime= bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;EXITTIME&#39;));
+        require(bbs.getUint(BBLib.toB32('TCR',listID, itemHash,'STAGE')) == 3);
+        uint256 applicationExitTime= bbs.getUint(BBLib.toB32('TCR', listID, itemHash, 'EXITTIME'));
         require(now > applicationExitTime);
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;STAGE&#39;), 0);
+        bbs.setUint(BBLib.toB32('TCR',listID, itemHash,'STAGE'), 0);
 
     }
     function calcRewardPool(uint256 listID, uint256 stakedToken) internal constant returns(uint256){
         uint oneHundred = 100; 
-        return (oneHundred.sub(bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;LOSE_PERCENT&#39;)))
+        return (oneHundred.sub(bbs.getUint(BBLib.toB32('TCR', listID, 'LOSE_PERCENT')))
             .mul(stakedToken)).div(100);
     }
     function challenge(uint256 listID, bytes32 itemHash, bytes _data) external returns (uint pollID) {
         // not in challenge stage
-        require(bbs.getUint(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;STAGE&#39;)) != 2);
+        require(bbs.getUint(BBLib.toB32('TCR',listID, itemHash,'STAGE')) != 2);
         // require deposit token        
         (, uint256 commitDuration, uint256 revealDuration, uint256 minStake) = tcrHelper.getListParamsUnOrdered(listID);
         require (bbo.transferFrom(msg.sender, address(this), minStake));
@@ -890,15 +890,15 @@ contract BBUnOrderedTCR is BBStandard{
         pollID = voting.startPoll(_data, 0 , commitDuration, revealDuration);
         require(pollID > 0);
         // save pollID 
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, pollID, &#39;CHALLENGER_STAKED&#39;), minStake);
+        bbs.setUint(BBLib.toB32('TCR', pollID, 'CHALLENGER_STAKED'), minStake);
 
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;POLL_ID&#39;), pollID);
+        bbs.setUint(BBLib.toB32('TCR', listID, itemHash, 'POLL_ID'), pollID);
         
-        bbs.setUint(BBLib.toB32(&#39;TCR_POLL_ID&#39;, pollID ), calcRewardPool(listID, minStake));
+        bbs.setUint(BBLib.toB32('TCR_POLL_ID', pollID ), calcRewardPool(listID, minStake));
         // save challenger
-        bbs.setAddress(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;CHALLENGER&#39;), msg.sender);
+        bbs.setAddress(BBLib.toB32('TCR', listID, itemHash, 'CHALLENGER'), msg.sender);
         // in challenge stage
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;STAGE&#39;), 2);
+        bbs.setUint(BBLib.toB32('TCR',listID, itemHash,'STAGE'), 2);
         emit Challenge(listID, itemHash, pollID, msg.sender);
     }
 
@@ -913,48 +913,48 @@ contract BBUnOrderedTCR is BBStandard{
     }
 
     function claimReward(uint pollID) public {
-        require(bbs.getBool(BBLib.toB32(&#39;TCR_VOTER_CLAIMED&#39;, pollID, msg.sender)) == false);
+        require(bbs.getBool(BBLib.toB32('TCR_VOTER_CLAIMED', pollID, msg.sender)) == false);
         uint256 numReward = voterReward(msg.sender, pollID);
         require(numReward > 0);
         assert(bbo.transfer(msg.sender, numReward));
-        bbs.setBool(BBLib.toB32(&#39;TCR_VOTER_CLAIMED&#39;, pollID, msg.sender), true);
+        bbs.setBool(BBLib.toB32('TCR_VOTER_CLAIMED', pollID, msg.sender), true);
     }
     function voterReward(address voter, uint pollID) public view returns (uint numReward) {
-        if(bbs.getBool(BBLib.toB32(&#39;TCR_VOTER_CLAIMED&#39;, pollID, voter)) == false){
+        if(bbs.getBool(BBLib.toB32('TCR_VOTER_CLAIMED', pollID, voter)) == false){
            uint256 userVotes =  votingHelper.getNumPassingTokens(voter, pollID);
             (bool isFinished,, uint256 winnerVotes,, uint256 quorum) = votingHelper.getPollWinner(pollID);
             if(isFinished==true && userVotes > 0 && quorum > 50){
-                uint256 rewardPool =  bbs.getUint(BBLib.toB32(&#39;TCR_POLL_ID&#39;, pollID ));
+                uint256 rewardPool =  bbs.getUint(BBLib.toB32('TCR_POLL_ID', pollID ));
                 numReward = userVotes.mul(rewardPool).div(winnerVotes); // (vote/totalVotes) * staked
             }
         } 
         
     }
     function whitelistApplication(uint256 listID, bytes32 itemHash) private {
-        bbs.setBool(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;WHITE_LISTED&#39;), true);
-        bbs.setUint(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;STAGE&#39;), 3);
+        bbs.setBool(BBLib.toB32('TCR',listID, itemHash,'WHITE_LISTED'), true);
+        bbs.setUint(BBLib.toB32('TCR',listID, itemHash,'STAGE'), 3);
     }
     function canBeWhitelisted(uint256 listID, bytes32 itemHash) view public returns (bool) {
-        uint256 applicationEndtime = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;APPLICATION_ENDTIME&#39;));
-	    uint256 stage = bbs.getUint(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;STAGE&#39;));
+        uint256 applicationEndtime = bbs.getUint(BBLib.toB32('TCR', listID, itemHash, 'APPLICATION_ENDTIME'));
+	    uint256 stage = bbs.getUint(BBLib.toB32('TCR',listID, itemHash,'STAGE'));
         if(applicationEndtime > 0 && applicationEndtime < now && stage == 1 && !isWhitelisted(listID, itemHash)){
             return true;
         }
         return false;
     }
 	function isWhitelisted(uint256 listID, bytes32 itemHash) view public returns (bool whitelisted) {
-        return bbs.getBool(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;WHITE_LISTED&#39;));
+        return bbs.getBool(BBLib.toB32('TCR',listID, itemHash,'WHITE_LISTED'));
 	}
 
     function challengeCanBeResolved(uint256 listID, bytes32 itemHash) view public returns (bool) {
-        uint pollID = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;POLL_ID&#39;));
-        uint256 stage = bbs.getUint(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;STAGE&#39;));
+        uint pollID = bbs.getUint(BBLib.toB32('TCR', listID, itemHash, 'POLL_ID'));
+        uint256 stage = bbs.getUint(BBLib.toB32('TCR',listID, itemHash,'STAGE'));
         require(stage == 2);
         (bool isFinished,,,,) = votingHelper.getPollWinner(pollID);
         return isFinished;
     }
     function determineReward(uint pollID) public view returns (uint) {
-        uint256 minStake = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, pollID, &#39;CHALLENGER_STAKED&#39;));
+        uint256 minStake = bbs.getUint(BBLib.toB32('TCR', pollID, 'CHALLENGER_STAKED'));
         // Edge case, nobody voted, give all tokens to the challenger.
         // quorum 70 --> lose
         // if nobody voted, ?? TODO
@@ -963,23 +963,23 @@ contract BBUnOrderedTCR is BBStandard{
             return 2 * minStake;//TODO ... should reward to voter
         }
 
-        return (2 * minStake) - bbs.getUint(BBLib.toB32(&#39;TCR_POLL_ID&#39;, pollID ));
+        return (2 * minStake) - bbs.getUint(BBLib.toB32('TCR_POLL_ID', pollID ));
     }
     function resolveChallenge(uint256 listID, bytes32 itemHash) private {
-        uint pollID = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;POLL_ID&#39;));
+        uint pollID = bbs.getUint(BBLib.toB32('TCR', listID, itemHash, 'POLL_ID'));
         (bool isFinished, , uint256 winnerVotes ,, uint256 quorum) = votingHelper.getPollWinner(pollID);
-        uint256 initQuorum = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, &#39;QUORUM&#39;));
+        uint256 initQuorum = bbs.getUint(BBLib.toB32('TCR', listID, 'QUORUM'));
         uint256 reward = determineReward(pollID);
         if(quorum>= initQuorum && isFinished == true && winnerVotes > 0){
             //pass vote
             whitelistApplication(listID, itemHash);
-            uint256 staked = bbs.getUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;STAKED&#39;));
-            bbs.setUint(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;STAKED&#39;), staked.add(reward));
+            uint256 staked = bbs.getUint(BBLib.toB32('TCR', listID, itemHash, 'STAKED'));
+            bbs.setUint(BBLib.toB32('TCR', listID, itemHash, 'STAKED'), staked.add(reward));
         }else{
             // did not pass // thang do khong pass, trang thai true -false,
             //remove ra khoi list
-            bbs.setUint(BBLib.toB32(&#39;TCR&#39;,listID, itemHash,&#39;STAGE&#39;), 0);
-            assert(bbo.transfer(bbs.getAddress(BBLib.toB32(&#39;TCR&#39;, listID, itemHash, &#39;CHALLENGER&#39;)), reward));
+            bbs.setUint(BBLib.toB32('TCR',listID, itemHash,'STAGE'), 0);
+            assert(bbo.transfer(bbs.getAddress(BBLib.toB32('TCR', listID, itemHash, 'CHALLENGER')), reward));
         }
     }
 }

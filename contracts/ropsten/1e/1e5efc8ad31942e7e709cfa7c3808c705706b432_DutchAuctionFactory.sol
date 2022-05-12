@@ -105,7 +105,7 @@ contract DutchAuctionFactory is Ownable {
     * @param _implementation Address of the new implementation.
     */
     function setImplementation(address _implementation) onlyOwner public {
-        require(_implementation != address(0x0), "Implementation address can&#39;t be 0x0");
+        require(_implementation != address(0x0), "Implementation address can't be 0x0");
         implementation = _implementation;
     }
 
@@ -121,7 +121,7 @@ contract DutchAuctionFactory is Ownable {
     function createProxyAndCall(bytes _data) public payable returns (AdminUpgradeabilityProxy) {
         AdminUpgradeabilityProxy proxy = _createProxy(implementation);
         proxy.changeAdmin(owner);
-        require(address(proxy).call.value(msg.value)(_data),"Can&#39;t do the call");
+        require(address(proxy).call.value(msg.value)(_data),"Can't do the call");
         return proxy;
     }
 
@@ -155,7 +155,7 @@ contract Proxy {
 
   /**
    * @dev Delegates execution to an implementation contract.
-   * This is a low level function that doesn&#39;t return to its internal call site.
+   * This is a low level function that doesn't return to its internal call site.
    * It will return to the external caller whatever the implementation returns.
    * @param implementation Address to delegate.
    */
@@ -167,7 +167,7 @@ contract Proxy {
       calldatacopy(0, 0, calldatasize)
 
       // Call the implementation.
-      // out and outsize are 0 because we don&#39;t know the size yet.
+      // out and outsize are 0 because we don't know the size yet.
       let result := delegatecall(gas, implementation, 0, calldatasize, 0, 0)
 
       // Copy the returned data.

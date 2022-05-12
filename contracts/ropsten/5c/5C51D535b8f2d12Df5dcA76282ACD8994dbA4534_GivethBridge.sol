@@ -22,7 +22,7 @@ contract ERC20 {
     /// @dev Transfers _value number of tokens from address _from to address _to
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success);
 
-    /// @dev Allows _spender to withdraw from the msg.sender&#39;s account up to the _value amount
+    /// @dev Allows _spender to withdraw from the msg.sender's account up to the _value amount
     function approve(address _spender, uint256 _value) public returns (bool success);
 
     /// @dev Returns the amount which _spender is still allowed to withdraw from _owner
@@ -188,7 +188,7 @@ contract Escapable is Owned {
 
     /// @notice Checks to see if `_token` is in the blacklist of tokens
     /// @param _token the token address being queried
-    /// @return False if `_token` is in the blacklist and can&#39;t be taken out of
+    /// @return False if `_token` is in the blacklist and can't be taken out of
     ///  the contract via the `escapeHatch()`
     function isTokenEscapable(address _token) view public returns (bool) {
         return !escapeBlacklist[_token];
@@ -554,7 +554,7 @@ contract Vault is Escapable, Pausable {
     /// @notice `onlyOwner` Changes the maximum number of seconds
     /// `securityGuard` can delay a payment
     /// @param _maxSecurityGuardDelay The new maximum delay in seconds that
-    ///  `securityGuard` can delay the payment&#39;s execution in total
+    ///  `securityGuard` can delay the payment's execution in total
     function setMaxSecurityGuardDelay(uint _maxSecurityGuardDelay) onlyOwner external {
         maxSecurityGuardDelay = _maxSecurityGuardDelay;
     }

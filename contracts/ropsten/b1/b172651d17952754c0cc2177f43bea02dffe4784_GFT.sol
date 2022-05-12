@@ -16,7 +16,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -247,9 +247,9 @@ contract GFT is StandardToken{
     Some wallets/interfaces might not even bother to look at this information.
     */
     string public name;                   //fancy name: eg Simon Bucks
-    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
-    string public version = &#39;V1.0&#39;;       //Version 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'V1.0';       //Version 0.1 standard. Just an arbitrary versioning scheme.
     uint256 private fulltoken;
     // This notifies clients about the amount burnt
     event Burn(address indexed from, uint256 value);
@@ -324,7 +324,7 @@ contract GFT is StandardToken{
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] = balances[_from].sub(_value);                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);             // Subtract from the sender's allowance
         _totalSupply = _totalSupply.sub(_value);                              // Update totalSupply
         emit Burn(_from, _value);
         emit Transfer(_from, address(0), _value);
@@ -343,7 +343,7 @@ contract GFT is StandardToken{
 	 function withdrawTokensFromContract(uint _amountOfTokens) public onlyOwner{
         require(balances[this] >= _amountOfTokens);
         require(msg.sender == owner);
-	    balances[msg.sender] = balances[msg.sender].add(_amountOfTokens);                        // adds the amount to owner&#39;s balance
+	    balances[msg.sender] = balances[msg.sender].add(_amountOfTokens);                        // adds the amount to owner's balance
         balances[this] = balances[this].sub(_amountOfTokens);                  // subtracts the amount from contract balance
 		emit Transfer(this, msg.sender, _amountOfTokens);               // execute an event reflecting the change
      

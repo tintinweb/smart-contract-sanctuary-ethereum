@@ -304,7 +304,7 @@ contract ToorToken is ERC20Basic, Ownable {
         return true;
     }
 
-    // This function allows someone to withdraw tokens from someone&#39;s address
+    // This function allows someone to withdraw tokens from someone's address
     // For this to work, the person needs to have been approved by the account owner (via the approve function)
     function transferFrom(address _from, address _to, uint256 _value) canTransfer(_to) public returns (bool)
     {
@@ -325,7 +325,7 @@ contract ToorToken is ERC20Basic, Ownable {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -394,7 +394,7 @@ contract ToorToken is ERC20Basic, Ownable {
     }
 
     // This function is to vest tokens to the founding team
-    // This deliberately doesn&#39;t use SafeMath as all the values are controlled without risk of overflow
+    // This deliberately doesn't use SafeMath as all the values are controlled without risk of overflow
     function vestTokens() public returns (bool) {
         require(pendingInstallments > 0);
         require(paidInstallments < 7);
@@ -552,7 +552,7 @@ contract ToorToken is ERC20Basic, Ownable {
     }
 
     function tokensOwedByInterval(uint256 balance, uint256 lastInterval, uint256 currInterval) public view returns (uint256) {
-        // Once the specified address has received all possible rewards, don&#39;t calculate anything
+        // Once the specified address has received all possible rewards, don't calculate anything
         if (lastInterval >= currInterval || lastInterval >= finalIntervalForTokenGen) {
             return 0;
         }
@@ -577,7 +577,7 @@ contract ToorToken is ERC20Basic, Ownable {
         for (uint256 rateWindow = minRateWindow; rateWindow <= maxRateWindow; rateWindow++) {
             uint256 intervals = getIntervalsForWindow(rateWindow, lastInterval, currInterval, intPerWin);
 
-            // This part is to ensure we don&#39;t overflow when rewards are pending for a large number of intervals
+            // This part is to ensure we don't overflow when rewards are pending for a large number of intervals
             // Loop through interval in batches
             while (intervals > 0) {
                 if (intervals >= intPerBatch) {
@@ -604,7 +604,7 @@ contract ToorToken is ERC20Basic, Ownable {
         uint256 interval = (time.sub(startTime)) / tokenGenInterval;
         uint256 finalInt = finalIntervalForTokenGen; // Assign to local to reduce gas
         
-        // Return max intervals if it&#39;s greater than that time
+        // Return max intervals if it's greater than that time
         if (interval > finalInt) {
             return finalInt;
         } else {
@@ -645,7 +645,7 @@ contract ToorToken is ERC20Basic, Ownable {
         return (accounts[_owner].lastInterval, ((accounts[_owner].lastInterval).mul(tokenGenInterval)).add(startTime));
     }
 
-    // This function is not meant to be used. It&#39;s only written as a fail-safe against potential unforeseen issues
+    // This function is not meant to be used. It's only written as a fail-safe against potential unforeseen issues
     function mint(address _to, uint256 _amount) onlyOwner public returns (bool) {
         // Add pending rewards for recipient of minted tokens
         if (!rewardGenerationComplete) {

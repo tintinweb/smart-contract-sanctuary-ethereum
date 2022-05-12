@@ -53,7 +53,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -296,7 +296,7 @@ contract Burnable is Token {
 	/// @param _value the amount of money to burn
 	function burn(uint256 _value) public returns (bool) {
 		require(_value <= balances[msg.sender]);		  // Check if the sender has enough
-		require(tokenSupply - _value >= 0); 		      // Check if there&#39;s enough supply
+		require(tokenSupply - _value >= 0); 		      // Check if there's enough supply
 		
 		address burner = msg.sender;
 		balances[burner] = balances[burner].sub(_value);  // Subtract from the owner
@@ -336,9 +336,9 @@ contract Frozable is Token {
 contract BitzToken is Token, Mintable, Burnable, Frozable {
     
     // Basic Token Properties
-    bytes32 private _version = &#39;0.2.1&#39;;
-    bytes32 private _name = &#39;Bitz&#39;;
-    bytes32 private _symbol = &#39;bitz&#39;;
+    bytes32 private _version = '0.2.1';
+    bytes32 private _name = 'Bitz';
+    bytes32 private _symbol = 'bitz';
     uint8  private _decimals = 18;
     uint256 private _totalSupply = 0;
 

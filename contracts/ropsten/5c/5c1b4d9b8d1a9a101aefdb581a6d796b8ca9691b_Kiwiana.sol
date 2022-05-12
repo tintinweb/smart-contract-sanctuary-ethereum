@@ -26,7 +26,7 @@ contract Kiwiana {
             return true;
         }
         else {
-            // you didn&#39;t pay enough, so we&#39;re just swallowing how much you spent
+            // you didn't pay enough, so we're just swallowing how much you spent
             return false;
         }
     }

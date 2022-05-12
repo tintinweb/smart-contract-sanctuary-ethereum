@@ -68,7 +68,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -276,7 +276,7 @@ contract LavaWallet is Owned {
 
 
 
-  //Can also be used to remove approval by using a &#39;tokens&#39; value of 0
+  //Can also be used to remove approval by using a 'tokens' value of 0
   function approveTokens(address spender, address token, uint tokens) public returns (bool success) {
       allowed[token][msg.sender][spender] = tokens;
       Approval(msg.sender, token, spender, tokens);
@@ -303,7 +303,7 @@ contract LavaWallet is Owned {
        return true;
    }
 
-   //Nonce is the same thing as a &#39;check number&#39;
+   //Nonce is the same thing as a 'check number'
    //EIP 712
    function getLavaTypedDataHash(bytes methodname, address from, address to, address token, uint256 tokens, uint256 relayerReward,
                                      uint256 expires, uint256 nonce) public constant returns (bytes32)
@@ -331,7 +331,7 @@ contract LavaWallet is Owned {
 
        require(msg.sender == getRelayingKing()
          || msg.sender == from
-         || msg.sender == to);  // you must be the &#39;king of the hill&#39; to relay
+         || msg.sender == to);  // you must be the 'king of the hill' to relay
 
        //make sure the signature has not expired
        require(block.number < expires);
@@ -360,7 +360,7 @@ contract LavaWallet is Owned {
    {
 
 
-       bytes32 sigHash = getLavaTypedDataHash(&#39;approve&#39;,from,to,token,tokens,relayerReward,expires,nonce);
+       bytes32 sigHash = getLavaTypedDataHash('approve',from,to,token,tokens,relayerReward,expires,nonce);
 
        if(!tokenApprovalWithSignature(from,to,token,tokens,relayerReward,expires,sigHash,signature)) revert();
 
@@ -376,7 +376,7 @@ contract LavaWallet is Owned {
 
       //check to make sure that signature == ecrecover signature
 
-      bytes32 sigHash = getLavaTypedDataHash(&#39;transfer&#39;,from,to,token,tokens,relayerReward,expires,nonce);
+      bytes32 sigHash = getLavaTypedDataHash('transfer',from,to,token,tokens,relayerReward,expires,nonce);
 
       if(!tokenApprovalWithSignature(from,to,token,tokens,relayerReward,expires,sigHash,signature)) revert();
 
@@ -395,7 +395,7 @@ contract LavaWallet is Owned {
 
       //check to make sure that signature == ecrecover signature
 
-      bytes32 sigHash = getLavaTypedDataHash(&#39;withdraw&#39;,from,to,token,tokens,relayerReward,expires,nonce);
+      bytes32 sigHash = getLavaTypedDataHash('withdraw',from,to,token,tokens,relayerReward,expires,nonce);
 
       if(!tokenApprovalWithSignature(from,to,token,tokens,relayerReward,expires,sigHash,signature)) revert();
 

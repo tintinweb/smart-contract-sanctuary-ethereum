@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;DEEPYR&#39; token contract
+// 'DEEPYR' token contract
 //
 // Symbol      : DEEPYR
 // Name        : Deepyr Token
@@ -277,7 +277,7 @@ contract ERC20 is IERC20, Owned {
   }
 
   // ------------------------------------------------------------------------
-  // Don&#39;t accept ETH
+  // Don't accept ETH
   // ------------------------------------------------------------------------
   function () public payable {
       revert();

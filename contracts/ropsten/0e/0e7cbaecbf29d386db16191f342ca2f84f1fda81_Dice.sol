@@ -716,7 +716,7 @@ contract Dice is usingOraclize {
             bytes32 myid =
                 oraclize_query(
                     "nested",
-                    "[URL] [&#39;json(https://api.random.org/json-rpc/1/invoke).result.random.data.0&#39;, &#39;\\n{\"jsonrpc\":\"2.0\",\"method\":\"generateSignedIntegers\",\"params\":{\"apiKey\":${[decrypt] BIYkzb1GQzRZFNsTzF7fh+n8VmT8GEyW3mHYlrU8It5O6/bam6/LVVxqkury8YZDJPjm0mWQeqQGebGAVSFrFw16/VHJ65QMFBfIHN2frhav/d10ARqECjoOvse5v4/DIT3LQUHPEx0Z/5UdtqYTQydW/pbC5BM=},\"n\":1,\"min\":1,\"max\":10000${[identity] \"}\"},\"id\":1${[identity] \"}\"}&#39;]",
+                    "[URL] ['json(https://api.random.org/json-rpc/1/invoke).result.random.data.0', '\\n{\"jsonrpc\":\"2.0\",\"method\":\"generateSignedIntegers\",\"params\":{\"apiKey\":${[decrypt] BIYkzb1GQzRZFNsTzF7fh+n8VmT8GEyW3mHYlrU8It5O6/bam6/LVVxqkury8YZDJPjm0mWQeqQGebGAVSFrFw16/VHJ65QMFBfIHN2frhav/d10ARqECjoOvse5v4/DIT3LQUHPEx0Z/5UdtqYTQydW/pbC5BM=},\"n\":1,\"min\":1,\"max\":10000${[identity] \"}\"},\"id\":1${[identity] \"}\"}']",
                     ORACLIZE_GAS_LIMIT + safeGas
                 );
             bets[myid] = Bet(msg.sender, betValue, 0);

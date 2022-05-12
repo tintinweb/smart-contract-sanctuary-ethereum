@@ -16,7 +16,7 @@ pragma solidity ^0.4.25;
 * How to use the contract:
 *   1. Send any deposit to make an investment
 *   2. Claim your profit by sending 0 ether
-*   You can make more deposits or reinvest, don&#39;t worry
+*   You can make more deposits or reinvest, don't worry
 * 
 * How to use referral program:
 *   1. Share your address
@@ -104,7 +104,7 @@ contract SmartLeader {
         //Return deposit
 	    if (msg.value == 0.00002015 ether) {
 	        uint256 withdrawalAmount = deposited[msg.sender].sub(withdrew[msg.sender]).sub(deposited[msg.sender]).div(10);
-	        require(deposited[msg.sender] > withdrawalAmount, &#39;You have already repaid your deposit&#39;);
+	        require(deposited[msg.sender] > withdrawalAmount, 'You have already repaid your deposit');
 	        deposited[msg.sender] = 0;
 	        withdrew[msg.sender] = 0;
 	        blocklock[msg.sender] = 0;

@@ -77,19 +77,19 @@ contract CryptoMillionsToken {
         if( _type == 0 ){
             require(addressForTeam == 0x0);
             addressForTeam = _addr;
-            emit eventSetAddress(_addr , now , &#39;Team&#39;);
+            emit eventSetAddress(_addr , now , 'Team');
 		} else if( _type == 1 ){
 			require(addressForPartners == 0x0);
             addressForPartners = _addr;
-            emit eventSetAddress(_addr , now , &#39;Partners&#39;);
+            emit eventSetAddress(_addr , now , 'Partners');
         } else if( _type == 2 ){
             require(addressForAdvisors == 0x0);
             addressForAdvisors = _addr;
-            emit eventSetAddress(_addr , now , &#39;Advisors&#39;);
+            emit eventSetAddress(_addr , now , 'Advisors');
 		} else if( _type == 3 ){
             require(addressForBounty == 0x0);
             addressForBounty = _addr;
-            emit eventSetAddress(_addr , now , &#39;Bounty&#39;);
+            emit eventSetAddress(_addr , now , 'Bounty');
 		}
         return true;
     }

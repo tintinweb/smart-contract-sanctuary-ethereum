@@ -21,7 +21,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -62,7 +62,7 @@ contract ERC20 is ERC20Basic {
 
 /// @title Escrow contract
 /// @author Farah Brunache
-/// @notice It&#39;s an escrow contract for creating, claiming and rewarding jobs.
+/// @notice It's an escrow contract for creating, claiming and rewarding jobs.
 
 contract Escrow{
 
@@ -318,7 +318,7 @@ contract Escrow{
     event TipMade(address from, address to, uint amount);
 
     /// @notice this function lets any registered address send DAI tokens to any other address
-    /// @dev Uses transferFrom on the DAI token contract to send DAI from sender&#39;s address to receiver&#39;s address
+    /// @dev Uses transferFrom on the DAI token contract to send DAI from sender's address to receiver's address
     /// @param _to is the address of the receiver receiving the DAI tokens
     /// @param _amount is the amount of DAI tokens to be paid to receiving address
     function tip(address _to, uint _amount) public {
@@ -334,7 +334,7 @@ contract Escrow{
     event DAISponsored(uint JobID, uint amount, address sponsor);
 
     /// @notice this function lets any registered address send DAI tokens to any Job as sponsored tokens
-    /// @dev Uses transferFrom on the DAI token contract to send DAI from sender&#39;s address to Escrow
+    /// @dev Uses transferFrom on the DAI token contract to send DAI from sender's address to Escrow
     /// @param _JobID is the ID of the job for which the sponsor contributes DAI
     /// @param _amount is the amount of DAI tokens to be sponsored to the Job
     function sponsorDAI(uint _JobID, uint _amount) public {

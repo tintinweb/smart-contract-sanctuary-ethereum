@@ -185,7 +185,7 @@ contract BitYuJade is modularLong {
 
 		// Team allocation percentages
         // (Jade, Pearls, MEGA) + (Pot , Referrals, Community)
-            // Referrals / Community rewards are mathematically designed to come from the winner&#39;s share of the pot.
+            // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
         /* 
         35% to the jackpot
         42% to other jade holders as dividends
@@ -399,7 +399,7 @@ contract BitYuJade is modularLong {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == player_[_pID].name)
+        if (_affCode == '' || _affCode == player_[_pID].name)
         {
             // use last stored affiliate code
             _affID = player_[_pID].laff;
@@ -518,7 +518,7 @@ contract BitYuJade is modularLong {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == player_[_pID].name)
+        if (_affCode == '' || _affCode == player_[_pID].name)
         {
             // use last stored affiliate code
             _affID = player_[_pID].laff;
@@ -718,7 +718,7 @@ contract BitYuJade is modularLong {
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * @return time left in seconds
      */
@@ -1230,7 +1230,7 @@ contract BitYuJade is modularLong {
         if (player_[_pID].lrnd != 0)
             updateGenVault(_pID, player_[_pID].lrnd);
             
-        // update player&#39;s last round played
+        // update player's last round played
         player_[_pID].lrnd = roundID_;
             
         // set the joined round bool to true
@@ -1249,7 +1249,7 @@ contract BitYuJade is modularLong {
         // setup local rID
         uint256 _rID = roundID_;
         
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
         
@@ -1281,7 +1281,7 @@ contract BitYuJade is modularLong {
         {
             // This ensures BitYu cannot influence the outcome of Jade with
             // bank migrations by breaking outgoing transactions.
-            // Something we would never do. But that&#39;s not the point.
+            // Something we would never do. But that's not the point.
             _pearl = _pearl.add(_com);
             _com = 0;
         }
@@ -1369,7 +1369,7 @@ contract BitYuJade is modularLong {
         {
             // This ensures BitYu cannot influence the outcome of Jade with
             // bank migrations by breaking outgoing transactions.
-            // Something we would never do. But that&#39;s not the point.
+            // Something we would never do. But that's not the point.
             _pearl = _com;
             _com = 0;
         }
@@ -1379,7 +1379,7 @@ contract BitYuJade is modularLong {
         
         // decide what to do with affiliate share of fees
         // affiliate must not be self, and must have a name registered
-        if (_affID != _pID && player_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && player_[_affID].name != '') {
             player_[_affID].aff = _aff.add(player_[_affID].aff);
             emit JadeEvents.onAffiliatePayout(_affID, player_[_affID].addr, player_[_affID].name, _rID, _pID, _aff, now);
         } else {
@@ -1458,7 +1458,7 @@ contract BitYuJade is modularLong {
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         
@@ -1499,7 +1499,7 @@ contract BitYuJade is modularLong {
     }
     
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _team, uint256 _eth, uint256 _jade, JadeDatasets.EventReturns memory _eventData_)
         private

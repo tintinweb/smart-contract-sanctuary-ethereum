@@ -267,7 +267,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string memory _result, bytes memory _proof) {
-        // RandomDS Proof Step 1: The prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // RandomDS Proof Step 1: The prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (uint8(_proof[2]) == uint8(1)));
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
         require(proofVerified);
@@ -951,7 +951,7 @@ contract usingOraclize {
                 mint *= 10;
                 mint += uint(uint8(bresult[i])) - 48;
             } else if (uint(uint8(bresult[i])) == 46) {
-                require(!decimals, &#39;More than one decimal encountered in string!&#39;);
+                require(!decimals, 'More than one decimal encountered in string!');
                 decimals = true;
             } else {
                 revert("Non-numeral character encountered in string!");
@@ -1134,7 +1134,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string memory _result, bytes memory _proof) internal returns (uint8 _returnCode) {
-        // Random DS Proof Step 1: The prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Random DS Proof Step 1: The prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L") || (_proof[1] != "P") || (uint8(_proof[2]) != uint8(1))) {
             return 1;
         }
@@ -1166,7 +1166,7 @@ contract usingOraclize {
         }
         bytes memory sig1 = new bytes(uint(uint8(_proof[ledgerProofLength + (32 + 8 + 1 + 32) + 1])) + 2);
         copyBytes(_proof, ledgerProofLength + (32 + 8 + 1 + 32), sig1.length, sig1, 0);
-        // Random DS Proof Step 3: We assume sig1 is valid (it will be verified during step 5) and we verify if &#39;_result&#39; is the _prefix of sha256(sig1)
+        // Random DS Proof Step 3: We assume sig1 is valid (it will be verified during step 5) and we verify if '_result' is the _prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), _result, uint(uint8(_proof[ledgerProofLength + 32 + 8])))) {
             return false;
         }
@@ -1187,7 +1187,7 @@ contract usingOraclize {
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) {
             return false;
         }
-        // Verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // Verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (!oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash]) {
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(_proof, sig2offset);
         }
@@ -1213,16 +1213,16 @@ contract usingOraclize {
     }
     /*
      The following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-     Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+     Duplicate Solidity's ecrecover, but catching the CALL return value
     */
     function safer_ecrecover(bytes32 _hash, uint8 _v, bytes32 _r, bytes32 _s) internal returns (bool _success, address _recoveredAddress) {
         /*
          We do our own memory management here. Solidity uses memory offset
          0x40 to store the current end of memory. We write past it (as
-         writes are memory extensions), but don&#39;t update the offset so
+         writes are memory extensions), but don't update the offset so
          Solidity will reuse it. The memory used here is only needed for
          this context.
-         FIXME: inline assembly can&#39;t access return values
+         FIXME: inline assembly can't access return values
         */
         bool ret;
         address addr;
@@ -1257,14 +1257,14 @@ contract usingOraclize {
             s := mload(add(_sig, 64))
             /*
              Here we are loading the last 32 bytes. We exploit the fact that
-             &#39;mload&#39; will pad with zeroes if we overread.
-             There is no &#39;mload8&#39; to do this, but that would be nicer.
+             'mload' will pad with zeroes if we overread.
+             There is no 'mload8' to do this, but that would be nicer.
             */
             v := byte(0, mload(add(_sig, 96)))
             /*
               Alternative solution:
-              &#39;byte&#39; is not working due to the Solidity parser, so lets
-              use the second best option, &#39;and&#39;
+              'byte' is not working due to the Solidity parser, so lets
+              use the second best option, 'and'
               v := and(mload(add(_sig, 65)), 255)
             */
         }
@@ -1379,7 +1379,7 @@ contract Dice is usingOraclize {
    
         } else {
             
-            // Player bets on every number, we cannot run oraclize service, it&#39;s 1-1, player wins.
+            // Player bets on every number, we cannot run oraclize service, it's 1-1, player wins.
 
             msg.sender.transfer(msg.value);
 

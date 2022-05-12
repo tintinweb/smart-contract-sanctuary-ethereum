@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -101,7 +101,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -298,16 +298,16 @@ contract StagedCrowdsale is Pausable {
   //period in days of sale
   uint public period;
 
-  //sale&#39;s hardcap
+  //sale's hardcap
   uint public totalHardcap;
  
   //total invested so far in the sale in wei
   uint public totalInvested;
 
-  //sale&#39;s softcap
+  //sale's softcap
   uint public softcap;
 
-  //sale&#39;s stages
+  //sale's stages
   Stage[] public stages;
 
   event MilestoneAdded(uint hardcap, uint price);
@@ -333,7 +333,7 @@ contract StagedCrowdsale is Pausable {
   }
 
   /**
-    * counts current sale&#39;s stages
+    * counts current sale's stages
     */
   function stagesCount() public constant returns(uint) {
     return stages.length;
@@ -366,8 +366,8 @@ contract StagedCrowdsale is Pausable {
 
   /**
     * adds stage to sale
-    * @param hardcap stage&#39;s hardcap in ethers
-    * @param price stage&#39;s price
+    * @param hardcap stage's hardcap in ethers
+    * @param price stage's price
     */
   function addStage(uint hardcap, uint price) public onlyOwner {
     require(hardcap > 0 && price > 0);
@@ -395,8 +395,8 @@ contract StagedCrowdsale is Pausable {
   /**
     * updates stage
     * @param number index of item to update
-    * @param hardcap stage&#39;s hardcap in ethers
-    * @param price stage&#39;s price
+    * @param hardcap stage's hardcap in ethers
+    * @param price stage's price
     */
   function changeStage(uint8 number, uint hardcap, uint price) public onlyOwner {
     require(number >= 0 && number < stages.length);
@@ -410,8 +410,8 @@ contract StagedCrowdsale is Pausable {
   /**
     * inserts stage
     * @param numberAfter index to insert
-    * @param hardcap stage&#39;s hardcap in ethers
-    * @param price stage&#39;s price
+    * @param hardcap stage's hardcap in ethers
+    * @param price stage's price
     */
   function insertStage(uint8 numberAfter, uint hardcap, uint price) public onlyOwner {
     require(numberAfter < stages.length);
@@ -580,7 +580,7 @@ contract CommonSale is StagedCrowdsale {
 
   /**
     * mints directly from network
-    * @param to invesyor&#39;s adress to transfer the minted tokens to
+    * @param to invesyor's adress to transfer the minted tokens to
     * @param investedWei number of wei invested
     */
   function directMint(address to, uint investedWei) public onlyDirectMintAgentOrOwner saleIsOn {
@@ -603,7 +603,7 @@ contract CommonSale is StagedCrowdsale {
 
   /**
     * Calculates and records contributions
-    * @param to invesyor&#39;s adress to transfer the minted tokens to
+    * @param to invesyor's adress to transfer the minted tokens to
     * @param weiInvested number of wei invested
     */
   function calculateAndMintTokens(address to, uint weiInvested) internal {
@@ -708,7 +708,7 @@ contract MYTCToken is MintableToken {
   //Token symbol
   string public constant symbol = "MYTC";
     
-  //Token&#39;s number of decimals
+  //Token's number of decimals
   uint32 public constant decimals = 18;
 
   //Dictionary with locked accounts
@@ -792,7 +792,7 @@ contract Tge is WhiteListToken {
   //Reserved tokens percentage
   uint public reservedTokensPercent;
   
-  //Lock period in days for team&#39;s wallet
+  //Lock period in days for team's wallet
   uint public lockPeriod;  
 
   //maximum amount of tokens ever minted
@@ -806,7 +806,7 @@ contract Tge is WhiteListToken {
   event TgeFinalized(address indexed finalizer, uint256 saleEnded);
 
   /**
-    * sets lock period in days for team&#39;s wallet
+    * sets lock period in days for team's wallet
     * @param newLockPeriod new lock period in days
     */
   function setLockPeriod(uint newLockPeriod) public onlyOwner {
@@ -814,16 +814,16 @@ contract Tge is WhiteListToken {
   }
 
   /**
-    * sets percentage for team&#39;s wallet
-    * @param newTeamTokensPercent new percentage for team&#39;s wallet
+    * sets percentage for team's wallet
+    * @param newTeamTokensPercent new percentage for team's wallet
     */
   function setTeamTokensPercent(uint newTeamTokensPercent) public onlyOwner {
     teamTokensPercent = newTeamTokensPercent;
   }
 
   /**
-    * sets percentage for bounty&#39;s wallet
-    * @param newBountyTokensPercent new percentage for bounty&#39;s wallet
+    * sets percentage for bounty's wallet
+    * @param newBountyTokensPercent new percentage for bounty's wallet
     */
   function setBountyTokensPercent(uint newBountyTokensPercent) public onlyOwner {
     bountyTokensPercent = newBountyTokensPercent;
@@ -846,16 +846,16 @@ contract Tge is WhiteListToken {
   }
 
   /**
-    * sets address for team&#39;s wallet
-    * @param newTeamTokensWallet new address for team&#39;s wallet
+    * sets address for team's wallet
+    * @param newTeamTokensWallet new address for team's wallet
     */
   function setTeamTokensWallet(address newTeamTokensWallet) public onlyOwner {
     teamTokensWallet = newTeamTokensWallet;
   }
 
   /**
-    * sets address for bountys&#39;s wallet
-    * @param newBountyTokensWallet new address for bountys&#39;s wallet
+    * sets address for bountys's wallet
+    * @param newBountyTokensWallet new address for bountys's wallet
     */
   function setBountyTokensWallet(address newBountyTokensWallet) public onlyOwner {
     bountyTokensWallet = newBountyTokensWallet;

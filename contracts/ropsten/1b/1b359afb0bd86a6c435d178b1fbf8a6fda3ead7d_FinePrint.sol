@@ -19,7 +19,7 @@ contract MerkleDeposit {
     function deposit(bytes32 hash) external payable 
     returns (uint deposit_number) {
         // Ensure that value is sent in the transaction
-        require(msg.value > 0, &#39;No deposit&#39;);
+        require(msg.value > 0, 'No deposit');
         // Push the deposit amount to the deposit_amounts array
         deposit_amounts.push(msg.value);
         // Hash the current merkle root with the given hash
@@ -52,7 +52,7 @@ contract FinePrint {
     address public deposit;
     
     constructor() public payable {
-        require(msg.value > 0, &#39;No deposit&#39;);
+        require(msg.value > 0, 'No deposit');
         address _deposit;
         assembly {
             codecopy(160, 963, 1129)

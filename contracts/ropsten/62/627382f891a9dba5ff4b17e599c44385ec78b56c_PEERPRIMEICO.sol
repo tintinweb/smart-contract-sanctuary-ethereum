@@ -122,7 +122,7 @@ contract PEERPRIMEICO is admined {
 
     //Contract details
     address public creator; //Creator address
-    string public version = &#39;0.1&#39;; //Contract version
+    string public version = '0.1'; //Contract version
 
     //User rights handlers
     mapping (address => bool) public whiteList; //List of allowed to send eth
@@ -173,9 +173,9 @@ contract PEERPRIMEICO is admined {
         require(now > PREICOStart); //This time must be equal or greater than the start time
 
         if(state == State.PREICO){
-          require(msg.value.div(USDPriceInWei) >= 500000, &#39;Min. contribution is 500$&#39;);
+          require(msg.value.div(USDPriceInWei) >= 500000, 'Min. contribution is 500$');
         } else {
-          require(msg.value.div(USDPriceInWei) >= 100000, &#39;Min. contribution is 100$&#39;);
+          require(msg.value.div(USDPriceInWei) >= 100000, 'Min. contribution is 100$');
         }
 
         address user;
@@ -210,9 +210,9 @@ contract PEERPRIMEICO is admined {
         }
 
         if(state == State.PREICO){
-          require(PREICODistributed <= PREICOCap, &#39;[00]Not enough tokens for sale&#39;);
+          require(PREICODistributed <= PREICOCap, '[00]Not enough tokens for sale');
         } else {
-          require(ICODistributed.add(temp) <= ICOCap.add(excedent), &#39;[01]Not enough tokens for sale&#39;);
+          require(ICODistributed.add(temp) <= ICOCap.add(excedent), '[01]Not enough tokens for sale');
           ICODistributed = ICODistributed.add(temp);
         }
 
@@ -383,7 +383,7 @@ contract PEERPRIMEICO is admined {
 
               return (sold,0);
 
-            } revert(&#39;[02]Not enough tokes for sale&#39;);
+            } revert('[02]Not enough tokes for sale');
 
         }
 
@@ -529,7 +529,7 @@ contract PEERPRIMEICO is admined {
 
               return (sold,0);
 
-              } else revert(&#39;[03]Not enough tokes for sale&#39;);
+              } else revert('[03]Not enough tokes for sale');
 
         }
       }

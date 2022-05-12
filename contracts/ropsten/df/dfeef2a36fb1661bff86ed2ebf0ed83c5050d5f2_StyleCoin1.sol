@@ -24,10 +24,10 @@ contract StyleCoin1 is ERC20 {
     mapping (address => mapping (address => uint256)) allowed;
     
     constructor() public {
-        name        = &#39;StyleCoin1&#39;;
+        name        = 'StyleCoin1';
         decimals    = 6;
-        symbol      = &#39;STY1&#39;;
-        version     = &#39;H0.1&#39;;
+        symbol      = 'STY1';
+        version     = 'H0.1';
         totalSupply = 2000000000000;
         
         balances[msg.sender] = totalSupply;

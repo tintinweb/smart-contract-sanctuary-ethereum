@@ -54,7 +54,7 @@ contract Kombucha {
     using KombuchaLib for KombuchaLib.KombuchaStorage;
     // we have to repeat the event declarations in the contract
     // in order for some client-side frameworks to detect them
-    // (otherwise they won&#39;t show up in the contract ABI)
+    // (otherwise they won't show up in the contract ABI)
     
     event FilledKombucha(uint amountAdded, uint newFillAmount);
     event DrankKombucha(uint amountDrank, uint newFillAmount);

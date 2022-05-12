@@ -150,7 +150,7 @@ contract UTEMIS is ERC20{
 
 
     /**
-     * Transfer token from address to another address that&#39;s allowed to. 
+     * Transfer token from address to another address that's allowed to. 
      * ERC20
      * @param _from          Source address
      * @param _to            Destination address
@@ -181,7 +181,7 @@ contract UTEMIS is ERC20{
     /**
      * Returns the amount of tokens allowed by owner to spender ERC20
      * ERC20
-     * @param _owner         Source address that allow&#39;s spend tokens
+     * @param _owner         Source address that allow's spend tokens
      * @param _spender       Address that can transfer tokens form allowed     
      */   
     function allowance(address _owner , address _spender) public view returns(uint256 allowance_){

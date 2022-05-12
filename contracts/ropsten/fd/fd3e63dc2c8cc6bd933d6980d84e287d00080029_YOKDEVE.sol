@@ -125,7 +125,7 @@ contract StandardToken is AbstractToken, Owned, SafeMath {
 	/*
 	 *  Read and write storage functions
 	 */
-	/// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+	/// @dev Transfers sender's tokens to a given address. Returns success.
 	/// @param _to Address of token receiver.
 	/// @param _value Number of tokens to transfer.
 	function transfer(address _to, uint256 _value) public returns (bool success) {
@@ -238,8 +238,8 @@ contract Token is StandardToken {
 contract YOKDEVE is Token {
 
 	/// TOKEN META DATA
-	string constant public name = &#39;Yokdeve&#39;;
-	string constant public symbol = &#39;DEVE&#39;;
+	string constant public name = 'Yokdeve';
+	string constant public symbol = 'DEVE';
 	uint8  constant public decimals = 18;
 
 
@@ -247,7 +247,7 @@ contract YOKDEVE is Token {
 	// To calculate vesting periods we assume that 1 month is always equal to 30 days 
 
 
-	/*** Initial Investors&#39; tokens ***/
+	/*** Initial Investors' tokens ***/
 
 	// 525,000,000 (52.50%) tokens are distributed among initial investors
 	// These tokens will be distributed without vesting
@@ -445,10 +445,10 @@ contract YOKDEVE is Token {
 		public
 		onlyPotentialOwner
 	{   
-		// Forbid the old owner to distribute investors&#39; tokens
+		// Forbid the old owner to distribute investors' tokens
 		allowed[investorsAllocation][owner] = 0;
 
-		// Allow the new owner to distribute investors&#39; tokens
+		// Allow the new owner to distribute investors' tokens
 		allowed[investorsAllocation][msg.sender] = balanceOf(investorsAllocation);
 
 		// Forbid the old owner to withdraw any tokens from the reserves

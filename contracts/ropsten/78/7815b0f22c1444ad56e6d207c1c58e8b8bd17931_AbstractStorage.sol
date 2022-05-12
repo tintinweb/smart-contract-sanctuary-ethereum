@@ -27,36 +27,36 @@ contract AbstractStorage {
 
   // STORAGE LOCATIONS //
 
-  bytes32 internal constant EXEC_PERMISSIONS = keccak256(&#39;script_exec_permissions&#39;);
-  bytes32 internal constant APP_IDX_ADDR = keccak256(&#39;index&#39;);
+  bytes32 internal constant EXEC_PERMISSIONS = keccak256('script_exec_permissions');
+  bytes32 internal constant APP_IDX_ADDR = keccak256('index');
 
   // ACTION REQUESTORS //
 
-  bytes4 internal constant EMITS = bytes4(keccak256(&#39;Emit((bytes32[],bytes)[])&#39;));
-  bytes4 internal constant STORES = bytes4(keccak256(&#39;Store(bytes32[])&#39;));
-  bytes4 internal constant PAYS = bytes4(keccak256(&#39;Pay(bytes32[])&#39;));
-  bytes4 internal constant THROWS = bytes4(keccak256(&#39;Error(string)&#39;));
+  bytes4 internal constant EMITS = bytes4(keccak256('Emit((bytes32[],bytes)[])'));
+  bytes4 internal constant STORES = bytes4(keccak256('Store(bytes32[])'));
+  bytes4 internal constant PAYS = bytes4(keccak256('Pay(bytes32[])'));
+  bytes4 internal constant THROWS = bytes4(keccak256('Error(string)'));
 
   // SELECTORS //
 
   bytes4 internal constant REG_APP
-      = bytes4(keccak256(&#39;registerApp(bytes32,address,bytes4[],address[])&#39;));
+      = bytes4(keccak256('registerApp(bytes32,address,bytes4[],address[])'));
   bytes4 internal constant REG_APP_VER
-      = bytes4(keccak256(&#39;registerAppVersion(bytes32,bytes32,address,bytes4[],address[])&#39;));
+      = bytes4(keccak256('registerAppVersion(bytes32,bytes32,address,bytes4[],address[])'));
   bytes4 internal constant UPDATE_EXEC_SEL
-      = bytes4(keccak256(&#39;updateExec(address)&#39;));
+      = bytes4(keccak256('updateExec(address)'));
   bytes4 internal constant UPDATE_INST_SEL
-      = bytes4(keccak256(&#39;updateInstance(bytes32,bytes32,bytes32)&#39;));
+      = bytes4(keccak256('updateInstance(bytes32,bytes32,bytes32)'));
 
   // Creates an instance of a registry application and returns the execution id
   function createRegistry(address _registry_idx, address _implementation) external returns (bytes32) {
     bytes32 new_exec_id = keccak256(++nonce);
     put(new_exec_id, keccak256(msg.sender, EXEC_PERMISSIONS), bytes32(1));
     put(new_exec_id, APP_IDX_ADDR, bytes32(_registry_idx));
-    put(new_exec_id, keccak256(REG_APP, &#39;implementation&#39;), bytes32(_implementation));
-    put(new_exec_id, keccak256(REG_APP_VER, &#39;implementation&#39;), bytes32(_implementation));
-    put(new_exec_id, keccak256(UPDATE_INST_SEL, &#39;implementation&#39;), bytes32(_implementation));
-    put(new_exec_id, keccak256(UPDATE_EXEC_SEL, &#39;implementation&#39;), bytes32(_implementation));
+    put(new_exec_id, keccak256(REG_APP, 'implementation'), bytes32(_implementation));
+    put(new_exec_id, keccak256(REG_APP_VER, 'implementation'), bytes32(_implementation));
+    put(new_exec_id, keccak256(UPDATE_INST_SEL, 'implementation'), bytes32(_implementation));
+    put(new_exec_id, keccak256(UPDATE_EXEC_SEL, 'implementation'), bytes32(_implementation));
     emit ApplicationInitialized(new_exec_id, _registry_idx, msg.sender);
     return new_exec_id;
   }
@@ -76,7 +76,7 @@ contract AbstractStorage {
   */
   function createInstance(address _sender, bytes32 _app_name, address _provider, bytes32 _registry_id, bytes _calldata) external payable returns (bytes32 new_exec_id, bytes32 version) {
     // Ensure valid input -
-    require(_sender != 0 && _app_name != 0 && _provider != 0 && _registry_id != 0 && _calldata.length >= 4, &#39;invalid input&#39;);
+    require(_sender != 0 && _app_name != 0 && _provider != 0 && _registry_id != 0 && _calldata.length >= 4, 'invalid input');
 
     // Create new exec id by incrementing the nonce -
     new_exec_id = keccak256(++nonce);
@@ -92,7 +92,7 @@ contract AbstractStorage {
     setContext(new_exec_id, _sender);
 
     // Execute application, create a new exec id, and commit the returned data to storage -
-    require(address(index).delegatecall(_calldata) == false, &#39;Unsafe execution&#39;);
+    require(address(index).delegatecall(_calldata) == false, 'Unsafe execution');
     // Get data returned from call revert and perform requested actions -
     executeAppReturn(new_exec_id);
 
@@ -108,7 +108,7 @@ contract AbstractStorage {
   }
 
   /*
-  Executes an initialized application associated with the given exec id, under the sender&#39;s address and with
+  Executes an initialized application associated with the given exec id, under the sender's address and with
   the given calldata
 
   @param _sender: The address reported as the call sender by the script exec contract
@@ -124,18 +124,18 @@ contract AbstractStorage {
 
     // Get the target address associated with the given exec id
     address target = getTarget(_exec_id, getSelector(_calldata));
-    require(target != address(0), &#39;Uninitialized application&#39;);
+    require(target != address(0), 'Uninitialized application');
 
     // Set the exec id and sender addresses for the target application -
     setContext(_exec_id, _sender);
 
     // Execute application and commit returned data to storage -
-    require(address(target).delegatecall(_calldata) == false, &#39;Unsafe execution&#39;);
+    require(address(target).delegatecall(_calldata) == false, 'Unsafe execution');
     (n_emitted, n_paid, n_stored) = executeAppReturn(_exec_id);
 
     // If no events were emitted, no wei was forwarded, and no storage was changed, revert -
     if (n_emitted == 0 && n_paid == 0 && n_stored == 0)
-      revert(&#39;No state change occured&#39;);
+      revert('No state change occured');
 
     // Emit event -
     emit ApplicationExecution(_exec_id, target);
@@ -152,7 +152,7 @@ contract AbstractStorage {
   are assumed to be stateless, they cannot emit events, store data, or forward payment. Therefore, these
   steps to execution are handled in the storage contract by this function.
 
-  Returned data can execute several actions requested by the application through the use of an &#39;action requestor&#39;:
+  Returned data can execute several actions requested by the application through the use of an 'action requestor':
   Some actions mirror nested dynamic return types, which are manually encoded and decoded as they are not supported
   1. THROWS  - App requests storage revert with a given message
       --Format: bytes
@@ -160,7 +160,7 @@ contract AbstractStorage {
   2. EMITS   - App requests that events be emitted. Can provide topics to index, as well as arbitrary length data
       --Format: Event[]
         --Event format: [uint n_topics][bytes32 topic_0]...[bytes32 topic_n][uint data.length][bytes data]
-  3. STORES  - App requests that data be stored to its storage. App storage locations are hashed with the app&#39;s exec id
+  3. STORES  - App requests that data be stored to its storage. App storage locations are hashed with the app's exec id
       --Format: bytes32[]
         --bytes32[] consists of a data location followed by a value to place at that location
         --as such, its length must be even
@@ -171,15 +171,15 @@ contract AbstractStorage {
         --As such, its length must be even
         --Ex: [amt_0][bytes32(destination_0)]...[amt_n][bytes32(destination_n)]
 
-  Returndata is structured as an array of bytes, beginning with an action requestor (&#39;THROWS&#39;, &#39;PAYS&#39;, etc)
-  followed by that action&#39;s appropriately-formatted data (see above). Up to 3 actions with formatted data can be placed
-  into returndata, and each must be unique (i.e. no two &#39;EMITS&#39; actions).
+  Returndata is structured as an array of bytes, beginning with an action requestor ('THROWS', 'PAYS', etc)
+  followed by that action's appropriately-formatted data (see above). Up to 3 actions with formatted data can be placed
+  into returndata, and each must be unique (i.e. no two 'EMITS' actions).
 
   If the THROWS action is requested, it must be the first event requested. The event will be parsed
   and logged, and no other actions will be executed. If the THROWS requestor is not the first action
   requested, this function will throw
 
-  @param _exec_id: The execution id which references this application&#39;s storage
+  @param _exec_id: The execution id which references this application's storage
   @return n_emitted: The number of events emitted on behalf of the application
   @return n_paid: The number of destinations ETH was forwarded to on behalf of the application
   @return n_stored: The number of storage slots written to on behalf of the application
@@ -197,7 +197,7 @@ contract AbstractStorage {
     }
 
     // Ensure there are at least 64 bytes stored at the pointer
-    require(ptr_bound >= _ptr + 64, &#39;Malformed returndata - invalid size&#39;);
+    require(ptr_bound >= _ptr + 64, 'Malformed returndata - invalid size');
     _ptr += 64;
 
     // Iterate over returned data and execute actions
@@ -205,31 +205,31 @@ contract AbstractStorage {
     while (_ptr <= ptr_bound && (action = getAction(_ptr)) != 0x0) {
       if (action == EMITS) {
         // If the action is EMITS, and this action has already been executed, throw
-        require(n_emitted == 0, &#39;Duplicate action: EMITS&#39;);
+        require(n_emitted == 0, 'Duplicate action: EMITS');
         // Otherwise, emit events and get amount of events emitted
         // doEmit returns the pointer incremented to the end of the data portion of the action executed
         (_ptr, n_emitted) = doEmit(_ptr, ptr_bound);
         // If 0 events were emitted, returndata is malformed: throw
-        require(n_emitted != 0, &#39;Unfulfilled action: EMITS&#39;);
+        require(n_emitted != 0, 'Unfulfilled action: EMITS');
       } else if (action == STORES) {
         // If the action is STORES, and this action has already been executed, throw
-        require(n_stored == 0, &#39;Duplicate action: STORES&#39;);
+        require(n_stored == 0, 'Duplicate action: STORES');
         // Otherwise, store data and get amount of slots written to
         // doStore increments the pointer to the end of the data portion of the action executed
         (_ptr, n_stored) = doStore(_ptr, ptr_bound, _exec_id);
         // If no storage was performed, returndata is malformed: throw
-        require(n_stored != 0, &#39;Unfulfilled action: STORES&#39;);
+        require(n_stored != 0, 'Unfulfilled action: STORES');
       } else if (action == PAYS) {
         // If the action is PAYS, and this action has already been executed, throw
-        require(n_paid == 0, &#39;Duplicate action: PAYS&#39;);
+        require(n_paid == 0, 'Duplicate action: PAYS');
         // Otherwise, forward ETH and get amount of addresses forwarded to
         // doPay increments the pointer to the end of the data portion of the action executed
         (_ptr, n_paid) = doPay(_exec_id, _ptr, ptr_bound);
         // If no destinations recieved ETH, returndata is malformed: throw
-        require(n_paid != 0, &#39;Unfulfilled action: PAYS&#39;);
+        require(n_paid != 0, 'Unfulfilled action: PAYS');
       } else {
         // Unrecognized action requested. returndata is malformed: throw
-        revert(&#39;Malformed returndata - unknown action&#39;);
+        revert('Malformed returndata - unknown action');
       }
     }
     assert(n_emitted != 0 || n_paid != 0 || n_stored != 0);
@@ -238,7 +238,7 @@ contract AbstractStorage {
   /// HELPERS ///
 
   /*
-  Reads application information from the script registry, and sets up permissions for the new instance&#39;s various functions
+  Reads application information from the script registry, and sets up permissions for the new instance's various functions
 
   @param _new_exec_id: The execution id being created, for which permissions will be registered
   @param _app_name: The name of the new application instance - corresponds to an application registered by the provider under that name
@@ -248,13 +248,13 @@ contract AbstractStorage {
   function setImplementation(bytes32 _new_exec_id, bytes32 _app_name, address _provider, bytes32 _registry_id) internal returns (address index, bytes32 version) {
     // Get the index address for the registry app associated with the passed-in exec id
     index = getIndex(_registry_id);
-    require(index != address(0) && index != address(this), &#39;Registry application not found&#39;);
+    require(index != address(0) && index != address(this), 'Registry application not found');
     // Get the name of the latest version from the registry app at the given address
     version = RegistryInterface(index).getLatestVersion(
       address(this), _registry_id, _provider, _app_name
     );
     // Ensure the version name is valid -
-    require(version != bytes32(0), &#39;Invalid version name&#39;);
+    require(version != bytes32(0), 'Invalid version name');
 
     // Get the allowed selectors and addresses for the new instance from the registry app
     bytes4[] memory selectors;
@@ -263,17 +263,17 @@ contract AbstractStorage {
       address(this), _registry_id, _provider, _app_name, version
     );
     // Ensure a valid index address for the new instance -
-    require(index != address(0), &#39;Invalid index address&#39;);
+    require(index != address(0), 'Invalid index address');
     // Ensure a nonzero number of allowed selectors and implementing addresses -
-    require(selectors.length == implementations.length && selectors.length != 0, &#39;Invalid implementation length&#39;);
+    require(selectors.length == implementations.length && selectors.length != 0, 'Invalid implementation length');
 
     // Set the index address for the new instance -
     bytes32 seed = APP_IDX_ADDR;
     put(_new_exec_id, seed, bytes32(index));
     // Loop over implementing addresses, and map each function selector to its corresponding address for the new instance
     for (uint i = 0; i < selectors.length; i++) {
-      require(selectors[i] != 0 && implementations[i] != 0, &#39;invalid input - expected nonzero implementation&#39;);
-      seed = keccak256(selectors[i], &#39;implementation&#39;);
+      require(selectors[i] != 0 && implementations[i] != 0, 'invalid input - expected nonzero implementation');
+      seed = keccak256(selectors[i], 'implementation');
       put(_new_exec_id, seed, bytes32(implementations[i]));
     }
 
@@ -291,7 +291,7 @@ contract AbstractStorage {
 
   // Returns the address to which calldata with the given selector will be routed
   function getTarget(bytes32 _exec_id, bytes4 _selector) public view returns (address) {
-    bytes32 seed = keccak256(_selector, &#39;implementation&#39;);
+    bytes32 seed = keccak256(_selector, 'implementation');
     function (bytes32, bytes32) view returns (address) getter;
     assembly { getter := readMap }
     return getter(_exec_id, seed);
@@ -304,7 +304,7 @@ contract AbstractStorage {
     return _map.inner[_seed];
   }
 
-  // Maps the seed to the value within the execution id&#39;s storage
+  // Maps the seed to the value within the execution id's storage
   function put(bytes32 _exec_id, bytes32 _seed, bytes32 _val) internal {
     function (bytes32, bytes32, bytes32) puts;
     assembly { puts := putMap }
@@ -340,7 +340,7 @@ contract AbstractStorage {
       if lt(returndatasize, 0x60) {
         mstore(0, 0x20)
         mstore(0x20, 24)
-        mstore(0x40, &#39;Insufficient return size&#39;)
+        mstore(0x40, 'Insufficient return size')
         revert(0, 0x60)
       }
       // Get memory location to which returndata will be copied
@@ -377,7 +377,7 @@ contract AbstractStorage {
   addresses. The sender must ensure the call has sufficient funds, or the call will fail
   PAYS actions follow a format of: [amt_0][address_0]...[amt_n][address_n]
 
-  @param _ptr: A pointer in memory to an application&#39;s returned payment request
+  @param _ptr: A pointer in memory to an application's returned payment request
   @param _ptr_bound: The upper bound on the value for _ptr before it is reading invalid data
   @return ptr: An updated pointer, pointing to the end of the PAYS action request in memory
   @return n_paid: The number of destinations paid out to from the returned PAYS request
@@ -401,7 +401,7 @@ contract AbstractStorage {
       }
       // Invalid address was passed as a payment destination - throw
       if (pay_to == address(0) || pay_to == address(this))
-        revert(&#39;PAYS: invalid destination&#39;);
+        revert('PAYS: invalid destination');
 
       // Forward ETH and increment n_paid
       address(pay_to).transfer(amt);
@@ -418,11 +418,11 @@ contract AbstractStorage {
   /*
   Parses and executes a STORES action copied from returndata and located at the pointer
   A STORES action provides a set of storage locations and corresponding values to store at those locations
-  true storage locations within this contract are first hashed with the application&#39;s execution id to prevent
+  true storage locations within this contract are first hashed with the application's execution id to prevent
   storage overlaps between applications sharing the contract
   STORES actions follow a format of: [location_0][val_0]...[location_n][val_n]
 
-  @param _ptr: A pointer in memory to an application&#39;s returned storage request
+  @param _ptr: A pointer in memory to an application's returned storage request
   @param _ptr_bound: The upper bound on the value for _ptr before it is reading invalid data
   @param _exec_id: The execution id under which storage is located
   @return ptr: An updated pointer, pointing to the end of the STORES action request in memory
@@ -461,7 +461,7 @@ contract AbstractStorage {
     -The topics array is a bytes32 array of maximum length 4 and minimum 0
     -The final data parameter is a simple bytes array, and is emitted as a non-indexed parameter
 
-  @param _ptr: A pointer in memory to an application&#39;s returned emit request
+  @param _ptr: A pointer in memory to an application's returned emit request
   @param _ptr_bound: The upper bound on the value for _ptr before it is reading invalid data
   @return ptr: An updated pointer, pointing to the end of the EMITS action request in memory
   @return n_emitted: The number of events logged from the returned EMITS request
@@ -481,7 +481,7 @@ contract AbstractStorage {
         topics := _ptr
         data := add(add(_ptr, 0x20), mul(0x20, mload(topics)))
       }
-      // Get size of the Event&#39;s data in memory
+      // Get size of the Event's data in memory
       uint log_size = 32 + (32 * (1 + topics.length)) + data.length;
       assembly {
         switch mload(topics)                // topics.length
@@ -532,7 +532,7 @@ contract AbstractStorage {
           }
           default {
             // Events must have 4 or fewer topics
-            mstore(0, &#39;EMITS: invalid topic count&#39;)
+            mstore(0, 'EMITS: invalid topic count')
             revert(0, 0x20)
           }
       }

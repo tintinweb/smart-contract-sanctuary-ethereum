@@ -44,7 +44,7 @@ contract Rentable {
     uint constant MAX_RENTAL_TIME = 3600 * 24 * 365;
 
     // Whether or not the object can be rented. (Owner can take it off to prevent rental)
-    // If its currently rented, making it unavailable doesn&#39;t stop it from being used
+    // If its currently rented, making it unavailable doesn't stop it from being used
     bool public available;
 
     //
@@ -173,7 +173,7 @@ contract Rentable {
     }
 
 
-    /// @dev can be called by owner of the object if renter doesn&#39;t return it.
+    /// @dev can be called by owner of the object if renter doesn't return it.
     function forceRentalEnd() public onlyOwner{
         require(now > returnDate && rented);
 

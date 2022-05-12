@@ -186,7 +186,7 @@ contract Pools is Owned {
         require(pools[poolIdString].status == PoolStatus.Active, "Status should be active");
         require(pools[poolIdString].contributionStartUtc < now, "Contribution is not started");    
         require(pools[poolIdString].contributionEndUtc > now, "Contribution is ended"); 
-        require(pools[poolIdString].contributions[contributionIdString].amount == 0, &#39;Contribution duplicated&#39;);
+        require(pools[poolIdString].contributions[contributionIdString].amount == 0, 'Contribution duplicated');
         require(pools[poolIdString].amountLimit == 0 ||
                 pools[poolIdString].amountLimit >= pools[poolIdString].amountCollected.add(_amountOfTokens), "Contribution limit reached"); 
         

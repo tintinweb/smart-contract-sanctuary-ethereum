@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 
 /**
-* @title - Tavern&#39;s Power Algorithm
+* @title - Tavern's Power Algorithm
 * Power contract implements the algorithm of Tavern equity attribute
 *
 * ██████╗   ██████╗  ██╗    ██╗ ███████╗ ██████╗  ██╗
@@ -44,7 +44,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage _role, address _addr)
     internal
@@ -260,7 +260,7 @@ contract Superuser is Ownable, RBAC {
   }
 
   /**
-   * @dev Throws if called by any account that&#39;s not a superuser.
+   * @dev Throws if called by any account that's not a superuser.
    */
   modifier onlySuperuser() {
     checkRole(msg.sender, ROLE_SUPERUSER);
@@ -314,7 +314,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -514,9 +514,9 @@ contract Power is Superuser, IPower{
   }
 
   /**
-   * @dev get Tavern&#39;s level by tokenId
+   * @dev get Tavern's level by tokenId
    * @param tokenId tokenId
-   * @return uint256 Tavern&#39;s level
+   * @return uint256 Tavern's level
    */
   function levelByToken(uint256 tokenId) external view returns(uint256){
 
@@ -536,10 +536,10 @@ contract Power is Superuser, IPower{
 
   uint public constant weightsApportionDecimals = 4;
   /**
-  * @dev get Tavern&#39;s weightsApportion 
+  * @dev get Tavern's weightsApportion 
   * @param userLevel userLevel
   * @param lordLevel lordLevel
-  * @return uint256 Tavern&#39;s weightsApportion
+  * @return uint256 Tavern's weightsApportion
   * The candy that the user rewards when completing the candy mission will be assigned to the user and the lord. 
   * The distribution ratio is determined by weightsApportion
   */

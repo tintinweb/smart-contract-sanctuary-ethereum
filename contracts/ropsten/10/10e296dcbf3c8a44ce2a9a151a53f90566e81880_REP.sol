@@ -125,7 +125,7 @@ contract REP is ERC20Interface, Owned, SafeMath {
         return true;
     }
 
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     function () public payable {
         revert();
     }

@@ -181,9 +181,9 @@ contract CanRescueERC20 is Ownable {
     public
     onlyOwner {
         uint256 balance = token.balanceOf(this);
-        // Caution: ERC-20 standard doesn&#39;t require to throw exception on failures
+        // Caution: ERC-20 standard doesn't require to throw exception on failures
         // (although most ERC-20 tokens do so), but instead returns a bool value.
-        // Therefore let&#39;s check if it really returned true, and throw otherwise.
+        // Therefore let's check if it really returned true, and throw otherwise.
         require(token.transfer(owner(), balance), "Token transfer failed, transfer() returned false.");
     }
 

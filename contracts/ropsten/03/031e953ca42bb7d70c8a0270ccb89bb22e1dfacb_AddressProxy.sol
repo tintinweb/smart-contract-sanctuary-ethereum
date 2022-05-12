@@ -44,7 +44,7 @@ contract Ownable is ErrorThrower {
     */
     function _transferOwnership(address _newOwner) internal {
         if(_newOwner == address(0)){
-            emit Error("transferOwnership","New owner&#39;s address needs to be different than 0x0");
+            emit Error("transferOwnership","New owner's address needs to be different than 0x0");
             return;
         }
 
@@ -58,7 +58,7 @@ contract Ownable is ErrorThrower {
 @title AddressProxy contract
 @author App Store Foundation
  This contract works as part of a set of mechanisms in order to maintain tracking of the latest
-version&#39;s contracts deployed to the network.
+version's contracts deployed to the network.
  */
 
 contract AddressProxy is Ownable {
@@ -124,7 +124,7 @@ contract AddressProxy is Ownable {
     /**
     @notice Get the contract name associated to a certain id
     @param id Id of the registry
-    @return { &#39;name&#39; : &#39;Name of the contract associated to the given id&#39; }
+    @return { 'name' : 'Name of the contract associated to the given id' }
      */
     function getContractNameById(bytes32 id) public view returns(string name) {
         return contractsAddress[id].name;
@@ -134,7 +134,7 @@ contract AddressProxy is Ownable {
     /**
     @notice Get the contract address associated to a certain id
     @param id Id of the registry
-    @return { &#39;contractAddr&#39; : &#39;Address of the contract associated to the given id&#39; }
+    @return { 'contractAddr' : 'Address of the contract associated to the given id' }
      */
     function getContractAddressById(bytes32 id) public view returns(address contractAddr) {
         return contractsAddress[id].at;
@@ -144,7 +144,7 @@ contract AddressProxy is Ownable {
     @notice Get the specific date on which the contract address was firstly registered
     to a certain id
     @param id Id of the registry
-    @return { &#39;time&#39; : &#39;Time in miliseconds of the first time the given id was registered&#39; }
+    @return { 'time' : 'Time in miliseconds of the first time the given id was registered' }
      */
     function getContractCreatedTimeById(bytes32 id) public view returns(uint time) {
         return contractsAddress[id].createdTime;
@@ -153,7 +153,7 @@ contract AddressProxy is Ownable {
     /**
     @notice Get the specific date on which the contract address was lastly updated to a certain id
     @param id Id of the registry
-    @return { &#39;time&#39; : &#39;Time in miliseconds of the last time the given id was updated&#39; }
+    @return { 'time' : 'Time in miliseconds of the last time the given id was updated' }
      */
     function getContractUpdatedTimeById(bytes32 id) public view returns(uint time) {
         return contractsAddress[id].updatedTime;
@@ -163,7 +163,7 @@ contract AddressProxy is Ownable {
     @notice Converts a string type variable into a byte32 type variable
      This function is internal and uses inline assembly instructions.
     @param source string to be converted to a byte32 type
-    @return { &#39;result&#39; : &#39;Initial string content converted to a byte32 type&#39; }
+    @return { 'result' : 'Initial string content converted to a byte32 type' }
      */
     function stringToBytes32(string source) internal pure returns (bytes32 result) {
         bytes memory tempEmptyStringTest = bytes(source);

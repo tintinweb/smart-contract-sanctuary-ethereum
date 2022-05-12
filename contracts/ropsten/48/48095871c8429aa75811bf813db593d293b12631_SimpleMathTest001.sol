@@ -21,13 +21,13 @@ contract SimpleMathTest001 {
   function div(uint a, uint b) public pure returns(uint) {
     uint c = a / b;
     return c;
-    // @dev Doesn&#39;t address divide by zero errors
+    // @dev Doesn't address divide by zero errors
   }
   
   function sub(uint a, uint b) public pure returns(uint) {
     uint c = a - b;
     return c;
-    // @dev Doesn&#39;t address if we get a negative number
+    // @dev Doesn't address if we get a negative number
   }
 
 }

@@ -100,7 +100,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -301,7 +301,7 @@ contract MinutemanToken is ERC20, Ownable, Managed, Whitelisted, StablePrice(10)
   }
 
   /**
-   * @dev The owner can mint new tokens, stored in the owner&#39;s wallet.
+   * @dev The owner can mint new tokens, stored in the owner's wallet.
    * @param amount The number of tokens to mint.
    */
   function mint(uint256 amount) onlyManager public returns (bool){
@@ -312,7 +312,7 @@ contract MinutemanToken is ERC20, Ownable, Managed, Whitelisted, StablePrice(10)
   }
 
   /**
-   * @dev The owner can withdraw the contract&#39;s Ether to their wallet.
+   * @dev The owner can withdraw the contract's Ether to their wallet.
    * @param amount The amount of Ether to withdraw.
    */
   function withdraw(uint256 amount) onlyOwner public returns (bool){
@@ -368,7 +368,7 @@ contract Manager is Ownable {
   }
 
   /**
-   * @dev The owner can mint new tokens, stored in the owner&#39;s wallet.
+   * @dev The owner can mint new tokens, stored in the owner's wallet.
    * @param amount The number of tokens to mint.
    */
   function purchase(uint152 user, uint256 amount) onlyOwner public returns (bool) {
@@ -380,7 +380,7 @@ contract Manager is Ownable {
   }
 
   /**
-   * @dev The owner can withdraw the contract&#39;s Ether to their wallet.
+   * @dev The owner can withdraw the contract's Ether to their wallet.
    * @param amount The amount of Ether to withdraw.
    */
   function withdraw(uint152 from, address to, uint256 amount) onlyOwner public returns (bool){

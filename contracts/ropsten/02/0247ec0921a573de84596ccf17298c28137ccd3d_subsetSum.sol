@@ -33,12 +33,12 @@ contract subsetSum {
         uint256 sumPositive = 0;
         // Add everything up
         for (uint256 i = 0; i<negativeSetSubmission.length; i++) {
-            require(numberCheck[negativeSetSubmission[i]].exists && !numberCheck[negativeSetSubmission[i]].isUsed, &#39;Invalid submission.&#39;);
+            require(numberCheck[negativeSetSubmission[i]].exists && !numberCheck[negativeSetSubmission[i]].isUsed, 'Invalid submission.');
             sumNegative+=negativeSetSubmission[i];
             numberCheck[negativeSetSubmission[i]].isUsed = true;
         }
         for (i = 0; i<positiveSetSubmission.length; i++) {
-            require(numberCheck[positiveSetSubmission[i]].exists && !numberCheck[positiveSetSubmission[i]].isUsed, &#39;Invalid submission.&#39;);
+            require(numberCheck[positiveSetSubmission[i]].exists && !numberCheck[positiveSetSubmission[i]].isUsed, 'Invalid submission.');
             sumPositive+=positiveSetSubmission[i];
             numberCheck[positiveSetSubmission[i]].isUsed = true;
         }
@@ -49,7 +49,7 @@ contract subsetSum {
         for (i = 0; i<positiveSetSubmission.length; i++) {
             numberCheck[positiveSetSubmission[i]].isUsed = false;
         }
-        // Check the new result, if it&#39;s a new record, record it
+        // Check the new result, if it's a new record, record it
         uint256 difference = diff(sumNegative, sumPositive);
         if (leader.id==address(0) || difference<leader.difference) {
             leader.id = msg.sender;
@@ -58,7 +58,7 @@ contract subsetSum {
             leader.positiveSet=positiveSetSubmission;
             return "Congratulations, you are now on the top of the leaderboard.";
         } else {
-            return "Sorry, you haven&#39;t beaten the record.";
+            return "Sorry, you haven't beaten the record.";
         }
     }
     

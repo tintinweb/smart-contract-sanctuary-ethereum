@@ -247,7 +247,7 @@ contract ERC20 is ERC20Interface, Ownable {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -319,7 +319,7 @@ contract ERC20 is ERC20Interface, Ownable {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param amount The amount that will be burnt.
@@ -563,7 +563,7 @@ contract RoundsContract is Ownable{
   function checkRound() internal returns(bool) {
     if (rounds[currentRoundKey].expiresAt <= block.timestamp){
         rounds[currentRoundKey].isActive = false;
-        currentRoundKey = &#39;&#39;;
+        currentRoundKey = '';
     }
     return true;
   }
@@ -775,7 +775,7 @@ contract MainContract is BaseContract, ContractConstants, Pausable{
         }
         setPrices(TOKEN_SELL_PRICE, TOKEN_BUY_PRICE);
         setPricesDecimals(TOKEN_SELL_PRICE_DECIMALS, TOKEN_BUY_PRICE_DECIMAL);
-        addRound(&#39;ROUND_1&#39;, &#39;ROUND_1&#39;, 30000000 * uint256(TOKEN_DECIMALS_MULTIPLIER), 1577743200000, true);
+        addRound('ROUND_1', 'ROUND_1', 30000000 * uint256(TOKEN_DECIMALS_MULTIPLIER), 1577743200000, true);
         if (msg.sender == TOKEN_OWNER){
           mint(TOKEN_OWNER, TOKEN_TOTAL_SUPPLY * uint256(TOKEN_DECIMALS_MULTIPLIER)); 
           isRealized = true;         

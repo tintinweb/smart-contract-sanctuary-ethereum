@@ -15,8 +15,8 @@ contract IPFSInboxContract {
     // An empty constructor that creates an instance of the contract
     constructor() public {}
 
-    // A function that takes in the receiver&#39;s address and the
-    // IPFS address. Places the IPFS address in the receiver&#39;s
+    // A function that takes in the receiver's address and the
+    // IPFS address. Places the IPFS address in the receiver's
     // inbox.
     function sendIPFS(address _address, string _ipfsHash)
         notFull(ipfsInbox[_address])

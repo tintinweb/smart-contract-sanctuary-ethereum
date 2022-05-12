@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -242,7 +242,7 @@ contract ERC20 is IERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -370,7 +370,7 @@ contract ERC20 is IERC20 {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param value The amount that will be burnt.
@@ -434,7 +434,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));
@@ -860,7 +860,7 @@ contract NRTManager is Ownable{
     function redeemLuckPool() external {
         require(msg.sender == luckPool,"Can be redeemed only by luckpool address ");
         require(luckPoolBal != 0, "There is no balance to redeem");
-        require(tokenContract.balanceOf(this)>=luckPoolBal,"NRT_Manger doesn&#39;t have token balance");
+        require(tokenContract.balanceOf(this)>=luckPoolBal,"NRT_Manger doesn't have token balance");
         require(tokenContract.transfer(luckPool, luckPoolBal),"The transfer must not fail");
         luckPoolBal = 0;
     }
@@ -881,7 +881,7 @@ contract NRTManager is Ownable{
     function redeemNewTalentsAndPartnerships() external {
         require(msg.sender == newTalentsAndPartnerships,"Can be redeemed only by newTalentsAndPartnerships address ");
         require(newTalentsAndPartnershipsBal != 0, "There is no balance to redeem");
-        require(tokenContract.balanceOf(this)>=newTalentsAndPartnershipsBal,"NRT_Manger doesn&#39;t have token balance");
+        require(tokenContract.balanceOf(this)>=newTalentsAndPartnershipsBal,"NRT_Manger doesn't have token balance");
         require(tokenContract.transfer(newTalentsAndPartnerships, newTalentsAndPartnershipsBal),"The transfer must not fail");
         newTalentsAndPartnershipsBal = 0;
     }
@@ -903,7 +903,7 @@ contract NRTManager is Ownable{
     function redeemPlatformMaintenance() external {
         require(msg.sender == platformMaintenance,"Can be redeemed only by platformMaintenance address ");
         require(platformMaintenanceBal != 0, "There is no balance to redeem");
-        require(tokenContract.balanceOf(this)>=platformMaintenanceBal,"NRT_Manger doesn&#39;t have token balance");
+        require(tokenContract.balanceOf(this)>=platformMaintenanceBal,"NRT_Manger doesn't have token balance");
         require(tokenContract.transfer(platformMaintenance, platformMaintenanceBal),"The transfer must not fail");
         platformMaintenanceBal = 0;
     }
@@ -924,7 +924,7 @@ contract NRTManager is Ownable{
     function redeemMarketingAndRNR() external {
         require(msg.sender == marketingAndRNR,"Can be redeemed only by marketingAndRNR address ");
         require(marketingAndRNRBal != 0, "There is no balance to redeem");
-        require(tokenContract.balanceOf(this)>=marketingAndRNRBal,"NRT_Manger doesn&#39;t have token balance");
+        require(tokenContract.balanceOf(this)>=marketingAndRNRBal,"NRT_Manger doesn't have token balance");
         require(tokenContract.transfer(marketingAndRNR, marketingAndRNRBal),"The transfer must not fail");
         marketingAndRNRBal = 0;
     }
@@ -945,7 +945,7 @@ contract NRTManager is Ownable{
     function redeemKmPardsBal() external {
         require(msg.sender == kmPards,"Can be redeemed only by kmPards address ");
         require(kmPardsBal != 0, "There is no balance to redeem");
-        require(tokenContract.balanceOf(this)>=kmPardsBal,"NRT_Manger doesn&#39;t have token balance");
+        require(tokenContract.balanceOf(this)>=kmPardsBal,"NRT_Manger doesn't have token balance");
         require(tokenContract.transfer(kmPards, kmPardsBal),"The transfer must not fail");
         kmPardsBal = 0;
     }
@@ -966,7 +966,7 @@ contract NRTManager is Ownable{
     function redeemContingencyFundsBal() external {
         require(msg.sender == contingencyFunds,"Can be redeemed only by contingencyFunds address ");
         require(contingencyFundsBal != 0, "There is no balance to redeem");
-        require(tokenContract.balanceOf(this)>=contingencyFundsBal,"NRT_Manger doesn&#39;t have token balance");
+        require(tokenContract.balanceOf(this)>=contingencyFundsBal,"NRT_Manger doesn't have token balance");
         require(tokenContract.transfer(contingencyFunds, contingencyFundsBal),"The transfer must not fail");
         contingencyFundsBal = 0;
     }
@@ -986,7 +986,7 @@ contract NRTManager is Ownable{
     function redeemResearchAndDevelopmentBal() external {
         require(msg.sender == researchAndDevelopment,"Can be redeemed only by researchAndDevelopment address ");
         require(researchAndDevelopmentBal != 0, "There is no balance to redeem");
-        require(tokenContract.balanceOf(this)>=researchAndDevelopmentBal,"NRT_Manger doesn&#39;t have token balance");
+        require(tokenContract.balanceOf(this)>=researchAndDevelopmentBal,"NRT_Manger doesn't have token balance");
         require(tokenContract.transfer(researchAndDevelopment, researchAndDevelopmentBal),"The transfer must not fail");
         researchAndDevelopmentBal = 0;
     }
@@ -1007,7 +1007,7 @@ contract NRTManager is Ownable{
     function redeemBuzzCafeBal() external {
         require(msg.sender == buzzCafe,"Can be redeemed only by buzzCafe address ");
         require(buzzCafeBal != 0, "There is no balance to redeem");
-        require(tokenContract.balanceOf(this)>=buzzCafeBal,"NRT_Manger doesn&#39;t have token balance");
+        require(tokenContract.balanceOf(this)>=buzzCafeBal,"NRT_Manger doesn't have token balance");
         require(tokenContract.transfer(buzzCafe, buzzCafeBal),"The transfer must not fail");
         buzzCafeBal = 0;
     }
@@ -1028,7 +1028,7 @@ contract NRTManager is Ownable{
     function redeemPowerTokenBal() external {
         require(msg.sender == powerToken,"Can be redeemed only by powerTokenBal address ");
         require(powerTokenBal != 0, "There is no balance to redeem");
-        require(tokenContract.balanceOf(this)>=powerTokenBal,"NRT_Manger doesn&#39;t have token balance");
+        require(tokenContract.balanceOf(this)>=powerTokenBal,"NRT_Manger doesn't have token balance");
         require(tokenContract.transfer(powerToken, powerTokenBal),"The transfer must not fail");
         powerTokenBal = 0;
     }

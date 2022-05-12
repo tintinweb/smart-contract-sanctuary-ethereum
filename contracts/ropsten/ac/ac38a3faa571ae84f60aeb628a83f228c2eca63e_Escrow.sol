@@ -189,7 +189,7 @@ contract Escrow is arbitrated {
         numberOfOpenSteps += 1;
         sumAmountOfOpenSteps += step.amount;
         (uint256 userExpense, uint256 calculatedFee) = calculateUserExpense(step.amount, step.feeAmount, step.feeCalculationMethod);
-        //Transfer from client&#39;s account to escrow account
+        //Transfer from client's account to escrow account
         require(coin.transferFrom(msg.sender, this, userExpense - calculatedFee));
         //Transfer of fee
         require(coin.transferFrom(msg.sender, feeAccount, calculatedFee));

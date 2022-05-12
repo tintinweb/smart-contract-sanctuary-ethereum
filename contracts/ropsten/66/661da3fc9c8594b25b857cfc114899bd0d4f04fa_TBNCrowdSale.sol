@@ -14,11 +14,11 @@ library Roles {
     }
 
     /**
-    * @dev remove an account&#39;s access to this role
+    * @dev remove an account's access to this role
     */
     function remove(Role storage role, address account) internal {
         require(account != address(0), "the 0x0 address cannot hold roles");
-        require(has(role, account), "this account doesn&#39;t have this role to remove");
+        require(has(role, account), "this account doesn't have this role to remove");
 
         role.bearer[account] = false;
     }
@@ -43,8 +43,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -62,7 +62,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0, "cannot divide by zero"); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -912,7 +912,7 @@ contract TBNCrowdSale is ICrowdsale, ManagerRole, RecoverRole, FundkeeperRole, W
     }
 
     /**
-    * @dev Adds this interval&#39;s distributed tokens to the _distributedTotal storage variable to track the total number of TBN tokens to be distributed
+    * @dev Adds this interval's distributed tokens to the _distributedTotal storage variable to track the total number of TBN tokens to be distributed
     * @param interval the interval to do the calculation for
     */
     function _addDistribution(uint256 interval) internal {

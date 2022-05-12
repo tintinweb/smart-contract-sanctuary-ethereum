@@ -184,9 +184,9 @@ contract PFT is IERCPFT, IERCST {
 
     uint256 public totalSupply = 1000;
 
-    string public name = &#39;KamenShare&#39;;
+    string public name = 'KamenShare';
 
-    string public symbol = &#39;KAMEN&#39;;
+    string public symbol = 'KAMEN';
 
     // Mapping from investor to aggregated balance across all investor token sets
     mapping (address => uint256) balances;
@@ -266,7 +266,7 @@ contract PFT is IERCPFT, IERCST {
 
     // Transfers tokens from the sender to the _to address, keeping the _tranche the same
     function sendByTranche(bytes32 _tranche, address _to, uint256 _amount, bytes _data) external returns (bytes32) {
-        (byte reason, bytes32 newTranche) = _sendTranche(_tranche, msg.sender, _to, _amount, _data, &#39;&#39;);
+        (byte reason, bytes32 newTranche) = _sendTranche(_tranche, msg.sender, _to, _amount, _data, '');
         emit SentTranche(
             address(0),
             msg.sender,
@@ -275,7 +275,7 @@ contract PFT is IERCPFT, IERCST {
             newTranche,
             _amount,
             _data,
-            &#39;&#39;
+            ''
         );
         return (newTranche);
     }
@@ -283,15 +283,15 @@ contract PFT is IERCPFT, IERCST {
     function _sendTranche(bytes32 _tranche, address _from, address _to, uint256 _amount, bytes _data, bytes _operatorData) internal returns (byte, bytes32) {
 
         if (balanceOfByTranche(_tranche, msg.sender) < _amount) {
-            return (hex"00", bytes32(&#39;&#39;));
+            return (hex"00", bytes32(''));
         }
 
         if (tranches[_from][trancheToIndex[msg.sender][_tranche]].amount > tranches[_from][trancheToIndex[msg.sender][_tranche]].amount - _amount) {
-            return (hex"10", &#39;&#39;);
+            return (hex"10", '');
         }
 
         if (tranches[_from][trancheToIndex[msg.sender][_tranche]].amount > tranches[_from][trancheToIndex[msg.sender][_tranche]].amount - _amount) {
-            return (hex"10", bytes32(&#39;&#39;));
+            return (hex"10", bytes32(''));
         }
 
         tranches[_from][trancheToIndex[_from][_tranche]].amount = tranches[_from][trancheToIndex[msg.sender][_tranche]].amount - _amount;
@@ -317,7 +317,7 @@ contract PFT is IERCPFT, IERCST {
     function operatorSendByTranche(bytes32 _tranche, address _from, address _to, uint256 _amount, bytes _data, bytes _operatorData) external returns (byte, bytes32) {
         // Check operator is approved
         if ((!trancheApprovals[_from][_tranche][msg.sender]) && (!approvals[_from][msg.sender])) {
-            return (hex"20", bytes32(&#39;&#39;));
+            return (hex"20", bytes32(''));
         }
         (byte reason, bytes32 newTranche) = _sendTranche(_tranche, _from, _to, _amount, _data, _operatorData);
         emit SentTranche(
@@ -433,11 +433,11 @@ contract PFT is IERCPFT, IERCST {
             msg.sender,
             address(0),
             _owner,
-            bytes32(&#39;&#39;),
+            bytes32(''),
             _tranche,
             _amount,
             _data,
-            &#39;&#39;
+            ''
         );
         return hex"01";
     }
@@ -467,10 +467,10 @@ contract PFT is IERCPFT, IERCST {
             _owner,
             address(0),
             _tranche,
-            bytes32(&#39;&#39;),
+            bytes32(''),
             _amount,
             _data,
-            &#39;&#39;
+            ''
         );
         return hex"01";
     }

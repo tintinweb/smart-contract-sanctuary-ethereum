@@ -35,7 +35,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
  
@@ -109,7 +109,7 @@ contract StandardToken is ERC20, BasicToken {
   /*
   Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    param _spender The address which will spend the funds.
-   param _value The amount of Douglas Adams&#39; tokens to be spent.
+   param _value The amount of Douglas Adams' tokens to be spent.
    */
   function approve(address _spender, uint256 _value) returns (bool) {
  
@@ -171,7 +171,7 @@ contract Ownable {
 
     
 contract H2G2 is StandardToken, Ownable {
-  string public constant name = "Hitchhiker&#39;s Guide to the Galaxy";
+  string public constant name = "Hitchhiker's Guide to the Galaxy";
   string public constant symbol = "H2G2";
   uint public constant decimals = 18;
   uint256 public initialSupply;

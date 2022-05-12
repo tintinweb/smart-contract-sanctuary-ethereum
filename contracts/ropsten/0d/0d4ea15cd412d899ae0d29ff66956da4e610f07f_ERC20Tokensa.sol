@@ -109,7 +109,7 @@ contract ERC20Tokensa is StandardToken, Ownable {
 
     string public name;
     string public symbol;
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
     uint256 public totalCoin;
     uint8 public decimals;
     uint256 public min;
@@ -124,7 +124,7 @@ contract ERC20Tokensa is StandardToken, Ownable {
         decimals        = 18;
         totalCoin       = 50000;                       // Total Supply of Coin
         totalSupply     = totalCoin * 10**uint(decimals); // Total Supply of Coin
-        balances[owner] = totalSupply;                    // Total Supply sent to Owner&#39;s Address
+        balances[owner] = totalSupply;                    // Total Supply sent to Owner's Address
         exchangeRate    = 10000;                            // 100 Coins per ETH   (changable)
         min        = 10000000000000000;
         symbol          = "ICSBB";                       // Your Ticker Symbol  (changable)

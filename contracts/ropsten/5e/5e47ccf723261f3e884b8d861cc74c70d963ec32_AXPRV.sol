@@ -103,7 +103,7 @@ contract AXPRV is Owned {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         require(now >= contract_start);

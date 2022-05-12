@@ -376,10 +376,10 @@ interface BMPlayerBookInterface {
 /// @title A raffle system for sports betting, designed with FOMO elements
 /// @notice This contract manages multiple games. Owner(s) can create games and
 /// assign winning team for each game. Players can withdraw their winnings before
-/// the deadline set by the owner(s). If there&#39;s no winning team, the owner(s)
+/// the deadline set by the owner(s). If there's no winning team, the owner(s)
 /// can also cancel a game so the players get back their bettings (minus fees).
 /// @dev The address of the forwarder, player book, and owner(s) are hardcoded.
-/// Check &#39;TODO&#39; before deploy.
+/// Check 'TODO' before deploy.
 contract BMSport is BMEvents, Ownable {
     using BMKeyCalc for *;
     using SafeMath for *;
@@ -476,7 +476,7 @@ contract BMSport is BMEvents, Ownable {
 
     /// @notice Buy keys for each team.
     /// Emits "onPurchase" for each team with a purchase.
-    /// Emits "onComment" if there&#39;s a valid comment.
+    /// Emits "onComment" if there's a valid comment.
     /// @param _gameID Game ID of the game to buy tickets.
     /// @param _teamEth Array consisting amount of ETH for each team to buy tickets.
     /// The size of the array must be the same as the number of teams.
@@ -517,7 +517,7 @@ contract BMSport is BMEvents, Ownable {
 
 
     /// @notice Pause a game. Only owner(s) can do this.
-    /// Players can&#39;t buy tickets if a game is paused.
+    /// Players can't buy tickets if a game is paused.
     /// Emits "onGamePaused" event.
     /// @param _gameID Game ID of the game.
     /// @param _paused "true" to pause this game, "false" to unpause.
@@ -534,7 +534,7 @@ contract BMSport is BMEvents, Ownable {
 
 
     /// @notice Set a closing time for betting. Only owner(s) can do this.
-    /// Players can&#39;t buy tickets for this game once the closing time is passed.
+    /// Players can't buy tickets for this game once the closing time is passed.
     /// Emits "onChangeCloseTime" event.
     /// @param _gameID Game ID of the game.
     /// @param _closeTime Timestamp of the closing time.
@@ -551,7 +551,7 @@ contract BMSport is BMEvents, Ownable {
 
 
     /// @notice Select a winning team. Only owner(s) can do this.
-    /// Players can&#39;t no longer buy tickets for this game once a winning team is selected.
+    /// Players can't no longer buy tickets for this game once a winning team is selected.
     /// Players who bought tickets for the winning team are able to withdraw winnings.
     /// Emits "onGameEnded" event.
     /// @param _gameID Game ID of the game.
@@ -587,7 +587,7 @@ contract BMSport is BMEvents, Ownable {
 
 
     /// @notice Cancel a game. Only owner(s) can do this.
-    /// Players can&#39;t no longer buy tickets for this game once a winning team is selected.
+    /// Players can't no longer buy tickets for this game once a winning team is selected.
     /// Players who bought tickets can get back 95% of the ETH paid.
     /// Emits "onGameCancelled" event.
     /// @param _gameID Game ID of the game.
@@ -681,7 +681,7 @@ contract BMSport is BMEvents, Ownable {
     }
 
 
-    /// @notice Get a player&#39;s current instant pot winnings.
+    /// @notice Get a player's current instant pot winnings.
     /// @param _gameID Game ID of the game.
     /// @param _pID Player ID of the player.
     /// @param _team Team ID of the team.
@@ -697,7 +697,7 @@ contract BMSport is BMEvents, Ownable {
     }
 
 
-    /// @notice Get a player&#39;s current final pot winnings.
+    /// @notice Get a player's current final pot winnings.
     /// @param _gameID Game ID of the game.
     /// @param _pID Player ID of the player.
     /// @param _team Team ID of the team.
@@ -978,7 +978,7 @@ contract BMSport is BMEvents, Ownable {
     /// @param _pID Player ID of the player.
     /// @param _affID Affiliate ID used for this transasction.
     /// @param _aff Amount of ETH for affiliate payment.
-    /// @return The amount remained for the community (if there&#39;s no affiliate payment)
+    /// @return The amount remained for the community (if there's no affiliate payment)
     function handleAffiliate(uint256 _pID, uint256 _affID, uint256 _aff)
         private
         returns (uint256)
@@ -1015,7 +1015,7 @@ contract BMSport is BMEvents, Ownable {
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         

@@ -121,10 +121,10 @@ contract Poker is Ownable,pokerEvents{
         wallet1=msg.sender;
         wallet2=msg.sender;
         
-        odds[&#39;bs&#39;]=1.97 ether;
-        odds[&#39;suit&#39;]=3.82 ether;
-        odds[&#39;num&#39;]=11.98 ether;
-        odds[&#39;nsuit&#39;]=49.98 ether;
+        odds['bs']=1.97 ether;
+        odds['suit']=3.82 ether;
+        odds['num']=11.98 ether;
+        odds['nsuit']=49.98 ether;
     
         /* free lottery initial*/
         lotto[1]=FreeLotto(true,1000,0.1 ether,hour / 100 ,0);
@@ -144,13 +144,13 @@ contract Poker is Ownable,pokerEvents{
         uint _winNo= uint(keccak256(abi.encodePacked(rndSeed,msg.sender,block.coinbase,block.timestamp, block.difficulty,block.gaslimit))) % 52 + 1;
         
         if(_gType==1){
-            if(_betAmount * odds[&#39;bs&#39;]  / 1 ether >= address(this).balance/2){
+            if(_betAmount * odds['bs']  / 1 ether >= address(this).balance/2){
                 revert("over max bet amount");
             }
             
             if((_winNo > 31 && _bet.contain(2)) || (_winNo < 28 && _bet.contain(1))){
                 _ret=true;
-                _prize=(_betAmount * odds[&#39;bs&#39;]) / 1 ether;
+                _prize=(_betAmount * odds['bs']) / 1 ether;
             }else if(_winNo>=28 && _winNo <=31 && _bet.contain(0)){
                 _ret=true;
                 _prize=(_betAmount * 12 ether) / 1 ether; 
@@ -164,30 +164,30 @@ contract Poker is Ownable,pokerEvents{
         ret%4=3 diamonds;
         */
         if(_gType==2 && _bet.contain(_winNo%4+1)){
-            if(_betAmount * odds[&#39;suit&#39;] / 1 ether >= address(this).balance/2){
+            if(_betAmount * odds['suit'] / 1 ether >= address(this).balance/2){
                 revert("over max bet amount");
             }
             
             _ret=true;
-            _prize=(_betAmount * odds[&#39;suit&#39;]) / 1 ether; 
+            _prize=(_betAmount * odds['suit']) / 1 ether; 
         }
         
         if(_gType==3 && _bet.contain((_winNo-1)/4+1)){
-            if(_betAmount * odds[&#39;num&#39;] / 1 ether >= address(this).balance/2){
+            if(_betAmount * odds['num'] / 1 ether >= address(this).balance/2){
                 revert("over max bet amount");
             }
             
             _ret=true;
-            _prize=(_betAmount * odds[&#39;num&#39;]) / 1 ether; 
+            _prize=(_betAmount * odds['num']) / 1 ether; 
         }
         
         if(_gType==4 && _bet.contain(_winNo)){
-            if(_betAmount * odds[&#39;nsuit&#39;] / 1 ether >= address(this).balance/2){
+            if(_betAmount * odds['nsuit'] / 1 ether >= address(this).balance/2){
                 revert("over max bet amount");
             }
             
             _ret=true;
-            _prize=(_betAmount * odds[&#39;nsuit&#39;]) / 1 ether; 
+            _prize=(_betAmount * odds['nsuit']) / 1 ether; 
             
         }
 
@@ -224,8 +224,8 @@ contract Poker is Ownable,pokerEvents{
     
 
     function freeLottery(uint _gid) public{
-        require(freeLottoActive && lotto[_gid].active,&#39;Free Lotto is closed&#39;);
-        require(now - lotto[_gid].lastTime[msg.sender] >= lotto[_gid].freezeTimer,&#39;in the freeze time&#39;);
+        require(freeLottoActive && lotto[_gid].active,'Free Lotto is closed');
+        require(now - lotto[_gid].lastTime[msg.sender] >= lotto[_gid].freezeTimer,'in the freeze time');
         
         uint chancex=1;
         uint winNo = 0;
@@ -283,10 +283,10 @@ contract Poker is Ownable,pokerEvents{
     
     function getOdds() public view returns(uint[]) {
         uint[] memory ret=new uint[](4);
-        ret[0]=odds[&#39;bs&#39;];
-        ret[1]=odds[&#39;suit&#39;];
-        ret[2]=odds[&#39;num&#39;];
-        ret[3]=odds[&#39;nsuit&#39;];
+        ret[0]=odds['bs'];
+        ret[1]=odds['suit'];
+        ret[2]=odds['num'];
+        ret[3]=odds['nsuit'];
         
         return ret;
     }

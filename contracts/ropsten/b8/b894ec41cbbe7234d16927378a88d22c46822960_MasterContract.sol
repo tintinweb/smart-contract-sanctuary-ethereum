@@ -134,7 +134,7 @@ contract ChallengeContract {
   uint public stake;
   uint public challengeId;
   string public gameType;
-  string[] validGameTypes = [&#39;fortnite&#39;, &#39;fifa_18&#39;];
+  string[] validGameTypes = ['fortnite', 'fifa_18'];
   mapping(address => uint) public fundsPaidIn;
   mapping(address => uint) rewards;
 

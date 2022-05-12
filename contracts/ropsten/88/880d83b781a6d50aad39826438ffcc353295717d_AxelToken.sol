@@ -174,11 +174,11 @@ contract Token {
 * @dev ERC20 Token compliant
 */
 contract AxelToken is ERC20Token {
-    string public name = &#39;BRUCE0&#39;;
+    string public name = 'BRUCE0';
     //uint8 public decimals = 18;
     uint8 public decimals = 0;
-    string public symbol = &#39;BRUCE0&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'BRUCE0';
+    string public version = '1';
 
     /**
     * @notice token contructor.  250000000
@@ -244,7 +244,7 @@ contract AxelToken is ERC20Token {
     }
 
     /**
-    * @notice this contract will revert on direct non-function calls, also it&#39;s not payable
+    * @notice this contract will revert on direct non-function calls, also it's not payable
     * @dev Function to handle callback calls to contract
     */
     function() public {

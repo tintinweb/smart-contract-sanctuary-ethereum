@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -418,13 +418,13 @@ contract MonethaTokenHoldersProgram is Restricted, CanReclaimEther, CanReclaimTo
 
         mthToken = _mthToken;
         monethaVoucher = _monethaVoucher;
-        // don&#39;t allow to participate
+        // don't allow to participate
         participateFromTimestamp = uint256(- 1);
     }
 
     /**
      * @dev Before holders of MTH tokens can participate in the program, it is necessary to buy vouchers for the Ether
-     * available in the contract. 1/3 of Monetha&#39;s revenue will be transferred to this contract to buy the Monetha vouchers.
+     * available in the contract. 1/3 of Monetha's revenue will be transferred to this contract to buy the Monetha vouchers.
      * This method uses all available Ethers of contract to buy Monetha vouchers.
      * The method tries to buy the maximum possible amount of vouchers.
      */
@@ -456,7 +456,7 @@ contract MonethaTokenHoldersProgram is Restricted, CanReclaimEther, CanReclaimTo
      * Holders of MTH token holders can still call `cancelParticipation` method to reclaim the MTH tokens.
      */
     function sellVouchers() external onlyMonetha {
-        // don&#39;t allow to participate
+        // don't allow to participate
         participateFromTimestamp = uint256(- 1);
 
         uint256 vouchersPool = monethaVoucher.purchasedBy(address(this));
@@ -466,7 +466,7 @@ contract MonethaTokenHoldersProgram is Restricted, CanReclaimEther, CanReclaimTo
     }
 
     /**
-     * @dev Returns true when it&#39;s allowed to participate in token holders program, i.e. to call `participate()` method.
+     * @dev Returns true when it's allowed to participate in token holders program, i.e. to call `participate()` method.
      */
     function isAllowedToParticipateNow() external view returns (bool) {
         return now >= participateFromTimestamp && _participateIsAllowed(now);
@@ -493,7 +493,7 @@ contract MonethaTokenHoldersProgram is Restricted, CanReclaimEther, CanReclaimTo
     }
 
     /**
-     * @dev Returns true when it&#39;s allowed to redeem vouchers and reclaim MTH tokens, i.e. to call `redeem()` method.
+     * @dev Returns true when it's allowed to redeem vouchers and reclaim MTH tokens, i.e. to call `redeem()` method.
      */
     function isAllowedToRedeemNow() external view returns (bool) {
         return now >= participateFromTimestamp && _redeemIsAllowed(now);

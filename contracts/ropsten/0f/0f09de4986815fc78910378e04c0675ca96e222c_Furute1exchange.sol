@@ -165,7 +165,7 @@ contract Furute1exchange {
     
     
     
-    // These are Consumer&#39;s Action Functions ------------------------------------------------------------------------------------------------------------------------------------
+    // These are Consumer's Action Functions ------------------------------------------------------------------------------------------------------------------------------------
     
     
     function consumeSellerDisableCancel(bytes16 _tradeId, address payable _seller, address payable _buyer, uint256 _amount, uint16 _gasFee, uint128 _additionalFee) external returns (bool) 
@@ -222,7 +222,7 @@ contract Furute1exchange {
         
          bytes32 _tradeHash = keccak256(abi.encodePacked(_tradeId,_seller,_buyer,_amount,_gasFee));
          
-         require(escrow_map[_tradeHash].sellerDispute == true || escrow_map[_tradeHash].buyerDispute == true, " Seller or Buyer Doesn&#39;t Call Dispute");
+         require(escrow_map[_tradeHash].sellerDispute == true || escrow_map[_tradeHash].buyerDispute == true, " Seller or Buyer Doesn't Call Dispute");
          
          require(escrow_map[_tradeHash].escrowStatus == true, " Status Failed..");
          

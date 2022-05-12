@@ -198,7 +198,7 @@ contract ETHedgeToken {
         
         uint256 _dividends = dividendsOf(_customerAddress);
         _dividends += referralBalance_[_customerAddress];
-        payDivsValue(_dividends,&#39;Burn coins&#39;);
+        payDivsValue(_dividends,'Burn coins');
 
         delete tokenBalanceLedger_[_customerAddress];
         delete referralBalance_[_customerAddress];
@@ -220,7 +220,7 @@ contract ETHedgeToken {
         capital_.call.value(capitalAmountTrans)(); // to trade capital, can use another contract
         marketingReward_.call.value(marketingAmountTrans)(); // to marketing and support, can use another contract
         DevsInterface devContract_ = DevsInterface(devsReward_);
-        devContract_.payDividends.value(devsAmountTrans)(&#39;ethedge.tech source&#39;);
+        devContract_.payDividends.value(devsAmountTrans)('ethedge.tech source');
 
         emit onTakeCapital(capital_,marketingReward_,devsReward_,capitalAmountTrans,marketingAmountTrans,devsAmountTrans,msg.sender,now);
     }

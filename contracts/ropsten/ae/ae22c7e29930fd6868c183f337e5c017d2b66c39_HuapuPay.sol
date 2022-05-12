@@ -1,6 +1,6 @@
 pragma solidity ^0.4.25;
 //---------------------------------------------------------------------------------------
-// &#39;HuapuChain&#39; contract
+// 'HuapuChain' contract
 // Deployed to : 0x77dEC6ffCA0A7cd0E3262E450e4E4A12458B9573
 // Symbol      : HUP
 // Name        : Huapu Pay
@@ -52,8 +52,8 @@ contract HuapuPay is ERC20 {
     address owner = msg.sender;
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
-    string public constant name = &#39;Huapu Pay&#39;;
-    string public constant symbol = &#39;HUP&#39;;
+    string public constant name = 'Huapu Pay';
+    string public constant symbol = 'HUP';
     uint public constant decimals = 18;
     uint256 public totalSupply = 10000000000e18;
     uint256 public totalDistributed =  2000000000e18;    

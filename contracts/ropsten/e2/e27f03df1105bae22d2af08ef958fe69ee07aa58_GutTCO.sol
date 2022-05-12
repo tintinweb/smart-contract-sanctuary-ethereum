@@ -43,8 +43,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -62,7 +62,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -160,7 +160,7 @@ contract ERC20 is IERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -288,7 +288,7 @@ contract ERC20 is IERC20 {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param value The amount that will be burnt.
@@ -322,7 +322,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));
@@ -449,7 +449,7 @@ library SafeERC20 {
   {
     // safeApprove should only be called when setting an initial allowance, 
     // or when resetting it to zero. To increase and decrease it, use 
-    // &#39;safeIncreaseAllowance&#39; and &#39;safeDecreaseAllowance&#39;
+    // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
     require((value == 0) || (token.allowance(msg.sender, spender) == 0));
     require(token.approve(spender, value));
   }
@@ -519,7 +519,7 @@ contract ReentrancyGuard {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overridden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropriate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropriate to concatenate
  * behavior.
  */
 contract Crowdsale is ReentrancyGuard {
@@ -617,7 +617,7 @@ contract Crowdsale is ReentrancyGuard {
 
   /**
    * @dev low level token purchase ***DO NOT OVERRIDE***
-   * This function has a non-reentrancy guard, so it shouldn&#39;t be called by
+   * This function has a non-reentrancy guard, so it shouldn't be called by
    * another `nonReentrant` function.
    * @param beneficiary Recipient of the token purchase
    */
@@ -652,7 +652,7 @@ contract Crowdsale is ReentrancyGuard {
 
   /**
    * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
-   * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method:
+   * Example from CappedCrowdsale.sol's _preValidatePurchase method:
    *   super._preValidatePurchase(beneficiary, weiAmount);
    *   require(weiRaised().add(weiAmount) <= cap);
    * @param beneficiary Address performing the token purchase
@@ -699,7 +699,7 @@ contract Crowdsale is ReentrancyGuard {
   }
 
   /**
-   * @dev Executed when a purchase has been validated and is ready to be executed. Doesn&#39;t necessarily emit/send tokens.
+   * @dev Executed when a purchase has been validated and is ready to be executed. Doesn't necessarily emit/send tokens.
    * @param beneficiary Address receiving the tokens
    * @param tokenAmount Number of tokens to be purchased
    */
@@ -766,7 +766,7 @@ contract IncreasingPriceTCO is Crowdsale {
  * @param initRates Is an array of pairs [weiRaised, exchangeRate]. Deteremine the exchange rate depending on the total wei raised before the transaction. 
  */
   constructor(uint256[2][] memory initRates) internal {
-    require(initRates.length > 1, &#39;Rates array should contain more then one value&#39;); // Rates Ranges array is usable whith more than one exchange rate range
+    require(initRates.length > 1, 'Rates array should contain more then one value'); // Rates Ranges array is usable whith more than one exchange rate range
     _rates = initRates;
     _currentRateIndex = 0;
   }
@@ -792,7 +792,7 @@ contract IncreasingPriceTCO is Crowdsale {
   }
 
   /**
-   * @notice The base rate function is overridden to revert, since this crowdsale doens&#39;t use it, and
+   * @notice The base rate function is overridden to revert, since this crowdsale doens't use it, and
    * all calls to it are a mistake.
    */
   function rate() public view returns(uint256) {
@@ -800,7 +800,7 @@ contract IncreasingPriceTCO is Crowdsale {
   }
   
 /**
- * @notice Overrides Crowdsales&#39; function applying multiple increasing price exchange rates concept
+ * @notice Overrides Crowdsales' function applying multiple increasing price exchange rates concept
  */
   function _getTokenAmount(uint256 weiAmount)
     internal view returns (uint256)
@@ -809,7 +809,7 @@ contract IncreasingPriceTCO is Crowdsale {
   }
 
 /**
- * @notice Overloads "hook" from base Crowdsale. Checks and updates current exchange rate. The parameters aren&#39;t used thus commented out.
+ * @notice Overloads "hook" from base Crowdsale. Checks and updates current exchange rate. The parameters aren't used thus commented out.
  * 
  */
   function _updatePurchasingState(address /*beneficiary*/, uint256 /*weiAmount*/) internal
@@ -832,7 +832,7 @@ contract KeeperRole {
   }
 
   modifier onlyKeeper() {
-    require(isKeeper(msg.sender), &#39;Only Keeper is allowed&#39;);
+    require(isKeeper(msg.sender), 'Only Keeper is allowed');
     _;
   }
 
@@ -942,7 +942,7 @@ contract Haltable is KeeperRole, PauserRole {
    * @dev Modifier to make a function callable only when the contract is not paused.
    */
   modifier whenNotPaused() {
-    require(!_paused, &#39;The contract is paused&#39;);
+    require(!_paused, 'The contract is paused');
     _;
   }
 
@@ -950,7 +950,7 @@ contract Haltable is KeeperRole, PauserRole {
    * @dev Modifier to make a function callable only when the contract is paused.
    */
   modifier whenPaused() {
-    require(_paused, &#39;The contract is not paused&#39;);
+    require(_paused, 'The contract is not paused');
     _;
   }
 
@@ -958,7 +958,7 @@ contract Haltable is KeeperRole, PauserRole {
    * @dev Modifier to make a function callable only when the contract is closed.
    */
   modifier whenClosed(bool orCondition) {
-    require(_closed, &#39;The contract is not closed&#39;);
+    require(_closed, 'The contract is not closed');
     _;
   }
 
@@ -966,7 +966,7 @@ contract Haltable is KeeperRole, PauserRole {
    * @dev Modifier to make a function callable only when the contract is closed or an external condition is met.
    */
   modifier whenClosedOr(bool orCondition) {
-    require(_closed || orCondition, "It must be closed or what is set in &#39;orCondition&#39;");
+    require(_closed || orCondition, "It must be closed or what is set in 'orCondition'");
     _;
   }
 
@@ -1016,7 +1016,7 @@ contract CappedTCO is Crowdsale {
   * @param cap Max amount of wei to be contributed
   */
   constructor(uint256 cap) internal {
-      require(cap > 0, &#39;Hard cap must be > 0&#39;);
+      require(cap > 0, 'Hard cap must be > 0');
       _cap = cap;
   }
   
@@ -1070,7 +1070,7 @@ contract PostDeliveryCappedTCO is CappedTCO, Haltable {
    */
   function withdrawTokens(address beneficiary) public whenNotPaused whenClosedOr(capReached()) {
     uint256 amount = _balances[beneficiary];
-    require(amount > 0, &#39;The balances should be positive for withdrawal. Maybe you have already done it, please check the token balances, not crowdsale.&#39;);
+    require(amount > 0, 'The balances should be positive for withdrawal. Maybe you have already done it, please check the token balances, not crowdsale.');
     _balances[beneficiary] = 0;
     _deliverTokens(beneficiary, amount);
     emit TokensWithdrawn(beneficiary, amount);
@@ -1183,18 +1183,18 @@ MinterRole
 
   /**
    * @dev Must be called after TCO ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function _finalize() private {
-    require(notFinalized(), &#39;TCO already finalized&#39;);
+    require(notFinalized(), 'TCO already finalized');
     if(notClosed()) close();
     _finalization();
     emit CrowdsaleFinalized();
   }
 
   function _finalization() private {
-     require(totalSupply()>0, &#39;Total ether supply must be > 0&#39;);
-     require(ERC20Mintable(address(token())).mint(address(this), totalSupply()), &#39;Error when being finalized at minting totalSupply() to the token&#39;);
+     require(totalSupply()>0, 'Total ether supply must be > 0');
+     require(ERC20Mintable(address(token())).mint(address(this), totalSupply()), 'Error when being finalized at minting totalSupply() to the token');
      _finalized = true;
   }
 

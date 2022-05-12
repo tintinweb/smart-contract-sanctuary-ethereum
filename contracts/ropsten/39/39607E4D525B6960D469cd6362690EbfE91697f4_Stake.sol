@@ -115,7 +115,7 @@ library Math {
   function div(uint a, uint b) internal pure returns (uint c) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
   }
 
 }
@@ -189,7 +189,7 @@ contract StandardToken is Token {
 
   function transfer(address _to, uint _value) public returns (bool success) {
     //Default assumes totalSupply can"t be over max (2^256 - 1).
-    //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+    //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
     //Replace the if map this one instead.
     //require(balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]);
     require(balances[msg.sender] >= _value, "sender has insufficient token balance");
@@ -242,7 +242,7 @@ contract Fee is HasOwners, StandardToken {
   event Burn(address indexed from, uint value);
 
   string public name;                   //fancy name: eg Simon Bucks
-  uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+  uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
   string public symbol;                 //An identifier: eg SBX
   string public version = "F0.2";       //human 0.1 standard. Just an arbitrary versioning scheme.
   address public minter;

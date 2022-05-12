@@ -179,14 +179,14 @@ contract BigbomDigitalContract is Ownable {
 
   // Convert an hexadecimal character to their value
   function fromHexChar(uint c) internal pure returns (uint) {
-      if (byte(c) >= byte(&#39;0&#39;) && byte(c) <= byte(&#39;9&#39;)) {
-          return c - uint(byte(&#39;0&#39;));
+      if (byte(c) >= byte('0') && byte(c) <= byte('9')) {
+          return c - uint(byte('0'));
       }
-      if (byte(c) >= byte(&#39;a&#39;) && byte(c) <= byte(&#39;f&#39;)) {
-          return 10 + c - uint(byte(&#39;a&#39;));
+      if (byte(c) >= byte('a') && byte(c) <= byte('f')) {
+          return 10 + c - uint(byte('a'));
       }
-      if (byte(c) >= byte(&#39;A&#39;) && byte(c) <= byte(&#39;F&#39;)) {
-          return 10 + c - uint(byte(&#39;A&#39;));
+      if (byte(c) >= byte('A') && byte(c) <= byte('F')) {
+          return 10 + c - uint(byte('A'));
       }
   }
   // Convert an hexadecimal string to raw bytes

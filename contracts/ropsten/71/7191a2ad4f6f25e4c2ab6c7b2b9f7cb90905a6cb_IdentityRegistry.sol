@@ -571,7 +571,7 @@ contract IdentityRegistry is SignatureVerifier {
 
     /// @notice Allows an associated address to change the recovery address for its Identity.
     /// @dev Recovery addresses can be changed at most once every recoveryTimeout seconds.
-    /// @param newRecoveryAddress A recovery address to set for the sender&#39;s EIN.
+    /// @param newRecoveryAddress A recovery address to set for the sender's EIN.
     function triggerRecoveryAddressChange(address newRecoveryAddress) public {
         triggerRecoveryAddressChange(getEIN(msg.sender), newRecoveryAddress, false);
     }
@@ -612,7 +612,7 @@ contract IdentityRegistry is SignatureVerifier {
         require(canRecover(ein), "Cannot trigger recovery yet.");
         Identity storage _identity = identityDirectory[ein];
 
-        // ensure the sender is the recovery address/old recovery address if there&#39;s been a recent change
+        // ensure the sender is the recovery address/old recovery address if there's been a recent change
         if (canChangeRecoveryAddress(ein)) {
             require(
                 msg.sender == _identity.recoveryAddress, "Only the current recovery address can trigger recovery."

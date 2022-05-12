@@ -492,7 +492,7 @@ contract ChangercyCrowdsale is Ownable {
     emit TokenPurchase(msg.sender, _beneficiary, _weiSpent, _tokens);
 
     // You can access this method either buying tokens or assigning tokens to
-    // someone. In the previous case you won&#39;t be sending any ehter to contract
+    // someone. In the previous case you won't be sending any ehter to contract
     // so no need to forward any funds to wallet.
     if (msg.value > 0) {
       wallet.transfer(_weiSpent);

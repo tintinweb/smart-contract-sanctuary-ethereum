@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -175,7 +175,7 @@ contract Intel{
     }
     
     /// @notice this function creates an Intel
-    /// @dev Uses &#39;now&#39; for timestamps. balance[address(this)] is for allocating tokens to the Intel contract for when we subtract tokens from user’s address in case of creation or rewarding of Intels. we actually should add tokens to somewhere when we subtract them from user’s balance and the smart contract’s address is being used for that.
+    /// @dev Uses 'now' for timestamps. balance[address(this)] is for allocating tokens to the Intel contract for when we subtract tokens from user’s address in case of creation or rewarding of Intels. we actually should add tokens to somewhere when we subtract them from user’s balance and the smart contract’s address is being used for that.
     /// @param intelProvider is the address of the creator\provider of the Intel
     /// @param depositAmount is the amount of Pareto tokens staked by the provider
     /// @param desiredReward is the amount of Pareto tokens desired by the provider as the reward
@@ -184,7 +184,7 @@ contract Intel{
     /// requires 210769 gas in Rinkeby Network
     function create(address intelProvider, uint depositAmount, uint desiredReward, uint intelID, uint ttl) public {
 
-        require(address(intelProvider) != address(0x0), "Intel Provider&#39;s address provided is invalid.");
+        require(address(intelProvider) != address(0x0), "Intel Provider's address provided is invalid.");
         require(depositAmount > 0, "Amount should be greater than 0.");
         require(desiredReward > 0, "Desired reward should be greater than 0.");
         require(ttl > now, "Expiration date for Intel should be greater than now.");
@@ -195,14 +195,14 @@ contract Intel{
         // First, check if the user already has deposited enough Paretos into this smart contract to satisfy the stake amount required to create the Intel
         if(depositAmount <= balances[intelProvider]) {                      
 
-            // The user has deposited enough Pareto into this contract to create the Intel. Deduct the amount from the user&#39;s balance
+            // The user has deposited enough Pareto into this contract to create the Intel. Deduct the amount from the user's balance
             balances[intelProvider] = balances[intelProvider].sub(depositAmount);   
 
             // In the balances map for the address of this contract, we will maintain the amount of Pareto token used to create intel.
             balances[address(this)] = balances[address(this)].add(depositAmount);   
 
         } else {
-            //The user does NOT have an adequate balance to cover the creation of the intel. We will transfer the depositAmount from the user&#39;s address to the intel contract.
+            //The user does NOT have an adequate balance to cover the creation of the intel. We will transfer the depositAmount from the user's address to the intel contract.
             token.transferFrom(intelProvider, address(this), depositAmount);  
 
             // In the balances map for the address of this contract, we will maintain the amount of Pareto token used to create intel. 
@@ -237,7 +237,7 @@ contract Intel{
 
     
     /// @notice this function sends rewards to the Intel
-    /// @dev Uses &#39;now&#39; for timestamps. balance[address(this)] is for allocating tokens to the Intel contract for when we subtract tokens from user’s address in case of creation or rewarding of Intels. we actually should add tokens to somewhere when we subtract them from user’s balance and the smart contract’s address is being used for that.
+    /// @dev Uses 'now' for timestamps. balance[address(this)] is for allocating tokens to the Intel contract for when we subtract tokens from user’s address in case of creation or rewarding of Intels. we actually should add tokens to somewhere when we subtract them from user’s balance and the smart contract’s address is being used for that.
     /// @param intelIndex is the ID of the Intel to send the rewards to
     /// @param rewardAmount is the amount of Pareto tokens the rewarder wants to reward to the Intel
     /// @return returns true in case of successful completion
@@ -245,7 +245,7 @@ contract Intel{
     function sendReward(uint intelIndex, uint rewardAmount) public returns(bool success){
 
         //Ensure we have a valid intelIndex
-        require(intelIndex > 0, "Intel&#39;s ID should be greater than 0.");
+        require(intelIndex > 0, "Intel's ID should be greater than 0.");
 
 		//Ensure that the rewardAmount is greater than 0.
         require(rewardAmount > 0, "Reward amount should be greater than 0.");
@@ -256,7 +256,7 @@ contract Intel{
         require(intel.intelProvider != address(0x0), "Intel for the provided ID does not exist.");
         
         //Ensure that the person who is performing the reward is not the IntelProvider
-        require(msg.sender != intel.intelProvider, "msg.sender should not be the current Intel&#39;s provider."); 
+        require(msg.sender != intel.intelProvider, "msg.sender should not be the current Intel's provider."); 
         
         //You cannot reward intel if the timestamp of the reward transaction is greater than rewardAfter variable of the Intel.
         require(intel.rewardAfter > now, "Intel is expired");  
@@ -267,7 +267,7 @@ contract Intel{
         // Check if the user who is sending the reward already has rewardAmount worth of tokens deposited in their balance
         if(rewardAmount <= balances[msg.sender]) {      
             //The user who is sending reward has enough deposited tokens to make the transaction. Hence, decrease the 
-            //the user&#39;s token amount from balances map by rewardAmount
+            //the user's token amount from balances map by rewardAmount
             balances[msg.sender] = balances[msg.sender].sub(rewardAmount);  
             
             //In the balance map for this contract address, we keep track of the total amount transacted.  This looks funny. Are we going to be double counting?
@@ -287,7 +287,7 @@ contract Intel{
         //On the intel contract, increment the balance by the rewardAmount.
         intel.balance = intel.balance.add(rewardAmount);
 
-        //On the intel contract, add the address of the person who is sending the reward, if they don&#39;t already exist
+        //On the intel contract, add the address of the person who is sending the reward, if they don't already exist
         if(intel.contributions[msg.sender] == 0){
             intel.contributionsList.push(msg.sender);
         }
@@ -306,13 +306,13 @@ contract Intel{
 
     
     /// @notice this function distributes rewards to the Intel provider
-    /// @dev Uses &#39;now&#39; for timestamps. Uses balances[address(this)] to subtract the tokens from the smart contract in balances mapping.
+    /// @dev Uses 'now' for timestamps. Uses balances[address(this)] to subtract the tokens from the smart contract in balances mapping.
     /// @param intelIndex is the ID of the Intel to distribute tokens to
     /// @return returns true in case of successful completion
     /// requires 91837 gas on Rinkeby Network
     function distributeReward(uint intelIndex) public returns(bool success){
 
-        require(intelIndex > 0, "Intel&#39;s ID should be greater than 0.");
+        require(intelIndex > 0, "Intel's ID should be greater than 0.");
         
 
         IntelState storage intel = intelDB[intelIndex];
@@ -386,15 +386,15 @@ contract Intel{
     /// @notice this function sends back the mistakenly sent non-Pareto ERC20 tokens
     /// @dev only owner can call it
     /// @param destination is the contract address where the tokens were received from mistakenly
-    /// @param account is the external account&#39;s address which sent the wrong tokens
+    /// @param account is the external account's address which sent the wrong tokens
     /// @param amount is the amount of tokens sent
-    /// @param gasLimit is the amount of gas to be sent along with external contract&#39;s transfer call
+    /// @param gasLimit is the amount of gas to be sent along with external contract's transfer call
     /// requires 27431 gas on Rinkeby Network
     function proxy(address destination, address account, uint amount, uint gasLimit) public onlyOwner{
 
         require(destination != paretoAddress, "Pareto Token cannot be assigned as destination.");    // check that the destination is not the Pareto token contract
 
-        // make the call to transfer function of the &#39;destination&#39; contract
+        // make the call to transfer function of the 'destination' contract
         // if(!address(destination).call.gas(gasLimit)(bytes4(keccak256("transfer(address,uint256)")),account, amount)){
         //     revert();
         // }
@@ -428,14 +428,14 @@ contract Intel{
     }
 
     
-    /// @notice It&#39;s a fallback function supposed to return sent Ethers by reverting the transaction
+    /// @notice It's a fallback function supposed to return sent Ethers by reverting the transaction
     function() external{
         revert();
     }
 
     
     /// @notice this function provide the Intel based on its index
-    /// @dev it&#39;s a constant function which can be called
+    /// @dev it's a constant function which can be called
     /// @param intelIndex is the ID of Intel that is to be returned from intelDB
     function getIntel(uint intelIndex) public view returns(address intelProvider, uint depositAmount, uint desiredReward, uint balance, uint intelID, uint rewardAfter, bool rewarded) {
         

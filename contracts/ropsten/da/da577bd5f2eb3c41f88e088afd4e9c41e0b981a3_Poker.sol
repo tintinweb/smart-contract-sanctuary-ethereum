@@ -108,10 +108,10 @@ contract Poker is Ownable,pokerEvents{
         wallet1=msg.sender;
         operator=_operator;
         
-        odds[&#39;bs&#39;]=1.97 ether;
-        odds[&#39;suit&#39;]=3.82 ether;
-        odds[&#39;num&#39;]=12 ether;
-        odds[&#39;nsuit&#39;]=46 ether;
+        odds['bs']=1.97 ether;
+        odds['suit']=3.82 ether;
+        odds['num']=12 ether;
+        odds['nsuit']=46 ether;
     
         /* free lottery initial*/
         lotto[1]=FreeLotto(true,1000,0.1 ether,hour,0);
@@ -151,7 +151,7 @@ contract Poker is Ownable,pokerEvents{
         }
         */
         
-        return(odds[&#39;bs&#39;],(0.1 ether * odds[&#39;bs&#39;]) / 1 ether,5.2 ether);
+        return(odds['bs'],(0.1 ether * odds['bs']) / 1 ether,5.2 ether);
     }
     
     function playBigger(uint[] _bet) payable isHuman() public returns(uint){
@@ -165,7 +165,7 @@ contract Poker is Ownable,pokerEvents{
         if((_num > 31 && _bet.contain(2)) || (_num < 28 && _bet.contain(0))){
             _ret=true;
             
-            msg.sender.transfer((_betAmount * odds[&#39;bs&#39;]) / 1 ether);
+            msg.sender.transfer((_betAmount * odds['bs']) / 1 ether);
         }else if(_num>=28 && _num <=31){
             _ret=false;
             msg.sender.transfer(msg.value*12);
@@ -175,7 +175,7 @@ contract Poker is Ownable,pokerEvents{
         gid+=1;
         rndSeed = uint(uint(keccak256(abi.encodePacked(msg.sender,block.timestamp, block.difficulty,block.gaslimit,_num))));
         
-        emit evtBetting(&#39;bigger&#39;,msg.sender,playerNames[msg.sender],_bet,_ret,_num,msg.value,(_ret?(msg.value * odds[&#39;bs&#39;]) / 1 ether:0));
+        emit evtBetting('bigger',msg.sender,playerNames[msg.sender],_bet,_ret,_num,msg.value,(_ret?(msg.value * odds['bs']) / 1 ether:0));
         
         return _num;
     }
@@ -200,7 +200,7 @@ contract Poker is Ownable,pokerEvents{
         if(_gType==1){
             if((_winNo > 31 && _bet.contain(2)) || (_winNo < 28 && _bet.contain(0))){
                 _ret=true;
-                _prize=(_betAmount * odds[&#39;bs&#39;]) / 1 ether;
+                _prize=(_betAmount * odds['bs']) / 1 ether;
             }else if(_winNo>=28 && _winNo <=31){
                 _ret=true;
                 _prize=(_betAmount * 12) / 1 ether; 
@@ -209,23 +209,23 @@ contract Poker is Ownable,pokerEvents{
         
         if(_gType==2 && _bet.contain(_winNo%4+1)){
             _ret=true;
-            _prize=(_betAmount * odds[&#39;suit&#39;]) / 1 ether; 
+            _prize=(_betAmount * odds['suit']) / 1 ether; 
         }
         
         if(_gType==3 && _bet.contain(_winNo/13 +1)){
             _ret=true;
-            _prize=(_betAmount * odds[&#39;num&#39;]) / 1 ether; 
+            _prize=(_betAmount * odds['num']) / 1 ether; 
         }
         
         if(_gType==4 && _bet.contain(_winNo)){
             _ret=true;
-            _prize=(_betAmount * odds[&#39;nsuit&#39;]) / 1 ether; 
+            _prize=(_betAmount * odds['nsuit']) / 1 ether; 
             
         }
 
         gid+=1;
         msg.sender.transfer(_prize);
-        emit evtBetting(&#39;suit&#39;,msg.sender,playerNames[msg.sender],_bet,_ret,_winNo,msg.value,_prize);
+        emit evtBetting('suit',msg.sender,playerNames[msg.sender],_bet,_ret,_winNo,msg.value,_prize);
         
         rndSeed = uint(uint(keccak256(abi.encodePacked(msg.sender,block.timestamp, block.difficulty,block.gaslimit,_winNo))));
         
@@ -243,13 +243,13 @@ contract Poker is Ownable,pokerEvents{
         
         if(_bet.contain(_num/13 +1)){
             _ret=true;
-            msg.sender.transfer((msg.value * odds[&#39;num&#39;]) / (1 ether * _bet.length));
+            msg.sender.transfer((msg.value * odds['num']) / (1 ether * _bet.length));
         }
 
         gid+=1;
         rndSeed = uint(uint(keccak256(abi.encodePacked(msg.sender,block.timestamp, block.difficulty,block.gaslimit,_num))));
         
-        emit evtBetting(&#39;number&#39;,msg.sender,playerNames[msg.sender],_bet,_ret,_num,msg.value,(msg.value * odds[&#39;num&#39;]) /  (1 ether * _bet.length));
+        emit evtBetting('number',msg.sender,playerNames[msg.sender],_bet,_ret,_num,msg.value,(msg.value * odds['num']) /  (1 ether * _bet.length));
         
         return _num;
     }
@@ -264,13 +264,13 @@ contract Poker is Ownable,pokerEvents{
 
         if(_bet.contain(_num)){
             _ret=true;
-            msg.sender.transfer((msg.value * odds[&#39;nsuit&#39;]) /  (1 ether * _bet.length));
+            msg.sender.transfer((msg.value * odds['nsuit']) /  (1 ether * _bet.length));
         }
 
         gid+=1;
         rndSeed = uint(uint(keccak256(abi.encodePacked(msg.sender,block.timestamp, block.difficulty,block.gaslimit,_num))));
         
-        emit evtBetting(&#39;numberSuit&#39;,msg.sender,playerNames[msg.sender],_bet,_ret,_num,msg.value,(msg.value * odds[&#39;nsuit&#39;]) / (1 ether * _bet.length));
+        emit evtBetting('numberSuit',msg.sender,playerNames[msg.sender],_bet,_ret,_num,msg.value,(msg.value * odds['nsuit']) / (1 ether * _bet.length));
         
         return _num;
     }
@@ -285,8 +285,8 @@ contract Poker is Ownable,pokerEvents{
     }
     
     function freeLottery(uint _gid) public{
-        //require(!lotteryPlayers.contain(msg.sender),&#39;limit once a day &#39;);
-        require(now - lotto[_gid].lastTime[msg.sender] >= lotto[_gid].freezeTimer,&#39;in the freeze time&#39;);
+        //require(!lotteryPlayers.contain(msg.sender),'limit once a day ');
+        require(now - lotto[_gid].lastTime[msg.sender] >= lotto[_gid].freezeTimer,'in the freeze time');
         
         uint winNo = uint(keccak256(abi.encodePacked(msg.sender,block.number,block.timestamp, block.difficulty,block.gaslimit))) % lotto[_gid].prob+1;
         
@@ -309,10 +309,10 @@ contract Poker is Ownable,pokerEvents{
     
     function getOdds() public view returns(uint[]) {
         uint[] memory ret=new uint[](4);
-        ret[0]=odds[&#39;bs&#39;];
-        ret[1]=odds[&#39;suit&#39;];
-        ret[2]=odds[&#39;num&#39;];
-        ret[3]=odds[&#39;nsuit&#39;];
+        ret[0]=odds['bs'];
+        ret[1]=odds['suit'];
+        ret[2]=odds['num'];
+        ret[3]=odds['nsuit'];
         
         return ret;
     }

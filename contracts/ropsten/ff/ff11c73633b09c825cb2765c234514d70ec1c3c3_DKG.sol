@@ -16,10 +16,10 @@ pragma solidity ^0.4.24;
 contract DKG {
 
     struct Node {
-        uint256 id;                 // the node&#39;s one based id, if id=0 the node has not registered or a dispute was successful
+        uint256 id;                 // the node's one based id, if id=0 the node has not registered or a dispute was successful
         uint256 deposit;            
-        uint256[2] pk;              // the node&#39;s public key from group G1 (i.e. g1 * sk)
-        uint256[4] bls_pk;          // the node&#39;s public key from group G2 (i.e. g2 * sk)
+        uint256[2] pk;              // the node's public key from group G1 (i.e. g1 * sk)
+        uint256[4] bls_pk;          // the node's public key from group G2 (i.e. g2 * sk)
         bytes32 key_distribution_hash;
     }
 

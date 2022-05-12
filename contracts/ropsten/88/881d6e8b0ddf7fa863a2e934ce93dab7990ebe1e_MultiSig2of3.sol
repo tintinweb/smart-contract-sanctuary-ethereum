@@ -66,7 +66,7 @@ contract MultiSig2of3 {
     }
 
     // Generates the message to sign given the output destination address and amount.
-    // includes this contract&#39;s address and a nonce for replay protection.
+    // includes this contract's address and a nonce for replay protection.
     // One option to independently verify:
     //     https://leventozturk.com/engineering/sha3/ and select keccak
     function generateMessageToSign(
@@ -119,7 +119,7 @@ contract MultiSig2of3 {
     }
 
     // Confirm that the two signature triplets (v1, r1, s1) and (v2, r2, s2)
-    // both authorize a spend of this contract&#39;s funds to the given
+    // both authorize a spend of this contract's funds to the given
     // destination address.
     function _validSignature(
         address destination,
@@ -143,7 +143,7 @@ contract MultiSig2of3 {
         return true;
     }
 
-    // Generate the the unsigned message (in bytes32) that each owner&#39;s
+    // Generate the the unsigned message (in bytes32) that each owner's
     // wallet would have signed for the given destination and amount.
     //
     // The generated message from generateMessageToSign is converted to

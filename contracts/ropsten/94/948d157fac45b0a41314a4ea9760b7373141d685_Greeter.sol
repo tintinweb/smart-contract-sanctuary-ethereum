@@ -8,7 +8,7 @@ contract Greeter
     constructor() public
     {
         admin = msg.sender;
-        greeting = &#39;DEPLOYED&#39;;
+        greeting = 'DEPLOYED';
     }
 
     function greet() constant public returns (string)

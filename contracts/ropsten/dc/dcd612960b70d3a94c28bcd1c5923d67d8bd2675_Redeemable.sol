@@ -90,7 +90,7 @@ contract RocketBase {
     }
 
     /**
-    * @dev Reverts if the address doesn&#39;t have this role
+    * @dev Reverts if the address doesn't have this role
     */
     modifier onlyRole(string _role) {
         roleCheck(_role, msg.sender);
@@ -126,7 +126,7 @@ contract RocketBase {
     }
 
      /**
-    * @dev Check if an address has this role, reverts if it doesn&#39;t
+    * @dev Check if an address has this role, reverts if it doesn't
     */
     function roleCheck(string _role, address _address) view internal {
         require(roleHas(_role, _address) == true);
@@ -143,16 +143,16 @@ contract RocketBase {
  */
 contract Authorized is RocketBase {
 
-    // The issuer&#39;s address
-    // In contract&#39;s RocketStorage 
+    // The issuer's address
+    // In contract's RocketStorage 
     // address public token.issuer;
 
-    // The depository&#39;s address
-    // In contract&#39;s RocketStorage 
+    // The depository's address
+    // In contract's RocketStorage 
     // address public token.depository;
 
-    // The auditor&#39;s address
-    // In contract&#39;s RocketStorage 
+    // The auditor's address
+    // In contract's RocketStorage 
     // address public token.auditor;
 
     event IssuerTransferred(address indexed previousIssuer, address indexed newIssuer);
@@ -245,16 +245,16 @@ contract Authorized is RocketBase {
  */
 contract Delegated is Authorized {
 
-    // The issuer delegate&#39;s address 
-    // In contract&#39;s RocketStorage 
+    // The issuer delegate's address 
+    // In contract's RocketStorage 
     // address public token.issuerDelegate;
 
-    // The depository delegate&#39;s address
-    // In contract&#39;s RocketStorage 
+    // The depository delegate's address
+    // In contract's RocketStorage 
     // address public token.depositoryDelegate;
 
-    // The auditor delegate&#39;s address
-    // In contract&#39;s RocketStorage 
+    // The auditor delegate's address
+    // In contract's RocketStorage 
     // address public token.auditorDelegate;
 
     event IssuerDelegated(address indexed previousDelegate, address indexed newDelegate);
@@ -467,7 +467,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -515,7 +515,7 @@ contract Redeemable is RocketBase, PausableRedemption, Delegated {
         // Redemption hashes can only be used once
         require(! checkRedemptionFulfilled(_hash));
 
-        // Verify Redemption hash, signed by the depository OR the depository&#39;s delegate
+        // Verify Redemption hash, signed by the depository OR the depository's delegate
         require(ecverify(_hash, _sig, depository()) || ecverify(_hash, _sig, depositoryDelegate()));
 
         // Redeem the tokens
@@ -528,7 +528,7 @@ contract Redeemable is RocketBase, PausableRedemption, Delegated {
     }
 
     // Allow the issuer to complete a redemption without prior authorization from the depository
-    // This redeems directly from the issuer&#39;s wallet
+    // This redeems directly from the issuer's wallet
     function backofficeRedeem(uint _amount) public onlyIssuer {
         // Redeem the tokens
         _redeem(_amount);
@@ -558,7 +558,7 @@ contract Redeemable is RocketBase, PausableRedemption, Delegated {
         // msg.sender must have _amount available in token balance
         require(_amount <= senderBalance_);
 
-        // Just to be safe, _amount can&#39;t be more than totalSupply_, assetsOnDeposit_, and assetsCertified_
+        // Just to be safe, _amount can't be more than totalSupply_, assetsOnDeposit_, and assetsCertified_
         // This condition should never happen, but redeeming this much is physically impossible, so we protect against it
         require(_amount <= totalSupply_);
         require(_amount <= assetsOnDeposit_);
@@ -593,7 +593,7 @@ contract Redeemable is RocketBase, PausableRedemption, Delegated {
 
     // Mark the redemption hash as fulfilled/used to prevent reuse (Depository)
     // This function is available should the need arise to invalidate a previously
-    // signed hash.  For instance, someone &#39;lost&#39; their hash before calling redeem()
+    // signed hash.  For instance, someone 'lost' their hash before calling redeem()
     // Depository issues a second hash, and invalidates the first, preventing them
     // from calling redeem() twice for the same order.
     function markRedemptionFulfilled(bytes32 _hash) public onlyDepository {

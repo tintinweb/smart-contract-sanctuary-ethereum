@@ -51,7 +51,7 @@ contract Auction {
     beneficiary = _beneficiary;
   }
 
-  // Same for all the derived contract, it&#39;s the implementation of refund() and bid() that differs
+  // Same for all the derived contract, it's the implementation of refund() and bid() that differs
   function() public payable {
     if (msg.value == 0) {
       refund();
@@ -143,7 +143,7 @@ contract AuctionMultiple is Auction {
   event LogAddress(address addr);
   
   constructor(uint _price, string _description, uint _timestampEnd, address _beneficiary, uint _howMany) Auction(_price, _description, _timestampEnd, _beneficiary) public {
-    require(_howMany > 1, "This auction is suited to multiple items. With 1 item only - use different code. Or remove this &#39;require&#39; - you&#39;ve been warned");
+    require(_howMany > 1, "This auction is suited to multiple items. With 1 item only - use different code. Or remove this 'require' - you've been warned");
     howMany = _howMany;
 
     bids[HEAD] = Bid({
@@ -332,7 +332,7 @@ contract AuctionMultipleGuaranteed is AuctionMultiple {
       sumContributions += currentBid.value;
     }
 
-    // At all times we are aware of gas limits - that&#39;s why we limit auction to 2000 participants, see also `test-gasLimit` folder
+    // At all times we are aware of gas limits - that's why we limit auction to 2000 participants, see also `test-gasLimit` folder
     for (uint i=0; i<guaranteedContributors.length; i++) {
       sumContributions += guaranteedContributions[ guaranteedContributors[i] ];
     }

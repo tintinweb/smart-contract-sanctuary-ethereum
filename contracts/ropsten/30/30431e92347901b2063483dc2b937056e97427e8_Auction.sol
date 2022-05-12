@@ -29,7 +29,7 @@ contract Auction{
     }
     
     
-    //Mark&#39;s function to make code simpler&#39;
+    //Mark's function to make code simpler'
     function strToBytes(string _str) private pure returns (bytes8){
         return bytes8(keccak256(abi.encodePacked(_str)));
     }
@@ -38,7 +38,7 @@ contract Auction{
     //This function should create a new AuctionStruct (assigning empty values where appropriate) and 
     //then insert the new Auction into the auctions mapping using the keccak256 hash of _name as the key value.
     function createNewAuction(string _name, uint _expiryBlockHeight) public {
-        //require the name doesn&#39;t already exist <--> should change to expiryblockheight != null or something
+        //require the name doesn't already exist <--> should change to expiryblockheight != null or something
         require(!(auctions[strToBytes(_name)].expiryBlockHeight > 0));
         //only callable by owner
         require(msg.sender==owner);
@@ -57,7 +57,7 @@ contract Auction{
     //that replaces the next highest bid. If a bid is replaced, the funds should be returned the the 
     //bidder (such that only the bidder for the highestBid will have eth deposited in the contract).
     function submitBid(string _name) public payable{
-        //check if the auction doesn&#39;t exist
+        //check if the auction doesn't exist
         require(auctions[strToBytes(_name)].expiryBlockHeight!=0);
         
        //check expiryBlockHeight has not passed
@@ -100,7 +100,7 @@ contract Auction{
             //auctions[strToBytes(_name)].nextHighestBid.bidder = 0x1111111111111111111111111111111111111111;
     }
     
-    //This function should return the winner&#39;s address for the given auction.
+    //This function should return the winner's address for the given auction.
     function winningBidder(string _name) public view returns (address){
         return (auctions[strToBytes(_name)].highestBid.bidder);
     }

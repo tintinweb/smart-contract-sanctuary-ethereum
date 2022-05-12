@@ -57,12 +57,12 @@ pragma solidity 0.4.24;
 //    It also contains permissions data, which ties in to ERC721
 //    functionality. Operators of an address are allowed to transfer
 //    ownership of all ships owned by their associated address
-//    (ERC721&#39;s approveAll()). A transfer proxy is allowed to transfer
-//    ownership of a single ship (ERC721&#39;s approve()).
+//    (ERC721's approveAll()). A transfer proxy is allowed to transfer
+//    ownership of a single ship (ERC721's approve()).
 //
 //    Since data stores are difficult to upgrade, this contract contains
 //    as little actual business logic as possible. Instead, the data stored
-//    herein can only be modified by this contract&#39;s owner, which can be
+//    herein can only be modified by this contract's owner, which can be
 //    changed and is thus upgradable/replacable.
 //
 //    Initially, this contract will be owned by the Constitution contract.
@@ -85,7 +85,7 @@ contract Ships is Ownable
   //
   event EscapeRequested(uint32 indexed ship, uint32 indexed sponsor);
 
-  //  EscapeCanceled: :ship&#39;s :sponsor request was canceled or rejected
+  //  EscapeCanceled: :ship's :sponsor request was canceled or rejected
   //
   event EscapeCanceled(uint32 indexed ship, uint32 indexed sponsor);
 
@@ -93,7 +93,7 @@ contract Ships is Ownable
   //
   event EscapeAccepted(uint32 indexed ship, uint32 indexed sponsor);
 
-  //  LostSponsor: :ship&#39;s sponsor is now refusing it service
+  //  LostSponsor: :ship's sponsor is now refusing it service
   //
   event LostSponsor(uint32 indexed ship, uint32 indexed sponsor);
 
@@ -176,7 +176,7 @@ contract Ships is Ownable
 
     //  sponsor: ship that supports this one on the network, or,
     //           if :hasSponsor is false, the last ship that supported it.
-    //           (by default, the ship&#39;s half-width prefix)
+    //           (by default, the ship's half-width prefix)
     //
     uint32 sponsor;
 
@@ -259,7 +259,7 @@ contract Ships is Ownable
 
     //  setDnsDomains(): set the base domains used for contacting galaxies
     //
-    //    Note: since a string is really just a byte[], and Solidity can&#39;t
+    //    Note: since a string is really just a byte[], and Solidity can't
     //    work with two-dimensional arrays yet, we pass in the three
     //    domains as individual strings.
     //
@@ -373,7 +373,7 @@ contract Ships is Ownable
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous owner&#39;s list of owned ships
+        //  i: current index in previous owner's list of owned ships
         //
         uint256 i = shipOwnerIndexes[prev][_ship];
 
@@ -398,7 +398,7 @@ contract Ships is Ownable
         shipOwnerIndexes[prev][_ship] = 0;
       }
 
-      //  update the owner list and the owner&#39;s index list
+      //  update the owner list and the owner's index list
       //
       ships[_ship].owner = _owner;
       shipsOwnedBy[_owner].push(_ship);
@@ -677,11 +677,11 @@ contract Ships is Ownable
 
       //  if the ship used to have a different spawn proxy, do some
       //  gymnastics to keep the reverse lookup gappless.  delete the ship
-      //  from the old proxy&#39;s list, then fill that gap with the list tail.
+      //  from the old proxy's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous proxy&#39;s list of spawning ships
+        //  i: current index in previous proxy's list of spawning ships
         //
         uint256 i = spawningForIndexes[prev][_ship];
 
@@ -769,11 +769,11 @@ contract Ships is Ownable
 
       //  if the ship used to have a different transfer proxy, do some
       //  gymnastics to keep the reverse lookup gappless.  delete the ship
-      //  from the old proxy&#39;s list, then fill that gap with the list tail.
+      //  from the old proxy's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous proxy&#39;s list of transferable ships
+        //  i: current index in previous proxy's list of transferable ships
         //
         uint256 i = transferringForIndexes[prev][_ship];
 
@@ -894,7 +894,7 @@ contract ReadsShips
   //
   Ships public ships;
 
-  //  constructor(): set the Ships contract&#39;s address
+  //  constructor(): set the Ships contract's address
   //
   constructor(Ships _ships)
     public
@@ -940,7 +940,7 @@ contract Censures is ReadsShips
   //
   event Forgiven(uint16 indexed by, uint32 indexed who);
 
-  //  censuring: per ship, the ships they&#39;re censuring
+  //  censuring: per ship, the ships they're censuring
   //
   mapping(uint16 => uint32[]) public censuring;
 
@@ -1023,7 +1023,7 @@ contract Censures is ReadsShips
     external
     activeShipOwner(_as)
   {
-    require( //  can&#39;t censure self
+    require( //  can't censure self
              //
              (_as != _who) &&
              //
@@ -1060,8 +1060,8 @@ contract Censures is ReadsShips
     //  below, we perform the same logic twice: once on the canonical data,
     //  and once on the reverse lookup
     //
-    //  i: current index in _as&#39;s list of censures
-    //  j: current index in _who&#39;s list of ships that have censured it
+    //  i: current index in _as's list of censures
+    //  j: current index in _who's list of ships that have censured it
     //
     uint256 i = censuringIndexes[_as][_who];
     uint256 j = censuredByIndexes[_who][_as];

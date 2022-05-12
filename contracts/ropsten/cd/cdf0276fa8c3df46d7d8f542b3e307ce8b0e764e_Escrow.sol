@@ -1,6 +1,6 @@
 //Lab 5 Escrow Contract
 //The objective of this lab is to create a one-time use escrow contract. This means the smart contract will facilitate the trade between 2 ethereum addresses of 2 on-chain assets. The assets will be eth and an arbitrary token that must have a balanceOf field and a transfer function.
-//The function allows the creator to destroy the sender&#39;s ERC20 contributions - extra code commented in to fix the problem&#39;
+//The function allows the creator to destroy the sender's ERC20 contributions - extra code commented in to fix the problem'
 
 pragma solidity ^0.4.25;
 //First include this contract declaration at the top of the .sol file:
@@ -29,7 +29,7 @@ contract Escrow{
     }
     
     //This function should check if the smart contract has the desired amount of the token. 
-    //If so then the contract&#39;s eth should be sent to the requestedAddress and the contract&#39;s token will be sent to the owner.
+    //If so then the contract's eth should be sent to the requestedAddress and the contract's token will be sent to the owner.
     function fulfillEscrow() public{
         require(token.balanceOf(address(this)) >= requestedTokenAmount);
         //require(address(this).balance >= ethOnOffer);

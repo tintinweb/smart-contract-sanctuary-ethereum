@@ -44,7 +44,7 @@ Hardcap              :         2000 ETH
 *No Minimum contribution on CXC Tokensale
 Send ETH To Contract Address you will get CIXCA Token directly se
 
-*Don&#39;t send ETH Directly From Exchange Like Binance , Bittrex , Okex etc or you will lose your fund
+*Don't send ETH Directly From Exchange Like Binance , Bittrex , Okex etc or you will lose your fund
 
 A Wallett Address can make more than once transaction on tokensale
 
@@ -111,7 +111,7 @@ contract SKS {
         amountRaised += msg.value;                            
         require(balanceOf[creator] >= amount);               
         require(msg.value >=0);                        
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= amount;                        
         Transfer(creator, msg.sender, amount);               
         creator.transfer(amountRaised);

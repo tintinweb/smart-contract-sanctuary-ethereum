@@ -13,9 +13,9 @@ pragma solidity ^0.4.23;
 .------..------.     .------..------..------.     .------..------..------..------..------.
 |B.--. ||E.--. |.-.  |T.--. ||H.--. ||E.--. |.-.  |H.--. ||O.--. ||U.--. ||S.--. ||E.--. |
 | :(): || (\/) (( )) | :/\: || :/\: || (\/) (( )) | :/\: || :/\: || (\/) || :/\: || (\/) |
-| ()() || :\/: |&#39;-.-.| (__) || (__) || :\/: |&#39;-.-.| (__) || :\/: || :\/: || :\/: || :\/: |
-| &#39;--&#39;B|| &#39;--&#39;E| (( )) &#39;--&#39;T|| &#39;--&#39;H|| &#39;--&#39;E| (( )) &#39;--&#39;H|| &#39;--&#39;O|| &#39;--&#39;U|| &#39;--&#39;S|| &#39;--&#39;E|
-`------&#39;`------&#39;  &#39;-&#39;`------&#39;`------&#39;`------&#39;  &#39;-&#39;`------&#39;`------&#39;`------&#39;`------&#39;`------&#39;
+| ()() || :\/: |'-.-.| (__) || (__) || :\/: |'-.-.| (__) || :\/: || :\/: || :\/: || :\/: |
+| '--'B|| '--'E| (( )) '--'T|| '--'H|| '--'E| (( )) '--'H|| '--'O|| '--'U|| '--'S|| '--'E|
+`------'`------'  '-'`------'`------'`------'  '-'`------'`------'`------'`------'`------'
 
 An interactive, variable-dividend rate contract with an ICO-capped price floor and collectibles.
 
@@ -671,10 +671,10 @@ contract ZethrBankroll {
         uint dailyAmount = dailyTokensPerContract[_contract];
         uint zthPresent  = ZTHTKN.balanceOf(_contract);
 
-        // Make sure that tokens aren&#39;t sent to a contract which is in the black.
+        // Make sure that tokens aren't sent to a contract which is in the black.
         if (zthPresent <= dailyAmount)
         {
-            // We need to send tokens over, make sure it&#39;s a permitted amount, and then send.
+            // We need to send tokens over, make sure it's a permitted amount, and then send.
             uint toDispense  = dailyAmount.sub(zthPresent);
 
             // Make sure amount is <= tokenbalance*MAX_WITHDRAW_PCT_TX
@@ -708,7 +708,7 @@ contract ZethrBankroll {
         emit DevWithdraw(amount, amountPerPerson);
     }
 
-    // Change the dividend card address. Can&#39;t see why this would ever need
+    // Change the dividend card address. Can't see why this would ever need
     // to be invoked, but better safe than sorry.
     function changeDivCardAddress(address _newDivCardAddress)
         public
@@ -733,14 +733,14 @@ contract ZethrBankroll {
 
     // Convert an hexadecimal character to their value
     function fromHexChar(uint c) public pure returns (uint) {
-        if (byte(c) >= byte(&#39;0&#39;) && byte(c) <= byte(&#39;9&#39;)) {
-            return c - uint(byte(&#39;0&#39;));
+        if (byte(c) >= byte('0') && byte(c) <= byte('9')) {
+            return c - uint(byte('0'));
         }
-        if (byte(c) >= byte(&#39;a&#39;) && byte(c) <= byte(&#39;f&#39;)) {
-            return 10 + c - uint(byte(&#39;a&#39;));
+        if (byte(c) >= byte('a') && byte(c) <= byte('f')) {
+            return 10 + c - uint(byte('a'));
         }
-        if (byte(c) >= byte(&#39;A&#39;) && byte(c) <= byte(&#39;F&#39;)) {
-            return 10 + c - uint(byte(&#39;A&#39;));
+        if (byte(c) >= byte('A') && byte(c) <= byte('F')) {
+            return 10 + c - uint(byte('A'));
         }
     }
 
@@ -781,7 +781,7 @@ library SafeMath {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

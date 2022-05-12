@@ -31,7 +31,7 @@ contract NodeMCU_Endpoint {
     }
 
     // Allows the contract creator to send a sensor value in the range 0-1024.
-    // The value gets stored in a data block together with contract creator&#39;s address.
+    // The value gets stored in a data block together with contract creator's address.
     function Send_Data(uint16 amount) public onlyOwner {
         if (amount > 1024) return;
         valueArray.push(dataBlock({

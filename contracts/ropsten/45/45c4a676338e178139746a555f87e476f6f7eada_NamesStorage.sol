@@ -32,7 +32,7 @@ contract NamesStorage {
         owner = msg.sender;
     }
 
-    // @notice fallback function, don&#39;t allow call to it
+    // @notice fallback function, don't allow call to it
     function () public {
         revert();
     }

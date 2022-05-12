@@ -181,7 +181,7 @@ contract Model is ERC165 {
         @param timestamp Timestamp of the obligation query
 
         @return amount Amount pending to pay on the given timestamp
-        @return defined True If the amount returned is fixed and can&#39;t change
+        @return defined True If the amount returned is fixed and can't change
     */
     function getObligation(bytes32 id, uint64 timestamp) external view returns (uint256 amount, bool defined);
 
@@ -232,7 +232,7 @@ contract Model is ERC165 {
         The registry could be paid before or after the date, but the debt will always be
             considered overdue if paid after this timestamp.
 
-        This is the estimated final payment date of the debt if it&#39;s always paid on each exact dueTime.
+        This is the estimated final payment date of the debt if it's always paid on each exact dueTime.
 
         @param id Id of the registry
 
@@ -309,10 +309,10 @@ contract Model is ERC165 {
         Not all models have internal clocks, a model without an internal clock should always return false.
 
         Calls to this method should be possible from any address,
-            multiple calls to run shouldn&#39;t affect the internal calculations of the model.
+            multiple calls to run shouldn't affect the internal calculations of the model.
 
         @dev If the call had no effect the method would return False,
-            that is no sign of things going wrong, and the call shouldn&#39;t be wrapped on a require
+            that is no sign of things going wrong, and the call shouldn't be wrapped on a require
 
         @param id If of the registry
 
@@ -676,7 +676,7 @@ contract InstallmentsModel is BytesUtils, Ownable, Model {
             Config storage config = configs[id];
             State storage state = states[id];
             uint64 lentTime = config.lentTime;
-            require(lentTime >= target, "Clock can&#39;t go negative");
+            require(lentTime >= target, "Clock can't go negative");
             uint64 targetClock = config.lentTime - target;
             require(targetClock > state.clock, "Clock is ahead of target");
             return _advanceClock(id, targetClock);
@@ -702,7 +702,7 @@ contract InstallmentsModel is BytesUtils, Ownable, Model {
         State storage state = states[id];
         Config storage config = configs[id];
 
-        // Can&#39;t be before creation
+        // Can't be before creation
         if (timestamp < config.lentTime) {
             return (0, true);
         } 
@@ -907,7 +907,7 @@ contract InstallmentsModel is BytesUtils, Ownable, Model {
                 _interestRate: _interestRate
             });
 
-            // Don&#39;t change clock unless we have a change
+            // Don't change clock unless we have a change
             if (installmentCompleted || newInterest > 0) {
                 clock += delta;
                 interest += newInterest;
@@ -966,13 +966,13 @@ contract InstallmentsModel is BytesUtils, Ownable, Model {
         uint256 _installmentDuration,
         uint256 _timeUnit
     ) internal pure {
-        require(_cuota > 0, "Cuota can&#39;t be 0");
-        require(_interestRate > 0, "Interest rate can&#39;t be 0");
-        require(_installments > 0, "Installments can&#39;t be 0");
-        require(_installmentDuration > 0, "Installment duration can&#39;t be 0");
-        require(_timeUnit <= _installmentDuration, "Time unit can&#39;t be lower than installment duration");
+        require(_cuota > 0, "Cuota can't be 0");
+        require(_interestRate > 0, "Interest rate can't be 0");
+        require(_installments > 0, "Installments can't be 0");
+        require(_installmentDuration > 0, "Installment duration can't be 0");
+        require(_timeUnit <= _installmentDuration, "Time unit can't be lower than installment duration");
         require(_interestRate > _timeUnit, "Interest rate by time unit is too low");
-        require(_timeUnit > 0, "Time unit can&#39;be 0");
+        require(_timeUnit > 0, "Time unit can'be 0");
     }
 
     function _decodeData(

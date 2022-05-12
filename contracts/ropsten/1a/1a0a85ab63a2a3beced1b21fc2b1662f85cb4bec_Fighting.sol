@@ -321,7 +321,7 @@ contract User is Ownable{
     }
     
     function verifyKYC(address _address) public onlyOwner{
-        changeStatus(_address, EUserStatus.KYCVerified, "User&#39;s KYC information has been approved");
+        changeStatus(_address, EUserStatus.KYCVerified, "User's KYC information has been approved");
     }
     
     /*Events*/
@@ -469,7 +469,7 @@ contract Fighting is StandardToken, StageSale, LockedToken {
     string public name;                   
     uint8 public decimals;                
     string public symbol;                 
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
     uint256 public totalEthInWei;         
 
     /* Constructor */

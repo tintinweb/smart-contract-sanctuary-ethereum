@@ -8,7 +8,7 @@ they are simply the musings of the author. They have not been fully research as
 of this writing nor should they ever be considered legal advice. Only a lawyer
 actually looking at your unique circumstances can give you effective legal advice.
 
-To the extent that I have time and ethically can, I&#39;m happy to try answer 
+To the extent that I have time and ethically can, I'm happy to try answer 
 questions at michaelrice (at) protonmail (dot) com
 
 Also, I only know this code compiles -- not sure if it would actually work as 
@@ -32,8 +32,8 @@ contract RetainerAgreement {
 	uint requiredFee;
 	uint fee;
 
-	/* notice how we don&#39;t assign the client at construction so we 
-	   don&#39;t violate confidentiality rules */
+	/* notice how we don't assign the client at construction so we 
+	   don't violate confidentiality rules */
 	constructor(uint _requiredFee, string _terms) public {
 		counsel = msg.sender;
 		requiredFee = _requiredFee;
@@ -46,7 +46,7 @@ contract RetainerAgreement {
 		evaluateContract();
 	}
 
-	/* this is the attorney&#39;s entry point to sign. includes a check to ensure
+	/* this is the attorney's entry point to sign. includes a check to ensure
 		that only the original counsel can sign */
 	function attorneySign() public {
 		if (msg.sender == counsel) {

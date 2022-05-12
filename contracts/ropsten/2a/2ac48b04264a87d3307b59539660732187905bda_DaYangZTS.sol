@@ -19,7 +19,7 @@ pragma solidity ^0.4.24;
  * 
  * 
  * This is my first Dapp
- * OK!Let&#39;s start the game.
+ * OK!Let's start the game.
  */
 contract ERC721 {
   event Transfer(address indexed _from, address indexed _to, uint256 _tokenId);

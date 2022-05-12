@@ -56,7 +56,7 @@ contract  AcceptEth {
 
         balance[msg.sender] -= amountRequested;
 
-        msg.sender.transfer(amountRequested); // contract transfers ether to msg.sender&#39;s address
+        msg.sender.transfer(amountRequested); // contract transfers ether to msg.sender's address
     }
     
     event Accept(address from, address indexed to, uint amountRequested);
@@ -66,7 +66,7 @@ contract  AcceptEth {
 contract Nonpayable {
 
   // ------------------------------------------------------------------------
-  // Don&#39;t accept ETH
+  // Don't accept ETH
   // ------------------------------------------------------------------------
   function () public payable {
     revert();

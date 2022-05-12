@@ -38,7 +38,7 @@ contract FeedPrice is Ownable {
     }
     
     function setSourcePrice( address _sourcePrice ) public onlyOwner returns (bool) {
-        require( _sourcePrice != address(0), "The address of source&#39;s price cannot be 0." );
+        require( _sourcePrice != address(0), "The address of source's price cannot be 0." );
         sourcePrice = _sourcePrice;
         return true;
     }
@@ -61,7 +61,7 @@ contract SourcePrice {
         if( source != address(0) ) { 
             value = 250 ether;
         } else {
-            revert("Not implemented source&#39;s price.");
+            revert("Not implemented source's price.");
         }
     }
 }

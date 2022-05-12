@@ -18,7 +18,7 @@ contract Ownable {
         @param _to Address of the new owner
     */
     function transferTo(address _to) public onlyOwner returns (bool) {
-        require(_to != address(0), "Can&#39;t transfer to address 0x0");
+        require(_to != address(0), "Can't transfer to address 0x0");
         owner = _to;
         return true;
     }
@@ -100,7 +100,7 @@ contract KyberProxy is TokenConverter, Ownable {
     }
 
     /*
-    @dev Swap the user&#39;s ETH to ERC20 token
+    @dev Swap the user's ETH to ERC20 token
     @param token destination token contract address
     @param destAddress address to send swapped tokens to
     */
@@ -123,7 +123,7 @@ contract KyberProxy is TokenConverter, Ownable {
     }
 
     /*
-    @dev Swap the user&#39;s ERC20 token to ETH
+    @dev Swap the user's ERC20 token to ETH
     @param token source token contract address
     @param tokenQty amount of source tokens
     @param destAddress address to send swapped ETH to
@@ -137,7 +137,7 @@ contract KyberProxy is TokenConverter, Ownable {
         // Check that the player has transferred the token to this contract
         require(token.transferFrom(msg.sender, this, tokenQty), "Error pulling tokens");
 
-        // Set the spender&#39;s token allowance to tokenQty
+        // Set the spender's token allowance to tokenQty
         require(token.approve(kyber, tokenQty));
 
         (uint minConversionRate,) = kyber.getExpectedRate(token, ETH_TOKEN_ADDRESS, tokenQty);
@@ -153,7 +153,7 @@ contract KyberProxy is TokenConverter, Ownable {
     }
 
     /*
-    @dev Swap the user&#39;s ERC20 token to another ERC20 token
+    @dev Swap the user's ERC20 token to another ERC20 token
     @param srcToken source token contract address
     @param srcQty amount of source tokens
     @param destToken destination token contract address
@@ -169,7 +169,7 @@ contract KyberProxy is TokenConverter, Ownable {
         // Check that the player has transferred the token to this contract
         require(srcToken.transferFrom(msg.sender, this, srcQty), "Error pulling tokens");
 
-        // Set the spender&#39;s token allowance to tokenQty
+        // Set the spender's token allowance to tokenQty
         require(srcToken.approve(kyber, srcQty));
 
         (uint minConversionRate,) = kyber.getExpectedRate(srcToken, ETH_TOKEN_ADDRESS, srcQty);

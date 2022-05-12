@@ -4,7 +4,7 @@ pragma solidity ^0.4.23;
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public view returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -40,7 +40,7 @@ contract IContractFeatures {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public view returns (string) {}
     function symbol() public view returns (string) {}
     function decimals() public view returns (uint8) {}
@@ -211,7 +211,7 @@ contract FeatureIds {
     The address of the new converter is available in the ConverterUpgrade event.
 */
 contract BancorConverterUpgrader is Owned, ContractIds, FeatureIds {
-    string public version = &#39;0.3&#39;;
+    string public version = '0.3';
 
     IContractRegistry public registry;                      // contract registry contract address
 
@@ -238,7 +238,7 @@ contract BancorConverterUpgrader is Owned, ContractIds, FeatureIds {
 
     /**
         @dev upgrade an old converter to the latest version
-        will throw if ownership wasn&#39;t transferred to the upgrader before calling this function.
+        will throw if ownership wasn't transferred to the upgrader before calling this function.
         ownership of the new converter will be transferred back to the original owner.
         fires the ConverterUpgrade event upon success.
 
@@ -412,10 +412,10 @@ contract BancorConverterUpgrader is Owned, ContractIds, FeatureIds {
         @dev returns the connector settings
 
         @param _converter       old converter contract address
-        @param _address         connector&#39;s address to read from
+        @param _address         connector's address to read from
         @param _isLegacyVersion true if the converter version is under 0.5
 
-        @return connector&#39;s settings
+        @return connector's settings
     */
     function readConnector(IBancorConverterExtended _converter, address _address, bool _isLegacyVersion) 
         private

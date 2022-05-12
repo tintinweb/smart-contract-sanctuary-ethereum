@@ -5,7 +5,7 @@ contract RuletkaTestIo {
     /*** EVENTS ***/
     
     /// @dev A russian Roulette has been executed between 6 players
-    /// in room roomId and unfortunately, victim got shot and didn&#39;t 
+    /// in room roomId and unfortunately, victim got shot and didn't 
     /// make it out alive... RIP
     event partyOver(uint256 roomId, address victim, address[] winners);
 
@@ -57,7 +57,7 @@ contract RuletkaTestIo {
     
     /*** DATATYPES ***/
       struct Room {
-        string name;  // Edition name like &#39;Monroe&#39;
+        string name;  // Edition name like 'Monroe'
         uint256 entryPrice; //  The price to enter the room and play Russian Roulette
         uint256 balance;
         address[] players;
@@ -81,7 +81,7 @@ contract RuletkaTestIo {
   }
     
     function enter(uint256 _roomId) public payable {
-        Room storage room = allRooms[_roomId-1]; //if _roomId doesn&#39;t exist in array, exits.
+        Room storage room = allRooms[_roomId-1]; //if _roomId doesn't exist in array, exits.
         
         if(!(msg.sender == CTO || msg.sender == address(this))){
             require(isEligibleToPlay(msg.sender));
@@ -110,7 +110,7 @@ contract RuletkaTestIo {
             require(isEligibleToPlay(msg.sender));
         }
         
-        Room storage room = allRooms[_roomId-1]; //if _roomId doesn&#39;t exist in array, exits.
+        Room storage room = allRooms[_roomId-1]; //if _roomId doesn't exist in array, exits.
         
         require(room.players.length < 6);
         require(msg.value >= room.entryPrice);
@@ -134,7 +134,7 @@ contract RuletkaTestIo {
     
     function executeRoom(uint256 _roomId) public {
         
-        Room storage room = allRooms[_roomId-1]; //if _roomId doesn&#39;t exist in array, exits.
+        Room storage room = allRooms[_roomId-1]; //if _roomId doesn't exist in array, exits.
         
         //Check if the room is really full before shooting people...
         require(room.players.length == 6);
@@ -172,7 +172,7 @@ contract RuletkaTestIo {
     
     function distributeFunds(uint256 _roomId, uint256 _deadSeat) private returns(uint256) {
         
-        Room storage room = allRooms[_roomId-1]; //if _roomId doesn&#39;t exist in array, exits.
+        Room storage room = allRooms[_roomId-1]; //if _roomId doesn't exist in array, exits.
         uint256 balanceToDistribute = SafeMath.div(room.balance,5);
         
         address victim = room.players[_deadSeat];
@@ -251,7 +251,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

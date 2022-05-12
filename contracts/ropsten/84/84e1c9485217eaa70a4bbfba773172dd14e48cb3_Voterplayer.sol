@@ -22,7 +22,7 @@ pragma solidity ^0.4.24;
  * I hope our team gets better and better
  * Thanks every one.
  * 
- * OK!Let&#39;s start the game.
+ * OK!Let's start the game.
  */
 //******************
 //*Ownable contract* 
@@ -166,7 +166,7 @@ contract Voterplayer is VoterServiceImpl{
         uint time = createTime.add(shutTime);
         require(now<time);
         require(_id<=ids);
-        require(msg.sender!=owner,"owner Can&#39;t vote");
+        require(msg.sender!=owner,"owner Can't vote");
         require(balances[msg.sender]>=_value,"balances too low");
         balances[msg.sender]=balances[msg.sender].sub(_value);
         uint eTime = time.sub(300);

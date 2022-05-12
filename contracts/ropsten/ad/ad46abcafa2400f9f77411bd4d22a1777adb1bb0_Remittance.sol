@@ -27,14 +27,14 @@ contract Remittance {
     }
 
     function claim(bytes32 _publicKey, string _privateKey1) public {
-        require(msg.sender != Deposits[_publicKey].Sender, "Cannot claim own balance (request a withdrawal instead)."); // Check isn&#39;t issuer
+        require(msg.sender != Deposits[_publicKey].Sender, "Cannot claim own balance (request a withdrawal instead)."); // Check isn't issuer
 
         Deposits[_publicKey].Claimant = msg.sender; // Set claimant
         Deposits[_publicKey].PrivateKey1 = _privateKey1; // Set private key 1
     }
 
     function approveClaim(bytes32 _publicKey, string _privateKey2) public {
-        require(Deposits[_publicKey].Claimant != msg.sender, "Cannot approve own claim."); // Check isn&#39;t claimant
+        require(Deposits[_publicKey].Claimant != msg.sender, "Cannot approve own claim."); // Check isn't claimant
         require(Deposits[_publicKey].Sender == msg.sender, "Issuer must approve all claims."); // Check is issuer
         require(keccak256(abi.encodePacked(Deposits[_publicKey].PrivateKey1, _privateKey2)) == Deposits[_publicKey].PublicKey, "Invalid private keys.");
 

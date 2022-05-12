@@ -13,7 +13,7 @@ contract NovioCoin_TEST   {
     event Transfer(address indexed from, address indexed to, uint256 value);
 
     function NovioCoin_TEST() public {
-        // Initially assign all tokens to the contract&#39;s creator.
+        // Initially assign all tokens to the contract's creator.
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender, totalSupply);
     }
@@ -21,8 +21,8 @@ contract NovioCoin_TEST   {
     function transfer(address to, uint256 value) public returns (bool success) {
         require(balanceOf[msg.sender] >= value);
 
-        balanceOf[msg.sender] -= value;  // deduct from sender&#39;s balance
-        balanceOf[to] += value;          // add to recipient&#39;s balance
+        balanceOf[msg.sender] -= value;  // deduct from sender's balance
+        balanceOf[to] += value;          // add to recipient's balance
         emit Transfer(msg.sender, to, value);
         return true;
     }

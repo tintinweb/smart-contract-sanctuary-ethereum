@@ -7,7 +7,7 @@ contract MachDogDevents {
         uint256 indexed dogId,	// 
 		address indexed owner   //  
     );
-	// exchange dog&#39;s owner
+	// exchange dog's owner
 	event Exchange
     (
         uint256 indexed dogId,  // 

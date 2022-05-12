@@ -4,7 +4,7 @@ ___________________________________________________________________
   _      _                                        ______           
   |  |  /          /                                /              
 --|-/|-/-----__---/----__----__---_--_----__-------/-------__------
-  |/ |/    /___) /   /   &#39; /   ) / /  ) /___)     /      /   )     
+  |/ |/    /___) /   /   ' /   ) / /  ) /___)     /      /   )     
 __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
 
                                                            
@@ -29,7 +29,7 @@ DDDDDDDDDDDDD             AAAAAAA                   AAAAAAA
                                                            
                                                            
 // ----------------------------------------------------------------------------
-// &#39;Deposit Asset&#39; Token contract with following functionalities:
+// 'Deposit Asset' Token contract with following functionalities:
 //      => Higher control of owner
 //      => SafeMath implementation 
 //
@@ -181,7 +181,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

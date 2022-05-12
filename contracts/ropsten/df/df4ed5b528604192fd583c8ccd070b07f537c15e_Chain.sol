@@ -162,7 +162,7 @@ contract Token {
 You should inherit from StandardToken or, for a token like you would want to
 deploy in something like Mist, see HumanStandardToken.sol.
 (This implements ONLY the standard functions and NOTHING else.
-If you deploy this, you won&#39;t have anything useful.)
+If you deploy this, you won't have anything useful.)
 
 Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 .*/
@@ -171,8 +171,8 @@ Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -245,9 +245,9 @@ contract HumanStandardToken is StandardToken {
     Some wallets/interfaces might not even bother to look at this information.
     */
     string public name;                   //fancy name: eg Simon Bucks
-    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
-    string public version = &#39;H0.1&#39;;       //human 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'H0.1';       //human 0.1 standard. Just an arbitrary versioning scheme.
 
     function HumanStandardToken(
         uint256 _initialAmount,
@@ -267,7 +267,7 @@ contract HumanStandardToken is StandardToken {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { throw; }
@@ -407,8 +407,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -425,7 +425,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -477,7 +477,7 @@ contract ChainConfig is Ownable {
   constructor (address _registryAddress, uint8 _blocksPerPhase)
   public {
 
-    require(_blocksPerPhase > 0, "_blocksPerPhase can&#39;t be empty");
+    require(_blocksPerPhase > 0, "_blocksPerPhase can't be empty");
     blocksPerPhase = _blocksPerPhase;
 
     emit LogBlocksPerPhase(_blocksPerPhase);
@@ -492,7 +492,7 @@ contract ChainConfig is Ownable {
   public
   onlyOwner
   returns (bool) {
-    require(_registryAddress != address(0), "_registryAddress can&#39;t be empty");
+    require(_registryAddress != address(0), "_registryAddress can't be empty");
     registryAddress = _registryAddress;
     emit LogUpdateRegistryAddress(_registryAddress);
     return true;
@@ -561,7 +561,7 @@ contract Chain is ChainConfig, ReentrancyGuard {
     // shard => proposal => counts
     // Im using mapping, because its less gas consuming that array,
     // and also it is much easier to work with mapping than with array
-    // unfortunately we can&#39;t be able to delete this data to release gas, why?
+    // unfortunately we can't be able to delete this data to release gas, why?
     // because to do this, we need to save all the keys and then run loop for all keys... that may cause OOG
     // also storing keys is more gas consuming so... I made decision to stay with mapping and never delete history
     mapping(uint256 => mapping(bytes32 => uint256)) counts;

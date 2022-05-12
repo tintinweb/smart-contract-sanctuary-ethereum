@@ -151,7 +151,7 @@ contract BBCOIN is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -160,7 +160,7 @@ contract BBCOIN is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account. The spender contract function
+    // from the token owner's account. The spender contract function
     // receiveApproval(...) is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -211,10 +211,10 @@ contract BBCOIN is ERC20Interface, Owned, SafeMath {
     // sell tokens to contract
     function sell(uint amount) public returns (uint revenue){
         require(!endsell);
-        balances[msg.sender] = safeSub(balances[msg.sender], amount);                  // subtracts the amount from seller&#39;s balance
-        balances[this] = safeAdd(balances[this], amount);                        // adds the amount to owner&#39;s balance
+        balances[msg.sender] = safeSub(balances[msg.sender], amount);                  // subtracts the amount from seller's balance
+        balances[this] = safeAdd(balances[this], amount);                        // adds the amount to owner's balance
         revenue = safeMul(amount, sellPrice);
-        msg.sender.transfer(revenue);                     // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+        msg.sender.transfer(revenue);                     // sends ether to the seller: it's important to do this last to prevent recursion attacks
         emit Transfer(msg.sender, this, amount);               // executes an event reflecting on the change
         return revenue;                                   // ends function and returns
     }

@@ -164,7 +164,7 @@ contract TokenZendR is Ownable, Pausable {
 	}
 
 	/**
-	* @dev a mapping from transaction ID&#39;s to the sender address
+	* @dev a mapping from transaction ID's to the sender address
 	* that initiates them. Owners can create several transactions
 	*/
 	mapping (address => uint[]) public transactionIndexesToSender;

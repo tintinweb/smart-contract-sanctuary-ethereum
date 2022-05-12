@@ -21,7 +21,7 @@ contract BasicToken is ERC20Basic {
     
     /**
      * @dev The balanceOf function returns the balance of the queried address. This is a constant time function as 
-     * it has the &#39;view&#39; keyword meaning that this function can only read from the contract and not write to it. 
+     * it has the 'view' keyword meaning that this function can only read from the contract and not write to it. 
      * @param _who The address which will be queried
      * @return The total amount of tokens the address holds.
      * */
@@ -53,7 +53,7 @@ contract StandardToken is ERC20, BasicToken {
     
     /**
      * @dev The allowance() funtion gets the total amount of tokens which an owner address has allowed a spender 
-     * address to spend from the owner&#39;s balance.
+     * address to spend from the owner's balance.
      * @param _owner The address of the owner 
      * @param _spender The address of the spender 
      * @return The total allowance
@@ -63,7 +63,7 @@ contract StandardToken is ERC20, BasicToken {
     }
     
     /**
-     * @dev The approve() function lets the owner of tokens (i.e. the &#39;msg.sender&#39;) to allow a spender 
+     * @dev The approve() function lets the owner of tokens (i.e. the 'msg.sender') to allow a spender 
      * to spend up to a certain amount of tokens on behalf of the owner. 
      * @param _spender The address of the spender
      * @param _value The total amount of tokens to allow the spender to spend (hint, this can also be 0 if the owner wants to revoke the allownace of a spender)
@@ -79,8 +79,8 @@ contract StandardToken is ERC20, BasicToken {
     /**
      * @dev The transferFrom() function allows the spender (i.e the msg.sender) to transfer tokens from an 
      * owner which has previously approved the spender to transfer up to a certain amount of tokens from 
-     * the owner&#39;s balance. 
-     * @param _from This is the owner&#39;s address
+     * the owner's balance. 
+     * @param _from This is the owner's address
      * @param _to The address which will be receiving the tokens
      * @param _value The total amount of tokens to transfer 
      * @return true if the function executes successfully, false otherwise

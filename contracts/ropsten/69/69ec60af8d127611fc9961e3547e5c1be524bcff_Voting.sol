@@ -9,7 +9,7 @@ contract Voting {
   mapping (string => bool) votersList;
   mapping (string => bool) hasVoted;
   
-  /* Solidity doesn&#39;t let you create an array of strings yet. We will use an array of bytes32 instead to store
+  /* Solidity doesn't let you create an array of strings yet. We will use an array of bytes32 instead to store
   the list of candidates
   */
   

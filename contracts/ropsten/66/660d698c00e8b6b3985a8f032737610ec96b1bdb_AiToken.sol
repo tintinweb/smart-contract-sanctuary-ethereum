@@ -272,7 +272,7 @@ contract AiToken is ERC20Interface, Owned {
 		sysday = 3600 seconds;//test
 		//cksysday = 8 hours;//test
 		cksysday = 0;
-        version = &#39;1.01&#39;;
+        version = '1.01';
 		balances[this] = _totalSupply;
 		emit Transfer(address(0), this, _totalSupply);
 	}

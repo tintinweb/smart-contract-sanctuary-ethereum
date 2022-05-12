@@ -90,7 +90,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -187,7 +187,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -482,7 +482,7 @@ contract Scale is MintableToken, HasNoEther {
         require(stake(_stakeAmount));
     }
 
-    /// @dev stake function reduces the user&#39;s total available balance and adds it to their staking balance
+    /// @dev stake function reduces the user's total available balance and adds it to their staking balance
     /// @param _value how many tokens a user wants to stake
     function stake(uint256 _value) private returns (bool success) {
 
@@ -567,11 +567,11 @@ contract Scale is MintableToken, HasNoEther {
       uint _nowAsTimingVariable = _now.div(timingVariable);    // Today as a unique value in unix time
       uint _initialStakeTimeInVariable = stakeBalances[msg.sender].initialStakeTime; // When the user started staking as a unique day in unix time
       uint _timePassedSinceStakeInVariable = _nowAsTimingVariable.sub(_initialStakeTimeInVariable); // How much time has passed, in days, since the user started staking.
-      uint _stakePercentages = 0; // Keeps an additive track of the user&#39;s staking percentages over time
+      uint _stakePercentages = 0; // Keeps an additive track of the user's staking percentages over time
       uint _tokensToMint = 0; // How many new Scale tokens to create
       uint _lastUsedVariable;  // Last day the totalScaleStaked was updated
 
-      // Average this msg.sender&#39;s relative percentage ownership of totalScaleStaked throughout each day since they started staking
+      // Average this msg.sender's relative percentage ownership of totalScaleStaked throughout each day since they started staking
       for (uint i = _initialStakeTimeInVariable; i < _nowAsTimingVariable; i++) {
 
         // If the day exists add it to the percentages
@@ -591,10 +591,10 @@ contract Scale is MintableToken, HasNoEther {
 
       }
 
-        // Get the account&#39;s average percentage staked of the total stake over the course of all days they have been staking
+        // Get the account's average percentage staked of the total stake over the course of all days they have been staking
         uint _stakePercentageAverage = calculateFraction(_stakePercentages, _timePassedSinceStakeInVariable, 0);
 
-        // Calculate this account&#39;s mint rate per second while staking
+        // Calculate this account's mint rate per second while staking
         uint _finalMintRate = stakingMintRate.mul(_stakePercentageAverage);
 
         // Account for 18 decimals when calculating the amount of tokens to mint
@@ -603,7 +603,7 @@ contract Scale is MintableToken, HasNoEther {
         // Calculate total tokens to be minted. Multiply by timingVariable to convert back to seconds.
         if (_timePassedSinceStakeInVariable >= 365) {
 
-          // Tokens were staked for the maximum amount of time, one year. Give them one year&#39;s worth of tokens. ( this limit is placed to avoid gas limits)
+          // Tokens were staked for the maximum amount of time, one year. Give them one year's worth of tokens. ( this limit is placed to avoid gas limits)
           _tokensToMint = calculateMintTotal(timingVariable.mul(365), _finalMintRate);
         }
         else {
@@ -618,7 +618,7 @@ contract Scale is MintableToken, HasNoEther {
     // @dev set the new totalStakingHistory mapping to the current timestamp and totalScaleStaked
     function setTotalStakingHistory() private {
 
-      // Get now in terms of the variable staking accuracy (days in Scale&#39;s case)
+      // Get now in terms of the variable staking accuracy (days in Scale's case)
       uint _nowAsTimingVariable = now.div(timingVariable);
 
       // Set the totalStakingHistory as a timestamp of the totalScaleStaked today
@@ -653,7 +653,7 @@ contract Scale is MintableToken, HasNoEther {
         // Determine the token mint amount, determined from the number of seconds passed and the ownerMintRate
         _tokenMintCount = calculateMintTotal(_timePassedSinceLastMint, ownerMintRate);
 
-        // Mint the owner&#39;s tokens; this also increases totalSupply
+        // Mint the owner's tokens; this also increases totalSupply
         _mintingSuccess = mint(msg.sender, _tokenMintCount);
 
         require(_mintingSuccess);
@@ -688,7 +688,7 @@ contract Scale is MintableToken, HasNoEther {
         // Determine the token mint amount, determined from the number of seconds passed and the ownerMintRate
         _tokenMintCount = calculateMintTotal(_timePassedSinceLastMint, poolMintRate);
 
-        // Mint the owner&#39;s tokens; this also increases totalSupply
+        // Mint the owner's tokens; this also increases totalSupply
         _mintingSuccess = mint(pool, _tokenMintCount);
 
         require(_mintingSuccess);

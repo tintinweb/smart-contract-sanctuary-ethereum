@@ -92,7 +92,7 @@ contract TokenHandler is Ownable {
     }
 
     function setTargetToken (address _targetToken) public onlyOwner returns (bool) {
-      require(targetToken == 0x0, &#39;Target token already set&#39;);
+      require(targetToken == 0x0, 'Target token already set');
       targetToken = _targetToken;
       return true;
     }
@@ -136,7 +136,7 @@ contract VestingHandler is TokenHandler {
     }
 
     function setVestingContract (vestingContractVersion _version, address _vestingContract) public onlyOwner returns (bool) {
-        require(vestingContract == 0x0, &#39;Vesting Contract already set&#39;);
+        require(vestingContract == 0x0, 'Vesting Contract already set');
         vestingContract = _vestingContract;
         targetVersion = _version;
         return true;
@@ -155,7 +155,7 @@ contract VestingHandler is TokenHandler {
 
     function _releaseVesting (vestingContractVersion _version, address _vestingContract) internal returns (bool) {
         if (_version != vestingContractVersion.v1) {
-            revert(&#39;You need to pass in the additional argument(s)&#39;);
+            revert('You need to pass in the additional argument(s)');
         }
         IVestingContract(_vestingContract).release();
         return true;
@@ -170,7 +170,7 @@ contract VestingHandler is TokenHandler {
     }
 
     function release () public returns (bool){
-        require(vestingContract != 0x0, &#39;Vesting Contract not set&#39;);
+        require(vestingContract != 0x0, 'Vesting Contract not set');
         return _releaseVesting(targetVersion, vestingContract, targetToken);
     }
 

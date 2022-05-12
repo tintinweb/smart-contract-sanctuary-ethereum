@@ -48,7 +48,7 @@ contract ERC20 {
 
 /**
  * FEATURE 2): MultiOwnable implementation
- * Transactions approved by _multiRequires of _multiOwners&#39; addresses will be executed. 
+ * Transactions approved by _multiRequires of _multiOwners' addresses will be executed. 
 
  * All functions needing unit-tests cannot be INTERNAL
  */
@@ -189,7 +189,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -357,7 +357,7 @@ contract ParcelXGPX is ERC20, MultiOwnable, Pausable, Convertible {
     }
 
     /**
-     * FEATURE 5): &#39;Convertible&#39; implements
+     * FEATURE 5): 'Convertible' implements
      * Below actions would be performed after token being converted into mainchain:
      * - Unsold tokens are discarded.
      * - Tokens sold with bonus will be locked for a period (see Whitepaper).

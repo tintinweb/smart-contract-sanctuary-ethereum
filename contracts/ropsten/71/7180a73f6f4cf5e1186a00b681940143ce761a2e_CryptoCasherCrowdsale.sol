@@ -11,7 +11,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -121,7 +121,7 @@ contract CryptoCasherCrowdsale is Ownable, Crowdsale {
         require(_owner != address(0));
         require(_wallet != address(0));
         owner = _owner;
-        //owner = msg.sender; //for test&#39;s
+        //owner = msg.sender; //for test's
 
         tokenAllocated = tokenAllocated.add(fundAdvisors).add(fundBountyRefferal).add(fundTeam);
     }
@@ -168,7 +168,7 @@ contract CryptoCasherCrowdsale is Ownable, Crowdsale {
 
     function getTotalAmountOfTokens(uint256 _weiAmount) internal view returns (uint256) {
         uint256 currentDate = now;
-        currentDate = 1536575600; //for test&#39;s Fri, 25 Jan 2019 15:00:00 GMT
+        currentDate = 1536575600; //for test's Fri, 25 Jan 2019 15:00:00 GMT
         uint256 currentPeriod = getPeriod(currentDate);
         uint256 amountOfTokens = 0;
         if(0 < currentPeriod && currentPeriod < 7 && _weiAmount >= weiMinSale){
@@ -292,7 +292,7 @@ contract CryptoCasherCrowdsale is Ownable, Crowdsale {
     }
 
     /**
-     * Peterson&#39;s Law Protection
+     * Peterson's Law Protection
      * Claim tokens
      */
     function claimTokens(address _token) public onlyOwner {

@@ -70,7 +70,7 @@ contract LibOrder is
     ));
 
     // A valid order remains fillable until it is expired, fully filled, or cancelled.
-    // An order&#39;s state is unaffected by external factors, like account balances.
+    // An order's state is unaffected by external factors, like account balances.
     enum OrderStatus {
         INVALID,                     // Default value
         INVALID_MAKER_ASSET_AMOUNT,  // Order does not have a valid maker asset amount
@@ -92,14 +92,14 @@ contract LibOrder is
         uint256 makerFee;               // Amount of ZRX paid to feeRecipient by maker when order is filled. If set to 0, no transfer of ZRX from maker to feeRecipient will be attempted.
         uint256 takerFee;               // Amount of ZRX paid to feeRecipient by taker when order is filled. If set to 0, no transfer of ZRX from taker to feeRecipient will be attempted.
         uint256 expirationTimeSeconds;  // Timestamp in seconds at which order expires.          
-        uint256 salt;                   // Arbitrary number to facilitate uniqueness of the order&#39;s hash.     
+        uint256 salt;                   // Arbitrary number to facilitate uniqueness of the order's hash.     
         bytes makerAssetData;           // Encoded data that can be decoded by a specified proxy contract when transferring makerAsset. The last byte references the id of this proxy.
         bytes takerAssetData;           // Encoded data that can be decoded by a specified proxy contract when transferring takerAsset. The last byte references the id of this proxy.
     }
     // solhint-enable max-line-length
 
     struct OrderInfo {
-        uint8 orderStatus;                    // Status that describes order&#39;s validity and fillability.
+        uint8 orderStatus;                    // Status that describes order's validity and fillability.
         bytes32 orderHash;                    // EIP712 hash of the order (see LibOrder.getOrderHash).
         uint256 orderTakerAssetFilledAmount;  // Amount of order that has already been filled.
     }

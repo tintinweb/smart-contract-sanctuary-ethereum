@@ -7,7 +7,7 @@ contract C1 {
 }
 
 contract C2 {
-    C1 d = new C1(4); // To be executed as a part of C2&#39;s constructor
+    C1 d = new C1(4); // To be executed as a part of C2's constructor
     function createC1(uint arg) {
         C1 newC1  = new C1(arg);
     }

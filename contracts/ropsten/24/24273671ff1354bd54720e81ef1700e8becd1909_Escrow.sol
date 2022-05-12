@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -54,7 +54,7 @@ library SafeMath {
  * @title Ownable
  * @dev The Ownable contract has an owner address, and provides basic authorization control
  * functions, this simplifies the implementation of "user permissions". This adds two-phase
- * ownership control to OpenZeppelin&#39;s Ownable class. In this model, the original owner 
+ * ownership control to OpenZeppelin's Ownable class. In this model, the original owner 
  * designates a new owner but does not actually transfer ownership. The new owner then accepts 
  * ownership and completes the transfer.
  */
@@ -170,8 +170,8 @@ contract Pausable is Ownable {
 //   * @dev Multiplies two numbers, throws on overflow.
 //   */
 //   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-//     // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-//     // benefit is lost if &#39;b&#39; is also tested.
+//     // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+//     // benefit is lost if 'b' is also tested.
 //     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
 //     if (a == 0) {
 //       return 0;
@@ -188,7 +188,7 @@ contract Pausable is Ownable {
 //   function div(uint256 a, uint256 b) internal pure returns (uint256) {
 //     // assert(b > 0); // Solidity automatically throws when dividing by 0
 //     // uint256 c = a / b;
-//     // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+//     // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 //     return a / b;
 //   }
 
@@ -873,7 +873,7 @@ contract PermissionedToken is ERC20, Pausable, Lockable {
     }
 
     /** @notice Modifier that checks whether or not a transferFrom operation can
-    * succeed with the given _from and _to address. See transferFrom()&#39;s documentation for
+    * succeed with the given _from and _to address. See transferFrom()'s documentation for
     * more details.
     **/
     modifier transferFromConditionsRequired(address _from, address _to) {
@@ -919,7 +919,7 @@ contract PermissionedToken is ERC20, Pausable, Lockable {
     /**
     * @notice Allows user to mint if they have the appropriate permissions. User generally
     * has to be some sort of centralized authority.
-    * @dev Should be access-restricted with the &#39;requiresPermission&#39; modifier when implementing.
+    * @dev Should be access-restricted with the 'requiresPermission' modifier when implementing.
     * @param _to The address of the receiver
     * @param _amount The number of tokens to mint
     */
@@ -930,7 +930,7 @@ contract PermissionedToken is ERC20, Pausable, Lockable {
     /**
     * @notice Allows user to mint if they have the appropriate permissions. User generally
     * is just a "whitelisted" user (i.e. a user registered with the fiat gateway.)
-    * @dev Should be access-restricted with the &#39;requiresPermission&#39; modifier when implementing.
+    * @dev Should be access-restricted with the 'requiresPermission' modifier when implementing.
     * @param _amount The number of tokens to burn
     * @return `true` if successful and `false` if unsuccessful
     */
@@ -952,10 +952,10 @@ contract PermissionedToken is ERC20, Pausable, Lockable {
 
     /**
      * @dev Increase the amount of tokens that an owner allowed to a spender.
-     * @notice increaseApproval should be used instead of approve when the user&#39;s allowance
+     * @notice increaseApproval should be used instead of approve when the user's allowance
      * is greater than 0. Using increaseApproval protects against potential double-spend attacks
      * by moving the check of whether the user has spent their allowance to the time that the transaction 
-     * is mined, removing the user&#39;s ability to double-spend
+     * is mined, removing the user's ability to double-spend
      * @param _spender The address which will spend the funds.
      * @param _addedValue The amount of tokens to increase the allowance by.
      */
@@ -967,10 +967,10 @@ contract PermissionedToken is ERC20, Pausable, Lockable {
 
     /**
      * @dev Decrease the amount of tokens that an owner allowed to a spender.
-     * @notice decreaseApproval should be used instead of approve when the user&#39;s allowance
+     * @notice decreaseApproval should be used instead of approve when the user's allowance
      * is greater than 0. Using decreaseApproval protects against potential double-spend attacks
      * by moving the check of whether the user has spent their allowance to the time that the transaction 
-     * is mined, removing the user&#39;s ability to double-spend
+     * is mined, removing the user's ability to double-spend
      * @param _spender The address which will spend the funds.
      * @param _subtractedValue The amount of tokens to decrease the allowance by.
      */
@@ -983,7 +983,7 @@ contract PermissionedToken is ERC20, Pausable, Lockable {
     /**
     * @notice Destroy the tokens owned by a blacklisted account. This function can generally
     * only be called by a central authority.
-    * @dev Should be access-restricted with the &#39;requiresPermission&#39; modifier when implementing.
+    * @dev Should be access-restricted with the 'requiresPermission' modifier when implementing.
     * @param _who Account to destroy tokens from. Must be a blacklisted account.
     */
     function destroyBlacklistedTokens(address _who, uint256 _amount) public userBlacklisted(_who) whenNotPaused requiresPermission {
@@ -995,7 +995,7 @@ contract PermissionedToken is ERC20, Pausable, Lockable {
     * @notice Allows a central authority to approve themselves as a spender on a blacklisted account.
     * By default, the allowance is set to the balance of the blacklisted account, so that the
     * authority has full control over the account balance.
-    * @dev Should be access-restricted with the &#39;requiresPermission&#39; modifier when implementing.
+    * @dev Should be access-restricted with the 'requiresPermission' modifier when implementing.
     * @param _blacklistedAccount The blacklisted account.
     */
     function approveBlacklistedAddressSpender(address _blacklistedAccount) 
@@ -1066,7 +1066,7 @@ contract PermissionedToken is ERC20, Pausable, Lockable {
     * execute this dummy function. This function effectively acts as a marker 
     * to indicate that a user is blacklisted. We include this function to be consistent with our
     * invariant that every possible userPermission (listed in Regulator) enables access to a single 
-    * PermissionedToken function. Thus, the &#39;BLACKLISTED&#39; permission gives access to this function
+    * PermissionedToken function. Thus, the 'BLACKLISTED' permission gives access to this function
     * @return `true` if successful
     */
     function blacklisted() public view requiresPermission returns (bool) {
@@ -1109,7 +1109,7 @@ contract PermissionedToken is ERC20, Pausable, Lockable {
     function _burn(address _tokensOf, uint256 _amount) internal {
         require(_amount <= balanceOf(_tokensOf),"not enough balance to burn");
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
         tokenStorage.subBalance(_tokensOf, _amount);
         tokenStorage.subTotalSupply(_amount);
         emit Burn(_tokensOf, _amount);
@@ -1227,7 +1227,7 @@ contract WhitelistedToken is PermissionedToken {
 
     /**
     * @notice Mints CarbonUSD for the user. Stores the WT0 that backs the CarbonUSD
-    * into the CarbonUSD contract&#39;s escrow account.
+    * into the CarbonUSD contract's escrow account.
     * @param _to The address of the receiver
     * @param _amount The number of CarbonTokens to mint to user
     */
@@ -1237,7 +1237,7 @@ contract WhitelistedToken is PermissionedToken {
 
     /**
     * @notice Converts WT0 to CarbonUSD for the user. Stores the WT0 that backs the CarbonUSD
-    * into the CarbonUSD contract&#39;s escrow account.
+    * into the CarbonUSD contract's escrow account.
     * @param _amount The number of Whitelisted tokens to convert
     */
     function convertWT(uint256 _amount) public requiresPermission whenNotPaused {
@@ -1335,7 +1335,7 @@ contract CarbonDollarRegulator is Regulator {
 /**
 * @title CarbonDollar
 * @notice The main functionality for the CarbonUSD metatoken. (CarbonUSD is just a proxy
-* that implements this contract&#39;s functionality.) This is a permissioned token, so users have to be 
+* that implements this contract's functionality.) This is a permissioned token, so users have to be 
 * whitelisted before they can do any mint/burn/convert operation. Every CarbonDollar token is backed by one
 * whitelisted stablecoin credited to the balance of this contract address.
 */
@@ -1428,15 +1428,15 @@ contract CarbonDollar is PermissionedToken {
      * @notice user can convert CarbonUSD umbrella token into a whitelisted stablecoin. 
      * @param stablecoin represents the type of coin the users wishes to receive for burning carbonUSD
      * @param _amount Amount of CarbonUSD to convert.
-     * we credit the user&#39;s account at the sender address with the _amount minus the percentage fee we want to charge.
+     * we credit the user's account at the sender address with the _amount minus the percentage fee we want to charge.
      */
     function convertCarbonDollar(address stablecoin, uint256 _amount) public requiresPermission whenNotPaused  {
         require(isWhitelisted(stablecoin), "Stablecoin must be whitelisted prior to setting conversion fee");
         WhitelistedToken whitelisted = WhitelistedToken(stablecoin);
-        require(whitelisted.balanceOf(address(this)) >= _amount, "Carbon escrow account in WT0 doesn&#39;t have enough tokens for burning");
+        require(whitelisted.balanceOf(address(this)) >= _amount, "Carbon escrow account in WT0 doesn't have enough tokens for burning");
  
         // Send back WT0 to calling user, but with a fee reduction.
-        // Transfer this fee into the whitelisted token&#39;s CarbonDollar account (this contract&#39;s address)
+        // Transfer this fee into the whitelisted token's CarbonDollar account (this contract's address)
         uint256 chargedFee = tokenStorage_CD.computeFee(_amount, computeFeeRate(stablecoin));
         uint256 feedAmount = _amount.sub(chargedFee);
         _burn(msg.sender, _amount);
@@ -1454,9 +1454,9 @@ contract CarbonDollar is PermissionedToken {
     function burnCarbonDollar(address stablecoin, uint256 _amount) public requiresPermission whenNotPaused {
         require(isWhitelisted(stablecoin), "Stablecoin must be whitelisted prior to setting conversion fee");
         WhitelistedToken whitelisted = WhitelistedToken(stablecoin);
-        require(whitelisted.balanceOf(address(this)) >= _amount, "Carbon escrow account in WT0 doesn&#39;t have enough tokens for burning");
+        require(whitelisted.balanceOf(address(this)) >= _amount, "Carbon escrow account in WT0 doesn't have enough tokens for burning");
  
-        // Burn user&#39;s CUSD, but with a fee reduction.
+        // Burn user's CUSD, but with a fee reduction.
         uint256 chargedFee = tokenStorage_CD.computeFee(_amount, computeFeeRate(stablecoin));
         uint256 feedAmount = _amount.sub(chargedFee);
         _burn(msg.sender, _amount);
@@ -1482,7 +1482,7 @@ contract CarbonDollar is PermissionedToken {
     /** Computes fee percentage associated with burning into a particular stablecoin.
      * @param stablecoin The stablecoin whose fee will be charged. Precondition: is a whitelisted
      * stablecoin.
-     * @return The fee that will be charged. If the stablecoin&#39;s fee is not set, the default
+     * @return The fee that will be charged. If the stablecoin's fee is not set, the default
      * fee is returned.
      */
     function computeFeeRate(address stablecoin) public view returns (uint256 feeRate) {
@@ -1527,8 +1527,8 @@ contract CarbonDollar is PermissionedToken {
  * @title C6 Escrow Contract
  * @dev Contract allows to send CUSD through the Escrow "Agent"
  * 
- * Only Agent can initiate withdrawal to recipient&#39;s address. 
- * Agent cannot choose recipient&#39;s address without 
+ * Only Agent can initiate withdrawal to recipient's address. 
+ * Agent cannot choose recipient's address without 
  * transit private key generated by sender. 
  * 
  * Sender is responsible to provide transit private key
@@ -1545,7 +1545,7 @@ contract CarbonDollar is PermissionedToken {
  * 
  * Agent charges a commission to help pay transaction fees.
  * 
- * Sender is able to cancel transfer if it&#39;s not yet cancelled or withdrawn
+ * Sender is able to cancel transfer if it's not yet cancelled or withdrawn
  * by recipient.
  * (See cancelTransfer method for details.)
  */
@@ -1556,7 +1556,7 @@ contract Escrow is Pausable {
   // @dev in tenths of a percent, i.e. commissionFee=1 means that agent collects 0.1% of deposit amount
   uint public commissionFeeRate;
 
-  // agent&#39;s address
+  // agent's address
   address public agent;
 
   // CUSD token address
@@ -1601,9 +1601,9 @@ contract Escrow is Pausable {
 
   /**
    * @dev Contructor that sets msg.sender as owner in Ownable, set the agent,
-   * and sets agent&#39;s fixed commission fee.
-   * @param _commissionFeeRate uint Agent&#39;s fixed commission for each transfer
-   * @param _agent address Agent can initiate withdrawal to recipient&#39;s address
+   * and sets agent's fixed commission fee.
+   * @param _commissionFeeRate uint Agent's fixed commission for each transfer
+   * @param _agent address Agent can initiate withdrawal to recipient's address
    * @param _cusd address The active Carbon Dollar that this Escrow will exchange
    */
   constructor(uint _commissionFeeRate, address _agent, address _cusd) public {
@@ -1650,7 +1650,7 @@ contract Escrow is Pausable {
 					    depositAfterFee
 					    );
 
-    // transfer agent&#39;s commission so contract only exactly all deposited CUSD after-fee deposits
+    // transfer agent's commission so contract only exactly all deposited CUSD after-fee deposits
     require(CarbonDollar(cusd).transfer(agent, fee), "CUSD transfer unsuccessful");
 
     // log deposit event
@@ -1658,10 +1658,10 @@ contract Escrow is Pausable {
   }
 
   /**
-   * @dev Change agent&#39;s commission fee rate.
+   * @dev Change agent's commission fee rate.
    * Only owner can change a commision fee.
    * 
-   * @param _newCommissionFeeRate uint New agent&#39;s fixed commission
+   * @param _newCommissionFeeRate uint New agent's fixed commission
    * @return True if success.
    */
   function changeCommissionFeeRate(uint _newCommissionFeeRate)
@@ -1677,10 +1677,10 @@ contract Escrow is Pausable {
 
   
   /**
-   * @dev Change agent&#39;s address.
-   * Only owner can change agent&#39;s address.
+   * @dev Change agent's address.
+   * Only owner can change agent's address.
    * 
-   * @param _newAgent address New agent&#39;s address
+   * @param _newAgent address New agent's address
    */
   function changeAgent(address _newAgent)
                           public
@@ -1726,7 +1726,7 @@ contract Escrow is Pausable {
 
     delete pendingTransfers[_transitAddress];
     
-    // transfer CUSD to sender&#39;s address
+    // transfer CUSD to sender's address
     require(transferOrder.amount <= CarbonDollar(cusd).balanceOf(address(this)),"not enough CUSD to transfer");
     require(CarbonDollar(cusd).transfer(msg.sender, transferOrder.amount), "CUSD transfer unsuccessful");
 
@@ -1735,7 +1735,7 @@ contract Escrow is Pausable {
   }
 
   /**
-   * @dev Withdraw transfer to recipient&#39;s address if it is correctly signed
+   * @dev Withdraw transfer to recipient's address if it is correctly signed
    * with private key for verification public key assigned to transfer.
    * 
    * @param _transitAddress transit address assigned to transfer
@@ -1766,7 +1766,7 @@ contract Escrow is Pausable {
 
     delete pendingTransfers[_transitAddress];
 
-    // transfer CUSD to recipient&#39;s address
+    // transfer CUSD to recipient's address
     require(transferOrder.amount <= CarbonDollar(cusd).balanceOf(address(this)),"not enough CUSD to transfer");
     require(CarbonDollar(cusd).transfer(_recipient, transferOrder.amount), "CUSD transfer unsuccessful");
 

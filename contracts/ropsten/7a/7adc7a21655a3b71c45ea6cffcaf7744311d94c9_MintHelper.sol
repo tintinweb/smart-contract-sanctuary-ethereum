@@ -239,7 +239,7 @@ contract MintHelper is Ownable {
 
 
     function transfer_single_token_balances(address tokenAddress){
-        ERC20Interface t = ERC20Interface(tokenAddress); // BAT&#39;s is 0x0D8775F648430679A709E98d2b0Cb6250d2887EF
+        ERC20Interface t = ERC20Interface(tokenAddress); // BAT's is 0x0D8775F648430679A709E98d2b0Cb6250d2887EF
         uint totalReward = t.balanceOf(address(this));
         uint minterReward = totalReward.mul(minterFeePercent).div(100);
         uint payoutReward = totalReward.sub(minterReward);

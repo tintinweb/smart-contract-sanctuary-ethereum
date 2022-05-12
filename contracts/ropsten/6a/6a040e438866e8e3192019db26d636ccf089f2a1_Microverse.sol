@@ -141,8 +141,8 @@ library SafeMath {
      * @dev Multiplies two numbers, reverts on overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -160,7 +160,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -335,7 +335,7 @@ contract Microverse is
 
     function _sendToTeam(uint256 amount) private {
         if (teamSize == 0) {
-            // If team hasn&#39;t been set, treat contract owner as &#39;team&#39;
+            // If team hasn't been set, treat contract owner as 'team'
             asyncSend(owner, amount);
         } else {
             uint256 perTeamMemberFee = amount.div(teamSize);
@@ -379,7 +379,7 @@ contract Microverse is
     function buyTileAuction(uint8 tileId, uint256 newPrice, address referrer) public payable atStage(Stage.DutchAuction) {
         require(
             tileToOwner[tileId] == address(0) && tileToPrice[tileId] == 0,
-            "Can&#39;t buy a tile that&#39;s already been auctioned off"
+            "Can't buy a tile that's already been auctioned off"
         );
 
         uint256 tax = _priceToTax(newPrice);
@@ -409,7 +409,7 @@ contract Microverse is
     function _distributeAuctionTax(uint256 tax, address referrer) private {
         _distributeLandholderTax(_totalLandholderTax(tax));
 
-        // NOTE: Because no notion of &#39;current jackpot&#39;, everything added to next pot
+        // NOTE: Because no notion of 'current jackpot', everything added to next pot
         uint256 totalJackpotTax = _jackpotTax(tax).add(_nextPotTax(tax));
         nextJackpot = nextJackpot.add(totalJackpotTax);
 
@@ -440,7 +440,7 @@ contract Microverse is
     function endAuction() private {
         require(
             numBoughtTiles >= numTiles,
-            "Can&#39;t end auction if are unbought tiles"
+            "Can't end auction if are unbought tiles"
         );
 
         stage = Stage.GameRounds;
@@ -477,7 +477,7 @@ contract Microverse is
     uint256 public jackpot;
     uint256 public nextJackpot;
 
-    // Only emitted if owner doesn&#39;t *also* change
+    // Only emitted if owner doesn't *also* change
     event TilePriceChanged(
         uint8 indexed tileId,
         address indexed owner,
@@ -538,7 +538,7 @@ contract Microverse is
     modifier duringRound() {
         require(
             !_roundOver(),
-            "Round can&#39;t be over!"
+            "Round can't be over!"
         );
         _;
     }
@@ -577,7 +577,7 @@ contract Microverse is
         duringRound {
         require(
             tileToOwner[tileId] == msg.sender,
-            "Can&#39;t set tile price for a tile you don&#39;t own!"
+            "Can't set tile price for a tile you don't own!"
         );
 
         uint256 tax = _priceToTax(newPrice);
@@ -591,7 +591,7 @@ contract Microverse is
         _distributeTax(msg.value, referrer);
         _changeTilePrice(tileId, newPrice);
 
-        // NOTE: Currently we extend round for &#39;every&#39; tile price change. Alternatively could do only on
+        // NOTE: Currently we extend round for 'every' tile price change. Alternatively could do only on
         // increases or decreases or changes exceeding some magnitude
         _extendRound();
         _logRoundExtensionVolume(msg.value);
@@ -607,7 +607,7 @@ contract Microverse is
         address oldOwner = tileToOwner[tileId];
         require(
             oldOwner != msg.sender,
-            "Can&#39;t buy a tile you already own"
+            "Can't buy a tile you already own"
         );
 
         uint256 tax = _priceToTax(newPrice);
@@ -688,7 +688,7 @@ contract Microverse is
 
         // distribute landholder things
         for (i = minTileId; i <= maxTileId; i++) {
-            // NOTE: We don&#39;t exclude the jackpot winner(s) here, so the winner(s) is paid &#39;twice&#39;
+            // NOTE: We don't exclude the jackpot winner(s) here, so the winner(s) is paid 'twice'
             uint256 landholderAllocation = complements[i].mul(landholderJackpot).div(totalPriceComplement);
 
             asyncSend(tileToOwner[i], landholderAllocation);

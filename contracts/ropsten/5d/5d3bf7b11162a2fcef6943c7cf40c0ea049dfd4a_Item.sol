@@ -41,8 +41,8 @@ contract Item is ERC20 {
     mapping(bytes => bool) signatures;
    
     uint256 internal totalSupply_ = 0;
-    string public name = &#39;xxx&#39;;
-    string public symbol = &#39;xxx&#39;;
+    string public name = 'xxx';
+    string public symbol = 'xxx';
     uint public decimals = 0;
 
     constructor(address _initialHolder, uint256 _initialValues, string _symbol,string _name) {

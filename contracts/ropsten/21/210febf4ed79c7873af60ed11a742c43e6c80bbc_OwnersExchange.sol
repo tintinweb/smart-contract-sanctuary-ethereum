@@ -33,7 +33,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -229,7 +229,7 @@ contract OwnersExchange is Ownable {
      */
     function withdrawFeeToken(uint256 _value) public {
         uint index = addressRegister(msg.sender);
-        require(feeBalances[index] >= _value, "You&#39;re withdrawing more than your balance");
+        require(feeBalances[index] >= _value, "You're withdrawing more than your balance");
         feeBalances[index] = feeBalances[index].sub(_value);
         totalFees = totalFees.sub(_value);
         if (feeBalances[index] == 0) {
@@ -243,7 +243,7 @@ contract OwnersExchange is Ownable {
         @param _fee The percentage of fees to be taken in LINK
      */
     function setFee(uint _fee) public onlyOwner {
-        require(_fee <= 500 finney, "Fees can&#39;t be more than 50%");
+        require(_fee <= 500 finney, "Fees can't be more than 50%");
         fee = _fee;
     }
 
@@ -457,7 +457,7 @@ contract OwnersExchange is Ownable {
      */
     function withdrawFeesToPoolOwners() public {
         uint feeBalance = feeBalances[0];
-        require(feeBalance > lockedFees, "Contract doesn&#39;t have a withdrawable fee balance");
+        require(feeBalance > lockedFees, "Contract doesn't have a withdrawable fee balance");
         feeBalances[0] = lockedFees;
         uint amount = feeBalance.sub(lockedFees);
         totalFees = totalFees.sub(amount);
@@ -489,7 +489,7 @@ contract OwnersExchange is Ownable {
 
     /**
         @dev Get a batch of 10 orders by a given array of keys
-        @dev ID&#39;s has to be equal or less than 10 in length, or an empty response is given
+        @dev ID's has to be equal or less than 10 in length, or an empty response is given
         @param _start The starting index in the order book to return from
      */
     function getOrders(uint _start) public view returns (

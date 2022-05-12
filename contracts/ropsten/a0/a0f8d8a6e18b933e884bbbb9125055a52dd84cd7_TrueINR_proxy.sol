@@ -5,7 +5,7 @@ ___________________________________________________________________
   _      _                                        ______           
   |  |  /          /                                /              
 --|-/|-/-----__---/----__----__---_--_----__-------/-------__------
-  |/ |/    /___) /   /   &#39; /   ) / /  ) /___)     /      /   )     
+  |/ |/    /___) /   /   ' /   ) / /  ) /___)     /      /   )     
 __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
     
     
@@ -19,7 +19,7 @@ __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
                                                                
                                                                
 // ----------------------------------------------------------------------------
-// &#39;True INR&#39; Stable coin contract with following features
+// 'True INR' Stable coin contract with following features
 //      => ERC20 Compliance
 //      => Higher degree of control by owner - safeguard functionality
 //      => SafeMath implementation 
@@ -58,7 +58,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -232,7 +232,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] = balanceOf[_from].sub(_value);                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);             // Subtract from the sender's allowance
         totalSupply = totalSupply.sub(_value);                              // Update totalSupply
         emit  Burn(_from, _value);
         return true;
@@ -366,7 +366,7 @@ contract Proxy {
 
   /**
    * @dev Delegates execution to an implementation contract.
-   * This is a low level function that doesn&#39;t return to its internal call site.
+   * This is a low level function that doesn't return to its internal call site.
    * It will return to the external caller whatever the implementation returns.
    * @param implementation Address to delegate.
    */
@@ -378,7 +378,7 @@ contract Proxy {
       calldatacopy(0, 0, calldatasize)
 
       // Call the implementation.
-      // out and outsize are 0 because we don&#39;t know the size yet.
+      // out and outsize are 0 because we don't know the size yet.
       let result := delegatecall(gas, implementation, 0, calldatasize, 0, 0)
 
       // Copy the returned data.

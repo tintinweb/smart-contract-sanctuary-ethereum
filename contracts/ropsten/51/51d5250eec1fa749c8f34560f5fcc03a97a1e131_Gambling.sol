@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -158,8 +158,8 @@ contract Gambling {
 	}
 
 	function buyRoundKey(uint roundId) public payable {
-		require(rounds[roundId].start > 0, &#39;this round does not exist&#39;);
-		require(rounds[roundId].ended == false, &#39;this round is actived&#39;);
+		require(rounds[roundId].start > 0, 'this round does not exist');
+		require(rounds[roundId].ended == false, 'this round is actived');
 		rounds[roundId].curKeyNo++;
 		if (rounds[roundId].curKeyNo < dividedKeyNo) {
 			require(msg.value == initialKeyPrice);
@@ -193,8 +193,8 @@ contract Gambling {
 	}
 
 	function endRound(uint roundId) private {
-		require(rounds[roundId].start > 0, &#39;this round does not exist&#39;);
-		require(rounds[roundId].ended == false, &#39;this round is ended&#39;);
+		require(rounds[roundId].start > 0, 'this round does not exist');
+		require(rounds[roundId].ended == false, 'this round is ended');
 		rounds[roundId].ended = true;
 		emit Ended(roundId, rounds[roundId].ended);
 		if (rounds[roundId].amtPot > 0) {
@@ -205,7 +205,7 @@ contract Gambling {
 	}
 
 	function roundWithdraw(uint roundId) public {
-		require(rounds[roundId].start > 0, &#39;this round does not exist&#39;);
+		require(rounds[roundId].start > 0, 'this round does not exist');
 		uint current = now;
 		uint jackDrawAmount;
 		uint bonusDrawAmount;
@@ -244,35 +244,35 @@ contract Gambling {
 				}
 			}
 		}
-		require(bonusDrawAmount <= rounds[roundId].bonusPot, &#39;this round bonusPot is not enough&#39;);
-		require(jackDrawAmount.add(winnerDrawAmount) <= rounds[roundId].jackPot, &#39;this round jackPot is not enough&#39;);
+		require(bonusDrawAmount <= rounds[roundId].bonusPot, 'this round bonusPot is not enough');
+		require(jackDrawAmount.add(winnerDrawAmount) <= rounds[roundId].jackPot, 'this round jackPot is not enough');
 		rounds[roundId].bonusPot = rounds[roundId].bonusPot.sub(bonusDrawAmount);
 		rounds[roundId].jackPot = rounds[roundId].jackPot.sub(jackDrawAmount).sub(winnerDrawAmount);
 		calculatedDrawAmount = bonusDrawAmount.add(jackDrawAmount).add(winnerDrawAmount);
-		require(calculatedDrawAmount > 0, &#39;calculatedDrawAmount is illegal&#39;);
+		require(calculatedDrawAmount > 0, 'calculatedDrawAmount is illegal');
 		msg.sender.transfer(calculatedDrawAmount);
 		emit WithDrawCompleted(roundId, jackDrawAmount, bonusDrawAmount, winnerDrawAmount);
 	}
 
 	function revokeRound(uint roundId) public {
-		require(rounds[roundId].start > 0, &#39;this round does not exist&#39;);
-		require(rounds[roundId].curKeyNo < dividedKeyNo, &#39;ico is successful&#39;);
+		require(rounds[roundId].start > 0, 'this round does not exist');
+		require(rounds[roundId].curKeyNo < dividedKeyNo, 'ico is successful');
 		uint current = now;
 		if (current >= rounds[roundId].end && rounds[roundId].ended == false) {
 			endRound(roundId);
 		}
-		require(rounds[roundId].ended == true, &#39;this round is actived&#39;);
+		require(rounds[roundId].ended == true, 'this round is actived');
 		uint revokedAmount;
 		for (uint index; index < roundPlayerKeys[roundId][msg.sender].length; index++) {
 			if (roundPlayerKeys[roundId][msg.sender][index] != 0) {
-				require(revokedAmount.add(initialKeyPrice.mul(9).div(10)) <= rounds[roundId].jackPot, &#39;this round jackPot is not enough&#39;);
+				require(revokedAmount.add(initialKeyPrice.mul(9).div(10)) <= rounds[roundId].jackPot, 'this round jackPot is not enough');
 				revokedAmount = revokedAmount.add(initialKeyPrice.mul(9).div(10));
 				delete roundPlayerKeys[roundId][msg.sender][index];
 			}
 		}
-		require(revokedAmount <= rounds[roundId].jackPot, &#39;this round jackPot is not enough&#39;);
+		require(revokedAmount <= rounds[roundId].jackPot, 'this round jackPot is not enough');
 		rounds[roundId].jackPot = rounds[roundId].jackPot.sub(revokedAmount);
-		require(revokedAmount > 0, &#39;revokedAmount is illegal&#39;);
+		require(revokedAmount > 0, 'revokedAmount is illegal');
 		msg.sender.transfer(revokedAmount);
 		emit revokeCompleted(roundId, revokedAmount);
 	}

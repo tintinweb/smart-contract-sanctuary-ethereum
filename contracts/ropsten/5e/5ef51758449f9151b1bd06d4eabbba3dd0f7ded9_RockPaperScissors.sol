@@ -84,8 +84,8 @@ contract RockPaperScissors {
 
     function joinGame(bytes32 _inviteCode) public {
         require(Games[_inviteCode].Initialized == true, "Game does not exist."); // Check game exists
-        require(Games[_inviteCode].Players[1] == 0, "Game already full."); // Check game isn&#39;t full
-        require(Games[_inviteCode].RoundsPlayed == 0, "Game already started."); // Check game hasn&#39;t already started
+        require(Games[_inviteCode].Players[1] == 0, "Game already full."); // Check game isn't full
+        require(Games[_inviteCode].RoundsPlayed == 0, "Game already started."); // Check game hasn't already started
 
         Games[_inviteCode].Players[emptyIndex(Games[_inviteCode].Players)] = msg.sender; // Set player
 
@@ -94,7 +94,7 @@ contract RockPaperScissors {
 
     function commitMove(bytes32 _inviteCode, bytes32 _encryptedMove) public {
         require(Games[_inviteCode].Initialized == true, "Game does not exit"); // Check game exists
-        require(Games[_inviteCode].RoundsPlayed != 3, "Game already finished."); // Check game hasn&#39;t already ended
+        require(Games[_inviteCode].RoundsPlayed != 3, "Game already finished."); // Check game hasn't already ended
         require(isIn(msg.sender, Games[_inviteCode].Players), "Player not in game."); // Check player is in game
         require(Games[_inviteCode].Players[0] != address(0), "Not enough players."); // Check enough players
 
@@ -103,13 +103,13 @@ contract RockPaperScissors {
 
     function revealMove(bytes32 _inviteCode, uint _move) public {
         require(Games[_inviteCode].Commits[msg.sender] != 0 && Games[_inviteCode].Commits[otherPlayer(msg.sender, Games[_inviteCode].Players)] != 0, "Not all players have committed a move yet."); // Check committed
-        require(keccak256(abi.encodePacked(_move)) == Games[_inviteCode].Commits[msg.sender], "Invalid move (doesn&#39;t match commit)");
+        require(keccak256(abi.encodePacked(_move)) == Games[_inviteCode].Commits[msg.sender], "Invalid move (doesn't match commit)");
         require(_move > 0 && _move < 4, "Invalid move"); // Check for valid move
         require(Games[_inviteCode].Initialized == true, "Game does not exist."); // Check game exists
-        require(Games[_inviteCode].RoundsPlayed != 3, "Game already finished."); // Check game hasn&#39;t already ended
+        require(Games[_inviteCode].RoundsPlayed != 3, "Game already finished."); // Check game hasn't already ended
         require(isIn(msg.sender, Games[_inviteCode].Players), "Player not in game."); // Check player is in game
         require(Games[_inviteCode].Players[0] != address(0), "Not enough players."); // Check enough players
-        require(Games[_inviteCode].Moves[msg.sender].length <= Games[_inviteCode].Moves[otherPlayer(msg.sender, Games[_inviteCode].Players)].length, "Other player hasn&#39;t moved yet."); // Check other player moved
+        require(Games[_inviteCode].Moves[msg.sender].length <= Games[_inviteCode].Moves[otherPlayer(msg.sender, Games[_inviteCode].Players)].length, "Other player hasn't moved yet."); // Check other player moved
 
         Games[_inviteCode].Moves[msg.sender].length++; // Increment capacity
         Games[_inviteCode].Moves[msg.sender][Games[_inviteCode].RoundsPlayed] = _move; // Append move
@@ -121,7 +121,7 @@ contract RockPaperScissors {
             uint PlayerOneMove = Games[_inviteCode].Moves[msg.sender][Games[_inviteCode].RoundsPlayed]; // Fetch sender move
             uint OtherPlayerMove = Games[_inviteCode].Moves[otherPlayer(msg.sender, Games[_inviteCode].Players)][Games[_inviteCode].RoundsPlayed]; // Fetch other player move
 
-            if (PlayerOneMove != OtherPlayerMove) { // Check didn&#39;t make same move
+            if (PlayerOneMove != OtherPlayerMove) { // Check didn't make same move
                 Games[_inviteCode].RoundWinners.length++; // Increment capacity
 
                 if (PlayerOneMove == 1 || OtherPlayerMove == 1) { // Check for rock
@@ -185,7 +185,7 @@ contract RockPaperScissors {
 
     function bet(bytes32 _inviteCode) public payable {
         require(Games[_inviteCode].Initialized == true, "Game does not exist."); // Check game exists
-        require(Games[_inviteCode].RoundsPlayed == 0, "Game already started."); // Check game hasn&#39;t already started
+        require(Games[_inviteCode].RoundsPlayed == 0, "Game already started."); // Check game hasn't already started
         require(isIn(msg.sender, Games[_inviteCode].Players), "Player not in game."); // Check player is in game
 
         Games[_inviteCode].Bets[msg.sender] += msg.value; // Add bet
@@ -195,9 +195,9 @@ contract RockPaperScissors {
 
     function claimBet(bytes32 _inviteCode) public {
         require(Games[_inviteCode].Initialized == true, "Game does not exist."); // Check game exists
-        require(Games[_inviteCode].RoundsPlayed == 3, "Game hasn&#39;t finished."); // Check game hasn&#39;t already started
+        require(Games[_inviteCode].RoundsPlayed == 3, "Game hasn't finished."); // Check game hasn't already started
         require(isIn(msg.sender, Games[_inviteCode].Players), "Player not in game."); // Check player is in game
-        require(Games[_inviteCode].Winner == msg.sender, "Player didn&#39;t win game."); // Check won game
+        require(Games[_inviteCode].Winner == msg.sender, "Player didn't win game."); // Check won game
 
         uint256 betVal = Games[_inviteCode].Bets[msg.sender].add(Games[_inviteCode].Bets[otherPlayer(msg.sender, Games[_inviteCode].Players)]); // Calculate reward
 
@@ -262,8 +262,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
         return 0;
@@ -281,7 +281,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }

@@ -153,7 +153,7 @@ contract ClockAuctionBase {
         Auction storage auction = tokenIdToAuction[_tokenId];
 
         // Explicitly check that this auction is currently live.
-        // (Because of how Ethereum mappings work, we can&#39;t just count
+        // (Because of how Ethereum mappings work, we can't just count
         // on the lookup above failing. An invalid _tokenId will just
         // return an auction object that is all zeros.)
         require(_isOnAuction(auction));
@@ -167,14 +167,14 @@ contract ClockAuctionBase {
         address seller = auction.seller;
 
         // The bid is good! Remove the auction before sending the fees
-        // to the sender so we can&#39;t have a reentrancy attack.
+        // to the sender so we can't have a reentrancy attack.
         _removeAuction(_tokenId);
 
         // Transfer proceeds to seller (if there are any!)
         if (price > 0) {
-            // Calculate the auctioneer&#39;s cut.
+            // Calculate the auctioneer's cut.
             // (NOTE: _computeCut() is guaranteed to return a
-            // value <= price, so this subtraction can&#39;t go negative.)
+            // value <= price, so this subtraction can't go negative.)
             uint256 auctioneerCut = _computeCut(price);
             uint256 sellerProceeds = price - auctioneerCut;
 
@@ -184,7 +184,7 @@ contract ClockAuctionBase {
             // a contract with an invalid fallback function. We explicitly
             // guard against reentrancy attacks by removing the auction
             // before calling transfer(), and the only thing the seller
-            // can DoS is the sale of their own asset! (And if it&#39;s an
+            // can DoS is the sale of their own asset! (And if it's an
             // accident, they can call cancelAuction(). )
             seller.transfer(sellerProceeds);
         }
@@ -231,7 +231,7 @@ contract ClockAuctionBase {
 
         // A bit of insurance against negative values (or wraparound).
         // Probably not necessary (since Ethereum guarnatees that the
-        // now variable doesn&#39;t ever go backwards).
+        // now variable doesn't ever go backwards).
         if (now > _auction.startedAt) {
             secondsPassed = now - _auction.startedAt;
         }
@@ -258,13 +258,13 @@ contract ClockAuctionBase {
         pure
         returns (uint256)
     {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our public functions carefully cap the maximum values for
         //  time (at 64-bits) and currency (at 128-bits). _duration is
         //  also known to be non-zero (see the require() statement in
         //  _addAuction())
         if (_secondsPassed >= _duration) {
-            // We&#39;ve reached the end of the dynamic pricing portion
+            // We've reached the end of the dynamic pricing portion
             // of the auction, just return the end price.
             return _endingPrice;
         } else {
@@ -272,7 +272,7 @@ contract ClockAuctionBase {
             // this delta can be negative.
             int256 totalPriceChange = int256(_endingPrice) - int256(_startingPrice);
 
-            // This multiplication can&#39;t overflow, _secondsPassed will easily fit within
+            // This multiplication can't overflow, _secondsPassed will easily fit within
             // 64-bits, and totalPriceChange will easily fit within 128-bits, their product
             // will always fit within 256-bits.
             int256 currentPriceChange = totalPriceChange * int256(_secondsPassed) / int256(_duration);
@@ -285,10 +285,10 @@ contract ClockAuctionBase {
         }
     }
 
-    /// @dev Computes owner&#39;s cut of a sale.
+    /// @dev Computes owner's cut of a sale.
     /// @param _price - Sale price of NFT.
     function _computeCut(uint256 _price) internal view returns (uint256) {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our entry functions carefully cap the maximum values for
         //  currency (at 128-bits), and ownerCut <= 10000 (see the require()
         //  statement in the ClockAuction constructor). The result of this
@@ -362,7 +362,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         nonFungibleContract = candidateContract;
     }
 
-    /// @dev Remove all Ether from the contract, which is the owner&#39;s cuts
+    /// @dev Remove all Ether from the contract, which is the owner's cuts
     ///  as well as any Ether sent directly to the contract address.
     ///  Always transfers to the NFT contract, but can be called either by
     ///  the owner or the NFT contract.
@@ -394,7 +394,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         external
         whenNotPaused
     {
-        // Sanity check that no inputs overflow how many bits we&#39;ve allocated
+        // Sanity check that no inputs overflow how many bits we've allocated
         // to store them in the auction struct.
         require(_startingPrice == uint256(uint128(_startingPrice)));
         require(_endingPrice == uint256(uint128(_endingPrice)));
@@ -425,7 +425,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         _transfer(msg.sender, _tokenId);
     }
 
-    /// @dev Cancels an auction that hasn&#39;t been won yet.
+    /// @dev Cancels an auction that hasn't been won yet.
     ///  Returns the NFT to original owner.
     /// @notice This is a state-modifying function that can
     ///  be called while the contract is paused.
@@ -522,7 +522,7 @@ contract SaleClockAuction is ClockAuction {
     )
         external
     {
-        // Sanity check that no inputs overflow how many bits we&#39;ve allocated
+        // Sanity check that no inputs overflow how many bits we've allocated
         // to store them in the auction struct.
         require(_startingPrice == uint256(uint128(_startingPrice)));
         require(_endingPrice == uint256(uint128(_endingPrice)));
@@ -595,7 +595,7 @@ contract SiringClockAuction is ClockAuction {
     )
         external
     {
-        // Sanity check that no inputs overflow how many bits we&#39;ve allocated
+        // Sanity check that no inputs overflow how many bits we've allocated
         // to store them in the auction struct.
         require(_startingPrice == uint256(uint128(_startingPrice)));
         require(_endingPrice == uint256(uint128(_endingPrice)));
@@ -646,8 +646,8 @@ contract KittyAccessControl {
     //
     // It should be noted that these roles are distinct without overlap in their access abilities, the
     // abilities listed for each role above are exhaustive. In particular, while the CEO can assign any
-    // address to any role, the CEO address itself doesn&#39;t have the ability to act in those roles. This
-    // restriction is intentional so that we aren&#39;t tempted to use the CEO address frequently out of
+    // address to any role, the CEO address itself doesn't have the ability to act in those roles. This
+    // restriction is intentional so that we aren't tempted to use the CEO address frequently out of
     // convenience. The less we use an address, the less likely it is that we somehow compromise the
     // account.
 
@@ -739,7 +739,7 @@ contract KittyAccessControl {
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
     function unpause() public onlyCEO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 }
@@ -764,8 +764,8 @@ contract KittyBase is KittyAccessControl {
     ///  is important because of the byte-packing rules used by Ethereum.
     ///  Ref: http://solidity.readthedocs.io/en/develop/miscellaneous.html
     struct Kitty {
-        // The Kitty&#39;s genetic code is packed into these 256-bits, the format is
-        // sooper-sekret! A cat&#39;s genes never change.
+        // The Kitty's genetic code is packed into these 256-bits, the format is
+        // sooper-sekret! A cat's genes never change.
         uint256 genes;
 
         // The timestamp from the block when this cat came into existence.
@@ -780,7 +780,7 @@ contract KittyBase is KittyAccessControl {
         // Note that using 32-bit unsigned integers limits us to a "mere"
         // 4 billion cats. This number might seem small until you realize
         // that Ethereum currently has a limit of about 500 million
-        // transactions per year! So, this definitely won&#39;t be a problem
+        // transactions per year! So, this definitely won't be a problem
         // for several years (even as Ethereum learns to scale).
         uint32 matronId;
         uint32 sireId;
@@ -873,11 +873,11 @@ contract KittyBase is KittyAccessControl {
 
     /// @dev Assigns ownership of a specific Kitty to an address.
     function _transfer(address _from, address _to, uint256 _tokenId) internal {
-        // Since the number of kittens is capped to 2^32 we can&#39;t overflow this
+        // Since the number of kittens is capped to 2^32 we can't overflow this
         ownershipTokenCount[_to]++;
         // transfer ownership
         kittyIndexToOwner[_tokenId] = _to;
-        // When creating new kittens _from is 0x0, but we can&#39;t account that address.
+        // When creating new kittens _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
             ownershipTokenCount[_from]--;
             // once the kitten is transferred also clear sire allowances
@@ -890,13 +890,13 @@ contract KittyBase is KittyAccessControl {
     }
 
     /// @dev An internal method that creates a new kitty and stores it. This
-    ///  method doesn&#39;t do any checking and should only be called when the
+    ///  method doesn't do any checking and should only be called when the
     ///  input data is known to be valid. Will generate both a Birth event
     ///  and a Transfer event.
     /// @param _matronId The kitty ID of the matron of this cat (zero for gen0)
     /// @param _sireId The kitty ID of the sire of this cat (zero for gen0)
     /// @param _generation The generation number of this cat, must be computed by caller.
-    /// @param _genes The kitty&#39;s genetic code.
+    /// @param _genes The kitty's genetic code.
     /// @param _owner The inital owner of this cat, must be non-zero (except for the unKitty, ID 0)
     function _createKitty(
         uint256 _matronId,
@@ -910,7 +910,7 @@ contract KittyBase is KittyAccessControl {
     {
         // These requires are not strictly necessary, our calling code should make
         // sure that these conditions are never broken. However! _createKitty() is already
-        // an expensive call (for storage), and it doesn&#39;t hurt to be especially careful
+        // an expensive call (for storage), and it doesn't hurt to be especially careful
         // to ensure our data structures are always valid.
         require(_matronId == uint256(uint32(_matronId)));
         require(_sireId == uint256(uint32(_sireId)));
@@ -934,8 +934,8 @@ contract KittyBase is KittyAccessControl {
         });
         uint256 newKittenId = kitties.push(_kitty) - 1;
 
-        // It&#39;s probably never going to happen, 4 billion cats is A LOT, but
-        // let&#39;s just be 100% sure we never let this happen.
+        // It's probably never going to happen, 4 billion cats is A LOT, but
+        // let's just be 100% sure we never let this happen.
         require(newKittenId == uint256(uint32(newKittenId)));
 
         // emit the birth event

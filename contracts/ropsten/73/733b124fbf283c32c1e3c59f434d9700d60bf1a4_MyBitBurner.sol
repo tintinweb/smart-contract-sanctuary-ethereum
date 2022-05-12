@@ -74,7 +74,7 @@ contract MyBitBurner {
   //                                            Modifiers
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // @notice reverts if msg.sender isn&#39;t the owner
+  // @notice reverts if msg.sender isn't the owner
   modifier onlyOwner {
     require(msg.sender == owner);
     _;

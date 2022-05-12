@@ -20,8 +20,8 @@ contract owned {
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract SEXYKITTEN {
-    string public constant _myTokeName = &#39;CryptoCoop Token&#39;;//change here
-    string public constant _mySymbol = &#39;SEXX&#39;;//change here
+    string public constant _myTokeName = 'CryptoCoop Token';//change here
+    string public constant _mySymbol = 'SEXX';//change here
     uint public constant _myinitialSupply = 100000000000;//leave it
     uint8 public constant _myDecimal = 18;//leave it
     // Public variables of the token
@@ -167,7 +167,7 @@ contract SEXYKITTEN {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -246,6 +246,6 @@ contract MyAdvancedToken is owned, SEXYKITTEN {
     function sell(uint256 amount) public {
         require(this.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 }

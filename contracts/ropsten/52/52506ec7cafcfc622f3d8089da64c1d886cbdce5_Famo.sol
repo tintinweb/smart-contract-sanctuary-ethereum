@@ -518,7 +518,7 @@ contract Famo{
             updateGenVault(_pID, plyMap[_pID].iLastRoundId);
         }
             
-        // update player&#39;s last round played
+        // update player's last round played
         plyMap[_pID].iLastRoundId = roundList.length;
 		//
 		plyMap[_pID].affCode = affcode;

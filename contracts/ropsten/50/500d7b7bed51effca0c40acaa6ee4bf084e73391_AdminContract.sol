@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -179,7 +179,7 @@ contract Administratable is Claimable {
   event AdminAddressRemoved(address indexed addr);
 
   /**
-   * @dev Throws if called by any account that&#39;s not admin or owner.
+   * @dev Throws if called by any account that's not admin or owner.
    */
   modifier onlyAdmin() {
     require(admins[msg.sender] || msg.sender == owner);
@@ -203,7 +203,7 @@ contract Administratable is Claimable {
    * @dev remove an address from the admin list
    * @param addr address
    * @return true if the address was removed from the admin list,
-   * false if the address wasn&#39;t in the admin list in the first place
+   * false if the address wasn't in the admin list in the first place
    */
   function removeAddressFromAdmin(address addr) onlyOwner public returns(bool success) {
     if (admins[addr]) {
@@ -251,7 +251,7 @@ contract Callable is Claimable {
    * @dev remove an address from the caller list
    * @param addr address
    * @return true if the address was removed from the caller list,
-   * false if the address wasn&#39;t in the caller list in the first place
+   * false if the address wasn't in the caller list in the first place
    */
   function removeAddressFromCaller(address addr) onlyOwner public returns(bool success) {
     if (callers[addr]) {
@@ -496,7 +496,7 @@ contract AdminContract is Pausable, Administratable, UserContract {
    * @dev remove an address from the blacklist
    * @param addr address
    * @return true if the address was removed from the blacklist,
-   * false if the address wasn&#39;t in the blacklist in the first place
+   * false if the address wasn't in the blacklist in the first place
    */
   function removeAddressFromBlacklist(address addr) onlyAdmin whenNotPaused public returns (bool) {
     return _removeFromBlacklist(addr);
@@ -506,7 +506,7 @@ contract AdminContract is Pausable, Administratable, UserContract {
    * @dev remove addresses from the blacklist
    * @param addrs addresses
    * @return true if at least one address was removed from the blacklist,
-   * false if all addresses weren&#39;t in the blacklist in the first place
+   * false if all addresses weren't in the blacklist in the first place
    */
   function removeAddressesFromBlacklist(address[] addrs) onlyAdmin whenNotPaused public returns (bool success) {
     success = true;
@@ -561,7 +561,7 @@ contract AdminContract is Pausable, Administratable, UserContract {
    * @dev remove an address from the verifiedlist
    * @param addr address
    * @return true if the address was removed from the verifiedlist,
-   * false if the address wasn&#39;t in the verifiedlist in the first place
+   * false if the address wasn't in the verifiedlist in the first place
    */
   function unverifyAddress(address addr) onlyAdmin whenNotPaused public returns (bool) {
     return _unverifyAddress(addr);
@@ -572,7 +572,7 @@ contract AdminContract is Pausable, Administratable, UserContract {
    * @dev remove addresses from the verifiedlist
    * @param addrs addresses
    * @return true if at least one address was removed from the verifiedlist,
-   * false if all addresses weren&#39;t in the verifiedlist in the first place
+   * false if all addresses weren't in the verifiedlist in the first place
    */
   function unverifyAddresses(address[] addrs) onlyAdmin whenNotPaused public returns (bool success) {
     success = true;
@@ -601,7 +601,7 @@ contract AdminContract is Pausable, Administratable, UserContract {
   }
 
   /**
-    * Add `_amount` tokens to the pool and to the `_to` address&#39; balance
+    * Add `_amount` tokens to the pool and to the `_to` address' balance
     *
     * @param _to the address that will receive the given amount of tokens
     * @param _amount the amount of tokens it will receive

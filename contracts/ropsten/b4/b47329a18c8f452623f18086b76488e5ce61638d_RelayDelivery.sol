@@ -194,19 +194,19 @@ contract RelayDelivery {
                                                                                                                                      // Also checks if package "exists"
         packageFuel[packageHash] -= payoutAmount;
         
-        address payable holder = deliveryLedger[packageHash]; // Stores current holder&#39;s address
+        address payable holder = deliveryLedger[packageHash]; // Stores current holder's address
         
         require(enabledRelays[msg.sender] || p.receiver == msg.sender, "You are not allowed to receive the package!"); // Checks if relay is enabled,
                                                                                                                        // prevents attacks on the public blockchain
         
-        require(holder != msg.sender, "Can&#39;t relay the package to yourself!");  // Prevents multiple payments to same delivery guy, 
+        require(holder != msg.sender, "Can't relay the package to yourself!");  // Prevents multiple payments to same delivery guy, 
                                                                                 // does not prevent multiple payments between different
                                                                                 // delivery guys, logic to prevent this has to be 
                                                                                 // implemented somewhere else for v1
                                                                                 // EDIT: see below
         
         require(!packageRecord[p.sender][packageHash].relayRecord[msg.sender],
-        "Can&#39;t route the package through the same relay twice!"); // Prevents a package being routed twice through the same relay
+        "Can't route the package through the same relay twice!"); // Prevents a package being routed twice through the same relay
 
         if(holder != p.sender) { // First delivery guy takes the package from sender
             require(relayBusy[holder], "You are not the carrier anymore!"); // Prevents reentrancy using chained attacker contracts 

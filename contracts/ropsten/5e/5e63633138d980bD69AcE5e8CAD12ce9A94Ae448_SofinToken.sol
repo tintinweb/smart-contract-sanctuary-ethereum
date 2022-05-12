@@ -16,7 +16,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -76,7 +76,7 @@ contract Freezable {
   function Freezable() public { }
 
   /**
-  * @dev Throws if called by any account that&#39;s frozen.
+  * @dev Throws if called by any account that's frozen.
   */
   modifier notFrozen {
     require(!frozenAccounts[msg.sender]);
@@ -86,7 +86,7 @@ contract Freezable {
 /**
 * @dev check if an account is frozen
 * @param account address to check
-* @return true iff the address is in the list of frozen accounts and hasn&#39;t been unfrozen
+* @return true iff the address is in the list of frozen accounts and hasn't been unfrozen
 */
   function isFrozen(address account) public view returns (bool) {
     return frozenAccounts[account];
@@ -187,7 +187,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -265,8 +265,8 @@ contract BurnableToken is StandardToken {
 // File: src/SofinToken.sol
 
 contract SofinToken is BurnableToken {
-  string public constant name = &#39;SOFIN&#39;;
-  string public constant symbol = &#39;SOFIN&#39;;
+  string public constant name = 'SOFIN';
+  string public constant symbol = 'SOFIN';
   uint256 public constant decimals = 18;
 
   uint256 public constant tokenCreationCap =  45000000 * 10 ** decimals;
@@ -309,7 +309,7 @@ contract SofinToken is BurnableToken {
   * @dev remove an address from the list of frozen accounts
   * @param account address to unfreeze
   * @return true if the address was removed from the list of frozen accounts, 
-  * false if the address wasn&#39;t in the list in the first place 
+  * false if the address wasn't in the list in the first place 
   */
   function unfreezeAccount(address account) public onlyOwner returns (bool success) {
     if (frozenAccounts[account]) {

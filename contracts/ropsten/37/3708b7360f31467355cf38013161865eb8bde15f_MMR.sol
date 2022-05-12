@@ -30,7 +30,7 @@ library MMR {
         tree.hashes[tree.size + 1] = hash;
         // Find peaks for the increased size tree
         uint256[] memory peaks = getPeaks(tree.size + 1);
-        // The right most peak&#39;s value is the new size of the updated tree
+        // The right most peak's value is the new size of the updated tree
         tree.size = peaks[peaks.length - 1];
         // Starting from the left-most peak, get all peak hashes using _getOrCreateNode() function.
         bytes32[] memory peakBagging = new bytes32[](peaks.length);

@@ -17,7 +17,7 @@ contract ERC20 {
 contract StandToken is ERC20 {
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
-        // check total num , sender&#39;s balance
+        // check total num , sender's balance
         if (balances[msg.sender] >= _value && _value > 0) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;

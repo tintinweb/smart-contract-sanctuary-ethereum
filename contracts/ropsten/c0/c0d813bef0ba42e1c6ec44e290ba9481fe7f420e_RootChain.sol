@@ -25,7 +25,7 @@ library SafeMath {
     {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -1538,14 +1538,14 @@ contract RootChain {
     )
         private
     {
-        // Check that we&#39;re exiting a known token.
+        // Check that we're exiting a known token.
         require(exitsQueues[_token] != address(0));
 
         // Calculate priority.
         uint256 exitable_at = Math.max(_created_at + 2 weeks, block.timestamp + 1 weeks);
         uint256 priority = exitable_at << 128 | _utxoPos;
         
-        // Check exit is valid and doesn&#39;t already exist.
+        // Check exit is valid and doesn't already exist.
         require(_amount > 0);
         require(exits[_utxoPos].amount == 0);
 

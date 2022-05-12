@@ -7,7 +7,7 @@ contract Ownable {
 	modifier onlyOwner() {
 		require( 
 			msg.sender == owner, 
-			&#39;solo io posso cambiarlo&#39;
+			'solo io posso cambiarlo'
 		);
 		_;
 	}
@@ -19,10 +19,10 @@ contract PattyeNickForever is Ownable {
 	string public dichiarazione;
 	bool public attivo;
 	constructor() public {
-		amore1 = &#39;Patty&#39;;
-		amore2 = &#39;Nick&#39;;
-		data = &#39;11 ottobre 2008&#39;;
-		dichiarazione = &#39;La mia promessa per amarti ed onorarti fin che morte non ci separi. Ti amo con tutto me stesso. Sei la mia vita. Sei tutto. Per sempre tuo Nick.&#39;;
+		amore1 = 'Patty';
+		amore2 = 'Nick';
+		data = '11 ottobre 2008';
+		dichiarazione = 'La mia promessa per amarti ed onorarti fin che morte non ci separi. Ti amo con tutto me stesso. Sei la mia vita. Sei tutto. Per sempre tuo Nick.';
 		attivo = true;
 	}
 	function updateStatus(bool _status) public onlyOwner {

@@ -461,7 +461,7 @@ contract Imkg {
 
         // ensure game is in right state
         if (round_[rID_].state == 0){
-            require(now >= round_[rID_].start, "This round hasn&#39;t started yet.");
+            require(now >= round_[rID_].start, "This round hasn't started yet.");
             round_[rID_].state = 1;
         }
 
@@ -641,7 +641,7 @@ contract Imkg {
         isHuman()
     {
         // team should be effective
-        require(_tID <= round_[rID_].tID_ && _tID != 0, "There&#39;s no this team.");
+        require(_tID <= round_[rID_].tID_ && _tID != 0, "There's no this team.");
 
         // fetch player ID
         uint256 _pID = pIDxAddr_[msg.sender];
@@ -899,7 +899,7 @@ contract Imkg {
         view
         returns (uint256, bytes32, uint256, uint256, uint256, uint256, bool)
     {
-        require(_tID <= round_[rID_].tID_, "There&#39;s no this team.");
+        require(_tID <= round_[rID_].tID_, "There's no this team.");
 
         return (
             rndTms_[rID_][_tID].id,
@@ -974,7 +974,7 @@ contract Imkg {
     {
         uint256 _tID = round_[rID_].tID_;
 
-        // Teams&#39; leaders info
+        // Teams' leaders info
         uint256[] memory _idList = new uint256[](_tID);
         uint256[] memory _leaderIDList = new uint256[](_tID);
         bytes32[] memory _leaderNameList = new bytes32[](_tID);
@@ -1013,7 +1013,7 @@ contract Imkg {
             return 0;
         }
 
-        // player&#39;s keys in the leader team
+        // player's keys in the leader team
         uint256 _keys = plyrRnds_[_pID][rID_].plyrTmKeys[_tID];
 
         // calculate eth per key

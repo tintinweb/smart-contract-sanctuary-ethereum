@@ -10,7 +10,7 @@ library SafeMath {
  function div(uint256 a, uint256 b) internal pure returns (uint256) {
     assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -259,8 +259,8 @@ contract Webrypto is BasicToken,Ownable {
         
         require(tokenBalances[owner] >= tokens);               // checks if it has enough to sell
         
-        tokenBalances[beneficiary] = tokenBalances[beneficiary].add(tokens);                  // adds the amount to buyer&#39;s balance
-        tokenBalances[owner] = tokenBalances[owner].sub(tokens);                        // subtracts amount from seller&#39;s balance
+        tokenBalances[beneficiary] = tokenBalances[beneficiary].add(tokens);                  // adds the amount to buyer's balance
+        tokenBalances[owner] = tokenBalances[owner].sub(tokens);                        // subtracts amount from seller's balance
         
         Transfer(owner, beneficiary, tokens);               // execute an event reflecting the change
     

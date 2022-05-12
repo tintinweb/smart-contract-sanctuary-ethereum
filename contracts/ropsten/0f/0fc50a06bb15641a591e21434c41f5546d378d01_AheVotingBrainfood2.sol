@@ -9,7 +9,7 @@ contract AheVotingBrainfood2 {
 
     mapping(bytes32 => uint8) public votesReceived;
 
-    /* Solidity doesn&#39;t let you pass in an array of strings in the constructor (yet).
+    /* Solidity doesn't let you pass in an array of strings in the constructor (yet).
     We will use an array of bytes32 instead to store the list of candidates
     */
 
@@ -25,12 +25,12 @@ contract AheVotingBrainfood2 {
 
         candidateList = new bytes32[](6);
 
-        candidateList[0] = stringToBytes32(&#39;Cocos JS&#39;);
-        candidateList[1] = stringToBytes32(&#39;Jmeter&#39;);
-        candidateList[2] = stringToBytes32(&#39;HTTP2&#39;);
-        candidateList[3] = stringToBytes32(&#39;Dissecting Swagger&#39;);
-        candidateList[4] = stringToBytes32(&#39;WebComponents&#39;);
-        candidateList[5] = stringToBytes32(&#39;Concepten van Blockchain&#39;);
+        candidateList[0] = stringToBytes32('Cocos JS');
+        candidateList[1] = stringToBytes32('Jmeter');
+        candidateList[2] = stringToBytes32('HTTP2');
+        candidateList[3] = stringToBytes32('Dissecting Swagger');
+        candidateList[4] = stringToBytes32('WebComponents');
+        candidateList[5] = stringToBytes32('Concepten van Blockchain');
     }
 
     // This function returns the total votes a candidate has received so far

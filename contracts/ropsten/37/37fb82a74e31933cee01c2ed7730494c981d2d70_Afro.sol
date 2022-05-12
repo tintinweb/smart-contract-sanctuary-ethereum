@@ -78,7 +78,7 @@ mapping(address => mapping(address=>uint256)) allowed;
         return _intialSupply.sub(balances[address(contractOwner)]);
     }
  
-// Transfer the balance from owner&#39;s account to another account 
+// Transfer the balance from owner's account to another account 
     function transfer(address _to, uint256 _value) returns(bool) {
         require(_to != 0x0);
         require(balances[msg.sender] >=_value  && _value > 0 );

@@ -105,12 +105,12 @@ contract EscrowManagement {
         onlyNonZeroAmts(_amountTokenSell, _amountTokenBuy)
     {
 
-        Escrow memory newEscrow = Escrow({       // Create escrow order based on the &#39;Escrow&#39; template
+        Escrow memory newEscrow = Escrow({       // Create escrow order based on the 'Escrow' template
             creator: msg.sender,                 // Assign the sender of the transaction to be the creator of the escrow order
-            amountTokenSell: _amountTokenSell,   // Creator&#39;s specified sell amount
-            tokenAddressSell: _tokenAddressSell, // Creator&#39;s specified sell unit
-            amountTokenBuy: _amountTokenBuy,     // Creator&#39;s specified buy amount
-            tokenAddressBuy: _tokenAddressBuy    // Creator&#39;s specified buy unit
+            amountTokenSell: _amountTokenSell,   // Creator's specified sell amount
+            tokenAddressSell: _tokenAddressSell, // Creator's specified sell unit
+            amountTokenBuy: _amountTokenBuy,     // Creator's specified buy amount
+            tokenAddressBuy: _tokenAddressBuy    // Creator's specified buy unit
         });
 
         ERC20Interface(_tokenAddressSell).transferFrom(msg.sender, this, _amountTokenSell); // EscrowManager transfers the amount of sell units from Creator to itself
@@ -161,7 +161,7 @@ contract EscrowManagement {
     function escrowDeletion(address _tokenAddressSell, address _tokenAddressBuy, uint escrowId)
         private
     {
-        for(uint i=escrowId; i<allOrders[_tokenAddressSell][_tokenAddressBuy].length-1; i++){                        // Iterate through list of orders in allOrders starting from the current escrow order&#39;s position
+        for(uint i=escrowId; i<allOrders[_tokenAddressSell][_tokenAddressBuy].length-1; i++){                        // Iterate through list of orders in allOrders starting from the current escrow order's position
             allOrders[_tokenAddressSell][_tokenAddressBuy][i] = allOrders[_tokenAddressSell][_tokenAddressBuy][i+1]; // Shift the all the orders in the list 1 position to the left
         }
         allOrders[_tokenAddressSell][_tokenAddressBuy].length--;                                                     // Decrement the total length of the list of orders to account for the removal of 1 escrow order

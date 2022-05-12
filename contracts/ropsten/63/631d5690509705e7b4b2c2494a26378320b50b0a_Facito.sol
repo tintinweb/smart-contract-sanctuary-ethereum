@@ -97,8 +97,8 @@ contract Facito {
     }
 
     function readArticle(bytes32 _id) public returns (bool success) {
-        require(articles[_id].UnspentOutputs[msg.sender] != 1, "Article already read"); // Check article hasn&#39;t already been read
-        require(articles[_id].Author != msg.sender, "Author cannot read own article"); // Check author isn&#39;t reading own article
+        require(articles[_id].UnspentOutputs[msg.sender] != 1, "Article already read"); // Check article hasn't already been read
+        require(articles[_id].Author != msg.sender, "Author cannot read own article"); // Check author isn't reading own article
 
         emit ReadArticle(_id, articles[_id].Author, msg.sender, articles[_id].Title); // Emit read article
 
@@ -112,8 +112,8 @@ contract Facito {
 
     function hexStrToBytes(string hex_str) public pure returns (bytes) {
         //Check hex string is valid
-        if (bytes(hex_str)[0]!=&#39;0&#39; ||
-            bytes(hex_str)[1]!=&#39;x&#39; ||
+        if (bytes(hex_str)[0]!='0' ||
+            bytes(hex_str)[1]!='x' ||
             bytes(hex_str).length%2!=0 ||
             bytes(hex_str).length < 4) {
                 revert();

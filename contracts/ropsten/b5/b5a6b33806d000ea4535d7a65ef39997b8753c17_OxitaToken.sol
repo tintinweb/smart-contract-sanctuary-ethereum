@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;Oxita&#39; token contract
+// 'Oxita' token contract
 //
 // Symbol      : OTX
 // Name        : Oxita
@@ -176,7 +176,7 @@ contract OxitaToken is ERC20Interface, Owned, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

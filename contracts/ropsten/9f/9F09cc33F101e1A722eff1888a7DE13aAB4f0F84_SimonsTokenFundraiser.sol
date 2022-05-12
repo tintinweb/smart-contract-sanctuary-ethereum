@@ -463,7 +463,7 @@ contract StandardToken is ERC20Token {
     /**
      * @dev Get the balance of an address.
      *
-     * @param _address The address which&#39;s balance will be checked.
+     * @param _address The address which's balance will be checked.
      *
      * @return The current balance of the address.
      */

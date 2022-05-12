@@ -56,7 +56,7 @@ contract MultiSig_Wallet{
     }
 
     /**
-     * @notice let&#39;s any owner execute a transaction once it&#39;s voted for and returns
+     * @notice let's any owner execute a transaction once it's voted for and returns
      **/
     function executeTransaction(uint _tId) public onlyOwners tValid(_tId) returns (bool success) {
         Transaction memory t = transactions[_tId];
@@ -76,7 +76,7 @@ contract MultiSig_Wallet{
 
     /**
      * @notice Lets owners propose a new transaction.
-     * @param _data is mostly &#39;0x0&#39; and it&#39;s ok that way.
+     * @param _data is mostly '0x0' and it's ok that way.
      **/
     function proposeTransaction(address _receiver, uint256 _amount, bytes _data) public onlyOwners returns (bool) {
         require(_receiver != 0x0 && _amount != 0);

@@ -430,7 +430,7 @@ contract ERC20Proxy is ERC20Interface, ERC20ImplUpgradeable {
     }
 
     /** @notice  Returns how much `_spender` is currently allowed to spend from
-      * `_owner`&#39;s balance.
+      * `_owner`'s balance.
       *
       * @return  remaining  the remaining allowance.
       */
@@ -782,7 +782,7 @@ contract ERC20Store is ERC20ImplUpgradeable {
         balances[_owner] = _newBalance;
     }
 
-    /** @notice Adds `_balanceIncrease` to `_owner`&#39;s balance.
+    /** @notice Adds `_balanceIncrease` to `_owner`'s balance.
       *
       * @dev  Intended for use by token implementation functions
       * that update balances. The only authorized caller

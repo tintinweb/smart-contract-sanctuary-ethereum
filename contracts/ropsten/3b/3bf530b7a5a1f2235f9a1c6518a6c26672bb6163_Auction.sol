@@ -47,7 +47,7 @@ contract Auction {
     beneficiary = _beneficiary;
   }
 
-  // Same for all the derived contract, it&#39;s the implementation of refund() and bid() that differs
+  // Same for all the derived contract, it's the implementation of refund() and bid() that differs
   function() public payable {
     if (msg.value == 0) {
       refund();

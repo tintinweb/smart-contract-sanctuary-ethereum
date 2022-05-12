@@ -163,7 +163,7 @@ contract Exchange {
 
     // should decline pending trade offer or throw IF:
     // - _offer_id does not exist
-    // - offer&#39;s recipient is not msg.sender
+    // - offer's recipient is not msg.sender
     // - offer is not PENDING
     function declineTradeOffer(uint _offer_id) external {
         require(offers[_offer_id].recipient == msg.sender, "You are not the recipient of given trade offer.");

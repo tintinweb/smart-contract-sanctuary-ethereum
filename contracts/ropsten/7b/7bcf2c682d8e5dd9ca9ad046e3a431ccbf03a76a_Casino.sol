@@ -11,8 +11,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -29,7 +29,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -240,8 +240,8 @@ contract Casino is Ownable, HouseAdmin {
     uint amount = msg.value;
 
     require(bet.player == address(0), "this bet is already exist");
-    require(block.number <= _expiredBlockNumber, &#39;this bet has expired&#39;);
-    require(amount >= BET_AMOUNT_MIN && amount <= BET_AMOUNT_MAX, &#39;bet amount out of range&#39;);
+    require(block.number <= _expiredBlockNumber, 'this bet has expired');
+    require(amount >= BET_AMOUNT_MIN && amount <= BET_AMOUNT_MAX, 'bet amount out of range');
 
     // verify the signer and _expiredBlockNumber
     bytes32 msgHash = keccak256(abi.encodePacked(_expiredBlockNumber, _commit));
@@ -266,7 +266,7 @@ contract Casino is Ownable, HouseAdmin {
     // lock winAmount into this contract. Make sure contract is solvent
     bankFund = bankFund.add(winAmount);
 
-    require(bankFund <= address(this).balance, &#39;contract balance is not enough&#39;);
+    require(bankFund <= address(this).balance, 'contract balance is not enough');
 
     bet.choice = uint64(_choice);
     bet.player = msg.sender;
@@ -283,7 +283,7 @@ contract Casino is Ownable, HouseAdmin {
     uint commit = uint(keccak256(abi.encodePacked(_reveal)));
     Bet storage bet = bets[commit];
 
-    require(bet.isActive, &#39;this bet is not active&#39;);
+    require(bet.isActive, 'this bet is not active');
 
     uint amount = bet.amount;
     uint placeBlockNumber = bet.placeBlockNumber;
@@ -292,8 +292,8 @@ contract Casino is Ownable, HouseAdmin {
     uint choice = bet.choice;
     address player = bet.player;
 
-    require(block.number > placeBlockNumber, &#39;close bet block number is too low&#39;);
-    require(block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, &#39;the block number is too low to query&#39;);
+    require(block.number > placeBlockNumber, 'close bet block number is too low');
+    require(block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, 'the block number is too low to query');
 
     uint result = uint(keccak256(abi.encodePacked(_reveal, blockhash(placeBlockNumber)))) % modulo;
 
@@ -325,8 +325,8 @@ contract Casino is Ownable, HouseAdmin {
     uint placeBlockNumber = bet.placeBlockNumber;
     address player = bet.player;
 
-    require(bet.isActive, &#39;this bet is not active&#39;);
-    require(block.number > placeBlockNumber + BET_EXPIRATION_BLOCKS, &#39;this bet has not expired&#39;);
+    require(bet.isActive, 'this bet is not active');
+    require(block.number > placeBlockNumber + BET_EXPIRATION_BLOCKS, 'this bet has not expired');
 
     player.transfer(amount);
     // release winAmount deposit
@@ -347,7 +347,7 @@ contract Casino is Ownable, HouseAdmin {
    * @dev owner can withdraw the remain ether
    */
   function withdraw(uint _amount) external onlyOwner {
-    require(_amount <= address(this).balance - bankFund, &#39;cannot withdraw amount greater than (balance - bankFund)&#39;);
+    require(_amount <= address(this).balance - bankFund, 'cannot withdraw amount greater than (balance - bankFund)');
     owner.transfer(_amount);
     emit LogDealerWithdraw(owner, _amount);
   }

@@ -271,7 +271,7 @@ contract OrderList is PermissionGroups, OrderListInterface {
         require(orderId != 0 && orderId != HEAD_ID && orderId != TAIL_ID);
 
         // Normal orders usually cannot serve as their own previous order.
-        // For further discussion see Heinlein&#39;s &#39;—All You Zombies—&#39;.
+        // For further discussion see Heinlein's '—All You Zombies—'.
         require(orderId != updatedPrevId);
 
         uint32 nextId;
@@ -300,7 +300,7 @@ contract OrderList is PermissionGroups, OrderListInterface {
                 updatedPrevId,
                 nextId)
             ) {
-                // Let&#39;s move the order to the hinted position.
+                // Let's move the order to the hinted position.
                 address maker = orders[orderId].maker;
                 require(remove(orderId));
                 require(
@@ -451,7 +451,7 @@ contract OrderList is PermissionGroups, OrderListInterface {
             if (cmp < 0) return false;
         }
 
-        // Make sure that the new order should be before provided prevId&#39;s next order.
+        // Make sure that the new order should be before provided prevId's next order.
         if (nextId != TAIL_ID) {
             Order storage next = orders[nextId];
             cmp = compareOrders(

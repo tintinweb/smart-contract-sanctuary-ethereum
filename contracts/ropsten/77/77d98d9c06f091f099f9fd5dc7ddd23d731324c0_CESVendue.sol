@@ -244,7 +244,7 @@ contract DSMath {
         // This famous algorithm is called "exponentiation by squaring"
         // and calculates x^n with x as fixed-point and n as regular unsigned.
         //
-        // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+        // It's O(log n), instead of O(n) for naive repeated multiplication.
         //
         // These facts are why it works:
         //
@@ -637,7 +637,7 @@ contract CESVendue is DSAuth, DSMath {
     }
     
     // register your account then tell me your public key for transform token to coin
-    // init account don&#39;t need to do this
+    // init account don't need to do this
     function register(string publicKey) external {
         require(tokenFreeze);
 

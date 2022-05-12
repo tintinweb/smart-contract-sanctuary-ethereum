@@ -99,7 +99,7 @@ contract HpbBallot {
         address[] candidateMapAddrs;
         
         // 已经投票了的候选者账户地址-》投票数
-        // The candidate&#39;s account address has been voted
+        // The candidate's account address has been voted
         mapping (address => uint) candidateMap;
         
     }
@@ -133,7 +133,7 @@ contract HpbBallot {
 	    Voter[] voterArray;
 	    
 	    // 投票者的地址与投票者序号（voterArray下标）对应关系，便于查询和减少gas消耗
-	    // The voter&#39;s address corresponds to the voter&#39;s ordinal number (voter Array subscript),
+	    // The voter's address corresponds to the voter's ordinal number (voter Array subscript),
 	    // making it easy to query and reduce gas consumption
 	    mapping (address => uint) voterIndexMap;
         
@@ -335,7 +335,7 @@ contract HpbBallot {
 	        //设置第一位置（为了定位不出错，第一个位置不占用）
 	        //Set the first position.
 	        voteStages[0].candidateArray.push(
-	            Candidate(msg.sender,&#39;0&#39;,&#39;0&#39;,0,new address[](0))
+	            Candidate(msg.sender,'0','0',0,new address[](0))
 	        );
             
 	        emit UpdateContract(_version,openBlock,_closeBlock,_capacity);
@@ -391,7 +391,7 @@ contract HpbBallot {
 	        //设置第一位置
 		    //Set the first position.
             voteStages[_voteStageIndex].candidateArray.push(
-                Candidate(msg.sender,&#39;0&#39;,&#39;0&#39;,0,new address[](0))
+                Candidate(msg.sender,'0','0',0,new address[](0))
             );
         	voteStages[_voteStageIndex].candidateIndexMap[msg.sender]=0;
         	
@@ -610,7 +610,7 @@ contract HpbBallot {
 
     /**
      * 设置投票人的快照余额（以指定的区块号为准，到时候由官方或者HPB基金会对外公布）
-     * Set the voter&#39;s snapshot balance (subject to the designated block number, 
+     * Set the voter's snapshot balance (subject to the designated block number, 
      * to be published by the official or HPB Foundation)
       */
     function  setSnapshotBalance(

@@ -267,7 +267,7 @@ contract Se7enGreedyGame is modularLong {
           if (players[_playerId].lastRoundId != 0)
               updateGenVault(_playerId, players[_playerId].lastRoundId);
 
-          // update player&#39;s last round played
+          // update player's last round played
           players[_playerId].lastRoundId = currendRoundId;
       }
 
@@ -424,7 +424,7 @@ contract Se7enGreedyGame is modularLong {
         // setup local rID
         uint256 _currendRoundId = currendRoundId;
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = rounds[_currendRoundId].playerId;
 
         // grab our pot amount
@@ -500,8 +500,8 @@ contract Se7enGreedyGame is modularLong {
       public
       onlyOwner
     {
-        require(isActive == false, &#39;you must close game first&#39;);
-        require(closeTime.add(2 weeks) < now, &#39;methods can be executed only after close the game two weeks before&#39;);
+        require(isActive == false, 'you must close game first');
+        require(closeTime.add(2 weeks) < now, 'methods can be executed only after close the game two weeks before');
         // 销毁合约
         selfdestruct(communityAddress);
     }
@@ -621,7 +621,7 @@ contract Se7enGreedyGame is modularLong {
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -876,7 +876,7 @@ library GreedyKeysCalcLong {
         returns(uint256)
     {
         // 这里，我们构建了线性key - eth 增长曲线
-        // k&#39; = E/q + 75000000000000     =>   k = E^2/(2q) + 75000000000000 * E
+        // k' = E/q + 75000000000000     =>   k = E^2/(2q) + 75000000000000 * E
         /* uint256 q = 20000000000000000000000;      // 20000 eth. */
         /* return _eth.sq()/2/q + _eth.mul(75000000000000); */
         /* return ((_eth.mul(999925)/1000000000000).add((2500000000000).sq())).sqrt().add(2500000000000).mul(4000000000000)/999925; */
@@ -896,7 +896,7 @@ library GreedyKeysCalcLong {
         pure
         returns(uint256)
     {
-        // k&#39; = E/q + 75000000000000     =>   k = E^2/(2q) + 75000000000000 * E =>  E = ( -75000000000000 * 2*q + sqrt((-75000000000000 * 2*q) ^ 2  - 4 * 2 * q) ) / 2
+        // k' = E/q + 75000000000000     =>   k = E^2/(2q) + 75000000000000 * E =>  E = ( -75000000000000 * 2*q + sqrt((-75000000000000 * 2*q) ^ 2  - 4 * 2 * q) ) / 2
         /* uint256 q = 20000000000000000000000;       // 20000 eth. */
         /* uint256 b = q.mul(75000000000000); */
         /* return (b.sq().add(_keys.mul(2).mul(q))).sqrt().sub(q); */

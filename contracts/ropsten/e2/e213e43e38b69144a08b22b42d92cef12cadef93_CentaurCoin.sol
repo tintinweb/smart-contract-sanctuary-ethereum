@@ -42,9 +42,9 @@ contract Token {
 contract StandardToken is Token {
 
     function transfer(address to, uint256 value) public returns (bool success) {
-        // Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        // Default assumes totalSupply can't be over max (2^256 - 1).
         // If your token leaves out totalSupply and can issue more tokens as time goes on,
-        // you need to check if it doesn&#39;t wrap.
+        // you need to check if it doesn't wrap.
         // Replace the if with this one instead.
         // if (balances[msg.sender] >= value && 
         //     balances[to] + value > balances[to]) {
@@ -110,7 +110,7 @@ contract CentaurCoin is StandardToken {
     string public version = "1.0"; 
     uint256 public unitsOneEthCanBuy;     // How many units of your coin can be bought by 1 ETH?
     uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC).
-                                          // We&#39;ll store the total ETH raised via our ICO here.
+                                          // We'll store the total ETH raised via our ICO here.
     address public fundsWallet;           // Where should the raised ETH go?
 
 
@@ -149,7 +149,7 @@ contract CentaurCoin is StandardToken {
         emit Approval(msg.sender, spender, value);
 
         // Call the receiveApproval function on the contract you want to be notified. 
-        // This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        // This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         // `receiveApproval(address from, uint256 value, address tokenContract, bytes extraData)`
         // It is assumed that when one does this the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!spender.call(

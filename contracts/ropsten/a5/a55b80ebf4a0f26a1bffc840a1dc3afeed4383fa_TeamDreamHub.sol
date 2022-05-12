@@ -113,7 +113,7 @@ contract TeamDreamHub {
 				totalShare += _ratio;
 			
 			if(totalShare > 100) // if larger than 100%, should REJECT
-				revert(&#39;totalShare is larger than 100.&#39;);
+				revert('totalShare is larger than 100.');
 		}
 		
 		shareHolderTable[tableIdx] = ShareHolder(_targetAddress,_ratio);        

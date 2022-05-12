@@ -197,9 +197,9 @@ contract RentalAgreement {
     rent = 30000000000000000; //rent amount
 
 
-    // clauses.general.propertyType.other = &#39;Cabin&#39;;
+    // clauses.general.propertyType.other = 'Cabin';
     clauses.general.propertyType.selectedPropertyID = 5;
-    clauses.general.propertyLocation.selectedCountry=&#39;VEN&#39;;
+    clauses.general.propertyLocation.selectedCountry='VEN';
     clauses.general.propertyLocation.selectedStateID=4;
     clauses.general.leaseDetails.dateLeaseStarts = 2323321212;
     clauses.general.leaseDetails.leaseDateSelected = 3;
@@ -262,7 +262,7 @@ contract RentalAgreement {
     emit Deposit(msg.sender, amount);
   }
 
-  //The rent is deposited in tenant&#39;s behalf
+  //The rent is deposited in tenant's behalf
   function depositFrom(uint amount) rentalAgreementApproved public {
     require(msg.sender == admin);
     require(EthRental.transferFrom(tenant, this, amount));

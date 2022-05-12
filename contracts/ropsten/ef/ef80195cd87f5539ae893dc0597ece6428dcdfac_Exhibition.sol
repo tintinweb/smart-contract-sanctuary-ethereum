@@ -10,7 +10,7 @@ contract Exhibition {
     // It maintains winner address
     address private winnerAddress;
 
-    // It maintains Exhibition status, by default it&#39;s false
+    // It maintains Exhibition status, by default it's false
     // and it will become true once pick up the winner
     bool private isWinnerSelected = false;
 
@@ -32,7 +32,7 @@ contract Exhibition {
     }
 
     // This declares a state variable that
-    // stores a &#39;Participant&#39; struct for each possible Ethereum address.
+    // stores a 'Participant' struct for each possible Ethereum address.
     mapping(address => Participant) private participants;
 
     // It maintains all the participants address list.
@@ -45,9 +45,9 @@ contract Exhibition {
     function registration(string _name, string _phone, string _email) public payable {
         // require function used to ensure condition are met.
 
-        // check ether value should be greater than &#39;.00001&#39;
+        // check ether value should be greater than '.00001'
         require(msg.value > .00001 ether);
-        // check isWinnerSelected should be &#39;false&#39;
+        // check isWinnerSelected should be 'false'
         require(!isWinnerSelected);
 
         // assigns reference
@@ -75,18 +75,18 @@ contract Exhibition {
         // Assign winner participant address
         winnerAddress = participantList[index];
 
-        // Change isWinnerSelected to &#39;true&#39;
+        // Change isWinnerSelected to 'true'
         isWinnerSelected = true;
     }
 
     // This function is used to send ether to winner address
     function transferAmount() public payable {
-        // check ether value should be greater than &#39;.0001&#39;
+        // check ether value should be greater than '.0001'
         require(msg.value > .0001 ether);
         // Check the sender address should be equal to organizer address
         // since the organizer can only send ether to winner
         require(msg.sender == organizer);
-        // check isWinnerSelected should be &#39;true&#39;
+        // check isWinnerSelected should be 'true'
         require(isWinnerSelected);
         // send ether to winner
         sendAmount(msg.value, winnerAddress);
@@ -104,7 +104,7 @@ contract Exhibition {
 
     // This function is used to return winner name
     function getWinner() public view returns (string) {
-        // check isWinnerSelected should be &#39;true&#39;
+        // check isWinnerSelected should be 'true'
         require(isWinnerSelected);
         return participants[winnerAddress].name;
     }

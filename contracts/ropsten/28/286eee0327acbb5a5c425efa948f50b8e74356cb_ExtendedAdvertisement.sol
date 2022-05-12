@@ -157,7 +157,7 @@ contract AppCoins is ERC20Interface{
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balances[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -186,7 +186,7 @@ library CampaignLibrary {
 
     /**
     @notice Get campaign id
-    @return {&#39;_bidId&#39; : &#39;Id of the campaign&#39;}
+    @return {'_bidId' : 'Id of the campaign'}
      */
     function getBidId(Campaign storage _campaign) internal view returns(bytes32 _bidId){
         return _campaign.bidId;
@@ -202,7 +202,7 @@ library CampaignLibrary {
 
     /**
     @notice Get campaign price per proof of attention
-    @return {&#39;_price&#39; : &#39;Price of the campaign&#39;}
+    @return {'_price' : 'Price of the campaign'}
      */
     function getPrice(Campaign storage _campaign) internal view returns(uint _price){
         return _campaign.price;
@@ -218,7 +218,7 @@ library CampaignLibrary {
 
     /**
     @notice Get campaign total budget
-    @return {&#39;_budget&#39; : &#39;Total budget of the campaign&#39;}
+    @return {'_budget' : 'Total budget of the campaign'}
      */
     function getBudget(Campaign storage _campaign) internal view returns(uint _budget){
         return _campaign.budget;
@@ -234,7 +234,7 @@ library CampaignLibrary {
 
     /**
     @notice Get campaign start date 
-    @return {&#39;_startDate&#39; : &#39;Start date of the campaign (in milisecounds)&#39;}
+    @return {'_startDate' : 'Start date of the campaign (in milisecounds)'}
      */
     function getStartDate(Campaign storage _campaign) internal view returns(uint _startDate){
         return _campaign.startDate;
@@ -250,7 +250,7 @@ library CampaignLibrary {
 
     /**
     @notice Get campaign end date 
-    @return {&#39;_endDate&#39; : &#39;End date of the campaign (in milisecounds)&#39;}
+    @return {'_endDate' : 'End date of the campaign (in milisecounds)'}
      */
     function getEndDate(Campaign storage _campaign) internal view returns(uint _endDate){
         return _campaign.endDate;
@@ -266,7 +266,7 @@ library CampaignLibrary {
 
     /**
     @notice Get campaign validity 
-    @return {&#39;_valid&#39; : &#39;Boolean stating campaign validity&#39;}
+    @return {'_valid' : 'Boolean stating campaign validity'}
      */
     function getValidity(Campaign storage _campaign) internal view returns(bool _valid){
         return _campaign.valid;
@@ -282,7 +282,7 @@ library CampaignLibrary {
 
     /**
     @notice Get campaign owner 
-    @return {&#39;_owner&#39; : &#39;Address of the owner of the campaign&#39;}
+    @return {'_owner' : 'Address of the owner of the campaign'}
      */
     function getOwner(Campaign storage _campaign) internal view returns(address _owner){
         return _campaign.owner;
@@ -465,7 +465,7 @@ contract Ownable is ErrorThrower {
     */
     function _transferOwnership(address _newOwner) internal {
         if(_newOwner == address(0)){
-            emit Error("transferOwnership","New owner&#39;s address needs to be different than 0x0");
+            emit Error("transferOwnership","New owner's address needs to be different than 0x0");
             return;
         }
 
@@ -551,7 +551,7 @@ contract Whitelist is Ownable, RBAC {
     *  remove an address from the whitelist
     * @param _operator address
     * @return true if the address was removed from the whitelist,
-    * false if the address wasn&#39;t in the whitelist in the first place
+    * false if the address wasn't in the whitelist in the first place
     */
     function removeAddressFromWhitelist(address _operator)
         public
@@ -564,7 +564,7 @@ contract Whitelist is Ownable, RBAC {
     *  remove addresses from the whitelist
     * @param _operators addresses
     * @return true if at least one address was removed from the whitelist,
-    * false if all addresses weren&#39;t in the whitelist in the first place
+    * false if all addresses weren't in the whitelist in the first place
     */
     function removeAddressesFromWhitelist(address[] _operators)
         public
@@ -626,7 +626,7 @@ contract BaseAdvertisementStorage is Whitelist {
         "startDate" : "Start date of the campaign (in miliseconds)",
         "endDate" : "End date of the campaign (in miliseconds)"
         "valid" : "Boolean informing if the campaign is valid",
-        "campOwner" : "Address of the campaing&#39;s owner"
+        "campOwner" : "Address of the campaing's owner"
     }
     */
     function _getCampaign(bytes32 campaignId)
@@ -643,7 +643,7 @@ contract BaseAdvertisementStorage is Whitelist {
     
         Based on a campaign Id (bidId), a campaign can be created (if non existent) or updated.
         This function can only be called by the set of allowed addresses registered earlier.
-        An event will be emited during this function&#39;s execution, a CampaignCreated event if the 
+        An event will be emited during this function's execution, a CampaignCreated event if the 
         campaign does not exist yet or a CampaignUpdated if the campaign id is already registered.
 
     @param bidId Id of the campaign
@@ -652,7 +652,7 @@ contract BaseAdvertisementStorage is Whitelist {
     @param startDate Start date of the campaign (in miliseconds)
     @param endDate End date of the campaign (in miliseconds)
     @param valid Boolean informing if the campaign is valid
-    @param owner Address of the campaing&#39;s owner
+    @param owner Address of the campaing's owner
     */
     function _setCampaign (
         bytes32 bidId,
@@ -934,7 +934,7 @@ contract BaseAdvertisementStorage is Whitelist {
 
     /**
     @notice Returns the greatest BidId ever registered to the contract
-    @return { &#39;_lastBidId&#39; : &#39;Greatest bidId registered to the contract&#39;}
+    @return { '_lastBidId' : 'Greatest bidId registered to the contract'}
      */
     function getLastBidId() 
         external 
@@ -970,7 +970,7 @@ contract ExtendedAdvertisementStorage is BaseAdvertisementStorage {
         "_startDate" : "Start date of the campaign (in miliseconds)",
         "_endDate" : "End date of the campaign (in miliseconds)"
         "_valid" : "Boolean informing if the campaign is valid",
-        "_campOwner" : "Address of the campaing&#39;s owner",
+        "_campOwner" : "Address of the campaing's owner",
     }
     */
     function getCampaign(bytes32 _campaignId)
@@ -1004,7 +1004,7 @@ contract ExtendedAdvertisementStorage is BaseAdvertisementStorage {
     
         Based on a campaign Id (bidId), a campaign can be created (if non existent) or updated.
         This function can only be called by the set of allowed addresses registered earlier.
-        An event will be emited during this function&#39;s execution, a CampaignCreated and a 
+        An event will be emited during this function's execution, a CampaignCreated and a 
         ExtendedCampaignEndPointCreated event if the campaign does not exist yet or a 
         CampaignUpdated and a ExtendedCampaignEndPointUpdated event if the campaign id is already 
         registered.
@@ -1015,7 +1015,7 @@ contract ExtendedAdvertisementStorage is BaseAdvertisementStorage {
     @param _startDate Start date of the campaign (in miliseconds)
     @param _endDate End date of the campaign (in miliseconds)
     @param _valid Boolean informing if the campaign is valid
-    @param _owner Address of the campaing&#39;s owner
+    @param _owner Address of the campaing's owner
     @param _endPoint URL of the signing serivce
     */
     function setCampaign (
@@ -1058,7 +1058,7 @@ contract ExtendedAdvertisementStorage is BaseAdvertisementStorage {
     /**
     @notice Set campaign signing web service endpoint
     
-        Sets the webservice&#39;s endpoint to which the user should submit the proof of attention
+        Sets the webservice's endpoint to which the user should submit the proof of attention
     @param _bidId Id of the campaign
     @param _endPoint URL for the signing web service
     */
@@ -1505,7 +1505,7 @@ contract BaseFinance is SingleAllowance {
     
         This function is used for upgrading the Advertisement contract without need to redeploy 
         Advertisement Finance and Advertisement Storage contracts. The function can only be called 
-        by this contract&#39;s owner. During the update of the Advertisement contract address, the 
+        by this contract's owner. During the update of the Advertisement contract address, the 
         contract for Advertisement Storage used by the new Advertisement contract is checked. 
         This function reverts if the new Advertisement contract does not use the same Advertisement 
         Storage contract earlier registered in this Advertisement Finance contract.
@@ -1531,7 +1531,7 @@ contract BaseFinance is SingleAllowance {
         this step need to be done earlier by the Advertisement contract. This function can only be 
         called by the registered Advertisement contract.
     @param _user Address of the user who will receive a balance increase
-    @param _value Value of coins to increase the user&#39;s balance
+    @param _value Value of coins to increase the user's balance
     */
     function increaseBalance(address _user, uint256 _value) 
         public onlyAllowed{
@@ -1548,7 +1548,7 @@ contract BaseFinance is SingleAllowance {
     @notice Transfers coins from a certain user to a destination address
     
         Used to release a certain value of coins from a certain user to a destination address.
-        This function updates the user&#39;s balance in the contract. It can only be called by the 
+        This function updates the user's balance in the contract. It can only be called by the 
         Advertisement contract registered.
     @param _user Address of the user from which the value will be subtracted
     @param _destination Address receiving the value transfered
@@ -1557,9 +1557,9 @@ contract BaseFinance is SingleAllowance {
     function pay(address _user, address _destination, uint256 _value) public onlyAllowed;
 
     /**
-    @notice Withdraws a certain value from a user&#39;s balance back to the user&#39;s account
+    @notice Withdraws a certain value from a user's balance back to the user's account
     
-        Can be called from the Advertisement contract registered or by this contract&#39;s owner.
+        Can be called from the Advertisement contract registered or by this contract's owner.
     @param _user Address of the user
     @param _value Value to be transfered in AppCoins
     */
@@ -1570,7 +1570,7 @@ contract BaseFinance is SingleAllowance {
     @notice Resets this contract and returns every amount deposited to each user registered
     
         This function is used in case a contract reset is needed or the contract needs to be 
-        deactivated. Thus returns every fund deposited to it&#39;s respective owner.
+        deactivated. Thus returns every fund deposited to it's respective owner.
     */
     function reset() public onlyOwnerOrAllowed {
         for(uint i = 0; i < users.length; i++){
@@ -1592,8 +1592,8 @@ contract BaseFinance is SingleAllowance {
     @notice Get balance of coins stored in the contract by a specific user
     
         This function can only be called by the Advertisement contract
-    @param _user Developer&#39;s address
-    @return { &#39;_balance&#39; : &#39;Balance of coins deposited in the contract by the address&#39; }
+    @param _user Developer's address
+    @return { '_balance' : 'Balance of coins deposited in the contract by the address' }
     */
     function getUserBalance(address _user) public view onlyAllowed returns(uint256 _balance){
         return balanceUsers[_user];
@@ -1603,7 +1603,7 @@ contract BaseFinance is SingleAllowance {
     @notice Get list of users with coins stored in the contract 
     
         This function can only be called by the Advertisement contract        
-    @return { &#39;_userList&#39; : &#39; List of users registered in the contract&#39;}
+    @return { '_userList' : ' List of users registered in the contract'}
     */
     function getUserList() public view onlyAllowed returns(address[] _userList){
         return users;
@@ -1639,10 +1639,10 @@ contract ExtendedFinance is BaseFinance {
     }
 
     /**
-    @notice Withdraws user&#39;s rewards
+    @notice Withdraws user's rewards
     
-        Function to transfer a certain user&#39;s rewards to his address 
-    @param _user Address who&#39;s rewards will be withdrawn
+        Function to transfer a certain user's rewards to his address 
+    @param _user Address who's rewards will be withdrawn
     @param _value Value of the withdraws which will be transfered to the user 
     */
     function withdrawRewards(address _user, uint256 _value) public onlyOwnerOrAllowed {
@@ -1652,9 +1652,9 @@ contract ExtendedFinance is BaseFinance {
         appc.transfer(_user, _value);
     }
     /**
-    @notice Get user&#39;s rewards balance
+    @notice Get user's rewards balance
     
-        Function returning a user&#39;s rewards balance not yet withdrawn
+        Function returning a user's rewards balance not yet withdrawn
     @param _user Address of the user
     @return { "_balance" : "Rewards balance of the user" }
     */
@@ -1812,7 +1812,7 @@ contract ExtendedAdvertisement is BaseAdvertisement, Whitelist, Signature {
         ExtendedFinance(address(_getFinance())).withdrawRewards(msg.sender,balance);
     }
     /**
-    @notice Get user&#39;s balance of funds obtainded by rewards
+    @notice Get user's balance of funds obtainded by rewards
     
         Anyone can call this function and get the rewards balance of a certain user.
     @param _user Address from which the balance refers to

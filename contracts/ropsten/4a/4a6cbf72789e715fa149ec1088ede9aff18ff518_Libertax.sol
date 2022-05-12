@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -309,9 +309,9 @@ contract RefundVault is Ownable {
 contract Libertax is PausableToken {
    using SafeMath for uint256;
 
-   string public constant name = &#39;Libertax&#39;;
+   string public constant name = 'Libertax';
 
-   string public constant symbol = &#39;LTX&#39;;
+   string public constant symbol = 'LTX';
 
    uint8 public constant decimals = 18;
 
@@ -337,7 +337,7 @@ contract Libertax is PausableToken {
    // The maximum amount of tokens sold in the crowdsale
    uint256 public limitCrowdsale = 40e24;
 
-   /// @notice Only allows the execution of the function if it&#39;s comming from crowdsale
+   /// @notice Only allows the execution of the function if it's comming from crowdsale
    modifier onlyCrowdsale() {
       require(msg.sender == crowdsale);
       _;
@@ -349,12 +349,12 @@ contract Libertax is PausableToken {
    /// @notice Constructor used to set the platform & development tokens. This is
    /// The 20% + 20% of the 100 M tokens used for platform and development team.
    /// The owner, msg.sender, is able to do allowance for other contracts. Remember
-   /// to use `transferFrom()` if you&#39;re allowed
+   /// to use `transferFrom()` if you're allowed
    function Libertax() {
       balances[msg.sender] = initialSupply; // 40M tokens wei
    }
 
-   /// @notice Function to set the crowdsale smart contract&#39;s address only by the owner of this token
+   /// @notice Function to set the crowdsale smart contract's address only by the owner of this token
    /// @param _crowdsale The address that will be used
    function setCrowdsaleAddress(address _crowdsale) external onlyOwner whenNotPaused {
       require(_crowdsale != address(0));
@@ -369,7 +369,7 @@ contract Libertax is PausableToken {
       require(_buyer != address(0));
       require(tokens > 0 && tokens <= limitPresale);
 
-      // Check that the limit of 10M presale tokens hasn&#39;t been met yet
+      // Check that the limit of 10M presale tokens hasn't been met yet
       require(tokensDistributedPresale < limitPresale);
       require(tokensDistributedPresale.add(tokens) < limitPresale);
 
@@ -384,7 +384,7 @@ contract Libertax is PausableToken {
       require(_buyer != address(0));
       require(tokens > 0);
 
-      // Check that the limit of 50M ICO tokens hasn&#39;t been met yet
+      // Check that the limit of 50M ICO tokens hasn't been met yet
       require(tokensDistributedCrowdsale < limitCrowdsale);
       require(tokensDistributedCrowdsale.add(tokens) <= limitCrowdsale);
 
@@ -474,7 +474,7 @@ contract Crowdsale is Pausable {
    // 7.5e6 + 1e18
    uint256 public constant minimumGoal = 5.33e24;
 
-   // If the crowdsale wasn&#39;t successful, this will be true and users will be able
+   // If the crowdsale wasn't successful, this will be true and users will be able
    // to claim the refund of their ether
    bool public isRefunding = false;
 
@@ -609,14 +609,14 @@ contract Crowdsale is Pausable {
    /// @notice Calculates how many ether will be used to generate the tokens in
    /// case the buyer sends more than the maximum balance but has some balance left
    /// and updates the balance of that buyer.
-   /// For instance if he&#39;s 500 balance and he sends 1000, it will return 500
+   /// For instance if he's 500 balance and he sends 1000, it will return 500
    /// and refund the other 500 ether
    function calculateExcessBalance() internal whenNotPaused returns(uint256) {
       uint256 amountPaid = msg.value;
       uint256 differenceWei = 0;
       uint256 exceedingBalance = 0;
 
-      // If we&#39;re in the last tier, check that the limit hasn&#39;t been reached
+      // If we're in the last tier, check that the limit hasn't been reached
       // and if so, refund the difference and return what will be used to
       // buy the remaining tokens
       if(tokensRaised >= limitTier3) {
@@ -660,7 +660,7 @@ contract Crowdsale is Pausable {
       return amountPaid;
    }
 
-   /// @notice Set&#39;s the rate of tokens per ether for each tier. Use it after the
+   /// @notice Set's the rate of tokens per ether for each tier. Use it after the
    /// smart contract is deployed to set the price according to the ether price
    /// at the start of the ICO
    /// @param tier1 The amount of tokens you get in the tier one
@@ -692,7 +692,7 @@ contract Crowdsale is Pausable {
 
 
    /// @notice Check if the crowdsale has ended and enables refunds only in case the
-   /// goal hasn&#39;t been reached
+   /// goal hasn't been reached
    function checkCompletedCrowdsale() public whenNotPaused {
       if(!isEnded) {
          if(hasEnded() && !goalReached()){
@@ -740,7 +740,7 @@ contract Crowdsale is Pausable {
       uint tokensNextTier = 0;
       bool returnTokens = false;
 
-      // If there&#39;s excessive wei for the last tier, refund those
+      // If there's excessive wei for the last tier, refund those
       if(tierSelected != 4)
          tokensNextTier = calculateTokensTier(weiNextTier, tierSelected.add(1));
       else
@@ -754,8 +754,8 @@ contract Crowdsale is Pausable {
 
    /// @notice Buys the tokens given the price of the tier one and the wei paid
    /// @param weiPaid The amount of wei paid that will be used to buy tokens
-   /// @param tierSelected The tier that you&#39;ll use for thir purchase
-   /// @return calculatedTokens Returns how many tokens you&#39;ve bought for that wei paid
+   /// @param tierSelected The tier that you'll use for thir purchase
+   /// @return calculatedTokens Returns how many tokens you've bought for that wei paid
    function calculateTokensTier(uint256 weiPaid, uint256 tierSelected)
         internal constant returns(uint256 calculatedTokens)
    {

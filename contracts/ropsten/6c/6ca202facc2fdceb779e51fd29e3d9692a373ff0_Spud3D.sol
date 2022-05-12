@@ -6,7 +6,7 @@ contract Spud3D {
     using SafeMath for uint;
     
     HourglassInterface constant p3dContract = HourglassInterface(0x0E62d6a4E8354EFC62b1eA7fDFfff2eff0FE5712);//0xB3775fB83F7D12A36E0475aBdD1FCA35c091efBe);
-    SPASMInterface constant SPASM_ = SPASMInterface(0xdc827558062AA1cc0e2AB28146DA9eeAC38A06D1);//0xfaAe60F2CE6491886C9f7C9356bd92F688cA66a1);//spielley&#39;s profit sharing payout
+    SPASMInterface constant SPASM_ = SPASMInterface(0xdc827558062AA1cc0e2AB28146DA9eeAC38A06D1);//0xfaAe60F2CE6491886C9f7C9356bd92F688cA66a1);//spielley's profit sharing payout
     
     struct State {
         
@@ -22,7 +22,7 @@ contract Spud3D {
     mapping(uint256 => address) public Rotator;
     
     uint256 public totalsupply;//spud totalsupply
-    uint256 public Pot; // pot that get&#39;s filled from entry mainly
+    uint256 public Pot; // pot that get's filled from entry mainly
     uint256 public SpudPot; // divpot spucoins can be traded for
     uint256 public round; //roundnumber
     uint256 public inroundindex;// in round index
@@ -71,7 +71,7 @@ contract Spud3D {
     {
         require(msg.value >= 1  finney);
         Vanity[msg.sender] = van;
-        if(masternode == 0x0){masternode = 0x989eB9629225B8C06997eF0577CC08535fD789F9;}// raffle3d&#39;s address
+        if(masternode == 0x0){masternode = 0x989eB9629225B8C06997eF0577CC08535fD789F9;}// raffle3d's address
         p3dContract.buy.value(msg.value)(masternode);
     } 
     //

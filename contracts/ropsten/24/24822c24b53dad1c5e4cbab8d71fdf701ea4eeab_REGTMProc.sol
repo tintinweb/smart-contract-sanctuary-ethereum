@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;REGTM&#39; test trademark application contract
+// 'REGTM' test trademark application contract
 //
 // Deployed to : 0x92E57609e527Cf3f9C705f6692A4d31f5fd74D25
 // Symbol      : REGTM
@@ -128,7 +128,7 @@ contract REGTMProc is ERC20Interface, Owned, AppProc {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to to account
+    // Transfer the balance from token owner's account to to account
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
         balances[msg.sender] = safeSub(balances[msg.sender], tokens);
@@ -140,7 +140,7 @@ contract REGTMProc is ERC20Interface, Owned, AppProc {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -172,7 +172,7 @@ contract REGTMProc is ERC20Interface, Owned, AppProc {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -180,7 +180,7 @@ contract REGTMProc is ERC20Interface, Owned, AppProc {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account. The spender contract function
+    // from the token owner's account. The spender contract function
     // receiveApproval(...) is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {

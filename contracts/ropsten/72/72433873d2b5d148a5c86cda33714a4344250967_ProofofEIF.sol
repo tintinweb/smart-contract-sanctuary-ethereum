@@ -5,7 +5,7 @@ pragma solidity ^0.4.25;
 *  _____                  __          __   ______ _____ ______ 
 * |  __ \                / _|        / _| |  ____|_   _|  ____|
 * | |__) | __ ___   ___ | |_    ___ | |_  | |__    | | | |__   
-* |  ___/ &#39;__/ _ \ / _ \|  _|  / _ \|  _| |  __|   | | |  __|  
+* |  ___/ '__/ _ \ / _ \|  _|  / _ \|  _| |  __|   | | |  __|  
 * | |   | | | (_) | (_) | |   | (_) | |   | |____ _| |_| |     
 * |_|   |_|  \___/ \___/|_|    \___/|_|   |______|_____|_|     
 *                                                              
@@ -467,7 +467,7 @@ contract ProofofEIF {
    * (only do this if they take too long to buy premine - they are removed automatically during premine purchase)
    * @param addr address
    * @return true if the address was removed from the list,
-   * false if the address wasn&#39;t in the list in the first place
+   * false if the address wasn't in the list in the first place
    */
   function removeAmbassador(address addr) onlyAdministrator public returns(bool success) {
     if (ambassadors_[addr]) {
@@ -494,7 +494,7 @@ contract ProofofEIF {
    * @dev remove an address from the administrators list
    * @param addr address
    * @return true if the address was removed from the list,
-   * false if the address wasn&#39;t in the list in the first place or not called by original administrator
+   * false if the address wasn't in the list in the first place or not called by original administrator
    */
   function removeAdministrator(address addr) onlyAdministrator public returns(bool success) {
     if (administrators[addr] && msg.sender==PoEIF) {

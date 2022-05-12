@@ -14,7 +14,7 @@ contract RPS{
      *  @param _c1Hash Must be equal to keccak256(c1,salt) where c1 is the move of the j1.
      */
     function RPS(bytes32 _c1Hash, address _j2) payable {
-        stake = msg.value; // La mise correspond &#224; la quantit&#233; d&#39;ethers envoy&#233;s.
+        stake = msg.value; // La mise correspond &#224; la quantit&#233; d'ethers envoy&#233;s.
         j1=msg.sender;
         j2=_j2;
         c1Hash=_c1Hash;
@@ -42,7 +42,7 @@ contract RPS{
         require(msg.sender==j1); // J1 can call this.
         require(keccak256(_c1,_salt)==c1Hash); // Verify the value is the commited one.
         
-        // If j1 or j2 throws at fallback it won&#39;t get funds and that is his fault.
+        // If j1 or j2 throws at fallback it won't get funds and that is his fault.
         // Despite what the warnings say, we should not use transfer as a throwing fallback would be able to block the contract, in case of tie.
         if (win(_c1,c2))
             j1.send(2*stake);

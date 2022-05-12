@@ -98,7 +98,7 @@ contract JackpotRoll {
 
      function placeGame(uint8 Roll_Under, uint256 Last_Commitable_Block, uint256 Commit, uint8 v, bytes32 r, bytes32 s) external payable {
         Game storage game = games[Commit];
-        require (game.Gamer == address(0), "Game should be in a &#39;clean&#39; state.");
+        require (game.Gamer == address(0), "Game should be in a 'clean' state.");
 
         // Validate input data ranges.
         uint Amount = msg.value;
@@ -141,7 +141,7 @@ contract JackpotRoll {
         Game storage game = games[Commit];      
 
         require (block.number > game.Played_Block_Number, "trying to reveal in the same block as playGame, or before.");
-        require (block.number <= game.Played_Block_Number + Game_Expires_After, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number <= game.Played_Block_Number + Game_Expires_After, "Blockhash can't be queried by EVM.");
         require (blockhash(game.Played_Block_Number) == Block_Hash);
 
 
@@ -152,7 +152,7 @@ contract JackpotRoll {
         uint Commit = uint(keccak256(abi.encodePacked(Reveal)));
         Game storage game = games[Commit]; 
 
-        require (block.number <= Canonical_Block_Number + Game_Expires_After, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number <= Canonical_Block_Number + Game_Expires_After, "Blockhash can't be queried by EVM.");
 
         // Verify placeGame receipt.
         requireCorrectReceipt(4 + 32 + 32 + 4);

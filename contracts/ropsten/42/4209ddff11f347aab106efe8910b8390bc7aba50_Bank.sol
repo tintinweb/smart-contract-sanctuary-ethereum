@@ -15,7 +15,7 @@ contract Bank {
         balances[msg.sender] += msg.value;
     }
 
-    // Attempt to withdraw the given &#39;amount&#39; of Ether from the account.
+    // Attempt to withdraw the given 'amount' of Ether from the account.
     function withdraw(uint amount) public {
         require(amount <= balances[msg.sender]);
         balances[msg.sender] -= amount;

@@ -122,7 +122,7 @@ library Buffer {
             let buflen := mload(bufptr)
             // Start address = buffer address + offset + sizeof(buffer length)
             dest := add(add(bufptr, 32), off)
-            // Update buffer length if we&#39;re extending it
+            // Update buffer length if we're extending it
             if gt(add(len, off), buflen) {
                 mstore(bufptr, add(len, off))
             }
@@ -414,7 +414,7 @@ library BytesUtils {
     }
 
     /*
-    * @dev Compares a range of &#39;self&#39; to all of &#39;other&#39; and returns True iff
+    * @dev Compares a range of 'self' to all of 'other' and returns True iff
     *      they are equal.
     * @param self The first byte range to compare.
     * @param offset The offset into the first byte range.
@@ -558,7 +558,7 @@ library BytesUtils {
 
     // Maps characters from 0x30 to 0x7A to their base32 values.
     // 0xFF represents invalid characters in that range.
-    bytes constant base32HexTable = hex&#39;00010203040506070809FFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1FFFFFFFFFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1F&#39;;
+    bytes constant base32HexTable = hex'00010203040506070809FFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1FFFFFFFFFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1F';
 
     /**
      * @dev Decodes unpadded base32 data of up to one word in length.
@@ -644,7 +644,7 @@ interface NSEC3Digest {
 // File: contracts/Owned.sol
 
 /**
-* @dev Contract mixin for &#39;owned&#39; contracts.
+* @dev Contract mixin for 'owned' contracts.
 */
 contract Owned {
     address public owner;
@@ -673,10 +673,10 @@ library RRUtils {
     using Buffer for *;
 
     /**
-    * @dev Returns the number of bytes in the DNS name at &#39;offset&#39; in &#39;self&#39;.
+    * @dev Returns the number of bytes in the DNS name at 'offset' in 'self'.
     * @param self The byte array to read a name from.
     * @param offset The offset to start reading at.
-    * @return The length of the DNS name at &#39;offset&#39;, in bytes.
+    * @return The length of the DNS name at 'offset', in bytes.
     */
     function nameLength(bytes memory self, uint offset) internal pure returns(uint) {
         uint idx = offset;
@@ -703,10 +703,10 @@ library RRUtils {
     }
 
     /**
-    * @dev Returns the number of labels in the DNS name at &#39;offset&#39; in &#39;self&#39;.
+    * @dev Returns the number of labels in the DNS name at 'offset' in 'self'.
     * @param self The byte array to read a name from.
     * @param offset The offset to start reading at.
-    * @return The number of labels in the DNS name at &#39;offset&#39;, in bytes.
+    * @return The number of labels in the DNS name at 'offset', in bytes.
     */
     function labelCount(bytes memory self, uint offset) internal pure returns(uint) {
         uint count = 0;
@@ -796,7 +796,7 @@ library RRUtils {
     /**
     * @dev Returns the rdata portion of the current record.
     * @param iter The iterator.
-    * @return A new bytes object containing the RR&#39;s RDATA.
+    * @return A new bytes object containing the RR's RDATA.
     */
     function rdata(RRIterator memory iter) internal pure returns(bytes memory) {
         return iter.data.substring(iter.rdataOffset, iter.nextOffset - iter.rdataOffset);
@@ -817,7 +817,7 @@ library RRUtils {
             uint8 window = self.readUint8(off);
             uint8 len = self.readUint8(off + 1);
             if (typeWindow < window) {
-                // We&#39;ve gone past our window; it&#39;s not here.
+                // We've gone past our window; it's not here.
                 return false;
             } else if (typeWindow == window) {
                 // Check this type bitmap
@@ -890,7 +890,7 @@ library RRUtils {
  * @dev An oracle contract that verifies and stores DNSSEC-validated DNS records.
  *
  * TODO: Support for NSEC3 records
- * TODO: Use &#39;serial number math&#39; for inception/expiration
+ * TODO: Use 'serial number math' for inception/expiration
  */
 contract DNSSEC is Owned {
     using Buffer for Buffer.buffer;
@@ -961,7 +961,7 @@ contract DNSSEC is Owned {
      * @param _anchors The binary format RR entries for the root DS records.
      */
     constructor(bytes _anchors) public {
-        // Insert the &#39;trust anchors&#39; - the key hashes that start the chain
+        // Insert the 'trust anchors' - the key hashes that start the chain
         // of trust for all other records.
         anchors = _anchors;
         rrsets[keccak256(" ")][DNSTYPE_DS] = RRSet({
@@ -1081,18 +1081,18 @@ contract DNSSEC is Owned {
         bytes memory rrs;
         (nsecName, rrs) = validateSignedSet(nsec, sig, proof);
 
-        // Don&#39;t let someone use an old proof to delete a new name
+        // Don't let someone use an old proof to delete a new name
         require(rrsets[keccak256(deleteName)][deleteType].inception <= nsec.readUint32(RRSIG_INCEPTION));
 
         for (RRUtils.RRIterator memory iter = rrs.iterateRRs(0); !iter.done(); iter.next()) {
-            // We&#39;re dealing with three names here:
+            // We're dealing with three names here:
             //   - deleteName is the name the user wants us to delete
             //   - nsecName is the owner name of the NSEC record
             //   - nextName is the next name specified in the NSEC record
             //
             // And three cases:
             //   - deleteName equals nsecName, in which case we can delete the
-            //     record if it&#39;s not in the type bitmap.
+            //     record if it's not in the type bitmap.
             //   - nextName comes after nsecName, in which case we can delete
             //     the record if deleteName comes between nextName and nsecName.
             //   - nextName comes before nsecName, in which case nextName is the
@@ -1214,12 +1214,12 @@ contract DNSSEC is Owned {
 
         // TODO: Check inception and expiration using mod2^32 math
 
-        // o  The validator&#39;s notion of the current time MUST be less than or
-        //    equal to the time listed in the RRSIG RR&#39;s Expiration field.
+        // o  The validator's notion of the current time MUST be less than or
+        //    equal to the time listed in the RRSIG RR's Expiration field.
         require(expiration > now);
 
-        // o  The validator&#39;s notion of the current time MUST be greater than or
-        //    equal to the time listed in the RRSIG RR&#39;s Inception field.
+        // o  The validator's notion of the current time MUST be greater than or
+        //    equal to the time listed in the RRSIG RR's Inception field.
         require(inception < now);
     }
 
@@ -1247,7 +1247,7 @@ contract DNSSEC is Owned {
                 require(name.equals(0, data, iter.offset, name.length));
             }
 
-            // o  The RRSIG RR&#39;s Type Covered field MUST equal the RRset&#39;s type.
+            // o  The RRSIG RR's Type Covered field MUST equal the RRset's type.
             require(iter.dnstype == typecovered);
         }
     }
@@ -1271,7 +1271,7 @@ contract DNSSEC is Owned {
     function verifySignature(bytes name, bytes memory data, bytes memory sig, bytes memory proof) internal view {
         uint signerNameLength = data.nameLength(RRSIG_SIGNER_NAME);
 
-        // o  The RRSIG RR&#39;s Signer&#39;s Name field MUST be the name of the zone
+        // o  The RRSIG RR's Signer's Name field MUST be the name of the zone
         //    that contains the RRset.
         require(signerNameLength <= name.length);
         require(data.equals(RRSIG_SIGNER_NAME, name, name.length - signerNameLength, signerNameLength));
@@ -1304,7 +1304,7 @@ contract DNSSEC is Owned {
         uint16 keytag = data.readUint16(RRSIG_KEY_TAG);
 
         for (RRUtils.RRIterator memory iter = proof.iterateRRs(0); !iter.done(); iter.next()) {
-            // Check the DNSKEY&#39;s owner name matches the signer name on the RRSIG
+            // Check the DNSKEY's owner name matches the signer name on the RRSIG
             require(proof.nameLength(0) == signerNameLength);
             require(proof.equals(0, data, RRSIG_SIGNER_NAME, signerNameLength));
             if (verifySignatureWithKey(iter.rdata(), algorithm, keytag, data, sig)) {
@@ -1327,7 +1327,7 @@ contract DNSSEC is Owned {
         uint8 algorithm = data.readUint8(RRSIG_ALGORITHM);
         uint16 keytag = data.readUint16(RRSIG_KEY_TAG);
 
-        // Perhaps it&#39;s self-signed and verified by a DS record?
+        // Perhaps it's self-signed and verified by a DS record?
         for (RRUtils.RRIterator memory iter = data.iterateRRs(offset); !iter.done(); iter.next()) {
             if (iter.dnstype != DNSTYPE_DNSKEY) {
                 return false;
@@ -1335,7 +1335,7 @@ contract DNSSEC is Owned {
 
             bytes memory keyrdata = iter.rdata();
             if (verifySignatureWithKey(keyrdata, algorithm, keytag, data, sig)) {
-                // It&#39;s self-signed - look for a DS record to verify it.
+                // It's self-signed - look for a DS record to verify it.
                 if (verifyKeyWithDS(iter.name(), keyrdata, keytag, algorithm, proof)) {
                     return true;
                 }
@@ -1360,11 +1360,11 @@ contract DNSSEC is Owned {
         if (algorithms[algorithm] == address(0)) {
             return false;
         }
-        // TODO: Check key isn&#39;t expired, unless updating key itself
+        // TODO: Check key isn't expired, unless updating key itself
 
-        // o The RRSIG RR&#39;s Signer&#39;s Name, Algorithm, and Key Tag fields MUST
+        // o The RRSIG RR's Signer's Name, Algorithm, and Key Tag fields MUST
         //   match the owner name, algorithm, and key tag for some DNSKEY RR in
-        //   the zone&#39;s apex DNSKEY RRset.
+        //   the zone's apex DNSKEY RRset.
         if (keyrdata.readUint8(DNSKEY_PROTOCOL) != 3) {
             return false;
         }
@@ -1376,7 +1376,7 @@ contract DNSSEC is Owned {
             return false;
         }
 
-        // o The matching DNSKEY RR MUST be present in the zone&#39;s apex DNSKEY
+        // o The matching DNSKEY RR MUST be present in the zone's apex DNSKEY
         //   RRset, and MUST have the Zone Flag bit (DNSKEY RDATA Flag bit 7)
         //   set.
         if (keyrdata.readUint16(DNSKEY_FLAGS) & DNSKEY_FLAG_ZONEKEY == 0) {
@@ -1418,7 +1418,7 @@ contract DNSSEC is Owned {
     }
 
     /**
-     * @dev Attempts to verify a DS record&#39;s hash value against some data.
+     * @dev Attempts to verify a DS record's hash value against some data.
      * @param digesttype The digest ID from the DS record.
      * @param data The data to digest.
      * @param digest The digest data to check against.

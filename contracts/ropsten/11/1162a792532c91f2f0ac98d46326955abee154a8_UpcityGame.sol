@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -29,7 +29,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -160,7 +160,7 @@ contract Restricted is Errors {
 	}
 }
 
-/// @title Base for contracts that don&#39;t want to hold ether.
+/// @title Base for contracts that don't want to hold ether.
 /// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dcb1b99cb1b9aeb7b0b9b6b9aeb7f2bfb3b1">[email&#160;protected]</a>)
 /// @dev Reverts in the fallback function.
 contract Nonpayable is Errors {
@@ -193,7 +193,7 @@ contract UpcityBase {
 		int32 y;
 		// The height of the tower on the tile (length of blocks).
 		uint8 height;
-		// NUM_NEIGHBORS + the height of each neighbor&#39;s tower.
+		// NUM_NEIGHBORS + the height of each neighbor's tower.
 		uint8 neighborCloutsTotal;
 		// The current owner of the tile.
 		address owner;
@@ -245,7 +245,7 @@ contract UpcityBase {
 	uint64 internal constant TAX_RATE = 166667;
 	// The minimum tile price.
 	uint256 internal constant MINIMUM_TILE_PRICE = 25000000000000000;
-	// How much to increase the base tile price every time it&#39;s bought, in ppm.
+	// How much to increase the base tile price every time it's bought, in ppm.
 	uint64 internal constant PURCHASE_MARKUP = 1250000;
 	// Scaling factor for global production limits.
 	uint64 internal constant PRODUCTION_ALPHA = 1500000;
@@ -297,7 +297,7 @@ contract UpcityBase {
 		uint64(1909683),
 		uint64(2000000)
 	];
-	// The linear rate at which each block&#39;s costs increase with the total
+	// The linear rate at which each block's costs increase with the total
 	// blocks built, in ppm.
 	uint64[NUM_RESOURCES] internal RESOURCE_ALPHAS =
 		[50000, 250000, 660000];
@@ -408,7 +408,7 @@ contract UpcityGame is
 
 	/// @dev Raised whenever a tile is bought.
 	event Bought(bytes16 indexed id, address indexed from, address indexed to, uint256 price);
-	/// @dev Raised whenever a tile&#39;s resources/funds are collected.
+	/// @dev Raised whenever a tile's resources/funds are collected.
 	event Collected(bytes16 indexed id, address indexed owner);
 	/// @dev Raised whenever credited funds (ether) are collected.
 	event CreditsCollected(address indexed from, address indexed to, uint256 amount);
@@ -420,7 +420,7 @@ contract UpcityGame is
 	/// @dev Raised whenever amn authority claims fees through collectFees().
 	event FeesCollected(address indexed to, uint256 amount);
 
-	/// @dev Doesn&#39;t really do anything.
+	/// @dev Doesn't really do anything.
 	/// init() needs to be called by the creator before this contract
 	/// can be interacted with. All transactional functions will revert if
 	/// init() has not been called first.
@@ -429,7 +429,7 @@ contract UpcityGame is
 	/// @dev Initialize this contract.
 	/// All transactional functions will revert if this has not been called
 	/// first by the the contract creator. This cannot be called twice.
-	/// @param tokens Each resource&#39;s UpcityResourceToken addresses.
+	/// @param tokens Each resource's UpcityResourceToken addresses.
 	/// @param market The UpcityMarket address.
 	/// @param authorities Array of addresses allowed to call collectFees().
 	/// @param genesisPlayer The owner of the genesis tile, at <0,0>.
@@ -478,8 +478,8 @@ contract UpcityGame is
 	}
 
 	/// @dev Gets the resource and ether balance of a player.
-	/// Note that this does not include credits (see &#39;credits&#39; field).
-	/// @param player The player&#39;s address.
+	/// Note that this does not include credits (see 'credits' field).
+	/// @param player The player's address.
 	/// @return A tuple of:
 	/// ether balance,
 	/// array of balance for each resource.
@@ -593,7 +593,7 @@ contract UpcityGame is
 		// Get the costs and count of the new blocks.
 		(uint256[NUM_RESOURCES] memory cost, uint8 count) =
 			_getBuildCostAndCount(tile, blocks);
-		// Empty blocks aren&#39;t allowed.
+		// Empty blocks aren't allowed.
 		require(count > 0, ERROR_INVALID);
 		// Building beyond the maximum height is not allowed.
 		require(_isValidHeight(tile.height + count), ERROR_MAX_HEIGHT);
@@ -649,7 +649,7 @@ contract UpcityGame is
 	/// If the caller is the owner, funds/ether will be directly transfered to the
 	/// owner, rather than merely credited (push rather than pull).
 	/// The exact proportion of resources and funds each neighbor receives will
-	/// depend on its tower height relative to the tile&#39;s other immediate
+	/// depend on its tower height relative to the tile's other immediate
 	/// neighbors.
 	/// @param x The x position of the tile.
 	/// @param y The y position of the tile.
@@ -748,7 +748,7 @@ contract UpcityGame is
 		require(uint64(block.timestamp) >= tile.lastTouchTime, ERROR_TIME_TRAVEL);
 		uint64 seasonBonus = _isTileInSeason(tile) ? SEASON_YIELD_BONUS : PPM_ONE;
 		uint64 dt = uint64(block.timestamp) - tile.lastTouchTime;
-		// Geneerate resources on top of what&#39;s been shared to this tile.
+		// Geneerate resources on top of what's been shared to this tile.
 		produced = tile.sharedResources;
 		bytes16 blocks = tile.blocks;
 		for (uint8 height = 0; height < tile.height; height++) {
@@ -842,7 +842,7 @@ contract UpcityGame is
 	/// @dev Increment the global block stats for all blocks passed.
 	/// This will adjust the total counts, production rates, and total scores.
 	/// @param blocks Right-aligned, packed representation of blocks to append.
-	/// @param count The number of blocks packed in &#39;blocks&#39;.
+	/// @param count The number of blocks packed in 'blocks'.
 	function _incrementBlockStats(bytes16 blocks, uint8 count) private {
 		for (uint8 h = 0; h < count; h++) {
 			// Pop each block off the tower.
@@ -862,11 +862,11 @@ contract UpcityGame is
 	/// @dev Share funds and resources from a tile to its immediate neighbors.
 	/// The total amount distributed to all neighbors is defined by the TAX_RATE.
 	/// The amount each neighbor actually receives depends on its relative
-	/// &#39;clout&#39;, which is the height of its tower against all combined heights
-	/// of all the towers of the tile&#39;s neighbors, so the tallest tower will
+	/// 'clout', which is the height of its tower against all combined heights
+	/// of all the towers of the tile's neighbors, so the tallest tower will
 	/// receive the largest share.
 	/// If a neighbor is unowned, its share of resources are discarded, but the
-	/// funds are added to the &#39;fees&#39; collected by this contract.
+	/// funds are added to the 'fees' collected by this contract.
 	/// @param tile The tile object sharing its funds/resources.
 	/// @param funds The (untaxed) funds to share.
 	/// @param resources The (untaxed) resources to share.

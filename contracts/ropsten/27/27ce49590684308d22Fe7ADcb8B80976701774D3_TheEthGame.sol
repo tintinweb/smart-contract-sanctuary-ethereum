@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -91,7 +91,7 @@ contract TheEthGame {
         
         for(uint256 i = 0; i < NUMBER_OF_CELLS; i++){
             priceOfCell[i] = CELL_STARTING_PRICE;
-            ownerOfCell[i] = owner; //Owner can&#39;t buy cells back and his score will awlays be 0.
+            ownerOfCell[i] = owner; //Owner can't buy cells back and his score will awlays be 0.
         }
         
         trophyAddress = new TheEthGameTrophy();
@@ -157,7 +157,7 @@ contract TheEthGame {
         require(_cellId < NUMBER_OF_CELLS);
         require(ownerOf(_cellId) != address(0));
 
-        //Owner can&#39;t buy cells.
+        //Owner can't buy cells.
         require(msg.sender != owner);
         
         //If game is finished nobody can buy cells.
@@ -219,7 +219,7 @@ contract TheEthGame {
         uint256 devCut = calculateDevCut(price);
         developersCut = developersCut.add(devCut);
         
-        // Transfer payment to old owner minus the developer&#39;s cut and pot&#39;s cut.
+        // Transfer payment to old owner minus the developer's cut and pot's cut.
         // If the oldOwner is contract creator do nothing,
         // thus adding the cell cost to the pot.
         if (oldOwner != owner) {
@@ -391,7 +391,7 @@ contract TheEthGame {
 
     //Returns an array containing the ids of the cells confining with _cellId.
     function getNeighbourhoodOf(uint256 _cellId) internal view returns (uint256 _top, uint256 _bottom, uint256 _left, uint256 _right) {
-        //IMPORTANT: The number &#39;NUMBER_OF_CELLS&#39; is used  to indicate that a cell does not exists.
+        //IMPORTANT: The number 'NUMBER_OF_CELLS' is used  to indicate that a cell does not exists.
         
         //Set top cell as non existent.
         uint256 topCellId = NUMBER_OF_CELLS;
@@ -404,7 +404,7 @@ contract TheEthGame {
         //Get the cell under _cellId by adding the number of cells per line.
         uint256 bottomCellId = _cellId.add(NUMBER_OF_LINES);
         
-        //If it&#39;s greater or equal than NUMBER_OF_CELLS bottom cell does not exists.
+        //If it's greater or equal than NUMBER_OF_CELLS bottom cell does not exists.
         if (bottomCellId >= NUMBER_OF_CELLS) {
             bottomCellId = NUMBER_OF_CELLS;
         }

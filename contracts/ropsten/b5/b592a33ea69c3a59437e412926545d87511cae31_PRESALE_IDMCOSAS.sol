@@ -42,7 +42,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 // ----------------------------------------------------------------------------
-// &#39;MCS&#39; token contract
+// 'MCS' token contract
 //
 // Сreator : 0xd0C7eFd2acc5223c5cb0A55e2F1D5f1bB904035d
 // Symbol      : MCS
@@ -101,8 +101,8 @@ constructor() public {owner = msg.sender;}
   /*@dev Multiplies two numbers, reverts on overflow.*/
 
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
 
     if (a == 0) {return 0;}
 
@@ -117,7 +117,7 @@ constructor() public {owner = msg.sender;}
 	// Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
     // assert(a == b * c + a % b);
-	// There is no case in which this doesn&#39;t hold
+	// There is no case in which this doesn't hold
     return c;}
 
   /*@dev Subtracts two numbers, reverts on overflow (i.e. if subtrahend is greater than minuend).*/
@@ -182,7 +182,7 @@ contract ERC20 is ERC20Basic {
 contract StandardToken is ERC20 {
 
     function transfer(address _to, uint _value) public returns (bool) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[msg.sender] >= _value && balances[_to] + _value >= balances[_to]) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;

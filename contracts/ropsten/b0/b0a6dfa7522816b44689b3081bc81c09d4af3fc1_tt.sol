@@ -11,8 +11,8 @@ contract tt{
         owner=msg.sender;
         totalsupply=100;
         balances[msg.sender]=totalsupply;
-        name=&#39;nikhiatoken&#39;;
-        symbol=&#39;nik&#39;;
+        name='nikhiatoken';
+        symbol='nik';
         decimals=0;
     }
    

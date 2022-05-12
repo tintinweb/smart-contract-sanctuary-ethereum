@@ -29,7 +29,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -172,12 +172,12 @@ contract CBAToken is Pausable {
     }
 
   
-//only owner can withdraw all contract&#39;s ETH  
+//only owner can withdraw all contract's ETH  
   function withdraw() public onlyOwner {
       owner.transfer(address(this).balance); 
     }
 
-//msg.sender approve he&#39;s allowance to _spender
+//msg.sender approve he's allowance to _spender
   function approve(address _spender, uint256 _value) public whenNotPaused returns (bool success) {
     require((_value == 0 ) || ( allowance[msg.sender][_spender] == 0  ));
     require(!frozenAccount[msg.sender]);
@@ -219,7 +219,7 @@ contract CBAToken is Pausable {
     require( _value > 0 );
 
     balanceOf[_from] = SafeMath.sub(balanceOf[_from], _value);                         // Subtract from the targeted balance
-    allowance[_from][msg.sender] = SafeMath.sub(allowance[_from][msg.sender], _value);             // Subtract from the sender&#39;s allowance
+    allowance[_from][msg.sender] = SafeMath.sub(allowance[_from][msg.sender], _value);             // Subtract from the sender's allowance
     totalSupply = SafeMath.sub(totalSupply, _value);                              // Update totalSupply
     emit Burn(_from, _value);
     return true;
@@ -251,7 +251,7 @@ contract CBAToken is Pausable {
     return true;
   }
 
-//Send `_value` tokens to `_to` from &#39;_from&#39; address,the &#39;_value&#39; can&#39;t larger then allowance by &#39;_from&#39; who set to &#39;msg.sender&#39; 
+//Send `_value` tokens to `_to` from '_from' address,the '_value' can't larger then allowance by '_from' who set to 'msg.sender' 
 function transferFrom(address _from, address _to, uint256 _value) public whenNotPaused returns (bool) {
     require( _value > 0 );
     require(_to != address(0));

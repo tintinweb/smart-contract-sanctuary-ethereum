@@ -12,13 +12,13 @@ contract contrato_base {
     }
     
     function set_owner (address _owner) returns(string){
-        require (estado==false, "El contrato est&#225; bloqueado. &#39;En producci&#243;n&#39;");
+        require (estado==false, "El contrato est&#225; bloqueado. 'En producci&#243;n'");
         require (owner == 0 || owner==msg.sender,"Ya existe un owner seleccionado");
         owner = _owner;
         return "Se asign&#243; el owner _owner al contrato";
     }
     function set_recivers (address _recivers,uint _porcentaje) returns(string){
-        require (estado==false, "El contrato est&#225; bloqueado. &#39;En producci&#243;n&#39;");
+        require (estado==false, "El contrato est&#225; bloqueado. 'En producci&#243;n'");
         require (owner==msg.sender, "Solo el owner puede configurar el contrato");
         //require (llama a funcion para validar porcentaje);
         map_recivers[_recivers]=_porcentaje;

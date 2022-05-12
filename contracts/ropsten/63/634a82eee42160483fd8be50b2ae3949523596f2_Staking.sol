@@ -53,8 +53,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -72,7 +72,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -205,7 +205,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));
@@ -624,7 +624,7 @@ function burnTokens() internal returns (bool){
    * @return true if success
    */
     function distribute_NRT(uint256 NRTBal) internal isNotZero(NRTBal) returns (bool){
-        require(tokenContract.balanceOf(address(this))>=NRTBal,"NRT_Manger doesn&#39;t have token balance");
+        require(tokenContract.balanceOf(address(this))>=NRTBal,"NRT_Manger doesn't have token balance");
         NRTBal = NRTBal.add(luckPoolBal);
         
         // Distibuting the newly released tokens to each of the pools
@@ -975,7 +975,7 @@ function deleteList() internal returns (bool){
   function windUpContract(uint64 orderId) onlyStakeOwner(orderId)  external returns (bool) {
       require(isOrderExist(orderId),"The orderId should exist");
       require(StakingDetails[orderId].loan == false,"There should be no loan currently");
-      require(StakingDetails[orderId].windUpTime == 0,"Windup Shouldn&#39;t be initiated currently");
+      require(StakingDetails[orderId].windUpTime == 0,"Windup Shouldn't be initiated currently");
       StakingDetails[orderId].windUpTime = now + 104 weeks; // time at which all the transfer must be finished
       StakingDetails[orderId].stakedTime = now; // to keep track of NRT being distributed out
       if (StakingDetails[orderId].isTwoYear) {      

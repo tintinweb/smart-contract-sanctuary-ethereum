@@ -463,7 +463,7 @@ contract MultiSigWallet {
 
     /// @dev Returns array with owner addresses, which hasApproved transaction.
     /// @param _transactionId Transaction ID.
-    /// @return Returns array of approve and decline owners&#39; addresses.
+    /// @return Returns array of approve and decline owners' addresses.
     // function getConfirmations(uint256 _transactionId)
     //     public
     //     constant

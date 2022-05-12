@@ -16,7 +16,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));
@@ -85,8 +85,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -104,7 +104,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -224,7 +224,7 @@ contract ERC20 is IERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -352,7 +352,7 @@ contract ERC20 is IERC20 {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param value The amount that will be burnt.
@@ -422,7 +422,7 @@ library SafeERC20 {
   {
     // safeApprove should only be called when setting an initial allowance, 
     // or when resetting it to zero. To increase and decrease it, use 
-    // &#39;safeIncreaseAllowance&#39; and &#39;safeDecreaseAllowance&#39;
+    // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
     require((value == 0) || (token.allowance(msg.sender, spender) == 0));
     require(token.approve(spender, value));
   }
@@ -519,7 +519,7 @@ contract RevenueToken is ERC20Mintable {
     {
         require(!mintingDisabled);
 
-        // Call super&#39;s mint, including event emission
+        // Call super's mint, including event emission
         bool minted = super.mint(to, value);
 
         if (minted) {
@@ -546,7 +546,7 @@ contract RevenueToken is ERC20Mintable {
     public
     returns (bool)
     {
-        // Call super&#39;s transfer, including event emission
+        // Call super's transfer, including event emission
         bool transferred = super.transfer(to, value);
 
         if (transferred) {
@@ -566,7 +566,7 @@ contract RevenueToken is ERC20Mintable {
 
     /**
      * @notice Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
-     * @dev Beware that to change the approve amount you first have to reduce the addresses&#39;
+     * @dev Beware that to change the approve amount you first have to reduce the addresses'
      * allowance to zero by calling `approve(spender, 0)` if it is not already 0 to mitigate the race
      * condition described here:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
@@ -580,7 +580,7 @@ contract RevenueToken is ERC20Mintable {
         // Prevent the update of non-zero allowance
         require(0 == value || 0 == allowance(msg.sender, spender));
 
-        // Call super&#39;s approve, including event emission
+        // Call super's approve, including event emission
         return super.approve(spender, value);
     }
 
@@ -595,7 +595,7 @@ contract RevenueToken is ERC20Mintable {
     public
     returns (bool)
     {
-        // Call super&#39;s transferFrom, including event emission
+        // Call super's transferFrom, including event emission
         bool transferred = super.transferFrom(from, to, value);
 
         if (transferred) {
@@ -770,7 +770,7 @@ library SafeMathUintLib {
     {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -1289,7 +1289,7 @@ contract RevenueTokenManager is TokenMultiTimelock {
         // Use block number defined in release if it is non-null
         uint256 blockNumber = 0 < releases[index].blockNumber ? releases[index].blockNumber : block.number;
 
-        // Store the new total amount released by adding this release&#39; amount to
+        // Store the new total amount released by adding this release' amount to
         // previous total amount
         totalReleasedAmounts.push(
             (0 == totalReleasedAmounts.length ? 0 : totalReleasedAmounts[totalReleasedAmounts.length - 1])

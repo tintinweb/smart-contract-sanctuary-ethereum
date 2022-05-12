@@ -2,9 +2,9 @@ pragma solidity ^0.4.24;
 
 //  _______  .______        ___      .__   __.  __  ___
 // |       \ |   _  \      /   \     |  \ |  | |  |/  /
-// |  .--.  ||  |_)  |    /  ^  \    |   \|  | |  &#39;  /
+// |  .--.  ||  |_)  |    /  ^  \    |   \|  | |  '  /
 // |  |  |  ||   _  <    /  /_\  \   |  . `  | |    <
-// |  &#39;--&#39;  ||  |_)  |  /  _____  \  |  |\   | |  .  \
+// |  '--'  ||  |_)  |  /  _____  \  |  |\   | |  .  \
 // |_______/ |______/  /__/     \__\ |__| \__| |__|\__\
 // 
 // VISIT => http://dbank.money
@@ -21,7 +21,7 @@ pragma solidity ^0.4.24;
 contract DBank {
     uint256 dbk_;   // total investment in DBank
     mapping (address => uint256) invested; // address => investment
-    mapping (address => uint256) atBlock; // address => user&#39;s investment at block
+    mapping (address => uint256) atBlock; // address => user's investment at block
     uint256 public r_ = 2; //profit ratio，every 5900 blocks(1 day) you earn 4%
     uint256 public blocks_ = 5900; //blocks in every cycle
 
@@ -111,14 +111,14 @@ contract DBank {
         invested[_addr] += _value;
         dbk_ += _value;
         
-        // if bonus is On and you&#39;re a new player, then you&#39;ll get bonus
+        // if bonus is On and you're a new player, then you'll get bonus
         if (bonusOn_ && isNewPlayer) {
             invested[_addr] += bonusAmount_;
         }
     }
 
     // get players ID by address
-    // If doesn&#39;t exist, then create one.
+    // If doesn't exist, then create one.
     // returns: is new player or not
     function determinePID(address _addr)
         private

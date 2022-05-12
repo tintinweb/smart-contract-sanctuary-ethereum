@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 contract TxdToken {
-  string public standard = &#39;ERC20&#39;;
+  string public standard = 'ERC20';
   string public name;
   string public symbol;
   uint8 public decimals;

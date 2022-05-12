@@ -61,7 +61,7 @@ contract Pauseable {
   }
 
   function unpause() public whenPaused {
-      // can&#39;t unpause if contract was upgraded
+      // can't unpause if contract was upgraded
       paused = false;
   }
 }

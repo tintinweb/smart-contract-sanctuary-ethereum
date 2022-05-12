@@ -14,7 +14,7 @@ contract VerityToken {
 
 contract VerityEvent
 {
-  /// Contract&#39;s owner, used for permission management
+  /// Contract's owner, used for permission management
   address public owner;
   /// Token contract address, used for tokend distribution
   address public tokenAddress;
@@ -42,7 +42,7 @@ contract VerityEvent
   string public eventResult;
 
   /**
-  * Event&#39;s states
+  * Event's states
   * Events advance in the order defined here. Once the event reaches "Reward"
   * state, it cannot advance further.
   * Event states:
@@ -60,7 +60,7 @@ contract VerityEvent
     Reward
   }
 
-  /// Event&#39;s state, as described above. Defaults to Waiting.
+  /// Event's state, as described above. Defaults to Waiting.
   EventStates eventState = EventStates.Waiting;
 
   event StateTransition(EventStates newState);
@@ -113,7 +113,7 @@ contract VerityEvent
   * A modifier signifying that a certain method can only be used when the event
   * is in a certain state.
   *
-  * @param _state The event&#39;s required state
+  * @param _state The event's required state
   *
   * Example:
   * 	function claimReward() onlyParticipanting onlyState(EventStates.Reward) {
@@ -202,7 +202,7 @@ contract VerityEvent
   * Assign the actual rewards.
   *
   * Receives a list of addresses and a list rewards. Mapping between the two
-  * is done by the addresses&#39; and reward&#39;s numerical index in the list, so
+  * is done by the addresses' and reward's numerical index in the list, so
   * order is important.
   *
   * @param _addresses A list of addresses
@@ -240,7 +240,7 @@ contract VerityEvent
   }
 
   /**
-  * Returns the calling user&#39;s assigned rewards. Can be 0.
+  * Returns the calling user's assigned rewards. Can be 0.
   *
   * Only available to participating users in the Reward state, since rewards
   * are not assigned before that.
@@ -290,7 +290,7 @@ contract VerityEvent
   }
 
   /**
-  * Advances the event&#39;s state to the next one. Only for internal use.
+  * Advances the event's state to the next one. Only for internal use.
   */
   function advanceState() private
   {

@@ -34,13 +34,13 @@ contract DataStorage {
 
     function read(uint _id) public view returns(string) {
         require(token.balanceOf(msg.sender) > 0, "only members can run this function");
-        require(dataExist[_id], "the data doesn&#39;t exist");
+        require(dataExist[_id], "the data doesn't exist");
         return datas[_id];
     }
 
     function remove(uint _id) public {
         require(token.balanceOf(msg.sender) > 0, "only members can run this function");
-        require(dataExist[_id], "the data doesn&#39;t exist");
+        require(dataExist[_id], "the data doesn't exist");
         dataExist[_id] = false;
         datasCounter--;
     }

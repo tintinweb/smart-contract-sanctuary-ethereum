@@ -157,8 +157,8 @@ contract Pausable is Owned {
 // token transfers
 // ----------------------------------------------------------------------------
 contract MyToken is StandardToken, Pausable {
-    string public constant symbol = &#39;MYT&#39;;
-    string public constant name = &#39;My Token&#39;;
+    string public constant symbol = 'MYT';
+    string public constant name = 'My Token';
     uint256 public constant decimals = 18;
     uint256 public constant initSupply = 100000000 * 10**decimals;
     
@@ -182,8 +182,8 @@ contract MyToken is StandardToken, Pausable {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address _to, uint256 _tokens) public whenNotPaused returns (bool) {
@@ -192,7 +192,7 @@ contract MyToken is StandardToken, Pausable {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // ------------------------------------------------------------------------
     function approve(address _spender, uint256 _tokens) public whenNotPaused returns (bool) {
@@ -208,7 +208,7 @@ contract MyToken is StandardToken, Pausable {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address _owner, address _spender) public view returns (uint256) {
         return super.allowance(_owner, _spender);

@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -122,7 +122,7 @@ contract Ownable {
  * @title Escrow
  * @dev Base escrow contract, holds funds destinated to a payee until they
  * withdraw them. The contract that uses the escrow as its payment method
- * should be its owner, and provide public methods redirecting to the escrow&#39;s
+ * should be its owner, and provide public methods redirecting to the escrow's
  * deposit and withdraw.
  */
 contract Escrow is Ownable {
@@ -188,7 +188,7 @@ contract PullPayment {
 
   /**
   * @dev Returns the credit owed to an address.
-  * @param _dest The creditor&#39;s address.
+  * @param _dest The creditor's address.
   */
   function payments(address _dest) public view returns (uint256) {
     return escrow.depositsOf(_dest);
@@ -328,7 +328,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -465,7 +465,7 @@ contract Dividend is StandardToken, Ownable{
   }
 
   /** @dev Collects dividends for a given address and deposits them in the
-    * address&#39;s dividend account (not the main wallet).
+    * address's dividend account (not the main wallet).
     * @param account Address to collect dividends for
     */
   function collectsAccountDividends(address account) internal {
@@ -514,7 +514,7 @@ contract Dividend is StandardToken, Ownable{
     emit DividendWithdrawn(payee, amount);
   }
 
-  /** @dev Implements StandardToken&#39;s tranfer after collecting dividends for
+  /** @dev Implements StandardToken's tranfer after collecting dividends for
     * both the sender and receiver.
     * @param _to The address to send funds to
     * @param _value The amount of tokens to be transferred
@@ -525,7 +525,7 @@ contract Dividend is StandardToken, Ownable{
     return super.transfer(_to, _value);
   }
 
-  /** @dev Implements StandardToken&#39;s tranfer after collecting dividends for
+  /** @dev Implements StandardToken's tranfer after collecting dividends for
     * both the sender and receiver.
     * @param _from The address to get funds from
     * @param _to The address to send funds to
@@ -575,7 +575,7 @@ contract Bounty is PullPayment, Destructible {
   event TargetCreated(address createdAddress);
 
   /**
-   * @dev Fallback function allowing the contract to receive funds, if they haven&#39;t already been claimed.
+   * @dev Fallback function allowing the contract to receive funds, if they haven't already been claimed.
    */
   function() external payable {
     require(!claimed);
@@ -856,7 +856,7 @@ contract RefundEscrow is Ownable, ConditionalEscrow {
   }
 
   /**
-   * @dev Withdraws the beneficiary&#39;s funds.
+   * @dev Withdraws the beneficiary's funds.
    */
   function beneficiaryWithdraw() public {
     require(state == State.Closed);
@@ -911,7 +911,7 @@ library SafeERC20 {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 contract Crowdsale {
@@ -1173,7 +1173,7 @@ contract FinalizableCrowdsale is TimedCrowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);
@@ -1354,7 +1354,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -1396,7 +1396,7 @@ library Roles {
  * See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  * for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  * to avoid typos.
  */
 contract RBAC {
@@ -1553,7 +1553,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove an address from the whitelist
    * @param _operator address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address _operator)
     onlyOwner
@@ -1566,7 +1566,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove addresses from the whitelist
    * @param _operators addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] _operators)
     onlyOwner

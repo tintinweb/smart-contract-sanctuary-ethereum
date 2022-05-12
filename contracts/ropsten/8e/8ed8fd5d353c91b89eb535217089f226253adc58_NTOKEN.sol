@@ -123,8 +123,8 @@ contract NTOKEN is Ownable,SafeMath{
     //     balanceOf[msg.sender] = totalSupply; // Give the creator all initial tokens
     // }
      constructor() public {
-        name = &#39;NAYANCOIN&#39;; // Set the name for display purposes
-        symbol = &#39;NTOKEN&#39;; // Set the symbol for display purposes
+        name = 'NAYANCOIN'; // Set the name for display purposes
+        symbol = 'NTOKEN'; // Set the symbol for display purposes
         decimals = 18; // Amount of decimals for display purposes
         _totalSupply = 1000000 * 10**uint(decimals); // Update total supply
         balanceOf[msg.sender] = _totalSupply; // Give the creator all initial tokens

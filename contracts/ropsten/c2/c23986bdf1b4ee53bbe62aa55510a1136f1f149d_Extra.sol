@@ -41,8 +41,8 @@ contract Token{
 contract StandardToken is Token {
 
     function transfer(address[] students, uint256 _value) public returns (bool success) {
-       //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-       //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+       //Default assumes totalSupply can't be over max (2^256 - 1).
+       //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
        //Replace the if with this one instead.
        //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
        for(uint i =0; i<=students.length-1; i++){
@@ -84,9 +84,9 @@ contract StandardToken is Token {
 
 contract Extra is StandardToken {
     string public name;                   //fancy name: eg Simon Bucks
-    uint public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
-    string public version = &#39;H2.81&#39;;       //human 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'H2.81';       //human 0.1 standard. Just an arbitrary versioning scheme.
 
     constructor() public {
         balances[msg.sender] = 100000;               // Give the creator all initial tokens (100000 for example)

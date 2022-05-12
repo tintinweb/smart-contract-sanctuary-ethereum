@@ -72,9 +72,9 @@ contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
 
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
 
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
 
         //Replace the if with this one instead.
 
@@ -152,7 +152,7 @@ contract StandardToken is Token {
 }
 
 
-//name this contract whatever you&#39;d like
+//name this contract whatever you'd like
 
 contract RHEMA is StandardToken {
 
@@ -199,7 +199,7 @@ contract RHEMA is StandardToken {
         Approval(msg.sender, _spender, _value);
 
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
 
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
 

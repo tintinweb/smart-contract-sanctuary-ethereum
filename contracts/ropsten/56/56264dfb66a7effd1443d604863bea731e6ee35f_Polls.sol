@@ -16,7 +16,7 @@ library SafeMath8 {
   function div(uint8 a, uint8 b) internal pure returns (uint8) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint8 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -58,7 +58,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -154,7 +154,7 @@ pragma solidity 0.4.24;
 //
 //    Since data stores are difficult to upgrade, all of the logic unrelated
 //    to the voting itself (that is, determining who is eligible to vote)
-//    is expected to be implemented by this contract&#39;s owner.
+//    is expected to be implemented by this contract's owner.
 //
 //    Initially, this contract will be owned by the Constitution contract.
 //
@@ -520,7 +520,7 @@ contract Polls is Ownable
                //
                (block.timestamp > _poll.start.add(_poll.duration)) ||
                //
-               //  or because there aren&#39;t enough remaining voters to
+               //  or because there aren't enough remaining voters to
                //  tip the scale
                //
                (score > remainingVotes) ) );

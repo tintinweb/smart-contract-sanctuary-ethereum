@@ -50,8 +50,8 @@ contract BYoshiToken is ERC20 {
     address owner = msg.sender;
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
-    string public constant name = &#39;B Yoshi Token&#39;;
-    string public constant symbol = &#39;BYT&#39;;
+    string public constant name = 'B Yoshi Token';
+    string public constant symbol = 'BYT';
     uint public constant decimals = 18;
     uint256 public totalSupply = 15000000000e18;
     uint256 public totalDistributed =  15000000000e18;    

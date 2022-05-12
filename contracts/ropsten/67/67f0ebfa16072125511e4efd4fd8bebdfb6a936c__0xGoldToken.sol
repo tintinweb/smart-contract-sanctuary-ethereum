@@ -132,7 +132,7 @@ contract _0xGoldToken is ERC20Interface, Owned, ERC918Interface {
     uint8 public decimals;
     uint public _totalSupply;
     uint public latestDifficultyPeriodStarted;
-    uint public epochCount;                 //number of &#39;blocks&#39; mined
+    uint public epochCount;                 //number of 'blocks' mined
     uint public _BLOCKS_PER_READJUSTMENT = 100;
 
     //a little number and a big number
@@ -191,7 +191,7 @@ contract _0xGoldToken is ERC20Interface, Owned, ERC918Interface {
 
     function mint(uint256 nonce, bytes32 challenge_digest) public returns (bool success) {
 
-      //the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender&#39;s address to prevent MITM attacks
+      //the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender's address to prevent MITM attacks
       bytes32 digest =  keccak256(challengeNumber, msg.sender, nonce );
 
       //the challenge digest must match the expected
@@ -225,7 +225,7 @@ contract _0xGoldToken is ERC20Interface, Owned, ERC918Interface {
 
     }
 
-    //a new &#39;block&#39; to be mined
+    //a new 'block' to be mined
     function _startNewMiningEpoch() internal {
 
       //if max supply for the era will be exceeded next reward round then enter the new era before that happens
@@ -261,7 +261,7 @@ contract _0xGoldToken is ERC20Interface, Owned, ERC918Interface {
         uint ethBlocksSinceLastDifficultyPeriod = block.number - latestDifficultyPeriodStarted;
         //assume 240 ethereum blocks per hour
 
-        //we want miners to spend 7 minutes to mine each &#39;block&#39;, about 28 ethereum blocks = one 0xGOLD epoch
+        //we want miners to spend 7 minutes to mine each 'block', about 28 ethereum blocks = one 0xGOLD epoch
         uint epochsMined = _BLOCKS_PER_READJUSTMENT; //256
 
         uint targetEthBlocksPerDiffPeriod = epochsMined * 28; //should be 28 times slower than ethereum
@@ -346,8 +346,8 @@ contract _0xGoldToken is ERC20Interface, Owned, ERC918Interface {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -359,7 +359,7 @@ contract _0xGoldToken is ERC20Interface, Owned, ERC918Interface {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     // ------------------------------------------------------------------------
     function approve(address spender, uint tokens) public returns (bool success) {
         allowed[msg.sender][spender] = tokens;
@@ -380,7 +380,7 @@ contract _0xGoldToken is ERC20Interface, Owned, ERC918Interface {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -389,7 +389,7 @@ contract _0xGoldToken is ERC20Interface, Owned, ERC918Interface {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -400,7 +400,7 @@ contract _0xGoldToken is ERC20Interface, Owned, ERC918Interface {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();
@@ -421,25 +421,25 @@ contract _0xGoldToken is ERC20Interface, Owned, ERC918Interface {
 
             bytes32 future_challengeNumber = block.blockhash(block.number - 1);
             if(challengeNumber == future_challengeNumber){
-                return false; // ( this is likely the second time that mergeMint() has been called in a transaction, so return false (don&#39;t revert))
+                return false; // ( this is likely the second time that mergeMint() has been called in a transaction, so return false (don't revert))
             }
 
             //verify Parent::lastRewardTo == msg.sender;
             if(ERC918Interface(parentAddress).lastRewardTo() != msg.sender){
-                return false; // a different address called mint last so return false ( don&#39;t revert)
+                return false; // a different address called mint last so return false ( don't revert)
             }
             
             //verify Parent::lastRewardEthBlockNumber == block.number;
 
             if(ERC918Interface(parentAddress).lastRewardEthBlockNumber() != block.number){
-                return false; // parent::mint() was called in a different block number so return false ( don&#39;t revert)
+                return false; // parent::mint() was called in a different block number so return false ( don't revert)
             }
 
 
              bytes32 parentChallengeNumber = ERC918Interface(parentAddress).challengeNumber();
              bytes32 solution = solutionForChallenge[parentChallengeNumber];
              if(solution != 0x0) return false;  //prevent the same answer from awarding twice
-             bytes32 digest = &#39;merge&#39;;
+             bytes32 digest = 'merge';
              solutionForChallenge[parentChallengeNumber] = digest;
 
 

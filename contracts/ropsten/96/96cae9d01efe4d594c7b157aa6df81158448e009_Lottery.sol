@@ -38,7 +38,7 @@ contract Lottery {
             }
         } else {
             // This dummyGasBurner() helps MetaMask estimate gas limit better.
-            // You shouldn&#39;t actually send 0 to contract or you&#39;ll waste gas here.
+            // You shouldn't actually send 0 to contract or you'll waste gas here.
             dummyGasBurner();
         }
     }
@@ -107,7 +107,7 @@ contract Lottery {
     
     function dummyGasBurner () private pure {
         for (uint i = 0; i < 150; i++) {
-            sha256(&#39;Buring gas here!&#39;);
+            sha256('Buring gas here!');
         }
     }
     

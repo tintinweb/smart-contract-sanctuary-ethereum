@@ -59,11 +59,11 @@ contract CryptsyBase {
 
     /// @dev Assigns ownership of a specific Cryptsy to an address.
     function _transfer(address _from, address _to, uint256 _tokenId) internal {
-        // Since the number of cryptsys is capped to 2^32 we can&#39;t overflow this
+        // Since the number of cryptsys is capped to 2^32 we can't overflow this
         ownershipTokenCount[_to]++;
         // transfer ownership
         cryptsyIndexToOwner[_tokenId] = _to;
-        // When creating new cryptsys _from is 0x0, but we can&#39;t account that address.
+        // When creating new cryptsys _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
             ownershipTokenCount[_from]--;
             // once the cryptsy is transferred also clear sire allowances
@@ -76,7 +76,7 @@ contract CryptsyBase {
     }
 
     /// @dev An internal method that creates a new cryptsy and stores it. This
-    ///  method doesn&#39;t do any checking and should only be called when the
+    ///  method doesn't do any checking and should only be called when the
     ///  input data is known to be valid. 
     function _createCryptsy(
         uint32 _creativity,

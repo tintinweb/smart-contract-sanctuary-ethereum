@@ -466,7 +466,7 @@ contract Bay is Galleasset {
   }
 
   function inRangeToDisembark(uint16 _x, uint16 _y,address _account) public constant returns (bool) {
-    //if it&#39;s not floating, no need to check
+    //if it's not floating, no need to check
     if(ships[_x][_y][_account].location==0 || !ships[_x][_y][_account].floating) return false;
     //get the location of the harbor
     uint16 harborLocation = getHarborLocation(_x,_y);
@@ -490,7 +490,7 @@ contract Bay is Galleasset {
 
   //
   // get some psuedo random numbers to decided if they catch the fish
-  // they need to be close and it&#39;s hard if the fish is deeper
+  // they need to be close and it's hard if the fish is deeper
   //
   function _catchFish(Ship thisShip,bytes32 _fish, bytes32 bait) internal returns (bool) {
 

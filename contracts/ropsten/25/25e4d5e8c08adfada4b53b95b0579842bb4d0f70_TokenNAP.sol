@@ -58,8 +58,8 @@ contract TokenERC20
 	{
 		require(_amount > 0, "_amount is zero!!!");
 		require(_to != 0x0, "_to address invalid!!!");
-		require(balanceOf[_from] >= _amount, "_from&#39;s tokens are smaller than _amount!!!");
-		require(balanceOf[_to] + _amount >= balanceOf[_to], "_to&#39;s account overflow!!!");
+		require(balanceOf[_from] >= _amount, "_from's tokens are smaller than _amount!!!");
+		require(balanceOf[_to] + _amount >= balanceOf[_to], "_to's account overflow!!!");
 		
 		uint prevBalances = balanceOf[_from] + balanceOf[_to];
 		balanceOf[_from] -= _amount;
@@ -148,14 +148,14 @@ contract TokenNAP is Ownable, TokenERC20
 		// Prevent transfer to 0x0 address. Use burn() instead
 		require(_to != 0x0, "_to address invalid!!!");
 		// Check if the sender has enough
-		require(balanceOf[_from] >= _amount, "_from&#39;s tokens are smaller than _amount!!!");
+		require(balanceOf[_from] >= _amount, "_from's tokens are smaller than _amount!!!");
 		// Check for overflows
-		require(balanceOf[_to] + _amount >= balanceOf[_to], "_to&#39;s account overflow!!!");
+		require(balanceOf[_to] + _amount >= balanceOf[_to], "_to's account overflow!!!");
 		
 		// Check if sender is frozen
-		require(!frozenAccount[_from], "_from&#39;s account is frozen!!!");
+		require(!frozenAccount[_from], "_from's account is frozen!!!");
 		// Check if recipient is frozen
-		require(!frozenAccount[_to], "_to&#39;s account is frozen!!!");
+		require(!frozenAccount[_to], "_to's account is frozen!!!");
 
 		balanceOf[_from] -= _amount;	// Subtract from the sender
 		balanceOf[_to]   += _amount;	// Add the same to the recipient
@@ -224,7 +224,7 @@ contract TokenNAP is Ownable, TokenERC20
 		// makes the transfers
 		_transfer(msg.sender, this, amount);
 
-		// sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+		// sends ether to the seller. It's important to do this last to avoid recursion attacks
 		msg.sender.transfer(weis);
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////

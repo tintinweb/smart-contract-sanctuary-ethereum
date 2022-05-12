@@ -112,7 +112,7 @@ contract OONE {
                 trancheOneBalances[msg.sender] = add(trancheOneBalances[msg.sender], _tokenCount);
             }
 
-            // we&#39;ve spent up - go around again and issue tokens to recipient
+            // we've spent up - go around again and issue tokens to recipient
             allocateTokens(0, _tokenCount);
         }
         else {
@@ -156,7 +156,7 @@ contract OONE {
                     balances[_to] = add(balances[_to], _value);
                     Transfer(msg.sender, _to, _value);
                 }
-                else revert();  // you can&#39;t transfer tranche1 tokens during the first 6 months
+                else revert();  // you can't transfer tranche1 tokens during the first 6 months
             }
         }
     }
@@ -267,7 +267,7 @@ contract OONE {
     function div(uint256 a, uint256 b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

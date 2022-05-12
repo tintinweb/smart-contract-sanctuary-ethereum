@@ -218,7 +218,7 @@ contract TokenERC20 {
         require(_value <= allowance[_from][msg.sender]);    // Check allowance 检查配额
 
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance 
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply 总供应量减少
         emit Burn(_from, _value);                           // 销毁
 
@@ -311,6 +311,6 @@ contract FOMOWINNER is owned, TokenERC20 {
         address myAddress = this;
         require(myAddress.balance >= amount * sellPrice); // checks if the contract has enough ether to buy 检查合约地址是否有足够的eth
         _transfer(msg.sender, this, amount);              // makes the transfers  token转账
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks 向对方发送eth
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks 向对方发送eth
     }
 }

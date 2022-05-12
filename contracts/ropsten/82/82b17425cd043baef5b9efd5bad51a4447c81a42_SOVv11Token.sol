@@ -13,7 +13,7 @@ contract SOVv11Token {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
     function SOVv11Token() public {
-        // Initially assign all tokens to the contract&#39;s creator.
+        // Initially assign all tokens to the contract's creator.
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender, totalSupply);
     }

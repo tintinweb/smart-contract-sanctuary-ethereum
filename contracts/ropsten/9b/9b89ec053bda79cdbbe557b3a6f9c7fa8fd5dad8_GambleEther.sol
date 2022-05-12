@@ -6,7 +6,7 @@ contract GambleEther {
 	function GambleEther() {
 		owner = msg.sender;
 		lastRoundTime = block.timestamp;
-		UserStatus(&#39; Round gamble has started&#39;, msg.sender, 0, block.timestamp);
+		UserStatus(' Round gamble has started', msg.sender, 0, block.timestamp);
 	}
     
     
@@ -48,7 +48,7 @@ contract GambleEther {
 function getEtherTicket() payable {
 		bool isParticipant = false;
 		if(msg.value >= basePrice) {
-			UserStatus(&#39;Ticket Bought&#39;, msg.sender, msg.value, block.timestamp);
+			UserStatus('Ticket Bought', msg.sender, msg.value, block.timestamp);
 			for(uint i = 0; i < participants.length; i++) {
             	if(participants[i].adr == msg.sender) {
                 	participants[i].tickets += 1;
@@ -82,7 +82,7 @@ function getEtherTicket() payable {
 			for (uint i = 0; i<participants.length; i++){
             	delete participants[i];
         	}
-        	UserStatus(&#39;Round gamble has ended, The Winner is:&#39;, lastWinner, lastWinnerPotAmount, block.timestamp);
+        	UserStatus('Round gamble has ended, The Winner is:', lastWinner, lastWinnerPotAmount, block.timestamp);
 
 		}
 	}

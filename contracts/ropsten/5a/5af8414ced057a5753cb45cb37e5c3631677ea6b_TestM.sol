@@ -148,7 +148,7 @@ contract TestM is Ownable {
         }else if(msg.value == LEVEL_PRICE[8]){
             level = 8;
         }else {
-            revert(&#39;Incorrect Value send&#39;);
+            revert('Incorrect Value send');
         }
         
         if(users[msg.sender].isExist){
@@ -170,13 +170,13 @@ contract TestM is Ownable {
     }
 
     function regUser(uint _referrerID) public payable {
-        require(!users[msg.sender].isExist, &#39;User exist&#39;);
+        require(!users[msg.sender].isExist, 'User exist');
 
-        require(_referrerID > 0 && _referrerID <= currUserID, &#39;Incorrect referrer Id&#39;);
+        require(_referrerID > 0 && _referrerID <= currUserID, 'Incorrect referrer Id');
 
-        require(msg.value>=LEVEL_PRICE[1], &#39;Incorrect Value&#39;);
+        require(msg.value>=LEVEL_PRICE[1], 'Incorrect Value');
 
-        require(users[userList[_referrerID]].referral.length < REFERRER_1_LEVEL_LIMIT, &#39;Referrer already has three referrals&#39;);
+        require(users[userList[_referrerID]].referral.length < REFERRER_1_LEVEL_LIMIT, 'Referrer already has three referrals');
 
         UserStruct memory userStruct;
         currUserID++;
@@ -208,18 +208,18 @@ contract TestM is Ownable {
     }
 
     function buyLevel(uint _level) public payable {
-        require(users[msg.sender].isExist, &#39;User not exist&#39;);
+        require(users[msg.sender].isExist, 'User not exist');
 
-        require( _level>0 && _level<=8, &#39;Incorrect level&#39;);
+        require( _level>0 && _level<=8, 'Incorrect level');
 
         if(_level == 1){
-            require(msg.value>=LEVEL_PRICE[1], &#39;Incorrect Value&#39;);
+            require(msg.value>=LEVEL_PRICE[1], 'Incorrect Value');
             users[msg.sender].levelExpired[1] += PERIOD_LENGTH;
         } else {
          
-            require(msg.value>=LEVEL_PRICE[_level], &#39;Incorrect Value&#39;);
+            require(msg.value>=LEVEL_PRICE[_level], 'Incorrect Value');
 
-            require(users[msg.sender].levelExpired[_level-1] >= now,  &#39;Buy the previous level&#39;);
+            require(users[msg.sender].levelExpired[_level-1] >= now,  'Buy the previous level');
             if(users[msg.sender].levelExpired[_level] == 0){
                 users[msg.sender].levelExpired[_level] =  now + PERIOD_LENGTH;
             } else {

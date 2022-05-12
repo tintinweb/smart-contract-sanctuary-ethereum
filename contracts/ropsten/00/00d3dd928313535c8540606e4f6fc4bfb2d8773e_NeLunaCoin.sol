@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;NeLunaCoin&#39; token contract
+// 'NeLunaCoin' token contract
 //
 // Deployed to : 
 // Symbol      : NLC
@@ -196,8 +196,8 @@ contract NeLunaCoin is ERC20Interface, Owned, Start, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to to account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to to account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -210,7 +210,7 @@ contract NeLunaCoin is ERC20Interface, Owned, Start, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -243,7 +243,7 @@ contract NeLunaCoin is ERC20Interface, Owned, Start, SafeMath {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -252,7 +252,7 @@ contract NeLunaCoin is ERC20Interface, Owned, Start, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account. The spender contract function
+    // from the token owner's account. The spender contract function
     // receiveApproval(...) is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -304,7 +304,7 @@ contract NeLunaCoin is ERC20Interface, Owned, Start, SafeMath {
         require(balance >= amount / sellPrice);      // checks if the contract has enough ether to buy
         transferFrom(msg.sender, this, amount);              // makes the transfers
         
-        msg.sender.transfer(amount / sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount / sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
         emit SellToken(msg.sender, amount, amount / sellPrice);
     }
     

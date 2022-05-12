@@ -56,8 +56,8 @@ contract MHQBToken is ERC20 {
     address owner = msg.sender;
     mapping(address => uint256) balances;
     mapping(address => mapping(address => uint256)) allowed;
-    string public constant name = &#39;MHQB Token&#39;;
-    string public constant symbol = &#39;MHQB&#39;;
+    string public constant name = 'MHQB Token';
+    string public constant symbol = 'MHQB';
     uint public constant decimals = 18;
     uint256 public totalSupply = 15000000000e18;
     uint256 public totalDistributed = 15000000000e18;

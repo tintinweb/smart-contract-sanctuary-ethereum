@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -85,7 +85,7 @@ contract MFI {
         return borrowings[_owner];
     }
 
-    //MFI.deployed().then(function(f) {f.deposit(&#39;0xcf3d4964a9119c98729de14015c463700d9c5f79&#39;,10000).then(function(f) {console.log(f.toString())})})
+    //MFI.deployed().then(function(f) {f.deposit('0xcf3d4964a9119c98729de14015c463700d9c5f79',10000).then(function(f) {console.log(f.toString())})})
     function deposit(address _to, uint256 _value) payable public returns (bool) {
         //require(_to != address(0));
         deposits[_to] = deposits[_to].add(_value);

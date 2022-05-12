@@ -9,7 +9,7 @@ library Set {
   // reference" and thus only its storage address and not
   // its contents is passed as part of the call.  This is a
   // special feature of library functions.  It is idiomatic
-  // to call the first parameter &#39;self&#39;, if the function can
+  // to call the first parameter 'self', if the function can
   // be seen as a method of that object.
   function insert(Data storage self, uint value)
       returns (bool)

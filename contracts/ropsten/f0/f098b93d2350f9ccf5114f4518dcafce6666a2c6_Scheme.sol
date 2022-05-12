@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -213,8 +213,8 @@ contract Scheme is Ownable {
 
   function sign(uint _parentCode) public {
     address addr = msg.sender;
-    require(users[addr].addr == address(0), &#39;The wallet account has been registered.&#39;);
-    require(codes[_parentCode] != address(0), &#39;The invitation code does not exist.&#39;);
+    require(users[addr].addr == address(0), 'The wallet account has been registered.');
+    require(codes[_parentCode] != address(0), 'The invitation code does not exist.');
 
     uint code = _generateCode();
     users[addr] = User(addr, code, _parentCode, 0, 0, 0, 0, 0, 0);
@@ -231,14 +231,14 @@ contract Scheme is Ownable {
   }
 
   function buy() public payable {
-    require(!blacklist[msg.sender], &#39;This wallet account is on the blacklist.&#39;);
+    require(!blacklist[msg.sender], 'This wallet account is on the blacklist.');
 
     address addr = msg.sender;
     uint weiAmount = msg.value;
-    require(weiAmount > 0, &#39;The purchase must be greater than zero.&#39;);
+    require(weiAmount > 0, 'The purchase must be greater than zero.');
 
     uint buyAmount = users[addr].buyAmount.add(weiAmount);
-    require(buyAmount <= MAX_BUY_AMOUNT, &#39;Exceeding the maximum limit.&#39;);
+    require(buyAmount <= MAX_BUY_AMOUNT, 'Exceeding the maximum limit.');
 
     // 合约总计购买金额
     buyAmountTotal = buyAmountTotal.add(weiAmount);
@@ -341,12 +341,12 @@ contract Scheme is Ownable {
   }
 
   function safeWithdrawal() public {
-    require(!blacklist[msg.sender], &#39;This wallet account is on the blacklist.&#39;);
+    require(!blacklist[msg.sender], 'This wallet account is on the blacklist.');
 
     User storage user = users[msg.sender];
 
     uint amount = user.userRewardTotal.sub(user.userWithdrawTotal);
-    require(amount > 0, &#39;No cash withdrawals available.&#39;);
+    require(amount > 0, 'No cash withdrawals available.');
 
     user.userWithdrawTotal = user.userWithdrawTotal.add(amount);
     msg.sender.transfer(amount);
@@ -354,17 +354,17 @@ contract Scheme is Ownable {
   }
 
   function safeExit() public {
-    require(!blacklist[msg.sender], &#39;This wallet account is on the blacklist.&#39;);
+    require(!blacklist[msg.sender], 'This wallet account is on the blacklist.');
 
     User storage user = users[msg.sender];
     uint buyAmount = user.buyAmount;
     uint userRewardTotal = user.userRewardTotal;
     uint userWithdrawTotal = user.userWithdrawTotal;
-    require(userRewardTotal < buyAmount, &#39;Cost recovered.&#39;);
+    require(userRewardTotal < buyAmount, 'Cost recovered.');
 
     uint amount = buyAmount.sub(userWithdrawTotal);
     uint unAwardAmountTotal = buyAmountTotal.sub(awardAmountTotal).add(userRewardTotal.sub(userWithdrawTotal));
-    require(amount <= unAwardAmountTotal, &#39;Lack of funds.&#39;);
+    require(amount <= unAwardAmountTotal, 'Lack of funds.');
 
     user.userWithdrawTotal = buyAmount;
 
@@ -402,7 +402,7 @@ contract Scheme is Ownable {
 
   function shareBonus() public onlyOwner {
     uint amount = buyAmountTotal.sub(awardAmountTotal);
-    require(amount > 0, &#39;No redemption bonus.&#39;);
+    require(amount > 0, 'No redemption bonus.');
 
     // 团队分红 5%
     uint teamBonus = amount.div(100).mul(teamBonusPercent);

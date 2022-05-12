@@ -1,7 +1,7 @@
 /*
     ZBToken: ERC223 compatible with ERC20
     @author: BLV
-    @Adapted from different sources loaded from internet. Thanks to authors who&#39;ve written them.
+    @Adapted from different sources loaded from internet. Thanks to authors who've written them.
 */
 pragma solidity ^0.4.16;
 interface ContractReceiver {
@@ -28,7 +28,7 @@ contract ZBToken is ERC223TokenBasic
   mapping( address => uint256 ) balances_;
   mapping( address => mapping(address => uint256) ) allowances_;
 
-  // TODO: add a blacklist containing addresses. These address have Token but can&#39;t transfer out.
+  // TODO: add a blacklist containing addresses. These address have Token but can't transfer out.
   // This list can be updated only by issuer/owner
 
   // ERC20

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;CBC&#39; token contract
+// 'CBC' token contract
 //
 // Deployed to : 0x46774Bd9D565B82ee36427F0150fE80ee97fD117
 // Symbol      : CBC

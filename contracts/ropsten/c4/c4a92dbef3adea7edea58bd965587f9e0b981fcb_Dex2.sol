@@ -139,9 +139,9 @@ contract Dex2 {
         emit ChangeMarketStatusEvent(status_);
     }
 
-  // Each trader can specify a withdraw address (but cannot change it later). Once a trader&#39;s
+  // Each trader can specify a withdraw address (but cannot change it later). Once a trader's
   // withdraw address is set, following withdrawals of this trader will go to the withdraw address
-  // instead of the trader&#39;s address.
+  // instead of the trader's address.
     function setWithdrawAddr(address withdrawAddr) external {
         if (withdrawAddr == 0) revert();
         if (traders[msg.sender].withdrawAddr != 0) revert();  // cannot change withdrawAddr once set
@@ -167,7 +167,7 @@ contract Dex2 {
   // Deposit token (other than ETH) from msg.sender for a specified trader.
   //
   // After the deposit has been confirmed enough times on the blockchain, it will be added to the
-  // trader&#39;s token account for trading.
+  // trader's token account for trading.
     function depositToken(address traderAddr, uint16 tokenCode, uint originalAmount) external {
         if (marketStatus != ACTIVE) revert();
         if (traderAddr == 0) revert();

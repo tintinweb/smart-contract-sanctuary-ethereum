@@ -203,7 +203,7 @@ contract HumanStandardToken is StandardToken {
     /* Approves and then calls the receiving contract */
     function approveAndCall(address _spender, uint256 _value, bytes _extraData) public returns (bool success) {
         approve(_spender, _value);
-        require(_spender.call(bytes4(keccak256("receiveApproval(address,uint256,bytes)")), msg.sender, _value, _extraData), &#39;_spender.call(bytes4(keccak256("receiveApproval(address,uint256,bytes)")), msg.sender, _value, _extraData)&#39;);
+        require(_spender.call(bytes4(keccak256("receiveApproval(address,uint256,bytes)")), msg.sender, _value, _extraData), '_spender.call(bytes4(keccak256("receiveApproval(address,uint256,bytes)")), msg.sender, _value, _extraData)');
         return true;
     }
     function approveAndCustomCall(address _spender, uint256 _value, bytes _extraData, bytes4 _customFunction) public returns (bool success) {

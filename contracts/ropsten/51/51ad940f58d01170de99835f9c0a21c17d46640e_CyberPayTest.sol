@@ -4,7 +4,7 @@ pragma solidity ^0.4.25;
 //   ____             __                         ____                      
 //  /\  _`\          /\ \                       /\  _`\                    
 //  \ \ \/\_\  __  __\ \ \____     __   _ __    \ \ \L\ \ __     __  __    
-//   \ \ \/_/_/\ \/\ \\ \ &#39;__`\  /&#39;__`\/\`&#39;__\   \ \ ,__/&#39;__`\  /\ \/\ \   
+//   \ \ \/_/_/\ \/\ \\ \ '__`\  /'__`\/\`'__\   \ \ ,__/'__`\  /\ \/\ \   
 //    \ \ \L\ \ \ \_\ \\ \ \L\ \/\  __/\ \ \/     \ \ \/\ \L\.\_\ \ \_\ \  
 //     \ \____/\/`____ \\ \_,__/\ \____\\ \_\      \ \_\ \__/.\_\\/`____ \ 
 //      \/___/  `/___/> \\/___/  \/____/ \/_/       \/_/\/__/\/_/ `/___/> \
@@ -20,7 +20,7 @@ pragma solidity ^0.4.25;
 //  Easter Eggs:
 //  1. VIP investors receive instant small bonus payments, when regular
 //  investors make payments greater than 0.25 ETH (not subtracted from this
-//  triggering investor&#39;s balance).
+//  triggering investor's balance).
 //      Top-1 investor receives payment on each 5-th transaction.
 //      Top-2 investor receives payment on each 10-th transaction.
 //      Top-3 investor receives payment on each 15-th transaction.

@@ -20,8 +20,8 @@ contract owned {
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract FancyAssetsCoin {
-    string public constant _myTokeName = &#39;FancyAssetsCoin&#39;;
-    string public constant _mySymbol = &#39;FNAC&#39;;
+    string public constant _myTokeName = 'FancyAssetsCoin';
+    string public constant _mySymbol = 'FNAC';
     uint public constant _myinitialSupply = 21000000;
     uint8 public constant _myDecimal = 0;
 

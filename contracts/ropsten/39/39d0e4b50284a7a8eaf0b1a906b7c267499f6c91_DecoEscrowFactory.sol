@@ -157,7 +157,7 @@ contract DecoBaseProjectsMarketplace is Ownable {
     }
 
     /**
-     * @dev Allows to trasnfer any ERC20 tokens from the contract balance to owner&#39;s address.
+     * @dev Allows to trasnfer any ERC20 tokens from the contract balance to owner's address.
      * @param _tokenAddress An `address` of an ERC20 token.
      * @param _tokens An `uint` tokens amount.
      * @return A `bool` operation result state.
@@ -351,7 +351,7 @@ contract DecoEscrow is DecoBaseProjectsMarketplace {
      * @param _amount Amount to transfer from sender`s address.
      */
     function depositErc20(address _tokenAddress, uint _amount) external {
-        require(_tokenAddress != address(0x0), "Token Address shouldn&#39;t be 0x0.");
+        require(_tokenAddress != address(0x0), "Token Address shouldn't be 0x0.");
         IERC20 token = IERC20(_tokenAddress);
         require(
             token.transferFrom(msg.sender, address(this), _amount),
@@ -538,7 +538,7 @@ contract DecoEscrow is DecoBaseProjectsMarketplace {
     }
 
     /**
-     * @dev Withdraws ETH amount from the contract&#39;s balance to the provided address.
+     * @dev Withdraws ETH amount from the contract's balance to the provided address.
      * @param _targetAddress An `address` for transfer ETH to.
      * @param _amount An `uint` amount to be transfered.
      */
@@ -565,7 +565,7 @@ contract DecoEscrow is DecoBaseProjectsMarketplace {
     }
 
     /**
-     * @dev Withdraws ERC20 token amount from the contract&#39;s balance to the provided address.
+     * @dev Withdraws ERC20 token amount from the contract's balance to the provided address.
      * @param _targetAddress An `address` for transfer tokens to.
      * @param _tokenAddress An `address` of ERC20 token.
      * @param _amount An `uint` amount of ERC20 tokens to be transfered.
@@ -806,8 +806,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -825,7 +825,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -927,7 +927,7 @@ interface IDecoArbitration {
      * @param _idHash A `bytes32` hash of a project id.
      * @param _respondent An `address` of the second paty involved in the dispute.
      * @param _respondentShareProposal An `int` value indicating percentage of disputed funds
-     *  proposed to the respondent. Valid values range is 0-100, different values are considered as &#39;No Proposal&#39;.
+     *  proposed to the respondent. Valid values range is 0-100, different values are considered as 'No Proposal'.
      *  When provided percentage is 100 then this dispute is processed automatically,
      *  and all funds are distributed in favor of the respondent.
      */
@@ -944,7 +944,7 @@ interface IDecoArbitration {
 
     /**
      * @notice Reject active dispute proposal and escalate dispute.
-     * @dev Txn sender should be dispute&#39;s respondent. Dispute automatically gets escalated to this contract
+     * @dev Txn sender should be dispute's respondent. Dispute automatically gets escalated to this contract
      *      owner aka arbiter. Proposal must exist, otherwise this method should do nothing. When respondent
      *      rejects proposal then it should get removed and corresponding event should be logged.
      *      There should be a time limit for a respondent to reject a given proposal, and if it is overdue
@@ -1061,16 +1061,16 @@ contract DecoProjects is DecoBaseProjectsMarketplace {
     // maps the agreement`s unique hash to the project details.
     mapping (bytes32 => Project) public projects;
 
-    // maps hashes of all maker&#39;s projects to the maker&#39;s address.
+    // maps hashes of all maker's projects to the maker's address.
     mapping (address => bytes32[]) public makerProjects;
 
-    // maps hashes of all client&#39;s projects to the client&#39;s address.
+    // maps hashes of all client's projects to the client's address.
     mapping (address => bytes32[]) public clientProjects;
 
-    // maps arbiter&#39;s fixed fee to a project.
+    // maps arbiter's fixed fee to a project.
     mapping (bytes32 => uint) public projectArbiterFixedFee;
 
-    // maps arbiter&#39;s share fee to a project.
+    // maps arbiter's share fee to a project.
     mapping (bytes32 => uint8) public projectArbiterShareFee;
 
     // Modifier to restrict method to be called either by project`s owner or maker
@@ -1156,7 +1156,7 @@ contract DecoProjects is DecoBaseProjectsMarketplace {
         );
         require(_milestonesCount >= 1 && _milestonesCount <= 24, "Milestones count is not in the allowed 1-24 range.");
         bytes32 hash = keccak256(_agreementId);
-        require(projects[hash].client == address(0x0), "Project shouldn&#39;t exist yet.");
+        require(projects[hash].client == address(0x0), "Project shouldn't exist yet.");
 
         saveCurrentArbitrationFees(_arbiter, hash);
 
@@ -1172,8 +1172,8 @@ contract DecoProjects is DecoBaseProjectsMarketplace {
             _milestoneStartWindow,
             _feedbackWindow,
             _milestonesCount,
-            0, // CSAT is 0 to indicate that it isn&#39;t set by maker yet
-            0, // MSAT is 0 to indicate that it isn&#39;t set by client yet
+            0, // CSAT is 0 to indicate that it isn't set by maker yet
+            0, // MSAT is 0 to indicate that it isn't set by client yet
             _agreementEncrypted
         );
         makerProjects[_maker].push(hash);
@@ -1390,7 +1390,7 @@ contract DecoProjects is DecoBaseProjectsMarketplace {
     /**
      * @dev Returns configured for the given project arbiter fees.
      * @param _agreementHash A `bytes32` hash of the project`s agreement id.
-     * @return An `uint` fixed fee and an `uint8` share fee of the project&#39;s arbiter.
+     * @return An `uint` fixed fee and an `uint8` share fee of the project's arbiter.
      */
     function getProjectArbitrationFees(bytes32 _agreementHash) public view returns(uint, uint8) {
         return (
@@ -1512,7 +1512,7 @@ contract DecoProjects is DecoBaseProjectsMarketplace {
     }
 
     /**
-     * @dev Check validness of maker&#39;s signature on project creation.
+     * @dev Check validness of maker's signature on project creation.
      * @param _maker An `address` of a maker.
      * @param _signature A `bytes` digital signature generated by a maker.
      * @param _agreementId A unique id of the agreement document for a project
@@ -1626,7 +1626,7 @@ contract DecoMilestones is IDecoArbitrationTarget, DecoBaseProjectsMarketplace {
         require(projectsContract.checkIfProjectExists(_agreementHash), "Project must exist.");
         require(
             projectsContract.getProjectClient(_agreementHash) == msg.sender,
-            "Only project&#39;s client starts a miestone"
+            "Only project's client starts a miestone"
         );
         require(
             projectsContract.getProjectMilestonesCount(_agreementHash) > completedMilestonesCount,
@@ -1956,7 +1956,7 @@ contract DecoMilestones is IDecoArbitrationTarget, DecoBaseProjectsMarketplace {
 
     /**
      * @dev Returns the last project milestone completion status and number.
-     * @param _agreementHash Project&#39;s unique hash.
+     * @param _agreementHash Project's unique hash.
      * @return isAccepted A boolean flag for acceptance state, and milestoneNumber for the last milestone.
      */
     function isLastMilestoneAccepted(
@@ -1978,7 +1978,7 @@ contract DecoMilestones is IDecoArbitrationTarget, DecoBaseProjectsMarketplace {
      * @dev Client can terminate milestone if the last milestone delivery is overdue and
      *      milestone is not on hold. By default termination is not available.
      * @param _agreementHash Project`s unique hash.
-     * @return `true` if the last project&#39;s milestone could be terminated by client.
+     * @return `true` if the last project's milestone could be terminated by client.
      */
     function canClientTerminate(bytes32 _agreementHash) public view returns(bool) {
         uint milestonesCount = projectMilestones[_agreementHash].length;
@@ -1991,10 +1991,10 @@ contract DecoMilestones is IDecoArbitrationTarget, DecoBaseProjectsMarketplace {
 
     /**
      * @dev Maker can terminate milestone if delivery review is taking longer than project feedback window and
-     *      milestone is not on hold, or if client doesn&#39;t start the next milestone for a period longer than
-     *      project&#39;s milestone start window. By default termination is not available.
+     *      milestone is not on hold, or if client doesn't start the next milestone for a period longer than
+     *      project's milestone start window. By default termination is not available.
      * @param _agreementHash Project`s unique hash.
-     * @return `true` if the last project&#39;s milestone could be terminated by maker.
+     * @return `true` if the last project's milestone could be terminated by maker.
      */
     function canMakerTerminate(bytes32 _agreementHash) public view returns(bool) {
         address projectsContractAddress = DecoRelay(relayContractAddress).projectsContractAddress();

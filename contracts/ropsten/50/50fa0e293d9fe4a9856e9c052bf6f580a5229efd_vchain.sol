@@ -32,7 +32,7 @@ contract Ownable {
  * the `migrationId`. Or, if the migration code must be applied only after
  * another migration has been already applied, use the `isMigration` modifier.
  * This helper supports multiple inheritance.
- * WARNING: It is the developer&#39;s responsibility to ensure that migrations are
+ * WARNING: It is the developer's responsibility to ensure that migrations are
  * applied in a correct order, or that they are run at all.
  * See `Initializable` for a simpler version.
  */
@@ -169,7 +169,7 @@ contract vchain is Ownable, Migratable {
     selfdestruct(owner);
   } */
 
-    // don&#39;t set constructor because zOS will handle it
+    // don't set constructor because zOS will handle it
     
     function SetPrice(uint _price) public onlyOwner {
         price = _price;
@@ -288,7 +288,7 @@ contract vchain is Ownable, Migratable {
         require(msg.sender == article.holder);
         }
         
-        // keep buyer&#39;s information
+        // keep buyer's information
         article.holder = _buyer;
         
         // trigger the event

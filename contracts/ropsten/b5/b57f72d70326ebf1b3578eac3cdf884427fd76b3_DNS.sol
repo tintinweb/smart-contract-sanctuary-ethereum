@@ -45,7 +45,7 @@ contract DNS {
         if (bytes(_label).length > 0){
             _key = keccak256(bytes(_label));
         } else {
-            _key = keccak256(&#39;.&#39;);
+            _key = keccak256('.');
         }
     }
 

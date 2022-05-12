@@ -75,7 +75,7 @@ contract FluxMinerCoin is FMCImpl {
     string public name = "Flux Miner Coin owned by Onething";
     uint8  public decimals = 18;
     string public symbol = "FMC";
-    string public version = &#39;FMC0.1&#39;;
+    string public version = 'FMC0.1';
 
     address public admin;
 

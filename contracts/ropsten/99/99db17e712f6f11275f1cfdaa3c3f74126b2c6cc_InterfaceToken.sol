@@ -145,7 +145,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -703,7 +703,7 @@ contract Whitelist is Ownable {
   event WhitelistedAddressRemoved(address addr);
 
   /**
-   * @dev Throws if called by any account that&#39;s not whitelisted.
+   * @dev Throws if called by any account that's not whitelisted.
    */
   modifier onlyWhitelisted() {
     require(whitelist[msg.sender]);
@@ -741,7 +741,7 @@ contract Whitelist is Ownable {
    * @dev remove an address from the whitelist
    * @param addr address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address addr) onlyOwner public returns(bool success) {
     if (whitelist[addr]) {
@@ -755,7 +755,7 @@ contract Whitelist is Ownable {
    * @dev remove addresses from the whitelist
    * @param addrs addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] addrs) onlyOwner public returns(bool success) {
     for (uint256 i = 0; i < addrs.length; i++) {
@@ -777,39 +777,39 @@ contract InterfaceToken is ERC721Token, ERC165, Whitelist {
 
   bytes4 constant InterfaceSignature_ERC165 = 0x01ffc9a7;
   /*
-  bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+  bytes4(keccak256('supportsInterface(bytes4)'));
   */
 
   bytes4 constant InterfaceSignature_ERC721Enumerable = 0x780e9d63;
   /*
-  bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-  bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-  bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;));
+  bytes4(keccak256('totalSupply()')) ^
+  bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+  bytes4(keccak256('tokenByIndex(uint256)'));
   */
 
   bytes4 constant InterfaceSignature_ERC721Metadata = 0x5b5e139f;
   /*
-  bytes4(keccak256(&#39;name()&#39;)) ^
-  bytes4(keccak256(&#39;symbol()&#39;)) ^
-  bytes4(keccak256(&#39;tokenURI(uint256)&#39;));
+  bytes4(keccak256('name()')) ^
+  bytes4(keccak256('symbol()')) ^
+  bytes4(keccak256('tokenURI(uint256)'));
   */
 
   bytes4 constant InterfaceSignature_ERC721 = 0x80ac58cd;
   /*
-  bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-  bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-  bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-  bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-  bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-  bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-  bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-  bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-  bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;));
+  bytes4(keccak256('balanceOf(address)')) ^
+  bytes4(keccak256('ownerOf(uint256)')) ^
+  bytes4(keccak256('approve(address,uint256)')) ^
+  bytes4(keccak256('getApproved(uint256)')) ^
+  bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+  bytes4(keccak256('isApprovedForAll(address,address)')) ^
+  bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+  bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+  bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'));
   */
 
   bytes4 public constant InterfaceSignature_ERC721Optional = - 0x4f558e79;
   /*
-  bytes4(keccak256(&#39;exists(uint256)&#39;));
+  bytes4(keccak256('exists(uint256)'));
   */
 
   /**

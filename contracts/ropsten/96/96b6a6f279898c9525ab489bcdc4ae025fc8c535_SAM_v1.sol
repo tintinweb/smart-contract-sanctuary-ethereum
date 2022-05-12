@@ -5,7 +5,7 @@ ___________________________________________________________________
   _      _                                        ______           
   |  |  /          /                                /              
 --|-/|-/-----__---/----__----__---_--_----__-------/-------__------
-  |/ |/    /___) /   /   &#39; /   ) / /  ) /___)     /      /   )     
+  |/ |/    /___) /   /   ' /   ) / /  ) /___)     /      /   )     
 __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
     
        
@@ -14,17 +14,17 @@ __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
     | |    _______   | || |      __      | || | ____    ____ | |
     | |   /  ___  |  | || |     /  \     | || ||_   \  /   _|| |
     | |  |  (__ \_|  | || |    / /\ \    | || |  |   \/   |  | |
-    | |   &#39;.___`-.   | || |   / ____ \   | || |  | |\  /| |  | |
+    | |   '.___`-.   | || |   / ____ \   | || |  | |\  /| |  | |
     | |  |`\____) |  | || | _/ /    \ \_ | || | _| |_\/_| |_ | |
-    | |  |_______.&#39;  | || ||____|  |____|| || ||_____||_____|| |
+    | |  |_______.'  | || ||____|  |____|| || ||_____||_____|| |
     | |              | || |              | || |              | |
-    | &#39;--------------&#39; || &#39;--------------&#39; || &#39;--------------&#39; |
-     &#39;----------------&#39;  &#39;----------------&#39;  &#39;----------------&#39;  
+    | '--------------' || '--------------' || '--------------' |
+     '----------------'  '----------------'  '----------------'  
        
    
 // ======================= CORE FUNCTIONS ============================//
 
-    &#39;Software Assent Management&#39; smart contract with following functions
+    'Software Assent Management' smart contract with following functions
         => Multi-ownership control
         => Higher degree of control by owner
         => Upgradeability using Unstructured Storage
@@ -152,8 +152,8 @@ contract SAM_v1 is owned {
      */
     function addNewVendor(address _vendorAddress) public onlyOwner returns(bool) {
         
-        require(!vendorsMapping[_vendorAddress], &#39;Vendor is already added&#39;);
-        require(_vendorAddress != address(0), &#39;Invalid vendor address&#39;);
+        require(!vendorsMapping[_vendorAddress], 'Vendor is already added');
+        require(_vendorAddress != address(0), 'Invalid vendor address');
         
         vendorsMapping[_vendorAddress] = true;
         return true;
@@ -167,9 +167,9 @@ contract SAM_v1 is owned {
      */
     function updateVendor(address _currentVendorAddress, address _newVendorAddress) public onlyOwner returns(bool){
         
-        require(vendorsMapping[_currentVendorAddress], &#39;Vendor does not exist&#39;);
-        require(_currentVendorAddress != address(0), &#39;Invalid vendor address&#39;);
-        require(_newVendorAddress != address(0), &#39;Invalid vendor address&#39;);
+        require(vendorsMapping[_currentVendorAddress], 'Vendor does not exist');
+        require(_currentVendorAddress != address(0), 'Invalid vendor address');
+        require(_newVendorAddress != address(0), 'Invalid vendor address');
         
         vendorsMapping[_currentVendorAddress] = false;
         vendorsMapping[_newVendorAddress] = true;
@@ -184,9 +184,9 @@ contract SAM_v1 is owned {
      */
     function addNewBusinessWallet(address _businessAddress) public returns(bool) {
         
-        require(vendorsMapping[msg.sender], &#39;Caller is not authenticated&#39;);
-        require(!businessesMapping[msg.sender][_businessAddress], &#39;Business is already added&#39;);
-        require(_businessAddress != address(0), &#39;Invalid business address&#39;);
+        require(vendorsMapping[msg.sender], 'Caller is not authenticated');
+        require(!businessesMapping[msg.sender][_businessAddress], 'Business is already added');
+        require(_businessAddress != address(0), 'Invalid business address');
         
         businessesMapping[msg.sender][_businessAddress] = true;
         return true;
@@ -200,10 +200,10 @@ contract SAM_v1 is owned {
      */
     function updateBusinessWallet(address _currentBusinessAddress, address _newBusinessAddress) public returns(bool) {
         
-        require(vendorsMapping[msg.sender], &#39;Caller is not authenticated&#39;);
-        require(businessesMapping[msg.sender][_currentBusinessAddress], &#39;Business does not exist&#39;);
-        require(_currentBusinessAddress != address(0), &#39;Address is invalid&#39;);
-        require(_newBusinessAddress != address(0), &#39;Address is invalid&#39;);
+        require(vendorsMapping[msg.sender], 'Caller is not authenticated');
+        require(businessesMapping[msg.sender][_currentBusinessAddress], 'Business does not exist');
+        require(_currentBusinessAddress != address(0), 'Address is invalid');
+        require(_newBusinessAddress != address(0), 'Address is invalid');
         
         businessesMapping[msg.sender][_currentBusinessAddress] = false;
         businessesMapping[msg.sender][_newBusinessAddress] = true;
@@ -223,8 +223,8 @@ contract SAM_v1 is owned {
      */
     function addNewSoftwareData(uint256 saID_, string memory vendorName_, string memory businessName_, address businessWallet_, uint256 licenceIssueDate_, uint256 licenceRenewDate_, string memory status_) public returns(bool){
         
-        require(vendorsMapping[msg.sender], &#39;Caller is not authenticated&#39;);
-        require(saID_ != 0, &#39;Licence ID is invalid&#39;);
+        require(vendorsMapping[msg.sender], 'Caller is not authenticated');
+        require(saID_ != 0, 'Licence ID is invalid');
         
         //adding data to softwareAssetMapping
         softwareAssetMapping[msg.sender][businessWallet_][saID_].saID = saID_;
@@ -247,9 +247,9 @@ contract SAM_v1 is owned {
      */
     function addNewEmployeeWallet(address _vendorAddess, address _employeeAddress) public returns(bool) {
         
-        require(businessesMapping[_vendorAddess][msg.sender], &#39;Caller is not authenticated&#39;);
-        require(!employeesMapping[msg.sender][_employeeAddress], &#39;Employee is already added&#39;);
-        require(_employeeAddress != address(0), &#39;Invalid Employee address&#39;);
+        require(businessesMapping[_vendorAddess][msg.sender], 'Caller is not authenticated');
+        require(!employeesMapping[msg.sender][_employeeAddress], 'Employee is already added');
+        require(_employeeAddress != address(0), 'Invalid Employee address');
         
         employeesMapping[msg.sender][_employeeAddress] = true;
         return true;
@@ -265,9 +265,9 @@ contract SAM_v1 is owned {
      */
     function updateEmployeeWallet(address _vendorAddess, address _currentEmployeeAddress, address _newEmployeeAddress) public returns(bool) {
         
-        require(businessesMapping[_vendorAddess][msg.sender], &#39;Caller is not authenticated&#39;);
-        require(employeesMapping[msg.sender][_currentEmployeeAddress], &#39;Employee does not exist&#39;);
-        require(_newEmployeeAddress != address(0), &#39;Invalid Employee address&#39;);
+        require(businessesMapping[_vendorAddess][msg.sender], 'Caller is not authenticated');
+        require(employeesMapping[msg.sender][_currentEmployeeAddress], 'Employee does not exist');
+        require(_newEmployeeAddress != address(0), 'Invalid Employee address');
         
         employeesMapping[msg.sender][_currentEmployeeAddress] = false;
         employeesMapping[msg.sender][_newEmployeeAddress] = true;
@@ -298,7 +298,7 @@ contract SAM_v1 is owned {
             vendorsMapping[msg.sender] || 
             businessesMapping[vendor][msg.sender] ||
             employeesMapping[business][msg.sender],
-            &#39;Unauthenticated caller&#39;
+            'Unauthenticated caller'
         );
         
         // once caller is validated, then send the information

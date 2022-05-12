@@ -187,8 +187,8 @@ return super.decreaseApproval(_spender, _subtractedValue);
 }
 
 contract Test is StandardToken, PausableToken {
-   string public constant name = &#39;Test&#39;;                                      // Set the token name for display
-   string public constant symbol = &#39;TEST&#39;;                                       // Set the token symbol for display
+   string public constant name = 'Test';                                      // Set the token name for display
+   string public constant symbol = 'TEST';                                       // Set the token symbol for display
    uint8 public constant decimals = 18;                                          // Set the number of decimals for display
    uint256 public constant INITIAL_SUPPLY = 50000000000 * 10**uint256(decimals);  // 50 billions 
 

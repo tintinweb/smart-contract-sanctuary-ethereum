@@ -21,7 +21,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));
@@ -213,8 +213,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -232,7 +232,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -494,7 +494,7 @@ contract ERC820Client {
  * Do not use or deploy this code before reviewing it personally first.
  *
  * Potential issues:
- * - Presence of &#39;data&#39; field in burn and operatorBurn
+ * - Presence of 'data' field in burn and operatorBurn
  */
 pragma solidity ^0.4.24;
 
@@ -671,7 +671,7 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController {
   }
 
   /**
-   * [ERC777 INTERFACE (3/13)][OVERRIDES ERC20 METHOD] - Required since &#39;_totalSupply&#39; is private in ERC20
+   * [ERC777 INTERFACE (3/13)][OVERRIDES ERC20 METHOD] - Required since '_totalSupply' is private in ERC20
    * @dev Get the total number of minted tokens.
    * @return Total supply of tokens currently in circulation.
    */
@@ -680,7 +680,7 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController {
   }
 
   /**
-   * [ERC777 INTERFACE (4/13)] [OVERRIDES ERC20 METHOD] - Required since &#39;_balances&#39; is private in ERC20
+   * [ERC777 INTERFACE (4/13)] [OVERRIDES ERC20 METHOD] - Required since '_balances' is private in ERC20
    * @dev Get the balance of the account with address tokenHolder.
    * @param tokenHolder Address for which the balance is returned.
    * @return Amount of token held by tokenHolder in the token contract.
@@ -709,7 +709,7 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController {
 
   /**
    * @dev Get the list of default operators as defined by the token contract.
-   * @param isControllable &#39;true&#39; if token can have default operators, &#39;false&#39; if not.
+   * @param isControllable 'true' if token can have default operators, 'false' if not.
    * @return List of addresses of all the default operators.
    */
   function _getDefaultOperators(bool isControllable) internal view returns (address[]) {
@@ -823,7 +823,7 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController {
 
   /**
    * @dev Internal function that checks if `amount` is multiple of the granularity.
-   * @param amount The quantity that want&#39;s to be checked.
+   * @param amount The quantity that want's to be checked.
    * @return `true` if `amount` is a multiple of the granularity.
    */
   function _isMultiple(uint256 amount) internal view returns(bool) {
@@ -1071,10 +1071,10 @@ contract ERC1410 is IERC1410, ERC777 {
 
 
   /**************** Mappings to find operator by tranche **********************/
-  // Mapping from (investor, tranche, operator) to &#39;approved for tranche&#39; status [INVESTOR-SPECIFIC]
+  // Mapping from (investor, tranche, operator) to 'approved for tranche' status [INVESTOR-SPECIFIC]
   mapping (address => mapping (bytes32 => mapping (address => bool))) internal _trancheAuthorized;
 
-  // Mapping from (investor, tranche, operator) to &#39;revoked for tranche&#39; status [INVESTOR-SPECIFIC]
+  // Mapping from (investor, tranche, operator) to 'revoked for tranche' status [INVESTOR-SPECIFIC]
   mapping (address => mapping (bytes32 => mapping (address => bool))) internal _trancheRevokedDefaultOperator;
 
   // Mapping from tranche to default operators for the tranche [NOT INVESTOR-SPECIFIC]
@@ -1444,7 +1444,7 @@ contract ERC1410 is IERC1410, ERC777 {
   }
 
   /**
-   * @dev Internal function to retrieve the destination tranche from the &#39;data&#39; field.
+   * @dev Internal function to retrieve the destination tranche from the 'data' field.
    *  Basically, this function only converts the bytes variable into a bytes32 variable.
    * @param data Information attached to the send [contains the destination tranche].
    */
@@ -1541,13 +1541,13 @@ contract ERC1410 is IERC1410, ERC777 {
 
   /**
    * [NOT MANDATORY FOR ERC1410 STANDARD][OVERRIDES ERC777 METHOD]
-   * @dev Empty function to erase ERC777 burn() function since it doesn&#39;t handle tranches.
+   * @dev Empty function to erase ERC777 burn() function since it doesn't handle tranches.
    */
   function burn(uint256 amount, bytes data) external {}
 
   /**
    * [NOT MANDATORY FOR ERC1410 STANDARD][OVERRIDES ERC777 METHOD]
-   * @dev Empty function to erase ERC777 operatorBurn() function since it doesn&#39;t handle tranches.
+   * @dev Empty function to erase ERC777 operatorBurn() function since it doesn't handle tranches.
    */
   function operatorBurn(address from, uint256 amount, bytes data, bytes operatorData) external {}
 
@@ -1636,7 +1636,7 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
    *  - always return FALSE in the future.
    *  - return empty lists for defaultOperators and defaultOperatorsByTranche.
    *  - never add addresses for defaultOperators and defaultOperatorsByTranche.
-   * @return bool TRUE if the token can still be controlled by operators, FALSE if it can&#39;t anymore.
+   * @return bool TRUE if the token can still be controlled by operators, FALSE if it can't anymore.
    */
   function isControllable() external view returns (bool) {
     return _isControllable;
@@ -1645,7 +1645,7 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
   /**
    * [ERC1400 INTERFACE (4/8)]
    * @dev External function to know if new tokens can be minted/issued in the future.
-   * @return bool TRUE if tokens can still be minted/issued by the minter, FALSE if they can&#39;t anymore.
+   * @return bool TRUE if tokens can still be minted/issued by the minter, FALSE if they can't anymore.
    */
   function isIssuable() external view returns (bool) {
     return _isIssuable;
@@ -1822,7 +1822,7 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
    * [NOT MANDATORY FOR ERC1400 STANDARD]
    * @dev External function to definitely renounce the possibility to control tokens
    * on behalf of investors.
-   * Once set to false, &#39;_isControllable&#39; can never be set to TRUE again.
+   * Once set to false, '_isControllable' can never be set to TRUE again.
    */
   function renounceControl() external onlyOwner {
     _isControllable = false;
@@ -1831,7 +1831,7 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
   /**
    * [NOT MANDATORY FOR ERC1400 STANDARD]
    * @dev External function to definitely renounce the possibility to issue new tokens.
-   * Once set to false, &#39;_isIssuable&#39; can never be set to TRUE again.
+   * Once set to false, '_isIssuable' can never be set to TRUE again.
    */
   function renounceIssuance() external onlyOwner {
     _isIssuable = false;

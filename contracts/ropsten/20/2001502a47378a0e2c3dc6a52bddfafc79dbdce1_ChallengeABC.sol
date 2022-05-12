@@ -5,7 +5,7 @@ contract ChallengeABC {
  event Won() ;
  event Try(bytes32 candidate);
  //bytes32 challenge=hex"fc4b2e93d9ec97f3942d6c2532d5953555b2748c679b25c26956a91622fdb3d0";
- bytes32 challenge=&#39;&#39;;
+ bytes32 challenge='';
  string badAnswer="Wrong answer!";
  
  constructor(bytes32 c) public {

@@ -301,7 +301,7 @@ contract Controller is Multiownable {
      * @dev Freeze token transactions for all token owners (Pausable token)
      */
     function mintNewTokens(address to, uint256 value) public onlyManyOwners returns (bool) {
-        require(!_token.paused(),&#39;mintNewTokens: the transactions are not allowed, please enable it before sending or minting of the tokens&#39;);
+        require(!_token.paused(),'mintNewTokens: the transactions are not allowed, please enable it before sending or minting of the tokens');
         _token.mint(to, value);
         
         return true;

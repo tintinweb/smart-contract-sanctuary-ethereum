@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -348,7 +348,7 @@ interface IMonethaVoucher {
 /**
  *  @title MonethaGateway
  *
- *  MonethaGateway forward funds from order payment to merchant&#39;s wallet and collects Monetha fee.
+ *  MonethaGateway forward funds from order payment to merchant's wallet and collects Monetha fee.
  */
 contract MonethaGateway is Pausable, Contactable, Destructible, Restricted {
 
@@ -408,9 +408,9 @@ contract MonethaGateway is Pausable, Contactable, Destructible, Restricted {
     }
 
     /**
-     *  acceptPayment accept payment from PaymentAcceptor, forwards it to merchant&#39;s wallet
+     *  acceptPayment accept payment from PaymentAcceptor, forwards it to merchant's wallet
      *      and collects Monetha fee.
-     *  @param _merchantWallet address of merchant&#39;s wallet for fund transfer
+     *  @param _merchantWallet address of merchant's wallet for fund transfer
      *  @param _monethaFee is a fee collected by Monetha
      */
     function acceptPayment(address _merchantWallet,
@@ -455,9 +455,9 @@ contract MonethaGateway is Pausable, Contactable, Destructible, Restricted {
     }
 
     /**
-     *  acceptTokenPayment accept token payment from PaymentAcceptor, forwards it to merchant&#39;s wallet
+     *  acceptTokenPayment accept token payment from PaymentAcceptor, forwards it to merchant's wallet
      *      and collects Monetha fee.
-     *  @param _merchantWallet address of merchant&#39;s wallet for fund transfer
+     *  @param _merchantWallet address of merchant's wallet for fund transfer
      *  @param _monethaFee is a fee collected by Monetha
      *  @param _tokenAddress is the token address
      *  @param _value is the order value
@@ -560,10 +560,10 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
 
     string constant VERSION = "0.5";
 
-    /// Address of merchant&#39;s account, that can withdraw from wallet
+    /// Address of merchant's account, that can withdraw from wallet
     address public merchantAccount;
 
-    /// Address of merchant&#39;s fund address.
+    /// Address of merchant's fund address.
     address public merchantFundAddress;
 
     /// Unique Merchant identifier hash
@@ -608,9 +608,9 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  @param _merchantAccount Address of merchant&#39;s account, that can withdraw from wallet
+     *  @param _merchantAccount Address of merchant's account, that can withdraw from wallet
      *  @param _merchantId Merchant identifier
-     *  @param _fundAddress Merchant&#39;s fund address, where amount will be transferred.
+     *  @param _fundAddress Merchant's fund address, where amount will be transferred.
      */
     constructor(address _merchantAccount, string _merchantId, address _fundAddress) public isEOA(_fundAddress) {
         require(_merchantAccount != 0x0);
@@ -697,7 +697,7 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  Allows merchant to withdraw funds to it&#39;s own account
+     *  Allows merchant to withdraw funds to it's own account
      */
     function withdraw(uint amount) external onlyMerchant {
         withdrawTo(msg.sender, amount);
@@ -732,14 +732,14 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  Allows merchant to change it&#39;s account address
+     *  Allows merchant to change it's account address
      */
     function changeMerchantAccount(address newAccount) external onlyMerchant whenNotPaused {
         merchantAccount = newAccount;
     }
 
     /**
-     *  Allows merchant to change it&#39;s fund address.
+     *  Allows merchant to change it's fund address.
      */
     function changeFundAddress(address newFundAddress) external onlyMerchant isEOA(newFundAddress) {
         merchantFundAddress = newFundAddress;
@@ -883,7 +883,7 @@ contract PrivatePaymentProcessor is Pausable, Destructible, Contactable, Restric
 
     /**
      *  payForOrderInTokens is used by order wallet/client to pay for the order
-     *  This call requires that token&#39;s approve method has been called prior to this.
+     *  This call requires that token's approve method has been called prior to this.
      *  @param _orderId Identifier of the order
      *  @param _originAddress buyer address
      *  @param _monethaFee is fee collected by Monetha
@@ -953,7 +953,7 @@ contract PrivatePaymentProcessor is Pausable, Destructible, Contactable, Restric
 
     /**
      *  refundTokenPayment used in case order cannot be processed and tokens need to be returned
-     *  This call requires that token&#39;s approve method has been called prior to this.
+     *  This call requires that token's approve method has been called prior to this.
      *  This function initiate process of refunding tokens to the client.
      *  @param _orderId Identifier of the order
      *  @param _clientAddress is an address of client
@@ -990,7 +990,7 @@ contract PrivatePaymentProcessor is Pausable, Destructible, Contactable, Restric
     }
 
     /**
-     *  withdrawRefund performs fund transfer to the client&#39;s account.
+     *  withdrawRefund performs fund transfer to the client's account.
      *  @param _orderId Identifier of the order
      */
     function withdrawRefund(uint _orderId)
@@ -1013,7 +1013,7 @@ contract PrivatePaymentProcessor is Pausable, Destructible, Contactable, Restric
     }
 
     /**
-     *  withdrawTokenRefund performs token transfer to the client&#39;s account.
+     *  withdrawTokenRefund performs token transfer to the client's account.
      *  @param _orderId Identifier of the order
      *  @param _tokenAddress token address
      */

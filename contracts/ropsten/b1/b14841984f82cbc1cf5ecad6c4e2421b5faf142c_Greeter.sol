@@ -3,7 +3,7 @@ contract Greeter {
     string public greeting;
 
     function Greeter() public {
-        greeting = &#39;Hello&#39;;
+        greeting = 'Hello';
     }
 
     function setGreeting(string _greeting) public {

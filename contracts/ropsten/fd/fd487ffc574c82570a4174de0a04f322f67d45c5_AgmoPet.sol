@@ -76,7 +76,7 @@ contract AgmoPet {
     }
     
     function addPet(address _address, uint _seasonId) private {
-        string memory name = strConcat(users[_address].Name, "&#39;s pet");
+        string memory name = strConcat(users[_address].Name, "'s pet");
         users[_address].PetIdList.push(globalPetId);
         pets[globalPetId] = Pet({Type: _seasonId, Exp:1, Level:1, Personality:1, Name: name, EquipmentList : new uint[](0), Id : globalPetId, Owner: _address});
         globalPetId++;
@@ -105,9 +105,9 @@ contract AgmoPet {
         string memory ret = "\x5B";
         
         for (uint i=1; i <= currentSeason; i++) {
-            string memory result = strConcat(&#39;{"name": "&#39;, seasonDescription[i] , &#39;","id": "&#39;);
+            string memory result = strConcat('{"name": "', seasonDescription[i] , '","id": "');
             result = appendUintToString(result, i);
-            result = strConcat(result, &#39;"}&#39;);
+            result = strConcat(result, '"}');
             if(i != currentSeason){
                 result = strConcat(result, ",");
             }
@@ -145,17 +145,17 @@ contract AgmoPet {
     }
     
     function getPetJson(Pet _pet) private pure returns (string) {
-        string memory result = strConcat(&#39;{"name": "&#39;, _pet.Name , &#39;","type": "&#39;);
+        string memory result = strConcat('{"name": "', _pet.Name , '","type": "');
         result = appendUintToString(result, _pet.Type);
-        result = strConcat(result, &#39;", "exp" : "&#39;);
+        result = strConcat(result, '", "exp" : "');
         result = appendUintToString(result, _pet.Exp);
-        result = strConcat(result, &#39;", "level" : "&#39;);
+        result = strConcat(result, '", "level" : "');
         result = appendUintToString(result, _pet.Level);
-        result = strConcat(result, &#39;", "personality" : "&#39;);
+        result = strConcat(result, '", "personality" : "');
         result = appendUintToString(result, _pet.Personality);
-        result = strConcat(result, &#39;", "id" : "&#39;);
+        result = strConcat(result, '", "id" : "');
         result = appendUintToString(result, _pet.Id);
-        result = strConcat(result, &#39;"}&#39;);
+        result = strConcat(result, '"}');
         return result;
     }
     

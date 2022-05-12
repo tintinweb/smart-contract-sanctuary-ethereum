@@ -27,7 +27,7 @@ contract Ownable {
         @param _to Address of the new owner
     */
     function transferTo(address _to) public onlyOwner returns (bool) {
-        require(_to != address(0), &#39;to, should not be the address 0x0&#39;);
+        require(_to != address(0), 'to, should not be the address 0x0');
         owner = _to;
         return true;
     }
@@ -60,7 +60,7 @@ contract SimpleDelegable is Ownable {
     @dev Defines the interface of a standard RCN oracle.
 
     The oracle is an agent in the RCN network that supplies a convertion rate between RCN and any other currency,
-    it&#39;s primarily used by the exchange but could be used by any other agent.
+    it's primarily used by the exchange but could be used by any other agent.
 */
 contract Oracle is Ownable {
     uint256 public constant VERSION = 4;

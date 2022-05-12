@@ -308,7 +308,7 @@ contract Market is StandardTile {
   }
 
   //if the market has permission to galleassTransferFrom your token you can call sell directly
-  // it&#39;s better to 667 them in without special galeeass permission
+  // it's better to 667 them in without special galeeass permission
   /*function sell(uint16 _x,uint16 _y,uint8 _tile,address _token,uint _amount) public isGalleasset("Market") returns (bool) {
     //token must have a buy price
     require(buyPrices[_x][_y][_tile][_token]>0);
@@ -338,7 +338,7 @@ contract Market is StandardTile {
   function _buy(address _sender, uint _amount, bytes _data) internal returns (bool) {
     //you must be sending in copper
     require(msg.sender == getContract("Copper"));
-    //increment tile&#39;s copper balance
+    //increment tile's copper balance
     _incrementTokenBalance(_x,_y,_tile,msg.sender,_amount);
     //parse land location out of data
     uint16 _x = getX(_data);
@@ -348,7 +348,7 @@ contract Market is StandardTile {
 
     //token must have a sell price
     require(sellPrices[_x][_y][_tile][_tokenAddress]>0);
-    //increment tile&#39;s token balance
+    //increment tile's token balance
     _incrementTokenBalance(_x,_y,_tile,_tokenAddress,_amount);
 
     uint amountOfTokensToSend = _amount/sellPrices[_x][_y][_tile][_tokenAddress];
@@ -374,7 +374,7 @@ contract Market is StandardTile {
     //token must have a buy price
     require(buyPrices[_x][_y][_tile][msg.sender]>0);
 
-    //increment tile&#39;s balance of this token
+    //increment tile's balance of this token
     _incrementTokenBalance(_x,_y,_tile,msg.sender,_amount);
 
     emit Sell(_x,_y,_tile,msg.sender,_amount,_sender);

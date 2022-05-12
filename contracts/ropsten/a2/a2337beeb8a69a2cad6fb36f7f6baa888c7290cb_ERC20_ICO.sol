@@ -212,10 +212,10 @@ contract ERC20_ICO is Killable {
         // Emit an event that shows invested successfully
         emit Invested(receiver, msg.value, tokensAmount);
         
-        // Transfer Token to owner&#39;s address
+        // Transfer Token to owner's address
         token.transfer(receiver, tokensAmount);
 
-        // Transfer Fund to owner&#39;s address
+        // Transfer Fund to owner's address
         beneficiary.transfer(address(this).balance);
 
     }

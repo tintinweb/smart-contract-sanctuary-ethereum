@@ -96,7 +96,7 @@ contract SmartIdentityRegistry {
 
     /**
      * This is the public registry function that contracts should use to check
-     * whether a contract is valid. It&#39;s defined as a function, rather than .call
+     * whether a contract is valid. It's defined as a function, rather than .call
      * so that the registry owner can choose to charge based on their reputation
      * of managing good contracts in a registry.
      *
@@ -129,7 +129,7 @@ contract SmartIdentityRegistry {
      * Check Identity is valid using modifier.
      *
      * This will also serve as protection against forks, because at the time the chain forks,
-     * we can kill the registry, which will then &#39;invalidate&#39; the identities that are stored
+     * we can kill the registry, which will then 'invalidate' the identities that are stored
      * on the old chain.
      */
 

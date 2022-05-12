@@ -20,7 +20,7 @@ contract Foreign {
 	}
 
 	function deposit(address _recipient, uint _toChain) public payable {
-		// if they haven&#39;t made a deposit in the last day, reset their amount and time
+		// if they haven't made a deposit in the last day, reset their amount and time
 		if (depositTime[msg.sender] < now + 1 days) {
 			depositTime[msg.sender] = now;
 			deposited[msg.sender] = 0;

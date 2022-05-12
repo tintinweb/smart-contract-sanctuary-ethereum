@@ -31,21 +31,21 @@ contract ecert
     
     modifier onlySuper()
     {
-        require(msg.sender==superadmin,&#39;Function reserved to Superadmin&#39;);
+        require(msg.sender==superadmin,'Function reserved to Superadmin');
         _;
     }
     
     modifier onlyAdmin()
     {
-        require(admin!=address(0),&#39;Function reserved to Admin but no Admin set&#39;);
-        require(msg.sender==admin,&#39;Function reserved to Admin&#39;);
+        require(admin!=address(0),'Function reserved to Admin but no Admin set');
+        require(msg.sender==admin,'Function reserved to Admin');
         _;
     }
     
     modifier onlyUser()
     {
-        require(admin!=address(0) || user!=address(0),&#39;Function reserved to User or Admin but none is set&#39;);
-        require(msg.sender==admin || msg.sender==user,&#39;Function reserved to User or Admin&#39;);
+        require(admin!=address(0) || user!=address(0),'Function reserved to User or Admin but none is set');
+        require(msg.sender==admin || msg.sender==user,'Function reserved to User or Admin');
         _;
     }
     
@@ -70,8 +70,8 @@ contract ecert
 
     function addDiploma(uint256 _hash1,uint256 _hash2, Status _status) onlyUser() external
     {
-        require(hashes[_hash1]==0,&#39;hash1 already exists&#39;);
-        require(hashes[_hash2]==0,&#39;hash2 already exists&#39;);
+        require(hashes[_hash1]==0,'hash1 already exists');
+        require(hashes[_hash2]==0,'hash2 already exists');
         Diploma memory diploma = Diploma({hash1: _hash1, hash2: _hash2,numberEntries: 0});
         uint24 diplomaNr=uint24(diplomas.push(diploma));
         diplomas[diplomaNr-1].entries[0]=Entry(now,msg.sender,_status);
@@ -82,7 +82,7 @@ contract ecert
     
     function changeDiploma(uint256 _hash, Status _status) onlyAdmin() external
     {
-        require(hashes[_hash]!=0, &#39;hash does not exist&#39;);
+        require(hashes[_hash]!=0, 'hash does not exist');
         uint24 diplomaNr=hashes[_hash];
         diplomas[diplomaNr-1].entries[diplomas[diplomaNr-1].numberEntries]=Entry(now,msg.sender,_status);
         diplomas[diplomaNr-1].numberEntries++;
@@ -90,10 +90,10 @@ contract ecert
     
     function requestDiploma(uint256 _hash) external view returns (Status, string memory, string memory)
     {
-        if(hashes[_hash]==0) return(Status.Fail,statusString[uint24(Status.Fail)], &#39;No diploma registered with the hash given.&#39;);
+        if(hashes[_hash]==0) return(Status.Fail,statusString[uint24(Status.Fail)], 'No diploma registered with the hash given.');
         uint24 diplomaNr=hashes[_hash];
         Status status=diplomas[diplomaNr-1].entries[diplomas[diplomaNr-1].numberEntries-1].status;
-        return (status, statusString[uint24(status)], string(abi.encodePacked(&#39;Diploma found with status &#39;, statusString[uint24(status)])));
+        return (status, statusString[uint24(status)], string(abi.encodePacked('Diploma found with status ', statusString[uint24(status)])));
     }
     
 }

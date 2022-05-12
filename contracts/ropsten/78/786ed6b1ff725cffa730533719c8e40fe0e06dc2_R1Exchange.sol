@@ -194,7 +194,7 @@ contract R1Exchange is SafeMath, Ownable {
     }
 
     /**
-    * approve user&#39;s withdraw application
+    * approve user's withdraw application
     **/
     function approveWithdraw(address token, address user) public onlyAdmin {
         withdrawAllowance[token][user] = safeAdd(withdrawAllowance[token][user], applyList[token][user]);
@@ -203,7 +203,7 @@ contract R1Exchange is SafeMath, Ownable {
     }
 
     /**
-    * user&#39;s withdraw will success in two cases:
+    * user's withdraw will success in two cases:
     *    1. when the admin calls the approveWithdraw function;
     * or 2. when the lock time has passed since the application;
     **/
@@ -245,7 +245,7 @@ contract R1Exchange is SafeMath, Ownable {
 
 
     /**
-    * admin withdraw according to user&#39;s signed withdraw info
+    * admin withdraw according to user's signed withdraw info
     * PARAMS:
     * addresses:
     * [0] user
@@ -319,7 +319,7 @@ contract R1Exchange is SafeMath, Ownable {
     }
 
     /**
-    * swap maker and taker&#39;s tokens according to their signed order info.
+    * swap maker and taker's tokens according to their signed order info.
     *
     * PARAMS:
     * addresses:
@@ -346,7 +346,7 @@ contract R1Exchange is SafeMath, Ownable {
     * [8]:maker nonce
     * [9]:taker nonce
     * [10]:tradeAmount of token
-    * v,r,s:maker and taker&#39;s signature
+    * v,r,s:maker and taker's signature
     **/
     function trade(
         address[11] addresses,
@@ -412,7 +412,7 @@ contract R1Exchange is SafeMath, Ownable {
         ///match condition: (makerOrder.amountSell*takerOrder.amountSell)/(makerOrder.amountBuy*takerOrder.amountBuy) >=1
         require(safeMul(makerOrder.amountSell, takerOrder.amountSell) >= safeMul(makerOrder.amountBuy, takerOrder.amountBuy));
 
-        ///If the price is ok,always use maker&#39;s price first!
+        ///If the price is ok,always use maker's price first!
         uint256 takerBuy = 0;
         uint256 takerSell = 0;
         if (takerOrder.baseToken == takerOrder.tokenBuy) {
@@ -450,7 +450,7 @@ contract R1Exchange is SafeMath, Ownable {
     }
 
     ///charge fees.fee can be payed as other erc20 token or the tokens that user get
-    ///returns:fees to reduce from the user&#39;s tokenBuy
+    ///returns:fees to reduce from the user's tokenBuy
     function chargeFee(Order order, address feeAccount, uint256 amountBuy) internal returns (uint256){
         uint256 classicFee = 0;
         if (order.feeToken != 0) {

@@ -106,7 +106,7 @@ contract BBStorage is Ownable {
     /// @dev Only allow access from the latest version of a contract in the network after deployment
     modifier onlyAdminStorage() {
         // // The owner is only allowed to set the storage upon deployment to register the initial contracts, afterwards their direct access is disabled
-        require(admins[keccak256(abi.encodePacked(&#39;admin:&#39;,msg.sender))] == true);
+        require(admins[keccak256(abi.encodePacked('admin:',msg.sender))] == true);
         _;
     }
 
@@ -117,7 +117,7 @@ contract BBStorage is Ownable {
      */
     function addAdmin(address admin, bool add) public onlyOwner {
         require(admin!=address(0x0));
-        admins[keccak256(abi.encodePacked(&#39;admin:&#39;,admin))] = add;
+        admins[keccak256(abi.encodePacked('admin:',admin))] = add;
         emit AdminAdded(admin, add);
     }
     
@@ -232,8 +232,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -250,7 +250,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -449,7 +449,7 @@ contract BBFreelancer is BBStandard{
     _;
   }
   modifier isFreelancerOfJob(uint256 jobID){
-    require(bbs.getAddress(keccak256(abi.encodePacked(jobID,&#39;FREELANCER&#39;))) == msg.sender);
+    require(bbs.getAddress(keccak256(abi.encodePacked(jobID,'FREELANCER'))) == msg.sender);
     _;
   }
   modifier isNotOwnerJob(uint256 jobID){
@@ -466,11 +466,11 @@ contract BBFreelancer is BBStandard{
   }
 
   modifier jobNotStarted(uint256 jobID){
-    require(bbs.getUint(keccak256(abi.encodePacked(jobID, &#39;JOB_STATUS&#39;))) == 0x0);
+    require(bbs.getUint(keccak256(abi.encodePacked(jobID, 'JOB_STATUS'))) == 0x0);
     _;
   }
   modifier isNotCanceled(uint256 jobID){
-    require(bbs.getBool(keccak256(abi.encodePacked(jobID, &#39;JOB_CANCEL&#39;))) !=true);
+    require(bbs.getBool(keccak256(abi.encodePacked(jobID, 'JOB_CANCEL'))) !=true);
     _;
   }
   
@@ -478,16 +478,16 @@ contract BBFreelancer is BBStandard{
       return (bbs.getAddress(BBLib.toB32(jobID)) == sender);
   }
   function isJobStart(uint256 jobID) public view returns (bool) {
-      return (bbs.getUint(keccak256(abi.encodePacked(jobID, &#39;JOB_STATUS&#39;))) != 0x0);
+      return (bbs.getUint(keccak256(abi.encodePacked(jobID, 'JOB_STATUS'))) != 0x0);
   }
   function isJobCancel(uint256 jobID) public view returns (bool) {
-      return bbs.getBool(keccak256(abi.encodePacked(jobID, &#39;JOB_CANCEL&#39;)));
+      return bbs.getBool(keccak256(abi.encodePacked(jobID, 'JOB_CANCEL')));
   }
   function isJobExpired(uint256 jobID) public view returns (bool) {
-      return (now > bbs.getUint(keccak256(abi.encodePacked(jobID, &#39;JOB_EXPIRED&#39;))));
+      return (now > bbs.getUint(keccak256(abi.encodePacked(jobID, 'JOB_EXPIRED'))));
   }
   function isJobHasFreelancer(uint256 jobID) public view returns (bool) {
-      return (bbs.getAddress(keccak256(abi.encodePacked(jobID,&#39;FREELANCER&#39;))) != 0x0);
+      return (bbs.getAddress(keccak256(abi.encodePacked(jobID,'FREELANCER'))) != 0x0);
   }
   
 }
@@ -515,18 +515,18 @@ contract BBParams is BBFreelancer{
   function setFreelancerParams(uint256 paymentLimitTimestamp, uint256 rejectedPaymentLimitTimestamp) onlyAdmin public {
   	require(paymentLimitTimestamp > 0);
     require(rejectedPaymentLimitTimestamp > 0);
-    bbs.setUint(keccak256(&#39;PAYMENT_LIMIT_TIMESTAMP&#39;), paymentLimitTimestamp);
-    bbs.setUint(keccak256(&#39;REJECTED_PAYMENT_LIMIT_TIMESTAMP&#39;), rejectedPaymentLimitTimestamp);
+    bbs.setUint(keccak256('PAYMENT_LIMIT_TIMESTAMP'), paymentLimitTimestamp);
+    bbs.setUint(keccak256('REJECTED_PAYMENT_LIMIT_TIMESTAMP'), rejectedPaymentLimitTimestamp);
   
   }
   function getFreelancerParams() public view returns(uint256, uint256){
-  	return (bbs.getUint(keccak256(&#39;PAYMENT_LIMIT_TIMESTAMP&#39;)), bbs.getUint(keccak256(&#39;REJECTED_PAYMENT_LIMIT_TIMESTAMP&#39;)));
+  	return (bbs.getUint(keccak256('PAYMENT_LIMIT_TIMESTAMP')), bbs.getUint(keccak256('REJECTED_PAYMENT_LIMIT_TIMESTAMP')));
   }
   function setPollType(uint256 pollType, address relatedAddr) onlyAdmin public{
-    bbs.setAddress(BBLib.toB32(&#39;POLL_RELATED&#39;, pollType), relatedAddr);
+    bbs.setAddress(BBLib.toB32('POLL_RELATED', pollType), relatedAddr);
   }
   function getPollType(uint256 pollType)  public view returns(address){
-    return bbs.getAddress(BBLib.toB32(&#39;POLL_RELATED&#39;, pollType));
+    return bbs.getAddress(BBLib.toB32('POLL_RELATED', pollType));
   }
   
   function setVotingParams(uint256 minVotes, uint256 maxVotes, 
@@ -541,19 +541,19 @@ contract BBParams is BBFreelancer{
   	require(revealDuration>0);
   	require(bboRewards>0);
 
-    bbs.setUint(BBLib.toB32(&#39;MIN_VOTES&#39;), minVotes);
-    bbs.setUint(BBLib.toB32(&#39;MAX_VOTES&#39;), maxVotes);
-    bbs.setUint(BBLib.toB32(&#39;STAKED_DEPOSIT&#39;), stakeDeposit);
-    bbs.setUint(BBLib.toB32(&#39;EVIDENCE_DURATION&#39;), addOptionDuration);
-    bbs.setUint(BBLib.toB32(&#39;COMMIT_DURATION&#39;), commitDuration);
-    bbs.setUint(BBLib.toB32(&#39;REVEAL_DURATION&#39;), revealDuration);
-    bbs.setUint(BBLib.toB32(&#39;BBO_REWARDS&#39;), bboRewards);
+    bbs.setUint(BBLib.toB32('MIN_VOTES'), minVotes);
+    bbs.setUint(BBLib.toB32('MAX_VOTES'), maxVotes);
+    bbs.setUint(BBLib.toB32('STAKED_DEPOSIT'), stakeDeposit);
+    bbs.setUint(BBLib.toB32('EVIDENCE_DURATION'), addOptionDuration);
+    bbs.setUint(BBLib.toB32('COMMIT_DURATION'), commitDuration);
+    bbs.setUint(BBLib.toB32('REVEAL_DURATION'), revealDuration);
+    bbs.setUint(BBLib.toB32('BBO_REWARDS'), bboRewards);
   
   }
   function getVotingParams() public view returns(uint256, uint256,uint256,uint256, uint256,uint256,uint256){
-  	return (bbs.getUint(BBLib.toB32( &#39;MIN_VOTES&#39;)), bbs.getUint(BBLib.toB32( &#39;MAX_VOTES&#39;)),  
-  	bbs.getUint(BBLib.toB32( &#39;STAKED_DEPOSIT&#39;)), bbs.getUint(BBLib.toB32( &#39;EVIDENCE_DURATION&#39;)), bbs.getUint(BBLib.toB32( &#39;COMMIT_DURATION&#39;)), 
-  	bbs.getUint(BBLib.toB32( &#39;REVEAL_DURATION&#39;)), bbs.getUint(BBLib.toB32( &#39;BBO_REWARDS&#39;)));
+  	return (bbs.getUint(BBLib.toB32( 'MIN_VOTES')), bbs.getUint(BBLib.toB32( 'MAX_VOTES')),  
+  	bbs.getUint(BBLib.toB32( 'STAKED_DEPOSIT')), bbs.getUint(BBLib.toB32( 'EVIDENCE_DURATION')), bbs.getUint(BBLib.toB32( 'COMMIT_DURATION')), 
+  	bbs.getUint(BBLib.toB32( 'REVEAL_DURATION')), bbs.getUint(BBLib.toB32( 'BBO_REWARDS')));
   }
 
    function addRelatedAddress(uint key, address relatedAddress) public onlyAdmin {

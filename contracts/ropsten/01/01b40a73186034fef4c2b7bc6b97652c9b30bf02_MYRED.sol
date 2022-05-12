@@ -60,7 +60,7 @@ contract MYREDInterface {
 contract MYRED is MYREDInterface {
 
     uint256 constant private MAX_UINT256 = 2**256 - 1;
-    // 建立映射 地址对应了 uint&#39; 便是他的余额
+    // 建立映射 地址对应了 uint' 便是他的余额
     mapping (address => uint256) public balances;
     // 存储对账号的控制
     mapping (address => mapping (address => uint256)) public allowed;

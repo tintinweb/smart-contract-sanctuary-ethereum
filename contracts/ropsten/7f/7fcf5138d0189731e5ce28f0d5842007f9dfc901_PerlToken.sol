@@ -1,5 +1,5 @@
 pragma solidity ^0.4.17;
-//import &#39;./IERC20.sol&#39;;
+//import './IERC20.sol';
 
 //contract FuncToken is IERC20 {
 

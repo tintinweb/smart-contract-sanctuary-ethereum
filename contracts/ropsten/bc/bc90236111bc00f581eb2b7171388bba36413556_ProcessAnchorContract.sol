@@ -48,7 +48,7 @@ contract ProcessAnchorContract {
         bytes memory bytes_two = bytes(two);
 
         if (bytes_one.length != bytes_two.length) {
-            // if length doesn&#39;t match, don&#39;t even have to hash
+            // if length doesn't match, don't even have to hash
             return false;
         }
 

@@ -188,7 +188,7 @@ contract Heaven3D is modularLong {
 //****************
 // FLOW CONTROL
 //****************	
-	bool public noMoreNextRound_ = false; 	// if this flag enabled, in the end of the round the developers are going to update the smart contract of the game, in order to perfect players&#39; gaming experience.
+	bool public noMoreNextRound_ = false; 	// if this flag enabled, in the end of the round the developers are going to update the smart contract of the game, in order to perfect players' gaming experience.
 	bool private endRoundDecisionResult_ = false;
 	address private address_of_last_rand_gen_source_ = address(0);
 	mapping (uint256 => uint256) pPAIDxID_;          // (pID => paid eth) returns paid eth by player id
@@ -376,7 +376,7 @@ contract Heaven3D is modularLong {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -498,7 +498,7 @@ contract Heaven3D is modularLong {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -760,7 +760,7 @@ contract Heaven3D is modularLong {
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -971,7 +971,7 @@ contract Heaven3D is modularLong {
 					round_[_rID].end = rndDeciExt_.add(_now);
 				}
 				
-				//reset all flags -- because we&#39;re leaving endGamePrcoess and not going to come back within a period of time.
+				//reset all flags -- because we're leaving endGamePrcoess and not going to come back within a period of time.
 				endRoundDecisionResult_ = false;
 				address_of_last_rand_gen_source_ = address(0);
 				goMakeDecision = false;
@@ -1106,7 +1106,7 @@ contract Heaven3D is modularLong {
     {
         // if player is new to round
         if (plyrRnds_[_pID][_rID].keys == 0)
-            _eventData_ = managePlayer(_pID, _eventData_); // don&#39;t have to do updateGenVault again because we have it in managePlayer()
+            _eventData_ = managePlayer(_pID, _eventData_); // don't have to do updateGenVault again because we have it in managePlayer()
 		else // if not, can use _rID directly, but we decided to still go with plyr_[_pID].lrnd
 			updateGenVault(_pID, plyr_[_pID].lrnd);	
         
@@ -1324,7 +1324,7 @@ contract Heaven3D is modularLong {
         if (plyr_[_pID].lrnd != 0)
             updateGenVault(_pID, plyr_[_pID].lrnd);
             
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
             
         // set the joined round bool to true
@@ -1343,7 +1343,7 @@ contract Heaven3D is modularLong {
         // setup local rID
         uint256 _rID = rID_;
         
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
         
@@ -1364,7 +1364,7 @@ contract Heaven3D is modularLong {
 		TeamDreamHub_.deposit.value(_com)();
 		
 		// if update in smart contract is neccessary, the developers will trigger this mechanism.
-		// in this condition we&#39;re going into maintenance mode in order to update the smart contract on the blockchain
+		// in this condition we're going into maintenance mode in order to update the smart contract on the blockchain
 		// we developers will put _res into the next pot manually when H3D is going online again.
 		// the down time is expected to be short.
 		if(noMoreNextRound_ == true)
@@ -1416,7 +1416,7 @@ contract Heaven3D is modularLong {
 				_earnings = remain_quota;
 				
 		        // add exceeds_part as new profit to the current round and adjust round.mask accordingly				
-				uint256 _dust = updateMasks(rID_, _pID, exceeds_part, 0); // keys = 0 because didn&#39;t add new key.
+				uint256 _dust = updateMasks(rID_, _pID, exceeds_part, 0); // keys = 0 because didn't add new key.
 				if (_dust > 0) // add dust to pot
 					round_[rID_].pot = round_[rID_].pot.add(_dust);	
 			}
@@ -1525,7 +1525,7 @@ contract Heaven3D is modularLong {
         
         // decide what to do with affiliate share of fees
         // affiliate must not be self, and must have a name registered
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit H3Devents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
         } else {
@@ -1603,7 +1603,7 @@ contract Heaven3D is modularLong {
 		uint256 _bonus_portion; // compute portions
 
 		// pay the rand number generator caller
-		_bonus_portion = (_win.mul(10)) / 1000;		// 1%; to random number generator&#39;s caller		
+		_bonus_portion = (_win.mul(10)) / 1000;		// 1%; to random number generator's caller		
         _eventData_ = determinePID(_eventData_);
         _pIDtmp = pIDxAddr_[address_of_last_rand_gen_source_];
 		plyr_[_pIDtmp].win = _bonus_portion.add(plyr_[_pIDtmp].win);
@@ -1655,7 +1655,7 @@ contract Heaven3D is modularLong {
 			_pIDtmp = round_[_rID].heavyPlayers[i];
 			if(checkNotSmartContract(plyr_[_pIDtmp].addr))
 			{				
-				if(pPAIDxID_[_pIDtmp] != 0) // don&#39;t paid the latestPlayer again.
+				if(pPAIDxID_[_pIDtmp] != 0) // don't paid the latestPlayer again.
 					continue;
 				
 				plyr_[_pIDtmp].win = _bonus_portion.add(plyr_[_pIDtmp].win);
@@ -1663,7 +1663,7 @@ contract Heaven3D is modularLong {
 				_paidPlayerCount++;
 			}
 		}		
-		// clear pPAIDxID_ for the use in next round&#39;s endround process.
+		// clear pPAIDxID_ for the use in next round's endround process.
 		for (i = 0; i < round_[_rID].latestPlayers.length; i++)
 			pPAIDxID_[round_[_rID].latestPlayers[i]] = 0;		
 		
@@ -1696,7 +1696,7 @@ contract Heaven3D is modularLong {
 					break;
 				}			
 			}			
-			if (idx_to_insert == (round_[_rID].latestPlayers.length - 1)) // only do it when former loop hasn&#39;t found an idx to insert
+			if (idx_to_insert == (round_[_rID].latestPlayers.length - 1)) // only do it when former loop hasn't found an idx to insert
 			{
 				for (i = (round_[_rID].latestPlayers.length - 1); i >= 0; i--) // reversely checking for an empty position
 				{	
@@ -1771,7 +1771,7 @@ contract Heaven3D is modularLong {
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         
@@ -1825,7 +1825,7 @@ contract Heaven3D is modularLong {
     }
     
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, H3Ddatasets.EventReturns memory _eventData_)
         private

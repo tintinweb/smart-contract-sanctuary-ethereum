@@ -33,12 +33,12 @@ library MerkleMap {
         // Iterate over each element
         for (uint i = 0; i < _list.length - 1; i++) {
             if (hashNode(_list[i]) == _list[i + 1].l) { // Current is left child
-                // Ensure current key&#39;s hash is less than the parent key&#39;s hash
+                // Ensure current key's hash is less than the parent key's hash
                 // TODO check for non equality?
                 if (_list[i].k.greaterHash(_list[i + 1].k))
                     return false;
             } else if (hashNode(_list[i]) == _list[i + 1].r) { // Current is right child
-                // Ensure current key&#39;s hash is greater than the parent key&#39;s hash
+                // Ensure current key's hash is greater than the parent key's hash
                 if (_list[i + 1].k.greaterHash(_list[i].k))
                     return false;
             } else { // Current does not equal next left or right
@@ -72,7 +72,7 @@ library MerkleMap {
         bytes32 prev = hashNode(_p[0]);
 
         // Set up for either an update or insert
-        if (_k == _p[0].k) { // _k matches first Node&#39;s key - update
+        if (_k == _p[0].k) { // _k matches first Node's key - update
             _p[0].v = _v;
         } else { // insert
             if (_k.keyGt(_p[0].k)) { // ins right
@@ -114,10 +114,10 @@ library MerkleMap {
         if (_i == _p.length)
             return(_cur, _prev);
 
-        // If the key we want to insert matches the current Node&#39;s key, the insert point was invalid
+        // If the key we want to insert matches the current Node's key, the insert point was invalid
         require(_k != _p[_i].k, "Invalid insert proof - key exists higher up in tree");
 
-        // Copy current Node&#39;s k, v, l, r to temp location in memory
+        // Copy current Node's k, v, l, r to temp location in memory
         copy(_temp, _p[_i]);
         if (_prev == _p[_i].l) // Previous Node was the left child, set new left child in temp
             _temp.l = _cur;
@@ -207,9 +207,9 @@ contract MerkleToken {
     }
 
     /**
-     * @dev Returns the address at which a given address&#39; balance is stored
+     * @dev Returns the address at which a given address' balance is stored
      * @param _owner The address to locate
-     * @return bytes32 The storage address at which the owner&#39;s balance is located
+     * @return bytes32 The storage address at which the owner's balance is located
      */
     function balanceLoc(address _owner) public pure returns (bytes32) {
         return keccak256(abi.encodePacked(_owner, "balances"));
@@ -219,11 +219,11 @@ contract MerkleToken {
      * @dev Transfer tokens to a recipient
      * @param _to The address to which tokens will be transferred
      * @param _amt The amount of tokens to transfer
-     * @param _s_proof A proof of the sender&#39;s current balance
-     * @param _r_proof A proof of the recipient&#39;s current balance
+     * @param _s_proof A proof of the sender's current balance
+     * @param _r_proof A proof of the recipient's current balance
      */
     function transfer(address _to, uint _amt, bytes32[4][] memory _s_proof, bytes32[4][] memory _r_proof) public {
-        // Get storage locations of sender&#39;s and recipient&#39;s balances
+        // Get storage locations of sender's and recipient's balances
         bytes32 s_loc = balanceLoc(msg.sender);
         bytes32 r_loc = balanceLoc(_to);
 

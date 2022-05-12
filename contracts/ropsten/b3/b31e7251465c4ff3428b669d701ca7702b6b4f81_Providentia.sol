@@ -135,7 +135,7 @@ contract Providentia is Ownable, ERC20, ERC1155MixedFungibleMintable{
 
     modifier hasActiveLoan(){
       require(studentHasLoan[msg.sender] == true,
-        "This address doesn&#39;t have a loan associated");
+        "This address doesn't have a loan associated");
       _;
     }
 
@@ -205,7 +205,7 @@ contract Providentia is Ownable, ERC20, ERC1155MixedFungibleMintable{
         "An address can only have one Student associated");
 
         require(addressToUniversity[_university] != address(0),
-        "University hasn&#39;t been added yet");
+        "University hasn't been added yet");
 
         require(msg.sender == addressToUniversity[_university],
            "Sender is not a registered university");
@@ -280,7 +280,7 @@ contract Providentia is Ownable, ERC20, ERC1155MixedFungibleMintable{
 
         //Check if the Student has been added before letting him request a loan
         require(bytes(addressToData[msg.sender].name).length != 0,
-        "Student hasn&#39;t been added yet");
+        "Student hasn't been added yet");
         /*  This version will use a fixed value of 10k for the amount of loan to
             request, the loan has a deadline of 5 years */
         addressToLoan[msg.sender] = StudentLoan(
@@ -295,7 +295,7 @@ contract Providentia is Ownable, ERC20, ERC1155MixedFungibleMintable{
         );
         // Instantiate the mapping to 0
         addressToBalance[msg.sender] = 0;
-        // When requesting a loan, the School hasn&#39;t accept it yet
+        // When requesting a loan, the School hasn't accept it yet
         studentHasLoan[msg.sender] = false;
         // Instantiate the mapping
         addressToRepaid[msg.sender] = 0;
@@ -335,11 +335,11 @@ contract Providentia is Ownable, ERC20, ERC1155MixedFungibleMintable{
          addressToBalance[_addressToFund] += tokenAmount;
          // Transfer DAI to the contract
          stableCoinContract.transferFrom(msg.sender, address(this), tokenAmount);
-         // Set true to loan funded, it&#39;s used to track stage of loan
+         // Set true to loan funded, it's used to track stage of loan
          addressToLoan[_addressToFund].loanFunded = true;
          // AddressToBalance will have 10k when the loan has been funded
          addressToBalance[_addressToFund] +=10000 - addressToBalance[_addressToFund];
-         // Instantiate with an initial value of 10K as that&#39;s the amount of the loan
+         // Instantiate with an initial value of 10K as that's the amount of the loan
          addressToInvestor[_addressToFund] = 10000;
       }
       // If the investor sends more than the MAX_CAP which is 10K
@@ -362,11 +362,11 @@ contract Providentia is Ownable, ERC20, ERC1155MixedFungibleMintable{
           address(this),
           10000 - addressToBalance[_addressToFund]
           );
-        // Set true to loan funded, it&#39;s used to track stage of loan
+        // Set true to loan funded, it's used to track stage of loan
         addressToLoan[_addressToFund].loanFunded = true;
         // AddressToBalance will have 10k when the loan has been funded
         addressToBalance[_addressToFund] += 10000 - addressToBalance[_addressToFund];
-        // Instantiate with an initial value of 10K as that&#39;s the amount of the loan
+        // Instantiate with an initial value of 10K as that's the amount of the loan
         addressToInvestor[_addressToFund] = 10000;
 
       }
@@ -439,7 +439,7 @@ contract Providentia is Ownable, ERC20, ERC1155MixedFungibleMintable{
         _calculateInterest(tokenAmount);
         // Check if the loan has been fully repaid
         if(addressToRepaid[msg.sender] == 10000){
-          // Set loan repaid as true, Student hasn&#39;t got an outstanding loan anymore
+          // Set loan repaid as true, Student hasn't got an outstanding loan anymore
           addressToLoan[msg.sender].loanRepaid = true;
           delete addressToLoan[msg.sender];
           studentHasLoan[msg.sender] = false;

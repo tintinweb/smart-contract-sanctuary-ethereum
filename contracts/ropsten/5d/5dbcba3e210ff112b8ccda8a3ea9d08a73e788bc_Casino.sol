@@ -63,7 +63,7 @@ contract Casino {
 
     /// @notice Check if a player exists in the current game
     /// @param player The address of the player to check
-    /// @return bool Returns true is it exists or false if it doesn&#39;t
+    /// @return bool Returns true is it exists or false if it doesn't
     function checkPlayerExists(address player) public constant returns(bool) {
         for (uint256 i = 0; i < players.length; i++) {
             if (players[i] == player)
@@ -75,7 +75,7 @@ contract Casino {
     /// @notice To bet for a number by sending Ether
     /// @param numberSelected The number that the player wants to bet for. Must be between 1 and 10 both inclusive
     function bet(uint256 numberSelected) public payable {
-        // Check that the player doesn&#39;t exists
+        // Check that the player doesn't exists
         require(!checkPlayerExists(msg.sender));
         // Check that the number to bet is within the range
         require(numberSelected <= 10 && numberSelected >= 1);

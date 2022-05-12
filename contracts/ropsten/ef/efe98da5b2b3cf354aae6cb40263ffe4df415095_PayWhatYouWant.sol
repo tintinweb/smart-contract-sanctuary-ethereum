@@ -17,7 +17,7 @@ contract PayWhatYouWant
     // Method for people to deposit into to broadcast an event
     function deposit() public payable
     {
-        // Make sure you&#39;re sending more than 0 ETH - 0.0000000001ETH is still a valid purchase.
+        // Make sure you're sending more than 0 ETH - 0.0000000001ETH is still a valid purchase.
         if(msg.value <= 0) {
             revert();
         }

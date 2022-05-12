@@ -137,18 +137,18 @@ contract SWEC is Owned, StandardToken{
     function buy() payable public returns (uint amount) {
         amount = msg.value / buyPrice;                  // calculates the amount
         require(balances[this] >= amount);              // checks if it has enough to sell
-        balances[msg.sender] += amount;                 // adds the amount to buyer&#39;s balance
-        balances[this] -= amount;                       // subtracts amount from seller&#39;s balance
+        balances[msg.sender] += amount;                 // adds the amount to buyer's balance
+        balances[this] -= amount;                       // subtracts amount from seller's balance
         emit Transfer(this, msg.sender, amount);             // execute an event reflecting the change
         return amount;                                  // ends function and returns
     }
 
     function sell(uint256 _amount) public returns (uint revenue) {
         require(balances[msg.sender] >= _amount);         // checks if the sender has enough to sell
-        balances[this] += _amount;                       // adds the amount to owner&#39;s balance
-        balances[msg.sender] -= _amount;                  // subtracts the amount from seller&#39;s balance
+        balances[this] += _amount;                       // adds the amount to owner's balance
+        balances[msg.sender] -= _amount;                  // subtracts the amount from seller's balance
         revenue = _amount * sellPrice;
-        msg.sender.transfer(revenue);                     // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+        msg.sender.transfer(revenue);                     // sends ether to the seller: it's important to do this last to prevent recursion attacks
         emit Transfer(msg.sender, this, _amount);             // executes an event reflecting on the change
         return revenue;                                   // ends function and returns
     }

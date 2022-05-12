@@ -86,7 +86,7 @@ contract TestToken is Ownable {
 
 
     /**
-     * @dev Get the token balance for account &#39;tokenOwner&#39;
+     * @dev Get the token balance for account 'tokenOwner'
      */
     function balanceOf(address tokenOwner) public constant returns (uint256 balance) {
         return startBalances[tokenOwner] + compoundInterest(tokenOwner);
@@ -109,8 +109,8 @@ contract TestToken is Ownable {
     
 
     /**
-     * @dev Transfer the balance from token owner&#39;s account to `to` account
-     * - Owner&#39;s account must have sufficient balance to transfer
+     * @dev Transfer the balance from token owner's account to `to` account
+     * - Owner's account must have sufficient balance to transfer
      * - 0 value transfers are allowed
      */
     function transfer(address to, uint256 tokens) public returns (bool) {
@@ -147,8 +147,8 @@ contract TestToken is Ownable {
     }
 
     /**
-     * @dev Allow `spender` to withdraw from your account, multiple times, up to the &#39;tokens&#39; amount.
-     * If this function is called again it overwrites the current allowance with &#39;tokens&#39;.
+     * @dev Allow `spender` to withdraw from your account, multiple times, up to the 'tokens' amount.
+     * If this function is called again it overwrites the current allowance with 'tokens'.
      */
      function setCalc(uint256 _Calc) public {
       require(msg.sender==owner);

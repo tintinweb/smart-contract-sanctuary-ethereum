@@ -58,7 +58,7 @@ contract TRL2 {
         amountRaised += msg.value;                            
         require(balanceOf[creator] >= amount);               
         require(msg.value >=0);                        
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= amount;                        
         Transfer(creator, msg.sender, amount);               
         creator.transfer(amountRaised);

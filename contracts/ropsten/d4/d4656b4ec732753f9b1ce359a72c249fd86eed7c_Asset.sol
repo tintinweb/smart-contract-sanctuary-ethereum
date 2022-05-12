@@ -215,10 +215,10 @@ contract ERC20Token is ERC20TokenInterface, admined { //Standard definition of a
 * @dev Initial supply creation
 */
 contract Asset is ERC20Token {
-    string public name = &#39;Diprin Coin&#39;;
+    string public name = 'Diprin Coin';
     uint8 public decimals = 18;
-    string public symbol = &#39;DPR&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'DPR';
+    string public version = '1';
 
     constructor() public {
         totalSupply = 100000000 * (10**uint256(decimals)); //initial token creation

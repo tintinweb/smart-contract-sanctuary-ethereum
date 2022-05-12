@@ -1,6 +1,6 @@
 pragma solidity 0.4.25;
 // ----------------------------------------------------------------------------
-// &#39;ELT&#39; token contract
+// 'ELT' token contract
 //
 // Deployed to : msg.sender
 // Symbol      : SELT
@@ -115,7 +115,7 @@ contract SELT is ERC20Interface, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account. The spender contract function
+    // from the token owner's account. The spender contract function
     // receiveApproval(...) is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint8 votes) public returns (bool success) {
@@ -126,7 +126,7 @@ contract SELT is ERC20Interface, SafeMath {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

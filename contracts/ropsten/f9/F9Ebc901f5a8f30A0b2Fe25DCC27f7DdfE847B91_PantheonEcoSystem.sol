@@ -43,8 +43,8 @@ contract PantheonEcoSystem {
     // Total amount of tokens
     uint private total_supply = 0;
 
-    // Total profit shared between token&#39;s holders. It&#39;s not reflect exactly sum of funds because this parameter
-    // can be modified to keep the real user&#39;s dividends when total supply is changed
+    // Total profit shared between token's holders. It's not reflect exactly sum of funds because this parameter
+    // can be modified to keep the real user's dividends when total supply is changed
     // For details see method "dividendsOf" and using "funds_correction" in the code
     uint private shared_profit = 0;
 
@@ -76,7 +76,7 @@ contract PantheonEcoSystem {
         (uint fee_funds, uint taxed_funds) = fee_purchase.split(msg.value);
         require(fee_funds != 0, "Incoming funds is too small");
 
-        // update user&#39;s referrer
+        // update user's referrer
         //  - you cannot be a referrer for yourself
         //  - user and his referrer will be together all the life
         UserRecord storage user = user_data[msg.sender];
@@ -116,7 +116,7 @@ contract PantheonEcoSystem {
         (uint fee_funds, uint taxed_funds) = fee_selling.split(funds);
         require(fee_funds != 0, "Insufficient tokens to do that");
 
-        // burn tokens and add funds to user&#39;s dividends
+        // burn tokens and add funds to user's dividends
         burnTokens(msg.sender, tokens);
         UserRecord storage user = user_data[msg.sender];
         user.gained_funds = user.gained_funds.add(taxed_funds);
@@ -224,9 +224,9 @@ contract PantheonEcoSystem {
     }
 
     /*
-    * @dev CAUTION! This method distributes all incoming funds between token&#39;s holders and gives you nothing
+    * @dev CAUTION! This method distributes all incoming funds between token's holders and gives you nothing
     * It will be used by another contracts/addresses from our ecosystem in future
-    * But if you want to donate, you&#39;re welcome :)
+    * But if you want to donate, you're welcome :)
     */
     function donate() public payable {
         shared_profit = shared_profit.add(msg.value);
@@ -244,7 +244,7 @@ contract PantheonEcoSystem {
     }
 
     /*
-    * @dev Amount of user&#39;s tokens
+    * @dev Amount of user's tokens
     * ERC20
     */
     function balanceOf(address addr) public view returns (uint) {
@@ -252,7 +252,7 @@ contract PantheonEcoSystem {
     }
 
     /*
-    * @dev Amount of user&#39;s dividends
+    * @dev Amount of user's dividends
     */
     function dividendsOf(address addr) public view returns (uint) {
 
@@ -414,7 +414,7 @@ contract PantheonEcoSystem {
     *   a[1] = price
     *   d = price_offset
     *   sum(n) = funds
-    * Here is used arithmetic progression&#39;s equation transformed to a quadratic equation:
+    * Here is used arithmetic progression's equation transformed to a quadratic equation:
     *   a * n^2 + b * n + c = 0
     * Where:
     *   a = d
@@ -442,7 +442,7 @@ contract PantheonEcoSystem {
     *   a[1] = sell_price
     *   d = price_offset
     *   n = tokens
-    * Here is used arithmetic progression&#39;s equation (-d because of d must be negative to reduce price):
+    * Here is used arithmetic progression's equation (-d because of d must be negative to reduce price):
     *   a[n] = a[1] - d * (n - 1)
     *   sum(n) = (a[1] + a[n]) * n / 2
     * So:

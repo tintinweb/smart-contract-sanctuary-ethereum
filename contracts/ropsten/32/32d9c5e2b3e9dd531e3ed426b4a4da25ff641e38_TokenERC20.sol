@@ -225,7 +225,7 @@ contract TokenERC20 is owned, SafeMath {
 		require(_value <= allowance[_from][msg.sender]);    // Check allowance
 		// Subtract from the targeted balance
         balanceOf[_from] = SafeMath.safeSub(balanceOf[_from], _value);
-		// Subtract from the sender&#39;s allowance
+		// Subtract from the sender's allowance
         allowance[_from][msg.sender] = SafeMath.safeSub(allowance[_from][msg.sender], _value);
         // Update totalSupply
 		totalSupply = SafeMath.safeSub(totalSupply, _value);

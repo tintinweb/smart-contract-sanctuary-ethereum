@@ -257,7 +257,7 @@ contract PoCGame
     }
 
     /**
-     * For the UI to properly display the winner&#39;s pot
+     * For the UI to properly display the winner's pot
      */
     function winnersPot() 
     public 

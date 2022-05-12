@@ -151,8 +151,8 @@ contract ERC223 is BlackList,ERC223Interface{
     mapping (address => mapping (address => uint256)) internal allowed;
     
     constructor() public {
-        name = &#39;ALTER&#39;; // Set the name for display purposes
-        symbol = &#39;ALT&#39;; // Set the symbol for display purposes
+        name = 'ALTER'; // Set the name for display purposes
+        symbol = 'ALT'; // Set the symbol for display purposes
         decimals = 18; // Amount of decimals for display purposes
         _totalSupply = 20000000 * 10**uint(decimals); // Update total supply
         balances[msg.sender] = _totalSupply; // Give the creator all initial tokens

@@ -11,7 +11,7 @@ pragma solidity ^0.4.24;
 contract Token1{
     /**
      * for every function that we want to access,
-     * we define it&#39;s respective ABI fingerprint.
+     * we define it's respective ABI fingerprint.
      */
     function balanceOf(address) public view returns (uint256) {}
     function transferFrom(address, address, uint256) pure public returns (bool) {}
@@ -33,7 +33,7 @@ contract EquityUpContract{
     /**
      * creating an instance of Token1 in our contract
      * 
-     * we will be accessing Token1s&#39; functions through this instance
+     * we will be accessing Token1s' functions through this instance
      */
     Token1 fc1;
     
@@ -48,12 +48,12 @@ contract EquityUpContract{
      *
      * Instantiates the token instances at the time of deployment of our contract
      * 
-     * &#39;deployed_token_contract_addresss&#39; stores the contract addresses of the tokens we intend to integrate
+     * 'deployed_token_contract_addresss' stores the contract addresses of the tokens we intend to integrate
      */
     constructor(address[1] memory deployed_token_contract_addresss) public{
         
         /**
-         * Instantiating token1 instance with it&#39;s deployed contract address.
+         * Instantiating token1 instance with it's deployed contract address.
          */
         fc1 = Token1(deployed_token_contract_addresss[0]);
         
@@ -69,10 +69,10 @@ contract EquityUpContract{
     
 
    /**   
-    * EquityUps&#39; own pool of tokens.
+    * EquityUps' own pool of tokens.
     * Not currently required
    
-    // Create contracts&#39; own pool of tokens to handle transactions
+    // Create contracts' own pool of tokens to handle transactions
     function transfer_token1_toContract(address _from, address _to, uint256 _amount) public returns(bool){
         uint256 no_of_token1_totransfer = _amount * (10**fc1.decimals());
         return fc1.transferFrom(_from, _to, no_of_token1_totransfer);
@@ -102,7 +102,7 @@ contract EquityUpContract{
         /**
          * Calling transferFrom of Token1
          * 
-         * &#39;_to&#39; must have approval for transaction to happen
+         * '_to' must have approval for transaction to happen
          * <require(_value <= allowance[_from][msg.sender])> should be true
          */
         fc1.transferFrom(_from, _to, tokens_to_transact);

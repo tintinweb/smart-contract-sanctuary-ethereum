@@ -27,15 +27,15 @@ contract banner_prototype is Ownable{
 
     constructor () public {
         // make some examples by default
-        string memory key = &#39;test keyword&#39;;
-        ads_titles[key] = &#39;Vitalik Buterin Wikipedia&#39;;
-        ads_urls[key] = &#39;https://bit.ly/2B9CWK7&#39;;
-        key = &#39;cat food&#39;;
-        ads_titles[key] = &#39;Kitekat - best cat food&#39;;
-        ads_urls[key] = &#39;http://kitekat.ru/&#39;;
-        key = &#39;new year&#39;;
-        ads_titles[key] = &#39;Best New Year Gifts&#39;;
-        ads_urls[key] = &#39;https://bit.ly/2EJMgW6&#39;;
+        string memory key = 'test keyword';
+        ads_titles[key] = 'Vitalik Buterin Wikipedia';
+        ads_urls[key] = 'https://bit.ly/2B9CWK7';
+        key = 'cat food';
+        ads_titles[key] = 'Kitekat - best cat food';
+        ads_urls[key] = 'http://kitekat.ru/';
+        key = 'new year';
+        ads_titles[key] = 'Best New Year Gifts';
+        ads_urls[key] = 'https://bit.ly/2EJMgW6';
     }
 
     function set_ad(string memory key, string title_, string url_) public payable {

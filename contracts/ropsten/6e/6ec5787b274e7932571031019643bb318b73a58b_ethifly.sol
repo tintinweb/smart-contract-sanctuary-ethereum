@@ -162,7 +162,7 @@ contract ethifly is Owned, SafeMath{
 
     currentEscrow.notes = notes;
 
-    //Links this transaction to Seller and Escrow&#39;s list of transactions.
+    //Links this transaction to Seller and Escrow's list of transactions.
     currentTransaction.buyer = msg.sender;
     currentTransaction.buyer_nounce = buyerDatabase[_token][msg.sender].length;
 
@@ -261,7 +261,7 @@ contract ethifly is Owned, SafeMath{
         uint amount = buyerDatabase[_token][msg.sender][ID].amount;
         uint escrow_fee = buyerDatabase[_token][msg.sender][ID].escrow_fee;
 
-        //Move funds under seller&#39;s owership
+        //Move funds under seller's owership
         Funds[_token][seller] += amount;
         Funds[_token][escrow_agent] += escrow_fee;
     }
@@ -300,7 +300,7 @@ contract ethifly is Owned, SafeMath{
 
         //There is no difference whether the buyer or seller activates EscrowEscalation.
         address buyerAddress;
-        uint buyerID; //transaction ID of in buyer&#39;s history
+        uint buyerID; //transaction ID of in buyer's history
         
         if (switcher == 0) // Buyer
         {
@@ -321,7 +321,7 @@ contract ethifly is Owned, SafeMath{
 
     }
     
-        //ID is the transaction ID from Escrow&#39;s history. 
+        //ID is the transaction ID from Escrow's history. 
     //Decision = 0 is for refunding Buyer. Decision = 1 is for releasing funds to Seller
     function escrowDecision(uint ID, uint Decision, address _token) public
     {

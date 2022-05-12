@@ -50,7 +50,7 @@ contract EtherStruct is owned {
 
 	function increaseWorldCorner(uint64 newWorldCornerX, uint64 newWorldCornerY, uint64 newWorldCornerZ) external onlyOwner {
 
-		// Ensure we can&#39;t shrink the world to make cubes inaccessible
+		// Ensure we can't shrink the world to make cubes inaccessible
 		require(newWorldCornerX >= worldCornerX && newWorldCornerY >= worldCornerY && newWorldCornerZ >= worldCornerZ);
 
 		// Set the new world limit
@@ -70,7 +70,7 @@ contract EtherStruct is owned {
 		// Ensure the request is exceeding the previously locked value
 		require(msg.value > worldspace[packedLocation].lockedFunds);
 		
-		// Don&#39;t send nothing to nobody
+		// Don't send nothing to nobody
 		if(worldspace[packedLocation].owner != 0x0)
 			returnLockedFunds(worldspace[packedLocation]);
 			

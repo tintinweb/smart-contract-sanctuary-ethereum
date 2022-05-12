@@ -119,7 +119,7 @@ contract SmartBillions is StandardToken {
     // contract state
     struct Wallet {
         uint208 balance; // current balance of user
-    	uint16 lastDividendPeriod; // last processed dividend period of user&#39;s tokens
+    	uint16 lastDividendPeriod; // last processed dividend period of user's tokens
     	uint32 nextWithdrawTime; // next withdrawal possible after this timestamp
     }
     mapping (address => Wallet) wallets;
