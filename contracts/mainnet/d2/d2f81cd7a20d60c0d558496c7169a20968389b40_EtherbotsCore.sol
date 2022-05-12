@@ -97,8 +97,8 @@ contract EtherbotsPrivileges is Pausable {
 
 
 // This contract implements both the original ERC-721 standard and
-// the proposed &#39;deed&#39; standard of 841
-// I don&#39;t know which standard will eventually be adopted - support both for now
+// the proposed 'deed' standard of 841
+// I don't know which standard will eventually be adopted - support both for now
 
 
 /// @title Interface for contracts conforming to ERC-721: Deed Standard
@@ -338,12 +338,12 @@ contract EtherbotsBase is EtherbotsPrivileges {
     function _transfer(address _from, address _to, uint256 _tokenId) internal {
         // No cap on number of parts
         // Very unlikely to ever be 2^256 parts owned by one account
-        // Shouldn&#39;t waste gas checking for overflow
-        // no point making it less than a uint --> mappings don&#39;t pack
+        // Shouldn't waste gas checking for overflow
+        // no point making it less than a uint --> mappings don't pack
         addressToTokensOwned[_to]++;
         // transfer ownership
         partIndexToOwner[_tokenId] = _to;
-        // New parts are transferred _from 0x0, but we can&#39;t account that address.
+        // New parts are transferred _from 0x0, but we can't account that address.
         if (_from != address(0)) {
             addressToTokensOwned[_from]--;
             // clear any previously approved ownership exchange
@@ -483,20 +483,20 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
 
     // transfers a part to another account
     function transfer(address _to, uint256 _tokenId) public whenNotPaused payable {
-        // payable for ERC721 --> don&#39;t actually send eth @<span class="__cf_email__" data-cfemail="663926">[email&#160;protected]</span>
+        // payable for ERC721 --> don't actually send eth @<span class="__cf_email__" data-cfemail="663926">[email&#160;protected]</span>
         require(msg.value == 0);
 
         // Safety checks to prevent accidental transfers to common accounts
         require(_to != address(0));
         require(_to != address(this));
-        // can&#39;t transfer parts to the auction contract directly
+        // can't transfer parts to the auction contract directly
         require(_to != address(auction));
-        // can&#39;t transfer parts to any of the battle contracts directly
+        // can't transfer parts to any of the battle contracts directly
         for (uint j = 0; j < approvedBattles.length; j++) {
             require(_to != approvedBattles[j]);
         }
 
-        // Cannot send tokens you don&#39;t own
+        // Cannot send tokens you don't own
         require(owns(msg.sender, _tokenId));
 
         // perform state changes necessary for transfer
@@ -510,14 +510,14 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
         // Safety checks to prevent accidental transfers to common accounts
         require(_to != address(0));
         require(_to != address(this));
-        // can&#39;t transfer parts to the auction contract directly
+        // can't transfer parts to the auction contract directly
         require(_to != address(auction));
-        // can&#39;t transfer parts to any of the battle contracts directly
+        // can't transfer parts to any of the battle contracts directly
         for (uint j = 0; j < approvedBattles.length; j++) {
             require(_to != approvedBattles[j]);
         }
 
-        // Cannot send tokens you don&#39;t own
+        // Cannot send tokens you don't own
         require(ownsAll(msg.sender, _tokenIds));
 
         for (uint k = 0; k < _tokenIds.length; k++) {
@@ -532,10 +532,10 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
     // approves the (_to) address to use the transferFrom function on the token with id (_tokenId)
     // if you want to clear all approvals, simply pass the zero address
     function approve(address _to, uint256 _deedId) external whenNotPaused payable {
-        // payable for ERC721 --> don&#39;t actually send eth @<span class="__cf_email__" data-cfemail="d58a95">[email&#160;protected]</span>
+        // payable for ERC721 --> don't actually send eth @<span class="__cf_email__" data-cfemail="d58a95">[email&#160;protected]</span>
         require(msg.value == 0);
 // use internal function?
-        // Cannot approve the transfer of tokens you don&#39;t own
+        // Cannot approve the transfer of tokens you don't own
         require(owns(msg.sender, _deedId));
 
         // Store the approval (can only approve one at a time)
@@ -550,7 +550,7 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
         for (uint i = 0; i < _tokenIds.length; i++) {
             uint _tokenId = _tokenIds[i];
 
-            // Cannot approve the transfer of tokens you don&#39;t own
+            // Cannot approve the transfer of tokens you don't own
             require(owns(msg.sender, _tokenId));
 
             // Store the approval (can only approve one at a time)
@@ -587,7 +587,7 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
     // returns a dynamic array of the ids of all tokens which are owned by (_owner)
     // Looping through every possible part and checking it against the owner is
     // actually much more efficient than storing a mapping or something, because
-    // it won&#39;t be executed as a transaction
+    // it won't be executed as a transaction
     function tokensOfOwner(address _owner) external view returns(uint256[] ownerTokens) {
         uint256 totalParts = totalSupply();
 
@@ -753,7 +753,7 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
     }
 
     function takeOwnership(uint256 _deedId) external payable {
-        // payable for ERC721 --> don&#39;t actually send eth @<span class="__cf_email__" data-cfemail="b0eff0">[email&#160;protected]</span>
+        // payable for ERC721 --> don't actually send eth @<span class="__cf_email__" data-cfemail="b0eff0">[email&#160;protected]</span>
         require(msg.value == 0);
 
         address _from = partIndexToOwner[_deedId];
@@ -1129,7 +1129,7 @@ contract DutchAuction is NFTAuctionBase, EtherbotsPrivileges {
 
     // Creates an auction and lists it.
     function createAuction( uint256 _partId, uint256 _startPrice, uint256 _endPrice, uint256 _duration, address _seller ) external whenNotPaused {
-        // Sanity check that no inputs overflow how many bits we&#39;ve allocated
+        // Sanity check that no inputs overflow how many bits we've allocated
         // to store them in the auction struct.
         require(_startPrice == uint256(uint128(_startPrice)));
         require(_endPrice == uint256(uint128(_endPrice)));
@@ -1186,7 +1186,7 @@ contract DutchAuction is NFTAuctionBase, EtherbotsPrivileges {
         return sum / LAST_CONSIDERED;
     }
 
-    // Allows a user to cancel an auction before it&#39;s resolved.
+    // Allows a user to cancel an auction before it's resolved.
     // Returns the part to the seller.
 
     function cancelAuction(uint256 _partId) external {
@@ -1214,7 +1214,7 @@ contract DutchAuction is NFTAuctionBase, EtherbotsPrivileges {
     // Allows owner to cancel an auction.
     // ONLY able to be used when contract is paused,
     // in the case of emergencies.
-    // Parts returned to seller as it&#39;s equivalent to them 
+    // Parts returned to seller as it's equivalent to them 
     // calling cancel.
     function cancelAuctionWhenPaused(uint256 _partId) whenPaused onlyOwner external {
         Auction storage auction = tokenIdToAuction[_partId];
@@ -1312,7 +1312,7 @@ contract EtherbotsAuction is PerkTree {
 
 contract PerksRewards is EtherbotsAuction {
     ///  An internal method that creates a new part and stores it. This
-    ///  method doesn&#39;t do any checking and should only be called when the
+    ///  method doesn't do any checking and should only be called when the
     ///  input data is known to be valid. Will generate both a Forge event
     ///  and a Transfer event.
    function _createPart(uint8[4] _partArray, address _owner) internal returns (uint) {
@@ -1354,7 +1354,7 @@ contract PerksRewards is EtherbotsAuction {
     uint8[] public turretElementBySubtypeIndex;
     // uint8[] public defenceElementBySubtypeIndex = [1,2,4,3,4,1,3,3,2,1,4];
     // uint8[] public meleeElementBySubtypeIndex = [3,1,3,2,3,4,2,2,1,1,1,1,4,4];
-    // uint8[] public bodyElementBySubtypeIndex = [2,1,2,3,4,3,1,1,4,2,3,4,1,0,1]; // no more lambos :&#39;(
+    // uint8[] public bodyElementBySubtypeIndex = [2,1,2,3,4,3,1,1,4,2,3,4,1,0,1]; // no more lambos :'(
     // uint8[] public turretElementBySubtypeIndex = [4,3,2,1,2,1,1,3,4,3,4];
 
     function setRewardChance(uint _newChance) external onlyOwner {
@@ -1363,7 +1363,7 @@ contract PerksRewards is EtherbotsAuction {
         PART_REWARD_CHANCE = _newChance; // just right
         // come at me goldilocks
     }
-    // The following functions DON&#39;T create parts, they add new parts
+    // The following functions DON'T create parts, they add new parts
     // as possible rewards from the reward pool.
 
 
@@ -1515,7 +1515,7 @@ contract PerksRewards is EtherbotsAuction {
         uint[] memory crates = pendingPartCrates[msg.sender];
         for (uint i = 0; i < crates.length; i++) {
             uint pendingBlockNumber = crates[i];
-            // can&#39;t open on the same timestamp
+            // can't open on the same timestamp
             require(block.number > pendingBlockNumber);
 
             var hash = block.blockhash(pendingBlockNumber);
@@ -1573,7 +1573,7 @@ contract PerksRewards is EtherbotsAuction {
         User storage u = addressToUser[msg.sender];
         _addShardsToUser(u, (SHARDS_TO_PART * scrapPercent) / 100);
         Scrap(msg.sender, partId);
-        // this doesn&#39;t need to be secure
+        // this doesn't need to be secure
         // no way to manipulate it apart from guaranteeing your parts are resold
         // or burnt
         if (uint(keccak256(scrapCount)) % 100 >= burnRate) {
@@ -1592,7 +1592,7 @@ contract Mint is PerksRewards {
     // Owner only function to give an address new parts.
     // Strictly capped at 5000.
     // This will ONLY be used for promotional purposes (i.e. providing items for Wax/OPSkins partnership)
-    // which we don&#39;t benefit financially from, or giving users who win the prize of designing a part 
+    // which we don't benefit financially from, or giving users who win the prize of designing a part 
     // for the game, a single copy of that part.
     
     uint16 constant MINT_LIMIT = 5000;
@@ -1712,7 +1712,7 @@ contract NewCratePreSale {
         for (uint i = len - 1; i >= 0 && len > i; i--) {
             uint crateBlock = addressToPurchasedBlocks[msg.sender][i];
             require(block.number > crateBlock);
-            // can&#39;t open on the same timestamp
+            // can't open on the same timestamp
             var hash = block.blockhash(crateBlock);
             if (uint(hash) != 0) {
                 // different results for all different crates, even on the same block/same user
@@ -1780,7 +1780,7 @@ contract NewCratePreSale {
 
     function purchaseCrates(uint8 _cratesToBuy) public payable whenNotPaused {
         require(now < PRESALE_END_TIMESTAMP); // Check presale is still ongoing.
-        require(_cratesToBuy <= 10); // Can only buy max 10 crates at a time. Don&#39;t be greedy!
+        require(_cratesToBuy <= 10); // Can only buy max 10 crates at a time. Don't be greedy!
         require(_cratesToBuy >= 1); // Sanity check. Also, you have to buy a crate. 
         require(cratesSold + _cratesToBuy <= MAX_CRATES_TO_SELL); // Check max crates sold is less than hard limit
         uint256 priceToPay = _calculatePayment(_cratesToBuy);
@@ -1906,14 +1906,14 @@ contract EtherbotsMigrations is Mint {
 
     function migrate() external whenNotPaused {
         
-        // Can&#39;t migrate twice .
+        // Can't migrate twice .
         require(hasMigrated[msg.sender] == false);
         
         // require(NewCratePreSale(presale).getPendingCrateForUserByIndex(msg.sender,0) == 0);
         // No pending crates in the new contract allowed. Make sure you open them first.
         require(pendingCrates[msg.sender].length == 0);
         
-        // If the user has old expired crates, don&#39;t let them migrate until they&#39;ve
+        // If the user has old expired crates, don't let them migrate until they've
         // converted them to pending crates in the new contract.
         if (NewCratePreSale(presale).getExpiredCratesForUser(msg.sender) > 0) {
             require(hasOpenedOldCrates[msg.sender]); 
@@ -1923,7 +1923,7 @@ contract EtherbotsMigrations is Mint {
         uint16 length = uint16(NewCratePreSale(presale).getRobotCountForUser(msg.sender));
 
         // gas limit will be exceeded with *whale* etherbot players!
-        // let&#39;s migrate their robots in batches of ten.
+        // let's migrate their robots in batches of ten.
         // they can afford it
         bool isMigrationComplete = false;
         var max = length - cratesMigrated[msg.sender];
@@ -2003,7 +2003,7 @@ contract EtherbotsMigrations is Mint {
 
         defence[0] = DEFENCE;
         var len = bytes(original).length;
-        // string of number does not have preceding 0&#39;s
+        // string of number does not have preceding 0's
         if (len == 20) {
             defence[1] = _getPartId(original, 18, 20, 11);
         } else if (len == 19) {
@@ -2033,7 +2033,7 @@ contract EtherbotsMigrations is Mint {
         for (uint i = 0; i < pc.length; i++) {
             uint crateBlock = pc[i];
             require(block.number > crateBlock);
-            // can&#39;t open on the same timestamp
+            // can't open on the same timestamp
             var hash = block.blockhash(crateBlock);
             if (uint(hash) != 0) {
                 // different results for all different crates, even on the same block/same user
@@ -2074,7 +2074,7 @@ contract Battle {
 contract EtherbotsBattle is EtherbotsMigrations {
 
     // can never remove any of these contracts, can only add
-    // once we publish a contract, you&#39;ll always be able to play by that ruleset
+    // once we publish a contract, you'll always be able to play by that ruleset
     // good for two player games which are non-susceptible to collusion
     // people can be trusted to choose the most beneficial outcome, which in this case
     // is the fairest form of gameplay.
@@ -2232,7 +2232,7 @@ contract EtherbotsBattle is EtherbotsMigrations {
         require(len > 0);
         for (uint i = 0; i < len; i++) {
             Reward memory rewardStruct = pendingRewards[msg.sender][i];
-            // can&#39;t open on the same timestamp
+            // can't open on the same timestamp
             require(block.number > rewardStruct.blocknumber);
             // ensure user has converted all pendingRewards
             require(rewardStruct.blocknumber != 0);
@@ -2261,7 +2261,7 @@ contract EtherbotsBattle is EtherbotsMigrations {
         }
     }
 
-    // don&#39;t need to do any scaling
+    // don't need to do any scaling
     // should already have been done by previous stages
     function _addUserExperience(address user, int32 exp) internal {
         // never allow exp to drop below 0

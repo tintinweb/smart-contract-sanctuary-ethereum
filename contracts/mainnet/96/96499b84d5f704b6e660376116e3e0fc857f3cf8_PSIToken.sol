@@ -8,7 +8,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
   function sub(uint256 a, uint256 b) internal constant returns (uint256) {
@@ -48,7 +48,7 @@ contract BasicToken is ERC20Basic {
   function transfer(address _to, uint256 _value) returns (bool) {
       
     // Check to see if transfer window has been reached
-    require (now >= 1512835200); // transfers can&#39;t happen until 3mo after sale ends (1512835200)
+    require (now >= 1512835200); // transfers can't happen until 3mo after sale ends (1512835200)
     
     balances[msg.sender] = balances[msg.sender].sub(_value);
     balances[_to] = balances[_to].add(_value);
@@ -77,7 +77,7 @@ contract StandardToken is ERC20, BasicToken {
     var _allowance = allowed[_from][msg.sender];
     
     // Check to see if transfer window has been reached
-    require (now >= 1512835200); // transfers can&#39;t happen until 3mo after sale ends (1512835200)
+    require (now >= 1512835200); // transfers can't happen until 3mo after sale ends (1512835200)
     balances[_to] = balances[_to].add(_value);
     balances[_from] = balances[_from].sub(_value);
     allowed[_from][msg.sender] = _allowance.sub(_value);
@@ -130,7 +130,7 @@ contract PSIToken is StandardToken {
     string public constant symbol = "PSR"; // PSR
     uint256 public constant decimals = 4;
     
-    // Address for founder&#39;s PSI token and ETH deposits
+    // Address for founder's PSI token and ETH deposits
     address public constant founders_addr = 0xEa16ebd8Cdf5A51fa0a80bFA5665146b2AB82210;
     
     UpgradeAgent public upgradeAgent;
@@ -229,7 +229,7 @@ contract PSIToken is StandardToken {
     // 1512835200 transfer period begins
     function getPrice() constant returns (uint result) {
         if (now < 1502640000) { // before power hour  1502640000
-            revert(); // DISQUALIFIED!!! There&#39;s one every season!!!
+            revert(); // DISQUALIFIED!!! There's one every season!!!
         } else {
             if (now < 1502645400) { // before week 1 start (in power hour)  1502643600 (new 1502645400)
                 return 170;

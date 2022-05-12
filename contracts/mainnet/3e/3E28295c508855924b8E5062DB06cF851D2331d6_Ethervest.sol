@@ -6,7 +6,7 @@ pragma solidity ^0.4.24;
  *  - GAIN 4% DAILY AND FOREVER (every 5900 blocks)
  *  – MIN INVESTMENT 0.01 ETH
  *  – 100% OF SECURITY
- *  - NO COMMISSION on your investment (every ether stays on contract&#39;s balance)
+ *  - NO COMMISSION on your investment (every ether stays on contract's balance)
  *
  *
  * RECOMMENDED GAS LIMIT: 250000

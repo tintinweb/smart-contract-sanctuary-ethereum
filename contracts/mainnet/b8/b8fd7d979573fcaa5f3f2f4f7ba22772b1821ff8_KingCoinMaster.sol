@@ -5,7 +5,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;KingCoinMaster&#39; Token Contract
+// 'KingCoinMaster' Token Contract
 //
 // Deployed To : 0xb8fd7d979573fcaa5f3f2f4f7ba22772b1821ff8
 // Symbol      : KCM
@@ -13,7 +13,7 @@ pragma solidity ^0.4.18;
 // Total Supply: 1,000,000 KCM
 // Decimals    : 18
 //
-// (c) By &#39;KingCoinMaster&#39; With &#39;KCM&#39; Symbol 2019. The MIT Licence.
+// (c) By 'KingCoinMaster' With 'KCM' Symbol 2019. The MIT Licence.
 // ERC20 Smart Contract Developed By: https://SoftCode.space Blockchain Developer Team.
 // ----------------------------------------------------------------------------
 

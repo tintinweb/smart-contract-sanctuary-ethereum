@@ -199,7 +199,7 @@ contract UnilotToken is ERC20 {
         internal
     {
         //Presale stage
-        stages[0].name = &#39;Presale stage&#39;;
+        stages[0].name = 'Presale stage';
         stages[0].numCoinsStart = totalCoinsAvailable;
         stages[0].coinsAvailable = TOKEN_AMOUNT_PRE_ICO;
         stages[0].bonus = BONUS_PRE_ICO;
@@ -213,7 +213,7 @@ contract UnilotToken is ERC20 {
         }
 
         //ICO Stage 1 pre-sale 1
-        stages[1].name = &#39;ICO Stage 1 pre-sale 1&#39;;
+        stages[1].name = 'ICO Stage 1 pre-sale 1';
         stages[1].coinsAvailable = TOKEN_AMOUNT_ICO_STAGE1_PRE_SALE1;
         stages[1].bonus = BONUS_ICO_STAGE1_PRE_SALE1;
 
@@ -226,7 +226,7 @@ contract UnilotToken is ERC20 {
         }
 
         //ICO Stage 1 pre-sale 2
-        stages[2].name = &#39;ICO Stage 1 pre-sale 2&#39;;
+        stages[2].name = 'ICO Stage 1 pre-sale 2';
         stages[2].coinsAvailable = TOKEN_AMOUNT_ICO_STAGE1_PRE_SALE2;
         stages[2].bonus = BONUS_ICO_STAGE1_PRE_SALE2;
 
@@ -234,7 +234,7 @@ contract UnilotToken is ERC20 {
         stages[2].endsAt = stages[1].endsAt;
 
         //ICO Stage 1 pre-sale 3
-        stages[3].name = &#39;ICO Stage 1 pre-sale 3&#39;;
+        stages[3].name = 'ICO Stage 1 pre-sale 3';
         stages[3].coinsAvailable = TOKEN_AMOUNT_ICO_STAGE1_PRE_SALE3;
         stages[3].bonus = BONUS_ICO_STAGE1_PRE_SALE3;
 
@@ -242,7 +242,7 @@ contract UnilotToken is ERC20 {
         stages[3].endsAt = stages[1].endsAt;
 
         //ICO Stage 1 pre-sale 4
-        stages[4].name = &#39;ICO Stage 1 pre-sale 4&#39;;
+        stages[4].name = 'ICO Stage 1 pre-sale 4';
         stages[4].coinsAvailable = TOKEN_AMOUNT_ICO_STAGE1_PRE_SALE4;
         stages[4].bonus = BONUS_ICO_STAGE1_PRE_SALE4;
 
@@ -250,7 +250,7 @@ contract UnilotToken is ERC20 {
         stages[4].endsAt = stages[1].endsAt;
 
         //ICO Stage 1 pre-sale 5
-        stages[5].name = &#39;ICO Stage 1 pre-sale 5&#39;;
+        stages[5].name = 'ICO Stage 1 pre-sale 5';
         stages[5].coinsAvailable = TOKEN_AMOUNT_ICO_STAGE1_PRE_SALE5;
         stages[5].bonus = BONUS_ICO_STAGE1_PRE_SALE5;
 
@@ -258,7 +258,7 @@ contract UnilotToken is ERC20 {
         stages[5].endsAt = stages[1].endsAt;
 
         //ICO Stage 2
-        stages[6].name = &#39;ICO Stage 2&#39;;
+        stages[6].name = 'ICO Stage 2';
         stages[6].coinsAvailable = TOKEN_AMOUNT_ICO_STAGE2;
         stages[6].bonus = BONUS_ICO_STAGE2;
 
@@ -348,7 +348,7 @@ contract UnilotToken is ERC20 {
     }
 
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount)
         public
         onlyAfterICO
@@ -495,7 +495,7 @@ contract UnilotToken is ERC20 {
         STORAGE_WALLET.transfer(this.balance);
     }
 
-    //It doesn&#39;t really close the stage
+    //It doesn't really close the stage
     //It just needed to push transaction to update stage and update block.now
     function closeStage()
         public
@@ -537,7 +537,7 @@ contract ERC20Contract is ERC20 {
     }
 
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint _amount)
         public
         returns (bool success)
@@ -728,7 +728,7 @@ contract UNITv2 is ERC20Contract,Administrated {
             ( uint(_totalSupply) * uint8( sourceToken.DST_BOUNTY() ) ) / 100
         );
 
-        //Don&#39;t import bounty and R&B tokens
+        //Don't import bounty and R&B tokens
         markAsImported(0xdBF98dF5DAd9077f457e1dcf85Aa9420BcA8B761, 0x794EF9c680bDD0bEf48Bef46bA68471e449D67Fb);
         markAsImported(sourceToken, 0x794EF9c680bDD0bEf48Bef46bA68471e449D67Fb);
 

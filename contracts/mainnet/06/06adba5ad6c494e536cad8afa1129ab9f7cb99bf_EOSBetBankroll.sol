@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -236,7 +236,7 @@ contract EOSBetBankroll is ERC20, EOSBetBankrollInterface {
 		else {
 			// edge case where ALL money was cashed out from bankroll
 			// so currentSupplyOfTokens == 0
-			// currentTotalBankroll can == 0 or not, if someone mines/selfdestruct&#39;s to the contract
+			// currentTotalBankroll can == 0 or not, if someone mines/selfdestruct's to the contract
 			// but either way, give all the bankroll to person who deposits ether
 			creditedTokens = SafeMath.mul(contributedEther, 100);
 		}
@@ -330,7 +330,7 @@ contract EOSBetBankroll is ERC20, EOSBetBankrollInterface {
 		//		new bets as well. This does not mean that bettors will lose their money without recompense. They will be allowed to call the 
 		// 		"refund" function in the respective game smart contract once payouts are un-frozen.
 		// 4. Finally, the owner can modify and withdraw the developers reward, which will fund future development, including new games, a sexier frontend,
-		// 		and TRUE DAO governance so that onlyOwner functions don&#39;t have to exist anymore ;) and in order to effectively react to changes 
+		// 		and TRUE DAO governance so that onlyOwner functions don't have to exist anymore ;) and in order to effectively react to changes 
 		// 		in the market (lower the percentage because of increased competition in the blockchain casino space, etc.)
 
 	function transferOwnership(address newOwner) public {
@@ -389,8 +389,8 @@ contract EOSBetBankroll is ERC20, EOSBetBankrollInterface {
 		return balances[_owner];
 	}
 
-	// don&#39;t allow transfers before the required wait-time
-	// and don&#39;t allow transfers to this contract addr, it&#39;ll just kill tokens
+	// don't allow transfers before the required wait-time
+	// and don't allow transfers to this contract addr, it'll just kill tokens
 	function transfer(address _to, uint256 _value) public returns (bool success){
 		require(balances[msg.sender] >= _value 
 			&& contributionTime[msg.sender] + WAITTIMEUNTILWITHDRAWORTRANSFER <= block.timestamp
@@ -406,8 +406,8 @@ contract EOSBetBankroll is ERC20, EOSBetBankrollInterface {
 		return true;
 	}
 
-	// don&#39;t allow transfers before the required wait-time
-	// and don&#39;t allow transfers to the contract addr, it&#39;ll just kill tokens
+	// don't allow transfers before the required wait-time
+	// and don't allow transfers to the contract addr, it'll just kill tokens
 	function transferFrom(address _from, address _to, uint _value) public returns(bool){
 		require(allowed[_from][msg.sender] >= _value 
 			&& balances[_from] >= _value 

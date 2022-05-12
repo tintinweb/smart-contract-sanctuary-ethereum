@@ -43,7 +43,7 @@ contract Token {
 This implements ONLY the standard functions and NOTHING else.
 For a token like you would want to deploy in something like Mist, see HumanStandardToken.sol.
 
-If you deploy this, you won&#39;t have anything useful.
+If you deploy this, you won't have anything useful.
 
 Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 
@@ -126,7 +126,7 @@ contract MyFreeCoin is StandardToken {
     string public name;                   //token名称: MyFreeCoin 
     uint8 public decimals;                //小数位
     string public symbol;                 //标识
-    string public version = &#39;H0.1&#39;;       //版本号
+    string public version = 'H0.1';       //版本号
 
     function MyFreeCoin(
         uint256 _initialAmount,

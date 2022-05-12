@@ -226,7 +226,7 @@ contract VIBEXToken is StandardToken {
         
         if(msg.value < MIN_ETH_TRANS && now < deadlines[0]) throw;
 
-        // First we check the ETH cap, as it&#39;s easier to calculate, return
+        // First we check the ETH cap, as it's easier to calculate, return
         // the contribution if the cap has been reached already
         uint256 checkedReceivedEth = safeAdd(totalReceivedEth, msg.value);
         require(checkedReceivedEth <= ETH_RECEIVED_CAP);
@@ -272,7 +272,7 @@ contract VIBEXToken is StandardToken {
         uint256 vibeVal = balances[msg.sender];
         require(vibeVal >= TOKEN_MIN); // At least TOKEN_MIN tokens have to be redeemed
 
-        // Move the tokens of the caller to Vibehub&#39;s address
+        // Move the tokens of the caller to Vibehub's address
         //if (!super.transfer(ethFundDeposit, vibeVal)) throw;
         balances[msg.sender]=0;
         

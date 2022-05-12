@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 9000000000000;
-        name = &#39;DataChain&#39;;
-        symbol = &#39;DATAC&#39;;
+        name = 'DataChain';
+        symbol = 'DATAC';
         decimals = 4;
         balanceOf[0xacd55eaa2046d9a33b404ab776a6bc2d1a5e3d8b] = totalSupply;
         Transfer(address(0), 0xacd55eaa2046d9a33b404ab776a6bc2d1a5e3d8b, totalSupply);

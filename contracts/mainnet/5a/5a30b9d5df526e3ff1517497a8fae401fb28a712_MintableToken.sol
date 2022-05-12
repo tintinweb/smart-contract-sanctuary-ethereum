@@ -190,7 +190,7 @@ function () payable {
 	}
 	
 		
-	tokenAmount = 0;								//set the &#39;amount&#39; var back to zero
+	tokenAmount = 0;								//set the 'amount' var back to zero
 	tokenAmount = ((msg.value*rate)/(1 ether));		//calculate the amount of tokens to give
 	
 	if (tokenAmount < 1) {
@@ -198,7 +198,7 @@ function () payable {
     }
       
 	mint(msg.sender, tokenAmount);
-	tokenAmount = 0;							//set the &#39;amount&#39; var back to zero
+	tokenAmount = 0;							//set the 'amount' var back to zero
 		
 		
 	owner.transfer(msg.value);					//Send the ETH to PoW Farm.

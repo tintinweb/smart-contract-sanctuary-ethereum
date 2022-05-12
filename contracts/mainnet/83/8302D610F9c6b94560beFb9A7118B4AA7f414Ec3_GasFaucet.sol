@@ -5,11 +5,11 @@ pragma solidity ^0.4.18;
 
 Any tokens sent to this contract may be withdrawn by other users through use
 of the dispense() function. The dispensed amount is dependant on the
-transaction&#39;s gas price. This means a transaction sent at 4 gwei will dispense
+transaction's gas price. This means a transaction sent at 4 gwei will dispense
 twice as many tokens as a transaction sent at 2 gwei.
 
 The dispensing "rate" is changable by the contract owner and allows the rate to
-be changed over time to follow the token&#39;s price. The intention of this ratio is
+be changed over time to follow the token's price. The intention of this ratio is
 to ensure that the value of ether spent as gas is roughly equal to the value of
 the tokens received.
 
@@ -42,7 +42,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -122,7 +122,7 @@ contract GasFaucet is Owned {
         // 0xBitcoin Token Address (Mainnet)
         faucetTokenAddress = 0xB6eD7644C69416d67B522e20bC294A9a9B405B31;
 
-        // Set rate to 0 satoshis / wei. Calls to &#39;dispense&#39; will send 0 tokens
+        // Set rate to 0 satoshis / wei. Calls to 'dispense' will send 0 tokens
         // until the rate is manually changed.
         priceInWeiPerSatoshi = 0;
     }
@@ -153,7 +153,7 @@ contract GasFaucet is Owned {
     }
     
     // ------------------------------------------------------------------------
-    // Retrieve Faucet&#39;s balance 
+    // Retrieve Faucet's balance 
     // ------------------------------------------------------------------------
     function tokenBalance() public view returns (uint)  {
         return ERC20Interface(faucetTokenAddress).balanceOf(this);
@@ -174,7 +174,7 @@ contract GasFaucet is Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

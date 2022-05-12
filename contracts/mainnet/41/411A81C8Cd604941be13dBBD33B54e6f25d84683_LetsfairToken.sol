@@ -19,7 +19,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -98,7 +98,7 @@ contract BurnableToken is BasicToken {
     function burn(uint256 _value) public {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);
@@ -153,7 +153,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -220,7 +220,7 @@ contract StandardToken is ERC20, BasicToken {
  * is necessary for someone to periodically run the release() function in the contract.
  * For example: You want to create a total of 1000 tokens (maxSupply) spread over 2 years (duration).
  * In this way, when calling the release() function, the number of tokens that are entitled at
- * that moment will be added to the beneficiary&#39;s wallet. In this scenario, by running the
+ * that moment will be added to the beneficiary's wallet. In this scenario, by running the
  * release() function every day at the same time over 2 years, the beneficiary will receive
  * 1.37 tokens (1000 / 364.25 * 2) everyday.
  * @author Anselmo Zago (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8cede2ffe9e0e1e3cce0e9f8ffeaede5fea2e3feeb">[email&#160;protected]</a>), based in TokenVesting by Zeppelin Solidity library.
@@ -298,7 +298,7 @@ contract SchedulableToken is StandardToken, BurnableToken {
 /**
  * @title Letsfair Token (LTF)
  * @dev LetsfairToken contract implements the ERC20 with the StandardToken functions.
- * The token&#39;s creation is realize in a gradual and programmatic way, distributed
+ * The token's creation is realize in a gradual and programmatic way, distributed
  * proportionally over a predefined period, specified by SchedulableToken.
  * @author Anselmo Zago (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="73121d00161f1e1c331f16070015121a015d1c0114">[email&#160;protected]</a>)
  */

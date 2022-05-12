@@ -115,7 +115,7 @@ contract Withdrawals is Claimable {
     address public withdrawCreator;
 
     /**
-    * @dev if it&#39;s token transfer the tokenAddress will be 0x0000... 
+    * @dev if it's token transfer the tokenAddress will be 0x0000... 
     * @param _destination receiver of token or eth
     * @param _amount amount of ETH or Tokens
     * @param _tokenAddress actual token address or 0x000.. in case of eth transfer

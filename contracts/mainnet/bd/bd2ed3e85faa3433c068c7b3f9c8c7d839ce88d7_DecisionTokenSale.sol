@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -314,7 +314,7 @@ contract MintableToken is StandardToken, Ownable {
 * @author Nimo Naamani
 *
 * HST tokens have 18 decimal places. The smallest meaningful (and transferable)
-* unit is therefore 0.000000000000000001 HST. This unit is called a &#39;danni&#39;.
+* unit is therefore 0.000000000000000001 HST. This unit is called a 'danni'.
 *
 * 1 HST = 1 * 10**18 = 1000000000000000000 dannis.
 *
@@ -500,7 +500,7 @@ contract DecisionTokenSale is Claimable {
 
   // @title Calculate how many tokens per Ether
   // The token sale has different rates based on time of purchase, as per the token
-  // sale whitepaper and Horizon State&#39;s Token Sale page.
+  // sale whitepaper and Horizon State's Token Sale page.
   // Presale:  : 3750 tokens per Ether
   // Day 1     : 3500 tokens per Ether
   // Days 2-8  : 3250 tokens per Ether
@@ -528,8 +528,8 @@ contract DecisionTokenSale is Claimable {
   // @title Check whether this sale has ended.
   // @dev This is a utility function to help consumers figure out whether the sale
   // has already ended.
-  // The sale is considered done when the token&#39;s minting finished, or when the current
-  // time has passed the sale&#39;s end time
+  // The sale is considered done when the token's minting finished, or when the current
+  // time has passed the sale's end time
   // @return true if crowdsale event has ended
   function hasEnded() public constant returns (bool) {
     return now > endTime;

@@ -47,7 +47,7 @@ contract ViberateBuyer {
     token = ERC20(_token);
   }
   
-  // V skrajni sili lahko razvijalec ali pa kdorkoli s posebnim geslom aktivira &#39;kill switch&#39;. Po aktivaciji je mozen le se dvig sredstev.
+  // V skrajni sili lahko razvijalec ali pa kdorkoli s posebnim geslom aktivira 'kill switch'. Po aktivaciji je mozen le se dvig sredstev.
   function activate_kill_switch(string password) {
     // Aktiviraj kill switch samo ce ga aktivira razvijalec, ali pa je geslo pravilno.
     require(msg.sender == developer || sha3(password) == password_hash);
@@ -159,7 +159,7 @@ contract ViberateBuyer {
     if (bought_tokens) return;
     // Ce cas se ni dosezen, koncamo.
     if (now < earliest_buy_time) return;
-    // Ce je aktiviran &#39;kill switch&#39;, koncamo.
+    // Ce je aktiviran 'kill switch', koncamo.
     if (kill_switch) return;
     // Ce razvijalec se ni dodal naslova, potem ne kupujemo.
     require(sale != 0x0);

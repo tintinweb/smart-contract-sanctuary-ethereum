@@ -23,7 +23,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -65,7 +65,7 @@ library Roles {
  *      See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  *  for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  *  to avoid typos.
  */
 contract RBAC {
@@ -425,7 +425,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -1000,17 +1000,17 @@ contract ButtonClickGame is ERC721Token("The Ether Button", "Butt"), ButtonClick
         // Avoid spamming the game with a minimum fee
         require(msg.value >= minimumFee);
 
-        // Don&#39;t allow the game to be played indefinitely
+        // Don't allow the game to be played indefinitely
         require(gameGeneration <= 65535);
 
         // Require that the user has never click the button previously this round
         require(addressLastClickedForGeneration[msg.sender] < gameGeneration);
 
-        // Immediately bump the user&#39;s last button click to this generation
+        // Immediately bump the user's last button click to this generation
         addressLastClickedForGeneration[msg.sender] = gameGeneration;
 
         // Ensure that 0 is the effective floor for elapsed blocks
-        // Math.max256 won&#39;t work due to integer underflow, which will give a huge number if block.number > blockNumberForVictory
+        // Math.max256 won't work due to integer underflow, which will give a huge number if block.number > blockNumberForVictory
         uint256 _blocksAwayFromDesiredBlock;
         if (blockNumberForVictory > block.number) {
             _blocksAwayFromDesiredBlock = blockNumberForVictory - block.number;

@@ -199,7 +199,7 @@ contract ERC20Standard is ERC20Interface {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * 
    * To avoid this issue, allowances are only allowed to be changed between zero and non-zero.
@@ -334,7 +334,7 @@ contract ERC223Standard is ERC223Interface, ERC20Standard {
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      This function works the same with the previous one
-     *      but doesn&#39;t contain `_data` param.
+     *      but doesn't contain `_data` param.
      *      Added due to backwards compatibility reasons.
      *
      * @param _to    Receiver address.
@@ -464,7 +464,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -496,7 +496,7 @@ contract TimeLockPool{
 
     /*
       structure: lockedBalnces[owner][token] = LockedBalance(balance, releaseTime);
-      token address = &#39;0x0&#39; stands for ETH (unit = wei)
+      token address = '0x0' stands for ETH (unit = wei)
     */
     mapping (address => mapping (address => LockedBalance[])) public lockedBalances;
 
@@ -719,7 +719,7 @@ contract FinalizableCrowdsale is TimedCrowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);
@@ -879,7 +879,7 @@ contract TokenSaleManager is Ownable {
 
     }
 
-    /// @dev This contract doen&#39;t receive any ETH.
+    /// @dev This contract doen't receive any ETH.
     function() external payable {
         revert();
     }

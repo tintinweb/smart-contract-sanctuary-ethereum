@@ -231,7 +231,7 @@ contract Math {
         // This famous algorithm is called "exponentiation by squaring"
         // and calculates x^n with x as fixed-point and n as regular unsigned.
         //
-        // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+        // It's O(log n), instead of O(n) for naive repeated multiplication.
         //
         // These facts are why it works:
         //
@@ -288,7 +288,7 @@ contract Migrations {
     upgraded.setCompleted(last_completed_migration);
   }
 }
-/// note.sol -- the `note&#39; modifier, for logging calls as events
+/// note.sol -- the `note' modifier, for logging calls as events
 
 // Copyright (C) 2017  DappHub, LLC
 //

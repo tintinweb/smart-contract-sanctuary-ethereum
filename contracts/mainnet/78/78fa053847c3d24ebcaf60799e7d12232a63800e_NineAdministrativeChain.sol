@@ -246,8 +246,8 @@ contract StandardBurnableToken is BurnableToken, StandardToken,MintableToken {
 }
 
 contract NineAdministrativeChain is StandardBurnableToken {
-    string public name = &#39;Nine Administrative Chain&#39;;
-    string public symbol = &#39;NAC&#39;;
+    string public name = 'Nine Administrative Chain';
+    string public symbol = 'NAC';
     uint8 public decimals = 8;
     uint256 public INITIAL_SUPPLY = 23000000000000000; 
     

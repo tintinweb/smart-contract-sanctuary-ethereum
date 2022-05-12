@@ -6,7 +6,7 @@ pragma solidity ^0.4.24;
 *
 *   _  ___               _____
 *  (_)/ __|__ _ _ __  __|_   _| _ ___ ___
-*  | | (_ / _` | &#39;  \/ -_)| || &#39;_/ -_) -_)
+*  | | (_ / _` | '  \/ -_)| || '_/ -_) -_)
 *  |_|\___\__,_|_|_|_\___||_||_| \___\___|
 *
 *
@@ -184,7 +184,7 @@ contract iGameTree is SafeMath, Owned, ERC20Token {
         return tempLockTime;
     }
 
-    // show values locked in an account&#39;s timelocks
+    // show values locked in an account's timelocks
     function showLockValues(address _address) public view validAddress(_address) returns (uint256[] _values) {
         return lockValue[_address];
     }
@@ -369,7 +369,7 @@ contract iGameTree is SafeMath, Owned, ERC20Token {
         emit WrongTokenEmptied(_addr, msg.sender, amount);
     }
 
-    // shouldn&#39;t happen, just in case
+    // shouldn't happen, just in case
     function emptyWrongEther() onlyOwner public {
         uint256 amount = address(this).balance;
         require(amount > 0);

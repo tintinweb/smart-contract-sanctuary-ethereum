@@ -326,11 +326,11 @@ contract HalfRoulette is HalfRouletteEvents, HalfRouletteOwner, HalfRouletteStru
 
     function placeBet(uint8 betMask, uint commitLastBlock, uint commit, uint8 v, bytes32 r, bytes32 s) public payable {
         Bet storage bet = bets[commit];
-        require(bet.gambler == address(0), "Bet should be in a &#39;clean&#39; state.");
+        require(bet.gambler == address(0), "Bet should be in a 'clean' state.");
 
         // amount checked
         uint amount = msg.value;
-        require(amount >= MIN_BET, &#39;failed amount >= MIN_BET&#39;);
+        require(amount >= MIN_BET, 'failed amount >= MIN_BET');
         require(amount <= MAX_BET, "failed amount <= MAX_BET");
         // allow bet check
         verifyBetMask(betMask);
@@ -407,7 +407,7 @@ contract HalfRoulette is HalfRouletteEvents, HalfRouletteOwner, HalfRouletteStru
 
         // Check that bet has not expired yet (see comment to BET_EXPIRATION_BLOCKS).
         require(block.number > placeBlockNumber, "settleBet in the same block as placeBet, or before.");
-        require(block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require(block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
         require(blockhash(placeBlockNumber) == blockHash);
 
         // Settle bet using reveal and blockHash as entropy sources.
@@ -426,7 +426,7 @@ contract HalfRoulette is HalfRouletteEvents, HalfRouletteOwner, HalfRouletteStru
         Bet storage bet = bets[commit];
 
         // Check that canonical block hash can still be verified.
-        require(block.number <= canonicalBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require(block.number <= canonicalBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
         // Verify placeBet receipt.
         requireCorrectReceipt(4 + 32 + 32 + 4);
@@ -663,8 +663,8 @@ contract HalfRoulette is HalfRouletteEvents, HalfRouletteOwner, HalfRouletteStru
     function settleBetCommon(Bet storage bet, uint reveal, bytes32 entropyBlockHash) internal {
         uint amount = bet.amount;
 
-        // Check that bet is in &#39;active&#39; state.
-        require(amount != 0, "Bet should be in an &#39;active&#39; state");
+        // Check that bet is in 'active' state.
+        require(amount != 0, "Bet should be in an 'active' state");
         bet.amount = 0;
 
         // The RNG - combine "reveal" and blockhash of placeBet using Keccak256. Miners
@@ -687,16 +687,16 @@ contract HalfRoulette is HalfRouletteEvents, HalfRouletteOwner, HalfRouletteStru
     // Processing such blocks is not possible due to EVM limitations (see BET_EXPIRATION_BLOCKS comment above for details).
     // In case you ever find yourself in a situation like this, just contact the {} support, however nothing precludes you from invoking this method yourself.
     function refundBet(uint commit) external {
-        // Check that bet is in &#39;active&#39; state.
+        // Check that bet is in 'active' state.
         Bet storage bet = bets[commit];
         uint amount = bet.amount;
 
-        require(amount != 0, "Bet should be in an &#39;active&#39; state");
+        require(amount != 0, "Bet should be in an 'active' state");
 
         // Check that bet has already expired.
-        require(block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require(block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
-        // Move bet into &#39;processed&#39; state, release funds.
+        // Move bet into 'processed' state, release funds.
         bet.amount = 0;
 
         uint winAmount = getWinAmount(bet.betMask, amount);

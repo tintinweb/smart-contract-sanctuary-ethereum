@@ -6,7 +6,7 @@ contract AccountLevels {
   //given a user, returns an account level
   //0 = regular user (pays take fee and make fee)
   //1 = market maker silver (pays take fee, no make fee, gets rebate)
-  //2 = market maker gold (pays take fee, no make fee, gets entire counterparty&#39;s take fee as rebate)
+  //2 = market maker gold (pays take fee, no make fee, gets entire counterparty's take fee as rebate)
   function accountLevel(address user) public constant returns(uint);
 }
 
@@ -36,7 +36,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -594,7 +594,7 @@ contract SwissCryptoExchange {
     }
 
     // Condition is used for ensuring the the value returned is
-    //   - the maximum available balance of the user in tokenGet terms if the user can&#39;t fullfil all the order
+    //   - the maximum available balance of the user in tokenGet terms if the user can't fullfil all the order
     //     - SafeMath.sub(amountGet, orderFills[user][hash])
     //     - amountGet - amountAvailableForFill
     //   - the available balance of the the user in tokenGet terms if the user has enough to fullfil all the order 

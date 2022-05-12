@@ -30,7 +30,7 @@ contract ChooseWHGReturnAddress is Owned {
     uint public endDate;
 
     /// @param _endDate After this time, if `requestReturn()` has not been called
-    /// the upgraded parity multisig will be locked in as the &#39;returnAddr&#39;
+    /// the upgraded parity multisig will be locked in as the 'returnAddr'
     function ChooseWHGReturnAddress(uint _endDate) {
         endDate = _endDate;
     }

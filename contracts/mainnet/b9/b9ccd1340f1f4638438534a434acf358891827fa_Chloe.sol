@@ -111,7 +111,7 @@ II+++?IZ8D88DDNNNNNNNNDDD888O$ZZ$???+==~~~~~~~~~~~~~~~~~:::~:~:~~:~:::~~~~~~~~~:
 /**
  * Created on 2018-08-16 03:50
  * @summary
- * Don&#39;t let &#39;em say you ain&#39;t beautiful.
+ * Don't let 'em say you ain't beautiful.
  * They can all get fucked.
  * Just stay true to you.
  * @author yong

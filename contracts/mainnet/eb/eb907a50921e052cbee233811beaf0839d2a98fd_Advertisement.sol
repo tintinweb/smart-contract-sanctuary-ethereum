@@ -125,7 +125,7 @@ contract Advertisement {
 
 		for (uint i=0; i<countriesInBytes.length; i++){
 
-			//if &#39;,&#39; is found, new country ahead
+			//if ',' is found, new country ahead
 			if(countriesInBytes[i]=="," || i == countriesInBytes.length-1){
 
 				if(i == countriesInBytes.length-1){

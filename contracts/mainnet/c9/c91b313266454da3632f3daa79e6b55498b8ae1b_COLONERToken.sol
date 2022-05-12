@@ -1,7 +1,7 @@
 pragma solidity 0.4.19;
 
 // ----------------------------------------------------------------------------
-// &#39;COLT&#39; &#39;COLONERToken&#39; token contract
+// 'COLT' 'COLONERToken' token contract
 //
 // Symbol      : COLT
 // Name        : COLONER Token
@@ -53,7 +53,7 @@ contract Token {
 contract RegularToken is Token {
 
     function transfer(address _to, uint _value) returns (bool) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[msg.sender] >= _value && balances[_to] + _value >= balances[_to]) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;

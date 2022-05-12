@@ -25,7 +25,7 @@ library SafeMath {
  */
 contract Owned {
 
-    /* Owner&#39;s address */
+    /* Owner's address */
     address owner;
 
     /**
@@ -267,16 +267,16 @@ contract Token is ERC20 {
 
 
 /**
- * @title Cat&#39;s Token, miaow!!!
+ * @title Cat's Token, miaow!!!
  *
- * @dev Defines token with name "Cat&#39;s Token", symbol "CTS"
+ * @dev Defines token with name "Cat's Token", symbol "CTS"
  * and 3 digits after the point
  */
-contract Cat is Token("Cat&#39;s Token", "CTS", 3), Owned {
+contract Cat is Token("Cat's Token", "CTS", 3), Owned {
 
     /**
      * @dev Emits specified number of tokens. Only owner can emit.
-     * Emitted tokens are credited to owner&#39;s account
+     * Emitted tokens are credited to owner's account
      *
      * @param _value number of emitting tokens
      * @return true if emission succeeded, false otherwise
@@ -295,7 +295,7 @@ contract Cat is Token("Cat&#39;s Token", "CTS", 3), Owned {
 }
 
 /**
- * @title Drives Cat&#39;s Token ICO
+ * @title Drives Cat's Token ICO
  */
 contract CatICO {
 
@@ -309,7 +309,7 @@ contract CatICO {
     /// Keeps supplied ether
     address public wallet;
 
-    /// Cat&#39;s Token
+    /// Cat's Token
     Cat public cat;
 
     struct Stage {
@@ -327,7 +327,7 @@ contract CatICO {
     Stage sequels = Stage(0.016 ether / 1000, 3750000000);
 
     /**
-     * @dev Cat&#39;s ICO constructor. It spawns a Cat contract.
+     * @dev Cat's ICO constructor. It spawns a Cat contract.
      *
      * @param _wallet the address of the ICO wallet
      */

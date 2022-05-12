@@ -4,27 +4,27 @@ pragma solidity ^0.4.21;
 ******************** HALO 3D *********************
 * ===============================================*
 MMMMMMMMMMMMMMMMMMMMMWWXKKXNWMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMWWXko;&#39;&#39;,lkKNWWMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMNOc&#39;.       .:d0XWWMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMNOc&#39;.          .,lkKNWWMMMMMMMMMM
-MMMMMMMWWNKKXWWMMMWNKkl&#39;            .:d0XWWMMMMMMM
-MMMMWWXOo;..&#39;cx0NNWX0d:.               .,lkKWWMMMM
-MMWWKo,.       .;lc,.           .          &#39;l0NWMM
-MMWOc;,&#39;.                   .,lkOdc&#39;.    ..,,:xNWM
-MWNd. .&#39;;;,.              .lOXNWWWNXOo;,,,&#39;.  :XWM
-MWNo.    .ckxl,.          .&#39;cxKNWMMMWWXd.     :KWM
-MWNo.     :KNNXOo;.           &#39;oKNWMMWNo.     :KWM
-MWNd.     :KWWWW0l;;;&#39;.    ..,,,:kWMMWNo.     :KWM
-MWNo.     ;0WWWWO&#39;  .,;;;;;;&#39;.  .dNWMWXo.     :KWM
-MWNo.     .lkXNNO&#39;     &#39;dx;     .dXNX0d,      :KWM
-MWNo.       .&#39;:dd.     .ox;     .lxl;.        :KWM
+MMMMMMMMMMMMMMMMMMWWXko;'',lkKNWWMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMNOc'.       .:d0XWWMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMNOc'.          .,lkKNWWMMMMMMMMMM
+MMMMMMMWWNKKXWWMMMWNKkl'            .:d0XWWMMMMMMM
+MMMMWWXOo;..'cx0NNWX0d:.               .,lkKWWMMMM
+MMWWKo,.       .;lc,.           .          'l0NWMM
+MMWOc;,'.                   .,lkOdc'.    ..,,:xNWM
+MWNd. .';;,.              .lOXNWWWNXOo;,,,'.  :XWM
+MWNo.    .ckxl,.          .'cxKNWMMMWWXd.     :KWM
+MWNo.     :KNNXOo;.           'oKNWMMWNo.     :KWM
+MWNd.     :KWWWW0l;;;'.    ..,,,:kWMMWNo.     :KWM
+MWNo.     ;0WWWWO'  .,;;;;;;'.  .dNWMWXo.     :KWM
+MWNo.     .lkXNNO'     'dx;     .dXNX0d,      :KWM
+MWNo.       .':dd.     .ox;     .lxl;.        :KWM
 MWNo.           .      .ox;      ..           :KWM
 MWNd.                  .ox;                   :KWM
-MWNd.     ,dl;.        .ox;        .&#39;cdc.     :KWM
-MMNx.     ;0NN0d;.     .ox;      &#39;oOXNXo.    .oXWM
-MMWNOo;.  :KWMWNO&#39;     .ox;     .oXWMWNo. .,lkXWMM
-MMMMWWN0xlxNWMMWO&#39;     .ox;     .dNWMMWOox0NWWMMMM
-MMMMMMMMWWWMMMMWO&#39;     .ox;     .dNWMMMWWWMMMMMMMM
+MWNd.     ,dl;.        .ox;        .'cdc.     :KWM
+MMNx.     ;0NN0d;.     .ox;      'oOXNXo.    .oXWM
+MMWNOo;.  :KWMWNO'     .ox;     .oXWMWNo. .,lkXWMM
+MMMMWWN0xlxNWMMWO'     .ox;     .dNWMMWOox0NWWMMMM
+MMMMMMMMWWWMMMMWO'     .ox;     .dNWMMMWWWMMMMMMMM
 MMMMMMMMMMMMMMMWKc.    .ox,     ,OWMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMWXOo;. .ox; .,lkXWWMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMWWN0xx0Kkx0NWWMMMMMMMMMMMMMMMMMM
@@ -32,7 +32,7 @@ MMMMMMMMMMMMMMMMMMMMMMMWWWWWMMMMMMMMMMMMMMMMMMMMMM
 * ===============================================*
 ******************** HALO 3D *********************
 *
-* The World&#39;s FIRST Charity/Gaming Pyramid! All the features of a classic pyramid plus more.
+* The World's FIRST Charity/Gaming Pyramid! All the features of a classic pyramid plus more.
 * Brought to you by a collaboration of crypto gaming experts and YouTubers.
 *
 * What is new?
@@ -135,7 +135,7 @@ contract Halo3D {
             // execute
             _;
         } else {
-            // in case the ether count drops low, the ambassador phase won&#39;t reinitiate
+            // in case the ether count drops low, the ambassador phase won't reinitiate
             onlyAmbassadors = false;
             _;
         }
@@ -315,7 +315,7 @@ contract Halo3D {
     }
 
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvest()
         onlyStronghands()
@@ -777,7 +777,7 @@ contract Halo3D {
             _fee = _dividends * magnitude;
         }
 
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
 
             // add tokens to the pool
@@ -797,8 +797,8 @@ contract Halo3D {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[msg.sender] = SafeMath.add(tokenBalanceLedger_[msg.sender], _amountOfTokens);
 
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[msg.sender] += _updatedPayouts;
 
@@ -810,7 +810,7 @@ contract Halo3D {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum)
@@ -845,7 +845,7 @@ contract Halo3D {
 
     /**
      * Calculate token sell value.
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
      function tokensToEthereum_(uint256 _tokens)
@@ -909,7 +909,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

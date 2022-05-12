@@ -92,7 +92,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -202,7 +202,7 @@ contract CryptoPhoenixesCivilWar is Ownable, Pausable {
   struct Phoenix {
     uint256 price;  // Current price of phoenix
     uint256 payoutPercentage; // The percent of the funds awarded upon explosion / steal / end game
-    uint abilityAvailTime; // Time when phoenix&#39;s ability is available
+    uint abilityAvailTime; // Time when phoenix's ability is available
     uint cooldown; // Time to add after cooldown
     uint cooldownDecreaseAmt; // Amt of time to decrease upon each flip
     uint basePower; // Starting exploding / stealing power of phoenix
@@ -282,7 +282,7 @@ contract CryptoPhoenixesCivilWar is Ownable, Pausable {
       SCORES[0] = 0;
       SCORES[1] = 0;
       
-      //reset normal phoenixes&#39; abilityAvailTimes
+      //reset normal phoenixes' abilityAvailTimes
       for (uint i = 1; i < 19; i++) {
           PHOENIXES[i].abilityAvailTime = now + PHOENIXES[i].cooldown;
       }

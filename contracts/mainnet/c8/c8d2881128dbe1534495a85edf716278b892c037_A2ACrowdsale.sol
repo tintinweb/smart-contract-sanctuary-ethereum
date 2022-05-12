@@ -288,7 +288,7 @@ contract ICrowdsaleProcessor is HasManager {
 	// Total collected Ethereum: must be updated every time tokens has been sold
 	uint256 public totalCollected;
 
-	// Total amount of project&#39;s token sold: must be updated every time tokens has been sold
+	// Total amount of project's token sold: must be updated every time tokens has been sold
 	uint256 public totalSold;
 
 	// Crowdsale minimal goal, must be greater or equal to Forecasting min amount
@@ -329,7 +329,7 @@ contract ICrowdsaleProcessor is HasManager {
 	// Validates parameters and starts crowdsale
 	function start(uint256 _startTimestamp, uint256 _endTimestamp, address _fundingAddress) public onlyManager() hasntStarted() hasntStopped();
 
-	// Is crowdsale failed (completed, but minimal goal wasn&#39;t reached)
+	// Is crowdsale failed (completed, but minimal goal wasn't reached)
 	function isFailed() public constant returns (bool);
 
 	// Is crowdsale active (i.e. the token can be sold)
@@ -429,7 +429,7 @@ contract A2ACrowdsale is ICrowdsaleProcessor {
 			// it was started
 			started &&
 
-			// hard cap wasn&#39;t reached yet
+			// hard cap wasn't reached yet
 			totalCollected < hardCap &&
 
 			// and current time is within the crowdfunding period

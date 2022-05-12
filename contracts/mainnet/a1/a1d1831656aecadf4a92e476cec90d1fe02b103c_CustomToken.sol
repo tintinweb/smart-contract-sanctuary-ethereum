@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 200000000000000000000000000;
-        name = &#39;BedAndBreakfast&#39;;
-        symbol = &#39;BBC&#39;;
+        name = 'BedAndBreakfast';
+        symbol = 'BBC';
         decimals = 18;
         balanceOf[0x1052ed7429d00a45fff1dbc52c2a28e398fe81db] = totalSupply;
         Transfer(address(0), 0x1052ed7429d00a45fff1dbc52c2a28e398fe81db, totalSupply);

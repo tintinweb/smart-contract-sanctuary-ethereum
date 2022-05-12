@@ -17,7 +17,7 @@ pragma solidity ^0.4.18;
 *   END: 18 MAY 2018
 *
 *   This is for the fun. Thank you token factory for your smart contract inspiration.
-*   Jummy & crusty. Get your &#127829;EPS while it&#39;s hot. 
+*   Jummy & crusty. Get your &#127829;EPS while it's hot. 
 *
 *   https://eos.pizza
 *
@@ -118,7 +118,7 @@ contract ERC20Token is ERC20TokenInterface {
     /**
      * @dev Checks the balance of a certain address.
      *
-     * @param _account The address which&#39;s balance will be checked.
+     * @param _account The address which's balance will be checked.
      *
      * @return Returns the balance of the `_account` address.
      */
@@ -762,7 +762,7 @@ contract EosPizzaSliceDonationraiser is EosPizzaSlice, EosPizzaSliceDonationrais
 
 
     /**
-     * @dev The default function which will fire every time someone sends ethers to this contract&#39;s address.
+     * @dev The default function which will fire every time someone sends ethers to this contract's address.
      */
     function() public payable {
         buyTokens();

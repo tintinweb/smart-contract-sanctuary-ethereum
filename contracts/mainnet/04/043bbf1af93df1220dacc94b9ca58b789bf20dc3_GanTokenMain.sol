@@ -245,7 +245,7 @@ contract GanNFT is ERC165, ERC721, ERC721Enumerable, PublishInterfaces, Ownable 
     owner = tokenIdToOwner[_tokenId];
   }
 
-  /// @notice returns all owners&#39; tokens will return an empty array
+  /// @notice returns all owners' tokens will return an empty array
   /// if the address has no tokens
   /// @param _owner The address of the owner in question
   function tokensOfOwner(address _owner) external view returns (uint256[]) {
@@ -275,7 +275,7 @@ contract GanNFT is ERC165, ERC721, ERC721Enumerable, PublishInterfaces, Ownable 
   }
 
   /// @notice Create a new GanToken with a id and attaches an owner
-  /// @param _noise The id of the token that&#39;s being created
+  /// @param _noise The id of the token that's being created
   function newGanToken(uint256 _noise) external payable {
     require(msg.sender != address(0));
     require(tokenIdToOwner[_noise] == 0x0);
@@ -388,7 +388,7 @@ contract GanNFT is ERC165, ERC721, ERC721Enumerable, PublishInterfaces, Ownable 
 
   /// @notice Enumerate valid NFTs
   /// @param _index A counter less than `totalSupply()`
-  /// @return The token identifier for index the `_index`th NFT 0 if it doesn&#39;t exist,
+  /// @return The token identifier for index the `_index`th NFT 0 if it doesn't exist,
   function tokenByIndex(uint256 _index) external view returns (uint256) {
       return tokenIds[_index];
   }
@@ -545,7 +545,7 @@ contract GanTokenMain is GanNFT {
 
 
   /// @notice Allow a token owner to pull sale
-  /// @param tokenId The id of the token that&#39;s created
+  /// @param tokenId The id of the token that's created
   function ganTokenNoLongerForSale(uint256 tokenId) public payable owns(tokenId) {
     ganTokenOfferedForSale[tokenId] = Offer(false, tokenId, msg.sender, 0, 0x0);
 
@@ -553,7 +553,7 @@ contract GanTokenMain is GanNFT {
   }
 
   /// @notice Put a token up for sale
-  /// @param tokenId The id of the token that&#39;s created
+  /// @param tokenId The id of the token that's created
   /// @param minSalePriceInWei desired price of token
   function offerGanTokenForSale(uint tokenId, uint256 minSalePriceInWei) external payable owns(tokenId) {
     ganTokenOfferedForSale[tokenId] = Offer(true, tokenId, msg.sender, minSalePriceInWei, 0x0);
@@ -562,7 +562,7 @@ contract GanTokenMain is GanNFT {
   }
 
   /// @notice Create a new GanToken with a id and attaches an owner
-  /// @param tokenId The id of the token that&#39;s being created
+  /// @param tokenId The id of the token that's being created
   function offerGanTokenForSaleToAddress(uint tokenId, address sendTo, uint256 minSalePriceInWei) external payable {
     require(tokenIdToOwner[tokenId] == msg.sender);
     ganTokenOfferedForSale[tokenId] = Offer(true, tokenId, msg.sender, minSalePriceInWei, sendTo);
@@ -604,7 +604,7 @@ contract GanTokenMain is GanNFT {
   }
 
   /// @notice Allows the owner of a token to accept an outstanding bid for that token
-  /// @param tokenId The id of the token that&#39;s being created
+  /// @param tokenId The id of the token that's being created
   /// @param price The desired price of token in wei
   function acceptBid(uint256 tokenId, uint256 price) external payable {
     require(tokenIdToOwner[tokenId] == msg.sender);

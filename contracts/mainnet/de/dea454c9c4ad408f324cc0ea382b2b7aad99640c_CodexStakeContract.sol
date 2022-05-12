@@ -150,8 +150,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -168,7 +168,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -204,7 +204,7 @@ pragma solidity 0.4.24;
  * @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-900.md
  */
 contract ERC900BasicStakeContract is ERC900 {
-  // @TODO: deploy this separately so we don&#39;t have to deploy it multiple times for each contract
+  // @TODO: deploy this separately so we don't have to deploy it multiple times for each contract
   using SafeMath for uint256;
 
   // Token used for staking
@@ -216,7 +216,7 @@ contract ERC900BasicStakeContract is ERC900 {
   // To save on gas, rather than create a separate mapping for totalStakedFor & personalStakes,
   //  both data structures are stored in a single mapping for a given addresses.
   //
-  // It&#39;s possible to have a non-existing personalStakes, but have tokens in totalStakedFor
+  // It's possible to have a non-existing personalStakes, but have tokens in totalStakedFor
   //  if other users are staking on behalf of a given address.
   mapping (address => StakeContract) public stakeHolders;
 
@@ -378,7 +378,7 @@ contract ERC900BasicStakeContract is ERC900 {
 
   /**
    * @notice MUST return true if the optional history functions are implemented, otherwise false
-   * @dev Since we don&#39;t implement the optional interface, this always returns false
+   * @dev Since we don't implement the optional interface, this always returns false
    * @return bool Whether or not the optional history functions are implemented
    */
   function supportsHistory() public pure returns (bool) {
@@ -471,7 +471,7 @@ contract ERC900BasicStakeContract is ERC900 {
     // Check that the current stake has unlocked & matches the unstake amount
     require(
       personalStake.unlockedTimestamp <= block.timestamp,
-      "The current stake hasn&#39;t unlocked yet");
+      "The current stake hasn't unlocked yet");
 
     require(
       personalStake.actualAmount == _amount,
@@ -504,12 +504,12 @@ contract ERC900BasicStakeContract is ERC900 {
  * @title ERC900 Credits-based staking implementation
  * @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-900.md
  *
- * Notice that credits aren&#39;t lost when tokens are unstaked--only when credits are spent.
+ * Notice that credits aren't lost when tokens are unstaked--only when credits are spent.
  * This means that after the initial lock in duration expires, a user can re-stake those tokens
  *  for more credits.
- * Another important note: spendCredits can only be called by the contract&#39;s owner. This
+ * Another important note: spendCredits can only be called by the contract's owner. This
  *  is meant to be another smart contract. For example, the smart contract can offer call
- *  spendCredits to reduce a user&#39;s credit balance in place of spending real tokens.
+ *  spendCredits to reduce a user's credit balance in place of spending real tokens.
  */
 contract ERC900CreditsStakeContract is ERC900BasicStakeContract, Ownable {
 
@@ -518,7 +518,7 @@ contract ERC900CreditsStakeContract is ERC900BasicStakeContract, Ownable {
   mapping (address => uint256) public creditBalances;
 
   /**
-   * @dev Returns the balance of credits at a user&#39;s address.
+   * @dev Returns the balance of credits at a user's address.
    * @param _user address The address to check.
    * @return uint256 The credit balance.
    */
@@ -534,7 +534,7 @@ contract ERC900CreditsStakeContract is ERC900BasicStakeContract, Ownable {
 
   /**
    * @dev Spends credits for a user. Only callable by the owner. Reverts if the
-   *  user doesn&#39;t have enough credits.
+   *  user doesn't have enough credits.
    * @param _user address The address that owns the credits being spent.
    * @param _amount uint256 The number of credits to spend.
    */

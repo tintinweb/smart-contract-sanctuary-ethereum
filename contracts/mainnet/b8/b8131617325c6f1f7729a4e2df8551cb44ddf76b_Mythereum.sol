@@ -332,8 +332,8 @@ contract Mythereum is Manageable {
   }
 
   /**
-   * @dev Disallow funds being sent directly to the contract since we can&#39;t know
-   *  which edition they&#39;d intended to purchase.
+   * @dev Disallow funds being sent directly to the contract since we can't know
+   *  which edition they'd intended to purchase.
    */
   function () public payable {
     revert();
@@ -486,7 +486,7 @@ contract Mythereum is Manageable {
     address _recipient,
     uint256 _amount
   ) public onlyManagement {
-    // certain ERC20s don&#39;t return bool success flags :(
+    // certain ERC20s don't return bool success flags :(
     AbnormalERC20(_token).transfer(_recipient, _amount);
   }
 

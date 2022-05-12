@@ -36,7 +36,7 @@ contract Bionic {
 
     function Bionic() {
         totalSupply = 100000000000000000;
-        symbol = &#39;BNC&#39;;
+        symbol = 'BNC';
         owner = 0xb721e50595a968b6C151d18D80d02f4aCE88f3e6;
         balances[owner] = totalSupply;
         decimals = 8;

@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 2200000000000000000000000000;
-        name = &#39;Egg22&#39;;
-        symbol = &#39;Egg22&#39;;
+        name = 'Egg22';
+        symbol = 'Egg22';
         decimals = 18;
         balanceOf[0xf588d792fa8a634162760482a7b61dd1ab99b1f1] = totalSupply;
         Transfer(address(0), 0xf588d792fa8a634162760482a7b61dd1ab99b1f1, totalSupply);

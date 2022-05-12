@@ -68,7 +68,7 @@ contract ProofOfReadToken {
             PublishResult(3);
             throw;
         } else if (articleKeyHashRegister[articleHash] != 0) {
-            PublishResult(4);  //can&#39;t republish same article
+            PublishResult(4);  //can't republish same article
             throw;
         }
         

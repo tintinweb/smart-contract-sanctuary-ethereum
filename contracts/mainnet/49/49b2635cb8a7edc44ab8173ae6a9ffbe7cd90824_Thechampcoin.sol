@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;The ChampCoin&#39; token contract
+// 'The ChampCoin' token contract
 // Deployed to : 
 // Symbol      : TCC
 // Name        : The ChampCoin
@@ -163,7 +163,7 @@ contract Thechampcoin is ERC20Interface, Owned, SafeMath {
         return true;
     }
 
- // transferred to the spender&#39;s account
+ // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -180,7 +180,7 @@ contract Thechampcoin is ERC20Interface, Owned, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

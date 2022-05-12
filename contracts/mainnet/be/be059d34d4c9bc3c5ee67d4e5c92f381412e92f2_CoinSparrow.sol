@@ -75,8 +75,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -93,7 +93,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -279,7 +279,7 @@ contract Arbitrator is Ownable {
 
   function deleteArbitrator(address arbitrator) public onlyOwner {
     require(arbitrator != address(0));
-    require(arbitrator != msg.sender); //ensure owner isn&#39;t removed
+    require(arbitrator != msg.sender); //ensure owner isn't removed
     emit ArbitratorRemoved(arbitrator);
     delete aribitratorWhitelist[arbitrator];
   }
@@ -328,7 +328,7 @@ contract ApprovedWithdrawer is Ownable {
 
   function deleteApprovedWalletAddress(address walletAddress) public onlyOwner {
     require(walletAddress != address(0));
-    require(walletAddress != msg.sender); //ensure owner isn&#39;t removed
+    require(walletAddress != msg.sender); //ensure owner isn't removed
     emit WalletRemoved(walletAddress);
     delete withdrawerWhitelist[walletAddress];
   }
@@ -347,7 +347,7 @@ contract ApprovedWithdrawer is Ownable {
 
 contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
 
-  //Who wouldn&#39;t?
+  //Who wouldn't?
   using SafeMath for uint256;
 
   /**
@@ -356,7 +356,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
    * ------------------------------------
    */
 
-  //Some of these are not used in the contract, but are for reference and are used in the front-end&#39;s database.
+  //Some of these are not used in the contract, but are for reference and are used in the front-end's database.
   uint8 constant private STATUS_JOB_NOT_EXIST = 1; //Not used in contract. Here for reference (used externally)
   uint8 constant private STATUS_JOB_CREATED = 2; //Job has been created. Set by createJobEscrow()
   uint8 constant private STATUS_JOB_STARTED = 3; //Contractor flags job as started. Set by jobStarted()
@@ -427,7 +427,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
     // Set in createJobEscrow(). If the Contractor has not called jobStarted() within this time, then the hirer
     // can call hirerCancel() to get a full refund (minus gas fees)
     uint32 hirerCanCancelAfter;
-    //Job&#39;s current status (see STATUS_JOB_* constants above). Updated in multiple functions
+    //Job's current status (see STATUS_JOB_* constants above). Updated in multiple functions
     uint8 status;
     //timestamp for job completion. Set when jobCompleted() is called.
     uint32 jobCompleteDate;
@@ -451,7 +451,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
 
   /*
    * Set max limit for how much (in wei) contract will accept. Can be modified by owner using setMaxSend()
-   * This ensures that arbitrarily large amounts of ETH can&#39;t be sent.
+   * This ensures that arbitrarily large amounts of ETH can't be sent.
    * Front end will check this value before processing new jobs
    */
   uint256 private MAX_SEND;
@@ -465,7 +465,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
   mapping(bytes32 => JobEscrow) private jobEscrows;
 
   /*
-   * mapping of Hirer&#39;s funds in Escrow for each job.
+   * mapping of Hirer's funds in Escrow for each job.
    * This is referenced when any ETH transactions occur
    */
   mapping(address => mapping(bytes32 => uint256)) private hirerEscrowMap;
@@ -519,7 +519,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
 
   constructor(uint256 _maxSend) public {
     require(_maxSend > 0);
-    //a bit of protection. Set a limit, so users can&#39;t send stupid amounts of ETH
+    //a bit of protection. Set a limit, so users can't send stupid amounts of ETH
     MAX_SEND = _maxSend;
   }
 
@@ -549,9 +549,9 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
    * @param _value The ether amount being held in escrow. I.e. job cost - amount hirer is paying contractor
    * @param _fee CoinSparrow fee for this job. Pre-calculated
    * @param _jobStartedWindowInSeconds time within which the contractor must flag as job started
-   *                                   if job hasn&#39;t started AFTER this time, hirer can cancel contract.
+   *                                   if job hasn't started AFTER this time, hirer can cancel contract.
    *                                   Hirer cannot cancel contract before this time.
-   * @param _secondsToComplete agreed time to complete job once it&#39;s flagged as STATUS_JOB_STARTED
+   * @param _secondsToComplete agreed time to complete job once it's flagged as STATUS_JOB_STARTED
    */
   function createJobEscrow(
     bytes16 _jobId,
@@ -567,7 +567,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
     // Check sent eth against _value and also make sure is not 0
     require(msg.value == _value && msg.value > 0);
 
-    //CoinSparrow&#39;s Fee should be less than the Job Value, because anything else would be daft.
+    //CoinSparrow's Fee should be less than the Job Value, because anything else would be daft.
     require(_fee < _value);
 
     //Check the amount sent is below the acceptable threshold
@@ -602,7 +602,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
     //update total held in escrow
     totalInEscrow = totalInEscrow.add(msg.value);
 
-    //Update hirer&#39;s job => value mapping
+    //Update hirer's job => value mapping
     hirerEscrowMap[msg.sender][jobHash] = msg.value;
 
     //Let the world know.
@@ -674,7 +674,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
     //no longer required. Remove to save storage. Also prevents reentrancy
     delete hirerEscrowMap[msg.sender][jobHash];
 
-    //add to CoinSparrow&#39;s fee pool
+    //add to CoinSparrow's fee pool
     feesAvailableForWithdraw = feesAvailableForWithdraw.add(_fee);
 
     //update total in escrow
@@ -858,7 +858,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
 
   /**
    * @dev Flags job completed to inform hirer. Also sets flag to allow contractor to get their funds 4 weeks after
-   * completion in the event that the hirer is unresponsive and doesn&#39;t release the funds.
+   * completion in the event that the hirer is unresponsive and doesn't release the funds.
    * Can only be called the contractor when job complete.
    * Following parameters are used to regenerate the jobHash:
    * @param _jobId The unique ID of the job, from the CoinSparrow database
@@ -1299,7 +1299,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
   }
 
   /**
-   * @dev returns THIS contract instance&#39;s version
+   * @dev returns THIS contract instance's version
    * @return COINSPARROW_CONTRACT_VERSION version number of THIS instance of the contract
    */
 
@@ -1321,7 +1321,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
    * @param _contractor The wallet address of the contractor (selling) party
    * @param _value The ether amount being held in escrow. I.e. job cost - amount hirer is paying contractor
    * @param _fee CoinSparrow fee for this job. Pre-calculated
-   * @return status job&#39;s current status
+   * @return status job's current status
    */
 
   function getJobStatus(
@@ -1491,7 +1491,7 @@ contract CoinSparrow  is Ownable, Arbitrator, ApprovedWithdrawer, Pausable {
    * @param _contractor The wallet address of the contractor (selling) party
    * @param _value The ether amount being held in escrow. I.e. job cost - amount hirer is paying contractor
    * @param _fee CoinSparrow fee for this job. Pre-calculated
-   * @return amount job&#39;s value
+   * @return amount job's value
    */
 
   function getJobValue(

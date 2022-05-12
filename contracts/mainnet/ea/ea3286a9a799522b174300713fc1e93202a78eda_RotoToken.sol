@@ -79,7 +79,7 @@ contract StandardToken is ERC20 {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -239,7 +239,7 @@ contract RotoToken is StandardToken {
         @return - whether the contract was successfully set
     */
     function setManagerContract(address _contract) external onlyOwner returns(bool) {
-      //checks that the address sent isn&#39;t the 0 address, the owner or the token contract
+      //checks that the address sent isn't the 0 address, the owner or the token contract
       require(_contract!=address(0)&&_contract!=roto);
 
       // requires that the address sent be a contract
@@ -273,7 +273,7 @@ contract RotoToken is StandardToken {
 
     /**
         @dev - function called by manager contract to process the accounting aspects of the destroyRoto function
-        @param  _user address, the address of the user who&#39;s stake will be destroyed
+        @param  _user address, the address of the user who's stake will be destroyed
         @param _tournamentID identifier
         @return - a boolean value that reflects whether the roto were successfully destroyed
     */
@@ -311,7 +311,7 @@ contract RotoToken is StandardToken {
     /**
       @dev - called by the manager contract, used to reward non-staked submissions by users
       @param _user address, the address that will receive the rewarded ROTO
-      @param _value ROTO, the amount of ROTO that they&#39;ll be rewarded
+      @param _value ROTO, the amount of ROTO that they'll be rewarded
      */
     function rewardRoto(address _user, uint256 _value) external onlyManager returns(bool successful) {
       require(_user!=address(0));
@@ -326,7 +326,7 @@ contract RotoToken is StandardToken {
     /**
         @dev - to be called by the manager contract to check if a given user has enough roto to
             stake the given amount
-        @param  _user address, the address of the user who&#39;s attempting to stake ROTO
+        @param  _user address, the address of the user who's attempting to stake ROTO
         @param _value ROTO, the amount they are attempting to stake
         @return - whether the user has enough balance to stake the received amount
     */

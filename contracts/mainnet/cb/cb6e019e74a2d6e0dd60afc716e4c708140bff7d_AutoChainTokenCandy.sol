@@ -38,9 +38,9 @@ contract AutoChainTokenCandy is AutoChainTokenCandyInface {
     /* private variables of the token */
     uint256 private _localtotalSupply;		//总量
     string private _localname;                   //名称: eg Simon Bucks
-    uint8 private _localdecimals;               //最多的小数位数，How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 private _localdecimals;               //最多的小数位数，How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string private _localsymbol;               //token简称: eg SBX
-    string private _localversion = &#39;0.01&#39;;    //版本
+    string private _localversion = '0.01';    //版本
 
     address private _localowner; //存储合约owner
 
@@ -51,9 +51,9 @@ contract AutoChainTokenCandy is AutoChainTokenCandyInface {
         _localowner=msg.sender;		//储存合约的owner
         balances[msg.sender] = 50000000000; // 初始token数量给予消息发送者,需要增加小数点后的位数
         _localtotalSupply = 50000000000;         // 设置初始总量,需要增加小数点后的位数
-        _localname = &#39;AutoChainTokenCandy&#39;;                   // token名称
+        _localname = 'AutoChainTokenCandy';                   // token名称
         _localdecimals = 4;           // 小数位数
-        _localsymbol = &#39;ATCx&#39;;             // token简称
+        _localsymbol = 'ATCx';             // token简称
         
     }
 

@@ -211,7 +211,7 @@ contract ABIO is ERC223Interface{
     }
 
     /**
-     * @notice gives `_spender` allowance to spend `amount` from sender&#39;s balance.
+     * @notice gives `_spender` allowance to spend `amount` from sender's balance.
      **/
     function approve(address _spender, uint256 _amount) stopOnPause public returns (bool success){
         require(_spender != 0x0);

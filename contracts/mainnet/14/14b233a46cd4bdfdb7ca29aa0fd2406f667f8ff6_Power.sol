@@ -123,7 +123,7 @@ contract Power is Ownable, ERC20Basic {
   }
 
   function powerUp(address _holder, uint256 _value) public onlyOwner {
-    // NTZ transfered from user&#39;s balance to power pool
+    // NTZ transfered from user's balance to power pool
     Transfer(address(0), _holder, _value);
   }
 

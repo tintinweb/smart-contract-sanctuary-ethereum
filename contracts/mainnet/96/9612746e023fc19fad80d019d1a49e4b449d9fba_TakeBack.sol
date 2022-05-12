@@ -122,7 +122,7 @@ contract TakeBack is Ownable{
     }
 
     // _hashmessage = hash("${_user}${_nonce}${_value}")
-    // _v, _r, _s are from supervisor&#39;s signature on _hashmessage
+    // _v, _r, _s are from supervisor's signature on _hashmessage
     // claimRing(...) is invoked by the user who want to claim rings
     // while the _hashmessage is signed by supervisor
     function takeBack(uint256 _nonce, uint256 _value, bytes32 _hashmessage, uint8 _v, bytes32 _r, bytes32 _s) public {

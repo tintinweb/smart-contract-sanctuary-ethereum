@@ -143,7 +143,7 @@ contract Delegator is DelegationTarget {
     }
 
     function() external payable {
-        // Do nothing if we haven&#39;t properly set up the delegator to delegate calls
+        // Do nothing if we haven't properly set up the delegator to delegate calls
         if (controllerLookupName == 0) {
             return;
         }
@@ -156,7 +156,7 @@ contract Delegator is DelegationTarget {
             let _calldataMemoryOffset := mload(0x40)
             // new "memory end" including padding. The bitwise operations here ensure we get rounded up to the nearest 32 byte boundary
             let _size := and(add(calldatasize, 0x1f), not(0x1f))
-            // Update the pointer at 0x40 to point at new free memory location so any theoretical allocation doesn&#39;t stomp our memory in this call
+            // Update the pointer at 0x40 to point at new free memory location so any theoretical allocation doesn't stomp our memory in this call
             mstore(0x40, add(_calldataMemoryOffset, _size))
             // Copy method signature and parameters of this call into memory
             calldatacopy(_calldataMemoryOffset, 0x0, calldatasize)
@@ -169,7 +169,7 @@ contract Delegator is DelegationTarget {
             } default {
                 // If the call succeeded return the return data from the delegate call
                 let _returndataMemoryOffset := mload(0x40)
-                // Update the pointer at 0x40 again to point at new free memory location so any theoretical allocation doesn&#39;t stomp our memory in this call
+                // Update the pointer at 0x40 again to point at new free memory location so any theoretical allocation doesn't stomp our memory in this call
                 mstore(0x40, add(_returndataMemoryOffset, returndatasize))
                 returndatacopy(_returndataMemoryOffset, 0x0, returndatasize)
                 return(_returndataMemoryOffset, returndatasize)
@@ -220,7 +220,7 @@ library SafeMathUint256 {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -825,7 +825,7 @@ contract Universe is DelegationTarget, ITyped, Initializable, IUniverse {
         }
 
         // Modify the amount based on the previous amount and the number of markets fitting the failure criteria. We want the amount to be somewhere in the range of 0.5 to 2 times its previous value where ALL markets with the condition results in 2x and 0 results in 0.5x.
-        // Safe math div is redundant so we avoid here as we&#39;re at the stack limit.
+        // Safe math div is redundant so we avoid here as we're at the stack limit.
         if (_badMarkets <= _totalMarkets / _targetDivisor) {
             // FXP formula: previous_amount * actual_percent / (2 * target_percent) + 0.5;
             _newValue = _badMarkets

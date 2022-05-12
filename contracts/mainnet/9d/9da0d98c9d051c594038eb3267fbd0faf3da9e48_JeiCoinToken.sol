@@ -29,7 +29,7 @@ contract JeiCoinToken {
     string public name;
     string public symbol;
     uint8 public decimals; 
-    string public version = &#39;v1.5&#39;;
+    string public version = 'v1.5';
     uint256 public totalSupply;
     uint public price;
     bool public locked;
@@ -87,8 +87,8 @@ contract JeiCoinToken {
     // Token constructor
     constructor(address _root) {        
         locked = false;
-        name = &#39;JeiCoin Gold&#39;; 
-        symbol = &#39;JEIG&#39;; 
+        name = 'JeiCoin Gold'; 
+        symbol = 'JEIG'; 
         decimals = 18; 
         multiplier = 10 ** uint(decimals);
         totalSupply = 63000000 * multiplier; // 63,000,000 tokens

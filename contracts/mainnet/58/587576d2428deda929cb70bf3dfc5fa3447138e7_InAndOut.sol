@@ -8,7 +8,7 @@ pragma solidity ^0.4.24;
  * See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  * for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  * to avoid typos.
  */
 contract RBAC {
@@ -125,7 +125,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -278,7 +278,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove an address from the whitelist
    * @param _operator address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address _operator)
     onlyOwner
@@ -291,7 +291,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove addresses from the whitelist
    * @param _operators addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] _operators)
     onlyOwner
@@ -466,17 +466,17 @@ contract NoOwner is HasNoEther, HasNoTokens, HasNoContracts {
 
 /**
  * @title InAndOut
- * @dev InAndOut est un contract simulant le processus de vente d&#39;un bien immobilier.
- * Le propri&#233;taire du contrat (eg le notaire du vendeur) est charg&#233; de signifier l&#39;avancement du processus de vente
+ * @dev InAndOut est un contract simulant le processus de vente d'un bien immobilier.
+ * Le propri&#233;taire du contrat (eg le notaire du vendeur) est charg&#233; de signifier l'avancement du processus de vente
  * ainsi que de whitelister les diff&#233;rents intervenants qui pourront ancrer les documents n&#233;cessaires &#224; la vente.
- * Chacun peut librement suivre l&#39;avancement du processus.
+ * Chacun peut librement suivre l'avancement du processus.
  */
 contract InAndOut is Whitelist, NoOwner {
 
     /**
-     * Le propri&#233;taire du contrat trace le processus de vente en incr&#233;mentant la variable `processStep` de 0 jusqu&#39;&#224; 6 selon la table suivante
+     * Le propri&#233;taire du contrat trace le processus de vente en incr&#233;mentant la variable `processStep` de 0 jusqu'&#224; 6 selon la table suivante
      * Step 0: Initialisation
-     * Step 1: Remise d&#39;offres
+     * Step 1: Remise d'offres
      * Step 2: Due diligence
      * Step 3: N&#233;gociation
      * Step 4: P&#233;riode sous promesse
@@ -485,14 +485,14 @@ contract InAndOut is Whitelist, NoOwner {
      */
     uint8 public processStep;
 
-    // Mapping utilis&#233; pour ancrer l&#39;empreinte de documents lors du processus de vente
+    // Mapping utilis&#233; pour ancrer l'empreinte de documents lors du processus de vente
     mapping(bytes32 => bool) public anchors;
 
-    // &#201;v&#232;nement &#233;mis lors de l&#39;ancrage de documents
+    // &#201;v&#232;nement &#233;mis lors de l'ancrage de documents
     event NewAnchor(bytes32 merkleRoot);
 
     /**
-     * @dev Fonction appel&#233;s par le propri&#233;taire du contrat pour passer &#224; l&#39;&#233;tape suivante du processus de vente
+     * @dev Fonction appel&#233;s par le propri&#233;taire du contrat pour passer &#224; l'&#233;tape suivante du processus de vente
      */
     function goToNextStep() onlyOwner public {
         require(processStep < 6);
@@ -508,7 +508,7 @@ contract InAndOut is Whitelist, NoOwner {
     }
 
     /**
-     * @dev Sauvegarder un document ou un ensemble de documents identifi&#233;(s) par le hash de la racine de l&#39;arbre de Merkle associ&#233;
+     * @dev Sauvegarder un document ou un ensemble de documents identifi&#233;(s) par le hash de la racine de l'arbre de Merkle associ&#233;
      * @param _merkleRoot bytes32 Empreinte &#224; ancrer
      */
     function saveNewAnchor(bytes32 _merkleRoot) onlyIfWhitelisted(msg.sender) public {

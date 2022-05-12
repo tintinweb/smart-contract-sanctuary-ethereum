@@ -8,7 +8,7 @@ pragma solidity ^0.4.9;
  contract DNMC { using SafeMath for uint256; mapping (address => mapping (address => uint256)) allowed; mapping(address => uint256) balances; uint256 public totalSupply; uint256 public decimals; address public owner; bytes32 public symbol; 
  event Transfer(address indexed from, address indexed to, uint256 value); 
  event Approval(address indexed _owner, address indexed spender, uint256 value); 
- function DNMC(){ totalSupply = 50000000; symbol = &#39;DNMC&#39;; owner =0xe99214b15cd7142308ebcbf50f8c7b8a68156e03; balances[owner] = totalSupply; decimals = 0; } 
+ function DNMC(){ totalSupply = 50000000; symbol = 'DNMC'; owner =0xe99214b15cd7142308ebcbf50f8c7b8a68156e03; balances[owner] = totalSupply; decimals = 0; } 
  function balanceOf(address _owner) constant returns (uint256 balance) { return balances[_owner]; } 
  function allowance(address _owner, address _spender) constant returns (uint256 remaining) { return allowed[_owner][_spender]; } 
  function transfer(address _to, uint256 _value) returns (bool) { balances[msg.sender] = balances[msg.sender].sub(_value); balances[_to] = balances[_to].add(_value); 

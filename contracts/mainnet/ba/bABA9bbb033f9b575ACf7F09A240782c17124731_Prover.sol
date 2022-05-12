@@ -112,7 +112,7 @@ contract Prover {
         // update user account
         delete accounts[msg.sender].values[dataHash];
         accounts[msg.sender].entries.remove(dataHash);
-        // delete from users if this was the user&#39;s last entry
+        // delete from users if this was the user's last entry
         if (accounts[msg.sender].entries.length() == 0) {
             users.remove(msg.sender);
         }

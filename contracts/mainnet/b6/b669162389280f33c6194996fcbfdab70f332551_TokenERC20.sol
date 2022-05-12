@@ -33,8 +33,8 @@ contract TokenERC20 {
     ) public {
         uint256 initialSupply = 68072143;
         totalSupply = initialSupply * 10 ** uint256(decimals);
-        name = &#39;Pool of Stake&#39;;
-        symbol = &#39;PSK&#39;;
+        name = 'Pool of Stake';
+        symbol = 'PSK';
 
         // Init balances
         balanceOf[0x8b89dc977c1d4e1b78803342487decee0a2ba02c]=378000000000000000000000;
@@ -307,7 +307,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;

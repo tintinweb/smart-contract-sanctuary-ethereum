@@ -69,7 +69,7 @@ contract DelegatedTransferOperatorV4 {
     * 1. If _to is address(0), the tx will fail when doSend().
     * 2. If _delegate == address(0), then anyone can be the delegate.
     * 3. _nonce must be greater than the last used nonce by the token holder,
-    *    but nonces don&#39;t have to be serial numbers.
+    *    but nonces don't have to be serial numbers.
     *    We recommend using unix time as nonce.
     * 4. _sig_v should be 27 or 28.
     */

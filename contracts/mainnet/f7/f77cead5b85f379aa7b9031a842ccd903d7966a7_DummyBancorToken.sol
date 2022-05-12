@@ -63,7 +63,7 @@ contract BancorFormula is SafeMath {
     uint256 constant ONE = 1;
     uint256 constant TWO = 2;
     uint256 constant MAX_FIXED_EXP_32 = 0x386bfdba29;
-    string public version = &#39;0.2&#39;;
+    string public version = '0.2';
 
     function BancorFormula() {
     }
@@ -155,7 +155,7 @@ contract BancorFormula is SafeMath {
         The larger the precision is, the more accurately this value represents the real value.
         However, function fixedExpUnsafe(x), which calculates e ^ x, is limited to a maximum value of x.
         The limit depends on the precision (e.g, for precision = 32, the maximum value of x is MAX_FIXED_EXP_32).
-        Hence before calling the &#39;power&#39; function, we need to estimate an upper-bound for ln(base) * exponent.
+        Hence before calling the 'power' function, we need to estimate an upper-bound for ln(base) * exponent.
         Of course, we should later assert that the value passed to fixedExpUnsafe is not larger than MAX_FIXED_EXP(precision).
         Due to this assertion (made in function fixedExp), functions calculateBestPrecision and fixedExp are tightly coupled.
         Note that the outcome of this function only affects the accuracy of the computation of "base ^ exp".
@@ -184,7 +184,7 @@ contract BancorFormula is SafeMath {
     function power(uint256 _baseN, uint256 _baseD, uint256 _expN, uint256 _expD, uint8 _precision) constant returns (uint256) {
         uint256 logbase = ln(_baseN, _baseD, _precision);
         // Not using safeDiv here, since safeDiv protects against
-        // precision loss. It&#39;s unavoidable, however
+        // precision loss. It's unavoidable, however
         // Both `ln` and `fixedExp` are overflow-safe. 
         return fixedExp(safeMul(logbase, _expN) / _expD, _precision);
     }
@@ -247,7 +247,7 @@ contract BancorFormula is SafeMath {
 
         Since `fixedLog2_min` output range is max `0xdfffffffff` 
         (40 bits, or 5 bytes), we can use a very large approximation
-        for `ln(2)`. This one is used since it&#39;s the max accuracy 
+        for `ln(2)`. This one is used since it's the max accuracy 
         of Python `ln(2)`
 
         0xb17217f7d1cf78 = ln(2) * (1 << 56)
@@ -319,7 +319,7 @@ contract BancorFormula is SafeMath {
     }
 
     /**
-        fixedExp is a &#39;protected&#39; version of `fixedExpUnsafe`, which asserts instead of overflows.
+        fixedExp is a 'protected' version of `fixedExpUnsafe`, which asserts instead of overflows.
         The maximum value which can be passed to fixedExpUnsafe depends on the precision used.
         The following array maps each precision between 0 and 63 to the maximum value permitted:
         maxExpArray = {
@@ -483,9 +483,9 @@ contract BancorFormula is SafeMath {
 
 contract BasicERC20Token {
     /* Public variables of the token */
-    string public standard = &#39;Token 0.1&#39;;
-    string public name = &#39;Ivan\&#39;s Trackable Token&#39;;
-    string public symbol = &#39;ITT&#39;;
+    string public standard = 'Token 0.1';
+    string public name = 'Ivan\'s Trackable Token';
+    string public symbol = 'ITT';
     uint8 public decimals = 18;
     uint256 public totalSupply = 0;
 
@@ -499,8 +499,8 @@ contract BasicERC20Token {
     event BalanceCheck(uint256 balance);
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -564,9 +564,9 @@ contract BasicERC20Token {
 
 contract DummyBancorToken is BasicERC20Token, BancorFormula {
 
-    string public standard = &#39;Token 0.1&#39;;
-    string public name = &#39;Dummy Constant Reserve Rate Token&#39;;
-    string public symbol = &#39;DBT&#39;;
+    string public standard = 'Token 0.1';
+    string public name = 'Dummy Constant Reserve Rate Token';
+    string public symbol = 'DBT';
     uint8 public decimals = 18;
     uint256 public totalSupply = 0;
 
@@ -577,7 +577,7 @@ contract DummyBancorToken is BasicERC20Token, BancorFormula {
     event Deposit(address indexed sender);
     event Withdraw(uint256 amount);
 
-    /* I can&#39;t make MyEtherWallet send payments as part of constructor calls
+    /* I can't make MyEtherWallet send payments as part of constructor calls
      * while creating contracts. So instead of implementing a constructor,
      * we follow the SetUp/TearDown paradigm */
     function setUp(uint256 _initialSupply) payable {

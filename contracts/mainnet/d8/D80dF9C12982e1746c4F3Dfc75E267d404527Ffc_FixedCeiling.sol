@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -62,7 +62,7 @@ contract CeilingStrategy {
    * @param _value - What is the value of the transaction sent in as wei.
    * @param _weiRaised - How much money has been raised so far.
    * @param _weiInvestedBySender - the investment made by the address that is sending the transaction.
-   * @param _weiFundingCap - the caller&#39;s declared total cap. May be reinterpreted by the implementation of the CeilingStrategy.
+   * @param _weiFundingCap - the caller's declared total cap. May be reinterpreted by the implementation of the CeilingStrategy.
    * @return Amount of wei the crowdsale can receive.
    */
   function weiAllowedToReceive(uint _value, uint _weiRaised, uint _weiInvestedBySender, uint _weiFundingCap) public constant returns (uint amount);
@@ -112,7 +112,7 @@ contract FixedCeiling is CeilingStrategy {
         return weiFundingCap > 0 && weiRaised >= weiFundingCap;
     }
 
-    /* If the new target cap has not been reached yet, it&#39;s fine as it is */
+    /* If the new target cap has not been reached yet, it's fine as it is */
     function relaxFundingCap(uint newCap, uint weiRaised) public constant returns (uint) {
         if (newCap > weiRaised) return newCap;
         else return weiRaised.div(chunkedWeiMultiple).add(1).mul(chunkedWeiMultiple);

@@ -45,7 +45,7 @@ contract SixthBountyWPTpayoutPart01 {
   }
 
 
-  /// @dev Fallback function: don&#39;t accept ETH
+  /// @dev Fallback function: don't accept ETH
   function()
     public
     payable

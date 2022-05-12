@@ -153,7 +153,7 @@ contract Validator is Ownable, EmergencySafe, Upgradeable{
 
   /**
    * @dev adds validated contract
-   * @param addr Address of contract that&#39;s validated
+   * @param addr Address of contract that's validated
    */
   function add(address addr) public ownerOnly {
     valid_contracts[addr] = true;
@@ -250,7 +250,7 @@ contract IXTPaymentContract is Ownable, EmergencySafe, Upgradeable{
 
   /**
    * @dev retrieves price for action
-   * @param action Name of action, e.g. &#39;create_insurance_contract&#39;
+   * @param action Name of action, e.g. 'create_insurance_contract'
    */
   function getActionPrice(string action) public view returns (uint) {
     return actionPrices[action];

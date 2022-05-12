@@ -1,6 +1,6 @@
 contract erc20CTH {
     /* Public variables of the token */
-    string public standard = &#39;CTH 1.0&#39;;
+    string public standard = 'CTH 1.0';
     string public name;
     string public symbol;
     uint8 public decimals;

@@ -187,8 +187,8 @@ return super.decreaseApproval(_spender, _subtractedValue);
 }
 
 contract Uptrennd is StandardToken, PausableToken {
-   string public constant name = &#39;Uptrennd&#39;;                                      // Set the token name for display
-   string public constant symbol = &#39;1UP&#39;;                                       // Set the token symbol for display
+   string public constant name = 'Uptrennd';                                      // Set the token name for display
+   string public constant symbol = '1UP';                                       // Set the token symbol for display
    uint8 public constant decimals = 18;                                          // Set the number of decimals for display
    uint256 public constant INITIAL_SUPPLY = 10000000000 * 1**uint256(decimals);  // 50 billions 
 

@@ -10,8 +10,8 @@ library SafeMath {
 	 * @dev Multiplies two numbers, throws on overflow.
 	 */
 	function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-		// Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-		// benefit is lost if &#39;b&#39; is also tested.
+		// Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+		// benefit is lost if 'b' is also tested.
 		// See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
 		if (a == 0) {
 			return 0;
@@ -28,7 +28,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b) internal pure returns (uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		// uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return a / b;
 	}
 
@@ -240,7 +240,7 @@ contract TokenERC20 {
 		require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
 		require(_value <= allowance[_from][msg.sender]);    // Check allowance
 		balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-		allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+		allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
 		totalSupply -= _value;                              // Update totalSupply
 		emit Burn(_from, _value);
 		return true;
@@ -426,9 +426,9 @@ contract TAO {
 
 	address public vaultAddress;
 	string public name;				// the name for this TAO
-	address public originId;		// the ID of the Name that created this TAO. If Name, it&#39;s the eth address
+	address public originId;		// the ID of the Name that created this TAO. If Name, it's the eth address
 
-	// TAO&#39;s data
+	// TAO's data
 	string public datHash;
 	string public database;
 	string public keyValue;
@@ -529,7 +529,7 @@ contract Position is TheAO {
 	// Mapping from Name ID to its total available balance
 	mapping (address => uint256) public balanceOf;
 
-	// Mapping from Name&#39;s TAO ID to its staked amount
+	// Mapping from Name's TAO ID to its staked amount
 	mapping (address => mapping(address => uint256)) public taoStakedBalance;
 
 	// Mapping from TAO ID to its total staked amount
@@ -635,7 +635,7 @@ contract Position is TheAO {
 	}
 
 	/**
-	 * @dev Unstake `_value` tokens from `_nameId`&#39;s `_taoId`
+	 * @dev Unstake `_value` tokens from `_nameId`'s `_taoId`
 	 * @param _nameId The Name ID that wants to unstake
 	 * @param _taoId The TAO ID to unstake
 	 * @param _value The amount to unstake
@@ -1030,7 +1030,7 @@ contract NamePublicKey {
 
 		PublicKey storage _publicKey = publicKeys[_id];
 
-		// Can&#39;t remove default key
+		// Can't remove default key
 		require (_key != _publicKey.defaultKey);
 		require (_publicKey.keys.length > 1);
 
@@ -1122,7 +1122,7 @@ contract NameFactory is TheAO {
 	}
 
 	/**
-	 * @dev Checks if calling address can update Name&#39;s nonce
+	 * @dev Checks if calling address can update Name's nonce
 	 */
 	modifier canUpdateNonce {
 		require (msg.sender == nameTAOPositionAddress || msg.sender == namePublicKeyAddress);
@@ -1195,7 +1195,7 @@ contract NameFactory is TheAO {
 	/**
 	 * @dev Create a Name
 	 * @param _name The name of the Name
-	 * @param _datHash The datHash to this Name&#39;s profile
+	 * @param _datHash The datHash to this Name's profile
 	 * @param _database The database for this Name
 	 * @param _keyValue The key/value pair to be checked on the database
 	 * @param _contentId The contentId related to this Name
@@ -1216,7 +1216,7 @@ contract NameFactory is TheAO {
 		ethAddressToNameId[msg.sender] = nameId;
 
 		// Store the name lookup information
-		require (_nameTAOLookup.add(_name, nameId, &#39;human&#39;, 1));
+		require (_nameTAOLookup.add(_name, nameId, 'human', 1));
 
 		// Store the Advocate/Listener/Speaker information
 		require (_nameTAOPosition.add(nameId, nameId, nameId, nameId));
@@ -1236,7 +1236,7 @@ contract NameFactory is TheAO {
 	 * @dev Get Name information
 	 * @param _nameId The ID of the Name to be queried
 	 * @return The name of the Name
-	 * @return The originId of the Name (in this case, it&#39;s the creator node&#39;s ETH address)
+	 * @return The originId of the Name (in this case, it's the creator node's ETH address)
 	 * @return The datHash of the Name
 	 * @return The database of the Name
 	 * @return The keyValue of the Name
@@ -1287,7 +1287,7 @@ contract NameFactory is TheAO {
 	/**
 	 * @dev Check whether or not the signature is valid
 	 * @param _data The signed string data
-	 * @param _nonce The signed uint256 nonce (should be Name&#39;s current nonce + 1)
+	 * @param _nonce The signed uint256 nonce (should be Name's current nonce + 1)
 	 * @param _validateAddress The ETH address to be validated (optional)
 	 * @param _name The name of the Name
 	 * @param _signatureV The V part of the signature
@@ -1332,10 +1332,10 @@ contract NameFactory is TheAO {
  * This contract stores all AO string setting variables
  */
 contract AOStringSetting is TheAO {
-	// Mapping from settingId to it&#39;s actual string value
+	// Mapping from settingId to it's actual string value
 	mapping (uint256 => string) public settingValue;
 
-	// Mapping from settingId to it&#39;s potential string value that is at pending state
+	// Mapping from settingId to it's potential string value that is at pending state
 	mapping (uint256 => string) public pendingValue;
 
 	/**
@@ -1413,10 +1413,10 @@ contract AOStringSetting is TheAO {
  * This contract stores all AO bytes32 setting variables
  */
 contract AOBytesSetting is TheAO {
-	// Mapping from settingId to it&#39;s actual bytes32 value
+	// Mapping from settingId to it's actual bytes32 value
 	mapping (uint256 => bytes32) public settingValue;
 
-	// Mapping from settingId to it&#39;s potential bytes32 value that is at pending state
+	// Mapping from settingId to it's potential bytes32 value that is at pending state
 	mapping (uint256 => bytes32) public pendingValue;
 
 	/**
@@ -1494,10 +1494,10 @@ contract AOBytesSetting is TheAO {
  * This contract stores all AO address setting variables
  */
 contract AOAddressSetting is TheAO {
-	// Mapping from settingId to it&#39;s actual address value
+	// Mapping from settingId to it's actual address value
 	mapping (uint256 => address) public settingValue;
 
-	// Mapping from settingId to it&#39;s potential address value that is at pending state
+	// Mapping from settingId to it's potential address value that is at pending state
 	mapping (uint256 => address) public pendingValue;
 
 	/**
@@ -1575,10 +1575,10 @@ contract AOAddressSetting is TheAO {
  * This contract stores all AO bool setting variables
  */
 contract AOBoolSetting is TheAO {
-	// Mapping from settingId to it&#39;s actual bool value
+	// Mapping from settingId to it's actual bool value
 	mapping (uint256 => bool) public settingValue;
 
-	// Mapping from settingId to it&#39;s potential bool value that is at pending state
+	// Mapping from settingId to it's potential bool value that is at pending state
 	mapping (uint256 => bool) public pendingValue;
 
 	/**
@@ -1656,10 +1656,10 @@ contract AOBoolSetting is TheAO {
  * This contract stores all AO uint256 setting variables
  */
 contract AOUintSetting is TheAO {
-	// Mapping from settingId to it&#39;s actual uint256 value
+	// Mapping from settingId to it's actual uint256 value
 	mapping (uint256 => uint256) public settingValue;
 
-	// Mapping from settingId to it&#39;s potential uint256 value that is at pending state
+	// Mapping from settingId to it's potential uint256 value that is at pending state
 	mapping (uint256 => uint256) public pendingValue;
 
 	/**
@@ -1775,7 +1775,7 @@ contract AOSettingAttribute is TheAO {
 
 		/**
 		 * Signature of the proposalTAOId and update value by the associatedTAOId
-		 * Advocate&#39;s Name&#39;s address.
+		 * Advocate's Name's address.
 		 */
 		string updateSignature;
 
@@ -1834,13 +1834,13 @@ contract AOSettingAttribute is TheAO {
 		uint256 settingId;									// The Setting ID created from the TAO ID
 	}
 
-	// Mapping from settingId to it&#39;s data
+	// Mapping from settingId to it's data
 	mapping (uint256 => SettingData) internal settingDatas;
 
-	// Mapping from settingId to it&#39;s state
+	// Mapping from settingId to it's state
 	mapping (uint256 => SettingState) internal settingStates;
 
-	// Mapping from settingId to it&#39;s deprecation info
+	// Mapping from settingId to it's deprecation info
 	mapping (uint256 => SettingDeprecation) internal settingDeprecations;
 
 	// Mapping from associatedTAOSettingId to AssociatedTAOSetting
@@ -1973,7 +1973,7 @@ contract AOSettingAttribute is TheAO {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _associatedTAOId approves setting creation
+	 * @dev Advocate of Setting's _associatedTAOId approves setting creation
 	 * @param _settingId The ID of the setting to approve
 	 * @param _associatedTAOAdvocate The advocate of the associated TAO
 	 * @param _approved Whether to approve or reject
@@ -2003,7 +2003,7 @@ contract AOSettingAttribute is TheAO {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _creatorTAOId finalizes the setting creation once the setting is approved
+	 * @dev Advocate of Setting's _creatorTAOId finalizes the setting creation once the setting is approved
 	 * @param _settingId The ID of the setting to be finalized
 	 * @param _creatorTAOAdvocate The advocate of the creator TAO
 	 * @return true on success
@@ -2030,7 +2030,7 @@ contract AOSettingAttribute is TheAO {
 	 * @dev Store setting update data
 	 * @param _settingId The ID of the setting to be updated
 	 * @param _settingType The type of this setting
-	 * @param _associatedTAOAdvocate The setting&#39;s associatedTAOId&#39;s advocate&#39;s name address
+	 * @param _associatedTAOAdvocate The setting's associatedTAOId's advocate's name address
 	 * @param _proposalTAOId The child of the associatedTAOId with the update Logos
 	 * @param _updateSignature A signature of the proposalTAOId and update value by _associatedTAOAdvocate
 	 * @param _extraData Catch-all string value to be stored if exist
@@ -2087,7 +2087,7 @@ contract AOSettingAttribute is TheAO {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s proposalTAOId approves the setting update
+	 * @dev Advocate of Setting's proposalTAOId approves the setting update
 	 * @param _settingId The ID of the setting to be approved
 	 * @param _proposalTAOAdvocate The advocate of the proposal TAO
 	 * @param _approved Whether to approve or reject
@@ -2118,7 +2118,7 @@ contract AOSettingAttribute is TheAO {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _associatedTAOId finalizes the setting update once the setting is approved
+	 * @dev Advocate of Setting's _associatedTAOId finalizes the setting update once the setting is approved
 	 * @param _settingId The ID of the setting to be finalized
 	 * @param _associatedTAOAdvocate The advocate of the associated TAO
 	 * @return true on success
@@ -2231,7 +2231,7 @@ contract AOSettingAttribute is TheAO {
 	}
 
 	/**
-	 * @dev Advocate of SettingDeprecation&#39;s _associatedTAOId approves deprecation
+	 * @dev Advocate of SettingDeprecation's _associatedTAOId approves deprecation
 	 * @param _settingId The ID of the setting to approve
 	 * @param _associatedTAOAdvocate The advocate of the associated TAO
 	 * @param _approved Whether to approve or reject
@@ -2261,7 +2261,7 @@ contract AOSettingAttribute is TheAO {
 	}
 
 	/**
-	 * @dev Advocate of SettingDeprecation&#39;s _creatorTAOId finalizes the deprecation once the setting deprecation is approved
+	 * @dev Advocate of SettingDeprecation's _creatorTAOId finalizes the deprecation once the setting deprecation is approved
 	 * @param _settingId The ID of the setting to be finalized
 	 * @param _creatorTAOAdvocate The advocate of the creator TAO
 	 * @return true on success
@@ -2673,7 +2673,7 @@ contract AOToken is AOTokenInterface {
 	mapping (address => uint256) public primordialBalanceOf;
 	mapping (address => mapping (address => uint256)) public primordialAllowance;
 
-	// Mapping from owner&#39;s lot weighted multiplier to the amount of staked tokens
+	// Mapping from owner's lot weighted multiplier to the amount of staked tokens
 	mapping (address => mapping (uint256 => uint256)) public primordialStakedBalance;
 
 	event PrimordialTransfer(address indexed from, address indexed to, uint256 value);
@@ -2737,7 +2737,7 @@ contract AOToken is AOTokenInterface {
 	// Mapping from owner to his/her current weighted multiplier
 	mapping (address => uint256) internal ownerWeightedMultiplier;
 
-	// Mapping from owner to his/her max multiplier (multiplier of account&#39;s first Lot)
+	// Mapping from owner to his/her max multiplier (multiplier of account's first Lot)
 	mapping (address => uint256) internal ownerMaxMultiplier;
 
 	// Event to be broadcasted to public when a lot is created
@@ -2805,7 +2805,7 @@ contract AOToken is AOTokenInterface {
 	function stakePrimordialTokenFrom(address _from, uint256 _value, uint256 _weightedMultiplier) public inWhitelist returns (bool) {
 		// Check if the targeted balance is enough
 		require (primordialBalanceOf[_from] >= _value);
-		// Make sure the weighted multiplier is the same as account&#39;s current weighted multiplier
+		// Make sure the weighted multiplier is the same as account's current weighted multiplier
 		require (_weightedMultiplier == ownerWeightedMultiplier[_from]);
 		// Subtract from the targeted balance
 		primordialBalanceOf[_from] = primordialBalanceOf[_from].sub(_value);
@@ -2956,7 +2956,7 @@ contract AOToken is AOTokenInterface {
 
 	/**
 	 * @dev Remove `_value` Primordial tokens from the system irreversibly
-	 *		and re-weight the account&#39;s multiplier after burn
+	 *		and re-weight the account's multiplier after burn
 	 * @param _value The amount to burn
 	 * @return true on success
 	 */
@@ -2964,7 +2964,7 @@ contract AOToken is AOTokenInterface {
 		require (primordialBalanceOf[msg.sender] >= _value);
 		require (calculateMaximumBurnAmount(msg.sender) >= _value);
 
-		// Update the account&#39;s multiplier
+		// Update the account's multiplier
 		ownerWeightedMultiplier[msg.sender] = calculateMultiplierAfterBurn(msg.sender, _value);
 		primordialBalanceOf[msg.sender] = primordialBalanceOf[msg.sender].sub(_value);
 		primordialTotalSupply = primordialTotalSupply.sub(_value);
@@ -2977,7 +2977,7 @@ contract AOToken is AOTokenInterface {
 
 	/**
 	 * @dev Remove `_value` Primordial tokens from the system irreversibly on behalf of `_from`
-	 *		and re-weight `_from`&#39;s multiplier after burn
+	 *		and re-weight `_from`'s multiplier after burn
 	 * @param _from The address of sender
 	 * @param _value The amount to burn
 	 * @return true on success
@@ -2987,7 +2987,7 @@ contract AOToken is AOTokenInterface {
 		require (primordialAllowance[_from][msg.sender] >= _value);
 		require (calculateMaximumBurnAmount(_from) >= _value);
 
-		// Update `_from`&#39;s multiplier
+		// Update `_from`'s multiplier
 		ownerWeightedMultiplier[_from] = calculateMultiplierAfterBurn(_from, _value);
 		primordialBalanceOf[_from] = primordialBalanceOf[_from].sub(_value);
 		primordialAllowance[_from][msg.sender] = primordialAllowance[_from][msg.sender].sub(_value);
@@ -3151,7 +3151,7 @@ contract AOToken is AOTokenInterface {
 	}
 
 	/**
-	 * @dev Calculate account&#39;s new multiplier after burn `_amountToBurn` primordial tokens
+	 * @dev Calculate account's new multiplier after burn `_amountToBurn` primordial tokens
 	 * @param _account The address of the account
 	 * @param _amountToBurn The amount of primordial token to burn
 	 * @return The new multiplier in (10 ** 6)
@@ -3162,7 +3162,7 @@ contract AOToken is AOTokenInterface {
 	}
 
 	/**
-	 * @dev Calculate account&#39;s new multiplier after converting `amountToConvert` network token to primordial token
+	 * @dev Calculate account's new multiplier after converting `amountToConvert` network token to primordial token
 	 * @param _account The address of the account
 	 * @param _amountToConvert The amount of network token to convert
 	 * @return The new multiplier in (10 ** 6)
@@ -3173,14 +3173,14 @@ contract AOToken is AOTokenInterface {
 
 	/**
 	 * @dev Convert `_value` of network tokens to primordial tokens
-	 *		and re-weight the account&#39;s multiplier after conversion
+	 *		and re-weight the account's multiplier after conversion
 	 * @param _value The amount to convert
 	 * @return true on success
 	 */
 	function convertToPrimordial(uint256 _value) public returns (bool success) {
 		require (balanceOf[msg.sender] >= _value);
 
-		// Update the account&#39;s multiplier
+		// Update the account's multiplier
 		ownerWeightedMultiplier[msg.sender] = calculateMultiplierAfterConversion(msg.sender, _value);
 		// Burn network token
 		burn(_value);
@@ -3326,8 +3326,8 @@ contract AOToken is AOTokenInterface {
 		primordialTotalBought = primordialTotalBought.add(tokenAmount);
 		_createPrimordialLot(to, tokenAmount, multiplier, networkTokenBonusAmount);
 
-		// Calculate The AO and AO Dev Team&#39;s portion of Primordial and Network Token Bonus
-		uint256 inverseMultiplier = startingPrimordialMultiplier.sub(multiplier); // Inverse of the buyer&#39;s multiplier
+		// Calculate The AO and AO Dev Team's portion of Primordial and Network Token Bonus
+		uint256 inverseMultiplier = startingPrimordialMultiplier.sub(multiplier); // Inverse of the buyer's multiplier
 		uint256 theAONetworkTokenBonusAmount = (startingNetworkTokenBonusMultiplier.sub(networkTokenBonusPercentage).add(endingNetworkTokenBonusMultiplier)).mul(tokenAmount).div(AOLibrary.PERCENTAGE_DIVISOR());
 		if (aoDevTeam1 != address(0)) {
 			_createPrimordialLot(aoDevTeam1, tokenAmount.div(2), inverseMultiplier, theAONetworkTokenBonusAmount.div(2));
@@ -3466,11 +3466,11 @@ contract AOToken is AOTokenInterface {
 	 * @return endingNetworkTokenBonusMultiplier The ending multiplier used to calculate network token bonus
 	 */
 	function _getSettingVariables() internal view returns (uint256, uint256, uint256, uint256) {
-		(uint256 startingPrimordialMultiplier,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;startingPrimordialMultiplier&#39;);
-		(uint256 endingPrimordialMultiplier,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;endingPrimordialMultiplier&#39;);
+		(uint256 startingPrimordialMultiplier,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'startingPrimordialMultiplier');
+		(uint256 endingPrimordialMultiplier,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'endingPrimordialMultiplier');
 
-		(uint256 startingNetworkTokenBonusMultiplier,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;startingNetworkTokenBonusMultiplier&#39;);
-		(uint256 endingNetworkTokenBonusMultiplier,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;endingNetworkTokenBonusMultiplier&#39;);
+		(uint256 startingNetworkTokenBonusMultiplier,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'startingNetworkTokenBonusMultiplier');
+		(uint256 endingNetworkTokenBonusMultiplier,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'endingNetworkTokenBonusMultiplier');
 
 		return (startingPrimordialMultiplier, endingPrimordialMultiplier, startingNetworkTokenBonusMultiplier, endingNetworkTokenBonusMultiplier);
 	}
@@ -3719,7 +3719,7 @@ contract AOTreasury is TheAO {
 
 	/**
 	 * @dev convert token from `denominationName` denomination to base denomination,
-	 *		in this case it&#39;s similar to web3.toWei() functionality
+	 *		in this case it's similar to web3.toWei() functionality
 	 *
 	 * Example:
 	 * 9.1 Kilo should be entered as 9 integerAmount and 100 fractionAmount
@@ -3753,7 +3753,7 @@ contract AOTreasury is TheAO {
 
 	/**
 	 * @dev convert token from base denomination to `denominationName` denomination,
-	 *		in this case it&#39;s similar to web3.fromWei() functionality
+	 *		in this case it's similar to web3.fromWei() functionality
 	 * @param integerAmount uint256 of the base amount to be converted
 	 * @param denominationName bytes8 name of the target token denomination
 	 * @return uint256 of the converted integer amount in target denomination
@@ -4132,7 +4132,7 @@ contract TAOFamily is TAOController {
 		Child storage _child = _family.children[_family.childInternalId];
 		_child.taoId = _childId;
 
-		// If _taoId&#39;s Advocate == _childId&#39;s Advocate, then the child is automatically approved and connected
+		// If _taoId's Advocate == _childId's Advocate, then the child is automatically approved and connected
 		// Otherwise, child TAO needs parent TAO approval
 		address _taoAdvocate = _nameTAOPosition.getAdvocate(_taoId);
 		address _childAdvocate = _nameTAOPosition.getAdvocate(_childId);
@@ -4231,7 +4231,7 @@ contract TAOFamily is TAOController {
 		return _childIds;
 	}
 }
-			// Store TAO&#39;s child information
+			// Store TAO's child information
 
 
 
@@ -4284,7 +4284,7 @@ contract TAOFactory is TheAO, TAOController {
 	}
 
 	/**
-	 * @dev Checks if calling address can update TAO&#39;s nonce
+	 * @dev Checks if calling address can update TAO's nonce
 	 */
 	modifier canUpdateNonce {
 		require (msg.sender == nameTAOPositionAddress || msg.sender == taoFamilyAddress);
@@ -4452,7 +4452,7 @@ contract TAOFactory is TheAO, TAOController {
 	/**
 	 * @dev Check whether or not the signature is valid
 	 * @param _data The signed string data
-	 * @param _nonce The signed uint256 nonce (should be TAO&#39;s current nonce + 1)
+	 * @param _nonce The signed uint256 nonce (should be TAO's current nonce + 1)
 	 * @param _validateAddress The ETH address to be validated (optional)
 	 * @param _name The Name of the TAO
 	 * @param _signatureV The V part of the signature
@@ -4522,7 +4522,7 @@ contract TAOFactory is TheAO, TAOController {
 	 * @return createChildTAOMinLogos The minimum required Logos to create a TAO
 	 */
 	function _getSettingVariables() internal view returns (uint256) {
-		(uint256 createChildTAOMinLogos,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;createChildTAOMinLogos&#39;);
+		(uint256 createChildTAOMinLogos,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'createChildTAOMinLogos');
 		return createChildTAOMinLogos;
 	}
 }
@@ -4748,7 +4748,7 @@ contract NameTAOPosition is TheAO {
 	}
 
 	/**
-	 * @dev Get Name/TAO&#39;s Position info
+	 * @dev Get Name/TAO's Position info
 	 * @param _id The ID of the Name/TAO
 	 * @return the Advocate ID of Name/TAO
 	 * @return the Listener ID of Name/TAO
@@ -4765,7 +4765,7 @@ contract NameTAOPosition is TheAO {
 	}
 
 	/**
-	 * @dev Get Name/TAO&#39;s Advocate
+	 * @dev Get Name/TAO's Advocate
 	 * @param _id The ID of the Name/TAO
 	 * @return the Advocate ID of Name/TAO
 	 */
@@ -4776,7 +4776,7 @@ contract NameTAOPosition is TheAO {
 	}
 
 	/**
-	 * @dev Get Name/TAO&#39;s Listener
+	 * @dev Get Name/TAO's Listener
 	 * @param _id The ID of the Name/TAO
 	 * @return the Listener ID of Name/TAO
 	 */
@@ -4787,7 +4787,7 @@ contract NameTAOPosition is TheAO {
 	}
 
 	/**
-	 * @dev Get Name/TAO&#39;s Speaker
+	 * @dev Get Name/TAO's Speaker
 	 * @param _id The ID of the Name/TAO
 	 * @return the Speaker ID of Name/TAO
 	 */
@@ -4909,16 +4909,16 @@ contract AOSetting {
 	uint256 public totalSetting;
 
 	/**
-	 * Mapping from associatedTAOId&#39;s setting name to Setting ID.
+	 * Mapping from associatedTAOId's setting name to Setting ID.
 	 *
 	 * Instead of concatenating the associatedTAOID and setting name to create a unique ID for lookup,
 	 * use nested mapping to achieve the same result.
 	 *
-	 * The setting&#39;s name needs to be converted to bytes32 since solidity does not support mapping by string.
+	 * The setting's name needs to be converted to bytes32 since solidity does not support mapping by string.
 	 */
 	mapping (address => mapping (bytes32 => uint256)) internal nameSettingLookup;
 
-	// Mapping from updateHashKey to it&#39;s settingId
+	// Mapping from updateHashKey to it's settingId
 	mapping (bytes32 => uint256) public updateHashLookup;
 
 	// Event to be broadcasted to public when a setting is created and waiting for approval
@@ -5106,7 +5106,7 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _associatedTAOId approves setting creation
+	 * @dev Advocate of Setting's _associatedTAOId approves setting creation
 	 * @param _settingId The ID of the setting to approve
 	 * @param _approved Whether to approve or reject
 	 */
@@ -5123,7 +5123,7 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _creatorTAOId finalizes the setting creation once the setting is approved
+	 * @dev Advocate of Setting's _creatorTAOId finalizes the setting creation once the setting is approved
 	 * @param _settingId The ID of the setting to be finalized
 	 */
 	function finalizeSettingCreation(uint256 _settingId) public {
@@ -5138,11 +5138,11 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _associatedTAOId submits a uint256 setting update after an update has been proposed
+	 * @dev Advocate of Setting's _associatedTAOId submits a uint256 setting update after an update has been proposed
 	 * @param _settingId The ID of the setting to be updated
 	 * @param _newValue The new uint256 value for this setting
 	 * @param _proposalTAOId The child of the associatedTAOId with the update Logos
-	 * @param _updateSignature A signature of the proposalTAOId and update value by associatedTAOId&#39;s advocate&#39;s name address
+	 * @param _updateSignature A signature of the proposalTAOId and update value by associatedTAOId's advocate's name address
 	 * @param _extraData Catch-all string value to be stored if exist
 	 */
 	function updateUintSetting(uint256 _settingId, uint256 _newValue, address _proposalTAOId, string _updateSignature, string _extraData) public isTAO(_proposalTAOId) {
@@ -5159,11 +5159,11 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _associatedTAOId submits a bool setting update after an update has been proposed
+	 * @dev Advocate of Setting's _associatedTAOId submits a bool setting update after an update has been proposed
 	 * @param _settingId The ID of the setting to be updated
 	 * @param _newValue The new bool value for this setting
 	 * @param _proposalTAOId The child of the associatedTAOId with the update Logos
-	 * @param _updateSignature A signature of the proposalTAOId and update value by associatedTAOId&#39;s advocate&#39;s name address
+	 * @param _updateSignature A signature of the proposalTAOId and update value by associatedTAOId's advocate's name address
 	 * @param _extraData Catch-all string value to be stored if exist
 	 */
 	function updateBoolSetting(uint256 _settingId, bool _newValue, address _proposalTAOId, string _updateSignature, string _extraData) public isTAO(_proposalTAOId) {
@@ -5180,11 +5180,11 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _associatedTAOId submits an address setting update after an update has been proposed
+	 * @dev Advocate of Setting's _associatedTAOId submits an address setting update after an update has been proposed
 	 * @param _settingId The ID of the setting to be updated
 	 * @param _newValue The new address value for this setting
 	 * @param _proposalTAOId The child of the associatedTAOId with the update Logos
-	 * @param _updateSignature A signature of the proposalTAOId and update value by associatedTAOId&#39;s advocate&#39;s name address
+	 * @param _updateSignature A signature of the proposalTAOId and update value by associatedTAOId's advocate's name address
 	 * @param _extraData Catch-all string value to be stored if exist
 	 */
 	function updateAddressSetting(uint256 _settingId, address _newValue, address _proposalTAOId, string _updateSignature, string _extraData) public isTAO(_proposalTAOId) {
@@ -5201,11 +5201,11 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _associatedTAOId submits a bytes32 setting update after an update has been proposed
+	 * @dev Advocate of Setting's _associatedTAOId submits a bytes32 setting update after an update has been proposed
 	 * @param _settingId The ID of the setting to be updated
 	 * @param _newValue The new bytes32 value for this setting
 	 * @param _proposalTAOId The child of the associatedTAOId with the update Logos
-	 * @param _updateSignature A signature of the proposalTAOId and update value by associatedTAOId&#39;s advocate&#39;s name address
+	 * @param _updateSignature A signature of the proposalTAOId and update value by associatedTAOId's advocate's name address
 	 * @param _extraData Catch-all string value to be stored if exist
 	 */
 	function updateBytesSetting(uint256 _settingId, bytes32 _newValue, address _proposalTAOId, string _updateSignature, string _extraData) public isTAO(_proposalTAOId) {
@@ -5222,11 +5222,11 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _associatedTAOId submits a string setting update after an update has been proposed
+	 * @dev Advocate of Setting's _associatedTAOId submits a string setting update after an update has been proposed
 	 * @param _settingId The ID of the setting to be updated
 	 * @param _newValue The new string value for this setting
 	 * @param _proposalTAOId The child of the associatedTAOId with the update Logos
-	 * @param _updateSignature A signature of the proposalTAOId and update value by associatedTAOId&#39;s advocate&#39;s name address
+	 * @param _updateSignature A signature of the proposalTAOId and update value by associatedTAOId's advocate's name address
 	 * @param _extraData Catch-all string value to be stored if exist
 	 */
 	function updateStringSetting(uint256 _settingId, string _newValue, address _proposalTAOId, string _updateSignature, string _extraData) public isTAO(_proposalTAOId) {
@@ -5243,7 +5243,7 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s proposalTAOId approves the setting update
+	 * @dev Advocate of Setting's proposalTAOId approves the setting update
 	 * @param _settingId The ID of the setting to be approved
 	 * @param _approved Whether to approve or reject
 	 */
@@ -5257,7 +5257,7 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of Setting&#39;s _associatedTAOId finalizes the setting update once the setting is approved
+	 * @dev Advocate of Setting's _associatedTAOId finalizes the setting update once the setting is approved
 	 * @param _settingId The ID of the setting to be finalized
 	 */
 	function finalizeSettingUpdate(uint256 _settingId) public {
@@ -5286,7 +5286,7 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of SettingDeprecation&#39;s _associatedTAOId approves setting deprecation
+	 * @dev Advocate of SettingDeprecation's _associatedTAOId approves setting deprecation
 	 * @param _settingId The ID of the setting to approve
 	 * @param _approved Whether to approve or reject
 	 */
@@ -5299,7 +5299,7 @@ contract AOSetting {
 	}
 
 	/**
-	 * @dev Advocate of SettingDeprecation&#39;s _creatorTAOId finalizes the setting deprecation once the setting deprecation is approved
+	 * @dev Advocate of SettingDeprecation's _creatorTAOId finalizes the setting deprecation once the setting deprecation is approved
 	 * @param _settingId The ID of the setting to be finalized
 	 */
 	function finalizeSettingDeprecation(uint256 _settingId) public {
@@ -5477,16 +5477,16 @@ contract AOEarning is TheAO {
 	// Mapping from purchase ID to earning for The AO
 	mapping (bytes32 => Earning) public theAOEarnings;
 
-	// Mapping from stake ID to it&#39;s total earning from staking
+	// Mapping from stake ID to it's total earning from staking
 	mapping (bytes32 => uint256) public totalStakedContentStakeEarning;
 
-	// Mapping from stake ID to it&#39;s total earning from hosting
+	// Mapping from stake ID to it's total earning from hosting
 	mapping (bytes32 => uint256) public totalStakedContentHostEarning;
 
-	// Mapping from stake ID to it&#39;s total earning earned by The AO
+	// Mapping from stake ID to it's total earning earned by The AO
 	mapping (bytes32 => uint256) public totalStakedContentTheAOEarning;
 
-	// Mapping from content host ID to it&#39;s total earning
+	// Mapping from content host ID to it's total earning
 	mapping (bytes32 => uint256) public totalHostContentEarningById;
 
 	// Event to be broadcasted to public when content creator/host earns the payment split in escrow when request node buys the content
@@ -5510,10 +5510,10 @@ contract AOEarning is TheAO {
 	// 2 => The AO
 	event EarningUnescrowed(address indexed recipient, bytes32 indexed purchaseId, uint256 paymentEarning, uint256 inflationBonus, uint8 recipientType);
 
-	// Event to be broadcasted to public when content creator&#39;s Name earns Pathos when a node buys a content
+	// Event to be broadcasted to public when content creator's Name earns Pathos when a node buys a content
 	event PathosEarned(address indexed nameId, bytes32 indexed purchaseId, uint256 amount);
 
-	// Event to be broadcasted to public when host&#39;s Name earns Ethos when a node buys a content
+	// Event to be broadcasted to public when host's Name earns Ethos when a node buys a content
 	event EthosEarned(address indexed nameId, bytes32 indexed purchaseId, uint256 amount);
 
 	// Event to be broadcasted to public when emergency mode is triggered
@@ -5629,7 +5629,7 @@ contract AOEarning is TheAO {
 	 * @param _networkAmountStaked The amount of network tokens at stake
 	 * @param _primordialAmountStaked The amount of primordial tokens at stake
 	 * @param _primordialWeightedMultiplierStaked The weighted multiplier of primordial tokens at stake
-	 * @param _profitPercentage The content creator&#39;s profit percentage
+	 * @param _profitPercentage The content creator's profit percentage
 	 * @param _stakeOwner The address of the stake owner
 	 * @param _host The address of the host
 	 * @param _isAOContentUsageType whether or not the content is of AO Content Usage Type
@@ -5683,7 +5683,7 @@ contract AOEarning is TheAO {
 	 * @param _buyer the request node address that buys the content
 	 * @param _purchaseId The ID of the purchase receipt object
 	 * @param _totalStaked The total staked amount of the content
-	 * @param _profitPercentage The content creator&#39;s profit percentage
+	 * @param _profitPercentage The content creator's profit percentage
 	 * @param _stakeOwner The address of the stake owner
 	 * @param _host The address of the host
 	 * @param _isAOContentUsageType whether or not the content is of AO Content Usage Type
@@ -5714,7 +5714,7 @@ contract AOEarning is TheAO {
 	 * @dev Mint the inflation bonus for content creator/host/The AO and store them in escrow
 	 * @param _purchaseId The ID of the purchase receipt object
 	 * @param _inflationBonusAmount The amount of inflation bonus earning
-	 * @param _profitPercentage The content creator&#39;s profit percentage
+	 * @param _profitPercentage The content creator's profit percentage
 	 * @param _stakeOwner The address of the stake owner
 	 * @param _host The address of the host
 	 * @param _isAOContentUsageType whether or not the content is of AO Content Usage Type
@@ -5850,9 +5850,9 @@ contract AOEarning is TheAO {
 	 * @return theAOEthosEarnedRate The rate to use when calculating the Ethos to AO rate for the AO
 	 */
 	function _getSettingVariables() internal view returns (uint256, uint256, uint256) {
-		(uint256 inflationRate,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;inflationRate&#39;);
-		(uint256 theAOCut,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;theAOCut&#39;);
-		(uint256 theAOEthosEarnedRate,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;theAOEthosEarnedRate&#39;);
+		(uint256 inflationRate,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'inflationRate');
+		(uint256 theAOCut,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'theAOCut');
+		(uint256 theAOEthosEarnedRate,,,,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'theAOEthosEarnedRate');
 
 		return (inflationRate, theAOCut, theAOEthosEarnedRate);
 	}
@@ -5862,10 +5862,10 @@ contract AOEarning is TheAO {
 	 * @param _buyer the request node address that buys the content
 	 * @param _purchaseId The ID of the purchase receipt object
 	 * @param _totalStaked The total staked amount of the content
-	 * @param _profitPercentage The content creator&#39;s profit percentage
+	 * @param _profitPercentage The content creator's profit percentage
 	 * @param _stakeOwner The address of the stake owner
 	 * @param _isAOContentUsageType whether or not the content is of AO Content Usage Type
-	 * @return The stake owner&#39;s earning amount
+	 * @return The stake owner's earning amount
 	 * @return The pathos earned from this transaction
 	 */
 	function _escrowStakeOwnerPaymentEarning(address _buyer, bytes32 _purchaseId, uint256 _totalStaked, uint256 _profitPercentage, address _stakeOwner, bool _isAOContentUsageType) internal returns (uint256, uint256) {
@@ -5889,10 +5889,10 @@ contract AOEarning is TheAO {
 	 * @param _buyer the request node address that buys the content
 	 * @param _purchaseId The ID of the purchase receipt object
 	 * @param _totalStaked The total staked amount of the content
-	 * @param _profitPercentage The content creator&#39;s profit percentage
+	 * @param _profitPercentage The content creator's profit percentage
 	 * @param _host The address of the host node
 	 * @param _isAOContentUsageType whether or not the content is of AO Content Usage Type
-	 * @param _stakeOwnerEarning The stake owner&#39;s earning amount
+	 * @param _stakeOwnerEarning The stake owner's earning amount
 	 * @return The ethos earned from this transaction
 	 */
 	function _escrowHostPaymentEarning(address _buyer, bytes32 _purchaseId, uint256 _totalStaked, uint256 _profitPercentage, address _host, bool _isAOContentUsageType, uint256 _stakeOwnerEarning) internal returns (uint256) {
@@ -5970,8 +5970,8 @@ contract AOContent is TheAO {
 		bytes32 contentId;
 		address creator;
 		/**
-		 * baseChallenge is the content&#39;s PUBLIC KEY
-		 * When a request node wants to be a host, it is required to send a signed base challenge (its content&#39;s PUBLIC KEY)
+		 * baseChallenge is the content's PUBLIC KEY
+		 * When a request node wants to be a host, it is required to send a signed base challenge (its content's PUBLIC KEY)
 		 * so that the contract can verify the authenticity of the content by comparing what the contract has and what the request node
 		 * submit
 		 */
@@ -6003,7 +6003,7 @@ contract AOContent is TheAO {
 		bytes32 stakeId;
 		address host;
 		/**
-		 * encChallenge is the content&#39;s PUBLIC KEY unique to the host
+		 * encChallenge is the content's PUBLIC KEY unique to the host
 		 */
 		string encChallenge;
 		string contentDatKey;
@@ -6046,7 +6046,7 @@ contract AOContent is TheAO {
 	// Mapping from purchase ID to index of the purchaseReceipts list
 	mapping (bytes32 => uint256) internal purchaseReceiptIndex;
 
-	// Mapping from buyer&#39;s content host ID to the buy ID
+	// Mapping from buyer's content host ID to the buy ID
 	// To check whether or not buyer has bought/paid for a content
 	mapping (address => mapping (bytes32 => bytes32)) public buyerPurchaseReceipts;
 
@@ -6059,7 +6059,7 @@ contract AOContent is TheAO {
 	// Event to be broadcasted to public when a node hosts a content
 	event HostContent(address indexed host, bytes32 indexed contentHostId, bytes32 stakeId, string contentDatKey, string metadataDatKey);
 
-	// Event to be broadcasted to public when `stakeOwner` updates the staked content&#39;s profit percentage
+	// Event to be broadcasted to public when `stakeOwner` updates the staked content's profit percentage
 	event SetProfitPercentage(address indexed stakeOwner, bytes32 indexed stakeId, uint256 newProfitPercentage);
 
 	// Event to be broadcasted to public when `stakeOwner` unstakes some network/primordial token from an existing content
@@ -6074,7 +6074,7 @@ contract AOContent is TheAO {
 	// Event to be broadcasted to public when a request node buys a content
 	event BuyContent(address indexed buyer, bytes32 indexed purchaseId, bytes32 indexed contentHostId, uint256 price, uint256 amountPaidByAO, uint256 amountPaidByBuyer, string publicKey, address publicAddress, uint256 createdOnTimestamp);
 
-	// Event to be broadcasted to public when Advocate/Listener/Speaker wants to update the TAO Content&#39;s State
+	// Event to be broadcasted to public when Advocate/Listener/Speaker wants to update the TAO Content's State
 	event UpdateTAOContentState(bytes32 indexed contentId, address indexed taoId, address signer, bytes32 taoContentState);
 
 	// Event to be broadcasted to public when emergency mode is triggered
@@ -6178,9 +6178,9 @@ contract AOContent is TheAO {
 	 * @param _baseChallenge The base challenge string (PUBLIC KEY) of the content
 	 * @param _encChallenge The encrypted challenge string (PUBLIC KEY) of the content unique to the host
 	 * @param _contentDatKey The dat key of the content
-	 * @param _metadataDatKey The dat key of the content&#39;s metadata
+	 * @param _metadataDatKey The dat key of the content's metadata
 	 * @param _fileSize The size of the file
-	 * @param _profitPercentage The percentage of profit the stake owner&#39;s media will charge
+	 * @param _profitPercentage The percentage of profit the stake owner's media will charge
 	 */
 	function stakeAOContent(
 		uint256 _networkIntegerAmount,
@@ -6234,7 +6234,7 @@ contract AOContent is TheAO {
 	 * @param _baseChallenge The base challenge string (PUBLIC KEY) of the content
 	 * @param _encChallenge The encrypted challenge string (PUBLIC KEY) of the content unique to the host
 	 * @param _contentDatKey The dat key of the content
-	 * @param _metadataDatKey The dat key of the content&#39;s metadata
+	 * @param _metadataDatKey The dat key of the content's metadata
 	 * @param _fileSize The size of the file
 	 */
 	function stakeCreativeCommonsContent(
@@ -6290,7 +6290,7 @@ contract AOContent is TheAO {
 	 * @param _baseChallenge The base challenge string (PUBLIC KEY) of the content
 	 * @param _encChallenge The encrypted challenge string (PUBLIC KEY) of the content unique to the host
 	 * @param _contentDatKey The dat key of the content
-	 * @param _metadataDatKey The dat key of the content&#39;s metadata
+	 * @param _metadataDatKey The dat key of the content's metadata
 	 * @param _fileSize The size of the file
 	 * @param _taoId The TAO (TAO) ID for this content (if this is a T(AO) Content)
 	 */
@@ -6419,7 +6419,7 @@ contract AOContent is TheAO {
 	 * @return The ID of the staked content
 	 * @return address of the host
 	 * @return the dat key of the content
-	 * @return the dat key of the content&#39;s metadata
+	 * @return the dat key of the content's metadata
 	 */
 	function contentHostById(bytes32 _contentHostId) public view returns (bytes32, address, string, string) {
 		// Make sure the content host exist
@@ -6437,7 +6437,7 @@ contract AOContent is TheAO {
 	 * @dev Return staked content information at a given ID
 	 * @param _stakeId The ID of the staked content
 	 * @return The ID of the content being staked
-	 * @return address of the staked content&#39;s owner
+	 * @return address of the staked content's owner
 	 * @return the network base token amount staked for this content
 	 * @return the primordial token amount staked for this content
 	 * @return the primordial weighted multiplier of the staked content
@@ -6552,8 +6552,8 @@ contract AOContent is TheAO {
 		require (AOLibrary.canStakeExisting(treasuryAddress, _isAOContentUsageType(_stakedContent.contentId), _fileSize, _stakedContent.networkAmount.add(_stakedContent.primordialAmount), _networkIntegerAmount, _networkFractionAmount, _denomination, _primordialAmount));
 
 		// Make sure we can stake primordial token
-		// If we are currently staking an active staked content, then the stake owner&#39;s weighted multiplier has to match `stakedContent.primordialWeightedMultiplier`
-		// i.e, can&#39;t use a combination of different weighted multiplier. Stake owner has to call unstakeContent() to unstake all tokens first
+		// If we are currently staking an active staked content, then the stake owner's weighted multiplier has to match `stakedContent.primordialWeightedMultiplier`
+		// i.e, can't use a combination of different weighted multiplier. Stake owner has to call unstakeContent() to unstake all tokens first
 		if (_primordialAmount > 0 && _stakedContent.active && _stakedContent.primordialAmount > 0 && _stakedContent.primordialWeightedMultiplier > 0) {
 			require (_baseAO.weightedMultiplierByAddress(msg.sender) == _stakedContent.primordialWeightedMultiplier);
 		}
@@ -6646,7 +6646,7 @@ contract AOContent is TheAO {
 		bytes32 _purchaseId = keccak256(abi.encodePacked(this, msg.sender, _contentHostId));
 		PurchaseReceipt storage _purchaseReceipt = purchaseReceipts[totalPurchaseReceipts];
 
-		// Make sure the node doesn&#39;t buy the same content twice
+		// Make sure the node doesn't buy the same content twice
 		require (_purchaseReceipt.buyer == address(0));
 
 		_purchaseReceipt.purchaseId = _purchaseId;
@@ -6687,8 +6687,8 @@ contract AOContent is TheAO {
 	 * @return price of the content
 	 * @return amount paid by AO
 	 * @return amount paid by Buyer
-	 * @return request node&#39;s public key
-	 * @return request node&#39;s public address
+	 * @return request node's public key
+	 * @return request node's public address
 	 * @return created on timestamp
 	 */
 	function purchaseReceiptById(bytes32 _purchaseId) public view returns (bytes32, address, uint256, uint256, uint256, string, address, uint256) {
@@ -6775,7 +6775,7 @@ contract AOContent is TheAO {
 		address _signatureAddress = AOLibrary.getUpdateTAOContentStateSignatureAddress(address(this), _contentId, _taoId, _taoContentState, _updateTAOContentStateV, _updateTAOContentStateR, _updateTAOContentStateS);
 
 		Content storage _content = contents[contentIndex[_contentId]];
-		// Make sure that the signature address is one of content&#39;s TAO ID&#39;s Advocate/Listener/Speaker
+		// Make sure that the signature address is one of content's TAO ID's Advocate/Listener/Speaker
 		require (_signatureAddress == msg.sender && _nameTAOPosition.senderIsPosition(_signatureAddress, _content.taoId));
 		require (_content.contentUsageType == _contentUsageType_taoContent);
 
@@ -6805,7 +6805,7 @@ contract AOContent is TheAO {
 		bytes32 _contentId = keccak256(abi.encodePacked(this, _creator, totalContents));
 		Content storage _content = contents[totalContents];
 
-		// Make sure the node does&#39;t store the same content twice
+		// Make sure the node does't store the same content twice
 		require (_content.creator == address(0));
 
 		(,,bytes32 contentUsageType_taoContent, bytes32 taoContentState_submitted,,) = _getSettingVariables();
@@ -6834,7 +6834,7 @@ contract AOContent is TheAO {
 	 * @param _stakeId The ID of the staked content
 	 * @param _encChallenge The encrypted challenge string (PUBLIC KEY) of the content unique to the host
 	 * @param _contentDatKey The dat key of the content
-	 * @param _metadataDatKey The dat key of the content&#39;s metadata
+	 * @param _metadataDatKey The dat key of the content's metadata
 	 */
 	function _hostContent(address _host, bytes32 _stakeId, string _encChallenge, string _contentDatKey, string _metadataDatKey) internal {
 		require (bytes(_encChallenge).length > 0);
@@ -6850,7 +6850,7 @@ contract AOContent is TheAO {
 
 		ContentHost storage _contentHost = contentHosts[totalContentHosts];
 
-		// Make sure the node doesn&#39;t host the same content twice
+		// Make sure the node doesn't host the same content twice
 		require (_contentHost.host == address(0));
 
 		_contentHost.contentHostId = _contentHostId;
@@ -6873,7 +6873,7 @@ contract AOContent is TheAO {
 	 * @param _networkFractionAmount The fraction amount of network token to stake
 	 * @param _denomination The denomination of the network token, i.e ao, kilo, mega, etc.
 	 * @param _primordialAmount The amount of primordial Token to stake
-	 * @param _profitPercentage The percentage of profit the stake owner&#39;s media will charge
+	 * @param _profitPercentage The percentage of profit the stake owner's media will charge
 	 * @return the newly created staked content ID
 	 */
 	function _stakeContent(address _stakeOwner, bytes32 _contentId, uint256 _networkIntegerAmount, uint256 _networkFractionAmount, bytes8 _denomination, uint256 _primordialAmount, uint256 _profitPercentage) internal returns (bytes32) {
@@ -6884,7 +6884,7 @@ contract AOContent is TheAO {
 		bytes32 _stakeId = keccak256(abi.encodePacked(this, _stakeOwner, _contentId));
 		StakedContent storage _stakedContent = stakedContents[totalStakedContents];
 
-		// Make sure the node doesn&#39;t stake the same content twice
+		// Make sure the node doesn't stake the same content twice
 		require (_stakedContent.stakeOwner == address(0));
 
 		_stakedContent.stakeId = _stakeId;
@@ -6923,12 +6923,12 @@ contract AOContent is TheAO {
 	 * @return taoContentState_acceptedToTAO TAO Content State = Accepted to TAO
 	 */
 	function _getSettingVariables() internal view returns (bytes32, bytes32, bytes32, bytes32, bytes32, bytes32) {
-		(,,,bytes32 contentUsageType_aoContent,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;contentUsageType_aoContent&#39;);
-		(,,,bytes32 contentUsageType_creativeCommons,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;contentUsageType_creativeCommons&#39;);
-		(,,,bytes32 contentUsageType_taoContent,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;contentUsageType_taoContent&#39;);
-		(,,,bytes32 taoContentState_submitted,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;taoContentState_submitted&#39;);
-		(,,,bytes32 taoContentState_pendingReview,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;taoContentState_pendingReview&#39;);
-		(,,,bytes32 taoContentState_acceptedToTAO,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, &#39;taoContentState_acceptedToTAO&#39;);
+		(,,,bytes32 contentUsageType_aoContent,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'contentUsageType_aoContent');
+		(,,,bytes32 contentUsageType_creativeCommons,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'contentUsageType_creativeCommons');
+		(,,,bytes32 contentUsageType_taoContent,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'contentUsageType_taoContent');
+		(,,,bytes32 taoContentState_submitted,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'taoContentState_submitted');
+		(,,,bytes32 taoContentState_pendingReview,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'taoContentState_pendingReview');
+		(,,,bytes32 taoContentState_acceptedToTAO,) = _aoSetting.getSettingValuesByTAOName(settingTAOId, 'taoContentState_acceptedToTAO');
 
 		return (
 			contentUsageType_aoContent,
@@ -6997,7 +6997,7 @@ contract Logos is TAOCurrency {
 	// Mapping of a Name ID to the total amount of Logos positioned by itself to others
 	mapping (address => uint256) public totalPositionToOthers;
 
-	// Mapping of Name ID to it&#39;s advocated TAO ID and the amount of Logos earned
+	// Mapping of Name ID to it's advocated TAO ID and the amount of Logos earned
 	mapping (address => mapping(address => uint256)) public advocatedTAOLogos;
 
 	// Mapping of a Name ID to the total amount of Logos earned from advocated TAO
@@ -7067,7 +7067,7 @@ contract Logos is TAOCurrency {
 	 * @return true on success
 	 */
 	function positionFrom(address _from, address _to, uint256 _value) public isName(_from) isName(_to) onlyAdvocate(_from) returns (bool) {
-		require (_from != _to);	// Can&#39;t position Logos to itself
+		require (_from != _to);	// Can't position Logos to itself
 		require (balanceOf[_from].sub(totalPositionToOthers[_from]) >= _value); // should have enough balance to position
 		require (positionFromOthers[_to].add(_value) >= positionFromOthers[_to]); // check for overflows
 
@@ -7095,7 +7095,7 @@ contract Logos is TAOCurrency {
 	 * @return true on success
 	 */
 	function unpositionFrom(address _from, address _to, uint256 _value) public isName(_from) isName(_to) onlyAdvocate(_from) returns (bool) {
-		require (_from != _to);	// Can&#39;t unposition Logos to itself
+		require (_from != _to);	// Can't unposition Logos to itself
 		require (positionToOthers[_from][_to] >= _value);
 
 		uint256 previousPositionToOthers = totalPositionToOthers[_from];
@@ -7229,9 +7229,9 @@ library AOLibrary {
 	 * @param _baseChallenge The base challenge string (PUBLIC KEY) of the content
 	 * @param _encChallenge The encrypted challenge string (PUBLIC KEY) of the content unique to the host
 	 * @param _contentDatKey The dat key of the content
-	 * @param _metadataDatKey The dat key of the content&#39;s metadata
+	 * @param _metadataDatKey The dat key of the content's metadata
 	 * @param _fileSize The size of the file
-	 * @param _profitPercentage The percentage of profit the stake owner&#39;s media will charge
+	 * @param _profitPercentage The percentage of profit the stake owner's media will charge
 	 * @return true if yes. false otherwise
 	 */
 	function canStake(address _treasuryAddress,
@@ -7341,8 +7341,8 @@ library AOLibrary {
 
 	/**
 	 * @dev Calculate the new weighted multiplier when adding `_additionalPrimordialAmount` at `_additionalWeightedMultiplier` to the current `_currentPrimordialBalance` at `_currentWeightedMultiplier`
-	 * @param _currentWeightedMultiplier Account&#39;s current weighted multiplier
-	 * @param _currentPrimordialBalance Account&#39;s current primordial token balance
+	 * @param _currentWeightedMultiplier Account's current weighted multiplier
+	 * @param _currentPrimordialBalance Account's current primordial token balance
 	 * @param _additionalWeightedMultiplier The weighted multiplier to be added
 	 * @param _additionalPrimordialAmount The primordial token amount to be added
 	 * @return the new primordial weighted multiplier
@@ -7558,8 +7558,8 @@ library AOLibrary {
 	 *		_amountToBurn = B
 	 *		B = ((S x P) - (P x M)) / S
 	 *
-	 * @param _primordialBalance Account&#39;s primordial token balance
-	 * @param _currentWeightedMultiplier Account&#39;s current weighted multiplier
+	 * @param _primordialBalance Account's primordial token balance
+	 * @param _currentWeightedMultiplier Account's current weighted multiplier
 	 * @param _maximumMultiplier The maximum multiplier of this account
 	 * @return The maximum burn amount
 	 */
@@ -7575,8 +7575,8 @@ library AOLibrary {
 	 *		_newMultiplier = E
 	 *		E = (P x M) / (P - B)
 	 *
-	 * @param _primordialBalance Account&#39;s primordial token balance
-	 * @param _currentWeightedMultiplier Account&#39;s current weighted multiplier
+	 * @param _primordialBalance Account's primordial token balance
+	 * @param _currentWeightedMultiplier Account's current weighted multiplier
 	 * @param _amountToBurn The amount of primordial token to burn
 	 * @return The new multiplier
 	 */
@@ -7592,8 +7592,8 @@ library AOLibrary {
 	 *		_newMultiplier = E
 	 *		E = (P x M) / (P + C)
 	 *
-	 * @param _primordialBalance Account&#39;s primordial token balance
-	 * @param _currentWeightedMultiplier Account&#39;s current weighted multiplier
+	 * @param _primordialBalance Account's primordial token balance
+	 * @param _currentWeightedMultiplier Account's current weighted multiplier
 	 * @param _amountToConvert The amount of network token to convert
 	 * @return The new multiplier
 	 */
@@ -7666,12 +7666,12 @@ contract Epiphany is TheAO {
 	string public logos;
 
 	constructor() public {
-		what = &#39;The AO&#39;;
-		when = &#39;January 6th, 2019 a.d, year 1 a.c. Epiphany. An appearance or manifestation especially of a divine being. An illuminating discovery, realization, or disclosure.&#39;;
-		why = &#39;To Hear, See, and Speak the Human inside Humanity.&#39;;
-		who = &#39;You.  Set the world, Free. – Truth&#39;;
-		aSign = &#39;08e2c4e1ccf3bccfb3b8eef14679b28442649a2a733960661210a0b00d9c93bf&#39;;
-		logos = &#39;0920c6ab1848df83a332a21e8c9ec1a393e694c396b872aee053722d023e2a32&#39;;
+		what = 'The AO';
+		when = 'January 6th, 2019 a.d, year 1 a.c. Epiphany. An appearance or manifestation especially of a divine being. An illuminating discovery, realization, or disclosure.';
+		why = 'To Hear, See, and Speak the Human inside Humanity.';
+		who = 'You.  Set the world, Free. – Truth';
+		aSign = '08e2c4e1ccf3bccfb3b8eef14679b28442649a2a733960661210a0b00d9c93bf';
+		logos = '0920c6ab1848df83a332a21e8c9ec1a393e694c396b872aee053722d023e2a32';
 	}
 
 	/**

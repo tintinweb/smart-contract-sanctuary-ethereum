@@ -163,7 +163,7 @@ contract TokenERC20 {
         ] -= _value; // Subtract from the targeted balance
         allowance[_from
         ][msg.sender
-        ] -= _value; // Subtract from the sender&#39;s allowance
+        ] -= _value; // Subtract from the sender's allowance
         totalSupply -= _value; // Update totalSupply
         Burn(_from, _value);
         return true;

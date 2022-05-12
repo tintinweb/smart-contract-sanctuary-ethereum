@@ -43,8 +43,8 @@ contract ILoveYouToken is ERC20 {
     address owner = msg.sender;
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
-    string public constant name = &#39;ILoveYouToken&#39;;
-    string public constant symbol = &#39;ILYT&#39;;
+    string public constant name = 'ILoveYouToken';
+    string public constant symbol = 'ILYT';
     uint public constant decimals = 18;
     uint256 public totalSupply = 15000000000e18;
     uint256 public totalDistributed =  3000000000e18;    

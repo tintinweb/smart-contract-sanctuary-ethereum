@@ -51,7 +51,7 @@ contract Token {
 /// PostDragon token, ERC20 compliant
 contract YouLongToken is Token {
     string public symbol = "YLO";
-    string public name = "YouLongToken";       //The Token&#39;s name
+    string public name = "YouLongToken";       //The Token's name
     uint8 public constant decimals = 4;           //Number of decimals of the smallest unit
     uint256 _totalSupply = 1 * (10**9) * (10**4); // 1 Billion;
     address owner;

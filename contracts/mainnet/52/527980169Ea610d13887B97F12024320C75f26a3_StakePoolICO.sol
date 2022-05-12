@@ -2,7 +2,7 @@ pragma solidity ^0.4.11;
 
 /**
 * @author Jefferson Davis
-* StakePool_ICO.sol creates the client&#39;s token for crowdsale and allows for subsequent token sales and minting of tokens
+* StakePool_ICO.sol creates the client's token for crowdsale and allows for subsequent token sales and minting of tokens
 *   In addition, there is a quarterly dividend payout triggered by the owner, plus creates a transaction record prior to payout
 *   Crowdsale contracts edited from original contract code at https://www.ethereum.org/crowdsale#crowdfund-your-idea
 *   Additional crowdsale contracts, functions, libraries from OpenZeppelin
@@ -56,7 +56,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -154,7 +154,7 @@ contract StakePool is ERC20, Owned {
 		}
 	}
 
-	//Sends tokens from sender&#39;s account
+	//Sends tokens from sender's account
     function transfer(address _to, uint256 _value) onlyPayloadSize(2 * 32) returns (bool success) {
         uint256 amount = _value.mul(multiplier); 
         if (balance[msg.sender] >= amount && balance[_to] + amount > balance[_to]) {

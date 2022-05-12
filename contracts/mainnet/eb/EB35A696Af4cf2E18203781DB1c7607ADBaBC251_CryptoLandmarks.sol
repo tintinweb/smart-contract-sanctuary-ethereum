@@ -46,7 +46,7 @@ contract CryptoLandmarks {
     // every ambassador belongs to self
     mapping (uint256 => uint256) landmarkToAmbassador;
     
-    // ambassadors&#39;s landmarks count
+    // ambassadors's landmarks count
     mapping (uint256 => uint256) groupLandmarksCount;
 
     // withdraw cooldown date of landmark owner
@@ -110,7 +110,7 @@ contract CryptoLandmarks {
         // number of Landmarks in the group
         uint256 groupMembersCount = groupLandmarksCount[groupId];
 
-        // developer&#39;s cut in % (2-5)
+        // developer's cut in % (2-5)
         uint256 devCut = calculateDevCut(sellingPrice);
 
         // for previous owner
@@ -407,7 +407,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

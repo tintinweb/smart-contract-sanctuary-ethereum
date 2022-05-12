@@ -100,8 +100,8 @@ contract BaseToken {
 
 contract CustomToken is BaseToken {
     constructor() public {
-        name = &#39;International data coin&#39;;
-        symbol = &#39;IDC&#39;;
+        name = 'International data coin';
+        symbol = 'IDC';
         decimals = 18;
         totalSupply = 5000000000000000000000000;
         _totalLimit = 100000000000000000000000000000000;

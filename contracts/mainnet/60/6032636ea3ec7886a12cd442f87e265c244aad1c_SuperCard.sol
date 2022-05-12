@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 /*--------------------------------------------------
   ____                          ____              _ 
 / ___| _   _ _ __   ___ _ __   / ___|__ _ _ __ __| |
-\___ \| | | | &#39;_ \ / _ \ &#39;__| | |   / _` | &#39;__/ _` |
+\___ \| | | | '_ \ / _ \ '__| | |   / _` | '__/ _` |
  ___) | |_| | |_) |  __/ |    | |__| (_| | | | (_| |
 |____/ \__,_| .__/ \___|_|     \____\__,_|_|  \__,_|
             |_|                                   
@@ -187,7 +187,7 @@ contract SuperCard is SPCevents {
 
 		// Team allocation percentages
         // (F3D, P3D) + (Pot , Referrals, Community)
-            // Referrals / Community rewards are mathematically designed to come from the winner&#39;s share of the pot.
+            // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
         fees_[0] = SPCdatasets.TeamFee(80,2);   //50% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
         fees_[1] = SPCdatasets.TeamFee(80,2);   //43% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
         fees_[2] = SPCdatasets.TeamFee(80,2);  //5% to pot, 10% to aff, 2% to com,
@@ -375,7 +375,7 @@ contract SuperCard is SPCevents {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -488,7 +488,7 @@ contract SuperCard is SPCevents {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -708,7 +708,7 @@ contract SuperCard is SPCevents {
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -1225,7 +1225,7 @@ contract SuperCard is SPCevents {
 			plyr_[_pID].win = temp_eth;
 		}
 
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
 
         // set the joined round bool to true
@@ -1244,7 +1244,7 @@ contract SuperCard is SPCevents {
         // setup local rID
         uint256 _rID = rID_;
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
 
@@ -1371,7 +1371,7 @@ contract SuperCard is SPCevents {
         // affiliate must not be self, and must have a name registered
         
         //第三级 5%
-        if (tempID != _pID && plyr_[tempID].name != &#39;&#39;) 
+        if (tempID != _pID && plyr_[tempID].name != '') 
         { 
             plyr_[tempID].aff = (_aff_cent.mul(5)).add(plyr_[tempID].aff);
             emit SPCevents.onAffiliatePayout(tempID, plyr_[tempID].addr, plyr_[tempID].name, _rID, _pID, _aff_cent.mul(5), now);
@@ -1387,7 +1387,7 @@ contract SuperCard is SPCevents {
         tempID = PlayerBook.getPlayerID(plyr_[tempID].addr);
         tempID = PlayerBook.getPlayerLAff(tempID);
 
-        if (tempID != _pID && plyr_[tempID].name != &#39;&#39;) 
+        if (tempID != _pID && plyr_[tempID].name != '') 
         { 
             plyr_[tempID].aff = (_aff_cent.mul(3)).add(plyr_[tempID].aff);
             emit SPCevents.onAffiliatePayout(tempID, plyr_[tempID].addr, plyr_[tempID].name, _rID, _pID, _aff_cent.mul(3), now);
@@ -1402,7 +1402,7 @@ contract SuperCard is SPCevents {
         tempID = PlayerBook.getPlayerID(plyr_[tempID].addr);
         tempID = PlayerBook.getPlayerLAff(tempID);
 
-        if (tempID != _pID && plyr_[tempID].name != &#39;&#39;) 
+        if (tempID != _pID && plyr_[tempID].name != '') 
         { 
             plyr_[tempID].aff = (_aff_cent.mul(2)).add(plyr_[tempID].aff);
             emit SPCevents.onAffiliatePayout(tempID, plyr_[tempID].addr, plyr_[tempID].name, _rID, _pID, _aff_cent.mul(2), now);
@@ -1487,7 +1487,7 @@ contract SuperCard is SPCevents {
             relevant proportion to the increase in share supply.
 
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
 
@@ -1528,7 +1528,7 @@ contract SuperCard is SPCevents {
     }
 	
 	/**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, SPCdatasets.EventReturns memory _eventData_)
         private

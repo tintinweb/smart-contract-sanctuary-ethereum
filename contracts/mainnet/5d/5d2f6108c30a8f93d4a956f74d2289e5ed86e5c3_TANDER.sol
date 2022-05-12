@@ -17,7 +17,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -69,7 +69,7 @@ contract TANDER is ERC20
     bool public icoRunningStatus = true;
     mapping(address => uint) balances;
     mapping(address => mapping(address => uint)) allowed;
-    address ethFundMain = 0x0070570A1D3F5CcaD6A74B3364D13C475BF9bD6a; // Owner&#39;s Account
+    address ethFundMain = 0x0070570A1D3F5CcaD6A74B3364D13C475BF9bD6a; // Owner's Account
     uint256 public Numtokens;
     uint256 public bonustokn;
     uint256 public ethreceived;
@@ -257,7 +257,7 @@ contract TANDER is ERC20
          require( _owner != 0x0 && _spender !=0x0);
          return allowed[_owner][_spender];
    }
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
      function transfer(address _to, uint256 _amount) public returns (bool success) {
          if(icoRunningStatus && msg.sender == owner)
          {
@@ -282,7 +282,7 @@ contract TANDER is ERC20
      }
   
 
-          // Transfer the balance from owner&#39;s account to another account
+          // Transfer the balance from owner's account to another account
     function transferTokens(address _to, uint256 _amount) private returns(bool success) {
         require( _to != 0x0);       
         require(balances[address(this)] >= _amount && _amount > 0);

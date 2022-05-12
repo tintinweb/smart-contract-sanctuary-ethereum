@@ -13,7 +13,7 @@ contract PlusCoin {
     // mapping (address => mapping (address => uint256)) public allowance;
     mapping (address => mapping (address => uint256)) allowed;
 
-    string public standard = &#39;PlusCoin 1.0&#39;;
+    string public standard = 'PlusCoin 1.0';
     string public constant name = "PlusCoin";
     string public constant symbol = "PLC";
     uint   public constant decimals = 18;
@@ -211,7 +211,7 @@ contract PlusCoin {
             || (current_state == State.ICO1 && _nextState == State.ICO2)
             || (current_state == State.ICO2 && _nextState == State.ICO3)
             || (current_state == State.ICO3 && _nextState == State.Freedom)
-            //pause (allowed only &#39;any state->pause&#39; & &#39;pause->presale&#39; transition)
+            //pause (allowed only 'any state->pause' & 'pause->presale' transition)
             // || (current_state == State.Presale && _nextState == State.Paused)
             // || (current_state == State.Paused && _nextState == State.Presale)
             || (current_state != State.Freedom && _nextState == State.Paused)

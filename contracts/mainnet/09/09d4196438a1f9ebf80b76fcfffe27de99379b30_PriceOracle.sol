@@ -351,7 +351,7 @@ contract Exponential is ErrorReporter, CarefulMath {
       *      For example, truncate(Exp{mantissa: 15 * (10**18)}) = 15
       */
     function truncate(Exp memory exp) pure internal returns (uint) {
-        // Note: We are not using careful math here as we&#39;re performing a division that cannot fail
+        // Note: We are not using careful math here as we're performing a division that cannot fail
         return exp.mantissa / 10**18;
     }
 
@@ -479,7 +479,7 @@ contract PriceOracle is Exponential {
     address public poster;
 
     /**
-      * @dev maxSwing the maximum allowed percentage difference between a new price and the anchor&#39;s price
+      * @dev maxSwing the maximum allowed percentage difference between a new price and the anchor's price
       *      Set only in the constructor
       */
     Exp public maxSwing;
@@ -605,7 +605,7 @@ contract PriceOracle is Exponential {
       */
     function _acceptAnchorAdmin() public returns (uint) {
         // Check caller = pendingAnchorAdmin
-        // msg.sender can&#39;t be zero
+        // msg.sender can't be zero
         if (msg.sender != pendingAnchorAdmin) {
             return failOracle(0, OracleError.UNAUTHORIZED, OracleFailureInfo.ACCEPT_ANCHOR_ADMIN_PENDING_ANCHOR_ADMIN_CHECK);
         }
@@ -677,14 +677,14 @@ contract PriceOracle is Exponential {
         // re-used for intermediate errors
         Error err;
         SetPriceLocalVars memory localVars;
-        // We add 1 for currentPeriod so that it can never be zero and there&#39;s no ambiguity about an unset value.
+        // We add 1 for currentPeriod so that it can never be zero and there's no ambiguity about an unset value.
         // (It can be a problem in tests with low block numbers.)
         localVars.currentPeriod = (block.number / numBlocksPerPeriod) + 1;
         localVars.pendingAnchorMantissa = pendingAnchors[asset];
         localVars.price = Exp({mantissa : requestedPriceMantissa});
 
         if (localVars.pendingAnchorMantissa != 0) {
-            // let&#39;s explicitly set to 0 rather than relying on default of declaration
+            // let's explicitly set to 0 rather than relying on default of declaration
             localVars.anchorPeriod = 0;
             localVars.anchorPrice = Exp({mantissa : localVars.pendingAnchorMantissa});
 
@@ -739,7 +739,7 @@ contract PriceOracle is Exponential {
 
         // If currentPeriod > anchorPeriod:
         //  Set anchors[asset] = (currentPeriod, price)
-        //  The new anchor is if we&#39;re in a new period or we had a pending anchor, then we become the new anchor
+        //  The new anchor is if we're in a new period or we had a pending anchor, then we become the new anchor
         if (localVars.currentPeriod > localVars.anchorPeriod) {
             anchors[asset] = Anchor({period : localVars.currentPeriod, priceMantissa : localVars.price.mantissa});
         }
@@ -770,11 +770,11 @@ contract PriceOracle is Exponential {
 
         if (greaterThanExp(anchorPrice, price)) {
             (err, numerator) = subExp(anchorPrice, price);
-            // can&#39;t underflow
+            // can't underflow
             assert(err == Error.NO_ERROR);
         } else {
             (err, numerator) = subExp(price, anchorPrice);
-            // Given greaterThan check above, price >= anchorPrice so can&#39;t underflow.
+            // Given greaterThan check above, price >= anchorPrice so can't underflow.
             assert(err == Error.NO_ERROR);
         }
 
@@ -814,7 +814,7 @@ contract PriceOracle is Exponential {
 
         // min = anchorPrice * (1 - maxSwing)
         (err, min) = mulExp(anchorPrice, oneMinusMaxSwing);
-        // We can&#39;t overflow here or we would have already overflowed above when calculating `max`
+        // We can't overflow here or we would have already overflowed above when calculating `max`
         assert(err == Error.NO_ERROR);
 
         // If  price < anchorPrice * (1 - maxSwing)

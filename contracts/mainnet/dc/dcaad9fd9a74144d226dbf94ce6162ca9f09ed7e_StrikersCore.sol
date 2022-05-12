@@ -88,7 +88,7 @@ contract StrikersMetadata {
 
   /// @dev Returns the API URL for a given token Id.
   ///   ex: https://us-central1-cryptostrikers-api.cloudfunctions.net/cards/22
-  ///   Right now, this endpoint returns a JSON blob conforming to OpenSea&#39;s spec.
+  ///   Right now, this endpoint returns a JSON blob conforming to OpenSea's spec.
   ///   see: https://docs.opensea.io/docs/2-adding-metadata
   function tokenURI(uint256 _tokenId) external view returns (string) {
     string memory _id = uint2str(_tokenId);
@@ -232,7 +232,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -767,9 +767,9 @@ contract StrikersPlayerList is Ownable {
   // We only use playerIds in StrikersChecklist.sol (to
   // indicate which player features on instances of a
   // given ChecklistItem), and nowhere else in the app.
-  // While it&#39;s not explictly necessary for any of our
+  // While it's not explictly necessary for any of our
   // contracts to know that playerId 0 corresponds to
-  // Lionel Messi, we think that it&#39;s nice to have
+  // Lionel Messi, we think that it's nice to have
   // a canonical source of truth for who the playerIds
   // actually refer to. Storing strings (player names)
   // is expensive, so we just use Events to prove that,
@@ -778,8 +778,8 @@ contract StrikersPlayerList is Ownable {
   /// @dev The event we fire when we add a player.
   event PlayerAdded(uint8 indexed id, string name);
 
-  /// @dev How many players we&#39;ve added so far
-  ///   (max 255, though we don&#39;t plan on getting close)
+  /// @dev How many players we've added so far
+  ///   (max 255, though we don't plan on getting close)
   uint8 public playerCount;
 
   /// @dev Here we add the players we are launching with on Day 1.
@@ -804,7 +804,7 @@ contract StrikersPlayerList is Ownable {
     addPlayer("Gonzalo Higua&#237;n"); // 14
     addPlayer("David de Gea"); // 15
     addPlayer("Antoine Griezmann"); // 16
-    addPlayer("N&#39;Golo Kant&#233;"); // 17
+    addPlayer("N'Golo Kant&#233;"); // 17
     addPlayer("Edinson Cavani"); // 18
     addPlayer("Paul Pogba"); // 19
     addPlayer("Isco"); // 20
@@ -894,7 +894,7 @@ contract StrikersPlayerList is Ownable {
   /// @dev Fires an event, proving that we said a player corresponds to a given ID.
   /// @param _name The name of the player we are adding.
   function addPlayer(string _name) public onlyOwner {
-    require(playerCount < 255, "You&#39;ve already added the maximum amount of players.");
+    require(playerCount < 255, "You've already added the maximum amount of players.");
     emit PlayerAdded(playerCount, _name);
     playerCount++;
   }
@@ -912,7 +912,7 @@ contract StrikersChecklist is StrikersPlayerList {
   //  - RarityTier tier (more info below)
   //
   // Two things to note: the checklistId is not explicitly stored
-  // on the checklistItem struct, and it&#39;s composed of two parts.
+  // on the checklistItem struct, and it's composed of two parts.
   // (For the following, assume it is left padded with zeros to reach
   // three digits, such that checklistId 0 becomes 000)
   //  - the first digit represents the setId
@@ -926,9 +926,9 @@ contract StrikersChecklist is StrikersPlayerList {
   //  digits = 00 = first index of array)
   //
   // Because checklistId is represented as a uint8 throughout the app, the highest
-  // value it can take is 255, which means we can&#39;t add more than 56 items to our
-  // Unreleased Set&#39;s unreleasedChecklistItems array (setId 2). Also, once we&#39;ve initialized
-  // this contract, it&#39;s impossible for us to add more checklist items to the Originals
+  // value it can take is 255, which means we can't add more than 56 items to our
+  // Unreleased Set's unreleasedChecklistItems array (setId 2). Also, once we've initialized
+  // this contract, it's impossible for us to add more checklist items to the Originals
   // and Iconics set -- what you see here is what you get.
   //
   // Simple enough right?
@@ -944,7 +944,7 @@ contract StrikersChecklist is StrikersPlayerList {
   }
 
   /// @dev Enum containing all our rarity tiers, just because
-  ///   it&#39;s cleaner dealing with these values than with uint8s.
+  ///   it's cleaner dealing with these values than with uint8s.
   enum RarityTier {
     IconicReferral,
     IconicInsert,
@@ -977,7 +977,7 @@ contract StrikersChecklist is StrikersPlayerList {
     RarityTier tier;
   }
 
-  /// @dev The deploy step we&#39;re at. Defaults to WaitingForStepOne.
+  /// @dev The deploy step we're at. Defaults to WaitingForStepOne.
   DeployStep public deployStep;
 
   /// @dev Array containing all the Originals checklist items (000 - 099)
@@ -991,7 +991,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Internal function to add a checklist item to the Originals set.
   /// @param _playerId The player represented by this checklist item. (see StrikersPlayerList.sol)
-  /// @param _tier This checklist item&#39;s rarity tier. (see Rarity Tier enum and corresponding tierLimits)
+  /// @param _tier This checklist item's rarity tier. (see Rarity Tier enum and corresponding tierLimits)
   function _addOriginalChecklistItem(uint8 _playerId, RarityTier _tier) internal {
     originalChecklistItems.push(ChecklistItem({
       playerId: _playerId,
@@ -1001,7 +1001,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Internal function to add a checklist item to the Iconics set.
   /// @param _playerId The player represented by this checklist item. (see StrikersPlayerList.sol)
-  /// @param _tier This checklist item&#39;s rarity tier. (see Rarity Tier enum and corresponding tierLimits)
+  /// @param _tier This checklist item's rarity tier. (see Rarity Tier enum and corresponding tierLimits)
   function _addIconicChecklistItem(uint8 _playerId, RarityTier _tier) internal {
     iconicChecklistItems.push(ChecklistItem({
       playerId: _playerId,
@@ -1010,30 +1010,30 @@ contract StrikersChecklist is StrikersPlayerList {
   }
 
   /// @dev External function to add a checklist item to our mystery set.
-  ///   Must have completed initial deploy, and can&#39;t add more than 56 items (because checklistId is a uint8).
+  ///   Must have completed initial deploy, and can't add more than 56 items (because checklistId is a uint8).
   /// @param _playerId The player represented by this checklist item. (see StrikersPlayerList.sol)
-  /// @param _tier This checklist item&#39;s rarity tier. (see Rarity Tier enum and corresponding tierLimits)
+  /// @param _tier This checklist item's rarity tier. (see Rarity Tier enum and corresponding tierLimits)
   function addUnreleasedChecklistItem(uint8 _playerId, RarityTier _tier) external onlyOwner {
     require(deployStep == DeployStep.DoneInitialDeploy, "Finish deploying the Originals and Iconics sets first.");
-    require(unreleasedCount() < 56, "You can&#39;t add any more checklist items.");
-    require(_playerId < playerCount, "This player doesn&#39;t exist in our player list.");
+    require(unreleasedCount() < 56, "You can't add any more checklist items.");
+    require(_playerId < playerCount, "This player doesn't exist in our player list.");
     unreleasedChecklistItems.push(ChecklistItem({
       playerId: _playerId,
       tier: _tier
     }));
   }
 
-  /// @dev Returns how many Original checklist items we&#39;ve added.
+  /// @dev Returns how many Original checklist items we've added.
   function originalsCount() external view returns (uint256) {
     return originalChecklistItems.length;
   }
 
-  /// @dev Returns how many Iconic checklist items we&#39;ve added.
+  /// @dev Returns how many Iconic checklist items we've added.
   function iconicsCount() public view returns (uint256) {
     return iconicChecklistItems.length;
   }
 
-  /// @dev Returns how many Unreleased checklist items we&#39;ve added.
+  /// @dev Returns how many Unreleased checklist items we've added.
   function unreleasedCount() public view returns (uint256) {
     return unreleasedChecklistItems.length;
   }
@@ -1053,7 +1053,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Deploys Originals #000 through #032.
   function deployStepOne() external onlyOwner {
-    require(deployStep == DeployStep.WaitingForStepOne, "You&#39;re not following the steps in order...");
+    require(deployStep == DeployStep.WaitingForStepOne, "You're not following the steps in order...");
 
     /* ORIGINALS - DIAMOND */
     _addOriginalChecklistItem(0, RarityTier.Diamond); // 000 Messi
@@ -1100,7 +1100,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Deploys Originals #033 through #065.
   function deployStepTwo() external onlyOwner {
-    require(deployStep == DeployStep.WaitingForStepTwo, "You&#39;re not following the steps in order...");
+    require(deployStep == DeployStep.WaitingForStepTwo, "You're not following the steps in order...");
 
     /* ORIGINALS - SILVER (033 to 049) */
     _addOriginalChecklistItem(33, RarityTier.Silver); // 033 Casemiro
@@ -1145,7 +1145,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Deploys Originals #066 through #099.
   function deployStepThree() external onlyOwner {
-    require(deployStep == DeployStep.WaitingForStepThree, "You&#39;re not following the steps in order...");
+    require(deployStep == DeployStep.WaitingForStepThree, "You're not following the steps in order...");
 
     /* ORIGINALS - BRONZE (066 to 099) */
     _addOriginalChecklistItem(66, RarityTier.Bronze); // 066 Kagawa
@@ -1189,7 +1189,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Deploys all Iconics and marks the deploy as complete!
   function deployStepFour() external onlyOwner {
-    require(deployStep == DeployStep.WaitingForStepFour, "You&#39;re not following the steps in order...");
+    require(deployStep == DeployStep.WaitingForStepFour, "You're not following the steps in order...");
 
     /* ICONICS */
     _addIconicChecklistItem(0, RarityTier.IconicInsert); // 100 Messi
@@ -1239,11 +1239,11 @@ contract StrikersChecklist is StrikersPlayerList {
       rarityTier = originalChecklistItems[_checklistId].tier;
     } else if (_checklistId < 200) { // Iconics = #100 to #131
       index = _checklistId - 100;
-      require(index < iconicsCount(), "This Iconics checklist item doesn&#39;t exist.");
+      require(index < iconicsCount(), "This Iconics checklist item doesn't exist.");
       rarityTier = iconicChecklistItems[index].tier;
     } else { // Unreleased = #200 to max #255
       index = _checklistId - 200;
-      require(index < unreleasedCount(), "This Unreleased checklist item doesn&#39;t exist.");
+      require(index < unreleasedCount(), "This Unreleased checklist item doesn't exist.");
       rarityTier = unreleasedChecklistItems[index].tier;
     }
     return tierLimits[uint8(rarityTier)];
@@ -1258,7 +1258,7 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
   /// @dev Emit this event whenever we mint a new card (see _mintCard below)
   event CardMinted(uint256 cardId);
 
-  /// @dev The struct representing the game&#39;s main object, a sports trading card.
+  /// @dev The struct representing the game's main object, a sports trading card.
   struct Card {
     // The timestamp at which this card was minted.
     // With uint32 we are good until 2106, by which point we will have not minted
@@ -1280,7 +1280,7 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
   Card[] public cards;
 
   /// @dev Keeps track of how many cards we have minted for a given checklist item
-  ///   to make sure we don&#39;t go over the limit for it.
+  ///   to make sure we don't go over the limit for it.
   ///   NB: uint16 has a capacity of 65,535, but we are not minting more than
   ///   4,352 of any given checklist item.
   mapping (uint8 => uint16) public mintedCountForChecklistId;
@@ -1310,7 +1310,7 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
   /// @dev An internal method that creates a new card and stores it.
   ///  Emits both a CardMinted and a Transfer event.
   /// @param _checklistId The ID of the checklistItem represented by the card (see Checklist.sol)
-  /// @param _owner The card&#39;s first owner!
+  /// @param _owner The card's first owner!
   function _mintCard(
     uint8 _checklistId,
     address _owner
@@ -1319,7 +1319,7 @@ contract StrikersBase is ERC721Token("CryptoStrikers", "STRK") {
     returns (uint256)
   {
     uint16 mintLimit = strikersChecklist.limitForChecklistId(_checklistId);
-    require(mintLimit == 0 || mintedCountForChecklistId[_checklistId] < mintLimit, "Can&#39;t mint any more of this card!");
+    require(mintLimit == 0 || mintedCountForChecklistId[_checklistId] < mintLimit, "Can't mint any more of this card!");
     uint16 serialNumber = ++mintedCountForChecklistId[_checklistId];
     Card memory newCard = Card({
       mintTime: uint32(now),
@@ -1405,20 +1405,20 @@ contract StrikersMinting is StrikersBase, Pausable {
 
   /// @dev Allows the contract at packSaleAddress to mint cards.
   /// @param _checklistId The checklist item represented by this new card.
-  /// @param _owner The card&#39;s first owner!
-  /// @return The new card&#39;s ID.
+  /// @param _owner The card's first owner!
+  /// @return The new card's ID.
   function mintPackSaleCard(uint8 _checklistId, address _owner) external returns (uint256) {
     require(msg.sender == packSaleAddress, "Only the pack sale contract can mint here.");
-    require(!outOfCirculation[_checklistId], "Can&#39;t mint any more of this checklist item...");
+    require(!outOfCirculation[_checklistId], "Can't mint any more of this checklist item...");
     return _mintCard(_checklistId, _owner);
   }
 
   /// @dev Allows the owner to mint cards from our Unreleased Set.
   /// @param _checklistId The checklist item represented by this new card. Must be >= 200.
-  /// @param _owner The card&#39;s first owner!
+  /// @param _owner The card's first owner!
   function mintUnreleasedCard(uint8 _checklistId, address _owner) external onlyOwner {
     require(_checklistId >= 200, "You can only use this to mint unreleased cards.");
-    require(!outOfCirculation[_checklistId], "Can&#39;t mint any more of this checklist item...");
+    require(!outOfCirculation[_checklistId], "Can't mint any more of this checklist item...");
     _mintCard(_checklistId, _owner);
   }
 
@@ -1466,9 +1466,9 @@ contract StrikersTrading is StrikersMinting {
   ///   the given criteria, the trade is executed.
   /// @param _maker Address of the maker (i.e. trade creator).
   /// @param _makerCardId ID of the card the maker has agreed to give up.
-  /// @param _taker The counterparty the maker wishes to trade with (if it&#39;s address(0), anybody can fill the trade!)
+  /// @param _taker The counterparty the maker wishes to trade with (if it's address(0), anybody can fill the trade!)
   /// @param _takerCardOrChecklistId If taker is the 0-address, then this is a checklist ID (e.g. "any Originals John Smith").
-  ///                                If not, then it&#39;s a card ID (e.g. "Originals John Smith #8/100").
+  ///                                If not, then it's a card ID (e.g. "Originals John Smith #8/100").
   /// @param _salt A uint256 timestamp to differentiate trades that have otherwise identical params (prevents replay attacks).
   /// @param _submittedCardId The card the taker is using to fill the trade. Must satisfy either the card or checklist ID
   ///                         specified in _takerCardOrChecklistId.
@@ -1488,7 +1488,7 @@ contract StrikersTrading is StrikersMinting {
     external
     whenNotPaused
   {
-    require(_maker != msg.sender, "You can&#39;t fill your own trade.");
+    require(_maker != msg.sender, "You can't fill your own trade.");
     require(_taker == address(0) || _taker == msg.sender, "You are not authorized to fill this trade.");
 
     if (_taker == address(0)) {
@@ -1523,12 +1523,12 @@ contract StrikersTrading is StrikersMinting {
     emit TradeFilled(tradeHash, _maker, _makerCardId, msg.sender, _submittedCardId);
   }
 
-  /// @dev Allows the maker to cancel a trade that hasn&#39;t been filled yet.
+  /// @dev Allows the maker to cancel a trade that hasn't been filled yet.
   /// @param _maker Address of the maker (i.e. trade creator).
   /// @param _makerCardId ID of the card the maker has agreed to give up.
-  /// @param _taker The counterparty the maker wishes to trade with (if it&#39;s address(0), anybody can fill the trade!)
+  /// @param _taker The counterparty the maker wishes to trade with (if it's address(0), anybody can fill the trade!)
   /// @param _takerCardOrChecklistId If taker is the 0-address, then this is a checklist ID (e.g. "any Lionel Messi").
-  ///                                If not, then it&#39;s a card ID (e.g. "Lionel Messi #8/100").
+  ///                                If not, then it's a card ID (e.g. "Lionel Messi #8/100").
   /// @param _salt A uint256 timestamp to differentiate trades that have otherwise identical params (prevents replay attacks).
   function cancelTrade(
     address _maker,
@@ -1556,9 +1556,9 @@ contract StrikersTrading is StrikersMinting {
   /// @dev Calculates Keccak-256 hash of a trade with specified parameters.
   /// @param _maker Address of the maker (i.e. trade creator).
   /// @param _makerCardId ID of the card the maker has agreed to give up.
-  /// @param _taker The counterparty the maker wishes to trade with (if it&#39;s address(0), anybody can fill the trade!)
+  /// @param _taker The counterparty the maker wishes to trade with (if it's address(0), anybody can fill the trade!)
   /// @param _takerCardOrChecklistId If taker is the 0-address, then this is a checklist ID (e.g. "any Lionel Messi").
-  ///                                If not, then it&#39;s a card ID (e.g. "Lionel Messi #8/100").
+  ///                                If not, then it's a card ID (e.g. "Lionel Messi #8/100").
   /// @param _salt A uint256 timestamp to differentiate trades that have otherwise identical params (prevents replay attacks).
   /// @return Keccak-256 hash of trade.
   function getTradeHash(
@@ -1616,7 +1616,7 @@ contract StrikersCore is StrikersTrading {
     strikersMetadata = StrikersMetadata(_contractAddress);
   }
 
-  /// @dev If we&#39;ve set an external metadata contract, use that.
+  /// @dev If we've set an external metadata contract, use that.
   function tokenURI(uint256 _tokenId) public view returns (string) {
     if (strikersMetadata == address(0)) {
       return super.tokenURI(_tokenId);

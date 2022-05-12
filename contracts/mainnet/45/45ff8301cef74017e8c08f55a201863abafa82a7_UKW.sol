@@ -78,7 +78,7 @@ contract BasicToken is ERC20Basic, Ownable {
     mapping (address => uint256) balances;
 
     /**
-     * Transfers tokens from the sender&#39;s account to another given account.
+     * Transfers tokens from the sender's account to another given account.
      * 
      * @param _to The address of the recipient.
      * @param _amount The amount of tokens to send.
@@ -132,7 +132,7 @@ contract AdvancedToken is BasicToken, ERC20 {
 
     /**
      * Allows another account to spend a given amount of tokens on behalf of the 
-     * sender&#39;s account.
+     * sender's account.
      * 
      * @param _spender The address of the spenders account.
      * @param _amount The amount of tokens the spender is allowed to spend.
@@ -144,7 +144,7 @@ contract AdvancedToken is BasicToken, ERC20 {
     }
 
     /**
-     * Increases the amount a given account can spend on behalf of the sender&#39;s 
+     * Increases the amount a given account can spend on behalf of the sender's 
      * account.
      * 
      * @param _spender The address of the spenders account.
@@ -158,7 +158,7 @@ contract AdvancedToken is BasicToken, ERC20 {
 
     /**
      * Decreases the amount of tokens a given account can spend on behalf of the 
-     * sender&#39;s account.
+     * sender's account.
      * 
      * @param _spender The address of the spenders account.
      * @param _amount The amount of tokens the spender is allowed to spend.

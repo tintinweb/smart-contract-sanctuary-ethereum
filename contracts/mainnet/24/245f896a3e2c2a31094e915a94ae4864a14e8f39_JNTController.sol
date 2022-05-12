@@ -395,7 +395,7 @@ contract Manageable is OwnableInterface,
 /**
  * @title PausableInterface
  * @dev Base contract which allows children to implement an emergency stop mechanism.
- * @dev Based on zeppelin&#39;s Pausable, but integrated with Manageable
+ * @dev Based on zeppelin's Pausable, but integrated with Manageable
  * @dev Contract is in paused state by default and should be explicitly unlocked
  */
 contract PausableInterface {
@@ -445,7 +445,7 @@ contract PausableInterface {
 /**
  * @title Pausable
  * @dev Base contract which allows children to implement an emergency stop mechanism.
- * @dev Based on zeppelin&#39;s Pausable, but integrated with Manageable
+ * @dev Based on zeppelin's Pausable, but integrated with Manageable
  * @dev Contract is in paused state by default and should be explicitly unlocked
  */
 contract Pausable is ManageableInterface,
@@ -461,7 +461,7 @@ contract Pausable is ManageableInterface,
   /**
    * @dev called by the manager to pause, triggers stopped state
    */
-  function pauseContract() public onlyAllowedManager(&#39;pause_contract&#39;) whenContractNotPaused {
+  function pauseContract() public onlyAllowedManager('pause_contract') whenContractNotPaused {
     paused = true;
     emit PauseEvent();
   }
@@ -469,7 +469,7 @@ contract Pausable is ManageableInterface,
   /**
    * @dev called by the manager to unpause, returns to normal state
    */
-  function unpauseContract() public onlyAllowedManager(&#39;unpause_contract&#39;) whenContractPaused {
+  function unpauseContract() public onlyAllowedManager('unpause_contract') whenContractPaused {
     paused = false;
     emit UnpauseEvent();
   }
@@ -530,7 +530,7 @@ contract BytecodeExecutor is ManageableInterface,
     bytes _transactionBytecode
   )
     external
-    onlyAllowedManager(&#39;execute_call&#39;)
+    onlyAllowedManager('execute_call')
   {
     require(underExecution == false);
 
@@ -547,7 +547,7 @@ contract BytecodeExecutor is ManageableInterface,
     bytes _transactionBytecode
   )
     external
-    onlyAllowedManager(&#39;execute_delegatecall&#39;)
+    onlyAllowedManager('execute_delegatecall')
   {
     require(underExecution == false);
 
@@ -753,7 +753,7 @@ contract CrydrControllerBase is CommonModifiersInterface,
   )
     external
     onlyContractAddress(_crydrStorage)
-    onlyAllowedManager(&#39;set_crydr_storage&#39;)
+    onlyAllowedManager('set_crydr_storage')
     whenContractPaused
   {
     require(_crydrStorage != address(this));
@@ -775,7 +775,7 @@ contract CrydrControllerBase is CommonModifiersInterface,
     external
     onlyContractAddress(_newCrydrView)
     onlyValidCrydrViewStandardName(_viewApiStandardName)
-    onlyAllowedManager(&#39;set_crydr_view&#39;)
+    onlyAllowedManager('set_crydr_view')
     whenContractPaused
   {
     require(_newCrydrView != address(this));
@@ -796,7 +796,7 @@ contract CrydrControllerBase is CommonModifiersInterface,
   )
     external
     onlyValidCrydrViewStandardName(_viewApiStandardName)
-    onlyAllowedManager(&#39;remove_crydr_view&#39;)
+    onlyAllowedManager('remove_crydr_view')
     whenContractPaused
   {
     require(crydrViewsAddresses[_viewApiStandardName] != address(0x0));
@@ -879,7 +879,7 @@ contract CrydrControllerBlockable is ManageableInterface,
     address _account
   )
     public
-    onlyAllowedManager(&#39;block_account&#39;)
+    onlyAllowedManager('block_account')
   {
     CrydrStorageBlocksInterface(getCrydrStorageAddress()).blockAccount(_account);
   }
@@ -888,7 +888,7 @@ contract CrydrControllerBlockable is ManageableInterface,
     address _account
   )
     public
-    onlyAllowedManager(&#39;unblock_account&#39;)
+    onlyAllowedManager('unblock_account')
   {
     CrydrStorageBlocksInterface(getCrydrStorageAddress()).unblockAccount(_account);
   }
@@ -898,7 +898,7 @@ contract CrydrControllerBlockable is ManageableInterface,
     uint256 _value
   )
     public
-    onlyAllowedManager(&#39;block_account_funds&#39;)
+    onlyAllowedManager('block_account_funds')
   {
     CrydrStorageBlocksInterface(getCrydrStorageAddress()).blockAccountFunds(_account, _value);
   }
@@ -908,7 +908,7 @@ contract CrydrControllerBlockable is ManageableInterface,
     uint256 _value
   )
     public
-    onlyAllowedManager(&#39;unblock_account_funds&#39;)
+    onlyAllowedManager('unblock_account_funds')
   {
     CrydrStorageBlocksInterface(getCrydrStorageAddress()).unblockAccountFunds(_account, _value);
   }
@@ -951,16 +951,16 @@ contract CrydrControllerMintable is ManageableInterface,
   )
     public
     whenContractNotPaused
-    onlyAllowedManager(&#39;mint_crydr&#39;)
+    onlyAllowedManager('mint_crydr')
   {
     // input parameters checked by the storage
 
     CrydrStorageBalanceInterface(getCrydrStorageAddress()).increaseBalance(_account, _value);
 
     emit MintEvent(_account, _value);
-    if (isCrydrViewRegistered(&#39;erc20&#39;) == true) {
-      CrydrViewERC20MintableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitMintEvent(_account, _value);
-      CrydrViewERC20LoggableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitTransferEvent(address(0x0), _account, _value);
+    if (isCrydrViewRegistered('erc20') == true) {
+      CrydrViewERC20MintableInterface(getCrydrViewAddress('erc20')).emitMintEvent(_account, _value);
+      CrydrViewERC20LoggableInterface(getCrydrViewAddress('erc20')).emitTransferEvent(address(0x0), _account, _value);
     }
   }
 
@@ -969,16 +969,16 @@ contract CrydrControllerMintable is ManageableInterface,
   )
     public
     whenContractNotPaused
-    onlyAllowedManager(&#39;burn_crydr&#39;)
+    onlyAllowedManager('burn_crydr')
   {
     // input parameters checked by the storage
 
     CrydrStorageBalanceInterface(getCrydrStorageAddress()).decreaseBalance(_account, _value);
 
     emit BurnEvent(_account, _value);
-    if (isCrydrViewRegistered(&#39;erc20&#39;) == true) {
-      CrydrViewERC20MintableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitBurnEvent(_account, _value);
-      CrydrViewERC20LoggableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitTransferEvent(_account, address(0x0), _value);
+    if (isCrydrViewRegistered('erc20') == true) {
+      CrydrViewERC20MintableInterface(getCrydrViewAddress('erc20')).emitBurnEvent(_account, _value);
+      CrydrViewERC20LoggableInterface(getCrydrViewAddress('erc20')).emitTransferEvent(_account, address(0x0), _value);
     }
   }
 }
@@ -1023,8 +1023,8 @@ contract CrydrControllerERC20 is PausableInterface,
   {
     CrydrStorageERC20Interface(getCrydrStorageAddress()).transfer(_msgsender, _to, _value);
 
-    if (isCrydrViewRegistered(&#39;erc20&#39;) == true) {
-      CrydrViewERC20LoggableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitTransferEvent(_msgsender, _to, _value);
+    if (isCrydrViewRegistered('erc20') == true) {
+      CrydrViewERC20LoggableInterface(getCrydrViewAddress('erc20')).emitTransferEvent(_msgsender, _to, _value);
     }
   }
 
@@ -1053,8 +1053,8 @@ contract CrydrControllerERC20 is PausableInterface,
 
     CrydrStorageERC20Interface(getCrydrStorageAddress()).approve(_msgsender, _spender, _value);
 
-    if (isCrydrViewRegistered(&#39;erc20&#39;) == true) {
-      CrydrViewERC20LoggableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitApprovalEvent(_msgsender, _spender, _value);
+    if (isCrydrViewRegistered('erc20') == true) {
+      CrydrViewERC20LoggableInterface(getCrydrViewAddress('erc20')).emitApprovalEvent(_msgsender, _spender, _value);
     }
   }
 
@@ -1070,8 +1070,8 @@ contract CrydrControllerERC20 is PausableInterface,
   {
     CrydrStorageERC20Interface(getCrydrStorageAddress()).transferFrom(_msgsender, _from, _to, _value);
 
-    if (isCrydrViewRegistered(&#39;erc20&#39;) == true) {
-      CrydrViewERC20LoggableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitTransferEvent(_from, _to, _value);
+    if (isCrydrViewRegistered('erc20') == true) {
+      CrydrViewERC20LoggableInterface(getCrydrViewAddress('erc20')).emitTransferEvent(_from, _to, _value);
     }
   }
 
@@ -1116,7 +1116,7 @@ contract CrydrControllerForcedTransfer is ManageableInterface,
   )
     public
     whenContractNotPaused
-    onlyAllowedManager(&#39;forced_transfer&#39;)
+    onlyAllowedManager('forced_transfer')
   {
     // input parameters checked by the storage
 
@@ -1124,8 +1124,8 @@ contract CrydrControllerForcedTransfer is ManageableInterface,
     CrydrStorageBalanceInterface(getCrydrStorageAddress()).increaseBalance(_to, _value);
 
     emit ForcedTransferEvent(_from, _to, _value);
-    if (isCrydrViewRegistered(&#39;erc20&#39;) == true) {
-      CrydrViewERC20LoggableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitTransferEvent(_from, _to, _value);
+    if (isCrydrViewRegistered('erc20') == true) {
+      CrydrViewERC20LoggableInterface(getCrydrViewAddress('erc20')).emitTransferEvent(_from, _to, _value);
     }
   }
 
@@ -1134,7 +1134,7 @@ contract CrydrControllerForcedTransfer is ManageableInterface,
   )
     public
     whenContractNotPaused
-    onlyAllowedManager(&#39;forced_transfer&#39;)
+    onlyAllowedManager('forced_transfer')
   {
     // input parameters checked by the storage
 
@@ -1143,8 +1143,8 @@ contract CrydrControllerForcedTransfer is ManageableInterface,
     CrydrStorageBalanceInterface(getCrydrStorageAddress()).increaseBalance(_to, value);
 
     emit ForcedTransferEvent(_from, _to, value);
-    if (isCrydrViewRegistered(&#39;erc20&#39;) == true) {
-      CrydrViewERC20LoggableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitTransferEvent(_from, _to, value);
+    if (isCrydrViewRegistered('erc20') == true) {
+      CrydrViewERC20LoggableInterface(getCrydrViewAddress('erc20')).emitTransferEvent(_from, _to, value);
     }
   }
 }
@@ -1181,13 +1181,13 @@ contract JNTPaymentGateway is ManageableInterface,
     uint256 _value
   )
     public
-    onlyAllowedManager(&#39;jnt_payable_service&#39;)
+    onlyAllowedManager('jnt_payable_service')
   {
     CrydrStorageERC20Interface(getCrydrStorageAddress()).transfer(_from, _to, _value);
 
     emit JNTChargedEvent(msg.sender, _from, _to, _value);
-    if (isCrydrViewRegistered(&#39;erc20&#39;) == true) {
-      CrydrViewERC20LoggableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitTransferEvent(_from, _to, _value);
+    if (isCrydrViewRegistered('erc20') == true) {
+      CrydrViewERC20LoggableInterface(getCrydrViewAddress('erc20')).emitTransferEvent(_from, _to, _value);
     }
   }
 }
@@ -1212,5 +1212,5 @@ contract JNTController is CommonModifiers,
 
   /* Constructor */
 
-  constructor () AssetID(&#39;JNT&#39;) public {}
+  constructor () AssetID('JNT') public {}
 }

@@ -23,7 +23,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -154,13 +154,13 @@ contract etherdoodleToken is ERC721 {
 
 
 //EVENTS
-// @dev fired when a pixel&#39;s colour is changed
+// @dev fired when a pixel's colour is changed
     event ColourChanged(uint pixelId, uint8 colourR, uint8 colourG, uint8 colourB);
 
-// @dev fired when a pixel&#39;s price is changed
+// @dev fired when a pixel's price is changed
     event PriceChanged(uint pixelId, uint oldPrice, uint newPrice);
 
-// @dev fired when a pixel&#39;s text is changed
+// @dev fired when a pixel's text is changed
     event TextChanged(uint pixelId, string textChanged);
 
 //@dev name for ERC-721
@@ -287,7 +287,7 @@ contract etherdoodleToken is ERC721 {
         }
     }
 
-//@dev add an address to a pixel&#39;s approved list
+//@dev add an address to a pixel's approved list
     function approve(address _to, uint _pixelId) public  {
         address owner = ownerOf(_pixelId);
         require(_to != owner);
@@ -304,7 +304,7 @@ contract etherdoodleToken is ERC721 {
         return pixelToApproved[_pixelId];
     }
 
-//@dev approve all an owner&#39;s pixels to be managed by an address
+//@dev approve all an owner's pixels to be managed by an address
     function setApprovalForAll(address _to,bool _approved) public{
         require(_to != msg.sender);
         operatorApprovals[msg.sender][_to] = _approved;
@@ -322,7 +322,7 @@ contract etherdoodleToken is ERC721 {
         return owner != address(0);
     }
 
-//@dev returns if an address is approved to manage all another address&#39; pixels
+//@dev returns if an address is approved to manage all another address' pixels
     function isApprovedForAll(address _owner, address _operator) public view returns(bool) {
         return operatorApprovals[_owner][_operator];
     }
@@ -383,7 +383,7 @@ contract etherdoodleToken is ERC721 {
         _transfer(msg.sender, _to, _pixelId);
     }
 
-//@dev returns all pixel&#39;s data
+//@dev returns all pixel's data
     function getPixelData(uint _pixelId) public view returns 
     (uint32 _id, address _owner, uint8 _colourR, uint8 _colourG, uint8 _colourB, uint _price,string _text) {
         Pixel storage pixel = pixels[_pixelId];

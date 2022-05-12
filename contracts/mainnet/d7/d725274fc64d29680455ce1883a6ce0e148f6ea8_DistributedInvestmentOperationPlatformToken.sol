@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     require(_b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -206,7 +206,7 @@ contract BurnableToken is BasicToken, Ownable {
       function burn(uint256 _value)  public onlyOwner{
           require(_value <= balances[msg.sender]);
           // no need to require value <= totalSupply, since that would imply the
-          // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+          // sender's balance is greater than the totalSupply, which *should* be an assertion failure
           address burner = msg.sender;
           balances[burner] = balances[burner].sub(_value);
           totalSupply_ = totalSupply_.sub(_value);

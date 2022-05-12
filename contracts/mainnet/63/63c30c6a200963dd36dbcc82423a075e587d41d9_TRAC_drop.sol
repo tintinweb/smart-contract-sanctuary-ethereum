@@ -152,7 +152,7 @@ contract  TRAC_drop {
     
     function CheckRefundIsFair() public {
         
-        //Function checks if the refund is fair and sets the user&#39;s fair value accordingly
+        //Function checks if the refund is fair and sets the user's fair value accordingly
         //Adjusts token flow details as required
         
         require(msg.sender == T_BN_K___a);

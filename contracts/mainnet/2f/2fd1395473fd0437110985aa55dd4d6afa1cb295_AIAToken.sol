@@ -111,8 +111,8 @@ contract Ownable {
 }
 
 contract AIAToken is StandardToken, Ownable {
-	string public constant name = &#39;AIAToken&#39;;
-	string public constant symbol = &#39;AIA&#39;;
+	string public constant name = 'AIAToken';
+	string public constant symbol = 'AIA';
 	uint public constant decimals = 18;
 	uint public totalSupply = 200000000 * 10e18; //200,000,000
 

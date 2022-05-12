@@ -107,8 +107,8 @@ contract PonyAccessControl {
     //
     // It should be noted that these roles are distinct without overlap in their access abilities, the
     // abilities listed for each role above are exhaustive. In particular, while the CEO can assign any
-    // address to any role, the CEO address itself doesn&#39;t have the ability to act in those roles. This
-    // restriction is intentional so that we aren&#39;t tempted to use the CEO address frequently out of
+    // address to any role, the CEO address itself doesn't have the ability to act in those roles. This
+    // restriction is intentional so that we aren't tempted to use the CEO address frequently out of
     // convenience. The less we use an address, the less likely it is that we somehow compromise the
     // account.
 
@@ -200,7 +200,7 @@ contract PonyAccessControl {
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
     function unpause() public onlyCEO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 }
@@ -231,8 +231,8 @@ contract PonyBase is PonyAccessControl {
     ///  is important because of the byte-packing rules used by Ethereum.
     ///  Ref: http://solidity.readthedocs.io/en/develop/miscellaneous.html
     struct Pony {
-        // The Pony&#39;s genetic code is packed into these 256-bits, the format is
-        // sooper-sekret! A pony&#39;s genes never change.
+        // The Pony's genetic code is packed into these 256-bits, the format is
+        // sooper-sekret! A pony's genes never change.
         uint256 genes;
 
         // The timestamp from the block when this pony came into existence.
@@ -247,7 +247,7 @@ contract PonyBase is PonyAccessControl {
         // Note that using 32-bit unsigned integers limits us to a "mere"
         // 4 billion ponys. This number might seem small until you realize
         // that Ethereum currently has a limit of about 500 million
-        // transactions per year! So, this definitely won&#39;t be a problem
+        // transactions per year! So, this definitely won't be a problem
         // for several years (even as Ethereum learns to scale).
         uint32 matronId;
         uint32 sireId;
@@ -340,11 +340,11 @@ contract PonyBase is PonyAccessControl {
 
     /// @dev Assigns ownership of a specific Pony to an address.
     function _transfer(address _from, address _to, uint256 _tokenId) internal {
-        // Since the number of Ponies is capped to 2^32 we can&#39;t overflow this
+        // Since the number of Ponies is capped to 2^32 we can't overflow this
         ownershipTokenCount[_to]++;
         // transfer ownership
         PonyIndexToOwner[_tokenId] = _to;
-        // When creating new Ponies _from is 0x0, but we can&#39;t account that address.
+        // When creating new Ponies _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
             ownershipTokenCount[_from]--;
             // once the Ponie is transferred also clear sire allowances
@@ -357,13 +357,13 @@ contract PonyBase is PonyAccessControl {
     }
 
     /// @dev An internal method that creates a new Pony and stores it. This
-    ///  method doesn&#39;t do any checking and should only be called when the
+    ///  method doesn't do any checking and should only be called when the
     ///  input data is known to be valid. Will generate both a Birth event
     ///  and a Transfer event.
     /// @param _matronId The Pony ID of the matron of this pony (zero for gen0)
     /// @param _sireId The Pony ID of the sire of this pony (zero for gen0)
     /// @param _generation The generation number of this pony, must be computed by caller.
-    /// @param _genes The Pony&#39;s genetic code.
+    /// @param _genes The Pony's genetic code.
     /// @param _owner The inital owner of this pony, must be non-zero (except for the unPony, ID 0)
     function _createPony(
         uint256 _matronId,
@@ -377,7 +377,7 @@ contract PonyBase is PonyAccessControl {
     {
         // These requires are not strictly necessary, our calling code should make
         // sure that these conditions are never broken. However! _createPony() is already
-        // an expensive call (for storage), and it doesn&#39;t hurt to be especially careful
+        // an expensive call (for storage), and it doesn't hurt to be especially careful
         // to ensure our data structures are always valid.
         require(_matronId == uint256(uint32(_matronId)));
         require(_sireId == uint256(uint32(_sireId)));
@@ -401,8 +401,8 @@ contract PonyBase is PonyAccessControl {
         });
         uint256 newPonieId = Poniesies.push(_Pony) - 1;
 
-        // It&#39;s probably never going to happen, 4 billion ponys is A LOT, but
-        // let&#39;s just be 100% sure we never let this happen.
+        // It's probably never going to happen, 4 billion ponys is A LOT, but
+        // let's just be 100% sure we never let this happen.
         require(newPonieId == uint256(uint32(newPonieId)));
 
         // emit the birth event
@@ -469,19 +469,19 @@ contract PonyOwnership is PonyBase, ERC721 {
     ERC721Metadata public erc721Metadata;
 
     bytes4 constant InterfaceSignature_ERC165 =
-        bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+        bytes4(keccak256('supportsInterface(bytes4)'));
 
     bytes4 constant InterfaceSignature_ERC721 =
-        bytes4(keccak256(&#39;name()&#39;)) ^
-        bytes4(keccak256(&#39;symbol()&#39;)) ^
-        bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-        bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-        bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-        bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-        bytes4(keccak256(&#39;tokenMetadata(uint256,string)&#39;));
+        bytes4(keccak256('name()')) ^
+        bytes4(keccak256('symbol()')) ^
+        bytes4(keccak256('totalSupply()')) ^
+        bytes4(keccak256('balanceOf(address)')) ^
+        bytes4(keccak256('ownerOf(uint256)')) ^
+        bytes4(keccak256('approve(address,uint256)')) ^
+        bytes4(keccak256('transfer(address,uint256)')) ^
+        bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+        bytes4(keccak256('tokensOfOwner(address)')) ^
+        bytes4(keccak256('tokenMetadata(uint256,string)'));
 
     /// @notice Introspection interface as per ERC-165 (https://github.com/ethereum/EIPs/issues/165).
     ///  Returns true for any standardized interfaces implemented by this contract. We implement
@@ -638,7 +638,7 @@ contract PonyOwnership is PonyBase, ERC721 {
 
     /// @notice Returns a list of all Pony IDs assigned to an address.
     /// @param _owner The owner whose Poniesies we are interested in.
-    /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+    /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
     ///  expensive (it walks the entire Pony array looking for ponys belonging to owner),
     ///  but it also returns a dynamic array, which is only supported for web3 calls, and
     ///  not contract-to-contract calls.
@@ -768,12 +768,12 @@ contract PonyBreeding is PonyOwnership {
 
     /// @dev Check if a sire has authorized breeding with this matron. True if both sire
     ///  and matron have the same owner, or if the sire has given siring permission to
-    ///  the matron&#39;s owner (via approveSiring()).
+    ///  the matron's owner (via approveSiring()).
     function _isSiringPermitted(uint256 _sireId, uint256 _matronId) internal view returns (bool) {
         address matronOwner = PonyIndexToOwner[_matronId];
         address sireOwner = PonyIndexToOwner[_sireId];
 
-        // Siring is okay if they have same owner, or if the matron&#39;s owner was given
+        // Siring is okay if they have same owner, or if the matron's owner was given
         // permission to breed with this sire.
         return (matronOwner == sireOwner || sireAllowedToAddress[_sireId] == matronOwner);
     }
@@ -846,9 +846,9 @@ contract PonyBreeding is PonyOwnership {
     /// @dev Internal check to see if a given sire and matron are a valid mating pair. DOES NOT
     ///  check ownership permissions (that is up to the caller).
     /// @param _matron A reference to the Pony struct of the potential matron.
-    /// @param _matronId The matron&#39;s ID.
+    /// @param _matronId The matron's ID.
     /// @param _sire A reference to the Pony struct of the potential sire.
-    /// @param _sireId The sire&#39;s ID
+    /// @param _sireId The sire's ID
     function _isValidMatingPair(
         Pony storage _matron,
         uint256 _matronId,
@@ -859,12 +859,12 @@ contract PonyBreeding is PonyOwnership {
         view
         returns(bool)
     {
-        // A Pony can&#39;t breed with itself!
+        // A Pony can't breed with itself!
         if (_matronId == _sireId) {
             return false;
         }
 
-        // Poniesies can&#39;t breed with their parents.
+        // Poniesies can't breed with their parents.
         if (_matron.matronId == _sireId || _matron.sireId == _sireId) {
             return false;
         }
@@ -878,7 +878,7 @@ contract PonyBreeding is PonyOwnership {
             return true;
         }
 
-        // Poniesies can&#39;t breed with full or half siblings.
+        // Poniesies can't breed with full or half siblings.
         if (_sire.matronId == _matron.matronId || _sire.matronId == _matron.sireId) {
             return false;
         }
@@ -886,7 +886,7 @@ contract PonyBreeding is PonyOwnership {
             return false;
         }
 
-        // Everything seems cool! Let&#39;s get DTF.
+        // Everything seems cool! Let's get DTF.
         return true;
     }
 
@@ -905,7 +905,7 @@ contract PonyBreeding is PonyOwnership {
     /// @notice Checks to see if two ponys can breed together, including checks for
     ///  ownership and siring approvals. Does NOT check that both ponys are ready for
     ///  breeding (i.e. breedWith could still fail until the cooldowns are finished).
-    ///  TODO: Shouldn&#39;t this check pregnancy and cooldowns?!?
+    ///  TODO: Shouldn't this check pregnancy and cooldowns?!?
     /// @param _matronId The ID of the proposed matron.
     /// @param _sireId The ID of the proposed sire.
     function canBreedWith(uint256 _matronId, uint256 _sireId)
@@ -936,7 +936,7 @@ contract PonyBreeding is PonyOwnership {
         _triggerCooldown(matron);
 
         // Clear siring permission for both parents. This may not be strictly necessary
-        // but it&#39;s likely to avoid confusion!
+        // but it's likely to avoid confusion!
         delete sireAllowedToAddress[_matronId];
         delete sireAllowedToAddress[_sireId];
 
@@ -964,31 +964,31 @@ contract PonyBreeding is PonyOwnership {
         require(_owns(msg.sender, _matronId));
 
         // Neither sire nor matron are allowed to be on auction during a normal
-        // breeding operation, but we don&#39;t need to check that explicitly.
-        // For matron: The caller of this function can&#39;t be the owner of the matron
+        // breeding operation, but we don't need to check that explicitly.
+        // For matron: The caller of this function can't be the owner of the matron
         //   because the owner of a Pony on auction is the auction house, and the
         //   auction house will never call breedWith().
         // For sire: Similarly, a sire on auction will be owned by the auction house
         //   and the act of transferring ownership will have cleared any oustanding
         //   siring approval.
-        // Thus we don&#39;t need to spend gas explicitly checking to see if either pony
+        // Thus we don't need to spend gas explicitly checking to see if either pony
         // is on auction.
 
         // Check that matron and sire are both owned by caller, or that the sire
-        // has given siring permission to caller (i.e. matron&#39;s owner).
+        // has given siring permission to caller (i.e. matron's owner).
         // Will fail for _sireId = 0
         require(_isSiringPermitted(_sireId, _matronId));
 
         // Grab a reference to the potential matron
         Pony storage matron = Poniesies[_matronId];
 
-        // Make sure matron isn&#39;t pregnant, or in the middle of a siring cooldown
+        // Make sure matron isn't pregnant, or in the middle of a siring cooldown
         require(_isReadyToBreed(matron));
 
         // Grab a reference to the potential sire
         Pony storage sire = Poniesies[_sireId];
 
-        // Make sure sire isn&#39;t pregnant, or in the middle of a siring cooldown
+        // Make sure sire isn't pregnant, or in the middle of a siring cooldown
         require(_isReadyToBreed(sire));
 
         // Test that these ponys are a valid mating pair.
@@ -1010,7 +1010,7 @@ contract PonyBreeding is PonyOwnership {
     ///  combines the genes of the two parents to create a new Ponie. The new Pony is assigned
     ///  to the current owner of the matron. Upon successful completion, both the matron and the
     ///  new Ponie will be ready to breed again. Note that anyone can call this function (if they
-    ///  are willing to pay the gas!), but the new Ponie always goes to the mother&#39;s owner.
+    ///  are willing to pay the gas!), but the new Ponie always goes to the mother's owner.
     function giveBirth(uint256 _matronId)
         external
         whenNotPaused
@@ -1052,7 +1052,7 @@ contract PonyBreeding is PonyOwnership {
         // Send the balance fee to the person who made birth happen.
         msg.sender.send(autoBirthFee);
 
-        // return the new Ponie&#39;s ID
+        // return the new Ponie's ID
         return PonieId;
     }
 }
@@ -1161,7 +1161,7 @@ contract ClockAuctionBase {
         Auction storage auction = tokenIdToAuction[_tokenId];
 
         // Explicitly check that this auction is currently live.
-        // (Because of how Ethereum mappings work, we can&#39;t just count
+        // (Because of how Ethereum mappings work, we can't just count
         // on the lookup above failing. An invalid _tokenId will just
         // return an auction object that is all zeros.)
         require(_isOnAuction(auction));
@@ -1175,14 +1175,14 @@ contract ClockAuctionBase {
         address seller = auction.seller;
 
         // The bid is good! Remove the auction before sending the fees
-        // to the sender so we can&#39;t have a reentrancy attack.
+        // to the sender so we can't have a reentrancy attack.
         _removeAuction(_tokenId);
 
         // Transfer proceeds to seller (if there are any!)
         if (price > 0) {
-            // Calculate the auctioneer&#39;s cut.
+            // Calculate the auctioneer's cut.
             // (NOTE: _computeCut() is guaranteed to return a
-            // value <= price, so this subtraction can&#39;t go negative.)
+            // value <= price, so this subtraction can't go negative.)
             uint256 auctioneerCut = _computeCut(price);
             uint256 sellerProceeds = price - auctioneerCut;
 
@@ -1192,7 +1192,7 @@ contract ClockAuctionBase {
             // a contract with an invalid fallback function. We explicitly
             // guard against reentrancy attacks by removing the auction
             // before calling transfer(), and the only thing the seller
-            // can DoS is the sale of their own asset! (And if it&#39;s an
+            // can DoS is the sale of their own asset! (And if it's an
             // accident, they can call cancelAuction(). )
             seller.transfer(sellerProceeds);
         }
@@ -1239,7 +1239,7 @@ contract ClockAuctionBase {
 
         // A bit of insurance against negative values (or wraparound).
         // Probably not necessary (since Ethereum guarnatees that the
-        // now variable doesn&#39;t ever go backwards).
+        // now variable doesn't ever go backwards).
         if (now > _auction.startedAt) {
             secondsPassed = now - _auction.startedAt;
         }
@@ -1266,13 +1266,13 @@ contract ClockAuctionBase {
         pure
         returns (uint256)
     {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our public functions carefully cap the maximum values for
         //  time (at 64-bits) and currency (at 128-bits). _duration is
         //  also known to be non-zero (see the require() statement in
         //  _addAuction())
         if (_secondsPassed >= _duration) {
-            // We&#39;ve reached the end of the dynamic pricing portion
+            // We've reached the end of the dynamic pricing portion
             // of the auction, just return the end price.
             return _endingPrice;
         } else {
@@ -1280,7 +1280,7 @@ contract ClockAuctionBase {
             // this delta can be negative.
             int256 totalPriceChange = int256(_endingPrice) - int256(_startingPrice);
 
-            // This multipliponyion can&#39;t overflow, _secondsPassed will easily fit within
+            // This multipliponyion can't overflow, _secondsPassed will easily fit within
             // 64-bits, and totalPriceChange will easily fit within 128-bits, their product
             // will always fit within 256-bits.
             int256 currentPriceChange = totalPriceChange * int256(_secondsPassed) / int256(_duration);
@@ -1293,10 +1293,10 @@ contract ClockAuctionBase {
         }
     }
 
-    /// @dev Computes owner&#39;s cut of a sale.
+    /// @dev Computes owner's cut of a sale.
     /// @param _price - Sale price of NFT.
     function _computeCut(uint256 _price) internal view returns (uint256) {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our entry functions carefully cap the maximum values for
         //  currency (at 128-bits), and ownerCut <= 10000 (see the require()
         //  statement in the ClockAuction constructor). The result of this
@@ -1383,7 +1383,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         nonFungibleContract = candidateContract;
     }
 
-    /// @dev Remove all Ether from the contract, which is the owner&#39;s cuts
+    /// @dev Remove all Ether from the contract, which is the owner's cuts
     ///  as well as any Ether sent directly to the contract address.
     ///  Always transfers to the NFT contract, but can be called either by
     ///  the owner or the NFT contract.
@@ -1415,7 +1415,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         external
         whenNotPaused
     {
-        // Sanity check that no inputs overflow how many bits we&#39;ve alloponyed
+        // Sanity check that no inputs overflow how many bits we've alloponyed
         // to store them in the auction struct.
         require(_startingPrice == uint256(uint128(_startingPrice)));
         require(_endingPrice == uint256(uint128(_endingPrice)));
@@ -1446,7 +1446,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         _transfer(msg.sender, _tokenId);
     }
 
-    /// @dev Cancels an auction that hasn&#39;t been won yet.
+    /// @dev Cancels an auction that hasn't been won yet.
     ///  Returns the NFT to original owner.
     /// @notice This is a state-modifying function that can
     ///  be called while the contract is paused.
@@ -1542,7 +1542,7 @@ contract SiringClockAuction is ClockAuction {
     )
         external
     {
-        // Sanity check that no inputs overflow how many bits we&#39;ve alloponyed
+        // Sanity check that no inputs overflow how many bits we've alloponyed
         // to store them in the auction struct.
         require(_startingPrice == uint256(uint128(_startingPrice)));
         require(_endingPrice == uint256(uint128(_endingPrice)));
@@ -1614,7 +1614,7 @@ contract SaleClockAuction is ClockAuction {
     )
         external
     {
-        // Sanity check that no inputs overflow how many bits we&#39;ve alloponyed
+        // Sanity check that no inputs overflow how many bits we've alloponyed
         // to store them in the auction struct.
         require(_startingPrice == uint256(uint128(_startingPrice)));
         require(_endingPrice == uint256(uint128(_endingPrice)));
@@ -1845,7 +1845,7 @@ contract PonyMinting is PonyAuction {
     function _computeNextGen0Price() internal view returns (uint256) {
         uint256 avePrice = saleAuction.averageGen0SalePrice();
 
-        // Sanity check to ensure we don&#39;t overflow arithmetic
+        // Sanity check to ensure we don't overflow arithmetic
         require(avePrice == uint256(uint128(avePrice)));
 
         uint256 nextPrice = avePrice + (avePrice / 2);
@@ -1862,17 +1862,17 @@ contract PonyMinting is PonyAuction {
 
 /// @title CryptoPoniesies: Collectible, breedable, and oh-so-adorable ponys on the Ethereum blockchain.
 /// @author Axiom Zen (https://www.axiomzen.co)
-/// @dev The main CryptoPoniesies contract, keeps track of Ponies so they don&#39;t wander around and get lost.
+/// @dev The main CryptoPoniesies contract, keeps track of Ponies so they don't wander around and get lost.
 contract PonyCore is PonyMinting {
 
     // This is the main CryptoPoniesies contract. In order to keep our code seperated into logical sections,
-    // we&#39;ve broken it up in two ways. First, we have several seperately-instantiated sibling contracts
+    // we've broken it up in two ways. First, we have several seperately-instantiated sibling contracts
     // that handle auctions and our super-top-secret genetic combination algorithm. The auctions are
-    // seperate since their logic is somewhat complex and there&#39;s always a risk of subtle bugs. By keeping
+    // seperate since their logic is somewhat complex and there's always a risk of subtle bugs. By keeping
     // them in their own contracts, we can upgrade them without disrupting the main contract that tracks
     // Pony ownership. The genetic combination algorithm is kept seperate so we can open-source all of
     // the rest of our code without making it _too_ easy for folks to figure out how the genetics work.
-    // Don&#39;t worry, I&#39;m sure someone will reverse engineer it soon enough!
+    // Don't worry, I'm sure someone will reverse engineer it soon enough!
     //
     // Secondly, we break the core contract into multiple files using inheritence, one for each major
     // facet of functionality of CK. This allows us to keep related code bundled together while still
@@ -1900,7 +1900,7 @@ contract PonyCore is PonyMinting {
     //             We can make up to 5000 "promo" ponys that can be given away (especially important when
     //             the community is new), and all others can only be created and then immediately put up
     //             for auction via an algorithmically determined starting price. Regardless of how they
-    //             are created, there is a hard limit of 50k gen0 ponys. After that, it&#39;s all up to the
+    //             are created, there is a hard limit of 50k gen0 ponys. After that, it's all up to the
     //             community to breed, breed, breed!
 
     // Set in case the core contract is broken and an upgrade is required
@@ -1917,13 +1917,13 @@ contract PonyCore is PonyMinting {
         // the creator of the contract is also the initial COO
         cooAddress = msg.sender;
 
-        // start with the mythical Ponie 0 - so we don&#39;t have generation-0 parent issues
+        // start with the mythical Ponie 0 - so we don't have generation-0 parent issues
         _createPony(0, 0, 0, uint256(-1), address(0));
     }
 
     /// @dev Used to mark the smart contract as upgraded, in case there is a serious
     ///  breaking bug. This method does nothing but keep track of the new contract and
-    ///  emit a message indiponying that the new address is set. It&#39;s up to clients of this
+    ///  emit a message indiponying that the new address is set. It's up to clients of this
     ///  contract to update to the new contract address in that case. (This contract will
     ///  be paused indefinitely if such an upgrade takes place.)
     /// @param _v2Address new address
@@ -1934,7 +1934,7 @@ contract PonyCore is PonyMinting {
     }
 
     /// @notice No tipping!
-    /// @dev Reject all Ether from being sent here, unless it&#39;s from one of the
+    /// @dev Reject all Ether from being sent here, unless it's from one of the
     ///  two auction contracts. (Hopefully, we can prevent user accidents.)
     function() external payable {
         require(
@@ -1962,7 +1962,7 @@ contract PonyCore is PonyMinting {
     ) {
         Pony storage pony = Poniesies[_id];
 
-        // if this variable is 0 then it&#39;s not gestating
+        // if this variable is 0 then it's not gestating
         isGestating = (pony.siringWithId != 0);
         isReady = (pony.cooldownEndBlock <= block.number);
         cooldownIndex = uint256(pony.cooldownIndex);
@@ -1976,7 +1976,7 @@ contract PonyCore is PonyMinting {
     }
 
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.

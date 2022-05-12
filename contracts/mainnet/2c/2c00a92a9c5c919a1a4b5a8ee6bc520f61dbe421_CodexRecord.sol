@@ -34,15 +34,15 @@ contract ERC20 is ERC20Basic {
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
 contract ERC721Basic {
-  // bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-  // bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-  // bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-  // bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;));
+  // bytes4(keccak256('balanceOf(address)')) ^
+  // bytes4(keccak256('ownerOf(uint256)')) ^
+  // bytes4(keccak256('approve(address,uint256)')) ^
+  // bytes4(keccak256('getApproved(uint256)')) ^
+  // bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+  // bytes4(keccak256('isApprovedForAll(address,address)')) ^
+  // bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+  // bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+  // bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'));
   bytes4 constant INTERFACE_ERC721 = 0x80ac58cd;
 
   event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
@@ -52,7 +52,7 @@ contract ERC721Basic {
   function balanceOf(address _owner) public view returns (uint256 _balance);
   function ownerOf(uint256 _tokenId) public view returns (address _owner);
 
-  // Note: This is not in the official ERC-721 standard so it&#39;s not included in the interface hash
+  // Note: This is not in the official ERC-721 standard so it's not included in the interface hash
   function exists(uint256 _tokenId) public view returns (bool _exists);
 
   function approve(address _to, uint256 _tokenId) public;
@@ -85,9 +85,9 @@ contract ERC721Basic {
  * @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
 contract ERC721Enumerable is ERC721Basic {
-  // bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-  // bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;));
+  // bytes4(keccak256('totalSupply()')) ^
+  // bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+  // bytes4(keccak256('tokenByIndex(uint256)'));
   bytes4 constant INTERFACE_ERC721_ENUMERABLE = 0x780e9d63;
 
   function totalSupply() public view returns (uint256);
@@ -101,9 +101,9 @@ contract ERC721Enumerable is ERC721Basic {
  * @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
 contract ERC721Metadata is ERC721Basic {
-  // bytes4(keccak256(&#39;name()&#39;)) ^
-  // bytes4(keccak256(&#39;symbol()&#39;)) ^
-  // bytes4(keccak256(&#39;tokenURI(uint256)&#39;));
+  // bytes4(keccak256('name()')) ^
+  // bytes4(keccak256('symbol()')) ^
+  // bytes4(keccak256('tokenURI(uint256)'));
   bytes4 constant INTERFACE_ERC721_METADATA = 0x5b5e139f;
 
   function name() public view returns (string _name);
@@ -128,7 +128,7 @@ contract ERC721 is ERC721Basic, ERC721Enumerable, ERC721Metadata {
  */
 contract ERC165 {
 
-  // bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+  // bytes4(keccak256('supportsInterface(bytes4)'));
   bytes4 constant INTERFACE_ERC165 = 0x01ffc9a7;
 
   /**
@@ -176,8 +176,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -194,7 +194,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -467,7 +467,7 @@ contract ERC721BasicToken is ERC721Basic, ERC165 {
       "Not authorized to transfer"
     );
 
-    // Resetting the approved address if it&#39;s set
+    // Resetting the approved address if it's set
     if (tokenApprovals[_tokenId] != address(0)) {
       tokenApprovals[_tokenId] = address(0);
     }
@@ -711,13 +711,13 @@ contract CodexRecordMetadata is ERC721Token {
     public
     onlyOwnerOf(_tokenId)
   {
-    // nameHash is only overridden if it&#39;s not a blank string, since name is a
+    // nameHash is only overridden if it's not a blank string, since name is a
     //  required value. Emptiness is determined if the first element is the null-byte
     if (!bytes32IsEmpty(_newNameHash)) {
       tokenData[_tokenId].nameHash = _newNameHash;
     }
 
-    // descriptionHash can always be overridden since it&#39;s an optional value
+    // descriptionHash can always be overridden since it's an optional value
     //  (e.g. you can "remove" a description by setting it to a blank string)
     tokenData[_tokenId].descriptionHash = _newDescriptionHash;
 
@@ -792,7 +792,7 @@ contract CodexRecordMetadata is ERC721Token {
     }
 
     // Rather than store a string representation of _tokenId, we just convert it on the fly
-    // since this is just a &#39;view&#39; function (i.e., there&#39;s no gas cost if called off chain)
+    // since this is just a 'view' function (i.e., there's no gas cost if called off chain)
     bytes memory tokenId = uint2bytes(_tokenId);
     bytes memory output = new bytes(prefix.length + tokenId.length);
 

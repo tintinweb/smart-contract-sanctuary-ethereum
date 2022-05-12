@@ -649,7 +649,7 @@ library WalletMainLib {
     mapping (uint => bytes32[]) transactions;
     //Tracks the index of each owner in the owners Array
     mapping (address => uint) ownerIndex;
-    //Array of Transaction&#39;s by id, new tx&#39;s with exact inputs as previous tx will add to array
+    //Array of Transaction's by id, new tx's with exact inputs as previous tx will add to array
     mapping (bytes32 => Transaction[]) transactionInfo;
 
   }
@@ -876,7 +876,7 @@ library WalletMainLib {
     if(msg.sender != address(this)){
       bool allGood;
       uint _amount;
-      // if the owner is revoking his/her confirmation but doesn&#39;t know the
+      // if the owner is revoking his/her confirmation but doesn't know the
       // specific transaction id hash
       if(!_confirm) {
         allGood = revokeConfirm(self, _id);
@@ -901,7 +901,7 @@ library WalletMainLib {
           self.transactions[now / 1 days].push(_id);
         } else { // else the transaction is already pending
           _number--; // set the index to the index of the existing transaction
-          //make sure the sender isn&#39;t already confirmed
+          //make sure the sender isn't already confirmed
           allGood = checkNotConfirmed(self, _id, _number);
           if(!allGood)
             return (false,_id);

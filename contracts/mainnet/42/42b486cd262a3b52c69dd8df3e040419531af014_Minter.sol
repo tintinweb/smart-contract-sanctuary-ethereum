@@ -126,7 +126,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -403,7 +403,7 @@ contract Minter is Manager, IMinter {
 
     /**
      * @dev Migrate to a new Minter by transferring ownership of the token as well
-     * as the current Minter&#39;s token balance to the new Minter. Only callable by Controller when system is paused
+     * as the current Minter's token balance to the new Minter. Only callable by Controller when system is paused
      * @param _newMinter Address of new Minter
      */
     function migrateToNewMinter(IMinter _newMinter) external onlyControllerOwner whenSystemPaused {
@@ -415,20 +415,20 @@ contract Minter is Manager, IMinter {
         IController newMinterController = _newMinter.getController();
         // New Minter must have same Controller as current Minter
         require(newMinterController == controller);
-        // New Minter&#39;s Controller must have the current Minter registered
+        // New Minter's Controller must have the current Minter registered
         require(newMinterController.getContract(keccak256("Minter")) == address(this));
 
         // Transfer ownership of token to new Minter
         livepeerToken().transferOwnership(_newMinter);
-        // Transfer current Minter&#39;s token balance to new Minter
+        // Transfer current Minter's token balance to new Minter
         livepeerToken().transfer(_newMinter, livepeerToken().balanceOf(this));
-        // Transfer current Minter&#39;s ETH balance to new Minter
+        // Transfer current Minter's ETH balance to new Minter
         _newMinter.depositETH.value(this.balance)();
     }
 
     /**
      * @dev Create reward based on a fractional portion of the mintable tokens for the current round
-     * @param _fracNum Numerator of fraction (active transcoder&#39;s stake)
+     * @param _fracNum Numerator of fraction (active transcoder's stake)
      * @param _fracDenom Denominator of fraction (total active stake)
      */
     function createReward(uint256 _fracNum, uint256 _fracDenom) external onlyBondingManager whenSystemNotPaused returns (uint256) {

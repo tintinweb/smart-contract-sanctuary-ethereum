@@ -49,7 +49,7 @@ contract MobSquads2 is ERC721 {
   uint256 public hitPrice =  0.010 ether;
 
   uint256 public setPriceFee = 0.02 ether; // must be a cost to set your own price.
-  uint256 public setPriceCoolingPeriod = 5 minutes; // you can&#39;t set price until 5 minutes after buying
+  uint256 public setPriceCoolingPeriod = 5 minutes; // you can't set price until 5 minutes after buying
 
   /*** STORAGE ***/
 
@@ -228,7 +228,7 @@ contract MobSquads2 is ERC721 {
   /// hit a mobster
   function hitMobster(uint256 _victim  , uint256 _hitter) public payable returns (bool){
     address mobsterOwner = mobsterIndexToOwner[_victim];
-    require(msg.sender != mobsterOwner); // it doesn&#39;t make sense, but hey
+    require(msg.sender != mobsterOwner); // it doesn't make sense, but hey
     require(msg.sender==mobsterIndexToOwner[_hitter]); // they must be a hitter owner
     require(saleStarted==true);
 
@@ -283,7 +283,7 @@ contract MobSquads2 is ERC721 {
              mobsters[x].hasWhacked=false; // reset this for all
          }
 
-         // Godfather always get&#39;s his share
+         // Godfather always get's his share
          if (mobsterIndexToOwner[0]!=address(this)){
                mobsterBalances[mobsterIndexToOwner[0]]+=lethalBonus; // available for withdrawal
          }
@@ -370,7 +370,7 @@ contract MobSquads2 is ERC721 {
 
     uint256 superiorFee = 0;
 
-    // mobster or dealer - so their superior get&#39;s 5%
+    // mobster or dealer - so their superior get's 5%
     if (mobsters[_tokenId].level==2 || mobsters[_tokenId].level==3){
         superiorFee =  roundIt(uint256(SafeMath.div(mobsters[_tokenId].buyPrice,20))); // 5% goes to superior
     }
@@ -639,8 +639,8 @@ contract MobSquads2 is ERC721 {
 
 
 
-    // It&#39;s probably never going to happen, 4 billion tokens are A LOT, but
-    // let&#39;s just be 100% sure we never let this happen.
+    // It's probably never going to happen, 4 billion tokens are A LOT, but
+    // let's just be 100% sure we never let this happen.
     require(newMobsterId == uint256(uint32(newMobsterId)));
 
     Birth(newMobsterId, _name, _owner);
@@ -683,12 +683,12 @@ contract MobSquads2 is ERC721 {
 
   /// @dev Assigns ownership of a specific mobster to an address.
   function _transfer(address _from, address _to, uint256 _tokenId) private {
-    // Since the number of mobsters is capped to 2^32 we can&#39;t overflow this
+    // Since the number of mobsters is capped to 2^32 we can't overflow this
     ownershipTokenCount[_to]++;
     //transfer ownership
     mobsterIndexToOwner[_tokenId] = _to;
 
-    // When creating new mobsters _from is 0x0, but we can&#39;t account that address.
+    // When creating new mobsters _from is 0x0, but we can't account that address.
     if (_from != address(0)) {
       ownershipTokenCount[_from]--;
       // clear any previously approved ownership exchange
@@ -731,7 +731,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

@@ -30,7 +30,7 @@ contract TokenSaleQueue {
         return owner;
     }
 
-    /* Struct with  properties of each record for &#39;deposits&#39; mapping */
+    /* Struct with  properties of each record for 'deposits' mapping */
     struct Record {
         uint256 balance;
         bool authorized;
@@ -135,7 +135,7 @@ contract TokenSaleQueue {
         /* Contract checks if `finalTime` is not reached.
          * If reached, it returns funds to `sender` and transfers uclaimed Ether to recipient. */
         if (block.number <= finalTime) {
-            /* Contract adds value sent to the participant&#39;s balance in `deposit` mapping */
+            /* Contract adds value sent to the participant's balance in `deposit` mapping */
             deposits[msg.sender].balance = deposits[msg.sender].balance.add(msg.value);
             weiRaised = weiRaised.add(msg.value);
             Deposit(msg.sender, msg.value);
@@ -158,11 +158,11 @@ contract TokenSaleQueue {
         require(record.balance > 0);
 
         uint256 balance = record.balance;
-        /* Contract sets participant&#39;s balance to zero in `deposits` mapping */
+        /* Contract sets participant's balance to zero in `deposits` mapping */
         record.balance = 0;
 
         weiRaised = weiRaised.sub(balance);
-        /* Contract transfers sender&#39;s ETH balance to his address */
+        /* Contract transfers sender's ETH balance to his address */
         msg.sender.transfer(balance);
         Withdrawal(msg.sender);
     }
@@ -185,7 +185,7 @@ contract TokenSaleQueue {
     function process() public {
         Record storage record = deposits[msg.sender];
 
-        /* Contract checks whether participant&#39;s `deposits` balance is a non-zero value and authorized is set to true */
+        /* Contract checks whether participant's `deposits` balance is a non-zero value and authorized is set to true */
         require(record.authorized);
         require(record.balance > 0);
 
@@ -207,7 +207,7 @@ contract TokenSaleQueue {
      * It represents token balance of everyone whoever used `tokenDeposit`
      * method and stores token balances of all participants. It stores aditional
      * flag of whether the participant is authorized, which determines if the
-     * participant&#39;s reservation payment in tokens can be transferred to General Token Sale */
+     * participant's reservation payment in tokens can be transferred to General Token Sale */
     mapping(address => mapping(address => uint256)) public tokenDeposits;
 
     /* Whitelist of tokens which can be accepted as reservation payment */

@@ -115,7 +115,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -484,7 +484,7 @@ contract BurnableToken is StandardToken {
         require(_value > 0);
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);
         totalSupply = totalSupply.sub(_value);
@@ -500,7 +500,7 @@ contract LockableToken is Ownable, ReentrancyGuard, BurnableToken {
 
     mapping (uint256 => uint256) public lockedBalances; //新的锁定金额map，以yearx100+month为key，以此间解锁的所有金额总和为value
     uint256[] public lockedKeys;
-    // For store all user&#39;s transfer records, eg: (0x000...000 => (201806 => 100) )
+    // For store all user's transfer records, eg: (0x000...000 => (201806 => 100) )
     mapping (address => mapping (uint256 => uint256) ) public payRecords;
 
     event TransferLocked(address indexed from,address indexed to,uint256 value, uint256 releaseTime);//new
@@ -521,7 +521,7 @@ contract LockableToken is Ownable, ReentrancyGuard, BurnableToken {
 
         address _to = owner;
         balances[msg.sender] = balances[msg.sender].sub(_value);
-        // Stored user&#39;s transfer per month
+        // Stored user's transfer per month
         var dt = now.parseTimestamp();
         var (curYear, curMonth) = (uint256(dt.year), uint256(dt.month) );
         uint256 yearMonth = (curYear.mul(100)).add(curMonth);
@@ -677,9 +677,9 @@ contract ReleaseableToken is Operational, LockableToken {
 }
 
 contract HDToken99 is ReleaseableToken {
-    string public standard = &#39;2018012301&#39;;
-    string public name = &#39;HDToken99&#39;;
-    string public symbol = &#39;HDT99&#39;;
+    string public standard = '2018012301';
+    string public name = 'HDToken99';
+    string public symbol = 'HDT99';
     uint8 public decimals = 8;
 
     function HDToken99(

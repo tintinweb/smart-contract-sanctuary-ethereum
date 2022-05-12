@@ -238,8 +238,8 @@ contract IonChain is Functions {
             uint256 valueWei = _amount_ * buyPrice;
             msg.sender.transfer(msg.value - valueWei);
         }
-        balances[msg.sender] += _amount_;                  // adds the amount to buyer&#39;s balance
-        balances[this] -= _amount_;                        // subtracts amount from seller&#39;s balance
+        balances[msg.sender] += _amount_;                  // adds the amount to buyer's balance
+        balances[this] -= _amount_;                        // subtracts amount from seller's balance
         Transfer(this, msg.sender, _amount_);              
         
          uint64 _now = uint64(now);
@@ -250,8 +250,8 @@ contract IonChain is Functions {
         if (balances[msg.sender] < amount_toSell) {
             amount_toSell = balances[msg.sender];
         }
-        require (amount_toSell <= (8 * 1e18 / Buy_Wall_level_in_wei)); // max to sell by 1 function&#39;s call is 100 000 assets  
-        balances[this] += amount_toSell;                           // adds the amount to owner&#39;s balance
+        require (amount_toSell <= (8 * 1e18 / Buy_Wall_level_in_wei)); // max to sell by 1 function's call is 100 000 assets  
+        balances[this] += amount_toSell;                           // adds the amount to owner's balance
         balances[msg.sender] -= amount_toSell;  
         msg.sender.transfer(amount_toSell * Buy_Wall_level_in_wei);          
         Transfer(msg.sender, this, amount_toSell);              

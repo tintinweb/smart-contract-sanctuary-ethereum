@@ -251,7 +251,7 @@ contract MultiSigWallet {
         //Stil the ghost of this code will haunt you.
         transactionId = addTransaction(token, 0, calldata);
         confirmTransaction(transactionId);
-        //I haven&#39;t mentioned that it&#39;s the most elegant solution for 0.4.20 compiler, which doesn&#39;t require rewriting all this shitty code.
+        //I haven't mentioned that it's the most elegant solution for 0.4.20 compiler, which doesn't require rewriting all this shitty code.
         //Enjoy.
     }
 
@@ -366,14 +366,14 @@ contract MultiSigWallet {
         executeTransaction(_transactionId);
     }
 
-    //Will fail if calldata less than 4 bytes long. It&#39;s a feature, not a bug.
+    //Will fail if calldata less than 4 bytes long. It's a feature, not a bug.
     /// @dev Allows anyone to execute a confirmed transaction.
     /// @param _transactionId Transaction ID.
     function executeTransaction(uint _transactionId) public notExecuted(_transactionId) {
         if (isConfirmed(_transactionId)) {
             Transaction storage trx = transactions[_transactionId];
             trx.executed = true;
-            //Just don&#39;t ask questions. It&#39;s needed. Believe me.
+            //Just don't ask questions. It's needed. Believe me.
 			bytes memory data = trx.data;
             bytes memory calldata;
             if (trx.data.length >= 4) {

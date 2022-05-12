@@ -68,7 +68,7 @@ contract Token is ERC20, Owned {
         return balance[_owner];
     }
 
-	//Sends tokens from sender&#39;s account
+	//Sends tokens from sender's account
     function transfer(address _to, uint256 _value) returns (bool success) {
         if (balance[msg.sender] >= _value && balance[_to] + _value > balance[_to]) {
             balance[msg.sender] -= _value;

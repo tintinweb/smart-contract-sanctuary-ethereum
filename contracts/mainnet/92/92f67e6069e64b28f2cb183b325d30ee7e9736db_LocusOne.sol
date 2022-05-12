@@ -17,7 +17,7 @@ contract LocusOne {
             revert();
         // Define the Locus dev account
         devAcct = 0x1daa0BFDEDfB133ec6aEd2F66D64cA88BeC3f0B4;
-        // Define the Locus Pot account (what you&#39;re all playing for)      
+        // Define the Locus Pot account (what you're all playing for)      
         potAcct = 0x708294833AEF21a305200b3463A832Ac97852f2e;        
         // msg.sender is the address of the caller.
 
@@ -47,7 +47,7 @@ contract LocusOne {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

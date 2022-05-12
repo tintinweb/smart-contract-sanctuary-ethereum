@@ -116,7 +116,7 @@ contract CloseSale is Ownable {
   }
   
   /*******************************************************************************
-   * Whitelist&#39;s section */
+   * Whitelist's section */
   
   
   function authorize(address wlCandidate) public backEnd  {
@@ -140,7 +140,7 @@ contract CloseSale is Ownable {
   }
   
   /*******************************************************************************
-   * Payable&#39;s section */
+   * Payable's section */
   
   
   function isCloseSale() public constant returns(bool) {

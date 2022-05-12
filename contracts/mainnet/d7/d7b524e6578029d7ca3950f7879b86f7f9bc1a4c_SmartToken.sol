@@ -44,9 +44,9 @@ contract IERC20Token {
 contract ERC20Token is IERC20Token {
     using SafeMath for uint256;
 
-    string public standard = &#39;Token 0.1&#39;;
-    string public name = &#39;&#39;;
-    string public symbol = &#39;&#39;;
+    string public standard = 'Token 0.1';
+    string public name = '';
+    string public symbol = '';
     uint8 public decimals = 0;
     uint256 public totalSupply = 0;
     mapping (address => uint256) public balanceOf;
@@ -187,7 +187,7 @@ contract SmartToken is ISmartToken, ERC20Token, Owned {
         fundingWallets[0xc55c8D13CD5DA748c30918f899447983B53d896b] = true;
     }
 
-    // Validates an address - currently only checks that it isn&#39;t null.
+    // Validates an address - currently only checks that it isn't null.
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -229,7 +229,7 @@ contract SmartToken is ISmartToken, ERC20Token, Owned {
 
         assert(totalProjectToken > 0);
 
-        // Check that this lock doesn&#39;t exceed the total amount of tokens currently available for totalProjectToken.
+        // Check that this lock doesn't exceed the total amount of tokens currently available for totalProjectToken.
         totalLockToken = totalLockToken.add(_value);
         assert(totalProjectToken >= totalLockToken);
 

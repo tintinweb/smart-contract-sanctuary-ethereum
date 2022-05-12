@@ -18,7 +18,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -380,7 +380,7 @@ contract CLXTokenSale is Ownable{
 
    /**
    * @dev Must be called after sale ends, to do some extra finalization
-   * work. It finishes the sale, sends the unsold tokens to the owner&#39;s address 
+   * work. It finishes the sale, sends the unsold tokens to the owner's address 
    * and transfer the remaining funds in contract to the owner.
    */
   function finishSale() public onlyOwner _contractUp _saleNotEnded returns (bool){

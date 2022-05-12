@@ -184,8 +184,8 @@ contract MintableToken is StandardToken, Ownable {
 }
 
 contract YiqiniuToken is MintableToken {
-    string public constant name		= &#39;Yiqiniu&#39;;
-    string public constant symbol	= &#39;KEY&#39;;
+    string public constant name		= 'Yiqiniu';
+    string public constant symbol	= 'KEY';
     uint256 public constant decimals	= 18;
     event Burned(address indexed burner, uint256 value);
     

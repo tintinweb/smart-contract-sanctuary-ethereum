@@ -246,8 +246,8 @@ contract StandardBurnableToken is BurnableToken, StandardToken,MintableToken {
 }
 
 contract GDAChain is StandardBurnableToken {
-    string public name = &#39;GDAToken&#39;;
-    string public symbol = &#39;GDA&#39;;
+    string public name = 'GDAToken';
+    string public symbol = 'GDA';
     uint8 public decimals = 8;
     uint256 public INITIAL_SUPPLY = 200000000000000000; 
     

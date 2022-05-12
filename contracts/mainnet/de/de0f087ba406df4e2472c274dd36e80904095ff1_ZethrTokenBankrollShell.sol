@@ -10,7 +10,7 @@ contract ZTHInterface {
     function withdraw(address _recipient) public;
 }
 
-// The Zethr Token Bankrolls aren&#39;t quite done being tested yet,
+// The Zethr Token Bankrolls aren't quite done being tested yet,
 // so here is a bankroll shell that we are using in the meantime.
 
 // Will store tokens & divs @ the set div% until the token bankrolls are fully tested & battle ready
@@ -37,7 +37,7 @@ contract ZethrTokenBankrollShell {
     // Accept ETH
     function () public payable {}
     
-    // Buy tokens at this contract&#39;s divRate
+    // Buy tokens at this contract's divRate
     function buyTokens() public payable onlyOwner {
         ZethrContract.buyAndSetDivPercentage.value(address(this).balance)(address(0x0), divRate, "0x0");
     }

@@ -40,17 +40,17 @@ contract EthernautsBase {
     ///  Ref: https://github.com/ethereum/EIPs/issues/165
     ///  Ref: https://github.com/ethereum/EIPs/issues/721
     bytes4 constant InterfaceSignature_ERC721 =
-    bytes4(keccak256(&#39;name()&#39;)) ^
-    bytes4(keccak256(&#39;symbol()&#39;)) ^
-    bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-    bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-    bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-    bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-    bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-    bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-    bytes4(keccak256(&#39;takeOwnership(uint256)&#39;)) ^
-    bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-    bytes4(keccak256(&#39;tokenMetadata(uint256,string)&#39;));
+    bytes4(keccak256('name()')) ^
+    bytes4(keccak256('symbol()')) ^
+    bytes4(keccak256('totalSupply()')) ^
+    bytes4(keccak256('balanceOf(address)')) ^
+    bytes4(keccak256('ownerOf(uint256)')) ^
+    bytes4(keccak256('approve(address,uint256)')) ^
+    bytes4(keccak256('transfer(address,uint256)')) ^
+    bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+    bytes4(keccak256('takeOwnership(uint256)')) ^
+    bytes4(keccak256('tokensOfOwner(address)')) ^
+    bytes4(keccak256('tokenMetadata(uint256,string)'));
 
     /// @dev due solidity limitation we cannot return dynamic array from methods
     /// so it creates incompability between functions across different contracts
@@ -205,7 +205,7 @@ contract EthernautsAccessControl is EthernautsBase {
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
     function unpause() public onlyCEO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 
@@ -310,7 +310,7 @@ contract EthernautsStorage is EthernautsAccessControl {
         // The minimum timestamp after which this asset can engage in exploring activities again.
         uint64 cooldownEndBlock;
 
-        // The Asset&#39;s stats can be upgraded or changed based on exploration conditions.
+        // The Asset's stats can be upgraded or changed based on exploration conditions.
         // It will be defined per child contract, but all stats have a range from 0 to 255
         // Examples
         // 0 = Ship Level
@@ -375,11 +375,11 @@ contract EthernautsStorage is EthernautsAccessControl {
     /// @param _to      new owner address
     /// @param _tokenId asset UniqueId
     function transfer(address _from, address _to, uint256 _tokenId) public onlyGrantedContracts {
-        // Since the number of assets is capped to 2^32 we can&#39;t overflow this
+        // Since the number of assets is capped to 2^32 we can't overflow this
         ownershipTokenCount[_to]++;
         // transfer ownership
         assetIndexToOwner[_tokenId] = _to;
-        // When creating new assets _from is 0x0, but we can&#39;t account that address.
+        // When creating new assets _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
             ownershipTokenCount[_from]--;
             // clear any previously approved ownership exchange
@@ -433,7 +433,7 @@ contract EthernautsStorage is EthernautsAccessControl {
 
         uint256 newAssetUniqueId = assets.push(asset) - 1;
 
-        // Check it reached 4 billion assets but let&#39;s just be 100% sure.
+        // Check it reached 4 billion assets but let's just be 100% sure.
         require(newAssetUniqueId == uint256(uint32(newAssetUniqueId)));
 
         // store price
@@ -446,7 +446,7 @@ contract EthernautsStorage is EthernautsAccessControl {
     }
 
     /// @dev A public method that edit asset in case of any mistake is done during process of creation by the developer. This
-    /// This method doesn&#39;t do any checking and should only be called when the
+    /// This method doesn't do any checking and should only be called when the
     ///  input data is known to be valid.
     /// @param _tokenId The token ID
     /// @param _creatorTokenID The asset that create that token
@@ -642,7 +642,7 @@ contract EthernautsOwnership is EthernautsAccessControl, ERC721 {
     /********* ERC 721 - COMPLIANCE CONSTANTS AND FUNCTIONS ***************/
     /**********************************************************************/
 
-    bytes4 constant InterfaceSignature_ERC165 = bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+    bytes4 constant InterfaceSignature_ERC165 = bytes4(keccak256('supportsInterface(bytes4)'));
 
     /*** EVENTS ***/
 
@@ -905,7 +905,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -972,7 +972,7 @@ contract EthernautsLogic is EthernautsOwnership {
 
     /// @dev Used to mark the smart contract as upgraded, in case there is a serious
     ///  breaking bug. This method does nothing but keep track of the new contract and
-    ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+    ///  emit a message indicating that the new address is set. It's up to clients of this
     ///  contract to update to the new contract address in that case. (This contract will
     ///  be paused indefinitely if such an upgrade takes place.)
     /// @param _v2Address new address
@@ -991,7 +991,7 @@ contract EthernautsLogic is EthernautsOwnership {
     }
 
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.

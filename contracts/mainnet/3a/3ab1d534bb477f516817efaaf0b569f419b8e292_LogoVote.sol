@@ -314,7 +314,7 @@ contract LogoVote is Pausable, SafeMath{
 		if(!msg.sender.send(amount)) throw;
 	}
 
-	// logo&#39;s owner can claim their rewards after end 
+	// logo's owner can claim their rewards after end 
 	function claimReward (address _receiver) stopInEmergency afterEnd {
 		if (!isLogo(msg.sender)) throw;
 		if (rewards[msg.sender]) throw;

@@ -65,7 +65,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -111,7 +111,7 @@ contract ERC20 {
 
 
 /// @title Basic ERC20 token contract implementation.
-/// @dev Based on OpenZeppelin&#39;s StandardToken.
+/// @dev Based on OpenZeppelin's StandardToken.
 contract BasicToken is ERC20 {
     using SafeMath for uint256;
 
@@ -375,7 +375,7 @@ contract VestingTrustee is Ownable {
     /// @dev Calculate the total amount of vested tokens of a holder at a given time.
     /// @param _holder address The address of the holder.
     /// @param _time uint256 The specific time to calculate against.
-    /// @return a uint256 Representing a holder&#39;s total amount of vested tokens.
+    /// @return a uint256 Representing a holder's total amount of vested tokens.
     function vestedTokens(address _holder, uint256 _time) external constant returns (uint256) {
         Grant memory grant = grants[_holder];
         if (grant.value == 0) {
@@ -390,12 +390,12 @@ contract VestingTrustee is Ownable {
     /// @param _time uint256 The time to be checked
     /// @return An uint256 Representing the amount of vested tokens of a specific grant.
     function calculateVestedTokens(Grant _grant, uint256 _time) private constant returns (uint256) {
-        // If we&#39;re before the cliff, then nothing is vested.
+        // If we're before the cliff, then nothing is vested.
         if (_time < _grant.cliff) {
             return 0;
         }
 
-        // If we&#39;re after the end of the vesting period - everything is vested;
+        // If we're after the end of the vesting period - everything is vested;
         if (_time >= _grant.end) {
             return _grant.value;
         }
@@ -425,7 +425,7 @@ contract VestingTrustee is Ownable {
             return;
         }
 
-        // Make sure the holder doesn&#39;t transfer more than what he already has.
+        // Make sure the holder doesn't transfer more than what he already has.
         uint256 transferable = vested.sub(grant.transferred);
         if (transferable == 0) {
             return;
@@ -557,7 +557,7 @@ contract KinTokenSale is Ownable, TokenHolder {
 
     /// @dev Initialize token grants.
     function initTokenGrants() private onlyOwner {
-        // Issue the remaining 60% to Kin Foundation&#39;s multisig wallet. In a few days, after the token sale is
+        // Issue the remaining 60% to Kin Foundation's multisig wallet. In a few days, after the token sale is
         // finalized, these tokens will be loaded into the KinVestingTrustee smart contract, according to the white
         // paper. Please note, that this is implied by setting a 0% vesting percent.
         tokenGrantees.push(KIN_FOUNDATION_ADDRESS);
@@ -576,7 +576,7 @@ contract KinTokenSale is Ownable, TokenHolder {
         require(_value > 0);
         require(tokenGrantees.length + 1 <= MAX_TOKEN_GRANTEES);
 
-        // Verify the grant doesn&#39;t already exist.
+        // Verify the grant doesn't already exist.
         require(tokenGrants[_grantee].value == 0);
         for (uint i = 0; i < tokenGrantees.length; i++) {
             require(tokenGrantees[i] != _grantee);
@@ -687,7 +687,7 @@ contract KinTokenSale is Ownable, TokenHolder {
         kin.endMinting();
     }
 
-    /// @dev Grants pre-configured token grants in batches. When the method is called, it&#39;ll resume from the last grant,
+    /// @dev Grants pre-configured token grants in batches. When the method is called, it'll resume from the last grant,
     /// from its previous run, and will finish either after granting GRANT_BATCH_SIZE grants or finishing the whole list
     /// of grants.
     function grantTokens() external onlyAfterSale onlyOwner {
@@ -737,7 +737,7 @@ contract KinTokenSale is Ownable, TokenHolder {
     /// @param _newOwnerCandidate address The address to transfer ownership to.
     ///
     /// NOTE:
-    ///   1. The new owner will need to call Kin token contract&#39;s acceptOwnership directly in order to accept the ownership.
+    ///   1. The new owner will need to call Kin token contract's acceptOwnership directly in order to accept the ownership.
     ///   2. Calling this method during the token sale will prevent the token sale to continue, since only the owner of
     ///      the Kin token contract can issue new tokens.
     function requestKinTokenOwnershipTransfer(address _newOwnerCandidate) external onlyOwner {
@@ -754,7 +754,7 @@ contract KinTokenSale is Ownable, TokenHolder {
     /// @param _newOwnerCandidate address The address to transfer ownership to.
     ///
     /// NOTE:
-    ///   1. The new owner will need to call VestingTrustee&#39;s acceptOwnership directly in order to accept the ownership.
+    ///   1. The new owner will need to call VestingTrustee's acceptOwnership directly in order to accept the ownership.
     ///   2. Calling this method during the token sale will prevent the token sale from finalizaing, since only the owner
     ///      of the VestingTrustee contract can issue new token grants.
     function requestVestingTrusteeOwnershipTransfer(address _newOwnerCandidate) external onlyOwner {

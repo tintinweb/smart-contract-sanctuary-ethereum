@@ -4,7 +4,7 @@ pragma solidity ^0.4.24;
  _    _      _                              _        
 | |  | |    | |                            | |       
 | |  | | ___| | ___ ___  _ __ ___   ___    | |_ ___  
-| |/\| |/ _ | |/ __/ _ \| &#39;_ ` _ \ / _ \   | __/ _ \ 
+| |/\| |/ _ | |/ __/ _ \| '_ ` _ \ / _ \   | __/ _ \ 
 \  /\  |  __| | (_| (_) | | | | | |  __/   | || (_) |
  \/  \/ \___|_|\___\___/|_| |_| |_|\___|    \__\___/            
 
@@ -91,7 +91,7 @@ contract Vitaluck {
         // We verify that the _countPress value is not < 1
         require(_countPresses >= 1);
         
-        // We double check that the players aren&#39;t trying to send small amount of ETH to press the button
+        // We double check that the players aren't trying to send small amount of ETH to press the button
         require(msg.value >= buttonBasePrice);
         
         // We verify that the game is not finished.
@@ -140,7 +140,7 @@ contract Vitaluck {
             // Player exists, update data
             players[playersToId[msg.sender]].countVTL = players[playersToId[msg.sender]].countVTL + _countPresses;
         } else {
-            // Player doesn&#39;t exist create it
+            // Player doesn't exist create it
             uint playerId = players.push(Player(msg.sender, _countPresses)) - 1;
             playersToId[msg.sender] = playerId;
         }
@@ -199,7 +199,7 @@ contract Vitaluck {
                     curWinningVTLAmount[j] = players[i].countVTL;
                 }
             }
-            // We record that this player is in the ranking to make sure we don&#39;t integrate it multiple times in the ranking
+            // We record that this player is in the ranking to make sure we don't integrate it multiple times in the ranking
             _checkPlayerInRanking[curWinningPlayers[j]] = true;
         }
 

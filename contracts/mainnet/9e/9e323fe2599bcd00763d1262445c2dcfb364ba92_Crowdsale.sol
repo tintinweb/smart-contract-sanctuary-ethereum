@@ -220,7 +220,7 @@ contract Crowdsale is GuidedByRoles{
 
     // Returns the name of the current round in plain text. Constant.
     function getTokenSaleType() external view returns(string){
-        return (TokenSale == TokenSaleType.round1)?&#39;round1&#39;:&#39;round2&#39;;
+        return (TokenSale == TokenSaleType.round1)?'round1':'round2';
     }
 
     // Transfers the funds of the investor to the contract of return of funds. Internal.
@@ -540,7 +540,7 @@ contract Crowdsale is GuidedByRoles{
     }
 
     // The ability to quickly check Round1 (only for Round1, only 1 time). Completes the Round1 by
-    // transferring the specified number of tokens to the Accountant&#39;s wallet. Available to the Manager.
+    // transferring the specified number of tokens to the Accountant's wallet. Available to the Manager.
     // Use only if this is provided by the script and white paper. In the normal scenario, it
     // does not call and the funds are raised normally. We recommend that you delete this
     // function entirely, so as not to confuse the auditors. Initialize & Finalize not needed.
@@ -595,7 +595,7 @@ contract Crowdsale is GuidedByRoles{
         isPausedCrowdsale = mode;
     }
 
-    // For example - After 5 years of the project&#39;s existence, all of us suddenly decided collectively
+    // For example - After 5 years of the project's existence, all of us suddenly decided collectively
     // (company + investors) that it would be more profitable for everyone to switch to another smart
     // contract responsible for tokens. The company then prepares a new token, investors
     // disassemble, study, discuss, etc. After a general agreement, the manager allows any investor:
@@ -720,7 +720,7 @@ contract Crowdsale is GuidedByRoles{
     // transfers) to the wallet of BTC, that together with previously received money will exceed the hardcap in total.
     // In this case, we will refund all the amounts above, in order not to exceed the hardcap.
 
-    // Collection of money in BTC will be carried out via one common wallet. The wallet&#39;s address will be published
+    // Collection of money in BTC will be carried out via one common wallet. The wallet's address will be published
     // everywhere (in a white paper, on the TokenSale website, on Telegram, on Bitcointalk, in this code, etc.)
     // Anyone interested can check that the administrator of the smart contract writes down exactly the amount
     // in ETH (in equivalent for BTC) there. In theory, the ability to bypass a smart contract to accept money in

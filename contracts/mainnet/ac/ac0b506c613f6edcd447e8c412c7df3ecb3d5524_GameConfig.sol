@@ -1,6 +1,6 @@
 pragma solidity ^0.4.18;
 
-/// @notice define the game&#39;s configuration
+/// @notice define the game's configuration
 /// @author rainysiu <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9fedfef6f1e6dff3f6e9faecebfeedb1fcf0f2">[email&#160;protected]</a>
 /// @dev MagicAcademy Games 
 contract GameConfig {
@@ -184,16 +184,16 @@ contract GameConfig {
     return SafeMath.div(defendingPower,2);
   }
  
-    /// @notice get the production card&#39;s ether cost
+    /// @notice get the production card's ether cost
   function unitEthCost(uint256 cardId) external constant returns (uint256) {
     return cardInfo[cardId].ethCost;
   }
 
-    /// @notice get the battle card&#39;s ether cost
+    /// @notice get the battle card's ether cost
   function unitBattleEthCost(uint256 cardId) external constant returns (uint256) {
     return battlecardInfo[cardId].ethCost;
   }
-  /// @notice get the battle card&#39;s plat cost
+  /// @notice get the battle card's plat cost
   function unitBattlePLATCost(uint256 cardId) external constant returns (uint256) {
     return SafeMath.mul(battlecardInfo[cardId].ethCost,PLATPrice);
   }
@@ -317,7 +317,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

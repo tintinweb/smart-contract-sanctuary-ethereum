@@ -117,7 +117,7 @@ contract TECHICO is admined {
     mapping(address => uint256) public pending; //tokens pending to being transfered
     //Contract details
     address public creator; //Creator address
-    string public version = &#39;2&#39;; //Contract version
+    string public version = '2'; //Contract version
     //Bonus Related - How much tokens per bonus
     uint256 bonus1Remain = 1440000*10**18; //+20%
     uint256 bonus2Remain = 2380000*10**18; //+15%
@@ -166,7 +166,7 @@ contract TECHICO is admined {
 
     /**
     * @notice Check remaining and cost function
-    * @dev The cost function doesn&#39;t include the bonuses calculation
+    * @dev The cost function doesn't include the bonuses calculation
     */
     function remainingTokensAndCost() public view returns (uint256[2]){
         uint256 remaining = hardCap.sub(totalDistributed);
@@ -217,7 +217,7 @@ contract TECHICO is admined {
 
         //To handle admin guided contributions
         address user;
-        //Let&#39;s if user is an admin and is givin a valid target
+        //Let's if user is an admin and is givin a valid target
         if(_target != address(0) && level[msg.sender] >= 1){
           user = _target;
         } else {

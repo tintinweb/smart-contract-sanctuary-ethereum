@@ -75,7 +75,7 @@ contract RidgeToken is ridgeContract {
     string public name;                   
      uint8 public decimals;                
     string public symbol;            
-    string public version = &#39;H1.0.3&#39;;  
+    string public version = 'H1.0.3';  
 
 
     function RidgeToken(

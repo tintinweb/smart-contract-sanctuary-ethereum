@@ -97,7 +97,7 @@ contract RussianCash is StandardToken { // ПОДЛЕЖИТ ИЗМЕНЕНИЮ. 
     string public name;                   // Название токена
     uint8 public decimals;                // Как много показывать десятичных. По умолчание устанавливает значение, равное 18
     string public symbol;                 // Идентификатор: например SBX, XPR и т.д...
-    string public version = &#39;H1.0&#39;; 
+    string public version = 'H1.0'; 
     uint256 public unitsOneEthCanBuy;     // Как много единиц вашего токена можно купить за 1 ETH?
     uint256 public totalEthInWei;         // WEI равняется минимальному значению ETH (эквивалентно центу в USD или сатоши в BTC). Здесь мы будем хранить все привлеченные ETH через ICO
     address public fundsWallet;           // Куда должны перенаправляться привлеченные ETH?

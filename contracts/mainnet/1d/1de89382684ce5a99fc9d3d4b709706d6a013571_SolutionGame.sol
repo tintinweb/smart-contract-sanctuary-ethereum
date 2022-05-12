@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -584,7 +584,7 @@ contract BaseGame is ERC721Token {
         uint shotA;
         uint shotB;
 
-        // list of ID forecast&#39;s
+        // list of ID forecast's
         uint[] forecasts;
     }
 
@@ -612,7 +612,7 @@ contract BaseGame is ERC721Token {
     ///@dev forecast -> token
     mapping (uint => uint) internal forecastToToken;
 
-    ///@dev token -> forecast&#39;s
+    ///@dev token -> forecast's
     mapping (uint => uint[]) internal tokenForecasts;
 
     /**
@@ -620,7 +620,7 @@ contract BaseGame is ERC721Token {
     */
     constructor(string _name, string _symbol) ERC721Token(_name, _symbol) public {}
 
-    /// METHOD&#39;s
+    /// METHOD's
     ///@dev create new token
     function _createToken(uint _parentId, address _owner) internal whenNotPaused
     returns (uint) {
@@ -841,7 +841,7 @@ contract BaseGameLogic is BaseGame {
         uint index = 0;
         uint count = tokenForecasts[_tokenId].length;
         for (index = 0; index < count; index++) {
-            //game&#39;s ended
+            //game's ended
             if(forecasts[tokenForecasts[_tokenId][index]].forecastBlockNumber < _blockNumber){
                 if(isReleased) {
                     if (games[forecasts[tokenForecasts[_tokenId][index]].gameId].gameDate < block.timestamp) {
@@ -861,13 +861,13 @@ contract BaseGameLogic is BaseGame {
         return forecastCount;
     }
 
-    ///@dev calculate score by fan&#39;s forecasts
+    ///@dev calculate score by fan's forecasts
     function getScore(uint _tokenId) public view returns (uint){
         uint[] memory _gameForecast = new uint[](65);
         return getScore(_tokenId, block.number, _gameForecast);
     }
 
-    ///@dev calculate score by fan&#39;s forecast to a specific block number
+    ///@dev calculate score by fan's forecast to a specific block number
     function getScore(uint _tokenId, uint _blockNumber, uint[] _gameForecast) public view returns (uint){
         uint score = 0;
 
@@ -946,7 +946,7 @@ contract BaseGameLogic is BaseGame {
             isDoubleScore = false;
         }
 
-        /// total goal count&#39;s
+        /// total goal count's
         if((cGame.goalA + cGame.goalB) == (_goalA + _goalB)) {
             _score = _score.add(2);
         } else {
@@ -1070,7 +1070,7 @@ contract HWCIntegration is BaseGameLogic {
             hwcAddress[msg.sender].index1 = hwcAddressList.push(msg.sender);
         }
 
-        emit NewHWCRegister(msg.sender, _a, &#39;&#39;);
+        emit NewHWCRegister(msg.sender, _a, '');
     }
 
     function registerHWCWit(string _a) public {
@@ -1081,7 +1081,7 @@ contract HWCIntegration is BaseGameLogic {
             hwcAddress[msg.sender].index1 = hwcAddressList.push(msg.sender);
         }
 
-        emit NewHWCRegister(msg.sender, &#39;&#39;, _a);
+        emit NewHWCRegister(msg.sender, '', _a);
     }
 
     function getHWCAddressCount() public view returns (uint){
@@ -1157,7 +1157,7 @@ contract SolutionGame is HWCIntegration {
     }
 
     /// @notice No tipping!
-    /// @dev Reject all Ether from being sent here, unless it&#39;s from one of the
+    /// @dev Reject all Ether from being sent here, unless it's from one of the
     ///  two auction contracts. (Hopefully, we can prevent user accidents.)
     function() external payable {
         _addToFund(msg.value, true);

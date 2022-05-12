@@ -20,10 +20,10 @@ contract Lotto {
   }
 
 /*
-The reasoning behind this method to get a random number is, because I&#39;m not
+The reasoning behind this method to get a random number is, because I'm not
 displaying the current number of players, no one should know who the 11th player
 will be, and that should be random enough to prevent anyone from cheating the system.
-The reward is only 1 ether so it&#39;s low enough that miners won&#39;t try to influence it
+The reward is only 1 ether so it's low enough that miners won't try to influence it
 ... i hope.
 */
   function random(uint upper) internal returns (uint) {
@@ -31,8 +31,8 @@ The reward is only 1 ether so it&#39;s low enough that miners won&#39;t try to i
     return seed % upper;
   }
 
-  // only accepts a value of 0.01 ether. no extra eth please!! don&#39;t be crazy!
-  // i&#39;ll make contracts for different sized bets eventually.
+  // only accepts a value of 0.01 ether. no extra eth please!! don't be crazy!
+  // i'll make contracts for different sized bets eventually.
   function buyIn() payable public returns (uint) {
     if (msg.value * 10 != 0.1 ether) {
       revert();
@@ -58,7 +58,7 @@ The reward is only 1 ether so it&#39;s low enough that miners won&#39;t try to i
   }
   
 /*
-If the contract becomes stagnant and new players haven&#39;t signed up for awhile,
+If the contract becomes stagnant and new players haven't signed up for awhile,
 this function will return the money to all the players. The function is made
 payable so I can send some ether with the transaction to pay for gas. this way
 I can make sure all players are paid back. 

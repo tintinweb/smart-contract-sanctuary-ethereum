@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 3000000000000000000000000000;
-        name = &#39;CentRocket&#39;;
-        symbol = &#39;CRT&#39;;
+        name = 'CentRocket';
+        symbol = 'CRT';
         decimals = 18;
         balanceOf[0x49d2a86d9c36c6fe55225fdaa6c0deb7fd9d5b39] = totalSupply;
         Transfer(address(0), 0x49d2a86d9c36c6fe55225fdaa6c0deb7fd9d5b39, totalSupply);

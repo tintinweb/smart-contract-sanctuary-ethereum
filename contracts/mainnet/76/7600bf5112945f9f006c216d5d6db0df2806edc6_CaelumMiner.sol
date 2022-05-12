@@ -14,8 +14,8 @@ library SafeMath {
      * @dev Multiplies two numbers, reverts on overflow.
      */
     function mul(uint256 _a, uint256 _b) internal pure returns(uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (_a == 0) {
             return 0;
@@ -33,7 +33,7 @@ library SafeMath {
     function div(uint256 _a, uint256 _b) internal pure returns(uint256) {
         require(_b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = _a / _b;
-        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -222,7 +222,7 @@ contract StandardToken is ERC20, BasicToken {
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -373,7 +373,7 @@ contract NewMemberProposal is IcaelumVoting {
 
     /**
      * @dev Create a new vote proposal for a team member.
-     * @param _contract Future team member&#39;s address
+     * @param _contract Future team member's address
      * @param _total How many masternodes do we want to give
      * @param _voteDuration How many days is this vote available
      */
@@ -509,7 +509,7 @@ contract CaelumVotings is Ownable {
     }
 
     /**
-     * @dev Rejects the last proposal after the allowed voting time has expired and it&#39;s not accepted.
+     * @dev Rejects the last proposal after the allowed voting time has expired and it's not accepted.
      */
     function discardRejectedProposal() onlyOwner public returns (bool) {
         require(proposalPending);
@@ -519,7 +519,7 @@ contract CaelumVotings is Ownable {
     }
 
     /**
-     * @dev Checks if the last proposal allowed voting time has expired and it&#39;s not accepted.
+     * @dev Checks if the last proposal allowed voting time has expired and it's not accepted.
      * @return bool
      */
     function LastProposalCanDiscard () public view returns (bool) {
@@ -720,7 +720,7 @@ contract CaelumAcceptERC20 is Ownable, CaelumVotings, abstractCaelum {
 
 
     /**
-     * @notice Allow the dev to set it&#39;s own token as accepted payment.
+     * @notice Allow the dev to set it's own token as accepted payment.
      * @dev Can be hardcoded in the constructor. Given the contract size, we decided to separate it.
      * @return bool
      */
@@ -917,7 +917,7 @@ contract CaelumMasternode is CaelumFundraise, CaelumAcceptERC20{
     }
 
     /**
-     * @dev Allow us to update a masternode&#39;s round to keep progress
+     * @dev Allow us to update a masternode's round to keep progress
      * @param _candidate ID of masternode
      */
     function updateMasternode(uint _candidate) internal returns(bool) {
@@ -1305,7 +1305,7 @@ contract CaelumMiner is StandardToken, CaelumMasternode {
 
         uint ethBlocksSinceLastDifficultyPeriod = block.number - latestDifficultyPeriodStarted;
         //assume 360 ethereum blocks per hour
-        //we want miners to spend 10 minutes to mine each &#39;block&#39;, about 60 ethereum blocks = one 0xbitcoin epoch
+        //we want miners to spend 10 minutes to mine each 'block', about 60 ethereum blocks = one 0xbitcoin epoch
         uint epochsMined = blocksPerReadjustment;
         uint targetEthBlocksPerDiffPeriod = epochsMined * MINING_RATE_FACTOR;
         //if there were less eth blocks passed in time than expected

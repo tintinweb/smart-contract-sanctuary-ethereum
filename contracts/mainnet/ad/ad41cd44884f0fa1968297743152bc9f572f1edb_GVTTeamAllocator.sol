@@ -50,7 +50,7 @@ contract GVTTeamAllocator is Initable {
         gvt = ERC20Basic(token);
     }
 
-    // Unlock team member&#39;s tokens by transferring them to his address
+    // Unlock team member's tokens by transferring them to his address
     function unlock() external {
         require (now >= unlockedAt);
 

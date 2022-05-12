@@ -6,7 +6,7 @@ pragma solidity ^0.4.18;
 *
   ___ _    ____   ___ _         _
  / __| |  |_  /  / __| |_  __ _(_)_ _
-| (__| |__ / /  | (__| &#39; \/ _` | | &#39; \
+| (__| |__ / /  | (__| ' \/ _` | | ' \
 \___|____/___|  \___|_||_\__,_|_|_||_|
                                      
 *
@@ -170,7 +170,7 @@ contract Token is SafeMath, Owned {
         return tempLockTime;
     }
 
-    // show values locked in an account&#39;s timelocks
+    // show values locked in an account's timelocks
     function showValue(address _address) public view validAddress(_address) returns (uint256[] _value) {
         return lockValue[_address];
     }
@@ -352,7 +352,7 @@ contract Token is SafeMath, Owned {
       emit WrongTokenEmptied(_addr, msg.sender, amount);
     }
 
-    // shouldn&#39;t happen, just in case
+    // shouldn't happen, just in case
     function emptyWrongEther() onlyOwner public {
       uint256 amount = address(this).balance;
       require(amount > 0);

@@ -96,7 +96,7 @@ contract ZeroHooStandardToken is StandardToken {
     string public name;                   //名称
     uint8 public decimals;               //最多的小数位数
     string public symbol;               //token简称:FAC
-    string public version = &#39;zero 1.0.0&#39;;    //版本
+    string public version = 'zero 1.0.0';    //版本
 
     function ZeroHooStandardToken(uint256 _initialAmount, string _tokenName, uint8 _decimalUnits, string _tokenSymbol) public {
         balances[msg.sender] = _initialAmount; // 初始token数量给予消息发送者

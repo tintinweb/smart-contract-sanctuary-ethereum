@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -914,7 +914,7 @@ contract MintableNFT is ERC721Token, MintingUtility {
   constructor(string _name, string _symbol, uint8 _bytesMask) ERC721Token(_name, _symbol) public {
     require(_bytesMask > 0); // The mask has to be bigger than zero
     require(_bytesMask < 32); // The mask can not occupy the entire length, because we need at least one byte to reflect the token type
-    bitsMask = _bytesMask * 8; // Mask is set at creation and can&#39;t be modified (max 248 bits, fits on uint8(256))
+    bitsMask = _bytesMask * 8; // Mask is set at creation and can't be modified (max 248 bits, fits on uint8(256))
     uint256 maximumValueOfMask = uint256(2) ** (uint256(bitsMask)) - 1; // Gets the maximum uint value for the mask;
     maxMask = uint248(maximumValueOfMask);
   }

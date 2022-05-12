@@ -15,7 +15,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -35,7 +35,7 @@ library SafeMath {
  * @title Owned contract with safe ownership pass.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract Owned {
     /**
@@ -204,7 +204,7 @@ contract GroupsAccessManager is Object, GroupsAccessManagerEmitter {
     mapping(uint => bytes32) index2groupName;
     mapping(bytes32 => uint) groupName2index;
     mapping(bytes32 => Group) groupName2group;
-    mapping(bytes32 => bool) public groupsBlocked; // if groupName => true, then couldn&#39;t be used for confirmation
+    mapping(bytes32 => bool) public groupsBlocked; // if groupName => true, then couldn't be used for confirmation
 
     function() payable public {
         revert();

@@ -92,10 +92,10 @@ contract ICOToken{
     // --Public write functions
     function withdrawFunding(uint256 _amount) public {
         if (icoFunding == 0){
-            require(address(this).balance >= fundingCap || block.timestamp >= IcoEndTime, "ICO hasn&#39;t ended");
+            require(address(this).balance >= fundingCap || block.timestamp >= IcoEndTime, "ICO hasn't ended");
             icoFunding = address(this).balance;
         }
-        require(beneficiaryWithdrawAmount[msg.sender] > 0, "You&#39;re not a beneficiary");
+        require(beneficiaryWithdrawAmount[msg.sender] > 0, "You're not a beneficiary");
         uint256 stash = beneficiaryStash(msg.sender);
         if (_amount >= stash){
             beneficiaryWithdrawAmount[msg.sender] = beneficiaryPayoutPerShare * beneficiaryShares[msg.sender];
@@ -111,14 +111,14 @@ contract ICOToken{
     }
     
     function() payable external{
-        require(block.timestamp >= IcoStartTime, "ICO hasn&#39;t started yet");
+        require(block.timestamp >= IcoStartTime, "ICO hasn't started yet");
         require(icoFunding == 0 && block.timestamp < IcoEndTime, "ICO has ended");
         require(msg.value != 0 && ((msg.value % TOKEN_PRICE) == 0), "Must be a multiple of 0.0001 ETH");
         
         uint256 thisBalance = address(this).balance; 
         uint256 msgValue = msg.value;
         
-        // While the extra ETH is appriciated, we set ourselves a hardcap and we&#39;re gonna stick to it!
+        // While the extra ETH is appriciated, we set ourselves a hardcap and we're gonna stick to it!
         if (thisBalance > fundingCap){
             msgValue -= (thisBalance - fundingCap);
             require(msgValue != 0, "Funding cap has been reached");
@@ -220,9 +220,9 @@ contract ICOToken{
     
     function actualTransfer (address _from, address _to, uint _value, bytes memory _data, string memory _function, bool _careAboutHumanity) private {
         // You can only transfer this token after the ICO has ended.
-        require(icoFunding != 0 || address(this).balance >= fundingCap || block.timestamp >= IcoEndTime, "ICO hasn&#39;t ended");
+        require(icoFunding != 0 || address(this).balance >= fundingCap || block.timestamp >= IcoEndTime, "ICO hasn't ended");
         require(balanceOf[_from] >= _value, "Insufficient balance");
-        require(_to != address(this), "You can&#39;t sell back your tokens");
+        require(_to != address(this), "You can't sell back your tokens");
         
         // Throwing an exception undos all changes. Otherwise changing the balance now would be a shitshow
         balanceOf[_from] = balanceOf[_from].sub(_value);
@@ -285,7 +285,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
     

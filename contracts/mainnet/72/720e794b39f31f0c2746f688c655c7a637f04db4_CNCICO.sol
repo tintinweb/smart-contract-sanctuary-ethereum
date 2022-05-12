@@ -131,7 +131,7 @@ contract CNCICO is admined {
     mapping (address => uint256) public balance; //Tokens pending to send per user
     //Contract details
     address public creator;
-    string public version = &#39;1&#39;;
+    string public version = '1';
 
     //Tokens per eth rates
     uint256[2] rates = [50000,28572];
@@ -270,7 +270,7 @@ contract CNCICO is admined {
             writer.transfer(5 ether);
             //If there is any token left after ico
             uint256 remanent = hardCap.sub(totalDistributed); //Total tokens to distribute - total distributed
-            //It&#39;s send to creator
+            //It's send to creator
             tokenReward.transfer(creator,remanent);
             emit LogContributorsPayout(creator, remanent);
         }
@@ -321,13 +321,13 @@ contract CNCICO is admined {
         require(state == State.Failed);
         //We take the amount of tokens already sent to user
         uint256 holderTokens = tokensSent[msg.sender];
-        //For security it&#39;s cleared
+        //For security it's cleared
         tokensSent[msg.sender] = 0;
         //Also pending tokens are cleared
         balance[msg.sender] = 0;
         //Amount of ether sent by user is checked
         uint256 holderETH = ethOnContract[msg.sender];
-        //For security it&#39;s cleared
+        //For security it's cleared
         ethOnContract[msg.sender] = 0;
         //Contract try to retrieve tokens from user balance using allowance
         require(tokenReward.transferFrom(msg.sender,address(this),holderTokens));

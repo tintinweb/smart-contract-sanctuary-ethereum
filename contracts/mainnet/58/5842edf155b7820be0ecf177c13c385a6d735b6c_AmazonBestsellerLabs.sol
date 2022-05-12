@@ -32,9 +32,9 @@ library SafeMath {
 
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
 
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
 
-    // benefit is lost if &#39;b&#39; is also tested.
+    // benefit is lost if 'b' is also tested.
 
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
 
@@ -68,7 +68,7 @@ library SafeMath {
 
     // uint256 c = a / b;
 
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return a / b;
 
@@ -151,8 +151,8 @@ contract StandardToken is Token {
     using SafeMath for uint256;
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -212,9 +212,9 @@ contract AmazonBestsellerLabs is StandardToken {
     Some wallets/interfaces might not even bother to look at this information.
     */
     string public name;                   //fancy name: eg Simon Bucks
-    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
-    string public version = &#39;ABL1.0&#39;;       //Just an arbitrary versioning scheme.
+    string public version = 'ABL1.0';       //Just an arbitrary versioning scheme.
 
     function AmazonBestsellerLabs(
         uint256 _initialAmount,
@@ -234,7 +234,7 @@ contract AmazonBestsellerLabs is StandardToken {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { throw; }

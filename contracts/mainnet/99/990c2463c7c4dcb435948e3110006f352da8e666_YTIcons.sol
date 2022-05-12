@@ -32,8 +32,8 @@ contract YTIcons is ERC721 {
     /// The corporation address that will be used for its development (giveaway, game events...)
     address private _utilityFund = 0x6B06a2a15dCf3AE45b9F133Be6FD0Be5a9FAedC2;
 
-    /// When a card isn&#39;t verified, the normal share given to the beneficiary linked
-    /// to the card is given to the charity fund&#39;s address instead.
+    /// When a card isn't verified, the normal share given to the beneficiary linked
+    /// to the card is given to the charity fund's address instead.
     address private _charityFund = 0xF9864660c4aa89E241d7D44903D3c8A207644332;
 
     uint16 public _generation = 0;
@@ -55,22 +55,22 @@ contract YTIcons is ERC721 {
 
     Card[] private _cards;
 
-    /// A mapping from cards&#39; IDs to their prices [0], the last investment* [1] and their highest price [2].
+    /// A mapping from cards' IDs to their prices [0], the last investment* [1] and their highest price [2].
     /// *If someone buys an icon for 0.001 ETH, then the last investment of the card will be 0.001 ETH. If someone else buys it back at 0.002 ETH,
     /// then the last investment will be 0.002 ETH.
     mapping (uint256 => uint256[3]) private _cardsPrices;
 
-    /// A mapping from cards&#39; names to the beneficiary addresses
+    /// A mapping from cards' names to the beneficiary addresses
     mapping (uint256 => address) private _beneficiaryAddresses;
 
-    /// A mapping from cards&#39; IDs to their owners
+    /// A mapping from cards' IDs to their owners
     mapping (uint256 => address) private _cardsOwners;
 
     /// A mapping from owner address to count of tokens that address owns.
-    /// Used for ERC721&#39;s method &#39;balanceOf()&#39; to resolve ownership count.
+    /// Used for ERC721's method 'balanceOf()' to resolve ownership count.
     mapping (address => uint256) private _tokenPerOwners;
 
-    /// A mapping from cards&#39; ids to an address that has been approved to call
+    /// A mapping from cards' ids to an address that has been approved to call
     /// transferFrom(). Each Card can only have one approved address for transfer
     /// at any time. A zero value means no approval is outstanding.
     mapping (uint256 => address) public _allowedAddresses;
@@ -92,7 +92,7 @@ contract YTIcons is ERC721 {
 
     /* ACCESS MODIFIERS */
 
-    /// Access modifier for owner&#39;s functionalities and actions only
+    /// Access modifier for owner's functionalities and actions only
     modifier ownerOnly() {
         require(msg.sender == _owner0x || msg.sender == _ownerA || msg.sender == _ownerB || msg.sender == _ownerC || msg.sender == _ownerD);
         _;
@@ -281,7 +281,7 @@ contract YTIcons is ERC721 {
         _cards[tokenId].isLocked = false;
     }
 
-    /// Get the smart contract&#39;s balance out of the contract and transfers it to every related account.
+    /// Get the smart contract's balance out of the contract and transfers it to every related account.
     function payout() public ownerOnly {
         _payout();
     }
@@ -314,7 +314,7 @@ contract YTIcons is ERC721 {
 
     /* PUBLIC FUNCTIONS */
 
-    /// Get all of the useful card&#39;s informations.
+    /// Get all of the useful card's informations.
     function getCard(uint256 tokenId) public view returns (string cardName, uint16 generation, bool isLocked, uint256 price, address owner, address beneficiary, bool isVerified) {
         Card storage card = _cards[tokenId];
         cardName = card.name;
@@ -327,7 +327,7 @@ contract YTIcons is ERC721 {
         isVerified = _addressNotNull(_beneficiaryAddresses[tokenId]) ? true : false;
     }
 
-    /// Set a lower price if the sender is the card&#39;s owner.
+    /// Set a lower price if the sender is the card's owner.
     function setPrice(uint256 tokenId, uint256 newPrice) public {
         require(!_cards[tokenId].isLocked);
         // If new price > 0
@@ -349,7 +349,7 @@ contract YTIcons is ERC721 {
 
         uint256 sellingPrice = _cardsPrices[tokenId][0];
 
-        // Making sure the token owner isn&#39;t trying to purchase his/her own token.
+        // Making sure the token owner isn't trying to purchase his/her own token.
         require(oldOwner != newOwner);
 
         require(_addressNotNull(newOwner));
@@ -446,7 +446,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

@@ -263,7 +263,7 @@ contract GameChannelBase is Destroyable, ConflictResolutionManager {
         /// @dev Game session status.
         GameStatus status;
 
-        /// @dev Player&#39;s stake.
+        /// @dev Player's stake.
         uint128 stake;
 
         /// @dev Last game round info if not regularly ended.
@@ -374,7 +374,7 @@ contract GameChannelBase is Destroyable, ConflictResolutionManager {
     /// @dev This event is fired when game session is ended.
     event LogGameEnded(address indexed player, uint indexed gameId, uint32 roundId, int balance, ReasonEnded reason);
 
-    /// @dev this event is fired when owner modifies player&#39;s stake limits.
+    /// @dev this event is fired when owner modifies player's stake limits.
     event LogStakeLimitsModified(uint minStake, uint maxStake);
 
     /**
@@ -507,7 +507,7 @@ contract GameChannelBase is Destroyable, ConflictResolutionManager {
      * @dev Close game session.
      * @param _game Game session data.
      * @param _gameId Id of game session.
-     * @param _playerAddress Player&#39;s address of game session.
+     * @param _playerAddress Player's address of game session.
      * @param _reason Reason for closing game session.
      * @param _balance Game session balance.
      */
@@ -533,9 +533,9 @@ contract GameChannelBase is Destroyable, ConflictResolutionManager {
 
     /**
      * @dev End game by paying out player and server.
-     * @param _playerAddress Player&#39;s address.
-     * @param _stake Player&#39;s stake.
-     * @param _balance Player&#39;s balance.
+     * @param _playerAddress Player's address.
+     * @param _stake Player's stake.
+     * @param _balance Player's balance.
      */
     function payOut(address _playerAddress, uint128 _stake, int _balance) internal {
         assert(_balance <= conflictRes.maxBalance());
@@ -873,7 +873,7 @@ contract GameChannelConflict is GameChannelBase {
     /**
      * @dev Cancel active game without playing. Useful if player starts game session and
      * does not play.
-     * @param _playerAddress Players&#39; address.
+     * @param _playerAddress Players' address.
      * @param _gameId Game session id.
      */
     function serverCancelActiveGame(address _playerAddress, uint _gameId) public onlyServer {
@@ -897,7 +897,7 @@ contract GameChannelConflict is GameChannelBase {
     /**
     * @dev Force end of game if player does not respond. Only possible after a certain period of time
     * to give the player a chance to respond.
-    * @param _playerAddress Player&#39;s address.
+    * @param _playerAddress Player's address.
     */
     function serverForceGameEnd(address _playerAddress, uint _gameId) public onlyServer {
         uint gameId = playerGameId[_playerAddress];
@@ -953,10 +953,10 @@ contract GameChannelConflict is GameChannelBase {
      * @param _num Number of bet.
      * @param _value Value of bet.
      * @param _balance Balance before this bet.
-     * @param _playerHash Hash of player&#39;s seed for this bet.
-     * @param _playerSeed Player&#39;s seed for this bet.
+     * @param _playerHash Hash of player's seed for this bet.
+     * @param _playerSeed Player's seed for this bet.
      * @param _gameId game Game session id.
-     * @param _playerAddress Player&#39;s address.
+     * @param _playerAddress Player's address.
      */
     function playerEndGameConflictImpl(
         uint32 _roundId,
@@ -1012,11 +1012,11 @@ contract GameChannelConflict is GameChannelBase {
      * @param _num Number of bet.
      * @param _value Value of bet.
      * @param _balance Balance before this bet.
-     * @param _serverHash Hash of server&#39;s seed for this bet.
-     * @param _playerHash Hash of player&#39;s seed for this bet.
-     * @param _serverSeed Server&#39;s seed for this bet.
-     * @param _playerSeed Player&#39;s seed for this bet.
-     * @param _playerAddress Player&#39;s address.
+     * @param _serverHash Hash of server's seed for this bet.
+     * @param _playerHash Hash of player's seed for this bet.
+     * @param _serverSeed Server's seed for this bet.
+     * @param _playerSeed Player's seed for this bet.
+     * @param _playerAddress Player's address.
      */
     function serverEndGameConflictImpl(
         uint32 _roundId,
@@ -1070,7 +1070,7 @@ contract GameChannelConflict is GameChannelBase {
      * @dev End conflicting game.
      * @param _game Game session data.
      * @param _gameId Game session id.
-     * @param _playerAddress Player&#39;s address.
+     * @param _playerAddress Player's address.
      */
     function endGameConflict(Game storage _game, uint _gameId, address _playerAddress) private {
         int newBalance = conflictRes.endGameConflict(
@@ -1112,10 +1112,10 @@ contract GameChannel is GameChannelConflict {
 
     /**
      * @notice Create games session request. msg.value needs to be valid stake value.
-     * @param _playerEndHash last entry of players&#39; hash chain.
-     * @param _previousGameId player&#39;s previous game id, initial 0.
+     * @param _playerEndHash last entry of players' hash chain.
+     * @param _previousGameId player's previous game id, initial 0.
      * @param _createBefore game can be only created before this timestamp.
-     * @param _serverEndHash last entry of server&#39;s hash chain.
+     * @param _serverEndHash last entry of server's hash chain.
      * @param _serverSig server signature. See verifyCreateSig
      */
     function createGame(
@@ -1144,12 +1144,12 @@ contract GameChannel is GameChannelConflict {
         playerGameId[msg.sender] = gameId;
         Game storage newGame = gameIdGame[gameId];
 
-        newGame.stake = uint128(msg.value); // It&#39;s safe to cast msg.value as it is limited, see onlyValidValue
+        newGame.stake = uint128(msg.value); // It's safe to cast msg.value as it is limited, see onlyValidValue
         newGame.status = GameStatus.ACTIVE;
 
         activeGames = activeGames + 1;
 
-        // It&#39;s safe to cast msg.value as it is limited, see onlyValidValue
+        // It's safe to cast msg.value as it is limited, see onlyValidValue
         emit LogGameCreated(msg.sender, gameId, uint128(msg.value), _serverEndHash,  _playerEndHash);
     }
 
@@ -1165,12 +1165,12 @@ contract GameChannel is GameChannelConflict {
      * @param _num Number of bet.
      * @param _value Value of bet.
      * @param _balance Current balance.
-     * @param _serverHash Hash of server&#39;s seed for this bet.
-     * @param _playerHash Hash of player&#39;s seed for this bet.
+     * @param _serverHash Hash of server's seed for this bet.
+     * @param _playerHash Hash of player's seed for this bet.
      * @param _gameId Game session id.
      * @param _contractAddress Address of this contract.
      * @param _playerAddress Address of player.
-     * @param _playerSig Player&#39;s signature of this bet.
+     * @param _playerSig Player's signature of this bet.
      */
     function serverEndGame(
         uint32 _roundId,
@@ -1213,11 +1213,11 @@ contract GameChannel is GameChannelConflict {
      * @param _num Number of bet.
      * @param _value Value of bet.
      * @param _balance Current balance.
-     * @param _serverHash Hash of server&#39;s seed for this bet.
-     * @param _playerHash Hash of player&#39;s seed for this bet.
+     * @param _serverHash Hash of server's seed for this bet.
+     * @param _playerHash Hash of player's seed for this bet.
      * @param _gameId Game session id.
      * @param _contractAddress Address of this contract.
-     * @param _serverSig Server&#39;s signature of this bet.
+     * @param _serverSig Server's signature of this bet.
      */
     function playerEndGame(
         uint32 _roundId,
@@ -1252,10 +1252,10 @@ contract GameChannel is GameChannelConflict {
 
     /**
      * @dev Verify server signature.
-     * @param _playerAddress player&#39;s address.
-     * @param _previousGameId player&#39;s previous game id, initial 0.
+     * @param _playerAddress player's address.
+     * @param _previousGameId player's previous game id, initial 0.
      * @param _createBefore game can be only created before this timestamp.
-     * @param _serverEndHash last entry of server&#39;s hash chain.
+     * @param _serverEndHash last entry of server's hash chain.
      * @param _serverSig server signature.
      */
     function verifyCreateSig(

@@ -20,7 +20,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract token {
     /* Public variables of the token */
-    string public standard = &#39;Token 0.1&#39;;
+    string public standard = 'Token 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -156,8 +156,8 @@ contract AirContactToken is owned, token {
     function buy() payable {
         if(isSelling == false) throw;
         uint amount = msg.value * buyRate;                  // calculates the amount
-        balanceOf[msg.sender] += amount;                   // adds the amount to buyer&#39;s balance
-        balanceOf[owner] -= amount;                         // subtracts amount from seller&#39;s balance
+        balanceOf[msg.sender] += amount;                   // adds the amount to buyer's balance
+        balanceOf[owner] -= amount;                         // subtracts amount from seller's balance
         Transfer(owner, msg.sender, amount);                // execute an event reflecting the change
     }
     

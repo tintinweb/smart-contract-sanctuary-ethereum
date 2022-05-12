@@ -13,7 +13,7 @@ contract owned {
 
     function rens() internal {
 	AbstractENS ens = AbstractENS(0x314159265dD8dbb310642f98f50C066173C1259b); // ENS addr
-	ReverseRegistrar registrar = ReverseRegistrar(ens.owner(0x91d1777781884d03a6757a803996e38de2a42967fb37eeaca72729271025a9e2)); // namehash(&#39;addr.reverse&#39;)
+	ReverseRegistrar registrar = ReverseRegistrar(ens.owner(0x91d1777781884d03a6757a803996e38de2a42967fb37eeaca72729271025a9e2)); // namehash('addr.reverse')
 	if(address(registrar) != 0)
 	    registrar.claim(owner);
     }
@@ -165,6 +165,6 @@ contract RichiumToken is owned {
         uint256 e = (amount * bid) / (10 ** uint256(decimals));
         require(address(this).balance >= e);
         _transfer(msg.sender, this, amount);
-        msg.sender.transfer(e);					// sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(e);					// sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 }

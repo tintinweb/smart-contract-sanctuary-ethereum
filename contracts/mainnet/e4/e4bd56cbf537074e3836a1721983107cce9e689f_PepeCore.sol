@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -311,7 +311,7 @@ contract SaleRegistry is Ownable {
     emit SalePosted(seller, sig, price);
   }
 
-  // NOTE: Special remove logic for contract owner&#39;s sale!
+  // NOTE: Special remove logic for contract owner's sale!
   function cancelSale(address seller, bytes32 sig) internal {
     if (seller == owner) {
       _ownerSigToNumSales[sig] = _ownerSigToNumSales[sig].sub(1);
@@ -362,7 +362,7 @@ contract OwnerRegistry {
   ////////////////
 
   function addCardToRegistry(address owner, bytes32 sig, uint256 numToAdd) internal {
-    // Only allow adding cards that haven&#39;t already been added
+    // Only allow adding cards that haven't already been added
     require(_sigToCount[sig] == 0);
 
     _allSigs.push(sig);
@@ -396,7 +396,7 @@ contract OwnerRegistry {
     // Must be transferring at least one card!
     require(count > 0);
 
-    // Don&#39;t allow a transfer when the old owner doesn&#39;t enough of the card
+    // Don't allow a transfer when the old owner doesn't enough of the card
     require(_ownerToSigToCount[oldOwner][sig] >= count);
 
     _ownerToSigToCount[oldOwner][sig] = _ownerToSigToCount[oldOwner][sig].sub(count);
@@ -463,10 +463,10 @@ contract PepeCore is PullPayment, OwnerRegistry, SaleRegistry, ArtistRegistry {
 
   // Used to set initial shareholders
   function addShareholderAddress(address newShareholder) external onlyOwner {
-    // Don&#39;t let shareholder be address(0)
+    // Don't let shareholder be address(0)
     require(newShareholder != address(0));
 
-    // Contract owner can&#39;t be a shareholder
+    // Contract owner can't be a shareholder
     require(newShareholder != owner);
 
     // Must be an open shareholder spot!
@@ -536,20 +536,20 @@ contract PepeCore is PullPayment, OwnerRegistry, SaleRegistry, ArtistRegistry {
   ///////////////
 
   function createSale(bytes32 sig, uint256 price) external {
-    // Can&#39;t sell a card for 0... May want other limits in the future
+    // Can't sell a card for 0... May want other limits in the future
     require(price > 0);
 
-    // Can&#39;t sell a card you don&#39;t own
+    // Can't sell a card you don't own
     require(getNumSigsOwned(sig) > 0);
 
-    // Can&#39;t post a sale if you have one posted already! Unless you&#39;re the contract owner
+    // Can't post a sale if you have one posted already! Unless you're the contract owner
     require(msg.sender == owner || _addressToSigToSalePrice[msg.sender][sig] == 0);
 
     postSale(msg.sender, sig, price);
   }
 
   function removeSale(bytes32 sig) public {
-    // Can&#39;t cancel a sale that doesn&#39;t exist
+    // Can't cancel a sale that doesn't exist
     require(_addressToSigToSalePrice[msg.sender][sig] > 0);
 
     cancelSale(msg.sender, sig);
@@ -594,7 +594,7 @@ contract PepeCore is PullPayment, OwnerRegistry, SaleRegistry, ArtistRegistry {
     uint256 availableEth = msg.value.add(payments[msg.sender]);
     require(availableEth >= price);
 
-    // Debit wallet if msg doesn&#39;t have enough value to cover price
+    // Debit wallet if msg doesn't have enough value to cover price
     if (msg.value < price) {
       asyncDebit(msg.sender, price.sub(msg.value));
     }
@@ -620,7 +620,7 @@ contract PepeCore is PullPayment, OwnerRegistry, SaleRegistry, ArtistRegistry {
   function transferSig(bytes32 sig, uint256 count, address newOwner) external {
     uint256 numOwned = getNumSigsOwned(sig);
 
-    // Can&#39;t transfer cards you don&#39;t own
+    // Can't transfer cards you don't own
     require(numOwned >= count);
 
     // If transferring from contract owner, cancel the proper number of sales if necessary

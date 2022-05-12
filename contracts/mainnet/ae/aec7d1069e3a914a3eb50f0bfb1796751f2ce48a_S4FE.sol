@@ -12,7 +12,7 @@ pragma solidity ^0.4.24;
  * the `migrationId`. Or, if the migration code must be applied only after
  * another migration has been already applied, use the `isMigration` modifier.
  * This helper supports multiple inheritance.
- * WARNING: It is the developer&#39;s responsibility to ensure that migrations are
+ * WARNING: It is the developer's responsibility to ensure that migrations are
  * applied in a correct order, or that they are run at all.
  * See `Initializable` for a simpler version.
  */
@@ -160,7 +160,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -265,7 +265,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -465,7 +465,7 @@ contract S4FE is Ownable, DetailedPremintedToken {
 	 * 
 	 * @param _owner address of owner
 	 */
-	function initializeS4FE(address _owner) isInitializer(&#39;S4FE&#39;, &#39;0&#39;) public {
+	function initializeS4FE(address _owner) isInitializer('S4FE', '0') public {
 		INITIAL_SUPPLY = 1000000000 * (10 ** uint256(18));
 
 		Ownable.initialize(_owner);

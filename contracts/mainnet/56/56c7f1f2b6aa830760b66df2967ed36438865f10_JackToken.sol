@@ -4,9 +4,9 @@ contract tokenRecipient {
 
 contract JackToken {
     /* Public variables of the Jack Currency*/
-    string public standard = &#39;Jack 1.0&#39;;
-    string public name = &#39;JackCurrency&#39;;
-    string public symbol = &#39;JACK&#39;;
+    string public standard = 'Jack 1.0';
+    string public name = 'JackCurrency';
+    string public symbol = 'JACK';
     uint8 public decimals = 8;
     uint256 public totalSupply = 10000000000000000;
 

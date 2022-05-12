@@ -14,7 +14,7 @@ contract Token {
     https://github.com/ethereum/EIPs/blob/f90864a3d2b2b45c4decf95efd26b3f0c276051a/EIPS/eip-20-token-standard.md
     https://github.com/ethereum/EIPs/issues/20
 
-    We didn&#39;t implement a separate totalsupply() function. Instead the public variable
+    We didn't implement a separate totalsupply() function. Instead the public variable
     totalSupply will automatically create a getter function to access the supply
     of the token.
 ---------------------------------------------------------------------------------------------
@@ -59,7 +59,7 @@ contract StandardToken is Token {
 */
 
     /// @notice Send "_value" tokens to "_to" from "msg.sender".
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param _to Address of token receiver.
     /// @param _value Number of tokens to transfer.
     /// @return Returns success of function call.
@@ -86,7 +86,7 @@ contract StandardToken is Token {
     /// @return Returns success of function call.
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool)
     {
-        //Address shouldn&#39;t be null
+        //Address shouldn't be null
         require(_from != 0x0);
         require(_to != 0x0);
         require(_to != address(this));
@@ -110,7 +110,7 @@ contract StandardToken is Token {
     /// @return Returns success of function call.
     function approve(address _who, uint256 _value) public returns (bool) {
 
-        // Address shouldn&#39;t be null
+        // Address shouldn't be null
         require(_who != 0x0);
 
         // To change the approve amount you first have to reduce the addresses`
@@ -149,7 +149,7 @@ contract GoToken is StandardToken {
       All GoToken balances are transferable.
       Token name, ticker symbol and decimals
       1 token (GOT) = 1 indivisible unit * multiplier
-      The multiplier is set dynamically from token&#39;s number of decimals (i.e. 10 ** decimals)
+      The multiplier is set dynamically from token's number of decimals (i.e. 10 ** decimals)
 
 ---------------------------------------------------------------------------------------------
 */
@@ -238,7 +238,7 @@ contract GoTokenDutchAuction {
     All token balances are transferable.
     Token name, ticker symbol and decimals
     1 token (GOT) = 1 indivisible unit * multiplier
-    multiplier set from token&#39;s number of decimals (i.e. 10 ** decimals)
+    multiplier set from token's number of decimals (i.e. 10 ** decimals)
 
 ---------------------------------------------------------------------------------------------
 */
@@ -427,7 +427,7 @@ contract GoTokenDutchAuction {
         uint256 _price_exponent2)
         public
     {
-        // Address shouldn&#39;t be null
+        // Address shouldn't be null
         require(_wallet_address != 0x0);
         require(_whitelister_address != 0x0);
         require(_distributor_address != 0x0);
@@ -483,7 +483,7 @@ contract GoTokenDutchAuction {
         internal
     {
         // You can change the price curve settings only when either the auction is Deployed
-        // or the auction is setup. You can&#39;t change during the auction is running or ended.
+        // or the auction is setup. You can't change during the auction is running or ended.
         require(stage == Stages.AuctionDeployed || stage == Stages.AuctionSetUp);
         require(_price_start > 0);
         require(_price_constant1 > 0);
@@ -499,7 +499,7 @@ contract GoTokenDutchAuction {
 /*
 ---------------------------------------------------------------------------------------------
     Functions related to whitelisting of presale and public sale ETH addresses.
-    The Whitelister must add the participant&#39;s ETH address before they can bid.
+    The Whitelister must add the participant's ETH address before they can bid.
 ---------------------------------------------------------------------------------------------
 */
     // @notice Adds account addresses to public sale ETH whitelist.
@@ -507,7 +507,7 @@ contract GoTokenDutchAuction {
     // @param _bidder_addresses Array of addresses. Use double quoted array.
     function addToPublicSaleWhitelist(address[] _bidder_addresses) public isWhitelister {
         for (uint32 i = 0; i < _bidder_addresses.length; i++) {
-            require(!privatesalewhitelist[_bidder_addresses[i]]); //Can&#39;t be in public whitelist
+            require(!privatesalewhitelist[_bidder_addresses[i]]); //Can't be in public whitelist
             publicsalewhitelist[_bidder_addresses[i]] = true;
             PublicSaleWhitelisted(_bidder_addresses[i]);
         }
@@ -558,7 +558,7 @@ contract GoTokenDutchAuction {
     /// @dev Allows to send a bid to the auction.
     function bid() public payable
     {
-        // Address shouldn&#39;t be null and the minimum bid amount of contribution is met.
+        // Address shouldn't be null and the minimum bid amount of contribution is met.
         // Private sale contributor can submit a bid at AuctionSetUp before AuctionStarted
         // When AuctionStarted only private sale and public sale whitelisted ETH addresses can participate
         require(stage == Stages.AuctionSetUp || stage == Stages.AuctionStarted);

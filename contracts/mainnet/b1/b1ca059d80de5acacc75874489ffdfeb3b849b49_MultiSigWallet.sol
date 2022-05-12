@@ -1,7 +1,7 @@
 pragma solidity 0.4.21;
 
 // ----------------------------------------------------------------------------
-// MultiSig for &#39;Digitize Coin&#39; project imported from:
+// MultiSig for 'Digitize Coin' project imported from:
 // https://github.com/ConsenSys/MultiSigWallet/blob/master/MultiSigWalletWithDailyLimit.sol
 //
 // Radek Ostrowski / http://startonchain.com

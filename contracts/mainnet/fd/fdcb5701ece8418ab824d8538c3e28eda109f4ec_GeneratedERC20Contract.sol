@@ -81,7 +81,7 @@ contract GeneratedERC20Contract is StandardToken {
     uint8 public decimals;
     string public name;
     string public symbol;
-    string public version = &#39;v0.0.1&#39;;
+    string public version = 'v0.0.1';
 
     function GeneratedERC20Contract() { 
         balances[msg.sender] = 10000000000;

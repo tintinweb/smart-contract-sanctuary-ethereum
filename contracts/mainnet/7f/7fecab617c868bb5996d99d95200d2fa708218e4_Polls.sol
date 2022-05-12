@@ -7,7 +7,7 @@ pragma solidity 0.4.24;
 //  Imports
 ////////////////////////////////////////////////////////////////////////////////
 
-// OpenZeppelin&#39;s SafeMath.sol
+// OpenZeppelin's SafeMath.sol
 
 /**
  * @title SafeMath
@@ -19,8 +19,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -37,7 +37,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -59,7 +59,7 @@ library SafeMath {
   }
 }
 
-// Azimuth&#39;s SafeMath8.sol
+// Azimuth's SafeMath8.sol
 
 /**
  * @title SafeMath8
@@ -75,7 +75,7 @@ library SafeMath8 {
   function div(uint8 a, uint8 b) internal pure returns (uint8) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint8 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -91,7 +91,7 @@ library SafeMath8 {
   }
 }
 
-// Azimuth&#39;s SafeMath16.sol
+// Azimuth's SafeMath16.sol
 
 /**
  * @title SafeMath16
@@ -107,7 +107,7 @@ library SafeMath16 {
   function div(uint16 a, uint16 b) internal pure returns (uint16) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint16 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -123,7 +123,7 @@ library SafeMath16 {
   }
 }
 
-// OpenZeppelin&#39;s Ownable.sol
+// OpenZeppelin's Ownable.sol
 
 /**
  * @title Ownable
@@ -214,7 +214,7 @@ contract Ownable {
 //
 //    Since data stores are difficult to upgrade, all of the logic unrelated
 //    to the voting itself (that is, determining who is eligible to vote)
-//    is expected to be implemented by this contract&#39;s owner.
+//    is expected to be implemented by this contract's owner.
 //
 //    This contract will be owned by the Ecliptic contract.
 //

@@ -686,7 +686,7 @@ contract ExoplanetToken is ERC721 {
 
     function uintToBytes32(uint v) private pure returns (bytes32 ret) {
       if (v == 0) {
-          ret = &#39;0&#39;;
+          ret = '0';
       }
       else {
           while (v > 0) {

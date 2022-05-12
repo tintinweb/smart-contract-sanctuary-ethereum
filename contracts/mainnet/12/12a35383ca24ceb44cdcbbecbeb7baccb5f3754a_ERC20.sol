@@ -6,9 +6,9 @@ contract tokenRecipient {
 
 contract ERC20 {
     /* Public variables of the token */
-    string public standard = &#39;CREDITS&#39;;
-    string public name = &#39;CREDITS&#39;;
-    string public symbol = &#39;CS&#39;;
+    string public standard = 'CREDITS';
+    string public name = 'CREDITS';
+    string public symbol = 'CS';
     uint8 public decimals = 6;
     uint256 public totalSupply = 1000000000000000;
 

@@ -284,7 +284,7 @@ contract ShareEstateTokenCrowdsale is Haltable, Killable, SafeMath {
     /// Prefunding goal in USD cents, if the prefunding goal is reached, pre ICO will stop
     uint public constant PRE_FUNDING_GOAL = 1e6 * PRICE;
 
-    /// Miminal tokens funding goal in USD cents, if this goal isn&#39;t reached during ICO, refund will begin
+    /// Miminal tokens funding goal in USD cents, if this goal isn't reached during ICO, refund will begin
     uint public constant MIN_PRE_FUNDING_GOAL = 2e5 * PRICE;
 
     /// Percent of bonus tokens team receives from each investment

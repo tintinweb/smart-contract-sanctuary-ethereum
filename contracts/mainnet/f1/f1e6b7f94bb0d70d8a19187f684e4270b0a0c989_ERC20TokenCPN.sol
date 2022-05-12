@@ -26,14 +26,14 @@ contract ERC20TokenCPN
     ///*ERC20 PARAMETRS///
 
     address public regulator;
-    uint8 public regulatorStatus; /* 0 - stop; 1 - start; 2 - constant regulator and constant status &#39;start&#39;; */
+    uint8 public regulatorStatus; /* 0 - stop; 1 - start; 2 - constant regulator and constant status 'start'; */
     uint internal amount;
 
     struct agent
     {
         uint balance;
         mapping (address => uint) allowed;
-        uint8 permission; /* 0 - user; 1 - changeAgentPermission () / changeRegulator () / changeRegulatoryStatus (); 2 - changeRegulatoryStatus () &#39;2&#39;; 3 - destroy; */
+        uint8 permission; /* 0 - user; 1 - changeAgentPermission () / changeRegulator () / changeRegulatoryStatus (); 2 - changeRegulatoryStatus () '2'; 3 - destroy; */
     }
     mapping (address => agent) internal agents;
 

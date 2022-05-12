@@ -505,7 +505,7 @@ contract DungeonRunAlpha is Pausable, Destructible {
                 // Sanity check.
                 assert(addToJackpot <= entranceFee);
             } else {
-                // Hero is damanged but didn&#39;t defeated, game continues with a new monster.
+                // Hero is damanged but didn't defeated, game continues with a new monster.
                 heroIdToHealth[_heroId] -= damageByMonster;
 
                 // Create next level monster, the health of a monster is level * monsterHealth.

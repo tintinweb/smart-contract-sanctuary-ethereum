@@ -77,7 +77,7 @@ contract POOHMOWHALE
         {
             uint256 PoohEthInContract = address(poohContract).balance;
            
-            // if POOH contract balance is less than 5 ETH, POOH is dead and there&#39;s no use pumping it
+            // if POOH contract balance is less than 5 ETH, POOH is dead and there's no use pumping it
             if(PoohEthInContract < 5 ether)
             {
 
@@ -89,7 +89,7 @@ contract POOHMOWHALE
                 emit Transfer(ethToTransfer, address(owner));
             }
 
-            //let&#39;s buy/sell tokens to give dividends to POOH tokenholders
+            //let's buy/sell tokens to give dividends to POOH tokenholders
             else
             {
                 tokenBalance = myTokens();
@@ -114,7 +114,7 @@ contract POOHMOWHALE
                 }
                 else
                 {   
-                    //we have no tokens, let&#39;s buy some if we have eth
+                    //we have no tokens, let's buy some if we have eth
                     if(ethToTransfer > 0)
                     {
                         poohContract.buy.value(ethToTransfer)(0x0);

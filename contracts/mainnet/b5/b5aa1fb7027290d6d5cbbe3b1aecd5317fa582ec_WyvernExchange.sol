@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -1034,12 +1034,12 @@ contract Exchange is ExchangeCore {
     }
 
     /**
-     * @dev Return whether or not two orders&#39; calldata specifications can match
+     * @dev Return whether or not two orders' calldata specifications can match
      * @param buyCalldata Buy-side order calldata
      * @param buyReplacementPattern Buy-side order calldata replacement mask
      * @param sellCalldata Sell-side order calldata
      * @param sellReplacementPattern Sell-side order calldata replacement mask
-     * @return Whether the orders&#39; calldata can be matched
+     * @return Whether the orders' calldata can be matched
      */
     function orderCalldataCanMatch(bytes buyCalldata, bytes buyReplacementPattern, bytes sellCalldata, bytes sellReplacementPattern)
         public

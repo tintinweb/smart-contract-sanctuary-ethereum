@@ -121,13 +121,13 @@ contract Lottery{
         return poohContract.myTokens();
     }
 
-     //Lottery&#39;s divs
+     //Lottery's divs
     function myDividends() public view returns(uint256)
     {
         return poohContract.myDividends(true);
     }
 
-   //Lottery&#39;s ETH balance
+   //Lottery's ETH balance
    function ethBalance() public view returns (uint256)
    {
        return address(this).balance;

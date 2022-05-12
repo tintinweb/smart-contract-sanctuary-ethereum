@@ -215,7 +215,7 @@ contract Controller is Inherit, Strings {
         uint defencePower;
         uint cooldownReduction;
         uint price;
-        uint onChampId; //can not be used to decide if item is on champ, because champ&#39;s id can be 0, &#39;bool onChamp&#39; solves it.
+        uint onChampId; //can not be used to decide if item is on champ, because champ's id can be 0, 'bool onChamp' solves it.
         bool onChamp; 
         bool forSale; //is item for sale?
     }
@@ -237,7 +237,7 @@ contract Controller is Inherit, Strings {
     }
     
 
-    /// @notice Gets champ&#39;s reward in wei
+    /// @notice Gets champ's reward in wei
     function getChampReward(uint _position) public view returns(uint) 
     {
         if(_position <= 800){
@@ -250,7 +250,7 @@ contract Controller is Inherit, Strings {
             //available funds are all funds - already pending
             uint availableWithdrawal = address(coreAddress).balance.sub(core.pendingWithdrawal());
 
-            //calculate reward for champ&#39;s position
+            //calculate reward for champ's position
             //1000000 = percentageMultipier * 100
             return availableWithdrawal / 1000000 * rewardPercentage;
         }else{
@@ -291,7 +291,7 @@ contract Controller is Inherit, Strings {
     }
     
 
-    /// @dev Is called from from Attack function after the winner is already chosen. Updates abilities, champ&#39;s stats and swaps positions.
+    /// @dev Is called from from Attack function after the winner is already chosen. Updates abilities, champ's stats and swaps positions.
     function _attackCompleted(Champ memory _winnerChamp, Champ memory _defeatedChamp, uint _pointsGiven) private 
     {
         /*
@@ -301,7 +301,7 @@ contract Controller is Inherit, Strings {
         _winnerChamp.attackPower += _pointsGiven; //increase attack power
         _winnerChamp.defencePower += _pointsGiven; //max point that was given - already given to AP
                 
-        //defeated champ&#39;s abilities update
+        //defeated champ's abilities update
         //checks for not cross minimal AP & DP points
         //_defeatedChamp.attackPower = _subAttack(_defeatedChamp.attackPower, _pointsGiven); //decrease attack power
         _defeatedChamp.attackPower = (_defeatedChamp.attackPower <= _pointsGiven + 2) ? 2 : _defeatedChamp.attackPower - _pointsGiven; //Subtracts ability points. Helps to not cross minimal attack ability points -> 2
@@ -311,7 +311,7 @@ contract Controller is Inherit, Strings {
 
 
         /*
-         * Update champs&#39; wins and losses
+         * Update champs' wins and losses
          */
         _winnerChamp.winCount++;
         _defeatedChamp.lossCount++;
@@ -356,7 +356,7 @@ contract Controller is Inherit, Strings {
         (,enemyChampDefencePower,) = core.getChampStats(_targetId);
 
 
-        //if attacker&#39;s AP is more than target&#39;s DP then attacker wins
+        //if attacker's AP is more than target's DP then attacker wins
         if (myChampAttackPower > enemyChampDefencePower) {
             
             //this should demotivate players from farming on way weaker champs than they are
@@ -389,7 +389,7 @@ contract Controller is Inherit, Strings {
 
      function _cancelChampSale(Champ memory _champ) private 
      {
-        //cancel champ&#39;s sale
+        //cancel champ's sale
         //no need waste gas to overwrite his price.
         _champ.forSale = false;
 
@@ -533,9 +533,9 @@ contract Controller is Inherit, Strings {
     function getTokenURIs(uint _id, bool _isTokenChamp) public pure returns(string)
     {
         if(_isTokenChamp){
-            return strConcat(&#39;https://mccapi.patrikmojzis.com/champ.php?id=&#39;, uint2str(_id));
+            return strConcat('https://mccapi.patrikmojzis.com/champ.php?id=', uint2str(_id));
         }else{
-            return strConcat(&#39;https://mccapi.patrikmojzis.com/item.php?id=&#39;, uint2str(_id));
+            return strConcat('https://mccapi.patrikmojzis.com/item.php?id=', uint2str(_id));
         }
     }
 
@@ -590,7 +590,7 @@ contract Controller is Inherit, Strings {
             }
 
             item.onChamp = true; //item is on champ
-            item.onChampId = _champId; //champ&#39;s id
+            item.onChampId = _champId; //champ's id
 
             //put on
             if(item.itemType == 1){
@@ -621,7 +621,7 @@ contract Controller is Inherit, Strings {
 
 
     function _cancelItemSale(Item memory item) private {
-      //No need to overwrite item&#39;s price
+      //No need to overwrite item's price
       item.forSale = false;
       
       /*

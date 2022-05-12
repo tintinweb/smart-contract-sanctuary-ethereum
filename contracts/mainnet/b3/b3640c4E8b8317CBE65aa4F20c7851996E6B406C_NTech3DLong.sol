@@ -33,7 +33,7 @@ pragma solidity ^0.4.24;
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -697,7 +697,7 @@ contract NTech3DLong {
         NTech3DDatasets.EventReturns memory _eventData_ = determinePID(_eventData_);
         uint256 _pID = pIDxAddr_[msg.sender];
         uint256 _affID;
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name){
+        if (_affCode == '' || _affCode == plyr_[_pID].name){
             _affID = plyr_[_pID].laff;
         }else{
             _affID = pIDxName_[_affCode];
@@ -741,7 +741,7 @@ contract NTech3DLong {
         NTech3DDatasets.EventReturns memory _eventData_;
         uint256 _pID = pIDxAddr_[msg.sender];
         uint256 _affID;
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name){
+        if (_affCode == '' || _affCode == plyr_[_pID].name){
             _affID = plyr_[_pID].laff;
         }else{
             _affID = pIDxName_[_affCode];
@@ -1345,7 +1345,7 @@ contract NTech3DLong {
         }
         // 分享，如果没有分享，进入到社区基金
         uint256 _aff = _eth / 10;
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit onAffiliatePayout(
                 _affID, 

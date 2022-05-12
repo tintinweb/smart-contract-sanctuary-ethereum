@@ -250,7 +250,7 @@ contract HVNToken is ERC20Interface, SafeMath, Owned {
     string public constant name = "Hive Project Token";
     string public constant symbol = "HVN";
     uint8 public constant decimals = 8;
-    string public version = &#39;0.0.2&#39;;
+    string public version = '0.0.2';
 
     bool public transfersFrozen = false;
 
@@ -300,7 +300,7 @@ contract HVNToken is ERC20Interface, SafeMath, Owned {
 
 
     /**
-     * Transfer sender&#39;s tokens to a given address
+     * Transfer sender's tokens to a given address
      */
     function transfer(address _to, uint256 _value) whenNotFrozen onlyPayloadSize(2) returns (bool success) {
         require(_to != 0x0);
@@ -313,7 +313,7 @@ contract HVNToken is ERC20Interface, SafeMath, Owned {
 
 
     /**
-     * Transfer _from&#39;s tokens to _to&#39;s address
+     * Transfer _from's tokens to _to's address
      */
     function transferFrom(address _from, address _to, uint256 _value) whenNotFrozen onlyPayloadSize(3) returns (bool success) {
         require(_to != 0x0);
@@ -367,7 +367,7 @@ contract HVNToken is ERC20Interface, SafeMath, Owned {
 
 
     /**
-     * Peterson&#39;s Law Protection
+     * Peterson's Law Protection
      * Claim tokens
      */
     function claimTokens(address _token) ownerOnly {

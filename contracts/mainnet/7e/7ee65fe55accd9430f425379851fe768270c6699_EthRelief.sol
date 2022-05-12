@@ -9,7 +9,7 @@
  *      ##########################################
  *      ##########################################
  *
- *      Welcome to the temporary &#119812;&#119853;&#119841;&#119825;&#119838;&#119845;&#119842;&#119838;&#119839; contract. It&#39;s just
+ *      Welcome to the temporary &#119812;&#119853;&#119841;&#119825;&#119838;&#119845;&#119842;&#119838;&#119839; contract. It's just
  *      a place-holder for now, with little functionality other 
  *      than being forward compatible with the first version of 
  *      the &#119812;&#119853;&#119841;&#119825;&#119838;&#119845;&#119842;&#119838;&#119839; contract in current development. 
@@ -69,7 +69,7 @@ contract EthRelief {
         etheraffle = _etheraffle;
     }
     /**
-     * @dev   Upgrade function transferring all this contract&#39;s ether
+     * @dev   Upgrade function transferring all this contract's ether
      *        via the standard receive ether function in the proposed
      *        new disbursal contract.
      *
@@ -109,7 +109,7 @@ contract EthRelief {
         selfdestruct(_addr);
     }
     /**
-     * @dev   Fallback function that accepts ether and announces it&#39;s
+     * @dev   Fallback function that accepts ether and announces it's
      *        arrival via an event.
      */
     function () payable external {

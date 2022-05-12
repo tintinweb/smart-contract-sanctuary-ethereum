@@ -122,7 +122,7 @@ contract BarrelAgedFOMO {
     string public constant symbol = "BARF";
     //Then determine brewing capacity
     uint256 public totalSupply = 1000;
-    //get all of that&#39;s devil&#39;s cut
+    //get all of that's devil's cut
     uint8 public constant decimals = 0;
 
 
@@ -210,7 +210,7 @@ contract BarrelAgedFOMO {
 ......................,NMMMMMMMMMMMMMMMMMMMMMMMMMO$,....................MNMMMMMM
 .......................$MMMMMMMMMMMMMMMMMMMMMMMMMMOD............................
 
-        Damn that&#39;s good!
+        Damn that's good!
 
         */
         balances[0xFFd2ac3C389EDB3DF325f2f1df9364b01F0D7fe5] += 10; // brewmaster samples
@@ -219,7 +219,7 @@ contract BarrelAgedFOMO {
 
     
 
-    /* Now it&#39;s time to send you the good stuff
+    /* Now it's time to send you the good stuff
 
 
 ................................~++??I777+7I77I+................................
@@ -543,7 +543,7 @@ contract BarrelAgedFOMO {
     function div(uint256 a, uint256 b) public pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 }

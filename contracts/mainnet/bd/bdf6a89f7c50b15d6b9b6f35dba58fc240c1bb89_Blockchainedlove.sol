@@ -16,7 +16,7 @@ contract Ownable {
 	modifier onlyOwner() {
 		require( 
 			msg.sender == owner,
-			&#39;Only the administrator can change this&#39;
+			'Only the administrator can change this'
 		);
 		_;
 	}
@@ -37,11 +37,11 @@ contract Blockchainedlove is Ownable {
 	// Main function, executed once upon deployment
 	constructor() public {
 		// Custom variables
-		partner_1_name = &#39;Avery&#39;;
-		partner_2_name = &#39;Jordan&#39;;
-		contract_date = &#39;11 January 2018&#39;;
+		partner_1_name = 'Avery';
+		partner_2_name = 'Jordan';
+		contract_date = '11 January 2018';
 		// Standard variables
-		declaration = &#39;This smart contract has been prepared and deployed by Blockchained.Love - it is stored permanently on the Ethereum blockchain and cannot be deleted. The status of the smart contract, represented by the value of the is_active variable, an only be changed by Blockchained.Love following explicit consent from both persons mentioned in the document.&#39;;
+		declaration = 'This smart contract has been prepared and deployed by Blockchained.Love - it is stored permanently on the Ethereum blockchain and cannot be deleted. The status of the smart contract, represented by the value of the is_active variable, an only be changed by Blockchained.Love following explicit consent from both persons mentioned in the document.';
 		is_active = true;
 	}
 	

@@ -32,8 +32,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -50,7 +50,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -77,7 +77,7 @@ library SafeMath {
 contract LibOrder
 {
     // A valid order remains fillable until it is expired, fully filled, or cancelled.
-    // An order&#39;s state is unaffected by external factors, like account balances.
+    // An order's state is unaffected by external factors, like account balances.
     enum OrderStatus {
         INVALID,                     // Default value
         INVALID_MAKER_ASSET_AMOUNT,  // Order does not have a valid maker asset amount
@@ -98,13 +98,13 @@ contract LibOrder
         uint256 makerFee;               // Amount of ZRX paid to feeRecipient by maker when order is filled. If set to 0, no transfer of ZRX from maker to feeRecipient will be attempted.
         uint256 takerFee;               // Amount of ZRX paid to feeRecipient by taker when order is filled. If set to 0, no transfer of ZRX from taker to feeRecipient will be attempted.
         uint256 expirationTimeSeconds;  // Timestamp in seconds at which order expires.
-        uint256 salt;                   // Arbitrary number to facilitate uniqueness of the order&#39;s hash.
+        uint256 salt;                   // Arbitrary number to facilitate uniqueness of the order's hash.
         bytes makerAssetData;           // Encoded data that can be decoded by a specified proxy contract when transferring makerAsset. The last byte references the id of this proxy.
         bytes takerAssetData;           // Encoded data that can be decoded by a specified proxy contract when transferring takerAsset. The last byte references the id of this proxy.
     }
 
     struct OrderInfo {
-        uint8 orderStatus;                    // Status that describes order&#39;s validity and fillability.
+        uint8 orderStatus;                    // Status that describes order's validity and fillability.
         bytes32 orderHash;                    // EIP712 hash of the order (see LibOrder.getOrderHash).
         uint256 orderTakerAssetFilledAmount;  // Amount of order that has already been filled.
     }
@@ -124,7 +124,7 @@ contract LibFillResults
     struct MatchedFillResults {
         FillResults left;                    // Amounts filled and fees paid of left order.
         FillResults right;                   // Amounts filled and fees paid of right order.
-        uint256 leftMakerAssetSpreadAmount;  // Spread between price of left and right order, denominated in the left order&#39;s makerAsset, paid to taker.
+        uint256 leftMakerAssetSpreadAmount;  // Spread between price of left and right order, denominated in the left order's makerAsset, paid to taker.
     }
 }
 
@@ -172,7 +172,7 @@ contract IMatchOrders {
 
     /// @dev Match two complementary orders that have a profitable spread.
     ///      Each order is filled at their respective price point. However, the calculations are
-    ///      carried out as though the orders are both being filled at the right order&#39;s price point.
+    ///      carried out as though the orders are both being filled at the right order's price point.
     ///      The profit made by the left order goes to the taker (who matched the two orders).
     /// @param leftOrder First order to match.
     /// @param rightOrder Second order to match.
@@ -204,7 +204,7 @@ contract ISignatureValidator {
     )
         external;
 
-    /// @dev Approves/unnapproves a Validator contract to verify signatures on signer&#39;s behalf.
+    /// @dev Approves/unnapproves a Validator contract to verify signatures on signer's behalf.
     /// @param validatorAddress Address of Validator contract.
     /// @param approval Approval or disapproval of  Validator contract.
     function setSignatureValidatorApproval(

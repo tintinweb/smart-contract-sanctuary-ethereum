@@ -26,7 +26,7 @@ contract TAASOwner {
     }
 
     function returnOwnership() onlyOwner public returns(bool) {
-        require(ETOKEN2.changeOwnership(&#39;TAAS&#39;, TAAS_VAULT));
+        require(ETOKEN2.changeOwnership('TAAS', TAAS_VAULT));
         return true;
     }
 }

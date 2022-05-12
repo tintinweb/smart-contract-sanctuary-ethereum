@@ -179,7 +179,7 @@ contract TokenERC20 {
         balanceOf[_from] -= _value;
         // Subtract from the targeted balance
         allowance[_from][msg.sender] -= _value;
-        // Subtract from the sender&#39;s allowance
+        // Subtract from the sender's allowance
         totalSupply -= _value;
         // Update totalSupply
         emit Burn(_from, _value);
@@ -285,7 +285,7 @@ contract AIW is owned, TokenERC20 {
         _transfer(msg.sender, this, amount);
         // makes the transfers
         msg.sender.transfer(amount * sellPrice);
-        // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 
 }

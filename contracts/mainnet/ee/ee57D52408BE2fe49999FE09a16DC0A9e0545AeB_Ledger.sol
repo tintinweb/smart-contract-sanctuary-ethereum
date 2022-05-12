@@ -61,7 +61,7 @@ contract Token is Owned, Mutex {
     string public name;
     uint8 public decimals; 
     string public symbol;     
-    string public version = &#39;0.1&#39;;  
+    string public version = '0.1';  
     bool transfersOn = false;
 
 
@@ -117,7 +117,7 @@ contract Token is Owned, Mutex {
     }
 
     /*
-    * Locking is a feature that turns a user&#39;s balances into
+    * Locking is a feature that turns a user's balances into
     * un-issued tokens, taking them out of an account and reducing the supply.
     * Diluting is so named to remind the caller that they are changing the money supply.
         */
@@ -175,7 +175,7 @@ contract Token is Owned, Mutex {
     }
 
     function claimUnrented() {  
-        uint amount = rentalContract.claimBalance(msg.sender); // this should reduce sender&#39;s claimableBalance to 0
+        uint amount = rentalContract.claimBalance(msg.sender); // this should reduce sender's claimableBalance to 0
 
         ledger.tokenTransfer(rentalContract, msg.sender, amount);
     }
@@ -333,7 +333,7 @@ contract Ledger is Owned {
     }
 
     function balanceOf(address _addr) constant returns (uint) {
-        // don&#39;t forget to subtract usedToday
+        // don't forget to subtract usedToday
         if (usedToday[_addr] >= balances[_addr]) { return 0;}
         return balances[_addr] - usedToday[_addr];
     }

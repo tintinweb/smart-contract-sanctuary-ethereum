@@ -472,7 +472,7 @@ contract SmartCityCrowdsale {
         // send to wallet
         wallet.transfer(_value);
 
-        // check if we&#39;ve reached the target
+        // check if we've reached the target
         if (totalAccounted >= FUNDING_GOAL) {
             endTime = now;
             campaignEnded = true;

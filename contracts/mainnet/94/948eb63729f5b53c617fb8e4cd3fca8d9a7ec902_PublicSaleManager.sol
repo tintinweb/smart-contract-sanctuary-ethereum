@@ -132,7 +132,7 @@ contract PublicSaleManager is owned {
         // Validates bonus.
         require(_bonus[msg.sender] > 0);
 
-        // Transfers the bonus if it&#39;s after 90 days.
+        // Transfers the bonus if it's after 90 days.
         if (now > _startTime + (90 days)) {
             ERC20(_tokenAddress).transfer(msg.sender, _bonus[msg.sender]);
             _bonus[msg.sender] = 0;

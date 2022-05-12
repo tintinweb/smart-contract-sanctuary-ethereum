@@ -43,7 +43,7 @@ contract ERC20 {
 
 contract StdToken is ERC20,SafeMath {
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
    modifier validAddress(address _address) {
         require(_address != 0x0);
         _;

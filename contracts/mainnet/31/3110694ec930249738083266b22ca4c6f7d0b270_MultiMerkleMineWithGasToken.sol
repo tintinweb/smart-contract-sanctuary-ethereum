@@ -12,7 +12,7 @@ contract Livepeer {
 contract MultiMerkleMineWithGasToken {
 
     /*
-     * Frees `free&#39; tokens from the Gastoken at address `gas_token&#39;.
+     * Frees `free' tokens from the Gastoken at address `gas_token'.
      * The freed tokens belong to this Example contract. The gas refund can pay
      * for up to half of the gas cost of the total transaction in which this 
      * call occurs.
@@ -23,10 +23,10 @@ contract MultiMerkleMineWithGasToken {
     }
 
     /*
-     * Frees `free&#39; tokens from the Gastoken at address `gas_token&#39;.
+     * Frees `free' tokens from the Gastoken at address `gas_token'.
      * The freed tokens belong to the sender. The sender must have previously 
-     * allowed this Example contract to free up to `free&#39; tokens on its behalf
-     * (i.e., `allowance(msg.sender, this)&#39; should be at least `free&#39;).
+     * allowed this Example contract to free up to `free' tokens on its behalf
+     * (i.e., `allowance(msg.sender, this)' should be at least `free').
      * The gas refund can pay for up to half of the gas cost of the total 
      * transaction in which this call occurs.
      */

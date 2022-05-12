@@ -18,7 +18,7 @@ contract ipfsreg {
     function namehash(string _name) internal pure returns (bytes32 node) {
         node = 0x0000000000000000000000000000000000000000000000000000000000000000;
         node = keccak256(
-        abi.encodePacked(node, keccak256(abi.encodePacked(&#39;eth&#39;)))
+        abi.encodePacked(node, keccak256(abi.encodePacked('eth')))
         );
         node = keccak256(
         abi.encodePacked(node, keccak256(abi.encodePacked(_name)))

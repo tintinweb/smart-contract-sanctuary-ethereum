@@ -15,7 +15,7 @@ pragma solidity ^0.5.0;
     Address 0x0 is used to resemble ETH as a token (as used in EtherDelta, IDEX and more).
     
     
-    To call the new &#39;generic&#39; functions, this contract uses function selectors based on the hash of function signatures (see getFunctionSelector).
+    To call the new 'generic' functions, this contract uses function selectors based on the hash of function signatures (see getFunctionSelector).
     
     Some useful function signatures (bytes4):
     
@@ -122,20 +122,20 @@ contract DeltaBalances {
   /* Get multiple token balances deposited on a DEX using the traditional balanceOf function (EtherDelta, IDEX, Token Store, R1 protocol and many more).
      Returns array of deposited token balances in wei units. 
      
-     This doesn&#39;t use the generic version (below) as this format is the most common and it is more efficient hardcoded
+     This doesn't use the generic version (below) as this format is the most common and it is more efficient hardcoded
   */
   function depositedBalances(address exchange, address user, address[] calldata tokens) external view returns (uint[] memory balances) {
     balances = new uint[](tokens.length);
     Exchange ex = Exchange(exchange);
     
     for(uint i = 0; i < tokens.length; i++) {
-      balances[i] = ex.balanceOf(tokens[i], user); //Errors if exchange does not implement &#39;balanceOf&#39; correctly, use depositedBalancesGeneric instead.
+      balances[i] = ex.balanceOf(tokens[i], user); //Errors if exchange does not implement 'balanceOf' correctly, use depositedBalancesGeneric instead.
     }    
     return balances;
   }
 
   /* Get multiple token balances deposited on a DEX with a function selector
-       - Selector: hashed function signature, see &#39;getFunctionSelector&#39;  
+       - Selector: hashed function signature, see 'getFunctionSelector'  
        - userFist:  determines whether the function uses foo(user, token) or foo(token, user)
      Returns array of deposited token balances in wei units. */
   function depositedBalancesGeneric(address exchange, bytes4 selector, address user, address[] calldata tokens, bool userFirst) external view returns (uint[] memory balances) {
@@ -154,7 +154,7 @@ contract DeltaBalances {
   }
   
   /* Get the deposited ETH balance for a DEX that uses a separate function for ETH balance instead of token 0x0.
-       - Selector: hashed function signature, see &#39;getFunctionSelector&#39;  
+       - Selector: hashed function signature, see 'getFunctionSelector'  
      Returns deposited balance in wei units. */
   function depositedEtherGeneric(address exchange, bytes4 selector, address user) external view returns (uint) {
     return getNumberOneArg(exchange, selector, user);
@@ -216,11 +216,11 @@ contract DeltaBalances {
     }
   }
   
-  // check if contract (token, exchange) is actually a smart contract and not a &#39;regular&#39; address
+  // check if contract (token, exchange) is actually a smart contract and not a 'regular' address
   function isAContract(address contractAddr) internal view returns (bool) {
     uint256 codeSize;
     assembly { codeSize := extcodesize(contractAddr) } // contract code size
     return codeSize > 0; 
-    // Might not be 100% foolproof, but reliable enough for an early return in &#39;view&#39; functions 
+    // Might not be 100% foolproof, but reliable enough for an early return in 'view' functions 
   }
 }

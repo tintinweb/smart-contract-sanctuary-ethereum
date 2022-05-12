@@ -12,10 +12,10 @@ pragma solidity^0.4.21;
  *
  *      Welcome to the &#119812;&#119853;&#119841;&#119838;&#119851;&#119834;&#119839;&#119839;&#119845;&#119838; &#119819;&#119822;&#119827; &#119827;&#119848;&#119844;&#119838;&#119847; promotional contract!
  *      First you should go and play &#119812;&#119853;&#119841;&#119838;&#119851;&#119834;&#119839;&#119839;&#119845;&#119838; @ &#119841;&#119853;&#119853;&#119849;&#119852;://&#119838;&#119853;&#119841;&#119838;&#119851;&#119834;&#119839;&#119839;&#119845;&#119838;.&#119836;&#119848;&#119846;
- *      Then you&#39;ll have earnt free &#119819;&#119822;&#119827; &#119827;&#119848;&#119844;&#119838;&#119847;&#119852; via this very promotion!
+ *      Then you'll have earnt free &#119819;&#119822;&#119827; &#119827;&#119848;&#119844;&#119838;&#119847;&#119852; via this very promotion!
  *      Next you should learn about our &#119816;&#119810;&#119822; @ &#119841;&#119853;&#119853;&#119849;&#119852;://&#119838;&#119853;&#119841;&#119838;&#119851;&#119834;&#119839;&#119839;&#119845;&#119838;.&#119836;&#119848;&#119846;/&#119842;&#119836;&#119848;
  *      Then take part by buying even more &#119819;&#119822;&#119827; &#119853;&#119848;&#119844;&#119838;&#119847;&#119852;! 
- *      And don&#39;t forget to play &#119812;&#119853;&#119841;&#119838;&#119851;&#119834;&#119839;&#119839;&#119845;&#119838; some more because it&#39;s brilliant!
+ *      And don't forget to play &#119812;&#119853;&#119841;&#119838;&#119851;&#119834;&#119839;&#119839;&#119845;&#119838; some more because it's brilliant!
  *
  *      If you want to chat to us you have loads of options:
  *      On &#119827;&#119838;&#119845;&#119838;&#119840;&#119851;&#119834;&#119846; @ &#119841;&#119853;&#119853;&#119849;&#119852;://&#119853;.&#119846;&#119838;/&#119838;&#119853;&#119841;&#119838;&#119851;&#119834;&#119839;&#119839;&#119845;&#119838;
@@ -38,7 +38,7 @@ contract EtheraffleLOTPromo {
     
     bool    public isActive;
     uint    constant public RAFEND     = 500400;     // 7:00pm Saturdays
-    uint    constant public BIRTHDAY   = 1500249600; // Etheraffle&#39;s birthday <3
+    uint    constant public BIRTHDAY   = 1500249600; // Etheraffle's birthday <3
     uint    constant public ICOSTART   = 1522281600; // Thur 29th March 2018
     uint    constant public TIER1END   = 1523491200; // Thur 12th April 2018
     uint    constant public TIER2END   = 1525305600; // Thur 3rd May 2018
@@ -74,9 +74,9 @@ contract EtheraffleLOTPromo {
     /*
      * @dev     Function used to redeem promotional LOT owed. Use weekNo of 
      *          0 to get current week number. Requires user not to have already 
-     *          claimed week number in question&#39;s earnt promo LOT and for promo 
+     *          claimed week number in question's earnt promo LOT and for promo 
      *          to be active. It calculates LOT owed, and sends them to the 
-     *          caller. Should contract&#39;s LOT balance fall too low, attempts 
+     *          caller. Should contract's LOT balance fall too low, attempts 
      *          to redeem will arrest the contract to await a resupply of LOT.
      */
     function redeem(uint _weekNo) public {
@@ -120,7 +120,7 @@ contract EtheraffleLOTPromo {
     }
     /*
      * @dev     Same getWeek function as seen in main Etheraffle contract to 
-     *          ensure parity. Ddefined by number of weeks since Etheraffle&#39;s
+     *          ensure parity. Ddefined by number of weeks since Etheraffle's
      *          birthday.
      */
     function getWeek() public view returns (uint) {
@@ -166,7 +166,7 @@ contract EtheraffleLOTPromo {
         return etheraffleContract.tktPrice();
     }
     /*
-     * @dev     Function returns current ICO tier&#39;s exchange rate of LOT
+     * @dev     Function returns current ICO tier's exchange rate of LOT
      *          per ETH.
      */
     function getRate() public view returns (uint) {

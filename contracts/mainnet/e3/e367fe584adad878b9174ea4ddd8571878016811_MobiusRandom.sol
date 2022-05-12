@@ -94,7 +94,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -696,7 +696,7 @@ contract usingOraclize is DSAuth {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -706,7 +706,7 @@ contract usingOraclize is DSAuth {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -738,7 +738,7 @@ contract usingOraclize is DSAuth {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -761,7 +761,7 @@ contract usingOraclize is DSAuth {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -793,15 +793,15 @@ contract usingOraclize is DSAuth {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -838,13 +838,13 @@ contract usingOraclize is DSAuth {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -987,7 +987,7 @@ contract MobiusRandom is UsingOraclizeRandom, DSMath {
                 secondaryPot += jackpotFee;
             }
             // if you play in Mobius mode, any bet you place tops up your luck, 
-            // even if you aren&#39;t eligible for the jackpot
+            // even if you aren't eligible for the jackpot
             _addLuck(player, amount);
         }
         props = props << 16;
@@ -996,13 +996,13 @@ contract MobiusRandom is UsingOraclizeRandom, DSMath {
 
         pendingBets += win;
 
-        require(secondaryPot + pendingBets <= address(this).balance, "Can&#39;t cover bet!");
+        require(secondaryPot + pendingBets <= address(this).balance, "Can't cover bet!");
         emit BetPlaced(queryId, player, props);
     }
 
     function topUpLuck(uint level) external {
         address player = msg.sender;
-        require(level <= 4 * WAD, "Can&#39;t top up more than 4 levels!");
+        require(level <= 4 * WAD, "Can't top up more than 4 levels!");
         require(TOKEN.transferFrom(player, address(this), wmul(level, luckPrice)), "Token transfer failed!");
         _addLuck(player, level);
     }
@@ -1053,13 +1053,13 @@ contract MobiusRandom is UsingOraclizeRandom, DSMath {
 
     function feedSecondaryPot(uint amount) external auth {
         require (amount <= address(this).balance, "Nonsense amount!");
-        require (secondaryPot + pendingBets + amount <= address(this).balance, "Can&#39;t use what you don&#39;t own!");
+        require (secondaryPot + pendingBets + amount <= address(this).balance, "Can't use what you don't own!");
         secondaryPot += amount;
     }
 
     function withdraw(uint amount) external auth {
-        require (amount <= address(this).balance, "Nonsense amount!"); // do this check to make sure we don&#39;t overflow
-        require (secondaryPot + pendingBets + amount <= address(this).balance, "Can&#39;t withdraw what you don&#39;t own!");
+        require (amount <= address(this).balance, "Nonsense amount!"); // do this check to make sure we don't overflow
+        require (secondaryPot + pendingBets + amount <= address(this).balance, "Can't withdraw what you don't own!");
         msg.sender.transfer(amount);
     }
 
@@ -1068,8 +1068,8 @@ contract MobiusRandom is UsingOraclizeRandom, DSMath {
     }
 
     function disburseDividends(uint amount) external auth {
-        require (amount <= address(this).balance, "Nonsense amount!"); // do this check to make sure we don&#39;t overflow
-        require (secondaryPot + pendingBets + amount <= address(this).balance, "Can&#39;t send what you don&#39;t own!");
+        require (amount <= address(this).balance, "Nonsense amount!"); // do this check to make sure we don't overflow
+        require (secondaryPot + pendingBets + amount <= address(this).balance, "Can't send what you don't own!");
         TOKEN.disburseDividends.value(amount)();
         dividendsPaid += amount;
     }
@@ -1077,7 +1077,7 @@ contract MobiusRandom is UsingOraclizeRandom, DSMath {
     /// Oraclize callback function
     function __callback(bytes32 _queryId, string _result, bytes _proof) public {
         
-        require(msg.sender == oraclize_cbAddress(), "You can&#39;t do that!");
+        require(msg.sender == oraclize_cbAddress(), "You can't do that!");
         
         if (oraclize_randomDS_proofVerify__returnCode(_queryId, _result, _proof) != 0) {
             _onRandomFailed(_queryId);
@@ -1199,7 +1199,7 @@ contract MobiusRandom is UsingOraclizeRandom, DSMath {
         _finalizeBet(queryId, player, props, won);
 
         // Since we can change the min house profit while there are pending bets,
-        // there&#39;s a small chance of an underflow, so check if that&#39;s the case here
+        // there's a small chance of an underflow, so check if that's the case here
         if(pendingBets >= win) {
             pendingBets -= win;
         } else {
@@ -1264,7 +1264,7 @@ contract MobiusRandom is UsingOraclizeRandom, DSMath {
         }
 
         reward = (betSize - houseEdge - secondaryJackpotFee) * modulo / rollUnder;
-        require(betSize >= houseEdge + secondaryJackpotFee, "Bet doesn&#39;t cover minimum fee!");
+        require(betSize >= houseEdge + secondaryJackpotFee, "Bet doesn't cover minimum fee!");
     }
 
     function _minHouseEdge() internal view returns(uint) {

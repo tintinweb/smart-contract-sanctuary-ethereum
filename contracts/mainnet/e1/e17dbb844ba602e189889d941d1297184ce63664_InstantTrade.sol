@@ -307,7 +307,7 @@ contract TokenStore is SafeMath, Ownable {
 
   // User-triggered (!) fund migrations in case contract got updated
   // Similar to withdraw but we use a successor account instead
-  // As we don&#39;t store user tokens list on chain, it has to be passed from the outside
+  // As we don't store user tokens list on chain, it has to be passed from the outside
   function migrateFunds(address[] _tokens) {
 
     // Get the latest successor in the chain
@@ -358,7 +358,7 @@ contract TokenStore is SafeMath, Ownable {
     require(_user != address(0));
     require(msg.value > 0);
     TokenStore caller = TokenStore(msg.sender);
-    require(caller.version() > 0); // Make sure it&#39;s an exchange account
+    require(caller.version() > 0); // Make sure it's an exchange account
     tokens[0][_user] = safeAdd(tokens[0][_user], msg.value);
   }
 
@@ -367,7 +367,7 @@ contract TokenStore is SafeMath, Ownable {
     require(_user != address(0));
     require(_amount > 0);
     TokenStore caller = TokenStore(msg.sender);
-    require(caller.version() > 0); // Make sure it&#39;s an exchange account
+    require(caller.version() > 0); // Make sure it's an exchange account
     if (!Token(_token).transferFrom(msg.sender, this, _amount)) {
       revert();
     }
@@ -390,7 +390,7 @@ contract InstantTrade is SafeMath, Ownable {
     
     // Paying with Ethereum or token? Deposit to the actual store
     if (_tokenGet == address(0)) {
-      // Check amount of ether sent to make sure it&#39;s correct
+      // Check amount of ether sent to make sure it's correct
       if (msg.value != totalValue) {
         revert();
       }

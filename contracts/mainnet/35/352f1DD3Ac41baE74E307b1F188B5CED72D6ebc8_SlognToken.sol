@@ -231,9 +231,9 @@ contract EscrowICO is Token, ICO {
 }
 
 contract SlognToken is Token, EscrowICO {
-    string public constant STANDARD = &#39;Slogn v0.1&#39;;
-    string public constant NAME = &#39;SLOGN&#39;;
-    string public constant SYMBOL = &#39;SLGN&#39;;
+    string public constant STANDARD = 'Slogn v0.1';
+    string public constant NAME = 'SLOGN';
+    string public constant SYMBOL = 'SLGN';
     uint8 public constant PRECISION = 14;
 
     uint256 public constant TOTAL_SUPPLY = 800000 ether; // initial total supply equals to 8.000.000.000 slogns or 800.000 eths

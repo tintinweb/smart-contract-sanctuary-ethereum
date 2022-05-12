@@ -188,7 +188,7 @@ contract AgoraToken is ERC20Interface {
   // If the user have made (or received) a transfer of AGO token since the
   // last reference block, its balance will be written in the `balancesAtBlock`
   // mapping. So we can retrieve it from here.
-  // Otherwise, if the user havn&#39;t made a transaction since the last reference
+  // Otherwise, if the user havn't made a transaction since the last reference
   // block, the balance of AGO token is still good.
   function balanceAtBlock(address _owner, uint256 blockNumber) constant returns (uint256 balance) {
     if(balancesAtBlock[blockNumber][_owner].initialized) {

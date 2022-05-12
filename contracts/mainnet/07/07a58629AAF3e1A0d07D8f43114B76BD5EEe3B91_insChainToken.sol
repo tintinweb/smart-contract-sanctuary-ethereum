@@ -114,17 +114,17 @@ contract Safe is Ownable {
     }
 }
 
-// Adapted from zeppelin-solidity&#39;s BasicToken, StandardToken and BurnableToken contracts
+// Adapted from zeppelin-solidity's BasicToken, StandardToken and BurnableToken contracts
 // https://github.com/OpenZeppelin/zeppelin-solidity/blob/master/contracts/token/ERC20/BasicToken.sol
 // https://github.com/OpenZeppelin/zeppelin-solidity/blob/master/contracts/token/ERC20/StandardToken.sol
 // https://github.com/OpenZeppelin/zeppelin-solidity/blob/master/contracts/token/ERC20/BurnableToken.sol
 contract insChainToken is Safe, ERC20Token {
-    string public constant name = &#39;Guaranteed Ethurance Token Extra&#39;;              // Set the token name for display
-    string public constant symbol = &#39;GETX&#39;;                                  // Set the token symbol for display
+    string public constant name = 'Guaranteed Ethurance Token Extra';              // Set the token name for display
+    string public constant symbol = 'GETX';                                  // Set the token symbol for display
     uint8 public constant decimals = 18;                                     // Set the number of decimals for display
     uint256 public constant INITIAL_SUPPLY = 1e9 * 10**uint256(decimals);
     uint256 public totalSupply;
-    string public version = &#39;2&#39;;
+    string public version = '2';
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
     mapping (address => uint256) freeze;
@@ -245,7 +245,7 @@ contract insChainToken is Safe, ERC20Token {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(keccak256("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { revert(); }

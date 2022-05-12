@@ -276,8 +276,8 @@ contract SnowdenToken is ERC20Interface, Owned {
     }
 
     /**
-     * @notice Transfer the balance from token owner&#39;s account to `to` account
-     *    - Owner&#39;s account must have sufficient balance to transfer
+     * @notice Transfer the balance from token owner's account to `to` account
+     *    - Owner's account must have sufficient balance to transfer
      *    - 0 value transfers are allowed
      * @param to Address to transfer tokens to
      * @param tokens Number of tokens to be transferred
@@ -295,7 +295,7 @@ contract SnowdenToken is ERC20Interface, Owned {
 
     /**
      * @notice Token owner can approve for `spender` to transferFrom(...) `tokens`
-     *   from the token owner&#39;s account
+     *   from the token owner's account
      * @param spender address of the spender to approve
      * @param tokens Number of tokens to allow spender to spend
      * @dev https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
@@ -335,7 +335,7 @@ contract SnowdenToken is ERC20Interface, Owned {
 
     /**
      * @notice Returns the amount of tokens approved by the owner that can be
-     *   transferred to the spender&#39;s account
+     *   transferred to the spender's account
      * @param tokenOwner The address of the owner of the token
      * @param spender The address of the spender of the token
      * @return Number of tokens that are approved for spending from the tokenOwner
@@ -347,7 +347,7 @@ contract SnowdenToken is ERC20Interface, Owned {
 
     /**
      * @notice Token owner can approve for `spender` to transferFrom(...) `tokens`
-     *   from the token owner&#39;s account. The `spender` contract function
+     *   from the token owner's account. The `spender` contract function
      *   `receiveApproval(...)` is then executed
      * @param spender address with which to approve
      * @param tokens The number of tokens that this address is approved to take

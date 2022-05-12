@@ -9,7 +9,7 @@ contract TokenERC20 {
      address public addressA =  0x82914CFc37c46fbbb830150cF2330B80DAADa2D5;
 
      
-function founder() private {  // contract&#39;s constructor function
+function founder() private {  // contract's constructor function
         owner = msg.sender;
         }
 function change_owner (address newOwner) public{
@@ -182,7 +182,7 @@ function setaddress (address _address1) public {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;

@@ -48,7 +48,7 @@ contract DaaToken {
   string public name;
   uint8 public decimals;
   string public symbol;
-  string public version = &#39;0.0.1&#39;;
+  string public version = '0.0.1';
   address public owner;
   address public minter;
   uint256 public lockedUntilBlock;
@@ -130,7 +130,7 @@ contract DaaToken {
       returns (bool success)
   {
     // ensure _value is greater than zero and
-    // doesn&#39;t overflow
+    // doesn't overflow
     if (totalSupply + _value <= totalSupply) {
       return false;
     }

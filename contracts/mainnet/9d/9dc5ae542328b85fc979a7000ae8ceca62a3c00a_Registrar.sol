@@ -69,7 +69,7 @@ contract Registrar {
      */
 	constructor() public {
 		contractOwner = msg.sender;
-		addHashType(&#39;sha256&#39;);
+		addHashType('sha256');
 	}
 
     /******************************************/

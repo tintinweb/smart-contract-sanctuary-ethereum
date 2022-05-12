@@ -26,7 +26,7 @@ Rules are as follows:
         - Compare the sum totals of the scores over the last 32 games.
         - If this produces a draw as well, compare results of the last 16 games.
         - This repeats until comparing the results of the final.
-        - If it&#39;s a dead heat throughout, a coin-flip (or some equivalent method) will be used to determine the winner.
+        - If it's a dead heat throughout, a coin-flip (or some equivalent method) will be used to determine the winner.
 
 Prizes:
     FIRST  PLACE: 40% of Ether contained within the pot.
@@ -490,9 +490,9 @@ contract EtherWorldCup {
     // Invoke this function to get *everyone* up to date score-wise.
     // This is probably best used at the end of the tournament, to ensure
     // that prizes are awarded to the correct addresses.
-    // Note: this is going to be VERY gas-intensive. Use it if you&#39;re desperate
-    //         to see how you square up against everyone else if they&#39;re slow to
-    //         update their own scores. Alternatively, if there&#39;s just one or two
+    // Note: this is going to be VERY gas-intensive. Use it if you're desperate
+    //         to see how you square up against everyone else if they're slow to
+    //         update their own scores. Alternatively, if there's just one or two
     //         stragglers, you can just call updateScore for them alone.
     function updateAllScores()
         public
@@ -533,7 +533,7 @@ contract EtherWorldCup {
         return gameResult[_gameID];
     }
 
-    // What was the caller&#39;s prediction for a given game?
+    // What was the caller's prediction for a given game?
     function playerGuess(int8 _gameID)
         public
         view
@@ -600,7 +600,7 @@ contract EtherWorldCup {
         }
     }
 
-    // As new fixtures become known through progression or elimination, they&#39;re added here.
+    // As new fixtures become known through progression or elimination, they're added here.
     function addNewGame(string _opponents, int8 _gameID)
         isAdministrator
         public {
@@ -633,7 +633,7 @@ contract EtherWorldCup {
         isAdministrator
         public
     {
-        // Don&#39;t hand out prizes until the final&#39;s... actually been played.
+        // Don't hand out prizes until the final's... actually been played.
         require(gameFinished[64]
              && playerIsRegistered(_first)
              && playerIsRegistered(_second)
@@ -655,7 +655,7 @@ contract EtherWorldCup {
     // The emergency escape hatch in case something has gone wrong. Refunds 95% of purchase Ether
     //   to all registered addresses: the other 0.01009 has been sent directly to the developer who can
     //   handle sending that back to everyone using a script.
-    // Let&#39;s hope this one doesn&#39;t have to get pulled, eh?
+    // Let's hope this one doesn't have to get pulled, eh?
     function pullRipCord()
         isAdministrator
         public
@@ -729,7 +729,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

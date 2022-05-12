@@ -73,7 +73,7 @@ contract VestingContractABX
     initData(0xf8767ced61c1f86f5572e64289247b1c86083ef1, 33333333 * 10**16);
   }
   
-  /// @dev Fallback function: don&#39;t accept ETH
+  /// @dev Fallback function: don't accept ETH
   function()
     public
     payable

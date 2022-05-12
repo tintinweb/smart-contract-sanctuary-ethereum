@@ -1,12 +1,12 @@
 pragma solidity ^0.4.24;
 
-/// @title New Child Kydy&#39;s Genes
+/// @title New Child Kydy's Genes
 contract GeneSynthesisInterface {
     /// @dev boolean to check this is the contract we expect to be
     function isGeneSynthesis() public pure returns (bool);
 
     /**
-     * @dev Synthesizes the genes of yin and yang Kydy, and returns the result as the child&#39;s genes. 
+     * @dev Synthesizes the genes of yin and yang Kydy, and returns the result as the child's genes. 
      * @param gene1 genes of yin Kydy
      * @param gene2 genes of yang Kydy
      * @return the genes of the child
@@ -131,7 +131,7 @@ contract KydyAccessControl {
      *  derived contracts.
      */
     function unpause() public onlyCEO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 }
@@ -150,7 +150,7 @@ contract ERC165Interface {
 
 contract ERC165 is ERC165Interface {
     /**
-     * @dev a mapping of interface id to whether or not it&#39;s supported
+     * @dev a mapping of interface id to whether or not it's supported
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -272,7 +272,7 @@ contract ERC721Basic is ERC165 {
 
     /**
      * @notice Enable or disable approval for a third party ("operator") to manage
-     *  all of `msg.sender`&#39;s assets
+     *  all of `msg.sender`'s assets
      * @dev Emits the ApprovalForAll event. The contract MUST allow
      *  multiple operators per owner.
      * @param _operator Address to add to the set of authorized operators
@@ -347,8 +347,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -367,7 +367,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -449,7 +449,7 @@ contract KydyBase is KydyAccessControl, ERC721Basic {
      * @dev Every Kydy in the Dyverse is a copy of this structure. 
      */
     struct Kydy {
-        // The Kydy&#39;s genetic code is stored into 256-bits and never changes.
+        // The Kydy's genetic code is stored into 256-bits and never changes.
         uint256 genes;
 
         // The timestamp of the block when this Kydy was created
@@ -513,7 +513,7 @@ contract KydyBase is KydyAccessControl, ERC721Basic {
     mapping (uint256 => address) internal kydyIndexToOwner;
 
     /**
-     * @dev This maps the owner&#39;s address to the number of Kydys that the address owns.
+     * @dev This maps the owner's address to the number of Kydys that the address owns.
      *  You can view this mapping via `balanceOf()`.
      */
     mapping (address => uint256) internal ownershipTokenCount;
@@ -628,8 +628,8 @@ contract KydyBase is KydyAccessControl, ERC721Basic {
     }
 
     /**
-     * @dev Internal function to add a Kydy ID to the new owner&#39;s list.
-     * @param _to address the new owner&#39;s address
+     * @dev Internal function to add a Kydy ID to the new owner's list.
+     * @param _to address the new owner's address
      * @param _tokenId uint256 ID of the transferred Kydy 
      */
     function _addTokenTo(address _to, uint256 _tokenId) internal {
@@ -642,16 +642,16 @@ contract KydyBase is KydyAccessControl, ERC721Basic {
     }
 
     /**
-     * @dev Internal function to remove a Kydy ID from the previous owner&#39;s list.
-     * @param _from address the previous owner&#39;s address
+     * @dev Internal function to remove a Kydy ID from the previous owner's list.
+     * @param _from address the previous owner's address
      * @param _tokenId uint256 ID of the transferred Kydy 
      */
     function _removeTokenFrom(address _from, uint256 _tokenId) internal {
-        // Checks the current owner of the Kydy is &#39;_from&#39;.
+        // Checks the current owner of the Kydy is '_from'.
         require(ownerOf(_tokenId) == _from);
         // Reduces the total Kydy count of the previous owner.
         ownershipTokenCount[_from] = ownershipTokenCount[_from].sub(1);
-        // Deletes the transferred Kydy from the current owner&#39;s list.
+        // Deletes the transferred Kydy from the current owner's list.
         kydyIndexToOwner[_tokenId] = address(0);
     }
 
@@ -686,7 +686,7 @@ contract KydyBase is KydyAccessControl, ERC721Basic {
      * @param _yinId The ID of the yin Kydy (zero for Generation 0 Kydy)
      * @param _yangId The ID of the yang Kydy (zero for Generation 0 Kydy)
      * @param _generation The generation number of the new Kydy.
-     * @param _genes The Kydy&#39;s gene code
+     * @param _genes The Kydy's gene code
      * @param _owner The owner of this Kydy, must be non-zero (except for the ID 0)
      */
     function _createKydy(
@@ -703,7 +703,7 @@ contract KydyBase is KydyAccessControl, ERC721Basic {
         require(_yangId == uint256(uint32(_yangId)));
         require(_generation == uint256(uint16(_generation)));
 
-        // New Kydy&#39;s recharge index is its generation / 2.
+        // New Kydy's recharge index is its generation / 2.
         uint16 rechargeIndex = uint16(_generation / 2);
         if (rechargeIndex > 13) {
             rechargeIndex = 13;
@@ -843,29 +843,29 @@ contract KydyOwnership is KydyBase {
     bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
     /**
      * 0x01ffc9a7 ===
-     *     bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+     *     bytes4(keccak256('supportsInterface(bytes4)'))
      */
 
     bytes4 private constant _InterfaceId_ERC721 = 0x80ac58cd;
     /*
      * 0x80ac58cd ===
-     *     bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-     *     bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-     *     bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-     *     bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+     *     bytes4(keccak256('balanceOf(address)')) ^
+     *     bytes4(keccak256('ownerOf(uint256)')) ^
+     *     bytes4(keccak256('approve(address,uint256)')) ^
+     *     bytes4(keccak256('getApproved(uint256)')) ^
+     *     bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+     *     bytes4(keccak256('isApprovedForAll(address,address)')) ^
+     *     bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+     *     bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+     *     bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
      */
 
     bytes4 private constant _InterfaceId_ERC721Metadata = 0x5b5e139f;
     /**
      * 0x5b5e139f ===
-     *     bytes4(keccak256(&#39;name()&#39;)) ^
-     *     bytes4(keccak256(&#39;symbol()&#39;)) ^
-     *     bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+     *     bytes4(keccak256('name()')) ^
+     *     bytes4(keccak256('symbol()')) ^
+     *     bytes4(keccak256('tokenURI(uint256)'))
      */
 
     constructor() public {
@@ -1066,7 +1066,7 @@ contract KydyOwnership is KydyBase {
     /**
      * @notice Returns a list of all Kydy IDs assigned to an address.
      * @param _owner The owner whose Kydys we are interested in.
-     * @dev This function MUST NEVER be called by smart contract code. It&#39;s pretty
+     * @dev This function MUST NEVER be called by smart contract code. It's pretty
      *  expensive (it looks into the entire Kydy array looking for Kydys belonging to owner),
      *  and it also returns a dynamic array, which is only supported for web3 calls, and
      *  not contract-to-contract calls.
@@ -1165,7 +1165,7 @@ contract KydySynthesis is KydyOwnership {
         // Computes the approximation of the end of recharge time in blocks (based on current rechargeIndex).
         _kyd.rechargeEndBlock = uint64((recharges[_kyd.rechargeIndex] / secondsPerBlock) + block.number);
 
-        // Increases this Kydy&#39;s synthesizing count, and the cap is fixed at 12.
+        // Increases this Kydy's synthesizing count, and the cap is fixed at 12.
         if (_kyd.rechargeIndex < 12) {
             _kyd.rechargeIndex += 1;
         }
@@ -1228,9 +1228,9 @@ contract KydySynthesis is KydyOwnership {
     /**
      * @dev Internal check to see if these yang and yin are a valid couple. 
      * @param _yin A reference to the Kydy struct of the potential yin.
-     * @param _yinId The yin&#39;s ID.
+     * @param _yinId The yin's ID.
      * @param _yang A reference to the Kydy struct of the potential yang.
-     * @param _yangId The yang&#39;s ID
+     * @param _yangId The yang's ID
      */
     function _isValidCouple(
         Kydy storage _yin,
@@ -1242,12 +1242,12 @@ contract KydySynthesis is KydyOwnership {
         view
         returns(bool)
     {
-        // Kydy can&#39;t synthesize with itself.
+        // Kydy can't synthesize with itself.
         if (_yinId == _yangId) {
             return false;
         }
 
-        // Kydys can&#39;t synthesize with their parents.
+        // Kydys can't synthesize with their parents.
         if (_yin.yinId == _yangId || _yin.yangId == _yangId) {
             return false;
         }
@@ -1260,7 +1260,7 @@ contract KydySynthesis is KydyOwnership {
             return true;
         }
 
-        // Kydys can&#39;t synthesize with full or half siblings.
+        // Kydys can't synthesize with full or half siblings.
         if (_yang.yinId == _yin.yinId || _yang.yinId == _yin.yangId) {
             return false;
         }
@@ -1339,7 +1339,7 @@ contract KydySynthesis is KydyOwnership {
         // Checks for pre-payment.
         require(msg.value >= autoCreationFee);
 
-        // Caller must be the yin&#39;s owner.
+        // Caller must be the yin's owner.
         require(_owns(msg.sender, _yinId));
 
         // Checks if the caller has valid authority for this synthesis
@@ -1371,7 +1371,7 @@ contract KydySynthesis is KydyOwnership {
     }
 
     /**
-     * @notice Let&#39;s bring the new Kydy to it&#39;s home!
+     * @notice Let's bring the new Kydy to it's home!
      * @param _yinId A Kydy which is ready to bring the newly created Kydy to home.
      * @return The Kydy ID of the newly created Kydy.
      * @dev The newly created Kydy is transferred to the owner of the yin Kydy. Anyone is welcome to call this function.
@@ -1416,7 +1416,7 @@ contract KydySynthesis is KydyOwnership {
         // Sends the fee to the person who called this. 
         msg.sender.transfer(autoCreationFee);
 
-        // Returns the new Kydy&#39;s ID.
+        // Returns the new Kydy's ID.
         return kydyId;
     }
 }
@@ -1454,7 +1454,7 @@ contract AuctionBase is ERC721Holder {
     // The amount owner takes from the sale, (in basis points, which are 1/100 of a percent).
     uint256 public ownerCut;
 
-    // Maps token ID to it&#39;s corresponding auction.
+    // Maps token ID to it's corresponding auction.
     mapping (uint256 => Auction) tokenIdToAuction;
 
     event AuctionCreated(uint256 tokenId, uint256 price);
@@ -1595,7 +1595,7 @@ contract AuctionBase is ERC721Holder {
     }
 
     /**
-     * @dev Computes the owner&#39;s receiving amount from the sale.
+     * @dev Computes the owner's receiving amount from the sale.
      * @param _price Sale price of the NFT.
      */
     function _computeCut(uint256 _price) internal view returns (uint256) {
@@ -1674,7 +1674,7 @@ contract Auction is Pausable, AuctionBase {
 
     /**
      * @dev Creates and begins a new auction.
-     * @param _tokenId ID of the token to creat an auction, caller must be it&#39;s owner.
+     * @param _tokenId ID of the token to creat an auction, caller must be it's owner.
      * @param _price Price of the token (in wei).
      * @param _seller Seller of this token.
      */
@@ -1714,14 +1714,14 @@ contract Auction is Pausable, AuctionBase {
     /**
      * @dev Cancels an auction and returns the NFT to the current owner.
      * @param _tokenId ID of the token on auction to cancel.
-     * @param _seller The seller&#39;s address.
+     * @param _seller The seller's address.
      */
     function cancelAuction(uint256 _tokenId, address _seller)
         external
     {
         // Requires that this function should only be called from the
         // `cancelSaleAuction()` of NFT ownership contract. This function gets
-        // the _seller directly from it&#39;s arguments, so if this check doesn&#39;t
+        // the _seller directly from it's arguments, so if this check doesn't
         // exist, then anyone can cancel the auction! OMG!
         require(msg.sender == address(nonFungibleContract));
         Auction storage auction = tokenIdToAuction[_tokenId];
@@ -1812,7 +1812,7 @@ contract SynthesizingAuction is Auction {
     /**
      * @dev Creates and begins a new auction. Since this function is wrapped,
      *  requires the caller to be KydyCore contract.
-     * @param _tokenId ID of token to auction, sender must be it&#39;s owner.
+     * @param _tokenId ID of token to auction, sender must be it's owner.
      * @param _price Price of the token (in wei).
      * @param _seller Seller of this token.
      */
@@ -1886,7 +1886,7 @@ contract SaleAuction is Auction {
 
     /**
      * @dev Creates and begins a new auction.
-     * @param _tokenId ID of token to auction, sender must be it&#39;s owner.
+     * @param _tokenId ID of token to auction, sender must be it's owner.
      * @param _price Price of the token (in wei).
      * @param _seller Seller of this token.
      */
@@ -1920,9 +1920,9 @@ contract SaleAuction is Auction {
         uint256 price = _bid(_tokenId, msg.value);
         _transfer(msg.sender, _tokenId);
 
-        // If the last sale was not Generation 0 Kydy&#39;s, the lastSalePrice doesn&#39;t change.
+        // If the last sale was not Generation 0 Kydy's, the lastSalePrice doesn't change.
         if (seller == address(nonFungibleContract)) {
-            // Tracks gen0&#39;s latest sale prices.
+            // Tracks gen0's latest sale prices.
             lastGen0SalePrices[gen0SaleCount % 5] = price;
             gen0SaleCount++;
         }
@@ -2064,7 +2064,7 @@ contract KydyAuction is KydySynthesis {
         (address seller,,) = saleAuction.getAuction(_kydyId);
         // Checks that the caller is the real seller.
         require(msg.sender == seller);
-        // Cancels the sale auction of this kydy by it&#39;s seller&#39;s request.
+        // Cancels the sale auction of this kydy by it's seller's request.
         saleAuction.cancelAuction(_kydyId, msg.sender);
     }
 
@@ -2215,7 +2215,7 @@ contract KydyCore is KydyMinting {
         ceoAddress = msg.sender;
 
         // Starts with the Kydy ID 0 which is invalid one.
-        // So we don&#39;t have generation-0 parent issues.
+        // So we don't have generation-0 parent issues.
         _createKydy(0, 0, 0, uint256(-1), address(0));
     }
 
@@ -2224,13 +2224,13 @@ contract KydyCore is KydyMinting {
      * @param _v2Address Upgraded version of the core contract.
      */
     function setNewAddress(address _v2Address) external onlyCEO whenPaused {
-        // We&#39;ll announce if the upgrade is needed.
+        // We'll announce if the upgrade is needed.
         newContractAddress = _v2Address;
         emit ContractUpgrade(_v2Address);
     }
 
     /**
-     * @dev Rejects all Ether being sent from unregistered addresses, so that users don&#39;t accidentally end us Ether.
+     * @dev Rejects all Ether being sent from unregistered addresses, so that users don't accidentally end us Ether.
      */
     function() external payable {
         require(
@@ -2260,7 +2260,7 @@ contract KydyCore is KydyMinting {
     ) {
         Kydy storage kyd = kydys[_id];
 
-        // If this is setted to 0 then it&#39;s not at creating mode.
+        // If this is setted to 0 then it's not at creating mode.
         isCreating = (kyd.synthesizingWithId != 0);
         isReady = (kyd.rechargeEndBlock <= block.number);
         rechargeIndex = uint256(kyd.rechargeIndex);

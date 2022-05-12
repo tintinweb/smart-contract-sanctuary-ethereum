@@ -142,7 +142,7 @@ contract ARXPackageSale is owned, safeMath {
           // funding targets
           initialARXSupplyInWei                   = 6500000000000000000000000;                                    //   6,500,000 + 18 decimals = 6500000000000000000000000 //testnet 650k tokens = 65000000000000000000000
           CurrentARXSupplyInWei                   = initialARXSupplyInWei;
-          EthCapInWei                             = 500000000000000000000;                                        //   500000000000000000000 =  500 Eth (max cap) - packages won&#39;t sell beyond this amount //testnet 5Eth 5000000000000000000
+          EthCapInWei                             = 500000000000000000000;                                        //   500000000000000000000 =  500 Eth (max cap) - packages won't sell beyond this amount //testnet 5Eth 5000000000000000000
           amountRaisedInWei                       = 0;
 
           // update values

@@ -329,7 +329,7 @@ contract AgileICO {
     }
 
     // PUBLIC ------------------------------------------------------------------
-    // payable function recieves ETH and creates an &#39;offer&#39;
+    // payable function recieves ETH and creates an 'offer'
     // wont succeed with 2300 stipend for send, must add more gas
     function () public payable {
         // INVESTOR SENDS OFFER BY SENDING ETH TO CONTRACT

@@ -34,7 +34,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b) internal constant returns (uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return c;
 	}
 
@@ -161,8 +161,8 @@ contract RFToken is ERC20Token, owned{
 
 
 
-	string public name = &#39;RF Token&#39;;
-	string public symbol = &#39;RF&#39;;
+	string public name = 'RF Token';
+	string public symbol = 'RF';
 	uint8 public decimals = 8;
 	uint256 public totalSupply = 8625000000000000;//86250000 * 10^8
 

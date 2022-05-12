@@ -162,7 +162,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -185,7 +185,7 @@ contract BNW is owned, TokenERC20 {
 
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function BNW(
-    ) TokenERC20(8000000000, &#39;BNW&#39;, &#39;BNW&#39;) public {}
+    ) TokenERC20(8000000000, 'BNW', 'BNW') public {}
 
     /* Internal transfer, only can be called by this contract */
     function _transfer(address _from, address _to, uint _value) internal {

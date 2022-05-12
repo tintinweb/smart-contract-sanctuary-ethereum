@@ -97,7 +97,7 @@ contract ERC667 is ERC20 {
 UI: https://www.pennyether.com/status/tokens
 
 An ERC20 token that can accept Ether and distribute it
-perfectly to all Token Holders relative to each account&#39;s
+perfectly to all Token Holders relative to each account's
 balance at the time the dividend is received.
 
 The Token is owned by the creator, and can be frozen,
@@ -130,7 +130,7 @@ contract DividendToken is ERC667
 
     // How dividends work:
     //
-    // - A "point" is a fraction of a Wei (1e-32), it&#39;s used to reduce rounding errors.
+    // - A "point" is a fraction of a Wei (1e-32), it's used to reduce rounding errors.
     //
     // - totalPointsPerToken represents how many points each token is entitled to
     //   from all the dividends ever received. Each time a new deposit is made, it
@@ -282,8 +282,8 @@ contract DividendToken is ERC667
     /*************************************************************/
     /********** PRIVATE METHODS / VIEWS **************************/
     /*************************************************************/
-    // Credits _account with whatever dividend points they haven&#39;t yet been credited.
-    //  This needs to be called before any user&#39;s balance changes to ensure their
+    // Credits _account with whatever dividend points they haven't yet been credited.
+    //  This needs to be called before any user's balance changes to ensure their
     //  "lastPointsPerToken" credits their current balance, and not an altered one.
     function _updateCreditedPoints(address _account)
         private
@@ -292,7 +292,7 @@ contract DividendToken is ERC667
         lastPointsPerToken[_account] = totalPointsPerToken;
     }
 
-    // For a given account, returns how many Wei they haven&#39;t yet been credited.
+    // For a given account, returns how many Wei they haven't yet been credited.
     function _getUncreditedPoints(address _account)
         private
         view

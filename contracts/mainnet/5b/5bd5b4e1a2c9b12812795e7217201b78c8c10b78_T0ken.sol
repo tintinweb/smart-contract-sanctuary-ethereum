@@ -162,7 +162,7 @@ library AddressMap {
 
     /**
      *  Appends the address to the end of the map, if the address is not
-     *  zero and the address doesn&#39;t currently exist.
+     *  zero and the address doesn't currently exist.
      *  @param addr The address to append.
      *  @return true if the address was added.
      */
@@ -194,7 +194,7 @@ library AddressMap {
     returns (bool) {
         int256 oneBasedIndex = self.indices[addr];
         if (oneBasedIndex < 1 || oneBasedIndex > self.count) {
-            return false;  // address doesn&#39;t exist, or zero.
+            return false;  // address doesn't exist, or zero.
         }
 
         // When the item being removed is not the last item in the collection,
@@ -210,7 +210,7 @@ library AddressMap {
             address last = self.items[self.count];  // Get the last item
             self.indices[last] = oneBasedIndex;     // Update last items index to current index
             self.items[oneBasedIndex] = last;       // Update current index to last item
-            delete self.items[self.count];          // Delete the last item, since it&#39;s moved
+            delete self.items[self.count];          // Delete the last item, since it's moved
         } else {
             // Delete the address
             delete self.items[oneBasedIndex];
@@ -310,7 +310,7 @@ library AccountMap {
 
     /**
      *  Appends the address to the end of the map, if the addres is not
-     *  zero and the address doesn&#39;t currently exist.
+     *  zero and the address doesn't currently exist.
      *  @param addr The address to append.
      *  @return true if the address was added.
      */
@@ -342,7 +342,7 @@ library AccountMap {
     returns (bool) {
         int256 oneBasedIndex = self.indices[addr];
         if (oneBasedIndex < 1 || oneBasedIndex > self.count) {
-            return false;  // address doesn&#39;t exist, or zero.
+            return false;  // address doesn't exist, or zero.
         }
 
         // When the item being removed is not the last item in the collection,
@@ -358,7 +358,7 @@ library AccountMap {
             Account storage last = self.items[self.count];  // Get the last item
             self.indices[last.addr] = oneBasedIndex;        // Update last items index to current index
             self.items[oneBasedIndex] = last;               // Update current index to last item
-            delete self.items[self.count];                  // Delete the last item, since it&#39;s moved
+            delete self.items[self.count];                  // Delete the last item, since it's moved
         } else {
             // Delete the account
             delete self.items[oneBasedIndex];
@@ -413,7 +413,7 @@ library AccountMap {
 
     /**
      *  Gets the Account for the given address.
-     *  THROWS when an account doesn&#39;t exist for the given address.
+     *  THROWS when an account doesn't exist for the given address.
      *  @param addr The address of the item to get.
      *  @return The account of the given address.
      */
@@ -483,7 +483,7 @@ contract Storage is Ownable, LockableDestroyable {
 
     /**
      *  Adds an account to storage
-     *  THROWS when `msg.sender` doesn&#39;t have permission
+     *  THROWS when `msg.sender` doesn't have permission
      *  THROWS when the account already exists
      *  @param addr The address of the account
      *  @param kind The kind of account
@@ -498,8 +498,8 @@ contract Storage is Ownable, LockableDestroyable {
     }
 
     /**
-     *  Sets an account&#39;s frozen status
-     *  THROWS when the account doesn&#39;t exist
+     *  Sets an account's frozen status
+     *  THROWS when the account doesn't exist
      *  @param addr The address of the account
      *  @param frozen The frozen status of the account
      */
@@ -515,7 +515,7 @@ contract Storage is Ownable, LockableDestroyable {
 
     /**
      *  Removes an account from storage
-     *  THROWS when the account doesn&#39;t exist
+     *  THROWS when the account doesn't exist
      *  @param addr The address of the account
      */
     function removeAccount(address addr)
@@ -538,7 +538,7 @@ contract Storage is Ownable, LockableDestroyable {
 
     /**
      *  Sets data for an address/caller
-     *  THROWS when the account doesn&#39;t exist
+     *  THROWS when the account doesn't exist
      *  @param addr The address
      *  @param index The index of the data
      *  @param customData The data store set
@@ -592,7 +592,7 @@ contract Storage is Ownable, LockableDestroyable {
 
     /**
      *  Gets the account for the given address
-     *  THROWS when the account doesn&#39;t exist
+     *  THROWS when the account doesn't exist
      *  @param addr The address of the item to retrieve
      *  @return The address, kind, frozen status, and parent of the account at the given index
      */
@@ -606,7 +606,7 @@ contract Storage is Ownable, LockableDestroyable {
 
     /**
      *  Gets the parent address for the given account address
-     *  THROWS when the account doesn&#39;t exist
+     *  THROWS when the account doesn't exist
      *  @param addr The address of the account
      *  @return The parent address
      */
@@ -619,7 +619,7 @@ contract Storage is Ownable, LockableDestroyable {
 
     /**
      *  Gets the account kind, for the given account address
-     *  THROWS when the account doesn&#39;t exist
+     *  THROWS when the account doesn't exist
      *  @param addr The address of the account
      *  @return The kind of account
      */
@@ -632,7 +632,7 @@ contract Storage is Ownable, LockableDestroyable {
 
     /**
      *  Gets the frozen status of the account
-     *  THROWS when the account doesn&#39;t exist
+     *  THROWS when the account doesn't exist
      *  @param addr The address of the account
      *  @return The frozen status of the account
      */
@@ -749,7 +749,7 @@ interface ComplianceRule {
 interface Compliance {
 
     /**
-     *  This event is emitted when an address&#39;s frozen status has changed.
+     *  This event is emitted when an address's frozen status has changed.
      *  @param addr The address whose frozen status has been updated.
      *  @param isFrozen Whether the custodian is being frozen.
      *  @param owner The address that updated the frozen status.
@@ -914,8 +914,8 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
     /**
      *  @dev Transfers tokens to the whitelisted account.
      *
-     *  If the &#39;to&#39; address is not currently a shareholder then it MUST become one.
-     *  If the transfer will reduce &#39;msg.sender&#39; balance to 0, then that address MUST be removed
+     *  If the 'to' address is not currently a shareholder then it MUST become one.
+     *  If the transfer will reduce 'msg.sender' balance to 0, then that address MUST be removed
      *  from the list of shareholders.
      *  MUST be removed from the list of shareholders.
      *  @param to The address to transfer to.
@@ -951,8 +951,8 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
     /**
      *  @dev Transfers tokens between whitelisted accounts.
      *
-     *  If the &#39;to&#39; address is not currently a shareholder then it MUST become one.
-     *  If the transfer will reduce &#39;from&#39; balance to 0 then that address MUST be removed from the list of shareholders.
+     *  If the 'to' address is not currently a shareholder then it MUST become one.
+     *  If the transfer will reduce 'from' balance to 0 then that address MUST be removed from the list of shareholders.
      *  @param from The address to transfer from
      *  @param to The address to transfer to.
      *  @param tokens uint256 the number of tokens to be transferred
@@ -979,8 +979,8 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
     /**
      *  @dev Overrides a transfer of tokens to the whitelisted account.
      *
-     *  If the &#39;to&#39; address is not currently a shareholder then it MUST become one.
-     *  If the transfer will reduce &#39;msg.sender&#39; balance to 0, then that address MUST be removed
+     *  If the 'to' address is not currently a shareholder then it MUST become one.
+     *  If the transfer will reduce 'msg.sender' balance to 0, then that address MUST be removed
      *  from the list of shareholders.
      *  MUST be removed from the list of shareholders.
      *  @param from The address to transfer from
@@ -1003,7 +1003,7 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
     }
 
     /**
-     *  @dev Tokens will be issued to the issuer&#39;s address only.
+     *  @dev Tokens will be issued to the issuer's address only.
      *  @param quantity The number of tokens to mint.
      *  @return A boolean that indicates if the operation was successful.
      */
@@ -1043,10 +1043,10 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
      *  @dev Cancel the original address and reissue the Tokens to the replacement address.
      *
      *  Access to this function is restricted to the Issuer only.
-     *  The &#39;original&#39; address MUST be removed from the set of whitelisted addresses.
-     *  Throw if the &#39;original&#39; address supplied is not a shareholder.
-     *  Throw if the &#39;replacement&#39; address is not a whitelisted address.
-     *  This function MUST emit the &#39;VerifiedAddressSuperseded&#39; event.
+     *  The 'original' address MUST be removed from the set of whitelisted addresses.
+     *  Throw if the 'original' address supplied is not a shareholder.
+     *  Throw if the 'replacement' address is not a whitelisted address.
+     *  This function MUST emit the 'VerifiedAddressSuperseded' event.
      *  @param original The address to be superseded. This address MUST NOT be reused and must be whitelisted.
      *  @param replacement The address  that supersedes the original. This address MUST be whitelisted.
      */
@@ -1056,9 +1056,9 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
     onlyIssuer
     isNotCancelled(replacement) {
         // Ensure the reissue can take place
-        require(shareholders.exists(original) && !shareholders.exists(replacement), "Original doesn&#39;t exist or replacement does");
+        require(shareholders.exists(original) && !shareholders.exists(replacement), "Original doesn't exist or replacement does");
         if (address(compliance) != ZERO_ADDRESS) {
-            require(compliance.canIssue(msg.sender, original, replacement, balances[original]), "Failed &#39;canIssue&#39; check.");
+            require(compliance.canIssue(msg.sender, original, replacement, balances[original]), "Failed 'canIssue' check.");
         }
 
         // Replace the original shareholder with the replacement
@@ -1077,7 +1077,7 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param spender The address which will spend the funds.
      * @param tokens The number of tokens of tokens to be spent.
@@ -1155,9 +1155,9 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
     }
 
     /**
-     *  By counting the number of token holders using &#39;holderCount&#39;
+     *  By counting the number of token holders using 'holderCount'
      *  you can retrieve the complete list of token holders, one at a time.
-     *  It MUST throw if &#39;index >= holderCount()&#39;.
+     *  It MUST throw if 'index >= holderCount()'.
      *  @dev Returns the holder at the given index.
      *  @param index The zero-based index of the holder.
      *  @return the address of the token holder with the given index.
@@ -1220,7 +1220,7 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
      *  @dev Checks if a transfer/override may take place between the two accounts.
      *
      *   Validates that the transfer can take place.
-     *     - Ensure the &#39;to&#39; address is not cancelled
+     *     - Ensure the 'to' address is not cancelled
      *     - Ensure the transfer is compliant
      *  @param from The sender address.
      *  @param to The recipient address.
@@ -1232,7 +1232,7 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
     private
     isNotCancelled(to)
     returns (bool) {
-        // Don&#39;t allow overrides and ignore compliance rules when compliance not set.
+        // Don't allow overrides and ignore compliance rules when compliance not set.
         if (address(compliance) == ZERO_ADDRESS) {
             return !isOverride;
         }
@@ -1258,7 +1258,7 @@ contract T0ken is ERC20, Ownable, LockableDestroyable {
         balances[to] = balances[to].add(tokens);
         emit Transfer(from, to, tokens);
 
-        // Adds the shareholder if they don&#39;t already exist.
+        // Adds the shareholder if they don't already exist.
         if (balances[to] > 0 && shareholders.append(to)) {
             emit ShareholderAdded(to);
         }

@@ -26,8 +26,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -44,7 +44,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -176,7 +176,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -406,7 +406,7 @@ contract Genetic {
                         rngSrc := shiftR(rngSrc, 1)
                     }
 
-                    // Don&#39;t push/pop this all the time, we have just enough space on stack.
+                    // Don't push/pop this all the time, we have just enough space on stack.
                     let mask := 0
 
                     // Cap at 4 crossovers, no more than that.
@@ -416,7 +416,7 @@ contract Genetic {
                     rngSrc := shiftR(rngSrc, 7)
                     let crossoverPos := crossoverLen
 
-                    // optimization: instead of shifting with an opcode we don&#39;t have until Constantinople,
+                    // optimization: instead of shifting with an opcode we don't have until Constantinople,
                     //  keep track of the a shifted number, updated using multiplications.
                     let crossoverPosLeading1 := 1
 
@@ -490,7 +490,7 @@ contract Genetic {
                     // Child:  |            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx....
                     // The ############ still needs to be applied to the child, also,
                     //  this can be done cheaper than in the loop above,
-                    //  as we don&#39;t have to swap anything for the next crossover or something.
+                    //  as we don't have to swap anything for the next crossover or something.
 
                     // At this point we have to assume 4 crossovers ran,
                     //  and that we only have 127 - 1 - (4 * 7) = 98 bits of randomness left.
@@ -1020,7 +1020,7 @@ contract CozyTimeAuction is AuctionBase {
 
         //Send pepe to seller of auction
         if (!pepeContract.transfer(auction.seller, _pepeId)) {
-            revert(); //can&#39;t complete transfer if this fails
+            revert(); //can't complete transfer if this fails
         }
 
         if (msg.value > price) { //return ether send to much
@@ -1284,10 +1284,10 @@ contract PepeBase is Genetic, Ownable, Usernames, Haltable {
         for (uint i = 0; i < _amount; i++) {
             require(zeroGenPepes <= MAX_PREMINE);//can only generate set amount during premine
             //create a new pepe
-            // 1) who&#39;s genes are based on hash of the timestamp and the number of pepes
+            // 1) who's genes are based on hash of the timestamp and the number of pepes
             // 2) who has no mother or father
             // 3) who is generation zero
-            // 4) who&#39;s master is the manager
+            // 4) who's master is the manager
 
             // solhint-disable-next-line
             _newPepe(randomDNA(uint256(keccak256(abi.encodePacked(block.timestamp, pepes.length)))), 0, 0, 0, owner);
@@ -1521,7 +1521,7 @@ contract PepeBase is Genetic, Ownable, Usernames, Haltable {
     }
 
     /**
-     * @dev Remove a token from a address&#39;s wallet
+     * @dev Remove a token from a address's wallet
      * @param _owner Address of the owner
      * @param _tokenId Token to remove from the wallet
      */

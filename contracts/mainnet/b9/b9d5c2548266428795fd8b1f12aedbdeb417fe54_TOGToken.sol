@@ -1,6 +1,6 @@
 pragma solidity ^0.4.18;
 // ----------------------------------------------------------------------------
-// &#39;TOG&#39; token contract
+// 'TOG' token contract
 //
 // Deployed to     : 0x916186f2959aC103C458485A2681C0cd805ad7A2
 // Symbol          : TOG

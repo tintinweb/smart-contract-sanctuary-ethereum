@@ -1,8 +1,8 @@
 pragma solidity ^0.4.24;
 
 contract TOPB {
-    string public name = &#39;TOPBTC TOKEN&#39;;
-    string public symbol = &#39;TOPB&#39;;
+    string public name = 'TOPBTC TOKEN';
+    string public symbol = 'TOPB';
     uint8 public decimals = 18;
     uint256 public totalSupply;
 	

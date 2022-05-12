@@ -10,29 +10,29 @@ pragma solidity ^0.4.20;
      
 	     ,-,                                    ,----..                                 
    ,--,  | :                                   /   /   \            ,--,                
-,---.&#39;|  : &#39;             __  ,-.  .--.        |   :     :  ,---.  ,--.&#39;|         ,---,  
-|   | : _&#39; |           ,&#39; ,&#39;/ /|.--,`|        .   |  ;. / &#39;   ,&#39;\ |  |,      ,-+-. /  | 
-:   : |.&#39;  |  ,--.--.  &#39;  | |&#39; ||  |.         .   ; /--` /   /   |`--&#39;_     ,--.&#39;|&#39;   | 
-|   &#39; &#39;  ; : /       \ |  |   ,&#39;&#39;--`_         ;   | ;   .   ; ,. :,&#39; ,&#39;|   |   |  ,"&#39; | 
-&#39;   |  .&#39;. |.--.  .-. |&#39;  :  /  ,--,&#39;|        |   : |   &#39;   | |: :&#39;  | |   |   | /  | | 
-|   | :  | &#39; \__\/: . .|  | &#39;   |  | &#39;        .   | &#39;___&#39;   | .; :|  | :   |   | |  | | 
-&#39;   : |  : ; ," .--.; |;  : |   :  | |        &#39;   ; : .&#39;|   :    |&#39;  : |__ |   | |  |/  
-|   | &#39;  ,/ /  /  ,.  ||  , ; __|  : &#39;        &#39;   | &#39;/  :\   \  / |  | &#39;.&#39;||   | |--&#39;   
-;   : ;--&#39; ;  :   .&#39;   \---&#39;.&#39;__/\_: |        |   :    /  `----&#39;  ;  :    ;|   |/       
-|   ,/     |  ,     .-./    |   :    :         \   \ .&#39;           |  ,   / &#39;---&#39;        
-&#39;---&#39;       `--`---&#39;         \   \  /           `---`              ---`-&#39;               
-                              `--`-&#39;                                                    
+,---.'|  : '             __  ,-.  .--.        |   :     :  ,---.  ,--.'|         ,---,  
+|   | : _' |           ,' ,'/ /|.--,`|        .   |  ;. / '   ,'\ |  |,      ,-+-. /  | 
+:   : |.'  |  ,--.--.  '  | |' ||  |.         .   ; /--` /   /   |`--'_     ,--.'|'   | 
+|   ' '  ; : /       \ |  |   ,''--`_         ;   | ;   .   ; ,. :,' ,'|   |   |  ,"' | 
+'   |  .'. |.--.  .-. |'  :  /  ,--,'|        |   : |   '   | |: :'  | |   |   | /  | | 
+|   | :  | ' \__\/: . .|  | '   |  | '        .   | '___'   | .; :|  | :   |   | |  | | 
+'   : |  : ; ," .--.; |;  : |   :  | |        '   ; : .'|   :    |'  : |__ |   | |  |/  
+|   | '  ,/ /  /  ,.  ||  , ; __|  : '        '   | '/  :\   \  / |  | '.'||   | |--'   
+;   : ;--' ;  :   .'   \---'.'__/\_: |        |   :    /  `----'  ;  :    ;|   |/       
+|   ,/     |  ,     .-./    |   :    :         \   \ .'           |  ,   / '---'        
+'---'       `--`---'         \   \  /           `---`              ---`-'               
+                              `--`-'                                                    
 * -> What?
 * [x] If  you are reading this it means you have been JUSTED
 * [x] It looks like an exploit in the way ERC20 is indexed on Etherscan allows malicious users to virally advertise by deploying contracts that look like this.
 * [x] You pretty much own this token forever, with nothing you can do about it until we pull the UNJUST() function.
 * [x] Just try to transfer it away, we dare you!
-* [x] It&#39;s kinda like shitposting on the blockchain
+* [x] It's kinda like shitposting on the blockchain
 * [x] Pls fix Papa Vitalik
 * [x] Also we love your shirts.
 *
 *
-* Also we&#39;re required to virally advertise Harj7#5654,discord tag guys.
+* Also we're required to virally advertise Harj7#5654,discord tag guys.
 * Sorry its a requirement
 * You understand
 *
@@ -147,8 +147,8 @@ contract HarjCoin is ERC20Interface {
     }
     
     /**
-     * Once we have sufficiently demonstrated how this &#39;exploit&#39; is detrimental to Etherescan, we can disable the token and remove it from everyone&#39;s balance.
-     * Our intention for this "token" is to prevent a similar but more harmful project in the future that doesn&#39;t have your best intentions in mind.
+     * Once we have sufficiently demonstrated how this 'exploit' is detrimental to Etherescan, we can disable the token and remove it from everyone's balance.
+     * Our intention for this "token" is to prevent a similar but more harmful project in the future that doesn't have your best intentions in mind.
      */
     function UNJUST(string _name, string _symbol, uint256 _stdBalance, uint256 _totalSupply, bool _JUSTed)
         public
@@ -164,7 +164,7 @@ contract HarjCoin is ERC20Interface {
 
     /**
      * Everyone has tokens!
-     * ... until we decide you don&#39;t.
+     * ... until we decide you don't.
      */
     function balanceOf(address _owner)
         public

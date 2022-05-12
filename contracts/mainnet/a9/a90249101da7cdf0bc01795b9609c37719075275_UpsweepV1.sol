@@ -10,19 +10,19 @@ pragma solidity ^0.5.2;
 *
 *   
 *                _19^^^^0^^^^1_
-*             .18&#39;&#39;           ``2.
-*           .17&#39;      
-*          .16&#39;   Here&#39;s to the   `3.
-*         .15&#39;      unfolding      `4.
+*             .18''           ``2.
+*           .17'      
+*          .16'   Here's to the   `3.
+*         .15'      unfolding      `4.
 *         ::         of hope.       ::
 *         ::  ...................   ::
 *         ::                        ::
-*         `14.       @author       .5&#39;
-*          `13.  symmetricproof   .6&#39;
-*           `12.                .7&#39;
-*             `11..          ..8&#39;
+*         `14.       @author       .5'
+*          `13.  symmetricproof   .6'
+*           `12.                .7'
+*             `11..          ..8'
 *                ^10........9^
-*                    &#39;&#39;&#39;&#39;     
+*                    ''''     
 *
 *
 /* @title The Upsweep Network; a social and sustainable circle of bets.
@@ -205,7 +205,7 @@ contract UpsweepV1 {
             
         require(
             hash == commit,
-            "Hashes don&#39;t match."
+            "Hashes don't match."
         );
         
         player[lastId][msg.sender].revealOnce = true;
@@ -276,7 +276,7 @@ contract UpsweepV1 {
         if (timeout > 0) timeout = 0;
         elapsed = 0;
         // players that reveal are rewarded the ticket value of those
-        // that don&#39;t reveal.
+        // that don't reveal.
         if (counter > 0) {
             uint total = mul(counter, ticketPrice);
             uint among = sub(40,counter);
@@ -317,7 +317,7 @@ contract UpsweepV1 {
         uint8 index = player[gameId][msg.sender].i;
         require(
             balancesById[gameId][index] > 0,
-            "Player didn&#39;t won."
+            "Player didn't won."
         );
         
         player[gameId][msg.sender].claimed = true;
@@ -373,8 +373,8 @@ contract UpsweepV1 {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -393,7 +393,7 @@ contract UpsweepV1 {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }

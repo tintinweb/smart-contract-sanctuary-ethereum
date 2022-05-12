@@ -14,7 +14,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -60,7 +60,7 @@ contract ATxPlatformInterface {
  * @title Owned contract with safe ownership pass.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract Owned {
     /**
@@ -384,7 +384,7 @@ contract ATxAssetProxy is ERC20, Object, ServiceAllowance {
      *
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      *
      * @return success.
      */
@@ -404,7 +404,7 @@ contract ATxAssetProxy is ERC20, Object, ServiceAllowance {
      *
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      * @param _sender initial caller.
      *
      * @return success.
@@ -439,7 +439,7 @@ contract ATxAssetProxy is ERC20, Object, ServiceAllowance {
      * @param _from holder address to take from.
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      * @param _sender initial caller.
      *
      * @return success.
@@ -655,7 +655,7 @@ contract ATxBuyback is Object, ATxBuybackInterface, ServiceAllowance {
 	/// @notice Gets redemption fee value
 	/// @return {
 	/// 	"_value": "amount of percents",
-	///		"_decimals": "percent&#39;s precision"
+	///		"_decimals": "percent's precision"
 	/// }
 	function getRdFee() public view returns (uint _value, uint _decimals) {
 		FeeData memory _fee = rdFee;
@@ -692,20 +692,20 @@ contract ATxBuyback is Object, ATxBuybackInterface, ServiceAllowance {
 	/// @param _sender original sender of token transfer
 	/// @param _value amount of tokens that has been sent
 	function tokenFallback(address _sender, uint _value, bytes) external {
-		/// Don&#39;t allow to transfer and exchange tokens when Buyback contract
-		/// is not in &#39;active&#39; state
+		/// Don't allow to transfer and exchange tokens when Buyback contract
+		/// is not in 'active' state
 		if (!active) {
 			revert();
 		}
 		
-		/// This call should be produced by AssetProxy&#39;s backend - an Asset contract.
+		/// This call should be produced by AssetProxy's backend - an Asset contract.
 		/// Any other call will be followed by revert()
 		ATxAssetProxy _token = token;
 		if (msg.sender != _token.getLatestVersion()) {
 			revert();
 		}
 
-		/// Need to check available ETH balance in order to fulfill holder&#39;s request
+		/// Need to check available ETH balance in order to fulfill holder's request
 		/// about exchanging ATx Token to ETH equivalent
 		uint _etherToExchange = _value.mul(price) / (10 ** uint(_token.decimals()));
 		if (this.balance < _etherToExchange) {
@@ -718,7 +718,7 @@ contract ATxBuyback is Object, ATxBuybackInterface, ServiceAllowance {
 
 		/// Take redemption fee and return left amount of Ether to transfer it to a holder
 		uint _restEther = _takeRdFee(_etherToExchange);
-		/// Transfer the rest to holder&#39;s account
+		/// Transfer the rest to holder's account
 		_sender.transfer(_restEther);
 
 		/// Voila! Just emit the event to say to the world that one more exchange action was finished

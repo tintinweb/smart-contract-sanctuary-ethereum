@@ -83,7 +83,7 @@ contract BankrollLending is Owned, SafeMath {
   /** the gas cost if the casino helps the user with the withdrawal in full EDG **/
   uint8 public withdrawGasCost;
   /** the gas cost for balance update at the end of the cycle per user in EDG with 2 decimals
-  * (updates are made for all users at once, so it&#39;s possible to subtract all gas costs from the paid back tokens before
+  * (updates are made for all users at once, so it's possible to subtract all gas costs from the paid back tokens before
   * setting the final stakes of the cycle.) **/
   uint public updateGasCost;
   /** The minimum staking amount required **/

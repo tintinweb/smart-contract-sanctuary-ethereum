@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -280,7 +280,7 @@ contract CBR is Ownable {
       // check that player has put enough ETH into this contract (fallback/deposit function)
       if (balances[player] >= ante) {
 
-        // subtract 0.005 ETH from player balance and add it to this contract&#39;s balance
+        // subtract 0.005 ETH from player balance and add it to this contract's balance
         balances[player] -= ante;
         balances[address(this)] += ante;
 
@@ -292,7 +292,7 @@ contract CBR is Ownable {
       }
     }
 
-    // make sure at least 3 player&#39;s were added to roster
+    // make sure at least 3 player's were added to roster
     require(c >= 3);
 
     // emit roster for game server to allow/kick players logging in
@@ -321,7 +321,7 @@ contract CBR is Ownable {
     uint256 kasCut = oneSeventh.div(20); // 5% of 1/7
     uint256 ownerCut = oneSeventh - invCut - kasCut; // 60% of 1/7
 
-    // deduct entire game pot from this contract&#39;s balance
+    // deduct entire game pot from this contract's balance
     balances[address(this)] -= server.pot;
 
     // divide game pot between winners/investors/owner

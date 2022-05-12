@@ -6,7 +6,7 @@ contract CryptoPunksMarket {
 
     address owner;
 
-    string public standard = &#39;CryptoPunks&#39;;
+    string public standard = 'CryptoPunks';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -159,7 +159,7 @@ contract CryptoPunksMarket {
         if (punkIndex >= 10000) throw;
         if (!offer.isForSale) throw;                // punk not actually for sale
         if (offer.onlySellTo != 0x0 && offer.onlySellTo != msg.sender) throw;  // punk not supposed to be sold to this user
-        if (msg.value < offer.minValue) throw;      // Didn&#39;t send enough ETH
+        if (msg.value < offer.minValue) throw;      // Didn't send enough ETH
         if (offer.seller != punkIndexToAddress[punkIndex]) throw; // Seller no longer owner of punk
 
         address seller = offer.seller;

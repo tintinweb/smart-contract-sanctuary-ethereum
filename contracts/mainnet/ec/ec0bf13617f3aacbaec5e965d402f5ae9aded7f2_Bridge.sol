@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -233,8 +233,8 @@ contract StandardToken is ERC20 {
 
 contract CommonToken is StandardToken, MultiOwnable {
 
-    string public constant name   = &#39;White Rabbit Token&#39;;
-    string public constant symbol = &#39;WRT&#39;;
+    string public constant name   = 'White Rabbit Token';
+    string public constant symbol = 'WRT';
     uint8 public constant decimals = 18;
     
     // The main account that holds all tokens from the time token created and during all tokensales.
@@ -471,7 +471,7 @@ contract ICrowdsaleProcessor is Ownable, HasManager {
   // Total collected Ethereum: must be updated every time tokens has been sold
   uint256 public totalCollected;
 
-  // Total amount of project&#39;s token sold: must be updated every time tokens has been sold
+  // Total amount of project's token sold: must be updated every time tokens has been sold
   uint256 public totalSold;
 
   // Crowdsale minimal goal, must be greater or equal to Forecasting min amount
@@ -513,7 +513,7 @@ contract ICrowdsaleProcessor is Ownable, HasManager {
   function start(uint256 _startTimestamp, uint256 _endTimestamp, address _fundingAddress)
     public onlyManager() hasntStarted() hasntStopped();
 
-  // Is crowdsale failed (completed, but minimal goal wasn&#39;t reached)
+  // Is crowdsale failed (completed, but minimal goal wasn't reached)
   function isFailed() public constant returns (bool);
 
   // Is crowdsale active (i.e. the token can be sold)
@@ -575,7 +575,7 @@ contract BasicCrowdsale is ICrowdsaleProcessor {
     public
     onlyManager()   // manager is CrowdsaleController instance
     hasntStarted()  // not yet started
-    hasntStopped()  // crowdsale wasn&#39;t cancelled
+    hasntStopped()  // crowdsale wasn't cancelled
   {
     require(_fundingAddress != address(0));
 
@@ -627,7 +627,7 @@ contract BasicCrowdsale is ICrowdsaleProcessor {
       // it was started
       started &&
 
-      // hard cap wasn&#39;t reached yet
+      // hard cap wasn't reached yet
       totalCollected < hardCap &&
 
       // and current time is within the crowdfunding period
@@ -726,7 +726,7 @@ contract Bridge is BasicCrowdsale {
   function releaseTokens()
     public
     onlyManager()             // manager is CrowdsaleController instance
-    hasntStopped()            // crowdsale wasn&#39;t cancelled
+    hasntStopped()            // crowdsale wasn't cancelled
     whenCrowdsaleSuccessful() // crowdsale was successful
   {
     // empty for bridge
@@ -740,7 +740,7 @@ contract Bridge is BasicCrowdsale {
 
   function notifySale(uint256 _ethAmount, uint256 _tokensAmount) public
     hasBeenStarted()     // crowdsale started
-    hasntStopped()       // wasn&#39;t cancelled by owner
+    hasntStopped()       // wasn't cancelled by owner
     whenCrowdsaleAlive() // in active state
     onlyCrowdsale() // can do only crowdsale
   {
@@ -758,13 +758,13 @@ contract Bridge is BasicCrowdsale {
     completed = true;
   }
 
-  // project&#39;s owner withdraws ETH funds to the funding address upon successful crowdsale
+  // project's owner withdraws ETH funds to the funding address upon successful crowdsale
   function withdraw(
     uint256 _amount // can be done partially
   )
     public
-    onlyOwner() // project&#39;s owner
-    hasntStopped()  // crowdsale wasn&#39;t cancelled
+    onlyOwner() // project's owner
+    hasntStopped()  // crowdsale wasn't cancelled
     whenCrowdsaleSuccessful() // crowdsale completed successfully
   {
     // nothing to withdraw
@@ -957,7 +957,7 @@ contract CommonTokensale is Connector, Pausable {
         
         uint256 newTotalReceived = totalWeiReceived.add(_amountWei);
         
-        // Don&#39;t sell anything above the hard cap
+        // Don't sell anything above the hard cap
         if (newTotalReceived > maxCapWei) {
             uint refundWei = newTotalReceived.sub(maxCapWei);
             // Send the ETH part which exceeds the hard cap back to the buyer:

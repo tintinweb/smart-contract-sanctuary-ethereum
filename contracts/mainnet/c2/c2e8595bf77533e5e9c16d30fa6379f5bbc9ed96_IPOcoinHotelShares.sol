@@ -127,7 +127,7 @@ contract StandardToken is SharesContract, ERC20 {
   The company owns factories, hotels, land for construction in England, France, Cyprus, and Ukraine.
   Clients are offered the opportunity to participate in projects both at the initial stages of construction and to buy out ready-made projects that are fully profitable.
   The company has a registration in Cyprus. 
-  Based on legal contracts, the company&#39;s activities are carried out. 
+  Based on legal contracts, the company's activities are carried out. 
   We cooperate with real estate management companies around the world, so our clients never have any problems with real estate management.
   IPOcoinHotelShares contract. Implements
   @notice See https://github.com/ethereum/EIPs/issues/20

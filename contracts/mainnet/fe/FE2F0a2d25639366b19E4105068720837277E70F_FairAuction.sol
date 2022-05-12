@@ -72,7 +72,7 @@ contract FairAuction {
 
         /* Auction still ongoing */
         if (now < deadline) {
-            /* Don&#39;t terminate auction before cap is reached */
+            /* Don't terminate auction before cap is reached */
             if (amountRaised < crowdsaleCap) throw;
         }
 

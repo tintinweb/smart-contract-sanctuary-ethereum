@@ -78,7 +78,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -439,7 +439,7 @@ contract CountryJackpot is ERC721, Ownable{
         // clear any previously approved ownership exchange
         delete countryIndexToApproved[_tokenId];
 
-        // Since the number of countries is capped to 32 we can&#39;t overflow this
+        // Since the number of countries is capped to 32 we can't overflow this
         ownershipTokenCount[_to] = ownershipTokenCount[_to].add(1);
         //transfer ownership
         countryIndexToOwner[_tokenId] = _to;

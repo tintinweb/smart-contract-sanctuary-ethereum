@@ -7,7 +7,7 @@ pragma solidity ^0.4.24;
 // ---
 //   _   _            _   _  _  ___ ___   ___
 //  | |_| |_  ___    /_\ | \| |/ __|_ _| | _ \_____ __ _____ _ _
-//  |  _| &#39; \/ -_)  / _ \| .` | (__ | |  |  _/ _ \ V  V / -_) &#39;_|
+//  |  _| ' \/ -_)  / _ \| .` | (__ | |  |  _/ _ \ V  V / -_) '_|
 //   \__|_||_\___| /_/ \_\_|\_|\___|___| |_| \___/\_/\_/\___|_|
 //
 // ---
@@ -92,7 +92,7 @@ contract Token is SafeMath, Owned {
 
     }
 
-    /* don&#39;t allow zero address */
+    /* don't allow zero address */
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;

@@ -1336,7 +1336,7 @@ contract DigixVirtualReserve is KyberReserveInterface, VolumeImbalanceRecorder, 
         addImbalance(digix, buy, conversionRatesContract.getRateUpdateBlock(digix), block.number);
 
         // this virtual contract will not hold funds, so
-        // when source is digix - leave it in kyberNetwork (don&#39;t take tokens)
+        // when source is digix - leave it in kyberNetwork (don't take tokens)
         // when source is ether send it to kyberReserve
         // when dest is digix (its already in kyberNetwork
         // when dest is ether. withdraw ether from kyberReserve and send to kyberNetwork

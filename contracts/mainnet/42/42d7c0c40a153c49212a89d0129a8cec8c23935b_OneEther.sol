@@ -286,7 +286,7 @@ contract OneEther {
                 emit onRoundEnd(_bID, _rID, now);
             }
         } else {
-            // failed to pay a bet,the value will be stored in player&#39;s balance
+            // failed to pay a bet,the value will be stored in player's balance
             pIDPlayer_[_pID].balance = pIDPlayer_[_pID].balance.add(msg.value);
             emit onBuyFailed(_pID, _rID, msg.value, now);
         }

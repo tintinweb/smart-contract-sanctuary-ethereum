@@ -12,7 +12,7 @@
    hMMMM/   sMMMMs     :MMy     yMMMMo   /MMMMh     Live project with thousands active users!
    yMMMMo   +MMMMd     yMMN`   `mMMMM:   oMMMMy   
    /MMMMm   `mMMMMh`  `MMMM/   +MMMMd    mMMMM/     In late 2018 Safe services will be paid by SAFE tokens only!
-    mMMMMo   .mMMMMNs-`&#39;`&#39;`    /MMMMm- `sMMMMm    
+    mMMMMo   .mMMMMNs-`'`'`    /MMMMm- `sMMMMm    
     :MMMMM+   `sMMMMMMMmmmmy.   hMMMMMMMMMMMN-      
      /MMMMMy`   .omMMMMMMMMMy    +mMMMMMMMMy.     
       -NMMMMNo`    ./oyhhhho`      ./oso+:`       

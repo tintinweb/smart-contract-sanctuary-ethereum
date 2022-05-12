@@ -111,8 +111,8 @@ contract LockToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, ICOToken, LockToken {
     function CustomToken() public {
         totalSupply = 300000000000000000000000000;
-        name = &#39;Betcruisez&#39;;
-        symbol = &#39;BCZ&#39;;
+        name = 'Betcruisez';
+        symbol = 'BCZ';
         decimals = 18;
         balanceOf[0xa7e29380eaa0f4fdb9601a06eab1791772dbd24e] = totalSupply;
         Transfer(address(0), 0xa7e29380eaa0f4fdb9601a06eab1791772dbd24e, totalSupply);

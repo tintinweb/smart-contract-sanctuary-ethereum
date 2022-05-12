@@ -41,8 +41,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -59,7 +59,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -228,7 +228,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -432,7 +432,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -697,10 +697,10 @@ contract DarknodeRegistryStore is Ownable {
     /// @notice Instantiates a darknode and appends it to the darknodes
     /// linked-list.
     ///
-    /// @param _darknodeID The darknode&#39;s ID.
-    /// @param _darknodeOwner The darknode&#39;s owner&#39;s address
-    /// @param _bond The darknode&#39;s bond value
-    /// @param _publicKey The darknode&#39;s public key
+    /// @param _darknodeID The darknode's ID.
+    /// @param _darknodeOwner The darknode's owner's address
+    /// @param _bond The darknode's bond value
+    /// @param _publicKey The darknode's public key
     /// @param _registeredAt The time stamp when the darknode is registered.
     /// @param _deregisteredAt The time stamp when the darknode is deregistered.
     function appendDarknode(
@@ -1050,7 +1050,7 @@ contract DarknodeRegistry is Ownable {
         nextSlasher = _slasher;
     }
 
-    /// @notice Allow the DarknodeSlasher contract to slash half of a darknode&#39;s
+    /// @notice Allow the DarknodeSlasher contract to slash half of a darknode's
     /// bond and deregister it. The bond is distributed as follows:
     ///   1/2 is kept by the guilty prover
     ///   1/8 is rewarded to the first challenger
@@ -1125,7 +1125,7 @@ contract DarknodeRegistry is Ownable {
     /// @notice Retrieves a list of darknodes which are registered for the
     /// current epoch.
     /// @param _start A darknode ID used as an offset for the list. If _start is
-    ///        0x0, the first dark node will be used. _start won&#39;t be
+    ///        0x0, the first dark node will be used. _start won't be
     ///        included it is not registered for the epoch.
     /// @param _count The number of darknodes to retrieve starting from _start.
     ///        If _count is 0, all of the darknodes from _start are
@@ -1364,7 +1364,7 @@ library CompatibleERC20Functions {
     }
 }
 
-/// @notice ERC20 interface which doesn&#39;t specify the return type for transfer,
+/// @notice ERC20 interface which doesn't specify the return type for transfer,
 /// transferFrom and approve.
 interface CompatibleERC20 {
     // Modified to not return boolean
@@ -1382,7 +1382,7 @@ interface CompatibleERC20 {
 
 /// @notice The DarknodeRewardVault contract is responsible for holding fees
 /// for darknodes for settling orders. Fees can be withdrawn to the address of
-/// the darknode&#39;s operator. Fees can be in ETH or in ERC20 tokens.
+/// the darknode's operator. Fees can be in ETH or in ERC20 tokens.
 /// Docs: https://github.com/republicprotocol/republic-sol/blob/master/docs/02-darknode-reward-vault.md
 contract DarknodeRewardVault is Ownable {
     using SafeMath for uint256;
@@ -1462,7 +1462,7 @@ contract DarknodeRewardVault is Ownable {
 }
 
 /// @notice The BrokerVerifier interface defines the functions that a settlement
-/// layer&#39;s broker verifier contract must implement.
+/// layer's broker verifier contract must implement.
 interface BrokerVerifier {
 
     /// @notice The function signature that will be called when a trader opens
@@ -1723,7 +1723,7 @@ contract Orderbook is Ownable {
     bytes32[] private orderbook;
 
     // Order details are exposed through directly accessing this mapping, or
-    // through the getter functions below for each of the order&#39;s fields.
+    // through the getter functions below for each of the order's fields.
     mapping(bytes32 => Order) public orders;
 
     event LogFeeUpdated(uint256 previousFee, uint256 nextFee);
@@ -1937,7 +1937,7 @@ library SettlementUtils {
     /// use this function.
     /// @dev When verifying two orders for settlement, you should also:
     ///   1) verify the orders have been confirmed together
-    ///   2) verify the orders&#39; traders are distinct
+    ///   2) verify the orders' traders are distinct
     /// @param _buy The buy order details.
     /// @param _sell The sell order details.
     function verifyMatchDetails(OrderDetails memory _buy, OrderDetails memory _sell) internal pure returns (bool) {
@@ -2391,7 +2391,7 @@ contract RenExSettlement is Ownable {
     }
 
     /// @notice Exposes the hashOrder function for computing a hash of an
-    /// order&#39;s details. An order hash is used as its ID. See `submitOrder`
+    /// order's details. An order hash is used as its ID. See `submitOrder`
     /// for the parameter descriptions.
     ///
     /// @return The 32-byte hash of the order.
@@ -2609,7 +2609,7 @@ contract RenExSettlement is Ownable {
     /// @notice Computes (_numerator / _denominator) * 10 ** _scale
     function joinFraction(uint256 _numerator, uint256 _denominator, int16 _scale) private pure returns (uint256) {
         if (_scale >= 0) {
-            // Check that (10**_scale) doesn&#39;t overflow
+            // Check that (10**_scale) doesn't overflow
             assert(_scale <= 77); // log10(2**256) = 77.06
             return _numerator.mul(10 ** uint256(_scale)) / _denominator;
         } else {
@@ -2669,7 +2669,7 @@ contract RenExBrokerVerifier is Ownable {
         emit LogBrokerRegistered(_broker);
     }
 
-    /// @notice Reverts the a broker&#39;s registration.
+    /// @notice Reverts the a broker's registration.
     /// @param _broker The address of the broker.
     function deregisterBroker(address _broker) external onlyOwner {
         require(brokers[_broker], "not registered");
@@ -2677,7 +2677,7 @@ contract RenExBrokerVerifier is Ownable {
         emit LogBrokerDeregistered(_broker);
     }
 
-    /// @notice Verifies a broker&#39;s signature for an order opening.
+    /// @notice Verifies a broker's signature for an order opening.
     /// The data signed by the broker is a prefixed message and the order ID.
     ///
     /// @param _trader The trader requesting the withdrawal.
@@ -2694,7 +2694,7 @@ contract RenExBrokerVerifier is Ownable {
         return (brokers[signer] == true);
     }
 
-    /// @notice Verifies a broker&#39;s signature for a trader withdrawal.
+    /// @notice Verifies a broker's signature for a trader withdrawal.
     /// The data signed by the broker is a prefixed message, the trader address
     /// and a 256-bit trader nonce, which is incremented every time a valid
     /// signature is checked.
@@ -2818,9 +2818,9 @@ contract RenExBalances is Ownable {
     ///
     /// @param _traderFrom The address of the trader to decrement the balance of.
     /// @param _traderTo The address of the trader to increment the balance of.
-    /// @param _token The token&#39;s address.
+    /// @param _token The token's address.
     /// @param _value The number of tokens to decrement the balance by (in the
-    ///        token&#39;s smallest unit).
+    ///        token's smallest unit).
     /// @param _fee The fee amount to forward on to the RewardVault.
     /// @param _feePayee The recipient of the fee.
     function transferBalanceWithFee(address _traderFrom, address _traderTo, address _token, uint256 _value, uint256 _fee, address _feePayee)
@@ -2841,8 +2841,8 @@ contract RenExBalances is Ownable {
 
     /// @notice Deposits ETH or an ERC20 token into the contract.
     ///
-    /// @param _token The token&#39;s address (must be a registered token).
-    /// @param _value The amount to deposit in the token&#39;s smallest unit.
+    /// @param _token The token's address (must be a registered token).
+    /// @param _value The amount to deposit in the token's smallest unit.
     function deposit(ERC20 _token, uint256 _value) external payable {
         address trader = msg.sender;
 
@@ -2860,8 +2860,8 @@ contract RenExBalances is Ownable {
     /// balance after accounting for open orders. As a trustless backup,
     /// traders can withdraw 48 hours after calling `signalBackupWithdraw`.
     ///
-    /// @param _token The token&#39;s address.
-    /// @param _value The amount to withdraw in the token&#39;s smallest unit.
+    /// @param _token The token's address.
+    /// @param _value The amount to withdraw in the token's smallest unit.
     /// @param _signature The broker signature
     function withdraw(ERC20 _token, uint256 _value, bytes _signature) external withBrokerSignatureOrSignal(_token, _signature) {
         address trader = msg.sender;
@@ -2880,7 +2880,7 @@ contract RenExBalances is Ownable {
     /// this function. Traders can signal the intent to withdraw multiple
     /// tokens.
     /// Once this function is called, brokers will not sign order-opens for the
-    /// trader until the trader has withdrawn, guaranteeing that they won&#39;t have
+    /// trader until the trader has withdrawn, guaranteeing that they won't have
     /// orders open for the particular token.
     function signalBackupWithdraw(address _token) external {
         /* solium-disable-next-line security/no-block-members */

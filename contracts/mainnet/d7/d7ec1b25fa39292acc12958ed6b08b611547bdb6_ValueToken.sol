@@ -10,7 +10,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b) internal pure returns (uint256) {
 		assert(b > 0); // Solidity automatically throws when dividing by 0
 		uint256 c = a / b;
-		assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return c;
 	}
 
@@ -69,8 +69,8 @@ contract ValueToken is ERC20,Ownable {
 	mapping (address => mapping (address => uint256)) allowed;
 	
 	function ValueToken () public {
-		name = &#39;ValueToken&#39;;
-		symbol = &#39;VAT&#39;;
+		name = 'ValueToken';
+		symbol = 'VAT';
 		decimals = 18;
 		totalSupply = 10000000000 * (10 ** 18);
 		balances[msg.sender] = totalSupply;

@@ -184,7 +184,7 @@ contract FoMo3Dlong is modularLong {
 //****************
     mapping (uint256 => F3Ddatasets.Round) public round_;   // (rID => data) round data
     mapping (uint256 => mapping(uint256 => uint256)) public rndTmEth_;      // (rID => tID => data) eth in per team, by round id and team id
-    uint256[3] private affPerLv_ = [20,10,5];  //affiliate&#39;s scale per level, parent 20%, pa&#39;s pa 10%, papapa 5%
+    uint256[3] private affPerLv_ = [20,10,5];  //affiliate's scale per level, parent 20%, pa's pa 10%, papapa 5%
 //==============================================================================
 //     _ _  _  __|_ _    __|_ _  _  .
 //    (_(_)| |_\ | | |_|(_ | (_)|   .  (initial data setup upon contract deploy)
@@ -253,14 +253,14 @@ contract FoMo3Dlong is modularLong {
     }
     
     /**
-     * @dev determine player&#39;s affid
-     * @param _pID player&#39;s id
-     * @param _inAffID inviter&#39;s pid
-     * @return _affID player&#39;s real affid
+     * @dev determine player's affid
+     * @param _pID player's id
+     * @param _inAffID inviter's pid
+     * @return _affID player's real affid
      */
     function determineAffID(uint256 _pID, uint256 _inAffID) private returns(uint256){
         // affiliate must not be self, and must have a name registered
-        if(plyr_[_pID].laff == 0 && 0 != _inAffID && _pID != _inAffID && plyr_[_inAffID].name != &#39;&#39;){
+        if(plyr_[_pID].laff == 0 && 0 != _inAffID && _pID != _inAffID && plyr_[_inAffID].name != ''){
             // update last affiliate 
             plyr_[_pID].laff = _inAffID;
 
@@ -601,7 +601,7 @@ contract FoMo3Dlong is modularLong {
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -771,7 +771,7 @@ contract FoMo3Dlong is modularLong {
      * @return general vault 
      * @return affiliate vault 
 	 * @return player round eth
-     * @return player&#39;s papa&#39;s name
+     * @return player's papa's name
      */
     function getPlayerInfoByAddress(address _addr)
         public 
@@ -1202,7 +1202,7 @@ contract FoMo3Dlong is modularLong {
         if (plyr_[_pID].lrnd != 0)
             
             updateGenVault(_pID, plyr_[_pID].lrnd);
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
             
         // set the joined round bool to true
@@ -1221,7 +1221,7 @@ contract FoMo3Dlong is modularLong {
         // setup local rID
         uint256 _rID = rID_;
         
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         //uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
         uint256 _maxEthPID = round_[_rID].maxEthPID;
@@ -1393,20 +1393,20 @@ contract FoMo3Dlong is modularLong {
         
         // decide what to do with affiliate share of fees
         // uint256 _curAffID = _affID;
-        // use player&#39;s affid, not use param
+        // use player's affid, not use param
         uint256 _curAffID = plyr_[_pID].laff;
         for(uint256 _i=0; _i< affPerLv_.length; _i++){
             uint256 _aff =  _eth.mul(affPerLv_[_i]) / (100);
 
             // affiliate must not be self, and must have a name registered
-            if (_curAffID == _pID || plyr_[_curAffID].name == &#39;&#39;) {
+            if (_curAffID == _pID || plyr_[_curAffID].name == '') {
                 //affID is not invalid. set default id: 1
                 _curAffID = 1;
             }
             plyr_[_curAffID].aff = _aff.add(plyr_[_curAffID].aff);
             //log
             emit F3Devents.onAffiliatePayout(_curAffID, plyr_[_curAffID].addr, plyr_[_curAffID].name, _rID, _pID, _aff, now);
-            //get affiliate&#39;s affiliate
+            //get affiliate's affiliate
             _curAffID = plyr_[_curAffID].laff;
         }
         
@@ -1477,7 +1477,7 @@ contract FoMo3Dlong is modularLong {
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         
@@ -1518,7 +1518,7 @@ contract FoMo3Dlong is modularLong {
     }
     
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, F3Ddatasets.EventReturns memory _eventData_)
         private

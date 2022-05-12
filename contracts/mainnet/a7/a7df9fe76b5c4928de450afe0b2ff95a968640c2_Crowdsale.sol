@@ -73,7 +73,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure  returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -388,7 +388,7 @@ contract Crowdsale is SimpleTokenCoin {
     mapping(address => uint) ethBalance;
     
     /**
-    * @dev Data type to save bonus system&#39;s information.
+    * @dev Data type to save bonus system's information.
     */
     struct BonusSystem {
         //Period number
@@ -511,7 +511,7 @@ contract Crowdsale is SimpleTokenCoin {
     }
     
     /**
-    * @dev Refund &#39;msg.sender&#39; in the case the Token Sale didn&#39;t 
+    * @dev Refund 'msg.sender' in the case the Token Sale didn't 
     * reach the minimum funding goal.
     */
     function refund() restrictionOnUse isNotFrozen public {

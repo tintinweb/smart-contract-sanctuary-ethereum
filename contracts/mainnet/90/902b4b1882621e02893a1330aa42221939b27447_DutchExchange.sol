@@ -182,7 +182,7 @@ contract DSMath {
         // This famous algorithm is called "exponentiation by squaring"
         // and calculates x^n with x as fixed-point and n as regular unsigned.
         //
-        // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+        // It's O(log n), instead of O(n) for naive repeated multiplication.
         //
         // These facts are why it works:
         //
@@ -547,7 +547,7 @@ library Math {
         // >>> from mpmath import mp
         // >>> mp.dps = 100
         // >>> ONE =  0x10000000000000000
-        // >>> print(&#39;\n&#39;.join(hex(int(mp.log(2)**i / mp.factorial(i) * ONE)) for i in range(1, 7)))
+        // >>> print('\n'.join(hex(int(mp.log(2)**i / mp.factorial(i) * ONE)) for i in range(1, 7)))
         // 0xb17217f7d1cf79ab
         // 0x3d7f7bff058b1d50
         // 0xe35846b82505fc5
@@ -915,7 +915,7 @@ contract StandardToken is Token, StandardTokenData {
     /*
      *  Public functions
      */
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success
+    /// @dev Transfers sender's tokens to a given address. Returns success
     /// @param to Address of token receiver
     /// @param value Number of tokens to transfer
     /// @return Was transfer successful?
@@ -1357,7 +1357,7 @@ contract DutchExchange is Proxied {
     mapping (address => mapping (address => uint)) public buyVolumes;
 
     // Token => user => amount
-    // balances stores a user&#39;s balance in the DutchX
+    // balances stores a user's balance in the DutchX
     mapping (address => mapping (address => uint)) public balances;
 
     // Token => Token => auctionIndex => amount
@@ -1394,7 +1394,7 @@ contract DutchExchange is Proxied {
     )
         public
     {
-        // Make sure contract hasn&#39;t been initialised
+        // Make sure contract hasn't been initialised
         require(ethToken == 0);
 
         // Validates inputs
@@ -1808,7 +1808,7 @@ contract DutchExchange is Proxied {
             amountAfterFee = outstandingVolume;
         }
 
-        // Here we could also use outstandingVolume or amountAfterFee, it doesn&#39;t matter
+        // Here we could also use outstandingVolume or amountAfterFee, it doesn't matter
         if (amount > 0) {
             // Update variables
             balances[buyToken][msg.sender] = sub(balances[buyToken][msg.sender], amount);
@@ -1885,7 +1885,7 @@ contract DutchExchange is Proxied {
             claimedAmounts[sellToken][buyToken][auctionIndex][user] = add(claimedAmounts[sellToken][buyToken][auctionIndex][user], returned);
         } else {
             // Auction has closed
-            // We DON&#39;T want to check for returned > 0, because that would fail if a user claims
+            // We DON'T want to check for returned > 0, because that would fail if a user claims
             // intermediate funds & auction clears in same block (he/she would not be able to claim extraTokens)
 
             // Assign extra sell tokens (this is possible only after auction has cleared,
@@ -2188,7 +2188,7 @@ contract DutchExchange is Proxied {
 
         // We use current sell volume, because in clearAuction() we set
         // sellVolumesCurrent = sellVolumesNext before calling this function
-        // (this is so that we don&#39;t need case work,
+        // (this is so that we don't need case work,
         // since it might also be called from postSellOrder())
 
         // < 10^30 * 10^31 * 10^6 = 10^67
@@ -2303,7 +2303,7 @@ contract DutchExchange is Proxied {
             uint pastDen;
             (pastNum, pastDen) = getPriceInPastAuction(sellToken, buyToken, auctionIndex - 1);
 
-            // If we&#39;re calling the function into an unstarted auction,
+            // If we're calling the function into an unstarted auction,
             // it will return the starting price of that auction
             uint timeElapsed = atleastZero(int(now - getAuctionStart(sellToken, buyToken)));
 

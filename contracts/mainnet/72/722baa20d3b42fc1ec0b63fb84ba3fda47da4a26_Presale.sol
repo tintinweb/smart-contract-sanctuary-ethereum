@@ -224,7 +224,7 @@ contract ELHeroToken is ERC721,AccessAdmin{
         _safeTransferFrom(_from, _to, _tokenId, "");
     }
 
-    /// @dev Transfer ownership of an ELHT, &#39;_to&#39; must be a vaild address, or the ELHT will lost
+    /// @dev Transfer ownership of an ELHT, '_to' must be a vaild address, or the ELHT will lost
     /// @param _from The current owner of the ELHT
     /// @param _to The new owner
     /// @param _tokenId The ELHT to transfer
@@ -322,7 +322,7 @@ contract ELHeroToken is ERC721,AccessAdmin{
             }      
         }
 
-        // Give the ELHT to &#39;_to&#39;
+        // Give the ELHT to '_to'
         cardIdToOwner[_tokenId] = _to;
         ownerToCardArray[_to].push(_tokenId);
         cardIdToOwnerIndex[_tokenId] = ownerToCardArray[_to].length - 1;

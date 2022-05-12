@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 20000000000;
-        name = &#39;Artificial Intelligence for IoT&#39;;
-        symbol = &#39;AIOT&#39;;
+        name = 'Artificial Intelligence for IoT';
+        symbol = 'AIOT';
         decimals = 0;
         balanceOf[0x82e897EA30E96767c3B5098a962DABB47D6f8BB3] = totalSupply;
         Transfer(address(0), 0x82e897EA30E96767c3B5098a962DABB47D6f8BB3, totalSupply);

@@ -22,8 +22,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -41,7 +41,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -566,10 +566,10 @@ contract ExchangeRates is SelfDestructible {
     using SafeMath for uint;
     using SafeDecimalMath for uint;
 
-    // Exchange rates stored by currency code, e.g. &#39;SNX&#39;, or &#39;sUSD&#39;
+    // Exchange rates stored by currency code, e.g. 'SNX', or 'sUSD'
     mapping(bytes4 => uint) public rates;
 
-    // Update times stored by currency code, e.g. &#39;SNX&#39;, or &#39;sUSD&#39;
+    // Update times stored by currency code, e.g. 'SNX', or 'sUSD'
     mapping(bytes4 => uint) public lastRateUpdateTimes;
 
     // The address of the oracle which pushes rate updates to this contract
@@ -586,7 +586,7 @@ contract ExchangeRates is SelfDestructible {
 
     // Each participating currency in the XDR basket is represented as a currency key with
     // equal weighting.
-    // There are 5 participating currencies, so we&#39;ll declare that clearly.
+    // There are 5 participating currencies, so we'll declare that clearly.
     bytes4[5] public xdrParticipants;
 
     // For inverted prices, keep a mapping of their entry, limits and frozen status
@@ -632,10 +632,10 @@ contract ExchangeRates is SelfDestructible {
 
         // These are the currencies that make up the XDR basket.
         // These are hard coded because:
-        //  - This way users can depend on the calculation and know it won&#39;t change for this deployment of the contract.
+        //  - This way users can depend on the calculation and know it won't change for this deployment of the contract.
         //  - Adding new currencies would likely introduce some kind of weighting factor, which
-        //    isn&#39;t worth preemptively adding when all of the currencies in the current basket are weighted at 1.
-        //  - The expectation is if this logic needs to be updated, we&#39;ll simply deploy a new version of this contract
+        //    isn't worth preemptively adding when all of the currencies in the current basket are weighted at 1.
+        //  - The expectation is if this logic needs to be updated, we'll simply deploy a new version of this contract
         //    then point the system at the new version.
         xdrParticipants = [
             bytes4("sUSD"),
@@ -655,7 +655,7 @@ contract ExchangeRates is SelfDestructible {
      * @param currencyKeys The currency keys you wish to update the rates for (in order)
      * @param newRates The rates for each currency (in order)
      * @param timeSent The timestamp of when the update was sent, specified in seconds since epoch (e.g. the same as the now keyword in solidity).contract
-     *                 This is useful because transactions can take a while to confirm, so this way we know how old the oracle&#39;s datapoint was exactly even
+     *                 This is useful because transactions can take a while to confirm, so this way we know how old the oracle's datapoint was exactly even
      *                 if it takes a long time for the transaction to confirm.
      */
     function updateRates(bytes4[] currencyKeys, uint[] newRates, uint timeSent)
@@ -671,7 +671,7 @@ contract ExchangeRates is SelfDestructible {
      * @param currencyKeys The currency keys you wish to update the rates for (in order)
      * @param newRates The rates for each currency (in order)
      * @param timeSent The timestamp of when the update was sent, specified in seconds since epoch (e.g. the same as the now keyword in solidity).contract
-     *                 This is useful because transactions can take a while to confirm, so this way we know how old the oracle&#39;s datapoint was exactly even
+     *                 This is useful because transactions can take a while to confirm, so this way we know how old the oracle's datapoint was exactly even
      *                 if it takes a long time for the transaction to confirm.
      */
     function internalUpdateRates(bytes4[] currencyKeys, uint[] newRates, uint timeSent)
@@ -687,9 +687,9 @@ contract ExchangeRates is SelfDestructible {
             // truely worthless and still valid. In this scenario, we should
             // delete the rate and remove it from the system.
             require(newRates[i] != 0, "Zero is not a valid rate, please call deleteRate instead.");
-            require(currencyKeys[i] != "sUSD", "Rate of sUSD cannot be updated, it&#39;s always UNIT.");
+            require(currencyKeys[i] != "sUSD", "Rate of sUSD cannot be updated, it's always UNIT.");
 
-            // We should only update the rate if it&#39;s at least the same age as the last rate we&#39;ve got.
+            // We should only update the rate if it's at least the same age as the last rate we've got.
             if (timeSent < lastRateUpdateTimes[currencyKeys[i]]) {
                 continue;
             }
@@ -727,7 +727,7 @@ contract ExchangeRates is SelfDestructible {
             return rate;
         }
 
-        // set the rate to the current rate initially (if it&#39;s frozen, this is what will be returned)
+        // set the rate to the current rate initially (if it's frozen, this is what will be returned)
         uint newInverseRate = rates[currencyKey];
 
         // get the new inverted rate if not frozen
@@ -882,8 +882,8 @@ contract ExchangeRates is SelfDestructible {
                 delete invertedKeys[i];
 
                 // Copy the last key into the place of the one we just deleted
-                // If there&#39;s only one key, this is array[0] = array[0].
-                // If we&#39;re deleting the last one, it&#39;s also a NOOP in the same way.
+                // If there's only one key, this is array[0] = array[0].
+                // If we're deleting the last one, it's also a NOOP in the same way.
                 invertedKeys[i] = invertedKeys[invertedKeys.length - 1];
 
                 // Decrease the size of the array by one.
@@ -910,7 +910,7 @@ contract ExchangeRates is SelfDestructible {
         rateNotStale(destinationCurrencyKey)
         returns (uint)
     {
-        // If there&#39;s no change in the currency, then just return the amount they gave us
+        // If there's no change in the currency, then just return the amount they gave us
         if (sourceCurrencyKey == destinationCurrencyKey) return sourceAmount;
 
         // Calculate the effective value by going from source -> USD -> destination
@@ -975,7 +975,7 @@ contract ExchangeRates is SelfDestructible {
     }
 
     /**
-     * @notice Check if a specific currency&#39;s rate hasn&#39;t been updated for longer than the stale period.
+     * @notice Check if a specific currency's rate hasn't been updated for longer than the stale period.
      */
     function rateIsStale(bytes4 currencyKey)
         public
@@ -1001,7 +1001,7 @@ contract ExchangeRates is SelfDestructible {
 
 
     /**
-     * @notice Check if any of the currency rates passed in haven&#39;t been updated for longer than the stale period.
+     * @notice Check if any of the currency rates passed in haven't been updated for longer than the stale period.
      */
     function anyRateIsStale(bytes4[] currencyKeys)
         external
@@ -1181,7 +1181,7 @@ contract TokenState is State {
      * @param tokenOwner The authorising party.
      * @param spender The authorised party.
      * @param value The total value the authorised party may spend on the
-     * authorising party&#39;s behalf.
+     * authorising party's behalf.
      */
     function setAllowance(address tokenOwner, address spender, uint value)
         external
@@ -1227,7 +1227,7 @@ underlying target contract.
 This proxy has the capacity to toggle between DELEGATECALL
 and CALL style proxy functionality.
 
-The former executes in the proxy&#39;s context, and so will preserve 
+The former executes in the proxy's context, and so will preserve 
 msg.sender and store data at the proxy address. The latter will not.
 Therefore, any contract the proxy wraps in the CALL style must
 implement the Proxyable interface, in order that it can pass msg.sender
@@ -1473,12 +1473,12 @@ date:       2018-08-10
 MODULE DESCRIPTION
 -----------------------------------------------------------------
 
-This contract provides the logic that&#39;s used to call tokenFallback()
+This contract provides the logic that's used to call tokenFallback()
 when transfers happen.
 
-It&#39;s pulled out into its own module because it&#39;s needed in two
+It's pulled out into its own module because it's needed in two
 places, so instead of copy/pasting this logic and maininting it
-both in Fee Token and Extern State Token, it&#39;s here and depended
+both in Fee Token and Extern State Token, it's here and depended
 on by both contracts.
 
 -----------------------------------------------------------------
@@ -1491,10 +1491,10 @@ contract TokenFallbackCaller is ReentrancyPreventer {
         preventReentrancy
     {
         /*
-            If we&#39;re transferring to a contract and it implements the tokenFallback function, call it.
-            This isn&#39;t ERC223 compliant because we don&#39;t revert if the contract doesn&#39;t implement tokenFallback.
+            If we're transferring to a contract and it implements the tokenFallback function, call it.
+            This isn't ERC223 compliant because we don't revert if the contract doesn't implement tokenFallback.
             This is because many DEXes and other contracts that expect to work with the standard
-            approve / transferFrom workflow don&#39;t implement tokenFallback but can still process our tokens as
+            approve / transferFrom workflow don't implement tokenFallback but can still process our tokens as
             usual, so it feels very harsh and likely to cause trouble if we add this restriction after having
             previously gone live with a vanilla ERC20.
         */
@@ -1508,15 +1508,15 @@ contract TokenFallbackCaller is ReentrancyPreventer {
             length := extcodesize(recipient)
         }
 
-        // If there&#39;s code there, it&#39;s a contract
+        // If there's code there, it's a contract
         if (length > 0) {
             // Now we need to optionally call tokenFallback(address from, uint value).
-            // We can&#39;t call it the normal way because that reverts when the recipient doesn&#39;t implement the function.
+            // We can't call it the normal way because that reverts when the recipient doesn't implement the function.
 
             // solium-disable-next-line security/no-low-level-calls
             recipient.call(abi.encodeWithSignature("tokenFallback(address,uint256,bytes)", sender, amount, data));
 
-            // And yes, we specifically don&#39;t care if this call fails, so we&#39;re not checking the return value.
+            // And yes, we specifically don't care if this call fails, so we're not checking the return value.
         }
     }
 }
@@ -1571,8 +1571,8 @@ contract ExternStateToken is SelfDestructible, Proxyable, TokenFallbackCaller {
     /**
      * @dev Constructor.
      * @param _proxy The proxy associated with this contract.
-     * @param _name Token&#39;s ERC20 name.
-     * @param _symbol Token&#39;s ERC20 symbol.
+     * @param _name Token's ERC20 name.
+     * @param _symbol Token's ERC20 symbol.
      * @param _totalSupply The total supply of the token.
      * @param _tokenState The TokenState contract address.
      * @param _owner The owner of this contract.
@@ -1597,7 +1597,7 @@ contract ExternStateToken is SelfDestructible, Proxyable, TokenFallbackCaller {
     /**
      * @notice Returns the ERC20 allowance of one party to spend on behalf of another.
      * @param owner The party authorising spending of their funds.
-     * @param spender The party spending tokenOwner&#39;s funds.
+     * @param spender The party spending tokenOwner's funds.
      */
     function allowance(address owner, address spender)
         public
@@ -1647,8 +1647,8 @@ contract ExternStateToken is SelfDestructible, Proxyable, TokenFallbackCaller {
         tokenState.setBalanceOf(to, tokenState.balanceOf(to).add(value));
 
         // If the recipient is a contract, we need to call tokenFallback on it so they can do ERC223
-        // actions when receiving our tokens. Unlike the standard, however, we don&#39;t revert if the
-        // recipient contract doesn&#39;t implement tokenFallback.
+        // actions when receiving our tokens. Unlike the standard, however, we don't revert if the
+        // recipient contract doesn't implement tokenFallback.
         callTokenFallbackIfNeeded(from, to, value, data);
         
         // Emit a standard ERC20 transfer event
@@ -1682,7 +1682,7 @@ contract ExternStateToken is SelfDestructible, Proxyable, TokenFallbackCaller {
     }
 
     /**
-     * @notice Approves spender to transfer on the message sender&#39;s behalf.
+     * @notice Approves spender to transfer on the message sender's behalf.
      */
     function approve(address spender, uint value)
         public
@@ -1746,7 +1746,7 @@ MODULE DESCRIPTION
 
 Supply Schedule contract. SNX is a transferable ERC20 token.
 
-User&#39;s get staking rewards as part of the incentives of
+User's get staking rewards as part of the incentives of
 +------+-------------+--------------+----------+
 | Year |  Increase   | Total Supply | Increase |
 +------+-------------+--------------+----------+
@@ -1845,7 +1845,7 @@ contract SupplySchedule is Owned {
 
         uint index = getCurrentSchedule();
 
-        // Calculate previous year&#39;s mintable supply
+        // Calculate previous year's mintable supply
         uint amountPreviousPeriod = _remainingSupplyFromPreviousYear(index);
 
         /* solium-disable */
@@ -2068,11 +2068,11 @@ contract SynthetixState is State, LimitedSetup {
     using SafeMath for uint;
     using SafeDecimalMath for uint;
 
-    // A struct for handing values associated with an individual user&#39;s debt position
+    // A struct for handing values associated with an individual user's debt position
     struct IssuanceData {
         // Percentage of the total debt owned at the time
         // of issuance. This number is modified by the global debt
-        // delta array. You can figure out a user&#39;s exit price and
+        // delta array. You can figure out a user's exit price and
         // collateralisation ratio using a combination of their initial
         // debt and the slice of global debt delta which applies to them.
         uint initialDebtOwnership;
@@ -2233,7 +2233,7 @@ contract SynthetixState is State, LimitedSetup {
         // What is the value of the requested debt in XDRs?
         uint xdrValue = synthetix.effectiveValue("sUSD", amount, "XDR");
 
-        // What is the value that we&#39;ve previously imported?
+        // What is the value that we've previously imported?
         uint totalDebtIssued = importedXDRAmount;
 
         // What will the new total be including the new value?
@@ -2246,7 +2246,7 @@ contract SynthetixState is State, LimitedSetup {
         uint debtPercentage = xdrValue.divideDecimalRoundPrecise(newTotalDebtIssued);
 
         // And what effect does this percentage have on the global debt holding of other issuers?
-        // The delta specifically needs to not take into account any existing debt as it&#39;s already
+        // The delta specifically needs to not take into account any existing debt as it's already
         // accounted for in the delta from when they issued previously.
         // The delta is a high precision integer.
         uint delta = SafeDecimalMath.preciseUnit().sub(debtPercentage);
@@ -2267,7 +2267,7 @@ contract SynthetixState is State, LimitedSetup {
         issuanceData[account].initialDebtOwnership = debtPercentage;
         issuanceData[account].debtEntryIndex = debtLedger.length;
 
-        // And if we&#39;re the first, push 1 as there was no effect to any other holders, otherwise push
+        // And if we're the first, push 1 as there was no effect to any other holders, otherwise push
         // the change for the rest of the debt holders. The debt ledger holds high precision integers.
         if (debtLedger.length > 0) {
             debtLedger.push(
@@ -2356,7 +2356,7 @@ the next period.
 
 The fee entitlement of a synthetix holder is proportional to their average
 issued synth balance over the last fee period. This is computed by
-measuring the area under the graph of a user&#39;s issued synth balance over
+measuring the area under the graph of a user's issued synth balance over
 time, and then when a new fee period begins, dividing through by the
 duration of the fee period.
 
@@ -2368,7 +2368,7 @@ A synthetix holder pays for his own recomputation whenever he wants to change
 his position, which saves the foundation having to maintain a pot dedicated
 to resourcing this.
 
-A hypothetical user&#39;s balance history over one fee period, pictorially:
+A hypothetical user's balance history over one fee period, pictorially:
 
       s ____
        |    |
@@ -2392,9 +2392,9 @@ recipient.
 Note that a transfer keeps global supply of SNX invariant.
 The sum of all balances is constant, and unmodified by any transfer.
 So the sum of all balances multiplied by the duration of a fee period is also
-constant, and this is equivalent to the sum of the area of every user&#39;s
+constant, and this is equivalent to the sum of the area of every user's
 time/balance graph. Dividing through by that duration yields back the total
-synthetix supply. So, at the end of a fee period, we really do yield a user&#39;s
+synthetix supply. So, at the end of a fee period, we really do yield a user's
 average share in the synthetix supply over that period.
 
 A slight wrinkle is introduced if we consider the time r when the fee period
@@ -2553,7 +2553,7 @@ contract Synthetix is ExternStateToken {
         require(synths[currencyKey].totalSupply() == 0, "Synth supply exists");
         require(currencyKey != "XDR", "Cannot remove XDR synth");
 
-        // Save the address we&#39;re removing for emitting the event at the end.
+        // Save the address we're removing for emitting the event at the end.
         address synthToRemove = synths[currencyKey];
 
         // Remove the synth from the availableSynths array.
@@ -2562,8 +2562,8 @@ contract Synthetix is ExternStateToken {
                 delete availableSynths[i];
 
                 // Copy the last synth into the place of the one we just deleted
-                // If there&#39;s only one synth, this is synths[0] = synths[0].
-                // If we&#39;re deleting the last one, it&#39;s also a NOOP in the same way.
+                // If there's only one synth, this is synths[0] = synths[0].
+                // If we're deleting the last one, it's also a NOOP in the same way.
                 availableSynths[i] = availableSynths[availableSynths.length - 1];
 
                 // Decrease the size of the array by one.
@@ -2577,7 +2577,7 @@ contract Synthetix is ExternStateToken {
         delete synths[currencyKey];
 
         // Note: No event here as our contract exceeds max contract size
-        // with these events, and it&#39;s unlikely people will need to
+        // with these events, and it's unlikely people will need to
         // track these events specifically.
     }
 
@@ -2613,9 +2613,9 @@ contract Synthetix is ExternStateToken {
         require(!exchangeRates.anyRateIsStale(availableCurrencyKeys()), "Rates are stale");
 
         for (uint8 i = 0; i < availableSynths.length; i++) {
-            // What&#39;s the total issued value of that synth in the destination currency?
-            // Note: We&#39;re not using our effectiveValue function because we don&#39;t want to go get the
-            //       rate for the destination currency and check if it&#39;s stale repeatedly on every
+            // What's the total issued value of that synth in the destination currency?
+            // Note: We're not using our effectiveValue function because we don't want to go get the
+            //       rate for the destination currency and check if it's stale repeatedly on every
             //       iteration of the loop
             uint synthValue = availableSynths[i].totalSupply()
                 .multiplyDecimalRound(exchangeRates.rateForCurrency(availableSynths[i].currencyKey()))
@@ -2669,7 +2669,7 @@ contract Synthetix is ExternStateToken {
 
     /**
      * @notice ERC223 transfer function. Does not conform with the ERC223 spec, as:
-     *         - Transaction doesn&#39;t revert if the recipient doesn&#39;t implement tokenFallback()
+     *         - Transaction doesn't revert if the recipient doesn't implement tokenFallback()
      *         - Emits a standard ERC20 event without the bytes data parameter so as not to confuse
      *           tooling such as Etherscan.
      */
@@ -2678,7 +2678,7 @@ contract Synthetix is ExternStateToken {
         optionalProxy
         returns (bool)
     {
-        // Ensure they&#39;re not trying to exceed their locked amount
+        // Ensure they're not trying to exceed their locked amount
         require(value <= transferableSynthetix(messageSender), "Insufficient balance");
 
         // Perform the transfer: if there is a problem an exception will be thrown in this call.
@@ -2700,7 +2700,7 @@ contract Synthetix is ExternStateToken {
 
     /**
      * @notice ERC223 transferFrom function. Does not conform with the ERC223 spec, as:
-     *         - Transaction doesn&#39;t revert if the recipient doesn&#39;t implement tokenFallback()
+     *         - Transaction doesn't revert if the recipient doesn't implement tokenFallback()
      *         - Emits a standard ERC20 event without the bytes data parameter so as not to confuse
      *           tooling such as Etherscan.
      */
@@ -2709,7 +2709,7 @@ contract Synthetix is ExternStateToken {
         optionalProxy
         returns (bool)
     {
-        // Ensure they&#39;re not trying to exceed their locked amount
+        // Ensure they're not trying to exceed their locked amount
         require(value <= transferableSynthetix(from), "Insufficient balance");
 
         // Perform the transfer: if there is a problem,
@@ -2730,7 +2730,7 @@ contract Synthetix is ExternStateToken {
     function exchange(bytes4 sourceCurrencyKey, uint sourceAmount, bytes4 destinationCurrencyKey, address destinationAddress)
         external
         optionalProxy
-        // Note: We don&#39;t need to insist on non-stale rates because effectiveValue will do it for us.
+        // Note: We don't need to insist on non-stale rates because effectiveValue will do it for us.
         returns (bool)
     {
         require(sourceCurrencyKey != destinationCurrencyKey, "Exchange must use different synths");
@@ -2777,7 +2777,7 @@ contract Synthetix is ExternStateToken {
         onlySynth
         returns (bool)
     {
-        require(sourceCurrencyKey != destinationCurrencyKey, "Can&#39;t be same synth");
+        require(sourceCurrencyKey != destinationCurrencyKey, "Can't be same synth");
         require(sourceAmount > 0, "Zero amount");
 
         // Pass it along
@@ -2787,7 +2787,7 @@ contract Synthetix is ExternStateToken {
             sourceAmount,
             destinationCurrencyKey,
             destinationAddress,
-            false // Don&#39;t charge fee on the exchange, as they&#39;ve already been charged a transfer fee in the synth contract
+            false // Don't charge fee on the exchange, as they've already been charged a transfer fee in the synth contract
         );
     }
 
@@ -2813,7 +2813,7 @@ contract Synthetix is ExternStateToken {
             return true;
         }
 
-        require(sourceAmount > 0, "Source can&#39;t be 0");
+        require(sourceAmount > 0, "Source can't be 0");
 
         // Pass it along, defaulting to the sender as the recipient.
         bool result = _internalExchange(
@@ -2822,7 +2822,7 @@ contract Synthetix is ExternStateToken {
             sourceAmount,
             "XDR",
             feePool.FEE_ADDRESS(),
-            false // Don&#39;t charge a fee on the exchange because this is already a fee
+            false // Don't charge a fee on the exchange because this is already a fee
         );
 
         // Tell the fee pool about this.
@@ -2860,7 +2860,7 @@ contract Synthetix is ExternStateToken {
         require(destinationAddress != address(this), "Synthetix is invalid destination");
         require(destinationAddress != address(proxy), "Proxy is invalid destination");
 
-        // Note: We don&#39;t need to check their balance as the burn() below will do a safe subtraction which requires
+        // Note: We don't need to check their balance as the burn() below will do a safe subtraction which requires
         // the subtraction to not overflow, which would happen if their balance is not sufficient.
 
         // Burn the source amount
@@ -2869,7 +2869,7 @@ contract Synthetix is ExternStateToken {
         // How much should they get in the destination currency?
         uint destinationAmount = effectiveValue(sourceCurrencyKey, sourceAmount, destinationCurrencyKey);
 
-        // What&#39;s the fee on that currency that we should deduct?
+        // What's the fee on that currency that we should deduct?
         uint amountReceived = destinationAmount;
         uint fee = 0;
 
@@ -2889,7 +2889,7 @@ contract Synthetix is ExternStateToken {
             feePool.feePaid("XDR", xdrFeeAmount);
         }
 
-        // Nothing changes as far as issuance data goes because the total value in the system hasn&#39;t changed.
+        // Nothing changes as far as issuance data goes because the total value in the system hasn't changed.
 
         // Call the ERC223 transfer callback if needed
         synths[destinationCurrencyKey].triggerTokenFallbackIfNeeded(from, destinationAddress, amountReceived);
@@ -2943,7 +2943,7 @@ contract Synthetix is ExternStateToken {
         uint debtPercentage = xdrValue.divideDecimalRoundPrecise(newTotalDebtIssued);
 
         // And what effect does this percentage change have on the global debt holding of other issuers?
-        // The delta specifically needs to not take into account any existing debt as it&#39;s already
+        // The delta specifically needs to not take into account any existing debt as it's already
         // accounted for in the delta from when they issued previously.
         // The delta is a high precision integer.
         uint delta = SafeDecimalMath.preciseUnit().sub(debtPercentage);
@@ -2964,7 +2964,7 @@ contract Synthetix is ExternStateToken {
         // Save the debt entry parameters
         synthetixState.setCurrentIssuanceData(messageSender, debtPercentage);
 
-        // And if we&#39;re the first, push 1 as there was no effect to any other holders, otherwise push
+        // And if we're the first, push 1 as there was no effect to any other holders, otherwise push
         // the change for the rest of the debt holders. The debt ledger holds high precision integers.
         if (synthetixState.debtLedgerLength() > 0) {
             synthetixState.appendDebtLedgerValue(
@@ -2976,8 +2976,8 @@ contract Synthetix is ExternStateToken {
     }
 
     /**
-     * @notice Issue synths against the sender&#39;s SNX.
-     * @dev Issuance is only allowed if the synthetix price isn&#39;t stale. Amount should be larger than 0.
+     * @notice Issue synths against the sender's SNX.
+     * @dev Issuance is only allowed if the synthetix price isn't stale. Amount should be larger than 0.
      * @param currencyKey The currency you wish to issue synths in, for example sUSD or sAUD
      * @param amount The amount of synths you wish to issue with a base of UNIT
      */
@@ -2988,7 +2988,7 @@ contract Synthetix is ExternStateToken {
     {
         require(amount <= remainingIssuableSynths(messageSender, currencyKey), "Amount too large");
 
-        // Keep track of the debt they&#39;re about to create
+        // Keep track of the debt they're about to create
         _addToDebtRegister(currencyKey, amount);
 
         // Create their synths
@@ -2999,8 +2999,8 @@ contract Synthetix is ExternStateToken {
     }
 
     /**
-     * @notice Issue the maximum amount of Synths possible against the sender&#39;s SNX.
-     * @dev Issuance is only allowed if the synthetix price isn&#39;t stale.
+     * @notice Issue the maximum amount of Synths possible against the sender's SNX.
+     * @dev Issuance is only allowed if the synthetix price isn't stale.
      * @param currencyKey The currency you wish to issue synths in, for example sUSD or sAUD
      */
     function issueMaxSynths(bytes4 currencyKey)
@@ -3016,9 +3016,9 @@ contract Synthetix is ExternStateToken {
 
     /**
      * @notice Burn synths to clear issued synths/free SNX.
-     * @param currencyKey The currency you&#39;re specifying to burn
+     * @param currencyKey The currency you're specifying to burn
      * @param amount The amount (in UNIT base) you wish to burn
-     * @dev The amount to burn is debased to XDR&#39;s
+     * @dev The amount to burn is debased to XDR's
      */
     function burnSynths(bytes4 currencyKey, uint amount)
         external
@@ -3032,7 +3032,7 @@ contract Synthetix is ExternStateToken {
 
         require(debt > 0, "No debt to forgive");
 
-        // If they&#39;re trying to burn more debt than they actually owe, rather than fail the transaction, let&#39;s just
+        // If they're trying to burn more debt than they actually owe, rather than fail the transaction, let's just
         // clear their debt and leave them be.
         uint amountToRemove = debt < debtToRemove ? debt : debtToRemove;
 
@@ -3095,7 +3095,7 @@ contract Synthetix is ExternStateToken {
             uint debtPercentage = debtToRemove.divideDecimalRoundPrecise(newTotalDebtIssued);
 
             // And what effect does this percentage change have on the global debt holding of other issuers?
-            // The delta specifically needs to not take into account any existing debt as it&#39;s already
+            // The delta specifically needs to not take into account any existing debt as it's already
             // accounted for in the delta from when they issued previously.
             delta = SafeDecimalMath.preciseUnit().add(debtPercentage);
         } else {
@@ -3130,13 +3130,13 @@ contract Synthetix is ExternStateToken {
     function maxIssuableSynths(address issuer, bytes4 currencyKey)
         public
         view
-        // We don&#39;t need to check stale rates here as effectiveValue will do it for us.
+        // We don't need to check stale rates here as effectiveValue will do it for us.
         returns (uint)
     {
         // What is the value of their SNX balance in the destination currency?
         uint destinationValue = effectiveValue("SNX", collateral(issuer), currencyKey);
 
-        // They&#39;re allowed to issue up to issuanceRatio of that value
+        // They're allowed to issue up to issuanceRatio of that value
         return destinationValue.multiplyDecimal(synthetixState.issuanceRatio());
     }
 
@@ -3146,7 +3146,7 @@ contract Synthetix is ExternStateToken {
      * synths when they hold $10 worth of Synthetix, they will have issued $2 worth of synths. If the value
      * of Synthetix changes, the ratio returned by this function will adjust accordlingly. Users are
      * incentivised to maintain a collateralisation ratio as close to the issuance ratio as possible by
-     * altering the amount of fees they&#39;re able to claim from the system.
+     * altering the amount of fees they're able to claim from the system.
      */
     function collateralisationRatio(address issuer)
         public
@@ -3169,7 +3169,7 @@ contract Synthetix is ExternStateToken {
     function debtBalanceOf(address issuer, bytes4 currencyKey)
         public
         view
-        // Don&#39;t need to check for stale rates here because totalIssuedSynths will do it for us
+        // Don't need to check for stale rates here because totalIssuedSynths will do it for us
         returns (uint)
     {
         // What was their initial debt ownership?
@@ -3177,7 +3177,7 @@ contract Synthetix is ExternStateToken {
         uint debtEntryIndex;
         (initialDebtOwnership, debtEntryIndex) = synthetixState.issuanceData(issuer);
 
-        // If it&#39;s zero, they haven&#39;t issued, and they have no debt.
+        // If it's zero, they haven't issued, and they have no debt.
         if (initialDebtOwnership == 0) return 0;
 
         // Figure out the global debt percentage delta from when they entered the system.
@@ -3186,7 +3186,7 @@ contract Synthetix is ExternStateToken {
             .divideDecimalRoundPrecise(synthetixState.debtLedger(debtEntryIndex))
             .multiplyDecimalRoundPrecise(initialDebtOwnership);
 
-        // What&#39;s the total value of the system in their requested currency?
+        // What's the total value of the system in their requested currency?
         uint totalSystemValue = totalIssuedSynths(currencyKey);
 
         // Their debt balance is their portion of the total system value.
@@ -3204,7 +3204,7 @@ contract Synthetix is ExternStateToken {
     function remainingIssuableSynths(address issuer, bytes4 currencyKey)
         public
         view
-        // Don&#39;t need to check for synth existing or stale rates because maxIssuableSynths will do it for us.
+        // Don't need to check for synth existing or stale rates because maxIssuableSynths will do it for us.
         returns (uint)
     {
         uint alreadyIssued = debtBalanceOf(issuer, currencyKey);
@@ -3254,11 +3254,11 @@ contract Synthetix is ExternStateToken {
         returns (uint)
     {
         // How many SNX do they have, excluding escrow?
-        // Note: We&#39;re excluding escrow here because we&#39;re interested in their transferable amount
+        // Note: We're excluding escrow here because we're interested in their transferable amount
         // and escrowed SNX are not transferable.
         uint balance = tokenState.balanceOf(account);
 
-        // How many of those will be locked by the amount they&#39;ve issued?
+        // How many of those will be locked by the amount they've issued?
         // Assuming issuance ratio is 20%, then issuing 20 SNX of value would require
         // 100 SNX to be locked in their wallet to maintain their collateralisation ratio
         // The locked synthetix value can exceed their balance.
@@ -3283,7 +3283,7 @@ contract Synthetix is ExternStateToken {
 
         supplySchedule.updateMintValues();
 
-        // Set minted SNX balance to RewardEscrow&#39;s balance
+        // Set minted SNX balance to RewardEscrow's balance
         // Minus the minterReward and set balance of minter to add reward
         uint minterReward = supplySchedule.minterReward();
 
@@ -3465,7 +3465,7 @@ contract Synth is ExternStateToken {
         uint amountReceived = feePool.amountReceivedFromTransfer(value);
         uint fee = value.sub(amountReceived);
 
-        // Send the fee off to the fee pool, which we don&#39;t want to charge an additional fee on
+        // Send the fee off to the fee pool, which we don't want to charge an additional fee on
         synthetix.synthInitiatedFeePayment(messageSender, currencyKey, fee);
 
         // And send their result off to the destination address
@@ -3486,7 +3486,7 @@ contract Synth is ExternStateToken {
         uint amountReceived = feePool.amountReceivedFromTransfer(value);
         uint fee = value.sub(amountReceived);
 
-        // Reduce the allowance by the amount we&#39;re transferring.
+        // Reduce the allowance by the amount we're transferring.
         // The safeSub call will handle an insufficient allowance.
         tokenState.setAllowance(from, messageSender, tokenState.allowance(from, messageSender).sub(value));
 
@@ -3511,11 +3511,11 @@ contract Synth is ExternStateToken {
         uint amountReceived = feePool.amountReceivedFromTransfer(value);
         uint fee = value.sub(amountReceived);
 
-        // Reduce the allowance by the amount we&#39;re transferring.
+        // Reduce the allowance by the amount we're transferring.
         // The safeSub call will handle an insufficient allowance.
         tokenState.setAllowance(from, messageSender, tokenState.allowance(from, messageSender).sub(value));
 
-        // Send the fee off to the fee pool, which we don&#39;t want to charge an additional fee on
+        // Send the fee off to the fee pool, which we don't want to charge an additional fee on
         synthetix.synthInitiatedFeePayment(from, currencyKey, fee);
 
         return _internalTransfer(from, to, amountReceived, data);
@@ -3531,7 +3531,7 @@ contract Synth is ExternStateToken {
     {
         uint fee = feePool.transferFeeIncurred(value);
 
-        // Send the fee off to the fee pool, which we don&#39;t want to charge an additional fee on
+        // Send the fee off to the fee pool, which we don't want to charge an additional fee on
         synthetix.synthInitiatedFeePayment(messageSender, currencyKey, fee);
 
         // And send their transfer amount off to the destination address
@@ -3549,7 +3549,7 @@ contract Synth is ExternStateToken {
     {
         uint fee = feePool.transferFeeIncurred(value);
 
-        // Send the fee off to the fee pool, which we don&#39;t want to charge an additional fee on
+        // Send the fee off to the fee pool, which we don't want to charge an additional fee on
         synthetix.synthInitiatedFeePayment(messageSender, currencyKey, fee);
 
         // And send their transfer amount off to the destination address
@@ -3566,11 +3566,11 @@ contract Synth is ExternStateToken {
     {
         uint fee = feePool.transferFeeIncurred(value);
 
-        // Reduce the allowance by the amount we&#39;re transferring.
+        // Reduce the allowance by the amount we're transferring.
         // The safeSub call will handle an insufficient allowance.
         tokenState.setAllowance(from, messageSender, tokenState.allowance(from, messageSender).sub(value.add(fee)));
 
-        // Send the fee off to the fee pool, which we don&#39;t want to charge an additional fee on
+        // Send the fee off to the fee pool, which we don't want to charge an additional fee on
         synthetix.synthInitiatedFeePayment(from, currencyKey, fee);
 
         bytes memory empty;
@@ -3587,11 +3587,11 @@ contract Synth is ExternStateToken {
     {
         uint fee = feePool.transferFeeIncurred(value);
 
-        // Reduce the allowance by the amount we&#39;re transferring.
+        // Reduce the allowance by the amount we're transferring.
         // The safeSub call will handle an insufficient allowance.
         tokenState.setAllowance(from, messageSender, tokenState.allowance(from, messageSender).sub(value.add(fee)));
 
-        // Send the fee off to the fee pool, which we don&#39;t want to charge an additional fee on
+        // Send the fee off to the fee pool, which we don't want to charge an additional fee on
         synthetix.synthInitiatedFeePayment(from, currencyKey, fee);
 
         return _internalTransfer(from, to, value, data);
@@ -3604,7 +3604,7 @@ contract Synth is ExternStateToken {
     {
         bytes4 preferredCurrencyKey = synthetix.synthetixState().preferredCurrency(to);
 
-        // Do they have a preferred currency that&#39;s not us? If so we need to exchange
+        // Do they have a preferred currency that's not us? If so we need to exchange
         if (preferredCurrencyKey != 0 && preferredCurrencyKey != currencyKey) {
             return synthetix.synthInitiatedExchange(from, currencyKey, value, preferredCurrencyKey, to);
         } else {

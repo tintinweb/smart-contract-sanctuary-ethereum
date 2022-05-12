@@ -48,7 +48,7 @@ contract GangMultisig {
 
   /**
    *@dev internal function, called in constructor
-   *Add initial owners in mapping &#39;owners&#39;
+   *Add initial owners in mapping 'owners'
   */
   function addInitialOwners (address[] _owners) internal {
     for (uint i = 0; i < _owners.length; i++){
@@ -74,7 +74,7 @@ contract GangMultisig {
   }
   
 
-  //@dev Modifier to check is message sender contains in mapping &#39;owners&#39;.
+  //@dev Modifier to check is message sender contains in mapping 'owners'.
   modifier onlyOwners() { 
     require (owners[msg.sender]); 
     _; 
@@ -83,7 +83,7 @@ contract GangMultisig {
   //@dev current owners count
   uint public ownersCount;
 
-  //@dev current approves need to confirm for any function. Can&#39;t be less than 2. 
+  //@dev current approves need to confirm for any function. Can't be less than 2. 
   uint public needApprovesToConfirm;
 
   //Start Minting Tokens
@@ -125,7 +125,7 @@ contract GangMultisig {
 
   /**
    * @dev Approve mint request, can be call only by owner
-   * which don&#39;t call this mint request before.
+   * which don't call this mint request before.
    */
   function approveNewMintRequest () public onlyOwners {
     require (!setNewMint.isExecute && !setNewMint.isCanceled);
@@ -197,7 +197,7 @@ contract GangMultisig {
 
   /**
    * @dev Approve finish minting request, can be call only by owner
-   * which don&#39;t call this finish minting request before.
+   * which don't call this finish minting request before.
    */
   function ApproveFinishMintingRequest () public onlyOwners {
     require (!finishMintingStruct.isCanceled && !finishMintingStruct.isExecute);
@@ -254,7 +254,7 @@ contract GangMultisig {
   event NewNeedApprovesToConfirmRequestCanceled();
 
   /**
-   * @dev Function to change &#39;needApprovesToConfirm&#39; variable, can be call only by owner
+   * @dev Function to change 'needApprovesToConfirm' variable, can be call only by owner
    * @param _count uint256 New need approves to confirm will needed
    */
   function setNewOwnersCountToApprove (uint _count) public onlyOwners canCreate {
@@ -272,7 +272,7 @@ contract GangMultisig {
 
   /**
    * @dev Approve new owners count request, can be call only by owner
-   * which don&#39;t call this new owners count request before.
+   * which don't call this new owners count request before.
    */
   function approveNewOwnersCount () public onlyOwners {
     require (setNewApproves.count <= ownersCount);
@@ -328,7 +328,7 @@ contract GangMultisig {
   event AddOwnerRequestCanceled();
 
   /**
-   * @dev Function to add new owner in mapping &#39;owners&#39;, can be call only by owner
+   * @dev Function to add new owner in mapping 'owners', can be call only by owner
    * @param _newOwner address new potentially owner
    */
   function setAddOwnerRequest (address _newOwner) public onlyOwners canCreate {
@@ -344,14 +344,14 @@ contract GangMultisig {
 
   /**
    * @dev Approve new owner request, can be call only by owner
-   * which don&#39;t call this new owner request before.
+   * which don't call this new owner request before.
    */
   function approveAddOwnerRequest () public onlyOwners {
     require (!addOwner.isExecute && !addOwner.isCanceled);
     require (addOwner.creationTimestamp + lifeTime >= uint32(now));
 
     /**
-     *@dev new owner shoudn&#39;t be in owners mapping
+     *@dev new owner shoudn't be in owners mapping
      */
     require (!owners[addOwner.newOwner]);
 
@@ -394,7 +394,7 @@ contract GangMultisig {
   event RemoveOwnerRequestCanceled();
 
   /**
-   * @dev Function to remove owner from mapping &#39;owners&#39;, can be call only by owner
+   * @dev Function to remove owner from mapping 'owners', can be call only by owner
    * @param _removeOwner address potentially owner to remove
    */
   function removeOwnerRequest (address _removeOwner) public onlyOwners canCreate {
@@ -410,7 +410,7 @@ contract GangMultisig {
 
   /**
    * @dev Approve remove owner request, can be call only by owner
-   * which don&#39;t call this remove owner request before.
+   * which don't call this remove owner request before.
    */
   function approveRemoveOwnerRequest () public onlyOwners {
     require (ownersCount - 1 >= needApprovesToConfirm && ownersCount > 2);
@@ -462,7 +462,7 @@ contract GangMultisig {
   event RemoveOwnerRequestCanceled2();
 
   /**
-   * @dev Function to remove owner from mapping &#39;owners&#39;, can be call only by owner
+   * @dev Function to remove owner from mapping 'owners', can be call only by owner
    * @param _removeOwner address potentially owner to remove
    */
   function removeOwnerRequest2 (address _removeOwner) public onlyOwners canCreate {
@@ -478,7 +478,7 @@ contract GangMultisig {
 
   /**
    * @dev Approve remove owner request, can be call only by owner
-   * which don&#39;t call this remove owner request before.
+   * which don't call this remove owner request before.
    */
   function approveRemoveOwnerRequest2 () public onlyOwners {
     require (ownersCount - 1 >= needApprovesToConfirm && ownersCount > 2);

@@ -39,7 +39,7 @@ contract GlobalStorageMultiId {
     }
 
 
-    // User&#39;s admin functions
+    // User's admin functions
 
     function registerUser(bytes32 _id) payable returns(bool) {
 
@@ -72,7 +72,7 @@ contract GlobalStorageMultiId {
     }
 
 
-    // Users&#39;s data storage
+    // Users's data storage
 
     // Uint
 

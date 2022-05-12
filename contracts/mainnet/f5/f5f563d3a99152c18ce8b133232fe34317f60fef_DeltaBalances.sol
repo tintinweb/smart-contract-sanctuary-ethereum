@@ -27,7 +27,7 @@ contract DeltaBalances {
     admin = msg.sender;
   }
 
-  // Fallback function, don&#39;t accept any ETH
+  // Fallback function, don't accept any ETH
   function() public payable {
     revert();
   }
@@ -104,7 +104,7 @@ contract DeltaBalances {
   }
 
  /* Check the token balances of a wallet for multiple tokens
-    Uses tokenBalance() to be able to return, even if a token isn&#39;t valid 
+    Uses tokenBalance() to be able to return, even if a token isn't valid 
     Possible error throws:
         - extremely large arrays (gas cost too high) 
         

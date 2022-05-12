@@ -4,7 +4,7 @@ pragma solidity ^0.4.11;
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public constant returns (address owner) { owner; }
 
     function transferOwnership(address _newOwner) public;
@@ -60,7 +60,7 @@ contract Owned is IOwned {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public constant returns (string name) { name; }
     function symbol() public constant returns (string symbol) { symbol; }
     function decimals() public constant returns (uint8 decimals) { decimals; }
@@ -81,10 +81,10 @@ contract ITokenHolder is IOwned {
 }
 
 /*
-    We consider every contract to be a &#39;token holder&#39; since it&#39;s currently not possible
+    We consider every contract to be a 'token holder' since it's currently not possible
     for a contract to deny receiving tokens.
 
-    The TokenHolder&#39;s contract sole purpose is to provide a safety mechanism that allows
+    The TokenHolder's contract sole purpose is to provide a safety mechanism that allows
     the owner to send tokens that were sent to the contract by mistake back to their sender.
 */
 contract TokenHolder is ITokenHolder, Owned {
@@ -94,7 +94,7 @@ contract TokenHolder is ITokenHolder, Owned {
     function TokenHolder() {
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -168,7 +168,7 @@ contract IEtherToken is ITokenHolder, IERC20Token {
     WARNING: the contract will make the purchase using the current price at transaction mining time
 */
 contract BancorBuyer is TokenHolder {
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     IBancorChanger public tokenChanger; // bancor ETH <-> smart token changer
     IEtherToken public etherToken;      // ether token
 
@@ -185,7 +185,7 @@ contract BancorBuyer is TokenHolder {
         tokenChanger = _changer;
         etherToken = _etherToken;
 
-        // ensure that the ether token is used as one of the changer&#39;s reserves
+        // ensure that the ether token is used as one of the changer's reserves
         tokenChanger.getReserveBalance(etherToken);
     }
 

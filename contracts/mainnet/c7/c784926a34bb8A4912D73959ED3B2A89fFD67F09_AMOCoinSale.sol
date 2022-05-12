@@ -108,7 +108,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -214,7 +214,7 @@ contract BurnableToken is BasicToken {
   function burn(uint256 _value) public {
     require(_value <= balances[msg.sender]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     address burner = msg.sender;
     balances[burner] = balances[burner].sub(_value);
@@ -260,7 +260,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -458,7 +458,7 @@ contract AMOCoin is StandardToken, BurnableToken, Ownable {
     }
 
     /*
-     * Transfer token from &#39;from&#39; address to &#39;to&#39; addreess
+     * Transfer token from 'from' address to 'to' addreess
      *
      * @param from: Origin address
      * @param to: Destination address
@@ -538,7 +538,7 @@ contract AMOCoinSale is Pausable {
     uint256 public constant BASE_MIN_CONTRIBUTION = 0.1 * 1 ether;
     // Whitelisted addresses
     mapping(address => bool) public whitelist;
-    // Whitelisted users&#39; contributions per round
+    // Whitelisted users' contributions per round
     mapping(address => mapping(uint8 => uint256)) public contPerRound;
 
     // For each round, there are three stages.
@@ -765,7 +765,7 @@ contract AMOCoinSale is Pausable {
 
     /*
      * Set max contribution for round
-     * User can&#39;t send more ether than the max contributions in round
+     * User can't send more ether than the max contributions in round
      *
      * @param _round: Round to set
      * @param _maxContribution: Max contribution in wei

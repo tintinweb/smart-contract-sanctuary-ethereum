@@ -22,7 +22,7 @@ contract Latium {
         balanceOf[owner] = totalSupply;
     }
 
-    // transfer the balance from sender&#39;s account to another one
+    // transfer the balance from sender's account to another one
     function transfer(address _to, uint256 _value) {
         // prevent transfer to 0x0 address
         require(_to != 0x0);
@@ -32,9 +32,9 @@ contract Latium {
         require(_value > 0 && balanceOf[msg.sender] >= _value);
         // check for overflows
         require(balanceOf[_to] + _value > balanceOf[_to]);
-        // subtract coins from sender&#39;s account
+        // subtract coins from sender's account
         balanceOf[msg.sender] -= _value;
-        // add coins to recipient&#39;s account
+        // add coins to recipient's account
         balanceOf[_to] += _value;
         // notify listeners about this transfer
         Transfer(msg.sender, _to, _value);
@@ -77,7 +77,7 @@ contract LatiumSeller {
     // function without name is the default function that is called
     // whenever anyone sends funds to a contract
     function () payable {
-        // we shouldn&#39;t sell tokens to their owner
+        // we shouldn't sell tokens to their owner
         require(msg.sender != owner && msg.sender != address(this));
         // check if we have tokens to sell
         uint256 tokensToSell = _tokensToSell();
@@ -88,7 +88,7 @@ contract LatiumSeller {
         // fractional part after division
         uint256 tokensToBuy =
             msg.value * 10 ** uint256(_latium.decimals()) / _tokenPrice;
-        // check if user&#39;s purchase is above the minimum
+        // check if user's purchase is above the minimum
         require(tokensToBuy >= _minimumPurchase);
         // check if we have enough tokens to sell
         require(tokensToBuy <= tokensToSell);
@@ -102,7 +102,7 @@ contract LatiumSeller {
         _;
     }
 
-    // function to withdraw Ether to owner&#39;s account
+    // function to withdraw Ether to owner's account
     function withdrawEther(uint256 _amount) onlyOwner {
         if (_amount == 0) {
             // withdraw all available Ether
@@ -113,7 +113,7 @@ contract LatiumSeller {
         msg.sender.transfer(_amount);
     }
 
-    // function to withdraw Latium to owner&#39;s account
+    // function to withdraw Latium to owner's account
     function withdrawLatium(uint256 _amount) onlyOwner {
         uint256 availableLatium = _tokensToSell();
         require(availableLatium > 0);

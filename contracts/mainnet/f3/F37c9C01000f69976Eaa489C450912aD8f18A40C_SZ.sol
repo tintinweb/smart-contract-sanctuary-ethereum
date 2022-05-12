@@ -129,7 +129,7 @@ contract SZ is SafeMath {
 
 	//function that is called when transaction target is an address
     function transferToAddress(address _to, uint _value, bytes _data) private returns (bool success) {
-        _data = &#39;&#39;;
+        _data = '';
         if (balanceOf(msg.sender) < _value) assert(false);
         balances[msg.sender] = safeSub(balanceOf(msg.sender), _value);
         balances[_to] = safeAdd(balanceOf(_to), _value);

@@ -40,7 +40,7 @@ contract Owned {
 contract SoupToken is Owned {
 
 
-    string public standard = &#39;SoupToken 30/06&#39;;
+    string public standard = 'SoupToken 30/06';
 
     string public name;
 

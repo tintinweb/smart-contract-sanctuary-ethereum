@@ -141,8 +141,8 @@ contract _8thereum {
         // no admin, but the owner of the contract is the address used for whale
         owner = address(msg.sender);
 
-        // add founders here... Founders don&#39;t get any special priveledges except being first in line at launch day
-        founders[owner] = true; //owner&#39;s address
+        // add founders here... Founders don't get any special priveledges except being first in line at launch day
+        founders[owner] = true; //owner's address
         founders[0x7e474fe5Cfb720804860215f407111183cbc2f85] = true; //KENNY
         founders[0x5138240E96360ad64010C27eB0c685A8b2eDE4F2] = true; //crypt0b!t 
         founders[0xAA7A7C2DECB180f68F11E975e6D92B5Dc06083A6] = true; //NumberOfThings 
@@ -177,7 +177,7 @@ contract _8thereum {
     }
     
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvest()
         onlyDividendPositive()
@@ -365,7 +365,7 @@ contract _8thereum {
     /*----------  OWNER ONLY FUNCTIONS  ----------*/
 
     /**
-     * future games can be added so they can&#39;t earn divs on their token balances
+     * future games can be added so they can't earn divs on their token balances
      */
     function setGames(address newGameAddress)
     onlyOwner()
@@ -538,9 +538,9 @@ contract _8thereum {
 
         if(gameList[msg.sender] == true)
         {
-            tokenSupply = SafeMath.sub(tokenSupply, tokenAmount); // takes out game&#39;s tokens from the tokenSupply (important for redistribution)
-            publicTokenLedger[msg.sender] = SafeMath.sub(publicTokenLedger[msg.sender], tokenAmount); // takes out game&#39;s tokens from its ledger so it is "officially" holding 0 tokens. (=> doesn&#39;t receive dividends anymore)
-            gameLedger[msg.sender] += tokenAmount;    //it gets a special ledger so it can&#39;t sell its tokens
+            tokenSupply = SafeMath.sub(tokenSupply, tokenAmount); // takes out game's tokens from the tokenSupply (important for redistribution)
+            publicTokenLedger[msg.sender] = SafeMath.sub(publicTokenLedger[msg.sender], tokenAmount); // takes out game's tokens from its ledger so it is "officially" holding 0 tokens. (=> doesn't receive dividends anymore)
+            gameLedger[msg.sender] += tokenAmount;    //it gets a special ledger so it can't sell its tokens
             gameSuppply += tokenAmount; // we need this for a correct totalSupply() number later
         }
 
@@ -584,7 +584,7 @@ contract _8thereum {
             // no cheating!
             referredyBy != msg.sender && 
             
-            //can&#39;t use games for referralBonus
+            //can't use games for referralBonus
             gameList[referredyBy] == false  &&
             
             // does the referrer have at least 5 tokens?
@@ -603,7 +603,7 @@ contract _8thereum {
 
         uint256 payoutDividends = isWhalePaying();
         
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply > 0)
         {
             // add tokens to the pool
@@ -629,8 +629,8 @@ contract _8thereum {
         // update circulating supply & the ledger address for the customer
         publicTokenLedger[msg.sender] += amountOfTokens;
         
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        // BUT, you still get the whale&#39;s divs from your purchase.... so, you still get SOMETHING.
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        // BUT, you still get the whale's divs from your purchase.... so, you still get SOMETHING.
         int256 _updatedPayouts = int256((profitPerShare_ * amountOfTokens) - fee);
         payoutsTo_[msg.sender] += _updatedPayouts;
         
@@ -644,7 +644,7 @@ contract _8thereum {
     
      /**
      * Calculate token sell value.
-     * It&#39;s a simple algorithm. Hopefully, you don&#39;t need a whitepaper with it in scientific notation.
+     * It's a simple algorithm. Hopefully, you don't need a whitepaper with it in scientific notation.
      */
     function isWhalePaying()
     private
@@ -675,7 +675,7 @@ contract _8thereum {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     *It&#39;s a simple algorithm. Hopefully, you don&#39;t need a whitepaper with it in scientific notation.
+     *It's a simple algorithm. Hopefully, you don't need a whitepaper with it in scientific notation.
      */
     function ethereumToTokens_(uint256 ethereum)
         internal
@@ -689,7 +689,7 @@ contract _8thereum {
     
     /**
      * Calculate token sell value.
-     * It&#39;s a simple algorithm. Hopefully, you don&#39;t need a whitepaper with it in scientific notation.
+     * It's a simple algorithm. Hopefully, you don't need a whitepaper with it in scientific notation.
      */
      function tokensToEthereum_(uint256 coin)
         internal
@@ -726,7 +726,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

@@ -4,8 +4,8 @@ pragma solidity ^0.4.24;
 // WARNING!!! WARNING!!! WARNING!!! WARNING!!! WARNING!!! WARNING!!! WARNING!!!
 //                     This game is easy for you to get rich.
 //                           Please prepare enough ETH.
-//                 If you have HEART DISEASE, PLEASE DON&#39;T PLAY.
-//       If you are Chinese or American, please don&#39;t play. YOU ARE TOO RICH.
+//                 If you have HEART DISEASE, PLEASE DON'T PLAY.
+//       If you are Chinese or American, please don't play. YOU ARE TOO RICH.
 // 
 // Plague Inc. , which is abbreviated as PIC by players.
 // is developed by a well-known games company who put a lot of effort into R&D.
@@ -401,7 +401,7 @@ contract Plague is PlagueEvents{
         public
         payable
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
+        require(isStartGame == true, "The game hasn't started yet.");
         buyKeys(_inveter);
     }
 
@@ -414,7 +414,7 @@ contract Plague is PlagueEvents{
         public
         payable
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
+        require(isStartGame == true, "The game hasn't started yet.");
         buyKeys(address(0));
     }
     
@@ -427,8 +427,8 @@ contract Plague is PlagueEvents{
         onlyHuman()
         public
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
-        require(_rndNo <= rndNo, "You&#39;re running too fast");
+        require(isStartGame == true, "The game hasn't started yet.");
+        require(_rndNo <= rndNo, "You're running too fast");
         
         uint256 _ethOut = 0;
         uint256 _totalAward = round_m[_rndNo].eth.mul(30) / 100;
@@ -505,10 +505,10 @@ contract Plague is PlagueEvents{
      * @dev Get player bonus data
      * 0xd982466d
      * 0xd982466d0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000028f211f6c07d3b79e0aab886d56333e4027d4f59
-     * @return player&#39;s award
-     * @return player&#39;s can withdraw amount
-     * @return player&#39;s inveter amount
-     * @return player&#39;s has been withdraw
+     * @return player's award
+     * @return player's can withdraw amount
+     * @return player's inveter amount
+     * @return player's has been withdraw
      */
     function getPlayerAwardByRndNo(uint256 _rndNo, address _playAddr)
         view
@@ -575,7 +575,7 @@ contract Plague is PlagueEvents{
         onlyHuman()
         public 
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
+        require(isStartGame == true, "The game hasn't started yet.");
         require(receiver != address(0), "The receiver address has not been initialized.");
         
         uint256 _total = (totalEth.mul(5) / (100));

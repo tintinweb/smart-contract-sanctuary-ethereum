@@ -223,17 +223,17 @@ contract ERC20Token is admined, ERC20 { //Standar definition of an ERC20Token
 * @dev ERC20 Token compliant
 */
 contract AssetCirca is ERC20Token {
-    string public name = &#39;Circa&#39;;
+    string public name = 'Circa';
     uint8 public decimals = 18;
-    string public symbol = &#39;CIR&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'CIR';
+    string public version = '1';
 
     /**
     * @notice token contructor.
     */
     constructor() public {
         totalSupply_ = 1000000000 * 10 ** uint256(decimals); //Initial tokens supply 1,000,000,000;
-        //Writer&#39;s equity
+        //Writer's equity
         balances[0xEB53AD38f0C37C0162E3D1D4666e63a55EfFC65f] = totalSupply_ / 1000; //0.1%
         balances[0xEFfea09df22E0B25655BD3f23D9B531ba47d2A8B] = totalSupply_.sub(balances[0xEB53AD38f0C37C0162E3D1D4666e63a55EfFC65f]); //99.9%
 
@@ -244,7 +244,7 @@ contract AssetCirca is ERC20Token {
 
 
     /**
-    * @notice this contract will revert on direct non-function calls, also it&#39;s not payable
+    * @notice this contract will revert on direct non-function calls, also it's not payable
     * @dev Function to handle callback calls to contract
     */
     function() public {

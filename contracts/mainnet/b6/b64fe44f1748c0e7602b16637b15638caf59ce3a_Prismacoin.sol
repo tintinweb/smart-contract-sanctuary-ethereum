@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;Prismacoin&#39; token contract
+// 'Prismacoin' token contract
 //
 // Deployed to : 0x29B80F75900cC7F7BCe06D8282D64f6949c3a7f2
 // Symbol      : PRIS

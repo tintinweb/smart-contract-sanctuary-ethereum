@@ -34,7 +34,7 @@ contract SafeMath {
   function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -188,7 +188,7 @@ contract EEZOToken is ERC20,SafeMath,Haltable {
         return allowedToBurn[_owner][_spender];
     }
 
-    //  Transfer `value` EEZO tokens from sender&#39;s account
+    //  Transfer `value` EEZO tokens from sender's account
     // `msg.sender` to provided account address `to`.
     // @param _to The address of the recipient
     // @param _value The number of EEZO tokens to transfer
@@ -206,7 +206,7 @@ contract EEZOToken is ERC20,SafeMath,Haltable {
         return true;
     }
 
-    //  Transfer `value` EEZO tokens from sender &#39;from&#39;
+    //  Transfer `value` EEZO tokens from sender 'from'
     // to provided account address `to`.
     // @param from The address of the sender
     // @param to The address of the recipient
@@ -263,7 +263,7 @@ contract EEZOToken is ERC20,SafeMath,Haltable {
         return true;
     }
 
-    //  Burn `value` EEZO tokens from sender&#39;s account
+    //  Burn `value` EEZO tokens from sender's account
     // `msg.sender` to provided _value.
     // @param _value The number of EEZO tokens to destroy
     // @return Whether the Burn was successful or not
@@ -279,7 +279,7 @@ contract EEZOToken is ERC20,SafeMath,Haltable {
         return true;
     }
 
-    //  Burn `value` EEZO tokens from sender &#39;from&#39;
+    //  Burn `value` EEZO tokens from sender 'from'
     // to provided account address `to`.
     // @param from The address of the burner
     // @param to The address of the token holder from token to burn

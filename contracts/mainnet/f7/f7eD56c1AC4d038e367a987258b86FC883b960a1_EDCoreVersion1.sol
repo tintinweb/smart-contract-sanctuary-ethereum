@@ -128,7 +128,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -242,17 +242,17 @@ contract EDStructs {
         // 0: Active | 1: Transport Only | 2: Challenge Only | 3: Train Only | 4: InActive
         uint8 status;
         
-        // The dungeon&#39;s difficulty, the higher the difficulty, 
+        // The dungeon's difficulty, the higher the difficulty, 
         // normally, the "rarer" the seedGenes, the higher the diffculty,
         // and the higher the contribution fee it is to challenge, train, and transport to the dungeon,
         // the formula for the contribution fee is in DungeonChallenge and DungeonTraining contracts.
-        // A dungeon&#39;s difficulty never change.
+        // A dungeon's difficulty never change.
         uint8 difficulty;
         
-        // The dungeon&#39;s capacity, maximum number of players allowed to stay on this dungeon.
+        // The dungeon's capacity, maximum number of players allowed to stay on this dungeon.
         // The capacity of the newbie dungeon (Holyland) is set at 0 (which is infinity).
         // Using 16-bit unsigned integers can have a maximum of 65535 in capacity.
-        // A dungeon&#39;s capacity never change.
+        // A dungeon's capacity never change.
         uint16 capacity;
         
         // The current floor number, a dungeon is consists of an umlimited number of floors,
@@ -269,12 +269,12 @@ contract EDStructs {
         // The seed genes of the dungeon, it is used as the base gene for first floor, 
         // some dungeons are rarer and some are more common, the exact details are, 
         // of course, top secret of the game! 
-        // A dungeon&#39;s seedGenes never change.
+        // A dungeon's seedGenes never change.
         uint seedGenes;
         
         // The genes for current floor, it encodes the difficulty level of the current floor.
         // We considered whether to store the entire array of genes for all floors, but
-        // in order to save some precious gas we&#39;re willing to sacrifice some functionalities with that.
+        // in order to save some precious gas we're willing to sacrifice some functionalities with that.
         uint floorGenes;
         
     }
@@ -296,7 +296,7 @@ contract EDStructs {
         uint32 cooldownIndex;
         
         // The seed of the hero, the gene encodes the power level of the hero.
-        // This is another top secret of the game! Hero&#39;s gene can be upgraded via
+        // This is another top secret of the game! Hero's gene can be upgraded via
         // training in a dungeon.
         uint genes;
         
@@ -413,7 +413,7 @@ contract HeroTokenInterface is ERC721, EDStructs {
     /**
      * @dev An external function that creates a new hero and stores it,
      *  only contract owners can create new token.
-     *  method doesn&#39;t do any checking and should only be called when the
+     *  method doesn't do any checking and should only be called when the
      *  input data is known to be valid.
      * @param _genes The gene of the new hero.
      * @param _owner The inital owner of this hero.
@@ -534,7 +534,7 @@ contract EDBase is EjectableOwnable, Pausable, PullPayment, EDStructs {
     uint public constant challengeFeeMultiplier = 1 finney;
     
     /**
-     * @dev The percentage for which successful challenger be rewarded of the dungeons&#39; accumulated rewards.
+     * @dev The percentage for which successful challenger be rewarded of the dungeons' accumulated rewards.
      *  The remaining rewards subtract dungeon master rewards and consolation rewards will be used as the base rewards for new floor.
      */
     uint public constant challengeRewardsPercent = 45;
@@ -596,7 +596,7 @@ contract EDBase is EjectableOwnable, Pausable, PullPayment, EDStructs {
     /// @dev A mapping from token IDs to the address that owns them, the value can get by getPlayerDetails.
     mapping(address => uint) playerToDungeonID;
     
-    /// @dev A mapping from player address to the player&#39;s faith value, the value can get by getPlayerDetails.
+    /// @dev A mapping from player address to the player's faith value, the value can get by getPlayerDetails.
     mapping(address => uint) playerToFaith;
 
     /**
@@ -918,7 +918,7 @@ contract EDTransportation is EDBase {
         // Calculate any excess funds and make it available to be withdrawed by the player.
         asyncSend(msg.sender, msg.value - recruitHeroFee);
         
-        // If it is the first time recruiting a hero, set the player&#39;s location to the novice dungeon.
+        // If it is the first time recruiting a hero, set the player's location to the novice dungeon.
         if (!playerToFirstHeroRecruited[msg.sender]) {
             // ** STORAGE UPDATE **
             dungeonIdToPlayerCount[noviceDungeonId]++;
@@ -972,7 +972,7 @@ contract EDTransportation is EDBase {
     /// @dev Internal function to assigns location of a player.
     function _transport(uint _originDungeonId, uint _destinationDungeonId) internal {
         // ** STORAGE UPDATE **
-        // Update the dungeons&#39; player count.
+        // Update the dungeons' player count.
         // Normally the player count of original dungeon will already be > 0,
         // perform checking to avoid unexpected overflow
         if (dungeonIdToPlayerCount[_originDungeonId] > 0) {
@@ -1278,7 +1278,7 @@ contract EDTraining is EDChallenge {
         uint floorGenes;
         (creationTime,, difficulty,, floorNumber,, rewards, seedGenes, floorGenes) = dungeonTokenContract.dungeons(_dungeonId);
         
-        // Check for _trainingTimes abnormality, we probably won&#39;t have any feature that train a hero 10 times with a single call.
+        // Check for _trainingTimes abnormality, we probably won't have any feature that train a hero 10 times with a single call.
         require(_trainingTimes < 10);
         
         // Checks for payment, any exceeding funds will be transferred back to the player.
@@ -1404,7 +1404,7 @@ contract EDTraining is EDChallenge {
     
     /// @dev Calculate and assign the appropriate faith value to the player.
     function _handleTrainingFailure(uint _equipmentIndex, uint _trainingTimes, uint _dungeonDifficulty) private {
-        // Failed training in a dungeon will add to player&#39;s faith value.
+        // Failed training in a dungeon will add to player's faith value.
         uint faith = playerToFaith[msg.sender];
         uint faithEarned;
         
@@ -1539,7 +1539,7 @@ contract EDCoreVersion1 is Destructible, EDTraining {
         faith = playerToFaith[_address];
         firstHeroRecruited = playerToFirstHeroRecruited[_address];
         
-        // If a player didn&#39;t recruit any hero yet, consider the player is in novice dungeon
+        // If a player didn't recruit any hero yet, consider the player is in novice dungeon
         if (firstHeroRecruited) {
             dungeonId = playerToDungeonID[_address];
         } else {
@@ -1562,7 +1562,7 @@ contract EDCoreVersion1 is Destructible, EDTraining {
     ) {
         require(_id < dungeonTokenContract.totalSupply());
         
-        // Didn&#39;t get the "floorCreationTime" because of Stack Too Deep error.
+        // Didn't get the "floorCreationTime" because of Stack Too Deep error.
         (creationTime, status, difficulty, capacity,,,,,) = dungeonTokenContract.dungeons(_id);
         
         // Dungeon is ready to be challenged (not in preparation mode).
@@ -1584,7 +1584,7 @@ contract EDCoreVersion1 is Destructible, EDTraining {
     ) {
         require(_id < dungeonTokenContract.totalSupply());
         
-        // Didn&#39;t get the "floorCreationTime" because of Stack Too Deep error.
+        // Didn't get the "floorCreationTime" because of Stack Too Deep error.
         (,,,, floorNumber, floorCreationTime, rewards, seedGenes, floorGenes) = dungeonTokenContract.dungeons(_id);
     }
 

@@ -36,7 +36,7 @@ pragma solidity^0.4.21;
  * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bedfccdfddd6d0d7dafed0d1cadad1ca90d0dbca">[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
- *      abstraction called a &#39;slice&#39;. A slice represents a part of a string -
+ *      abstraction called a 'slice'. A slice represents a part of a string -
  *      anything from the entire string to a single character, or even no
  *      characters at all (a 0-length slice). Since a slice only has to specify
  *      an offset and a length, copying and manipulating slices is a lot less
@@ -44,8 +44,8 @@ pragma solidity^0.4.21;
  *
  *      To further reduce gas costs, most functions on slice that need to return
  *      a slice modify the original one instead of allocating a new one; for
- *      instance, `s.split(".")` will return the text up to the first &#39;.&#39;,
- *      modifying s to only contain the remainder of the string after the &#39;.&#39;.
+ *      instance, `s.split(".")` will return the text up to the first '.',
+ *      modifying s to only contain the remainder of the string after the '.'.
  *      In situations where you do not want to modify the original slice, you
  *      can make a copy first with `.copy()`, for example:
  *      `s.copy().split(".")`. Try and avoid using this idiom in loops; since
@@ -63,7 +63,7 @@ pragma solidity^0.4.21;
  *
  *      For convenience, some functions are provided with non-modifying
  *      variants that create a new slice and return both; for instance,
- *      `s.splitNew(&#39;.&#39;)` leaves s unmodified, and returns two values
+ *      `s.splitNew('.')` leaves s unmodified, and returns two values
  *      corresponding to the left and right parts of the string.
  */
  
@@ -168,7 +168,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal returns (string) {
         var ret = new string(self._len);
@@ -1435,7 +1435,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -1477,7 +1477,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -1622,7 +1622,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) throw;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1632,7 +1632,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1664,7 +1664,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, sha3(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1687,7 +1687,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1722,15 +1722,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1767,13 +1767,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1831,14 +1831,14 @@ contract Etheraffle is usingOraclize {
     uint[]  public pctOfPool    = [520, 114, 47, 319]; // ppt...
     uint[]  public odds         = [56, 1032, 54200, 13983816]; // Rounded down to nearest whole 
     uint  constant WEEKDUR      = 604800;
-    uint  constant BIRTHDAY     = 1500249600;//Etheraffle&#39;s birthday <3
+    uint  constant BIRTHDAY     = 1500249600;//Etheraffle's birthday <3
 
     FreeLOTInterface freeLOT;
 
-    string randomStr1 = "[URL] [&#39;json(https://api.random.org/json-rpc/1/invoke).result.random[\"data\", \"serialNumber\"]&#39;,&#39;\\n{\"jsonrpc\": \"2.0\",\"method\":\"generateSignedIntegers\",\"id\":\"";
-    string randomStr2 = "\",\"params\":{\"n\":\"6\",\"min\":1,\"max\":49,\"replacement\":false,\"base\":10,\"apiKey\":${[decrypt] BIaCXRwykpLeDE9h1dQaAUi0LPTD4Jz0kwh6SVTftO+zromdgBhmdQhFwPsaLEGDHHn8bhQA8ksyjOZJpjDzKcVWlkBx5C07udHFtMnvG9g9VITYGxoMOhpFCTnoIKTBlIbNe5D1rIgl9OYUVX4ibTT8fCEE8TkWqQ==}}&#39;]";
-    string apiStr1    = "[URL] [&#39;json(https://etheraffle.com/api/a).m&#39;,&#39;{\"r\":\"";
-    string apiStr2    = "\",\"k\":${[decrypt] BDzj/WPcHzGWYRL2cXvMNvInBxhutESn6Xj8pVzUUH+oEeWBoyycp23B7FSjqKJww6uH5AxvD4srlX0D/Rhl678YcKSNX2oMJJ47ciZrCnj6+28GHCLBV+XiA/1GDis9p5Q9NIKI}}&#39;]";
+    string randomStr1 = "[URL] ['json(https://api.random.org/json-rpc/1/invoke).result.random[\"data\", \"serialNumber\"]','\\n{\"jsonrpc\": \"2.0\",\"method\":\"generateSignedIntegers\",\"id\":\"";
+    string randomStr2 = "\",\"params\":{\"n\":\"6\",\"min\":1,\"max\":49,\"replacement\":false,\"base\":10,\"apiKey\":${[decrypt] BIaCXRwykpLeDE9h1dQaAUi0LPTD4Jz0kwh6SVTftO+zromdgBhmdQhFwPsaLEGDHHn8bhQA8ksyjOZJpjDzKcVWlkBx5C07udHFtMnvG9g9VITYGxoMOhpFCTnoIKTBlIbNe5D1rIgl9OYUVX4ibTT8fCEE8TkWqQ==}}']";
+    string apiStr1    = "[URL] ['json(https://etheraffle.com/api/a).m','{\"r\":\"";
+    string apiStr2    = "\",\"k\":${[decrypt] BDzj/WPcHzGWYRL2cXvMNvInBxhutESn6Xj8pVzUUH+oEeWBoyycp23B7FSjqKJww6uH5AxvD4srlX0D/Rhl678YcKSNX2oMJJ47ciZrCnj6+28GHCLBV+XiA/1GDis9p5Q9NIKI}}']";
 
     mapping (uint => rafStruct) public raffle;
     struct rafStruct {
@@ -1891,7 +1891,7 @@ contract Etheraffle is usingOraclize {
      * @dev   Constructor - sets the Etheraffle contract address &
      *        the disbursal contract address for investors, calls
      *        the newRaffle() function with sets the current
-     *        raffle ID global var plus sets up the first raffle&#39;s
+     *        raffle ID global var plus sets up the first raffle's
      *        struct with correct time stamp. Sets the withdraw
      *        before time to a ten week period, and prepares the
      *        initial oraclize call which will begin the recursive
@@ -1916,7 +1916,7 @@ contract Etheraffle is usingOraclize {
         emit LogQuerySent(query, delay, now);
     }
     /**
-     * @dev   Function using Etheraffle&#39;s birthday to calculate the
+     * @dev   Function using Etheraffle's birthday to calculate the
      *        week number since then.
      */
     function getWeek() public constant returns (uint) {
@@ -1944,7 +1944,7 @@ contract Etheraffle is usingOraclize {
         }
     }
     /**
-     * @dev  To pause the contract&#39;s functions should the need arise. Internal.
+     * @dev  To pause the contract's functions should the need arise. Internal.
      *       Logs an event of the pausing.
      *
      * @param _id    A uint to identify the caller of this function.
@@ -1957,7 +1957,7 @@ contract Etheraffle is usingOraclize {
      * @dev  Function to enter the raffle. Requires the caller to send ether
      *       of amount greater than or equal to the ticket price.
      *
-     * @param _cNums    Ordered array of entrant&#39;s six selected numbers.
+     * @param _cNums    Ordered array of entrant's six selected numbers.
      * @param _affID    Affiliate ID of the source of this entry.
      */
     function enterRaffle(uint[] _cNums, uint _affID) payable external onlyIfNotPaused {
@@ -1969,7 +1969,7 @@ contract Etheraffle is usingOraclize {
      *       caller to send ether of amount greater than or equal to the ticket price.
      *       In the event of a win, only the onBehalfOf address can claim it.
      *
-     * @param _cNums        Ordered array of entrant&#39;s six selected numbers.
+     * @param _cNums        Ordered array of entrant's six selected numbers.
      * @param _affID        Affiliate ID of the source of this entry.
      * @param _onBehalfOf   The address to be entered on behalf of.
      */
@@ -1978,13 +1978,13 @@ contract Etheraffle is usingOraclize {
         buyTicket(_cNums, _onBehalfOf, msg.value, _affID);
     }
     /**
-     * @dev  Function to enter the raffle for free. Requires the caller&#39;s
+     * @dev  Function to enter the raffle for free. Requires the caller's
      *       balance of the Etheraffle freeLOT token to be greater than
      *       zero. Function destroys one freeLOT token, increments the
      *       freeEntries variable in the raffle struct then purchases the
      *       ticket.
      *
-     * @param _cNums    Ordered array of entrant&#39;s six selected numbers.
+     * @param _cNums    Ordered array of entrant's six selected numbers.
      * @param _affID    Affiliate ID of the source of this entry.
      */
     function enterFreeRaffle(uint[] _cNums, uint _affID) payable external onlyIfNotPaused {
@@ -1999,12 +1999,12 @@ contract Etheraffle is usingOraclize {
      *        is call to be before the end of the raffle. Then requires that
      *        the chosen numbers are ordered lowest to highest & bound between
      *        1 and 49. Function increments the total number of entries in the
-     *        current raffle&#39;s struct, increments the prize pool accordingly
+     *        current raffle's struct, increments the prize pool accordingly
      *        and pushes the chosen number array into the entries map and then
      *        logs the ticket purchase.
      *
      * @param _cNums       Array of users selected numbers.
-     * @param _entrant     Entrant&#39;s ethereum address.
+     * @param _entrant     Entrant's ethereum address.
      * @param _value       The ticket purchase price.
      * @param _affID       The affiliate ID of the source of this entry.
      */
@@ -2094,7 +2094,7 @@ contract Etheraffle is usingOraclize {
      * @dev  Function totals up oraclize cost for the raffle, subtracts
      *       it from the prizepool (if less than, if greater than if
      *       pauses the contract and fires an event). Calculates profit
-     *       based on raffle&#39;s tickets sales and the take percentage,
+     *       based on raffle's tickets sales and the take percentage,
      *       then forwards that amount of ether to the disbursal contract.
      *
      * @param _week   The week number of the raffle in question.
@@ -2129,7 +2129,7 @@ contract Etheraffle is usingOraclize {
      *        latter callback first sets up the new raffle struct, then
      *        sets the payouts based on the number of winners in each tier
      *        returned from the api call, then prepares the next oraclize
-     *        query for a week later to draw the next raffle&#39;s winning
+     *        query for a week later to draw the next raffle's winning
      *        numbers.
      *
      * @param _myID     bytes32 - Unique id oraclize provides with their
@@ -2177,7 +2177,7 @@ contract Etheraffle is usingOraclize {
      * @dev   Takes oraclize random.org api call result string and splits
      *        it at the commas into an array, parses those strings in that
      *        array as integers and pushes them into the winning numbers
-     *        array in the raffle&#39;s struct. Fires event logging the data,
+     *        array in the raffle's struct. Fires event logging the data,
      *        including the serial number of the random.org callback so
      *        its veracity can be proven.
      *
@@ -2231,9 +2231,9 @@ contract Etheraffle is usingOraclize {
      * @dev   Takes the results of the oraclize Etheraffle api call back
      *        and uses them to calculate the prizes due to each tier
      *        (3 matches, 4 matches etc) then pushes them into the winning
-     *        amounts array in the raffle in question&#39;s struct. Calculates
+     *        amounts array in the raffle in question's struct. Calculates
      *        the total winnings of the raffle, subtracts it from the
-     *        global prize pool sequesters that amount into the raffle&#39;s
+     *        global prize pool sequesters that amount into the raffle's
      *        struct "unclaimed" variable, ∴ "rolling over" the unwon
      *        ether. Enables winner withdrawals by setting the withdraw
      *        open bool to true.
@@ -2269,13 +2269,13 @@ contract Etheraffle is usingOraclize {
         emit LogPrizePoolsUpdated(prizePool, _week, raffle[_week].unclaimed, payOuts[0], payOuts[1], payOuts[2], payOuts[3], now);
     }
     /**
-     * @dev   Function compares array of entrant&#39;s 6 chosen numbers to
-      *       the raffle in question&#39;s winning numbers, counting how
+     * @dev   Function compares array of entrant's 6 chosen numbers to
+      *       the raffle in question's winning numbers, counting how
       *       many matches there are.
       *
       * @param _week         The week number of the Raffle in question
-      * @param _entrant      Entrant&#39;s ethereum address
-      * @param _entryNum     number of entrant&#39;s entry in question.
+      * @param _entrant      Entrant's ethereum address
+      * @param _entryNum     number of entrant's entry in question.
      */
     function getMatches(uint _week, address _entrant, uint _entryNum) constant internal returns (uint) {
         uint matches;
@@ -2303,7 +2303,7 @@ contract Etheraffle is usingOraclize {
      * @param _isManual   The Oraclize call back is a recursive function in
      *                    which each call fires off another call in perpetuity.
      *                    This bool allows that recursiveness for this call to be
-     *                    turned on or off depending on caller&#39;s requirements.
+     *                    turned on or off depending on caller's requirements.
      */
     function manuallyMakeOraclizeCall
     (
@@ -2466,7 +2466,7 @@ contract Etheraffle is usingOraclize {
         pctOfPool = _newPoP;
     }
     /**
-     * @dev     Get a entrant&#39;s number of entries into a specific raffle
+     * @dev     Get a entrant's number of entries into a specific raffle
      *
      * @param _week       The week number of the queried raffle.
      * @param _entrant    The entrant in question.
@@ -2478,15 +2478,15 @@ contract Etheraffle is usingOraclize {
      * @dev     Get chosen numbers of an entrant, for a specific raffle.
      *          Returns an array.
      *
-     * @param _entrant    The entrant in question&#39;s address.
+     * @param _entrant    The entrant in question's address.
      * @param _week       The week number of the queried raffle.
-     * @param _entryNum   The entrant&#39;s entry number in this raffle.
+     * @param _entryNum   The entrant's entry number in this raffle.
      */
     function getChosenNumbers(address _entrant, uint _week, uint _entryNum) constant external returns (uint[]) {
         return raffle[_week].entries[_entrant][_entryNum-1];
     }
     /**
-     * @dev     Get winning details of a raffle, ie, it&#39;s winning numbers
+     * @dev     Get winning details of a raffle, ie, it's winning numbers
      *          and the prize amounts. Returns two arrays.
      *
      * @param _week   The week number of the raffle in question.

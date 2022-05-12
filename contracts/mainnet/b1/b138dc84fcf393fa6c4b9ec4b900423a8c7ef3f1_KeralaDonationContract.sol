@@ -56,8 +56,8 @@ contract KeralaDonationContract is Ownable {
      * Initializes contract with initial supply tokens to the creator of the contract
      */
     constructor() public {
-        name = &#39;Kerala Flood Donation Token&#39;;
-        symbol = &#39;KFDT&#39;;
+        name = 'Kerala Flood Donation Token';
+        symbol = 'KFDT';
         decimals = 0;
         totalSupply = 1000000;
 
@@ -105,7 +105,7 @@ contract KeralaDonationContract is Ownable {
       return true;
     }
 
-    /* check user&#39;s donated amount */
+    /* check user's donated amount */
     function checkMyDonation() public view returns(uint) {
       return balance[msg.sender];
     }

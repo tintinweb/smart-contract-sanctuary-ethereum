@@ -58,8 +58,8 @@ contract tokenPCT {
 contract Presale is tokenPCT {
 
         using SafeMath for uint;
-        string name = &#39;Presale CryptoTickets Token&#39;;
-        string symbol = &#39;PCT&#39;;
+        string name = 'Presale CryptoTickets Token';
+        string symbol = 'PCT';
         uint8 decimals = 18;
         address manager;
         address public ico;

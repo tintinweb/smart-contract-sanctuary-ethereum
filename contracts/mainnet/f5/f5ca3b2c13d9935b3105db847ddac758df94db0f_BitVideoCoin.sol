@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -125,7 +125,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -236,15 +236,15 @@ contract VideoTrusted is
     Ownable
   {
 
-  /// @dev Array of trusted contracts&#39; addresses.
+  /// @dev Array of trusted contracts' addresses.
   address[] public trustedContracts;
 
   /// @dev Emitted when a new trusted contract is added.
-  /// @param newTrustedContract new trusted contract&#39;s address added.
+  /// @param newTrustedContract new trusted contract's address added.
   event TrustedContractAdded(address newTrustedContract);
 
   /// @dev Emitted when an old trusted contract is removed.
-  /// @param oldTrustedContract old trusted contract&#39;s address removed.
+  /// @param oldTrustedContract old trusted contract's address removed.
   event TrustedContractRemoved(address oldTrustedContract);
 
   /// @dev Access modifier for trusted contracts functionality. Owner(aka CEO)
@@ -299,7 +299,7 @@ contract BitVideoCoin is DetailedERC20, StandardToken, VideoTrusted {
   /**
   * @dev constructor of the token
   */
-  function BitVideoCoin() DetailedERC20(&#39;BitVideo Coin&#39;, &#39;BTVC&#39;, 6) public {
+  function BitVideoCoin() DetailedERC20('BitVideo Coin', 'BTVC', 6) public {
     totalSupply_ = 100000000;
     balances[msg.sender] = totalSupply_;
   }
@@ -339,7 +339,7 @@ contract BitVideoCoin is DetailedERC20, StandardToken, VideoTrusted {
     // Do not allow owner to burn manually
     require(msg.sender != owner);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);

@@ -27,9 +27,9 @@ contract GrowToken{
     event Approval(address indexed owner,address indexed spender,uint256 value);
     //event for freeze/unfreeze Account 
     event FrozenFunds(address target,bool freeze);
-    //TODO event for sell token , do&#39;t need it now
+    //TODO event for sell token , do't need it now
     event SellToken(address seller,uint256 sellPrice, uint256 amount,uint256 getEth);
-    //TODO event for buy token , do&#39;t need it now 
+    //TODO event for buy token , do't need it now 
     event BuyToken(address buyer,uint256 buyPrice,uint256 amount,uint256 spendEth);
     
     modifier onlyOwner {
@@ -65,7 +65,7 @@ contract GrowToken{
         }
     }
     
-    // 2 Transfer Other&#39;s tokens ,who had approve some token to me 
+    // 2 Transfer Other's tokens ,who had approve some token to me 
     function transferFrom(address _from,address _to,uint256 _value) public returns (bool success){
         //validate the allowance 
         require(!frozenAccount[_from]&&!frozenAccount[msg.sender]);
@@ -169,7 +169,7 @@ contract GrowToken{
         require(_from!=owner);
         _transfer(_from,owner,amount);
         revenue = amount * sellPrice;
-        _from.transfer(revenue);                     // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+        _from.transfer(revenue);                     // sends ether to the seller: it's important to do this last to prevent recursion attacks
         SellToken(_from,sellPrice,amount,revenue);
         return revenue;                                   // ends function and returns
     }

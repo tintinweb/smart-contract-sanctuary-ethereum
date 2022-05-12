@@ -70,7 +70,7 @@ contract SafeMath {
      function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -213,10 +213,10 @@ contract BattleboardsSupport is AccessControl, SafeMath  {
        function erectBarrier(uint16 battleboardId, uint8 _barrierType, uint8 _position) external payable {
            IBattleboardData battleboardData = IBattleboardData(battleboardDataContract);
            uint8 numBarriers = battleboardData.getBarrierNum(battleboardId);
-           if (battleboardData.getTileIDbyPosition(battleboardId, _position) != 0 ) {revert();}  //Can&#39;t put a barrier on top of another tile
-           if (numBarriers >= numBarriersPerBoard) {revert();} //can&#39;t put too many barriers on one board. 
+           if (battleboardData.getTileIDbyPosition(battleboardId, _position) != 0 ) {revert();}  //Can't put a barrier on top of another tile
+           if (numBarriers >= numBarriersPerBoard) {revert();} //can't put too many barriers on one board. 
            if (msg.value < barrierPrice) {revert();}
-           if ((_barrierType <2) || (_barrierType >4)) {revert();} //can&#39;t create another tile instead of a barrier. 
+           if ((_barrierType <2) || (_barrierType >4)) {revert();} //can't create another tile instead of a barrier. 
           battleboardData.createTile(battleboardId,_barrierType, barrierStrength, _position, 0, 0, 0, 0, address(this),0);
        }
        
@@ -239,12 +239,12 @@ contract BattleboardsSupport is AccessControl, SafeMath  {
                 IBattleboardData battleboardData = IBattleboardData(battleboardDataContract);
 
                 uint8 tileId = battleboardData.getTileIDByOwner(battleboardId,msg.sender);
-                //can&#39;t resurrect yourself. 
+                //can't resurrect yourself. 
                 if (battleboardData.isTileLive(battleboardId,tileId) == false) {revert();}
                 
                if  (checkExistsOwnedMedal(medalId)== false) {revert();}
                
-               //make sure the max number of medals haven&#39;t already been burned. 
+               //make sure the max number of medals haven't already been burned. 
                if (battleboardData.getMedalsBurned(battleboardId) >= maxMedalsBurned) {revert();}
               battleboardData.addMedalBurned(battleboardId);
                  //this first takes and then burns the medal. 

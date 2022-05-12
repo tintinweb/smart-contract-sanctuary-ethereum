@@ -3,9 +3,9 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract Rasper {
     /* Public variables of the RASPER token */
-    string public standard = &#39;RASPER 1.0&#39;;
-    string public name = &#39;Rasper&#39;;
-    string public symbol = &#39;RSPR&#39;;
+    string public standard = 'RASPER 1.0';
+    string public name = 'Rasper';
+    string public symbol = 'RSPR';
     uint8 public decimals = 16;
     uint256 public totalSupply = 1000000000000000000000000;
 

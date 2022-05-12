@@ -79,7 +79,7 @@ contract StandardToken is ERC20 {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -239,7 +239,7 @@ contract RotoToken is StandardToken {
         @return - whether the contract was successfully set
     */
     function setManagerContract(address _contract) external onlyOwner returns(bool) {
-      //checks that the address sent isn&#39;t the 0 address, the owner or the token contract
+      //checks that the address sent isn't the 0 address, the owner or the token contract
       require(_contract!=address(0)&&_contract!=roto);
 
       // requires that the address sent be a contract
@@ -273,7 +273,7 @@ contract RotoToken is StandardToken {
 
     /**
         @dev - function called by manager contract to process the accounting aspects of the destroyRoto function
-        @param  _user address, the address of the user who&#39;s stake will be destroyed
+        @param  _user address, the address of the user who's stake will be destroyed
         @param _tournamentID identifier
         @return - a boolean value that reflects whether the roto were successfully destroyed
     */
@@ -311,7 +311,7 @@ contract RotoToken is StandardToken {
     /**
       @dev - called by the manager contract, used to reward non-staked submissions by users
       @param _user address, the address that will receive the rewarded ROTO
-      @param _value ROTO, the amount of ROTO that they&#39;ll be rewarded
+      @param _value ROTO, the amount of ROTO that they'll be rewarded
      */
     function rewardRoto(address _user, uint256 _value) external onlyManager returns(bool successful) {
       require(_user!=address(0));
@@ -326,7 +326,7 @@ contract RotoToken is StandardToken {
     /**
         @dev - to be called by the manager contract to check if a given user has enough roto to
             stake the given amount
-        @param  _user address, the address of the user who&#39;s attempting to stake ROTO
+        @param  _user address, the address of the user who's attempting to stake ROTO
         @param _value ROTO, the amount they are attempting to stake
         @return - whether the user has enough balance to stake the received amount
     */
@@ -365,7 +365,7 @@ contract RotoBasic {
     address owner;
     address manager;
 
-    //boolean variable that determines whether there&#39;s an emergency state
+    //boolean variable that determines whether there's an emergency state
     bool emergency;
 
     struct Tournament {
@@ -463,7 +463,7 @@ contract RotoManager is RotoBasic {
 
     /**
         @dev - In the event that their submissions were successful, this function will return the tokens to the user, and distribute ether rewards were applicable
-        @param _user The user&#39;s address, the ether the&#39;ve won,
+        @param _user The user's address, the ether the've won,
         @return - returns whether the Roto was sucessfully transferred
      */
     function releaseRoto(address _user, bytes32 _tournamentID, uint256 _etherReward) external onlyOwner stopInEmergency returns(bool successful){
@@ -529,7 +529,7 @@ contract RotoManager is RotoBasic {
 
     /**
         @dev - For unsuccessful submission, the Roto will initially sent back to the contract.
-        @param _user address, the address of the user who&#39;s stake was unsuccessful
+        @param _user address, the address of the user who's stake was unsuccessful
         @param _tournamentID 32byte hex, the tournament which the stake belongs to
         @return - whether the roto was successfully destroyed
      */
@@ -557,7 +557,7 @@ contract RotoManager is RotoBasic {
     }
 
     /**
-        @dev - The public method which will allow user&#39;s to stake their Roto alongside their submissions
+        @dev - The public method which will allow user's to stake their Roto alongside their submissions
         @param _value the amount of Roto being staked, the id of that stake, and the id of the tournament
         @return - whether the staking request was successful
      */
@@ -567,13 +567,13 @@ contract RotoManager is RotoBasic {
 
     /**
         @dev - The internal method to process the request to stake Roto as a part of the Tournament Submission
-        @param _staker the user who&#39;s staking roto, the ID of the tournament, the amount of roto the user&#39;s staking, the staking tag
+        @param _staker the user who's staking roto, the ID of the tournament, the amount of roto the user's staking, the staking tag
         @return - whether the withdraw operation was successful
      */
     function _stake(address _staker, bytes32 _tournamentID, uint256 _value) internal returns(bool successful) {
         Tournament storage tournament = tournaments[_tournamentID];
 
-        //The User can&#39;t submit after tournament closure and the tournament must have begun
+        //The User can't submit after tournament closure and the tournament must have begun
         require((tournament.open==true));
         require(tournament.etherPrize>0);
         
@@ -581,7 +581,7 @@ contract RotoManager is RotoBasic {
         
         require(user_stake.amount==0); // Users can only stake once
         require(_value>0); // Users must stake at least 1 ROTO
-        require(_staker != roto && _staker != owner); //RotoHive can&#39;t stake in tournament
+        require(_staker != roto && _staker != owner); //RotoHive can't stake in tournament
         
         //Users must have the necessary balances to submit their stake
         assert(token.canStake(_staker, _value));
@@ -598,7 +598,7 @@ contract RotoManager is RotoBasic {
     }
 
     /**
-        @dev - Allows RotoHive to create this week&#39;s RotoHive Tournament
+        @dev - Allows RotoHive to create this week's RotoHive Tournament
         @param _tournamentID 32byte hex, the ID which RotoHive uses to reference each tournament
         @param _etherPrize Eth, the total ether prize pool for the tournament
         @param _rotoPrize ROTO, the total ROTO prize pool for the tournament

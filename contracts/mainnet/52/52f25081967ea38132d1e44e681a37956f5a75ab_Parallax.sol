@@ -25,7 +25,7 @@ contract Parallax {
         // Rule 1: You can only send multiples of 0.002 ether.
         require(msg.value % 2 finney == 0);
         
-        // Rule 2: You can&#39;t close the game by becoming the highest bidder.
+        // Rule 2: You can't close the game by becoming the highest bidder.
         if(msg.value > highestBid)
             require(this.balance - msg.value < deadline);
         

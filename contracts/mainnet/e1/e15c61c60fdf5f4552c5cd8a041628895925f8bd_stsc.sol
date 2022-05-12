@@ -146,7 +146,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // 检查别人的余额是否充足  Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // 检查限额是否充足 Check allowance
         balanceOf[_from] -= _value;                         // 蒸发token Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // 去除限额 Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // 去除限额 Subtract from the sender's allowance
         totalSupply -= _value;                              // 减掉总taoken数Update totalSupply
         emit Burn(_from, _value);			    //触发Burn事件
         return true;

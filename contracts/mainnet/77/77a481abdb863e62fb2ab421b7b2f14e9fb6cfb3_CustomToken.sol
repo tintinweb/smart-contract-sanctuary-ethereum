@@ -92,8 +92,8 @@ contract AirdropToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, AirdropToken {
     function CustomToken() public {
         totalSupply = 13000000000000000000;
-        name = &#39;TSST&#39;;
-        symbol = &#39;TSST&#39;;
+        name = 'TSST';
+        symbol = 'TSST';
         decimals = 10;
         balanceOf[0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530] = totalSupply;
         Transfer(address(0), 0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530, totalSupply);

@@ -8,8 +8,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function Smul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -27,14 +27,14 @@ library SafeMath {
       }
     assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
   /**
   * @dev Subtracts two numbers, throws on overflow (i.e. if subtrahend is greater than minuend).
   */
   function Ssub(uint256 a, uint256 b) internal pure returns (uint256) {
-      require(a >= b, &#39;First parameter must be greater than second&#39;);
+      require(a >= b, 'First parameter must be greater than second');
       assert(a >= b);
       uint256 z = a - b;
       return z;
@@ -44,7 +44,7 @@ library SafeMath {
   */
   function Sadd(uint256 a, uint256 b) internal pure returns (uint256 c) {
       uint256 z = a + b;
-      require((z >= a) && (z >= b),&#39;Result must be greater than parameters&#39;);
+      require((z >= a) && (z >= b),'Result must be greater than parameters');
       assert((z >= a) && (z >= b));
       return z;
   }
@@ -56,7 +56,7 @@ contract ERC20Basic {
   event Transfer(address indexed from, address indexed to, uint256 value);
   bool internal pause = false;
   modifier chk_paused(){
-      require(pause == false,&#39;Sorry, contract paused by the administrator&#39;);
+      require(pause == false,'Sorry, contract paused by the administrator');
       _;
   }
 }
@@ -92,9 +92,9 @@ contract BasicToken is ERC20Basic {
   * @param _value The amount to be transferred.
   */
   function transfer(address _to, uint256 _value) public payable  returns (bool) {
-    require(_to != address(0),&#39;Address need to be different of zero&#39;);
-    require(_value <= balances[msg.sender],&#39;Value is greater than balance&#39;);
-    require(pause == false,&#39;Contract paused to pay dividends or other reason especified in polidatacompressor.com&#39;);
+    require(_to != address(0),'Address need to be different of zero');
+    require(_value <= balances[msg.sender],'Value is greater than balance');
+    require(pause == false,'Contract paused to pay dividends or other reason especified in polidatacompressor.com');
     if (balances[msg.sender] >= _value && _value > 0) {
         balances[msg.sender] = balances[msg.sender].Ssub(_value);
         //looking for partner informed into _to
@@ -142,9 +142,9 @@ contract StandardToken is ERC20, BasicToken {
     public  payable  chk_paused()
     returns (bool)
   {
-    require(_to != address(0),&#39;Address need to be different of zero&#39;);
-    require(_value <= balances[_from],&#39;Value is greater than balance&#39;);
-    require(_value <= allowed[_from][msg.sender],&#39;Value is greater than allowed&#39;);
+    require(_to != address(0),'Address need to be different of zero');
+    require(_value <= balances[_from],'Value is greater than balance');
+    require(_value <= allowed[_from][msg.sender],'Value is greater than allowed');
 
     balances[_from] = balances[_from].Ssub(_value);
     balances[_to] = balances[_to].Sadd(_value);
@@ -156,7 +156,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -241,7 +241,7 @@ contract PoliToken is StandardToken {
         return INITIAL_SUPPLY;
     }
    function paying_dividends(uint _seq_ini, uint _seq_fim) external onlyOwner() onlyPaused() {
-      require(_seq_fim >= _seq_ini, &#39;first parameter must be greater than second&#39;);
+      require(_seq_fim >= _seq_ini, 'first parameter must be greater than second');
       uint256 tot_;
       uint256 div_;
       uint256 max_partners_;
@@ -294,15 +294,15 @@ contract PoliToken is StandardToken {
       return store[i].owner;
   }
   modifier onlyOwner(){
-      require(msg.sender == owner, &#39;Sorry, you must be owner&#39;);
+      require(msg.sender == owner, 'Sorry, you must be owner');
       _;
   }
   modifier onlyPaused(){
-      require(pause == true,&#39;You need pause transactions to execute this&#39;);
+      require(pause == true,'You need pause transactions to execute this');
       _;
   }
   modifier noZero(){
-      require(msg.value > 0,&#39;Value must be greater than zero&#39;);
+      require(msg.value > 0,'Value must be greater than zero');
       _;
   }
 }

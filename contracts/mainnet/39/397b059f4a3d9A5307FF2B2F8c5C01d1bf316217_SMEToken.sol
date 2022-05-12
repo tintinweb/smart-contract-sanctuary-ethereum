@@ -80,11 +80,11 @@ contract SMEToken is StandardToken {
     uint256 public constant PLATAMOUNT = 8000000 * 10**decimals;        //crowdfunding plat	
 
                         
-    address account1 = &#39;0x5a0A46f082C4718c73F5b30667004AC350E2E140&#39;;  //7.5%  First Game	
-	address account2 = &#39;0xcD4fC8e4DA5B25885c7d80b6C846afb6b170B49b&#39;;  //30%   Management Team ,Game Company ,Law Support 	
-	address account3 = &#39;0x3d382e76b430bF8fd65eA3AD9ADfc3741D4746A4&#39;;  //10%   Technology Operation
-	address account4 = &#39;0x005CD1194C1F088d9bd8BF9e70e5e44D2194C029&#39;;  //22.5%  Blockchain Technology
-	address account5 = &#39;0x5CA7F20427e4D202777Ea8006dc8f614a289Be2F&#39;;  //30%    Exchange Listing , Marketing , Finance
+    address account1 = '0x5a0A46f082C4718c73F5b30667004AC350E2E140';  //7.5%  First Game	
+	address account2 = '0xcD4fC8e4DA5B25885c7d80b6C846afb6b170B49b';  //30%   Management Team ,Game Company ,Law Support 	
+	address account3 = '0x3d382e76b430bF8fd65eA3AD9ADfc3741D4746A4';  //10%   Technology Operation
+	address account4 = '0x005CD1194C1F088d9bd8BF9e70e5e44D2194C029';  //22.5%  Blockchain Technology
+	address account5 = '0x5CA7F20427e4D202777Ea8006dc8f614a289Be2F';  //30%    Exchange Listing , Marketing , Finance
 						
     uint256 val1 = 1 wei;    // 1
     uint256 val2 = 1 szabo;  // 1 * 10 ** 12

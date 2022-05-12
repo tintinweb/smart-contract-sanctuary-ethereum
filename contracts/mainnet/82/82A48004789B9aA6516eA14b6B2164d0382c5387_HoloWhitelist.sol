@@ -112,7 +112,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -135,7 +135,7 @@ library SafeMath {
 }
 
 
-// This is an ERC-20 token contract based on Open Zepplin&#39;s StandardToken
+// This is an ERC-20 token contract based on Open Zepplin's StandardToken
 // and MintableToken plus the ability to burn tokens.
 //
 // We had to copy over the code instead of inheriting because of changes
@@ -145,7 +145,7 @@ library SafeMath {
 //   * mint() can only be called by the minter who is not the owner
 //     but the HoloTokenSale contract.
 //
-// Token can be burned by a special &#39;destroyer&#39; role that can only
+// Token can be burned by a special 'destroyer' role that can only
 // burn its tokens.
 contract HoloToken is Ownable {
   string public constant name = "HoloToken";
@@ -224,7 +224,7 @@ contract HoloToken is Ownable {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -405,7 +405,7 @@ contract HoloWhitelist is Ownable {
 }
 
 
-// This contract is a crowdsale based on Zeppelin&#39;s Crowdsale.sol but with
+// This contract is a crowdsale based on Zeppelin's Crowdsale.sol but with
 // several changes:
 //   * the token contract as well as the supply contract get injected
 //     with setTokenContract() and setSupplyContract()
@@ -434,7 +434,7 @@ contract HoloSale is Ownable, Pausable{
 
   // The token being minted on sale
   HoloToken private tokenContract;
-  // The contract to check beneficiaries&#39; address against
+  // The contract to check beneficiaries' address against
   // and to hold number of reserved tokens per day
   HoloWhitelist private whitelistContract;
 
@@ -459,7 +459,7 @@ contract HoloSale is Ownable, Pausable{
     uint256 soldFromReserved;
     // We are storing how much fuel each user has bought per day
     // to be able to apply our relative cap per user per day
-    // (i.e. nobody is allowed to buy more than 10% of each day&#39;s supply)
+    // (i.e. nobody is allowed to buy more than 10% of each day's supply)
     mapping(address => uint256) fuelBoughtByAddress;
   }
 
@@ -475,7 +475,7 @@ contract HoloSale is Ownable, Pausable{
   }
 
   // Converts wei to smallest fraction of Holo tokens.
-  // &#39;rate&#39; is meant to give the factor between weis and full Holo tokens,
+  // 'rate' is meant to give the factor between weis and full Holo tokens,
   // hence the division by 10^18.
   function holosForWei(uint256 amountWei) internal view returns (uint256) {
     return amountWei * rate / 1000000000000000000;
@@ -600,7 +600,7 @@ contract HoloSale is Ownable, Pausable{
     require(lessThanMaxRatio(beneficiary, askedMoreThanReserved, today));
     require(lessThanSupply(askedMoreThanReserved, today));
 
-    // Everything fine if we&#39;re here
+    // Everything fine if we're here
     // Send ETH to our wallet
     wallet.transfer(msg.value);
     // Mint receipts

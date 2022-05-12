@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 
 /*
-* LOK &#39;LookRev Token&#39; crowdfunding contract
+* LOK 'LookRev Token' crowdfunding contract
 *
 * Refer to https://lookrev.com/ for further information.
 * 
@@ -159,7 +159,7 @@ contract LookRevToken is StandardToken {
     string public constant name = "LookRev";
     string public constant symbol = "LOK";
     uint8 public constant decimals = 18;
-    string public VERSION = &#39;LOK1.2&#39;;
+    string public VERSION = 'LOK1.2';
     bool public finalised = false;
     
     address public wallet = 0x0;
@@ -238,7 +238,7 @@ contract LookRevToken is StandardToken {
          // Check if the hard cap will be exceeded
          require(totalSupply + tokens <= TOKENS_HARD_CAP);
 
-         // Add tokens purchased to account&#39;s balance and total supply
+         // Add tokens purchased to account's balance and total supply
          balances[participant] = safeAdd(balances[participant],tokens);
          totalSupply = safeAdd(totalSupply,tokens);
 
@@ -308,7 +308,7 @@ contract LookRevToken is StandardToken {
     }
     event KycVerified(address indexed participant, bool required);
 
-    // Any account can burn _from&#39;s tokens as long as the _from account has
+    // Any account can burn _from's tokens as long as the _from account has
     // approved the _amount to be burnt using approve(0x0, _amount)
     function burnFrom(address _from, uint _amount) returns (bool success) {
         require(totalSupply >= _amount);

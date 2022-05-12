@@ -91,8 +91,8 @@ contract Pausable is Ownable {
 contract BaseToken is Pausable {
     using SafeMath for uint256;
 
-    string constant public name = &#39;Dapper&#39;;
-    string constant public symbol = &#39;Dapp&#39;;
+    string constant public name = 'Dapper';
+    string constant public symbol = 'Dapp';
     uint8 constant public decimals = 6;
     uint256 public totalSupply = 50000000000000;
     uint256 constant public _totalLimit = 100000000000000000000;

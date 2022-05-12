@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -114,7 +114,7 @@ library ArrayUtils {
 
     /**
      * Replace bytes in an array with bytes in another array, guarded by a bitmask
-     * Efficiency of this function is a bit unpredictable because of the EVM&#39;s word-specific model (arrays under 32 bytes will be slower)
+     * Efficiency of this function is a bit unpredictable because of the EVM's word-specific model (arrays under 32 bytes will be slower)
      * 
      * @dev Mask must be the size of the byte array. A nonzero byte means the byte array can be changed.
      * @param array The original array
@@ -180,12 +180,12 @@ library ArrayUtils {
         assembly {
             let length := mload(a)
 
-            // if lengths don&#39;t match the arrays are not equal
+            // if lengths don't match the arrays are not equal
             switch eq(length, mload(b))
             case 1 {
-                // cb is a circuit breaker in the for loop since there&#39;s
+                // cb is a circuit breaker in the for loop since there's
                 //  no said feature for inline assembly loops
-                // cb = 1 - don&#39;t breaker
+                // cb = 1 - don't breaker
                 // cb = 0 - break
                 let cb := 1
 
@@ -554,7 +554,7 @@ contract ExchangeCore is ReentrancyGuarded, Ownable {
         pure
         returns (bytes32 hash)
     {
-        /* Unfortunately abi.encodePacked doesn&#39;t work here, stack size constraints. */
+        /* Unfortunately abi.encodePacked doesn't work here, stack size constraints. */
         uint size = sizeOf(order);
         bytes memory array = new bytes(size);
         uint index;
@@ -1301,12 +1301,12 @@ contract Exchange is ExchangeCore {
     }
 
     /**
-     * @dev Return whether or not two orders&#39; calldata specifications can match
+     * @dev Return whether or not two orders' calldata specifications can match
      * @param buyCalldata Buy-side order calldata
      * @param buyReplacementPattern Buy-side order calldata replacement mask
      * @param sellCalldata Sell-side order calldata
      * @param sellReplacementPattern Sell-side order calldata replacement mask
-     * @return Whether the orders&#39; calldata can be matched
+     * @return Whether the orders' calldata can be matched
      */
     function orderCalldataCanMatch(bytes buyCalldata, bytes buyReplacementPattern, bytes sellCalldata, bytes sellReplacementPattern)
         public

@@ -61,7 +61,7 @@
 //
 // Public key scripts `pk_script` are set on the output and can
 // take a number of forms. The regular transaction script is
-// called &#39;pay-to-pubkey-hash&#39; (P2PKH):
+// called 'pay-to-pubkey-hash' (P2PKH):
 //
 // OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 //
@@ -79,9 +79,9 @@
 // pubKeyHash, plus a checksum at the end.  The checksum is the first 4 bytes
 // of the (32 byte) double sha256 of the pubKeyHash. (25 bytes total)
 // This is converted to base58 to form the publicly used Bitcoin address.
-// Mainnet P2PKH transaction scripts are to addresses beginning with &#39;1&#39;.
+// Mainnet P2PKH transaction scripts are to addresses beginning with '1'.
 //
-// P2SH (&#39;pay to script hash&#39;) scripts only supply a script hash. The spender
+// P2SH ('pay to script hash') scripts only supply a script hash. The spender
 // must then provide the script that would allow them to redeem this output.
 // This allows for arbitrarily complex scripts to be funded using only a
 // hash of the script, and moves the onus on providing the script from
@@ -96,7 +96,7 @@
 // The <scriptHash> is the ripemd160 hash of the sha256 hash of the
 // redeem script. The P2SH address is derived from the scriptHash.
 // Addresses are the scriptHash with a version prefix of 5, encoded as
-// Base58check. These addresses begin with a &#39;3&#39;.
+// Base58check. These addresses begin with a '3'.
 
 pragma solidity ^0.4.11;
 
@@ -192,7 +192,7 @@ library BTC {
     // scan the inputs and find the script lengths.
     // return an array of script lengths and the end position
     // of the inputs.
-    // takes a &#39;stop&#39; argument which sets the maximum number of
+    // takes a 'stop' argument which sets the maximum number of
     // outputs to scan through. stop=0 => scan all.
     function scanInputs(bytes txBytes, uint pos, uint stop)
              returns (uint[], uint)
@@ -223,7 +223,7 @@ library BTC {
     // scan the outputs and find the values and script lengths.
     // return array of values, array of script lengths and the
     // end position of the outputs.
-    // takes a &#39;stop&#39; argument which sets the maximum number of
+    // takes a 'stop' argument which sets the maximum number of
     // outputs to scan through. stop=0 => scan all.
     function scanOutputs(bytes txBytes, uint pos, uint stop)
              returns (uint[], uint[], uint[], uint)

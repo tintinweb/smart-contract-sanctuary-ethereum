@@ -41,7 +41,7 @@ contract UpgradeHelper {
     address public constant globalPause = address(0);
 
     function upgrade() public {
-        // TokenController should have end owner as it&#39;s pending owner at the end
+        // TokenController should have end owner as it's pending owner at the end
         address endOwner = tokenController.owner();
 
         // Helper contract becomes the owner of controller, and both TUSD contracts

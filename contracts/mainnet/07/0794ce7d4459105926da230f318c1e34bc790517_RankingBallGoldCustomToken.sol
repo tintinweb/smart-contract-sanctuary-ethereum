@@ -63,8 +63,8 @@ contract TokenController {
 
 /// @title MiniMeToken Contract
 /// @author Jordi Baylina
-/// @dev This token contract&#39;s goal is to make it easy for anyone to clone this
-///  token using the token distribution at a given block, this will allow DAO&#39;s
+/// @dev This token contract's goal is to make it easy for anyone to clone this
+///  token using the token distribution at a given block, this will allow DAO's
 ///  and DApps to upgrade their features in a decentralized manner without
 ///  affecting the original token
 /// @dev It is ERC20 compliant, but still needs to under go further testing.
@@ -80,10 +80,10 @@ contract ApproveAndCallFallBack {
 ///  token controller contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Controlled {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
-    string public version = &#39;MMT_0.2&#39;; //An arbitrary versioning scheme
+    string public version = 'MMT_0.2'; //An arbitrary versioning scheme
 
 
     /// @dev `Checkpoint` is the structure that attaches a block number to a
@@ -245,7 +245,7 @@ contract MiniMeToken is Controlled {
            return true;
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public constant returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -520,7 +520,7 @@ contract MiniMeToken is Controlled {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token controller contract
     function () public payable {
@@ -694,7 +694,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -847,20 +847,20 @@ contract POSController is Ownable, TokenController {
     POSTokenI(token).transferOwnershipTo(_to);
   }
 
-  /// @notice proxyPayment implements MiniMeToken Controller&#39;s proxyPayment
+  /// @notice proxyPayment implements MiniMeToken Controller's proxyPayment
   function proxyPayment(address _owner) public payable returns(bool) {
     revert(); // reject ether transfer to token contract
     return false;
   }
 
-  /// @notice onTransfer implements MiniMeToken Controller&#39;s onTransfer
+  /// @notice onTransfer implements MiniMeToken Controller's onTransfer
   function onTransfer(address _from, address _to, uint _amount) public returns(bool) {
     claimTokens(_from);
     claimTokens(_to);
     return true;
   }
 
-  /// @notice onApprove implements MiniMeToken Controller&#39;s onApprove
+  /// @notice onApprove implements MiniMeToken Controller's onApprove
   function onApprove(address _owner, address _spender, uint _amount) public returns(bool) {
     return true;
   }
@@ -916,7 +916,7 @@ contract POSController is Ownable, TokenController {
 
   function getClaimRate(uint256 _fromBlock) internal view returns (uint256) {
     // interval block number when token holder get interests.
-    // if holder didn&#39;t claim before, `initBlockNumber`
+    // if holder didn't claim before, `initBlockNumber`
     // otherwise, n-th interval block (`initBlockNumber` + k * `posInterval`)
     uint256 lastIntervalBlock;
 
@@ -1075,7 +1075,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -1181,8 +1181,8 @@ contract MintableToken is StandardToken, Ownable {
 
 
 /// @title TokenControllerBridge
-/// @notice TokenControllerBridge mocks Giveth&#39;s `Controller` for
-///  Zeppelin&#39;s `Ownable` `ERC20` Token.
+/// @notice TokenControllerBridge mocks Giveth's `Controller` for
+///  Zeppelin's `Ownable` `ERC20` Token.
 contract TokenControllerBridge is ERC20, Ownable {
   function () public payable {
     require(isContract(owner));

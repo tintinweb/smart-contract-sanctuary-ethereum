@@ -5,7 +5,7 @@ This is the smart contract for the ERC 20 standard Tratok token.
 During development of the smart contract, active attention was paid to make the contract as simple as possible.
 As the majority of functions are simple addition and subtraction of existing balances, we have been able to make the contract very lightweight.
 This has the added advantage of reducing gas costs and ensuring that transaction fees remain low.
-The smart contract has been made publically available, keeping with the team&#39;s philosophy of transparency.
+The smart contract has been made publically available, keeping with the team's philosophy of transparency.
 
 @version "1.0"
 @developer "Tratok Team"
@@ -173,7 +173,7 @@ contract Tratok is StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;H1.0&#39;;
+    string public version = 'H1.0';
 
     /*
      * Declaring the customized details of the token. The token will be called Tratok, with a total supply of 100 billion tokens.

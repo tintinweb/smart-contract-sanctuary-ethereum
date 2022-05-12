@@ -111,7 +111,7 @@ library SafeMathOZ
 	{
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return c;
 	}
 
@@ -247,7 +247,7 @@ contract RLC is ERC20, SafeMath, Ownable {
   string public name;       //fancy name
   string public symbol;
   uint8 public decimals;    //How many decimals to show.
-  string public version = &#39;v0.1&#39;;
+  string public version = 'v0.1';
   uint public initialSupply;
   uint public totalSupply;
   bool public locked;
@@ -274,8 +274,8 @@ contract RLC is ERC20, SafeMath, Ownable {
     initialSupply = 87000000000000000;
     totalSupply = initialSupply;
     balances[msg.sender] = initialSupply;// Give the creator all initial tokens
-    name = &#39;iEx.ec Network Token&#39;;        // Set the name for display purposes
-    symbol = &#39;RLC&#39;;                       // Set the symbol for display purposes
+    name = 'iEx.ec Network Token';        // Set the name for display purposes
+    symbol = 'RLC';                       // Set the symbol for display purposes
     decimals = 9;                        // Amount of decimals for display purposes
   }
 

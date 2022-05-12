@@ -334,7 +334,7 @@ contract TRLCoinSale is ApproveAndCallFallBack {
     }
     
     function()public payable {
-        // Cannot contribute if the sale hasn&#39;t started
+        // Cannot contribute if the sale hasn't started
         require(hasStarted == true);
         // Cannot contribute if sale is not in this time range
         require((block.timestamp >= preSale.start && block.timestamp <= preSale.end)
@@ -410,7 +410,7 @@ contract TRLCoinSale is ApproveAndCallFallBack {
     }
 
     // Allow the owner to withdraw all ether from the contract after the crowdsale is over.
-    // We don&#39;t need this function( we transfer ether immediately to owner - just in case
+    // We don't need this function( we transfer ether immediately to owner - just in case
     function withdrawEtherRemaining() public returns (bool) {
         // Only the owner can do this
         require(msg.sender == owner);

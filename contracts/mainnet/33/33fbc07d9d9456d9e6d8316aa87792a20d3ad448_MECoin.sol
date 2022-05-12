@@ -143,9 +143,9 @@ contract PausableToken is StandardToken, Pausable {
 
 contract MECoin is PausableToken {
 
-    string public name = &#39;MECoin&#39;;
-    string public symbol = &#39;MECoin&#39;;
-    string public version = &#39;1.0.1&#39;;
+    string public name = 'MECoin';
+    string public symbol = 'MECoin';
+    string public version = '1.0.1';
     uint8 public decimals = 18;
     
     

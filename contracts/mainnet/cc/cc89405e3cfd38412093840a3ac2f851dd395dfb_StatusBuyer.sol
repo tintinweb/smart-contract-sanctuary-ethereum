@@ -56,9 +56,9 @@ contract StatusBuyer {
   
   // Withdraws all ETH/SNT owned by the user in the ratio currently owned by the contract.
   function withdraw() {
-    // Store the user&#39;s deposit prior to withdrawal in a temporary variable.
+    // Store the user's deposit prior to withdrawal in a temporary variable.
     uint256 user_deposit = deposits[msg.sender];
-    // Update the user&#39;s deposit prior to sending ETH to prevent recursive call.
+    // Update the user's deposit prior to sending ETH to prevent recursive call.
     deposits[msg.sender] = 0;
     // Retrieve current ETH balance of contract (less the bounty).
     uint256 contract_eth_balance = this.balance - bounty;
@@ -106,7 +106,7 @@ contract StatusBuyer {
     uint256 totalNormalCollected = sale.totalNormalCollected();
     // Verify the ICO is not currently at a cap, waiting for a reveal.
     if (limit <= totalNormalCollected) throw;
-    // Add the maximum contributable amount to the user&#39;s simulated SNT balance.
+    // Add the maximum contributable amount to the user's simulated SNT balance.
     simulated_snt[msg.sender] += ((limit - totalNormalCollected) / slopeFactor);
   }
   
@@ -117,7 +117,7 @@ contract StatusBuyer {
     // Record that the contract has bought tokens first to prevent recursive call.
     bought_tokens = true;
     // Transfer all the funds (less the bounty) to the Status ICO contract 
-    // to buy tokens.  Throws if the crowdsale hasn&#39;t started yet or has 
+    // to buy tokens.  Throws if the crowdsale hasn't started yet or has 
     // already completed, preventing loss of funds.
     sale.proxyPayment.value(this.balance - bounty)(address(this));
     // Send the user their bounty for buying tokens for the contract.
@@ -126,7 +126,7 @@ contract StatusBuyer {
   
   // A helper function for the default function, allowing contracts to interact.
   function default_helper() payable {
-    // Only allow deposits if the contract hasn&#39;t already purchased the tokens.
+    // Only allow deposits if the contract hasn't already purchased the tokens.
     if (!bought_tokens) {
       // Update records of deposited ETH to include the received amount.
       deposits[msg.sender] += msg.value;
@@ -136,12 +136,12 @@ contract StatusBuyer {
     else {
       // Reject ETH sent after the contract has already purchased tokens.
       if (msg.value != 0) throw;
-      // If the ICO isn&#39;t over yet, simulate entering the crowdsale.
+      // If the ICO isn't over yet, simulate entering the crowdsale.
       if (sale.finalizedBlock() == 0) {
         simulate_ico();
       }
       else {
-        // Withdraw user&#39;s funds if they sent 0 ETH to the contract after the ICO.
+        // Withdraw user's funds if they sent 0 ETH to the contract after the ICO.
         withdraw();
       }
     }

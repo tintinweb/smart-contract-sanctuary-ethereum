@@ -27,7 +27,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -266,7 +266,7 @@ contract CashBetCoin is MigrationSource, ERC20 {
   function decreaseLock(uint256 _value, uint256 _time, address _user) public only_employees(_user) returns (bool success) {
     User storage user = users[_user];
 
-    // We don&#39;t modify expired locks (they are already 0)
+    // We don't modify expired locks (they are already 0)
     require(user.lock_endTime > block.timestamp);
     // Ensure nothing gets bigger.
     require(_value <= user.lock_value);
@@ -284,7 +284,7 @@ contract CashBetCoin is MigrationSource, ERC20 {
     User storage user = users[msg.sender];
 
     // Players can associate their playerId once while the token is
-    // locked.  They can&#39;t change this association until the lock
+    // locked.  They can't change this association until the lock
     // expires ...
     require(user.lock_value == 0 ||
             user.lock_endTime < block.timestamp ||
@@ -432,7 +432,7 @@ contract CashBetCoin is MigrationSource, ERC20 {
     Vacate(_addr, o_balance);
   }
 
-  // Don&#39;t accept ETH.
+  // Don't accept ETH.
   function () public payable {
     revert();
   }

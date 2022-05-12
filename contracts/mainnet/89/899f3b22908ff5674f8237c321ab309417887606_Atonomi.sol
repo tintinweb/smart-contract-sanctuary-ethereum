@@ -177,7 +177,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -468,7 +468,7 @@ contract Atonomi is Pausable, TokenDestructible {
     /// DEVICE ONBOARDING
     ///
     /// @notice registers device on the Atonomi network
-    /// @param _deviceIdHash keccak256 hash of the device&#39;s id (needs to be hashed by caller)
+    /// @param _deviceIdHash keccak256 hash of the device's id (needs to be hashed by caller)
     /// @param _deviceType is the type of device categorized by the manufacturer
     /// @dev devicePublicKey is public key used by IRN Nodes for validation
     /// @return true if successful, otherwise false
@@ -621,7 +621,7 @@ contract Atonomi is Pausable, TokenDestructible {
     /// BULK OPERATIONS
     ///
     /// @notice registers multiple devices on the Atonomi network
-    /// @param _deviceIdHashes array of keccak256 hashed ID&#39;s of each device
+    /// @param _deviceIdHashes array of keccak256 hashed ID's of each device
     /// @param _deviceTypes array of types of device categorized by the manufacturer
     /// @param _devicePublicKeys array of public keys associated with the devices
     /// @return true if successful, otherwise false
@@ -787,7 +787,7 @@ contract Atonomi is Pausable, TokenDestructible {
         return true;
     }
 
-    /// @notice anyone can donate tokens to a manufacturer&#39;s pool
+    /// @notice anyone can donate tokens to a manufacturer's pool
     /// @param manufacturerId of the manufacturer to receive the tokens
     /// @param amount of tokens to deposit
     function depositTokens(bytes32 manufacturerId, uint256 amount) public returns (bool) {

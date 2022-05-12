@@ -85,7 +85,7 @@ library OrderStatisticTree {
 
     struct Tree {
         // a mapping between node value(uint) to Node
-        // the tree&#39;s root is always at node 0 ,which points to the "real" tree
+        // the tree's root is always at node 0 ,which points to the "real" tree
         // as its right child.this is done to eliminate the need to update the tree
         // root in the case of rotation.(saving gas).
         mapping(uint => Node) nodes;
@@ -376,7 +376,7 @@ library OrderStatisticTree {
 
 /**
  * RealMath: fixed-point math library, based on fractional and integer parts.
- * Using int256 as real216x40, which isn&#39;t in Solidity yet.
+ * Using int256 as real216x40, which isn't in Solidity yet.
  * 40 fractional bits gets us down to 1E-12 precision, while still letting us
  * go up to galaxy scale counting in meters.
  * Internally uses the wider int256 for some math.
@@ -384,7 +384,7 @@ library OrderStatisticTree {
  * Note that for addition, subtraction, and mod (%), you should just use the
  * built-in Solidity operators. Functions for these operations are not provided.
  *
- * Note that the fancy functions like sqrt, atan2, etc. aren&#39;t as accurate as
+ * Note that the fancy functions like sqrt, atan2, etc. aren't as accurate as
  * they should be. They are (hopefully) Good Enough for doing orbital mechanics
  * on block timescales in a game context, but they may not be good enough for
  * other applications.
@@ -409,17 +409,17 @@ library RealMath {
     int256 constant REAL_IBITS = REAL_BITS - REAL_FBITS;
 
     /**
-     * What&#39;s the first non-fractional bit
+     * What's the first non-fractional bit
      */
     int256 constant REAL_ONE = int256(1) << REAL_FBITS;
 
     /**
-     * What&#39;s the last fractional bit?
+     * What's the last fractional bit?
      */
     int256 constant REAL_HALF = REAL_ONE >> 1;
 
     /**
-     * What&#39;s two? Two is pretty useful.
+     * What's two? Two is pretty useful.
      */
     int256 constant REAL_TWO = REAL_ONE << 1;
 
@@ -445,7 +445,7 @@ library RealMath {
     int256 constant REAL_TWO_PI = 6908435304715;
 
     /**
-     * What&#39;s the sign bit?
+     * What's the sign bit?
      */
     int256 constant SIGN_MASK = int256(1) << 255;
 
@@ -555,7 +555,7 @@ library RealMath {
         return div(toReal(numerator), toReal(denominator));
     }
 
-    // Now we have some fancy math things (like pow and trig stuff). This isn&#39;t
+    // Now we have some fancy math things (like pow and trig stuff). This isn't
     // in the RealMath that was deployed with the original Macroverse
     // deployment, so it needs to be linked into your contract statically.
 
@@ -665,7 +665,7 @@ library RealMath {
         // Find the high bit
         int216 highBit = findbit(hibit(uint256(realArg)));
 
-        // We&#39;ll shift so the high bit is the lowest non-fractional bit.
+        // We'll shift so the high bit is the lowest non-fractional bit.
         shift = highBit - int216(REAL_FBITS);
 
         if (shift < 0) {
@@ -699,7 +699,7 @@ library RealMath {
             return 0;
         }
 
-        // We know it&#39;s positive, so rescale it to be between [1 and 2)
+        // We know it's positive, so rescale it to be between [1 and 2)
         int256 realRescaled;
         int216 shift;
         (realRescaled, shift) = rescale(realArg);
@@ -797,7 +797,7 @@ library RealMath {
                 // Outside of domain!
                 revert();
             }
-            // Otherwise it&#39;s 0
+            // Otherwise it's 0
             return 0;
         }
 
@@ -814,13 +814,13 @@ library RealMath {
         }
 
         if (realBase < 0) {
-            // It&#39;s a negative base to a non-integer power.
+            // It's a negative base to a non-integer power.
             // In general pow(-x^y) is undefined, unless y is an int or some
             // weird rational-number-based relationship holds.
             revert();
         }
 
-        // If it&#39;s not a special case, actually do it.
+        // If it's not a special case, actually do it.
         return exp(mul(realExponent, ln(realBase)));
     }
 
@@ -846,7 +846,7 @@ library RealMath {
         // We sum from large to small iteration so that we can have higher powers in later terms
         for (int216 iteration = maxIterations - 1; iteration >= 0; iteration--) {
             accumulator = REAL_ONE - mul(div(mul(realArg, realArg), toReal((2 * iteration + 2) * (2 * iteration + 3))), accumulator);
-            // We can&#39;t stop early; we need to make it to the first term.
+            // We can't stop early; we need to make it to the first term.
         }
 
         return mul(realArg, accumulator);
@@ -1058,7 +1058,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -1214,7 +1214,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -1235,8 +1235,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -1253,7 +1253,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -1307,7 +1307,7 @@ contract ERC827Token is ERC827, StandardToken {
    * Beware that changing an allowance with this method brings the risk that
    * someone may use both the old and the new allowance by unfortunate
    * transaction ordering. One possible solution to mitigate this race condition
-   * is to first reduce the spender&#39;s allowance to 0 and set the desired value
+   * is to first reduce the spender's allowance to 0 and set the desired value
    * afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address that will spend the funds.
@@ -1489,7 +1489,7 @@ contract DAOToken is ERC827Token,MintableToken,BurnableToken {
 /**
  * @title Reputation system
  * @dev A DAO has Reputation System which allows peers to rate other peers in order to build trust .
- * A reputation is use to assign influence measure to a DAO&#39;S peers.
+ * A reputation is use to assign influence measure to a DAO'S peers.
  * Reputation is similar to regular tokens but with one crucial difference: It is non-transferable.
  * The Reputation contract maintain a map of address to reputation value.
  * It provides an onlyOwner functions to mint and burn reputation _to (or _from) a specific address.
@@ -1590,9 +1590,9 @@ contract Avatar is Ownable {
 
     /**
     * @dev perform a generic call to an arbitrary contract
-    * @param _contract  the contract&#39;s address to call
+    * @param _contract  the contract's address to call
     * @param _data ABI-encoded contract call to call `_contract` address.
-    * @return the return bytes of the called contract&#39;s function.
+    * @return the return bytes of the called contract's function.
     */
     function genericCall(address _contract,bytes _data) public onlyOwner {
         // solium-disable-next-line security/no-low-level-calls
@@ -1610,7 +1610,7 @@ contract Avatar is Ownable {
     }
 
     /**
-    * @dev send ethers from the avatar&#39;s wallet
+    * @dev send ethers from the avatar's wallet
     * @param _amountInWei amount to send in Wei units
     * @param _to send the ethers to this address
     * @return bool which represents success
@@ -1760,7 +1760,7 @@ interface ControllerInterface {
     external
     returns(bool);
     /**
-     * @dev unregister the caller&#39;s scheme
+     * @dev unregister the caller's scheme
      * @param _avatar address
      * @return bool which represents a success
      */
@@ -1804,7 +1804,7 @@ interface ControllerInterface {
 
   /**
     * @dev upgrade the Controller
-    *      The function will trigger an event &#39;UpgradeController&#39;.
+    *      The function will trigger an event 'UpgradeController'.
     * @param  _newController the address of the new controller.
     * @param _avatar address
     * @return bool which represents a success
@@ -1814,10 +1814,10 @@ interface ControllerInterface {
 
     /**
     * @dev perform a generic call to an arbitrary contract
-    * @param _contract  the contract&#39;s address to call
+    * @param _contract  the contract's address to call
     * @param _data ABI-encoded contract call to call `_contract` address.
-    * @param _avatar the controller&#39;s avatar address
-    * @return bytes32  - the return value of the called _contract&#39;s function.
+    * @param _avatar the controller's avatar address
+    * @return bytes32  - the return value of the called _contract's function.
     */
     function genericCall(address _contract,bytes _data,address _avatar)
     external
@@ -1940,7 +1940,7 @@ interface IntVoteInterface {
      * @param _avatar an address to be sent as the payload to the _executable contract.
      * @param _executable This contract will be executed when vote is over.
      * @param _proposer address
-     * @return proposal&#39;s id.
+     * @return proposal's id.
      */
     function propose(
         uint _numOfChoices,
@@ -2003,7 +2003,7 @@ interface IntVoteInterface {
 
 
 /**
- * @title GenesisProtocol implementation -an organization&#39;s voting machine scheme.
+ * @title GenesisProtocol implementation -an organization's voting machine scheme.
  */
 
 
@@ -2017,7 +2017,7 @@ contract GenesisProtocol is IntVoteInterface,UniversalScheme {
     enum ProposalState { None ,Closed, Executed, PreBoosted,Boosted,QuietEndingPeriod }
     enum ExecutionState { None, PreBoostedTimeOut, PreBoostedBarCrossed, BoostedTimeOut,BoostedBarCrossed }
 
-    //Organization&#39;s parameters
+    //Organization's parameters
     struct Parameters {
         uint preBoostedVoteRequiredPercentage; // the absolute vote percentages bar.
         uint preBoostedVotePeriodLimit; //the time limit for a proposal to be in an absolute voting mode.
@@ -2047,18 +2047,18 @@ contract GenesisProtocol is IntVoteInterface,UniversalScheme {
     }
     struct Voter {
         uint vote; // YES(1) ,NO(2)
-        uint reputation; // amount of voter&#39;s reputation
+        uint reputation; // amount of voter's reputation
         bool preBoosted;
     }
 
     struct Staker {
         uint vote; // YES(1) ,NO(2)
-        uint amount; // amount of staker&#39;s stake
-        uint amountForBounty; // amount of staker&#39;s stake which will be use for bounty calculation
+        uint amount; // amount of staker's stake
+        uint amountForBounty; // amount of staker's stake which will be use for bounty calculation
     }
 
     struct Proposal {
-        address avatar; // the organization&#39;s avatar the proposal is target to.
+        address avatar; // the organization's avatar the proposal is target to.
         uint numOfChoices;
         ExecutableInterface executable; // will be executed if the proposal will pass
         uint votersStakes;
@@ -2126,7 +2126,7 @@ contract GenesisProtocol is IntVoteInterface,UniversalScheme {
      * @param _avatar an address to be sent as the payload to the _executable contract.
      * @param _executable This contract will be executed when vote is over.
      * @param _proposer address
-     * @return proposal&#39;s id.
+     * @return proposal's id.
      */
     function propose(uint _numOfChoices, bytes32 , address _avatar, ExecutableInterface _executable,address _proposer)
         external
@@ -2352,7 +2352,7 @@ contract GenesisProtocol is IntVoteInterface,UniversalScheme {
   /**
     * @dev scoreThresholdParams return the score threshold params for a given
     * organization.
-    * @param _avatar the organization&#39;s avatar
+    * @param _avatar the organization's avatar
     * @return uint thresholdConstA
     * @return uint thresholdConstB
     */
@@ -2563,12 +2563,12 @@ contract GenesisProtocol is IntVoteInterface,UniversalScheme {
     }
 
     /**
-     * @dev threshold return the organization&#39;s score threshold which required by
+     * @dev threshold return the organization's score threshold which required by
      * a proposal to shift to boosted state.
      * This threshold is dynamically set and it depend on the number of boosted proposal.
      * @param _avatar the organization avatar
      * @param _paramsHash the organization parameters hash
-     * @return int organization&#39;s score threshold.
+     * @return int organization's score threshold.
      */
     function threshold(bytes32 _paramsHash,address _avatar) public view returns(int) {
         uint boostedProposals = getBoostedProposalsCount(_avatar);
@@ -2788,7 +2788,7 @@ contract GenesisProtocol is IntVoteInterface,UniversalScheme {
      * @dev Vote for a proposal, if the voter already voted, cancel the last vote and set a new one instead
      * @param _proposalId id of the proposal
      * @param _voter used in case the vote is cast for someone else
-     * @param _vote a value between 0 to and the proposal&#39;s number of choices.
+     * @param _vote a value between 0 to and the proposal's number of choices.
      * @param _rep how many reputation the voter would like to stake for this vote.
      *         if  _rep==0 so the voter full reputation will be use.
      * @return true in case of proposal execution otherwise false

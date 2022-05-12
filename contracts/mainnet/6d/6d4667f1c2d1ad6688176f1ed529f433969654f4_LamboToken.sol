@@ -3,7 +3,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract LamboToken {
     /* LamboToken Variables */
-    string public standard = &#39;LAMBO&#39;;
+    string public standard = 'LAMBO';
     string public name;
     string public symbol;
     uint8 public decimals;

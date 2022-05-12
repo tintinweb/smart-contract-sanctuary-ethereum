@@ -381,7 +381,7 @@ contract StandardToken {
 
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
 
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
 
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
 
@@ -559,7 +559,7 @@ contract StandardToken {
 
      * @dev Internal function that burns an amount of the token of a given
 
-     * account, deducting from the sender&#39;s allowance for said account. Uses the
+     * account, deducting from the sender's allowance for said account. Uses the
 
      * internal burn function.
 

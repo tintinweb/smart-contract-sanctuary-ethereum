@@ -97,7 +97,7 @@ contract StandardERC20Token is ERC20Interface {
     }
 
     /**
-    * @dev Don&#39;t accept ETH
+    * @dev Don't accept ETH
      */
     function () public payable {
         revert();
@@ -332,7 +332,7 @@ contract LongHashERC20Token is StandardERC20Token {
     * @dev Change the issuer of tokens
     *
     * @param _to The new issuer
-    * @param _transfer Whether transfer the old issuer&#39;s tokens to new issuer
+    * @param _transfer Whether transfer the old issuer's tokens to new issuer
     * @return Whether the burn was successful or not
     */
     function changeIssuer(address _to, bool _transfer) onlyIssuer() public returns (bool) {

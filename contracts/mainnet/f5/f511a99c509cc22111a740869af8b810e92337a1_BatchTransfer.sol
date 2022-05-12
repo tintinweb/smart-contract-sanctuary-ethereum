@@ -52,14 +52,14 @@ contract BatchTransfer {
     }
 
     /**
-        convinient function for read token&#39;s owner
+        convinient function for read token's owner
      */
     function owner() public view returns (address) {
         return _owner;
     }
 
     /**
-        convinient function for read token&#39;s erc20Address
+        convinient function for read token's erc20Address
      */
     function erc20Address() public view returns (address) {
         return _erc20_address;
@@ -81,8 +81,8 @@ contract BatchTransfer {
         please check requirement before you invoke  
      */
     function transferFrom(address token_holder, address[] token_receivers, uint256[] values) public onlyAuthed returns (bool) {
-        require(token_receivers.length == values.length, "token_receiver&#39;s size must eq value&#39;s size");
-        require(token_receivers.length > 0, "token_receiver&#39;s length must gt 0");
+        require(token_receivers.length == values.length, "token_receiver's size must eq value's size");
+        require(token_receivers.length > 0, "token_receiver's length must gt 0");
         
         uint length = token_receivers.length;
 

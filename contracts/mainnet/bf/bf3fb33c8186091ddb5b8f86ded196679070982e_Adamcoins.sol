@@ -15,7 +15,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -206,7 +206,7 @@ contract TokenERC20 {
      */
     function burnFrom(address _from, uint256 _oshiAmount)  public returns (bool success) {
         balanceOf[_from] = balanceOf[_from].sub(_oshiAmount);                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_oshiAmount);             // Subtract from the sender&#39;s allowed
+        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_oshiAmount);             // Subtract from the sender's allowed
         totalSupply = totalSupply.sub(_oshiAmount);                              // Update totalSupply
         emit Burn(_from, _oshiAmount);
         return true;
@@ -256,7 +256,7 @@ contract Adamcoins is owned, TokenERC20 {
         require (msg.sender == owner); 
         purchasingAllowed = true;
     }
-    /// @notice doesn&#39;t allow to purchase from the contract
+    /// @notice doesn't allow to purchase from the contract
     function disablePurchasing() onlyOwner public {
         require (msg.sender == owner); 
         purchasingAllowed = false;
@@ -267,7 +267,7 @@ contract Adamcoins is owned, TokenERC20 {
         require (msg.sender == owner); 
         sellingAllowed = true;
     }
-    /// @notice doesn&#39;t allow to sell to the contract
+    /// @notice doesn't allow to sell to the contract
     function disableSelling() onlyOwner public {
         require (msg.sender == owner); 
         sellingAllowed = false;

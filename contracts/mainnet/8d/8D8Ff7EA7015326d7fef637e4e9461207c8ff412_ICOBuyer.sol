@@ -159,9 +159,9 @@ contract ICOBuyer is Ownable {
 
   // Buys tokens in the crowdsale and rewards the caller, callable by anyone.
   function buyICO() {
-    // Short circuit to save gas if the earliest block number hasn&#39;t been reached.
+    // Short circuit to save gas if the earliest block number hasn't been reached.
     if ((icoStartBlock != 0) && (getBlockNumber() < icoStartBlock)) return;
-    // Short circuit to save gas if the earliest buy time hasn&#39;t been reached.
+    // Short circuit to save gas if the earliest buy time hasn't been reached.
     if ((icoStartTime != 0) && (getNow() < icoStartTime)) return;
     // Return if no balance
     if (this.balance < minimumContribution) return;

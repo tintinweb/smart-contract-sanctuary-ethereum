@@ -520,7 +520,7 @@ contract CurioAuction is Pausable {
       // totalPriceChange can be negative
       int256 totalPriceChange = int256(_endingPrice) - int256(_startingPrice);
 
-      // This multiplication can&#39;t overflow, _secondsPassed will easily fit within
+      // This multiplication can't overflow, _secondsPassed will easily fit within
       // 64-bits, and totalPriceChange will easily fit within 128-bits, their product
       // will always fit within 256-bits.
       int256 currentPriceChange = totalPriceChange * int256(_secondsPassed) / int256(_duration);

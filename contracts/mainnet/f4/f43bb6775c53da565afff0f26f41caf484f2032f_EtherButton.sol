@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -149,8 +149,8 @@ contract EtherButton is Ownable, ReentrancyGuard {
   event LogPlayerPayout(address _recipient, uint _amount);
   event LogSendPaymentFailure(address _recipient, uint _amount);
 
-  // Represent fractions as numerator/denominator because Solidity doesn&#39;t support decimals.
-  // It&#39;s okay to use ".5 ether" because it converts to "500000000000000000 wei"
+  // Represent fractions as numerator/denominator because Solidity doesn't support decimals.
+  // It's okay to use ".5 ether" because it converts to "500000000000000000 wei"
   uint public constant INITIAL_PRICE = .5 ether;
   uint public constant ROUND_DURATION = 7 hours;
   // 5% price increase is allocated to the player.
@@ -184,8 +184,8 @@ contract EtherButton is Ownable, ReentrancyGuard {
   uint public RoundId;
 
   /**
-   * Create the contract with an initial &#39;Round 0&#39;. This round has already expired which will cause the first
-   * player interaction to start Round 1. This is simpler than introducing athe concept of a &#39;paused&#39; round.
+   * Create the contract with an initial 'Round 0'. This round has already expired which will cause the first
+   * player interaction to start Round 1. This is simpler than introducing athe concept of a 'paused' round.
   **/
   function EtherButton() public {
     initializeRound();
@@ -193,13 +193,13 @@ contract EtherButton is Ownable, ReentrancyGuard {
   }
 
   /**
-   * Performs a single &#39;click&#39; of EtherButton.
+   * Performs a single 'click' of EtherButton.
    *
-   * Advances the round if the previous round&#39;s endTime has passed. This needs to be done
-   * just-in-time because code isn&#39;t able to execute on a timer - it needs funding.
+   * Advances the round if the previous round's endTime has passed. This needs to be done
+   * just-in-time because code isn't able to execute on a timer - it needs funding.
    *
    * Refunds the player any extra money they may have sent. Pays the last player and the owner.
-   * Marks the player as the active player so that they&#39;re next to be paid.
+   * Marks the player as the active player so that they're next to be paid.
    *
    * Emits an event showing the current state of EtherButton and returns the state, too.
   **/
@@ -207,9 +207,9 @@ contract EtherButton is Ownable, ReentrancyGuard {
     // Owner is not allowed to play.
     require(msg.sender != owner);
 
-    // There&#39;s no way to advance the round exactly at a specific time because the contract only runs
+    // There's no way to advance the round exactly at a specific time because the contract only runs
     // when value is sent to it. So, round advancement must be done just-in-time whenever a player pays to click.
-    // Only advance the round when a player clicks because the next round&#39;s timer will begin immediately.
+    // Only advance the round when a player clicks because the next round's timer will begin immediately.
     if (getIsRoundOver(RoundId)) {
       advanceRound(); 
     }
@@ -255,7 +255,7 @@ contract EtherButton is Ownable, ReentrancyGuard {
     // Reset the round timer
     round.endTime = now.add(ROUND_DURATION);
     
-    // Log an event with relevant information from the round&#39;s state.
+    // Log an event with relevant information from the round's state.
     LogClick(
       round.id,
       round.price,
@@ -277,9 +277,9 @@ contract EtherButton is Ownable, ReentrancyGuard {
    * has their bonus unlocked immediately without need to play in the next round.
    **/
   function claimBonus() nonReentrant external {
-    // NOTE: The only way to advance the round is to run the &#39;click&#39; method. When a round is over, it will have expired,
+    // NOTE: The only way to advance the round is to run the 'click' method. When a round is over, it will have expired,
     // but RoundId will not have (yet) incremented. So, claimBonus needs to check the previous round. This allows EtherButton
-    // to never enter a &#39;paused&#39; state, which is less code (aka more reliable) but it does have some edge cases.
+    // to never enter a 'paused' state, which is less code (aka more reliable) but it does have some edge cases.
     uint roundId = getIsRoundOver(RoundId) ? RoundId.add(1) : RoundId;
     uint previousRoundId = roundId.sub(1);
     bool isBonusClaimed = getIsBonusClaimed(previousRoundId, msg.sender);
@@ -289,8 +289,8 @@ contract EtherButton is Ownable, ReentrancyGuard {
       return;
     }
 
-    // If a player can&#39;t claim their bonus because they haven&#39;t played during the current round
-    // and they were not the last player in the previous round then exit as they&#39;re not authorized.
+    // If a player can't claim their bonus because they haven't played during the current round
+    // and they were not the last player in the previous round then exit as they're not authorized.
     bool isBonusUnlockExempt = getIsBonusUnlockExempt(previousRoundId, msg.sender);
     bool isBonusUnlocked = getPlayerClickCount(roundId, msg.sender) > 0;
     if (!isBonusUnlockExempt && !isBonusUnlocked) {
@@ -354,14 +354,14 @@ contract EtherButton is Ownable, ReentrancyGuard {
   /**
    * Signal the completion of a round and the start of the next by moving RoundId forward one.
    * As clean-up before the round change occurs, join all unclaimed player bonuses together and move them
-   * forward one round. Just-in-time initialize the next round&#39;s state once RoundId is pointing to it because
-   * an unknown number of rounds may be played. So, it&#39;s impossible to initialize all rounds at contract creation.
+   * forward one round. Just-in-time initialize the next round's state once RoundId is pointing to it because
+   * an unknown number of rounds may be played. So, it's impossible to initialize all rounds at contract creation.
    **/
   function advanceRound() private {
     if (RoundId > 1) {
       // Take all of the previous rounds unclaimed bonuses and roll them forward.
       Round storage previousRound = Rounds[RoundId.sub(1)];      
-      // If the active player of the previous round didn&#39;t claim their refund then they lose the ability to claim it.
+      // If the active player of the previous round didn't claim their refund then they lose the ability to claim it.
       // Their refund is also rolled into the bonuses for the next round.
       uint remainingBonus = previousRound.totalBonus.add(INITIAL_PRICE).sub(previousRound.claimedBonus);
       Rounds[RoundId].totalBonus = Rounds[RoundId].totalBonus.add(remainingBonus);
@@ -372,7 +372,7 @@ contract EtherButton is Ownable, ReentrancyGuard {
   }
 
   /**
-   * Sets the current round&#39;s default values. Initialize the price to 0.500 ETH,
+   * Sets the current round's default values. Initialize the price to 0.500 ETH,
    * the endTime to 7 hours past the current time and sets the round id. The round is
    * also started as the endTime is now ticking down.
    **/
@@ -390,7 +390,7 @@ contract EtherButton is Ownable, ReentrancyGuard {
     assert(recipient != address(0));
     assert(amount > 0);
 
-    // It&#39;s considered good practice to require users to pull payments rather than pushing
+    // It's considered good practice to require users to pull payments rather than pushing
     // payments to them. Since EtherButton pays the previous player immediately, it has to mitigate
     // a denial-of-service attack. A malicious contract might always reject money which is sent to it.
     // This contract could be used to disrupt EtherButton if an assumption is made that money will

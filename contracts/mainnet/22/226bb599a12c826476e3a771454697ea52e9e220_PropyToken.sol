@@ -79,13 +79,13 @@ contract Bytes32 {
  *             Asset.unknownFunc(...)
  *
  * Asset implementation contract is mutable, but each user have an option to stick with
- * old implementation, through explicit decision made in timely manner, if he doesn&#39;t agree
+ * old implementation, through explicit decision made in timely manner, if he doesn't agree
  * with new rules.
  * Each user have a possibility to upgrade to latest asset contract implementation, without the
  * possibility to rollback.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
     // Assigned EToken2, immutable.
@@ -148,7 +148,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
     }
 
     function recoverTokens(uint _value) onlyAssetOwner() returns(bool) {
-        return this.transferWithReference(msg.sender, _value, &#39;Tokens recovery&#39;);
+        return this.transferWithReference(msg.sender, _value, 'Tokens recovery');
     }
 
     /**
@@ -201,7 +201,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
      * @return success.
      */
     function transfer(address _to, uint _value) returns(bool) {
-        return transferWithReference(_to, _value, &#39;&#39;);
+        return transferWithReference(_to, _value, '');
     }
 
     /**
@@ -211,7 +211,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
      *
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a EToken2&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a EToken2's Transfer event.
      *
      * @return success.
      */
@@ -228,7 +228,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
      * @return success.
      */
     function transferToICAP(bytes32 _icap, uint _value) returns(bool) {
-        return transferToICAPWithReference(_icap, _value, &#39;&#39;);
+        return transferToICAPWithReference(_icap, _value, '');
     }
 
     /**
@@ -238,7 +238,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
      *
      * @param _icap recipient ICAP to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a EToken2&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a EToken2's Transfer event.
      *
      * @return success.
      */
@@ -256,7 +256,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
      * @return success.
      */
     function transferFrom(address _from, address _to, uint _value) returns(bool) {
-        return transferFromWithReference(_from, _to, _value, &#39;&#39;);
+        return transferFromWithReference(_from, _to, _value, '');
     }
 
     /**
@@ -267,7 +267,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
      * @param _from holder address to take from.
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a EToken2&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a EToken2's Transfer event.
      *
      * @return success.
      */
@@ -283,7 +283,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
      * @param _from holder address to take from.
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a EToken2&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a EToken2's Transfer event.
      * @param _sender initial caller.
      *
      * @return success.
@@ -302,7 +302,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
      * @return success.
      */
     function transferFromToICAP(address _from, bytes32 _icap, uint _value) returns(bool) {
-        return transferFromToICAPWithReference(_from, _icap, _value, &#39;&#39;);
+        return transferFromToICAPWithReference(_from, _icap, _value, '');
     }
 
     /**
@@ -313,7 +313,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
      * @param _from holder address to take from.
      * @param _icap recipient ICAP address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a EToken2&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a EToken2's Transfer event.
      *
      * @return success.
      */
@@ -329,7 +329,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
      * @param _from holder address to take from.
      * @param _icap recipient ICAP address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a EToken2&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a EToken2's Transfer event.
      * @param _sender initial caller.
      *
      * @return success.
@@ -485,7 +485,7 @@ contract AssetProxy is ERC20, AssetProxyInterface, Bytes32 {
         if (_newVersion == 0x0) {
             return false;
         }
-        // Don&#39;t apply freeze-time for the initial setup.
+        // Don't apply freeze-time for the initial setup.
         if (latestVersion == 0x0) {
             latestVersion = _newVersion;
             return true;

@@ -95,7 +95,7 @@ contract DIUToken is Token{
     function DIUToken() {
         balances[msg.sender] = 100000000 * 1000000000000000000;
         totalSupply = 100000000 * 1000000000000000000;
-        name = "Damn It&#39;s Useless Token";
+        name = "Damn It's Useless Token";
         decimals = 18;
         symbol = "DIU";
         unitsOneEthCanBuy = 100;

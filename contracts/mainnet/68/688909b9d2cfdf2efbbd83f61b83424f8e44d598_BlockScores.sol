@@ -192,7 +192,7 @@ contract BlockScores {
 
     /// @notice Confirm an unconfirmed score to leaderboard/player. Adds unconfirmed to existing score. Player can not confirm his own score
     /// @param boardHash The hash of the leaderboard
-    /// @param playerName The name of the player who&#39;s score should be confirmed
+    /// @param playerName The name of the player who's score should be confirmed
     /// @return true/false
     function confirmBoardScore(bytes32 boardHash, bytes32 playerName) public returns (bool){
         uint8 playerID = getPlayerId (boardHash, playerName, 0);

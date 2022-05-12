@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -164,7 +164,7 @@ contract JaroCoinToken is Ownable, ERC820Implementer {
     function sendByCheque(address _to, uint256 _amount, bytes _userData, uint256 _nonce, uint8 v, bytes32 r, bytes32 s) public {
         require(_to != address(this));
 
-        // Check if signature is valid, get signer&#39;s address and mark this cheque as used.
+        // Check if signature is valid, get signer's address and mark this cheque as used.
         bytes memory prefix = "\x19Ethereum Signed Message:\n32";
         bytes32 hash = keccak256(prefix, keccak256(_to, _amount, _userData, _nonce));
         // bytes32 hash = keccak256(_to, _amount, _userData, _nonce);
@@ -179,7 +179,7 @@ contract JaroCoinToken is Ownable, ERC820Implementer {
     }
 
     /**
-    * @notice Authorize a third party `_operator` to manage (send) `msg.sender`&#39;s tokens.
+    * @notice Authorize a third party `_operator` to manage (send) `msg.sender`'s tokens.
     * @param _operator The operator that wants to be Authorized
     */
     function authorizeOperator(address _operator) public {
@@ -189,7 +189,7 @@ contract JaroCoinToken is Ownable, ERC820Implementer {
     }
 
     /**
-    * @notice Revoke a third party `_operator`&#39;s rights to manage (send) `msg.sender`&#39;s tokens.
+    * @notice Revoke a third party `_operator`'s rights to manage (send) `msg.sender`'s tokens.
     * @param _operator The operator that wants to be Revoked
     */
     function revokeOperator(address _operator) public {
@@ -214,7 +214,7 @@ contract JaroCoinToken is Ownable, ERC820Implementer {
     /* -- Helper Functions -- */
     /**
     * @notice Internal function that ensures `_amount` is multiple of the granularity
-    * @param _amount The quantity that want&#39;s to be checked
+    * @param _amount The quantity that want's to be checked
     */
     function requireMultiple(uint256 _amount) internal pure {
         require(_amount.div(granularity).mul(granularity) == _amount);
@@ -361,7 +361,7 @@ contract JaroCoinToken is Ownable, ERC820Implementer {
      * Function was added purly for backward compatibility with ERC20. Use operator logic from ERC777 instead.
      * @param _owner address The address which owns the funds.
      * @param _spender address The address which will spend the funds.
-     * @return A returning uint256 balanceOf _spender if it&#39;s active operator and 0 if not.
+     * @return A returning uint256 balanceOf _spender if it's active operator and 0 if not.
      */
     function allowance(address _owner, address _spender) public view returns (uint256) {
         if (isOperatorFor[_spender][_owner]) {
@@ -419,7 +419,7 @@ contract JaroCoinToken is Ownable, ERC820Implementer {
     }
 
     /**
-    * @dev Function to burn sender&#39;s tokens
+    * @dev Function to burn sender's tokens
     * @param _amount The amount of tokens to burn.
     * @return A boolean that indicates if the operation was successful.
     */
@@ -614,7 +614,7 @@ contract JaroCoinCrowdsale is Ownable {
     function coupon(uint256 _timeStamp, uint8 _bonus, uint8 v, bytes32 r, bytes32 s) external canMint payable {
         require(_timeStamp >= getNow());
 
-        // Check if signature is valid, get signer&#39;s address and mark this cheque as used.
+        // Check if signature is valid, get signer's address and mark this cheque as used.
         bytes memory prefix = "\x19Ethereum Signed Message:\n32";
         bytes32 hash = keccak256(prefix, keccak256(_timeStamp, _bonus));
 

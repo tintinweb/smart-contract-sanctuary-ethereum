@@ -69,7 +69,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -138,7 +138,7 @@ contract ERC20Coin is ERC20Interface, Owned {
     return balances[_owner];
   }
 
-  /* Transfer the balance from owner&#39;s account to another account */
+  /* Transfer the balance from owner's account to another account */
 
   function transfer(address _to, uint _amount) public returns (bool success) {
     // amount sent cannot exceed balance
@@ -167,7 +167,7 @@ contract ERC20Coin is ERC20Interface, Owned {
     return true;
   }
 
-  /* Spender of coins transfers coins from the owner&#39;s balance */
+  /* Spender of coins transfers coins from the owner's balance */
   /* Must be pre-approved by owner */
 
   function transferFrom(address _from, address _to, uint _amount) public returns (bool success) {
@@ -380,7 +380,7 @@ contract krypteum is ERC20Coin {
     // ICO coin volume cap
     require(coinsIssuedIco.add(coins).add(sumOfAvailableIcoCoins()) == COIN_SUPPLY_ICO_TOTAL);
 
-    // change is not given back unless we&#39;re selling the last available ICO coins.
+    // change is not given back unless we're selling the last available ICO coins.
     require(change == 0 || coinsIssuedIco.add(coins) == COIN_SUPPLY_ICO_TOTAL);
 
     // register coins

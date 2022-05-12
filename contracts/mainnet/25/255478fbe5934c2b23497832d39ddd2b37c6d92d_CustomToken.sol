@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 2000000000000000000000000000;
-        name = &#39;UgkCoin&#39;;
-        symbol = &#39;UGK&#39;;
+        name = 'UgkCoin';
+        symbol = 'UGK';
         decimals = 18;
         balanceOf[0x178f97a55b02eead22b895e6525de97689dd05e9] = totalSupply;
         Transfer(address(0), 0x178f97a55b02eead22b895e6525de97689dd05e9, totalSupply);

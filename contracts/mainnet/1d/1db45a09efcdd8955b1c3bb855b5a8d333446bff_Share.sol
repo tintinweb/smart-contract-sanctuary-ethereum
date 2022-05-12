@@ -10,7 +10,7 @@ contract Share {
     bool public pause;
     /**
      * owner can pause the contract so that no one can withdrawal
-     * he can&#39;t do anything else
+     * he can't do anything else
      */
     address public owner;
     
@@ -21,10 +21,10 @@ contract Share {
     mapping (address => uint) public holds;
 
     /**
-     * since we don&#39;t record holders&#39; address in a list
-     * and we don&#39;t want to loop holders list everytime when there is income
+     * since we don't record holders' address in a list
+     * and we don't want to loop holders list everytime when there is income
      *
-     * we use a mechanism called &#39;watermark&#39;
+     * we use a mechanism called 'watermark'
      * 
      * the watermark indicates the value that brought into each holds from the begining
      * it only goes up when new income send to the contract
@@ -84,7 +84,7 @@ contract Share {
     }
 
     /**
-     * when there&#39;s income, the water mark goes up
+     * when there's income, the water mark goes up
      */
     function onIncome() public payable {
         if (msg.value > 0) {
@@ -117,7 +117,7 @@ contract Share {
      */
     function withdrawal() public notPaused {
         if (holds[msg.sender] == 0) {
-            //you don&#39;t have any, don&#39;t bother
+            //you don't have any, don't bother
             return;
         }
         uint256 value = bonus();
@@ -131,7 +131,7 @@ contract Share {
     /**
      * transfer holds from => to (only holds, no bouns)
      * this will withdrawal the holder bonus of these holds
-     * and the to&#39;s fullfilled will go up, since total bonus unchanged, but holds goes more
+     * and the to's fullfilled will go up, since total bonus unchanged, but holds goes more
      */
     function transferHolds(address from, address to, uint amount) internal {
         require(holds[from] >= amount);

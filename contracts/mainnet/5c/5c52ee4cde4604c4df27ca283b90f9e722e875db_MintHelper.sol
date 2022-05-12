@@ -6,7 +6,7 @@ pragma solidity ^0.5.10;
 
 /* MintHelper for BitcoinSoV (BSOV)
  * Based off https://github.com/0xbitcoin/mint-helper
- * 1% Burn fee comes from mining pool&#39;s fee, allowing miner payout contract to receive its full share.
+ * 1% Burn fee comes from mining pool's fee, allowing miner payout contract to receive its full share.
  * https://www.btcsov.com
  */
 

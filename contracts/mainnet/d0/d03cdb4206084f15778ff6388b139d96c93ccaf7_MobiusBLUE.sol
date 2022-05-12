@@ -44,7 +44,7 @@ pragma solidity^0.4.24;
 *    0.5% Jackpot Seed
 *    0.5% Airdrop
 *
-*    Additionally, the first round is an ICO, so you&#39;ll also get our BLU tokens by participating!
+*    Additionally, the first round is an ICO, so you'll also get our BLU tokens by participating!
 *    
 *    BLU Token holders will receive part of current and future revenue of this and any other game we develop!
 *    !!!!!!!!!!!!!!
@@ -95,7 +95,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -189,7 +189,7 @@ contract MobiusBLUE is DSMath, DSAuth {
     MobiusBlueToken public token;
 
     // In case of an upgrade, these variables will be set. An upgrade does not affect a currently running round,
-    // nor does it do anything with investors&#39; vaults.
+    // nor does it do anything with investors' vaults.
     bool public upgraded;
     address public nextVersion;
 
@@ -206,7 +206,7 @@ contract MobiusBLUE is DSMath, DSAuth {
     uint public constant RETURNS_FRACTION = 70 * 10**16;      // 70% goes to share holders
     // 1% if it is a referral purchase, this value will be taken from the above fraction (e.g. if 1% is for refferals, then 64% goes to returns) 
     uint public constant REFERRAL_FRACTION = 1 * 10**16;  
-    uint public constant JACKPOT_SEED_FRACTION = WAD / 200;    // .5% goes to the next round&#39;s jackpot
+    uint public constant JACKPOT_SEED_FRACTION = WAD / 200;    // .5% goes to the next round's jackpot
     uint public constant JACKPOT_FRACTION = 15 * 10**16;      // 15% goes to the final jackpot
     uint public constant AIRDROP_FRACTION = WAD / 200;        // .5% goes to airdrops
     uint public constant DIVIDENDS_FRACTION = 10 * 10**16;     // 10% goes to token holders!
@@ -373,7 +373,7 @@ contract MobiusBLUE is DSMath, DSAuth {
     function reinvestReturns(uint value, address ref) public {        
         MobiusRound storage rnd = rounds[latestRoundID];
         _updateReturns(msg.sender, rnd);        
-        require(vaults[msg.sender].totalReturns >= value, "Can&#39;t spend what you don&#39;t have");        
+        require(vaults[msg.sender].totalReturns >= value, "Can't spend what you don't have");        
         vaults[msg.sender].totalReturns = sub(vaults[msg.sender].totalReturns, value);
         vaults[msg.sender].refReturns = min(vaults[msg.sender].refReturns, vaults[msg.sender].totalReturns);
         unclaimedReturns = sub(unclaimedReturns, value);
@@ -507,15 +507,15 @@ contract MobiusBLUE is DSMath, DSAuth {
 
         if(rounds.length == 1) {
             // After finishing minting tokens they will be transferable and dividends will be available!
-            require(token.finishMinting(), "Couldn&#39;t finish minting tokens!");
+            require(token.finishMinting(), "Couldn't finish minting tokens!");
         }
-        // Transfer jackpot to winner&#39;s vault
+        // Transfer jackpot to winner's vault
         vaults[rnd.lastInvestor].totalReturns = add(vaults[rnd.lastInvestor].totalReturns, rnd.jackpot);
         unclaimedReturns = add(unclaimedReturns, rnd.jackpot);
         
         emit JackpotWon(rnd.lastInvestor, rnd.jackpot);
         totalJackpotsWon += rnd.jackpot;
-        // transfer the leftover to the next round&#39;s jackpot
+        // transfer the leftover to the next round's jackpot
         jackpotSeed = add(jackpotSeed, wmul(rnd.totalInvested, JACKPOT_SEED_FRACTION));
         //Empty the AD pot if it has a balance.
         jackpotSeed = add(jackpotSeed, rnd.airdropPot);
@@ -542,7 +542,7 @@ contract MobiusBLUE is DSMath, DSAuth {
 
     /** 
         This is where the magic happens: every investor gets an exact share of all returns proportional to their shares
-        If you&#39;re early, you&#39;ll have a larger share for longer, so obviously you earn more.
+        If you're early, you'll have a larger share for longer, so obviously you earn more.
     */
     function _updateReturns(address _investor, MobiusRound storage rnd) internal {
         if(rnd.investors[_investor].shares == 0) {
@@ -551,7 +551,7 @@ contract MobiusBLUE is DSMath, DSAuth {
         
         uint outstanding = _outstandingReturns(_investor, rnd);
 
-        // if there are any returns, transfer them to the investor&#39;s vaults
+        // if there are any returns, transfer them to the investor's vaults
         if (outstanding > 0) {
             vaults[_investor].totalReturns = add(vaults[_investor].totalReturns, outstanding);
         }
@@ -563,7 +563,7 @@ contract MobiusBLUE is DSMath, DSAuth {
         if(rnd.investors[_investor].shares == 0) {
             return 0;
         }
-        // check if there&#39;ve been new returns
+        // check if there've been new returns
         uint newReturns = sub(
             rnd.cumulativeReturnsPoints, 
             rnd.investors[_investor].lastCumulativeReturnsPoints
@@ -663,11 +663,11 @@ contract MobiusBLUE is DSMath, DSAuth {
     }    
 
     function _airDrop(MobiusRound storage rnd, uint value) internal {
-        require(msg.sender == tx.origin, "ONLY HOOMANS (or scripts that don&#39;t use smart contracts)!");
+        require(msg.sender == tx.origin, "ONLY HOOMANS (or scripts that don't use smart contracts)!");
         if(value > 100 finney) {
             /**
                 Creates a random number from the last block hash and current timestamp.
-                One could add more seemingly random data like the msg.sender, etc, but that doesn&#39;t 
+                One could add more seemingly random data like the msg.sender, etc, but that doesn't 
                 make it harder for a miner to manipulate the result in their favor (if they intended to).
              */
             uint chance = uint(keccak256(abi.encodePacked(blockhash(block.number - 1), now)));

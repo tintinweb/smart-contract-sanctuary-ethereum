@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -98,9 +98,9 @@ library SafeMath {
 
 // File: contracts\FundCenter.sol
 
-// This contract only keep user&#39;s deposit & withdraw records. 
-// we use a private chain to maintain users&#39; balance book. 
-// All user&#39;s spending and earning records are kept in the private chain. 
+// This contract only keep user's deposit & withdraw records. 
+// we use a private chain to maintain users' balance book. 
+// All user's spending and earning records are kept in the private chain. 
 contract FundCenter {
     using SafeMath for *;
 

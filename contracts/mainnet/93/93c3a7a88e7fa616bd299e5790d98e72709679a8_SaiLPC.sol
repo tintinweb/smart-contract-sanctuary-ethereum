@@ -123,7 +123,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -493,7 +493,7 @@ contract SaiLPC is DSThing {
 
     DSValue  public  pip;  // price feed, giving refs per alt
     uint256  public  gap;  // spread, charged on `take`
-    DSToken  public  lps;  // &#39;liquidity provider shares&#39;, earns spread
+    DSToken  public  lps;  // 'liquidity provider shares', earns spread
 
     function SaiLPC(ERC20 ref_, ERC20 alt_, DSValue pip_, DSToken lps_) public {
         ref = ref_;
@@ -544,7 +544,7 @@ contract SaiLPC is DSThing {
 
         uint jam = (gem == ref) ? wad : wmul(wad, tag());
         uint ink = rmul(jam, per());
-        // pay fee to exit, unless you&#39;re the last out
+        // pay fee to exit, unless you're the last out
         ink = (jam == pie())? ink : wmul(gap, ink);
         lps.pull(msg.sender, ink);
         lps.burn(ink);

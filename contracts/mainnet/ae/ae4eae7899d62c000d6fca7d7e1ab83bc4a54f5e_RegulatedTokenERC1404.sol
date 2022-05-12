@@ -45,7 +45,7 @@ contract ERC1404 is ERC20 {
 
     /// @notice Returns a human-readable message for a given restriction code
     /// @param restrictionCode Identifier for looking up a message
-    /// @return Text showing the restriction&#39;s reasoning
+    /// @return Text showing the restriction's reasoning
     /// @dev Overwrite with your custom message and restrictionCode handling
     function messageForTransferRestriction (uint8 restrictionCode) public view returns (string);
 }
@@ -207,23 +207,23 @@ contract RegulatorService is RegulatorServiceI, Ownable {
 
   // @dev Check success code & message
   uint8 constant private CHECK_SUCCESS = 0;
-  string constant private SUCCESS_MESSAGE = &#39;Success&#39;;
+  string constant private SUCCESS_MESSAGE = 'Success';
 
   // @dev Check error reason: Token is locked
   uint8 constant private CHECK_ELOCKED = 1;
-  string constant private ELOCKED_MESSAGE = &#39;Token is locked&#39;;
+  string constant private ELOCKED_MESSAGE = 'Token is locked';
 
   // @dev Check error reason: Token can not trade partial amounts
   uint8 constant private CHECK_EDIVIS = 2;
-  string constant private EDIVIS_MESSAGE = &#39;Token can not trade partial amounts&#39;;
+  string constant private EDIVIS_MESSAGE = 'Token can not trade partial amounts';
 
   // @dev Check error reason: Sender is not allowed to send the token
   uint8 constant private CHECK_ESEND = 3;
-  string constant private ESEND_MESSAGE = &#39;Sender is not allowed to send the token&#39;;
+  string constant private ESEND_MESSAGE = 'Sender is not allowed to send the token';
 
   // @dev Check error reason: Receiver is not allowed to receive the token
   uint8 constant private CHECK_ERECV = 4;
-  string constant private ERECV_MESSAGE = &#39;Receiver is not allowed to receive the token&#39;;
+  string constant private ERECV_MESSAGE = 'Receiver is not allowed to receive the token';
 
   /// @dev Permission bits for allowing a participant to send tokens
   uint8 constant private PERM_SEND = 0x1;
@@ -242,10 +242,10 @@ contract RegulatorService is RegulatorServiceI, Ownable {
   ///      which returns the permission bits of a participant for a particular token.
   mapping(address => mapping(address => uint8)) private participants;
 
-  /// @dev Event raised when a token&#39;s locked setting is set
+  /// @dev Event raised when a token's locked setting is set
   event LogLockSet(address indexed token, bool locked);
 
-  /// @dev Event raised when a token&#39;s partial transfer setting is set
+  /// @dev Event raised when a token's partial transfer setting is set
   event LogPartialTransferSet(address indexed token, bool enabled);
 
   /// @dev Event raised when a participant permissions are set for a token
@@ -261,7 +261,7 @@ contract RegulatorService is RegulatorServiceI, Ownable {
   /**
    * @notice Locks the ability to trade a token
    *
-   * @dev    This method can only be called by this contract&#39;s owner
+   * @dev    This method can only be called by this contract's owner
    *
    * @param  _token The address of the token to lock
    */
@@ -274,7 +274,7 @@ contract RegulatorService is RegulatorServiceI, Ownable {
   /**
    * @notice Allows the ability to trade a fraction of a token
    *
-   * @dev    This method can only be called by this contract&#39;s owner
+   * @dev    This method can only be called by this contract's owner
    *
    * @param  _token The address of the token to allow partial transfers
    */
@@ -288,8 +288,8 @@ contract RegulatorService is RegulatorServiceI, Ownable {
    * @notice Sets the trade permissions for a participant on a token
    *
    * @dev    The `_permission` bits overwrite the previous trade permissions and can
-   *         only be called by the contract&#39;s owner.  `_permissions` can be bitwise
-   *         `|`&#39;d together to allow for more than one permission bit to be set.
+   *         only be called by the contract's owner.  `_permissions` can be bitwise
+   *         `|`'d together to allow for more than one permission bit to be set.
    *
    * @param  _token The address of the token
    * @param  _participant The address of the trade participant
@@ -445,7 +445,7 @@ contract ServiceRegistry is Ownable {
   /**
    * @notice Replaces the address pointer to the `RegulatorService`
    *
-   * @dev This method is only callable by the contract&#39;s owner
+   * @dev This method is only callable by the contract's owner
    *
    * @param _service The address of the new `RegulatorService`
    */
@@ -467,8 +467,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -485,7 +485,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -572,7 +572,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -623,7 +623,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -895,7 +895,7 @@ contract RegulatedTokenERC1404 is ERC1404, RegulatedToken {
     * @notice Implementing detectTransferRestriction makes this token ERC-1404 compatible
     * 
     * @dev Notice in the call to _service.check(), the 2nd argument is address 0.
-    *      This "spender" parameter is unused in Harbor&#39;s own R-Token implementation
+    *      This "spender" parameter is unused in Harbor's own R-Token implementation
     *      and will have to be remain unused for the purposes of our example.
     *
     * @param from The address of the sender

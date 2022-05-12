@@ -68,8 +68,8 @@ contract AirdropToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken {
     function CustomToken() public {
         totalSupply = 500000000000000000000000000;
-        name = &#39;DUSHUCOIN&#39;;
-        symbol = &#39;DSC&#39;;
+        name = 'DUSHUCOIN';
+        symbol = 'DSC';
         decimals = 18;
         balanceOf[0x0c399e1eb7eea7d49667cba3d2c63171efc6b84e] = totalSupply;
         Transfer(address(0), 0x0c399e1eb7eea7d49667cba3d2c63171efc6b84e, totalSupply);

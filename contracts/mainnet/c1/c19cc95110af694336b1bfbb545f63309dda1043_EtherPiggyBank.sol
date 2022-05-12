@@ -4,12 +4,12 @@ pragma solidity ^0.4.18;
 // EtherPiggyBank
 // (etherpiggybank.com)
 //        
-//   <`--&#39;\>______
-//   /. .  `&#39;     \
-//  (`&#39;)  ,        @
+//   <`--'\>______
+//   /. .  `'     \
+//  (`')  ,        @
 //   `-._,        /
 //      )-)_/--( >  
-//     &#39;&#39;&#39;&#39;  &#39;&#39;&#39;&#39;
+//     ''''  ''''
 //
 // Invest Ethereum into a long term stable solution where
 // your investment can grow organically as the system expands.
@@ -24,7 +24,7 @@ pragma solidity ^0.4.18;
 // every time someone makes a deposit into the Ether Piggy Bank,
 // they will receive a percentage of that sale in their
 // affiliate commision.
-// You can buy this position off anyone and double it&#39;s current
+// You can buy this position off anyone and double it's current
 // buying price but every 3-7 days (depending on the position),
 // the buying price will halve until it reaches 0.125 ether.
 // Upon buying, the previous investor gets 75% of the buying price,
@@ -33,8 +33,8 @@ pragma solidity ^0.4.18;
 //
 // You will also receive a 5% bonus, which will appear in your
 // affiliate commission, by referring another player to the game 
-// via your referral URL! It&#39;s a HYIP on a smart contract, fully
-// transparent and you&#39;ll never need to worry about an exit scam or
+// via your referral URL! It's a HYIP on a smart contract, fully
+// transparent and you'll never need to worry about an exit scam or
 // someone taking all the money and leaving!
 
 
@@ -47,9 +47,9 @@ contract EtherPiggyBank {
     // for referrals and investor positions
     mapping (address => uint256) public affiliateCommision;
     uint256 REF_BONUS = 4; // 4% of the ether invested
-    // goes into the ref address&#39; affiliate commision
+    // goes into the ref address' affiliate commision
     uint256 DEV_TAX = 1; // 1% of all ether invested
-    // goes into the dev address&#39; affiliate commision
+    // goes into the dev address' affiliate commision
     
     uint256 BASE_PRICE = 0.125 ether; // 1/8 ether
     uint256 INHERITANCE_TAX = 75; // 75% will be returned to the
@@ -124,7 +124,7 @@ contract EtherPiggyBank {
             
             InvestorPosition memory position = investorPositions[i];
 
-            // check that our ref isn&#39;t an investor too
+            // check that our ref isn't an investor too
             if (position.investor == referral) {
                 flaggedRef = true;
             }
@@ -293,7 +293,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

@@ -524,7 +524,7 @@ contract AxieSiringClockAuction is HasNoContracts, HasNoTokens, Pausable {
     return _axieId;
   }
 
-  /// @dev Cancels an auction that hasn&#39;t been won yet.
+  /// @dev Cancels an auction that hasn't been won yet.
   ///  Returns the NFT to original owner.
   /// @notice This is a state-modifying function that can
   ///  be called while the contract is paused.
@@ -573,7 +573,7 @@ contract AxieSiringClockAuction is HasNoContracts, HasNoTokens, Pausable {
 
     // A bit of insurance against negative values (or wraparound).
     // Probably not necessary (since Ethereum guarantees that the
-    // now variable doesn&#39;t ever go backwards).
+    // now variable doesn't ever go backwards).
     if (now > _auction.startedAt) {
       _secondsPassed = now - _auction.startedAt;
     }
@@ -600,13 +600,13 @@ contract AxieSiringClockAuction is HasNoContracts, HasNoTokens, Pausable {
     pure
     returns (uint256)
   {
-    // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+    // NOTE: We don't use SafeMath (or similar) in this function because
     //  all of our external functions carefully cap the maximum values for
     //  time (at 64-bits) and currency (at 128-bits). _duration is
     //  also known to be non-zero (see the require() statement in
     //  _addAuction()).
     if (_secondsPassed >= _duration) {
-      // We&#39;ve reached the end of the dynamic pricing portion
+      // We've reached the end of the dynamic pricing portion
       // of the auction, just return the end price.
       return _endingPrice;
     } else {
@@ -614,7 +614,7 @@ contract AxieSiringClockAuction is HasNoContracts, HasNoTokens, Pausable {
       // this delta can be negative.
       int256 _totalPriceChange = int256(_endingPrice) - int256(_startingPrice);
 
-      // This multiplication can&#39;t overflow, _secondsPassed will easily fit within
+      // This multiplication can't overflow, _secondsPassed will easily fit within
       // 64-bits, and _totalPriceChange will easily fit within 128-bits, their product
       // will always fit within 256-bits.
       int256 _currentPriceChange = _totalPriceChange * int256(_secondsPassed) / int256(_duration);
@@ -684,10 +684,10 @@ contract AxieSiringClockAuction is HasNoContracts, HasNoTokens, Pausable {
     coreContract.transferFrom(this, _receiver, _axieId);
   }
 
-  /// @dev Computes owner&#39;s cut of a sale.
+  /// @dev Computes owner's cut of a sale.
   /// @param _price - Sale price of NFT.
   function _computeCut(uint256 _price) internal view returns (uint256) {
-    // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+    // NOTE: We don't use SafeMath (or similar) in this function because
     //  all of our entry functions carefully cap the maximum values for
     //  currency (at 128-bits), and ownerCut <= 10000 (see the require()
     //  statement in the ClockAuction constructor). The result of this
@@ -710,7 +710,7 @@ contract AxieSiringClockAuction is HasNoContracts, HasNoTokens, Pausable {
     uint256 _price = _getCurrentPrice(_auction);
     uint256 _priceWithFee = _price + incubatorContract.breedingFee();
 
-    // Technically this shouldn&#39;t happen as `_price` fits in 128 bits.
+    // Technically this shouldn't happen as `_price` fits in 128 bits.
     // However, we could set `breedingFee` to a very large number accidentally.
     assert(_priceWithFee >= _price);
 
@@ -721,14 +721,14 @@ contract AxieSiringClockAuction is HasNoContracts, HasNoTokens, Pausable {
     address _seller = _auction.seller;
 
     // The bid is good! Remove the auction before sending the fees
-    // to the sender so we can&#39;t have a reentrancy attack.
+    // to the sender so we can't have a reentrancy attack.
     _removeAuction(_sireId);
 
     // Transfer proceeds to seller (if there are any!)
     if (_price > 0) {
-      //  Calculate the auctioneer&#39;s cut.
+      //  Calculate the auctioneer's cut.
       // (NOTE: _computeCut() is guaranteed to return a
-      //  value <= price, so this subtraction can&#39;t go negative.)
+      //  value <= price, so this subtraction can't go negative.)
       uint256 _auctioneerCut = _computeCut(_price);
       uint256 _sellerProceeds = _price - _auctioneerCut;
 
@@ -738,7 +738,7 @@ contract AxieSiringClockAuction is HasNoContracts, HasNoTokens, Pausable {
       // a contract with an invalid fallback function. We explicitly
       // guard against reentrancy attacks by removing the auction
       // before calling transfer(), and the only thing the seller
-      // can DoS is the sale of their own asset! (And if it&#39;s an
+      // can DoS is the sale of their own asset! (And if it's an
       // accident, they can call cancelAuction().)
       _seller.transfer(_sellerProceeds);
     }

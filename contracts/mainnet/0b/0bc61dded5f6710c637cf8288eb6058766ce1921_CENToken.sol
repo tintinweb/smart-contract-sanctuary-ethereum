@@ -127,8 +127,8 @@ contract Token is SafeMath {
 contract StandardToken is Token ,CENStop{
 
 	function transfer(address _to, uint256 _value) stoppable public returns (bool ind) {
-		//Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-		//If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+		//Default assumes totalSupply can't be over max (2^256 - 1).
+		//If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
 		//Replace the if with this one instead.
 		//if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
 		require(_to!= address(0));

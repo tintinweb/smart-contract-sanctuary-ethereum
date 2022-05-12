@@ -17,7 +17,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -301,7 +301,7 @@ library JobLib {
      * @param _segmentSequenceNumber Segment sequence number in stream
      * @param _dataHash Content-addressed storage hash of segment data
      * @param _transcodedDataHash Content-addressed storage hash of transcoded segment data
-     * @param _broadcasterSig Broadcaster&#39;s signature over segment
+     * @param _broadcasterSig Broadcaster's signature over segment
      */
     function transcodeReceiptHash(
         string _streamId,
@@ -469,7 +469,7 @@ contract Manager is IManager {
  * potentially break the delegate proxy upgradeability mechanism
  */
 contract ManagerProxyTarget is Manager {
-    // Used to look up target contract address in controller&#39;s registry
+    // Used to look up target contract address in controller's registry
     bytes32 public targetContractId;
 }
 
@@ -587,7 +587,7 @@ contract JobsManager is ManagerProxyTarget, IVerifiable, IJobsManager {
     // Time after a transcoder calls claimWork() that it has to complete verification of claimed work
     uint256 public verificationPeriod;
 
-    // Time after a claim&#39;s verification period during which anyone can slash the transcoder for missing a required verification
+    // Time after a claim's verification period during which anyone can slash the transcoder for missing a required verification
     uint256 public verificationSlashingPeriod;
 
     // % of stake slashed for failed verification
@@ -776,7 +776,7 @@ contract JobsManager is ManagerProxyTarget, IVerifiable, IJobsManager {
      * @dev Withdraw deposited funds
      */
     function withdraw() external whenSystemNotPaused {
-        // Can only withdraw at or after the broadcster&#39;s withdraw block
+        // Can only withdraw at or after the broadcster's withdraw block
         require(broadcasters[msg.sender].withdrawBlock <= roundsManager().blockNum());
 
         uint256 amount = broadcasters[msg.sender].deposit;
@@ -897,7 +897,7 @@ contract JobsManager is ManagerProxyTarget, IVerifiable, IJobsManager {
      * @param _segmentNumber Segment sequence number in stream
      * @param _dataStorageHash Content-addressed storage hash of segment data
      * @param _dataHashes Hash of segment data and hash of transcoded segment data
-     * @param _broadcasterSig Broadcaster&#39;s signature over segment hash
+     * @param _broadcasterSig Broadcaster's signature over segment hash
      * @param _proof Merkle proof for transcode receipt
      */
     function verify(
@@ -1153,7 +1153,7 @@ contract JobsManager is ManagerProxyTarget, IVerifiable, IJobsManager {
         uint256 fees = JobLib.calcFees(claim.segmentRange[1].sub(claim.segmentRange[0]).add(1), job.transcodingOptions, job.maxPricePerSegment);
         // Deduct fees from escrow
         job.escrow = job.escrow.sub(fees);
-        // Add fees to transcoder&#39;s fee pool
+        // Add fees to transcoder's fee pool
         bondingManager().updateTranscoderWithFees(msg.sender, fees, job.creationRound);
 
         // Set claim as complete
@@ -1168,10 +1168,10 @@ contract JobsManager is ManagerProxyTarget, IVerifiable, IJobsManager {
      */
     function jobStatus(uint256 _jobId) public view returns (JobStatus) {
         if (jobs[_jobId].endBlock <= roundsManager().blockNum()) {
-            // A job is inactive if the current block is greater than or equal to the job&#39;s end block
+            // A job is inactive if the current block is greater than or equal to the job's end block
             return JobStatus.Inactive;
         } else {
-            // A job is active if the current block is less than the job&#39;s end block
+            // A job is active if the current block is less than the job's end block
             return JobStatus.Active;
         }
     }

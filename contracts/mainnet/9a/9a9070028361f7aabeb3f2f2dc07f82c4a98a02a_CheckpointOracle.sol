@@ -105,7 +105,7 @@ contract CheckpointOracle {
         address lastVoter = address(0);
 
         // In order for us not to have to maintain a mapping of who has already
-        // voted, and we don&#39;t want to count a vote twice, the signatures must
+        // voted, and we don't want to count a vote twice, the signatures must
         // be submitted in strict ordering.
         for (uint idx = 0; idx < v.length; idx++){
             address signer = ecrecover(signedHash, v[idx], r[idx], s[idx]);
@@ -122,7 +122,7 @@ contract CheckpointOracle {
                 return true;
             }
         }
-        // We shouldn&#39;t wind up here, reverting un-emits the events
+        // We shouldn't wind up here, reverting un-emits the events
         revert();
     }
 

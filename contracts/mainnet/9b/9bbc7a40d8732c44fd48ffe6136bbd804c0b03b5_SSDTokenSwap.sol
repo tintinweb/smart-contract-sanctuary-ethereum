@@ -87,7 +87,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -111,7 +111,7 @@ contract SSDTokenSwap is Guarded, Ownable {
     mapping(address => uint256) contributions;          // contributions from public
     uint256 contribCount = 0;
 
-    string public version = &#39;0.1.2&#39;;
+    string public version = '0.1.2';
 
     uint256 public startBlock = 4303063;                // 22nd September 2017, 08:00:00 - 1506067200
     uint256 public endBlock = 4324663;                  // 28nd September 2017, 08:00:00 - 1506585600

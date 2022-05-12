@@ -64,7 +64,7 @@ contract VestingContractWT
     initData(0x41c936C0dC81F0c41b45A0069bc9E1A56F4d12B3, 1806343 * 10**18);
   }
   
-  /// @dev Fallback function: don&#39;t accept ETH
+  /// @dev Fallback function: don't accept ETH
   function()
     public
     payable
@@ -158,7 +158,7 @@ contract VestingContractWT
   }
 
   // ERC223
-  // function in contract &#39;ContractReceiver&#39;
+  // function in contract 'ContractReceiver'
   function tokenFallback(address from, uint value, bytes data) {
     // dummy function
   }

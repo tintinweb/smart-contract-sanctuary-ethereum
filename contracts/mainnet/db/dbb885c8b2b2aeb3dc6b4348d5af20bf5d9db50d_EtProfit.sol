@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -90,7 +90,7 @@ contract EtProfit{
     
     /**
     *The method is called upon an empty payment for the contract, pays the interest on the deposit to the final beneficiary.
-    * A check is made on the funds on the depositor&#39;s account and the time at which he can receive a deposit interest
+    * A check is made on the funds on the depositor's account and the time at which he can receive a deposit interest
     */
     function receivePayment()isIssetRecepient timeCheck private{
         

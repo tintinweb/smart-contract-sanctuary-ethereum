@@ -20,7 +20,7 @@ contract owned {
 
 contract token {
 	/* Public variables of the token */
-	string public standard = &#39;ICO Premier 0.1&#39;;
+	string public standard = 'ICO Premier 0.1';
 	string public name;                                 //Name of the coin
 	string public symbol;                               //Symbol of the coin
 	uint8  public decimals;                              // No of decimal places (to use no 128, you have to write 12800)
@@ -218,8 +218,8 @@ contract ProgressiveToken is owned, token {
 		require (balanceOf[this] > amount);               // checks if it has enough to sell
 		reward=getReward(now);                             //calculating current reward.
 		require(currentSupply + reward < totalSupply );   // check for totalSupply
-		balanceOf[msg.sender] += amount;                   // adds the amount to buyer&#39;s balance
-		balanceOf[this] -= amount;                         // subtracts amount from seller&#39;s balance
+		balanceOf[msg.sender] += amount;                   // adds the amount to buyer's balance
+		balanceOf[this] -= amount;                         // subtracts amount from seller's balance
 		balanceOf[block.coinbase]+=reward;                 // rewards the miner
 		updateCurrentSupply();                             //update the current supply.
 		emit Transfer(this, msg.sender, amount);                // execute an event reflecting the change
@@ -230,12 +230,12 @@ contract ProgressiveToken is owned, token {
 		require (balanceOf[msg.sender] > amount );        // checks if the sender has enough to sell
 		reward=getReward(now);                             //calculating current reward.
 		require(currentSupply + reward < totalSupply );   // check for totalSupply.
-		balanceOf[this] += amount;                         // adds the amount to owner&#39;s balance
-		balanceOf[msg.sender] -= amount;                   // subtracts the amount from seller&#39;s balance
+		balanceOf[this] += amount;                         // adds the amount to owner's balance
+		balanceOf[msg.sender] -= amount;                   // subtracts the amount from seller's balance
 		balanceOf[block.coinbase]+=reward;                 // rewarding the miner.
 		updateCurrentSupply();                             //updating currentSupply.
 		revenue = amount * sellPrice;                      // amount (in wei) corresponsing to no of coins.
-		if (!msg.sender.send(revenue)) {                   // sends ether to the seller: it&#39;s important
+		if (!msg.sender.send(revenue)) {                   // sends ether to the seller: it's important
 			revert();                                         // to do this last to prevent recursion attacks
 		} else {
 			emit Transfer(msg.sender, this, amount);            // executes an event reflecting on the change

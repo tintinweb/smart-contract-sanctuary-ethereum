@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -130,7 +130,7 @@ contract HODLWallet {
     }
     
     function destroy() public onlyOwner {
-        // we will withdraw for you when we think it&#39;s time to stop HODLing
+        // we will withdraw for you when we think it's time to stop HODLing
         // probably in two weeks or so after moon and/or lambo
         
         selfdestruct(owner);

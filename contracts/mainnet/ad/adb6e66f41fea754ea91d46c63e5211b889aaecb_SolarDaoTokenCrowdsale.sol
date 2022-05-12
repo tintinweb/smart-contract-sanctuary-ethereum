@@ -260,7 +260,7 @@ contract SolarDaoTokenCrowdsale is Haltable, SafeMath {
   /// Tokens funding goal in USD cents, if the funding goal is reached, ico will stop
   uint public constant ICO_GOAL = 8e7 * PRICE;
 
-  /// Miminal tokens funding goal in USD cents, if this goal isn&#39;t reached during ICO, refund will begin
+  /// Miminal tokens funding goal in USD cents, if this goal isn't reached during ICO, refund will begin
   uint public constant MIN_ICO_GOAL = 1e7;
 
   /// Percent of bonus tokens team receives from each investment

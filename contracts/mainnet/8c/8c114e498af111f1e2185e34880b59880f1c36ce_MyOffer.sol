@@ -3,7 +3,7 @@ pragma solidity ^0.4.13;
  (token on the most safe Ethereum blockchain) 
 fully supported by Ethereum ecosystem and cryptocurrency exchanges,
 write and deploy smartcontracts inside the ETH blockchain ,
-then I verify your&#39;s coin open-source code with the etherscan Explorer.
+then I verify your's coin open-source code with the etherscan Explorer.
 After  I create the  GitHub brunch for you and
 also add your coin to EtherDelta exchange . 
 The full price is 0.33 ETH or ~60$
@@ -13,7 +13,7 @@ This means you already paid me for the job and I will create the coin for you
 
 if you use myetherwallet.com
 open <<add custom token>>
-Address is this smarcontract&#39;s address
+Address is this smarcontract's address
 Token Symbol is "RomanLanskoj"
 the number of decimals is "2"
 
@@ -39,7 +39,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract token {
     /* Public variables of the token */
-    string public standard = &#39;Token 1.0&#39;;
+    string public standard = 'Token 1.0';
     string public name;
     string public symbol;
     uint8 public decimals;

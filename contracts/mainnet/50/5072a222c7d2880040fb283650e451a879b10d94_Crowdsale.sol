@@ -395,7 +395,7 @@ contract Crowdsale is Pausable, Withdrawable, ERC223Receiving {
         require(step.sale);
 
         canSell[msg.sender] = canSell[msg.sender].sub(_value);
-        token.call(&#39;transfer&#39;, beneficiary, _value);
+        token.call('transfer', beneficiary, _value);
 
         uint sum = _value.mul(step.priceTokenWei).div(1 ether);
 

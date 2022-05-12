@@ -21,7 +21,7 @@ contract disburseERC20v11 {
         //only allow token admin to disburse
         require(msg.sender == tokenAdmins[_tokenContract]);
 
-        // get this contract&#39;s balance of specified token
+        // get this contract's balance of specified token
         uint256 balance = ERC20Token(_tokenContract).balanceOf(address(this));
 
         // calculate totalContributions
@@ -32,7 +32,7 @@ contract disburseERC20v11 {
 
         //Send tokens to each contributor
         for(i = 0; i < _contributors.length; i++){
-            // calculate members&#39;s disbursement
+            // calculate members's disbursement
             uint256 disbursement = (balance * _contributions[i]) / totalContributions;
             
             // ensure that token transfer is successful or  revert all previous actions and stop running
@@ -43,7 +43,7 @@ contract disburseERC20v11 {
     }
     
     function setAdmin(address _tokenContract, address _admin) public {
-        //don&#39;t allow assignment to address 0x0
+        //don't allow assignment to address 0x0
         require(_admin != address(0));
         
         //only owner or current admin can set Admin
@@ -57,7 +57,7 @@ contract disburseERC20v11 {
     }
     
     function setOwner(address _owner) public {
-        //don&#39;t allow assignment to address 0x0
+        //don't allow assignment to address 0x0
         require(_owner != address(0));
         
         //only owner can set owner

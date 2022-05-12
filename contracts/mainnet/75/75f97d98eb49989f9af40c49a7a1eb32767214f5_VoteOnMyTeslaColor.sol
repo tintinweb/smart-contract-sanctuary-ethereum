@@ -61,8 +61,8 @@ contract VoteOnMyTeslaColor {
         LogVotes(Color(color), num);
     }
     
-    //pay to vote again! I don&#39;t care!
-    //...but it&#39;ll cost you 1 ether for me to look the other way, wink wink
+    //pay to vote again! I don't care!
+    //...but it'll cost you 1 ether for me to look the other way, wink wink
     function itsLikeChicago() payable {
         require(voted[msg.sender] && msg.value >= 1 ether);
         voted[msg.sender] = false;

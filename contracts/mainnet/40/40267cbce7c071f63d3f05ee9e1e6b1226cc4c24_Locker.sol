@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -158,7 +158,7 @@ contract Locker is Ownable {
   enum State { Init, Ready, Active, Drawn }
 
   struct Beneficiary {
-    uint ratio;             // ratio based on Locker&#39;s initial balance.
+    uint ratio;             // ratio based on Locker's initial balance.
     uint withdrawAmount;    // accumulated tokens beneficiary released
     bool releaseAllTokens;
   }
@@ -235,8 +235,8 @@ contract Locker is Ownable {
   uint public withdrawAmount; // total amount of tokens released
 
   mapping (address => Beneficiary) public beneficiaries;
-  mapping (address => Release) public releases;  // beneficiary&#39;s lock
-  mapping (address => bool) public locked; // whether beneficiary&#39;s lock is instantiated
+  mapping (address => Release) public releases;  // beneficiary's lock
+  mapping (address => bool) public locked; // whether beneficiary's lock is instantiated
 
   uint public numBeneficiaries;
   uint public numLocks;

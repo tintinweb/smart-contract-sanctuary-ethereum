@@ -114,8 +114,8 @@ contract AirdropToken is BaseToken, Ownable {
 contract CustomToken is BaseToken, AirdropToken {
     constructor() public {
         totalSupply = 10000000000000000000000000000;
-        name = &#39;T0703&#39;;
-        symbol = &#39;T0703&#39;;
+        name = 'T0703';
+        symbol = 'T0703';
         decimals = 18;
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), address(msg.sender), totalSupply);

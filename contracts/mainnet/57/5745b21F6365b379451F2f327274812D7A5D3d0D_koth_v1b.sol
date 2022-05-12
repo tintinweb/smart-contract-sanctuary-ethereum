@@ -44,12 +44,12 @@ contract koth_v1b {
     }
 
     function () payable public {
-        // Current KOTH can&#39;t bet over themselves
+        // Current KOTH can't bet over themselves
         if (msg.sender == koth) {
             return;
         }
 
-        // We&#39;re past the block target, but new game hasn&#39;t been activated
+        // We're past the block target, but new game hasn't been activated
         if (lastBlock > 0 && block.number > lastBlock) {
             msg.sender.transfer(msg.value);
             return;

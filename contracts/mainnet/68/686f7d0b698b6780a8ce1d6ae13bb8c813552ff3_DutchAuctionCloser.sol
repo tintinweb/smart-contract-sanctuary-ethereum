@@ -55,8 +55,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -73,7 +73,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -542,7 +542,7 @@ library FractionMath {
     }
 
     /**
-     * Returns a fraction from two uint256&#39;s. Fits them into uint128 if necessary.
+     * Returns a fraction from two uint256's. Fits them into uint128 if necessary.
      *
      * @param  num  The numerator
      * @param  den  The denominator
@@ -1625,7 +1625,7 @@ contract Vault is StaticAccessControlled
         view
     {
         // The actual balance could be greater than totalBalances[token] because anyone
-        // can send tokens to the contract&#39;s address which cannot be accounted for
+        // can send tokens to the contract's address which cannot be accounted for
         assert(TokenInteract.balanceOf(token, address(this)) >= totalBalances[token]);
     }
 }
@@ -3527,8 +3527,8 @@ library BorrowShared {
         // Move owedTokens from lender to exchange wrapper
         pullOwedTokensFromLender(state, transaction);
 
-        // Sell just the lender&#39;s owedToken (if trader deposit is in heldToken)
-        // Otherwise sell both the lender&#39;s owedToken and the trader&#39;s deposit in owedToken
+        // Sell just the lender's owedToken (if trader deposit is in heldToken)
+        // Otherwise sell both the lender's owedToken and the trader's deposit in owedToken
         uint256 sellAmount = transaction.depositInHeldToken ?
             transaction.lenderAmount :
             transaction.lenderAmount.add(transaction.depositAmount);
@@ -4091,7 +4091,7 @@ library IncreasePositionImpl {
             "IncreasePositionImpl#validateIncrease: Loan callTimeLimit is less than the position"
         );
 
-        // require the position to end no later than the loanOffering&#39;s maximum acceptable end time
+        // require the position to end no later than the loanOffering's maximum acceptable end time
         uint256 positionEndTimestamp = uint256(position.startTimestamp).add(position.maxDuration);
         uint256 offeringEndTimestamp = block.timestamp.add(transaction.loanOffering.maxDuration);
         require(
@@ -4890,7 +4890,7 @@ contract MarginAdmin is Ownable {
  * Contains events for the Margin contract.
  *
  * NOTE: Any Margin function libraries that use events will need to both define the event here
- *       and copy the event into the library itself as libraries don&#39;t support sharing events
+ *       and copy the event into the library itself as libraries don't support sharing events
  */
 contract MarginEvents {
     // ============ Events ============
@@ -5698,7 +5698,7 @@ contract PositionGetters is MarginStorage {
 
     /**
      * Get a Position by id. This does not validate the position exists. If the position does not
-     * exist, all 0&#39;s will be returned.
+     * exist, all 0's will be returned.
      *
      * @param  positionId  Unique ID of the position
      * @return             Addresses corresponding to:
@@ -5916,7 +5916,7 @@ library TransferImpl {
             "TransferImpl#transferLoanImpl: Cannot transfer ownership to self"
         );
 
-        // Doesn&#39;t change the state of positionId; figures out the final owner of loan.
+        // Doesn't change the state of positionId; figures out the final owner of loan.
         // That is, newLender may pass ownership to a different address.
         address finalLender = TransferInternal.grantLoanOwnership(
             positionId,
@@ -5955,7 +5955,7 @@ library TransferImpl {
             "TransferImpl#transferPositionImpl: Cannot transfer ownership to self"
         );
 
-        // Doesn&#39;t change the state of positionId; figures out the final owner of position.
+        // Doesn't change the state of positionId; figures out the final owner of position.
         // That is, newOwner may pass ownership to a different address.
         address finalOwner = TransferInternal.grantPositionOwnership(
             positionId,
@@ -6416,7 +6416,7 @@ contract Margin is
     }
 
     /**
-     * Cancel an amount of a loan offering. Only callable by the loan offering&#39;s payer.
+     * Cancel an amount of a loan offering. Only callable by the loan offering's payer.
      *
      * @param  addresses     Array of addresses:
      *

@@ -205,10 +205,10 @@ contract ERC20Token is admined,ERC20TokenInterface { //Standard definition of an
 * @dev ERC20 Token compliant
 */
 contract CNC is ERC20Token {
-    string public name = &#39;Coinyspace&#39;;
+    string public name = 'Coinyspace';
     uint8 public decimals = 18;
-    string public symbol = &#39;CNC&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'CNC';
+    string public version = '1';
 
     /**
     * @notice token contructor.
@@ -229,7 +229,7 @@ contract CNC is ERC20Token {
 
 
     /**
-    * @notice this contract will revert on direct non-function calls, also it&#39;s not payable
+    * @notice this contract will revert on direct non-function calls, also it's not payable
     * @dev Function to handle callback calls to contract
     */
     function() public {

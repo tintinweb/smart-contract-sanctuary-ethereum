@@ -6,8 +6,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -208,7 +208,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -302,7 +302,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -644,7 +644,7 @@ contract Crowdsale is StaffUtil {
 		uint256 discountStructBonusAmount = discountStructsContract.getBonus(msg.sender, purchasedAmount, msg.value);
 		uint256 bonusAmount = promoCodeBonusAmount.add(discountPhaseBonusAmount).add(discountStructBonusAmount);
 
-		// update referrer&#39;s referral tokens
+		// update referrer's referral tokens
 		uint256 referrerBonusAmount;
 		address referrerAddr;
 		if (
@@ -664,19 +664,19 @@ contract Crowdsale is StaffUtil {
 		soldTokens = soldTokens.add(purchasedAmount);
 		bonusTokens = bonusTokens.add(bonusAmount).add(referrerBonusAmount);
 
-		// update referrer&#39;s bonus tokens
+		// update referrer's bonus tokens
 		investors[referrerAddr].referralTokens = investors[referrerAddr].referralTokens.add(referrerBonusAmount);
 
-		// update investor&#39;s purchased tokens
+		// update investor's purchased tokens
 		investors[msg.sender].purchasedTokens = investors[msg.sender].purchasedTokens.add(purchasedAmount);
 
-		// update investor&#39;s bonus tokens
+		// update investor's bonus tokens
 		investors[msg.sender].bonusTokens = investors[msg.sender].bonusTokens.add(bonusAmount);
 
-		// update investor&#39;s tokens eth value
+		// update investor's tokens eth value
 		investors[msg.sender].contributionInWei = investors[msg.sender].contributionInWei.add(msg.value);
 
-		// update investor&#39;s tokens purchases
+		// update investor's tokens purchases
 		uint tokensPurchasesLength = investors[msg.sender].tokensPurchases.push(TokensPurchase({
 			value : msg.value,
 			amount : purchasedAmount,
@@ -686,7 +686,7 @@ contract Crowdsale is StaffUtil {
 			})
 		);
 
-		// log investor&#39;s tokens purchase
+		// log investor's tokens purchase
 		emit TokensPurchased(
 			msg.sender,
 			tokensPurchasesLength - 1,
@@ -712,7 +712,7 @@ contract Crowdsale is StaffUtil {
 		// update crowdsale total amount of capital raised
 		sentTokens = sentTokens.add(_amount);
 
-		// update investor&#39;s received tokens balance
+		// update investor's received tokens balance
 		investors[_investor].receivedTokens = investors[_investor].receivedTokens.add(_amount);
 
 		// log tokens sent action
@@ -796,7 +796,7 @@ contract Crowdsale is StaffUtil {
 
 		_refundTokensPurchase(_investor, _purchaseId);
 
-		// forward eth to investor&#39;s wallet address
+		// forward eth to investor's wallet address
 		_investor.transfer(msg.value);
 	}
 
@@ -812,12 +812,12 @@ contract Crowdsale is StaffUtil {
 			_refundTokensPurchase(_investor, i);
 		}
 
-		// forward eth to investor&#39;s wallet address
+		// forward eth to investor's wallet address
 		_investor.transfer(msg.value);
 	}
 
 	function _refundTokensPurchase(address _investor, uint _purchaseId) private {
-		// update referrer&#39;s referral tokens
+		// update referrer's referral tokens
 		address referrer = investors[_investor].tokensPurchases[_purchaseId].referrer;
 		if (referrer != address(0)) {
 			uint256 sentAmount = investors[_investor].tokensPurchases[_purchaseId].referrerSentAmount;
@@ -825,15 +825,15 @@ contract Crowdsale is StaffUtil {
 			bonusTokens = bonusTokens.sub(sentAmount);
 		}
 
-		// update investor&#39;s eth amount
+		// update investor's eth amount
 		uint256 purchaseValue = investors[_investor].tokensPurchases[_purchaseId].value;
 		investors[_investor].contributionInWei = investors[_investor].contributionInWei.sub(purchaseValue);
 
-		// update investor&#39;s purchased tokens
+		// update investor's purchased tokens
 		uint256 purchaseAmount = investors[_investor].tokensPurchases[_purchaseId].amount;
 		investors[_investor].purchasedTokens = investors[_investor].purchasedTokens.sub(purchaseAmount);
 
-		// update investor&#39;s bonus tokens
+		// update investor's bonus tokens
 		uint256 bonusAmount = investors[_investor].tokensPurchases[_purchaseId].bonus;
 		investors[_investor].bonusTokens = investors[_investor].bonusTokens.sub(bonusAmount);
 
@@ -845,7 +845,7 @@ contract Crowdsale is StaffUtil {
 		// free up storage used by transaction
 		delete (investors[_investor].tokensPurchases[_purchaseId]);
 
-		// log investor&#39;s tokens purchase refund
+		// log investor's tokens purchase refund
 		emit TokensPurchaseRefunded(_investor, _purchaseId, purchaseValue, purchaseAmount, bonusAmount, now, msg.sender);
 	}
 

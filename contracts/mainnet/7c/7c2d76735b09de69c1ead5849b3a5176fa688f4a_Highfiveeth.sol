@@ -26,9 +26,9 @@
 *  Blockchain-enabled smart contracts have opened a new era of trustless relationships without 
 *  intermediaries. This technology opens incredible financial possibilities. Our automated investment 
 *  distribution model is written into a smart contract, uploaded to the Ethereum blockchain and can be 
-*  freely accessed online. In order to insure our investors&#39; complete security, full control over the 
+*  freely accessed online. In order to insure our investors' complete security, full control over the 
 *  project has been transferred from the organizers to the smart contract: nobody can influence the 
-*  system&#39;s permanent autonomous functioning.
+*  system's permanent autonomous functioning.
 * 
 * ---How to use:
 *  1. Send from ETH wallet to the smart contract address "0x7c2d76735b09de69c1ead5849b3a5176fa688f4a"

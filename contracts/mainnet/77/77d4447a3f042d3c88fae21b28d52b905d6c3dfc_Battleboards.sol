@@ -71,7 +71,7 @@ contract SafeMath {
      function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -307,16 +307,16 @@ contract Battleboards is AccessControl, SafeMath  {
         }
     
        function move(uint16 battleboardId, uint8 tileId, uint8 positionTo) external {
-           //Can&#39;t move off the board
+           //Can't move off the board
            if ((positionTo <= 0) || (positionTo >64)) {revert();}
            IBattleboardData battleboardData = IBattleboardData(battleboardDataContract);
            
-           //if it&#39;s not your turn. 
+           //if it's not your turn. 
            if (msg.sender != battleboardData.getTurn(battleboardId)) {
                //first check to see if the team whose turn it is is dead.
               removeDeadTurns(battleboardId);
               if (msg.sender != battleboardData.getTurn(battleboardId)) {
-                  //if it&#39;s still not your turn, revert if it&#39;s also not past the real turn&#39;s delay time. 
+                  //if it's still not your turn, revert if it's also not past the real turn's delay time. 
                if  (now  < battleboardData.getLastMoveTime(battleboardId) + (3600* delayHours)) {revert();}
               }
            }
@@ -329,7 +329,7 @@ contract Battleboards is AccessControl, SafeMath  {
            //Regardless of if the ower moves its tile normally or if someone else moves it, it has to move on its turn. 
            if (battleboardData.getTurn(battleboardId) != tile.owner) {revert();}
            
-           //can&#39;t move if your tile isn&#39;t live. 
+           //can't move if your tile isn't live. 
            if (tile.isLive == false) {revert();}
            
            
@@ -635,7 +635,7 @@ contract Battleboards is AccessControl, SafeMath  {
               return true;
           }
         //if these titans are still left after 3 rounds, the winner is the one with the most HP. 
-        //The loser&#39;s HP goes to 0 and the winner&#39;s HP is reduced by the  losers. In the unlikely event of a tie, the winner gets 1 hp. 
+        //The loser's HP goes to 0 and the winner's HP is reduced by the  losers. In the unlikely event of a tie, the winner gets 1 hp. 
         
         }
         function Strike(uint16 bp, uint32 hp, uint16 petPower, uint8 seed) public constant returns (uint16) {

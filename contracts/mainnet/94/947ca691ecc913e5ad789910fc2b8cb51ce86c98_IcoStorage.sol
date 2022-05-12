@@ -73,7 +73,7 @@ contract IcoStorage is Ownable {
     struct Project {
         bool isValue; // We now can know this is an initialized struct
         string name; // ICO company name
-        address tokenAddress; // Token&#39;s smart contract address
+        address tokenAddress; // Token's smart contract address
         bool active;    // if true, this contract can be shown
     }
 

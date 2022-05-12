@@ -32,7 +32,7 @@ event Transfer(address indexed from, address indexed to, uint256 value);
 event Approval(address indexed _owner, address indexed spender, uint256 value);
 function Propethy () {
 totalSupply = 1000000000;
-symbol = &#39;PROPT&#39;;
+symbol = 'PROPT';
 owner = 0x44Dc3D5fE23e32C066A0669b2a0FF98f68e1d835;
 balances[owner] = totalSupply;
 decimals = 2;

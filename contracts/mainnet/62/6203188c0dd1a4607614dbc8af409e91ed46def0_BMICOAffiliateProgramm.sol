@@ -114,7 +114,7 @@ contract BMICOAffiliateProgramm {
 
     function checkPartner(address partner_address) constant returns(bool isPartner, string promo){
         isPartner = partnersInfo[partner_address].create;
-        promo = &#39;-1&#39;;
+        promo = '-1';
         if(isPartner){
             promo = partnersInfo[partner_address].promo;
         }
@@ -160,7 +160,7 @@ contract BMICOAffiliateProgramm {
             }
         }
         else{
-            promo = &#39;-1&#39;;
+            promo = '-1';
             attracted_investments = 0;
             h_datetime = new uint256[](0);
             h_invest = new uint256[](0);

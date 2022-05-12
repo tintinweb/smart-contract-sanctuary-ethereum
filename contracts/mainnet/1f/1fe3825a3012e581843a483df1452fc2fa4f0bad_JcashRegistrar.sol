@@ -351,7 +351,7 @@ contract Manageable is OwnableInterface,
 /**
  * @title PausableInterface
  * @dev Base contract which allows children to implement an emergency stop mechanism.
- * @dev Based on zeppelin&#39;s Pausable, but integrated with Manageable
+ * @dev Based on zeppelin's Pausable, but integrated with Manageable
  * @dev Contract is in paused state by default and should be explicitly unlocked
  */
 contract PausableInterface {
@@ -401,7 +401,7 @@ contract PausableInterface {
 /**
  * @title Pausable
  * @dev Base contract which allows children to implement an emergency stop mechanism.
- * @dev Based on zeppelin&#39;s Pausable, but integrated with Manageable
+ * @dev Based on zeppelin's Pausable, but integrated with Manageable
  * @dev Contract is in paused state by default and should be explicitly unlocked
  */
 contract Pausable is ManageableInterface,
@@ -417,7 +417,7 @@ contract Pausable is ManageableInterface,
   /**
    * @dev called by the manager to pause, triggers stopped state
    */
-  function pauseContract() public onlyAllowedManager(&#39;pause_contract&#39;) whenContractNotPaused {
+  function pauseContract() public onlyAllowedManager('pause_contract') whenContractNotPaused {
     paused = true;
     emit PauseEvent();
   }
@@ -425,7 +425,7 @@ contract Pausable is ManageableInterface,
   /**
    * @dev called by the manager to unpause, returns to normal state
    */
-  function unpauseContract() public onlyAllowedManager(&#39;unpause_contract&#39;) whenContractPaused {
+  function unpauseContract() public onlyAllowedManager('unpause_contract') whenContractPaused {
     paused = false;
     emit UnpauseEvent();
   }
@@ -561,13 +561,13 @@ contract JNTPaymentGateway is ManageableInterface,
     uint256 _value
   )
     public
-    onlyAllowedManager(&#39;jnt_payable_service&#39;)
+    onlyAllowedManager('jnt_payable_service')
   {
     CrydrStorageERC20Interface(getCrydrStorageAddress()).transfer(_from, _to, _value);
 
     emit JNTChargedEvent(msg.sender, _from, _to, _value);
-    if (isCrydrViewRegistered(&#39;erc20&#39;) == true) {
-      CrydrViewERC20LoggableInterface(getCrydrViewAddress(&#39;erc20&#39;)).emitTransferEvent(_from, _to, _value);
+    if (isCrydrViewRegistered('erc20') == true) {
+      CrydrViewERC20LoggableInterface(getCrydrViewAddress('erc20')).emitTransferEvent(_from, _to, _value);
     }
   }
 }
@@ -624,7 +624,7 @@ contract JNTPayableService is CommonModifiersInterface,
   )
     external
     onlyContractAddress(_jntController)
-    onlyAllowedManager(&#39;set_jnt_controller&#39;)
+    onlyAllowedManager('set_jnt_controller')
     whenContractPaused
   {
     require(_jntController != address(jntController));
@@ -644,7 +644,7 @@ contract JNTPayableService is CommonModifiersInterface,
   )
     external
     onlyValidJntBeneficiary(_jntBeneficiary)
-    onlyAllowedManager(&#39;set_jnt_beneficiary&#39;)
+    onlyAllowedManager('set_jnt_beneficiary')
     whenContractPaused
   {
     require(_jntBeneficiary != jntBeneficiary);
@@ -665,7 +665,7 @@ contract JNTPayableService is CommonModifiersInterface,
     uint256 _jntPriceWei
   )
     external
-    onlyAllowedManager(&#39;set_action_price&#39;)
+    onlyAllowedManager('set_action_price')
     onlyValidActionName(_actionName)
     whenContractPaused
   {
@@ -852,10 +852,10 @@ contract JcashRegistrar is CommonModifiers,
   }
 
   /**
-   * @dev Fallback function allowing the contract to receive funds, if contract haven&#39;t already been paused.
+   * @dev Fallback function allowing the contract to receive funds, if contract haven't already been paused.
    */
   function () external payable {
-    if (isManagerAllowed(msg.sender, &#39;replenish_eth&#39;)==true) {
+    if (isManagerAllowed(msg.sender, 'replenish_eth')==true) {
       emit ReplenishEthEvent(msg.sender, msg.value);
     } else {
       require (getPaused() == false);
@@ -873,7 +873,7 @@ contract JcashRegistrar is CommonModifiers,
     uint256 _weivalue
   )
     external
-    onlyAllowedManager(&#39;replenish_eth&#39;)
+    onlyAllowedManager('replenish_eth')
     onlyPayloadSize(1 * 32)
   {
     require (_weivalue > 0);
@@ -890,7 +890,7 @@ contract JcashRegistrar is CommonModifiers,
     uint256 _weivalue
   )
     external
-    onlyAllowedManager(&#39;replenish_token&#39;)
+    onlyAllowedManager('replenish_token')
     onlyPayloadSize(2 * 32)
   {
     require (_tokenAddress != address(0x0));
@@ -913,7 +913,7 @@ contract JcashRegistrar is CommonModifiers,
     uint256 _weivalue
   )
     external
-    onlyAllowedManager(&#39;refund_eth&#39;)
+    onlyAllowedManager('refund_eth')
     whenContractNotPaused
     onlyPayloadSize(3 * 32)
   {
@@ -939,7 +939,7 @@ contract JcashRegistrar is CommonModifiers,
     uint256 _weivalue
   )
     external
-    onlyAllowedManager(&#39;refund_token&#39;)
+    onlyAllowedManager('refund_token')
     whenContractNotPaused
     onlyPayloadSize(4 * 32)
   {
@@ -967,7 +967,7 @@ contract JcashRegistrar is CommonModifiers,
     uint256 _weivalue
   )
     external
-    onlyAllowedManager(&#39;transfer_eth&#39;)
+    onlyAllowedManager('transfer_eth')
     whenContractNotPaused
     onlyPayloadSize(3 * 32)
   {
@@ -980,8 +980,8 @@ contract JcashRegistrar is CommonModifiers,
     processedTxs[_txHash] = true;
     _to.transfer(_weivalue);
 
-    if (getActionPrice(&#39;transfer_eth&#39;) > 0) {
-      initChargeJNT(_to, &#39;transfer_eth&#39;);
+    if (getActionPrice('transfer_eth') > 0) {
+      initChargeJNT(_to, 'transfer_eth');
     }
 
     emit TransferEthEvent(_txHash, _to, _weivalue);
@@ -997,7 +997,7 @@ contract JcashRegistrar is CommonModifiers,
     uint256 _weivalue
   )
     external
-    onlyAllowedManager(&#39;transfer_token&#39;)
+    onlyAllowedManager('transfer_token')
     whenContractNotPaused
     onlyPayloadSize(4 * 32)
   {
@@ -1011,8 +1011,8 @@ contract JcashRegistrar is CommonModifiers,
     processedTxs[_txHash] = true;
     CrydrViewERC20Interface(_tokenAddress).transfer(_to, _weivalue);
 
-    if (getActionPrice(&#39;transfer_token&#39;) > 0) {
-      initChargeJNT(_to, &#39;transfer_token&#39;);
+    if (getActionPrice('transfer_token') > 0) {
+      initChargeJNT(_to, 'transfer_token');
     }
 
     emit TransferTokenEvent(_txHash, _tokenAddress, _to, _weivalue);

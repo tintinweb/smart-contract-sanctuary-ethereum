@@ -13,7 +13,7 @@ pragma solidity ^0.4.25;
 // Jackpots: 0.1, 1 and 10 ether
 //
 // Send EXACTLY 0.1 ether to the contract address (other amounts are rejected)
-// Set gas limit to 300&#39;000
+// Set gas limit to 300'000
 //
 // 20% (.02 ether) goes immediately to a random selected passenger
 // 20% (.02 ether) goes to Jackpot 1
@@ -48,7 +48,7 @@ contract TheTrainS {
     // The percentage to distribute (20%)
     uint256 percent = seatprice / 10 * 2;
     
-    // Recording passenger address and it&#39;s gain
+    // Recording passenger address and it's gain
     struct Passenger{
         address passengeraddress;
         uint gain;
@@ -87,7 +87,7 @@ contract TheTrainS {
         // Jackpot 1
         jackpot1 += percent; // Add value to Jackpot 1
         modulo = numbofpassengers % 5; // Every 5 passenger
-        if (modulo == 0) // It&#39;s time to pay Jackpot 1
+        if (modulo == 0) // It's time to pay Jackpot 1
         {
             randomhash = uint256(blockhash(block.number -2));
             winseat = randomhash % numbofpassengers; // can be any seat
@@ -98,7 +98,7 @@ contract TheTrainS {
         // Jackpot 2
         jackpot2 += percent;
         modulo = numbofpassengers % 50; // Every 50 passenger
-        if (modulo == 0) // It&#39;s time to pay Jackpot 2
+        if (modulo == 0) // It's time to pay Jackpot 2
         {
             randomhash = uint256(blockhash(block.number -3));
             winseat = randomhash % numbofpassengers; // can be any seat
@@ -109,7 +109,7 @@ contract TheTrainS {
         // Jackpot 3
         jackpot3 += percent;
         modulo = numbofpassengers % 500; // Every 500 passenger
-        if (modulo == 0) // It&#39;s time to pay Jackpot 3
+        if (modulo == 0) // It's time to pay Jackpot 3
         {
             randomhash = uint256(blockhash(block.number -4));
             winseat = randomhash % numbofpassengers; // can be any seat

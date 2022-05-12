@@ -113,7 +113,7 @@ contract CentWallet {
     }
 
     /**
-     * Debit funds from a user&#39;s balance and add them to the escrow balance.
+     * Debit funds from a user's balance and add them to the escrow balance.
      */
     function debit(
         bytes32[] walletIDs,
@@ -160,7 +160,7 @@ contract CentWallet {
     }
 
     /**
-     * Withdraws funds from this contract, debiting the user&#39;s wallet.
+     * Withdraws funds from this contract, debiting the user's wallet.
      */
     function withdraw(
         bytes32[] walletIDs,

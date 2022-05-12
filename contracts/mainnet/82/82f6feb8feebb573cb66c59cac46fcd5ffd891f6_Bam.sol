@@ -13,7 +13,7 @@ contract Bam {
     // mapping (address => mapping (address => uint256)) public allowance;
     mapping (address => mapping (address => uint256)) allowed;
 
-    string public standard = &#39;Baikal Mining&#39;;
+    string public standard = 'Baikal Mining';
     string public constant name = "Baikal Mining";
     string public constant symbol = "BAM";
     uint   public constant decimals = 18;

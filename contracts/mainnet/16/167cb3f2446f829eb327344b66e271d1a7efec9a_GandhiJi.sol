@@ -37,7 +37,7 @@ G:::::G        G::::G a::::aaaa::::::a  n::::n    n::::nd:::::d     d:::::d  h::
 *The weak can never forgive. Forgiveness is the attribute of the strong.
 *Strength does not come from physical capacity. It comes from an indomitable will.
 *A man is but the product of his thoughts; what he thinks, he becomes.
-*Earth provides enough to satisfy every man&#39;s needs, but not every man&#39;s greed.
+*Earth provides enough to satisfy every man's needs, but not every man's greed.
 *Freedom is not worth having if it does not include the freedom to make mistakes.
 *I will not let anyone walk through my mind with their dirty feet.
 *
@@ -96,7 +96,7 @@ contract GandhiJi {
             // execute
             _;
         } else {
-            // in case the ether count drops low, the ambassador phase won&#39;t reinitiate
+            // in case the ether count drops low, the ambassador phase won't reinitiate
             onlyAmbassadors = false;
             _;    
         }
@@ -217,7 +217,7 @@ contract GandhiJi {
     }
     
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvest()
         onlyhodler()
@@ -318,7 +318,7 @@ contract GandhiJi {
     
     /**
      * Transfer tokens from the caller to a new holder.
-     * Remember, there&#39;s a 10% fee here as well.
+     * Remember, there's a 10% fee here as well.
      */
     function transfer(address _toAddress, uint256 _amountOfTokens)
         onlybelievers ()
@@ -582,7 +582,7 @@ contract GandhiJi {
             _fee = _dividends * magnitude;
         }
         
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
             
             // add tokens to the pool
@@ -614,7 +614,7 @@ contract GandhiJi {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum)
@@ -706,7 +706,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

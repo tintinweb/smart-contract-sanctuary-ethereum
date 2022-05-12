@@ -53,7 +53,7 @@ contract AuthorisedContractBase is HorizonContractBase {
     mapping(address => bool) public authorised;
 
     /**
-     * @notice Notify interested parties when an account&#39;s status changes.
+     * @notice Notify interested parties when an account's status changes.
      */
     event AuthorisationChanged(address indexed who, bool isAuthorised);
 
@@ -121,7 +121,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -155,7 +155,7 @@ library SafeMath {
  *   NOTE: There is no fallback function as this contract will never contain Ether, only the VOX tokens.
  *   NOTE: There is no approveAndCall/receiveApproval or ERC223 functionality.
  *   NOTE: Coins will never be minted beyond those at contract creation.
- *   NOTE: Zero transfers are allowed - we don&#39;t want to break a valid transaction chain.
+ *   NOTE: Zero transfers are allowed - we don't want to break a valid transaction chain.
  *   NOTE: There is no selfDestruct, changeOwner or migration path - this is the only contract.
  */
 
@@ -194,7 +194,7 @@ contract VOXToken is ERC20Interface, AuthorisedContractBase {
     // KYC submission hashes accepted by KYC service provider for AML/KYC review.
     bytes32[] public kycHashes;
 
-    // Addresses authorized to transfer tokens on an account&#39;s behalf.
+    // Addresses authorized to transfer tokens on an account's behalf.
     mapping (address => mapping (address => uint256)) internal allowanceCollection;
 
     // Lookup an ICO/TGE Contributor address to see if it was referred by another address (referee => referrer).
@@ -245,12 +245,12 @@ contract VOXToken is ERC20Interface, AuthorisedContractBase {
     }
 
     /**
-     * Get the current allowanceCollection that the approver has allowed &#39;spender&#39; to spend on their behalf.
+     * Get the current allowanceCollection that the approver has allowed 'spender' to spend on their behalf.
      *
      * See also: approve() and transferFrom().
      *
      * @param _approver  The account that owns the tokens.
-     * @param _spender   The account that can spend the approver&#39;s tokens.
+     * @param _spender   The account that can spend the approver's tokens.
      */
     function allowance(address _approver, address _spender) public view returns (uint256) {
         return allowanceCollection[_approver][_spender];
@@ -279,7 +279,7 @@ contract VOXToken is ERC20Interface, AuthorisedContractBase {
     }
 
     /**
-     * Transfer tokens from the caller&#39;s account to the recipient.
+     * Transfer tokens from the caller's account to the recipient.
      *
      * @param to    The address of the recipient.
      * @param value The number of tokens to send.
@@ -357,7 +357,7 @@ contract VOXToken is ERC20Interface, AuthorisedContractBase {
      * This storage will be cleared once the ICO completes, see closeIco().
      *
      * ---- ICO-Platform Note ----
-     * The horizon-globex.com ICO platform&#39;s KYC app will register a hash of the Contributors
+     * The horizon-globex.com ICO platform's KYC app will register a hash of the Contributors
      * KYC submission on the blockchain. Our Swiss financial-intermediary KYC provider will be 
      * notified of the submission and retrieve the Contributor data for formal review.
      *
@@ -379,14 +379,14 @@ contract VOXToken is ERC20Interface, AuthorisedContractBase {
      * This will be cleared once the ICO completes, see closeIco().
      *
      * ---- ICO-Platform Note ----
-     * The horizon-globex.com ICO platform&#39;s registered KYC provider submits their approval
+     * The horizon-globex.com ICO platform's registered KYC provider submits their approval
      * for this Contributor to particpate using the ICO-Platform portal. 
      *
      * Each Contributor will then be sent the Ethereum, Bitcoin and IBAN account numbers to
      * deposit their Approved Contribution in exchange for VOX Tokens.
      * -- End ICO-Platform Note --
      *
-     * @param who   The user&#39;s address.
+     * @param who   The user's address.
      */
     function kycApproved(address who) public onlyKycProvider {
         require(!isIcoComplete, "The ICO phase has ended, you can no longer approve.");
@@ -425,7 +425,7 @@ contract VOXToken is ERC20Interface, AuthorisedContractBase {
      * When someone referred (the referee) purchases tokens the referrer gets a 1% bonus from the central pool.
      *
      * ---- ICO-Platform Note ----
-     * The horizon-globex.com ICO platform&#39;s portal shall award referrers as part of the ICO
+     * The horizon-globex.com ICO platform's portal shall award referrers as part of the ICO
      * VOX Token issuance procedure as overseen by the Swiss KYC provider. 
      *
      * -- End ICO-Platform Note --
@@ -446,7 +446,7 @@ contract VOXToken is ERC20Interface, AuthorisedContractBase {
      * During the ICO phase the owner will allocate tokens once KYC completes and funds are deposited.
      *
      * ---- ICO-Platform Note ----
-     * The horizon-globex.com ICO platform&#39;s portal shall issue VOX Token to Contributors on receipt of 
+     * The horizon-globex.com ICO platform's portal shall issue VOX Token to Contributors on receipt of 
      * the Approved Contribution funds at the KYC providers Escrow account/wallets.
      * Only after VOX Tokens are issued to the Contributor can the Swiss KYC provider allow the transfer
      * of funds from their Escrow to Company.
@@ -476,7 +476,7 @@ contract VOXToken is ERC20Interface, AuthorisedContractBase {
      * End the ICO phase in accordance with KYC procedures and clean up.
      *
      * ---- ICO-Platform Note ----
-     * The horizon-globex.com ICO platform&#39;s portal shall halt the ICO at the end of the 
+     * The horizon-globex.com ICO platform's portal shall halt the ICO at the end of the 
      * Contribution Period, as defined in the ICO Terms and Conditions https://talketh.io/Terms.
      *
      * -- End ICO-Platform Note --

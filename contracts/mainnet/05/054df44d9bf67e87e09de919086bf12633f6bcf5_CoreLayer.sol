@@ -57,7 +57,7 @@ contract DataLayer{
     /**
     * groups1     scores of the first half of matches (8 bits each)
     * groups2     scores of the second half of matches (8 bits each)
-    * brackets    winner&#39;s team ids of each round (5 bits each)
+    * brackets    winner's team ids of each round (5 bits each)
     * timeStamp   creation timestamp
     * extra       number of yellow and red cards (16 bits each)
     */
@@ -207,7 +207,7 @@ contract AccessControlLayer is DataLayer{
     }
 
     /**
-    * @dev Transfer contract&#39;s ownership
+    * @dev Transfer contract's ownership
     * @param _newAdmin Address to be set
     */
     function setAdmin(address _newAdmin) external onlyAdmin {
@@ -411,7 +411,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

@@ -395,7 +395,7 @@ contract Pausable is Ownable {
 //
 // Public key scripts `pk_script` are set on the output and can
 // take a number of forms. The regular transaction script is
-// called &#39;pay-to-pubkey-hash&#39; (P2PKH):
+// called 'pay-to-pubkey-hash' (P2PKH):
 //
 // OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 //
@@ -413,9 +413,9 @@ contract Pausable is Ownable {
 // pubKeyHash, plus a checksum at the end.  The checksum is the first 4 bytes
 // of the (32 byte) double sha256 of the pubKeyHash. (25 bytes total)
 // This is converted to base58 to form the publicly used Bitcoin address.
-// Mainnet P2PKH transaction scripts are to addresses beginning with &#39;1&#39;.
+// Mainnet P2PKH transaction scripts are to addresses beginning with '1'.
 //
-// P2SH (&#39;pay to script hash&#39;) scripts only supply a script hash. The spender
+// P2SH ('pay to script hash') scripts only supply a script hash. The spender
 // must then provide the script that would allow them to redeem this output.
 // This allows for arbitrarily complex scripts to be funded using only a
 // hash of the script, and moves the onus on providing the script from
@@ -430,7 +430,7 @@ contract Pausable is Ownable {
 // The <scriptHash> is the ripemd160 hash of the sha256 hash of the
 // redeem script. The P2SH address is derived from the scriptHash.
 // Addresses are the scriptHash with a version prefix of 5, encoded as
-// Base58check. These addresses begin with a &#39;3&#39;.
+// Base58check. These addresses begin with a '3'.
 
 
 
@@ -526,7 +526,7 @@ library BTC {
     // scan the inputs and find the script lengths.
     // return an array of script lengths and the end position
     // of the inputs.
-    // takes a &#39;stop&#39; argument which sets the maximum number of
+    // takes a 'stop' argument which sets the maximum number of
     // outputs to scan through. stop=0 => scan all.
     function scanInputs(bytes txBytes, uint pos, uint stop)
              returns (uint[], uint)
@@ -557,7 +557,7 @@ library BTC {
     // scan the outputs and find the values and script lengths.
     // return array of values, array of script lengths and the
     // end position of the outputs.
-    // takes a &#39;stop&#39; argument which sets the maximum number of
+    // takes a 'stop' argument which sets the maximum number of
     // outputs to scan through. stop=0 => scan all.
     function scanOutputs(bytes txBytes, uint pos, uint stop)
              returns (uint[], uint[], uint[], uint)
@@ -653,7 +653,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -675,8 +675,8 @@ contract PricingStrategy{
 
 	/**
 	returns the base discount value
-	@param  currentsupply is a &#39;current supply&#39; value
-	@param  contribution  is &#39;sent by the contributor&#39;
+	@param  currentsupply is a 'current supply' value
+	@param  contribution  is 'sent by the contributor'
 	@return   an integer for getting the discount value of the base discounts
 	**/
 	function baseDiscounts(uint256 currentsupply,uint256 contribution,string types) returns (uint256){
@@ -704,7 +704,7 @@ contract PricingStrategy{
 	
 	These are the base discounts offered by the sunMOneyToken
 	These are valid ffor every value sent to the contract
-	@param   contribution is a &#39;the value sent in wei by the contributor in ethereum&#39;
+	@param   contribution is a 'the value sent in wei by the contributor in ethereum'
 	@return  the discount
 	**/
 	function volumeDiscounts(uint256 contribution,string types) returns (uint256){
@@ -737,8 +737,8 @@ contract PricingStrategy{
 
 	/**returns the total discount value**/
 	/**
-	@param  currentsupply is a &#39;current supply&#39;
-	@param  contribution is a &#39;sent by the contributor&#39;
+	@param  currentsupply is a 'current supply'
+	@param  contribution is a 'sent by the contributor'
 	@return   an integer for getting the total discounts
 	**/
 	function totalDiscount(uint256 currentsupply,uint256 contribution,string types) returns (uint256){

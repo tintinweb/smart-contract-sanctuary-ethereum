@@ -83,8 +83,8 @@ contract ERC20
 
 contract IzubrToken is Ownable, ERC20, SafeMath 
 {
-    string  public constant standard    = &#39;Token 0.1&#39;;
-    string  public constant name        = &#39;Izubr&#39;;
+    string  public constant standard    = 'Token 0.1';
+    string  public constant name        = 'Izubr';
     string  public constant symbol      = "IZR";
     uint8   public constant decimals    = 18;
     uint256 public constant tokenKoef = 1000000000000000000;

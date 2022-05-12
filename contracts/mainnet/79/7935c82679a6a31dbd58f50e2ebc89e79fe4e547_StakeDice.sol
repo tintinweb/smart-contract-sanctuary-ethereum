@@ -151,7 +151,7 @@ contract StakeDice
         require(_amount >= minimumBet);
         require(_amount <= StakeDiceGame(gameContract).maximumBet());
         
-        // Tranfer the STAKE tokens from the user&#39;s account to the StakeDice contract
+        // Tranfer the STAKE tokens from the user's account to the StakeDice contract
         stakeTokenContract.transferFrom(msg.sender, this, _amount);
         
         
@@ -173,7 +173,7 @@ contract StakeDice
         uint256 betIndex = betsLength;
         Bet storage bet = bets[betIndex];
         require(bet.status == BetStatus.IN_PROGRESS);
-        // Now that we have generated a random number, let&#39;s use it..
+        // Now that we have generated a random number, let's use it..
         uint randomNumber = uint8(uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty)))%100);
        
         // Store the roll in the blockchain permanently
@@ -182,7 +182,7 @@ contract StakeDice
         // If the random number is smaller than the winningChance, the gambler won!
         if (randomNumber < bet.winningChance/100)
         {
-            // If we somehow don&#39;t have enough tokens to payout their winnings,
+            // If we somehow don't have enough tokens to payout their winnings,
             // cancel the bet and refund the gambler automatically
             if (stakeTokenContract.balanceOf(this) < bet.potentialRevenue)
             {
@@ -295,7 +295,7 @@ contract StakeDice
         addNewStakeDiceGame(9500); // 95% chance
     }
     
-    // Allow the owner to cancel a bet when it&#39;s in progress.
+    // Allow the owner to cancel a bet when it's in progress.
     // This will probably never be needed, but it might some day be needed
     // to refund people if oraclize is not responding.
     function cancelBet(uint256 _betIndex) public

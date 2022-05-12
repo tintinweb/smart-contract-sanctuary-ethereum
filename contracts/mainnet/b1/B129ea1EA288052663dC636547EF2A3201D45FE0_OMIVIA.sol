@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;OMIVIA&#39; token contract
+// 'OMIVIA' token contract
 //
 // Deployed to : 0x1e7FAA7b4a62f2F5844c3d5823b70350DEb3C824
 // Symbol      : OVA

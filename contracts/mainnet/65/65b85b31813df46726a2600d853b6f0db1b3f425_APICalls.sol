@@ -64,7 +64,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -266,7 +266,7 @@ contract APIRegistry is Ownable {
         // make sure input params are valid
         require(pricePerCall != 0 && sellerUsername != "" && apiName != "" && bytes(hostname).length != 0);
         
-        // make sure the name isn&#39;t already taken
+        // make sure the name isn't already taken
         require(apiIds[hostname] == 0);
 
         numApis += 1;
@@ -283,14 +283,14 @@ contract APIRegistry is Ownable {
     }
 
     // ------------------------------------------------------------------------
-    // Get the ID number of an API given it&#39;s hostname
+    // Get the ID number of an API given it's hostname
     // ------------------------------------------------------------------------
     function getApiId(string hostname) public view returns (uint) {
         return apiIds[hostname];
     }
 
     // ------------------------------------------------------------------------
-    // Get info stored for the API but without the dynamic members, because solidity can&#39;t return dynamics to other smart contracts yet
+    // Get info stored for the API but without the dynamic members, because solidity can't return dynamics to other smart contracts yet
     // ------------------------------------------------------------------------
     function getApiByIdWithoutDynamics(
         uint apiId
@@ -420,7 +420,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -500,7 +500,7 @@ contract DeconetToken is StandardToken, Ownable, Pausable {
         balances[msg.sender] = totalSupply_;
         Transfer(address(0), msg.sender, totalSupply_);
 
-        // pause contract until we&#39;re ready to allow transfers
+        // pause contract until we're ready to allow transfers
         paused = true;
     }
 
@@ -668,7 +668,7 @@ contract APICalls is Ownable {
         version = 1;
 
         // default token reward of 100 tokens.  
-        // token has 18 decimal places so that&#39;s why 100 * 10^18
+        // token has 18 decimal places so that's why 100 * 10^18
         tokenReward = 100 * 10**18;
 
         // default saleFee of 10%
@@ -821,7 +821,7 @@ contract APICalls is Ownable {
 
         (pricePerCall, sellerUsername, apiName, sellerAddress) = apiRegistry.getApiByIdWithoutDynamics(apiId);
 
-        // make sure it&#39;s a legit real api
+        // make sure it's a legit real api
         require(pricePerCall != 0 && sellerUsername != "" && apiName != "" && sellerAddress != address(0));
 
         uint buyerPaid = processSalesForSingleBuyer(apiId, buyerAddress);
@@ -871,7 +871,7 @@ contract APICalls is Ownable {
 
         (pricePerCall, sellerUsername, apiName, sellerAddress) = apiRegistry.getApiByIdWithoutDynamics(apiId);
 
-        // make sure it&#39;s a legit real api
+        // make sure it's a legit real api
         require(pricePerCall != 0 && sellerUsername != "" && apiName != "" && sellerAddress != address(0));
 
         // calculate totalPayable for the api
@@ -880,7 +880,7 @@ contract APICalls is Ownable {
         (totalPayable, totalBuyers) = processSalesForAllBuyers(apiId);
 
         if (totalPayable == 0) {
-            return; // if there&#39;s nothing to pay, we are done here.
+            return; // if there's nothing to pay, we are done here.
         }
 
         // calculate fee and payout
@@ -1028,9 +1028,9 @@ contract APICalls is Ownable {
 
     // ------------------------------------------------------------------------
     // function to let the buyer set their approved amount of wei per second for an api
-    // this function also lets the buyer set the time they last paid for an API if they&#39;ve never paid that API before.  
+    // this function also lets the buyer set the time they last paid for an API if they've never paid that API before.  
     // this is important because the total amount approved for a given transaction is based on a wei per second spending limit
-    // but the smart contract doesn&#39;t know when the buyer started using the API
+    // but the smart contract doesn't know when the buyer started using the API
     // so with this function, a buyer can et the time they first used the API and the approved amount calculations will be accurate when the seller requests payment.
     // ------------------------------------------------------------------------
     function approveAmountAndSetFirstUseTime(
@@ -1064,7 +1064,7 @@ contract APICalls is Ownable {
     }
 
     // ------------------------------------------------------------------------
-    // Reward user with tokens IF the contract has them in it&#39;s allowance
+    // Reward user with tokens IF the contract has them in it's allowance
     // ------------------------------------------------------------------------
     function rewardTokens(address toReward, uint amount) private {
         DeconetToken token = DeconetToken(tokenContractAddress);
@@ -1219,13 +1219,13 @@ contract APICalls is Ownable {
             buyer.overdrafted = true;
             buyer.lifetimeOverdraftCount += 1;
 
-            // does buyer have more credits than the amount they&#39;ve approved?
+            // does buyer have more credits than the amount they've approved?
             if (buyer.credits >= approvedAmountSinceLastPayout) {
                 // they have enough credits to pay approvedAmountSinceLastPayout, so pay that
                 paid = approvedAmountSinceLastPayout;
 
             } else {
-                // the don&#39;t have enough credits to pay approvedAmountSinceLastPayout
+                // the don't have enough credits to pay approvedAmountSinceLastPayout
                 // so just pay whatever credits they have
                 paid = buyer.credits;
             }

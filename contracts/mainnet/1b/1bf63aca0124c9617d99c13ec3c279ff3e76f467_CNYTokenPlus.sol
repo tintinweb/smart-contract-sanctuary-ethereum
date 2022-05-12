@@ -22,7 +22,7 @@ pragma solidity ^0.4.23;
    function div(uint256 a, uint256 b) internal returns (uint256) {
      // assert(b > 0); // Solidity automatically revert()s when dividing by 0
      // uint256 c = a / b;
-     // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+     // assert(a == b * c + a % b); // There is no case in which this doesn't hold
      return a / b;
    }
 
@@ -286,7 +286,7 @@ contract CNYTokenPlus is PausableToken {
   string public symbol = "CNYt⁺";
   uint8 public decimals = 18;
   uint public totalSupply = 100000000000000000000000000;
-  string public version = &#39;CNYt⁺ 2.0&#39;;
+  string public version = 'CNYt⁺ 2.0';
   // The nonce for avoid transfer replay attacks
   mapping(address => uint256) nonces;
 
@@ -307,7 +307,7 @@ contract CNYTokenPlus is PausableToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply = totalSupply.sub(_value);
@@ -316,7 +316,7 @@ contract CNYTokenPlus is PausableToken {
   }
 
   /*
-   * Proxy transfer HC token. When some users of the ethereum account don&#39;t have ether,
+   * Proxy transfer HC token. When some users of the ethereum account don't have ether,
    * Who can authorize the agent for broadcast transactions, the agents may charge fees
    * @param _from
    * @param _to

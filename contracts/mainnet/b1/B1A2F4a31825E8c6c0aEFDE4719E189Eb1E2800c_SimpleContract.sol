@@ -45,9 +45,9 @@ contract Crowdsale is owned {
 }
 contract Token is Crowdsale {
     
-    string  public standard    = &#39;Token 0.1&#39;;
-    string  public name        = &#39;SocCoin&#39;;
-    string  public symbol      = &#39;SCN&#39;;
+    string  public standard    = 'Token 0.1';
+    string  public name        = 'SocCoin';
+    string  public symbol      = 'SCN';
     uint8   public decimals    = 18;
     
     function Token() payable Crowdsale() {}

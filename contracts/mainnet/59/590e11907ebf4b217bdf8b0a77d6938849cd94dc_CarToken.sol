@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -95,8 +95,8 @@ contract Token {
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -151,9 +151,9 @@ contract CarToken is StandardToken { // CHANGE THIS. Update the contract name.
     string public name;                   // Token Name
     uint8 public decimals;                // How many decimals to show. here 18
     string public symbol;                 // An identifier: eg CAR etc..
-    string public version = &#39;H1.0&#39;; 
+    string public version = 'H1.0'; 
     uint256 public unitsOneEthCanBuy;     // How many units of your coin can be bought by 1 ETH?
-    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.  
+    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.  
     address public fundsWallet;           // Where should the raised ETH go?
 
     // This is a constructor function 
@@ -161,9 +161,9 @@ contract CarToken is StandardToken { // CHANGE THIS. Update the contract name.
     function CarToken() {
         balances[msg.sender] = 300000000000000000000000000;               // Give the creator all initial tokens. This is set to 300MLN for example. If you want your initial tokens to be X and your decimal is 5, set this value to X * 100000. 
         totalSupply = 300000000000000000000000000;                        // Update total supply (300MLN for example)
-        name = &#39;Car Token&#39;;                                   // The name for display purposes 
+        name = 'Car Token';                                   // The name for display purposes 
         decimals = 18;                                               // Amount of decimals for display purposes 
-        symbol = &#39;CAR&#39;;                                             // Set the symbol for display purposes 
+        symbol = 'CAR';                                             // Set the symbol for display purposes 
         unitsOneEthCanBuy = 4000;                                      // The price of CAR token for the ICO 
         fundsWallet = msg.sender;                                    // The owner of the contract gets ETH
     }
@@ -187,7 +187,7 @@ contract CarToken is StandardToken { // CHANGE THIS. Update the contract name.
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { throw; }

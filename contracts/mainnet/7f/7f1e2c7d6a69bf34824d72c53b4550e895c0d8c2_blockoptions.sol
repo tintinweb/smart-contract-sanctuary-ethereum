@@ -62,7 +62,7 @@ contract blockoptions is ERC20
       //map to store BOPT balance corresponding to address
       mapping(address => uint) balances;
     
-      //To store spender with allowed amount of BOPT to spend corresponding to BOPTs holder&#39;s account
+      //To store spender with allowed amount of BOPT to spend corresponding to BOPTs holder's account
       mapping (address => mapping (address => uint)) allowed;
     
       //owner variable to store contract owner account
@@ -77,7 +77,7 @@ contract blockoptions is ERC20
         _;
     }
     
-      //ownership can be transferred to provided newOwner. Function can only be initiated by contract owner&#39;s account
+      //ownership can be transferred to provided newOwner. Function can only be initiated by contract owner's account
       function transferOwnership(address newOwner) onlyOwner {
           balances[newOwner] = balances[owner];
           balances[owner]=0;
@@ -179,7 +179,7 @@ contract blockoptions is ERC20
         if (_value > 0) {
           //Get amount of BOP for which spender is authorized
           var _allowance = allowed[_from][msg.sender];
-          //Add amount of BOP in target account&#39;s balance
+          //Add amount of BOP in target account's balance
           balances[_to] = Add(balances[_to], _value);
           //Deduct BOPT amount from _from account
           balances[_from] = Sub(balances[_from], _value);
@@ -206,7 +206,7 @@ contract blockoptions is ERC20
         return true;
       }
       
-      //Get BOP amount that spender can spend from provided owner&#39;s account 
+      //Get BOP amount that spender can spend from provided owner's account 
       function allowance(address _owner, address _spender) constant returns (uint remaining) {
         return allowed[_owner][_spender];
       }

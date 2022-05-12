@@ -19,7 +19,7 @@ contract AssetInterface {
  * Receives calls from the proxy, and calls back immediatly without arguments modification.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract Asset is AssetInterface {
     // Assigned asset proxy contract, immutable.
@@ -276,12 +276,12 @@ contract AssetWithWhitelist is AssetWithAmbi {
 
     event Error(bytes32 _errorText);
 
-    function allowTransferFrom(address _from) onlyRole(&#39;admin&#39;) returns(bool) {
+    function allowTransferFrom(address _from) onlyRole('admin') returns(bool) {
         whitelist[_from] = true;
         return true;
     }
 
-    function blockTransferFrom(address _from) onlyRole(&#39;admin&#39;) returns(bool) {
+    function blockTransferFrom(address _from) onlyRole('admin') returns(bool) {
         whitelist[_from] = false;
         return true;
     }
@@ -290,26 +290,26 @@ contract AssetWithWhitelist is AssetWithAmbi {
         return restrictionRemoved || whitelist[_from] || (now >= restrictionExpiraton);
     }
 
-    function removeRestriction() onlyRole(&#39;admin&#39;) returns(bool) {
+    function removeRestriction() onlyRole('admin') returns(bool) {
         restrictionRemoved = true;
         return true;
     }
 
     modifier transferAllowed(address _sender) {
         if (!transferIsAllowed(_sender)) {
-            Error(&#39;Transfer not allowed&#39;);
+            Error('Transfer not allowed');
             return;
         }
         _;
     }
 
-    function setExpiration(uint _time) onlyRole(&#39;admin&#39;) returns(bool) {
+    function setExpiration(uint _time) onlyRole('admin') returns(bool) {
         if (restrictionExpiraton != 0) {
-            Error(&#39;Expiration time already set&#39;);
+            Error('Expiration time already set');
             return false;
         }
         if (_time < now) {
-            Error(&#39;Expiration time invalid&#39;);
+            Error('Expiration time invalid');
             return false;
         }
         restrictionExpiraton = _time;

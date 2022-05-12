@@ -55,8 +55,8 @@ contract HelpingBlocksContract is Ownable {
      * Initializes contract with initial supply tokens to the creator of the contract
      */
     constructor() public {
-        name = &#39;Helping Blocks Token&#39;;
-        symbol = &#39;HBT&#39;;
+        name = 'Helping Blocks Token';
+        symbol = 'HBT';
         decimals = 0;
         totalSupply = 10000000;
         description = "Kerala Flood Relief Fund";

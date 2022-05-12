@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;EnergyShellfish&#39;;
-        symbol = &#39;ES&#39;;
+        name = 'EnergyShellfish';
+        symbol = 'ES';
         decimals = 18;
         balanceOf[0xe1f77b81a2383162cbbdd0dd93630f31a6672477] = totalSupply;
         Transfer(address(0), 0xe1f77b81a2383162cbbdd0dd93630f31a6672477, totalSupply);

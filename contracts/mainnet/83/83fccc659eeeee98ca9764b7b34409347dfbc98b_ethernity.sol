@@ -34,7 +34,7 @@ You can check your payments in the "Internal Txns" tab of your wallet.
 
 The recommended gas limits: 100 000, actual gas price can you take with ethgasstation.info
 
-Warning: It&#39;s allowed only from your personal ETH wallet, for which you have private keys.
+Warning: It's allowed only from your personal ETH wallet, for which you have private keys.
 
 Payments will continue while there are funds on the balance of the smart contract. 
 */

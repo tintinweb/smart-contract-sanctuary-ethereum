@@ -90,8 +90,8 @@ contract AirdropToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, AirdropToken {
     function CustomToken() public {
         totalSupply = 20000000000000000000000000000;
-        name = &#39;DuduTechnology&#39;;
-        symbol = &#39;DUDU&#39;;
+        name = 'DuduTechnology';
+        symbol = 'DUDU';
         decimals = 18;
         balanceOf[0x828db0897afec00e04d77b4879082bcb7385a76a] = totalSupply;
         Transfer(address(0), 0x828db0897afec00e04d77b4879082bcb7385a76a, totalSupply);

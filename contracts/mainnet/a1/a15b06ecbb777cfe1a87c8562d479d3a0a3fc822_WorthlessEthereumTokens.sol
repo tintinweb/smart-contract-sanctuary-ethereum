@@ -10,7 +10,7 @@ pragma solidity ^0.4.21;
 // TOKEN DISTRIBUTION
 //-------------------
 // The token distribution for WET is simple. For every 0.01 ETH sent, the contract will 
-// return 100.0 WET. That&#39;s 10000x as many worthless tokens!
+// return 100.0 WET. That's 10000x as many worthless tokens!
 //
 //-------------------
 // BONUS TOKENS
@@ -764,7 +764,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -806,7 +806,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -951,7 +951,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -961,7 +961,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -993,7 +993,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1016,7 +1016,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1048,15 +1048,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1093,13 +1093,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1138,7 +1138,7 @@ contract EIP20Interface {
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 }
 
-// It may be a mess, but it&#39;s my worthless mess
+// It may be a mess, but it's my worthless mess
 contract WorthlessEthereumTokens is EIP20Interface, usingOraclize, Ownable {
 
     uint256 constant private MAX_UINT256 = 2**256 - 1;
@@ -1154,7 +1154,7 @@ contract WorthlessEthereumTokens is EIP20Interface, usingOraclize, Ownable {
     uint256 public startDate = 1521788400; // Starts 03/23/18 12:00:00 AM PDT
     uint256 public endDate = 1522609199; // Ends 04/01/18 11:59:59 PM PDT
     uint256 public freeTokenTime = 1521786600; // Free token time starts 03/22/18 11:30:00 PM PDT
-    uint256 public totalContribution; // Tracks total ETH you&#39;ve given me
+    uint256 public totalContribution; // Tracks total ETH you've given me
     uint256 public totalBonusTokens; // Tracks the total amount of bonus worthless tokens distributed
     uint256 public totalFreeTokensDistributed; // Tracks the total amount of free tokens given away to the first 1,000 unique addresses
     uint public lastBonusMultiplier; // Tracks the latest multiplier of the latest bonus-winning transaction
@@ -1170,7 +1170,7 @@ contract WorthlessEthereumTokens is EIP20Interface, usingOraclize, Ownable {
     
     // This modifier is attached to the function that gives away free WET and is used to ensure each unique address can only claim free tokens once
     modifier newUsers() {
-        require(now >= freeTokenTime); // Checks to make sure it&#39;s free taco time
+        require(now >= freeTokenTime); // Checks to make sure it's free taco time
         require(newUser[msg.sender] == 0); // Checks if the address is new
         require(users < 1000); // Checks if the total amount of free claims is less than 1,000
         _;
@@ -1198,15 +1198,15 @@ contract WorthlessEthereumTokens is EIP20Interface, usingOraclize, Ownable {
     
     // This function is used to purchase new WET
     function() payable purchasingAllowed {
-        randomNumber += uint256(keccak256(now)) % 99999; // Okay seriously, I hope this makes it somewhat more random? I&#39;m new to this whole thing
+        randomNumber += uint256(keccak256(now)) % 99999; // Okay seriously, I hope this makes it somewhat more random? I'm new to this whole thing
         totalContribution += msg.value; // Adds the amount of ETH sent to the total contribution
-        uint256 tokensIssued = (msg.value * 10000); // Multiplies the amount of ETH sent by 10000 (that&#39;s a lot of worthless tokens)
+        uint256 tokensIssued = (msg.value * 10000); // Multiplies the amount of ETH sent by 10000 (that's a lot of worthless tokens)
         uint256 bonusHash = 0; // Resets the bonus number to 0 to make it more fair, because of the way it is
         if (now <= (startDate + 1 days)) { // Checks if the current time is within 24 hours of the launch of the token offering
-            bonusHash = uint256(keccak256(block.coinbase, randomNumber, block.timestamp)) % 25 + 1; // If it&#39;s within that timeframe, the bonus number has a 1 in 25 chance of being correct
+            bonusHash = uint256(keccak256(block.coinbase, randomNumber, block.timestamp)) % 25 + 1; // If it's within that timeframe, the bonus number has a 1 in 25 chance of being correct
         }
         else { // Or else...
-            bonusHash = uint256(keccak256(block.coinbase, randomNumber, block.timestamp)) % 100 + 1; // If it&#39;s past the first 24 hours of launch, the bonus number has a 1 in 100 chance of being correct
+            bonusHash = uint256(keccak256(block.coinbase, randomNumber, block.timestamp)) % 100 + 1; // If it's past the first 24 hours of launch, the bonus number has a 1 in 100 chance of being correct
         }
         lastBonusNumber = bonusHash; // Sets the latest bonus number tracker to the number you drew for reference
         if (bonusHash == 3) { // WINNER, WINNER, CHICKEN DINNER! If the number you drew was 3, you won. Why 3? Why not.
@@ -1216,10 +1216,10 @@ contract WorthlessEthereumTokens is EIP20Interface, usingOraclize, Ownable {
             tokensIssued += bonusTokensIssued; // Adds the bonus tokens you won to the initial amount of tokens you purchased
             totalBonusTokens += bonusTokensIssued; // Adds the bonus tokens you won to the total bonus tokens tracker
         }
-        if (msg.value >= 0.002 ether) { // JACKPOT!! Here&#39;s where you can win a ton of worthless tokens at random. Only works if the amount of ETH sent is greater than or equal to 0.002
+        if (msg.value >= 0.002 ether) { // JACKPOT!! Here's where you can win a ton of worthless tokens at random. Only works if the amount of ETH sent is greater than or equal to 0.002
             uint256 jackpotHash = uint256(keccak256(block.number + randomNumber)) % 10000 + 1; // Picks a random number between 1 - 10000.. really hoping the random number thing works at this part
-            if (jackpotHash == 5555) { // Is your random jackpot number 5555? YOU WIN! Not 5555? YOU DON&#39;T!
-                tokensIssued += totalSupply; // Adds an amount equal to the total amount of WET that has been distributed so far to the amount of tokens you&#39;re receiving
+            if (jackpotHash == 5555) { // Is your random jackpot number 5555? YOU WIN! Not 5555? YOU DON'T!
+                tokensIssued += totalSupply; // Adds an amount equal to the total amount of WET that has been distributed so far to the amount of tokens you're receiving
             }
         }
         lastTokensIssued = tokensIssued; // Sets the latest tokens issued tracker to the amount of tokens you received
@@ -1228,15 +1228,15 @@ contract WorthlessEthereumTokens is EIP20Interface, usingOraclize, Ownable {
         Transfer(address(this), msg.sender, tokensIssued); // Sends you all your worthless tokens
     }
     
-    // This modifier is attached to the function that allows me to withdraw the ETH you&#39;re sending me, essentially I can&#39;t pull any ETH out
-    // until the token offer ends, which means I can&#39;t send ETH to the wallet, withdraw it, then send again in a never-ending cycle, generating
-    // endless amounts of worthless tokens. No, at the end of this whole thing, I won&#39;t even have any WET myself, can&#39;t afford it. Ain&#39;t that something?
+    // This modifier is attached to the function that allows me to withdraw the ETH you're sending me, essentially I can't pull any ETH out
+    // until the token offer ends, which means I can't send ETH to the wallet, withdraw it, then send again in a never-ending cycle, generating
+    // endless amounts of worthless tokens. No, at the end of this whole thing, I won't even have any WET myself, can't afford it. Ain't that something?
     modifier offerEnded () {
         require (now >= endDate); // Did the token offer end? Yes? Take it and go
         _;
     }
     
-    // This function lets me take all the ETH you&#39;re probably not sending me
+    // This function lets me take all the ETH you're probably not sending me
     function withdraw() external onlyOwner offerEnded {
 	    owner.transfer(this.balance); // Take it and go
 	}

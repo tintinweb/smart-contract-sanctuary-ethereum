@@ -82,9 +82,9 @@ contract Owned {
 ///         Because there is no UI for this contract, KEEP IN MIND THAT ALL VALUES ARE IN MINIMUM DENOMINATIONS
 ///         IN OTHER WORDS ALL TOKENS UNCLUDING ETHER ARE DISPLAYED AND INPUT AS 10^-18 * THE BASE UNIT OF CURRENCY
 ///         Other warnings: This is a test contract. Do not risk any significant value. You are not guaranteed a 
-///         refund, even if it&#39;s my fault. Do not send any tokens or assets directly to the contract. 
+///         refund, even if it's my fault. Do not send any tokens or assets directly to the contract. 
 ///         DO NOT SEND ANY TOKENS OR ASSETS DIRECTLY TO THE CONTRACT. Use only the withdrawel and deposit functions
-/// @dev    Addresses and &#39;deployership&#39; should be initialized before use. INCH must be deposited in contract
+/// @dev    Addresses and 'deployership' should be initialized before use. INCH must be deposited in contract
 ///         Ownership should be set to 0x0 after initialization
 contract InchWormVaultLiveTest is Owned {
     using SafeMath for uint;
@@ -177,7 +177,7 @@ contract InchWormVaultLiveTest is Owned {
     function increasePeg() external {
         // check that the total value of eth in contract is <= 2% the total value of dai in the contract
         require (address(this).balance.mul(etherPeg) <= daiContract.balanceOf(address(this)).div(50)); 
-        // check that peg hasn&#39;t been changed in last 12 hours
+        // check that peg hasn't been changed in last 12 hours
         require (now > pegMoveReadyTime);
         // increase peg
         etherPeg = etherPeg.mul(104).div(100);
@@ -192,7 +192,7 @@ contract InchWormVaultLiveTest is Owned {
     function decreasePeg() external {
          // check that the total value of eth in contract is <= 2% the total value of dai in the contract
         require (daiContract.balanceOf(address(this)) <= address(this).balance.mul(etherPeg).div(50));
-        // check that peg hasn&#39;t been changed in last 12 hours
+        // check that peg hasn't been changed in last 12 hours
         require (now > pegMoveReadyTime);
         // increase peg
         etherPeg = etherPeg.mul(96).div(100);
@@ -235,7 +235,7 @@ contract InchWormVaultLiveTest is Owned {
     ///         Example: If the premium is 5000000, calling the function with input 1 will result in 
     ///         msg.sender paying 5 DaiSats. 
     function __buyInchWithDai(uint _inchToBuy) external {
-        // Calculate the amount of Dai to extract from the purchaser&#39;s wallet based on the premium
+        // Calculate the amount of Dai to extract from the purchaser's wallet based on the premium
         uint _daiOwed = _inchToBuy.mul(premium).div(premiumDigits);
         // Take Dai from the purchaser and transfer to vault contract
         daiContract.transferFrom(msg.sender, address(this), _daiOwed);

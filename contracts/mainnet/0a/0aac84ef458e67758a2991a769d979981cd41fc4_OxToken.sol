@@ -274,7 +274,7 @@ contract OxToken is StandardToken, LimitedTransferToken, Ownable, Destructible {
     if (saleStartTime != 0) {
       throw;
     }
-    //Can&#39;t start unless balances have been initialized
+    //Can't start unless balances have been initialized
     if (!balancesInitialized) {
       throw;
     }
@@ -311,7 +311,7 @@ contract OxToken is StandardToken, LimitedTransferToken, Ownable, Destructible {
 
     totalSupply = totalSupply.add(tokens);
 
-    //Don&#39;t allow totalSupply to be larger than MAX_SUPPLY
+    //Don't allow totalSupply to be larger than MAX_SUPPLY
     if (totalSupply > MAX_SUPPLY) {
       throw;
     }

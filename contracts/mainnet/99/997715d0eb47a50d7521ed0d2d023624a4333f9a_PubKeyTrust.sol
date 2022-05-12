@@ -6,7 +6,7 @@ pragma solidity 0.4.24;
  * 
  * That is, to ensure the public keys of users are verifiable, auditable & tamper-proof.
  * 
- * Here&#39;s the general idea:
+ * Here's the general idea:
  * - We batch the public keys of multiple users into a merkle tree.
  * - We publish the merkle tree root to this contract.
  * - The merkle tree root for any user can only be assigned once.
@@ -57,7 +57,7 @@ contract PubKeyTrust {
 	/**
 	 * We originally passed the userIDs as: bytes20[] userIDs
 	 * But it was discovered that this was inefficiently packed,
-	 * and ended up sending 12 bytes of zero&#39;s per userID.
+	 * and ended up sending 12 bytes of zero's per userID.
 	 * Since gtxdatazero is set to 4 gas/bytes, this translated into
 	 * 48 gas wasted per user due to inefficient packing.
 	**/

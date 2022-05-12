@@ -104,7 +104,7 @@ library SafeOldERC20 {
 				returnValue := mload(0x0)
 			}
 
-			// not sure what was returned: don&#39;t mark as success
+			// not sure what was returned: don't mark as success
 			default { }
         }
 
@@ -268,8 +268,8 @@ library OrderLib {
 
     /**
     * @dev Creates order struct from value arrays.
-    * @param addresses Array of trade&#39;s maker, makerToken and takerToken.
-    * @param values Array of trade&#39;s makerTokenAmount, takerTokenAmount, expires and nonce.
+    * @param addresses Array of trade's maker, makerToken and takerToken.
+    * @param values Array of trade's makerTokenAmount, takerTokenAmount, expires and nonce.
     * @return Order struct
     */
     function createOrder(
@@ -578,7 +578,7 @@ contract Exchange is Ownable {
 
         require(
             Token(_tokenAddress).transferFrom(msg.sender, this, _amount),
-            "Token transfer is not successfull (maybe you haven&#39;t used approve first?)"
+            "Token transfer is not successfull (maybe you haven't used approve first?)"
         );
     }
 
@@ -846,8 +846,8 @@ contract DailyVolumeUpdater is Ownable {
     }
 
     /**
-    * @dev Private function to determine today&#39;s index
-    * @return uint256 of today&#39;s index.
+    * @dev Private function to determine today's index
+    * @return uint256 of today's index.
     */
     function today()
         private
@@ -950,7 +950,7 @@ contract DiscountTokenExchange is Exchange, DailyVolumeUpdater {
 
     /**
     * @dev Execute WeiDexToken Sale Order based on the order input parameters
-    * and the signature from the maker&#39;s signing.
+    * and the signature from the maker's signing.
     * @param _orderAddresses address[3] representing
     * [0] address of the order maker
     * [1] address of WeiDexToken
@@ -989,7 +989,7 @@ contract DiscountTokenExchange is Exchange, DailyVolumeUpdater {
 
     /**
     * @dev Execute WeiDexToken Buy Order based on the order input parameters
-    * and the signature from the maker&#39;s signing.
+    * and the signature from the maker's signing.
     * @param _orderAddresses address[3] representing
     * [0] address of the order maker
     * [1] address of Ether (0x0)
@@ -1111,9 +1111,9 @@ contract ReferralExchange is Exchange {
     }
 
     /**
-    * @dev Return the feeAccount address if user doesn&#39;t have referrer
+    * @dev Return the feeAccount address if user doesn't have referrer
     * @param _user address user whom referrer is being checked.
-    * @return address of user&#39;s referrer.
+    * @return address of user's referrer.
     */
     function getReferrer(address _user)
         internal
@@ -1179,7 +1179,7 @@ contract UpgradableExchange is Exchange {
     }
 
     /**
-    * @dev Helper function to migrate user&#39;s Ethers. Should be called in migrateFunds() function.
+    * @dev Helper function to migrate user's Ethers. Should be called in migrateFunds() function.
     */
     function migrateEthers() private {
 
@@ -1192,7 +1192,7 @@ contract UpgradableExchange is Exchange {
     }
 
     /**
-    * @dev Helper function to migrate user&#39;s tokens. Should be called in migrateFunds() function.
+    * @dev Helper function to migrate user's tokens. Should be called in migrateFunds() function.
     * @param _tokens address[] representing the token addresses which are going to be migrated.
     */
     function migrateTokens(address[] _tokens) private {
@@ -1313,7 +1313,7 @@ contract ExchangeOffering is Exchange {
 
         require(
             !crowdsales[_project].isOpened(),
-            "You can&#39;t withdraw funds yet. Crowdsale should end first."
+            "You can't withdraw funds yet. Crowdsale should end first."
         );
 
         uint256 leftAmount = crowdsales[_project].leftAmount;
@@ -1541,7 +1541,7 @@ contract WeiDex is DiscountTokenExchange, ReferralExchange, UpgradableExchange, 
     {
         require(
             allowedMethods[_methodId],
-            "Can&#39;t call this method"
+            "Can't call this method"
         );
 
         for (uint256 index = 0; index < _orderAddresses.length; index++) {
@@ -1582,7 +1582,7 @@ contract WeiDex is DiscountTokenExchange, ReferralExchange, UpgradableExchange, 
     {
         require(
             allowedMethods[_methodId],
-            "Can&#39;t call this method"
+            "Can't call this method"
         );
 
         for (uint256 index = 0; index < _orderAddresses.length; index++) {
@@ -1600,7 +1600,7 @@ contract WeiDex is DiscountTokenExchange, ReferralExchange, UpgradableExchange, 
 
     /**
     * @dev Execute buy order based on the order input parameters
-    * and the signature from the maker&#39;s signing
+    * and the signature from the maker's signing
     * @param _orderAddresses address[3] representing
     * [0] address of the order maker
     * [1] address of ether (0x0)
@@ -1626,7 +1626,7 @@ contract WeiDex is DiscountTokenExchange, ReferralExchange, UpgradableExchange, 
     {
         require(
             _orderAddresses[1] == ETH,
-            "Base currency must be ether&#39;s (0x0)"
+            "Base currency must be ether's (0x0)"
         );
 
         OrderLib.Order memory order = OrderLib.createOrder(_orderAddresses, _orderValues);
@@ -1643,7 +1643,7 @@ contract WeiDex is DiscountTokenExchange, ReferralExchange, UpgradableExchange, 
 
     /**
     * @dev Execute sell order based on the order input parameters
-    * and the signature from the maker&#39;s signing
+    * and the signature from the maker's signing
     * @param _orderAddresses address[3] representing
     * [0] address of the order maker
     * [1] address of token being sold
@@ -1669,7 +1669,7 @@ contract WeiDex is DiscountTokenExchange, ReferralExchange, UpgradableExchange, 
     {
         require(
             _orderAddresses[2] == ETH,
-            "Base currency must be ether&#39;s (0x0)"
+            "Base currency must be ether's (0x0)"
         );
 
         OrderLib.Order memory order = OrderLib.createOrder(_orderAddresses, _orderValues);

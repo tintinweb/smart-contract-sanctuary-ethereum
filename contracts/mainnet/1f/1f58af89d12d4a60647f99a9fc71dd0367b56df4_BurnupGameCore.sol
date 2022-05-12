@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -742,7 +742,7 @@ contract BurnupGameFinance is BurnupGameOwnership, PullPayment {
     {
     
         if (currentOwner != 0x0) {
-            // Send the current owner&#39;s winnings.
+            // Send the current owner's winnings.
             _sendFunds(currentOwner, currentOwnerWinnings);
         } else {
             // There is no current owner.
@@ -830,8 +830,8 @@ contract BurnupGameFinance is BurnupGameOwnership, PullPayment {
     }
     
     /// @dev Send funds to a beneficiary. If sending fails, assign
-    /// funds to the beneficiary&#39;s balance for manual withdrawal.
-    /// @param beneficiary The beneficiary&#39;s address to send funds to
+    /// funds to the beneficiary's balance for manual withdrawal.
+    /// @param beneficiary The beneficiary's address to send funds to
     /// @param amount The amount to send.
     function _sendFunds(address beneficiary, uint256 amount) internal {
         if (!beneficiary.send(amount)) {
@@ -940,7 +940,7 @@ contract BurnupGameCore is BurnupGameFinance {
         }
     }
     
-    /// @notice Buy the current owner out of the tile. Set the player&#39;s referrer.
+    /// @notice Buy the current owner out of the tile. Set the player's referrer.
     /// @param _gameIndex The index of the game to play on.
     /// @param startNewGameIfIdle Start a new game if the current game is idle.
     /// @param x The x-coordinate of the tile to buy.
@@ -1012,7 +1012,7 @@ contract BurnupGameCore is BurnupGameFinance {
         // Emit event.
         End(gameIndex, currentOwner, gameStates[gameIndex].lastFlippedTile, x, y, gameStates[gameIndex].identifierToBuyoutTimestamp[gameStates[gameIndex].lastFlippedTile].add(gameSettings[gameIndex].activityTimer), gameStates[gameIndex].prizePool);
         
-        // Increment the game index. This won&#39;t overflow before the heat death of the universe.
+        // Increment the game index. This won't overflow before the heat death of the universe.
         gameIndex++;
         
         // Indicate ending the game was successful.

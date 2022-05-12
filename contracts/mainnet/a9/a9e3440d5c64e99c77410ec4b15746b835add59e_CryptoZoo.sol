@@ -830,12 +830,12 @@ contract ClockAuction is LogicBase {
         address seller = clockAuctionStorage.getSeller(_tokenId);
         uint256 sellerProceeds = 0;
 
-        // Remove the auction before sending the fees to the sender so we can&#39;t have a reentrancy attack
+        // Remove the auction before sending the fees to the sender so we can't have a reentrancy attack
         clockAuctionStorage.removeAuction(_tokenId);
 
         // Transfer proceeds to seller (if there are any!)
         if (price > 0) {
-            // Calculate the auctioneer&#39;s cut, so this subtraction can&#39;t go negative
+            // Calculate the auctioneer's cut, so this subtraction can't go negative
             uint256 auctioneerCut = _computeCut(price);
             sellerProceeds = price - auctioneerCut;
 
@@ -893,7 +893,7 @@ contract ClockAuction is LogicBase {
             // this delta can be negative.
             int256 totalPriceChange = int256(_endingPrice) - int256(_startingPrice);
 
-            // This multiplication can&#39;t overflow, _secondsPassed will easily fit within
+            // This multiplication can't overflow, _secondsPassed will easily fit within
             // 64-bits, and totalPriceChange will easily fit within 128-bits, their product
             // will always fit within 256-bits.
             int256 currentPriceChange = totalPriceChange * int256(_secondsPassed) / int256(_duration);
@@ -1082,15 +1082,15 @@ contract Zoo721 is ZooAccessControl, ERC721 {
         bytes4(keccak256("supportsInterface(bytes4)"));
 
     bytes4 constant InterfaceSignature_ERC721 =
-        bytes4(keccak256(&#39;name()&#39;)) ^
-        bytes4(keccak256(&#39;symbol()&#39;)) ^
-        bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-        bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-        bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-        bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;tokensOfOwner(address)&#39;));
+        bytes4(keccak256('name()')) ^
+        bytes4(keccak256('symbol()')) ^
+        bytes4(keccak256('totalSupply()')) ^
+        bytes4(keccak256('balanceOf(address)')) ^
+        bytes4(keccak256('ownerOf(uint256)')) ^
+        bytes4(keccak256('approve(address,uint256)')) ^
+        bytes4(keccak256('transfer(address,uint256)')) ^
+        bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+        bytes4(keccak256('tokensOfOwner(address)'));
 
     CryptoStorage public cryptoStorage;
 
@@ -1558,7 +1558,7 @@ contract CryptoZoo is Zoo721 {
         _breedWith(_matronId, _sireId, breedCost);
     }
 
-    // breed with the monster of one&#39;s own
+    // breed with the monster of one's own
     function breedWithAuto(uint256 _matronId, uint256 _sireId)
         external
         payable
@@ -1572,12 +1572,12 @@ contract CryptoZoo is Zoo721 {
         require(_owns(msg.sender, _sireId));
 
         // any monster in auction will be owned by the auction contract address,
-        // so the monster must not in auction if it&#39;s owned by the msg.sender
+        // so the monster must not in auction if it's owned by the msg.sender
 
-        // Make sure matron isn&#39;t pregnant, or in the middle of a siring cooldown
+        // Make sure matron isn't pregnant, or in the middle of a siring cooldown
         require(isReadyToBreed(_matronId));
 
-        // Make sure sire isn&#39;t pregnant, or in the middle of a siring cooldown
+        // Make sure sire isn't pregnant, or in the middle of a siring cooldown
         require(isReadyToBreed(_sireId));
 
         // Test that these cats are a valid mating pair.
@@ -1655,7 +1655,7 @@ contract CryptoZoo is Zoo721 {
     }
 
     function isValidMatingPair(uint256 _matronId, uint256 _sireId) public view returns (bool) {
-        // can&#39;t breed with itself!
+        // can't breed with itself!
         if (_matronId == _sireId) {
             return false;
         }
@@ -1663,12 +1663,12 @@ contract CryptoZoo is Zoo721 {
         uint32 sire_of_matron = cryptoStorage.getSireId(_matronId);
         uint32 matron_of_sire = cryptoStorage.getMatronId(_sireId);
         uint32 sire_of_sire = cryptoStorage.getSireId(_sireId);
-        // can&#39;t breed with their parents.
+        // can't breed with their parents.
         if (matron_of_matron == _sireId || sire_of_matron == _sireId) return false;
         if (matron_of_sire == _matronId || sire_of_sire == _matronId) return false;
         // if either cat is gen zero, they can breed without siblings check
         if (matron_of_sire == 0 || matron_of_matron == 0) return true;
-        // can&#39;t breed with full or half siblings.
+        // can't breed with full or half siblings.
         if (matron_of_sire == matron_of_matron || matron_of_sire == sire_of_matron) return false;
         if (sire_of_sire == matron_of_matron || sire_of_sire == sire_of_matron) return false;    
         return true;

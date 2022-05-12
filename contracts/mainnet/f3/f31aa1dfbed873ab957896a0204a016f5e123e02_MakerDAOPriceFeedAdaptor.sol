@@ -1,7 +1,7 @@
 pragma solidity ^0.4.25;
 
 // ----------------------------------------------------------------------------
-// Adaptor to convert MakerDAO&#39;s "pip" price feed into BokkyPooBah&#39;s Pricefeed
+// Adaptor to convert MakerDAO's "pip" price feed into BokkyPooBah's Pricefeed
 //
 // Used to convert MakerDAO ETH/USD pricefeed on the Ethereum mainnet at
 //   https://etherscan.io/address/0x729D19f657BD0614b4985Cf1D82531c67569197B
@@ -31,7 +31,7 @@ contract MakerDAOPriceFeedInterface {
 
 
 // ----------------------------------------------------------------------------
-// Pricefeed with interface compatible with MakerDAO&#39;s "pip" PriceFeed
+// Pricefeed with interface compatible with MakerDAO's "pip" PriceFeed
 // ----------------------------------------------------------------------------
 contract MakerDAOPriceFeedAdaptor is PriceFeedInterface {
     string private _name;

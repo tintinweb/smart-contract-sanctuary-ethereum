@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -133,7 +133,7 @@ contract Ownable {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 contract XDMCCrowdsale is Ownable {
@@ -367,14 +367,14 @@ contract XDMCCrowdsale is Ownable {
   }
 
   function getStageName() public view returns (string) {
-    if (currentStage == Stages.Pause) return &#39;ICO is not started yet&#39;;
-    else if (currentStage == Stages.Ico1) return &#39;ICO 1&#39;;
-    else if (currentStage == Stages.Ico1End) return &#39;ICO 1 end&#39;;
-    else if (currentStage == Stages.Ico2) return &#39;ICO 2&#39;;
-    else if (currentStage == Stages.Ico2End) return &#39;ICO 2 end&#39;;
-    else if (currentStage == Stages.Ico3) return &#39;ICO 3&#39;;
-    else if (currentStage == Stages.Ico3End) return &#39;ICO 3 end&#39;;
-    return &#39;Undefined&#39;;
+    if (currentStage == Stages.Pause) return 'ICO is not started yet';
+    else if (currentStage == Stages.Ico1) return 'ICO 1';
+    else if (currentStage == Stages.Ico1End) return 'ICO 1 end';
+    else if (currentStage == Stages.Ico2) return 'ICO 2';
+    else if (currentStage == Stages.Ico2End) return 'ICO 2 end';
+    else if (currentStage == Stages.Ico3) return 'ICO 3';
+    else if (currentStage == Stages.Ico3End) return 'ICO 3 end';
+    return 'Undefined';
   }
 
   function getPrice() public view returns (uint256) {

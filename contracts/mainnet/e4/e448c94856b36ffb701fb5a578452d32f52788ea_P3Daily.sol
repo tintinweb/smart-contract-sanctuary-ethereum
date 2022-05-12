@@ -218,7 +218,7 @@ contract P3Daily {
             return false;
         }
         
-        //can&#39;t determine hash of current block
+        //can't determine hash of current block
         if(block.number == rounds[currentRoundNumber].blockNumber) {return false;}
         
         //determine winner

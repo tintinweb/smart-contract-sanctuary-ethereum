@@ -57,7 +57,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -202,7 +202,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -282,7 +282,7 @@ contract DeconetToken is StandardToken, Ownable, Pausable {
         balances[msg.sender] = totalSupply_;
         Transfer(address(0), msg.sender, totalSupply_);
 
-        // pause contract until we&#39;re ready to allow transfers
+        // pause contract until we're ready to allow transfers
         paused = true;
     }
 
@@ -429,7 +429,7 @@ contract Registry is Ownable {
         // make sure input params are valid
         require(price != 0 && sellerUsername != "" && moduleName != "" && bytes(usernameAndProjectName).length != 0 && licenseId != 0);
 
-        // make sure the name isn&#39;t already taken
+        // make sure the name isn't already taken
         require(moduleIds[usernameAndProjectName] == 0);
 
         numModules += 1;
@@ -573,7 +573,7 @@ contract LicenseSales is Ownable {
         version = 1;
 
         // default token reward of 100 tokens.  
-        // token has 18 decimal places so that&#39;s why 100 * 10^18
+        // token has 18 decimal places so that's why 100 * 10^18
         tokenReward = 100 * 10**18;
 
         // default saleFee of 10%
@@ -688,7 +688,7 @@ contract LicenseSales is Ownable {
     }
 
     // ------------------------------------------------------------------------
-    // Reward user with tokens IF the contract has them in it&#39;s allowance
+    // Reward user with tokens IF the contract has them in it's allowance
     // ------------------------------------------------------------------------
     function rewardTokens(address toReward) private {
         DeconetToken token = DeconetToken(tokenContractAddress);

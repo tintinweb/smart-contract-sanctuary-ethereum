@@ -1,7 +1,7 @@
 pragma solidity ^0.4.20;
 
 // OFFICIAL PRE-ICO TOKENS SALE FOR PROJECT:iVeryone(VRY) https://ivery.one/
-// VRY tokens will be automatically sent to buyer&#39;s wallet after buyer send ETH to contract address
+// VRY tokens will be automatically sent to buyer's wallet after buyer send ETH to contract address
 // Pre-ICO token price: 1 ETH = 1000 VRY
 
 /**

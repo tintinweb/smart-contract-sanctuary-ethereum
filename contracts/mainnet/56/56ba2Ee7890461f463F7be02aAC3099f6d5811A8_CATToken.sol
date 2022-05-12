@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -189,7 +189,7 @@ contract CATToken is StandardToken {
 	// Token data
 	string public constant name = "BlockCAT Token";
 	string public constant symbol = "CAT";
-	uint256 public constant decimals = 18;  // Since our decimals equals the number of wei per ether, we needn&#39;t multiply sent values when converting between CAT and ETH.
+	uint256 public constant decimals = 18;  // Since our decimals equals the number of wei per ether, we needn't multiply sent values when converting between CAT and ETH.
 	string public version = "1.0";
 	
 	// Addresses and contracts
@@ -289,7 +289,7 @@ contract CATToken is StandardToken {
 	function endSale() {
 		// Do not end an already ended sale
 		if (saleHasEnded) throw;
-		// Can&#39;t end a sale that hasn&#39;t hit its minimum cap
+		// Can't end a sale that hasn't hit its minimum cap
 		if (!minCapReached) throw;
 		// Only allow the owner to end the sale
 		if (msg.sender != executor) throw;
@@ -317,7 +317,7 @@ contract CATToken is StandardToken {
 
 	// Allows BlockCAT to withdraw funds
 	function withdrawFunds() {
-		// Disallow withdraw if the minimum hasn&#39;t been reached
+		// Disallow withdraw if the minimum hasn't been reached
 		if (!minCapReached) throw;
 		if (0 == this.balance) throw;
 

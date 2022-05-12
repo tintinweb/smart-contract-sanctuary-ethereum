@@ -281,7 +281,7 @@ contract AxieDependency {
 
   /*
    * @dev Setting the whitelist setter address to `address(0)` would be a irreversible process.
-   *  This is to lock changes to Axie&#39;s contracts after their development is done.
+   *  This is to lock changes to Axie's contracts after their development is done.
    */
   function setWhitelistSetter(address _newSetter) external onlyWhitelistSetter {
     whitelistSetterAddress = _newSetter;
@@ -421,7 +421,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

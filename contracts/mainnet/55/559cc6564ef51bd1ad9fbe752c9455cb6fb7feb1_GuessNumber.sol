@@ -5,7 +5,7 @@ pragma solidity ^0.4.19;
  * @dev My first smart contract! GuessNumber contract starts with a random,
  * hashed number that the player can try to guess. If the guess is correct,
  * they receive the balance of the contract as a reward (including their bet).
- * If they guess incorrectly, the contract keeps the player&#39;s bet amount. Have fun!
+ * If they guess incorrectly, the contract keeps the player's bet amount. Have fun!
  */
 contract GuessNumber {
   // creates random number between 1 - 10 on contract creation
@@ -41,7 +41,7 @@ contract GuessNumber {
     guessHistory.number = _number;
 
     // if player guesses correctly, transfer contract balance
-    // else the player&#39;s bet is automatically added to the reward / contract balance
+    // else the player's bet is automatically added to the reward / contract balance
     if (_number == randomNumber) {
       msg.sender.transfer(this.balance);
     }

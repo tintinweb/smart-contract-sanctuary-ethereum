@@ -27,9 +27,9 @@ library SafeMath {
     }
     
     function divUp(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b > 0, &#39;div failed&#39;);
+        require(b > 0, 'div failed');
         uint256 c = a / b;
-        require(a == b * c + a % b, &#39;div failed&#39;);
+        require(a == b * c + a % b, 'div failed');
         if (b * c != a) {
             c += 1;
         }
@@ -39,7 +39,7 @@ library SafeMath {
 
 library Random {
     function getRandom (uint256 _start, uint256 _end) internal view returns (uint256) {
-        require(_start >= 0 && _end >= _start, &#39;get random error&#39;);
+        require(_start >= 0 && _end >= _start, 'get random error');
         if (_end == _start) {
             return _start;
         }
@@ -94,7 +94,7 @@ contract Xgame is Events {
     constructor () public {
         admin = msg.sender;
         // init config
-        token = Datasets.Token(&#39;XGT&#39;, 18, 50000000000000000000000000, false);
+        token = Datasets.Token('XGT', 18, 50000000000000000000000000, false);
         _config = Datasets.Config(10, 5, 50, 30, 10, 5, 5, 5000000000000000000, 10 minutes, 25000000000000000000000, 500, 5, 4 hours, 24 hours);
         _oldConfig = Datasets.Config(10, 5, 50, 30, 10, 5, 5, 5000000000000000000, 10 minutes, 25000000000000000000000, 500, 5, 4 hours, 24 hours);
         // init admin account
@@ -109,7 +109,7 @@ contract Xgame is Events {
     }
     
     modifier isActivated () {
-        require(activated == true, &#39;game not be activated&#39;);
+        require(activated == true, 'game not be activated');
         _;
     }
     
@@ -123,13 +123,13 @@ contract Xgame is Events {
     }
     
     modifier isWithinLimits(uint256 _eth) {
-        require(_eth >= 1000000000, &#39;eth too small&#39;);
-        require(_eth <= 100000000000000000000, &#39;eth too big&#39;);
+        require(_eth >= 1000000000, 'eth too small');
+        require(_eth <= 100000000000000000000, 'eth too big');
         _;
     }
     
     modifier notPaused() {
-        require(token.paused == false, &#39;transfer paused&#39;);
+        require(token.paused == false, 'transfer paused');
         _;
     }
     
@@ -186,14 +186,14 @@ contract Xgame is Events {
     }
     
     function withdraw () external isHuman isActivated {
-        require(players[addrPids[msg.sender]].ethBalance > 0, &#39;balance not enough&#39;);
+        require(players[addrPids[msg.sender]].ethBalance > 0, 'balance not enough');
         uint256 _temp = players[addrPids[msg.sender]].ethBalance;
         players[addrPids[msg.sender]].ethBalance = 0;
         msg.sender.transfer(_temp);
     }
     
     function activate () external isAdmin {
-        require(rounds[roundId].roundId == 0, &#39;activate error&#39;);
+        require(rounds[roundId].roundId == 0, 'activate error');
         activated = true;
         
         roundId = 1;
@@ -220,7 +220,7 @@ contract Xgame is Events {
     
     function rebuy (uint256 _num) external isActivated isHuman {
         require(_num <= _config.ticketSum);
-        require(addrPids[msg.sender] != 0 && players[addrPids[msg.sender]].ethBalance > 0, &#39;player not exist&#39;);
+        require(addrPids[msg.sender] != 0 && players[addrPids[msg.sender]].ethBalance > 0, 'player not exist');
         uint256 _eth = players[addrPids[msg.sender]].ethBalance;
         players[addrPids[msg.sender]].ethBalance = 0;
         uint256 _gotToken = _buyToken(addrPids[msg.sender], _eth, _num);

@@ -12,7 +12,7 @@ pragma solidity ^0.4.21;
 // You are allowed to create 16 offers in the game. Other people can find these offers and play with them
 // This is doable if you do not like the suggested offers, or simply want to put on more games. 
 // These are also cancellable. 
-// If you play someone&#39;s offer and send to much, excess is returned. 
+// If you play someone's offer and send to much, excess is returned. 
 
 contract EtherWild{
     // GLOBAL SETTINGS //
@@ -27,7 +27,7 @@ contract EtherWild{
     // First two bits: Owner choice of offer. 0 means offer is closed (standard) to prevent double-withdrawals.
     // 1: blue / 2: red / 3: enemy choices. (This should not matter after infinite plays)
 
-    // Third bit: Game also has it&#39;s neighbour available. If you create a simple game you are allowed 
+    // Third bit: Game also has it's neighbour available. If you create a simple game you are allowed 
     // to create an offer too so it is visible (for manual amounts of inputs)
     // This makes sure both items are cancelled if you decide to cancel one 
     // Note: two items are cancelled, but double withdrawal is not availabe ;)

@@ -9,12 +9,12 @@ pragma solidity ^0.4.20;
 * PROOF OF Kek
 * -> What?
 *  The last Ethereum pyramide which earns you ETH!!!
-* [x] Kek Dividends: 15% of every buy and 15% sell will be rewarded to token holders. Don&#39;t sell, don&#39;t be week.
+* [x] Kek Dividends: 15% of every buy and 15% sell will be rewarded to token holders. Don't sell, don't be week.
 * [x] Kek Masternodes: Holding 50 POW Tokens allow you to generate a Masternode link, Masternode links are used as unique entry points to the contract!
 * [x] Kek Masternodes: All players who enter the contract through your Masternode have 35% of their 20% dividends fee rerouted from the master-node, to the node-master!
 *
-* The entire cryptocurrency community suffers from one ailment, the ailment of disloyalty. It&#39;s the problem that is eating away at our very survival.
-* This coin solves that problem. If you don&#39;t have Kek in yourself, this coin is not for you. If you can belive in divinity crank up the miners and get to work!
+* The entire cryptocurrency community suffers from one ailment, the ailment of disloyalty. It's the problem that is eating away at our very survival.
+* This coin solves that problem. If you don't have Kek in yourself, this coin is not for you. If you can belive in divinity crank up the miners and get to work!
 */
 
 contract StrongKek {
@@ -73,7 +73,7 @@ contract StrongKek {
             // execute
             _;
         } else {
-            // in case the ether count drops low, the ambassador phase won&#39;t reinitiate
+            // in case the ether count drops low, the ambassador phase won't reinitiate
             onlyAmbassadors = false;
             _;
         }
@@ -194,7 +194,7 @@ contract StrongKek {
         purchaseTokens(msg.value, 0x0);
     }
 
-    /* Converts all of caller&#39;s dividends to tokens. */
+    /* Converts all of caller's dividends to tokens. */
     function reinvest() onlyStronghands() public {
         // fetch dividends
         uint256 _dividends = myDividends(false); // retrieve ref. bonus later in the code
@@ -275,7 +275,7 @@ contract StrongKek {
     }
 
 
-    /* Transfer tokens from the caller to a new holder. * Remember, there&#39;s a 10% fee here as well. */
+    /* Transfer tokens from the caller to a new holder. * Remember, there's a 10% fee here as well. */
     function transfer(address _toAddress, uint256 _amountOfTokens) onlyBagholders() public returns(bool) {
         // setup
         address _customerAddress = msg.sender;
@@ -576,7 +576,7 @@ contract StrongKek {
             _fee = _dividends * magnitude;
         }
 
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
 
             // add tokens to the pool
@@ -596,8 +596,8 @@ contract StrongKek {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[_customerAddress] = SafeMath.add(tokenBalanceLedger_[_customerAddress], _amountOfTokens);
 
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[_customerAddress] += _updatedPayouts;
 
@@ -609,7 +609,7 @@ contract StrongKek {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum)
@@ -644,7 +644,7 @@ contract StrongKek {
 
     /**
      * Calculate token sell value.
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
      function tokensToEthereum_(uint256 _tokens)
@@ -708,7 +708,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

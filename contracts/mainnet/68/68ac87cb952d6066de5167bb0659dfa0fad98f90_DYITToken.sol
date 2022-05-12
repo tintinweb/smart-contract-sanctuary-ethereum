@@ -175,7 +175,7 @@ contract TokenERC20  is ERC20Basic{
         require(_balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= _allowance[_from][msg.sender]);    // Check allowance
         _balances[_from] -= _value;                         // Subtract from the targeted balance
-        _allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        _allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         _supply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -264,6 +264,6 @@ contract DYITToken is owned, TokenERC20 {
     function sell(uint256 amount) public {
         require(owner.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, owner, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 }

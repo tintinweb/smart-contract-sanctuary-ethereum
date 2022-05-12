@@ -10,7 +10,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -102,7 +102,7 @@ contract Token is ERC20Interface {
         return balances[_owner];
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _value) public returns (bool success)
     {
         if (_to != 0x0  // Prevent transfer to 0x0 address.
@@ -323,8 +323,8 @@ contract MyToken is Token {
         require (getLpIsWorking(500));                      // Check Whether Lp Bid and Ask spread is less than 5%
         uint256 amount = getAmountOfLinkerBuy(msg.value);   // calculates the amount of buy from customer 
         require(balances[owner] >= amount);                  // checks if it has enough to sell
-        balances[msg.sender] = balances[msg.sender].add(amount);                     // adds the amount to buyer&#39;s balance
-        balances[owner] = balances[owner].sub(amount);                           // subtracts amount from seller&#39;s balance
+        balances[msg.sender] = balances[msg.sender].add(amount);                     // adds the amount to buyer's balance
+        balances[owner] = balances[owner].sub(amount);                           // subtracts amount from seller's balance
         lpAskVolume = lpAskVolume.sub(amount);
         Transfer(owner, msg.sender, amount);                 // execute an event reflecting the chang               // ends function and returns
         return amount;                                    
@@ -333,12 +333,12 @@ contract MyToken is Token {
     function sell(uint256 amount)public returns (uint256) {    
         require (getLpIsWorking(500));
         require (balances[msg.sender] >= amount);           // checks if the sender has enough to sell
-        balances[owner] = balances[owner].add(amount);                           // adds the amount to owner&#39;s balance
-        balances[msg.sender] = balances[msg.sender].sub(amount);                     // subtracts the amount from seller&#39;s balance
+        balances[owner] = balances[owner].add(amount);                           // adds the amount to owner's balance
+        balances[msg.sender] = balances[msg.sender].sub(amount);                     // subtracts the amount from seller's balance
         lpBidVolume = lpBidVolume.sub(amount);
         uint256 linkerSendAmount = getAmountOfEtherSell(amount);
         
-        msg.sender.transfer(linkerSendAmount);         // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+        msg.sender.transfer(linkerSendAmount);         // sends ether to the seller: it's important to do this last to prevent recursion attacks
         Transfer(msg.sender, this, linkerSendAmount);       // executes an event reflecting on the change
         return linkerSendAmount;                                   // ends function and returns
     }

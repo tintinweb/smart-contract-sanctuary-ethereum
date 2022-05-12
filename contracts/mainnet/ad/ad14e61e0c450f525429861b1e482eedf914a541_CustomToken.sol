@@ -106,8 +106,8 @@ contract LockToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, AirdropToken, LockToken {
     function CustomToken() public {
         totalSupply = 100000000000000000000000000;
-        name = &#39;EthLinkerToken&#39;;
-        symbol = &#39;ELT&#39;;
+        name = 'EthLinkerToken';
+        symbol = 'ELT';
         decimals = 18;
         balanceOf[0x0926a20aca505b82f7cb7864e1246894eac27ea0] = totalSupply;
         Transfer(address(0), 0x0926a20aca505b82f7cb7864e1246894eac27ea0, totalSupply);

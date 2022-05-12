@@ -1,6 +1,6 @@
 /**
- * The edgeless casino contract v2 holds the players&#39;s funds and provides state channel functionality.
- * The casino has at no time control over the players&#39;s funds.
+ * The edgeless casino contract v2 holds the players's funds and provides state channel functionality.
+ * The casino has at no time control over the players's funds.
  * State channels can be updated and closed from both parties: the player and the casino.
  * author: Julia Altenried
  **/
@@ -101,7 +101,7 @@ contract Mortal is Owned {
 }
 
 contract RequiringAuthorization is Mortal {
-	/** indicates if an address is authorized to act in the casino&#39;s name  */
+	/** indicates if an address is authorized to act in the casino's name  */
 	mapping(address => bool) public authorized;
 	/** tells if an address is allowed to receive funds from the bankroll **/
 	mapping(address => bool) public allowedReceiver;
@@ -137,7 +137,7 @@ contract RequiringAuthorization is Mortal {
 
 	/**
 	 * allow authorized wallets to withdraw funds from the bonkroll to this address
-	 * @param receiver the receiver&#39;s address
+	 * @param receiver the receiver's address
 	 * */
 	function allowReceiver(address receiver) public onlyOwner {
 		allowedReceiver[receiver] = true;
@@ -145,7 +145,7 @@ contract RequiringAuthorization is Mortal {
 
 	/**
 	 * disallow authorized wallets to withdraw funds from the bonkroll to this address
-	 * @param receiver the receiver&#39;s address
+	 * @param receiver the receiver's address
 	 * */
 	function disallowReceiver(address receiver) public onlyOwner {
 		allowedReceiver[receiver] = false;
@@ -255,7 +255,7 @@ contract CasinoBank is ChargingGas {
 	 * edgeless tokens do not have any decimals, but are represented on this contract with decimals.
 	 * @param receiver  address of the receiver
 	 *        numTokens number of tokens to deposit (0 decimals)
-	 *				 chargeGas indicates if the gas cost is subtracted from the user&#39;s edgeless token balance
+	 *				 chargeGas indicates if the gas cost is subtracted from the user's edgeless token balance
 	 **/
 	function deposit(address receiver, uint numTokens, bool chargeGas) public isAlive {
 		require(numTokens > 0);
@@ -276,7 +276,7 @@ contract CasinoBank is ChargingGas {
 
 	/**
 	 * If the user wants/needs to withdraw his funds himself, he needs to request the withdrawal first.
-	 * This method sets the earliest possible withdrawal date to &#39;waitingTime from now (default 90m, but up to 24h).
+	 * This method sets the earliest possible withdrawal date to 'waitingTime from now (default 90m, but up to 24h).
 	 * Reason: The user should not be able to withdraw his funds, while the the last game methods have not yet been mined.
 	 **/
 	function requestWithdrawal() public {
@@ -308,7 +308,7 @@ contract CasinoBank is ChargingGas {
 
 	/**
 	 * lets the owner withdraw from the bankroll
-	 * @param receiver the receiver&#39;s address
+	 * @param receiver the receiver's address
 	 *				numTokens the number of tokens to withdraw (0 decimals)
 	 **/
 	function withdrawBankroll(address receiver, uint numTokens) public onlyAuthorized {
@@ -362,7 +362,7 @@ contract CasinoBank is ChargingGas {
 	}
 
 	/**
-	 * transfers an amount from the contract balance to the owner&#39;s wallet.
+	 * transfers an amount from the contract balance to the owner's wallet.
 	 * @param receiver the receiver address
 	 *				 amount   the amount of tokens to withdraw (0 decimals)
 	 *				 v,r,s 		the signature of the player
@@ -380,7 +380,7 @@ contract CasinoBank is ChargingGas {
 	}
 	
 	/**
-	 * transfers the player&#39;s tokens directly to the new casino contract after an update.
+	 * transfers the player's tokens directly to the new casino contract after an update.
 	 * @param newCasino the address of the new casino contract
 	 *		  v, r, s   the signature of the player
 	 *		  chargeGas indicates if the gas cost is payed by the player.
@@ -457,8 +457,8 @@ contract EdgelessCasino is CasinoBank{
    *    the new balance difference to add or subtract from the player‘s balance.
    * @param winBalances array of the current wins or losses
    *				gameCounts  array of the numbers of signed game moves
-   *				v,r,s       array of the players&#39;s signatures
-   *        chargeGas   indicates if the gas costs should be subtracted from the players&#39;s balances
+   *				v,r,s       array of the players's signatures
+   *        chargeGas   indicates if the gas costs should be subtracted from the players's balances
    * */
   function updateBatch(int128[] winBalances,  uint128[] gameCounts, uint8[] v, bytes32[] r, bytes32[] s, bool chargeGas) public onlyAuthorized{
     require(winBalances.length == gameCounts.length);
@@ -486,7 +486,7 @@ contract EdgelessCasino is CasinoBank{
    * @param winBalance the current win or loss
    *				gameCount  the number of signed game moves
    *				v,r,s      the signature of either the casino or the player
-   *        chargeGas  indicates if the gas costs should be subtracted from the player&#39;s balance
+   *        chargeGas  indicates if the gas costs should be subtracted from the player's balance
    * */
   function updateState(int128 winBalance,  uint128 gameCount, uint8 v, bytes32 r, bytes32 s, bool chargeGas) public{
   	address player = determinePlayer(winBalance, gameCount, v, r, s);
@@ -503,8 +503,8 @@ contract EdgelessCasino is CasinoBank{
   /**
    * internal method to perform the actual state update.
    * @param player the player address
-   *        winBalance the player&#39;s win balance
-   *        gameCount  the player&#39;s game count
+   *        winBalance the player's win balance
+   *        gameCount  the player's game count
    * */
   function _updateState(address player, int128 winBalance,  uint128 gameCount, uint gasCost) internal {
     State storage last = lastState[player];
@@ -515,7 +515,7 @@ contract EdgelessCasino is CasinoBank{
   }
 
   /**
-   * determines if the msg.sender or the signer of the passed signature is the player. returns the player&#39;s address
+   * determines if the msg.sender or the signer of the passed signature is the player. returns the player's address
    * @param winBalance the current winBalance, used to calculate the msg hash
    *				gameCount  the current gameCount, used to calculate the msg.hash
    *				v, r, s    the signature of the non-sending party
@@ -528,8 +528,8 @@ contract EdgelessCasino is CasinoBank{
   }
 
 	/**
-	 * computes the difference of the win balance relative to the last known state and adds it to the player&#39;s balance.
-	 * in case the casino is the sender, the gas cost in EDG gets subtracted from the player&#39;s balance.
+	 * computes the difference of the win balance relative to the last known state and adds it to the player's balance.
+	 * in case the casino is the sender, the gas cost in EDG gets subtracted from the player's balance.
 	 * @param player the address of the player
 	 *				winBalance the current win-balance
 	 *				lastWinBalance the win-balance of the last known state
@@ -573,7 +573,7 @@ contract EdgelessCasino is CasinoBank{
   }
   
   /**
-   * determines if the msg.sender or the signer of the passed signature is the player. returns the player&#39;s address
+   * determines if the msg.sender or the signer of the passed signature is the player. returns the player's address
    * @param serverSeeds array containing the server seeds
    *        clientSeeds array containing the client seeds
    *        results     array containing the results

@@ -74,14 +74,14 @@ contract ERC20 is ERC20Template {
 contract UbiatarPlay is ERC20 {
     
     /* ERC20 */
-    string public name = &#39;UbiatarPlay&#39;;
-    string public symbol = &#39;UAC&#39;;
+    string public name = 'UbiatarPlay';
+    string public symbol = 'UAC';
     uint8 public decimals = 8;
     
     /* UACToken */
     address owner; 
     address public crowdsale;
-    string public version = &#39;v0.8&#39;;
+    string public version = 'v0.8';
     uint256 public totalSupply = 1000000000 * 10**uint(decimals);
 
     modifier onlyBy(address _account) {

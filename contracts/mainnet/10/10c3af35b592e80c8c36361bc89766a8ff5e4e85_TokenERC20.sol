@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import &#39;./StandardToken.sol&#39;;
+import './StandardToken.sol';
 
 contract TokenERC20 is StandardToken {
     string public name;

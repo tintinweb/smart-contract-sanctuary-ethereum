@@ -44,7 +44,7 @@ contract koth_v1b {
     }
 
     function () payable public {
-        // We&#39;re past the block target, but new game hasn&#39;t been activated
+        // We're past the block target, but new game hasn't been activated
         if (lastBlock > 0 && block.number > lastBlock) {
             msg.sender.transfer(msg.value);
             return;

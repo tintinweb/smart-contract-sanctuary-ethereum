@@ -52,7 +52,7 @@ library Math {
         // >>> from mpmath import mp
         // >>> mp.dps = 100
         // >>> ONE =  0x10000000000000000
-        // >>> print(&#39;\n&#39;.join(hex(int(mp.log(2)**i / mp.factorial(i) * ONE)) for i in range(1, 7)))
+        // >>> print('\n'.join(hex(int(mp.log(2)**i / mp.factorial(i) * ONE)) for i in range(1, 7)))
         // 0xb17217f7d1cf79ab
         // 0x3d7f7bff058b1d50
         // 0xe35846b82505fc5
@@ -373,7 +373,7 @@ contract StandardToken is Token {
     /*
      *  Public functions
      */
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success
+    /// @dev Transfers sender's tokens to a given address. Returns success
     /// @param to Address of token receiver
     /// @param value Number of tokens to transfer
     /// @return Was transfer successful?
@@ -486,7 +486,7 @@ contract PlayToken is StandardToken {
         creator = msg.sender;
     }
 
-    /// @dev Allows creator to issue tokens. Will reject if msg.sender isn&#39;t the creator.
+    /// @dev Allows creator to issue tokens. Will reject if msg.sender isn't the creator.
     /// @param recipients Addresses of recipients
     /// @param amount Number of tokens to issue each recipient
     function issue(address[] recipients, uint amount)

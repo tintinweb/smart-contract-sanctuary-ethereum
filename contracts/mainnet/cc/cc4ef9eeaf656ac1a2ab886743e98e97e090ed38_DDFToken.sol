@@ -296,7 +296,7 @@ contract DDFToken is StandardToken, SafeMath {
       if (now > fundingEndTime) throw;
       if (msg.value == 0) throw;
 
-      uint256 tokens = safeMult(_value, tokenExchangeRate); // check that we&#39;re not over totals
+      uint256 tokens = safeMult(_value, tokenExchangeRate); // check that we're not over totals
       uint256 checkedSupply = safeAdd(totalSupply, tokens);
 
       // DA 8/6/2017 to fairly allocate the last few tokens
@@ -345,7 +345,7 @@ contract DDFToken is StandardToken, SafeMath {
       uint256 ethVal = ddftVal / tokenExchangeRate;     // should be safe; previous throws covers edges
       LogRefund(msg.sender, ethVal);               // log it 
       // DA 8/6/2017 change send/throw to transfer
-      msg.sender.transfer(ethVal);                 // if you&#39;re using a contract; make sure it works with .send gas limits
+      msg.sender.transfer(ethVal);                 // if you're using a contract; make sure it works with .send gas limits
     }
 
     // DA 8/6/2017

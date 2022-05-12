@@ -175,7 +175,7 @@ contract CGENToken is ERC223 {
 		uint maxEligibleFactor;
 
 		// check if any tokens have been vested to this account
-		// don&#39;t burn gas if already completed
+		// don't burn gas if already completed
 		require(tokenAccountIndex[_who].vestingIndex.length > _idx);
 		v = tokenAccountIndex[_who].vestingIndex[_idx];
 		if (v.completed) {
@@ -242,7 +242,7 @@ contract CGENToken is ERC223 {
 		require(msg.sender != owner);
 	
 		// we use 128 bit data for values
-		// make sure it&#39;s converted correctly
+		// make sure it's converted correctly
 		shortValue = uint128(_value);
 		require(uint(shortValue) == _value);
 

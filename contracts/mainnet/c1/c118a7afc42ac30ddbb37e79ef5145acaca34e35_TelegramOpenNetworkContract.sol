@@ -55,9 +55,9 @@ contract TelegramOpenNetwork is owned {
 
 contract TonToken is TelegramOpenNetwork {
     
-  string public standard    = &#39;ERC 20&#39;;
-  string public name      = &#39;TelegramOpenNetwork&#39;;
-  string public symbol    = &#39;TON&#39;;
+  string public standard    = 'ERC 20';
+  string public name      = 'TelegramOpenNetwork';
+  string public symbol    = 'TON';
   uint8  public decimals    = 0;
   
   function TonToken() public payable TelegramOpenNetwork() {}

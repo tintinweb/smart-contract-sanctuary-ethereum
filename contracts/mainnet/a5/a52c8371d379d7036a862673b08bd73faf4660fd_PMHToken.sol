@@ -97,7 +97,7 @@ contract PMHToken is owned, token {
     mapping (address => uint[]) public paidDividends ; // for each address, if the period dividend was paid or not and the amount 
 // added MAR 2018
 
-    mapping (address => bool) public frozenAccount; // Array containing foreach address if it&#39;s frozen or not.
+    mapping (address => bool) public frozenAccount; // Array containing foreach address if it's frozen or not.
 
     /* This generates a public event on the blockchain that will notify about an address being freezed. */
     event FrozenFunds(address target, bool frozen);
@@ -176,7 +176,7 @@ contract PMHToken is owned, token {
     /// @param target Address to receive the tokens.
     /// @param mintedAmount The amount of tokens target will receive.
     function mintToken(address target, uint256 mintedAmount) onlyOwner public {
-        balanceOf[target] += mintedAmount; // Updates target&#39;s balance.
+        balanceOf[target] += mintedAmount; // Updates target's balance.
         totalSupply       += mintedAmount; // Updates totalSupply.
         _updateTokensAvailable(balanceOf[this]); // Update the balance of tokens available if necessary.
         Transfer(0, this, mintedAmount);      // Notifies the blockchain about the tokens created.
@@ -187,7 +187,7 @@ contract PMHToken is owned, token {
     /// @param target Address to be frozen.
     /// @param freeze Either to freeze target or not.
     function freezeAccount(address target, bool freeze) onlyOwner public {
-        frozenAccount[target] = freeze; // Sets the target status. True if it&#39;s frozen, False if it&#39;s not.
+        frozenAccount[target] = freeze; // Sets the target status. True if it's frozen, False if it's not.
         FrozenFunds(target, freeze); // Notifies the blockchain about the change of state.
     }
 
@@ -214,7 +214,7 @@ contract PMHToken is owned, token {
         _updateSolvency(this.balance);   // Updates the solvency value of the contract.
         _updateProfit(msg.value, false); // Decrease profit value.
         // Decrease because deposits will be done mostly by the owner.
-        // Possible donations won&#39;t count as profit for the company, but in favor of the investors.
+        // Possible donations won't count as profit for the company, but in favor of the investors.
         LogDeposit(msg.sender, msg.value); // Notifies the blockchain about the Ether received.
         return true;
     }

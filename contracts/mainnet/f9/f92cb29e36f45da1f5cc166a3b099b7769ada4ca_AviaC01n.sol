@@ -23,7 +23,7 @@ contract AviaC01n  {
     string public name = "Avia C01n";
     uint8 public decimals = 18;
     string public symbol  = "AC0";
-    string public version = &#39;0.1.0&#39;;
+    string public version = '0.1.0';
     
 	/// ====== ERC20 implementation starts here =====
 

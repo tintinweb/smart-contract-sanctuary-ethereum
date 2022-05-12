@@ -87,8 +87,8 @@ pragma solidity ^0.4.24;
 ///  See ERC721 specification
 /// @author Christopher Scott
 /// @dev These functions are public, and could be called by anyone, even in the case
-///  where no NFTs have been transferred. Since it&#39;s not a reliable source of
-///  truth about ERC721 tokens being transferred, we save the gas and don&#39;t
+///  where no NFTs have been transferred. Since it's not a reliable source of
+///  truth about ERC721 tokens being transferred, we save the gas and don't
 ///  bother emitting a (potentially spurious) event as found in 
 ///  https://github.com/OpenZeppelin/openzeppelin-solidity/blob/5471fc808a17342d738853d7bf3e9e5ef3108074/contracts/mocks/ERC721ReceiverMock.sol
 contract ERC721Receivable is ERC721ReceiverDraft, ERC721ReceiverFinal {
@@ -256,12 +256,12 @@ pragma solidity ^0.4.24;
 ///  to "one-of-one" (i.e. singlesig) by simply having the cosigner set to the same value as
 ///  the main signer.
 /// 
-///  Most "advanced" functionality (deadman&#39;s switch, multiday recovery flows, blacklisting, etc)
+///  Most "advanced" functionality (deadman's switch, multiday recovery flows, blacklisting, etc)
 ///  can be implemented externally to this smart contract, either as an additional smart contract
 ///  (which can be tracked as a signer without cosigner, or as a cosigner) or as an off-chain flow
 ///  using a public/private key pair as cosigner. Of course, the basic cosigning functionality could
 ///  also be implemented in this way, but (A) the complexity and gas cost of two-of-two multisig (as
-///  implemented here) is negligable even if you don&#39;t need the cosigner functionality, and
+///  implemented here) is negligable even if you don't need the cosigner functionality, and
 ///  (B) two-of-two multisig (as implemented here) handles a lot of really common use cases, most
 ///  notably third-party gas payment and off-chain blacklisting and fraud detection.
 contract CoreWallet is ERC721Receivable, ERC223Receiver, ERC1271  {
@@ -278,7 +278,7 @@ contract CoreWallet is ERC721Receivable, ERC223Receiver, ERC1271  {
 
     /// @notice A pre-shifted "1", used to increment the authVersion, so we can "prepend"
     ///  the authVersion to an address (for lookups in the authorizations mapping)
-    ///  by using the &#39;+&#39; operator (which is cheaper than a shift and a mask). See the
+    ///  by using the '+' operator (which is cheaper than a shift and a mask). See the
     ///  comment on the `authorizations` variable for how this is used.
     uint256 public constant AUTH_VERSION_INCREMENTOR = (1 << 160);
     
@@ -308,7 +308,7 @@ contract CoreWallet is ERC721Receivable, ERC223Receiver, ERC1271  {
 
     /// @notice A per-key nonce value, incremented each time a transaction is processed with that key.
     ///  Used for replay prevention. The nonce value in the transaction must exactly equal the current
-    ///  nonce value in the wallet for that key. (This mirrors the way Ethereum&#39;s transaction nonce works.)
+    ///  nonce value in the wallet for that key. (This mirrors the way Ethereum's transaction nonce works.)
     mapping(address => uint256) public nonces;
 
     /// @notice A special address that is authorized to call `emergencyRecovery()`. That function
@@ -420,14 +420,14 @@ contract CoreWallet is ERC721Receivable, ERC223Receiver, ERC1271  {
         emit Authorized(_authorizedAddress, _cosigner);
     }
 
-    /// @notice The fallback function, invoked whenever we receive a transaction that doesn&#39;t call any of our
+    /// @notice The fallback function, invoked whenever we receive a transaction that doesn't call any of our
     ///  named functions. In particular, this method is called when we are the target of a simple send transaction
-    ///  or when someone tries to call a method that we don&#39;t implement. We assume that a "correct" invocation of
+    ///  or when someone tries to call a method that we don't implement. We assume that a "correct" invocation of
     ///  this method only occurs when someone is trying to transfer ether to this wallet, in which case and the
     ///  `msg.data.length` will be 0.
     ///
     ///  NOTE: Some smart contracts send 0 eth as part of a more complex
-    ///  operation (-cough- CryptoKitties -cough-) ; ideally, we&#39;d `require(msg.value > 0)` here, but to work
+    ///  operation (-cough- CryptoKitties -cough-) ; ideally, we'd `require(msg.value > 0)` here, but to work
     ///  with those kinds of smart contracts, we accept zero sends and just skip logging in that case.
     function() external payable {
         require(msg.data.length == 0, "Invalid transaction.");
@@ -447,7 +447,7 @@ contract CoreWallet is ERC721Receivable, ERC223Receiver, ERC1271  {
     function setAuthorized(address _authorizedAddress, uint256 _cosigner) external onlyInvoked {
         // TODO: Allowing a signer to remove itself is actually pretty terrible; it could result in the user
         //  removing their only available authorized key. Unfortunately, due to how the invocation forwarding
-        //  works, we don&#39;t actually _know_ which signer was used to call this method, so there&#39;s no easy way
+        //  works, we don't actually _know_ which signer was used to call this method, so there's no easy way
         //  to prevent this.
         
         // TODO: Allowing the backup key to be set as an authorized address bypasses the recovery mechanisms.
@@ -532,7 +532,7 @@ contract CoreWallet is ERC721Receivable, ERC223Receiver, ERC1271  {
     /// @return Magic value `0x1626ba7e` upon success, 0 otherwise.
     function isValidSignature(bytes32 hash, bytes _signature) external view returns (bytes4) {
         
-        // We &#39;hash the hash&#39; for the following reasons:
+        // We 'hash the hash' for the following reasons:
         // 1. `hash` is not the hash of an Ethereum transaction
         // 2. signature must target this wallet to avoid replaying the signature for another wallet
         // with the same key
@@ -604,7 +604,7 @@ contract CoreWallet is ERC721Receivable, ERC223Receiver, ERC1271  {
     ///  signer for this wallet, with no cosigner, saving transaction size and gas in that case.
     /// @param data The data containing the transactions to be invoked; see internalInvoke for details.
     function invoke0(bytes data) external {
-        // The nonce doesn&#39;t need to be incremented for transactions that don&#39;t include explicit signatures;
+        // The nonce doesn't need to be incremented for transactions that don't include explicit signatures;
         // the built-in nonce of the native ethereum transaction will protect against replay attacks, and we
         // can save the gas that would be spent updating the nonce variable
 
@@ -809,7 +809,7 @@ contract CoreWallet is ERC721Receivable, ERC223Receiver, ERC1271  {
                 // 84 = to(20) + value(32) + size(32)
                 let opEnd := add(len, add(memPtr, 84))
 
-                // Bail if the current operation&#39;s data overruns the end of the enclosing data buffer
+                // Bail if the current operation's data overruns the end of the enclosing data buffer
                 // NOTE: Comment out this bit of code and uncomment the next section if you want
                 // the solidity-coverage tool to work.
                 // See https://github.com/sc-forks/solidity-coverage/issues/287
@@ -839,7 +839,7 @@ contract CoreWallet is ERC721Receivable, ERC223Receiver, ERC1271  {
                     }
                     default {
                         // mark this operation as failed
-                        // create the appropriate bit, &#39;or&#39; with previous
+                        // create the appropriate bit, 'or' with previous
                         result := or(result, exp(2, numOps))
                     }
                 }

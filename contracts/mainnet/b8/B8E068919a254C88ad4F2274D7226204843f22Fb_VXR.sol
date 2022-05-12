@@ -114,8 +114,8 @@ contract VXR is ERC20Interface, Pausable {
     }
 
     constructor() public{
-        symbol = &#39;VXR&#39;;
-        name = &#39;Versara Trade&#39;;
+        symbol = 'VXR';
+        name = 'Versara Trade';
         decimals = 18;
         _totalSupply = 1000000000*10**uint(decimals);
         balances[owner] = _totalSupply;

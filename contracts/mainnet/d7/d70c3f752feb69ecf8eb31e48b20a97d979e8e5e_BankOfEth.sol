@@ -26,7 +26,7 @@ pragma solidity ^0.4.23;
 *    gaurantees
 * -- Gain a return when people play the game, not a false gauranteed endless 
 *    profit with an exitscam at the end!
-* -- Contract verified and open from day 1 so you know we can&#39;t "exitscam" you!
+* -- Contract verified and open from day 1 so you know we can't "exitscam" you!
 * -- Set to become the BIGGEST home of $ETH gaming where you can take OWNERSHIP 
 *    and PROFIT
 *
@@ -127,7 +127,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

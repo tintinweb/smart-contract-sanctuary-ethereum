@@ -238,14 +238,14 @@ contract ARXCrowdsale is owned, safeMath {
     }
   }
 
-  function refund() public { // any contributor can call this to have their Eth returned. user&#39;s purchased ARX tokens are burned prior refund of Eth.
+  function refund() public { // any contributor can call this to have their Eth returned. user's purchased ARX tokens are burned prior refund of Eth.
     //require minCap not reached
     require ((amountRaisedInWei < fundingMinCapInWei)
     && (isCrowdSaleClosed)
     && (block.number > fundingEndBlock)
     && (usersARXfundValue[msg.sender] > 0));
 
-    //burn user&#39;s token ARX token balance, refund Eth sent
+    //burn user's token ARX token balance, refund Eth sent
     uint256 ethRefund = usersARXfundValue[msg.sender];
     balancesArray[msg.sender] = 0;
     usersARXfundValue[msg.sender] = 0;

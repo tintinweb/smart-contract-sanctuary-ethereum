@@ -50,7 +50,7 @@ contract RIPAC {
   function totalSupply() constant returns (uint256 theTotalSupply) {
     // Because our function signature
     // states that the returning variable
-    // is "theTotalSupply", we&#39;ll just set that variable
+    // is "theTotalSupply", we'll just set that variable
     // to the value of the instance variable "_totalSupply"
     // and return it
     theTotalSupply = _totalSupply;
@@ -81,7 +81,7 @@ contract RIPAC {
       balances[msg.sender] -= _amount;
       balances[_to] += _amount;
       // Fire a transfer event for any
-      // logic that&#39;s listening
+      // logic that's listening
       Transfer(msg.sender, _to, _amount);
         return true;
       } else {
@@ -124,7 +124,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

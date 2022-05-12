@@ -136,7 +136,7 @@ contract BMICOAffiliateProgramm {
             }
         }
         else{
-            promo = &#39;-1&#39;;
+            promo = '-1';
             balance = 0;
             h_datetime = new uint256[](0);
             h_invest = new uint256[](0);

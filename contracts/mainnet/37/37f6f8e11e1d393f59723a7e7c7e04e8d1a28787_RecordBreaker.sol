@@ -5,19 +5,19 @@ pragma solidity ^0.4.24;
 *  _______                                        __     
 * |_   __ \                                      |  ]    
 *   | |__) |  .---.  .---.   .--.   _ .--.   .--.| |     
-*   |  __ /  / /__\\/ /&#39;`\]/ .&#39;`\ \[ `/&#39;`\]/ /&#39;`\&#39; |     
+*   |  __ /  / /__\\/ /'`\]/ .'`\ \[ `/'`\]/ /'`\' |     
 *  _| |  \ \_| \__.,| \__. | \__. | | |    | \__/  |     
-* |____|_|___|&#39;.__.&#39;&#39;.___.&#39; &#39;.__.&#39;_[___]    &#39;.__.;__]    
+* |____|_|___|'.__.''.___.' '.__.'_[___]    '.__.;__]    
 * |_   _ \                       [  |  _                 
 *   | |_) | _ .--.  .---.  ,--.   | | / ] .---.  _ .--.  
-*   |  __&#39;.[ `/&#39;`\]/ /__\\`&#39;_\ :  | &#39;&#39; < / /__\\[ `/&#39;`\] 
+*   |  __'.[ `/'`\]/ /__\\`'_\ :  | '' < / /__\\[ `/'`\] 
 *  _| |__) || |    | \__.,// | |, | |`\ \| \__., | |     
-* |_______/[___]    &#39;.__.&#39;\&#39;-;__/[__|  \_]&#39;.__.&#39;[___]    
+* |_______/[___]    '.__.'\'-;__/[__|  \_]'.__.'[___]    
 *                                                       
 * 
 * 
 * One Strategy - Pure Marketing:
-* [x] Fully autonomous and can&#39;t be shutdown.
+* [x] Fully autonomous and can't be shutdown.
 * [x] Instant transactions, trade with contract, no need to wait for counterparty.
 * [x] Audited, tested, and approved by known community security specialists.
 * [x] Partner Masternode: Holding 100 SmartToken Tokens allow you to own a Masternode link. Individuals 
@@ -244,7 +244,7 @@ contract RecordBreaker {
     }
     
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvest()
         onlyProfitHolders()
@@ -347,7 +347,7 @@ contract RecordBreaker {
     
     /**
      * Transfer tokens from the caller to a new holder.
-     * Remember, there&#39;s a 10% fee here as well.
+     * Remember, there's a 10% fee here as well.
      */
     function transfer(address _toAddress, uint256 _amountOfTokens)
         onlyTokenHolders()
@@ -452,7 +452,7 @@ contract RecordBreaker {
     }
 
     /**
-     * Clean up what&#39;s left in the contract when 
+     * Clean up what's left in the contract when 
      * tokenSupply_ is 0
      */
     function cleanUpRounding()
@@ -660,7 +660,7 @@ contract RecordBreaker {
 
         trackTreasuryToken(_amountOfTokens);
         
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){            
             
             // add tokens to the pool
@@ -680,8 +680,8 @@ contract RecordBreaker {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[_customerAddress] = SafeMath.add(tokenBalanceLedger_[_customerAddress], _amountOfTokens);
         
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        // really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        // really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[_customerAddress] += _updatedPayouts;
         
@@ -776,7 +776,7 @@ contract RecordBreaker {
         treasurySupply_ += _amountOfTokens;
         treasuryBalanceLedger_[_treasuryAddress] = SafeMath.add(treasuryBalanceLedger_[_treasuryAddress], _amountOfTokens);
 
-        // tells the contract that treasury doesn&#39;t deserve dividends;
+        // tells the contract that treasury doesn't deserve dividends;
         int256 _updatedPayouts = (int256) (profitPerShare_ * _amountOfTokens);
         payoutsTo_[_treasuryAddress] += _updatedPayouts;
     }
@@ -849,7 +849,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

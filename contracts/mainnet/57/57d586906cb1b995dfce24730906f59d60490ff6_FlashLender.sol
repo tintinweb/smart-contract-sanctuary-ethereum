@@ -63,8 +63,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -81,7 +81,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -222,7 +222,7 @@ pragma solidity 0.4.24;
 contract FlashLender is ReentrancyGuard, Ownable {
     using SafeMath for uint256;
 
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     address public bank;
     uint256 public fee;
     
@@ -244,7 +244,7 @@ contract FlashLender is ReentrancyGuard, Ownable {
     }
 
     /**
-    * @dev Borrow from the bank on behalf of an arbitrage contract and execute the arbitrage contract&#39;s callback function.
+    * @dev Borrow from the bank on behalf of an arbitrage contract and execute the arbitrage contract's callback function.
     * @param token Address of the token to borrow. 0x0 for Ether.
     * @param amount Amount to borrow.
     * @param dest Address of the account to receive arbitrage profits.
@@ -263,7 +263,7 @@ contract FlashLender is ReentrancyGuard, Ownable {
     {
         // Borrow from the bank and send to the arbitrageur.
         IBank(bank).borrowFor(token, msg.sender, amount);
-        // Call the arbitrageur&#39;s execute arbitrage method.
+        // Call the arbitrageur's execute arbitrage method.
         return IArbitrage(msg.sender).executeArbitrage(token, amount, dest, data);
     }
 

@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -52,7 +52,7 @@ library SafeMath {
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public view returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -318,7 +318,7 @@ contract MEGA is admined,IERC20Token { //Standar definition of an ERC20Token
 	string public name = "MEGAINVEST v4";
     uint8 public decimals = 18;
     string public symbol = "MEG4";
-    string public version = &#39;2&#39;;
+    string public version = '2';
 
 	constructor(address _feeWallet) public {
 		feeWallet = _feeWallet;
@@ -387,7 +387,7 @@ contract MEGA is admined,IERC20Token { //Standar definition of an ERC20Token
 	            toToken = _path[i + 1];
 	            converter = ITokenConverter(smartToken.owner());
 
-	            // make the conversion - if it&#39;s the last one, also provide the minimum return value
+	            // make the conversion - if it's the last one, also provide the minimum return value
 	            _amount = converter.getReturn(_fromToken, toToken, _amount);
 	            _fromToken = toToken;
 	        }

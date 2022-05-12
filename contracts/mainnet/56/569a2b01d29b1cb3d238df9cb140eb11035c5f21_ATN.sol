@@ -143,9 +143,9 @@ contract PausableToken is StandardToken, Pausable {
 
 contract ATN is PausableToken {
 
-    string public name = &#39;ATN&#39;;
-    string public symbol = &#39;ATN&#39;;
-    string public version = &#39;1.0.1&#39;;
+    string public name = 'ATN';
+    string public symbol = 'ATN';
+    string public version = '1.0.1';
     uint8 public decimals = 18;
     
     

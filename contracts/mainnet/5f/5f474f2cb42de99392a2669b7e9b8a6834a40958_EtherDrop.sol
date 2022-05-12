@@ -37,12 +37,12 @@ contract Pausable is Ownable {
     bool public paused = false;
 
     modifier whenNotPaused() {
-        require(!paused, &#39;Contract Paused!&#39;);
+        require(!paused, 'Contract Paused!');
         _;
     }
 
     modifier whenPaused() {
-        require(paused, &#39;Contract Active!&#39;);
+        require(paused, 'Contract Active!');
         _;
     }
 
@@ -107,17 +107,17 @@ contract EtherDrop is Pausable {
         uint[] rounds;
 
         /*
-         * array of rounds subscription&#39;s inqueue indexes
+         * array of rounds subscription's inqueue indexes
          */
         uint[] places;
 
         /*
-         * array of rounds&#39;s ether value subscription >= PRICE
+         * array of rounds's ether value subscription >= PRICE
          */
         uint[] values;
 
         /*
-         * array of 0&#39;s initially, update to REWARD PRICE in win situations
+         * array of 0's initially, update to REWARD PRICE in win situations
          */
         uint[] prices;
     }
@@ -220,7 +220,7 @@ contract EtherDrop is Pausable {
         /*
          * check subscription price
          */
-        require(msg.value >= PRICE_WEI, &#39;Insufficient Ether&#39;);
+        require(msg.value >= PRICE_WEI, 'Insufficient Ether');
 
         /*
          * start round ahead: on QUEUE_MAX + 1
@@ -292,7 +292,7 @@ contract EtherDrop is Pausable {
         /*
          * user is not allowed to subscribe twice
          */
-        require(h.size == 0 || h.rounds[h.size - 1] != _round, &#39;Already In Round&#39;);
+        require(h.size == 0 || h.rounds[h.size - 1] != _round, 'Already In Round');
 
         /*
          * create user subscription: N.B. places[_round] is the result proof
@@ -304,7 +304,7 @@ contract EtherDrop is Pausable {
         h.prices.push(0);
 
         /*
-         * initial round is a push, others are &#39;on set&#39; index
+         * initial round is a push, others are 'on set' index
          */
         if (_round == 0) {
             _queue.push(msg.sender);
@@ -339,8 +339,8 @@ contract EtherDrop is Pausable {
 
         address winner = _winners[round];
 
-        require(winner == msg.sender, &#39;not a winner&#39;);
-        require(_history[winner].blacklist != FLAG_BLACKLIST, &#39;blacklisted&#39;);
+        require(winner == msg.sender, 'not a winner');
+        require(_history[winner].blacklist != FLAG_BLACKLIST, 'blacklisted');
 
         _wincomma[round] = a;
         _wincommb[round] = b;

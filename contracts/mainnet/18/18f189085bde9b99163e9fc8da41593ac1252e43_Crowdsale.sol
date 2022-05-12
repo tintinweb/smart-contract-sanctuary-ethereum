@@ -32,7 +32,7 @@ library SafeMathLibrary {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -149,7 +149,7 @@ contract Operator is Ownable {
     event OperatorAddressRemoved(address addr);
 
     /**
-     * @dev Throws if called by any account that&#39;s not operator.
+     * @dev Throws if called by any account that's not operator.
      */
     modifier onlyOperator() {
         require(operators[msg.sender]);
@@ -187,7 +187,7 @@ contract Operator is Ownable {
      * @dev remove an address from the operators
      * @param addr address
      * @return true if the address was removed from the operators,
-     * false if the address wasn&#39;t in the operators in the first place
+     * false if the address wasn't in the operators in the first place
      */
     function removeAddressFromOperators(address addr) onlyOwner public returns(bool success) {
         if (operators[addr]) {
@@ -201,7 +201,7 @@ contract Operator is Ownable {
      * @dev remove addresses from the operators
      * @param addrs addresses
      * @return true if at least one address was removed from the operators,
-     * false if all addresses weren&#39;t in the operators in the first place
+     * false if all addresses weren't in the operators in the first place
      */
     function removeAddressesFromOperators(address[] addrs) onlyOwner public returns(bool success) {
         for (uint256 i = 0; i < addrs.length; i++) {
@@ -219,7 +219,7 @@ contract Whitelist is Operator {
     event WhitelistedAddressRemoved(address addr);
 
     /**
-     * @dev Throws if called by any account that&#39;s not whitelisted.
+     * @dev Throws if called by any account that's not whitelisted.
      */
     modifier onlyWhitelisted() {
         require(whitelist[msg.sender]);
@@ -257,7 +257,7 @@ contract Whitelist is Operator {
      * @dev remove an address from the whitelist
      * @param addr address
      * @return true if the address was removed from the whitelist,
-     * false if the address wasn&#39;t in the whitelist in the first place
+     * false if the address wasn't in the whitelist in the first place
      */
     function removeAddressFromWhitelist(address addr) onlyOperator public returns(bool success) {
         if (whitelist[addr]) {
@@ -271,7 +271,7 @@ contract Whitelist is Operator {
      * @dev remove addresses from the whitelist
      * @param addrs addresses
      * @return true if at least one address was removed from the whitelist,
-     * false if all addresses weren&#39;t in the whitelist in the first place
+     * false if all addresses weren't in the whitelist in the first place
      */
     function removeAddressesFromWhitelist(address[] addrs) onlyOperator public returns(bool success) {
         for (uint256 i = 0; i < addrs.length; i++) {

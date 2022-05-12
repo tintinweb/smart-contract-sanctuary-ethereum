@@ -9,7 +9,7 @@ contract OCC {
     //decimal setting
     uint8 public decimals = 18;
     
-    //contract admin&#39;s address
+    //contract admin's address
     address private admin_add;
     //new user can get money when first register
     uint private present_money=0;

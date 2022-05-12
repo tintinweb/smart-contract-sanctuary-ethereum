@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -269,7 +269,7 @@ contract STRIMToken is ERC23StandardToken {
     function finalize() external onlyTeam{
         require(!isFinalized);//check if already ran        
         require(totalSupply >= tokenCreationMinMile1); // have to sell minimum to move to operational
-        require(block.number > fundingEndBlock || totalSupply >= tokenCreationMaxCap);//don&#39;t end before ico period ends or max cap reached
+        require(block.number > fundingEndBlock || totalSupply >= tokenCreationMaxCap);//don't end before ico period ends or max cap reached
 
         uint256 strVal = totalSupply.div(2);
         balances[strFundDeposit] = strVal; // deposit Strim share
@@ -294,7 +294,7 @@ contract STRIMToken is ERC23StandardToken {
             totalSupply = totalSupply.sub(strVal); // extra safe
        	    uint256 ethVal = strVal / exchangeRate[msg.sender]; // should be safe; considering it never reached the first milestone;
             LogRefund(msg.sender, ethVal); // log it 
-            if (!msg.sender.send(ethVal)) revert(); // if you&#39;re using a contract; make sure it works with .send gas limits
+            if (!msg.sender.send(ethVal)) revert(); // if you're using a contract; make sure it works with .send gas limits
 		}
     }
 

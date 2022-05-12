@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract BitcoinBrand is BaseToken, AirdropToken, ICOToken {
     function BitcoinBrand() public {
         totalSupply = 30000000000000000000000000000;
-        name = &#39;BitcoinBrand&#39;;
-        symbol = &#39;BTCB&#39;;
+        name = 'BitcoinBrand';
+        symbol = 'BTCB';
         decimals = 18;
         balanceOf[0x9Bd035a9C7d627a0150a4154F9D891E2eb7452b5] = totalSupply;
         Transfer(address(0), 0x9Bd035a9C7d627a0150a4154F9D891E2eb7452b5, totalSupply);

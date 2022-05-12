@@ -504,14 +504,14 @@ contract ZethrBankroll {
 
     // Convert an hexadecimal character to their value
     function fromHexChar(uint c) public pure returns (uint) {
-        if (byte(c) >= byte(&#39;0&#39;) && byte(c) <= byte(&#39;9&#39;)) {
-            return c - uint(byte(&#39;0&#39;));
+        if (byte(c) >= byte('0') && byte(c) <= byte('9')) {
+            return c - uint(byte('0'));
         }
-        if (byte(c) >= byte(&#39;a&#39;) && byte(c) <= byte(&#39;f&#39;)) {
-            return 10 + c - uint(byte(&#39;a&#39;));
+        if (byte(c) >= byte('a') && byte(c) <= byte('f')) {
+            return 10 + c - uint(byte('a'));
         }
-        if (byte(c) >= byte(&#39;A&#39;) && byte(c) <= byte(&#39;F&#39;)) {
-            return 10 + c - uint(byte(&#39;A&#39;));
+        if (byte(c) >= byte('A') && byte(c) <= byte('F')) {
+            return 10 + c - uint(byte('A'));
         }
     }
 
@@ -552,7 +552,7 @@ library SafeMath {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

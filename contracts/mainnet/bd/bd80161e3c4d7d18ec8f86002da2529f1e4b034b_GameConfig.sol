@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 /* ==================================================================== */
 /* Copyright (c) 2018 The MagicAcademy Project.  All rights reserved.
 /* 
-/* https://www.magicacademy.io One of the world&#39;s first idle strategy games of blockchain 
+/* https://www.magicacademy.io One of the world's first idle strategy games of blockchain 
 /*  
 /* authors <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93e1f2fafdead3fffae5f6e0e7f2e1bdf0fcfe">[email&#160;protected]</a>/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afc9cec1c1d681d5c7cac1c8efc3c6d9cadcdbcedd81ccc0c2">[email&#160;protected]</a>
 /*                 
@@ -203,16 +203,16 @@ contract GameConfig {
     return SafeMath.div(defendingPower,2);
   }
  
-    /// @notice get the production card&#39;s ether cost
+    /// @notice get the production card's ether cost
   function unitEthCost(uint256 cardId) external constant returns (uint256) {
     return cardInfo[cardId].ethCost;
   }
 
-    /// @notice get the battle card&#39;s ether cost
+    /// @notice get the battle card's ether cost
   function unitBattleEthCost(uint256 cardId) external constant returns (uint256) {
     return battlecardInfo[cardId].ethCost;
   }
-  /// @notice get the battle card&#39;s plat cost
+  /// @notice get the battle card's plat cost
   function unitBattlePLATCost(uint256 cardId) external constant returns (uint256) {
     return SafeMath.mul(battlecardInfo[cardId].ethCost,PLATPrice);
   }
@@ -380,7 +380,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

@@ -102,7 +102,7 @@ contract Token is ERC223 {
         require(balances[msg.sender] >= _value);
 
         uint codeLength;
-        // all contracts have size > 0, however it&#39;s possible to bypass this check with a specially crafted contract.
+        // all contracts have size > 0, however it's possible to bypass this check with a specially crafted contract.
         assembly {
             codeLength := extcodesize(_to)
         }
@@ -286,7 +286,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

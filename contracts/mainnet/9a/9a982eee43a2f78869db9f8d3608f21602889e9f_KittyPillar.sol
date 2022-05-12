@@ -81,10 +81,10 @@ contract KittyPillar {
 	//***************************
 	uint256 private currentPId_;
 	mapping (address => uint256) public pIdByAddress_;          										// (address => pId) returns player id by address
-	mapping (uint8 => mapping (uint256 => KittyPillarDataSets.Pillar)) public pillarRounds_;			// (pillarIdx => roundId -> Pillar) returns pillar&#39;s round information
+	mapping (uint8 => mapping (uint256 => KittyPillarDataSets.Pillar)) public pillarRounds_;			// (pillarIdx => roundId -> Pillar) returns pillar's round information
 	mapping (uint256 => KittyPillarDataSets.Player) public players_;										// (pId => player) returns player information	
-	mapping (uint256 => mapping (uint256 => uint256[])) public playerRounds_;		// (pId => roundId => uint256[]) returns player&#39;s round information
-	mapping (uint256 => mapping (uint256 => KittyPillarDataSets.KittyRound)) public kittyRounds_;		// (kittyId => roundId => KittyRound) returns kitty&#39;s round information
+	mapping (uint256 => mapping (uint256 => uint256[])) public playerRounds_;		// (pId => roundId => uint256[]) returns player's round information
+	mapping (uint256 => mapping (uint256 => KittyPillarDataSets.KittyRound)) public kittyRounds_;		// (kittyId => roundId => KittyRound) returns kitty's round information
 	
 	
 //**********************************************************************************
@@ -147,7 +147,7 @@ contract KittyPillar {
 		require(_rId == currentRId_, "round has ended, wait for next round");
 		
 		uint256 _pId = pIdByAddress_[msg.sender];
-		//add player if he/she doesn&#39;t exists in game
+		//add player if he/she doesn't exists in game
         if (_pId == 0) {
 			currentPId_ = currentPId_.add(1);
 			pIdByAddress_[msg.sender] = currentPId_;
@@ -169,7 +169,7 @@ contract KittyPillar {
 		//record kitty under player for this round
 		playerRounds_[_pId][currentRId_].push(_kittyId);
 						
-		//calculate kitty&#39;s power
+		//calculate kitty's power
 		uint256 minPower = minPower_;
 		if (pillarRounds_[_pillarIdx][currentRId_].totalContributions<(round_[currentRId_].targetContributions/2)) { //pillar under half, check other pillars
 			uint8 i;
@@ -194,7 +194,7 @@ contract KittyPillar {
 		kittyRounds_[_kittyId][currentRId_].kittyOwnerPId = _pId;
 		kittyRounds_[_kittyId][currentRId_].timeStamp = joinedTime;
 		
-		// update current round&#39;s info
+		// update current round's info
 		pillarRounds_[_pillarIdx][currentRId_].totalContributions = pillarRounds_[_pillarIdx][currentRId_].totalContributions.add(_contribution);
 		pillarRounds_[_pillarIdx][currentRId_].kittyIds.push(_kittyId);
 				
@@ -285,8 +285,8 @@ contract KittyPillar {
 	
 	function withdrawWinnings() external {
 		uint256 _pId = pIdByAddress_[msg.sender];
-		//player doesn&#39;t exists in game
-		require(_pId != 0, "player doesn&#39;t exist in game, don&#39;t disturb");
+		//player doesn't exists in game
+		require(_pId != 0, "player doesn't exist in game, don't disturb");
 		require(players_[_pId].totalEth > 0, "there is nothing to withdraw");
 		
 		uint256 withdrawalSum = players_[_pId].totalEth;

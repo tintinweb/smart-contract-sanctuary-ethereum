@@ -235,7 +235,7 @@ contract LuckyCoin is Coinevents{
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -290,7 +290,7 @@ contract LuckyCoin is Coinevents{
         // fetch player id
         uint256 _pID = pIDxAddr_[msg.sender];
         uint256 _affID;
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name){
+        if (_affCode == '' || _affCode == plyr_[_pID].name){
             _affID = plyr_[_pID].laff;
         }
         else{
@@ -617,7 +617,7 @@ contract LuckyCoin is Coinevents{
         if (plyr_[_pID].lrnd != 0)
             updateTicketVault(_pID, plyr_[_pID].lrnd);
             
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
 
     }
@@ -772,7 +772,7 @@ contract LuckyCoin is Coinevents{
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds

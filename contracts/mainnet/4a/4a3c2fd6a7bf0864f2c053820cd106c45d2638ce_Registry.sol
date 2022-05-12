@@ -89,7 +89,7 @@ contract Registry is Ownable {
         // make sure input params are valid
         require(price != 0 && sellerUsername != "" && moduleName != "" && bytes(usernameAndProjectName).length != 0 && licenseId != 0);
 
-        // make sure the name isn&#39;t already taken
+        // make sure the name isn't already taken
         require(moduleIds[usernameAndProjectName] == 0);
 
         numModules += 1;

@@ -182,7 +182,7 @@ contract RedemptionCertificate is Claimable {
 
     /**
      * @dev Generates the hash of the message that needs to be signed by an approved signer.
-     * The nonce is read directly from the contract&#39;s state.
+     * The nonce is read directly from the contract's state.
      */
     function generateWithdrawalHash(string accountId, uint256 amount, address recipient)
      view

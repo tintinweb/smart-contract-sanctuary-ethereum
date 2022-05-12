@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -115,8 +115,8 @@ contract StarbaseEarlyPurchase {
     /*
      *  Constants
      */
-    string public constant PURCHASE_AMOUNT_UNIT = &#39;CNY&#39;;    // Chinese Yuan
-    string public constant PURCHASE_AMOUNT_RATE_REFERENCE = &#39;http://www.xe.com/currencytables/&#39;;
+    string public constant PURCHASE_AMOUNT_UNIT = 'CNY';    // Chinese Yuan
+    string public constant PURCHASE_AMOUNT_RATE_REFERENCE = 'http://www.xe.com/currencytables/';
     uint256 public constant PURCHASE_AMOUNT_CAP = 9000000;
 
     /*
@@ -168,7 +168,7 @@ contract StarbaseEarlyPurchase {
      */
 
     /**
-     * @dev Returns early purchased amount by purchaser&#39;s address
+     * @dev Returns early purchased amount by purchaser's address
      * @param purchaser Purchaser address
      */
     function purchasedAmountBy(address purchaser)
@@ -249,7 +249,7 @@ contract StarbaseEarlyPurchase {
     }
 
     /**
-     * @dev Setup function sets external contract&#39;s address
+     * @dev Setup function sets external contract's address
      * @param starbaseCrowdsaleAddress Token address
      */
     function setup(address starbaseCrowdsaleAddress)
@@ -338,7 +338,7 @@ contract StarbaseEarlyPurchaseAmendment {
     }
 
     /**
-     * @dev Returns early purchased amount by purchaser&#39;s address
+     * @dev Returns early purchased amount by purchaser's address
      * @param purchaser Purchaser address
      */
     function purchasedAmountBy(address purchaser)
@@ -385,7 +385,7 @@ contract StarbaseEarlyPurchaseAmendment {
     }
 
     /**
-     * @dev Sets up function sets external contract&#39;s address
+     * @dev Sets up function sets external contract's address
      * @param starbaseCrowdsaleAddress Token address
      */
     function setup(address starbaseCrowdsaleAddress)
@@ -452,7 +452,7 @@ contract StarbaseEarlyPurchaseAmendment {
     /**
      * @dev Amends a given early purchase with data
      * @param earlyPurchaseIndex Index number of the purchase
-     * @param purchaser Purchaser&#39;s address
+     * @param purchaser Purchaser's address
      * @param amount Value of purchase
      * @param purchasedAt Purchase timestamp
      */
@@ -618,7 +618,7 @@ contract StarbaseCrowdsale is Ownable {
     uint256 constant public earlyPurchaseTokenAmount = 50000000e18;
     uint256 constant public MIN_INVESTMENT = 1; // min is 1 Wei
     uint256 constant public MAX_CROWDSALE_CAP = 60000000; // approximately 9M USD for the crowdsale(CS). 1M (by EP) + 9M (by CS) = 10M (Total)
-    string public constant PURCHASE_AMOUNT_UNIT = &#39;CNY&#39;;  // Chinese Yuan
+    string public constant PURCHASE_AMOUNT_UNIT = 'CNY';  // Chinese Yuan
 
     /**
      * Types
@@ -650,7 +650,7 @@ contract StarbaseCrowdsale is Ownable {
 
     address[] public earlyPurchasers;
     mapping (address => QualifiedPartners) public qualifiedPartners;
-    mapping (address => uint256) public earlyPurchasedAmountBy; // early purchased amount in CNY per purchasers&#39; address
+    mapping (address => uint256) public earlyPurchasedAmountBy; // early purchased amount in CNY per purchasers' address
     bool public earlyPurchasesLoaded = false;  // returns whether all early purchases are loaded into this contract
 
     // crowdsale
@@ -658,7 +658,7 @@ contract StarbaseCrowdsale is Ownable {
     uint256 public startDate;
     uint256 public endedAt;
     CrowdsalePurchase[] public crowdsalePurchases;
-    uint256 public cnyBtcRate; // this rate won&#39;t be used from a smart contract function but external system
+    uint256 public cnyBtcRate; // this rate won't be used from a smart contract function but external system
     uint256 public cnyEthRate;
 
     // bonus milestones
@@ -750,7 +750,7 @@ contract StarbaseCrowdsale is Ownable {
      */
 
     /**
-     * @dev Setup function sets external contracts&#39; addresses.
+     * @dev Setup function sets external contracts' addresses.
      * @param starbaseTokenAddress Token address.
      * @param _purchaseStartBlock Block number to start crowdsale
      */
@@ -797,7 +797,7 @@ contract StarbaseCrowdsale is Ownable {
     }
 
     /**
-     * @dev Transfers raised funds to company&#39;s wallet address at any given time.
+     * @dev Transfers raised funds to company's wallet address at any given time.
      */
     function withdrawForCompany()
         external
@@ -1130,7 +1130,7 @@ contract StarbaseCrowdsale is Ownable {
 
         uint256 bonusTier = 30; // Pre sale purchasers get 30 percent bonus
         uint256 rawAmount = SafeMath.mul(msg.value, cnyEthRate) / 1e18;
-        uint amount = recordPurchase(msg.sender, rawAmount, now, &#39;&#39;, bonusTier);
+        uint amount = recordPurchase(msg.sender, rawAmount, now, '', bonusTier);
 
         if (qualifiedPartners[msg.sender].commissionFeePercentage > 0) {
             sendQualifiedPartnerCommissionFee(msg.sender, msg.value);
@@ -1159,7 +1159,7 @@ contract StarbaseCrowdsale is Ownable {
         uint256 bonusTier = getBonusTier();
 
         uint256 rawAmount = SafeMath.mul(msg.value, cnyEthRate) / 1e18;
-        uint amount = recordPurchase(msg.sender, rawAmount, now, &#39;&#39;, bonusTier);
+        uint amount = recordPurchase(msg.sender, rawAmount, now, '', bonusTier);
 
         StarBasePurchasedWithEth(msg.sender, amount, rawAmount, cnyEthRate, bonusTier);
         return true;

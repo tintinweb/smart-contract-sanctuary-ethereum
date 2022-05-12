@@ -157,7 +157,7 @@ contract NoteChain {
         }
 
         function publicGetNote(uint64 _noteId, bytes2 _publicKey) external notDeleted(_noteId) notPrivate(_noteId) view returns (uint16, bytes12, bytes) {
-                require(notes[_noteId].publicKey == _publicKey); // for public to get the note&#39;s data, knowing the publicKey is needed
+                require(notes[_noteId].publicKey == _publicKey); // for public to get the note's data, knowing the publicKey is needed
                 return (notes[_noteId].metadata, notes[_noteId].title, notes[_noteId].content);
         }
 

@@ -31,9 +31,9 @@ contract SafeMath {
 contract DWalletToken is SafeMath {
 
     /* Public variables of the token */
-    string public standard = &#39;ERC20&#39;;
-    string public name = &#39;D-WALLET TOKEN&#39;;
-    string public symbol = &#39;DWT&#39;;
+    string public standard = 'ERC20';
+    string public name = 'D-WALLET TOKEN';
+    string public symbol = 'DWT';
     uint8 public decimals = 0;
     uint256 public totalSupply;
     address public owner;

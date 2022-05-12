@@ -17,7 +17,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -231,7 +231,7 @@ library SafeMath2 {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -334,7 +334,7 @@ contract Ethbet {
     // transfer tokens from the user to the contract
     require(token.transferFrom(msg.sender, this, _amount));
 
-    // add the tokens to the user&#39;s balance
+    // add the tokens to the user's balance
     balances[msg.sender] = balances[msg.sender].add(_amount);
 
     Deposit(msg.sender, _amount, balances[msg.sender]);
@@ -348,7 +348,7 @@ contract Ethbet {
     require(_amount > 0);
     require(balances[msg.sender] >= _amount);
 
-    // subtract the tokens from the user&#39;s balance
+    // subtract the tokens from the user's balance
     balances[msg.sender] = balances[msg.sender].sub(_amount);
 
     // transfer tokens from the contract to the user
@@ -367,10 +367,10 @@ contract Ethbet {
     require(_amount > 0);
     require(balances[_userAddress] >= _amount);
 
-    // subtract the tokens from the user&#39;s balance
+    // subtract the tokens from the user's balance
     balances[_userAddress] = balances[_userAddress].sub(_amount);
 
-    // add the tokens to the user&#39;s locked balance
+    // add the tokens to the user's locked balance
     lockedBalances[_userAddress] = lockedBalances[_userAddress].add(_amount);
 
     LockedBalance(_userAddress, _amount);
@@ -385,10 +385,10 @@ contract Ethbet {
     require(_amount > 0);
     require(lockedBalances[_userAddress] >= _amount);
 
-    // subtract the tokens from the user&#39;s locked balance
+    // subtract the tokens from the user's locked balance
     lockedBalances[_userAddress] = lockedBalances[_userAddress].sub(_amount);
 
-    // add the tokens to the user&#39;s  balance
+    // add the tokens to the user's  balance
     balances[_userAddress] = balances[_userAddress].add(_amount);
 
     UnlockedBalance(_userAddress, _amount);
@@ -430,9 +430,9 @@ contract Ethbet {
     var winner = _makerWon ? _maker : _caller;
     var loser = _makerWon ? _caller : _maker;
 
-    // add the tokens to the winner&#39;s balance
+    // add the tokens to the winner's balance
     balances[winner] = balances[winner].add(_amount);
-    // remove the tokens from the loser&#39;s  balance
+    // remove the tokens from the loser's  balance
     balances[loser] = balances[loser].sub(_amount);
 
     //Log the event

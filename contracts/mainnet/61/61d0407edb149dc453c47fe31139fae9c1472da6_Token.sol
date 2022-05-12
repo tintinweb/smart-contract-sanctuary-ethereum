@@ -51,7 +51,7 @@ contract Token {
     using SafeMath for uint256;
 
     /* Public variables of the token */
-    string public standard = &#39;DSCS.GODZ.TOKEN&#39;;
+    string public standard = 'DSCS.GODZ.TOKEN';
     string public name;
     string public symbol;
     uint8 public decimals;

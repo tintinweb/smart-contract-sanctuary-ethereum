@@ -1,7 +1,7 @@
 pragma solidity 0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;ExToke.com&#39; Crowdsale contract
+// 'ExToke.com' Crowdsale contract
 //
 // Admin       	 : 0xEd86f5216BCAFDd85E5875d35463Aca60925bF16
 // fees      	 : zero (0)
@@ -30,7 +30,7 @@ pragma solidity 0.4.24;
       function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
       }
     

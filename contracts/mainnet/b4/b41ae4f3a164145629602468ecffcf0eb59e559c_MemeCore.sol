@@ -64,7 +64,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -173,7 +173,7 @@ contract MemeCore is Ownable {
         WithdrawCanceled(msg.sender);
     }
 
-    /* Доступна только owner&#39;у, используется в случае, если бэкенд делает withdraw */
+    /* Доступна только owner'у, используется в случае, если бэкенд делает withdraw */
     function backendWithdraw(address toAddress, uint weiAmount) external onlyOwner {
         require(toAddress != 0);
 

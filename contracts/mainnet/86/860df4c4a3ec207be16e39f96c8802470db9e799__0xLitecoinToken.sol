@@ -3,7 +3,7 @@ pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
 
-// &#39;0xLitecoin Token&#39; contract
+// '0xLitecoin Token' contract
 
 // Mineable ERC20 Token using Proof Of Work
 
@@ -242,7 +242,7 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
 
 
 
-    uint public epochCount;//number of &#39;blocks&#39; mined
+    uint public epochCount;//number of 'blocks' mined
 
 
     // the goal is for 0xLitecoin to be mined with 0xBTC
@@ -335,7 +335,7 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
         function mint(uint256 nonce, bytes32 challenge_digest) public returns (bool success) {
 
 
-            //the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender&#39;s address to prevent MITM attacks
+            //the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender's address to prevent MITM attacks
             bytes32 digest =  keccak256(challengeNumber, msg.sender, nonce );
 
             //the challenge digest must match the expected
@@ -388,8 +388,8 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
             // hard code a reference to the "Parent" ERC918 Contract ( in this case 0xBitcoin)
             // Verify that the Parent contract was minted in this block, by the same person calling this contract
             // then followthrough with the resulting mint logic
-            // don&#39;t call revert, but return true or false based on success
-            // this method shouldn&#39;t revert because it will be calleed in the same transaction as a "Parent" mint attempt
+            // don't call revert, but return true or false based on success
+            // this method shouldn't revert because it will be calleed in the same transaction as a "Parent" mint attempt
 
             //ensure that mergeMint() can only be called once per Parent::mint()
             //do this by ensuring that the "new" challenge number from Parent::challenge post mint can be called once
@@ -402,18 +402,18 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
 
             bytes32 future_challengeNumber = block.blockhash(block.number - 1);
             if(challengeNumber == future_challengeNumber){
-                return false; // ( this is likely the second time that mergeMint() has been called in a transaction, so return false (don&#39;t revert))
+                return false; // ( this is likely the second time that mergeMint() has been called in a transaction, so return false (don't revert))
             }
 
             //verify Parent::lastRewardTo == msg.sender;
             if(ERC918Interface(parentAddress).lastRewardTo() != msg.sender){
-                return false; // a different address called mint last so return false ( don&#39;t revert)
+                return false; // a different address called mint last so return false ( don't revert)
             }
             
             //verify Parent::lastRewardEthBlockNumber == block.number;
 
             if(ERC918Interface(parentAddress).lastRewardEthBlockNumber() != block.number){
-                return false; // parent::mint() was called in a different block number so return false ( don&#39;t revert)
+                return false; // parent::mint() was called in a different block number so return false ( don't revert)
             }
 
             //we have verified that _startNewMiningEpoch has not been run more than once this block by verifying that
@@ -449,7 +449,7 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
 
 
 
-    //a new &#39;block&#39; to be mined
+    //a new 'block' to be mined
     function _startNewMiningEpoch() internal {
 
       //if max supply for the era will be exceeded next reward round then enter the new era before that happens
@@ -498,7 +498,7 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
         uint ethBlocksSinceLastDifficultyPeriod = block.number - latestDifficultyPeriodStarted;
         //assume 360 ethereum blocks per hour
 
-        //we want miners to spend 15 minutes to mine each &#39;block&#39;, about 60 ethereum blocks = one 0xLitecoin epoch = one 0xBitcoin
+        //we want miners to spend 15 minutes to mine each 'block', about 60 ethereum blocks = one 0xLitecoin epoch = one 0xBitcoin
         uint epochsMined = _BLOCKS_PER_READJUSTMENT; //256
 
         uint targetEthBlocksPerDiffPeriod = epochsMined * 60; //should be 60 times slower than ethereum
@@ -617,9 +617,9 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
 
-    // Transfer the balance from token owner&#39;s account to `to` account
+    // Transfer the balance from token owner's account to `to` account
 
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // - Owner's account must have sufficient balance to transfer
 
     // - 0 value transfers are allowed
 
@@ -643,7 +643,7 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
 
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
 
-    // from the token owner&#39;s account
+    // from the token owner's account
 
     //
 
@@ -705,7 +705,7 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
 
     // Returns the amount of tokens approved by the owner that can be
 
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
 
     // ------------------------------------------------------------------------
 
@@ -721,7 +721,7 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
 
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
 
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
 
     // `receiveApproval(...)` is then executed
 
@@ -743,7 +743,7 @@ contract _0xLitecoinToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
 
-    // Don&#39;t accept ETH
+    // Don't accept ETH
 
     // ------------------------------------------------------------------------
 

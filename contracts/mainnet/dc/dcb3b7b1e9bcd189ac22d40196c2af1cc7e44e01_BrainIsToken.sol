@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -249,7 +249,7 @@ contract Pausable is Ownable {
  * @dev ERC20 BrainIs Token (BILT)
  *
  * BILT Tokens are divisible by 1e8 (100,000,000) base
- * units referred to as &#39;Grains&#39;.
+ * units referred to as 'Grains'.
  *
  * BILT are displayed using 8 decimal places of precision.
  *
@@ -262,8 +262,8 @@ contract Pausable is Ownable {
  */
 contract BrainIsToken is StandardToken, Pausable {
 
-  string public constant name = &#39;BrainIs&#39;;                                      // Set the token name for display
-  string public constant symbol = &#39;BILT&#39;;                                       // Set the token symbol for display
+  string public constant name = 'BrainIs';                                      // Set the token name for display
+  string public constant symbol = 'BILT';                                       // Set the token symbol for display
   uint8 public constant decimals = 8;                                           // Set the number of decimals for display
   uint256 public constant INITIAL_SUPPLY = 10000000 * 10**uint256(decimals);    // 10000000 BILT specified in Grains
 

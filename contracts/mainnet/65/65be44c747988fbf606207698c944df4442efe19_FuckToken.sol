@@ -3,9 +3,9 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract FuckToken {
     /* Public variables of the FUCK token */
-    string public standard = &#39;FUCK 1.1&#39;;
-    string public name = &#39;Finally Usable Crypto Karma&#39;;
-    string public symbol = &#39;FUCK&#39;;
+    string public standard = 'FUCK 1.1';
+    string public name = 'Finally Usable Crypto Karma';
+    string public symbol = 'FUCK';
     uint8 public decimals = 4;
     uint256 public totalSupply = 708567744953;
 

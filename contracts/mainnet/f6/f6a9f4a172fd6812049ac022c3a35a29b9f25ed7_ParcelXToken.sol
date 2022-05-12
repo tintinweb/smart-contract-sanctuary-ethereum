@@ -16,7 +16,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -293,8 +293,8 @@ contract ParcelXToken is ERC20, MultiOwnable, Pausable, Buyable, Convertible {
         require(msg.value >= 0.001 ether);
         uint256 tokens = msg.value.mul(buyRate);  // calculates the amount
         require(balances[tokenPool] >= tokens);               // checks if it has enough to sell
-        balances[tokenPool] = balances[tokenPool].sub(tokens);                        // subtracts amount from seller&#39;s balance
-        balances[msg.sender] = balances[msg.sender].add(tokens);                  // adds the amount to buyer&#39;s balance
+        balances[tokenPool] = balances[tokenPool].sub(tokens);                        // subtracts amount from seller's balance
+        balances[msg.sender] = balances[msg.sender].add(tokens);                  // adds the amount to buyer's balance
         Transfer(tokenPool, msg.sender, tokens);               // execute an event reflecting the change
         return tokens;                                    // ends function and returns
     }
@@ -321,7 +321,7 @@ contract ParcelXToken is ERC20, MultiOwnable, Pausable, Buyable, Convertible {
         require(balances[msg.sender] > 0);
         uint256 amount = balances[msg.sender];
         balances[msg.sender] = 0;
-        balances[tokenPool] = balances[tokenPool].add(amount);   // recycle ParcelX to tokenPool&#39;s init account
+        balances[tokenPool] = balances[tokenPool].add(amount);   // recycle ParcelX to tokenPool's init account
         Converted(msg.sender, destinationAccount, amount, extra);
         return true;
     }

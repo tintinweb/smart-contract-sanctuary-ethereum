@@ -31,7 +31,7 @@ contract PresaleToken
     State public currentState = State.Init;
     uint public totalSupply = 0; // amount of tokens already sold
 
-    // Gathered funds can be withdrawn only to escrow&#39;s address.
+    // Gathered funds can be withdrawn only to escrow's address.
     address public escrow = 0;
 
     // Token manager has exclusive priveleges to call administrative
@@ -156,7 +156,7 @@ contract PresaleToken
 
     function setCrowdsaleManager(address _mgr) public onlyTokenManager
     {
-        // You can&#39;t change crowdsale contract when migration is in progress.
+        // You can't change crowdsale contract when migration is in progress.
         if(currentState == State.Migrating) throw;
 
         crowdsaleManager = _mgr;

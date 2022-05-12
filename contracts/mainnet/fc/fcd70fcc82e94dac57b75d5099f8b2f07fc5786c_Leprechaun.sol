@@ -19,12 +19,12 @@ pragma solidity ^0.4.24;
  *  2b. Send more ether to reinvest AND get your profit at the same time
  *
  * PARTNER PROGRAM:
- * At the moment of making the first deposit, the referral indicates in the DATA field the ETH address of the referrer&#39;s wallet,
+ * At the moment of making the first deposit, the referral indicates in the DATA field the ETH address of the referrer's wallet,
  * and the referrer then receives 5% of the every attachments of the referral,
  * and the referral also immediately gets back 10% of his deposit
  *
  * NOTES:
- * All ETHs that you&#39;ve sent will be added to your deposit.
+ * All ETHs that you've sent will be added to your deposit.
  * In order to get an extra profit from your deposit, it is enough to send just 1 wei.
  * It is not allowed to transfer from exchanges, only from your personal ETH wallet, for which you
  * have private keys.

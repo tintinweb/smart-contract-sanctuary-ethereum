@@ -73,8 +73,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -91,7 +91,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -247,8 +247,8 @@ contract TokenController {
 
 /// @title MiniMeToken Contract
 /// @author Jordi Baylina
-/// @dev This token contract&#39;s goal is to make it easy for anyone to clone this
-///  token using the token distribution at a given block, this will allow DAO&#39;s
+/// @dev This token contract's goal is to make it easy for anyone to clone this
+///  token using the token distribution at a given block, this will allow DAO's
 ///  and DApps to upgrade their features in a decentralized manner without
 ///  affecting the original token
 /// @dev It is ERC20 compliant, but still needs to under go further testing.
@@ -262,10 +262,10 @@ contract ApproveAndCallFallBack {
 ///  token owner contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Ownable {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
-    string public version = &#39;MMT_0.2&#39;; //An arbitrary versioning scheme
+    string public version = 'MMT_0.2'; //An arbitrary versioning scheme
 
 
     /// @dev `Checkpoint` is the structure that attaches a block number to a
@@ -428,7 +428,7 @@ contract MiniMeToken is Ownable {
 
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public constant returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -703,7 +703,7 @@ contract MiniMeToken is Ownable {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s owner has not been
+    /// @notice The fallback function: If the contract's owner has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token owner contract
     function () public payable {
@@ -857,7 +857,7 @@ contract IAO is Ownable, ReentrancyGuard, TokenController {
 
     function _register(uint256 _donationInDAI, address _referrer) internal onlyActive {
         require(_donationInDAI > 0 && _donationInDAI <= MAX_DONATION, "Donation out of range");
-        require(_referrer != msg.sender, "Can&#39;t refer self");
+        require(_referrer != msg.sender, "Can't refer self");
 
         MiniMeToken kro = MiniMeToken(kroAddr);
         require(kro.balanceOf(msg.sender) == 0, "Already joined"); // each address can only join the IAO once
@@ -930,7 +930,7 @@ contract IAO is Ownable, ReentrancyGuard, TokenController {
         _register(receivedDAI, _referrer);
     }
 
-    // _donationInTokens should use 18 decimals precision, regardless of the token&#39;s precision
+    // _donationInTokens should use 18 decimals precision, regardless of the token's precision
     function registerWithToken(address _token, uint256 _donationInTokens, address _referrer) public nonReentrant {
         require(_token != address(0) && _token != address(ETH_TOKEN_ADDRESS) && _token != DAI_ADDR, "Invalid token");
         DetailedERC20 token = DetailedERC20(_token);

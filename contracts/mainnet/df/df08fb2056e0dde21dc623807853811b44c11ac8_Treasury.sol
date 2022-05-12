@@ -89,7 +89,7 @@ contract UsingAdmin is
     be obtain by calling balances(). If an address has a 0 amount,
     it is removed from the Ledger.
 
-    Note: THIS DOES NOT TEST FOR OVERFLOWS, but it&#39;s safe to
+    Note: THIS DOES NOT TEST FOR OVERFLOWS, but it's safe to
           use to track Ether balances.
 
     Public methods:
@@ -308,7 +308,7 @@ contract Requestable is
     }
 
     // Executes (or times out) a request if it is not already cancelled or executed.
-    // Note: This may revert if the executeFn() reverts. It&#39;ll time-out eventually.
+    // Note: This may revert if the executeFn() reverts. It'll time-out eventually.
     function executeRequest(uint32 _id)
         public
     {
@@ -391,7 +391,7 @@ contract Requestable is
     //////////////////////////////////////////////////////////////////
 
     // View that returns a Request as a valid tuple.
-    // Sorry for the formatting, but it&#39;s a waste of lines otherwise.
+    // Sorry for the formatting, but it's a waste of lines otherwise.
     function getRequest(uint32 _requestId) public view returns (
         uint32 _id, uint8 _typeId, address _target, uint _value,
         bool _executedSuccessfully,
@@ -539,7 +539,7 @@ contract Treasury is
         require(msg.sender == owner);
         // comptroller must not already be set.
         require(address(comptroller) == address(0));
-        // comptroller&#39;s treasury must point to this.
+        // comptroller's treasury must point to this.
         require(_comptroller.treasury() == address(this));
         comptroller = _comptroller;
         emit ComptrollerSet(now, _comptroller, comptroller.token());
@@ -550,7 +550,7 @@ contract Treasury is
     /******* PROFITS AND DIVIDENDS *******************************/
     /*************************************************************/
 
-    // Can receive Ether from anyone. Typically Bankrollable contracts&#39; profits.
+    // Can receive Ether from anyone. Typically Bankrollable contracts' profits.
     function () public payable {
         profits += msg.value;
         profitsTotal += msg.value;

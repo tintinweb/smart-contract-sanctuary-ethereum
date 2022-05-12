@@ -8,7 +8,7 @@ pragma solidity ^0.4.8;
         address public owner;
         
 
-        //Entity struct, used to store the Buyer, Seller or Escrow Agent&#39;s info.
+        //Entity struct, used to store the Buyer, Seller or Escrow Agent's info.
         //It is optional, Entities can choose not to register their info/name on the blockchain.
 
 

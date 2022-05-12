@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 600000000000000000000000000;
-        name = &#39;FinancialEcosystemChain&#39;;
-        symbol = &#39;FES&#39;;
+        name = 'FinancialEcosystemChain';
+        symbol = 'FES';
         decimals = 18;
         balanceOf[0x1634330910029ee9ec6ab59ddf16035cd4f4d239] = totalSupply;
         Transfer(address(0), 0x1634330910029ee9ec6ab59ddf16035cd4f4d239, totalSupply);

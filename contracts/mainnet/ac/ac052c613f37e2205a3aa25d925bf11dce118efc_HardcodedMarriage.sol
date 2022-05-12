@@ -7,11 +7,11 @@ contract HardcodedMarriage {
   string public partner_2_name;
 
   constructor() public {
-    partner_1_name = &#39;Lev&#39;;
-    partner_2_name = &#39;Polina&#39;;
+    partner_1_name = 'Lev';
+    partner_2_name = 'Polina';
   }
 
   function getDeclaration() pure public returns (string) {
-      return &#39;Lev & Polina got married on 14th of July! ♡♡♡&#39;;
+      return 'Lev & Polina got married on 14th of July! ♡♡♡';
   }
 }

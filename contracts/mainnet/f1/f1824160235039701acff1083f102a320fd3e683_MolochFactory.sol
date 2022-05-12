@@ -155,7 +155,7 @@ pragma solidity 0.4.26;
     {
         require(applicant != address(0), "Moloch::submitProposal - applicant cannot be 0");
 
-         // Make sure we won&#39;t run into overflows when doing calculations with shares.
+         // Make sure we won't run into overflows when doing calculations with shares.
         // Note that totalShares + totalSharesRequested + sharesRequested is an upper bound
         // on the number of shares that can exist until this proposal has been processed.
         require(totalShares.add(totalSharesRequested).add(sharesRequested) <= MAX_NUMBER_OF_SHARES, "Moloch::submitProposal - too many shares requested");
@@ -268,7 +268,7 @@ pragma solidity 0.4.26;
 
              // the applicant is a new member, create a new record for them
             } else {
-                // if the applicant address is already taken by a member&#39;s delegateKey, reset it to their member address
+                // if the applicant address is already taken by a member's delegateKey, reset it to their member address
                 if (members[memberAddressByDelegateKey[proposal.applicant]].exists) {
                     address memberToOverride = memberAddressByDelegateKey[proposal.applicant];
                     memberAddressByDelegateKey[memberToOverride] = memberToOverride;
@@ -407,8 +407,8 @@ pragma solidity 0.4.26;
     }
 
      function getMemberProposalVote(address memberAddress, uint256 proposalIndex) public view returns (Vote) {
-        require(members[memberAddress].exists, "Moloch::getMemberProposalVote - member doesn&#39;t exist");
-        require(proposalIndex < proposalQueue.length, "Moloch::getMemberProposalVote - proposal doesn&#39;t exist");
+        require(members[memberAddress].exists, "Moloch::getMemberProposalVote - member doesn't exist");
+        require(proposalIndex < proposalQueue.length, "Moloch::getMemberProposalVote - proposal doesn't exist");
         return proposalQueue[proposalIndex].votesByMember[memberAddress];
     }
 }
@@ -520,8 +520,8 @@ pragma solidity 0.4.26;
      * @dev Multiplies two unsigned integers, reverts on overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -540,7 +540,7 @@ pragma solidity 0.4.26;
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
          return c;
     }

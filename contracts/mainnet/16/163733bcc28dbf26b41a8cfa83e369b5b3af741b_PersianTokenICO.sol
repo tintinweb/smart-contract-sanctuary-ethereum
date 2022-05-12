@@ -61,9 +61,9 @@ contract PersianToken is TokenERC20, Owned, SafeMath {
     mapping (address => mapping (address => uint256)) allowed;
 
     uint8 public constant decimals = 18;
-    string public constant name = &#39;Persian&#39;;
-    string public constant symbol = &#39;PRS&#39;;
-    string public constant version = &#39;1.0.0&#39;;
+    string public constant name = 'Persian';
+    string public constant symbol = 'PRS';
+    string public constant version = '1.0.0';
 
     function transfer(address _to, uint256 _value) returns (bool success) {
         if (balances[msg.sender] < _value) return false;

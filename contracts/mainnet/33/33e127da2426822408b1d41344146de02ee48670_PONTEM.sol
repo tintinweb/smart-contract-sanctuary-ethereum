@@ -149,7 +149,7 @@ contract PONTEM {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
        emit Burn(_from, _value);
         return true;
@@ -173,8 +173,8 @@ contract PONTEM {
         amount = msg.value / buyPrice;               // calculates the amount
         require(balanceOf[this] >= amount);               // checks if it has enough to sell
         require(balanceOf[msg.sender] >= amount * buyPrice); // checks if sender  has enough ether to buy
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
-        balanceOf[this] -= amount;                        // subtracts amount from seller&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
+        balanceOf[this] -= amount;                        // subtracts amount from seller's balance
         _transfer(this, msg.sender, amount);              // makes the transfers
         return amount;
     }
@@ -184,11 +184,11 @@ contract PONTEM {
     function sell(uint256 amount) public returns(uint revenue) {
         require(address(this).balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         require(balanceOf[msg.sender] >= amount);         // checks if it has enough to sell
-        balanceOf[this] += amount;                  // adds the amount to buyer&#39;s balance
-        balanceOf[msg.sender] -= amount;                        // subtracts amount from seller&#39;s balance
+        balanceOf[this] += amount;                  // adds the amount to buyer's balance
+        balanceOf[msg.sender] -= amount;                        // subtracts amount from seller's balance
         revenue = amount * sellPrice;
         _transfer(msg.sender, this, amount);              // makes the transfers
-        require(msg.sender.send(revenue));                // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+        require(msg.sender.send(revenue));                // sends ether to the seller: it's important to do this last to prevent recursion attacks
        return revenue;
     }
 

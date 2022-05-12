@@ -101,7 +101,7 @@ contract TrustedhealthToken is ERC20Token, owned {
     /**
     * Transfer token
     *
-    * Send &#39;_amount&#39; tokens to &#39;_to&#39; from your address.
+    * Send '_amount' tokens to '_to' from your address.
     *
     * @param _to Address of recipient.
     * @param _amount Amount to send.
@@ -116,7 +116,7 @@ contract TrustedhealthToken is ERC20Token, owned {
     /**
     * Set allowance
     *
-    * Allows &#39;_spender&#39; to spend &#39;_amount&#39; tokens from your address
+    * Allows '_spender' to spend '_amount' tokens from your address
     *
     * @param _spender Address of spender.
     * @param _amount Max amount allowed to spend.
@@ -131,7 +131,7 @@ contract TrustedhealthToken is ERC20Token, owned {
     /**
     *Transfer token from
     *
-    * Send &#39;_amount&#39; token from address &#39;_from&#39; to address &#39;_to&#39;
+    * Send '_amount' token from address '_from' to address '_to'
     *
     * @param _from Address of sender.
     * @param _to Address of recipient.
@@ -167,7 +167,7 @@ contract TrustedhealthToken is ERC20Token, owned {
     /**
     * Change freeze
     *
-    * Changes status of frozen because of &#39;_reason&#39;
+    * Changes status of frozen because of '_reason'
     *
     * @param _reason Reason for freezing or unfreezing token
     **/
@@ -190,7 +190,7 @@ contract TrustedhealthToken is ERC20Token, owned {
     /**
     * Get allowance
     *
-    * @return Return amount allowed to spend from &#39;_owner&#39; by &#39;_spender&#39;
+    * @return Return amount allowed to spend from '_owner' by '_spender'
     **/
     function allowance(address _owner, address _spender) public constant returns (uint256 _remaining) {
         return allowances[_owner][_spender];
@@ -208,7 +208,7 @@ contract TrustedhealthToken is ERC20Token, owned {
     /**
     * Balance of address
     *
-    * Check balance of &#39;_owner&#39;
+    * Check balance of '_owner'
     *
     * @param _owner Address
     * @return Amount of token in possession
@@ -220,7 +220,7 @@ contract TrustedhealthToken is ERC20Token, owned {
     /**
     * Address allowed to mint
     *
-    * Checks if &#39;_address&#39; is allowed to mint
+    * Checks if '_address' is allowed to mint
     *
     * @param _address Address
     * @return Allowance to mint

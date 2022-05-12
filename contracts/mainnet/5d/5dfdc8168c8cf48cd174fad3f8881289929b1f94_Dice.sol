@@ -1052,7 +1052,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) throw;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1062,7 +1062,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1094,7 +1094,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, sha3(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1117,7 +1117,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1152,15 +1152,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1197,13 +1197,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1285,7 +1285,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -1317,7 +1317,7 @@ contract Dice is usingOraclize, Ownable {
   uint256 constant MAX_ROLL = 100;
   bytes32 constant DEFAULT_BYTES32 = 0x0000000000000000000000000000000000000000000000000000000000000000;
 
-  // This governs how much gas we&#39;ll have for the oraclize callback
+  // This governs how much gas we'll have for the oraclize callback
   uint256 constant ORACLIZE_GAS_COST = 500000;
 
   // Tuneable by admin
@@ -1393,7 +1393,7 @@ contract Dice is usingOraclize, Ownable {
 
     uint256 queryPrice = oraclize_getPrice("URL");
 
-    // player&#39;s wager
+    // player's wager
     require(msg.value > queryPrice);
     uint256 wagerAfterQuery = msg.value.sub(queryPrice);
     uint256 fee = _computeRollFee(wagerAfterQuery);
@@ -1402,7 +1402,7 @@ contract Dice is usingOraclize, Ownable {
     // NOTE: Can probably simplify this to something static
     string memory queryStr = _getQueryStr(MIN_ROLL, MAX_ROLL);
 
-    // TODO: When we need to encrypt random.org encryption key, this will need to become a &#39;nested&#39; query
+    // TODO: When we need to encrypt random.org encryption key, this will need to become a 'nested' query
     bytes32 qId = oraclize_query("URL", queryStr, ORACLIZE_GAS_COST);
 
     emit RollSubmitted(msg.sender, odds, trueWager);
@@ -1422,7 +1422,7 @@ contract Dice is usingOraclize, Ownable {
     return SafeMath.div(wagerAfterQuery, 100);
   }
 
-  // NOTE: Doesn&#39;t use API key so that we don&#39;t have to do all the fancy encryption stuff.
+  // NOTE: Doesn't use API key so that we don't have to do all the fancy encryption stuff.
   function _getQueryStr(uint256 min, uint256 max) internal returns(string) {
     return strConcat("https://www.random.org/integers/?num=1&min=", uint2str(min), "&max=", uint2str(max), "&col=1&base=10&format=plain&rnd=new");
   }
@@ -1485,7 +1485,7 @@ contract Dice is usingOraclize, Ownable {
     }
   }
 
-  // NOTE: Set to less than total balance so contract balance can&#39;t ever be drained
+  // NOTE: Set to less than total balance so contract balance can't ever be drained
   function _getAvailableBalance() internal returns(uint256) {
     return address(this).balance;
   }

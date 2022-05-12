@@ -129,7 +129,7 @@ contract    ERC20
         return balances[walletAddress];
     }
     //--------------------------------------------------------------------------
-    function transfer(address toAddr, uint256 amountInWei)  public   duringIcoOnlyTheOwner   returns (bool)     // don&#39;t icoNotPaused here. It&#39;s a logic issue. 
+    function transfer(address toAddr, uint256 amountInWei)  public   duringIcoOnlyTheOwner   returns (bool)     // don't icoNotPaused here. It's a logic issue. 
     {
         require(toAddr!=0x0 && toAddr!=msg.sender && amountInWei>0);     // Prevent transfer to 0x0 address and to self, amount must be >0
 
@@ -137,7 +137,7 @@ contract    ERC20
 
         //----- Checking Token reserve first : if during ICO    
 
-        if (msg.sender==owner && now <= icoDeadLine)                    // ICO Reserve Supply checking: Don&#39;t touch the RESERVE of tokens when owner is selling
+        if (msg.sender==owner && now <= icoDeadLine)                    // ICO Reserve Supply checking: Don't touch the RESERVE of tokens when owner is selling
         {
             assert(amountInWei<=availableTokens);
 
@@ -186,7 +186,7 @@ contract    ERC20
     //--------------------------------------------------------------------------
     function() public                       
     {
-        assert(true == false);      // If Ether is sent to this address, don&#39;t handle it -> send it back.
+        assert(true == false);      // If Ether is sent to this address, don't handle it -> send it back.
     }
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------
@@ -550,7 +550,7 @@ contract    CompoundContract  is  ERC20, DateTime
 
         if (activeContractStatues[compoundContractId])
         {
-            return false;       // the specified contract is already in place. Don&#39;t alter already running contract!!!
+            return false;       // the specified contract is already in place. Don't alter already running contract!!!
         }
 
         activeContractStatues[compoundContractId] = true;
@@ -643,7 +643,7 @@ contract    CompoundContract  is  ERC20, DateTime
         }
     }
     //--------------------------------------------------------------------------
-    function    calculateCompoundContract(uint256 capitalInWei, uint contractMonthCount)   public  constant returns(uint, uint, uint, uint, uint, uint)    // DON&#39;T Set as pure, otherwise it will make investXXMonths function unusable (too much gas) 
+    function    calculateCompoundContract(uint256 capitalInWei, uint contractMonthCount)   public  constant returns(uint, uint, uint, uint, uint, uint)    // DON'T Set as pure, otherwise it will make investXXMonths function unusable (too much gas) 
     {
         /*  12 months   Sapphire    From     100 to   1,000     12%
                         Emerald     From   1,000 to  10,000     15%
@@ -697,7 +697,7 @@ contract    CompoundContract  is  ERC20, DateTime
 
         if (item.tokenCapitalInWei==0 || item.tokenEarningsInWei==0)    
         {
-            return false;       // don&#39;t valid such invalid contract
+            return false;       // don't valid such invalid contract
         }
 
         //-----
@@ -709,18 +709,18 @@ contract    CompoundContract  is  ERC20, DateTime
         {
             uint256 balanceAfterTransfer = availableTokens.sub(amountToLockInWei);      
 
-            if (balanceAfterTransfer >= icoReserveSupply)       // don&#39;t sell more than allowed during ICO
+            if (balanceAfterTransfer >= icoReserveSupply)       // don't sell more than allowed during ICO
             {
                 lockMoney(toAddr, item.tokenCapitalInWei, item.tokenEarningsInWei);
                 return true;
             }
         }
 
-        //emit log(&#39;Exiting lockMoneyOnCompoundCreation&#39;, &#39;cannot lock money&#39;);
+        //emit log('Exiting lockMoneyOnCompoundCreation', 'cannot lock money');
         return false;
     }
     //--------------------------------------------------------------------------
-    function    payCompoundTerm(uint contractId, uint8 termId, uint8 isCalledFromOutside)   public onlyOwner returns(int32)        // DON&#39;T SET icoNotPaused here, since a runnnig compound needs to run anyway
+    function    payCompoundTerm(uint contractId, uint8 termId, uint8 isCalledFromOutside)   public onlyOwner returns(int32)        // DON'T SET icoNotPaused here, since a runnnig compound needs to run anyway
     {
         uint                    id;
         address                 investor;
@@ -754,19 +754,19 @@ contract    CompoundContract  is  ERC20, DateTime
 
         if (compoundPayStatus[id][termId]!=0)           
         {
-            emit log("payCompoundTerm", "Specified contract&#39;s term was already paid (-5)");
+            emit log("payCompoundTerm", "Specified contract's term was already paid (-5)");
             return -5;
         }
 
         if (now < compoundPayTimes[id][termId])         
         {
-            emit log("payCompoundTerm", "It&#39;s too early to pay this term (-6)");
+            emit log("payCompoundTerm", "It's too early to pay this term (-6)");
             return -6;
         }
 
         investor = item.investor;                                   // address of the owner of this compound contract
 
-        //----- It&#39;s time for the payment, but was that contract already validated
+        //----- It's time for the payment, but was that contract already validated
         //----- If it was not validated, simply refund tokens to the main wallet
 
         if (!item.isContractValidated)                          // Compound contract self-destruction since no validation was made of it
@@ -791,7 +791,7 @@ contract    CompoundContract  is  ERC20, DateTime
             return -3;
         }
 
-        //---- it&#39;s PAY time!!!
+        //---- it's PAY time!!!
 
         contracts[id].termPaidCount++;
         contracts[id].currentlyEarnedInWei += item.earningPerTermInWei;  
@@ -811,7 +811,7 @@ contract    CompoundContract  is  ERC20, DateTime
             paidAmount += item.tokenCapitalInWei;
         }
 
-        //----- let&#39;s tell the blockchain now how many we&#39;ve unlocked.
+        //----- let's tell the blockchain now how many we've unlocked.
 
         if (isCalledFromOutside==0 && paidAmount>0)
         {
@@ -819,7 +819,7 @@ contract    CompoundContract  is  ERC20, DateTime
         }
 
         return 1;       // We just paid one earning!!!
-                        // 1 IS IMPORTANT FOR THE TOKEN API. don&#39;t change it
+                        // 1 IS IMPORTANT FOR THE TOKEN API. don't change it
     }
     //--------------------------------------------------------------------------
     function    validateCompoundContract(uint contractId) public onlyOwner   returns(uint)
@@ -828,7 +828,7 @@ contract    CompoundContract  is  ERC20, DateTime
 
         if (item.isCancelled==true)
         {
-            return 2;       // don&#39;t try to validated an already dead contract
+            return 2;       // don't try to validated an already dead contract
         }
 
         contracts[contractId].isCancelled         = false;
@@ -844,7 +844,7 @@ contract    CompoundContract  is  ERC20, DateTime
     //----- We do calculate all interests (earnings) he will receive for the whole contract duration
     //----- Then we lock the capital and the earnings into special vaults.
     //----- We remove from the main token balance the capital invested and the future earnings
-    //----- So there won&#39;t be wrong calculation when people wishes to buy tokens
+    //----- So there won't be wrong calculation when people wishes to buy tokens
     //-----
     //----- If you use the standard ERC20 balanceOf to check balance of an investor, you will see
     //----- balance = 0, if he just invested. This is normal, since money is locked in other vaults.
@@ -864,7 +864,7 @@ contract    CompoundContract  is  ERC20, DateTime
 
         if (totalAmountToLockInWei <= balances[owner])
         {
-            balances[owner] = balances[owner].sub(capitalAmountInWei.add(totalEarningsToReceiveInWei));     /// We remove capital & future earning from the Token&#39;s main balance, to put money in safe areas
+            balances[owner] = balances[owner].sub(capitalAmountInWei.add(totalEarningsToReceiveInWei));     /// We remove capital & future earning from the Token's main balance, to put money in safe areas
 
             lockedCapitals[investor] = lockedCapitals[investor].add(capitalAmountInWei);            /// The capital invested is now locked during the whole contract
             lockedEarnings[investor] = lockedEarnings[investor].add(totalEarningsToReceiveInWei);   /// The whole earnings is full locked also in another vault called lockedEarnings
@@ -968,8 +968,8 @@ contract    Token  is  CompoundContract
 
     //--------------------------------------------------------------------------
     //----- OVERRIDDEN FUNCTION :  "transfer" function from ERC20
-    //----- For this smartcontract we don&#39;t deal with a deaLine date.
-    //----- So it&#39;s a normally transfer function with no restriction.
+    //----- For this smartcontract we don't deal with a deaLine date.
+    //----- So it's a normally transfer function with no restriction.
     //----- Restricted tokens are inside the lockedTokens balances, not in ERC20 balances
     //----- That means people after 3 months can start using their earned tokens
     //--------------------------------------------------------------------------

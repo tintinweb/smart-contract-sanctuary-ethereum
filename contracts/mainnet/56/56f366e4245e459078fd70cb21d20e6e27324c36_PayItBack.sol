@@ -22,7 +22,7 @@ contract PayItBack {
 
     modifier ownerOnly() {
         require(msg.sender == creator, 
-                "Sorry, you&#39;re not the owner of this contract");
+                "Sorry, you're not the owner of this contract");
 
         _;
     }
@@ -67,7 +67,7 @@ contract PayItBack {
 
     function contribute() public payable enabled wontOverflow {
         // Hold time starts with first contribution
-        // Don&#39;t allow subsequent contributions to reset the expiry
+        // Don't allow subsequent contributions to reset the expiry
         if (contributionTime == 0 && msg.value > 0) {
             contributionTime = now;
         }

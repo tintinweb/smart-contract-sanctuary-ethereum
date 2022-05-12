@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;AWMV&#39; AnyWhereMobile Voucher Token
+// 'AWMV' AnyWhereMobile Voucher Token
 //
 // Symbol      : AWMV
 // Name        : Example Fixed Supply Token
@@ -238,7 +238,7 @@ contract AWMVoucher is ERC20Interface, SafeMath, StopTrade {
     /**
      * Redeem tokens
      *
-     * Send `_value` tokens from &#39;_from&#39; to `_to`
+     * Send `_value` tokens from '_from' to `_to`
      * Used to redeem AWMVouchers for AWMDollars
      *
      * @param _from The address of the source
@@ -288,7 +288,7 @@ contract AWMVoucher is ERC20Interface, SafeMath, StopTrade {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -324,7 +324,7 @@ contract AWMVoucher is ERC20Interface, SafeMath, StopTrade {
         // Subtract from the targeted balance
         balances[_from] = sub(balances[_from], _value);
 
-        // Subtract from the sender&#39;s allowance
+        // Subtract from the sender's allowance
         allowed[_from][msg.sender] = sub(allowed[_from][msg.sender], _value);
 
         //totalSupply -= _value;                              // Update totalSupply
@@ -360,7 +360,7 @@ contract AWMVoucher is ERC20Interface, SafeMath, StopTrade {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

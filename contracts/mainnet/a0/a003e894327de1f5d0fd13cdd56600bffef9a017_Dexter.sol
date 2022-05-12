@@ -145,7 +145,7 @@ contract Dexter {
         payable
         returns (bool success)
     {
-        // Fill the order, always ETH, since we can&#39;t withdraw from the user unless authorized
+        // Fill the order, always ETH, since we can't withdraw from the user unless authorized
         AirSwapExchangeI(0x8fd3121013A07C57f0D69646E86E7a4880b467b7).fill.value(msg.value)(
             makerAddress, 
             makerAmount, 
@@ -243,7 +243,7 @@ contract Dexter {
         // deposit
         etherDelta.deposit.value(msg.value)();
 
-        // trade throws if it can&#39;t match
+        // trade throws if it can't match
         etherDelta.trade(
             tokenGet, 
             amountGetFee, 

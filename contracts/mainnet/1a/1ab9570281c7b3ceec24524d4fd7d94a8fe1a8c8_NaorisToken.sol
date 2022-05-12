@@ -25,7 +25,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -148,7 +148,7 @@ contract StandardToken is ERC20, BasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -292,8 +292,8 @@ contract ReferralDiscountToken is StandardToken, Owned {
     }
 
     // /**
-    //  * Activate referral discounts by declaring one&#39;s own referrer
-    //  * @param _referrer can&#39;t be self
+    //  * Activate referral discounts by declaring one's own referrer
+    //  * @param _referrer can't be self
     //  * @param _referrer must own tokens at the time of the call
     //  * You must own tokens at the time of the call
     //  */
@@ -312,7 +312,7 @@ contract ReferralDiscountToken is StandardToken, Owned {
     // }
 
     /**
-     * Activate referral discounts by declaring one&#39;s own referrer
+     * Activate referral discounts by declaring one's own referrer
      * @param _referrer the investor who brought another
      * @param _referred the investor who was brought by another
      * @dev _referrer and _referred must own tokens at the time of the call
@@ -355,10 +355,10 @@ contract NaorisToken is ReferralDiscountToken {
     /// This is the address of the timelock contract for the locked Board Bonus tokens
     address public treasuryTimelockAddress;
 
-    /// After this flag is changed to &#39;true&#39; no more tokens can be created
+    /// After this flag is changed to 'true' no more tokens can be created
     bool public tokenSaleClosed = false;
 
-    // seconds since 01.01.1970 to 1st of May 2019 (both 00:00:00 o&#39;clock UTC)
+    // seconds since 01.01.1970 to 1st of May 2019 (both 00:00:00 o'clock UTC)
     uint64 date01May2019 = 1556668800;
 
     /// Maximum tokens to be allocated.

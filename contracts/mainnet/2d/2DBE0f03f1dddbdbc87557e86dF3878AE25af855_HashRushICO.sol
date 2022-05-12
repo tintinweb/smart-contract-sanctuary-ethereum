@@ -6,7 +6,7 @@ pragma solidity ^0.4.11;
 
 * @author Jefferson Davis
 
-* HashRuchICO.sol creates the client&#39;s token for crowdsale and allows for subsequent token sales and minting of tokens
+* HashRuchICO.sol creates the client's token for crowdsale and allows for subsequent token sales and minting of tokens
 
 *   Crowdsale contracts edited from original contract code at https://www.ethereum.org/crowdsale#crowdfund-your-idea
 
@@ -112,7 +112,7 @@ library SafeMath {
 
         uint256 c = a / b;
 
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
 
@@ -294,7 +294,7 @@ contract HashRush is ERC20, Owned {
 
 
 
-    //Sends tokens from sender&#39;s account
+    //Sends tokens from sender's account
 
     function transfer(address _to, uint256 _value) onlyPayloadSize(2 * 32) returns (bool success) {
 

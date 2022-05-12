@@ -106,7 +106,7 @@ contract StandardToken is ERC20, SafeMath {
         return balances[_owner];
     }
 
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param _to Address of token receiver.
     /// @param _value Number of tokens to transfer.
     function transfer(address _to, uint256 _value) returns (bool) {
@@ -212,7 +212,7 @@ contract BsToken is StandardToken, MultiOwnable {
     string public symbol;
     uint256 public totalSupply;
     uint8 public decimals = 18;
-    string public version = &#39;v0.1&#39;;
+    string public version = 'v0.1';
 
     address public creator;
     address public seller;
@@ -301,8 +301,8 @@ contract BsToken_SNOV is BsToken {
 
     function BsToken_SNOV()
         BsToken(
-            &#39;Snovio&#39;,
-            &#39;SNOV&#39;,
+            'Snovio',
+            'SNOV',
             2500000000 * 1e18,
             0x0697ec0e4F90E7D7c92E7eDD1c039f442d7F1d1D
         ) { }

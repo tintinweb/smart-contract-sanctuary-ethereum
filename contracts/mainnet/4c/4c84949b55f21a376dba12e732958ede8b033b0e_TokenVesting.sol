@@ -143,7 +143,7 @@ contract TokenVesting {
                             requireIsOperational
     {
         require(beneficiary != address(0));
-        require(!vestingGrants[beneficiary].isGranted);         // Can&#39;t have multiple grants for same account
+        require(!vestingGrants[beneficiary].isGranted);         // Can't have multiple grants for same account
         require((vestedJiffys > 0) || (unvestedJiffys > 0));    // There must be Jiffys that are being granted
 
         require(startTimestamp >= GENESIS_TIMESTAMP);           // Just a way to prevent really old dates
@@ -359,7 +359,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

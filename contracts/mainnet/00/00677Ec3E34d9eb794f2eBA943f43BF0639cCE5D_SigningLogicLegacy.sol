@@ -26,7 +26,7 @@ library ECRecovery {
       return (address(0));
     }
 
-    // Extracting these values isn&#39;t possible without assembly
+    // Extracting these values isn't possible without assembly
     // solhint-disable no-inline-assembly
     // Divide the signature in r, s and v variables
     assembly {

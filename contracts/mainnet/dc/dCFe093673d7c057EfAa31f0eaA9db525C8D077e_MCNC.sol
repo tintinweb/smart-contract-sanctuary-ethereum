@@ -16,7 +16,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -73,7 +73,7 @@ contract Utils {
 }
 
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public pure returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -124,7 +124,7 @@ contract Owned is IOwned {
 
 
 contract IToken {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public pure returns (string) {}
     function symbol() public pure returns (string) {}
     function decimals() public pure returns (uint8) {}
@@ -142,9 +142,9 @@ contract IToken {
 
 contract Token is IToken, Owned, Utils {
     /* 公共变量 */
-    string public standard = &#39;&#39;;
-    string public name = &#39;&#39;; //代币名称
-    string public symbol = &#39;&#39;; //代币符号比如&#39;$&#39;
+    string public standard = '';
+    string public name = ''; //代币名称
+    string public symbol = ''; //代币符号比如'$'
     uint8 public decimals = 0;  //代币单位
     uint256 public totalSupply = 0; //代币总量
 
@@ -158,8 +158,8 @@ contract Token is IToken, Owned, Utils {
 
     function Token() public 
     {
-        name = &#39;MCNC健康树&#39;;
-        symbol = &#39;MCNC&#39;;
+        name = 'MCNC健康树';
+        symbol = 'MCNC';
         decimals = 8;
         totalSupply = 2000000000 * 10 ** uint256(decimals);
 
@@ -232,7 +232,7 @@ contract IMCNC {
 
 contract SmartToken is Owned, Token {
 
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
 
     event NewSmartToken(address _token);
 

@@ -50,8 +50,8 @@ library SafeMath {
      * @dev Multiplies two unsigned integers, reverts on overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -70,7 +70,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -499,7 +499,7 @@ pragma solidity 0.5.7;
  * @title IWETH
  * @author Set Protocol
  *
- * Interface for Wrapped Ether. This interface allows for interaction for wrapped ether&#39;s deposit and withdrawal
+ * Interface for Wrapped Ether. This interface allows for interaction for wrapped ether's deposit and withdrawal
  * functionality.
  */
 interface IWETH {
@@ -715,11 +715,11 @@ library ERC20Wrapper {
     // ============ Internal Functions ============
 
     /**
-     * Check balance owner&#39;s balance of ERC20 token
+     * Check balance owner's balance of ERC20 token
      *
      * @param  _token          The address of the ERC20 token
-     * @param  _owner          The owner who&#39;s balance is being checked
-     * @return  uint256        The _owner&#39;s amount of tokens
+     * @param  _owner          The owner who's balance is being checked
+     * @return  uint256        The _owner's amount of tokens
      */
     function balanceOf(
         address _token,
@@ -733,12 +733,12 @@ library ERC20Wrapper {
     }
 
     /**
-     * Checks spender&#39;s allowance to use token&#39;s on owner&#39;s behalf.
+     * Checks spender's allowance to use token's on owner's behalf.
      *
      * @param  _token          The address of the ERC20 token
      * @param  _owner          The token owner address
      * @param  _spender        The address the allowance is being checked on
-     * @return  uint256        The spender&#39;s allowance on behalf of owner
+     * @return  uint256        The spender's allowance on behalf of owner
      */
     function allowance(
         address _token,
@@ -753,7 +753,7 @@ library ERC20Wrapper {
     }
 
     /**
-     * Transfers tokens from an address. Handle&#39;s tokens that return true or null.
+     * Transfers tokens from an address. Handle's tokens that return true or null.
      * If other value returned, reverts.
      *
      * @param  _token          The address of the ERC20 token
@@ -778,7 +778,7 @@ library ERC20Wrapper {
 
     /**
      * Transfers tokens from an address (that has set allowance on the proxy).
-     * Handle&#39;s tokens that return true or null. If other value returned, reverts.
+     * Handle's tokens that return true or null. If other value returned, reverts.
      *
      * @param  _token          The address of the ERC20 token
      * @param  _from           The address to transfer from
@@ -803,8 +803,8 @@ library ERC20Wrapper {
     }
 
     /**
-     * Grants spender ability to spend on owner&#39;s behalf.
-     * Handle&#39;s tokens that return true or null. If other value returned, reverts.
+     * Grants spender ability to spend on owner's behalf.
+     * Handle's tokens that return true or null. If other value returned, reverts.
      *
      * @param  _token          The address of the ERC20 token
      * @param  _spender        The address to approve for transfer
@@ -827,7 +827,7 @@ library ERC20Wrapper {
     }
 
     /**
-     * Ensure&#39;s the owner has granted enough allowance for system to
+     * Ensure's the owner has granted enough allowance for system to
      * transfer tokens.
      *
      * @param  _token          The address of the ERC20 token
@@ -960,7 +960,7 @@ interface ICore {
     /*
      * Returns if valid set
      *
-     * @return  bool      Returns true if Set created through Core and isn&#39;t disabled
+     * @return  bool      Returns true if Set created through Core and isn't disabled
      */
     function validSets(address)
         external
@@ -1004,7 +1004,7 @@ interface ICore {
 
     /**
      * Issues a specified Set for a specified quantity to the recipient
-     * using the caller&#39;s components from the wallet and vault.
+     * using the caller's components from the wallet and vault.
      *
      * @param  _recipient    Address to issue to
      * @param  _set          Address of the Set to issue
@@ -1018,7 +1018,7 @@ interface ICore {
         external;
 
     /**
-     * Converts user&#39;s components into Set Tokens held directly in Vault instead of user&#39;s account
+     * Converts user's components into Set Tokens held directly in Vault instead of user's account
      *
      * @param _set          Address of the Set
      * @param _quantity     Number of tokens to redeem
@@ -1074,7 +1074,7 @@ interface ICore {
      * Normally, you should expect to be able to withdraw all of the tokens.
      * However, some have central abilities to freeze transfers (e.g. EOS). _toExclude
      * allows you to optionally specify which component tokens to exclude when
-     * redeeming. They will remain in the vault under the users&#39; addresses.
+     * redeeming. They will remain in the vault under the users' addresses.
      *
      * @param _set          Address of the Set
      * @param _to           Address to withdraw or attribute tokens to
@@ -1140,7 +1140,7 @@ interface ICore {
         external;
 
     /**
-     * Transfer tokens associated with the sender&#39;s account in vault to another user&#39;s
+     * Transfer tokens associated with the sender's account in vault to another user's
      * account in vault.
      *
      * @param  _token           Address of token being transferred
@@ -1282,7 +1282,7 @@ interface ICore {
         external;
 
     /**
-     * Expose vault function that increments user&#39;s balance in the vault.
+     * Expose vault function that increments user's balance in the vault.
      * Available to system modules
      *
      * @param  _tokens          The addresses of the ERC20 tokens
@@ -1297,7 +1297,7 @@ interface ICore {
         external;
 
     /**
-     * Expose vault function that decrement user&#39;s balance in the vault
+     * Expose vault function that decrement user's balance in the vault
      * Only available to system modules.
      *
      * @param  _tokens          The addresses of the ERC20 tokens
@@ -1459,7 +1459,7 @@ pragma solidity 0.5.7;
 interface IVault {
 
     /*
-     * Withdraws user&#39;s unassociated tokens to user account. Can only be
+     * Withdraws user's unassociated tokens to user account. Can only be
      * called by authorized core contracts.
      *
      * @param  _token          The address of the ERC20 token
@@ -1522,7 +1522,7 @@ interface IVault {
 
 
     /*
-     * Withdraws user&#39;s unassociated tokens to user account. Can only be
+     * Withdraws user's unassociated tokens to user account. Can only be
      * called by authorized core contracts.
      *
      * @param  _tokens          The addresses of the ERC20 tokens
@@ -1852,7 +1852,7 @@ library AddressArrayUtils {
         uint256 length = A.length;
         bool[] memory includeMap = new bool[](length);
         uint256 count = 0;
-        // First count the new length because can&#39;t push for in-memory arrays
+        // First count the new length because can't push for in-memory arrays
         for (uint256 i = 0; i < length; i++) {
             address e = A[i];
             if (!contains(B, e)) {
@@ -1970,7 +1970,7 @@ library AddressArrayUtils {
     }
 
     /**
-     * Returns whether or not there&#39;s a duplicate. Runs in O(n^2).
+     * Returns whether or not there's a duplicate. Runs in O(n^2).
      * @param A Array to search
      * @return Returns true if duplicate, false otherwise
      */
@@ -2117,7 +2117,7 @@ contract RebalancingSetIssuance is
     /**
      * Given a rebalancing SetToken and a desired issue quantity, calculates the
      * minimum issuable quantity of the base SetToken. If the calculated quantity is initially
-     * not a multiple of the base SetToken&#39;s natural unit, the quantity is rounded up
+     * not a multiple of the base SetToken's natural unit, the quantity is rounded up
      * to the next base set natural unit.
      *
      * @param  _rebalancingSetAddress    Address of the rebalancing SetToken to issue
@@ -2399,7 +2399,7 @@ contract RebalancingSetIssuanceModule is
     /**
      * Issue a rebalancing SetToken using the base components of the base SetToken.
      * The base SetToken is then issued into the rebalancing SetToken. The base SetToken quantity issued is calculated
-     * by taking the rebalancing SetToken&#39;s quantity, unit shares, and natural unit. If the calculated quantity is not
+     * by taking the rebalancing SetToken's quantity, unit shares, and natural unit. If the calculated quantity is not
      * a multiple of the natural unit of the base SetToken, the quantity is rounded up to the base SetToken natural unit.
      * NOTE: Potential to receive more baseSet than expected if someone transfers some to this module.
      * Be careful with balance checks.
@@ -2492,7 +2492,7 @@ contract RebalancingSetIssuanceModule is
             requiredBaseSetQuantity
         );
 
-        // Note: Don&#39;t need to set allowance of the base SetToken as the base SetToken is already in the vault
+        // Note: Don't need to set allowance of the base SetToken as the base SetToken is already in the vault
 
         // Issue rebalancing SetToken to the sender and return any excess base to sender
         issueRebalancingSetAndReturnExcessBase(
@@ -2640,7 +2640,7 @@ contract RebalancingSetIssuanceModule is
      *
      * @param  _rebalancingSetAddress    Address of the RebalancingSetToken to issue
      * @param  _rebalancingSetQuantity   The Quantity of the rebalancing SetToken to issue
-     * @return baseSetAddress            The address of RebalancingSet&#39;s base SetToken
+     * @return baseSetAddress            The address of RebalancingSet's base SetToken
      * @return requiredBaseSetQuantity   The quantity of base SetToken to issue
      */
     function getBaseSetAddressAndQuantity(
@@ -2669,7 +2669,7 @@ contract RebalancingSetIssuanceModule is
      * Issues the rebalancing set token to sender and returns any excess baseSet.
      *
      * @param  _rebalancingSetAddress    Address of the rebalancing SetToken to issue
-     * @param  _baseSetAddress           Address of the rebalancing SetToken&#39;s base set
+     * @param  _baseSetAddress           Address of the rebalancing SetToken's base set
      * @param  _rebalancingSetQuantity   The Quantity of the rebalancing SetToken to redeem
      * @param  _keepChangeInVault        Boolean signifying whether excess base SetToken is transferred to the user
      *                                   or left in the vault

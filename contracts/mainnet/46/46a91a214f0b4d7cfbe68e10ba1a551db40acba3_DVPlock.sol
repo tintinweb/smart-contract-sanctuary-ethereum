@@ -155,10 +155,10 @@ contract DVPlock is Ownable{
     uint256 lock_quarter = 0;
     
     if(msg.sender!=sponsor){
-        //The white paper stipulates that investors&#39; balance needs to be locked up for 1.5 years and released on a quarterly average.So 1.5 years =18 months =6 quarter
+        //The white paper stipulates that investors' balance needs to be locked up for 1.5 years and released on a quarterly average.So 1.5 years =18 months =6 quarter
         lock_quarter = 6 ;
     }else{
-         //The white paper stipulates that sponsor&#39; balance needs to be locked up for 3 years and released on a quarterly average.So 3 years =36 months =12 quarter
+         //The white paper stipulates that sponsor' balance needs to be locked up for 3 years and released on a quarterly average.So 3 years =36 months =12 quarter
         lock_quarter = 12;
     }
     

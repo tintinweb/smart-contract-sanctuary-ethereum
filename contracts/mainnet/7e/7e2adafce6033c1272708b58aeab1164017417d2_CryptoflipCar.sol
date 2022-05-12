@@ -314,7 +314,7 @@ return c;
 function div(uint256 a, uint256 b) internal pure returns (uint256) {
 // assert(b > 0); // Solidity automatically throws when dividing by 0
 uint c = a / b;
-// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 return c;
 }
 
@@ -322,10 +322,10 @@ return c;
 
 function InitiateCompanies() public onlyOwner {
   require(companiesAreInitiated == false);
-  addCompany(&#39;Aston Martin&#39;,ownerAddress, 100000000000000000);
-  addCompany(&#39;BMW&#39;,ownerAddress, 100000000000000000);
-  addCompany(&#39;Ferrari&#39;,ownerAddress, 100000000000000000);
-  addCompany(&#39;Honda&#39;,ownerAddress, 100000000000000000);
+  addCompany('Aston Martin',ownerAddress, 100000000000000000);
+  addCompany('BMW',ownerAddress, 100000000000000000);
+  addCompany('Ferrari',ownerAddress, 100000000000000000);
+  addCompany('Honda',ownerAddress, 100000000000000000);
   companiesAreInitiated = true;
 }
 
@@ -337,8 +337,8 @@ function addCompany(string name, address address1, uint256 price) public onlyOwn
   companies[companyId].is_released   = true;
 
   uint advId = advs.length++;
-  advs[advId].text = &#39;Your Ad here&#39;;
-  advs[advId].link = &#39;http://cryptoflipcars.site/&#39;;
+  advs[advId].text = 'Your Ad here';
+  advs[advId].link = 'http://cryptoflipcars.site/';
   advs[advId].curPrice   = 5000000000000000;
   advs[advId].card_type   = 0;
   advs[advId].ownerAddress = address1;
@@ -351,10 +351,10 @@ function setReleaseCompany(uint256 _companyId, bool is_released) public onlyOwne
 
 function InitiateMakes() public onlyOwner {
   require(makesAreInitiated == false);
-  addMake(&#39;DB5&#39;,ownerAddress,0,10000000000000000);
-  addMake(&#39;DB6&#39;,ownerAddress,0,10000000000000000);
-  addMake(&#39;DB9&#39;,ownerAddress,0,10000000000000000);
-  addMake(&#39;One-77&#39;,ownerAddress,0,10000000000000000);
+  addMake('DB5',ownerAddress,0,10000000000000000);
+  addMake('DB6',ownerAddress,0,10000000000000000);
+  addMake('DB9',ownerAddress,0,10000000000000000);
+  addMake('One-77',ownerAddress,0,10000000000000000);
   makesAreInitiated = true;
 }
 
@@ -367,8 +367,8 @@ function addMake(string name, address address1, uint256 companyId, uint256 price
   makes[makeId].is_released   = true;
 
   uint advId = advs.length++;
-  advs[advId].text = &#39;Your Ad here&#39;;
-  advs[advId].link = &#39;http://cryptoflipcars.site/&#39;;
+  advs[advId].text = 'Your Ad here';
+  advs[advId].link = 'http://cryptoflipcars.site/';
   advs[advId].curPrice   = 5000000000000000;
   advs[advId].card_type   = 1;
   advs[advId].ownerAddress = address1;
@@ -379,10 +379,10 @@ function addMake(string name, address address1, uint256 companyId, uint256 price
 
 function InitiateCars() public onlyOwner {
   require(carsAreInitiated == false);
-  addCar(&#39;1964 DB5 James Bond Edition&#39;,ownerAddress, 0, 0, 5000000000000000);
-  addCar(&#39;Blue 1965 &#39;,ownerAddress, 0, 0, 5000000000000000);
-  addCar(&#39;1964 DB5 James Bond Edition&#39;,ownerAddress,0,0,5000000000000000);
-  addCar(&#39;Blue 1965 &#39;,ownerAddress,0,0,5000000000000000);
+  addCar('1964 DB5 James Bond Edition',ownerAddress, 0, 0, 5000000000000000);
+  addCar('Blue 1965 ',ownerAddress, 0, 0, 5000000000000000);
+  addCar('1964 DB5 James Bond Edition',ownerAddress,0,0,5000000000000000);
+  addCar('Blue 1965 ',ownerAddress,0,0,5000000000000000);
   carsAreInitiated = true;
 }
 
@@ -403,8 +403,8 @@ function addCar(string name, address address1, uint256 companyId, uint256 makeId
   cars[carId].is_released   = true;
 
   uint advId = advs.length++;
-  advs[advId].text = &#39;Your Ad here&#39;;
-  advs[advId].link = &#39;http://cryptoflipcars.site/&#39;;
+  advs[advId].text = 'Your Ad here';
+  advs[advId].link = 'http://cryptoflipcars.site/';
   advs[advId].curPrice   = 5000000000000000;
   advs[advId].card_type   = 2;
   advs[advId].ownerAddress = address1;

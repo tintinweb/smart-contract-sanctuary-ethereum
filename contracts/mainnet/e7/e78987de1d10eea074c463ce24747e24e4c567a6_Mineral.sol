@@ -157,7 +157,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -474,7 +474,7 @@ contract Mineral is BurnableToken, Ownable {
     }
 
     function _getUserMinersAt(address user, uint32 area, uint32 hour) internal view returns(uint32) {
-        //now start from start&#39;s nearest check point
+        //now start from start's nearest check point
         uint32 nc = hour/CHECK_POINT_HOUR*CHECK_POINT_HOUR;
         if (userAreaCheckPoints[user].hour[nc][area] == 0 && userAreaCheckPoints[user].hour[nc + CHECK_POINT_HOUR][area] == 0) {
             return 0;
@@ -505,7 +505,7 @@ contract Mineral is BurnableToken, Ownable {
     }
 
     function _getMinersAt(uint32 area, uint32 hour) internal view returns (uint32) {
-        //now start from start&#39;s nearest check point
+        //now start from start's nearest check point
         uint32 nc = hour/CHECK_POINT_HOUR*CHECK_POINT_HOUR;
         uint32 h = 0;
         int64 userInc = 0;
@@ -791,7 +791,7 @@ contract Mineral is BurnableToken, Ownable {
     }
 
     function _collectMinersByCheckPoints(address _user, uint32 area, uint32 start, uint32 end, uint32[] memory totalMiners, uint32[] memory userMiners, uint32 _writeCount) internal returns (uint income, uint32 writeCount) {
-        //now start from start&#39;s nearest check point
+        //now start from start's nearest check point
         writeCount = _writeCount;
         income = 0;
         
@@ -848,7 +848,7 @@ contract Mineral is BurnableToken, Ownable {
 
     function _getMinersByCheckPoints(address _user, uint32 area, uint32 start, uint32 end, uint32[] memory totalMiners, uint32[] memory userMiners) internal view {
         require((end - start) <= CHECK_POINT_HOUR);
-        //now start from start&#39;s nearest check point
+        //now start from start's nearest check point
         uint32 h = 0;
         int64 userInc = 0;
         int64 totalInc = 0;

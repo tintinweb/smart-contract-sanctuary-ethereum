@@ -36,8 +36,8 @@ contract TokenERC20 {
     function TokenERC20() public {
         totalSupply = 300000000 * 10 ** uint256(decimals);  
         balanceOf[msg.sender] = totalSupply;                
-        name = &#39;BitPaction Shares&#39;;
-        symbol = &#39;BPS&#39;;
+        name = 'BitPaction Shares';
+        symbol = 'BPS';
     }
 
    

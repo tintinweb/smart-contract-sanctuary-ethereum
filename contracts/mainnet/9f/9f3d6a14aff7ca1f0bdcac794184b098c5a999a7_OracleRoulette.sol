@@ -175,12 +175,12 @@ contract OracleRoulette {
         }
 
         // see if current block is early/late enough to get the block hash
-        // if it&#39;s too early to resolve bet
+        // if it's too early to resolve bet
         if (block.number <= game.targetBlock) {
             emit GameError(game.player, "Too early to resolve bet!");
             revert();
         }
-        // if it&#39;s too late to retrieve the block hash
+        // if it's too late to retrieve the block hash
         if (block.number - game.targetBlock > MAXIMUM_DISTANCE_FROM_BLOCK_TARGET_DELAY) {
             // mark game status as rejected
             game.status = uint8(GameStatus.REJECTED);

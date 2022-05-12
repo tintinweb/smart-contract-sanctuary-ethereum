@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 /* ==================================================================== */
 /* Copyright (c) 2018 The MagicAcademy Project.  All rights reserved.
 /* 
-/* https://www.magicacademy.io One of the world&#39;s first idle strategy games of blockchain 
+/* https://www.magicacademy.io One of the world's first idle strategy games of blockchain 
 /*  
 /* authors <span class="__cf_email__" data-cfemail="80f2e1e9eef9c0ece9f6e5f3f4e1f2aee3efed">[email&#160;protected]</span>/<span class="__cf_email__" data-cfemail="6f090e0101164115070a01082f0306190a1c1b0e1d410c0002">[email&#160;protected]</span>
 /*                 
@@ -64,7 +64,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -411,7 +411,7 @@ contract BitGuildTrade is BitGuildHelper {
 
       // defund 5%，upgrade card can not be sold，
       uint256 devFund = uint256(SafeMath.div(platCost, 20)); // 5% fee on purchases (marketing, gameplay & maintenance)
-      cards.setTotalEtherPool(SafeMath.sub(platCost,devFund),1,true); // Rest goes to div pool (Can&#39;t sell upgrades)
+      cards.setTotalEtherPool(SafeMath.sub(platCost,devFund),1,true); // Rest goes to div pool (Can't sell upgrades)
       cards.setCoinBalance(owner,devFund,1,true);  
     }
         
@@ -441,7 +441,7 @@ contract BitGuildTrade is BitGuildHelper {
     uint256 ethCost = rare.getRareItemsPLATPrice(_rareId); // get plat cost
     uint256 totalCost = SafeMath.add(cards.coinBalanceOf(_player,1),_platValue);
     require(totalCost >= ethCost); 
-    // We have to claim buyer/sellder&#39;s goo before updating their production values 
+    // We have to claim buyer/sellder's goo before updating their production values 
     cards.updatePlayersCoinByOut(_player);
     cards.updatePlayersCoinByOut(previousOwner);
 

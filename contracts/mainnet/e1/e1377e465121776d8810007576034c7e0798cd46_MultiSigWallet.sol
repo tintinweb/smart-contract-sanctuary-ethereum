@@ -134,7 +134,7 @@ contract MultiSigWallet is Ownable {
     }
 
     /**
-    * Creates an ETH transaction request which will be stored in the contract&#39;s state. The transaction
+    * Creates an ETH transaction request which will be stored in the contract's state. The transaction
     * will only go through if it is confirmed by at least one more owner address. If this function is 
     * called before a previous ETH transaction request has been confirmed, then it will be overridden. This
     * function can only be called by one of the owner addresses. 
@@ -149,7 +149,7 @@ contract MultiSigWallet is Ownable {
     }
 
     /**
-    * Creates an ERC20 transaction request which will be stored in the contract&#39;s state. The transaction
+    * Creates an ERC20 transaction request which will be stored in the contract's state. The transaction
     * will only go through if it is confirmed by at least one more owner address. If this function is 
     * called before a previous ERC20 transaction request has been confirmed, then it will be overridden. This
     * function can only be called by one of the owner addresses. 

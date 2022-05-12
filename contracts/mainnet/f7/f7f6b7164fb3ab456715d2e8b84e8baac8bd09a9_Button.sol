@@ -15,7 +15,7 @@ contract Club {
 // Last person to press the button before time runs out, wins the pot.
 // Button presses cost $.50
 // You must pay .5% of the total pot to press the button the first time. (this amount is donated to the reddithereum community).
-// After the first button press, a 6 hour countdown will begin, and you won&#39;t be able to press the button for 12 hours.
+// After the first button press, a 6 hour countdown will begin, and you won't be able to press the button for 12 hours.
 // Each time you press the button, the countdown will decrease by 10%, and cooldown will increase by 10%.
 // The pot starts at $100.
 contract Button {

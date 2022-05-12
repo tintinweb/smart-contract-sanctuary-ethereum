@@ -6,12 +6,12 @@ contract Election{
     
     bool public isActive;
     mapping(uint256 => address[]) public users; // all votes
-    mapping(address => uint256[]) public votes; // to fetch one user&#39;s votes
+    mapping(address => uint256[]) public votes; // to fetch one user's votes
     uint256 public totalUsers; // total users participated (not unique user count)
     uint256 public totalVotes; // for calculating avg vote guess on client side. (stats only)
     address[] public winners; // winner list. will be set after manager calls finalizeContract function
     uint256 public winnerPrice; // reward per user for successfull guess.
-    uint256 public voteResult; // candidate&#39;s vote result will be set after election.
+    uint256 public voteResult; // candidate's vote result will be set after election.
     
     
     // minimum reqired ether to enter competition.
@@ -40,7 +40,7 @@ contract Election{
     
     /**
     * user can join competition with this function.
-    * user&#39;s guess multiplied with 10 before calling this function for not using decimal numbers.
+    * user's guess multiplied with 10 before calling this function for not using decimal numbers.
     * ex: user guess: 40.2 -> 402
     **/
     function voteRequest(uint256 guess) public payable mIsActive mRequiredValue {
@@ -53,7 +53,7 @@ contract Election{
         totalVotes += guess;
     }
     
-    // get user&#39;s vote history.
+    // get user's vote history.
     function getUserVotes() public view returns(uint256[]){
         return votes[msg.sender];
     }
@@ -67,7 +67,7 @@ contract Election{
         );
     }
     
-    // for pausing contract. contract will be paused on election day. new users can&#39;t join competition after contract paused.
+    // for pausing contract. contract will be paused on election day. new users can't join competition after contract paused.
     function pause() public mManagerOnly {
         isActive = !isActive;
     }

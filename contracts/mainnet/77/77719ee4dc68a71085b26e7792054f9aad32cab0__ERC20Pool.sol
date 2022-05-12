@@ -82,7 +82,7 @@ contract _ERC20Pool {
     tokenContract.transfer(msg.sender, amount);
   }
   
-  // Fallback function, It&#39;s kind of you to send Ether, but we prefer to handle the true currency of
+  // Fallback function, It's kind of you to send Ether, but we prefer to handle the true currency of
   // Ethereum here, 0xBitcoin!
   function () public payable {
     revert();

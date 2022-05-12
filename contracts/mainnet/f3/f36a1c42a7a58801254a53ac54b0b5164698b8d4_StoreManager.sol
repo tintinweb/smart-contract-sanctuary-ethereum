@@ -268,7 +268,7 @@ is Pausable, HasNoEther
 
   /**
    * @dev Sets a store to be used by the manager
-   * @param _appNickname The nickname of the app for which the store&#39;s been configured
+   * @param _appNickname The nickname of the app for which the store's been configured
    * @param _address The address of the store
    */
   function setAStore(

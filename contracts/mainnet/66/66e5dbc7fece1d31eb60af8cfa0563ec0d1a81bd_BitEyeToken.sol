@@ -67,7 +67,7 @@ contract ERC20Token is SafeMath {
     @param _to      target address
     @param _value   transfer amount
 
-    @return true if the transfer was successful, false if it wasn&#39;t
+    @return true if the transfer was successful, false if it wasn't
   */
   function transfer(address _to, uint256 _value)
       public
@@ -88,7 +88,7 @@ contract ERC20Token is SafeMath {
     @param _to      target address
     @param _value   transfer amount
 
-    @return true if the transfer was successful, false if it wasn&#39;t
+    @return true if the transfer was successful, false if it wasn't
   */
   function transferFrom(address _from, address _to, uint256 _value)
     public
@@ -107,7 +107,7 @@ contract ERC20Token is SafeMath {
     onlyPayloadSize(2 * 32)
     returns (bool success)
   {
-    // if the allowance isn&#39;t 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
+    // if the allowance isn't 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
     require(_value == 0 || allowed[msg.sender][_spender] == 0);
 
     allowed[msg.sender][_spender] = _value;

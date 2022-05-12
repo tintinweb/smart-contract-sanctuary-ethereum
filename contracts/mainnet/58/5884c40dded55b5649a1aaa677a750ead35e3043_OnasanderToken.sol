@@ -31,7 +31,7 @@
 *
 *   e18 for every value except tokens per ETH
 *   
-*   @dev This contract allows you to configure as many Pre-ICOs as you need.  It&#39;s a very simple contract written to give contract admin lots of dynamic options.
+*   @dev This contract allows you to configure as many Pre-ICOs as you need.  It's a very simple contract written to give contract admin lots of dynamic options.
 *   @dev Here, most features except for total supply, max tokens for sale, company reserves, and token standard features, are dynamic.  You can configure your contract
 *   @dev however you want to.  
 *
@@ -315,7 +315,7 @@ contract OnasanderToken
         totalTokensSoldInThisSale = 0e18;
         uint tryingToSell = totalTokensSold.add(numberOfTokens);
 
-        // in case we are trying to create a sale with too many tokens, we subtract and sell only what&#39;s left
+        // in case we are trying to create a sale with too many tokens, we subtract and sell only what's left
         if (tryingToSell > maxTokensForSale)
         {
             tokensForSale = maxTokensForSale.sub(totalTokensSold); 
@@ -417,7 +417,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

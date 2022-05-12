@@ -265,7 +265,7 @@ contract TokenERC20 is ERC20, Controlled {
     string public name;
     string public symbol;
     uint8 public decimals = 18;
-    string public version = &#39;v1.0&#39;;
+    string public version = 'v1.0';
 
     // 18 decimals is the strongly suggested default, avoid changing it
     uint256 public totalSupply;
@@ -421,7 +421,7 @@ contract TokenERC20 is ERC20, Controlled {
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] -= _value;                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -664,7 +664,7 @@ contract HanYinToken is StableToken{
         name = "HanYin stable Token";
         decimals = 6;
         symbol = "HYT";
-        version = &#39;v1.0&#39;;
+        version = 'v1.0';
         
         allocateEndTime = now + 1 days;
 

@@ -23,7 +23,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -83,8 +83,8 @@ contract BTW_Token is ERC20Basic {
   uint256 public initialSupply;
 
   constructor() public {
-    name = &#39;Bitway Coin&#39;;
-    symbol = &#39;BTW&#39;;
+    name = 'Bitway Coin';
+    symbol = 'BTW';
     decimals = 18;
     owner = 0x0034a61e60BD3325C08E36Ac3b208E43fc53E5C2;
     initialSupply = 16000000 * 10 ** uint256(decimals);

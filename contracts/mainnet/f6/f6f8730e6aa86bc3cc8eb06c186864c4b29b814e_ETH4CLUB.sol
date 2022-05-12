@@ -12,8 +12,8 @@ pragma solidity ^0.4.24;
  * | |  _| |___/ |  | || |    _| |_     | || |  _| |  | |_  | || |      _| |_   | |
  * | | |_________|  | || |   |_____|    | || | |____||____| | || |     |_____|  | |
  * | |              | || |              | || |              | || |              | |
- * | &#39;--------------&#39; || &#39;--------------&#39; || &#39;--------------&#39; || &#39;--------------&#39; |
- * &#39;----------------&#39;  &#39;----------------&#39;  &#39;----------------&#39;  &#39;----------------&#39; 
+ * | '--------------' || '--------------' || '--------------' || '--------------' |
+ * '----------------'  '----------------'  '----------------'  '----------------' 
  *                                  ┌───────────────────────────────────────┐  
  *                                  │   Website:  http://Eth4.club          │
  *                                  │   Discord:  https://discord.gg/Uj72bZR│  
@@ -102,7 +102,7 @@ contract Ownable {
 /***
  *     __ __  __  _ __  _    ___ __  __  _ _____ ___  __   ________
  *    |  V  |/  \| |  \| |  / _//__\|  \| |_   _| _ \/  \ / _/_   _|
- *    | \_/ | /\ | | | &#39; | | \_| \/ | | &#39; | | | | v / /\ | \__ | |
+ *    | \_/ | /\ | | | ' | | \_| \/ | | ' | | | | v / /\ | \__ | |
  *    |_| |_|_||_|_|_|\__|  \__/\__/|_|\__| |_| |_|_\_||_|\__/ |_|
  */
 contract ETH4CLUB is Ownable {
@@ -215,7 +215,7 @@ contract ETH4CLUB is Ownable {
  */
   function deposit(uint _referrerID) public payable isHuman {
     require(_referrerID <= currentStakeID, "Who referred you?");
-    require(msg.value >= minBetLevel, "Doesn&#39;t meet minimum stake.");
+    require(msg.value >= minBetLevel, "Doesn't meet minimum stake.");
 
     // when is next midnight ?
     uint nextPayAfterTime = getNextPayoutTime();
@@ -365,8 +365,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -384,7 +384,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }

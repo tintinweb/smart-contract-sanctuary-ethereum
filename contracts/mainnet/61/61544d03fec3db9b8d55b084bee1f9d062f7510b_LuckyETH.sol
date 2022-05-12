@@ -313,7 +313,7 @@ contract LuckyETH is LuckyEvents, Ownable  {
     }
     
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(LuckyDatasets.EventReturns memory _eventData_)
         private

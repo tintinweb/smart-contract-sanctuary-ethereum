@@ -21,7 +21,7 @@ contract ERC20 {
     /// @dev Transfers _value number of tokens from address _from to address _to
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success);
 
-    /// @dev Allows _spender to withdraw from the msg.sender&#39;s account up to the _value amount
+    /// @dev Allows _spender to withdraw from the msg.sender's account up to the _value amount
     function approve(address _spender, uint256 _value) public returns (bool success);
 
     /// @dev Returns the amount which _spender is still allowed to withdraw from _owner
@@ -155,7 +155,7 @@ contract Escapable is Owned {
 
     /// @notice Checks to see if `_token` is in the blacklist of tokens
     /// @param _token the token address being queried
-    /// @return False if `_token` is in the blacklist and can&#39;t be taken out of
+    /// @return False if `_token` is in the blacklist and can't be taken out of
     ///  the contract via the `escapeHatch()`
     function isTokenEscapable(address _token) view public returns (bool) {
         return !escapeBlacklist[_token];
@@ -197,7 +197,7 @@ contract Escapable is Owned {
 }
 
 // TightlyPacked is cheaper if you need to store input data and if amount is less than 12 bytes.
-// Normal is cheaper if you don&#39;t need to store input data or if amounts are greater than 12 bytes.
+// Normal is cheaper if you don't need to store input data or if amounts are greater than 12 bytes.
 contract UnsafeMultiplexor is Escapable(0, 0) {
     function init(address _escapeHatchCaller, address _escapeHatchDestination) public {
         require(escapeHatchCaller == 0);

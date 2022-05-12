@@ -138,7 +138,7 @@ contract MultiSigWalletTokenLimit
     _;
   }
 
-  /// @dev Fallback function: don&#39;t accept ETH
+  /// @dev Fallback function: don't accept ETH
   function()
     public
     payable
@@ -149,7 +149,7 @@ contract MultiSigWalletTokenLimit
   /*
   * Public functions
   */
-  /// @dev Contract constructor sets initial owners, required number of confirmations, initial periods&#39; parameters and token address.
+  /// @dev Contract constructor sets initial owners, required number of confirmations, initial periods' parameters and token address.
   /// @param _owners List of initial owners.
   /// @param _required Number of required confirmations.
   /// @param _timestamps Timestamps of initial periods.

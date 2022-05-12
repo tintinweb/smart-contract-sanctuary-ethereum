@@ -61,7 +61,7 @@ contract CJXToken is Token {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;CJX0.1&#39;;
+    string public version = 'CJX0.1';
 
     function CJXToken() {
         balances[msg.sender] = 1000000000000000000000000;

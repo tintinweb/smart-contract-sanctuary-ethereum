@@ -36,10 +36,10 @@ contract ERC20Token {
 contract PortalToken is ERC20Token {
     address public initialOwner;
     uint256 public supply   = 1000000000 * 10 ** 18;  // 1,000,000,000
-    string  public name     = &#39;PortalToken&#39;;
+    string  public name     = 'PortalToken';
     uint8   public decimals = 18;
-    string  public symbol   = &#39;PORTAL&#39;;
-    string  public version  = &#39;v0.2&#39;;
+    string  public symbol   = 'PORTAL';
+    string  public version  = 'v0.2';
     uint    public creationBlock;
     uint    public creationTime;
 

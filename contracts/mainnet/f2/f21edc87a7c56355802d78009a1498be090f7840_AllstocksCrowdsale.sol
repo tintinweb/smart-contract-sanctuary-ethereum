@@ -16,7 +16,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -84,7 +84,7 @@ contract Owned {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override 
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 
@@ -248,7 +248,7 @@ contract AllstocksCrowdsale is Owned {
     //substruct from total raised - please notice main assumption is that tokens are not tradeble at this stage.
     _raised = _raised.sub(allstocksVal);               // extra safe
     //send eth back to user
-    msg.sender.transfer(ethValRefund);                 // if you&#39;re using a contract; make sure it works with .send gas limits
+    msg.sender.transfer(ethValRefund);                 // if you're using a contract; make sure it works with .send gas limits
     emit LogRefund(msg.sender, ethValRefund);          // log it
   }
 

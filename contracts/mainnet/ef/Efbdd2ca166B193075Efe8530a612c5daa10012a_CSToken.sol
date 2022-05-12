@@ -29,7 +29,7 @@ contract Utils {
 	function Utils() {
 	}
 
-	// validates an address - currently only checks that it isn&#39;t null
+	// validates an address - currently only checks that it isn't null
 	modifier validAddress(address _address) {
 		require(_address != 0x0);
 		_;
@@ -76,11 +76,11 @@ contract CSToken is owned, Utils {
 	struct Dividend {uint256 time; uint256 tenThousandth; uint256 countComplete;}
 
 	/* Public variables of the token */
-	string public standard = &#39;Token 0.1&#39;;
+	string public standard = 'Token 0.1';
 
-	string public name = &#39;KickCoin&#39;;
+	string public name = 'KickCoin';
 
-	string public symbol = &#39;KC&#39;;
+	string public symbol = 'KC';
 
 	uint8 public decimals = 8;
 

@@ -36,8 +36,8 @@ library SafeMath {
 	 * @dev Multiplies two numbers, throws on overflow.
 	 */
 	function mul(uint256 a, uint256 b)internal pure returns(uint256 c) {
-		// Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-		// benefit is lost if &#39;b&#39; is also tested.
+		// Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+		// benefit is lost if 'b' is also tested.
 		// See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
 		if (a == 0) {
 			return 0;
@@ -54,7 +54,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b)internal pure returns(uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		// uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return a / b;
 	}
 
@@ -164,7 +164,7 @@ contract AumonetERC223 is ERC223Interface {
 		return balances[_address];
 	}
 
-	/* Transfer the balance from the sender&#39;s address to the address _to */
+	/* Transfer the balance from the sender's address to the address _to */
 	function transfer(address _to, uint _value)public returns(bool success) {
 		bytes memory empty;
 		if (isContract(_to)) {
@@ -445,7 +445,7 @@ contract OwnableToken is PausableToken {
 	function _burn(address _who, uint256 _value)internal {
 		require(_value <= balances[_who]);
 		// no need to require value <= totalSupply, since that would imply the
-		// sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+		// sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
 		balances[_who] = balances[_who].sub(_value);
 		_totalSupply = _totalSupply.sub(_value);
@@ -514,7 +514,7 @@ contract AumonetToken is OwnableToken {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 contract Crowdsale {
@@ -535,7 +535,7 @@ contract Crowdsale {
 	uint256 public ethRate;
 
 	// Amount of wei raised
-	uint256 public totalWeiRaised; // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.
+	uint256 public totalWeiRaised; // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.
 
 	uint256 public tokensSold; // the number of tokens already sold
 
@@ -674,7 +674,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 	 * @notice Function to indicate the end of ICO.
 	 *
 	 * @dev Must be called after crowdsale ends, to do some extra finalization
-	 * work. Calls the contract&#39;s finalization function.
+	 * work. Calls the contract's finalization function.
 	 */
 	function finalize()onlyOwner afterDeadline public {
 		require(!crowdsaleClosed);

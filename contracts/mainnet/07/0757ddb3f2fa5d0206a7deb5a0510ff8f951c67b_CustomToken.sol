@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 5000000000000000000000000000;
-        name = &#39;Agriculturalcurrency&#39;;
-        symbol = &#39;NB&#39;;
+        name = 'Agriculturalcurrency';
+        symbol = 'NB';
         decimals = 18;
         balanceOf[0xfa1c8d83879818b545f6edf1264201ed5710293f] = totalSupply;
         Transfer(address(0), 0xfa1c8d83879818b545f6edf1264201ed5710293f, totalSupply);

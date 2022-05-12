@@ -129,13 +129,13 @@ contract GimliToken is ERC20, SafeMath, Ownable {
     uint8 public constant decimals = 8;
     string public constant name = "Gimli Token";
     string public constant symbol = "GIM";
-    string public constant version = &#39;v1&#39;;
+    string public constant version = 'v1';
 
     /// total amount of tokens
     uint256 public constant UNIT = 10**uint256(decimals);
-    uint256 constant MILLION_GML = 10**6 * UNIT; // can&#39;t use `safeMul` with constant
+    uint256 constant MILLION_GML = 10**6 * UNIT; // can't use `safeMul` with constant
     /// Should include CROWDSALE_AMOUNT and VESTING_X_AMOUNT
-    uint256 public constant TOTAL_SUPPLY = 150 * MILLION_GML; // can&#39;t use `safeMul` with constant;
+    uint256 public constant TOTAL_SUPPLY = 150 * MILLION_GML; // can't use `safeMul` with constant;
 
     /// balances indexed by address
     mapping (address => uint256) balances;
@@ -330,7 +330,7 @@ contract GimliCrowdsale is SafeMath, GimliToken {
     function transferOtherERC20Token(address tokenAddress, uint256 amount)
       onlyOwner returns (bool success)
     {
-        // can&#39;t be used for GIM token
+        // can't be used for GIM token
         require(tokenAddress != address(this) || transferable);
         return ERC20(tokenAddress).transfer(owner, amount);
     }

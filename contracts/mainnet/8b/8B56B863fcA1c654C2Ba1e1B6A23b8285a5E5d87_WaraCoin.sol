@@ -131,13 +131,13 @@ contract  WaraCoin is owned, TokenERC20 {
     
     address waracoin_corp;
 
-    /* Save product&#39;s genuine information */
+    /* Save product's genuine information */
     struct Product_genuine
     {
         address m_made_from_who;  // who made this product 
         
-        string m_Product_GUID;    // product&#39;s unique code
-        string m_Product_Description; // product&#39;s description
+        string m_Product_GUID;    // product's unique code
+        string m_Product_Description; // product's description
         address m_who_have;       // who have this product now
         address m_send_to_who;    // when product move to agency - if it is different with seller, it means that seller have no genuine  
         string m_hash;  // need to check hash of description
@@ -183,7 +183,7 @@ contract  WaraCoin is owned, TokenERC20 {
             require(balanceOf[waracoin_corp]>=amount);
             
             balanceOf[waracoin_corp] -= amount;
-            balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+            balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
             require(waracoin_corp.send(msg.value));
             Transfer(this, msg.sender, amount);               // execute an event reflecting the change
         }
@@ -200,8 +200,8 @@ contract  WaraCoin is owned, TokenERC20 {
         uint256 amount = coin_amount * 10 ** uint256(decimals);
 
         require(balanceOf[msg.sender] >= amount);         // checks if the sender has enough to sell
-        balanceOf[msg.sender] -= amount;                  // subtracts the amount from seller&#39;s balance
-        balanceOf[_to] += amount;                  // subtracts the amount from seller&#39;s balance
+        balanceOf[msg.sender] -= amount;                  // subtracts the amount from seller's balance
+        balanceOf[_to] += amount;                  // subtracts the amount from seller's balance
         Transfer(msg.sender, _to, amount);               // executes an event reflecting on the change
     }
 
@@ -216,12 +216,12 @@ contract  WaraCoin is owned, TokenERC20 {
         uint256 amount = coin_amount * 10 ** uint256(decimals);
 
         require(balanceOf[_from] >= amount);         // checks if the sender has enough to sell
-        balanceOf[_from] -= amount;                  // subtracts the amount from seller&#39;s balance
+        balanceOf[_from] -= amount;                  // subtracts the amount from seller's balance
         Transfer(_from, this, amount);               // executes an event reflecting on the change
     }    
     
     /**
-     * Here is WaraCoin&#39;s Genuine dApp functions
+     * Here is WaraCoin's Genuine dApp functions
     */
     
     /* When creator made product, must need to use this fuction for register his product first */
@@ -245,7 +245,7 @@ contract  WaraCoin is owned, TokenERC20 {
         return true;        
     }
     
-    /* If product&#39;s owner want to move, he need to use this fuction for setting receiver : must use by sender */  
+    /* If product's owner want to move, he need to use this fuction for setting receiver : must use by sender */  
     function setMoveProductToWhom(address who_made_this,uint256 product_idx,address moveto) public returns (bool success)
     {
         Product_genuine storage mine = MyProducts[who_made_this][product_idx];
@@ -257,7 +257,7 @@ contract  WaraCoin is owned, TokenERC20 {
         return true;
     }
     
-    /* Product&#39;s buyer need to use this function for save his genuine */
+    /* Product's buyer need to use this function for save his genuine */
     function moveProduct(address who_made_this,address who_have_this,uint256 product_idx) public returns (bool success)
     {
         uint256 amount = 1 * 10 ** uint256(decimals-2);        

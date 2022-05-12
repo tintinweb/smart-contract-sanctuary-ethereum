@@ -16,13 +16,13 @@ contract SmartPool {
 	//End triggers
 	uint duration;		//The pool ends when the duration expire
     uint ticketCount;	//Or when the reserve of tickets has been sold
-    bool ended;			//Current state (can&#39;t buy tickets when ended)
+    bool ended;			//Current state (can't buy tickets when ended)
 	bool terminated;	//true if a winner has been picked
 	bool moneySent;		//true if the winner has picked his money
     
 	//Min wait duration between ended and terminated states
 	uint constant blockDuration = 15; // we use 15 sec for the block duration
-	uint constant minWaitDuration = 240; // (= 3600 / blockDuration => 60 minutes waiting between &#39;ended&#39; and &#39;terminated&#39;)
+	uint constant minWaitDuration = 240; // (= 3600 / blockDuration => 60 minutes waiting between 'ended' and 'terminated')
 	
     //Players
     address[] players;	//List of tickets owners, each ticket gives an entry in the array
@@ -255,7 +255,7 @@ contract PoolManager {
 	//History (contains all the pools since the deploy)
 	SmartPool[] poolsHistory;
 	
-	//Current rand seed (it changes a lot so it&#39;s pretty hard to know its value when the winner is picked)
+	//Current rand seed (it changes a lot so it's pretty hard to know its value when the winner is picked)
 	uint randSeed;
 
 	//Constructor (only owner)
@@ -373,7 +373,7 @@ contract PoolManager {
 		}
 	}
 	
-	//Check end of a pool and restart it if it&#39;s ended (public)
+	//Check end of a pool and restart it if it's ended (public)
 	function checkPoolEnd(uint i) public 
 	{
 		require(i < pools.length);
@@ -435,7 +435,7 @@ contract PoolManager {
 		uint amount = pool.getCurrAmount();
 		address winner = pool.getWinner();
 		pool.onMoneySent();
-		if (amount > 0 && !winner.send(amount)) // the winner can&#39;t get his money (should not happen)
+		if (amount > 0 && !winner.send(amount)) // the winner can't get his money (should not happen)
 		{
 			addFee(wallet, amount);
 		}
@@ -482,7 +482,7 @@ contract PoolManager {
 			walletContract.payMe.value(amount)();
 		}
 		else if (!a.send(amount))
-			addFee(wallet, amount); // the fee can&#39;t be sent (hacking attempt?), so we take it... :-p
+			addFee(wallet, amount); // the fee can't be sent (hacking attempt?), so we take it... :-p
 	}
 	
 	//Add fee (private)
@@ -491,6 +491,6 @@ contract PoolManager {
 		if (fees[a] == 0)
 			fees[a] = fee;
 		else
-			fees[a] += fee; // we don&#39;t check for overflow, if you&#39;re billionaire in fees, call getMyFee sometimes :-)
+			fees[a] += fee; // we don't check for overflow, if you're billionaire in fees, call getMyFee sometimes :-)
 	}
 }

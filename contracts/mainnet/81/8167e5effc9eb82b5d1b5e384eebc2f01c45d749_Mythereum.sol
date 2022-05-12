@@ -342,8 +342,8 @@ contract Mythereum is Manageable {
   }
 
   /**
-   * @dev Disallow funds being sent directly to the contract since we can&#39;t know
-   *  which edition they&#39;d intended to purchase.
+   * @dev Disallow funds being sent directly to the contract since we can't know
+   *  which edition they'd intended to purchase.
    */
   function () public payable {
     revert();

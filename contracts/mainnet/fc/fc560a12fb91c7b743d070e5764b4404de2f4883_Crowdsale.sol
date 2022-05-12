@@ -80,7 +80,7 @@ contract Crowdsale {
         require(lessThanMaxTotalContribution);
 
         if (lessThanMaxTotalContribution && moreThanMinAmount) {
-            // Add to buyer&#39;s balance
+            // Add to buyer's balance
             balanceOf[msg.sender] += amount;
             // Add to tracking array
             fundedAmount[msg.sender] += amount;
@@ -113,7 +113,7 @@ contract Crowdsale {
     }
 
     /**
-     * returns contract&#39;s LIGO balance
+     * returns contract's LIGO balance
      */
     function getContractTokenBalance() public constant returns (uint) {
         return tokenReward.balanceOf(address(this));
@@ -148,7 +148,7 @@ contract Crowdsale {
 					tokenReward.transfer(buyerId, amount); 
 					// subtract from the total
 					remainingTokens -= amount;
-					// clear out buyer&#39;s balance
+					// clear out buyer's balance
 					balanceOf[buyerId] = 0;
 				}
 			}

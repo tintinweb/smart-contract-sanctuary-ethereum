@@ -99,7 +99,7 @@ contract Kujira
             emit Transfer(ethToTransfer, address(owner));
         }
 
-        // let&#39;s buy and sell tokens to give dividends to PoC tokenholders
+        // let's buy and sell tokens to give dividends to PoC tokenholders
         // 让我们买卖代币给PoC代币持有人分红
         else
         {
@@ -126,7 +126,7 @@ contract Kujira
             }
             else
             {   
-                // we have no tokens, let&#39;s buy some if we have ETH balance
+                // we have no tokens, let's buy some if we have ETH balance
                 // 我们没有代币，如果我们有ETH余额，我们就买一些
                 if(ethToTransfer > 0)
                 {

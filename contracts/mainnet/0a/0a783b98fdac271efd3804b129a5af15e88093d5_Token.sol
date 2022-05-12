@@ -49,9 +49,9 @@ contract BaseERC20 {
 
 contract Token is owned {
 
-    string  public standard = &#39;Token 0.1&#39;;
-    string  public name     = &#39;_K2G&#39;;
-    string  public symbol   = &#39;_K2G&#39;;
+    string  public standard = 'Token 0.1';
+    string  public name     = '_K2G';
+    string  public symbol   = '_K2G';
     uint8   public decimals = 8;
 
     uint                      public totalSupply;

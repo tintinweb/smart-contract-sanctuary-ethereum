@@ -279,8 +279,8 @@ contract EdgeSmartToken is ERC20, SafeMath, DateTime {
     uint256  public constant _decimals = 18;
     uint256 public constant _totalSupply = (100000000 * 10**_decimals);
     
-    string public constant symbol = &#39;EDUX&#39;;
-    string public constant name = &#39;Edgecoin Smart Token&#39;;
+    string public constant symbol = 'EDUX';
+    string public constant name = 'Edgecoin Smart Token';
     
     mapping(address => uint256) public balances;
     mapping(address => mapping(address => uint256)) approved;

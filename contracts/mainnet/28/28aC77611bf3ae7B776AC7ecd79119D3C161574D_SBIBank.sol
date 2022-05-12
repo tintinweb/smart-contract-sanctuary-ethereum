@@ -58,7 +58,7 @@ contract Owned {
     *
     *  Changes ownership of this contract. Only owner can call this method.
     *
-    * @param newOwner - new owner&#39;s address
+    * @param newOwner - new owner's address
     */
     function changeOwner(address newOwner) onlyOwner public {
         require(newOwner != address(0));
@@ -88,7 +88,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -113,9 +113,9 @@ library SafeMath {
 contract SBIToken is Owned, CrowdsaleParameters {
     using SafeMath for uint256;
     /* Public variables of the token */
-    string public standard = &#39;ERC20/SBI&#39;;
-    string public name = &#39;Subsoil Blockchain Investitions&#39;;
-    string public symbol = &#39;SBI&#39;;
+    string public standard = 'ERC20/SBI';
+    string public name = 'Subsoil Blockchain Investitions';
+    string public symbol = 'SBI';
     uint8 public decimals = 18;
 
     /* Arrays of all balances */
@@ -203,7 +203,7 @@ contract SBIToken is Owned, CrowdsaleParameters {
     }
 
     /**
-    *  Send coins from sender&#39;s address to address specified in parameters
+    *  Send coins from sender's address to address specified in parameters
     *
     * @param _to - address to send to
     * @param _value - amount to send in Wei
@@ -302,7 +302,7 @@ contract SBIToken is Owned, CrowdsaleParameters {
 
 contract SBIBank is Owned, CrowdsaleParameters {
     using SafeMath for uint256;
-    string public name = &#39;Subsoil Blockchain Investitions Bank&#39;;
+    string public name = 'Subsoil Blockchain Investitions Bank';
     SBIToken private token;
     uint256 public currentVotingDate = 0;
     uint public currentVotingAmount = 0;

@@ -288,7 +288,7 @@ contract DigixReserve is KyberReserveInterface, Withdrawable, Utils {
     ConversionRatesInterface public conversionRatesContract;
     SanityRatesInterface public sanityRatesContract;
     address public kyberNetwork;
-    uint public maxBlockDrift = 300; //Max drift from block that price feed was received till we can&#39;t use it.
+    uint public maxBlockDrift = 300; //Max drift from block that price feed was received till we can't use it.
     bool public tradeEnabled;
     uint public buyTransferFee = 13; //Digix token has transaction fees we should compensate for our flow to work
     uint public sellTransferFee = 13;

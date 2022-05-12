@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract TrillionToken {
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -20,8 +20,8 @@ contract TrillionToken {
     function TrillionToken() public {
         balances[msg.sender] = 100000000000000000000;
         _totalSupply = 100000000000000000000;
-        name = &#39;TrillionToken&#39;;
-        symbol = &#39;3LT&#39;;
+        name = 'TrillionToken';
+        symbol = '3LT';
         decimals = 8;
         owner = msg.sender;
     }

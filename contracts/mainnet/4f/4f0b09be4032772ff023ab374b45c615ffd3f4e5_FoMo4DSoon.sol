@@ -315,7 +315,7 @@ contract FoMo4DSoon is F4Devents{
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -437,7 +437,7 @@ contract FoMo4DSoon is F4Devents{
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -630,14 +630,14 @@ contract FoMo4DSoon is F4Devents{
         // is ICO phase over??  & theres eth in the round?
         if (_now > round_[_rID].strt + rndGap_ && round_[_rID].eth != 0 && _now <= round_[_rID].end)
             return ( (round_[_rID].keys.add(1000000000000000000)).ethRec(1000000000000000000) );
-        else if (_now <= round_[_rID].end) // round hasn&#39;t ended (in ICO phase, or ICO phase is over, but round eth is 0)
+        else if (_now <= round_[_rID].end) // round hasn't ended (in ICO phase, or ICO phase is over, but round eth is 0)
             return ( ((round_[_rID].ico.keys()).add(1000000000000000000)).ethRec(1000000000000000000) );
         else // rounds over.  need price for new round
             return ( 100000000000000 ); // init
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -972,7 +972,7 @@ contract FoMo4DSoon is F4Devents{
         uint256 _gen = (_eth.mul(fees_[_team].gen)) / 100;
         
         uint256 _aff = _eth / 10;
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit F4Devents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
         } else {
@@ -1151,7 +1151,7 @@ contract FoMo4DSoon is F4Devents{
         // is ICO phase over??  & theres eth in the round?
         if (_now > round_[_rID].strt + rndGap_ && round_[_rID].eth != 0 && _now <= round_[_rID].end)
             return ( (round_[_rID].eth).keysRec(_eth) );
-        else if (_now <= round_[_rID].end) // round hasn&#39;t ended (in ICO phase, or ICO phase is over, but round eth is 0)
+        else if (_now <= round_[_rID].end) // round hasn't ended (in ICO phase, or ICO phase is over, but round eth is 0)
             return ( (round_[_rID].ico).keysRec(_eth) );
         else // rounds over.  need keys for new round
             return ( (_eth).keys() );
@@ -1182,7 +1182,7 @@ contract FoMo4DSoon is F4Devents{
         // is ICO phase over??  & theres eth in the round?
         if (_now > round_[_rID].strt + rndGap_ && round_[_rID].eth != 0 && _now <= round_[_rID].end)
             return ( (round_[_rID].keys.add(_keys)).ethRec(_keys) );
-        else if (_now <= round_[_rID].end) // round hasn&#39;t ended (in ICO phase, or ICO phase is over, but round eth is 0)
+        else if (_now <= round_[_rID].end) // round hasn't ended (in ICO phase, or ICO phase is over, but round eth is 0)
             return ( (((round_[_rID].ico).keys()).add(_keys)).ethRec(_keys) );
         else // rounds over.  need price for new round
             return ( (_keys).eth() );
@@ -1312,7 +1312,7 @@ contract FoMo4DSoon is F4Devents{
             if (plyr_[_pID].lrnd != 0)
                 updateGenVault(_pID, plyr_[_pID].lrnd);
             
-            // update player&#39;s last round played
+            // update player's last round played
             plyr_[_pID].lrnd = _rID;
             
             // set the joined round bool to true
@@ -1336,7 +1336,7 @@ contract FoMo4DSoon is F4Devents{
         if (round_[_rID].eth == 0 && round_[_rID].ico > 0)
             roundClaimICOKeys(_rID);
         
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
         
@@ -1483,7 +1483,7 @@ contract FoMo4DSoon is F4Devents{
                 
         // decide what to do with affiliate share of fees
         // affiliate must not be self, and must have a name registered
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit F4Devents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
         } else {
@@ -1528,7 +1528,7 @@ contract FoMo4DSoon is F4Devents{
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         
@@ -1569,7 +1569,7 @@ contract FoMo4DSoon is F4Devents{
     }
     
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _rID, uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, F4Ddatasets.EventReturns memory _eventData_)
         private

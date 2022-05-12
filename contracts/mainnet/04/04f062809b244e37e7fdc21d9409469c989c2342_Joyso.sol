@@ -270,14 +270,14 @@ contract Joyso is Ownable, JoysoDataDecoder {
     /**
      * @notice add/remove a address to admin list, only owner
      * @param admin The address of the admin
-     * @param isAdd Set the address&#39;s status in admin list
+     * @param isAdd Set the address's status in admin list
      */
     function addToAdmin(address admin, bool isAdd) external onlyOwner {
         isAdmin[admin] = isAdd;
     }
 
     /**
-     * @notice collect the fee to owner&#39;s address, only owner
+     * @notice collect the fee to owner's address, only owner
      */
     function collectFee(address token) external onlyOwner {
         uint256 amount = balances[token][joysoWallet];
@@ -309,7 +309,7 @@ contract Joyso is Ownable, JoysoDataDecoder {
      * @notice add a new token into the token list, only admins
      * @dev index 0 & 1 are saved for Ether and JOY
      * @dev both index & token can not be redundant, and no removed mathod
-     * @param tokenAddress token&#39;s address
+     * @param tokenAddress token's address
      * @param index chosen index of the token
      */
     function registerToken(address tokenAddress, uint256 index) external onlyAdmin {
@@ -608,7 +608,7 @@ contract Joyso is Ownable, JoysoDataDecoder {
     /**
      * @notice transfer token from admin to users
      * @param token address of token
-     * @param account receiver&#39;s address
+     * @param account receiver's address
      * @param amount amount to transfer
      */
     function transferForAdmin(address token, address account, uint256 amount) onlyAdmin external {
@@ -662,8 +662,8 @@ contract Joyso is Ownable, JoysoDataDecoder {
     }
 
     /**
-     * @dev get token order&#39;s hash for user to sign, internal
-     * @param inputs forword tokenOrderMatch&#39;s input to this function
+     * @dev get token order's hash for user to sign, internal
+     * @param inputs forword tokenOrderMatch's input to this function
      * @param offset offset of the order in inputs
      */
     function getTokenOrderDataHash(uint256[] inputs, uint256 offset, uint256 data, address token, address base) internal view returns (bytes32) {

@@ -242,7 +242,7 @@ contract EscrowGoods {
         logEvent(_lockId, _dataInfo, _version, Freeze, msg.sender, info.count, info.lockedFunds);
     }
 
-    //arbiter&#39;s decision on the case.
+    //arbiter's decision on the case.
     //arbiter can only decide when both buyer and seller voted NO
     //arbiter decides on his own reward but not bigger than announced percentage (rewardPromille)
     function arbYes(uint _lockId, address _who, uint _payment, string _dataInfo, uint _version) onlyArbiter {

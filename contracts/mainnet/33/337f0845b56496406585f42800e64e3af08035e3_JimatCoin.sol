@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;JMT&#39; token contract
+// 'JMT' token contract
 //
 // Deployed to : 0xa6e69536c5e13Ba9056a62a63adf2F725CA62599
 // Symbol      : JMT

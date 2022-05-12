@@ -36,7 +36,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         assert(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -501,10 +501,10 @@ contract DRSCoin {
 
         uint32 _nowMonth = getCurrentMonth();
 
-        // settle msg.sender&#39;s eth
+        // settle msg.sender's eth
         settleEth(msg.sender, lastRefundMonth[msg.sender], _nowMonth);
 
-        // settle _to&#39;s eth
+        // settle _to's eth
         settleEth(_to, lastRefundMonth[_to], _nowMonth);
 
         // transfer token
@@ -530,10 +530,10 @@ contract DRSCoin {
 
         uint32 _nowMonth = getCurrentMonth();
 
-        // settle _from&#39;s eth
+        // settle _from's eth
         settleEth(_from, lastRefundMonth[_from], _nowMonth);
 
-        // settle _to&#39;s eth
+        // settle _to's eth
         settleEth(_to, lastRefundMonth[_to], _nowMonth);
 
         // transfer token
@@ -642,13 +642,13 @@ contract DRSCoin {
 
         uint32 _nowMonth = getCurrentMonth();
 
-        // settle _to&#39;s eth
+        // settle _to's eth
         settleEth(_to, lastRefundMonth[_to], _nowMonth);
 
         totalSupply = _amount.add(totalSupply);                 // Update total supply
         balanceOf[_to] = _amount.add(balanceOf[_to]);           // Set minted coins to target
 
-        // add current month&#39;s totalTokenSupply
+        // add current month's totalTokenSupply
         monthInfos[_nowMonth].totalTokenSupply = totalSupply;
 
         if(_nextReduceSupply != nextReduceSupply) {
@@ -668,13 +668,13 @@ contract DRSCoin {
 
         uint32 _nowMonth = getCurrentMonth();
 
-        // settle msg.sender&#39;s eth
+        // settle msg.sender's eth
         settleEth(msg.sender, lastRefundMonth[msg.sender], _nowMonth);
 
         balanceOf[msg.sender] = balanceOf[msg.sender].sub(_value);            // Subtract from the sender
         totalSupply = totalSupply.sub(_value);                                // Updates totalSupply
 
-        // update current month&#39;s totalTokenSupply
+        // update current month's totalTokenSupply
         monthInfos[_nowMonth].totalTokenSupply = totalSupply;
 
         emit Burn(msg.sender, _value);

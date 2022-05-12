@@ -91,8 +91,8 @@ library SafeMath {
      * @dev Multiplies two unsigned integers, reverts on overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -111,7 +111,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -276,7 +276,7 @@ contract LinkedListLibrary {
     )
         internal
     {
-        // Add node if data hasn&#39;t reached size limit, otherwise update next node
+        // Add node if data hasn't reached size limit, otherwise update next node
         _self.dataArray.length < _self.dataSizeLimit ? addNode(_self, _addedValue)
             : updateNode(_self, _addedValue);
 
@@ -354,7 +354,7 @@ contract LinkedListLibrary {
         view
         returns (uint256[] memory)
     {
-        // Make sure query isn&#39;t for more data than collected
+        // Make sure query isn't for more data than collected
         require(
             _dataPoints <= _self.dataArray.length,
             "LinkedListLibrary: Querying more data than available"
@@ -435,7 +435,7 @@ contract HistoricalPriceFeed is
      * @param  _updateFrequency           How often new data can be logged, passe=d in seconds
      * @param  _medianizerAddress         The oracle address to read historical data from
      * @param  _dataDescription           Description of data in Data Bank
-     * @param  _seededValues              Array of previous days&#39; Historical price values to seed
+     * @param  _seededValues              Array of previous days' Historical price values to seed
      *                                    initial values in list. Should NOT contain the current
      *                                    days price.
      */
@@ -546,7 +546,7 @@ contract HistoricalPriceFeed is
      * Create initialValues array from _seededValues and the current medianizer price.
      * Added to historicalPriceData in constructor.
      *
-     * @param  _seededValues        Array of previous days&#39; historical price values to seed
+     * @param  _seededValues        Array of previous days' historical price values to seed
      * @returns                     Array of initial values to add to historicalPriceData
      */
     function createInitialValues(

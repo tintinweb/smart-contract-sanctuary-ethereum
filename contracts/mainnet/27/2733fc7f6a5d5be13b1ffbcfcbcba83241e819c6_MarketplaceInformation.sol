@@ -125,7 +125,7 @@ contract ResolverClient {
     _;
   }
 
-  /// Function modifier to check resolver&#39;s locking status.
+  /// Function modifier to check resolver's locking status.
   modifier unless_resolver_is_locked() {
     require(is_locked() == false);
     _;
@@ -335,7 +335,7 @@ contract MarketplaceCommon is ResolverClient, ACConditions, DigixConstants {
 
 /// @title Digix Marketplace Information
 /// @author Digix Holdings Pte Ltd
-/// @notice This contract is used to read the configuration of the Digix&#39;s Marketplace
+/// @notice This contract is used to read the configuration of the Digix's Marketplace
 contract MarketplaceInformation is MarketplaceCommon {
 
   function MarketplaceInformation(address _resolver) public
@@ -351,8 +351,8 @@ contract MarketplaceInformation is MarketplaceCommon {
     _contract = IdentityStorage(get_contract(CONTRACT_STORAGE_IDENTITY));
   }
 
-  /// @dev show user&#39;s current marketplace information and configuration, as well as some global configurations
-  /// @param _user the user&#39;s ethereum address
+  /// @dev show user's current marketplace information and configuration, as well as some global configurations
+  /// @param _user the user's ethereum address
   /// @return {
   ///   "_user_daily_dgx_limit": "the amount of DGX that the user can purchase at any given day",
   ///   "_user_id_expiration": "if KYC approved this will be a non-zero value as Unix timestamp when the submitted ID will expire",
@@ -393,8 +393,8 @@ contract MarketplaceInformation is MarketplaceCommon {
        marketplace_storage().read_config();
   }
 
-  /// @dev show the user&#39;s daily limit on DGX purchase
-  /// @param _user the user&#39;s ethereum address
+  /// @dev show the user's daily limit on DGX purchase
+  /// @param _user the user's ethereum address
   /// @return {
   ///   "_maximum_purchase_amount_ng": "The amount in DGX nanograms that the user can purchase daily"
   /// }
@@ -406,7 +406,7 @@ contract MarketplaceInformation is MarketplaceCommon {
     _maximum_purchase_amount_ng = marketplace_storage().read_user_daily_limit(_user);
   }
 
-  /// @dev show how many nanograms of DGX is in the Marketplace&#39;s inventory
+  /// @dev show how many nanograms of DGX is in the Marketplace's inventory
   /// @return {
   ///   "_available_ng": "The amount in DGX nanograms in the inventory"
   /// }
@@ -455,7 +455,7 @@ contract MarketplaceInformation is MarketplaceCommon {
     (_recipient, _timestamp, _amount, _price) = marketplace_storage().read_purchase_at_index(_index);
   }
 
-  /// @dev read the purchase details by a user at an index from all the user&#39;s purchases
+  /// @dev read the purchase details by a user at an index from all the user's purchases
   /// @param _index the index of the purchase in all purchases by this user (index starts from 0)
   /// @return {
   ///   "_recipient": "DGX was purchases to this Ethereum address",

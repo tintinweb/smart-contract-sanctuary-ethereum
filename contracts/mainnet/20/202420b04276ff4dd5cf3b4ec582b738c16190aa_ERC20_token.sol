@@ -90,7 +90,7 @@ contract ERC20_token {   // 使用 is 繼承 ERC20_interface
         require(balances[owner] >= amount);              // 檢查還有沒有足夠token可以賣
         balances[msg.sender] += amount;                  // 增加購買者token   
         balances[owner] -= amount;                        // 減少擁有者token
-        emit Transfer(msg.sender, owner, amount, &#39;Buy token&#39;);               // 產生token轉帳log
+        emit Transfer(msg.sender, owner, amount, 'Buy token');               // 產生token轉帳log
     }
 
     // 從合約轉出Ether到部屬者帳戶

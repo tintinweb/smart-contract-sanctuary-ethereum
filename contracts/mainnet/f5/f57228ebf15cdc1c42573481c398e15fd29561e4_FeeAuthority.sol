@@ -132,7 +132,7 @@ contract FeeAuthority is DSMath, DSAuth {
     
     function rateOf (address token) internal view returns (uint) {
         if (tokenRates[token] == 0) {
-        /* use default fee rate if the token&#39;s fee rate is not specified */
+        /* use default fee rate if the token's fee rate is not specified */
             return defaultFeePercentage;
         } else {
             return tokenRates[token];

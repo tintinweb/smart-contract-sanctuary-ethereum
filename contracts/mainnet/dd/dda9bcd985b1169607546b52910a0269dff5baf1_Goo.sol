@@ -25,7 +25,7 @@ contract Goo is ERC20 {
     address public owner; // Minor management of game
     bool public gameStarted;
     
-    uint256 public totalEtherGooResearchPool; // Eth dividends to be split between players&#39; goo production
+    uint256 public totalEtherGooResearchPool; // Eth dividends to be split between players' goo production
     uint256[] public totalGooProductionSnapshots; // The total goo production for each prior day past
     uint256[] public allocatedGooResearchSnapshots; // The research eth allocated to each prior day past
     uint256 public nextSnapshotTime;
@@ -36,8 +36,8 @@ contract Goo is ERC20 {
     // Balances for each player
     mapping(address => uint256) private ethBalance;
     mapping(address => uint256) private gooBalance;
-    mapping(address => mapping(uint256 => uint256)) private gooProductionSnapshots; // Store player&#39;s goo production for given day (snapshot)
-    mapping(address => mapping(uint256 => bool)) private gooProductionZeroedSnapshots; // This isn&#39;t great but we need know difference between 0 production and an unused/inactive day.
+    mapping(address => mapping(uint256 => uint256)) private gooProductionSnapshots; // Store player's goo production for given day (snapshot)
+    mapping(address => mapping(uint256 => bool)) private gooProductionZeroedSnapshots; // This isn't great but we need know difference between 0 production and an unused/inactive day.
     
     mapping(address => uint256) private lastGooSaveTime; // Seconds (last time player claimed their produced goo)
     mapping(address => uint256) public lastGooProductionUpdate; // Days (last snapshot player updated their production)
@@ -50,7 +50,7 @@ contract Goo is ERC20 {
     mapping(uint256 => address) private rareItemOwner;
     mapping(uint256 => uint256) private rareItemPrice;
     
-    // Rares & Upgrades (Increase unit&#39;s production / attack etc.)
+    // Rares & Upgrades (Increase unit's production / attack etc.)
     mapping(address => mapping(uint256 => uint256)) private unitGooProductionIncreases; // Adds to the goo per second
     mapping(address => mapping(uint256 => uint256)) private unitGooProductionMultiplier; // Multiplies the goo per second
     mapping(address => mapping(uint256 => uint256)) private unitAttackIncreases;
@@ -79,7 +79,7 @@ contract Goo is ERC20 {
     
     // Raffle tickets
     mapping(address => TicketPurchases) private ticketsBoughtByPlayer;
-    mapping(uint256 => address[]) private rafflePlayers; // Keeping a seperate list for each raffle has it&#39;s benefits.
+    mapping(uint256 => address[]) private rafflePlayers; // Keeping a seperate list for each raffle has it's benefits.
 
     // Current raffle info
     uint256 private raffleEndTime;
@@ -287,7 +287,7 @@ contract Goo is ERC20 {
     function buyUpgrade(uint256 upgradeId) external payable {
         require(gameStarted);
         require(schema.validUpgradeId(upgradeId)); // Valid upgrade
-        require(!upgradesOwned[msg.sender][upgradeId]); // Haven&#39;t already purchased
+        require(!upgradesOwned[msg.sender][upgradeId]); // Haven't already purchased
         
         uint256 gooCost;
         uint256 ethCost;
@@ -305,7 +305,7 @@ contract Goo is ERC20 {
             }
         
             uint256 devFund = ethCost / 50; // 2% fee on purchases (marketing, gameplay & maintenance)
-            totalEtherGooResearchPool += (ethCost - devFund); // Rest goes to div pool (Can&#39;t sell upgrades)
+            totalEtherGooResearchPool += (ethCost - devFund); // Rest goes to div pool (Can't sell upgrades)
             ethBalance[owner] += devFund;
         }
         
@@ -375,7 +375,7 @@ contract Goo is ERC20 {
         uint256 ethCost = rareItemPrice[rareId];
         require(ethBalance[msg.sender] + msg.value >= ethCost);
         
-        // We have to claim buyer&#39;s goo before updating their production values
+        // We have to claim buyer's goo before updating their production values
         updatePlayersGoo(msg.sender);
         
         uint256 upgradeClass;
@@ -384,7 +384,7 @@ contract Goo is ERC20 {
         (upgradeClass, unitId, upgradeValue) = schema.getRareInfo(rareId);
         upgradeUnitMultipliers(msg.sender, upgradeClass, unitId, upgradeValue);
         
-        // We have to claim seller&#39;s goo before reducing their production values
+        // We have to claim seller's goo before reducing their production values
         updatePlayersGoo(previousOwner);
         removeUnitMultipliers(previousOwner, upgradeClass, unitId, upgradeValue);
         
@@ -421,10 +421,10 @@ contract Goo is ERC20 {
         require(endSnapShot < allocatedGooResearchSnapshots.length);
         
         uint256 researchShare;
-        uint256 previousProduction = gooProductionSnapshots[msg.sender][lastGooResearchFundClaim[msg.sender] - 1]; // Underflow won&#39;t be a problem as gooProductionSnapshots[][0xffffffffff] = 0;
+        uint256 previousProduction = gooProductionSnapshots[msg.sender][lastGooResearchFundClaim[msg.sender] - 1]; // Underflow won't be a problem as gooProductionSnapshots[][0xffffffffff] = 0;
         for (uint256 i = startSnapshot; i <= endSnapShot; i++) {
             
-            // Slightly complex things by accounting for days/snapshots when user made no tx&#39;s
+            // Slightly complex things by accounting for days/snapshots when user made no tx's
             uint256 productionDuringSnapshot = gooProductionSnapshots[msg.sender][i];
             bool soldAllProduction = gooProductionZeroedSnapshots[msg.sender][i];
             if (productionDuringSnapshot == 0 && !soldAllProduction) {
@@ -492,7 +492,7 @@ contract Goo is ERC20 {
         if (purchases.numPurchases == purchases.ticketsBought.length) {
             purchases.ticketsBought.length += 1;
         }
-        purchases.ticketsBought[purchases.numPurchases++] = TicketPurchase(raffleTicketsBought, raffleTicketsBought + (amount - 1)); // (eg: buy 10, get id&#39;s 0-9)
+        purchases.ticketsBought[purchases.numPurchases++] = TicketPurchase(raffleTicketsBought, raffleTicketsBought + (amount - 1)); // (eg: buy 10, get id's 0-9)
         
         // Finally update ticket total
         raffleTicketsBought += amount;
@@ -582,7 +582,7 @@ contract Goo is ERC20 {
     
     function protectAddress(address exchange, bool isProtected) external {
         require(msg.sender == owner);
-        require(getGooProduction(exchange) == 0); // Can&#39;t protect actual players
+        require(getGooProduction(exchange) == 0); // Can't protect actual players
         protectedAddresses[exchange] = isProtected;
     }
     
@@ -596,14 +596,14 @@ contract Goo is ERC20 {
         uint256 stealingPower;
         (attackingPower, defendingPower, stealingPower) = getPlayersBattlePower(msg.sender, target);
         
-        if (battleCooldown[target] > block.timestamp) { // When on battle cooldown you&#39;re vulnerable (starting value is 50% normal power)
+        if (battleCooldown[target] > block.timestamp) { // When on battle cooldown you're vulnerable (starting value is 50% normal power)
             defendingPower = schema.getWeakenedDefensePower(defendingPower);
         }
         
         if (attackingPower > defendingPower) {
             battleCooldown[msg.sender] = block.timestamp + 30 minutes;
             if (balanceOf(target) > stealingPower) {
-                // Save all their unclaimed goo, then steal attacker&#39;s max capacity (at same time)
+                // Save all their unclaimed goo, then steal attacker's max capacity (at same time)
                 uint256 unclaimedGoo = balanceOfUnclaimedGoo(target);
                 if (stealingPower > unclaimedGoo) {
                     uint256 gooDecrease = stealingPower - unclaimedGoo;
@@ -621,7 +621,7 @@ contract Goo is ERC20 {
             }
             
             lastGooSaveTime[target] = block.timestamp; 
-            // We don&#39;t need to claim/save msg.sender&#39;s goo (as production delta is unchanged)
+            // We don't need to claim/save msg.sender's goo (as production delta is unchanged)
         } else {
             battleCooldown[msg.sender] = block.timestamp + 10 minutes;
             emit PlayerAttacked(msg.sender, target, false, 0);
@@ -746,10 +746,10 @@ contract Goo is ERC20 {
         uint256 latestSnapshot = allocatedGooResearchSnapshots.length - 1; // No snapshots to begin with
         
         uint256 researchShare;
-        uint256 previousProduction = gooProductionSnapshots[msg.sender][lastGooResearchFundClaim[msg.sender] - 1]; // Underflow won&#39;t be a problem as gooProductionSnapshots[][0xfffffffffffff] = 0;
+        uint256 previousProduction = gooProductionSnapshots[msg.sender][lastGooResearchFundClaim[msg.sender] - 1]; // Underflow won't be a problem as gooProductionSnapshots[][0xfffffffffffff] = 0;
         for (uint256 i = startSnapshot; i <= latestSnapshot; i++) {
             
-            // Slightly complex things by accounting for days/snapshots when user made no tx&#39;s
+            // Slightly complex things by accounting for days/snapshots when user made no tx's
             uint256 productionDuringSnapshot = gooProductionSnapshots[msg.sender][i];
             bool soldAllProduction = gooProductionZeroedSnapshots[msg.sender][i];
             if (productionDuringSnapshot == 0 && !soldAllProduction) {
@@ -1099,7 +1099,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

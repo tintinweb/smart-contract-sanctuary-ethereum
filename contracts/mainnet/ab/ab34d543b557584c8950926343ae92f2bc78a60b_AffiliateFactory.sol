@@ -25,7 +25,7 @@ pragma solidity ^0.4.21;
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
       // assert(b > 0); // Solidity automatically throws when dividing by 0
       // uint256 c = a / b;
-      // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+      // assert(a == b * c + a % b); // There is no case in which this doesn't hold
       return a / b;
     }
 
@@ -155,11 +155,11 @@ pragma solidity ^0.4.21;
       return true;
     }
     function payout(address[] tokens) public {
-        // Payout all stakes at once, so we don&#39;t have to do bookkeeping on who has
-        // claimed their shares and who hasn&#39;t. If the number of shareholders is large
+        // Payout all stakes at once, so we don't have to do bookkeeping on who has
+        // claimed their shares and who hasn't. If the number of shareholders is large
         // this could run into some gas limits. In most cases, I expect two
         // shareholders, but it could be a small handful. This also means the caller
-        // must pay gas for everyone&#39;s payouts.
+        // must pay gas for everyone's payouts.
         for(uint i=0; i < tokens.length; i++) {
             ERC20 token = ERC20(tokens[i]);
             uint balance = token.balanceOf(this);
@@ -176,7 +176,7 @@ pragma solidity ^0.4.21;
 
     function() public payable {
       // If we get paid in ETH, convert to WETH so payouts work the same.
-      // Converting to WETH also makes payouts a bit safer, as we don&#39;t have to
+      // Converting to WETH also makes payouts a bit safer, as we don't have to
       // worry about code execution if the stakeholder is a contract.
       weth.deposit.value(msg.value)();
     }

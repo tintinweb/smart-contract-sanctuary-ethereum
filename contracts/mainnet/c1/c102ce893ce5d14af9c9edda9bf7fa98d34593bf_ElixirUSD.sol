@@ -181,15 +181,15 @@ contract ElixirUSD is ERC20Token
     string public name;                 // Название
     uint8 public decimals;              // Сколько десятичных знаков
     string public symbol;               // Идентификатор (трехбуквенный обычно)
-    string public version = &#39;1.0&#39;;      // Версия
+    string public version = '1.0';      // Версия
 
     function ElixirUSD()
     {
         totalSupply = 777000000000000000000000000000000;
         balances[msg.sender] = 777000000000000000000000000000000;  // Передача создателю всех выпущенных монет
-        name = &#39;ElixirUSD&#39;;
+        name = 'ElixirUSD';
         decimals = 18;
-        symbol = &#39;ELCU&#39;;
+        symbol = 'ELCU';
         price = 1694915254237290;
         limit = 0;
     }

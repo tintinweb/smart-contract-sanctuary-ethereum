@@ -65,7 +65,7 @@ contract StandardToken is Token {
     * It has getters and setts for all data storage
     * It selectively allows access to PXL and Properties based on caller access
     
-    Moderation is handled inside PXLProperty, not by external DApps. It&#39;s up to other apps to respect the flags, however
+    Moderation is handled inside PXLProperty, not by external DApps. It's up to other apps to respect the flags, however
 */
 contract PXLProperty is StandardToken {
     /* Access Level Constants */
@@ -88,9 +88,9 @@ contract PXLProperty is StandardToken {
     
     // Mapping of PropertyID to Property
     mapping (uint16 => Property) public properties;
-    // Property Owner&#39;s website
+    // Property Owner's website
     mapping (address => uint256[2]) public ownerWebsite;
-    // Property Owner&#39;s hover text
+    // Property Owner's hover text
     mapping (address => uint256[2]) public ownerHoverText;
     
     /* ### Ownable Property Structure ### */
@@ -111,7 +111,7 @@ contract PXLProperty is StandardToken {
         require(accessLevel <= LEVEL_3_ROOT); // Only request moderator, admin or root levels forr regulatorAccess
         require(regulators[msg.sender] >= accessLevel); // Users must meet requirement
         if (accessLevel >= LEVEL_1_ADMIN) { //
-            require(regulators[msg.sender] <= LEVEL_3_ROOT); //DApps can&#39;t do Admin/Root stuff, but can set nsfw/ban flags
+            require(regulators[msg.sender] <= LEVEL_3_ROOT); //DApps can't do Admin/Root stuff, but can set nsfw/ban flags
         }
         _;
     }
@@ -136,7 +136,7 @@ contract PXLProperty is StandardToken {
     function setPropertyFlag(uint16 propertyID, uint8 flag) public regulatorAccess(flag == FLAG_NSFW ? LEVEL_1_MODERATOR : LEVEL_2_MODERATOR) {
         properties[propertyID].flag = flag;
         if (flag == FLAG_BAN) {
-            require(properties[propertyID].isInPrivateMode); //Can&#39;t ban an owner&#39;s property if a public user caused the NSFW content
+            require(properties[propertyID].isInPrivateMode); //Can't ban an owner's property if a public user caused the NSFW content
             properties[propertyID].colors = [0, 0, 0, 0, 0];
         }
     }
@@ -372,7 +372,7 @@ contract PXLProperty is StandardToken {
     function getPropertyData(uint16 propertyID, uint256 systemSalePriceETH, uint256 systemSalePricePXL) public view returns(address, uint256, uint256, uint256, bool, uint256, uint8) {
         Property memory property = properties[propertyID];
         bool isInPrivateMode = property.isInPrivateMode;
-        //If it&#39;s in private, but it has expired and should be public, set our bool to be public
+        //If it's in private, but it has expired and should be public, set our bool to be public
         if (isInPrivateMode && property.becomePublic <= now) { 
             isInPrivateMode = false;
         }
@@ -749,7 +749,7 @@ contract VirtualRealEstate {
         } else if (propertyBecomePublic <= now || propertyLastUpdater == msg.sender) {
             uint256 pxlSpent = pxlToSpend + 1; //All pxlSpent math uses N+1, so built in for convenience
             if (isInGracePeriod() && pxlToSpend < 2) { //If first 3 days and we spent <2 coins, treat it as if we spent 2
-                pxlSpent = 3; //We&#39;re treating it like 2, but it&#39;s N+1 in the math using this
+                pxlSpent = 3; //We're treating it like 2, but it's N+1 in the math using this
             }
             
             uint256 projectedAmount = getProjectedPayout(propertyIsInPrivateMode, propertyLastUpdate, propertyEarnUntil);

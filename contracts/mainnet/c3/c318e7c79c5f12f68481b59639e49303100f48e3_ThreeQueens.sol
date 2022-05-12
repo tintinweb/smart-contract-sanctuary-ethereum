@@ -73,7 +73,7 @@ contract ThreeQueens {
         colonies[playerID].food -= number * getAntCost(spawnType);
         
         // Currently this is probably still vulnerable to attacks relating to overflow...
-        assert(colonies[playerID].food <= prevFood);// this won&#39;t really fix it completely, but might help??
+        assert(colonies[playerID].food <= prevFood);// this won't really fix it completely, but might help??
         
         if (spawnType == AntType.Worker) colonies[playerID].workers += number;
         if (spawnType == AntType.Warrior) colonies[playerID].warriors += number;

@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -239,7 +239,7 @@ contract StandardToken is ERC20, ERC223, Ownable {
 
 	uint256 public ethRate; // How many token units a buyer gets per eth
 	uint256 public min_contribution; // Minimal contribution in ICO
-	uint256 public totalWeiRaised; // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.
+	uint256 public totalWeiRaised; // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.
 	uint public tokensSold; // the number of tokens already sold
 
 	uint public softCap; //softcap in tokens
@@ -694,7 +694,7 @@ contract StandardToken is ERC20, ERC223, Ownable {
 
 	/**
 	 * @dev Must be called after crowdsale ends, to do some extra finalization
-	 * work. Calls the contract&#39;s finalization function.
+	 * work. Calls the contract's finalization function.
 	 */
 	function finalize()onlyOwner afterDeadline public {
 		require(!crowdsaleClosed);

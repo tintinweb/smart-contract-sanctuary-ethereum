@@ -47,9 +47,9 @@ contract SVLightBallotBox {
     // Use a map for voters to look up their ballot
     mapping (address => uint256) public voterToBallotID;
 
-    // NOTE - We don&#39;t actually want to include the PublicKey because _it&#39;s included in the ballotSpec_.
-    // It&#39;s better to ensure ppl actually have the ballot spec by not including it in the contract.
-    // Plus we&#39;re already storing the hash of the ballotSpec anyway...
+    // NOTE - We don't actually want to include the PublicKey because _it's included in the ballotSpec_.
+    // It's better to ensure ppl actually have the ballot spec by not including it in the contract.
+    // Plus we're already storing the hash of the ballotSpec anyway...
 
     // Private key to be set after ballot conclusion - curve25519
     bytes32 public ballotEncryptionSeckey;
@@ -65,7 +65,7 @@ contract SVLightBallotBox {
     bytes32 public specHash;
     bool public useEncryption;
 
-    // deprecation flag - doesn&#39;t actually do anything besides signal that this contract is deprecated;
+    // deprecation flag - doesn't actually do anything besides signal that this contract is deprecated;
     bool public deprecated = false;
 
     //// ** Events
@@ -230,7 +230,7 @@ contract SVLightIndex {
 
     // payment details
     address public payTo;
-    // uint128&#39;s used because they account for amounts up to 3.4e38 wei or 3.4e20 ether
+    // uint128's used because they account for amounts up to 3.4e38 wei or 3.4e20 ether
     uint128 public democFee = 0.05 ether; // 0.05 ether; about $50 at 3 March 2018
     mapping (address => uint128) democFeeFor;
     uint128 public ballotFee = 0.01 ether; // 0.01 ether; about $10 at 3 March 2018
@@ -267,7 +267,7 @@ contract SVLightIndex {
     }
 
     modifier payReq(uint8 paymentType) {
-        // get our whitelist, generalFee, and fee&#39;s for particular addresses
+        // get our whitelist, generalFee, and fee's for particular addresses
         bool wl;
         uint128 genFee;
         uint128 feeFor;
@@ -278,7 +278,7 @@ contract SVLightIndex {
         if (paymentEnabled && !wl) {
             v = feeFor;
             if (v == 0){
-                // if there&#39;s no fee for the individual user then set it to the general fee
+                // if there's no fee for the individual user then set it to the general fee
                 v = genFee;
             }
             require(msg.value >= v);

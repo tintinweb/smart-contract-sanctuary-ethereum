@@ -102,8 +102,8 @@ contract StandardToken is ERC20 {
 
 contract BCT is StandardToken {
 
-	string public name = &#39;BIShiCaiJing Token&#39;;
-	string public symbol = &#39;BCT&#39;;
+	string public name = 'BIShiCaiJing Token';
+	string public symbol = 'BCT';
 	uint8 public decimals = 18;
 	uint256 public totalSupply = 1000000000 * 10 ** uint256(decimals);
 

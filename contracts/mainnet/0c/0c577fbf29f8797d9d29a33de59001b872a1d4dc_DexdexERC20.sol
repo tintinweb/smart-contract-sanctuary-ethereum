@@ -205,15 +205,15 @@ contract BytesToTypes {
                 // word read from the original array. To read it, we calculate
                 // the length of that partial word and start copying that many
                 // bytes into the array. The first word we copy will start with
-                // data we don&#39;t care about, but the last `lengthmod` bytes will
+                // data we don't care about, but the last `lengthmod` bytes will
                 // land at the beginning of the contents of the new array. When
-                // we&#39;re done copying, we overwrite the full first word with
+                // we're done copying, we overwrite the full first word with
                 // the actual length of the slice.
                 let lengthmod := and(_length, 31)
 
                 // The multiplication in the next line is necessary
                 // because when slicing multiples of 32 bytes (lengthmod == 0)
-                // the following copy loop was copying the origin&#39;s length
+                // the following copy loop was copying the origin's length
                 // and then ending prematurely not copying everything it should.
                 let mc := add(add(tempBytes, lengthmod), mul(0x20, iszero(lengthmod)))
                 let end := add(mc, _length)
@@ -235,7 +235,7 @@ contract BytesToTypes {
                 //allocating the array padded to 32 bytes like the compiler does now
                 mstore(0x40, and(add(mc, 31), not(31)))
             }
-            //if we want a zero-length slice let&#39;s just return a zero-length array
+            //if we want a zero-length slice let's just return a zero-length array
             default {
                 tempBytes := mload(0x40)
 
@@ -893,7 +893,7 @@ contract FeeWallet is IFeeWallet, Ownable, Members {
   }
 }
 contract DexdexERC20 is Ownable, BytesToTypes {
-  string constant public VERSION = &#39;2.0.0&#39;;
+  string constant public VERSION = '2.0.0';
 
   ITraders public traders; // Smart contract that hold the list of valid traders
   IFeeWallet public feeWallet; // Smart contract that hold the fees collected
@@ -1005,7 +1005,7 @@ contract DexdexERC20 is Ownable, BytesToTypes {
   {
     require(tradingEnabled);
 
-    // We transfer to ouselves the user&#39;s trading volume, to operate on it
+    // We transfer to ouselves the user's trading volume, to operate on it
     // note: Our balance is 0 before this
     require(tradeable.transferFrom(msg.sender, this, volume));
 

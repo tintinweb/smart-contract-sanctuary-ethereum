@@ -76,7 +76,7 @@ pragma solidity ^0.4.11;
 		  return _totalSupply;
       }
 	    
-      // Transfer the balance from owner&#39;s account to another account
+      // Transfer the balance from owner's account to another account
       function transfer(address _to, uint256 _amount) notThisContract(_to) returns (bool success) {
           require(_to != 0x0);
 		  require(_amount > 0);

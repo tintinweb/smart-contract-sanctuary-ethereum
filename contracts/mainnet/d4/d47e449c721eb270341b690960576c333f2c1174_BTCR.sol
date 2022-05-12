@@ -18,7 +18,7 @@
 
  Release Notes
  -------------
- * Onramp.tech tokenises real assets. Based in Sydney, Australia, we&#39;re blessed with strong rule of law, and great beaches. Welcome to OnRamp.
+ * Onramp.tech tokenises real assets. Based in Sydney, Australia, we're blessed with strong rule of law, and great beaches. Welcome to OnRamp.
 
  * This contract is BTCR, Bitcoin as an ERC20 token.
 

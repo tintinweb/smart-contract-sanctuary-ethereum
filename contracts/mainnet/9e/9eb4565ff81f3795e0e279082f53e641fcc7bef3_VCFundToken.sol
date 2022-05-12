@@ -16,9 +16,9 @@ interface tokenRecipient {
 contract VCFundToken {
 
     // Public variables of the token
-    string public name = &#39;VCFund Token&#39;;
+    string public name = 'VCFund Token';
 
-    string public symbol = &#39;VCF&#39;;
+    string public symbol = 'VCF';
 
     uint8 public decimals = 18;
 
@@ -177,7 +177,7 @@ contract VCFundToken {
         balanceOf[_from] -= _value;
         // Subtract from the targeted balance
         allowance[_from][msg.sender] -= _value;
-        // Subtract from the sender&#39;s allowance
+        // Subtract from the sender's allowance
         totalSupply -= _value;
         // Update totalSupply
         Burn(_from, _value);

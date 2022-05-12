@@ -84,7 +84,7 @@ contract Eclipse is owned, StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;H1.0&#39;;
+    string public version = 'H1.0';
     uint256 public unitsOneEthCanBuy;
     uint256 public totalEthInWei;
     address public fundsWallet;
@@ -95,9 +95,9 @@ contract Eclipse is owned, StandardToken {
         total_supply = 1000000000 * 10 ** uint256(18);
         balances[msg.sender] = total_supply;
         totalSupply = total_supply;
-        name = &#39;Eclipse&#39;;
+        name = 'Eclipse';
         decimals = 18;
-        symbol = &#39;ECP&#39;;
+        symbol = 'ECP';
         unitsOneEthCanBuy = 1893;
         fundsWallet = msg.sender;
     }

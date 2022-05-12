@@ -10,15 +10,15 @@ pragma solidity 0.4.20;
 * -> WTF is this!?
 * In short, this is a contract to accept PoWTF token / ETH donations from community members
 * as a way of gathering funds for regular marketing and contests.
-* [✓] Hands of Stainless Steel! This contract never sells, it can&#39;t and just simply don&#39;t know how to sell!
-* [✓] Community Goods: All dividends will be used for promotional fee / contest prizes, when the accumulated dividends reached certain amount, we&#39;ll create some campaign.
+* [✓] Hands of Stainless Steel! This contract never sells, it can't and just simply don't know how to sell!
+* [✓] Community Goods: All dividends will be used for promotional fee / contest prizes, when the accumulated dividends reached certain amount, we'll create some campaign.
 * [✓] Transparency: How to use the dividends will be regularly updated in website and discord announcement.
 * [✓] Security: You need to trust me (@AppX Matthew) not taking the dividends and go away :)
 * 
 * -> Quotes
 * "Real, sustainable community change requires the initiative and engagement of community members." - Helene D. Gayle
 * "Every successful individual knows that his or her achievement depends on a community of persons working together." - Paul Ryan
-* "Empathy is the starting point for creating a community and taking action. It&#39;s the impetus for creating change." - Max Carver
+* "Empathy is the starting point for creating a community and taking action. It's the impetus for creating change." - Max Carver
 * "WTF Moon!" - AppX Matthew 
 *
 * =================================================*
@@ -124,7 +124,7 @@ contract PoWTFInterface {
     /// @dev Converts all incoming ethereum to tokens for the caller, and passes down the referral addy (if any)
     function buy(address _referredBy) public payable returns (uint256);
 
-    /// @dev Converts all of caller&#39;s dividends to tokens.
+    /// @dev Converts all of caller's dividends to tokens.
     function reinvest() public;
 
     /// @dev Alias of sell() and withdraw().
@@ -138,7 +138,7 @@ contract PoWTFInterface {
 
     /**
      * @dev Transfer tokens from the caller to a new holder.
-     *  Remember, there&#39;s a 15% fee here as well.
+     *  Remember, there's a 15% fee here as well.
      */
     function transfer(address _toAddress, uint256 _amountOfTokens) public returns (bool);
 
@@ -195,14 +195,14 @@ contract PoWTFInterface {
 
     /**
      * @dev Calculate Token price based on an amount of incoming ethereum
-     *  It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     *  It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      *  Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum) internal view returns (uint256);
 
     /**
      * @dev Calculate token sell value.
-     *  It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     *  It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      *  Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function tokensToEthereum_(uint256 _tokens) internal view returns (uint256);
@@ -306,7 +306,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

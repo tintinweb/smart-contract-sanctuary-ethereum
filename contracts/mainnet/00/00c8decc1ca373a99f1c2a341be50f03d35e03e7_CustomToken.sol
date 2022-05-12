@@ -106,8 +106,8 @@ contract LockToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, AirdropToken, LockToken {
     function CustomToken() public {
         totalSupply = 100000000000000000;
-        name = &#39;BitValue&#39;;
-        symbol = &#39;BV&#39;;
+        name = 'BitValue';
+        symbol = 'BV';
         decimals = 8;
         balanceOf[0xf35e3344cbb5ab8da4294b741f7e378212dc0e89] = totalSupply;
         Transfer(address(0), 0xf35e3344cbb5ab8da4294b741f7e378212dc0e89, totalSupply);

@@ -73,7 +73,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -165,7 +165,7 @@ contract TeamAndAdvisorsAllocation is Ownable {
     }
 
     /**
-     * @dev Adds founders&#39; token allocation
+     * @dev Adds founders' token allocation
      * @param teamOrAdvisorsAddress Address of a founder
      * @param allocationValue Number of tokens allocated to a founder
      * @return true if address is correctly added
@@ -356,7 +356,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
     /**
      * @dev Must be called after crowdsale ends, to do some extra finalization
-     * work. Calls the contract&#39;s finalization function.
+     * work. Calls the contract's finalization function.
      */
     function finalize() onlyOwner public {
         require(!isFinalized);
@@ -459,7 +459,7 @@ contract TokenCrowdsale is FinalizableCrowdsale, Pausable {
 
     /**
      * @dev Mint tokens for pre crowdsale putchases before crowdsale starts
-     * @param investorsAddress Purchaser&#39;s address
+     * @param investorsAddress Purchaser's address
      * @param tokensPurchased Tokens purchased during pre crowdsale
      */
     function mintTokenForPreCrowdsale(address investorsAddress, uint256 tokensPurchased)
@@ -511,7 +511,7 @@ contract TokenCrowdsale is FinalizableCrowdsale, Pausable {
             tokens = TOTAL_TOKENS_FOR_CROWDSALE.sub(token.getTotalSupply());
             weiAmount = tokens.div(rate);
 
-            // save info so as to refund purchaser after crowdsale&#39;s end
+            // save info so as to refund purchaser after crowdsale's end
             remainderPurchaser = msg.sender;
             remainderAmount = msg.value.sub(weiAmount);
         }

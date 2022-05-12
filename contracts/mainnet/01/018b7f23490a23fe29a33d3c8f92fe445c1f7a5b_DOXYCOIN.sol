@@ -3,7 +3,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract DOXYCOIN {
     /* Public variables of the token */
-    string public standard = &#39;DOXY COIN &#39;;
+    string public standard = 'DOXY COIN ';
     string public name;
     string public symbol;
     uint8 public decimals;

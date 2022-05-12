@@ -107,14 +107,14 @@ contract DigitalGame {
   /// *** Modifier
 
   modifier checkBetTime(uint lastTime) {
-    require(now <= lastTime, &#39;Current time is not allowed to bet&#39;);
+    require(now <= lastTime, 'Current time is not allowed to bet');
     _;
   }
 
   modifier checkRewardTime(uint lastTime) {
     require(
       now >= lastTime + 1 hours,
-      &#39;Current time is not allowed to reward&#39;
+      'Current time is not allowed to reward'
     );
     _;
   }
@@ -122,7 +122,7 @@ contract DigitalGame {
   modifier isSecretNumber(uint stage, string seed) {
     require(
       keccak256(abi.encodePacked(seed)) == stages[stage].seedHash,
-      &#39;Encrypted numbers are illegal&#39;
+      'Encrypted numbers are illegal'
     );
     _;
   }
@@ -130,7 +130,7 @@ contract DigitalGame {
   modifier verifyStage(uint stage) {
     require(
       stage >= 1 && stage <= MAX_STAGE,
-      &#39;Stage no greater than MAX_STAGE&#39;
+      'Stage no greater than MAX_STAGE'
     );
     _;
   }
@@ -138,13 +138,13 @@ contract DigitalGame {
   modifier verifySeedHash(uint stage, bytes32 seedHash) {
     require(
       stages[stage].seedHash == seedHash && seedHash != 0,
-      &#39;The hash of the stage is illegal&#39;
+      'The hash of the stage is illegal'
     );
     _;
   }
 
   modifier onlyOwner() {
-    require(OWNER_ADDR == msg.sender, &#39;Permission denied&#39;);
+    require(OWNER_ADDR == msg.sender, 'Permission denied');
     _;
   }
 
@@ -179,31 +179,31 @@ contract DigitalGame {
   verifyStage(stage)
   verifySeedHash(stage, seedHash)
   checkBetTime(stages[stage].lastTime) {
-    require(stages[stage].round == round, &#39;Round illegal&#39;);
-    require(content.length == 3, &#39;The bet is 3 digits&#39;);
+    require(stages[stage].round == round, 'Round illegal');
+    require(content.length == 3, 'The bet is 3 digits');
 
     require((
         msg.value >= MIN_BET_MONEY
             && msg.value <= MAX_BET_MONEY
             && msg.value == MIN_BET_MONEY * (10 ** (stage - 1)) * count
       ),
-      &#39;The amount of the bet is illegal&#39;
+      'The amount of the bet is illegal'
     );
     
-    require(msg.sender != recommAddr, &#39;The recommender cannot be himself&#39;);
+    require(msg.sender != recommAddr, 'The recommender cannot be himself');
     
     if (users[msg.sender] == 0) {
       if (recommAddr != RECOMM_ADDR) {
         require(
             users[recommAddr] != 0,
-            &#39;Referrer is not legal&#39;
+            'Referrer is not legal'
         );
       }
       users[msg.sender] = recommAddr;
     }
 
     generateUserRelation(msg.sender, 3);
-    require(userRecomms.length <= 3, &#39;User relationship error&#39;);
+    require(userRecomms.length <= 3, 'User relationship error');
 
     sendInviteDividends(stage, round, count, content);
 
@@ -221,7 +221,7 @@ contract DigitalGame {
     ));
 
     emit eventUserBet(
-      &#39;userBet&#39;,
+      'userBet',
       msg.sender,
       msg.value,
       stage,
@@ -259,7 +259,7 @@ contract DigitalGame {
       userRecomms[j].transfer(msg.value * GENERATION_REWARD[j] / 100);
 
       emit eventDividend(
-        &#39;dividend&#39;,
+        'dividend',
         msg.sender,
         msg.value,
         stage,
@@ -292,12 +292,12 @@ contract DigitalGame {
         stage,
         userBets[stage].length
       );
-      require(randoms.length == 3, &#39;Random number is illegal&#39;);
+      require(randoms.length == 3, 'Random number is illegal');
 
       bool isReward = CalcWinnersAndReward(randoms, stage);
 
       emit eventLottery(
-        &#39;lottery&#39;,
+        'lottery',
         stage,
         stages[stage].round,
         randoms,
@@ -401,7 +401,7 @@ contract DigitalGame {
       WaitAwardBets[m].addr.transfer(reward);
 
       emit eventReward(
-        &#39;reward&#39;,
+        'reward',
         WaitAwardBets[m].addr,
         WaitAwardBets[m].amount,
         stage,

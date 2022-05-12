@@ -48,7 +48,7 @@ contract TreasureHunt is Ownable {
     /// Balance of the treausure hunt reward pool
     uint public pot;
 
-    /// @notice Balance of administrator&#39;s fee
+    /// @notice Balance of administrator's fee
     uint public ownersBalance;
 
     /// Marks the time of victory
@@ -65,13 +65,13 @@ contract TreasureHunt is Ownable {
 
     /// Container for submitted location info
     struct KeyLog {
-        /// Location key XOR&#39;d with a user password
+        /// Location key XOR'd with a user password
         uint encryptKey;
         /// Block number of submission
         uint block;
     }
 
-    /// Record of each hunter&#39;s progress
+    /// Record of each hunter's progress
     mapping(address => mapping(uint => KeyLog)) public hunters;
     
     /// @notice Triggered when a hunter has won and the hunt is over
@@ -79,7 +79,7 @@ contract TreasureHunt is Ownable {
     event WonEvent(address winner);
 
     /// @notice Number of locations in the hunt
-    /// @dev Useful for testing, since public arrays don&#39;t expose length
+    /// @dev Useful for testing, since public arrays don't expose length
     /// @return length of locations array
     function locationsLength() public view returns (uint) {
         return locations.length;
@@ -112,7 +112,7 @@ contract TreasureHunt is Ownable {
         cost = _cost;
     }
 
-    /// @notice Submit a location key XOR&#39;d with a password for later verification
+    /// @notice Submit a location key XOR'd with a password for later verification
     /// @notice The message value must be greater than `cost`
     /// @param encryptKey A location key encrypted with a user password
     /// @param locationNumber The index of the location

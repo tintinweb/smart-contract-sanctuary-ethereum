@@ -25,12 +25,12 @@ contract SafeMath {
 }
 
 contract Variant is SafeMath {
-    string public constant standard = &#39;Token 0.1&#39;;
+    string public constant standard = 'Token 0.1';
     uint8 public constant decimals = 18;
 
     // you need change the following three values
-    string public constant name = &#39;Variant&#39;;
-    string public constant symbol = &#39;VAR&#39;;
+    string public constant name = 'Variant';
+    string public constant symbol = 'VAR';
     uint256 public totalSupply = 10**9 * 10**uint256(decimals);
 
     mapping (address => uint256) public balanceOf;

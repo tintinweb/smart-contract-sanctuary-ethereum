@@ -597,7 +597,7 @@ contract DungeonRunCore is Pausable, Destructible {
             // Sanity check.
             assert(addToJackpot <= entranceFee);
         } else {
-            // Hero is damanged but didn&#39;t defeated, game continues with a new monster.
+            // Hero is damanged but didn't defeated, game continues with a new monster.
             if (damageByMonster > 0) {
                 heroIdToHealth[_heroId] -= damageByMonster;
             }

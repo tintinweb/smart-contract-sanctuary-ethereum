@@ -73,11 +73,11 @@ contract TabooDb is Owned {
          * direct access is permanently disabled.
          */
         if (msg.sender == owner) {
-            /* Verify owner&#39;s write access has not already been disabled. */
-            require(boolStorage[keccak256(&#39;owner.auth.disabled&#39;)] != true);
+            /* Verify owner's write access has not already been disabled. */
+            require(boolStorage[keccak256('owner.auth.disabled')] != true);
         } else {
             /* Verify write access is only permitted to authorized accounts. */
-            require(boolStorage[keccak256(msg.sender, &#39;.has.auth&#39;)] == true);
+            require(boolStorage[keccak256(msg.sender, '.has.auth')] == true);
         }
 
         _;      // function code is inserted here

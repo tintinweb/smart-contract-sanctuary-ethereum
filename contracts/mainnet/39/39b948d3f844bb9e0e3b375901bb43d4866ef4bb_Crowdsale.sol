@@ -102,8 +102,8 @@ contract StandardToken is ERC20, BasicToken {
 
 contract UNICToken is owned, StandardToken {
     
-  string public constant name = &#39;UNIC Token&#39;;
-  string public constant symbol = &#39;UNIC&#39;;
+  string public constant name = 'UNIC Token';
+  string public constant symbol = 'UNIC';
   uint8 public constant decimals = 18;
   uint256 public constant initialSupply = 250000000 * 10 ** uint256(decimals);
 

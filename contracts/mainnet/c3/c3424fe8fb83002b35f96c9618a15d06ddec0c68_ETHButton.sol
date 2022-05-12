@@ -162,7 +162,7 @@ contract ETHButton {
             uint256 fee = msg.value / 10;
             devFund += fee;
             
-            // don&#39;t try to hack the system with invalid addresses...
+            // don't try to hack the system with invalid addresses...
             if(!refAddr.send(fee))
             {
                 // if I write "totalPot" here everybody will exploit 
@@ -175,8 +175,8 @@ contract ETHButton {
             }
         } else
         {
-            // until CLICKERS_SIZE total clicks don&#39;t take dev funds, so the first clikcers
-            // don&#39;t risk 20% negative interest
+            // until CLICKERS_SIZE total clicks don't take dev funds, so the first clikcers
+            // don't risk 20% negative interest
             totalPot += msg.value;
         }
         

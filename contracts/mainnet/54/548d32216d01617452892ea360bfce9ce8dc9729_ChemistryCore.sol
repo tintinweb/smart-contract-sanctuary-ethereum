@@ -123,7 +123,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -203,11 +203,11 @@ contract ChemistryBase is Ownable {
     
     /// @dev Assigns ownership of a specific element to an address.
     function _transfer(address _from, address _to, uint256 _tokenId) internal {
-        // Since the number of elements is capped to &#39;numberOfElements&#39;(173) we can&#39;t overflow this
+        // Since the number of elements is capped to 'numberOfElements'(173) we can't overflow this
         ownersTokenCount[_to]++;
         // transfer ownership
         elementToOwner[_tokenId] = _to;
-        // When creating new element _from is 0x0, but we can&#39;t account that address.
+        // When creating new element _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
             ownersTokenCount[_from]--;
             // clear any previously approved ownership exchange
@@ -218,7 +218,7 @@ contract ChemistryBase is Ownable {
     }
 
     /// @dev An internal method that creates a new element and stores it. This
-    ///  method doesn&#39;t do any checking and should only be called when the
+    ///  method doesn't do any checking and should only be called when the
     ///  input data is known to be valid. Will generate both a Arise event
     ///  and a Transfer event.
     function _createElement(bytes32 _symbol, uint256 _price)
@@ -261,19 +261,19 @@ contract ElementTokenImpl is ChemistryBase, ERC721 {
     string public constant symbol = "CC";
 
     bytes4 constant InterfaceSignature_ERC165 =
-        bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+        bytes4(keccak256('supportsInterface(bytes4)'));
 
     bytes4 constant InterfaceSignature_ERC721 =
-        bytes4(keccak256(&#39;name()&#39;)) ^
-        bytes4(keccak256(&#39;symbol()&#39;)) ^
-        bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-        bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-        bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-        bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;takeOwnership(uint256)&#39;)) ^
-        bytes4(keccak256(&#39;tokensOfOwner(address)&#39;));
+        bytes4(keccak256('name()')) ^
+        bytes4(keccak256('symbol()')) ^
+        bytes4(keccak256('totalSupply()')) ^
+        bytes4(keccak256('balanceOf(address)')) ^
+        bytes4(keccak256('ownerOf(uint256)')) ^
+        bytes4(keccak256('approve(address,uint256)')) ^
+        bytes4(keccak256('transfer(address,uint256)')) ^
+        bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+        bytes4(keccak256('takeOwnership(uint256)')) ^
+        bytes4(keccak256('tokensOfOwner(address)'));
 
     /// @notice Introspection interface as per ERC-165 (https://github.com/ethereum/EIPs/issues/165).
     ///  Returns true for any standardized interfaces implemented by this contract. We implement

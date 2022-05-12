@@ -32,7 +32,7 @@ event Transfer(address indexed from, address indexed to, uint256 value);
 event Approval(address indexed _owner, address indexed spender, uint256 value);
 function Medcash() {
 totalSupply = 200000000;
-symbol = &#39;MEDCASH&#39;;
+symbol = 'MEDCASH';
 owner = 0xBD0Ca8b86497a41C04c6a4fb8752370B480994bd;
 balances[owner] = totalSupply;
 decimals = 8;

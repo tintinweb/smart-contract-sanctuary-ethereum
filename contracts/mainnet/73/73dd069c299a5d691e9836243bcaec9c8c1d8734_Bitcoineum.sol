@@ -10,7 +10,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -270,7 +270,7 @@ contract ERC20Mineable is StandardToken, ReentrancyGuard  {
    * this is a single atomic function for getting state
    * rather than scattering it across multiple public calls
    * also returns the current blocks parameters
-   * or default params if it hasn&#39;t been created yet
+   * or default params if it hasn't been created yet
    * This is only called externally
    */
 
@@ -388,7 +388,7 @@ contract ERC20Mineable is StandardToken, ReentrancyGuard  {
      uint256 minimum_wei = currentDifficultyWei / divisible_units; 
      require (msg.value >= minimum_wei);
 
-     /* Let&#39;s bound the value to guard against potential overflow
+     /* Let's bound the value to guard against potential overflow
      * i.e max int, or an underflow bug
      * This is a single attempt
      */
@@ -417,13 +417,13 @@ contract ERC20Mineable is StandardToken, ReentrancyGuard  {
    }
 
    function burn(uint256 value) internal {
-      /* We don&#39;t really care if the burn fails for some
+      /* We don't really care if the burn fails for some
       *  weird reason.
       */
       bool ret = burnAddress.send(value);
       /* If we cannot burn this ether, than the contract might
       *  be under some kind of stack attack.
-      *  Even though it shouldn&#39;t matter, let&#39;s err on the side of
+      *  Even though it shouldn't matter, let's err on the side of
       *  caution and throw in case there is some invalid state.
       */
       require (ret);
@@ -454,7 +454,7 @@ contract ERC20Mineable is StandardToken, ReentrancyGuard  {
                            initBlock(external_to_internal_block_number(current_external_block()))
                            blockRedeemed(external_to_internal_block_number(current_external_block()))
                            alreadyMined(external_to_internal_block_number(current_external_block()), msg.sender) returns (bool) {
-      /* Let&#39;s immediately adjust the difficulty
+      /* Let's immediately adjust the difficulty
       *  In case an abnormal period of time has elapsed
       *  nobody has been mining etc.
       *  Will let us recover the network even if the
@@ -799,7 +799,7 @@ contract Bitcoineum is ERC20Mineable, Transmutable {
     maximumSupply = MAX_SUPPLY;
 
     // 0.0001 Ether per block
-    // Difficulty is so low because it doesn&#39;t include
+    // Difficulty is so low because it doesn't include
     // gas prices for execution
     currentDifficultyWei = 100 szabo;
     minimumDifficultyThresholdWei = 100 szabo;

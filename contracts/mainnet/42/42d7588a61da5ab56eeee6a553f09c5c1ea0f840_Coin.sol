@@ -99,7 +99,7 @@ contract Coin is StandardToken {
     string public name;                   //token名称: Coin 
     uint8 public decimals;                //小数位
     string public symbol;                 //标识
-    string public version = &#39;H0.1&#39;;       //版本号
+    string public version = 'H0.1';       //版本号
 
     function Coin(
         uint256 _initialAmount,

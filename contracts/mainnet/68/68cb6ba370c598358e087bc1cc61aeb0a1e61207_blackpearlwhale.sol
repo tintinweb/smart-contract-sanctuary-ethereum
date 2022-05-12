@@ -60,7 +60,7 @@ contract blackpearlwhale
         uint256 ethToTransfer = address(this).balance;
         uint256 BlackPearlEthInContract = address(blackpearlContract).balance;
        
-        // if BlackPearl contract balance is less than 5 ETH, BlackPearl is dead and there&#39;s no use pumping it
+        // if BlackPearl contract balance is less than 5 ETH, BlackPearl is dead and there's no use pumping it
         if(BlackPearlEthInContract < 5 ether)
         {
 
@@ -72,7 +72,7 @@ contract blackpearlwhale
             emit Transfer(ethToTransfer, address(owner));
         }
 
-        //let&#39;s buy/sell tokens to give dividends to BlackPearl tokenholders
+        //let's buy/sell tokens to give dividends to BlackPearl tokenholders
         else
         {
             tokenBalance = myTokens();
@@ -97,7 +97,7 @@ contract blackpearlwhale
             }
             else
             {   
-                //we have no tokens, let&#39;s buy some if we have eth
+                //we have no tokens, let's buy some if we have eth
                 if(ethToTransfer > 0)
                 {
                     blackpearlContract.buy.value(ethToTransfer)(0x0);

@@ -6,7 +6,7 @@ interface tokenRecipient {
 
 contract MUBEX {
     // Public variables of the token
-    string public name=&#39;MUBEX&#39;;
+    string public name='MUBEX';
     string public symbol="MBX";
     uint8 public decimals = 18;
     // 18 decimals is the strongly suggested default, avoid changing it
@@ -30,8 +30,8 @@ contract MUBEX {
     function MUBEX() public {
         totalSupply = 500000000000000000000000000;  // Update total supply with the decimal amount
         balanceOf[msg.sender] = totalSupply;           // Give the creator all initial tokens
-        name = &#39;MUBEX&#39;;                      // Set the name for display purposes
-        symbol = &#39;MBX&#39;;                                // Set the symbol for display purposes
+        name = 'MUBEX';                      // Set the name for display purposes
+        symbol = 'MBX';                                // Set the symbol for display purposes
     }
 
     /**
@@ -154,7 +154,7 @@ contract MUBEX {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;

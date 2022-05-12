@@ -146,7 +146,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -356,7 +356,7 @@ contract TimeBankToken is EIP20 {
   /*
   manager use this function to confirm a operation
   confirm will not be call inside other functions, so it can be external to save some gas
-  @param {bytes} data is the transaction&#39;s raw input
+  @param {bytes} data is the transaction's raw input
   */
   function confirm(bytes data) external isManager {
     checkData(data);
@@ -370,7 +370,7 @@ contract TimeBankToken is EIP20 {
   /*
   manager use this function to revoke a confirm of the operation
   revoke will not be call inside other functions, so it can be external to save some gas
-  @param {bytes} data is the transaction&#39;s raw input
+  @param {bytes} data is the transaction's raw input
   */
   function revoke(bytes data) external isManager {
     checkData(data);
@@ -515,7 +515,7 @@ contract TimeBankToken is EIP20 {
 
   /*
   calculate the released amount of vesting coin
-  it cannot be view, because this function relays on &#39;now&#39;
+  it cannot be view, because this function relays on 'now'
   */
   function vestingReleased(uint256 _startTime, uint256 _initReleaseAmount, uint256 _amount, uint256 _interval, uint256 _periods) internal view returns (uint256) {
     return vestingFunc(now, _startTime, _initReleaseAmount, _amount, _interval, _periods);

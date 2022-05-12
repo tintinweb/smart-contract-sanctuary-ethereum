@@ -60,7 +60,7 @@ contract Withdrawable is Ownable {
     function withdrawTokens(ERC20 _token, address _to, uint _value) onlyOwner public returns(bool) {
         require(_to != address(0));
 
-        return _token.call(&#39;transfer&#39;, _to, _value);
+        return _token.call('transfer', _to, _value);
     }
 }
 
@@ -140,7 +140,7 @@ contract StandardToken is ERC223 {
         if(is_contract) {
             ERC223Receiving receiver = ERC223Receiving(_to);
             receiver.tokenFallback(msg.sender, _value, _data);
-            //receiver.call(&#39;tokenFallback&#39;, msg.sender, _value, _data);
+            //receiver.call('tokenFallback', msg.sender, _value, _data);
         }
 
         Transfer(msg.sender, _to, _value);

@@ -114,8 +114,8 @@ contract GB is ERC20Interface, Pausable {
     }
 
     constructor() public{
-        symbol = &#39;GalaxyBlock&#39;;
-        name = &#39;Galaxy Block &#39;;
+        symbol = 'GalaxyBlock';
+        name = 'Galaxy Block ';
         decimals = 18;
         _totalSupply = 100000000*10**uint(decimals);
         balances[owner] = _totalSupply;

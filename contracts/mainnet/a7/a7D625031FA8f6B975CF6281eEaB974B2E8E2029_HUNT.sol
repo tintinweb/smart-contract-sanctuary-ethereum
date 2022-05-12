@@ -259,7 +259,7 @@ contract HUNT is StandardToken, Owned {
 
     }
 
-    // Transfer the balance from owner&#39;s account to another account, with a
+    // Transfer the balance from owner's account to another account, with a
     // check that the crowdsale is finalised 
     function transfer(address _to, uint _amount) returns (bool success) {
         // Cannot transfer before crowdsale ends + 7 days
@@ -268,7 +268,7 @@ contract HUNT is StandardToken, Owned {
         return super.transfer(_to, _amount);
     }
 
-    // Spender of tokens transfer an amount of tokens from the token owner&#39;s
+    // Spender of tokens transfer an amount of tokens from the token owner's
     // balance to another account, with a check that the crowdsale is
     // finalised 
     function transferFrom(address _from, address _to, uint _amount) returns (bool success) {

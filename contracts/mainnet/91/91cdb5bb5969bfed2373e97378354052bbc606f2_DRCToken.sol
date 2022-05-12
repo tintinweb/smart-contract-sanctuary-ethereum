@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -193,7 +193,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -268,7 +268,7 @@ contract BurnableToken is BasicToken {
   function burn(uint256 _value) public {
     require(_value <= balances[msg.sender]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     address burner = msg.sender;
     balances[burner] = balances[burner].sub(_value);
@@ -430,7 +430,7 @@ contract Claimable is Ownable {
 /**
  * @title Autonomy
  * @dev Simpler version of an Democracy organization contract
- * @dev the inheritor should implement &#39;initialCongress&#39; at first
+ * @dev the inheritor should implement 'initialCongress' at first
  */
 contract Autonomy is Ownable {
     address public congress;
@@ -498,7 +498,7 @@ contract DRCToken is BurnableToken, MintableToken, PausableToken, Claimable, Aut
     }
     
     /**
-     * @dev freeze the account&#39;s balance 
+     * @dev freeze the account's balance 
      *
      * by default all the accounts will not be frozen until set freeze value as true. 
      * 
@@ -514,7 +514,7 @@ contract DRCToken is BurnableToken, MintableToken, PausableToken, Claimable, Aut
     }
 
     /**
-     * @dev freeze the account&#39;s balance 
+     * @dev freeze the account's balance 
      * 
      * @param _target address the account should be frozen
      * @param _value uint256 the amount of tokens that will be frozen
@@ -628,7 +628,7 @@ contract DRCToken is BurnableToken, MintableToken, PausableToken, Claimable, Aut
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] = balances[_from].sub(_value);                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);             // Subtract from the sender's allowance
         totalSupply_ = totalSupply_.sub(_value);
         BurnFrom(msg.sender, _from, _value);
         return true;

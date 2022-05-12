@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken, ICOToken {
     function CustomToken() public {
         totalSupply = 10000000000000000;
-        name = &#39;NetWorkChain&#39;;
-        symbol = &#39;NETC&#39;;
+        name = 'NetWorkChain';
+        symbol = 'NETC';
         decimals = 8;
         balanceOf[0xc5056fd216652f266714af1b32d1a93c3321c184] = totalSupply;
         Transfer(address(0), 0xc5056fd216652f266714af1b32d1a93c3321c184, totalSupply);

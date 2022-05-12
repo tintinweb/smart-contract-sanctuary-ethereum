@@ -48,7 +48,7 @@ contract LoggedERC20 is Ownable {
     }
 
     /* Public variables of the token */
-    string public standard = &#39;LogValueBlockToken 0.1&#39;;
+    string public standard = 'LogValueBlockToken 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -393,7 +393,7 @@ contract LoggedPhaseICO is LoggedDividend {
     bool transferAllSupplyToOwner,
     bool _locked
     ) LoggedDividend(initialSupply, tokenName, precision, tokenSymbol, transferAllSupplyToOwner, _locked) {
-        standard = &#39;LoggedPhaseICO 0.1&#39;;
+        standard = 'LoggedPhaseICO 0.1';
 
         icoSince = _icoSince;
         icoTill = _icoTill;
@@ -500,7 +500,7 @@ contract Cajutel is LoggedPhaseICO {
     uint256 icoSince,
     uint256 icoTill
     ) LoggedPhaseICO(icoSince, icoTill, initialSupply, tokenName, tokenSymbol, 18, false, false) {
-        standard = &#39;Cajutel 0.1&#39;;
+        standard = 'Cajutel 0.1';
 
         phases.push(Phase(0.05 ether, 500 ether));
         phases.push(Phase(0.075 ether, 750 ether + 500 ether));

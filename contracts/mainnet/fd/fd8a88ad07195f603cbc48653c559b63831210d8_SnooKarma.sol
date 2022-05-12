@@ -133,9 +133,9 @@ contract SnooKarma {
         require(karma > redeemedKarma[username]);
         //The new karma that is available to be redeemed
         uint newUserKarma = karma - redeemedKarma[username];
-        //The user&#39;s karma balance is updated with the new karma
+        //The user's karma balance is updated with the new karma
         balanceOf[msg.sender] = safeAdd(balanceOf[msg.sender], newUserKarma);
-        //The maintainer&#39;s extra karma is computed (1 extra karma for each 100 redeemed by a user)
+        //The maintainer's extra karma is computed (1 extra karma for each 100 redeemed by a user)
         uint newMaintainerKarma = newUserKarma / 100;
         //The balance of the maintainer is updated
         balanceOf[maintainer] = safeAdd(balanceOf[maintainer], newMaintainerKarma);

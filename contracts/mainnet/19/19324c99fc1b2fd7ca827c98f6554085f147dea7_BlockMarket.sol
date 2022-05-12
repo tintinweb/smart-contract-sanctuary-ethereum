@@ -57,7 +57,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -112,14 +112,14 @@ contract BlockMarket is Ownable {
   );
 
   /**
-   * @dev A fallback function to catch, uh... let&#39;s call them gifts.
+   * @dev A fallback function to catch, uh... let's call them gifts.
    */
   function () payable public { }
 
   /**
    * @dev Adds a new stock to the game
    * @param _name the name of the stock (e.g. "Kodak")
-   * @param _initialPrice the original cost of the stock&#39;s shares (in Wei)
+   * @param _initialPrice the original cost of the stock's shares (in Wei)
    * @param _priceIncrease the amount by which the shares should increase upon sale (i.e. 120 = 20% increase)
    * @param _dividendAmount the amount of each purchase that should be split among dividend recipients
    * @param _numShares the number of shares of this stock available for purchase
@@ -164,7 +164,7 @@ contract BlockMarket is Ownable {
     uint256[] storage sharesForStock = stockShares[_stockId];
     Share storage share = shares[sharesForStock[_shareId]];
 
-    // look up the share&#39;s current holder
+    // look up the share's current holder
     address previousHolder = share.holder;
 
     // determine the current price for the share
@@ -179,14 +179,14 @@ contract BlockMarket is Ownable {
       msg.sender.transfer(SafeMath.sub(msg.value, currentPrice));
     }
 
-    // calculate dividend holders&#39; shares
+    // calculate dividend holders' shares
     uint256 dividendPerRecipient = getDividendPayout(
       currentPrice,
       stock.dividendAmount,
       sharesForStock.length - 1
     );
 
-    // calculate the previous owner&#39;s share
+    // calculate the previous owner's share
     uint256 previousHolderShare = SafeMath.sub(
       currentPrice,
       SafeMath.mul(dividendPerRecipient, sharesForStock.length - 1)
@@ -243,7 +243,7 @@ contract BlockMarket is Ownable {
   }
 
   /**
-   * @dev Calculates the current token owner&#39;s payout amount if the token sells
+   * @dev Calculates the current token owner's payout amount if the token sells
    * @param _currentPrice the current total sale price of the asset
    * @param _priceIncrease the percentage of price increase per sale
    */

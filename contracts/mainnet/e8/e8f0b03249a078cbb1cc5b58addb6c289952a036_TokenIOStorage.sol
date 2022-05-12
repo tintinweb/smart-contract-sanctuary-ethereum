@@ -101,7 +101,7 @@ is used to upgrade interfaces in the event of deprecating the main contract.
 @notice Storage contract
 
 @dev In the event that the main contract becomes deprecated, the upgraded contract
-will be set as the owner of this contract, and use this contract&#39;s storage to
+will be set as the owner of this contract, and use this contract's storage to
 maintain data consistency between contract.
 
 @notice NOTE: This contract is based on the RocketPool Storage Contract,

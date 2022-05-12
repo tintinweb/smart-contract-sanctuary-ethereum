@@ -117,7 +117,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -220,7 +220,7 @@ contract CryptoMayorToken is ERC721, Ownable, Pausable {
     require(_price > 0);
     require(_lastPrice < _price);
     
-    // make sure token hasn&#39;t been used yet
+    // make sure token hasn't been used yet
     require(tokens[_tokenId].price == 0);
     
     // check for kinds
@@ -318,7 +318,7 @@ contract CryptoMayorToken is ERC721, Ownable, Pausable {
 
     transferToken(oldOwner, msg.sender, _tokenId);
 
-    // Transfer payment to old owner minus the developer&#39;s and pool&#39;s cut.
+    // Transfer payment to old owner minus the developer's and pool's cut.
     // Calculate the winnings for the previous owner.
     uint256 finalPayout = price.sub(fee).sub(poolCut).sub(taxesPaid);
 
@@ -436,7 +436,7 @@ contract CryptoMayorToken is ERC721, Ownable, Pausable {
   }
 
   /**
-  * @dev Withdraw dev&#39;s cut
+  * @dev Withdraw dev's cut
   */
   function withdraw() onlyOwner public {
     owner.transfer(devOwed);
@@ -525,7 +525,7 @@ contract CryptoMayorToken is ERC721, Ownable, Pausable {
   }
 
   /**
-  * @dev Determines if token exists by checking it&#39;s price
+  * @dev Determines if token exists by checking it's price
   * @param _tokenId uint256 ID of token
   */
   function tokenExists (uint256 _tokenId) public view returns (bool _exists) {
@@ -760,7 +760,7 @@ contract CryptoMayorToken is ERC721, Ownable, Pausable {
 
   function populateFromOldContract(uint256[] _ids) onlyOwner public {
     for (uint256 i = 0; i < _ids.length; i++) {
-      // Can&#39;t rewrite tokens
+      // Can't rewrite tokens
       if (tokens[_ids[i]].price == 0) {
         address _owner;
         uint256 _price;

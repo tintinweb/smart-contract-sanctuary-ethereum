@@ -53,7 +53,7 @@ contract AtmOnlyFluzcoin is Token {
     uint8 public constant decimals = 18;
     uint256 public constant totalSupply = 50000000 * 10**18;
 
-    address public founder = 0x06B9787265dBF0C29E9B1a13033879cD3E1Bbde2; // Founder&#39;s address
+    address public founder = 0x06B9787265dBF0C29E9B1a13033879cD3E1Bbde2; // Founder's address
     mapping (address => uint256) public balances;
     mapping (address => mapping (address => uint256)) public allowed;
     
@@ -81,7 +81,7 @@ contract AtmOnlyFluzcoin is Token {
     }
 
     /**
-     * Transfer with checking if it&#39;s allowed
+     * Transfer with checking if it's allowed
      */
     function transfer(address _to, uint256 _value) public canTransfer returns (bool success) {
         if (balances[msg.sender] < _value) {
@@ -94,7 +94,7 @@ contract AtmOnlyFluzcoin is Token {
     }
 
     /**
-     * Transfer with checking if it&#39;s allowed
+     * Transfer with checking if it's allowed
      */
     function transferFrom(address _from, address _to, uint256 _value) public canTransfer returns (bool success) {
         if (balances[_from] < _value || allowed[_from][msg.sender] < _value) {

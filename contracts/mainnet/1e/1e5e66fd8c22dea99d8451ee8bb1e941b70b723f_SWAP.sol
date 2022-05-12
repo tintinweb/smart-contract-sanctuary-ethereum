@@ -77,8 +77,8 @@ contract SWAP is SafeMath{
     constructor() public payable {
         balanceOf[msg.sender] = 100000000000*10**18;
         totalSupply = balanceOf[msg.sender];
-        name = &#39;SWAP&#39;; 
-        symbol = &#39;SWAP&#39;; 
+        name = 'SWAP'; 
+        symbol = 'SWAP'; 
         decimals = 18; 
 		owner = msg.sender;
     }

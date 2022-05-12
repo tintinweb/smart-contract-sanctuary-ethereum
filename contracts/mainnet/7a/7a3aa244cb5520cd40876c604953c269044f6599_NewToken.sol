@@ -49,7 +49,7 @@ function NewToken(){
 		return allowed[_owner][_spender];
 	}
 
-	//Event which is triggered to log all transfers to this contract&#39;s event log
+	//Event which is triggered to log all transfers to this contract's event log
 	event Transfer(
 		address indexed _from,
 		address indexed _to,

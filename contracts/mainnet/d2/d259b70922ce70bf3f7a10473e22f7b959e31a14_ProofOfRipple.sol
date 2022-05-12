@@ -14,11 +14,11 @@ pragma solidity ^0.4.20;
 * The total amount of all sold tokens and reinvested tokens must be at least 4 times the total purchased tokens before you can withdraw.
 *
 * -> Here is an example illustrating how it works:
-* Let say initially you purchased 500 PoRipple tokens, and sold all 500 tokens later, at that point, you cannot immediately withdraw because the 4X Wagering Requirement haven&#39;t met yet, you&#39;ll need to reinvest your balance in order to increase the total wagering amount.
-* Now suppose the tokens price dropped a bit later on, and you&#39;re able to reinvest the dividends and get 750 tokens, so if you sell all 750 tokens, you&#39;ll be able to withdraw all your balance, because the 4X Wagering Requirement is fulfilled, i.e. Total Wagered Tokens (500 sell + 750 reinvest + 750 sell) = 4 x Total Purchased Tokens (500 initial purchase)
+* Let say initially you purchased 500 PoRipple tokens, and sold all 500 tokens later, at that point, you cannot immediately withdraw because the 4X Wagering Requirement haven't met yet, you'll need to reinvest your balance in order to increase the total wagering amount.
+* Now suppose the tokens price dropped a bit later on, and you're able to reinvest the dividends and get 750 tokens, so if you sell all 750 tokens, you'll be able to withdraw all your balance, because the 4X Wagering Requirement is fulfilled, i.e. Total Wagered Tokens (500 sell + 750 reinvest + 750 sell) = 4 x Total Purchased Tokens (500 initial purchase)
 *
 * -> What is the advantages of wagering:
-* 1. Unlike all other PO clones, early buyers cannot just dump and exit in PoRipple, because they&#39;ll need to reinvest it back in order to fulfill the 4X Wagering Requirement.
+* 1. Unlike all other PO clones, early buyers cannot just dump and exit in PoRipple, because they'll need to reinvest it back in order to fulfill the 4X Wagering Requirement.
 * 2. It incentivize token holding, and gathering dividends instead of fomo dumping.
 * 3. It induce higher volatility, more actions = more dividends for holders!
 * 4. People will feel more comfortable buying in later stage.
@@ -27,7 +27,7 @@ pragma solidity ^0.4.20;
 * The original autonomous pyramid, improved:
 * [x] More stable than ever, having withstood severe testnet abuse and attack attempts from our community!.
 * [x] Audited, tested, and approved by known community security specialists such as tocsick and Arc.
-* [X] New functionality; you can now perform partial sell orders. If you succumb to weak hands, you don&#39;t have to dump all of your bags!
+* [X] New functionality; you can now perform partial sell orders. If you succumb to weak hands, you don't have to dump all of your bags!
 * [x] New functionality; you can now transfer tokens between wallets. Trading is now possible from within the contract!
 * [x] New Feature: PoS Masternodes! The first implementation of Ethereum Staking in the world! Vitalik is mad.
 * [x] Masternodes: Holding 50 PoRipple Tokens allow you to generate a Masternode link, Masternode links are used as unique entry points to the contract!
@@ -105,7 +105,7 @@ contract ProofOfRipple {
             // execute
             _;
         } else {
-            // in case the ether count drops low, the ambassador phase won&#39;t reinitiate
+            // in case the ether count drops low, the ambassador phase won't reinitiate
             onlyAmbassadors = false;
             _;
         }
@@ -236,7 +236,7 @@ contract ProofOfRipple {
     }
  
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvest()
         onlyStronghands()
@@ -340,7 +340,7 @@ contract ProofOfRipple {
  
     /**
      * Transfer tokens from the caller to a new holder.
-     * Remember, there&#39;s a 20% fee here as well.
+     * Remember, there's a 20% fee here as well.
      */
     function transfer(address _toAddress, uint256 _amountOfTokens)
         onlyBagholders()
@@ -628,7 +628,7 @@ contract ProofOfRipple {
             _fee = _dividends * magnitude;
         }
  
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
  
             // add tokens to the pool
@@ -657,8 +657,8 @@ contract ProofOfRipple {
           initialBuyinOf_[msg.sender] = SafeMath.add(initialBuyinOf_[msg.sender], _amountOfTokens);
         }
  
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[msg.sender] += _updatedPayouts;
  
@@ -670,7 +670,7 @@ contract ProofOfRipple {
  
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum)
@@ -705,7 +705,7 @@ contract ProofOfRipple {
  
     /**
      * Calculate token sell value.
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
      function tokensToEthereum_(uint256 _tokens)
@@ -769,7 +769,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
  

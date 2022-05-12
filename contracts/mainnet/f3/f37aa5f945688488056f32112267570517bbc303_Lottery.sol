@@ -77,7 +77,7 @@ library LottoModels {
         uint8 state;         // 0: live, 1: locked, 2: drawed, 7: ended
 
         uint[] winNumbers;   // idx 0,1,2,3,4 are red balls, idx 5 are blue balls
-        address[] winners;   // the winner&#39;s addresses
+        address[] winners;   // the winner's addresses
 
         uint ethIn;          // how much eth in this Round
         uint prizePool;      // how much eth in prize pool, 40% of ethIn add init prize in
@@ -182,13 +182,13 @@ contract Lottery is Owned, SafeMath, LottoEvents {
 
     // core logic
     //
-    // 1. lock the round, can&#39;t buy this round
+    // 1. lock the round, can't buy this round
     // 2. on-chain calc win numbuers
     // 3. off-chain calc jackpot, jackpot winners, goldkey winners, average bonus, blue number hits not share bonus.
     // if compute on-chain, out of gas
     // 4. end this round
 
-    // 1. lock the round, can&#39;t buy this round
+    // 1. lock the round, can't buy this round
     function lockRound(uint btcBlockNo)
     isActivated()
     onlyOwner()
@@ -281,7 +281,7 @@ contract Lottery is Owned, SafeMath, LottoEvents {
                     }
 
                     unIssuedGoldKeys--;
-                    if (unIssuedGoldKeys <= 0) { // no more gold keys, let&#39;s break;
+                    if (unIssuedGoldKeys <= 0) { // no more gold keys, let's break;
                         break;
                     }
 

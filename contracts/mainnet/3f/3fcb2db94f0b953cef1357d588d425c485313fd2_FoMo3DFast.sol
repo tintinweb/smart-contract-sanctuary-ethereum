@@ -501,7 +501,7 @@ contract FoMo3DFast is modularFast {
 
     // Team allocation percentages
         // (F3D, P3D) + (Pot , Referrals, Community)  解读:TeamFee, PotSplit 第一个参数都是分给现在key holder的比例, 第二个是给Pow3D的比例
-            // Referrals / Community rewards are mathematically designed to come from the winner&#39;s share of the pot.
+            // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
         fees_[0] = F3Ddatasets.TeamFee(30,6);   //50% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
         fees_[1] = F3Ddatasets.TeamFee(43,0);   //43% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
         fees_[2] = F3Ddatasets.TeamFee(56,10);  //20% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
@@ -669,7 +669,7 @@ contract FoMo3DFast is modularFast {
           // manage affiliate residuals
           uint256 _affID;
           // if no affiliate code was given or player tried to use their own, lolz
-          if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+          if (_affCode == '' || _affCode == plyr_[_pID].name)
           {
               // use last stored affiliate code
               _affID = plyr_[_pID].laff;
@@ -710,7 +710,7 @@ contract FoMo3DFast is modularFast {
           // manage affiliate residuals
           uint256 _affID;
           // if no affiliate code was given or player tried to use their own, lolz
-          if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+          if (_affCode == '' || _affCode == plyr_[_pID].name)
           {
               // use last stored affiliate code
               _affID = plyr_[_pID].laff;
@@ -832,7 +832,7 @@ contract FoMo3DFast is modularFast {
           // manage affiliate residuals
           uint256 _affID;
           // if no affiliate code was given or player tried to use their own, lolz
-          if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+          if (_affCode == '' || _affCode == plyr_[_pID].name)
           {
               // use last stored affiliate code
               _affID = plyr_[_pID].laff;
@@ -1103,7 +1103,7 @@ contract FoMo3DFast is modularFast {
       }
 
       /**
-       * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+       * @dev returns time left.  dont spam this, you'll ddos yourself from your node
        * provider
        * -functionhash- 0xc7e284b8
        * @return time left in seconds
@@ -1865,7 +1865,7 @@ contract FoMo3DFast is modularFast {
           if (plyr_[_pID].lrnd != 0)
               updateGenVault(_pID, plyr_[_pID].lrnd);
 
-          // update player&#39;s last round played
+          // update player's last round played
           plyr_[_pID].lrnd = rID_;
 
           // set the joined round bool to true
@@ -1884,7 +1884,7 @@ contract FoMo3DFast is modularFast {
           // setup local rID
           uint256 _rID = rID_;
 
-          // grab our winning player and team id&#39;s
+          // grab our winning player and team id's
           uint256 _winPID = round_[_rID].plyr;
           uint256 _winTID = round_[_rID].team;
 
@@ -2024,10 +2024,10 @@ contract FoMo3DFast is modularFast {
           {
               // This ensures Team Just cannot influence the outcome of FoMo3D with
               // bank migrations by breaking outgoing transactions.
-              // Something we would never do. But that&#39;s not the point.
+              // Something we would never do. But that's not the point.
               // We spent 2000$ in eth re-deploying just to patch this, we hold the
               // highest belief that everything we create should be trustless.
-              // Team JUST, The name you shouldn&#39;t have to trust.
+              // Team JUST, The name you shouldn't have to trust.
               _p3d = _com;
               _com = 0;
           }
@@ -2038,7 +2038,7 @@ contract FoMo3DFast is modularFast {
 
           // decide what to do with affiliate share of fees
           // affiliate must not be self, and must have a name registered
-          if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+          if (_affID != _pID && plyr_[_affID].name != '') {
               plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
               emit F3Devents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
           } else {
@@ -2125,7 +2125,7 @@ contract FoMo3DFast is modularFast {
               relevant proportion to the increase in share supply.
 
               the player will have an additional mask that basically says "based
-              on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+              on the rounds mask, my shares, and how much i've already withdrawn,
               how much is still owed to me?"
           */
 
@@ -2166,7 +2166,7 @@ contract FoMo3DFast is modularFast {
       }
 
       /**
-       * @dev prepares compression data and fires event for buy or reload tx&#39;s
+       * @dev prepares compression data and fires event for buy or reload tx's
        */
       function endTx(uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, F3Ddatasets.EventReturns memory _eventData_)
           private
@@ -2194,7 +2194,7 @@ contract FoMo3DFast is modularFast {
       }
 
             /**
-       * @dev prepares compression data and fires event for buy or reload tx&#39;s
+       * @dev prepares compression data and fires event for buy or reload tx's
        */
       function endTxQR(address _realSender,uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, F3Ddatasets.EventReturns memory _eventData_)
           private

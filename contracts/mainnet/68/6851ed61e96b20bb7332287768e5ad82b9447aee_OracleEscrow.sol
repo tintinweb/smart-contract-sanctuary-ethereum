@@ -103,7 +103,7 @@ contract OracleEscrow is Ownable {
   
   /**
    * @dev payable fallback only allows the depositor to send funds, as long as the contract
-   * hasn&#39;t been executed already, and the expiration has not been passed.
+   * hasn't been executed already, and the expiration has not been passed.
    */
   function() external payable onlyDepositor {
     require(contractExecuted == false);
@@ -112,9 +112,9 @@ contract OracleEscrow is Ownable {
   
   /**
    * @dev Executes the contract if called by an authorized user and the balance of the escrow
-   * is greater than 0. If the Oracle contract&#39;s reported value is the expected value, payment
+   * is greater than 0. If the Oracle contract's reported value is the expected value, payment
    * goes to the beneficiary. If the escrow contract has gone passed the expiration and the
-   * Oracle contract&#39;s reported value still is not what is expected, payment is returned to
+   * Oracle contract's reported value still is not what is expected, payment is returned to
    * the depositor.
    */
   function executeContract() public checkAuthorizedUser() {

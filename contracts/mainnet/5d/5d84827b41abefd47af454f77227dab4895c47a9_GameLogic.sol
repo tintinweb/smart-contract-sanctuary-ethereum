@@ -25,7 +25,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -170,7 +170,7 @@ contract GameLogic {
     }
 
     modifier onlyActivated() {
-        require(activated == true, "it&#39;s not ready yet");
+        require(activated == true, "it's not ready yet");
         _;
     }
 
@@ -377,14 +377,14 @@ contract GameLogic {
     returns (bool)
     {
         require(value >= 500 * VALUE_PER_MOUNT);
-        require(address(this).balance >= value, " contract balance isn&#39;t enough ");
+        require(address(this).balance >= value, " contract balance isn't enough ");
         uint256 pId = mapAddrxId[msg.sender];
 
         require(pId > 0, "user invalid");
 
         uint256 sub = value.mul(RATE_BASE).div(RATE_BASE.sub(WITH_DROW_RATE));
 
-        require(mapIdxPlayer[pId].coin >= sub, " coin isn&#39;t enough ");
+        require(mapIdxPlayer[pId].coin >= sub, " coin isn't enough ");
         subCoin(pId, sub, Datasets.CoinOpTypeEnum.WITHDRAW);
         msg.sender.transfer(value);
         return true;

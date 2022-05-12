@@ -47,7 +47,7 @@ contract workForce
     }
 
     
-    /* Using a dynamic array because can&#39;t iterate mappings, or use push,length,delete cmds? */
+    /* Using a dynamic array because can't iterate mappings, or use push,length,delete cmds? */
     Employee[] workcrew;
     uint employeeIndex;
     mapping( uint => uint ) employeeIdIndex;

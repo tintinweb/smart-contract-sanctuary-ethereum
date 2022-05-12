@@ -66,7 +66,7 @@ contract Investors is Ownable {
 
 
     /**
-     *  @dev Get investors&#39; fee depending on the current year
+     *  @dev Get investors' fee depending on the current year
      *  @return uint8 The fee percentage, which investors get
      */
     function getInvestorsFee() public constant returns (uint8) {

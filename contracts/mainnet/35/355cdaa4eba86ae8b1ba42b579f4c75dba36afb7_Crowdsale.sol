@@ -116,7 +116,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -292,7 +292,7 @@ contract StandardToken is EIP20Token, Burnable, Mintable {
    */
   function approve(address spender, uint value) public returns (bool success) {
 
-    // To change the approve amount you first have to reduce the addresses&#39;
+    // To change the approve amount you first have to reduce the addresses'
     //  allowance to zero by calling `approve(spender, 0)` if it is not
     //  already 0 to mitigate the race condition described here:
     //  https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
@@ -391,7 +391,7 @@ contract ReleasableToken is StandardToken, Ownable {
    * it can only be called by a corresponding exposed API in the crowdsale contract in case of input error.
    */
   function setReleaseAgent(address addr) onlyOwner inReleaseState(false) public {
-    // We don&#39;t do interface check here as we might want to have a normal wallet address to act as a release agent.
+    // We don't do interface check here as we might want to have a normal wallet address to act as a release agent.
     releaseAgent = addr;
   }
 
@@ -476,7 +476,7 @@ pragma solidity ^0.4.19;
  */
 contract UpgradeAgent {
 
-  /** This value should be the same as the original token&#39;s total supply */
+  /** This value should be the same as the original token's total supply */
   uint public originalSupply;
 
   /** Interface to ensure the contract is correctly configured */
@@ -525,7 +525,7 @@ contract UpgradeableToken is EIP20Token, Burnable {
    * Upgrade states.
    *
    * - NotAllowed: The child contract has not reached a condition where the upgrade can bgun
-   * - WaitingForAgent: Token allows upgrade, but we don&#39;t have a new agent yet
+   * - WaitingForAgent: Token allows upgrade, but we don't have a new agent yet
    * - ReadyToUpgrade: The agent is set, but not a single token has been upgraded yet. This allows changing the upgrade agent while there is time.
    * - Upgrading: Upgrade agent is set and the balance holders can upgrade their tokens
    *
@@ -554,7 +554,7 @@ contract UpgradeableToken is EIP20Token, Burnable {
    */
   function upgrade(uint value) public {
     UpgradeState state = getUpgradeState();
-    // Ensure it&#39;s not called in a bad state
+    // Ensure it's not called in a bad state
     require(state == UpgradeState.ReadyToUpgrade || state == UpgradeState.Upgrading);
 
     // Validate input value.
@@ -873,7 +873,7 @@ contract GenericCrowdsale is Haltable {
   // Address early participation whitelist status changed
   event Whitelisted(address addr, bool status);
 
-  // Crowdsale&#39;s finalize function has been called
+  // Crowdsale's finalize function has been called
   event Finalized();
 
   /*
@@ -888,7 +888,7 @@ contract GenericCrowdsale is Haltable {
   function configurationGenericCrowdsale(address team_multisig, uint start, uint end) internal inState(State.PendingConfiguration) {
     setMultisig(team_multisig);
 
-    // Don&#39;t mess the dates
+    // Don't mess the dates
     require(start != 0 && end != 0);
     require(now < start && start < end);
     startsAt = start;
@@ -916,7 +916,7 @@ contract GenericCrowdsale is Haltable {
    *
    */
   function investInternal(address receiver, uint128 customerId) stopInEmergency notFinished private {
-    // Determine if it&#39;s a good time to accept investment from this participant
+    // Determine if it's a good time to accept investment from this participant
     if (getState() == State.PreFunding) {
       // Are we whitelisted for early deposit
       require(earlyParticipantWhitelist[msg.sender]);
@@ -1127,7 +1127,7 @@ contract GenericCrowdsale is Haltable {
    *  Calculate the amount of tokens that corresponds to the received amount.
    *  The wei amount is returned too in case not all of it can be invested.
    *
-   *  Note: When there&#39;s an excedent due to rounding error, it should be returned to allow refunding.
+   *  Note: When there's an excedent due to rounding error, it should be returned to allow refunding.
    *  This is worked around in the current design using an appropriate amount of decimals in the FractionalERC20 standard.
    *  The workaround is good enough for most use cases, hence the simplified function signature.
    *  @return weiAllowed The amount of wei accepted in this transaction.
@@ -1189,7 +1189,7 @@ pragma solidity ^0.4.19;
 
 
 /// @dev Tranche based pricing.
-///      Implementing "first price" tranches, meaning, that if a buyer&#39;s order is
+///      Implementing "first price" tranches, meaning, that if a buyer's order is
 ///      covering more than one tranche, the price of the lowest tranche will apply
 ///      to the whole order.
 contract TokenTranchePricing {
@@ -1286,7 +1286,7 @@ contract Crowdsale is GenericCrowdsale, LostAndFoundToken, DeploymentInfo, Token
   uint public minimum_buy_value;
 
   /*
-   * The constructor for the crowdsale was removed given it didn&#39;t receive any arguments nor had any body.
+   * The constructor for the crowdsale was removed given it didn't receive any arguments nor had any body.
    *
    * The configuration from the constructor was moved to the configurationCrowdsale function which creates the token contract and also calls the configuration functions from GenericCrowdsale and TokenTranchePricing.
    * 
@@ -1308,7 +1308,7 @@ contract Crowdsale is GenericCrowdsale, LostAndFoundToken, DeploymentInfo, Token
     token.setMintAgent(address(this), true);
     // Necessary if finalize is overriden to release the tokens for public trading.
     token.setReleaseAgent(address(this));
-    // Necessary for the execution of buy function and of the subsequent CrowdsaleToken&#39;s transfer function. 
+    // Necessary for the execution of buy function and of the subsequent CrowdsaleToken's transfer function. 
     token.setTransferAgent(address(this), true);
     // Crowdsale mints to himself the initial supply
     token.mint(address(this), crowdsale_supply);

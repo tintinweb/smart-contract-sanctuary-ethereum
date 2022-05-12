@@ -39,7 +39,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -310,7 +310,7 @@ contract Ico is BasicToken {
   // getter to retrieve divident owed
   function getOwedDividend(address _owner) public view returns (uint256 total, uint256[]) {
     uint256[] memory noDividends = new uint256[](0);
-    // And the address&#39; current balance
+    // And the address' current balance
     uint256 balance = BasicToken.balanceOf(_owner);
     // retrieve index of last dividend this address received
     // NOTE: the default return value of a mapping is 0 in this case

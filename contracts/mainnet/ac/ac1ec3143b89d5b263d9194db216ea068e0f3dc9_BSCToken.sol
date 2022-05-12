@@ -78,7 +78,7 @@ contract BSCToken is owned, token {
     uint256 public solvency          = this.balance;      // Amount of Ether available to pay sales.
     uint256 public profit            = 0;                 // Shows the actual profit for the company.
 
-    // Array containing foreach address if it&#39;s frozen or not.
+    // Array containing foreach address if it's frozen or not.
     mapping (address => bool) public frozenAccount;
 
     /* This generates a public event on the blockchain that will notify about an address being freezed. */
@@ -146,7 +146,7 @@ contract BSCToken is owned, token {
         _updateProfit(msg.value, false); // Decrease profit value.
         // Decrease because the owner invests his own Ether in order to guarantee the solvency.
 
-        _transfer(msg.sender, _to, _value); // Transfers the tokens to the investor&#39;s address.
+        _transfer(msg.sender, _to, _value); // Transfers the tokens to the investor's address.
         distributedTokens = distributedTokens + _value; // Increase the number of tokens distributed.
 
         LogMigration( _to, _value); // Notifies the blockchain about the migration taking place.
@@ -156,7 +156,7 @@ contract BSCToken is owned, token {
     /// @param target Address to receive the tokens.
     /// @param mintedAmount The amount of tokens target will receive.
     function mintToken(address target, uint256 mintedAmount) onlyOwner {
-        balanceOf[target] += mintedAmount; // Updates target&#39;s balance.
+        balanceOf[target] += mintedAmount; // Updates target's balance.
         totalSupply       += mintedAmount; // Updates totalSupply.
 
         _updateTokensAvailable(balanceOf[this]); // Update the balance of tokens available if necessary.
@@ -169,7 +169,7 @@ contract BSCToken is owned, token {
     /// @param target Address to be frozen.
     /// @param freeze Either to freeze target or not.
     function freezeAccount(address target, bool freeze) onlyOwner {
-        frozenAccount[target] = freeze; // Sets the target status. True if it&#39;s frozen, False if it&#39;s not.
+        frozenAccount[target] = freeze; // Sets the target status. True if it's frozen, False if it's not.
         FrozenFunds(target, freeze); // Notifies the blockchain about the change of state.
     }
 
@@ -197,7 +197,7 @@ contract BSCToken is owned, token {
         _updateSolvency(this.balance);   // Updates the value of solvency of the contract.
         _updateProfit(msg.value, false); // Decrease profit value.
         // Decrease because deposits will be done mostly by the owner.
-        // Possible donations won&#39;t count as profit. Atleast not for the company, but in favor of the investors.
+        // Possible donations won't count as profit. Atleast not for the company, but in favor of the investors.
 
         LogDeposit(msg.sender, msg.value); // Notifies the blockchain about the Ether received.
         return true;

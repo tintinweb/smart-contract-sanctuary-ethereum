@@ -17,11 +17,11 @@ library SafeMath {
   /**
   * @dev Integer division of two numbers, truncating the quotient.
   */
- // we don&#39;t need "div"
+ // we don't need "div"
 /*  function div(uint256 a, uint256 b) internal pure returns (uint256) {
   	// assert(b > 0); // Solidity automatically throws when dividing by 0
   	uint256 c = a / b;
-  	// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+  	// assert(a == b * c + a % b); // There is no case in which this doesn't hold
   	return c;
   }
 */
@@ -120,7 +120,7 @@ contract CityMayor {
 	*
 	* Beware that changing an allowance with this method brings the risk that someone may use both the old
 	* and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-	* race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+	* race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
 	* https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
 	* @param _spender The address which will spend the funds.
 	* @param _value The amount of tokens to be spent.
@@ -192,7 +192,7 @@ contract CityMayor {
    	uint256 public ECONOMY_BOOST_TRADE = 100; // _immutable_ gift (in CITY) from the UN when a city is traded (shared among the cities of the relevant country)
 
    	uint256 public MONUMENT_UN_FEE = 3; // UN fee (CITY) to buy a monument
-   	uint256 public MONUMENT_CITY_FEE = 3; // additional fee (CITY) to buy a monument (shared to the monument&#39;s city)
+   	uint256 public MONUMENT_CITY_FEE = 3; // additional fee (CITY) to buy a monument (shared to the monument's city)
 
    	//
    	// Game structures
@@ -361,7 +361,7 @@ contract CityMayor {
 		return lastId;
 	}
 
-	// Edit a city if it hasn&#39;t been bought yet
+	// Edit a city if it hasn't been bought yet
 	function adminEditCity(uint16 _cityId, string _name, uint256 _price, address _owner) public {
 		// requires
 		require(msg.sender == unitedNations);
@@ -492,7 +492,7 @@ contract CityMayor {
 	event OfferForCity(uint256 offerId, uint16 cityId, uint256 price, address offererAddress, address owner);
 	event CancelOfferForCity(uint256 offerId);
 
-	// 1. we make an offer for some cityId that we don&#39;t own yet (we deposit money in escrow)
+	// 1. we make an offer for some cityId that we don't own yet (we deposit money in escrow)
 	function makeOfferForCity(uint16 _cityId, uint256 _price) public payable {
 		// requires
 		require(cities[_cityId].owner != 0x0);
@@ -564,7 +564,7 @@ contract CityMayor {
 
 	/* 
    	uint256 public MONUMENT_UN_FEE = 3; // UN fee (CITY) to buy a monument
-   	uint256 public MONUMENT_CITY_FEE = 3; // additional fee (CITY) to buy a monument (shared to the monument&#39;s city)
+   	uint256 public MONUMENT_CITY_FEE = 3; // additional fee (CITY) to buy a monument (shared to the monument's city)
    	*/
 
 	// anyone can buy a monument from someone else (with CITYs)

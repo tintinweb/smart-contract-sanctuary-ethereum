@@ -83,7 +83,7 @@ contract HumanStandardToken is StandardToken {
     uint8 public decimals;              //最多的小数位数
     string public symbol;               //token简称
    
-    string public version = &#39;H0.1&#39;;    //版本
+    string public version = 'H0.1';    //版本
 
     function HumanStandardToken() {
         //balances[msg.sender] = _initialAmount; // 初始token数量给予消息发送者
@@ -93,9 +93,9 @@ contract HumanStandardToken is StandardToken {
         teamlock             =150000000;   //团队锁仓
         foundationlock       =100000000;   //基金会锁仓
         mininglock           =450000000;   //挖矿锁仓
-        name = &#39;DPSChain token&#39;;           //token名称
+        name = 'DPSChain token';           //token名称
         decimals = 0;                      //小数位数
-        symbol = &#39;DPST&#39;;                   // token简称
+        symbol = 'DPST';                   // token简称
         releaseTime=365*3*24*60*60;        //锁仓时间
         starttime=block.timestamp;
        
@@ -133,7 +133,7 @@ contract HumanStandardToken is StandardToken {
     function approveAndCall(address _spender, uint256 _value, bytes _extraData) returns (bool success) {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         require(_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData));

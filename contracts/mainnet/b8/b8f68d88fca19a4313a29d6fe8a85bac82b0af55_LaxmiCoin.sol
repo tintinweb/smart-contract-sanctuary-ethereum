@@ -6,7 +6,7 @@ contract tokenRecipient {function receiveApproval(address _from, uint256 _value,
 
 contract LaxmiCoin {
     /* Public variables of the token */
-    string public standard = &#39;LaxmiCoin 1.0&#39;;
+    string public standard = 'LaxmiCoin 1.0';
 
     string public name;
 

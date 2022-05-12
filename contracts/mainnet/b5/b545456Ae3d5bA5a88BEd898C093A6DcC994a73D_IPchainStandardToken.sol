@@ -66,9 +66,9 @@ contract IPchainStandardToken is StandardToken {
 		return;
     }
 
-    string public version = &#39;I0.1&#39;;       //IPchainToken 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'I0.1';       //IPchainToken 0.1 standard. Just an arbitrary versioning scheme.
     string public name;                   //fancy name: eg Simon Bucks
-    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
 
     function IPchainStandardToken(

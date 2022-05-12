@@ -351,7 +351,7 @@ library Tools {
      */
     function uint256ToBytes32(uint256 value) internal pure returns (bytes32) {
         if (value == 0) {
-            return &#39;0&#39;;
+            return '0';
         }
 
         bytes32 resultBytes;
@@ -1287,7 +1287,7 @@ contract EthergotchiOwnershipV2 is
      *
      * Notice
      * ------
-     * This method is limited in use to ensure no &#39;malicious&#39; calls are made.
+     * This method is limited in use to ensure no 'malicious' calls are made.
      * Additionally, this method writes to a contract state variable to keep
      * track of how many tokens have been migrated.
      */
@@ -1312,7 +1312,7 @@ contract EthergotchiOwnershipV2 is
         }
 
         // Loop through the token identifiers to migrate in this transaction.
-        // Token identifiers are equivalent to their &#39;index&#39;, as identifiers
+        // Token identifiers are equivalent to their 'index', as identifiers
         // start at zero (with the zeroth token being owned by the zero
         // address), and are incremented by one for each new token.
         for (uint256 i = migrationIndex; i < endIndex; i++) {
@@ -1335,7 +1335,7 @@ contract EthergotchiOwnershipV2 is
             // previous ownership contract.
             _add(i, tokenOwner);
 
-            // Log the token transfer. In this case where the token is &#39;newly&#39;
+            // Log the token transfer. In this case where the token is 'newly'
             // created, but actually transferred from a previous contract, the
             // `_from` address is set to the previous contract address, to
             // signify a migration.

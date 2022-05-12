@@ -111,7 +111,7 @@ contract UserManager {
     }
 
     function changeProfilePicture(bytes32 _hashToProfilePicture) public {
-        require(addressToUser[msg.sender].exists, "User doesn&#39;t exists");
+        require(addressToUser[msg.sender].exists, "User doesn't exists");
 
         addressToUser[msg.sender].hashToProfilePicture = _hashToProfilePicture;
     }
@@ -186,7 +186,7 @@ contract AssetManager is Ownable {
     /// @notice Function to create assetpack
     /// @param _packCover is cover image for asset pack
     /// @param _attributes is array of attributes
-    /// @param _ipfsHashes is array containing all ipfsHashes for assets we&#39;d like to put in pack
+    /// @param _ipfsHashes is array containing all ipfsHashes for assets we'd like to put in pack
     /// @param _packPrice is price for total assetPack (every asset will have average price)
     /// @param _ipfsHash ipfs hash containing title and description in json format
     function createAssetPack(
@@ -367,7 +367,7 @@ contract AssetManager is Ownable {
     }
 
     /// @notice Function to get ipfsHash for selected asset
-    /// @param _id is id of asset we&#39;d like to get ipfs hash
+    /// @param _id is id of asset we'd like to get ipfs hash
     /// @return string representation of ipfs hash of that asset
     function getAssetIpfs(uint _id) public view returns (bytes32) {
         require(_id < numberOfAssets);
@@ -376,7 +376,7 @@ contract AssetManager is Ownable {
     }
 
     /// @notice Function to get attributes for selected asset
-    /// @param _id is id of asset we&#39;d like to get ipfs hash
+    /// @param _id is id of asset we'd like to get ipfs hash
     /// @return uint representation of attributes of that asset
     function getAssetAttributes(uint _id) public view returns (uint) {
         require(_id < numberOfAssets);

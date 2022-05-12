@@ -22,7 +22,7 @@ contract CSportsConstants {
 
 }
 
-/// @title A facet of CSportsCore that manages an individual&#39;s authorized role against access privileges.
+/// @title A facet of CSportsCore that manages an individual's authorized role against access privileges.
 /// @author CryptoSports, Inc. (https://cryptosports.team))
 /// @dev See the CSportsCore contract documentation to understand how the various CSports contract facets are arranged.
 contract CSportsAuth is CSportsConstants {
@@ -275,7 +275,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
 
   /// @dev Structure for the definition of a single contest.
   struct Contest {
-    address scoringOracleAddress;                 // Eth address of scoring oracle, if == 0, it&#39;s our commissioner address
+    address scoringOracleAddress;                 // Eth address of scoring oracle, if == 0, it's our commissioner address
     address creator;                              // Address of the creator of the contest
     uint32 gameSetId;                             // ID of the gameset associated with this contest
     uint32 numWinners;                            // Number of winners in this contest
@@ -365,7 +365,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
   ///  one reason we may pause the contract is when CFO or COO accounts are
   ///  compromised.
   function unpause() public onlyCEO whenPaused {
-    // can&#39;t unpause if contract was upgraded
+    // can't unpause if contract was upgraded
     paused = false;
   }
 
@@ -383,7 +383,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
     uint128 amount = authorizedUserPayment[msg.sender];
     if (amount > 0) {
 
-      // Shouldn&#39;t have to check this, but if for any reason things got screwed up,
+      // Shouldn't have to check this, but if for any reason things got screwed up,
       // this prevents anyone from withdrawing more than has been approved in total
       // on the contract.
       if (totalAuthorizedForPayment >= amount) {
@@ -423,7 +423,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
   /// @param _minEntries - If false, we will return all ether and release all players
   /// @param _payoutKey - Identifes the payout structure for the contest
   ///   if we hit the start time with fewer than _maxEntries teams entered into the contest.
-  /// @param _tokenIds - Player token ids to be associated with the creator&#39;s team.
+  /// @param _tokenIds - Player token ids to be associated with the creator's team.
   function createContest
   (
     string _name,
@@ -448,7 +448,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
       // The commissioner is allowed to create contests with no initial entry
       require((msg.sender == commissionerAddress) || (_tokenIds.length > 0));
 
-      // Make sure we don&#39;t overflow
+      // Make sure we don't overflow
       require(((_prizeAmount + _entryFee) >= _prizeAmount) && ((_prizeAmount + _entryFee) >= _entryFee));
 
       // Creator must put up the correct amount of ether to cover the prize as well
@@ -494,7 +494,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
         // of this call is that the team contract will now own the tokens.
         //
         // Note that the _tokenIds MUST BE OWNED by the msg.sender, and
-        // there may be other conditions enforced by the CSportsTeam contract&#39;s
+        // there may be other conditions enforced by the CSportsTeam contract's
         // createTeam(...) method.
         uniqueTeamId = teamContract.createTeam(msg.sender, _tokenIds);
 
@@ -505,16 +505,16 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
 
         // We do not have to do this mapping here because 0 is returned from accessing
         // a non existent member of a mapping (we deal with this when we use this
-        // structure in removing a team from the teamIds array). Can&#39;t do it anyway because
-        // mappings can&#39;t be accessed outside of storage.
+        // structure in removing a team from the teamIds array). Can't do it anyway because
+        // mappings can't be accessed outside of storage.
         //
         // _contest.teamIdToIdx[uniqueTeamId] = 0;
       }
 
       // Save our contest
       //
-      // It&#39;s probably never going to happen, 4 billion contests and teams is A LOT, but
-      // let&#39;s just be 100% sure we never let this happen because teamIds are
+      // It's probably never going to happen, 4 billion contests and teams is A LOT, but
+      // let's just be 100% sure we never let this happen because teamIds are
       // often cast as uint32.
       uint256 _contestId = contests.push(_contest) - 1;
       require(_contestId < 4294967295);
@@ -548,14 +548,14 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
     // Participant must put up the entry fee.
     require(msg.value >= _contestToEnter.entryFee);
 
-    // Cannot exceed the contest&#39;s max entry requirement
+    // Cannot exceed the contest's max entry requirement
     uint32 maxEntries = uint32(_contestToEnter.maxMinEntries >> 32);
     if (maxEntries > 0) {
       require(_contestToEnter.teamIds.length < maxEntries);
     }
 
     // Note that the _tokenIds MUST BE OWNED by the msg.sender, and
-    // there may be other conditions enforced by the CSportsTeam contract&#39;s
+    // there may be other conditions enforced by the CSportsTeam contract's
     // createTeam(...) method.
     uint32 _newTeamId = teamContract.createTeam(msg.sender, _tokenIds);
 
@@ -563,7 +563,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
     uint256 _teamIndex = _contestToEnter.teamIds.push(_newTeamId) - 1;
     require(_teamIndex < 4294967295);
 
-    // Map the team&#39;s ID to its index in the teamIds array
+    // Map the team's ID to its index in the teamIds array
     _contestToEnter.teamIdToIdx[_newTeamId] = uint32(_teamIndex);
 
     // Map the team to the contest
@@ -620,11 +620,11 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
     uint32 lastTeamId = _contestToExitFrom.teamIds[lastTeamIdx];
     uint32 toRemoveIdx = _contestToExitFrom.teamIdToIdx[_teamId];
 
-    require(_contestToExitFrom.teamIds[toRemoveIdx] == _teamId);      // Sanity check (handle&#39;s Solidity&#39;s mapping of non-existing entries to 0)
+    require(_contestToExitFrom.teamIds[toRemoveIdx] == _teamId);      // Sanity check (handle's Solidity's mapping of non-existing entries to 0)
 
     _contestToExitFrom.teamIds[toRemoveIdx] = lastTeamId;             // Overwriting the teamIds array entry for the team
-                                                                      // being removed with the last entry&#39;s teamId
-    _contestToExitFrom.teamIdToIdx[lastTeamId] = toRemoveIdx;         // Re-map the lastTeamId to the removed teamId&#39;s index
+                                                                      // being removed with the last entry's teamId
+    _contestToExitFrom.teamIdToIdx[lastTeamId] = toRemoveIdx;         // Re-map the lastTeamId to the removed teamId's index
 
     delete _contestToExitFrom.teamIds[lastTeamIdx];                   // Remove the last entry that is now repositioned
     _contestToExitFrom.teamIds.length--;                              // Shorten the array
@@ -653,7 +653,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
 
   /// @dev Method that allows a contest creator to cancel his/her contest.
   ///   Throws if we try to cancel a contest not owned by the msg.sender
-  ///   or by contract&#39;s scoring oracle. Also throws if we try to cancel a contest that
+  ///   or by contract's scoring oracle. Also throws if we try to cancel a contest that
   ///   is not int the ContestStatus.Active state.
   function cancelContest(uint32 _contestId) public {
 
@@ -682,11 +682,11 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
     // Note: Contests that have not met their minimum entry requirement
     // can be canceled by anyone since they cannot be scored or paid out. Once canceled,
     // anyone can release the teams back to their owners and refund any entry
-    // fees. Otherwise, it would require the contests&#39; ending time to pass
+    // fees. Otherwise, it would require the contests' ending time to pass
     // before anyone could release and refund as implemented in the
     // releaseTeams(...) method.
 
-    // Return the creator&#39;s prizeAmount
+    // Return the creator's prizeAmount
     if (_toCancel.prizeAmount > 0) {
       _authorizePayment(_toCancel.creator, _toCancel.prizeAmount);
       _toCancel.remainingPrizeAmount = 0;
@@ -779,7 +779,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
     require((_contestId > 0) && (_contestId < contests.length));
 
     // Unpack max & min entries (packed in struct due to stack limitations)
-    // Couldn&#39;t create these local vars due to stack limitation too.
+    // Couldn't create these local vars due to stack limitation too.
     /* uint32 _maxEntries = uint32(c.maxMinEntries >> 32);
     uint32 _minEntries = uint32(c.maxMinEntries & 0x00000000FFFFFFFF); */
 
@@ -1027,7 +1027,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
           numProcessedThisTime++;
 
           // We decrement our winnersToPay value for each team at the same
-          // score, but we don&#39;t let it go negative.
+          // score, but we don't let it go negative.
           if (c.winnersToPay > 0) {
             c.winnersToPay--;
           }
@@ -1078,7 +1078,7 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
             }
           }
 
-          // This is a safety check. Shouldn&#39;t be needed but this prevents a rogue scoringOracle
+          // This is a safety check. Shouldn't be needed but this prevents a rogue scoringOracle
           // from draining anything more than the prize amount for the contest they are oracle of.
           if (payout > c.remainingPrizeAmount) {
             payout = c.remainingPrizeAmount;
@@ -1147,10 +1147,10 @@ contract CSportsContest is CSportsAuth, CSportsContestBase {
     authorizedUserPayment[_to] = _currentlyAuthorized + _amount;
   }
 
-  /// @dev Computes owner&#39;s cut of a contest&#39;s entry fees.
+  /// @dev Computes owner's cut of a contest's entry fees.
   /// @param _amount - Amount owner is getting cut of
   function _computeCut(uint128 _amount) internal view returns (uint128) {
-      // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+      // NOTE: We don't use SafeMath (or similar) in this function because
       //  all of our entry functions carefully cap the maximum values for
       //  currency (at 128-bits), and ownerCut <= 10000 (see the require()
       //  statement in the CSportsContest constructor). The result of this

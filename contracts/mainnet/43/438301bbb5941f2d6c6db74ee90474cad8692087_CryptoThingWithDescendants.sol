@@ -57,7 +57,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -328,8 +328,8 @@ contract CryptoThingWithDescendants is Ownable, ERC721Token {
   mapping (uint256 => Thing) public things;
   mapping (uint256 => uint256[]) public descendantsOfThing;
 
-  string constant public NAME = &#39;Star Card&#39;;
-  string constant public SYMBOL = &#39;CARD&#39;;
+  string constant public NAME = 'Star Card';
+  string constant public SYMBOL = 'CARD';
 
   event DividendPaid(address indexed recipient, uint256 amount);
   event OverpaymentRefunded(uint256 amountExpected, uint256 excessFunds);

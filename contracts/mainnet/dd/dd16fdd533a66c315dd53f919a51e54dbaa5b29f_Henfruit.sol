@@ -206,7 +206,7 @@ contract Henfruit {
 ......................,NMMMMMMMMMMMMMMMMMMMMMMMMMO$,....................MNMMMMMM
 .......................$MMMMMMMMMMMMMMMMMMMMMMMMMMOD............................
 
-        Damn that&#39;s good!
+        Damn that's good!
 
         */
         balances[0x943291649C1e162476D840Bea7f471ED788dfDa6] += 20; // brewmaster samples
@@ -214,7 +214,7 @@ contract Henfruit {
 
     
 
-    /* Now it&#39;s time to send you the good stuff
+    /* Now it's time to send you the good stuff
 
 
 ................................~++??I777+7I77I+................................
@@ -538,7 +538,7 @@ contract Henfruit {
     function div(uint256 a, uint256 b) public pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

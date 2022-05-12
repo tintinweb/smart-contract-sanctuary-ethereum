@@ -114,7 +114,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -246,7 +246,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -353,7 +353,7 @@ contract ChipTreasury is Pausable {
     emit ChipClaimSuccess(msg.sender, chipId);
   }
 
-  // NOTE: You must prefix hashes with &#39;0x&#39;
+  // NOTE: You must prefix hashes with '0x'
   function mintChip (bytes32 hash) public onlyOwner {
     chips[numChipsMinted] = Chip(hash, false);
     emit ChipMinted(numChipsMinted);
@@ -362,7 +362,7 @@ contract ChipTreasury is Pausable {
 
   // Mint function that allows for transactions to come in out-of-order
   // However it is unsafe because a mistakenly high chipId could throw off numChipsMinted permanently
-  // NOTE: You must prefix hashes with &#39;0x&#39;
+  // NOTE: You must prefix hashes with '0x'
   function mintChipUnsafely (uint chipId, bytes32 hash) public onlyOwner whenPaused {
     require(chips[chipId].hash == ""); // chip hash must initially be unset
     chips[chipId].hash = hash;
@@ -371,7 +371,7 @@ contract ChipTreasury is Pausable {
   }
 
   // In case you mess something up during minting (╯&#176;□&#176;）╯︵ ┻━┻
-  // NOTE: You must prefix hashes with &#39;0x&#39;
+  // NOTE: You must prefix hashes with '0x'
   function replaceChiphash (uint chipId, bytes32 newHash) public onlyOwner whenPaused {
     require(chips[chipId].hash != ""); // chip hash must not be unset
     bytes32 oldHash = chips[chipId].hash;

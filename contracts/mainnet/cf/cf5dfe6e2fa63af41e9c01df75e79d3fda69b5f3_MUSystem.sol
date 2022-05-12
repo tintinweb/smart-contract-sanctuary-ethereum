@@ -9,10 +9,10 @@
 // "MMM IS A FINANCIAL NUCLEAR WEAPON.
 // They say Baba Vanga predicted, “Pyramid from Russia will travel the world.”
 // When Sergey Mavrodi passed away, many people thought this prediction 
-// wasn&#39;t going to come true. What if it&#39;s just started to materialize?"
+// wasn't going to come true. What if it's just started to materialize?"
 
 // Financial apocalypse is inevitable! Together we can do a lot!
-// Thank you Sergey Mavrodi. You&#39;ve opened my eyes.
+// Thank you Sergey Mavrodi. You've opened my eyes.
 
 pragma solidity ^0.4.21;
 
@@ -75,7 +75,7 @@ contract MUSystem {
     address[] private userWhoSellDatas;
 
 // The basic parameters of MUSystem that determine 
-// the participant&#39;s income per package, 
+// the participant's income per package, 
 // the initial price of one token, 
 // the number of tokens in pack, Disparity mode percentage
 // and another internal constants.
@@ -186,7 +186,7 @@ contract MUSystem {
         userWhoSellDatas.push(_address) -1;
     }
 
-// Calculation of pack&#39;s parameters "on the fly". 
+// Calculation of pack's parameters "on the fly". 
 // Course (price) of tokens is growing by a special technique, 
 // which designed increases with the passage of time the size 
 // of a possible return donations for the participants, 
@@ -311,7 +311,7 @@ contract MUSystem {
 // Restart occurs if the Disparity mode is enabled and 
 // there were no new donations within 14 days. 
 // Everything will start with the first package. 
-// After restart, the system saves the participant&#39;s tokens. 
+// After restart, the system saves the participant's tokens. 
 // Moreover, by participating from the very beginning 
 // (starting from the first package of the new cycle), 
 // the participant can easily compensate for his 
@@ -458,7 +458,7 @@ contract MUSystem {
         require(WithdrawAmount.mul(1 finney)<=balances[msg.sender].mul(CurrentPackTokenPriceSellout).add(balances[msg.sender].mul(CurrentPackTokenPriceSellout).mul(5).div(100)));
 
 // If the normal work is braked then Disparity mode is turning on.
-// If Disparity mode is already enabled, then we check whether it&#39;s time to restart.
+// If Disparity mode is already enabled, then we check whether it's time to restart.
 
         if(RestartMode==true){restart(true);}
         if(address(this).balance<=CurrentPackTotalToPayDisparity){

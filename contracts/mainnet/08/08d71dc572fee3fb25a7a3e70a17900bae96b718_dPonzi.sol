@@ -52,21 +52,21 @@ contract dPonzi {
     constructor() public {
         manager = msg.sender;
 
-        potCntInfo[&#39;d&#39;].gameTime   = 0;
-        potCntInfo[&#39;7&#39;].gameTime   = 0;
-        potCntInfo[&#39;30&#39;].gameTime  = 0;
-        potCntInfo[&#39;90&#39;].gameTime  = 0;
-        potCntInfo[&#39;180&#39;].gameTime = 0;
-        potCntInfo[&#39;365&#39;].gameTime = 0;
+        potCntInfo['d'].gameTime   = 0;
+        potCntInfo['7'].gameTime   = 0;
+        potCntInfo['30'].gameTime  = 0;
+        potCntInfo['90'].gameTime  = 0;
+        potCntInfo['180'].gameTime = 0;
+        potCntInfo['365'].gameTime = 0;
 
-        potCntInfo[&#39;i&#39;].entryAmount   = 10;
-        potCntInfo[&#39;d&#39;].entryAmount   = 1;
-        potCntInfo[&#39;7&#39;].entryAmount   = 4;
-        potCntInfo[&#39;30&#39;].entryAmount  = 8;
-        potCntInfo[&#39;90&#39;].entryAmount  = 15;
-        potCntInfo[&#39;180&#39;].entryAmount = 25;
-        potCntInfo[&#39;365&#39;].entryAmount = 5;
-        potCntInfo[&#39;l&#39;].entryAmount   = 2;
+        potCntInfo['i'].entryAmount   = 10;
+        potCntInfo['d'].entryAmount   = 1;
+        potCntInfo['7'].entryAmount   = 4;
+        potCntInfo['30'].entryAmount  = 8;
+        potCntInfo['90'].entryAmount  = 15;
+        potCntInfo['180'].entryAmount = 25;
+        potCntInfo['365'].entryAmount = 5;
+        potCntInfo['l'].entryAmount   = 2;
     }
 
     function enter(string package, address advisor) public payable {
@@ -88,39 +88,39 @@ contract dPonzi {
             require(msg.value == 1 ether, "Invalid Package Amount");
             key = 120;
             multiplier = multiplier * 100;
-            addRoyLuxList(&#39;l&#39;, &#39;idxLuxury&#39;, now, 500);
+            addRoyLuxList('l', 'idxLuxury', now, 500);
         }
         else if (keccak256(abi.encodePacked(package)) == keccak256("RoyalK")){
             require(msg.value == 10 ether, "Invalid Package Amount");
             key = 1300;
             multiplier = multiplier * 1000;
-            addRoyLuxList(&#39;r&#39;, &#39;idxRoyal&#39;, now, 100);
+            addRoyLuxList('r', 'idxRoyal', now, 100);
         }
 
         if (key > 0){
             if ( idxRadd[advisor].flag ) {
-                advisor.transfer(potCntInfo[&#39;i&#39;].entryAmount * multiplier);
+                advisor.transfer(potCntInfo['i'].entryAmount * multiplier);
             }
             else {
-                potCntInfo[&#39;i&#39;].balance += potCntInfo[&#39;i&#39;].entryAmount * multiplier;
+                potCntInfo['i'].balance += potCntInfo['i'].entryAmount * multiplier;
             }
-            potCntInfo[&#39;d&#39;].balance   += potCntInfo[&#39;d&#39;].entryAmount    * multiplier;
-            potCntInfo[&#39;7&#39;].balance   += potCntInfo[&#39;7&#39;].entryAmount    * multiplier;
-            potCntInfo[&#39;30&#39;].balance  += potCntInfo[&#39;30&#39;].entryAmount   * multiplier;
-            potCntInfo[&#39;90&#39;].balance  += potCntInfo[&#39;90&#39;].entryAmount   * multiplier;
-            potCntInfo[&#39;180&#39;].balance += potCntInfo[&#39;180&#39;].entryAmount  * multiplier;
-            potCntInfo[&#39;365&#39;].balance += potCntInfo[&#39;365&#39;].entryAmount  * multiplier;
-            potCntInfo[&#39;l&#39;].balance   += potCntInfo[&#39;l&#39;].entryAmount    * multiplier;
-            potCntInfo[&#39;r&#39;].balance   += potCntInfo[&#39;365&#39;].entryAmount  * multiplier;
-            potCntInfo[&#39;i&#39;].balance   += potCntInfo[&#39;i&#39;].entryAmount    * multiplier;
-            potCntInfo[&#39;dv&#39;].balance  += potCntInfo[&#39;90&#39;].entryAmount   * multiplier;
+            potCntInfo['d'].balance   += potCntInfo['d'].entryAmount    * multiplier;
+            potCntInfo['7'].balance   += potCntInfo['7'].entryAmount    * multiplier;
+            potCntInfo['30'].balance  += potCntInfo['30'].entryAmount   * multiplier;
+            potCntInfo['90'].balance  += potCntInfo['90'].entryAmount   * multiplier;
+            potCntInfo['180'].balance += potCntInfo['180'].entryAmount  * multiplier;
+            potCntInfo['365'].balance += potCntInfo['365'].entryAmount  * multiplier;
+            potCntInfo['l'].balance   += potCntInfo['l'].entryAmount    * multiplier;
+            potCntInfo['r'].balance   += potCntInfo['365'].entryAmount  * multiplier;
+            potCntInfo['i'].balance   += potCntInfo['i'].entryAmount    * multiplier;
+            potCntInfo['dv'].balance  += potCntInfo['90'].entryAmount   * multiplier;
 
-            addPlayerMapping(&#39;d&#39;,   &#39;idxDaily&#39;,  key, 0, 0);
-            addPlayerMapping(&#39;7&#39;,   &#39;idx7Pot&#39;,   key, 60, 3600);
-            addPlayerMapping(&#39;30&#39;,  &#39;idx30Pot&#39;,  key, 90, 10800);
-            addPlayerMapping(&#39;90&#39;,  &#39;idx90Pot&#39;,  key, 120, 21600);
-            addPlayerMapping(&#39;180&#39;, &#39;idx180Pot&#39;, key, 150, 43200);
-            addPlayerMapping(&#39;365&#39;, &#39;idx365Pot&#39;, key, 0, 0);
+            addPlayerMapping('d',   'idxDaily',  key, 0, 0);
+            addPlayerMapping('7',   'idx7Pot',   key, 60, 3600);
+            addPlayerMapping('30',  'idx30Pot',  key, 90, 10800);
+            addPlayerMapping('90',  'idx90Pot',  key, 120, 21600);
+            addPlayerMapping('180', 'idx180Pot', key, 150, 43200);
+            addPlayerMapping('365', 'idx365Pot', key, 0, 0);
         }
     }
 
@@ -141,10 +141,10 @@ contract dPonzi {
             potCntInfo[x1].gameTime = now%86400 == 0 ? (now-28800) : now-28800-(now%86400);
             potCntInfo[x1].gtime = now;
             potCntInfo[x1].last = potCntInfo[x1].gameTime + 365 days;
-            potCntInfo[&#39;l&#39;].gameTime = potCntInfo[x1].gameTime;
-            potCntInfo[&#39;r&#39;].gameTime = potCntInfo[x1].gameTime;
-            potCntInfo[&#39;l&#39;].gtime   = now;
-            potCntInfo[&#39;r&#39;].gtime   = now;
+            potCntInfo['l'].gameTime = potCntInfo[x1].gameTime;
+            potCntInfo['r'].gameTime = potCntInfo[x1].gameTime;
+            potCntInfo['l'].gtime   = now;
+            potCntInfo['r'].gtime   = now;
         }
       }else  {
           if (potCntInfo[x1].gameTime == 0) {
@@ -177,7 +177,7 @@ contract dPonzi {
 
         if (idxR[name].flag == 0 ) {
             idxR[name] = RefStruct(msg.sender, 1);
-            potCntInfo[&#39;i&#39;].balance += msg.value;
+            potCntInfo['i'].balance += msg.value;
             idxRadd[msg.sender].name = name;
             idxRadd[msg.sender].flag = true;
         }
@@ -218,19 +218,19 @@ contract dPonzi {
     }
 
     function pickWinner(uint pickTime, bool sendDaily, bool send7Pot, bool send30Pot, bool send90Pot, bool send180Pot, bool send365Pot) public restricted{
-        hitPotProcess(&#39;7&#39;, send7Pot,  pickTime);
-        hitPotProcess(&#39;30&#39;, send30Pot, pickTime);
-        hitPotProcess(&#39;90&#39;, send90Pot, pickTime);
-        hitPotProcess(&#39;180&#39;, send180Pot, pickTime);
+        hitPotProcess('7', send7Pot,  pickTime);
+        hitPotProcess('30', send30Pot, pickTime);
+        hitPotProcess('90', send90Pot, pickTime);
+        hitPotProcess('180', send180Pot, pickTime);
 
-        maturityProcess(&#39;d&#39;, sendDaily, pickTime, 86400);
-        maturityProcess(&#39;7&#39;, send7Pot, pickTime, 604800);
-        maturityProcess(&#39;30&#39;, send30Pot, pickTime, 2592000);
-        maturityProcess(&#39;90&#39;, send90Pot, pickTime, 7776000);
-        maturityProcess(&#39;180&#39;, send180Pot, pickTime, 15552000);
-        maturityProcess(&#39;365&#39;, send365Pot, pickTime, 31536000);
-        maturityProcess(&#39;l&#39;, send365Pot, pickTime, 31536000);
-        maturityProcess(&#39;r&#39;, send365Pot, pickTime, 31536000);
+        maturityProcess('d', sendDaily, pickTime, 86400);
+        maturityProcess('7', send7Pot, pickTime, 604800);
+        maturityProcess('30', send30Pot, pickTime, 2592000);
+        maturityProcess('90', send90Pot, pickTime, 7776000);
+        maturityProcess('180', send180Pot, pickTime, 15552000);
+        maturityProcess('365', send365Pot, pickTime, 31536000);
+        maturityProcess('l', send365Pot, pickTime, 31536000);
+        maturityProcess('r', send365Pot, pickTime, 31536000);
     }
 
     function hitPotProcess(string x1, bool send, uint pickTime) private {
@@ -269,7 +269,7 @@ contract dPonzi {
     }
 
     function random(uint maxNum, uint timestamp) private view returns (uint){
-        return uint(keccak256(abi.encodePacked(block.difficulty, timestamp, potCntInfo[&#39;d&#39;].balance, potCntInfo[&#39;7&#39;].balance, potCntInfo[&#39;30&#39;].balance, potCntInfo[&#39;90&#39;].balance, potCntInfo[&#39;180&#39;].balance, potCntInfo[&#39;365&#39;].balance))) % maxNum;
+        return uint(keccak256(abi.encodePacked(block.difficulty, timestamp, potCntInfo['d'].balance, potCntInfo['7'].balance, potCntInfo['30'].balance, potCntInfo['90'].balance, potCntInfo['180'].balance, potCntInfo['365'].balance))) % maxNum;
     }
 
     function addRoyLuxList(string x1, string x2, uint timestamp, uint num) private {
@@ -277,24 +277,24 @@ contract dPonzi {
 
         if ( potCntInfo[x1].player.length < num) {
             if (idxStruct[x2].playerStruct[msg.sender].flag == 0 ) {
-                idxStruct[x2].playerStruct[msg.sender] = PlayerStruct(0, 0, potCntInfo[x1].player.length, potCntInfo[&#39;365&#39;].gtime, 1);
+                idxStruct[x2].playerStruct[msg.sender] = PlayerStruct(0, 0, potCntInfo[x1].player.length, potCntInfo['365'].gtime, 1);
                 potCntInfo[x1].player.push(msg.sender);
             }
-            else if (idxStruct[x2].playerStruct[msg.sender].gametime != potCntInfo[&#39;365&#39;].gtime ) {
-                idxStruct[x2].playerStruct[msg.sender] = PlayerStruct(0, 0, potCntInfo[x1].player.length, potCntInfo[&#39;365&#39;].gtime, 1);
+            else if (idxStruct[x2].playerStruct[msg.sender].gametime != potCntInfo['365'].gtime ) {
+                idxStruct[x2].playerStruct[msg.sender] = PlayerStruct(0, 0, potCntInfo[x1].player.length, potCntInfo['365'].gtime, 1);
                 potCntInfo[x1].player.push(msg.sender);
             }
         }
         else {
             if (idxStruct[x2].playerStruct[msg.sender].flag == 0 ) {
                 pick = random(potCntInfo[x1].player.length, timestamp);
-                idxStruct[x2].playerStruct[msg.sender] = PlayerStruct(0, 0, idxStruct[x2].playerStruct[potCntInfo[x1].player[pick]].idx, potCntInfo[&#39;365&#39;].gtime, 1);
+                idxStruct[x2].playerStruct[msg.sender] = PlayerStruct(0, 0, idxStruct[x2].playerStruct[potCntInfo[x1].player[pick]].idx, potCntInfo['365'].gtime, 1);
                 idxStruct[x2].playerStruct[potCntInfo[x1].player[pick]].flag = 0;
                 potCntInfo[x1].player[pick] = msg.sender;
             }
-            else if (idxStruct[x2].playerStruct[msg.sender].gametime != potCntInfo[&#39;365&#39;].gtime ) {
+            else if (idxStruct[x2].playerStruct[msg.sender].gametime != potCntInfo['365'].gtime ) {
                 pick = random(potCntInfo[x1].player.length, timestamp);
-                idxStruct[x2].playerStruct[msg.sender] = PlayerStruct(0, 0, idxStruct[x2].playerStruct[potCntInfo[x1].player[pick]].idx, potCntInfo[&#39;365&#39;].gtime, 1);
+                idxStruct[x2].playerStruct[msg.sender] = PlayerStruct(0, 0, idxStruct[x2].playerStruct[potCntInfo[x1].player[pick]].idx, potCntInfo['365'].gtime, 1);
                 idxStruct[x2].playerStruct[potCntInfo[x1].player[pick]].flag = 0;
                 potCntInfo[x1].player[pick] = msg.sender;
             }

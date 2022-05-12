@@ -49,7 +49,7 @@ contract ILOTContract {
     string public symbol = "ILOT";
     
     /*
-        We&#39;ve hardcoded our official website into the blockchain!
+        We've hardcoded our official website into the blockchain!
         Please do not send ETH to scams/clones/copies. 
         The website indicated below is the only official ILOT website.
     */
@@ -90,7 +90,7 @@ contract ILOTContract {
     }
 
     /*
-        Return an addresse&#39;s current unpaid interest amount in ILOT.
+        Return an addresse's current unpaid interest amount in ILOT.
     */
     function getInterest(address _to) public view returns (uint interest) {
 
@@ -194,7 +194,7 @@ contract ILOTContract {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -291,7 +291,7 @@ contract ILOTContract {
             */
             if (address(this).balance >= mfee) {
                 if (address(this).balance >= (mfee + maintenanceDebt) ) {
-                    // there&#39;s enough to cover previous debt
+                    // there's enough to cover previous debt
                     owner.transfer(mfee + maintenanceDebt);
                     maintenanceDebt = 0;
                 } else {

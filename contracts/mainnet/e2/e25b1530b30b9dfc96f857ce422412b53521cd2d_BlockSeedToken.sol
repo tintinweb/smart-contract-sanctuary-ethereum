@@ -32,7 +32,7 @@ contract Ownable {
    * @param newOwner The address to transfer ownership to.
    */
   function transferOwnership(address newOwner) public onlyOwner {
-    require(newOwner != address(0), "Owner can&#39;t be set to zero address");
+    require(newOwner != address(0), "Owner can't be set to zero address");
     emit OwnershipTransferred(owner, newOwner);
     owner = newOwner;
   }
@@ -44,8 +44,8 @@ library SafeMath {
      * @dev Multiplies two unsigned integers, reverts on overflow.
      */
     function mul(uint a, uint b) internal pure returns (uint) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -64,7 +64,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0, "SafeMath: division by zero");
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -117,7 +117,7 @@ contract BasicToken is ERC20Basic {
   * @param _value The amount to be transferred.
   */
   function transfer(address _to, uint256 _value) public returns (bool) {
-    require(_to != address(0), "Address to can&#39;t be zero address");
+    require(_to != address(0), "Address to can't be zero address");
     require(_value <= balances[msg.sender], "Balance less than transfer value");
 
     // SafeMath.sub will throw if there is not enough balance.
@@ -164,11 +164,11 @@ contract Pausable is Ownable {
 
   /**
    * @dev called by the owner to set new pause flags
-   * pausedPublic can&#39;t be false while pausedOwnerAdmin is true
+   * pausedPublic can't be false while pausedOwnerAdmin is true
    * 当管理员被暂停 普通用户一定是被暂停的
    */
   function pause(bool newPausedPublic, bool newPausedOwnerAdmin) public onlyOwner {
-    require(!(newPausedPublic == false && newPausedOwnerAdmin == true), "PausedPublic can&#39;t be false while pausedOwnerAdmin is true");
+    require(!(newPausedPublic == false && newPausedOwnerAdmin == true), "PausedPublic can't be false while pausedOwnerAdmin is true");
 
     pausedPublic = newPausedPublic;
     pausedOwnerAdmin = newPausedOwnerAdmin;
@@ -197,7 +197,7 @@ contract StandardToken is ERC20, BasicToken {
    * @param _value uint256 the amount of tokens to be transferred
    */
   function transferFrom(address _from, address _to, uint256 _value) public returns (bool) {
-    require(_to != address(0), "Address to can&#39;t be zero address");
+    require(_to != address(0), "Address to can't be zero address");
     require(_value <= balances[_from], "Balance less than transfer value");
     require(_value <= allowed[_from][msg.sender], "Allowed balance less than transfer value");
 
@@ -213,7 +213,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -331,7 +331,7 @@ contract PollToken is PausableToken {
 
     /* 设置矿池账户接口 */
     function _setPollAccount(address account, Poll storage poll) private {
-        require(account != address(0), "Poll account can&#39;t be zero address");
+        require(account != address(0), "Poll account can't be zero address");
         poll.account = account;
     }
     function setBusinessAccount(address account) public onlyOwner {
@@ -422,7 +422,7 @@ contract PollToken is PausableToken {
     /* 提取矿代币池接口 */
     function _minePoll(Poll storage poll) private {
         require(poll.startTime > 0, "Poll not start");
-        require(poll.account != address(0), "businessAccount can&#39;t be zero address");
+        require(poll.account != address(0), "businessAccount can't be zero address");
 
         uint duration = 0;
         uint amount = 0;
@@ -481,8 +481,8 @@ contract BlockSeedToken is PollToken {
 
     modifier validDestination( address to )
     {
-        require(to != address(0x0), "Address to can&#39;t be zero address");
-        require(to != address(this), "Address to can&#39;t be contract address");
+        require(to != address(0x0), "Address to can't be zero address");
+        require(to != address(this), "Address to can't be contract address");
         _;
     }
 

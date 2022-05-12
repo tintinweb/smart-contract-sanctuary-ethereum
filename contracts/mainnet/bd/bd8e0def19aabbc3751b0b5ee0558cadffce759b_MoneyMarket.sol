@@ -441,8 +441,8 @@ contract SafeToken is ErrorReporter {
 
     /**
       * @dev Similar to EIP20 transfer, except it handles a False result from `transfer` and returns an explanatory
-      *      error code rather than reverting. If caller has not called checked protocol&#39;s balance, this may revert due to
-      *      insufficient cash held in this contract. If caller has checked protocol&#39;s balance prior to this call, and verified
+      *      error code rather than reverting. If caller has not called checked protocol's balance, this may revert due to
+      *      insufficient cash held in this contract. If caller has checked protocol's balance prior to this call, and verified
       *      it is >= amount, this should not revert in normal conditions.
       *
       *      Note: This wrapper safely handles non-standard ERC-20 tokens that do not return a value.
@@ -613,7 +613,7 @@ contract Exponential is ErrorReporter, CarefulMath {
       *      For example, truncate(Exp{mantissa: 15 * (10**18)}) = 15
       */
     function truncate(Exp memory exp) pure internal returns (uint) {
-        // Note: We are not using careful math here as we&#39;re performing a division that cannot fail
+        // Note: We are not using careful math here as we're performing a division that cannot fail
         return exp.mantissa / 10**18;
     }
 
@@ -685,8 +685,8 @@ contract MoneyMarket is Exponential, SafeToken {
       * @dev Container for customer balance information written to storage.
       *
       *      struct Balance {
-      *        principal = customer total balance with accrued interest after applying the customer&#39;s most recent balance-changing action
-      *        interestIndex = the total interestIndex as calculated after applying the customer&#39;s most recent balance-changing action
+      *        principal = customer total balance with accrued interest after applying the customer's most recent balance-changing action
+      *        interestIndex = the total interestIndex as calculated after applying the customer's most recent balance-changing action
       *      }
       */
     struct Balance {
@@ -952,14 +952,14 @@ contract MoneyMarket is Exponential, SafeToken {
 
     /**
       * @dev Calculates a new balance based on a previous balance and a pair of interest indices
-      *      This is defined as: `The user&#39;s last balance checkpoint is multiplied by the currentSupplyIndex
-      *      value and divided by the user&#39;s checkpoint index value`
+      *      This is defined as: `The user's last balance checkpoint is multiplied by the currentSupplyIndex
+      *      value and divided by the user's checkpoint index value`
       *
       *      TODO: Is there a way to handle this that is less likely to overflow?
       */
     function calculateBalance(uint startingBalance, uint interestIndexStart, uint interestIndexEnd) pure internal returns (Error, uint) {
         if (startingBalance == 0) {
-            // We are accumulating interest on any previous balance; if there&#39;s no previous balance, then there is
+            // We are accumulating interest on any previous balance; if there's no previous balance, then there is
             // nothing to accumulate.
             return (Error.NO_ERROR, 0);
         }
@@ -1073,7 +1073,7 @@ contract MoneyMarket is Exponential, SafeToken {
     /**
       * @dev Gets the amount of the specified asset given the specified Eth value
       *      ethValue / oraclePrice = assetAmountWei
-      *      If there&#39;s no oraclePrice, this returns (Error.DIVISION_BY_ZERO, 0)
+      *      If there's no oraclePrice, this returns (Error.DIVISION_BY_ZERO, 0)
       */
     function getAssetAmountForValue(address asset, Exp ethValue) internal view returns (Error, uint) {
         Error err;
@@ -1124,7 +1124,7 @@ contract MoneyMarket is Exponential, SafeToken {
       */
     function _acceptAdmin() public returns (uint) {
         // Check caller = pendingAdmin
-        // msg.sender can&#39;t be zero
+        // msg.sender can't be zero
         if (msg.sender != pendingAdmin) {
             return fail(Error.UNAUTHORIZED, FailureInfo.ACCEPT_ADMIN_PENDING_ADMIN_CHECK);
         }
@@ -1154,7 +1154,7 @@ contract MoneyMarket is Exponential, SafeToken {
         }
 
         // Verify contract at newOracle address supports assetPrices call.
-        // This will revert if it doesn&#39;t.
+        // This will revert if it doesn't.
         PriceOracleInterface oracleInterface = PriceOracleInterface(newOracle);
         oracleInterface.assetPrices(address(0));
 
@@ -1221,7 +1221,7 @@ contract MoneyMarket is Exponential, SafeToken {
         Market storage market = markets[asset];
         Balance storage supplyBalance = supplyBalances[account][asset];
 
-        // Calculate the newSupplyIndex, needed to calculate user&#39;s supplyCurrent
+        // Calculate the newSupplyIndex, needed to calculate user's supplyCurrent
         (err, newSupplyIndex) = calculateInterestIndex(market.supplyIndex, market.supplyRateMantissa, market.blockNumber, getBlockNumber());
         require(err == Error.NO_ERROR);
 
@@ -1247,7 +1247,7 @@ contract MoneyMarket is Exponential, SafeToken {
         Market storage market = markets[asset];
         Balance storage borrowBalance = borrowBalances[account][asset];
 
-        // Calculate the newBorrowIndex, needed to calculate user&#39;s borrowCurrent
+        // Calculate the newBorrowIndex, needed to calculate user's borrowCurrent
         (err, newBorrowIndex) = calculateInterestIndex(market.borrowIndex, market.borrowRateMantissa, market.blockNumber, getBlockNumber());
         require(err == Error.NO_ERROR);
 
@@ -1318,7 +1318,7 @@ contract MoneyMarket is Exponential, SafeToken {
             return fail(Error.UNAUTHORIZED, FailureInfo.SUSPEND_MARKET_OWNER_CHECK);
         }
 
-        // If the market is not configured at all, we don&#39;t want to add any configuration for it.
+        // If the market is not configured at all, we don't want to add any configuration for it.
         // If we find !markets[asset].isSupported then either the market is not configured at all, or it
         // has already been marked as unsupported. We can just return without doing anything.
         // Caller is responsible for knowing the difference between not-configured and already unsupported.
@@ -1461,7 +1461,7 @@ contract MoneyMarket is Exponential, SafeToken {
         // We ERC-20 transfer the asset out of the protocol to the admin
         Error err2 = doTransferOut(asset, admin, amount);
         if (err2 != Error.NO_ERROR) {
-            // This is safe since it&#39;s our first interaction and it didn&#39;t do anything if it failed
+            // This is safe since it's our first interaction and it didn't do anything if it failed
             return fail(err2, FailureInfo.EQUITY_WITHDRAWAL_TRANSFER_OUT_FAILED);
         }
 
@@ -1496,7 +1496,7 @@ contract MoneyMarket is Exponential, SafeToken {
 
     /**
       * @notice supply `amount` of `asset` (which must be supported) to `msg.sender` in the protocol
-      * @dev add amount of supported asset to msg.sender&#39;s account
+      * @dev add amount of supported asset to msg.sender's account
       * @param asset The market asset to supply
       * @param amount The amount to supply
       * @return uint 0=success, otherwise a failure (see ErrorReporter.sol for details)
@@ -1524,7 +1524,7 @@ contract MoneyMarket is Exponential, SafeToken {
             return fail(err, FailureInfo.SUPPLY_TRANSFER_IN_NOT_POSSIBLE);
         }
 
-        // We calculate the newSupplyIndex, user&#39;s supplyCurrent and supplyUpdated for the asset
+        // We calculate the newSupplyIndex, user's supplyCurrent and supplyUpdated for the asset
         (err, localResults.newSupplyIndex) = calculateInterestIndex(market.supplyIndex, market.supplyRateMantissa, market.blockNumber, getBlockNumber());
         if (err != Error.NO_ERROR) {
             return fail(err, FailureInfo.SUPPLY_NEW_SUPPLY_INDEX_CALCULATION_FAILED);
@@ -1540,7 +1540,7 @@ contract MoneyMarket is Exponential, SafeToken {
             return fail(err, FailureInfo.SUPPLY_NEW_TOTAL_BALANCE_CALCULATION_FAILED);
         }
 
-        // We calculate the protocol&#39;s totalSupply by subtracting the user&#39;s prior checkpointed balance, adding user&#39;s updated supply
+        // We calculate the protocol's totalSupply by subtracting the user's prior checkpointed balance, adding user's updated supply
         (err, localResults.newTotalSupply) = addThenSub(market.totalSupply, localResults.userSupplyUpdated, balance.principal);
         if (err != Error.NO_ERROR) {
             return fail(err, FailureInfo.SUPPLY_NEW_TOTAL_SUPPLY_CALCULATION_FAILED);
@@ -1578,7 +1578,7 @@ contract MoneyMarket is Exponential, SafeToken {
         // We ERC-20 transfer the asset into the protocol (note: pre-conditions already checked above)
         err = doTransferIn(asset, msg.sender, amount);
         if (err != Error.NO_ERROR) {
-            // This is safe since it&#39;s our first interaction and it didn&#39;t do anything if it failed
+            // This is safe since it's our first interaction and it didn't do anything if it failed
             return fail(err, FailureInfo.SUPPLY_TRANSFER_IN_FAILED);
         }
 
@@ -1621,8 +1621,8 @@ contract MoneyMarket is Exponential, SafeToken {
 
 
     /**
-      * @notice withdraw `amount` of `asset` from sender&#39;s account to sender&#39;s address
-      * @dev withdraw `amount` of `asset` from msg.sender&#39;s account to msg.sender
+      * @notice withdraw `amount` of `asset` from sender's account to sender's address
+      * @dev withdraw `amount` of `asset` from msg.sender's account to msg.sender
       * @param asset The market asset to withdraw
       * @param requestedAmount The amount to withdraw (or -1 for max)
       * @return uint 0=success, otherwise a failure (see ErrorReporter.sol for details)
@@ -1639,13 +1639,13 @@ contract MoneyMarket is Exponential, SafeToken {
         Error err; // Re-used for every function call that includes an Error in its return value(s).
         uint rateCalculationResultCode; // Used for 2 interest rate calculation calls
 
-        // We calculate the user&#39;s accountLiquidity and accountShortfall.
+        // We calculate the user's accountLiquidity and accountShortfall.
         (err, localResults.accountLiquidity, localResults.accountShortfall) = calculateAccountLiquidity(msg.sender);
         if (err != Error.NO_ERROR) {
             return fail(err, FailureInfo.WITHDRAW_ACCOUNT_LIQUIDITY_CALCULATION_FAILED);
         }
 
-        // We calculate the newSupplyIndex, user&#39;s supplyCurrent and supplyUpdated for the asset
+        // We calculate the newSupplyIndex, user's supplyCurrent and supplyUpdated for the asset
         (err, localResults.newSupplyIndex) = calculateInterestIndex(market.supplyIndex, market.supplyRateMantissa, market.blockNumber, getBlockNumber());
         if (err != Error.NO_ERROR) {
             return fail(err, FailureInfo.WITHDRAW_NEW_SUPPLY_INDEX_CALCULATION_FAILED);
@@ -1689,8 +1689,8 @@ contract MoneyMarket is Exponential, SafeToken {
             return fail(Error.INSUFFICIENT_LIQUIDITY, FailureInfo.WITHDRAW_ACCOUNT_SHORTFALL_PRESENT);
         }
 
-        // We want to know the user&#39;s withdrawCapacity, denominated in the asset
-        // Customer&#39;s withdrawCapacity of asset is (accountLiquidity in Eth)/ (price of asset in Eth)
+        // We want to know the user's withdrawCapacity, denominated in the asset
+        // Customer's withdrawCapacity of asset is (accountLiquidity in Eth)/ (price of asset in Eth)
         // Equivalently, we calculate the eth value of the withdrawal amount and compare it directly to the accountLiquidity in Eth
         (err, localResults.ethValueOfWithdrawal) = getPriceForAssetAmount(asset, localResults.withdrawAmount); // amount * oraclePrice = ethValueOfWithdrawal
         if (err != Error.NO_ERROR) {
@@ -1702,8 +1702,8 @@ contract MoneyMarket is Exponential, SafeToken {
             return fail(Error.INSUFFICIENT_LIQUIDITY, FailureInfo.WITHDRAW_AMOUNT_LIQUIDITY_SHORTFALL);
         }
 
-        // We calculate the protocol&#39;s totalSupply by subtracting the user&#39;s prior checkpointed balance, adding user&#39;s updated supply.
-        // Note that, even though the customer is withdrawing, if they&#39;ve accumulated a lot of interest since their last
+        // We calculate the protocol's totalSupply by subtracting the user's prior checkpointed balance, adding user's updated supply.
+        // Note that, even though the customer is withdrawing, if they've accumulated a lot of interest since their last
         // action, the updated balance *could* be higher than the prior checkpointed balance.
         (err, localResults.newTotalSupply) = addThenSub(market.totalSupply, localResults.userSupplyUpdated, supplyBalance.principal);
         if (err != Error.NO_ERROR) {
@@ -1734,7 +1734,7 @@ contract MoneyMarket is Exponential, SafeToken {
         // We ERC-20 transfer the asset into the protocol (note: pre-conditions already checked above)
         err = doTransferOut(asset, msg.sender, localResults.withdrawAmount);
         if (err != Error.NO_ERROR) {
-            // This is safe since it&#39;s our first interaction and it didn&#39;t do anything if it failed
+            // This is safe since it's our first interaction and it didn't do anything if it failed
             return fail(err, FailureInfo.WITHDRAW_TRANSFER_OUT_FAILED);
         }
 
@@ -1772,7 +1772,7 @@ contract MoneyMarket is Exponential, SafeToken {
     }
 
     /**
-      * @dev Gets the user&#39;s account liquidity and account shortfall balances. This includes
+      * @dev Gets the user's account liquidity and account shortfall balances. This includes
       *      any accumulated interest thus far but does NOT actually update anything in
       *      storage, it simply calculates the account liquidity and shortfall with liquidity being
       *      returned as the first Exp, ie (Error, accountLiquidity, accountShortfall).
@@ -1814,7 +1814,7 @@ contract MoneyMarket is Exponential, SafeToken {
     }
 
     /**
-      * @notice Gets the ETH values of the user&#39;s accumulated supply and borrow balances, scaled by 10e18.
+      * @notice Gets the ETH values of the user's accumulated supply and borrow balances, scaled by 10e18.
       *         This includes any accumulated interest thus far but does NOT actually update anything in
       *         storage
       * @dev Gets ETH values of accumulated supply and borrow balances
@@ -1826,9 +1826,9 @@ contract MoneyMarket is Exponential, SafeToken {
       */
     function calculateAccountValuesInternal(address userAddress) internal view returns (Error, uint, uint) {
         
-        /** By definition, all collateralMarkets are those that contribute to the user&#39;s
+        /** By definition, all collateralMarkets are those that contribute to the user's
           * liquidity and shortfall so we need only loop through those markets.
-          * To handle avoiding intermediate negative results, we will sum all the user&#39;s
+          * To handle avoiding intermediate negative results, we will sum all the user's
           * supply balances and borrow balances (with collateral ratio) separately and then
           * subtract the sums at the end.
           */
@@ -1857,7 +1857,7 @@ contract MoneyMarket is Exponential, SafeToken {
                     return (err, 0, 0);
                 }
 
-                // We have the user&#39;s supply balance with interest so let&#39;s multiply by the asset price to get the total value
+                // We have the user's supply balance with interest so let's multiply by the asset price to get the total value
                 (err, localResults.supplyTotalValue) = getPriceForAssetAmount(localResults.assetAddress, localResults.userSupplyCurrent); // supplyCurrent * oraclePrice = supplyValueInEth
                 if (err != Error.NO_ERROR) {
                     return (err, 0, 0);
@@ -1871,7 +1871,7 @@ contract MoneyMarket is Exponential, SafeToken {
             }
 
             if (borrowBalance.principal > 0) {
-                // We perform a similar actions to get the user&#39;s borrow balance
+                // We perform a similar actions to get the user's borrow balance
                 (err, localResults.newBorrowIndex) = calculateInterestIndex(currentMarket.borrowIndex, currentMarket.borrowRateMantissa, currentMarket.blockNumber, getBlockNumber());
                 if (err != Error.NO_ERROR) {
                     return (err, 0, 0);
@@ -1900,7 +1900,7 @@ contract MoneyMarket is Exponential, SafeToken {
     }
 
     /**
-      * @notice Gets the ETH values of the user&#39;s accumulated supply and borrow balances, scaled by 10e18.
+      * @notice Gets the ETH values of the user's accumulated supply and borrow balances, scaled by 10e18.
       *         This includes any accumulated interest thus far but does NOT actually update anything in
       *         storage
       * @dev Gets ETH values of accumulated supply and borrow balances
@@ -1952,7 +1952,7 @@ contract MoneyMarket is Exponential, SafeToken {
         Error err;
         uint rateCalculationResultCode;
 
-        // We calculate the newBorrowIndex, user&#39;s borrowCurrent and borrowUpdated for the asset
+        // We calculate the newBorrowIndex, user's borrowCurrent and borrowUpdated for the asset
         (err, localResults.newBorrowIndex) = calculateInterestIndex(market.borrowIndex, market.borrowRateMantissa, market.blockNumber, getBlockNumber());
         if (err != Error.NO_ERROR) {
             return fail(err, FailureInfo.REPAY_BORROW_NEW_BORROW_INDEX_CALCULATION_FAILED);
@@ -1985,8 +1985,8 @@ contract MoneyMarket is Exponential, SafeToken {
             return fail(err, FailureInfo.REPAY_BORROW_TRANSFER_IN_NOT_POSSIBLE);
         }
 
-        // We calculate the protocol&#39;s totalBorrow by subtracting the user&#39;s prior checkpointed balance, adding user&#39;s updated borrow
-        // Note that, even though the customer is paying some of their borrow, if they&#39;ve accumulated a lot of interest since their last
+        // We calculate the protocol's totalBorrow by subtracting the user's prior checkpointed balance, adding user's updated borrow
+        // Note that, even though the customer is paying some of their borrow, if they've accumulated a lot of interest since their last
         // action, the updated balance *could* be higher than the prior checkpointed balance.
         (err, localResults.newTotalBorrows) = addThenSub(market.totalBorrows, localResults.userBorrowUpdated, borrowBalance.principal);
         if (err != Error.NO_ERROR) {
@@ -2026,7 +2026,7 @@ contract MoneyMarket is Exponential, SafeToken {
         // We ERC-20 transfer the asset into the protocol (note: pre-conditions already checked above)
         err = doTransferIn(asset, msg.sender, localResults.repayAmount);
         if (err != Error.NO_ERROR) {
-            // This is safe since it&#39;s our first interaction and it didn&#39;t do anything if it failed
+            // This is safe since it's our first interaction and it didn't do anything if it failed
             return fail(err, FailureInfo.REPAY_BORROW_TRANSFER_IN_FAILED);
         }
 
@@ -2082,7 +2082,7 @@ contract MoneyMarket is Exponential, SafeToken {
         uint newBorrowIndex_CollateralAsset;
         uint newSupplyIndex_CollateralAsset;
 
-        // the target borrow&#39;s full balance with accumulated interest
+        // the target borrow's full balance with accumulated interest
         uint currentBorrowBalance_TargetUnderwaterAsset;
         // currentBorrowBalance_TargetUnderwaterAsset minus whatever gets repaid as part of the liquidation
         uint updatedBorrowBalance_TargetUnderwaterAsset;
@@ -2099,7 +2099,7 @@ contract MoneyMarket is Exponential, SafeToken {
         // If liquidator already has a balance of collateralAsset, we will accumulate
         // interest on it before transferring seized collateral from the borrower.
         uint currentSupplyBalance_LiquidatorCollateralAsset;
-        // This will be the liquidator&#39;s accumulated balance of collateral asset before the liquidation (if any)
+        // This will be the liquidator's accumulated balance of collateral asset before the liquidation (if any)
         // plus the amount seized from the borrower.
         uint updatedSupplyBalance_LiquidatorCollateralAsset;
 
@@ -2113,7 +2113,7 @@ contract MoneyMarket is Exponential, SafeToken {
         uint newBorrowRateMantissa_ProtocolUnderwaterAsset;
 
         // Why no variables for the interest rates for the collateral asset?
-        // We don&#39;t need to calculate new rates for the collateral asset since neither cash nor borrows change
+        // We don't need to calculate new rates for the collateral asset since neither cash nor borrows change
 
         uint discountedRepayToEvenAmount;
 
@@ -2132,7 +2132,7 @@ contract MoneyMarket is Exponential, SafeToken {
       * @notice users repay all or some of an underwater borrow and receive collateral
       * @param targetAccount The account whose borrow should be liquidated
       * @param assetBorrow The market asset to repay
-      * @param assetCollateral The borrower&#39;s market asset to receive in exchange
+      * @param assetCollateral The borrower's market asset to receive in exchange
       * @param requestedAmountClose The amount to repay (or -1 for max)
       * @return uint 0=success, otherwise a failure (see ErrorReporter.sol for details)
       */
@@ -2142,7 +2142,7 @@ contract MoneyMarket is Exponential, SafeToken {
         }
         LiquidateLocalVars memory localResults;
         // Copy these addresses into the struct for use with `emitLiquidationEvent`
-        // We&#39;ll use localResults.liquidator inside this function for clarity vs using msg.sender.
+        // We'll use localResults.liquidator inside this function for clarity vs using msg.sender.
         localResults.targetAccount = targetAccount;
         localResults.assetBorrow = assetBorrow;
         localResults.liquidator = msg.sender;
@@ -2198,17 +2198,17 @@ contract MoneyMarket is Exponential, SafeToken {
             return fail(err, FailureInfo.LIQUIDATE_ACCUMULATED_SUPPLY_BALANCE_CALCULATION_FAILED_LIQUIDATOR_COLLATERAL_ASSET);
         }
 
-        // We update the protocol&#39;s totalSupply for assetCollateral in 2 steps, first by adding target user&#39;s accumulated
-        // interest and then by adding the liquidator&#39;s accumulated interest.
+        // We update the protocol's totalSupply for assetCollateral in 2 steps, first by adding target user's accumulated
+        // interest and then by adding the liquidator's accumulated interest.
 
-        // Step 1 of 2: We add the target user&#39;s supplyCurrent and subtract their checkpointedBalance
+        // Step 1 of 2: We add the target user's supplyCurrent and subtract their checkpointedBalance
         // (which has the desired effect of adding accrued interest from the target user)
         (err, localResults.newTotalSupply_ProtocolCollateralAsset) = addThenSub(collateralMarket.totalSupply, localResults.currentSupplyBalance_TargetCollateralAsset, supplyBalance_TargetCollateralAsset.principal);
         if (err != Error.NO_ERROR) {
             return fail(err, FailureInfo.LIQUIDATE_NEW_TOTAL_SUPPLY_BALANCE_CALCULATION_FAILED_BORROWER_COLLATERAL_ASSET);
         }
 
-        // Step 2 of 2: We add the liquidator&#39;s supplyCurrent of collateral asset and subtract their checkpointedBalance
+        // Step 2 of 2: We add the liquidator's supplyCurrent of collateral asset and subtract their checkpointedBalance
         // (which has the desired effect of adding accrued interest from the calling user)
         (err, localResults.newTotalSupply_ProtocolCollateralAsset) = addThenSub(localResults.newTotalSupply_ProtocolCollateralAsset, localResults.currentSupplyBalance_LiquidatorCollateralAsset, supplyBalance_LiquidatorCollateralAsset.principal);
         if (err != Error.NO_ERROR) {
@@ -2247,7 +2247,7 @@ contract MoneyMarket is Exponential, SafeToken {
             // min1&3&2 = min(min1&3, 2)
             localResults.maxCloseableBorrowAmount_TargetUnderwaterAsset = min(localResults.maxCloseableBorrowAmount_TargetUnderwaterAsset, localResults.discountedRepayToEvenAmount);
         } else {
-            // Market is not supported, so we don&#39;t need to calculate item 2.
+            // Market is not supported, so we don't need to calculate item 2.
             localResults.maxCloseableBorrowAmount_TargetUnderwaterAsset = min(localResults.currentBorrowBalance_TargetUnderwaterAsset, localResults.discountedBorrowDenominatedCollateral);
         }
 
@@ -2278,16 +2278,16 @@ contract MoneyMarket is Exponential, SafeToken {
             return fail(err, FailureInfo.LIQUIDATE_TRANSFER_IN_NOT_POSSIBLE);
         }
 
-        // We are going to repay the target user&#39;s borrow using the calling user&#39;s funds
-        // We update the protocol&#39;s totalBorrow for assetBorrow, by subtracting the target user&#39;s prior checkpointed balance,
+        // We are going to repay the target user's borrow using the calling user's funds
+        // We update the protocol's totalBorrow for assetBorrow, by subtracting the target user's prior checkpointed balance,
         // adding borrowCurrent, and subtracting closeBorrowAmount_TargetUnderwaterAsset.
 
         // Subtract the `closeBorrowAmount_TargetUnderwaterAsset` from the `currentBorrowBalance_TargetUnderwaterAsset` to get `updatedBorrowBalance_TargetUnderwaterAsset`
         (err, localResults.updatedBorrowBalance_TargetUnderwaterAsset) = sub(localResults.currentBorrowBalance_TargetUnderwaterAsset, localResults.closeBorrowAmount_TargetUnderwaterAsset);
-        // We have ensured above that localResults.closeBorrowAmount_TargetUnderwaterAsset <= localResults.currentBorrowBalance_TargetUnderwaterAsset, so the sub can&#39;t underflow
+        // We have ensured above that localResults.closeBorrowAmount_TargetUnderwaterAsset <= localResults.currentBorrowBalance_TargetUnderwaterAsset, so the sub can't underflow
         assert(err == Error.NO_ERROR);
 
-        // We calculate the protocol&#39;s totalBorrow for assetBorrow by subtracting the user&#39;s prior checkpointed balance, adding user&#39;s updated borrow
+        // We calculate the protocol's totalBorrow for assetBorrow by subtracting the user's prior checkpointed balance, adding user's updated borrow
         // Note that, even though the liquidator is paying some of the borrow, if the borrow has accumulated a lot of interest since the last
         // action, the updated balance *could* be higher than the prior checkpointed balance.
         (err, localResults.newTotalBorrows_ProtocolUnderwaterAsset) = addThenSub(borrowMarket.totalBorrows, localResults.updatedBorrowBalance_TargetUnderwaterAsset, borrowBalance_TargeUnderwaterAsset.principal);
@@ -2303,9 +2303,9 @@ contract MoneyMarket is Exponential, SafeToken {
         }
 
         // The utilization rate has changed! We calculate a new supply index, borrow index, supply rate, and borrow rate for assetBorrow
-        // (Please note that we don&#39;t need to do the same thing for assetCollateral because neither cash nor borrows of assetCollateral happen in this process.)
+        // (Please note that we don't need to do the same thing for assetCollateral because neither cash nor borrows of assetCollateral happen in this process.)
 
-        // We calculate the newSupplyIndex_UnderwaterAsset, but we already have newBorrowIndex_UnderwaterAsset so don&#39;t recalculate it.
+        // We calculate the newSupplyIndex_UnderwaterAsset, but we already have newBorrowIndex_UnderwaterAsset so don't recalculate it.
         (err, localResults.newSupplyIndex_UnderwaterAsset) = calculateInterestIndex(borrowMarket.supplyIndex, borrowMarket.supplyRateMantissa, borrowMarket.blockNumber, getBlockNumber());
         if (err != Error.NO_ERROR) {
             return fail(err, FailureInfo.LIQUIDATE_NEW_SUPPLY_INDEX_CALCULATION_FAILED_BORROWED_ASSET);
@@ -2321,26 +2321,26 @@ contract MoneyMarket is Exponential, SafeToken {
             return failOpaque(FailureInfo.LIQUIDATE_NEW_BORROW_RATE_CALCULATION_FAILED_BORROWED_ASSET, rateCalculationResultCode);
         }
 
-        // Now we look at collateral. We calculated target user&#39;s accumulated supply balance and the supply index above.
+        // Now we look at collateral. We calculated target user's accumulated supply balance and the supply index above.
         // Now we need to calculate the borrow index.
-        // We don&#39;t need to calculate new rates for the collateral asset because we have not changed utilization:
-        //  - accumulating interest on the target user&#39;s collateral does not change cash or borrows
+        // We don't need to calculate new rates for the collateral asset because we have not changed utilization:
+        //  - accumulating interest on the target user's collateral does not change cash or borrows
         //  - transferring seized amount of collateral internally from the target user to the liquidator does not change cash or borrows.
         (err, localResults.newBorrowIndex_CollateralAsset) = calculateInterestIndex(collateralMarket.borrowIndex, collateralMarket.borrowRateMantissa, collateralMarket.blockNumber, getBlockNumber());
         if (err != Error.NO_ERROR) {
             return fail(err, FailureInfo.LIQUIDATE_NEW_BORROW_INDEX_CALCULATION_FAILED_COLLATERAL_ASSET);
         }
 
-        // We checkpoint the target user&#39;s assetCollateral supply balance, supplyCurrent - seizeSupplyAmount_TargetCollateralAsset at the updated index
+        // We checkpoint the target user's assetCollateral supply balance, supplyCurrent - seizeSupplyAmount_TargetCollateralAsset at the updated index
         (err, localResults.updatedSupplyBalance_TargetCollateralAsset) = sub(localResults.currentSupplyBalance_TargetCollateralAsset, localResults.seizeSupplyAmount_TargetCollateralAsset);
-        // The sub won&#39;t underflow because because seizeSupplyAmount_TargetCollateralAsset <= target user&#39;s collateral balance
+        // The sub won't underflow because because seizeSupplyAmount_TargetCollateralAsset <= target user's collateral balance
         // maxCloseableBorrowAmount_TargetUnderwaterAsset is limited by the discounted borrow denominated collateral. That limits closeBorrowAmount_TargetUnderwaterAsset
         // which in turn limits seizeSupplyAmount_TargetCollateralAsset.
         assert (err == Error.NO_ERROR);
 
-        // We checkpoint the liquidating user&#39;s assetCollateral supply balance, supplyCurrent + seizeSupplyAmount_TargetCollateralAsset at the updated index
+        // We checkpoint the liquidating user's assetCollateral supply balance, supplyCurrent + seizeSupplyAmount_TargetCollateralAsset at the updated index
         (err, localResults.updatedSupplyBalance_LiquidatorCollateralAsset) = add(localResults.currentSupplyBalance_LiquidatorCollateralAsset, localResults.seizeSupplyAmount_TargetCollateralAsset);
-        // We can&#39;t overflow here because if this would overflow, then we would have already overflowed above and failed
+        // We can't overflow here because if this would overflow, then we would have already overflowed above and failed
         // with LIQUIDATE_NEW_TOTAL_SUPPLY_BALANCE_CALCULATION_FAILED_LIQUIDATOR_COLLATERAL_ASSET
         assert (err == Error.NO_ERROR);
 
@@ -2351,7 +2351,7 @@ contract MoneyMarket is Exponential, SafeToken {
         // We ERC-20 transfer the asset into the protocol (note: pre-conditions already checked above)
         err = doTransferIn(assetBorrow, localResults.liquidator, localResults.closeBorrowAmount_TargetUnderwaterAsset);
         if (err != Error.NO_ERROR) {
-            // This is safe since it&#39;s our first interaction and it didn&#39;t do anything if it failed
+            // This is safe since it's our first interaction and it didn't do anything if it failed
             return fail(err, FailureInfo.LIQUIDATE_TRANSFER_IN_FAILED);
         }
 
@@ -2365,7 +2365,7 @@ contract MoneyMarket is Exponential, SafeToken {
         borrowMarket.borrowIndex = localResults.newBorrowIndex_UnderwaterAsset;
 
         // Save collateral market updates
-        // We didn&#39;t calculate new rates for collateralMarket (because neither cash nor borrows changed), just new indexes and total supply.
+        // We didn't calculate new rates for collateralMarket (because neither cash nor borrows changed), just new indexes and total supply.
         collateralMarket.blockNumber = getBlockNumber();
         collateralMarket.totalSupply = localResults.newTotalSupply_ProtocolCollateralAsset;
         collateralMarket.supplyIndex = localResults.newSupplyIndex_CollateralAsset;
@@ -2412,7 +2412,7 @@ contract MoneyMarket is Exponential, SafeToken {
 
     /**
       * @dev This should ONLY be called if market is supported. It returns shortfall / [Oracle price for the borrow * (collateralRatio - liquidationDiscount - 1)]
-      *      If the market isn&#39;t supported, we support liquidation of asset regardless of shortfall because we want borrows of the unsupported asset to be closed.
+      *      If the market isn't supported, we support liquidation of asset regardless of shortfall because we want borrows of the unsupported asset to be closed.
       *      Note that if collateralRatio = liquidationDiscount + 1, then the denominator will be zero and the function will fail with DIVISION_BY_ZERO.
       **/
     function calculateDiscountedRepayToEvenAmount(address targetAccount, Exp memory underwaterAssetPrice) internal view returns (Error, uint) {
@@ -2424,7 +2424,7 @@ contract MoneyMarket is Exponential, SafeToken {
         Exp memory discountedPrice_UnderwaterAsset;
         Exp memory rawResult;
 
-        // we calculate the target user&#39;s shortfall, denominated in Ether, that the user is below the collateral ratio
+        // we calculate the target user's shortfall, denominated in Ether, that the user is below the collateral ratio
         (err, _accountLiquidity, accountShortfall_TargetUser) = calculateAccountLiquidity(targetAccount);
         if (err != Error.NO_ERROR) {
             return (err, 0);
@@ -2444,11 +2444,11 @@ contract MoneyMarket is Exponential, SafeToken {
         // calculateAccountLiquidity multiplies underwaterAssetPrice by collateralRatio
         // discountedCollateralRatioMinusOne < collateralRatio
         // so if underwaterAssetPrice * collateralRatio did not overflow then
-        // underwaterAssetPrice * discountedCollateralRatioMinusOne can&#39;t overflow either
+        // underwaterAssetPrice * discountedCollateralRatioMinusOne can't overflow either
         assert(err == Error.NO_ERROR);
 
         (err, rawResult) = divExp(accountShortfall_TargetUser, discountedPrice_UnderwaterAsset);
-        // It&#39;s theoretically possible an asset could have such a low price that it truncates to zero when discounted.
+        // It's theoretically possible an asset could have such a low price that it truncates to zero when discounted.
         if (err != Error.NO_ERROR) {
             return (err, 0);
         }
@@ -2517,7 +2517,7 @@ contract MoneyMarket is Exponential, SafeToken {
         Exp memory rawResult;
 
         (err, liquidationMultiplier) = addExp(Exp({mantissa: mantissaOne}), liquidationDiscount);
-        // liquidation discount will be enforced < 1, so 1 + liquidationDiscount can&#39;t overflow.
+        // liquidation discount will be enforced < 1, so 1 + liquidationDiscount can't overflow.
         assert(err == Error.NO_ERROR);
 
         (err, priceUnderwaterAssetTimesLiquidationMultiplier) = mulExp(underwaterAssetPrice, liquidationMultiplier);
@@ -2561,7 +2561,7 @@ contract MoneyMarket is Exponential, SafeToken {
             return fail(Error.MARKET_NOT_SUPPORTED, FailureInfo.BORROW_MARKET_NOT_SUPPORTED);
         }
 
-        // We calculate the newBorrowIndex, user&#39;s borrowCurrent and borrowUpdated for the asset
+        // We calculate the newBorrowIndex, user's borrowCurrent and borrowUpdated for the asset
         (err, localResults.newBorrowIndex) = calculateInterestIndex(market.borrowIndex, market.borrowRateMantissa, market.blockNumber, getBlockNumber());
         if (err != Error.NO_ERROR) {
             return fail(err, FailureInfo.BORROW_NEW_BORROW_INDEX_CALCULATION_FAILED);
@@ -2584,7 +2584,7 @@ contract MoneyMarket is Exponential, SafeToken {
             return fail(err, FailureInfo.BORROW_NEW_TOTAL_BALANCE_CALCULATION_FAILED);
         }
 
-        // We calculate the protocol&#39;s totalBorrow by subtracting the user&#39;s prior checkpointed balance, adding user&#39;s updated borrow with fee
+        // We calculate the protocol's totalBorrow by subtracting the user's prior checkpointed balance, adding user's updated borrow with fee
         (err, localResults.newTotalBorrows) = addThenSub(market.totalBorrows, localResults.userBorrowUpdated, borrowBalance.principal);
         if (err != Error.NO_ERROR) {
             return fail(err, FailureInfo.BORROW_NEW_TOTAL_BORROW_CALCULATION_FAILED);
@@ -2646,7 +2646,7 @@ contract MoneyMarket is Exponential, SafeToken {
         // We ERC-20 transfer the asset into the protocol (note: pre-conditions already checked above)
         err = doTransferOut(asset, msg.sender, amount);
         if (err != Error.NO_ERROR) {
-            // This is safe since it&#39;s our first interaction and it didn&#39;t do anything if it failed
+            // This is safe since it's our first interaction and it didn't do anything if it failed
             return fail(err, FailureInfo.BORROW_TRANSFER_OUT_FAILED);
         }
 

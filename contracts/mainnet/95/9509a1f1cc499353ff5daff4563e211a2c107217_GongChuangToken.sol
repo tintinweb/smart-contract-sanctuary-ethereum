@@ -50,7 +50,7 @@ contract GongChuangToken is BaseToken {
     function GongChuangToken() public {
         totalSupply =  100000000000  * (10 ** uint256(decimals)) ;
         balanceOf[msg.sender] = totalSupply;
-        name = &#39;GongChuangToken&#39;;
-        symbol = &#39;GCT&#39;;
+        name = 'GongChuangToken';
+        symbol = 'GCT';
     }
 }

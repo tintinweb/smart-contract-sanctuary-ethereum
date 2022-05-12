@@ -112,7 +112,7 @@ contract RPS {
     ///   - at least one non-punctuation character
     /// Note that we deliberately exclude characters which may cause
     /// security problems for websites and databases if escaping is
-    /// not performed correctly, such as < > " and &#39;.
+    /// not performed correctly, such as < > " and '.
     /// Apologies for the lack of non-English language support.
     function validateNameInternal(string _name) constant internal
     returns (bool allowed) {
@@ -160,7 +160,7 @@ contract RPS {
     /// Name must only include upper and lowercase English letters,
     /// numbers, and certain characters: ! ( ) - . _ SPACE
     /// Function will return false if the name is not valid
-    /// or if it&#39;s too similar to a name that&#39;s already taken.
+    /// or if it's too similar to a name that's already taken.
     function setName(string name) returns (bool success) {
         require (validateNameInternal(name));
         uint fuzzyHash = computeNameFuzzyHash(name);
@@ -197,7 +197,7 @@ contract RPS {
     /// encrypted with keccak256(uint move, string secret) and
     /// save the secret so you can reveal your move
     /// after your game is joined.
-    /// It&#39;s very easy to mess up the padding and stuff,
+    /// It's very easy to mess up the padding and stuff,
     /// so you should just use the website.
     //}
     function createGame(bytes32 move, uint val, address player2)
@@ -249,11 +249,11 @@ contract RPS {
         Game storage thisGame = games[gameId];
         require(thisGame.state == State.Joined);
         require(thisGame.player1 == msg.sender);
-        require(thisGame.gameStart + revealTime >= now); // It&#39;s not too late to reveal
+        require(thisGame.gameStart + revealTime >= now); // It's not too late to reveal
         require(thisGame.hiddenMove1 == keccak256(uint(move), secret));
         thisGame.move1 = move;
         if (move > 0 && move <= 3) {
-            result = Result(((3 + move - thisGame.move2) % 3) + 1); // It works trust me (it&#39;s &#39;cause of math)
+            result = Result(((3 + move - thisGame.move2) % 3) + 1); // It works trust me (it's 'cause of math)
         }
         else { // Player 1 submitted invalid move
             result = Result.Loss;
@@ -286,8 +286,8 @@ contract RPS {
         GameEnded(thisGame.player1, thisGame.player2, gameId, thisGame.value, result);
     }
     
-    /// Use this when you know you&#39;ve lost as player 1 and
-    /// you don&#39;t want to bother with revealing your move.
+    /// Use this when you know you've lost as player 1 and
+    /// you don't want to bother with revealing your move.
     function forfeitGame(uint gameId) notPaused returns (bool success) {
         Game storage thisGame = games[gameId];
         require(thisGame.state == State.Joined);

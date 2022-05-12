@@ -9,7 +9,7 @@ pragma solidity ^0.4.20;
 * //*** Developed By:
 *   _____       _         _         _ ___ _         
 *  |_   _|__ __| |_  _ _ (_)__ __ _| | _ (_)___ ___ 
-*    | |/ -_) _| &#39; \| &#39; \| / _/ _` | |   / (_-</ -_)
+*    | |/ -_) _| ' \| ' \| / _/ _` | |   / (_-</ -_)
 *    |_|\___\__|_||_|_||_|_\__\__,_|_|_|_\_/__/\___|
 *   
 *   &#169; 2018 TechnicalRise.  Written in March 2018.  
@@ -70,7 +70,7 @@ contract SimplePHXSalesContract {
         uint Ndx = AddrNdx[_offeror];
         nxtAddr--;
 
-        // If this isn&#39;t the only offer, reshuffle the array
+        // If this isn't the only offer, reshuffle the array
         // Moving the last entry to the middle of the list
         if (nxtAddr > 1) {
             offerors[Ndx] = offerors[nxtAddr];

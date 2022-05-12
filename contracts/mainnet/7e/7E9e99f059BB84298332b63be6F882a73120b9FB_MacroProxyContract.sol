@@ -29,9 +29,9 @@ contract MacroProxyContract is IERC20Token {
     address public proxyManagementAddress;
     bool public proxyWorking;
 
-    string public standard = &#39;MacroERC20Proxy&#39;;
-    string public name = &#39;Macro&#39;;
-    string public symbol = &#39;MCR&#39;;
+    string public standard = 'MacroERC20Proxy';
+    string public name = 'Macro';
+    string public symbol = 'MCR';
     uint8 public decimals = 8;
 
     IToken tokenContract;

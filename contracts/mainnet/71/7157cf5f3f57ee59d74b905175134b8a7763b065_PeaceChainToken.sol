@@ -1,10 +1,10 @@
-//  The PeaceChain(PPAA) is the emotional module of conveying blessings and peace. It&#39;s intention is to solve the problems of the emotional weakening about Network Age.
+//  The PeaceChain(PPAA) is the emotional module of conveying blessings and peace. It's intention is to solve the problems of the emotional weakening about Network Age.
 //  Token name: PeaceChainToken
 //  Symbol: PPAA
 //  TotalSupply:1,300,000,000
 //  Decimals: 18
 //  website: https://www.PeaceChain.top
-//  Through in-deep internal communication, we can promote interpersonal ties and emotions between people, and enhance everyone&#39;s sense of security on the blockchain.
+//  Through in-deep internal communication, we can promote interpersonal ties and emotions between people, and enhance everyone's sense of security on the blockchain.
 
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) external; }
 
@@ -156,7 +156,7 @@ contract PeaceChainToken {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -168,7 +168,7 @@ contract PeaceChainToken {
 //  The PPAA is a block of quality that conveys emotion.
 //  One of the best expectations.
 //  The Peace is wealth, passing on the honor of life.
-//  The PeaceChain(PPAA) is the emotional module of conveying blessings and peace. It&#39;s intention is to solve the problems of the emotional weakening about Network Age.
+//  The PeaceChain(PPAA) is the emotional module of conveying blessings and peace. It's intention is to solve the problems of the emotional weakening about Network Age.
 //  Token name: PeaceChainToken
 //  Symbol: PPAA
 //  TotalSupply:1,300,000,000

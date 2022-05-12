@@ -1,7 +1,7 @@
 pragma solidity ^0.4.14;
 
 /* &#169;RomanLanskoj 2017
-I can create the cryptocurrency Ethereum-token for you, with any total or initial supply,  enable the owner to create new tokens or without it,  custom currency rates (can make the token&#39;s value be backed by ether (or other tokens) by creating a fund that automatically sells and buys them at market value) and other features. 
+I can create the cryptocurrency Ethereum-token for you, with any total or initial supply,  enable the owner to create new tokens or without it,  custom currency rates (can make the token's value be backed by ether (or other tokens) by creating a fund that automatically sells and buys them at market value) and other features. 
 Full support and privacy
 
 Only you will be able to issue it and only you will have all the copyrights!

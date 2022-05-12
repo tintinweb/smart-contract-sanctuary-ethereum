@@ -176,7 +176,7 @@ contract SunContractIco is owned{
     if (this.balance == 0) throw;                                            // Check if there is balance on the contract     
     if (totalEthRaised < minEthToRaise) throw;                               // Check if minEthToRaise treshold is exceeded     
       
-    if(multisigAddress.send(this.balance)){}                                 // Send the contract&#39;s balance to multisig address   
+    if(multisigAddress.send(this.balance)){}                                 // Send the contract's balance to multisig address   
   }
   
   function endIco() onlyOwner {

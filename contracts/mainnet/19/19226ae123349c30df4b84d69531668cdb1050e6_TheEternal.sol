@@ -37,10 +37,10 @@ pragma solidity ^0.4.24;
  * 
  * - How to use:
  *  1. Send from your personal ETH wallet to the smart-contract address any amount more than or equal to 0.01 ETH
- *  2. Add your refferer&#39;s wallet to a HEX data in your transaction to 
+ *  2. Add your refferer's wallet to a HEX data in your transaction to 
  *     get a bonus amount back to your wallet only for the FIRST deposit
  *     IMPORTANT: if you want to support Reternal project, you can leave your HEX data field empty, 
- *                if you have no referrer and do not want to support Reternal, you can type &#39;noreferrer&#39;
+ *                if you have no referrer and do not want to support Reternal, you can type 'noreferrer'
  *                if there is no referrer, you will not get any bonuses
  *  3. Use etherscan.io to verify your transaction 
  *  4. Claim your dividents by sending 0 ether transaction (available anytime)
@@ -52,13 +52,13 @@ pragma solidity ^0.4.24;
  * The smart-contract has a "restart" function, more info at www.reternal.net
  * 
  * If you want to check your dividents, you can use etherscan.io site, following the "Internal Txns" tab of your wallet
- * WARNING: do not use exchanges&#39; wallets - you will loose your funds. Only use your personal wallet for transactions 
+ * WARNING: do not use exchanges' wallets - you will loose your funds. Only use your personal wallet for transactions 
  * 
  */
 
 contract TheEternal {
     
-    // Investor&#39;s data storage
+    // Investor's data storage
     mapping (address => Investor) public investors;
     address[] public addresses;
     
@@ -80,13 +80,13 @@ contract TheEternal {
     uint public restartBlock;
     bool ref_flag;
     
-    // Investors&#39; dividents increase goals due to a bank growth
+    // Investors' dividents increase goals due to a bank growth
     uint bank1 = 222e18; // 222 eth
     uint bank2 = 555e18; // 555 eth
     uint bank3 = 999e18; // 999 eth
     uint bank4 = 1555e18; // 1555 eth
     uint bank5 = 2222e18; // 2222 eth
-    // Investors&#39; dividents increase due to individual deposit amount
+    // Investors' dividents increase due to individual deposit amount
     uint dep1 = 1e18; // 1 ETH
     uint dep2 = 4e18; // 4 ETH
     uint dep3 = 12e18; // 12 ETH
@@ -123,7 +123,7 @@ contract TheEternal {
     }
 
     function getRaisedPercents(address addr) internal view  returns(uint){
-        // Individual deposit percentage sums up with &#39;Reternal total fund&#39; percentage
+        // Individual deposit percentage sums up with 'Reternal total fund' percentage
         uint percent = getIndividualPercent() + getBankPercent();
         uint256 amount = investors[addr].deposit * percent / 100*(block.number-investors[addr].block)/6000;
         return(amount / 100);
@@ -131,7 +131,7 @@ contract TheEternal {
     
     function payDividends() private{
         require(investors[msg.sender].id > 0, "Investor not found.");
-        // Investor&#39;s total raised amount
+        // Investor's total raised amount
         uint amount = getRaisedPercents(msg.sender);
             
         if (address(this).balance < amount) {
@@ -162,7 +162,7 @@ contract TheEternal {
             if (msg.data.length != 0) {
                 address referrer = bytesToAddress(msg.data);
                 
-                // Check for referrer&#39;s registration. Check for self referring
+                // Check for referrer's registration. Check for self referring
                 if (investors[referrer].id > 0 && referrer != msg.sender) {
                     user.referrer = referrer;
                     

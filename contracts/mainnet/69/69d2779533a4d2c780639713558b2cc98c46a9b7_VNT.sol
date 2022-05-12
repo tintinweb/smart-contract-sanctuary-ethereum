@@ -32,8 +32,8 @@ contract SafeMath {
 }
 
 contract VNT is SafeMath {
-    string constant tokenName = &#39;VNTChain&#39;;
-    string constant tokenSymbol = &#39;VNT&#39;;
+    string constant tokenName = 'VNTChain';
+    string constant tokenSymbol = 'VNT';
     uint8 constant decimalUnits = 8;
 
     string public name;

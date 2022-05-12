@@ -41,7 +41,7 @@ contract SaintArnouldToken {
         fundingEndBlock = _fundingEndBlock;
     }
 
-    /// @notice Transfer `_value` SAT tokens from sender&#39;s account
+    /// @notice Transfer `_value` SAT tokens from sender's account
     /// `msg.sender` to provided account address `_to`.
     /// @param _to The address of the tokens recipient
     /// @param _value The amount of token to be transferred

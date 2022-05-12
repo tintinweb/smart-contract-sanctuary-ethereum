@@ -112,8 +112,8 @@ contract StandardToken is ERC20, BasicToken {
 }
 
 contract EBCBToken is StandardToken {
-    string public name = &#39;EBCBToken&#39;;
-	string public symbol = &#39;EBCB&#39;;
+    string public name = 'EBCBToken';
+	string public symbol = 'EBCB';
 	uint8 public decimals = 2;
 	uint public INITIAL_SUPPLY = 100000000;
 	address public ceoAddress;

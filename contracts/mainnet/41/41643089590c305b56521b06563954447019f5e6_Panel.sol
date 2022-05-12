@@ -22,7 +22,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -42,9 +42,9 @@ contract Panel is IERC20 {
     
     using SafeMath for uint256;
   
-    string public symbol = &#39;PAN&#39;;
+    string public symbol = 'PAN';
 
-    string public name = &#39;Panel&#39;;
+    string public name = 'Panel';
     
     uint8 public constant decimals = 18;
     
@@ -62,7 +62,7 @@ contract Panel is IERC20 {
     uint8 public currentSaleDay = 1; 
     uint8 public currentBonus = 100;
     
-    string public startDate = &#39;2017-09-16 18:00&#39;;
+    string public startDate = '2017-09-16 18:00';
     
     address public owner;
     
@@ -186,7 +186,7 @@ contract Panel is IERC20 {
         require(
             (allowed[_from][msg.sender] >= _value) // Check allowance
             && (balances[_from] >= _value) // Check if the sender has enough
-            && (_value > 0) // Don&#39;t allow 0value transfer
+            && (_value > 0) // Don't allow 0value transfer
             && (_to != address(0)) // Prevent transfer to 0x0 address
             && (balances[_to].add(_value) >= balances[_to]) // Check for overflows
             && (msg.data.length >= (2 * 32) + 4) //mitigates the ERC20 short address attack

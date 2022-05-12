@@ -312,7 +312,7 @@ contract BetstreakICO is owned, safeMath {
     function refund() { 
         
         // any contributor can call this to have their Eth returned. 
-        // user&#39;s purchased BST tokens are burned prior refund of Eth.
+        // user's purchased BST tokens are burned prior refund of Eth.
         //require minCap not reached
         
       require ((amountRaisedInWei < fundingMinCapInWei)
@@ -320,7 +320,7 @@ contract BetstreakICO is owned, safeMath {
       && (block.number > fundingEndBlock)
       && (fundValue[msg.sender] > 0));
 
-      //burn user&#39;s token BST token balance, refund Eth sent
+      //burn user's token BST token balance, refund Eth sent
       uint256 ethRefund = fundValue[msg.sender];
       balancesArray[msg.sender] = 0;
       fundValue[msg.sender] = 0;

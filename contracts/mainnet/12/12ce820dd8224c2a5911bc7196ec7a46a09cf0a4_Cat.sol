@@ -6,7 +6,7 @@ pragma solidity ^0.4.16;
  */
 contract Owned {
 
-    /* Owner&#39;s address */
+    /* Owner's address */
     address owner;
 
     /**
@@ -248,16 +248,16 @@ contract Token is ERC20 {
 
 
 /**
- * @title Cat&#39;s Token, miaow!!!
+ * @title Cat's Token, miaow!!!
  *
- * @dev Defines token with name "Cat&#39;s Token", symbol "CTS"
+ * @dev Defines token with name "Cat's Token", symbol "CTS"
  * and 3 digits after the point
  */
-contract Cat is Token("Cat&#39;s Token", "CTS", 3), Owned {
+contract Cat is Token("Cat's Token", "CTS", 3), Owned {
 
     /**
      * @dev Emits specified number of tokens. Only owner can emit.
-     * Emitted tokens are credited to owner&#39;s account
+     * Emitted tokens are credited to owner's account
      *
      * @param _value number of emitting tokens
      * @return true if emission succeeded, false otherwise

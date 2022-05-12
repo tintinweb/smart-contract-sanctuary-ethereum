@@ -254,7 +254,7 @@ contract BurnableToken is StandardToken,Ownable {
         require(_value > 0);
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
         address burner = msg.sender;
         balances[burner] = safeSub(balances[burner], _value);
         totalSupply = safeSub(totalSupply, _value);

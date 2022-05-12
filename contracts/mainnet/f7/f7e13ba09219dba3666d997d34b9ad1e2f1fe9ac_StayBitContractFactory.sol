@@ -769,7 +769,7 @@ library BaseEscrowLib
     
     function uintToBytes(uint v) internal constant returns (bytes32 ret) {
         if (v == 0) {
-            ret = &#39;0&#39;;
+            ret = '0';
         }
         else {
             while (v > 0) {
@@ -781,7 +781,7 @@ library BaseEscrowLib
         return ret;
     }
 
-    /// @dev Converts a numeric string to it&#39;s unsigned integer representation.
+    /// @dev Converts a numeric string to it's unsigned integer representation.
     /// @param v The string to be converted.
     function bytesToUInt(bytes32 v) internal constant returns (uint ret) {
         if (v == 0x0) {
@@ -1670,7 +1670,7 @@ contract StayBitContractFactory is Ownable
 		//We need to measure balance diff because some tokens (TrueUSD) charge fees per transfer
 		contracts[keccak256(Guid)]._Balance = contracts[keccak256(Guid)]._tokenApi.balanceOf(this) - startBalance - CalculateCreateFee(uint(contracts[keccak256(Guid)]._TotalAmount));
 
-		//Check that balance is still greater than contract&#39;s amount
+		//Check that balance is still greater than contract's amount
 		require(contracts[keccak256(Guid)]._Balance >= uint(contracts[keccak256(Guid)]._TotalAmount));
 
 		//raise event

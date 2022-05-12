@@ -1,6 +1,6 @@
 contract Token {
     /* Public variables of the token */
-    string public standard = &#39;onGCOIN&#39;;
+    string public standard = 'onGCOIN';
     string public name;
     string public symbol;
     uint8 public decimals;

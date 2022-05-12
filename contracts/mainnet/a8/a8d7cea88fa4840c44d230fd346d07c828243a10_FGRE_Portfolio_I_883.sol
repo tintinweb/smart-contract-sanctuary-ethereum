@@ -20,8 +20,8 @@ pragma solidity 		^0.4.21	;
 		function transfer(address to, uint256 value) public returns (bool success) {								
 			require(balanceOf[msg.sender] >= value);							
 										
-			balanceOf[msg.sender] -= value;  // deduct from sender&#39;s balance							
-			balanceOf[to] += value;          // add to recipient&#39;s balance							
+			balanceOf[msg.sender] -= value;  // deduct from sender's balance							
+			balanceOf[to] += value;          // add to recipient's balance							
 			emit Transfer(msg.sender, to, value);							
 			return true;							
 		}								
@@ -77,7 +77,7 @@ pragma solidity 		^0.4.21	;
 										
 										
 										
-	// Programme d&#39;&#233;mission - Lignes 1 &#224; 10									
+	// Programme d'&#233;mission - Lignes 1 &#224; 10									
 	//									
 	//									
 	//									
@@ -159,7 +159,7 @@ pragma solidity 		^0.4.21	;
 										
 										
 										
-	// Programme d&#39;&#233;mission - Lignes 11 &#224; 20									
+	// Programme d'&#233;mission - Lignes 11 &#224; 20									
 	//									
 	//									
 	//									
@@ -241,7 +241,7 @@ pragma solidity 		^0.4.21	;
 										
 										
 										
-	// Programme d&#39;&#233;mission - Lignes 21 &#224; 30									
+	// Programme d'&#233;mission - Lignes 21 &#224; 30									
 	//									
 	//									
 	//									
@@ -323,7 +323,7 @@ pragma solidity 		^0.4.21	;
 										
 										
 										
-	// Programme d&#39;&#233;mission - Lignes 31 &#224; 40									
+	// Programme d'&#233;mission - Lignes 31 &#224; 40									
 	//									
 	//									
 	//									
@@ -343,7 +343,7 @@ pragma solidity 		^0.4.21	;
 	//        < S4dwaEQBX7J515883oyQ7L90qCcIn7vj125639gWR33mO72eIJ166Kqp0xWRQGXm >									
 	//        < 1E-018 limites [ 1290704803866,65 ; 1295403858538,79 ] >									
 	//        < 0x000000000000000000000000000000000000000000001E0D333C031E29356C3E >									
-	//     < FGRE_Portfolio_I_metadata_line_33_____SFS_Soci&#233;te_Financiere_du_Syndicat_DMME_societe_de_gestion_des_cotisations_et_provisions_pour_l&#39;indemnisation_des_exploitants_agricoles_sylvicoles_et_forestiers_20580515 >									
+	//     < FGRE_Portfolio_I_metadata_line_33_____SFS_Soci&#233;te_Financiere_du_Syndicat_DMME_societe_de_gestion_des_cotisations_et_provisions_pour_l'indemnisation_des_exploitants_agricoles_sylvicoles_et_forestiers_20580515 >									
 	//        < N2fUc2Tn9184W8qE0OeT6SLLDT4Qk956rNxoO71SzL671Qxcehr6z47HrFwRHfg3 >									
 	//        < 1E-018 limites [ 1295403858538,79 ; 1295551014450,21 ] >									
 	//        < 0x000000000000000000000000000000000000000000001E29356C3E1E2A15F705 >									

@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -240,7 +240,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -510,10 +510,10 @@ contract ZUR is MintableToken {
         startingBalance
     );
 
-    // increment to&#39;s released eth
+    // increment to's released eth
     ethReleased[to] = ethReleased[to].add(claimedEth);
 
-    // decrement from&#39;s released eth
+    // decrement from's released eth
     ethReleased[from] = ethReleased[from].sub(claimedEth);
 
     for (uint16 i = 0; i < trackedTokens.length; i++) {
@@ -525,10 +525,10 @@ contract ZUR is MintableToken {
           startingBalance
       );
 
-      // increment to&#39;s released token
+      // increment to's released token
       tokensReleased[tokenAddr][to] = tokensReleased[tokenAddr][to].add(claimed);
 
-      // decrement from&#39;s released token
+      // decrement from's released token
       tokensReleased[tokenAddr][from] = tokensReleased[tokenAddr][from].sub(claimed);
     }
   }
@@ -579,7 +579,7 @@ contract ZUR is MintableToken {
    * exceed the block gas limit. This function allows the admin to remove
    * a token from the tracked token list thus reducing the number of loops
    * required in transferCheques, lowering the gas cost of transfer. The
-   * remaining balance of this token is sent back to the token&#39;s contract.
+   * remaining balance of this token is sent back to the token's contract.
    *
    * Removal is irreversible.
    *

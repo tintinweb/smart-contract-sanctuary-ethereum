@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-// &#39;nOS&#39; token contract
+// 'nOS' token contract
 //
 // Deployed to : 0x1bcfc25ec1cfafafa46b329f55d47a138957193c
 // Symbol      : nOS
@@ -77,7 +77,7 @@ contract nOS {
         uint amountRaised;                                     
         amountRaised += msg.value;                            //many thanks bois, couldnt do it without r/me_irl
         require(balanceOf[creator] >= amount);               // checks if it has enough to sell
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= amount;                        // sends ETH to DatBoiCoinMint
         Transfer(creator, msg.sender, amount);               // execute an event reflecting the change
         creator.transfer(amountRaised);

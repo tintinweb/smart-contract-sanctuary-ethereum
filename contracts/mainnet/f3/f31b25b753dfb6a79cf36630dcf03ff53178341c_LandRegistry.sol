@@ -118,7 +118,7 @@ contract Claimable is Ownable {
  * Any property not indexed in `this.landRegistry` is NOT verified legitimate by blockimmo.
  *
  * `TokenizedProperty` references `this` to only allow tokens of verified properties to be transferred.
- * Any (unmodified) `TokenizedProperty`&#39;s tokens will be transferable if and only if it is indexed in `this.landRegistry` (otherwise locked).
+ * Any (unmodified) `TokenizedProperty`'s tokens will be transferable if and only if it is indexed in `this.landRegistry` (otherwise locked).
  *
  * `LandRegistryProxy` enables `this` to be easily and reliably upgraded if absolutely necessary.
  * `LandRegistryProxy` and `this` are controlled by a centralized entity.
@@ -133,7 +133,7 @@ contract LandRegistry is Claimable {
   event Untokenized(string eGrid, address indexed property);
 
   /**
-   * this function&#39;s abi should never change and always maintain backwards compatibility
+   * this function's abi should never change and always maintain backwards compatibility
    */
   function getProperty(string _eGrid) public view returns (address property) {
     property = landRegistry[_eGrid];

@@ -15,7 +15,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0, "div by 0"); // Solidity automatically throws for div by 0 but require to emit reason
         uint256 c = a / b;
-        // require(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // require(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -55,7 +55,7 @@ library SafeMath {
 
 contract Restricted {
 
-    // NB: using bytes32 rather than the string type because it&#39;s cheaper gas-wise:
+    // NB: using bytes32 rather than the string type because it's cheaper gas-wise:
     mapping (address => mapping (bytes32 => bool)) public permissions;
 
     event PermissionGranted(address indexed agent, bytes32 grantedPermission);
@@ -363,7 +363,7 @@ contract AugmintToken is AugmintTokenInterface {
         Reverts on failue:
             - transfer fails
             - if transferNotification fails (callee must revert on failure)
-            - if targetContract is an account or targetContract doesn&#39;t have neither transferNotification or fallback fx
+            - if targetContract is an account or targetContract doesn't have neither transferNotification or fallback fx
         TODO: make data param generic bytes (see receiver code attempt in Locker.transferNotification)
     */
     function transferAndNotify(TokenReceiver target, uint amount, uint data) external {
@@ -426,7 +426,7 @@ contract AugmintToken is AugmintTokenInterface {
     function _transferFrom(address from, address to, uint256 amount, string narrative) private {
         require(balances[from] >= amount, "balance must >= amount");
         require(allowed[from][msg.sender] >= amount, "allowance must be >= amount");
-        // don&#39;t allow 0 transferFrom if no approval:
+        // don't allow 0 transferFrom if no approval:
         require(allowed[from][msg.sender] > 0, "allowance must be >= 0 even with 0 amount");
 
         /* NB: fee is deducted from owner. It can result that transferFrom of amount x to fail
@@ -495,7 +495,7 @@ NB: reserves are held under the contract address, therefore any transaction on t
 contract AugmintReserves is SystemAccount {
 
     function () public payable { // solhint-disable-line no-empty-blocks
-        // to accept ETH sent into reserve (from defaulted loan&#39;s collateral )
+        // to accept ETH sent into reserve (from defaulted loan's collateral )
     }
 
     constructor(address permissionGranterContract) public SystemAccount(permissionGranterContract) {} // solhint-disable-line no-empty-blocks

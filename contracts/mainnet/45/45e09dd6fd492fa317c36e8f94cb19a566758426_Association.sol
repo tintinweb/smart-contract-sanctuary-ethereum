@@ -3,7 +3,7 @@ pragma solidity ^0.4.2;
 contract token { mapping (address => uint256) public balanceOf;  }
 
 
-/* define &#39;owned&#39; */
+/* define 'owned' */
 contract owned {
     address public owner;
 

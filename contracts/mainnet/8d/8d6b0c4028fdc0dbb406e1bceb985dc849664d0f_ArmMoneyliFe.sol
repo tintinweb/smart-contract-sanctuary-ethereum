@@ -178,15 +178,15 @@ contract ArmMoneyliFe is ERC20Token
     string public name;                 // Название
     uint8 public decimals;              // Сколько десятичных знаков
     string public symbol;               // Идентификатор (трехбуквенный обычно)
-    string public version = &#39;1.0&#39;;      // Версия
+    string public version = '1.0';      // Версия
 
     function ArmMoneyliFe()
     {
         totalSupply = 1000000000000000000000000000;
         balances[msg.sender] = 1000000000000000000000000000;  // Передача создателю всех выпущенных монет
-        name = &#39;ArmMoneyliFe&#39;;
+        name = 'ArmMoneyliFe';
         decimals = 18;
-        symbol = &#39;AMF&#39;;
+        symbol = 'AMF';
         price = 2188183807439824;
         limit = 0;
     }

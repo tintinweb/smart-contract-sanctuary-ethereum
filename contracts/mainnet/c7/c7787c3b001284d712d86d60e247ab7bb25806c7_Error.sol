@@ -1,6 +1,6 @@
 contract Error {
   
-    string public standard = &#39;0.1&#39;;
+    string public standard = '0.1';
     string public name;
     string public symbol;
     uint8 public decimals;

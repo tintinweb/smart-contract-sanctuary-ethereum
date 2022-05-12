@@ -1,4 +1,4 @@
-// This is ERC 2.0 Token&#39;s Trading Market, Decentralized Exchange Contract. 这是一个ERC20Token的去中心化交易所合同。
+// This is ERC 2.0 Token's Trading Market, Decentralized Exchange Contract. 这是一个ERC20Token的去中心化交易所合同。
 // 支持使用以太币买卖任意满足ERC20标准的Token。其具体使用流程请参见对应文档。
 // by he.guanjun, email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="533b367d377d377d203b323d133b3c273e323a3f7d303c3e">[email&#160;protected]</a>
 // 2017-09-28 update

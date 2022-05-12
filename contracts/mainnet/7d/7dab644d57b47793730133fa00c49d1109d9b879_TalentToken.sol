@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -127,7 +127,7 @@ contract TalentToken is BasicToken {
 using SafeMath for uint256;
 
 string public name = "Talent Token";              
-string public symbol = "TAL";                               // Token&#39;s Symbol
+string public symbol = "TAL";                               // Token's Symbol
 uint8 public decimals = 18;                                 // How Many Decimals for Token
 uint256 public totalSupply = 98000000 * 10**18;             // The total supply.
 
@@ -209,7 +209,7 @@ contract TalentICO {
     bool internal isTokenDeployed = false;                    // Flag to track the token deployment -- only can be set once
 
 
-     // Founder&#39;s Address
+     // Founder's Address
     address public founderAddress = 0xe3f38940A588922F2082FE30bCAe6bB0aa633a7b;                            
     // Owner of the contract
     address public owner;                                              
@@ -265,7 +265,7 @@ contract TalentICO {
         owner = newOwner;
     }
 
-    // Used to attach the token&#39;s contract.
+    // Used to attach the token's contract.
     function setTokenAddress(address _tokenAddress) external onlyFounders nonZeroAddress(_tokenAddress) {
         require(isTokenDeployed == false);
         token = TalentToken(_tokenAddress);
@@ -273,7 +273,7 @@ contract TalentICO {
     }
 
 
-    // Used to change founder&#39;s address.
+    // Used to change founder's address.
      function setfounderAddress(address _newFounderAddress) onlyFounders  nonZeroAddress(_newFounderAddress) {
         founderAddress = _newFounderAddress;
         ChangeFoundersWalletAddress(now, founderAddress);
@@ -340,7 +340,7 @@ contract TalentICO {
          return noOfToken;
     }
 
-    // Transfers funds to founder&#39;s account.
+    // Transfers funds to founder's account.
     function fundTransfer(uint256 weiAmount) internal {
         founderAddress.transfer(weiAmount);
     }
@@ -373,7 +373,7 @@ contract TalentICO {
         return WeiRaised;
     }
 
-    //Sends ether to founder&#39;s address.
+    //Sends ether to founder's address.
     function() public payable {
         buyTokens(msg.sender);
     }

@@ -68,7 +68,7 @@ contract EnjinBuyer {
 
   function withdraw(address user){
     require(bought_tokens || kill_switch);
-    // We don&#39;t allow the crowdsale to withdraw its funds back (or anyone to do that on their behalf).
+    // We don't allow the crowdsale to withdraw its funds back (or anyone to do that on their behalf).
     require(user != sale);
     if (balances_after_buy[user]>0 && user != sale) {
         uint256 eth_to_withdraw_after_buy = balances_after_buy[user];
@@ -109,7 +109,7 @@ contract EnjinBuyer {
     if (!bought_tokens) {
       balances[msg.sender] += msg.value;
     } else {
-      // We might be getting a refund from Enjin&#39;s multisig wallet.
+      // We might be getting a refund from Enjin's multisig wallet.
       // It could also be someone who has missed the buy, so we keep
       // track of this as well so that he can safely withdraw.
       // We might get the Enjin refund from another wallet, so this

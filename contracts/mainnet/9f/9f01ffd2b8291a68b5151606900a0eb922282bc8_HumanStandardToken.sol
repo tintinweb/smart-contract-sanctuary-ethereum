@@ -88,7 +88,7 @@ contract StandardToken is Token,TokenConfig{
 }
 
 contract HumanStandardToken is StandardToken{ 
-    string public version = &#39;H0.1&#39;;    //版本
+    string public version = 'H0.1';    //版本
     function HumanStandardToken(uint256 _initialAmount, string _tokenName, uint8 _decimalUnits, string _tokenSymbol, uint256 kongtounumber) {
         balances[msg.sender] = _initialAmount; // 初始token数量给予消息发送者
         totalSupply = _initialAmount;         // 设置初始总量

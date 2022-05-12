@@ -4,7 +4,7 @@ interface tokenRecipient { function receiveApproval(address _from, uint256 _valu
 
 /*
 You should inherit from TokenBase. This implements ONLY the standard functions obeys ERC20,
-and NOTHING else. If you deploy this, you won&#39;t have anything useful.
+and NOTHING else. If you deploy this, you won't have anything useful.
 
 Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 .*/

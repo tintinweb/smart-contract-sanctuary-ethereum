@@ -266,8 +266,8 @@ contract Crowdsale is Pausable {
         if (backer.weiReceived == 0)
             backersIndex.push(_backer);
        
-        backer.tokensToSend += tokensToSend; // save contributor&#39;s total tokens sent
-        backer.weiReceived = backer.weiReceived.add(msg.value);  // save contributor&#39;s total ether contributed
+        backer.tokensToSend += tokensToSend; // save contributor's total tokens sent
+        backer.weiReceived = backer.weiReceived.add(msg.value);  // save contributor's total ether contributed
 
         if (Step.FundingPublicSale == currentStep) { // Update the total Ether received and tokens sent during public sale
             ethReceivedMain = ethReceivedMain.add(msg.value);
@@ -298,10 +298,10 @@ contract Crowdsale is Pausable {
           
         if (Step.FundingPublicSale == currentStep) {  // calculate price of token in public sale
             tokensToSend = tokenAmount;
-            require(totalTokensSent + tokensToSend + priorTokensSent <= maxCap); // Ensure that max cap hasn&#39;t been reached  
+            require(totalTokensSent + tokensToSend + priorTokensSent <= maxCap); // Ensure that max cap hasn't been reached  
         }else {
             tokensToSend = tokenAmount + (tokenAmount * 50) / 100; 
-            require(totalTokensSent + tokensToSend <= presaleCap); // Ensure that max cap hasn&#39;t been reached for presale            
+            require(totalTokensSent + tokensToSend <= presaleCap); // Ensure that max cap hasn't been reached for presale            
         }                                                        
        
         return tokensToSend;
@@ -346,7 +346,7 @@ contract Crowdsale is Pausable {
         Backer storage backer = backers[msg.sender];
 
         require(backer.weiReceived > 0);  // ensure that user has sent contribution
-        require(!backer.refunded);        // ensure that user hasn&#39;t been refunded yet
+        require(!backer.refunded);        // ensure that user hasn't been refunded yet
 
         backer.refunded = true;  // save refund status to true
         refundCount++;

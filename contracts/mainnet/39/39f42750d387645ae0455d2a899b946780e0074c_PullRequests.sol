@@ -254,7 +254,7 @@ contract Distense is Approvable {
     address public DIDTokenAddress;
 
     /*
-      Distense&#39; votable parameters
+      Distense' votable parameters
       Parameter is the perfect word` for these: "a numerical or other measurable factor forming one of a set
       that defines a system or sets the conditions of its operation".
     */
@@ -276,37 +276,37 @@ contract Distense is Approvable {
     mapping(bytes32 => Parameter) public parameters;
 
     Parameter public votingIntervalParameter;
-    bytes32 public votingIntervalParameterTitle = &#39;votingInterval&#39;;
+    bytes32 public votingIntervalParameterTitle = 'votingInterval';
 
     Parameter public pctDIDToDetermineTaskRewardParameter;
-    bytes32 public pctDIDToDetermineTaskRewardParameterTitle = &#39;pctDIDToDetermineTaskReward&#39;;
+    bytes32 public pctDIDToDetermineTaskRewardParameterTitle = 'pctDIDToDetermineTaskReward';
 
     Parameter public pctDIDRequiredToMergePullRequest;
-    bytes32 public pctDIDRequiredToMergePullRequestTitle = &#39;pctDIDRequiredToMergePullRequest&#39;;
+    bytes32 public pctDIDRequiredToMergePullRequestTitle = 'pctDIDRequiredToMergePullRequest';
 
     Parameter public maxRewardParameter;
-    bytes32 public maxRewardParameterTitle = &#39;maxReward&#39;;
+    bytes32 public maxRewardParameterTitle = 'maxReward';
 
     Parameter public numDIDRequiredToApproveVotePullRequestParameter;
-    bytes32 public numDIDRequiredToApproveVotePullRequestParameterTitle = &#39;numDIDReqApproveVotePullRequest&#39;;
+    bytes32 public numDIDRequiredToApproveVotePullRequestParameterTitle = 'numDIDReqApproveVotePullRequest';
 
     Parameter public numDIDRequiredToTaskRewardVoteParameter;
-    bytes32 public numDIDRequiredToTaskRewardVoteParameterTitle = &#39;numDIDRequiredToTaskRewardVote&#39;;
+    bytes32 public numDIDRequiredToTaskRewardVoteParameterTitle = 'numDIDRequiredToTaskRewardVote';
 
     Parameter public minNumberOfTaskRewardVotersParameter;
-    bytes32 public minNumberOfTaskRewardVotersParameterTitle = &#39;minNumberOfTaskRewardVoters&#39;;
+    bytes32 public minNumberOfTaskRewardVotersParameterTitle = 'minNumberOfTaskRewardVoters';
 
     Parameter public numDIDRequiredToAddTaskParameter;
-    bytes32 public numDIDRequiredToAddTaskParameterTitle = &#39;numDIDRequiredToAddTask&#39;;
+    bytes32 public numDIDRequiredToAddTaskParameterTitle = 'numDIDRequiredToAddTask';
 
     Parameter public defaultRewardParameter;
-    bytes32 public defaultRewardParameterTitle = &#39;defaultReward&#39;;
+    bytes32 public defaultRewardParameterTitle = 'defaultReward';
 
     Parameter public didPerEtherParameter;
-    bytes32 public didPerEtherParameterTitle = &#39;didPerEther&#39;;
+    bytes32 public didPerEtherParameterTitle = 'didPerEther';
 
     Parameter public votingPowerLimitParameter;
-    bytes32 public votingPowerLimitParameterTitle = &#39;votingPowerLimit&#39;;
+    bytes32 public votingPowerLimitParameterTitle = 'votingPowerLimit';
 
     event LogParameterValueUpdate(bytes32 title, uint256 value);
 
@@ -362,7 +362,7 @@ contract Distense is Approvable {
         parameterTitles.push(numDIDRequiredToApproveVotePullRequestParameterTitle);
 
 
-        // This parameter is the number of DID an account must own to vote on a task&#39;s reward
+        // This parameter is the number of DID an account must own to vote on a task's reward
         // The task reward is the number of DID payable upon successful completion and approval of a task
 
         // This parameter mostly exists to get the percentage of DID that have voted higher per voter
@@ -435,11 +435,11 @@ contract Distense is Approvable {
         @param _voteValue integer in percentage effect.  For example if the current value of a parameter is 20, and the voter votes 24, _voteValue
         would be 20, for a 20% increase.
 
-        If _voteValue is 1 it&#39;s a max upvote, if -1 max downvote. Maximum votes, as just mentioned, affect parameter values by
+        If _voteValue is 1 it's a max upvote, if -1 max downvote. Maximum votes, as just mentioned, affect parameter values by
         max(percentage of DID owned by the voter, value of the votingLimit parameter).
         If _voteValue has a higher absolute value than 1, the user has voted a specific value not maximum up or downvote.
         In that case we update the value to the voted value if the value would affect the parameter value less than their percentage DID ownership.
-          If they voted a value that would affect the parameter&#39;s value by more than their percentage DID ownership we affect the value by their percentage DID ownership.
+          If they voted a value that would affect the parameter's value by more than their percentage DID ownership we affect the value by their percentage DID ownership.
     */
     function voteOnParameter(bytes32 _title, int256 _voteValue)
         public
@@ -453,7 +453,7 @@ contract Distense is Approvable {
 
         uint256 currentValue = getParameterValueByTitle(_title);
 
-        //  For voting power purposes, limit the pctDIDOwned to the maximum of the Voting Power Limit parameter or the voter&#39;s percentage ownership
+        //  For voting power purposes, limit the pctDIDOwned to the maximum of the Voting Power Limit parameter or the voter's percentage ownership
         //  of DID
         uint256 votingPowerLimit = getParameterValueByTitle(votingPowerLimitParameterTitle);
 
@@ -738,17 +738,17 @@ contract Tasks is Approvable {
 
         require(_reward >= 0);
 
-        //  Essentially refund the remaining gas if user&#39;s vote will have no effect
+        //  Essentially refund the remaining gas if user's vote will have no effect
         require(task.reward != (_reward * 1 ether));
 
-        // Don&#39;t let the voter vote if the reward has already been determined
+        // Don't let the voter vote if the reward has already been determined
         require(task.rewardStatus != RewardStatus.DETERMINED);
 
         //  Has the voter already voted on this task?
         require(!task.rewardVotes[msg.sender]);
 
         //  Does the voter own at least as many DID as the reward their voting for?
-        //  This ensures new contributors don&#39;t have too much sway over the issuance of new DID.
+        //  This ensures new contributors don't have too much sway over the issuance of new DID.
         require(balance > distense.getParameterValueByTitle(distense.numDIDRequiredToTaskRewardVoteParameterTitle()));
 
         //  Require the reward to be less than or equal to the maximum reward parameter,
@@ -814,7 +814,7 @@ contract Tasks is Approvable {
     }
 
     //  Allow deleting of PAID taskIds to minimize blockchain size & query time on client
-    //  taskIds are memorialized in the form of events/logs, so this doesn&#39;t truly delete them,
+    //  taskIds are memorialized in the form of events/logs, so this doesn't truly delete them,
     //  it just prevents them from slowing down query times
     function deleteTask(bytes32 _taskId) external onlyApproved returns (bool) {
         Task storage task = tasks[_taskId];
@@ -824,7 +824,7 @@ contract Tasks is Approvable {
             delete taskIds[index];
             delete tasks[_taskId];
 
-            // Move the last element to the deleted index.  If we don&#39;t do this there are no efficiencies and the index will still still be
+            // Move the last element to the deleted index.  If we don't do this there are no efficiencies and the index will still still be
             // iterated over on the client
             uint256 taskIdsLength = taskIds.length;
             if (taskIdsLength > 1) {
@@ -872,7 +872,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

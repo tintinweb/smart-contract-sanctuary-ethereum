@@ -124,6 +124,6 @@ contract BMPre_ICO {
 	}
 
 	function () payable {
-		buy(&#39;&#39;);
+		buy('');
 	}
 }

@@ -37,7 +37,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -296,7 +296,7 @@ contract HasNoContracts is Ownable {
  *   authorize them to do.
  *
  * * The crowdsale operator reserves the right to claim and keep any ETH or tokens that end up in
- *   the contract&#39;s account. During normal crowdsale operation, ETH is not stored in the contract&#39;s
+ *   the contract's account. During normal crowdsale operation, ETH is not stored in the contract's
  *   account, and is instead sent directly to the beneficiary.
  */
 contract MRVToken is StandardToken, Ownable, HasNoTokens, HasNoContracts {
@@ -402,7 +402,7 @@ contract MRVToken is StandardToken, Ownable, HasNoTokens, HasNoContracts {
     ////////////
     
     /**
-     * Only allow some actions before the crowdsale closes, whether it&#39;s open or not.
+     * Only allow some actions before the crowdsale closes, whether it's open or not.
      */
     modifier onlyBeforeClosed {
         checkCloseTimer();
@@ -486,7 +486,7 @@ contract MRVToken is StandardToken, Ownable, HasNoTokens, HasNoContracts {
      * Determine if the crowdsale is currently happening.
      */
     function isCrowdsaleActive() constant returns (bool) {
-        // The crowdsale is happening if it is open or due to open, and it isn&#39;t closed or due to close.
+        // The crowdsale is happening if it is open or due to open, and it isn't closed or due to close.
         return ((crowdsaleStarted || openTimerElapsed()) && !(crowdsaleEnded || closeTimerElapsed()));
     }
     
@@ -563,7 +563,7 @@ contract MRVToken is StandardToken, Ownable, HasNoTokens, HasNoContracts {
         
         if (newTotalSupply > (wholeTokensReserved + maxCrowdsaleSupplyInWholeTokens) * 10 ** 18) {
             // This would be too many tokens issued.
-            // Don&#39;t mess around with partial order fills.
+            // Don't mess around with partial order fills.
             throw;
         }
         

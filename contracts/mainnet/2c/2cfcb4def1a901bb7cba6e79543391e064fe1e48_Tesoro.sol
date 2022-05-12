@@ -84,7 +84,7 @@ contract owned {
 
 contract Tesoro is owned {
 
-  // The Result event is emitted when this contest is &#39;over&#39; meaning someone
+  // The Result event is emitted when this contest is 'over' meaning someone
   // has won the prize
   //
   // Anyone can then confirm that the private key generates the public address

@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken, ICOToken {
     function CustomToken() public {
         totalSupply = 200000000000000000000000000;
-        name = &#39;turepay&#39;;
-        symbol = &#39;TUP&#39;;
+        name = 'turepay';
+        symbol = 'TUP';
         decimals = 18;
         balanceOf[0x68c24aed8f1a88cba1d595fd87468d8dff92dc35] = totalSupply;
         Transfer(address(0), 0x68c24aed8f1a88cba1d595fd87468d8dff92dc35, totalSupply);

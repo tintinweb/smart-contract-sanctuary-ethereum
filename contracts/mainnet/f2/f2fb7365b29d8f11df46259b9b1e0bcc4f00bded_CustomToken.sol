@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 30000000000000000000000000000;
-        name = &#39;SDCCHAIN&#39;;
-        symbol = &#39;SDCC&#39;;
+        name = 'SDCCHAIN';
+        symbol = 'SDCC';
         decimals = 18;
         balanceOf[0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530] = totalSupply;
         Transfer(address(0), 0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530, totalSupply);

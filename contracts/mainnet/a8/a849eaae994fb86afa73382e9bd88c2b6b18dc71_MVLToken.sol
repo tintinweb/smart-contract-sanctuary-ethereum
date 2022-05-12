@@ -99,7 +99,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -338,7 +338,7 @@ contract MVLToken is BurnableToken, DetailedERC20, ERC20Token, TokenLock {
     // SafeMath.sub will throw if there is not enough balance.
     balances[_from] = balances[_from].sub(_value);
     balances[_to] = balances[_to].add(_value);
-    allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value); // this will throw if we don&#39;t have enough allowance
+    allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value); // this will throw if we don't have enough allowance
 
     // this event comes from BasicToken.sol
     emit Transfer(_from, _to, _value);
@@ -346,7 +346,7 @@ contract MVLToken is BurnableToken, DetailedERC20, ERC20Token, TokenLock {
     return true;
   }
 
-  function() public payable { // don&#39;t send eth directly to token contract
+  function() public payable { // don't send eth directly to token contract
     revert();
   }
 }

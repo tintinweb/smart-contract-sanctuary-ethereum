@@ -185,7 +185,7 @@ contract EPCSale is Math, owned {
     assert(block.number >= fundingStartBlock);
     assert(block.number <= fundingEndBlock);
     require(msg.value > 0);
-    uint256 tokens = mul(msg.value, exchangeRate()); // check that we&#39;re not over totals
+    uint256 tokens = mul(msg.value, exchangeRate()); // check that we're not over totals
     funded = add(funded, tokens);
     assert(funded <= totalCap);
     assert(epc.transfer(msg.sender, tokens));

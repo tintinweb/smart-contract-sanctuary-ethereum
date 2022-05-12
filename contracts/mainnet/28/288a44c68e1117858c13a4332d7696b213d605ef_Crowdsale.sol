@@ -129,7 +129,7 @@ contract Crowdsale{
     }
     
     function getTokenSaleType()  external constant returns(string){
-        return (TokenSale == TokenSaleType.round1)?&#39;round1&#39;:&#39;round2&#39;;
+        return (TokenSale == TokenSaleType.round1)?'round1':'round2';
     }
     
     

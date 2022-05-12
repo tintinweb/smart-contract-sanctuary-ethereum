@@ -75,7 +75,7 @@ contract InternationalTourismCoin is StandardToken {
     string public name;                   
     uint8 public decimals;               
     string public symbol;                 
-    string public version = &#39;H0.1&#39;;       
+    string public version = 'H0.1';       
 
     function InternationalTourismCoin(
         uint256 _initialAmount,

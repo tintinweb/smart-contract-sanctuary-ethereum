@@ -41,7 +41,7 @@ contract BETSale {
   //  BET token contract address (IOU offering)
   DaoCasinoToken public token = DaoCasinoToken(0x725803315519de78D232265A8f1040f054e70B98);
 
-  // The seller&#39;s address
+  // The seller's address
   address seller = 0xB00Ae1e677B27Eee9955d632FF07a8590210B366;
 
   // Halt further purchase ability just in case
@@ -116,7 +116,7 @@ contract BETSale {
 
     uint256 bet_to_withdraw = bet_purchased[msg.sender];
 
-    // Clear record of buyer&#39;s BET balance before transferring out
+    // Clear record of buyer's BET balance before transferring out
     bet_purchased[msg.sender] = 0;
 
     total_bet_withdrawn += bet_to_withdraw;
@@ -141,7 +141,7 @@ contract BETSale {
     // Update the total amount of BET purchased by all buyers over all periods of availability
     total_bet_purchased += bet_to_purchase;
 
-    // Tokens are clearly in the contract, therefore we can release ETH to seller&#39;s address
+    // Tokens are clearly in the contract, therefore we can release ETH to seller's address
     seller.transfer(msg.value);
   }
 

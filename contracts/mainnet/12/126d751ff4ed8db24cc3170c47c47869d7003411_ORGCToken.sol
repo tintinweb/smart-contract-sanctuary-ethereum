@@ -190,8 +190,8 @@ contract ORGCToken is StandardToken, Ownable{
     string public symbol;
     uint public decimals;
     constructor() public{
-        name = &#39;ORGCToken&#39;;
-        symbol = &#39;ORGC&#39;;
+        name = 'ORGCToken';
+        symbol = 'ORGC';
         decimals = 2;
         totalSupply_ = 2000000000 * 10 **uint(decimals);
         balances[msg.sender] = totalSupply_;

@@ -151,14 +151,14 @@ contract PermissionControll {
     // / @notice This is public rather than external so it can be called by
     // /  derived contracts.
     function unpause() public onlyAdmin whenPaused{
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
     
     
     /// @dev Used to mark the smart contract as upgraded, in case there is a serious
     ///  breaking bug. This method does nothing but keep track of the new contract and
-    ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+    ///  emit a message indicating that the new address is set. It's up to clients of this
     ///  contract to update to the new contract address in that case. (This contract will
     ///  be paused indefinitely if such an upgrade takes place.)
     /// @param _v2Address new address
@@ -1478,7 +1478,7 @@ library DataTypes {
     // /  is important because of the byte-packing rules used by Ethereum.
     // /  Ref: http://solidity.readthedocs.io/en/develop/miscellaneous.html
     struct Warrior{
-        // The Warrior&#39;s identity code is packed into these 256-bits
+        // The Warrior's identity code is packed into these 256-bits
         uint256 identity;
         
         uint64 cooldownEndBlock;
@@ -1567,7 +1567,7 @@ contract CryptoWarriorBase is PermissionControll, PVPListenerInterface {
     
     /// @dev Assigns ownership of a specific warrior to an address.
     function _transfer(address _from, address _to, uint256 _tokenId) internal {
-        // When creating new warriors _from is 0x0, but we can&#39;t account that address.
+        // When creating new warriors _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
             _clearApproval(_tokenId);
             _removeTokenFrom(_from, _tokenId);
@@ -1579,7 +1579,7 @@ contract CryptoWarriorBase is PermissionControll, PVPListenerInterface {
     }
     
     function _addTokenTo(address _to, uint256 _tokenId) internal {
-        // Since the number of warriors is capped to &#39;1 000 000&#39; we can&#39;t overflow this
+        // Since the number of warriors is capped to '1 000 000' we can't overflow this
         ownersTokenCount[_to]++;
         // transfer ownership
         warriorToOwner[_tokenId] = _to;
@@ -1631,7 +1631,7 @@ contract CryptoWarriorBase is PermissionControll, PVPListenerInterface {
         });
         uint256 newWarriorId = warriors.push(_warrior) - 1;
         
-        // let&#39;s just be 100% sure we never let this happen.
+        // let's just be 100% sure we never let this happen.
         require(newWarriorId == uint256(uint32(newWarriorId)));
         
         // emit the arise event
@@ -1658,18 +1658,18 @@ contract WarriorTokenImpl is CryptoWarriorBase, ERC721 {
     string public constant symbol = "CW";
 
     bytes4 constant InterfaceSignature_ERC165 =
-        bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+        bytes4(keccak256('supportsInterface(bytes4)'));
 
     bytes4 constant InterfaceSignature_ERC721 =
-        bytes4(keccak256(&#39;name()&#39;)) ^
-        bytes4(keccak256(&#39;symbol()&#39;)) ^
-        bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-        bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-        bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-        bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;tokensOfOwner(address)&#39;));
+        bytes4(keccak256('name()')) ^
+        bytes4(keccak256('symbol()')) ^
+        bytes4(keccak256('totalSupply()')) ^
+        bytes4(keccak256('balanceOf(address)')) ^
+        bytes4(keccak256('ownerOf(uint256)')) ^
+        bytes4(keccak256('approve(address,uint256)')) ^
+        bytes4(keccak256('transfer(address,uint256)')) ^
+        bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+        bytes4(keccak256('tokensOfOwner(address)'));
 
     /// @notice Introspection interface as per ERC-165 (https://github.com/ethereum/EIPs/issues/165).
     ///  Returns true for any standardized interfaces implemented by this contract. We implement
@@ -2219,7 +2219,7 @@ contract CryptoWarriorPVP is CryptoWarriorSanctuary {
         }
 		// give 100 rating for levelUp if happens and -30 for lose
 		int256 newRating = warrior.rating + (CryptoUtils._getLevel(level) > CryptoUtils._getLevel(oldLevel) ? int256(100 - 30) : int256(-30));
-		// rating can&#39;t be less than 0 and more than 1000000000
+		// rating can't be less than 0 and more than 1000000000
 	    warrior.rating = int64((newRating >= 0) ? (newRating > 1000000000 ? 1000000000 : newRating) : 0);
         // mark warrior idle, so it can participate
 		// in another actions
@@ -2448,7 +2448,7 @@ contract CryptoWarriorIssuer is CryptoWarriorAuction {
     function _computeNextMinerPrice() internal view returns (uint256) {
         uint256 avePrice = saleAuction.averageMinerSalePrice();
 
-        // Sanity check to ensure we don&#39;t overflow arithmetic
+        // Sanity check to ensure we don't overflow arithmetic
         require(avePrice == uint256(uint128(avePrice)));
 
         uint256 nextPrice = avePrice * 3 / 2;//confirmed
@@ -2520,7 +2520,7 @@ contract CryptoWarriorCore is CoreRecovery {
     }
     
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.
@@ -2801,7 +2801,7 @@ contract PVP is PausableBattle, PVPInterface {
 	// @dev Computes warrior pvp reward
     // @param _totalBet - total bet from both competitors.
     function _computePVPReward(uint256 _totalBet, uint256 _contendersCut) internal pure returns (uint256){
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         // _totalBet max value is 1000 finney, and _contendersCut aka
         // (10000 - pvpOwnerCut - tournamentBankCut - incentiveRewardCut) <= 10000 (see the require()
         // statement in the BattleProvider constructor). The result of this
@@ -2810,7 +2810,7 @@ contract PVP is PausableBattle, PVPInterface {
     }
     
     function _getPVPContendersCut(uint256 _incentiveCut) internal view returns (uint256) {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         // (pvpOwnerCut + tournamentBankCut + pvpMaxIncentiveCut) <= 10000 (see the require()
         // statement in the BattleProvider constructor). 
         // _incentiveCut is guaranteed to be >= 1 and <=  pvpMaxIncentiveCut
@@ -2820,7 +2820,7 @@ contract PVP is PausableBattle, PVPInterface {
 	// @dev Computes warrior pvp reward
     // @param _totalSessionLoot - total bets from all competitors.
     function _computeIncentiveReward(uint256 _totalSessionLoot, uint256 _incentiveCut) internal pure returns (uint256){
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         // _totalSessionLoot max value is 37500 finney, and 
         // (pvpOwnerCut + tournamentBankCut + incentiveRewardCut) <= 10000 (see the require()
         // statement in the BattleProvider constructor). The result of this
@@ -2845,7 +2845,7 @@ contract PVP is PausableBattle, PVPInterface {
     // @dev Computes warrior pvp reward
     // @param _totalSessionLoot - total bets from all competitors.
     function _computePVPBeneficiaryFee(uint256 _totalSessionLoot) internal view returns (uint256){
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         // _totalSessionLoot max value is 37500 finney, and 
         // (pvpOwnerCut + tournamentBankCut + incentiveRewardCut) <= 10000 (see the require()
         // statement in the BattleProvider constructor). The result of this
@@ -2856,7 +2856,7 @@ contract PVP is PausableBattle, PVPInterface {
     // @dev Computes tournament bank cut
     // @param _totalSessionLoot - total session loot.
     function _computeTournamentCut(uint256 _totalSessionLoot) internal view returns (uint256){
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         // _totalSessionLoot max value is 37500 finney, and 
         // (pvpOwnerCut + tournamentBankCut + incentiveRewardCut) <= 10000 (see the require()
         // statement in the BattleProvider constructor). The result of this
@@ -3254,7 +3254,7 @@ contract Tournament is PVP {
     // @dev Computes incentive reward for launching tournament finishTournament()
     // @param _tournamentBank
     function _computeTournamentIncentiveReward(uint256 _currentBank, uint256 _incentiveCut) internal pure returns (uint256){
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because _currentBank max is equal ~ 20000000 finney,
+        // NOTE: We don't use SafeMath (or similar) in this function because _currentBank max is equal ~ 20000000 finney,
         // and (tournamentOwnersCut + tournamentIncentiveCut) <= 10000 (see the require()
         // statement in the Tournament constructor). The result of this
         // function is always guaranteed to be <= _currentBank.
@@ -3269,7 +3269,7 @@ contract Tournament is PVP {
     }
     
     function _computeTournamentBeneficiaryFee(uint256 _currentBank) internal view returns (uint256){
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because _currentBank max is equal ~ 20000000 finney,
+        // NOTE: We don't use SafeMath (or similar) in this function because _currentBank max is equal ~ 20000000 finney,
         // and (tournamentOwnersCut + tournamentIncentiveCut) <= 10000 (see the require()
         // statement in the Tournament constructor). The result of this
         // function is always guaranteed to be <= _currentBank.
@@ -3391,7 +3391,7 @@ contract Tournament is PVP {
     // @dev Computes warrior pvp reward
     // @param _totalBet - total bet from both competitors.
     function _computeTournamentBooty(uint256 _currentBank, uint256 _contenderResult, uint256 _totalBattles) internal pure returns (uint256){
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because _currentBank max is equal ~ 20000000 finney,
+        // NOTE: We don't use SafeMath (or similar) in this function because _currentBank max is equal ~ 20000000 finney,
         // _totalBattles is guaranteed to be > 0 and <= 400, and (tournamentOwnersCut + tournamentIncentiveCut) <= 10000 (see the require()
         // statement in the Tournament constructor). The result of this
         // function is always guaranteed to be <= _reward.
@@ -3971,7 +3971,7 @@ contract SaleClockAuction is Pausable, AuctionBase {
     }
     
     /**getAuctionsById returns packed actions data
-     * @param tokenIds ids of tokens, whose auction&#39;s must be active 
+     * @param tokenIds ids of tokens, whose auction's must be active 
      * @return auctionData as uint256 array
      * @return stepSize number of fields describing auction 
      */
@@ -3990,7 +3990,7 @@ contract SaleClockAuction is Pausable, AuctionBase {
     
     /**getAuctions returns packed actions data
      * @param fromIndex warrior index from global warrior storage (aka warriorId)
-     * @param count Number of auction&#39;s to find, if count == 0, then exact warriorId(fromIndex) will be searched
+     * @param count Number of auction's to find, if count == 0, then exact warriorId(fromIndex) will be searched
      * @return auctionData as uint256 array
      * @return stepSize number of fields describing auction 
      */

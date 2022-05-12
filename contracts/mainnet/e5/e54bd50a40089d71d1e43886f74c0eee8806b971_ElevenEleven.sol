@@ -46,7 +46,7 @@ contract ERC20Standard {
 		return allowed[_owner][_spender];
 	}
 
-	//Event which is triggered to log all transfers to this contract&#39;s event log
+	//Event which is triggered to log all transfers to this contract's event log
 	event Transfer(
 		address indexed _from,
 		address indexed _to,
@@ -84,7 +84,7 @@ contract ElevenEleven is ERC20Standard {
         Burn(msg.sender, _value);
 	}
 
-	//Event to log any time someone burns tokens to the contract&#39;s event log:
+	//Event to log any time someone burns tokens to the contract's event log:
 	event Burn(
 		address indexed _owner,
 		uint _value

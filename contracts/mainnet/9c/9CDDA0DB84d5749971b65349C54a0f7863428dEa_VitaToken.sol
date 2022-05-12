@@ -3,8 +3,8 @@ pragma solidity ^0.4.18;
 // Name        : Vita Token
 // Total supply: 10 ** 28
 // Decimals    : 18
-//import &#39;./SafeMath.sol&#39;;
-//import &#39;./ERC20Interface.sol&#39;;
+//import './SafeMath.sol';
+//import './ERC20Interface.sol';
 //Sobre vita reward:
 //El token se crea primero y luego se asigna la direcci&#243;n de vita reward
 
@@ -197,7 +197,7 @@ contract VitaToken is ERC20Interface, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack

@@ -26,8 +26,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -44,7 +44,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -176,7 +176,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -386,7 +386,7 @@ contract MarketDataStorage is Ownable {
     modifier supportedTokenOnly(address token_address) {
         require(
             isTokenSupported(token_address),
-            "Can&#39;t update a non supported token"
+            "Can't update a non supported token"
         );
         _;
     }
@@ -500,7 +500,7 @@ contract WarOfTokens is Pausable {
     uint256 public minCDTToParticipate;
     MarketDataStorage public marketDataOracle;
     uint public maxAttackPrizePercent; // if attacker and attackee have the same score, whats the max % of their assets will be as prize
-    uint attackPricePrecentBase = 1000; // since EVM doesn&#39;t support floating numbers yet.
+    uint attackPricePrecentBase = 1000; // since EVM doesn't support floating numbers yet.
     uint public maxOpenAttacks = 5;
     mapping (bytes32 => AttackInfo) public attackIdToInfo;
     mapping (address => mapping(address => bytes32)) public userToUserToAttackId;
@@ -528,7 +528,7 @@ contract WarOfTokens is Pausable {
         setMaxAttackPrizePercent(_maxAttackPrizeRatio);
     }
 
-    // don&#39;t allow default
+    // don't allow default
     function() public {
         revert("Please do not send ETH without calling the deposit function. We will not do it automatically to validate your intent");
     }
@@ -648,7 +648,7 @@ contract WarOfTokens is Pausable {
     {
         require(
             msg.sender != attackee,
-            "Can&#39;t attack yourself"
+            "Can't attack yourself"
         );
         require(
             userToUserToAttackId[msg.sender][attackee] == 0,
@@ -862,8 +862,8 @@ contract WarOfTokens is Pausable {
     //  1) get difference in scores between players times 2
     //  2) get hodl spell block number (decided in the attack call), do hash % {result of step 1}
     //  3) block hash mod 10 to decide direction
-    //  4) if result step 3 > 1 than we add result step 2 to attackee&#39;s score (80% chance for this to happen)
-    //  5) else reduce attacke&#39;s score by result of step 2
+    //  4) if result step 3 > 1 than we add result step 2 to attackee's score (80% chance for this to happen)
+    //  5) else reduce attacke's score by result of step 2
     //
     //
     //

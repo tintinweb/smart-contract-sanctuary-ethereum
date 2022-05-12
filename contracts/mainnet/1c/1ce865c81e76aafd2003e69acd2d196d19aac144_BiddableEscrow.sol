@@ -150,7 +150,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -230,12 +230,12 @@ contract BiddableEscrow is CanReclaimToken {
   }
 
   /// @dev This event is emitted when funds have been deposited into a new escrow.
-  ///  The data is an encrypted blob that contains the user&#39;s userId so that the
+  ///  The data is an encrypted blob that contains the user's userId so that the
   ///  Biddable service can tell the calling platform which user to approve for bidding.
   event Created(address indexed sender, string id, bytes data);
 
   /// @notice Deposit ether into escrow. The data must be signed by the Biddable service.
-  /// @dev We don&#39;t use an &#39;onlyArbitrator&#39; modifier because the transaction itself is sent by the bidder,
+  /// @dev We don't use an 'onlyArbitrator' modifier because the transaction itself is sent by the bidder,
   ///  but the data must be signed by the Biddable service. Thus, the function must be available to call
   ///  by anyone.
   /// @param _id Is the unique identifier of the escrow
@@ -253,7 +253,7 @@ contract BiddableEscrow is CanReclaimToken {
     bytes32 _s)
     external payable
   {
-    // Throw if the amount sent doesn&#39;t mean the deposit amount
+    // Throw if the amount sent doesn't mean the deposit amount
     require(msg.value == _depositAmount);
 
     // Throw if a deposit with this id already exists
@@ -269,7 +269,7 @@ contract BiddableEscrow is CanReclaimToken {
       _s
     );
 
-    // Throw if the signature wasn&#39;t created by the arbitrator
+    // Throw if the signature wasn't created by the arbitrator
     require(recoveredAddress == arbitrator);
 
     escrows[_id] = EscrowDeposit(
@@ -290,12 +290,12 @@ contract BiddableEscrow is CanReclaimToken {
   /// @notice Release ether from escrow. Only the arbitrator is able to perform this action.
   /// @param _id Is the unique identifier of the escrow
   function release(string _id) external onlyArbitrator {
-    // Throw if this deposit doesn&#39;t exist
+    // Throw if this deposit doesn't exist
     require(escrows[_id].exists);
 
     EscrowDeposit storage escrowDeposit = escrows[_id];
 
-    // Shouldn&#39;t need to use SafeMath here because this should never cause an overflow
+    // Shouldn't need to use SafeMath here because this should never cause an overflow
     uint256 gasFees = RELEASE_GAS_FEES.mul(tx.gasprice);
     uint256 amount = escrowDeposit.amount.sub(gasFees);
     address bidder = escrowDeposit.bidder;
@@ -323,10 +323,10 @@ contract BiddableEscrow is CanReclaimToken {
   }
 
   /// @dev This accessor method is needed because the compiler is not able to create one with a string mapping
-  /// @notice Gets the EscrowDeposit based on the input id. Throws if the deposit doesn&#39;t exist.
+  /// @notice Gets the EscrowDeposit based on the input id. Throws if the deposit doesn't exist.
   /// @param _id The unique identifier of the escrow
   function getEscrowDeposit(string _id) external view returns (address bidder, bytes data, uint256 amount) {
-    // Throw if this deposit doesn&#39;t exist
+    // Throw if this deposit doesn't exist
     require(escrows[_id].exists);
 
     EscrowDeposit storage escrowDeposit = escrows[_id];

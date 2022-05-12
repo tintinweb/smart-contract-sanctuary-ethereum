@@ -2,7 +2,7 @@
 // https://medium.com/@bryn.bellomy/solidity-tutorial-building-a-simple-auction-contract-fcc918b0878a
 //
 // updated to 0.4.21 standard, replaced blocks with time, converted to hot potato style by Chibi Fighters
-// added custom start command for owner so they don&#39;t take off immidiately
+// added custom start command for owner so they don't take off immidiately
 //
 
 pragma solidity ^0.4.21;
@@ -31,7 +31,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -125,7 +125,7 @@ contract AuctionPotato {
     
     // query remaining time
     // this should not be used, query endTime once and then calculate it in your frontend
-    // it&#39;s helpful when you want to debug in remix
+    // it's helpful when you want to debug in remix
     function timeLeft() public view returns (uint time) {
         if (now >= endTime) return 0;
         return endTime - now;
@@ -178,7 +178,7 @@ contract AuctionPotato {
         require(blockerPay == false);
         blockerPay = true;
         
-        // calculate the user&#39;s total bid based on the current amount they&#39;ve sent to the contract
+        // calculate the user's total bid based on the current amount they've sent to the contract
         // plus whatever has been sent with this transaction
 
         fundsByBidder[msg.sender] = fundsByBidder[msg.sender].add(highestBindingBid);
@@ -248,7 +248,7 @@ contract AuctionPotato {
             fundsByBidder[withdrawalAccount] = 0;
         }
 
-        // highest bidder can withdraw leftovers if he didn&#39;t before
+        // highest bidder can withdraw leftovers if he didn't before
         if (!canceled && msg.sender == highestBidder && msg.sender != owner) {
             withdrawalAccount = msg.sender;
             withdrawalAmount = fundsByBidder[withdrawalAccount].sub(oldHighestBindingBid);
@@ -267,13 +267,13 @@ contract AuctionPotato {
     
     // amount owner can withdraw after auction ended
     // that way you can easily compare the contract balance with your amount
-    // if there is more in the contract than your balance someone didn&#39;t withdraw
+    // if there is more in the contract than your balance someone didn't withdraw
     // let them know that :)
     function ownerCanWithdraw() public view returns (uint amount) {
         return highestBindingBid.sub(oldPotato);
     }
     
-    // just in case the contract is bust and can&#39;t pay
+    // just in case the contract is bust and can't pay
     // should never be needed but who knows
     function fuelContract() public onlyOwner payable {
         

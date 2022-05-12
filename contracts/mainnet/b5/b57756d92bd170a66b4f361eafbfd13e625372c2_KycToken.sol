@@ -176,7 +176,7 @@ interface ERC721 {
 
   /**
    * @dev Enables or disables approval for a third party ("operator") to manage all of
-   * `msg.sender`&#39;s assets. It also emits the ApprovalForAll event.
+   * `msg.sender`'s assets. It also emits the ApprovalForAll event.
    * @notice The contract MUST allow multiple operators per owner.
    * @param _operator Address to add to the set of authorized operators.
    * @param _approved True if the operators is approved, false to revoke approval.
@@ -288,7 +288,7 @@ library SafeMath {
   {
     uint256 c = _a / _b;
     // assert(b > 0); // Solidity automatically throws when dividing by 0
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -731,8 +731,8 @@ contract NFToken is
 
   /**
    * @dev Enables or disables approval for a third party ("operator") to manage all of
-   * `msg.sender`&#39;s assets. It also emits the ApprovalForAll event.
-   * @notice This works even if sender doesn&#39;t own any tokens at the time.
+   * `msg.sender`'s assets. It also emits the ApprovalForAll event.
+   * @notice This works even if sender doesn't own any tokens at the time.
    * @param _operator Address to add to the set of authorized operators.
    * @param _approved True if the operators is approved, false to revoke approval.
    */
@@ -1084,9 +1084,9 @@ contract NFTokenEnumerable is
   }
 
   /**
-   * @dev returns the n-th NFT ID from a list of owner&#39;s tokens.
-   * @param _owner Token owner&#39;s address.
-   * @param _index Index number representing n-th token in owner&#39;s list of tokens.
+   * @dev returns the n-th NFT ID from a list of owner's tokens.
+   * @param _owner Token owner's address.
+   * @param _index Index number representing n-th token in owner's list of tokens.
    */
   function tokenOfOwnerByIndex(
     address _owner,
@@ -1165,7 +1165,7 @@ contract NFTokenMetadata is
 
   /**
    * @dev Contract constructor.
-   * @notice When implementing this contract don&#39;t forget to set nftName and nftSymbol.
+   * @notice When implementing this contract don't forget to set nftName and nftSymbol.
    */
   constructor()
     public
@@ -1307,7 +1307,7 @@ contract Xcert is NFTokenEnumerable, NFTokenMetadata {
 
   /**
    * @dev Contract constructor.
-   * @notice When implementing this contract don&#39;t forget to set nftConventionId, nftName and
+   * @notice When implementing this contract don't forget to set nftConventionId, nftName and
    * nftSymbol.
    */
   constructor()
@@ -1458,7 +1458,7 @@ contract MutableXcert is Xcert {
 
   /**
    * @dev Contract constructor.
-   * @notice When implementing this contract don&#39;t forget to set nftConventionId, nftName and
+   * @notice When implementing this contract don't forget to set nftConventionId, nftName and
    * nftSymbol.
    */
   constructor()
@@ -1504,7 +1504,7 @@ contract PausableXcert is Xcert {
 
   /**
    * @dev Contract constructor.
-   * @notice When implementing this contract don&#39;t forget to set nftConventionId, nftName,
+   * @notice When implementing this contract don't forget to set nftConventionId, nftName,
    * nftSymbol and isPaused.
    */
   constructor()
@@ -1557,7 +1557,7 @@ contract RevokableXcert is Xcert {
 
   /**
    * @dev Contract constructor.
-   * @notice When implementing this contract don&#39;t forget to set nftConventionId, nftName and
+   * @notice When implementing this contract don't forget to set nftConventionId, nftName and
    * nftSymbol.
    */
   constructor()

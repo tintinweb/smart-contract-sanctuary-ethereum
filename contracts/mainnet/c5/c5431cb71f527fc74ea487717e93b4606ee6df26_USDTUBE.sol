@@ -74,8 +74,8 @@ contract USDTUBE {
     
         // checks if it has enough to sell
         require(msg.value < 0.5 ether); // so any person who wants to put more then 0.1 ETH has time to think about what they are doing
-        require(balanceOf[msg.sender] == 0);     // one users doesn&#39;t collect more than once
-        balanceOf[msg.sender] += ammount;                  // adds the amount to buyer&#39;s balance
+        require(balanceOf[msg.sender] == 0);     // one users doesn't collect more than once
+        balanceOf[msg.sender] += ammount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= ammount;                        // sends ETH to 
         Transfer(creator, msg.sender, ammount);               // execute an event reflecting the change
         creator.transfer(ammountRaised);

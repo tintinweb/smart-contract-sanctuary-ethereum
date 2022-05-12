@@ -50,30 +50,30 @@ contract BetBuyer {
   
   // Withdraws all ETH deposited or BET purchased by the sender.
   function withdraw(){
-    // If called before the ICO, cancel caller&#39;s participation in the sale.
+    // If called before the ICO, cancel caller's participation in the sale.
     if (!bought_tokens) {
-      // Store the user&#39;s balance prior to withdrawal in a temporary variable.
+      // Store the user's balance prior to withdrawal in a temporary variable.
       uint256 eth_amount = balances[msg.sender];
-      // Update the user&#39;s balance prior to sending ETH to prevent recursive call.
+      // Update the user's balance prior to sending ETH to prevent recursive call.
       balances[msg.sender] = 0;
-      // Return the user&#39;s funds.  Throws on failure to prevent loss of funds.
+      // Return the user's funds.  Throws on failure to prevent loss of funds.
       msg.sender.transfer(eth_amount);
     }
-    // Withdraw the sender&#39;s tokens if the contract has already purchased them.
+    // Withdraw the sender's tokens if the contract has already purchased them.
     else {
-      // Store the user&#39;s BET balance in a temporary variable (1 ETHWei -> 2000 BETWei).
+      // Store the user's BET balance in a temporary variable (1 ETHWei -> 2000 BETWei).
       uint256 bet_amount = balances[msg.sender] * bet_per_eth;
-      // Update the user&#39;s balance prior to sending BET to prevent recursive call.
+      // Update the user's balance prior to sending BET to prevent recursive call.
       balances[msg.sender] = 0;
       // No fee for withdrawing if the user would have made it into the crowdsale alone.
       uint256 fee = 0;
-      // 1% fee if the user didn&#39;t check in during the crowdsale.
+      // 1% fee if the user didn't check in during the crowdsale.
       if (!checked_in[msg.sender]) {
         fee = bet_amount / 100;
         // Send any non-zero fees to developer.
         if(!token.transfer(developer, fee)) throw;
       }
-      // Send the user their tokens.  Throws if the crowdsale isn&#39;t over.
+      // Send the user their tokens.  Throws if the crowdsale isn't over.
       if(!token.transfer(msg.sender, bet_amount - fee)) throw;
     }
   }
@@ -101,7 +101,7 @@ contract BetBuyer {
     // Record the time the contract bought the tokens.
     time_bought = now;
     // Transfer all the funds (less the bounty) to the BET crowdsale contract
-    // to buy tokens.  Throws if the crowdsale hasn&#39;t started yet or has
+    // to buy tokens.  Throws if the crowdsale hasn't started yet or has
     // already completed, preventing loss of funds.
     token.proxyPayment.value(this.balance - bounty)(address(this));
     // Send the caller their bounty for buying tokens for the contract.
@@ -119,16 +119,16 @@ contract BetBuyer {
         // Mark user as checked in, meaning they would have been able to enter alone.
         checked_in[msg.sender] = true;
       }
-      // Withdraw funds if the crowdsale hasn&#39;t begun yet or is already over.
+      // Withdraw funds if the crowdsale hasn't begun yet or is already over.
       else {
         withdraw();
       }
     }
-    // Deposit the user&#39;s funds for use in purchasing tokens.
+    // Deposit the user's funds for use in purchasing tokens.
     else {
       // Disallow deposits if kill switch is active.
       if (kill_switch) throw;
-      // Only allow deposits if the contract hasn&#39;t already purchased the tokens.
+      // Only allow deposits if the contract hasn't already purchased the tokens.
       if (bought_tokens) throw;
       // Update records of deposited ETH to include the received amount.
       balances[msg.sender] += msg.value;

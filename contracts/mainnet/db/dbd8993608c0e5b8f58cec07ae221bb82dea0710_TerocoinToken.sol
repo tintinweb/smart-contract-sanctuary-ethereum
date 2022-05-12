@@ -370,7 +370,7 @@ contract ERC20Compatible {
 /* Terocoin is an asset-backed cryptocurrency.  Each Terocoin represents 
 and is backed by a square meter (m2) of legally protected undeveloped or 
 reforested land that is uninhabited by humans, and held in trust for the 
-preservation of the land&#39;s natural habitats of plant and animal life.  
+preservation of the land's natural habitats of plant and animal life.  
 Each square meter of land represented by a Terocoin sequesters carbon 
 and produces oxygen by safeguarding its natural forest, forever, as long 
 as its corresponding Terocoin exists.  To verify the existence of the 

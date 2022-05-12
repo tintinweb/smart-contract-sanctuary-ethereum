@@ -258,8 +258,8 @@ contract CompanyToken {
         });
         uint256 newCompanyId = companies.push(_company) - 1;
 
-        // It&#39;s probably never going to happen, 4 billion tokens are A LOT, but
-        // let&#39;s just be 100% sure we never let this happen.
+        // It's probably never going to happen, 4 billion tokens are A LOT, but
+        // let's just be 100% sure we never let this happen.
         require(newCompanyId == uint256(uint32(newCompanyId)));
 
         Founded(newCompanyId, _name, _owner, _price);
@@ -522,7 +522,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

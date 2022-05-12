@@ -1,8 +1,8 @@
 pragma solidity ^0.4.13;
 
-/*import &#39;zeppelin-solidity/contracts/token/StandardToken.sol&#39;;*/
+/*import 'zeppelin-solidity/contracts/token/StandardToken.sol';*/
 
-/*import &#39;../math/SafeMath.sol&#39;;*/
+/*import '../math/SafeMath.sol';*/
 library SafeMath {
   function mul(uint256 a, uint256 b) internal constant returns (uint256) {
     uint256 c = a * b;
@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -29,7 +29,7 @@ library SafeMath {
   }
 }
 
-/*import &#39;./ERC20Basic.sol&#39;;*/
+/*import './ERC20Basic.sol';*/
 contract ERC20Basic {
   uint256 public totalSupply;
   function balanceOf(address who) constant returns (uint256);
@@ -37,7 +37,7 @@ contract ERC20Basic {
   event Transfer(address indexed from, address indexed to, uint256 value);
 }
 
-/*import &#39;./BasicToken.sol&#39;;*/
+/*import './BasicToken.sol';*/
 contract BasicToken is ERC20Basic {
   using SafeMath for uint256;
 
@@ -66,7 +66,7 @@ contract BasicToken is ERC20Basic {
 
 }
 
-/*import &#39;./ERC20.sol&#39;;*/
+/*import './ERC20.sol';*/
 contract ERC20 is ERC20Basic {
   function allowance(address owner, address spender) constant returns (uint256);
   function transferFrom(address from, address to, uint256 value) returns (bool);
@@ -128,7 +128,7 @@ contract StandardToken is ERC20, BasicToken {
 }
 
 
-/*import &#39;./MultiOwnable.sol&#39;;*/
+/*import './MultiOwnable.sol';*/
 contract MultiOwnable {
     mapping (address => bool) owners;
 

@@ -29,7 +29,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -139,7 +139,7 @@ contract CircaICO is admined {
     uint256 public hardCap = 640000000 * (10 ** 18); // 640M tokens (max tokens to be distributed by contract) [INFO]
     //Contract details
     address public creator;
-    string public version = &#39;1&#39;;
+    string public version = '1';
 
     bool ended = false;
 
@@ -272,7 +272,7 @@ contract CircaICO is admined {
             ended = true;
             //If there is any token left after ico
             uint256 remanent = hardCap.sub(totalDistributed); //Total tokens to distribute - total distributed
-            //It&#39;s burned
+            //It's burned
             require(tokenReward.burnToken(remanent));
         }
         //After successful all remaining eth is send to creator

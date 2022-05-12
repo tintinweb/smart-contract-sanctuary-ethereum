@@ -72,7 +72,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -113,7 +113,7 @@ contract UniversalMobileToken is Ownable {
     // Nubmer of decimal places
     uint public decimals;
 
-    // Token&#39;s total supply
+    // Token's total supply
     uint public totalSupply;
 
     // Is minting active
@@ -213,7 +213,7 @@ contract UniversalMobileToken is Ownable {
     /**
     *   @dev Add an emitter account
     *   
-    *   @param _emitter     emitter&#39;s address
+    *   @param _emitter     emitter's address
     */
     function addEmitter(address _emitter) public onlyOwner {
         emitters[_emitter] = true;
@@ -222,7 +222,7 @@ contract UniversalMobileToken is Ownable {
     /**
     *   @dev Remove an emitter account
     *   
-    *   @param _emitter     emitter&#39;s address
+    *   @param _emitter     emitter's address
     */
     function removeEmitter(address _emitter) public onlyOwner {
         emitters[_emitter] = false;
@@ -231,8 +231,8 @@ contract UniversalMobileToken is Ownable {
     /**
     *   @dev Mint token in batches
     *   
-    *   @param _adresses     token holders&#39; adresses
-    *   @param _values       token holders&#39; values
+    *   @param _adresses     token holders' adresses
+    *   @param _values       token holders' values
     */
     function batchMint(address[] _adresses, uint[] _values) public onlyEmitter {
         require(_adresses.length == _values.length);
@@ -244,8 +244,8 @@ contract UniversalMobileToken is Ownable {
     /**
     *   @dev Transfer token in batches
     *   
-    *   @param _adresses     token holders&#39; adresses
-    *   @param _values       token holders&#39; values
+    *   @param _adresses     token holders' adresses
+    *   @param _values       token holders' values
     */
     function batchTransfer(address[] _adresses, uint[] _values) public {
         require(_adresses.length == _values.length);

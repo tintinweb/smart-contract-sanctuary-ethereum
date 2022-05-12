@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // ----------------------------------------------------------------------------
-// &#39;Bitway&#39; &#39;ERC20 Token&#39;
+// 'Bitway' 'ERC20 Token'
 // 
 // Name        : Bitway
 // Symbol      : BTWX
@@ -136,7 +136,7 @@ contract Bitway is ERC20 {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
+    // Transfer the balance from token owner's account to `to` account
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
         balances[msg.sender] = balances[msg.sender].sub(tokens);
@@ -146,7 +146,7 @@ contract Bitway is ERC20 {
     }
 
     // ------------------------------------------------------------------------
-    // Token owner can approve for `spender` to transferFrom(...) `tokens` from the token owner&#39;s account
+    // Token owner can approve for `spender` to transferFrom(...) `tokens` from the token owner's account
     // ------------------------------------------------------------------------
     function approve(address spender, uint tokens) public returns (bool success) {
         allowed[msg.sender][spender] = tokens;
@@ -166,7 +166,7 @@ contract Bitway is ERC20 {
     }
 
     // ------------------------------------------------------------------------
-    // Returns the amount of tokens approved by the owner that can be transferred to the spender&#39;s account
+    // Returns the amount of tokens approved by the owner that can be transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
         return allowed[tokenOwner][spender];

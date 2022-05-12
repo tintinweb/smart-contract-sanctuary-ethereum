@@ -94,7 +94,7 @@ contract NcICO {
              exchange(msg.sender);
     }
 
-    // Make an exchangement. Only callable if the crowdsale started and hasn&#39;t been ended, also the maxGoal wasn&#39;t reached yet.
+    // Make an exchangement. Only callable if the crowdsale started and hasn't been ended, also the maxGoal wasn't reached yet.
     // The current token price is looked up by available amount. Bought tokens is transfered to the receiver.
     // The sent value is directly forwarded to a safe wallet.
     function exchange(address receiver) payable {

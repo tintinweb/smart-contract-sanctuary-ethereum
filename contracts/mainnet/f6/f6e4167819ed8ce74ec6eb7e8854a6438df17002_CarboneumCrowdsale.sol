@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -86,7 +86,7 @@ contract ERC20 is ERC20Basic {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override 
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 
@@ -364,7 +364,7 @@ contract IndividuallyCappedCrowdsale is Crowdsale, Ownable {
   mapping(address => uint256) public caps;
 
   /**
-   * @dev Sets a specific user&#39;s maximum contribution.
+   * @dev Sets a specific user's maximum contribution.
    * @param _beneficiary Address to be capped
    * @param _cap Wei limit for individual contribution
    */
@@ -373,7 +373,7 @@ contract IndividuallyCappedCrowdsale is Crowdsale, Ownable {
   }
 
   /**
-   * @dev Sets a group of users&#39; maximum contribution.
+   * @dev Sets a group of users' maximum contribution.
    * @param _beneficiaries List of addresses to be capped
    * @param _cap Wei limit for individual contribution
    */
@@ -402,7 +402,7 @@ contract IndividuallyCappedCrowdsale is Crowdsale, Ownable {
   }
 
   /**
-   * @dev Extend parent behavior requiring purchase to respect the user&#39;s funding cap.
+   * @dev Extend parent behavior requiring purchase to respect the user's funding cap.
    * @param _beneficiary Token purchaser
    * @param _weiAmount Amount of wei contributed
    */

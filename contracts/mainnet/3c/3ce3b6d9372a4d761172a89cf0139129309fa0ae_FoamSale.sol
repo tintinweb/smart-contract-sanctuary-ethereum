@@ -18,8 +18,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -36,7 +36,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -285,7 +285,7 @@ library Math {
 
 // File: @tokenfoundry/sale-contracts/contracts/Vault.sol
 
-// Adapted from Open Zeppelin&#39;s RefundVault
+// Adapted from Open Zeppelin's RefundVault
 
 /**
  * @title Vault
@@ -370,7 +370,7 @@ contract Vault is VaultI, Ownable {
         transferToWallet(initialWei);
     }
 
-    /// @dev Called by the owner if the project didn&#39;t deliver the testnet contracts or if we need to stop disbursements for any reasone.
+    /// @dev Called by the owner if the project didn't deliver the testnet contracts or if we need to stop disbursements for any reasone.
     function enableRefunds() onlyOwner external {
         require(state != State.Refunding);
         state = State.Refunding;
@@ -633,7 +633,7 @@ contract StateMachine {
             checkNextState = false;
 
             bytes32 next = states[currentStateId].nextStateId;
-            // If one of the next state&#39;s conditions is met, go to this state and continue
+            // If one of the next state's conditions is met, go to this state and continue
 
             for (uint256 i = 0; i < states[next].startConditions.length; i++) {
                 if (states[next].startConditions[i](next)) {
@@ -729,7 +729,7 @@ contract TimedStateMachine is StateMachine {
 
     event StateStartTimeSet(bytes32 indexed _stateId, uint256 _startTime);
 
-    // Stores the start timestamp for each state (the value is 0 if the state doesn&#39;t have a start timestamp).
+    // Stores the start timestamp for each state (the value is 0 if the state doesn't have a start timestamp).
     mapping(bytes32 => uint256) private startTime;
 
     /// @dev Returns the timestamp for the given state id.
@@ -863,7 +863,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -1173,7 +1173,7 @@ contract Sale is SaleI, Ownable, Whitelistable, TimedStateMachine, TokenControll
         require(tokensForSale >= totalSaleCapUnits);
 
         // Set the worst rate of tokens per unit
-        // If sale doesn&#39;t sell out, extra tokens will be disbursed after the sale ends.
+        // If sale doesn't sell out, extra tokens will be disbursed after the sale ends.
         saleTokensPerUnit = tokensForSale.div(totalSaleCapUnits);
 
         // Go to freeze state
@@ -1213,7 +1213,7 @@ contract Sale is SaleI, Ownable, Whitelistable, TimedStateMachine, TokenControll
 
         uint256 previouslyContributedUnits = unitContributions[_contributor];
 
-        // Check that the contribution amount doesn&#39;t go over the sale cap or personal contributionLimitUnits 
+        // Check that the contribution amount doesn't go over the sale cap or personal contributionLimitUnits 
         uint256 currentContributionUnits = min256(
             _contributionLimitUnits.sub(previouslyContributedUnits),
             totalSaleCapUnits.sub(totalContributedUnits),
@@ -1287,7 +1287,7 @@ contract Sale is SaleI, Ownable, Whitelistable, TimedStateMachine, TokenControll
     }
 
     /// @dev Called to enable refunds by the owner. Can only be called in any state (without triggering conditional transitions)
-    /// @dev This is only meant to be used if there is an emergency and the endSale() function can&#39;t be called
+    /// @dev This is only meant to be used if there is an emergency and the endSale() function can't be called
     function enableRefunds() external onlyOwner {
         trustedVault.enableRefunds();
     }
@@ -1343,7 +1343,7 @@ contract Sale is SaleI, Ownable, Whitelistable, TimedStateMachine, TokenControll
 
         } else if (totalContributedUnits < minThresholdUnits) {
 
-            // If the minimum threshold wasn&#39;t reached, enable refunds
+            // If the minimum threshold wasn't reached, enable refunds
             trustedVault.enableRefunds();
 
         } else {

@@ -12,7 +12,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -249,7 +249,7 @@ contract StandardToken is ERC20, BasicToken {
 
 /**
  * @title e2pAir Escrow Contract
- * @dev Contract sends tokens from airdropper&#39;s account to receiver on claim.
+ * @dev Contract sends tokens from airdropper's account to receiver on claim.
  * 
  * When deploying contract, airdroper provides airdrop parametrs: token, amount 
  * of tokens and amount of eth should be claimed per link and  airdrop transit 
@@ -259,7 +259,7 @@ contract StandardToken is ERC20, BasicToken {
  * 
  * Airdropper generates claim links. Each link contains a private key 
  * signed by the airdrop transit private key. The link private key can be used 
- * once to sign receiver&#39;s address. Receiver provides signature
+ * once to sign receiver's address. Receiver provides signature
  * to the Relayer Server, which calls smart contract to withdraw tokens. 
  * 
  * On claim smart contract verifies, that receiver provided address signed 
@@ -323,7 +323,7 @@ contract e2pAirEscrow is Stoppable {
   }
   
 /**
-   * @dev Verify that claim params are correct and the link key wasn&#39;t used before.  
+   * @dev Verify that claim params are correct and the link key wasn't used before.  
    * @param _recipient address to receive tokens.
    * @param _transitAddress transit address provided by the airdropper
    * @param _keyV ECDSA signature parameter v. Signed by the airdrop transit key.
@@ -345,10 +345,10 @@ contract e2pAirEscrow is Stoppable {
 			bytes32 _recipientS) 
     public view returns(bool success) {
     
-        // verify that link wasn&#39;t used before  
+        // verify that link wasn't used before  
         require(usedTransitAddresses[_transitAddress] == false);
 
-        // verifying that key is legit and signed by AIRDROP_TRANSIT_ADDRESS&#39;s key
+        // verifying that key is legit and signed by AIRDROP_TRANSIT_ADDRESS's key
         require(verifySignature(AIRDROP_TRANSIT_ADDRESS, _transitAddress, _keyV, _keyR, _keyS));
     
         // verifying that recepients address signed correctly

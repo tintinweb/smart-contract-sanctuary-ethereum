@@ -1,7 +1,7 @@
 pragma solidity 0.4.24;
 
 // ----------------------------------------------------------------------------
-// ConsenSys/Gnosis MultiSig for &#39;UCOT&#39; from:
+// ConsenSys/Gnosis MultiSig for 'UCOT' from:
 // https://github.com/ConsenSys/MultiSigWallet/commit/359c4efb482d97f6a0c0dbea8cd4b95add13bcc4
 //
 // Deployed by Radek Ostrowski / http://startonchain.com

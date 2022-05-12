@@ -3,7 +3,7 @@ contract BusinessUnion{
     string public name;                   
     uint8 public decimals;               
     string public symbol;               
-    string public version = &#39;BUUN100&#39;;
+    string public version = 'BUUN100';
     uint256 public totalSupply;
 
     function BusinessUnion(uint256 _initialAmount, string _tokenName, uint8 _decimalUnits, string _tokenSymbol) {

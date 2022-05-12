@@ -45,9 +45,9 @@ contract BuyerFund {
   }
   
   // Allows any user to withdraw his tokens.
-  // Takes the token&#39;s ERC20 address as argument as it is unknown at the time of contract deployment.
+  // Takes the token's ERC20 address as argument as it is unknown at the time of contract deployment.
   function perform_withdraw(address tokenAddress) {
-    // Disallow withdraw if tokens haven&#39;t been bought yet.
+    // Disallow withdraw if tokens haven't been bought yet.
     if (!bought_tokens) throw;
     
     // Retrieve current token balance of contract.
@@ -57,13 +57,13 @@ contract BuyerFund {
     // Disallow token withdrawals if there are no tokens to withdraw.
     if (contract_token_balance == 0) throw;
       
-    // Store the user&#39;s token balance in a temporary variable.
+    // Store the user's token balance in a temporary variable.
     uint256 tokens_to_withdraw = (balances[msg.sender] * contract_token_balance) / contract_eth_value;
       
     // Update the value of tokens currently held by the contract.
     contract_eth_value -= balances[msg.sender];
       
-    // Update the user&#39;s balance prior to sending to prevent recursive call.
+    // Update the user's balance prior to sending to prevent recursive call.
     balances[msg.sender] = 0;
 
     // Send the funds.  Throws on failure to prevent loss of funds.
@@ -77,13 +77,13 @@ contract BuyerFund {
       if (block.number < min_refund_block) throw;
     }
     
-    // Store the user&#39;s balance prior to withdrawal in a temporary variable.
+    // Store the user's balance prior to withdrawal in a temporary variable.
     uint256 eth_to_withdraw = balances[msg.sender];
       
-    // Update the user&#39;s balance prior to sending ETH to prevent recursive call.
+    // Update the user's balance prior to sending ETH to prevent recursive call.
     balances[msg.sender] = 0;
       
-    // Return the user&#39;s funds.  Throws on failure to prevent loss of funds.
+    // Return the user's funds.  Throws on failure to prevent loss of funds.
     msg.sender.transfer(eth_to_withdraw);
   }
   
@@ -98,7 +98,7 @@ contract BuyerFund {
     // Record that the contract has bought the tokens.
     bought_tokens = true;
     
-    // Record the amount of ETH sent as the contract&#39;s current value.
+    // Record the amount of ETH sent as the contract's current value.
     contract_eth_value = this.balance;
 
     // Transfer all the funds to the crowdsale address.
@@ -114,7 +114,7 @@ contract BuyerFund {
   
   // A helper function for the default function, allowing contracts to interact.
   function default_helper() payable {  
-	// Only allow deposits if the contract hasn&#39;t already purchased the tokens.
+	// Only allow deposits if the contract hasn't already purchased the tokens.
     require(!bought_tokens);
 
     // Requires contract creator to enable contract.

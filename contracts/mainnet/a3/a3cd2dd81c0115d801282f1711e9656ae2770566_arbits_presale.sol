@@ -12,8 +12,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -31,7 +31,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -709,7 +709,7 @@ contract arbits_presale {
         owner = msg.sender;
     }
 
-    function owner_linkage() public { // must be called after the sale contract has been linked to the database contract via database&#39;s add master function
+    function owner_linkage() public { // must be called after the sale contract has been linked to the database contract via database's add master function
         db.set_sale_owner(owner, true);
     }
 
@@ -894,7 +894,7 @@ contract arbits_presale {
     // events
     //
     // All storage calls are logged via events emitted in the library functions.
-    // Because web3 bugs out when when libraries call events that aren&#39;t defined in
+    // Because web3 bugs out when when libraries call events that aren't defined in
     // the parent contract. We redefine them here.
     //
     // contract level events

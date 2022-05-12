@@ -54,17 +54,17 @@ contract PrivateBet {
         /*
          * only when contract is active
          */
-        require(paused == 0, &#39;paused&#39;);
+        require(paused == 0, 'paused');
         
         /*
          * smart contracts are not allowed to participate
          */
-        require(tx.origin == msg.sender, &#39;not allowed&#39;);
+        require(tx.origin == msg.sender, 'not allowed');
         
         /*
          * only when contract is active
          */
-        require(msg.value >= price, &#39;low amount&#39;);
+        require(msg.value >= price, 'low amount');
 
         /*
          * subscribe the user
@@ -106,7 +106,7 @@ contract PrivateBet {
      */
     function pause() public {
         
-        require(msg.sender == owner, &#39;not allowed&#39;);
+        require(msg.sender == owner, 'not allowed');
         
         paused = 1;
     }

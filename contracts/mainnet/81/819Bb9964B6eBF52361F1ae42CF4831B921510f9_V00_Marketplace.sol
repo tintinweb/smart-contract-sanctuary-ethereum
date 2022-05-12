@@ -255,7 +255,7 @@ contract V00_Marketplace is Ownable {
         }));
 
         if (address(_currency) == 0x0) { // Listing is in ETH
-            require(msg.value == _value, "ETH value doesn&#39;t match offer");
+            require(msg.value == _value, "ETH value doesn't match offer");
         } else { // Listing is in ERC20
             require(msg.value == 0, "ETH would be lost");
             require(
@@ -300,7 +300,7 @@ contract V00_Marketplace is Ownable {
             offer.finalizes = now + offer.finalizes;
         }
         listing.deposit -= offer.commission; // Accepting an offer puts Origin Token into escrow
-        offer.status = 2; // Set offer to &#39;Accepted&#39;
+        offer.status = 2; // Set offer to 'Accepted'
         emit OfferAccepted(msg.sender, listingID, offerID, _ipfsHash);
     }
 

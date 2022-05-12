@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-// &#39;ETHERCHAIN&#39; CROWDSALE token contract
+// 'ETHERCHAIN' CROWDSALE token contract
 //
 // Deployed to : 0x49F4B69FEf86C82c8e936Bfaf1b9E326bd1A20D0
 // Symbol      : ERH
@@ -76,7 +76,7 @@ contract ERH {
         uint amountRaised;                                     
         amountRaised += msg.value;                            //many thanks bois, couldnt do it without r/me_irl
         require(balanceOf[creator] >= amount);               // checks if it has enough to sell
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= amount;                        // sends ETH to DatBoiCoinMint
         Transfer(creator, msg.sender, amount);               // execute an event reflecting the change
         creator.transfer(amountRaised);

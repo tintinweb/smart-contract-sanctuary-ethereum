@@ -69,9 +69,9 @@ library BBLib {
         // (sequencing is done by Ethereum itself via the tx nonce).
         mapping (address => uint32) sequenceNumber;
 
-        // NOTE - We don&#39;t actually want to include the encryption PublicKey because _it&#39;s included in the ballotSpec_.
-        // It&#39;s better to ensure ppl actually have the ballot spec by not including it in the contract.
-        // Plus we&#39;re already storing the hash of the ballotSpec anyway...
+        // NOTE - We don't actually want to include the encryption PublicKey because _it's included in the ballotSpec_.
+        // It's better to ensure ppl actually have the ballot spec by not including it in the contract.
+        // Plus we're already storing the hash of the ballotSpec anyway...
 
         // Private key to be set after ballot conclusion - curve25519
         bytes32 ballotEncryptionSeckey;
@@ -90,7 +90,7 @@ library BBLib {
         Sponsor[] sponsors;
         IxIface index;
 
-        // deprecation flag - doesn&#39;t actually do anything besides signal that this contract is deprecated;
+        // deprecation flag - doesn't actually do anything besides signal that this contract is deprecated;
         bool deprecated;
 
         address ballotOwner;
@@ -123,8 +123,8 @@ library BBLib {
     /* Library meta */
 
     function getVersion() external pure returns (uint) {
-        // even though this is constant we want to make sure that it&#39;s actually
-        // callable on Ethereum so we don&#39;t accidentally package the constant code
+        // even though this is constant we want to make sure that it's actually
+        // callable on Ethereum so we don't accidentally package the constant code
         // in with an SC using BBLib. This function _must_ be external.
         return BB_VERSION;
     }
@@ -153,7 +153,7 @@ library BBLib {
             // 0x1ff2 is 0001111111110010 in binary
             // by ANDing with subBits we make sure that only bits in positions 0,2,3,13,14,15
             // can be used. these correspond to the option flags at the top, and ETH ballots
-            // that are enc&#39;d or plaintext.
+            // that are enc'd or plaintext.
             require(sb & 0x1ff2 == 0, "bad-sb");
 
             // if we give bad submission bits (e.g. all 0s) then refuse to deploy ballot
@@ -216,12 +216,12 @@ library BBLib {
         // after a voter submits a transaction personally - effectivley disables proxy
         // ballots. You can _always_ submit a new vote _personally_ with this scheme.
         if (db.sequenceNumber[msg.sender] != MAX_UINT32) {
-            // using an IF statement here let&#39;s us save 4800 gas on repeat votes at the cost of 20k extra gas initially
+            // using an IF statement here let's us save 4800 gas on repeat votes at the cost of 20k extra gas initially
             db.sequenceNumber[msg.sender] = MAX_UINT32;
         }
     }
 
-    // Boundaries for constructing the msg we&#39;ll validate the signature of
+    // Boundaries for constructing the msg we'll validate the signature of
     function submitProxyVote(DB storage db, bytes32[5] proxyReq, bytes extra) external returns (address voter) {
         // a proxy vote (where the vote is submitted (i.e. tx fee paid by someone else)
         // docs for datastructs: https://github.com/secure-vote/tokenvote/blob/master/Docs/DataStructs.md
@@ -230,7 +230,7 @@ library BBLib {
         bytes32 s = proxyReq[1];
         uint8 v = uint8(proxyReq[2][0]);
         // converting to uint248 will truncate the first byte, and we can then convert it to a bytes31.
-        // we truncate the first byte because it&#39;s the `v` parm used above
+        // we truncate the first byte because it's the `v` parm used above
         bytes31 proxyReq2 = bytes31(uint248(proxyReq[2]));
         // proxyReq[3] is ballotId - required for verifying sig but not used for anything else
         bytes32 ballotId = proxyReq[3];
@@ -243,8 +243,8 @@ library BBLib {
         voter = ecrecover(msgHash, v, r, s);
 
         // we need to make sure that this is the most recent vote the voter made, and that it has
-        // not been seen before. NOTE: we&#39;ve already validated the BBFarm namespace before this, so
-        // we know it&#39;s meant for _this_ ballot.
+        // not been seen before. NOTE: we've already validated the BBFarm namespace before this, so
+        // we know it's meant for _this_ ballot.
         uint32 sequence = uint32(proxyReq2);  // last 4 bytes of proxyReq2 - the sequence number
         _proxyReplayProtection(db, voter, sequence);
 
@@ -386,7 +386,7 @@ library IxLib {
      * methods in the lib to do this instead (which means the code
      * is inserted into other contracts inline, without a `delegatecall`.
      *
-     * For this reason it&#39;s crucial to have no methods in IxLib with the
+     * For this reason it's crucial to have no methods in IxLib with the
      * same name as methods in IxIface
      */
 
@@ -493,7 +493,7 @@ contract safeSend {
     bool private txMutex3847834;
 
     // we want to be able to call outside contracts (e.g. the admin proxy contract)
-    // but reentrency is bad, so here&#39;s a mutex.
+    // but reentrency is bad, so here's a mutex.
     function doSafeSend(address toAddr, uint amount) internal {
         doSafeSendWData(toAddr, "", amount);
     }
@@ -664,7 +664,7 @@ contract hasAdmins is owned {
     }
 
     function setAdmin(address a, bool _givePerms) only_admin() external {
-        require(a != msg.sender && a != owner, "cannot change your own (or owner&#39;s) permissions");
+        require(a != msg.sender && a != owner, "cannot change your own (or owner's) permissions");
         _setAdmin(a, _givePerms);
     }
 
@@ -976,7 +976,7 @@ contract BBFarm is BBFarmIface {
 
     constructor() payoutAllC(msg.sender) public {
         // this bbFarm requires v5 of BBLib (note: v4 deprecated immediately due to insecure submitProxyVote)
-        // note: even though we can&#39;t test for this in coverage, this has stopped me deploying to kovan with the wrong version tho, so I consider it tested :)
+        // note: even though we can't test for this in coverage, this has stopped me deploying to kovan with the wrong version tho, so I consider it tested :)
         assert(BBLib.getVersion() == 6);
         emit BBFarmInit(NAMESPACE);
     }
@@ -1351,7 +1351,7 @@ contract SVIndex is IxIface {
     function dOwnerErc20Claim(bytes32 democHash) external {
         address erc20 = backend.getDErc20(democHash);
         // test if we can call the erc20.owner() method, etc
-        // also limit gas use to 3000 because we don&#39;t know what they&#39;ll do with it
+        // also limit gas use to 3000 because we don't know what they'll do with it
         // during testing both owned and controlled could be called from other contracts for 2525 gas.
         if (erc20.call.gas(3000)(OWNER_SIG)) {
             require(msg.sender == owned(erc20).owner.gas(3000)(), "!erc20-owner");
@@ -1412,7 +1412,7 @@ contract SVIndex is IxIface {
     /* Add and Deploy Ballots */
 
     // manually add a ballot - only the owner can call this
-    // WARNING - it&#39;s required that we make ABSOLUTELY SURE that
+    // WARNING - it's required that we make ABSOLUTELY SURE that
     // ballotId is valid and can resolve via the appropriate BBFarm.
     // this function _DOES NOT_ validate that everything else is done.
     function dAddBallot(bytes32 democHash, uint ballotId, uint256 packed)
@@ -1432,9 +1432,9 @@ contract SVIndex is IxIface {
         require(deprecatedBBFarms[bbFarmId] == false, "bb-dep");
         BBFarmIface _bbFarm = bbFarms[bbFarmId];
 
-        // anything that isn&#39;t a community ballot counts towards the basic limit.
+        // anything that isn't a community ballot counts towards the basic limit.
         // we want to check in cases where
-        // the ballot doesn&#39;t qualify as a community ballot
+        // the ballot doesn't qualify as a community ballot
         // OR (the ballot qualifies as a community ballot
         //     AND the admins have _disabled_ community ballots).
         bool countTowardsLimit = checkLimit;
@@ -1446,7 +1446,7 @@ contract SVIndex is IxIface {
         }
 
         if (!performedSend && msg.value > 0 && alreadySentTx == false) {
-            // refund if we haven&#39;t send value anywhere (which might happen if someone accidentally pays us)
+            // refund if we haven't send value anywhere (which might happen if someone accidentally pays us)
             doSafeSend(msg.sender, msg.value);
         }
 
@@ -1508,25 +1508,25 @@ contract SVIndex is IxIface {
     }
 
     function _basicBallotLimitOperations(bytes32 democHash, BBFarmIface _bbFarm) internal returns (bool shouldCount, bool performedSend) {
-        // if we&#39;re an official ballot and the democ is basic, ensure the democ
-        // isn&#39;t over the ballots/mo limit
+        // if we're an official ballot and the democ is basic, ensure the democ
+        // isn't over the ballots/mo limit
         if (payments.getPremiumStatus(democHash) == false) {
             uint nBallotsAllowed = payments.getBasicBallotsPer30Days();
             uint nBallotsBasicCounted = backend.getDCountedBasicBallotsN(democHash);
 
-            // if the democ has less than nBallotsAllowed then it&#39;s guarenteed to be okay
+            // if the democ has less than nBallotsAllowed then it's guarenteed to be okay
             if (nBallotsAllowed > nBallotsBasicCounted) {
                 // and we should count this ballot
                 return (true, false);
             }
 
             // we want to check the creation timestamp of the nth most recent ballot
-            // where n is the # of ballots allowed per month. Note: there isn&#39;t an off
-            // by 1 error here because if 1 ballots were allowed per month then we&#39;d want
+            // where n is the # of ballots allowed per month. Note: there isn't an off
+            // by 1 error here because if 1 ballots were allowed per month then we'd want
             // to look at the most recent ballot, so nBallotsBasicCounted-1 in this case.
             // similarly, if X ballots were allowed per month we want to look at
             // nBallotsBasicCounted-X. There would thus be (X-1) ballots that are _more_
-            // recent than the one we&#39;re looking for.
+            // recent than the one we're looking for.
             uint earlyBallotId = backend.getDCountedBasicBallotID(democHash, nBallotsBasicCounted - nBallotsAllowed);
             uint earlyBallotTs = _bbFarm.getCreationTs(earlyBallotId);
 
@@ -1536,24 +1536,24 @@ contract SVIndex is IxIface {
                 return (true, false);
             }
 
-            // at this point it may be the case that we shouldn&#39;t allow the ballot
-            // to be created. (It&#39;s an official ballot for a basic tier democracy
+            // at this point it may be the case that we shouldn't allow the ballot
+            // to be created. (It's an official ballot for a basic tier democracy
             // where the Nth most recent ballot was created within the last 30 days.)
             // We should now check for payment
             uint extraBallotFee = payments.getBasicExtraBallotFeeWei();
             require(msg.value >= extraBallotFee, "!extra-b-fee");
 
-            // now that we know they&#39;ve paid the fee, we should send Eth to `payTo`
+            // now that we know they've paid the fee, we should send Eth to `payTo`
             // and return the remainder.
             uint remainder = msg.value - extraBallotFee;
             doSafeSend(address(payments), extraBallotFee);
             doSafeSend(msg.sender, remainder);
             emit PaymentMade([extraBallotFee, remainder]);
-            // only in this case (for basic) do we want to return false - don&#39;t count towards the
-            // limit because it&#39;s been paid for here.
+            // only in this case (for basic) do we want to return false - don't count towards the
+            // limit because it's been paid for here.
             return (false, true);
 
-        } else {  // if we&#39;re premium we don&#39;t count ballots
+        } else {  // if we're premium we don't count ballots
             return (false, false);
         }
     }
@@ -1712,7 +1712,7 @@ contract SVIndexBackend is IxBackendIface {
     /* user democ admin functions */
 
     function dInit(address defaultErc20, address initOwner, bool disableErc20OwnerClaim) only_editors() external returns (bytes32 democHash) {
-        // generating the democHash in this way guarentees it&#39;ll be unique/hard-to-brute-force
+        // generating the democHash in this way guarentees it'll be unique/hard-to-brute-force
         // (particularly because prevBlockHash and now are part of the hash)
         democHash = keccak256(abi.encodePacked(democList.length, blockhash(block.number-1), defaultErc20, now));
         _addDemoc(democHash, defaultErc20, initOwner, disableErc20OwnerClaim);
@@ -1740,7 +1740,7 @@ contract SVIndexBackend is IxBackendIface {
         // set owner and editor
         d.owner = newOwner;
         d.editors[d.editorEpoch][newOwner] = true;
-        // disable the ability to claim now that it&#39;s done
+        // disable the ability to claim now that it's done
         d.erc20OwnerClaimDisabled = true;
         emit DemocOwnerSet(democHash, newOwner);
         emit DemocClaimed(democHash);
@@ -1810,7 +1810,7 @@ contract SVIndexBackend is IxBackendIface {
         uint localBallotId = democs[democHash].allBallots.length;
         democs[democHash].allBallots.push(ballotId);
 
-        // do this for anything that doesn&#39;t qualify as a community ballot
+        // do this for anything that doesn't qualify as a community ballot
         if (countTowardsLimit) {
             democs[democHash].includedBasicBallots.push(ballotId);
         }
@@ -1966,7 +1966,7 @@ contract SVPayments is IxPaymentsIface {
         uint _ethValue;
     }
 
-    // this is an address that&#39;s only allowed to make minor edits
+    // this is an address that's only allowed to make minor edits
     // e.g. setExchangeRate, setDenyPremium, giveTimeToDemoc
     address public minorEditsAddr;
 
@@ -2094,7 +2094,7 @@ contract SVPayments is IxPaymentsIface {
         // convert basic minutes to premium minutes
         uint paidTill = accounts[democHash].paidUpTill;
         uint timeRemaining = SafeMath.subToZero(paidTill, now);
-        // if we have time remaning then convert it - otherwise don&#39;t need to do anything
+        // if we have time remaning then convert it - otherwise don't need to do anything
         if (timeRemaining > 0) {
             timeRemaining /= premiumMultiplier;
             accounts[democHash].paidUpTill = now + timeRemaining;
@@ -2568,7 +2568,7 @@ library BytesLib {
     function concatStorage(bytes storage _preBytes, bytes memory _postBytes) internal {
         assembly {
             // Read the first 32 bytes of _preBytes storage, which is the length
-            // of the array. (We don&#39;t need to use the offset into the slot
+            // of the array. (We don't need to use the offset into the slot
             // because arrays use the entire slot.)
             let fslot := sload(_preBytes_slot)
             // Arrays of 31 bytes or less have an even value in their slot,
@@ -2582,7 +2582,7 @@ library BytesLib {
             let mlength := mload(_postBytes)
             let newlength := add(slength, mlength)
             // slength can contain both the length and contents of the array
-            // if length < 32 bytes so let&#39;s prepare for that
+            // if length < 32 bytes so let's prepare for that
             // v. http://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage
             switch add(lt(slength, 32), lt(newlength, 32))
             case 2 {
@@ -2718,15 +2718,15 @@ library BytesLib {
                 // word read from the original array. To read it, we calculate
                 // the length of that partial word and start copying that many
                 // bytes into the array. The first word we copy will start with
-                // data we don&#39;t care about, but the last `lengthmod` bytes will
+                // data we don't care about, but the last `lengthmod` bytes will
                 // land at the beginning of the contents of the new array. When
-                // we&#39;re done copying, we overwrite the full first word with
+                // we're done copying, we overwrite the full first word with
                 // the actual length of the slice.
                 let lengthmod := and(_length, 31)
 
                 // The multiplication in the next line is necessary
                 // because when slicing multiples of 32 bytes (lengthmod == 0)
-                // the following copy loop was copying the origin&#39;s length
+                // the following copy loop was copying the origin's length
                 // and then ending prematurely not copying everything it should.
                 let mc := add(add(tempBytes, lengthmod), mul(0x20, iszero(lengthmod)))
                 let end := add(mc, _length)
@@ -2748,7 +2748,7 @@ library BytesLib {
                 //allocating the array padded to 32 bytes like the compiler does now
                 mstore(0x40, and(add(mc, 31), not(31)))
             }
-            //if we want a zero-length slice let&#39;s just return a zero-length array
+            //if we want a zero-length slice let's just return a zero-length array
             default {
                 tempBytes := mload(0x40)
 
@@ -2787,12 +2787,12 @@ library BytesLib {
         assembly {
             let length := mload(_preBytes)
 
-            // if lengths don&#39;t match the arrays are not equal
+            // if lengths don't match the arrays are not equal
             switch eq(length, mload(_postBytes))
             case 1 {
-                // cb is a circuit breaker in the for loop since there&#39;s
+                // cb is a circuit breaker in the for loop since there's
                 //  no said feature for inline assembly loops
-                // cb = 1 - don&#39;t breaker
+                // cb = 1 - don't breaker
                 // cb = 0 - break
                 let cb := 1
 
@@ -2834,11 +2834,11 @@ library BytesLib {
             let slength := div(and(fslot, sub(mul(0x100, iszero(and(fslot, 1))), 1)), 2)
             let mlength := mload(_postBytes)
 
-            // if lengths don&#39;t match the arrays are not equal
+            // if lengths don't match the arrays are not equal
             switch eq(slength, mlength)
             case 1 {
                 // slength can contain both the length and contents of the array
-                // if length < 32 bytes so let&#39;s prepare for that
+                // if length < 32 bytes so let's prepare for that
                 // v. http://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage
                 if iszero(iszero(slength)) {
                     switch lt(slength, 32)
@@ -2852,9 +2852,9 @@ library BytesLib {
                         }
                     }
                     default {
-                        // cb is a circuit breaker in the for loop since there&#39;s
+                        // cb is a circuit breaker in the for loop since there's
                         //  no said feature for inline assembly loops
-                        // cb = 1 - don&#39;t breaker
+                        // cb = 1 - don't breaker
                         // cb = 0 - break
                         let cb := 1
 

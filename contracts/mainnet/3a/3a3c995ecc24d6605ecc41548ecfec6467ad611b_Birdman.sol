@@ -202,8 +202,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -220,7 +220,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -391,8 +391,8 @@ contract Birdman is AdminUtils, ERC223ReceivingContract {
     }
 
     /**
-     * @dev Get a MC&#39;s info given index
-     * @param _index the MC&#39;s index
+     * @dev Get a MC's info given index
+     * @param _index the MC's index
      */
     function getMC(uint256 _index)
         public
@@ -419,7 +419,7 @@ contract Birdman is AdminUtils, ERC223ReceivingContract {
 
     /**
      * @dev Get the MC index given address
-     * @param _address MC&#39;s address
+     * @param _address MC's address
      */
     function getIndex(address _address)
         public
@@ -429,7 +429,7 @@ contract Birdman is AdminUtils, ERC223ReceivingContract {
     }
 
     /**
-     * @dev Update all MC&#39;s status
+     * @dev Update all MC's status
      */
     function updateMCs()
         public {
@@ -444,10 +444,10 @@ contract Birdman is AdminUtils, ERC223ReceivingContract {
     }
 
     /**
-     * @dev Update a MC&#39;s status, if
-     * - the MC&#39;s balance is below min requirement, it will be deleted;
-     * - the MC&#39;s vetting time is passed, it will be added
-     * @param _index the MC&#39;s index
+     * @dev Update a MC's status, if
+     * - the MC's balance is below min requirement, it will be deleted;
+     * - the MC's vetting time is passed, it will be added
+     * @param _index the MC's index
      */
     function updateMC(uint256 _index)
         public {
@@ -499,7 +499,7 @@ contract Birdman is AdminUtils, ERC223ReceivingContract {
 
     /**
      * @dev Ask for funds for a MC
-     * @param _index the Mc&#39;s index
+     * @param _index the Mc's index
      */
     function claimShare(uint256 _index)
         public {

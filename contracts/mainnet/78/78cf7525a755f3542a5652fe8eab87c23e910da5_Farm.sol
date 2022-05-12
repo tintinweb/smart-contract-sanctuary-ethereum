@@ -35,7 +35,7 @@ contract ProxyCrop {
         calldatacopy(0, 0, calldatasize)
 
         // Call the implementation.
-        // out and outsize are 0 because we don&#39;t know the size yet.
+        // out and outsize are 0 because we don't know the size yet.
         let result := delegatecall(gas, 0x0D6C969d0004B431189f834203CE0f5530e06259, 0, calldatasize, 0, 0)
 
         // Copy the returned data.

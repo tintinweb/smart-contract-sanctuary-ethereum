@@ -87,7 +87,7 @@ contract OwnerBase {
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
     function unpause() public onlyCOO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 	
@@ -208,35 +208,35 @@ contract Partners is OwnerBase, SafeMath, PartnerHolder {
 	}
 	
 	function initCasino() public onlyCOO {
-		addCasino(5, 100000000000000000, &#39;Las Vegas Bellagio Casino&#39;, &#39;Five star Casino&#39;);
-		addCasino(4, 70000000000000000, &#39;London Ritz Club Casino&#39;, &#39;Four star Casino&#39;);
-		addCasino(4, 70000000000000000, &#39;Las Vegas Metropolitan Casino&#39;, &#39;Four star Casino&#39;);
-		addCasino(4, 70000000000000000, &#39;Argentina Park Hyatt Mendoza Casino&#39;, &#39;Four star Casino&#39;);
-		addCasino(3, 30000000000000000, &#39;Canada Golf Thalasso & Casino Resort&#39;, &#39;Three star Casino&#39;);
-		addCasino(3, 30000000000000000, &#39;Monaco Monte-Carlo Casino&#39;, &#39;Three star Casino&#39;);
-		addCasino(3, 30000000000000000, &#39;Las Vegas Flamingo Casino&#39;, &#39;Three star Casino&#39;);
-		addCasino(3, 30000000000000000, &#39;New Jersey Bogota Casino&#39;, &#39;Three star Casino&#39;);
-		addCasino(3, 30000000000000000, &#39;Atlantic City Taj Mahal Casino&#39;, &#39;Three star Casino&#39;);
-		addCasino(2, 20000000000000000, &#39;Dubai Atlantis Casino&#39;, &#39;Two star Casino&#39;);
-		addCasino(2, 20000000000000000, &#39;Germany Baden-Baden Casino&#39;, &#39;Two star Casino&#39;);
-		addCasino(2, 20000000000000000, &#39;South Korea Paradise Walker Hill Casino&#39;, &#39;Two star Casino&#39;);
-		addCasino(2, 20000000000000000, &#39;Las Vegas Paris Casino&#39;, &#39;Two star Casino&#39;);
-		addCasino(2, 20000000000000000, &#39;Las Vegas Caesars Palace Casino&#39;, &#39;Two star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Las Vegas Riviera Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Las Vegas Mandalay Bay Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Las Vegas MGM Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Las Vegas New York Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Las Vegas  Renaissance Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Las Vegas Venetian Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Melbourne Crown Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Macao Grand Lisb Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Singapore Marina Bay Sands Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Malaysia Cloud Top Mountain Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;South Africa Sun City Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Vietnam Smear Peninsula Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Macao Sands Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Bahamas Paradise Island Casino&#39;, &#39;One star Casino&#39;);
-		addCasino(1, 10000000000000000, &#39;Philippines Manila Casinos&#39;, &#39;One star Casino&#39;);
+		addCasino(5, 100000000000000000, 'Las Vegas Bellagio Casino', 'Five star Casino');
+		addCasino(4, 70000000000000000, 'London Ritz Club Casino', 'Four star Casino');
+		addCasino(4, 70000000000000000, 'Las Vegas Metropolitan Casino', 'Four star Casino');
+		addCasino(4, 70000000000000000, 'Argentina Park Hyatt Mendoza Casino', 'Four star Casino');
+		addCasino(3, 30000000000000000, 'Canada Golf Thalasso & Casino Resort', 'Three star Casino');
+		addCasino(3, 30000000000000000, 'Monaco Monte-Carlo Casino', 'Three star Casino');
+		addCasino(3, 30000000000000000, 'Las Vegas Flamingo Casino', 'Three star Casino');
+		addCasino(3, 30000000000000000, 'New Jersey Bogota Casino', 'Three star Casino');
+		addCasino(3, 30000000000000000, 'Atlantic City Taj Mahal Casino', 'Three star Casino');
+		addCasino(2, 20000000000000000, 'Dubai Atlantis Casino', 'Two star Casino');
+		addCasino(2, 20000000000000000, 'Germany Baden-Baden Casino', 'Two star Casino');
+		addCasino(2, 20000000000000000, 'South Korea Paradise Walker Hill Casino', 'Two star Casino');
+		addCasino(2, 20000000000000000, 'Las Vegas Paris Casino', 'Two star Casino');
+		addCasino(2, 20000000000000000, 'Las Vegas Caesars Palace Casino', 'Two star Casino');
+		addCasino(1, 10000000000000000, 'Las Vegas Riviera Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Las Vegas Mandalay Bay Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Las Vegas MGM Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Las Vegas New York Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Las Vegas  Renaissance Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Las Vegas Venetian Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Melbourne Crown Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Macao Grand Lisb Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Singapore Marina Bay Sands Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Malaysia Cloud Top Mountain Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'South Africa Sun City Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Vietnam Smear Peninsula Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Macao Sands Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Bahamas Paradise Island Casino', 'One star Casino');
+		addCasino(1, 10000000000000000, 'Philippines Manila Casinos', 'One star Casino');
 	}
 	///
 	function () payable public {
@@ -362,7 +362,7 @@ contract Partners is OwnerBase, SafeMath, PartnerHolder {
 		item.owner = newOwner;
 		emit Bought(_id, newOwner, oldPrice, oldOwner);
 		
-		// Transfer payment to old owner minus the developer&#39;s cut.
+		// Transfer payment to old owner minus the developer's cut.
 		uint256 devCut = safeDiv(safeMul(oldPrice, masterCut), 10000);
 		oldOwner.transfer(safeSub(oldPrice, devCut));
 		masterHas = safeAdd(masterHas, devCut);

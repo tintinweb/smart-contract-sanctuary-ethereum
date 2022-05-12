@@ -103,7 +103,7 @@ contract Marketplace is Ownable {
 
     function unlist(address _caller, uint256 _tokenId) public nftOnly {
         address _seller = listings[_tokenId].seller;
-        // Allow owner to unlist (via nft) for when it&#39;s time to shut this down
+        // Allow owner to unlist (via nft) for when it's time to shut this down
         require(_seller == _caller || address(owner) == _caller);
         nft.transfer(_seller, _tokenId);
         delete listings[_tokenId];
@@ -114,7 +114,7 @@ contract Marketplace is Ownable {
         Listing memory _listing = listings[_tokenId];
         address _seller = _listing.seller;
 
-        require(_caller != _seller); // Doesn&#39;t make sense for someone to buy/sell their own token.
+        require(_caller != _seller); // Doesn't make sense for someone to buy/sell their own token.
         require(listingActive(_tokenId));
 
         uint256 _price = currentPrice(_tokenId);
@@ -218,7 +218,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -503,7 +503,7 @@ contract PineappleArcadeTrophy is ERC721Token, Pausable {
         marketplace.purchase.value(_sellerTake)(msg.sender, _trophyId, msg.value);
     }
 
-    /// @notice With each call to purchaseTrophy, fees will build up in this contract&#39;s balance.
+    /// @notice With each call to purchaseTrophy, fees will build up in this contract's balance.
     /// This method allows the contract owner to transfer that balance to their account.
     function withdrawBalance() external onlyOwner {
         owner.transfer(this.balance);

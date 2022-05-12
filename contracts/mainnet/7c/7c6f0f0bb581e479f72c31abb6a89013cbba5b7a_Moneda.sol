@@ -129,7 +129,7 @@ contract Moneda {
     // Anybody may burn the tokens after ICO ended, but only once (in case the owner holds more tokens in the future).
     // this ensures that the owner will not posses a majority of the tokens.
     function burn() public {
-        // Make sure it&#39;s after ICO and hasn&#39;t been called before.
+        // Make sure it's after ICO and hasn't been called before.
         require(!burned && now > icoEnds);
         uint256 totalReserve = teamReserve.add(companyReserve);
         uint256 difference = balances[ownerAddr].sub(totalReserve);

@@ -51,7 +51,7 @@ contract LoggedERC20 is Ownable {
     }
 
     /* Public variables of the token */
-    string public standard = &#39;LogValueBlockToken 0.1&#39;;
+    string public standard = 'LogValueBlockToken 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;

@@ -163,7 +163,7 @@ contract Doftcoin is BasicToken, owned, doftManaged {
 	    require(sellPrice > 0);
         require(this.balance >= _amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, _amount);              // makes the transfers
-        msg.sender.transfer(_amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(_amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 
     /// @notice Allow users to buy tokens for `_newBuyPrice` eth and sell tokens for `_newSellPrice` eth

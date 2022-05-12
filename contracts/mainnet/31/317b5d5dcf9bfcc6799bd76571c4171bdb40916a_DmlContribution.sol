@@ -226,7 +226,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -337,7 +337,7 @@ contract DmlToken is StandardToken, Pausable{
 
  	string public constant name = "DML Token";
 	uint8 public constant decimals = 18;
-	string public constant symbol = &#39;DML&#39;;
+	string public constant symbol = 'DML';
 
 	uint public constant MAX_TOTAL_TOKEN_AMOUNT = 330000000 ether;
 	address public minter;
@@ -686,7 +686,7 @@ contract DmlContribution is Ownable {
     }
 
     /**
-    * @dev Get a user&#39;s whitelisted state
+    * @dev Get a user's whitelisted state
     * @param userAddress      address       the wallet address of the user
     * @return bool  true if the user is in the whitelist
     */

@@ -1,7 +1,7 @@
 pragma solidity 0.4.24;
 
 
-//base on //import &#39;openzeppelin-solidity/contracts/ownership/Ownable.sol&#39;;
+//base on //import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 
 /**
  * @title Ownable

@@ -77,7 +77,7 @@ contract FixedSupplyToken is ERC20Interface
 		return balances[_owner];
 	}
 
-	// Transfer the balance from owner&#39;s account to another account
+	// Transfer the balance from owner's account to another account
 	function transfer(address _to, uint256 _amount) returns (bool success)
 	{
 		if	(

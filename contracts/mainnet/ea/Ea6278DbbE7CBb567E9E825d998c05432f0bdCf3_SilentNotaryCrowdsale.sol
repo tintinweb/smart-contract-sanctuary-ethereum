@@ -399,7 +399,7 @@ contract SilentNotaryCrowdsale is Haltable, Killable, SafeMath {
    startsAt = _start;
  }
 
- /// @dev Don&#39;t expect to just send in money and get tokens.
+ /// @dev Don't expect to just send in money and get tokens.
  function() payable {
    buy();
  }

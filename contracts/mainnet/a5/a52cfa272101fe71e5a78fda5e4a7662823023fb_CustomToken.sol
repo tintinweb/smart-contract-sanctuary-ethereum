@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 500000000000000000000000000;
-        name = &#39;bitbitx&#39;;
-        symbol = &#39;BTBI&#39;;
+        name = 'bitbitx';
+        symbol = 'BTBI';
         decimals = 18;
         balanceOf[0x873c50dcac16d9db1b67d7c6ff596f69981c4c71] = totalSupply;
         Transfer(address(0), 0x873c50dcac16d9db1b67d7c6ff596f69981c4c71, totalSupply);

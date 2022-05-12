@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 contract GaiBanngToken {
 
-    string public name = &#39;丐帮令牌&#39;;      //  token name
+    string public name = '丐帮令牌';      //  token name
     string constant public symbol = "GAI";           //  token symbol
     uint256 constant public decimals = 8;            //  token digit
 

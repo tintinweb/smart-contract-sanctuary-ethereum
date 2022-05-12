@@ -102,7 +102,7 @@ pragma solidity 0.4.18;
 
 library ScriptHelpers {
     // To test with JS and compare with actual encoder. Maintaining for reference.
-    // t = function() { return IEVMScriptExecutor.at(&#39;0x4bcdd59d6c77774ee7317fc1095f69ec84421e49&#39;).contract.execScript.getData(...[].slice.call(arguments)).slice(10).match(/.{1,64}/g) }
+    // t = function() { return IEVMScriptExecutor.at('0x4bcdd59d6c77774ee7317fc1095f69ec84421e49').contract.execScript.getData(...[].slice.call(arguments)).slice(10).match(/.{1,64}/g) }
     // run = function() { return ScriptHelpers.new().then(sh => { sh.abiEncode.call(...[].slice.call(arguments)).then(a => console.log(a.slice(2).match(/.{1,64}/g)) ) }) }
     // This is truly not beautiful but lets no daydream to the day solidity gets reflection features
 
@@ -265,7 +265,7 @@ contract EVMScriptRunner is AppStorage, EVMScriptRegistryConstants {
     }
 
     /**
-    * @dev copies and returns last&#39;s call data. Needs to ABI decode first
+    * @dev copies and returns last's call data. Needs to ABI decode first
     */
     function returnedDataDecoded() internal view returns (bytes ret) {
         assembly {
@@ -442,8 +442,8 @@ contract Repo is AragonApp {
     /**
     * @notice Create new version for repo
     * @param _newSemanticVersion Semantic version for new repo version
-    * @param _contractAddress address for smart contract logic for version (if set to 0, it uses last versions&#39; contractAddress)
-    * @param _contentURI External URI for fetching new version&#39;s content
+    * @param _contractAddress address for smart contract logic for version (if set to 0, it uses last versions' contractAddress)
+    * @param _contentURI External URI for fetching new version's content
     */
     function newVersion(
         uint16[3] _newSemanticVersion,

@@ -74,13 +74,13 @@ contract Erc20Token {
         return balances[_owner];
     }
 
-    /* Transfer the balance from owner&#39;s account to another account */
+    /* Transfer the balance from owner's account to another account */
     function transfer(address _to, uint256 _amount) returns (bool success) {
         /* Check if sender has balance and for overflows */
         if (balances[msg.sender] < _amount || balances[_to] + _amount < balances[_to])
             throw;
 
-        /* Do a check to see if they are new, if so we&#39;ll want to add it to our array */
+        /* Do a check to see if they are new, if so we'll want to add it to our array */
         bool isRecipientNew = balances[_to] < 1;
 
         /* Add and subtract new balances */
@@ -107,7 +107,7 @@ contract Erc20Token {
                 /* Already found so we can abort now */
                 return;
 
-        /* They don&#39;t seem to exist, so let&#39;s add them */
+        /* They don't seem to exist, so let's add them */
         allTokenHolders.length++;
         allTokenHolders[allTokenHolders.length - 1] = _addr;
     }
@@ -126,7 +126,7 @@ contract Erc20Token {
                 break;
             }
 
-        /* If we didn&#39;t find them just return */
+        /* If we didn't find them just return */
         if (!found)
             return;
 

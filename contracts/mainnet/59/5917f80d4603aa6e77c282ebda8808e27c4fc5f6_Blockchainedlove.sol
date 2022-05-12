@@ -16,7 +16,7 @@ contract Ownable {
 	modifier onlyOwner() {
 		require( 
 			msg.sender == owner,
-			&#39;Only the administrator can change this&#39;
+			'Only the administrator can change this'
 		);
 		_;
 	}
@@ -35,9 +35,9 @@ contract Blockchainedlove is Ownable {
 	
 	// Main function, executed once upon deployment
 	constructor() public {
-		partner_1_name = &#39;Andrii Shekhirev&#39;;
-		partner_2_name = &#39;Inga Berkovica&#39;;
-		contract_date = &#39;23 June 2009&#39;;
+		partner_1_name = 'Andrii Shekhirev';
+		partner_2_name = 'Inga Berkovica';
+		contract_date = '23 June 2009';
 		is_active = true;
 	}
 	

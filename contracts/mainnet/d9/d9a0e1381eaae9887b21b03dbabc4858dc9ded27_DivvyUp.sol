@@ -4,13 +4,13 @@ pragma solidity 0.4.23;
 *DivvyUp for Goo
 *
 * ====================================================================*
-*&#39;||&#39;&#39;|.    ||                                    &#39;||&#39;  &#39;|&#39;         
+*'||''|.    ||                                    '||'  '|'         
 * ||   ||  ...  .... ... .... ... .... ...      ,  ||    |  ... ... 
-* ||    ||  ||   &#39;|.  |   &#39;|.  |   &#39;|.  |  <>  /   ||    |   ||&#39;  ||
-* ||    ||  ||    &#39;|.|     &#39;|.|     &#39;|.|      /    ||    |   ||    |
-*.||...|&#39;  .||.    &#39;|       &#39;|       &#39;|      /      &#39;|..&#39;    ||...&#39; 
+* ||    ||  ||   '|.  |   '|.  |   '|.  |  <>  /   ||    |   ||'  ||
+* ||    ||  ||    '|.|     '|.|     '|.|      /    ||    |   ||    |
+*.||...|'  .||.    '|       '|       '|      /      '|..'    ||...' 
 *                                 .. |      /                ||     
-*                                  &#39;&#39;      /  <>            &#39;&#39;&#39;&#39;    
+*                                  ''      /  <>            ''''    
 * =====================================================================*
 *
 * A wealth redistribution smart contract cleverly disguised as a ERC20 token.
@@ -94,7 +94,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -346,7 +346,7 @@ contract DivvyUp is ERC20Interface, Owned, DivvyUpInterface {
     
      
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvestDividends()
         onlyDividendHolders()
@@ -530,7 +530,7 @@ contract DivvyUp is ERC20Interface, Owned, DivvyUpInterface {
 
     /**
     * Returns the amount of tokens approved by the owner that can be
-    * transferred to the spender&#39;s account
+    * transferred to the spender's account
     * 
     * Implementation taken from ERC20 reference
     * 
@@ -541,7 +541,7 @@ contract DivvyUp is ERC20Interface, Owned, DivvyUpInterface {
 
     /**
     * Token owner can approve for `spender` to transferFrom(...) `tokens`
-    * from the token owner&#39;s account. The `spender` contract function
+    * from the token owner's account. The `spender` contract function
     * `receiveApproval(...)` is then executed
     * 
     */
@@ -754,7 +754,7 @@ contract DivvyUp is ERC20Interface, Owned, DivvyUpInterface {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger[customerAddress] = SafeMath.add(tokenBalanceLedger[customerAddress], amountOfTokens);
         
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them
         int256 updatedPayouts = (int256) ((profitPerShare * amountOfTokens) - fee);
         payoutsTo[customerAddress] += updatedPayouts;
         

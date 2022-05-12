@@ -57,7 +57,7 @@ contract CryptoBotsIdleToken is Ownable, Extension {
     mapping(address => uint256) public balances;
     mapping(address => mapping(address => uint256)) public allowed;
 
-    //Event which is triggered to log all transfers to this contract&#39;s event log
+    //Event which is triggered to log all transfers to this contract's event log
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
     //Event which is triggered whenever an owner approves a new allowance for a spender.
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);

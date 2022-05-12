@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -116,7 +116,7 @@ contract Coinweb is Token {
     string public constant symbol = "XCOe";
     uint256 public constant decimals = 8;
     uint256 public constant totalSupply = 2400000000 * 10**decimals;
-    address public founder = 0x51Db57ABe0Fc0393C0a81c0656C7291aB7Dc0fDe; // Founder&#39;s address
+    address public founder = 0x51Db57ABe0Fc0393C0a81c0656C7291aB7Dc0fDe; // Founder's address
     mapping (address => uint256) public balances;
     mapping (address => mapping (address => uint256)) public allowed;
 
@@ -197,7 +197,7 @@ contract Coinweb is Token {
     }
 
     /**
-     * Contract calls revert on public method as it&#39;s not supposed to deal with
+     * Contract calls revert on public method as it's not supposed to deal with
      * Ether and should not have payable methods.
      */
     function() public {

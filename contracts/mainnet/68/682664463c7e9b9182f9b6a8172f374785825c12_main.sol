@@ -53,7 +53,7 @@ contract Authorized is AuthorizedList {
 
     }
 
-    /// @dev Check _address&#39; authorization, boolean function
+    /// @dev Check _address' authorization, boolean function
     /// @param _address Boolean value, true if authorized, false otherwise
     /// @param _authorization key for specific authorization
     function isAuthorized(address _address, bytes32 _authorization) public view returns (bool) {

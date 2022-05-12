@@ -190,7 +190,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -1217,8 +1217,8 @@ contract ParsecShipAuction is
     firstAuctionsHighestBid = _value;
     firstAuctionsHighestBidder = _bidder;
 
-    // To prevent the first auction&#39;s referrer being overriden,
-    // since later auction&#39;s bidders could be the same as the first auction&#39;s bidder
+    // To prevent the first auction's referrer being overriden,
+    // since later auction's bidders could be the same as the first auction's bidder
     // but their referrers could be different.
     firstAuctionsReferrer = referrer[_bidder];
 

@@ -52,7 +52,7 @@ contract GuardedBeercoinICO {
     /**
      * Declare a new owner
      *
-     * @param newOwner the new owner&#39;s address
+     * @param newOwner the new owner's address
      */
     function setOwner(address newOwner) onlyGuardian public {
         if (msg.sender == guardian1) {
@@ -162,7 +162,7 @@ contract BeercoinICO is GuardedBeercoinICO {
     }
 
     /**
-     * Withdraw the sender&#39;s contributed Ether in case the goal has not been reached
+     * Withdraw the sender's contributed Ether in case the goal has not been reached
      */
     function withdraw() goalNotReached public {
         uint amount = balanceOf[msg.sender];

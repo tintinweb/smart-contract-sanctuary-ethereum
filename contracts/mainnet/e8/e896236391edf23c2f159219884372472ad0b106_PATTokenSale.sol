@@ -736,7 +736,7 @@ contract PATTokenSale is Math {
     uint256 internal finalPrice;
 
     /**
-     * Maps investor&#39;s address to corresponding Investor structure.
+     * Maps investor's address to corresponding Investor structure.
      */
     mapping (address => Investor) internal investors;
 

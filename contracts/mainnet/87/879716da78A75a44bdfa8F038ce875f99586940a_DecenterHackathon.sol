@@ -123,7 +123,7 @@ contract DecenterHackathon {
     }
 
     // Jury members can vote during voting period
-    // The _votes parameter should be an array of team addresses, sorted by score from highest to lowest based on jury member&#39;s preferences
+    // The _votes parameter should be an array of team addresses, sorted by score from highest to lowest based on jury member's preferences
     function vote(address[] _votes) onlyJury {
         require(currentPeriod == Period.Voting);
         require(_votes.length == teamAddresses.length);

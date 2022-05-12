@@ -18,8 +18,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -36,7 +36,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -204,7 +204,7 @@ contract Ownable {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overridden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropriate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropriate to concatenate
  * behavior.
  */
 contract Crowdsale {
@@ -301,7 +301,7 @@ contract Crowdsale {
 
   /**
    * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
-   * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method: 
+   * Example from CappedCrowdsale.sol's _preValidatePurchase method: 
    *   super._preValidatePurchase(_beneficiary, _weiAmount);
    *   require(weiRaised.add(_weiAmount) <= cap);
    * @param _beneficiary Address performing the token purchase
@@ -504,7 +504,7 @@ contract FinalizableCrowdsale is Ownable, TimedCrowdsale {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() public onlyOwner {
     require(!isFinalized);
@@ -531,7 +531,7 @@ contract FinalizableCrowdsale is Ownable, TimedCrowdsale {
  * @title Escrow
  * @dev Base escrow contract, holds funds destinated to a payee until they
  * withdraw them. The contract that uses the escrow as its payment method
- * should be its owner, and provide public methods redirecting to the escrow&#39;s
+ * should be its owner, and provide public methods redirecting to the escrow's
  * deposit and withdraw.
  */
 contract Escrow is Ownable {
@@ -647,7 +647,7 @@ contract RefundEscrow is Ownable, ConditionalEscrow {
   }
 
   /**
-   * @dev Withdraws the beneficiary&#39;s funds.
+   * @dev Withdraws the beneficiary's funds.
    */
   function beneficiaryWithdraw() public {
     require(state == State.Closed);
@@ -749,29 +749,29 @@ contract WhitelistProxyInterface {
  * @title TokenSale
  * @dev Distribute tokens to investors in exchange for Ether.
  *
- * This is the primary mechanism for outright sales of commercial investment properties (and blockimmo&#39;s STO, where shares
+ * This is the primary mechanism for outright sales of commercial investment properties (and blockimmo's STO, where shares
  * of our company are represented as `TokenizedProperty`) (official pending FINMA approval).
  *
  * Selling:
- *   1. Deploy `TokenizedProperty`. Initially all tokens and ownership of this property will be assigned to the &#39;deployer&#39;
- *   2. Deploy `ShareholderDAO` and transfer the property&#39;s (1) ownership to it
+ *   1. Deploy `TokenizedProperty`. Initially all tokens and ownership of this property will be assigned to the 'deployer'
+ *   2. Deploy `ShareholderDAO` and transfer the property's (1) ownership to it
  *   3. Configure and deploy a `TokenSale`
  *     - After completing (1, 2, 3) blockimmo will verify the property as legitimate in `LandRegistry`
  *     - blockimmo will then authorize `this` to the `Whitelist` before seller can proceed to (4)
  *   4. Transfer tokens of `TokenizedProperty` (1) to be sold to `this` (3)
- *   5. Investors are able to buy tokens while the sale is open. &#39;Deployer&#39; calls `finalize` to complete the sale
+ *   5. Investors are able to buy tokens while the sale is open. 'Deployer' calls `finalize` to complete the sale
  *
  * Note: blockimmo will be responsible for managing initial sales on our platform. This means we will be configuring
- *       and deploying all contracts for sellers. This provides an extra layer of control/security until we&#39;ve refined
+ *       and deploying all contracts for sellers. This provides an extra layer of control/security until we've refined
  *       these processes and proven them in the real-world.
  *       Later sales will use SplitPayment contracts to route funds, with examples in the tests.
  *
  * Unsold tokens (of a successful sale) are redistributed proportionally to investors via Airdrop, as described in:
  * https://medium.com/FundFantasy/airdropping-vs-burning-part-1-613a9c6ebf1c
  *
- * If a sale&#39;s soft-cap is not reached (and the seller does not `accept` a lower price), investors will be refunded Ether and the seller refunded tokens.
+ * If a sale's soft-cap is not reached (and the seller does not `accept` a lower price), investors will be refunded Ether and the seller refunded tokens.
  *
- * For stable token sales (soft and hard-cap in USD instead of Wei), we rely on MakerDAO&#39;s on-chain ETH/USD conversion rate
+ * For stable token sales (soft and hard-cap in USD instead of Wei), we rely on MakerDAO's on-chain ETH/USD conversion rate
  * https://developer.makerdao.com/feeds/
  * This approach to mitigating Ether volatility seems to best when analyzing trade-offs, short of selling directly in FIAT.
  */

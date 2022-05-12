@@ -28,7 +28,7 @@ contract ChronoBankAssetProxy {
  * Receives calls from the proxy, and calls back immediatly without arguments modification.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract ChronoBankAsset is ChronoBankAssetInterface {
     // Assigned asset proxy contract, immutable.

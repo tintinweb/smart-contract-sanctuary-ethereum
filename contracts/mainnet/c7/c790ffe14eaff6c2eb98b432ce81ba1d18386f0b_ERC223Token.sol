@@ -36,7 +36,7 @@ library SafeMath {
 
 /**
  * @title ERC223 Token interface
- * @dev Code based on Dexaran&#39;s one on github as recommended on ERC223 discussion
+ * @dev Code based on Dexaran's one on github as recommended on ERC223 discussion
  */
 
 contract ERC223Interface {
@@ -62,7 +62,7 @@ contract ERC223Interface {
 
 /**
  * @title ERC223 Token definition
- * @dev Code based on Dexaran&#39;s one on github as recommended on ERC223 discussion
+ * @dev Code based on Dexaran's one on github as recommended on ERC223 discussion
  */
  
 contract ERC223Token is ERC223Interface {

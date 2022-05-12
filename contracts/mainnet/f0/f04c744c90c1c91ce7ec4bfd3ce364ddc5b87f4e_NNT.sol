@@ -25,12 +25,12 @@ contract SafeMath {
 }
 
 contract NNT is SafeMath {
-    string public constant standard = &#39;Token 0.1&#39;;
+    string public constant standard = 'Token 0.1';
     uint8 public constant decimals = 18;
 
     // you need change the following three values
-    string public constant name = &#39;New-New Trade&#39;;
-    string public constant symbol = &#39;NNT&#39;;
+    string public constant name = 'New-New Trade';
+    string public constant symbol = 'NNT';
     uint256 public totalSupply = 0.25 * 10**8 * 10**uint256(decimals);
 
     mapping (address => uint256) public balanceOf;

@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -109,12 +109,12 @@ contract CryptoHuntIco is Ownable {
 
     // An array of all the people who participated in the crowdsale. Append-only, unique elements.
     address[] public tokenBuyersArray;
-    // A sum of tokenbuyers&#39; tokens
+    // A sum of tokenbuyers' tokens
     uint256 public tokenBuyersAmount;
     // A mapping of buyers and their amounts of total tokens due
     mapping(address => uint256) public tokenBuyersMapping;
     /**
-    * A mapping of buyers and the amount of tokens they&#39;re due per week.
+    * A mapping of buyers and the amount of tokens they're due per week.
     * Calculated when claimTokens is called for a given address.
     */
     mapping(address => uint256) public tokenBuyersFraction;
@@ -319,7 +319,7 @@ contract CryptoHuntIco is Ownable {
     }
 
     /**
-    * @param _beneficiary Address for which we&#39;re checking if the purchase is valid
+    * @param _beneficiary Address for which we're checking if the purchase is valid
     *
     * @return true if the transaction can buy tokens
     */
@@ -343,7 +343,7 @@ contract CryptoHuntIco is Ownable {
 
     /**
      * @dev Must be called after crowdsale ends, to do some extra finalization
-     * work. Calls the contract&#39;s finalization function.
+     * work. Calls the contract's finalization function.
      */
     function finalize() onlyOwner public {
         require(!isFinalized);
@@ -420,7 +420,7 @@ contract CryptoHuntIco is Ownable {
         // Need to be able to withdraw by having some
         require(tokenBuyersMapping[_beneficiary] > 0 && tokenBuyersRemaining[_beneficiary] > 0);
 
-        // Max 8 because we&#39;re giving out 12.5% per week and 8 * 12.5% = 100%
+        // Max 8 because we're giving out 12.5% per week and 8 * 12.5% = 100%
 //        uint256 w = weeksFromEnd();
         uint256 w = weeksFromEndPlusMonth();
         if (w > 8) {
@@ -458,7 +458,7 @@ contract CryptoHuntIco is Ownable {
         }
     }
 
-    // Determine 1/8th of every user&#39;s contribution in their deserved tokens
+    // Determine 1/8th of every user's contribution in their deserved tokens
     function fractionalize(address _beneficiary) internal {
         require(tokenBuyersMapping[_beneficiary] > 0);
         if (tokenBuyersFraction[_beneficiary] == 0) {
@@ -654,7 +654,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.

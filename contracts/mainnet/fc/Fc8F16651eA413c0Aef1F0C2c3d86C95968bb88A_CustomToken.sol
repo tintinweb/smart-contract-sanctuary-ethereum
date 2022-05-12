@@ -73,8 +73,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, ICOToken {
     function CustomToken() public {
         totalSupply = 250000000000000000000000000;
-        name = &#39;SuperconductorChain&#39;;
-        symbol = &#39;SCC&#39;;
+        name = 'SuperconductorChain';
+        symbol = 'SCC';
         decimals = 18;
         balanceOf[0x97f38f9957dca0f48fcc48202ece69e7920b7b4b] = totalSupply;
         Transfer(address(0), 0x97f38f9957dca0f48fcc48202ece69e7920b7b4b, totalSupply);

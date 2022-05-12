@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -87,8 +87,8 @@ contract ERC20Basic {
 
 /// @title MiniMeToken Contract
 /// @author Jordi Baylina
-/// @dev This token contract&#39;s goal is to make it easy for anyone to clone this
-///  token using the token distribution at a given block, this will allow DAO&#39;s
+/// @dev This token contract's goal is to make it easy for anyone to clone this
+///  token using the token distribution at a given block, this will allow DAO's
 ///  and DApps to upgrade their features in a decentralized manner without
 ///  affecting the original token
 /// @dev It is ERC20 compliant, but still needs to under go further testing.
@@ -144,10 +144,10 @@ contract ApproveAndCallFallBack {
 ///  token controller contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Controlled {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
-    string public version = &#39;MMT_0.2&#39;; //An arbitrary versioning scheme
+    string public version = 'MMT_0.2'; //An arbitrary versioning scheme
 
 
     /// @dev `Checkpoint` is the structure that attaches a block number to a
@@ -310,7 +310,7 @@ contract MiniMeToken is Controlled {
 
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public constant returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -585,7 +585,7 @@ contract MiniMeToken is Controlled {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token controller contract
     function () public payable {
@@ -842,13 +842,13 @@ contract TokenCampaign is Controlled {
   // we also have setter functions which allow to change
   // an address if it is compromised or something happens
 
-  // destination for D-team&#39;s share
+  // destination for D-team's share
   address public dteamVaultAddr1;
   address public dteamVaultAddr2;
   address public dteamVaultAddr3;
   address public dteamVaultAddr4;
 
-  // destination for R-team&#39;s share
+  // destination for R-team's share
   address public rteamVaultAddr;
 
   // advisor address
@@ -957,7 +957,7 @@ contract TokenCampaign is Controlled {
   event Refund(address investor, uint256 weiAmount);
 
   /// @notice Constructor
-  /// @param _tokenAddress Our token&#39;s address
+  /// @param _tokenAddress Our token's address
   /// @param  _trusteeAddress Trustee address
   /// @param  _opAddress Operational expenses address 
   /// @param  _reserveAddress Project Token Reserve
@@ -1007,7 +1007,7 @@ contract TokenCampaign is Controlled {
   /// @notice  Puts campaign into active state  
   ///  only controller can do that
   ///  only possible if team token Vault is set up
-  ///  WARNING: usual caveats apply to the Ethereum&#39;s interpretation of time
+  ///  WARNING: usual caveats apply to the Ethereum's interpretation of time
   function startSale() public onlyController {
     require( campaignState > 2 );
 
@@ -1047,7 +1047,7 @@ contract TokenCampaign is Controlled {
   ///   only controller can do so
   ///   only possible from the active state
   ///   we can call this function if we want to stop sale before end time 
-  ///   and be able to perform &#39;finalizeCampaign()&#39; immediately
+  ///   and be able to perform 'finalizeCampaign()' immediately
   function closeSale() public onlyController {
     require( campaignState  == 2 );
     campaignState = 1;
@@ -1367,8 +1367,8 @@ contract TokenCampaign is Controlled {
       
       // forward funds to the trustee 
       // since we forward a fraction of the incomming ether on every contribution
-      // &#39;amountRaised&#39; IS NOT equal to the contract&#39;s balance
-      // we use &#39;this.balance&#39; instead
+      // 'amountRaised' IS NOT equal to the contract's balance
+      // we use 'this.balance' instead
 
       // we do this manually to give people the chance to claim refunds in case of overpayments
 
@@ -1390,7 +1390,7 @@ contract TokenCampaign is Controlled {
   /// @notice triggers token generaton for the recipient
   ///  can be called only from the token sale contract itself
   ///  side effect: increases the generated tokens counter 
-  ///  CAUTION: we do not check campaign state and parameters assuming that&#39;s callee&#39;s task
+  ///  CAUTION: we do not check campaign state and parameters assuming that's callee's task
   function do_grant_tokens(address _to, uint256 _nTokens) internal returns (bool){
     
     require( token.generate_token_for(_to, _nTokens) );
@@ -1411,7 +1411,7 @@ contract TokenCampaign is Controlled {
          && (paused == false));     // not on hold
     
     // we check that Eth sent is sufficient 
-    // though our token has decimals we don&#39;t want nanocontributions
+    // though our token has decimals we don't want nanocontributions
     require ( msg.value >= minContribution );
 
     amountRaised = amountRaised.add(msg.value);

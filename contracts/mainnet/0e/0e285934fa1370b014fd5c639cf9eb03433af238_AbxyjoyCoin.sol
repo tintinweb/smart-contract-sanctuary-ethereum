@@ -16,8 +16,8 @@ contract AbxyjoyCoin {
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function AbxyjoyCoin() {
       owner = msg.sender;
-      name = &#39;Abxyjoy Coin&#39;;
-      symbol = &#39;AOY&#39;;
+      name = 'Abxyjoy Coin';
+      symbol = 'AOY';
       decimals = 18;
       totalSupply = 210000000000000000000000000;  // 2.1e26
       balanceOf[owner] = 210000000000000000000000000;

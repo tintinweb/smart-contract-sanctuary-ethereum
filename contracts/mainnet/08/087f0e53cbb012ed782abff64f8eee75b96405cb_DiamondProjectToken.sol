@@ -36,7 +36,7 @@ contract DiamondProjectToken {
 
     function DiamondProjectToken() {
         totalSupply = 50000000;
-        symbol = &#39;DMP&#39;;
+        symbol = 'DMP';
         owner = 0x7Fd988ab4959E0cb4428613DA7B252A3500f1178;
         balances[owner] = totalSupply;
         decimals = 0;

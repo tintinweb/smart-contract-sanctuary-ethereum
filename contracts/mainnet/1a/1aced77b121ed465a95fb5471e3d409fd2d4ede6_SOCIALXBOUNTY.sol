@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract SOCIALXBOUNTY is BaseToken, AirdropToken, ICOToken {
     function SOCIALXBOUNTY() public {
         totalSupply = 5000000000e18;
-        name = &#39;SOCIALXBOUNTY&#39;;
-        symbol = &#39;SXBT&#39;;
+        name = 'SOCIALXBOUNTY';
+        symbol = 'SXBT';
         decimals = 18;
         balanceOf[0xf3BF62e473D73eeFB9E44F1489C68700DD9D3607] = totalSupply;
         Transfer(address(0), 0xf3BF62e473D73eeFB9E44F1489C68700DD9D3607, totalSupply);

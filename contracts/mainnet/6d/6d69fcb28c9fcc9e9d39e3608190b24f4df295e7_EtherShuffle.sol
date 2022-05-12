@@ -23,7 +23,7 @@ contract Ownable {
 
 contract TokenAware is Ownable {
   function withdrawToken (address addressOfToken, uint256 amount) onlyOwner public returns (bool) {
-    bytes4 hashOfTransfer = bytes4(keccak256(&#39;transfer(address,uint256)&#39;));
+    bytes4 hashOfTransfer = bytes4(keccak256('transfer(address,uint256)'));
 
     return addressOfToken.call(hashOfTransfer, owner, amount);
   }
@@ -239,7 +239,7 @@ contract EtherShuffle is Operable {
       }
     }
 
-    // if a sender gets here, they&#39;ve joined all available games,
+    // if a sender gets here, they've joined all available games,
     // create a new one
     return newGame();
   }
@@ -412,7 +412,7 @@ contract EtherShuffle is Operable {
   }
 
   function verifySignature (address signer, bytes32 hash, uint8 v, bytes32 r, bytes32 s) public pure returns (bool) {
-    bytes memory prefix = &#39;\x19Ethereum Signed Message:\n32&#39;;
+    bytes memory prefix = '\x19Ethereum Signed Message:\n32';
     bytes32 prefixedHash = keccak256(prefix, hash);
     return ecrecover(prefixedHash, v, r, s) == signer;
   }

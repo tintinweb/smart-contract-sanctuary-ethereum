@@ -8,7 +8,7 @@ pragma solidity ^0.4.23;
  * Once the privileged "state controller" sets the state to "Open", anybody can send Ether to the contract.
  * Only Ether sent from whitelisted addresses is accepted for future ATS token conversion.
  * The whitelisting is done by a dedicated whitelist controller.
- * Whitelisting can take place asynchronously - that is, participants don&#39;t need to wait for the whitelisting to
+ * Whitelisting can take place asynchronously - that is, participants don't need to wait for the whitelisting to
  * succeed before sending funds. This is a technical detail which allows for a smoother user journey.
  * The state controller can switch to synchronous whitelisting (no Ether accepted from accounts not whitelisted before).
  * Participants can trigger refunding during the Open state by making a transfer of 0 Ether.
@@ -21,8 +21,8 @@ pragma solidity ^0.4.23;
  * of the will of anybody else during that timeframe.
  * (Note that this is true only as long as the whole process takes place before the date specified by FALLBACK_FETCH_FUNDS_TS)
  *
- * Ideally, there&#39;s no funds left in the contract once the state is set to Over and the accepted deposits were fetched.
- * Since this can&#39;t really be foreseen, there&#39;s a fallback which allows to fetch all remaining Ether
+ * Ideally, there's no funds left in the contract once the state is set to Over and the accepted deposits were fetched.
+ * Since this can't really be foreseen, there's a fallback which allows to fetch all remaining Ether
  * to a pre-specified address after a pre-specified date.
  *
  * Static analysis: block.timestamp is not used in a way which gives miners leeway for taking advantage.
@@ -174,7 +174,7 @@ contract ATSTokenReservation {
     // Since whitelisting can occur asynchronously, an account to be whitelisted may already have deposited Ether.
     // In this case the deposit is converted form alien to accepted.
     // Since the deposit logic depends on the whitelisting status and since transactions are processed sequentially,
-    // it&#39;s ensured that at any time an account can have either (XOR) no or alien or accepted deposits and that
+    // it's ensured that at any time an account can have either (XOR) no or alien or accepted deposits and that
     // the whitelisting status corresponds to the deposit status (not_whitelisted <-> alien | whitelisted <-> accepted).
     // This function is idempotent.
     function addToWhitelist(address _addr) public onlyWhitelistControl {
@@ -212,7 +212,7 @@ contract ATSTokenReservation {
         _addr.transfer(withdrawAmount); // throws on failure
     }
 
-    // payout of the accepted deposits to the pre-designated address, available once it&#39;s all over
+    // payout of the accepted deposits to the pre-designated address, available once it's all over
     function payout() public
         onlyStateControl
         requireState(States.Over)
@@ -226,7 +226,7 @@ contract ATSTokenReservation {
 
     // After the specified date, any of the privileged/special accounts can trigger payment of remaining funds
     // to the payoutAddress. This is a safety net to minimize the risk of funds remaining stuck.
-    // It&#39;s not yet clear what we can / should / are allowed to do with alien deposits which aren&#39;t reclaimed.
+    // It's not yet clear what we can / should / are allowed to do with alien deposits which aren't reclaimed.
     // With this fallback in place, we have for example the option to donate them at some point.
     function fallbackPayout() public {
         require(msg.sender == stateController || msg.sender == whitelistController || msg.sender == payoutAddress);

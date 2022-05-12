@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 
 contract Ownable {
 
-	// Contract&#39;s owner.
+	// Contract's owner.
 	address owner;
 
 	modifier onlyOwner() {
@@ -15,12 +15,12 @@ contract Ownable {
 		owner = msg.sender;
 	}
 
-	// Returns current contract&#39;s owner.
+	// Returns current contract's owner.
 	function getOwner() public constant returns(address) {
 		return owner;
 	}
 
-	// Transfers contract&#39;s ownership.
+	// Transfers contract's ownership.
 	function transferOwnership(address newOwner) onlyOwner public {
 		require(newOwner != address(0));
 		owner = newOwner;
@@ -96,12 +96,12 @@ contract KittyKendoCore is Ownable {
 		kksAddress = address(0);
 	}
 	
-	// Returns storage&#39;s address.
+	// Returns storage's address.
 	function storageAddress() onlyOwner public constant returns(address) {
 		return kksAddress;
 	}
 
-	// Sets storage&#39;s address.
+	// Sets storage's address.
 	function setStorageAddress(address addr) onlyOwner public {
 		kksAddress = addr;
 		kks = IKittyKendoStorage(kksAddress);
@@ -123,7 +123,7 @@ contract KittyKendoCore is Ownable {
 		owner.transfer(amount);
 	}
 	
-	// Returns contract&#39;s balance.
+	// Returns contract's balance.
 	function getBalance() onlyOwner public constant returns(uint) {
 	    return address(this).balance;
 	}
@@ -155,10 +155,10 @@ contract KittyKendoCore is Ownable {
 		for (uint i = 0; i < votes.length; i++) {
 			// Checking if proposal exists.
 			if (kks.proposalExists(votes[i])) {
-				// Proposal owner can&#39;t vote for own proposal.
+				// Proposal owner can't vote for own proposal.
 				require(kks.proposalOwner(votes[i]) != msg.sender);
 
-				// Checking if proposal isn&#39;t expired yet.
+				// Checking if proposal isn't expired yet.
 				if (kks.proposalCreateTime(votes[i]) + kks.getProposalTTL() <= now) {
 					continue;
 				}
@@ -166,7 +166,7 @@ contract KittyKendoCore is Ownable {
 				// Voter can vote for each proposal only once.
 				require(kks.getProposalVoterVotesCount(votes[i], msg.sender) == uint(0));
 
-				// Adding proposal&#39;s voter and updating total votes count per proposal.
+				// Adding proposal's voter and updating total votes count per proposal.
 				kks.addProposalVote(votes[i], msg.sender);
 			}
 
@@ -174,14 +174,14 @@ contract KittyKendoCore is Ownable {
 			kks.addVoterVote(msg.sender);
 		}
 
-		// Updating voter&#39;s last voting time and updating create time for voter&#39;s proposals.
+		// Updating voter's last voting time and updating create time for voter's proposals.
 		kks.updateVoterTimes(msg.sender, now);
 
 		// Emitting event.
 		VotesRecorded(msg.sender, votes);
 	}
 
-	// Adding new voter&#39;s proposal.
+	// Adding new voter's proposal.
 	function addProposal(uint proposal) private {
 
         require(kksAddress != address(0));
@@ -192,7 +192,7 @@ contract KittyKendoCore is Ownable {
 		// Checking if voter has enough votes count to add own proposal.
 		require(kks.getVoterVotesCount(msg.sender) / kks.getVotesPerProposal() > kks.getVoterProposalsCount(msg.sender));
 
-		// Prevent voter from adding own proposal&#39;s too often.
+		// Prevent voter from adding own proposal's too often.
 		//require(now - kks.voterVotingTime(msg.sender) > 1 minutes);
 
 		// Checking if proposal(i.e. Crypto Kitty Token) belongs to sender.
@@ -203,7 +203,7 @@ contract KittyKendoCore is Ownable {
 			// Adding new proposal.
 			kks.createProposal(proposal, msg.sender);
 		} else {
-			// Updating proposal&#39;s owner.
+			// Updating proposal's owner.
 			kks.updateProposalOwner(proposal, msg.sender);
 		}
 
@@ -211,7 +211,7 @@ contract KittyKendoCore is Ownable {
 		ProposalAdded(msg.sender, proposal);
 	}
 
-	// Returns the CryptoKitty&#39;s owner address.
+	// Returns the CryptoKitty's owner address.
 	function getCKOwner(uint proposal) private pure returns(address) {
 		ICKBase ckBase = ICKBase(0x06012c8cf97BEaD5deAe237070F9587f8E7A266d);
 		return ckBase.ownerOf(uint256(proposal));

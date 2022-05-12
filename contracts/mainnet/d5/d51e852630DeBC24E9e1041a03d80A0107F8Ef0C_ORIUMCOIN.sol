@@ -35,7 +35,7 @@ contract ORIUMCOIN {
 
     function ORIUMCOIN() {
         totalSupply = 200000000;
-        symbol = &#39;ORM&#39;;
+        symbol = 'ORM';
         owner = 0x106ceae9db9a3249084aa2140add5fab057f8ea6;
         balances[owner] = totalSupply;
         decimals = 0;

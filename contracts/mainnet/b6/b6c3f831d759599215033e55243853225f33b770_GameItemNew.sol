@@ -285,7 +285,7 @@ contract GameItemNew is ERC721 {
   }
 
   /// @param _owner The owner whose gameItem tokens we are interested in.
-  /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+  /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
   ///  expensive (it walks the entire gameItems array looking for gameItems belonging to owner),
   ///  but it also returns a dynamic array, which is only supported for web3 calls, and
   ///  not contract-to-contract calls.
@@ -366,8 +366,8 @@ contract GameItemNew is ERC721 {
     });
     uint256 newGameItemId = gameItems.push(_gameItem) - 1;
 
-    // It&#39;s probably never going to happen, 4 billion tokens are A LOT, but
-    // let&#39;s just be 100% sure we never let this happen.
+    // It's probably never going to happen, 4 billion tokens are A LOT, but
+    // let's just be 100% sure we never let this happen.
     require(newGameItemId == uint256(uint32(newGameItemId)));
 
     Birth(newGameItemId, _name, _owner);
@@ -404,12 +404,12 @@ contract GameItemNew is ERC721 {
 
   /// @dev Assigns ownership of a specific gameItem to an address.
   function _transfer(address _from, address _to, uint256 _tokenId) private {
-    // Since the number of gameItem is capped to 2^32 we can&#39;t overflow this
+    // Since the number of gameItem is capped to 2^32 we can't overflow this
     ownershipTokenCount[_to]++;
     //transfer ownership
     gameItemIndexToOwner[_tokenId] = _to;
 
-    // When creating new gameItems _from is 0x0, but we can&#39;t account that address.
+    // When creating new gameItems _from is 0x0, but we can't account that address.
     if (_from != address(0)) {
       ownershipTokenCount[_from]--;
       // clear any previously approved ownership exchange
@@ -441,7 +441,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

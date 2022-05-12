@@ -180,7 +180,7 @@ contract FinalizeAgent {
 
     /** Return true if we can run finalizeCrowdsale() properly.
     *
-    * This is a safety check function that doesn&#39;t allow crowdsale to begin
+    * This is a safety check function that doesn't allow crowdsale to begin
     * unless the finalizer has been set up properly.
     */
     function isSane() public view returns (bool);
@@ -579,7 +579,7 @@ contract CrowdsaleExt is Allocatable, Haltable {
 
         endsAt = _end;
 
-        // Don&#39;t mess the dates
+        // Don't mess the dates
         if (startsAt >= endsAt) {
             revert();
         }
@@ -593,7 +593,7 @@ contract CrowdsaleExt is Allocatable, Haltable {
     }
 
     /**
-    * Don&#39;t expect to just send in money and get tokens.
+    * Don't expect to just send in money and get tokens.
     */
     function() external payable {
         buy();
@@ -627,7 +627,7 @@ contract CrowdsaleExt is Allocatable, Haltable {
     */
     function investInternal(address receiver, uint128 customerId) private stopInEmergency {
 
-        // Determine if it&#39;s a good time to accept investment from this participant
+        // Determine if it's a good time to accept investment from this participant
         if (getState() == State.PreFunding) {
             // Are we whitelisted for early deposit
             revert();
@@ -660,7 +660,7 @@ contract CrowdsaleExt is Allocatable, Haltable {
                 revert();
             }
 
-            // Check that we did not bust the investor&#39;s cap
+            // Check that we did not bust the investor's cap
             if (isBreakingInvestorCap(receiver, weiAmount)) {
                 revert();
             }
@@ -812,7 +812,7 @@ contract CrowdsaleExt is Allocatable, Haltable {
         assert(address(finalizeAgent) == address(0));
         finalizeAgent = addr;
 
-        // Don&#39;t allow setting bad agent
+        // Don't allow setting bad agent
         if (!finalizeAgent.isFinalizeAgent()) {
             revert();
         }
@@ -928,7 +928,7 @@ contract CrowdsaleExt is Allocatable, Haltable {
     function setStartsAt(uint time) public onlyOwner {
         assert(!finalized);
         assert(isUpdatable);
-        assert(now <= time); // Don&#39;t change past
+        assert(now <= time); // Don't change past
         assert(time <= endsAt);
         assert(now <= startsAt);
 
@@ -960,7 +960,7 @@ contract CrowdsaleExt is Allocatable, Haltable {
     function setEndsAt(uint time) public onlyOwner {
         assert(!finalized);
         assert(isUpdatable);
-        assert(now <= time);// Don&#39;t change past
+        assert(now <= time);// Don't change past
         assert(startsAt <= time);
         assert(now <= endsAt);
 
@@ -989,7 +989,7 @@ contract CrowdsaleExt is Allocatable, Haltable {
         assert(address(pricingStrategy) == address(0));
         pricingStrategy = _pricingStrategy;
 
-        // Don&#39;t allow setting bad agent
+        // Don't allow setting bad agent
         if (!pricingStrategy.isPricingStrategy()) {
             revert();
         }

@@ -19,7 +19,7 @@ contract TheEmperorsCoin {
     constructor() public {
         
         /* Final token characteristics */
-        tokenName = "The Emperor&#39;s Coin";
+        tokenName = "The Emperor's Coin";
         tokenSymbol = "W40K";
         uint256 initSupply = 40000;
         /*******************************/

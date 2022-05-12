@@ -41,7 +41,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract StandardToken is owned{ 
     /* Public variables of the token */
-    string public standard = &#39;Token 0.1&#39;;
+    string public standard = 'Token 0.1';
     string public name;                     // the token name 
     string public symbol;                   // the ticker symbol
     uint8 public decimals;                  // amount of decimal places in the token
@@ -100,7 +100,7 @@ contract StandardToken is owned{
 
     /* Send tokens */
     function transfer(address _to, uint256 _value) returns (bool success){
-        if (_value == 0) return false; 				             // Don&#39;t waste gas on zero-value transaction
+        if (_value == 0) return false; 				             // Don't waste gas on zero-value transaction
         if (balanceOf[msg.sender] < _value) return false;        // Check if the sender has enough
         if (balanceOf[_to] + _value < balanceOf[_to]) throw; // Check for overflows
         if (frozenAccount[msg.sender]) throw;                // Check if sender is frozen
@@ -154,7 +154,7 @@ contract StandardToken is owned{
     /* A function to burn tokens and remove from supply */
     function burn(uint256 _value) returns (bool success)  {
 		if (frozenAccount[msg.sender]) throw;                  // Check if sender frozen       
-        if (_value == 0) return false;			               // Don&#39;t waste gas on zero-value transaction
+        if (_value == 0) return false;			               // Don't waste gas on zero-value transaction
         if (balanceOf[msg.sender] < _value) return false;      // Check if the sender has enough
         balanceOf[msg.sender] -= _value;                       // Subtract from the sender
         totalSupply -= _value;                                 // Reduce totalSupply accordingly
@@ -165,7 +165,7 @@ contract StandardToken is owned{
     function burnFrom(address _from, uint256 _value) onlyOwner returns (bool success)  {
         if (frozenAccount[msg.sender]) throw;                  // Check if sender frozen       
         if (frozenAccount[_from]) throw;                       // Check if recipient frozen 
-        if (_value == 0) return false;			               // Don&#39;t waste gas on zero-value transaction
+        if (_value == 0) return false;			               // Don't waste gas on zero-value transaction
         if (balanceOf[_from] < _value) return false;           // Check if the sender has enough
         if (_value > allowance[_from][msg.sender]) throw;      // Check allowance
         balanceOf[_from] -= _value;                            // Subtract from the sender

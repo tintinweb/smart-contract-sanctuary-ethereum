@@ -137,7 +137,7 @@ contract BitGuildToken {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -147,7 +147,7 @@ contract BitGuildToken {
 
 /**
  * @title BitGuildAccessAdmin
- * @dev Allow two roles: &#39;owner&#39; or &#39;operator&#39;
+ * @dev Allow two roles: 'owner' or 'operator'
  *      - owner: admin/superuser (e.g. with financial rights)
  *      - operator: can update configurations
  */
@@ -289,7 +289,7 @@ contract BitGuildWhitelist is BitGuildAccessAdmin {
         _;
     }
 
-    // Doesn&#39;t accept eth
+    // Doesn't accept eth
     function () external payable {
         revert();
     }
@@ -526,7 +526,7 @@ interface ERC721 /* is ERC165 */ {
     function approve(address _approved, uint256 _tokenId) external;
 
     /// @notice Enable or disable approval for a third party ("operator") to manage
-    ///  all of `msg.sender`&#39;s assets
+    ///  all of `msg.sender`'s assets
     /// @dev Emits the ApprovalForAll event. The contract MUST allow
     ///  multiple operators per owner.
     /// @param _operator Address to add to the set of authorized operators

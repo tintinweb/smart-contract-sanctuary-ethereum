@@ -5,7 +5,7 @@ contract ASWCoin {
     // totalSupply = maximum 210000 with 18 decimals;   
     uint256 public supply = 210000000000000000000000;  
     uint8   public decimals = 18;    
-    string  public standard = &#39;ERC20 Token&#39;;
+    string  public standard = 'ERC20 Token';
     string  public name = "ASWCoin";
     string  public symbol = "ASW";
     uint256 public circulatingSupply = 0;   

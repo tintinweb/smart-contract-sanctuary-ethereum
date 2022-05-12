@@ -127,7 +127,7 @@ contract ERC20Token {
 ///  will reduce contract sise and gas cost
 contract MiniMeTokenI is ERC20Token, Burnable {
 
-  string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+  string public name;                //The Token's name: e.g. DigixDAO Tokens
   uint8 public decimals;             //Number of decimals of the smallest unit
   string public symbol;              //An identifier: e.g. REP
   string public version = "MMT_0.1"; //An arbitrary versioning scheme
@@ -384,7 +384,7 @@ contract MiniMeToken is MiniMeTokenI {
     return true;
   }
 
-  /// @param _owner The address that&#39;s balance is being requested
+  /// @param _owner The address that's balance is being requested
   /// @return The balance of `_owner` at the current block
   function balanceOf(address _owner) public view returns (uint256 balance) {
     return balanceOfAt(_owner, block.number);

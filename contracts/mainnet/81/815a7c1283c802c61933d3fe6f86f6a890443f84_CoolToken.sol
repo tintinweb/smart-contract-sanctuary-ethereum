@@ -6,9 +6,9 @@
 pragma solidity >=0.4.4;
 
 contract CoolToken {
-    string public standard = &#39;Cool Token&#39;;
-    string public name = &#39;Cool&#39;;
-    string public symbol = &#39;COOL&#39;;
+    string public standard = 'Cool Token';
+    string public name = 'Cool';
+    string public symbol = 'COOL';
     uint8 public decimals = 18;
     uint256 public totalSupply = 100000000000000000000000000;
 

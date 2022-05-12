@@ -42,6 +42,6 @@ Fus 正式版，以及 LW 2.0 会有正式通告上线。
 contract MSD5 {
    
     function NeverConfused () public pure returns (string) {
-        return &#39;Dreams come true!&#39;;
+        return 'Dreams come true!';
     }
 }

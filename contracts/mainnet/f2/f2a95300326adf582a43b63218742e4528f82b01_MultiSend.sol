@@ -16,7 +16,7 @@ contract MultiSend {
     }
     
     /* Make sure you allowed this contract enough ERC20 tokens before using this function
-    ** as ERC20 contract doesn&#39;t have an allowance function to check how much it can spend on your behalf
+    ** as ERC20 contract doesn't have an allowance function to check how much it can spend on your behalf
     ** Use function approve(address _spender, uint256 _value)
     */
     function dropCoins(address[] dests, uint256 tokens) {

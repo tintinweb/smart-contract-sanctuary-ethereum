@@ -247,7 +247,7 @@ contract FinalizeAgent {
 
   /** Return true if we can run finalizeCrowdsale() properly.
    *
-   * This is a safety check function that doesn&#39;t allow crowdsale to begin
+   * This is a safety check function that doesn't allow crowdsale to begin
    * unless the finalizer has been set up properly.
    */
   function isSane() public constant returns (bool);
@@ -380,7 +380,7 @@ contract CrowdsaleBase is Haltable {
 
     endsAt = _end;
 
-    // Don&#39;t mess the dates
+    // Don't mess the dates
     if(startsAt >= endsAt) {
         throw;
     }
@@ -390,7 +390,7 @@ contract CrowdsaleBase is Haltable {
   }
 
   /**
-   * Don&#39;t expect to just send in money and get tokens.
+   * Don't expect to just send in money and get tokens.
    */
   function() payable {
     throw;
@@ -403,14 +403,14 @@ contract CrowdsaleBase is Haltable {
    * We must have not pressed the emergency brake.
    *
    * @param receiver The Ethereum address who receives the tokens
-   * @param customerId (optional) UUID v4 to track the successful payments on the server side&#39;
+   * @param customerId (optional) UUID v4 to track the successful payments on the server side'
    * @param tokenAmount Amount of tokens which be credited to receiver
    *
    * @return tokensBought How mony tokens were bought
    */
   function buyTokens(address receiver, uint128 customerId, uint256 tokenAmount) stopInEmergency internal returns(uint tokensBought) {
 
-    // Determine if it&#39;s a good time to accept investment from this participant
+    // Determine if it's a good time to accept investment from this participant
     if(getState() == State.PreFunding) {
       // Are we whitelisted for early deposit
       if(!earlyParticipantWhitelist[receiver]) {
@@ -467,7 +467,7 @@ contract CrowdsaleBase is Haltable {
    * have depends on the pricing strategy used.
    *
    * @param receiver The Ethereum address who receives the tokens
-   * @param customerId (optional) UUID v4 to track the successful payments on the server side&#39;
+   * @param customerId (optional) UUID v4 to track the successful payments on the server side'
    *
    * @return tokensBought How mony tokens were bought
    */
@@ -522,7 +522,7 @@ contract CrowdsaleBase is Haltable {
   function setFinalizeAgent(FinalizeAgent addr) onlyOwner {
     finalizeAgent = addr;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if(!finalizeAgent.isFinalizeAgent()) {
       throw;
     }
@@ -541,7 +541,7 @@ contract CrowdsaleBase is Haltable {
   function setEndsAt(uint time) onlyOwner {
 
     if(now > time) {
-      throw; // Don&#39;t change past
+      throw; // Don't change past
     }
 
     if(startsAt > time) {
@@ -560,7 +560,7 @@ contract CrowdsaleBase is Haltable {
   function setPricingStrategy(PricingStrategy _pricingStrategy) onlyOwner {
     pricingStrategy = _pricingStrategy;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if(!pricingStrategy.isPricingStrategy()) {
       throw;
     }
@@ -731,7 +731,7 @@ contract CrowdsaleBase is Haltable {
  */
 contract AllocatedCrowdsaleMixin is CrowdsaleBase {
 
-  /* The party who holds the full token pool and has approve()&#39;ed tokens for this crowdsale */
+  /* The party who holds the full token pool and has approve()'ed tokens for this crowdsale */
   address public beneficiary;
 
   /**
@@ -988,7 +988,7 @@ contract KYCCrowdsale is AllocatedCrowdsaleMixin, KYCPayloadDeserializer {
   }
 
   /// @dev This function can set the server side address
-  /// @param _signerAddress The address derived from server&#39;s private key
+  /// @param _signerAddress The address derived from server's private key
   function setSignerAddress(address _signerAddress) onlyOwner {
     signerAddress = _signerAddress;
     SignerChanged(signerAddress);

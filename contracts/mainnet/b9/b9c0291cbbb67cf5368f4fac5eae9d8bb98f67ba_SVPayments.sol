@@ -4,7 +4,7 @@ contract safeSend {
     bool private txMutex3847834;
 
     // we want to be able to call outside contracts (e.g. the admin proxy contract)
-    // but reentrency is bad, so here&#39;s a mutex.
+    // but reentrency is bad, so here's a mutex.
     function doSafeSend(address toAddr, uint amount) internal {
         doSafeSendWData(toAddr, "", amount);
     }
@@ -140,7 +140,7 @@ contract hasAdmins is owned {
     }
 
     function setAdmin(address a, bool _givePerms) only_admin() external {
-        require(a != msg.sender && a != owner, "cannot change your own (or owner&#39;s) permissions");
+        require(a != msg.sender && a != owner, "cannot change your own (or owner's) permissions");
         _setAdmin(a, _givePerms);
     }
 
@@ -374,7 +374,7 @@ contract SVPayments is IxPaymentsIface {
         uint _ethValue;
     }
 
-    // this is an address that&#39;s only allowed to make minor edits
+    // this is an address that's only allowed to make minor edits
     // e.g. setExchangeRate, setDenyPremium, giveTimeToDemoc
     address public minorEditsAddr;
 
@@ -502,7 +502,7 @@ contract SVPayments is IxPaymentsIface {
         // convert basic minutes to premium minutes
         uint paidTill = accounts[democHash].paidUpTill;
         uint timeRemaining = SafeMath.subToZero(paidTill, now);
-        // if we have time remaning then convert it - otherwise don&#39;t need to do anything
+        // if we have time remaning then convert it - otherwise don't need to do anything
         if (timeRemaining > 0) {
             timeRemaining /= premiumMultiplier;
             accounts[democHash].paidUpTill = now + timeRemaining;

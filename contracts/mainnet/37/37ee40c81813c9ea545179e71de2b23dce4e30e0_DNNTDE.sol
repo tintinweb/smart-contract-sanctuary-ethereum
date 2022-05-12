@@ -11,7 +11,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -445,7 +445,7 @@ contract DNNToken is StandardToken {
       onlyAllocatorOrCrowdfundContractOrPlatform
       returns (bool)
     {
-        // We&#39;ll use the following to determine whether the allocator, platform,
+        // We'll use the following to determine whether the allocator, platform,
         // or the crowdfunding contract can allocate specified supply
         bool canAllocatorPerform = msg.sender == allocatorAddress;
         bool canCrowdfundContractPerform = msg.sender == crowdfundContract;
@@ -473,11 +473,11 @@ contract DNNToken is StandardToken {
                     // Decrease tde supply
                     TDESupplyRemaining = TDESupplyRemaining.sub(tokenCount-PRETDESupplyRemaining);
 
-                    // Decrease pre-tde supply by its&#39; remaining tokens
+                    // Decrease pre-tde supply by its' remaining tokens
                     PRETDESupplyRemaining = 0;
               }
 
-              // Otherwise, we can&#39;t satisfy this sale because we don&#39;t have enough tokens.
+              // Otherwise, we can't satisfy this sale because we don't have enough tokens.
               else {
                   return false;
               }
@@ -599,7 +599,7 @@ contract DNNToken is StandardToken {
           cofoundersSupply = totalSupply.mul(10).div(100); // 10%
           platformSupply = totalSupply.mul(11).div(100); // 11%
 
-          // Set each remaining token count equal to its&#39; respective supply
+          // Set each remaining token count equal to its' respective supply
           earlyBackerSupplyRemaining = earlyBackerSupply;
           PRETDESupplyRemaining = PRETDESupply;
           TDESupplyRemaining = TDESupply;
@@ -1417,7 +1417,7 @@ contract DNNTDE {
     }
 
     /////////////////////////////////////////////////////////
-    // @des Handle&#39;s ETH sent directly to contract address //
+    // @des Handle's ETH sent directly to contract address //
     /////////////////////////////////////////////////////////
     function () payable {
 

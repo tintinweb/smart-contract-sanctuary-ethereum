@@ -182,7 +182,7 @@ contract StandardToken is Token {
      * @dev NOTE: To prevent attack vectors like the one described in [1] and discussed in [2], clients 
      * @dev SHOULD make sure to create user interfaces in such a way that they set the allowance first 
      * @dev to 0 before setting it to another value for the same spender. THOUGH The contract itself 
-     * @dev shouldn&#39;t enforce it, to allow backwards compatilibilty with contracts deployed before.
+     * @dev shouldn't enforce it, to allow backwards compatilibilty with contracts deployed before.
      * @dev [1] https://docs.google.com/document/d/1YLPtQxZu1UAvO9cZ1O2RPXBbT0mooh4DYKjA_jp-RLM/
      * @dev [2] https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      *
@@ -247,7 +247,7 @@ contract LCDToken is StandardToken {
     mapping (address => bool) public isHolder; // track if a user is a known token holder to the smart contract - important for payouts later
     address[] public holders;                  // array of all known holders - important for payouts later
 
-    // store the hashes of admins&#39; msg.data
+    // store the hashes of admins' msg.data
     mapping (address => bytes32) private multiSigHashes;
 
     // to track if management already got their tokens

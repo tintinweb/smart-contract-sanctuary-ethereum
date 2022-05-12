@@ -43,8 +43,8 @@ contract DIZOOL is ERC20 {
     address owner = msg.sender;
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
-    string public constant name = &#39;DIZOOL&#39;;
-    string public constant symbol = &#39;DZL&#39;;
+    string public constant name = 'DIZOOL';
+    string public constant symbol = 'DZL';
     uint public constant decimals = 18;
     uint256 public totalSupply = 600000000e18;
     uint256 public totalDistributed =  300000000e18;    

@@ -34,7 +34,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal constant returns(uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -83,7 +83,7 @@ contract CarbonTOKEN is ERC20
 
     function CarbonTOKEN()
     {
-        totalSupply = 100000000 *10**4; // 100 million, Update total supply includes 4 0&#39;s more to go for the decimals
+        totalSupply = 100000000 *10**4; // 100 million, Update total supply includes 4 0's more to go for the decimals
         name = "CARBON TOKEN CLASSIC"; // Set the name for display purposes
         symbol = "CTC"; // Set the symbol for display purposes
         decimals = 4; // Amount of decimals for display purposes
@@ -91,7 +91,7 @@ contract CarbonTOKEN is ERC20
         balances[owner] = totalSupply;
     }
     
-      // Function allows for external access to tokenHoler&#39;s Balance
+      // Function allows for external access to tokenHoler's Balance
    function balanceOf(address tokenHolder) constant returns(uint256) 
    {
        return balances[tokenHolder];

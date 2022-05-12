@@ -49,7 +49,7 @@ contract ShrimpFarmer{
         claimedEggs[referrals[msg.sender]]=SafeMath.add(claimedEggs[referrals[msg.sender]],SafeMath.div(eggsUsed,5));
         
         //boost market to nerf shrimp hoarding
-        // Original had adding to eggmarket on sell and was going to try sub but let&#39;s not do either this time.
+        // Original had adding to eggmarket on sell and was going to try sub but let's not do either this time.
         //marketEggs=SafeMath.sub(marketEggs,eggsUsed);
     }
     function sellEggs() public{
@@ -60,7 +60,7 @@ contract ShrimpFarmer{
         hatcheryShrimp[msg.sender]=SafeMath.mul(SafeMath.div(hatcheryShrimp[msg.sender],4),3);
         claimedEggs[msg.sender]=0;
         lastHatch[msg.sender]=now;
-        // Instead of adding marketEggs let&#39;s not add or subtract
+        // Instead of adding marketEggs let's not add or subtract
         // marketEggs=SafeMath.sub(marketEggs,hasEggs);
         // To save on fees put devFee in a pot to be removed by ceo instead of per transaction
         // Old function: ceoAddress.transfer(fee);
@@ -142,7 +142,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

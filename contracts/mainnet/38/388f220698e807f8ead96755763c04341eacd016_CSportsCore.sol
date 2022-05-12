@@ -22,7 +22,7 @@ contract CSportsConstants {
 
 }
 
-/// @title A facet of CSportsCore that manages an individual&#39;s authorized role against access privileges.
+/// @title A facet of CSportsCore that manages an individual's authorized role against access privileges.
 /// @author CryptoSports, Inc. (https://cryptosports.team))
 /// @dev See the CSportsCore contract documentation to understand how the various CSports contract facets are arranged.
 contract CSportsAuth is CSportsConstants {
@@ -230,8 +230,8 @@ contract CSportsRosterPlayer {
 
     struct RealWorldPlayer {
 
-        // The player&#39;s certified identification. This is the md5 hash of
-        // {player&#39;s last name}-{player&#39;s first name}-{player&#39;s birthday in YYYY-MM-DD format}-{serial number}
+        // The player's certified identification. This is the md5 hash of
+        // {player's last name}-{player's first name}-{player's birthday in YYYY-MM-DD format}-{serial number}
         // where the serial number is usually 0, but gives us an ability to deal with making
         // sure all MD5s are unique.
         uint128 md5Token;
@@ -360,7 +360,7 @@ contract CSportsBase is CSportsAuth, CSportsRosterPlayer {
     /// @dev Maps a PlayerToken ID to an address approved to take ownership.
     mapping (uint256 => address) public playerTokenToApproved;
 
-    // @dev A mapping to a given address&#39; tokens
+    // @dev A mapping to a given address' tokens
     mapping(address => uint32[]) public ownedTokens;
 
     // @dev A mapping that relates a token id to an index into the
@@ -460,7 +460,7 @@ contract CSportsBase is CSportsAuth, CSportsRosterPlayer {
     /// @param _owner - The owner of this newly minted playerToken
     function _mintPlayer(uint32 _realWorldPlayerId, uint32 _serialNumber, address _owner) internal returns (uint32) {
         // We are careful here to make sure the calling contract keeps within
-        // our structure&#39;s size constraints. Highly unlikely we would ever
+        // our structure's size constraints. Highly unlikely we would ever
         // get to a point where these constraints would be a problem.
         require(_realWorldPlayerId < 4294967295);
         require(_serialNumber < 4294967295);
@@ -474,8 +474,8 @@ contract CSportsBase is CSportsAuth, CSportsRosterPlayer {
 
         uint256 newPlayerTokenId = playerTokens.push(_player) - 1;
 
-        // It&#39;s probably never going to happen, 4 billion playerToken(s) is A LOT, but
-        // let&#39;s just be 100% sure we never let this happen.
+        // It's probably never going to happen, 4 billion playerToken(s) is A LOT, but
+        // let's just be 100% sure we never let this happen.
         require(newPlayerTokenId < 4294967295);
 
         // This will assign ownership, and also emit the Transfer event as
@@ -491,14 +491,14 @@ contract CSportsBase is CSportsAuth, CSportsRosterPlayer {
     /// @param _tokenId ID of token to remove
     function _removeTokenFrom(address _from, uint256 _tokenId) internal {
 
-      // Grab the index into the _from owner&#39;s ownedTokens array
+      // Grab the index into the _from owner's ownedTokens array
       uint32 fromIndex = tokenToOwnedTokensIndex[uint32(_tokenId)];
 
       // Remove the _tokenId from ownedTokens[_from] array
       uint lastIndex = ownedTokens[_from].length - 1;
       uint32 lastToken = ownedTokens[_from][lastIndex];
 
-      // Swap the last token into the fromIndex position (which is _tokenId&#39;s
+      // Swap the last token into the fromIndex position (which is _tokenId's
       // location in the ownedTokens array) and shorten the array
       ownedTokens[_from][fromIndex] = lastToken;
       ownedTokens[_from].length--;
@@ -530,7 +530,7 @@ contract CSportsBase is CSportsAuth, CSportsRosterPlayer {
         // transfer ownership
         playerTokenToOwner[_tokenId] = _to;
 
-        // When minting brand new PlayerTokens, the _from is 0x0, but we don&#39;t deal with
+        // When minting brand new PlayerTokens, the _from is 0x0, but we don't deal with
         // owned tokens for the 0x0 address.
         if (_from != address(0)) {
 
@@ -543,7 +543,7 @@ contract CSportsBase is CSportsAuth, CSportsRosterPlayer {
             delete playerTokenToApproved[_tokenId];
         }
 
-        // Now add the token to the _to address&#39; ownership structures
+        // Now add the token to the _to address' ownership structures
         _addTokenTo(_to, _tokenId);
 
         // Emit the transfer event.
@@ -561,7 +561,7 @@ contract CSportsBase is CSportsAuth, CSportsRosterPlayer {
     /// @param v uint to convert
     function uintToBytes32(uint v) internal pure returns (bytes32 ret) {
         if (v == 0) {
-            ret = &#39;0&#39;;
+            ret = '0';
         }
         else {
             while (v > 0) {
@@ -680,7 +680,7 @@ interface ERC721 /* is ERC165 */ {
     function approve(address _approved, uint256 _tokenId) external payable;
 
     /// @notice Enable or disable approval for a third party ("operator") to manage
-    ///  all of `msg.sender`&#39;s assets
+    ///  all of `msg.sender`'s assets
     /// @dev Emits the ApprovalForAll event. The contract MUST allow
     ///  multiple operators per owner.
     /// @param _operator Address to add to the set of authorized operators
@@ -1056,7 +1056,7 @@ contract CSportsOwnership is CSportsBase {
   }
 
   /// @notice Enable or disable approval for a third party ("operator") to manage
-  ///  all of `msg.sender`&#39;s assets
+  ///  all of `msg.sender`'s assets
   /// @dev Emits the ApprovalForAll event. The contract MUST allow
   ///  multiple operators per owner.
   /// @param _operator Address to add to the set of authorized operators
@@ -1155,7 +1155,7 @@ interface CSportsAuctionInterface {
         address _seller
     ) external;
 
-    /// @dev Cancels an auction that hasn&#39;t been won yet by calling
+    /// @dev Cancels an auction that hasn't been won yet by calling
     ///   the super(...) and then notifying any listener.
     /// @param _tokenId - ID of token on auction
     function cancelAuction(uint256 _tokenId) external;
@@ -1345,7 +1345,7 @@ contract CSportsMinting is CSportsAuction {
   /// @dev This method allows the commish to replace an existing marketing token that has
   /// not been used with a new one (new hash and mdt). Since we are replacing, we co not
   /// have to deal with remainingMarketingTokens in any way. This is to allow for replacing
-  /// marketing tokens that have not been redeemed and aren&#39;t likely to be redeemed (breakage)
+  /// marketing tokens that have not been redeemed and aren't likely to be redeemed (breakage)
   ///
   /// ONLY THE COMMISSIONER CAN ACCESS THIS METHOD
   ///
@@ -1363,8 +1363,8 @@ contract CSportsMinting is CSportsAuction {
 
   }
 
-  /// @dev Returns the real world player&#39;s MD5 key from a keywords string. A 0x00 returned
-  /// value means the keyword string parameter isn&#39;t mapped to a marketing token.
+  /// @dev Returns the real world player's MD5 key from a keywords string. A 0x00 returned
+  /// value means the keyword string parameter isn't mapped to a marketing token.
   /// @param keyWords Keywords to use to look up RWP MD5
   //
   /// ANYONE CAN VALIDATE A KEYWORD STRING (MAP IT TO AN MD5 IF IT HAS ONE)
@@ -1378,7 +1378,7 @@ contract CSportsMinting is CSportsAuction {
   }
 
   /// @dev Allows anyone to try to redeem a marketing token by passing N words that will
-  /// be SHA256&#39;ed to match an entry in our marketingTokens mapping. If a match is found,
+  /// be SHA256'ed to match an entry in our marketingTokens mapping. If a match is found,
   /// a CryptoSports token is created that corresponds to the md5 retrieved
   /// from the marketingTokens mapping and its owner is assigned as the msg.sender.
   ///
@@ -1467,7 +1467,7 @@ contract CSportsMinting is CSportsAuction {
         continue;
       }
 
-      // We don&#39;t have to check _rosterIndex here because the getRealWorldPlayerRosterIndex(...)
+      // We don't have to check _rosterIndex here because the getRealWorldPlayerRosterIndex(...)
       // method always returns a valid index.
       RealWorldPlayer memory _rwp;
       (_rwp.md5Token, _rwp.prevCommissionerSalePrice, _rwp.lastMintedTime, _rwp.mintedCount, _rwp.hasActiveCommissionerAuction, _rwp.mintingEnabled) =  leagueRosterContract.realWorldPlayerFromIndex(_rosterIndex);
@@ -1502,7 +1502,7 @@ contract CSportsMinting is CSportsAuction {
       // By setting our _endPrice to zero, we become immune to the USD <==> ether
       // conversion rate. No matter how high ether goes, our auction price will get
       // to a USD value that is acceptable to someone (assuming 0 is acceptable that is).
-      // This also helps for players that aren&#39;t in very much demand.
+      // This also helps for players that aren't in very much demand.
       saleClockAuctionContract.createAuction(
           _playerId,
           _startPrice,
@@ -1519,8 +1519,8 @@ contract CSportsMinting is CSportsAuction {
 
   /// @dev Reprices (and updates duration) of an array of tokens that are currently
   /// being auctioned by this contract. Since this function can only be called by
-  /// the commissioner, we don&#39;t do a lot of checking of parameters and things.
-  /// The SaleClockAuction&#39;s repriceAuctions method assures that the CSportsCore
+  /// the commissioner, we don't do a lot of checking of parameters and things.
+  /// The SaleClockAuction's repriceAuctions method assures that the CSportsCore
   /// contract is the "seller" of the token (meaning it is a commissioner auction).
   /// @param _tokenIds Array of tokenIds corresponding to auctions being updated
   /// @param _startingPrices New starting prices for each token being repriced
@@ -1611,7 +1611,7 @@ contract CSportsMinting is CSportsAuction {
 
       uint256 nextPrice = prevTwoCommissionerSalePriceAve + (prevTwoCommissionerSalePriceAve / 4);
 
-      // sanity check to ensure we don&#39;t overflow arithmetic (this big number is 2^128-1).
+      // sanity check to ensure we don't overflow arithmetic (this big number is 2^128-1).
       if (nextPrice > 340282366920938463463374607431768211455) {
         nextPrice = 340282366920938463463374607431768211455;
       }
@@ -1680,7 +1680,7 @@ contract CSportsCore is CSportsMinting {
 
   }
 
-  /// @dev Reject all Ether except if it&#39;s from one of our approved sources
+  /// @dev Reject all Ether except if it's from one of our approved sources
   function() external payable {
     /*require(
         msg.sender == address(saleClockAuctionContract)
@@ -1693,7 +1693,7 @@ contract CSportsCore is CSportsMinting {
 
   /// @dev Used to mark the smart contract as upgraded, in case there is a serious
   ///  bug. This method does nothing but keep track of the new contract and
-  ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+  ///  emit a message indicating that the new address is set. It's up to clients of this
   ///  contract to update to the new contract address in that case. (This contract will
   ///  be paused indefinitely if such an upgrade takes place.)
   /// @param _v2Address new address

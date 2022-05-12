@@ -133,7 +133,7 @@ contract EthKing {
 		uint _bonusPot = msg.value.mul(BONUS_POT_FRAC_TOP).div(BONUS_POT_FRAC_BOT);
 		uint _mainPot = msg.value.sub(_bonusPot);
 
-		// Make sure we didn&#39;t make a mistake
+		// Make sure we didn't make a mistake
 		require(_bonusPot + _mainPot <= msg.value);
 
 		mainPot = _mainPot;
@@ -173,8 +173,8 @@ contract EthKing {
 		_;
 	}
 
-	// Check current leader&#39;s points
-	// Advances the round if he&#39;s at 1 million or greater
+	// Check current leader's points
+	// Advances the round if he's at 1 million or greater
 	// Pays out main pot and bonus pot
 	modifier advanceRoundIfNeeded {
 		if (players[first].points >= POINTS_TO_WIN) {
@@ -235,7 +235,7 @@ contract EthKing {
 	// Pays out current King
 	// Advances round, if necessary
 	// Makes sender King
-	// Reverts if bid isn&#39;t high enough
+	// Reverts if bid isn't high enough
 	function becomeKing() public payable
 		payoutOldKingPoints
 		advanceRoundIfNeeded
@@ -250,14 +250,14 @@ contract EthKing {
 
 		assert(_bidAmountToDeveloper + _bidAmountToBonusPot + _bidAmountToMainPot <= msg.value);
 
-		// Transfer dev fee to owner&#39;s winnings
+		// Transfer dev fee to owner's winnings
 		players[owner].winnings = players[owner].winnings.add(_bidAmountToDeveloper);
 
 		// Set new pot values
 		mainPot = mainPot.add(_bidAmountToMainPot);
 		bonusPot = bonusPot.add(_bidAmountToBonusPot);
 
-		// Clear out King&#39;s points if they are from last round
+		// Clear out King's points if they are from last round
 		if (players[king].roundLastPlayed != round) {
 			players[king].points = 0;	
 		}
@@ -293,8 +293,8 @@ contract EthKing {
 
 	// Utility function to advance the round / payout the winner
 	function tryAdvance() public {
-		// Calculate the King&#39;s current points.
-		// If he&#39;s won, we payout and advance the round.
+		// Calculate the King's current points.
+		// If he's won, we payout and advance the round.
 		// Equivalent to a bid, but without an actual bid.
 		uint kingTotalPoints = calculatePoints(crownedTime, now) + players[king].points;
 		if (kingTotalPoints >= POINTS_TO_WIN) { forceAdvance(); }
@@ -303,23 +303,23 @@ contract EthKing {
 	// Internal function called by tryAdvance if current King has won
 	function forceAdvance() private payoutOldKingPoints advanceRoundIfNeeded { }
 	
-	// Gets a player&#39;s information
+	// Gets a player's information
 	function getPlayerInfo(address _player) public constant returns(uint, uint, uint) {
 		return (players[_player].points, players[_player].roundLastPlayed, players[_player].winnings);
 	}
 	
-	// Gets the sender&#39;s information
+	// Gets the sender's information
 	function getMyInfo() public constant returns(uint, uint, uint) {
 		return getPlayerInfo(msg.sender);		
 	}
 	
-	// Get the King&#39;s current points
+	// Get the King's current points
 	function getKingPoints() public constant returns(uint) { return players[king].points; }
 	
-	// Get the first player&#39;s current points
+	// Get the first player's current points
 	function getFirstPoints() public constant returns(uint) { return players[first].points; }
 	
-	// Get the second player&#39;s current points
+	// Get the second player's current points
 	function getSecondPoints() public constant returns(uint) { return players[second].points; }
 }
 
@@ -346,7 +346,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

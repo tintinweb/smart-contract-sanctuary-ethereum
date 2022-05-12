@@ -70,7 +70,7 @@ contract LotteryFactory {
 		Lottery storage lottery = lotteries[lotteryCount - 1];
 		// check that user has enough tokens to sell
 		require(lottery.ownerTokenCount[msg.sender] - lottery.ownerTokenCountToSell[msg.sender] >= _tokenCount);
-		// if there are no sales or this is user&#39;s first sale
+		// if there are no sales or this is user's first sale
 		if(lottery.sellingAddresses.length == 0 || lottery.sellerId[msg.sender] == 0 && lottery.sellingAddresses[0] != msg.sender) {
 			uint sellingAddressesCount = lottery.sellingAddresses.push(msg.sender);
 			uint sellingAmountsCount = lottery.sellingAmounts.push(_tokenCount);
@@ -465,7 +465,7 @@ contract LotteryFactory {
 		Lottery storage lottery = lotteries[lotteryCount - 1];
 		// check that total token count on sale is more that user has
 		require(lottery.tokenCountToSell >= lottery.ownerTokenCountToSell[msg.sender]);
-		// substitute user&#39;s token on sale count from total count
+		// substitute user's token on sale count from total count
 		uint tokenCountToSell = lottery.tokenCountToSell - lottery.ownerTokenCountToSell[msg.sender];
 		// if there are no tokens to sell then return 0
 		if(tokenCountToSell == 0) return 0;

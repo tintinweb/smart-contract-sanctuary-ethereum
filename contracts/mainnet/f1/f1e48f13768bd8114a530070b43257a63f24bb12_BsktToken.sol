@@ -146,7 +146,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -292,7 +292,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -436,7 +436,7 @@ contract BsktToken is StandardToken, DetailedERC20, Pausable, ReentrancyGuard {
     /// @notice Creates Bskt tokens in exchange for underlying tokens. Before
     /// calling, underlying tokens must be approved to be moved by the Bskt
     /// contract. The number of approved tokens required depends on baseUnits.
-    /// @dev If any underlying tokens&#39; `transferFrom` fails (eg. the token is
+    /// @dev If any underlying tokens' `transferFrom` fails (eg. the token is
     /// frozen), create will no longer work. At this point a token upgrade will
     /// be necessary.
     /// @param baseUnits Number of base units to create. Must be a multiple of
@@ -550,7 +550,7 @@ contract BsktToken is StandardToken, DetailedERC20, Pausable, ReentrancyGuard {
         return (0, false);
     }
 
-    /// @notice Owner: Withdraw excess funds which don&#39;t belong to Bskt token
+    /// @notice Owner: Withdraw excess funds which don't belong to Bskt token
     /// holders
     /// @param token ERC20 token address to withdraw
     function withdrawExcessToken(address token)

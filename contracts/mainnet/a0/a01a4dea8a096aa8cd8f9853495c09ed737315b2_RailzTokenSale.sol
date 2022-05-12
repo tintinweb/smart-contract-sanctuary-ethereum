@@ -44,7 +44,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -135,7 +135,7 @@ contract RailzTokenSale is Owned {
 
 	// fallback function  used to buy tokens , this function is called when anyone sends ether to this contract
 	function ()  payable public validGasPrice {  
-		require(msg.sender != address(0));                      //contributor&#39;s address should not be zero00/80
+		require(msg.sender != address(0));                      //contributor's address should not be zero00/80
 		require(msg.value != 0);                                //amount should be greater then zero            
         require(msg.value>=0.1 ether);                          //minimum contribution is 0.1 eth
 		require(isContributionAllowed());                       //Valid time of contribution and cap has not been reached 11

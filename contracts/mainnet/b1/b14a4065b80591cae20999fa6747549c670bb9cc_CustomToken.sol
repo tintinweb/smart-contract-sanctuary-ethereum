@@ -68,8 +68,8 @@ contract AirdropToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken {
     function CustomToken() public {
         totalSupply = 2800000000000000000000000000;
-        name = &#39;Emoticon&#39;;
-        symbol = &#39;EMO&#39;;
+        name = 'Emoticon';
+        symbol = 'EMO';
         decimals = 18;
         balanceOf[0x9e1a4708222b97e9ce5f4349c6fb65e8607cdda9] = totalSupply;
         Transfer(address(0), 0x9e1a4708222b97e9ce5f4349c6fb65e8607cdda9, totalSupply);

@@ -80,7 +80,7 @@ contract Stampable is ERC20 {
     event TokenStamp (address indexed from, uint256 tokenStamped, uint256 stamp, uint256 amt);
 
     /**
-    * @dev Function to stamp a token in the msg.sender&#39;s wallet
+    * @dev Function to stamp a token in the msg.sender's wallet
     * @param _tokenToStamp uint256 The tokenId of theirs to stamp (0 for unstamped tokens)
     * @param _stamp uint256 The new stamp to apply
     * @param _amt uint256 The quantity of tokens to stamp
@@ -103,7 +103,7 @@ contract Stampable is ERC20 {
     }
 
     function addToken(address _owner, uint256 _token, uint256 _amount) internal {
-        // If they don&#39;t yet have any, assign this token an index
+        // If they don't yet have any, assign this token an index
         if (balances[_owner].tokens[_token].amount == 0) {
             balances[_owner].tokens[_token].index = balances[_owner].tokenIndex.push(_token) - 1;
         }
@@ -122,14 +122,14 @@ contract Stampable is ERC20 {
         // Decrease their balance of the token
         balances[_owner].tokens[_token].amount = balances[_owner].tokens[_token].amount.sub(_amount);
 
-        // If they don&#39;t have any left, remove it
+        // If they don't have any left, remove it
         if (balances[_owner].tokens[_token].amount == 0) {
             uint index = balances[_owner].tokens[_token].index;
             uint256 lastCoin = balances[_owner].tokenIndex[balances[_owner].tokenIndex.length - 1];
             balances[_owner].tokenIndex[index] = lastCoin;
             balances[_owner].tokens[lastCoin].index = index;
             balances[_owner].tokenIndex.length--;
-            // Make sure the user&#39;s token is removed
+            // Make sure the user's token is removed
             delete balances[_owner].tokens[_token];
         }
     }

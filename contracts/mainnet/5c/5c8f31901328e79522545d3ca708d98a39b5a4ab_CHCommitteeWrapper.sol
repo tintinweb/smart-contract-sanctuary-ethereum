@@ -68,7 +68,7 @@ interface ChickenHunt {
  * @author M.H. Kang
  * @notice Wrapper solution to unintended flaw that
  * the committee could use ChickenHunt contract ether with callFor function.
- * This vulnerability was discovered by &#39;blah&#39;. I appreciate it!
+ * This vulnerability was discovered by 'blah'. I appreciate it!
  */
 contract CHCommitteeWrapper {
 

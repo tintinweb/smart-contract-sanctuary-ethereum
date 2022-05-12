@@ -59,7 +59,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -162,7 +162,7 @@ contract StandardToken is ERC20, BasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -538,7 +538,7 @@ contract PreSale is Ownable, ReentrancyGuard {
         require(_hicsToken != address(0));
         require(_erc20Token != address(0));
 
-        // periods of PreSale&#39;s bonus and PreSale&#39;s time
+        // periods of PreSale's bonus and PreSale's time
         startTime = 1528675200;  // 1528675200 - 11.06.2018 00:00 UTC
         endPeriodA = 1529107200; // 1529107200 - 16.06.2018 00:00 UTC
         endPeriodB = 1529798400; // 1529798400 - 24.06.2018 00:00 UTC

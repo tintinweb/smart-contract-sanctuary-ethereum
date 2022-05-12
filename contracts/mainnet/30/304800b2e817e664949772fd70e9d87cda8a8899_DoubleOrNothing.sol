@@ -26,20 +26,20 @@ contract DoubleOrNothing {
     }
     
     function setCroupier(address payable nextCroupier) public payable{
-        require(msg.sender == owner, &#39;Only I can set the new croupier!&#39;);
+        require(msg.sender == owner, 'Only I can set the new croupier!');
         croupier = nextCroupier;
     }
 
     function () external payable {
-        require(msg.value <= (address(this).balance / 5 -1), &#39;The stake is to high, check maxBet() before placing a bet.&#39;);
-        require(msg.value == 0 || currentPlayer == address(0), &#39;First bet with a value, then collect possible prize without.&#39;);
+        require(msg.value <= (address(this).balance / 5 -1), 'The stake is to high, check maxBet() before placing a bet.');
+        require(msg.value == 0 || currentPlayer == address(0), 'First bet with a value, then collect possible prize without.');
         
         if ((block.number - playBlockNumber) > 50) { 
             if (currentPlayer != address(0)) {
                 //If not collected after 50 blocks are mined +- 15 minutes, a bet can be overridden
                 emit ForgottenToCheckPrize(currentPlayer,currentBet);
             }
-            require(msg.value > 0, &#39;You must set a bet by sending some value > 0&#39;);
+            require(msg.value > 0, 'You must set a bet by sending some value > 0');
             currentPlayer = msg.sender;
             currentBet = msg.value ;
             playBlockNumber = block.number;
@@ -47,8 +47,8 @@ contract DoubleOrNothing {
             emit BetHasBeenPlaced(msg.sender,msg.value);
             
         } else {
-            require(msg.sender == currentPlayer, &#39;Only the current player can collect the prize. Wait for the current player to collect. After 50 blocks you can place a new bet&#39;);
-            require(block.number > (playBlockNumber + 1), &#39;Please wait untill at least one other block has been mined, +- 17 seconds&#39;);
+            require(msg.sender == currentPlayer, 'Only the current player can collect the prize. Wait for the current player to collect. After 50 blocks you can place a new bet');
+            require(block.number > (playBlockNumber + 1), 'Please wait untill at least one other block has been mined, +- 17 seconds');
             
             if (((uint(blockhash(playBlockNumber + 1)) % 50 > 0) && 
                  (uint(blockhash(playBlockNumber + 1)) % 2 == uint(blockhash(playBlockNumber)) % 2)) || 

@@ -39,7 +39,7 @@ contract kkICOTest77 {
 	//Even if 0 ether is sent.
 	function () payable {
 	    
-	    uint256 tryAmount = div((mul(msg.value, rate)), 1 ether);           //Don&#39;t let people buy more tokens than there are.
+	    uint256 tryAmount = div((mul(msg.value, rate)), 1 ether);           //Don't let people buy more tokens than there are.
 	    
 		if (msg.value == 0 || msg.value < 0 || tokens < tryAmount) {		//If zero ether is sent, kill. Do nothing. 
 			throw;
@@ -53,11 +53,11 @@ contract kkICOTest77 {
 	//This function takes the amount of ether sent and buys tokens
 	//Then sends the tokens to buyer
 	function buyTokens(uint256 etherSent) payable {	                //Take the etherSent var and do stuff
-	    amount = 0;									                //set the &#39;amount&#39; var back to zero
+	    amount = 0;									                //set the 'amount' var back to zero
 		amount = div((mul(etherSent, rate)), 1 ether);		//take sent ether, multiply it by the rate then divide by 1 ether.
 		balances[msg.sender] += amount;                             //Send tokens to buyer
 		tokens -= amount;		  					                //Subtract bought tokens from supply
-		amount = 0;									                //set the &#39;amount&#39; var back to zero
+		amount = 0;									                //set the 'amount' var back to zero
 		
 		
 		owner.transfer(msg.value);					//Send the ETH to contract owner.
@@ -134,7 +134,7 @@ contract kkICOTest77 {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

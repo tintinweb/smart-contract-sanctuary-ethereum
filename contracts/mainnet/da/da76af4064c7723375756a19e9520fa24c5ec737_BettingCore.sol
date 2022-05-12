@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -51,7 +51,7 @@ library SafeMath {
  * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aacbd8cbc9c2c4c3ceeac4c5decec5de84c4cfde">[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
- *      abstraction called a &#39;slice&#39;. A slice represents a part of a string -
+ *      abstraction called a 'slice'. A slice represents a part of a string -
  *      anything from the entire string to a single character, or even no
  *      characters at all (a 0-length slice). Since a slice only has to specify
  *      an offset and a length, copying and manipulating slices is a lot less
@@ -59,8 +59,8 @@ library SafeMath {
  *
  *      To further reduce gas costs, most functions on slice that need to return
  *      a slice modify the original one instead of allocating a new one; for
- *      instance, `s.split(".")` will return the text up to the first &#39;.&#39;,
- *      modifying s to only contain the remainder of the string after the &#39;.&#39;.
+ *      instance, `s.split(".")` will return the text up to the first '.',
+ *      modifying s to only contain the remainder of the string after the '.'.
  *      In situations where you do not want to modify the original slice, you
  *      can make a copy first with `.copy()`, for example:
  *      `s.copy().split(".")`. Try and avoid using this idiom in loops; since
@@ -78,7 +78,7 @@ library SafeMath {
  *
  *      For convenience, some functions are provided with non-modifying
  *      variants that create a new slice and return both; for instance,
- *      `s.splitNew(&#39;.&#39;)` leaves s unmodified, and returns two values
+ *      `s.splitNew('.')` leaves s unmodified, and returns two values
  *      corresponding to the left and right parts of the string.
  */
 library strings {
@@ -180,7 +180,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal returns (string) {
         var ret = new string(self._len);
@@ -815,7 +815,7 @@ library Roles {
     }
 
     /**
-    * @dev remove an address&#39; access to this role
+    * @dev remove an address' access to this role
     */
     function remove(Role storage role, address addr) internal {
         role.bearer[addr] = false;
@@ -846,7 +846,7 @@ library Roles {
  *      See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  *  for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  *  to avoid typos.
  */
 contract RBAC is Ownable {
@@ -923,7 +923,7 @@ contract RBAC is Ownable {
  * @title Heritable
  * @dev The Heritable contract provides ownership transfer capabilities, in the
  * case that the current owner stops "heartbeating". Only the heir can pronounce the
- * owner&#39;s death.
+ * owner's death.
  */
 contract Heritable is RBAC {
   address private heir_;
@@ -931,7 +931,7 @@ contract Heritable is RBAC {
   // Time window the owner has to notify they are alive.
   uint256 private heartbeatTimeout_;
 
-  // Timestamp of the owner&#39;s death, as pronounced by the heir.
+  // Timestamp of the owner's death, as pronounced by the heir.
   uint256 private timeOfDeath_;
 
   event HeirChanged(address indexed owner, address indexed newHeir);
@@ -941,7 +941,7 @@ contract Heritable is RBAC {
 
 
   /**
-   * @dev Throw an exception if called by any account other than the heir&#39;s.
+   * @dev Throw an exception if called by any account other than the heir's.
    */
   modifier onlyHeir() {
     require(msg.sender == heir_);
@@ -1127,7 +1127,7 @@ contract BettingCore is BettingBase, Heritable {
         uint8 discount;
     }    
 
-    // it&#39;s not possible to take off players bets
+    // it's not possible to take off players bets
     bool public payoutToOwnerIsLimited;
     // total sum of bets
     uint public blockedSum; 

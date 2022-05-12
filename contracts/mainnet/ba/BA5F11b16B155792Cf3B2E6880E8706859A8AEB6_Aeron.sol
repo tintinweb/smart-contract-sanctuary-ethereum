@@ -63,8 +63,8 @@ contract Aeron is SafeMath {
     function Aeron() {
         balanceOf[msg.sender] = 10000000000000000;       // Give the creator all initial tokens
         totalSupply = 10000000000000000;                 // Update total supply
-        name = &#39;Aeron&#39;;                          // Set the name for display purposes
-        symbol = &#39;ARN&#39;;                          // Set the symbol for display purposes
+        name = 'Aeron';                          // Set the name for display purposes
+        symbol = 'ARN';                          // Set the symbol for display purposes
         decimals = 8;                            // Amount of decimals for display purposes
 	owner = msg.sender;
     }

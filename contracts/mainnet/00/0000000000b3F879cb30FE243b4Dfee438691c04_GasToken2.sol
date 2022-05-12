@@ -163,7 +163,7 @@ contract GasToken2 {
     // the nonce at the head of the queue, s_tail is the nonce behind the tail
     // of the queue. The queue grows at the head and shrinks from the tail.
     // Note that when and only when a contract CREATEs another contract, the
-    // creating contract&#39;s nonce is incremented.
+    // creating contract's nonce is incremented.
     // The first child contract is created with nonce == 1, the second child
     // contract is created with nonce == 2, and so on...
     // For example, if there are child contracts at nonces [2,3,4],
@@ -199,7 +199,7 @@ contract GasToken2 {
             //     PUSH1 0
             //     MSTORE ;; at this point, memory locations mem[10] through
             //            ;; mem[31] contain the runtime portion of the child
-            //            ;; contract. all that&#39;s left to do is to RETURN this
+            //            ;; contract. all that's left to do is to RETURN this
             //            ;; chunk of memory.
             //     PUSH1 22 ;; length
             //     PUSH1 10 ;; offset
@@ -227,14 +227,14 @@ contract GasToken2 {
     // Destroys `value` child contracts and updates s_tail.
     //
     // This function is affected by an issue in solc: https://github.com/ethereum/solidity/issues/2999
-    // The `mk_contract_address(this, i).call();` doesn&#39;t forward all available gas, but only GAS - 25710.
+    // The `mk_contract_address(this, i).call();` doesn't forward all available gas, but only GAS - 25710.
     // As a result, when this line is executed with e.g. 30000 gas, the callee will have less than 5000 gas
     // available and its SELFDESTRUCT operation will fail leading to no gas refund occurring.
-    // The remaining ~29000 gas left after the call is enough to update s_tail and the caller&#39;s balance.
+    // The remaining ~29000 gas left after the call is enough to update s_tail and the caller's balance.
     // Hence tokens will have been destroyed without a commensurate gas refund.
     // Fortunately, there is a simple workaround:
     // Whenever you call free, freeUpTo, freeFrom, or freeUpToFrom, ensure that you pass at least
-    // 25710 + `value` * (1148 + 5722 + 150) gas. (It won&#39;t all be used)
+    // 25710 + `value` * (1148 + 5722 + 150) gas. (It won't all be used)
     function destroyChildren(uint256 value) internal {
         uint256 tail = s_tail;
         // tail points to slot behind the last contract in the queue

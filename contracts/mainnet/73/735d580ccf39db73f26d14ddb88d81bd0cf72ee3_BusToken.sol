@@ -365,7 +365,7 @@ contract BusTokenLock is Ownable, HasNoEther {
         Invested(investor, amount, hour);
     }
 
-    // @dev can only withdraw rest of investor&#39;s tokens
+    // @dev can only withdraw rest of investor's tokens
     function withdrawLeftTokens() onlyOwner {
         token.transfer(owner, token.balanceOf(address(this))-tokensAtLeastHold);
     }

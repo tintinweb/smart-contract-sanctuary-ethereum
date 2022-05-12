@@ -198,7 +198,7 @@ contract EthPiranha is ERC721, Ownable {
 
 	uint8 vitimPiranhaSize=uint8(victimPiranha.size+(now-victimPiranha.growthStartTime)/300);
 	
-	require (vitimPiranhaSize>40); // don&#39;t bite a small
+	require (vitimPiranhaSize>40); // don't bite a small
 
 	uint8 piranhaSize=uint8(piranha.size+(now-piranha.growthStartTime)/300)+10;
 	
@@ -362,7 +362,7 @@ contract EthPiranha is ERC721, Ownable {
     ownershipTokenCount[_to]++;
     piranhaIdToOwner[_tokenId] = _to;
 
-    // When creating new piranhas _from is 0x0, but we can&#39;t account that address.
+    // When creating new piranhas _from is 0x0, but we can't account that address.
     if (_from != address(0)) {
       ownershipTokenCount[_from]--;
     }
@@ -386,7 +386,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

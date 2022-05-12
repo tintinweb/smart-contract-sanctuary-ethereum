@@ -219,7 +219,7 @@ contract Config is Ownable, ConfigInterface
 
     /// @dev A lookup table that shows the cooldown duration after a successful
     ///  breeding action, called "breeding cooldown". The cooldown roughly doubles each time
-    /// a cutie is bred, so that owners don&#39;t breed the same cutie continuously. Maximum cooldown is seven days.
+    /// a cutie is bred, so that owners don't breed the same cutie continuously. Maximum cooldown is seven days.
     uint32[14] public cooldowns = [
         uint32(1 minutes),
         uint32(2 minutes),

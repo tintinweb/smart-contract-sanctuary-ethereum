@@ -496,7 +496,7 @@ contract Baliv is SafeMath, Authorization {
         public
         onlyActive
     {
-        // Don&#39;t worry, this takes maker feerate
+        // Don't worry, this takes maker feerate
         uint256 takerPrice = getNextOrderPrice(fromToken_, toToken_, 0);
         address taker = getNextOrderUser(fromToken_, toToken_, takerPrice, 0);
         uint256 takerAmount = getOrderAmount(fromToken_, toToken_, takerPrice, taker);

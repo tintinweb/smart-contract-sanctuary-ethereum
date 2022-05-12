@@ -40,7 +40,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -371,7 +371,7 @@ contract BurnableToken is MintableToken {
   function burn(uint256 _value) public onlyPayloadSize(1) {
     require(_value <= balances[msg.sender]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
     address burner = msg.sender;
     balances[burner] = balances[burner].sub(_value);
     totalSupply = totalSupply.sub(_value);
@@ -385,7 +385,7 @@ contract BurnableToken is MintableToken {
     require(balances[_from] >= _value);// Check if the targeted balance is enough
     require(_value <= allowed[_from][msg.sender]);// Check allowance
     balances[_from] = balances[_from].sub(_value); // Subtract from the targeted balance
-    allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value); // Subtract from the sender&#39;s allowance
+    allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value); // Subtract from the sender's allowance
     totalSupply = totalSupply.sub(_value);
     Burn(_from, _value);
     return true;

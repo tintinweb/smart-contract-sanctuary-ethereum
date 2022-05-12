@@ -204,7 +204,7 @@ contract  DCETHER is owned, TokenERC20 {
         
         require(balanceOf[msg.sender] + amount > balanceOf[msg.sender]);
         balanceOf[manager] -= amount;
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         require(manager.send(msg.value));
         Transfer(this, msg.sender, amount);               // execute an event reflecting the change
 
@@ -213,7 +213,7 @@ contract  DCETHER is owned, TokenERC20 {
             require(balanceOf[follower_1st] + amount_1st > balanceOf[follower_1st]);
             
             balanceOf[manager] -= amount_1st;
-            balanceOf[follower_1st] += amount_1st;                  // adds the amount to buyer&#39;s balance
+            balanceOf[follower_1st] += amount_1st;                  // adds the amount to buyer's balance
             
             Transfer(this, follower_1st, amount_1st);               // execute an event reflecting the change
         }
@@ -223,7 +223,7 @@ contract  DCETHER is owned, TokenERC20 {
             require(balanceOf[follower_2nd] + amount_2nd > balanceOf[follower_2nd]);
             
             balanceOf[manager] -= amount_2nd;
-            balanceOf[follower_2nd] += amount_2nd;                  // adds the amount to buyer&#39;s balance
+            balanceOf[follower_2nd] += amount_2nd;                  // adds the amount to buyer's balance
             
             Transfer(this, follower_2nd, amount_2nd);               // execute an event reflecting the change
         }
@@ -275,7 +275,7 @@ contract  DCETHER is owned, TokenERC20 {
         
         require(balanceOf[msg.sender] + amount > balanceOf[msg.sender]);
         balanceOf[manager] -= amount;
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         require(manager.send(msg.value));
         Transfer(this, msg.sender, amount);               // execute an event reflecting the change
 
@@ -284,7 +284,7 @@ contract  DCETHER is owned, TokenERC20 {
             require(balanceOf[follower_1st] + amount_1st > balanceOf[follower_1st]);
             
             balanceOf[manager] -= amount_1st;
-            balanceOf[follower_1st] += amount_1st;                  // adds the amount to buyer&#39;s balance
+            balanceOf[follower_1st] += amount_1st;                  // adds the amount to buyer's balance
             
             Transfer(this, follower_1st, amount_1st);               // execute an event reflecting the change
         }
@@ -294,7 +294,7 @@ contract  DCETHER is owned, TokenERC20 {
             require(balanceOf[follower_2nd] + amount_2nd > balanceOf[follower_2nd]);
             
             balanceOf[manager] -= amount_2nd;
-            balanceOf[follower_2nd] += amount_2nd;                  // adds the amount to buyer&#39;s balance
+            balanceOf[follower_2nd] += amount_2nd;                  // adds the amount to buyer's balance
             
             Transfer(this, follower_2nd, amount_2nd);               // execute an event reflecting the change
         }
@@ -316,8 +316,8 @@ contract  DCETHER is owned, TokenERC20 {
         require(_to != 0x0);
         require(balanceOf[_from] >= coin_amount);         // checks if the sender has enough to sell
 
-        balanceOf[_from] -= coin_amount;                  // subtracts the amount from seller&#39;s balance
-        balanceOf[_to] += coin_amount;                  // subtracts the amount from seller&#39;s balance
+        balanceOf[_from] -= coin_amount;                  // subtracts the amount from seller's balance
+        balanceOf[_to] += coin_amount;                  // subtracts the amount from seller's balance
         Transfer(_from, _to, coin_amount);               // executes an event reflecting on the change
     }
 
@@ -332,7 +332,7 @@ contract  DCETHER is owned, TokenERC20 {
         uint256 amount = coin_amount * 10 ** uint256(decimals);
 
         require(balanceOf[_from] >= amount);         // checks if the sender has enough to sell
-        balanceOf[_from] -= amount;                  // subtracts the amount from seller&#39;s balance
+        balanceOf[_from] -= amount;                  // subtracts the amount from seller's balance
         Transfer(_from, this, amount);               // executes an event reflecting on the change
     }    
     

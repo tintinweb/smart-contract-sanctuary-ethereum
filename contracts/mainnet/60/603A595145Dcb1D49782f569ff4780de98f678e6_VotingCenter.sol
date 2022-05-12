@@ -30,7 +30,7 @@ contract DependentOnIPFS {
 
     uint8 _size;
 
-    // There isn&#39;t another way to extract only this byte into a uint8
+    // There isn't another way to extract only this byte into a uint8
     // solhint-disable no-inline-assembly
     assembly {
       // Seek forward 33 bytes beyond the solidity length value and the hash function byte
@@ -49,7 +49,7 @@ contract DependentOnIPFS {
  * the descriptions for each option are stored on IPFS.
  */
 contract Poll is DependentOnIPFS {
-  // There isn&#39;t a way around using time to determine when votes can be cast
+  // There isn't a way around using time to determine when votes can be cast
   // solhint-disable not-rely-on-time
 
   bytes public pollDataMultihash;

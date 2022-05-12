@@ -94,8 +94,8 @@ contract HurtleCoin is ERC20, Ownable {
 
     uint256 totalSupply_; // of hurtle token
 
-    string public name = &#39;HurtleCoin&#39;; // Defines the name of the token.
-    string public symbol = &#39;HRTL&#39;; // Defines the symbol of the token.
+    string public name = 'HurtleCoin'; // Defines the name of the token.
+    string public symbol = 'HRTL'; // Defines the symbol of the token.
     uint256 public decimals = 4; // Number of decimal places for the token.
     uint256 public initialSupply = 200000000; //200m
 

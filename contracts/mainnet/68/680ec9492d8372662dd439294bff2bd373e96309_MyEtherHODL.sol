@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
-//import &#39;zeppelin-solidity/contracts/ownership/Ownable.sol&#39;;
-//import &#39;zeppelin-solidity/contracts/token/ERC20/ERC20Basic.sol&#39;;
+//import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
+//import 'zeppelin-solidity/contracts/token/ERC20/ERC20Basic.sol';
 
 
 contract Ownable {

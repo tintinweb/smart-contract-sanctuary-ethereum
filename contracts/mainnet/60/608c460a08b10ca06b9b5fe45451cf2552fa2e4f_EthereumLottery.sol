@@ -166,8 +166,8 @@ contract EthereumLottery {
 
         // At this point we know that the timestamp of the latest block
         // known to BTCRelay is within 2 hours of what the Ethereum network
-        // considers &#39;now&#39;. If we assume this to be correct within +/- 3 hours,
-        // we can conclude that &#39;out there&#39; in the real world at most 5 hours
+        // considers 'now'. If we assume this to be correct within +/- 3 hours,
+        // we can conclude that 'out there' in the real world at most 5 hours
         // have passed. Assuming an actual block time of 9 minutes for Bitcoin,
         // we can use the Poisson distribution to calculate, that if we wait for
         // 54 more blocks, then the probability for all of these 54 blocks
@@ -243,7 +243,7 @@ contract EthereumLottery {
         int fee = BTCRelay(btcRelay).getFeeAmount(blockHash);
         require(fee == 0);
 
-        // Code is based on tjade273&#39;s BTCRelayTools.
+        // Code is based on tjade273's BTCRelayTools.
         bytes32[5] memory blockHeader =
             BTCRelay(btcRelay).getBlockHeader(blockHash);
 

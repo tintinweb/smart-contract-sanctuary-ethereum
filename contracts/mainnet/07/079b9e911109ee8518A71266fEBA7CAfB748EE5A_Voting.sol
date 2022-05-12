@@ -125,7 +125,7 @@ contract Voting is Ownable {
   ///  choosen and MSP amount at a specific `_blockNumber`
   /// @param _offset The offset at the `voters` list
   /// @param _limit The number of voters to return
-  /// @param _blockNumber The block number when the voters&#39;s MSP balances is queried
+  /// @param _blockNumber The block number when the voters's MSP balances is queried
   /// @return The voters, candidates and MSP amount at `_blockNumber`
   function getVotersAt(uint _offset, uint _limit, uint _blockNumber)
     constant

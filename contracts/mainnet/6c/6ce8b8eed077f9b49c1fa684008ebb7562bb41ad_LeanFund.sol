@@ -11,7 +11,7 @@ contract LeanFund {
   mapping (address => uint) public contributionsETH;
   mapping (address => uint) public payoutsETH;
 
-  uint public fundingGoal;     // in wei, the amount we&#39;re aiming for
+  uint public fundingGoal;     // in wei, the amount we're aiming for
   uint public payoutETH;       // in wei, the amount withdrawn as fee
   uint public amountRaised;    // in wei, the total amount raised
 
@@ -29,7 +29,7 @@ contract LeanFund {
     open = false;
   }
 
-  // We can only initialize once, but don&#39;t add beforeDeadline guard or check deadline
+  // We can only initialize once, but don't add beforeDeadline guard or check deadline
   function initialize(uint _fundingGoalInWei, address _beneficiary, uint _deadlineBlockNumber) {
     if (open || msg.sender != owner) throw; // we can only initialize once
     if (_deadlineBlockNumber < block.number + 40) throw; // deadlines must be at least ten minutes hence

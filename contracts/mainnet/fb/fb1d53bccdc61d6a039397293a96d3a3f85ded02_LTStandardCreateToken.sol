@@ -77,7 +77,7 @@ contract LTStandardCreateToken is LTStandardToken {
     string public name;                   
     uint8 public decimals;              
     string public symbol;              
-    string public version = &#39;H0.1&#39;;    
+    string public version = 'H0.1';    
 
     constructor(uint256 _initialAmount, string _tokenName, uint8 _decimalUnits, string _tokenSymbol)public {
         balances[msg.sender] = _initialAmount; // 初始token数量给予消息发送者

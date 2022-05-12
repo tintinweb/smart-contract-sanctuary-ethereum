@@ -17,8 +17,8 @@ contract AetherAccessControl {
     //
     // It should be noted that these roles are distinct without overlap in their access abilities, the
     // abilities listed for each role above are exhaustive. In particular, while the CEO can assign any
-    // address to any role, the CEO address itself doesn&#39;t have the ability to act in those roles. This
-    // restriction is intentional so that we aren&#39;t tempted to use the CEO address frequently out of
+    // address to any role, the CEO address itself doesn't have the ability to act in those roles. This
+    // restriction is intentional so that we aren't tempted to use the CEO address frequently out of
     // convenience. The less we use an address, the less likely it is that we somehow compromise the
     // account.
 
@@ -113,7 +113,7 @@ contract AetherAccessControl {
     ///  one reason we may pause the contract is when CFO or COO accounts are
     ///  compromised.
     function unpause() public onlyCEO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 }
@@ -216,7 +216,7 @@ contract AetherBase is AetherAccessControl {
       ownershipTokenCount[_to]++;
       // transfer ownership
       propertyIndexToOwner[_tokenId] = _to;
-      // When creating new properties _from is 0x0, but we can&#39;t account that address.
+      // When creating new properties _from is 0x0, but we can't account that address.
       if (_from != address(0)) {
           ownershipTokenCount[_from]--;
           // clear any previously approved ownership exchange
@@ -331,7 +331,7 @@ contract AetherBase is AetherAccessControl {
 
 
     /// @dev An internal method that creates a new property and stores it. This
-    ///  method doesn&#39;t do any checking and should only be called when the
+    ///  method doesn't do any checking and should only be called when the
     ///  input data is known to be valid. Will generate both a Construct event
     ///  and a Transfer event.
     function _createProperty(
@@ -366,8 +366,8 @@ contract AetherBase is AetherAccessControl {
         });
         uint256 _tokenId = properties.push(_property) - 1;
 
-        // It&#39;s never going to happen, 4 billion properties is A LOT, but
-        // let&#39;s just be 100% sure we never let this happen.
+        // It's never going to happen, 4 billion properties is A LOT, but
+        // let's just be 100% sure we never let this happen.
         require(_tokenId <= 4294967295);
 
         Construct(
@@ -453,7 +453,7 @@ contract AetherBase is AetherAccessControl {
         buildingToUnitCount[_buildingId]++;
         buildingToUnits[_buildingId].push(unitId);
 
-        // Return the new unit&#39;s ID.
+        // Return the new unit's ID.
         return unitId;
     }
 
@@ -660,7 +660,7 @@ contract AetherOwnership is AetherBase, ERC721 {
 
     /// @notice Returns a list of all Property IDs assigned to an address.
     /// @param _owner The owner whose Properties we are interested in.
-    /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+    /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
     ///  expensive (it walks the entire Kitty array looking for cats belonging to owner),
     ///  but it also returns a dynamic array, which is only supported for web3 calls, and
     ///  not contract-to-contract calls.
@@ -726,7 +726,7 @@ contract ClockAuctionBase {
     event AuctionSuccessful(uint256 tokenId, uint256 totalPrice, address winner);
     event AuctionCancelled(uint256 tokenId);
 
-    /// @dev DON&#39;T give me your money.
+    /// @dev DON'T give me your money.
     function() external {}
 
     // Modifiers to check that inputs can be safely stored with a certain
@@ -802,7 +802,7 @@ contract ClockAuctionBase {
         Auction storage auction = tokenIdToAuction[_tokenId];
 
         // Explicitly check that this auction is currently live.
-        // (Because of how Ethereum mappings work, we can&#39;t just count
+        // (Because of how Ethereum mappings work, we can't just count
         // on the lookup above failing. An invalid _tokenId will just
         // return an auction object that is all zeros.)
         require(_isOnAuction(auction));
@@ -817,14 +817,14 @@ contract ClockAuctionBase {
         address seller = auction.seller;
 
         // The bid is good! Remove the auction before sending the fees
-        // to the sender so we can&#39;t have a reentrancy attack.
+        // to the sender so we can't have a reentrancy attack.
         _removeAuction(_tokenId);
 
         // Transfer proceeds to seller (if there are any!)
         if (price > 0) {
-            //  Calculate the auctioneer&#39;s cut.
+            //  Calculate the auctioneer's cut.
             // (NOTE: _computeCut() is guaranteed to return a
-            //  value <= price, so this subtraction can&#39;t go negative.)
+            //  value <= price, so this subtraction can't go negative.)
             uint256 auctioneerCut = _computeCut(price);
             uint256 sellerProceeds = price - auctioneerCut;
 
@@ -834,7 +834,7 @@ contract ClockAuctionBase {
             // a contract with an invalid fallback function. We explicitly
             // guard against reentrancy attacks by removing the auction
             // before calling transfer(), and the only thing the seller
-            // can DoS is the sale of their own asset! (And if it&#39;s an
+            // can DoS is the sale of their own asset! (And if it's an
             // accident, they can call cancelAuction(). )
             seller.transfer(sellerProceeds);
         }
@@ -870,7 +870,7 @@ contract ClockAuctionBase {
 
         // A bit of insurance against negative values (or wraparound).
         // Probably not necessary (since Ethereum guarnatees that the
-        // now variable doesn&#39;t ever go backwards).
+        // now variable doesn't ever go backwards).
         if (now > _auction.startedAt) {
             secondsPassed = now - _auction.startedAt;
         }
@@ -897,13 +897,13 @@ contract ClockAuctionBase {
         pure
         returns (uint256)
     {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our public functions carefully cap the maximum values for
         //  time (at 64-bits) and currency (at 128-bits). _duration is
         //  also known to be non-zero (see the require() statement in
         //  _addAuction())
         if (_secondsPassed >= _duration) {
-            // We&#39;ve reached the end of the dynamic pricing portion
+            // We've reached the end of the dynamic pricing portion
             // of the auction, just return the end price.
             return _endingPrice;
         } else {
@@ -911,7 +911,7 @@ contract ClockAuctionBase {
             // this delta can be negative.
             int256 totalPriceChange = int256(_endingPrice) - int256(_startingPrice);
 
-            // This multiplication can&#39;t overflow, _secondsPassed will easily fit within
+            // This multiplication can't overflow, _secondsPassed will easily fit within
             // 64-bits, and totalPriceChange will easily fit within 128-bits, their product
             // will always fit within 256-bits.
             int256 currentPriceChange = totalPriceChange * int256(_secondsPassed) / int256(_duration);
@@ -924,10 +924,10 @@ contract ClockAuctionBase {
         }
     }
 
-    /// @dev Computes owner&#39;s cut of a sale.
+    /// @dev Computes owner's cut of a sale.
     /// @param _price - Sale price of NFT.
     function _computeCut(uint256 _price) internal view returns (uint256) {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our entry functions carefully cap the maximum values for
         //  currency (at 128-bits), and ownerCut <= 10000 (see the require()
         //  statement in the ClockAuction constructor). The result of this
@@ -1046,7 +1046,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         nonFungibleContract = candidateContract;
     }
 
-    /// @dev Remove all Ether from the contract, which is the owner&#39;s cuts
+    /// @dev Remove all Ether from the contract, which is the owner's cuts
     ///  as well as any Ether sent directly to the contract address.
     ///  Always transfers to the NFT contract, but can be called either by
     ///  the owner or the NFT contract.
@@ -1105,7 +1105,7 @@ contract ClockAuction is Pausable, ClockAuctionBase {
         _transfer(msg.sender, _tokenId);
     }
 
-    /// @dev Cancels an auction that hasn&#39;t been won yet.
+    /// @dev Cancels an auction that hasn't been won yet.
     ///  Returns the NFT to original owner.
     /// @notice This is a state-modifying function that can
     ///  be called while the contract is paused.
@@ -1430,7 +1430,7 @@ contract AetherConstruct is AetherAuction {
     function _computeNextPrice() internal view returns (uint256) {
         uint256 avePrice = saleAuction.averageSalePrice();
 
-        // sanity check to ensure we don&#39;t overflow arithmetic (this big number is 2^128-1).
+        // sanity check to ensure we don't overflow arithmetic (this big number is 2^128-1).
         require(avePrice < 340282366920938463463374607431768211455);
 
         uint256 nextPrice = avePrice + (avePrice / 2);
@@ -1451,8 +1451,8 @@ contract AetherConstruct is AetherAuction {
 contract AetherCore is AetherConstruct {
 
     // This is the main Aether contract. In order to keep our code seperated into logical sections,
-    // we&#39;ve broken it up in two ways.  The auctions are seperate since their logic is somewhat complex
-    // and there&#39;s always a risk of subtle bugs. By keeping them in their own contracts, we can upgrade
+    // we've broken it up in two ways.  The auctions are seperate since their logic is somewhat complex
+    // and there's always a risk of subtle bugs. By keeping them in their own contracts, we can upgrade
     // them without disrupting the main contract that tracks property ownership.
     //
     // Secondly, we break the core contract into multiple files using inheritence, one for each major
@@ -1494,7 +1494,7 @@ contract AetherCore is AetherConstruct {
 
     /// @dev Used to mark the smart contract as upgraded, in case there is a serious
     ///  breaking bug. This method does nothing but keep track of the new contract and
-    ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+    ///  emit a message indicating that the new address is set. It's up to clients of this
     ///  contract to update to the new contract address in that case. (This contract will
     ///  be paused indefinitely if such an upgrade takes place.)
     /// @param _v2Address new address
@@ -1505,7 +1505,7 @@ contract AetherCore is AetherConstruct {
     }
 
     /// @notice No tipping!
-    /// @dev Reject all Ether from being sent here, unless it&#39;s from one of the
+    /// @dev Reject all Ether from being sent here, unless it's from one of the
     ///  two auction contracts. (Hopefully, we can prevent user accidents.)
     function() external payable {
         require(
@@ -1546,7 +1546,7 @@ contract AetherCore is AetherConstruct {
     }
 
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     function unpause() public onlyCEO whenPaused {
         require(saleAuction != address(0));

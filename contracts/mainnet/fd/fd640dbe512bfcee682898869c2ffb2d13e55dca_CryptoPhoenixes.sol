@@ -84,7 +84,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -339,7 +339,7 @@ contract CryptoPhoenixes is Ownable, Pausable {
     //Calculate cuts
     (devCut,dividendsCut,previousOwnerCut,phoenixPoolCut) = calculateCuts(price);
 
-    // Amount payable to old owner minus the developer&#39;s and pools&#39; cuts.
+    // Amount payable to old owner minus the developer's and pools' cuts.
     uint256 outgoingOwnerCut = price.sub(devCut);
     outgoingOwnerCut = outgoingOwnerCut.sub(dividendsCut);
     outgoingOwnerCut = outgoingOwnerCut.sub(previousOwnerCut);

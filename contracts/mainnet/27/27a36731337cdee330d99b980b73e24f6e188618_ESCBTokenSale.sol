@@ -17,7 +17,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -57,7 +57,7 @@ library Math {
 }
 
 
-// Slightly modified Zeppelin&#39;s Vested Token deriving MiniMeToken
+// Slightly modified Zeppelin's Vested Token deriving MiniMeToken
 
 /*
     Copyright 2018, Konstantin Viktorov (EscrowBlock Foundation)
@@ -151,8 +151,8 @@ contract TokenController {
 
 /// @title MiniMeToken Contract
 /// @author Jordi Baylina
-/// @dev This token contract&#39;s goal is to make it easy for anyone to clone this
-///    token using the token distribution at a given block, this will allow DAO&#39;s
+/// @dev This token contract's goal is to make it easy for anyone to clone this
+///    token using the token distribution at a given block, this will allow DAO's
 ///    and DApps to upgrade their features in a decentralized manner without
 ///    affecting the original token
 /// @dev It is ERC20 compliant, but still needs to under go further testing.
@@ -162,7 +162,7 @@ contract TokenController {
 ///    token controller contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Controlled {
 
-    string public name;               //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;               //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;               //An identifier: e.g. REP
     string public version = "MMT_0.1"; //An arbitrary versioning scheme
@@ -327,7 +327,7 @@ contract MiniMeToken is Controlled {
 
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public view returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -602,7 +602,7 @@ contract MiniMeToken is Controlled {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///    set to 0, then the `proxyPayment` method is called which relays the
     ///    ether and creates tokens as described in the token controller contract
     function ()    payable {
@@ -866,7 +866,7 @@ contract MiniMeIrrevocableVestedToken is MiniMeToken {
     * @dev Calculate the total amount of transferable tokens of a holder at a given time
     * @param holder address The address of the holder
     * @param time uint64 The specific time.
-    * @return An uint256 representing a holder&#39;s total amount of transferable tokens.
+    * @return An uint256 representing a holder's total amount of transferable tokens.
     */
     function transferableTokens(address holder, uint64 time) public view returns (uint256) {
     uint256 grantIndex = tokenGrantsCount(holder);
@@ -933,7 +933,7 @@ contract MiniMeIrrevocableVestedToken is MiniMeToken {
 
         // Interpolate all vested tokens.
         // As before cliff the shortcut returns 0, we can use just calculate a value
-        // in the vesting rect (as shown in above&#39;s figure)
+        // in the vesting rect (as shown in above's figure)
 
         // vestedTokens = tokens * (time - start) / (vesting - start)
         uint256 vestedTokens = SafeMath.div(
@@ -1257,7 +1257,7 @@ contract SaleWallet {
     function enableRefunds() public {
     require(currentState == State.Active);
     assert(msg.sender == multisig);    // Only the multisig can request it
-    require(!tokenSale.minGoalReached());    // Allow when minimum goal isn&#39;t reached
+    require(!tokenSale.minGoalReached());    // Allow when minimum goal isn't reached
     require(tokenSale.saleFinalized()); // Allow when sale is finalized
     currentState = State.Refunding;
     RefundsEnabled();
@@ -1408,7 +1408,7 @@ contract SaleWallet {
      require(_networkPlaceholder != 0);
      require(_saleWallet != 0);
 
-     // Assert that the function hasn&#39;t been called before, as activate will happen at the end
+     // Assert that the function hasn't been called before, as activate will happen at the end
      assert(!activated[this]);
 
      token = ESCBCoin(_token);

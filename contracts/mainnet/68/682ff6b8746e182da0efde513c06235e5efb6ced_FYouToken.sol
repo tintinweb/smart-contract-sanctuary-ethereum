@@ -639,7 +639,7 @@ contract ERC721Token is ERC721, ERC721BasicToken {
 /**
  * @dev See https://fytoken.github.io/
  * Get sworn at by important people on the blockchain. Auction off that token. Get rich. Simple right?
- * Also, FYT token will solve world hunger, relativity theory&#39;s shortcomings, interplanetory travel and 
+ * Also, FYT token will solve world hunger, relativity theory's shortcomings, interplanetory travel and 
  * that small problem of consciousness.
  */
 contract FYouToken is Ownable, ERC721Token {
@@ -695,7 +695,7 @@ contract FYouToken is Ownable, ERC721Token {
         uint tokensCount = _numTokens.add(fYouTokens);
         require(allTokens.length < 2000001 && tokensCount < 2000001);
         for (uint256 i = 0; i < _numTokens; i++) {
-        _fYou(_to, (fYouTokens + i), &#39;&#39;, &#39;&#39;);
+        _fYou(_to, (fYouTokens + i), '', '');
         }
         fYouTokens = tokensCount;
         feesAvailableForWithdraw = feesAvailableForWithdraw.add(msg.value);

@@ -67,9 +67,9 @@ contract BYT is EIP20Interface {
     constructor() public {
         totalSupply = 100 * (10**8) * (10**8);                // Update total supply
         balances[msg.sender] = totalSupply;                  // Give the creator all initial tokens
-        name = &#39;Bytex token&#39;;                                  // Set the name for display purposes
+        name = 'Bytex token';                                  // Set the name for display purposes
         decimals = 8;                                        // Amount of decimals for display purposes
-        symbol = &#39;BYT&#39;;                                      // Set the symbol for display purposes
+        symbol = 'BYT';                                      // Set the symbol for display purposes
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success) {

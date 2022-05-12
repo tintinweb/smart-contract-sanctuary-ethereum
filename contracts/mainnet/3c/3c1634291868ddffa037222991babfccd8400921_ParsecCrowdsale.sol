@@ -23,7 +23,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -229,7 +229,7 @@ contract ParsecTokenERC20 {
         // Subtract from the targeted balance
         balanceOf[_from] -= _value;
 
-        // Subtract from the sender&#39;s allowance
+        // Subtract from the sender's allowance
         allowance[_from][msg.sender] -= _value;
 
         // Update totalSupply
@@ -244,7 +244,7 @@ contract ParsecTokenERC20 {
 
 
 contract ParsecCrowdsale is owned {
-    /// @notice Use OpenZeppelin&#39;s SafeMath
+    /// @notice Use OpenZeppelin's SafeMath
     using SafeMath for uint256;
 
     /// @notice Define KYC states
@@ -363,7 +363,7 @@ contract ParsecCrowdsale is owned {
     /// @notice Keep track of all contributions pending KYC
     mapping (address => uint256) public pendingContributionOf;
 
-    /// @notice Keep track of all Parsecs&#39; rewards pending KYC
+    /// @notice Keep track of all Parsecs' rewards pending KYC
     mapping (address => uint256) public pendingParsecsOf;
 
     /// @notice Keep track of all refunds per account
@@ -373,7 +373,7 @@ contract ParsecCrowdsale is owned {
     // --- KYC (Know-Your-Customer) tracking ---
     // -----------------------------------------
 
-    /// @notice Keep track of participants&#39; KYC status
+    /// @notice Keep track of participants' KYC status
     mapping (address => KycState) public kycStatus;
 
     // --------------
@@ -396,7 +396,7 @@ contract ParsecCrowdsale is owned {
      *
      * @param _tokenAddress The address of the previously deployed ParsecTokenERC20 contract
      * @param _multisigAddress The address of the Multisig wallet to redirect payments to
-     * @param _auditorAddress The address of the Auditor account which will accept or decline investors&#39; KYC
+     * @param _auditorAddress The address of the Auditor account which will accept or decline investors' KYC
      */
     function ParsecCrowdsale (address _tokenAddress, address _multisigAddress, address _auditorAddress) public {
         // Get Parsec ERC20 token instance
@@ -419,14 +419,14 @@ contract ParsecCrowdsale is owned {
         _;
     }
 
-    /// @notice A participant sends a contribution to the contract&#39;s address
+    /// @notice A participant sends a contribution to the contract's address
     ///         when contract is active, not failed and not paused 
     /// @notice Only contributions above the MINIMUM_PARTICIPATION_AMOUNT are
     ///         accepted. Otherwise the transaction is rejected and contributed
-    ///         amount is returned to the participant&#39;s account
-    /// @notice A participant&#39;s contribution will be rejected if it exceeds
+    ///         amount is returned to the participant's account
+    /// @notice A participant's contribution will be rejected if it exceeds
     ///         the hard cap
-    /// @notice A participant&#39;s contribution will be rejected if the hard
+    /// @notice A participant's contribution will be rejected if the hard
     ///         cap is reached
     function () public payable {
         // Contract should be powered up
@@ -457,7 +457,7 @@ contract ParsecCrowdsale is owned {
         // A participant cannot receive more Parsecs than contract has to offer
         require(parsecValue <= maxAcceptableParsecs);
 
-        // Check if participant&#39;s KYC state is Undefined and set it to Pending
+        // Check if participant's KYC state is Undefined and set it to Pending
         if (kycStatus[msg.sender] == KycState.Undefined) {
             kycStatus[msg.sender] = KycState.Pending;
         }
@@ -644,16 +644,16 @@ contract ParsecCrowdsale is owned {
         parsecToken.transfer(owner, value);
     }
  
-    /// @dev Accept participant&#39;s KYC
+    /// @dev Accept participant's KYC
     function acceptKyc(address participant) external onlyOwnerOrAuditor {
-        // Set participant&#39;s KYC status to Accepted
+        // Set participant's KYC status to Accepted
         kycStatus[participant] = KycState.Accepted;
 
         // Get pending amounts in ETH and Parsecs
         uint256 pendingAmountOfEth = pendingContributionOf[participant];
         uint256 pendingAmountOfParsecs = pendingParsecsOf[participant];
 
-        // Log an event of the participant&#39;s KYC accept
+        // Log an event of the participant's KYC accept
         LogKycAccept(participant, pendingAmountOfEth, now);
 
         if (pendingAmountOfEth > 0 || pendingAmountOfParsecs > 0) {
@@ -665,12 +665,12 @@ contract ParsecCrowdsale is owned {
         }
     }
 
-    /// @dev Decline participant&#39;s KYC
+    /// @dev Decline participant's KYC
     function declineKyc(address participant) external onlyOwnerOrAuditor {
-        // Set participant&#39;s KYC status to Declined
+        // Set participant's KYC status to Declined
         kycStatus[participant] = KycState.Declined;
 
-        // Log an event of the participant&#39;s KYC decline
+        // Log an event of the participant's KYC decline
         LogKycDecline(participant, pendingAmountOfEth, now);
 
         // Get pending ETH amount
@@ -707,19 +707,19 @@ contract ParsecCrowdsale is owned {
         require(value > 0);
         require(value <= maxWithdrawalAmount);
 
-        // Participant&#39;s refundOf is increased by the claimed amount
+        // Participant's refundOf is increased by the claimed amount
         refundOf[msg.sender] = alreadyRefunded.add(value);
 
         // Total refound amount is increased
         refundedFunding = refundedFunding.add(value);
 
-        // Send ethers back to the participant&#39;s account
+        // Send ethers back to the participant's account
         msg.sender.transfer(value);
     }
 
     /// @dev Register pending contribution
     function addPendingContribution(address participant, uint256 ethValue, uint256 parsecValue) private {
-        // Participant&#39;s pending contribution is increased by ethValue
+        // Participant's pending contribution is increased by ethValue
         pendingContributionOf[participant] = pendingContributionOf[participant].add(ethValue);
 
         // Parsecs pending to participant increased by parsecValue
@@ -734,7 +734,7 @@ contract ParsecCrowdsale is owned {
 
     /// @dev Register accepted contribution
     function addAcceptedContribution(address participant, uint256 ethValue, uint256 parsecValue) private {
-        // Participant&#39;s contribution is increased by ethValue
+        // Participant's contribution is increased by ethValue
         contributionOf[participant] = contributionOf[participant].add(ethValue);
 
         // Parsecs rewarded to participant increased by parsecValue
@@ -746,7 +746,7 @@ contract ParsecCrowdsale is owned {
         // Increase spent Parsecs by parsecValue
         spentParsecs = spentParsecs.add(parsecValue);
 
-        // Log an event of the participant&#39;s contribution
+        // Log an event of the participant's contribution
         LogContribution(participant, ethValue, parsecValue, now);
 
         // Transfer ETH to Multisig

@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -234,7 +234,7 @@ contract MoedaToken is StandardToken, Ownable, HasNoTokens {
   uint256 public totalMigrated;
 
   uint constant TOKEN_MULTIPLIER = 10**uint256(decimals);
-  // don&#39;t allow creation of more than this number of tokens
+  // don't allow creation of more than this number of tokens
   uint public constant MAX_TOKENS = 20000000 * TOKEN_MULTIPLIER;
 
   // transfers are locked during minting

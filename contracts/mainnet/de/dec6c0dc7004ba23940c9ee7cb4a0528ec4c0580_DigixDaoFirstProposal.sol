@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-/// @title DigixDAO&#39;s 2nd Carbon Voting contracts
+/// @title DigixDAO's 2nd Carbon Voting contracts
 /// @author Digix Holdings
 
 /// @notice NumberCarbonVoting contract, generalized carbon voting contract
@@ -111,7 +111,7 @@ contract NumberCarbonVoting {
     }
 }
 
-/// @notice the actual carbon voting contract, specific to DigixDAO&#39;s 2nd carbon voting: DigixDAO&#39;s first proposal
+/// @notice the actual carbon voting contract, specific to DigixDAO's 2nd carbon voting: DigixDAO's first proposal
 contract DigixDaoFirstProposal is NumberCarbonVoting {
     constructor (
         uint256 _itemCount,

@@ -354,7 +354,7 @@ pragma solidity 0.4.18;
 
 library ScriptHelpers {
     // To test with JS and compare with actual encoder. Maintaining for reference.
-    // t = function() { return IEVMScriptExecutor.at(&#39;0x4bcdd59d6c77774ee7317fc1095f69ec84421e49&#39;).contract.execScript.getData(...[].slice.call(arguments)).slice(10).match(/.{1,64}/g) }
+    // t = function() { return IEVMScriptExecutor.at('0x4bcdd59d6c77774ee7317fc1095f69ec84421e49').contract.execScript.getData(...[].slice.call(arguments)).slice(10).match(/.{1,64}/g) }
     // run = function() { return ScriptHelpers.new().then(sh => { sh.abiEncode.call(...[].slice.call(arguments)).then(a => console.log(a.slice(2).match(/.{1,64}/g)) ) }) }
     // This is truly not beautiful but lets no daydream to the day solidity gets reflection features
 
@@ -517,7 +517,7 @@ contract EVMScriptRunner is AppStorage, EVMScriptRegistryConstants {
     }
 
     /**
-    * @dev copies and returns last&#39;s call data. Needs to ABI decode first
+    * @dev copies and returns last's call data. Needs to ABI decode first
     */
     function returnedDataDecoded() internal view returns (bytes ret) {
         assembly {
@@ -836,7 +836,7 @@ contract AppProxyBase is IAppProxy, AppStorage, DelegateProxy, KernelConstants {
         appId = _appId;
 
         // Implicit check that kernel is actually a Kernel
-        // The EVM doesn&#39;t actually provide a way for us to make sure, but we can force a revert to
+        // The EVM doesn't actually provide a way for us to make sure, but we can force a revert to
         // occur if the kernel is set to 0x0 or a non-code address when we try to call a method on
         // it.
         address appCode = getAppBase(appId);
@@ -856,7 +856,7 @@ contract AppProxyBase is IAppProxy, AppStorage, DelegateProxy, KernelConstants {
 
     function () payable public {
         address target = getCode();
-        require(target != 0); // if app code hasn&#39;t been set yet, don&#39;t call
+        require(target != 0); // if app code hasn't been set yet, don't call
         delegatedFwd(target, msg.data);
     }
 }
@@ -982,7 +982,7 @@ contract ACL is IACL, AragonApp, ACLHelpers {
         uint8 id;
         uint8 op;
         uint240 value; // even though value is an uint240 it can store addresses
-        // in the case of 32 byte hashes losing 2 bytes precision isn&#39;t a huge deal
+        // in the case of 32 byte hashes losing 2 bytes precision isn't a huge deal
         // op and id take less than 1 byte each so it can be kept in 1 sstore
     }
 
@@ -1018,7 +1018,7 @@ contract ACL is IACL, AragonApp, ACLHelpers {
     }
 
     /**
-    * @dev Creates a permission that wasn&#39;t previously set. Access is limited by the ACL.
+    * @dev Creates a permission that wasn't previously set. Access is limited by the ACL.
     *      If a created permission is removed it is possible to reset it with createPermission.
     * @notice Create a new permission granting `_entity` the ability to perform actions of role `_role` on `_app` (setting `_manager` as the permission manager)
     * @param _entity Address of the whitelisted entity that will be able to perform the role
@@ -1325,8 +1325,8 @@ contract Repo is AragonApp {
     /**
     * @notice Create new version for repo
     * @param _newSemanticVersion Semantic version for new repo version
-    * @param _contractAddress address for smart contract logic for version (if set to 0, it uses last versions&#39; contractAddress)
-    * @param _contentURI External URI for fetching new version&#39;s content
+    * @param _contractAddress address for smart contract logic for version (if set to 0, it uses last versions' contractAddress)
+    * @param _contentURI External URI for fetching new version's content
     */
     function newVersion(
         uint16[3] _newSemanticVersion,
@@ -1463,8 +1463,8 @@ contract APMRegistry is AragonApp, AppProxyFactory, APMRegistryConstants {
     * @param _name Repo name
     * @param _dev Address that will be given permission to create versions
     * @param _initialSemanticVersion Semantic version for new repo version
-    * @param _contractAddress address for smart contract logic for version (if set to 0, it uses last versions&#39; contractAddress)
-    * @param _contentURI External URI for fetching new version&#39;s content
+    * @param _contractAddress address for smart contract logic for version (if set to 0, it uses last versions' contractAddress)
+    * @param _contentURI External URI for fetching new version's content
     */
     function newRepoWithVersion(
         string _name,
@@ -1545,7 +1545,7 @@ contract Kernel is IKernel, KernelStorage, Initializable, AppProxyFactory, ACLSy
     * @dev Create a new instance of an app linked to this kernel and set its base
     *      implementation if it was not already set
     * @param _name Name of the app
-    * @param _appBase Address of the app&#39;s base implementation
+    * @param _appBase Address of the app's base implementation
     * @return AppProxy instance
     */
     function newAppInstance(bytes32 _name, address _appBase) auth(APP_MANAGER_ROLE, arr(APP_BASES_NAMESPACE, _name)) public returns (IAppProxy appProxy) {
@@ -1557,7 +1557,7 @@ contract Kernel is IKernel, KernelStorage, Initializable, AppProxyFactory, ACLSy
     * @dev Create a new pinned instance of an app linked to this kernel and set
     *      its base implementation if it was not already set
     * @param _name Name of the app
-    * @param _appBase Address of the app&#39;s base implementation
+    * @param _appBase Address of the app's base implementation
     * @return AppProxy instance
     */
     function newPinnedAppInstance(bytes32 _name, address _appBase) auth(APP_MANAGER_ROLE, arr(APP_BASES_NAMESPACE, _name)) public returns (IAppProxy appProxy) {
@@ -1821,7 +1821,7 @@ contract DelegateScript is IEVMScriptExecutor {
     }
 
     /**
-    * @dev copies and returns last&#39;s call data
+    * @dev copies and returns last's call data
     */
     function returnedData() internal view returns (bytes ret) {
         assembly {
@@ -2164,7 +2164,7 @@ contract APMRegistryFactory is APMRegistryConstants {
 
         // Assume it is the test ENS
         if (ens.owner(node) != address(this)) {
-            // If we weren&#39;t in test ens and factory doesn&#39;t have ownership, will fail
+            // If we weren't in test ens and factory doesn't have ownership, will fail
             ens.setSubnodeOwner(_tld, _label, this);
         }
 

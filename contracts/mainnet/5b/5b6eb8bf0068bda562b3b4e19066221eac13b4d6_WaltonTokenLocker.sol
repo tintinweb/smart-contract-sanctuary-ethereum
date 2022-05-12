@@ -21,11 +21,11 @@ contract WaltonTokenLocker {
     uint256 public releaseTime;
     string constant public name = "team locker v2";
 
-    Token public token = Token(&#39;0xb7cB1C96dB6B22b0D3d9536E0108d062BD488F74&#39;);
+    Token public token = Token('0xb7cB1C96dB6B22b0D3d9536E0108d062BD488F74');
 
     function WaltonTokenLocker() public {
         // team account
-        beneficiary = address(&#39;0x732f589BA0b134DC35454716c4C87A06C890445b&#39;);
+        beneficiary = address('0x732f589BA0b134DC35454716c4C87A06C890445b');
         releaseTime = 1563379200;     // 2019-07-18 00:00
     }
 

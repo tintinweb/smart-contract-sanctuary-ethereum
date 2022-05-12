@@ -1,4 +1,4 @@
-// Copyright (C) 2017-2018 HashFurue&#39;s Limited ("Hashworld"),
+// Copyright (C) 2017-2018 HashFurue's Limited ("Hashworld"),
 // an exempted company incorporated under the Laws of the Cayman Islands.
 // All rights reserved.
 

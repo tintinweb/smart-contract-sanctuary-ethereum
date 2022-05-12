@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -76,7 +76,7 @@ contract IBancorGasPriceLimit {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public view returns (string) {}
     function symbol() public view returns (string) {}
     function decimals() public view returns (uint8) {}
@@ -291,7 +291,7 @@ contract MEGAINVEST is admined,IERC20Token { //Standar definition of an ERC20Tok
 	string public name = "MEGAINVEST";
     uint8 public decimals = 18;
     string public symbol = "MEGA";
-    string public version = &#39;1&#39;;
+    string public version = '1';
 
 	constructor(address _feeWallet) public {
 		feeWallet = _feeWallet;

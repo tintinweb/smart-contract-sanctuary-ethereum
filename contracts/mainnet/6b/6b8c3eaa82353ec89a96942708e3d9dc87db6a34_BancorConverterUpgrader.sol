@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public view returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -60,7 +60,7 @@ contract Owned is IOwned {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public view returns (string) {}
     function symbol() public view returns (string) {}
     function decimals() public view returns (uint8) {}
@@ -205,7 +205,7 @@ contract BancorConverterUpgrader is Owned {
 
     /**
         @dev upgrade an old converter to the latest version
-        will throw if ownership wasn&#39;t transferred to the upgrader before calling this function.
+        will throw if ownership wasn't transferred to the upgrader before calling this function.
         ownership of the new converter will be transferred back to the original owner.
         fires the ConverterUpgrade event upon success.
 
@@ -361,10 +361,10 @@ contract BancorConverterUpgrader is Owned {
         @dev returns the connector settings
 
         @param _converter       old converter contract address
-        @param _address         connector&#39;s address to read from
+        @param _address         connector's address to read from
         @param _isLegacyVersion true if the converter version is under 0.5
 
-        @return connector&#39;s settings
+        @return connector's settings
     */
     function readConnector(IBancorConverter _converter, address _address, bool _isLegacyVersion) 
         private

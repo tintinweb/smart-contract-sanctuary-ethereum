@@ -7,7 +7,7 @@ pragma solidity 0.4.24;
 //  Imports
 ////////////////////////////////////////////////////////////////////////////////
 
-// OpenZeppelin&#39;s Ownable.sol
+// OpenZeppelin's Ownable.sol
 
 /**
  * @title Ownable
@@ -71,7 +71,7 @@ contract Ownable {
   }
 }
 
-// Azimuth&#39;s SafeMath8.sol
+// Azimuth's SafeMath8.sol
 
 /**
  * @title SafeMath8
@@ -87,7 +87,7 @@ library SafeMath8 {
   function div(uint8 a, uint8 b) internal pure returns (uint8) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint8 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -103,7 +103,7 @@ library SafeMath8 {
   }
 }
 
-// Azimuth&#39;s SafeMath16.sol
+// Azimuth's SafeMath16.sol
 
 /**
  * @title SafeMath16
@@ -119,7 +119,7 @@ library SafeMath16 {
   function div(uint16 a, uint16 b) internal pure returns (uint16) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint16 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -135,7 +135,7 @@ library SafeMath16 {
   }
 }
 
-// OpenZeppelin&#39;s SafeMath.sol
+// OpenZeppelin's SafeMath.sol
 
 /**
  * @title SafeMath
@@ -147,8 +147,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -165,7 +165,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -187,7 +187,7 @@ library SafeMath {
   }
 }
 
-// OpenZeppelin&#39;s ERC165.sol
+// OpenZeppelin's ERC165.sol
 
 /**
  * @title ERC165
@@ -207,7 +207,7 @@ interface ERC165 {
     returns (bool);
 }
 
-// OpenZeppelin&#39;s SupportsInterfaceWithLookup.sol
+// OpenZeppelin's SupportsInterfaceWithLookup.sol
 
 /**
  * @title SupportsInterfaceWithLookup
@@ -219,11 +219,11 @@ contract SupportsInterfaceWithLookup is ERC165 {
   bytes4 public constant InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) internal supportedInterfaces;
 
@@ -259,7 +259,7 @@ contract SupportsInterfaceWithLookup is ERC165 {
   }
 }
 
-// OpenZeppelin&#39;s ERC721Basic.sol
+// OpenZeppelin's ERC721Basic.sol
 
 /**
  * @title ERC721 Non-Fungible Token Standard basic interface
@@ -270,37 +270,37 @@ contract ERC721Basic is ERC165 {
   bytes4 internal constant InterfaceId_ERC721 = 0x80ac58cd;
   /*
    * 0x80ac58cd ===
-   *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-   *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-   *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('balanceOf(address)')) ^
+   *   bytes4(keccak256('ownerOf(uint256)')) ^
+   *   bytes4(keccak256('approve(address,uint256)')) ^
+   *   bytes4(keccak256('getApproved(uint256)')) ^
+   *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+   *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+   *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
    */
 
   bytes4 internal constant InterfaceId_ERC721Exists = 0x4f558e79;
   /*
    * 0x4f558e79 ===
-   *   bytes4(keccak256(&#39;exists(uint256)&#39;))
+   *   bytes4(keccak256('exists(uint256)'))
    */
 
   bytes4 internal constant InterfaceId_ERC721Enumerable = 0x780e9d63;
   /**
    * 0x780e9d63 ===
-   *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+   *   bytes4(keccak256('totalSupply()')) ^
+   *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+   *   bytes4(keccak256('tokenByIndex(uint256)'))
    */
 
   bytes4 internal constant InterfaceId_ERC721Metadata = 0x5b5e139f;
   /**
    * 0x5b5e139f ===
-   *   bytes4(keccak256(&#39;name()&#39;)) ^
-   *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+   *   bytes4(keccak256('name()')) ^
+   *   bytes4(keccak256('symbol()')) ^
+   *   bytes4(keccak256('tokenURI(uint256)'))
    */
 
   event Transfer(
@@ -344,7 +344,7 @@ contract ERC721Basic is ERC165 {
     public;
 }
 
-// OpenZeppelin&#39;s ERC721.sol
+// OpenZeppelin's ERC721.sol
 
 /**
  * @title ERC-721 Non-Fungible Token Standard, optional enumeration extension
@@ -382,7 +382,7 @@ contract ERC721Metadata is ERC721Basic {
 contract ERC721 is ERC721Basic, ERC721Enumerable, ERC721Metadata {
 }
 
-// OpenZeppelin&#39;s ERC721Receiver.sol
+// OpenZeppelin's ERC721Receiver.sol
 
 /**
  * @title ERC721 token receiver interface
@@ -420,7 +420,7 @@ contract ERC721Receiver {
     returns(bytes4);
 }
 
-// OpenZeppelin&#39;s AddressUtils.sol
+// OpenZeppelin's AddressUtils.sol
 
 /**
  * Utility library of inline functions on addresses
@@ -449,7 +449,7 @@ library AddressUtils {
 
 }
 
-// Azimuth&#39;s Azimuth.sol
+// Azimuth's Azimuth.sol
 
 //  Azimuth: point state data contract
 //
@@ -459,15 +459,15 @@ library AddressUtils {
 //    It also contains permissions data, which ties in to ERC721
 //    functionality. Operators of an address are allowed to transfer
 //    ownership of all points owned by their associated address
-//    (ERC721&#39;s approveAll()). A transfer proxy is allowed to transfer
-//    ownership of a single point (ERC721&#39;s approve()).
+//    (ERC721's approveAll()). A transfer proxy is allowed to transfer
+//    ownership of a single point (ERC721's approve()).
 //    Separate from ERC721 are managers, assigned per point. They are
-//    allowed to perform "low-impact" operations on the owner&#39;s points,
+//    allowed to perform "low-impact" operations on the owner's points,
 //    like configuring public keys and making escape requests.
 //
 //    Since data stores are difficult to upgrade, this contract contains
 //    as little actual business logic as possible. Instead, the data stored
-//    herein can only be modified by this contract&#39;s owner, which can be
+//    herein can only be modified by this contract's owner, which can be
 //    changed and is thus upgradable/replaceable.
 //
 //    This contract will be owned by the Ecliptic contract.
@@ -494,7 +494,7 @@ contract Azimuth is Ownable
   //
   event EscapeRequested(uint32 indexed point, uint32 indexed sponsor);
 
-  //  EscapeCanceled: :point&#39;s :sponsor request was canceled or rejected
+  //  EscapeCanceled: :point's :sponsor request was canceled or rejected
   //
   event EscapeCanceled(uint32 indexed point, uint32 indexed sponsor);
 
@@ -502,7 +502,7 @@ contract Azimuth is Ownable
   //
   event EscapeAccepted(uint32 indexed point, uint32 indexed sponsor);
 
-  //  LostSponsor: :point&#39;s :sponsor is now refusing it service
+  //  LostSponsor: :point's :sponsor is now refusing it service
   //
   event LostSponsor(uint32 indexed point, uint32 indexed sponsor);
 
@@ -558,7 +558,7 @@ contract Azimuth is Ownable
   //  Point: state of a point
   //
   //    While the ordering of the struct members is semantically chaotic,
-  //    they are ordered to tightly pack them into Ethereum&#39;s 32-byte storage
+  //    they are ordered to tightly pack them into Ethereum's 32-byte storage
   //    slots, which reduces gas costs for some function calls.
   //    The comment ticks indicate assumed slot boundaries.
   //
@@ -593,7 +593,7 @@ contract Azimuth is Ownable
 
     //  sponsor: the point that supports this one on the network, or,
     //           if :hasSponsor is false, the last point that supported it.
-    //           (by default, the point&#39;s half-width prefix)
+    //           (by default, the point's half-width prefix)
     //
     uint32 sponsor;
 
@@ -655,7 +655,7 @@ contract Azimuth is Ownable
   mapping(uint32 => Deed) public rights;
 
   //  operators: per owner, per address, has the right to transfer ownership
-  //             of all the owner&#39;s points (ERC721)
+  //             of all the owner's points (ERC721)
   //
   mapping(address => mapping(address => bool)) public operators;
 
@@ -750,7 +750,7 @@ contract Azimuth is Ownable
 
   //  setDnsDomains(): set the base domains used for contacting galaxies
   //
-  //    Note: since a string is really just a byte[], and Solidity can&#39;t
+  //    Note: since a string is really just a byte[], and Solidity can't
   //    work with two-dimensional arrays yet, we pass in the three
   //    domains as individual strings.
   //
@@ -793,7 +793,7 @@ contract Azimuth is Ownable
               point.keyRevisionNumber);
     }
 
-    //  getKeyRevisionNumber(): gets the revision number of _point&#39;s current
+    //  getKeyRevisionNumber(): gets the revision number of _point's current
     //                          public keys
     //
     function getKeyRevisionNumber(uint32 _point)
@@ -827,7 +827,7 @@ contract Azimuth is Ownable
                point.cryptoSuiteVersion != 0 );
     }
 
-    //  getContinuityNumber(): returns _point&#39;s current continuity number
+    //  getContinuityNumber(): returns _point's current continuity number
     //
     function getContinuityNumber(uint32 _point)
       view
@@ -862,7 +862,7 @@ contract Azimuth is Ownable
       return points[_point].spawned;
     }
 
-    //  hasSponsor(): returns true if _point&#39;s sponsor is providing it service
+    //  hasSponsor(): returns true if _point's sponsor is providing it service
     //
     function hasSponsor(uint32 _point)
       view
@@ -872,7 +872,7 @@ contract Azimuth is Ownable
       return points[_point].hasSponsor;
     }
 
-    //  getSponsor(): returns _point&#39;s current (or most recent) sponsor
+    //  getSponsor(): returns _point's current (or most recent) sponsor
     //
     function getSponsor(uint32 _point)
       view
@@ -932,7 +932,7 @@ contract Azimuth is Ownable
       return points[_point].escapeRequested;
     }
 
-    //  getEscapeRequest(): returns _point&#39;s current escape request
+    //  getEscapeRequest(): returns _point's current escape request
     //
     //    the returned escape request is only valid as long as isEscaping()
     //    returns true
@@ -1042,13 +1042,13 @@ contract Azimuth is Ownable
       emit BrokeContinuity(_point, point.continuityNumber);
     }
 
-    //  registerSpawn(): add a point to its prefix&#39;s list of spawned points
+    //  registerSpawn(): add a point to its prefix's list of spawned points
     //
     function registerSpawned(uint32 _point)
       onlyOwner
       external
     {
-      //  if a point is its own prefix (a galaxy) then don&#39;t register it
+      //  if a point is its own prefix (a galaxy) then don't register it
       //
       uint32 prefix = getPrefix(_point);
       if (prefix == _point)
@@ -1062,7 +1062,7 @@ contract Azimuth is Ownable
       emit Spawned(prefix, _point);
     }
 
-    //  loseSponsor(): indicates that _point&#39;s sponsor is no longer providing
+    //  loseSponsor(): indicates that _point's sponsor is no longer providing
     //                 it service
     //
     function loseSponsor(uint32 _point)
@@ -1163,7 +1163,7 @@ contract Azimuth is Ownable
       bool had = point.hasSponsor;
       uint32 prev = point.sponsor;
 
-      //  if we didn&#39;t have a sponsor, and won&#39;t get one,
+      //  if we didn't have a sponsor, and won't get one,
       //  or if we get the sponsor we already have,
       //  nothing will change, so jump out early.
       //
@@ -1175,11 +1175,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different sponsor, do some gymnastics
       //  to keep the reverse lookup gapless.  delete the point from the old
-      //  sponsor&#39;s list, then fill that gap with the list tail.
+      //  sponsor's list, then fill that gap with the list tail.
       //
       if (had)
       {
-        //  i: current index in previous sponsor&#39;s list of sponsored points
+        //  i: current index in previous sponsor's list of sponsored points
         //
         uint256 i = sponsoringIndexes[prev][_point];
 
@@ -1226,7 +1226,7 @@ contract Azimuth is Ownable
       bool was = point.escapeRequested;
       uint32 prev = point.escapeRequestedTo;
 
-      //  if we weren&#39;t escaping, and won&#39;t be,
+      //  if we weren't escaping, and won't be,
       //  or if we were escaping, and the new target is the same,
       //  nothing will change, so jump out early.
       //
@@ -1238,11 +1238,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different request, do some gymnastics
       //  to keep the reverse lookup gapless.  delete the point from the old
-      //  sponsor&#39;s list, then fill that gap with the list tail.
+      //  sponsor's list, then fill that gap with the list tail.
       //
       if (was)
       {
-        //  i: current index in previous sponsor&#39;s list of sponsored points
+        //  i: current index in previous sponsor's list of sponsored points
         //
         uint256 i = escapeRequestsIndexes[prev][_point];
 
@@ -1342,7 +1342,7 @@ contract Azimuth is Ownable
 
     //  management proxy
 
-    //  getManagementProxy(): returns _point&#39;s current management proxy
+    //  getManagementProxy(): returns _point's current management proxy
     //
     function getManagementProxy(uint32 _point)
       view
@@ -1352,7 +1352,7 @@ contract Azimuth is Ownable
       return rights[_point].managementProxy;
     }
 
-    //  isManagementProxy(): returns true if _proxy is _point&#39;s management proxy
+    //  isManagementProxy(): returns true if _proxy is _point's management proxy
     //
     function isManagementProxy(uint32 _point, address _proxy)
       view
@@ -1400,7 +1400,7 @@ contract Azimuth is Ownable
 
     //  spawn proxy
 
-    //  getSpawnProxy(): returns _point&#39;s current spawn proxy
+    //  getSpawnProxy(): returns _point's current spawn proxy
     //
     function getSpawnProxy(uint32 _point)
       view
@@ -1410,7 +1410,7 @@ contract Azimuth is Ownable
       return rights[_point].spawnProxy;
     }
 
-    //  isSpawnProxy(): returns true if _proxy is _point&#39;s spawn proxy
+    //  isSpawnProxy(): returns true if _proxy is _point's spawn proxy
     //
     function isSpawnProxy(uint32 _point, address _proxy)
       view
@@ -1459,7 +1459,7 @@ contract Azimuth is Ownable
 
     //  voting proxy
 
-    //  getVotingProxy(): returns _point&#39;s current voting proxy
+    //  getVotingProxy(): returns _point's current voting proxy
     //
     function getVotingProxy(uint32 _point)
       view
@@ -1469,7 +1469,7 @@ contract Azimuth is Ownable
       return rights[_point].votingProxy;
     }
 
-    //  isVotingProxy(): returns true if _proxy is _point&#39;s voting proxy
+    //  isVotingProxy(): returns true if _proxy is _point's voting proxy
     //
     function isVotingProxy(uint32 _point, address _proxy)
       view
@@ -1480,7 +1480,7 @@ contract Azimuth is Ownable
     }
 
     //  canVoteAs(): true if _who is the owner of _point,
-    //               or the voting proxy of _point&#39;s owner
+    //               or the voting proxy of _point's owner
     //
     function canVoteAs(uint32 _point, address _who)
       view
@@ -1518,7 +1518,7 @@ contract Azimuth is Ownable
 
     //  transfer proxy
 
-    //  getTransferProxy(): returns _point&#39;s current transfer proxy
+    //  getTransferProxy(): returns _point's current transfer proxy
     //
     function getTransferProxy(uint32 _point)
       view
@@ -1528,7 +1528,7 @@ contract Azimuth is Ownable
       return rights[_point].transferProxy;
     }
 
-    //  isTransferProxy(): returns true if _proxy is _point&#39;s transfer proxy
+    //  isTransferProxy(): returns true if _proxy is _point's transfer proxy
     //
     function isTransferProxy(uint32 _point, address _proxy)
       view
@@ -1539,7 +1539,7 @@ contract Azimuth is Ownable
     }
 
     //  canTransfer(): true if _who is the owner or transfer proxy of _point,
-    //                 or is an operator for _point&#39;s current owner
+    //                 or is an operator for _point's current owner
     //
     function canTransfer(uint32 _point, address _who)
       view
@@ -1578,7 +1578,7 @@ contract Azimuth is Ownable
     }
 
     //  isOperator(): returns true if _operator is allowed to transfer
-    //                ownership of _owner&#39;s points
+    //                ownership of _owner's points
     //
     function isOperator(address _owner, address _operator)
       view
@@ -1623,7 +1623,7 @@ contract Azimuth is Ownable
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous owner&#39;s list of owned points
+        //  i: current index in previous owner's list of owned points
         //
         uint256 i = pointOwnerIndexes[prev][_point];
 
@@ -1648,7 +1648,7 @@ contract Azimuth is Ownable
         pointOwnerIndexes[prev][_point] = 0;
       }
 
-      //  update the owner list and the owner&#39;s index list
+      //  update the owner list and the owner's index list
       //
       rights[_point].owner = _owner;
       pointsOwnedBy[_owner].push(_point);
@@ -1656,7 +1656,7 @@ contract Azimuth is Ownable
       emit OwnerChanged(_point, _owner);
     }
 
-    //  setManagementProxy(): makes _proxy _point&#39;s management proxy
+    //  setManagementProxy(): makes _proxy _point's management proxy
     //
     function setManagementProxy(uint32 _point, address _proxy)
       onlyOwner
@@ -1671,11 +1671,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different manager, do some gymnastics
       //  to keep the reverse lookup gapless.  delete the point from the
-      //  old manager&#39;s list, then fill that gap with the list tail.
+      //  old manager's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous manager&#39;s list of managed points
+        //  i: current index in previous manager's list of managed points
         //
         uint256 i = managerForIndexes[prev][_point];
 
@@ -1711,7 +1711,7 @@ contract Azimuth is Ownable
       emit ChangedManagementProxy(_point, _proxy);
     }
 
-    //  setSpawnProxy(): makes _proxy _point&#39;s spawn proxy
+    //  setSpawnProxy(): makes _proxy _point's spawn proxy
     //
     function setSpawnProxy(uint32 _point, address _proxy)
       onlyOwner
@@ -1726,11 +1726,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different spawn proxy, do some
       //  gymnastics to keep the reverse lookup gapless.  delete the point
-      //  from the old proxy&#39;s list, then fill that gap with the list tail.
+      //  from the old proxy's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous proxy&#39;s list of spawning points
+        //  i: current index in previous proxy's list of spawning points
         //
         uint256 i = spawningForIndexes[prev][_point];
 
@@ -1766,7 +1766,7 @@ contract Azimuth is Ownable
       emit ChangedSpawnProxy(_point, _proxy);
     }
 
-    //  setVotingProxy(): makes _proxy _point&#39;s voting proxy
+    //  setVotingProxy(): makes _proxy _point's voting proxy
     //
     function setVotingProxy(uint32 _point, address _proxy)
       onlyOwner
@@ -1781,11 +1781,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different voter, do some gymnastics
       //  to keep the reverse lookup gapless.  delete the point from the
-      //  old voter&#39;s list, then fill that gap with the list tail.
+      //  old voter's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous voter&#39;s list of points it was
+        //  i: current index in previous voter's list of points it was
         //     voting for
         //
         uint256 i = votingForIndexes[prev][_point];
@@ -1822,7 +1822,7 @@ contract Azimuth is Ownable
       emit ChangedVotingProxy(_point, _proxy);
     }
 
-    //  setManagementProxy(): makes _proxy _point&#39;s transfer proxy
+    //  setManagementProxy(): makes _proxy _point's transfer proxy
     //
     function setTransferProxy(uint32 _point, address _proxy)
       onlyOwner
@@ -1837,11 +1837,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different transfer proxy, do some
       //  gymnastics to keep the reverse lookup gapless.  delete the point
-      //  from the old proxy&#39;s list, then fill that gap with the list tail.
+      //  from the old proxy's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous proxy&#39;s list of transferable points
+        //  i: current index in previous proxy's list of transferable points
         //
         uint256 i = transferringForIndexes[prev][_point];
 
@@ -1890,7 +1890,7 @@ contract Azimuth is Ownable
     }
 }
 
-// Azimuth&#39;s ReadsAzimuth.sol
+// Azimuth's ReadsAzimuth.sol
 
 //  ReadsAzimuth: referring to and testing against the Azimuth
 //                data contract
@@ -1904,7 +1904,7 @@ contract ReadsAzimuth
   //
   Azimuth public azimuth;
 
-  //  constructor(): set the Azimuth data contract&#39;s address
+  //  constructor(): set the Azimuth data contract's address
   //
   constructor(Azimuth _azimuth)
     public
@@ -1933,7 +1933,7 @@ contract ReadsAzimuth
   }
 }
 
-// Azimuth&#39;s Polls.sol
+// Azimuth's Polls.sol
 
 //  Polls: proposals & votes data contract
 //
@@ -1958,7 +1958,7 @@ contract ReadsAzimuth
 //
 //    Since data stores are difficult to upgrade, all of the logic unrelated
 //    to the voting itself (that is, determining who is eligible to vote)
-//    is expected to be implemented by this contract&#39;s owner.
+//    is expected to be implemented by this contract's owner.
 //
 //    This contract will be owned by the Ecliptic contract.
 //
@@ -2398,12 +2398,12 @@ contract Polls is Ownable
   }
 }
 
-// Azimuth&#39;s Claims.sol
+// Azimuth's Claims.sol
 
 //  Claims: simple identity management
 //
 //    This contract allows points to document claims about their owner.
-//    Most commonly, these are about identity, with a claim&#39;s protocol
+//    Most commonly, these are about identity, with a claim's protocol
 //    defining the context or platform of the claim, and its dossier
 //    containing proof of its validity.
 //    Points are limited to a maximum of 16 claims.
@@ -2475,7 +2475,7 @@ contract Claims is ReadsAzimuth
     //
     uint8 cur = findClaim(_point, _protocol, _claim);
 
-    //  if the claim doesn&#39;t yet exist, store it in state
+    //  if the claim doesn't yet exist, store it in state
     //
     if (cur == 0)
     {
@@ -2500,7 +2500,7 @@ contract Claims is ReadsAzimuth
     external
     activePointManager(_point)
   {
-    //  i: current index + 1 in _point&#39;s list of claims
+    //  i: current index + 1 in _point's list of claims
     //
     uint256 i = findClaim(_point, _protocol, _claim);
 
@@ -2517,7 +2517,7 @@ contract Claims is ReadsAzimuth
     emit ClaimRemoved(_point, _protocol, _claim);
   }
 
-  //  clearClaims(): unregister all of _point&#39;s claims
+  //  clearClaims(): unregister all of _point's claims
   //
   //    can also be called by the ecliptic during point transfer
   //
@@ -2526,10 +2526,10 @@ contract Claims is ReadsAzimuth
   {
     //  both point owner and ecliptic may do this
     //
-    //    We do not necessarily need to check for _point&#39;s active flag here,
+    //    We do not necessarily need to check for _point's active flag here,
     //    since inactive points cannot have claims set. Doing the check
     //    anyway would make this function slightly harder to think about due
-    //    to its relation to Ecliptic&#39;s transferPoint().
+    //    to its relation to Ecliptic's transferPoint().
     //
     require( azimuth.canManage(_point, msg.sender) ||
              ( msg.sender == azimuth.owner() ) );
@@ -2553,7 +2553,7 @@ contract Claims is ReadsAzimuth
     view
     returns (uint8 index)
   {
-    //  we use hashes of the string because solidity can&#39;t do string
+    //  we use hashes of the string because solidity can't do string
     //  comparison yet
     //
     bytes32 protocolHash = keccak256(bytes(_protocol));
@@ -2594,16 +2594,16 @@ contract Claims is ReadsAzimuth
   }
 }
 
-// Azimuth&#39;s EclipticBase.sol
+// Azimuth's EclipticBase.sol
 
 //  EclipticBase: upgradable ecliptic
 //
 //    This contract implements the upgrade logic for the Ecliptic.
 //    Newer versions of the Ecliptic are expected to provide at least
-//    the onUpgrade() function. If they don&#39;t, upgrading to them will
+//    the onUpgrade() function. If they don't, upgrading to them will
 //    fail.
 //
-//    Note that even though this contract doesn&#39;t specify any required
+//    Note that even though this contract doesn't specify any required
 //    interface members aside from upgrade() and onUpgrade(), contracts
 //    and clients may still rely on the presence of certain functions
 //    provided by the Ecliptic proper. Keep this in mind when writing
@@ -2677,7 +2677,7 @@ contract EclipticBase is Ownable, ReadsAzimuth
   }
 }
 
-// Azimuth&#39;s Ecliptic.sol
+// Azimuth's Ecliptic.sol
 
 //  Ecliptic: logic for interacting with the Azimuth ledger
 //
@@ -2687,7 +2687,7 @@ contract EclipticBase is Ownable, ReadsAzimuth
 //    Examples of such logic include verifying permissions of the caller
 //    and ensuring a requested change is actually valid.
 //    Point owners can always operate on their own points. Ethereum addresses
-//    can also perform specific operations if they&#39;ve been given the
+//    can also perform specific operations if they've been given the
 //    appropriate permissions. (For example, managers for general management,
 //    spawn proxies for spawning child points, etc.)
 //
@@ -2696,7 +2696,7 @@ contract EclipticBase is Ownable, ReadsAzimuth
 //    be changed. In other words, it can be upgraded. It does this by passing
 //    ownership of the data contracts to a new Ecliptic contract.
 //
-//    Because of this, it is advised for clients to not store this contract&#39;s
+//    Because of this, it is advised for clients to not store this contract's
 //    address directly, but rather ask the Azimuth contract for its owner
 //    attribute to ensure transactions get sent to the latest Ecliptic.
 //    Alternatively, the ENS name ecliptic.eth will resolve to the latest
@@ -2827,7 +2827,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
     }
 
     //  safeTransferFrom(): transfer point _tokenId from _from to _to,
-    //                      and call recipient if it&#39;s a contract
+    //                      and call recipient if it's a contract
     //
     function safeTransferFrom(address _from, address _to, uint256 _tokenId,
                               bytes _data)
@@ -2967,7 +2967,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
     //  configureKeys(): configure _point with network public keys
     //                   _encryptionKey, _authenticationKey,
     //                   and corresponding _cryptoSuiteVersion,
-    //                   incrementing the point&#39;s continuity number if needed
+    //                   incrementing the point's continuity number if needed
     //
     function configureKeys(uint32 _point,
                            bytes32 _encryptionKey,
@@ -2996,8 +2996,8 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
     //    Requirements:
     //    - _point must not be active
     //    - _point must not be a planet with a galaxy prefix
-    //    - _point&#39;s prefix must be linked and under its spawn limit
-    //    - :msg.sender must be either the owner of _point&#39;s prefix,
+    //    - _point's prefix must be linked and under its spawn limit
+    //    - :msg.sender must be either the owner of _point's prefix,
     //      or an authorized spawn proxy for it
     //
     function spawn(uint32 _point, address _target)
@@ -3038,7 +3038,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
       require( azimuth.canSpawnAs(prefix, msg.sender) );
 
       //  if the caller is spawning the point to themselves,
-      //  assume it knows what it&#39;s doing and resolve right away
+      //  assume it knows what it's doing and resolve right away
       //
       if (msg.sender == _target)
       {
@@ -3046,7 +3046,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
       }
       //
       //  when sending to a "foreign" address, enforce a withdraw pattern
-      //  making the _point prefix&#39;s owner the _point owner in the mean time
+      //  making the _point prefix's owner the _point owner in the mean time
       //
       else
       {
@@ -3065,11 +3065,11 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
                       address _holder )
       internal
     {
-      //  register the spawn for _point&#39;s prefix, incrementing spawn count
+      //  register the spawn for _point's prefix, incrementing spawn count
       //
       azimuth.registerSpawned(_point);
 
-      //  if the spawn is _direct, assume _target knows what they&#39;re doing
+      //  if the spawn is _direct, assume _target knows what they're doing
       //  and resolve right away
       //
       if (_direct)
@@ -3086,7 +3086,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
       //  the _target for transfer of the _point instead.
       //  we make the _holder the owner of this _point in the mean time,
       //  so that it may cancel the transfer (un-approve) if _target flakes.
-      //  we don&#39;t make _point active yet, because it still doesn&#39;t really
+      //  we don't make _point active yet, because it still doesn't really
       //  belong to anyone.
       //
       else
@@ -3106,23 +3106,23 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
     //                   data and keys if _reset is true
     //
     //    Note: the _reset flag is useful when transferring the point to
-    //    a recipient who doesn&#39;t trust the previous owner.
+    //    a recipient who doesn't trust the previous owner.
     //
     //    Requirements:
-    //    - :msg.sender must be either _point&#39;s current owner, authorized
+    //    - :msg.sender must be either _point's current owner, authorized
     //      to transfer _point, or authorized to transfer the current
-    //      owner&#39;s points (as in ERC721&#39;s operator)
+    //      owner's points (as in ERC721's operator)
     //    - _target must not be the zero address
     //
     function transferPoint(uint32 _point, address _target, bool _reset)
       public
     {
       //  transfer is legitimate if the caller is the current owner, or
-      //  an operator for the current owner, or the _point&#39;s transfer proxy
+      //  an operator for the current owner, or the _point's transfer proxy
       //
       require(azimuth.canTransfer(_point, msg.sender));
 
-      //  if the point wasn&#39;t active yet, that means transferring it
+      //  if the point wasn't active yet, that means transferring it
       //  is part of the "spawn" flow, so we need to activate it
       //
       if ( !azimuth.isActive(_point) )
@@ -3132,7 +3132,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
 
       //  if the owner would actually change, change it
       //
-      //    the only time this deliberately wouldn&#39;t be the case is when a
+      //    the only time this deliberately wouldn't be the case is when a
       //    prefix owner wants to activate a spawned but untransferred child.
       //
       if ( !azimuth.isOwner(_point, _target) )
@@ -3222,7 +3222,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
     //
     //    Requirements:
     //    - :msg.sender must be the owner or management proxy
-    //      of _point&#39;s requested sponsor
+    //      of _point's requested sponsor
     //
     function adopt(uint32 _point)
       external
@@ -3231,17 +3231,17 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
                azimuth.canManage( azimuth.getEscapeRequest(_point),
                                   msg.sender ) );
 
-      //  _sponsor becomes _point&#39;s sponsor
+      //  _sponsor becomes _point's sponsor
       //  its escape request is reset to "not escaping"
       //
       azimuth.doEscape(_point);
     }
 
-    //  reject(): as the relevant sponsor, deny the _point&#39;s request
+    //  reject(): as the relevant sponsor, deny the _point's request
     //
     //    Requirements:
     //    - :msg.sender must be the owner or management proxy
-    //      of _point&#39;s requested sponsor
+    //      of _point's requested sponsor
     //
     function reject(uint32 _point)
       external
@@ -3250,7 +3250,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
                azimuth.canManage( azimuth.getEscapeRequest(_point),
                                   msg.sender ) );
 
-      //  reset the _point&#39;s escape request to "not escaping"
+      //  reset the _point's escape request to "not escaping"
       //
       azimuth.cancelEscape(_point);
     }
@@ -3259,7 +3259,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
     //
     //    Requirements:
     //    - :msg.sender must be the owner or management proxy
-    //      of _point&#39;s current sponsor
+    //      of _point's current sponsor
     //
     function detach(uint32 _point)
       external
@@ -3310,7 +3310,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
       }
       else  //  size == Azimuth.Size.Planet
       {
-        //  planets can create moons, but moons aren&#39;t on the chain
+        //  planets can create moons, but moons aren't on the chain
         //
         return 0;
       }
@@ -3323,12 +3323,12 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
       view
       returns (bool canEscape)
     {
-      //  can&#39;t escape to a sponsor that hasn&#39;t been linked
+      //  can't escape to a sponsor that hasn't been linked
       //
       if ( !azimuth.hasBeenLinked(_sponsor) ) return false;
 
       //  Can only escape to a point one size higher than ourselves,
-      //  except in the special case where the escaping point hasn&#39;t
+      //  except in the special case where the escaping point hasn't
       //  been linked yet -- in that case we may escape to points of
       //  the same size, to support lightweight invitation chains.
       //
@@ -3356,8 +3356,8 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
                //
                ( (sponsorSize == pointSize) &&
                  //
-                 //  peer escape is only for points that haven&#39;t been linked
-                 //  yet, because it&#39;s only for lightweight invitation chains
+                 //  peer escape is only for points that haven't been linked
+                 //  yet, because it's only for lightweight invitation chains
                  //
                  !azimuth.hasBeenLinked(_point) ) );
     }
@@ -3392,7 +3392,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
     //  setVotingProxy(): configure the voting proxy for _galaxy
     //
     //    the voting proxy is allowed to start polls and cast votes
-    //    on the point&#39;s behalf.
+    //    on the point's behalf.
     //
     function setVotingProxy(uint8 _galaxy, address _voter)
       external
@@ -3404,7 +3404,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
     //  setTransferProxy(): give _transferProxy the right to transfer _point
     //
     //    Requirements:
-    //    - :msg.sender must be either _point&#39;s current owner,
+    //    - :msg.sender must be either _point's current owner,
     //      or be an operator for the current owner
     //
     function setTransferProxy(uint32 _point, address _transferProxy)
@@ -3551,7 +3551,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
       polls.incrementTotalVoters();
 
       //  if the caller is sending the galaxy to themselves,
-      //  assume it knows what it&#39;s doing and resolve right away
+      //  assume it knows what it's doing and resolve right away
       //
       if (msg.sender == _target)
       {
@@ -3597,7 +3597,7 @@ contract Ecliptic is EclipticBase, SupportsInterfaceWithLookup, ERC721Metadata
     }
 }
 
-// Azimuth&#39;s TakesPoints.sol
+// Azimuth's TakesPoints.sol
 
 contract TakesPoints is ReadsAzimuth
 {
@@ -3660,14 +3660,14 @@ contract TakesPoints is ReadsAzimuth
   //               returns true if this succeeds, false otherwise.
   //
   //    Note that _reset is unnecessary if the point was taken
-  //    using this contract&#39;s takePoint() function, which always
+  //    using this contract's takePoint() function, which always
   //    resets, and not touched since.
   //
   function givePoint(uint32 _point, address _to, bool _reset)
     internal
     returns (bool success)
   {
-    //  only give points we&#39;ve taken, points we fully own
+    //  only give points we've taken, points we fully own
     //
     if (azimuth.isOwner(_point, this))
     {
@@ -3699,7 +3699,7 @@ contract TakesPoints is ReadsAzimuth
 //    passed.
 //    Completion timestamps are stored for each completed condition.
 //    They are equal to the time at which majority was observed, or
-//    the condition&#39;s deadline, whichever comes first.
+//    the condition's deadline, whichever comes first.
 //
 //    An arbitrary number of participants (in the form of Ethereum
 //    addresses) can be registered with the contract.
@@ -3716,7 +3716,7 @@ contract TakesPoints is ReadsAzimuth
 //    Stars deposited into the contracts for participants to (eventually)
 //    withdraw are treated on a last-in first-out basis.
 //
-//    If a condition&#39;s timestamp is equal to its deadline, participants
+//    If a condition's timestamp is equal to its deadline, participants
 //    have the option to forfeit the stars in the associated batch, only
 //    if they have not yet withdrawn from that batch. The participant will
 //    no longer be able to withdraw stars from the forfeited batch (they are
@@ -3784,7 +3784,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
   //  Commitment: structure that mirrors a signed paper contract
   //
   //    While the ordering of the struct members is semantically chaotic,
-  //    they are ordered to tightly pack them into Ethereum&#39;s 32-byte storage
+  //    they are ordered to tightly pack them into Ethereum's 32-byte storage
   //    slots, which reduces gas costs for some function calls.
   //    The comment ticks indicate assumed slot boundaries.
   //
@@ -3883,12 +3883,12 @@ contract ConditionalStarRelease is Ownable, TakesPoints
     {
       Commitment storage com = commitments[_participant];
 
-      //  make sure this participant doesn&#39;t already have a commitment
+      //  make sure this participant doesn't already have a commitment
       //
       require(0 == com.total);
 
       //  for every condition/deadline, a batch release amount must be
-      //  specified, even if it&#39;s zero
+      //  specified, even if it's zero
       //
       require(_batches.length == conditions.length);
 
@@ -3897,7 +3897,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       require( (_rate > 0) &&
                (_rateUnit > 0) );
 
-      //  make sure we&#39;re not promising more than we can possibly give
+      //  make sure we're not promising more than we can possibly give
       //
       uint16 total = arraySum(_batches);
       require( (total > 0) &&
@@ -3921,7 +3921,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
     {
       Commitment storage com = commitments[_participant];
 
-      //  ensure we can only deposit stars, and that we can&#39;t deposit
+      //  ensure we can only deposit stars, and that we can't deposit
       //  more stars than necessary
       //
       require( (_star > 0xff) &&
@@ -3933,12 +3933,12 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       //
       require( takePoint(_star, true) );
 
-      //  add _star to the participant&#39;s star balance
+      //  add _star to the participant's star balance
       //
       com.stars.push(_star);
     }
 
-    //  withdrawForfeited(): withdraw one star, from _participant&#39;s forfeited
+    //  withdrawForfeited(): withdraw one star, from _participant's forfeited
     //                       _batch, to _to
     //
     function withdrawForfeited(address _participant, uint8 _batch, address _to)
@@ -3948,7 +3948,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       Commitment storage com = commitments[_participant];
 
       //  withdraw is possible only if the participant has forfeited this batch,
-      //  and there&#39;s still stars there left to withdraw
+      //  and there's still stars there left to withdraw
       //
       require( com.forfeited[_batch] &&
                (com.withdrawn[_batch] < com.batches[_batch]) &&
@@ -3958,8 +3958,8 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       //
       com.withdrawn[_batch] = com.withdrawn[_batch].add(1);
 
-      //  withdraw a star from the commitment (don&#39;t reset it because
-      //  no one whom we don&#39;t trust has ever had control of it)
+      //  withdraw a star from the commitment (don't reset it because
+      //  no one whom we don't trust has ever had control of it)
       //
       performWithdraw(com, _to, false);
     }
@@ -3969,8 +3969,8 @@ contract ConditionalStarRelease is Ownable, TakesPoints
     //    this functions as an escape hatch in the case of key loss,
     //    to prevent blocks of address space from being lost permanently.
     //
-    //    we don&#39;t bother with specifying a batch or doing any kind of
-    //    book-keeping, because at this point in time we don&#39;t care about
+    //    we don't bother with specifying a batch or doing any kind of
+    //    book-keeping, because at this point in time we don't care about
     //    that anymore.
     //
     function withdrawOverdue(address _participant, address _to)
@@ -3984,8 +3984,8 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       Commitment storage com = commitments[_participant];
       require(0 < com.stars.length);
 
-      //  withdraw a star from the commitment (don&#39;t reset it because
-      //  no one whom we don&#39;t trust has ever had control of it)
+      //  withdraw a star from the commitment (don't reset it because
+      //  no one whom we don't trust has ever had control of it)
       //
       performWithdraw(com, _to, false);
     }
@@ -4000,15 +4000,15 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       external
     {
       //  make sure the caller is a participant,
-      //  and that the target isn&#39;t
+      //  and that the target isn't
       //
       require( 0 != commitments[msg.sender].total &&
                0 == commitments[_to].total );
       commitments[msg.sender].approvedTransferTo = _to;
     }
 
-    //  transferCommitment(): make an approved transfer of _from&#39;s commitment
-    //                        to the caller&#39;s address
+    //  transferCommitment(): make an approved transfer of _from's commitment
+    //                        to the caller's address
     //
     function transferCommitment(address _from)
       external
@@ -4017,19 +4017,19 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       //
       require(commitments[_from].approvedTransferTo == msg.sender);
 
-      //  make sure the target isn&#39;t also a participant again,
+      //  make sure the target isn't also a participant again,
       //  this could have changed since approveCommitmentTransfer
       //
       require(0 == commitments[msg.sender].total);
 
-      //  copy the commitment to the :msg.sender and clear _from&#39;s
+      //  copy the commitment to the :msg.sender and clear _from's
       //
       Commitment storage com = commitments[_from];
       commitments[msg.sender] = com;
       delete commitments[_from];
     }
 
-    //  withdrawToSelf(): withdraw one star from the :msg.sender&#39;s commitment&#39;s
+    //  withdrawToSelf(): withdraw one star from the :msg.sender's commitment's
     //                    _batch to :msg.sender
     //
     function withdrawToSelf(uint8 _batch)
@@ -4038,7 +4038,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       withdraw(_batch, msg.sender);
     }
 
-    //  withdraw(): withdraw one star from the :msg.sender&#39;s commitment&#39;s
+    //  withdraw(): withdraw one star from the :msg.sender's commitment's
     //              _batch to _to
     //
     function withdraw(uint8 _batch, address _to)
@@ -4120,22 +4120,22 @@ contract ConditionalStarRelease is Ownable, TakesPoints
   //
 
     //  analyzeCondition(): analyze condition number _condition for completion;
-    //                    set :timestamps[_condition] if either the condition&#39;s
+    //                    set :timestamps[_condition] if either the condition's
     //                    deadline has passed, or its condition has been met
     //
     function analyzeCondition(uint8 _condition)
       public
     {
-      //  only analyze conditions that haven&#39;t been met yet
+      //  only analyze conditions that haven't been met yet
       //
       require(0 == timestamps[_condition]);
 
-      //  if the liveline hasn&#39;t been passed yet, the condition can&#39;t be met
+      //  if the liveline hasn't been passed yet, the condition can't be met
       //
       require(block.timestamp > livelines[_condition]);
 
       //  if the deadline has passed, the condition is missed, then the
-      //  deadline becomes the condition&#39;s timestamp
+      //  deadline becomes the condition's timestamp
       //
       uint256 deadline = deadlines[_condition];
       if (block.timestamp > deadline)
@@ -4191,7 +4191,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
     {
       Commitment storage com = commitments[_participant];
 
-      //  if _participant has no commitment, they can&#39;t withdraw anything
+      //  if _participant has no commitment, they can't withdraw anything
       //
       if (0 == com.total)
       {
@@ -4200,7 +4200,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
 
       uint256 ts = timestamps[_batch];
 
-      //  if the condition hasn&#39;t completed yet, there is nothing to add.
+      //  if the condition hasn't completed yet, there is nothing to add.
       //
       if ( ts == 0 )
       {
@@ -4208,7 +4208,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       }
       else
       {
-        //  a condition can&#39;t have been completed in the future
+        //  a condition can't have been completed in the future
         //
         assert(ts <= block.timestamp);
 
@@ -4242,11 +4242,11 @@ contract ConditionalStarRelease is Ownable, TakesPoints
         //
         for (uint8 i = 0; i <= _batch; i++)
         {
-          //  if this batch has stars, that&#39;s the first batch we found
+          //  if this batch has stars, that's the first batch we found
           //
           if (0 < com.batches[i])
           {
-            //  maybe it&#39;s _batch, but in any case we stop searching here
+            //  maybe it's _batch, but in any case we stop searching here
             //
             first = (i == _batch);
             break;
@@ -4283,7 +4283,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
     //
     //    Note: for use by clients that have not forfeited,
     //    to verify the contract owner has deposited the stars
-    //    they&#39;re entitled to.
+    //    they're entitled to.
     //
     function verifyBalance(address _participant)
       external
@@ -4344,7 +4344,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       return commitments[_participant].withdrawn[_batch];
     }
 
-    //  getForfeited(): for all of _participant&#39;s batches, get the forfeit flag
+    //  getForfeited(): for all of _participant's batches, get the forfeit flag
     //
     function getForfeited(address _participant)
       external
@@ -4354,7 +4354,7 @@ contract ConditionalStarRelease is Ownable, TakesPoints
       return commitments[_participant].forfeited;
     }
 
-    //  getForfeited(): for _participant&#39;s _batch, get the forfeit flag
+    //  getForfeited(): for _participant's _batch, get the forfeit flag
     //
     function hasForfeitedBatch(address _participant, uint8 _batch)
       external

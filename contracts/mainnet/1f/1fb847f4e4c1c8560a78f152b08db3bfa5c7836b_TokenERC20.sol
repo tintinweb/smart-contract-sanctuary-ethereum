@@ -9,7 +9,7 @@ contract TokenERC20 {
     uint8 public decimals = 18;  // 18 是建议的默认值
     uint256 public totalSupply; // 发行量
 
-    // 建立映射 地址对应了 uint&#39; 便是他的余额
+    // 建立映射 地址对应了 uint' 便是他的余额
     mapping (address => uint256) public balanceOf;   
     // 地址对应余额
     mapping (address => mapping (address => uint256)) public allowance;

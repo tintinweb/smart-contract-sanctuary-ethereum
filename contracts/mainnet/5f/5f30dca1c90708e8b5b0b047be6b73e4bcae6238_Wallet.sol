@@ -72,7 +72,7 @@ contract multiowned {
     // Revokes a prior confirmation of the given operation
     function revoke(bytes32 _operation) external {
         uint ownerIndex = m_ownerIndex[uint(msg.sender)];
-        // make sure they&#39;re an owner
+        // make sure they're an owner
         if (ownerIndex == 0) return;
         uint ownerIndexBit = 2**ownerIndex;
         PendingState storage pending = m_pending[_operation];
@@ -137,7 +137,7 @@ contract multiowned {
         PendingState storage pending = m_pending[_operation];
         uint ownerIndex = m_ownerIndex[uint(_owner)];
 
-        // make sure they&#39;re an owner
+        // make sure they're an owner
         if (ownerIndex == 0) return false;
 
         // determine the bit to set for this owner.
@@ -154,11 +154,11 @@ contract multiowned {
     function confirmAndCheck(bytes32 _operation) internal returns (bool) {
         // determine what index the present sender is:
         uint ownerIndex = m_ownerIndex[uint(msg.sender)];
-        // make sure they&#39;re an owner
+        // make sure they're an owner
         if (ownerIndex == 0) return;
 
         PendingState storage pending = m_pending[_operation];
-        // if we&#39;re not yet working on this operation, switch over and reset the confirmation status.
+        // if we're not yet working on this operation, switch over and reset the confirmation status.
         if (pending.yetNeeded == 0) {
             // reset count of confirmations needed.
             pending.yetNeeded = m_required;
@@ -169,7 +169,7 @@ contract multiowned {
         }
         // determine the bit to set for this owner.
         uint ownerIndexBit = 2**ownerIndex;
-        // make sure we (the message sender) haven&#39;t confirmed this operation previously.
+        // make sure we (the message sender) haven't confirmed this operation previously.
         if (pending.ownersDone & ownerIndexBit == 0) {
             emit Confirmation(msg.sender, _operation);
             // ok - check if count is enough to go ahead.
@@ -246,16 +246,16 @@ contract daylimit is multiowned {
 
     // METHODS
 
-    // constructor - stores initial daily limit and records the present day&#39;s index.
+    // constructor - stores initial daily limit and records the present day's index.
     constructor(uint _limit) public {
         m_dailyLimit = _limit;
         m_lastDay = today();
     }
-    // (re)sets the daily limit. needs many of the owners to confirm. doesn&#39;t alter the amount already spent today.
+    // (re)sets the daily limit. needs many of the owners to confirm. doesn't alter the amount already spent today.
     function setDailyLimit(uint _newLimit) onlymanyowners(keccak256(abi.encodePacked(msg.data, block.number))) external {
         m_dailyLimit = _newLimit;
     }
-    // (re)sets the daily limit. needs many of the owners to confirm. doesn&#39;t alter the amount already spent today.
+    // (re)sets the daily limit. needs many of the owners to confirm. doesn't alter the amount already spent today.
     function resetSpentToday() onlymanyowners(keccak256(abi.encodePacked(msg.data, block.number))) external {
         m_spentToday = 0;
     }
@@ -265,19 +265,19 @@ contract daylimit is multiowned {
     // checks to see if there is at least `_value` left from the daily limit today. if there is, subtracts it and
     // returns true. otherwise just returns false.
     function underLimit(uint _value) internal onlyowner returns (bool) {
-        // reset the spend limit if we&#39;re on a different day to last time.
+        // reset the spend limit if we're on a different day to last time.
         if (today() > m_lastDay) {
             m_spentToday = 0;
             m_lastDay = today();
         }
-        // check to see if there&#39;s enough left - if so, subtract and return true.
+        // check to see if there's enough left - if so, subtract and return true.
         if (m_spentToday + _value >= m_spentToday && m_spentToday + _value <= m_dailyLimit) {
             m_spentToday += _value;
             return true;
         }
         return false;
     }
-    // determines today&#39;s index.
+    // determines today's index.
     function today() private view returns (uint) { return block.timestamp / 1 days; }
 
     // FIELDS
@@ -295,9 +295,9 @@ contract multisig {
     // logged events:
     // Funds has arrived into the wallet (record how much).
     event Deposit(address from, uint value);
-    // Single transaction going out of the wallet (record who signed for it, how much, and to whom it&#39;s going).
+    // Single transaction going out of the wallet (record who signed for it, how much, and to whom it's going).
     event SingleTransact(address owner, uint value, address to);
-    // Multi-sig transaction going out of the wallet (record who signed for it last, the operation hash, how much, and to whom it&#39;s going).
+    // Multi-sig transaction going out of the wallet (record who signed for it last, the operation hash, how much, and to whom it's going).
     event MultiTransact(address owner, bytes32 operation, uint value, address to);
     // Confirmation still needed for a transaction.
     event ConfirmationERC20Needed(bytes32 operation, address initiator, uint value, address to, ERC20Basic token);
@@ -354,7 +354,7 @@ contract Wallet is multisig, multiowned, daylimit {
     // shortcuts for the other confirmations (allowing them to avoid replicating the _to, _value
     // and _data arguments). They still get the option of using them if they want, anyways.
     function transferETH(address _to, uint _value) external onlyowner returns (bytes32 _r) {
-        // first, take the opportunity to check that we&#39;re under the daily limit.
+        // first, take the opportunity to check that we're under the daily limit.
         if (underLimit(_value)) {
             emit SingleTransact(msg.sender, _value, _to);
             // yes - just execute the call.
@@ -382,7 +382,7 @@ contract Wallet is multisig, multiowned, daylimit {
     }
 
     function transferERC20(address _to, uint _value, address _token) external onlyowner returns (bytes32 _r) {
-        // first, take the opportunity to check that we&#39;re under the daily limit.
+        // first, take the opportunity to check that we're under the daily limit.
         if (underLimit(_value)) {
             emit SingleTransact(msg.sender, _value, _to);
             // yes - just execute the call.

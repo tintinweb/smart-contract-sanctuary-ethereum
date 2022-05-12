@@ -14,17 +14,17 @@ contract EthernautsBase {
     ///  Ref: https://github.com/ethereum/EIPs/issues/165
     ///  Ref: https://github.com/ethereum/EIPs/issues/721
     bytes4 constant InterfaceSignature_ERC721 =
-    bytes4(keccak256(&#39;name()&#39;)) ^
-    bytes4(keccak256(&#39;symbol()&#39;)) ^
-    bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-    bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-    bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-    bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-    bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-    bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-    bytes4(keccak256(&#39;takeOwnership(uint256)&#39;)) ^
-    bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-    bytes4(keccak256(&#39;tokenMetadata(uint256,string)&#39;));
+    bytes4(keccak256('name()')) ^
+    bytes4(keccak256('symbol()')) ^
+    bytes4(keccak256('totalSupply()')) ^
+    bytes4(keccak256('balanceOf(address)')) ^
+    bytes4(keccak256('ownerOf(uint256)')) ^
+    bytes4(keccak256('approve(address,uint256)')) ^
+    bytes4(keccak256('transfer(address,uint256)')) ^
+    bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+    bytes4(keccak256('takeOwnership(uint256)')) ^
+    bytes4(keccak256('tokensOfOwner(address)')) ^
+    bytes4(keccak256('tokenMetadata(uint256,string)'));
 
     /// @dev due solidity limitation we cannot return dynamic array from methods
     /// so it creates incompability between functions across different contracts
@@ -180,7 +180,7 @@ contract EthernautsAccessControl is EthernautsBase {
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
     function unpause() public onlyCEO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 
@@ -275,7 +275,7 @@ contract EthernautsStorage is EthernautsAccessControl {
         // The minimum timestamp after which this asset can engage in exploring activities again.
         uint64 cooldownEndBlock;
 
-        // The Asset&#39;s stats can be upgraded or changed based on exploration conditions.
+        // The Asset's stats can be upgraded or changed based on exploration conditions.
         // It will be defined per child contract, but all stats have a range from 0 to 255
         // Examples
         // 0 = Ship Level
@@ -340,11 +340,11 @@ contract EthernautsStorage is EthernautsAccessControl {
     /// @param _to      new owner address
     /// @param _tokenId asset UniqueId
     function transfer(address _from, address _to, uint256 _tokenId) public onlyGrantedContracts {
-        // Since the number of assets is capped to 2^32 we can&#39;t overflow this
+        // Since the number of assets is capped to 2^32 we can't overflow this
         ownershipTokenCount[_to]++;
         // transfer ownership
         assetIndexToOwner[_tokenId] = _to;
-        // When creating new assets _from is 0x0, but we can&#39;t account that address.
+        // When creating new assets _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
             ownershipTokenCount[_from]--;
             // clear any previously approved ownership exchange
@@ -398,7 +398,7 @@ contract EthernautsStorage is EthernautsAccessControl {
 
         uint256 newAssetUniqueId = assets.push(asset) - 1;
 
-        // Check it reached 4 billion assets but let&#39;s just be 100% sure.
+        // Check it reached 4 billion assets but let's just be 100% sure.
         require(newAssetUniqueId == uint256(uint32(newAssetUniqueId)));
 
         // store price
@@ -411,7 +411,7 @@ contract EthernautsStorage is EthernautsAccessControl {
     }
 
     /// @dev A public method that edit asset in case of any mistake is done during process of creation by the developer. This
-    /// This method doesn&#39;t do any checking and should only be called when the
+    /// This method doesn't do any checking and should only be called when the
     ///  input data is known to be valid.
     /// @param _tokenId The token ID
     /// @param _creatorTokenID The asset that create that token

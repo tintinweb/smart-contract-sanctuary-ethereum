@@ -5,7 +5,7 @@ contract RuletkaIo {
     /*** EVENTS ***/
     
     /// @dev A russian Roulette has been executed between 6 players
-    /// in room roomId and unfortunately, victim got shot and didn&#39;t 
+    /// in room roomId and unfortunately, victim got shot and didn't 
     /// make it out alive... RIP
     event partyOver(uint256 roomId, address victim, address[] winners);
 
@@ -75,7 +75,7 @@ contract RuletkaIo {
   }
     
     function enter(uint256 _roomId) public payable {
-        Room storage room = allRooms[_roomId-1]; //if _roomId doesn&#39;t exist in array, exits.
+        Room storage room = allRooms[_roomId-1]; //if _roomId doesn't exist in array, exits.
         
         require(room.players.length < 6);
         require(msg.value >= room.entryPrice);
@@ -92,7 +92,7 @@ contract RuletkaIo {
     
     function enterWithReferral(uint256 _roomId, address referrer) public payable {
         
-        Room storage room = allRooms[_roomId-1]; //if _roomId doesn&#39;t exist in array, exits.
+        Room storage room = allRooms[_roomId-1]; //if _roomId doesn't exist in array, exits.
         
         require(room.players.length < 6);
         require(msg.value >= room.entryPrice);
@@ -113,7 +113,7 @@ contract RuletkaIo {
     
     function executeRoom(uint256 _roomId) public {
         
-        Room storage room = allRooms[_roomId-1]; //if _roomId doesn&#39;t exist in array, exits.
+        Room storage room = allRooms[_roomId-1]; //if _roomId doesn't exist in array, exits.
         
         //Check if the room is really full before shooting people...
         require(room.players.length == 6);
@@ -132,7 +132,7 @@ contract RuletkaIo {
     
     function distributeFunds(uint256 _roomId, uint256 _deadSeat) private returns(uint256) {
         
-        Room storage room = allRooms[_roomId-1]; //if _roomId doesn&#39;t exist in array, exits.
+        Room storage room = allRooms[_roomId-1]; //if _roomId doesn't exist in array, exits.
         uint256 balanceToDistribute = SafeMath.div(room.balance,5);
         
         address victim = room.players[_deadSeat];
@@ -152,10 +152,10 @@ contract RuletkaIo {
         return address(this).balance;
     }
     
-     /// @dev Empty the room and refund each player. Safety mechanism which shouldn&#39;t be used.
+     /// @dev Empty the room and refund each player. Safety mechanism which shouldn't be used.
     /// @param _roomId The Room id to empty and refund
     function refundPlayersInRoom(uint256 _roomId) public onlyCTO{
-        Room storage room = allRooms[_roomId-1]; //if _roomId doesn&#39;t exist in array, exits.
+        Room storage room = allRooms[_roomId-1]; //if _roomId doesn't exist in array, exits.
         uint256 nbrOfPlayers = room.players.length;
         uint256 balanceToRefund = SafeMath.div(room.balance,nbrOfPlayers);
         for (uint i = 0; i<nbrOfPlayers; i++) {
@@ -226,7 +226,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

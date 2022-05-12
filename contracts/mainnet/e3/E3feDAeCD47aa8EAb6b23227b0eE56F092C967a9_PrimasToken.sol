@@ -37,10 +37,10 @@ contract ERC20Token {
 contract PrimasToken is ERC20Token {
     address public initialOwner;
     uint256 public supply   = 100000000 * 10 ** 18;  // 100, 000, 000
-    string  public name     = &#39;Primas&#39;;
+    string  public name     = 'Primas';
     uint8   public decimals = 18;
-    string  public symbol   = &#39;PST&#39;;
-    string  public version  = &#39;v0.1&#39;;
+    string  public symbol   = 'PST';
+    string  public version  = 'v0.1';
     bool    public transfersEnabled = true;
     uint    public creationBlock;
     uint    public creationTime;

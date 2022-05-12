@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -84,7 +84,7 @@ contract UnicornRefunds {
   function claimReward(uint _bookingIndex) {
     UnicornRanch ranch = UnicornRanch(unicornRanchAddress);
     var (unicornCount, visitType, , , state, , completedCount) = ranch.getBooking(msg.sender, _bookingIndex);
-    require(state == UnicornRanch.VisitState.Completed); // Must be a visit that&#39;s completed (not in progress or repossessed)
+    require(state == UnicornRanch.VisitState.Completed); // Must be a visit that's completed (not in progress or repossessed)
     require(visitType != UnicornRanch.VisitType.Spa); // Must be longer than a Spa visit
     require(completedCount > unicornCount); // Must have triggered the "birth" conditions so the user went home with more than what they send in
     require(rewardClaimed[msg.sender] == false); // Must not have already claimed the reward
@@ -152,11 +152,11 @@ contract UnicornRefunds {
   }
   
   function withdraw() onlyOwner {
-    owner.transfer(this.balance); // Send all ether in this contract to this contract&#39;s owner
+    owner.transfer(this.balance); // Send all ether in this contract to this contract's owner
   }
   function withdrawForeignTokens(address _tokenContract) onlyOwner {
     ERC20Token token = ERC20Token(_tokenContract);
-    token.transfer(owner, token.balanceOf(address(this))); // Send all owned tokens to this contract&#39;s owner
+    token.transfer(owner, token.balanceOf(address(this))); // Send all owned tokens to this contract's owner
   }
   
 }

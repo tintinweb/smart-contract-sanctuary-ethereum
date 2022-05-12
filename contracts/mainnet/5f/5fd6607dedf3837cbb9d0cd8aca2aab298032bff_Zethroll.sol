@@ -77,7 +77,7 @@ contract Zethroll is ZTHReceivingContract {
 
   // Events
 
-  // Logs bets + output to web3 for precise &#39;payout on win&#39; field in UI
+  // Logs bets + output to web3 for precise 'payout on win' field in UI
   event LogBet(address sender, uint value, uint rollUnder);
 
   // Outputs to web3 UI on bet result
@@ -116,7 +116,7 @@ contract Zethroll is ZTHReceivingContract {
     // Init min bet (1 ZTH)
     ownerSetMinBet(1e18);
 
-    // Allow &#39;unlimited&#39; token transfer by the bankroll
+    // Allow 'unlimited' token transfer by the bankroll
     ZTHTKN.approve(zthbankrolladdr, MAX_INT);
 
     // Set the bankroll
@@ -250,7 +250,7 @@ contract Zethroll is ZTHReceivingContract {
   function _finishBet(bool delete_it, address target) private {
     playerRoll memory roll = playerRolls[target];
     require(roll.tokenValue > 0); // no re-entracy
-    // If the block is more than 255 blocks old, we can&#39;t get the result
+    // If the block is more than 255 blocks old, we can't get the result
     // Also, if the result has alread happened, fail as well
     uint result;
     if (block.number - roll.blockn > 255) {
@@ -264,10 +264,10 @@ contract Zethroll is ZTHReceivingContract {
       result = random(100, roll.blockn, target) + 1;
     }
 
-    // Null out this bet so it can&#39;t be used again.
+    // Null out this bet so it can't be used again.
     //playerBlock[_rngId] = 0;
 
-   // emit Debug(playerDieResult[_rngId], &#39;LuckyNumber&#39;);
+   // emit Debug(playerDieResult[_rngId], 'LuckyNumber');
 
 
     uint rollUnder = roll.rollUnder;
@@ -455,7 +455,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

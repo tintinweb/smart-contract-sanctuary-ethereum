@@ -9,16 +9,16 @@ interface ERC721 {
 
     /// @dev ERC-165 (draft) interface signature for itself
     // bytes4 internal constant INTERFACE_SIGNATURE_ERC165 = // 0x01ffc9a7
-    //     bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+    //     bytes4(keccak256('supportsInterface(bytes4)'));
 
     /// @dev ERC-165 (draft) interface signature for ERC721
     // bytes4 internal constant INTERFACE_SIGNATURE_ERC721 = // 0xda671b9b
-    //     bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-    //     bytes4(keccak256(&#39;countOfDeeds()&#39;)) ^
-    //     bytes4(keccak256(&#39;countOfDeedsByOwner(address)&#39;)) ^
-    //     bytes4(keccak256(&#39;deedOfOwnerByIndex(address,uint256)&#39;)) ^
-    //     bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-    //     bytes4(keccak256(&#39;takeOwnership(uint256)&#39;));
+    //     bytes4(keccak256('ownerOf(uint256)')) ^
+    //     bytes4(keccak256('countOfDeeds()')) ^
+    //     bytes4(keccak256('countOfDeedsByOwner(address)')) ^
+    //     bytes4(keccak256('deedOfOwnerByIndex(address,uint256)')) ^
+    //     bytes4(keccak256('approve(address,uint256)')) ^
+    //     bytes4(keccak256('takeOwnership(uint256)'));
 
     /// @notice Query a contract to see if it supports a certain interface
     /// @dev Returns `true` the interface is supported and `false` otherwise,
@@ -200,7 +200,7 @@ contract MonstersBase is MonsterAccessControl, MonstersData {
     MonsterCreatorInterface public monsterCreator;
 
     function setMonsterCreatorAddress(address _address) external onlyAdmin {
-        // only set this once so we (the devs) can&#39;t cheat!
+        // only set this once so we (the devs) can't cheat!
         require(!lockedMonsterCreator);
         MonsterCreatorInterface candidateContract = MonsterCreatorInterface(_address);
 
@@ -517,7 +517,7 @@ contract MonsterAuctionBase {
             // a contract with an invalid fallback function. We explicitly
             // guard against reentrancy attacks by removing the auction
             // before calling transfer(), and the only thing the seller
-            // can DoS is the sale of their own asset! (And if it&#39;s an
+            // can DoS is the sale of their own asset! (And if it's an
             // accident, they can call cancelAuction(). )
             if (seller != address(core)) {
                 seller.transfer(sellerProceeds);
@@ -550,7 +550,7 @@ contract MonsterAuctionBase {
     }
 
      function _computeCut(uint256 _price) internal view returns (uint256) {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our entry functions carefully cap the maximum values for
         //  currency (at 128-bits), and ownerCut <= 10000 (see the require()
         //  statement in the ClockAuction constructor). The result of this
@@ -792,7 +792,7 @@ contract MonsterChampionship is Ownable {
         
 
         // checks if this transaction is useless
-        // since we can&#39;t fight against ourself!
+        // since we can't fight against ourself!
         // also stops reentrancy attacks
         require(myPowerlevel > addressToPowerlevel[msg.sender]);
 
@@ -1025,7 +1025,7 @@ contract ChainMonstersCore is ChainMonstersAuction, Ownable {
         _createArea(); // area 2
     }
 
-    // we don&#39;t know the exact interfaces yet so use the lockedMonsterStats value to determine if the game is "ready"
+    // we don't know the exact interfaces yet so use the lockedMonsterStats value to determine if the game is "ready"
     // see WhitePaper for explaination for our upgrade and development roadmap
     function setGameLogicContract(address _candidateContract) external onlyOwner {
         require(monsterCreator.lockedMonsterStatsCount() == 151);
@@ -1069,7 +1069,7 @@ contract ChainMonstersCore is ChainMonstersAuction, Ownable {
         }
         
         // important to note that the IV generators do not use Gen0 methods and are Generation 1
-        // this means there won&#39;t be more than the 10,000 Gen0 monsters sold during the development through the marketplace
+        // this means there won't be more than the 10,000 Gen0 monsters sold during the development through the marketplace
         uint256 monsterId = _createMonster(1, _owner, _mId, false, gender, shiny);
         monsterIdToTradeable[monsterId] = true;
 
@@ -1105,7 +1105,7 @@ contract ChainMonstersCore is ChainMonstersAuction, Ownable {
     }
 
     function changeMonsterNickname(uint256 _tokenId, string _name) public {
-        // users won&#39;t be able to rename a monster that is part of an auction
+        // users won't be able to rename a monster that is part of an auction
         require(_owns(msg.sender, _tokenId));
 
         // some string checks...?
@@ -1140,7 +1140,7 @@ contract ChainMonstersCore is ChainMonstersAuction, Ownable {
         // these values are retrieved from monsterCreator
         stats = uint8[8](monsterCreator.getMonsterStats(uint256(mon.mID)));
 
-        // hack to overcome solidity&#39;s stack limitation in monster struct....
+        // hack to overcome solidity's stack limitation in monster struct....
         uID = _id;
     }
 

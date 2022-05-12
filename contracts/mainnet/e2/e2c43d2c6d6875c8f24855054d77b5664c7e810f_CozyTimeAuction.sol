@@ -395,7 +395,7 @@ contract CozyTimeAuction is AuctionBase {
 
         //Send pepe to seller of auction
         if (!pepeContract.transfer(auction.seller, _pepeId)) {
-            revert(); //can&#39;t complete transfer if this fails
+            revert(); //can't complete transfer if this fails
         }
 
         if (msg.value > price) { //return ether send to much

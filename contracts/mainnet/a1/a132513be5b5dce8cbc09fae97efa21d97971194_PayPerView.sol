@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 
 contract PayPerView {
     /* Public variables of the Pay Per View */
-    string public standard = &#39;PayPerView 1.0&#39;;
+    string public standard = 'PayPerView 1.0';
     string public name;
     string public symbol;
     uint8 public decimals;

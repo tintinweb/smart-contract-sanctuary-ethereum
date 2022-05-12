@@ -48,7 +48,7 @@ contract KyberSwapLimitOrder is Withdrawable {
     {
         require(address(token) != address(0));
         /*
-        No need to set allowance to zero first, as there&#39;s only 1 scenario here (from zero to max allowance).
+        No need to set allowance to zero first, as there's only 1 scenario here (from zero to max allowance).
         No one else can set allowance on behalf of this contract to Kyber.
         */
         token.safeApprove(address(kyberNetworkProxy), MAX_DEST_AMOUNT);

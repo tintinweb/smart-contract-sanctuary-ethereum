@@ -33,7 +33,7 @@ pragma solidity ^0.4.24;
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -411,7 +411,7 @@ contract F3G {
 
 		// Team allocation percentages
         // (F3G, dev) + (Pot , Referrals, Community)
-            // Referrals / Community rewards are mathematically designed to come from the winner&#39;s share of the pot.
+            // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
         fees_[0] = F3GDatasets.TeamFee(36,3); //40% to pot, 15% to aff, 3% to com, 2% to 合作伙伴, 1% to air drop pot
         fees_[1] = F3GDatasets.TeamFee(43,3);  //33% to pot, 15% to aff, 3% to com, 2% to 合作伙伴, 1% to air drop pot
         fees_[2] = F3GDatasets.TeamFee(66,3); //10% to pot, 15% to aff, 3% to com, 2% to  合作伙伴, 1% to air drop pot

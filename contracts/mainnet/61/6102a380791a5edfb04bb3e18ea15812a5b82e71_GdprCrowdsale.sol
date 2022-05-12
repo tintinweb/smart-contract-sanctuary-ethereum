@@ -31,7 +31,7 @@ contract GdprConfig {
     uint256 public constant EXPERTS_POOL_TOKENS = 20000000 * MIN_TOKEN_UNIT;
     // 10% tokens for marketing expenses
     uint256 public constant MARKETING_POOL_TOKENS = 20000000 * MIN_TOKEN_UNIT;
-    // 9% founders&#39; distribution
+    // 9% founders' distribution
     uint256 public constant TEAM_POOL_TOKENS = 18000000 * MIN_TOKEN_UNIT;
     // 1% for legal advisors
     uint256 public constant LEGAL_EXPENSES_TOKENS = 2000000 * MIN_TOKEN_UNIT;
@@ -115,7 +115,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns(uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -306,7 +306,7 @@ contract StandardToken is ERC20, BasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -456,7 +456,7 @@ contract BurnableToken is BasicToken {
     function burn(uint256 _value) public {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);
@@ -679,7 +679,7 @@ contract GdprCrowdsale is Pausable {
 
     /**
      * @dev Fallback function is used to buy tokens.
-     * It&#39;s the only entry point since `buyTokens` is internal.
+     * It's the only entry point since `buyTokens` is internal.
      * When paused funds are not accepted.
      */
     function () public whenNotPaused payable {
@@ -687,7 +687,7 @@ contract GdprCrowdsale is Pausable {
     }
 
     /**
-     * @dev Sets a new start date as long as token sale hasn&#39;t started yet
+     * @dev Sets a new start date as long as token sale hasn't started yet
      * @param _startTime uint256 Unix timestamp of the new start time
      */
     function setStartTime(uint256 _startTime) public onlyOwner {
@@ -699,7 +699,7 @@ contract GdprCrowdsale is Pausable {
     }
 
     /**
-     * @dev Sets a new end date as long as end date hasn&#39;t been reached
+     * @dev Sets a new end date as long as end date hasn't been reached
      * @param _endTime uint2t56 Unix timestamp of the new end time
      */
     function setEndTime(uint256 _endTime) public onlyOwner {
@@ -722,7 +722,7 @@ contract GdprCrowdsale is Pausable {
 
     /**
      * @dev Must be called after crowdsale ends, to do some extra finalization
-     * work. Calls the contract&#39;s finalization function.
+     * work. Calls the contract's finalization function.
      */
     function finalize() public onlyOwner {
         require(now > endTime);

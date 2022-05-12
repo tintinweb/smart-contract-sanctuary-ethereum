@@ -19,8 +19,8 @@ contract Bhtd {
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function Bhtd() {
       owner = 0x8De0C14567088e2d8609a13EF986ae59d9e3dbB0;
-      name = &#39;Bhtd&#39;;
-      symbol = &#39;BHTD&#39;;
+      name = 'Bhtd';
+      symbol = 'BHTD';
       decimals = 18;
       totalSupply = 320000000000000000000000000; // 2e27
       balanceOf[owner] = 320000000000000000000000000;

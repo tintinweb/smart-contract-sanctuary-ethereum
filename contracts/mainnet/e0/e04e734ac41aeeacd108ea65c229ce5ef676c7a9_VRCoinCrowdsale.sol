@@ -58,7 +58,7 @@ contract VRCoinCrowdsale {
          // Make sure the owner actually controls all the tokens
          require(tokenWallet.balanceOf(owner) >= TOTAL_TOKENS_TO_DISTRIBUTE);
 
-         // We haven&#39;t started yet
+         // We haven't started yet
          hasStarted = false;
                  
          sale.start = 1521234001; // 00:00:01, March 05, 2018 UTC
@@ -130,7 +130,7 @@ contract VRCoinCrowdsale {
          // Only the owner can do this
          require(msg.sender == owner);
          
-         // We can change period details as long as the sale hasn&#39;t started yet
+         // We can change period details as long as the sale hasn't started yet
          require(hasStarted == false);
          
          // Make sure the provided token has the expected number of tokens to distribute
@@ -151,7 +151,7 @@ contract VRCoinCrowdsale {
          // Only the owner can do this
          require(msg.sender == owner);
 
-         // We can change period details as long as the sale hasn&#39;t started yet
+         // We can change period details as long as the sale hasn't started yet
          require(hasStarted == false);
 
          // Make sure the input is valid
@@ -247,7 +247,7 @@ contract VRCoinCrowdsale {
     // Allow a user to contribute to the crowdsale
     function contribute() public payable
     {
-         // Cannot contribute if the sale hasn&#39;t started
+         // Cannot contribute if the sale hasn't started
          require(hasStarted == true);
 
          // Calculate the tokens to be distributed based on the contribution amount
@@ -263,8 +263,8 @@ contract VRCoinCrowdsale {
          uint tokensRemaining = getTokensRemaining();
          require(tokensRemaining >= tokenAmount);
 
-         // Transfer the token amount from the crowd sale&#39;s token wallet to the
-         // sender&#39;s token wallet
+         // Transfer the token amount from the crowd sale's token wallet to the
+         // sender's token wallet
          if (!tokenWallet.transfer(msg.sender, tokenAmount))
          {
             // Unable to transfer funds, abort transaction

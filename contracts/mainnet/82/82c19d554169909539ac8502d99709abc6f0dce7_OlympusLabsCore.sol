@@ -50,7 +50,7 @@ contract Manageable {
     // This is used to hold the addresses of the providers
     mapping (uint8 => address) public subContracts;
     modifier onlyOwner() {
-        // Make sure that this function can&#39;t be used without being overridden
+        // Make sure that this function can't be used without being overridden
         require(true == false);
         _;
     }
@@ -121,7 +121,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -163,7 +163,7 @@ library Roles {
  *      See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  *  for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  *  to avoid typos.
  */
 contract RBAC {
@@ -440,7 +440,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -1023,7 +1023,7 @@ contract OlympusLabsCore is Manageable {
             require(msg.value <= maximumInWei);
         }
         uint tokenLength = strategyProvider.getStrategyTokenCount(strategyId);
-        // can&#39;t buy an index without tokens.
+        // can't buy an index without tokens.
         require(tokenLength > 0);
         address[] memory tokens = new address[](tokenLength);
         uint[] memory weights = new uint[](tokenLength);
@@ -1064,13 +1064,13 @@ contract OlympusLabsCore is Manageable {
             }
             // token has to be supported by exchange provider.
             if(!exchangeProvider.checkTokenSupported(ERC20(tokens[i]))){
-                emit Log("Exchange provider doesn&#39;t support");
+                emit Log("Exchange provider doesn't support");
                 revert();
             }
 
             // check if price provider supports it.
             if(!priceProvider.checkTokenSupported(tokens[i])){
-                emit Log("Price provider doesn&#39;t support");
+                emit Log("Price provider doesn't support");
                 revert();
             }
 

@@ -83,7 +83,7 @@ contract NarcoAccessControl {
     }
 
     function unpause() public onlyCLevel whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 
@@ -158,7 +158,7 @@ contract NarcoBase is NarcoAccessControl {
     /// @dev The main Narco struct. Every narco in DopeRaider is represented by a copy
     ///  of this structure.
     struct Narco {
-        // The Narco&#39;s genetic code is packed into these 256-bits.
+        // The Narco's genetic code is packed into these 256-bits.
         string genes; // represents his avatar
         string narcoName;
         // items making level
@@ -268,7 +268,7 @@ contract NarcoBase is NarcoAccessControl {
         capacity = uint16(subToZero(uint256(narcos[_narcoId].skills[5]), usedCapacity));
     }
 
-    // respect it&#39;s called now
+    // respect it's called now
     function getLevel(uint256 _narcoId) public view returns (uint16 rank){
 
     /*
@@ -602,7 +602,7 @@ contract NarcoMinting is NarcoAuction {
     function _computeNextGen0Price() internal view returns (uint256) {
         uint256 avePrice = saleAuction.averageGen0SalePrice();
 
-        // sanity check to ensure we don&#39;t overflow arithmetic (this big number is 2^128-1).
+        // sanity check to ensure we don't overflow arithmetic (this big number is 2^128-1).
         require(avePrice < 340282366920938463463374607431768211455);
 
         uint256 nextPrice = avePrice + (avePrice / 2);
@@ -666,7 +666,7 @@ contract DopeRaiderCore is NarcoMinting {
     }
 
     function unpause() public onlyCLevel whenGamePaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         gamePaused = false;
     }
 
@@ -682,7 +682,7 @@ contract DopeRaiderCore is NarcoMinting {
 
     /// @dev Used to mark the smart contract as upgraded, in case there is a serious
     ///  breaking bug. This method does nothing but keep track of the new contract and
-    ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+    ///  emit a message indicating that the new address is set. It's up to clients of this
     ///  contract to update to the new contract address in that case. (This contract will
     ///  be paused indefinitely if such an upgrade takes place.)
     /// @param _v2Address new address
@@ -692,7 +692,7 @@ contract DopeRaiderCore is NarcoMinting {
     }
 
     /// @notice No tipping!
-    /// @dev Reject all Ether from being sent here, unless it&#39;s from one of the
+    /// @dev Reject all Ether from being sent here, unless it's from one of the
     ///  two auction contracts. (Hopefully, we can prevent user accidents.)
     function() external payable {
         require(msg.sender == address(saleAuction));
@@ -741,7 +741,7 @@ contract DopeRaiderCore is NarcoMinting {
     }
     function updateNarco(uint256 _narcoId, string _genes, string _name) public payable whenGameNotPaused {
        require(getLevel(_narcoId)>=changeIdentityNarcoRespect); // minimum level to recruit a narco
-       require(msg.sender==narcoIndexToOwner[_narcoId]); // can&#39;t be moving other peoples narcos about
+       require(msg.sender==narcoIndexToOwner[_narcoId]); // can't be moving other peoples narcos about
        require(msg.value>=personalisationCost);
        narcos[_narcoId].genes = _genes;
        narcos[_narcoId].narcoName = _name;
@@ -754,7 +754,7 @@ contract DopeRaiderCore is NarcoMinting {
     }
 
     function recruitNarco(uint256 _narcoId, string _genes, string _name) public whenGameNotPaused {
-       require(msg.sender==narcoIndexToOwner[_narcoId]); // can&#39;t be moving other peoples narcos about
+       require(msg.sender==narcoIndexToOwner[_narcoId]); // can't be moving other peoples narcos about
        require(getLevel(_narcoId)>=respectRequiredToRecruit); // minimum level to recruit a narco
        require(narcos[_narcoId].stats[8]<getLevel(_narcoId)/respectRequiredToRecruit); // must have recruited < respect / required reqpect (times)
       _createNarco(_genes,_name, msg.sender);
@@ -768,7 +768,7 @@ contract DopeRaiderCore is NarcoMinting {
     }
 
     function growWeed(uint256 _narcoId) public payable whenGameNotPaused{
-         require(msg.sender==narcoIndexToOwner[_narcoId]); // can&#39;t be moving other peoples narcos about
+         require(msg.sender==narcoIndexToOwner[_narcoId]); // can't be moving other peoples narcos about
          require(msg.value>=growCost);
          require(now>narcos[_narcoId].cooldowns[1]); //cooldown must have expired
          uint16 growSkillLevel = narcos[_narcoId].skills[1]; // grow
@@ -801,7 +801,7 @@ contract DopeRaiderCore is NarcoMinting {
     }
 
     function refineCoke(uint256 _narcoId) public payable whenGameNotPaused{
-         require(msg.sender==narcoIndexToOwner[_narcoId]); // can&#39;t be moving other peoples narcos about
+         require(msg.sender==narcoIndexToOwner[_narcoId]); // can't be moving other peoples narcos about
          require(msg.value>=refineCost);
          require(now>narcos[_narcoId].cooldowns[2]); //cooldown must have expired
          uint16 refineSkillLevel = narcos[_narcoId].skills[2]; // refine

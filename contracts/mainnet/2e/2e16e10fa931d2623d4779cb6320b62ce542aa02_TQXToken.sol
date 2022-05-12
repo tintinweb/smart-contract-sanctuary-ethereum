@@ -148,8 +148,8 @@ contract StandardToken is ERC20, ERC223, SafeMath, Owned {
 }
 
 contract TQXToken is StandardToken {
-  string public name = &#39;TQXToken&#39;;
-  string public symbol = &#39;TQX&#39;;
+  string public name = 'TQXToken';
+  string public symbol = 'TQX';
   uint public decimals = 8;
 
   uint256 public createTime         = 1527782400;

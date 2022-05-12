@@ -154,7 +154,7 @@ contract Ex is StandardToken, Ownable, StrHelper {
     string public name = "Ex Token";   
     string public description = "Mining reward for running an Ex Node";
     string public additionalInfo = "The value of Ex token is set at &#163;1000. The lowest denomination of the Ex token is 0.01 (&#163;10); anything below this should be paid in smiles, good wishes and agreeable nods. VAT applicable on all transactions.";
-    string public moreInfo = "As of Oct 2018, the Ex Network has sold 20% of it&#39;s equity @ &#163;10k per share to fend for the startup costs. Thus evaluating the Coy @ &#163;1M at the time of idea floating.";
+    string public moreInfo = "As of Oct 2018, the Ex Network has sold 20% of it's equity @ &#163;10k per share to fend for the startup costs. Thus evaluating the Coy @ &#163;1M at the time of idea floating.";
     string public evenMoreInfo = "&#163;1M worth of Ex tokens to be split 80-20% between the two parties holding equity at genesis time. Initial Supply =  1000 &#128420;";
     uint8 public decimals = 2;
     string public symbol = "&#128420;";
@@ -169,7 +169,7 @@ function () {
 function Ex() {
    
    /*
-   Description: As of Oct 2018, the Ex Network has sold 20% of it&#39;s equity @ &#163;10k per share to fend for the startup costs. Thus evaluating the Coy @ &#163;1M at the time of idea floating.
+   Description: As of Oct 2018, the Ex Network has sold 20% of it's equity @ &#163;10k per share to fend for the startup costs. Thus evaluating the Coy @ &#163;1M at the time of idea floating.
    Distribution: &#163;1M worth of Ex tokens to be split 80-20% between the two parties represented below.
    Initial supply: 1000 &#128420;
    */

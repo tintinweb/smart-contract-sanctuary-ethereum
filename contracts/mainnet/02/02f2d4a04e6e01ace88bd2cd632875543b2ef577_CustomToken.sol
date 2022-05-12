@@ -101,8 +101,8 @@ contract CustomToken is BaseToken, BurnToken, ICOToken {
     function CustomToken() public {
         totalSupply = 10000000000000000000000000000;
         balanceOf[0x8cd103c2164d04d071f4014ac7b3aa42d8fa596c] = totalSupply;
-        name = &#39;PKG Token&#39;;
-        symbol = &#39;PKG&#39;;
+        name = 'PKG Token';
+        symbol = 'PKG';
         decimals = 18;
         icoRatio = 100000;
         icoEndtime = 1601460000;

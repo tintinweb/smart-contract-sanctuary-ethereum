@@ -35,8 +35,8 @@ library SafeMath {
 
   // @dev Multiplies two numbers, throws on overflow.
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -51,7 +51,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -149,7 +149,7 @@ contract NovaGameAccess is iNovaGame {
 
   // @dev Removes an address from an admin for a game
   // @notice Can only be called by an admin of the game.
-  // @notice Can&#39;t remove your own account&#39;s admin privileges.
+  // @notice Can't remove your own account's admin privileges.
   // @param _game - the gameId of the game
   // @param _account - the address of the user to remove admin privileges.
   function removeAdminAccount(uint _game, address _account)
@@ -214,7 +214,7 @@ contract NovaGameAccess is iNovaGame {
     uint[] storage gamesByAdmin = gameIdsByAdminAddress[_account];
     require(gamesByAdmin.length < 256, "you can only own 256 games");
     for (i = gamesByAdmin.length; i < gamesByAdmin.length; i--) {
-      require(gamesByAdmin[i] != _game, "you can&#39;t become an operator twice");
+      require(gamesByAdmin[i] != _game, "you can't become an operator twice");
     }
     gamesByAdmin.push(_game);
 
@@ -256,10 +256,10 @@ contract NovaGame is NovaGameAccess {
   }
 
   // @dev Create a new game by setting its data. 
-  //   Created games are initially owned and managed by the game&#39;s creator
-  // @notice - there&#39;s a maximum of 2^32 games (4.29 billion games)
-  // @param _json - a json encoded string containing the game&#39;s name, uri, logo, description, etc
-  // @param _tradeLockSeconds - the number of seconds a card remains locked to a purchaser&#39;s account
+  //   Created games are initially owned and managed by the game's creator
+  // @notice - there's a maximum of 2^32 games (4.29 billion games)
+  // @param _json - a json encoded string containing the game's name, uri, logo, description, etc
+  // @param _tradeLockSeconds - the number of seconds a card remains locked to a purchaser's account
   // @param _metadata - game-specific metadata, in bytes32 format. 
   function createGame(string _json, uint _tradeLockSeconds, bytes32[] _metadata) 
     external
@@ -275,7 +275,7 @@ contract NovaGame is NovaGameAccess {
     // Add the creator as the first game admin
     _addAdminAccount(_game, msg.sender);
 
-    // Store the game&#39;s metadata
+    // Store the game's metadata
     updateGameMetadata(_game, _json, _tradeLockSeconds, _metadata);
   }
 
@@ -314,8 +314,8 @@ contract NovaGame is NovaGameAccess {
 
   // @dev Update the json, trade lock, and metadata for a single game
   // @param _game - the # of the game
-  // @param _json - a json encoded string containing the game&#39;s name, uri, logo, description, etc
-  // @param _tradeLockSeconds - the number of seconds a card remains locked to a purchaser&#39;s account
+  // @param _json - a json encoded string containing the game's name, uri, logo, description, etc
+  // @param _tradeLockSeconds - the number of seconds a card remains locked to a purchaser's account
   // @param _metadata - game-specific metadata, in bytes32 format. 
   function updateGameMetadata(uint _game, string _json, uint _tradeLockSeconds, bytes32[] _metadata)
     public

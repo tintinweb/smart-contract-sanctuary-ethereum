@@ -109,7 +109,7 @@ contract ICommunityAccount is IOwned {
 
 /**
 @title Tribe Account
-@notice This contract is used as a community&#39;s data store.
+@notice This contract is used as a community's data store.
 @notice Advantages:
 @notice 1) Decouple logic contract from data contract
 @notice 2) Safely upgrade logic contract without compromising stored data

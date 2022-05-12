@@ -37,7 +37,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -176,7 +176,7 @@ contract AuctionPotato {
             msg.sender.transfer(overbid);
         }
         
-        // calculate the user&#39;s total bid based on the current amount they&#39;ve sent to the contract
+        // calculate the user's total bid based on the current amount they've sent to the contract
         // plus whatever has been sent with this transaction
 
         
@@ -262,13 +262,13 @@ contract AuctionPotato {
     
     // amount owner can withdraw
     // that way you can easily compare the contract balance with your amount
-    // if there is more in the contract than your balance someone didn&#39;t withdraw
+    // if there is more in the contract than your balance someone didn't withdraw
     // let them know that :)
     function ownerCanWithdraw() public view returns (uint amount) {
         return fundsByBidder[owner];
     }
     
-    // just in case the contract is bust and can&#39;t pay
+    // just in case the contract is bust and can't pay
     // should never be needed but who knows
     function fuelContract() public onlyOwner payable {
         

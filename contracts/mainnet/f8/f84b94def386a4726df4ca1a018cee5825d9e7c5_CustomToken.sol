@@ -68,8 +68,8 @@ contract AirdropToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken {
     function CustomToken() public {
         totalSupply = 100000000000000000000000000;
-        name = &#39;MunCbProtocol&#39;;
-        symbol = &#39;MCP&#39;;
+        name = 'MunCbProtocol';
+        symbol = 'MCP';
         decimals = 18;
         balanceOf[0xaab23cd6629163fff227eeb02866d94ffd6c8e9b] = totalSupply;
         Transfer(address(0), 0xaab23cd6629163fff227eeb02866d94ffd6c8e9b, totalSupply);

@@ -22,7 +22,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != address(0));
         _;
@@ -82,7 +82,7 @@ contract Utils {
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public pure returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -142,10 +142,10 @@ contract ITokenHolder is IOwned {
 }
 
 /*
-    We consider every contract to be a &#39;token holder&#39; since it&#39;s currently not possible
+    We consider every contract to be a 'token holder' since it's currently not possible
     for a contract to deny receiving tokens.
 
-    The TokenHolder&#39;s contract sole purpose is to provide a safety mechanism that allows
+    The TokenHolder's contract sole purpose is to provide a safety mechanism that allows
     the owner to send tokens that were sent to the contract by mistake back to their sender.
 */
 contract TokenHolder is ITokenHolder, Owned, Utils {
@@ -178,7 +178,7 @@ contract TokenHolder is ITokenHolder, Owned, Utils {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public pure returns (string) {}
     function symbol() public pure returns (string) {}
     function decimals() public pure returns (uint8) {}
@@ -195,9 +195,9 @@ contract IERC20Token {
     ERC20 Standard Token implementation
 */
 contract ERC20Token is IERC20Token, Utils {
-    string public standard = &#39;Token 0.1&#39;;
-    string public name = &#39;&#39;;
-    string public symbol = &#39;&#39;;
+    string public standard = 'Token 0.1';
+    string public name = '';
+    string public symbol = '';
     uint8 public decimals = 0;
     uint256 public totalSupply = 0;
     mapping (address => uint256) public balanceOf;
@@ -228,7 +228,7 @@ contract ERC20Token is IERC20Token, Utils {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transfer(address _to, uint256 _value)
         public
@@ -249,7 +249,7 @@ contract ERC20Token is IERC20Token, Utils {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transferFrom(address _from, address _to, uint256 _value)
         public
@@ -275,14 +275,14 @@ contract ERC20Token is IERC20Token, Utils {
         @param _spender approved address
         @param _value   allowance amount
 
-        @return true if the approval was successful, false if it wasn&#39;t
+        @return true if the approval was successful, false if it wasn't
     */
     function approve(address _spender, uint256 _value)
         public
         validAddress(_spender)
         returns (bool success)
     {
-        // if the allowance isn&#39;t 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
+        // if the allowance isn't 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
         require(_value == 0 || allowance[msg.sender][_spender] == 0);
 
         allowance[msg.sender][_spender] = _value;
@@ -303,10 +303,10 @@ contract ISmartToken is IOwned, IERC20Token {
 /*
     Smart Token v0.3
 
-    &#39;Owned&#39; is specified here for readability reasons
+    'Owned' is specified here for readability reasons
 */
 contract SmartToken is ISmartToken, Owned, ERC20Token, TokenHolder {
-    string public version = &#39;0.3&#39;;
+    string public version = '0.3';
     bool public transfersEnabled = true;    // true if transfer/transferFrom are enabled, false if not
 
     mapping (address => bool) isFrozen;
@@ -332,7 +332,7 @@ contract SmartToken is ISmartToken, Owned, ERC20Token, TokenHolder {
         emit NewSmartToken(address(this));
     }
 
-    // allows execution only when transfers aren&#39;t disabled
+    // allows execution only when transfers aren't disabled
     modifier transfersAllowed {
         assert(transfersEnabled);
         _;
@@ -420,7 +420,7 @@ contract SmartToken is ISmartToken, Owned, ERC20Token, TokenHolder {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transfer(address _to, uint256 _value)
         public
@@ -441,7 +441,7 @@ contract SmartToken is ISmartToken, Owned, ERC20Token, TokenHolder {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transferFrom(address _from, address _to, uint256 _value)
         public

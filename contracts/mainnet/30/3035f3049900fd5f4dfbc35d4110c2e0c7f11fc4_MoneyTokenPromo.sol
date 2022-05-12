@@ -1,4 +1,4 @@
-// Congratulations! It&#39;s your free MoneyToken Promo Token
+// Congratulations! It's your free MoneyToken Promo Token
 // More about project at MoneyToken.Com
 // Register to receive your bonus
 

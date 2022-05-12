@@ -191,10 +191,10 @@ contract ERC20Token is ERC20TokenInterface, admined { //Standard definition of a
 * @dev Initial supply creation
 */
 contract AssetGRP is ERC20Token {
-    string public name = &#39;Gripo&#39;;
+    string public name = 'Gripo';
     uint8 public decimals = 18;
-    string public symbol = &#39;GRP&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'GRP';
+    string public version = '1';
 
     address writer = 0xA6bc924715A0B63C6E0a7653d3262D26F254EcFd;
 

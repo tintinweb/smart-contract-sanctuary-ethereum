@@ -119,7 +119,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -722,7 +722,7 @@ contract RareCoinAuction {
 
         uint proposedBid = _bidders[msg.sender].value.add(msg.value);
 
-        //  No point in accepting a bid if it isn&#39;t going to result in a chance of a RareCoin
+        //  No point in accepting a bid if it isn't going to result in a chance of a RareCoin
         require(proposedBid > _lowestBid);
 
         //  Check whether the bidder is already in the top 100.  Note, not enough to check currentBid > _lowestBid
@@ -845,7 +845,7 @@ contract RareCoinAuction {
     }
 
   /**
-   * @notice Returns the value of `(_addr)`&#39;s bid and the time it occurred
+   * @notice Returns the value of `(_addr)`'s bid and the time it occurred
    * @param _addr Address to query for balance
    * @return Tuple (value, bidTime)
    */

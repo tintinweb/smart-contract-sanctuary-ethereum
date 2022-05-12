@@ -74,7 +74,7 @@ contract NumeraireShared is Safe {
     // The order is important here because of its packing characteristics.
     // Particularly, `amount` and `confidence` are in the *same* word, so
     // Solidity can update both at the same time (if the optimizer can figure
-    // out that you&#39;re updating both).  This makes `stake()` cheap.
+    // out that you're updating both).  This makes `stake()` cheap.
     struct Stake {
         uint128 amount; // Once the stake is resolved, this becomes 0
         uint128 confidence;
@@ -203,7 +203,7 @@ contract Shareable {
   // Revokes a prior confirmation of the given operation
   function revoke(bytes32 _operation) external {
     uint index = ownerIndex[msg.sender];
-    // make sure they&#39;re an owner
+    // make sure they're an owner
     if (index == 0) return;
     uint ownerIndexBit = 2**index;
     var pending = pendings[_operation];
@@ -227,7 +227,7 @@ contract Shareable {
     var pending = pendings[_operation];
     uint index = ownerIndex[_owner];
 
-    // make sure they&#39;re an owner
+    // make sure they're an owner
     if (index == 0) return false;
 
     // determine the bit to set for this owner.
@@ -240,11 +240,11 @@ contract Shareable {
   function confirmAndCheck(bytes32 _operation) internal returns (bool) {
     // determine what index the present sender is:
     uint index = ownerIndex[msg.sender];
-    // make sure they&#39;re an owner
+    // make sure they're an owner
     if (index == 0) return;
 
     var pending = pendings[_operation];
-    // if we&#39;re not yet working on this operation, switch over and reset the confirmation status.
+    // if we're not yet working on this operation, switch over and reset the confirmation status.
     if (pending.yetNeeded == 0) {
       // reset count of confirmations needed.
       pending.yetNeeded = required;
@@ -255,7 +255,7 @@ contract Shareable {
     }
     // determine the bit to set for this owner.
     uint ownerIndexBit = 2**index;
-    // make sure we (the message sender) haven&#39;t confirmed this operation previously.
+    // make sure we (the message sender) haven't confirmed this operation previously.
     if (pending.ownersDone & ownerIndexBit == 0) {
       Confirmation(msg.sender, _operation);
       // ok - check if count is enough to go ahead.
@@ -457,7 +457,7 @@ contract NumeraireBackend is StoppableShareable, NumeraireShared {
         return true;
     }
 
-    // ERC20: Allow other contracts to spend on sender&#39;s behalf
+    // ERC20: Allow other contracts to spend on sender's behalf
     function approve(address _spender, uint256 _value) stopInEmergency onlyPayloadSize(2) returns (bool ok) {
         require((_value == 0) || (allowance[msg.sender][_spender] == 0));
         allowance[msg.sender][_spender] = _value;

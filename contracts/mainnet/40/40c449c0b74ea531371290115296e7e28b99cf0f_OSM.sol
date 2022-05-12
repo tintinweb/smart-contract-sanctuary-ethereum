@@ -72,7 +72,7 @@ contract DSAuth is DSAuthEvents {
 }
 
 ////// lib/ds-stop/lib/ds-note/src/note.sol
-/// note.sol -- the `note&#39; modifier, for logging calls as events
+/// note.sol -- the `note' modifier, for logging calls as events
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

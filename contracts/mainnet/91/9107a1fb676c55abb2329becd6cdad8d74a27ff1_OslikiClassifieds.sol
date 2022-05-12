@@ -22,7 +22,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -168,7 +168,7 @@ contract OslikiClassifieds {
 
   function _newAd(
     uint catId,
-    string text // format &#39;ipfs hash,ipfs hash...&#39;
+    string text // format 'ipfs hash,ipfs hash...'
   ) private returns (bool) {
     require(bytes(text).length != 0, "Text is empty");
 
@@ -206,7 +206,7 @@ contract OslikiClassifieds {
 
   function newAd(
     uint catId,
-    string text // format &#39;ipfs hash,ipfs hash...&#39;
+    string text // format 'ipfs hash,ipfs hash...'
   ) public {
     require(catId < catsRegister.length, "Category not found");
 
@@ -215,7 +215,7 @@ contract OslikiClassifieds {
 
   function newCatWithAd(
     string catName,
-    string text // format &#39;ipfs hash,ipfs hash...&#39;
+    string text // format 'ipfs hash,ipfs hash...'
   ) public {
     require(bytes(catName).length != 0, "Category is empty");
     require(adsByCat[catName].length == 0, "Category already exists");
@@ -230,7 +230,7 @@ contract OslikiClassifieds {
 
   function editAd(
     uint adId,
-    string text // format &#39;ipfs hash,ipfs hash...&#39;
+    string text // format 'ipfs hash,ipfs hash...'
   ) public {
     require(adId < ads.length, "Ad id not found");
     require(bytes(text).length != 0, "Text is empty");

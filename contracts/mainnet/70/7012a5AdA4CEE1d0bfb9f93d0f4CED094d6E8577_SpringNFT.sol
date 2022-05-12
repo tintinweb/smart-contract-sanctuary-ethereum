@@ -78,7 +78,7 @@ interface ERC721 /* is ERC165 */ {
     function approve(address _approved, uint256 _tokenId) external;
 
     /// @notice Enable or disable approval for a third party ("operator") to manage
-    ///  all of `msg.sender`&#39;s assets
+    ///  all of `msg.sender`'s assets
     /// @dev Emits the ApprovalForAll event. The contract MUST allow
     ///  multiple operators per owner.
     /// @param _operator Address to add to the set of authorized operators
@@ -316,7 +316,7 @@ contract NFToken is ERC721, SupportsInterface, ERC721Metadata, ERC721Enumerable 
 
     /**
      * @dev Check to make sure the address is not zero address
-     * @param toTest The Address to make sure it&#39;s not zero address
+     * @param toTest The Address to make sure it's not zero address
      */
     modifier onlyNonZeroAddress(address toTest) {
         require(toTest != address(0), "Address must be non zero address");
@@ -494,8 +494,8 @@ contract NFToken is ERC721, SupportsInterface, ERC721Metadata, ERC721Enumerable 
 
     /**
      * @dev Enables or disables approval for a third party ("operator") to manage all of
-     * `msg.sender`&#39;s assets. It also emits the ApprovalForAll event.
-     * @notice This works even if sender doesn&#39;t own any tokens at the time.
+     * `msg.sender`'s assets. It also emits the ApprovalForAll event.
+     * @notice This works even if sender doesn't own any tokens at the time.
      * @param _operator Address to add to the set of authorized operators.
      * @param _approved True if the operators is approved, false to revoke approval.
      */
@@ -757,7 +757,7 @@ contract SpringNFT is NFToken{
      * @param id receipientId to check
      */
     modifier onlyByWeTrustOrRecipient(bytes32 id) {
-        require(msg.sender == wetrustSigner || msg.sender == recipients[id].owner, "sender must be from WeTrust or Recipient&#39;s owner address");
+        require(msg.sender == wetrustSigner || msg.sender == recipients[id].owner, "sender must be from WeTrust or Recipient's owner address");
         _;
     }
 
@@ -784,7 +784,7 @@ contract SpringNFT is NFToken{
     address public wetrustManager;
 
     /**
-     * @dev if paused is true, suspend most of contract&#39;s functionality
+     * @dev if paused is true, suspend most of contract's functionality
      */
     bool public paused;
 
@@ -908,7 +908,7 @@ contract SpringNFT is NFToken{
      * @dev Add a new reciepient of WeTrust Spring
      * @param recipientId Unique identifier of receipient
      * @param name of the Recipient
-     * @param url link to the recipient&#39;s website
+     * @param url link to the recipient's website
      * @param owner Address owned by the recipient
      */
     function addRecipient(bytes32 recipientId, string name, string url, address owner)
@@ -1041,7 +1041,7 @@ contract SpringNFT is NFToken{
             output = 5000;
         }
 
-        edition = uint16(output); // we don&#39;t have to worry about casting because output will always be less than or equal to 5000
+        edition = uint16(output); // we don't have to worry about casting because output will always be less than or equal to 5000
     }
 
     /**

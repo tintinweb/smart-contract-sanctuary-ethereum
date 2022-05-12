@@ -213,7 +213,7 @@ contract OperationalControl {
     /// @dev Unpauses the smart contract. Can only be called by the Game Master
     /// @notice This is public rather than external so it can be called by derived contracts. 
     function unpause() public onlyManager whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 
@@ -650,7 +650,7 @@ contract MEAManager is OperationalControl {
             }
         }
 
-        //Doesn&#39;t Let you Travel to empty stars but lets you collect
+        //Doesn't Let you Travel to empty stars but lets you collect
         if(hasItems == false && _starId > 0) {
             require(logic.getStarTotalSupply(_starId) > 0);
         }

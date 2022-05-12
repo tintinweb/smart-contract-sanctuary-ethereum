@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -315,7 +315,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -490,7 +490,7 @@ contract NectarToken is MintableToken {
         emit Approval(msg.sender, _spender, _value);
 
         // Call the receiveApproval function on the contract you want to be notified.
-        // This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        // This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //
         // receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //
@@ -698,7 +698,7 @@ contract ArbiterStaking is Pausable {
             }
         }
 
-        // If we haven&#39;t hit our value by now, we don&#39;t have enough available
+        // If we haven't hit our value by now, we don't have enough available
         // funds
         require(remaining == 0, "Value exceeds withdrawable balance");
 
@@ -1123,7 +1123,7 @@ contract BountyRegistry is Pausable {
         require(a.nonce == 0, "Bounty already revealed");
 
         // Check our commitment hash, by xor-ing verdicts with the hashed nonce
-        // and the sender&#39;s address prevent copying assertions by submitting the
+        // and the sender's address prevent copying assertions by submitting the
         // same commitment hash and nonce during the reveal round
         uint256 hashed_nonce = uint256(keccak256(uint256_to_bytes(nonce)));
         uint256 commitment = uint256(keccak256(uint256_to_bytes(verdicts ^ hashed_nonce ^ uint256(msg.sender))));
@@ -1150,7 +1150,7 @@ contract BountyRegistry is Pausable {
      *
      * @param bountyGuid the guid of the bounty to settle
      * @param votes bitset of votes representing ground truth for the
-     *      bounty&#39;s artifacts
+     *      bounty's artifacts
      */
     function voteOnBounty(
         uint128 bountyGuid,
@@ -1170,7 +1170,7 @@ contract BountyRegistry is Pausable {
         require(bounty.expirationBlock.add(ASSERTION_REVEAL_WINDOW) <= block.number, "Reveal round is still active");
         // Check if the voting round has closed
         require(bounty.expirationBlock.add(ASSERTION_REVEAL_WINDOW).add(arbiterVoteWindow) > block.number, "Voting round has closed");
-        // Check to make sure arbiters can&#39;t double vote
+        // Check to make sure arbiters can't double vote
         require(arbiterVoteRegistryByGuid[bountyGuid][msg.sender] == false, "Arbiter has already voted");
 
         Vote memory a = Vote(
@@ -1287,12 +1287,12 @@ contract BountyRegistry is Pausable {
                 for (j = 0; j < assertions.length; j++) {
                     bool malicious;
 
-                    // If we didn&#39;t assert on this artifact
+                    // If we didn't assert on this artifact
                     if (assertions[j].mask & (1 << i) == 0) {
                         continue;
                     }
 
-                    // If we haven&#39;t revealed set to incorrect value
+                    // If we haven't revealed set to incorrect value
                     if (assertions[j].nonce == 0) {
                         malicious = !consensus;
                     } else {
@@ -1318,12 +1318,12 @@ contract BountyRegistry is Pausable {
                     for (j = 0; j < assertions.length; j++) {
                         expertRewards[j] = expertRewards[j].add(assertions[j].bid);
 
-                        // If we didn&#39;t assert on this artifact
+                        // If we didn't assert on this artifact
                         if (assertions[j].mask & (1 << i) == 0) {
                             continue;
                         }
 
-                        // If we haven&#39;t revealed set to incorrect value
+                        // If we haven't revealed set to incorrect value
                         if (assertions[j].nonce == 0) {
                             malicious = !consensus;
                         } else {

@@ -257,7 +257,7 @@ contract StandardToken is ERC20 {
      * on behalf of msg.sender. Beware that changing an allowance with this
      * method brings the risk that someone may use both the old and the new
      * allowance by unfortunate transaction ordering. One possible solution to
-     * mitigate this race condition is to first reduce the spender&#39;s allowance
+     * mitigate this race condition is to first reduce the spender's allowance
      * to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
@@ -359,7 +359,7 @@ contract Token is StandardToken, Pausable, Freezable {
     function burn(uint256 _value) public onlyOwner whenNotPaused {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be
+        // sender's balance is greater than the totalSupply, which *should* be
         // an assertion failure
 
         balances[msg.sender] = balances[msg.sender].sub(_value);

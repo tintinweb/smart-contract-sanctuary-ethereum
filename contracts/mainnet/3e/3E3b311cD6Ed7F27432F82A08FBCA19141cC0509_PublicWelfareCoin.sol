@@ -1,6 +1,6 @@
 pragma solidity ^0.4.25;
 /****
-Maybe you don&#39;t have the ability to change, but you have a responsibility to pay attention.
+Maybe you don't have the ability to change, but you have a responsibility to pay attention.
 多分、あなたは能力を変えることはできませんが、あなたは注意を払う責任があります
 ****/
 

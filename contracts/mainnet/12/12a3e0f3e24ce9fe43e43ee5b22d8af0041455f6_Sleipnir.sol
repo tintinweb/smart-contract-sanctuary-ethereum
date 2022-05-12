@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;Sleipnir&#39; token contract
+// 'Sleipnir' token contract
 //
 // Deployed to : 0xa015fE2a1947B23AD454E699F8CbbDa419671F5e
 // Symbol      : SLP

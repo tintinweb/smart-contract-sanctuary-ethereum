@@ -246,8 +246,8 @@ contract StandardBurnableToken is BurnableToken, StandardToken,MintableToken {
 }
 
 contract ZebraGoldToken is StandardBurnableToken {
-    string public name = &#39;ZebraGold&#39;;
-    string public symbol = &#39;ZBG&#39;;
+    string public name = 'ZebraGold';
+    string public symbol = 'ZBG';
     uint8 public decimals = 8;
     uint256 public INITIAL_SUPPLY = 2300000000000000000000000000; 
     

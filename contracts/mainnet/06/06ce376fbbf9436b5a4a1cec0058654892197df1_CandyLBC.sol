@@ -14,7 +14,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -291,7 +291,7 @@ contract TeamTokensHolder is Owned{
  *        10% for community promotion, and 10% for operation and maintenance.
  * @notice The tokens are locked for a total of five years, 
  *        and the number of tokens that can be unlocked each year is halved. 
- *        Each year&#39;s tokens are divided into 12 months equals to unlock.
+ *        Each year's tokens are divided into 12 months equals to unlock.
  *        Percentage per year : 50%, 25%, 12.5%, 6.25% ,6.25% 
  * Unlockable Amount(%)
  *    ^
@@ -367,7 +367,7 @@ contract TokenLock is Owned{
         return true;
     }
 
-    /* @dev Called by &#39;owner&#39; to unlock the token.   */
+    /* @dev Called by 'owner' to unlock the token.   */
     function unlock() public onlyWhite returns(bool success){
         uint256 canExtract = calculation();
         uint256 _amount = canExtract.sub(collectedTokens); // canExtract - collectedTokens
@@ -464,7 +464,7 @@ contract CandyLBC is Owned {
 
     /*
      * @dev Transfer to multiple addresses to a different number of tokens.
-     * @param _addresses addressp[] : recipient&#39;s address list
+     * @param _addresses addressp[] : recipient's address list
      * @param _value     uint256[]  : a list of the number corresponding to each address
      */
     function mulPay(address[] _addresses, uint256[] _value) public onlyOwner returns(bool){
@@ -478,7 +478,7 @@ contract CandyLBC is Owned {
     /*
      * @dev Transfer the same token number to multiple addresses
      * @param _amount      uint256 : number of tokens
-     * @param _addresses uint256[] : recipient&#39;s address list
+     * @param _addresses uint256[] : recipient's address list
      */
     function mulTransfer(uint256 _amount, address[] _addresses) public onlyOwner returns(bool){
         for(uint256 i = 0; i < _addresses.length; i++){

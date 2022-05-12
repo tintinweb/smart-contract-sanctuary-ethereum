@@ -5,7 +5,7 @@ pragma solidity ^0.4.20;
 *_                _            _ _         _         _        _                  
 | |              | |          | (_)       (_)       | |      | |                 
 | |     ___   ___| | _____  __| |_ _ __    _  ___   | |_ ___ | | _____ _ __  ___ 
-| |    / _ \ / __| |/ / _ \/ _` | | &#39;_ \  | |/ _ \  | __/ _ \| |/ / _ \ &#39;_ \/ __|
+| |    / _ \ / __| |/ / _ \/ _` | | '_ \  | |/ _ \  | __/ _ \| |/ / _ \ '_ \/ __|
 | |___| (_) | (__|   <  __/ (_| | | | | |_| | (_) | | || (_) |   <  __/ | | \__ \
 \_____/\___/ \___|_|\_\___|\__,_|_|_| |_(_)_|\___/   \__\___/|_|\_\___|_| |_|___/
 *
@@ -277,7 +277,7 @@ contract LockedInToken is ERC20 {
     function burn(uint256 _value) onlyOwner public {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);

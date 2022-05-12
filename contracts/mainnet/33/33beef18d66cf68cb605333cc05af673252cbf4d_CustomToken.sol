@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 3100000000000000000000000000;
-        name = &#39;KangDa&#39;;
-        symbol = &#39;AST&#39;;
+        name = 'KangDa';
+        symbol = 'AST';
         decimals = 18;
         balanceOf[0x599949af1491a6dd44eb798fde78ab275f342cfe] = totalSupply;
         Transfer(address(0), 0x599949af1491a6dd44eb798fde78ab275f342cfe, totalSupply);

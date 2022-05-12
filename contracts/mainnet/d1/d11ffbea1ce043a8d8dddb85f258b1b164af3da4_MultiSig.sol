@@ -91,8 +91,8 @@ contract MultiSig
         
         if (valid1==1 && valid2==1) //"Both signatures must sign");
         {
-            // if this was called in less than 24 hours then don&#39;t allow spend
-            require( (currentTime - mLastSpend[msg.sender]) > DAY_LENGTH);//, "You can&#39;t call this more than once per day per signature");
+            // if this was called in less than 24 hours then don't allow spend
+            require( (currentTime - mLastSpend[msg.sender]) > DAY_LENGTH);//, "You can't call this more than once per day per signature");
         
             if (mAmount1 == mAmount2)
             {
@@ -127,8 +127,8 @@ contract MultiSig
         
     uint256 currentTime = block.timestamp;
         
-    // if this was called in less than 24 hours then don&#39;t allow spend
-    require(currentTime - mLastSpend[msg.sender] > DAY_LENGTH);//, "You can&#39;t call this more than once per day per signature");
+    // if this was called in less than 24 hours then don't allow spend
+    require(currentTime - mLastSpend[msg.sender] > DAY_LENGTH);//, "You can't call this more than once per day per signature");
     
     // transfer eth to the destination
     _to.transfer(MAX_DAILY_SOLO_SPEND);
@@ -168,8 +168,8 @@ contract MultiSig
         
         if (valid1==1 && valid2==1) //"Both signatures must sign");
         {
-            // if this was called in less than 24 hours then don&#39;t allow spend
-            require(currentTime - mLastSpend[msg.sender] > DAY_LENGTH);//, "You can&#39;t call this more than once per day per signature");
+            // if this was called in less than 24 hours then don't allow spend
+            require(currentTime - mLastSpend[msg.sender] > DAY_LENGTH);//, "You can't call this more than once per day per signature");
         
             if (mAmount1 == mAmount2)
             {
@@ -205,8 +205,8 @@ contract MultiSig
         
     uint256 currentTime = block.timestamp;
         
-    // if this was called in less than 24 hours then don&#39;t allow spend
-    require(currentTime - mLastSpend[msg.sender] > DAY_LENGTH);//, "You can&#39;t call this more than once per day per signature");
+    // if this was called in less than 24 hours then don't allow spend
+    require(currentTime - mLastSpend[msg.sender] > DAY_LENGTH);//, "You can't call this more than once per day per signature");
     
     // transfer eth to the destination
     contractaddress.transfer(address(_to), MAX_DAILY_TOKEN_SOLO_SPEND);

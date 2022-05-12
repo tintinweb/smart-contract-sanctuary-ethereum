@@ -114,7 +114,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -246,7 +246,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -460,13 +460,13 @@ contract PreSignedContract is Ownable {
         return hash;
       } else if (_version == 1) {
         return keccak256(
-          &#39;\x19Ethereum Signed Message:\n32&#39;,
+          '\x19Ethereum Signed Message:\n32',
           hash
         );
       } else {
         // Support Standard Prefix (Trezor)
         return keccak256(
-          &#39;\x19Ethereum Signed Message:\n\x20&#39;,
+          '\x19Ethereum Signed Message:\n\x20',
           hash
         );
       }
@@ -518,7 +518,7 @@ contract PreSignedContract is Ownable {
     uint8 _version,
     bytes _sig
   ) external view returns (address) {
-    return preSignedCheck(&#39;Transfer&#39;, _token, _to, _value, _fee, _nonce, _version, _sig);
+    return preSignedCheck('Transfer', _token, _to, _value, _fee, _nonce, _version, _sig);
   }
 
   function approvePreSignedCheck(
@@ -530,7 +530,7 @@ contract PreSignedContract is Ownable {
     uint8 _version,
     bytes _sig
   ) external view returns (address) {
-    return preSignedCheck(&#39;Approval&#39;, _token, _to, _value, _fee, _nonce, _version, _sig);
+    return preSignedCheck('Approval', _token, _to, _value, _fee, _nonce, _version, _sig);
   }
 
   function increaseApprovalPreSignedCheck(
@@ -542,7 +542,7 @@ contract PreSignedContract is Ownable {
     uint8 _version,
     bytes _sig
   ) external view returns (address) {
-    return preSignedCheck(&#39;IncApprv&#39;, _token, _to, _value, _fee, _nonce, _version, _sig);
+    return preSignedCheck('IncApprv', _token, _to, _value, _fee, _nonce, _version, _sig);
   }
 
   function decreaseApprovalPreSignedCheck(
@@ -554,15 +554,15 @@ contract PreSignedContract is Ownable {
     uint8 _version,
     bytes _sig
   ) external view returns (address) {
-    return preSignedCheck(&#39;DecApprv&#39;, _token, _to, _value, _fee, _nonce, _version, _sig);
+    return preSignedCheck('DecApprv', _token, _to, _value, _fee, _nonce, _version, _sig);
   }
 }
 
 // File: contracts\token\MuzikaCoin.sol
 
 contract MuzikaCoin is MintableToken, Pausable {
-  string public name = &#39;MUZIKA COIN&#39;;
-  string public symbol = &#39;MZK&#39;;
+  string public name = 'MUZIKA COIN';
+  string public symbol = 'MZK';
   uint8 public decimals = 18;
 
   event Burn(address indexed burner, uint256 value);
@@ -648,7 +648,7 @@ contract MuzikaCoin is MintableToken, Pausable {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);

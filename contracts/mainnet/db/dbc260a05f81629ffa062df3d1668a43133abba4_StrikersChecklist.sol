@@ -52,9 +52,9 @@ contract StrikersPlayerList is Ownable {
   // We only use playerIds in StrikersChecklist.sol (to
   // indicate which player features on instances of a
   // given ChecklistItem), and nowhere else in the app.
-  // While it&#39;s not explictly necessary for any of our
+  // While it's not explictly necessary for any of our
   // contracts to know that playerId 0 corresponds to
-  // Lionel Messi, we think that it&#39;s nice to have
+  // Lionel Messi, we think that it's nice to have
   // a canonical source of truth for who the playerIds
   // actually refer to. Storing strings (player names)
   // is expensive, so we just use Events to prove that,
@@ -63,8 +63,8 @@ contract StrikersPlayerList is Ownable {
   /// @dev The event we fire when we add a player.
   event PlayerAdded(uint8 indexed id, string name);
 
-  /// @dev How many players we&#39;ve added so far
-  ///   (max 255, though we don&#39;t plan on getting close)
+  /// @dev How many players we've added so far
+  ///   (max 255, though we don't plan on getting close)
   uint8 public playerCount;
 
   /// @dev Here we add the players we are launching with on Day 1.
@@ -89,7 +89,7 @@ contract StrikersPlayerList is Ownable {
     addPlayer("Gonzalo Higua&#237;n"); // 14
     addPlayer("David de Gea"); // 15
     addPlayer("Antoine Griezmann"); // 16
-    addPlayer("N&#39;Golo Kant&#233;"); // 17
+    addPlayer("N'Golo Kant&#233;"); // 17
     addPlayer("Edinson Cavani"); // 18
     addPlayer("Paul Pogba"); // 19
     addPlayer("Isco"); // 20
@@ -179,7 +179,7 @@ contract StrikersPlayerList is Ownable {
   /// @dev Fires an event, proving that we said a player corresponds to a given ID.
   /// @param _name The name of the player we are adding.
   function addPlayer(string _name) public onlyOwner {
-    require(playerCount < 255, "You&#39;ve already added the maximum amount of players.");
+    require(playerCount < 255, "You've already added the maximum amount of players.");
     emit PlayerAdded(playerCount, _name);
     playerCount++;
   }
@@ -197,7 +197,7 @@ contract StrikersChecklist is StrikersPlayerList {
   //  - RarityTier tier (more info below)
   //
   // Two things to note: the checklistId is not explicitly stored
-  // on the checklistItem struct, and it&#39;s composed of two parts.
+  // on the checklistItem struct, and it's composed of two parts.
   // (For the following, assume it is left padded with zeros to reach
   // three digits, such that checklistId 0 becomes 000)
   //  - the first digit represents the setId
@@ -211,9 +211,9 @@ contract StrikersChecklist is StrikersPlayerList {
   //  digits = 00 = first index of array)
   //
   // Because checklistId is represented as a uint8 throughout the app, the highest
-  // value it can take is 255, which means we can&#39;t add more than 56 items to our
-  // Unreleased Set&#39;s unreleasedChecklistItems array (setId 2). Also, once we&#39;ve initialized
-  // this contract, it&#39;s impossible for us to add more checklist items to the Originals
+  // value it can take is 255, which means we can't add more than 56 items to our
+  // Unreleased Set's unreleasedChecklistItems array (setId 2). Also, once we've initialized
+  // this contract, it's impossible for us to add more checklist items to the Originals
   // and Iconics set -- what you see here is what you get.
   //
   // Simple enough right?
@@ -229,7 +229,7 @@ contract StrikersChecklist is StrikersPlayerList {
   }
 
   /// @dev Enum containing all our rarity tiers, just because
-  ///   it&#39;s cleaner dealing with these values than with uint8s.
+  ///   it's cleaner dealing with these values than with uint8s.
   enum RarityTier {
     IconicReferral,
     IconicInsert,
@@ -262,7 +262,7 @@ contract StrikersChecklist is StrikersPlayerList {
     RarityTier tier;
   }
 
-  /// @dev The deploy step we&#39;re at. Defaults to WaitingForStepOne.
+  /// @dev The deploy step we're at. Defaults to WaitingForStepOne.
   DeployStep public deployStep;
 
   /// @dev Array containing all the Originals checklist items (000 - 099)
@@ -276,7 +276,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Internal function to add a checklist item to the Originals set.
   /// @param _playerId The player represented by this checklist item. (see StrikersPlayerList.sol)
-  /// @param _tier This checklist item&#39;s rarity tier. (see Rarity Tier enum and corresponding tierLimits)
+  /// @param _tier This checklist item's rarity tier. (see Rarity Tier enum and corresponding tierLimits)
   function _addOriginalChecklistItem(uint8 _playerId, RarityTier _tier) internal {
     originalChecklistItems.push(ChecklistItem({
       playerId: _playerId,
@@ -286,7 +286,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Internal function to add a checklist item to the Iconics set.
   /// @param _playerId The player represented by this checklist item. (see StrikersPlayerList.sol)
-  /// @param _tier This checklist item&#39;s rarity tier. (see Rarity Tier enum and corresponding tierLimits)
+  /// @param _tier This checklist item's rarity tier. (see Rarity Tier enum and corresponding tierLimits)
   function _addIconicChecklistItem(uint8 _playerId, RarityTier _tier) internal {
     iconicChecklistItems.push(ChecklistItem({
       playerId: _playerId,
@@ -295,30 +295,30 @@ contract StrikersChecklist is StrikersPlayerList {
   }
 
   /// @dev External function to add a checklist item to our mystery set.
-  ///   Must have completed initial deploy, and can&#39;t add more than 56 items (because checklistId is a uint8).
+  ///   Must have completed initial deploy, and can't add more than 56 items (because checklistId is a uint8).
   /// @param _playerId The player represented by this checklist item. (see StrikersPlayerList.sol)
-  /// @param _tier This checklist item&#39;s rarity tier. (see Rarity Tier enum and corresponding tierLimits)
+  /// @param _tier This checklist item's rarity tier. (see Rarity Tier enum and corresponding tierLimits)
   function addUnreleasedChecklistItem(uint8 _playerId, RarityTier _tier) external onlyOwner {
     require(deployStep == DeployStep.DoneInitialDeploy, "Finish deploying the Originals and Iconics sets first.");
-    require(unreleasedCount() < 56, "You can&#39;t add any more checklist items.");
-    require(_playerId < playerCount, "This player doesn&#39;t exist in our player list.");
+    require(unreleasedCount() < 56, "You can't add any more checklist items.");
+    require(_playerId < playerCount, "This player doesn't exist in our player list.");
     unreleasedChecklistItems.push(ChecklistItem({
       playerId: _playerId,
       tier: _tier
     }));
   }
 
-  /// @dev Returns how many Original checklist items we&#39;ve added.
+  /// @dev Returns how many Original checklist items we've added.
   function originalsCount() external view returns (uint256) {
     return originalChecklistItems.length;
   }
 
-  /// @dev Returns how many Iconic checklist items we&#39;ve added.
+  /// @dev Returns how many Iconic checklist items we've added.
   function iconicsCount() public view returns (uint256) {
     return iconicChecklistItems.length;
   }
 
-  /// @dev Returns how many Unreleased checklist items we&#39;ve added.
+  /// @dev Returns how many Unreleased checklist items we've added.
   function unreleasedCount() public view returns (uint256) {
     return unreleasedChecklistItems.length;
   }
@@ -338,7 +338,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Deploys Originals #000 through #032.
   function deployStepOne() external onlyOwner {
-    require(deployStep == DeployStep.WaitingForStepOne, "You&#39;re not following the steps in order...");
+    require(deployStep == DeployStep.WaitingForStepOne, "You're not following the steps in order...");
 
     /* ORIGINALS - DIAMOND */
     _addOriginalChecklistItem(0, RarityTier.Diamond); // 000 Messi
@@ -385,7 +385,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Deploys Originals #033 through #065.
   function deployStepTwo() external onlyOwner {
-    require(deployStep == DeployStep.WaitingForStepTwo, "You&#39;re not following the steps in order...");
+    require(deployStep == DeployStep.WaitingForStepTwo, "You're not following the steps in order...");
 
     /* ORIGINALS - SILVER (033 to 049) */
     _addOriginalChecklistItem(33, RarityTier.Silver); // 033 Casemiro
@@ -430,7 +430,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Deploys Originals #066 through #099.
   function deployStepThree() external onlyOwner {
-    require(deployStep == DeployStep.WaitingForStepThree, "You&#39;re not following the steps in order...");
+    require(deployStep == DeployStep.WaitingForStepThree, "You're not following the steps in order...");
 
     /* ORIGINALS - BRONZE (066 to 099) */
     _addOriginalChecklistItem(66, RarityTier.Bronze); // 066 Kagawa
@@ -474,7 +474,7 @@ contract StrikersChecklist is StrikersPlayerList {
 
   /// @dev Deploys all Iconics and marks the deploy as complete!
   function deployStepFour() external onlyOwner {
-    require(deployStep == DeployStep.WaitingForStepFour, "You&#39;re not following the steps in order...");
+    require(deployStep == DeployStep.WaitingForStepFour, "You're not following the steps in order...");
 
     /* ICONICS */
     _addIconicChecklistItem(0, RarityTier.IconicInsert); // 100 Messi
@@ -524,11 +524,11 @@ contract StrikersChecklist is StrikersPlayerList {
       rarityTier = originalChecklistItems[_checklistId].tier;
     } else if (_checklistId < 200) { // Iconics = #100 to #131
       index = _checklistId - 100;
-      require(index < iconicsCount(), "This Iconics checklist item doesn&#39;t exist.");
+      require(index < iconicsCount(), "This Iconics checklist item doesn't exist.");
       rarityTier = iconicChecklistItems[index].tier;
     } else { // Unreleased = #200 to max #255
       index = _checklistId - 200;
-      require(index < unreleasedCount(), "This Unreleased checklist item doesn&#39;t exist.");
+      require(index < unreleasedCount(), "This Unreleased checklist item doesn't exist.");
       rarityTier = unreleasedChecklistItems[index].tier;
     }
     return tierLimits[uint8(rarityTier)];

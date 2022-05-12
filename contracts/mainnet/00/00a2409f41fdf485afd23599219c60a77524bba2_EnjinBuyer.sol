@@ -68,7 +68,7 @@ contract EnjinBuyer {
 
 
   // Use with caution - use this withdraw function if you do not trust the
-  // contract&#39;s token setting. You can only use this once, so if you
+  // contract's token setting. You can only use this once, so if you
   // put in the wrong token address you will burn the Enjin on the contract.
   function withdraw_token(address _token){
     ERC20 myToken = ERC20(_token);
@@ -118,7 +118,7 @@ contract EnjinBuyer {
       require(sale.call.value(contract_eth_value)());
       require(this.balance==0);
     } else {
-      // We might be getting a refund from Enjin&#39;s multisig wallet.
+      // We might be getting a refund from Enjin's multisig wallet.
       // It could also be someone who has missed the buy, so we keep
       // track of this as well so that he can safely withdraw.
       // We might get the Enjin refund from another wallet, so this

@@ -482,7 +482,7 @@ contract KyberOasisReserve is KyberReserveInterface, Withdrawable, Utils2 {
             return 0;
         }
 
-        // getBestOffer&#39;s terminology is of offer maker, so their sellGem is our (the taker&#39;s) dest token.
+        // getBestOffer's terminology is of offer maker, so their sellGem is our (the taker's) dest token.
         bestOfferId = otc.getBestOffer(wrappedDest, wrappedSrc);
         (offerPayAmt, , offerBuyAmt,) = otc.getOffer(bestOfferId);
 

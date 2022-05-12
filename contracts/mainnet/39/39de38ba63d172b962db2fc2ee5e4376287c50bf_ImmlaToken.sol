@@ -14,7 +14,7 @@ contract SafeMath {
   function div(uint256 a, uint256 b) constant internal returns (uint256) {
     assert(b != 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -39,7 +39,7 @@ contract SafeMath {
 /// @title Abstract token contract - Functions to be implemented by token contracts.
 
 contract AbstractToken {
-    // This is not an abstract function, because solc won&#39;t recognize generated getter functions for public variables as functions
+    // This is not an abstract function, because solc won't recognize generated getter functions for public variables as functions
     function totalSupply() constant returns (uint256) {}
     function balanceOf(address owner) constant returns (uint256 balance);
     function transfer(address to, uint256 value) returns (bool success);
@@ -63,7 +63,7 @@ contract StandardToken is AbstractToken {
     /*
      *  Read and write storage functions
      */
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param _to Address of token receiver.
     /// @param _value Number of tokens to transfer.
     function transfer(address _to, uint256 _value) returns (bool success) {
@@ -154,7 +154,7 @@ contract ImmlaToken is StandardToken, SafeMath {
         icoContract = _icoContract;
     }
     
-    /// @dev Burns tokens from address. It&#39;s can be applied by account with address this.icoContract
+    /// @dev Burns tokens from address. It's can be applied by account with address this.icoContract
     /// @param _from Address of account, from which will be burned tokens
     /// @param _value Amount of tokens, that will be burned
     function burnTokens(address _from, uint _value) onlyIcoContract {
@@ -164,7 +164,7 @@ contract ImmlaToken is StandardToken, SafeMath {
         balances[_from] = sub(balances[_from], _value);
     }
     
-    /// @dev Adds tokens to address. It&#39;s can be applied by account with address this.icoContract
+    /// @dev Adds tokens to address. It's can be applied by account with address this.icoContract
     /// @param _to Address of account to which the tokens will pass
     /// @param _value Amount of tokens
     function emitTokens(address _to, uint _value) onlyIcoContract {
@@ -216,7 +216,7 @@ contract ImmlaIco is SafeMath {
     
     // 2018.03.14 21:00 UTC or 2018.03.15 0:00 MSK
     uint public constant defaultFoundersRewardTime = 1521061200;
-    // founders&#39; reward time
+    // founders' reward time
     uint public foundersRewardTime = defaultFoundersRewardTime;
     
     // Min limit of tokens is 18 000 000 IML
@@ -251,9 +251,9 @@ contract ImmlaIco is SafeMath {
     uint tokenPrice4 = 3367;
     uint tokenSupply4 = 60378083 * BASE;
     
-    // Token&#39;s prices in stages in array
+    // Token's prices in stages in array
     uint[] public tokenPrices;
-    // Token&#39;s remaining amounts in stages in array
+    // Token's remaining amounts in stages in array
     uint[] public tokenSupplies;
     
     // Check if manager can be setted
@@ -320,7 +320,7 @@ contract ImmlaIco is SafeMath {
     
     /// @dev Constructor of ICO. Requires address of icoManager,
     /// address of preIcoToken, time of start ICO (or zero),
-    /// time of ICO deadline (or zero), founders&#39; reward time (or zero)
+    /// time of ICO deadline (or zero), founders' reward time (or zero)
     /// @param _icoManager Address of ICO manager
     /// @param _preIcoToken Address of pre-ICO contract
     /// @param _icoStart Timestamp of ICO start (if equals 0, sets defaultIcoStart)
@@ -404,9 +404,9 @@ contract ImmlaIco is SafeMath {
         tokenImporter = _newTokenImporter;
     } 
     
-    // saves info if account&#39;s tokens were imported from pre-ICO
+    // saves info if account's tokens were imported from pre-ICO
     mapping (address => bool) private importedFromPreIco;
-    /// @dev Imports account&#39;s tokens from pre-ICO. It can be done only by user, ICO manager or token importer
+    /// @dev Imports account's tokens from pre-ICO. It can be done only by user, ICO manager or token importer
     /// @param _account Address of account which tokens will be imported
     function importTokens(address _account) {
         // only tokens holder or manager or tokenImporter can do migration

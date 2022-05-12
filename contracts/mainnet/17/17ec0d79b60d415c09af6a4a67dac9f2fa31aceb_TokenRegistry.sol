@@ -115,7 +115,7 @@ contract TokenRegistry is Ownable {
     }
 
     modifier tokenExists(address _token) {
-        require(tokens[_token].token != address(0), "TokenRegistry::token doesn&#39;t exist");
+        require(tokens[_token].token != address(0), "TokenRegistry::token doesn't exist");
         _;
     }
 
@@ -202,7 +202,7 @@ contract TokenRegistry is Ownable {
         delete tokens[_token];
     }
 
-    /// @dev Allows owner to modify an existing token&#39;s name.
+    /// @dev Allows owner to modify an existing token's name.
     /// @param _token Address of existing token.
     /// @param _name New name.
     function setTokenName(address _token, string _name)
@@ -218,7 +218,7 @@ contract TokenRegistry is Ownable {
         token.name = _name;
     }
 
-    /// @dev Allows owner to modify an existing token&#39;s symbol.
+    /// @dev Allows owner to modify an existing token's symbol.
     /// @param _token Address of existing token.
     /// @param _symbol New symbol.
     function setTokenSymbol(address _token, string _symbol)
@@ -234,7 +234,7 @@ contract TokenRegistry is Ownable {
         token.symbol = _symbol;
     }
 
-    /// @dev Allows owner to modify an existing token&#39;s icon URL.
+    /// @dev Allows owner to modify an existing token's icon URL.
     /// @param _token URL of token token.
     /// @param _url New URL to token icon.
     function setTokenURL(address _token, string _url)
@@ -250,9 +250,9 @@ contract TokenRegistry is Ownable {
     /*
      * View functions
      */
-    /// @dev Provides a registered token&#39;s address when given the token symbol.
+    /// @dev Provides a registered token's address when given the token symbol.
     /// @param _symbol Symbol of registered token.
-    /// @return Token&#39;s address.
+    /// @return Token's address.
     function getTokenAddressBySymbol(string _symbol) 
         public
         view 
@@ -261,9 +261,9 @@ contract TokenRegistry is Ownable {
         return tokenBySymbol[_symbol];
     }
 
-    /// @dev Provides a registered token&#39;s address when given the token name.
+    /// @dev Provides a registered token's address when given the token name.
     /// @param _name Name of registered token.
-    /// @return Token&#39;s address.
+    /// @return Token's address.
     function getTokenAddressByName(string _name) 
         public
         view
@@ -272,7 +272,7 @@ contract TokenRegistry is Ownable {
         return tokenByName[_name];
     }
 
-    /// @dev Provides a registered token&#39;s metadata, looked up by address.
+    /// @dev Provides a registered token's metadata, looked up by address.
     /// @param _token Address of registered token.
     /// @return Token metadata.
     function getTokenMetaData(address _token)
@@ -296,7 +296,7 @@ contract TokenRegistry is Ownable {
         );
     }
 
-    /// @dev Provides a registered token&#39;s metadata, looked up by name.
+    /// @dev Provides a registered token's metadata, looked up by name.
     /// @param _name Name of registered token.
     /// @return Token metadata.
     function getTokenByName(string _name)
@@ -314,7 +314,7 @@ contract TokenRegistry is Ownable {
         return getTokenMetaData(_token);
     }
 
-    /// @dev Provides a registered token&#39;s metadata, looked up by symbol.
+    /// @dev Provides a registered token's metadata, looked up by symbol.
     /// @param _symbol Symbol of registered token.
     /// @return Token metadata.
     function getTokenBySymbol(string _symbol)

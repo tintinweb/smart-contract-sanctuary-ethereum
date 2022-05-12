@@ -107,7 +107,7 @@ contract EplusCoinToken is StandardToken {
     string public name = "EplusCoin";          // name of the token
     string public symbol = "EPC";
     uint256 public decimals = 8;                  // token has 8 digit precision
-    string public version = &#39;H0.1&#39;;
+    string public version = 'H0.1';
 
     uint256 public totalSupply = 168000000 ether;  // total supply of 168 Million Tokens
 

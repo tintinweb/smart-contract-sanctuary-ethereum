@@ -633,14 +633,14 @@ contract CommunityVotable is Ownable {
  * @notice A recipient of ethers and tokens
  */
 contract Beneficiary {
-    /// @notice Receive ethers to the given wallet&#39;s given balance type
+    /// @notice Receive ethers to the given wallet's given balance type
     /// @param wallet The address of the concerned wallet
     /// @param balanceType The target balance type of the wallet
     function receiveEthersTo(address wallet, string balanceType)
     public
     payable;
 
-    /// @notice Receive token to the given wallet&#39;s given balance type
+    /// @notice Receive token to the given wallet's given balance type
     /// @dev The wallet must approve of the token transfer prior to calling this function
     /// @param wallet The address of the concerned wallet
     /// @param balanceType The target balance type of the wallet
@@ -827,7 +827,7 @@ contract Benefactor is Ownable {
  *
  * Compliant with the Hubii Nahmii specification v0.12.
  *
- * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin&#39;s SafeMath library
+ * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin's SafeMath library
  */
 
 
@@ -1151,7 +1151,7 @@ contract AccrualBenefactor is Benefactor {
 
     /// @notice Get the fraction of benefits that is granted the given beneficiary
     /// @param beneficiary Address of beneficiary
-    /// @return The beneficiary&#39;s fraction
+    /// @return The beneficiary's fraction
     function beneficiaryFraction(address beneficiary)
     public
     view
@@ -1466,7 +1466,7 @@ contract TransferControllerManageable is Ownable {
  *
  * Compliant with the Hubii Nahmii specification v0.12.
  *
- * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin&#39;s SafeMath library
+ * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin's SafeMath library
  */
 
 
@@ -1493,7 +1493,7 @@ library SafeMathUintLib {
     {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -2138,7 +2138,7 @@ contract RevenueFund is Ownable, AccrualBeneficiary, AccrualBenefactor, Transfer
     /// @notice Get the period accrual balance of the given currency
     /// @param currencyCt The address of the concerned currency contract (address(0) == ETH)
     /// @param currencyId The ID of the concerned currency (0 for ETH and ERC20)
-    /// @return The current period&#39;s accrual balance
+    /// @return The current period's accrual balance
     function periodAccrualBalance(address currencyCt, uint256 currencyId)
     public
     view

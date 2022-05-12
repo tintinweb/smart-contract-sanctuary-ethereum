@@ -95,7 +95,7 @@ contract IAMEPrivateSale is Owned {
 
   /// @notice This is the constructor to set the dates
   function IAMEPrivateSale() public{
-    PRIVATESALE_START_DATE = now + 5 days; // &#39;now&#39; is the block timestamp
+    PRIVATESALE_START_DATE = now + 5 days; // 'now' is the block timestamp
     PRIVATESALE_END_DATE = now + 40 days;
   }
 
@@ -109,13 +109,13 @@ contract IAMEPrivateSale is Owned {
   event LogParticipation(address indexed sender, uint256 value, uint256 timestamp);
 
 
-  /// @notice A participant sends a contribution to the contract&#39;s address
+  /// @notice A participant sends a contribution to the contract's address
   ///         between the PRIVATESALE_STATE_DATE and the PRIVATESALE_END_DATE
   /// @notice Only contributions bigger than the MINIMUM_PARTICIPATION_AMOUNT
   ///         are accepted. Otherwise the transaction
-  ///         is rejected and contributed amount is returned to the participant&#39;s
+  ///         is rejected and contributed amount is returned to the participant's
   ///         account
-  /// @notice A participant&#39;s contribution will be rejected if the Private Sale
+  /// @notice A participant's contribution will be rejected if the Private Sale
   ///         has been funded to the maximum amount
   function () public payable {
     // A participant cannot send funds before the Private Sale Start Date
@@ -124,7 +124,7 @@ contract IAMEPrivateSale is Owned {
     if (now > PRIVATESALE_END_DATE) revert();
     // A participant cannot send less than the minimum amount
     if (msg.value < MINIMUM_PARTICIPATION_AMOUNT) revert();
-    // Register the participant&#39;s contribution
+    // Register the participant's contribution
     addBalance(msg.sender, msg.value);
   }
 
@@ -135,11 +135,11 @@ contract IAMEPrivateSale is Owned {
 
   /// @dev Keep track of participants contributions and the total funding amount
   function addBalance(address participant, uint256 value) private {
-    // Participant&#39;s balance is increased by the sent amount
+    // Participant's balance is increased by the sent amount
     balanceOf[participant] = safeIncrement(balanceOf[participant], value);
     // Keep track of the total funding amount
     totalFunding = safeIncrement(totalFunding, value);
-    // Log an event of the participant&#39;s contribution
+    // Log an event of the participant's contribution
     LogParticipation(participant, value, now);
   }
 

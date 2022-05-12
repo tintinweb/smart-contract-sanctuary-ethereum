@@ -195,14 +195,14 @@ contract CertificateRedeemer is Claimable, HasNoTokens, HasNoEther {
 
     /**
      * @dev Generates the hash of the message that needs to be signed by an approved signer.
-     * The nonce is read directly from the contract&#39;s state.
+     * The nonce is read directly from the contract's state.
      */
     function generateWithdrawalHash(string accountId, uint256 amount, address recipient, uint256 nonce)
      view
      public
     returns (bytes32)
     {
-        bytes memory message = abi.encodePacked(address(this), &#39;withdraw&#39;, accountId, amount, recipient, nonce);
+        bytes memory message = abi.encodePacked(address(this), 'withdraw', accountId, amount, recipient, nonce);
         bytes32 messageHash = keccak256(message);
         return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", messageHash));
     }

@@ -691,7 +691,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -733,7 +733,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -852,7 +852,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) throw;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -862,7 +862,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -892,7 +892,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, sha3(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -915,7 +915,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -950,15 +950,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -995,13 +995,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1031,8 +1031,8 @@ contract Oceans8RT is usingOraclize {
   uint public constant COMMISSION = 0; // Commission for the owner
   uint public constant MIN_BET = 0.01 ether;
 
-  uint public EXPECTED_START = 1525806000; // When the bet&#39;s event is expected to start
-  uint public EXPECTED_END = 1529089200; // When the bet&#39;s event is expected to end
+  uint public EXPECTED_START = 1525806000; // When the bet's event is expected to start
+  uint public EXPECTED_END = 1529089200; // When the bet's event is expected to end
 
   uint public constant BETTING_OPENS = 1524630753;
   uint public BETTING_CLOSES = EXPECTED_START - 60; // Betting closes a minute before the bet event starts
@@ -1181,7 +1181,7 @@ contract Oceans8RT is usingOraclize {
     // Oraclize uses the Dockerfile to deploy this script.
     // Look over the Oraclize documentation to verify this
     // for yourself.
-    nextScheduledQuery = makeOraclizeQuery(timeOrDelay, "nested", "[computation] [&#39;QmVqSjNY64VfpnE3sZZZ7rv1uUpZRW9D8BXsbiNnwSGgmN&#39;, &#39;oceans_8&#39;]", gas);
+    nextScheduledQuery = makeOraclizeQuery(timeOrDelay, "nested", "[computation] ['QmVqSjNY64VfpnE3sZZZ7rv1uUpZRW9D8BXsbiNnwSGgmN', 'oceans_8']", gas);
   }
 
   function makeOraclizeQuery(uint timeOrDelay, string datasource, string query, uint gas) private returns(bytes32) {
@@ -1207,10 +1207,10 @@ contract Oceans8RT is usingOraclize {
     // it should be 2
     if (keccak256(result) != keccak256("0") && keccak256(result) != keccak256("1")) {
       // Reschedule winner determination,
-      // unless we&#39;re past the point of
+      // unless we're past the point of
       // cancelation. If nextScheduledQuery is
       // not the current query, it means that
-      // there&#39;s a scheduled future query, so
+      // there's a scheduled future query, so
       // we can wait for that instead of scheduling
       // another one now (otherwise this would cause
       // dupe queries).
@@ -1270,7 +1270,7 @@ contract Oceans8RT is usingOraclize {
     require(betterInfo[msg.sender].betAmount == 0 || betterInfo[msg.sender].betOption == option);
 
     // Add better to better list if they
-    // aren&#39;t already in it
+    // aren't already in it
     if (betterInfo[msg.sender].betAmount == 0) {
       betterInfo[msg.sender].betOption = option;
       numberOfBets[option]++;
@@ -1335,7 +1335,7 @@ contract Oceans8RT is usingOraclize {
   }
 
   // Fallback function in case someone sends
-  // ether to the contract so it doesn&#39;t get
+  // ether to the contract so it doesn't get
   // lost. Could be used by us owners as buffer
   // value in case payouts fail.
   function() payable public {

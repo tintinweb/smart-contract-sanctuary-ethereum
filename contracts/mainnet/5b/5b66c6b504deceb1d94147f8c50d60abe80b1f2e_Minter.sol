@@ -161,7 +161,7 @@ contract Minter is Ownable {
   uint256 public total = 9764845721712500000000;
 
   function proceed() public onlyOwner {
-    // Start giving errors if we&#39;re not done.
+    // Start giving errors if we're not done.
     require(!complete);
     token.mint(this, total);
     for(uint256 i = 0; i < holders.length; i++) {

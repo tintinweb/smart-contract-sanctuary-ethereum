@@ -152,8 +152,8 @@ contract StandardToken is ERC20, ERC223, SafeMath, Owned {
 }
 
 contract HGToken is StandardToken {
-   string public name = &#39;HGToken&#39;;
-   string public symbol = &#39;HGT&#39;;
+   string public name = 'HGToken';
+   string public symbol = 'HGT';
    uint public decimals = 8;
    uint public INITIAL_SUPPLY = 1000000000;
 

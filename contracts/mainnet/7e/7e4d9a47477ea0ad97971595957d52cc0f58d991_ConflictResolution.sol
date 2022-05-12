@@ -107,8 +107,8 @@ contract ConflictResolution is ConflictResolutionInterface {
      * @param _betNum Bet number.
      * @param _betValue Value of bet.
      * @param _balance Current balance.
-     * @param _serverSeed Server&#39;s seed of current round.
-     * @param _playerSeed Player&#39;s seed of current round.
+     * @param _serverSeed Server's seed of current round.
+     * @param _playerSeed Player's seed of current round.
      * @return New game session balance.
      */
     function endGameConflict(
@@ -172,7 +172,7 @@ contract ConflictResolution is ConflictResolutionInterface {
         // assume player has lost
         int newBalance = _balance - int(_betValue);
 
-        // penalize player as he didn&#39;t end game
+        // penalize player as he didn't end game
         newBalance -= NOT_ENDED_FINE;
 
         // do not allow balance below player stake
@@ -219,7 +219,7 @@ contract ConflictResolution is ConflictResolutionInterface {
             profit = calculateDiceProfit(_betNum, _betValue);
         }
 
-        // penalize server as it didn&#39;t end game
+        // penalize server as it didn't end game
         profit += NOT_ENDED_FINE;
 
         return _balance + profit;
@@ -227,8 +227,8 @@ contract ConflictResolution is ConflictResolutionInterface {
 
     /**
      * @dev Calculate new balance after executing bet.
-     * @param _serverSeed Server&#39;s seed
-     * @param _playerSeed Player&#39;s seed
+     * @param _serverSeed Server's seed
+     * @param _playerSeed Player's seed
      * @param _betNum Bet Number.
      * @param _betValue Value of bet.
      * @param _balance Current balance.
@@ -261,7 +261,7 @@ contract ConflictResolution is ConflictResolutionInterface {
      * @dev Calculate player profit if player has won.
      * @param _betNum Bet number of player.
      * @param _betValue Value of bet.safe
-     * @return Players&#39; profit.
+     * @return Players' profit.
      */
     function calculateDiceProfit(uint _betNum, uint _betValue) private pure returns(int) {
         assert(_betNum > 0 && _betNum < DICE_RANGE);

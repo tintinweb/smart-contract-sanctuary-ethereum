@@ -91,7 +91,7 @@ contract Vineyard{
         uint256 hasGrapes = getMyGrapes();
         uint256 grapesToSell = hasGrapes;
         if (grapesToSell > marketGrapes) {
-          // don&#39;t allow sell larger than the current market holdings
+          // don't allow sell larger than the current market holdings
           grapesToSell = marketGrapes;
         }
         uint256 grapeValue = calculateGrapeSell(grapesToSell);
@@ -238,7 +238,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

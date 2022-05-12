@@ -1,4 +1,4 @@
-// This is ERC 2.0 Token&#39;s Trading Market, Decentralized Exchange. 
+// This is ERC 2.0 Token's Trading Market, Decentralized Exchange. 
 // by he.guanjun, email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c7afa2e9a3e9a3e9b4afa6a987afa8b3aaa6aeabe9a4a8aa">[email&#160;protected]</a>
 // 2017-09-03
 

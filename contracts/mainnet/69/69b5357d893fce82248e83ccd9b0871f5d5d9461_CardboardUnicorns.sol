@@ -18,7 +18,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -123,7 +123,7 @@ contract CardboardUnicorns {
    * Transfer token to another address
    */
   function transfer(address _to, uint _value) onlyPayloadSize(2 * 32) {
-    require(_to != address(this)); // Don&#39;t send tokens back to the contract!
+    require(_to != address(this)); // Don't send tokens back to the contract!
     balances[msg.sender] = balances[msg.sender].sub(_value);
     balances[_to] = balances[_to].add(_value);
     Transfer(msg.sender, _to, _value);
@@ -147,7 +147,7 @@ contract CardboardUnicorns {
   }
   
   /**
-   * Approve the indicated address to spend the specified amount of tokens on the sender&#39;s behalf
+   * Approve the indicated address to spend the specified amount of tokens on the sender's behalf
    */
   function approve(address _spender, uint _value) {
     // Ensure allowance is zero if attempting to set to a non-zero number

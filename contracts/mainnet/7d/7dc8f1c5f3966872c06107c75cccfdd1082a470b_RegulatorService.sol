@@ -173,23 +173,23 @@ contract RegulatorService is RegulatorServiceI, Ownable {
 
   // @dev Check success code & message
   uint8 constant private CHECK_SUCCESS = 0;
-  string constant private SUCCESS_MESSAGE = &#39;Success&#39;;
+  string constant private SUCCESS_MESSAGE = 'Success';
 
   // @dev Check error reason: Token is locked
   uint8 constant private CHECK_ELOCKED = 1;
-  string constant private ELOCKED_MESSAGE = &#39;Token is locked&#39;;
+  string constant private ELOCKED_MESSAGE = 'Token is locked';
 
   // @dev Check error reason: Token can not trade partial amounts
   uint8 constant private CHECK_EDIVIS = 2;
-  string constant private EDIVIS_MESSAGE = &#39;Token can not trade partial amounts&#39;;
+  string constant private EDIVIS_MESSAGE = 'Token can not trade partial amounts';
 
   // @dev Check error reason: Sender is not allowed to send the token
   uint8 constant private CHECK_ESEND = 3;
-  string constant private ESEND_MESSAGE = &#39;Sender is not allowed to send the token&#39;;
+  string constant private ESEND_MESSAGE = 'Sender is not allowed to send the token';
 
   // @dev Check error reason: Receiver is not allowed to receive the token
   uint8 constant private CHECK_ERECV = 4;
-  string constant private ERECV_MESSAGE = &#39;Receiver is not allowed to receive the token&#39;;
+  string constant private ERECV_MESSAGE = 'Receiver is not allowed to receive the token';
 
   /// @dev Permission bits for allowing a participant to send tokens
   uint8 constant private PERM_SEND = 0x1;
@@ -208,10 +208,10 @@ contract RegulatorService is RegulatorServiceI, Ownable {
   ///      which returns the permission bits of a participant for a particular token.
   mapping(address => mapping(address => uint8)) private participants;
 
-  /// @dev Event raised when a token&#39;s locked setting is set
+  /// @dev Event raised when a token's locked setting is set
   event LogLockSet(address indexed token, bool locked);
 
-  /// @dev Event raised when a token&#39;s partial transfer setting is set
+  /// @dev Event raised when a token's partial transfer setting is set
   event LogPartialTransferSet(address indexed token, bool enabled);
 
   /// @dev Event raised when a participant permissions are set for a token
@@ -227,7 +227,7 @@ contract RegulatorService is RegulatorServiceI, Ownable {
   /**
    * @notice Locks the ability to trade a token
    *
-   * @dev    This method can only be called by this contract&#39;s owner
+   * @dev    This method can only be called by this contract's owner
    *
    * @param  _token The address of the token to lock
    */
@@ -240,7 +240,7 @@ contract RegulatorService is RegulatorServiceI, Ownable {
   /**
    * @notice Allows the ability to trade a fraction of a token
    *
-   * @dev    This method can only be called by this contract&#39;s owner
+   * @dev    This method can only be called by this contract's owner
    *
    * @param  _token The address of the token to allow partial transfers
    */
@@ -254,8 +254,8 @@ contract RegulatorService is RegulatorServiceI, Ownable {
    * @notice Sets the trade permissions for a participant on a token
    *
    * @dev    The `_permission` bits overwrite the previous trade permissions and can
-   *         only be called by the contract&#39;s owner.  `_permissions` can be bitwise
-   *         `|`&#39;d together to allow for more than one permission bit to be set.
+   *         only be called by the contract's owner.  `_permissions` can be bitwise
+   *         `|`'d together to allow for more than one permission bit to be set.
    *
    * @param  _token The address of the token
    * @param  _participant The address of the trade participant

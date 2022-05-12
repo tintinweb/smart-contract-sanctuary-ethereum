@@ -14,7 +14,7 @@ contract ERC165Interface {
 
 contract ERC165 is ERC165Interface {
     /**
-     * @dev a mapping of interface id to whether or not it&#39;s supported
+     * @dev a mapping of interface id to whether or not it's supported
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -136,7 +136,7 @@ contract ERC721Basic is ERC165 {
 
     /**
      * @notice Enable or disable approval for a third party ("operator") to manage
-     *  all of `msg.sender`&#39;s assets
+     *  all of `msg.sender`'s assets
      * @dev Emits the ApprovalForAll event. The contract MUST allow
      *  multiple operators per owner.
      * @param _operator Address to add to the set of authorized operators
@@ -240,8 +240,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -260,7 +260,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -322,7 +322,7 @@ contract AuctionBase is ERC721Holder {
     // The amount owner takes from the sale, (in basis points, which are 1/100 of a percent).
     uint256 public ownerCut;
 
-    // Maps token ID to it&#39;s corresponding auction.
+    // Maps token ID to it's corresponding auction.
     mapping (uint256 => Auction) tokenIdToAuction;
 
     event AuctionCreated(uint256 tokenId, uint256 price);
@@ -463,7 +463,7 @@ contract AuctionBase is ERC721Holder {
     }
 
     /**
-     * @dev Computes the owner&#39;s receiving amount from the sale.
+     * @dev Computes the owner's receiving amount from the sale.
      * @param _price Sale price of the NFT.
      */
     function _computeCut(uint256 _price) internal view returns (uint256) {
@@ -542,7 +542,7 @@ contract Auction is Pausable, AuctionBase {
 
     /**
      * @dev Creates and begins a new auction.
-     * @param _tokenId ID of the token to creat an auction, caller must be it&#39;s owner.
+     * @param _tokenId ID of the token to creat an auction, caller must be it's owner.
      * @param _price Price of the token (in wei).
      * @param _seller Seller of this token.
      */
@@ -582,14 +582,14 @@ contract Auction is Pausable, AuctionBase {
     /**
      * @dev Cancels an auction and returns the NFT to the current owner.
      * @param _tokenId ID of the token on auction to cancel.
-     * @param _seller The seller&#39;s address.
+     * @param _seller The seller's address.
      */
     function cancelAuction(uint256 _tokenId, address _seller)
         external
     {
         // Requires that this function should only be called from the
         // `cancelSaleAuction()` of NFT ownership contract. This function gets
-        // the _seller directly from it&#39;s arguments, so if this check doesn&#39;t
+        // the _seller directly from it's arguments, so if this check doesn't
         // exist, then anyone can cancel the auction! OMG!
         require(msg.sender == address(nonFungibleContract));
         Auction storage auction = tokenIdToAuction[_tokenId];
@@ -683,7 +683,7 @@ contract SaleAuction is Auction {
 
     /**
      * @dev Creates and begins a new auction.
-     * @param _tokenId ID of token to auction, sender must be it&#39;s owner.
+     * @param _tokenId ID of token to auction, sender must be it's owner.
      * @param _price Price of the token (in wei).
      * @param _seller Seller of this token.
      */
@@ -717,9 +717,9 @@ contract SaleAuction is Auction {
         uint256 price = _bid(_tokenId, msg.value);
         _transfer(msg.sender, _tokenId);
 
-        // If the last sale was not Generation 0 Kydy&#39;s, the lastSalePrice doesn&#39;t change.
+        // If the last sale was not Generation 0 Kydy's, the lastSalePrice doesn't change.
         if (seller == address(nonFungibleContract)) {
-            // Tracks gen0&#39;s latest sale prices.
+            // Tracks gen0's latest sale prices.
             lastGen0SalePrices[gen0SaleCount % 5] = price;
             gen0SaleCount++;
         }

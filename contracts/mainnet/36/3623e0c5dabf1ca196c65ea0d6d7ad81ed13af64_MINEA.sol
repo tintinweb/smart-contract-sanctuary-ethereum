@@ -1,8 +1,8 @@
 pragma solidity ^0.4.19;
 
 contract MINEA {
-    string public name = &#39;MINEA&#39;;
-    string public symbol = &#39;MINEA&#39;;
+    string public name = 'MINEA';
+    string public symbol = 'MINEA';
     uint8 public decimals = 18;
     uint public totalSupply = 10000000000000000000000000;
     uint public minted = totalSupply / 5;

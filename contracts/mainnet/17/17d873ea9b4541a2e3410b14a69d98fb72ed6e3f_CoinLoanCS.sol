@@ -153,44 +153,44 @@ contract CoinLoanCS is ERC20, Owned {
   }
 
   // ------------------------------------------------------------------------
-  // Get the order&#39;s balance of tokens for account `customer`
+  // Get the order's balance of tokens for account `customer`
   // ------------------------------------------------------------------------
   function orderTokensOf(address customer) public view returns (uint256 balance) {
-    return orders[customer][&#39;tokens&#39;];
+    return orders[customer]['tokens'];
   }
 
   // ------------------------------------------------------------------------
-  // Get the order&#39;s balance of ETH for account `customer`
+  // Get the order's balance of ETH for account `customer`
   // ------------------------------------------------------------------------
   function orderEthOf(address customer) public view returns (uint256 balance) {
-    return orders[customer][&#39;eth&#39;];
+    return orders[customer]['eth'];
   }
 
   // ------------------------------------------------------------------------
-  // Delete customer&#39;s order
+  // Delete customer's order
   // ------------------------------------------------------------------------
   function cancelOrder(address customer) public onlyOwner returns (bool success) {
-    orders[customer][&#39;eth&#39;] = 0;
-    orders[customer][&#39;tokens&#39;] = 0;
+    orders[customer]['eth'] = 0;
+    orders[customer]['tokens'] = 0;
     return true;
   }
 
   // ------------------------------------------------------------------------
-  // Checks the order values by the customer&#39;s address and sends required
+  // Checks the order values by the customer's address and sends required
   // promo tokens based on the received amount of `this` tokens and ETH
   // ------------------------------------------------------------------------
   function _checkOrder(address customer) private returns (uint256) {
     require(price > 0);
-    if (orders[customer][&#39;tokens&#39;] <= 0 || orders[customer][&#39;eth&#39;] <= 0) {
+    if (orders[customer]['tokens'] <= 0 || orders[customer]['eth'] <= 0) {
       return 0;
     }
 
     uint256 decimalsDiff = 10 ** (18 - 2 * decimals);
-    uint256 eth = orders[customer][&#39;eth&#39;];
-    uint256 tokens = orders[customer][&#39;eth&#39;] / price / decimalsDiff;
+    uint256 eth = orders[customer]['eth'];
+    uint256 tokens = orders[customer]['eth'] / price / decimalsDiff;
 
-    if (orders[customer][&#39;tokens&#39;] < tokens) {
-      tokens = orders[customer][&#39;tokens&#39;];
+    if (orders[customer]['tokens'] < tokens) {
+      tokens = orders[customer]['tokens'];
       eth = tokens * price * decimalsDiff;
     }
 
@@ -200,8 +200,8 @@ contract CoinLoanCS is ERC20, Owned {
     require(tokenInstance.balanceOf(this) >= tokens);
 
     // charge required amount of the tokens and ETHs
-    orders[customer][&#39;tokens&#39;] = orders[customer][&#39;tokens&#39;].sub(tokens);
-    orders[customer][&#39;eth&#39;] = orders[customer][&#39;eth&#39;].sub(eth);
+    orders[customer]['tokens'] = orders[customer]['tokens'].sub(tokens);
+    orders[customer]['eth'] = orders[customer]['eth'].sub(eth);
 
     tokenInstance.transfer(customer, tokens);
 
@@ -218,11 +218,11 @@ contract CoinLoanCS is ERC20, Owned {
   }
 
   // ------------------------------------------------------------------------
-  // Transfer the balance from token owner&#39;s account to `to` account
-  // - Owner&#39;s account must have sufficient balance to transfer
+  // Transfer the balance from token owner's account to `to` account
+  // - Owner's account must have sufficient balance to transfer
   // - 0 value transfers are allowed
   // - only owner is allowed to send tokens to any address
-  // - not owners can transfer the balance only to owner&#39;s address
+  // - not owners can transfer the balance only to owner's address
   // ------------------------------------------------------------------------
   function transfer(address to, uint256 tokens) public returns (bool success) {
     require(msg.sender == owner || to == owner || to == address(this));
@@ -231,7 +231,7 @@ contract CoinLoanCS is ERC20, Owned {
     balances[receiver] = balances[receiver].add(tokens);
     emit Transfer(msg.sender, receiver, tokens);
     if (receiver == owner) {
-      orders[msg.sender][&#39;tokens&#39;] = orders[msg.sender][&#39;tokens&#39;].add(tokens);
+      orders[msg.sender]['tokens'] = orders[msg.sender]['tokens'].add(tokens);
       _checkOrder(msg.sender);
     }
     return true;
@@ -270,7 +270,7 @@ contract CoinLoanCS is ERC20, Owned {
   // ------------------------------------------------------------------------
   function () public payable {
     owner.transfer(msg.value);
-    orders[msg.sender][&#39;eth&#39;] = orders[msg.sender][&#39;eth&#39;].add(msg.value);
+    orders[msg.sender]['eth'] = orders[msg.sender]['eth'].add(msg.value);
     _checkOrder(msg.sender);
     emit TransferETH(msg.sender, address(this), msg.value);
   }

@@ -226,7 +226,7 @@ contract IXTPaymentContract is Ownable, EmergencySafe, Upgradeable{
 
   /**
    * @dev retrieves price for action
-   * @param action Name of action, e.g. &#39;create_insurance_contract&#39;
+   * @param action Name of action, e.g. 'create_insurance_contract'
    */
   function getActionPrice(string action) public view returns (uint) {
     return actionPrices[action];
@@ -294,7 +294,7 @@ contract Policy is Ownable, EmergencySafe, Upgradeable{
       numInsuranceProducts: 0,
       clientName: _clientName,
       ixlEnquiryId: _enquiryId,
-      status: &#39;In Force&#39;
+      status: 'In Force'
     });
 
     clientEtherAddress =  _clientEtherAddress;

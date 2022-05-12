@@ -31,37 +31,37 @@ contract ERC721Basic is ERC165 {
   bytes4 internal constant InterfaceId_ERC721 = 0x80ac58cd;
   /*
    * 0x80ac58cd ===
-   *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-   *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-   *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('balanceOf(address)')) ^
+   *   bytes4(keccak256('ownerOf(uint256)')) ^
+   *   bytes4(keccak256('approve(address,uint256)')) ^
+   *   bytes4(keccak256('getApproved(uint256)')) ^
+   *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+   *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+   *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
    */
 
   bytes4 internal constant InterfaceId_ERC721Exists = 0x4f558e79;
   /*
    * 0x4f558e79 ===
-   *   bytes4(keccak256(&#39;exists(uint256)&#39;))
+   *   bytes4(keccak256('exists(uint256)'))
    */
 
   bytes4 internal constant InterfaceId_ERC721Enumerable = 0x780e9d63;
   /**
    * 0x780e9d63 ===
-   *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+   *   bytes4(keccak256('totalSupply()')) ^
+   *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+   *   bytes4(keccak256('tokenByIndex(uint256)'))
    */
 
   bytes4 internal constant InterfaceId_ERC721Metadata = 0x5b5e139f;
   /**
    * 0x5b5e139f ===
-   *   bytes4(keccak256(&#39;name()&#39;)) ^
-   *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+   *   bytes4(keccak256('name()')) ^
+   *   bytes4(keccak256('symbol()')) ^
+   *   bytes4(keccak256('tokenURI(uint256)'))
    */
 
   event Transfer(
@@ -193,8 +193,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -211,7 +211,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -274,11 +274,11 @@ contract SupportsInterfaceWithLookup is ERC165 {
   bytes4 public constant InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) internal supportedInterfaces;
 
@@ -1117,7 +1117,7 @@ contract Registrar {
 
             // Set new winner
             // Per the rules of a vickery auction, the value becomes the previous highestBid
-            h.value = h.highestBid;  // will be zero if there&#39;s only 1 bidder
+            h.value = h.highestBid;  // will be zero if there's only 1 bidder
             h.highestBid = value;
             h.deed = bid;
             BidRevealed(_hash, msg.sender, value, 2);
@@ -1127,7 +1127,7 @@ contract Registrar {
             bid.closeDeed(995);
             BidRevealed(_hash, msg.sender, value, 3);
         } else {
-            // Bid doesn&#39;t affect auction
+            // Bid doesn't affect auction
             bid.closeDeed(995);
             BidRevealed(_hash, msg.sender, value, 4);
         }
@@ -1164,7 +1164,7 @@ contract Registrar {
     function finalizeAuction(bytes32 _hash) public onlyOwner(_hash) {
         Entry storage h = _entries[_hash];
         
-        // Handles the case when there&#39;s only a single bidder (h.value is zero)
+        // Handles the case when there's only a single bidder (h.value is zero)
         h.value =  max(h.value, minPrice);
         h.deed.setBalance(h.value, true);
 
@@ -1187,7 +1187,7 @@ contract Registrar {
     }
 
     /**
-     * @dev After some time, or if we&#39;re no longer the registrar, the owner can release
+     * @dev After some time, or if we're no longer the registrar, the owner can release
      *      the name and get their ether back.
      *
      * @param _hash The node to release
@@ -1242,13 +1242,13 @@ contract Registrar {
 
     /**
      * @dev Allows anyone to delete the owner and resolver records for a (subdomain of) a
-     *      name that is not currently owned in the registrar. If passing, eg, &#39;foo.bar.eth&#39;,
-     *      the owner and resolver fields on &#39;foo.bar.eth&#39; and &#39;bar.eth&#39; will all be cleared.
+     *      name that is not currently owned in the registrar. If passing, eg, 'foo.bar.eth',
+     *      the owner and resolver fields on 'foo.bar.eth' and 'bar.eth' will all be cleared.
      *
      * @param labels A series of label hashes identifying the name to zero out, rooted at the
-     *        registrar&#39;s root. Must contain at least one element. For instance, to zero 
-     *        &#39;foo.bar.eth&#39; on a registrar that owns &#39;.eth&#39;, pass an array containing
-     *        [keccak256(&#39;foo&#39;), keccak256(&#39;bar&#39;)].
+     *        registrar's root. Must contain at least one element. For instance, to zero 
+     *        'foo.bar.eth' on a registrar that owns '.eth', pass an array containing
+     *        [keccak256('foo'), keccak256('bar')].
      */
     function eraseNode(bytes32[] labels) public {
         require(labels.length != 0);
@@ -1291,7 +1291,7 @@ contract Registrar {
      * @param registrationDate The date at which the name was originally registered.
      */
     function acceptRegistrarTransfer(bytes32 hash, Deed deed, uint registrationDate) public {
-        hash; deed; registrationDate; // Don&#39;t warn about unused variables
+        hash; deed; registrationDate; // Don't warn about unused variables
     }
 
     // State transitions for names:
@@ -1388,7 +1388,7 @@ contract Registrar {
     }
 
     /**
-     * @dev Assign the owner in ENS, if we&#39;re still the registrar
+     * @dev Assign the owner in ENS, if we're still the registrar
      *
      * @param _hash hash to change owner
      * @param _newOwner new owner to transfer to
@@ -1433,7 +1433,7 @@ contract Registrar {
      * @return The length of the input string
      */
     function strlen(string s) internal pure returns (uint) {
-        s; // Don&#39;t warn about unused variables
+        s; // Don't warn about unused variables
         // Starting here means the LSB will be the byte we care about
         uint ptr;
         uint end;

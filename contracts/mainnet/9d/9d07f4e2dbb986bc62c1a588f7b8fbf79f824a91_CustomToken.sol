@@ -67,8 +67,8 @@ contract BurnToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken {
     function CustomToken() public {
         totalSupply = 800000000000000000000000000;
-        name = &#39;RealEstate&#39;;
-        symbol = &#39;recoin&#39;;
+        name = 'RealEstate';
+        symbol = 'recoin';
         decimals = 18;
         balanceOf[0x57cad6a4c83286406fd0fc9218931b3b83853e65] = totalSupply;
         Transfer(address(0), 0x57cad6a4c83286406fd0fc9218931b3b83853e65, totalSupply);

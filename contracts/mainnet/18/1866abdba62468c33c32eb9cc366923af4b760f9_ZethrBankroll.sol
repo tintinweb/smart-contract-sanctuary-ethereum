@@ -16,9 +16,9 @@ pragma solidity ^0.4.23;
 .------..------.     .------..------..------.     .------..------..------..------..------.
 |B.--. ||E.--. |.-.  |T.--. ||H.--. ||E.--. |.-.  |H.--. ||O.--. ||U.--. ||S.--. ||E.--. |
 | :(): || (\/) (( )) | :/\: || :/\: || (\/) (( )) | :/\: || :/\: || (\/) || :/\: || (\/) |
-| ()() || :\/: |&#39;-.-.| (__) || (__) || :\/: |&#39;-.-.| (__) || :\/: || :\/: || :\/: || :\/: |
-| &#39;--&#39;B|| &#39;--&#39;E| (( )) &#39;--&#39;T|| &#39;--&#39;H|| &#39;--&#39;E| (( )) &#39;--&#39;H|| &#39;--&#39;O|| &#39;--&#39;U|| &#39;--&#39;S|| &#39;--&#39;E|
-`------&#39;`------&#39;  &#39;-&#39;`------&#39;`------&#39;`------&#39;  &#39;-&#39;`------&#39;`------&#39;`------&#39;`------&#39;`------&#39;
+| ()() || :\/: |'-.-.| (__) || (__) || :\/: |'-.-.| (__) || :\/: || :\/: || :\/: || :\/: |
+| '--'B|| '--'E| (( )) '--'T|| '--'H|| '--'E| (( )) '--'H|| '--'O|| '--'U|| '--'S|| '--'E|
+`------'`------'  '-'`------'`------'`------'  '-'`------'`------'`------'`------'`------'
 
 An interactive, variable-dividend rate contract with an ICO-capped price floor and collectibles.
 
@@ -581,7 +581,7 @@ contract ZethrBankroll is ERC223Receiving {
         emit DevWithdraw(amount, amountPerPerson);
     }
 
-    // Change the dividend card address. Can&#39;t see why this would ever need
+    // Change the dividend card address. Can't see why this would ever need
     // to be invoked, but better safe than sorry.
     function changeDivCardAddress(address _newDivCardAddress)
         public
@@ -658,7 +658,7 @@ contract ZethrBankroll is ERC223Receiving {
         // Check the token allocation of the target tokenBankroll
         uint allocated = tokenBankrollAllocation[targetBankroll];
 
-        // If the target tokenBankroll doesn&#39;t have enough tokens, send it ETH so it can buy in
+        // If the target tokenBankroll doesn't have enough tokens, send it ETH so it can buy in
         if (balance < allocated){
             // Calculate how much eth it needs to buy in
             uint toSend = ZTHTKN.tokensToEthereum_(allocated - balance);
@@ -687,7 +687,7 @@ contract ZethrBankroll is ERC223Receiving {
     // Transfer tokens from all tokenBankrolls to the master staking contract
     // Also record how many were transferred
     function collectStakingBonusTokens() isAnOwner public {
-      // Stake address can&#39;t be 0, dumbass
+      // Stake address can't be 0, dumbass
       require(stakeAddress != address(0x0));
 
       // Reset staking bonus counter
@@ -796,10 +796,10 @@ contract ZethrBankroll is ERC223Receiving {
         // Loop over the games list to find the index to remove  
         for (uint i=0; i < games.length; i++) {
           if (games[i] == ctr) {
-            // If we&#39;ve found the game, null it out
+            // If we've found the game, null it out
             games[i] = address(0x0);
 
-            // And if it&#39;s not at the end, swap the last element to this position
+            // And if it's not at the end, swap the last element to this position
             if (i != games.length) {
               games[i] = games[games.length]; 
             }
@@ -850,7 +850,7 @@ contract ZethrBankroll is ERC223Receiving {
         isOwnerOrWhitelistedGame
         public
     {
-        // Sanity check - can&#39;t go negative
+        // Sanity check - can't go negative
         if (amount < 0) {
           require(int(tokenBankrollAllocation[what]) + amount >= 0);
         }
@@ -865,14 +865,14 @@ contract ZethrBankroll is ERC223Receiving {
 
     // Convert an hexadecimal character to their value
     function fromHexChar(uint c) public pure returns (uint) {
-        if (byte(c) >= byte(&#39;0&#39;) && byte(c) <= byte(&#39;9&#39;)) {
-            return c - uint(byte(&#39;0&#39;));
+        if (byte(c) >= byte('0') && byte(c) <= byte('9')) {
+            return c - uint(byte('0'));
         }
-        if (byte(c) >= byte(&#39;a&#39;) && byte(c) <= byte(&#39;f&#39;)) {
-            return 10 + c - uint(byte(&#39;a&#39;));
+        if (byte(c) >= byte('a') && byte(c) <= byte('f')) {
+            return 10 + c - uint(byte('a'));
         }
-        if (byte(c) >= byte(&#39;A&#39;) && byte(c) <= byte(&#39;F&#39;)) {
-            return 10 + c - uint(byte(&#39;A&#39;));
+        if (byte(c) >= byte('A') && byte(c) <= byte('F')) {
+            return 10 + c - uint(byte('A'));
         }
     }
 
@@ -913,7 +913,7 @@ library SafeMath {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

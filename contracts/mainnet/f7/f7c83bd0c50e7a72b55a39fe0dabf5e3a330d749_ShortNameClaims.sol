@@ -429,7 +429,7 @@ library Buffer {
             let buflen := mload(bufptr)
             // Start address = buffer address + offset + sizeof(buffer length)
             dest := add(add(bufptr, 32), off)
-            // Update buffer length if we&#39;re extending it
+            // Update buffer length if we're extending it
             if gt(add(len, off), buflen) {
                 mstore(bufptr, add(len, off))
             }
@@ -734,7 +734,7 @@ library BytesUtils {
     }
 
     /*
-    * @dev Compares a range of &#39;self&#39; to all of &#39;other&#39; and returns True iff
+    * @dev Compares a range of 'self' to all of 'other' and returns True iff
     *      they are equal.
     * @param self The first byte range to compare.
     * @param offset The offset into the first byte range.
@@ -876,7 +876,7 @@ library BytesUtils {
 
     // Maps characters from 0x30 to 0x7A to their base32 values.
     // 0xFF represents invalid characters in that range.
-    bytes constant base32HexTable = hex&#39;00010203040506070809FFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1FFFFFFFFFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1F&#39;;
+    bytes constant base32HexTable = hex'00010203040506070809FFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1FFFFFFFFFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1F';
 
     /**
      * @dev Decodes unpadded base32 data of up to one word in length.
@@ -953,7 +953,7 @@ library Roles {
     }
 
     /**
-     * @dev remove an account&#39;s access to this role
+     * @dev remove an account's access to this role
      */
     function remove(Role storage role, address account) internal {
         require(account != address(0));
@@ -994,7 +994,7 @@ pragma solidity ^0.5.0;
  *      Claims may be submitted by calling `submitExactClaim`,
  *      `submitCombinedClaim` or `submitPrefixClaim` as appropriate.
  *
- *      Claims require lodging a deposit equivalent to 365 days&#39; registration of
+ *      Claims require lodging a deposit equivalent to 365 days' registration of
  *      the name. If the claim is approved, this deposit is spent, and the name
  *      is registered for the claimant for 365 days. If the claim is declined,
  *      the deposit will be returned.
@@ -1085,8 +1085,8 @@ contract ShortNameClaims {
     /**
      * @dev Computes the claim ID for a submitted claim, so it can be looked up
      *      using `claims`.
-     * @param claimed The name being claimed (eg, &#39;foo&#39;)
-     * @param dnsname The DNS-encoded name supporting the claim (eg, &#39;foo.test&#39;)
+     * @param claimed The name being claimed (eg, 'foo')
+     * @param dnsname The DNS-encoded name supporting the claim (eg, 'foo.test')
      * @param claimant The address making the claim.
      * @return The claim ID.
      */
@@ -1105,7 +1105,7 @@ contract ShortNameClaims {
 
     /**
      * @dev Submits a claim for an exact match (eg, foo.test -> foo.eth).
-     *      Claimants must provide an amount of ether equal to 365 days&#39;
+     *      Claimants must provide an amount of ether equal to 365 days'
      *      registration cost; call `getClaimCost` to determine this amount.
      *      Claimants should supply a little extra in case of variation in price;
      *      any excess will be returned to the sender.
@@ -1121,7 +1121,7 @@ contract ShortNameClaims {
 
     /**
      * @dev Submits a claim for match on name+tld (eg, foo.tv -> footv).
-     *      Claimants must provide an amount of ether equal to 365 days&#39;
+     *      Claimants must provide an amount of ether equal to 365 days'
      *      registration cost; call `getClaimCost` to determine this amount.
      *      Claimants should supply a little extra in case of variation in price;
      *      any excess will be returned to the sender.
@@ -1143,7 +1143,7 @@ contract ShortNameClaims {
 
     /**
      * @dev Submits a claim for prefix match (eg, fooeth.test -> foo.eth).
-     *      Claimants must provide an amount of ether equal to 365 days&#39;
+     *      Claimants must provide an amount of ether equal to 365 days'
      *      registration cost; call `getClaimCost` to determine this amount.
      *      Claimants should supply a little extra in case of variation in price;
      *      any excess will be returned to the sender.
@@ -1172,7 +1172,7 @@ contract ShortNameClaims {
      *      them to be acted on.
      */
     function ratifyClaims() external onlyRatifier inPhase(Phase.REVIEW) {
-        // Can&#39;t ratify until all claims have a resolution.
+        // Can't ratify until all claims have a resolution.
         require(pendingClaims == 0);
         phase = Phase.FINAL;
     }
@@ -1322,7 +1322,7 @@ contract ShortNameClaims {
         }
 
         // Read the label we care about
-        if(offset >= name.length) return &#39;&#39;;
+        if(offset >= name.length) return '';
         uint len = name.readUint8(offset);
         return string(name.substring(offset + 1, len));
     }

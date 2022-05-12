@@ -211,7 +211,7 @@ contract IXTPaymentContract is Ownable, EmergencySafe, Upgradeable{
 
   /**
    * @dev retrieves price for action
-   * @param action Name of action, e.g. &#39;create_insurance_contract&#39;
+   * @param action Name of action, e.g. 'create_insurance_contract'
    */
   function getActionPrice(string action) public view returns (uint) {
     return actionPrices[action];

@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -134,8 +134,8 @@ contract owned {
 }
 
 contract IonicCoin is StandardToken, owned {
-	string public constant name = &#39;IonicCoin&#39;;
-	string public constant symbol = &#39;INC&#39;;
+	string public constant name = 'IonicCoin';
+	string public constant symbol = 'INC';
 	uint public constant decimals = 18;
 	uint private constant INITIAL_SUPPLY =  50000000 * (10 ** uint256(decimals));
   uint private constant RESERVE =  20000000 * (10 ** uint256(decimals)); 
@@ -244,7 +244,7 @@ contract IonicCoin is StandardToken, owned {
       require(msg.value >= ((1 ether / 1 wei) / 10));
       require(balances[owner] >= amount * sellPrice);      // checks if the contract has enough ether to buy
       transferFrom(msg.sender, owner, amount);           // makes the transfers
-      msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+      msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     
     }
     

@@ -170,7 +170,7 @@ contract DragonBallZ {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -195,7 +195,7 @@ contract DragonBallZ {
 		return winners;
     }
 
-    // This function will return only the winner&#39;s hero id
+    // This function will return only the winner's hero id
     function getWinnerDetails(uint _winnerId) public view returns(uint256) {
         return(winners[_winnerId]);
     }
@@ -219,7 +219,7 @@ contract DragonBallZ {
                  winner.transfer(TotalPrize20PercentShare);			       
 			    }
 			    
-			    // Reset the winner&#39;s address after payout for next loop
+			    // Reset the winner's address after payout for next loop
 			    winner = address(0);
 			}
     }

@@ -314,13 +314,13 @@ contract Bonuses {
         bonusInited = true;
         bytes32 preset = keccak256(_preset);
 
-        if(preset == keccak256(&#39;privatesale&#39;)){
+        if(preset == keccak256('privatesale')){
             bonusOfDay[0] = 313;
         } else
-            if(preset == keccak256(&#39;presale&#39;)){
+            if(preset == keccak256('presale')){
                 bonusOfDay[0] = 210;
             } else
-                if(preset == keccak256(&#39;generalsale&#39;)){
+                if(preset == keccak256('generalsale')){
                     bonusOfDay[0] = 60;
                     bonusOfDay[7] = 38;
                     bonusOfDay[14] = 10;
@@ -551,7 +551,7 @@ contract DoubleLandICOtest is Ownable {
         token.init();
 
         createSale({
-            _bonusPreset: &#39;privatesale&#39;,
+            _bonusPreset: 'privatesale',
             // TODO need remove
             _startTime: 1522342800, // 29.03.2018
             // _startTime: 1523318400, // 2018-04-10
@@ -564,7 +564,7 @@ contract DoubleLandICOtest is Ownable {
         activateLastSale();
 
         createSale({
-            _bonusPreset: &#39;presale&#39;,
+            _bonusPreset: 'presale',
             _startTime: 1525910400, // 2018-05-10
             _endTime:   1527206400, // 2018-05-25
             _tokensLimit: 75000000 * 1 ether,

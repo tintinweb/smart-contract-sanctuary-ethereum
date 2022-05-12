@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -501,7 +501,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -697,7 +697,7 @@ contract Gold is StandardToken, Claimable, AccessMint {
 
 /**
  * @title CryptoSaga Card
- * @dev ERC721 Token that repesents CryptoSaga&#39;s cards.
+ * @dev ERC721 Token that repesents CryptoSaga's cards.
  *  Buy consuming a card, players of CryptoSaga can get a heroe.
  */
 contract CryptoSagaCard is ERC721Token, Claimable, AccessMint {
@@ -840,10 +840,10 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
   }
     
   struct HeroInstance {
-    // What is this hero&#39;s type? ex) John, Sally, Mark...
+    // What is this hero's type? ex) John, Sally, Mark...
     uint32 heroClassId;
     
-    // Individual hero&#39;s name.
+    // Individual hero's name.
     string heroName;
     
     // Current level of this hero.
@@ -859,7 +859,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     // Current stats of this hero. 
     // 0: ATK	1: DEF 2: AGL	3: LUK 4: HP.
     uint32[5] currentStats;
-    // The individual value for this hero&#39;s stats. 
+    // The individual value for this hero's stats. 
     // This will affect the current stats of heroes.
     // 0: ATK	1: DEF 2: AGL	3: LUK 4: HP.
     uint32[5] ivForStats;
@@ -915,7 +915,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     uint256 _duration
   );
 
-  // @dev Get the class&#39;s entire infomation.
+  // @dev Get the class's entire infomation.
   function getClassInfo(uint32 _classId)
     external view
     returns (string className, uint8 classRank, uint8 classRace, uint32 classAge, uint8 classType, uint32 maxLevel, uint8 aura, uint32[5] baseStats, uint32[5] minIVs, uint32[5] maxIVs) 
@@ -924,7 +924,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return (_cl.className, _cl.classRank, _cl.classRace, _cl.classAge, _cl.classType, _cl.maxLevel, _cl.aura, _cl.baseStats, _cl.minIVForStats, _cl.maxIVForStats);
   }
 
-  // @dev Get the class&#39;s name.
+  // @dev Get the class's name.
   function getClassName(uint32 _classId)
     external view
     returns (string)
@@ -932,7 +932,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return heroClasses[_classId].className;
   }
 
-  // @dev Get the class&#39;s rank.
+  // @dev Get the class's rank.
   function getClassRank(uint32 _classId)
     external view
     returns (uint8)
@@ -948,7 +948,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return heroClasses[_classId].currentNumberOfInstancedHeroes;
   }
 
-  // @dev Get the hero&#39;s entire infomation.
+  // @dev Get the hero's entire infomation.
   function getHeroInfo(uint256 _tokenId)
     external view
     returns (uint32 classId, string heroName, uint32 currentLevel, uint32 currentExp, uint32 lastLocationId, uint256 availableAt, uint32[5] currentStats, uint32[5] ivs, uint32 bp)
@@ -958,7 +958,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return (_h.heroClassId, _h.heroName, _h.currentLevel, _h.currentExp, _h.lastLocationId, _h.availableAt, _h.currentStats, _h.ivForStats, _bp);
   }
 
-  // @dev Get the hero&#39;s class id.
+  // @dev Get the hero's class id.
   function getHeroClassId(uint256 _tokenId)
     external view
     returns (uint32)
@@ -966,7 +966,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return tokenIdToHeroInstance[_tokenId].heroClassId;
   }
 
-  // @dev Get the hero&#39;s name.
+  // @dev Get the hero's name.
   function getHeroName(uint256 _tokenId)
     external view
     returns (string)
@@ -974,7 +974,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return tokenIdToHeroInstance[_tokenId].heroName;
   }
 
-  // @dev Get the hero&#39;s level.
+  // @dev Get the hero's level.
   function getHeroLevel(uint256 _tokenId)
     external view
     returns (uint32)
@@ -982,7 +982,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return tokenIdToHeroInstance[_tokenId].currentLevel;
   }
   
-  // @dev Get the hero&#39;s location.
+  // @dev Get the hero's location.
   function getHeroLocation(uint256 _tokenId)
     external view
     returns (uint32)
@@ -998,7 +998,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return tokenIdToHeroInstance[_tokenId].availableAt;
   }
 
-  // @dev Get the hero&#39;s BP.
+  // @dev Get the hero's BP.
   function getHeroBP(uint256 _tokenId)
     public view
     returns (uint32)
@@ -1007,7 +1007,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return (_tmp[0] + _tmp[1] + _tmp[2] + _tmp[3] + _tmp[4]);
   }
 
-  // @dev Get the hero&#39;s required gold for level up.
+  // @dev Get the hero's required gold for level up.
   function getHeroRequiredGoldForLevelUp(uint256 _tokenId)
     public view
     returns (uint256)
@@ -1015,7 +1015,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return (uint256(2) ** (tokenIdToHeroInstance[_tokenId].currentLevel / 10)) * requiredGoldIncreaseFactor;
   }
 
-  // @dev Get the hero&#39;s required exp for level up.
+  // @dev Get the hero's required exp for level up.
   function getHeroRequiredExpForLevelUp(uint256 _tokenId)
     public view
     returns (uint32)
@@ -1031,7 +1031,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return addressToGoldDeposit[_address];
   }
 
-  // @dev Get the token id of the player&#39;s #th token.
+  // @dev Get the token id of the player's #th token.
   function getTokenIdOfAddressAndIndex(address _address, uint256 _index)
     external view
     returns (uint256)
@@ -1052,7 +1052,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     return _totalBP;
   }
 
-  // @dev Set the hero&#39;s name.
+  // @dev Set the hero's name.
   function setHeroName(uint256 _tokenId, string _name)
     onlyOwnerOf(_tokenId)
     public
@@ -1146,7 +1146,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     require(_owner != address(0));
     require(_heroClassId < numberOfHeroClasses);
 
-    // The information of the hero&#39;s class.
+    // The information of the hero's class.
     var _heroClassInfo = heroClasses[_heroClassId];
 
     // Mint ERC721 token.
@@ -1221,7 +1221,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
 
     var _newExp = _heroInstance.currentExp + _exp;
 
-    // Sanity check to ensure we don&#39;t overflow.
+    // Sanity check to ensure we don't overflow.
     require(_newExp == uint256(uint128(_newExp)));
 
     _heroInstance.currentExp += _newExp;
@@ -1251,10 +1251,10 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
     // The character should be avaiable. (Should have already returned from the dungeons, arenas, etc.)
     require(_heroInstance.availableAt <= now);
 
-    // The information of the hero&#39;s class.
+    // The information of the hero's class.
     var _heroClassInfo = heroClasses[_heroInstance.heroClassId];
 
-    // Hero shouldn&#39;t level up exceed its max level.
+    // Hero shouldn't level up exceed its max level.
     require(_heroInstance.currentLevel < _heroClassInfo.maxLevel);
 
     // Required Exp.
@@ -1297,7 +1297,7 @@ contract CryptoSagaHero is ERC721Token, Claimable, Pausable, AccessMint, AccessD
   {
     require(goldContract.allowance(msg.sender, this) >= _amount);
 
-    // Send msg.sender&#39;s Gold to this contract.
+    // Send msg.sender's Gold to this contract.
     if (goldContract.transferFrom(msg.sender, this, _amount)) {
        // Increment deposit.
       addressToGoldDeposit[msg.sender] += _amount;
@@ -1347,7 +1347,7 @@ contract CryptoSagaCorrectedHeroStats {
     heroContract = CryptoSagaHero(_heroContractAddress);
   }
 
-  // @dev Get the hero&#39;s stats and some other infomation.
+  // @dev Get the hero's stats and some other infomation.
   function getCorrectedStats(uint256 _tokenId)
     external view
     returns (uint32 currentLevel, uint32 currentExp, uint32[5] currentStats, uint32[5] ivs, uint32 bp)
@@ -1447,7 +1447,7 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
   struct EnemyCombination {
     // Is non-default combintion?
     bool isPersonalized;
-    // Enemy slots&#39; class Id.
+    // Enemy slots' class Id.
     uint32[4] enemySlotClassIds;
   }
 
@@ -1456,11 +1456,11 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
     uint32 initialSeed;
     // The progress of the dugoeon when this play record made.
     uint32 progress;
-    // Hero&#39;s token ids.
+    // Hero's token ids.
     uint256[4] tokenIds;
-    // Unit&#39;s class ids. 0 ~ 3: Heroes. 4 ~ 7: Mobs.
+    // Unit's class ids. 0 ~ 3: Heroes. 4 ~ 7: Mobs.
     uint32[8] unitClassIds;
-    // Unit&#39;s levels. 0 ~ 3: Heroes. 4 ~ 7: Mobs.
+    // Unit's levels. 0 ~ 3: Heroes. 4 ~ 7: Mobs.
     uint32[8] unitLevels;
     // Exp reward given.
     uint32 expReward;
@@ -1469,7 +1469,7 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
   }
 
   // This information can be reconstructed with seed and dateTime.
-  // In order for the optimization this won&#39;t be really used.
+  // In order for the optimization this won't be really used.
   struct TurnInfo {
     // Number of turns before a team was vanquished.
     uint8 turnLength;
@@ -1479,7 +1479,7 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
     uint8[24] defenderList;
     // Damage list. (The damage given to the defender.)
     uint32[24] damageList;
-    // Heroes&#39; original Exps.
+    // Heroes' original Exps.
     uint32[4] originalExps;
   }
 
@@ -1526,20 +1526,20 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
   // The enemies in this dungeon for the player.
   mapping(address => EnemyCombination) public addressToEnemyCombination;
 
-  // Last game&#39;s play datetime.
+  // Last game's play datetime.
   mapping(address => uint256) public addressToPlayRecordDateTime;
 
-  // Last game&#39;s record of the player.
+  // Last game's record of the player.
   mapping(address => PlayRecord) public addressToPlayRecord;
 
-  // Additional information on last game&#39;s record of the player.
+  // Additional information on last game's record of the player.
   mapping(address => TurnInfo) public addressToTurnInfo;
 
   // List of the Mobs possibly appear in this dungeon.
   uint32[] public possibleMobClasses;
 
   // Initial enemy combination.
-  // This will be shown when there&#39;s no play record.
+  // This will be shown when there's no play record.
   EnemyCombination public initialEnemyCombination;
 
   // Random seed.
@@ -1562,7 +1562,7 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
     // Instead of null check, isPersonalized check will tell the personalized mobs for this player exist.
     var _enemyCombination = addressToEnemyCombination[_address];
     if (_enemyCombination.isPersonalized == false) {
-      // Then let&#39;s use default value.
+      // Then let's use default value.
       _enemyCombination = initialEnemyCombination;
     }
     return _enemyCombination.enemySlotClassIds;
@@ -1576,7 +1576,7 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
     return initialEnemyCombination.enemySlotClassIds;
   }
 
-  // @dev Get play record&#39;s datetime.
+  // @dev Get play record's datetime.
   function getLastPlayDateTime(address _address)
     external view
     returns (uint256 dateTime)
@@ -1720,7 +1720,7 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
     require(_tokenIds[2] == 0 || (_tokenIds[2] != _tokenIds[0] && _tokenIds[2] != _tokenIds[1] && _tokenIds[2] != _tokenIds[3]));
     require(_tokenIds[3] == 0 || (_tokenIds[3] != _tokenIds[0] && _tokenIds[3] != _tokenIds[1] && _tokenIds[3] != _tokenIds[2]));
 
-    // Check the previous dungeon&#39;s progress.
+    // Check the previous dungeon's progress.
     if (requiredProgressOfPreviousDungeon != 0) {
       require(progressContract.getProgressOfAddressAndId(msg.sender, previousDungeonId) >= requiredProgressOfPreviousDungeon);
     }
@@ -1728,7 +1728,7 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
     // 1 is the minimum prgress.
     require(_tryingProgress > 0);
 
-    // Only up to &#39;progress + 1&#39; is allowed.
+    // Only up to 'progress + 1' is allowed.
     require(_tryingProgress <= progressContract.getProgressOfAddressAndId(msg.sender, locationId) + 1);
 
     // Check dungeon availability.
@@ -1786,13 +1786,13 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
     // Instead of null check, isPersonalized check will tell the personalized mobs for this player exist.
     var _enemyCombination = addressToEnemyCombination[msg.sender];
     if (_enemyCombination.isPersonalized == false) {
-      // Then let&#39;s use default value.
+      // Then let's use default value.
       _enemyCombination = initialEnemyCombination;
     }
 
     uint32[5][8] memory _tmpEnemyBaseStatsAndIVs; // 0 ~ 3: Temp value for getting enemy base stats. 4 ~ 7: Temp value for getting enemy IVs.
 
-    // Retrieve mobs&#39; class information. 
+    // Retrieve mobs' class information. 
     (, , , , _unitTypesAuras[4][0], , _unitTypesAuras[4][1], _tmpEnemyBaseStatsAndIVs[0], _tmpEnemyBaseStatsAndIVs[4], ) = heroContract.getClassInfo(_enemyCombination.enemySlotClassIds[0]);
     (, , , , _unitTypesAuras[5][0], , _unitTypesAuras[5][1], _tmpEnemyBaseStatsAndIVs[1], _tmpEnemyBaseStatsAndIVs[5], ) = heroContract.getClassInfo(_enemyCombination.enemySlotClassIds[1]);
     (, , , , _unitTypesAuras[6][0], , _unitTypesAuras[6][1], _tmpEnemyBaseStatsAndIVs[2], _tmpEnemyBaseStatsAndIVs[6], ) = heroContract.getClassInfo(_enemyCombination.enemySlotClassIds[2]);
@@ -1819,7 +1819,7 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
 
     // Step 2. Run the battle logic.
     
-    // Firstly, we need to assign the unit&#39;s turn order with AGLs of the units.
+    // Firstly, we need to assign the unit's turn order with AGLs of the units.
     uint32[8] memory _unitAGLs;
     for (i = 0; i < 8; i ++) {
       _unitAGLs[i] = _unitStats[i][2];
@@ -1872,7 +1872,7 @@ contract CryptoSagaDungeonVer1 is Claimable, Pausable {
         // Target is the defender.
         _turnInfo.defenderList[i] = _targetSlotId;
         
-        // Base damage. (Attacker&#39;s ATK * 1.5 - Defender&#39;s DEF).
+        // Base damage. (Attacker's ATK * 1.5 - Defender's DEF).
         uint32 _damage = 10;
         if ((_unitStats[_slotId][0] * 150 / 100) > _unitStats[_targetSlotId][1])
           _damage = max((_unitStats[_slotId][0] * 150 / 100) - _unitStats[_targetSlotId][1], 10);

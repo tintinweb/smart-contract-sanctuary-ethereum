@@ -44,7 +44,7 @@ contract ExToke {
     uint256 public nextRelease = 0;
 
     function ExToke() public {
-        // Initially assign all tokens to the contract&#39;s creator.
+        // Initially assign all tokens to the contract's creator.
         balanceOf[tokenAdmin] = 1100000000 * (uint256(10) ** decimals);
         emit Transfer(address(0), msg.sender, totalSupply);
     }

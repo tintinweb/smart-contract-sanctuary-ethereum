@@ -3,8 +3,8 @@ pragma solidity ^0.4.18;
 //    88 88888888888 88888888888 88888888ba  88888888ba      88         ,d8  
 //    88 88          88          88      "8b 88      "8b   ,d88       ,d888  
 //    88 88          88          88      ,8P 88      ,8P 888888     ,d8" 88  
-//    88 88aaaaa     88aaaaa     88aaaaaa8P&#39; 88aaaaaa8P&#39;     88   ,d8"   88  
-//    88 88"""""     88"""""     88""""""8b, 88""""88&#39;       88 ,d8"     88  
+//    88 88aaaaa     88aaaaa     88aaaaaa8P' 88aaaaaa8P'     88   ,d8"   88  
+//    88 88"""""     88"""""     88""""""8b, 88""""88'       88 ,d8"     88  
 //    88 88          88          88      `8b 88    `8b       88 8888888888888
 //    88 88          88          88      a8P 88     `8b      88          88  
 //    88 88888888888 88          88888888P"  88      `8b     88          88  
@@ -33,7 +33,7 @@ contract IEFBR14Contract {
    }
 
    function Cancel() public{
-       // Let&#39;s make it possible to kill this contract
+       // Let's make it possible to kill this contract
        require(msg.sender == owner);
        selfdestruct(owner);
        S222(msg.sender);

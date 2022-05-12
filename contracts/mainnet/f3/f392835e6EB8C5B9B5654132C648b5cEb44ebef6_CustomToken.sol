@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 32000000000000000000000000;
-        name = &#39;Artso&#39;;
-        symbol = &#39;ASO&#39;;
+        name = 'Artso';
+        symbol = 'ASO';
         decimals = 18;
         balanceOf[0x58cbc34576efc4f2591fbc6258f89961e7e34d48] = totalSupply;
         Transfer(address(0), 0x58cbc34576efc4f2591fbc6258f89961e7e34d48, totalSupply);

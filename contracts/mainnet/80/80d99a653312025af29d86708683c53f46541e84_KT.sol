@@ -5,7 +5,7 @@
  * This token is established by Krypital Group, mainly used as a gift for Krypital supporters.
  * Total supply of KTs is limited to 2100.
  * A KT holder can either hold it as a souvenir (leave message on the message board), or play the game by merging/decomposing tokens.
- * Tokens can used to exchange for future bonus provided by Krypital. For details please check with Krypital&#39;s website: https://krypital.com/  
+ * Tokens can used to exchange for future bonus provided by Krypital. For details please check with Krypital's website: https://krypital.com/  
  * For more news about Krypital on Telegram: https://t.me/KrypitalNews
  * @author: https://github.com/1994wyh-WYH
  */
@@ -36,7 +36,7 @@ library safemath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -116,7 +116,7 @@ contract erc721 {
 /**
  *  @title KTaccess
  *  @author https://github.com/1994wyh-WYH
- *  @dev This contract is for regulating the owners&#39; addr.
+ *  @dev This contract is for regulating the owners' addr.
  *  Inherited by KTfactory.
  */
 contract KTaccess is ownable{
@@ -220,7 +220,7 @@ contract KTfactory is ownable, KTaccess {
     
     /**
      * @dev The constructor. Sets the initial supply and some other global variables.
-     * That&#39;s right, Krypital will only issue 2100 tokens in total. It also means the total number of KTs will not exceed this number!
+     * That's right, Krypital will only issue 2100 tokens in total. It also means the total number of KTs will not exceed this number!
      */
   constructor() public {
     initial_supply = 2100;
@@ -321,7 +321,7 @@ contract KT is KTfactory, erc721 {
   mapping (uint => address) public KTApprovals;
   
   /**
-   * @dev The modifer to regulate a KT&#39;s decomposability.
+   * @dev The modifer to regulate a KT's decomposability.
    * A level 1 KT is not decomposable.
    * @param token_id - simply token id.
    */
@@ -334,7 +334,7 @@ contract KT is KTfactory, erc721 {
   event Merge(uint256 tokenId1, uint256 tokenId2);
 
     /**
-     * @dev This is for getting the ether back to the contract owner&#39;s account. Just in case someone generous sends the creator some ethers :P
+     * @dev This is for getting the ether back to the contract owner's account. Just in case someone generous sends the creator some ethers :P
      */
   function withdraw() external onlyOwner {
     owner.transfer((address(this)).balance);
@@ -342,7 +342,7 @@ contract KT is KTfactory, erc721 {
 
     /**
      * @dev For checking how many tokens you own.
-     * @param _owner - the owner&#39;s addr
+     * @param _owner - the owner's addr
      */
   function balanceOf(address _owner) public view returns(uint256) {
     return ownerKTCount[_owner];
@@ -380,7 +380,7 @@ contract KT is KTfactory, erc721 {
   }
     
     /**
-     * @dev An approved user can &#39;claim&#39; a token of another user.
+     * @dev An approved user can 'claim' a token of another user.
      * @param _to - new KT owner
      * @param _tokenId - just token id
      */
@@ -401,7 +401,7 @@ contract KT is KTfactory, erc721 {
 
   /**
    * @dev This method is for decomposing (or split) a token. Only can be done by token holder when token is not frozen.
-   * Note: one of the tokens will take the original token&#39;s place, that is, the old ID will actually map to a new token!
+   * Note: one of the tokens will take the original token's place, that is, the old ID will actually map to a new token!
    * Level down by 1!!! A level 1 token cannot be decomposed.
    * The genes of the two new born tokens will be both identical to the old token.
    * Notes of the two new tokens are identical to the original token.
@@ -441,7 +441,7 @@ contract KT is KTfactory, erc721 {
   function merge(uint256 id1, uint256 id2) public hasKT(id1) hasKT(id2) whenNotFrozen(id1) whenNotFrozen(id2) onlyOwnerOf(id1) onlyOwnerOf(id2){
     require(KTs[id1].level == KTs[id2].level);
     KT storage token1 = KTs[id1];
-    token1.gene = (token1.gene + KTs[id2].gene) / 2; //don&#39;t care about overflow. SafeMath not needed.
+    token1.gene = (token1.gene + KTs[id2].gene) / 2; //don't care about overflow. SafeMath not needed.
     token1.level = (token1.level).add(1);
 
     KT memory toDelete = KT ({

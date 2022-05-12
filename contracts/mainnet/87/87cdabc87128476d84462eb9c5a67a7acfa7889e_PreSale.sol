@@ -47,8 +47,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -65,7 +65,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -157,7 +157,7 @@ contract Ownable {
  * @title Escrow
  * @dev Base escrow contract, holds funds destinated to a payee until they
  * withdraw them. The contract that uses the escrow as its payment method
- * should be its owner, and provide public methods redirecting to the escrow&#39;s
+ * should be its owner, and provide public methods redirecting to the escrow's
  * deposit and withdraw.
  */
 contract Escrow is Ownable {
@@ -275,7 +275,7 @@ contract RefundEscrow is Ownable, ConditionalEscrow {
   }
 
   /**
-   * @dev Withdraws the beneficiary&#39;s funds.
+   * @dev Withdraws the beneficiary's funds.
    */
   function beneficiaryWithdraw() public {
     require(state == State.Closed);
@@ -342,7 +342,7 @@ library SafeERC20 {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overridden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropriate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropriate to concatenate
  * behavior.
  */
 contract Crowdsale {
@@ -444,7 +444,7 @@ contract Crowdsale {
 
     /**
     * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
-    * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method: 
+    * Example from CappedCrowdsale.sol's _preValidatePurchase method: 
     *   super._preValidatePurchase(_beneficiary, _weiAmount);
     *   require(weiRaised.add(_weiAmount) <= cap);
     * @param _beneficiary Address performing the token purchase
@@ -751,7 +751,7 @@ contract MilestoneCrowdsale is TimedCrowdsale {
 
         // For the next code, you may ask why not assert if last milestone surpass cap...
         // Because if its last and it is capped we would like to finish not sell any more tokens 
-        // Check if the current milestone has reached it&#39;s cap
+        // Check if the current milestone has reached it's cap
         if (milestones[index].tokensSold > milestones[index].cap) {
             index = index + 1;
         }
@@ -959,7 +959,7 @@ contract PreSale is Ownable, Crowdsale, MilestoneCrowdsale {
 
     /**
     * @dev Must be called after crowdsale ends, to do some extra finalization
-    * work. Calls the contract&#39;s finalization function.
+    * work. Calls the contract's finalization function.
     */
     function finalize() public onlyOwner {
         require(!isFinalized);

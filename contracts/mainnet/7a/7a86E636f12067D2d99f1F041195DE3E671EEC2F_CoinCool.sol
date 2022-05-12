@@ -262,7 +262,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
   /**
@@ -357,7 +357,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -451,7 +451,7 @@ contract StandardBurnableToken is StandardToken {
     function burn(uint256 _value) public returns (bool) {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);
         totalSupply_ = totalSupply_.sub(_value);
@@ -485,7 +485,7 @@ contract Frozenable is Operational, StandardBurnableToken, ReentrancyGuard {
     event SystemFreeze(address indexed owner, uint256 value, uint256 unfreezeIndex);
     event Unfreeze(address indexed owner, uint256 value, uint256 unfreezeTime);
     function Frozenable(address _operator) Operational(_operator) public {}
-    // freeze system&#39; balance
+    // freeze system' balance
     function systemFreeze(uint256 _value, uint256 _unfreezeTime) internal {
         uint256 unfreezeIndex = uint256(_unfreezeTime.parseTimestamp().year) * 10000 + uint256(_unfreezeTime.parseTimestamp().month) * 100 + uint256(_unfreezeTime.parseTimestamp().day);
         balances[owner] = balances[owner].sub(_value);
@@ -569,9 +569,9 @@ contract Releaseable is Frozenable {
     }
 }
 contract CoinCool is Releaseable {
-    string public standard = &#39;2018080710&#39;;
-    string public name = &#39;CoinCoolToken&#39;;
-    string public symbol = &#39;CCT&#39;;
+    string public standard = '2018080710';
+    string public name = 'CoinCoolToken';
+    string public symbol = 'CCT';
     uint8 public decimals = 8;
     function CoinCool() Releaseable(0x4068D7c2e286Cb1E72Cef90B74C823E990FaB9C2, mulDecimals.mul(55000000)) public {}
 }

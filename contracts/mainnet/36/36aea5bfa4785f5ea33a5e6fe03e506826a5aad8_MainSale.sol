@@ -141,7 +141,7 @@ contract MainSale is Ownable {
     }
     
     /*******************************************************************************
-     * Whitelist&#39;s section */
+     * Whitelist's section */
     
     function authorize(address wlCandidate) public backEnd {
         require(wlCandidate != address(0x0));
@@ -162,7 +162,7 @@ contract MainSale is Ownable {
     }
     
     /*******************************************************************************
-     * Payable&#39;s section */
+     * Payable's section */
     
     function isMainSale() public constant returns(bool) {
         return now >= startSale && now <= endSale;

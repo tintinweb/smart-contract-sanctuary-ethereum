@@ -101,7 +101,7 @@ contract Ethraffle_v4b {
         nextTicket = 0;
         blockNumber = block.number;
 
-        // gaps.length = 0 isn&#39;t necessary here,
+        // gaps.length = 0 isn't necessary here,
         // because buyTickets() eventually clears
         // the gaps array in the loop itself.
 
@@ -127,7 +127,7 @@ contract Ethraffle_v4b {
         }
     }
 
-    // Refund everyone&#39;s money, start a new raffle, then pause it
+    // Refund everyone's money, start a new raffle, then pause it
     function endRaffle() public {
         if (msg.sender == feeAddress) {
             paused = true;

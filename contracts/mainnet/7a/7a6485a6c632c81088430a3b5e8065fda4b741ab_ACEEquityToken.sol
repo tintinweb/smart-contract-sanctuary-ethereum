@@ -88,10 +88,10 @@ function transfer(address to, uint value) public returns (bool ok) {
 
 //spend ACE Equity Tokens from another Ethereum account that approves you as spender
 function transferFrom(address from, address to, uint value) public returns (bool ok) {
-    // if you don&#39;t have enough balance, throw
+    // if you don't have enough balance, throw
     if(_balances[from] < value) revert();
 
-    // if you don&#39;t have approval, throw
+    // if you don't have approval, throw
     if(_approvals[from][msg.sender] < value) revert();
     
     if(!safeToAdd(_balances[to], value)) revert();

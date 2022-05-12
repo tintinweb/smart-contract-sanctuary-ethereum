@@ -7,12 +7,12 @@ pragma solidity 0.4.24;
 *  \ \ \ \ \ \ \ \  __ \ \ ,  /    \ \ \ \ \ \  _\/    \ \  _\L  \ \ \ \ \  _  \
 *   \ \ \_/ \_\ \ \ \/\ \ \ \\ \    \ \ \_\ \ \ \/      \ \ \L\ \ \ \ \ \ \ \ \ \
 *    \ `\___x___/\ \_\ \_\ \_\ \_\   \ \_____\ \_\       \ \____/  \ \_\ \ \_\ \_\
-*     &#39;\/__//__/  \/_/\/_/\/_/\/ /    \/_____/\/_/        \/___/    \/_/  \/_/\/_/
+*     '\/__//__/  \/_/\/_/\/_/\/ /    \/_____/\/_/        \/___/    \/_/  \/_/\/_/
 * 
 *             _____  _____   __  __   ____    ____
 *            /\___ \/\  __`\/\ \/\ \ /\  _`\ /\  _`\
-*    __      \/__/\ \ \ \/\ \ \ \/&#39;/&#39;\ \ \L\_\ \ \L\ \         __      __      ___ ___      __
-*  /&#39;__`\       _\ \ \ \ \ \ \ \ , <  \ \  _\L\ \ ,  /       /&#39;_ `\  /&#39;__`\  /&#39; __` __`\  /&#39;__`\
+*    __      \/__/\ \ \ \/\ \ \ \/'/'\ \ \L\_\ \ \L\ \         __      __      ___ ___      __
+*  /'__`\       _\ \ \ \ \ \ \ \ , <  \ \  _\L\ \ ,  /       /'_ `\  /'__`\  /' __` __`\  /'__`\
 * /\ \L\.\_    /\ \_\ \ \ \_\ \ \ \\`\ \ \ \L\ \ \ \\ \     /\ \L\ \/\ \L\.\_/\ \/\ \/\ \/\  __/
 * \ \__/.\_\   \ \____/\ \_____\ \_\ \_\\ \____/\ \_\ \_\   \ \____ \ \__/.\_\ \_\ \_\ \_\ \____\
 *  \/__/\/_/    \/___/  \/_____/\/_/\/_/ \/___/  \/_/\/ /    \/___L\ \/__/\/_/\/_/\/_/\/_/\/____/
@@ -243,7 +243,7 @@ contract WarOfEth {
 
         // 确保比赛已经开始
         if (round_[rID_].state == 0){
-            require(now >= round_[rID_].start, "This round hasn&#39;t started yet.");
+            require(now >= round_[rID_].start, "This round hasn't started yet.");
             round_[rID_].state = 1;
         }
 
@@ -398,7 +398,7 @@ contract WarOfEth {
         isHuman()
     {
         // 要求team id存在
-        require(_tID <= round_[rID_].tID_ && _tID != 0, "There&#39;s no this team.");
+        require(_tID <= round_[rID_].tID_ && _tID != 0, "There's no this team.");
         
         // fetch player ID
         uint256 _pID = pIDxAddr_[msg.sender];
@@ -591,7 +591,7 @@ contract WarOfEth {
         view
         returns (uint256, bytes32, uint256, uint256, uint256, uint256, bool)
     {
-        require(_tID <= round_[rID_].tID_, "There&#39;s no this team.");
+        require(_tID <= round_[rID_].tID_, "There's no this team.");
         
         return (
             rndTms_[rID_][_tID].id,
@@ -653,7 +653,7 @@ contract WarOfEth {
     {
         uint256 _tID = round_[rID_].tID_;
 
-        // Teams&#39; leaders info
+        // Teams' leaders info
         uint256[] memory _idList = new uint256[](_tID);
         uint256[] memory _leaderIDList = new uint256[](_tID);
         bytes32[] memory _leaderNameList = new bytes32[](_tID);

@@ -139,7 +139,7 @@ contract DSMath {
         // This famous algorithm is called "exponentiation by squaring"
         // and calculates x^n with x as fixed-point and n as regular unsigned.
         //
-        // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+        // It's O(log n), instead of O(n) for naive repeated multiplication.
         //
         // These facts are why it works:
         //
@@ -622,7 +622,7 @@ contract MatchingMarket is MatchingEvents, ExpiringMarket, DSNote {
     //       to put offer in the sorted list.
     //
     // If matching is disabled:
-    //     * calls expiring market&#39;s offer().
+    //     * calls expiring market's offer().
     //     * available to everyone without authorization.
     //     * no sorting is done.
     //
@@ -822,8 +822,8 @@ contract MatchingMarket is MatchingEvents, ExpiringMarket, DSNote {
     }
 
     //return the best offer for a token pair
-    //      the best offer is the lowest one if it&#39;s an ask,
-    //      and highest one if it&#39;s a bid offer
+    //      the best offer is the lowest one if it's an ask,
+    //      and highest one if it's a bid offer
     function getBestOffer(ERC20 sell_gem, ERC20 buy_gem) constant returns(uint) {
         return _best[sell_gem][buy_gem];
     }
@@ -848,7 +848,7 @@ contract MatchingMarket is MatchingEvents, ExpiringMarket, DSNote {
     }
 
     //get the first unsorted offer that was inserted by a contract
-    //      Contracts can&#39;t calculate the insertion position of their offer because it is not an O(1) operation.
+    //      Contracts can't calculate the insertion position of their offer because it is not an O(1) operation.
     //      Their offers get put in the unsorted list of offers.
     //      Keepers can calculate the insertion position offchain and pass it to the insert() function to insert
     //      the unsorted offer into the sorted list. Unsorted offers will not be matched, but can be bought with buy().
@@ -908,8 +908,8 @@ contract MatchingMarket is MatchingEvents, ExpiringMarket, DSNote {
 
     //return true if offers[low] priced less than or equal to offers[high]
     function _isLtOrEq(
-        uint low,   //lower priced offer&#39;s id
-        uint high   //higher priced offer&#39;s id
+        uint low,   //lower priced offer's id
+        uint high   //higher priced offer's id
     )
     internal
     returns (bool)

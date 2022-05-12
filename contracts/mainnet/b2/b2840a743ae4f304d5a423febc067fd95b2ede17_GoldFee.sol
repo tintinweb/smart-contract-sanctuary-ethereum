@@ -435,7 +435,7 @@ contract GoldmintMigration is CreatorEnabled {
         goldToken.lockTransfer(_lock);
     }
 
-    // This method is called when migration to Goldmint&#39;s blockchain
+    // This method is called when migration to Goldmint's blockchain
     // process is started...
     function startMigration() public onlyCreator {
         require((State.Init == state) || (State.MigrationPaused == state));
@@ -459,7 +459,7 @@ contract GoldmintMigration is CreatorEnabled {
         state = State.MigrationPaused;
     }
 
-    // that doesn&#39;t mean that you cant migrate from Ethereum -> Goldmint blockchain
+    // that doesn't mean that you cant migrate from Ethereum -> Goldmint blockchain
     // that means that you will get no reward
     function finishMigration() public onlyCreator {
         require((State.MigrationStarted == state) || (State.MigrationPaused == state));
@@ -511,7 +511,7 @@ contract GoldmintMigration is CreatorEnabled {
         mig.tokensCount = myBalance;
         mig.migrated = false;
         mig.date = uint64(now);
-        mig.comment = &#39;&#39;;
+        mig.comment = '';
 
         mntpMigrations[mntpMigrationsCount + 1] = mig;
         mntpMigrationIndexes[msg.sender] = mntpMigrationsCount + 1;
@@ -563,7 +563,7 @@ contract GoldmintMigration is CreatorEnabled {
         mig.tokensCount = myBalance;
         mig.migrated = false;
         mig.date = uint64(now);
-        mig.comment = &#39;&#39;;
+        mig.comment = '';
 
         goldMigrations[goldMigrationsCount + 1] = mig;
         goldMigrationIndexes[msg.sender] = goldMigrationsCount + 1;

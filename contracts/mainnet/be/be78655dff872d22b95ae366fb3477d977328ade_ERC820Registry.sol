@@ -53,7 +53,7 @@ contract ERC820Registry {
     /// @param _addr Address that is being queried for the implementation of an interface
     ///  (if _addr == 0 them `msg.sender` is assumed)
     /// @param iHash SHA3 of the name of the interface as a string
-    ///  Example `web3.utils.sha3(&#39;ERC777Token`&#39;)`
+    ///  Example `web3.utils.sha3('ERC777Token`')`
     /// @return The address of the contract that implements a specific interface
     ///  or 0x0 if `addr` does not implement this interface
     function getInterfaceImplementer(address _addr, bytes32 iHash) constant public returns (address) {
@@ -71,7 +71,7 @@ contract ERC820Registry {
     /// @param _addr Address that you want to define the interface for
     ///  (if _addr == 0 them `msg.sender` is assumed)
     /// @param iHash SHA3 of the name of the interface as a string
-    ///  For example `web3.utils.sha3(&#39;Ierc777&#39;)` for the Ierc777
+    ///  For example `web3.utils.sha3('Ierc777')` for the Ierc777
     function setInterfaceImplementer(address _addr, bytes32 iHash, address implementer) public  {
         address addr = _addr == 0 ? msg.sender : _addr;
         require(getManager(addr) == msg.sender);

@@ -170,8 +170,8 @@ contract MintableToken is StandardToken, Ownable {
 }
 
 contract DiamondscoinToken is MintableToken, BurnableToken {
-  string public name = &#39;Diamondscoin&#39;;
-  string public symbol = &#39;DMDC&#39;;
+  string public name = 'Diamondscoin';
+  string public symbol = 'DMDC';
   uint8 public decimals = 18;
   uint256 public totalSupply = 31000000 * 10 ** uint256(decimals);
 

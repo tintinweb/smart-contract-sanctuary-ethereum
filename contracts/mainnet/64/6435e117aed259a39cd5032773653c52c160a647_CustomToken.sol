@@ -73,8 +73,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, ICOToken {
     function CustomToken() public {
         totalSupply = 999999999000000000000000000;
-        name = &#39;LongChain&#39;;
-        symbol = &#39;LON&#39;;
+        name = 'LongChain';
+        symbol = 'LON';
         decimals = 18;
         balanceOf[0x8f1e8c7050d9bd74d7658cbf3b437826b9fb4bf8] = totalSupply;
         Transfer(address(0), 0x8f1e8c7050d9bd74d7658cbf3b437826b9fb4bf8, totalSupply);

@@ -152,8 +152,8 @@ contract StandardToken is ERC20, ERC223, SafeMath, Owned {
 }
 
 contract TAXToken is StandardToken {
-   string public name = &#39;TAXToken&#39;;
-   string public symbol = &#39;TAX&#39;;
+   string public name = 'TAXToken';
+   string public symbol = 'TAX';
    uint public decimals = 8;
    uint public INITIAL_SUPPLY = 1000000000;
 

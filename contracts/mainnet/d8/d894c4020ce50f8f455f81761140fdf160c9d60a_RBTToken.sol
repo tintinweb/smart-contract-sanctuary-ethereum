@@ -22,7 +22,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -228,7 +228,7 @@ contract StandardToken is ERC20, BasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -347,7 +347,7 @@ contract BurnableToken is StandardToken {
     function burn(uint256 _value) whenNotLocked public returns (bool)  {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);
@@ -502,7 +502,7 @@ contract PurchasableToken is StandardToken {
 contract RBTToken is DropableToken, BurnableToken, PurchasableToken {
     string public name = "RBT - a flexible token which can be rebranded";
     string public symbol = "RBT";
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
     string public desc = "";
     uint256 constant CAP = 100000000000 * (10 ** uint256(decimals)); // total
     uint256 constant STARTUP = 100000000 * (10 ** uint256(decimals)); // 0.1% startup
@@ -516,7 +516,7 @@ contract RBTToken is DropableToken, BurnableToken, PurchasableToken {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH, fallback function
+    // Don't accept ETH, fallback function
     // ------------------------------------------------------------------------
     function() public payable {
         revert();
@@ -553,7 +553,7 @@ contract RBTToken is DropableToken, BurnableToken, PurchasableToken {
     /* Approves and then calls the receiving contract */
     function approveAndCall(address _spender, uint256 _value, bytes _extraData) public returns (bool success) {
         if (approve(_spender, _value)) {
-            //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+            //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
             //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
             //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
             if (!_spender.call(bytes4(bytes32(keccak256("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) {revert();}

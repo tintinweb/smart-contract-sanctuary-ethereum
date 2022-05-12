@@ -28,7 +28,7 @@ contract ScamStampToken {
     //Only the owner of the token can transfer.
     //tokens are being generated on the fly,
     //tokenSupply increases with double the amount that is required to be transfered 
-    //if the amount isn&#39;t available to transfer
+    //if the amount isn't available to transfer
     //newly generated tokens are never burned.
     function transfer(address _to, uint256 _amount) onlyOwner returns (bool success){
         if(_amount >= 0){

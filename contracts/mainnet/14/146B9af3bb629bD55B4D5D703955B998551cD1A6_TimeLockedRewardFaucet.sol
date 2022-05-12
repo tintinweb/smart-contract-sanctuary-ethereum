@@ -88,7 +88,7 @@ contract TimeLockedRewardFaucet {
         return -1;
     }
 
-    //fails if state dosn&#39;t match
+    //fails if state dosn't match
     modifier inState(State s) {
         if (_state() != s) revert();
         _;

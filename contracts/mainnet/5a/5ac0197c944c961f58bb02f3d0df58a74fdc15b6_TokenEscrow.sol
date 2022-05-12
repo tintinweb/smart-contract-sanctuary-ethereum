@@ -13,9 +13,9 @@ contract IToken {
  */
 contract TokenEscrow {
 	// Token-related properties/description to display in Wallet client / UI
-	string public standard = &#39;PBKXToken 0.3&#39;;
-	string public name = &#39;PBKXToken&#39;;
-	string public symbol = &#39;PBKX&#39;;
+	string public standard = 'PBKXToken 0.3';
+	string public name = 'PBKXToken';
+	string public symbol = 'PBKX';
 	uint public decimals = 2;
     	uint public totalSupply = 300000000;
 	
@@ -188,20 +188,20 @@ contract TokenEscrow {
 		uint amountTransfered = msg.value; // Cost/price in WEI of incoming transfer/payment
 		
 		if (amountTransfered <= 0) {
-		      	Error(&#39;no eth was transfered&#39;);
+		      	Error('no eth was transfered');
               		msg.sender.transfer(msg.value);
 		  	return;
 		}
 
 		if(balanceFor[owner] <= 0) {
-		      	Error(&#39;all tokens sold&#39;);
+		      	Error('all tokens sold');
               		msg.sender.transfer(msg.value);
 		      	return;
 		}
 		
 		// Determine amount of tokens can be bought according to available supply and discount policy
 		for (uint discountIndex = 0; discountIndex < tokenSupplies.length; discountIndex++) {
-			// If it&#39;s not possible to buy any tokens at all skip the rest of discount policy
+			// If it's not possible to buy any tokens at all skip the rest of discount policy
 			
 			TokenSupply storage tokenSupply = tokenSupplies[discountIndex];
 			
@@ -229,7 +229,7 @@ contract TokenEscrow {
 		
 		// Do not waste gas if there is no tokens to buy
 		if (tokenAmount == 0) {
-		    	Error(&#39;no token to buy&#39;);
+		    	Error('no token to buy');
             		msg.sender.transfer(msg.value);
 			return;
         	}

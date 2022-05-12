@@ -20,8 +20,8 @@ contract HunterCoin {
     function HunterCoin() {
       balanceOf[msg.sender] = 210000;
       totalSupply = 210000;
-      name = &#39;Hunter Coin&#39;;
-      symbol = &#39;HTC&#39;;
+      name = 'Hunter Coin';
+      symbol = 'HTC';
       decimals = 100;
       owner = msg.sender;
     }

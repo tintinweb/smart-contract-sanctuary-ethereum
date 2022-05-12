@@ -255,7 +255,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -302,7 +302,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -591,7 +591,7 @@ contract RegulatedToken is StandardToken, PausableToken, LimitedTransferToken, H
     * @return id the unique lock id
     * @return reason the reason for the lock
     * @return value the value of tokens locked
-    * @return the timestamp in which the lock will be inactive (or 0 if it&#39;s always active until removed)
+    * @return the timestamp in which the lock will be inactive (or 0 if it's always active until removed)
     *
     * Note - a lock can be inactive (due to its time expired) but still exists for a specific address
     */
@@ -616,7 +616,7 @@ contract RegulatedToken is StandardToken, PausableToken, LimitedTransferToken, H
     function transferableTokens(address holder, uint64 time) public constant returns (uint256) {
         require(time > 0);
 
-        //If it&#39;s a burn wallet, tokens cannot be moved out
+        //If it's a burn wallet, tokens cannot be moved out
         if (isBurnWallet(holder)){
             return 0;
         }
@@ -645,12 +645,12 @@ contract RegulatedToken is StandardToken, PausableToken, LimitedTransferToken, H
     /******************************
         REDEMPTION AND BURNING
 
-        Redeeming tokens involves removing them from an address&#39;s wallet and moving them to a (one or more)
+        Redeeming tokens involves removing them from an address's wallet and moving them to a (one or more)
         specially designed "burn wallets".
         The process is implemented such as the owner can choose to burn or not to burn the tokens after redeeming them,
         which is legally necessary on some buy-back scenarios
         Each redemption is associated with a global "redemption event" (a unique id, supplied by the owner),
-        which can later be used to query the total value redeemed for the user in this event (and on the owner&#39;s
+        which can later be used to query the total value redeemed for the user in this event (and on the owner's
         backend, through event logs processing, the total value redeemed for all users in this event)
     *******************************/
 

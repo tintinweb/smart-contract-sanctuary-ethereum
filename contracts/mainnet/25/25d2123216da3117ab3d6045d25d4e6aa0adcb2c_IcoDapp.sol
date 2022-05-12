@@ -513,7 +513,7 @@ function mul(uint256 a, uint256 b) public pure returns (uint256) {
 function div(uint256 a, uint256 b) public pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }  
 function sub(uint256 a, uint256 b) public pure returns (uint256) {
@@ -606,7 +606,7 @@ function transferFrom(address _from, address _to, uint256 _value)
 external returns (bool success) {
 /*check if the message sender can spend*/
 require(_value <= allowed[_from][msg.sender]); 
-/*substract from message sender&#39;s spend allowance*/
+/*substract from message sender's spend allowance*/
 allowed[_from][msg.sender] -= _value;
 /*transfer tokens*/
 _transfer(_from, _to, _value);

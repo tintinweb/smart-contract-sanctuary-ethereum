@@ -75,7 +75,7 @@ contract Token is StandardToken {
     string public name = "Build Network";
     uint8 public decimals = 18;
     string public symbol = "XBN";
-    string public version = &#39;XBN 0.1&#39;;
+    string public version = 'XBN 0.1';
     address public mintableAddress;
 
     function Token(address sale_address) public {

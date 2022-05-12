@@ -159,7 +159,7 @@ contract SharkPool is Ownable, ReentrancyGuard {
           } else {
             // The maximum users have been reached, can we allocate a free space?
             if (slots.length == 0) {
-                // There isn&#39;t any room left
+                // There isn't any room left
                 revert();
             } else {
                uint8 location = slots[slots.length-1];
@@ -245,7 +245,7 @@ contract SharkPool is Ownable, ReentrancyGuard {
                current_user.proportional_contribution = msg.value / contract_period;
             }
 
-          // If the user exists and has a balance let&#39;s transfer it to them
+          // If the user exists and has a balance let's transfer it to them
           do_redemption();
 
           } else {
@@ -306,7 +306,7 @@ contract SharkPool is Ownable, ReentrancyGuard {
 
                   uint256 initial_balance = base_contract.balanceOf(this);
 
-                  // We won let&#39;s get our reward
+                  // We won let's get our reward
                   base_contract.claim(_blockNumber, this);
 
                   uint256 balance = base_contract.balanceOf(this);

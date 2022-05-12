@@ -61,7 +61,7 @@ contract CYRUS is StandardToken{
     string public name;                   
     uint8 public decimals;              
     string public symbol;                
-    string public version = &#39;H1.0&#39;;
+    string public version = 'H1.0';
     function FreeLove(
         ) {
         balances[msg.sender] = 1000000000000000;

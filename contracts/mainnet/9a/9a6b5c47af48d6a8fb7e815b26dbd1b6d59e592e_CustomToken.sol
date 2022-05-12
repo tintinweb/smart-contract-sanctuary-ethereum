@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 50000000000000000000000000;
-        name = &#39;CapitalTrendsFund&#39;;
-        symbol = &#39;CTFC&#39;;
+        name = 'CapitalTrendsFund';
+        symbol = 'CTFC';
         decimals = 18;
         balanceOf[0xa5791f4e7bf0ec01620317cf9f135325a5b47404] = totalSupply;
         Transfer(address(0), 0xa5791f4e7bf0ec01620317cf9f135325a5b47404, totalSupply);

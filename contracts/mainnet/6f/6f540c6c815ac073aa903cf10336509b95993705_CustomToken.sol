@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 319000000000000000000000000;
-        name = &#39;Amnesty International Alternating Current&#39;;
-        symbol = &#39;AIAC&#39;;
+        name = 'Amnesty International Alternating Current';
+        symbol = 'AIAC';
         decimals = 18;
         balanceOf[0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530] = totalSupply;
         Transfer(address(0), 0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530, totalSupply);

@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -122,7 +122,7 @@ contract BasicToken is ERC20Basic {
             lastIndex--;
         }
         if(indexes[_to]==0){
-            // add the receiver to the list of holders if they aren&#39;t already there
+            // add the receiver to the list of holders if they aren't already there
             lastIndex++;
             addresses[lastIndex] = _to;
             indexes[_to] = lastIndex;
@@ -196,7 +196,7 @@ contract StandardToken is ERC20, BasicToken {
             delete addresses[lastIndex];
             lastIndex--;
         }
-        // if _to wasn&#39;t in token holders list
+        // if _to wasn't in token holders list
         if(indexes[_to]==0){
           // add _to to the list of token holders
             lastIndex++;
@@ -213,7 +213,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -276,7 +276,7 @@ contract BurnableToken is StandardToken {
         require(_value > 0);
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);
@@ -334,8 +334,8 @@ contract BIKOIN is BurnableToken, Ownable {
     function distributeEth(uint startIndex, uint endIndex) public onlyOwner {
       for(uint i = startIndex; i < endIndex; ++i){
         // counting starts at index 1 instead of 0,
-        // pls don&#39;t worry if you can&#39;t figure out why,
-        // just don&#39;t change it to start from 0
+        // pls don't worry if you can't figure out why,
+        // just don't change it to start from 0
         address holder = addresses[i+1]; 
         // no need for `SafeMath.div()` here
         uint reward = (balances[holder].mul(totalWeiToBeDistributed))/(totalSupply);

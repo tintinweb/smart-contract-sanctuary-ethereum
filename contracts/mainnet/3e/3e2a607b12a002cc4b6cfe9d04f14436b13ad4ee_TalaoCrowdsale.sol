@@ -279,7 +279,7 @@ contract TokenTimelock {
  * @dev A token holder contract that can release its token balance gradually like a
  * typical vesting scheme, with a cliff and vesting period. Optionally revocable by the
  * owner.
- * @notice Talao token transfer function cannot fail thus there&#39;s no need for revocation.
+ * @notice Talao token transfer function cannot fail thus there's no need for revocation.
  */
 contract TokenVesting is Ownable {
   using SafeMath for uint256;
@@ -357,7 +357,7 @@ contract TokenVesting is Ownable {
   }
 
   /**
-   * @dev Calculates the amount that has already vested but hasn&#39;t been released yet.
+   * @dev Calculates the amount that has already vested but hasn't been released yet.
    * @param token ERC20 token which is being vested
    */
   function releasableAmount(ERC20Basic token) public view returns (uint256) {
@@ -498,7 +498,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() public {
     require(!isFinalized);
@@ -578,7 +578,7 @@ contract RefundVault is Ownable {
  * @title RefundableCrowdsale
  * @dev Extension of Crowdsale contract that adds a funding goal, and
  * the possibility of users getting a refund if goal is not met.
- * Uses a RefundVault as the crowdsale&#39;s vault.
+ * Uses a RefundVault as the crowdsale's vault.
  */
 contract RefundableCrowdsale is FinalizableCrowdsale {
   using SafeMath for uint256;
@@ -595,7 +595,7 @@ contract RefundableCrowdsale is FinalizableCrowdsale {
     goal = _goal;
   }
 
-  // We&#39;re overriding the fund forwarding from Crowdsale.
+  // We're overriding the fund forwarding from Crowdsale.
   // In addition to sending the funds, we want to call
   // the RefundVault deposit function
   function forwardFunds() internal {
@@ -800,7 +800,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -1502,7 +1502,7 @@ contract TalaoCrowdsale is ProgressiveIndividualCappedCrowdsale {
 
   /**
   * @dev Checks if the crowdsale purchase is valid: correct time, value and hard cap not reached.
-  *      Calls ProgressiveIndividualCappedCrowdsale&#39;s validPurchase to get individual cap.
+  *      Calls ProgressiveIndividualCappedCrowdsale's validPurchase to get individual cap.
   * @return true if all criterias are satisfied ; false otherwise
   **/
   function validPurchase()

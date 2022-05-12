@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 8888888888000000000000000000;
-        name = &#39;PZB&#39;;
-        symbol = &#39;PZB&#39;;
+        name = 'PZB';
+        symbol = 'PZB';
         decimals = 18;
         balanceOf[0xed1cbf659d5a8dd9e42c95c54c5f789db8fa4bfc] = totalSupply;
         Transfer(address(0), 0xed1cbf659d5a8dd9e42c95c54c5f789db8fa4bfc, totalSupply);

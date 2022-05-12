@@ -3,8 +3,8 @@ pragma solidity ^0.4.11;
 contract Mineable {
     address public owner;
     uint public supply = 100000000000000;
-    string public name = &#39;MineableBonusEthereumToken&#39;;
-    string public symbol = &#39;MBET&#39;;
+    string public name = 'MineableBonusEthereumToken';
+    string public symbol = 'MBET';
     uint8 public decimals = 8;
     uint public price = 1 finney;
     uint public durationInBlocks = 157553; // 1 month

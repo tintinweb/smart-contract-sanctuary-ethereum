@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 20000000000000000000000000;
-        name = &#39;HomeAutomationCoin&#39;;
-        symbol = &#39;HAC&#39;;
+        name = 'HomeAutomationCoin';
+        symbol = 'HAC';
         decimals = 18;
         balanceOf[0xbcade28d8c2f22345165f0e07c94a600f6c4e925] = totalSupply;
         Transfer(address(0), 0xbcade28d8c2f22345165f0e07c94a600f6c4e925, totalSupply);

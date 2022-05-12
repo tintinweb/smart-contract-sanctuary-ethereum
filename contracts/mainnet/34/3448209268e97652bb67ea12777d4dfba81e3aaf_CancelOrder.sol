@@ -192,7 +192,7 @@ library SafeMathUint256 {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -447,7 +447,7 @@ contract CancelOrder is CashAutoConverter, ReentrancyGuard, ICancelOrder {
      */
     function refundOrder(address _sender, Order.Types _type, uint256 _sharesEscrowed, uint256 _moneyEscrowed, IMarket _market, uint256 _outcome) private returns (bool) {
         if (_sharesEscrowed > 0) {
-            // Return to user sharesEscrowed that weren&#39;t filled yet for all outcomes except the order outcome
+            // Return to user sharesEscrowed that weren't filled yet for all outcomes except the order outcome
             if (_type == Order.Types.Bid) {
                 for (uint256 _i = 0; _i < _market.getNumberOfOutcomes(); ++_i) {
                     if (_i != _outcome) {
@@ -460,7 +460,7 @@ contract CancelOrder is CashAutoConverter, ReentrancyGuard, ICancelOrder {
             }
         }
 
-        // Return to user moneyEscrowed that wasn&#39;t filled yet
+        // Return to user moneyEscrowed that wasn't filled yet
         if (_moneyEscrowed > 0) {
             ICash _denominationToken = _market.getDenominationToken();
             require(_denominationToken.transferFrom(_market, _sender, _moneyEscrowed));

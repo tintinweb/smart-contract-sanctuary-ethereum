@@ -231,7 +231,7 @@ contract Crowdsale is owned,StandardToken {
 
 													
 	function transferMoneyForTaskSolutions(string url, uint  _value) public onlyOwner {	//transfer of funds on multisig wallet 
-		uint ICOstatus=statusICO(); if(ICOstatus<5) return;									// ICO it&#39;s not over yet
+		uint ICOstatus=statusICO(); if(ICOstatus<5) return;									// ICO it's not over yet
 		_value=_value.mul(1000000000000000000).div(currency);
 		if(_value>multisigMoney) return; 														//The sum is greater than
 		
@@ -313,7 +313,7 @@ contract Crowdsale is owned,StandardToken {
 				returnedMoney=allMoney.sub(allMoney.mul(accessTokens).div(tokens));		//calculate how much should be returned, depending on the % return of tokens 
 				allMoney=allMoney.sub(returnedMoney); 													 		//after refund paid by allMoney
 			} 
-			restMoney=allMoney.mul(restrictedPREICOpersent).div(100);				 	//we&#39;re taking it for good.
+			restMoney=allMoney.mul(restrictedPREICOpersent).div(100);				 	//we're taking it for good.
 			restricted.transfer(restMoney);																 	// transfer it to restricted
 			
 			calcMoney=allMoney-restMoney;															 			//this is considered as paid
@@ -355,8 +355,8 @@ contract Crowdsale is owned,StandardToken {
 
 contract StoneToken is Crowdsale {	
     
-    string  public standard    = &#39;Stone Token&#39;;
-    string  public name        = &#39;StoneToken&#39;;
+    string  public standard    = 'Stone Token';
+    string  public name        = 'StoneToken';
     string  public symbol      = "STTN";
     uint8   public decimals    = 0;
 

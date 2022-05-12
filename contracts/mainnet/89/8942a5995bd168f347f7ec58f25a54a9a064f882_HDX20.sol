@@ -1,5 +1,5 @@
 /*
-&#39;We are a gaming and entertainment network our blockChain launch product is HDX20 (http://hdx20.io)&#39;
+'We are a gaming and entertainment network our blockChain launch product is HDX20 (http://hdx20.io)'
 
 HDX20 tokens can be bought & sold on our exchange and are distributed every time someone is playing a HDX20 POWERED GAME. 
 With 4% IN and 4% OUT fee only, price of the HDX20 can only go up by design, cannot be dumped on holders and is fueled

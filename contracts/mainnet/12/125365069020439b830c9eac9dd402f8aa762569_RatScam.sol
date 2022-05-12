@@ -297,7 +297,7 @@ contract RatScam is modularRatScam {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -409,7 +409,7 @@ contract RatScam is modularRatScam {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -595,7 +595,7 @@ contract RatScam is modularRatScam {
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -1100,7 +1100,7 @@ contract RatScam is modularRatScam {
         private
         returns (RSdatasets.EventReturns)
     {        
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_.plyr;
         
         // grab our pot amount
@@ -1227,7 +1227,7 @@ contract RatScam is modularRatScam {
         
         // decide what to do with affiliate share of fees
         // affiliate must not be self, and must have a name registered
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit RSEvents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _pID, _aff, now);
         } else {
@@ -1239,10 +1239,10 @@ contract RatScam is modularRatScam {
         {
             // This ensures Team Just cannot influence the outcome of FoMo3D with
             // bank migrations by breaking outgoing transactions.
-            // Something we would never do. But that&#39;s not the point.
+            // Something we would never do. But that's not the point.
             // We spent 2000$ in eth re-deploying just to patch this, we hold the 
             // highest belief that everything we create should be trustless.
-            // Team JUST, The name you shouldn&#39;t have to trust.
+            // Team JUST, The name you shouldn't have to trust.
         }
 
         return(_eventData_);
@@ -1296,7 +1296,7 @@ contract RatScam is modularRatScam {
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         
@@ -1337,7 +1337,7 @@ contract RatScam is modularRatScam {
     }
     
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _eth, uint256 _keys, RSdatasets.EventReturns memory _eventData_)
         private

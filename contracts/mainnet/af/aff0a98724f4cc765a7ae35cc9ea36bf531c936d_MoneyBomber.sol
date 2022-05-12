@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 contract MoneyBomber{
-	// scaleFactor is used to convert Ether into tokens and vice-versa: they&#39;re of different
+	// scaleFactor is used to convert Ether into tokens and vice-versa: they're of different
 	// orders of magnitude, hence the need to bridge between the two.
 	uint256 constant scaleFactor = 0x10000000000000000;// 2^64
 
@@ -37,7 +37,7 @@ contract MoneyBomber{
 	uint256 public stakingRequirement = 1e18;
 	
 	address public lastGateway;
-	uint256 constant trickTax = 3; //divides flux&#39;d fee and for every pass up
+	uint256 constant trickTax = 3; //divides flux'd fee and for every pass up
 
 	//flux fee ratio and contract score keepers
 	uint256 public withdrawSum;
@@ -70,7 +70,7 @@ contract MoneyBomber{
     
     event onTokenSell(
         address indexed customerAddress,
-        uint256 totalTokensAtTheTime,//maybe it&#39;d be cool to see what % people are selling from their total bank
+        uint256 totalTokensAtTheTime,//maybe it'd be cool to see what % people are selling from their total bank
         uint256 tokensBurned,
         uint256 ethereumEarned,
         uint256 resolved,
@@ -132,7 +132,7 @@ contract MoneyBomber{
 		// Update the payouts array, incrementing the request address by `balance`.
 		payouts[msg.sender] += (int256) (balance * scaleFactor);
 		
-		// Increase the total amount that&#39;s been paid out to maintain invariance.
+		// Increase the total amount that's been paid out to maintain invariance.
 		totalPayouts += (int256) (balance * scaleFactor);
 
 		uint256 pocketETH = pocket[msg.sender];
@@ -199,7 +199,7 @@ contract MoneyBomber{
 			return _rgb;
 	}
 	//BONUS
-	//when you don&#39;t pick a color, the contract will need a default. which will be your current color
+	//when you don't pick a color, the contract will need a default. which will be your current color
 	function edgePigment(uint8 C)internal view returns (uint256 x)
 	{	
 		uint256 holding = holdings[msg.sender];
@@ -219,7 +219,7 @@ contract MoneyBomber{
 		fund_color( reffo, forWho, edgePigment(0),edgePigment(1),edgePigment(2) );
 	}
 	function fund_color( address _reff, address forWho,uint256 cR,uint256 cG,uint256 cB) payable public {
-		// Don&#39;t allow for funding if the amount of Ether sent is less than 1 szabo.
+		// Don't allow for funding if the amount of Ether sent is less than 1 szabo.
 		reffUp(_reff);
 		if (msg.value > 0.000001 ether){
 			investSum += msg.value;
@@ -294,17 +294,17 @@ contract MoneyBomber{
 				function trickleUp(address fromWho) internal{//you can trickle up other people by giving them some.
 					uint256 tricks = tricklingPass[ fromWho ];//this is the amount moving in the trickle flo
 					if(tricks > 0){
-						tricklingPass[ fromWho ] = 0;//we&#39;ve already captured the amount so set your tricklingPass flo to 0
-						uint256 passUp = tricks * (investSum - withdrawSum)/investSum;//to get the amount we&#39;re gonna pass up. divide by trickTax
+						tricklingPass[ fromWho ] = 0;//we've already captured the amount so set your tricklingPass flo to 0
+						uint256 passUp = tricks * (investSum - withdrawSum)/investSum;//to get the amount we're gonna pass up. divide by trickTax
 						uint256 reward = tricks-passUp;//and our remaining reward for ourselves is the amount we just slice off subtracted from the flo
-						address finalReff;//we&#39;re not exactly sure who we&#39;re gonna pass this up to yet
+						address finalReff;//we're not exactly sure who we're gonna pass this up to yet
 						address reffo =  reff[ fromWho ];//this is who it should go up to. if everything is legit
 						if( holdings[reffo] >= stakingRequirement){
-							finalReff = reffo;//if that address is holding enough to stake, it&#39;s a legit node to flo up to.
+							finalReff = reffo;//if that address is holding enough to stake, it's a legit node to flo up to.
 						}else{
 							finalReff = lastGateway;//if not, then we use the last buyer
 						}
-						tricklingPass[ finalReff ] += passUp;//so now we add that flo you&#39;ve passed up to the tricklingPass of the final Reff
+						tricklingPass[ finalReff ] += passUp;//so now we add that flo you've passed up to the tricklingPass of the final Reff
 						pocket[ finalReff ] += reward;// Reward
 						emit onTrickle(fromWho, finalReff, reward, passUp);
 					}
@@ -333,8 +333,8 @@ contract MoneyBomber{
 
 										addPigment(forWho, numTokens,cR,cG,cB);
 									}
-									if(forWho != msg.sender){//make sure you&#39;re not yourself
-										//if forWho doesn&#39;t have a reff or if that masternode is weak, then reset it
+									if(forWho != msg.sender){//make sure you're not yourself
+										//if forWho doesn't have a reff or if that masternode is weak, then reset it
 										if(reff[forWho] == 0x0000000000000000000000000000000000000000 || (holdings[reff[forWho]] < stakingRequirement) )
 											reff[forWho] = msg.sender;
 										
@@ -343,7 +343,7 @@ contract MoneyBomber{
 										emit onTokenPurchase(forWho, numEther ,numTokens , reff[forWho] );
 									}
 
-									trickleSum += trickle;//add to trickle&#39;s Sum after reserve calculations
+									trickleSum += trickle;//add to trickle's Sum after reserve calculations
 									trickleUp(forWho);
 
 								}
@@ -370,7 +370,7 @@ contract MoneyBomber{
 														//resolve reward tracking stuff
 														avgFactor_ethSpent[forWho] += numEther;
 
-														// Add the numTokens which were just created to the total supply. We&#39;re a crypto central bank!
+														// Add the numTokens which were just created to the total supply. We're a crypto central bank!
 														totalBondSupply += numTokens;
 														// Assign the tokens to the balance of the buyer.
 														holdings[forWho] += numTokens;
@@ -407,7 +407,7 @@ contract MoneyBomber{
 									// Net Ether for the seller after the fee has been subtracted.
 							        uint256 numEthers = numEthersBeforeFee - (fee+trickle);
 
-									//How much you bought it for divided by how much you&#39;re getting back.
+									//How much you bought it for divided by how much you're getting back.
 									//This means that if you get dumped on, you can get more resolve tokens if you sell out.
 									uint256 resolved = mint(
 										calcResolve(msg.sender,amount,numEthersBeforeFee),
@@ -425,18 +425,18 @@ contract MoneyBomber{
 									// Remove the tokens from the balance of the buyer.
 									holdings[msg.sender] -= amount;
 
-									int256 payoutDiff = (int256) (earningsPerBond * amount);//we don&#39;t add in numETH because it is immedietly paid out.
+									int256 payoutDiff = (int256) (earningsPerBond * amount);//we don't add in numETH because it is immedietly paid out.
 		
 							        // We reduce the amount paid out to the seller (this effectively resets their payouts value to zero,
-									// since they&#39;re selling all of their tokens). This makes sure the seller isn&#39;t disadvantaged if
+									// since they're selling all of their tokens). This makes sure the seller isn't disadvantaged if
 									// they decide to buy back in.
 									payouts[msg.sender] -= payoutDiff;
 									
-									// Decrease the total amount that&#39;s been paid out to maintain invariance.
+									// Decrease the total amount that's been paid out to maintain invariance.
 							        totalPayouts -= payoutDiff;
 							        
 
-									// Check that we have tokens in existence (this is a bit of an irrelevant check since we&#39;re
+									// Check that we have tokens in existence (this is a bit of an irrelevant check since we're
 									// selling tokens, but it guards against division by zero).
 									if (totalBondSupply > 0) {
 										// Scale the Ether taken as the selling fee by the scaleFactor variable.
@@ -466,7 +466,7 @@ contract MoneyBomber{
 					// Since this is essentially a shortcut to withdrawing and reinvesting, this step still holds.
 					payouts[msg.sender] += (int256) (balance * scaleFactor);
 					
-					// Increase the total amount that&#39;s been paid out to maintain invariance.
+					// Increase the total amount that's been paid out to maintain invariance.
 					totalPayouts += (int256) (balance * scaleFactor);					
 						
 					// Assign balance to a new variable.
@@ -503,8 +503,8 @@ contract MoneyBomber{
 					addPigment(forWho, numTokens,cR,cG,cB);
 					
 
-					if(forWho != msg.sender){//make sure you&#39;re not yourself
-						//if forWho doesn&#39;t have a reff, then reset it
+					if(forWho != msg.sender){//make sure you're not yourself
+						//if forWho doesn't have a reff, then reset it
 						address reffOfWho = reff[forWho];
 						if(reffOfWho == 0x0000000000000000000000000000000000000000 || (holdings[reffOfWho] < stakingRequirement) )
 							reff[forWho] = msg.sender;
@@ -545,12 +545,12 @@ contract MoneyBomber{
 		// How much reserve Ether do we have left in the contract?
 		uint256 reserveAmount = reserve();
 
-		// If you&#39;re the Highlander (or bagholder), you get The Prize. Everything left in the vault.
+		// If you're the Highlander (or bagholder), you get The Prize. Everything left in the vault.
 		if (tokens == totalBondSupply )
 			return reserveAmount;
 
 		// If there would be excess Ether left after the transaction this is called within, return the Ether
-		// corresponding to the equation in Dr Jochen Hoenicke&#39;s original Ponzi paper, which can be found
+		// corresponding to the equation in Dr Jochen Hoenicke's original Ponzi paper, which can be found
 		// at https://test.jochen-hoenicke.de/eth/ponzitoken/ in the third equation, with the CRR numerator 
 		// and denominator altered to 1 and 2 respectively.
 		return reserveAmount - fixedExp((fixedLog(totalBondSupply  - tokens) - price_coeff) * crr_d/crr_n);
@@ -629,7 +629,7 @@ contract MoneyBomber{
 									        return allowed[_owner][_spender];
 									    }
 
-    // You don&#39;t care about these, but if you really do they&#39;re hex values for 
+    // You don't care about these, but if you really do they're hex values for 
 	// co-efficients used to simulate approximations of the log and exp functions.
 	int256  constant one        = 0x10000000000000000;
 	uint256 constant sqrt2      = 0x16a09e667f3bcc908;

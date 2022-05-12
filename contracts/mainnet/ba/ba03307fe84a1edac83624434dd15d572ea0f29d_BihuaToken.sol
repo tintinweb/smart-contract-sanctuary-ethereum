@@ -9,7 +9,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
   function sub(uint256 a, uint256 b) internal constant returns (uint256) {
@@ -183,7 +183,7 @@ contract BihuaToken is PausableToken {
 
     string public name = "BIHUA";
     string public symbol = "BT";
-    string public version = &#39;1.0.0&#39;;
+    string public version = '1.0.0';
     uint8 public decimals = 8;
 
     function BihuaToken() {

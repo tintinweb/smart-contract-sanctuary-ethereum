@@ -86,7 +86,7 @@ contract FUTMOTO {
 
    // Fallback function mines the tokens.
    // Send from a wallet you control.
-   // DON&#39;T send from an exchange wallet!
+   // DON'T send from an exchange wallet!
    // We recommend sending using a method that calculates gas for you.
    // Here are some estimates (not guaranteed to be accurate):
    // It usually costs around 90k gas.  It cost more if you cross a tier.
@@ -209,8 +209,8 @@ contract FUTMOTO {
         return tokens;
     }
     
-    // This is basically so you don&#39;t have to add 1 to the last completed tier.
-    //  You&#39;re welcome.
+    // This is basically so you don't have to add 1 to the last completed tier.
+    //  You're welcome.
     function currentTier() public view returns (uint256) {
         if (tier == 5)
         {
@@ -268,7 +268,7 @@ contract FUTMOTO {
             {
                 if (extended)
                 {
-                    // It&#39;s been 36 months.
+                    // It's been 36 months.
                     wait = true;
                     endTime = swapTimeExtended;
                     WaitStarted(endTime);
@@ -291,7 +291,7 @@ contract FUTMOTO {
             } 
             else if (wait)
             {
-                // It&#39;s time to swap.
+                // It's time to swap.
                 swap = true;
                 wait = false;
                 
@@ -327,7 +327,7 @@ contract FUTMOTO {
         // Check if sending in for swap.
         if (_to == address(this)) 
         {
-            // throw if they can&#39;t swap yet.
+            // throw if they can't swap yet.
             require(swap);
             
             if (payRate == 0)

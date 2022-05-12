@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -86,7 +86,7 @@ contract ERC20 is ERC20Basic {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 contract Crowdsale {
@@ -435,7 +435,7 @@ contract FinalizableCrowdsale is TimedCrowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);
@@ -603,7 +603,7 @@ contract DAVCrowdsale is PausableCrowdsale, FinalizableCrowdsale {
    * @param _closingTime Time to close the sale. If in the past will set to the present
    */
   function closeEarly(uint256 _closingTime) external onlyOwner onlyWhileOpen {
-    // Make sure the new closing time isn&#39;t after the old closing time
+    // Make sure the new closing time isn't after the old closing time
     require(_closingTime <= closingTime);
     // solium-disable-next-line security/no-block-members
     if (_closingTime < block.timestamp) {
@@ -622,11 +622,11 @@ contract DAVCrowdsale is PausableCrowdsale, FinalizableCrowdsale {
    * @param _vinciAmount Amount of Vincis sold
    */
   function recordSale(uint256 _weiAmount, uint256 _vinciAmount) external onlyOwner {
-    // Verify that the amount won&#39;t put us over the wei cap
+    // Verify that the amount won't put us over the wei cap
     require(weiRaised.add(_weiAmount) <= weiCap);
-    // Verify that the amount won&#39;t put us over the vinci cap
+    // Verify that the amount won't put us over the vinci cap
     require(vinciSold.add(_vinciAmount) <= vinciCap);
-    // Verify Crowdsale hasn&#39;t been finalized yet
+    // Verify Crowdsale hasn't been finalized yet
     require(!isFinalized);
     // Update crowdsale totals
     weiRaised = weiRaised.add(_weiAmount);
@@ -637,15 +637,15 @@ contract DAVCrowdsale is PausableCrowdsale, FinalizableCrowdsale {
 
   function _preValidatePurchase(address _beneficiary, uint256 _weiAmount) internal onlyWhitelisted(_beneficiary) {
     super._preValidatePurchase(_beneficiary, _weiAmount);
-    // Verify that the amount won&#39;t put us over the wei cap
+    // Verify that the amount won't put us over the wei cap
     require(weiRaised.add(_weiAmount) <= weiCap);
-    // Verify that the amount won&#39;t put us over the vinci cap
+    // Verify that the amount won't put us over the vinci cap
     require(vinciSold.add(_weiAmount.mul(rate)) <= vinciCap);
     // Verify amount is larger than or equal to minimal contribution
     require(_weiAmount >= minimalContribution);
     // Verify that the gas price is lower than 50 gwei
     require(tx.gasprice <= gasPriceLimit);
-    // Verify that user hasn&#39;t contributed more than the individual hard cap
+    // Verify that user hasn't contributed more than the individual hard cap
     require(contributions[_beneficiary].add(_weiAmount) <= maximalIndividualContribution);
   }
 
@@ -670,7 +670,7 @@ contract DAVCrowdsale is PausableCrowdsale, FinalizableCrowdsale {
     // Burn off remaining tokens
     crowdsaleBalance = davToken.balanceOf(this);
     davToken.burn(crowdsaleBalance);
-    // Set token&#39;s pause cutoff time to 3 weeks from closing time
+    // Set token's pause cutoff time to 3 weeks from closing time
     davToken.setPauseCutoffTime(closingTime.add(1814400));
     // transfer token Ownership back to original owner
     davToken.transferOwnership(owner);

@@ -74,14 +74,14 @@ contract caelumPublicSale {
     
     
     /**
-     *  Minimal funding solution. The user get&#39;s added to our list, who will be inserted on mainnet genesis block.
+     *  Minimal funding solution. The user get's added to our list, who will be inserted on mainnet genesis block.
      *  A minimum of 250000000000000000 Wei is required (0.25 ETH) to participate.
      */
     function purchase() public payable returns (bool success) {
         
-        require(isRunning, &#39;unning issie&#39;);
-        require(now < endDate, &#39;date isse&#39;);
-        require(bought.add(msg.value) <= maxCap, &#39;cap issue&#39;);
+        require(isRunning, 'unning issie');
+        require(now < endDate, 'date isse');
+        require(bought.add(msg.value) <= maxCap, 'cap issue');
         
         require(msg.value > 0);
         require(msg.value >= 250000000000000000);

@@ -11,7 +11,7 @@ pragma solidity ^0.4.21;
     you are trying to buy/sell.
     
     The contract provides to functions that can be used to query how much ETH
-    the contract is willing to pay for your CHI, or how much ETH you&#39;ll need to 
+    the contract is willing to pay for your CHI, or how much ETH you'll need to 
     buy CHI. You can call those functions without generating a transaction,
     for example in the "Read Smart Contract" tab on Etherscan. This will give 
     you an estimate only, because the price might change by the time your TX confirms. 
@@ -58,9 +58,9 @@ contract ChiMarket {
         uint256 eth_amount;
         require(eth_balance > 0 && chi_balance > 0);
 
-        require(chi_balance + chi_amount >= chi_balance); // don&#39;t allow overflow
+        require(chi_balance + chi_amount >= chi_balance); // don't allow overflow
         eth_amount = (chi_amount * eth_balance) / (chi_balance + chi_amount);
-        require(1000 * eth_amount >= eth_amount); // don&#39;t allow overflow
+        require(1000 * eth_amount >= eth_amount); // don't allow overflow
         eth_amount = ((1000 - market_halfspread) * eth_amount) / 1000;
         return eth_amount;
     }
@@ -77,9 +77,9 @@ contract ChiMarket {
         require(eth_balance > 0 && chi_balance > 0);
         require(chi_balance > _chi_amount); // must have enough CHI
         
-        require(chi_balance - _chi_amount <= chi_balance); // don&#39;t allow overflow
+        require(chi_balance - _chi_amount <= chi_balance); // don't allow overflow
         eth_amount = (_chi_amount * eth_balance) / (chi_balance - _chi_amount);
-        require(1000 * eth_amount >= eth_amount); // don&#39;t allow overflow
+        require(1000 * eth_amount >= eth_amount); // don't allow overflow
         eth_amount = (1000 * eth_amount) / (1000 - market_halfspread);
         return eth_amount;
     }
@@ -121,7 +121,7 @@ contract ChiMarket {
         require(token.transfer(_to, _val));
     }
 
-    // Hopefully this doesn&#39;t get used, but it allows for gotchi rescue if someone sends
+    // Hopefully this doesn't get used, but it allows for gotchi rescue if someone sends
     // their gotchi (or a cat) to the contract by mistake.
     function moveERC721Tokens(address _tokenContract, address _to, uint256 _tid) public onlyOwner {
         ERC721Token token = ERC721Token(_tokenContract);
@@ -134,7 +134,7 @@ contract ChiMarket {
         _target.transfer(_amount);
     }
 
-    // Set the market spread (actually it&#39;s half of the spread).    
+    // Set the market spread (actually it's half of the spread).    
     function setSpread(uint256 _halfspread) public onlyOwner {
         require(_halfspread <= 50);
         market_halfspread = _halfspread;        

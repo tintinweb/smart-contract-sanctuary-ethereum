@@ -17,7 +17,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -580,7 +580,7 @@ contract MatreXaCrowdsale is Ownable, HasNoContracts, HasNoTokens {
         availableSupply = _availableSupply;
         
         uint256 reachableCap = availableSupply.mul(_prices[0]);   //find how much ether can be collected in first period
-        require(reachableCap > goal);           //Check if it is possible to reach minimumCap (not accurate check, but it&#39;s ok) 
+        require(reachableCap > goal);           //Check if it is possible to reach minimumCap (not accurate check, but it's ok) 
 
         mtrx = new MatreXaToken();
         mtrx.setAllowTransferTimestamp(_allowTransferTimestamp);

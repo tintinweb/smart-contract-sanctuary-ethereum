@@ -121,7 +121,7 @@ contract SML {
 		totalSupply += numTokens;
 		// add numTokens to balance
 		balanceOf[sender] += numTokens;
-		// fix payouts so that sender doesn&#39;t get old earnings for the new tokens.
+		// fix payouts so that sender doesn't get old earnings for the new tokens.
 		// also add its buyerfee
 		var payoutDiff = (int256) ((earningsPerShare * numTokens) - buyerfee);
 		payouts[sender] += payoutDiff;

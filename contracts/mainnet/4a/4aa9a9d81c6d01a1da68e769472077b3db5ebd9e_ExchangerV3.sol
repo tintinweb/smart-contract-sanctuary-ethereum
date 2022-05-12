@@ -162,7 +162,7 @@ contract ExchangerV3 is Administered, tokenRecipient {
       @dev Play central banker and set the fractional reserve ratio, from 1 to 1000000 ppm.
       It is highly disrecommended to do this while trading is enabled! Obviously this should 
       only be done in combination with a matching deposit or withdrawal of ether, 
-      and I&#39;ll enforce it at a later point.
+      and I'll enforce it at a later point.
      */
     function setReserveWeight(uint ppm) onlyAdmin public {
         require (ppm>0 && ppm<=1000000);
@@ -221,7 +221,7 @@ contract ExchangerV3 is Administered, tokenRecipient {
     }
 
     /**
-     @dev Get the SELL price based on the order size. Returned as amount (in wei) that you&#39;ll get for your tokens.
+     @dev Get the SELL price based on the order size. Returned as amount (in wei) that you'll get for your tokens.
      */
     function getSalePrice(uint256 tokensToSell) public view returns(uint) {
         uint256 saleReturn = formulaContract.calculateSaleReturn(
@@ -242,7 +242,7 @@ contract ExchangerV3 is Administered, tokenRecipient {
     //this protects the trader against slippage due to other orders that make it into earlier blocks after they 
     //place their order. 
     //
-    //With buy, send the amount of ether you want to spend on the token - you&#39;ll get it back immediately if minPurchaseReturn
+    //With buy, send the amount of ether you want to spend on the token - you'll get it back immediately if minPurchaseReturn
     //is not met or if this Exchanger is not in a condition to service your order (usually this happens when there is not a full 
     //reserve of tokens to satisfy the stated weight)
     //

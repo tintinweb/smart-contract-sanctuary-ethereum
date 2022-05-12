@@ -130,7 +130,7 @@ contract StandardToken is ERC20 {
         return balances[_owner];
     }
 
-  /// @dev Transfers sender&#39;s tokens to a given address. Returns success
+  /// @dev Transfers sender's tokens to a given address. Returns success
   /// @param _to Address of token receiver
   /// @param _value Number of tokens to transfer
   /// @return Was transfer successful?
@@ -169,7 +169,7 @@ contract StandardToken is ERC20 {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -213,7 +213,7 @@ contract StandardToken is ERC20 {
         require(_value > 0);
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);
@@ -446,9 +446,9 @@ contract Synapse is StandardToken, Owned, Pausable {
     * @param _value uint256 The amount of tokens to be send
     */
     function saleTransfer(address _to, uint256 _value) external whenNotPaused returns (bool) {
-        require(saleContract != address(0),&#39;sale address is not activated&#39;);
-        require(msg.sender == saleContract,&#39;caller is not crowdsale contract&#39;);
-        require(!frozenAccounts[_to],&#39;account is freezed&#39;);
+        require(saleContract != address(0),'sale address is not activated');
+        require(msg.sender == saleContract,'caller is not crowdsale contract');
+        require(!frozenAccounts[_to],'account is freezed');
         return super.transferFrom(crowdSaleOwner,_to, _value);
             
     }
@@ -459,9 +459,9 @@ contract Synapse is StandardToken, Owned, Pausable {
     * @param _value uint256 The amount of tokens to be send
     */
     function vestingTransfer(address _to, uint256 _value) external whenNotPaused returns (bool) {
-        require(icoFinalizedTime == 0,&#39;ico is finalised&#39;);
+        require(icoFinalizedTime == 0,'ico is finalised');
         require(vestingContract != address(0));
-        require(msg.sender == vestingContract,&#39;caller is not a vesting contract&#39;);
+        require(msg.sender == vestingContract,'caller is not a vesting contract');
         investorIsVested[_to] = true;
         return super.transferFrom(vestingOwner,_to, _value);
     }

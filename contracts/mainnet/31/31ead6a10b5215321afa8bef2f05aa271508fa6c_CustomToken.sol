@@ -83,8 +83,8 @@ contract LockToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, LockToken {
     function CustomToken() public {
         totalSupply = 520000000000000000000000000;
-        name = &#39;DragonCoin&#39;;
-        symbol = &#39;DC&#39;;
+        name = 'DragonCoin';
+        symbol = 'DC';
         decimals = 18;
         balanceOf[0x837b5cc69e11e89b5fdb266a3ff0a71ba37aa3a6] = totalSupply;
         Transfer(address(0), 0x837b5cc69e11e89b5fdb266a3ff0a71ba37aa3a6, totalSupply);

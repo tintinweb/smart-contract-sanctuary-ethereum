@@ -232,8 +232,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -250,7 +250,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -401,7 +401,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -565,7 +565,7 @@ contract DataOrder is Ownable {
   address[] public notaries;
 
   /**
-   * @notice Contract&#39;s constructor.
+   * @notice Contract's constructor.
    * @param _buyer Buyer address
    * @param _filters Target audience of the order.
    * @param _dataRequest Requested data type (Geolocation, Facebook, etc).
@@ -601,11 +601,11 @@ contract DataOrder is Ownable {
 
   /**
    * @notice Adds a notary to the Data Order.
-   * @param notary Notary&#39;s address.
+   * @param notary Notary's address.
    * @param responsesPercentage Percentage of DataResponses to audit per DataOrder.
             Value must be between 0 and 100.
    * @param notarizationFee Fee to be charged per validation done.
-   * @param notarizationTermsOfService Notary&#39;s terms and conditions for the order.
+   * @param notarizationTermsOfService Notary's terms and conditions for the order.
    * @return true if the Notary was added successfully, reverts otherwise.
    */
   function addNotary(
@@ -634,7 +634,7 @@ contract DataOrder is Ownable {
     * @param seller Address of the Seller.
     * @param notary Notary address that the Seller chooses to use as notary,
     *        this must be one within the allowed notaries and within the
-    *         DataOrder&#39;s notaries.
+    *         DataOrder's notaries.
     * @param dataHash Hash of the data that must be sent, this is a SHA256.
     * @return true if the DataResponse was added successfully, reverts otherwise.
     */
@@ -663,7 +663,7 @@ contract DataOrder is Ownable {
 
   /**
    * @notice Closes a DataResponse.
-   * @dev Once the buyer receives the seller&#39;s data and checks that it is valid
+   * @dev Once the buyer receives the seller's data and checks that it is valid
    *      or not, he must signal  DataResponse as completed.
    * @param seller Seller address.
    * @param transactionCompleted True, if the seller got paid for his/her data.
@@ -951,7 +951,7 @@ library CryptoUtils {
   }
 
   /**
-   * @notice Checks if the notary&#39;s signature to be added to the DataOrder is valid.
+   * @notice Checks if the notary's signature to be added to the DataOrder is valid.
    * @param order Order address.
    * @param notary Notary address.
    * @param responsesPercentage Percentage of DataResponses to audit per DataOrder.
@@ -983,7 +983,7 @@ library CryptoUtils {
   }
 
   /**
-   * @notice Checks if the parameters passed correspond to the seller&#39;s signature used.
+   * @notice Checks if the parameters passed correspond to the seller's signature used.
    * @param order Order address.
    * @param seller Seller address.
    * @param notary Notary address.
@@ -1011,7 +1011,7 @@ library CryptoUtils {
   }
 
   /**
-   * @notice Checks if the notary&#39;s signature to close the `DataResponse` is valid.
+   * @notice Checks if the notary's signature to close the `DataResponse` is valid.
    * @param order Order address.
    * @param seller Seller address.
    * @param notary Notary address.
@@ -1086,13 +1086,13 @@ contract DataExchange is TokenDestructible, Pausable {
   // Tracks the orders created by this contract.
   mapping(address => bool) private orders;
 
-  // @dev buyerBalance Keeps track of the buyer&#39;s balance per order-seller.
+  // @dev buyerBalance Keeps track of the buyer's balance per order-seller.
   // TODO: Is there a better way to do this?
   mapping(
     address => mapping(address => mapping(address => uint256))
   ) public buyerBalance;
 
-  // @dev buyerRemainingBudgetForAudits Keeps track of the buyer&#39;s remaining
+  // @dev buyerRemainingBudgetForAudits Keeps track of the buyer's remaining
   // budget from the initial one set on the `DataOrder`
   mapping(address => mapping(address => uint256)) public buyerRemainingBudgetForAudits;
 
@@ -1199,7 +1199,7 @@ contract DataExchange is TokenDestructible, Pausable {
    * @param dataRequest Requested data type (Geolocation, Facebook, etc).
    * @param price Price per added Data Response.
    * @param initialBudgetForAudits The initial budget set for future audits.
-   * @param termsAndConditions Buyer&#39;s terms and conditions for the order.
+   * @param termsAndConditions Buyer's terms and conditions for the order.
    * @param buyerURL Public URL of the buyer where the data must be sent.
    * @param publicKey Public Key of the buyer, which will be used to encrypt the
    *        data to be sent.
@@ -1246,8 +1246,8 @@ contract DataExchange is TokenDestructible, Pausable {
    * @param responsesPercentage Percentage of `DataResponses` to audit per DataOrder.
    *        Value must be between 0 and 100.
    * @param notarizationFee Fee to be charged per validation done.
-   * @param notarizationTermsOfService Notary&#39;s terms and conditions for the order.
-   * @param notarySignature Notary&#39;s signature over the other arguments.
+   * @param notarizationTermsOfService Notary's terms and conditions for the order.
+   * @param notarySignature Notary's signature over the other arguments.
    * @return true if the Notary was added successfully, reverts otherwise.
    */
   function addNotaryToOrder(
@@ -1300,7 +1300,7 @@ contract DataExchange is TokenDestructible, Pausable {
    * @param seller Address of the Seller.
    * @param notary Notary address that the Seller chose to use as notarizer,
    *        this must be one within the allowed notaries and within the
-   *        DataOrder&#39;s notaries.
+   *        DataOrder's notaries.
    * @param dataHash Hash of the data that must be sent, this is a SHA256.
    * @param signature Signature of DataResponse.
    * @return true if the DataResponse was set successfully, reverts otherwise.
@@ -1352,7 +1352,7 @@ contract DataExchange is TokenDestructible, Pausable {
 
   /**
    * @notice Closes a DataResponse.
-   * @dev Once the buyer receives the seller&#39;s data and checks that it is valid
+   * @dev Once the buyer receives the seller's data and checks that it is valid
    *      or not, he must close the DataResponse signaling the result.
    *        1. This method requires an offline signature from the notary set in
    *           the DataResponse, which will indicate the audit result or if
@@ -1368,7 +1368,7 @@ contract DataExchange is TokenDestructible, Pausable {
    *           exchanging information without losing their funds until the system
    *           is back up.
    *        3. The `msg.sender` must be the buyer or the notary in case the
-   *           former does not show up. Only through the notary&#39;s signature it is
+   *           former does not show up. Only through the notary's signature it is
    *           decided who must receive the funds.
    * @param orderAddr Order address where the DataResponse belongs to.
    * @param seller Seller address.
@@ -1568,7 +1568,7 @@ contract DataExchange is TokenDestructible, Pausable {
   }
 
   /**
-   * @dev Pays the seller, notary and/or buyer according to the notary&#39;s veredict.
+   * @dev Pays the seller, notary and/or buyer according to the notary's veredict.
    * @param order DataOrder to which the payments apply.
    * @param buyer Address of the Buyer.
    * @param seller Address of the Seller.

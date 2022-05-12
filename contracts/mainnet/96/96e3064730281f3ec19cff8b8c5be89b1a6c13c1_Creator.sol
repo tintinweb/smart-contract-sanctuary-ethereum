@@ -217,7 +217,7 @@ contract Crowdsale{
 
     // Returns the name of the current round in plain text. Constant.
     function getTokenSaleType() external view returns(string){
-        return (TokenSale == TokenSaleType.round1)?&#39;round1&#39;:&#39;round2&#39;;
+        return (TokenSale == TokenSaleType.round1)?'round1':'round2';
     }
 
     // Transfers the funds of the investor to the contract of return of funds. Internal.
@@ -549,7 +549,7 @@ contract Crowdsale{
         isPausedCrowdsale = mode;
     }
 
-    // For example - After 5 years of the project&#39;s existence, all of us suddenly decided collectively
+    // For example - After 5 years of the project's existence, all of us suddenly decided collectively
     // (company + investors) that it would be more profitable for everyone to switch to another smart
     // contract responsible for tokens. The company then prepares a new token, investors
     // disassemble, study, discuss, etc. After a general agreement, the manager allows any investor:
@@ -578,7 +578,7 @@ contract Crowdsale{
     // Change the address for the specified role.
     // Available to any wallet owner except the observer.
     // Available to the manager until the round is initialized.
-    // The Observer&#39;s wallet or his own manager can change at any time.
+    // The Observer's wallet or his own manager can change at any time.
     // @ Do I have to use the function      no
     // @ When it is possible to call        depend...
     // @ When it is launched automatically  -
@@ -693,7 +693,7 @@ contract Crowdsale{
     // transfers) to the wallet of BTC, that together with previously received money will exceed the hardcap in total.
     // In this case, we will refund all the amounts above, in order not to exceed the hardcap.
 
-    // Collection of money in BTC will be carried out via one common wallet. The wallet&#39;s address will be published
+    // Collection of money in BTC will be carried out via one common wallet. The wallet's address will be published
     // everywhere (in a white paper, on the TokenSale website, on Telegram, on Bitcointalk, in this code, etc.)
     // Anyone interested can check that the administrator of the smart contract writes down exactly the amount
     // in ETH (in equivalent for BTC) there. In theory, the ability to bypass a smart contract to accept money in
@@ -872,9 +872,9 @@ contract Ownable {
 
 
 // (A3)
-// Contract for freezing of investors&#39; funds. Hence, investors will be able to withdraw money if the
+// Contract for freezing of investors' funds. Hence, investors will be able to withdraw money if the
 // round does not attain the softcap. From here the wallet of the beneficiary will receive all the
-// money (namely, the beneficiary, not the manager&#39;s wallet).
+// money (namely, the beneficiary, not the manager's wallet).
 contract RefundVault is Ownable {
     using SafeMath for uint256;
 
@@ -1057,7 +1057,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -1341,7 +1341,7 @@ contract BurnableToken is BasicToken, Ownable {
   function burn(address _beneficiary, uint256 _value) public onlyOwner {
     require(_value <= balances[_beneficiary]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_beneficiary] = balances[_beneficiary].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -1419,10 +1419,10 @@ contract Token is FreezingToken, MintableToken, MigratableToken, BurnableToken {
 
         grantedToAllowBlocking[msg.sender][_contract] = permission;
 
-        emit TokenOperationEvent(&#39;grant_allow_blocking&#39;, msg.sender, _contract, 0, 0);
+        emit TokenOperationEvent('grant_allow_blocking', msg.sender, _contract, 0, 0);
     }
 
-    // @brief Allow another contract to block tokens. Can&#39;t be revoked
+    // @brief Allow another contract to block tokens. Can't be revoked
     // @param _owner tokens owner
     // @param _contract another contract address
     function allowBlocking(address _owner, address _contract) contractOnly(_contract) public {
@@ -1434,7 +1434,7 @@ contract Token is FreezingToken, MintableToken, MigratableToken, BurnableToken {
 
         allowedToBlocking[_owner][_contract] = true;
 
-        emit TokenOperationEvent(&#39;allow_blocking&#39;, _owner, _contract, 0, msg.sender);
+        emit TokenOperationEvent('allow_blocking', _owner, _contract, 0, msg.sender);
     }
 
     // @brief Blocks tokens
@@ -1449,7 +1449,7 @@ contract Token is FreezingToken, MintableToken, MigratableToken, BurnableToken {
         blocked[_blocking][msg.sender] = blocked[_blocking][msg.sender].add(_value);
 
         emit Transfer(_blocking, address(0), _value);
-        emit TokenOperationEvent(&#39;block&#39;, _blocking, 0, _value, msg.sender);
+        emit TokenOperationEvent('block', _blocking, 0, _value, msg.sender);
     }
 
     // @brief Unblocks tokens and sends them to the given address (to _unblockTo)
@@ -1469,7 +1469,7 @@ contract Token is FreezingToken, MintableToken, MigratableToken, BurnableToken {
             emit Transfer(_blocking, _unblockTo, _value);
         }
 
-        emit TokenOperationEvent(&#39;unblock&#39;, _blocking, _unblockTo, _value, msg.sender);
+        emit TokenOperationEvent('unblock', _blocking, _unblockTo, _value, msg.sender);
     }
 }
 

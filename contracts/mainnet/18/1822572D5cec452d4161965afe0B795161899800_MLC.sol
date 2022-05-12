@@ -169,7 +169,7 @@ contract MLC is owned,ParentToken{
     using SafeMath for uint256; 
 
      /* Public variables of the token */
-    string public standard = &#39;Token 0.1&#39;;  
+    string public standard = 'Token 0.1';  
     uint256 public currentSupply= 2400000000000000;
     string public constant symbol = "MLC";
     string public constant tokenName = "Melania";
@@ -278,7 +278,7 @@ contract MLC is owned,ParentToken{
         require(balances[from] >= value);                                         // Check if the targeted balance is enough
         require(value <= allowance[from][msg.sender]);                            // Check allowance
         balances[from] = balances[from].sub(value);                               // Deduct from the targeted balance
-        allowance[from][msg.sender] = allowance[from][msg.sender].sub(value);     // Deduct from the sender&#39;s allowance
+        allowance[from][msg.sender] = allowance[from][msg.sender].sub(value);     // Deduct from the sender's allowance
         currentSupply = currentSupply.sub(value);                                 // Update currentSupply
         Burn(from, value);
         return true;

@@ -89,7 +89,7 @@ contract CryptoDuels is Owned {
         divCut = divCut_;
     }
     
-    uint public fatigueBlock = 1; // can&#39;t duel too much in too few time
+    uint public fatigueBlock = 1; // can't duel too much in too few time
     uint public safeBlock = 1; // new players are safe for a while
     
     uint public blockDuelBegin = 0; // for special event
@@ -109,7 +109,7 @@ contract CryptoDuels is Owned {
     }
     
     function adminPayout(uint wad) public onlyCLevel {
-        if ((wad > divAmt) || (wad == 0)) // can only payout dividend, so player&#39;s ETHs are safe
+        if ((wad > divAmt) || (wad == 0)) // can only payout dividend, so player's ETHs are safe
             wad = divAmt;
         divAmt = divAmt.sub(wad);
         ceoAddress.transfer(wad);

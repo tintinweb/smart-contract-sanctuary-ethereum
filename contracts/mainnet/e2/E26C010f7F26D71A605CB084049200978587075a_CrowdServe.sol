@@ -30,7 +30,7 @@ In the Ending state:
     Any user can make subsequent calls to tryRoundEnd.
     Each call to tryRoundEnd iterates further through the list of contributors and sets their balance to 0 (destroying the tokens)
     Once all balances have been reset:
-        The producer receives the contract&#39;s remaining balance.
+        The producer receives the contract's remaining balance.
         The contract returns to the Inactive state.
 */
 
@@ -46,7 +46,7 @@ contract CrowdServe {
     // Set upon instantiation and never changed:
     uint public minPreviewInterval; // This gives contributors a guaranteed minimum time to recall their funds
     uint public minContribution; // Gas required to completely end a round increases with number of contributors;
-                                 // minContribution allows the producer to disallow contributions that aren&#39;t worth this added cost.
+                                 // minContribution allows the producer to disallow contributions that aren't worth this added cost.
     address public producer;
 
     enum State {Active, Ending, Inactive}

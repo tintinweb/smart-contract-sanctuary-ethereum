@@ -201,7 +201,7 @@ contract FinancialStrategy is IFinancialStrategy, GuidedByRoles{
                     debt[i] = plan;
                     continue;
                 }
-                debt[i] = cap[i] - total[i]; //&#39;total&#39; is always less than &#39;cap&#39;
+                debt[i] = cap[i] - total[i]; //'total' is always less than 'cap'
                 free -= debt[i];
                 prcSum -= percent[i];
                 indexes[j-1] = indexes[--count];

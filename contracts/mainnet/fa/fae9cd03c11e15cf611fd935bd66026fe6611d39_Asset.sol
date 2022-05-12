@@ -232,10 +232,10 @@ contract ERC20Token is ERC20TokenInterface, admined { //Standard definition of a
 * @notice Supply is initially unlocked for minting
 */
 contract Asset is ERC20Token {
-    string public name = &#39;Citereum&#39;;
+    string public name = 'Citereum';
     uint8 public decimals = 18;
-    string public symbol = &#39;CTR&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'CTR';
+    string public version = '1';
 
     function Asset() public {
         totalSupply = 12500000 * (10**uint256(decimals)); //initial token creation

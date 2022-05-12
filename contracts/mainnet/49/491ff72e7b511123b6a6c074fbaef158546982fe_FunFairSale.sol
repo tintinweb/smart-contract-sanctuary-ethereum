@@ -50,20 +50,20 @@ contract FunFairSale is Owned, TokenReceivable {
     uint public startTime = 1498140000; // June 22nd, 2017; 14:00 GMT
     uint public capAmount = 125000000 ether;
 
-    // Don&#39;t allow contributions when the gas price is above
+    // Don't allow contributions when the gas price is above
     // 50 Gwei to discourage gas price manipulation.
     uint constant MAX_GAS_PRICE = 50 * 1024 * 1024 * 1024 wei;
 
     function FunFairSale() {}
 
     function shortenDeadline(uint t) onlyOwner {
-        // Used to shorten the deadline once (if) we&#39;ve hit the soft cap.
+        // Used to shorten the deadline once (if) we've hit the soft cap.
         if (t > deadline) throw;
         deadline = t;
     }
 
     function () payable {
-        // Don&#39;t encourage gas price manipulation.
+        // Don't encourage gas price manipulation.
     	if (tx.gasprice > MAX_GAS_PRICE) throw;
         if (block.timestamp < startTime || block.timestamp >= deadline) throw;
         if (this.balance >= capAmount) throw;

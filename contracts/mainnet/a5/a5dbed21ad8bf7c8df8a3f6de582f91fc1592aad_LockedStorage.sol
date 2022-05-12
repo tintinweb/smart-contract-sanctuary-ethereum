@@ -6,8 +6,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -227,7 +227,7 @@ contract LockedStorage is Withdrawable, Claimable {
          * @dev add deposit contract address for the default withdraw wallet
      *
      * @param _wallet the default withdraw wallet address
-     * @param _name the wallet owner&#39;s name
+     * @param _name the wallet owner's name
      * @param _value the balance of the wallet need to be stored in this contract
          */
     function addAccount(address _wallet, string _name, uint256 _value) onlyOwner public returns (bool) {

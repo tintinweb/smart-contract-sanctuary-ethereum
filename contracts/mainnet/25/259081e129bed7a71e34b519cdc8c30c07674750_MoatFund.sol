@@ -82,8 +82,8 @@ contract MoatFund is addressKeeper {
     uint256 public redeemRate;     // When redeeming, 1MTC=fixed ETH
     bool public redeemBool;
 
-    uint256 public ethRaised;       // ETH deposited in owner&#39;s address
-    uint256 public ethRedeemed;     // ETH transferred from owner&#39;s address
+    uint256 public ethRaised;       // ETH deposited in owner's address
+    uint256 public ethRedeemed;     // ETH transferred from owner's address
 
     // function to start minting MTC
     function startMint(uint256 _rate, bool canMint, uint256 _minWeiInvest) onlyOwner public {

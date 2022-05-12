@@ -3,8 +3,8 @@ pragma solidity ^0.4.19;
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) external; }
 
 contract TON {
-    string public name = &#39;TON&#39;;
-    string public symbol = &#39;TON&#39;;
+    string public name = 'TON';
+    string public symbol = 'TON';
     uint8 public decimals = 18;
     uint256 public totalSupply = 1000000000000000000000000000;
 

@@ -12,10 +12,10 @@ contract ERC20TokenInterface {
 }
 
 contract Gidnist is ERC20TokenInterface {
-  string public constant name = &#39;Gidnist&#39;;
+  string public constant name = 'Gidnist';
   uint256 public constant decimals = 2;
-  string public constant symbol = &#39;GDNT&#39;;
-  string public constant version = &#39;v0.0.1&#39;;
+  string public constant symbol = 'GDNT';
+  string public constant version = 'v0.0.1';
 
   uint256 private constant totalTokens = 277000 * (10 ** decimals);
 

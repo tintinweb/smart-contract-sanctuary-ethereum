@@ -169,7 +169,7 @@ function () payable {
 		revert();
 	}
 		
-	tokenAmount = 0;									//set the &#39;amount&#39; var back to zero
+	tokenAmount = 0;									//set the 'amount' var back to zero
 	tokenAmount = ((msg.value*rate)/(1 ether));		//calculate the amount of tokens to give
 	
 	if (tokenAmount < 1) {

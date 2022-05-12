@@ -251,7 +251,7 @@ contract CardProto is CardBase {
     }
 
     function nextSeason() public onlyGovernor {
-        //Seasons shouldn&#39;t go to 0 if there is more than the uint8 should hold, the governor should know this &#175;\_(ツ)_/&#175; -M
+        //Seasons shouldn't go to 0 if there is more than the uint8 should hold, the governor should know this &#175;\_(ツ)_/&#175; -M
         require(currentSeason <= 255); 
 
         currentSeason++;
@@ -289,7 +289,7 @@ contract CardProto is CardBase {
 
     // there is a particular design decision driving this:
     // need to be able to iterate over mythics only for card generation
-    // don&#39;t store 5 different arrays: have to use 2 ids
+    // don't store 5 different arrays: have to use 2 ids
     // better to bear this cost (2 bytes per proto card)
     // rather than 1 byte per instance
 
@@ -482,7 +482,7 @@ contract CardProto is CardBase {
     }
 
     // can never adjust tradable cards
-    // each season gets a &#39;balancing beta&#39;
+    // each season gets a 'balancing beta'
     // totally immutable: season, rarity
     function replaceProto(
         uint16 index, uint8 god, uint8 cardType, uint8 mana, uint8 attack, uint8 health, uint8 tribe
@@ -527,7 +527,7 @@ contract CardPackThree {
     event Referral(address indexed referrer, uint value, address purchaser);
 
     /**
-    * purchase &#39;count&#39; of this type of pack
+    * purchase 'count' of this type of pack
     */
     function purchase(uint16 packCount, address referrer) public payable;
 
@@ -677,10 +677,10 @@ contract PresalePackThree is CardPackThree, Pausable {
 
         bytes32 bhash = blockhash(p.commit);
         // will get the same on every block
-        // only use properties which can&#39;t be altered by the user
+        // only use properties which can't be altered by the user
         uint random = uint(keccak256(abi.encodePacked(bhash, p.user, address(this), p.count)));
 
-        // can&#39;t callback on the original block
+        // can't callback on the original block
         require(uint64(block.number) != p.commit);
 
         if (uint(bhash) == 0) {

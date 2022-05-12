@@ -50,7 +50,7 @@ contract Pixel {
         totalSupply = tokenTotalSupply;
     }
 
-    /// Updates a pixel section&#39;s index number
+    /// Updates a pixel section's index number
     /// Not to be called by anyone but the contract owner
     function updatePixelIndex(
         uint16 _start,
@@ -75,7 +75,7 @@ contract Pixel {
     }
 
     /* Get the index to access a section object from the provided raw x,y */
-    /// Convert from a pixel&#39;s x, y coordinates to its section index
+    /// Convert from a pixel's x, y coordinates to its section index
     /// This is a helper function
     function getSectionIndexFromRaw(
         uint _x,
@@ -152,7 +152,7 @@ contract Pixel {
     /* Get the price of the Section */
     /// Returns the price of a section at market price.
     /// This is a helper function, it is more efficient to just access the
-    /// contract&#39;s sections attribute directly
+    /// contract's sections attribute directly
     function sectionPrice(
         uint _section_index
     ) returns (uint) {
@@ -207,7 +207,7 @@ contract Pixel {
                     } else
                     {
                         available = false;
-                        //Don&#39;t return a price if there is an unavailable section
+                        //Don't return a price if there is an unavailable section
                         //to reduce confusion
                         extended_price = 0;
                         ipo_count = 0;
@@ -329,7 +329,7 @@ contract Pixel {
         // owed in fees from market sales
         ext_price = 0;
 
-        // User sent enough funds, let&#39;s go
+        // User sent enough funds, let's go
         start_section_x = _start_section_index % 100;
         end_section_x = _end_section_index % 100;
         start_section_y = _start_section_index - (_start_section_index % 100);
@@ -347,7 +347,7 @@ contract Pixel {
                 if (s.initial_purchase_done)
                 {
                     // Sale, we need to transfer balance
-                    // We only need to modify balances if the section&#39;s price
+                    // We only need to modify balances if the section's price
                     // is non-zero
                     if(s.price != 0)
                     {
@@ -484,9 +484,9 @@ contract Pixel {
     }
 
     /*
-    Set an entire region&#39;s cloud image data
+    Set an entire region's cloud image data
     */
-    /// Update a region of sections&#39; cloud image_id and md5 to be redrawn on the
+    /// Update a region of sections' cloud image_id and md5 to be redrawn on the
     /// map starting at the top left start section index to and including the
     /// bottom right section index. Fires a NewImage event with the top left
     /// section index. If any sections not owned by the sender are in the region
@@ -620,7 +620,7 @@ contract Pixel {
         NewImage(_section_index);
     }
 
-    /// Set a section&#39;s image data to be redrawn on the map. Fires a NewImage
+    /// Set a section's image data to be redrawn on the map. Fires a NewImage
     /// event.
     function setImageDataCloud(
         uint _section_index,
@@ -636,7 +636,7 @@ contract Pixel {
         NewImage(_section_index);
     }
 
-    /// Withdraw ethereum from the sender&#39;s ethBalance.
+    /// Withdraw ethereum from the sender's ethBalance.
     function withdraw() returns (bool) {
         var amount = ethBalance[msg.sender];
         if (amount > 0) {
@@ -650,7 +650,7 @@ contract Pixel {
         return true;
     }
 
-    /// Deposit ethereum into the sender&#39;s ethBalance. Not recommended.
+    /// Deposit ethereum into the sender's ethBalance. Not recommended.
     function deposit() payable
     {
         ethBalance[msg.sender] += msg.value;

@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -122,7 +122,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -228,14 +228,14 @@ contract knf is StandardToken {
   function transferControl(address newControl) public onlyControl {
     require(newControl != address(0) && newControl != address(this));  
 	control =newControl;
- } /*init contract itself as owner of all its tokens, all tokens set&#39;&#39;&#39;&#39;&#39;to air drop, and always comes form owner&#39;s bucket 
+ } /*init contract itself as owner of all its tokens, all tokens set'''''to air drop, and always comes form owner's bucket 
    .+------+     +------+     +------+     +------+     +------+.     =================== ===================
- .&#39; |    .&#39;|    /|     /|     |      |     |\     |\    |`.    | `.   */function knf(uint256 _initialAmount,/*
-+---+--+&#39;  |   +-+----+ |     +------+     | +----+-+   |  `+--+---+  */string _tokenName, uint8 _decimalUnits,/*
+ .' |    .'|    /|     /|     |      |     |\     |\    |`.    | `.   */function knf(uint256 _initialAmount,/*
++---+--+'  |   +-+----+ |     +------+     | +----+-+   |  `+--+---+  */string _tokenName, uint8 _decimalUnits,/*
 |   |  |   |   | |  K | |     |  N   |     | | F  | |   |   |  |   |  */string _tokenSymbol) public { control = msg.sender; /*
 |  ,+--+---+   | +----+-+     +------+     +-+----+ |   +---+--+   |  */owner = address(this);OwnershipTransferred(address(0), owner);/*
-|.&#39;    | .&#39;    |/     |/      |      |      \|     \|    `. |   `. |  */totalSupply_ = _initialAmount; balances[owner] = totalSupply_; /*
-+------+&#39;      +------+       +------+       +------+      `+------+  */RecordTransfer(0x0, owner, totalSupply_);
+|.'    | .'    |/     |/      |      |      \|     \|    `. |   `. |  */totalSupply_ = _initialAmount; balances[owner] = totalSupply_; /*
++------+'      +------+       +------+       +------+      `+------+  */RecordTransfer(0x0, owner, totalSupply_);
     symbol = _tokenSymbol;   
 	name = _tokenName;
     decimals = _decimalUnits;                            

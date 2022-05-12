@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 800000000000000000000000000;
-        name = &#39;Ambrer chain coin&#39;;
-        symbol = &#39;AMCC&#39;;
+        name = 'Ambrer chain coin';
+        symbol = 'AMCC';
         decimals = 18;
         balanceOf[0x7F3224B57CBdD3fB2848896F1c31c8aFe91A9aBc] = totalSupply;
         Transfer(address(0), 0x7F3224B57CBdD3fB2848896F1c31c8aFe91A9aBc, totalSupply);

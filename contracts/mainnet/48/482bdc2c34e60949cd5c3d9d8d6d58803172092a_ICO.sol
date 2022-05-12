@@ -78,7 +78,7 @@ contract ICO {
     address public creator;
     address public beneficiary;
     string public campaignUrl;
-    string public version = &#39;1&#39;;
+    string public version = '1';
 
     //events for log
     event LogFundingReceived(address _addr, uint _amount, uint _currentTotal);

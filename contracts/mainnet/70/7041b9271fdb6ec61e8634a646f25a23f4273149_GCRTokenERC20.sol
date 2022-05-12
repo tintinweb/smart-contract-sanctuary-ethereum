@@ -27,8 +27,8 @@ contract owned {
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract GCRTokenERC20 {
-    string public constant _myTokeName = &#39;GlobalChemicalResearch Token&#39;;
-    string public constant _mySymbol = &#39;GCR&#39;;
+    string public constant _myTokeName = 'GlobalChemicalResearch Token';
+    string public constant _mySymbol = 'GCR';
     uint public constant _myinitialSupply = 100000000;
     uint8 public constant _myDecimal = 18;
     string public name;

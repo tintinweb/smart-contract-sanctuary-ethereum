@@ -16,13 +16,13 @@
   ################ Sharder-Token-v2.0 ###############
   a) Added an emergency transfer function to transfer tokens to the contract owner.
   b) Removed crowdsale logic according to the MintToken standard to improve neatness and legibility of the token contract.
-  c) Added the &#39;Frozen&#39; broadcast event.
+  c) Added the 'Frozen' broadcast event.
   d) Changed name, symbol, decimal, etc, parameters to lower-case according to the convention. Adjust format parameters.
   e) Added a global parameter to the smart contact to prevent exchanges trading Sharder tokens before officially partnering.
   f) Added address mapping to facilitate the exchange of current ERC-20 tokens to the Sharder Chain token when it goes live.
   g) Added Lockup and lock-up query functionality.
 
-  Sharder-Token-v1.0 has expired. The deprecated code is available in the sharder-token-v1.0&#39; branch.
+  Sharder-Token-v1.0 has expired. The deprecated code is available in the sharder-token-v1.0' branch.
 */
 pragma solidity ^0.4.18;
 
@@ -49,7 +49,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -252,7 +252,7 @@ contract SharderToken {
      *
      * !!Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address authorized to spend.
      * @param _approveTokensWithDecimal the max amount they can spend.
@@ -290,7 +290,7 @@ contract SharderToken {
         balanceOf[_from] -= _burnedTokensWithDecimal;
         /// Subtract from the targeted balance
         allowance[_from][msg.sender] -= _burnedTokensWithDecimal;
-        /// Subtract from the sender&#39;s allowance
+        /// Subtract from the sender's allowance
         totalSupply -= _burnedTokensWithDecimal;
         Burn(_from, _burnedTokensWithDecimal);
         return true;
@@ -365,7 +365,7 @@ contract SharderToken {
     }
 
     /**
-    * @dev Lockup account till the date. Can&#39;t lock-up again when this account locked already.
+    * @dev Lockup account till the date. Can't lock-up again when this account locked already.
     * 1 year = 31536000 seconds, 0.5 year = 15768000 seconds
     */
     function lockupAccount(address _address, uint256 _lockupSeconds) public onlyAdmin {

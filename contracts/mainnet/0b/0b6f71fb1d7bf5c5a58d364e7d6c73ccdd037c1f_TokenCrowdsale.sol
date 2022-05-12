@@ -50,8 +50,8 @@ contract TraceCrowdsale is owned {
 
 contract TraceToken is TraceCrowdsale {
     
-    string  public standard    = &#39;Token 0.1&#39;;
-    string  public name        = &#39;TraceToken&#39;;
+    string  public standard    = 'Token 0.1';
+    string  public name        = 'TraceToken';
     string  public symbol      = "TACE";
     uint8   public decimals    = 0;
 

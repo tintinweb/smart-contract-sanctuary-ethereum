@@ -3,7 +3,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract CapiterContract {
     /* Public variables of the token */
-    string public standard = &#39;Capiter 0.1&#39;;
+    string public standard = 'Capiter 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;

@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public view returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -90,7 +90,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != address(0));
         _;
@@ -153,7 +153,7 @@ contract Utils {
     It sets a maximum gas price on all bancor conversions, which prevents users from "cutting in line"
     in order to front-run other transactions.
     The gas price limit is universal to all converters and it can be updated by the owner to be in line
-    with the network&#39;s current gas price.
+    with the network's current gas price.
 */
 contract BancorGasPriceLimit is IBancorGasPriceLimit, Owned, Utils {
     uint256 public gasPrice = 0 wei;    // maximum gas price for bancor transactions

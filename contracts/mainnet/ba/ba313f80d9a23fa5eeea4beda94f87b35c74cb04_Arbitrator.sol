@@ -39,7 +39,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -259,12 +259,12 @@ contract RealityCheck is BalanceHolder {
     /// @dev Creates some generalized templates for different question types used in the DApp.
     function RealityCheck() 
     public {
-        createTemplate(&#39;{"title": "%s", "type": "bool", "category": "%s"}&#39;);
-        createTemplate(&#39;{"title": "%s", "type": "uint", "decimals": 18, "category": "%s"}&#39;);
-        createTemplate(&#39;{"title": "%s", "type": "int", "decimals": 18, "category": "%s"}&#39;);
-        createTemplate(&#39;{"title": "%s", "type": "single-select", "outcomes": [%s], "category": "%s"}&#39;);
-        createTemplate(&#39;{"title": "%s", "type": "multiple-select", "outcomes": [%s], "category": "%s"}&#39;);
-        createTemplate(&#39;{"title": "%s", "type": "datetime", "category": "%s"}&#39;);
+        createTemplate('{"title": "%s", "type": "bool", "category": "%s"}');
+        createTemplate('{"title": "%s", "type": "uint", "decimals": 18, "category": "%s"}');
+        createTemplate('{"title": "%s", "type": "int", "decimals": 18, "category": "%s"}');
+        createTemplate('{"title": "%s", "type": "single-select", "outcomes": [%s], "category": "%s"}');
+        createTemplate('{"title": "%s", "type": "multiple-select", "outcomes": [%s], "category": "%s"}');
+        createTemplate('{"title": "%s", "type": "datetime", "category": "%s"}');
     }
 
     /// @notice Function for arbitrator to set an optional per-question fee. 
@@ -466,7 +466,7 @@ contract RealityCheck is BalanceHolder {
     }
 
     /// @notice Notify the contract that the arbitrator has been paid for a question, freezing it pending their decision.
-    /// @dev The arbitrator contract is trusted to only call this if they&#39;ve been paid, and tell us who paid them.
+    /// @dev The arbitrator contract is trusted to only call this if they've been paid, and tell us who paid them.
     /// @param question_id The ID of the question
     /// @param requester The account that requested arbitration
     function notifyOfArbitrationRequest(bytes32 question_id, address requester) 
@@ -478,7 +478,7 @@ contract RealityCheck is BalanceHolder {
     }
 
     /// @notice Submit the answer for a question, for use by the arbitrator.
-    /// @dev Doesn&#39;t require (or allow) a bond.
+    /// @dev Doesn't require (or allow) a bond.
     /// If the current final answer is correct, the account should be whoever submitted it.
     /// If the current final answer is wrong, the account should be whoever paid for arbitration.
     /// However, the answerer stipulations are not enforced by the contract.
@@ -509,7 +509,7 @@ contract RealityCheck is BalanceHolder {
         return ( !questions[question_id].is_pending_arbitration && (finalize_ts > UNANSWERED) && (finalize_ts <= uint32(now)) );
     }
 
-    /// @notice Return the final answer to the specified question, or revert if there isn&#39;t one
+    /// @notice Return the final answer to the specified question, or revert if there isn't one
     /// @param question_id The ID of the question
     /// @return The answer formatted as a bytes32
     function getFinalAnswer(bytes32 question_id) 
@@ -543,10 +543,10 @@ contract RealityCheck is BalanceHolder {
     /// Caller must provide the answer history, in reverse order
     /// @dev Works up the chain and assign bonds to the person who gave the right answer
     /// If someone gave the winning answer earlier, they must get paid from the higher bond
-    /// That means we can&#39;t pay out the bond added at n until we have looked at n-1
+    /// That means we can't pay out the bond added at n until we have looked at n-1
     /// The first answer is authenticated by checking against the stored history_hash.
     /// One of the inputs to history_hash is the history_hash before it, so we use that to authenticate the next entry, etc
-    /// Once we get to a null hash we&#39;ll know we&#39;re done and there are no more answers.
+    /// Once we get to a null hash we'll know we're done and there are no more answers.
     /// Usually you would call the whole thing in a single transaction, but if not then the data is persisted to pick up later.
     /// @param question_id The ID of the question
     /// @param history_hashes Second-last-to-first, the hash of each history entry. (Final one should be empty).
@@ -567,8 +567,8 @@ contract RealityCheck is BalanceHolder {
         uint256 last_bond = question_claims[question_id].last_bond; 
         uint256 queued_funds = question_claims[question_id].queued_funds; 
 
-        // Starts as the hash of the final answer submitted. It&#39;ll be cleared when we&#39;re done.
-        // If we&#39;re splitting the claim over multiple transactions, it&#39;ll be the hash where we left off last time
+        // Starts as the hash of the final answer submitted. It'll be cleared when we're done.
+        // If we're splitting the claim over multiple transactions, it'll be the hash where we left off last time
         bytes32 last_history_hash = questions[question_id].history_hash;
 
         bytes32 best_answer = questions[question_id].best_answer;
@@ -584,14 +584,14 @@ contract RealityCheck is BalanceHolder {
                 question_id, best_answer, queued_funds, payee, 
                 addrs[i], bonds[i], answers[i], is_commitment);
  
-            // Line the bond up for next time, when it will be added to somebody&#39;s queued_funds
+            // Line the bond up for next time, when it will be added to somebody's queued_funds
             last_bond = bonds[i];
             last_history_hash = history_hashes[i];
 
         }
  
         if (last_history_hash != NULL_HASH) {
-            // We haven&#39;t yet got to the null hash (1st answer), ie the caller didn&#39;t supply the full answer chain.
+            // We haven't yet got to the null hash (1st answer), ie the caller didn't supply the full answer chain.
             // Persist the details so we can pick up later where we left off later.
 
             // If we know who to pay we can go ahead and pay them out, only keeping back last_bond
@@ -645,7 +645,7 @@ contract RealityCheck is BalanceHolder {
         // We look at the referenced commitment ID and switch in the actual answer.
         if (is_commitment) {
             bytes32 commitment_id = answer;
-            // If it&#39;s a commit but it hasn&#39;t been revealed, it will always be considered wrong.
+            // If it's a commit but it hasn't been revealed, it will always be considered wrong.
             if (!commitments[commitment_id].is_revealed) {
                 delete commitments[commitment_id];
                 return (queued_funds, payee);
@@ -674,7 +674,7 @@ contract RealityCheck is BalanceHolder {
                 // (This is our arbitrary rule, to give consistent right-answerers a defence against high-rollers.)
 
                 // There should be enough for the fee, but if not, take what we have.
-                // There&#39;s an edge case involving weird arbitrator behaviour where we may be short.
+                // There's an edge case involving weird arbitrator behaviour where we may be short.
                 uint256 answer_takeover_fee = (queued_funds >= bond) ? bond : queued_funds;
 
                 // Settle up with the old (higher-bonded) payee
@@ -802,7 +802,7 @@ contract Arbitrator is Owned {
         LogSetCustomDisputeFee(question_id, fee);
     }
 
-    /// @notice Return the dispute fee for the specified question. 0 indicates that we won&#39;t arbitrate it.
+    /// @notice Return the dispute fee for the specified question. 0 indicates that we won't arbitrate it.
     /// @param question_id The question in question
     /// @dev Uses a general default, but can be over-ridden on a question-by-question basis.
     function getDisputeFee(bytes32 question_id) 
@@ -823,7 +823,7 @@ contract Arbitrator is Owned {
         LogSetQuestionFee(fee);
     }
 
-    /// @notice Submit the arbitrator&#39;s answer to a question.
+    /// @notice Submit the arbitrator's answer to a question.
     /// @param question_id The question in question
     /// @param answer The answer
     /// @param answerer The answerer. If arbitration changed the answer, it should be the payer. If not, the old answerer.

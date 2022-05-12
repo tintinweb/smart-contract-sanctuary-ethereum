@@ -169,7 +169,7 @@ contract PopulStayToken is ERC20Interface, Owned {
 
   // ------------------------------------------------------------------------
   // Returns the amount of tokens approved by the owner that can be
-  // transferred to the spender&#39;s account
+  // transferred to the spender's account
   // ------------------------------------------------------------------------
   function allowance(address tokenOwner, address spender)
     public
@@ -182,7 +182,7 @@ contract PopulStayToken is ERC20Interface, Owned {
 
   // ------------------------------------------------------------------------
   // Token owner can approve for `spender` to transferFrom(...) `tokens`
-  // from the token owner&#39;s account. The `spender` contract function
+  // from the token owner's account. The `spender` contract function
   // `receiveApproval(...)` is then executed
   // ------------------------------------------------------------------------
   //"0x1439818dd11823c45fff01af0cd6c50934e27ac0",180,"0x14723a09acff6d2a60dcdf7aa4aff308fddc160c","0x7465737400000000000000000000000000000000000000000000000000000000",20,22,2
@@ -197,7 +197,7 @@ contract PopulStayToken is ERC20Interface, Owned {
 
 
   // ------------------------------------------------------------------------
-  // Don&#39;t accept ETH
+  // Don't accept ETH
   // ------------------------------------------------------------------------
   function ()
     public

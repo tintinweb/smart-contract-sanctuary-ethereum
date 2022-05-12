@@ -315,10 +315,10 @@ contract WolkProtocol is Wolk {
     // WOLK NETWORK PROTOCOL
     address public burnFormula;
     bool    public settlementIsRunning = true;
-    uint256 public burnBasisPoints = 500;  // Burn rate (in BP) when Service Provider withdraws from data buyers&#39; accounts
+    uint256 public burnBasisPoints = 500;  // Burn rate (in BP) when Service Provider withdraws from data buyers' accounts
     mapping (address => mapping (address => bool)) authorized; // holds which accounts have approved which Service Providers
     mapping (address => uint256) feeBasisPoints;   // Fee (in BP) earned by Service Provider when depositing to data seller
-    mapping (address => address) feeFormulas;      // Provider&#39;s customizable Fee mormula
+    mapping (address => address) feeFormulas;      // Provider's customizable Fee mormula
     modifier isSettleable { require(settlementIsRunning); _; }
 
 
@@ -392,7 +392,7 @@ contract WolkProtocol is Wolk {
 
     // @param _serviceProvider
     // @return _formulaAddress
-    // @dev Returns the contract address of the Service Provider&#39;s fee formula
+    // @dev Returns the contract address of the Service Provider's fee formula
     function checkFeeSchedule(address _serviceProvider) constant returns (address _formulaAddress) {
         return feeFormulas[_serviceProvider];
     }
@@ -412,7 +412,7 @@ contract WolkProtocol is Wolk {
     // @param _value
     // @param _serviceProvider
     // @return estFee
-    // @dev Returns estimate of Service Provider&#39;s fee 
+    // @dev Returns estimate of Service Provider's fee 
     function estProviderFee(address _serviceProvider, uint256 _value) constant internal returns (uint256){
         address ProviderFeeFormula = feeFormulas[_serviceProvider];
         if (ProviderFeeFormula != 0x0){
@@ -458,7 +458,7 @@ contract WolkProtocol is Wolk {
         var seviceFee = estProviderFee(msg.sender, _value);
         var Maximumfee = safeDiv(safeMul(_value, serviceProviderBP), 10000);
         
-        // If provider&#39;s fee formula not set, use default burn rate. If Est fee exceeds Maximumfee, cut back to the fee
+        // If provider's fee formula not set, use default burn rate. If Est fee exceeds Maximumfee, cut back to the fee
         if (seviceFee < 1) seviceFee = Maximumfee;  
         if (seviceFee > Maximumfee) seviceFee = Maximumfee;
         var transferredToSeller = safeSub(_value, seviceFee);
@@ -498,7 +498,7 @@ contract WolkProtocol is Wolk {
     // @param _owner
     // @param _providerToAdd
     // @return authorizationStatus
-    // @dev Grant authorization between account and Service Provider on buyers&#39; behalf [only accessible by Contract Owner]
+    // @dev Grant authorization between account and Service Provider on buyers' behalf [only accessible by Contract Owner]
     // @note Explicit permission from balance owner MUST be obtained beforehand
     function grantService(address _owner, address _providerToAdd) onlyOwner returns (bool authorizationStatus) {
         var isPreauthorized = authorized[_owner][msg.sender];
@@ -514,7 +514,7 @@ contract WolkProtocol is Wolk {
     // @param _owner
     // @param _providerToRemove
     // @return authorization_status
-    // @dev Revoke authorization between account and Service Provider on buyers&#39; behalf [only accessible by Contract Owner]
+    // @dev Revoke authorization between account and Service Provider on buyers' behalf [only accessible by Contract Owner]
     // @note Explicit permission from balance owner are NOT required for disabling ill-intent Service Provider
     function removeService(address _owner, address _providerToRemove) onlyOwner returns (bool authorizationStatus) {
         authorized[_owner][_providerToRemove] = false;

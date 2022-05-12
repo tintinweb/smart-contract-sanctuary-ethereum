@@ -60,7 +60,7 @@ contract UsingRegistry {
     be obtain by calling balances(). If an address has a 0 amount,
     it is removed from the Ledger.
 
-    Note: THIS DOES NOT TEST FOR OVERFLOWS, but it&#39;s safe to
+    Note: THIS DOES NOT TEST FOR OVERFLOWS, but it's safe to
           use to track Ether balances.
 
     Public methods:
@@ -258,7 +258,7 @@ contract AddressSet {
         // Do not allow the removal of HEAD.
         if (_address == address(0)) return;
         Entry storage entry = entries[_address];
-        // If it doesn&#39;t exist already, there is nothing to do.
+        // If it doesn't exist already, there is nothing to do.
         if (!entry.exists) return;
 
         // Stitch together next and prev, delete entry.
@@ -842,7 +842,7 @@ contract InstaDice is
 
     // Finalizes the previous roll for the _user.
     // There must be a previous roll, or this throws.
-    // Returns true, unless user wins and we couldn&#39;t pay.
+    // Returns true, unless user wins and we couldn't pay.
     function _finalizePreviousRoll(User memory _user, Stats memory _stats)
         private
     {

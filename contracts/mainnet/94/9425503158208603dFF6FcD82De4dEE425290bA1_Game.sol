@@ -27,7 +27,7 @@ contract Game{
 
         gamblers = 0;
 
-        name = &#39;Bet 0.1ETH,no more no less.Get 0.195ETH if you win,or 0.003ETH if you lose. &#39;;
+        name = 'Bet 0.1ETH,no more no less.Get 0.195ETH if you win,or 0.003ETH if you lose. ';
 
         fee = _fee;
 

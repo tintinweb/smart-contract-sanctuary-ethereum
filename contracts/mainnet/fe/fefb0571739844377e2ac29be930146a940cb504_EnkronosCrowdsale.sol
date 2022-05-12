@@ -131,8 +131,8 @@ contract StandardToken is ERC20, BasicToken {
 
 contract EnkronosToken is StandardToken {
 
-	string public name = &#39;EnkronosToken&#39;;
-	string public symbol = &#39;ENK&#39;;
+	string public name = 'EnkronosToken';
+	string public symbol = 'ENK';
 	uint8 public decimals = 18;
 	uint public INITIAL_SUPPLY = 500000000000000000000000000;
 
@@ -479,7 +479,7 @@ contract EnkronosCrowdsale is WhitelistedCrowdsale {
     event Finalized();
     /**
      * @dev Must be called after crowdsale ends, to do some extra finalization
-     * work. Calls the contract&#39;s finalization function.
+     * work. Calls the contract's finalization function.
      */
     function finalize() onlyOwner public {
         require(!isFinalized);

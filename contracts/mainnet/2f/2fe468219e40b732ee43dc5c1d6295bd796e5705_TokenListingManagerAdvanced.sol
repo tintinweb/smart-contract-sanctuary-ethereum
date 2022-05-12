@@ -60,10 +60,10 @@ contract ApproveAndCallFallBack {
 ///  token controller contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Controlled {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
-    string public version = &#39;EFX_0.1&#39;; //An arbitrary versioning scheme
+    string public version = 'EFX_0.1'; //An arbitrary versioning scheme
 
 
     /// @dev `Checkpoint` is the structure that attaches a block number to a
@@ -233,7 +233,7 @@ contract MiniMeToken is Controlled {
 
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public constant returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -564,7 +564,7 @@ contract MiniMeToken is Controlled {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token controller contract
     function () public payable {
@@ -878,7 +878,7 @@ contract TokenListingManagerAdvanced is Ownable {
 
         uint balance = DestructibleMiniMeToken(p.votingToken).balanceOf(msg.sender);
 
-        // user is able to have someone in myVotes if he unregistered and some people didn&#39;t undelegated him after that
+        // user is able to have someone in myVotes if he unregistered and some people didn't undelegated him after that
         if (isDelegate[msg.sender]) {
             for (uint i=0; i < myVotes[msg.sender].length; i++) {
                 address user = myVotes[msg.sender][i];
@@ -914,11 +914,11 @@ contract TokenListingManagerAdvanced is Ownable {
     }
 
     function registerAsDelegate(bytes32 _storageHash) public {
-        // can&#39;t register as delegate if already gave vote
+        // can't register as delegate if already gave vote
         require(!gaveVote(msg.sender));
-        // can&#39;t register as delegate if you have delegate (undelegate first)
+        // can't register as delegate if you have delegate (undelegate first)
         require(myDelegate[msg.sender] == address(0));
-        // can&#39;t call this method if you are already delegate
+        // can't call this method if you are already delegate
         require(!isDelegate[msg.sender]);
 
         isDelegate[msg.sender] = true;
@@ -932,7 +932,7 @@ contract TokenListingManagerAdvanced is Ownable {
     }
 
     function undelegateVote() public {
-        // can&#39;t undelegate if I already gave vote in this round
+        // can't undelegate if I already gave vote in this round
         require(!gaveVote(msg.sender));
         // I must have delegate if I want to undelegate
         require(myDelegate[msg.sender] != address(0));
@@ -958,11 +958,11 @@ contract TokenListingManagerAdvanced is Ownable {
     function delegateVote(address _to) public {
         // not possible to delegate if I already voted
         require(!gaveVote(msg.sender));
-        // can&#39;t set delegate if I am delegate
+        // can't set delegate if I am delegate
         require(!isDelegate[msg.sender]);
         // I can only set delegate to someone who is registered delegate
         require(isDelegate[_to]);
-        // I can&#39;t have delegate if I&#39;m setting one (call undelegate first)
+        // I can't have delegate if I'm setting one (call undelegate first)
         require(myDelegate[msg.sender] == address(0));
 
         myDelegate[msg.sender] = _to;
@@ -1161,7 +1161,7 @@ contract TokenListingManagerAdvanced is Ownable {
         return false;
     }
 
-    // only users that didn&#39;t gave vote in current round can transfer tokens
+    // only users that didn't gave vote in current round can transfer tokens
     function onTransfer(address _from, address _to, uint _amount) public view returns(bool) {
         return !gaveVote(_from);
     }

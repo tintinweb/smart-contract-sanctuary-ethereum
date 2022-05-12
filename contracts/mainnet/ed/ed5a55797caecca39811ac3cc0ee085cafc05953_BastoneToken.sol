@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 
 // ----------------------------------------------------------------------------
-// BSN &#39;Bastone&#39; token contract
+// BSN 'Bastone' token contract
 //
 // Deployed to 0xed5a55797caecca39811ac3cc0ee085cafc05953#code
 //
@@ -144,7 +144,7 @@ contract BastoneToken is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _amount) returns (bool success) {
         if (balances[msg.sender] >= _amount             // User has balance
@@ -177,7 +177,7 @@ contract BastoneToken is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Spender of tokens transfer an amount of tokens from the token owner&#39;s
+    // Spender of tokens transfer an amount of tokens from the token owner's
     // balance to another account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
@@ -204,7 +204,7 @@ contract BastoneToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(
         address _owner,
@@ -215,7 +215,7 @@ contract BastoneToken is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ethers - no payable modifier
+    // Don't accept ethers - no payable modifier
     // ------------------------------------------------------------------------
     function () {
     }

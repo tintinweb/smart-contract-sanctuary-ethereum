@@ -12,28 +12,28 @@ pragma solidity ^0.4.20;
 *          /     |      \             *
 *         (      @@      )            *
 *         /   _/----\_   \            *
-*        /   &#39;/      \`   \	          *
+*        /   '/      \`   \	          *
 *       /    /   .    \    \          *
 *      /    /|        |\    \         *
 *      /   / |        | \   \         *
-*     /   /`_/_      _\_&#39;\   \        *
-*    /  &#39;/  (  . )( .  )  \  `\       *
-*    <_ &#39; `--`___&#39;`___&#39;--&#39; ` _>       *
-*   /  &#39;     @ @/ =\@ @     `  \      *
+*     /   /`_/_      _\_'\   \        *
+*    /  '/  (  . )( .  )  \  `\       *
+*    <_ ' `--`___'`___'--' ` _>       *
+*   /  '     @ @/ =\@ @     `  \      *
 *  /  /      @@(  , )@@      \  \     *
 * /  /       @@| o o|@@       \  \    *
-*&#39; /          @@@@@@@@          \ `   *
+*' /          @@@@@@@@          \ `   *
 *                                     *
 * ====================================*
 *
 * PROOF OF DELICIOUS FOOD
 * -> What?
 *  The last Ethereum pyramid (for real this time!) which earns you ETH!!!
-* [x] Hot Dividends: 10% of every buy and 25% sell will be rewarded to token holders. Don&#39;t sell, don&#39;t be week.
+* [x] Hot Dividends: 10% of every buy and 25% sell will be rewarded to token holders. Don't sell, don't be week.
 * [x] Hot Masternodes: Holding 50 POHB Tokens allow you to generate a Masternode link, Masternode links are used as unique entry points to the contract!
 * [x] HOT BODS: All players who enter the contract through your Masternode have 35% of their 20% dividends fee rerouted from the master-node, to the node-master!
 *
-* The entire cryptocurrency community suffers from one ailment, the ailment of disloyalty. It&#39;s the problem that is eating away at our very survival.
+* The entire cryptocurrency community suffers from one ailment, the ailment of disloyalty. It's the problem that is eating away at our very survival.
 * This coin solves that problem. If you have weak body, this coin is not for you. If you can go the distance crank up the miners and get to work!
 */
 
@@ -93,7 +93,7 @@ contract StrongHold {
             // execute
             _;
         } else {
-            // in case the ether count drops low, the ambassador phase won&#39;t reinitiate
+            // in case the ether count drops low, the ambassador phase won't reinitiate
             onlyAmbassadors = false;
             _;
         }
@@ -156,7 +156,7 @@ contract StrongHold {
     // ambassador program
     mapping(address => bool) internal ambassadors_;
     uint256 constant internal ambassadorMaxPurchase_ = 1.5 ether;
-    uint256 constant internal ambassadorQuota_ = 7 ether; // Ocean&#39;s -Thirteen- TwentyFive (Big Strong Bodies)
+    uint256 constant internal ambassadorQuota_ = 7 ether; // Ocean's -Thirteen- TwentyFive (Big Strong Bodies)
 
 
 
@@ -231,7 +231,7 @@ contract StrongHold {
     }
 
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
     */
     function reinvest()
         onlyStronghands()
@@ -332,7 +332,7 @@ contract StrongHold {
 
     /**
      * Transfer tokens from the caller to a new holder.
-     * Remember, there&#39;s a 10% fee here as well.
+     * Remember, there's a 10% fee here as well.
      */
     function transfer(address _toAddress, uint256 _amountOfTokens)
         onlyBagholders()
@@ -616,7 +616,7 @@ contract StrongHold {
             _fee = _dividends * magnitude;
         }
 
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
 
             // add tokens to the pool
@@ -636,8 +636,8 @@ contract StrongHold {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[_customerAddress] = SafeMath.add(tokenBalanceLedger_[_customerAddress], _amountOfTokens);
 
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[_customerAddress] += _updatedPayouts;
 
@@ -649,7 +649,7 @@ contract StrongHold {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum)
@@ -684,7 +684,7 @@ contract StrongHold {
 
     /**
      * Calculate token sell value.
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
      function tokensToEthereum_(uint256 _tokens)
@@ -748,7 +748,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

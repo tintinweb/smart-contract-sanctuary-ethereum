@@ -20,7 +20,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns(uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -178,7 +178,7 @@ contract BatCave is Pausable {
 
     // hatch eggs into bats
     function hatchEggs(address ref) public whenNotPaused {
-        // set user&#39;s referral only if which is empty
+        // set user's referral only if which is empty
         if (referrals[msg.sender] == address(0) && referrals[msg.sender] != msg.sender) {
             //referrals[msg.sender] = ref;
             if (realRef[ref] == 1){
@@ -208,7 +208,7 @@ contract BatCave is Pausable {
         uint256 hasEggs = getMyEggs();
         uint256 eggValue = calculateEggSell(hasEggs);
         uint256 fee = devFee(eggValue);
-        // kill one third of the owner&#39;s snails on egg sale
+        // kill one third of the owner's snails on egg sale
         hatcheryBat[msg.sender] = SafeMath.mul(SafeMath.div(hatcheryBat[msg.sender], 3), 2);
         claimedEggs[msg.sender] = 0;
         lastHatch[msg.sender] = now;
@@ -247,7 +247,7 @@ contract BatCave is Pausable {
         return SafeMath.div(SafeMath.mul(amount, 4), 100);
     }
 
-    // add eggs when there&#39;s no more eggs
+    // add eggs when there's no more eggs
     // 864000000 with 0.02 Ether
     function seedMarket(uint256 eggs) public payable {
         require(marketEggs == 0);

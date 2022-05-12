@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -200,10 +200,10 @@ contract ERC20Token is ERC20TokenInterface, admined { //Standard definition of a
 */
 contract EKK is ERC20Token {
 
-    string public name = &#39;EKK Token&#39;;
+    string public name = 'EKK Token';
     uint8 public decimals = 18;
-    string public symbol = &#39;EKK&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'EKK';
+    string public version = '1';
     uint256 public totalSupply = 2000000000 * 10**uint256(decimals);      //initial token creation
     uint256 public publicAllocation = 1000000000 * 10 ** uint(decimals);  // 50%  Token sales & Distribution
     uint256 public growthReserve = 700000000 * 10 ** uint(decimals);      // 35%  Platform Growth Reserve

@@ -42,10 +42,10 @@ contract AICoin is ERC20Interface {
    * ******************************/
 
   /* Token constants */
-  string public constant name = &#39;AICoin&#39;;
-  string public constant symbol = &#39;XAI&#39;;
+  string public constant name = 'AICoin';
+  string public constant symbol = 'XAI';
   uint8 public constant decimals = 8;
-  string public constant smallestUnit = &#39;Hofstadter&#39;;
+  string public constant smallestUnit = 'Hofstadter';
 
   /* Token internal data */
   address m_administrator;
@@ -79,7 +79,7 @@ contract AICoin is ERC20Interface {
     return balances[_owner];
   }
 
-  /* Transfer an amount from the owner&#39;s account to an indicated account */
+  /* Transfer an amount from the owner's account to an indicated account */
   function transfer(address _to, uint256 _amount) returns (bool success) {
     if (balances[msg.sender] >= _amount
         && _amount > 0

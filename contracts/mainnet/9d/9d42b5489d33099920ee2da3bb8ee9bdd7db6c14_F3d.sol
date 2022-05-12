@@ -328,7 +328,7 @@ contract F3d is F3Devents {
       
       if (_keys <= 0) {
           // put the eth to the sender
-          // sorry, you&#39;re bumped
+          // sorry, you're bumped
           players[_pID].wallet = _eth.add(players[_pID].wallet);
           return;
       }
@@ -367,7 +367,7 @@ contract F3d is F3Devents {
       current_now.keys = _keys.add(current_now.keys);
       current_now.eth = _eth.add(current_now.eth);
 
-      // for the new keys, remove the user&#39;s free earnings
+      // for the new keys, remove the user's free earnings
       playerRoundData[_pID][currentRound].mask = current_now.mask.mul(_keys).add(playerRoundData[_pID][currentRound].mask);
       
       // to ref 1, 2

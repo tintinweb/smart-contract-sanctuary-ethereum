@@ -13,7 +13,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -83,7 +83,7 @@ contract Game is Owned {
 
     mapping(uint256 => mapping(uint256 => uint256)) oddAndEvenBets; // Stores the msg.value for the block and the bet (odd or even)
 
-    mapping(uint256 => uint256) blockResult; // Stores if the blockhash&#39;s last char is odd or even
+    mapping(uint256 => uint256) blockResult; // Stores if the blockhash's last char is odd or even
     mapping(uint256 => bytes32) blockHash; // Stores the hash of block (block.number)
 
     mapping(uint256 => uint256) blockRevenuePerTicket; // Stores the amount of the revenue per person for given block

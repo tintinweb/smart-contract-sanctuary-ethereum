@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -156,7 +156,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -565,12 +565,12 @@ contract ICO_Graphene is Claimable {
 
     // List of address
 
-    // Token&#39;s delivery
+    // Token's delivery
     address constant private TOKENSRESERVE = 0xA89779a50b3540677495e12eA09f02B6Bf09803F;
     address constant private TEAM = 0x39E545F03d26334d735815Bb9882423cE46d8326;
     address constant private ADVISORS = 0x96DFaBbD575C48d82e5bCC92f64E0349Da60712a;
 
-    // Eth&#39;s delivery
+    // Eth's delivery
     address constant private SALARIES = 0x99330754059f1348296526a52AA4F787a7648B46;
     address constant private MARKETINGandBUSINESS = 0x824663D62c22f2592c5a3DC37638C09907adE7Ec;
     address constant private RESEARCHandDEVELOPMENT = 0x7156023Cd4579Eb6a7A171062A44574809B353C8;

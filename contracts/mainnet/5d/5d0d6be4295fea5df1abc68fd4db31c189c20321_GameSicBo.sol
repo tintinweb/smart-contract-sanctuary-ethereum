@@ -163,7 +163,7 @@ contract GameSicBo is Base
     bytes32 public gameEncryptedText;
     uint public gameResult;
     string public gameRandon1;
-    string public constant gameRandon2 = &#39;ChinasNewGovernmentBracesforTrump&#39;;
+    string public constant gameRandon2 = 'ChinasNewGovernmentBracesforTrump';
     bool public betInfoIsLocked = false;
 
 
@@ -289,7 +289,7 @@ contract GameSicBo is Base
         gameID++;
 
         gameEncryptedText = _gameEncryptedText;
-        gameRandon1 = &#39;&#39;;
+        gameRandon1 = '';
         gameBeginTime = now;
         gameEndTime = now + gameTime;
         gameBeginPlayNo = playNo;
@@ -595,7 +595,7 @@ contract GameSicBo is Base
 
         uint _gameResult = _minGameResult*100 + _midGameResult*10 + _maxGameResult;
         if(lastBlockNumber == block.number){
-            emit OnOpenGameResult(gameID,  false, &#39;block.number is equal&#39;, msg.sender, _gameResult, _r1,getEventId(),now);
+            emit OnOpenGameResult(gameID,  false, 'block.number is equal', msg.sender, _gameResult, _r1,getEventId(),now);
             return;
         }
         if(keccak256(uintToString(_gameResult) , gameRandon2 , _r1) ==  gameEncryptedText){
@@ -623,15 +623,15 @@ contract GameSicBo is Base
                     betInfoIsLocked = false;
                 }
 
-                emit OnOpenGameResult(gameID, true, &#39;Success&#39;, msg.sender,  _gameResult,  _r1,getEventId(),now);
+                emit OnOpenGameResult(gameID, true, 'Success', msg.sender,  _gameResult,  _r1,getEventId(),now);
                 _result = true;
                 return;
             }else{
-                emit OnOpenGameResult(gameID,  false, &#39;The result is illegal&#39;, msg.sender, _gameResult, _r1,getEventId(),now);
+                emit OnOpenGameResult(gameID,  false, 'The result is illegal', msg.sender, _gameResult, _r1,getEventId(),now);
                 return;
             }
         }else{
-            emit OnOpenGameResult(gameID,  false, &#39;Hash Value Not Match&#39;, msg.sender,  _gameResult,  _r1,getEventId(),now);
+            emit OnOpenGameResult(gameID,  false, 'Hash Value Not Match', msg.sender,  _gameResult,  _r1,getEventId(),now);
             return;
         }
 
@@ -677,7 +677,7 @@ contract GameSicBo is Base
         require(!gameOver);
         require(gameEndTime < now);
         if(lastBlockNumber == block.number){
-            emit OnOpenGameResult(gameID,false, &#39;block.number&#39;, msg.sender,0,&#39;&#39;,getEventId(),now);
+            emit OnOpenGameResult(gameID,false, 'block.number', msg.sender,0,'',getEventId(),now);
             return;
         }
 
@@ -700,7 +700,7 @@ contract GameSicBo is Base
             }
         }
 
-        emit OnOpenGameResult(gameID,  true, &#39;Banker Not Call&#39;, msg.sender,   0, &#39;&#39;,getEventId(),now);
+        emit OnOpenGameResult(gameID,  true, 'Banker Not Call', msg.sender,   0, '',getEventId(),now);
         _result = true;
     }
 

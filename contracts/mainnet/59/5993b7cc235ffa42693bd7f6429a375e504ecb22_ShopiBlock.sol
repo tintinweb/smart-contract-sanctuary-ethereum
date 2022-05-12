@@ -123,7 +123,7 @@ library SafeMath {
         // This famous algorithm is called "exponentiation by squaring"
         // and calculates x^n with x as fixed-point and n as regular unsigned.
         //
-        // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+        // It's O(log n), instead of O(n) for naive repeated multiplication.
         //
         // These facts are why it works:
         //
@@ -362,7 +362,7 @@ contract ShopiBlock is Sale {
 
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function ShopiBlock()
-    TokenERC20(1000000000, &#39;Shopiblock&#39;, &#39;SHB&#39;) public {
+    TokenERC20(1000000000, 'Shopiblock', 'SHB') public {
         unitsOneEthCanBuy = 0;
         soldTokens = 0;
         minPurchaseQty = 0 * 10 ** uint256(decimals);

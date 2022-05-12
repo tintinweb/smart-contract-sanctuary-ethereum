@@ -40,7 +40,7 @@ contract ERC20Token is ERC20Interface {
     }
 
 
-    /* Transfer the balance from owner&#39;s account to another account */
+    /* Transfer the balance from owner's account to another account */
     function transfer(address _to, uint256 _amount) public returns (bool) {
 
         require(_to != address(0x0));
@@ -75,7 +75,7 @@ contract ERC20Token is ERC20Interface {
         return true;
     }
 
-    /* Spender of tokens transfers tokens from the owner&#39;s balance */
+    /* Spender of tokens transfers tokens from the owner's balance */
     /* Must be pre-approved by owner */
     function transferFrom(address _from, address _to, uint256 _amount) public returns (bool) {
 

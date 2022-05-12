@@ -378,7 +378,7 @@ contract Plague is PlagueEvents{
         public
         payable
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
+        require(isStartGame == true, "The game hasn't started yet.");
         buyKeys(_inveter);
     }
 
@@ -391,7 +391,7 @@ contract Plague is PlagueEvents{
         public
         payable
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
+        require(isStartGame == true, "The game hasn't started yet.");
         buyKeys(address(0));
     }
     
@@ -404,8 +404,8 @@ contract Plague is PlagueEvents{
         onlyHuman()
         public
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
-        require(_rndNo <= rndNo, "You&#39;re running too fast");
+        require(isStartGame == true, "The game hasn't started yet.");
+        require(_rndNo <= rndNo, "You're running too fast");
         
         uint256 _ethOut = 0;
         uint256 _totalAward = round_m[_rndNo].eth.mul(30) / 100;
@@ -482,18 +482,18 @@ contract Plague is PlagueEvents{
      * @dev Get player bonus data
      * 0xd982466d
      * 0xd982466d0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000028f211f6c07d3b79e0aab886d56333e4027d4f59
-     * @return player&#39;s award
-     * @return player&#39;s can withdraw amount
-     * @return player&#39;s inveter amount
-     * @return player&#39;s has been withdraw
+     * @return player's award
+     * @return player's can withdraw amount
+     * @return player's inveter amount
+     * @return player's has been withdraw
      */
     function getPlayerAwardByRndNo(uint256 _rndNo, address _playAddr)
         view
         public
         returns (uint256, uint256, uint256, uint256)
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
-        require(_rndNo <= rndNo, "You&#39;re running too fast");
+        require(isStartGame == true, "The game hasn't started yet.");
+        require(_rndNo <= rndNo, "You're running too fast");
         
         uint256 _ethPlayerAward = 0;
         
@@ -555,7 +555,7 @@ contract Plague is PlagueEvents{
         onlyHuman()
         public 
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
+        require(isStartGame == true, "The game hasn't started yet.");
         require(receiver != address(0), "The receiver address has not been initialized.");
         
         uint256 _total = (totalEth.mul(5) / (100));
@@ -597,7 +597,7 @@ contract Plague is PlagueEvents{
         view 
         returns(uint256, uint256[2], uint256[3], address[2], uint256[6], address[11],address[4])
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
+        require(isStartGame == true, "The game hasn't started yet.");
         uint256 _rndNo = rndNo;
         uint256 _totalAwardAtRound = round_m[_rndNo].lastRoundReward.add(round_m[_rndNo].exAward).add(round_m[_rndNo].eth.mul(30) / 100);
         
@@ -622,7 +622,7 @@ contract Plague is PlagueEvents{
         view 
         returns(uint256)
     {
-        require(isStartGame == true, "The game hasn&#39;t started yet.");
+        require(isStartGame == true, "The game hasn't started yet.");
         uint256 _rndNo = rndNo;
         uint256 _now = now;
         

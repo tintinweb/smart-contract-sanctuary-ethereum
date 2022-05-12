@@ -566,7 +566,7 @@ contract NTVToken is Ownable {
      */
     function startup(uint256 _onlineTime, address _ethSaver) public onlyOwner {
         require(!isRunning); // 只能上线一次，上线后不能停止
-        require((_onlineTime - 57600) % 1 days == 0); // 上线时间只能是整天时间，57600为北京时间的&#39;1970/1/2 0:0:0&#39;
+        require((_onlineTime - 57600) % 1 days == 0); // 上线时间只能是整天时间，57600为北京时间的'1970/1/2 0:0:0'
         require(_onlineTime >= now); // 上线时间需要大于当前时间
         require(_ethSaver != address(0));
 

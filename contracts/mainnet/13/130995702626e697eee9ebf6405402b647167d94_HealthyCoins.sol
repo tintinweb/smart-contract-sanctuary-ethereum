@@ -33,7 +33,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -96,11 +96,11 @@ contract HealthyCoins is Token, Owned {
   
     uint public  _totalSupply;
   
-    string public   name;         //The Token&#39;s name
+    string public   name;         //The Token's name
   
     uint8 public constant decimals = 4;    //Number of decimals of the smallest unit
   
-    string public  symbol;    //The Token&#39;s symbol 
+    string public  symbol;    //The Token's symbol 
   
     uint256 public mintCount;
   
@@ -134,9 +134,9 @@ contract HealthyCoins is Token, Owned {
         revert();
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount) returns (bool success) {
-        // according to AssetToken&#39;s total supply, never overflow here
+        // according to AssetToken's total supply, never overflow here
         if (balanceOf[msg.sender] >= _amount
             && _amount > 0) {            
             balanceOf[msg.sender] -= uint112(_amount);
@@ -155,7 +155,7 @@ contract HealthyCoins is Token, Owned {
         address _to,
         uint256 _amount
     ) returns (bool success) {
-        // according to AssetToken&#39;s total supply, never overflow here
+        // according to AssetToken's total supply, never overflow here
         if (balanceOf[_from] >= _amount
             && allowed[_from][msg.sender] >= _amount
             && _amount > 0) {

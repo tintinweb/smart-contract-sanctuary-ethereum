@@ -575,7 +575,7 @@ contract GScam is modularGScam {
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -1082,7 +1082,7 @@ contract GScam is modularGScam {
         private
         returns (RSdatasets.EventReturns)
     {        
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_.plyr;
         
         // grab our pot amount
@@ -1270,7 +1270,7 @@ contract GScam is modularGScam {
         uint256 _aff = (_affEths.mul(_affP)) / 100;
         uint256 _key = (round_.eth).keysRec(_aff);
 
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit GEvents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _pID, _aff, now);
 
@@ -1301,7 +1301,7 @@ contract GScam is modularGScam {
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         
@@ -1342,7 +1342,7 @@ contract GScam is modularGScam {
     }
     
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _eth, uint256 _keys, RSdatasets.EventReturns memory _eventData_)
         private

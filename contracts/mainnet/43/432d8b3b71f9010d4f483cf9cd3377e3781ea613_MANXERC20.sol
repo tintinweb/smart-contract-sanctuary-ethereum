@@ -93,12 +93,12 @@ contract SafeMath {
 }
 
 contract MANXERC20 is SafeMath, ERC20Token, Owned {
-    string public constant name = &#39;MacroChain Computing And Networking System&#39;;                              // Set the token name for display
-    string public constant symbol = &#39;MANX&#39;;                                  // Set the token symbol for display
+    string public constant name = 'MacroChain Computing And Networking System';                              // Set the token name for display
+    string public constant symbol = 'MANX';                                  // Set the token symbol for display
     uint8 public constant decimals = 18;                                     // Set the number of decimals for display
     uint256 public constant INITIAL_SUPPLY = 10000000000 * 10 ** uint256(decimals);
     uint256 public totalSupply;
-    string public version = &#39;2&#39;;
+    string public version = '2';
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
     

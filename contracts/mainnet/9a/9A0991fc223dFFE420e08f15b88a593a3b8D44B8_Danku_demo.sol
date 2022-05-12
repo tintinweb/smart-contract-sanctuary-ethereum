@@ -86,7 +86,7 @@ contract Danku_demo {
   function init1(bytes32[max_num_data_groups/partition_size] _hashed_data_groups, int accuracy_criteria, address organizer_refund_address) external {
     // Make sure contract is not terminated
     assert(contract_terminated == false);
-    // Make sure it&#39;s called in order
+    // Make sure it's called in order
     assert(init_level == 0);
     organizer = organizer_refund_address;
     init_level = 1;
@@ -106,10 +106,10 @@ contract Danku_demo {
     assert(contract_terminated == false);
     // Only allow calling it once, in order
     assert(init_level == 1);
-    // Make sure it&#39;s being called within 20 blocks on init1()
+    // Make sure it's being called within 20 blocks on init1()
     // to minimize organizer influence on random index selection
     if (block.number <= init1_block_height+20 && block.number > init1_block_height) {
-      // TODO: Also make sure it&#39;s being called 1 block after init1()
+      // TODO: Also make sure it's being called 1 block after init1()
       // Randomly select indexes
       uint[] memory index_array = new uint[](max_num_data_groups/partition_size);
       for (uint i = 0; i < max_num_data_groups/partition_size; i++) {
@@ -118,7 +118,7 @@ contract Danku_demo {
       randomly_select_index(index_array);
       init_level = 2;
     } else {
-      // Cancel the contract if init2() hasn&#39;t been called within 5
+      // Cancel the contract if init2() hasn't been called within 5
       // blocks of init1()
       cancel_contract();
     }
@@ -168,9 +168,9 @@ contract Danku_demo {
     int256[] biases) public {
       // Make sure contract is not terminated
       assert(contract_terminated == false);
-      // Make sure it&#39;s not the initialization stage anymore
+      // Make sure it's not the initialization stage anymore
       assert(init_level == 3);
-      // Make sure it&#39;s still within the submission stage
+      // Make sure it's still within the submission stage
       assert(block.number < init3_block_height + submission_stage_block_size);
       // Make sure that num of neurons in the input & output layer matches
       // the problem description
@@ -234,11 +234,11 @@ contract Danku_demo {
     function reveal_test_data(int256[] _test_data_groups, int256 _test_data_group_nonces) external {
     // Make sure contract is not terminated
     assert(contract_terminated == false);
-    // Make sure it&#39;s not the initialization stage anymore
+    // Make sure it's not the initialization stage anymore
     assert(init_level == 3);
-    // Make sure it&#39;s revealed after the submission stage
+    // Make sure it's revealed after the submission stage
     assert(block.number >= init3_block_height + submission_stage_block_size);
-    // Make sure it&#39;s revealed within the reveal stage
+    // Make sure it's revealed within the reveal stage
     assert(block.number < init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size);
     // Verify data group and nonce lengths
     assert((_test_data_groups.length/partition_size)/datapoint_size == 1);
@@ -253,15 +253,15 @@ contract Danku_demo {
   }
 
   function evaluate_model(uint submission_index) public {
-    // TODO: Make sure that if there&#39;s two same submission w/ same weights
+    // TODO: Make sure that if there's two same submission w/ same weights
     // and biases, the first one submitted should get the reward.
     // Make sure contract is not terminated
     assert(contract_terminated == false);
-    // Make sure it&#39;s not the initialization stage anymore
+    // Make sure it's not the initialization stage anymore
     assert(init_level == 3);
-    // Make sure it&#39;s evaluated after the reveal stage
+    // Make sure it's evaluated after the reveal stage
     assert(block.number >= init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size);
-    // Make sure it&#39;s evaluated within the evaluation stage
+    // Make sure it's evaluated within the evaluation stage
     assert(block.number < init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size + evaluation_stage_block_size);
     // Evaluates a submitted model & keeps track of the best model
     int256 submission_accuracy = 0;
@@ -292,7 +292,7 @@ contract Danku_demo {
   function finalize_contract() public {
     // Make sure contract is not terminated
     assert(contract_terminated == false);
-    // Make sure it&#39;s not the initialization stage anymore
+    // Make sure it's not the initialization stage anymore
     assert(init_level == 3);
     // Make sure the contract is finalized after the evaluation stage
     assert(block.number >= init3_block_height + submission_stage_block_size + reveal_test_data_groups_block_size + evaluation_stage_block_size);
@@ -311,10 +311,10 @@ contract Danku_demo {
   function model_accuracy(uint submission_index, int256[datapoint_size][] data) public constant returns (int256){
     // Make sure contract is not terminated
     assert(contract_terminated == false);
-    // Make sure it&#39;s not the initialization stage anymore
+    // Make sure it's not the initialization stage anymore
     assert(init_level == 3);
     // Leave function public for offline error calculation
-    // Get&#39;s the sum error for the model
+    // Get's the sum error for the model
     Submission memory sub = submission_queue[submission_index];
     int256 true_prediction = 0;
     int256 false_prediction = 0;
@@ -493,7 +493,7 @@ contract Danku_demo {
 
   function get_hidden_layers(uint[] l_nn) private pure returns (int256[]) {
     uint total_nn = 0;
-    // Skip first and last layer since they&#39;re not hidden layers
+    // Skip first and last layer since they're not hidden layers
     for (uint i = 1; i < l_nn.length-1; i++) {
       total_nn += l_nn[i];
     }
@@ -502,7 +502,7 @@ contract Danku_demo {
   }
 
   function access_hidden_layer(int256[] hls, uint[] l_nn, uint index) private pure returns (int256[]) {
-    // TODO: Bug is here, doesn&#39;t work for between last hidden and output layer
+    // TODO: Bug is here, doesn't work for between last hidden and output layer
     // Returns the hidden layer from the hidden layers array
     int256[] memory hidden_layer = new int256[](l_nn[index+1]);
     uint hidden_layer_index = 0;

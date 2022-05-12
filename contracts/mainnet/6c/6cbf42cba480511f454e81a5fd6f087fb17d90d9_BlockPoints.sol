@@ -76,7 +76,7 @@ function transferFrom(address _from, address _to, uint256 _value)
 external returns (bool success) {
 /*check if the message sender can spend*/
 require(_value <= allowed[_from][msg.sender]); 
-/*substract from message sender&#39;s spend allowance*/
+/*substract from message sender's spend allowance*/
 allowed[_from][msg.sender] -= _value;
 /*transfer tokens*/
 _transfer(_from, _to, _value);
@@ -173,8 +173,8 @@ mapping (address => AddressBook) public addressbook;
 
 /*MINT FIRST TOKEN*/
 function BlockPoints() public {
-Name = &#39;BlockPoints&#39;;
-Symbol = &#39;BKP&#39;;
+Name = 'BlockPoints';
+Symbol = 'BKP';
 Decimals = 0;
 TotalSupply = 1;
 balances[msg.sender] = TotalSupply; 

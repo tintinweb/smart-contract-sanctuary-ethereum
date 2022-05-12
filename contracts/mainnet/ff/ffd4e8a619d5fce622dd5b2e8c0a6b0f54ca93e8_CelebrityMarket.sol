@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -185,11 +185,11 @@ contract CelebrityMarket is Pausable{
         owner = msg.sender;
     }
 
-    /// @dev DON&#39;T give me your money.
+    /// @dev DON'T give me your money.
     function() external {}
 
 
-    /// @dev Remove all Ether from the contract, which is the owner&#39;s cuts
+    /// @dev Remove all Ether from the contract, which is the owner's cuts
     ///  as well as any Ether sent directly to the contract address.
     ///  Always transfers to the NFT contract, but can be called either by
     ///  the owner or the NFT contract.
@@ -220,7 +220,7 @@ contract CelebrityMarket is Pausable{
         _addSale(_tokenId, sale);
     }
 
-    /// @dev Update sale price of a sale item that hasn&#39;t been completed yet.
+    /// @dev Update sale price of a sale item that hasn't been completed yet.
     /// @notice This is a state-modifying function that can
     ///  be called while the contract is paused.
     /// @param _tokenId - ID of token on sale
@@ -248,7 +248,7 @@ contract CelebrityMarket is Pausable{
         _transfer(msg.sender, _tokenId);
     }
 
-    /// @dev Cancels a sale that hasn&#39;t been completed yet.
+    /// @dev Cancels a sale that hasn't been completed yet.
     ///  Returns the NFT to original owner.
     /// @notice This is a state-modifying function that can
     ///  be called while the contract is paused.
@@ -375,7 +375,7 @@ contract CelebrityMarket is Pausable{
         Sale storage sale = tokenIdToSale[_tokenId];
 
         // Explicitly check that this sale is currently live.
-        // (Because of how Ethereum mappings work, we can&#39;t just count
+        // (Because of how Ethereum mappings work, we can't just count
         // on the lookup above failing. An invalid _tokenId will just
         // return an sale object that is all zeros.)
         require(_isOnSale(sale));
@@ -391,14 +391,14 @@ contract CelebrityMarket is Pausable{
         address seller = sale.seller;
 
         // The bid is good! Remove the sale before sending the fees
-        // to the sender so we can&#39;t have a reentrancy attack.
+        // to the sender so we can't have a reentrancy attack.
         _removeSale(_tokenId);
 
         // Transfer proceeds to seller (if there are any!)
         if (price > 0) {
-            //  Calculate the market owner&#39;s cut.
+            //  Calculate the market owner's cut.
             // (NOTE: _computeCut() is guaranteed to return a
-            //  value <= price, so this subtraction can&#39;t go negative.)
+            //  value <= price, so this subtraction can't go negative.)
             uint256 ownerCut = _computeCut(price);
             uint256 sellerProceeds = price - ownerCut;
 
@@ -408,7 +408,7 @@ contract CelebrityMarket is Pausable{
             // a contract with an invalid fallback function. We explicitly
             // guard against reentrancy attacks by removing the sale item
             // before calling transfer(), and the only thing the seller
-            // can DoS is the sale of their own asset! (And if it&#39;s an
+            // can DoS is the sale of their own asset! (And if it's an
             // accident, they can call cancelSale(). )
             seller.transfer(sellerProceeds);
         }
@@ -442,7 +442,7 @@ contract CelebrityMarket is Pausable{
         return (_sale.startedAt > 0);
     }
 
-    /// @dev Computes owner&#39;s cut of a sale.
+    /// @dev Computes owner's cut of a sale.
     /// @param _price - Sale price of NFT.
     function _computeCut(uint256 _price) internal pure returns (uint256) {
         return uint256(SafeMath.div(SafeMath.mul(_price, 6), 100));

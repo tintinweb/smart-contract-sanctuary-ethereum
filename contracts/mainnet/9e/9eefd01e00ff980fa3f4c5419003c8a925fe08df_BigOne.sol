@@ -6,34 +6,34 @@ pragma solidity ^0.4.24;
 *　　神さま　かなえて　happy-end　　　　　　ノ三三三.廴        
 *　　　　　　　　　　　　　　　　　　　　　　从ﾉ_八ﾑ_}ﾉ
 *　　　＿＿}ヽ__　　　　　　　　　　 　 　 　 ヽ‐个‐ｱ.     &#169; Team EC Present. 
-*　　 　｀ﾋｙ　　ﾉ三ﾆ==ｪ- ＿＿＿ ｨｪ=ｧ=&#39;ﾌ)ヽ-&#39;&#39;Lヽ         
+*　　 　｀ﾋｙ　　ﾉ三ﾆ==ｪ- ＿＿＿ ｨｪ=ｧ='ﾌ)ヽ-''Lヽ         
 *　　　　 ｀‐⌒L三ﾆ=ﾆ三三三三三三三〈oi 人 ）o〉三ﾆ、　　　 
 *　　　　　　　　　　 　 ｀￣￣￣￣｀弌三三}. !　ｒ三三三iｊ　　　　　　
-*　　　　　　　　　　 　 　 　 　 　 　,&#39;: ::三三|. ! ,&#39;三三三刈、
-*　　　　　　　　　 　 　 　 　 　 　 ,&#39;: : :::｀i三|人|三三ﾊ三j: ;　　　　　
-*　                  　　　　　　 ,&#39;: : : : : 比|　 |三三i |三|: &#39;,
-*　　　　　　　　　　　　　　　　　,&#39;: : : : : : :Vi|　 |三三i |三|: : &#39;,
-*　　　　　　　　　　　　　　　　, &#39;: : : : : : : ﾉ }乂{三三| |三|: : :;
-*    BigOne Game v0.1　　  ,&#39;: : : : : : : : ::ｊ三三三三|: |三i: : ::,
-*　　　　　　　　　　　 　 　 ,&#39;: : : : : : : : :/三三三三〈: :!三!: : ::;
-*　　　　　　　　　 　 　 　 ,&#39;: : : : : : : : /三三三三三!, |三!: : : ,
-*　　　　　　　 　 　 　 　 ,&#39;: : : : : : : : ::ｊ三三八三三Y {⌒i: : : :,
-*　　　　　　　　 　 　 　 ,&#39;: : : : : : : : : /三//: }三三ｊ: : ー&#39;: : : : ,
-*　　　　　　 　 　 　 　 ,&#39;: : : : : : : : :.//三/: : |三三|: : : : : : : : :;
-*　　　　 　 　 　 　 　 ,&#39;: : : : : : : : ://三/: : : |三三|: : : : : : : : ;
-*　　 　 　 　 　 　 　 ,&#39;: : : : : : : : :/三ii/ : : : :|三三|: : : : : : : : :;
-*　　　 　 　 　 　 　 ,&#39;: : : : : : : : /三//: : : : ::!三三!: : : : : : : : ;
-*　　　　 　 　 　 　 ,&#39;: : : : : : : : :ｊ三// : : : : ::|三三!: : : : : : : : :;
-*　　 　 　 　 　 　 ,&#39;: : : : : : : : : |三ij: : : : : : ::ｌ三ﾆ:ｊ: : : : : : : : : ;
-*　　　 　 　 　 　 ,&#39;: : : : : : : : ::::|三ij: : : : : : : !三刈: : : : : : : : : ;
-*　 　 　 　 　 　 ,&#39;: : : : : : : : : : :|三ij: : : : : : ::ｊ三iiﾃ: : : : : : : : : :;
-*　　 　 　 　 　 ,&#39;: : : : : : : : : : : |三ij: : : : : : ::|三iiﾘ: : : : : : : : : : ;
-*　　　 　 　 　 ,&#39;:: : : : : : : : : : : :|三ij::: : :: :: :::|三リ: : : : : : : : : : :;
-*　　　　　　　 ,&#39;: : : : : : : : : : : : :|三ij : : : : : ::ｌ三iﾘ: : : : : : : : : : : &#39;,
-*           　　　　　　　　　　　　　　   ｒ&#39;三三jiY, : : : : : ::|三ij : : : : : : : : : : : &#39;,
-*　 　 　 　 　 　      　　                |三 j&#180;　　　　　　　　｀&#39;,    signature:
+*　　　　　　　　　　 　 　 　 　 　 　,': ::三三|. ! ,'三三三刈、
+*　　　　　　　　　 　 　 　 　 　 　 ,': : :::｀i三|人|三三ﾊ三j: ;　　　　　
+*　                  　　　　　　 ,': : : : : 比|　 |三三i |三|: ',
+*　　　　　　　　　　　　　　　　　,': : : : : : :Vi|　 |三三i |三|: : ',
+*　　　　　　　　　　　　　　　　, ': : : : : : : ﾉ }乂{三三| |三|: : :;
+*    BigOne Game v0.1　　  ,': : : : : : : : ::ｊ三三三三|: |三i: : ::,
+*　　　　　　　　　　　 　 　 ,': : : : : : : : :/三三三三〈: :!三!: : ::;
+*　　　　　　　　　 　 　 　 ,': : : : : : : : /三三三三三!, |三!: : : ,
+*　　　　　　　 　 　 　 　 ,': : : : : : : : ::ｊ三三八三三Y {⌒i: : : :,
+*　　　　　　　　 　 　 　 ,': : : : : : : : : /三//: }三三ｊ: : ー': : : : ,
+*　　　　　　 　 　 　 　 ,': : : : : : : : :.//三/: : |三三|: : : : : : : : :;
+*　　　　 　 　 　 　 　 ,': : : : : : : : ://三/: : : |三三|: : : : : : : : ;
+*　　 　 　 　 　 　 　 ,': : : : : : : : :/三ii/ : : : :|三三|: : : : : : : : :;
+*　　　 　 　 　 　 　 ,': : : : : : : : /三//: : : : ::!三三!: : : : : : : : ;
+*　　　　 　 　 　 　 ,': : : : : : : : :ｊ三// : : : : ::|三三!: : : : : : : : :;
+*　　 　 　 　 　 　 ,': : : : : : : : : |三ij: : : : : : ::ｌ三ﾆ:ｊ: : : : : : : : : ;
+*　　　 　 　 　 　 ,': : : : : : : : ::::|三ij: : : : : : : !三刈: : : : : : : : : ;
+*　 　 　 　 　 　 ,': : : : : : : : : : :|三ij: : : : : : ::ｊ三iiﾃ: : : : : : : : : :;
+*　　 　 　 　 　 ,': : : : : : : : : : : |三ij: : : : : : ::|三iiﾘ: : : : : : : : : : ;
+*　　　 　 　 　 ,':: : : : : : : : : : : :|三ij::: : :: :: :::|三リ: : : : : : : : : : :;
+*　　　　　　　 ,': : : : : : : : : : : : :|三ij : : : : : ::ｌ三iﾘ: : : : : : : : : : : ',
+*           　　　　　　　　　　　　　　   ｒ'三三jiY, : : : : : ::|三ij : : : : : : : : : : : ',
+*　 　 　 　 　 　      　　                |三 j&#180;　　　　　　　　｀',    signature:
 *　　　　　　　　　　　　 　 　 　 　 　 　 　  |三三k、
-*                            　　　　　　　　｀ー≠=&#39;.  93511761c3aa73c0a197c55537328f7f797c4429 
+*                            　　　　　　　　｀ー≠='.  93511761c3aa73c0a197c55537328f7f797c4429 
 */
 contract BigOneEvents {
     event onNewPlayer
@@ -285,7 +285,7 @@ contract BigOne is BigOneEvents {
         uint256 _pID = pIDxAddr_[msg.sender];
 
         uint256 _affID;
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             _affID = plyr_[_pID].laff;
 
@@ -353,7 +353,7 @@ contract BigOne is BigOneEvents {
         uint256 _pID = pIDxAddr_[msg.sender];
 
         uint256 _affID;
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             _affID = plyr_[_pID].laff;
         } else {
@@ -785,7 +785,7 @@ contract BigOne is BigOneEvents {
 
         // decide what to do with affiliate share of fees
         // affiliate must not be self, and must have a name registered
-        if ((_affID != 0) && (_affID != _pID) && (plyr_[_affID].name != &#39;&#39;))
+        if ((_affID != 0) && (_affID != _pID) && (plyr_[_affID].name != ''))
         {
             plyr_[_pID].laffID = _affID;
             plyr_[_affID].aff = _aff2.add(plyr_[_affID].aff);
@@ -812,7 +812,7 @@ contract BigOne is BigOneEvents {
     {
         uint256 _rID = currentRoundxType_[_mode];
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winKey = uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty))).mod(round_[_rID].keyCount);
         uint256 _winPID;
         for(uint256 i = 0;i < round_[_rID].purchases.length; i++) {
@@ -992,8 +992,8 @@ library SafeMath
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (_a == 0) {
             return 0;
@@ -1011,7 +1011,7 @@ library SafeMath
     function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
         require(_b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = _a / _b;
-        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
         return c;
     }

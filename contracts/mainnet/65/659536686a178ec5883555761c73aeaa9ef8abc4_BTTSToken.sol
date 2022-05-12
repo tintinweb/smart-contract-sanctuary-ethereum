@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// BokkyPooBah&#39;s Token Teleportation Service v1.10
+// BokkyPooBah's Token Teleportation Service v1.10
 //
 // https://github.com/bokkypoobah/BokkyPooBahsTokenTeleportationServiceSmartContract
 //
@@ -35,7 +35,7 @@ contract ApproveAndCallFallBack {
 
 
 // ----------------------------------------------------------------------------
-// BokkyPooBah&#39;s Token Teleportation Service Interface v1.10
+// BokkyPooBah's Token Teleportation Service Interface v1.10
 //
 // Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2018. The MIT Licence.
 // ----------------------------------------------------------------------------
@@ -100,7 +100,7 @@ contract BTTSTokenInterface is ERC20Interface {
 
 
 // ----------------------------------------------------------------------------
-// BokkyPooBah&#39;s Token Teleportation Service Library v1.00
+// BokkyPooBah's Token Teleportation Service Library v1.00
 //
 // Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2018. The MIT Licence.
 // ----------------------------------------------------------------------------
@@ -282,8 +282,8 @@ library BTTSLib {
         assembly {
             r := mload(add(sig, 32))
             s := mload(add(sig, 64))
-            // Here we are loading the last 32 bytes. We exploit the fact that &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // Here we are loading the last 32 bytes. We exploit the fact that 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
         }
         // Albeit non-transactional signatures are not specified by the YP, one would expect it to match the YP range of [27, 28]
@@ -487,7 +487,7 @@ library BTTSLib {
 
 
 // ----------------------------------------------------------------------------
-// BokkyPooBah&#39;s Token Teleportation Service Token v1.10
+// BokkyPooBah's Token Teleportation Service Token v1.10
 //
 // Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2018. The MIT Licence.
 // ----------------------------------------------------------------------------
@@ -577,7 +577,7 @@ contract BTTSToken is BTTSTokenInterface {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ethers
+    // Don't accept ethers
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

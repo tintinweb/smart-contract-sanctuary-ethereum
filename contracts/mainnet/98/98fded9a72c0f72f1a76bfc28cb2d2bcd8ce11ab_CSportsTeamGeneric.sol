@@ -49,7 +49,7 @@ contract CSportsConstants {
 
 }
 
-/// @title A facet of CSportsCore that manages an individual&#39;s authorized role against access privileges.
+/// @title A facet of CSportsCore that manages an individual's authorized role against access privileges.
 /// @author CryptoSports, Inc. (https://cryptosports.team))
 /// @dev See the CSportsCore contract documentation to understand how the various CSports contract facets are arranged.
 contract CSportsAuth is CSportsConstants {
@@ -476,7 +476,7 @@ contract CSportsTeamGeneric is CSportsAuth, CSportsTeam,  CSportsContestBase {
         coreContract.transferFrom(address(this), _team.owner, _tokenId);
       }
 
-      // This team&#39;s player tokens are no longer held in escrow
+      // This team's player tokens are no longer held in escrow
       _team.ownsPlayerTokens = false;
 
       emit TeamReleased(_teamId);
@@ -547,7 +547,7 @@ contract CSportsTeamGeneric is CSportsAuth, CSportsTeam,  CSportsContestBase {
   }
 
   /// @dev Returns all of the token id held by a particular team. Throws if the
-  ///   _teamId isn&#39;t valid. Anybody can call this, making teams visible to the
+  ///   _teamId isn't valid. Anybody can call this, making teams visible to the
   ///   world.
   /// @param _teamId - ID of the team we are looking to get player tokens for.
   function tokenIdsForTeam(uint32 _teamId) public view returns (uint32 count, uint32[50]) {
@@ -606,8 +606,8 @@ contract CSportsTeamGeneric is CSportsAuth, CSportsTeam,  CSportsContestBase {
     // Increment our team ID for the next one.
     uniqueTeamId++;
 
-    // It&#39;s probably never going to happen, 4 billion teams is A LOT, but
-    // let&#39;s just be 100% sure we never let this happen because teamIds are
+    // It's probably never going to happen, 4 billion teams is A LOT, but
+    // let's just be 100% sure we never let this happen because teamIds are
     // often cast as uint32.
     require(uniqueTeamId < 4294967295);
 

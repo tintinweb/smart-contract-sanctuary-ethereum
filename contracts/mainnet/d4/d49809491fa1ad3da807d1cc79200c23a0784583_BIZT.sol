@@ -15,7 +15,7 @@ library SafeMath {
 
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         uint256 c = a / b;
-        //assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        //assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -117,8 +117,8 @@ contract BIZT is Ownable{
         @param _decimals Token decimals
     */
     constructor() public {
-        name = &#39;BIZT&#39;; // Set the name for display purposes
-        symbol = &#39;BIZT&#39;; // Set the symbol for display purposes
+        name = 'BIZT'; // Set the name for display purposes
+        symbol = 'BIZT'; // Set the symbol for display purposes
         decimals = 18; // Amount of decimals for display purposes
         _totalSupply = 1000000000 * 10**uint(decimals); // Update total supply
         balances[msg.sender] = _totalSupply; // Give the creator all initial tokens

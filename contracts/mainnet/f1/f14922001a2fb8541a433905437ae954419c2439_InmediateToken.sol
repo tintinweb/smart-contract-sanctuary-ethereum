@@ -108,7 +108,7 @@ contract StandardToken is AbstractToken, Owned {
 	/*
 	 *  Read and write storage functions
 	 */
-	/// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+	/// @dev Transfers sender's tokens to a given address. Returns success.
 	/// @param _to Address of token receiver.
 	/// @param _value Number of tokens to transfer.
 	function transfer(address _to, uint256 _value) public returns (bool success) {
@@ -255,8 +255,8 @@ contract Token is BurnableToken {
 contract InmediateToken is Token {
 
 	/// TOKEN META DATA
-	string constant public name = &#39;Inmediate&#39;;
-	string constant public symbol = &#39;DIT&#39;;
+	string constant public name = 'Inmediate';
+	string constant public symbol = 'DIT';
 	uint8  constant public decimals = 8;
 
 
@@ -264,7 +264,7 @@ contract InmediateToken is Token {
 	// To calculate vesting periods we assume that 1 month is always equal to 30 days 
 
 
-	/*** Initial Investors&#39; tokens ***/
+	/*** Initial Investors' tokens ***/
 
 	// 400,000,000 (40%) tokens are distributed among initial investors
 	// These tokens will be distributed without vesting
@@ -445,10 +445,10 @@ contract InmediateToken is Token {
 		public
 		onlyPotentialOwner
 	{   
-		// Forbids the old owner to distribute investors&#39; tokens
+		// Forbids the old owner to distribute investors' tokens
 		allowed[investorsAllocation][owner] = 0;
 
-		// Allows the new owner to distribute investors&#39; tokens
+		// Allows the new owner to distribute investors' tokens
 		allowed[investorsAllocation][msg.sender] = balanceOf(investorsAllocation);
 
 		// Forbidsthe old owner to withdraw any tokens from the reserves

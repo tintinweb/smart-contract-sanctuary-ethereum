@@ -21,7 +21,7 @@ contract TestContract {
     // Claim a hash preimage
     
     // On mainnet, for the class Spring 2018,
-    // The contract&#39;s address is 0x9faf31f1546ec47e99321045bbfda8ab5ef60b74
+    // The contract's address is 0x9faf31f1546ec47e99321045bbfda8ab5ef60b74
     //
     // A value has already been committed to ($10 of ETH)
     // The is the hash of a string, of the form "word1 word2 word3", where

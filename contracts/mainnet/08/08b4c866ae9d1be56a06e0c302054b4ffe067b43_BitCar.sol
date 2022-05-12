@@ -45,11 +45,11 @@ contract BitCar is ERC20TokenInterface {
   }
 
   //// Constants ////
-  string public constant name = &#39;BitCar&#39;;
+  string public constant name = 'BitCar';
   uint256 public constant decimals = 8;
-  string public constant symbol = &#39;BITCAR&#39;;
-  string public constant version = &#39;1.0&#39;;
-  string public constant note = &#39;If you can dream it, you can do it. Enzo Ferrari&#39;;
+  string public constant symbol = 'BITCAR';
+  string public constant version = '1.0';
+  string public constant note = 'If you can dream it, you can do it. Enzo Ferrari';
 
   // 500 million coins, each divided to up to 10^decimals units.
   uint256 private constant totalTokens = 500000000 * (10 ** decimals);
@@ -136,11 +136,11 @@ contract BitCar is ERC20TokenInterface {
   // A vulernability of the approve method in the ERC20 standard was identified by
   // Mikhail Vladimirov and Dmitry Khovratovich here:
   // https://docs.google.com/document/d/1YLPtQxZu1UAvO9cZ1O2RPXBbT0mooh4DYKjA_jp-RLM
-  // It&#39;s better to use this method which is not susceptible to over-withdrawing by the approvee.
+  // It's better to use this method which is not susceptible to over-withdrawing by the approvee.
   /// @param _spender The address to approve
   /// @param _currentValue The previous value approved, which can be retrieved with allowance(msg.sender, _spender)
   /// @param _newValue The new value to approve, this will replace the _currentValue
-  /// @return bool Whether the approval was a success (see ERC20&#39;s `approve`)
+  /// @return bool Whether the approval was a success (see ERC20's `approve`)
   function compareAndApprove(address _spender, uint256 _currentValue, uint256 _newValue) public returns(bool) {
     if (allowed[msg.sender][_spender] != _currentValue) {
       return false;
@@ -154,7 +154,7 @@ contract BitCar is ERC20TokenInterface {
   }
 
   // Allows setting a descriptive string, which will aid any users in migrating their token
-  // to a newer version of the contract. This field provides a kind of &#39;double-layer&#39; of
+  // to a newer version of the contract. This field provides a kind of 'double-layer' of
   // authentication for any migration announcement, as it can only be set by BitCar.
   /// @param _migrationInfo The information string to be stored on the contract
   function setMigrationInfo(string _migrationInfo) onlyFromMigrationInfoSetter public {

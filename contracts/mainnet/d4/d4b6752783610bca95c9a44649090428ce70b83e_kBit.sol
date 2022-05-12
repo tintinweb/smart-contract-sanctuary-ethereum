@@ -70,7 +70,7 @@ contract kBit is Token, owned {
     string public name;                   
     uint8 public decimals;                
     string public symbol;                 
-    string public version = &#39;H1.0&#39;;    
+    string public version = 'H1.0';    
 
 
     /* This creates an array with all balances */
@@ -161,7 +161,7 @@ contract kBit is Token, owned {
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowed
         balances[_from] -= _value;                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;

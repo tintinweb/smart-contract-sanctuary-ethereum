@@ -440,7 +440,7 @@ contract SkinMarket is SkinMix {
         // Check whether this skin is on sale
         require(isOnSale[skinId] == true);
         
-        // Can only withdraw self&#39;s sale
+        // Can only withdraw self's sale
         require(skinIdToOwner[skinId] == msg.sender);
 
         // Withdraw
@@ -458,7 +458,7 @@ contract SkinMarket is SkinMix {
 
         address seller = skinIdToOwner[skinId];
 
-        // Check the sender isn&#39;t the seller
+        // Check the sender isn't the seller
         require(msg.sender != seller);
 
         uint256 _price = desiredPrice[skinId];
@@ -624,7 +624,7 @@ contract SkinMinting is SkinMarket {
     function summon() external payable whenNotPaused {
         // Clear daily summon numbers
         if (accountLastClearTime[msg.sender] == uint256(0)) {
-            // This account&#39;s first time to summon, we do not need to clear summon numbers
+            // This account's first time to summon, we do not need to clear summon numbers
             accountLastClearTime[msg.sender] = now;
         } else {
             if (accountLastClearTime[msg.sender] < levelClearTime && now > levelClearTime) {
@@ -666,7 +666,7 @@ contract SkinMinting is SkinMarket {
     function summon10() external payable whenNotPaused {
         // Clear daily summon numbers
         if (accountLastClearTime[msg.sender] == uint256(0)) {
-            // This account&#39;s first time to summon, we do not need to clear summon numbers
+            // This account's first time to summon, we do not need to clear summon numbers
             accountLastClearTime[msg.sender] = now;
         } else {
             if (accountLastClearTime[msg.sender] < levelClearTime && now > levelClearTime) {
@@ -747,7 +747,7 @@ contract SkinMinting is SkinMarket {
 
         // Clear daily summon numbers
         if (bleachLastClearTime[msg.sender] == uint256(0)) {
-            // This account&#39;s first time to summon, we do not need to clear bleach numbers
+            // This account's first time to summon, we do not need to clear bleach numbers
             bleachLastClearTime[msg.sender] = now;
         } else {
             if (bleachLastClearTime[msg.sender] < levelClearTime && now > levelClearTime) {

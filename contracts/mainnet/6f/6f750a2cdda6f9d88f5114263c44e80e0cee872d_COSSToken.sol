@@ -56,7 +56,7 @@ contract SafeMath {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public constant returns (string name) { name; }
     function symbol() public constant returns (string symbol) { symbol; }
     function decimals() public constant returns (uint8 decimals) { decimals; }
@@ -73,9 +73,9 @@ contract IERC20Token {
     COSS Token implementation
 */
 contract COSSToken is IERC20Token, SafeMath {
-    string public standard = &#39;COSS_DEMO&#39;;
-    string public name = &#39;COSS_DEMO&#39;;
-    string public symbol = &#39;COSS_DEMO&#39;;
+    string public standard = 'COSS_DEMO';
+    string public name = 'COSS_DEMO';
+    string public symbol = 'COSS_DEMO';
     uint8 public decimals = 18;
     uint256 public totalSupply = 200000;
     mapping (address => uint256) public balanceOf;
@@ -99,7 +99,7 @@ contract COSSToken is IERC20Token, SafeMath {
         revenueShareOwnerAddress = msg.sender;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -129,7 +129,7 @@ contract COSSToken is IERC20Token, SafeMath {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transfer(address _to, uint256 _value)
         public
@@ -150,7 +150,7 @@ contract COSSToken is IERC20Token, SafeMath {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transferFrom(address _from, address _to, uint256 _value)
         public
@@ -176,14 +176,14 @@ contract COSSToken is IERC20Token, SafeMath {
         @param _spender approved address
         @param _value   allowance amount
 
-        @return true if the approval was successful, false if it wasn&#39;t
+        @return true if the approval was successful, false if it wasn't
     */
     function approve(address _spender, uint256 _value)
         public
         validAddress(_spender)
         returns (bool success)
     {
-        // if the allowance isn&#39;t 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
+        // if the allowance isn't 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
         require(_value == 0 || allowance[msg.sender][_spender] == 0);
 
         allowance[msg.sender][_spender] = _value;

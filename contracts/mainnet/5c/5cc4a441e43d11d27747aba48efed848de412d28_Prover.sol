@@ -27,7 +27,7 @@ contract Prover {
     
     // internals for adding and deleting entries
     function _addEntry(bytes32 dataHash) internal {
-        // check that the entry doesn&#39;t exist
+        // check that the entry doesn't exist
         assert(!ledger[msg.sender][dataHash].exists);
         // initialize values
         ledger[msg.sender][dataHash].exists = true;

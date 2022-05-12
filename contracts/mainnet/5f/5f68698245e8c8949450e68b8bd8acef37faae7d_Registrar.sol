@@ -25,8 +25,8 @@ pragma solidity ^0.4.11;
 	
 	Factory Contracts:
 		- Factory Contracts can spawn Artwork Contracts in line with artists specifications
-		- Factory Contracts will only spawn Artwork Contracts who&#39;s sha256 hashes are unique per the Registrar&#39;s sha256 registry
-		- Factory Contracts will register every new Artwork Contract with it&#39;s details with the Registrar contract
+		- Factory Contracts will only spawn Artwork Contracts who's sha256 hashes are unique per the Registrar's sha256 registry
+		- Factory Contracts will register every new Artwork Contract with it's details with the Registrar contract
 	
 	Artwork Contracts:
 		- Artwork Contracts act as minimalist decentralised exchanges for their pieces in line with specified conditions
@@ -45,7 +45,7 @@ contract Interface {
 	function isFactoryApproved (address _factory) returns (bool _approved);						// Check if an address is a registered factory contract
 	function issuePatrons (address _to, uint256 _amount);										// Issues Patron tokens according to conditions specified in factory contracts
 	function approveFactoryContract (address _factoryContractAddress, bool _approved);			// Approves/disapproves factory contracts.
-	function changeOwner (address newOwner);													// Change the registrar&#39;s owner.
+	function changeOwner (address newOwner);													// Change the registrar's owner.
 
 	function offerPieceForSaleByAddress (address _contract, uint256 _price);					// Sell a piece owned by the registrar.
 	function offerPieceForSale (uint256 _price);
@@ -71,7 +71,7 @@ contract Interface {
 
 	// ERC20 interface
 	function totalSupply() constant returns (uint256 totalSupply);									// Returns the total supply of an artwork or token
-	function balanceOf(address _owner) constant returns (uint256 balance);							// Returns an address&#39; balance of an artwork or token
+	function balanceOf(address _owner) constant returns (uint256 balance);							// Returns an address' balance of an artwork or token
  	function transfer(address _to, uint256 _value) returns (bool success);							// Transfers pieces of art or tokens to an address
  	function transferFrom(address _from, address _to, uint256 _value) returns (bool success);		// Transfers pieces of art of tokens owned by another address to an address
 	function approve(address _spender, uint256 _value) returns (bool success);						// Sets an allowance for an address
@@ -79,24 +79,24 @@ contract Interface {
 
 	// Additional token functions
 	function burn(uint256 _amount) returns (bool success);										// Burns (removes from circulation) unindexed pieces of art or tokens.
-																								// In the case of &#39;ouroboros&#39; pieces this function also returns the piece&#39;s
+																								// In the case of 'ouroboros' pieces this function also returns the piece's
 																								// components to the message sender
 	
 	function burnFrom(address _from, uint256 _amount) returns (bool success);					// Burns (removes from circulation) unindexed pieces of art or tokens
-																								// owned by another address. In the case of &#39;ouroboros&#39; pieces this
-																								// function also returns the piece&#39;s components to the message sender
+																								// owned by another address. In the case of 'ouroboros' pieces this
+																								// function also returns the piece's components to the message sender
 	
 	// Extended ERC20 interface for indexed pieces
 	function transferIndexed (address _to, uint256 __index) returns (bool success);				// Transfers an indexed piece of art
 	function transferFromIndexed (address _from, address _to, uint256 _index) returns (bool success);	// Transfers an indexed piece of art from another address
 	function approveIndexed (address _spender, uint256 _index) returns (bool success);			// Sets an allowance for an indexed piece of art for another address
 	function burnIndexed (uint256 _index);														// Burns (removes from circulation) indexed pieces of art or tokens.
-																								// In the case of &#39;ouroboros&#39; pieces this function also returns the
-																								// piece&#39;s components to the message sender
+																								// In the case of 'ouroboros' pieces this function also returns the
+																								// piece's components to the message sender
 	
 	function burnIndexedFrom (address _owner, uint256 _index);									// Burns (removes from circulation) indexed pieces of art or tokens
-																								// owned by another address. In the case of &#39;ouroboros&#39; pieces this
-																								// function also returns the piece&#39;s components to the message sender
+																								// owned by another address. In the case of 'ouroboros' pieces this
+																								// function also returns the piece's components to the message sender
 
 }
 
@@ -138,7 +138,7 @@ contract Registrar {
  		return balances[_owner];
 		}
 
-	// Transfer the balance from owner&#39;s account to another account
+	// Transfer the balance from owner's account to another account
 	function transfer(address _to, uint256 _amount) onlyPayloadSize(2 * 32) returns (bool success) {
 		if (balances[msg.sender] >= _amount 
 			&& _amount > 0
@@ -226,7 +226,7 @@ contract Registrar {
 	function div(uint256 a, uint256 b) internal returns (uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return c;
 	}
 
@@ -276,12 +276,12 @@ contract Registrar {
 	
 	mapping (address => artwork) public artworkRegister;
 
-	// An indexed register of all of an artist&#39;s artworks
+	// An indexed register of all of an artist's artworks
 
-	// Enter artist address and a running number to get the artist&#39;s artwork addresses
+	// Enter artist address and a running number to get the artist's artwork addresses
 	mapping(address => mapping (uint256 => address)) public artistsArtworks;
 
-	// A running number counting an artist&#39;s artworks
+	// A running number counting an artist's artworks
 	mapping(address => uint256) public artistsArtworkCount;						
 
 	// Keeps track of the number of artwork contracts in the network
@@ -294,7 +294,7 @@ contract Registrar {
 	mapping (address => uint256) public pendingWithdrawals;
 	uint256 public totalPendingWithdrawals;
 
-	// The address of the Registrar&#39;s owner
+	// The address of the Registrar's owner
 	address public owner;
 	
 	// Determines how many Patrons are issues per donation
@@ -370,7 +370,7 @@ contract Registrar {
 		// Patrons receive 2.5 Patrons (25,000 basis points) per 1 wei purchases
 		patronRewardMultiplier = 25000;
 		
-		// Ethart receives 2.5% of revenues and artwork&#39;s edition sizes
+		// Ethart receives 2.5% of revenues and artwork's edition sizes
 		ethartRevenueReward = 250;
 		ethartArtReward = 250;
 		

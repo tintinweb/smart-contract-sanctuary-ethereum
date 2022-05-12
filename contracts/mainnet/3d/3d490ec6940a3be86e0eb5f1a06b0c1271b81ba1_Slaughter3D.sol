@@ -1,5 +1,5 @@
 pragma solidity ^0.4.25;
-// expansion on original contract from dav&#39;s stronghands contract
+// expansion on original contract from dav's stronghands contract
 
 // introducing features:
 // Jackpot - 1 in 1000 chance to get jackpot upon losing
@@ -28,7 +28,7 @@ contract Slaughter3D {
     }
     
     HourglassInterface constant p3dContract = HourglassInterface(0xB3775fB83F7D12A36E0475aBdD1FCA35c091efBe);
-    SPASMInterface constant SPASM_ = SPASMInterface(0xfaAe60F2CE6491886C9f7C9356bd92F688cA66a1);//spielley&#39;s profit sharing payout
+    SPASMInterface constant SPASM_ = SPASMInterface(0xfaAe60F2CE6491886C9f7C9356bd92F688cA66a1);//spielley's profit sharing payout
     //a small part of every winners share of the sacrificed players offer is used to purchase p3d instead
     uint256 constant private P3D_SHARE = 0.005 ether;
     
@@ -113,7 +113,7 @@ contract Slaughter3D {
     {
     uint256 amt = ETHtoP3Dbymasternode[masternode];
     ETHtoP3Dbymasternode[masternode] = 0;
-    if(masternode == 0x0){masternode = 0x989eB9629225B8C06997eF0577CC08535fD789F9;}// raffle3d&#39;s address
+    if(masternode == 0x0){masternode = 0x989eB9629225B8C06997eF0577CC08535fD789F9;}// raffle3d's address
     p3dContract.buy.value(amt)(masternode);
     
     }
@@ -155,7 +155,7 @@ contract Slaughter3D {
     Vanity[msg.sender] = van;
     uint256 amt = ETHtoP3Dbymasternode[masternode].add(msg.value);
     ETHtoP3Dbymasternode[masternode] = 0;
-    if(masternode == 0x0){masternode = 0x989eB9629225B8C06997eF0577CC08535fD789F9;}// raffle3d&#39;s address
+    if(masternode == 0x0){masternode = 0x989eB9629225B8C06997eF0577CC08535fD789F9;}// raffle3d's address
     p3dContract.buy.value(amt)(masternode);
     }
     // Sac dep
@@ -301,7 +301,7 @@ contract Slaughter3D {
         
         //check if blockhash can be determined
         if(block.number - 256 <= stageToFinalize.blocknumber) {
-            //blocknumber of stage can not be equal to current block number -> blockhash() won&#39;t work
+            //blocknumber of stage can not be equal to current block number -> blockhash() won't work
             if(block.number == stageToFinalize.blocknumber) {return;}
                 
             //determine sacrifice

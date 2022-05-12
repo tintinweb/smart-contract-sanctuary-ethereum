@@ -50,7 +50,7 @@ contract theCyberGatekeeperTwo {
   }
 
   modifier checkTwo() {
-    // Each entrant&#39;s interaction with the gatekeeper must be unique.
+    // Each entrant's interaction with the gatekeeper must be unique.
     require(interactions_[msg.sender] == false);
     require(interactions_[tx.origin] == false);
     _;
@@ -431,7 +431,7 @@ contract theCyberGatekeeperTwo {
 
     // Loop through entrants as long as sufficient gas remains.
     while (i < MAXENTRANTS_ && msg.gas > 175000) {
-      // Make sure that the target membership isn&#39;t already owned.
+      // Make sure that the target membership isn't already owned.
       (,,,,memberAddress) = theCyberInterface(THECYBERADDRESS_).getMemberInformation(i + 1);
       if (memberAddress == address(0)) {
         // If it is not owned, add the entrant as a new member of theCyber.

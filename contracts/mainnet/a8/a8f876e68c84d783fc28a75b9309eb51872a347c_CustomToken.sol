@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000;
-        name = &#39;TrvelChainV&#39;;
-        symbol = &#39;TEC&#39;;
+        name = 'TrvelChainV';
+        symbol = 'TEC';
         decimals = 10;
         balanceOf[0xeb339f3c2970c2e2ae81d92017d1e1c967beccf1] = totalSupply;
         Transfer(address(0), 0xeb339f3c2970c2e2ae81d92017d1e1c967beccf1, totalSupply);

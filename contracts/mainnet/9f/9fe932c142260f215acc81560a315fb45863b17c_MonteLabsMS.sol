@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 library DS {
   struct Proof {
     uint level;         // Audit level
-    uint insertedBlock; // Audit&#39;s block
+    uint insertedBlock; // Audit's block
     bytes32 ipfsHash;   // IPFS dag-cbor proof
     address auditedBy;  // Audited by address
   }
@@ -13,7 +13,7 @@ contract Audit {
   event AttachedEvidence(address indexed auditorAddr, bytes32 indexed codeHash, bytes32 ipfsHash);
   event NewAudit(address indexed auditorAddr, bytes32 indexed codeHash);
 
-  // Maps auditor address and code&#39;s keccak256 to Audit
+  // Maps auditor address and code's keccak256 to Audit
   mapping (address => mapping (bytes32 => DS.Proof)) public auditedContracts;
   // Maps auditor address to a list of audit code hashes
   mapping (address => bytes32[]) public auditorContracts;
@@ -43,7 +43,7 @@ contract Audit {
   }
   
   // Add evidence to audited code, only author, if _newLevel is different from original
-  // updates the contract&#39;s level
+  // updates the contract's level
   function addEvidence(bytes32 _codeHash, uint _newLevel, bytes32 _ipfsHash) public {
     address auditor = msg.sender;
     require(auditedContracts[auditor][_codeHash].insertedBlock != 0);

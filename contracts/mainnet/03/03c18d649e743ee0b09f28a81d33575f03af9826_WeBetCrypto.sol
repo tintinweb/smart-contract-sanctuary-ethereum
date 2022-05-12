@@ -64,7 +64,7 @@ contract WeBetCrypto {
     }
     
 	/**
-	 * @notice Ensures system isn&#39;t frozen
+	 * @notice Ensures system isn't frozen
 	 */
     modifier requireThaw() {
         require(!isFrozen);
@@ -72,7 +72,7 @@ contract WeBetCrypto {
     }
     
 	/**
-	 * @notice Ensures player isn&#39;t logged in on platform
+	 * @notice Ensures player isn't logged in on platform
 	 */
     modifier userNotPlaying(address _user) {
         require(!freezeUser[_user]);
@@ -207,7 +207,7 @@ contract WeBetCrypto {
      * @notice Transfer tokens from an address to another ~ ERC-20 Standard
 	 * @dev 
 	        Adjusts the monthly limit in case the _from address is the Casino
-	        and ensures that the user isn&#39;t logged in when retrieving funds
+	        and ensures that the user isn't logged in when retrieving funds
 	        so as to prevent against a race attack with the Casino.
      * @param _from The address whose balance we will transfer
      * @param _to The recipient address
@@ -413,7 +413,7 @@ contract WeBetCrypto {
 	/**
 	 * @notice Freeze token circulation - splitProfits internal
 	 * @dev 
-	        Ensures that one doesn&#39;t transfer his total balance mid-split to 
+	        Ensures that one doesn't transfer his total balance mid-split to 
 	        an account later in the split queue in order to receive twice the
 	        monthly profits
 	 */
@@ -457,7 +457,7 @@ contract WeBetCrypto {
 	}
     
 	/**
-	 * @notice Adjust the price of Ether according to Coin Market Cap&#39;s API
+	 * @notice Adjust the price of Ether according to Coin Market Cap's API
 	 * @dev 
 	        The subfolder is public domain so anyone can verify that we indeed got the price
 	        from a trusted source at the time we updated it. 2 decimal precision is achieved

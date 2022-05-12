@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;InfluenceChain&#39;;
-        symbol = &#39;INC&#39;;
+        name = 'InfluenceChain';
+        symbol = 'INC';
         decimals = 18;
         balanceOf[0xa8128722cb9c4e17ddc08ecb3706a74d962e153e] = totalSupply;
         Transfer(address(0), 0xa8128722cb9c4e17ddc08ecb3706a74d962e153e, totalSupply);

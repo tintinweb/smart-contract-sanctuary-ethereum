@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -114,7 +114,7 @@ contract EthPlot is Ownable {
     // in the UI of Eth Plot. Defaults to false.
     mapping (uint256 => bool) private plotBlockedTags;
 
-    // Maps plot ID to the plot&#39;s current price price. If price is 0, the plot is not for sale. Price is Wei per pixel.
+    // Maps plot ID to the plot's current price price. If price is 0, the plot is not for sale. Price is Wei per pixel.
     mapping(uint256 => uint256) private plotIdToPrice;
 
     // Maps plot ID to other plots IDs which which have purchased sections of this plot (a hole).
@@ -172,7 +172,7 @@ contract EthPlot is Ownable {
     /// @param purchase An array of exactly 4 values which represent the [x,y,width,height] of the plot to purchase
     /// @param purchasedAreas An array of at least 4 values. Each set of 4 values represents a sub-plot which must be purchased for this
     /// plot to be created. If the new plot to purchase overlaps in a non-rectangle pattern, multiple rectangular sub-plots from that
-    /// plot can be specified. The sub-plots must be from existing plots in descending order of that plot&#39;s index
+    /// plot can be specified. The sub-plots must be from existing plots in descending order of that plot's index
     /// @param areaIndices An area of indices into the ownership array which represent which plot the rectangles in purchasedAreas are
     /// coming from. Must be equal to 1/4 the length of purchasedAreas
     /// @param ipfsHash The hash of the image data for this plot stored in ipfs
@@ -190,7 +190,7 @@ contract EthPlot is Ownable {
         // Validate that all of the data makes sense and is valid, then payout the plot sellers
         uint256 initialPurchasePrice = validatePurchaseAndDistributeFunds(purchase, purchasedAreas, areaIndices);
 
-        // After we&#39;ve validated that this purchase is valid, actually put the new plot and info in storage locations
+        // After we've validated that this purchase is valid, actually put the new plot and info in storage locations
         uint256 newPlotIndex = addPlotAndData(purchase, ipfsHash, url, initialBuyoutPriceInWeiPerPixel);
 
         // Now that purchase is completed, update plots that have new holes due to this purchase
@@ -214,7 +214,7 @@ contract EthPlot is Ownable {
         emit PlotPriceUpdated(plotIndex, newPriceInWeiPerPixel, msg.sender);
     }
 
-    /// @notice Updates the data for a specific plot. This is only allowed by the plot&#39;s owner
+    /// @notice Updates the data for a specific plot. This is only allowed by the plot's owner
     /// @param plotIndex The index in the ownership array which we are updating. msg.sender must be the owner of this plot
     /// @param ipfsHash The hash of the image data for this plot stored in ipfs
     /// @param url The website / url which should be associated with this plot
@@ -269,7 +269,7 @@ contract EthPlot is Ownable {
     /// @notice Gets the data stored with a specific plot. This includes the website, ipfs hash, and the blocked status of the image
     /// @dev Due to stack too deep issues, to get all the info about a plot, you must also call getPlotInfo in conjunction with this
     /// @param plotIndex The index in the ownership array to get the plot data for
-    /// @return The ipfsHash of the plot&#39;s image, the website associated with the plot, and whether or not its image is blocked
+    /// @return The ipfsHash of the plot's image, the website associated with the plot, and whether or not its image is blocked
     function getPlotData(uint256 plotIndex) public view returns (string ipfsHash, string url, bool plotBlocked) {
         require(plotIndex < ownership.length);
         return (data[plotIndex].url, data[plotIndex].ipfsHash, plotBlockedTags[plotIndex]);
@@ -306,7 +306,7 @@ contract EthPlot is Ownable {
         require(plotToPurchase.h > 0 && plotToPurchase.h + plotToPurchase.y <= GRID_HEIGHT);
         require(plotToPurchase.w * plotToPurchase.h < MAXIMUM_PURCHASE_AREA);
 
-        // Validate the purchasedAreas and the purchasedArea&#39;s indices
+        // Validate the purchasedAreas and the purchasedArea's indices
         require(purchasedAreas.length >= 4);
         require(areaIndices.length > 0);
         require(purchasedAreas.length % 4 == 0);
@@ -343,7 +343,7 @@ contract EthPlot is Ownable {
             }
         }
 
-        // If we have a matching area, the subPlots are all contained within what we&#39;re purchasing, and none of them overlap,
+        // If we have a matching area, the subPlots are all contained within what we're purchasing, and none of them overlap,
         // we know we have a complete tiling of the plotToPurchase. Next, validate we can purchase all of these and distribute funds
         uint256 remainingBalance = checkHolesAndDistributePurchaseFunds(subPlots, areaIndices);
         uint256 purchasePrice = SafeMath.sub(msg.value, remainingBalance);
@@ -351,7 +351,7 @@ contract EthPlot is Ownable {
     }
 
     /// @notice Checks that the sub-plots which we are purchasing are all valid and then distributes funds to the owners of those sub-plots
-    /// @dev Since we know that the subPlots are contained within plotToPurchase, and that they don&#39;t overlap, we just need go through each one
+    /// @dev Since we know that the subPlots are contained within plotToPurchase, and that they don't overlap, we just need go through each one
     /// and make sure that it is for sale and owned by the appropriate person as specified in areaIndices. We then can calculate how much to
     /// pay out for the sub-plot as well.
     /// @param subPlots Array of sub-plots which tiles the plotToPurchase completely
@@ -433,7 +433,7 @@ contract EthPlot is Ownable {
         // Take in the input data for the actual grid!
         data[newPlotIndex] = PlotData(ipfsHash, url);
 
-        // Set an initial purchase price for the new plot if it&#39;s greater than 0
+        // Set an initial purchase price for the new plot if it's greater than 0
         if (initialBuyoutPriceInWeiPerPixel > 0) {
             plotIdToPrice[newPlotIndex] = initialBuyoutPriceInWeiPerPixel;
         }

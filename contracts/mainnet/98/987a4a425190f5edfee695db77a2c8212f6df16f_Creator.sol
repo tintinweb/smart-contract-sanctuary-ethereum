@@ -111,7 +111,7 @@ contract RightAndRoles is IRightAndRoles {
     // Change the address for the specified role.
     // Available to any wallet owner except the observer.
     // Available to the manager until the round is initialized.
-    // The Observer&#39;s wallet or his own manager can change at any time.
+    // The Observer's wallet or his own manager can change at any time.
     // @ Do I have to use the function      no
     // @ When it is possible to call        depend...
     // @ When it is launched automatically  -
@@ -435,7 +435,7 @@ contract FinancialStrategy is IFinancialStrategy, GuidedByRoles,ERC20Provider{
                     debt[i] = plan;
                     continue;
                 }
-                debt[i] = cap[i] - total[i]; //&#39;total&#39; is always less than &#39;cap&#39;
+                debt[i] = cap[i] - total[i]; //'total' is always less than 'cap'
                 free -= debt[i];
                 prcSum -= percent[i];
                 indexes[j-1] = indexes[--count];

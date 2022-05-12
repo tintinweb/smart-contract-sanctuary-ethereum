@@ -71,7 +71,7 @@ contract ERC20Standard {
 		return allowed[_owner][_spender];
 	}
 
-	//Event which is triggered to log all transfers to this contract&#39;s event log
+	//Event which is triggered to log all transfers to this contract's event log
 	event Transfer(
 		address indexed _from,
 		address indexed _to,
@@ -112,7 +112,7 @@ contract FAMEToken is ERC20Standard {
         Burn(msg.sender, _value);
 	}
 
-	//Event to log any time someone burns tokens to the contract&#39;s event log:
+	//Event to log any time someone burns tokens to the contract's event log:
 	event Burn(
 		address indexed _owner,
 		uint _value
@@ -168,10 +168,10 @@ contract BattleDromeICO {
 		require(isStarted());								//Has the crowdsale even started yet?
 		require(this.balance<=fundingMax); 					//Does this payment send us over the max?
 		require(msg.value >= minimumPurchase);              //Require that the incoming amount is at least the minimum purchase size.
-		require(!isComplete()); 							//Has the crowdsale completed? We only want to accept payments if we&#39;re still active.
+		require(!isComplete()); 							//Has the crowdsale completed? We only want to accept payments if we're still active.
 		balances[msg.sender] += msg.value;					//If all checks good, then accept contribution and record new balance.
 		savedBalances[msg.sender] += msg.value;		    	//Save contributors balance for later	
-		savedBalance += msg.value;							//Save the balance for later when we&#39;re doing pay-outs so we know what it was.
+		savedBalance += msg.value;							//Save the balance for later when we're doing pay-outs so we know what it was.
 		Contribution(msg.sender,msg.value,now);             //Woohoo! Log the new contribution!
 	}
 
@@ -251,7 +251,7 @@ contract BattleDromeICO {
 	//Function to pay out Tokens
 	function payTokens() internal {
 		require(balances[msg.sender]>0);					//Does the requester have a balance?
-		uint tokenAmount = checkTokBalance(msg.sender);		//If so, then let&#39;s calculate how many Tokens we owe them
+		uint tokenAmount = checkTokBalance(msg.sender);		//If so, then let's calculate how many Tokens we owe them
 		balances[msg.sender] = 0;							//Zero their balance ahead of transfer to avoid re-entrance (even though re-entrance here should be zero risk)
 		Token.transfer(msg.sender,tokenAmount);				//And transfer the tokens to them
 		PayTokens(msg.sender,tokenAmount,now);          	//Log payout of tokens to contributor
@@ -260,7 +260,7 @@ contract BattleDromeICO {
 	//Function to pay the creator upon success
 	function payCreator() {
 		require(isComplete());										//Creator can only request payout once ICO is complete
-		require(!creatorPaid);										//Require that the creator hasn&#39;t already been paid
+		require(!creatorPaid);										//Require that the creator hasn't already been paid
 		creatorPaid = true;											//Set flag to show creator has been paid.
 		if(isSuccessful()){
 			uint tokensToBurn = tokenBalance() - checkTokTotal();	//How many left-over tokens after sold, and dev tokens are accounted for? (calculated before we muck with balance)

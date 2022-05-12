@@ -221,7 +221,7 @@ contract ClaimSponsoredMedals is AccessControl, SafeMath  {
 
 function claimMedals (uint16 leaderboardId) public  {
     
-    //Function can be called by anyone, as long as the medals haven&#39;t already been claimed, the leaderboard is closed, and it&#39;s past the end time. 
+    //Function can be called by anyone, as long as the medals haven't already been claimed, the leaderboard is closed, and it's past the end time. 
     
            ISponsoredLeaderboardData sponsoredLeaderboardData = ISponsoredLeaderboardData(sponsoredLeaderboardDataContract);  
         if ((leaderboardId < 0 ) || (leaderboardId > sponsoredLeaderboardData.getTotalLeaderboards())) {revert();}

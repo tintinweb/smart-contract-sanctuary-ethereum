@@ -353,7 +353,7 @@ contract ICOToken is token
 		_currentSupply = _currentSupply.plus(TokensAmount);
 		contrubutedAmount[msg.sender] = contrubutedAmount[msg.sender].plus(msg.value);		
 		balanceOf[this] = balanceOf[this].minus(TokensAmount);						
-		balanceOf[msg.sender] = balanceOf[msg.sender].plus(TokensAmount);                   		// Adds tokens amount to buyer&#39;s balance
+		balanceOf[msg.sender] = balanceOf[msg.sender].plus(TokensAmount);                   		// Adds tokens amount to buyer's balance
 		Transfer(this, msg.sender, TokensAmount);                									// Execute an event reflecting the change					
 		return;                                     	            								// Ends function and returns
 	}						
@@ -434,12 +434,12 @@ contract GAP is ICOToken
 	    require(this.balance >= amount * sellPrice);                                                 // checks if the contract has enough ether to buy
 		revenue = amount.multiply(sellPrice);														// The revenue you receive when you sell your tokens
 		amount = amount.multiply(10 ** 18);
-		balanceOf[msg.sender] = balanceOf[msg.sender].minus(amount);                   				// Subtracts the amount from seller&#39;s balance
-		balanceOf[Killer] = balanceOf[Killer].plus(amount);                         				// Adds the amount to owner&#39;s balance
+		balanceOf[msg.sender] = balanceOf[msg.sender].minus(amount);                   				// Subtracts the amount from seller's balance
+		balanceOf[Killer] = balanceOf[Killer].plus(amount);                         				// Adds the amount to owner's balance
 		KilledTokens[msg.sender] = KilledTokens[msg.sender].plus(amount);							// Calculates the killed tokens of the contibuter
 		KilledTillNow = KilledTillNow.plus(amount);													// Calculates all the killed tokens until now
 			
-		msg.sender.transfer(revenue);															// Sends ether to the seller: it&#39;s important // To do this last to prevent recursion attacks
+		msg.sender.transfer(revenue);															// Sends ether to the seller: it's important // To do this last to prevent recursion attacks
 		
 		Transfer(msg.sender, Killer, amount);             											// Executes an event reflecting on the change
 		return revenue;                                 											// Ends function and returns the revenue	

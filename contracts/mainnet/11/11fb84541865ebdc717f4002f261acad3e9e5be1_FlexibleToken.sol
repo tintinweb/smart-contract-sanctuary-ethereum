@@ -5,8 +5,8 @@ pragma solidity ^0.4.21;
 // token, until the contract is locked down
 //
 // Deploy with the following:
-// - string _symbol, e.g. &#39;FLX&#39;
-// - string _name, e.g. &#39;FlexibleToken&#39;
+// - string _symbol, e.g. 'FLX'
+// - string _name, e.g. 'FlexibleToken'
 // - uint8 _decimals, e.g. 18
 // - uint _initialSupply, e.g. 1,000,000.000000000000000000 for 1 mil with 18
 //   decimals

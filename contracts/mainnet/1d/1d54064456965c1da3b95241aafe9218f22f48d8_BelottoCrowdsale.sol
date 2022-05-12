@@ -67,7 +67,7 @@ contract BelottoCrowdsale is Owned {
   uint256 public secondsaleclosingTime;
   address public reserverWallet;    // Address where reserve tokens will be sent
   address public bountyWallet;      // Address where bounty tokens will be sent
-  address public teamsWallet;       // Address where team&#39;s tokens will be sent
+  address public teamsWallet;       // Address where team's tokens will be sent
   address public fundsWallet;       // Address where funds are collected
   uint256 public fundsRaised;         // Amount of total fundsRaised
   uint256 public preSaleTokens;
@@ -152,9 +152,9 @@ contract BelottoCrowdsale is Owned {
     teamAdvTokens         = _teamAdvT * 10**uint(18);
     reserveTokens         = _reserveT * 10**uint(18);
     bountyTokens          = _bountyT * 10**uint(18);
-    hardCap               = 16000 * 10**(uint(18));   //in start only, it&#39;ll be set by Owner
-    minTxSize             = 100000000000000000; // in wei&#39;s. (0,1 ETH)
-    maxTxSize             = 200000000000000000000; // in wei&#39;s. (200 ETH)
+    hardCap               = 16000 * 10**(uint(18));   //in start only, it'll be set by Owner
+    minTxSize             = 100000000000000000; // in wei's. (0,1 ETH)
+    maxTxSize             = 200000000000000000000; // in wei's. (200 ETH)
     owner = _owner;
   }
   
@@ -241,7 +241,7 @@ contract BelottoCrowdsale is Owned {
     
     _setFunds(_beneficiary,ethers);
     
-    // update state of wei&#39;s raised during complete ICO
+    // update state of wei's raised during complete ICO
     fundsRaised = fundsRaised.add(ethers);
     //sjfhj
     _forwardFunds(_beneficiary); 

@@ -59,7 +59,7 @@ contract Ur is Owned {
     }
 
     uint256 public totalBalance;
-    string public standard = &#39;UrToken&#39;;
+    string public standard = 'UrToken';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -99,8 +99,8 @@ contract Ur is Owned {
     function Ur(){
         totalBalance = 10000000000000000000000000000;
         balanceOf[msg.sender] = 10000000000000000000000000000;
-        name = &#39;UrToken&#39;;
-        symbol = &#39;URT&#39;;
+        name = 'UrToken';
+        symbol = 'URT';
         decimals = 16;
         contractPays = false;
 
@@ -164,7 +164,7 @@ contract Ur is Owned {
 
     function addUser(address _userAddress, uint _userGroupID) onlyOwnerOrEditor returns(bool){ 
 
-        if(groupArray[_userGroupID] == &#39;0x&#39;)
+        if(groupArray[_userGroupID] == '0x')
             return false;
 
         for(uint i=0;i<groupArray.length;i++){
@@ -205,7 +205,7 @@ contract Ur is Owned {
 
     function changeUserGroup(address _userAddress, uint _newUserGroupID) onlyOwner returns (bool){
 
-        if(groupArray[_newUserGroupID] == &#39;0x&#39;)
+        if(groupArray[_newUserGroupID] == '0x')
             return false;
 
         for(uint i=0;i<groupArray.length;i++){

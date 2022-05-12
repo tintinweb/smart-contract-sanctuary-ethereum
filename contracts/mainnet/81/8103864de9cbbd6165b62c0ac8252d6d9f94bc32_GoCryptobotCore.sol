@@ -76,7 +76,7 @@ contract GoCryptobotRandom is GoCryptobotAccessControl {
 }
 
 contract GoCryptobotScore is GoCryptobotRandom {
-    // A part&#39;s skill consists of color and level. (Total 2 bytes)
+    // A part's skill consists of color and level. (Total 2 bytes)
     //   1   2
     // Skill
     // +---+---+
@@ -97,8 +97,8 @@ contract GoCryptobotScore is GoCryptobotRandom {
     //
     // L = Level, 1 ~ 50.
     //
-    // A part doesn&#39;t contains color because individual color doesn&#39;t affect to
-    // the score, but it is used to calculate player&#39;s theme color.
+    // A part doesn't contains color because individual color doesn't affect to
+    // the score, but it is used to calculate player's theme color.
     //
     uint256 constant PART_BASE_SIZE = 1;
     uint256 constant PART_SIZE = PART_BASE_SIZE + 3 * PART_SKILL_SIZE;
@@ -118,7 +118,7 @@ contract GoCryptobotScore is GoCryptobotRandom {
     // |         BOOSTER PART      |
     // +---+---+---+---+---+---+---+
     //
-    // C = Whether player&#39;s theme effect is enabled or not, 1 or 0.
+    // C = Whether player's theme effect is enabled or not, 1 or 0.
     //
     // The theme effect is set to 1 iff the theme of each part are identical.
     //

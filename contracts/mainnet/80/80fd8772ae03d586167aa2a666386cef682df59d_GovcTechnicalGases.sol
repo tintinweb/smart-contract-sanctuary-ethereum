@@ -3,7 +3,7 @@ pragma solidity ^0.4.23;
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract GovcTechnicalGases {
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -20,8 +20,8 @@ contract GovcTechnicalGases {
     function GovcTechnicalGases() public {
         balances[msg.sender] = 99999999900000000;
         _totalSupply = 99999999900000000;
-        name = &#39;Govc Technical Gases&#39;;
-        symbol = &#39;GTG&#39;;
+        name = 'Govc Technical Gases';
+        symbol = 'GTG';
         decimals = 8;
         owner = msg.sender;
     }

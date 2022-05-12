@@ -313,7 +313,7 @@ contract Manageable is OwnableInterface,
 /**
  * @title PausableInterface
  * @dev Base contract which allows children to implement an emergency stop mechanism.
- * @dev Based on zeppelin&#39;s Pausable, but integrated with Manageable
+ * @dev Based on zeppelin's Pausable, but integrated with Manageable
  * @dev Contract is in paused state by default and should be explicitly unlocked
  */
 contract PausableInterface {
@@ -364,7 +364,7 @@ contract PausableInterface {
 /**
  * @title Pausable
  * @dev Base contract which allows children to implement an emergency stop mechanism.
- * @dev Based on zeppelin&#39;s Pausable, but integrated with Manageable
+ * @dev Based on zeppelin's Pausable, but integrated with Manageable
  * @dev Contract is in paused state by default and should be explicitly unlocked
  */
 contract Pausable is ManageableInterface,
@@ -380,7 +380,7 @@ contract Pausable is ManageableInterface,
   /**
    * @dev called by the manager to pause, triggers stopped state
    */
-  function pauseContract() public onlyAllowedManager(&#39;pause_contract&#39;) whenContractNotPaused {
+  function pauseContract() public onlyAllowedManager('pause_contract') whenContractNotPaused {
     paused = true;
     emit PauseEvent();
   }
@@ -388,7 +388,7 @@ contract Pausable is ManageableInterface,
   /**
    * @dev called by the manager to unpause, returns to normal state
    */
-  function unpauseContract() public onlyAllowedManager(&#39;unpause_contract&#39;) whenContractPaused {
+  function unpauseContract() public onlyAllowedManager('unpause_contract') whenContractPaused {
     paused = false;
     emit UnpauseEvent();
   }
@@ -451,7 +451,7 @@ contract BytecodeExecutor is ManageableInterface,
     bytes _transactionBytecode
   )
     external
-    onlyAllowedManager(&#39;execute_call&#39;)
+    onlyAllowedManager('execute_call')
   {
     require(underExecution == false);
 
@@ -468,7 +468,7 @@ contract BytecodeExecutor is ManageableInterface,
     bytes _transactionBytecode
   )
     external
-    onlyAllowedManager(&#39;execute_delegatecall&#39;)
+    onlyAllowedManager('execute_delegatecall')
   {
     require(underExecution == false);
 
@@ -644,7 +644,7 @@ contract CrydrLicenseRegistry is ManageableInterface,
   )
     external
     onlyValidAddress(_userAddress)
-    onlyAllowedManager(&#39;admit_user&#39;)
+    onlyAllowedManager('admit_user')
   {
     require(userAdmittance[_userAddress] == false);
 
@@ -658,7 +658,7 @@ contract CrydrLicenseRegistry is ManageableInterface,
   )
     external
     onlyValidAddress(_userAddress)
-    onlyAllowedManager(&#39;deny_user&#39;)
+    onlyAllowedManager('deny_user')
   {
     require(userAdmittance[_userAddress] == true);
 
@@ -685,7 +685,7 @@ contract CrydrLicenseRegistry is ManageableInterface,
     external
     onlyValidAddress(_userAddress)
     onlyValidLicenseName(_licenseName)
-    onlyAllowedManager(&#39;grant_license&#39;)
+    onlyAllowedManager('grant_license')
   {
     require(userLicenses[_userAddress][_licenseName] == false);
 
@@ -700,7 +700,7 @@ contract CrydrLicenseRegistry is ManageableInterface,
     external
     onlyValidAddress(_userAddress)
     onlyValidLicenseName(_licenseName)
-    onlyAllowedManager(&#39;revoke_license&#39;)
+    onlyAllowedManager('revoke_license')
   {
     require(userLicenses[_userAddress][_licenseName] == true);
 
@@ -768,5 +768,5 @@ contract JCashLicenseRegistry is AssetID,
 
 
 contract JUSDLicenseRegistry is JCashLicenseRegistry {
-  constructor () public JCashLicenseRegistry(&#39;JUSD&#39;) {}
+  constructor () public JCashLicenseRegistry('JUSD') {}
 }

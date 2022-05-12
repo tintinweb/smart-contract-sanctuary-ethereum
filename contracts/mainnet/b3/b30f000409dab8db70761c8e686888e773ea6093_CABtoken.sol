@@ -36,7 +36,7 @@ contract CABtoken {
 
     function CABtoken() {
         totalSupply = 900000000;
-        symbol = &#39;CAB&#39;;
+        symbol = 'CAB';
         owner = 0xedf57c2a10899ae483a4e52d86b305d53cfc91cb;
         balances[owner] = totalSupply;
         decimals = 0;

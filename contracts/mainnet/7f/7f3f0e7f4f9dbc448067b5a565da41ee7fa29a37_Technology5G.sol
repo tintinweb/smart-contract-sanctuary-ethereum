@@ -4,14 +4,14 @@ pragma solidity ^0.4.18;
  * 
  * 
  *          ooooooooooooo                     oooo                              oooo                                        oooooooo   .oooooo.    
-            8&#39;   888   `8                     `888                              `888                                       dP"""""""  d8P&#39;  `Y8b   
+            8'   888   `8                     `888                              `888                                       dP"""""""  d8P'  `Y8b   
                  888       .ooooo.   .ooooo.   888 .oo.   ooo. .oo.    .ooooo.   888   .ooooo.   .oooooooo oooo    ooo    d88888b.   888           
-                 888      d88&#39; `88b d88&#39; `"Y8  888P"Y88b  `888P"Y88b  d88&#39; `88b  888  d88&#39; `88b 888&#39; `88b   `88.  .8&#39;         `Y88b  888           
-                 888      888ooo888 888        888   888   888   888  888   888  888  888   888 888   888    `88..8&#39;            ]88  888     ooooo 
-                 888      888    .o 888   .o8  888   888   888   888  888   888  888  888   888 `88bod8P&#39;     `888&#39;       o.   .88P  `88.    .88&#39;  
-                o888o     `Y8bod8P&#39; `Y8bod8P&#39; o888o o888o o888o o888o `Y8bod8P&#39; o888o `Y8bod8P&#39; `8oooooo.      .8&#39;        `8bd88P&#39;    `Y8bood8P&#39;   
-                                                                                                d"     YD  .o..P&#39;                                  
-                                                                                                "Y88888P&#39;  `Y8P&#39;                                   
+                 888      d88' `88b d88' `"Y8  888P"Y88b  `888P"Y88b  d88' `88b  888  d88' `88b 888' `88b   `88.  .8'         `Y88b  888           
+                 888      888ooo888 888        888   888   888   888  888   888  888  888   888 888   888    `88..8'            ]88  888     ooooo 
+                 888      888    .o 888   .o8  888   888   888   888  888   888  888  888   888 `88bod8P'     `888'       o.   .88P  `88.    .88'  
+                o888o     `Y8bod8P' `Y8bod8P' o888o o888o o888o o888o `Y8bod8P' o888o `Y8bod8P' `8oooooo.      .8'        `8bd88P'    `Y8bood8P'   
+                                                                                                d"     YD  .o..P'                                  
+                                                                                                "Y88888P'  `Y8P'                                   
                                                                                                 
                                                                                                 
  * @title Ownable
@@ -116,7 +116,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -206,7 +206,7 @@ contract BurnableToken is BasicToken {
     function burn(uint256 _value) public {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);
@@ -251,7 +251,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -362,8 +362,8 @@ contract Technology5G is StandardToken, Ownable {
      * Check if address is a valid destination to transfer tokens to
      * - must not be zero address
      * - must not be the token address
-     * - must not be the owner&#39;s address
-     * - must not be the admin&#39;s address
+     * - must not be the owner's address
+     * - must not be the admin's address
      * - must not be the token offering contract address
      */
     modifier validDestination(address to) {

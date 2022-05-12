@@ -127,7 +127,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -409,7 +409,7 @@ contract Investors is Ownable {
 
 
     /**
-     *  @dev Get investors&#39; fee depending on the current year
+     *  @dev Get investors' fee depending on the current year
      *  @return uint8 The fee percentage, which investors get
      */
     function getInvestorsFee() public constant returns (uint8) {
@@ -488,7 +488,7 @@ contract Referral is Declaration, Ownable {
 
             uint referralFee = amount * referralFees[depositsCount];
 
-            // distribute deposit fee among users above on the branch & update users&#39; statuses
+            // distribute deposit fee among users above on the branch & update users' statuses
             distribute(data.parentOf(client), 0, depositsCount, amount);
 
             // update balance & number of deposits of user
@@ -524,7 +524,7 @@ contract Referral is Declaration, Ownable {
         address node = _node;
         uint prevPercentage = _prevPercentage;
 
-        // distribute deposit fee among users above on the branch & update users&#39; statuses
+        // distribute deposit fee among users above on the branch & update users' statuses
         while(node != address(0)) {
             uint8 status = data.statuses(node);
 

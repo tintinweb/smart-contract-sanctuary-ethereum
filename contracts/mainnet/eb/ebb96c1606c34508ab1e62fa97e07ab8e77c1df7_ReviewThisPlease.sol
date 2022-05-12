@@ -149,7 +149,7 @@ contract ReviewThisPlease is Ownable
         if(supporterList.length == 0)
         { // New topic
             require(msg.value >= minForNewTopic, 
-                "Please send at least &#39;minForNewTopic&#39; to request a new topic.");
+                "Please send at least 'minForNewTopic' to request a new topic.");
           
             allTopics.idToTopic[allTopics.length++] = topic;
             emit NewTopic(topic, msg.sender, msg.value);
@@ -157,7 +157,7 @@ contract ReviewThisPlease is Ownable
         else
         { // Existing topic
             require(msg.value >= minForExistingTopic, 
-                "Please send at least &#39;minForExistingTopic&#39; to add support to an existing topic.");
+                "Please send at least 'minForExistingTopic' to add support to an existing topic.");
         
             emit ContributeToTopic(topic, msg.sender, msg.value);
         }

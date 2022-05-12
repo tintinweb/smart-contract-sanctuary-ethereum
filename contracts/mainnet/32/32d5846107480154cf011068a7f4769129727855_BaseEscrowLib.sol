@@ -765,7 +765,7 @@ library BaseEscrowLib
     
     function uintToBytes(uint v) internal constant returns (bytes32 ret) {
         if (v == 0) {
-            ret = &#39;0&#39;;
+            ret = '0';
         }
         else {
             while (v > 0) {
@@ -777,7 +777,7 @@ library BaseEscrowLib
         return ret;
     }
 
-    /// @dev Converts a numeric string to it&#39;s unsigned integer representation.
+    /// @dev Converts a numeric string to it's unsigned integer representation.
     /// @param v The string to be converted.
     function bytesToUInt(bytes32 v) internal constant returns (uint ret) {
         if (v == 0x0) {

@@ -18,7 +18,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -120,7 +120,7 @@ contract CrowdsaleConfig {
     // Approx 33%
     uint256 public constant COMMUNITY_POOL_TOKENS = 1980000000 * MIN_TOKEN_UNIT;
 
-    // Founders&#39; distribution. Total = 16.5%
+    // Founders' distribution. Total = 16.5%
     uint256 public constant FOUNDERS_TOKENS = 330000000 * MIN_TOKEN_UNIT;
     uint256 public constant FOUNDERS_TOKENS_VESTED_1 = 330000000 * MIN_TOKEN_UNIT;
     uint256 public constant FOUNDERS_TOKENS_VESTED_2 = 330000000 * MIN_TOKEN_UNIT;
@@ -277,7 +277,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -400,8 +400,8 @@ contract MintableToken is StandardToken, Ownable {
  * @dev SelfKey Token implementation.
  */
 contract SelfKeyToken is MintableToken {
-    string public constant name = &#39;SelfKey&#39;; //solhint-disable-line const-name-snakecase
-    string public constant symbol = &#39;KEY&#39;; //solhint-disable-line const-name-snakecase
+    string public constant name = 'SelfKey'; //solhint-disable-line const-name-snakecase
+    string public constant symbol = 'KEY'; //solhint-disable-line const-name-snakecase
     uint256 public constant decimals = 18; //solhint-disable-line const-name-snakecase
 
     uint256 public cap;
@@ -711,7 +711,7 @@ contract SelfKeyCrowdsale is Ownable, CrowdsaleConfig {
 
     /**
      * @dev Fallback function is used to buy tokens.
-     *      It&#39;s the only entry point since `buyTokens` is internal
+     *      It's the only entry point since `buyTokens` is internal
      */
     function () public payable {
         buyTokens(msg.sender);
@@ -734,7 +734,7 @@ contract SelfKeyCrowdsale is Ownable, CrowdsaleConfig {
     }
 
     /**
-     * @dev Sets a new start date as long as token hasn&#39;t started yet
+     * @dev Sets a new start date as long as token hasn't started yet
      * @param _startTime - unix timestamp of the new start time
      */
     function setStartTime (uint64 _startTime) public onlyOwner {
@@ -746,7 +746,7 @@ contract SelfKeyCrowdsale is Ownable, CrowdsaleConfig {
     }
 
     /**
-     * @dev Sets a new end date as long as end date hasn&#39;t been reached
+     * @dev Sets a new end date as long as end date hasn't been reached
      * @param _endTime - unix timestamp of the new end time
      */
     function setEndTime (uint64 _endTime) public onlyOwner {
@@ -758,7 +758,7 @@ contract SelfKeyCrowdsale is Ownable, CrowdsaleConfig {
     }
 
     /**
-     * @dev Updates the ETH/USD conversion rate as long as the public sale hasn&#39;t started
+     * @dev Updates the ETH/USD conversion rate as long as the public sale hasn't started
      * @param _ethPrice - Updated conversion rate
      */
     function setEthPrice(uint256 _ethPrice) public onlyOwner {
@@ -771,7 +771,7 @@ contract SelfKeyCrowdsale is Ownable, CrowdsaleConfig {
 
     /**
      * @dev Must be called after crowdsale ends, to do some extra finalization
-     *      work. Calls the contract&#39;s finalization function.
+     *      work. Calls the contract's finalization function.
      */
     function finalize() public onlyOwner {
         require(now > startTime);
@@ -875,7 +875,7 @@ contract SelfKeyCrowdsale is Ownable, CrowdsaleConfig {
             token.safeTransfer(beneficiary, half);
             token.safeTransfer(timelock, tokens.sub(half));
         } else {
-            // all tokens are sent to the participant&#39;s address
+            // all tokens are sent to the participant's address
             token.safeTransfer(beneficiary, tokens);
         }
 

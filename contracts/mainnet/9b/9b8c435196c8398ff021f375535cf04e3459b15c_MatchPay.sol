@@ -71,7 +71,7 @@ contract MatchPay {
 
     // Redeem dividends
     function redeem(uint _amount) is_window_open() returns (bool) {
-      // If payday isn&#39;t flagged, flag it and freeze the dividends
+      // If payday isn't flagged, flag it and freeze the dividends
       if (!is_payday) {
         is_payday = true;
         dividends = this.balance;

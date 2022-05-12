@@ -10,7 +10,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -232,7 +232,7 @@ contract Zigit is TokenERC20, Sale {
 
   /* Initializes contract with initial supply tokens to the creator of the contract */
   function Zigit()
-  TokenERC20(1000000000, &#39;Zigit&#39;, &#39;ZGT&#39;, 1000000000) public {
+  TokenERC20(1000000000, 'Zigit', 'ZGT', 1000000000) public {
     unitsOneEthCanBuy = 80000;
     soldTokens = 0;
     minPurchaseQty = 16000 * 10 ** uint256(decimals);

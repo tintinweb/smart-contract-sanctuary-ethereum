@@ -50,7 +50,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage _role, address _account)
     internal
@@ -241,7 +241,7 @@ contract OwnedRegistrar is RBAC {
     }
 
     function removeRole(address addr, string role) external onlyRole("owner") {
-        // Don&#39;t allow owners to remove themselves
+        // Don't allow owners to remove themselves
         require(keccak256(abi.encode(role)) != keccak256(abi.encode("owner")) || msg.sender != addr);
         _removeRole(addr, role);
     }

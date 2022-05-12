@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 5000000000000000000000000000;
-        name = &#39;游戏公链&#39;;
-        symbol = &#39;GPH&#39;;
+        name = '游戏公链';
+        symbol = 'GPH';
         decimals = 18;
         balanceOf[0x961bFBB9429A2c42296EE6Fc5f59D11d4E1ce3a7] = totalSupply;
         Transfer(address(0), 0x961bFBB9429A2c42296EE6Fc5f59D11d4E1ce3a7, totalSupply);

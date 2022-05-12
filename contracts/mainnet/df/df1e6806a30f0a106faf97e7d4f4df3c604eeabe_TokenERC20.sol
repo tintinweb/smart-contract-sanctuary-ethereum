@@ -1,7 +1,7 @@
 pragma solidity ^0.4.16;
 
 // ----------------------------------------------------------------------------
-// &#39;Airdroop&#39; token contract
+// 'Airdroop' token contract
 //
 // Deployed to : 0xa6029cd93aaf9115db0360c748adf3b77f42d1b6
 // Symbol      : ADOP

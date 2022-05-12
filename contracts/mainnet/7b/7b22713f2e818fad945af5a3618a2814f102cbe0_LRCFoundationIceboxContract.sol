@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 }
@@ -86,7 +86,7 @@ contract Token {
 /// @author Daniel Wang - <<span class="__cf_email__" data-cfemail="0c686d626569604c6063637c7e65626b22637e6b">[email&#160;protected]</span>>.
 /// For more information, please visit https://loopring.org.
 
-/// Loopring Foundation&#39;s LRC (20% of total supply) will be locked during the first two years，
+/// Loopring Foundation's LRC (20% of total supply) will be locked during the first two years，
 /// two years later, 1/24 of all locked LRC fund can be unlocked every month.
 
 contract LRCFoundationIceboxContract {
@@ -115,7 +115,7 @@ contract LRCFoundationIceboxContract {
 
     /// @dev Initialize the contract
     /// @param _lrcTokenAddress LRC ERC20 token address
-    /// @param _owner Owner&#39;s address
+    /// @param _owner Owner's address
     function LRCFoundationIceboxContract(address _lrcTokenAddress, address _owner) {
         require(_lrcTokenAddress != address(0));
         require(_owner != address(0));

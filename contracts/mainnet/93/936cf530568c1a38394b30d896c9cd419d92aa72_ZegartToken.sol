@@ -187,7 +187,7 @@ contract ZegartToken is owned {
        _;
     }
     
-    /// @notice transfers sender&#39;s tokens to a specified address. 
+    /// @notice transfers sender's tokens to a specified address. 
     /// @param _to The address of the recipient.
     /// @param _value The amount to be transferred.
     function transfer(address _to, uint256 _value) public notFrozen returns (bool success) {
@@ -279,7 +279,7 @@ contract ZegartToken is owned {
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] -= _value;                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;

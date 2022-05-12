@@ -10,7 +10,7 @@ pragma solidity ^0.4.11;
 //   transaction to this contract address.
 //
 //   NOTE that any ethers sent with this call will fill the coffers of this
-//   gubberment&#39;s token contract.
+//   gubberment's token contract.
 //
 // - If you consider yourself to be in the top 1%, make a donation for world
 //   peace.
@@ -40,7 +40,7 @@ pragma solidity ^0.4.11;
 //   one time.
 //
 // - Any gifts of ERC20 tokens send to this contract will be solemnly accepted
-//   by the gubberment. The treasury will at it&#39;s discretion disburst these 
+//   by the gubberment. The treasury will at it's discretion disburst these 
 //   gifts to friendly officials. Thank you.
 //
 // Token Contract:
@@ -99,7 +99,7 @@ pragma solidity ^0.4.11;
 //   contract.
 //
 // - replaceOfficials([accounts])
-//   The gubberment can sack and replace all it&#39;s treasury officials in one go.
+//   The gubberment can sack and replace all it's treasury officials in one go.
 //
 // Standard ERC20 Functions:
 // - balanceOf(account)
@@ -167,7 +167,7 @@ contract ERC20Token {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _amount) returns (bool success) {
         if (balances[msg.sender] >= _amount
@@ -197,8 +197,8 @@ contract ERC20Token {
     }
 
     // ------------------------------------------------------------------------
-    // Spender of tokens transfer an amount of tokens from the token owner&#39;s
-    // balance to the spender&#39;s account. The owner of the tokens must already
+    // Spender of tokens transfer an amount of tokens from the token owner's
+    // balance to the spender's account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
     function transferFrom(
@@ -222,7 +222,7 @@ contract ERC20Token {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(
         address _owner, 

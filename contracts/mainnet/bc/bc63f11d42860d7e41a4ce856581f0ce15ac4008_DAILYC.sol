@@ -95,8 +95,8 @@ contract DAILYC is owned, SafeMath {
         // owner
         balanceOf[msg.sender] = valueTeam;
         Transfer(0x0, msg.sender, valueTeam);
-    	name = &#39;Coindaily&#39;;
-    	symbol = &#39;DAILY&#39;; 
+    	name = 'Coindaily';
+    	symbol = 'DAILY'; 
     }
 
     function transfer(address _to, uint _value) public validAddress(_to) returns (bool success)

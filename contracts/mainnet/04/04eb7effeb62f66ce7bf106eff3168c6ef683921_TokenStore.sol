@@ -96,7 +96,7 @@ contract TokenStore is ITokenStore, Ownable {
     event ChangeTokenLogic(address newTokenLogic);
     
     modifier onlyTokenLogic() {
-        require(msg.sender == _tokenLogic, "this method MUST be called by the security&#39;s logic address");
+        require(msg.sender == _tokenLogic, "this method MUST be called by the security's logic address");
         _;
     }
     

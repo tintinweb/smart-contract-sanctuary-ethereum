@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -91,7 +91,7 @@ contract Registry {
 
     // Stores arbitrary attributes for users. An example use case is an ERC20
     // token that requires its users to go through a KYC/AML check - in this case
-    // a validator can set an account&#39;s "hasPassedKYC/AML" attribute to 1 to indicate
+    // a validator can set an account's "hasPassedKYC/AML" attribute to 1 to indicate
     // that account can use the token. This mapping stores that value (1, in the
     // example) as well as which validator last set the value and at what time,
     // so that e.g. the check can be renewed at appropriate intervals.
@@ -119,7 +119,7 @@ contract Registry {
         return keccak256(WRITE_PERMISSION ^ _attribute);
     }
 
-    // Allows a write if either a) the writer is that Registry&#39;s owner, or
+    // Allows a write if either a) the writer is that Registry's owner, or
     // b) the writer is writing to attribute foo and that writer already has
     // the canWriteTo-foo attribute set (in that same Registry)
     function confirmWrite(bytes32 _attribute, address _admin) public view returns (bool) {
@@ -476,7 +476,7 @@ contract HasOwner is ProxyStorage {
 
 // File: contracts/modularERC20/ModularBasicToken.sol
 
-// Version of OpenZeppelin&#39;s BasicToken whose balances mapping has been replaced
+// Version of OpenZeppelin's BasicToken whose balances mapping has been replaced
 // with a separate BalanceSheet contract. remove the need to copy over balances.
 /**
  * @title Basic token
@@ -583,7 +583,7 @@ contract ModularStandardToken is ModularBasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -674,7 +674,7 @@ contract ModularBurnableToken is ModularStandardToken {
     function _burnAllArgs(address _burner, uint256 _value) internal {
         require(_value <= balances.balanceOf(_burner), "not enough balance to burn");
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
         /* uint burnAmount = _value / (10 **16) * (10 **16); */
         balances.subBalance(_burner, _value);
         totalSupply_ = totalSupply_.sub(_value);
@@ -809,9 +809,9 @@ contract BurnableTokenWithBounds is ModularPausableToken {
 
     //Change the minimum and maximum amount that can be burned at once. Burning
     //may be disabled by setting both to 0 (this will not be done under normal
-    //operation, but we can&#39;t add checks to disallow it without losing a lot of
+    //operation, but we can't add checks to disallow it without losing a lot of
     //flexibility since burning could also be as good as disabled
-    //by setting the minimum extremely high, and we don&#39;t want to lock
+    //by setting the minimum extremely high, and we don't want to lock
     //in any particular cap for the minimum)
     function setBurnBounds(uint256 _min, uint256 _max) public onlyOwner {
         require(_min <= _max, "min > max");
@@ -832,7 +832,7 @@ contract CompliantToken is ModularPausableToken {
     // control their ethereum address using AddressValidation.sol).
     bytes32 public constant HAS_PASSED_KYC_AML = "hasPassedKYC/AML";
     // Redeeming ("burning") TrueUSD tokens for USD requires a separate flag since
-    // users must not only be KYC/AML&#39;ed but must also have bank information on file.
+    // users must not only be KYC/AML'ed but must also have bank information on file.
     bytes32 public constant CAN_BURN = "canBurn";
     // Addresses can also be blacklisted, preventing them from sending or receiving
     // TrueUSD. This can be used to prevent the use of TrueUSD by bad actors in
@@ -862,7 +862,7 @@ contract CompliantToken is ModularPausableToken {
         super._burnAllArgs(_burner, _value);
     }
 
-    // A blacklisted address can&#39;t call transferFrom
+    // A blacklisted address can't call transferFrom
     function _transferFromAllArgs(address _from, address _to, uint256 _value, address _spender) internal {
         require(!registry.hasAttribute(_spender, IS_BLACKLISTED), "_spender is blacklisted");
         super._transferFromAllArgs(_from, _to, _value, _spender);
@@ -908,7 +908,7 @@ contract RedeemableToken is ModularPausableToken {
         }
     }
     
-    // StandardToken&#39;s transferFrom doesn&#39;t have to check for
+    // StandardToken's transferFrom doesn't have to check for
     // _to != 0x0, but we do because we redirect 0x0 transfers to burns, but
     // we do not redirect transferFrom
     function _transferFromAllArgs(address _from, address _to, uint256 _value, address _spender) internal {
@@ -1347,7 +1347,7 @@ contract OwnedUpgradeabilityProxy is UpgradeabilityProxy {
 
     /**
     * @dev Allows the current owner to transfer control of the contract to a newOwner.
-    *changes the pending owner to newOwner. But doesn&#39;t actually transfer
+    *changes the pending owner to newOwner. But doesn't actually transfer
     * @param newOwner The address to transfer ownership to.
     */
     function transferProxyOwnership(address newOwner) external onlyProxyOwner {
@@ -1834,7 +1834,7 @@ contract TokenController {
     }
 
     /** 
-    *@dev Update this contract&#39;s trueUSD pointer to newContract (e.g. if the
+    *@dev Update this contract's trueUSD pointer to newContract (e.g. if the
     contract is upgraded)
     */
     function setTrueUSD(TrueUSD _newContract) external onlyOwner {
@@ -1848,7 +1848,7 @@ contract TokenController {
     }
 
     /** 
-    *@dev Update this contract&#39;s registry pointer to _registry
+    *@dev Update this contract's registry pointer to _registry
     */
     function setRegistry(Registry _registry) external onlyOwner {
         registry = _registry;
@@ -1856,14 +1856,14 @@ contract TokenController {
     }
 
     /** 
-    *@dev update TrueUSD&#39;s name and symbol
+    *@dev update TrueUSD's name and symbol
     */
     function changeTokenName(string _name, string _symbol) external onlyOwner {
         trueUSD.changeTokenName(_name, _symbol);
     }
 
     /** 
-    *@dev Swap out TrueUSD&#39;s permissions registry
+    *@dev Swap out TrueUSD's permissions registry
     *@param _registry new registry for trueUSD
     */
     function setTusdRegistry(Registry _registry) external onlyOwner {
@@ -1933,7 +1933,7 @@ contract TokenController {
     }
 
     /** 
-    *@dev set new contract to which tokens look to to see if it&#39;s on the supported fork
+    *@dev set new contract to which tokens look to to see if it's on the supported fork
     *@param _newGlobalPause address of the new contract
     */
     function setGlobalPause(address _newGlobalPause) external onlyOwner {

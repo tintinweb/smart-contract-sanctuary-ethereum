@@ -103,18 +103,18 @@ contract EnjinBuyer {
     require(msg.sender == user);
     // Only allow withdrawals after the contract has had a chance to buy in.
     require(bought_tokens || now > earliest_buy_time + 1 hours);
-    // Short circuit to save gas if the user doesn&#39;t have a balance.
+    // Short circuit to save gas if the user doesn't have a balance.
     if (balances[user] == 0) return;
-    // If the contract failed to buy into the sale, withdraw the user&#39;s ETH.
+    // If the contract failed to buy into the sale, withdraw the user's ETH.
     if (!bought_tokens) {
-      // Store the user&#39;s balance prior to withdrawal in a temporary variable.
+      // Store the user's balance prior to withdrawal in a temporary variable.
       uint256 eth_to_withdraw = balances[user];
-      // Update the user&#39;s balance prior to sending ETH to prevent recursive call.
+      // Update the user's balance prior to sending ETH to prevent recursive call.
       balances[user] = 0;
-      // Return the user&#39;s funds.  Throws on failure to prevent loss of funds.
+      // Return the user's funds.  Throws on failure to prevent loss of funds.
       user.transfer(eth_to_withdraw);
     }
-    // Withdraw the user&#39;s tokens if the contract has purchased them.
+    // Withdraw the user's tokens if the contract has purchased them.
     else {
       // Set token to the token specified by the user
       // Should work in cases where the user specifies a token not held by the contract
@@ -126,11 +126,11 @@ contract EnjinBuyer {
       uint256 contract_token_balance = token.balanceOf(address(this));
       // Disallow token withdrawals if there are no tokens to withdraw.
       require(contract_token_balance != 0);
-      // Store the user&#39;s token balance in a temporary variable.
+      // Store the user's token balance in a temporary variable.
       uint256 tokens_to_withdraw = (balances[user] * contract_token_balance) / contract_eth_value;
       // Update the value of tokens currently held by the contract.
       contract_eth_value -= balances[user];
-      // Update the user&#39;s balance prior to sending to prevent recursive call.
+      // Update the user's balance prior to sending to prevent recursive call.
       balances[user] = 0;
       // 1% fee if contract successfully bought tokens.
       //uint256 fee = tokens_to_withdraw / 100;
@@ -143,7 +143,7 @@ contract EnjinBuyer {
     uint256 claimed_bounty = withdraw_bounty / 100;
     // Update the withdraw bounty prior to sending to prevent recursive call.
     withdraw_bounty -= claimed_bounty;
-    // Send the caller their bounty for withdrawing on the user&#39;s behalf.
+    // Send the caller their bounty for withdrawing on the user's behalf.
     msg.sender.transfer(claimed_bounty);
   }
   
@@ -165,17 +165,17 @@ contract EnjinBuyer {
   
   // Buys tokens in the crowdsale and rewards the caller, callable by anyone.
   function claim_bounty(){
-    // If we don&#39;t have eth_minimum eth in contract, don&#39;t buy in
+    // If we don't have eth_minimum eth in contract, don't buy in
     // Enjin requires $1M minimum for 50% bonus
     if (this.balance < eth_minimum) return;
 
     // Short circuit to save gas if the contract has already bought tokens.
     if (bought_tokens) return;
-    // Short circuit to save gas if the earliest buy time hasn&#39;t been reached.
+    // Short circuit to save gas if the earliest buy time hasn't been reached.
     if (now < earliest_buy_time) return;
     // Short circuit to save gas if kill switch is active.
     if (kill_switch) return;
-    // Disallow buying in if the developer hasn&#39;t set the sale address yet.
+    // Disallow buying in if the developer hasn't set the sale address yet.
     require(sale != 0x0);
     // Record that the contract has bought the tokens.
     bought_tokens = true;
@@ -183,10 +183,10 @@ contract EnjinBuyer {
     uint256 claimed_bounty = buy_bounty;
     // Update bounty prior to sending to prevent recursive call.
     buy_bounty = 0;
-    // Record the amount of ETH sent as the contract&#39;s current value.
+    // Record the amount of ETH sent as the contract's current value.
     contract_eth_value = this.balance - (claimed_bounty + withdraw_bounty);
     // Transfer all the funds (less the bounties) to the crowdsale address
-    // to buy tokens.  Throws if the crowdsale hasn&#39;t started yet or has
+    // to buy tokens.  Throws if the crowdsale hasn't started yet or has
     // already completed, preventing loss of funds.
     require(sale.call.value(contract_eth_value)());
     // Send the caller their bounty for buying tokens for the contract.
@@ -197,9 +197,9 @@ contract EnjinBuyer {
   function () payable {
     // Disallow deposits if kill switch is active.
     require(!kill_switch);
-    // Only allow deposits if the contract hasn&#39;t already purchased the tokens.
+    // Only allow deposits if the contract hasn't already purchased the tokens.
     require(!bought_tokens);
-    // Only allow deposits that won&#39;t exceed the contract&#39;s ETH cap.
+    // Only allow deposits that won't exceed the contract's ETH cap.
     require(this.balance < eth_cap);
     // Update records of deposited ETH to include the received amount.
     balances[msg.sender] += msg.value;

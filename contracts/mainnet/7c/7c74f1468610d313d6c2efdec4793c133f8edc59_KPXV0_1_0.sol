@@ -17,8 +17,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -35,7 +35,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -368,7 +368,7 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
     );
   }
   
-  /// @notice Authorize a third party `_operator` to manage (send) `msg.sender`&#39;s tokens.
+  /// @notice Authorize a third party `_operator` to manage (send) `msg.sender`'s tokens.
   /// @param _operator The operator that wants to be Authorized
   function authorizeOperator(address _operator) public whenNotPaused {
     require(_operator != msg.sender, "You cannot authorize yourself as an operator");
@@ -381,7 +381,7 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
   /// @param _operator The address of the account able to transfer the tokens
   /// @param _amount The number of tokens to be approved for transfer
   /// @dev to revoke the operator of SOME allowance simply call it again as it will overwrite its previous allowance.
-  /// @return `true`, if the approve can&#39;t be done, it should fail.
+  /// @return `true`, if the approve can't be done, it should fail.
   function approveAndCall(address _operator, uint256 _amount, bytes _operatorData) public whenNotPaused returns (bool success) {
     uint balanceAvailable = getAmountOfUnlockedTokens(msg.sender);
     require(balanceAvailable >= _amount, "The amount of unlocked tokens must be >= the amount sent");
@@ -399,7 +399,7 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
     return true;
   }
   
-  /// @notice Revoke a third party `_operator`&#39;s rights to manage (send) `msg.sender`&#39;s tokens.
+  /// @notice Revoke a third party `_operator`'s rights to manage (send) `msg.sender`'s tokens.
   /// @param _operator The operator that wants to be Revoked
   function revokeOperator(address _operator) public whenNotPaused {
     require(_operator != msg.sender, "You cannot authorize yourself as an operator");
@@ -546,7 +546,7 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
   ///  implemented only to maintain backwards compatibility. When the erc20
   ///  compatibility is disabled, this methods will fail.
   modifier erc20 () {
-    require(mErc20compatible, "You can only use this function when the &#39;ERC20Token&#39; interface is enabled");
+    require(mErc20compatible, "You can only use this function when the 'ERC20Token' interface is enabled");
     _;
   }
   
@@ -571,7 +571,7 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
   /// @notice ERC20 backwards compatible transfer.
   /// @param _to The address of the recipient
   /// @param _amount The number of tokens to be transferred
-  /// @return `true`, if the transfer can&#39;t be done, it should fail.
+  /// @return `true`, if the transfer can't be done, it should fail.
   function transfer(address _to, uint256 _amount) public whenNotPaused erc20 returns (bool success) {
     doSend(
       msg.sender, 
@@ -589,16 +589,16 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
   /// @param _from The address holding the tokens being transferred
   /// @param _to The address of the recipient
   /// @param _amount The number of tokens to be transferred
-  /// @return `true`, if the transfer can&#39;t be done, it should fail.
+  /// @return `true`, if the transfer can't be done, it should fail.
   function transferFrom(address _from, address _to, uint256 _amount) public whenNotPaused erc20 returns (bool success) {
     uint balanceAvailable = getAmountOfUnlockedTokens(_from);
     require(
       balanceAvailable >= _amount, 
-      "You can only use transferFrom when you specify an amount of tokens >= the &#39;_from&#39; address&#39;s amount of unlocked tokens"
+      "You can only use transferFrom when you specify an amount of tokens >= the '_from' address's amount of unlocked tokens"
     );
     require(
       _amount <= mAllowed[_from][msg.sender],
-      "You can only use transferFrom with an amount less than or equal to the current &#39;mAllowed&#39; allowance."
+      "You can only use transferFrom with an amount less than or equal to the current 'mAllowed' allowance."
     );
     
     // Cannot be after doSend because of tokensReceived re-entry
@@ -619,7 +619,7 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
   ///  `msg.sender` approves `_spender` to spend `_amount` tokens on its behalf.
   /// @param _spender The address of the account able to transfer the tokens
   /// @param _amount The number of tokens to be approved for transfer
-  /// @return `true`, if the approve can&#39;t be done, it should fail.
+  /// @return `true`, if the approve can't be done, it should fail.
   function approve(address _spender, uint256 _amount) public whenNotPaused erc20 returns (bool success) {
     uint balanceAvailable = getAmountOfUnlockedTokens(msg.sender);
     require(
@@ -644,7 +644,7 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
   /* -- Helper Functions -- */
   //
   /// @notice Internal function that ensures `_amount` is multiple of the granularity
-  /// @param _amount The quantity that want&#39;s to be checked
+  /// @param _amount The quantity that want's to be checked
   function requireMultiple(uint256 _amount) internal view {
     require(
       _amount.div(mGranularity).mul(mGranularity) == _amount, 
@@ -697,11 +697,11 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
     
     require(
       _to != address(0), 
-      "You cannot invoke doSend with a the burn address (0x0) as the recipient &#39;to&#39; address"
+      "You cannot invoke doSend with a the burn address (0x0) as the recipient 'to' address"
     );          // forbid sending to 0x0 (=burning)
     require(
       balanceAvailable >= _amount, 
-      "You can only invoke doSend when the &#39;from&#39; address has an unlocked balance >= the &#39;_amount&#39; sent"
+      "You can only invoke doSend when the 'from' address has an unlocked balance >= the '_amount' sent"
     ); // ensure enough funds
     
     mBalances[_from] = mBalances[_from].sub(_amount);
@@ -763,7 +763,7 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
     } else if (_preventLocking) {
       require(
         isRegularAddress(_to),
-        "When &#39;_preventLocking&#39; is true, you cannot invoke &#39;callOperator&#39; to a contract address that does not support the &#39;ERC777TokensOperator&#39; interface"
+        "When '_preventLocking' is true, you cannot invoke 'callOperator' to a contract address that does not support the 'ERC777TokensOperator' interface"
       );
     }
   }
@@ -832,7 +832,7 @@ contract Basic777 is Pausable, ERC20Token, ERC777Token, Lockable, ERC820Implemen
     } else if (_preventLocking) {
       require(
         isRegularAddress(_to),
-        "When &#39;_preventLocking&#39; is true, you cannot invoke &#39;callOperator&#39; to a contract address that does not support the &#39;ERC777TokensOperator&#39; interface"
+        "When '_preventLocking' is true, you cannot invoke 'callOperator' to a contract address that does not support the 'ERC777TokensOperator' interface"
       );
     }
   }

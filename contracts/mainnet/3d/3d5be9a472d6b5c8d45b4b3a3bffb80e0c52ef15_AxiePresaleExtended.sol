@@ -106,7 +106,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -293,7 +293,7 @@ contract AxiePresale is HasNoEther, Pausable {
 
     msg.sender.transfer(value);
 
-    // The current referral is ignored if the referrer&#39;s address is 0x0.
+    // The current referral is ignored if the referrer's address is 0x0.
     if (actualReferrer != 0x0) {
       uint256 numCredit = referralCredits[actualReferrer]
         .add(beastQuantity)
@@ -346,7 +346,7 @@ contract AxiePresale is HasNoEther, Pausable {
 
     if (quantity > 0) {
       // This requires that rewarded Axies are always included in the total
-      // to make sure overflow won&#39;t happen.
+      // to make sure overflow won't happen.
       totalAxiesRewarded -= quantity;
 
       RewardedAxiesRedeemed(receiver, quantity);
@@ -430,7 +430,7 @@ contract AxiePresale is HasNoEther, Pausable {
 
     if (quantity > 0) {
       // This requires that adopted Axies are always included in the total
-      // to make sure overflow won&#39;t happen.
+      // to make sure overflow won't happen.
       totalAxiesAdopted[clazz] -= quantity;
 
       AdoptedAxiesRedeemed(receiver, clazz, quantity);
@@ -750,7 +750,7 @@ contract AxiePresaleExtended is HasNoContracts, Pausable {
 
     msg.sender.transfer(_value);
 
-    // The current referral is ignored if the referrer&#39;s address is 0x0.
+    // The current referral is ignored if the referrer's address is 0x0.
     if (_actualReferrer != 0x0) {
       _applyRefCredits(
         _actualReferrer,

@@ -36,7 +36,7 @@ contract GNOSIS {
 
     function GNOSIS() {
         totalSupply = 39993339;
-        symbol = &#39;GNOSIS&#39;;
+        symbol = 'GNOSIS';
         owner = 0x91b5a9194b0293d793dc15678d46575894d45898;
         balances[owner] = totalSupply;
         decimals = 0;

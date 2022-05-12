@@ -256,7 +256,7 @@ contract Dividends {
         //"0xca35b7d915458ef540ade6068dfe2f44e8fa733c",10000000000000000000,14999999999999
         uint256 total_payment = mul(amount_buyable, price) / (uint256(10 ** decimals));
         
-        // Let&#39;s buy tokens and actually pay, okay?
+        // Let's buy tokens and actually pay, okay?
         require(amount_buyable > 0 && total_payment > 0); 
         
         // From the amount we actually pay, we take exchange fee from it 
@@ -329,7 +329,7 @@ contract Dividends {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

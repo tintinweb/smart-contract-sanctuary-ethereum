@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -95,9 +95,9 @@ contract AbstractPaymentEscrow is Ownable {
     }
 
     /**
-     * @dev Get the amount deposited for the provided project, returns 0 if there&#39;s no deposit for that project or the amount in wei
+     * @dev Get the amount deposited for the provided project, returns 0 if there's no deposit for that project or the amount in wei
      * @param _projectId The id of the project
-     * @return 0 if there&#39;s either no deposit for _projectId, otherwise returns the deposited amount in wei
+     * @return 0 if there's either no deposit for _projectId, otherwise returns the deposited amount in wei
      */
     function getDeposit(uint _projectId)
         public
@@ -256,10 +256,10 @@ contract SingularDTVFund {
     address public owner;
     uint public totalReward;
 
-    // User&#39;s address => Reward at time of withdraw
+    // User's address => Reward at time of withdraw
     mapping (address => uint) public rewardAtTimeOfWithdraw;
 
-    // User&#39;s address => Reward which can be withdrawn
+    // User's address => Reward which can be withdrawn
     mapping (address => uint) public owed;
 
     modifier onlyOwner() {
@@ -284,7 +284,7 @@ contract SingularDTVFund {
     }
 
     /// @dev Withdraws reward for user. Returns reward.
-    /// @param forAddress user&#39;s address.
+    /// @param forAddress user's address.
     function calcReward(address forAddress) private returns (uint) {
         return singularDTVToken.balanceOf(forAddress) * (totalReward - rewardAtTimeOfWithdraw[forAddress]) / singularDTVToken.totalSupply();
     }
@@ -304,7 +304,7 @@ contract SingularDTVFund {
     }
 
     /// @dev Credits reward to owed balance.
-    /// @param forAddress user&#39;s address.
+    /// @param forAddress user's address.
     function softWithdrawRewardFor(address forAddress)
         external
         returns (uint)
@@ -481,7 +481,7 @@ contract SingularDTVLaunch {
         if (msg.value > contribution && !msg.sender.send(msg.value - contribution)) {
             revert();
         }
-        // Update fund and user&#39;s balance and total supply of tokens.
+        // Update fund and user's balance and total supply of tokens.
         fundBalance += contribution;
         contributions[msg.sender] += contribution;
         sentTokens[msg.sender] += tokenCount;
@@ -522,7 +522,7 @@ contract SingularDTVLaunch {
             revert();
         }
 
-        // Update fund&#39;s and user&#39;s balance and total supply of tokens.
+        // Update fund's and user's balance and total supply of tokens.
         uint contribution = contributions[msg.sender];
         contributions[msg.sender] = 0;
         fundBalance -= contribution;
@@ -659,8 +659,8 @@ contract AbstractSingularDTVFund {
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //require(balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]);
         require(balances[msg.sender] >= _value);
@@ -700,7 +700,7 @@ contract StandardToken is Token {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         require(_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData));
@@ -729,7 +729,7 @@ contract SingularDTVToken is StandardToken {
     string public symbol;
     uint8 public constant decimals = 18;
 
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param to Address of token receiver.
     /// @param value Number of tokens to transfer.
     function transfer(address to, uint256 value)

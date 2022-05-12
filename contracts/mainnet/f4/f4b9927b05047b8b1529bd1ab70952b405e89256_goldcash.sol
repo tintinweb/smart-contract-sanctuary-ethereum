@@ -120,9 +120,9 @@ contract goldcash is owned, ERC20 {
         uint256 totalAmount = amount * (10 ** uint256(decimals));
         require (balanceOf[this] >= totalAmount);                              // Check if it has enough to sell
         balanceOf[this] = balanceOf[this]-(totalAmount);                   // Subtract amount from balance
-        balanceOf[msg.sender] = balanceOf[msg.sender]+(totalAmount);       // Add the amount to buyer&#39;s balance
+        balanceOf[msg.sender] = balanceOf[msg.sender]+(totalAmount);       // Add the amount to buyer's balance
         emit Transfer(this, msg.sender, totalAmount);                                 // Execute an event reflecting the change
-        emit noted_transfer(this, msg.sender, totalAmount, &#39;BuyFromEth&#39;, block.number);
+        emit noted_transfer(this, msg.sender, totalAmount, 'BuyFromEth', block.number);
         return totalAmount;
     }
     /* User sells and gets Ether */
@@ -131,8 +131,8 @@ contract goldcash is owned, ERC20 {
         ethToBeClaimed = amountOFGoldcash * (sellPriceEth);                            // ethToBeClaimed = eth that will be send to the user
         uint256 amountOFGoldcashWei =(amountOFGoldcash * (10 ** uint256(decimals)));
         emit Transfer(msg.sender, this, amountOFGoldcashWei);                            // Execute an event reflecting on the change
-        emit noted_transfer(msg.sender, this, amountOFGoldcashWei, &#39;SellToEth&#39;, block.number);
-        balanceOf[msg.sender] -= amountOFGoldcashWei;   // Subtract the amount from seller&#39;s balance
+        emit noted_transfer(msg.sender, this, amountOFGoldcashWei, 'SellToEth', block.number);
+        balanceOf[msg.sender] -= amountOFGoldcashWei;   // Subtract the amount from seller's balance
         balanceOf[this] +=(amountOFGoldcashWei);               // Add the amount to balance
         msg.sender.transfer(ethToBeClaimed);
         return ethToBeClaimed;                                                 // End function and returns

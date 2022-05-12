@@ -47,7 +47,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -295,7 +295,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -573,7 +573,7 @@ contract VUULRVesting is XClaimable, Salvageable {
 
         uint _lockPeriod;
 
-        // Let&#39;s not allow the common mistake....
+        // Let's not allow the common mistake....
         require(_newAddress != address(0));
         // Check that beneficiary is not already registered
         require(vestingSchedules[_newAddress].tokens == 0);
@@ -613,7 +613,7 @@ contract VUULRVesting is XClaimable, Salvageable {
     // Returns the amount of tokens you can withdraw
     function vested(address beneficiary) public view returns (uint _amountVested) {
         VestingSchedule memory _vestingSchedule = vestingSchedules[beneficiary];
-        // If it&#39;s past the end time, the whole amount is available.
+        // If it's past the end time, the whole amount is available.
         if ((_vestingSchedule.tokens == 0) || (_vestingSchedule.numPeriods == 0) || (now < _vestingSchedule.startTime)){
             return 0;
         }

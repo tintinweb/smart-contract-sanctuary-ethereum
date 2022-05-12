@@ -98,7 +98,7 @@ contract ABIO_BaseICO is Haltable{
 
          /**
           * @notice Called everytime we receive a contribution in ETH.
-          * @dev Tokens are immediately transferred to the contributor, even if goal doesn&#39;t get reached.
+          * @dev Tokens are immediately transferred to the contributor, even if goal doesn't get reached.
           */
          function () payable stopOnPause{
              require(now < deadline);
@@ -130,7 +130,7 @@ contract ABIO_BaseICO is Haltable{
 
          /**
          * @notice Burns tokens leftover from an ICO round.
-         * @dev This can be called by anyone after deadline since it&#39;s an essential and inevitable part.
+         * @dev This can be called by anyone after deadline since it's an essential and inevitable part.
          */
          function burnRestTokens() afterDeadline{
                  require(!restTokensBurned);
@@ -180,9 +180,9 @@ contract ABIO_preICO is ABIO_BaseICO{
     }
 
     /**
-    * @notice supposed to be called by ICO Contract IF `fundingGoal` wasn&#39;t reached during PreICO to notify it
-    * @dev !!Funds can&#39;t be deposited to treasury if `fundingGoal` isn&#39;t called before main ICO ends!!
-    * @dev This is, at max., called once! If this contract doesn&#39;t know ICOAddress by that time, we rely on the check in `supplyICOContract()`
+    * @notice supposed to be called by ICO Contract IF `fundingGoal` wasn't reached during PreICO to notify it
+    * @dev !!Funds can't be deposited to treasury if `fundingGoal` isn't called before main ICO ends!!
+    * @dev This is, at max., called once! If this contract doesn't know ICOAddress by that time, we rely on the check in `supplyICOContract()`
     */
     function extGoalReached() afterDeadline external{
         require(ICOAddress != 0x0); //ICO was supplied
@@ -193,7 +193,7 @@ contract ABIO_preICO is ABIO_BaseICO{
     /**
      * @notice Lets participants withdraw the funds if `fundingGoal` was missed.
      * @notice Lets treasury collect the funds if `fundingGoal` was reached.
-     * @dev The contract is obligated to return the ETH to contributors if `fundingGoal` isn&#39;t reached,
+     * @dev The contract is obligated to return the ETH to contributors if `fundingGoal` isn't reached,
      *      so we have to wait until the end for a user withdrawal.
      * @dev The treasury can withdraw right after `fundingGoal` is reached.
      */

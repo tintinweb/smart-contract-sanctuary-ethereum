@@ -6,7 +6,7 @@ P3D Charity Mining Pool
 
 - Splits deposit according to feeDivisor (default is 4 = 25% donation)
     - Sends user donation plus current dividends to charity address (Giveth)
-    - Uses the rest to buy P3D tokens under the sender&#39;s masternode
+    - Uses the rest to buy P3D tokens under the sender's masternode
     - feeDivisor can be from 2 to 10 (50% to 10% donation range)
 - Dividends accumulated by miner can be sent as donation at anytime
 - Donors can sell their share of tokens at anytime and withdraw the ETH value!
@@ -92,7 +92,7 @@ contract CharityMiner {
 
 	// Deposit
     // - Divide deposit by feeDivisor then add divs and send as donation
-	// - Use the rest to buy P3D tokens under sender&#39;s masternode
+	// - Use the rest to buy P3D tokens under sender's masternode
 	function deposit(uint8 feeDivisor) payable public {
 	    require(msg.value > 100000 && !paused);
 	    require(feeDivisor >= 2 && feeDivisor <= 10); // 50% to 10% donation range
@@ -124,7 +124,7 @@ contract CharityMiner {
 	    }
 	    
 	    // If largest donor, update stats
-	    // Don&#39;t include dividends or token value in user donations
+	    // Don't include dividends or token value in user donations
 	    if(fee > largestDonation){ 
 	        largestDonation = fee;
 	        largestDonor = msg.sender;
@@ -143,8 +143,8 @@ contract CharityMiner {
 	}
 	
 	// Withdraw
-	// - Sell user&#39;s tokens and withdraw the eth value, sends divs as donation
-	// - User doesn&#39;t get any of the excess divs
+	// - Sell user's tokens and withdraw the eth value, sends divs as donation
+	// - User doesn't get any of the excess divs
 	function withdraw() public {
 	    uint tokens = userTokens[msg.sender];
 	    require(tokens > 0);
@@ -181,7 +181,7 @@ contract CharityMiner {
 	// - Withdraw dividends and send as donation (can be called by anyone)
 	function sendDividends() public {
 	    uint divs = myDividends();
-	    // Don&#39;t want to spam them with tiny donations
+	    // Don't want to spam them with tiny donations
 	    require(divs > 100000);
 	    p3d.withdraw();
 	    
@@ -204,7 +204,7 @@ contract CharityMiner {
     }
     
 	// MyDividends
-	// - Return contract&#39;s current dividends including referral bonus
+	// - Return contract's current dividends including referral bonus
 	function myDividends() public view returns(uint256) {
         return p3d.myDividends(true);
     }
@@ -242,7 +242,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

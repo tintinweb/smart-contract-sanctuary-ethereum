@@ -47,9 +47,9 @@ contract SVLightBallotBox {
     // Use a map for voters to look up their ballot
     mapping (address => uint256) public voterToBallotID;
 
-    // NOTE - We don&#39;t actually want to include the PublicKey because _it&#39;s included in the ballotSpec_.
-    // It&#39;s better to ensure ppl actually have the ballot spec by not including it in the contract.
-    // Plus we&#39;re already storing the hash of the ballotSpec anyway...
+    // NOTE - We don't actually want to include the PublicKey because _it's included in the ballotSpec_.
+    // It's better to ensure ppl actually have the ballot spec by not including it in the contract.
+    // Plus we're already storing the hash of the ballotSpec anyway...
 
     // Private key to be set after ballot conclusion - curve25519
     bytes32 public ballotEncryptionSeckey;
@@ -65,7 +65,7 @@ contract SVLightBallotBox {
     bytes32 public specHash;
     bool public useEncryption;
 
-    // deprecation flag - doesn&#39;t actually do anything besides signal that this contract is deprecated;
+    // deprecation flag - doesn't actually do anything besides signal that this contract is deprecated;
     bool public deprecated = false;
 
     //// ** Events

@@ -143,9 +143,9 @@ contract PausableToken is StandardToken, Pausable {
 
 contract AiToken is PausableToken {
 
-    string public name = &#39;AiToken&#39;;
-    string public symbol = &#39;AiToken&#39;;
-    string public version = &#39;1.0.1&#39;;
+    string public name = 'AiToken';
+    string public symbol = 'AiToken';
+    string public version = '1.0.1';
     uint8 public decimals = 18;
     
     

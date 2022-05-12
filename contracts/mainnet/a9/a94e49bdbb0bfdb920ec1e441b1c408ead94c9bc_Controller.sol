@@ -128,7 +128,7 @@ contract Controller is Pausable, IController {
     }
 
     /*
-     * @dev Update contract&#39;s controller
+     * @dev Update contract's controller
      * @param _id Contract id (keccak256 hash of contract name)
      * @param _controller Controller address
      */

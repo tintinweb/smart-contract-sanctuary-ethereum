@@ -8,7 +8,7 @@ contract CryptoEmojis {
     // Using SafeMath
     using SafeMath for uint256;    
 
-    // The developer&#39;s address
+    // The developer's address
     address dev;
 
     // Contract information
@@ -108,7 +108,7 @@ contract CryptoEmojis {
         balances[dev]++;
     }
 
-    /** @dev Edit emoji information to maintain confirming for Unicode standard, we can&#39;t change the price or the owner */
+    /** @dev Edit emoji information to maintain confirming for Unicode standard, we can't change the price or the owner */
     function edit(uint256 _id, string _codepoints, string _name) public onlyDev() {
         require(emojis[_id].exists);
         emojis[_id].codepoints = _codepoints;
@@ -137,7 +137,7 @@ contract CryptoEmojis {
         emit PriceChange(_id, _price);
     }
 
-    /** @dev Withdraw all balance. This doesn&#39;t transfer users&#39; money since the contract pay them instantly and doesn&#39;t hold anyone&#39;s money */
+    /** @dev Withdraw all balance. This doesn't transfer users' money since the contract pay them instantly and doesn't hold anyone's money */
     function withdraw() public onlyDev() {
         dev.transfer(address(this).balance);
     }
@@ -166,7 +166,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;BithubCommunityToken&#39; token contract
+// 'BithubCommunityToken' token contract
 //
 // Symbol      : BHCx
 // Name        : BithubCommunity Token

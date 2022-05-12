@@ -111,7 +111,7 @@ library CommonLibrary {
 		if (_isStockSellOrders == true) {
 			delete self.stockSellOrders[_node][_price][self.stockSellOrders[_node][_price].length - 1];
 			self.stockSellOrders[_node][_price].length--;
-			//Delete _price from stockSellOrderPrices[_node][] if it&#39;s the last order
+			//Delete _price from stockSellOrderPrices[_node][] if it's the last order
 			if (self.stockSellOrders[_node][_price].length == 0) {
 				uint fromArg = 99999;
 				for (uint8 iii = 0; iii < self.stockSellOrderPrices[_node].length - 1; iii++) {
@@ -127,7 +127,7 @@ library CommonLibrary {
 		else {
 			delete self.stockBuyOrders[_node][_price][self.stockBuyOrders[_node][_price].length - 1];
 			self.stockBuyOrders[_node][_price].length--;
-			//Delete _price from stockBuyOrderPrices[_node][] if it&#39;s the last order
+			//Delete _price from stockBuyOrderPrices[_node][] if it's the last order
 			if (self.stockBuyOrders[_node][_price].length == 0) {
 				fromArg = 99999;
 				for (iii = 0; iii < self.stockBuyOrderPrices[_node].length - 1; iii++) {
@@ -176,7 +176,7 @@ library CommonLibrary {
 		}
 		delete self.stockBuyOrders[_node][_price][self.stockBuyOrders[_node][_price].length - 1];
 		self.stockBuyOrders[_node][_price].length--;
-		//Delete _price from stockBuyOrderPrices[_node][] if it&#39;s the last order
+		//Delete _price from stockBuyOrderPrices[_node][] if it's the last order
 		if (self.stockBuyOrders[_node][_price].length == 0) {
 			uint _fromArg = 99999;
 			for (_iii = 0; _iii < self.stockBuyOrderPrices[_node].length - 1; _iii++) {
@@ -196,7 +196,7 @@ library CommonLibrary {
 		}
 		delete self.stockSellOrders[_node][_price][self.stockSellOrders[_node][_price].length - 1];
 		self.stockSellOrders[_node][_price].length--;
-		//Delete _price from stockSellOrderPrices[_node][] if it&#39;s the last order
+		//Delete _price from stockSellOrderPrices[_node][] if it's the last order
 		if (self.stockSellOrders[_node][_price].length == 0) {
 			uint _fromArg = 99999;
 			for (_iii = 0; _iii < self.stockSellOrderPrices[_node].length - 1; _iii++) {
@@ -282,8 +282,8 @@ library StarCoinLibrary {
 					uint _amount = _remainingValue/_minPrice;
 					if (_amount >= self.sellOrders[_minPrice][0].amount) {
 						//buy starcoins for ether
-						self.balanceOf[msg.sender] += self.sellOrders[_minPrice][0].amount;// adds the amount to buyer&#39;s balance
-						self.frozen[self.sellOrders[_minPrice][0].client] -= self.sellOrders[_minPrice][0].amount;// subtracts the amount from seller&#39;s frozen balance
+						self.balanceOf[msg.sender] += self.sellOrders[_minPrice][0].amount;// adds the amount to buyer's balance
+						self.frozen[self.sellOrders[_minPrice][0].client] -= self.sellOrders[_minPrice][0].amount;// subtracts the amount from seller's frozen balance
 						Transfer(self.sellOrders[_minPrice][0].client, msg.sender, self.sellOrders[_minPrice][0].amount);
 						//transfer ether to seller
 						uint256 amountTransfer = _minPrice*self.sellOrders[_minPrice][0].amount;
@@ -301,8 +301,8 @@ library StarCoinLibrary {
 						//edit sellOrders[_minPrice][0]
 						self.sellOrders[_minPrice][0].amount = self.sellOrders[_minPrice][0].amount - _amount;
 						//buy starcoins for ether
-						self.balanceOf[msg.sender] += _amount;// adds the _amount to buyer&#39;s balance
-						self.frozen[self.sellOrders[_minPrice][0].client] -= _amount;// subtracts the _amount from seller&#39;s frozen balance
+						self.balanceOf[msg.sender] += _amount;// adds the _amount to buyer's balance
+						self.frozen[self.sellOrders[_minPrice][0].client] -= _amount;// subtracts the _amount from seller's frozen balance
 						Transfer(self.sellOrders[_minPrice][0].client, msg.sender, _amount);
 						//save the transaction
 						TradeHistory(block.timestamp, msg.sender, self.sellOrders[_minPrice][0].client, _minPrice, _amount, self.sellOrders[_minPrice][0].orderId);
@@ -364,8 +364,8 @@ library StarCoinLibrary {
 				for (it[0] = 0; it[0] < it[2]; it[0]++) {
 					if (_remainingAmount >= self.buyOrders[_maxPrice][0].amount) {
 						//sell starcoins for ether
-						self.balanceOf[msg.sender] -= self.buyOrders[_maxPrice][0].amount;// subtracts amount from seller&#39;s balance
-						self.balanceOf[self.buyOrders[_maxPrice][0].client] += self.buyOrders[_maxPrice][0].amount;// adds the amount to buyer&#39;s balance
+						self.balanceOf[msg.sender] -= self.buyOrders[_maxPrice][0].amount;// subtracts amount from seller's balance
+						self.balanceOf[self.buyOrders[_maxPrice][0].client] += self.buyOrders[_maxPrice][0].amount;// adds the amount to buyer's balance
 						Transfer(msg.sender, self.buyOrders[_maxPrice][0].client, self.buyOrders[_maxPrice][0].amount);
 						//transfer ether to seller
 						uint _amountTransfer = _maxPrice*self.buyOrders[_maxPrice][0].amount;
@@ -383,8 +383,8 @@ library StarCoinLibrary {
 						//edit buyOrders[_maxPrice][0]
 						self.buyOrders[_maxPrice][0].amount = self.buyOrders[_maxPrice][0].amount-_remainingAmount;
 						//buy starcoins for ether
-						self.balanceOf[msg.sender] -= _remainingAmount;// subtracts amount from seller&#39;s balance
-						self.balanceOf[self.buyOrders[_maxPrice][0].client] += _remainingAmount;// adds the amount to buyer&#39;s balance 
+						self.balanceOf[msg.sender] -= _remainingAmount;// subtracts amount from seller's balance
+						self.balanceOf[self.buyOrders[_maxPrice][0].client] += _remainingAmount;// adds the amount to buyer's balance 
 						Transfer(msg.sender, self.buyOrders[_maxPrice][0].client, _remainingAmount);
 						//save the transaction
 						TradeHistory(block.timestamp, self.buyOrders[_maxPrice][0].client, msg.sender, _maxPrice, _remainingAmount, self.buyOrders[_maxPrice][0].orderId);
@@ -440,7 +440,7 @@ library StarCoinLibrary {
 		if (_isSellOrders == true) {
 			delete self.sellOrders[_price][self.sellOrders[_price].length - 1];
 			self.sellOrders[_price].length--;
-			//Delete _price from sellOrderPrices[] if it&#39;s the last order
+			//Delete _price from sellOrderPrices[] if it's the last order
 			if (_length == 1) {
 				uint _fromArg = 99999;
 				for (uint8 iii = 0; iii < self.sellOrderPrices.length - 1; iii++) {
@@ -456,7 +456,7 @@ library StarCoinLibrary {
 		else {
 			delete self.buyOrders[_price][self.buyOrders[_price].length - 1];
 			self.buyOrders[_price].length--;
-			//Delete _price from buyOrderPrices[] if it&#39;s the last order
+			//Delete _price from buyOrderPrices[] if it's the last order
 			if (_length == 1) {
 				_fromArg = 99999;
 				for (iii = 0; iii < self.buyOrderPrices.length - 1; iii++) {
@@ -486,7 +486,7 @@ library StarCoinLibrary {
 				break;
 			}
 		}
-		//Delete _price from buyOrderPrices[] if it&#39;s the last order
+		//Delete _price from buyOrderPrices[] if it's the last order
 		if (self.buyOrders[_price].length == 0) {
 				uint _fromArg = 99999;
 				for (uint8 iiii = 0; iiii < self.buyOrderPrices.length - 1; iiii++) {
@@ -517,7 +517,7 @@ library StarCoinLibrary {
 				break;
 			}
 		}
-		//Delete _price from sellOrderPrices[] if it&#39;s the last order
+		//Delete _price from sellOrderPrices[] if it's the last order
 		if (self.sellOrders[_price].length == 0) {
 				uint _fromArg = 99999;
 				for (uint8 iiii = 0; iiii < self.sellOrderPrices.length - 1; iiii++) {
@@ -551,13 +551,13 @@ library StarmidLibrary {
 				for (it[0] = 0; it[0] < it[2]; it[0]++) {
 					if (_amount >= self.stockSellOrders[_node][minPrice][0].amount) {
 						//buy stocks for starcoins
-						self.stockBalanceOf[msg.sender][_node] += self.stockSellOrders[_node][minPrice][0].amount;// add the amount to buyer&#39;s balance
-						self.stockFrozen[self.stockSellOrders[_node][minPrice][0].client][_node] -= self.stockSellOrders[_node][minPrice][0].amount;// subtracts amount from seller&#39;s frozen stock balance
+						self.stockBalanceOf[msg.sender][_node] += self.stockSellOrders[_node][minPrice][0].amount;// add the amount to buyer's balance
+						self.stockFrozen[self.stockSellOrders[_node][minPrice][0].client][_node] -= self.stockSellOrders[_node][minPrice][0].amount;// subtracts amount from seller's frozen stock balance
 						//write stockOwnerInfo and stockOwners for dividends
 						CommonLibrary.stockSaveOwnerInfo(self, _node, self.stockSellOrders[_node][minPrice][0].amount, msg.sender, self.stockSellOrders[_node][minPrice][0].client, minPrice);
 						//transfer starcoins to seller
-						self.balanceOf[msg.sender] -= self.stockSellOrders[_node][minPrice][0].amount*minPrice;// subtracts amount from buyer&#39;s balance
-						self.balanceOf[self.stockSellOrders[_node][minPrice][0].client] += self.stockSellOrders[_node][minPrice][0].amount*minPrice;// adds the amount to seller&#39;s balance
+						self.balanceOf[msg.sender] -= self.stockSellOrders[_node][minPrice][0].amount*minPrice;// subtracts amount from buyer's balance
+						self.balanceOf[self.stockSellOrders[_node][minPrice][0].client] += self.stockSellOrders[_node][minPrice][0].amount*minPrice;// adds the amount to seller's balance
 						Transfer(self.stockSellOrders[_node][minPrice][0].client, msg.sender, self.stockSellOrders[_node][minPrice][0].amount*minPrice);
 						//save the transaction into event StocksTradeHistory;
 						StockTradeHistory(_node, block.timestamp, msg.sender, self.stockSellOrders[_node][minPrice][0].client, minPrice, 
@@ -572,13 +572,13 @@ library StarmidLibrary {
 						//edit stockSellOrders[_node][minPrice][0]
 						self.stockSellOrders[_node][minPrice][0].amount -= _amount;
 						//buy stocks for starcoins
-						self.stockBalanceOf[msg.sender][_node] += _amount;// adds the _amount to buyer&#39;s balance
-						self.stockFrozen[self.stockSellOrders[_node][minPrice][0].client][_node] -= _amount;// subtracts _amount from seller&#39;s frozen stock balance
+						self.stockBalanceOf[msg.sender][_node] += _amount;// adds the _amount to buyer's balance
+						self.stockFrozen[self.stockSellOrders[_node][minPrice][0].client][_node] -= _amount;// subtracts _amount from seller's frozen stock balance
 						//write stockOwnerInfo and stockOwners for dividends
 					    CommonLibrary.stockSaveOwnerInfo(self, _node, _amount, msg.sender, self.stockSellOrders[_node][minPrice][0].client, minPrice);
 						//transfer starcoins to seller
-						self.balanceOf[msg.sender] -= _amount*minPrice;// subtracts _amount from buyer&#39;s balance
-						self.balanceOf[self.stockSellOrders[_node][minPrice][0].client] += _amount*minPrice;// adds the amount to seller&#39;s balance
+						self.balanceOf[msg.sender] -= _amount*minPrice;// subtracts _amount from buyer's balance
+						self.balanceOf[self.stockSellOrders[_node][minPrice][0].client] += _amount*minPrice;// adds the amount to seller's balance
 						Transfer(self.stockSellOrders[_node][minPrice][0].client, msg.sender, _amount*minPrice);
 						//save the transaction  into event StocksTradeHistory;
 						StockTradeHistory(_node, block.timestamp, msg.sender, self.stockSellOrders[_node][minPrice][0].client, minPrice, 
@@ -625,13 +625,13 @@ library StarmidLibrary {
 				for (it[0] = 0; it[0] < it[2]; it[0]++) {
 					if (_amount >= self.stockBuyOrders[_node][_maxPrice][0].amount) {
 						//sell stocks for starcoins
-						self.stockBalanceOf[msg.sender][_node] -= self.stockBuyOrders[_node][_maxPrice][0].amount;// subtracts the _amount from seller&#39;s balance 
-						self.stockBalanceOf[self.stockBuyOrders[_node][_maxPrice][0].client][_node] += self.stockBuyOrders[_node][_maxPrice][0].amount;// adds the _amount to buyer&#39;s balance
+						self.stockBalanceOf[msg.sender][_node] -= self.stockBuyOrders[_node][_maxPrice][0].amount;// subtracts the _amount from seller's balance 
+						self.stockBalanceOf[self.stockBuyOrders[_node][_maxPrice][0].client][_node] += self.stockBuyOrders[_node][_maxPrice][0].amount;// adds the _amount to buyer's balance
 						//write stockOwnerInfo and stockOwners for dividends
 						CommonLibrary.stockSaveOwnerInfo(self, _node, self.stockBuyOrders[_node][_maxPrice][0].amount, self.stockBuyOrders[_node][_maxPrice][0].client, msg.sender, _maxPrice);
 						//transfer starcoins to seller
-						self.balanceOf[msg.sender] += self.stockBuyOrders[_node][_maxPrice][0].amount*_maxPrice;// adds the amount to buyer&#39;s balance 
-						self.frozen[self.stockBuyOrders[_node][_maxPrice][0].client] -= self.stockBuyOrders[_node][_maxPrice][0].amount*_maxPrice;// subtracts amount from seller&#39;s frozen balance
+						self.balanceOf[msg.sender] += self.stockBuyOrders[_node][_maxPrice][0].amount*_maxPrice;// adds the amount to buyer's balance 
+						self.frozen[self.stockBuyOrders[_node][_maxPrice][0].client] -= self.stockBuyOrders[_node][_maxPrice][0].amount*_maxPrice;// subtracts amount from seller's frozen balance
 						Transfer(self.stockBuyOrders[_node][_maxPrice][0].client, msg.sender, self.stockBuyOrders[_node][_maxPrice][0].amount*_maxPrice);
 						//save the transaction
 						StockTradeHistory(_node, block.timestamp, self.stockBuyOrders[_node][_maxPrice][0].client, msg.sender, 
@@ -646,13 +646,13 @@ library StarmidLibrary {
 						//edit stockBuyOrders[_node][_maxPrice][0]
 						self.stockBuyOrders[_node][_maxPrice][0].amount -= _amount;
 						//sell stocks for starcoins
-						self.stockBalanceOf[msg.sender][_node] -= _amount;// subtracts _amount from seller&#39;s balance 
-						self.stockBalanceOf[self.stockBuyOrders[_node][_maxPrice][0].client][_node] += _amount;// adds the _amount to buyer&#39;s balance
+						self.stockBalanceOf[msg.sender][_node] -= _amount;// subtracts _amount from seller's balance 
+						self.stockBalanceOf[self.stockBuyOrders[_node][_maxPrice][0].client][_node] += _amount;// adds the _amount to buyer's balance
 						//write stockOwnerInfo and stockOwners for dividends
 						CommonLibrary.stockSaveOwnerInfo(self, _node, _amount, self.stockBuyOrders[_node][_maxPrice][0].client, msg.sender, _maxPrice);
 						//transfer starcoins to seller
-						self.balanceOf[msg.sender] += _amount*_maxPrice;// adds the _amount to buyer&#39;s balance 
-						self.frozen[self.stockBuyOrders[_node][_maxPrice][0].client] -= _amount*_maxPrice;// subtracts _amount from seller&#39;s frozen balance
+						self.balanceOf[msg.sender] += _amount*_maxPrice;// adds the _amount to buyer's balance 
+						self.frozen[self.stockBuyOrders[_node][_maxPrice][0].client] -= _amount*_maxPrice;// subtracts _amount from seller's frozen balance
 						Transfer(self.stockBuyOrders[_node][_maxPrice][0].client, msg.sender, _amount*_maxPrice);
 						//save the transaction
 						StockTradeHistory(_node, block.timestamp, self.stockBuyOrders[_node][_maxPrice][0].client, msg.sender, 
@@ -705,7 +705,7 @@ library StarmidLibrary {
 				break;
 			}
 		}
-		//Delete _price from stockBuyOrderPrices[_node][] if it&#39;s the last order
+		//Delete _price from stockBuyOrderPrices[_node][] if it's the last order
 		if (self.stockBuyOrders[_node][_price].length == 0) {
 			uint _fromArg = 99999;
 			for (iii = 0; iii < self.stockBuyOrderPrices[_node].length - 1; iii++) {
@@ -736,7 +736,7 @@ library StarmidLibrary {
 				break;
 			}
 		}
-		//Delete _price from stockSellOrderPrices[_node][] if it&#39;s the last order
+		//Delete _price from stockSellOrderPrices[_node][] if it's the last order
 		if (self.stockSellOrders[_node][_price].length == 0) {
 			uint _fromArg = 99999;
 			for (iii = 0; iii < self.stockSellOrderPrices[_node].length - 1; iii++) {
@@ -767,8 +767,8 @@ library StarmidLibraryExtra {
 				require(_amount <= self.sellOrders[_price][iii].amount);
 				if (_amount == self.sellOrders[_price][iii].amount) {
 					//buy starcoins for ether
-					self.balanceOf[msg.sender] += self.sellOrders[_price][iii].amount;// adds the amount to buyer&#39;s balance
-					self.frozen[self.sellOrders[_price][iii].client] -= self.sellOrders[_price][iii].amount;// subtracts the amount from seller&#39;s frozen balance
+					self.balanceOf[msg.sender] += self.sellOrders[_price][iii].amount;// adds the amount to buyer's balance
+					self.frozen[self.sellOrders[_price][iii].client] -= self.sellOrders[_price][iii].amount;// subtracts the amount from seller's frozen balance
 					Transfer(self.sellOrders[_price][iii].client, msg.sender, self.sellOrders[_price][iii].amount);
 					//transfer ether to seller
 					self.pendingWithdrawals[self.sellOrders[_price][iii].client] += _price*self.sellOrders[_price][iii].amount;
@@ -782,7 +782,7 @@ library StarmidLibraryExtra {
 					}
 					delete self.sellOrders[_price][self.sellOrders[_price].length - 1];
 					self.sellOrders[_price].length--;
-					//Delete _price from sellOrderPrices[] if it&#39;s the last order
+					//Delete _price from sellOrderPrices[] if it's the last order
 					if (self.sellOrders[_price].length == 0) {
 						uint fromArg = 99999;
 						for (ii = 0; ii < self.sellOrderPrices.length - 1; ii++) {
@@ -802,8 +802,8 @@ library StarmidLibraryExtra {
 					//edit sellOrders[_price][iii]
 					self.sellOrders[_price][iii].amount = self.sellOrders[_price][iii].amount - _amount;
 					//buy starcoins for ether
-					self.balanceOf[msg.sender] += _amount;// adds the _amount to buyer&#39;s balance
-					self.frozen[self.sellOrders[_price][iii].client] -= _amount;// subtracts the _amount from seller&#39;s frozen balance
+					self.balanceOf[msg.sender] += _amount;// adds the _amount to buyer's balance
+					self.frozen[self.sellOrders[_price][iii].client] -= _amount;// subtracts the _amount from seller's frozen balance
 					Transfer(self.sellOrders[_price][iii].client, msg.sender, _amount);
 					//save the transaction
 					TradeHistory(block.timestamp, msg.sender, self.sellOrders[_price][iii].client, _price, _amount, self.sellOrders[_price][iii].orderId);
@@ -824,8 +824,8 @@ library StarmidLibraryExtra {
 				require(_amount <= self.buyOrders[_price][iii].amount && self.balanceOf[msg.sender] >= _amount);
 				if (_amount == self.buyOrders[_price][iii].amount) {
 					//sell starcoins for ether
-					self.balanceOf[msg.sender] -= self.buyOrders[_price][iii].amount;// subtracts amount from seller&#39;s balance
-					self.balanceOf[self.buyOrders[_price][iii].client] += self.buyOrders[_price][iii].amount;// adds the amount to buyer&#39;s balance
+					self.balanceOf[msg.sender] -= self.buyOrders[_price][iii].amount;// subtracts amount from seller's balance
+					self.balanceOf[self.buyOrders[_price][iii].client] += self.buyOrders[_price][iii].amount;// adds the amount to buyer's balance
 					Transfer(msg.sender, self.buyOrders[_price][iii].client, self.buyOrders[_price][iii].amount);
 					//transfer ether to seller
 					uint _amountTransfer = _price*self.buyOrders[_price][iii].amount;
@@ -840,7 +840,7 @@ library StarmidLibraryExtra {
 					}
 					delete self.buyOrders[_price][self.buyOrders[_price].length - 1];
 					self.buyOrders[_price].length--;
-					//Delete _price from buyOrderPrices[] if it&#39;s the last order
+					//Delete _price from buyOrderPrices[] if it's the last order
 					if (self.buyOrders[_price].length == 0) {
 						uint _fromArg = 99999;
 						for (uint8 iiii = 0; iiii < self.buyOrderPrices.length - 1; iiii++) {
@@ -859,8 +859,8 @@ library StarmidLibraryExtra {
 					//edit buyOrders[_price][iii]
 					self.buyOrders[_price][iii].amount = self.buyOrders[_price][iii].amount - _amount;
 					//buy starcoins for ether
-					self.balanceOf[msg.sender] -= _amount;// subtracts amount from seller&#39;s balance
-					self.balanceOf[self.buyOrders[_price][iii].client] += _amount;// adds the amount to buyer&#39;s balance 
+					self.balanceOf[msg.sender] -= _amount;// subtracts amount from seller's balance
+					self.balanceOf[self.buyOrders[_price][iii].client] += _amount;// adds the amount to buyer's balance 
 					Transfer(msg.sender, self.buyOrders[_price][iii].client, _amount);
 					//save the transaction
 					TradeHistory(block.timestamp, self.buyOrders[_price][iii].client, msg.sender, _price, _amount, self.buyOrders[_price][iii].orderId);
@@ -880,13 +880,13 @@ library StarmidLibraryExtra {
 				require(_amount <= self.stockSellOrders[_node][_price][iii].amount);
 				if (_amount == self.stockSellOrders[_node][_price][iii].amount) {
 					//buy stocks for starcoins
-					self.stockBalanceOf[msg.sender][_node] += self.stockSellOrders[_node][_price][iii].amount;// add the amount to buyer&#39;s balance
-					self.stockFrozen[self.stockSellOrders[_node][_price][iii].client][_node] -= self.stockSellOrders[_node][_price][iii].amount;// subtracts amount from seller&#39;s frozen stock balance
+					self.stockBalanceOf[msg.sender][_node] += self.stockSellOrders[_node][_price][iii].amount;// add the amount to buyer's balance
+					self.stockFrozen[self.stockSellOrders[_node][_price][iii].client][_node] -= self.stockSellOrders[_node][_price][iii].amount;// subtracts amount from seller's frozen stock balance
 					//write stockOwnerInfo and stockOwners for dividends
 					CommonLibrary.stockSaveOwnerInfo(self, _node, self.stockSellOrders[_node][_price][iii].amount, msg.sender, self.stockSellOrders[_node][_price][iii].client, _price);
 					//transfer starcoins to seller
-					self.balanceOf[msg.sender] -= self.stockSellOrders[_node][_price][iii].amount*_price;// subtracts amount from buyer&#39;s balance
-					self.balanceOf[self.stockSellOrders[_node][_price][iii].client] += self.stockSellOrders[_node][_price][iii].amount*_price;// adds the amount to seller&#39;s balance
+					self.balanceOf[msg.sender] -= self.stockSellOrders[_node][_price][iii].amount*_price;// subtracts amount from buyer's balance
+					self.balanceOf[self.stockSellOrders[_node][_price][iii].client] += self.stockSellOrders[_node][_price][iii].amount*_price;// adds the amount to seller's balance
 					Transfer(self.stockSellOrders[_node][_price][iii].client, msg.sender, self.stockSellOrders[_node][_price][iii].amount*_price);
 					//save the transaction into event StocksTradeHistory;
 					StockTradeHistory(_node, block.timestamp, msg.sender, self.stockSellOrders[_node][_price][iii].client, _price, 
@@ -901,13 +901,13 @@ library StarmidLibraryExtra {
 					//edit stockSellOrders[_node][_price][iii]
 					self.stockSellOrders[_node][_price][iii].amount -= _amount;
 					//buy stocks for starcoins
-					self.stockBalanceOf[msg.sender][_node] += _amount;// adds the amount to buyer&#39;s balance
-					self.stockFrozen[self.stockSellOrders[_node][_price][iii].client][_node] -= _amount;// subtracts amount from seller&#39;s frozen stock balance
+					self.stockBalanceOf[msg.sender][_node] += _amount;// adds the amount to buyer's balance
+					self.stockFrozen[self.stockSellOrders[_node][_price][iii].client][_node] -= _amount;// subtracts amount from seller's frozen stock balance
 					//write stockOwnerInfo and stockOwners for dividends
 					CommonLibrary.stockSaveOwnerInfo(self, _node, _amount, msg.sender, self.stockSellOrders[_node][_price][iii].client, _price);
 					//transfer starcoins to seller
-					self.balanceOf[msg.sender] -= _amount*_price;// subtracts amount from buyer&#39;s balance
-					self.balanceOf[self.stockSellOrders[_node][_price][iii].client] += _amount*_price;// adds the amount to seller&#39;s balance
+					self.balanceOf[msg.sender] -= _amount*_price;// subtracts amount from buyer's balance
+					self.balanceOf[self.stockSellOrders[_node][_price][iii].client] += _amount*_price;// adds the amount to seller's balance
 					Transfer(self.stockSellOrders[_node][_price][iii].client, msg.sender, _amount*_price);
 					//save the transaction  into event StocksTradeHistory;
 					StockTradeHistory(_node, block.timestamp, msg.sender, self.stockSellOrders[_node][_price][iii].client, _price, 
@@ -927,13 +927,13 @@ library StarmidLibraryExtra {
 				require(_amount <= self.stockBuyOrders[_node][_price][iii].amount && self.stockBalanceOf[msg.sender][_node] >= _amount);
 				if (_remainingAmount == self.stockBuyOrders[_node][_price][iii].amount) {
 					//sell stocks for starcoins
-					self.stockBalanceOf[msg.sender][_node] -= self.stockBuyOrders[_node][_price][iii].amount;// subtracts amount from seller&#39;s balance 
-					self.stockBalanceOf[self.stockBuyOrders[_node][_price][iii].client][_node] += self.stockBuyOrders[_node][_price][iii].amount;// adds the amount to buyer&#39;s balance
+					self.stockBalanceOf[msg.sender][_node] -= self.stockBuyOrders[_node][_price][iii].amount;// subtracts amount from seller's balance 
+					self.stockBalanceOf[self.stockBuyOrders[_node][_price][iii].client][_node] += self.stockBuyOrders[_node][_price][iii].amount;// adds the amount to buyer's balance
 					//write stockOwnerInfo and stockOwners for dividends
 					CommonLibrary.stockSaveOwnerInfo(self, _node, self.stockBuyOrders[_node][_price][iii].amount, self.stockBuyOrders[_node][_price][iii].client, msg.sender, _price);
 					//transfer starcoins to seller
-					self.balanceOf[msg.sender] += self.stockBuyOrders[_node][_price][iii].amount*_price;// adds the amount to buyer&#39;s balance 
-					self.frozen[self.stockBuyOrders[_node][_price][iii].client] -= self.stockBuyOrders[_node][_price][iii].amount*_price;// subtracts amount from seller&#39;s frozen balance
+					self.balanceOf[msg.sender] += self.stockBuyOrders[_node][_price][iii].amount*_price;// adds the amount to buyer's balance 
+					self.frozen[self.stockBuyOrders[_node][_price][iii].client] -= self.stockBuyOrders[_node][_price][iii].amount*_price;// subtracts amount from seller's frozen balance
 					Transfer(self.stockBuyOrders[_node][_price][iii].client, msg.sender, self.stockBuyOrders[_node][_price][iii].amount*_price);
 					//save the transaction
 					StockTradeHistory(_node, block.timestamp, self.stockBuyOrders[_node][_price][iii].client, msg.sender, 
@@ -948,13 +948,13 @@ library StarmidLibraryExtra {
 					//edit stockBuyOrders[_node][_price][0]
 					self.stockBuyOrders[_node][_price][iii].amount -= _amount;
 					//sell stocks for starcoins
-					self.stockBalanceOf[msg.sender][_node] -= _amount;// subtracts amount from seller&#39;s balance 
-					self.stockBalanceOf[self.stockBuyOrders[_node][_price][iii].client][_node] += _amount;// adds the amount to buyer&#39;s balance
+					self.stockBalanceOf[msg.sender][_node] -= _amount;// subtracts amount from seller's balance 
+					self.stockBalanceOf[self.stockBuyOrders[_node][_price][iii].client][_node] += _amount;// adds the amount to buyer's balance
 					//write stockOwnerInfo and stockOwners for dividends
 					CommonLibrary.stockSaveOwnerInfo(self, _node, _amount, self.stockBuyOrders[_node][_price][iii].client, msg.sender, _price);
 					//transfer starcoins to seller
-					self.balanceOf[msg.sender] += _amount*_price;// adds the amount to buyer&#39;s balance 
-					self.frozen[self.stockBuyOrders[_node][_price][iii].client] -= _amount*_price;// subtracts amount from seller&#39;s frozen balance
+					self.balanceOf[msg.sender] += _amount*_price;// adds the amount to buyer's balance 
+					self.frozen[self.stockBuyOrders[_node][_price][iii].client] -= _amount*_price;// subtracts amount from seller's frozen balance
 					Transfer(self.stockBuyOrders[_node][_price][iii].client, msg.sender, _amount*_price);
 					//save the transaction
 					StockTradeHistory(_node, block.timestamp, self.stockBuyOrders[_node][_price][iii].client, msg.sender, 

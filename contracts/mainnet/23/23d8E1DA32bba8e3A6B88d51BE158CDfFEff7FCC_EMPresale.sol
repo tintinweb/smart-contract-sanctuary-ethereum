@@ -7,7 +7,7 @@ contract EMPresale {
     // Data -----------------------------
     
     struct Player {
-        uint32 id;  // if 0, then player don&#39;t exist
+        uint32 id;  // if 0, then player don't exist
         mapping(uint8 => uint8) bought;
         uint256 weiSpent;
         bool hasSpent;
@@ -118,7 +118,7 @@ contract EMPresale {
         player.bought[saleID]++;
         player.weiSpent += msg.value;
         
-        // if hasn&#39;t referred, add referral
+        // if hasn't referred, add referral
         if(!player.hasSpent) {
             player.hasSpent = true;
             if(referral != address(0) && referral != msg.sender) {

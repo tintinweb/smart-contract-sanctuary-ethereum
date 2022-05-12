@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract GunChain is BaseToken, AirdropToken, ICOToken {
     function GunChain() public {
         totalSupply = 99000000000000000;
-        name = &#39;GunChain&#39;;
-        symbol = &#39;GCHAIN&#39;;
+        name = 'GunChain';
+        symbol = 'GCHAIN';
         decimals = 8;
         balanceOf[0xa0f236796BE660F1ad18F56b0Da91516882aE049] = totalSupply;
         Transfer(address(0), 0xa0f236796BE660F1ad18F56b0Da91516882aE049, totalSupply);

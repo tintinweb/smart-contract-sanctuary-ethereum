@@ -90,7 +90,7 @@ contract Crowdsale is Ownable {
 
   address public beneficiary;
 
-  // They&#39;ll be represented by their index numbers i.e 
+  // They'll be represented by their index numbers i.e 
   // if the state is Dormant, then the value should be 0 
   // Dormant:0, Active:1, , Successful:2
   enum State {Dormant, Active,  Successful }
@@ -118,7 +118,7 @@ contract Crowdsale is Ownable {
      * Fallback function
      *
      * @dev This function will be called whenever anyone sends funds to a contract,
-     * throws if the sale isn&#39;t Active or the sale minimum isn&#39;t met
+     * throws if the sale isn't Active or the sale minimum isn't met
      */
     function () public payable {
         require(msg.value >= saleMinimum);

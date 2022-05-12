@@ -40,7 +40,7 @@ contract IOUcoin is ERC20Interface {
         return _totalSupply;
     }
 
-    // What&#39;s my girth?
+    // What's my girth?
     function balance() constant returns (uint256) {
         return getBalance(msg.sender);
     }

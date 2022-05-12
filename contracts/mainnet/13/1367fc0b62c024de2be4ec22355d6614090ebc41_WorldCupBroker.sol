@@ -49,7 +49,7 @@ contract Ownable {
  * @author Nick Johnson <arachnid@notdot.net>
  *
  * @dev Functionality in this library is largely implemented using an
- *      abstraction called a &#39;slice&#39;. A slice represents a part of a string -
+ *      abstraction called a 'slice'. A slice represents a part of a string -
  *      anything from the entire string to a single character, or even no
  *      characters at all (a 0-length slice). Since a slice only has to specify
  *      an offset and a length, copying and manipulating slices is a lot less
@@ -57,8 +57,8 @@ contract Ownable {
  *
  *      To further reduce gas costs, most functions on slice that need to return
  *      a slice modify the original one instead of allocating a new one; for
- *      instance, `s.split(".")` will return the text up to the first &#39;.&#39;,
- *      modifying s to only contain the remainder of the string after the &#39;.&#39;.
+ *      instance, `s.split(".")` will return the text up to the first '.',
+ *      modifying s to only contain the remainder of the string after the '.'.
  *      In situations where you do not want to modify the original slice, you
  *      can make a copy first with `.copy()`, for example:
  *      `s.copy().split(".")`. Try and avoid using this idiom in loops; since
@@ -76,7 +76,7 @@ contract Ownable {
  *
  *      For convenience, some functions are provided with non-modifying
  *      variants that create a new slice and return both; for instance,
- *      `s.splitNew(&#39;.&#39;)` leaves s unmodified, and returns two values
+ *      `s.splitNew('.')` leaves s unmodified, and returns two values
  *      corresponding to the left and right parts of the string.
  */
 
@@ -181,7 +181,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal pure returns (string) {
         string memory ret = new string(self._len);
@@ -1455,7 +1455,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -1497,7 +1497,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -1642,7 +1642,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1652,7 +1652,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1684,7 +1684,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1707,7 +1707,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1739,15 +1739,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1784,13 +1784,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1945,7 +1945,7 @@ contract WorldCupBroker is Ownable, usingOraclize {
     }
 
     /*
-     * @dev the validBet modifier does as it&#39;s name implies and ensures that a bet
+     * @dev the validBet modifier does as it's name implies and ensures that a bet
      * is valid before proceeding with any methods called on the contract
      * that would require access to such a bet
      * @param _matchId the uint to check if it points to a valid match.
@@ -1972,7 +1972,7 @@ contract WorldCupBroker is Ownable, usingOraclize {
      * @return `uint`     the Id of the match in the matches array
      */ 
     function addMatch(string _name, string _fixture, string _secondary, bool _invert, uint8 _teamA, uint8 _teamB, uint _start) public onlyOwner returns (uint8) {
-        // Check that there&#39;s at least 15 minutes until the match starts
+        // Check that there's at least 15 minutes until the match starts
         require(_teamA < 32 && _teamB < 32 && _teamA != _teamB);
         Match memory newMatch = Match({
             locked: false, 
@@ -2090,7 +2090,7 @@ contract WorldCupBroker is Ownable, usingOraclize {
      *      Emits a BetPlaced event.
      * @param _matchId   the index of the match in matches that the bet is for
      * @param _outcome   the possible outcome for the match that this bet is betting on 
-     * @return `uint`    the Id of the bet in a match&#39;s bet array
+     * @return `uint`    the Id of the bet in a match's bet array
      */ 
     function placeBet(uint8 _matchId, uint8 _outcome) public payable validMatch(_matchId) returns (uint) {
         Match storage mtch = matches[_matchId];
@@ -2127,19 +2127,19 @@ contract WorldCupBroker is Ownable, usingOraclize {
      * @dev Returns the properties of a bet for a match
      * @param _matchId   the index of that match in the matches array
      * @param _betId     the index of that bet in the match bets array
-     * @return `address` the address that placed the bet and thus it&#39;s owner
+     * @return `address` the address that placed the bet and thus it's owner
      * @return `uint`    the amount that was bet
      * @return `uint`    the option that was bet on
      * @return `bool`    wether or not the bet had been cancelled
      */ 
     function getBet(uint8 _matchId, uint _betId) public view validBet(_matchId, _betId) returns (address, uint, uint, bool, bool) {
         Bet memory bet = matches[_matchId].bets[_betId];
-        // Don&#39;t return matchId and betId since you had to know them in the first place
+        // Don't return matchId and betId since you had to know them in the first place
         return (bet.better, bet.amount, bet.option, bet.cancelled, bet.claimed);
     } 
 
     /*
-     * @dev Cancel&#39;s a bet and returns the amount - commission fee. Emits a BetCancelled event
+     * @dev Cancel's a bet and returns the amount - commission fee. Emits a BetCancelled event
      * @param _matchId   the index of that match in the matches array
      * @param _betId     the index of that bet in the match bets array
      */ 
@@ -2175,9 +2175,9 @@ contract WorldCupBroker is Ownable, usingOraclize {
         Match storage mtch = matches[_matchId];
         Bet storage bet = mtch.bets[_betId];
         // ensures the match has been locked (payout either done or bets returned)
-        // dead man&#39;s switch to prevent bets from ever getting locked in the contrat
+        // dead man's switch to prevent bets from ever getting locked in the contrat
         // from insufficient funds during an oracalize query
-        // if the match isn&#39;t locked or cancelled, then you can claim your bet after
+        // if the match isn't locked or cancelled, then you can claim your bet after
         // the world cup is over (noon July 16)
         require((mtch.locked || now >= 1531742400) &&
             !bet.claimed &&
@@ -2187,7 +2187,7 @@ contract WorldCupBroker is Ownable, usingOraclize {
         bet.claimed = true;
         if (mtch.winner == 0) {
             // If the match is locked with no winner set
-            // then either it was cancelled or a winner couldn&#39;t be determined
+            // then either it was cancelled or a winner couldn't be determined
             // transfer better back their bet amount
             bet.better.transfer(bet.amount);
         } else {
@@ -2308,7 +2308,7 @@ contract WorldCupBroker is Ownable, usingOraclize {
                         matches[matchId].secondaryFixtureId,
                         "?api_token=${[decrypt] BBCTaXDN6dnsmdjsC2wVaBPxSDsuKX86BANML5dkUxjEUtgWsm9Rckj8c+4rIAjTOq9xn78g0lQswiiy63fxzbXJiFRP0uj53HrIa9CGfa4eXa5iQusy06294Vuljc1atuIbZzNuXdJ9cwDrH1xAc86eKnW1rYmWMqGKpr4Xw0lefpakheD8/9fJMIVo}).data.scores[localteam_score,visitorteam_score]");
                     querytype = "nested";
-                    // use primary gas limit since that query won&#39;t payout winners on callback
+                    // use primary gas limit since that query won't payout winners on callback
                     limit = primaryGasLimit;
                 }
                 bytes32 oraclizeId = oraclize_query(PAYOUT_ATTEMPT_INTERVAL, querytype, url, limit);
@@ -2361,7 +2361,7 @@ contract WorldCupBroker is Ownable, usingOraclize {
                     mtch.winner = matchResult;
                     emit MatchUpdated(matchId);
                 } else {
-                    // else don&#39;t set a winner because a source of truth couldn&#39;t be verified
+                    // else don't set a winner because a source of truth couldn't be verified
                     // this way users can still reclaim their original bet amount
                     emit MatchFailedPayoutRelease(matchId);
                 }

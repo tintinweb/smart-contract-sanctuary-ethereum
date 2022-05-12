@@ -121,7 +121,7 @@ contract MOVIECREDITS3 is ERC20, SafeMath{
  string  public symbol = "EMVC";
  uint  public decimals = 8;
  uint256 public INITIAL_SUPPLY = 6000000000000000;
-string public version = &#39;EMVC3.0&#39;;
+string public version = 'EMVC3.0';
  uint256 public price;
  address public owner;
 

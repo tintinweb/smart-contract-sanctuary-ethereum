@@ -33,7 +33,7 @@ contract ReverseRegistrar {
  *
  */
 contract FireflyRegistrar {
-     // namehash(&#39;addr.reverse&#39;)
+     // namehash('addr.reverse')
      bytes32 constant RR_NODE = 0x91d1777781884d03a6757a803996e38de2a42967fb37eeaca72729271025a9e2;
 
     // Admin triggered events
@@ -155,7 +155,7 @@ contract FireflyRegistrar {
         for (uint256 i = 0; i < length; i++) {
             uint8 c;
             assembly { c := and(mload(position), 0xFF) }
-            //       &#39;a&#39;         &#39;z&#39;           &#39;0&#39;         &#39;9&#39;           &#39;-&#39;
+            //       'a'         'z'           '0'         '9'           '-'
             if ((c < 0x61 || c > 0x7a) && (c < 0x30 || c > 0x39) && c != 0x2d) {
                 throw;
             }

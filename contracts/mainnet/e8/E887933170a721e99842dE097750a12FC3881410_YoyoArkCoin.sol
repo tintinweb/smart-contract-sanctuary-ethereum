@@ -55,9 +55,9 @@ contract ERC20Interface {
 /// @title Yoyo Ark Coin (YAC)
 contract YoyoArkCoin is owned, ERC20Interface {
     // Public variables of the token
-    string public constant standard = &#39;ERC20&#39;;
-    string public constant name = &#39;Yoyo Ark Coin&#39;;
-    string public constant symbol = &#39;YAC&#39;;
+    string public constant standard = 'ERC20';
+    string public constant name = 'Yoyo Ark Coin';
+    string public constant symbol = 'YAC';
     uint8  public constant decimals = 18;
     uint public registrationTime = 0;
     bool public registered = false;
@@ -106,7 +106,7 @@ contract YoyoArkCoin is owned, ERC20Interface {
         return balances[_owner];
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount)
         public
         returns (bool success)

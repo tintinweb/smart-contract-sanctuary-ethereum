@@ -110,7 +110,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -511,7 +511,7 @@ contract BodyRabbit is BaseRabbit, ERC721 {
     
     function uintToBytes(uint v) internal pure returns (bytes32 ret) {
         if (v == 0) {
-            ret = &#39;0&#39;;
+            ret = '0';
         } else {
         while (v > 0) {
                 ret = bytes32(uint(ret) / (2 ** 8));

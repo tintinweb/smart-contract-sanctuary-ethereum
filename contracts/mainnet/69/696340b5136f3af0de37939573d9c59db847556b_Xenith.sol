@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;Xenith&#39; token contract
+// 'Xenith' token contract
 //
 // Deployed to : 0x01045239A770F0F37f5d1DEAdDc44125Dc74f352
 // Symbol      : XTH

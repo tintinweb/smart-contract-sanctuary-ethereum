@@ -64,7 +64,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -160,7 +160,7 @@ contract Token is ERC20 {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -223,7 +223,7 @@ contract Token is ERC20 {
 
 contract Soniq is ERC20, Token {
 
-  string public constant name    = "Soniq Token";  //The Token&#39;s name - Soniq Token
+  string public constant name    = "Soniq Token";  //The Token's name - Soniq Token
   uint8 public constant decimals = 18;               //Number of decimals of the smallest unit
   string public constant symbol  = "SONIQ";            //An identifier - soniq
   uint public INITIAL_SUPPLY     = 50000000 * 10 ** 18;  //

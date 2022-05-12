@@ -1,5 +1,5 @@
 /*
- * Contracts&#39; names:
+ * Contracts' names:
  * 1) UserfeedsClaim - prefix
  * 2a) WithoutValueTransfer - simplest case, no transfer
  * 2b) With - continuation

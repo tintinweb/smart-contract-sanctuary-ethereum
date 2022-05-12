@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 999999999999000000000000000000;
-        name = &#39;HuaXiaToken&#39;;
-        symbol = &#39;HXT&#39;;
+        name = 'HuaXiaToken';
+        symbol = 'HXT';
         decimals = 18;
         balanceOf[0xbcade28d8c2f22345165f0e07c94a600f6c4e925] = totalSupply;
         Transfer(address(0), 0xbcade28d8c2f22345165f0e07c94a600f6c4e925, totalSupply);

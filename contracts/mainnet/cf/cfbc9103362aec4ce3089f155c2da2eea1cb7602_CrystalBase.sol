@@ -179,7 +179,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -753,7 +753,7 @@ contract CrystalBase is Acceptable, ERC721Token {
     }
 
     // @dev Transfers the ownership of a given token ID to another address.
-    //      _transferFrom is almost the same to openzeppelin-solidity&#39;s implementation.
+    //      _transferFrom is almost the same to openzeppelin-solidity's implementation.
     //      ref. https://github.com/OpenZeppelin/openzeppelin-solidity/blob/ad12381549c4c0711c2f3310e9fb1f65d51c299c/contracts/token/ERC721/ERC721BasicToken.sol#L140
     //      We use onlyAcceptable modifier instead of canTransfer.
     //      _transferFrom is intended to be called only from cryptocrystal contract.

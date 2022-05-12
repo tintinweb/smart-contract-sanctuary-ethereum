@@ -78,8 +78,8 @@ interface tokenRecipient {
 }
 
 contract CWCCToken {
-    string public name = &#39;Car Wash Chain&#39;;
-    string public symbol = &#39;CWCC&#39;;
+    string public name = 'Car Wash Chain';
+    string public symbol = 'CWCC';
     uint8 public decimals = 18;
     uint256 public totalSupply = 1000 * 10 ** 26;
 

@@ -42,7 +42,7 @@ pragma solidity ^0.4.8;
      uint256 _totalSupply = 200000000000000000000000000;
     //price code here
     uint256 public constant unitsOneEthCanBuy = 833333; 
-    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.  
+    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.  
     //address public fundsWallet; 
     //price code here
 
@@ -102,7 +102,7 @@ pragma solidity ^0.4.8;
 
 
 
-     // Transfer the balance from owner&#39;s account to another account
+     // Transfer the balance from owner's account to another account
      function transfer(address _to, uint256 _amount) returns (bool success) {
          if (balances[msg.sender] >= _amount 
              && _amount > 0

@@ -130,8 +130,8 @@ contract StandardToken is ERC20, BasicToken {
 
 contract EnkronosToken is StandardToken {
 
-	string public name = &#39;EnkronosToken&#39;;
-	string public symbol = &#39;ENK&#39;;
+	string public name = 'EnkronosToken';
+	string public symbol = 'ENK';
 	uint8 public decimals = 18;
 	uint public INITIAL_SUPPLY = 500000000000000000000000000;
 

@@ -101,7 +101,7 @@ library GroveLib {
 
             if (currentNode.parent != 0x0) {
                 // Now we trace back up through parent relationships, looking
-                // for a link where the child is the right child of it&#39;s
+                // for a link where the child is the right child of it's
                 // parent.
                 Node storage parent = index.nodes[currentNode.parent];
                 child = currentNode;
@@ -147,7 +147,7 @@ library GroveLib {
             }
 
             if (currentNode.parent != 0x0) {
-                // if the node is the left child of it&#39;s parent, then the
+                // if the node is the left child of it's parent, then the
                 // parent is the next one.
                 Node storage parent = index.nodes[currentNode.parent];
                 child = currentNode;
@@ -175,7 +175,7 @@ library GroveLib {
         /// @dev Updates or Inserts the id into the index at its appropriate location based on the value provided.
         /// @param index The index that the node is part of.
         /// @param id The unique identifier of the data element the index node will represent.
-        /// @param value The value of the data element that represents it&#39;s total ordering with respect to other elementes.
+        /// @param value The value of the data element that represents it's total ordering with respect to other elementes.
         function insert(Index storage index, bytes32 id, int value) public {
                 if (index.nodes[id].id == id) {
                     // A node with this id already exists.  If the value is
@@ -249,7 +249,7 @@ library GroveLib {
 
             if (nodeToDelete.left != 0x0 || nodeToDelete.right != 0x0) {
                 // This node is not a leaf node and thus must replace itself in
-                // it&#39;s tree by either the previous or next node.
+                // it's tree by either the previous or next node.
                 if (nodeToDelete.left != 0x0) {
                     // This node is guaranteed to not have a right child.
                     Node storage replacementNode = index.nodes[getPreviousNode(index, nodeToDelete.id)];
@@ -316,7 +316,7 @@ library GroveLib {
                 }
             }
             else if (nodeToDelete.parent != 0x0) {
-                // The node being deleted is a leaf node so we only erase it&#39;s
+                // The node being deleted is a leaf node so we only erase it's
                 // parent linkage.
                 parent = index.nodes[nodeToDelete.parent];
 
@@ -408,7 +408,7 @@ library GroveLib {
          *  right-most node that satisfies the comparison.
          */
         /// @param index The index that should be queried
-        /** @param operator One of &#39;>&#39;, &#39;>=&#39;, &#39;<&#39;, &#39;<=&#39;, &#39;==&#39; to specify what
+        /** @param operator One of '>', '>=', '<', '<=', '==' to specify what
          *  type of comparison operator should be used.
          */
         function query(Index storage index, bytes2 operator, int value) public returns (bytes32) {
@@ -558,11 +558,11 @@ library GroveLib {
             assert(originalRoot.right != 0x0);
 
             // The right child is the new root, so it gets the original
-            // `originalRoot.parent` as it&#39;s parent.
+            // `originalRoot.parent` as it's parent.
             Node storage newRoot = index.nodes[originalRoot.right];
             newRoot.parent = originalRoot.parent;
 
-            // The original root needs to have it&#39;s right child nulled out.
+            // The original root needs to have it's right child nulled out.
             originalRoot.right = 0x0;
 
             if (originalRoot.parent != 0x0) {
@@ -570,7 +570,7 @@ library GroveLib {
                 // the newRoot which is rotating into the place where `node` was.
                 Node storage parent = index.nodes[originalRoot.parent];
 
-                // figure out if we&#39;re a left or right child and have the
+                // figure out if we're a left or right child and have the
                 // parent point to the new node.
                 if (parent.left == originalRoot.id) {
                     parent.left = newRoot.id;
@@ -589,7 +589,7 @@ library GroveLib {
                 leftChild.parent = originalRoot.id;
             }
 
-            // Update the newRoot&#39;s left node to point at the original node.
+            // Update the newRoot's left node to point at the original node.
             originalRoot.parent = newRoot.id;
             newRoot.left = originalRoot.id;
 
@@ -609,7 +609,7 @@ library GroveLib {
             // place.
             assert(originalRoot.left != 0x0);
 
-            // The left child is taking the place of node, so we update it&#39;s
+            // The left child is taking the place of node, so we update it's
             // parent to be the original parent of the node.
             Node storage newRoot = index.nodes[originalRoot.left];
             newRoot.parent = originalRoot.parent;
@@ -636,7 +636,7 @@ library GroveLib {
                 rightChild.parent = originalRoot.id;
             }
 
-            // Update the new root&#39;s right node to point to the original node.
+            // Update the new root's right node to point to the original node.
             originalRoot.parent = newRoot.id;
             newRoot.right = originalRoot.id;
 

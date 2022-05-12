@@ -119,7 +119,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -186,7 +186,7 @@ contract MetadataContract{
 
     function uintToBytes(uint v) public view returns (bytes32 ret) {
         if (v == 0) {
-            ret = &#39;0&#39;;
+            ret = '0';
         }
         else {
             while (v > 0) {
@@ -206,19 +206,19 @@ contract REPOPERC721 is ERC721, REPOPAccessControl{
   MetadataContract public metadataContract;
 
   bytes4 constant InterfaceSignature_ERC165 =
-      bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+      bytes4(keccak256('supportsInterface(bytes4)'));
 
   bytes4 constant InterfaceSignature_ERC721 =
-      bytes4(keccak256(&#39;name()&#39;)) ^
-      bytes4(keccak256(&#39;symbol()&#39;)) ^
-      bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-      bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-      bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-      bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-      bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-      bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-      bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-      bytes4(keccak256(&#39;tokenMetadata(uint256)&#39;));
+      bytes4(keccak256('name()')) ^
+      bytes4(keccak256('symbol()')) ^
+      bytes4(keccak256('totalSupply()')) ^
+      bytes4(keccak256('balanceOf(address)')) ^
+      bytes4(keccak256('ownerOf(uint256)')) ^
+      bytes4(keccak256('approve(address,uint256)')) ^
+      bytes4(keccak256('transfer(address,uint256)')) ^
+      bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+      bytes4(keccak256('tokensOfOwner(address)')) ^
+      bytes4(keccak256('tokenMetadata(uint256)'));
 
     function tokenMetadata(uint256 _tokenId) public view returns (string infoUrl) {
       require(metadataContract != address(0));

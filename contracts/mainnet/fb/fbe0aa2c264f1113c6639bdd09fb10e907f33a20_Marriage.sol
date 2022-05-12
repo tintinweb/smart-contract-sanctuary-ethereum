@@ -31,7 +31,7 @@ library StrUtil {
 
   function uintToBytes(uint v) internal pure returns (bytes32 ret) {
     if (v == 0) {
-      ret = &#39;0&#39;;
+      ret = '0';
     }
     else {
       while (v > 0) {
@@ -278,7 +278,7 @@ contract Marriage {
     status = Status.Married;
 
     // just in case if bride sent some funds
-    // it&#39;s gonna be added to the family budget :)
+    // it's gonna be added to the family budget :)
     groomAddr.transfer(deposite + msg.value);
   }
 

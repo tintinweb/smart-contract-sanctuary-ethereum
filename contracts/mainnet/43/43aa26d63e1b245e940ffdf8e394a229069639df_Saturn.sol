@@ -42,14 +42,14 @@ pragma solidity ^0.4.24;
  * The only official website: https://cccosmos.com
  * 
  *     CCCosmos is a game Dapp that runs on Ethereum. The mode of smart contract makes it run in a decentralized way. 
- * Code logic prevents any others&#39; control and keep the game fun, fair, and feasible. Unlike most DApps that require a browser
+ * Code logic prevents any others' control and keep the game fun, fair, and feasible. Unlike most DApps that require a browser
  * plug-in, the well-designed CCCosmos can easily help you win great bonuses via any decentralized Ethereum wallet 
  * on your phone.
  *   
  *                                        ///Game Description///
  * # The first-time user can activate his/her Ethereum address by just paying an amount more than 0.01eth.
  * 
- * # The contract will automatically calculate the user&#39;s SAT account according to the price, and may immediately 
+ * # The contract will automatically calculate the user's SAT account according to the price, and may immediately 
  * receive up to seven-fold rewards.
  * 
  * # Holding SAT brings users continuous earnings; if you are the last one to get SAT at the end of the game, you 
@@ -144,7 +144,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -466,7 +466,7 @@ contract Saturn is Ownable {
     * 1. When game already finished: Player can send any amount of token to contract, and the contract will send the eth balance and share pot to player.
     * 2. When game is not finished yet:
     *    A. Withdraw. Player send 0.08 Token to contract, and the contract will send the eth balance and share pot to player.
-    *    B. ReBuy. Player send 0.01 Token to contract, then player&#39;s eth balance and share pot will be used to buy token.
+    *    B. ReBuy. Player send 0.01 Token to contract, then player's eth balance and share pot will be used to buy token.
     *    C. Invalid. Other value is invalid.
     * @param _to address The address which you want to transfer/sell to. MUST be contract address.
     * @param _value uint256 the amount of tokens to be transferred/sold.
@@ -493,7 +493,7 @@ contract Saturn is Ownable {
             _eth = _sharePot.sub(_player.ethShareWithdraw);
             _player.ethShareWithdraw = _sharePot;
         }
-        // add the player&#39;s eth balance
+        // add the player's eth balance
         _eth = _eth.add(_player.ethBalance);
         _player.ethBalance = 0;
         _player.ethWithdraw = _player.ethWithdraw.add(_eth);
@@ -573,7 +573,7 @@ contract Saturn is Ownable {
         if (totalPot < 200000000000000000000) {
             // If the totalPot<200ETH, we are allow to buy 5ETH each time.
             if (_eth >= 5000000000000000000) {
-                // the other eth will add to player&#39;s ethBalance
+                // the other eth will add to player's ethBalance
                 _backEth = _eth.sub(5000000000000000000);
                 _eth = 5000000000000000000;
             }
@@ -629,7 +629,7 @@ contract Saturn is Ownable {
 
     /**
      * @dev Handle lucky pot. The player can lucky pot by random number. The maximum amount will be half of total lucky pot
-     * The lucky reward will be added to player&#39;s eth balance
+     * The lucky reward will be added to player's eth balance
      */
     function handleLuckyPot(uint256 _eth, Player storage _player) private {
         uint256 _seed = uint256(keccak256(abi.encodePacked(
@@ -746,7 +746,7 @@ contract Saturn is Ownable {
 
     /**
      * @dev Handle dealer pot. The top 3 of total day token (daily) will get dealer reward.
-     * The dealer reward will be added to player&#39;s eth balance
+     * The dealer reward will be added to player's eth balance
      */
     function handleDealerPot(uint256 _day, uint256 _dealerPotDelta, Player storage _player, InternalBuyEvent memory _buyEvent) private {
         uint256 _potUnit = _dealerPotDelta.div(dealers.length);

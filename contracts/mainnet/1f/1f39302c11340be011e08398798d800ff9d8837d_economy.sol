@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract economy is BaseToken, AirdropToken, ICOToken {
     function  economy() public {
         totalSupply = 10000000000000000000000000;
-        name = &#39;Decentralized economy content&#39;;
-        symbol = &#39;DEC&#39;;
+        name = 'Decentralized economy content';
+        symbol = 'DEC';
         decimals = 18;
         balanceOf[0x0cB3B65CE60380aa5820207eE3f2730caec27795] = totalSupply;
         Transfer(address(0), 0x0cB3B65CE60380aa5820207eE3f2730caec27795, totalSupply);

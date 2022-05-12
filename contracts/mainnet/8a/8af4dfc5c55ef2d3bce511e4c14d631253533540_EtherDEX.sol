@@ -76,7 +76,7 @@ contract EtherDEX {
         previousContract = _previousContract;
         isContractDeprecated = false;
 
-        //count new contract version if it&#39;s not the first
+        //count new contract version if it's not the first
         if (previousContract != address(0)) {
             contractVersion = EtherDEX(previousContract).contractVersion() + 1;
         } else {
@@ -128,7 +128,7 @@ contract EtherDEX {
     function depositToken(address token, uint amount) public {
         //remember to call ERC20Token(address).approve(this, amount) or this contract will not be able to do the transfer on your behalf.
         if (token == 0) revert("Cannot deposit ETH with depositToken method");
-        if (!ERC20(token).transferFrom(msg.sender, this, amount)) revert("You didn&#39;t call approve method on Token contract");
+        if (!ERC20(token).transferFrom(msg.sender, this, amount)) revert("You didn't call approve method on Token contract");
         tokens[token][msg.sender] = SafeMath.add(tokens[token][msg.sender], amount);
         emit Deposit(token, msg.sender, amount, tokens[token][msg.sender]);
     }
@@ -208,7 +208,7 @@ contract EtherDEX {
         require(_user != address(0));
         require(msg.value > 0);
         EtherDEX caller = EtherDEX(msg.sender);
-        require(caller.contractVersion() > 0); // Make sure it&#39;s an exchange account
+        require(caller.contractVersion() > 0); // Make sure it's an exchange account
         tokens[0][_user] = tokens[0][_user].add(msg.value);
     }
 
@@ -218,7 +218,7 @@ contract EtherDEX {
         require(_user != address(0));
         require(_amount > 0);
         EtherDEX caller = EtherDEX(msg.sender);
-        require(caller.contractVersion() > 0); // Make sure it&#39;s an exchange account
+        require(caller.contractVersion() > 0); // Make sure it's an exchange account
         if (!ERC20(_token).transferFrom(msg.sender, this, _amount)) {
             revert();
         }

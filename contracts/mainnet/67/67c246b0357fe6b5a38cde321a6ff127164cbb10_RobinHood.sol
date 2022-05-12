@@ -6,7 +6,7 @@ pragma solidity ^0.4.21;
 // NOTE: In part two of the contract, the DIVIDEND is explained. 
 // The dividend has a very easy implementation
 // the price of the token rise when bought.
-// when it&#39;s sold, price will decrease with 50% of rate of price bought
+// when it's sold, price will decrease with 50% of rate of price bought
 // if you sell, you will sell all tokens, and you have thus to buy in at higher price
 // make sure you hold dividend for a long time.
 
@@ -70,7 +70,7 @@ contract RobinHood{
         address creator;
         // The current owner of this Tower. If he owns it for longer than getTime() of this Tower, he will receive his portion of the amount in the Tower.
         address owner;
-        // You can add a quote to troll your fellow friends. Hopefully they won&#39;t buy your tower!
+        // You can add a quote to troll your fellow friends. Hopefully they won't buy your tower!
         string quote;
     }
     
@@ -320,7 +320,7 @@ contract RobinHood{
        uint256 target = (mul(UsedTower.timer, var2/var3 )/1000000000000);
        
        // Warning, if for some reason the calculation get super low, it will return 300, which is the absolute minimum.
-       //This prevents users from winning because people don&#39;t have enough time to edit gas, which would be unfair.
+       //This prevents users from winning because people don't have enough time to edit gas, which would be unfair.
        if (target < 300){
            return 300;
        }
@@ -372,7 +372,7 @@ contract RobinHood{
     // Usually owner of tower can call this. 
     // Note that if you are too late because someone else paid it, then this person will pay you. 
     // There is no way to cheat that.
-    // id = tower id. (id&#39;s start with 0, not 1!)
+    // id = tower id. (id's start with 0, not 1!)
     function TakePrize(uint256 _id) public onlyOpen{
         require(_id < next_tower_index);
         var UsedTower = Towers[_id];
@@ -471,7 +471,7 @@ contract RobinHood{
    function div(uint256 a, uint256 b) internal pure returns (uint256) {
       // assert(b > 0); // Solidity automatically throws when dividing by 0
       uint256 c = a / b;
-      // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+      // assert(a == b * c + a % b); // There is no case in which this doesn't hold
       return c;
    }
 

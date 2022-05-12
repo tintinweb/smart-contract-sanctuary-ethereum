@@ -119,7 +119,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -941,7 +941,7 @@ contract Registrar {
 
             // Set new winner
             // Per the rules of a vickery auction, the value becomes the previous highestBid
-            h.value = h.highestBid;  // will be zero if there&#39;s only 1 bidder
+            h.value = h.highestBid;  // will be zero if there's only 1 bidder
             h.highestBid = value;
             h.deed = bid;
             BidRevealed(_hash, msg.sender, value, 2);
@@ -951,7 +951,7 @@ contract Registrar {
             bid.closeDeed(995);
             BidRevealed(_hash, msg.sender, value, 3);
         } else {
-            // Bid doesn&#39;t affect auction
+            // Bid doesn't affect auction
             bid.closeDeed(995);
             BidRevealed(_hash, msg.sender, value, 4);
         }
@@ -988,7 +988,7 @@ contract Registrar {
     function finalizeAuction(bytes32 _hash) public onlyOwner(_hash) {
         Entry storage h = _entries[_hash];
         
-        // Handles the case when there&#39;s only a single bidder (h.value is zero)
+        // Handles the case when there's only a single bidder (h.value is zero)
         h.value =  max(h.value, minPrice);
         h.deed.setBalance(h.value, true);
 
@@ -1011,7 +1011,7 @@ contract Registrar {
     }
 
     /**
-     * @dev After some time, or if we&#39;re no longer the registrar, the owner can release
+     * @dev After some time, or if we're no longer the registrar, the owner can release
      *      the name and get their ether back.
      *
      * @param _hash The node to release
@@ -1066,13 +1066,13 @@ contract Registrar {
 
     /**
      * @dev Allows anyone to delete the owner and resolver records for a (subdomain of) a
-     *      name that is not currently owned in the registrar. If passing, eg, &#39;foo.bar.eth&#39;,
-     *      the owner and resolver fields on &#39;foo.bar.eth&#39; and &#39;bar.eth&#39; will all be cleared.
+     *      name that is not currently owned in the registrar. If passing, eg, 'foo.bar.eth',
+     *      the owner and resolver fields on 'foo.bar.eth' and 'bar.eth' will all be cleared.
      *
      * @param labels A series of label hashes identifying the name to zero out, rooted at the
-     *        registrar&#39;s root. Must contain at least one element. For instance, to zero 
-     *        &#39;foo.bar.eth&#39; on a registrar that owns &#39;.eth&#39;, pass an array containing
-     *        [keccak256(&#39;foo&#39;), keccak256(&#39;bar&#39;)].
+     *        registrar's root. Must contain at least one element. For instance, to zero 
+     *        'foo.bar.eth' on a registrar that owns '.eth', pass an array containing
+     *        [keccak256('foo'), keccak256('bar')].
      */
     function eraseNode(bytes32[] labels) public {
         require(labels.length != 0);
@@ -1115,7 +1115,7 @@ contract Registrar {
      * @param registrationDate The date at which the name was originally registered.
      */
     function acceptRegistrarTransfer(bytes32 hash, Deed deed, uint registrationDate) public {
-        hash; deed; registrationDate; // Don&#39;t warn about unused variables
+        hash; deed; registrationDate; // Don't warn about unused variables
     }
 
     // State transitions for names:
@@ -1212,7 +1212,7 @@ contract Registrar {
     }
 
     /**
-     * @dev Assign the owner in ENS, if we&#39;re still the registrar
+     * @dev Assign the owner in ENS, if we're still the registrar
      *
      * @param _hash hash to change owner
      * @param _newOwner new owner to transfer to
@@ -1257,7 +1257,7 @@ contract Registrar {
      * @return The length of the input string
      */
     function strlen(string s) internal pure returns (uint) {
-        s; // Don&#39;t warn about unused variables
+        s; // Don't warn about unused variables
         // Starting here means the LSB will be the byte we care about
         uint ptr;
         uint end;

@@ -73,7 +73,7 @@ contract THO is StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;1.4&#39;;
+    string public version = '1.4';
 
 
     function THO(

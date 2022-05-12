@@ -138,7 +138,7 @@ contract SafeMath {
         // This famous algorithm is called "exponentiation by squaring"
         // and calculates x^n with x as fixed-point and n as regular unsigned.
         //
-        // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+        // It's O(log n), instead of O(n) for naive repeated multiplication.
         //
         // These facts are why it works:
         //
@@ -323,7 +323,7 @@ contract Contribution is SafeMath, Owned {
     }
     function buy(uint256 day, address _addr, uint256 _amount) internal {
         require( day >= CRAWDSALE_START_DAY && day <= CRAWDSALE_END_DAY ); 
-        //record user&#39;s buy amount
+        //record user's buy amount
         userBuys[day][_addr] += _amount;
         dailyTotals[day] += _amount;
         totalContributedETH += _amount;

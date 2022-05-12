@@ -20,7 +20,7 @@ contract Latium {
         balanceOf[owner] = totalSupply;
     }
 
-    // transfer the balance from sender&#39;s account to another one
+    // transfer the balance from sender's account to another one
     function transfer(address _to, uint256 _value) {
         // prevent transfer to 0x0 address
         require(_to != 0x0);
@@ -30,9 +30,9 @@ contract Latium {
         require(_value > 0 && balanceOf[msg.sender] >= _value);
         // check for overflows
         require(balanceOf[_to] + _value > balanceOf[_to]);
-        // subtract coins from sender&#39;s account
+        // subtract coins from sender's account
         balanceOf[msg.sender] -= _value;
-        // add coins to recipient&#39;s account
+        // add coins to recipient's account
         balanceOf[_to] += _value;
         // notify listeners about this transfer
         Transfer(msg.sender, _to, _value);
@@ -171,7 +171,7 @@ contract LatiumLocker {
                 i++;
             }
         }
-        // transfer tokens to owner&#39;s account
+        // transfer tokens to owner's account
         _latium.transfer(msg.sender, _amount);
     }
 }

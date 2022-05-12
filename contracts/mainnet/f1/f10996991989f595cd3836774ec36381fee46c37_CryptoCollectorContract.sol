@@ -337,8 +337,8 @@ contract CryptoCollectorContract is ERC721, Ownable {
 			
 		uint256 index = cards.push(_card) - 1;
 		cardTokenToPosition[_id] = index;
-		// It&#39;s probably never going to happen, 4 billion tokens are A LOT, but
-		// let&#39;s just be 100% sure we never let this happen.
+		// It's probably never going to happen, 4 billion tokens are A LOT, but
+		// let's just be 100% sure we never let this happen.
 		require(_id == uint256(uint32(_id)));
 
 		emit NewToken(_id, _name, _owner);
@@ -616,7 +616,7 @@ function GetWildCardOwner(uint256 _tokenId) public view returns (address _cardow
 
 
   /// @param _owner The owner whose celebrity tokens we are interested in.
-  /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+  /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
   ///  expensive (it walks the entire cards array looking for cards belonging to owner),
   ///  but it also returns a dynamic array, which is only supported for web3 calls, and
   ///  not contract-to-contract calls.
@@ -660,12 +660,12 @@ function GetWildCardOwner(uint256 _tokenId) public view returns (address _cardow
 
   /// @dev Assigns ownership of a specific card to an address.
   function _transfer(address _from, address _to, uint256 _tokenId) private {
-    // Since the number of cards is capped to 2^32 we can&#39;t overflow this
+    // Since the number of cards is capped to 2^32 we can't overflow this
     ownershipTokenCount[_to]++;
     //transfer ownership
     cardTokenToOwner[_tokenId] = _to;
 
-    // When creating new cards _from is 0x0, but we can&#39;t account that address.
+    // When creating new cards _from is 0x0, but we can't account that address.
     if (_from != address(0)) {
       ownershipTokenCount[_from]--;
       // clear any previously approved ownership exchange
@@ -702,7 +702,7 @@ library Helper {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.25;
 
-// &#39;InfiniCoin&#39; token contract
+// 'InfiniCoin' token contract
 //
 // Deployed to : 0x70Fe2224D604424e7e574Dc0E0B96DB609Bb40B9
 // Symbol      : INFC

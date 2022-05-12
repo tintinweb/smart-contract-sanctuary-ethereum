@@ -2,11 +2,11 @@ pragma solidity ^0.4.18;
 
 /*
 
- .|&#39;&#39;&#39;.|    .           &#39;||      &#39;||            ..|&#39;&#39;&#39;.|          ||
- ||..  &#39;  .||.   ....    || ...   ||    ....  .|&#39;     &#39;    ...   ...  .. ...
-  &#39;&#39;|||.   ||   &#39;&#39; .||   ||&#39;  ||  ||  .|...|| ||         .|  &#39;|.  ||   ||  ||
-.     &#39;||  ||   .|&#39; ||   ||    |  ||  ||      &#39;|.      . ||   ||  ||   ||  ||
-|&#39;....|&#39;   &#39;|.&#39; &#39;|..&#39;|&#39;  &#39;|...&#39;  .||.  &#39;|...&#39;  &#39;&#39;|....&#39;   &#39;|..|&#39; .||. .||. ||.
+ .|'''.|    .           '||      '||            ..|'''.|          ||
+ ||..  '  .||.   ....    || ...   ||    ....  .|'     '    ...   ...  .. ...
+  ''|||.   ||   '' .||   ||'  ||  ||  .|...|| ||         .|  '|.  ||   ||  ||
+.     '||  ||   .|' ||   ||    |  ||  ||      '|.      . ||   ||  ||   ||  ||
+|'....|'   '|.' '|..'|'  '|...'  .||.  '|...'  ''|....'   '|..|' .||. .||. ||.
 100% fresh code. Novel staking mechanism. Stable investments. Pure dividends.
 
 PreMine: 2.5 ETH (A private key containing .5 will be given to the top referrer)
@@ -30,7 +30,7 @@ Solution:
 --------
 We remove Stakes from the equation altogether, relieving investors of volatility.
 The outcome is a pyramid scheme powered entirely by dividends. We distribute 33% of every deposit and withdrawal
-to shareholders in proportion to their stake in the contract. Once you&#39;ve made a deposit, your dividends will
+to shareholders in proportion to their stake in the contract. Once you've made a deposit, your dividends will
 accumulate over time while your investment remains safe and stable, making this the ultimate vehicle for passive income.
 
 */
@@ -242,7 +242,7 @@ contract TestingCoin {
 	function div(uint256 a, uint256 b) internal pure returns (uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return c;
 	}
 

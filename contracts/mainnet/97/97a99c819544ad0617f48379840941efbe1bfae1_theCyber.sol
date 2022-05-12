@@ -18,7 +18,7 @@ contract theCyber {
   // theCyber is a decentralized club. It does not support equity memberships,
   // payment of dues, or payouts to the members. Instead, it is meant to enable
   // dapps that allow members to communicate with one another or that provide
-  // arbitrary incentives or special access to the club&#39;s members. To become a
+  // arbitrary incentives or special access to the club's members. To become a
   // member of theCyber, you must be added by an existing member. Furthermore,
   // existing memberships can be revoked if a given member becomes inactive for
   // too long. Total membership is capped and unique addresses are required.
@@ -87,7 +87,7 @@ contract theCyber {
     // Set up the address associated with the member.
     memberToAddress_[0] = msg.sender;
 
-    // Point the address to member&#39;s id.
+    // Point the address to member's id.
     addressToMember_[msg.sender] = 0;
 
     // Grant members-only access to the new member.
@@ -95,7 +95,7 @@ contract theCyber {
   }
 
   // Existing members can designate new users by specifying an unused member id
-  // and address. The new member&#39;s initial member name should also be supplied.
+  // and address. The new member's initial member name should also be supplied.
   function newMember(uint8 _memberId, bytes32 _memberName, address _memberAddress) public membersOnly {
     // Members need a non-null address.
     require(_memberAddress != address(0));
@@ -125,20 +125,20 @@ contract theCyber {
   // Members can set a name (encoded as a hex value) that will be associated
   // with their membership.
   function changeName(bytes32 _newMemberName) public membersOnly {
-    // Log the member&#39;s name change: (member id, new name).
+    // Log the member's name change: (member id, new name).
     NewMemberName(addressToMember_[msg.sender], _newMemberName);
 
-    // Change the member&#39;s name.
+    // Change the member's name.
     members_[addressToMember_[msg.sender]].name = _newMemberName;
   }
 
   // Members can set a public key that will be used for verifying signed
   // messages from the member or encrypting messages intended for the member.
   function changeKey(string _newMemberKey) public membersOnly {
-    // Log the member&#39;s key change: (member id, new member key).
+    // Log the member's key change: (member id, new member key).
     NewMemberKey(addressToMember_[msg.sender], _newMemberKey);
 
-    // Change the member&#39;s public key.
+    // Change the member's public key.
     members_[addressToMember_[msg.sender]].pubkey = _newMemberKey;
   }
 
@@ -240,7 +240,7 @@ contract theCyber {
   }
 
   // In addition, members can send direct messagees as an on-chain event. These
-  // messages are intended to be encrypted using the recipient&#39;s public key.
+  // messages are intended to be encrypted using the recipient's public key.
   function directMessage(uint8 _toMemberId, string _message) public membersOnly {
     // Log the message.
     DirectMessage(addressToMember_[msg.sender], _toMemberId, _message);
@@ -268,7 +268,7 @@ contract theCyber {
 
   // We also want to be able to access any tokens that are sent to the contract.
   function donateTokens(address _tokenContractAddress) public membersOnly {
-    // Make sure that we didn&#39;t pass in the current contract address by mistake.
+    // Make sure that we didn't pass in the current contract address by mistake.
     require(_tokenContractAddress != address(this));
 
     // Log the donation of any tokens that have been sent into the contract.

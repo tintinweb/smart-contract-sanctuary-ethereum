@@ -125,7 +125,7 @@ contract OpenSourceChainToken is StandardToken  {
         _;
     }
     
-    /// @dev increase the token&#39;s supply
+    /// @dev increase the token's supply
     function increaseSupply(uint256 _value) onlyOwner {
         uint256 value = safeMult(_value , 10 ** decimals);
         balances[owner] = safeAdd(balances[owner],value);
@@ -133,7 +133,7 @@ contract OpenSourceChainToken is StandardToken  {
         IncreaseSupply(value);
     }
     
-     /// @dev decrease the token&#39;s supply
+     /// @dev decrease the token's supply
     function decreaseSupply (uint256 _value) onlyOwner {
         if (balances[owner] < _value) throw;
         uint256 value = safeMult(_value , 10 ** decimals);

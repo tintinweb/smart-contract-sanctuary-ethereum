@@ -81,7 +81,7 @@ contract TokenSeller is Owned {
         ActivatedEvent(sellsTokens);
     }
 
-    // Maker can activate or deactivate this contract&#39;s
+    // Maker can activate or deactivate this contract's
     // selling status
     //
     // The ActivatedEvent() event is logged with the following
@@ -169,7 +169,7 @@ contract TokenSeller is Owned {
     // Taker buys asset tokens by sending ethers
     //
     // The TakerBoughtAsset() event is logged with the following parameters
-    //   buyer           is the buyer&#39;s address
+    //   buyer           is the buyer's address
     //   ethersSent      is the number of ethers sent by the buyer
     //   ethersReturned  is the number of ethers sent back to the buyer as
     //                   change
@@ -263,7 +263,7 @@ contract TokenSellerFactory is Owned {
     //   sellsTokens  true
     //
     // The TradeListing() event is logged with the following parameters
-    //   ownerAddress        is the Maker&#39;s address
+    //   ownerAddress        is the Maker's address
     //   tokenSellerAddress  is the address of the newly created TokenSeller contract
     //   asset               is the ERC20 asset address
     //   sellPrice           is the sell price in ethers per `units` of asset tokens

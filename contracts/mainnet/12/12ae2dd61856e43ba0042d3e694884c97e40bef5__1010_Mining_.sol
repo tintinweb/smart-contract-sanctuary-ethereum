@@ -46,7 +46,7 @@ contract _1010_Mining_ {
         uint256 share;                               // Percent of mining profits
         uint256 unpaid;                              // Available Wei for withdrawal, + 1 in storage for gas optimization
     }                                              
-    mapping (address => Member) public members;      // All contract members as &#39;Member&#39;-struct
+    mapping (address => Member) public members;      // All contract members as 'Member'-struct
     
     uint16    public memberCount;                    // Count of all members
     address[] public memberIndex;                    // Lookuptable of all member addresses to iterate on deposit over and assign unpaid Ether to members
@@ -70,7 +70,7 @@ contract _1010_Mining_ {
     // -------------------------------------------------------------------------
     
     constructor () public {
-        // Initialize members with their share (total 100) and trigger &#39;AddMember&#39;-event
+        // Initialize members with their share (total 100) and trigger 'AddMember'-event
         _addMember(0xd2Ce719a0d00f4f8751297aD61B0E936970282E1, 50);
         _addMember(0xE517CB63e4dD36533C26b1ffF5deB893E63c3afA, 25);
         _addMember(0x430e1dd1ab2E68F201B53056EF25B9e116979D9b, 25);
@@ -101,7 +101,7 @@ contract _1010_Mining_ {
                 );
         }
         
-        // Trigger &#39;Deposit&#39;-event
+        // Trigger 'Deposit'-event
         emit Deposit(msg.sender, msg.value);
     }
     
@@ -113,7 +113,7 @@ contract _1010_Mining_ {
         uint256 unpaid = members[msg.sender].unpaid.sub(1);
         members[msg.sender].unpaid = 1;
         
-        // Trigger &#39;Withdraw&#39;-event
+        // Trigger 'Withdraw'-event
         emit Withdraw(msg.sender, unpaid);
         
         // Transfer the unpaid Wei amount to member address

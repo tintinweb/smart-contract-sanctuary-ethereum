@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -157,7 +157,7 @@ contract Vote {
   }
 
   // A user may cast a number of yea or nay votes equal to the number of tokens
-  // they have deposited in the contract. This will lock the user&#39;s deposit
+  // they have deposited in the contract. This will lock the user's deposit
   // until the voting ends for this proposal. Locking deposits ensures the user
   // cannot vote, then transfer tokens away and use them to vote again.
   function vote(uint proposalId, uint yeas, uint nays) public {
@@ -167,7 +167,7 @@ contract Vote {
       "Voting closed"
     );
     if(proposals[proposalId].deadline > deposits[msg.sender].lockedUntil) {
-      // The voter&#39;s deposit is locked until the proposal deadline
+      // The voter's deposit is locked until the proposal deadline
       deposits[msg.sender].lockedUntil = proposals[proposalId].deadline;
     }
     // Track vote counts to ensure voters can only vote their deposited tokens

@@ -49,7 +49,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -170,7 +170,7 @@ contract SuperCountriesEth {
   uint256 private worldScore ; /// Worldscore = cumulated price of all owned countries + all spent ethers in this game
   mapping (address => uint256) private playerScore; /// For each player, the sum of each owned country + the sum of all spent ethers since the beginning of the game
   uint256 private dividendsScore ; /// Balance of dividends divided by the worldScore 
-  mapping(uint256 => mapping(address => uint256)) private pendingBalance; /// Divs from referrals, bonus and dividends calculated after the playerScore change ; if the playerScore didn&#39;t change recently, there are some pending divs that can be calculated using dividendsScore and playerScore. The first mapping (uint256) is the jackpot version to use, the value goes up after each pot distribution and the previous pendingBalance are reseted.
+  mapping(uint256 => mapping(address => uint256)) private pendingBalance; /// Divs from referrals, bonus and dividends calculated after the playerScore change ; if the playerScore didn't change recently, there are some pending divs that can be calculated using dividendsScore and playerScore. The first mapping (uint256) is the jackpot version to use, the value goes up after each pot distribution and the previous pendingBalance are reseted.
   mapping(uint256 => mapping(address => uint256)) private handicap; /// a player cannot claim a % of all dividends but a % of the cumulated dividends after his join date, this is a handicap
   mapping(uint256 => mapping(address => uint256)) private balanceToWithdraw; /// A player cannot withdraw pending divs, he must request a withdraw first (pending divs move to balanceToWithdraw) then withdraw.	
 
@@ -443,7 +443,7 @@ contract SuperCountriesEth {
 
 	
   /**
-   * @dev If no new buys occur (dividendsScore = 0) and the richest and latest players don&#39;t withdraw their dividends after 3 jackpots, the game can be stuck forever
+   * @dev If no new buys occur (dividendsScore = 0) and the richest and latest players don't withdraw their dividends after 3 jackpots, the game can be stuck forever
    * Prevent from jackpot vicious circle : same dividends are shared between latest and richest users again and again
    * If the richest and/or the latest player withdraw(s) at least once between 3 jackpots, it means the game is alive
    * Or if contract balance drops down to 1e8 wei (that means many successful jackpots and that a current withdrawal could cost too much gas for players)
@@ -484,7 +484,7 @@ contract SuperCountriesEth {
    * @param newReferral The address to set the referrer for.
    * @param referrer The address of the referrer to set.
    * The referrer must own at least one country to keep his reflink active
-   * Referrals got with an active link are forever, even if all the referrer&#39;s countries are sold
+   * Referrals got with an active link are forever, even if all the referrer's countries are sold
    */
     function setReferrer(address newReferral, address referrer) internal {
 		if (getReferrerOf(newReferral) == address(0x0) && newReferral != referrer && balanceOf(referrer) > 0 && playerScore[newReferral] == 0) {
@@ -572,7 +572,7 @@ contract SuperCountriesEth {
 
   /**
    * @dev we need to update the oldOwner and newOwner balances each time a country is sold, their handicap and playerscore will also change
-   * Worldscore and dividendscore : we don&#39;t care, it will be updated later.
+   * Worldscore and dividendscore : we don't care, it will be updated later.
    * If accurate, set a new richest player
    */
 	function updateScoreAndBalance(uint256 _paidPrice, uint256 _itemId, address _oldOwner, address _newOwner) internal {	
@@ -584,7 +584,7 @@ contract SuperCountriesEth {
 			uint256 scoreSubHandicap = dividendsScore.sub(handicap[potVersion][_oldOwner]);
 			uint256 playerScore_ = playerScore[_oldOwner];
 		
-			/// If the old owner is the owner of this contract, we skip this part, the owner of the contract won&#39;t get dividends
+			/// If the old owner is the owner of this contract, we skip this part, the owner of the contract won't get dividends
 				if (_oldOwner != owner && scoreSubHandicap >= 0 && playerScore_ > _previousPaidPrice) {
 					pendingBalance[potVersion][_oldOwner] += playerScore_.mul(scoreSubHandicap).div(HUGE);
 					playerScore[_oldOwner] -= _previousPaidPrice; ///for the oldOwner, the playerScore goes down the previous price
@@ -698,7 +698,7 @@ contract SuperCountriesEth {
 		/// After each sell / buy, players that owned at least one country can claim dividends
 		/// DIVS of a player = playerScore * DIVS to dispatch / worldScore
 		/// If a player is a seller or a buyer, his playerScore will change, we need to adjust his parameters
-		/// If a player is not a buyer / seller, his playerScore doesn&#39;t change, no need to adjust
+		/// If a player is not a buyer / seller, his playerScore doesn't change, no need to adjust
 			updateScoreAndBalance(price, _itemId, oldOwner, newOwner);
 			
 		/// worldScore change after each flip, we need to adjust
@@ -718,8 +718,8 @@ contract SuperCountriesEth {
 	
 		/// When a country flips, who earns how much?
 		/// Devs : 2% to 5% of country price
-		/// Seller&#39;s reward : current paidPrice - previousPrice - devsCut = net profit. The seller gets the previous Price + ca.65% of net Profit
-		/// The referrers of the seller : % of netProfit from their referrals R+1 & R+2. If no referrers, all the referrers&#39; cut goes to dividends to all players.
+		/// Seller's reward : current paidPrice - previousPrice - devsCut = net profit. The seller gets the previous Price + ca.65% of net Profit
+		/// The referrers of the seller : % of netProfit from their referrals R+1 & R+2. If no referrers, all the referrers' cut goes to dividends to all players.
 		/// All players, with or without a country now : dividends (% of netProfit)
 		/// All previous owners of the flipped country : a special part of dividends called Bonus. If no previous buyer, all the bonus is also added up to dividends to all players.
 			
@@ -732,12 +732,12 @@ contract SuperCountriesEth {
 		/// Calculate dividends cut from netProfit and what referrers left
 			uint256 dividendsCut_ = netProfit.mul(30).div(100);
 			
-		/// Calculate the seller&#39;s reward
+		/// Calculate the seller's reward
 		/// Price sub the cuts : dev cut and 35% including referrer cut (5% max), 30% (25% if referrers) dividends (including 80% divs / 20% bonus max) and 5% (jackpot)
 			uint256 oldOwnerReward = price.sub(devCut_).sub(netProfit.mul(35).div(100));
 
-		/// Calculate the referrers cut and store the referrer&#39;s cut in the referrer&#39;s pending balance ///
-		/// Update dividend&#39;s cut : 30% max ; 27,5% if 1 referrer ; 25% if 2 referrers
+		/// Calculate the referrers cut and store the referrer's cut in the referrer's pending balance ///
+		/// Update dividend's cut : 30% max ; 27,5% if 1 referrer ; 25% if 2 referrers
 			uint256 refCut = payReferrer(oldOwner, netProfit);
 			dividendsCut_ -= refCut;
 		
@@ -778,7 +778,7 @@ contract SuperCountriesEth {
 	////////////////////////////////////////////////
 	
 		/// The newOwner is now known as an OWNER for this country
-		/// We&#39;ll store his cumulated buy price for this country in a mapping
+		/// We'll store his cumulated buy price for this country in a mapping
 		/// Bonus : each time a country is flipped, players that previously owned this country get bonuses proportionally to the sum of their buys	
 			updateEntity(_itemId, newOwner, price);
 			itemHistory[_itemId][newOwner] += price;
@@ -800,9 +800,9 @@ contract SuperCountriesEth {
 	/// Transfer the reward to the seller ///
 	/////////////////////////////////////////
 
-		/// The seller&#39;s reward is transfered automatically to his wallet
+		/// The seller's reward is transfered automatically to his wallet
 		/// The dev cut is transfered automatically out the contract
-		/// The other rewards (bonus, dividends, referrer&#39;s cut) will be stored in a pending balance
+		/// The other rewards (bonus, dividends, referrer's cut) will be stored in a pending balance
 			oldOwner.transfer(oldOwnerReward);
 			owner.transfer(devCut_);
 			

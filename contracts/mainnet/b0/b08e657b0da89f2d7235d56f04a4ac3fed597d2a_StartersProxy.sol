@@ -17,7 +17,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -55,8 +55,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -73,7 +73,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -249,7 +249,7 @@ contract Whitelist is Ownable, RBAC {
   string public constant ROLE_WHITELISTED = "whitelist";
 
   /**
-   * @dev Throws if called by any account that&#39;s not whitelisted.
+   * @dev Throws if called by any account that's not whitelisted.
    */
   modifier onlyWhitelisted() {
     checkRole(msg.sender, ROLE_WHITELISTED);
@@ -299,7 +299,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove an address from the whitelist
    * @param addr address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address addr)
     onlyOwner
@@ -313,7 +313,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove addresses from the whitelist
    * @param addrs addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] addrs)
     onlyOwner
@@ -355,7 +355,7 @@ contract StartersProxy is Whitelist{
 
         signersBacklog[signer].nonce++;
         //we increase the personal debt here
-        //it grows much (much) faster than the actual bet to compensate sender&#39;s and proxy&#39;s expenses
+        //it grows much (much) faster than the actual bet to compensate sender's and proxy's expenses
         uint256 debtIncrease = META_BET.mul(DEBT_INCREASING_FACTOR);
         signersBacklog[signer].debt = signersBacklog[signer].debt.add(debtIncrease);
 
@@ -363,7 +363,7 @@ contract StartersProxy is Whitelist{
     }
 
     function forwardWin(address signer, address destination, bytes data, bytes32 hash, bytes signature) onlyWhitelisted public {
-        require(signersBacklog[signer].nonce > 0, &#39;Hm, no meta plays for this signer&#39;);
+        require(signersBacklog[signer].nonce > 0, 'Hm, no meta plays for this signer');
 
         forward(signer, destination, 0, data, hash, signature);
     }
@@ -376,7 +376,7 @@ contract StartersProxy is Whitelist{
         emit Forwarded(signer, destination, value, data);
     }
 
-    //borrowed from OpenZeppelin&#39;s ESDA stuff:
+    //borrowed from OpenZeppelin's ESDA stuff:
     //https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/cryptography/ECDSA.sol
     function recoverSigner(bytes32 _hash, bytes _signature) onlyWhitelisted public view returns (address){
         bytes32 r;
@@ -413,7 +413,7 @@ contract StartersProxy is Whitelist{
 
     function payDebt(address signer) public payable{
         require(signersBacklog[signer].nonce > 0, "Provided address has no debt");
-        require(signersBacklog[signer].debt >= msg.value, "Address&#39;s debt is less than payed amount");
+        require(signersBacklog[signer].debt >= msg.value, "Address's debt is less than payed amount");
 
         signersBacklog[signer].debt = signersBacklog[signer].debt.sub(msg.value);
     }

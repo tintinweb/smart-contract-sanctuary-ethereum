@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public constant returns (string) {}
     function symbol() public constant returns (string) {}
     function decimals() public constant returns (uint8) {}
@@ -159,7 +159,7 @@ contract SmartWallet {
     /*
         @dev constructor
 
-        @param _backupAccount       A default operator&#39;s account to send funds to, in cases where the user account is
+        @param _backupAccount       A default operator's account to send funds to, in cases where the user account is
                                     unavailable or lost
         @param _operator            The contract operator address
         @param _feesAccount         The account to transfer fees to 

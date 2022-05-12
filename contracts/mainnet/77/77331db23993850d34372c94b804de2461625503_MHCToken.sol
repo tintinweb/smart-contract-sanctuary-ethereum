@@ -78,8 +78,8 @@ interface tokenRecipient {
 }
 
 contract MHCToken {
-    string public name = &#39;MagicHerb Coin&#39;;
-    string public symbol = &#39;MHC&#39;;
+    string public name = 'MagicHerb Coin';
+    string public symbol = 'MHC';
     uint8 public decimals = 18;
     uint256 public totalSupply = 1000 * 10 ** 26;
 

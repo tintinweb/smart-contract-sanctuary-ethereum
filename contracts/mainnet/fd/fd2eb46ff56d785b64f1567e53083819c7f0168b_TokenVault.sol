@@ -261,7 +261,7 @@ contract TokenVault is Ownable {
 
     if(amount == 0) throw; // No empty buys
 
-    // Don&#39;t allow reset
+    // Don't allow reset
     if(balances[investor] > 0) {
       throw;
     }

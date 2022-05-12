@@ -30,7 +30,7 @@ library SafeMath {
 
     uint256 c = a / b;
 
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
 
@@ -327,7 +327,7 @@ contract StandardToken is ERC20, BasicToken {
 
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
 
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
 
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
 
@@ -455,7 +455,7 @@ contract BurnableToken is StandardToken {
 
         // no need to require value <= totalSupply, since that would imply the
 
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
 
 

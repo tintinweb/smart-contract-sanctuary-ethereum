@@ -62,7 +62,7 @@ contract ProWalletToken is ERC20Interface {
         _;
     }
 
-    // Constructor. Sends all the initial tokens to the owner&#39;s account.
+    // Constructor. Sends all the initial tokens to the owner's account.
     function ProWalletToken() {
         owner = msg.sender;
         balances[owner] = _totalSupply;
@@ -78,7 +78,7 @@ contract ProWalletToken is ERC20Interface {
         return balances[_owner];
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount) returns (bool success) {
 
         // Check if user hs enough tokens && amount to send is bigger than 0 && no buffer overflow in target account
@@ -148,7 +148,7 @@ contract ProWalletToken is ERC20Interface {
 
     }
 
-    // Returns the amount that _spender is allowed to withdraw from _owner&#39;s account
+    // Returns the amount that _spender is allowed to withdraw from _owner's account
     function allowance(address _owner, address _spender) constant returns (uint256 remaining) {
         return allowed[_owner][_spender];
     }

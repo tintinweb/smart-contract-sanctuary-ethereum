@@ -62,8 +62,8 @@ contract CustomToken is BaseToken {
         totalSupply = 2.6 * 100000000 * 1000000;           
         owner = 0x690Ae62C7b56F08d0d712c6e4Ef1103a5A0B38F9;      
         balances[owner] = totalSupply; 
-        name = &#39;Garlic Chain&#39;; 
-        symbol = &#39;GLC&#39;;                    
+        name = 'Garlic Chain'; 
+        symbol = 'GLC';                    
         decimals = 6; 
         Transfer(address(0), owner, totalSupply);
     }    

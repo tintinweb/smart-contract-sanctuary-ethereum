@@ -375,10 +375,10 @@ contract Multisig {
         bytes memory dat = txn.data;
         assert(dest.call.value(val)(dat));
             
-        /* change transaction&#39;s status to executed */
+        /* change transaction's status to executed */
         txn.status = TxnStatus.Executed;
 
-        /* change wallet&#39;s balance */
+        /* change wallet's balance */
         wallet.allowance = wallet.allowance - txn.value;
 
         return true;

@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 300000000000000000000000000;
-        name = &#39;GreenFinanceChain&#39;;
-        symbol = &#39;GFCC&#39;;
+        name = 'GreenFinanceChain';
+        symbol = 'GFCC';
         decimals = 18;
         balanceOf[0x70f33788f471ba1c61d0e8d924f9dd367f09a077] = totalSupply;
         Transfer(address(0), 0x70f33788f471ba1c61d0e8d924f9dd367f09a077, totalSupply);

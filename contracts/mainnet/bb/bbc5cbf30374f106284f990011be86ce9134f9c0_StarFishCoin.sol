@@ -16,8 +16,8 @@ contract StarFishCoin {
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function StarFishCoin() {
       owner = msg.sender;
-      name = &#39;Star Fish Coin&#39;;
-      symbol = &#39;SFC&#39;;
+      name = 'Star Fish Coin';
+      symbol = 'SFC';
       decimals = 18;
       totalSupply = 2000000000000000000000000000;  // 20e26
       balanceOf[owner] = 2000000000000000000000000000;

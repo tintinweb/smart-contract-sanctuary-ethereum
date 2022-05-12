@@ -86,7 +86,7 @@ contract Eurotrad is StandardToken {
     string public name;                  
     uint8 public decimals;                
     string public symbol;                 
-    string public version = &#39;EURTD 1.0&#39;; 
+    string public version = 'EURTD 1.0'; 
     uint256 public unitsOneEthCanBuy;     
     uint256 public totalEthInWei;         
     address public fundsWallet;           

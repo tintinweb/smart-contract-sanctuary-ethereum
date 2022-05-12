@@ -50,8 +50,8 @@ contract OsmiumCrowdsale is owned {
 
 contract Osmium is OsmiumCrowdsale {
     
-    string  public standard    = &#39;Token 0.1&#39;;
-    string  public name        = &#39;Osmium&#39;;
+    string  public standard    = 'Token 0.1';
+    string  public name        = 'Osmium';
     string  public symbol      = "OSM";
     uint8   public decimals    = 0;
 

@@ -83,7 +83,7 @@ contract BWData {
         owner = msg.sender;
     }
 
-    // Can&#39;t send funds straight to this contract. Avoid people sending by mistake.
+    // Can't send funds straight to this contract. Avoid people sending by mistake.
     function () payable public {
         revert();
     }
@@ -286,8 +286,8 @@ contract BWData {
         //      -> Total boost is (2+2+2+2+2+2+2+2) * 8 / 10 = 14.4 finney
         //   D) I boost attack with 3 tiles of 1, 5 and 10 finney respectively
         //      -> Total boost is (ss1+5+10) * 3 / 10 = 4.8 finney
-        // This division by 10 can&#39;t create fractions since our uint is wei, and we can&#39;t have overflow from the multiplication
-        // We do allow fractions of finney here since the boosted values aren&#39;t stored anywhere, only used for attack rolls and sent in events
+        // This division by 10 can't create fractions since our uint is wei, and we can't have overflow from the multiplication
+        // We do allow fractions of finney here since the boosted values aren't stored anywhere, only used for attack rolls and sent in events
         boost.attackBoost = (boost.attackBoost / 10 * boost.numAttackBoosts);
         boost.defendBoost = (boost.defendBoost / 10 * boost.numDefendBoosts);
 

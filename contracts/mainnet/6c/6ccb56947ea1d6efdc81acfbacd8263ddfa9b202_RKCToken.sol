@@ -236,7 +236,7 @@ contract RKCToken is StandardToken, Ownable {
     // Constructor
     function RKCToken() {
         // Some percentage of the tokens is already reserved by early employees and investors
-        // Here we&#39;re initializing their balances
+        // Here we're initializing their balances
         distributePreSoldShares();
 
         // Starting price
@@ -267,7 +267,7 @@ contract RKCToken is StandardToken, Ownable {
         // Deciding how many tokens can be bought with the ether received
         uint tokens = getAttoTokensAmountPerWeiInternal(msg.value);
 
-        // Don&#39;t allow to buy more than 1% per transaction (secures from huge investors swalling the whole thing in 1 second)
+        // Don't allow to buy more than 1% per transaction (secures from huge investors swalling the whole thing in 1 second)
         uint allowedInOneTransaction = current_supply / 100;
         if (tokens > allowedInOneTransaction) throw;
 
@@ -334,7 +334,7 @@ contract RKCToken is StandardToken, Ownable {
     // ***************************************************************************
 
     // Some percentage of the tokens is already reserved by early employees and investors
-    // Here we&#39;re initializing their balances
+    // Here we're initializing their balances
     function distributePreSoldShares() onlyOwner {
         // Making it impossible to call this function twice
         if (preSoldSharesDistributed) throw;
@@ -402,7 +402,7 @@ contract RKCToken is StandardToken, Ownable {
     function sendPremiumPack(uint amount) onlyOwner allowedPayments(msg.sender, amount) {
         premiumPacks.length += 1;
         premiumPacks[premiumPacks.length-1] = amount;
-        balances[msg.sender] = balances[msg.sender].sub(amount); // will throw and revert the whole thing if doesn&#39;t have this amount
+        balances[msg.sender] = balances[msg.sender].sub(amount); // will throw and revert the whole thing if doesn't have this amount
     }
 
     function updatePremiums(address account) private {
@@ -424,7 +424,7 @@ contract RKCToken is StandardToken, Ownable {
     // Overriding payment functions to take control over the logic
 
     modifier allowedPayments(address payer, uint value) {
-        // Don&#39;t allow to transfer coins until the ICO ends
+        // Don't allow to transfer coins until the ICO ends
         if (isICOOpened) throw;
         if (!isICOClosed) throw;
 

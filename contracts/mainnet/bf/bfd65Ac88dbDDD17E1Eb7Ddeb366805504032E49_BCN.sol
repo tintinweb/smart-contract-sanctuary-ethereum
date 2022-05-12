@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-// &#39;BYTECOIN&#39; token contract
+// 'BYTECOIN' token contract
 //
 // Deployed to : 0xbfd65Ac88dbDDD17E1Eb7Ddeb366805504032E49
 // Symbol      : BCN
@@ -77,7 +77,7 @@ contract BCN {
         uint amountRaised;                                     
         amountRaised += msg.value;                            //many thanks bois, couldnt do it without r/me_irl
         require(balanceOf[creator] >= amount);               // checks if it has enough to sell
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= amount;                        // sends ETH to DatBoiCoinMint
         Transfer(creator, msg.sender, amount);               // execute an event reflecting the change
         creator.transfer(amountRaised);

@@ -56,8 +56,8 @@ contract ZlotsJackpotHoldingContract is ERC223Receiving {
   ZethrInterface Zethr = ZethrInterface(0xD48B633045af65fF636F3c6edd744748351E020D);
 
   // Trackers
-  uint payoutNumber = 0; // How many times we&#39;ve paid out the jackpot
-  uint totalPaidOut = 0; // The total amount we&#39;ve paid out 
+  uint payoutNumber = 0; // How many times we've paid out the jackpot
+  uint totalPaidOut = 0; // The total amount we've paid out 
 
   // ------------------------- Functions
 

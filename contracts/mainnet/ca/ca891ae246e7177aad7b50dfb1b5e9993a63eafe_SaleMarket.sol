@@ -483,14 +483,14 @@ contract Market is MarketInterface, Pausable, TokenRecipientInterface
         );
     }
 
-    // @dev Calculates owner&#39;s cut of a sale.
+    // @dev Calculates owner's cut of a sale.
     // @param _price - Sale price of cutie.
     function _computeFee(uint128 _price) internal view returns (uint128)
     {
         return _price * ownerFee / 10000;
     }
 
-    // @dev Remove all Ether from the contract with the owner&#39;s cuts. Also, remove any Ether sent directly to the contract address.
+    // @dev Remove all Ether from the contract with the owner's cuts. Also, remove any Ether sent directly to the contract address.
     //  Transfers to the token contract, but can be called by
     //  the owner or the token contract.
     function withdrawEthFromBalance() external
@@ -526,7 +526,7 @@ contract Market is MarketInterface, Pausable, TokenRecipientInterface
         _addAuction(_cutieId, auction);
     }
 
-    // @dev Set the reference to cutie ownership contract. Verify the owner&#39;s fee.
+    // @dev Set the reference to cutie ownership contract. Verify the owner's fee.
     //  @param fee should be between 0-10,000.
     function setup(address _coreContractAddress, uint16 _fee) public onlyOwner
     {
@@ -539,7 +539,7 @@ contract Market is MarketInterface, Pausable, TokenRecipientInterface
         coreContract = candidateContract;
     }
 
-    // @dev Set the owner&#39;s fee.
+    // @dev Set the owner's fee.
     //  @param fee should be between 0-10,000.
     function setFee(uint16 _fee) public onlyOwner
     {

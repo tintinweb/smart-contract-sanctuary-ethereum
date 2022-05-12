@@ -233,7 +233,7 @@ contract Crowdsale is Pausable {
             referrer.tokensToSend = referrer.tokensToSend.add(affiliateTokens);
         }
         
-        require(totalTokensSent.add(tokensToSend.add(affiliateTokens)) < maxCap); // Ensure that max cap hasn&#39;t been reached  
+        require(totalTokensSent.add(tokensToSend.add(affiliateTokens)) < maxCap); // Ensure that max cap hasn't been reached  
             
         Backer storage backer = backers[_backer];
     
@@ -314,7 +314,7 @@ contract Crowdsale is Pausable {
         claimTokensForUser(msg.sender);
     }
 
-    // @notice this function can be called by admin to claim user&#39;s token in case of difficulties
+    // @notice this function can be called by admin to claim user's token in case of difficulties
     // @param _backer {address} user address to claim tokens for
     function adminClaimTokenForUser(address _backer) external onlyOwner() {
         claimTokensForUser(_backer);
@@ -343,8 +343,8 @@ contract Crowdsale is Pausable {
                   
         Backer storage backer = backers[_backer];
 
-        require(!backer.refunded);      // if refunded, don&#39;t allow for another refund           
-        require(!backer.claimed);       // if tokens claimed, don&#39;t allow refunding            
+        require(!backer.refunded);      // if refunded, don't allow for another refund           
+        require(!backer.claimed);       // if tokens claimed, don't allow refunding            
         require(backer.tokensToSend != 0);   // only continue if there are any tokens to send           
 
         claimCount++;
@@ -404,8 +404,8 @@ contract Crowdsale is Pausable {
         Backer storage backer = backers[msg.sender];
 
         require(backer.weiReceived > 0);  // esnure that user has sent contribution
-        require(!backer.refunded);         // ensure that user hasn&#39;t been refunded yet
-        require(!backer.claimed);       // if tokens claimed, don&#39;t allow refunding   
+        require(!backer.refunded);         // ensure that user hasn't been refunded yet
+        require(!backer.claimed);       // if tokens claimed, don't allow refunding   
        
         backer.refunded = true;  // save refund status to true
     

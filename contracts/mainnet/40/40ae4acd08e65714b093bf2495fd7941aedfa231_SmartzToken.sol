@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -71,7 +71,7 @@ contract multiowned {
         // count of confirmations needed
         uint yetNeeded;
 
-        // bitmap of confirmations where owner #ownerIndex&#39;s decision corresponds to 2**ownerIndex bit
+        // bitmap of confirmations where owner #ownerIndex's decision corresponds to 2**ownerIndex bit
         uint ownersDone;
 
         // position of this operation key in m_multiOwnedPendingIndex
@@ -106,8 +106,8 @@ contract multiowned {
         if (confirmAndCheck(_operation)) {
             _;
         }
-        // Even if required number of confirmations has&#39;t been collected yet,
-        // we can&#39;t throw here - because changes to the state have to be preserved.
+        // Even if required number of confirmations has't been collected yet,
+        // we can't throw here - because changes to the state have to be preserved.
         // But, confirmAndCheck itself will throw in case sender is not an owner.
     }
 
@@ -260,14 +260,14 @@ contract multiowned {
 
     /// @notice checks if provided address is an owner address
     /// @param _addr address to check
-    /// @return true if it&#39;s an owner
+    /// @return true if it's an owner
     function isOwner(address _addr) public constant returns (bool) {
         return m_ownerIndex[_addr] > 0;
     }
 
     /// @notice Tests ownership of the current caller.
-    /// @return true if it&#39;s an owner
-    // It&#39;s advisable to call it by new owner to make sure that the same erroneous address is not copy-pasted to
+    /// @return true if it's an owner
+    // It's advisable to call it by new owner to make sure that the same erroneous address is not copy-pasted to
     // addOwner/changeOwner and to isOwner.
     function amIOwner() external constant onlyowner returns (bool) {
         return true;
@@ -315,14 +315,14 @@ contract multiowned {
     {
         if (512 == m_multiOwnedPendingIndex.length)
             // In case m_multiOwnedPendingIndex grows too much we have to shrink it: otherwise at some point
-            // we won&#39;t be able to do it because of block gas limit.
+            // we won't be able to do it because of block gas limit.
             // Yes, pending confirmations will be lost. Dont see any security or stability implications.
             // TODO use more graceful approach like compact or removal of clearPending completely
             clearPending();
 
         var pending = m_multiOwnedPending[_operation];
 
-        // if we&#39;re not yet working on this operation, switch over and reset the confirmation status.
+        // if we're not yet working on this operation, switch over and reset the confirmation status.
         if (! isOperationActive(_operation)) {
             // reset count of confirmations needed.
             pending.yetNeeded = m_multiOwnedRequired;
@@ -335,7 +335,7 @@ contract multiowned {
 
         // determine the bit to set for this owner.
         uint ownerIndexBit = makeOwnerBitmapBit(msg.sender);
-        // make sure we (the message sender) haven&#39;t confirmed this operation previously.
+        // make sure we (the message sender) haven't confirmed this operation previously.
         if (pending.ownersDone & ownerIndexBit == 0) {
             // ok - check if count is enough to go ahead.
             assert(pending.yetNeeded > 0);
@@ -372,7 +372,7 @@ contract multiowned {
             // swap, if possible, so free slot is located at the end after the swap
             if (free < m_numOwners && m_owners[m_numOwners] != 0 && m_owners[free] == 0)
             {
-                // owners between swapped slots should&#39;t be renumbered - that saves a lot of gas
+                // owners between swapped slots should't be renumbered - that saves a lot of gas
                 m_owners[free] = m_owners[m_numOwners];
                 m_ownerIndex[m_owners[free]] = free;
                 m_owners[m_numOwners] = 0;
@@ -496,7 +496,7 @@ contract BurnableToken is BasicToken {
     event Burn(address indexed from, uint256 amount);
 
     /**
-     * Function to burn msg.sender&#39;s tokens.
+     * Function to burn msg.sender's tokens.
      *
      * @param _amount amount of tokens to burn
      *
@@ -548,7 +548,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -604,8 +604,8 @@ contract TokenWithApproveAndCallMethod is StandardToken {
      * @param _extraData any extra data which to be provided to the _spender
      *
      * By invoking this utility function token holder could do two things in one transaction: approve spending his
-     * tokens and execute some external contract which spends them on token holder&#39;s behalf.
-     * It can&#39;t be known if _spender&#39;s invocation succeed or not.
+     * tokens and execute some external contract which spends them on token holder's behalf.
+     * It can't be known if _spender's invocation succeed or not.
      * This function will throw if approval failed.
      */
     function approveAndCall(address _spender, uint256 _value, bytes _extraData) public {
@@ -616,7 +616,7 @@ contract TokenWithApproveAndCallMethod is StandardToken {
 
 contract SmartzToken is ArgumentsChecker, multiowned, BurnableToken, StandardToken, TokenWithApproveAndCallMethod {
 
-    /// @title Unit of frozen tokens - tokens which can&#39;t be spent until certain conditions is met.
+    /// @title Unit of frozen tokens - tokens which can't be spent until certain conditions is met.
     struct FrozenCell {
         /// @notice amount of frozen tokens
         uint amount;
@@ -723,7 +723,7 @@ result[2] = address(0xAACf78F8e1fbDcf7d941E80Ff8B817BE1F054Af4);
     }
 
     /**
-     * @notice Standard transfer() overridden to have a chance to thaw sender&#39;s tokens.
+     * @notice Standard transfer() overridden to have a chance to thaw sender's tokens.
      *
      * @param _to the address to transfer to
      * @param _value the amount to be transferred
@@ -740,7 +740,7 @@ result[2] = address(0xAACf78F8e1fbDcf7d941E80Ff8B817BE1F054Af4);
     }
 
     /**
-     * @notice Standard transferFrom overridden to have a chance to thaw sender&#39;s tokens.
+     * @notice Standard transferFrom overridden to have a chance to thaw sender's tokens.
      *
      * @param _from address the address which you want to send tokens from
      * @param _to address the address which you want to transfer to
@@ -759,7 +759,7 @@ result[2] = address(0xAACf78F8e1fbDcf7d941E80Ff8B817BE1F054Af4);
 
 
     /**
-     * Function to burn msg.sender&#39;s tokens. Overridden to have a chance to thaw sender&#39;s tokens.
+     * Function to burn msg.sender's tokens. Overridden to have a chance to thaw sender's tokens.
      *
      * @param _amount amount of tokens to burn
      *
@@ -795,8 +795,8 @@ result[2] = address(0xAACf78F8e1fbDcf7d941E80Ff8B817BE1F054Af4);
      * @param index index of so-called frozen cell from 0 (inclusive) up to frozenCellCount(owner) exclusive
      *
      * @return amount amount of tokens frozen in this cell
-     * @return thawTS unix timestamp at which tokens&#39;ll become available
-     * @return isKYCRequired it&#39;s required to pass KYC to spend tokens iff isKYCRequired is true
+     * @return thawTS unix timestamp at which tokens'll become available
+     * @return isKYCRequired it's required to pass KYC to spend tokens iff isKYCRequired is true
      */
     function frozenCell(address owner, uint index) public view returns (uint amount, uint thawTS, bool isKYCRequired) {
         require(index < frozenCellCount(owner));
@@ -848,8 +848,8 @@ result[2] = address(0xAACf78F8e1fbDcf7d941E80Ff8B817BE1F054Af4);
      *
      * @param _to account to which tokens are sent
      * @param _value amount of tokens to send
-     * @param thawTS unix timestamp at which tokens&#39;ll become available
-     * @param isKYCRequired it&#39;s required to pass KYC to spend tokens iff isKYCRequired is true
+     * @param thawTS unix timestamp at which tokens'll become available
+     * @param isKYCRequired it's required to pass KYC to spend tokens iff isKYCRequired is true
      *
      * Function is used only during token sale phase and available only to sale accounts.
      */
@@ -878,8 +878,8 @@ result[2] = address(0xAACf78F8e1fbDcf7d941E80Ff8B817BE1F054Af4);
      * @param _from account to send tokens from
      * @param _to account to which tokens are sent
      * @param _value amount of tokens to send
-     * @param thawTS unix timestamp at which tokens&#39;ll become available
-     * @param isKYCRequired it&#39;s required to pass KYC to spend tokens iff isKYCRequired is true
+     * @param thawTS unix timestamp at which tokens'll become available
+     * @param isKYCRequired it's required to pass KYC to spend tokens iff isKYCRequired is true
      *
      * Function is used only during token sale phase to make a refunds and available only to sale accounts.
      * _from account has to explicitly approve spending with the approve() call.
@@ -1058,7 +1058,7 @@ result[2] = address(0xAACf78F8e1fbDcf7d941E80Ff8B817BE1F054Af4);
 
     // CONSTANTS
 
-    string public constant name = &#39;Smartz token&#39;;
-    string public constant symbol = &#39;SMR&#39;;
+    string public constant name = 'Smartz token';
+    string public constant symbol = 'SMR';
     uint8 public constant decimals = 18;
 }

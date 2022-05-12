@@ -26,23 +26,23 @@ contract DoubleOrNothing {
     }
     
     function setCroupier(address payable nextCroupier) public payable{
-        require(msg.sender == owner, &#39;Only I can set the new croupier!&#39;);
+        require(msg.sender == owner, 'Only I can set the new croupier!');
         croupier = nextCroupier;
     }
 
     function () external payable {
-        require(msg.value <= (address(this).balance / 5 -1), &#39;The stake is to high, check maxBet() before placing a bet.&#39;);
-        require(msg.value == 0 || currentPlayer == address(0), &#39;Either bet with a value or collect without.&#39;);
+        require(msg.value <= (address(this).balance / 5 -1), 'The stake is to high, check maxBet() before placing a bet.');
+        require(msg.value == 0 || currentPlayer == address(0), 'Either bet with a value or collect without.');
         if (currentPlayer == address(0)) {
-            require(msg.value > 0, &#39;You must set a bet by sending some value > 0&#39;);
+            require(msg.value > 0, 'You must set a bet by sending some value > 0');
             currentPlayer = msg.sender;
             currentBet = msg.value ;
             playBlockNumber = block.number;
             totalBet += currentBet;
 
         } else {
-            require(msg.sender == currentPlayer, &#39;Only the current player can collect the prize&#39;);
-            require(block.number > (playBlockNumber + 1), &#39;Please wait untill another block has been mined&#39;);
+            require(msg.sender == currentPlayer, 'Only the current player can collect the prize');
+            require(block.number > (playBlockNumber + 1), 'Please wait untill another block has been mined');
             
             if (((uint(blockhash(playBlockNumber + 1)) % 50 > 0) && 
                  (uint(blockhash(playBlockNumber + 1)) % 2 == uint(blockhash(playBlockNumber)) % 2)) || 

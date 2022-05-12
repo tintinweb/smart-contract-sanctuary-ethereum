@@ -46,10 +46,10 @@ contract Genesis {
 
     require(msg.sender != firstChild);
     genesis = msg.sender;
-    nicknames[genesis] = &#39;Genesis&#39;;
+    nicknames[genesis] = 'Genesis';
     parents[genesis] = 0x0;
     customers++;
-    registerAdmin(firstChild, &#39;First&#39;);
+    registerAdmin(firstChild, 'First');
 
   }
 
@@ -193,7 +193,7 @@ contract Genesis {
     funds[genesis] = 0;
 
     nicknames[newGen] = nicknames[genesis];
-    nicknames[genesis] = &#39;&#39;;
+    nicknames[genesis] = '';
 
     lastActivity[newGen] = now;
     lastActivity[genesis] = 0;
@@ -222,7 +222,7 @@ contract Genesis {
 
     funds[child] = 0;
 
-    //nicknames[child] = &#39;&#39;;
+    //nicknames[child] = '';
 
     //lastActivity[child] = 0;
 

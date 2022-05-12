@@ -253,7 +253,7 @@ contract CutiePluginBase is PluginInterface, Pausable
         coreContract = candidateContract;
     }
 
-    // @dev Set the owner&#39;s fee.
+    // @dev Set the owner's fee.
     //  @param fee should be between 0-10,000.
     function setFee(uint16 _fee) public
     {
@@ -288,10 +288,10 @@ contract CutiePluginBase is PluginInterface, Pausable
         coreContract.transfer(_receiver, _cutieId);
     }
 
-    /// @dev Computes owner&#39;s cut of a sale.
+    /// @dev Computes owner's cut of a sale.
     /// @param _price - Sale price of NFT.
     function _computeFee(uint128 _price) internal view returns (uint128) {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our entry functions carefully cap the maximum values for
         //  currency (at 128-bits), and ownerFee <= 10000 (see the require()
         //  statement in the ClockAuction constructor). The result of this

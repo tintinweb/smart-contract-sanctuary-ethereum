@@ -180,7 +180,7 @@ contract Ownable {
   }
 
   function removeOwner(address _owner) public onlyOwners{
-  	require(_owner != msg.sender);  // can&#39;t remove your self
+  	require(_owner != msg.sender);  // can't remove your self
   	owners[_owner] = false;
   	emit RemoveOwner(_owner);
   }
@@ -253,7 +253,7 @@ contract NateePrivate is MyToken, Ownable{
 	}
 
 	// Call at Startup Aftern done canAirDrop will set to false 
-	// It mean can&#39;t use this function again
+	// It mean can't use this function again
 	function airDropToken(address _addr, uint256 _value) onlyOwner public{
 			require(canAirDrop);
 

@@ -123,7 +123,7 @@ contract PariMutuel is Ownable {
     WinningOutcomeDeclared(outcome);
   }
 
-  // if there&#39;s a draw or a bug in the contract
+  // if there's a draw or a bug in the contract
   function refundEverybody() external onlyOwner {
     state = State.Refunding;
     StateChanged(state);

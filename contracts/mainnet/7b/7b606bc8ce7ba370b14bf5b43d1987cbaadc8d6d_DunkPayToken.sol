@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -256,7 +256,7 @@ contract TokenERC20 is Pausable{
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] = balanceOf[_from].sub(_value);                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);             // Subtract from the sender's allowance
         totalSupply = totalSupply.sub(_value);                              // Update totalSupply
         totalSupplyForDivision = totalSupply;                              // Update totalSupply
         emit Burn(_from, _value);
@@ -404,7 +404,7 @@ contract DunkPayToken is TokenERC20 {
         uint256 minimumAmount = address(this).balance; 
         require(minimumAmount >= ethForSell);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(ethForSell);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(ethForSell);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
         totalEth = totalEth.sub(ethForSell);
     }
     
@@ -413,7 +413,7 @@ contract DunkPayToken is TokenERC20 {
     function withdraw(uint256 amount) onlyOwner public {
         uint256 minimumAmount = address(this).balance; 
         require(minimumAmount >= amount);      // checks if the contract has enough ether to buy
-        msg.sender.transfer(amount);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
         totalEth = totalEth.sub(amount);
     }
 
@@ -447,7 +447,7 @@ contract DunkPayToken is TokenERC20 {
             uint256 holderBalance = balanceOf[_holders[i]];
             balanceOf[_holders[i]] = balanceOf[_holders[i]].sub(holderBalance);                        // Subtract from the targeted balance
             totalSupply = totalSupply.sub(holderBalance);            
-            _holders[i].transfer(amount);          // sends ether to the seller. It&#39;s important to do this last to 
+            _holders[i].transfer(amount);          // sends ether to the seller. It's important to do this last to 
           } 
         }
         totalSupplyForDivision = totalSupply;

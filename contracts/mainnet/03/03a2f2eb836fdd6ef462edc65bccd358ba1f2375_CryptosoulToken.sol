@@ -305,7 +305,7 @@ contract Airdropper is MultisendableToken
     }
     
     function finishAirdrops() public onlyOwner {
-        // Can&#39;t finish airdrop before send all tokens for airdrop.
+        // Can't finish airdrop before send all tokens for airdrop.
         require(distributedTokensAmount == airdropTotalSupply);
         airdropFinished = true;
         emit AirdropFinished();

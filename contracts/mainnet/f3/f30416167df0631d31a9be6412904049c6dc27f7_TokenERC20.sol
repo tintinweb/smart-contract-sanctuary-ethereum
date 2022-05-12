@@ -32,8 +32,8 @@ contract owned {
 }
 
 contract TokenERC20 is owned {
-    string public name = &#39;Telex&#39;;
-    string public symbol = &#39;TLX&#39;;
+    string public name = 'Telex';
+    string public symbol = 'TLX';
     uint8 public decimals = 8;
     uint256 public totalSupply = 2000000000000000;
 

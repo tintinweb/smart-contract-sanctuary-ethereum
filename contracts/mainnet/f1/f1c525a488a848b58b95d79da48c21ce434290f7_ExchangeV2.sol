@@ -76,10 +76,10 @@ contract WalletConnector is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != owner_)
-      return error(&#39;msg.sender != owner, WalletConnector.addLogicVersion()&#39;);
+      return error('msg.sender != owner, WalletConnector.addLogicVersion()');
 
     if (logicVersions_[_version] != 0)
-      return error(&#39;Version already exists, WalletConnector.addLogicVersion()&#39;);
+      return error('Version already exists, WalletConnector.addLogicVersion()');
 
     // Update latest if this is the latest version
     if (_version > latestVersion_) {
@@ -153,7 +153,7 @@ contract WalletV2 is LoggingErrors {
 
   /**
    * @dev Contract constructor. Set user as owner and connector address.
-   * @param _owner The address of the user&#39;s EOA, wallets created from the exchange
+   * @param _owner The address of the user's EOA, wallets created from the exchange
    * so must past in the owner address, msg.sender == exchange.
    * @param _connector The wallet connector to be used to retrieve the wallet logic
    */
@@ -184,7 +184,7 @@ contract WalletV2 is LoggingErrors {
     external
     payable
   {
-    require(logic_.delegatecall(bytes4(sha3(&#39;deposit(address,uint256)&#39;)), 0, msg.value));
+    require(logic_.delegatecall(bytes4(sha3('deposit(address,uint256)')), 0, msg.value));
   }
 
   /**
@@ -201,9 +201,9 @@ contract WalletV2 is LoggingErrors {
   {
     // ether
     if (_token == 0)
-      return error(&#39;Cannot deposit ether via depositERC20, Wallet.depositERC20Token()&#39;);
+      return error('Cannot deposit ether via depositERC20, Wallet.depositERC20Token()');
 
-    require(logic_.delegatecall(bytes4(sha3(&#39;deposit(address,uint256)&#39;)), _token, _amount));
+    require(logic_.delegatecall(bytes4(sha3('deposit(address,uint256)')), _token, _amount));
     return true;
   }
 
@@ -241,7 +241,7 @@ contract WalletV2 is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != owner_)
-      return error(&#39;msg.sender != owner_, Wallet.updateExchange()&#39;);
+      return error('msg.sender != owner_, Wallet.updateExchange()');
 
     // If subsequent messages are not sent from this address all orders will fail
     exchange_ = _exchange;
@@ -259,13 +259,13 @@ contract WalletV2 is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != owner_)
-      return error(&#39;msg.sender != owner_, Wallet.updateLogic()&#39;);
+      return error('msg.sender != owner_, Wallet.updateLogic()');
 
     address newVersion = connector_.getLogic(_version);
 
     // Invalid version as defined by connector
     if (newVersion == 0)
-      return error(&#39;Invalid version, Wallet.updateLogic()&#39;);
+      return error('Invalid version, Wallet.updateLogic()');
 
     logic_ = newVersion;
     return true;
@@ -308,7 +308,7 @@ contract WalletV2 is LoggingErrors {
     returns(bool)
   {
     if(msg.sender != owner_)
-      return error(&#39;msg.sender != owner, Wallet.withdraw()&#39;);
+      return error('msg.sender != owner, Wallet.withdraw()');
 
     assembly {
       calldatacopy(0x40, 0, calldatasize)
@@ -350,7 +350,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -1059,11 +1059,11 @@ contract ExchangeV2 is LoggingErrors {
     //  // Maker
     //  uint256 minOrderEthAmount = minOrderEthAmount_; // Single storage read
     //  if (_token_and_EOA_Addresses[1] == 0 && _amountsExpirationAndSalt[0] < minOrderEthAmount)
-    //    return error(&#39;Maker order does not meet the minOrderEthAmount_ of ether, Exchange.__executeOrderInputIsValid__()&#39;);
+    //    return error('Maker order does not meet the minOrderEthAmount_ of ether, Exchange.__executeOrderInputIsValid__()');
 
     //  // Taker
     //  if (_token_and_EOA_Addresses[3] == 0 && _amountsExpirationAndSalt[2] < minOrderEthAmount)
-    //    return error(&#39;Taker order does not meet the minOrderEthAmount_ of ether, Exchange.__executeOrderInputIsValid__()&#39;);
+    //    return error('Taker order does not meet the minOrderEthAmount_ of ether, Exchange.__executeOrderInputIsValid__()');
 
     return true;
   }

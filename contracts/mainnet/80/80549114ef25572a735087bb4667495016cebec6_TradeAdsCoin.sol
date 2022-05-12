@@ -69,7 +69,7 @@ contract TradeAdsCoin {
 		owner.transfer(msg.value);
     }
 
-    /* Transfer the balance from the sender&#39;s address to the address _to */
+    /* Transfer the balance from the sender's address to the address _to */
     function transfer(address _to, uint256 _value) public returns (bool success) {
         if (balances[msg.sender] >= _value
             && _value > 0

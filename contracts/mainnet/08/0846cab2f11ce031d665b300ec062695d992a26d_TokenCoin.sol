@@ -2,11 +2,11 @@ pragma solidity ^0.4.4;
 
 /// Ever wondered why some cryptocurrencies are coins and others are tokens? Ever tried to explain the difference to someone who has no idea about crypto? 
 /// Well now the problem has been solved! Here we have an Ethereum token that can be handed out to the common person without needing to explain to them why or how it is different from bitcoin. It just is. Forget the technical details, or risk 20 minutes of conversation where
-/// you know you&#39;ve lost the person within the first 10 seconds but they just keep nodding and saying they understand.
+/// you know you've lost the person within the first 10 seconds but they just keep nodding and saying they understand.
 
-///   Parent 1: "My son has been trying to get me into this cryptocurrency scene, but I have no idea what he&#39;s talking about. Do I buy an ethereums or a bitcoins? What if I get the wrong tokens when I buy a bitcoin?"
-///   Parent 2: "God knows I can&#39;t keep track of the 3 passwords I use now, let alone remembering passwords for all these different wallets. I want a coin that just has one wallet."
-///   Cryptogrumbo: "Don&#39;t worry Generation X! Check out this new fandangled cryptocurrency that solves all your problems.... it&#39;s the only cryptocurrency you will ever need."
+///   Parent 1: "My son has been trying to get me into this cryptocurrency scene, but I have no idea what he's talking about. Do I buy an ethereums or a bitcoins? What if I get the wrong tokens when I buy a bitcoin?"
+///   Parent 2: "God knows I can't keep track of the 3 passwords I use now, let alone remembering passwords for all these different wallets. I want a coin that just has one wallet."
+///   Cryptogrumbo: "Don't worry Generation X! Check out this new fandangled cryptocurrency that solves all your problems.... it's the only cryptocurrency you will ever need."
 
 contract Token {
 
@@ -51,8 +51,8 @@ contract Token {
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -107,7 +107,7 @@ contract TokenCoin is StandardToken {
     string public name = "TokenCoin";                   
     uint8 public decimals = 12;                
     string public symbol = "TKN";                 
-    string public version = &#39;H1.0&#39;;       
+    string public version = 'H1.0';       
 
 
 

@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;GrowthHackerCoin&#39;;
-        symbol = &#39;GHC&#39;;
+        name = 'GrowthHackerCoin';
+        symbol = 'GHC';
         decimals = 18;
         balanceOf[0x3b732654fa97fff4baa6831be3efc32f595bb1df] = totalSupply;
         Transfer(address(0), 0x3b732654fa97fff4baa6831be3efc32f595bb1df, totalSupply);

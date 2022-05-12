@@ -224,11 +224,11 @@ contract Zlots is ZTHReceivingContract {
 
         uint profit = 0;
 
-        // If the block is more than 255 blocks old, we can&#39;t get the result
+        // If the block is more than 255 blocks old, we can't get the result
         // Also, if the result has already happened, fail as well
         uint result;
         if (block.number - spin.blockn > 255) {
-          result = 9999; // Can&#39;t win: default to largest number
+          result = 9999; // Can't win: default to largest number
         } else {
 
           // Generate a result - random based ONLY on a past block (future when submitted).
@@ -279,9 +279,9 @@ contract Zlots is ZTHReceivingContract {
     }
 
     // This sounds like a draconian function, but it actually just ensures that the contract has enough to pay out
-    // a jackpot at the rate you&#39;ve selected (i.e. 1250 ZTH for jackpot on a 50 ZTH roll).
+    // a jackpot at the rate you've selected (i.e. 1250 ZTH for jackpot on a 50 ZTH roll).
     // We do this by making sure that 25* your wager is no less than 50% of the amount currently held by the contract.
-    // If not, you&#39;re going to have to use lower betting amounts, we&#39;re afraid!
+    // If not, you're going to have to use lower betting amounts, we're afraid!
     function jackpotGuard(uint _wager)
         public
         view
@@ -362,7 +362,7 @@ contract Zlots is ZTHReceivingContract {
     }
 }
 
-// And here&#39;s the boring bit.
+// And here's the boring bit.
 
 /**
  * @title SafeMath
@@ -388,7 +388,7 @@ library SafeMath {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

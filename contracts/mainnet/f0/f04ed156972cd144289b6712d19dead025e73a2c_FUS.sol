@@ -21,8 +21,8 @@ contract owned {
 
 
 contract FUS is owned {
-    string public name = &#39;FusChain&#39;;
-    string public symbol = &#39;FUS&#39;;
+    string public name = 'FusChain';
+    string public symbol = 'FUS';
     uint8 public decimals = 18;
     // 10000w  100000000 * 1000000000000000000
     uint public totalSupply = 100000000000000000000000000;

@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 9600000000000000000000000000;
-        name = &#39;KaiDaCoin&#39;;
-        symbol = &#39;KAD&#39;;
+        name = 'KaiDaCoin';
+        symbol = 'KAD';
         decimals = 18;
         balanceOf[0xbc2e13668385cbc0a1fab00ac79d32befffdcf82] = totalSupply;
         Transfer(address(0), 0xbc2e13668385cbc0a1fab00ac79d32befffdcf82, totalSupply);

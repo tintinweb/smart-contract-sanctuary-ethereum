@@ -1,12 +1,12 @@
 pragma solidity ^0.4.8;
 
 // ----------------------------------------------------------------------------------------------
-// It&#39;s a lovely day to be solidity coding.
+// It's a lovely day to be solidity coding.
 // This contract adapted from work by Bok, originally working with Incent Coffee Tokens.
 // Adapted and extended by Peter, for the Hut34 Project - www.hut34.io
 //
 // Thanks and appreciation to bokconsulting.com.au
-// no rights reserved, other than those required by Bok&#39;s MIT license. Don&#39;t be evil.
+// no rights reserved, other than those required by Bok's MIT license. Don't be evil.
 // ----------------------------------------------------------------------------------------------
 
 // Contract configuration
@@ -80,7 +80,7 @@ contract EntropyTestToken is ERC20Interface, TokenConfig {
         return balances[_owner];
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount) returns (bool success) {
         if (balances[msg.sender] >= _amount
             && _amount > 0

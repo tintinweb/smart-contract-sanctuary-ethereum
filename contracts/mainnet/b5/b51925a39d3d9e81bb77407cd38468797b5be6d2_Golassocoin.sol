@@ -5,7 +5,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;Golassocoin&#39; Token Contract
+// 'Golassocoin' Token Contract
 //
 // Deployed To : 0xb51925a39d3d9e81bb77407cd38468797b5be6d2
 // Symbol      : GSN
@@ -13,7 +13,7 @@ pragma solidity ^0.4.18;
 // Total Supply: 10,000,000 GSN
 // Decimals    : 8
 //
-// (c) By &#39;Golassocoin&#39; With &#39;GSN&#39; Symbol 2019. The MIT Licence.
+// (c) By 'Golassocoin' With 'GSN' Symbol 2019. The MIT Licence.
 // ERC20 Smart Contract Developed By: https://SoftCode.space Blockchain Developer Team.
 // ----------------------------------------------------------------------------
 

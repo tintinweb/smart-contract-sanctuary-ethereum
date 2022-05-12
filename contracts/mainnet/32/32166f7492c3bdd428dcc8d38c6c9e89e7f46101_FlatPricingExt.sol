@@ -144,7 +144,7 @@ contract FinalizeAgent {
   }
   /** Return true if we can run finalizeCrowdsale() properly.
    *
-   * This is a safety check function that doesn&#39;t allow crowdsale to begin
+   * This is a safety check function that doesn't allow crowdsale to begin
    * unless the finalizer has been set up properly.
    */
   function isSane() public constant returns (bool);
@@ -286,7 +286,7 @@ contract CrowdsaleExt is Haltable {
         throw;
     }
     endsAt = _end;
-    // Don&#39;t mess the dates
+    // Don't mess the dates
     if(startsAt >= endsAt) {
         throw;
     }
@@ -296,7 +296,7 @@ contract CrowdsaleExt is Haltable {
     isWhiteListed = _isWhiteListed;
   }
   /**
-   * Don&#39;t expect to just send in money and get tokens.
+   * Don't expect to just send in money and get tokens.
    */
   function() payable {
     throw;
@@ -312,7 +312,7 @@ contract CrowdsaleExt is Haltable {
    *
    */
   function investInternal(address receiver, uint128 customerId) stopInEmergency private {
-    // Determine if it&#39;s a good time to accept investment from this participant
+    // Determine if it's a good time to accept investment from this participant
     if(getState() == State.PreFunding) {
       // Are we whitelisted for early deposit
       throw;
@@ -344,7 +344,7 @@ contract CrowdsaleExt is Haltable {
         // tokenAmount > maxCap for investor
         throw;
       }
-      // Check that we did not bust the investor&#39;s cap
+      // Check that we did not bust the investor's cap
       if (isBreakingInvestorCap(receiver, tokenAmount)) {
         throw;
       }
@@ -486,7 +486,7 @@ contract CrowdsaleExt is Haltable {
    */
   function setFinalizeAgent(FinalizeAgent addr) onlyOwner {
     finalizeAgent = addr;
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if(!finalizeAgent.isFinalizeAgent()) {
       throw;
     }
@@ -558,7 +558,7 @@ contract CrowdsaleExt is Haltable {
     if (finalized) throw;
     if (!isUpdatable) throw;
     if(now > time) {
-      throw; // Don&#39;t change past
+      throw; // Don't change past
     }
     if(time > endsAt) {
       throw;
@@ -582,7 +582,7 @@ contract CrowdsaleExt is Haltable {
     if (finalized) throw;
     if (!isUpdatable) throw;
     if(now > time) {
-      throw; // Don&#39;t change past
+      throw; // Don't change past
     }
     if(startsAt > time) {
       throw;
@@ -610,7 +610,7 @@ contract CrowdsaleExt is Haltable {
    */
   function setPricingStrategy(PricingStrategy _pricingStrategy) onlyOwner {
     pricingStrategy = _pricingStrategy;
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if(!pricingStrategy.isPricingStrategy()) {
       throw;
     }

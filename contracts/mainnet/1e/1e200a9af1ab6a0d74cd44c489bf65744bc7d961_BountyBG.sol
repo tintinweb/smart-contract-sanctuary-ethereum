@@ -90,9 +90,9 @@ contract BountyBG {
             RewardStatus("Reward sent", bounty.id, _users[i], _rewards[i]);
             /* if (_users[i].send(_rewards[i])) {
                 bounty.remainingBounty -= _rewards[i];
-                RewardStatus(&#39;Reward sent&#39;, bounty.id, _users[i], _rewards[i]);
+                RewardStatus('Reward sent', bounty.id, _users[i], _rewards[i]);
             } else {
-                ErrorStatus(&#39;Error in reward&#39;, bounty.id, _users[i], _rewards[i]);
+                ErrorStatus('Error in reward', bounty.id, _users[i], _rewards[i]);
             } */
         }
     }
@@ -106,7 +106,7 @@ contract BountyBG {
         bounty.endTime = block.timestamp;
         
         _user.transfer(_reward);
-        RewardStatus(&#39;Reward sent&#39;, bounty.id, _user, _reward);
+        RewardStatus('Reward sent', bounty.id, _user, _reward);
     }
 
     // USER ACTIONS TRIGGERED BY METAMASK
@@ -124,7 +124,7 @@ contract BountyBG {
         bountyFeeCount += bountyFee;
         bounty.startTime = block.timestamp;
         bounty.owner = msg.sender;
-        BountyStatus(&#39;Bounty submitted&#39;, bounty.id, msg.sender, msg.value);
+        BountyStatus('Bounty submitted', bounty.id, msg.sender, msg.value);
     }
 
     function cancelBounty(uint256 _bountyId) external {
@@ -139,7 +139,7 @@ contract BountyBG {
         bounty.ended = true;
         bounty.retracted = true;
         bounty.owner.transfer(bounty.bounty);
-        BountyStatus(&#39;Bounty was canceled&#39;, bounty.id, msg.sender, bounty.bounty);
+        BountyStatus('Bounty was canceled', bounty.id, msg.sender, bounty.bounty);
     }
 
 

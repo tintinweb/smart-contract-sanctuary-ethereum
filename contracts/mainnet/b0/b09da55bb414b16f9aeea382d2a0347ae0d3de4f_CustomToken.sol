@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 200000000;
-        name = &#39;HarborCoin&#39;;
-        symbol = &#39;HBC&#39;;
+        name = 'HarborCoin';
+        symbol = 'HBC';
         decimals = 0;
         balanceOf[0x0de088f9e6991b7651450e564debcf702a4eb2ff] = totalSupply;
         Transfer(address(0), 0x0de088f9e6991b7651450e564debcf702a4eb2ff, totalSupply);

@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 /* ==================================================================== */
 /* Copyright (c) 2018 The MagicAcademy Project.  All rights reserved.
 /* 
-/* https://www.magicacademy.io One of the world&#39;s first idle strategy games of blockchain 
+/* https://www.magicacademy.io One of the world's first idle strategy games of blockchain 
 /*  
 /* authors <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6517040c0b1c25090c1300161104174b060a08">[email&#160;protected]</a>/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0842676671264e7d4864617e6d7b7c697a266b6765">[email&#160;protected]</a>
 /*                 
@@ -138,7 +138,7 @@ contract CardsRaffle is AccessAdmin {
     
   // Raffle tickets
   mapping(address => TicketPurchases) private ticketsBoughtByPlayer;
-  mapping(uint256 => address[]) private rafflePlayers; // Keeping a seperate list for each raffle has it&#39;s benefits. 
+  mapping(uint256 => address[]) private rafflePlayers; // Keeping a seperate list for each raffle has it's benefits. 
 
   uint256 private constant RAFFLE_TICKET_BASE_PRICE = 10000;
   uint256 private constant MAX_LIMIT = 1000;
@@ -159,7 +159,7 @@ contract CardsRaffle is AccessAdmin {
     uint256 ticketsCost = SafeMath.mul(RAFFLE_TICKET_BASE_PRICE, amount);
     require(cards.balanceOf(msg.sender) >= ticketsCost);
         
-    // Update player&#39;s jade  
+    // Update player's jade  
     cards.updatePlayersCoinByPurchase(msg.sender, ticketsCost);
         
     // Handle new tickets
@@ -176,7 +176,7 @@ contract CardsRaffle is AccessAdmin {
     if (purchases.numPurchases == purchases.ticketsBought.length) {
       purchases.ticketsBought.length = SafeMath.add(purchases.ticketsBought.length,1);
     }
-    purchases.ticketsBought[purchases.numPurchases++] = TicketPurchase(raffleTicketsBought, raffleTicketsBought + (amount - 1)); // (eg: buy 10, get id&#39;s 0-9)
+    purchases.ticketsBought[purchases.numPurchases++] = TicketPurchase(raffleTicketsBought, raffleTicketsBought + (amount - 1)); // (eg: buy 10, get id's 0-9)
         
     // Finally update ticket total
     raffleTicketsBought = SafeMath.add(raffleTicketsBought,amount);
@@ -321,7 +321,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

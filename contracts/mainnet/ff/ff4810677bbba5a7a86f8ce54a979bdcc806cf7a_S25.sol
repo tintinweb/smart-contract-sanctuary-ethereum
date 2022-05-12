@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -179,7 +179,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -451,7 +451,7 @@ contract S25ICO {
     S25 public token;
 
     // Structure for holding bonuses and tokens for btc investors
-    // We can now deprecate rate/bonus_tokens/value without bitcoin holding mechanism - we don&#39;t need it
+    // We can now deprecate rate/bonus_tokens/value without bitcoin holding mechanism - we don't need it
     struct TokensHolder {
     uint value; //amount of wei
     uint tokens; //amount of tokens
@@ -782,12 +782,12 @@ contract S25ICO {
         require(!teamTokensGenerated);
         teamTokensGenerated = true;
         if(tokensCap > totalSupply) {
-            //debugLog(&#39;before &#39;, totalSupply);
+            //debugLog('before ', totalSupply);
             uint unsoldAmount = tokensCap.sub(totalSupply);
             token.mint(unsold, unsoldAmount);
-            //debugLog(&#39;unsold &#39;, unsoldAmount);
+            //debugLog('unsold ', unsoldAmount);
             totalSupply = totalSupply.add(unsoldAmount);
-            //debugLog(&#39;after &#39;, totalSupply);
+            //debugLog('after ', totalSupply);
         }
         uint totalSupplyTokens = totalSupply;
         totalSupplyTokens = totalSupplyTokens.mul(100);

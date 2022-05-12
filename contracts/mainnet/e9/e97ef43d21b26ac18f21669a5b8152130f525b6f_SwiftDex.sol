@@ -78,8 +78,8 @@ contract SwiftDex {
     function buy() public isRunning payable returns (uint amount){
         amount = msg.value * decimalFactor / price;                    // calculates the amount
         require(balanceOf[address_ico] >= amount);               // checks if it has enough to sell
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
-        balanceOf[address_ico] -= amount;                        // subtracts amount from seller&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
+        balanceOf[address_ico] -= amount;                        // subtracts amount from seller's balance
         address_ico.transfer(msg.value);
         emit Transfer(address_ico, msg.sender, amount);               // execute an event reflecting the change
         return amount;                                    // ends function and returns

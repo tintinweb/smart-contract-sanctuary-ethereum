@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;TIDC&#39; token contract
+// 'TIDC' token contract
 //
 // Deployed to : 0xAE12ABC9796836c2d8AF6D72a17eCcD33f18Ee3b
 // Symbol      : TIDC

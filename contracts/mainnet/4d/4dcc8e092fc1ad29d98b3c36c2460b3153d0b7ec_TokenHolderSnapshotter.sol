@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -98,7 +98,7 @@ contract AuthenticationManager {
 
     /* Adds a user to our list of admins */
     function addAdmin(address _address) {
-        /* Ensure we&#39;re an admin */
+        /* Ensure we're an admin */
         if (!isCurrentAdmin(msg.sender))
             throw;
 
@@ -115,11 +115,11 @@ contract AuthenticationManager {
 
     /* Removes a user from our list of admins but keeps them in the history audit */
     function removeAdmin(address _address) {
-        /* Ensure we&#39;re an admin */
+        /* Ensure we're an admin */
         if (!isCurrentAdmin(msg.sender))
             throw;
 
-        /* Don&#39;t allow removal of self */
+        /* Don't allow removal of self */
         if (_address == msg.sender)
             throw;
 
@@ -134,7 +134,7 @@ contract AuthenticationManager {
 
     /* Adds a user/contract to our list of account readers */
     function addAccountReader(address _address) {
-        /* Ensure we&#39;re an admin */
+        /* Ensure we're an admin */
         if (!isCurrentAdmin(msg.sender))
             throw;
 
@@ -151,7 +151,7 @@ contract AuthenticationManager {
 
     /* Removes a user/contracts from our list of account readers but keeps them in the history audit */
     function removeAccountReader(address _address) {
-        /* Ensure we&#39;re an admin */
+        /* Ensure we're an admin */
         if (!isCurrentAdmin(msg.sender))
             throw;
 
@@ -267,7 +267,7 @@ contract IcoPhaseManagement {
         if (now < icoStartTime || now > icoEndTime)
             throw;
 
-        /* Determine how much they&#39;ve actually purhcased and any ether change */
+        /* Determine how much they've actually purhcased and any ether change */
         uint256 tokensPurchased = msg.value / icoUnitPrice;
         uint256 purchaseTotalPrice = tokensPurchased * icoUnitPrice;
         uint256 change = msg.value.sub(purchaseTotalPrice);
@@ -412,15 +412,15 @@ contract SmartInvestmentFundToken {
     }
 
     modifier fundSendablePhase {
-        // If it&#39;s in ICO phase, forbid it
+        // If it's in ICO phase, forbid it
         if (icoPhaseManagement.icoPhase())
             throw;
 
-        // If it&#39;s abandoned, forbid it
+        // If it's abandoned, forbid it
         if (icoPhaseManagement.icoAbandoned())
             throw;
 
-        // We&#39;re good, funds can now be transferred
+        // We're good, funds can now be transferred
         _;
     }
 
@@ -479,13 +479,13 @@ contract SmartInvestmentFundToken {
         return balances[_owner];
     }
 
-    /* Transfer the balance from owner&#39;s account to another account */
+    /* Transfer the balance from owner's account to another account */
     function transfer(address _to, uint256 _amount) fundSendablePhase onlyPayloadSize(2) returns (bool) {
         /* Check if sender has balance and for overflows */
         if (balances[msg.sender] < _amount || balances[_to].add(_amount) < balances[_to])
             return false;
 
-        /* Do a check to see if they are new, if so we&#39;ll want to add it to our array */
+        /* Do a check to see if they are new, if so we'll want to add it to our array */
         bool isRecipientNew = balances[_to] < 1;
 
         /* Add and subtract new balances */
@@ -512,7 +512,7 @@ contract SmartInvestmentFundToken {
                 /* Already found so we can abort now */
                 return;
         
-        /* They don&#39;t seem to exist, so let&#39;s add them */
+        /* They don't seem to exist, so let's add them */
         allTokenHolders.length++;
         allTokenHolders[allTokenHolders.length - 1] = _addr;
     }
@@ -531,7 +531,7 @@ contract SmartInvestmentFundToken {
                 break;
             }
         
-        /* If we didn&#39;t find them just return */
+        /* If we didn't find them just return */
         if (!found)
             return;
         
@@ -626,7 +626,7 @@ contract TokenHolderSnapshotter {
     }
 
     function snapshotUpdate(address _addr, uint256 _newBalance, string _details) adminOnly {
-        // Are they already a holder?  If not and no new balance then we&#39;re making no change so leave now, or if they are and balance is the same
+        // Are they already a holder?  If not and no new balance then we're making no change so leave now, or if they are and balance is the same
         uint256 existingBalance = balances[_addr];
         if (existingBalance == _newBalance)
             return;
@@ -639,10 +639,10 @@ contract TokenHolderSnapshotter {
             balances[_addr] = _newBalance;
         }
         else if (_newBalance > 0) {
-            // Existing holder we&#39;re updating
+            // Existing holder we're updating
             balances[_addr] = _newBalance;
         } else {
-            // Existing holder, we&#39;re deleting
+            // Existing holder, we're deleting
             balances[_addr] = 0;
 
             /* Find out where in our array they are */

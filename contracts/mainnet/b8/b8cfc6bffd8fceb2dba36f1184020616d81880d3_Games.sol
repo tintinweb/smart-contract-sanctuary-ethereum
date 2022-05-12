@@ -936,8 +936,8 @@ contract ITGToken is ITGTokenBase, Authable {
         totalSupply = add(totalSupply,amt);
     }
 
-    // We do not want big difference with our contract&#39;s balance and actual prize pool.
-    // So the ethereum that the winners didn&#39;t get over at least 1 year will be used for our charity business.
+    // We do not want big difference with our contract's balance and actual prize pool.
+    // So the ethereum that the winners didn't get over at least 1 year will be used for our charity business.
     // We strongly hope winners get their prize after the game.
     function lossToCharity(uint year,address charityAccount) onlyAuth {
         ethTransfer(charityAccount, games.lossToCharity(year));

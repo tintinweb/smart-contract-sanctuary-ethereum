@@ -134,7 +134,7 @@ contract customIcoToken{
       uint256 checkedSupply = totalSupply.add(tokens);
 
       // return money if something goes wrong
-      require(tokenCreationCap >= checkedSupply); // odd fractions won&#39;t be found
+      require(tokenCreationCap >= checkedSupply); // odd fractions won't be found
 
       totalSupply = checkedSupply;
       balances[msg.sender] += tokens;  // safeAdd not needed; bad semantics to use here
@@ -164,7 +164,7 @@ contract customIcoToken{
       totalSupply = totalSupply.sub(tokenVal); // extra safe
       uint256 ethVal = tokenVal / tokenExchangeRate; // should be safe; previous throws covers edges
       emit LogRefund(msg.sender, ethVal); // log it
-      assert(msg.sender.send(ethVal)); // if you&#39;re using a contract; make sure it works with .send gas limits
+      assert(msg.sender.send(ethVal)); // if you're using a contract; make sure it works with .send gas limits
     }
 
     constructor(

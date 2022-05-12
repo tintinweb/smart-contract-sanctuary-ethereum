@@ -167,7 +167,7 @@ contract Bittrees is owned, TokenERC20 {
     function withdraw() public onlyOwner {
         address myAddress = this;
         // makes the transfers
-        msg.sender.transfer(myAddress.balance);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(myAddress.balance);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 
 

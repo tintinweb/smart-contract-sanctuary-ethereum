@@ -108,7 +108,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -216,7 +216,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -388,7 +388,7 @@ contract Bela is MintableToken, HasNoEther
     
     /**
     These state vars are handled in the OpenZeppelin libraries;
-    we display them here for the developer&#39;s information.
+    we display them here for the developer's information.
     ***
     // ERC20Basic - Store account balances
     mapping (address => uint256) public balances;
@@ -459,7 +459,7 @@ contract Bela is MintableToken, HasNoEther
         // Set up state minting variables
         ////////////////////////////////////
 
-        // Set last minted to current block.timestamp (&#39;now&#39;)
+        // Set last minted to current block.timestamp ('now')
         ownerTimeLastMinted = now;
         
         // 4500 minted tokens per day, 86400 seconds in a day
@@ -504,13 +504,13 @@ contract Bela is MintableToken, HasNoEther
         // Calculate tokens to mint
         uint _tokensToMint = calculateStakeGains(_timePassedSinceStake);
 
-        // Add the original stake back to the user&#39;s balance
+        // Add the original stake back to the user's balance
         balances[msg.sender] += stakeBalances[msg.sender].initialStakeBalance;
         
         // Subtract stake balance from totalBelaStaked
         totalBelaStaked -= stakeBalances[msg.sender].initialStakeBalance;
         
-        // Mint the new tokens; the new tokens are added to the user&#39;s balance
+        // Mint the new tokens; the new tokens are added to the user's balance
         if (stakeBalances[msg.sender].stakeSplitAddress > 0) 
         {
             // Splitting stake, so mint half to sender and half to stakeSplitAddress
@@ -542,7 +542,7 @@ contract Bela is MintableToken, HasNoEther
     /// @dev allows contract owner to claim their mint
     function ownerClaim() external onlyOwner
     {
-        // Sanity check: ensure that we didn&#39;t travel back in time
+        // Sanity check: ensure that we didn't travel back in time
         require(now > ownerTimeLastMinted);
         
         uint _timePassedSinceLastMint;
@@ -558,7 +558,7 @@ contract Bela is MintableToken, HasNoEther
         // Determine the token mint amount, determined from the number of seconds passed and the ownerMintRate
         _tokenMintCount = calculateMintTotal(_timePassedSinceLastMint, ownerMintRate);
 
-        // Mint the owner&#39;s tokens; this also increases totalSupply
+        // Mint the owner's tokens; this also increases totalSupply
         _mintingSuccess = mint(msg.sender, _tokenMintCount);
 
         // Sanity check: ensure that the minting was successful
@@ -568,7 +568,7 @@ contract Bela is MintableToken, HasNoEther
         ownerTimeLastMinted = now;
     }
 
-    /// @dev stake function reduces the user&#39;s total available balance. totalSupply is unaffected
+    /// @dev stake function reduces the user's total available balance. totalSupply is unaffected
     /// @param _value determines how many tokens a user wants to stake
     function stakeTokens(uint256 _value) private returns (bool success)
     {
@@ -612,7 +612,7 @@ contract Bela is MintableToken, HasNoEther
         // Determine the amount to be newly minted upon vesting, if any
         if (_timePassedSinceStake > _secondsPerDay) {
             
-            /// We&#39;ve passed the minimum staking time; calculate minting rate average ((initialRate + finalRate) / 2)
+            /// We've passed the minimum staking time; calculate minting rate average ((initialRate + finalRate) / 2)
             
             // First, calculate our final stake percentage based upon the total amount of Bela staked
             _finalStakePercentage = calculateFraction(stakeBalances[msg.sender].initialStakeBalance, totalBelaStaked, decimals);

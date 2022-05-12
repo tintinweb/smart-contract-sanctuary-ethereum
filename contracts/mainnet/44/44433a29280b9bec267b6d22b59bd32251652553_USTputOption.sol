@@ -2,12 +2,12 @@ pragma solidity ^0.4.21;
 
 contract Owned {
     
-    /// &#39;owner&#39; is the only address that can call a function with 
+    /// 'owner' is the only address that can call a function with 
     /// this modifier
     address public owner;
     address internal newOwner;
     
-    ///@notice The constructor assigns the message sender to be &#39;owner&#39;
+    ///@notice The constructor assigns the message sender to be 'owner'
     function Owned() public {
         owner = msg.sender;
     }
@@ -113,8 +113,8 @@ contract PUST is ERC20Token {
     uint256 public topTotalSupply = 0;
     
     function transfer(address _to, uint256 _value) public returns (bool success) {
-    //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-    //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+    //Default assumes totalSupply can't be over max (2^256 - 1).
+    //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
     //Replace the if with this one instead.
         if (balances[msg.sender] >= _value && balances[_to] + _value >= balances[_to]) {
             balances[msg.sender] -= _value;
@@ -324,7 +324,7 @@ contract USTputOption is ExchangeUST {
         topTotalSupply += msg.value / 10**18;
     }
     
-    // only end time, onwer can transfer contract&#39;s ether out.
+    // only end time, onwer can transfer contract's ether out.
     function WithdrawETH() payable public onlyOwner {
         require (now >= ExerciseEndTime);
         officialAddress.transfer(address(this).balance);

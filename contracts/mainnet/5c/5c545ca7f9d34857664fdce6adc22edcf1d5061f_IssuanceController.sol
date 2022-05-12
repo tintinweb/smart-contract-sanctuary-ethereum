@@ -243,7 +243,7 @@ contract Pausable is Owned {
         external
         onlyOwner
     {
-        // Ensure we&#39;re actually changing the state before we do anything
+        // Ensure we're actually changing the state before we do anything
         if (_paused == paused) {
             return;
         }
@@ -598,7 +598,7 @@ contract TokenState is State {
      * @param tokenOwner The authorising party.
      * @param spender The authorised party.
      * @param value The total value the authorised party may spend on the
-     * authorising party&#39;s behalf.
+     * authorising party's behalf.
      */
     function setAllowance(address tokenOwner, address spender, uint value)
         external
@@ -644,7 +644,7 @@ underlying target contract.
 This proxy has the capacity to toggle between DELEGATECALL
 and CALL style proxy functionality.
 
-The former executes in the proxy&#39;s context, and so will preserve 
+The former executes in the proxy's context, and so will preserve 
 msg.sender and store data at the proxy address. The latter will not.
 Therefore, any contract the proxy wraps in the CALL style must
 implement the Proxyable interface, in order that it can pass msg.sender
@@ -922,8 +922,8 @@ contract ExternStateToken is SafeDecimalMath, SelfDestructible, Proxyable, Reent
     /**
      * @dev Constructor.
      * @param _proxy The proxy associated with this contract.
-     * @param _name Token&#39;s ERC20 name.
-     * @param _symbol Token&#39;s ERC20 symbol.
+     * @param _name Token's ERC20 name.
+     * @param _symbol Token's ERC20 symbol.
      * @param _totalSupply The total supply of the token.
      * @param _tokenState The TokenState contract address.
      * @param _owner The owner of this contract.
@@ -946,7 +946,7 @@ contract ExternStateToken is SafeDecimalMath, SelfDestructible, Proxyable, Reent
     /**
      * @notice Returns the ERC20 allowance of one party to spend on behalf of another.
      * @param owner The party authorising spending of their funds.
-     * @param spender The party spending tokenOwner&#39;s funds.
+     * @param spender The party spending tokenOwner's funds.
      */
     function allowance(address owner, address spender)
         public
@@ -997,19 +997,19 @@ contract ExternStateToken is SafeDecimalMath, SelfDestructible, Proxyable, Reent
         tokenState.setBalanceOf(to, safeAdd(tokenState.balanceOf(to), value));
 
         /*
-        If we&#39;re transferring to a contract and it implements the havvenTokenFallback function, call it.
-        This isn&#39;t ERC223 compliant because:
-           1. We don&#39;t revert if the contract doesn&#39;t implement havvenTokenFallback.
+        If we're transferring to a contract and it implements the havvenTokenFallback function, call it.
+        This isn't ERC223 compliant because:
+           1. We don't revert if the contract doesn't implement havvenTokenFallback.
               This is because many DEXes and other contracts that expect to work with the standard
-              approve / transferFrom workflow don&#39;t implement tokenFallback but can still process our tokens as
+              approve / transferFrom workflow don't implement tokenFallback but can still process our tokens as
               usual, so it feels very harsh and likely to cause trouble if we add this restriction after having
               previously gone live with a vanilla ERC20.
-           2. We don&#39;t pass the bytes parameter.
+           2. We don't pass the bytes parameter.
               This is because of this solidity bug: https://github.com/ethereum/solidity/issues/2884
-           3. We also don&#39;t let the user use a custom tokenFallback. We figure as we&#39;re already not standards
-              compliant, there won&#39;t be a use case where users can&#39;t just implement our specific function.
+           3. We also don't let the user use a custom tokenFallback. We figure as we're already not standards
+              compliant, there won't be a use case where users can't just implement our specific function.
 
-        As such we&#39;ve called the function havvenTokenFallback to be clear that we are not following the standard.
+        As such we've called the function havvenTokenFallback to be clear that we are not following the standard.
         */
 
         // Is the to address a contract? We can check the code size on that address and know.
@@ -1021,17 +1021,17 @@ contract ExternStateToken is SafeDecimalMath, SelfDestructible, Proxyable, Reent
             length := extcodesize(to)
         }
 
-        // If there&#39;s code there, it&#39;s a contract
+        // If there's code there, it's a contract
         if (length > 0) {
             // Now we need to optionally call havvenTokenFallback(address from, uint value).
-            // We can&#39;t call it the normal way because that reverts when the recipient doesn&#39;t implement the function.
-            // We&#39;ll use .call(), which means we need the function selector. We&#39;ve pre-computed
+            // We can't call it the normal way because that reverts when the recipient doesn't implement the function.
+            // We'll use .call(), which means we need the function selector. We've pre-computed
             // abi.encodeWithSignature("havvenTokenFallback(address,uint256)"), to save some gas.
 
             // solium-disable-next-line security/no-low-level-calls
             to.call(0xcbff5d96, messageSender, value);
 
-            // And yes, we specifically don&#39;t care if this call fails, so we&#39;re not checking the return value.
+            // And yes, we specifically don't care if this call fails, so we're not checking the return value.
         }
 
         // Emit a standard ERC20 transfer event
@@ -1065,7 +1065,7 @@ contract ExternStateToken is SafeDecimalMath, SelfDestructible, Proxyable, Reent
     }
 
     /**
-     * @notice Approves spender to transfer on the message sender&#39;s behalf.
+     * @notice Approves spender to transfer on the message sender's behalf.
      */
     function approve(address spender, uint value)
         public
@@ -1156,8 +1156,8 @@ contract FeeToken is ExternStateToken {
     /**
      * @dev Constructor.
      * @param _proxy The proxy associated with this contract.
-     * @param _name Token&#39;s ERC20 name.
-     * @param _symbol Token&#39;s ERC20 symbol.
+     * @param _name Token's ERC20 name.
+     * @param _symbol Token's ERC20 symbol.
      * @param _totalSupply The total supply of the token.
      * @param _transferFeeRate The fee rate to charge on transfers.
      * @param _feeAuthority The address which has the authority to withdraw fees from the accumulated pool.
@@ -1311,7 +1311,7 @@ contract FeeToken is ExternStateToken {
         uint received = amountReceived(value);
         uint fee = safeSub(value, received);
 
-        /* Reduce the allowance by the amount we&#39;re transferring.
+        /* Reduce the allowance by the amount we're transferring.
          * The safeSub call will handle an insufficient allowance. */
         tokenState.setAllowance(from, sender, safeSub(tokenState.allowance(from, sender), value));
 
@@ -1341,7 +1341,7 @@ contract FeeToken is ExternStateToken {
         uint fee = transferFeeIncurred(value);
         uint total = safeAdd(value, fee);
 
-        /* Reduce the allowance by the amount we&#39;re transferring. */
+        /* Reduce the allowance by the amount we're transferring. */
         tokenState.setAllowance(from, sender, safeSub(tokenState.allowance(from, sender), total));
 
         return _internalTransfer(from, to, value, fee);
@@ -1374,7 +1374,7 @@ contract FeeToken is ExternStateToken {
     }
 
     /**
-     * @notice Donate tokens from the sender&#39;s balance into the fee pool.
+     * @notice Donate tokens from the sender's balance into the fee pool.
      */
     function donateToFeePool(uint n)
         external
@@ -1510,7 +1510,7 @@ contract Nomin is FeeToken {
         optionalProxy_onlyOwner
     {
         // havven should be set as the feeAuthority after calling this depending on
-        // havven&#39;s internal logic
+        // havven's internal logic
         havven = _havven;
         setFeeAuthority(_havven);
         emitHavvenUpdated(_havven);
@@ -1732,7 +1732,7 @@ contract HavvenEscrow is SafeDecimalMath, Owned, LimitedSetup(8 weeks) {
      * These are the times at which each given quantity of havvens vests. */
     mapping(address => uint[2][]) public vestingSchedules;
 
-    /* An account&#39;s total vested havven balance to save recomputing this for fee extraction purposes. */
+    /* An account's total vested havven balance to save recomputing this for fee extraction purposes. */
     mapping(address => uint) public totalVestedAccountBalance;
 
     /* The total remaining vested balance, for verifying the actual havven balance of this contract against. */
@@ -1780,7 +1780,7 @@ contract HavvenEscrow is SafeDecimalMath, Owned, LimitedSetup(8 weeks) {
     }
 
     /**
-     * @notice The number of vesting dates in an account&#39;s schedule.
+     * @notice The number of vesting dates in an account's schedule.
      */
     function numVestingEntries(address account)
         public
@@ -1883,7 +1883,7 @@ contract HavvenEscrow is SafeDecimalMath, Owned, LimitedSetup(8 weeks) {
 
     /**
      * @notice Withdraws a quantity of havvens back to the havven contract.
-     * @dev This may only be called by the owner during the contract&#39;s setup period.
+     * @dev This may only be called by the owner during the contract's setup period.
      */
     function withdrawHavvens(uint quantity)
         external
@@ -1907,14 +1907,14 @@ contract HavvenEscrow is SafeDecimalMath, Owned, LimitedSetup(8 weeks) {
     }
 
     /**
-     * @notice Add a new vesting entry at a given time and quantity to an account&#39;s schedule.
+     * @notice Add a new vesting entry at a given time and quantity to an account's schedule.
      * @dev A call to this should be accompanied by either enough balance already available
      * in this contract, or a corresponding call to havven.endow(), to ensure that when
      * the funds are withdrawn, there is enough balance, as well as correctly calculating
      * the fees.
-     * This may only be called by the owner during the contract&#39;s setup period.
+     * This may only be called by the owner during the contract's setup period.
      * Note; although this function could technically be used to produce unbounded
-     * arrays, it&#39;s only in the foundation&#39;s command to add to these lists.
+     * arrays, it's only in the foundation's command to add to these lists.
      * @param account The account to append a new vesting entry to.
      * @param time The absolute unix timestamp after which the vested quantity may be withdrawn.
      * @param quantity The quantity of havvens that will vest.
@@ -1953,7 +1953,7 @@ contract HavvenEscrow is SafeDecimalMath, Owned, LimitedSetup(8 weeks) {
      * over a series of intervals.
      * @dev Assumes that the quantities are nonzero
      * and that the sequence of timestamps is strictly increasing.
-     * This may only be called by the owner during the contract&#39;s setup period.
+     * This may only be called by the owner during the contract's setup period.
      */
     function addVestingSchedule(address account, uint[] times, uint[] quantities)
         external
@@ -2038,7 +2038,7 @@ the next period.
 
 The fee entitlement of a havven holder is proportional to their average
 issued nomin balance over the last fee period. This is computed by
-measuring the area under the graph of a user&#39;s issued nomin balance over
+measuring the area under the graph of a user's issued nomin balance over
 time, and then when a new fee period begins, dividing through by the
 duration of the fee period.
 
@@ -2050,7 +2050,7 @@ A havven holder pays for his own recomputation whenever he wants to change
 his position, which saves the foundation having to maintain a pot dedicated
 to resourcing this.
 
-A hypothetical user&#39;s balance history over one fee period, pictorially:
+A hypothetical user's balance history over one fee period, pictorially:
 
       s ____
        |    |
@@ -2074,9 +2074,9 @@ recipient.
 Note that a transfer keeps global supply of havvens invariant.
 The sum of all balances is constant, and unmodified by any transfer.
 So the sum of all balances multiplied by the duration of a fee period is also
-constant, and this is equivalent to the sum of the area of every user&#39;s
+constant, and this is equivalent to the sum of the area of every user's
 time/balance graph. Dividing through by that duration yields back the total
-havven supply. So, at the end of a fee period, we really do yield a user&#39;s
+havven supply. So, at the end of a fee period, we really do yield a user's
 average share in the havven supply over that period.
 
 A slight wrinkle is introduced if we consider the time r when the fee period
@@ -2142,7 +2142,7 @@ contract Havven is ExternStateToken {
         /* Sums of balances*duration in the current fee period.
         /* range: decimals; units: havven-seconds */
         uint currentBalanceSum;
-        /* The last period&#39;s average balance */
+        /* The last period's average balance */
         uint lastAverageBalance;
         /* The last time the data was calculated */
         uint lastModified;
@@ -2433,7 +2433,7 @@ contract Havven is ExternStateToken {
     }
 
     /**
-     * @notice Compute the last period&#39;s fee entitlement for the message sender
+     * @notice Compute the last period's fee entitlement for the message sender
      * and then deposit it into their nomin account.
      */
     function withdrawFees()
@@ -2455,8 +2455,8 @@ contract Havven is ExternStateToken {
         uint lastTotalIssued = totalIssuanceData.lastAverageBalance;
 
         if (lastTotalIssued > 0) {
-            /* Sender receives a share of last period&#39;s collected fees proportional
-             * with their average fraction of the last period&#39;s issued nomins. */
+            /* Sender receives a share of last period's collected fees proportional
+             * with their average fraction of the last period's issued nomins. */
             feesOwed = safeDiv_dec(
                 safeMul_dec(issuanceData[sender].lastAverageBalance, lastFeesCollected),
                 lastTotalIssued
@@ -2533,7 +2533,7 @@ contract Havven is ExternStateToken {
     }
 
     /**
-     * @notice Recompute and return the given account&#39;s last average balance.
+     * @notice Recompute and return the given account's last average balance.
      */
     function recomputeLastAverageBalance(address account)
         external
@@ -2544,8 +2544,8 @@ contract Havven is ExternStateToken {
     }
 
     /**
-     * @notice Issue nomins against the sender&#39;s havvens.
-     * @dev Issuance is only allowed if the havven price isn&#39;t stale and the sender is an issuer.
+     * @notice Issue nomins against the sender's havvens.
+     * @dev Issuance is only allowed if the havven price isn't stale and the sender is an issuer.
      */
     function issueNomins(uint amount)
         public
@@ -2573,7 +2573,7 @@ contract Havven is ExternStateToken {
      * @notice Burn nomins to clear issued nomins/free havvens.
      */
     function burnNomins(uint amount)
-        /* it doesn&#39;t matter if the price is stale or if the user is an issuer, as non-issuers have issued no nomins.*/
+        /* it doesn't matter if the price is stale or if the user is an issuer, as non-issuers have issued no nomins.*/
         external
         optionalProxy
     {
@@ -2663,7 +2663,7 @@ contract Havven is ExternStateToken {
     }
 
     /**
-     * @notice The collateral that would be locked by issuance, which can exceed the account&#39;s actual collateral.
+     * @notice The collateral that would be locked by issuance, which can exceed the account's actual collateral.
      */
     function issuanceDraft(address account)
         public
@@ -2679,7 +2679,7 @@ contract Havven is ExternStateToken {
 
     /**
      * @notice Collateral that has been locked due to issuance, and cannot be
-     * transferred to other addresses. This is capped at the account&#39;s total collateral.
+     * transferred to other addresses. This is capped at the account's total collateral.
      */
     function lockedCollateral(address account)
         public
@@ -2732,7 +2732,7 @@ contract Havven is ExternStateToken {
         if (draft > safeSub(collat, bal)) {
             return safeSub(collat, draft);
         }
-        // In the case where the draft doesn&#39;t exceed the escrow, return the entire balance
+        // In the case where the draft doesn't exceed the escrow, return the entire balance
         return bal;
     }
 
@@ -2768,7 +2768,7 @@ contract Havven is ExternStateToken {
         onlyOracle  /* Should be callable only by the oracle. */
     {
         /* Must be the most recently sent price, but not too far in the future.
-         * (so we can&#39;t lock ourselves out of updating the oracle for longer than this) */
+         * (so we can't lock ourselves out of updating the oracle for longer than this) */
         require(lastPriceUpdateTime < timeSent && timeSent < now + ORACLE_FUTURE_LIMIT,
             "Time sent must be bigger than the last update, and must be less than now + ORACLE_FUTURE_LIMIT");
 
@@ -2781,7 +2781,7 @@ contract Havven is ExternStateToken {
     }
 
     /**
-     * @notice Check if the price of havvens hasn&#39;t been updated for longer than the stale period.
+     * @notice Check if the price of havvens hasn't been updated for longer than the stale period.
      */
     function priceIsStale()
         public
@@ -2935,8 +2935,8 @@ contract IssuanceController is SafeDecimalMath, SelfDestructible, Pausable {
      * @dev Constructor
      * @param _owner The owner of this contract.
      * @param _fundsWallet The recipient of ETH and Nomins that are sent to this contract while exchanging.
-     * @param _havven The Havven contract we&#39;ll interact with for balances and sending.
-     * @param _nomin The Nomin contract we&#39;ll interact with for balances and sending.
+     * @param _havven The Havven contract we'll interact with for balances and sending.
+     * @param _nomin The Nomin contract we'll interact with for balances and sending.
      * @param _oracle The address which is able to update price information.
      * @param _usdToEthPrice The current price of ETH in USD, expressed in UNIT.
      * @param _usdToHavPrice The current price of Havven in USD, expressed in UNIT.
@@ -3038,14 +3038,14 @@ contract IssuanceController is SafeDecimalMath, SelfDestructible, Pausable {
      * @notice Access point for the oracle to update the prices of havvens / eth.
      * @param newEthPrice The current price of ether in USD, specified to 18 decimal places.
      * @param newHavvenPrice The current price of havvens in USD, specified to 18 decimal places.
-     * @param timeSent The timestamp from the oracle when the transaction was created. This ensures we don&#39;t consider stale prices as current in times of heavy network congestion.
+     * @param timeSent The timestamp from the oracle when the transaction was created. This ensures we don't consider stale prices as current in times of heavy network congestion.
      */
     function updatePrices(uint newEthPrice, uint newHavvenPrice, uint timeSent)
         external
         onlyOracle
     {
         /* Must be the most recently sent price, but not too far in the future.
-         * (so we can&#39;t lock ourselves out of updating the oracle for longer than this) */
+         * (so we can't lock ourselves out of updating the oracle for longer than this) */
         require(lastPriceUpdateTime < timeSent && timeSent < now + ORACLE_FUTURE_LIMIT, 
             "Time sent must be bigger than the last update, and must be less than now + ORACLE_FUTURE_LIMIT");
 
@@ -3207,7 +3207,7 @@ contract IssuanceController is SafeDecimalMath, SelfDestructible, Pausable {
     {
         havven.transfer(owner, amount);
         
-        // We don&#39;t emit our own events here because we assume that anyone
+        // We don't emit our own events here because we assume that anyone
         // who wants to watch what the Issuance Controller is doing can
         // just watch ERC20 events from the Nomin and/or Havven contracts
         // filtered to our address.
@@ -3223,7 +3223,7 @@ contract IssuanceController is SafeDecimalMath, SelfDestructible, Pausable {
     {
         nomin.transfer(owner, amount);
         
-        // We don&#39;t emit our own events here because we assume that anyone
+        // We don't emit our own events here because we assume that anyone
         // who wants to watch what the Issuance Controller is doing can
         // just watch ERC20 events from the Nomin and/or Havven contracts
         // filtered to our address.
@@ -3231,7 +3231,7 @@ contract IssuanceController is SafeDecimalMath, SelfDestructible, Pausable {
 
     /* ========== VIEWS ========== */
     /**
-     * @notice Check if the prices haven&#39;t been updated for longer than the stale period.
+     * @notice Check if the prices haven't been updated for longer than the stale period.
      */
     function pricesAreStale()
         public

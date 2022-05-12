@@ -34,7 +34,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -200,7 +200,7 @@ contract HasNoEther is Ownable {
  *    - Alternately, the owner can send tokens to the locker.  When locking tokens, the locker checks its balance first
  *  - The owner calls "lockup" with a particular recipient, amount, and unlock time.  The recipient will be allowed
  *    to collect the tokens once the lockup period is ended.
- *  - The recipient calls "confirm" which confirms that the recipient&#39;s address is correct and is controlled by the
+ *  - The recipient calls "confirm" which confirms that the recipient's address is correct and is controlled by the
  *    intended recipient (e.g. not an exchange address).  The assumption is that if the recipient can call "confirm"
  *    they have demonstrated that they will also be able to call "collect" when the tokens are ready.
  *  - Once the lock expires, the recipient calls "collect" and the tokens are transferred from the locker to the
@@ -317,7 +317,7 @@ contract SingleTokenLocker is Claimable, ReentrancyGuard, StandardContract, HasN
    *
    * Note 1: lockup is not guaranteed until the recipient confirms.
    * Note 2: Assumes the owner has already given approval for the TokenLocker to take out the tokens
-   *         or that the locker&#39;s balance is sufficient
+   *         or that the locker's balance is sufficient
    */
   function lockup(address recipient, uint256 amount, uint256 lockedUntil)
     onlyOwner
@@ -393,7 +393,7 @@ contract SingleTokenLocker is Claimable, ReentrancyGuard, StandardContract, HasN
     else {
       // everything looked good, but the transfer failed.  :(  Now what?
       // There is no reason to think it will work the next time, so
-      // reverting probably won&#39;t help here; the tokens would remain locked
+      // reverting probably won't help here; the tokens would remain locked
       // forever.  Our only hope is that the token owner will resolve the
       // issue in the real world.  Since the amount has been deducted from the
       // locked and pending totals, it has effectively been returned to the owner.
@@ -586,7 +586,7 @@ contract SingleTokenLocker is Claimable, ReentrancyGuard, StandardContract, HasN
     stateTransitionMatrix[uint(from)][uint(to)] = true;
   }
 
-  // @dev moves the promise to the new state as long as it&#39;s permitted by the state transition matrix
+  // @dev moves the promise to the new state as long as it's permitted by the state transition matrix
   function transition(TokenPromise storage promise, PromiseState newState)
     internal
   {
@@ -630,7 +630,7 @@ contract SingleTokenLocker is Claimable, ReentrancyGuard, StandardContract, HasN
 
   /**
    * @dev Checks the uncommitted balance to ensure there the locker has enough tokens to guarantee the
-   * amount given can be promised.  If the locker&#39;s balance is not enough, the locker will attempt to transfer
+   * amount given can be promised.  If the locker's balance is not enough, the locker will attempt to transfer
    * tokens from the owner.
    */
   function ensureTokensAvailable(uint256 amount)

@@ -11,9 +11,9 @@ contract DavidCoin {
     uint8   public decimals = 18;
     bool    initialized = false;    
   
-    string  public standard = &#39;ERC20 Token&#39;;
-    string  public name = &#39;DavidCoin&#39;;
-    string  public symbol = &#39;David&#39;;                          
+    string  public standard = 'ERC20 Token';
+    string  public name = 'DavidCoin';
+    string  public symbol = 'David';                          
     address public owner = msg.sender; 
 
     mapping (address => uint256) balances;

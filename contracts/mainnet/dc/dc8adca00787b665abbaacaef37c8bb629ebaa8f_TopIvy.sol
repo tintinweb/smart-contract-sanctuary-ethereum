@@ -53,7 +53,7 @@ contract TopIvy {
       // Calculate number of votes
       uint256 votes = msg.value / voteCost;
       voteCounts[_id] += votes;
-      // Don&#39;t bother sending remainder back because it is <0.001 eth
+      // Don't bother sending remainder back because it is <0.001 eth
   }
 
   /// @dev Assigns a new address to act as the CEO. Only available to the current CEO.

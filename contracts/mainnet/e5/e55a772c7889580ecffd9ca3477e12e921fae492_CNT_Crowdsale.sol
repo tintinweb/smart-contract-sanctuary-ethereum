@@ -225,7 +225,7 @@ contract CNT_Crowdsale is CNT_Common {
         PRE_SALE_Token(BGB_address) .ico_promo_reward(_target, _bgb);        
     }
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

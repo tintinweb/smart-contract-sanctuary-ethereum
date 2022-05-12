@@ -69,7 +69,7 @@ contract NescrowExchangeService {
     constructor() public {
         DOMAIN_SEPARATOR = domainHash(EIP712Domain({
             name: "Nescrow Exchange",
-            version: &#39;2&#39;,
+            version: '2',
             chainId: 1,
             verifyingContract: this
         }));
@@ -450,8 +450,8 @@ contract NescrowExchangeService {
     private
     returns (bool success)
     {
-        // A transfer is successful when &#39;call&#39; is successful and depending on the token:
-        // - No value is returned: we assume a revert when the transfer failed (i.e. &#39;call&#39; returns false)
+        // A transfer is successful when 'call' is successful and depending on the token:
+        // - No value is returned: we assume a revert when the transfer failed (i.e. 'call' returns false)
         // - A single boolean is returned: this boolean needs to be true (non-zero)
 
         // bytes4(keccak256("transfer(address,uint256)")) = 0xa9059cbb
@@ -467,8 +467,8 @@ contract NescrowExchangeService {
     private
     returns (bool success)
     {
-        // A transferFrom is successful when &#39;call&#39; is successful and depending on the token:
-        // - No value is returned: we assume a revert when the transfer failed (i.e. &#39;call&#39; returns false)
+        // A transferFrom is successful when 'call' is successful and depending on the token:
+        // - No value is returned: we assume a revert when the transfer failed (i.e. 'call' returns false)
         // - A single boolean is returned: this boolean needs to be true (non-zero)
 
 //         bytes4(keccak256("transferFrom(address,address,uint256)")) = 0x23b872dd
@@ -483,13 +483,13 @@ contract NescrowExchangeService {
     pure
     returns (bool)
     {
-        // A transfer/transferFrom is successful when &#39;call&#39; is successful and depending on the token:
-        // - No value is returned: we assume a revert when the transfer failed (i.e. &#39;call&#39; returns false)
+        // A transfer/transferFrom is successful when 'call' is successful and depending on the token:
+        // - No value is returned: we assume a revert when the transfer failed (i.e. 'call' returns false)
         // - A single boolean is returned: this boolean needs to be true (non-zero)
         if (success) {
             assembly {
                 switch returndatasize()
-                // Non-standard ERC20: nothing is returned so if &#39;call&#39; was successful we assume the transfer succeeded
+                // Non-standard ERC20: nothing is returned so if 'call' was successful we assume the transfer succeeded
                 case 0 {
                     success := 1
                 }

@@ -1,8 +1,8 @@
 pragma solidity ^0.4.19;
 
 contract MINTY {
-    string public name = &#39;MINTY&#39;;
-    string public symbol = &#39;MINTY&#39;;
+    string public name = 'MINTY';
+    string public symbol = 'MINTY';
     uint8 public decimals = 18;
     uint public totalSupply = 10000000000000000000000000;
     uint public minted = totalSupply / 5;

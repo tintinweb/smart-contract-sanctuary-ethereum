@@ -181,15 +181,15 @@ contract BlackSnailE is ERC20Token
     string public name;                 // Название
     uint8 public decimals;              // Сколько десятичных знаков
     string public symbol;               // Идентификатор (трехбуквенный обычно)
-    string public version = &#39;1.0&#39;;      // Версия
+    string public version = '1.0';      // Версия
 
     function BlackSnailE()
     {
         totalSupply = 880000;
         balances[msg.sender] = 880000;  // Передача создателю всех выпущенных монет
-        name = &#39;BlackSnailE&#39;;
+        name = 'BlackSnailE';
         decimals = 0;
-        symbol = &#39;BSEC&#39;;
+        symbol = 'BSEC';
         price = 1694915254237290;
         limit = 0;
     }

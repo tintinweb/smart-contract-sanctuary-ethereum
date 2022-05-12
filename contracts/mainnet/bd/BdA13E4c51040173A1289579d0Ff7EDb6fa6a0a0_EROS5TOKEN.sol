@@ -62,7 +62,7 @@ contract ContractTokenERC20 {
     /**
      * Transfer tokens
      *
-     * Send &#39;_value&#39; tokens to &#39;_to&#39; from your account
+     * Send '_value' tokens to '_to' from your account
      *
      * @param _to The address of the recipient
      * @param _value the amount to send

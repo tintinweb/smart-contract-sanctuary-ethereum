@@ -41,7 +41,7 @@ contract FinderHyper is ERC20Interface {
         return _totalSupply;
     }
 
-    // What&#39;s my girth?
+    // What's my girth?
     function balance() constant returns (uint256) {
         return getBalance(msg.sender);
     }
@@ -76,7 +76,7 @@ contract FinderHyper is ERC20Interface {
 
     // Perform the inevitable actions which cause release of that which each Penis
     // is built to deliver. In EtherPenisLand there are only Penises, so this 
-    // allows the transmission of one Penis&#39;s payload (or partial payload but that
+    // allows the transmission of one Penis's payload (or partial payload but that
     // is not as much fun) INTO another Penis. This causes the Penisae to change 
     // form such that all may see the glory they each represent. Erections.
     function transferFrom(address _from, address _to, uint256 _amount) returns (bool success) {

@@ -159,7 +159,7 @@ contract Fish is owned, StandardToken {
 
   // Growth rate is present in parts per million (ppm)
   uint32 public dailyGrowth_ppm = 6100;                                         // default growth is 20% (0.61% per day)
-  uint public dailyGrowthUpdated_date = now;                                    // Don&#39;t update it on first day of contract
+  uint public dailyGrowthUpdated_date = now;                                    // Don't update it on first day of contract
   
   uint32 private constant dailyGrowthMin_ppm =  6096;                           // 20% every month in price growth or 0.00610 daily
   uint32 private constant dailyGrowthMax_ppm = 23374;                           // 100% in growth every month or 0,02337 daily
@@ -271,15 +271,15 @@ contract Fish is owned, StandardToken {
   function sell(uint256 _amount) adjustPrice external {
     require(_amount > 0 && balances[msg.sender] >= _amount);
     uint moneyWorth = safeMul(_amount, sellPrice_wie);
-    require(this.balance > moneyWorth);                                         // We can&#39;t sell if we don&#39;t have enough money
+    require(this.balance > moneyWorth);                                         // We can't sell if we don't have enough money
     
     if (
         balances[this] + _amount > balances[this] &&
         balances[msg.sender] - _amount < balances[msg.sender]
     ) {
-      balances[this] = safeAdd(balances[this], _amount);                        // adds the amount to owner&#39;s balance
-      balances[msg.sender] = safeSub(balances[msg.sender], _amount);            // subtracts the amount from seller&#39;s balance
-      if (!msg.sender.send(moneyWorth)) {                                       // sends ether to the seller. It&#39;s important
+      balances[this] = safeAdd(balances[this], _amount);                        // adds the amount to owner's balance
+      balances[msg.sender] = safeSub(balances[msg.sender], _amount);            // subtracts the amount from seller's balance
+      if (!msg.sender.send(moneyWorth)) {                                       // sends ether to the seller. It's important
         revert();                                                               // to do this last to avoid recursion attacks
       } else {
         Transfer(msg.sender, this, _amount);                                    // executes an event reflecting on the change

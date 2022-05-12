@@ -16,7 +16,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -61,7 +61,7 @@ library SafeMathInt {
 
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     int256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -98,7 +98,7 @@ library SafeMathUint8 {
   function div(uint8 a, uint8 b) internal pure returns (uint8) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint8 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -129,7 +129,7 @@ library SafeMathUint96 {
   function div(uint96 a, uint96 b) internal pure returns (uint96) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint96 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -603,7 +603,7 @@ contract RequestCore is Administrable {
     }
 
     /*
-     * @dev Internal: Init payees for a request (needed to avoid &#39;stack too deep&#39; in createRequest())
+     * @dev Internal: Init payees for a request (needed to avoid 'stack too deep' in createRequest())
      * @param _requestId Request id
      * @param _payees array of payees address
      * @param _expectedAmounts array of payees initial expected amounts

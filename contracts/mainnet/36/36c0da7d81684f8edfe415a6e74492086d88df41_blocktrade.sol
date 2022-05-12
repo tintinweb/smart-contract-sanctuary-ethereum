@@ -8,7 +8,7 @@ contract controlled{
 
   mapping (address => bool) restrictedAddresses;
 
-  // @dev Constructor function that sets freeze parameters so they don&#39;t unintentionally hinder operations.
+  // @dev Constructor function that sets freeze parameters so they don't unintentionally hinder operations.
   function Constructor() public{
     owner = 0x24bF9FeCA8894A78d231f525c054048F5932dc6B;
     tokenFrozenSinceBlock = (2 ** 256) - 1;
@@ -45,14 +45,14 @@ contract controlled{
 
   /************ Modifiers to restrict access to functions. ************/
 
-  // @dev Modifier to make sure the owner&#39;s functions are only called by the owner.
+  // @dev Modifier to make sure the owner's functions are only called by the owner.
   modifier onlyOwner{
     require(msg.sender == owner);
     _;
   }
 
   /*
-  * @dev Modifier to check whether destination of sender aren&#39;t forbidden from using the token.
+  * @dev Modifier to check whether destination of sender aren't forbidden from using the token.
   * @param _to address Address of the transfer destination.
   */
   modifier instForbiddenAddress(address _to){
@@ -133,7 +133,7 @@ contract blocktrade is controlled{
   /*
   * @dev Allows us to view the token balance of the account.
   * @param _owner address Address of the user whose token we are allowed to spend from sender address.
-  * @param _spender address Address of the user allowed to spend owner&#39;s tokens.
+  * @param _spender address Address of the user allowed to spend owner's tokens.
   */
   function allowance(address _owner, address _spender) constant public returns(uint256 remaining) {
     return allowances[_owner][_spender];
@@ -177,7 +177,7 @@ contract blocktrade is controlled{
   /*
   * @dev Sets allowance to the spender from our address.
   * @param _spender address Address of the spender we are giving permissions to.
-  * @param _value uint256 Amount of tokens the spender is allowed to spend from owner&#39;s accoun. Note the decimal spaces.
+  * @param _value uint256 Amount of tokens the spender is allowed to spend from owner's accoun. Note the decimal spaces.
   */
   function approve(address _spender, uint256 _value) unfrozenToken public returns (bool success){
     allowances[msg.sender][_spender] = _value;          // Set allowance
@@ -186,7 +186,7 @@ contract blocktrade is controlled{
   }
 
   /*
-  * @dev Used by spender to transfer some one else&#39;s tokens.
+  * @dev Used by spender to transfer some one else's tokens.
   * @param _form address Address of the owner of the tokens.
   * @param _to address Address where we want to transfer tokens to.
   * @param _value uint256 Amount of tokens we want to transfer. Note the decimal spaces.

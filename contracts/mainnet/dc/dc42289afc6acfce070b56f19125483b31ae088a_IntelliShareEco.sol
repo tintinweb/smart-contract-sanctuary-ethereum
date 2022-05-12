@@ -19,8 +19,8 @@ contract IntelliShareEco {
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function IntelliShareEco() {
       owner = 0x7927d7E6dA910876E2C5181ebFBcF7B6e28ABC4E;
-      name = &#39;IntelliShareEco Token&#39;;
-      symbol = &#39;INIE&#39;;
+      name = 'IntelliShareEco Token';
+      symbol = 'INIE';
       decimals = 18;
       totalSupply = 986000000000000000000000000;  // 986000000
       balanceOf[owner] = 986000000000000000000000000;

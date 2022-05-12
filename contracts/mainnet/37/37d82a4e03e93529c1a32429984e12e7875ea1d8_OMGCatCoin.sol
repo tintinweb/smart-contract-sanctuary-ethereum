@@ -101,8 +101,8 @@ contract OMGCatCoin is ERC20Interface, Owned, SafeMath {
 	// Constructor 
 	// -----------
 	function OMGCatCoin() public {
-		symbol = &#39;OMGCAT&#39;;
-		name = &#39;OMGCatCoin&#39;;
+		symbol = 'OMGCAT';
+		name = 'OMGCatCoin';
 		decimals = 18;
 		_totalSupply = 100000000000 * 10**uint(decimals);
 		balances[0x921beCA00339c458342cF09b4B0f4adb3942e332] = _totalSupply;
@@ -124,8 +124,8 @@ contract OMGCatCoin is ERC20Interface, Owned, SafeMath {
 	}
 
 	// ------
-	// transfer the balance from token owner account to &#39;to&#39; account
-	// - Owner&#39;s account must have sufficient balance to transfer
+	// transfer the balance from token owner account to 'to' account
+	// - Owner's account must have sufficient balance to transfer
 	// - 0 value transfers are allowed
 	// -------
 	function transfer(address to, uint tokens) public returns (bool success) {
@@ -139,7 +139,7 @@ contract OMGCatCoin is ERC20Interface, Owned, SafeMath {
 	// -----
 	// Token owner can approve for spender to transferFrom(...) tokens
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // recommends that there are no checks for the approval double-spend attack
     // as this should be implemented in user interfaces 	
@@ -167,7 +167,7 @@ contract OMGCatCoin is ERC20Interface, Owned, SafeMath {
 
     // -----------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // -----------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
     	return allowed[tokenOwner][spender];
@@ -175,7 +175,7 @@ contract OMGCatCoin is ERC20Interface, Owned, SafeMath {
 
     // ------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account. The spender contract function
+    // from the token owner's account. The spender contract function
     // receiveApproval(...) is then executed
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
     	allowed[msg.sender][spender] = tokens;

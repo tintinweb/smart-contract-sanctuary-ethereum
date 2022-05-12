@@ -44,7 +44,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -409,7 +409,7 @@ contract VestedToken is StandardToken, LimitedTransferToken {
    * @dev Calculate the total amount of transferable tokens of a holder at a given time
    * @param holder address The address of the holder
    * @param time uint64 The specific time.
-   * @return An uint representing a holder&#39;s total amount of transferable tokens.
+   * @return An uint representing a holder's total amount of transferable tokens.
    */
   function transferableTokens(address holder, uint64 time) constant public returns (uint256) {
     uint256 grantIndex = tokenGrantsCount(holder);
@@ -475,7 +475,7 @@ contract VestedToken is StandardToken, LimitedTransferToken {
 
       // Interpolate all vested tokens.
       // As before cliff the shortcut returns 0, we can use just calculate a value
-      // in the vesting rect (as shown in above&#39;s figure)
+      // in the vesting rect (as shown in above's figure)
 
       // vestedTokens = tokens * (time - start) / (vesting - start)
       uint256 vestedTokens = tokens.mul(time.sub(start)).div(vesting.sub(start));
@@ -548,8 +548,8 @@ contract VestedToken is StandardToken, LimitedTransferToken {
 /// @title Artcoin (ART) - democratizing culture.
 contract Artcoin is MintableToken, VestedToken {
 
-  string public constant name = &#39;Artcoin&#39;;
-  string public constant symbol = &#39;ART&#39;;
+  string public constant name = 'Artcoin';
+  string public constant symbol = 'ART';
   uint public constant decimals = 18;
 
   function() public payable {

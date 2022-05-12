@@ -103,10 +103,10 @@ contract StudToken is StandardToken {
     function() public {
         revert();
     }
-    string public constant name = &#39;Stud Coin&#39;;
-    string public constant symbol = &#39;STUD&#39;;
+    string public constant name = 'Stud Coin';
+    string public constant symbol = 'STUD';
     uint8 public constant decimals = 3;
-    string public constant version = &#39;S1.0&#39;;
+    string public constant version = 'S1.0';
     function StudToken(uint256 _initialAmount) public {
         balances[msg.sender] = _initialAmount;
         totalSupply_ = _initialAmount;

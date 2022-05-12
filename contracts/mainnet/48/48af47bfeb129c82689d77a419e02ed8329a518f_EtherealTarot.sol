@@ -57,7 +57,7 @@ contract EtherealTarot {
   function spread(uint8 requested) private {
     // cards in the current spread
     uint8[] memory table = new uint8[](requested);
-    // reversed cards aren&#39;t all bad! understand the shadow...
+    // reversed cards aren't all bad! understand the shadow...
     bool[] memory upright = new bool[](requested);
 
     //Draw the whole spread

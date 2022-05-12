@@ -19,7 +19,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -129,7 +129,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -391,7 +391,7 @@ contract EnchantedShop is Shop {
     //mapping(address => uint) public totalWithdrawn; // used in calculating total earnings
     mapping(address => uint) public excessEth; // excess eth sent by individual addresses
     /*
-    Using itemsOwned in place of object.balanceOf(msg.sender) prevents users who did not purchase tokens from the contract but who were instead transferred tokens from receiving earnings on them (which would require extra contract and token functionality to account for when those items were acquired). Using itemsOwned also means that users can transfer their tokens out but will still earn returns on them if they were purchased from the shop. We can also perform a check against the user&#39;s balanceOf to prevent this if desired.
+    Using itemsOwned in place of object.balanceOf(msg.sender) prevents users who did not purchase tokens from the contract but who were instead transferred tokens from receiving earnings on them (which would require extra contract and token functionality to account for when those items were acquired). Using itemsOwned also means that users can transfer their tokens out but will still earn returns on them if they were purchased from the shop. We can also perform a check against the user's balanceOf to prevent this if desired.
     */
     uint public itemReturn;
     uint public maxDebt; // maximum possible debt owed by the shop if no funds were claimed
@@ -430,7 +430,7 @@ contract EnchantedShop is Shop {
     function EnchantedShop(address _bank, string _name, string _symbol, uint _rate, uint32 _endTime, uint _itemReturn)
     Shop(_bank, _name, _symbol, _rate, _endTime) public
     {
-        require(_itemReturn == shopSettings.price.div(100)); // safety check; ensure we&#39;re using 1% returns and that we&#39;re using the correct price
+        require(_itemReturn == shopSettings.price.div(100)); // safety check; ensure we're using 1% returns and that we're using the correct price
         itemReturn = _itemReturn; // return should be in given wei
         originalPrice = shopSettings.price;
         ShopDeployed(_bank, _rate, _itemReturn, _endTime);
@@ -458,9 +458,9 @@ contract EnchantedShop is Shop {
         shopSettings.bank.transfer(fee);
         itemsOwned[msg.sender] = itemsOwned[msg.sender].add(1 ether);
                 
-        // update caller&#39;s balance and our debt
+        // update caller's balance and our debt
         uint earnings = (itemsOwned[msg.sender].div(1 ether).sub(1)).mul(supply.sub(latestBalanceCheck[msg.sender])).div(1 ether).mul(itemReturn);
-        if (latestBalanceCheck[msg.sender] != 0) { // if this isn&#39;t the first time we&#39;ve checked buyer&#39;s balance owed...
+        if (latestBalanceCheck[msg.sender] != 0) { // if this isn't the first time we've checked buyer's balance owed...
             balanceOwed[msg.sender] = balanceOwed[msg.sender].add(earnings);
             runningDebt = runningDebt.add(earnings);
         }
@@ -492,7 +492,7 @@ contract EnchantedShop is Shop {
     // add price paid - real price to balance owed
     // mint exactly one token (calculateTokens)
 
-    // we don&#39;t seem to actually use whenClosed, whenOpen
+    // we don't seem to actually use whenClosed, whenOpen
 
     */
 
@@ -511,7 +511,7 @@ contract EnchantedShop is Shop {
         balanceOwed[msg.sender] = 0;
         excessEth[msg.sender] = 0;
 
-        balance = balance.add(earnings); // account for user&#39;s earnings since lastBalanceCheck, but don&#39;t add it to balanceOwed to prevent reentrancy attacks
+        balance = balance.add(earnings); // account for user's earnings since lastBalanceCheck, but don't add it to balanceOwed to prevent reentrancy attacks
         // next, update our debt:
         runningDebt = runningDebt.add(earnings);
         runningDebt = runningDebt.sub(balance); // might be going negative due to not adding the excess eth send to runningDebt

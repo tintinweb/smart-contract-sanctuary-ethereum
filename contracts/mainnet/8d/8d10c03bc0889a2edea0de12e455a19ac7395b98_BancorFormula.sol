@@ -72,7 +72,7 @@ contract BancorFormula is IBancorFormula, SafeMath {
     uint256 constant FIXED_ONE = uint256(1) << PRECISION; // 0x100000000
     uint256 constant FIXED_TWO = uint256(2) << PRECISION; // 0x200000000
     uint256 constant MAX_VAL   = uint256(1) << (256 - PRECISION); // 0x0000000100000000000000000000000000000000000000000000000000000000
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
 
     function BancorFormula() {
     }
@@ -174,7 +174,7 @@ contract BancorFormula is IBancorFormula, SafeMath {
     function power(uint256 _baseN, uint256 _baseD, uint32 _expN, uint32 _expD) constant returns (uint256 resN) {
         uint256 logbase = ln(_baseN, _baseD);
         // Not using safeDiv here, since safeDiv protects against
-        // precision loss. It&#39;s unavoidable, however
+        // precision loss. It's unavoidable, however
         // Both `ln` and `fixedExp` are overflow-safe. 
         resN = fixedExp(safeMul(logbase, _expN) / _expD);
         return resN;
@@ -217,7 +217,7 @@ contract BancorFormula is IBancorFormula, SafeMath {
         /*
         Since `fixedLog2_min` output range is max `0xdfffffffff` 
         (40 bits, or 5 bytes), we can use a very large approximation
-        for `ln(2)`. This one is used since it&#39;s the max accuracy 
+        for `ln(2)`. This one is used since it's the max accuracy 
         of Python `ln(2)`
 
         0xb17217f7d1cf78 = ln(2) * (1 << 56)
@@ -268,7 +268,7 @@ contract BancorFormula is IBancorFormula, SafeMath {
     }
 
     /**
-        fixedExp is a &#39;protected&#39; version of `fixedExpUnsafe`, which 
+        fixedExp is a 'protected' version of `fixedExpUnsafe`, which 
         asserts instead of overflows
     */
     function fixedExp(uint256 _x) constant returns (uint256) {

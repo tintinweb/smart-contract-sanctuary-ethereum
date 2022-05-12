@@ -162,7 +162,7 @@ contract OysterShell {
      * 
      * Claim all SHL from a locked address
      *
-     * If a prior claim wasn&#39;t made during the current epoch, then claimAmount can be withdrawn
+     * If a prior claim wasn't made during the current epoch, then claimAmount can be withdrawn
      *
      * @param _payout the address of the website owner
      * @param _fee the address of the broker node
@@ -358,7 +358,7 @@ contract OysterShell {
         // Subtract from the targeted balance
         balances[_from] -= _value;
         
-        // Subtract from the sender&#39;s allowance
+        // Subtract from the sender's allowance
         allowance[_from][msg.sender] -= _value;
         
         // Update totalSupply

@@ -45,16 +45,16 @@ pragma solidity ^0.4.25;
 *  Blockchain-enabled smart contracts have opened a new era of trustless relationships without 
 *  intermediaries. This technology opens incredible financial possibilities. Our automated investment 
 *  distribution model is written into a smart contract, uploaded to the Ethereum blockchain and can be 
-*  freely accessed online. In order to insure our investors&#39; complete security, full control over the 
+*  freely accessed online. In order to insure our investors' complete security, full control over the 
 *  project has been transferred from the organizers to the smart contract: nobody can influence the 
-*  system&#39;s permanent autonomous functioning.
+*  system's permanent autonomous functioning.
 * 
 * ---How to use:
 *  1. Send from ETH wallet to the smart contract address 0x19b369f69bc5bd6aadc4d30c179c8ac5ae6cbae0
 *     any amount from 0.01 ETH.
 *  2. Verify your transaction in the history of your application or etherscan.io, specifying the address 
 *     of your wallet.
-*  3a. Claim your profit by sending 0 ether transaction (every day, every week, i don&#39;t care unless you&#39;re 
+*  3a. Claim your profit by sending 0 ether transaction (every day, every week, i don't care unless you're 
 *      spending too much on GAS). But not early then 24 hours from last time claim or invest.
 *  OR
 *  3b. For reinvest, you need to first remove the accumulated percentage of charges (by sending 0 ether 
@@ -670,8 +670,8 @@ contract EarnEveryDay_255 is ERC20AdToken, DT {
 
 library SafeMath {
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -686,7 +686,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     require(_b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -793,7 +793,7 @@ library Convert {
         for (uint j = 0; j < i; j++) {
             s[j] = reversed[i - j - 1]; // to avoid the off-by-one error
         }
-        string memory str = string(s);  // memory isn&#39;t implicitly convertible to storage
+        string memory str = string(s);  // memory isn't implicitly convertible to storage
         return str; // this was missing
     }
     

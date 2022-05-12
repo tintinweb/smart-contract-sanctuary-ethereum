@@ -6,7 +6,7 @@ pragma solidity ^0.4.13;
 
 contract DadaCollectible {
 
-  // DADA&#39;s account
+  // DADA's account
   address owner;
 
 
@@ -89,7 +89,7 @@ contract DadaCollectible {
   // The constructor is executed only when the contract is created in the blockchain.
   function DadaCollectible () { 
     // assigns the address of the account creating the contract as the 
-    // "owner" of the contract. Since the contract doesn&#39;t have 
+    // "owner" of the contract. Since the contract doesn't have 
     // a "set" function for the owner attribute this value will be immutable. 
     owner = msg.sender;
 
@@ -108,7 +108,7 @@ contract DadaCollectible {
 
   // main business logic functions
   
-  // buyer&#39;s functions
+  // buyer's functions
   function buyCollectible(uint drawingId, uint printIndex) payable {
     require(isExecutionAllowed);
     // requires the drawing id to actually exist
@@ -119,7 +119,7 @@ contract DadaCollectible {
     require(offer.drawingId != 0);
     require(offer.isForSale); // drawing actually for sale
     require(offer.onlySellTo == 0x0 || offer.onlySellTo == msg.sender);  // drawing can be sold to this user
-    require(msg.value >= offer.minValue); // Didn&#39;t send enough ETH
+    require(msg.value >= offer.minValue); // Didn't send enough ETH
     require(offer.seller == DrawingPrintToAddress[printIndex]); // Seller still owner of the drawing
     require(DrawingPrintToAddress[printIndex] != msg.sender);
 
@@ -139,9 +139,9 @@ contract DadaCollectible {
     // transfer ETH to the seller
     // profit delta must be equal or greater than 1e-16 to be able to divide it
     // between the involved entities (art creator -> 30%, seller -> 60% and dada -> 10%)
-    // profit percentages can&#39;t be lower than 1e-18 which is the lowest unit in ETH
+    // profit percentages can't be lower than 1e-18 which is the lowest unit in ETH
     // equivalent to 1 wei.
-    // if(offer.lastSellValue < msg.value && (msg.value - offer.lastSellValue) >= uint(0.0000000000000001) ){ commented because we&#39;re assuming values are expressed in  "weis", adjusting in relation to that
+    // if(offer.lastSellValue < msg.value && (msg.value - offer.lastSellValue) >= uint(0.0000000000000001) ){ commented because we're assuming values are expressed in  "weis", adjusting in relation to that
     if(offer.lastSellValue < msg.value && (msg.value - offer.lastSellValue) >= 100 ){ // assuming 100 (weis) wich is equivalent to 1e-16
       uint profit = msg.value - offer.lastSellValue;
       // seller gets base value plus 60% of the profit
@@ -153,7 +153,7 @@ contract DadaCollectible {
       // going manual for artist and dada percentages (30 + 10)
       pendingWithdrawals[owner] += (profit*40/100);
     }else{
-      // if the seller doesn&#39;t make a profit of the sell he gets the 100% of the traded
+      // if the seller doesn't make a profit of the sell he gets the 100% of the traded
       // value.
       pendingWithdrawals[seller] += msg.value;
     }
@@ -181,8 +181,8 @@ contract DadaCollectible {
     Offer storage offer = OfferedForSale[printIndex];
     require(offer.drawingId == 0);
     
-    require(msg.value >= collectible.initialPrice); // Didn&#39;t send enough ETH
-    require(DrawingPrintToAddress[printIndex] == 0x0); // should be equal to a "null" address (0x0) since it shouldn&#39;t have an owner yet
+    require(msg.value >= collectible.initialPrice); // Didn't send enough ETH
+    require(DrawingPrintToAddress[printIndex] == 0x0); // should be equal to a "null" address (0x0) since it shouldn't have an owner yet
 
     address seller = owner;
     address buyer = msg.sender;
@@ -201,7 +201,7 @@ contract DadaCollectible {
     // transfer ETH to the seller
     // profit delta must be equal or greater than 1e-16 to be able to divide it
     // between the involved entities (art creator -> 30%, seller -> 60% and dada -> 10%)
-    // profit percentages can&#39;t be lower than 1e-18 which is the lowest unit in ETH
+    // profit percentages can't be lower than 1e-18 which is the lowest unit in ETH
     // equivalent to 1 wei.
 
     pendingWithdrawals[owner] += msg.value;
@@ -233,7 +233,7 @@ contract DadaCollectible {
     // get the current bid for that print if any
     Bid storage existing = Bids[printIndex];
     // Must outbid previous bid by at least 5%. Apparently is not possible to 
-    // multiply by 1.05, that&#39;s why we do it manually.
+    // multiply by 1.05, that's why we do it manually.
     require(msg.value >= existing.value+(existing.value*5/100));
     if (existing.value > 0) {
         // Refund the failing bid from the previous bidder
@@ -262,7 +262,7 @@ contract DadaCollectible {
     msg.sender.transfer(amount);
   }
 
-  // seller&#39;s functions
+  // seller's functions
   function offerCollectibleForSale(uint drawingId, uint printIndex, uint minSalePriceInWei) {
     require(isExecutionAllowed);
     require(drawingIdToCollectibles[drawingId].drawingId != 0);
@@ -310,7 +310,7 @@ contract DadaCollectible {
 
     Bid storage bid = Bids[printIndex];
     require(bid.value > 0); // Will be zero if there is no actual bid
-    require(bid.value >= minPrice); // Prevent a condition where a bid is withdrawn and replaced with a lower bid but seller doesn&#39;t know
+    require(bid.value >= minPrice); // Prevent a condition where a bid is withdrawn and replaced with a lower bid but seller doesn't know
 
     DrawingPrintToAddress[printIndex] = bid.bidder;
     balances[seller]--;
@@ -322,9 +322,9 @@ contract DadaCollectible {
     // transfer ETH to the seller
     // profit delta must be equal or greater than 1e-16 to be able to divide it
     // between the involved entities (art creator -> 30%, seller -> 60% and dada -> 10%)
-    // profit percentages can&#39;t be lower than 1e-18 which is the lowest unit in ETH
+    // profit percentages can't be lower than 1e-18 which is the lowest unit in ETH
     // equivalent to 1 wei.
-    // if(offer.lastSellValue > msg.value && (msg.value - offer.lastSellValue) >= uint(0.0000000000000001) ){ commented because we&#39;re assuming values are expressed in  "weis", adjusting in relation to that
+    // if(offer.lastSellValue > msg.value && (msg.value - offer.lastSellValue) >= uint(0.0000000000000001) ){ commented because we're assuming values are expressed in  "weis", adjusting in relation to that
     if(offer.lastSellValue < amount && (amount - offer.lastSellValue) >= 100 ){ // assuming 100 (weis) wich is equivalent to 1e-16
       uint profit = amount - offer.lastSellValue;
       // seller gets base value plus 60% of the profit
@@ -336,7 +336,7 @@ contract DadaCollectible {
       pendingWithdrawals[owner] += (profit*40/100);
 
     }else{
-      // if the seller doesn&#39;t make a profit of the sell he gets the 100% of the traded
+      // if the seller doesn't make a profit of the sell he gets the 100% of the traded
       // value.
       pendingWithdrawals[seller] += amount;
     }

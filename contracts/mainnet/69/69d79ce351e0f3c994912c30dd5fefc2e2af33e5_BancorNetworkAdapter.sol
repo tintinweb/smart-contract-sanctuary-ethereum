@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -127,7 +127,7 @@ contract ExchangeInterface is ComponentInterface {
      * For ETH, use 0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
      * @param address _sourceAddress The token to sell for the destAddress.
      * @param address _destAddress The token to buy with the source token.
-     * @param bytes32 _exchangeId The exchangeId to choose. If it&#39;s an empty string, then the exchange will be chosen automatically.
+     * @param bytes32 _exchangeId The exchangeId to choose. If it's an empty string, then the exchange will be chosen automatically.
      * @return boolean whether or not the trading pair is supported by this exchange provider
      */
     function supportsTradingPair(address _srcAddress, address _destAddress, bytes32 _exchangeId)
@@ -139,7 +139,7 @@ contract ExchangeInterface is ComponentInterface {
      * @param uint _amount Amount of ETH used to buy this token. Make sure the value sent to this function is the same as the _amount.
      * @param uint _minimumRate The minimum amount of tokens to receive for 1 ETH.
      * @param address _depositAddress The address to send the bought tokens to.
-     * @param bytes32 _exchangeId The exchangeId to choose. If it&#39;s an empty string, then the exchange will be chosen automatically.
+     * @param bytes32 _exchangeId The exchangeId to choose. If it's an empty string, then the exchange will be chosen automatically.
      * @param address _partnerId If the exchange supports a partnerId, you can supply your partnerId here.
      * @return boolean whether or not the trade succeeded.
      */
@@ -155,7 +155,7 @@ contract ExchangeInterface is ComponentInterface {
      * @param uint _amount Amount of tokens to sell.
      * @param uint _minimumRate The minimum amount of ETH to receive for 1 ERC20Extended token.
      * @param address _depositAddress The address to send the bought tokens to.
-     * @param bytes32 _exchangeId The exchangeId to choose. If it&#39;s an empty string, then the exchange will be chosen automatically.
+     * @param bytes32 _exchangeId The exchangeId to choose. If it's an empty string, then the exchange will be chosen automatically.
      * @param address _partnerId If the exchange supports a partnerId, you can supply your partnerId here
      * @return boolean boolean whether or not the trade succeeded.
      */
@@ -387,7 +387,7 @@ contract BancorNetworkAdapter is OlympusExchangeAdapterInterface {
         uint ETHToBNTRate = BNTConverter.getReturn(bancorETHToken, bancorToken, _amount);
 
 
-        // Bancor is a special case, it&#39;s their token
+        // Bancor is a special case, it's their token
         if (targetToken == bancorToken){
             if(isBuying) {
                 rate = ((ETHToBNTRate * 10**18) / _amount);
@@ -436,7 +436,7 @@ contract BancorNetworkAdapter is OlympusExchangeAdapterInterface {
         address relayAddress = tokenToRelay[_token];
 
         if(relayAddress == 0x0){
-            // Bancor is a special case, it&#39;s their token
+            // Bancor is a special case, it's their token
             if(_token == bancorToken){
                 path = new ERC20Extended[](3);
                 path[0] = _token;
@@ -444,7 +444,7 @@ contract BancorNetworkAdapter is OlympusExchangeAdapterInterface {
                 path[2] = bancorETHToken;
                 return (path, 3);
             }
-            // It&#39;s a Bancor smart token, handle it accordingly
+            // It's a Bancor smart token, handle it accordingly
             path = new ERC20Extended[](5);
             path[0] = _token;
             path[1] = _token;
@@ -454,7 +454,7 @@ contract BancorNetworkAdapter is OlympusExchangeAdapterInterface {
             return (path, 5);
         }
 
-        // It&#39;s a relay token, handle it accordingly
+        // It's a relay token, handle it accordingly
         path = new ERC20Extended[](5);
         path[0] = _token;                              // ERC20 Token to sell
         path[1] = ERC20Extended(relayAddress);         // Relay address (automatically converted to converter address)

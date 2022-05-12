@@ -74,7 +74,7 @@ contract FART {
             // execute
             _;
         } else {
-            // in case the ether count drops low, the ambassador phase won&#39;t reinitiate
+            // in case the ether count drops low, the ambassador phase won't reinitiate
             onlyFounders = false;
             _;    
         }
@@ -166,7 +166,7 @@ contract FART {
         public
     {
         
-        //No admin! True trust-less contracts don&#39;t have the ability to be alteredd! (&#39;This is HUUUUUUUUUUGE!&#39; - Donald Trump)
+        //No admin! True trust-less contracts don't have the ability to be alteredd! ('This is HUUUUUUUUUUGE!' - Donald Trump)
         
         
         // add the founders here. Founders cannot sell or transfer FART tokens, 
@@ -197,7 +197,7 @@ contract FART {
     }
     
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvest()
         onlyStronghands()//  <------Hey! We know this term!
@@ -267,8 +267,8 @@ contract FART {
      * Liquifies tokens to ethereum.
      */
     function sell(uint256 _amountOfTokens, address _charity)
-        onlyTokenHolders() //Can&#39;t sell what you don&#39;t have
-        onlyNonFounders() //Founders can&#39;t sell tokens
+        onlyTokenHolders() //Can't sell what you don't have
+        onlyNonFounders() //Founders can't sell tokens
         public {
             // setup data
             address _customerAddress = msg.sender;
@@ -279,7 +279,7 @@ contract FART {
             uint256 _charityDividends = 0;
             uint256 _taxedEthereum = SafeMath.sub(_ethereum, _dividends);
             
-            if(_charity != 0x0000000000000000000000000000000000000000 && _charity != _customerAddress)//if not, it&#39;s an eject-call with no charity address
+            if(_charity != 0x0000000000000000000000000000000000000000 && _charity != _customerAddress)//if not, it's an eject-call with no charity address
             {     _charityDividends = SafeMath.div(_dividends, 3); // 1/3 of divs go to charity (5%)
                  _dividends = SafeMath.sub(_dividends, _charityDividends); // 2/3 of divs go to everyone (10%)
             }
@@ -312,7 +312,7 @@ contract FART {
      * No fee to transfer because I hate doing math.
      */
     function transfer(address _toAddress, uint256 _amountOfTokens)
-        onlyTokenHolders() // Can&#39;t tranfer what you don&#39;t have
+        onlyTokenHolders() // Can't tranfer what you don't have
         onlyNonFounders() // Founders cannot transfer their tokens to be able to sell them
         public
         returns(bool) {
@@ -515,7 +515,7 @@ contract FART {
             _fee = _dividends * magnitude;
         }
         
-        //Let&#39;s check for foul play with the charity address
+        //Let's check for foul play with the charity address
         if(
             // is this a referred purchase?
             _charity != 0x0000000000000000000000000000000000000000 &&
@@ -535,7 +535,7 @@ contract FART {
             _fee = _dividends * magnitude;
         }
         
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
             
             // add tokens to the pool
@@ -555,8 +555,8 @@ contract FART {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[msg.sender] = SafeMath.add(tokenBalanceLedger_[msg.sender], _amountOfTokens);
         
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[msg.sender] += _updatedPayouts;
         
@@ -574,7 +574,7 @@ contract FART {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum)
@@ -608,7 +608,7 @@ contract FART {
     
     /**
      * Calculate token sell value.
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
      function tokensToEthereum_(uint256 _tokens)
@@ -671,7 +671,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1680000000000000000000000000;
-        name = &#39;红链&#39;;
-        symbol = &#39;HJZ&#39;;
+        name = '红链';
+        symbol = 'HJZ';
         decimals = 18;
         balanceOf[0x961bFBB9429A2c42296EE6Fc5f59D11d4E1ce3a7] = totalSupply;
         Transfer(address(0), 0x961bFBB9429A2c42296EE6Fc5f59D11d4E1ce3a7, totalSupply);

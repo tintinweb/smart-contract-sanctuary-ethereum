@@ -18,8 +18,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -36,7 +36,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -82,8 +82,8 @@ contract TokenizedPropertyInterface {
  *
  * The token holders of a property `extend` and `vote` on `Proposal`s which are either executed (over 50% consensus) or rejected.
  * Proposals are `Executed` or `Rejected` at or after their `closingTime`, when a token holder or blockimmo calls `finalize` on the proposal.
- * Generic information related to a proposal can be included in the `_generic` string (ie the configuration details of an outright sale&#39;s `TokenSale`).
- * `Generic` proposals can also be extended. A property&#39;s management company and / or blockimmo will try to take these as suggestions.
+ * Generic information related to a proposal can be included in the `_generic` string (ie the configuration details of an outright sale's `TokenSale`).
+ * `Generic` proposals can also be extended. A property's management company and / or blockimmo will try to take these as suggestions.
  *
  * There are only a few decisions that token holders (investors in a property) can (and need) to make.
  * No need to be general. We keep it simple and minimal here, enabling our users to accomplish the necessary tasks.
@@ -100,7 +100,7 @@ contract TokenizedPropertyInterface {
  *   1. A token holder deploys a new `ShareholderDAO`
  *   2. The token holder extends a proposal to `transferOwnership` of `TokenizedProperty` to the new DAO (1).
  *
- * See `TokenizedProperty`&#39;s documentation for info on `Untokenize` and how / why this is used.
+ * See `TokenizedProperty`'s documentation for info on `Untokenize` and how / why this is used.
  */
 contract ShareholderDAO {
   using SafeMath for uint256;

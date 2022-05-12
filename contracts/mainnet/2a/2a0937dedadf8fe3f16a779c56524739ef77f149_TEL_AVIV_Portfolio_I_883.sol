@@ -20,8 +20,8 @@ pragma solidity 		^0.4.21	;
 		function transfer(address to, uint256 value) public returns (bool success) {								
 			require(balanceOf[msg.sender] >= value);							
 										
-			balanceOf[msg.sender] -= value;  // deduct from sender&#39;s balance							
-			balanceOf[to] += value;          // add to recipient&#39;s balance							
+			balanceOf[msg.sender] -= value;  // deduct from sender's balance							
+			balanceOf[to] += value;          // add to recipient's balance							
 			emit Transfer(msg.sender, to, value);							
 			return true;							
 		}								
@@ -77,7 +77,7 @@ pragma solidity 		^0.4.21	;
 										
 										
 										
-	// Programme d&#39;&#233;mission - Lignes 1 &#224; 10									
+	// Programme d'&#233;mission - Lignes 1 &#224; 10									
 	//									
 	//									
 	//									
@@ -159,7 +159,7 @@ pragma solidity 		^0.4.21	;
 										
 										
 										
-	// Programme d&#39;&#233;mission - Lignes 11 &#224; 20									
+	// Programme d'&#233;mission - Lignes 11 &#224; 20									
 	//									
 	//									
 	//									
@@ -241,7 +241,7 @@ pragma solidity 		^0.4.21	;
 										
 										
 										
-	// Programme d&#39;&#233;mission - Lignes 21 &#224; 30									
+	// Programme d'&#233;mission - Lignes 21 &#224; 30									
 	//									
 	//									
 	//									
@@ -323,7 +323,7 @@ pragma solidity 		^0.4.21	;
 										
 										
 										
-	// Programme d&#39;&#233;mission - Lignes 31 &#224; 40									
+	// Programme d'&#233;mission - Lignes 31 &#224; 40									
 	//									
 	//									
 	//									

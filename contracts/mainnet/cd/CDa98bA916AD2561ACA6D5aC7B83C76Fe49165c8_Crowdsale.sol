@@ -258,7 +258,7 @@ contract Crowdsale is StandardToken, Pausable, SafeMath, Utils{
 
    }
 
-   // don&#39;t just send ether to the contract expecting to get tokens
+   // don't just send ether to the contract expecting to get tokens
    //function() { throw; }
    ////@dev This function manages the Crowdsale State machine
    ///We make it a function and do not assign to a variable//

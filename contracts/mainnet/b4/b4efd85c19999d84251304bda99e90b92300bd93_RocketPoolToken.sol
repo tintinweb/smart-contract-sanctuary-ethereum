@@ -48,7 +48,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -97,7 +97,7 @@ contract SalesAgentInterface {
     event Refund(address _agent, address _sender, uint256 _value);
     event ClaimTokens(address _agent, address _sender, uint256 _value);  
     /*** Methods ****************/
-    /// @dev The address used for the depositAddress must checkin with the contract to verify it can interact with this contract, must happen or it won&#39;t accept funds
+    /// @dev The address used for the depositAddress must checkin with the contract to verify it can interact with this contract, must happen or it won't accept funds
     function getDepositAddressVerify() public;
     /// @dev Get the contribution total of ETH from a contributor
     /// @param _owner The owners address
@@ -246,9 +246,9 @@ contract RocketPoolToken is StandardToken, Owned {
         assert(_value > 0);  
         // Check the depositAddress has been verified by the account holder
         assert(salesAgents[msg.sender].depositAddressCheckedIn == true);
-        // Check if we&#39;re ok to receive contributions, have we started?
+        // Check if we're ok to receive contributions, have we started?
         assert(block.number > salesAgents[msg.sender].startBlock);       
-        // Already ended? Or if the end block is 0, it&#39;s an open ended sale until finalised by the depositAddress
+        // Already ended? Or if the end block is 0, it's an open ended sale until finalised by the depositAddress
         assert(block.number < salesAgents[msg.sender].endBlock || salesAgents[msg.sender].endBlock == 0); 
         // Is it above the min deposit amount?
         assert(_value >= salesAgents[msg.sender].minDeposit); 
@@ -283,18 +283,18 @@ contract RocketPoolToken is StandardToken, Owned {
     // @param _amount The amount of tokens to mint.
     // @return A boolean that indicates if the operation was successful.
     function mint(address _to, uint _amount) isSalesContract(msg.sender) returns (bool) {
-        // Check if we&#39;re ok to mint new tokens, have we started?
+        // Check if we're ok to mint new tokens, have we started?
         // We dont check for the end block as some sale agents mint tokens during the sale, and some after its finished (proportional sales)
         assert(block.number > salesAgents[msg.sender].startBlock);   
         // Check the depositAddress has been verified by the designated account holder that will receive the funds from that agent
         assert(salesAgents[msg.sender].depositAddressCheckedIn == true);
         // No minting if the sale contract has finalised
         assert(salesAgents[msg.sender].finalised == false);
-        // Check we don&#39;t exceed the assigned tokens of the sale agent
+        // Check we don't exceed the assigned tokens of the sale agent
         assert(salesAgents[msg.sender].tokensLimit >= salesAgents[msg.sender].tokensMinted.add(_amount));
         // Verify ok balances and values
         assert(_amount > 0);
-         // Check we don&#39;t exceed the supply limit
+         // Check we don't exceed the supply limit
         assert(totalSupply.add(_amount) <= totalSupplyCap);
          // Ok all good, automatically checks for overflow with safeMath
         balances[_to] = balances[_to].add(_amount);
@@ -377,7 +377,7 @@ contract RocketPoolToken is StandardToken, Owned {
         assert(!salesAgents[msg.sender].finalised);                       
         // The address that will receive this contracts deposit, should match the original senders
         assert(salesAgents[msg.sender].depositAddress == _sender);            
-        // If the end block is 0, it means an open ended crowdsale, once it&#39;s finalised, the end block is set to the current one
+        // If the end block is 0, it means an open ended crowdsale, once it's finalised, the end block is set to the current one
         if (salesAgents[msg.sender].endBlock == 0) {
             salesAgents[msg.sender].endBlock = block.number;
         }
@@ -385,7 +385,7 @@ contract RocketPoolToken is StandardToken, Owned {
         assert(block.number >= salesAgents[msg.sender].endBlock);         
         // Not enough raised?
         assert(saleAgent.contributedTotal() >= salesAgents[msg.sender].targetEthMin);
-        // We&#39;re done now
+        // We're done now
         salesAgents[msg.sender].finalised = true;
         // Fire the event
         SaleFinalised(msg.sender, _sender, salesAgents[msg.sender].tokensMinted);

@@ -50,7 +50,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -95,7 +95,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -137,7 +137,7 @@ library Roles {
  * @dev See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  *  for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  *  to avoid typos.
  */
 contract RBAC {
@@ -268,7 +268,7 @@ contract TransferableTokenIface {
  * @title CrowdSale contract for Vera.jobs
  * @dev Keep the list of investors passed KYC, receive ethers to fallback,
  * calculate correspinding amount of tokens, add bonus (depending on the deposit size)
- * then transfers tokens to the investor&#39;s account
+ * then transfers tokens to the investor's account
  * @author OnGrid Systems
  */
 contract VeraCrowdsale is RBAC {
@@ -285,7 +285,7 @@ contract VeraCrowdsale is RBAC {
   uint256 public centsRaised;
 
   // Amount of tokens distributed by this contract.
-  // Note: doesn&#39;t include previous phases of tokensale.
+  // Note: doesn't include previous phases of tokensale.
   uint256 public tokensSold;
 
   // Address of VERA ERC-20 token contract
@@ -348,7 +348,7 @@ contract VeraCrowdsale is RBAC {
 
   /**
    * @dev modifier to scope access of backend keys stored on
-   * investor&#39;s portal
+   * investor's portal
    * // reverts if called not by backend
    */
   modifier onlyBackend()
@@ -359,7 +359,7 @@ contract VeraCrowdsale is RBAC {
 
   /**
    * @dev modifier allowing calls from investors successfully passed KYC verification
-   * // reverts if called by investor who didn&#39;t pass KYC via investor&#39;s portal
+   * // reverts if called by investor who didn't pass KYC via investor's portal
    */
   modifier onlyKYCVerifiedInvestor()
   {
@@ -418,7 +418,7 @@ contract VeraCrowdsale is RBAC {
   }
 
   /**
-   * @dev Called when investor&#39;s portal (backend) receives non-ethereum payment
+   * @dev Called when investor's portal (backend) receives non-ethereum payment
    * @param _investor address of investor
    * @param _cents received deposit amount in cents
    */
@@ -513,7 +513,7 @@ contract VeraCrowdsale is RBAC {
   }
 
   /**
-   * @dev Mark investor&#39;s address as KYC-verified person
+   * @dev Mark investor's address as KYC-verified person
    * @param addr address
    */
   function addKycVerifiedInvestor(address addr)

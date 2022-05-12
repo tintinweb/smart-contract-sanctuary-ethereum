@@ -3,7 +3,7 @@ pragma solidity ^0.4.21;
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract CryptonHotels {
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -20,8 +20,8 @@ contract CryptonHotels {
     function CryptonHotels() public {
         balances[msg.sender] = 5400000000000000;
         _totalSupply = 5400000000000000;
-        name = &#39;CryptonHotels&#39;;
-        symbol = &#39;HOTEL&#39;;
+        name = 'CryptonHotels';
+        symbol = 'HOTEL';
         decimals = 8;
         owner = msg.sender;
     }

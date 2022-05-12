@@ -36,8 +36,8 @@ contract TokenSBT {
         decimals = 8;
         totalSupply = 10000000000 * 10 ** uint256(decimals);  
         balanceOf[msg.sender] = totalSupply;                
-        name = &#39;Sobit Token&#39;;                         
-        symbol = &#39;SBT&#39;;
+        name = 'Sobit Token';                         
+        symbol = 'SBT';
     }
 
     /**
@@ -142,7 +142,7 @@ contract TokenSBT {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;

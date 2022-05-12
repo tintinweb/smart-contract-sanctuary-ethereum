@@ -133,7 +133,7 @@ contract BlackSnail is ERC20Token
     string public name;                 // Название
     uint8 public decimals;              // Сколько десятичных знаков
     string public symbol;               // Идентификатор (трехбуквенный обычно)
-    string public version = &#39;1.0&#39;;      // Версия
+    string public version = '1.0';      // Версия
 
     function BlackSnail(
             uint256 _initialAmount,

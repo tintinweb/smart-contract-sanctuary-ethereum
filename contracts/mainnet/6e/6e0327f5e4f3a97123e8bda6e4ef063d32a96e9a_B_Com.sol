@@ -41,7 +41,7 @@ contract Token {
 contract B_CommerceCoin is Token {
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
-        //Default TotalSupply can&#39;t be over max (2^256 - 1).
+        //Default TotalSupply can't be over max (2^256 - 1).
         if (balances[msg.sender] >= _value && _value > 0) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;
@@ -100,7 +100,7 @@ contract B_Com is B_CommerceCoin {
     string public name;                   //Tap-A-Coin B-CommerceCoin
     uint8 public decimals;                //Decimal Zero
     string public symbol;                 //B-Com
-    string public version = &#39;V1.0&#39;;       //V1.0.
+    string public version = 'V1.0';       //V1.0.
 
     // Attributes of B-CommerceCoin.
     function B_Com() public {

@@ -647,7 +647,7 @@ contract AlchemyMinting is AlchemySynthesize {
         // Check whether we need to refresh the daily limit
         bytes32 history = accountsBoughtZoAsset[msg.sender];
         if (accountsZoLastRefreshTime[msg.sender] == uint256(0)) {
-            // This account&#39;s first time to buy zo asset, we do not need to clear accountsBoughtZoAsset
+            // This account's first time to buy zo asset, we do not need to clear accountsBoughtZoAsset
             accountsZoLastRefreshTime[msg.sender] = zoLastRefreshTime;
         } else {
             if (accountsZoLastRefreshTime[msg.sender] < zoLastRefreshTime) {
@@ -816,7 +816,7 @@ contract AlchemyMarket is AlchemyMinting {
   
     // Withdraw an sale order
     function withdrawSale(uint256 saleId) external whenNotPaused {
-        // Can only withdraw self&#39;s sale order
+        // Can only withdraw self's sale order
         require(saleOrderList[saleId].seller == msg.sender);
 
         uint256 assetId = uint256(saleOrderList[saleId].assetId);
@@ -861,7 +861,7 @@ contract AlchemyMarket is AlchemyMinting {
         // Check whether the saleId is a valid sale order
         require(seller != address(0));
 
-        // Check the sender isn&#39;t the seller
+        // Check the sender isn't the seller
         require(msg.sender != seller);
 
         require(saleOrderList[saleId].amount >= uint64(amount));

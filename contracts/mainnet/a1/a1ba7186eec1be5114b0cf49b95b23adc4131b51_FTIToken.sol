@@ -91,8 +91,8 @@ library SafeMath {
      * @dev Multiplies two unsigned integers, reverts on overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -111,7 +111,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -187,7 +187,7 @@ pragma solidity 0.5.9;
  * https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
  *
  * This implementation emits additional Approval events, allowing applications to reconstruct the allowance status for
- * all accounts just by listening to said events. Note that this isn&#39;t required by the specification, and other
+ * all accounts just by listening to said events. Note that this isn't required by the specification, and other
  * compliant implementations may not do it.
  */
 contract ERC20 is IERC20 {
@@ -239,7 +239,7 @@ contract ERC20 is IERC20 {
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param spender The address which will spend the funds.
      * @param value The amount of tokens to be spent.
@@ -337,7 +337,7 @@ contract ERC20 is IERC20 {
     }
 
     /**
-     * @dev Approve an address to spend another addresses&#39; tokens.
+     * @dev Approve an address to spend another addresses' tokens.
      * @param owner The address that owns the tokens.
      * @param spender The address that will spend the tokens.
      * @param value The number of tokens that can be spent.
@@ -352,7 +352,7 @@ contract ERC20 is IERC20 {
 
     /**
      * @dev Internal function that burns an amount of the token of a given
-     * account, deducting from the sender&#39;s allowance for said account. Uses the
+     * account, deducting from the sender's allowance for said account. Uses the
      * internal burn function.
      * Emits an Approval event (reflecting the reduced allowance).
      * @param account The account whose tokens will be burnt.
@@ -493,7 +493,7 @@ contract FTICrowdsale is Ownable {
    * @dev This function suspends the tokens purchase
    */
   function pause() public onlyOwner {
-    require(!isPaused, &#39;Sales must be not paused&#39;);
+    require(!isPaused, 'Sales must be not paused');
     isPaused = true;
   }
 
@@ -501,7 +501,7 @@ contract FTICrowdsale is Ownable {
    * @dev This function resumes the purchase of tokens
    */
   function unpause() public onlyOwner {
-    require(isPaused, &#39;Sales must be paused&#39;);
+    require(isPaused, 'Sales must be paused');
     isPaused = false;
   }
 
@@ -533,8 +533,8 @@ contract FTICrowdsale is Ownable {
    * @dev This function releases tokens reserved for owners.
    */
   function releaseStage1() public onlyOwner {
-    require(now > stage1ReleaseTime, &#39;Release time has not come yet&#39;);
-    require(stage1Released != true, &#39;Tokens already released&#39;);
+    require(now > stage1ReleaseTime, 'Release time has not come yet');
+    require(stage1Released != true, 'Tokens already released');
 
     stage1Released = true;
     token.mint(wallet, stage1Amount);
@@ -544,8 +544,8 @@ contract FTICrowdsale is Ownable {
    * @dev This function releases tokens reserved for owners.
    */
   function releaseStage2() public onlyOwner {
-    require(now > stage2ReleaseTime, &#39;Release time has not come yet&#39;);
-    require(stage2Released != true, &#39;Tokens already released&#39;);
+    require(now > stage2ReleaseTime, 'Release time has not come yet');
+    require(stage2Released != true, 'Tokens already released');
 
     stage2Released = true;
     token.mint(wallet, stage2Amount);
@@ -555,8 +555,8 @@ contract FTICrowdsale is Ownable {
    * @dev This function releases tokens reserved for owners.
    */
   function releaseStage3() public onlyOwner {
-    require(now > stage3ReleaseTime, &#39;Release time has not come yet&#39;);
-    require(stage3Released != true, &#39;Tokens already released&#39;);
+    require(now > stage3ReleaseTime, 'Release time has not come yet');
+    require(stage3Released != true, 'Tokens already released');
 
     stage3Released = true;
     token.mint(wallet, stage3Amount);
@@ -570,13 +570,13 @@ contract FTICrowdsale is Ownable {
   }
 
   function buyTokens() public payable {
-    require(!isPaused, &#39;Sales are temporarily paused&#39;);
+    require(!isPaused, 'Sales are temporarily paused');
 
     address payable inv = msg.sender;
     require(inv != address(0));
 
     uint256 weiAmount = msg.value;
-    require(weiAmount >= minPurchase, &#39;Amount of ether is not enough to buy even the smallest token part&#39;);
+    require(weiAmount >= minPurchase, 'Amount of ether is not enough to buy even the smallest token part');
 
     uint256 cleanWei; // amount of wei to use for purchase excluding change and max supply overflows
     uint256 change;
@@ -600,7 +600,7 @@ contract FTICrowdsale is Ownable {
 
     if (supply.add(tokens) > maxSupply) {
       tokens = maxSupply.sub(supply);
-      require(tokens > 0, &#39;There are currently no tokens for sale&#39;);
+      require(tokens > 0, 'There are currently no tokens for sale');
       if (tokens >= tokensNoBonuses) {
         cleanWei = weiAmount;
       } else {

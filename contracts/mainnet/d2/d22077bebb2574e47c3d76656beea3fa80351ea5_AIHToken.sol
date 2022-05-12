@@ -152,7 +152,7 @@ contract TokenERC20 {
         require(_value <= allowance[_from][msg.sender]);
         // Subtract from the targeted balance.
         balanceOf[_from] -= _value;
-        // Subtract from the sender&#39;s allowance.
+        // Subtract from the sender's allowance.
         allowance[_from][msg.sender] -= _value;
         // Update totalSupply
         totalSupply -= _value;

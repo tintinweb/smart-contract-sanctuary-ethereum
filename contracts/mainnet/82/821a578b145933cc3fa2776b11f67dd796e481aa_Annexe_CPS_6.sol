@@ -110,7 +110,7 @@ pragma solidity 		^0.4.21	;
 //	Op&#233;rateur &#171;&#160;R&#232;glement-Livraison&#160;&#187; :											
 //	&#171;&#160;LLV_v30_12&#160;&#187;											
 //												
-//	Fonctions d&#39;&#233;dition de comptes :											
+//	Fonctions d'&#233;dition de comptes :											
 //	Input : [ _Compte_i ]											
 //	Outputs : [ _Compte ; _Contrat ; _Cotation ; _Quantit&#233; ; _Notionnel ; _Deposit ]											
 //												
@@ -122,7 +122,7 @@ pragma solidity 		^0.4.21	;
 //	&#171;&#160;Cotation&#160;&#187;											
 //	Cours initial lors de la souscription du contrat											
 //	&#171;&#160;Quantit&#233;&#160;&#187;											
-//	Nombre d&#39;unit&#233;s de compte en volume											
+//	Nombre d'unit&#233;s de compte en volume											
 //	&#171;&#160;Notionnel&#160;&#187;											
 //	Valeur notionnelle totale couverte											
 //	&#171;&#160;Deposit&#160;&#187;											

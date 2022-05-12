@@ -300,7 +300,7 @@ contract ZiberCrowdsale is Haltable, Killable, SafeMath {
   /// Total count of tokens distributed via ICO
   uint public constant TOTAL_ICO_TOKENS = 1e8;
 
-  /// Miminal tokens funding goal in Wei, if this goal isn&#39;t reached during ICO, refund will begin
+  /// Miminal tokens funding goal in Wei, if this goal isn't reached during ICO, refund will begin
   uint public constant MIN_ICO_GOAL = 5e3 ether;
 
   /// Maximal tokens funding goal in Wei
@@ -382,7 +382,7 @@ contract ZiberCrowdsale is Haltable, Killable, SafeMath {
     startsAt = _start;
   }
 
-  ///  Don&#39;t expect to just send in money and get tokens.
+  ///  Don't expect to just send in money and get tokens.
   function() payable {
     buy();
   }

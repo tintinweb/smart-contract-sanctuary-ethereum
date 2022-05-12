@@ -185,7 +185,7 @@ contract ERC721Token is ERC721, Pausable {
     mapping (uint => address) tokenIdToApproved;
 
     /**
-     * @dev A mapping from token ID to index of the ownerTokens&#39; tokens list.
+     * @dev A mapping from token ID to index of the ownerTokens' tokens list.
      */
     mapping(uint => uint) tokenIdToOwnerTokensIndex;
 
@@ -375,17 +375,17 @@ contract EDStructs {
         // 0: Active | 1: Transport Only | 2: Challenge Only | 3: Train Only | 4: InActive
         uint8 status;
 
-        // The dungeon&#39;s difficulty, the higher the difficulty,
+        // The dungeon's difficulty, the higher the difficulty,
         // normally, the "rarer" the seedGenes, the higher the diffculty,
         // and the higher the contribution fee it is to challenge, train, and transport to the dungeon,
         // the formula for the contribution fee is in DungeonChallenge and DungeonTraining contracts.
-        // A dungeon&#39;s difficulty never change.
+        // A dungeon's difficulty never change.
         uint8 difficulty;
 
-        // The dungeon&#39;s capacity, maximum number of players allowed to stay on this dungeon.
+        // The dungeon's capacity, maximum number of players allowed to stay on this dungeon.
         // The capacity of the newbie dungeon (Holyland) is set at 0 (which is infinity).
         // Using 16-bit unsigned integers can have a maximum of 65535 in capacity.
-        // A dungeon&#39;s capacity never change.
+        // A dungeon's capacity never change.
         uint16 capacity;
 
         // The current floor number, a dungeon is consists of an umlimited number of floors,
@@ -402,12 +402,12 @@ contract EDStructs {
         // The seed genes of the dungeon, it is used as the base gene for first floor,
         // some dungeons are rarer and some are more common, the exact details are,
         // of course, top secret of the game!
-        // A dungeon&#39;s seedGenes never change.
+        // A dungeon's seedGenes never change.
         uint seedGenes;
 
         // The genes for current floor, it encodes the difficulty level of the current floor.
         // We considered whether to store the entire array of genes for all floors, but
-        // in order to save some precious gas we&#39;re willing to sacrifice some functionalities with that.
+        // in order to save some precious gas we're willing to sacrifice some functionalities with that.
         uint floorGenes;
 
     }
@@ -429,7 +429,7 @@ contract EDStructs {
         uint32 cooldownIndex;
 
         // The seed of the hero, the gene encodes the power level of the hero.
-        // This is another top secret of the game! Hero&#39;s gene can be upgraded via
+        // This is another top secret of the game! Hero's gene can be upgraded via
         // training in a dungeon.
         uint genes;
 
@@ -681,7 +681,7 @@ contract ERC721DutchAuction is Ownable, Pausable {
     }
 
     /**
-     * @dev Cancels an auction that hasn&#39;t been won yet. Returns the token to original owner.
+     * @dev Cancels an auction that hasn't been won yet. Returns the token to original owner.
      * @notice This is a state-modifying function that can be called while the contract is paused.
      * @param _tokenId - ID of token on auction
      */
@@ -709,7 +709,7 @@ contract ERC721DutchAuction is Ownable, Pausable {
     }
 
     /**
-     * @dev Remove all Ether from the contract, which is the owner&#39;s cuts
+     * @dev Remove all Ether from the contract, which is the owner's cuts
      *  as well as any Ether sent directly to the contract address.
      */
     function withdrawBalance() onlyOwner external {
@@ -769,7 +769,7 @@ contract ERC721DutchAuction is Ownable, Pausable {
         uint _duration,
         address _seller
     ) internal {
-        // Sanity check that no inputs overflow how many bits we&#39;ve allocated to store them in the auction struct.
+        // Sanity check that no inputs overflow how many bits we've allocated to store them in the auction struct.
         require(_startingPrice == uint(uint128(_startingPrice)));
         require(_endingPrice == uint(uint128(_endingPrice)));
         require(_duration == uint(uint64(_duration)));
@@ -826,7 +826,7 @@ contract ERC721DutchAuction is Ownable, Pausable {
         Auction storage auction = tokenIdToAuction[_tokenId];
 
         // Explicitly check that this auction is currently live.
-        // (Because of how Ethereum mappings work, we can&#39;t just count
+        // (Because of how Ethereum mappings work, we can't just count
         // on the lookup above failing. An invalid _tokenId will just
         // return an auction object that is all zeros.)
         require(_isOnAuction(auction));
@@ -840,12 +840,12 @@ contract ERC721DutchAuction is Ownable, Pausable {
         address seller = auction.seller;
 
         // The bid is good! Remove the auction before sending the fees
-        // to the sender so we can&#39;t have a reentrancy attack.
+        // to the sender so we can't have a reentrancy attack.
         _removeAuction(_tokenId);
 
         // Transfer proceeds to seller (if there are any!)
         if (price > 0) {
-            // Calculate the auctioneer&#39;s cut.
+            // Calculate the auctioneer's cut.
             uint auctioneerCut = price * ownerCut / 10000;
             uint sellerProceeds = price - auctioneerCut;
 
@@ -900,13 +900,13 @@ contract ERC721DutchAuction is Ownable, Pausable {
 
         // A bit of insurance against negative values (or wraparound).
         // Probably not necessary (since Ethereum guarnatees that the
-        // now variable doesn&#39;t ever go backwards).
+        // now variable doesn't ever go backwards).
         if (now > _auction.startedAt) {
             secondsPassed = now - _auction.startedAt;
         }
 
         if (secondsPassed >= _auction.duration) {
-            // We&#39;ve reached the end of the dynamic pricing portion
+            // We've reached the end of the dynamic pricing portion
             // of the auction, just return the end price.
             return _auction.endingPrice;
         } else {
@@ -914,7 +914,7 @@ contract ERC721DutchAuction is Ownable, Pausable {
             // this delta can be negative.
             int totalPriceChange = int(_auction.endingPrice) - int(_auction.startingPrice);
 
-            // This multiplication can&#39;t overflow, _secondsPassed will easily fit within
+            // This multiplication can't overflow, _secondsPassed will easily fit within
             // 64-bits, and totalPriceChange will easily fit within 128-bits, their product
             // will always fit within 256-bits.
             int currentPriceChange = totalPriceChange * int(secondsPassed) / int(_auction.duration);

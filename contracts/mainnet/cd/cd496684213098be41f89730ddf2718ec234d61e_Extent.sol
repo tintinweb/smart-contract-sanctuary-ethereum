@@ -90,7 +90,7 @@ contract Extent {
     function depositToken(address token, uint amount) public onlyAdmin {
         //remember to call ERC20Token(address).approve(this, amount) or this contract will not be able to do the transfer on your behalf.
         if (token == 0) revert("Cannot deposit ETH with depositToken method");
-        if (!ERC20(token).transferFrom(msg.sender, this, amount)) revert("You didn&#39;t call approve method on Token contract");
+        if (!ERC20(token).transferFrom(msg.sender, this, amount)) revert("You didn't call approve method on Token contract");
         tokens[token] += amount;
         emit Deposit(token, msg.sender, amount, tokens[token]);
     }

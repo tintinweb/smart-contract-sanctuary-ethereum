@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -48,7 +48,7 @@ library SafeMath {
 
 /**
  * @title TokenlessCrowdsale
- * @dev Crowdsale based on OpenZeppelin&#39;s Crowdsale but without token-related logic
+ * @dev Crowdsale based on OpenZeppelin's Crowdsale but without token-related logic
  * @author U-Zyn Chua <uzyn@zynesis.com>
  *
  * Largely similar to OpenZeppelin except the following irrelevant token-related hooks removed:
@@ -218,7 +218,7 @@ contract Ownable {
  * @dev Crowdsale in which only whitelisted users can contribute,
  * with a defined individual cap in wei,
  * and a bool flag on whether a user is an accredited investor (AI)
- * Based on OpenZeppelin&#39;s WhitelistedCrowdsale and IndividuallyCappedCrowdsale
+ * Based on OpenZeppelin's WhitelistedCrowdsale and IndividuallyCappedCrowdsale
  * @author U-Zyn Chua <uzyn@zynesis.com>
  */
 contract WhitelistedAICrowdsale is TokenlessCrowdsale, Ownable {
@@ -286,7 +286,7 @@ contract WhitelistedAICrowdsale is TokenlessCrowdsale, Ownable {
 /**
  * @title FiatCappedCrowdsale
  * @dev Crowdsale with a limit for total contributions defined in fiat (USD).
- * Based on OpenZeppelin&#39;s CappedCrowdsale
+ * Based on OpenZeppelin's CappedCrowdsale
  * Handles fiat rates, but does not handle token awarding.
  * @author U-Zyn Chua <uzyn@zynesis.com>
  */
@@ -413,7 +413,7 @@ contract FiatCappedCrowdsale is TokenlessCrowdsale, Ownable {
 /**
  * @title PausableCrowdsale
  * @dev Crowdsale allowing owner to halt sale process
- * Based on OpenZeppelin&#39;s TimedCrowdsale
+ * Based on OpenZeppelin's TimedCrowdsale
  * @author U-Zyn Chua <uzyn@zynesis.com>
  */
 contract PausableCrowdsale is TokenlessCrowdsale, Ownable {
@@ -513,7 +513,7 @@ contract BasicERC223Receiver {
 /**
  * @title RestrictedToken
  * @dev Standard Mintable ERC20 Token that can only be sent to an authorized address
- * Based on Consensys&#39; TokenFoundry&#39;s ControllableToken
+ * Based on Consensys' TokenFoundry's ControllableToken
  * @author U-Zyn Chua <uzyn@zynesis.com>
  */
 contract RestrictedToken is BasicToken, Ownable {
@@ -639,8 +639,8 @@ contract ExtendedPrivateSale is TokenlessCrowdsale, WhitelistedAICrowdsale, Fiat
   public {
     tokenR0 = new RestrictedToken(
       2 * 40000000 * (10 ** 18), // supply: 40 million (* 2 for edge safety)
-      &#39;Sparrow Token (Restricted)&#39;, // name
-      &#39;SPX-R0&#39;, // symbol
+      'Sparrow Token (Restricted)', // name
+      'SPX-R0', // symbol
       18, // decimals
       0, // no vesting
       msg.sender, // owner
@@ -650,8 +650,8 @@ contract ExtendedPrivateSale is TokenlessCrowdsale, WhitelistedAICrowdsale, Fiat
     // SPX-R6: Only 12 mil needed if all contributors are AI, 52 mil needed if all contributors are non-AIs
     tokenR6 = new RestrictedToken(
       2 * 52000000 * (10 ** 18), // supply: 52 million (* 2 for edge safety)
-      &#39;Sparrow Token (Restricted with 6-month vesting)&#39;, // name
-      &#39;SPX-R6&#39;, // symbol
+      'Sparrow Token (Restricted with 6-month vesting)', // name
+      'SPX-R6', // symbol
       18, // decimals
       6 * 30 * 86400, // vesting: 6 months
       msg.sender, // owner

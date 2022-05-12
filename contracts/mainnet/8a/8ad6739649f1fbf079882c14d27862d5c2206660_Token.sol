@@ -124,7 +124,7 @@ contract    ERC20
         return balances[walletAddress];
     }
     //--------------------------------------------------------------------------
-    function transfer(address toAddr, uint256 amountInWei)  public   duringIcoOnlyTheOwner   returns (bool)     // don&#39;t icoNotPaused here. It&#39;s a logic issue. 
+    function transfer(address toAddr, uint256 amountInWei)  public   duringIcoOnlyTheOwner   returns (bool)     // don't icoNotPaused here. It's a logic issue. 
     {
         require(toAddr!=0x0 && toAddr!=msg.sender && amountInWei>0);     // Prevent transfer to 0x0 address and to self, amount must be >0
 
@@ -132,7 +132,7 @@ contract    ERC20
 
         //----- Checking Token reserve first : if during ICO    
 
-        if (msg.sender==owner && now <= icoDeadLine)                    // ICO Reserve Supply checking: Don&#39;t touch the RESERVE of tokens when owner is selling
+        if (msg.sender==owner && now <= icoDeadLine)                    // ICO Reserve Supply checking: Don't touch the RESERVE of tokens when owner is selling
         {
             assert(amountInWei<=availableTokens);
 
@@ -181,7 +181,7 @@ contract    ERC20
     //--------------------------------------------------------------------------
     function() public                       
     {
-        assert(true == false);      // If Ether is sent to this address, don&#39;t handle it -> send it back.
+        assert(true == false);      // If Ether is sent to this address, don't handle it -> send it back.
     }
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------

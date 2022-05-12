@@ -21,7 +21,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -47,7 +47,7 @@ library ZethrTierLibrary {
   function getTier(uint divRate) internal pure returns (uint8) {
 
     // Divide the average dividned rate by magnitude
-    // Remainder doesn&#39;t matter because of the below logic
+    // Remainder doesn't matter because of the below logic
     uint actualDiv = divRate / magnitude;
     if (actualDiv >= 30) {
       return 6;
@@ -600,7 +600,7 @@ contract ZethrGame {
   uint queueHead = 0;
   uint queueTail = 0;
 
-  // Store each player&#39;s latest bet via mapping
+  // Store each player's latest bet via mapping
   mapping(address => BetBase) bets;
 
   // Bet structures must start with this layout
@@ -613,7 +613,7 @@ contract ZethrGame {
   }
 
   // Mapping of addresses to their *position* in the queue
-  // Zero = they aren&#39;t in the queue
+  // Zero = they aren't in the queue
   mapping(address => uint) pendingBetsMapping;
 
   // Holds the bankroll controller info
@@ -724,7 +724,7 @@ contract ZethrGame {
     for (head = mQueue; head < tail; head++) {
       // Check the head of the queue to see if there is a resolvable bet
       // This means the bet at the queue head is older than 255 blocks AND is not 0
-      // (However, if the address at the head is null, skip it, it&#39;s already been resolved)
+      // (However, if the address at the head is null, skip it, it's already been resolved)
       if (pendingBetsQueue[head] == address(0x0)) {
         continue;
       }
@@ -743,7 +743,7 @@ contract ZethrGame {
 
         // Queue-tail is always the "next" open spot, so queue head and tail will never overlap
       } else {
-        // If we can&#39;t resolve a bet, stop going down the queue
+        // If we can't resolve a bet, stop going down the queue
         break;
       }
     }
@@ -1075,7 +1075,7 @@ contract ZethrDice is ZethrGame {
     // Remove the player from the pending bets queue by setting the address to 0x0
     pendingBetsQueue[index] = address(0x0);
 
-    // Delete the player&#39;s bet by setting the mapping to zero
+    // Delete the player's bet by setting the mapping to zero
     pendingBetsMapping[_playerAddress] = 0;
 
     emit Result(_playerAddress, playerBet.tokenValue.mul(1e14), int(winAmount) - int(lossAmount));
@@ -1119,7 +1119,7 @@ contract ZethrDice is ZethrGame {
     pendingBetsQueue[queueTail] = _player;
     queueTail++;
 
-    // Add the player&#39;s position in the queue to the pending bets mapping
+    // Add the player's position in the queue to the pending bets mapping
     pendingBetsMapping[_player] = queueTail - 1;
 
     // Emit event

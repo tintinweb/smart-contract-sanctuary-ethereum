@@ -224,7 +224,7 @@ contract RenExBrokerVerifier is Ownable {
         emit LogBrokerRegistered(_broker);
     }
 
-    /// @notice Reverts the a broker&#39;s registration.
+    /// @notice Reverts the a broker's registration.
     /// @param _broker The address of the broker.
     function deregisterBroker(address _broker) external onlyOwner {
         require(brokers[_broker], "not registered");
@@ -232,7 +232,7 @@ contract RenExBrokerVerifier is Ownable {
         emit LogBrokerDeregistered(_broker);
     }
 
-    /// @notice Verifies a broker&#39;s signature for an order opening.
+    /// @notice Verifies a broker's signature for an order opening.
     /// The data signed by the broker is a prefixed message and the order ID.
     ///
     /// @param _trader The trader requesting the withdrawal.
@@ -249,7 +249,7 @@ contract RenExBrokerVerifier is Ownable {
         return (brokers[signer] == true);
     }
 
-    /// @notice Verifies a broker&#39;s signature for a trader withdrawal.
+    /// @notice Verifies a broker's signature for a trader withdrawal.
     /// The data signed by the broker is a prefixed message, the trader address
     /// and a 256-bit trader nonce, which is incremented every time a valid
     /// signature is checked.

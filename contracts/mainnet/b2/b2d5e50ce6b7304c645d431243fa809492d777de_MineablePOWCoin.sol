@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
  
@@ -121,7 +121,7 @@ uint public difficulty = 10**1;                         // Difficulty starts rea
 
 function proofOfWork(uint nonce){
     bytes8 n = bytes8(sha3(nonce, currentChallenge));    // Generate a random hash based on input
-    if (n < bytes8(difficulty)) throw;                   // Check if it&#39;s under the difficulty
+    if (n < bytes8(difficulty)) throw;                   // Check if it's under the difficulty
 
     uint timeSinceLastProof = (now - timeOfLastProof);  // Calculate time since last reward was given
     if (timeSinceLastProof <  30 seconds) throw;         // Rewards cannot be given too quickly

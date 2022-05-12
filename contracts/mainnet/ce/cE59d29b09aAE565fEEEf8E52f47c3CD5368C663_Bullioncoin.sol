@@ -15,7 +15,7 @@ address public owner;
  event Approval(address indexed _owner, address indexed spender, uint256 value); 
  function Bullioncoin (){ 
        totalSupply = 100000000000000000000000000;                       
-        symbol = &#39;BLX&#39;; 
+        symbol = 'BLX'; 
        owner =0xcef47255b0a73f23f3bc54050a52fcabf2cc323d; 
          balances[owner] = totalSupply; 
          decimals = 18; 

@@ -116,8 +116,8 @@ contract ConflictResolution is ConflictResolutionInterface {
      * @param _betNum Bet number.
      * @param _betValue Value of bet.
      * @param _balance Current balance.
-     * @param _serverSeed Server&#39;s seed of current round.
-     * @param _playerSeed Player&#39;s seed of current round.
+     * @param _serverSeed Server's seed of current round.
+     * @param _playerSeed Player's seed of current round.
      * @return New game session balance.
      */
     function endGameConflict(
@@ -181,7 +181,7 @@ contract ConflictResolution is ConflictResolutionInterface {
         // assume player has lost
         int newBalance = _balance - int(_betValue);
 
-        // penalize player as he didn&#39;t end game
+        // penalize player as he didn't end game
         newBalance -= NOT_ENDED_FINE;
 
         // do not allow balance below player stake
@@ -228,7 +228,7 @@ contract ConflictResolution is ConflictResolutionInterface {
             profit = int(calculateProfit(_gameType, _betNum, _betValue)); // safe to cast as ranges are limited
         }
 
-        // penalize server as it didn&#39;t end game
+        // penalize server as it didn't end game
         profit += NOT_ENDED_FINE;
 
         return _balance + profit;
@@ -240,8 +240,8 @@ contract ConflictResolution is ConflictResolutionInterface {
      * @param _betNum Bet Number.
      * @param _betValue Value of bet.
      * @param _balance Current balance.
-     * @param _serverSeed Server&#39;s seed
-     * @param _playerSeed Player&#39;s seed
+     * @param _serverSeed Server's seed
+     * @param _playerSeed Player's seed
      * return new balance.
      */
     function processBet(
@@ -303,7 +303,7 @@ contract ConflictResolution is ConflictResolutionInterface {
      * @dev Calculate player profit if player has won for game type 1 (dice lower wins).
      * @param _betNum Bet number of player.
      * @param _betValue Value of bet in gwei.
-     * @return Players&#39; profit.
+     * @return Players' profit.
      */
     function calculateProfitGameType1(uint _betNum, uint _betValue) private pure returns(int) {
         assert(_betNum > 0 && _betNum < DICE_RANGE);
@@ -317,7 +317,7 @@ contract ConflictResolution is ConflictResolutionInterface {
      * @dev Calculate player profit if player has won for game type 2 (dice lower wins).
      * @param _betNum Bet number of player.
      * @param _betValue Value of bet in gwei.
-     * @return Players&#39; profit.
+     * @return Players' profit.
      */
     function calculateProfitGameType2(uint _betNum, uint _betValue) private pure returns(int) {
         assert(_betNum >= 0 && _betNum < DICE_RANGE - 1);

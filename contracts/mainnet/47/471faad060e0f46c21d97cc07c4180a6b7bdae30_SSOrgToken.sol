@@ -74,8 +74,8 @@ contract SSOrgToken {
     function buy(address seller) payable public returns (uint256 amount) {
         amount = msg.value / sellPriceOf[seller];        // calculates the amount
         require(sellTypeOf[seller] == 0 ? sellTotalOf[seller] == amount : sellTotalOf[seller] >= amount);
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
-        sellTotalOf[seller] -= amount;                        // subtracts amount from seller&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
+        sellTotalOf[seller] -= amount;                        // subtracts amount from seller's balance
         Transfer(seller, msg.sender, amount);               // execute an event reflecting the change
         seller.transfer(msg.value);
         return amount;                                    // ends function and returns

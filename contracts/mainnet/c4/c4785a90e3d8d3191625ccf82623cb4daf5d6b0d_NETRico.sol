@@ -92,7 +92,7 @@ contract NETRico {
     token public tokenReward; //Address of the valid token used as reward
     address public creator; //Address of the contract deployer
     string public campaignUrl; //Web site of the campaign
-    string public version = &#39;2&#39;;
+    string public version = '2';
 
     //events for log
     event LogFundingReceived(address _addr, uint _amount, uint _currentTotal);
@@ -231,7 +231,7 @@ contract NETRico {
 
     /**
     * @notice Function to handle eth transfers
-    * @dev BEWARE: if a call to this functions doesn&#39;t have
+    * @dev BEWARE: if a call to this functions doesn't have
     * enought gas, transaction could not be finished
     */
     function() public payable {

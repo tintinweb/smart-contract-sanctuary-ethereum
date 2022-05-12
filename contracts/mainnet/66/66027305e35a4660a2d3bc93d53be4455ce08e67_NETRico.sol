@@ -139,7 +139,7 @@ contract NETRico {
 
     /**
     * @notice Function to handle eth transfers
-    * @dev BEWARE: if a call to this functions doesn&#39;t have
+    * @dev BEWARE: if a call to this functions doesn't have
     * enough gas, transaction could not be finished
     */
     function() public payable {

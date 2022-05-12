@@ -36,8 +36,8 @@ contract Pasadena {
     enum sigDestination { transfer, approve, approveAndCall, transferFrom }
     bytes32 public sigDestinationTransfer = keccak256(
         "address Token Contract Address",
-        "address Sender&#39;s Address",
-        "address Recipient&#39;s Address",
+        "address Sender's Address",
+        "address Recipient's Address",
         "uint256 Amount to Transfer (last six digits are decimals)",
         "uint256 Fee in Tokens Paid to Executor (last six digits are decimals)",
         "uint256 Signature Expiration Timestamp (unix timestamp)",
@@ -191,17 +191,17 @@ contract Pasadena {
      * This function distincts transaction signer from transaction executor. It allows anyone to transfer tokens
      * from the `from` account by providing a valid signature, which can only be obtained from the `from` account
      * owner.
-     * Note that passed parameter sigId is unique and cannot be passed twice (prevents replay attacks). When there&#39;s
+     * Note that passed parameter sigId is unique and cannot be passed twice (prevents replay attacks). When there's
      * a need to make signature once again (because the first on is lost or whatever), user should sign the message
-     * with the same sigId, thus ensuring that the previous signature won&#39;t be used if the new one passes.
-     * Use case: the user wants to send some tokens to other user or smart contract, but don&#39;t have ether to do so.
+     * with the same sigId, thus ensuring that the previous signature won't be used if the new one passes.
+     * Use case: the user wants to send some tokens to other user or smart contract, but don't have ether to do so.
      * @param from - the account giving its signature to transfer `value` tokens to `to` address
      * @param to - the account receiving `value` tokens
      * @param value - the value in tokens to transfer
      * @param fee - a fee to pay to transaction executor (`msg.sender`)
      * @param deadline - until when the signature is valid
      * @param sigId - signature unique ID. Signatures made with the same signature ID cannot be submitted twice
-     * @param sig - signature made by `from`, which is the proof of `from`&#39;s agreement with the above parameters
+     * @param sig - signature made by `from`, which is the proof of `from`'s agreement with the above parameters
      * @param sigStd - chosen standard for signature validation. The signer must explicitly tell which standard they use
      */
     function transferViaSignature (
@@ -223,10 +223,10 @@ contract Pasadena {
     }
 
     /**
-     * Allow `spender` to take `value` tokens from the transaction sender&#39;s account.
+     * Allow `spender` to take `value` tokens from the transaction sender's account.
      * Beware that changing an allowance with this method brings the risk that `spender` may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param spender - the address authorized to spend
      * @param value - the maximum amount they can spend
@@ -247,7 +247,7 @@ contract Pasadena {
      * @param fee - a fee to pay to transaction executor (`msg.sender`)
      * @param deadline - until when the signature is valid
      * @param sigId - signature unique ID. Signatures made with the same signature ID cannot be submitted twice
-     * @param sig - signature made by `from`, which is the proof of `from`&#39;s agreement with the above parameters
+     * @param sig - signature made by `from`, which is the proof of `from`'s agreement with the above parameters
      * @param sigStd - chosen standard for signature validation. The signer must explicitely tell which standard they use
      */
     function approveViaSignature (
@@ -315,7 +315,7 @@ contract Pasadena {
     /**
      * Utility function, which acts the same as approve(...) does, but also calls `receiveApproval` function on a
      * `spender` address, which is usually the address of the smart contract. In the same call, smart contract can
-     * withdraw tokens from the sender&#39;s account and receive additional `extraData` for processing.
+     * withdraw tokens from the sender's account and receive additional `extraData` for processing.
      * @param spender - the address to be authorized to spend tokens
      * @param value - the max amount the `spender` can withdraw
      * @param extraData - some extra information to send to the approved contract
@@ -336,7 +336,7 @@ contract Pasadena {
      * @param fee - a fee to pay to transaction executor (`msg.sender`)
      * @param deadline - until when the signature is valid
      * @param sigId - signature unique ID. Signatures made with the same signature ID cannot be submitted twice
-     * @param sig - signature made by `from`, which is the proof of `from`&#39;s agreement with the above parameters
+     * @param sig - signature made by `from`, which is the proof of `from`'s agreement with the above parameters
      * @param sigStd - chosen standard for signature validation. The signer must explicitely tell which standard they use
      */
     function approveAndCallViaSignature (
@@ -394,7 +394,7 @@ contract Pasadena {
 
         uint256 remaining = totalSupply * 40 / 60; // Portion of tokens for DreamTeam (40%)
 
-        // To make the total supply rounded (no fractional part), subtract the fractional part from DreamTeam&#39;s balance
+        // To make the total supply rounded (no fractional part), subtract the fractional part from DreamTeam's balance
         uint256 fractionalPart = (remaining + totalSupply) % (uint256(10) ** decimals);
         if (fractionalPart <= remaining)
             remaining -= fractionalPart; // Remove the fractional part to round the totalSupply

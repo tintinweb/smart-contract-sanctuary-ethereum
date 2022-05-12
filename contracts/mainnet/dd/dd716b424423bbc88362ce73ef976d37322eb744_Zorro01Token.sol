@@ -144,7 +144,7 @@ contract ERC20Token is ERC20Interface, Owned, SafeMath {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
     function transfer(address _to, uint256 _amount) 
       returns (bool success)
@@ -181,7 +181,7 @@ contract ERC20Token is ERC20Interface, Owned, SafeMath {
     }
 
     // ------------------------------------------------------------------------
-    // Spender of tokens transfer an amount of tokens from the token owner&#39;s
+    // Spender of tokens transfer an amount of tokens from the token owner's
     // balance to another account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
@@ -230,7 +230,7 @@ contract Zorro01Token is ERC20Token {
     string public constant name = "Zorro01";
     string public constant symbol = "ZORRO01";
     uint8 public constant decimals = 18;
-    string public constant GITHUB_LINK = &#39;htp://github.com/..&#39;;  // TODO
+    string public constant GITHUB_LINK = 'htp://github.com/..';  // TODO
 
     // wallet address (can be reset at any time during ICO)
     
@@ -385,9 +385,9 @@ contract Zorro01Token is ERC20Token {
         uint available = icoTokenSupply - icoTokensIssued;
         require (tokens <= available); 
 
-        // ok it&#39;s possible to issue tokens so let&#39;s do it
+        // ok it's possible to issue tokens so let's do it
         
-        // Add tokens purchased to account&#39;s balance and total supply
+        // Add tokens purchased to account's balance and total supply
         // TODO - verify SafeAdd is not necessary
         balances[participant] += tokens;
         icoTokensIssued += tokens;

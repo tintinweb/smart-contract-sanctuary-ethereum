@@ -26,7 +26,7 @@ contract owned {
 
 contract MyToken is owned{
 
-    string public standard = &#39;Token 0.1&#39;;
+    string public standard = 'Token 0.1';
 
     string public name;
 

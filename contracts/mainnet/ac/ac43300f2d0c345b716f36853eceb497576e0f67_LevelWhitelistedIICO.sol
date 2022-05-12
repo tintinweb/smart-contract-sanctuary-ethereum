@@ -72,7 +72,7 @@ contract IICO {
     /* *** Sale parameters *** */
     uint public startTime;                      // When the sale starts.
     uint public endFullBonusTime;               // When the full bonus period ends.
-    uint public withdrawalLockTime;             // When the contributors can&#39;t withdraw their bids manually anymore.
+    uint public withdrawalLockTime;             // When the contributors can't withdraw their bids manually anymore.
     uint public endTime;                        // When the sale ends.
     ERC20 public token;                         // The token which is sold.
     uint public tokensForSale;                  // The amount of tokens which will be sold.
@@ -155,7 +155,7 @@ contract IICO {
         require(_maxValuation >= prevBid.maxValuation && _maxValuation < nextBid.maxValuation); // The new bid maxValuation is higher than the previous one and strictly lower than the next one.
         require(now >= startTime && now < endTime); // Check that the bids are still open.
 
-        ++lastBidID; // Increment the lastBidID. It will be the new bid&#39;s ID.
+        ++lastBidID; // Increment the lastBidID. It will be the new bid's ID.
         // Update the pointers of neighboring bids.
         prevBid.next = lastBidID;
         nextBid.prev = lastBidID;
@@ -206,7 +206,7 @@ contract IICO {
 
         // Before endFullBonusTime, everything is refunded. Otherwise, an amount decreasing linearly from endFullBonusTime to withdrawalLockTime is refunded.
         uint refund = (now < endFullBonusTime) ? bid.contrib : (bid.contrib * (withdrawalLockTime - now)) / (withdrawalLockTime - endFullBonusTime);
-        assert(refund <= bid.contrib); // Make sure that we don&#39;t refund more than the contribution. Would a bug arise, we prefer blocking withdrawal than letting someone steal money.
+        assert(refund <= bid.contrib); // Make sure that we don't refund more than the contribution. Would a bug arise, we prefer blocking withdrawal than letting someone steal money.
         bid.contrib -= refund;
         bid.bonus = (bid.bonus * 2) / 3; // Reduce the bonus by 1/3.
 
@@ -231,7 +231,7 @@ contract IICO {
         // Search for the cut-off bid while adding the contributions.
         for (uint it = 0; it < _maxIt && !finalized; ++it) {
             Bid storage bid = bids[localCutOffBidID];
-            if (bid.contrib+localSumAcceptedContrib < bid.maxValuation) { // We haven&#39;t found the cut-off yet.
+            if (bid.contrib+localSumAcceptedContrib < bid.maxValuation) { // We haven't found the cut-off yet.
                 localSumAcceptedContrib        += bid.contrib;
                 localSumAcceptedVirtualContrib += bid.contrib + (bid.contrib * bid.bonus) / BONUS_DIVISOR;
                 localCutOffBidID = bid.prev; // Go to the previous bid.
@@ -239,11 +239,11 @@ contract IICO {
                 finalized = true;
                 uint contribCutOff = bid.maxValuation >= localSumAcceptedContrib ? bid.maxValuation - localSumAcceptedContrib : 0; // The amount of the contribution of the cut-off bid that can stay in the sale without spilling over the maxValuation.
                 contribCutOff = contribCutOff < bid.contrib ? contribCutOff : bid.contrib; // The amount that stays in the sale should not be more than the original contribution. This line is not required but it is added as an extra security measure.
-                bid.contributor.send(bid.contrib-contribCutOff); // Send the non-accepted part. Use send in order to not block if the contributor&#39;s fallback reverts.
+                bid.contributor.send(bid.contrib-contribCutOff); // Send the non-accepted part. Use send in order to not block if the contributor's fallback reverts.
                 bid.contrib = contribCutOff; // Update the contribution value.
                 localSumAcceptedContrib += bid.contrib;
                 localSumAcceptedVirtualContrib += bid.contrib + (bid.contrib * bid.bonus) / BONUS_DIVISOR;
-                beneficiary.send(localSumAcceptedContrib); // Use send in order to not block if the beneficiary&#39;s fallback reverts.
+                beneficiary.send(localSumAcceptedContrib); // Use send in order to not block if the beneficiary's fallback reverts.
             }
         }
 
@@ -299,7 +299,7 @@ contract IICO {
         uint next = _nextStart;
         bool found;
 
-        while(!found) { // While we aren&#39;t at the insertion point.
+        while(!found) { // While we aren't at the insertion point.
             Bid storage nextBid = bids[next];
             uint prev = nextBid.prev;
             Bid storage prevBid = bids[prev];
@@ -341,9 +341,9 @@ contract IICO {
 
     /* *** Interface Views *** */
 
-    /** @dev Get the current valuation and cut off bid&#39;s details.
+    /** @dev Get the current valuation and cut off bid's details.
      *  This function is O(n), where n is the amount of bids. This could exceed the gas limit, therefore this function should only be used for interface display and not by other contracts.
-     *  @return The current valuation and cut off bid&#39;s details.
+     *  @return The current valuation and cut off bid's details.
      */
     function valuationAndCutOff() public view returns (uint valuation, uint virtualValuation, uint currentCutOffBidID, uint currentCutOffBidmaxValuation, uint currentCutOffBidContrib) {
         currentCutOffBidID = bids[TAIL].prev;
@@ -351,7 +351,7 @@ contract IICO {
         // Loop over all bids or until cut off bid is found
         while (currentCutOffBidID != HEAD) {
             Bid storage bid = bids[currentCutOffBidID];
-            if (bid.contrib + valuation < bid.maxValuation) { // We haven&#39;t found the cut-off yet.
+            if (bid.contrib + valuation < bid.maxValuation) { // We haven't found the cut-off yet.
                 valuation += bid.contrib;
                 virtualValuation += bid.contrib + (bid.contrib * bid.bonus) / BONUS_DIVISOR;
                 currentCutOffBidID = bid.prev; // Go to the previous bid.

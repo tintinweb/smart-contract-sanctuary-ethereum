@@ -5,8 +5,8 @@ Sup!?
 BB coming...
 For rich cats, some stuff.
 WTF!
-Wanna buy BB&#39;s? Send some eth to this address
-Wanna sell BB&#39;s? Send tokens to this address
+Wanna buy BB's? Send some eth to this address
+Wanna sell BB's? Send tokens to this address
 Also you can change price if send exactly 0.001 eth (1 finney) to this address
 Welcome! Enjoy yourself!
 **/

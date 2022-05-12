@@ -46,8 +46,8 @@ contract Token {
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -104,9 +104,9 @@ contract HumanStandardToken is StandardToken {
     Some wallets/interfaces might not even bother to look at this information.
     */
     string public name;                   //fancy name: eg Simon Bucks
-    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
-    string public version = &#39;H0.1&#39;;       //human 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'H0.1';       //human 0.1 standard. Just an arbitrary versioning scheme.
 
     function HumanStandardToken(
         uint256 _initialAmount,
@@ -126,7 +126,7 @@ contract HumanStandardToken is StandardToken {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { throw; }
@@ -191,7 +191,7 @@ contract Disbursement {
             startDate = now;
     }
 
-    /// @dev Setup function sets external contracts&#39; addresses
+    /// @dev Setup function sets external contracts' addresses
     /// @param _token Token address
     function setup(Token _token)
         public
@@ -342,11 +342,11 @@ contract Sale {
 
     /// @dev Sale(): constructor for Sale contract
     /// @param _owner the address which owns the sale, can access owner-only functions
-    /// @param _wallet the sale&#39;s beneficiary address 
+    /// @param _wallet the sale's beneficiary address 
     /// @param _tokenSupply the total number of AdToken to mint
-    /// @param _tokenName AdToken&#39;s human-readable name
+    /// @param _tokenName AdToken's human-readable name
     /// @param _tokenDecimals the number of display decimals in AdToken balances
-    /// @param _tokenSymbol AdToken&#39;s human-readable asset symbol
+    /// @param _tokenSymbol AdToken's human-readable asset symbol
     /// @param _price price of the token in Wei (ADT/Wei pair price)
     /// @param _startBlock the block at which this contract will begin selling its ADT balance
     function Sale(
@@ -443,7 +443,7 @@ contract Sale {
     }
 
     /// @dev purchaseToken(): function that exchanges ETH for ADT (main sale function)
-    /// @notice You&#39;re about to purchase the equivalent of `msg.value` Wei in ADT tokens
+    /// @notice You're about to purchase the equivalent of `msg.value` Wei in ADT tokens
     function purchaseTokens()
         saleStarted
         payable

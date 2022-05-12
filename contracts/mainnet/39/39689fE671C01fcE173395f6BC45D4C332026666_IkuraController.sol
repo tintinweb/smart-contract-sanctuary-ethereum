@@ -504,10 +504,10 @@ contract IkuraAssociation is DSMath, DSAuth {
   event TransferFeeRateExecuted(uint proposalId, address proposer, uint transferFeeRate);
 
   function IkuraAssociation() {
-    proposals[sha3(&#39;mint&#39;)] = mintProposals;
-    proposals[sha3(&#39;burn&#39;)] = burnProposals;
-    proposals[sha3(&#39;transferMinimumFee&#39;)] = transferMinimumFeeProposals;
-    proposals[sha3(&#39;transferFeeRate&#39;)] = transferFeeRateProposals;
+    proposals[sha3('mint')] = mintProposals;
+    proposals[sha3('burn')] = burnProposals;
+    proposals[sha3('transferMinimumFee')] = transferMinimumFeeProposals;
+    proposals[sha3('transferFeeRate')] = transferFeeRateProposals;
 
   }
 
@@ -537,10 +537,10 @@ contract IkuraAssociation is DSMath, DSAuth {
 
     
     
-    if (type_ == sha3(&#39;mint&#39;)) MintProposalAdded(proposalId, proposer, amount);
-    if (type_ == sha3(&#39;burn&#39;)) BurnProposalAdded(proposalId, proposer, amount);
-    if (type_ == sha3(&#39;transferMinimumFee&#39;)) TransferMinimumFeeProposalAdded(proposalId, proposer, transferMinimumFee);
-    if (type_ == sha3(&#39;transferFeeRate&#39;)) TransferFeeRateProposalAdded(proposalId, proposer, transferFeeRate);
+    if (type_ == sha3('mint')) MintProposalAdded(proposalId, proposer, amount);
+    if (type_ == sha3('burn')) BurnProposalAdded(proposalId, proposer, amount);
+    if (type_ == sha3('transferMinimumFee')) TransferMinimumFeeProposalAdded(proposalId, proposer, transferMinimumFee);
+    if (type_ == sha3('transferFeeRate')) TransferFeeRateProposalAdded(proposalId, proposer, transferFeeRate);
 
     
     confirmProposal(type_, proposer, proposalId);
@@ -559,20 +559,20 @@ contract IkuraAssociation is DSMath, DSAuth {
 
     
     
-    if (type_ == sha3(&#39;mint&#39;)) MintConfirmed(proposalId, confirmer, proposal.amount);
-    if (type_ == sha3(&#39;burn&#39;)) BurnConfirmed(proposalId, confirmer, proposal.amount);
-    if (type_ == sha3(&#39;transferMinimumFee&#39;)) TransferMinimumFeeConfirmed(proposalId, confirmer, proposal.transferMinimumFee);
-    if (type_ == sha3(&#39;transferFeeRate&#39;)) TransferFeeRateConfirmed(proposalId, confirmer, proposal.transferFeeRate);
+    if (type_ == sha3('mint')) MintConfirmed(proposalId, confirmer, proposal.amount);
+    if (type_ == sha3('burn')) BurnConfirmed(proposalId, confirmer, proposal.amount);
+    if (type_ == sha3('transferMinimumFee')) TransferMinimumFeeConfirmed(proposalId, confirmer, proposal.transferMinimumFee);
+    if (type_ == sha3('transferFeeRate')) TransferFeeRateConfirmed(proposalId, confirmer, proposal.transferFeeRate);
 
-    if (isProposalExecutable(type_, proposalId, proposal.proposer, &#39;&#39;)) {
+    if (isProposalExecutable(type_, proposalId, proposal.proposer, '')) {
       proposal.executed = true;
 
       
       
-      if (type_ == sha3(&#39;mint&#39;)) executeMintProposal(proposalId);
-      if (type_ == sha3(&#39;burn&#39;)) executeBurnProposal(proposalId);
-      if (type_ == sha3(&#39;transferMinimumFee&#39;)) executeUpdateTransferMinimumFeeProposal(proposalId);
-      if (type_ == sha3(&#39;transferFeeRate&#39;)) executeUpdateTransferFeeRateProposal(proposalId);
+      if (type_ == sha3('mint')) executeMintProposal(proposalId);
+      if (type_ == sha3('burn')) executeBurnProposal(proposalId);
+      if (type_ == sha3('transferMinimumFee')) executeUpdateTransferMinimumFeeProposal(proposalId);
+      if (type_ == sha3('transferFeeRate')) executeUpdateTransferFeeRateProposal(proposalId);
     }
   }
 
@@ -643,7 +643,7 @@ contract IkuraAssociation is DSMath, DSAuth {
   }
 
   function executeMintProposal(uint proposalId) internal {
-    Proposal proposal = proposals[sha3(&#39;mint&#39;)][proposalId];
+    Proposal proposal = proposals[sha3('mint')][proposalId];
 
     
     if (proposal.amount <= 0) throw;
@@ -657,7 +657,7 @@ contract IkuraAssociation is DSMath, DSAuth {
   }
 
   function executeBurnProposal(uint proposalId) internal {
-    Proposal proposal = proposals[sha3(&#39;burn&#39;)][proposalId];
+    Proposal proposal = proposals[sha3('burn')][proposalId];
 
     
     if (proposal.amount <= 0) throw;
@@ -673,7 +673,7 @@ contract IkuraAssociation is DSMath, DSAuth {
   }
 
   function executeUpdateTransferMinimumFeeProposal(uint proposalId) internal {
-    Proposal proposal = proposals[sha3(&#39;transferMinimumFee&#39;)][proposalId];
+    Proposal proposal = proposals[sha3('transferMinimumFee')][proposalId];
 
     if (proposal.transferMinimumFee < 0) throw;
 
@@ -683,7 +683,7 @@ contract IkuraAssociation is DSMath, DSAuth {
   }
 
   function executeUpdateTransferFeeRateProposal(uint proposalId) internal {
-    Proposal proposal = proposals[sha3(&#39;transferFeeRate&#39;)][proposalId];
+    Proposal proposal = proposals[sha3('transferFeeRate')][proposalId];
 
     if (proposal.transferFeeRate < 0) throw;
 
@@ -722,7 +722,7 @@ library ProposalLibrary {
   function updateTransferMinimumFee(Entity storage self, address sender, uint8 fee) returns (bool) {
     if (fee < 0) throw;
 
-    self._association.newProposal(sha3(&#39;transferMinimumFee&#39;), sender, 0, fee, 0, &#39;&#39;);
+    self._association.newProposal(sha3('transferMinimumFee'), sender, 0, fee, 0, '');
 
     return true;
   }
@@ -730,7 +730,7 @@ library ProposalLibrary {
   function updateTransferFeeRate(Entity storage self, address sender, uint rate) returns (bool) {
     if (rate < 0) throw;
 
-    self._association.newProposal(sha3(&#39;transferFeeRate&#39;), sender, 0, 0, rate, &#39;&#39;);
+    self._association.newProposal(sha3('transferFeeRate'), sender, 0, 0, rate, '');
 
     return true;
   }
@@ -738,7 +738,7 @@ library ProposalLibrary {
   function mint(Entity storage self, address sender, uint amount) returns (bool) {
     if (amount <= 0) throw;
 
-    self._association.newProposal(sha3(&#39;mint&#39;), sender, amount, 0, 0, &#39;&#39;);
+    self._association.newProposal(sha3('mint'), sender, amount, 0, 0, '');
 
     return true;
   }
@@ -748,7 +748,7 @@ library ProposalLibrary {
     if (self._storage.coinBalance(sender) < amount) throw;
     if (self._storage.tokenBalance(sender) < amount) throw;
 
-    self._association.newProposal(sha3(&#39;burn&#39;), sender, amount, 0, 0, &#39;&#39;);
+    self._association.newProposal(sha3('burn'), sender, amount, 0, 0, '');
 
     return true;
   }
@@ -939,7 +939,7 @@ contract IkuraToken is IkuraTokenEvent, DSMath, DSAuth {
   function updateTransferMinimumFee(address sender, uint8 fee) auth returns (bool) {
     if (fee < 0) throw;
 
-    _association.newProposal(sha3(&#39;transferMinimumFee&#39;), sender, 0, fee, 0, &#39;&#39;);
+    _association.newProposal(sha3('transferMinimumFee'), sender, 0, fee, 0, '');
     return true;
 
     /*return proposalEntity.updateTransferMinimumFee(sender, fee);*/
@@ -949,7 +949,7 @@ contract IkuraToken is IkuraTokenEvent, DSMath, DSAuth {
   function updateTransferFeeRate(address sender, uint rate) auth returns (bool) {
     if (rate < 0) throw;
 
-    _association.newProposal(sha3(&#39;transferFeeRate&#39;), sender, 0, 0, rate, &#39;&#39;);
+    _association.newProposal(sha3('transferFeeRate'), sender, 0, 0, rate, '');
     return true;
 
     /*return proposalEntity.updateTransferFeeRate(sender, rate);*/
@@ -965,7 +965,7 @@ contract IkuraToken is IkuraTokenEvent, DSMath, DSAuth {
   function mint(address sender, uint amount) auth returns (bool) {
     if (amount <= 0) throw;
 
-    _association.newProposal(sha3(&#39;mint&#39;), sender, amount, 0, 0, &#39;&#39;);
+    _association.newProposal(sha3('mint'), sender, amount, 0, 0, '');
 
     /*return proposalEntity.mint(sender, amount);*/
   }
@@ -976,7 +976,7 @@ contract IkuraToken is IkuraTokenEvent, DSMath, DSAuth {
     if (_storage.coinBalance(sender) < amount) throw;
     if (_storage.tokenBalance(sender) < amount) throw;
 
-    _association.newProposal(sha3(&#39;burn&#39;), sender, amount, 0, 0, &#39;&#39;);
+    _association.newProposal(sha3('burn'), sender, amount, 0, 0, '');
     /*return proposalEntity.burn(sender, amount);*/
   }
 
@@ -1041,15 +1041,15 @@ contract IkuraAuthority is DSAuthority, DSAuth {
     tokenStorage = IkuraStorage(storage_);
 
     
-    actionsWithToken[stringToSig(&#39;mint(uint256)&#39;)] = true;
-    actionsWithToken[stringToSig(&#39;burn(uint256)&#39;)] = true;
-    actionsWithToken[stringToSig(&#39;updateTransferMinimumFee(uint8)&#39;)] = true;
-    actionsWithToken[stringToSig(&#39;updateTransferFeeRate(uint256)&#39;)] = true;
-    actionsWithToken[stringToSig(&#39;confirmProposal(string, uint256)&#39;)] = true;
-    actionsWithToken[stringToSig(&#39;numberOfProposals(string)&#39;)] = true;
+    actionsWithToken[stringToSig('mint(uint256)')] = true;
+    actionsWithToken[stringToSig('burn(uint256)')] = true;
+    actionsWithToken[stringToSig('updateTransferMinimumFee(uint8)')] = true;
+    actionsWithToken[stringToSig('updateTransferFeeRate(uint256)')] = true;
+    actionsWithToken[stringToSig('confirmProposal(string, uint256)')] = true;
+    actionsWithToken[stringToSig('numberOfProposals(string)')] = true;
 
     
-    actionsForbidden[stringToSig(&#39;forbiddenAction()&#39;)] = true;
+    actionsForbidden[stringToSig('forbiddenAction()')] = true;
   }
 
   function canCall(address src, address dst, bytes4 sig) constant returns (bool) {

@@ -3,7 +3,7 @@ contract PeonyChain{
     string public name;                   
     uint8 public decimals;               
     string public symbol;               
-    string public version = &#39;PNCA100&#39;;
+    string public version = 'PNCA100';
     uint256 public totalSupply;
 
     constructor(uint256 _initialAmount, string _tokenName, uint8 _decimalUnits, string _tokenSymbol) {

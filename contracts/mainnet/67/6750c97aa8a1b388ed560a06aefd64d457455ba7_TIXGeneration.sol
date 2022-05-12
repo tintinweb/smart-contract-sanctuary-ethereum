@@ -27,7 +27,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -208,7 +208,7 @@ contract TIXGeneration is StandardToken {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -294,7 +294,7 @@ contract TIXGeneration is StandardToken {
         if (totalSupply == tokenGenerationCap)
             throw;
 
-        uint256 tokens = SafeMath.mul(msg.value, tokenExchangeRate); // check that we&#39;re not over totals
+        uint256 tokens = SafeMath.mul(msg.value, tokenExchangeRate); // check that we're not over totals
         uint256 checkedSupply = SafeMath.add(totalSupply, tokens);
         uint256 diff;
 

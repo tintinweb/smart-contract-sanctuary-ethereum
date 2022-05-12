@@ -19,7 +19,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -139,7 +139,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal pure returns (string) {
         string memory ret = new string(self._len);
@@ -824,7 +824,7 @@ contract CryptoMyWord {
 
   /* Withdraw */
   /*
-    NOTICE: These functions withdraw the developer&#39;s cut which is left
+    NOTICE: These functions withdraw the developer's cut which is left
     in the contract by `buy`. User funds are immediately sent to the old
     owner in `buy`, no user funds are left in the contract.
   */
@@ -986,11 +986,11 @@ contract CryptoMyWord {
     Bought(_itemId, newOwner, price);
     Sold(_itemId, oldOwner, price);
 
-    // Devevloper&#39;s cut which is left in contract and accesed by
+    // Devevloper's cut which is left in contract and accesed by
     // `withdrawAll` and `withdrawAmountTo` methods.
     uint256 devCut = ceil(calculateDevCut(price));
     uint256 firstCut = ceil(calculateFirstCut(price));
-    // Transfer payment to old owner minus the developer&#39;s cut.
+    // Transfer payment to old owner minus the developer's cut.
     oldOwner.transfer(price.sub(devCut));
     firstOwner.transfer(price.sub(firstCut));
     if (excess > 0) {

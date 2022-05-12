@@ -4,9 +4,9 @@ contract tokenRecipient {
 
 contract IloveYou {
     /* Public variables of the Jack Currency*/
-    string public standard = &#39;Donny 1.0&#39;;
-    string public name = &#39;DonnyIloveMandy&#39;;
-    string public symbol = &#39;DONLOVE&#39;;
+    string public standard = 'Donny 1.0';
+    string public name = 'DonnyIloveMandy';
+    string public symbol = 'DONLOVE';
     uint8 public decimals = 8;
     uint256 public totalSupply = 10000000000000000;
 

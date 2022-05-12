@@ -59,7 +59,7 @@ contract ShineCoinToken is Controlled {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;SHINE_0.1&#39;;
+    string public version = 'SHINE_0.1';
 
     struct Checkpoint {
         uint128 fromBlock;

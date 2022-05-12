@@ -102,15 +102,15 @@ contract EIP20 is EIP20Interface {
 contract RGEToken is EIP20 {
     
     /* ERC20 */
-    string public name = &#39;Rouge&#39;;
-    string public symbol = &#39;RGE&#39;;
+    string public name = 'Rouge';
+    string public symbol = 'RGE';
     uint8 public decimals = 8;
     
     /* RGEToken */
     address owner; 
     address public crowdsale;
     uint public endTGE;
-    string public version = &#39;v0.2&#39;;
+    string public version = 'v0.2';
     uint256 public totalSupply = 1000000000 * 10**uint(decimals);
     uint256 public   reserveY1 =  300000000 * 10**uint(decimals);
     uint256 public   reserveY2 =  200000000 * 10**uint(decimals);

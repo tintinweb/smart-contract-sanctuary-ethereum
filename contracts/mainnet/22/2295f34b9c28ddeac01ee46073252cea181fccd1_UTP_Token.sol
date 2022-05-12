@@ -23,7 +23,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -169,8 +169,8 @@ contract UTP_Token is StandardToken, Ownable {
   uint256 public initialSupply;
 
   constructor() public {
-    name = &#39;ULTRA TRAVEL PAY TOKEN&#39;;
-    symbol = &#39;UTP&#39;;
+    name = 'ULTRA TRAVEL PAY TOKEN';
+    symbol = 'UTP';
     decimals = 18;
     initialSupply = 1000000000 * 10 ** uint256(decimals);
     totalSupply_ = initialSupply;

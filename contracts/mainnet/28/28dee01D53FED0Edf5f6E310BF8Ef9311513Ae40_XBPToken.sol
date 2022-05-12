@@ -185,7 +185,7 @@ library SafeMath {
     {
         require(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -252,7 +252,7 @@ contract ERC20Token is BaseContract {
     /// throws on any error rather then return a false flag to minimize user errors
     /// @param _to      target address
     /// @param _value   transfer amount
-    /// @return true if the transfer was successful, false if it wasn&#39;t
+    /// @return true if the transfer was successful, false if it wasn't
     function transfer(address _to, uint256 _value)
         public
         validParamData(2)
@@ -271,7 +271,7 @@ contract ERC20Token is BaseContract {
     /// @param _from    source address
     /// @param _to      target address
     /// @param _value   transfer amount
-    /// @return true if the transfer was successful, false if it wasn&#39;t
+    /// @return true if the transfer was successful, false if it wasn't
     function transferFrom(address _from, address _to, uint256 _value)
         public
         validParamData(3)
@@ -295,7 +295,7 @@ contract ERC20Token is BaseContract {
     /// once to change the allowance to 0 and secondly to change it to the new allowance value
     /// @param _spender approved address
     /// @param _value   allowance amount
-    /// @return true if the approval was successful, false if it wasn&#39;t
+    /// @return true if the approval was successful, false if it wasn't
     function approve(address _spender, uint256 _value)
         public
         validParamData(2)

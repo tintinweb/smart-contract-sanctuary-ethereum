@@ -77,7 +77,7 @@ contract BMC is StandardToken {
     string public name = "Billionaire Maisonic Club";                  
     uint8 public decimals = 2;                
     string public symbol = "BMC";                
-    string public version = &#39;H1.0&#39;;       
+    string public version = 'H1.0';       
 
 
 

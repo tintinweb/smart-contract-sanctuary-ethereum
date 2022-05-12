@@ -140,7 +140,7 @@ contract PreSale is Ownable {
 
 
   /*******************************************************************************
-   * Payable&#39;s section */
+   * Payable's section */
 
   function isPreSale() public constant returns(bool) {
     return now >= startPreSale && now <= endPreSale;

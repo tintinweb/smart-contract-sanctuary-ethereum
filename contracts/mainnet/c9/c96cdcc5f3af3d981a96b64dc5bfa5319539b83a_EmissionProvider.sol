@@ -4,7 +4,7 @@ pragma solidity ^0.4.11;
  * @title Owned contract with safe ownership pass.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract Owned {
     /**
@@ -131,7 +131,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -265,7 +265,7 @@ contract ERC20 {
 ///
 /// Treasury for CCs deposits for particular fund with bmc-days calculations.
 /// Accept BMC deposits from Continuous Contributors via oracle and
-/// calculates bmc-days metric for each CC&#39;s role.
+/// calculates bmc-days metric for each CC's role.
 contract Treasury is OracleContractAdapter, ServiceAllowance, TreasuryEmitter {
 
     /* ERROR CODES */
@@ -341,7 +341,7 @@ contract Treasury is OracleContractAdapter, ServiceAllowance, TreasuryEmitter {
     /// @param _value amount of tokens to deposit
     /// @param _feeAmount amount of tokens that will be taken from _value as fee
     /// @param _feeAddress destination address for fee transfer
-    /// @param _lockupDate lock up date for deposit. Until that date the deposited value couldn&#39;t be withdrawn
+    /// @param _lockupDate lock up date for deposit. Until that date the deposited value couldn't be withdrawn
     ///
     /// @return result code of an operation
     function deposit(bytes32 _userKey, uint _value, uint _feeAmount, address _feeAddress, uint _lockupDate) external onlyOracle returns (uint) {
@@ -719,13 +719,13 @@ contract Profiterole is OracleContractAdapter, ServiceAllowance, ProfiteroleEmit
         return OK;
     }
 
-    /// @notice Allows to withdraw user&#39;s bonuses that he deserves due to Treasury shares for
+    /// @notice Allows to withdraw user's bonuses that he deserves due to Treasury shares for
     /// every distribution period.
     /// Only oracles allowed to invoke this function.
     ///
     /// @param _userKey aggregated user key (user ID + role ID) on behalf of whom bonuses will be withdrawn
     /// @param _value an amount of tokens to withdraw
-    /// @param _withdrawAddress destination address of withdrawal (usually user&#39;s address)
+    /// @param _withdrawAddress destination address of withdrawal (usually user's address)
     /// @param _feeAmount an amount of fee that will be taken from resulted _value
     /// @param _feeAddress destination address of fee transfer
     ///
@@ -798,7 +798,7 @@ contract Profiterole is OracleContractAdapter, ServiceAllowance, ProfiteroleEmit
         return _deposit.balance.mul(_sharesPercent).div(PERCENT_PRECISION);
     }
 
-    /// @notice Gets total amount of deposits that has left after users&#39; bonus withdrawals
+    /// @notice Gets total amount of deposits that has left after users' bonus withdrawals
     /// @return amount of deposits available for bonus payments
     function getTotalDepositsAmountLeft() public view returns (uint _amount) {
         uint _lastDepositDate = lastDepositDate;
@@ -811,7 +811,7 @@ contract Profiterole is OracleContractAdapter, ServiceAllowance, ProfiteroleEmit
         }
     }
 
-    /// @notice Gets an amount of deposits that has left after users&#39; bonus withdrawals for selected date
+    /// @notice Gets an amount of deposits that has left after users' bonus withdrawals for selected date
     /// @param _distributionDate date of distribution operation
     /// @return amount of deposits available for bonus payments for concrete distribution date
     function getDepositsAmountLeft(uint _distributionDate) public view returns (uint _amount) {
@@ -921,7 +921,7 @@ contract Profiterole is OracleContractAdapter, ServiceAllowance, ProfiteroleEmit
 
 /// @title EmissionProviderEmitter
 ///
-/// Organizes and provides a set of events specific for EmissionProvider&#39;s role
+/// Organizes and provides a set of events specific for EmissionProvider's role
 contract EmissionProviderEmitter {
 
     event Error(uint errorCode);
@@ -984,7 +984,7 @@ contract Platform {
 ///
 /// Provides participation registration and token volume issuance called Emission Event.
 /// Full functionality of EmissionProvider issuance will be available after adding a smart contract
-/// as part-owner of an ATx asset in asset&#39;s platform
+/// as part-owner of an ATx asset in asset's platform
 contract EmissionProvider is OracleContractAdapter, ServiceAllowance, EmissionProviderEmitter {
 
     uint constant EMISSION_PROVIDER_ERROR_SCOPE = 107000;
@@ -1017,7 +1017,7 @@ contract EmissionProvider is OracleContractAdapter, ServiceAllowance, EmissionPr
     bool finishedHardcap;
     bool needInitialization;
 
-    /// @dev Deny any access except during sale period (it&#39;s time for sale && hardcap haven&#39;t reached yet)
+    /// @dev Deny any access except during sale period (it's time for sale && hardcap haven't reached yet)
     modifier onlySale {
         var (hardcapState, softcapState) = getState();
         if (!(State.Sale == hardcapState || State.Sale == softcapState)) {
@@ -1142,7 +1142,7 @@ contract EmissionProvider is OracleContractAdapter, ServiceAllowance, EmissionPr
         needInitialization = true;
     }
 
-    /// @dev Payable function. Don&#39;t accept any Ether
+    /// @dev Payable function. Don't accept any Ether
     function() public payable {
         revert();
     }
@@ -1171,7 +1171,7 @@ contract EmissionProvider is OracleContractAdapter, ServiceAllowance, EmissionPr
     }
 
     /// @notice Gets current state of Emission Provider. State changes over time or reaching buyback goals.
-    /// @return state of a Emission Provider. &#39;Init&#39;, &#39;Waiting&#39;, &#39;Sale&#39;, &#39;HardcapReached&#39;, &#39;Destructed` values are possible
+    /// @return state of a Emission Provider. 'Init', 'Waiting', 'Sale', 'HardcapReached', 'Destructed` values are possible
     function getState() public view returns (State, State) {
         if (needInitialization) {
             return (State.Init, State.Init);

@@ -118,8 +118,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, AirdropToken, ICOToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;BillCoin&#39;;
-        symbol = &#39;BLC&#39;;
+        name = 'BillCoin';
+        symbol = 'BLC';
         decimals = 18;
         balanceOf[0x95fd530fcd47f6426c624b00d5762acfebf8c4bc] = totalSupply;
         Transfer(address(0), 0x95fd530fcd47f6426c624b00d5762acfebf8c4bc, totalSupply);

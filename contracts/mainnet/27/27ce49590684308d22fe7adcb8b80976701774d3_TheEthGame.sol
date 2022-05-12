@@ -11,7 +11,7 @@
                                  _       
                                 | |      
   _ __  _ __ ___  ___  ___ _ __ | |_ ___ 
- | &#39;_ \| &#39;__/ _ \/ __|/ _ \ &#39;_ \| __/ __|
+ | '_ \| '__/ _ \/ __|/ _ \ '_ \| __/ __|
  | |_) | | |  __/\__ \  __/ | | | |_\__ \
  | .__/|_|  \___||___/\___|_| |_|\__|___/
  | |                                     
@@ -40,8 +40,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -58,7 +58,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -425,7 +425,7 @@ contract TheEthGame {
     }
 
     function getNeighbourhoodOf(uint256 _cellId) internal pure returns (uint256 _top, uint256 _bottom, uint256 _left, uint256 _right) {
-        //IMPORTANT: The number &#39;NUMBER_OF_CELLS&#39; is used  to indicate that a cell does not exists.
+        //IMPORTANT: The number 'NUMBER_OF_CELLS' is used  to indicate that a cell does not exists.
         
         //Set top cell as non existent.
         uint256 topCellId = NUMBER_OF_CELLS;
@@ -438,7 +438,7 @@ contract TheEthGame {
         //Get the cell under _cellId by adding the number of cells per line.
         uint256 bottomCellId = _cellId.add(NUMBER_OF_LINES);
         
-        //If it&#39;s greater or equal than NUMBER_OF_CELLS bottom cell does not exists.
+        //If it's greater or equal than NUMBER_OF_CELLS bottom cell does not exists.
         if (bottomCellId >= NUMBER_OF_CELLS) {
             bottomCellId = NUMBER_OF_CELLS;
         }

@@ -60,9 +60,9 @@ contract migration {
 /// @title Zeus Shield Coin (ZSC)
 contract ZeusShieldCoin is owned, ERC20Interface {
     // Public variables of the token
-    string public constant standard = &#39;ERC20&#39;;
-    string public constant name = &#39;Zeus Shield Coin&#39;;  
-    string public constant symbol = &#39;ZSC&#39;;
+    string public constant standard = 'ERC20';
+    string public constant name = 'Zeus Shield Coin';  
+    string public constant symbol = 'ZSC';
     uint8  public constant decimals = 18;
     uint public registrationTime = 0;
     bool public registered = false;
@@ -114,7 +114,7 @@ contract ZeusShieldCoin is owned, ERC20Interface {
         return balances[_owner];
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount) 
         returns (bool success) 
     {

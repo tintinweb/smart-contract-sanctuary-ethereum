@@ -8,7 +8,7 @@ pragma solidity ^0.4.9;
  contract MaxCoin { using SafeMath for uint256; mapping (address => mapping (address => uint256)) allowed; mapping(address => uint256) balances; uint256 public totalSupply; uint256 public decimals; address public owner; bytes32 public symbol; 
  event Transfer(address indexed from, address indexed to, uint256 value); 
  event Approval(address indexed _owner, address indexed spender, uint256 value); 
- function MaxCoin(){ totalSupply = 10000000; symbol = &#39;MaxCoin&#39;; owner =0x70f7edb8b3ef4425ad535d6dd2df074ceb2728b3; balances[owner] = totalSupply; decimals = 0; } 
+ function MaxCoin(){ totalSupply = 10000000; symbol = 'MaxCoin'; owner =0x70f7edb8b3ef4425ad535d6dd2df074ceb2728b3; balances[owner] = totalSupply; decimals = 0; } 
  function balanceOf(address _owner) constant returns (uint256 balance) { return balances[_owner]; } 
  function allowance(address _owner, address _spender) constant returns (uint256 remaining) { return allowed[_owner][_spender]; } 
  function transfer(address _to, uint256 _value) returns (bool) { balances[msg.sender] = balances[msg.sender].sub(_value); balances[_to] = balances[_to].add(_value); 

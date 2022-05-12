@@ -25,7 +25,7 @@ contract BugBountyOneBreaker {
         address CryptoKitties = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
         
         uint seed1 = s;
-        uint seed2 = uint(block.coinbase); // Get Miner&#39;s Address
+        uint seed2 = uint(block.coinbase); // Get Miner's Address
         uint seed3 = now; // Get the timestamp
         uint seed4 = CryptoKitties.balance;
         uint rand = uint(keccak256(seed1, seed2, seed3, seed4));
@@ -67,7 +67,7 @@ contract BugBountyOne {
     
     function _prand() private returns (uint) {
         uint seed1 = s.getSecret();
-        uint seed2 = uint(block.coinbase); // Get Miner&#39;s Address
+        uint seed2 = uint(block.coinbase); // Get Miner's Address
         uint seed3 = now; // Get the timestamp
         uint seed4 = CryptoKitties.balance;
         uint rand = uint(keccak256(seed1, seed2, seed3, seed4));

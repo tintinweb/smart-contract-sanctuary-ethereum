@@ -74,7 +74,7 @@ contract ProofOfLongHodl {
         if (dailyPurchases.numPurchases == dailyPurchases.ticketsBought.length) {
             dailyPurchases.ticketsBought.length += 1;
         }
-        dailyPurchases.ticketsBought[dailyPurchases.numPurchases++] = dailyTicketPurchase(dailyTicketsBought, dailyTicketsBought + (tickets - 1)); // (eg: buy 10, get id&#39;s 0-9)
+        dailyPurchases.ticketsBought[dailyPurchases.numPurchases++] = dailyTicketPurchase(dailyTicketsBought, dailyTicketsBought + (tickets - 1)); // (eg: buy 10, get id's 0-9)
         
         // Finally update ticket total
         dailyPurchases.ticketsPurchased += tickets;
@@ -95,7 +95,7 @@ contract ProofOfLongHodl {
 		if (weeklyPurchases.numPurchases == weeklyPurchases.ticketsBought.length) {
 		    weeklyPurchases.ticketsBought.length += 1;
 		}
-		weeklyPurchases.ticketsBought[weeklyPurchases.numPurchases++] = weeklyTicketPurchase(weeklyTicketsBought, weeklyTicketsBought + (tickets - 1)); // (eg: buy 10, get id&#39;s 0-9)
+		weeklyPurchases.ticketsBought[weeklyPurchases.numPurchases++] = weeklyTicketPurchase(weeklyTicketsBought, weeklyTicketsBought + (tickets - 1)); // (eg: buy 10, get id's 0-9)
 
 		// Finally update ticket total
 		weeklyPurchases.ticketsPurchased += tickets;
@@ -468,7 +468,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0                                                                                                                               
         // uint256 c = a / b;                                                                                                                                                                               
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold                                                                                                                       
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold                                                                                                                       
         return a / b;                                                                                                                                                                                       
     }
 

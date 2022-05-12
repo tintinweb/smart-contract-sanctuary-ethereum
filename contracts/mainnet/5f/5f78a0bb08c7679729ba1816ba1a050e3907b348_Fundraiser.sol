@@ -19,7 +19,7 @@ contract ERC20 {
     /// @dev Transfers _value number of tokens from address _from to address _to
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success);
 
-    /// @dev Allows _spender to withdraw from the msg.sender&#39;s account up to the _value amount
+    /// @dev Allows _spender to withdraw from the msg.sender's account up to the _value amount
     function approve(address _spender, uint256 _value) public returns (bool success);
 
     /// @dev Returns the amount which _spender is still allowed to withdraw from _owner
@@ -306,7 +306,7 @@ contract Fundraiser {
         _participant._entries += _entries;
         _state._entries += _entries;
 
-        // get previous fund&#39;s entries
+        // get previous fund's entries
         uint256 _previousFundEntries = (funds.length > 0) ?
             funds[funds.length - 1]._entries : 0;
         // create and save new fund with cumulative entries

@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns(uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -132,7 +132,7 @@ contract X2month {
   
   function returnDeposit()isIssetUser private{
       
-      require(userDeposit[msg.sender] > persentWithdraw[msg.sender], &#39;You have already repaid your deposit&#39;);
+      require(userDeposit[msg.sender] > persentWithdraw[msg.sender], 'You have already repaid your deposit');
       //userDeposit-persentWithdraw-(userDeposit*6/100)
       uint withdrawalAmount = userDeposit[msg.sender].sub(persentWithdraw[msg.sender]).sub(userDeposit[msg.sender].mul(6).div(100));
       //delete user record

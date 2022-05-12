@@ -1,5 +1,5 @@
 pragma solidity ^0.4.18;
-// &#39;Metadollar&#39; CORE token contract
+// 'Metadollar' CORE token contract
 //
 // Symbol      : DOL
 // Name        : METADOLLAR
@@ -211,7 +211,7 @@ contract METADOLLAR is ERC20Interface, Owned, SafeMath {
 		require(this.balance >= revenue);
 		commission = msg.value/commissionRate; // % of wei tx
         require(address(this).send(commission));
-		msg.sender.transfer(revenue);                		// sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+		msg.sender.transfer(revenue);                		// sends ether to the seller: it's important to do this last to prevent recursion attacks
 	}
 	
    
@@ -394,7 +394,7 @@ contract METADOLLAR is ERC20Interface, Owned, SafeMath {
 
 
 
-	/// @notice &#39;freeze? Prevent | Allow&#39; &#39;account&#39; from sending and receiving tokens
+	/// @notice 'freeze? Prevent | Allow' 'account' from sending and receiving tokens
 	/// @param account - address to be frozen
 	/// @param freeze - select is the account frozen or not
 	function freezeAccount(address account, bool freeze) isOwner {

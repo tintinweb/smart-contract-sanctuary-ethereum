@@ -13,7 +13,7 @@ pragma solidity 0.4.24;
 * Trade events shall be rebroadcast on issuers Twitter feed https://twitter.com/talkethICO
 *
 * -- DEX Platform Notes --
-* 1. By default, only KYC&#39;ed hodlers of tokens may participate on this DEX.
+* 1. By default, only KYC'ed hodlers of tokens may participate on this DEX.
 *    - Issuer is free to relax this restriction subject to counsels Legal Opinion.
 * 2. The issuer has sole discretion to set a minimum bid and a maximum ask. 
 * 3. Seller shall pay a trade execution fee in ETH which is automatically deducted herein. 
@@ -90,7 +90,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -164,7 +164,7 @@ library DSMath {
 * Trade events shall be rebroadcast on issuers Twitter feed https://twitter.com/talkethICO
 *
 * -- DEX Platform Notes --
-* 1. By default, only KYC&#39;ed hodlers of tokens may participate on this DEX.
+* 1. By default, only KYC'ed hodlers of tokens may participate on this DEX.
 *    - Issuer is free to relax this restriction subject to counsels Legal Opinion.
 * 2. The issuer has sole discretion to set a minimum bid and a maximum ask. 
 * 3. Seller shall pay a trade execution fee in ETH which is automatically deducted herein. 
@@ -431,7 +431,7 @@ contract VOXTrader is HorizonContractBase {
     }
 
     /**
-     * @notice Calculate the company&#39;s fee for facilitating the transfer of tokens.  The fee is in Ether so
+     * @notice Calculate the company's fee for facilitating the transfer of tokens.  The fee is in Ether so
      * is deducted from the seller of the tokens.
      *
      * @param ethers    The amount of Ether to pay for the tokens.
@@ -501,7 +501,7 @@ contract VOXTrader is HorizonContractBase {
      * @param voucherCode   The code on the e.g. scratch card that is to be redeemed for call credit.
      * @param voucherOwner  The wallet id of the user redeeming the voucher.
      * @param sellers       The wallet id(s) selling the VOX Tokens needed to fill the voucher.
-     * @param lastQuantity  The quantity of the last seller&#39;s ask to use, the other orders are used in full.
+     * @param lastQuantity  The quantity of the last seller's ask to use, the other orders are used in full.
      */
     function redeemVoucher(uint256 voucherCode, address voucherOwner, address[] sellers, uint256 lastQuantity) public onlyOwner payable {
 
@@ -535,7 +535,7 @@ contract VOXTrader is HorizonContractBase {
     /**
     * @dev A newer version of this contract is available and this contract is now discontinued.
     *
-    * @param recipient      Which account would get any ether from this contract (it shouldn&#39;t have any).
+    * @param recipient      Which account would get any ether from this contract (it shouldn't have any).
     * @param newContract    The address of the newer version of this contract.
     */
     function retire(address recipient, address newContract) public onlyOwner {

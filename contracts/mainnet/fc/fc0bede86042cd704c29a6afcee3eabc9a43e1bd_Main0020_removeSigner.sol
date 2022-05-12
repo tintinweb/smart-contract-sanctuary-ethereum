@@ -21,7 +21,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0, "div by 0"); // Solidity automatically throws for div by 0 but require to emit reason
         uint256 c = a / b;
-        // require(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // require(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -108,7 +108,7 @@ contract MultiSig {
 
     constructor() public {
         // deployer address is the first signer. Deployer can configure new contracts by itself being the only "signer"
-        // The first script which sets the new contracts live should add signers and revoke deployer&#39;s signature right
+        // The first script which sets the new contracts live should add signers and revoke deployer's signature right
         isSigner[msg.sender] = true;
         allSigners.push(msg.sender);
         activeSignersCount = 1;
@@ -168,7 +168,7 @@ contract MultiSig {
         emit ScriptCancelled(scriptAddress);
     }
 
-    /* requires quorum so it&#39;s callable only via a script executed by this contract */
+    /* requires quorum so it's callable only via a script executed by this contract */
     function addSigners(address[] signers) public {
         require(msg.sender == address(this), "only callable via MultiSig");
         for (uint i= 0; i < signers.length; i++) {
@@ -182,7 +182,7 @@ contract MultiSig {
         }
     }
 
-    /* requires quorum so it&#39;s callable only via a script executed by this contract */
+    /* requires quorum so it's callable only via a script executed by this contract */
     function removeSigners(address[] signers) public {
         require(msg.sender == address(this), "only callable via MultiSig");
         for (uint i= 0; i < signers.length; i++) {

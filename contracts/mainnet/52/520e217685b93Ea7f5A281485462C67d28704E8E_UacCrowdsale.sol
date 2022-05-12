@@ -130,7 +130,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -244,7 +244,7 @@ contract TokenVesting is Ownable {
   }
 
   /**
-   * @dev Calculates the amount that has already vested but hasn&#39;t been released yet.
+   * @dev Calculates the amount that has already vested but hasn't been released yet.
    * @param token ERC20 token which is being vested
    */
   function releasableAmount(ERC20Basic token) public view returns (uint256) {
@@ -801,7 +801,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -1047,7 +1047,7 @@ contract UbiatarPlayVault {
     }
 
     /**
-     * @dev Calculates the amount that has already vested but hasn&#39;t been released yet.
+     * @dev Calculates the amount that has already vested but hasn't been released yet.
      */
     function releasableAmount() public view returns (uint256) {
         return vestedAmount().sub(released);
@@ -1130,7 +1130,7 @@ contract PresaleTokenVault {
     }
 
     /**
-     * @dev Allows a sender to transfer vested tokens to the beneficiary&#39;s address.
+     * @dev Allows a sender to transfer vested tokens to the beneficiary's address.
      * @param beneficiary The address that will receive the vested tokens.
      */
     function release(address beneficiary) public {
@@ -1143,14 +1143,14 @@ contract PresaleTokenVault {
     }
 
     /**
-     * @dev Transfers vested tokens to the sender&#39;s address.
+     * @dev Transfers vested tokens to the sender's address.
      */
     function release() public {
         release(msg.sender);
     }
 
     /**
-     * @dev Calculates the amount that has already vested but hasn&#39;t been released yet.
+     * @dev Calculates the amount that has already vested but hasn't been released yet.
      * @param beneficiary The address that will receive the vested tokens.
      */
     function releasableAmount(address beneficiary) public view returns (uint256) {

@@ -82,7 +82,7 @@ contract LegolasBase is Ownable {
 
     mapping (address => uint256) public balances;
 
-    // Initial amount received from the pre-sale (doesn&#39;t include bonus)
+    // Initial amount received from the pre-sale (doesn't include bonus)
     mapping (address => uint256) public initialAllocations;
     // Initial amount received from the pre-sale (includes bonus)
     mapping (address => uint256) public allocations;

@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -29,7 +29,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     require(_b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -144,7 +144,7 @@ contract OperationalControl {
     /// @dev Unpauses the smart contract. Can only be called by the Game Master
     /// @notice This is public rather than external so it can be called by derived contracts. 
     function unpause() public onlyGameManager whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 }
@@ -373,7 +373,7 @@ contract SaleBase is OperationalControl, ERC721Holder {
         Sale storage _sale = tokenIdToSale[_tokenId];
         uint256[9] memory tokenIdsStore = tokenIdToSale[_tokenId].tokenIds;
         // Explicitly check that this sale is currently live.
-        // (Because of how Ethereum mappings work, we can&#39;t just count
+        // (Because of how Ethereum mappings work, we can't just count
         // on the lookup above failing. An invalid _tokenId will just
         // return an sale object that is all zeros.)
         require(_isOnSale(_sale));
@@ -389,12 +389,12 @@ contract SaleBase is OperationalControl, ERC721Holder {
         if(tokenIdsStore[1] > 0) {
             for(uint ii = 0; ii < 9; ii++) {
                 // The bid is good! Remove the sale before sending the fees
-                // to the sender so we can&#39;t have a reentrancy attack.
+                // to the sender so we can't have a reentrancy attack.
                 _removeSale(tokenIdsStore[ii]);
             }
         } else {
             // The bid is good! Remove the sale before sending the fees
-            // to the sender so we can&#39;t have a reentrancy attack.
+            // to the sender so we can't have a reentrancy attack.
             _removeSale(_tokenId);
         }
 
@@ -402,9 +402,9 @@ contract SaleBase is OperationalControl, ERC721Holder {
 
         // Transfer proceeds to seller (if there are any!)
         if (price > 0) {
-            // Calculate the marketplace&#39;s cut.
+            // Calculate the marketplace's cut.
             // (NOTE: _computeCut() is guaranteed to return a
-            // value <= price, so this subtraction can&#39;t go negative.)
+            // value <= price, so this subtraction can't go negative.)
             uint256 marketsCut = _computeCut(price);
             uint256 sellerProceeds = price.sub(marketsCut);
 
@@ -414,7 +414,7 @@ contract SaleBase is OperationalControl, ERC721Holder {
             // a contract with an invalid fallback function. We explicitly
             // guard against reentrancy attacks by removing the sale
             // before calling transfer(), and the only thing the seller
-            // can DoS is the sale of their own asset! (And if it&#39;s an
+            // can DoS is the sale of their own asset! (And if it's an
             // accident, they can call cancelSale(). )
             seller.transfer(sellerProceeds);
         }
@@ -471,7 +471,7 @@ contract SaleBase is OperationalControl, ERC721Holder {
 
         // A bit of insurance against negative values (or wraparound).
         // Probably not necessary (since Ethereum guarnatees that the
-        // now variable doesn&#39;t ever go backwards).
+        // now variable doesn't ever go backwards).
         if (now > _sale.startedAt) {
             secondsPassed = now - _sale.startedAt;
         }
@@ -499,13 +499,13 @@ contract SaleBase is OperationalControl, ERC721Holder {
         pure
         returns (uint256)
     {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our public functions carefully cap the maximum values for
         //  time (at 64-bits) and currency (at 128-bits). _duration is
         //  also known to be non-zero (see the require() statement in
         //  _addSale())
         if (_secondsPassed >= _duration) {
-            // We&#39;ve reached the end of the dynamic pricing portion
+            // We've reached the end of the dynamic pricing portion
             // of the sale, just return the end price.
             return _endingPrice;
         } else {
@@ -513,7 +513,7 @@ contract SaleBase is OperationalControl, ERC721Holder {
             // this delta can be negative.
             int256 totalPriceChange = int256(_endingPrice) - int256(_startingPrice);
 
-            // This multiplication can&#39;t overflow, _secondsPassed will easily fit within
+            // This multiplication can't overflow, _secondsPassed will easily fit within
             // 64-bits, and totalPriceChange will easily fit within 128-bits, their product
             // will always fit within 256-bits.
             int256 currentPriceChange = totalPriceChange * int256(_secondsPassed) / int256(_duration);
@@ -527,11 +527,11 @@ contract SaleBase is OperationalControl, ERC721Holder {
     }
 
     /**
-     * @dev        Computes owner&#39;s cut of a sale.
+     * @dev        Computes owner's cut of a sale.
      * @param      _price  The price
      */
     function _computeCut(uint256 _price) internal view returns (uint256) {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our entry functions carefully cap the maximum values for
         //  currency (at 128-bits), and ownerCut <= 10000 (see the require()
         //  statement in the CSLClockSales constructor). The result of this
@@ -564,7 +564,7 @@ contract SaleManager is SaleBase {
      * @dev        Constructor creates a reference to the MLB_NFT Sale Manager contract
      */
     constructor() public {
-        require(ownerCut <= 10000); // You can&#39;t collect more than 100% silly ;)
+        require(ownerCut <= 10000); // You can't collect more than 100% silly ;)
         require(msg.sender != address(0));
         paused = true;
         gameManagerPrimary = msg.sender;
@@ -573,7 +573,7 @@ contract SaleManager is SaleBase {
     }
 
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.
@@ -584,7 +584,7 @@ contract SaleManager is SaleBase {
         super.unpause();
     }
 
-    /** @dev Remove all Ether from the contract, which is the owner&#39;s cuts
+    /** @dev Remove all Ether from the contract, which is the owner's cuts
      *  as well as any Ether sent directly to the contract address.
      *  Always transfers to the NFT (ERC721) contract, but can be called either by
      *  the owner or the NFT (ERC721) contract.
@@ -595,7 +595,7 @@ contract SaleManager is SaleBase {
     }
 
 
-    /** @dev Reject all Ether from being sent here, unless it&#39;s from one of the
+    /** @dev Reject all Ether from being sent here, unless it's from one of the
      *  contracts. (Hopefully, we can prevent user accidents.)
      *  @notice No tipping!
      */
@@ -667,7 +667,7 @@ contract SaleManager is SaleBase {
         _addTeamSale(_tokenIds, sale);
     }
 
-    /** @dev            Cancels an sale that hasn&#39;t been won yet. Returns the MLBNFT (ERC721) to original owner.
+    /** @dev            Cancels an sale that hasn't been won yet. Returns the MLBNFT (ERC721) to original owner.
      *  @notice         This is a state-modifying function that can be called while the contract is paused.
      */
     function cancelSale(uint256 _tokenId) external whenNotPaused {
@@ -678,7 +678,7 @@ contract SaleManager is SaleBase {
         _cancelSale(_tokenId, seller);
     }
 
-    /** @dev        Cancels an sale that hasn&#39;t been won yet. Returns the MLBNFT (ERC721) to original owner.
+    /** @dev        Cancels an sale that hasn't been won yet. Returns the MLBNFT (ERC721) to original owner.
      *  @notice     This is a state-modifying function that can be called while the contract is paused. Can be only called by the GameManagers
      */
     function cancelSaleWhenPaused(uint256 _tokenId) external whenPaused onlyGameManager {
@@ -996,7 +996,7 @@ contract SaleManager is SaleBase {
     function _computeNextSeedPrice(uint256 _saleType, uint256 _teamId) internal view returns (uint256) {
         uint256 nextPrice = _averageSalePrice(_saleType, _teamId);
 
-        // Sanity check to ensure we don&#39;t overflow arithmetic
+        // Sanity check to ensure we don't overflow arithmetic
         require(nextPrice == nextPrice);
 
         // We never auction for less than starting price
@@ -1100,7 +1100,7 @@ contract SaleManager is SaleBase {
     }
 
     /**
-     * @dev            Cancels an sale that hasn&#39;t been won yet. Returns the MLBNFT (ERC721) to original owner.
+     * @dev            Cancels an sale that hasn't been won yet. Returns the MLBNFT (ERC721) to original owner.
      * @notice         This is a state-modifying function that can be called while the contract is paused.
      */
     function batchCancelSale(uint256[] _tokenIds) external whenNotPaused {

@@ -2,7 +2,7 @@ pragma solidity ^0.4.11;
 
 /**
 * @author Jefferson Davis
-* Prether_ICO.sol creates the client&#39;s token for crowdsale and allows for subsequent token sales and minting of tokens
+* Prether_ICO.sol creates the client's token for crowdsale and allows for subsequent token sales and minting of tokens
 *   Crowdsale contracts edited from original contract code at https://www.ethereum.org/crowdsale#crowdfund-your-idea
 *   Additional crowdsale contracts, functions, libraries from TenXCrowdSale contract and OpenZeppelin
 *       at https://etherscan.io/address/0xd43d09ec1bc5e57c8f3d0c64020d403b04c7f783#code and https://github.com/OpenZeppelin/zeppelin-solidity/tree/master/contracts/token
@@ -102,7 +102,7 @@ contract TokenWithMint is ERC20, Owned {
 		}
 	}
 
-	//Sends tokens from sender&#39;s account
+	//Sends tokens from sender's account
     function transfer(address _to, uint256 _value) onlyPayloadSize(2 * 32) returns (bool success) {
         if (balance[msg.sender] >= _value && balance[_to] + _value > balance[_to]) {
             balance[msg.sender] -= _value;
@@ -139,7 +139,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

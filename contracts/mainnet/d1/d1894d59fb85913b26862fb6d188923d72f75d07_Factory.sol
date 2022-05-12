@@ -42,7 +42,7 @@ contract Broker {
 
   struct Item{
     string name;
-    // At least 0.1 Finney, because it&#39;s the fee to the developer
+    // At least 0.1 Finney, because it's the fee to the developer
     uint   price;
     // this could be a link to an Web page explaining about this item
     string detail;
@@ -212,7 +212,7 @@ contract Broker {
     emit SellerChanged(seller);
   }
 
-  // We will have some &#39;peculiar&#39; list of documents
+  // We will have some 'peculiar' list of documents
   // for each deals. 
   // For ex, for House we will require
   // proof of documents about the basic information of the House,
@@ -350,7 +350,7 @@ contract Broker {
     inState(State.Locked)
   {
       // In this case the broker is confirming one by one,
-      // the other purchase should go on. So we don&#39;t change the status.
+      // the other purchase should go on. So we don't change the status.
       if(index>=buyinfo.length)
         return;
       if(buyinfo[index].completed)

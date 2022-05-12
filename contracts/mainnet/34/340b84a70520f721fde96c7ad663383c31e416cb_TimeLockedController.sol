@@ -25,7 +25,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -418,7 +418,7 @@ contract BurnableToken is BasicToken{
     function burn(uint256 _value) public {
         require(_value <= balances.balanceOf(msg.sender));
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances.subBalance(burner, _value);
@@ -527,7 +527,7 @@ contract StandardToken is ERC20, BasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -650,7 +650,7 @@ contract DelegateERC20 {
 
 contract CanDelegate is StandardToken {
     // If this contract needs to be upgraded, the new contract will be stored
-    // in &#39;delegate&#39; and any ERC20 calls to this contract will be delegated to that one.
+    // in 'delegate' and any ERC20 calls to this contract will be delegated to that one.
     DelegateERC20 public delegate;
 
     event DelegateToNewContract(address indexed newContract);
@@ -850,9 +850,9 @@ contract TrueVND is NoOwner, BurnableToken, CanDelegate, StandardDelegate, Pausa
 
     // Change the minimum and maximum amount that can be burned at once. Burning
     // may be disabled by setting both to 0 (this will not be done under normal
-    // operation, but we can&#39;t add checks to disallow it without losing a lot of
+    // operation, but we can't add checks to disallow it without losing a lot of
     // flexibility since burning could also be as good as disabled
-    // by setting the minimum extremely high, and we don&#39;t want to lock
+    // by setting the minimum extremely high, and we don't want to lock
     // in any particular cap for the minimum)
     function changeBurnBounds(uint newMin, uint newMax) onlyOwner public {
         require(newMin <= newMax);
@@ -861,7 +861,7 @@ contract TrueVND is NoOwner, BurnableToken, CanDelegate, StandardDelegate, Pausa
         emit ChangeBurnBoundsEvent(newMin, newMax);
     }
 
-    // A blacklisted address can&#39;t call transferFrom
+    // A blacklisted address can't call transferFrom
     function transferAllArgsYesAllowance(address _from, address _to, uint256 _value, address spender) internal {
         require(!blackList.onList(spender));
         super.transferAllArgsYesAllowance(_from, _to, _value, spender);
@@ -925,15 +925,15 @@ contract TrueVND is NoOwner, BurnableToken, CanDelegate, StandardDelegate, Pausa
 // File: contracts/TimeLockedController.sol
 
 // The TimeLockedController contract is intended to be the initial Owner of the TrueVND
-// contract and TrueVND&#39;s AddressLists. It splits ownership into two accounts: an "admin" account and an
+// contract and TrueVND's AddressLists. It splits ownership into two accounts: an "admin" account and an
 // "owner" account. The admin of TimeLockedController can initiate minting TrueVND.
-// However, these transactions must be stored for ~1 day&#39;s worth of blocks first before they can be forwarded to the
+// However, these transactions must be stored for ~1 day's worth of blocks first before they can be forwarded to the
 // TrueVND contract. In the event that the admin account is compromised, this setup allows the owner of TimeLockedController
 // (which can be stored extremely securely since it is never used in normal operation) to replace the admin.
 // Once a day has passed, requests can be finalized by the admin.
 // Requests initiated by an admin that has since been deposed cannot be finalized.
-// The admin is also able to update TrueVND&#39;s AddressLists (without a day&#39;s delay).
-// The owner can mint without the day&#39;s delay, and also change other aspects of TrueVND like the staking fees.
+// The admin is also able to update TrueVND's AddressLists (without a day's delay).
+// The owner can mint without the day's delay, and also change other aspects of TrueVND like the staking fees.
 contract TimeLockedController is HasNoEther, HasNoTokens, Claimable {
     using SafeMath for uint256;
 
@@ -991,7 +991,7 @@ contract TimeLockedController is HasNoEther, HasNoTokens, Claimable {
     function finalizeMint(uint index) public onlyAdminOrOwner {
         MintOperation memory op = mintOperations[index];
         require(op.admin == admin);
-        //checks that the requester&#39;s adminship has not been revoked
+        //checks that the requester's adminship has not been revoked
         require(op.deferBlock <= block.number);
         //checks that enough time has elapsed
         address to = op.to;
@@ -1072,14 +1072,14 @@ contract TimeLockedController is HasNoEther, HasNoTokens, Claimable {
         trueVND.setDelegatedFrom(_source);
     }
 
-    // Update this contract&#39;s trueVND pointer to newContract (e.g. if the
+    // Update this contract's trueVND pointer to newContract (e.g. if the
     // contract is upgraded)
     function setTrueVND(TrueVND newContract) public onlyOwner {
         emit ChangeTrueVNDEvent(newContract);
         trueVND = newContract;
     }
 
-    // change trueVND&#39;s name and symbol
+    // change trueVND's name and symbol
     function changeName(string name, string symbol) public onlyOwner {
         emit ChangeNameEvent(name, symbol);
         trueVND.changeName(name, symbol);
@@ -1091,7 +1091,7 @@ contract TimeLockedController is HasNoEther, HasNoTokens, Claimable {
         admin = newAdmin;
     }
 
-    // Swap out TrueVND&#39;s address lists
+    // Swap out TrueVND's address lists
     function setLists(AddressList _canReceiveMintWhiteList, AddressList _canBurnWhiteList, AddressList _blackList, AddressList _noFeesList) onlyOwner public {
         trueVND.setLists(_canReceiveMintWhiteList, _canBurnWhiteList, _blackList, _noFeesList);
     }

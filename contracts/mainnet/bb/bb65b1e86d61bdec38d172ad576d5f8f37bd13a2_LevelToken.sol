@@ -69,7 +69,7 @@ contract LevelToken is StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol; 
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
 
     function LevelToken(
         ) {

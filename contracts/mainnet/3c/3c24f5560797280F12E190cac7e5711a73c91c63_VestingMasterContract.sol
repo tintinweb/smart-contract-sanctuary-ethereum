@@ -50,7 +50,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -187,7 +187,7 @@ contract TokenVestingContract is Owned {
         // returns funds not yet vested according to vesting schedule
         uint256 releasableFunds = getReleasableFunds();
         ERC20TokenInterface(tokenAddress).transfer(beneficiary, releasableFunds);
-        VestingMasterInterface(owner).substractLockedAmount(releasableFunds);  // have to do it here, can&#39;t use return, because contract selfdestructs
+        VestingMasterInterface(owner).substractLockedAmount(releasableFunds);  // have to do it here, can't use return, because contract selfdestructs
         // returns remainder of funds to VestingMaster and kill vesting contract
         VestingMasterInterface(owner).addInternalBalance(getTokenBalance());
         ERC20TokenInterface(tokenAddress).transfer(owner, getTokenBalance());
@@ -294,7 +294,7 @@ contract VestingMasterContract is Owned {
     
     // add funds to vesting contract
     function fundVesting(address _vestingContract, uint256 _amount) public onlyOwner {
-        // convenience, so you don&#39;t have to call it manualy if you just uploaded funds
+        // convenience, so you don't have to call it manualy if you just uploaded funds
         checkForReceivedTokens();
         // check if there is actually enough funds
         require((internalBalance >= _amount) && (getTokenBalance() >= _amount));

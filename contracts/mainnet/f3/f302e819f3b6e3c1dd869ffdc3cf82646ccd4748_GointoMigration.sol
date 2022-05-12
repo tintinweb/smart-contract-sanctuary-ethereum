@@ -59,7 +59,7 @@ contract GointoMigration {
 
     /**
      * Set a contract location by key
-     * @param key - The string key to be used for lookup.  e.g. &#39;etherep&#39;
+     * @param key - The string key to be used for lookup.  e.g. 'etherep'
      * @param contractAddress - The address of the contract
      */
     function setContract(string key, address contractAddress) external onlyManager {
@@ -77,7 +77,7 @@ contract GointoMigration {
 
     /**
      * Get a contract location by key
-     * @param key - The string key to be used for lookup.  e.g. &#39;etherep&#39;
+     * @param key - The string key to be used for lookup.  e.g. 'etherep'
      * @return contractAddress - The address of the contract
      */
     function getContract(string key) external constant returns (address) {
@@ -120,7 +120,7 @@ contract GointoMigration {
      */
     function removeAdmin(address adminAddress) external onlyAdmin {
 
-        // Let&#39;s make sure we have at least one admin
+        // Let's make sure we have at least one admin
         require(adminAddress != msg.sender);
 
         // Set

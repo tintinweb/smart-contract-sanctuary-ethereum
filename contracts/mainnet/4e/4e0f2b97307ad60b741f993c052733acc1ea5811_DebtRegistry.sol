@@ -80,7 +80,7 @@ library PermissionsLib {
         uint indexOfAgentToMove = self.authorizedAgents.length - 1;
         address agentToMove = self.authorizedAgents[indexOfAgentToMove];
 
-        // Revoke the agent&#39;s authorization.
+        // Revoke the agent's authorization.
         delete self.authorized[agent];
 
         // Remove the agent from our collection of authorized agents.
@@ -90,7 +90,7 @@ library PermissionsLib {
         self.agentToIndex[agentToMove] = indexOfAgentToRevoke;
         delete self.agentToIndex[agent];
 
-        // Clean up memory that&#39;s no longer being used.
+        // Clean up memory that's no longer being used.
         delete self.authorizedAgents[indexOfAgentToMove];
         self.authorizedAgents.length -= 1;
 
@@ -148,7 +148,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -288,7 +288,7 @@ contract Pausable is Ownable {
  * The DebtRegistry stores the parameters and beneficiaries of all debt agreements in
  * Dharma protocol.  It authorizes a limited number of agents to
  * perform mutations on it -- those agents can be changed at any
- * time by the contract&#39;s owner.
+ * time by the contract's owner.
  *
  * Author: Nadav Hollander -- Github: nadavhollander
  */
@@ -309,7 +309,7 @@ contract DebtRegistry is Pausable, PermissionEvents {
     // Primary registry mapping agreement IDs to their corresponding entries
     mapping (bytes32 => Entry) internal registry;
 
-    // Maps debtor addresses to a list of their debts&#39; agreement IDs
+    // Maps debtor addresses to a list of their debts' agreement IDs
     mapping (address => bytes32[]) internal debtorToDebts;
 
     PermissionsLib.Permissions internal entryInsertPermissions;
@@ -364,7 +364,7 @@ contract DebtRegistry is Pausable, PermissionEvents {
 
     /**
      * Inserts a new entry into the registry, if the entry is valid and sender is
-     * authorized to make &#39;insert&#39; mutations to the registry.
+     * authorized to make 'insert' mutations to the registry.
      */
     function insert(
         address _version,
@@ -413,7 +413,7 @@ contract DebtRegistry is Pausable, PermissionEvents {
 
     /**
      * Modifies the beneficiary of a debt issuance, if the sender
-     * is authorized to make &#39;modifyBeneficiary&#39; mutations to
+     * is authorized to make 'modifyBeneficiary' mutations to
      * the registry.
      */
     function modifyBeneficiary(bytes32 agreementId, address newBeneficiary)
@@ -436,7 +436,7 @@ contract DebtRegistry is Pausable, PermissionEvents {
 
     /**
      * Adds an address to the list of agents authorized
-     * to make &#39;insert&#39; mutations to the registry.
+     * to make 'insert' mutations to the registry.
      */
     function addAuthorizedInsertAgent(address agent)
         public
@@ -447,7 +447,7 @@ contract DebtRegistry is Pausable, PermissionEvents {
 
     /**
      * Adds an address to the list of agents authorized
-     * to make &#39;modifyBeneficiary&#39; mutations to the registry.
+     * to make 'modifyBeneficiary' mutations to the registry.
      */
     function addAuthorizedEditAgent(address agent)
         public
@@ -458,7 +458,7 @@ contract DebtRegistry is Pausable, PermissionEvents {
 
     /**
      * Removes an address from the list of agents authorized
-     * to make &#39;insert&#39; mutations to the registry.
+     * to make 'insert' mutations to the registry.
      */
     function revokeInsertAgentAuthorization(address agent)
         public
@@ -469,7 +469,7 @@ contract DebtRegistry is Pausable, PermissionEvents {
 
     /**
      * Removes an address from the list of agents authorized
-     * to make &#39;modifyBeneficiary&#39; mutations to the registry.
+     * to make 'modifyBeneficiary' mutations to the registry.
      */
     function revokeEditAgentAuthorization(address agent)
         public
@@ -565,7 +565,7 @@ contract DebtRegistry is Pausable, PermissionEvents {
     }
 
     /**
-     * Returns the list of agents authorized to make &#39;insert&#39; mutations
+     * Returns the list of agents authorized to make 'insert' mutations
      */
     function getAuthorizedInsertAgents()
         public
@@ -576,7 +576,7 @@ contract DebtRegistry is Pausable, PermissionEvents {
     }
 
     /**
-     * Returns the list of agents authorized to make &#39;modifyBeneficiary&#39; mutations
+     * Returns the list of agents authorized to make 'modifyBeneficiary' mutations
      */
     function getAuthorizedEditAgents()
         public

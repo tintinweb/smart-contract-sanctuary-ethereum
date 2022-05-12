@@ -143,7 +143,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -259,7 +259,7 @@ contract MMMTokenCoin is StandardToken, Ownable {
  uint256 public  softcap;
     uint256 public  step0Rate=100000;       // rate of our tokens. 1 eth = 1000 MMM coins = 100000 tokens (seen as 1000,00 because of decimals)
     uint256 public  currentRate=100000;   
-    uint256 public constant tokensForOwner=2000000000;   // tokens for owner won&#39;t dealt with compound interest
+    uint256 public constant tokensForOwner=2000000000;   // tokens for owner won't dealt with compound interest
     uint256 public tokensFromEther=0;
     uint public saleStatus=0;      // 0 - sale is running, 1 - sale failed, 2 - sale successful
     address multisig=0x8216A5958f05ad61898e3A6F97ae5118C0e4b1A6;
@@ -400,7 +400,7 @@ contract MMMTokenCoin is StandardToken, Ownable {
     
     if(_to==owner) 
     {
-    	// before sale finish, tokens can&#39;t be sent to owner
+    	// before sale finish, tokens can't be sent to owner
         require(saleStatus!=0);
         decreaseGlobalInterestAmount(_value);
     }
@@ -528,7 +528,7 @@ contract MMMTokenCoin is StandardToken, Ownable {
     
     /**
      * @dev Sends collected ether to owner. If sale is not success, contract will hold ether for half year, and after, ether can be sent to owner
-     * @return amount of owner&#39;s ether
+     * @return amount of owner's ether
      */
      
     function sendEtherToMultisig() public  returns(uint256 e) {
