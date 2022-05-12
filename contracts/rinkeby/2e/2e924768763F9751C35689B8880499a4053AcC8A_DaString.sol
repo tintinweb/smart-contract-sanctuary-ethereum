@@ -71,7 +71,7 @@ contract DaString is ERC721Enumerable, ReentrancyGuard, Ownable {
         "&#124;",
         "&#59;",
         "&#58;",
-        "&#39;",
+        "'",
         "&#44;",
         "&#46;",
         "&#47;",
