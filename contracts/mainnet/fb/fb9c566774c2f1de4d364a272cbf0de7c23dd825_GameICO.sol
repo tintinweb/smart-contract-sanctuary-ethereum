@@ -15,7 +15,7 @@ pragma solidity ^0.4.8;
 
 3. Link to download a 28x28png icon logo:https://ic.game.com/download/gameico_28.png
 
-4. Official Contact Email Address:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b2dbd1ddf2d5d3dfd79cd1dddf">[email&#160;protected]</a>
+4. Official Contact Email Address:<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b2dbd1ddf2d5d3dfd79cd1dddf>[email&#160;protected]</a>
 
 5. Link to blog (optional):
 

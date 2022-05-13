@@ -840,7 +840,7 @@ contract postICO is Ownable {
             token.transfer(walletE, paymentSizeE);
             completedE[order] = true;
         }
-        // On July 04, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f3d3f3d3d4f">[email&#160;protected]</a> UTC 23:59 = FTST*2625/100000 (2.625% of final total supply of tokens) to the wallet [E].
+        // On July 04, <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0f3d3f3d3d4f>[email&#160;protected]</a> UTC 23:59 = FTST*2625/100000 (2.625% of final total supply of tokens) to the wallet [E].
         if (order == 8) {
             // Monday, 4 July 2022 г., 23:59:00
             require(now >= endICODate + 126144000);

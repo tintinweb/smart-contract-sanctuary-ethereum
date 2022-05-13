@@ -412,7 +412,7 @@ contract Ownable {
 /**
  * @title RLPReader
  * @dev RLPReader is used to read and parse RLP encoded data in memory.
- * @author Andreas Olofsson (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="55343b31273a393a646c6d65153238343c397b363a38">[email&#160;protected]</a>)
+ * @author Andreas Olofsson (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=55343b31273a393a646c6d65153238343c397b363a38>[email&#160;protected]</a>)
  */
 library RLP {
     uint constant DATA_SHORT_START = 0x80;

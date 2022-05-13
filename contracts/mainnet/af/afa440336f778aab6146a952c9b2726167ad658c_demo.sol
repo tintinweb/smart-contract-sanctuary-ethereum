@@ -33,10 +33,10 @@ pragma solidity ^0.4.25;
 * 而我们工程师更是就直接想到啥就说啥，从来不考虑工整性都是在电脑上随便一打就复制过去的，
 * 因为我们真的很忙时间很宝贵，有此可见这几篇写的很整齐工整甚至无懈可击的就是假的就是专门写文案的写的，
 * 你们想想诋毁诽谤咱们的人谁写文案最好就知道了。
-* 五、三多老大的邮箱只有一个那就是<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="204642191044564e1213176050524f544f4e4d41494c0e434f4d">[email&#160;protected]</a> 这个邮箱密码只有三多老大知道，
+* 五、三多老大的邮箱只有一个那就是<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=204642191044564e1213176050524f544f4e4d41494c0e434f4d>[email&#160;protected]</a> 这个邮箱密码只有三多老大知道，
 * 我们都不知道，而0x9350160feC6d9E0904834289c7a0a0fca17C78bF这个地址的第二封信更是搞笑在最后落款说了句，
-* 由于之前的邮箱另有用途，联系邮箱变更如下：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cebfada6bdfafdfda3a0ac8ebebca1baa1a0a3afa7a2e0ada1a3">[email&#160;protected]</a>，
-* 这不是睁着眼睛说瞎话呢么，我没太多的时间干这种琐事，如果家人们有时间查查<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cdbcaea5bef9fefea0a3af8dbdbfa2b9a2a3a0aca4a1e3aea2a0">[email&#160;protected]</a>
+* 由于之前的邮箱另有用途，联系邮箱变更如下：<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cebfada6bdfafdfda3a0ac8ebebca1baa1a0a3afa7a2e0ada1a3>[email&#160;protected]</a>，
+* 这不是睁着眼睛说瞎话呢么，我没太多的时间干这种琐事，如果家人们有时间查查<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cdbcaea5bef9fefea0a3af8dbdbfa2b9a2a3a0aca4a1e3aea2a0>[email&#160;protected]</a>
 * 这个邮箱是谁持有，还有请家人们查查家人们中谁介绍过TMTG（Midas Touch Gold）这种发行了100个亿圈钱的币。 
 * 六、我们为了加快公链、莲蓉包大量数据的对接进程，租用了国内的服务器，因为在国内访问国外服务器对于我们工程师来说是非常缓慢的，
 * 就是因为我们暴露了众筹平台的主页地址，给天机和一些背叛三多的领导人找到了机会，通过举报网监，
@@ -75,7 +75,7 @@ pragma solidity ^0.4.25;
 * 2.在右上角搜索窗口输入我们的合约地址就可以看到我们的每次分享链
 * 3.点击Contract Creation（合同）
 * 4.点击code  
-* 联系邮箱：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7e181c474e1a08104c4d493e0e0c110a1110131f1712501d1113">[email&#160;protected]</a>
+* 联系邮箱：<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7e181c474e1a08104c4d493e0e0c110a1110131f1712501d1113>[email&#160;protected]</a>
 */
 
 contract demo{

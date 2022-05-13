@@ -25,7 +25,7 @@ pragma solidity ^0.4.24;
 
 // ------- Who? ------- 
 //Only 1/10 smarter than vitalik.
-//<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adccc9c0c4c3edcec5c4cec6c8c3ddccdfc683c4c2">[email&#160;protected]</a>
+//<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=adccc9c0c4c3edcec5c4cec6c8c3ddccdfc683c4c2>[email&#160;protected]</a>
 //Sometime we think plama is a Pseudo topic, but it's a only way to speed up the TPS.
 //And Everybody will also trust the Node & Result.
 

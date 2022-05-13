@@ -565,7 +565,7 @@ contract StandardToken is ERC20, BasicToken {
 //File: contracts\ico\TileToken.sol
 /**
 * @title TILE Token - LOOMIA
-* @author Pactum IO <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5e3a3b281e2e3f3d2a2b33703731">[email&#160;protected]</a>>
+* @author Pactum IO <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5e3a3b281e2e3f3d2a2b33703731>[email&#160;protected]</a>>
 */
 pragma solidity ^0.4.24;
 
@@ -588,7 +588,7 @@ contract TileToken is StandardToken {
 //File: contracts\ico\TileDistribution.sol
 /**
  * @title TILE Token Distribution - LOOMIA
- * @author Pactum IO <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caaeafbc8abaaba9bebfa7e4a3a5">[email&#160;protected]</a>>
+ * @author Pactum IO <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=caaeafbc8abaaba9bebfa7e4a3a5>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.24;
 

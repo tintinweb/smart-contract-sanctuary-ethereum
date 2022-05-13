@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 /// @title LRC Foundation Icebox Program
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e084818e89858ca08c8f8f9092898e87ce8f9287">[email&#160;protected]</a>>.
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e084818e89858ca08c8f8f9092898e87ce8f9287>[email&#160;protected]</a>>.
 /// For more information, please visit https://loopring.org.
 
 /// Loopring Foundation's LRC (20% of total supply) will be locked during the first two years，
@@ -9,7 +9,7 @@ pragma solidity ^0.4.18;
 
 /// @title ERC20 ERC20 Interface
 /// @dev see https://github.com/ethereum/EIPs/issues/20
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dfbbbeb1b6bab39fb3b0b0afadb6b1b8f1b0adb8">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dfbbbeb1b6bab39fb3b0b0afadb6b1b8f1b0adb8>[email&#160;protected]</a>>
 contract ERC20 {
     uint public totalSupply;
 

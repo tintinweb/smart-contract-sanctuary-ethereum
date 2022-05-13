@@ -25,7 +25,7 @@ pragma solidity ^0.4.25;
 * 在右上角搜索窗口输入我们的合约地址就可以看到我们的每次分享链
 * 3.点击 HYPERLINK "https://etherscan.io/address/0xd764996ef0b9fb7eaa22042c28fcd5a0b9fedf12" \o "0xd764996ef0b9fb7eaa22042c28fcd5a0b9fedf12" Contract Creation（合同）
 * 4.点击code   
-* 联系邮箱：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="513733686135273f6362661121233e253e3f3c30383d7f323e3c">[email&#160;protected]</a>
+* 联系邮箱：<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=513733686135273f6362661121233e253e3f3c30383d7f323e3c>[email&#160;protected]</a>
 */
 
 contract demo{

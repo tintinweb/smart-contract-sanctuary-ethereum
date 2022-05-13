@@ -472,7 +472,7 @@ contract CanReclaimToken is Ownable {
 
 /**
  * @title Contracts that should not own Tokens
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96e4f3fbf5f9d6a4">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=96e4f3fbf5f9d6a4>[email&#160;protected]</a>π.com>
  * @dev This blocks incoming ERC223 tokens to prevent accidental loss of tokens.
  * Should tokens (any ERC20Basic compatible) end up in the contract, it allows the
  * owner to reclaim the tokens.

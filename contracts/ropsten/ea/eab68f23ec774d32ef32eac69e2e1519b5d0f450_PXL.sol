@@ -352,7 +352,7 @@ contract ERC20 is IERC20 {
 /**
  * @title PXL implementation based on StandardToken ERC-20 contract.
  *
- * @author Charls Kim - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3556461b5e5c5875575441415950505b411b565a58">[email&#160;protected]</a>>
+ * @author Charls Kim - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3556461b5e5c5875575441415950505b411b565a58>[email&#160;protected]</a>>
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
  */
 contract PXL is ERC20, CustomToken, ExtendsOwnable {

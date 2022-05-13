@@ -56,8 +56,8 @@ contract Ownable {
 }
 
 /// @title Token Register Contract
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a0105040d06030b040d2a0605051a1803040d4405180d">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4521242b2c202905292a2a35372c2b226b2a3722">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6a0105040d06030b040d2a0605051a1803040d4405180d>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4521242b2c202905292a2a35372c2b226b2a3722>[email&#160;protected]</a>>.
 contract TokenRegistry is Ownable {
 
     address[] public tokens;

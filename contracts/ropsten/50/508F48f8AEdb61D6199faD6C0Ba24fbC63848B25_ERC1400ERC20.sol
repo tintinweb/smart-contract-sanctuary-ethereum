@@ -392,7 +392,7 @@ pragma solidity ^0.4.24;
 
 /**
  * @title Helps contracts guard against reentrancy attacks.
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6311060e000c2351">[email&#160;protected]</a>π.com>, Eenae <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f7969b928f928eb79a9e8f958e839284d99e98">[email&#160;protected]</a>>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6311060e000c2351>[email&#160;protected]</a>π.com>, Eenae <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f7969b928f928eb79a9e8f958e839284d99e98>[email&#160;protected]</a>>
  * @dev If you mark a function `nonReentrant`, you should also
  * mark it `external`.
  */

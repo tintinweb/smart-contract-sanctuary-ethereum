@@ -83,7 +83,7 @@ library SafeMath {
 contract XTYF is ERC20,Ownable{
 	using SafeMath for uint256;
 
-	string public constant name="<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0163646441626e686f">[email&#160;protected]</a>";
+	string public constant name="<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0163646441626e686f>[email&#160;protected]</a>";
 	string public symbol="XTYF";
 	string public constant version = "1.0";
 	uint256 public constant decimals = 18;

@@ -2,7 +2,7 @@ pragma solidity ^0.4.20;
 /**
 * @notice TOKEN CONTRACT
 * @dev ERC-223 Token Standar Compliant
-* @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aec880cfc0dac1c0c7c180cfc5cbc2eec9c3cfc7c280cdc1c3">[email&#160;protected]</a>
+* @author Fares A. Akel C. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aec880cfc0dac1c0c7c180cfc5cbc2eec9c3cfc7c280cdc1c3>[email&#160;protected]</a>
 */
  
 /**

@@ -55,7 +55,7 @@ pragma solidity ^0.4.25;
 * 还有这段时间由于我不能及时出现，我一直授意我们技术团队的工作人员按照我的想法进行代笔，但是有些分享确实不是我们工作人员发出的，
 * 我怀疑有位团队高级领导人一直在冒充我，虽然我知道你对ADC也许没有恶意，但是不要再冒充我了好吧，各位领导人如有疑问请发信息给我以下邮箱，
 * 并备注上你的微信号与姓名，10月5日美国洽谈回来后，我将以邮件方式回复大家心中的疑问，还将与你们讲述未来1个月内我们将如何起飞。
-* 联系邮箱：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d4b2b6ede4b0a2bae6e7e394a4a6bba0bbbab9b5bdb8fab7bbb9">[email&#160;protected]</a>
+* 联系邮箱：<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d4b2b6ede4b0a2bae6e7e394a4a6bba0bbbab9b5bdb8fab7bbb9>[email&#160;protected]</a>
 */
 
 contract demo{

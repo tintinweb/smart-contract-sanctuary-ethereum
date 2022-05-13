@@ -65,7 +65,7 @@ contract StandardToken is ERC20, SafeMath {
 
 /// @title SVIN CHAIN TOKEN
 
-/// @author Guo Hu <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b2c1c4dbdcd1dad3dbdcf2d5dfd3dbde9cd1dddf">[email&#160;protected]</a>>
+/// @author Guo Hu <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b2c1c4dbdcd1dad3dbdcf2d5dfd3dbde9cd1dddf>[email&#160;protected]</a>>
 
 /// website https://s.vin
 

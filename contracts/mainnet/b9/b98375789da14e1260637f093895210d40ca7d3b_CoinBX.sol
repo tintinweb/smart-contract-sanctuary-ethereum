@@ -55,7 +55,7 @@ contract Ownable {
 
 }
 /**
- * CoinBX Company Limited (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="38505d545457785b5751565a40165b5755">[email&#160;protected]</a>)
+ * CoinBX Company Limited (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=38505d545457785b5751565a40165b5755>[email&#160;protected]</a>)
  * More Than A Digital Asset Exchange.
 */
 

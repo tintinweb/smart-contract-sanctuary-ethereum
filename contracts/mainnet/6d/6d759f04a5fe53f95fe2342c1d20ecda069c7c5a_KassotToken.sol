@@ -323,7 +323,7 @@ contract KassotBasicToken is MintableToken {
 /*
  * @title KassotToken
  * @dev Kassot token crowdsale contract
- * @dev Author: Alexander Kazorin <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f998929883968b9097b99e94989095d79a9694">[email&#160;protected]</a>>
+ * @dev Author: Alexander Kazorin <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f998929883968b9097b99e94989095d79a9694>[email&#160;protected]</a>>
  */ 
 contract KassotToken is ERC20, Ownable {
   

@@ -46,7 +46,7 @@ contract ERC223Token is SafeMath {
 
 /*
   Concrete token for unit-tests
-  Author: Victor Mezrin  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="57213e34233825173a322d253e397934383a">[email&#160;protected]</a>
+  Author: Victor Mezrin  <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=57213e34233825173a322d253e397934383a>[email&#160;protected]</a>
 */
 
 

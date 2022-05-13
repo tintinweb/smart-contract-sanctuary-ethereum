@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
 // Boston Trading Company
 // http://www.bostontrading.co/
 // ERC20 Compliant Token
-// Contract developer: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95f0f8f0e7f2fcfbf2f0f8f0e7f2f0fbf6f0d5f2f8f4fcf9bbf6faf8">[email&#160;protected]</a>
+// Contract developer: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=95f0f8f0e7f2fcfbf2f0f8f0e7f2f0fbf6f0d5f2f8f4fcf9bbf6faf8>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------
 
 

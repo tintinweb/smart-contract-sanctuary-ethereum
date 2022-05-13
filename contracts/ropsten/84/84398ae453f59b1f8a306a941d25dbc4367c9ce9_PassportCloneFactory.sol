@@ -22,7 +22,7 @@ contract ERC165 {
 
 /**
  * @title PassportInterface
- * @author Timo Hedke - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="35415c585a754f4059404750454057595c561b5c5a">[email&#160;protected]</a>>
+ * @author Timo Hedke - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=35415c585a754f4059404750454057595c561b5c5a>[email&#160;protected]</a>>
  * @dev Contract for the Zulu Passport
  */
 contract PassportInterface is ERC165 {

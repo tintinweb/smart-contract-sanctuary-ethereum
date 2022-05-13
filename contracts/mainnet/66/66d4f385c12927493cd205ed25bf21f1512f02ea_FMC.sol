@@ -1,6 +1,6 @@
 pragma solidity ^0.4.25;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="086c697e6d48696367656a69266b6765">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=086c697e6d48696367656a69266b6765>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 // input  D:\Project\java\FanMei\src\main\solidity\FMC.sol
 // flattened :  Wednesday, 09-Jan-19 14:12:44 UTC

@@ -362,7 +362,7 @@ contract PausableToken is StandardToken, Pausable {
 
 /*
  * CCR Token Smart Contract.  @ 2018 by Kapsus Technoloies Limited (www.kapsustech.com).
- * Author: Susanta Saren <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93f1e6e0fafdf6e0e0d3f0e1eae3e7fcf0f2e0fbf1f2f0f8e1f6f1f2e7f6bdf0fcfe">[email&#160;protected]</a>>
+ * Author: Susanta Saren <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=93f1e6e0fafdf6e0e0d3f0e1eae3e7fcf0f2e0fbf1f2f0f8e1f6f1f2e7f6bdf0fcfe>[email&#160;protected]</a>>
  */
 
 contract CCRToken is MintableToken, PausableToken {
@@ -376,7 +376,7 @@ contract CCRToken is MintableToken, PausableToken {
 
 /*
  * CCR Token Crowdsale Smart Contract.  @ 2018 by Kapsus Technoloies Limited (www.kapsustech.com).
- * Author: Susanta Saren <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4a6b1b7adaaa1b7b784a7b6bdb4b0aba7a5b7aca6a5a7afb6a1a6a5b0a1eaa7aba9">[email&#160;protected]</a>>
+ * Author: Susanta Saren <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c4a6b1b7adaaa1b7b784a7b6bdb4b0aba7a5b7aca6a5a7afb6a1a6a5b0a1eaa7aba9>[email&#160;protected]</a>>
  */
 
 contract CCRCrowdsale is Ownable {

@@ -12,7 +12,7 @@
 */
 pragma solidity 0.4.21;
 /// @title Utility Functions for uint
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93f7f2fdfaf6ffd3fffcfce3e1fafdf4bdfce1f4">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=93f7f2fdfaf6ffd3fffcfce3e1fafdf4bdfce1f4>[email&#160;protected]</a>>
 library MathUint {
     function mul(
         uint a,
@@ -207,7 +207,7 @@ contract Claimable is Ownable {
 */
 /// @title ERC20 Token Interface
 /// @dev see https://github.com/ethereum/EIPs/issues/20
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5135303f38343d113d3e3e2123383f367f3e2336">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5135303f38343d113d3e3e2123383f367f3e2336>[email&#160;protected]</a>>
 contract ERC20 {
     function balanceOf(
         address who
@@ -257,7 +257,7 @@ contract ERC20 {
 /// @title TokenTransferDelegate
 /// @dev Acts as a middle man to transfer ERC20 tokens on behalf of different
 /// versions of Loopring protocol to avoid ERC20 re-authorization.
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="680c0906010d0428040707181a01060f46071a0f">[email&#160;protected]</a>>.
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=680c0906010d0428040707181a01060f46071a0f>[email&#160;protected]</a>>.
 contract TokenTransferDelegate {
     event AddressAuthorized(
         address indexed addr,
@@ -338,8 +338,8 @@ contract TokenTransferDelegate {
     function kill() external;
 }
 /// @title An Implementation of TokenTransferDelegate.
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="492d2827202c2509252626393b20272e67263b2e">[email&#160;protected]</a>>.
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e78c8889808b8e868980a78b888897958e8980c9889580">[email&#160;protected]</a>>.
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=492d2827202c2509252626393b20272e67263b2e>[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e78c8889808b8e868980a78b888897958e8980c9889580>[email&#160;protected]</a>>.
 contract TokenTransferDelegateImpl is TokenTransferDelegate, Claimable {
     using MathUint for uint;
     bool public suspended = false;

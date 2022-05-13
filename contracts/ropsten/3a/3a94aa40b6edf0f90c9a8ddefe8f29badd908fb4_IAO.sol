@@ -115,7 +115,7 @@ library SafeMath {
 
 /**
  * @title Helps contracts guard against reentrancy attacks.
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f7d6a626c604f3d">[email&#160;protected]</a>π.com>, Eenae <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93f2fff6ebf6ead3fefaebf1eae7f6e0bdfafc">[email&#160;protected]</a>>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0f7d6a626c604f3d>[email&#160;protected]</a>π.com>, Eenae <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=93f2fff6ebf6ead3fefaebf1eae7f6e0bdfafc>[email&#160;protected]</a>>
  * @dev If you mark a function `nonReentrant`, you should also
  * mark it `external`.
  */

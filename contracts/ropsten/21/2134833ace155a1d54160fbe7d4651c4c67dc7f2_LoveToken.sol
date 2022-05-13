@@ -6,7 +6,7 @@ pragma solidity ^0.4.25;
  * @dev ERC20 token with a minting function executed by meta transaction - 'shareLove'
  *      and a proxy function for easy subdomain registrations - 'newSubdomain'.
  *
- * @author Radek Ostrowski - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dba9babfbeb09ba8afbaa9afb4b5b8b3bab2b5f5b8b4b6">[email&#160;protected]</a>
+ * @author Radek Ostrowski - <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dba9babfbeb09ba8afbaa9afb4b5b8b3bab2b5f5b8b4b6>[email&#160;protected]</a>
  */
 
 

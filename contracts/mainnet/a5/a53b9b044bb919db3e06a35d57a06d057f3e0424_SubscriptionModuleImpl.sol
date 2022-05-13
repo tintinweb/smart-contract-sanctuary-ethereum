@@ -18,7 +18,7 @@ pragma solidity ^0.4.11;
 
 /// @author ethernian for Santiment LLC
 /// @title  Subscription Module for SAN - santiment token
-/// @notice report bugs to: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="05677062764560716d60776b6c646b2b666a68">[email&#160;protected]</a>
+/// @notice report bugs to: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=05677062764560716d60776b6c646b2b666a68>[email&#160;protected]</a>
 
 contract Base {
 

@@ -5,7 +5,7 @@ The Secure Egg
 ERC-20 Token Standard Compliant
 EIP-621 Compliant
 
-Contract developer: Oyewole Samuel <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4a6adb0a7a1b6b084a3a9a5ada8eaa7aba9">[email&#160;protected]</a>
+Contract developer: Oyewole Samuel <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c4a6adb0a7a1b6b084a3a9a5ada8eaa7aba9>[email&#160;protected]</a>
 */
 /**
  * @title SafeMath by OpenZeppelin

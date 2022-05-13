@@ -2,7 +2,7 @@ pragma solidity ^0.4.16;
  
 /* 
     ChristianTraders.com presents the Currency of the Future for the Global Christian Community
-    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="03577166627076717a43406b716a70776a626d577162676671702d606c6e">[email&#160;protected]</a>
+    <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=03577166627076717a43406b716a70776a626d577162676671702d606c6e>[email&#160;protected]</a>
  */
 contract ERC20Basic {
   uint256 public totalSupply;

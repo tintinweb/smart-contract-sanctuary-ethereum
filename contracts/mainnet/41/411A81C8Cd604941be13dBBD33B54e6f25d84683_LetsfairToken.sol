@@ -223,7 +223,7 @@ contract StandardToken is ERC20, BasicToken {
  * that moment will be added to the beneficiary's wallet. In this scenario, by running the
  * release() function every day at the same time over 2 years, the beneficiary will receive
  * 1.37 tokens (1000 / 364.25 * 2) everyday.
- * @author Anselmo Zago (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8cede2ffe9e0e1e3cce0e9f8ffeaede5fea2e3feeb">[email&#160;protected]</a>), based in TokenVesting by Zeppelin Solidity library.
+ * @author Anselmo Zago (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8cede2ffe9e0e1e3cce0e9f8ffeaede5fea2e3feeb>[email&#160;protected]</a>), based in TokenVesting by Zeppelin Solidity library.
  */
 contract SchedulableToken is StandardToken, BurnableToken {
   using SafeMath for uint256;
@@ -300,7 +300,7 @@ contract SchedulableToken is StandardToken, BurnableToken {
  * @dev LetsfairToken contract implements the ERC20 with the StandardToken functions.
  * The token's creation is realize in a gradual and programmatic way, distributed
  * proportionally over a predefined period, specified by SchedulableToken.
- * @author Anselmo Zago (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="73121d00161f1e1c331f16070015121a015d1c0114">[email&#160;protected]</a>)
+ * @author Anselmo Zago (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=73121d00161f1e1c331f16070015121a015d1c0114>[email&#160;protected]</a>)
  */
  contract LetsfairToken is SchedulableToken {
 

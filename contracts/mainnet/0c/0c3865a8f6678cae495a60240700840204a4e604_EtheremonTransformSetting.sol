@@ -1,6 +1,6 @@
 pragma solidity ^0.4.16;
 
-// copyright <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2e4d41405a4f4d5a6e6b5a464b5c4b434140004d4143">[email&#160;protected]</a>
+// copyright <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2e4d41405a4f4d5a6e6b5a464b5c4b434140004d4143>[email&#160;protected]</a>
 
 contract BasicAccessControl {
     address public owner;

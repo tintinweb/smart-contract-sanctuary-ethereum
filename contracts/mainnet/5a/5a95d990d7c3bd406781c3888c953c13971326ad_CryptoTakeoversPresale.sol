@@ -1256,7 +1256,7 @@ contract MintableToken is StandardToken, Ownable {
 
 /// @title CryptoTakeovers In-Game Token.
 /// @dev The token used in the game to participate in NFT airdrop raffles.
-/// @author Ido Amram <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e8818c87a88b9a91989c879c89838d879e8d9a9bc68b8785">[email&#160;protected]</a>>, Elad Mallel <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2a7aea3a682a1b0bbb2b6adb6a3a9a7adb4a7b0b1eca1adaf">[email&#160;protected]</a>>
+/// @author Ido Amram <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e8818c87a88b9a91989c879c89838d879e8d9a9bc68b8785>[email&#160;protected]</a>>, Elad Mallel <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c2a7aea3a682a1b0bbb2b6adb6a3a9a7adb4a7b0b1eca1adaf>[email&#160;protected]</a>>
 contract CryptoTakeoversToken is MintableToken, Operatable {
 
     /*
@@ -1344,7 +1344,7 @@ contract CryptoTakeoversToken is MintableToken, Operatable {
 
 /// @title CryptoTakeovers PreSale.
 /// @dev Manages the sale of in-game assets (cities and countries) and tokens.
-/// @author Ido Amram <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f161b103f1c0d060f0b100b1e141a10091a0d0c511c1012">[email&#160;protected]</a>>, Elad Mallel <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd98919c99bd9e8f848d8992899c9698928b988f8ed39e9290">[email&#160;protected]</a>>
+/// @author Ido Amram <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7f161b103f1c0d060f0b100b1e141a10091a0d0c511c1012>[email&#160;protected]</a>>, Elad Mallel <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fd98919c99bd9e8f848d8992899c9698928b988f8ed39e9290>[email&#160;protected]</a>>
 contract CryptoTakeoversPresale is Destructible, Pausable, Operatable {
 
     /*

@@ -697,7 +697,7 @@ contract ERC721Token is ERC721, ERC721BasicToken {
  * In summary this is a simple library of integer functions which allow a simple
  * conversion to and from strings
  *
- * @author James Lockhart <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b1dbd0dcd4c2f1df82c5c681c3da9fd2de9fc4da">[email&#160;protected]</a>>
+ * @author James Lockhart <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b1dbd0dcd4c2f1df82c5c681c3da9fd2de9fc4da>[email&#160;protected]</a>>
  */
 library Integers {
     /**
@@ -799,7 +799,7 @@ library Integers {
  * Please be aware these functions can be quite gas heavy so use them only when
  * necessary not to clog the blockchain with expensive transactions.
  *
- * @author James Lockhart <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ce6ede1e9ffcce2bff8fbbcfee7a2efe3a2f9e7">[email&#160;protected]</a>>
+ * @author James Lockhart <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8ce6ede1e9ffcce2bff8fbbcfee7a2efe3a2f9e7>[email&#160;protected]</a>>
  */
 library Strings {
 

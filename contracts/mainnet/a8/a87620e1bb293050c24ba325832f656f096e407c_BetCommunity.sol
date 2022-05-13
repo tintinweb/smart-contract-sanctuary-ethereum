@@ -6,7 +6,7 @@ pragma solidity ^0.4.21;
 // BCOM Token by BCOM Limited.
 // An ERC20 standard
 // author: BCOM Team
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c4f494c4c534e487c7e59485f53515112525948">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3c4f494c4c534e487c7e59485f53515112525948>[email&#160;protected]</a>
 // Symbol      : BCOM
 // Name        : Betcommunity
 // Total supply: 8,000,000,000.000000000000000000

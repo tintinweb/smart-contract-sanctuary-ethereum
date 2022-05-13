@@ -10,7 +10,7 @@ contract MarketplaceProxy {
 /* Required code end */
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0576716063646b2b62606a77626045666a6b76606b767c762b6b6071">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0576716063646b2b62606a77626045666a6b76606b767c762b6b6071>[email&#160;protected]</a>>
 contract Fund {
 
     /*

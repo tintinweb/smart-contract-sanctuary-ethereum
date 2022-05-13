@@ -82,7 +82,7 @@ contract Ownable {
 }
 
 /// @title TokenTransferProxy - Transfers tokens on behalf of contracts that have been approved via decentralized governance.
-/// @author Amir Bandeali - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="197874706b592961496b76737c7a6d377a7674">[email&#160;protected]</a>>, Will Warren - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f3849a9f9fb3c38ba3819c99969087dd909c9e">[email&#160;protected]</a>>
+/// @author Amir Bandeali - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=197874706b592961496b76737c7a6d377a7674>[email&#160;protected]</a>>, Will Warren - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f3849a9f9fb3c38ba3819c99969087dd909c9e>[email&#160;protected]</a>>
 contract TokenTransferProxy is Ownable {
 
     /// @dev Only authorized addresses can invoke functions with this modifier.
@@ -216,7 +216,7 @@ contract SafeMath {
 }
 
 /// @title Exchange - Facilitates exchange of ERC20 tokens.
-/// @author Amir Bandeali - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="26474b4f5466165e7654494c4345520845494b">[email&#160;protected]</a>>, Will Warren - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e196888d8da1d199b1938e8b848295cf828e8c">[email&#160;protected]</a>>
+/// @author Amir Bandeali - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=26474b4f5466165e7654494c4345520845494b>[email&#160;protected]</a>>, Will Warren - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e196888d8da1d199b1938e8b848295cf828e8c>[email&#160;protected]</a>>
 contract Exchange is SafeMath {
 
     // Error Codes

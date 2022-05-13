@@ -72,7 +72,7 @@ pragma solidity ^0.4.11;
       event Transfer(address indexed from, address indexed to, uint256 value);
 
       /// SafeMath contract - math operations with safety checks
-      /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1773726157647a766563747879636576746372767a3974787a">[email&#160;protected]</a>
+      /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1773726157647a766563747879636576746372767a3974787a>[email&#160;protected]</a>
       function safeMul(uint a, uint b) internal returns (uint) {
         uint c = a * b;
         assert(a == 0 || c / a == b);

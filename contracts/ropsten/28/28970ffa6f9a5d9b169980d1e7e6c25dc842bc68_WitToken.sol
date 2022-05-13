@@ -1,7 +1,7 @@
 pragma solidity 0.4.24;
   
 //@title WitToken
-//@author(<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="731f061c0a06121d0241404033141e121a1f5d101c1e">[email&#160;protected]</a>) 
+//@author(<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=731f061c0a06121d0241404033141e121a1f5d101c1e>[email&#160;protected]</a>) 
 //@dev 该合约参考自openzeppelin的erc20实现
 //1.使用openzeppelin的SafeMath库防止运算溢出
 //2.使用openzeppelin的Ownable,Roles,RBAC来做权限控制,自定义了ceo,coo,cro等角色  

@@ -1,5 +1,5 @@
 // This is ERC 2.0 Token's Trading Market, Decentralized Exchange. 
-// by he.guanjun, email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="99f1fcb7fdb7fdb7eaf1f8f7d9f1f6edf4f8f0f5b7faf6f4">[email&#160;protected]</a>
+// by he.guanjun, email: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=99f1fcb7fdb7fdb7eaf1f8f7d9f1f6edf4f8f0f5b7faf6f4>[email&#160;protected]</a>
 // 2017-09-27
 // TODO：
 //  1,每一个function，都应该写日志（事件），而且最好不要公用事件。暂不处理。

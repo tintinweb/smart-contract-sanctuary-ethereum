@@ -296,8 +296,8 @@ contract UpgradedStandardToken is StandardToken{
 
 
 /// @title - Tether Token Contract - Tether.to
-/// @author Enrico Rubboli - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2f4a415d464c406f4d465b4946414a57014c4042">[email&#160;protected]</a>>
-/// @author Will Harborne - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aed9c7c2c2eecbdac6c8c7c0cbd680cdc1c3">[email&#160;protected]</a>>
+/// @author Enrico Rubboli - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2f4a415d464c406f4d465b4946414a57014c4042>[email&#160;protected]</a>>
+/// @author Will Harborne - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aed9c7c2c2eecbdac6c8c7c0cbd680cdc1c3>[email&#160;protected]</a>>
 
 contract TetherToken is Pausable, StandardToken {
 

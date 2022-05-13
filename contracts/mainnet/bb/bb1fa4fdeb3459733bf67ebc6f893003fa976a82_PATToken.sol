@@ -1,7 +1,7 @@
 /*
  * ERC-20 Standard Token Smart Contract Interface.
  * Copyright &#169; 2016–2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96fbfffdfef7fffab8e0faf7f2fffbffe4f9e0d6f1fbf7fffab8f5f9fb">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=96fbfffdfef7fffab8e0faf7f2fffbffe4f9e0d6f1fbf7fffab8f5f9fb>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.16;
 

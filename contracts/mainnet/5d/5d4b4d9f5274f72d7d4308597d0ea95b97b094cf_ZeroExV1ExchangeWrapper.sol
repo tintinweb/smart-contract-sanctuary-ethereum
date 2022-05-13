@@ -74,7 +74,7 @@ library SafeMath {
 // File: contracts/external/0x/v1/ZeroExExchangeInterfaceV1.sol
 
 /// @title Exchange - Facilitates exchange of ERC20 tokens.
-/// @author Amir Bandeali - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f6e62667d4f3f775f7d60656a6c7b216c6062">[email&#160;protected]</a>>, Will Warren - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c1b0500002c5c143c1e0306090f18420f0301">[email&#160;protected]</a>>
+/// @author Amir Bandeali - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0f6e62667d4f3f775f7d60656a6c7b216c6062>[email&#160;protected]</a>>, Will Warren - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6c1b0500002c5c143c1e0306090f18420f0301>[email&#160;protected]</a>>
 contract ZeroExExchangeInterfaceV1 {
     // Error Codes
     enum Errors {

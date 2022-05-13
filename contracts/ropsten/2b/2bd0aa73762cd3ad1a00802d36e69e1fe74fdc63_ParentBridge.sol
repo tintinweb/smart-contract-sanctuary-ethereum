@@ -391,7 +391,7 @@ contract ERC721 is ERC721Basic, ERC721Enumerable, ERC721Metadata {
 /**
  * @title RLPReader
  * @dev RLPReader is used to read and parse RLP encoded data in memory.
- * @author Andreas Olofsson (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d7c73796f7271722c24252d5d7a707c7471337e7270">[email&#160;protected]</a>)
+ * @author Andreas Olofsson (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1d7c73796f7271722c24252d5d7a707c7471337e7270>[email&#160;protected]</a>)
  */
 library RLP {
     uint constant DATA_SHORT_START = 0x80;

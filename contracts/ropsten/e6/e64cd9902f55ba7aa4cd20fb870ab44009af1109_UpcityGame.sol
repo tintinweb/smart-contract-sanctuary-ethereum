@@ -65,7 +65,7 @@ library SafeMath {
 }
 
 /// @title Definition for a resource token used by upcity.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="29444c69444c5b42454c434c5b42074a4644">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=29444c69444c5b42454c434c5b42074a4644>[email&#160;protected]</a>)
 interface IResourceToken {
 
 	function transfer(address to, uint256 amt) external returns (bool);
@@ -78,14 +78,14 @@ interface IResourceToken {
 }
 
 /// @title Definition for a resource token used by upcity.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3e535b7e535b4c55525b545b4c55105d5153">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3e535b7e535b4c55525b545b4c55105d5153>[email&#160;protected]</a>)
 interface IMarket {
 
 	function getPrice(address resource) external view returns (uint256);
 }
 
 /// @title Base contract defining common error codes.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddb0b89db0b8afb6b1b8b7b8afb6f3beb2b0">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ddb0b89db0b8afb6b1b8b7b8afb6f3beb2b0>[email&#160;protected]</a>)
 contract Errors {
 
 	string internal constant ERROR_MAX_HEIGHT = "MAX_HEIGHT";
@@ -103,7 +103,7 @@ contract Errors {
 
 /// @title Base for contracts that require a separate
 /// initialization step beyond the constructor.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fe939bbe939b8c95929b949b8c95d09d9193">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fe939bbe939b8c95929b949b8c95d09d9193>[email&#160;protected]</a>)
 /// @dev Deriving contracts should call super._init() in their initialization step
 /// to initialize the contract.
 contract Uninitialized is Errors {
@@ -132,7 +132,7 @@ contract Uninitialized is Errors {
 
 /// @title Base class for contracts that want to restrict access to privileged
 /// functions to either the contract creator or a group of addresses.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="365b53765b53445d5a535c53445d1855595b">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=365b53765b53445d5a535c53445d1855595b>[email&#160;protected]</a>)
 /// @dev Derived contracts should set isAuthority to true for each address
 /// with privileged access to functions protected by the onlyAuthority modifier.
 contract Restricted is Errors {
@@ -161,7 +161,7 @@ contract Restricted is Errors {
 }
 
 /// @title Base for contracts that don't want to hold ether.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="076a62476a62756c6b626d62756c2964686a">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=076a62476a62756c6b626d62756c2964686a>[email&#160;protected]</a>)
 /// @dev Reverts in the fallback function.
 contract Nonpayable is Errors {
 
@@ -173,7 +173,7 @@ contract Nonpayable is Errors {
 }
 
 /// @title Constants, types, and helpers for UpCityGame
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fa979fba979f8891969f909f8891d4999597">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fa979fba979f8891969f909f8891d4999597>[email&#160;protected]</a>)
 contract UpcityBase {
 
 	// Tile data.

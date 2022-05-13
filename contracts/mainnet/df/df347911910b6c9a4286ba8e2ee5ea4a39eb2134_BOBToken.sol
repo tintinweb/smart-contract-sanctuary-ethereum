@@ -512,7 +512,7 @@ contract Pausable is Ownable {
 
 /**
  * @title Contracts that should not own Ether
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6113040c020e2153">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6113040c020e2153>[email&#160;protected]</a>π.com>
  * @dev This tries to block incoming ether to prevent accidental loss of Ether. Should Ether end up
  * in the contract, it will allow the owner to reclaim this ether.
  * @notice Ether can still be send to this contract by:
@@ -549,7 +549,7 @@ contract HasNoEther is Ownable {
 
 /**
  * @title Contracts that should not own Contracts
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5a283f3739351a68">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5a283f3739351a68>[email&#160;protected]</a>π.com>
  * @dev Should contracts (anything Ownable) end up being owned by this contract, it allows the owner
  * of this contract to reclaim ownership of the contracts.
  */
@@ -588,7 +588,7 @@ contract CanReclaimToken is Ownable {
 
 /**
  * @title Contracts that should not own Tokens
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3a1b6beb0bc93e1">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d3a1b6beb0bc93e1>[email&#160;protected]</a>π.com>
  * @dev This blocks incoming ERC23 tokens to prevent accidental loss of tokens.
  * Should tokens (any ERC20Basic compatible) end up in the contract, it allows the
  * owner to reclaim the tokens.
@@ -612,7 +612,7 @@ contract HasNoTokens is CanReclaimToken {
 
 /**
  * @title Base contract for contracts that should not own things.
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3042555d535f7002">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3042555d535f7002>[email&#160;protected]</a>π.com>
  * @dev Solves a class of errors where a contract accidentally becomes owner of Ether, Tokens or
  * Owned contracts. See respective base contracts for details.
  */

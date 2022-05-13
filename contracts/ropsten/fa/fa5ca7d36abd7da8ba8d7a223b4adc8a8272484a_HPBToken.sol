@@ -193,7 +193,7 @@ contract StandardToken is BasicToken, ERC20 {
 
 /// @title HPB Protocol Token.
 /// For more information about this token sale, please visit https://gxn.io
-/// @author Arnold - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f6978498999a92b6918e98d89f99">[email&#160;protected]</a>>, Bob - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aac8c5c8eacdd2c484c3c5">[email&#160;protected]</a>>.
+/// @author Arnold - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f6978498999a92b6918e98d89f99>[email&#160;protected]</a>>, Bob - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aac8c5c8eacdd2c484c3c5>[email&#160;protected]</a>>.
 contract HPBToken is StandardToken {
     string public constant NAME = "BATCoin";
     string public constant SYMBOL = "BAT";

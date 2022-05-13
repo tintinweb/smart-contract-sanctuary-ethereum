@@ -1,5 +1,5 @@
 pragma solidity ^0.4.18; 
-//v.1609rev1801 Ezlab 2016-2018 all-rights reseved <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="97e4e2e7e7f8e5e3d7f2edfbf6f5b9fee3">[email&#160;protected]</a>
+//v.1609rev1801 Ezlab 2016-2018 all-rights reseved <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=97e4e2e7e7f8e5e3d7f2edfbf6f5b9fee3>[email&#160;protected]</a>
 //special purpose contract for  further info use case  https://agrichain.it/d/v1801
 
 //common base contract

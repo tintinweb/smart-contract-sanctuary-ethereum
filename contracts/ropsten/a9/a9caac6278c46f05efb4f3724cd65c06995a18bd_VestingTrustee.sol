@@ -260,7 +260,7 @@ contract StandardToken is ERC20, BasicToken {
 
 
 /// @title   Token
-/// @author  Jose Perez - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f2989d8197dc8297809788b2969b959b9c978adc919d9f">[email&#160;protected]</a>>
+/// @author  Jose Perez - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f2989d8197dc8297809788b2969b959b9c978adc919d9f>[email&#160;protected]</a>>
 /// @notice  ERC20 token
 /// @dev     The contract allows to perform a number of token sales in different periods in time.
 ///          allowing participants in previous token sales to transfer tokens to other accounts.
@@ -581,7 +581,7 @@ contract Token is StandardToken, Ownable {
 
 
 /// @title  ExchangeRate
-/// @author Jose Perez - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a6ccc9d5c388d6c3d4c3dce6c2cfc1cfc8c3de88c5c9cb">[email&#160;protected]</a>>
+/// @author Jose Perez - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a6ccc9d5c388d6c3d4c3dce6c2cfc1cfc8c3de88c5c9cb>[email&#160;protected]</a>>
 /// @notice Tamper-proof record of exchange rates e.g. BTC/USD, ETC/USD, etc.
 /// @dev    Exchange rates are updated from off-chain server periodically. Rates are taken from a
 //          publicly available third-party provider, such as Coinbase, CoinMarketCap, etc.
@@ -633,7 +633,7 @@ contract ExchangeRate is Ownable {
 
 
 /// @title  VestingTrustee
-/// @author Jose Perez - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="254f4a56400b554057405f65414c424c4b405d0b464a48">[email&#160;protected]</a>>
+/// @author Jose Perez - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=254f4a56400b554057405f65414c424c4b405d0b464a48>[email&#160;protected]</a>>
 /// @notice Vesting trustee contract for Diginex ERC20 tokens. Tokens are granted to specific
 ///         addresses and vested under certain criteria (vesting period, cliff period, etc.)
 ///         Tokens must be transferred to the VestingTrustee contract address prior to granting them.

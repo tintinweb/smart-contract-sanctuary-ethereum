@@ -1,6 +1,6 @@
 /*
  * Safe Math Smart Contract.  Copyright &#169; 2016–2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bdd0d4d6d5dcd4d193cbd1dcd9d4d0d4cfd2cbfddad0dcd4d193ded2d0">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bdd0d4d6d5dcd4d193cbd1dcd9d4d0d4cfd2cbfddad0dcd4d193ded2d0>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.20;
 
@@ -57,7 +57,7 @@ contract SafeMath {
 /*
  * EIP-20 Standard Token Smart Contract Interface.
  * Copyright &#169; 2016–2018 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9df0f4f6f5fcf4f1b3ebf1fcf9f4f0f4eff2ebddfaf0fcf4f1b3fef2f0">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9df0f4f6f5fcf4f1b3ebf1fcf9f4f0f4eff2ebddfaf0fcf4f1b3fef2f0>[email&#160;protected]</a>>
  */
 
 /**
@@ -151,7 +151,7 @@ contract Token {
 }/*
  * Address Set Smart Contract Interface.
  * Copyright &#169; 2017–2018 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c111517141d1510520a101d181511150e130a3c1b111d1510521f1311">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7c111517141d1510520a101d181511150e130a3c1b111d1510521f1311>[email&#160;protected]</a>>
  */
 
 /**
@@ -168,7 +168,7 @@ contract AddressSet {
 }
 /*
  * Abstract Token Smart Contract.  Copyright &#169; 2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e28f8b898a838b8ecc948e83868b8f8b908d94a2858f838b8ecc818d8f">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e28f8b898a838b8ecc948e83868b8f8b908d94a2858f838b8ecc818d8f>[email&#160;protected]</a>>
  */
 
 /**
@@ -287,7 +287,7 @@ contract AbstractToken is Token, SafeMath {
 /*
  * Abstract Virtual Token Smart Contract.
  * Copyright &#169; 2017–2018 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8c5c1c3c0c9c1c486dec4c9ccc1c5c1dac7dee8cfc5c9c1c486cbc7c5">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a8c5c1c3c0c9c1c486dec4c9ccc1c5c1dac7dee8cfc5c9c1c486cbc7c5>[email&#160;protected]</a>>
  */
 
 
@@ -430,7 +430,7 @@ contract AbstractVirtualToken is AbstractToken {
 }
 /*
  * MediChain Promo Token Smart Contract.  Copyright &#169; 2018 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2944404241484045075f45484d4044405b465f694e44484045074a4644">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2944404241484045075f45484d4044405b465f694e44484045074a4644>[email&#160;protected]</a>>
  */
 
 /**

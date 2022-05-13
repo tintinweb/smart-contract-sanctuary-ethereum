@@ -875,7 +875,7 @@ contract TTTToken {
 
 
 // @title The Tip Tokn SAN (Short Address Name)
-// @author Jonathan Teel (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e2888d8c83968a838ccc9687878ea2968a87968b92968d89878ccc8b8d">[email&#160;protected]</a>)
+// @author Jonathan Teel (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e2888d8c83968a838ccc9687878ea2968a87968b92968d89878ccc8b8d>[email&#160;protected]</a>)
 // @dev First 500 SANs do no require a slot
 contract TTTSan is ERC721Token, Ownable {
 

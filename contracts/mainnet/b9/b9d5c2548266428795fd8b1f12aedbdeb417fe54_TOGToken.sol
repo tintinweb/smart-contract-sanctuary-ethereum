@@ -12,7 +12,7 @@ pragma solidity ^0.4.18;
 // Decimals        : 8
 //
 //
-// (c) by <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="94d3f5e6edbadce1f5faf3d4e0fbecf6e0f7baf7fbf9ba">[email&#160;protected]</a>
+// (c) by <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=94d3f5e6edbadce1f5faf3d4e0fbecf6e0f7baf7fbf9ba>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------

@@ -559,7 +559,7 @@ interface IERC223Receiver {
 
 
 /// @title Smart token implementation compatible with ERC20, ERC223, Mintable, Burnable and Pausable tokens
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="45242920376b3f2428352c29292a052228242c296b262a28">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=45242920376b3f2428352c29292a052228242c296b262a28>[email&#160;protected]</a>>
 contract SmartToken is BurnableToken, CappedToken, PausableToken {
   constructor(uint256 _cap) public CappedToken(_cap) {}
 

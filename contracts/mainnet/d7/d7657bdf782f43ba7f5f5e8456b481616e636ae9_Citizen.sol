@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 /*
 *   gibmireinbier
 *   0xA4a799086aE18D7db6C4b57f496B081b44888888
-*   <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5b2bcb7b8bca7b0bcbbb7bcb0a795b2b8b4bcb9fbb6bab8">[email&#160;protected]</a>
+*   <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d5b2bcb7b8bca7b0bcbbb7bcb0a795b2b8b4bcb9fbb6bab8>[email&#160;protected]</a>
 */
 
 library Helper {

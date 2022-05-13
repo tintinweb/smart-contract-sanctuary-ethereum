@@ -431,7 +431,7 @@ contract PausableToken is StandardToken, Pausable {
 
 /**
  * @title CompanyToken contract - ERC20 compatible token contract with customized token parameters.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93f4e6e0e7f2e5fcd3e0e7f2e1f1f2e0f6bdf0fc">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=93f4e6e0e7f2e5fcd3e0e7f2e1f1f2e0f6bdf0fc>[email&#160;protected]</a>>
  */
 contract CompanyToken is PausableToken, MintableToken {
     string private _name;

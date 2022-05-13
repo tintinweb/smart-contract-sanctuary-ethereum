@@ -12,8 +12,8 @@ pragma solidity ^0.5.7;
 //   https://voken.io
 //
 // Contact us:
-//   <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="473432373728353307312e342e2829692922333028352c">[email&#160;protected]</a>
-//   <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="780b0d0808170a0c380e17131d16561117">[email&#160;protected]</a>
+//   <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=473432373728353307312e342e2829692922333028352c>[email&#160;protected]</a>
+//   <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=780b0d0808170a0c380e17131d16561117>[email&#160;protected]</a>
 
 
 /**

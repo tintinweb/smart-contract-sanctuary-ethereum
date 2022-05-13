@@ -7,9 +7,9 @@
 
 // Elsewhere in other contracts or documentation this contract MAY be referenced as projectWallet
 
-// Authors: Alexander Shevtsov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b495a555f545657545c52550c0d7b5c565a525715585456">[email&#160;protected]</a>>
-//          Vladimir Bobrov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddab9db9b8beb8b3a9a8afa4baafb2a8adf3beb2b0">[email&#160;protected]</a>>
-//          vladiuz1 <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b4d487b5a49495a42155254">[email&#160;protected]</a>>
+// Authors: Alexander Shevtsov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3b495a555f545657545c52550c0d7b5c565a525715585456>[email&#160;protected]</a>>
+//          Vladimir Bobrov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ddab9db9b8beb8b3a9a8afa4baafb2a8adf3beb2b0>[email&#160;protected]</a>>
+//          vladiuz1 <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3b4d487b5a49495a42155254>[email&#160;protected]</a>>
 // License: see the repository file
 // Last updated: 12 August 2018
 pragma solidity ^0.4.22;

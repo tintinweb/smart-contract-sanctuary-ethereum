@@ -6,7 +6,7 @@ pragma solidity 0.4.24;
 This source file has been copied with modification from https://github.com/OpenZeppelin/openzeppelin-solidity
 commit 2307467,  under MIT license. See LICENSE 
 
-Deployed to Ropsten as testing - by JDA  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="98f2f7f0f6b6f9f4f4fdf6d8f4fdeefdeaf1fcfffdebe1ebecfdf5ebb6fbf7f5">[email&#160;protected]</a>
+Deployed to Ropsten as testing - by JDA  <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=98f2f7f0f6b6f9f4f4fdf6d8f4fdeefdeaf1fcfffdebe1ebecfdf5ebb6fbf7f5>[email&#160;protected]</a>
 11/5/2018
 
 and code verify test at non night commit .4.24 opt-on, runs-200

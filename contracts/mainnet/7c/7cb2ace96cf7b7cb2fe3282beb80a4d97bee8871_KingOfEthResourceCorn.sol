@@ -14,7 +14,7 @@
 pragma solidity ^0.4.24;
 
 /// @title God Mode
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ee8c9b9c94ae8c9b9c94808b9d9ac08d8183">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ee8c9b9c94ae8c9b9c94808b9d9ac08d8183>[email&#160;protected]</a>>
 /// @dev This contract provides a basic interface for God
 ///  in a contract as well as the ability for God to pause
 ///  the contract
@@ -93,7 +93,7 @@ pragma solidity ^0.4.24;
 
 
 /// @title King of Eth: Resources Interface Referencer
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f09285828ab09285828a9e958384de939f9d">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f09285828ab09285828a9e958384de939f9d>[email&#160;protected]</a>>
 /// @dev Provides functionality to reference the resource interface contract
 contract KingOfEthResourcesInterfaceReferencer is GodMode {
     /// @dev The interface contract's address
@@ -148,7 +148,7 @@ contract ERC20Interface {
 }
 
 /// @title King of Eth: Resource
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d4b6a1a6ae94b6a1a6aebab1a7a0fab7bbb9">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d4b6a1a6ae94b6a1a6aebab1a7a0fab7bbb9>[email&#160;protected]</a>>
 /// @dev Common contract implementation for resources
 contract KingOfEthResource is
       ERC20Interface
@@ -396,7 +396,7 @@ pragma solidity ^0.4.24;
 
 
 /// @title King of Eth Resource: Corn
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86e4f3f4fcc6e4f3f4fce8e3f5f2a8e5e9eb">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=86e4f3f4fcc6e4f3f4fce8e3f5f2a8e5e9eb>[email&#160;protected]</a>>
 /// @dev ERC20 contract for the corn resource
 contract KingOfEthResourceCorn is KingOfEthResource {
     /// @dev The ERC20 token name

@@ -1,6 +1,6 @@
 pragma solidity ^0.5.2;
 //pragma experimental ABIEncoderV2;
-//Create by <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="026f676d75676c7642656f636b6e2c616d6f">[email&#160;protected]</a> +886-975330002
+//Create by <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=026f676d75676c7642656f636b6e2c616d6f>[email&#160;protected]</a> +886-975330002
 
 
 

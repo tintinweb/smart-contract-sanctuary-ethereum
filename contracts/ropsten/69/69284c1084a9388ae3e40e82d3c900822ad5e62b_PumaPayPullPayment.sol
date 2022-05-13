@@ -415,7 +415,7 @@ contract PumaPayToken is MintableToken {
 // File: contracts/PumaPayPullPayment.sol
 
 /// @title PumaPay Pull Payment - Contract that facilitates our pull payment protocol
-/// @author PumaPay Dev Team - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b1f1e0d1e17140b1e09083b0b0e161a0b1a02551214">[email&#160;protected]</a>>
+/// @author PumaPay Dev Team - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7b1f1e0d1e17140b1e09083b0b0e161a0b1a02551214>[email&#160;protected]</a>>
 contract PumaPayPullPayment is Ownable {
 
     using SafeMath for uint256;

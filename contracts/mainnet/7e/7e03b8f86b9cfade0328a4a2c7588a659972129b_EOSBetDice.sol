@@ -1965,7 +1965,7 @@ contract EOSBetDice is usingOraclize, EOSBetGameInterface {
 		}
 	}
 
-// END OF CONTRACT. REPORT ANY BUGS TO <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e5a1a0b3a0a9aab5a8a0abb1a5a0aab6a7a0b1cbacaa">[email&#160;protected]</a>
+// END OF CONTRACT. REPORT ANY BUGS TO <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e5a1a0b3a0a9aab5a8a0abb1a5a0aab6a7a0b1cbacaa>[email&#160;protected]</a>
 // YES! WE _DO_ HAVE A BUG BOUNTY PROGRAM!
 
 // THANK YOU FOR READING THIS CONTRACT, HAVE A NICE DAY :)

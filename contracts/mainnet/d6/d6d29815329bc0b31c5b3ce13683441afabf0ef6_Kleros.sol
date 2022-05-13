@@ -1,6 +1,6 @@
 /**
  *  @title Kleros
- *  @author Cl&#233;ment Lesaege - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="690a050c040c071d29050c1a080c0e0c470a0604">[email&#160;protected]</a>>
+ *  @author Cl&#233;ment Lesaege - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=690a050c040c071d29050c1a080c0e0c470a0604>[email&#160;protected]</a>>
  *  This code implements a simple version of Kleros.
  *  Bug Bounties: This code hasn't undertaken a bug bounty program yet.
  */

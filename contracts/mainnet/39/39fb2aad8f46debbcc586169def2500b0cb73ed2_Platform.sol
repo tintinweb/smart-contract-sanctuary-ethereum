@@ -118,7 +118,7 @@ library SafeMath {
  * @title Platform Contract
  * @dev http://www.puzzlebid.com/
  * @author PuzzleBID Game Team 
- * @dev Simon<<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a4c4953484342577a0b0c0914595557">[email&#160;protected]</a>>
+ * @dev Simon<<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3a4c4953484342577a0b0c0914595557>[email&#160;protected]</a>>
  */
 contract Platform {
 

@@ -1,6 +1,6 @@
 // &#169; GoWalletProject. 2018 All Rights Reserved
 // https://gowalletproject.com
-// Contact Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92f1fdfce6f3f1e6d2f5fde5f3fefef7e6e2e0fdf8f7f1e6bcf1fdff">[email&#160;protected]</a>
+// Contact Email: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=92f1fdfce6f3f1e6d2f5fde5f3fefef7e6e2e0fdf8f7f1e6bcf1fdff>[email&#160;protected]</a>
 
 pragma solidity ^0.4.18;
 

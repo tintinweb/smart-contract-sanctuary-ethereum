@@ -1,6 +1,6 @@
 pragma solidity ^0.4.17;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b0d4d1c6d5f0d1dbdfddd2d19ed3dfdd">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b0d4d1c6d5f0d1dbdfddd2d19ed3dfdd>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 // input  /Users/hellocity/Study/SolidityFlattery/pldToken.sol
 // flattened :  Friday, 09-Nov-18 06:48:18 UTC

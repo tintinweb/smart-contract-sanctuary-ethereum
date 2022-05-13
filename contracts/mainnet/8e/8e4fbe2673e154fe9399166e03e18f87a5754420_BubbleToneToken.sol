@@ -1,5 +1,5 @@
 // Bubble token air drop smart contract.
-// Developed by Phenom.Team <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f161119103f0f171a111012510b1a1e12">[email&#160;protected]</a>>
+// Developed by Phenom.Team <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7f161119103f0f171a111012510b1a1e12>[email&#160;protected]</a>>
 pragma solidity ^0.4.18;
 
 /**

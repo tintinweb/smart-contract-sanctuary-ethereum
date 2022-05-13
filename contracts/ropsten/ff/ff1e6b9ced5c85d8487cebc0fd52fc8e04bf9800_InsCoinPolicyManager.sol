@@ -5,7 +5,7 @@ pragma solidity ^0.4.20;
 * Performance Bond
 * V 1.0 - October 21th, 2018
 * 
-* Written By Marco Vasapollo (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3251575d725f574653405b5c551c515d5f">[email&#160;protected]</a>)
+* Written By Marco Vasapollo (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3251575d725f574653405b5c551c515d5f>[email&#160;protected]</a>)
 * for InsCoin
 */
 contract InsCoinPolicyManager {

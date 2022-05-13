@@ -123,7 +123,7 @@ contract StandardToken is ERC20, SafeMath {
 }
 
 /// @title No Fake Coin
-/// @author Leon Huang <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6f8d9f0d7ddd3e2d9d2d7cff6d1dbd7dfda98d5d9db">[email&#160;protected]</a>>
+/// @author Leon Huang <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b6f8d9f0d7ddd3e2d9d2d7cff6d1dbd7dfda98d5d9db>[email&#160;protected]</a>>
 contract NoFakeCoin is Ownable, StandardToken {
 
     string public name = "NoFakeCoin";

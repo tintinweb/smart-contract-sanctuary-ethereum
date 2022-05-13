@@ -334,7 +334,7 @@ contract FrozenableToken is PausableToken
 
 /**
  * @title TokenDestructible:
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f7d6a626c604f3d">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0f7d6a626c604f3d>[email&#160;protected]</a>π.com>
  * @dev Base contract that can be destroyed by owner. All funds in contract including
  * listed tokens will be sent to the owner.
  */

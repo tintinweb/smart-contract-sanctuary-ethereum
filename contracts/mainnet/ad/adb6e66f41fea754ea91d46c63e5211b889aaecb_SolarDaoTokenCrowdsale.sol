@@ -1,7 +1,7 @@
 pragma solidity ^0.4.13;
 
  /// @title Ownable contract - base contract with an owner
- /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="45212033053628243731262a2b31372426312024286b262a28">[email&#160;protected]</a>
+ /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=45212033053628243731262a2b31372426312024286b262a28>[email&#160;protected]</a>
 contract Ownable {
   address public owner;
 
@@ -22,7 +22,7 @@ contract Ownable {
 }
 
 /// @title Haltable contract - abstract contract that allows children to implement an emergency stop mechanism.
-/// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cca8a9ba8cbfa1adbeb8afa3a2b8beadafb8a9ada1e2afa3a1">[email&#160;protected]</a>
+/// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cca8a9ba8cbfa1adbeb8afa3a2b8beadafb8a9ada1e2afa3a1>[email&#160;protected]</a>
 /// Originally envisioned in FirstBlood ICO contract.
 contract Haltable is Ownable {
   bool public halted;
@@ -51,7 +51,7 @@ contract Haltable is Ownable {
 
 
  /// @title ERC20 interface see https://github.com/ethereum/EIPs/issues/20
- /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aecacbd8eeddc3cfdcdacdc1c0dadccfcddacbcfc380cdc1c3">[email&#160;protected]</a>
+ /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aecacbd8eeddc3cfdcdacdc1c0dadccfcddacbcfc380cdc1c3>[email&#160;protected]</a>
 contract ERC20 {
   uint public totalSupply;
   function balanceOf(address who) constant returns (uint);
@@ -65,7 +65,7 @@ contract ERC20 {
 }
 
  /// @title SafeMath contract - math operations with safety checks
- /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8cccddee8dbc5c9dadccbc7c6dcdac9cbdccdc9c586cbc7c5">[email&#160;protected]</a>
+ /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a8cccddee8dbc5c9dadccbc7c6dcdac9cbdccdc9c586cbc7c5>[email&#160;protected]</a>
 contract SafeMath {
   function safeMul(uint a, uint b) internal returns (uint) {
     uint c = a * b;
@@ -114,7 +114,7 @@ contract SafeMath {
 
 
 /// @title SolarDaoToken contract - standard ERC20 token with Short Hand Attack and approve() race condition mitigation.
-/// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd99988bbd8e909c8f899e9293898f9c9e89989c90d39e9290">[email&#160;protected]</a>
+/// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fd99988bbd8e909c8f899e9293898f9c9e89989c90d39e9290>[email&#160;protected]</a>
 contract SolarDaoToken is SafeMath, ERC20, Ownable {
  string public name = "Solar DAO Token";
  string public symbol = "SDAO";
@@ -251,7 +251,7 @@ contract SolarDaoToken is SafeMath, ERC20, Ownable {
 
 
 /// @title SolarDaoTokenCrowdsale contract - contract for token sales.
-/// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="24404152645749455650474b4a50564547504145490a474b49">[email&#160;protected]</a>
+/// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=24404152645749455650474b4a50564547504145490a474b49>[email&#160;protected]</a>
 contract SolarDaoTokenCrowdsale is Haltable, SafeMath {
 
   /// Prefunding goal in USD cents, if the prefunding goal is reached, ico will start

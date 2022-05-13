@@ -31,7 +31,7 @@ library SafeMath {
 
 /**
  * @title Owned
- * @author Adria Massanet <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d7c796f747c5d7e7279787e727369786569337472">[email&#160;protected]</a>>
+ * @author Adria Massanet <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1d7c796f747c5d7e7279787e727369786569337472>[email&#160;protected]</a>>
  * @notice The Owned contract has an owner address, and provides basic
  *  authorization control functions, this simplifies & the implementation of
  *  user permissions; this contract has three work flows for a change in

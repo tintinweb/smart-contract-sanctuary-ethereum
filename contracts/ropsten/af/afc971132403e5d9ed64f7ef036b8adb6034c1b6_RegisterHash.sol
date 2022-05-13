@@ -221,7 +221,7 @@ contract DateTime {
 
 /*
  * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c0a1b2a1a3a8aea9a480aeafb4a4afb4eeaea5b4">[email&#160;protected]</a>>
+ * @author Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c0a1b2a1a3a8aea9a480aeafb4a4afb4eeaea5b4>[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
  *      abstraction called a 'slice'. A slice represents a part of a string -

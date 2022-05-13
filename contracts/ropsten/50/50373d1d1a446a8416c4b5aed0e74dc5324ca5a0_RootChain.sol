@@ -70,7 +70,7 @@ library Math {
 }
 
 /**
- * @author Hamdi Allam <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef878e828b86c18e83838e82d6d8af88828e8683c18c8082">[email&#160;protected]</a>
+ * @author Hamdi Allam <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ef878e828b86c18e83838e82d6d8af88828e8683c18c8082>[email&#160;protected]</a>
  * Please reach our for any questions/concerns
  */
 library RLP {

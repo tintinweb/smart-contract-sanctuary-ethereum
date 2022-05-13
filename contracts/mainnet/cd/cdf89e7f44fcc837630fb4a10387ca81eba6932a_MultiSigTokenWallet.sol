@@ -1,7 +1,7 @@
 pragma solidity 0.4.16;
 
 /// @title Multi signature token wallet - Allows multiple parties to approve tokens transfer
-/// @author popofe (Avalon Platform) - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4a3a253a252c2f0a2b3c2b26252464243f">[email&#160;protected]</a>>
+/// @author popofe (Avalon Platform) - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4a3a253a252c2f0a2b3c2b26252464243f>[email&#160;protected]</a>>
 
 contract MultiSigTokenWallet {
     /// @dev No fallback function to prevent ether deposit

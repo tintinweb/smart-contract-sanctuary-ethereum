@@ -281,7 +281,7 @@ contract SynergisProxyDeposit is Ownable {
         emit SpecialOfferRemove(was_vip);
     }
   //***************************************************************
-  //Token Change Contract Design by IBERGroup, email:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f29f938a819b889f9d909b9e97b29b909780dc95809d8782">[email&#160;protected]</a>; 
+  //Token Change Contract Design by IBERGroup, email:<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f29f938a819b889f9d909b9e97b29b909780dc95809d8782>[email&#160;protected]</a>; 
   //     Telegram: https://t.me/msmobile
   //
   ////**************************************************************

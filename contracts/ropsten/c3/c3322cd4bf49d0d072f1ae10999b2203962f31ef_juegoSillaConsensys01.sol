@@ -6,7 +6,7 @@ pragma solidity ^0.4.17;
 contract juegoSillaConsensys01{
 
 //creator : Gustavo Chiappe ,Argentina 
-//<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82e1eaebe3f2f2e7e5f7f1c2e5efe3ebeeace1edef">[email&#160;protected]</a>
+//<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=82e1eaebe3f2f2e7e5f7f1c2e5efe3ebeeace1edef>[email&#160;protected]</a>
 
 	address public manager;
 	address public oraculoSorteos;

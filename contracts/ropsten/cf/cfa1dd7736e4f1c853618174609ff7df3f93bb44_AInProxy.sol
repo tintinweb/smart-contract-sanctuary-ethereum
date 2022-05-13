@@ -5,7 +5,7 @@ interface Allowed {
 }
 
 /// @title AInProxy - defines the cpntracts of AquiferInstitute
-/// @author Vincent Serpoul - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a4d2cdcac7c1cad0e4c5d5d1cdc2c1d6cdcad7d0cdd0d1d0c18ac7cbc9">[email&#160;protected]</a>>
+/// @author Vincent Serpoul - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a4d2cdcac7c1cad0e4c5d5d1cdc2c1d6cdcad7d0cdd0d1d0c18ac7cbc9>[email&#160;protected]</a>>
 contract AInProxy {
 
     // update_proxy

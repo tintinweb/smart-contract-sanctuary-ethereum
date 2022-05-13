@@ -31,7 +31,7 @@ library SafeMath {
 
 /**
  * @title Assegura contratos contra o ataque de reentrada (Reentrancy Attack).
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b091e1618143b49">[email&#160;protected]</a>π.com>, Eenae <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e7f727b667b675e7377667c676a7b6d307771">[email&#160;protected]</a>>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7b091e1618143b49>[email&#160;protected]</a>π.com>, Eenae <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1e7f727b667b675e7377667c676a7b6d307771>[email&#160;protected]</a>>
  * @dev Se voce marca uma funcao como `nonReentrant`, voce tambem deve
  * marca-la como `external`.
  */

@@ -328,7 +328,7 @@ contract BurnableToken is StandardToken {
     }
 }
 
-// InBloc Co., Ltd. (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7910171f163910171b15161a57120b">[email&#160;protected]</a>)
+// InBloc Co., Ltd. (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7910171f163910171b15161a57120b>[email&#160;protected]</a>)
 
 
 

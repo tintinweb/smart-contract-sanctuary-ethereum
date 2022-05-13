@@ -94,7 +94,7 @@ library SafeMath {
 
 
 /// @title StandardToken - Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
-/// @author Zerion - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8c1c6cac7d0e8d2cddac1c7c686c1c7">[email&#160;protected]</a>>
+/// @author Zerion - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a8c1c6cac7d0e8d2cddac1c7c686c1c7>[email&#160;protected]</a>>
 contract StandardToken is AbstractToken, Owned {
 	using SafeMath for uint256;
 
@@ -170,7 +170,7 @@ contract StandardToken is AbstractToken, Owned {
 
 
 /// @title BurnableToken contract - Implements burnable functionality of the ERC-20 token
-/// @author Zerion - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ed84838f8295ad97889f848283c38482">[email&#160;protected]</a>>
+/// @author Zerion - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ed84838f8295ad97889f848283c38482>[email&#160;protected]</a>>
 contract BurnableToken is StandardToken {
 
 	address public burner;
@@ -203,7 +203,7 @@ contract BurnableToken is StandardToken {
 
 
 /// @title Token contract - Implements Standard ERC20 with additional features.
-/// @author Zerion - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="167f7874796e566c73647f7978387f79">[email&#160;protected]</a>>
+/// @author Zerion - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=167f7874796e566c73647f7978387f79>[email&#160;protected]</a>>
 contract Token is BurnableToken {
 
 	// Time of the contract creation
@@ -251,7 +251,7 @@ contract Token is BurnableToken {
 }
 
 /// @title Token contract - Implements Standard ERC20 Token for Inmediate project.
-/// @author Zerion - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b9d0d7dbd6c1f9c3dccbd0d6d797d0d6">[email&#160;protected]</a>>
+/// @author Zerion - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b9d0d7dbd6c1f9c3dccbd0d6d797d0d6>[email&#160;protected]</a>>
 contract InmediateToken is Token {
 
 	/// TOKEN META DATA

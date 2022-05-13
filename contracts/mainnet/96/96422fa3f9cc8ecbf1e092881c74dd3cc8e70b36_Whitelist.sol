@@ -66,7 +66,7 @@ contract Ownable {
 
 /**
  * @title Whitelist - crowdsale whitelist contract
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="620517111603140d2211160310000311074c010d">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=620517111603140d2211160310000311074c010d>[email&#160;protected]</a>>
  */
 contract Whitelist is Ownable {
     mapping(address => bool) public allowedAddresses;

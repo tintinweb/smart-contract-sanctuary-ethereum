@@ -8,7 +8,7 @@ pragma solidity ^0.4.24;
  * WARNING:  THIS PRODUCT IS HIGHLY ADDICTIVE.  IF YOU HAVE AN ADDICTIVE NATURE.  DO NOT PLAY.
  */
 // Author: https://playpopo.com
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5929353820293629362d3c3834193e34383035773a3634">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5929353820293629362d3c3834193e34383035773a3634>[email&#160;protected]</a>
 library PopoDatasets {
 
   struct Order {

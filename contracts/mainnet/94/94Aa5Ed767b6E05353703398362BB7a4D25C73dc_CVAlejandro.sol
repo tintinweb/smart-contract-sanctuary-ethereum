@@ -87,7 +87,7 @@ contract CVAlejandro is Mortal, CVExtender {
 
         // Main
         _name = "Alejandro Saucedo";
-        _email = "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c3d1c397124723533">[email&#160;protected]</a>";
+        _email = "<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5c3d1c397124723533>[email&#160;protected]</a>";
         _link = "https://github.com/axsauze/ethereum-solidity-cv-contract";
         _description = "CTO. Manager. Engineer.";
         _title = "Alejandro ETH CV";

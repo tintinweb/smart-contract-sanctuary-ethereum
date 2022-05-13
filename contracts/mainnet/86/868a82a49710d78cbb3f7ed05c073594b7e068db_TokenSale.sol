@@ -294,7 +294,7 @@ contract ERC20Plus {
 
 /**
  * @title Whitelist - crowdsale whitelist contract
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3b4a6a0a7b2a5bc93a0a7b2a1b1b2a0b6fdb0bc">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d3b4a6a0a7b2a5bc93a0a7b2a1b1b2a0b6fdb0bc>[email&#160;protected]</a>>
  */
 contract Whitelist is Ownable {
     mapping(address => bool) public allowedAddresses;
@@ -369,7 +369,7 @@ contract FundsSplitterInterface {
 
 /**
  * @title Token Sale contract - crowdsale of company tokens.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8cfdddbdcc9dec7e8dbdcc9dacac9dbcd86cbc7">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a8cfdddbdcc9dec7e8dbdcc9dacac9dbcd86cbc7>[email&#160;protected]</a>>
  */
 contract TokenSale is FinalizableCrowdsale, Pausable {
     uint256 public softCap;

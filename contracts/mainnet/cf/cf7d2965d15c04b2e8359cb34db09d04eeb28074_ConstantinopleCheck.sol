@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
 // Check if we are on Constantinople!! 
-// <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b2d7c6dad7c0d5c7cbf2dfd3dbde9cd1dddf">[email&#160;protected]</a>
+// <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b2d7c6dad7c0d5c7cbf2dfd3dbde9cd1dddf>[email&#160;protected]</a>
 
 contract HelloWorld{
     function Hello() public pure returns (string memory){

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.17;
 
 /// @author developers //NB!
-/// @notice <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86f5f3f6f6e9f4f2c6e2e3f0e3eae9f6e3f4f5">[email&#160;protected]</a> //NB!
+/// @notice <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=86f5f3f6f6e9f4f2c6e2e3f0e3eae9f6e3f4f5>[email&#160;protected]</a> //NB!
 /// @title  Contract presale //NB!
 
 contract AvPresale {

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.15;
 
 /// @title Multisignature wallet with daily limit - Allows an owner to withdraw a daily limit without multisig.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bbc8cfdedddad595dcded4c9dcdefbd8d4d5c8ded5c8c2c895d5decf">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bbc8cfdedddad595dcded4c9dcdefbd8d4d5c8ded5c8c2c895d5decf>[email&#160;protected]</a>>
 
 
 contract MultiSigWallet {

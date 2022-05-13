@@ -13,8 +13,8 @@
 pragma solidity 0.4.19;
 /// @title Ethereum Address Register Contract
 /// @dev This contract maintains a name service for addresses and miner.
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f19a9e9f969d98909f96b19d9e9e8183989f96df9e8396">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1470757a7d717854787b7b64667d7a733a7b6673">[email&#160;protected]</a>>,
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f19a9e9f969d98909f96b19d9e9e8183989f96df9e8396>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1470757a7d717854787b7b64667d7a733a7b6673>[email&#160;protected]</a>>,
 contract NameRegistry {
     uint public nextId = 0;
     mapping (uint    => Participant) public participantMap;

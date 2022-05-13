@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5c1c4d3c0e5c4cecac8c7c48bc6cac8">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a5c1c4d3c0e5c4cecac8c7c48bc6cac8>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 library SafeMath {
 

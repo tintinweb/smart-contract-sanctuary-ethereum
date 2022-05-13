@@ -2,7 +2,7 @@
 
  * source       https://github.com/MCROEngineering/zoom/
  * @package     ZoomDev
- * @author      Micky Socaci <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="177a7e747c6e577978607b7e6172396578">[email&#160;protected]</a>>
+ * @author      Micky Socaci <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=177a7e747c6e577978607b7e6172396578>[email&#160;protected]</a>>
  * @license     MIT
  
 */

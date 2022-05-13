@@ -424,7 +424,7 @@ contract Whitelist is Ownable, RBAC {
 
 /**
  * @title Contracts that should not own Ether
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4133242c222e0173">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4133242c222e0173>[email&#160;protected]</a>π.com>
  * @dev This tries to block incoming ether to prevent accidental loss of Ether. Should Ether end up
  * in the contract, it will allow the owner to reclaim this Ether.
  * @notice Ether can still be sent to this contract by:
@@ -481,7 +481,7 @@ contract CanReclaimToken is Ownable {
 
 /**
  * @title Contracts that should not own Tokens
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8cfee9e1efe3ccbe">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8cfee9e1efe3ccbe>[email&#160;protected]</a>π.com>
  * @dev This blocks incoming ERC223 tokens to prevent accidental loss of tokens.
  * Should tokens (any ERC20Basic compatible) end up in the contract, it allows the
  * owner to reclaim the tokens.
@@ -512,7 +512,7 @@ contract HasNoTokens is CanReclaimToken {
 
 /**
  * @title Contracts that should not own Contracts
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f183949c929eb1c3">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f183949c929eb1c3>[email&#160;protected]</a>π.com>
  * @dev Should contracts (anything Ownable) end up being owned by this contract, it allows the owner
  * of this contract to reclaim ownership of the contracts.
  */
@@ -530,7 +530,7 @@ contract HasNoContracts is Ownable {
 
 /**
  * @title Base contract for contracts that should not own things.
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a1d3c4ccc2cee193">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a1d3c4ccc2cee193>[email&#160;protected]</a>π.com>
  * @dev Solves a class of errors where a contract accidentally becomes owner of Ether, Tokens or
  * Owned contracts. See respective base contracts for details.
  */

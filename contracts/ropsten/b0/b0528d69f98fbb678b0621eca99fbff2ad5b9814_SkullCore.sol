@@ -925,7 +925,7 @@ contract Ownable {
 // File: contracts/token/ERC721Token.sol
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b2f2e3f2e0b2a33222426312e25652824">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4b2f2e3f2e0b2a33222426312e25652824>[email&#160;protected]</a>> (https://github.com/dete)
 
 contract ERC721Token is ERC721Full("SKULLY", "SKL"), Ownable {
     bytes4 constant InterfaceSignature_ERC721 = 0xd37c58cd;

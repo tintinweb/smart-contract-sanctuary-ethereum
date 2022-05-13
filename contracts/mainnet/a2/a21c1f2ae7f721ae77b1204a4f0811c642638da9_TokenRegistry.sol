@@ -89,8 +89,8 @@ contract Claimable is Ownable {
 }
 /// @title Token Register Contract
 /// @dev This contract maintains a list of tokens the Protocol supports.
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="791216171e151018171e39151616090b10171e57160b1e">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e480858a8d8188a4888b8b94968d8a83ca8b9683">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=791216171e151018171e39151616090b10171e57160b1e>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e480858a8d8188a4888b8b94968d8a83ca8b9683>[email&#160;protected]</a>>.
 contract TokenRegistry is Claimable {
     address[] public addresses;
     mapping (address => TokenInfo) addressMap;

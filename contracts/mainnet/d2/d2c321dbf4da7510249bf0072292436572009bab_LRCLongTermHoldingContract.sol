@@ -121,7 +121,7 @@ contract Token {
 
 
 /// @title Long-Team Holding Incentive Program
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4d0d5daddd1d8f4d8dbdbc4c6dddad39adbc6d3">[email&#160;protected]</a>>, Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0b6064656c67626a656c4b6764647b7962656c2564796c">[email&#160;protected]</a>>.
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b4d0d5daddd1d8f4d8dbdbc4c6dddad39adbc6d3>[email&#160;protected]</a>>, Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0b6064656c67626a656c4b6764647b7962656c2564796c>[email&#160;protected]</a>>.
 /// For more information, please visit https://loopring.org.
 contract LRCLongTermHoldingContract {
     using SafeMath for uint;

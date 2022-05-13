@@ -1,4 +1,4 @@
-// Author: Nick Mudge <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="620c0b0109221207100407011603001116100301160b0d0c114c010d0f">[email&#160;protected]</a>>
+// Author: Nick Mudge <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=620c0b0109221207100407011603001116100301160b0d0c114c010d0f>[email&#160;protected]</a>>
 // Perfect Abstractions LLC
 
 pragma solidity 0.4.24;
@@ -360,7 +360,7 @@ contract AbstractMokens {
 
 }
 
-// Author: Nick Mudge <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bdd3d4ded6fdcdd8cfdbd8dec9dcdfcec9cfdcdec9d4d2d3ce93ded2d0">[email&#160;protected]</a>>
+// Author: Nick Mudge <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bdd3d4ded6fdcdd8cfdbd8dec9dcdfcec9cfdcdec9d4d2d3ce93ded2d0>[email&#160;protected]</a>>
 // Perfect Abstractions LLC
 
 contract MokensDelegate is AbstractMokens {

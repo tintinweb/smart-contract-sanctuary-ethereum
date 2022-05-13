@@ -2,7 +2,7 @@ pragma solidity 0.4.24;
 /**
 * @title CEELO GAME CONTRACT
 * @dev ERC-20 Token Standard Compliant
-* TEST DEPLOYMENT - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcda92ddd2c8d3d2d5d392ddd7d9d0fcdbd1ddd5d092dfd3d1">[email&#160;protected]</a>
+* TEST DEPLOYMENT - <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bcda92ddd2c8d3d2d5d392ddd7d9d0fcdbd1ddd5d092dfd3d1>[email&#160;protected]</a>
 */
 
 // <ORACLIZE_API>

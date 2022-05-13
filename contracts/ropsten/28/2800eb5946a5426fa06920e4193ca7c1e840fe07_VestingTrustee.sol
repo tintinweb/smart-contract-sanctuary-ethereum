@@ -260,7 +260,7 @@ contract StandardToken is ERC20, BasicToken {
 
 
 /// @title   Token
-/// @author  Jose Perez - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8fe5e0fceaa1ffeafdeaf5cfebe6e8e6e1eaf7a1ece0e2">[email&#160;protected]</a>>
+/// @author  Jose Perez - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8fe5e0fceaa1ffeafdeaf5cfebe6e8e6e1eaf7a1ece0e2>[email&#160;protected]</a>>
 /// @notice  ERC20 token
 /// @dev     The contract allows to perform a number of token sales in different periods in time.
 ///          allowing participants in previous token sales to transfer tokens to other accounts.
@@ -581,7 +581,7 @@ contract Token is StandardToken, Ownable {
 
 
 /// @title  ExchangeRate
-/// @author Jose Perez - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d4bebba7b1faa4b1a6b1ae94b0bdb3bdbab1acfab7bbb9">[email&#160;protected]</a>>
+/// @author Jose Perez - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d4bebba7b1faa4b1a6b1ae94b0bdb3bdbab1acfab7bbb9>[email&#160;protected]</a>>
 /// @notice Tamper-proof record of exchange rates e.g. BTC/USD, ETC/USD, etc.
 /// @dev    Exchange rates are updated from off-chain server periodically. Rates are taken from a
 //          publicly available third-party provider, such as Coinbase, CoinMarketCap, etc.
@@ -633,7 +633,7 @@ contract ExchangeRate is Ownable {
 
 
 /// @title  VestingTrustee
-/// @author Jose Perez - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7913160a1c57091c0b1c03391d101e10171c01571a1614">[email&#160;protected]</a>>
+/// @author Jose Perez - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7913160a1c57091c0b1c03391d101e10171c01571a1614>[email&#160;protected]</a>>
 /// @notice Vesting trustee contract for Diginex ERC20 tokens. Tokens are granted to specific
 ///         addresses and vested under certain criteria (vesting period, cliff period, etc.)
 //          All time units are in seconds since Unix epoch.

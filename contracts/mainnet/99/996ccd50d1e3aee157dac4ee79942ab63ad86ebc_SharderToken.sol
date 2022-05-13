@@ -77,7 +77,7 @@ library SafeMath {
 
 /**
 * @title Sharder Token v2.0. SS(Sharder) is upgrade from SS(Sharder Storage).
-* @author Ben - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c0b8b980b3a8a1b2a4a5b2eeafb2a7">[email&#160;protected]</a>>.
+* @author Ben - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c0b8b980b3a8a1b2a4a5b2eeafb2a7>[email&#160;protected]</a>>.
 * @dev ERC-20: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
 */
 contract SharderToken {

@@ -4,7 +4,7 @@
 
 pragma solidity ^0.5.0;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2f4b4e594a6f4e4440424d4e014c4042">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2f4b4e594a6f4e4440424d4e014c4042>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 
 library RLPReader {

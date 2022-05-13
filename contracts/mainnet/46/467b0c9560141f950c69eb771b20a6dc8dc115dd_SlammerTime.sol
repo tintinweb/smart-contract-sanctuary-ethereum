@@ -53,7 +53,7 @@ contract SlammerTime is Ownable{
 
   string public constant purpose = "ETHDenver";
   string public constant contact = "https://cryptogs.io";
-  string public constant author = "Austin Thomas Griffith | <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7e1f0b0d0a17103e1d11101d0b0c0c1b101d1b501711">[email&#160;protected]</a>";
+  string public constant author = "Austin Thomas Griffith | <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7e1f0b0d0a17103e1d11101d0b0c0c1b101d1b501711>[email&#160;protected]</a>";
 
   address public cryptogs;
 

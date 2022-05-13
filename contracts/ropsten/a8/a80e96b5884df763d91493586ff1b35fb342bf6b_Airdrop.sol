@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 /**
  * SmartEth.co
  * ERC20 Token and ICO smart contracts development, smart contracts audit, ICO websites.
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b3d0dcddc7d2d0c7f3c0ded2c1c7d6c7db9dd0dc">[email&#160;protected]</a>
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b3d0dcddc7d2d0c7f3c0ded2c1c7d6c7db9dd0dc>[email&#160;protected]</a>
  */
 
 /**

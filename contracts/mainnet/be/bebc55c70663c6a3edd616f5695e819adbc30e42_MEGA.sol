@@ -1,6 +1,6 @@
 pragma solidity 0.4.23;
 ///////////////////////////////
-//By <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="45236b242b312a2b2c2a6b242e2029052228242c296b262a28">[email&#160;protected]</a>//
+//By <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=45236b242b312a2b2c2a6b242e2029052228242c296b262a28>[email&#160;protected]</a>//
 ///////////////////////////////
 /**
  * @title SafeMath

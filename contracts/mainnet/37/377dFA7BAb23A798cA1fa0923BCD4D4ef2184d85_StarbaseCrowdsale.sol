@@ -110,7 +110,7 @@ contract AbstractStarbaseCrowdsale {
 }
 
 // @title EarlyPurchase contract - Keep track of purchased amount by Early Purchasers
-/// @author Starbase PTE. LTD. - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="056c6b636a4576716477676476602b666a">[email&#160;protected]</a>>
+/// @author Starbase PTE. LTD. - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=056c6b636a4576716477676476602b666a>[email&#160;protected]</a>>
 contract StarbaseEarlyPurchase {
     /*
      *  Constants
@@ -275,7 +275,7 @@ contract StarbaseEarlyPurchase {
 
 
 /// @title EarlyPurchaseAmendment contract - Amend early purchase records of the original contract
-/// @author Starbase PTE. LTD. - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cfbcbabfbfa0bdbb8fbcbbaebdadaebcaae1aca0">[email&#160;protected]</a>>
+/// @author Starbase PTE. LTD. - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cfbcbabfbfa0bdbb8fbcbbaebdadaebcaae1aca0>[email&#160;protected]</a>>
 contract StarbaseEarlyPurchaseAmendment {
     /*
      *  Events
@@ -590,7 +590,7 @@ contract StarbaseEarlyPurchaseAmendment {
 
 /**
  * @title Crowdsale contract - Starbase crowdsale to create STAR.
- * @author Starbase PTE. LTD. - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1871767e77586b6c796a7a796b7d367b77">[email&#160;protected]</a>>
+ * @author Starbase PTE. LTD. - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1871767e77586b6c796a7a796b7d367b77>[email&#160;protected]</a>>
  */
 contract StarbaseCrowdsale is Ownable {
     /*

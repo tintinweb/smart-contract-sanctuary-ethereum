@@ -5,7 +5,7 @@ pragma solidity ^0.4.18;
 // An ERC20 standard
 //
 // author: Spike Team
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5b6b9b0b8b0bb95b4fbb9ac">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d5b6b9b0b8b0bb95b4fbb9ac>[email&#160;protected]</a>
 
 contract ERC20Interface {
     // Get the total token supply
@@ -406,7 +406,7 @@ contract Spike is ERC20Interface {
 }
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="186b6c7d7e7976367f7d776a7f7d587b77766b7d766b616b36767d6c">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=186b6c7d7e7976367f7d776a7f7d587b77766b7d766b616b36767d6c>[email&#160;protected]</a>>
 contract MultiSigWallet {
 
     uint constant public MAX_OWNER_COUNT = 50;

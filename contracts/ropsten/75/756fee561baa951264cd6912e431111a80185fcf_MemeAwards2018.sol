@@ -364,7 +364,7 @@ library Address {
 
 /**
  * @title ERC721 Non-Fungible Token Standard BrofistCoin custom implementation
- * @dev Please report any issues to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a43444c456a4858454c43595e49454344044345">[email&#160;protected]</a> or @brofistcoin on Telegram 
+ * @dev Please report any issues to <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2a43444c456a4858454c43595e49454344044345>[email&#160;protected]</a> or @brofistcoin on Telegram 
  */
 contract MemeAwards2018 is ERC165, IERC721, IERC721Metadata, IERC721Enumerable, Ownable {
     using SafeMath for uint256;

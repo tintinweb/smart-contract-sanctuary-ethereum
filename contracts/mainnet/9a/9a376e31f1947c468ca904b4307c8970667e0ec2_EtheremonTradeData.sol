@@ -1,6 +1,6 @@
 pragma solidity ^0.4.16;
 
-// copyright <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f695999882979582b6b3829e9384939b9998d895999b">[email&#160;protected]</a>
+// copyright <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f695999882979582b6b3829e9384939b9998d895999b>[email&#160;protected]</a>
 
 contract SafeMath {
 

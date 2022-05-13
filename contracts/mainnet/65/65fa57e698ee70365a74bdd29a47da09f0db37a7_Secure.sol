@@ -1,5 +1,5 @@
 // Created by Mohamed Sharaf.
-// EMail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b466b4644434a464e4f58434a594a4d05454e5f">[email&#160;protected]</a>
+// EMail: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2b466b4644434a464e4f58434a594a4d05454e5f>[email&#160;protected]</a>
 // Date: 15/04/2018
 pragma solidity ^0.4.21;
 

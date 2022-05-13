@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 /**
  * @title SMILE Token
- * @author Alex Papageorgiou - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6f0e030a17411f1f082f1f1d001b0001020e0603410c0002">[email&#160;protected]</a>>
+ * @author Alex Papageorgiou - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6f0e030a17411f1f082f1f1d001b0001020e0603410c0002>[email&#160;protected]</a>>
  * @notice The Smile Token token & airdrop contract which conforms to EIP-20 & partially ERC-223
  */
 contract SMILE {

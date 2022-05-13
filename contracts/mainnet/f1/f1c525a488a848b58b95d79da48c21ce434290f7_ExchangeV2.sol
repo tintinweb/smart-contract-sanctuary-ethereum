@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 /**
  * @title Log Various Error Types
- * @author Adam Lemmon <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c0a1a4a1ad80afb2a1a3aca9baa5eea9b4">[email&#160;protected]</a>>
+ * @author Adam Lemmon <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c0a1a4a1ad80afb2a1a3aca9baa5eea9b4>[email&#160;protected]</a>>
  * @dev Inherit this contract and your may now log errors easily
  * To support various error types, params, etc.
  */
@@ -127,7 +127,7 @@ contract WalletConnector is LoggingErrors {
 
 /**
  * @title Wallet to hold and trade ERC20 tokens and ether
- * @author Adam Lemmon <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95f4f1f4f8d5fae7f4f6f9fceff0bbfce1">[email&#160;protected]</a>>
+ * @author Adam Lemmon <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=95f4f1f4f8d5fae7f4f6f9fceff0bbfce1>[email&#160;protected]</a>>
  * @dev User wallet to interact with the exchange.
  * all tokens and ether held in this wallet, 1 to 1 mapping to user EOAs.
  */

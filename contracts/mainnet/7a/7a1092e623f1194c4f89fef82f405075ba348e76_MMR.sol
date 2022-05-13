@@ -6,7 +6,7 @@ pragma solidity >=0.4.21 <0.6.0;
 
 
 /**
- * @author Wanseob Lim <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7d18101c14113d0a1c130e18121f531e1210">[email&#160;protected]</a>>
+ * @author Wanseob Lim <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7d18101c14113d0a1c130e18121f531e1210>[email&#160;protected]</a>>
  * @title Merkle Mountain Range solidity library
  *
  * The index starts from 1 not 0. And it uses keccak256 for its hash function

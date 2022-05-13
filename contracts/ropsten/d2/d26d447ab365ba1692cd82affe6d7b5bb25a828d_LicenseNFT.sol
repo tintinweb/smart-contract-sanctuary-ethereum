@@ -967,7 +967,7 @@ contract Secondary {
 }
 
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cbafaabdae8baaa0a4a6a9aae5a8a4a6">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cbafaabdae8baaa0a4a6a9aae5a8a4a6>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 contract ILicenseNFTProxiable {
   function split(

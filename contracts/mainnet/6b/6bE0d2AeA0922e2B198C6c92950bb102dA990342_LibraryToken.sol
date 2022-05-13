@@ -2,7 +2,7 @@ pragma solidity ^0.4.19; // solhint-disable-line
 
 /**
   * Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-  * @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f397968796b3928b9a9c9e89969ddd909c">[email&#160;protected]</a>> (https://github.com/dete)
+  * @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f397968796b3928b9a9c9e89969ddd909c>[email&#160;protected]</a>> (https://github.com/dete)
   */
 contract ERC721 {
   // Required methods

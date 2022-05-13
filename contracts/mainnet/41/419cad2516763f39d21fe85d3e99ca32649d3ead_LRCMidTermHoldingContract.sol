@@ -110,7 +110,7 @@ contract Token {
 
 
 /// @title Mid-Team Holding Incentive Program
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7d3d6d9ded2dbf7dbd8d8c7c5ded9d099d8c5d0">[email&#160;protected]</a>>, Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="791216171e151018171e39151616090b10171e57160b1e">[email&#160;protected]</a>>.
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b7d3d6d9ded2dbf7dbd8d8c7c5ded9d099d8c5d0>[email&#160;protected]</a>>, Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=791216171e151018171e39151616090b10171e57160b1e>[email&#160;protected]</a>>.
 /// For more information, please visit https://loopring.org.
 contract LRCMidTermHoldingContract {
     using SafeMath for uint;

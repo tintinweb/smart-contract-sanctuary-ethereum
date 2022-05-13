@@ -1,7 +1,7 @@
 pragma solidity ^0.4.19;
 
 /**
- * BRX.SPACE (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="593a36372d383a2d193b2b21772a29383a3c">[email&#160;protected]</a>)
+ * BRX.SPACE (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=593a36372d383a2d193b2b21772a29383a3c>[email&#160;protected]</a>)
  * 
  * BRX token is a virtual token, governed by ERC20-compatible
  * Ethereum Smart Contract and secured by Ethereum Blockchain

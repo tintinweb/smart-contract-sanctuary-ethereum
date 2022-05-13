@@ -1,6 +1,6 @@
 pragma solidity ^0.4.11;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="600401160520010b0f0d02014e030f0d">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=600401160520010b0f0d02014e030f0d>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 // input  /Users/ivan/tr/SolidityFlattery/NewToken.sol
 // flattened :  Monday, 07-Jan-19 18:08:34 UTC

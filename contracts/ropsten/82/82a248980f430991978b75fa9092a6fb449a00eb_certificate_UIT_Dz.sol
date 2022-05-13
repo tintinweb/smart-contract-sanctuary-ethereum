@@ -1,5 +1,5 @@
 // Nguyễn Ho&#224;ng Danh - 15520090
-// <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="472920323e22292326292f33352631222b07202a262e2b6924282a">[email&#160;protected]</a> 
+// <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=472920323e22292326292f33352631222b07202a262e2b6924282a>[email&#160;protected]</a> 
 
 pragma solidity ^0.4.24;
 

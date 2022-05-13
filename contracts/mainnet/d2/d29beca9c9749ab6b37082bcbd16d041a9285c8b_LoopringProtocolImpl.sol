@@ -12,7 +12,7 @@
 */
 pragma solidity 0.4.21;
 /// @title Utility Functions for uint
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="98fcf9f6f1fdf4d8f4f7f7e8eaf1f6ffb6f7eaff">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=98fcf9f6f1fdf4d8f4f7f7e8eaf1f6ffb6f7eaff>[email&#160;protected]</a>>
 library MathUint {
     function mul(
         uint a,
@@ -102,7 +102,7 @@ library MathUint {
   limitations under the License.
 */
 /// @title Utility Functions for address
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d292c232428210d2122223d3f24232a63223f2a">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4d292c232428210d2122223d3f24232a63223f2a>[email&#160;protected]</a>>
 library AddressUtil {
     function isContract(
         address addr
@@ -146,7 +146,7 @@ library AddressUtil {
 */
 /// @title ERC20 Token Interface
 /// @dev see https://github.com/ethereum/EIPs/issues/20
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5236333c3b373e123e3d3d22203b3c357c3d2035">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5236333c3b373e123e3d3d22203b3c357c3d2035>[email&#160;protected]</a>>
 contract ERC20 {
     function balanceOf(
         address who
@@ -194,8 +194,8 @@ contract ERC20 {
   limitations under the License.
 */
 /// @title Loopring Token Exchange Protocol Contract Interface
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c282d222529200c2023233c3e25222b62233e2b">[email&#160;protected]</a>>
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd9692939a91949c939abd9192928d8f94939ad3928f9a">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4c282d222529200c2023233c3e25222b62233e2b>[email&#160;protected]</a>>
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fd9692939a91949c939abd9192928d8f94939ad3928f9a>[email&#160;protected]</a>>
 contract LoopringProtocol {
     uint8   public constant MARGIN_SPLIT_PERCENTAGE_BASE = 100;
     /// @dev Event to emit if a ring is successfully mined.
@@ -316,8 +316,8 @@ contract LoopringProtocol {
 */
 /// @title Token Register Contract
 /// @dev This contract maintains a list of tokens the Protocol supports.
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b8d3d7d6dfd4d1d9d6dff8d4d7d7c8cad1d6df96d7cadf">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c0a4a1aea9a5ac80acafafb0b2a9aea7eeafb2a7">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b8d3d7d6dfd4d1d9d6dff8d4d7d7c8cad1d6df96d7cadf>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c0a4a1aea9a5ac80acafafb0b2a9aea7eeafb2a7>[email&#160;protected]</a>>.
 contract TokenRegistry {
     event TokenRegistered(
         address indexed addr,
@@ -389,7 +389,7 @@ contract TokenRegistry {
 /// @title TokenTransferDelegate
 /// @dev Acts as a middle man to transfer ERC20 tokens on behalf of different
 /// versions of Loopring protocol to avoid ERC20 re-authorization.
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7410151a1d111834181b1b04061d1a135a1b0613">[email&#160;protected]</a>>.
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7410151a1d111834181b1b04061d1a135a1b0613>[email&#160;protected]</a>>.
 contract TokenTransferDelegate {
     event AddressAuthorized(
         address indexed addr,
@@ -469,8 +469,8 @@ contract TokenTransferDelegate {
     function kill() external;
 }
 /// @title An Implementation of LoopringProtocol.
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d797c737478715d7172726d6f74737a33726f7a">[email&#160;protected]</a>>,
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="761d1918111a1f171811361a191906041f181158190411">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1d797c737478715d7172726d6f74737a33726f7a>[email&#160;protected]</a>>,
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=761d1918111a1f171811361a191906041f181158190411>[email&#160;protected]</a>>
 ///
 /// Recognized contributing developers from the community:
 ///     https://github.com/Brechtpd

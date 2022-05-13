@@ -4,7 +4,7 @@ pragma solidity 0.4.15;
 // Audit, refactoring and improvements by github.com/Eenae
 
 // @authors:
-// Gav Wood <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c7b5c79687478796a327f7371">[email&#160;protected]</a>>
+// Gav Wood <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1c7b5c79687478796a327f7371>[email&#160;protected]</a>>
 // inheritable "property" contract that enables methods to be protected by requiring the acquiescence of either a
 // single, or, crucially, each of a number of, designated owners.
 // usage:
@@ -529,7 +529,7 @@ library SafeMath {
 
 /**
  * @title Helps contracts guard agains rentrancy attacks.
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8dffe8e0eee2cdbf">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8dffe8e0eee2cdbf>[email&#160;protected]</a>π.com>
  * @notice If you mark a function `nonReentrant`, you should also
  * mark it `external`.
  */

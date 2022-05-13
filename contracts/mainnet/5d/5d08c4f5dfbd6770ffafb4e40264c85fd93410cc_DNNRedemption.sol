@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 
 /// @title DNNToken contract - Main DNN contract
-/// @author Dondrey Taylor - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="73171c1d1701160a33171d1d5d1e16171a12">[email&#160;protected]</a>>
+/// @author Dondrey Taylor - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=73171c1d1701160a33171d1d5d1e16171a12>[email&#160;protected]</a>>
 contract DNNToken {
     enum DNNSupplyAllocations {
         EarlyBackerSupplyAllocation,
@@ -16,7 +16,7 @@ contract DNNToken {
 }
 
 /// @title DNNRedemption contract - Issues DNN tokens
-/// @author Dondrey Taylor - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d2b6bdbcb6a0b7ab92b6bcbcfcbfb7b6bbb3">[email&#160;protected]</a>>
+/// @author Dondrey Taylor - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d2b6bdbcb6a0b7ab92b6bcbcfcbfb7b6bbb3>[email&#160;protected]</a>>
 contract DNNRedemption {
 
     /////////////////////////

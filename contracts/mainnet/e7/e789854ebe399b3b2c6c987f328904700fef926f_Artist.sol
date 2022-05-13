@@ -14,7 +14,7 @@ interface TeamInterface {
  * @title Artist Contract
  * @dev http://www.puzzlebid.com/
  * @author PuzzleBID Game Team 
- * @dev Simon<<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dcaaafb5aea5a4b19cedeaeff2bfb3b1">[email&#160;protected]</a>>
+ * @dev Simon<<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dcaaafb5aea5a4b19cedeaeff2bfb3b1>[email&#160;protected]</a>>
  */
 contract Artist {
 

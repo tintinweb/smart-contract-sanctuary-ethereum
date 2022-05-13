@@ -1197,5 +1197,5 @@ contract Blackjack_GamePlay is Blackjack_Functionality
 Contact HEAD : Integration User Workflow
 ==================================================================== */
 
-//Created by <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9df0f8f2eaf8f3e9ddfaf0fcf4f1b3fef2f0">[email&#160;protected]</a> 
+//Created by <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9df0f8f2eaf8f3e9ddfaf0fcf4f1b3fef2f0>[email&#160;protected]</a> 
 //Worship Lu Godness Forever

@@ -90,7 +90,7 @@ contract SimpleToken is Owned {
 }
 
 /// @title Multisignature Mintable Token - Allows minting of Tokens by a 2-2-Multisignature
-/// @author Henning Kopp - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="99f2f6e9e9d9fbf5f6faf2faf1f8f0f7b4fbfcebf8edecf7feb7fdfc">[email&#160;protected]</a>>
+/// @author Henning Kopp - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=99f2f6e9e9d9fbf5f6faf2faf1f8f0f7b4fbfcebf8edecf7feb7fdfc>[email&#160;protected]</a>>
 contract MultiSigMint is SimpleToken {
 
     // Address change event
@@ -209,7 +209,7 @@ contract MultiSigMint is SimpleToken {
 }
 
 /// @title Contract with fixed parameters for deployment
-/// @author Henning Kopp - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f34302f2f1f3d33303c343c373e3631723d3a2d3e2b2a3138713b3a">[email&#160;protected]</a>>
+/// @author Henning Kopp - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5f34302f2f1f3d33303c343c373e3631723d3a2d3e2b2a3138713b3a>[email&#160;protected]</a>>
 contract GoldToken is MultiSigMint {
     function GoldToken(address _notary) public MultiSigMint(_notary) {}
 }

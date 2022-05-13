@@ -2,7 +2,7 @@ pragma solidity ^0.4.13;
 // -------------------------------------------------
 // 0.4.13+commit.0fb4cb1a
 // EthPoker.io ERC20 PKT token contract
-// Contact <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8beaefe6e2e5cbeeffe3fbe4e0eef9a5e2e4">[email&#160;protected]</a> for any query
+// Contact <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8beaefe6e2e5cbeeffe3fbe4e0eef9a5e2e4>[email&#160;protected]</a> for any query
 // -------------------------------------------------
 // ERC Token Standard #20 Interface https://github.com/ethereum/EIPs/issues/20
 // -------------------------------------------------

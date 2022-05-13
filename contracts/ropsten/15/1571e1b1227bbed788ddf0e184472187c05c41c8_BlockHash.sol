@@ -69,7 +69,7 @@ library SafeMath {
 // File: solidity-rlp/contracts/RLPReader.sol
 
 /*
-* @author Hamdi Allam <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="660e070b020f48070a0a070b5f5126010b070f0a4805090b">[email&#160;protected]</a>
+* @author Hamdi Allam <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=660e070b020f48070a0a070b5f5126010b070f0a4805090b>[email&#160;protected]</a>
 * Please reach out with any questions or concerns
 */
 pragma solidity ^0.4.24;

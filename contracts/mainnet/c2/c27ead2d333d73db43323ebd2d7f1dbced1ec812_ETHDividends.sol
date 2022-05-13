@@ -18,7 +18,7 @@ pragma solidity ^0.4.23;
 
  Developer:
  https://t.me/XaosPL
- <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86fee7e9f5c6ede3e3ebe7efeaa8e5e9eb">[email&#160;protected]</a>
+ <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=86fee7e9f5c6ede3e3ebe7efeaa8e5e9eb>[email&#160;protected]</a>
  
  Discord:
  https://discordapp.com/invite/6Yr36Jr

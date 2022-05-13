@@ -1,5 +1,5 @@
 // Bond Film Platform Token smart contract.
-// Developed by Phenom.Team <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b12151d143b0b131e151416550f1e1a16">[email&#160;protected]</a>>
+// Developed by Phenom.Team <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7b12151d143b0b131e151416550f1e1a16>[email&#160;protected]</a>>
 pragma solidity ^0.4.18;
 
 /**

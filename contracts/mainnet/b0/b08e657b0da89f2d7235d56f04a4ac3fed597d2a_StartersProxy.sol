@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cfabaeb9aa8faea4a0a2adaee1aca0a2">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cfabaeb9aa8faea4a0a2adaee1aca0a2>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 library Roles {
   struct Role {

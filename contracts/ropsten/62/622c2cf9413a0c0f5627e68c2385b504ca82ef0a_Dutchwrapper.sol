@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b7f7a6d7e5b7a707476797a35787476">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1b7f7a6d7e5b7a707476797a35787476>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 // input  /Users/achiko/Documents/elva/projects/kittiefight/KittieSITE/contracts/Dutchwrapper.sol
 // flattened :  Tuesday, 13-Nov-18 14:23:35 UTC

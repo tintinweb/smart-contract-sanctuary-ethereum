@@ -511,7 +511,7 @@ contract PausableToken is StandardToken, Pausable {
 
 /**
  * @title CompanyToken contract - ERC20 compatible token contract with customized token parameters.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5b2a0a6a1b4a3ba95a6a1b4a7b7b4a6b0fbb6ba">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d5b2a0a6a1b4a3ba95a6a1b4a7b7b4a6b0fbb6ba>[email&#160;protected]</a>>
  */
 contract CompanyToken is PausableToken, MintableToken {
     string public name;
@@ -537,7 +537,7 @@ contract CompanyToken is PausableToken, MintableToken {
 
 /**
  * @title Whitelist - crowdsale whitelist contract
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="85e2f0f6f1e4f3eac5f6f1e4f7e7e4f6e0abe6ea">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=85e2f0f6f1e4f3eac5f6f1e4f7e7e4f6e0abe6ea>[email&#160;protected]</a>>
  */
 contract Whitelist is Ownable {
     mapping(address => bool) public allowedAddresses;
@@ -602,7 +602,7 @@ interface TokenSaleInterface {
 
 /**
  * @title Token Sale contract - crowdsale of company tokens.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2740525453465148675453465545465442094448">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2740525453465148675453465545465442094448>[email&#160;protected]</a>>
  */
 contract TokenSale is FinalizableCrowdsale, Pausable {
     uint256 public crowdsaleCap;

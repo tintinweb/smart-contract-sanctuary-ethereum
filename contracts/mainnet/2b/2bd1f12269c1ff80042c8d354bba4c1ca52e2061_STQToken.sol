@@ -204,7 +204,7 @@ contract CirculatingToken is StandardToken {
 // Audit, refactoring and improvements by github.com/Eenae
 
 // @authors:
-// Gav Wood <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f381f3a2b373b3a29713c3032">[email&#160;protected]</a>>
+// Gav Wood <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5f381f3a2b373b3a29713c3032>[email&#160;protected]</a>>
 // inheritable "property" contract that enables methods to be protected by requiring the acquiescence of either a
 // single, or, crucially, each of a number of, designated owners.
 // usage:

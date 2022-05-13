@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
 // Yolo Exchange
 // http://yolo.exchange
 // ERC20 Compliant Token
-// Contract developer: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e7828a8295808e8980828a82958082898482a7808a868e8bc984888a">[email&#160;protected]</a>
+// Contract developer: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e7828a8295808e8980828a82958082898482a7808a868e8bc984888a>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------
 
 

@@ -1,5 +1,5 @@
 /**
- * Investors relations: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2140454c484f614053434855534046484f460f424e">[email&#160;protected]</a>
+ * Investors relations: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2140454c484f614053434855534046484f460f424e>[email&#160;protected]</a>
 **/
 
 pragma solidity ^0.4.24;

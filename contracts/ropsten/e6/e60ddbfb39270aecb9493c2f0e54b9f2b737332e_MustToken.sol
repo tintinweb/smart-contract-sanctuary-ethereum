@@ -1,7 +1,7 @@
 pragma solidity ^0.4.25;
 
 /// @title Role based access control mixin for MUST Platform
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="22434e47500c58434f524b4e4e4d62454f434b4e0c414d4f">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=22434e47500c58434f524b4e4e4d62454f434b4e0c414d4f>[email&#160;protected]</a>>
 /// @dev Ignore DRY approach to achieve readability
 contract RBACMixin {
   /// @notice Constant string message to throw on lack of access
@@ -414,7 +414,7 @@ contract ERC223ReceiverMixin {
 }
 
 /// @title Custom implementation of ERC223 
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ff9e939a8dd1859e928f96939390bf98929e9693d19c9092">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ff9e939a8dd1859e928f96939390bf98929e9693d19c9092>[email&#160;protected]</a>>
 contract ERC223Mixin is StandardToken {
   event Transfer(address indexed from, address indexed to, uint256 value, bytes data);
 
@@ -527,7 +527,7 @@ contract ERC223Mixin is StandardToken {
 }
 
 /// @title Role based token finalization mixin
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="04656861762a7e6569746d68686b446369656d682a676b69">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=04656861762a7e6569746d68686b446369656d682a676b69>[email&#160;protected]</a>>
 contract RBACERC223TokenFinalization is ERC223Mixin, RBACMixin {
   event Finalize();
   /// @notice Public field inicates the finalization state of smart-contract
@@ -640,7 +640,7 @@ contract StandardBurnableToken is BurnableToken, StandardToken {
 }
 
 /// @title MUST Platform token implementation
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2c4d40495e02564d415c454040436c4b414d4540024f4341">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2c4d40495e02564d415c454040436c4b414d4540024f4341>[email&#160;protected]</a>>
 /// @dev Implements ERC20, ERC223 and MintableToken interfaces as well as capped and finalization logic
 contract MustToken is StandardBurnableToken, RBACERC223TokenFinalization, RBACMintableTokenMixin {
   /// @notice Constant field with token full name

@@ -5,7 +5,7 @@ pragma solidity ^0.5.0;
  * @title Team Contract
  * @dev http://www.puzzlebid.com/
  * @author PuzzleBID Game Team 
- * @dev Simon<<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2d5b5e445f5455406d1c1b1e034e4240">[email&#160;protected]</a>>
+ * @dev Simon<<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2d5b5e445f5455406d1c1b1e034e4240>[email&#160;protected]</a>>
  */
 contract Team {
 

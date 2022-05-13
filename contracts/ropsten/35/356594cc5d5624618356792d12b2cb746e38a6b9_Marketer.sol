@@ -32,7 +32,7 @@ contract ValidValue {
 /**
  * @title Marketer contract
  *
- * @author Junghoon Seo - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6e0406401d0b012e0c0f1a1a020b0b001a400d0103">[email&#160;protected]</a>>
+ * @author Junghoon Seo - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6e0406401d0b012e0c0f1a1a020b0b001a400d0103>[email&#160;protected]</a>>
  */
 contract Marketer is MarketerInterface, ValidValue {
   mapping (bytes32 => address) marketerInfo;

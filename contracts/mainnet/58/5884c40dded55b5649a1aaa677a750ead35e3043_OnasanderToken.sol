@@ -1,7 +1,7 @@
 /** @title Onasander Token Contract
 *   
 *   @author: Andrzej Wegrzyn
-*   Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e6828390838a89968b838892a6898887958788828394c885898b">[email&#160;protected]</a>
+*   Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e6828390838a89968b838892a6898887958788828394c885898b>[email&#160;protected]</a>
 *   Date: May 5, 2018
 *   Location: New York, USA
 *   Token: Onasander

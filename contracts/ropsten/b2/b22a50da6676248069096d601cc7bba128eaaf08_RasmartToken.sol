@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 /// @title Role based access control mixin for Rasmart Platform
-/// @author Abha Mai <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c1aca0a8a0a3a9a0f9f381a6aca0a8adefa2aeac">[email&#160;protected]</a>>
+/// @author Abha Mai <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c1aca0a8a0a3a9a0f9f381a6aca0a8adefa2aeac>[email&#160;protected]</a>>
 /// @dev Ignore DRY approach to achieve readability
 contract RBACMixin {
   /// @notice Constant string message to throw on lack of access
@@ -414,7 +414,7 @@ contract ERC223ReceiverMixin {
 }
 
 /// @title Custom implementation of ERC223 
-/// @author Abha Mai <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a2cfc3cbc3c0cac39a90e2c5cfc3cbce8cc1cdcf">[email&#160;protected]</a>>
+/// @author Abha Mai <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a2cfc3cbc3c0cac39a90e2c5cfc3cbce8cc1cdcf>[email&#160;protected]</a>>
 contract ERC223Mixin is StandardToken {
   event Transfer(address indexed from, address indexed to, uint256 value, bytes data);
 
@@ -527,7 +527,7 @@ contract ERC223Mixin is StandardToken {
 }
 
 /// @title Role based token finalization mixin
-/// @author Abha Mai <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c7aaa6aea6a5afa6fff587a0aaa6aeabe9a4a8aa">[email&#160;protected]</a>>
+/// @author Abha Mai <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c7aaa6aea6a5afa6fff587a0aaa6aeabe9a4a8aa>[email&#160;protected]</a>>
 contract RBACERC223TokenFinalization is ERC223Mixin, RBACMixin {
   event Finalize();
   /// @notice Public field inicates the finalization state of smart-contract
@@ -640,7 +640,7 @@ contract StandardBurnableToken is BurnableToken, StandardToken {
 }
 
 /// @title Rasmart Platform token implementation
-/// @author Abha Mai <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cda0aca4acafa5acf5ff8daaa0aca4a1e3aea2a0">[email&#160;protected]</a>>
+/// @author Abha Mai <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cda0aca4acafa5acf5ff8daaa0aca4a1e3aea2a0>[email&#160;protected]</a>>
 /// @dev Implements ERC20, ERC223 and MintableToken interfaces as well as capped and finalization logic
 contract RasmartToken is StandardBurnableToken, RBACERC223TokenFinalization, RBACMintableTokenMixin {
   /// @notice Constant field with token full name

@@ -274,7 +274,7 @@ contract StandardToken is ERC20, BasicToken {
 //File: contracts\ico\TileToken.sol
 /**
 * @title TILE Token - LOOMIA
-* @author Pactum IO <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbbfbead9babbab8afaeb6f5b2b4">[email&#160;protected]</a>>
+* @author Pactum IO <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dbbfbead9babbab8afaeb6f5b2b4>[email&#160;protected]</a>>
 */
 pragma solidity ^0.4.24;
 

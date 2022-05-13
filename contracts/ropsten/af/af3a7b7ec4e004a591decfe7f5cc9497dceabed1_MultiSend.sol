@@ -11,7 +11,7 @@ pragma solidity ^0.4.19;
 
 
 /// @title Owned
-/// @author Adri&#224; Massanet <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9efffaecf7ffdefdf1fafbfdf1f0eafbe6eab0f7f1">[email&#160;protected]</a>>
+/// @author Adri&#224; Massanet <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9efffaecf7ffdefdf1fafbfdf1f0eafbe6eab0f7f1>[email&#160;protected]</a>>
 /// @notice The Owned contract has an owner address, and provides basic 
 ///  authorization control functions, this simplifies & the implementation of
 ///  user permissions; this contract has three work flows for a change in
@@ -122,7 +122,7 @@ contract ERC20 {
 
 }
 
-/// @author Adri&#224; Massanet <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef8e8b9d868eaf8c808b8a8c80819b8a979bc18680">[email&#160;protected]</a>>
+/// @author Adri&#224; Massanet <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ef8e8b9d868eaf8c808b8a8c80819b8a979bc18680>[email&#160;protected]</a>>
 /// @dev `Escapable` is a base level contract built off of the `Owned`
 ///  contract; it creates an escape hatch function that can be called in an
 ///  emergency that will allow designated addresses to send any ether or tokens

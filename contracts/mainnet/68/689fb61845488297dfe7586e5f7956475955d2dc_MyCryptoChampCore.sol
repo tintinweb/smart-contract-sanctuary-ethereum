@@ -1,6 +1,6 @@
 /* 		
 		https://mycryptochamp.io/
-		<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e088858c8c8fa08d9983929990948f8388818d90ce898f">[email&#160;protected]</a>
+		<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e088858c8c8fa08d9983929990948f8388818d90ce898f>[email&#160;protected]</a>
 */
 
 pragma solidity 0.4.24;

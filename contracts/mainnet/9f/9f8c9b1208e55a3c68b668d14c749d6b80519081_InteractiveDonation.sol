@@ -1,7 +1,7 @@
 pragma solidity ^0.4.21;
 
 // Donate all your ethers to 0x7Ec 
-// Made by EtherGuy (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7411001c110613010d3419151d185a171b19">[email&#160;protected]</a>)
+// Made by EtherGuy (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7411001c110613010d3419151d185a171b19>[email&#160;protected]</a>)
 // CryptoGaming Discord https://discord.gg/gjrHXFr
 // UI @ htpts://0x7.surge.sh
 

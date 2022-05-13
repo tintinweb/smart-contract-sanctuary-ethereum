@@ -1,9 +1,9 @@
 pragma solidity ^0.4.19;
 
-/* Adapted from strings.sol created by Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43223122202b2d2a27032d2c37272c376d2d2637">[email&#160;protected]</a>>
+/* Adapted from strings.sol created by Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=43223122202b2d2a27032d2c37272c376d2d2637>[email&#160;protected]</a>>
  * Ref: https://github.com/Arachnid/solidity-stringutils/blob/2f6ca9accb48ae14c66f1437ec50ed19a0616f78/strings.sol
  * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83e2f1e2e0ebedeae7c3edecf7e7ecf7adede6f7">[email&#160;protected]</a>>
+ * @author Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=83e2f1e2e0ebedeae7c3edecf7e7ecf7adede6f7>[email&#160;protected]</a>>
  */
 library strings {
     
@@ -197,7 +197,7 @@ contract StringHelpers {
 }
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="debabbaabb9ebfa6b7b1b3a4bbb0f0bdb1">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=debabbaabb9ebfa6b7b1b3a4bbb0f0bdb1>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
   // Required methods
   function balanceOf(address _owner) public view returns (uint256 balance);

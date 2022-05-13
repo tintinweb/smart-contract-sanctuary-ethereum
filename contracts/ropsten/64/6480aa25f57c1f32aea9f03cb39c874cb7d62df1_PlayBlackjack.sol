@@ -1338,5 +1338,5 @@ contract PlayBlackjack is Blackjack_Functionality
 /* =================================================================
 Contact HEAD : Integration User Workflow
 ==================================================================== */
-//Create by <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a777f756d7f746e5a7d777b737634797577">[email&#160;protected]</a> +886 975330002
+//Create by <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1a777f756d7f746e5a7d777b737634797577>[email&#160;protected]</a> +886 975330002
 //Worship Lu Goddess Forever

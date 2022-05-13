@@ -428,8 +428,8 @@ contract XRT is MintableToken, BurnableToken {
 // File: contracts/robonomics/DutchAuction.sol
 
 /// @title Dutch auction contract - distribution of XRT tokens using an auction.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b686f7e7d7a75357c7e74697c7e5b787475687e7568626835757e6f">[email&#160;protected]</a>>
-/// @author Airalab - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="53213620363221303b13323a21327d3f3a3536">[email&#160;protected]</a>> 
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1b686f7e7d7a75357c7e74697c7e5b787475687e7568626835757e6f>[email&#160;protected]</a>>
+/// @author Airalab - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=53213620363221303b13323a21327d3f3a3536>[email&#160;protected]</a>> 
 contract DutchAuction {
 
     /*

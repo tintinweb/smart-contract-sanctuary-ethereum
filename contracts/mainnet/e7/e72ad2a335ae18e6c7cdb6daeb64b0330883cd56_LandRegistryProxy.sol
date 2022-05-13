@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018 blockimmo AG <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e68a8f8583889583a6848a89858d8f8b8b89c8858e">[email&#160;protected]</a>
+ * Copyright (c) 2018 blockimmo AG <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e68a8f8583889583a6848a89858d8f8b8b89c8858e>[email&#160;protected]</a>
  * Non-Profit Open Software License 3.0 (NPOSL-3.0)
  * https://opensource.org/licenses/NPOSL-3.0
  */

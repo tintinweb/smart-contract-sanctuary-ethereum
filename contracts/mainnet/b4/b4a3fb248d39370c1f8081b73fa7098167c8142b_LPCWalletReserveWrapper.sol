@@ -470,7 +470,7 @@ contract DSValue is DSThing {
 
 /// lpc.sol -- really dumb liquidity pool
 
-// Copyright (C) 2017, 2018 Rain <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a687b737478687f7b715a6873697f6f6a34747f6e">[email&#160;protected]</a>>
+// Copyright (C) 2017, 2018 Rain <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1a687b737478687f7b715a6873697f6f6a34747f6e>[email&#160;protected]</a>>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by

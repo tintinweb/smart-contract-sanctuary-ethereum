@@ -475,7 +475,7 @@ contract CanReclaimToken is Ownable {
  * @title Ubiatar Coin token
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="355c5b535a754354595c515c414c595457461b5a4752">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=355c5b535a754354595c515c414c595457461b5a4752>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.19;
 

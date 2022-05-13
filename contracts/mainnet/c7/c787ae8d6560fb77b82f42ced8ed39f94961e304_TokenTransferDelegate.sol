@@ -12,7 +12,7 @@
 */
 pragma solidity 0.4.19;
 /// @title Utility Functions for uint
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1276737c7b777e527e7d7d62607b7c753c7d6075">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1276737c7b777e527e7d7d62607b7c753c7d6075>[email&#160;protected]</a>>
 library MathUint {
     function mul(uint a, uint b) internal pure returns (uint c) {
         c = a * b;
@@ -87,7 +87,7 @@ library MathUint {
 */
 /// @title ERC20 Token Interface
 /// @dev see https://github.com/ethereum/EIPs/issues/20
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3357525d5a565f735f5c5c43415a5d541d5c4154">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3357525d5a565f735f5c5c43415a5d541d5c4154>[email&#160;protected]</a>>
 contract ERC20 {
     uint public totalSupply;
     event Transfer(address indexed from, address indexed to, uint256 value);
@@ -177,7 +177,7 @@ contract Claimable is Ownable {
 /// @title TokenTransferDelegate
 /// @dev Acts as a middle man to transfer ERC20 tokens on behalf of different
 /// versions of Loopring protocol to avoid ERC20 re-authorization.
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="791d1817101c1539151616090b10171e57160b1e">[email&#160;protected]</a>>.
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=791d1817101c1539151616090b10171e57160b1e>[email&#160;protected]</a>>.
 contract TokenTransferDelegate is Claimable {
     using MathUint for uint;
     ////////////////////////////////////////////////////////////////////////////

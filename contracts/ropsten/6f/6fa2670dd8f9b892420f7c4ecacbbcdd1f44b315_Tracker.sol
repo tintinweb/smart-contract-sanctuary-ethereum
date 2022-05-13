@@ -64,8 +64,8 @@ interface HouseContract {
 }
 
 /*
- * Kryptium Tracker Samrt Contract.  Copyright &#169; 2018 by Kryptium Team <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c7aea9a1a887acb5beb7b3aeb2aae9aea8">[email&#160;protected]</a>>.
- * Author: Giannis Zarifis <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f79d8d96859e919e84b79c858e87839e829ad99e98">[email&#160;protected]</a>>.
+ * Kryptium Tracker Samrt Contract.  Copyright &#169; 2018 by Kryptium Team <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c7aea9a1a887acb5beb7b3aeb2aae9aea8>[email&#160;protected]</a>>.
+ * Author: Giannis Zarifis <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f79d8d96859e919e84b79c858e87839e829ad99e98>[email&#160;protected]</a>>.
  */
 contract Tracker is SafeMath, Owned {
 

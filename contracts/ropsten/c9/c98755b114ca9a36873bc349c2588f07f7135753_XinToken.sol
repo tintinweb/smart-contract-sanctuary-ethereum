@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 
 /**
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c7a8b7a2a9bda2b7b7a2abaea9eab4a8abaea3aeb3be87f6e9fee9f7">[email&#160;protected]</a>/contracts/math/SafeMath.sol
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c7a8b7a2a9bda2b7b7a2abaea9eab4a8abaea3aeb3be87f6e9fee9f7>[email&#160;protected]</a>/contracts/math/SafeMath.sol
  */
 
 /**
@@ -53,7 +53,7 @@ library SafeMath {
 
 
 /**
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6906190c07130c19190c050007441a0605000d001d10295847504759">[email&#160;protected]</a>/contracts/ownership/Ownable.sol
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6906190c07130c19190c050007441a0605000d001d10295847504759>[email&#160;protected]</a>/contracts/ownership/Ownable.sol
  */
 
 /**
@@ -98,7 +98,7 @@ contract Ownable {
 
 
 /**
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d223d282337283d3d28212423603e222124292439340d7c6374637d">[email&#160;protected]</a>/contracts/token/ERC20/ERC20Basic.sol
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4d223d282337283d3d28212423603e222124292439340d7c6374637d>[email&#160;protected]</a>/contracts/token/ERC20/ERC20Basic.sol
  */
 
 /**
@@ -115,7 +115,7 @@ contract ERC20Basic {
 
 
 /**
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f29d82979c88978282979e9b9cdf819d9e9b969b868bb2c3dccbdcc2">[email&#160;protected]</a>/contracts/token/ERC20/ERC20.sol
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f29d82979c88978282979e9b9cdf819d9e9b969b868bb2c3dccbdcc2>[email&#160;protected]</a>/contracts/token/ERC20/ERC20.sol
  */
 
 /**
@@ -131,7 +131,7 @@ contract ERC20 is ERC20Basic {
 
 
 /**
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95fae5f0fbeff0e5e5f0f9fcfbb8e6faf9fcf1fce1ecd5a4bbacbba5">[email&#160;protected]</a>/contracts/token/ERC20/BasicToken.sol
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=95fae5f0fbeff0e5e5f0f9fcfbb8e6faf9fcf1fce1ecd5a4bbacbba5>[email&#160;protected]</a>/contracts/token/ERC20/BasicToken.sol
  */
 
 /**
@@ -180,7 +180,7 @@ contract BasicToken is ERC20Basic {
 
 
 /**
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bbd4cbded5c1decbcbded7d2d596c8d4d7d2dfd2cfc2fb8a9582958b">[email&#160;protected]</a>/contracts/token/ERC20/StandardToken.sol
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bbd4cbded5c1decbcbded7d2d596c8d4d7d2dfd2cfc2fb8a9582958b>[email&#160;protected]</a>/contracts/token/ERC20/StandardToken.sol
  */
 
 /**
@@ -280,7 +280,7 @@ contract StandardToken is ERC20, BasicToken {
 
 
 /**
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6a9b6a3a8bca3b6b6a3aaafa8ebb5a9aaafa2afb2bf86f7e8ffe8f6">[email&#160;protected]</a>/contracts/token/ERC20/BurnableToken.sol
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c6a9b6a3a8bca3b6b6a3aaafa8ebb5a9aaafa2afb2bf86f7e8ffe8f6>[email&#160;protected]</a>/contracts/token/ERC20/BurnableToken.sol
  */
 
 /**
@@ -313,7 +313,7 @@ contract BurnableToken is BasicToken {
 
 
 /**
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8c7d8cdc6d2cdd8d8cdc4c1c685dbc7c4c1ccc1dcd1e89986918698">[email&#160;protected]</a>/contracts/token/ERC20/MintableToken.sol
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a8c7d8cdc6d2cdd8d8cdc4c1c685dbc7c4c1ccc1dcd1e89986918698>[email&#160;protected]</a>/contracts/token/ERC20/MintableToken.sol
  */
 
 /**
@@ -361,7 +361,7 @@ contract MintableToken is StandardToken, Ownable {
 
 
 /**
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4827382d26322d38382d242126653b2724212c213c31087966716678">[email&#160;protected]</a>/contracts/token/ERC20/CappedToken.sol
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4827382d26322d38382d242126653b2724212c213c31087966716678>[email&#160;protected]</a>/contracts/token/ERC20/CappedToken.sol
  */
 
 /**

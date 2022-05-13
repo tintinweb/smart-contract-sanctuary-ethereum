@@ -1,6 +1,6 @@
 pragma solidity ^0.4.20;
 
-// made by <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f2969d9f979c9b919db2909e9d91999c9b8adc919d9f">[email&#160;protected]</a>
+// made by <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f2969d9f979c9b919db2909e9d91999c9b8adc919d9f>[email&#160;protected]</a>
 
 contract VotacaoAbcripto {
 

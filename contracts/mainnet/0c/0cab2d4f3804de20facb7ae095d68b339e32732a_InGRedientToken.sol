@@ -10,7 +10,7 @@ pragma solidity ^0.5.2;
 //
 // (c) BokkyPooBah / Bok Consulting Pty Ltd 2018. The MIT Licence.
 //
-// (c) <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b0e3922282065322a262a2f2a0b2a273e2524653e2d2a2928652e2f3e652939">[email&#160;protected]</a>  & <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6b3902080a190f04452904190c0e182b1e0d0a0908450e0f1e450919">[email&#160;protected]</a>
+// (c) <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4b0e3922282065322a262a2f2a0b2a273e2524653e2d2a2928652e2f3e652939>[email&#160;protected]</a>  & <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6b3902080a190f04452904190c0e182b1e0d0a0908450e0f1e450919>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------
 
 

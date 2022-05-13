@@ -54,7 +54,7 @@ library SafeMath {
  * of the key pair whose private key signed the certificate of the physical 
  * form cryptocurrency, etc.
  * 
- * @author Hui Xie - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="066e736f2831323435303f46616b676f6a2865696b">[email&#160;protected]</a>>
+ * @author Hui Xie - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=066e736f2831323435303f46616b676f6a2865696b>[email&#160;protected]</a>>
  */
 contract PNS {
 

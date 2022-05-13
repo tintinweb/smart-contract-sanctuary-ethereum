@@ -11,7 +11,7 @@
 // Audit, refactoring and improvements by github.com/Eenae
 
 // @authors:
-// Gav Wood <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="294e694c5d414d4c5f074a4644">[email&#160;protected]</a>>
+// Gav Wood <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=294e694c5d414d4c5f074a4644>[email&#160;protected]</a>>
 // inheritable "property" contract that enables methods to be protected by requiring the acquiescence of either a
 // single, or, crucially, each of a number of, designated owners.
 // usage:

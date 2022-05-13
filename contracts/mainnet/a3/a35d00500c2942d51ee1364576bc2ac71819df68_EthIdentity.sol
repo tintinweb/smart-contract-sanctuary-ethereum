@@ -1,6 +1,6 @@
 /* This source code is part of CACIB DocChain registered trademark
 *  It is provided becaused published in the public blockchain of Ethereum.
-*  Reusing this code is forbidden without approbation of CACIB first (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="543d30313514373579373d367a373b39">[email&#160;protected]</a>)
+*  Reusing this code is forbidden without approbation of CACIB first (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=543d30313514373579373d367a373b39>[email&#160;protected]</a>)
 *  Providing this code in public repository is meant to provide clarity to the mechanism by which the DocChain product works
 */
 pragma solidity ^0.4.11;

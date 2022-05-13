@@ -2,8 +2,8 @@ pragma solidity ^0.4.23;
 
 /**
  * Contributors
- * Andrey Shishkin <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e5888a918c9380cb818aa58288848c89cb868a88">[email&#160;protected]</a>
- * Scott Yu <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="780b1b170c0c3819090f110a1d561117">[email&#160;protected]</a>
+ * Andrey Shishkin <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e5888a918c9380cb818aa58288848c89cb868a88>[email&#160;protected]</a>
+ * Scott Yu <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=780b1b170c0c3819090f110a1d561117>[email&#160;protected]</a>
  */
 
 /**

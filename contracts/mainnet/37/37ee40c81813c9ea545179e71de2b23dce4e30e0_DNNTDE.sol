@@ -152,7 +152,7 @@ contract StandardToken is ERC20, BasicToken {
 }
 
 /// @title Token contract - Implements Standard Token Interface with DNN features.
-/// @author Dondrey Taylor - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a4e45444e584f536a4e444404474f4e434b">[email&#160;protected]</a>>
+/// @author Dondrey Taylor - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2a4e45444e584f536a4e444404474f4e434b>[email&#160;protected]</a>>
 contract DNNToken is StandardToken {
 
     using SafeMath for uint256;
@@ -615,7 +615,7 @@ contract DNNToken is StandardToken {
 }
 
 /// @title DNNTDE contract - Takes funds from users and issues tokens.
-/// @author Dondrey Taylor - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95f1fafbf1e7f0ecd5f1fbfbbbf8f0f1fcf4">[email&#160;protected]</a>>
+/// @author Dondrey Taylor - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=95f1fafbf1e7f0ecd5f1fbfbbbf8f0f1fcf4>[email&#160;protected]</a>>
 contract DNNTDE {
 
     using SafeMath for uint256;

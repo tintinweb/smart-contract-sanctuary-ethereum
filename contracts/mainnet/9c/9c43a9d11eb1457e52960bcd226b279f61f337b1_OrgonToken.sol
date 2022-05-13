@@ -1,7 +1,7 @@
 /*
  * EIP-20 Standard Token Smart Contract Interface.
  * Copyright &#169; 2016–2018 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bfd2d6d4d7ded6d391c9d3dedbd6d2d6cdd0c9ffd8d2ded6d391dcd0d2">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bfd2d6d4d7ded6d391c9d3dedbd6d2d6cdd0c9ffd8d2ded6d391dcd0d2>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.20;
 

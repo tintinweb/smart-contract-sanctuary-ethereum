@@ -40,7 +40,7 @@ library SafeMath {
     }
 
     // Copyright (c) 2018
-    // Contract designed by: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f5b6999a869098949b949186b59298949c99db969a98">[email&#160;protected]</a>
+    // Contract designed by: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f5b6999a869098949b949186b59298949c99db969a98>[email&#160;protected]</a>
       
     /*
     * @dev Adds two numbers, throws on overflow.

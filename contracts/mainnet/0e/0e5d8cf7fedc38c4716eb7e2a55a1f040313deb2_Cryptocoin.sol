@@ -362,7 +362,7 @@ contract Cryptocoin is ERC20, Claimable {
   //***************************************************************
   // ERC20 part of this contract based on best practices of
   // https://github.com/OpenZeppelin/zeppelin-solidity
-  // Adapted and amended by IBERGroup, email:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7e131f060d170413111c17121b3e171c1b0c50190c110b0e">[email&#160;protected]</a>; 
+  // Adapted and amended by IBERGroup, email:<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7e131f060d170413111c17121b3e171c1b0c50190c110b0e>[email&#160;protected]</a>; 
   //     Telegram: https://t.me/msmobile
   //               https://t.me/alexamuek
   // Code released under the MIT License(see git root).

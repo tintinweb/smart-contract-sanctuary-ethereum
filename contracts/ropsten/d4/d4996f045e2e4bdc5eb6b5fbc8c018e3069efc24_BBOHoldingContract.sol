@@ -195,7 +195,7 @@ contract ERC20 is ERC20Basic {
 
 
 /// @title BibBom Token Holding Incentive Program
-/// @author TranTho - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0d7965626b6b4d6f646a6f6260236e6260">[email&#160;protected]</a>>.
+/// @author TranTho - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0d7965626b6b4d6f646a6f6260236e6260>[email&#160;protected]</a>>.
 /// For more information, please visit https://bigbom.com.
 contract BBOHoldingContract {
     using SafeMath for uint;

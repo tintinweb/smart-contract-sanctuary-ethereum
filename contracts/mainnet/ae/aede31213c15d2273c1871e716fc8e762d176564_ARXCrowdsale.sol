@@ -4,7 +4,7 @@ pragma solidity ^0.4.13;
 // [https://aronline.io/icoinfo]
 // [v3.2 final released 05/09/17 final masterARXsale32mainnet.sol]
 // [Adapted from Ethereum standard crowdsale contract]
-// [Contact <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f38087929595b392819c9d9f9a9d96dd9a9c">[email&#160;protected]</a> for any queries]
+// [Contact <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f38087929595b392819c9d9f9a9d96dd9a9c>[email&#160;protected]</a> for any queries]
 // [Join us in changing the world]
 // [aronline.io]
 // **-----------------------------------------------

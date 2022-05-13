@@ -2,7 +2,7 @@ pragma solidity 0.4.24;
 /**
 * GRP TOKEN Contract
 * ERC-20 Token Standard Compliant
-* @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6b0d450a051f04050204450a000e072b0c060a020745080406">[email&#160;protected]</a>
+* @author Fares A. Akel C. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6b0d450a051f04050204450a000e072b0c060a020745080406>[email&#160;protected]</a>
 */
 
 /**

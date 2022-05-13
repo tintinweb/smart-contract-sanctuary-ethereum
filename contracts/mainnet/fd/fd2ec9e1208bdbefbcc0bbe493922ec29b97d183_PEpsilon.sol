@@ -178,7 +178,7 @@ contract PEpsilon {
 
 /**
  *  @title Kleros
- *  @author Cl&#233;ment Lesaege - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3b0bfb6beb6bda793bfb6a0b2b6b4b6fdb0bcbe">[email&#160;protected]</a>>
+ *  @author Cl&#233;ment Lesaege - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d3b0bfb6beb6bda793bfb6a0b2b6b4b6fdb0bcbe>[email&#160;protected]</a>>
  *  This code implements a simple version of Kleros.
  *  Bug Bounties: This code hasn't undertaken a bug bounty program yet.
  */

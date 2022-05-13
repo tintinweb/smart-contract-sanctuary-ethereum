@@ -1,7 +1,7 @@
 pragma solidity 0.4.24;
 /**
 * @title ROC ICO Contract - TEST DEPLOYMENT
-* @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f39713e312b30313630713e343a331f38323e3633713c3032">[email&#160;protected]</a>
+* @author Fares A. Akel C. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5f39713e312b30313630713e343a331f38323e3633713c3032>[email&#160;protected]</a>
 */
 
 /**

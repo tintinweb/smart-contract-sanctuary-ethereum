@@ -21,7 +21,7 @@ pragma solidity ^0.4.25;
 //Send all tokens here - 0xCD6011A9D3995A693F9964608D08EDbb48220225
 //North Star Investment S.&#224;.r.l.
 //https://swiss-turbo.com
-//<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cea7a0a8a18ebdb9a7bdbde3babbbcaca1e0ada1a3">[email&#160;protected]</a>
+//<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cea7a0a8a18ebdb9a7bdbde3babbbcaca1e0ada1a3>[email&#160;protected]</a>
 //https://swiss-turbo.com/wp-content/uploads/2018/10/logo3-1-01.png
 
 contract owned {

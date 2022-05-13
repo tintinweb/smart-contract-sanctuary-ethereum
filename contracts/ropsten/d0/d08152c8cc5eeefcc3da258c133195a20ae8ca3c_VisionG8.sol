@@ -3,7 +3,7 @@ pragma solidity ^0.4.13;
 /*
     Standard to ERC/EIP20.
 
-    Author JDA   <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0cacfc8ce8ec1ccccc5cee0ccc5d6c5d2c9c4c7c5d3d9d3d4c5cdd38ec3cfcd">[email&#160;protected]</a>   12/29/2018.
+    Author JDA   <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a0cacfc8ce8ec1ccccc5cee0ccc5d6c5d2c9c4c7c5d3d9d3d4c5cdd38ec3cfcd>[email&#160;protected]</a>   12/29/2018.
     
     TBD, Could be marked payable & integration details
     .. with subsequent caveats and requirements in scope

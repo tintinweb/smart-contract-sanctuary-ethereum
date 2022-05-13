@@ -973,7 +973,7 @@ contract ERC721Full is ERC721, ERC721Enumerable, ERC721Metadata {
 // File: contracts/token/ERC721Token.sol
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="482c2d3c2d082930212725322d26662b27">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=482c2d3c2d082930212725322d26662b27>[email&#160;protected]</a>> (https://github.com/dete)
 
 contract ERC721Token is ERC721Full("SKU TOKEN", "SKL"), Ownable {
     bytes4 constant InterfaceSignature_ERC721 = 0xd37c58cd;

@@ -12,7 +12,7 @@ pragma solidity ^0.4.24;
 //                                                                                                         
 //  site:     https://makingitrain.me
 //
-//  support:  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="107d717b797e7779646271797e74756650777d71797c3e737f7d">[email&#160;protected]</a>
+//  support:  <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=107d717b797e7779646271797e74756650777d71797c3e737f7d>[email&#160;protected]</a>
 //
 //  discord:  https://discord.gg/kndpqU3
 //                                                                                                    

@@ -13,7 +13,7 @@ pragma solidity ^0.4.22;
 // MobileAppCoin
 // website: http://mobileapp.tours
 // Twitter: https://twitter.com/mobileappcoin
-// contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80f3f5f0f0eff2f4c0edefe2e9ece5e1f0f0aef4eff5f2f3">[email&#160;protected]</a>
+// contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=80f3f5f0f0eff2f4c0edefe2e9ece5e1f0f0aef4eff5f2f3>[email&#160;protected]</a>
 // Telegram: https://t.me/mobileapptours
 // Linkedin: https://www.linkedin.com/in/mobile-app-285211163/
 // Medium: https://medium.com/@mobileappcoin

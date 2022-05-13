@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="88ece9feedc8e9e3e7e5eae9a6ebe7e5">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=88ece9feedc8e9e3e7e5eae9a6ebe7e5>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 contract IOwned {
     // this function isn't abstract since the compiler emits automatically generated getter functions as external

@@ -2,7 +2,7 @@ pragma solidity ^0.4.16;
 
 /*
  * Copyright &#169; 2018 by Capital Trust Group Limited
- * Author : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e38f8684828fa3809784869b808b828d8486cd808c8e">[email&#160;protected]</a>
+ * Author : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e38f8684828fa3809784869b808b828d8486cd808c8e>[email&#160;protected]</a>
 */
 
 contract Token {

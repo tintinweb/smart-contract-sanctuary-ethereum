@@ -3,7 +3,7 @@ pragma solidity ^0.4.18;
 /**
  *
  * Version: C
- * @author  Pratyush Bhatt <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f7ba8e84839e94ba989984989899b78785988398999a969e9bd994989a">[email&#160;protected]</a>>
+ * @author  Pratyush Bhatt <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f7ba8e84839e94ba989984989899b78785988398999a969e9bd994989a>[email&#160;protected]</a>>
  *
  * Overview:
  * Divides all incoming funds among various `activity` accounts. The division cannot be changed

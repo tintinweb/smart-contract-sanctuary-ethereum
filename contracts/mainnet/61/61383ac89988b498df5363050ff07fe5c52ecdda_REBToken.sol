@@ -385,7 +385,7 @@ contract PausableToken is StandardToken, Pausable {
 
 /**
  * @title REB Token contract - ERC20 compatible token contract.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96f1e3e5e2f7e0f9f1e3fffbf7e4f7f3e5d6f1fbf7fffab8f5f9fb">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=96f1e3e5e2f7e0f9f1e3fffbf7e4f7f3e5d6f1fbf7fffab8f5f9fb>[email&#160;protected]</a>>
  */
 contract REBToken is PausableToken, MintableToken {
     string public name = "REBGLO Token";

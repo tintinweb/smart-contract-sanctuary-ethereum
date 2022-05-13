@@ -191,7 +191,7 @@ contract AbstractStarbaseCrowdsale {
 contract AbstractStarbaseMarketingCampaign {}
 
 /// @title Token contract - ERC20 compatible Starbase token contract.
-/// @author Starbase PTE. LTD. - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="462f282029063532273424273523682529">[email&#160;protected]</a>>
+/// @author Starbase PTE. LTD. - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=462f282029063532273424273523682529>[email&#160;protected]</a>>
 contract StarbaseToken is StandardToken {
     /*
      *  Events

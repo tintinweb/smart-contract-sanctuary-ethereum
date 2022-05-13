@@ -385,7 +385,7 @@ contract PausableToken is StandardToken, Pausable {
 
 /**
  * @title Golix Token contract - ERC20 compatible token contract.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="016674727560776e6674686c607360647241666c60686d2f626e6c">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=016674727560776e6674686c607360647241666c60686d2f626e6c>[email&#160;protected]</a>>
  */
 contract GolixToken is PausableToken, MintableToken {
     string public constant name = "Golix Token";

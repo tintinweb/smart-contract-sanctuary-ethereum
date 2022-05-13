@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
 /* 
 /* https://www.magicacademy.io One of the world's first idle strategy games of blockchain 
 /*  
-/* authors <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c2e3d3532251c30352a392f283d2e723f3331">[email&#160;protected]</a>/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0c6c1ceced98edac8c5cec7e0ccc9d6c5d3d4c1d28ec3cfcd">[email&#160;protected]</a>
+/* authors <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5c2e3d3532251c30352a392f283d2e723f3331>[email&#160;protected]</a>/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a0c6c1ceced98edac8c5cec7e0ccc9d6c5d3d4c1d28ec3cfcd>[email&#160;protected]</a>
 /*                 
 /* ==================================================================== */
 

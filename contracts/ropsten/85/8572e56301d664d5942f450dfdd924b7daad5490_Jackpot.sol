@@ -145,7 +145,7 @@ contract Ownable {
 // File: solidity-rlp/contracts/RLPReader.sol
 
 /*
-* @author Hamdi Allam <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="81e9e0ece5e8afe0edede0ecb8b6c1e6ece0e8edafe2eeec">[email&#160;protected]</a>
+* @author Hamdi Allam <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=81e9e0ece5e8afe0edede0ecb8b6c1e6ece0e8edafe2eeec>[email&#160;protected]</a>
 * Please reach out with any questions or concerns
 */
 pragma solidity ^0.4.24;

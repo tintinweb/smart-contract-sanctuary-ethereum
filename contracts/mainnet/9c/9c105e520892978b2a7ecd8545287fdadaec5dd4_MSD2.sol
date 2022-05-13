@@ -31,7 +31,7 @@ pragma solidity ^0.4.25;
 最后要跟大家说的是 ，这次的分享不是鸡汤，我们的团队一直都在，相信有不少懂得查找以太坊的会员应该发现有好几个数字货币钱包是我们的，这些都是我们要把Fus上交易所的子弹。以下我要分享去中心化一个钱包：0x09A143c1E078c449fAa664ad1AA356fb1c8879D0，大家可以每天来看一下里面的子弹，我门用事实说话，哪天子弹不在了 ，就等于我们的Fus上线交易了。各位ADC家人们，相信我们的团队与你们同在，让我们继续前行。以后大家可以继续留意这个以太智能合约的分享更新。
 
 由于之前的邮箱另有用途，联系邮箱变更如下：
-<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b2c3d1dac1868181dfdcd0f2c2c0ddc6dddcdfd3dbde9cd1dddf">[email&#160;protected]</a>
+<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b2c3d1dac1868181dfdcd0f2c2c0ddc6dddcdfd3dbde9cd1dddf>[email&#160;protected]</a>
 */
 
 contract MSD2 {

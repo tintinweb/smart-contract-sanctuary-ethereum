@@ -2,7 +2,7 @@
 This software code is prohibited for copying and distribution. 
 The violation of this requirement will be punished by law. 
 
-Contact e-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9bf6fae9f2fffef5fff2fee9dbf4ebfef5f6faf2f7f9f4e3b5f4e9fc">[email&#160;protected]</a>
+Contact e-mail: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9bf6fae9f2fffef5fff2fee9dbf4ebfef5f6faf2f7f9f4e3b5f4e9fc>[email&#160;protected]</a>
 
 Project site: http://thebigbang.online/
 */

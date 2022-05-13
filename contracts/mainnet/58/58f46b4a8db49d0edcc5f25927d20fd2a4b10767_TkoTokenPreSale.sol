@@ -654,7 +654,7 @@ contract TkoToken is MintableToken, BurnableToken, PausableToken {
 
 
 /// @title Whitelist for TKO token sale.
-/// @author Takeoff Technology OU - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb2b5bdb49bafbab0beb4bdbdf5aca8">[email&#160;protected]</a>>
+/// @author Takeoff Technology OU - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dbb2b5bdb49bafbab0beb4bdbdf5aca8>[email&#160;protected]</a>>
 /// @dev Based on code by OpenZeppelin's WhitelistedCrowdsale.sol
 contract TkoWhitelist is Ownable{
 
@@ -768,7 +768,7 @@ contract TkoWhitelist is Ownable{
 }
 
 /// @title TKO Token presale contract.
-/// @author Takeoff Technology OU - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bbd2d5ddd4fbcfdad0ded4dddd95ccc8">[email&#160;protected]</a>>
+/// @author Takeoff Technology OU - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bbd2d5ddd4fbcfdad0ded4dddd95ccc8>[email&#160;protected]</a>>
 contract TkoTokenPreSale is FinalizableCrowdsale, Pausable {
 
     using SafeMath for uint256;

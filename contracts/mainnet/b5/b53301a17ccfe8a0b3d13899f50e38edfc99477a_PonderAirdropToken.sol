@@ -1,7 +1,7 @@
 pragma solidity ^0.4.21;
 /*
  * Abstract Token Smart Contract.  Copyright &#169; 2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2afaba9aaa3abaeecb4aea3a6abafabb0adb482a5afa3abaeeca1adaf">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c2afaba9aaa3abaeecb4aea3a6abafabb0adb482a5afa3abaeeca1adaf>[email&#160;protected]</a>>
  */
 
 
@@ -94,7 +94,7 @@ contract Token {
 }
 /*
  * Safe Math Smart Contract.  Copyright &#169; 2016–2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9bf6f2f0f3faf2f7b5edf7fafff2f6f2e9f4eddbfcf6faf2f7b5f8f4f6">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9bf6f2f0f3faf2f7b5edf7fafff2f6f2e9f4eddbfcf6faf2f7b5f8f4f6>[email&#160;protected]</a>>
  */
 
 

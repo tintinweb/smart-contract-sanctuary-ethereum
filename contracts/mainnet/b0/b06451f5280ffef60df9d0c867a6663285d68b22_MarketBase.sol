@@ -1,6 +1,6 @@
 pragma solidity ^0.4.18;
 
-// @author - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f6809f80939d9c9f9481b6919b979f9ad895999b">[email&#160;protected]</a>
+// @author - <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f6809f80939d9c9f9481b6919b979f9ad895999b>[email&#160;protected]</a>
 // Website: http://CryptoStockMarket.co
 // Only CEO can change CEO and CFO address
 

@@ -418,7 +418,7 @@ contract EXOToken is StandardToken, Ownable {
     
   //***************************************************************
   // ERC20 part of this contract based on https://github.com/OpenZeppelin/zeppelin-solidity
-  // Adapted and amended by IBERGroup, email:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="533e322b203a293e3c313a3f36133a3136217d34213c2623">[email&#160;protected]</a>; 
+  // Adapted and amended by IBERGroup, email:<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=533e322b203a293e3c313a3f36133a3136217d34213c2623>[email&#160;protected]</a>; 
   //     Telegram: https://t.me/msmobile
   //               https://t.me/alexamuek
   // Code released under the MIT License(see git root).

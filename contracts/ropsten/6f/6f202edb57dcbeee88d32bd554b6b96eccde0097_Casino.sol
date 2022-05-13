@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5b3f3a2d3e1b3a303436393a75383436">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5b3f3a2d3e1b3a303436393a75383436>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 contract OraclizeI {
     address public cbAddress;

@@ -9,7 +9,7 @@ pragma solidity ^0.4.25;
 // Total supply: 1000000000
 // Decimals    : 18
 // Website     : https://worldwidemeds.online
-// Email       : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1b8bfb7be91a6bea3bdb5a6b8b5b4bcb4b5a2ffbebfbdb8bfb4">[email&#160;protected]</a>
+// Email       : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d1b8bfb7be91a6bea3bdb5a6b8b5b4bcb4b5a2ffbebfbdb8bfb4>[email&#160;protected]</a>
 // POWERED BY World Wide Meds.
 
 // (c) by Team @ World Wide Meds 2018.

@@ -7,7 +7,7 @@ pragma solidity ^0.4.24;
 //  / ______|\____/ \___  >__|_ \__|__| \____|__  /\____/\____ | |__||__|  |__|\___  >____ | 
 //  \/                  \/     \/               \/            \/                   \/     \/ 
 // Team Just Copyright Received.
-// <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4e37212d25277f790e29232f2722602d2123">[email&#160;protected]</a> modified
+// <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4e37212d25277f790e29232f2722602d2123>[email&#160;protected]</a> modified
 //==============================================================================
 //     _    _  _ _|_ _  .
 //    (/_\/(/_| | | _\  .

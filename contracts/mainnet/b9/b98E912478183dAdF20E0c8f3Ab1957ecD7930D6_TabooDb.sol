@@ -11,7 +11,7 @@ pragma solidity ^0.4.23;
  * Version 18.5.7
  *
  * Web    : https://taboou.com/
- * Email  : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ccbfb9bcbca3beb88cb8adaea3a3b9e2afa3a1">[email&#160;protected]</a>
+ * Email  : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ccbfb9bcbca3beb88cb8adaea3a3b9e2afa3a1>[email&#160;protected]</a>
  * Github : https://github.com/taboou/tabooads.bit/
  */
 

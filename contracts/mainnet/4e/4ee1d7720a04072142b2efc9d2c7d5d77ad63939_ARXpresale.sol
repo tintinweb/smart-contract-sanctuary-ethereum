@@ -2,7 +2,7 @@ pragma solidity ^0.4.13;
 // -------------------------------------------------
 // 0.4.13+commit.0fb4cb1a
 // [Assistive Reality ARX token ETH cap presale contract]
-// [Contact <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d0a3a4b1b6b690b1a2bfbebcb9beb5feb9bf">[email&#160;protected]</a> for any queries]
+// [Contact <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d0a3a4b1b6b690b1a2bfbebcb9beb5feb9bf>[email&#160;protected]</a> for any queries]
 // [Join us in changing the world]
 // [aronline.io]
 // -------------------------------------------------

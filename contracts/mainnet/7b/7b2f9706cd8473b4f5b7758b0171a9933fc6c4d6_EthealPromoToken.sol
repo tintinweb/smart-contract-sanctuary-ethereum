@@ -136,7 +136,7 @@ library SafeMath {
 /*
  * ERC-20 Standard Token Smart Contract Interface.
  * Copyright &#169; 2016–2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a474341424b4346045c464b4e43474358455c6a4d474b434604494547">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2a474341424b4346045c464b4e43474358455c6a4d474b434604494547>[email&#160;protected]</a>>
  */
 
 /**
@@ -226,7 +226,7 @@ contract Token {
 
 /*
  * Abstract Token Smart Contract.  Copyright &#169; 2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fa979391929b9396d48c969b9e93979388958cba9d979b9396d4999597">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fa979391929b9396d48c969b9e93979388958cba9d979b9396d4999597>[email&#160;protected]</a>>
  * Modified to use SafeMath library by thesved
  */
 /**
@@ -338,7 +338,7 @@ contract AbstractToken is Token {
 
 /*
  * Abstract Virtual Token Smart Contract.  Copyright &#169; 2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cda0a4a6a5aca4a1e3bba1aca9a4a0a4bfa2bb8daaa0aca4a1e3aea2a0">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cda0a4a6a5aca4a1e3bba1aca9a4a0a4bfa2bb8daaa0aca4a1e3aea2a0>[email&#160;protected]</a>>
  * Modified to use SafeMath library by thesved
  */
 

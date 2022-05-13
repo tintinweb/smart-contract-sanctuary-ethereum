@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 
 // Etheremon ERC721
 
-// copyright <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8cbc7c6dcc9cbdce8eddcc0cddacdc5c7c686cbc7c5">[email&#160;protected]</a>
+// copyright <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a8cbc7c6dcc9cbdce8eddcc0cddacdc5c7c686cbc7c5>[email&#160;protected]</a>
 
 contract SafeMath {
 

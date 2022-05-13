@@ -14,7 +14,7 @@
 pragma solidity ^0.4.24;
 
 /// @title God Mode
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d8baadaaa298baadaaa2b6bdabacf6bbb7b5">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d8baadaaa298baadaaa2b6bdabacf6bbb7b5>[email&#160;protected]</a>>
 /// @dev This contract provides a basic interface for God
 ///  in a contract as well as the ability for God to pause
 ///  the contract
@@ -93,7 +93,7 @@ pragma solidity ^0.4.24;
 
 
 /// @title King of Eth: Resources Interface Referencer
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e78592959da78592959d89829493c984888a">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e78592959da78592959d89829493c984888a>[email&#160;protected]</a>>
 /// @dev Provides functionality to reference the resource interface contract
 contract KingOfEthResourcesInterfaceReferencer is GodMode {
     /// @dev The interface contract's address
@@ -148,7 +148,7 @@ contract ERC20Interface {
 }
 
 /// @title King of Eth: Resource
-/// @author Anthony Burzillo <bu<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6f1d152f0d1a1d15010a1c1b410c0002">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <bu<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6f1d152f0d1a1d15010a1c1b410c0002>[email&#160;protected]</a>>
 /// @dev Common contract implementation for resources
 contract KingOfEthResource is
       ERC20Interface
@@ -396,7 +396,7 @@ pragma solidity ^0.4.24;
 
 
 /// @title King of Eth Resource: Wood
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="375542454d775542454d595244431954585a">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=375542454d775542454d595244431954585a>[email&#160;protected]</a>>
 /// @dev ERC20 contract for the wood resource
 contract KingOfEthResourceWood is KingOfEthResource {
     /// @dev The ERC20 token name

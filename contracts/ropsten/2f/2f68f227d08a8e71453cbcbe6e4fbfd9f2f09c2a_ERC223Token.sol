@@ -1,5 +1,5 @@
 /* ERC223 token
-   Copyright (C) 2017  Sergey Sherkunov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afc3cac6c1c3ced8dac1efc3cac6c1c3ced8dac181c0ddc8">[email&#160;protected]</a>>
+   Copyright (C) 2017  Sergey Sherkunov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=afc3cac6c1c3ced8dac1efc3cac6c1c3ced8dac181c0ddc8>[email&#160;protected]</a>>
 
    This file is part of ERC223 token.
 

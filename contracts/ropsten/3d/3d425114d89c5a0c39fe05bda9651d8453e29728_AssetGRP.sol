@@ -2,7 +2,7 @@ pragma solidity 0.4.24;
 /**
 * GRP TOKEN Contract TEST DEPLOYMENT - ROPSTEN
 * ERC-20 Token Standard Compliant
-* @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3b5fdb2bda7bcbdbabcfdb2b8b6bf93b4beb2babffdb0bcbe">[email&#160;protected]</a>
+* @author Fares A. Akel C. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d3b5fdb2bda7bcbdbabcfdb2b8b6bf93b4beb2babffdb0bcbe>[email&#160;protected]</a>
 */
 
 /**

@@ -392,7 +392,7 @@ contract Operatable is Ownable {
 
 /// @title CryptoTakeovers In-Game Token.
 /// @dev The token used in the game to participate in NFT airdrop raffles.
-/// @author Ido Amram <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b0d9d4dff0d3c2c9c0c4dfc4d1dbd5dfc6d5c2c39ed3dfdd">[email&#160;protected]</a>>, Elad Mallel <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="37525b56537754454e47435843565c5258415245441954585a">[email&#160;protected]</a>>
+/// @author Ido Amram <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b0d9d4dff0d3c2c9c0c4dfc4d1dbd5dfc6d5c2c39ed3dfdd>[email&#160;protected]</a>>, Elad Mallel <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=37525b56537754454e47435843565c5258415245441954585a>[email&#160;protected]</a>>
 contract CryptoTakeoversToken is MintableToken, Operatable {
 
     /*

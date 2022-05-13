@@ -1,6 +1,6 @@
 /**
  *  @title Arbitrable Permission List
- *  @author Cl&#233;ment Lesaege - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="23404f464e464d57634f4650424644460d404c4e">[email&#160;protected]</a>>
+ *  @author Cl&#233;ment Lesaege - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=23404f464e464d57634f4650424644460d404c4e>[email&#160;protected]</a>>
  *  This code has undertaken a 15 ETH max price bug bounty program.
  */
 

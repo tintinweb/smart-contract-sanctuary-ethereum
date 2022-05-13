@@ -455,7 +455,7 @@ contract GanNFT is ERC165, ERC721, ERC721Enumerable, PublishInterfaces, Ownable 
       require(retval == ERC721_RECEIVED);
   }
 
-  /// @dev Adapted from memcpy() by @arachnid (Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5b4a7b4b6bdbbbcb195bbbaa1b1baa1fbbbb0a1">[email&#160;protected]</a>>)
+  /// @dev Adapted from memcpy() by @arachnid (Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d5b4a7b4b6bdbbbcb195bbbaa1b1baa1fbbbb0a1>[email&#160;protected]</a>>)
   ///  This method is licenced under the Apache License.
   ///  Ref: https://github.com/Arachnid/solidity-stringutils/blob/2f6ca9accb48ae14c66f1437ec50ed19a0616f78/strings.sol
   function _memcpy(uint _dest, uint _src, uint _len) private pure {
@@ -477,7 +477,7 @@ contract GanNFT is ERC165, ERC721, ERC721Enumerable, PublishInterfaces, Ownable 
       }
   }
 
-  /// @dev Adapted from toString(slice) by @arachnid (Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b1d0c3d0d2d9dfd8d5f1dfdec5d5dec59fdfd4c5">[email&#160;protected]</a>>)
+  /// @dev Adapted from toString(slice) by @arachnid (Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b1d0c3d0d2d9dfd8d5f1dfdec5d5dec59fdfd4c5>[email&#160;protected]</a>>)
   ///  This method is licenced under the Apache License.
   ///  Ref: https://github.com/Arachnid/solidity-stringutils/blob/2f6ca9accb48ae14c66f1437ec50ed19a0616f78/strings.sol
   function _toString(bytes32[4] _rawBytes, uint256 _stringLength) private pure returns (string) {

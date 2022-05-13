@@ -4,8 +4,8 @@ pragma solidity ^0.4.18;
 /* 
 /* https://www.magicacademy.io One of the world's first idle strategy games of blockchain 
 /* https://staging.bitguild.com/game/magicacademy 
-/* authors <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b3c1d2daddcaf3dfdac5d6c0c7d2c19dd0dcde">[email&#160;protected]</a>/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f492959a9a8dda8e9c919a93b4989d829187809586da979b99">[email&#160;protected]</a>
-/*         <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9dbc8c0c7d0e9cec4c8c0c587cac6c4">[email&#160;protected]</a>           
+/* authors <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b3c1d2daddcaf3dfdac5d6c0c7d2c19dd0dcde>[email&#160;protected]</a>/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f492959a9a8dda8e9c919a93b4989d829187809586da979b99>[email&#160;protected]</a>
+/*         <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a9dbc8c0c7d0e9cec4c8c0c587cac6c4>[email&#160;protected]</a>           
 /* ==================================================================== */
 
 library SafeMath {
@@ -341,7 +341,7 @@ interface GameConfigInterface {
 }
 
 /// @notice define the players,cards,jadecoin
-/// @author rainysiu <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d0a2b1b9bea990bcb9a6b5a3a4b1a2feb3bfbd">[email&#160;protected]</a>
+/// @author rainysiu <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d0a2b1b9bea990bcb9a6b5a3a4b1a2feb3bfbd>[email&#160;protected]</a>
 /// @dev MagicAcademy Games 
 
 contract CardsBase is JadeCoin {

@@ -102,7 +102,7 @@ contract AbstractStarbaseToken is ERC20 {
 
 /**
  * @title Crowdsale contract - Starbase marketing campaign contract to reward supportors
- * @author Starbase PTE. LTD. - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c35323a331c2f283d2e3e3d2f39723f33">[email&#160;protected]</a>>
+ * @author Starbase PTE. LTD. - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5c35323a331c2f283d2e3e3d2f39723f33>[email&#160;protected]</a>>
  */
 contract StarbaseMarketingCampaign is Ownable {
     /*

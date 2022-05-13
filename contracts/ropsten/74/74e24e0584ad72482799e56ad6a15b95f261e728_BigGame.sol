@@ -2,7 +2,7 @@
 This software code is prohibited for copying and distribution. 
 The violation of this requirement will be punished by law. 
 The copyright holder is the company "Vash Partner" LTD. 
-Contact e-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd909c8f949998939994988fbd928d9893909c94919f9285d3928f9a">[email&#160;protected]</a>
+Contact e-mail: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fd909c8f949998939994988fbd928d9893909c94919f9285d3928f9a>[email&#160;protected]</a>
 */
 
 pragma solidity ^0.4.24;

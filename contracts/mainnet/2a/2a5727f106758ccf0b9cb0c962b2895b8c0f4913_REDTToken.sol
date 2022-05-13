@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b4f4a5d4e6b4a404446494a05484446">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2b4f4a5d4e6b4a404446494a05484446>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 contract REDTTokenConfig {
     string public constant NAME = "Real Estate Doc Token";

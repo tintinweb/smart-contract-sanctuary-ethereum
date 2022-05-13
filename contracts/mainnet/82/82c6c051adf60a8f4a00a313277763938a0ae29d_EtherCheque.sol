@@ -1,6 +1,6 @@
 pragma solidity ^0.4.11;
 
-// copyright <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e685898892878592a683928e8394858e83979383c885898b">[email&#160;protected]</a>
+// copyright <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e685898892878592a683928e8394858e83979383c885898b>[email&#160;protected]</a>
 
 contract EtherCheque {
     enum Status { NONE, CREATED, LOCKED, EXPIRED }

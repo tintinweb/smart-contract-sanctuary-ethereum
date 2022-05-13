@@ -34,9 +34,9 @@ pragma solidity 0.4.25;
 *                           ||   ||::::::'     _.;._'-._
 *                           ||   ||:::::'  _.-!oo @.!-._'-.
 *                           \'.  ||:::::.-!()oo @!()@.-'_.|
-*                            '.'-;|:.-'.&<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="36127618">[email&#160;protected]</a>& ()$%-'o.'\U||
-*                              `>'<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d60636c0d">[email&#160;protected]</a>%()@'@_%-'_.-o _.|'||
-*                               ||-._'<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80adaec0aead">[email&#160;protected]</a>'_.-' _.-o  |'||
+*                            '.'-;|:.-'.&<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=36127618>[email&#160;protected]</a>& ()$%-'o.'\U||
+*                              `>'<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4d60636c0d>[email&#160;protected]</a>%()@'@_%-'_.-o _.|'||
+*                               ||-._'<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=80adaec0aead>[email&#160;protected]</a>'_.-' _.-o  |'||
 *                               ||=[ '-._.-\U/.-'    o |'||
 *                               || '-.]=|| |'|      o  |'||
 *                               ||      || |'|        _| ';

@@ -4,7 +4,7 @@ pragma solidity ^0.4.20;
 // An ERC223 standard
 //
 // author: SPIKE Team
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="31525d545c545f714241585a585f561f585e">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=31525d545c545f714241585a585f561f585e>[email&#160;protected]</a>
 
 library SafeMath {
 

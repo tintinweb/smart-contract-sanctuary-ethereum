@@ -4,7 +4,7 @@ pragma solidity ^0.4.24;
 *
 * RLPReader is used to read and parse RLP encoded data in memory.
 *
-* @author Andreas Olofsson (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0a6b646e786566653b33323a4a6d676b636624696567">[email&#160;protected]</a>)
+* @author Andreas Olofsson (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0a6b646e786566653b33323a4a6d676b636624696567>[email&#160;protected]</a>)
 */
 library RLP {
 

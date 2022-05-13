@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 /// @notice define the game's configuration
-/// @author rainysiu <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9fedfef6f1e6dff3f6e9faecebfeedb1fcf0f2">[email&#160;protected]</a>
+/// @author rainysiu <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9fedfef6f1e6dff3f6e9faecebfeedb1fcf0f2>[email&#160;protected]</a>
 /// @dev MagicAcademy Games 
 contract GameConfig {
   using SafeMath for SafeMath;

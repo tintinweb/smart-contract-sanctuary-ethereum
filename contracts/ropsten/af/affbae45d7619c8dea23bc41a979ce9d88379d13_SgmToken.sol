@@ -871,7 +871,7 @@ pragma solidity 0.4.24;
 
 /**
  * @title Sgame token
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c15121a133c0a1d101518150805101d1e0f52130e1b">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7c15121a133c0a1d101518150805101d1e0f52130e1b>[email&#160;protected]</a>>
  */
 
 contract SgmToken is Ownable, ERC20Detailed, ERC20Pausable, ERC20Burnable, ERC20Mintable, ERC20Capped {

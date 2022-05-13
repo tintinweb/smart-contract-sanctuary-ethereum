@@ -4,7 +4,7 @@ pragma solidity 0.4.21;
 * The Messiah's Donkey Coin
 * The Basic Coin that will be used during the time of 3rd Temple in Jerusalem!
 * @dev ERC-20 Token Standar Compliant
-* @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87e1a9e6e9f3e8e9eee8a9e6ece2ebc7e0eae6eeeba9e4e8ea">[email&#160;protected]</a>
+* @author Fares A. Akel C. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=87e1a9e6e9f3e8e9eee8a9e6ece2ebc7e0eae6eeeba9e4e8ea>[email&#160;protected]</a>
 */
 
 /**

@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 /**
  * @title -luckyblock
  * play a luckyblock : )
- * Contact us for further cooperation <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="05767075756a777145696a7761696076762b6c6a">[email&#160;protected]</a>
+ * Contact us for further cooperation <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=05767075756a777145696a7761696076762b6c6a>[email&#160;protected]</a>
  *
  * ██╗      ██╗   ██╗  ██████╗ ██╗  ██╗ ██╗   ██╗ ██████╗  ██╗       ██████╗   ██████╗ ██╗  ██╗
  * ██║      ██║   ██║ ██╔════╝ ██║ ██╔╝ ╚██╗ ██╔╝ ██╔══██╗ ██║      ██╔═══██╗ ██╔════╝ ██║ ██╔╝

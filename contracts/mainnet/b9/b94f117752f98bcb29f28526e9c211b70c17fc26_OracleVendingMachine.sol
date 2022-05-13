@@ -1,13 +1,13 @@
 pragma solidity ^0.4.24;
 
 /// @title Proxied - indicates that a contract will be proxied. Also defines storage requirements for Proxy.
-/// @author Alan Lu - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c1d101d123c1b12130f150f520c11">[email&#160;protected]</a>>
+/// @author Alan Lu - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7c1d101d123c1b12130f150f520c11>[email&#160;protected]</a>>
 contract Proxied {
     address public masterCopy;
 }
 
 /// @title Proxy - Generic proxy contract allows to execute all transactions applying the code of a master contract.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5b6b1a0a3a4ab85a2abaab6acb6ebb5a8">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c5b6b1a0a3a4ab85a2abaab6acb6ebb5a8>[email&#160;protected]</a>>
 contract Proxy is Proxied {
     /// @dev Constructor function sets address of master copy contract.
     /// @param _masterCopy Master copy address.

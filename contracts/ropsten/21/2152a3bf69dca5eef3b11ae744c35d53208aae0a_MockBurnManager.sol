@@ -16,7 +16,7 @@
 
 pragma solidity 0.4.24;
 
-/// @author Sowmay Jain - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb88948c969a82bb96949a8fd5959e8f8c948990">[email&#160;protected]</a>> - @sowmay_jain (Twitter) - @Sowmay (Telegram)
+/// @author Sowmay Jain - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fb88948c969a82bb96949a8fd5959e8f8c948990>[email&#160;protected]</a>> - @sowmay_jain (Twitter) - @Sowmay (Telegram)
 
 interface token {
     function balanceOf(address who) external returns(uint256);

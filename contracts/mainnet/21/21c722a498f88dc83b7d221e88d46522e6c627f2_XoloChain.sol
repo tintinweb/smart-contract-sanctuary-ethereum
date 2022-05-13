@@ -1,6 +1,6 @@
 // xolochain.info @ 2018 All Rights Reserved
 // https://xolochain.info
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9bdaca8a489b1a6a5a6aaa1a8a0a7">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c9bdaca8a489b1a6a5a6aaa1a8a0a7>[email&#160;protected]</a>
 // Create your own free ERC20 token = XoloChain.info
 pragma solidity ^0.4.18;
 

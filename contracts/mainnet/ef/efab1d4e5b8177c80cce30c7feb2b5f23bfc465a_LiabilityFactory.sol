@@ -604,8 +604,8 @@ contract SingletonHash {
 // File: contracts/robonomics/DutchAuction.sol
 
 /// @title Dutch auction contract - distribution of XRT tokens using an auction.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7102051417101f5f16141e03161431121e1f02141f0208025f1f1405">[email&#160;protected]</a>>
-/// @author Airalab - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2b0a7b1a7a3b0a1aa82a3abb0a3ecaeaba4a7">[email&#160;protected]</a>> 
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7102051417101f5f16141e03161431121e1f02141f0208025f1f1405>[email&#160;protected]</a>>
+/// @author Airalab - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c2b0a7b1a7a3b0a1aa82a3abb0a3ecaeaba4a7>[email&#160;protected]</a>> 
 contract DutchAuction {
 
     /*

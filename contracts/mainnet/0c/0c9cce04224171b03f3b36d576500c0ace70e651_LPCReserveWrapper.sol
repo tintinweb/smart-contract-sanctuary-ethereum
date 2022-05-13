@@ -456,7 +456,7 @@ contract DSValue is DSThing {
     }
 }
 
-// Copyright (C) 2017, 2018 Rain <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5a7b4bcbbb7a7b0b4be95a7bca6b0a0a5fbbbb0a1">[email&#160;protected]</a>>
+// Copyright (C) 2017, 2018 Rain <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d5a7b4bcbbb7a7b0b4be95a7bca6b0a0a5fbbbb0a1>[email&#160;protected]</a>>
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by

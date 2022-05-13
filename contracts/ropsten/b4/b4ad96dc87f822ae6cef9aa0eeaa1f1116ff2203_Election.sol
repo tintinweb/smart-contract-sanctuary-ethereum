@@ -5,7 +5,7 @@ pragma solidity ^0.4.2;
  *
  *  Author: Evaldas Grišius
  *  Vilnius University
- *  Evalda<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="72015c15001b011b070132151f131b1e5c111d1f">[email&#160;protected]</a>
+ *  Evalda<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=72015c15001b011b070132151f131b1e5c111d1f>[email&#160;protected]</a>
  */
 contract Election {
 

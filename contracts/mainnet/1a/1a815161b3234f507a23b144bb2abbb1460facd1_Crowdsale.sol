@@ -423,7 +423,7 @@ contract RefundVault is Ownable {
 /// token purchases and the crowdsale will assign them tokens based
 /// on a token per ETH rate. Funds collected are forwarded to a wallet
 /// as they arrive.
-/// @author Merunas Grincalaitis <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="75181007001b140612071c1b161419141c011c06351218141c195b161a18">[email&#160;protected]</a>>
+/// @author Merunas Grincalaitis <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=75181007001b140612071c1b161419141c011c06351218141c195b161a18>[email&#160;protected]</a>>
 contract Crowdsale is Pausable {
    using SafeMath for uint256;
 

@@ -1,6 +1,6 @@
 /**
  *
- * @author  David Rosen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2d464c4c43494244596d404e424303425f4a">[email&#160;protected]</a>>
+ * @author  David Rosen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2d464c4c43494244596d404e424303425f4a>[email&#160;protected]</a>>
  *
  * Version A
  *

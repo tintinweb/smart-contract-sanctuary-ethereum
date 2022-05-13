@@ -16,7 +16,7 @@
 
 pragma solidity 0.4.24;
 
-/// @author Sowmay Jain - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a09150d171b033a17151b0e54141f0e0d150811">[email&#160;protected]</a>> - @sowmay_jain (Twitter) - @Sowmay (Telegram)
+/// @author Sowmay Jain - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7a09150d171b033a17151b0e54141f0e0d150811>[email&#160;protected]</a>> - @sowmay_jain (Twitter) - @Sowmay (Telegram)
 
 interface token {
     function transfer(address receiver, uint amount) external returns(bool);

@@ -7,10 +7,10 @@
  * WARNING:  THIS PRODUCT IS HIGHLY ADDICTIVE.  IF YOU HAVE AN ADDICTIVE NATURE.  DO NOT PLAY.
  */
 // author: https://playpopo.com
-// contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbabb7baa2abb4abb4afbebab69bbcb6bab2b7f5b8b4b6">[email&#160;protected]</a>
+// contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dbabb7baa2abb4abb4afbebab69bbcb6bab2b7f5b8b4b6>[email&#160;protected]</a>
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="076366716247666c686a65662964686a">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=076366716247666c686a65662964686a>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 library PopoDatasets {
 

@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
 /**
  * @title Global Mobile Industry Service Ecosystem Chain 
  * @dev Developed By Jack 5/13 2018 
- * @dev contact:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="553f34363e3a3039236765646d153238343c397b363a38">[email&#160;protected]</a>
+ * @dev contact:<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=553f34363e3a3039236765646d153238343c397b363a38>[email&#160;protected]</a>
  */
 
 library SafeMath {

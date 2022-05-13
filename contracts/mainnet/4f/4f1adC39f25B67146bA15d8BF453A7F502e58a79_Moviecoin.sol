@@ -5,7 +5,7 @@ pragma solidity ^0.4.18;
 // An ERC20 standard
 //
 // author: Xender Team
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="33405641455a5056734b565d5756411d505c5e">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=33405641455a5056734b565d5756411d505c5e>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------------------------
 
 /*

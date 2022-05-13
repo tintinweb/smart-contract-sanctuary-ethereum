@@ -220,7 +220,7 @@ contract Destructible is Ownable {
 
 /**
  * @title ERC20Supplier.
- * @author Andrea Speziale <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e9889a998c938088858ca98c808d8686c78086">[email&#160;protected]</a>>
+ * @author Andrea Speziale <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e9889a998c938088858ca98c808d8686c78086>[email&#160;protected]</a>>
  * @dev Distribute a fixed amount of ERC20 based on a rate rate from a ERC20 reserve to a _receiver for ETH.
  * Received ETH are redirected to a wallet.
  */

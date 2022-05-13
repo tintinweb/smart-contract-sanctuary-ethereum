@@ -45,7 +45,7 @@ contract Ownable {
 
 
 /// @title Token Registry - Stores metadata associated with ERC20 tokens. See ERC22 https://github.com/ethereum/EIPs/issues/22
-/// @author Amir Bandeali - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="51303c382311612901233e3b3432257f323e3c">[email&#160;protected]</a>>, Will Warren - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="94e3fdf8f8d4a4ecc4e6fbfef1f7e0baf7fbf9">[email&#160;protected]</a>>
+/// @author Amir Bandeali - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=51303c382311612901233e3b3432257f323e3c>[email&#160;protected]</a>>, Will Warren - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=94e3fdf8f8d4a4ecc4e6fbfef1f7e0baf7fbf9>[email&#160;protected]</a>>
 contract TokenRegistry is Ownable {
 
     event LogAddToken(

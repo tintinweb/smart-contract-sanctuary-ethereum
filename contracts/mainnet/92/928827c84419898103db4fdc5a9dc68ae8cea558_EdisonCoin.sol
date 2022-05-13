@@ -6,7 +6,7 @@ pragma solidity ^0.4.13;
     Immuted Deploy to mainnet for Client - EdisonCoin LLC.
     EdisonCoin LLC reg owners Andrew Taylor & Brent Bates.
 
-    Ratified & deployed by JDA   <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="72181d1a1c5c131e1e171c321e170417001b161517010b0106171f015c111d1f">[email&#160;protected]</a>   7/28/2018.
+    Ratified & deployed by JDA   <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=72181d1a1c5c131e1e171c321e170417001b161517010b0106171f015c111d1f>[email&#160;protected]</a>   7/28/2018.
     www.leveridgesystems.com on behalf of EdisonCoin LLC 'The Client'
 
     solc .4.19  opt-on  runs=200 as standard.

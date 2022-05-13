@@ -1,6 +1,6 @@
 pragma solidity ^0.4.18;
 
-// Created by LLC "Uinkey" <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e587808497868d8c8ea58288848c89cb868a88">[email&#160;protected]</a>
+// Created by LLC "Uinkey" <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e587808497868d8c8ea58288848c89cb868a88>[email&#160;protected]</a>
 
 library SafeMath {
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {

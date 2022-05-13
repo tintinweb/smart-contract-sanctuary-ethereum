@@ -1,4 +1,4 @@
-// CREATED BY CAF AUTHOR RENEE KROM <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bfcddad1dadad4cdd0d28d87ffc6ded7d0d091dcd0d2">[email&#160;protected]</a>
+// CREATED BY CAF AUTHOR RENEE KROM <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bfcddad1dadad4cdd0d28d87ffc6ded7d0d091dcd0d2>[email&#160;protected]</a>
 pragma solidity ^0.4.15;
 
 contract Factory {
@@ -44,7 +44,7 @@ contract Factory {
 
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author renee krom - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="384a5d565d5d534a57550a00784159505757165b5755">[email&#160;protected]</a>>
+/// @author renee krom - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=384a5d565d5d534a57550a00784159505757165b5755>[email&#160;protected]</a>>
 contract MultiSigWallet {
 
     /*
@@ -410,12 +410,12 @@ contract MultiSigWallet {
             _transactionIds[i - from] = transactionIdsTemp[i];
     }
 }
-//CREATED BY CAF AUTHOR RENEE KROM <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f587909b90909e879a98c7cdb58c949d9a9adb969a98">[email&#160;protected]</a>
+//CREATED BY CAF AUTHOR RENEE KROM <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f587909b90909e879a98c7cdb58c949d9a9adb969a98>[email&#160;protected]</a>
 
 
 
 /// @title Multisignature wallet with daily limit - Allows an owner to withdraw a daily limit without multisig.
-/// @author renee krom - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5426313a31313f263b39666c142d353c3b3b7a373b3920">[email&#160;protected]</a>>
+/// @author renee krom - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5426313a31313f263b39666c142d353c3b3b7a373b3920>[email&#160;protected]</a>>
 contract MultiSigWalletWithDailyLimit is MultiSigWallet {
 
     /*
@@ -515,11 +515,11 @@ contract MultiSigWalletWithDailyLimit is MultiSigWallet {
         return dailyLimit - spentToday;
     }
 }
-//CREATED BT CAF AUTHOR RENEE KROM <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0371666d666668716c6e313b437a626b6c6c2d606c6e">[email&#160;protected]</a>
+//CREATED BT CAF AUTHOR RENEE KROM <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0371666d666668716c6e313b437a626b6c6c2d606c6e>[email&#160;protected]</a>
 
 
 /// @title Multisignature wallet factory for daily limit version - Allows creation of multisig wallet.
-/// @author renee krom - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="384a5d565d5d534a57550a00784159505757165b5755">[email&#160;protected]</a>>
+/// @author renee krom - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=384a5d565d5d534a57550a00784159505757165b5755>[email&#160;protected]</a>>
 contract MultiSigWalletWithDailyLimitFactory is Factory {
 
     /*

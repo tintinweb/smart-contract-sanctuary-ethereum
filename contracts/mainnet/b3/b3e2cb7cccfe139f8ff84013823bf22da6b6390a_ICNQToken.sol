@@ -354,7 +354,7 @@ contract PausableToken is StandardToken, Pausable {
 
 /**
  * @title ICNQ Token contract - ERC20 compatible token contract.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="771002040316011810021e1a160516120437101a161e1b5914181a">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=771002040316011810021e1a160516120437101a161e1b5914181a>[email&#160;protected]</a>>
  */
 contract ICNQToken is PausableToken, MintableToken {
     string public constant name = "Iconiq Lab Token";

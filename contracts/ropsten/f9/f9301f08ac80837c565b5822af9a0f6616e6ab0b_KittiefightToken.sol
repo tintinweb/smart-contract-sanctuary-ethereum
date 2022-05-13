@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80e4e1f6e5c0e1ebefede2e1aee3efed">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=80e4e1f6e5c0e1ebefede2e1aee3efed>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 // input  /Users/achiko/Documents/elva/projects/kittiefight/DutchAuction/contracts/ERC865/token/KittiefightToken.sol
 // flattened :  Wednesday, 21-Nov-18 23:33:16 UTC

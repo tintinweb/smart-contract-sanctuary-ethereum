@@ -126,7 +126,7 @@ contract Pausable is Ownable {
 /**
 * @title ReentrancyGuard
 * Helps contracts guard against reentrancy attacks.
-* @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f280979f919db2c0">[email&#160;protected]</a>π.com>
+* @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f280979f919db2c0>[email&#160;protected]</a>π.com>
 */
 contract ReentrancyGuard {
     bool private reentrancyLock = false;

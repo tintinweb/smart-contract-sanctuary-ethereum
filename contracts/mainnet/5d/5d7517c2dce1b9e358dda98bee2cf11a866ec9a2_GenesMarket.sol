@@ -87,7 +87,7 @@ contract PullPayment {
 }
 
 
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="355150415075544d5c5a584f505b1b565a">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=355150415075544d5c5a584f505b1b565a>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
 
   function approve(address _to, uint256 _tokenId) public;

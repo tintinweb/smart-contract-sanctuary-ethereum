@@ -4,7 +4,7 @@ pragma solidity ^0.4.19;
 //
 // SVLightBallotBox
 // Single use contract to manage a ballot
-// Author: Max Kaye <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7419150c340711170106115a021b0011">[email&#160;protected]</a>>
+// Author: Max Kaye <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7419150c340711170106115a021b0011>[email&#160;protected]</a>>
 // (c) SecureVote 2018
 //
 // Architecture:
@@ -199,7 +199,7 @@ contract SVLightBallotBox {
 
 //
 // The Index by which democracies and ballots are tracked (and optionally deployed).
-// Author: Max Kaye <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="016c6079417264627473642f776e7564">[email&#160;protected]</a>>
+// Author: Max Kaye <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=016c6079417264627473642f776e7564>[email&#160;protected]</a>>
 // (c) SecureVote 2018
 //
 

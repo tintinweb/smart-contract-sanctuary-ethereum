@@ -89,7 +89,7 @@ contract Ownable {
 }
 
 /// @title Whitelist for TKO token sale.
-/// @author Takeoff Technology OU - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3950575f56794d58525c565f5f174e4a">[email&#160;protected]</a>>
+/// @author Takeoff Technology OU - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3950575f56794d58525c565f5f174e4a>[email&#160;protected]</a>>
 /// @dev Based on code by OpenZeppelin's WhitelistedCrowdsale.sol
 contract TkoWhitelist is Ownable{
 

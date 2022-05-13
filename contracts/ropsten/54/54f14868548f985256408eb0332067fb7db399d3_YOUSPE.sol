@@ -83,7 +83,7 @@ contract StandardToken is ERC20 {
     string public Contracts_Owner = "YOUSPE Holding Pte. Ltd.";
     string public Country = "Singapore";
     string public RegNumber = "201725897N";
-    string public email = "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3babdb5bc93aabca6a0a3b6fda7b6b0bb">[email&#160;protected]</a>"; 
+    string public email = "<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d3babdb5bc93aabca6a0a3b6fda7b6b0bb>[email&#160;protected]</a>"; 
     string public contact_number = "+6566225500";
 
     mapping(address => uint256) public balances;

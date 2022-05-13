@@ -166,7 +166,7 @@ contract CanReclaimToken is Ownable {
 
 /**
  * @title Contracts that should not own Tokens
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86f4e3ebe5e9c6b4">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=86f4e3ebe5e9c6b4>[email&#160;protected]</a>π.com>
  * @dev This blocks incoming ERC223 tokens to prevent accidental loss of tokens.
  * Should tokens (any ERC20Basic compatible) end up in the contract, it allows the
  * owner to reclaim the tokens.
@@ -199,7 +199,7 @@ contract HasNoTokens is CanReclaimToken {
 
 /**
  * @title Contracts that should not own Contracts
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cbb9aea6a8a48bf9">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cbb9aea6a8a48bf9>[email&#160;protected]</a>π.com>
  * @dev Should contracts (anything Ownable) end up being owned by this contract, it allows the owner
  * of this contract to reclaim ownership of the contracts.
  */

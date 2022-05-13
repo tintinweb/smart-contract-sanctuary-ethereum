@@ -55,7 +55,7 @@ contract Ownable {
 
 }
 /**
- * HashBX Company Limited (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e777078715e767f6d767c66307771">[email&#160;protected]</a>)
+ * HashBX Company Limited (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1e777078715e767f6d767c66307771>[email&#160;protected]</a>)
  * Author: Makkhawan Voraboot
  * Mining by placing digital tokens on the smart contract as securities.
 */

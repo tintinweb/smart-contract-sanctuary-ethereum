@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e084819685a0818b8f8d8281ce838f8d">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e084819685a0818b8f8d8281ce838f8d>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 library SafeMath {
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {

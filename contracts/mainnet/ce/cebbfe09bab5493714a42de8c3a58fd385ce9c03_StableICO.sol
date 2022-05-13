@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 
 /// @title STABLE Project ICO
-/// @author Konrad Szałapak <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9b2b6b7abb8bdf7aaa3b8b5b8a9b8b299beb4b8b0b5f7bab6b4">[email&#160;protected]</a>>
+/// @author Konrad Szałapak <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d9b2b6b7abb8bdf7aaa3b8b5b8a9b8b299beb4b8b0b5f7bab6b4>[email&#160;protected]</a>>
 
 /*
  * Ownable

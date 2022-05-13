@@ -3,8 +3,8 @@
 /* 
 /* https://tokentycoon.io
 /*  
-/* authors <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8bf9e2e8e0e3fee5ffeef9a5f8e3eee5cbece6eae2e7a5e8e4e6">[email&#160;protected]</a>   
-/*         <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fc8f8f998f89929895929bbc9b919d9590d29f9391">[email&#160;protected]</a>            
+/* authors <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8bf9e2e8e0e3fee5ffeef9a5f8e3eee5cbece6eae2e7a5e8e4e6>[email&#160;protected]</a>   
+/*         <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fc8f8f998f89929895929bbc9b919d9590d29f9391>[email&#160;protected]</a>            
 /* ==================================================================== */
 
 pragma solidity ^0.4.23;

@@ -871,7 +871,7 @@ pragma solidity 0.4.24;
 
 /**
  * @title Sgame token
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6801060e07281e0904010c011c1104090a1b46071a0f">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6801060e07281e0904010c011c1104090a1b46071a0f>[email&#160;protected]</a>>
  */
 
 contract SgmToken is Ownable, ERC20Detailed, ERC20Pausable, ERC20Burnable, ERC20Mintable, ERC20Capped {
@@ -925,7 +925,7 @@ pragma solidity 0.4.24;
  * 30% of total balance will be realeased after the start of the vesting period
  * 70% of total balance will vest continuously until start + duration. By then all
  * of the balance will have vested
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aec7c0c8c1eed8cfc2c7cac7dad7c2cfccdd80c1dcc9">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aec7c0c8c1eed8cfc2c7cac7dad7c2cfccdd80c1dcc9>[email&#160;protected]</a>>
  */
 contract TokenVesting is Ownable {
     using SafeMath for uint256;

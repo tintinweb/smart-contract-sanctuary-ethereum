@@ -146,7 +146,7 @@ library SafeMath {
 }
 
 // ICON ICX Token
-/// @author DongOk Ryu - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f0809f80b08498959c9f9f80de939fde9b82">[email&#160;protected]</a>>
+/// @author DongOk Ryu - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f0809f80b08498959c9f9f80de939fde9b82>[email&#160;protected]</a>>
 contract IcxToken is ERC20, Lockable {
     using SafeMath for uint;
 

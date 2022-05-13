@@ -2,7 +2,7 @@ pragma solidity ^0.4.8;
 
 /**
  * @title VNT Token - The Next Generation Value Transfering Network.
- * @author Wang Yunxiao - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bccbc5c4858a858e8efcdbd1ddd5d092dfd3d1">[email&#160;protected]</a>>
+ * @author Wang Yunxiao - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bccbc5c4858a858e8efcdbd1ddd5d092dfd3d1>[email&#160;protected]</a>>
  */
 
 contract SafeMath {

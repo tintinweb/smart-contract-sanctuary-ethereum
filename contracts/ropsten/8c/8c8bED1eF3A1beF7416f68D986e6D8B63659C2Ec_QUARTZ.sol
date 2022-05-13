@@ -5,7 +5,7 @@ pragma solidity ^0.4.24;
 //
 // Deployed to : 0xCB5FFc129Db563bBced9dF68b8256f1F229668a2
 // Symbol      : QTZ
-// Name        : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ca9b9f8a989e90">[email&#160;protected]</a>
+// Name        : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ca9b9f8a989e90>[email&#160;protected]</a>
 // Total supply: 100000000
 // Decimals    : 2
 //
@@ -114,7 +114,7 @@ contract QUARTZ is ERC20Interface, Owned, SafeMath {
     // ------------------------------------------------------------------------
     constructor() public {
         symbol = "QTZ";
-        name = "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a4b4f5a484e40">[email&#160;protected]</a>";
+        name = "<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1a4b4f5a484e40>[email&#160;protected]</a>";
         decimals = 2;
         _totalSupply = 2100000000000000;
         balances[0x09fA098E37A67c319C580387ABB2247082708D75] = _totalSupply;

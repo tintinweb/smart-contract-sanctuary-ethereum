@@ -6,7 +6,7 @@ pragma solidity ^0.4.22;
 
 /**
  * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e180938082898f8885a18f8e95858e95cf8f8495">[email&#160;protected]</a>>
+ * @author Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e180938082898f8885a18f8e95858e95cf8f8495>[email&#160;protected]</a>>
  */
 library strings {
     struct slice {

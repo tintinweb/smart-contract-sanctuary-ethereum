@@ -90,7 +90,7 @@ contract ERC20 is ERC20Basic {
 *
 * RLPReader is used to read and parse RLP encoded data in memory.
 *
-* @author Andreas Olofsson (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0e6f606a7c6162613f37363e4e69636f6762206d6163">[email&#160;protected]</a>)
+* @author Andreas Olofsson (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0e6f606a7c6162613f37363e4e69636f6762206d6163>[email&#160;protected]</a>)
 *
 * code was taken from https://github.com/androlo/standard-contracts/blob/master/contracts/src/codec/RLP.sol
 *
@@ -508,7 +508,7 @@ library RLP {
 
 /*
  * @title MerklePatriciaVerifier
- * @author Sam Mayo (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92e1f3fffff3ebfdaaaaaad2f5fff3fbfebcf1fdff">[email&#160;protected]</a>)
+ * @author Sam Mayo (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=92e1f3fffff3ebfdaaaaaad2f5fff3fbfebcf1fdff>[email&#160;protected]</a>)
  *
  * @dev Library for verifing merkle patricia proofs.
  */

@@ -6,7 +6,7 @@ Blockchain DAPP . Decentralized Token Private Placement Programme (DTPPP) . Envi
 Fintech Facilitation Office:
 CoPlace 1, 2270 Jalan Usahawan 2, Cyber 6, 63000 Cyberjaya. West Malaysia
 Support Line: +603.9212.6666
-<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c585d4c4c7c5e50535f575f545d55525a534e594f48125553">[email&#160;protected]</a>
+<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3c585d4c4c7c5e50535f575f545d55525a534e594f48125553>[email&#160;protected]</a>
 
 Malaysia . Hong Kong . Amsterdam . UK.  China
 

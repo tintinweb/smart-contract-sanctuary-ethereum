@@ -489,7 +489,7 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
 
     // transfers a part to another account
     function transfer(address _to, uint256 _tokenId) public whenNotPaused payable {
-        // payable for ERC721 --> don't actually send eth @<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="217e61">[email&#160;protected]</a>
+        // payable for ERC721 --> don't actually send eth @<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=217e61>[email&#160;protected]</a>
         require(msg.value == 0);
 
         // Safety checks to prevent accidental transfers to common accounts
@@ -538,7 +538,7 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
     // approves the (_to) address to use the transferFrom function on the token with id (_tokenId)
     // if you want to clear all approvals, simply pass the zero address
     function approve(address _to, uint256 _deedId) external whenNotPaused payable {
-        // payable for ERC721 --> don't actually send eth @<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="055a45">[email&#160;protected]</a>
+        // payable for ERC721 --> don't actually send eth @<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=055a45>[email&#160;protected]</a>
         require(msg.value == 0);
 // use internal function?
         // Cannot approve the transfer of tokens you don't own
@@ -759,7 +759,7 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
     }
 
     function takeOwnership(uint256 _deedId) external payable {
-        // payable for ERC721 --> don't actually send eth @<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5eaf5">[email&#160;protected]</a>
+        // payable for ERC721 --> don't actually send eth @<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b5eaf5>[email&#160;protected]</a>
         require(msg.value == 0);
 
         address _from = partIndexToOwner[_deedId];

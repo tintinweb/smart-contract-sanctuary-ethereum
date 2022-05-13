@@ -1,7 +1,7 @@
 pragma solidity ^0.4.19;
 
-// LeeSungCoin Made By PinkCherry - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82ebecf1e3ecebf6fbf1e9e3ecc2e5efe3ebeeace1edef">[email&#160;protected]</a>
-// LeeSungCoin Request Question - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e2898d908783818d8b8c918d8e97968b8d8ca2858f838b8ecc818d8f">[email&#160;protected]</a>
+// LeeSungCoin Made By PinkCherry - <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=82ebecf1e3ecebf6fbf1e9e3ecc2e5efe3ebeeace1edef>[email&#160;protected]</a>
+// LeeSungCoin Request Question - <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e2898d908783818d8b8c918d8e97968b8d8ca2858f838b8ecc818d8f>[email&#160;protected]</a>
 
 library SafeMath
 {

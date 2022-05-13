@@ -1,5 +1,5 @@
 pragma solidity ^0.4.23;
-// Made By PinkCherry - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bbd2d5c8dad5d2cfc2c8d0dad5fbdcd6dad2d795d8d4d6">[email&#160;protected]</a> - https://blog.naver.com/soolmini
+// Made By PinkCherry - <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bbd2d5c8dad5d2cfc2c8d0dad5fbdcd6dad2d795d8d4d6>[email&#160;protected]</a> - https://blog.naver.com/soolmini
 
 library SafeMath
 {

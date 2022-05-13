@@ -2,14 +2,14 @@ pragma solidity ^0.4.16;
 
 /*
  * Abstract Token Smart Contract.  Copyright &#169; 2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e78a8e8c8f868e8bc9918b86838e8a8e958891a7808a868e8bc984888a">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e78a8e8c8f868e8bc9918b86838e8a8e958891a7808a868e8bc984888a>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.20;
 
 /*
  * EIP-20 Standard Token Smart Contract Interface.
  * Copyright &#169; 2016–2018 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a1ccc8cac9c0c8cd8fd7cdc0c5c8ccc8d3ced7e1c6ccc0c8cd8fc2cecc">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a1ccc8cac9c0c8cd8fd7cdc0c5c8ccc8d3ced7e1c6ccc0c8cd8fc2cecc>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.20;
 
@@ -104,7 +104,7 @@ contract Token {
 }
 /*
  * Safe Math Smart Contract.  Copyright &#169; 2016–2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7815111310191114560e14191c1115110a170e381f15191114561b1715">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7815111310191114560e14191c1115110a170e381f15191114561b1715>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.20;
 

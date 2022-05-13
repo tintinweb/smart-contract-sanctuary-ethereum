@@ -143,7 +143,7 @@ contract TittyBase {
 
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9df9f8e9f8ddfce5f4f2f0e7f8f3b3fef2">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9df9f8e9f8ddfce5f4f2f0e7f8f3b3fef2>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
     function implementsERC721() public pure returns (bool);
     function totalSupply() public view returns (uint256 total);

@@ -29,7 +29,7 @@ A common Owned contract that contains properties for contract ownership.
 
 
 /// @title A single owned campaign contract for instantiating ownership properties.
-/// @author Nick Dodson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5bbbcb6befbb1bab1a6babb95b6babba6b0bba6aca6fbbbb0a1">[email&#160;protected]</a>>
+/// @author Nick Dodson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d5bbbcb6befbb1bab1a6babb95b6babba6b0bba6aca6fbbbb0a1>[email&#160;protected]</a>>
 contract Owned {
   // only the owner can use this method
   modifier onlyowner() {
@@ -158,7 +158,7 @@ Used for contracts that have an issuer.
 
 
 /// @title Issued - interface used for build issued asset contracts
-/// @author Nick Dodson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="56383f353d7832393225393816353938253338252f2578383322">[email&#160;protected]</a>>
+/// @author Nick Dodson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=56383f353d7832393225393816353938253338252f2578383322>[email&#160;protected]</a>>
 contract Issued {
   /// @notice will set the asset issuer address
   /// @param _issuer The address of the issuer
@@ -168,7 +168,7 @@ contract Issued {
 
 
 /// @title Issued token contract allows new tokens to be issued by an issuer.
-/// @author Nick Dodson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9a7a0aaa2e7ada6adbaa6a789aaa6a7baaca7bab0bae7a7acbd">[email&#160;protected]</a>>
+/// @author Nick Dodson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c9a7a0aaa2e7ada6adbaa6a789aaa6a7baaca7bab0bae7a7acbd>[email&#160;protected]</a>>
 contract IssuedToken is Owned, Issued, StandardToken {
   function transfer(address _to, uint256 _value) public returns (bool) {
     // if the issuer is attempting transfer
@@ -271,7 +271,7 @@ contract IssuedToken is Owned, Issued, StandardToken {
 
 
 /// @title Private Service Registry - used to register generated service contracts.
-/// @author Nick Dodson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0c62656f67226863687f63624c6f63627f69627f757f22626978">[email&#160;protected]</a>>
+/// @author Nick Dodson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0c62656f67226863687f63624c6f63627f69627f757f22626978>[email&#160;protected]</a>>
 contract PrivateServiceRegistryInterface {
   /// @notice register the service '_service' with the private service registry
   /// @param _service the service contract to be registered
@@ -344,7 +344,7 @@ contract PrivateServiceRegistry is PrivateServiceRegistryInterface {
 }
 
 /// @title Issued Token Factory - used to generate and register IssuedToken contracts
-/// @author Nick Dodson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93fdfaf0f8bdf7fcf7e0fcfdd3f0fcfde0f6fde0eae0bdfdf6e7">[email&#160;protected]</a>>
+/// @author Nick Dodson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=93fdfaf0f8bdf7fcf7e0fcfdd3f0fcfde0f6fde0eae0bdfdf6e7>[email&#160;protected]</a>>
 contract IssuedTokenFactory is PrivateServiceRegistry {
   function createIssuedToken(
     address[] _addrs,

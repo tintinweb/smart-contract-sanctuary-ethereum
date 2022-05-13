@@ -62,7 +62,7 @@ interface Token {
 
 //solhint-disable-next-line
 /// @title TokenTransferProxy - Transfers tokens on behalf of exchange
-/// @author Ahmed Ali <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="77361f1a121337151e03111e19120f5914181a">[email&#160;protected]</a>>
+/// @author Ahmed Ali <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=77361f1a121337151e03111e19120f5914181a>[email&#160;protected]</a>>
 contract TokenTransferProxy {
 
     modifier onlyExchange {

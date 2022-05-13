@@ -12,7 +12,7 @@
 */
 pragma solidity 0.4.21;
 /// @title Utility Functions for address
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82e6e3ecebe7eec2eeededf2f0ebece5acedf0e5">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=82e6e3ecebe7eec2eeededf2f0ebece5acedf0e5>[email&#160;protected]</a>>
 library AddressUtil {
     function isContract(
         address addr
@@ -148,8 +148,8 @@ contract Claimable is Ownable {
 */
 /// @title Token Register Contract
 /// @dev This contract maintains a list of tokens the Protocol supports.
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c2723222b20252d222b0c2023233c3e25222b62233e2b">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1470757a7d717854787b7b64667d7a733a7b6673">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4c2723222b20252d222b0c2023233c3e25222b62233e2b>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1470757a7d717854787b7b64667d7a733a7b6673>[email&#160;protected]</a>>.
 contract TokenRegistry {
     event TokenRegistered(address addr, string symbol);
     event TokenUnregistered(address addr, string symbol);
@@ -201,8 +201,8 @@ contract TokenRegistry {
         returns (address[] addressList);
 }
 /// @title An Implementation of TokenRegistry.
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c3733323b30353d323b1c3033332c2e35323b72332e3b">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f397929d9a969fb39f9c9c83819a9d94dd9c8194">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5c3733323b30353d323b1c3033332c2e35323b72332e3b>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f397929d9a969fb39f9c9c83819a9d94dd9c8194>[email&#160;protected]</a>>.
 contract TokenRegistryImpl is TokenRegistry, Claimable {
     using AddressUtil for address;
     address[] public addresses;

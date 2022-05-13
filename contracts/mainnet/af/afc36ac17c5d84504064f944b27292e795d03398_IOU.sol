@@ -21,7 +21,7 @@ pragma solidity ^0.4.11;
   Cut-off Time: ~ August 9, 2017
 
   Greetz: blast
-  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="55333a3a373427373c2f34272730153238343c397b363a38">[email&#160;protected]</a> (Please report any findings or suggestions for a 1 ETH bounty!)
+  <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=55333a3a373427373c2f34272730153238343c397b363a38>[email&#160;protected]</a> (Please report any findings or suggestions for a 1 ETH bounty!)
 
   Thank you
 */

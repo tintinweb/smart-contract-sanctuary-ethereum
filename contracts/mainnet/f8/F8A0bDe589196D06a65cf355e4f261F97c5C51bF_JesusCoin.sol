@@ -273,7 +273,7 @@ contract MintableToken is StandardToken, Ownable {
 
 /** 
  * @title TokenDestructible:
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3341565e505c7301">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3341565e505c7301>[email&#160;protected]</a>π.com>
  * @dev Base contract that can be destroyed by owner. All funds in contract including
  * listed tokens will be sent to the owner.
  */

@@ -36,7 +36,7 @@ contract Controlled {
 * Used to proxy function calls to the RLPReader for testing
 */
 /*
-* @author Hamdi Allam hamdi.a<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c30303d31656b1c3b313d3530723f3331">[email&#160;protected]</a>
+* @author Hamdi Allam hamdi.a<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5c30303d31656b1c3b313d3530723f3331>[email&#160;protected]</a>
 * Please reach our for any questions/concerns
 */
 

@@ -81,7 +81,7 @@ function allowance(address _owner, address _spender) constant returns (uint256 r
 }
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aedddacbc8cfc080c9cbc1dcc9cbeecdc1c0ddcbc0ddd7dd80c0cbda">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aedddacbc8cfc080c9cbc1dcc9cbeecdc1c0ddcbc0ddd7dd80c0cbda>[email&#160;protected]</a>>
 contract MultiSigWallet is Token{
 
     /*

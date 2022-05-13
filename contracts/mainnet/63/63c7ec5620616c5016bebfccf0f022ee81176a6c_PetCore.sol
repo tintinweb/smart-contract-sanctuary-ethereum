@@ -45,7 +45,7 @@ contract Ownable {
 
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a1e1f0e1f3a1b02131517001f14541915">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7a1e1f0e1f3a1b02131517001f14541915>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
     // Required methods
     function totalSupply() public view returns (uint256 total);
@@ -582,7 +582,7 @@ contract PetOwnership is PetBase, ERC721 {
         }
     }
 
-    /// @dev Adapted from memcpy() by @arachnid (Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afceddceccc7c1c6cbefc1c0dbcbc0db81c1cadb">[email&#160;protected]</a>>)
+    /// @dev Adapted from memcpy() by @arachnid (Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=afceddceccc7c1c6cbefc1c0dbcbc0db81c1cadb>[email&#160;protected]</a>>)
     ///  This method is licenced under the Apache License.
     ///  Ref: https://github.com/Arachnid/solidity-stringutils/blob/2f6ca9accb48ae14c66f1437ec50ed19a0616f78/strings.sol
     function _memcpy(uint _dest, uint _src, uint _len) private pure {
@@ -604,7 +604,7 @@ contract PetOwnership is PetBase, ERC721 {
         }
     }
 
-    /// @dev Adapted from toString(slice) by @arachnid (Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="28495a494b4046414c6846475c4c475c06464d5c">[email&#160;protected]</a>>)
+    /// @dev Adapted from toString(slice) by @arachnid (Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=28495a494b4046414c6846475c4c475c06464d5c>[email&#160;protected]</a>>)
     ///  This method is licenced under the Apache License.
     ///  Ref: https://github.com/Arachnid/solidity-stringutils/blob/2f6ca9accb48ae14c66f1437ec50ed19a0616f78/strings.sol
     function _toString(bytes32[4] _rawBytes, uint256 _stringLength) private pure returns (string) {
