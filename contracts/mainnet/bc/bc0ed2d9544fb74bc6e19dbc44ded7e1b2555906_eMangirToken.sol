@@ -96,7 +96,7 @@ contract StandardToken is AbstractToken, Owned, SafeMath {
 	/*
 	 *  Read and write storage functions
 	 */
-	/// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+	/// @dev Transfers sender's tokens to a given address. Returns success.
 	/// @param _to Address of token receiver.
 	/// @param _value Number of tokens to transfer.
 	function transfer(address _to, uint256 _value) public returns (bool success) {
@@ -162,8 +162,8 @@ contract eMangirToken is StandardToken {
 	// Time of the contract creation
 	uint256 public creationTime;
    // Token MetaData
-	string constant public name = &#39;eMangir&#39;;
-	string constant public symbol = &#39;EMG&#39;;
+	string constant public name = 'eMangir';
+	string constant public symbol = 'EMG';
 	uint8  public decimals = 18;
 	uint256 public totalSupply = 1000000000e18;
 

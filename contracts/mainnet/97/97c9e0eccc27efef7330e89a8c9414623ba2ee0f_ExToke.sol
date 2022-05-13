@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;extoke.com&#39; DEX contract
+// 'extoke.com' DEX contract
 //
 // Admin       : 0xEd86f5216BCAFDd85E5875d35463Aca60925bF16
 // fees        : zero (0)
@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -198,7 +198,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _amount The amount of tokens to be spent.
@@ -245,7 +245,7 @@ contract AccountLevels {
   //given a user, returns an account level
   //0 = regular user (pays take fee and make fee)
   //1 = market maker silver (pays take fee, no make fee, gets rebate)
-  //2 = market maker gold (pays take fee, no make fee, gets entire counterparty&#39;s take fee as rebate)
+  //2 = market maker gold (pays take fee, no make fee, gets entire counterparty's take fee as rebate)
   function accountLevel(address user) public constant returns(uint) {
       return accountLevels[user];
   }

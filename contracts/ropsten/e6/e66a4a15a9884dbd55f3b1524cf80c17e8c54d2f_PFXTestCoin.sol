@@ -47,7 +47,7 @@ contract Token is Console {
     function balanceOf(address _owner) constant returns (uint256 balance) {}
 
     /// @notice send `_value` token to `_to` from `msg.sender` 
-    /// 说明：从调用者 &#39;msg.sender&#39; 发送 &#39;_value&#39; 数量的代币给 &#39;_to&#39;
+    /// 说明：从调用者 'msg.sender' 发送 '_value' 数量的代币给 '_to'
     /// @param _to The address of the recipient 
     /// 参数 _to 代币接收者的地址
     /// @param _value The amount of token to be transferred 发送代币数量
@@ -57,7 +57,7 @@ contract Token is Console {
     function transfer(address _to, uint256 _value) returns (bool success) {}
 
     /// @notice send `_value` token to `_to` from `_from` on the condition it is approved by `_from` 
-    /// 说明：地址 &#39;_from&#39; 转账 &#39;_value&#39; 数量的代币给 地址 &#39;_to&#39;
+    /// 说明：地址 '_from' 转账 '_value' 数量的代币给 地址 '_to'
     /// @param _from The address of the sender
     /// 参数 _from 交易发起者的地址
     /// @param _to The address of the recipient
@@ -69,7 +69,7 @@ contract Token is Console {
     function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {}
 
     /// @notice `msg.sender` approves `_addr` to spend `_value` tokens
-    /// 说明：地址 `msg.sender` 批准 &#39;_addr&#39; 花费`_value`数量的代币
+    /// 说明：地址 `msg.sender` 批准 '_addr' 花费`_value`数量的代币
     /// @param _spender The address of the account able to transfer the tokens
     /// 参数 _value 发送代币数量
     /// @param _value The amount of wei to be approved for transfer
@@ -94,8 +94,8 @@ contract Token is Console {
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -154,7 +154,7 @@ contract PFXTestCoin is StandardToken { // CHANGE THIS. Update the contract name
     string public symbol;                 // An identifier: eg SBX, XPR etc..
     string public version = "v1.0.0"; 
     uint256 public unitsOneEthCanBuy;     // How many units of your coin can be bought by 1 ETH?
-    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.  
+    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.  
     address public fundsWallet;           // Where should the raised ETH go?
 
     // This is a constructor function 
@@ -188,7 +188,7 @@ contract PFXTestCoin is StandardToken { // CHANGE THIS. Update the contract name
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { throw; }

@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;UntCoin&#39;;
-        symbol = &#39;UNT&#39;;
+        name = 'UntCoin';
+        symbol = 'UNT';
         decimals = 18;
         balanceOf[0x0040b2f16328dde1ad8639d46c2e3ad8671c76d9] = totalSupply;
         Transfer(address(0), 0x0040b2f16328dde1ad8639d46c2e3ad8671c76d9, totalSupply);

@@ -82,7 +82,7 @@ contract MyCryptoChampCore {
         uint defencePower;
         uint cooldownReduction;
         uint price;
-        uint onChampId; //can not be used to decide if item is on champ, because champ&#39;s id can be 0, &#39;bool onChamp&#39; solves it.
+        uint onChampId; //can not be used to decide if item is on champ, because champ's id can be 0, 'bool onChamp' solves it.
         bool onChamp; 
         bool forSale; //is item for sale?
     }
@@ -446,7 +446,7 @@ contract MyCryptoChampCore {
         uint share = addressInfo[playerAddress].withdrawal; //gets pending funds
         require(share > 0); //is it more than 0?
 
-        addressInfo[playerAddress].withdrawal = 0; //set player&#39;s withdrawal pendings to 0 
+        addressInfo[playerAddress].withdrawal = 0; //set player's withdrawal pendings to 0 
         pendingWithdrawal = pendingWithdrawal.sub(share); //subtract share from total pendings 
         
         playerAddress.transfer(share); //transfer

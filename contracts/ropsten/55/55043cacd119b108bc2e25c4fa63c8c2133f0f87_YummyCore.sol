@@ -174,7 +174,7 @@ contract YummyBase is YummyAccessControl {
 
     /*
     * @dev Internal method for creating and storing a token
-    * @dev Doesn&#39;t check anything and should only be called with valid data
+    * @dev Doesn't check anything and should only be called with valid data
     */
     function _createToken(
         uint256 _motherId,
@@ -459,8 +459,8 @@ contract YummyBreeding is YummyOwnership {
     }
 
     /**
-    * @dev Set the cooldown end block for the token, based on it&#39;s current cooldownIndex
-    * Increment cooldownIndex if it hasn&#39;t hit the cap
+    * @dev Set the cooldown end block for the token, based on it's current cooldownIndex
+    * Increment cooldownIndex if it hasn't hit the cap
     */
     function _triggerCooldown(Token storage _token) internal {
         _token.cooldownEndBlock = uint64((cooldowns[_token.cooldownIndex] / secondsPerBlock) + block.number);
@@ -526,12 +526,12 @@ contract YummyBreeding is YummyOwnership {
         // No self-breeding
         if (_motherId == _fatherId) { return false; }
 
-        // No breeding token&#39;s father
+        // No breeding token's father
         if (_mother.motherId == _fatherId || _mother.fatherId == _fatherId) {
             return false;
         }
 
-        // No breeding token&#39;s mother
+        // No breeding token's mother
         if (_father.motherId == _motherId || _mother.fatherId == _motherId) {
             return false;
         }
@@ -612,7 +612,7 @@ contract YummyBreeding is YummyOwnership {
     /**
      * @dev Breed tokens. Will either make the mother pregnant, or fail completely
      * @notice Requires a prepayment of the fee given out to the first caller of giveBirth()
-     * If successful, mother becomes pregnant and father&#39;s cooldown begins
+     * If successful, mother becomes pregnant and father's cooldown begins
      */
     function breedWithAuto(uint256 _motherId, uint256 _fatherId)
     external
@@ -664,7 +664,7 @@ contract YummyBreeding is YummyOwnership {
             parentGeneration = father.generation;
         }
 
-        // Compute the new token&#39;s DNA
+        // Compute the new token's DNA
         uint256 dna = geneScience.randomGenes();
 
         // Create the new token
@@ -679,7 +679,7 @@ contract YummyBreeding is YummyOwnership {
         // Send the balance fee to the person who made birth happen
         msg.sender.transfer(autoBirthFee);
 
-        // Return the new token&#39;s ID
+        // Return the new token's ID
         return tokenId;
     }
 }

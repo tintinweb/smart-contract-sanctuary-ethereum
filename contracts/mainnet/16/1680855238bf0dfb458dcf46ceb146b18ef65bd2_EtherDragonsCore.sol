@@ -27,7 +27,7 @@ library UintStringUtils {
         pure
         returns (string)
     {
-        if (i == 0) return &#39;0&#39;;
+        if (i == 0) return '0';
         uint j = i;
         uint len;
         while (j != 0){
@@ -88,7 +88,7 @@ library SafeMath256 {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -124,7 +124,7 @@ library SafeMath32 {
   function div(uint32 a, uint32 b) internal pure returns (uint32) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint32 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -160,7 +160,7 @@ library SafeMath8 {
   function div(uint8 a, uint8 b) internal pure returns (uint8) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint8 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -195,8 +195,8 @@ contract DragonAccessControl
     /// @dev Contract state
     Mode internal mode_ = Mode.TEST;
 
-    /// @dev OffChain Server accounts (&#39;minions&#39;) addresses
-    /// It&#39;s used for money withdrawal and export of tokens 
+    /// @dev OffChain Server accounts ('minions') addresses
+    /// It's used for money withdrawal and export of tokens 
     mapping(address => bool) internal minions_;
     
     /// @dev Presale contract address. Can call `presale` method.
@@ -267,7 +267,7 @@ contract DragonAccessControl
     }    
 
         /// @dev Get controller address.
-    /// @return Address of contract&#39;s controller.
+    /// @return Address of contract's controller.
     function controller()
         external
         view
@@ -278,7 +278,7 @@ contract DragonAccessControl
 
     /// @dev Transfer control to new address. Set controller an approvee for
     /// tokens that managed by contract itself. Remove previous controller value
-    /// from contract&#39;s approvees.
+    /// from contract's approvees.
     /// @param _to New controller address.
     function setController(address _to)
         external
@@ -354,9 +354,9 @@ contract DragonBase is DragonAccessControl
     mapping(uint256 => address) internal approvals_;
     /// @dev Operator approvals
     mapping(address => mapping(address => bool)) internal operatorApprovals_;
-    /// @dev Index of token in owner&#39;s token list
+    /// @dev Index of token in owner's token list
     mapping(uint256 => uint256) internal ownerIndex_;
-    /// @dev Owner&#39;s tokens list
+    /// @dev Owner's tokens list
     mapping(address => uint256[]) internal ownTokens_;
     /// @dev Tokens
     mapping(uint256 => DragonToken) internal tokens_;
@@ -364,7 +364,7 @@ contract DragonBase is DragonAccessControl
     // @dev Non Assigned address.
     address constant NA = address(0);
 
-    /// @dev Add token to new owner. Increase owner&#39;s balance.
+    /// @dev Add token to new owner. Increase owner's balance.
     /// @param _to Token receiver.
     /// @param _tokenId New token id.
     function _addTo(address _to, uint256 _tokenId)
@@ -381,7 +381,7 @@ contract DragonBase is DragonAccessControl
     }
 
     /// @dev Create new token and increase mintCount.
-    /// @param _genome New token&#39;s genome.
+    /// @param _genome New token's genome.
     /// @param _params Token params string. 
     /// @param _parentA Token A parent.
     /// @param _parentB Token B parent.
@@ -427,7 +427,7 @@ contract DragonBase is DragonAccessControl
  
     /// @dev Get token genome.
     /// @param _tokenId Token id.
-    /// @return Token&#39;s genome.
+    /// @return Token's genome.
     function getGenome(uint256 _tokenId)
         external view returns(string)
     {
@@ -436,7 +436,7 @@ contract DragonBase is DragonAccessControl
 
     /// @dev Get token params.
     /// @param _tokenId Token id.
-    /// @return Token&#39;s params.
+    /// @return Token's params.
     function getParams(uint256 _tokenId)
         external view returns(string)
     {
@@ -494,7 +494,7 @@ contract DragonBase is DragonAccessControl
         return symbol_;
     }
 
-    /// @dev Get token URI to receive offchain information by it&#39;s id.
+    /// @dev Get token URI to receive offchain information by it's id.
     /// @param _tokenId Token id.
     /// @return URL string. For example "http://erc721.tld/tokens/1".
     function tokenURI(uint256 _tokenId)
@@ -627,34 +627,34 @@ contract ERC721 is ERC721Basic, ERC721Metadata, ERC721Receiver
 
     bytes4 constant InterfaceSignature_ERC165 = 0x01ffc9a7;
     /*
-    bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+    bytes4(keccak256('supportsInterface(bytes4)'));
     */
 
     bytes4 constant InterfaceSignature_ERC721Enumerable = 0x780e9d63;
     /*
-    bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-    bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-    bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;));
+    bytes4(keccak256('totalSupply()')) ^
+    bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+    bytes4(keccak256('tokenByIndex(uint256)'));
     */
 
     bytes4 constant InterfaceSignature_ERC721Metadata = 0x5b5e139f;
     /*
-    bytes4(keccak256(&#39;name()&#39;)) ^
-    bytes4(keccak256(&#39;symbol()&#39;)) ^
-    bytes4(keccak256(&#39;tokenURI(uint256)&#39;));
+    bytes4(keccak256('name()')) ^
+    bytes4(keccak256('symbol()')) ^
+    bytes4(keccak256('tokenURI(uint256)'));
     */
 
     bytes4 constant InterfaceSignature_ERC721 = 0x80ac58cd;
     /*
-    bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-    bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-    bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-    bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-    bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-    bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-    bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-    bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-    bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;));
+    bytes4(keccak256('balanceOf(address)')) ^
+    bytes4(keccak256('ownerOf(uint256)')) ^
+    bytes4(keccak256('approve(address,uint256)')) ^
+    bytes4(keccak256('getApproved(uint256)')) ^
+    bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+    bytes4(keccak256('isApprovedForAll(address,address)')) ^
+    bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+    bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+    bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'));
     */
 
     function supportsInterface(bytes4 _interfaceID) external view returns (bool)
@@ -680,7 +680,7 @@ contract DragonOwnership is ERC721, DragonBase
     /// @dev Specify if _addr is token owner or approvee. Also check if `_addr`
     /// is operator for token owner.
     /// @param _tokenId Token to check ownership of.
-    /// @param _addr Address to check if it&#39;s an owner or an aprovee of `_tokenId`.
+    /// @param _addr Address to check if it's an owner or an aprovee of `_tokenId`.
     /// @return True if token can be managed by provided `_addr`.
     function isOwnerOrApproved(uint256 _tokenId, address _addr)
         public view returns(bool)
@@ -707,8 +707,8 @@ contract DragonOwnership is ERC721, DragonBase
         _;
     }
 
-    /// @dev Contract&#39;s own token only acceptable.
-    /// @param _tokenId Contract&#39;s token id.
+    /// @dev Contract's own token only acceptable.
+    /// @param _tokenId Contract's token id.
     modifier ownOnly(uint256 _tokenId) {
         require(tokens_[_tokenId].owner == address(this), "own_only");
         _;
@@ -889,7 +889,7 @@ contract DragonOwnership is ERC721, DragonBase
     }
 
     /// @dev Transfer token from owner `_from` to another address or contract
-    /// `_to` by it&#39;s `_tokenId`.
+    /// `_to` by it's `_tokenId`.
     /// @param _from Current token owner.
     /// @param _to New token owner.
     /// @param _tokenId token Id.
@@ -909,7 +909,7 @@ contract DragonOwnership is ERC721, DragonBase
         emit TransferInfo(_from, _to, _tokenId, token.petId, token.genome, token.params);
     }
 
-    /// @dev Update token params and transfer to new owner. Only contract&#39;s own
+    /// @dev Update token params and transfer to new owner. Only contract's own
     /// tokens could be updated. Also notifies receiver of the token.
     /// @param _to Address to transfer token to.
     /// @param _tokenId Id of token that should be transferred.
@@ -924,7 +924,7 @@ contract DragonOwnership is ERC721, DragonBase
         updateAndSafeTransferFrom(_to, _tokenId, _params, "");
     }
 
-    /// @dev Update token params and transfer to new owner. Only contract&#39;s own
+    /// @dev Update token params and transfer to new owner. Only contract's own
     /// tokens could be updated. Also notifies receiver of the token and send
     /// protion of _data to it.
     /// @param _to Address to transfer token to.
@@ -944,7 +944,7 @@ contract DragonOwnership is ERC721, DragonBase
         require(_checkAndCallSafeTransfer(address(this), _to, _tokenId, _data));
     }
 
-    /// @dev Update token params and transfer to new owner. Only contract&#39;s own
+    /// @dev Update token params and transfer to new owner. Only contract's own
     /// tokens could be updated.
     /// @param _to Address to transfer token to.
     /// @param _tokenId Id of token that should be transferred.
@@ -973,7 +973,7 @@ contract DragonOwnership is ERC721, DragonBase
         // Transfer from
         transferFrom(from, _to, _tokenId);
 
-        // send to the server&#39;s wallet the transaction cost
+        // send to the server's wallet the transaction cost
         // withdraw it from the balance of the contract. this amount must be withdrawn from the player
         // on the side of the game server        
         if (_transferCost > 0) {

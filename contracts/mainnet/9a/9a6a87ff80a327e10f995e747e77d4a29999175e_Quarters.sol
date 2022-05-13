@@ -79,7 +79,7 @@ library SafeMath {
   {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -363,7 +363,7 @@ contract Q2 is Ownable, RoyaltyToken {
     require(_startBlock > block.number);
     require(_startBlock < _endBlock);
 
-    // stop current stage if it&#39;s running
+    // stop current stage if it's running
     Stage memory currentObj = stages[currentStage];
     if (currentObj.endBlock > 0) {
       // broadcast stage end event
@@ -660,7 +660,7 @@ contract Quarters is Ownable, StandardToken {
     require(balances[_from] >= _value);                // Check if the targeted balance is enough
     require(_value <= allowed[_from][msg.sender]);     // Check allowance
     balances[_from] -= _value;                         // Subtract from the targeted balance
-    allowed[_from][msg.sender] -= _value;              // Subtract from the sender&#39;s allowance
+    allowed[_from][msg.sender] -= _value;              // Subtract from the sender's allowance
     totalSupply -= _value;                      // Update totalSupply
     outstandingQuarters -= _value;              // Update outstanding quarters
     emit Burn(_from, _value);
@@ -685,7 +685,7 @@ contract Quarters is Ownable, StandardToken {
   function buyFor(address buyer) payable public {
     uint256 _value =  _buy(buyer);
 
-    // allow donor (msg.sender) to spend buyer&#39;s tokens
+    // allow donor (msg.sender) to spend buyer's tokens
     allowed[buyer][msg.sender] += _value;
     emit Approval(buyer, msg.sender, _value);
   }
@@ -724,7 +724,7 @@ contract Quarters is Ownable, StandardToken {
     // log rate change
     emit BaseRateChanged(getBaseRate(), tranche, outstandingQuarters, address(this).balance, totalSupply);
 
-    // transfer owner&#39;s cut
+    // transfer owner's cut
     Q2(q2).disburse.value(msg.value * 15 / 100)();
 
     // return nq
@@ -732,7 +732,7 @@ contract Quarters is Ownable, StandardToken {
   }
 
   /**
-   * Transfer allowance from other address&#39;s allowance
+   * Transfer allowance from other address's allowance
    *
    * Send `_value` tokens to `_to` in behalf of `_from`
    *
@@ -746,7 +746,7 @@ contract Quarters is Ownable, StandardToken {
     allowed[_from][msg.sender] -= _value;
 
     if (_transfer(_from, _to, _value)) {
-      // allow msg.sender to spend _to&#39;s tokens
+      // allow msg.sender to spend _to's tokens
       allowed[_to][msg.sender] += _value;
       emit Approval(_to, msg.sender, _value);
       return true;

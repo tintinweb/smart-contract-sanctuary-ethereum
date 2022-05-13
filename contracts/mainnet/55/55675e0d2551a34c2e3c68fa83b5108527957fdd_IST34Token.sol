@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
 
-// &#39;IST34&#39; &#39;IST34 Token&#39; token contract
+// 'IST34' 'IST34 Token' token contract
 
 //
 
@@ -247,9 +247,9 @@ contract IST34Token is IST34TokenERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
 
-    // Transfer the balance from token owner&#39;s account to `to` account
+    // Transfer the balance from token owner's account to `to` account
 
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // - Owner's account must have sufficient balance to transfer
 
     // - 0 value transfers are allowed
 
@@ -273,7 +273,7 @@ contract IST34Token is IST34TokenERC20Interface, Owned {
 
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
 
-    // from the token owner&#39;s account
+    // from the token owner's account
 
     //
 
@@ -335,7 +335,7 @@ contract IST34Token is IST34TokenERC20Interface, Owned {
 
     // Returns the amount of tokens approved by the owner that can be
 
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
 
     // ------------------------------------------------------------------------
 
@@ -351,7 +351,7 @@ contract IST34Token is IST34TokenERC20Interface, Owned {
 
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
 
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
 
     // `receiveApproval(...)` is then executed
 
@@ -373,7 +373,7 @@ contract IST34Token is IST34TokenERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
 
-    // Don&#39;t accept ETH
+    // Don't accept ETH
 
     // ------------------------------------------------------------------------
 

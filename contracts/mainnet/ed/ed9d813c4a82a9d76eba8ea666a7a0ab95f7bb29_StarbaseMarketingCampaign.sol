@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -126,7 +126,7 @@ contract StarbaseMarketingCampaign is Ownable {
      */
 
     /**
-     * @dev Setup function sets external contracts&#39; addresses.
+     * @dev Setup function sets external contracts' addresses.
      * @param starbaseTokenAddress Token address.
      */
     function setup(address starbaseTokenAddress)
@@ -140,7 +140,7 @@ contract StarbaseMarketingCampaign is Ownable {
     }
 
     /**
-     * @dev Allows for marketing contributor&#39;s reward adding and withdrawl
+     * @dev Allows for marketing contributor's reward adding and withdrawl
      * @param contributorAddress The address of the contributor
      * @param tokenCount Token number to awarded and to be withdrawn
      * @param contributionId Id of contribution from bounty app db
@@ -181,7 +181,7 @@ contract StarbaseMarketingCampaign is Ownable {
 
     /**
      * @dev Informs about contributors rewardedTokens and transferredRewardTokens status
-     * @param contributorAddress A contributor&#39;s address
+     * @param contributorAddress A contributor's address
      * @param contributionId Id of contribution from bounty app db
      */
     function getContributorInfo(address contributorAddress, string contributionId)

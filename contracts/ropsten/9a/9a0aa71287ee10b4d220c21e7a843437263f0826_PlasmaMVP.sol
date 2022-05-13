@@ -344,8 +344,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -364,7 +364,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -751,7 +751,7 @@ contract PlasmaMVP {
     //   NewOwner, Denom1, NewOwner, Denom2, Fee],
     //  [Signature1, Signature2]]
     //
-    // All integers are padded to 32 bytes. Input&#39;s confirm signatures are 130 bytes for each input.
+    // All integers are padded to 32 bytes. Input's confirm signatures are 130 bytes for each input.
     // Zero bytes if unapplicable (deposit/fee inputs) Signatures are 65 bytes in length
     //
     // @param txBytes rlp encoded transaction
@@ -852,13 +852,13 @@ contract PlasmaMVP {
             require(recoveredAddress != address(0) && recoveredAddress == txHash.recover(sig));
         }
 
-        // check that the UTXO&#39;s two direct inputs have not been previously exited
+        // check that the UTXO's two direct inputs have not been previously exited
         require(validateTransactionExitInputs(txList));
 
         return txList[base.add(11)].toUintStrict();
     }
 
-    // For any attempted exit of an UTXO, validate that the UTXO&#39;s two inputs have not
+    // For any attempted exit of an UTXO, validate that the UTXO's two inputs have not
     // been previously exited or are currently pending an exit.
     function validateTransactionExitInputs(RLPReader.RLPItem[] memory txList)
         private
@@ -994,7 +994,7 @@ contract PlasmaMVP {
     function finalizeTransactionExits() public { finalize(txExitQueue, false); }
 
     // Finalizes exits by iterating through either the depositExitQueue or txExitQueue.
-    // Users can determine the number of exits they&#39;re willing to process by varying
+    // Users can determine the number of exits they're willing to process by varying
     // the amount of gas allow finalize*Exits() to process.
     // Each transaction takes < 80000 gas to process.
     function finalize(uint256[] storage queue, bool isDeposits)
@@ -1025,7 +1025,7 @@ contract PlasmaMVP {
                plasmaChainBalance() > 0 &&
                gasleft() > 80000) {
 
-            // skip currentExit if it is not in &#39;started/pending&#39; state.
+            // skip currentExit if it is not in 'started/pending' state.
             if (currentExit.state != ExitState.Pending) {
                 queue.delMin();
             } else {
@@ -1104,7 +1104,7 @@ contract PlasmaMVP {
             if (oIndex > 1)
                 return false;
         } else { // deposit or fee input
-            // deposit input must be zero&#39;d output position
+            // deposit input must be zero'd output position
             // `blkNum` is not checked as it will fail above
             if (depNonce > 0 && (txIndex > 0 || oIndex > 0))
                 return false;

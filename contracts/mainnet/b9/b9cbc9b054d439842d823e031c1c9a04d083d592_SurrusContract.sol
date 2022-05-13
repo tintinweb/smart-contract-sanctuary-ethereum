@@ -56,7 +56,7 @@ contract BasicToken is ERC20Basic {
     mapping(address => uint256) balances;
 
     /**
-    * @dev Gets the balance of user&#39;s address.
+    * @dev Gets the balance of user's address.
     * @param _owner The address to query the the balance of.
     * @return An uint256 representing the amount owned by the passed address.
     */

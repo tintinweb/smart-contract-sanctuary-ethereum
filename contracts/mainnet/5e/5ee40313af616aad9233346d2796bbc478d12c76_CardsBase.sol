@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 /* ==================================================================== */
 /* Copyright (c) 2018 The MagicAcademy Project.  All rights reserved.
 /* 
-/* https://www.magicacademy.io One of the world&#39;s first idle strategy games of blockchain 
+/* https://www.magicacademy.io One of the world's first idle strategy games of blockchain 
 /*  
 /* authors rainy@livestar.com/Jony.Fu@livestar.com
 /*                 
@@ -101,9 +101,9 @@ contract JadeCoin is ERC20, AccessAdmin {
   mapping(address => mapping(uint8 => uint256)) public coinBalance;
   mapping(uint8 => uint256) totalEtherPool; //Total Pool
   
-  mapping(address => mapping(uint256 => uint256)) public jadeProductionSnapshots; // Store player&#39;s jade production for given day (snapshot)
+  mapping(address => mapping(uint256 => uint256)) public jadeProductionSnapshots; // Store player's jade production for given day (snapshot)
  
-  mapping(address => mapping(uint256 => bool)) private jadeProductionZeroedSnapshots; // This isn&#39;t great but we need know difference between 0 production and an unused/inactive day.
+  mapping(address => mapping(uint256 => bool)) private jadeProductionZeroedSnapshots; // This isn't great but we need know difference between 0 production and an unused/inactive day.
     
   mapping(address => uint256) public lastJadeSaveTime; // Seconds (last time player claimed their produced jade)
   mapping(address => uint256) public lastJadeProductionUpdate; // Days (last snapshot player updated their production)
@@ -185,7 +185,7 @@ contract JadeCoin is ERC20, AccessAdmin {
     totalJadeProduction = SafeMath.sub(totalJadeProduction,decrease);
   }
 
-  /// update player&#39;s jade balance
+  /// update player's jade balance
   function updatePlayersCoin(address player) internal {
     uint256 coinGain = balanceOfUnclaimed(player);
     lastJadeSaveTime[player] = block.timestamp;
@@ -193,7 +193,7 @@ contract JadeCoin is ERC20, AccessAdmin {
     jadeBalance[player] = SafeMath.add(jadeBalance[player],coinGain);  
   }
 
-  /// update player&#39;s jade balance
+  /// update player's jade balance
   function updatePlayersCoinByOut(address player) external onlyAccess {
     uint256 coinGain = balanceOfUnclaimed(player);
     lastJadeSaveTime[player] = block.timestamp;
@@ -310,9 +310,9 @@ contract JadeCoin is ERC20, AccessAdmin {
     uint256 latestSnapshot = allocatedJadeResearchSnapshots.length - 1; // No snapshots to begin with
         
     uint256 researchShare;
-    uint256 previousProduction = jadeProductionSnapshots[msg.sender][lastJadeResearchFundClaim[msg.sender] - 1]; // Underflow won&#39;t be a problem as gooProductionSnapshots[][0xfffffffffffff] = 0;
+    uint256 previousProduction = jadeProductionSnapshots[msg.sender][lastJadeResearchFundClaim[msg.sender] - 1]; // Underflow won't be a problem as gooProductionSnapshots[][0xfffffffffffff] = 0;
     for (uint256 i = startSnapshot; i <= latestSnapshot; i++) {     
-    // Slightly complex things by accounting for days/snapshots when user made no tx&#39;s
+    // Slightly complex things by accounting for days/snapshots when user made no tx's
       uint256 productionDuringSnapshot = jadeProductionSnapshots[msg.sender][i];
       bool soldAllProduction = jadeProductionZeroedSnapshots[msg.sender][i];
       if (productionDuringSnapshot == 0 && !soldAllProduction) {
@@ -332,10 +332,10 @@ contract JadeCoin is ERC20, AccessAdmin {
     require(endSnapShot < allocatedJadeResearchSnapshots.length);
         
     uint256 researchShare;
-    uint256 previousProduction = jadeProductionSnapshots[msg.sender][lastJadeResearchFundClaim[msg.sender] - 1]; // Underflow won&#39;t be a problem as gooProductionSnapshots[][0xffffffffff] = 0;
+    uint256 previousProduction = jadeProductionSnapshots[msg.sender][lastJadeResearchFundClaim[msg.sender] - 1]; // Underflow won't be a problem as gooProductionSnapshots[][0xffffffffff] = 0;
     for (uint256 i = startSnapshot; i <= endSnapShot; i++) {
             
-    // Slightly complex things by accounting for days/snapshots when user made no tx&#39;s
+    // Slightly complex things by accounting for days/snapshots when user made no tx's
       uint256 productionDuringSnapshot = jadeProductionSnapshots[msg.sender][i];
       bool soldAllProduction = jadeProductionZeroedSnapshots[msg.sender][i];
       if (productionDuringSnapshot == 0 && !soldAllProduction) {
@@ -405,9 +405,9 @@ contract CardsBase is JadeCoin {
   mapping(address => mapping(uint256 => uint256)) public upgradesOwned;  //Lv of upgrade card
 
   mapping(address => uint256) public uintsOwnerCount; // total number of cards
-  mapping(address=> mapping(uint256 => uint256)) public uintProduction;  //card&#39;s production 
+  mapping(address=> mapping(uint256 => uint256)) public uintProduction;  //card's production 
 
-  // Rares & Upgrades (Increase unit&#39;s production / attack etc.)
+  // Rares & Upgrades (Increase unit's production / attack etc.)
   mapping(address => mapping(uint256 => uint256)) public unitCoinProductionIncreases; // Adds to the coin per second
   mapping(address => mapping(uint256 => uint256)) public unitCoinProductionMultiplier; // Multiplies the coin per second
   mapping(address => mapping(uint256 => uint256)) public unitAttackIncreases;
@@ -494,7 +494,7 @@ contract CardsBase is JadeCoin {
     return (amount * (schema.unitCoinProduction(unitId) + unitCoinProductionIncreases[player][unitId]) * (10 + unitCoinProductionMultiplier[player][unitId])); 
   } 
 
-  /// one card&#39;s production
+  /// one card's production
   function getUnitsInProduction(address player, uint256 unitId, uint256 amount) external constant returns (uint256) {
     return SafeMath.div(SafeMath.mul(amount,uintProduction[player][unitId]),unitsOwned[player][unitId]);
   } 
@@ -512,7 +512,7 @@ contract CardsBase is JadeCoin {
     return (amount * (schema.unitStealingCapacity(unitId) + unitJadeStealingIncreases[player][unitId]) * (10 + unitJadeStealingMultiplier[player][unitId])) / 10;
   }
  
-  // player&#39;s attacking & defending & stealing & battle power
+  // player's attacking & defending & stealing & battle power
   function getPlayersBattleStats(address player) public constant returns (
     uint256 attackingPower, 
     uint256 defendingPower, 
@@ -738,7 +738,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

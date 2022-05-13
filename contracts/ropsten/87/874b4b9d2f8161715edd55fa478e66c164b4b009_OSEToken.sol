@@ -123,7 +123,7 @@ contract StandardToken is ERC20 {
   /**
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    *
-   * To avoid the following issue, check if allowance is set to 0.  Only when it&#39;s set 0, it can update the allowance.
+   * To avoid the following issue, check if allowance is set to 0.  Only when it's set 0, it can update the allowance.
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -286,7 +286,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

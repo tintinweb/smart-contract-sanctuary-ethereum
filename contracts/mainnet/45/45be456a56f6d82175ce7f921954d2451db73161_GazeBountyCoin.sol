@@ -1,7 +1,7 @@
 pragma solidity ^0.4.16;
 
 // ----------------------------------------------------------------------------
-// GBC &#39;Gaze Bounty Coin&#39; token contract
+// GBC 'Gaze Bounty Coin' token contract
 //
 // Deployed to : 0x45bE456a56f6D82175Ce7f921954d2451Db73161
 // Symbol      : GBC
@@ -198,7 +198,7 @@ contract GazeBountyCoin is ERC20Interface, Administered {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _amount) returns (bool success) {
         if (balances[msg.sender] >= _amount             // User has balance
@@ -231,7 +231,7 @@ contract GazeBountyCoin is ERC20Interface, Administered {
 
 
     // ------------------------------------------------------------------------
-    // Spender of tokens transfer an amount of tokens from the token owner&#39;s
+    // Spender of tokens transfer an amount of tokens from the token owner's
     // balance to another account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
@@ -258,7 +258,7 @@ contract GazeBountyCoin is ERC20Interface, Administered {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(
         address _owner,
@@ -308,7 +308,7 @@ contract GazeBountyCoin is ERC20Interface, Administered {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ethers - no payable modifier
+    // Don't accept ethers - no payable modifier
     // ------------------------------------------------------------------------
     function () {
     }

@@ -6,35 +6,35 @@ contract Token {
 
     function totalSupply() constant returns (uint256 supply) {}
 
-         /// @param _owner L&#39;indirizzo a cui sar&#224; assegnato il saldo iniziale
+         /// @param _owner L'indirizzo a cui sar&#224; assegnato il saldo iniziale
          /// @return bilancio
 
     function balanceOf(address _owner) constant returns (uint256 balance) {}
 
          /// @notice send `_value` token to `_to` from `msg.sender`
-         /// @param _to L&#39;indirizzo del destinatario
+         /// @param _to L'indirizzo del destinatario
          /// @param _value La quantit&#224; di token da trasferire
          /// @return Se il trasferimento ha avuto successo o meno
 
     function transfer(address _to, uint256 _value) returns (bool success) {}
 
          /// @notice send `_value` token to `_to` from `_from` on the condition it is approved by `_from`
-         /// @param _from L&#39;indirizzo del mittente
-         /// @param _to L&#39;indirizzo del destinatario
+         /// @param _from L'indirizzo del mittente
+         /// @param _to L'indirizzo del destinatario
          /// @param _value La quantit&#224; di token da trasferire
          /// @return Se il trasferimento ha avuto successo o meno
 
     function transferFrom(address _from, address _to, uint256 _value) returns (bool success) {}
 
          /// @notice `msg.sender` approves `_addr` to spend `_value` tokens
-         /// @param _spender L&#39;indirizzo dell&#39;account in grado di trasferire i token
+         /// @param _spender L'indirizzo dell'account in grado di trasferire i token
          /// @param _value La quantit&#224; di wei da approvare per il trasferimento
-         /// @return Se l&#39;approvazione ha avuto successo o meno
+         /// @return Se l'approvazione ha avuto successo o meno
 
     function approve(address _spender, uint256 _value) returns (bool success) {}
 
-         /// @param _owner L&#39;indirizzo dell&#39;account proprietario di token
-         /// @param _spender L&#39;indirizzo dell&#39;account in grado di trasferire i token
+         /// @param _owner L'indirizzo dell'account proprietario di token
+         /// @param _spender L'indirizzo dell'account in grado di trasferire i token
          /// @return La quantit&#224; di token rimanenti
 
     function allowance(address _owner, address _spender) constant returns (uint256 remaining) {}
@@ -106,21 +106,21 @@ contract myToken is StandardToken {  //Update the contract name.
     string public name;                   // Nome token
     uint8 public decimals;                // Quanti decimali mostrare. Lo standard &#232; 18
     string public symbol;                 // Un identificatore
-    string public version = &#39;H1.0&#39;; 
+    string public version = 'H1.0'; 
     uint256 public unitsOneEthCanBuy;     // Quante unit&#224; della tua moneta possono essere acquistate entro 1 ETH
-    uint256 public totalEthInWei;         // WEI &#232; la pi&#249; piccola unit&#224; di ETH. Qui archiviamo l&#39;ETH totale raccolto tramite il nostro ICO.
-    address public fundsWallet;           // Dove dovrebbe andare l&#39;ETH 
+    uint256 public totalEthInWei;         // WEI &#232; la pi&#249; piccola unit&#224; di ETH. Qui archiviamo l'ETH totale raccolto tramite il nostro ICO.
+    address public fundsWallet;           // Dove dovrebbe andare l'ETH 
 
     // This is a constructor function 
     // which means the following function name has to match the contract name declared above
 
     function myToken() {
         balances[msg.sender] = 10000000000000000000000;             //Tutti i token iniziali. Se lo impostiamo a 1000 per esempio. Se vuoi che i tuoi token iniziali siano X e il tuo decimale sia 5, imposta questo valore su X * 100000
-        totalSupply = 10000000000000000000000;                      //Aggiorna l&#39;offerta totale (1000 per esempio) 
+        totalSupply = 10000000000000000000000;                      //Aggiorna l'offerta totale (1000 per esempio) 
         name = "myToken";                                           // Imposta il nome del token
         decimals = 18;                                              // Quantit&#224; di decimali visualizzati
         symbol = "MYTO";                                            // Imposta il simbolo
-        unitsOneEthCanBuy = 10;                                     // Imposta il prezzo del tuo token per l&#39;ICO 
+        unitsOneEthCanBuy = 10;                                     // Imposta il prezzo del tuo token per l'ICO 
         fundsWallet = msg.sender;                                   // Il proprietario del contratto ottiene ETH
     }
 

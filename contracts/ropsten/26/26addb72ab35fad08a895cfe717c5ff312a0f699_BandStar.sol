@@ -14,7 +14,7 @@ interface ERC165Interface {
 
 contract ERC165 is ERC165Interface {
   // 0x01ffc9a7 ===
-  // bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+  // bytes4(keccak256('supportsInterface(bytes4)'))
   bytes4 public constant InterfaceId_ERC165 = 0x01ffc9a7;
 }
 
@@ -96,7 +96,7 @@ interface ERC721Interface /* is ERC165 */ {
   function approve(address _approved, uint256 _tokenId) external payable;
 
   /// @notice Enable or disable approval for a third party ("operator") to manage
-  ///  all of `msg.sender`&#39;s assets.
+  ///  all of `msg.sender`'s assets.
   /// @dev Emits the ApprovalForAll event. The contract MUST allow
   ///  multiple operators per owner.
   /// @param _operator Address to add to the set of authorized operators.
@@ -118,15 +118,15 @@ interface ERC721Interface /* is ERC165 */ {
 
 contract ERC721 is ERC721Interface {
   // 0x80ac58cd ===
-  // bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-  // bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-  // bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-  // bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+  // bytes4(keccak256('balanceOf(address)')) ^
+  // bytes4(keccak256('ownerOf(uint256)')) ^
+  // bytes4(keccak256('approve(address,uint256)')) ^
+  // bytes4(keccak256('getApproved(uint256)')) ^
+  // bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+  // bytes4(keccak256('isApprovedForAll(address,address)')) ^
+  // bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+  // bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+  // bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
   bytes4 public constant InterfaceId_ERC721 = 0x80ac58cd;
 }
 
@@ -449,7 +449,7 @@ contract SixPillars is ERC165, ERC721, ERC721Enumerable, ERC721Metadata, ERC721T
 
     // can transfer, if meet one of the confitions
     // 1. sender is owner.
-    // 2. sender is approved of owner&#39;s all token transfer to "_to" address.
+    // 2. sender is approved of owner's all token transfer to "_to" address.
     // 3. if an approved address is set,
     // 3-1. and amount is set, approved sender pay token amount to owner, transfer to "_to" address.
     // 3-2. and amount is not set, sender is approved of token transfer to "_to" address.

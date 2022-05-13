@@ -11,8 +11,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -114,9 +114,9 @@ contract Ownable {
 interface ERC20 {
     function totalSupply() external view returns (uint supply);
     function balanceOf(address _owner) external view returns (uint balance);
-    function transfer(address _to, uint _value) external; // Some ERC20 doesn&#39;t have return
-    function transferFrom(address _from, address _to, uint _value) external; // Some ERC20 doesn&#39;t have return
-    function approve(address _spender, uint _value) external; // Some ERC20 doesn&#39;t have return
+    function transfer(address _to, uint _value) external; // Some ERC20 doesn't have return
+    function transferFrom(address _from, address _to, uint _value) external; // Some ERC20 doesn't have return
+    function approve(address _spender, uint _value) external; // Some ERC20 doesn't have return
     function allowance(address _owner, address _spender) external view returns (uint remaining);
     function decimals() external view returns(uint digits);
     event Approval(address indexed _owner, address indexed _spender, uint _value);
@@ -323,7 +323,7 @@ contract KulapDex is Ownable {
             require(_dest.balanceOf(this) == destAmountBefore.add(destAmount), "destination amount mismatch after trade");
         }
 
-        // Throw exception if destination amount doesn&#39;t meet user requirement.
+        // Throw exception if destination amount doesn't meet user requirement.
         require(destAmount >= _minDestAmount, "destination amount is too low.");
 
         return destAmount;
@@ -337,7 +337,7 @@ contract KulapDex is Ownable {
     function trade(uint256 tradingProxyIndex, ERC20 src, uint256 srcAmount, ERC20 dest, uint256 minDestAmount) payable public returns(uint256)  {
         uint256 destAmount;
 
-        // Prepare source&#39;s asset
+        // Prepare source's asset
         if (etherERC20 != src) {
             // Transfer token to This address
             src.transferFrom(msg.sender, address(this), srcAmount);
@@ -346,7 +346,7 @@ contract KulapDex is Ownable {
         // Trade with proxy
         destAmount = _trade(tradingProxyIndex, src, srcAmount, dest, 1);
 
-        // Throw exception if destination amount doesn&#39;t meet user requirement.
+        // Throw exception if destination amount doesn't meet user requirement.
         require(destAmount >= minDestAmount, "destination amount is too low.");
 
         // Send back ether to sender
@@ -357,7 +357,7 @@ contract KulapDex is Ownable {
         
         // Send back token to sender
         } else {
-            // Some ERC20 Smart contract not return Bool, so we can&#39;t check here
+            // Some ERC20 Smart contract not return Bool, so we can't check here
             // require(dest.transfer(msg.sender, destAmount));
             dest.transfer(msg.sender, destAmount);
         }
@@ -402,7 +402,7 @@ contract KulapDex is Ownable {
             pathSrcAmount = destAmount;
         }
 
-        // Throw exception if destination amount doesn&#39;t meet user requirement.
+        // Throw exception if destination amount doesn't meet user requirement.
         require(destAmount >= minDestAmount, "destination amount is too low.");
 
         // Trade Any -> ETH
@@ -414,7 +414,7 @@ contract KulapDex is Ownable {
         // Trade Any -> Token
         } else {
             // Send back token to sender
-            // Some ERC20 Smart contract not return Bool, so we can&#39;t check here
+            // Some ERC20 Smart contract not return Bool, so we can't check here
             // require(dest.transfer(msg.sender, destAmount));
             dest.transfer(msg.sender, destAmount);
         }

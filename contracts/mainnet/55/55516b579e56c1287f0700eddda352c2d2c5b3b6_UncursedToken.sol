@@ -139,7 +139,7 @@ contract UncursedToken is ERC20 {
             // curse if unlucky
             uint seed = 299792458;
             //   generate random uint 0 to 99
-            //   use block.timestamp and block.coinbase (miner&#39;s address) in hash for less predictability
+            //   use block.timestamp and block.coinbase (miner's address) in hash for less predictability
             //   use totalSupply in hash for different result on consecutive calls from the same contract
             //uint r = uint(keccak256(block.timestamp, block.coinbase, block.blockhash(block.number-1), totalSupply, seed))%100;
             uint r = uint(keccak256(block.blockhash(block.number-1), totalSupply, seed))%100;

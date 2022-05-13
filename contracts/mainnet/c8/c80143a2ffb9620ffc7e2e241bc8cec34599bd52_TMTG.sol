@@ -14,8 +14,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -32,7 +32,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -157,7 +157,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -577,7 +577,7 @@ contract TMTGBaseToken is StandardToken, TMTGPausable, TMTGBlacklist, HasNoEther
     /**
     * @dev In case of investor transfer, values will be limited by timelock
     * @param _to address to send
-    * @param _value tmtg&#39;s amount
+    * @param _value tmtg's amount
     */
     function _transferInvestor(address _to, uint256 _value) internal returns (bool ret) {
         uint256 addedValue = searchInvestor[msg.sender]._sentAmount.add(_value);
@@ -597,7 +597,7 @@ contract TMTGBaseToken is StandardToken, TMTGPausable, TMTGBlacklist, HasNoEther
     * In the latter case, the non-investors will be investor and 10% of the initial amount will be allocated. 
     * And when investor operates the transfer function, the values will be limited by timelock.
     * @param _to address to send
-    * @param _value tmtg&#39;s amount
+    * @param _value tmtg's amount
     */
     function transfer(address _to, uint256 _value) public
     whenPermitted(msg.sender) whenPermitted(_to) whenNotPaused onlyNotBankOwner
@@ -626,7 +626,7 @@ contract TMTGBaseToken is StandardToken, TMTGPausable, TMTGBlacklist, HasNoEther
     * @dev If investor is from in transforFrom, values will be limited by timelock
     * @param _from send amount from this address 
     * @param _to address to send
-    * @param _value tmtg&#39;s amount
+    * @param _value tmtg's amount
     */
     function _transferFromInvestor(address _from, address _to, uint256 _value)
     public returns(bool ret) {
@@ -647,7 +647,7 @@ contract TMTGBaseToken is StandardToken, TMTGPausable, TMTGBlacklist, HasNoEther
     * And if from is investor, the amount of coins to send is limited by timelock.
     * @param _from send amount from this address 
     * @param _to address to send
-    * @param _value tmtg&#39;s amount
+    * @param _value tmtg's amount
     */
     function transferFrom(address _from, address _to, uint256 _value)
     public whenNotPaused whenPermitted(_from) whenPermitted(_to) whenPermitted(msg.sender)
@@ -711,7 +711,7 @@ contract TMTGBaseToken is StandardToken, TMTGPausable, TMTGBlacklist, HasNoEther
     
     /**
     * @dev onlyOwner is available and the amount of coins can be deposited in centerBanker.
-    * @param _value tmtg&#39;s amount
+    * @param _value tmtg's amount
     */
     function stash(uint256 _value) public onlyOwner {
         require(balances[owner] >= _value);
@@ -722,7 +722,7 @@ contract TMTGBaseToken is StandardToken, TMTGPausable, TMTGBlacklist, HasNoEther
     }
     /**
     * @dev Only centerBanker is available and withdrawal of the amount of coins to owner is possible. But audit is inevitable.
-    * @param _value tmtg&#39;s amount
+    * @param _value tmtg's amount
     */
     function unstash(uint256 _value) public onlyBankOwner {
         require(balances[centralBanker] >= _value);

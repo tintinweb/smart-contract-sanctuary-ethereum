@@ -88,8 +88,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -107,7 +107,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -207,7 +207,7 @@ contract ERC20 is IERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -335,7 +335,7 @@ contract ERC20 is IERC20 {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param value The amount that will be burnt.
@@ -373,7 +373,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));
@@ -563,7 +563,7 @@ library ERC165Checker {
   bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
@@ -728,11 +728,11 @@ contract ERC165 is IERC165 {
   bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -780,17 +780,17 @@ contract IERC1363 is IERC20, ERC165 {
   /*
    * Note: the ERC-165 identifier for this interface is 0x4bbee2df.
    * 0x4bbee2df ===
-   *   bytes4(keccak256(&#39;transferAndCall(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferAndCall(address,uint256,bytes)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFromAndCall(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFromAndCall(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('transferAndCall(address,uint256)')) ^
+   *   bytes4(keccak256('transferAndCall(address,uint256,bytes)')) ^
+   *   bytes4(keccak256('transferFromAndCall(address,address,uint256)')) ^
+   *   bytes4(keccak256('transferFromAndCall(address,address,uint256,bytes)'))
    */
 
   /*
    * Note: the ERC-165 identifier for this interface is 0xfb9ec8ce.
    * 0xfb9ec8ce ===
-   *   bytes4(keccak256(&#39;approveAndCall(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approveAndCall(address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('approveAndCall(address,uint256)')) ^
+   *   bytes4(keccak256('approveAndCall(address,uint256,bytes)'))
    */
 
   /**
@@ -839,7 +839,7 @@ contract IERC1363 is IERC20, ERC165 {
    *  and then call `onApprovalReceived` on spender
    *  Beware that changing an allowance with this method brings the risk that someone may use both the old
    *  and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   *  race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   *  race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    *  https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender address The address which will spend the funds
    * @param value uint256 The amount of tokens to be spent
@@ -851,7 +851,7 @@ contract IERC1363 is IERC20, ERC165 {
    *  and then call `onApprovalReceived` on spender
    *  Beware that changing an allowance with this method brings the risk that someone may use both the old
    *  and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   *  race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   *  race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    *  https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender address The address which will spend the funds
    * @param value uint256 The amount of tokens to be spent
@@ -936,18 +936,18 @@ contract ERC1363 is ERC20, IERC1363 { // solium-disable-line max-len
   /*
    * Note: the ERC-165 identifier for this interface is 0x4bbee2df.
    * 0x4bbee2df ===
-   *   bytes4(keccak256(&#39;transferAndCall(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferAndCall(address,uint256,bytes)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFromAndCall(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFromAndCall(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('transferAndCall(address,uint256)')) ^
+   *   bytes4(keccak256('transferAndCall(address,uint256,bytes)')) ^
+   *   bytes4(keccak256('transferFromAndCall(address,address,uint256)')) ^
+   *   bytes4(keccak256('transferFromAndCall(address,address,uint256,bytes)'))
    */
   bytes4 internal constant _InterfaceId_ERC1363Transfer = 0x4bbee2df;
 
   /*
    * Note: the ERC-165 identifier for this interface is 0xfb9ec8ce.
    * 0xfb9ec8ce ===
-   *   bytes4(keccak256(&#39;approveAndCall(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approveAndCall(address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('approveAndCall(address,uint256)')) ^
+   *   bytes4(keccak256('approveAndCall(address,uint256,bytes)'))
    */
   bytes4 internal constant _InterfaceId_ERC1363Approve = 0xfb9ec8ce;
 

@@ -10,7 +10,7 @@ contract VANC {
   mapping(address => uint256) balances;
   // Create a table so that we can map
   // the addresses of contract owners to
-  // those who are allowed to utilize the owner&#39;s contract
+  // those who are allowed to utilize the owner's contract
   mapping(address => mapping (address => uint256)) allowed;
   // In this case, the total supply
   // of MyERCToken is fixed, but
@@ -22,7 +22,7 @@ contract VANC {
   function totalSupply() constant returns (uint256 theTotalSupply) {
     // Because our function signature
     // states that the returning variable
-    // is "theTotalSupply", we&#39;ll just set that variable
+    // is "theTotalSupply", we'll just set that variable
     // to the value of the instance variable "_totalSupply"
     // and return it
     theTotalSupply = _totalSupply;
@@ -53,7 +53,7 @@ contract VANC {
       balances[msg.sender] -= _amount;
       balances[_to] += _amount;
       // Fire a transfer event for any
-      // logic that&#39;s listening
+      // logic that's listening
       Transfer(msg.sender, _to, _amount);
         return true;
       } else {

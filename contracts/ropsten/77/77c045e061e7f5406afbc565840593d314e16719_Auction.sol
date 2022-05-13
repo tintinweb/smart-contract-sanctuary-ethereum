@@ -88,7 +88,7 @@ contract Auction {
         address(0x0).transfer(address(this).balance);   // burn
     }
 
-    // This function should return the winner&#39;s address for the given auction.
+    // This function should return the winner's address for the given auction.
     function winningBidder(string _name) public view returns (address) {
         
         bytes memory nameBytes = bytes(_name);

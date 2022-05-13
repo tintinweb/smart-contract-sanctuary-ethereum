@@ -12,10 +12,10 @@ contract ERC20TokenInterface {
 }
 
 contract CAF1 is ERC20TokenInterface {
-  string public constant name = &#39;CAF1&#39;;
+  string public constant name = 'CAF1';
   uint256 public constant decimals = 2;
-  string public constant symbol = &#39;CAF1&#39;;
-  string public constant version = &#39;v0.0.1&#39;;
+  string public constant symbol = 'CAF1';
+  string public constant version = 'v0.0.1';
 
   uint256 private constant totalTokens = 277777 * (10 ** decimals);
 

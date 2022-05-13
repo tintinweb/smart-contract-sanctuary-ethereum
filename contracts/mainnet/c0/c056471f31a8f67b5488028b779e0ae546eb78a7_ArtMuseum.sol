@@ -117,7 +117,7 @@ contract ArtMuseumBase is Ownable {
 	mapping(address=>mapping(uint8 => uint32)) userArtworkSequenceNumber;
 	/** the cost of each artwork type */
 	uint128[] public costs;
-	/** the value of each artwork type (cost - fee), so it&#39;s not necessary to compute it each time*/
+	/** the value of each artwork type (cost - fee), so it's not necessary to compute it each time*/
 	uint128[] public values;
 	/** the fee to be paid each time an artwork is bought in percent*/
 	uint8 public fee;
@@ -151,8 +151,8 @@ contract ArtMuseumBase is Ownable {
 
 	/**
 	 * allows the owner to collect the accumulated fees
-	 * sends the given amount to the owner&#39;s address if the amount does not exceed the
-	 * fees (cannot touch the players&#39; balances)
+	 * sends the given amount to the owner's address if the amount does not exceed the
+	 * fees (cannot touch the players' balances)
 	 * */
 	function collectFees(uint128 amount) public onlyOwner {
 		uint collectedFees = getFees();
@@ -259,7 +259,7 @@ contract ArtMuseum is ArtMuseumBase {
 		// Solidity scratch pad at memory position 0.
 		calldatacopy(0, 0, calldatasize)
 		// Call the implementation.
-		// out and outsize are 0 because we don&#39;t know the size yet.
+		// out and outsize are 0 because we don't know the size yet.
 		let result := delegatecall(gas, implementation, 0, calldatasize, 0, 0)
 		// Copy the returned data.
 		returndatacopy(0, 0, returndatasize)

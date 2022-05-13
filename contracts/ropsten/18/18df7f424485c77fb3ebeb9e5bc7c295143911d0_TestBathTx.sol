@@ -51,7 +51,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint256) {
     assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 }
@@ -67,7 +67,7 @@ contract TokenERC20 {
     // 18 decimals is the strongly suggested default, avoid changing it
     uint256 public totalSupply;
 
-    string public version = &#39;J1.0&#39;;
+    string public version = 'J1.0';
 
     // This creates an array with all balances
     mapping (address => uint256) public balanceOf;
@@ -206,7 +206,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;

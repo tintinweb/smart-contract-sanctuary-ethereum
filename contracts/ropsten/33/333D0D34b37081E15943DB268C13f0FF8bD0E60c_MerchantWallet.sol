@@ -170,10 +170,10 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
 
     string constant VERSION = "0.5";
 
-    /// Address of merchant&#39;s account, that can withdraw from wallet
+    /// Address of merchant's account, that can withdraw from wallet
     address public merchantAccount;
 
-    /// Address of merchant&#39;s fund address.
+    /// Address of merchant's fund address.
     address public merchantFundAddress;
 
     /// Unique Merchant identifier hash
@@ -218,9 +218,9 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  @param _merchantAccount Address of merchant&#39;s account, that can withdraw from wallet
+     *  @param _merchantAccount Address of merchant's account, that can withdraw from wallet
      *  @param _merchantId Merchant identifier
-     *  @param _fundAddress Merchant&#39;s fund address, where amount will be transferred.
+     *  @param _fundAddress Merchant's fund address, where amount will be transferred.
      */
     constructor(address _merchantAccount, string _merchantId, address _fundAddress) public isEOA(_fundAddress) {
         require(_merchantAccount != 0x0);
@@ -307,7 +307,7 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  Allows merchant to withdraw funds to it&#39;s own account
+     *  Allows merchant to withdraw funds to it's own account
      */
     function withdraw(uint amount) external onlyMerchant {
         withdrawTo(msg.sender, amount);
@@ -329,14 +329,14 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  Allows merchant to change it&#39;s account address
+     *  Allows merchant to change it's account address
      */
     function changeMerchantAccount(address newAccount) external onlyMerchant whenNotPaused {
         merchantAccount = newAccount;
     }
 
     /**
-     *  Allows merchant to change it&#39;s fund address.
+     *  Allows merchant to change it's fund address.
      */
     function changeFundAddress(address newFundAddress) external onlyMerchant isEOA(newFundAddress) {
         merchantFundAddress = newFundAddress;

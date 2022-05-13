@@ -15,17 +15,17 @@ pragma solidity ^0.4.24;
  *
  * HOW TO USE:
  *  1. Send of ether to make an investment (minimum 0.0001 ETH for the first investment)
- *  2a. Claim your profit by sending 0 ether transaction (every day, every week, i don&#39;t care unless you&#39;re spending too much on GAS)
+ *  2a. Claim your profit by sending 0 ether transaction (every day, every week, i don't care unless you're spending too much on GAS)
  *  OR
  *  2b. Send more ether to reinvest AND get your profit at the same time
  *
  * PARTNER PROGRAM:
- * At the moment of making the first deposit, the referral indicates in the DATA field the ETH address of the referrer&#39;s wallet,
+ * At the moment of making the first deposit, the referral indicates in the DATA field the ETH address of the referrer's wallet,
  * and the referrer then receives 12% of the first attachment of the referral,
  * and the referral also immediately gets back 13% of his deposit
  *
  * NOTES:
- * All ETHs that you&#39;ve sent will be added to your deposit.
+ * All ETHs that you've sent will be added to your deposit.
  * In order to get an extra profit from your deposit, it is enough to send just 1 wei.
  * It is not allowed to transfer from exchanges, only from your personal ETH wallet, for which you
  * have private keys.
@@ -138,7 +138,7 @@ contract Leprechaun is Storage {
         address addr = msg.sender;
         uint size;
         assembly { size := extcodesize(addr) }
-        require(size == 0, "You&#39;re not a human!");
+        require(size == 0, "You're not a human!");
         _;
     }
 

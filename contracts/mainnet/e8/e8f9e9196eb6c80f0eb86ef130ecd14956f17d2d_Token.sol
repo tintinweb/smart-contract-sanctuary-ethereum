@@ -239,7 +239,7 @@ contract Token is ERC20, Lockable
             {
                 uint256 balanceAfterTransfer = availableTokens.sub(amount);      
 
-                assert(balanceAfterTransfer >= icoReserveSupply);          // don&#39;t sell more than allowed during ICO
+                assert(balanceAfterTransfer >= icoReserveSupply);          // don't sell more than allowed during ICO
             }
         }
 
@@ -276,7 +276,7 @@ contract Token is ERC20, Lockable
     //--------------------------------------------------------------------------
     function() public                       
     {
-        assert(true == false);      // If Ether is sent to this address, don&#39;t handle it -> send it back.
+        assert(true == false);      // If Ether is sent to this address, don't handle it -> send it back.
     }
     //--------------------------------------------------------------------------
     //--------------------------------------------------------------------------

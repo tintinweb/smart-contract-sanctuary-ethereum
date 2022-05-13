@@ -4,7 +4,7 @@ pragma solidity ^0.4.21;
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public view returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -34,7 +34,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != address(0));
         _;
@@ -194,7 +194,7 @@ contract ContractRegistry is IContractRegistry, Owned, Utils {
         if (!items[_contractName].isSet) {
             // mark the item as set
             items[_contractName].isSet = true;
-            // add the contract name to the name list and update the item&#39;s index in the list
+            // add the contract name to the name list and update the item's index in the list
             items[_contractName].nameIndex = names.push(_contractName) - 1;
         }
 
@@ -216,11 +216,11 @@ contract ContractRegistry is IContractRegistry, Owned, Utils {
         if (items[_contractName].isSet) {
             // mark the item as empty
             items[_contractName].isSet = false;
-            // move the last element to the deleted element&#39;s position
+            // move the last element to the deleted element's position
             names[items[_contractName].nameIndex] = names[names.length - 1];
             // remove the last element from the name list
             names.length--;
-            // zero the deleted element&#39;s index
+            // zero the deleted element's index
             items[_contractName].nameIndex = 0;
         }
 

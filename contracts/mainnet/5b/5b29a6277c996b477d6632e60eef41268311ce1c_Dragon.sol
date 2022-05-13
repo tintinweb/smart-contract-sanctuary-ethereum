@@ -31,7 +31,7 @@ contract ERC20 {
 contract Dragon is ERC20 {
 
 
-    string public standard = &#39;DRAGON 1.0&#39;;
+    string public standard = 'DRAGON 1.0';
     string public name;
     string public symbol;
     uint8 public decimals;

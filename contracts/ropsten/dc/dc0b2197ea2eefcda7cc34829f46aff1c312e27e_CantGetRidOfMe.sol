@@ -107,7 +107,7 @@ contract CantGetRidOfMe is ERC20Interface, Owned, SafeMath {
         
         // token parameters
         symbol = "CANTSEND";
-        name = "Can&#39;t Get Rid of Me";
+        name = "Can't Get Rid of Me";
         decimals = 0;
         uint256 wholeTokens = 100;
         
@@ -213,7 +213,7 @@ contract CantGetRidOfMe is ERC20Interface, Owned, SafeMath {
         
     }
     
-    // allows price to be lowered as ether&#39;s value goes up
+    // allows price to be lowered as ether's value goes up
     function setSendCost(uint256 newPriceToSend) external onlyOwner returns (bool success) {
         priceToSend = newPriceToSend;
         return true;

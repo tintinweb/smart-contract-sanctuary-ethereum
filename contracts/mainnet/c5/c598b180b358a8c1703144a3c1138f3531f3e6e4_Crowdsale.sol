@@ -535,7 +535,7 @@ contract OraclizeC is Ownable, usingOraclize {
     LogOraclizeAddrResolverI(__oar);
   }
 
-  //we need to get back our funds if we don&#39;t need this oracle anymore
+  //we need to get back our funds if we don't need this oracle anymore
   function withdraw(address receiver) external onlyOwner inStoppedState {
     require(receiver != 0x0);
     receiver.transfer(this.balance);
@@ -610,7 +610,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -693,7 +693,7 @@ contract ETHPriceProvider is OraclizeC {
 
   function update(uint delay) private {
     if (oraclize_getPrice("URL") > this.balance) {
-      //stop if we don&#39;t have enough funds anymore
+      //stop if we don't have enough funds anymore
       state = State.Stopped;
       LogOraclizeQuery("Oraclize query was NOT sent", this.balance,block.timestamp);
     } else {
@@ -811,7 +811,7 @@ contract UnityToken is ERC223Interface {
 
   address public owner;
 
-  /* Constructor initializes the owner&#39;s balance and the supply  */
+  /* Constructor initializes the owner's balance and the supply  */
   function UnityToken() public {
     owner = msg.sender;
     totalSupply = INITIAL_SUPPLY;

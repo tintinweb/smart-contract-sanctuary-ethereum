@@ -348,7 +348,7 @@ contract PepeAuctionSale is AuctionBase {
         }
         //Send pepe to buyer
         if (!pepeContract.transfer(msg.sender, _pepeId)) {
-            revert(); //can&#39;t complete transfer if this fails
+            revert(); //can't complete transfer if this fails
         }
 
         emit AuctionWon(_pepeId, msg.sender, auction.seller);

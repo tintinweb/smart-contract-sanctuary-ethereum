@@ -67,8 +67,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -85,7 +85,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -413,10 +413,10 @@ contract AdvancedToken is AdvancedTokenStorage {
     {
         require(_tokenAmount <= balances[_who], "burn value exceeds balance");
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         balances[_who] = balances[_who].sub(_tokenAmount);
-        if (balances[_who] <= 10) { // we can&#39;t leave such small balance quantities
+        if (balances[_who] <= 10) { // we can't leave such small balance quantities
             _tokenAmount = _tokenAmount.add(balances[_who]);
             balances[_who] = 0;
         }
@@ -655,7 +655,7 @@ contract LoanTokenLogic is AdvancedToken, OracleNotifierInterface {
             withdrawOnOpen,
             false // calcBorrow
         );
-        require(amount > 0, "can&#39;t borrow");
+        require(amount > 0, "can't borrow");
         return amount;
     }
 
@@ -681,7 +681,7 @@ contract LoanTokenLogic is AdvancedToken, OracleNotifierInterface {
             withdrawOnOpen,
             true // calcBorrow
         );
-        require(amount > 0, "can&#39;t borrow");
+        require(amount > 0, "can't borrow");
         return amount;
     }
 
@@ -1033,7 +1033,7 @@ contract LoanTokenLogic is AdvancedToken, OracleNotifierInterface {
         return leverageList;
     }
 
-    // returns the user&#39;s balance of underlying token
+    // returns the user's balance of underlying token
     function assetBalanceOf(
         address _owner)
         public
@@ -1486,7 +1486,7 @@ contract LoanTokenLogic is AdvancedToken, OracleNotifierInterface {
             uint256 interestOwedPerDay,
             uint256 interestUnPaid)
     {
-        // these values don&#39;t account for any fees retained by the oracle, so we account for it elsewhere with spreadMultiplier
+        // these values don't account for any fees retained by the oracle, so we account for it elsewhere with spreadMultiplier
         (interestPaidSoFar,,interestOwedPerDay,interestUnPaid) = IBZx(bZxContract).getLenderInterestForOracle(
             address(this),
             bZxOracle, // (leave as original value)
@@ -1706,7 +1706,7 @@ contract LoanTokenLogic is AdvancedToken, OracleNotifierInterface {
     }
 
     // These params should be percentages represented like so: 5% = 5000000000000000000
-    // rateMultiplier + baseRate can&#39;t exceed 100%
+    // rateMultiplier + baseRate can't exceed 100%
     function setDemandCurve(
         uint256 _baseRate,
         uint256 _rateMultiplier)

@@ -37,8 +37,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -55,7 +55,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -110,11 +110,11 @@ contract ClockAuctionBase {
   ERC721Basic public nfContract;
 
   /*
-  * @dev The owner&#39;s cut on each auction, measured in 1/100 of a percent
+  * @dev The owner's cut on each auction, measured in 1/100 of a percent
   * 1 = 0,001%
   * 1000 = 1%
   * 10000 = 10%
-  * 10&#39;000 = 100%;
+  * 10'000 = 100%;
   */
   uint256 public ownerCut;
 
@@ -144,7 +144,7 @@ contract ClockAuctionBase {
   );
 
   /*
-  * @dev Checks ownership of a token (uses the ERC721&#39; ownerOf() function)
+  * @dev Checks ownership of a token (uses the ERC721' ownerOf() function)
   */
   function _owns(address _address, uint256 _tokenId)
   internal view returns (bool)
@@ -224,7 +224,7 @@ contract ClockAuctionBase {
 
     // Transfer winnings to the seller
     if (price > 0) {
-      // Compute the owner&#39;s cut
+      // Compute the owner's cut
       // _computeCut is guaranteed to return a value <= price
       uint256 auctioneerCut = _computeCut(price);
       uint256 sellerProceeds = price - auctioneerCut;
@@ -311,7 +311,7 @@ contract ClockAuctionBase {
   }
 
   /*
-  * @dev Computes the owner&#39;s cut of an auction sale
+  * @dev Computes the owner's cut of an auction sale
   */
   function _computeCut(uint256 _price)
   internal
@@ -553,11 +553,11 @@ contract SupportsInterfaceWithLookup is ERC165 {
   bytes4 public constant InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) internal supportedInterfaces;
 
@@ -953,21 +953,21 @@ contract ERC721BasicToken is SupportsInterfaceWithLookup, ERC721Basic {
   bytes4 private constant InterfaceId_ERC721 = 0x80ac58cd;
   /*
    * 0x80ac58cd ===
-   *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-   *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-   *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('balanceOf(address)')) ^
+   *   bytes4(keccak256('ownerOf(uint256)')) ^
+   *   bytes4(keccak256('approve(address,uint256)')) ^
+   *   bytes4(keccak256('getApproved(uint256)')) ^
+   *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+   *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+   *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
    */
 
   bytes4 private constant InterfaceId_ERC721Exists = 0x4f558e79;
   /*
    * 0x4f558e79 ===
-   *   bytes4(keccak256(&#39;exists(uint256)&#39;))
+   *   bytes4(keccak256('exists(uint256)'))
    */
 
   using SafeMath for uint256;
@@ -1293,17 +1293,17 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken, ERC721 {
   bytes4 private constant InterfaceId_ERC721Enumerable = 0x780e9d63;
   /**
    * 0x780e9d63 ===
-   *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+   *   bytes4(keccak256('totalSupply()')) ^
+   *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+   *   bytes4(keccak256('tokenByIndex(uint256)'))
    */
 
   bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
   /**
    * 0x5b5e139f ===
-   *   bytes4(keccak256(&#39;name()&#39;)) ^
-   *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+   *   bytes4(keccak256('name()')) ^
+   *   bytes4(keccak256('symbol()')) ^
+   *   bytes4(keccak256('tokenURI(uint256)'))
    */
 
   // Token name
@@ -1595,7 +1595,7 @@ contract YummyBreeding is YummyOwnership {
   /**
    * @dev Breed tokens. Will either make the mother pregnant, or fail completely
    * @notice Requires a prepayment of the fee given out to the first caller of giveBirth()
-   * If successful, mother becomes pregnant and father&#39;s cooldown begins
+   * If successful, mother becomes pregnant and father's cooldown begins
    */
   function breedWithAuto(uint256 _motherId, uint256 _fatherId)
   external
@@ -1654,7 +1654,7 @@ contract YummyBreeding is YummyOwnership {
       parentGeneration = father.generation;
     }
 
-    // Compute the new token&#39;s DNA
+    // Compute the new token's DNA
     uint256 genes = geneScience.mixGenes(father.genes, mother.genes);
 
     // Create the new token
@@ -1675,7 +1675,7 @@ contract YummyBreeding is YummyOwnership {
     // Send the balance fee to the person who made birth happen
     msg.sender.transfer(autoBirthFee);
 
-    // Return the new token&#39;s ID
+    // Return the new token's ID
     return tokenId;
   }
 
@@ -1713,7 +1713,7 @@ contract YummyBreeding is YummyOwnership {
 
   /*
   * @dev Internal method for creating and storing a token
-  * @dev Doesn&#39;t check anything and should only be called with valid data
+  * @dev Doesn't check anything and should only be called with valid data
   */
   function _createToken(
     uint256 _motherId,
@@ -1791,8 +1791,8 @@ contract YummyBreeding is YummyOwnership {
   }
 
   /**
-  * @dev Set the cooldown end block for the token, based on it&#39;s current cooldownIndex
-  * Increment cooldownIndex if it hasn&#39;t hit the cap
+  * @dev Set the cooldown end block for the token, based on it's current cooldownIndex
+  * Increment cooldownIndex if it hasn't hit the cap
   */
   function _triggerCooldown(Token storage _token) internal {
     _token.cooldownEndBlock = uint64(
@@ -1875,12 +1875,12 @@ contract YummyBreeding is YummyOwnership {
     // No self-breeding
     if (_motherId == _fatherId) {return false;}
 
-    // No breeding token&#39;s father
+    // No breeding token's father
     if (_mother.motherId == _fatherId || _mother.fatherId == _fatherId) {
       return false;
     }
 
-    // No breeding token&#39;s mother
+    // No breeding token's mother
     if (_father.motherId == _motherId || _mother.fatherId == _motherId) {
       return false;
     }

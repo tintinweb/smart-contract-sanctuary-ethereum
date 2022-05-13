@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -76,16 +76,16 @@ contract Escrow {
             }
             serenity_wallet.transfer(fee);
             emit Deposit(msg.value.sub(fee));
-        } else {  // There&#39;s more SRNT available then needed. Burn a part of it.
+        } else {  // There's more SRNT available then needed. Burn a part of it.
             SRNT_token.transfer(0x0, fee.mul(10000));
             emit Deposit(msg.value);
         }
     }
 
     function request_withdrawal(address to, uint256 amount) external {
-        require(msg.sender != withdrawal_last_voter);  // You can&#39;t vote twice
+        require(msg.sender != withdrawal_last_voter);  // You can't vote twice
         require((msg.sender == party_a) || (msg.sender == party_b) || (msg.sender == serenity_wallet));
-        require((to == party_a) || (to == party_b));  // You can&#39;t withdraw to some random guy
+        require((to == party_a) || (to == party_b));  // You can't withdraw to some random guy
         require(amount <= address(this).balance);
 
         withdrawal_last_voter = msg.sender;

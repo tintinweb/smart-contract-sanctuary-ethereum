@@ -111,8 +111,8 @@ contract LockToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, ICOToken, LockToken {
     function CustomToken() public {
         totalSupply = 100000000000000000000000000000;
-        name = &#39;ArtpolloToken&#39;;
-        symbol = &#39;APT&#39;;
+        name = 'ArtpolloToken';
+        symbol = 'APT';
         decimals = 18;
         balanceOf[0x8665e102b2c4d22da6a391537c3dfbcc6799e90a] = totalSupply;
         Transfer(address(0), 0x8665e102b2c4d22da6a391537c3dfbcc6799e90a, totalSupply);

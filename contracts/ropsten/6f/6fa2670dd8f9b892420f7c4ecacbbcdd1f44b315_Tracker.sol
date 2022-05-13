@@ -14,7 +14,7 @@ contract SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         assert(b != 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -156,7 +156,7 @@ contract Tracker is SafeMath, Owned {
      */
     function updateHouse(address newHouseAddress,address oldHouseAddress) public {
         require(!trackerData.managed || msg.sender==owner,"Tracker is managed");
-        require(houses[oldHouseAddress].owner==msg.sender || houses[oldHouseAddress].owner==oldHouseAddress,"Caller isn&#39;t the owner of old House");
+        require(houses[oldHouseAddress].owner==msg.sender || houses[oldHouseAddress].owner==oldHouseAddress,"Caller isn't the owner of old House");
         require(!houses[newHouseAddress].isActive,"There is a new version of House already registered");  
         HouseContract houseContract = HouseContract(newHouseAddress);
         require(houseContract.isHouse(),"Invalid House");
@@ -177,7 +177,7 @@ contract Tracker is SafeMath, Owned {
      */
     function removeHouse(address houseAddress) public {
         require(!trackerData.managed || msg.sender==owner,"Tracker is managed");
-        require(houses[houseAddress].owner==msg.sender,"Caller isn&#39;t the owner of House");  
+        require(houses[houseAddress].owner==msg.sender,"Caller isn't the owner of House");  
         houses[houseAddress].isActive = false;
         emit TrackerChanged(houseAddress,Action.updated);
     }
@@ -188,7 +188,7 @@ contract Tracker is SafeMath, Owned {
      * UpVotes a house
      */
     function upVoteHouse(address houseAddress) public {
-        require(HouseContract(houseAddress).isPlayer(msg.sender),"Caller hasn&#39;t placed any bet");
+        require(HouseContract(houseAddress).isPlayer(msg.sender),"Caller hasn't placed any bet");
         require(!playerUpvoted[msg.sender][houseAddress],"Has already Upvoted");
         playerUpvoted[msg.sender][houseAddress] = true;
         houses[houseAddress].upVotes += 1;
@@ -201,7 +201,7 @@ contract Tracker is SafeMath, Owned {
      * DownVotes a house
      */
     function downVoteHouse(address houseAddress) public {
-        require(HouseContract(houseAddress).isPlayer(msg.sender),"Caller hasn&#39;t placed any bet");
+        require(HouseContract(houseAddress).isPlayer(msg.sender),"Caller hasn't placed any bet");
         require(!playerDownvoted[msg.sender][houseAddress],"Has already Downvoted");
         playerDownvoted[msg.sender][houseAddress] = true;
         houses[houseAddress].downVotes += 1;

@@ -437,7 +437,7 @@ contract TMBTokenSale {
         uint256 _partnersTokens = _soldTokens * partnersPercent / soldPercent;
         issueTokens(partners, _partnersTokens);
 
-        // burn everything but issued (sold + partners) and company&#39;s reserve
+        // burn everything but issued (sold + partners) and company's reserve
         uint256 _tokensToBurn = token.INITIAL_SUPPLY().sub(issuedTokens).sub(_soldTokens * companyPercent / soldPercent);
         token.burn(_tokensToBurn);
         token.start();
@@ -448,7 +448,7 @@ contract TMBTokenSale {
 
         require(tokensaleState == State.Finished && now > endSale + 1 days);
         
-        // the rest of tokens is exactly the company&#39;s amount
+        // the rest of tokens is exactly the company's amount
         uint256 _companyTokens = token.balanceOf(this);
         issueTokens(company, _companyTokens);
         

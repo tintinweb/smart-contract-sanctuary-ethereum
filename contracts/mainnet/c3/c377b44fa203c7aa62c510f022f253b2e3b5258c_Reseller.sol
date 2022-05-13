@@ -29,9 +29,9 @@ contract Reseller {
   
   // Withdraws SNT claimed by the user.
   function withdraw() {
-    // Store the user&#39;s amount of claimed SNT as the amount of SNT to withdraw.
+    // Store the user's amount of claimed SNT as the amount of SNT to withdraw.
     uint256 snt_to_withdraw = snt_claimed[msg.sender];
-    // Update the user&#39;s amount of claimed SNT first to prevent recursive call.
+    // Update the user's amount of claimed SNT first to prevent recursive call.
     snt_claimed[msg.sender] = 0;
     // Update the total amount of claimed SNT.
     total_snt_claimed -= snt_to_withdraw;

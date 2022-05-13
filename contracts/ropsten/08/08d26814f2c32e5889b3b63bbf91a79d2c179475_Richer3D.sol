@@ -332,7 +332,7 @@ contract Richer3D {
         return(_holdEarnings);
     }
     
-    //Calculate user&#39;s P3D bonus
+    //Calculate user's P3D bonus
     function getUserP3DDivEarnings(address _userAddress) private view returns(uint256 _myP3DDivide) {
         if(rInfoXrID[roundNumber].totalDay <= 1) {
             return(0);

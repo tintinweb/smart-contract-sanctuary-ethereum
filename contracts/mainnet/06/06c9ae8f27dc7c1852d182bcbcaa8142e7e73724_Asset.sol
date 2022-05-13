@@ -235,10 +235,10 @@ contract ERC20Token is ERC20TokenInterface, admined { //Standard definition of a
 * @dev Initial supply creation
 */
 contract Asset is ERC20Token {
-    string public name = &#39;Tavittcoin&#39;;
+    string public name = 'Tavittcoin';
     uint8 public decimals = 8;
-    string public symbol = &#39;TVC&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'TVC';
+    string public version = '1';
 
     constructor() public {
         totalSupply = 100000000 * (10**uint256(decimals)); //100,000,000 tokens initial token creation

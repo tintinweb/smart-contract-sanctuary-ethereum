@@ -122,13 +122,13 @@ contract Lottery{
     }
 
 
-     //Lottery&#39;s divs
+     //Lottery's divs
     function myDividends() public view returns(uint256)
     {
         return poohContract.myDividends(true);
     }
 
-   //Lottery&#39;s ETH balance
+   //Lottery's ETH balance
    function ethBalance() public view returns (uint256)
    {
        return address(this).balance;
@@ -148,7 +148,7 @@ contract Lottery{
         resetLottery();
     }
 
-    //If this doesn&#39;t work as expected, cash out and send to owner to disperse ETH back to players
+    //If this doesn't work as expected, cash out and send to owner to disperse ETH back to players
     function emergencyStop()
         onlyOwner()
         public

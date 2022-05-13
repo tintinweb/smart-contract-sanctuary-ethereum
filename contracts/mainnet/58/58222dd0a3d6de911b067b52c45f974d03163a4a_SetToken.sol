@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -202,7 +202,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -419,7 +419,7 @@ contract SetToken is StandardToken, DetailedERC20("Decentralized Exchange", "DEX
   /**
    * @dev Function to convert component into {Set} Tokens
    *
-   * Please note that the user&#39;s ERC20 component must be approved by
+   * Please note that the user's ERC20 component must be approved by
    * their ERC20 contract to transfer their components to this contract.
    *
    * @param quantity uint The quantity of component desired to convert in Wei
@@ -428,7 +428,7 @@ contract SetToken is StandardToken, DetailedERC20("Decentralized Exchange", "DEX
     isMultipleOfNaturalUnit(quantity)
     isNonZero(quantity)
     public returns (bool success) {
-    // Transfers the sender&#39;s components to the contract
+    // Transfers the sender's components to the contract
     // Since the component length is defined ahead of time, this is not
     // an unbounded loop
     for (uint i = 0; i < components.length; i++) {
@@ -518,7 +518,7 @@ contract SetToken is StandardToken, DetailedERC20("Decentralized Exchange", "DEX
         // Check that excluded token is indeed a component in this contract
         assert(isComponent[currentExcluded]);
 
-        // If the token is excluded, add to the user&#39;s unredeemed component value
+        // If the token is excluded, add to the user's unredeemed component value
         if (components[i].address_ == currentExcluded) {
           // Check whether component is already redeemed; Ensures duplicate excludedComponents
           // has not been inputted.
@@ -576,7 +576,7 @@ contract SetToken is StandardToken, DetailedERC20("Decentralized Exchange", "DEX
       uint remainingBalance = unredeemedComponents[currentComponent][msg.sender].balance;
       require(remainingBalance >= currentQuantity);
 
-      // To prevent re-entrancy attacks, decrement the user&#39;s Set balance
+      // To prevent re-entrancy attacks, decrement the user's Set balance
       unredeemedComponents[currentComponent][msg.sender].balance = remainingBalance.sub(currentQuantity);
 
       assert(ERC20(currentComponent).transfer(msg.sender, currentQuantity));

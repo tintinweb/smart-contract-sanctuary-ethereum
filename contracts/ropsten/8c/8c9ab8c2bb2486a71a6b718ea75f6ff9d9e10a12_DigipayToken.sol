@@ -74,7 +74,7 @@ contract ERC20Basic {
   // Get the account balance of another account with address `who`
 
   function transfer(address to, uint256 value) public returns (bool);
-  // Send `value&#39; amount of tokens to address `to&#39;
+  // Send `value' amount of tokens to address `to'
 
   event Transfer(address indexed from, address indexed to, uint256 value);
   // Triggered when tokens are transferred.

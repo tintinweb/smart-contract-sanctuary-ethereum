@@ -112,7 +112,7 @@ contract DetailedERC20 is ERC20 {
   * - owner cut is determined at beginning of new period.
   * - member has 1 month to withdraw their dividend from the previous month.
   * - if member does not withdraw their dividend, their share will be given to owner.
-  * - mod can place a member on a 1 month "timeout", whereby they won&#39;t be eligible for a dividend.
+  * - mod can place a member on a 1 month "timeout", whereby they won't be eligible for a dividend.
 
   * Eg: 10 eth is sent to the contract in January, owner cut is 30%. 
   * There are 70 token holders on Jan 31. At any time in February, each token holder can withdraw .1 eth for their January 
@@ -137,8 +137,8 @@ contract SolClub is Ownable, DetailedERC20("SolClub", "SOL", 0) {
   // Manage dividend payments.
   uint256 public epoch; // Timestamp at start of new period.
   uint256 dividendPool; // Total amount of dividends to pay out for last period.
-  uint256 public dividend; // Per-member share of last period&#39;s dividend.
-  uint256 public ownerCut; // Percentage, in basis points, of owner cut of this period&#39;s payments.
+  uint256 public dividend; // Per-member share of last period's dividend.
+  uint256 public ownerCut; // Percentage, in basis points, of owner cut of this period's payments.
   uint64 public numMembers; // Number of members created before this period.
   uint64 public newMembers; // Number of members created during this period.
   uint16 public currentPeriod = 1;
@@ -218,7 +218,7 @@ contract SolClub is Ownable, DetailedERC20("SolClub", "SOL", 0) {
       numMembers--;
     }
 
-    // "Burns" username, so user can&#39;t recreate.
+    // "Burns" username, so user can't recreate.
     usernames[m.username] = address(0x1);
 
     delete members[_addr];
@@ -248,7 +248,7 @@ contract SolClub is Ownable, DetailedERC20("SolClub", "SOL", 0) {
     Mint(_addr, _amount);
   }
 
-  // If a member has been bad, they won&#39;t be able to receive a dividend :(
+  // If a member has been bad, they won't be able to receive a dividend :(
   function timeout(address _addr) public onlyMod {
     require(members[_addr].canWithdrawPeriod != 0);
 
@@ -341,8 +341,8 @@ contract SolClub is Ownable, DetailedERC20("SolClub", "SOL", 0) {
     * Private Functions
     */
 
-  // Ensures that username isn&#39;t taken, and account doesn&#39;t already exist for
-  // member&#39;s address.
+  // Ensures that username isn't taken, and account doesn't already exist for
+  // member's address.
   function newMember(address _addr, bytes20 _username, uint64 _endowment) private {
     require(usernames[_username] == address(0));
     require(members[_addr].canWithdrawPeriod == 0);

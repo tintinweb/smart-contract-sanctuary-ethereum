@@ -25,7 +25,7 @@ contract ERC820Registry {
     /// @param _addr Address being queried for the implementer of an interface.
     ///   (If _addr == 0 them `msg.sender` is assumed.)
     /// @param _interfaceHash keccak256 hash of the name of the interface as a string.
-    ///   E.g. `web3.utils.keccak256(abi.encodePacked(&#39;ERC777Token&#39;))`
+    ///   E.g. `web3.utils.keccak256(abi.encodePacked('ERC777Token'))`
     /// @return The address of the contract which implements the interface `_interfaceHash` for `_addr`
     ///   or `0x0` if `_addr` did not registeran implemeter for this interface.
     function getInterfaceImplementer(address _addr, bytes32 _interfaceHash) external view returns (address) {
@@ -42,7 +42,7 @@ contract ERC820Registry {
     ///   (Each address is the manager for itself until a new manager is defined)
     /// @param _addr Address to define the interface for (if _addr == 0 them `msg.sender` is assumed)
     /// @param _interfaceHash keccak256 hash of the name of the interface as a string For example,
-    ///   `web3.utils.keccak256(abi.encodePacked(&#39;ERC777TokensRecipient&#39;))` for the ERC777TokensRecipient interface.
+    ///   `web3.utils.keccak256(abi.encodePacked('ERC777TokensRecipient'))` for the ERC777TokensRecipient interface.
     function setInterfaceImplementer(address _addr, bytes32 _interfaceHash, address _implementer) external {
         address addr = _addr == 0 ? msg.sender : _addr;
         require(getManager(addr) == msg.sender, "Not the manager");

@@ -154,7 +154,7 @@ contract EthLendToken is StdToken
 
     address public teamTokenBonus = 0;
 
-    // Gathered funds can be withdrawn only to escrow&#39;s address.
+    // Gathered funds can be withdrawn only to escrow's address.
     address public escrow = 0;
 
     // Token manager has exclusive priveleges to call administrative
@@ -262,7 +262,7 @@ contract EthLendToken is StdToken
 
     function setState(State _nextState) public onlyTokenManager
     {
-        //setState() method call shouldn&#39;t be entertained after ICOFinished
+        //setState() method call shouldn't be entertained after ICOFinished
         require(currentState != State.ICOFinished);
         
         currentState = _nextState;

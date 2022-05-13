@@ -141,7 +141,7 @@ contract InterfaceData {
                                                         });    
 
         // depositEscrow will require() the caller to have enough spendableBalance
-        // This is good because we don&#39;t want the call to start if either party has
+        // This is good because we don't want the call to start if either party has
         // fewer funds than required for depositing into escrow
 
         if (escrowJiffys > 0) {
@@ -220,7 +220,7 @@ contract InterfaceData {
 
         } else if (callerInfo.callerType == CallerType.Expert) {
 
-            // This is a Surety being forfeited if billableJiffys > 0, otherwise it&#39;s an escrow refund
+            // This is a Surety being forfeited if billableJiffys > 0, otherwise it's an escrow refund
             // Expert pays Support, then Support handles disbursing funds to appropriate parties.
             // Since the rules for forfeiture can get very complex, they are best handled off-contract
             payee = whenContract.getSupportManager();
@@ -320,7 +320,7 @@ contract InterfaceData {
         require(interfaces[interfaceId].state == InterfaceState.Created);
         require(whenContract.isUserRegistered(panelist));
 
-        require(!interfaces[interfaceId].callers[panelist].isCaller);   // Can&#39;t add the same Panelist twice
+        require(!interfaces[interfaceId].callers[panelist].isCaller);   // Can't add the same Panelist twice
 
         // Add Panelist to Interface
         interfaces[interfaceId].callers[panelist] = Caller({
@@ -388,7 +388,7 @@ contract InterfaceData {
         require((interfaces[interfaceId].state == InterfaceState.Created) || (interfaces[interfaceId].state == InterfaceState.Started));
         require(whenContract.isUserRegistered(caller));
 
-        require(!interfaces[interfaceId].callers[caller].isCaller);         // Can&#39;t add the same Caller twice
+        require(!interfaces[interfaceId].callers[caller].isCaller);         // Can't add the same Caller twice
 
         require(estimatedParticipationSeconds >= interfaces[interfaceId].minimumParticipationSeconds);
 
@@ -555,7 +555,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

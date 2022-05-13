@@ -22,7 +22,7 @@ pragma solidity ^0.4.18;
 // contributors are assigned to in the WhiteListed smart contract to prevent a
 // gas war. Each batch will be assigned a timestamp. Contributors can only 
 // make purchase once the current timestamp on the main net is above the 
-// batch&#39;s assigned timestamp.
+// batch's assigned timestamp.
 //    - batch 0: start_date 00:01   (guaranteed allocations)
 //    - batch 1: start_date+1 00:01 (guaranteed allocations)
 //    - batch 2: start_date+2 00:01 (guaranteed and non-guaranteed allocations)
@@ -269,7 +269,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

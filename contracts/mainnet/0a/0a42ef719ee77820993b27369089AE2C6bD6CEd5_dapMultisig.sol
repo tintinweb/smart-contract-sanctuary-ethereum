@@ -170,7 +170,7 @@ contract dapMultisig {
                 f = true;
             }
         }
-        //push sender address into confirmed array if haven&#39;t found
+        //push sender address into confirmed array if haven't found
         require(!f);
         txn.confirmed.push(msg.sender);
         
@@ -200,10 +200,10 @@ contract dapMultisig {
         bytes memory dat = txn.data;
         assert(dest.call.value(val)(dat));
             
-        /* change transaction&#39;s status to executed */
+        /* change transaction's status to executed */
         txn.status = TxnStatus.Executed;
 
-        /* change wallet&#39;s balance */
+        /* change wallet's balance */
         allowance = allowance - txn.value;
 
         return true;
@@ -234,7 +234,7 @@ contract dapMultisig {
                 f = true;
             }
         }
-        //push sender address into confirmed array if haven&#39;t found
+        //push sender address into confirmed array if haven't found
         require(!f);
         txn.confirmed.push(msg.sender);
         
@@ -262,7 +262,7 @@ contract dapMultisig {
         /* Send tokens */
         txn.token.transfer(txn.reciever, txn.value);
         
-        /* change transaction&#39;s status to executed */
+        /* change transaction's status to executed */
         txn.status = TxnStatus.Executed;
         
         /* Fire event */

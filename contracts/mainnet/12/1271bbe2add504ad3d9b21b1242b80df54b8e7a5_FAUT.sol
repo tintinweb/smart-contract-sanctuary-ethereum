@@ -1,8 +1,8 @@
 pragma solidity ^0.4.16;
 
 contract FAUT {
-    string public name = &#39;FAUT&#39;;
-    string public symbol = &#39;FAUT&#39;;
+    string public name = 'FAUT';
+    string public symbol = 'FAUT';
     uint8 public decimals = 18;
     uint256 public totalSupply = 1000000000000000000000000;
 

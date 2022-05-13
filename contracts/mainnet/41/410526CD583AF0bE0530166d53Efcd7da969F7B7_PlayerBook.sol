@@ -35,7 +35,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -477,7 +477,7 @@ contract PlayerBook{
     /**
      */
     function addMeToGame(uint256 _gameID) isHuman() public {
-        require(_gameID <= gID_, "Game doesn&#39;t exist yet");
+        require(_gameID <= gID_, "Game doesn't exist yet");
         address _addr = msg.sender;
         uint256 _pID = pIDxAddr_[_addr];
         require(_pID != 0, "You dont even have an account");

@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 500000000000000000000000000;
-        name = &#39;PowerChain&#39;;
-        symbol = &#39;PWRC&#39;;
+        name = 'PowerChain';
+        symbol = 'PWRC';
         decimals = 18;
         balanceOf[0x812a610fee93816153e4f1429ffedd1d0da206f0] = totalSupply;
         Transfer(address(0), 0x812a610fee93816153e4f1429ffedd1d0da206f0, totalSupply);

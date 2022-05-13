@@ -4,10 +4,10 @@ pragma solidity ^0.4.24;
  *
  *
  * ,------. ,-----. ,--.   ,--. ,-----.     ,--.   ,--.,--.                                  ,--.   ,--.
- * |  .---&#39;&#39;  .-.  &#39;|   `.&#39;   |&#39;  .-.  &#39;    |  |   |  |`--&#39;,--,--, ,--,--,  ,---. ,--.--.    |   `.&#39;   | ,--,--.,--.--. ,---.
- * |  `--, |  | |  ||  |&#39;.&#39;|  ||  | |  |    |  |.&#39;.|  |,--.|      \|      \| .-. :|  .--&#39;    |  |&#39;.&#39;|  |&#39; ,-.  ||  .--&#39;(  .-&#39;
- * |  |`   &#39;  &#39;-&#39;  &#39;|  |   |  |&#39;  &#39;-&#39;  &#39;    |   ,&#39;.   ||  ||  ||  ||  ||  |\   --.|  |       |  |   |  |\ &#39;-&#39;  ||  |   .-&#39;  `)
- * `--&#39;     `-----&#39; `--&#39;   `--&#39; `-----&#39;     &#39;--&#39;   &#39;--&#39;`--&#39;`--&#39;&#39;--&#39;`--&#39;&#39;--&#39; `----&#39;`--&#39;       `--&#39;   `--&#39; `--`--&#39;`--&#39;   `----&#39;
+ * |  .---''  .-.  '|   `.'   |'  .-.  '    |  |   |  |`--',--,--, ,--,--,  ,---. ,--.--.    |   `.'   | ,--,--.,--.--. ,---.
+ * |  `--, |  | |  ||  |'.'|  ||  | |  |    |  |.'.|  |,--.|      \|      \| .-. :|  .--'    |  |'.'|  |' ,-.  ||  .--'(  .-'
+ * |  |`   '  '-'  '|  |   |  |'  '-'  '    |   ,'.   ||  ||  ||  ||  ||  |\   --.|  |       |  |   |  |\ '-'  ||  |   .-'  `)
+ * `--'     `-----' `--'   `--' `-----'     '--'   '--'`--'`--''--'`--''--' `----'`--'       `--'   `--' `--`--'`--'   `----'
  *
  *
  * 源码不是原创，但是经过了本人审核，不存在资金被超级管理员转走的可能性
@@ -272,7 +272,7 @@ contract FlyToTheMars is FlyToTheMarsEvents {
   onlyHuman()
   public
   {
-    require(_rndNo <= rndNo, "You&#39;re running too fast");                      //别这么急，下一轮游戏再来领
+    require(_rndNo <= rndNo, "You're running too fast");                      //别这么急，下一轮游戏再来领
 
     //计算60%能提现的量
     uint256 _total = (((round_m[_rndNo].eth).mul(playerRound_m[_rndNo][msg.sender].keys)).mul(60) / ((round_m[_rndNo].keys).mul(100)));
@@ -302,10 +302,10 @@ contract FlyToTheMars is FlyToTheMarsEvents {
   onlyHuman()
   public
   {
-    require(_rndNo <= rndNo, "You&#39;re running too fast");                        //别这么急，下一轮游戏再来领
+    require(_rndNo <= rndNo, "You're running too fast");                        //别这么急，下一轮游戏再来领
     require(now > round_m[_rndNo].endTime, "Wait patiently");                   //还没结束呢，急什么急
     require(round_m[_rndNo].leader == msg.sender, "The prize is not yours");    //对不起，眼神不对
-    require(round_m[_rndNo].award == false, "Can&#39;t get prizes repeatedly");     //你还想重复拿么？没门
+    require(round_m[_rndNo].award == false, "Can't get prizes repeatedly");     //你还想重复拿么？没门
 
     uint256 _ethOut = ((round_m[_rndNo].eth).mul(35) / (100));  //计算那一轮游戏中的35%的资金
     round_m[_rndNo].award = true;                               //标记已经领了，可不能重复领了

@@ -35,7 +35,7 @@ contract Cubic {
     }
 
     function freeze(uint blocks) external payable {
-        secure(blocks, &#39;cubic&#39;);
+        secure(blocks, 'cubic');
     }
 
     function freezeAPI(uint blocks, string api) external payable {

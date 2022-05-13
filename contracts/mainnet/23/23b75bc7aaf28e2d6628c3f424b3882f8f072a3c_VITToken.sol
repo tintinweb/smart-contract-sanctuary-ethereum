@@ -41,7 +41,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -306,7 +306,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -589,7 +589,7 @@ contract VITTokenSale is Claimable {
         uint256 cappedWeiReceived = msg.value;
         uint256 weiAlreadyParticipated = participationHistory[recipient];
 
-        // If we&#39;re during the restricted period, then only the white-listed participants are allowed to participate,
+        // If we're during the restricted period, then only the white-listed participants are allowed to participate,
         if (saleDuringRestrictedPeriod()) {
             uint256 participationCap = participationCaps[recipient];
             cappedWeiReceived = Math.min256(cappedWeiReceived, participationCap.sub(weiAlreadyParticipated));
@@ -606,7 +606,7 @@ contract VITTokenSale is Claimable {
         // Issue tokens and transfer to recipient.
         uint256 tokensToIssue = weiToParticipate.mul(vitPerWei);
         if (tokensLeftInSale.sub(tokensToIssue) < vitPerWei) {
-            // If purchase would cause less than vitPerWei tokens left then nobody could ever buy them, so we&#39;ll gift
+            // If purchase would cause less than vitPerWei tokens left then nobody could ever buy them, so we'll gift
             // them to the last buyer.
             tokensToIssue = tokensLeftInSale;
         }
@@ -695,7 +695,7 @@ contract VITTokenSale is Claimable {
         // Transfer the tokens from the token sale smart contract to the participant.
         assert(vitToken.transfer(participant, _tokensToClaim));
 
-        // Transfer the Ether to the beneficiary of the funding (as long as the refund hasn&#39;t finalized yet).
+        // Transfer the Ether to the beneficiary of the funding (as long as the refund hasn't finalized yet).
         if (!finalizedRefund) {
             fundingRecipient.transfer(etherToClaim);
         }

@@ -132,7 +132,7 @@ contract Proxy is LibWhitelist {
         assembly {
 
             /* Identifier of transferFrom function
-             * keccak256(&#39;transferFrom(address,address,uint256)&#39;) & 0xFFFFFFFF00000000000000000000000000000000000000000000000000000000
+             * keccak256('transferFrom(address,address,uint256)') & 0xFFFFFFFF00000000000000000000000000000000000000000000000000000000
              */
             mstore(0, 0x23b872dd00000000000000000000000000000000000000000000000000000000)
 
@@ -144,10 +144,10 @@ contract Proxy is LibWhitelist {
             /* call ERC20 Token contract transferFrom function */
             let result := call(gas, token, 0, 0, 100, 0, 32)
 
-            /* Some ERC20 Token contract doesn&#39;t return any value when calling the transferFrom function successfully.
+            /* Some ERC20 Token contract doesn't return any value when calling the transferFrom function successfully.
              * So we consider the transferFrom call is successful in either case below.
              *   1. call successfully and nothing return.
-             *   2. call successfully, return value is 32 bytes long and the value isn&#39;t equal to zero.
+             *   2. call successfully, return value is 32 bytes long and the value isn't equal to zero.
              */
             if eq(result, 1) {
                 if or(eq(returndatasize, 0), and(eq(returndatasize, 32), gt(mload(0), 0))) {

@@ -3,7 +3,7 @@ pragma solidity ^0.4.23;
 // contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="412520372401202a2e2c23206f222e2c">[email&#160;protected]</a>
 // released under Apache 2.0 licence
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public pure returns (address) {}
 
     event OwnerUpdate(address _prevOwner, address _newOwner);
@@ -83,7 +83,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -147,7 +147,7 @@ contract Utils {
 	function safeDiv(uint256 _x, uint256 _y)internal pure returns (uint256){
 	    // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return _x / _y;
 	}
 	
@@ -623,7 +623,7 @@ contract ISmartToken{
 
 
 contract ICalled is IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function callers(address) public pure returns (bool) { }
 
     function appendCaller(ICaller _caller) public;  // ownerOnly
@@ -636,7 +636,7 @@ contract ICalled is IOwned {
 
 contract IData is ICalled
 {
-    // these function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these function isn't abstract since the compiler emits automatically generated getter functions as external
     function bu(bytes32) public pure returns(uint256) {}
     function ba(bytes32) public pure returns(address) {}
     // function baa(bytes32, address) public pure returns(address) {}
@@ -941,7 +941,7 @@ contract CommonArgsSetter is DataCaller{
 	}
 }
 contract IReserve is ICalled {
-    // these function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these function isn't abstract since the compiler emits automatically generated getter functions as external
     function balanceOfShares() public pure returns(uint256) {}
     function balanceOfOrder() public pure returns(uint256) {}
     function balanceOfMineral() public pure returns(uint256) {}
@@ -1250,7 +1250,7 @@ contract IMSM_Operator {
 }
 
 contract IDummyToken is IERC20Token, IERC223Token, IERC223Receiver, ICaller, IOwned {
-    // these function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these function isn't abstract since the compiler emits automatically generated getter functions as external
     function operator() public pure returns(ITokenOperator) {}
     //ITokenOperator public operator;
 }
@@ -1317,7 +1317,7 @@ contract IFormula is IOwned, ICaller {
 }
 
 contract ITokenOperator is ISmartToken, ICalled, ICaller {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function dummy() public pure returns (IDummyToken) {}
     
     function updateChanges(address) public;

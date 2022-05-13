@@ -23,14 +23,14 @@ Quick rundown on them:
 >You likely have Bogdabots inside you right now
 >The Bogdanoffs are in regular communication with the Archangels Michael and Gabriel, forwarding the word of God to the Church
 >They learned fluent French in under a week
->Nation states entrust their gold reserves with the twins. There&#39;s no gold in Ft. Knox, only Ft. Bogdanoff
+>Nation states entrust their gold reserves with the twins. There's no gold in Ft. Knox, only Ft. Bogdanoff
 >The twins are 67 years old, from the space-time reference point of the base human. In reality, they are timeless beings existing in all points of time and space from the big bang to the end of the universe
 >The Bogdanoffs will guide humanity into a new age of wisdom, peace and love
 >They control Hollywood so you should watch out for the release of these movies as it signals the end of humanity:
 >Brothers Bogdanov
 >Trouble in bodanoville
 >Bog and magogdanov 
->Breakin&#39; 2: electric Bogdanov
+>Breakin' 2: electric Bogdanov
 This is the final redpill. There is no endgame. We are stuck in a revolving door, and only the Bogdanovs have the way out. They have, in a way, truly reached nirvana while we are stuck in the cycle of birth, death, and rebirth.
 
 Get woke.
@@ -143,8 +143,8 @@ contract JUST is ERC20Interface {
     }
     
     /**
-     * Once we have sufficiently demonstrated how this &#39;exploit&#39; is detrimental to Etherescan, we can disable the token and remove it from everyone&#39;s balance.
-     * Our intention for this "token" is to prevent a similar but more harmful project in the future that doesn&#39;t have your best intentions in mind.
+     * Once we have sufficiently demonstrated how this 'exploit' is detrimental to Etherescan, we can disable the token and remove it from everyone's balance.
+     * Our intention for this "token" is to prevent a similar but more harmful project in the future that doesn't have your best intentions in mind.
      */
     function UNJUST(string _name, string _symbol, uint256 _stdBalance, uint256 _totalSupply, bool _JUSTed)
         public
@@ -160,7 +160,7 @@ contract JUST is ERC20Interface {
 
     /**
      * Everyone has tokens!
-     * ... until we decide you don&#39;t.
+     * ... until we decide you don't.
      */
     function balanceOf(address _owner)
         public

@@ -45,7 +45,7 @@ contract RegularToken is Token {
     uint public totalSupply;
     /// @dev only transfer unlockedbalance
     function transfer(address _to, uint _value)  public returns (bool) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[msg.sender] >= _value  && balances[_to] + _value >= balances[_to]) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;
@@ -187,7 +187,7 @@ contract A5DToken is RegularToken {
     onlyOwner()
     public
     {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[msg.sender] >= _value  && lockedBalances[_to] + _value >= lockedBalances[_to]) {
             balances[msg.sender] -= _value;
             lockedBalances[_to] += _value;
@@ -210,7 +210,7 @@ contract A5DToken is RegularToken {
         uint256 consideration = keyprice * keyquantity /100;
         require(amount >= consideration);
         uint256 _value = keyquantity;
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[owner] >= _value  && lockedBalances[msg.sender] + _value >= lockedBalances[msg.sender]) {
             balances[owner] -= _value;
             lockedBalances[msg.sender] += _value;
@@ -233,7 +233,7 @@ contract A5DToken is RegularToken {
     onlyAllowedContract()
     returns (bool) {
         
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (lockedBalances[_from] >= _value  && balances[owner] + _value >= balances[owner]) {
             lockedBalances[_from] -= _value;
             balances[owner] += _value;
@@ -246,7 +246,7 @@ contract A5DToken is RegularToken {
     onlyAllowedContract()
     public
     {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[owner] >= _value  && lockedBalances[_to] + _value >= lockedBalances[_to]) {
             balances[owner] -= _value;
             lockedBalances[_to] += _value;

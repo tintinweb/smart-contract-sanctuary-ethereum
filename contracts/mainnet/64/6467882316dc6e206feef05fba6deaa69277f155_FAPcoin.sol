@@ -117,13 +117,13 @@ contract FAPcoin is StandardToken, SafeMath {
     {
       isFinalized = false;                   //controls pre through crowdsale state
       saleStarted = false;
-      FAPFounder = &#39;0x97F5eD1c6af0F45B605f4Ebe62Bae572B2e2198A&#39;;
-      FAPFundDeposit1 = &#39;0xF946cB03dC53Bfc13a902022C1c37eA830F8E35B&#39;;
-      FAPFundDeposit2 = &#39;0x19Eb1FE8Fdc51C0f785F455D8aB3BD22Af50cf11&#39;;
-      FAPFundDeposit3 = &#39;0xaD349885e35657956859c965670c41EE9A044b84&#39;;
-      FAPFundDeposit4 = &#39;0x4EEbfDEe9141796AaaA65b53A502A6DcFF21d397&#39;;
-      FAPFundDeposit5 = &#39;0x20a0A5759a56aDE253cf8BF3683923D7934CC84a&#39;;
-      ethFundDeposit = &#39;0x6404B11A733b8a62Bd4bf3A27d08e40DD13a5686&#39;;
+      FAPFounder = '0x97F5eD1c6af0F45B605f4Ebe62Bae572B2e2198A';
+      FAPFundDeposit1 = '0xF946cB03dC53Bfc13a902022C1c37eA830F8E35B';
+      FAPFundDeposit2 = '0x19Eb1FE8Fdc51C0f785F455D8aB3BD22Af50cf11';
+      FAPFundDeposit3 = '0xaD349885e35657956859c965670c41EE9A044b84';
+      FAPFundDeposit4 = '0x4EEbfDEe9141796AaaA65b53A502A6DcFF21d397';
+      FAPFundDeposit5 = '0x20a0A5759a56aDE253cf8BF3683923D7934CC84a';
+      ethFundDeposit = '0x6404B11A733b8a62Bd4bf3A27d08e40DD13a5686';
       totalSupply = safeMult(FAPFund,5);
       totalSupply = safeAdd(totalSupply,FAPFounderFund);
       balances[FAPFundDeposit1] = FAPFund;    // Deposit tokens for Owners
@@ -159,11 +159,11 @@ contract FAPcoin is StandardToken, SafeMath {
         tokenExchangeRate = 1000;
       }
       //create tokens
-      uint256 tokens = safeMult(msg.value, tokenExchangeRate); // check that we&#39;re not over totals
+      uint256 tokens = safeMult(msg.value, tokenExchangeRate); // check that we're not over totals
       uint256 checkedSupply = safeAdd(totalSupply, tokens);
 
       // return money if something goes wrong
-      if (tokenCreationCap < checkedSupply) throw;  // odd fractions won&#39;t be found
+      if (tokenCreationCap < checkedSupply) throw;  // odd fractions won't be found
       totalSupply = checkedSupply;
       //All good. start the transfer
       balances[msg.sender] += tokens;  // safeAdd not needed

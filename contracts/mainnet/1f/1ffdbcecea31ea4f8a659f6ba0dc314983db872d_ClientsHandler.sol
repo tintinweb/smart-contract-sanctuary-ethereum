@@ -179,7 +179,7 @@ contract Converter {
 
     function uintToBytes(uint v) internal pure returns (bytes32 ret) {
         if (v == 0) {
-            ret = &#39;0&#39;;
+            ret = '0';
         }
         else {
             while (v > 0) {
@@ -285,7 +285,7 @@ contract ClientsHandler is ManageableContract, Converter {
         DSDataP[entityAddress][_id];
     }
     
-    /** @dev return data of client&#39;s dream by id */
+    /** @dev return data of client's dream by id */
     function getDStructData(address _who, uint256 _dream_id) 
         public 
         view 

@@ -125,7 +125,7 @@ contract ResolverClient {
     _;
   }
 
-  /// Function modifier to check resolver&#39;s locking status.
+  /// Function modifier to check resolver's locking status.
   modifier unless_resolver_is_locked() {
     require(is_locked() == false);
     _;
@@ -201,7 +201,7 @@ contract ERCTwenty {
   function balanceOf( address who ) constant public returns (uint value);
 }
 
-/// @title Digix Gold Token&#39;s Information
+/// @title Digix Gold Token's Information
 /// @author Digix Holdings Pte Ltd
 /// @notice This contract is used to read configs and information related to the Digix Gold Token
 contract TokenInformation is ResolverClient, DigixConstants {

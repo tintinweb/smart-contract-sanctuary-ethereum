@@ -18,7 +18,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -223,7 +223,7 @@ contract KyberNetworkWrapper {
     ethPrice = 1 * 10 ** 36 / rate;
   }
 
-  /// @dev Get the rate for user&#39;s token
+  /// @dev Get the rate for user's token
   /// @param _kyberProxy KyberNetworkProxyInterface address
   /// @param token ERC20 token address
   /// @return expectedRate, slippageRate
@@ -244,7 +244,7 @@ contract KyberNetworkWrapper {
     return (expectedRate, slippageRate);
   }
 
-  /// @dev Acquires selling token using Kyber Network&#39;s supported token
+  /// @dev Acquires selling token using Kyber Network's supported token
   /// @param _kyberProxy KyberNetworkProxyInterface address
   /// @param _sale Sale address
   /// @param token ERC20 token address
@@ -269,7 +269,7 @@ contract KyberNetworkWrapper {
     // Check that the user has transferred the token to this contract
     require(token.transferFrom(msg.sender, this, tokenQty));
 
-    // Get the starting token balance of the wrapper&#39;s wallet
+    // Get the starting token balance of the wrapper's wallet
     uint startTokenBalance = token.balanceOf(this);
 
     // Mitigate ERC20 Approve front-running attack, by initially setting
@@ -282,7 +282,7 @@ contract KyberNetworkWrapper {
     // Once verified, set the token allowance to tokenQty
     require(token.approve(_kyberProxy, tokenQty));
 
-    // Swap user&#39;s token to ETH to send to Sale contract
+    // Swap user's token to ETH to send to Sale contract
     uint userETH = _kyberProxy.tradeWithHint(token, tokenQty, ETH_TOKEN_ADDRESS, address(this), maxDestQty, minRate, walletId, "");
 
     _sale.buyTokens.value(userETH)(msg.sender);

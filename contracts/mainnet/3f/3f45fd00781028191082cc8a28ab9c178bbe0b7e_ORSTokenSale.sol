@@ -61,7 +61,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -298,7 +298,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -528,7 +528,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -622,7 +622,7 @@ contract ORSTokenSale is KYCBase, ICOEngineInterface, Ownable {
     // Ethereum address where invested funds will be transferred to
     address public wallet;
 
-    // Purchases signed via Eidoo&#39;s platform will receive bonus tokens
+    // Purchases signed via Eidoo's platform will receive bonus tokens
     address public eidooSigner;
 
     bool public isFinalized = false;
@@ -654,7 +654,7 @@ contract ORSTokenSale is KYCBase, ICOEngineInterface, Ownable {
     /// @param _companyWallet Ethereum account of company who will receive company share upon finalization
     /// @param _advisorsWallet Ethereum account of advisors who will receive advisors share upon finalization
     /// @param _bountyWallet Ethereum account of a wallet that will receive remaining bonus upon finalization
-    /// @param _kycSigners List of KYC signers&#39; Ethereum addresses
+    /// @param _kycSigners List of KYC signers' Ethereum addresses
     constructor(
         ORSToken _token,
         uint _rate,
@@ -702,7 +702,7 @@ contract ORSTokenSale is KYCBase, ICOEngineInterface, Ownable {
     }
 
     /// @dev Distribute presold tokens and bonus tokens to investors
-    /// @param investors List of investors&#39; Ethereum addresses
+    /// @param investors List of investors' Ethereum addresses
     /// @param tokens List of integral token amounts each investors will receive
     function distributePresale(address[] investors, uint[] tokens) public onlyOwner {
         require(!isFinalized);
@@ -724,7 +724,7 @@ contract ORSTokenSale is KYCBase, ICOEngineInterface, Ownable {
         token.mint(companyWallet, COMPANY_SHARE + TEAM_SHARE);
         token.mint(advisorsWallet, ADVISORS_SHARE);
 
-        // There shouldn&#39;t be any remaining presale tokens
+        // There shouldn't be any remaining presale tokens
         // Remaining mainsale tokens will be lost (i.e. not minted)
         // Remaining bonus tokens will be minted for the benefit of bounty wallet
         if (bonusRemaining > 0) {
@@ -742,30 +742,30 @@ contract ORSTokenSale is KYCBase, ICOEngineInterface, Ownable {
     }
 
     // false if the ico is not started, true if the ico is started and running, true if the ico is completed
-    /// @dev Started (as required by Eidoo&#39;s ICOEngineInterface)
+    /// @dev Started (as required by Eidoo's ICOEngineInterface)
     /// @return True iff mainsale start has passed
     function started() public view returns (bool) {
         return now >= openingTime;
     }
 
     // false if the ico is not started, false if the ico is started and running, true if the ico is completed
-    /// @dev Ended (as required by Eidoo&#39;s ICOEngineInterface)
+    /// @dev Ended (as required by Eidoo's ICOEngineInterface)
     /// @return True iff mainsale is finished
     function ended() public view returns (bool) {
-        // Note: Even though we allow token holders to burn their tokens immediately after purchase, this won&#39;t
+        // Note: Even though we allow token holders to burn their tokens immediately after purchase, this won't
         //       affect the early end via "sold out" as mainsaleRemaining is independent of token.totalSupply.
         return now > closingTime || mainsaleRemaining == 0;
     }
 
     // time stamp of the starting time of the ico, must return 0 if it depends on the block number
-    /// @dev Start time (as required by Eidoo&#39;s ICOEngineInterface)
+    /// @dev Start time (as required by Eidoo's ICOEngineInterface)
     /// @return Block (Unix) timestamp of mainsale start time
     function startTime() public view returns (uint) {
         return openingTime;
     }
 
     // time stamp of the ending time of the ico, must retrun 0 if it depends on the block number
-    /// @dev End time (as required by Eidoo&#39;s ICOEngineInterface)
+    /// @dev End time (as required by Eidoo's ICOEngineInterface)
     /// @return Block (Unix) timestamp of mainsale latest end time
     function endTime() public view returns (uint) {
         return closingTime;
@@ -788,13 +788,13 @@ contract ORSTokenSale is KYCBase, ICOEngineInterface, Ownable {
     }
 
     // return the price as number of tokens released for each ether
-    /// @dev Price (as required by Eidoo&#39;s ICOEngineInterface); actually the inverse of a "price"
+    /// @dev Price (as required by Eidoo's ICOEngineInterface); actually the inverse of a "price"
     /// @return Rate in integral token units per wei
     function price() public view returns (uint) {
         return rate;
     }
 
-    /// @dev Release purchased tokens to buyers during mainsale (as required by Eidoo&#39;s ICOEngineInterface)
+    /// @dev Release purchased tokens to buyers during mainsale (as required by Eidoo's ICOEngineInterface)
     /// @param buyer Ethereum address of purchaser
     /// @param signer Ethereum address of signer
     /// @return Always true, failures will be indicated by transaction reversal
@@ -823,7 +823,7 @@ contract ORSTokenSale is KYCBase, ICOEngineInterface, Ownable {
             // again, would exceed this by several orders of magnitude.
         }
 
-        // Purchases signed via Eidoo&#39;s platform will receive additional 5% bonus tokens
+        // Purchases signed via Eidoo's platform will receive additional 5% bonus tokens
         if (signer == eidooSigner) {
             bonus = tokens.div(20);
         }

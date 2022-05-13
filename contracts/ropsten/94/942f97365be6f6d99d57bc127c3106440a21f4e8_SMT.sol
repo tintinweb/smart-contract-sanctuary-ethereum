@@ -129,8 +129,8 @@ contract Controlled is Owned{
 contract StandardToken is Token,Controlled {
 
     function transfer(address _to, uint256 _value) public transferAllowed(msg.sender) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
             balances[msg.sender] -= _value;
@@ -176,9 +176,9 @@ contract SMT is StandardToken {
     }
 
     string public name = "SmartMesh Token";                   //fancy name
-    uint8 public decimals = 18;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals = 18;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol = "SMT";                 //An identifier
-    string public version = &#39;v0.1&#39;;       //SMT 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'v0.1';       //SMT 0.1 standard. Just an arbitrary versioning scheme.
     uint256 public allocateEndTime;
 
     
@@ -258,7 +258,7 @@ contract SMT is StandardToken {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(keccak256("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { revert(); }

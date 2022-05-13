@@ -24,7 +24,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns(uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -162,7 +162,7 @@ contract AnimecardAccessControl {
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
     function unpause() public onlyCEO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 
@@ -239,7 +239,7 @@ contract AnimecardBase is AnimecardAccessControl {
         // ownerAnimecardCount[_to] = ownerAnimecardCount[_to].add(1);
         ownerAnimecardCount[_to]++;
         animecardToOwner[_tokenId] = _to;
-        // When creating new tokens _from is 0x0, but we can&#39;t account that address.
+        // When creating new tokens _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
             // ownerAnimecardCount[_from] = ownerAnimecardCount[_from].sub(1);
             ownerAnimecardCount[_from]--;
@@ -334,7 +334,7 @@ contract AnimecardPricing is AnimecardBase {
     }
 
     /// @dev Computes the payment for the token, which is the sale price of the token
-    /// minus the house&#39;s cut.
+    /// minus the house's cut.
     function computePayment(
         uint256 _tokenId,
         uint256 _salePrice)
@@ -660,7 +660,7 @@ contract AnimecardCore is AnimecardMinting {
 
     /// @dev Used to mark the smart contract as upgraded, in case there is a serious
     ///  breaking bug. This method does nothing but keep track of the new contract and
-    ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+    ///  emit a message indicating that the new address is set. It's up to clients of this
     ///  contract to update to the new contract address in that case. (This contract will
     ///  be paused indefinitely if such an upgrade takes place.)
     /// @param _v2Address new address
@@ -709,7 +709,7 @@ contract AnimecardCore is AnimecardMinting {
 
 
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive call.

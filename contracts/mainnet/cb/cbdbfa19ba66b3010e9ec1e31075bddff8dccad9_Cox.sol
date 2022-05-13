@@ -139,7 +139,7 @@ library HolderLib {
 
     function removeRelatedRoundId(Holder storage holder, address adrs, uint256 roundId) internal {
         HolderValue storage value = holder.holderMap[adrs];
-        require(value.relatedRoundIds[value.fromIndex] == roundId, &#39;only the fromIndex element can be removed&#39;);
+        require(value.relatedRoundIds[value.fromIndex] == roundId, 'only the fromIndex element can be removed');
         value.fromIndex++;
     }
 }
@@ -390,8 +390,8 @@ contract Cox is Ownable {
     }
 
     modifier isActive() {
-        require(mIsActive == true, "it&#39;s not ready yet.");
-        require(now >= roundStartTime, "it&#39;s not started yet.");
+        require(mIsActive == true, "it's not ready yet.");
+        require(now >= roundStartTime, "it's not started yet.");
         _;
     }
 
@@ -506,7 +506,7 @@ contract Cox is Ownable {
         (bool isFinished, uint256 amountUsed) = curRound.add(msg.sender, amt);
         totalAmountInvested = totalAmountInvested.add(amountUsed);
 
-        require(amountUsed > 0, &#39;amountUsed must greater than 0&#39;);
+        require(amountUsed > 0, 'amountUsed must greater than 0');
 
         emit RoundIn(msg.sender, amountUsed, curRound.raised, curRound.roundNum, bigRound, code);
 

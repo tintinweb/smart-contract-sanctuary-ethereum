@@ -36,7 +36,7 @@ contract NUGOLD {
 
     function NUGOLD() {
         totalSupply = 500000000;
-        symbol = &#39;NUGD&#39;;
+        symbol = 'NUGD';
         owner = 0xc3ae0602a0fa24ade9e814c892b67153f7a3f8d9;
         balances[owner] = totalSupply;
         decimals = 0;

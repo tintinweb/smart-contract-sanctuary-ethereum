@@ -78,7 +78,7 @@ contract Modern3D {
         
     }
     
-    // used so the distribute function can call hourglass&#39;s withdraw
+    // used so the distribute function can call hourglass's withdraw
     function() external payable {}
     
     

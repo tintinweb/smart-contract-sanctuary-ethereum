@@ -64,8 +64,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (_a == 0) {
             return 0;
@@ -83,7 +83,7 @@ library SafeMath {
     function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
         require(_b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = _a / _b;
-        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+        // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
         
         return c;
     }
@@ -178,7 +178,7 @@ contract StandardToken is ERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -293,7 +293,7 @@ contract StandardToken is ERC20 {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal _burn function.
    * @param _account The account whose tokens will be burnt.
    * @param _amount The amount that will be burnt.
@@ -518,7 +518,7 @@ contract TestnetCrowdSale is Ownable {
     
     bool public isWithdrawn = false; // Ether was withdrawn?
     
-    // During the investment we will save the investor&#39;s 
+    // During the investment we will save the investor's 
     // address and how much he invested for the refund.
     mapping(address=>uint) balances; 
     
@@ -790,17 +790,17 @@ contract TestnetCrowdSale is Ownable {
     function initialize() public onlyOwner isCrowdsaleOff isPouse isPresale {
         require(
             founder != address(0), 
-            "Address of the &#39;Founders&#39; is 0x0, please set the address of the &#39;founder&#39;."
+            "Address of the 'Founders' is 0x0, please set the address of the 'founder'."
         );
         
         require(
             supporter != address(0), 
-            "Address of the &#39;Bounty supporters&#39; is 0x0, please set the address of the &#39;supporter&#39;."
+            "Address of the 'Bounty supporters' is 0x0, please set the address of the 'supporter'."
         );
         
         require(
             coldWallet != address(0),
-            "&#39;coldWallet&#39; is 0x0, please set the address &#39;coldWallet&#39; to continue."
+            "'coldWallet' is 0x0, please set the address 'coldWallet' to continue."
         );
         
         require(startPresaleTime < endPresaleTime, "startPresaleTime >= endPresaleTime");
@@ -871,7 +871,7 @@ contract TestnetCrowdSale is Ownable {
         // Emit the tokens.
         Token.transfer(msg.sender, totalTokensForSale);
         
-        // We keep the amount of investor&#39;s ETH for refund.
+        // We keep the amount of investor's ETH for refund.
         balances[msg.sender] = msg.value;
         totalEther = totalEther.add(msg.value);
         
@@ -901,7 +901,7 @@ contract TestnetCrowdSale is Ownable {
     
     // TODO: write comment
     function refund() public isIcoFinished whenNotWithdrawn {
-        require(balances[msg.sender] > 0, "You don&#39;t have enough `ETH` to refund.");
+        require(balances[msg.sender] > 0, "You don't have enough `ETH` to refund.");
         require(address(this).balance > 0);
         require(
             address(this).balance < softcap, 

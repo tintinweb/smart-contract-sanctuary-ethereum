@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 /* COOPEX Smart Contract */
-/* This is the smart &#39;hotwallet&#39; for the Cooperative Exchange. All Ethereum assets will be stored on this smart contract. This smart contract will be used while we work on a fully decentralized exchange. */
+/* This is the smart 'hotwallet' for the Cooperative Exchange. All Ethereum assets will be stored on this smart contract. This smart contract will be used while we work on a fully decentralized exchange. */
 /* Visit us at https://coopex.market */
 
 contract Token {

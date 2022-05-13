@@ -86,7 +86,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -239,7 +239,7 @@ contract StandardToken is BasicToken, ERC20 {
    */
   function approve(address _spender, uint _value) public returns (bool success) {
 
-    // To change the approve amount you first have to reduce the addresses&#39;
+    // To change the approve amount you first have to reduce the addresses'
     //  allowance to zero by calling `approve(_spender, 0)` if it is not
     //  already 0 to mitigate the race condition described here:
     //  https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
@@ -316,7 +316,7 @@ contract ReleasableToken is StandardToken, Ownable {
    * it can only be called by a corresponding exposed API in the crowdsale contract in case of input error.
    */
   function setReleaseAgent(address addr) onlyOwner inReleaseState(false) public {
-    // We don&#39;t do interface check here as we might want to have a normal wallet address to act as a release agent.
+    // We don't do interface check here as we might want to have a normal wallet address to act as a release agent.
     releaseAgent = addr;
   }
 
@@ -456,7 +456,7 @@ contract MintableToken is StandardToken, Ownable {
  */
 contract UpgradeAgent {
 
-  /** This value should be the same as the original token&#39;s total supply */
+  /** This value should be the same as the original token's total supply */
   uint public originalSupply;
 
   /** Interface to ensure the contract is correctly configured */
@@ -503,7 +503,7 @@ contract UpgradeableToken is StandardToken {
    * Upgrade states.
    *
    * - NotAllowed: The child contract has not reached a condition where the upgrade can bgun
-   * - WaitingForAgent: Token allows upgrade, but we don&#39;t have a new agent yet
+   * - WaitingForAgent: Token allows upgrade, but we don't have a new agent yet
    * - ReadyToUpgrade: The agent is set, but not a single token has been upgraded yet
    * - Upgrading: Upgrade agent is set and the balance holders can upgrade their tokens
    *
@@ -532,7 +532,7 @@ contract UpgradeableToken is StandardToken {
    */
   function upgrade(uint value) public {
     UpgradeState state = getUpgradeState();
-    // Ensure it&#39;s not called in a bad state
+    // Ensure it's not called in a bad state
     require(state == UpgradeState.ReadyToUpgrade || state == UpgradeState.Upgrading);
 
     // Validate input value.
@@ -635,7 +635,7 @@ contract CrowdsaleToken is ReleasableToken, MintableToken, UpgradeableToken, Fra
    * This token must be created through a team multisig wallet, so that it is owned by that wallet.
    *
    * @param _name Token name
-   * @param _symbol Token symbol - typically it&#39;s all caps
+   * @param _symbol Token symbol - typically it's all caps
    * @param _initialSupply How many tokens we start with
    * @param _decimals Number of decimal places
    * @param _mintable Are new tokens created over the crowdsale or do we distribute only the initial supply? Note that when the token becomes transferable the minting always ends.
@@ -747,7 +747,7 @@ contract Crowdsale is Haltable {
   /** Addresses that are allowed to invest even before ICO offical opens. For testing, for ICO partners, etc. */
   mapping (address => bool) public earlyParticipantWhitelist;
 
-  /** This is for manual testing of the interaction with the owner&#39;s wallet. You can set it to any value and inspect this in a blockchain explorer to see that crowdsale interaction works. */
+  /** This is for manual testing of the interaction with the owner's wallet. You can set it to any value and inspect this in a blockchain explorer to see that crowdsale interaction works. */
   uint8 public ownerTestValue;
 
   /** State machine
@@ -774,7 +774,7 @@ contract Crowdsale is Haltable {
   // Address early participation whitelist status changed
   event Whitelisted(address addr, bool status);
 
-  // Crowdsale&#39;s finalize function has been called
+  // Crowdsale's finalize function has been called
   event Finalized();
 
   // A new funding cap has been set
@@ -783,7 +783,7 @@ contract Crowdsale is Haltable {
   function Crowdsale(address _multisigWallet, uint _start, uint _end, uint _minimumFundingGoal) internal {
     setMultisig(_multisigWallet);
 
-    // Don&#39;t mess the dates
+    // Don't mess the dates
     require(_start != 0 && _end != 0);
     require(block.number < _start && _start < _end);
     startsAt = _start;
@@ -794,7 +794,7 @@ contract Crowdsale is Haltable {
   }
 
   /**
-   * Don&#39;t expect to just send in money and get tokens.
+   * Don't expect to just send in money and get tokens.
    */
   function() payable {
     require(false);
@@ -811,7 +811,7 @@ contract Crowdsale is Haltable {
    *
    */
   function investInternal(address receiver, uint128 customerId) stopInEmergency notFinished private {
-    // Determine if it&#39;s a good time to accept investment from this participant
+    // Determine if it's a good time to accept investment from this participant
     if (getState() == State.PreFunding) {
       // Are we whitelisted for early deposit
       require(earlyParticipantWhitelist[receiver]);
@@ -1130,7 +1130,7 @@ contract CeilingStrategy {
    * @param _value - What is the value of the transaction sent in as wei.
    * @param _weiRaised - How much money has been raised so far.
    * @param _weiInvestedBySender - the investment made by the address that is sending the transaction.
-   * @param _weiFundingCap - the caller&#39;s declared total cap. May be reinterpreted by the implementation of the CeilingStrategy.
+   * @param _weiFundingCap - the caller's declared total cap. May be reinterpreted by the implementation of the CeilingStrategy.
    * @return Amount of wei the crowdsale can receive.
    */
   function weiAllowedToReceive(uint _value, uint _weiRaised, uint _weiInvestedBySender, uint _weiFundingCap) public constant returns (uint amount);
@@ -1180,7 +1180,7 @@ contract FixedCeiling is CeilingStrategy {
         return weiFundingCap > 0 && weiRaised >= weiFundingCap;
     }
 
-    /* If the new target cap has not been reached yet, it&#39;s fine as it is */
+    /* If the new target cap has not been reached yet, it's fine as it is */
     function relaxFundingCap(uint newCap, uint weiRaised) public constant returns (uint) {
         if (newCap > weiRaised) return newCap;
         else return weiRaised.div(chunkedWeiMultiple).add(1).mul(chunkedWeiMultiple);
@@ -1203,7 +1203,7 @@ contract FinalizeAgent {
 
   /** Return true if we can run finalizeCrowdsale() properly.
    *
-   * This is a safety check function that doesn&#39;t allow crowdsale to begin
+   * This is a safety check function that doesn't allow crowdsale to begin
    * unless the finalizer has been set up properly.
    */
   function isSane(CrowdsaleToken token) public constant returns (bool);
@@ -1281,7 +1281,7 @@ contract HubiiCrowdsale is Crowdsale {
     string private constant token_name = "Hubiits";
     string private constant token_symbol = "HBT";
     uint private constant token_in_wei = 10 ** 15;
-    // The fraction of 10,000 out of the total target tokens that is used to mint bonus tokens. These are allocated to the team&#39;s multisig wallet.
+    // The fraction of 10,000 out of the total target tokens that is used to mint bonus tokens. These are allocated to the team's multisig wallet.
     uint private constant bonus_base_points = 3000;
     function HubiiCrowdsale(address _teamMultisig, uint _start, uint _end) Crowdsale(_teamMultisig, _start, _end, hubii_minimum_funding) public {
         PricingStrategy p_strategy = new FlatPricing(token_in_wei);

@@ -58,7 +58,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -237,7 +237,7 @@ contract CustomToken is ERC20, BasicToken, Ownable {
     allowed[this][_spender] = _value;
     Approval(this, _spender, _value);
 
-    //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+    //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
     //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
     //it is assumed when one does this that the call *should* succeed, otherwise one would use vanilla approve instead.
     require(_spender.call(bytes4(bytes32(keccak256("receiveApproval(address,uint256,address,bytes)"))), this, _value, this, _extraData));
@@ -255,7 +255,7 @@ contract CustomToken is ERC20, BasicToken, Ownable {
     allowed[msg.sender][_spender] = _value;
     Approval(msg.sender, _spender, _value);
 
-    //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+    //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
     //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
     //it is assumed when one does this that the call *should* succeed, otherwise one would use vanilla approve instead.
     require(_spender.call(bytes4(bytes32(keccak256("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData));
@@ -315,7 +315,7 @@ contract CustomToken is ERC20, BasicToken, Ownable {
   function burn(address _burner, uint256 _value) onlyOwner public returns (bool) {
     require(_value <= balances[_burner]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_burner] = balances[_burner].sub(_value);
     totalSupply = totalSupply.sub(_value);

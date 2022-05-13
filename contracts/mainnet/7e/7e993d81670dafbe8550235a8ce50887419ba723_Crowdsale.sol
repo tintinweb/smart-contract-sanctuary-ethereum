@@ -1055,7 +1055,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1065,7 +1065,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1097,7 +1097,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1120,7 +1120,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1152,15 +1152,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1197,13 +1197,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1242,8 +1242,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -1260,7 +1260,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -1368,7 +1368,7 @@ library SafeERC20 {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 contract Crowdsale is Ownable, usingOraclize{
@@ -1685,7 +1685,7 @@ contract Crowdsale is Ownable, usingOraclize{
 
     /**
      * @dev Must be called after crowdsale ends, to do some extra finalization
-     * work. Calls the contract&#39;s finalization function.
+     * work. Calls the contract's finalization function.
      */
     function finalize() onlyOwner public {
         require(!isFinalized);

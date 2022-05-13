@@ -219,7 +219,7 @@ contract WonderToken is ERC721, ERC721Metadata, ERC721Enumerable, AccessAdmin {
         _safeTransferFrom(_from, _to, _tokenId, "");
     }
 
-    /// @dev Transfer ownership of an TTW, &#39;_to&#39; must be a vaild address, or the TTW will lost
+    /// @dev Transfer ownership of an TTW, '_to' must be a vaild address, or the TTW will lost
     /// @param _from The current owner of the TTW
     /// @param _to The new owner
     /// @param _tokenId The TTW to transfer
@@ -388,7 +388,7 @@ contract WonderToken is ERC721, ERC721Metadata, ERC721Enumerable, AccessAdmin {
         whenNotPaused
     {
         require(safeContracts[msg.sender]);
-        // Only the token&#39;s owner is this can use this function
+        // Only the token's owner is this can use this function
         require(tokenIdToOwner[_tokenId] == address(this));
         require(_to != address(0));
 

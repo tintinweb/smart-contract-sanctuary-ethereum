@@ -137,7 +137,7 @@ contract Ownable {
     @dev Defines the interface of a standard RCN oracle.
 
     The oracle is an agent in the RCN network that supplies a convertion rate between RCN and any other currency,
-    it&#39;s primarily used by the exchange but could be used by any other agent.
+    it's primarily used by the exchange but could be used by any other agent.
 */
 contract Oracle is Ownable {
     uint256 public constant VERSION = 3;
@@ -581,7 +581,7 @@ contract NanoLoanEngine is ERC721, Engine, Ownable, TokenLockable {
         require(rcn.transferFrom(msg.sender, loan.borrower, transferValue));
         
         if (cosigner != address(0)) {
-            // The cosigner it&#39;s temporary set to the next address (cosigner + 2), it&#39;s expected that the cosigner will
+            // The cosigner it's temporary set to the next address (cosigner + 2), it's expected that the cosigner will
             // call the method "cosign" to accept the conditions; that method also sets the cosigner to the right
             // address. If that does not happen, the transaction fails.
             loan.cosigner = address(uint256(cosigner) + 2);

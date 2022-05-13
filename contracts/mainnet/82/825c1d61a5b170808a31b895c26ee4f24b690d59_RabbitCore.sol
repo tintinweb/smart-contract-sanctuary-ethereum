@@ -111,7 +111,7 @@ contract OwnerBase {
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
     function unpause() public onlyCOO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 	
@@ -189,11 +189,11 @@ contract RabbitBase is ERC721, OwnerBase, FighterCamp {
 	
     /// @dev Assigns ownership of a specific Rabbit to an address.
     function _transItem(address _from, address _to, uint _tokenId) internal {
-        // Since the number of rabbits is capped to 2^32 we can&#39;t overflow this
+        // Since the number of rabbits is capped to 2^32 we can't overflow this
         howManyDoYouHave[_to]++;
         // transfer ownership
         rabbitToOwner[_tokenId] = _to;
-        // When creating new rabbits _from is 0x0, but we can&#39;t account that address.
+        // When creating new rabbits _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
             howManyDoYouHave[_from]--;
         }
@@ -207,7 +207,7 @@ contract RabbitBase is ERC721, OwnerBase, FighterCamp {
     }
 
     /// @dev An internal method that creates a new rabbit and stores it. This
-    ///  method doesn&#39;t do any checking and should only be called when the
+    ///  method doesn't do any checking and should only be called when the
     ///  input data is known to be valid. Will generate both a Birth event
     ///  and a Transfer event.
     function _createRabbit(
@@ -444,7 +444,7 @@ contract RabbitOwnership is RabbitBase {
 
     /// @notice Returns a list of all Rabbit IDs assigned to an address.
     /// @param _owner The owner whose rabbits we are interested in.
-    /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+    /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
     ///  expensive (it walks the entire Rabbit array looking for rabbits belonging to owner),
     ///  but it also returns a dynamic array, which is only supported for web3 calls, and
     ///  not contract-to-contract calls.
@@ -793,11 +793,11 @@ contract RabbitAuction is RabbitMinting {
 		require(_owns(this, _tokenId));
 
         // The bid is good! Remove the auction before sending the fees
-        // to the sender so we can&#39;t have a reentrancy endurance.
+        // to the sender so we can't have a reentrancy endurance.
         delete tokenIdToAuction[_tokenId];
 
         if (price > 0) {
-            // Calculate the auctioneer&#39;s cut.
+            // Calculate the auctioneer's cut.
             uint auctioneerCut = price * masterCut / 10000;
             uint sellerProceeds = price - auctioneerCut;
 			require(sellerProceeds <= price);
@@ -821,7 +821,7 @@ contract RabbitAuction is RabbitMinting {
         _transItem(this, msg.sender, _tokenId);
     }
 
-    /// @dev Cancels an auction that hasn&#39;t been won yet.
+    /// @dev Cancels an auction that hasn't been won yet.
     ///  Returns the NFT to original owner.
     /// @notice This is a state-modifying function that can
     ///  be called while the contract is paused.
@@ -1072,7 +1072,7 @@ contract RabbitAuction is RabbitMinting {
 
 /// @title CryptoRabbit: Collectible, oh-so-adorable rabbits on the Ethereum blockchain.
 /// @author cuilichen
-/// @dev The main CryptoRabbit contract, keeps track of rabbits so they don&#39;t wander around and get lost.
+/// @dev The main CryptoRabbit contract, keeps track of rabbits so they don't wander around and get lost.
 /// This is the main CryptoRabbit contract. In order to keep our code seperated into logical sections.
 contract RabbitCore is RabbitAuction {
     
@@ -1106,7 +1106,7 @@ contract RabbitCore is RabbitAuction {
 
 
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.

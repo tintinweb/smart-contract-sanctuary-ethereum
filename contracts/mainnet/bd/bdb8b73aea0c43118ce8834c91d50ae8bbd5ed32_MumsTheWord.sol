@@ -85,7 +85,7 @@ contract MumsTheWord {
         }
     }
 
-    // better don&#39;t do it (unless you want to increase the jackpot)
+    // better don't do it (unless you want to increase the jackpot)
     function raiseJackpot() payable {
         jackpot += msg.value;
     }

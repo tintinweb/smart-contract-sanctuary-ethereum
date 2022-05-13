@@ -27,7 +27,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -316,7 +316,7 @@ constructor(  )  {
 
 
 
-  //Can also be used to remove approval by using a &#39;tokens&#39; value of 0.  P.S. it makes no sense to do an ApproveTokensFrom
+  //Can also be used to remove approval by using a 'tokens' value of 0.  P.S. it makes no sense to do an ApproveTokensFrom
   function approveTokens(address spender, address token, uint tokens) public returns (bool success) {
       allowed[token][msg.sender][spender] = tokens;
       emit Approval(msg.sender, token, spender, tokens);
@@ -363,7 +363,7 @@ constructor(  )  {
 
 
 
-   //Nonce is the same thing as a &#39;check number&#39;
+   //Nonce is the same thing as a 'check number'
    //EIP 712
 /*   function getLavaTypedDataHash(bytes methodName, LavaPacket packet ) public constant returns (bytes32)
    {
@@ -393,7 +393,7 @@ constructor(  )  {
        /*
         Always allow relaying if the specified relayAuthority is 0.
         If the authority address is not a contract, allow it to relay
-        If the authority address is a contract, allow its defined &#39;getAuthority()&#39; delegate to relay
+        If the authority address is a contract, allow its defined 'getAuthority()' delegate to relay
        */
 
        require( packet.relayAuthority == 0x0
@@ -435,7 +435,7 @@ constructor(  )  {
 
    function approveTokensWithSignature(LavaPacket packet, bytes signature) public returns (bool success)
    {
-       require(bytesEqual(&#39;approve&#39;,bytes(packet.methodName)));
+       require(bytesEqual('approve',bytes(packet.methodName)));
 
        bytes32 sigHash = getLavaTypedDataHash(packet);
 
@@ -450,7 +450,7 @@ constructor(  )  {
   function transferTokensWithSignature(LavaPacket packet, bytes signature) public returns (bool success)
   {
 
-      require(bytesEqual(&#39;transfer&#39;,bytes(packet.methodName)));
+      require(bytesEqual('transfer',bytes(packet.methodName)));
 
       //check to make sure that signature == ecrecover signature
       bytes32 sigHash = getLavaTypedDataHash(packet);
@@ -469,7 +469,7 @@ constructor(  )  {
   //the tokens remain in lava wallet
  function withdrawTokensWithSignature(LavaPacket packet, bytes signature) public returns (bool success)
  {
-     require(bytesEqual(&#39;withdraw&#39;,bytes(packet.methodName)));
+     require(bytesEqual('withdraw',bytes(packet.methodName)));
 
      //check to make sure that signature == ecrecover signature
      bytes32 sigHash = getLavaTypedDataHash(packet);

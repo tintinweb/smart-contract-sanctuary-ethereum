@@ -143,8 +143,8 @@ contract StandardToken is ERC20 {
 
 
 contract  Ammbr is StandardToken, Ownable {
-    string public name = &#39;&#39;;
-    string public symbol = &#39;&#39;;
+    string public name = '';
+    string public symbol = '';
     uint8 public  decimals = 0;
     uint256 public maxMintBlock = 0;
 

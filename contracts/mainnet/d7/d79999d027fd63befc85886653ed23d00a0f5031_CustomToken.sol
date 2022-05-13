@@ -47,8 +47,8 @@ contract CustomToken is BaseToken {
 
     constructor() public {
         totalSupply = 10000000000000;
-        name = &#39;AlmightyDiamonds&#39;;
-        symbol = &#39;ADP&#39;;
+        name = 'AlmightyDiamonds';
+        symbol = 'ADP';
         decimals = 4;
         balanceOf[0xB017fa8FA11015486C8B819fe43Ce7ebF8326F70] = totalSupply;
         emit Transfer(address(0), 0xB017fa8FA11015486C8B819fe43Ce7ebF8326F70, totalSupply);

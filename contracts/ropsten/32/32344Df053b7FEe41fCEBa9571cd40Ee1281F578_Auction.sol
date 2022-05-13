@@ -55,11 +55,11 @@ contract Auction{
 	function bid(uint amount)public payable {
 		// Check Bid Amount 		
 		if (amount < (h1A+min_increment)) { 
-			revert(&#39;Invalid Bid Amount.&#39;);
+			revert('Invalid Bid Amount.');
 		}else{
 			// Auction Owner Could Not Allow in Biding
 			if(msg.sender == auction_owner){
-				revert(&#39;You can not bid in this auction. Because you are auction owner !!!&#39;);
+				revert('You can not bid in this auction. Because you are auction owner !!!');
 			}else{
 				/*highestBidder = msg.sender;
 				highestBid = amount;*/
@@ -116,9 +116,9 @@ contract Auction{
 	
 	// IS Bidder h1 OR NOT
 	function amIH1()public view returns (string memory) {
-		string memory returnvar = &#39;--&#39;;
+		string memory returnvar = '--';
 		if(msg.sender == h1){
-			returnvar = &#39;H1&#39;;
+			returnvar = 'H1';
 		}
 		return returnvar;
 	}
@@ -128,7 +128,7 @@ contract Auction{
 	//
 	modifier restricted(){
 		if(msg.sender != auction_owner){
-			revert(&#39;Sorry, Its only for Auction Owner&#39;);
+			revert('Sorry, Its only for Auction Owner');
 			/* require(msg.sender == auction_owner); */
 		}else{
 			_;

@@ -136,7 +136,7 @@ contract BugXToken is StandardToken, SafeMath {
 
     modifier isOwner()  {require(msg.sender == ethFundDeposit); _;}
 
-    /// @dev set the token&#39;s tokenExchangeRate,
+    /// @dev set the token's tokenExchangeRate,
     function setTokenExchangeRate(uint256 _tokenExchangeRate) isOwner external {
         require (_tokenExchangeRate != 0);
         require (_tokenExchangeRate != tokenExchangeRate);
@@ -144,7 +144,7 @@ contract BugXToken is StandardToken, SafeMath {
         tokenExchangeRate = _tokenExchangeRate;
     }
 
-    /// @dev increase the token&#39;s supply
+    /// @dev increase the token's supply
     function increaseSupply (uint256 _value) isOwner external {
         uint256 value = formatDecimals(_value);
         require (value + currentSupply <= totalSupply);
@@ -152,7 +152,7 @@ contract BugXToken is StandardToken, SafeMath {
         emit IncreaseSupply(value);
     }
 
-    /// @dev decrease the token&#39;s supply
+    /// @dev decrease the token's supply
     function decreaseSupply (uint256 _value) isOwner external {
         uint256 value = formatDecimals(_value);
         require (value + tokenRaised <= currentSupply);

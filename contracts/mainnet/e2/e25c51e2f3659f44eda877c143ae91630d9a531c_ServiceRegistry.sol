@@ -117,7 +117,7 @@ contract ServiceRegistry is Ownable {
   /**
    * @notice Replaces the address pointer to the `RegulatorService`
    *
-   * @dev This method is only callable by the contract&#39;s owner
+   * @dev This method is only callable by the contract's owner
    *
    * @param _service The address of the new `RegulatorService`
    */

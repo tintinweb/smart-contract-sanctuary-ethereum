@@ -63,8 +63,8 @@ contract HumanStandardToken is StandardToken {
 
     string public name;                   
     uint8 public decimals;               
-    string public symbol = &#39;CTRTL&#39;;               
-    string public version = &#39;H0.1&#39;;      
+    string public symbol = 'CTRTL';               
+    string public version = 'H0.1';      
     uint256 public totalSupply = 100000000000;
 
     function HumanStandardToken(

@@ -40,7 +40,7 @@ contract HotLove is ERC20Interface {
         return _totalSupply;
     }
 
-    // What&#39;s my balance?
+    // What's my balance?
     function balance() constant returns (uint256) {
         return getBalance(msg.sender);
     }
@@ -50,7 +50,7 @@ contract HotLove is ERC20Interface {
         return getBalance(_address);
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount) returns (bool success) {
         initialize(msg.sender);
 

@@ -23,7 +23,7 @@ contract Proxy {
 
   /**
    * @dev Delegates execution to an implementation contract.
-   * This is a low level function that doesn&#39;t return to its internal call site.
+   * This is a low level function that doesn't return to its internal call site.
    * It will return to the external caller whatever the implementation returns.
    * @param implementation Address to delegate.
    */
@@ -35,7 +35,7 @@ contract Proxy {
       calldatacopy(0, 0, calldatasize)
 
       // Call the implementation.
-      // out and outsize are 0 because we don&#39;t know the size yet.
+      // out and outsize are 0 because we don't know the size yet.
       let result := delegatecall(gas, implementation, 0, calldatasize, 0, 0)
 
       // Copy the returned data.
@@ -162,7 +162,7 @@ contract UpgradeabilityProxy is Proxy {
  * @title Ownable
  * @dev The Ownable contract has an owner address, and provides basic authorization control
  * functions, this simplifies the implementation of "user permissions". This adds two-phase
- * ownership control to OpenZeppelin&#39;s Ownable class. In this model, the original owner 
+ * ownership control to OpenZeppelin's Ownable class. In this model, the original owner 
  * designates a new owner but does not actually transfer ownership. The new owner then accepts 
  * ownership and completes the transfer.
  */
@@ -390,10 +390,10 @@ contract RegulatorStorage is Ownable {
 /**
  * @title RegulatorProxy
  * @dev A RegulatorProxy is a proxy contract that acts identically to a Regulator from the
- * user&#39;s point of view. A proxy can change its data storage locations and can also
+ * user's point of view. A proxy can change its data storage locations and can also
  * change its implementation contract location. A call to RegulatorProxy delegates the function call
- * to the latest implementation contract&#39;s version of the function and the proxy then
- * calls that function in the context of the proxy&#39;s data storage
+ * to the latest implementation contract's version of the function and the proxy then
+ * calls that function in the context of the proxy's data storage
  *
  */
 contract RegulatorProxy is UpgradeabilityProxy, RegulatorStorage {
@@ -401,7 +401,7 @@ contract RegulatorProxy is UpgradeabilityProxy, RegulatorStorage {
     
     /**
     * @dev CONSTRUCTOR
-    * @param _implementation the contract who&#39;s logic the proxy will initially delegate functionality to
+    * @param _implementation the contract who's logic the proxy will initially delegate functionality to
     **/
     constructor(address _implementation) public UpgradeabilityProxy(_implementation) {}
 
@@ -658,7 +658,7 @@ contract RegulatorProxyFactory {
         return regulators.length;
     }
 
-    // Return the i&#39;th created proxy. The most recently created proxy will be at position getCount()-1.
+    // Return the i'th created proxy. The most recently created proxy will be at position getCount()-1.
     function getRegulatorProxy(uint256 i) public view returns(address) {
         require((i < regulators.length) && (i >= 0), "Invalid index");
         return regulators[i];

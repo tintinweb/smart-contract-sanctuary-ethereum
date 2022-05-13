@@ -269,7 +269,7 @@ contract ValidatorBond is RestrictedUsers {
 
   /**
     PUBLIC
-    Claimant calls this method to contest validator&#39;s calculation.
+    Claimant calls this method to contest validator's calculation.
     Test covered.
   */
   function claimMistake(

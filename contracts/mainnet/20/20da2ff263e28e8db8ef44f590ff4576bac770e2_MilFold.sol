@@ -160,7 +160,7 @@ contract MilFold is MilFoldInterface,Milevents {
      * been activated.
      */
     modifier isActivated() {
-        require(activated_ == true, "it&#39;s not ready yet");
+        require(activated_ == true, "it's not ready yet");
         _;
     }
 
@@ -180,7 +180,7 @@ contract MilFold is MilFoldInterface,Milevents {
      * @dev sets boundaries for incoming tx
      */
     modifier isWithinLimits(uint256 _eth) {
-        require(_eth >= MIN_ETH_BUYIN, "can&#39;t be less anymore");
+        require(_eth >= MIN_ETH_BUYIN, "can't be less anymore");
         _;
     }
 
@@ -560,15 +560,15 @@ contract MilFold is MilFoldInterface,Milevents {
     }
 
     /**
-     * @dev claim the winner identified by the given player&#39;s address
-     * @param _addr player&#39;s address
+     * @dev claim the winner identified by the given player's address
+     * @param _addr player's address
      */
     function claimWinner(address _addr)
         public
         isActivated()
         isHuman()
     {
-        require(lID_ > 0 && round_[lID_].state == Mildatasets.RoundState.DRAWN && now <= round_[lID_].claimDeadline, "it&#39;s not time for claiming");
+        require(lID_ > 0 && round_[lID_].state == Mildatasets.RoundState.DRAWN && now <= round_[lID_].claimDeadline, "it's not time for claiming");
         require(round_[lID_].winnerNum[_addr] == 0, "the winner have been claimed already");
 
         uint winNum = 0;
@@ -699,10 +699,10 @@ contract MilFold is MilFoldInterface,Milevents {
     }
 
     /**
-     * @dev return players&#39;s total winning eth
-     * @param _addr player&#39;s address
-     * @return player&#39;s total tickets
-     * @return player&#39;s total winning eth
+     * @dev return players's total winning eth
+     * @param _addr player's address
+     * @return player's total tickets
+     * @return player's total winning eth
      */
     function getPlayerAccount(address _addr)
         public
@@ -715,8 +715,8 @@ contract MilFold is MilFoldInterface,Milevents {
     /**
      * @dev return numbers in the round
      * @param _rid round id
-     * @param _addr player&#39;s address
-     * @return player&#39;s numbers
+     * @param _addr player's address
+     * @return player's numbers
      */
     function getPlayerRoundNums(uint256 _rid, address _addr)
         public
@@ -727,10 +727,10 @@ contract MilFold is MilFoldInterface,Milevents {
     }
 
     /**
-     * @dev return player&#39;s winning information in the round
+     * @dev return player's winning information in the round
      * @return winning numbers
      * @param _rid round id
-     * @param _addr player&#39;s address
+     * @param _addr player's address
      */
     function getPlayerRoundWinningInfo(uint256 _rid, address _addr)
         public
@@ -743,7 +743,7 @@ contract MilFold is MilFoldInterface,Milevents {
         } else if (state == Mildatasets.RoundState.ASSIGNED) {
             return round_[_rid].winnerNum[_addr];
         } else {
-            // only drawn but not assigned, we need to query the player&#39;s winning numbers
+            // only drawn but not assigned, we need to query the player's winning numbers
             uint256[] storage ptns = playerTicketNumbers_[_rid][_addr];
             uint256 nums = 0;
             for (uint256 j = 0; j < ptns.length; j ++) {
@@ -813,7 +813,7 @@ contract MilFold is MilFoldInterface,Milevents {
      *  draw code
      *  round pot
      *  draw block number(last one)
-     * @return winners&#39; address
+     * @return winners' address
      * @return winning number
      */
     function getHistoryRoundInfo(uint256 _rid)
@@ -848,7 +848,7 @@ contract MilFold is MilFoldInterface,Milevents {
 //==============================================================================
 library Mildatasets {
 
-    // between `DRAWN&#39; and `ASSIGNED&#39;, someone need to claim winners.
+    // between `DRAWN' and `ASSIGNED', someone need to claim winners.
     enum RoundState {
         UNKNOWN,        // aim to differ from normal states
         STARTED,        // start current round
@@ -892,7 +892,7 @@ library Mildatasets {
         RoundState                      state;              // round state
         uint256                         drawCode;           // draw code
         uint256                         totalNum;           // total number
-        mapping (address => uint256)    winnerNum;          // winners&#39; number
+        mapping (address => uint256)    winnerNum;          // winners' number
         address[]                       winners;            // winners
     }
 
@@ -932,7 +932,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

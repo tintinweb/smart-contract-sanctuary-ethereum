@@ -31,7 +31,7 @@ contract AuctionBid {
         require(started == true, "The auction is closing.");
         require(msg.sender.balance > 0, "You have no money, let buy some");
         // nextStep = highestPrice + (highestPrice*50)/100;
-        require(msg.value == nextStep, "Can&#39;t bid under the next price");
+        require(msg.value == nextStep, "Can't bid under the next price");
 
         if(highestBidder != 0x0000000000000000000000000000000000000000) {
             withdrawMoney[highestBidder] += highestPrice;

@@ -176,8 +176,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -194,7 +194,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -305,7 +305,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -560,8 +560,8 @@ contract TokenGateToken is CappedToken, PausableToken {
 
     // Note on return values of functions: it always returns true at the end of the function, so it is
     // possible to detect whether the function completed successfully when calling it over the web3. 
-    // In case function fails, the return value will either be &#39;0x&#39; (for require routines without error message)
-    // or in form &#39;0x<func signature><encoded error message as string>. In case the function succeeds,
+    // In case function fails, the return value will either be '0x' (for require routines without error message)
+    // or in form '0x<func signature><encoded error message as string>. In case the function succeeds,
     // it will return "0x00...001" to web3 (equivalent of true)
     
     constructor()
@@ -775,7 +775,7 @@ contract TokenGateCrowdsale is Ownable, Pausable, HasManager, HasBank, Destructi
         
         // minCHF - minimal investment in CHF
         uint256 minCHF = 5;
-        // convert to tokens, because it&#39;s easier to work with it
+        // convert to tokens, because it's easier to work with it
         minInvestment = minCHF.mul(rateCHF);
         
         ///////////////////////////////////
@@ -800,7 +800,7 @@ contract TokenGateCrowdsale is Ownable, Pausable, HasManager, HasBank, Destructi
         require(teamTokensSum == 0, "team tokens are allocated already");
         require(founderTokensSum == 0, "founder tokens are allocated already");
 
-        // no decimals - DON&#39;T MULTIPLY BY ONE TOKEN
+        // no decimals - DON'T MULTIPLY BY ONE TOKEN
         allocateTeamTokens(0x39683abdBA389Bad9d39Fadb82a45BC56244133f, 1000000);
         allocateTeamTokens(0x0C2b7A11e7Da363DaDD661228df6f1a4134e81be, 2000000);
 
@@ -861,8 +861,8 @@ contract TokenGateCrowdsale is Ownable, Pausable, HasManager, HasBank, Destructi
     
     // Note on return values of functions: it always returns true at the end of the function, so it is
     // possible to detect whether the function completed successfully when calling it over the web3. 
-    // In case function fails, the return value will either be &#39;0x&#39; (for require routines without error message)
-    // or in form &#39;0x<func signature><encoded error message as string>. In case the function succeeds,
+    // In case function fails, the return value will either be '0x' (for require routines without error message)
+    // or in form '0x<func signature><encoded error message as string>. In case the function succeeds,
     // it will return "0x00...001" to web3 (equivalent of true)
     
     //
@@ -898,7 +898,7 @@ contract TokenGateCrowdsale is Ownable, Pausable, HasManager, HasBank, Destructi
                 // convert kycLimit in CHF to tokens
                 (, uint256[3] memory _er) = getCurrentExchangeRate();
                 // both kycLimit and exchange rate are multiplied by oneToken in order to keep the
-                // precision. That&#39;s why it&#39;s necessary to divide by oneToken.
+                // precision. That's why it's necessary to divide by oneToken.
                 uint256 kycLimitInTokens = _kycLimit.mul(_er[0]).div(oneToken);
 
                 investors[index] = _wallet;
@@ -1075,7 +1075,7 @@ contract TokenGateCrowdsale is Ownable, Pausable, HasManager, HasBank, Destructi
         (, uint256[3] memory er) = getExchangeRateAtTime(_payment.timestamp);
         require(er[_payment.currencyType] > 0, "exchange rate must be positive");
         // both amount and exchange rate are multiplied by oneToken in order to keep the
-        // precision. That&#39;s why it&#39;s necessary to divide by oneToken.
+        // precision. That's why it's necessary to divide by oneToken.
         _payment.tokenAmount = _payment.amount.mul(er[_payment.currencyType]).div(oneToken);
         
         // now we know how many tokens is going to be allocated and can check the minInvest and KYC limit
@@ -1139,7 +1139,7 @@ contract TokenGateCrowdsale is Ownable, Pausable, HasManager, HasBank, Destructi
             index = getInvestorKey(_refIds[i], _currencyType);
             
             if (investor != investors[index]) {
-                // don&#39;t reset the existing error if set
+                // don't reset the existing error if set
                 if (payment.status == PaymentStatus.Verified) {
                     payment.status = PaymentStatus.ErrorNotTheSameInvestor;
                 }
@@ -1147,7 +1147,7 @@ contract TokenGateCrowdsale is Ownable, Pausable, HasManager, HasBank, Destructi
         }
 
         if (investor == address(0)) {
-            // don&#39;t reset the existing error if set
+            // don't reset the existing error if set
             if (payment.status == PaymentStatus.Verified) {
                 payment.status = PaymentStatus.ErrorInvestorNotFound;
             }

@@ -164,8 +164,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -183,7 +183,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -392,7 +392,7 @@ contract SignkeysCrowdsale is Ownable, ReentrancyGuard {
     }
 
     /**
-     * Don&#39;t expect to just send in money and get tokens.
+     * Don't expect to just send in money and get tokens.
      */
     function() payable external {
         revert();
@@ -594,7 +594,7 @@ contract SignkeysStaking is Ownable {
 
         uint256 multiplier = 10 ** uint256(token.decimals());
         require(tokensAmount == _valueWei.mul(multiplier).div(_tokenPrice),
-            "Value doesn&#39;t correspond weis amount and token price");
+            "Value doesn't correspond weis amount and token price");
 
         address receivedSigner = ecrecover(keccak256(abi.encodePacked(_tokenPrice, _valueWei, _expiration)), _v, _r, _s);
         require(receivedSigner == signer, "Something wrong with signature");
@@ -687,7 +687,7 @@ contract ERC20 is IERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -815,7 +815,7 @@ contract ERC20 is IERC20 {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param value The amount that will be burnt.
@@ -954,6 +954,6 @@ contract SignkeysVesting is Ownable {
     }
 
     function canTransfer(address from, address to, uint256 value) public view {
-        require(vestingCliffDateTime <= now, "Contract can&#39;t transfer tokens until cliff date");
+        require(vestingCliffDateTime <= now, "Contract can't transfer tokens until cliff date");
     }
 }

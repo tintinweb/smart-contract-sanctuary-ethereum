@@ -273,7 +273,7 @@ contract SingleTokenCoin is MintableToken {
 // Before deploy to Main Net change rinkeby.etherscan.io to etherscan.io 
 // Before deploy to Main Net check all ICO dates in all .sol files
 // Before deploy to Main Net check all Comment in .sol and .js files
-// Before deploy to Main Net check all code area with &#39;* 100&#39; & &#39;/ 100&#39; for .js files
+// Before deploy to Main Net check all code area with '* 100' & '/ 100' for .js files
 
 //----------CHECK----------
 //Get back tokens

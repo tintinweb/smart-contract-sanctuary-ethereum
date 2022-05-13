@@ -10,7 +10,7 @@ Only stores a simple merkle tree root hash on the Ethereum Mainnet
 
 ______
 
-The mapping &#39;blocks&#39; is a collection of blocks which all reference some other previous block.
+The mapping 'blocks' is a collection of blocks which all reference some other previous block.
 Sidechain Nodes must determine which of these blocks has the most valid blocks sequentially behind it (ending at the genesis block, and the node must have all TX data for each block -- synced)
 
 
@@ -43,7 +43,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -187,7 +187,7 @@ contract InfernoSidechain   {
   transfer(from,to,token,tokens,fee)
   export(from, token, tokens , fee)
 
-  PROBLEM: A contentious 51% attacker can make new &#39;exit&#39; tx with no parents/history and steal tokens
+  PROBLEM: A contentious 51% attacker can make new 'exit' tx with no parents/history and steal tokens
   ...perhaps use UTXO and prove them on each new block added ? ...prove them on exit ?
 
   */
@@ -272,7 +272,7 @@ contract InfernoSidechain   {
 
 
     //import tokens
-    // This makes a new &#39;genesis import&#39; hash .... saved in contract.
+    // This makes a new 'genesis import' hash .... saved in contract.
     // Similar to a coinbase tx for the sidechain -- new tokens enter supply
     function importTokensToSidechain(address from,address token, uint tokens, bytes32  input) public returns (bool)
     {
@@ -313,7 +313,7 @@ contract InfernoSidechain   {
 
     function exportTokensFromSidechain(
       bytes32 branchHeadRoot,
-      bytes32[] branchProof, //prove that the &#39;root&#39; is part of the &#39;branch head root&#39;, just all the roots of the blocks between
+      bytes32[] branchProof, //prove that the 'root' is part of the 'branch head root', just all the roots of the blocks between
 
       bytes32 root,
       bytes32 leaf, //exit transaction
@@ -331,14 +331,14 @@ contract InfernoSidechain   {
 
       require(_validateQualityConsensus(branchHeadRoot , root   ));
 
-      //prove that the &#39;root&#39; is part of the &#39;branch head root&#39; (no way to compute branchProof to fit)
+      //prove that the 'root' is part of the 'branch head root' (no way to compute branchProof to fit)
       require(_getMerkleRoot(root,branchProof) == branchHeadRoot);
 
 
       //prove that the transaction is part of the root block (no way to compute proof to fit)
       require(_getMerkleRoot(leaf,proof) == root);
 
-      bytes32 exitTransactionHash = keccak256(abi.encodePacked(&#39;exit&#39;,this,from,token,tokens,nonce));//this is the &#39;hash&#39; of a sidechain TX
+      bytes32 exitTransactionHash = keccak256(abi.encodePacked('exit',this,from,token,tokens,nonce));//this is the 'hash' of a sidechain TX
       require( leaf == exitTransactionHash);
 
 
@@ -374,7 +374,7 @@ contract InfernoSidechain   {
 
     /*
     User must provide a root for a head-block of a branch which has a depth
-    equal to the &#39;deepestDepth&#39;  global.   We compute its depth to make sure.
+    equal to the 'deepestDepth'  global.   We compute its depth to make sure.
     Then,   Require a UTXO proof that there is a withdrawl tx in a block
     under that heads sidechain branch which has at least REQUIRED_CONFIRMATION_BLOCKS confirms.
     the UTXO must begin at the import UTXO hash.
@@ -383,7 +383,7 @@ contract InfernoSidechain   {
 
     //1) How do we ensure that the exit tx does not make the users sidechain balance go to 0 ?
 
-   //A) What if we had a &#39;checkpoint hash&#39; that represented everyones balance !
+   //A) What if we had a 'checkpoint hash' that represented everyones balance !
     // Then a whistleblower can show that a TX would make someones balance go negative
 
 

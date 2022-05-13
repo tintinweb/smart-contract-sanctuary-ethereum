@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -450,7 +450,7 @@ contract Accounts is Ownable {
         bytes32 identityHash = keccak256(abi.encodePacked(identityPreimage));
         bytes8 accountId = identityHashToAccount[identityHash];
 
-        require(isTemporary(accountId), "it&#39;s not temporary account");
+        require(isTemporary(accountId), "it's not temporary account");
         Account storage account = accounts[accountId];
 
         require(
@@ -491,7 +491,7 @@ contract Accounts is Ownable {
 
     function setDelegate(address delegate) external {
         // the delegate and the proxy cannot modify delegate.
-        // a delegate can be set only through the account owner&#39;s direct transaction.
+        // a delegate can be set only through the account owner's direct transaction.
         require(addressToAccount[msg.sender] != bytes8(0), "Account does not exist.");
 
         Account storage account = accounts[addressToAccount[msg.sender]];
@@ -666,7 +666,7 @@ contract CollectionRegistry {
         Auth storage auth = collections[_id].dataCollectionOf[_userId];
 
         if (auth.authorizedAt != 0 && accounts.isTemporary(_userId)) {
-            // temporary account can&#39;t change DAuth settings that already set.
+            // temporary account can't change DAuth settings that already set.
             revert("The account is currently locked.");
         }
 

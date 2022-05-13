@@ -106,7 +106,7 @@ contract ERC20Token {
      * Transfer tokens
      *
      * Send `_value` tokens to `_to` from your account
-     * 당신의 계정에서 &#39;_value&#39; 토큰을 &#39;_to&#39;로 보냅니다.
+     * 당신의 계정에서 '_value' 토큰을 '_to'로 보냅니다.
      *
      * @param _to The address of the recipient(받는 사람의 주소)
      * @param _value the amount to send (송금액)
@@ -120,7 +120,7 @@ contract ERC20Token {
      * Transfer tokens from other address
      *
      * Send `_value` tokens to `_to` on behalf of `_from`
-     * &#39;_from&#39; 대신 `_value`토큰을 `_to`로 보냅니다.
+     * '_from' 대신 `_value`토큰을 `_to`로 보냅니다.
      *
      * @param _from The address of the sender(보낸 사람의 주소)
      * @param _to The address of the recipient(받는 사람의 주소)
@@ -198,7 +198,7 @@ contract ERC20Token {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough(목표 잔액이 충분한 지 확인)
         require(_value <= allowance[_from][msg.sender]);    // Check allowance(수당 확인)
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance(목표 잔액에서 차감)
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance(보낸 사람 수당에서 차감)
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance(보낸 사람 수당에서 차감)
         totalSupply -= _value;                              // Update totalSupply(총긍급량 업데이트)
         emit Burn(_from, _value);
         return true;

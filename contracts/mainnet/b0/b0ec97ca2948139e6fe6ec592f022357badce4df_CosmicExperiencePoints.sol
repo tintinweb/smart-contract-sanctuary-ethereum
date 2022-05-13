@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -74,7 +74,7 @@ contract Ownable {
 }
 
 // ----------------------------------------------------------------------------
-// &#39;Cosmic Experience Points&#39; token contract
+// 'Cosmic Experience Points' token contract
 //
 // CXP tokens are mintable by the owner until the `disableMinting()` function
 // is executed. Tokens can be burnt by sending them to address 0x0
@@ -173,8 +173,8 @@ contract CosmicExperiencePoints is ERC20Interface, Ownable {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -187,7 +187,7 @@ contract CosmicExperiencePoints is ERC20Interface, Ownable {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -220,7 +220,7 @@ contract CosmicExperiencePoints is ERC20Interface, Ownable {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -229,7 +229,7 @@ contract CosmicExperiencePoints is ERC20Interface, Ownable {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -253,7 +253,7 @@ contract CosmicExperiencePoints is ERC20Interface, Ownable {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ethers
+    // Don't accept ethers
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

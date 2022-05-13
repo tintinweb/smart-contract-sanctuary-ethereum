@@ -24,7 +24,7 @@ contract Owned {
     *
     *  Changes ownership of this contract. Only owner can call this method.
     *
-    * @param newOwner - new owner&#39;s address
+    * @param newOwner - new owner's address
     */
     function changeOwner(address newOwner) onlyOwner public {
         require(newOwner != address(0));
@@ -36,9 +36,9 @@ contract Owned {
 
 contract FHFTokenInterface {
     /* Public parameters of the token */
-    string public standard = &#39;Token 0.1&#39;;
-    string public name = &#39;Forever Has Fallen&#39;;
-    string public symbol = &#39;FC&#39;;
+    string public standard = 'Token 0.1';
+    string public name = 'Forever Has Fallen';
+    string public symbol = 'FC';
     uint8 public decimals = 18;
 
     function approveCrowdsale(address _crowdsaleAddress) external;
@@ -242,7 +242,7 @@ contract FHFToken is Owned, CrowdsaleParameters, FHFTokenInterface {
     }
 
     /**
-    *  Send coins from sender&#39;s address to address specified in parameters
+    *  Send coins from sender's address to address specified in parameters
     *
     * @param _to - address to send to
     * @param _value - amount to send in Wei

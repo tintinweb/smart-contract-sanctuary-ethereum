@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -130,7 +130,7 @@ contract Shareable {
    */
   function revoke(bytes32 _operation) external {
     uint index = ownerIndex[msg.sender];
-    // make sure they&#39;re an owner
+    // make sure they're an owner
     if (index == 0) {
       return;
     }
@@ -171,7 +171,7 @@ contract Shareable {
     var pending = pendings[_operation];
     uint index = ownerIndex[_owner];
 
-    // make sure they&#39;re an owner
+    // make sure they're an owner
     if (index == 0) {
       return false;
     }
@@ -182,20 +182,20 @@ contract Shareable {
   }
 
   /**
-   * @dev Confirm and operation and checks if it&#39;s already executable.
+   * @dev Confirm and operation and checks if it's already executable.
    * @param _operation The operation identifier.
    * @return Returns true when operation can be executed.
    */
   function confirmAndCheck(bytes32 _operation) internal returns (bool) {
     // determine what index the present sender is:
     uint index = ownerIndex[msg.sender];
-    // make sure they&#39;re an owner
+    // make sure they're an owner
     if (index == 0) {
       throw;
     }
 
     var pending = pendings[_operation];
-    // if we&#39;re not yet working on this operation, switch over and reset the confirmation status.
+    // if we're not yet working on this operation, switch over and reset the confirmation status.
     if (pending.yetNeeded == 0) {
       // reset count of confirmations needed.
       pending.yetNeeded = required;
@@ -206,7 +206,7 @@ contract Shareable {
     }
     // determine the bit to set for this owner.
     uint ownerIndexBit = 2**index;
-    // make sure we (the message sender) haven&#39;t confirmed this operation previously.
+    // make sure we (the message sender) haven't confirmed this operation previously.
     if (pending.ownersDone & ownerIndexBit == 0) {
       Confirmation(msg.sender, _operation);
       // ok - check if count is enough to go ahead.
@@ -436,7 +436,7 @@ contract BTH is StandardToken, Shareable {
 
   struct Poll {
     bool exists;  // Indicates that the poll is created
-    string title; // Title of the poll, it&#39;s the poll indentifier so it must be unique
+    string title; // Title of the poll, it's the poll indentifier so it must be unique
     mapping (address => bool) votes; // Control who have voted
     uint8 percentage; // Percentage which determines if the poll has been approved
     uint256 hashRate; // Summed hash rate of all the voters
@@ -777,7 +777,7 @@ contract BTH is StandardToken, Shareable {
 
     // After updating the halving hash rate, do the miner contribution
 
-    // If it&#39;s the very first time the miner participates in the BTH token, assign an initial block
+    // If it's the very first time the miner participates in the BTH token, assign an initial block
     // This block is used with two porpouses:
     //    - To account in which halving the miner is
     //    - To know the offset inside the halving and allow only claimings after the miner offset
@@ -1317,7 +1317,7 @@ contract BTH is StandardToken, Shareable {
     require(_halving < currentHalving());
 
     if (!halvingsSubsidies[_halving].claimed) {
-      // In the case that the halving subsidy hasn&#39;t been instantiated
+      // In the case that the halving subsidy hasn't been instantiated
       // (.claimed is false) return the full halving subsidy
       return halvingSubsidy(_halving);
     } else {

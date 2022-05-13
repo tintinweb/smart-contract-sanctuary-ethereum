@@ -25,7 +25,7 @@ contract multiowned {
         // count of confirmations needed
         uint yetNeeded;
 
-        // bitmap of confirmations where owner #ownerIndex&#39;s decision corresponds to 2**ownerIndex bit
+        // bitmap of confirmations where owner #ownerIndex's decision corresponds to 2**ownerIndex bit
         uint ownersDone;
 
         // position of this operation key in m_multiOwnedPendingIndex
@@ -60,8 +60,8 @@ contract multiowned {
         if (confirmAndCheck(_operation)) {
             _;
         }
-        // Even if required number of confirmations has&#39;t been collected yet,
-        // we can&#39;t throw here - because changes to the state have to be preserved.
+        // Even if required number of confirmations has't been collected yet,
+        // we can't throw here - because changes to the state have to be preserved.
         // But, confirmAndCheck itself will throw in case sender is not an owner.
     }
 
@@ -213,14 +213,14 @@ contract multiowned {
 
     /// @notice checks if provided address is an owner address
     /// @param _addr address to check
-    /// @return true if it&#39;s an owner
+    /// @return true if it's an owner
     function isOwner(address _addr) public constant returns (bool) {
         return m_ownerIndex[_addr] > 0;
     }
 
     /// @notice Tests ownership of the current caller.
-    /// @return true if it&#39;s an owner
-    // It&#39;s advisable to call it by new owner to make sure that the same erroneous address is not copy-pasted to
+    /// @return true if it's an owner
+    // It's advisable to call it by new owner to make sure that the same erroneous address is not copy-pasted to
     // addOwner/changeOwner and to isOwner.
     function amIOwner() external constant onlyowner returns (bool) {
         return true;
@@ -268,14 +268,14 @@ contract multiowned {
     {
         if (512 == m_multiOwnedPendingIndex.length)
             // In case m_multiOwnedPendingIndex grows too much we have to shrink it: otherwise at some point
-            // we won&#39;t be able to do it because of block gas limit.
+            // we won't be able to do it because of block gas limit.
             // Yes, pending confirmations will be lost. Dont see any security or stability implications.
             // TODO use more graceful approach like compact or removal of clearPending completely
             clearPending();
 
         var pending = m_multiOwnedPending[_operation];
 
-        // if we&#39;re not yet working on this operation, switch over and reset the confirmation status.
+        // if we're not yet working on this operation, switch over and reset the confirmation status.
         if (! isOperationActive(_operation)) {
             // reset count of confirmations needed.
             pending.yetNeeded = m_multiOwnedRequired;
@@ -288,7 +288,7 @@ contract multiowned {
 
         // determine the bit to set for this owner.
         uint ownerIndexBit = makeOwnerBitmapBit(msg.sender);
-        // make sure we (the message sender) haven&#39;t confirmed this operation previously.
+        // make sure we (the message sender) haven't confirmed this operation previously.
         if (pending.ownersDone & ownerIndexBit == 0) {
             // ok - check if count is enough to go ahead.
             assert(pending.yetNeeded > 0);
@@ -325,7 +325,7 @@ contract multiowned {
             // swap, if possible, so free slot is located at the end after the swap
             if (free < m_numOwners && m_owners[m_numOwners] != 0 && m_owners[free] == 0)
             {
-                // owners between swapped slots should&#39;t be renumbered - that saves a lot of gas
+                // owners between swapped slots should't be renumbered - that saves a lot of gas
                 m_owners[free] = m_owners[m_numOwners];
                 m_ownerIndex[m_owners[free]] = free;
                 m_owners[m_numOwners] = 0;
@@ -511,7 +511,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -995,7 +995,7 @@ contract MintableMultiownedToken is MultiownedControlled, StandardToken {
 
     // FIELDS
 
-    /// @notice if this true then token is still externally mintable (but this flag does&#39;t affect emissions!)
+    /// @notice if this true then token is still externally mintable (but this flag does't affect emissions!)
     bool public m_externalMintingEnabled = true;
 
     /// @dev internal address of dividends in balances mapping.
@@ -1035,8 +1035,8 @@ contract STQToken is CirculatingToken, MintableMultiownedToken {
 
     // FIELDS
 
-    string public constant name = &#39;Storiqa Token&#39;;
-    string public constant symbol = &#39;STQ&#39;;
+    string public constant name = 'Storiqa Token';
+    string public constant symbol = 'STQ';
     uint8 public constant decimals = 18;
 }
 

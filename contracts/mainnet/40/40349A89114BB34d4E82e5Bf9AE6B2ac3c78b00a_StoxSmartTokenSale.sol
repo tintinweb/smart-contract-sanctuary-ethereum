@@ -4,7 +4,7 @@ pragma solidity ^0.4.11;
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public constant returns (address owner) { owner; }
 
     function transferOwnership(address _newOwner) public;
@@ -15,7 +15,7 @@ contract IOwned {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public constant returns (string name) { name; }
     function symbol() public constant returns (string symbol) { symbol; }
     function decimals() public constant returns (uint8 decimals) { decimals; }
@@ -100,9 +100,9 @@ contract SafeMath {
     ERC20 Standard Token implementation
 */
 contract ERC20Token is IERC20Token, SafeMath {
-    string public standard = &#39;Token 0.1&#39;;
-    string public name = &#39;&#39;;
-    string public symbol = &#39;&#39;;
+    string public standard = 'Token 0.1';
+    string public name = '';
+    string public symbol = '';
     uint8 public decimals = 0;
     uint256 public totalSupply = 0;
     mapping (address => uint256) public balanceOf;
@@ -126,7 +126,7 @@ contract ERC20Token is IERC20Token, SafeMath {
         decimals = _decimals;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -139,7 +139,7 @@ contract ERC20Token is IERC20Token, SafeMath {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transfer(address _to, uint256 _value)
         public
@@ -160,7 +160,7 @@ contract ERC20Token is IERC20Token, SafeMath {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transferFrom(address _from, address _to, uint256 _value)
         public
@@ -186,14 +186,14 @@ contract ERC20Token is IERC20Token, SafeMath {
         @param _spender approved address
         @param _value   allowance amount
 
-        @return true if the approval was successful, false if it wasn&#39;t
+        @return true if the approval was successful, false if it wasn't
     */
     function approve(address _spender, uint256 _value)
         public
         validAddress(_spender)
         returns (bool success)
     {
-        // if the allowance isn&#39;t 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
+        // if the allowance isn't 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
         require(_value == 0 || allowance[msg.sender][_spender] == 0);
 
         allowance[msg.sender][_spender] = _value;
@@ -248,10 +248,10 @@ contract Owned is IOwned {
 }
 
 /*
-    We consider every contract to be a &#39;token holder&#39; since it&#39;s currently not possible
+    We consider every contract to be a 'token holder' since it's currently not possible
     for a contract to deny receiving tokens.
 
-    The TokenHolder&#39;s contract sole purpose is to provide a safety mechanism that allows
+    The TokenHolder's contract sole purpose is to provide a safety mechanism that allows
     the owner to send tokens that were sent to the contract by mistake back to their sender.
 */
 contract TokenHolder is ITokenHolder, Owned {
@@ -261,7 +261,7 @@ contract TokenHolder is ITokenHolder, Owned {
     function TokenHolder() {
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -295,10 +295,10 @@ contract TokenHolder is ITokenHolder, Owned {
 /*
     Smart Token v0.2
 
-    &#39;Owned&#39; is specified here for readability reasons
+    'Owned' is specified here for readability reasons
 */
 contract SmartToken is ISmartToken, ERC20Token, Owned, TokenHolder {
-    string public version = &#39;0.2&#39;;
+    string public version = '0.2';
 
     bool public transfersEnabled = true;    // true if transfer/transferFrom are enabled, false if not
 
@@ -323,7 +323,7 @@ contract SmartToken is ISmartToken, ERC20Token, Owned, TokenHolder {
         NewSmartToken(address(this));
     }
 
-    // allows execution only when transfers aren&#39;t disabled
+    // allows execution only when transfers aren't disabled
     modifier transfersAllowed {
         assert(transfersEnabled);
         _;
@@ -382,12 +382,12 @@ contract SmartToken is ISmartToken, ERC20Token, Owned, TokenHolder {
     /**
         @dev send coins
         throws on any error rather then return a false flag to minimize user errors
-        note that when transferring to the smart token&#39;s address, the coins are actually destroyed
+        note that when transferring to the smart token's address, the coins are actually destroyed
 
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transfer(address _to, uint256 _value) public transfersAllowed returns (bool success) {
         assert(super.transfer(_to, _value));
@@ -405,13 +405,13 @@ contract SmartToken is ISmartToken, ERC20Token, Owned, TokenHolder {
     /**
         @dev an account/contract attempts to get the coins
         throws on any error rather then return a false flag to minimize user errors
-        note that when transferring to the smart token&#39;s address, the coins are actually destroyed
+        note that when transferring to the smart token's address, the coins are actually destroyed
 
         @param _from    source address
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transferFrom(address _from, address _to, uint256 _value) public transfersAllowed returns (bool success) {
         assert(super.transferFrom(_from, _to, _value));
@@ -483,7 +483,7 @@ library SaferMath {
     function div(uint256 a, uint256 b) internal returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -518,7 +518,7 @@ library SaferMath {
 
 /// @title Stox Smart Token
 contract StoxSmartToken is SmartToken {
-    function StoxSmartToken() SmartToken(&#39;Stox&#39;, &#39;STX&#39;, 18) {
+    function StoxSmartToken() SmartToken('Stox', 'STX', 18) {
         disableTransfers(true);
     }
 }
@@ -576,7 +576,7 @@ contract Trustee is Ownable {
         // Check for date inconsistencies that may cause unexpected behavior.
         require(_start <= _cliff && _cliff <= _end);
 
-        // Check that this grant doesn&#39;t exceed the total amount of tokens currently available for vesting.
+        // Check that this grant doesn't exceed the total amount of tokens currently available for vesting.
         require(totalVesting.add(_value) <= stox.balanceOf(address(this)));
 
         // Assign a new grant.
@@ -617,7 +617,7 @@ contract Trustee is Ownable {
     /// @dev Calculate the total amount of vested tokens of a holder at a given time.
     /// @param _holder address The address of the holder.
     /// @param _time uint256 The specific time.
-    /// @return a uint256 representing a holder&#39;s total amount of vested tokens.
+    /// @return a uint256 representing a holder's total amount of vested tokens.
     function vestedTokens(address _holder, uint256 _time) public constant returns (uint256) {
         Grant grant = grants[_holder];
         if (grant.value == 0) {
@@ -646,12 +646,12 @@ contract Trustee is Ownable {
     ///   +===+===========+---------+----------> time
     ///     Start       Cliff      End
     function calculateVestedTokens(Grant _grant, uint256 _time) private constant returns (uint256) {
-        // If we&#39;re before the cliff, then nothing is vested.
+        // If we're before the cliff, then nothing is vested.
         if (_time < _grant.cliff) {
             return 0;
         }
 
-        // If we&#39;re after the end of the vesting period - everything is vested;
+        // If we're after the end of the vesting period - everything is vested;
         if (_time >= _grant.end) {
             return _grant.value;
         }
@@ -672,7 +672,7 @@ contract Trustee is Ownable {
             return;
         }
 
-        // Make sure the holder doesn&#39;t transfer more than what he already has.
+        // Make sure the holder doesn't transfer more than what he already has.
         uint256 transferable = vested.sub(grant.transferred);
         if (transferable == 0) {
             return;
@@ -755,7 +755,7 @@ contract StoxSmartTokenSale is Ownable {
         assert(tokensSold == 0);
         assert(stox.totalSupply() == 0);
 
-        // Distribute strategic tokens to partners. Please note, that this address doesn&#39;t represent a single entity or
+        // Distribute strategic tokens to partners. Please note, that this address doesn't represent a single entity or
         // person and will be only used to distribute tokens to 30~ partners.
         //
         // Please expect to see token transfers from this address in the first 24 hours after the token sale ends.
@@ -783,7 +783,7 @@ contract StoxSmartTokenSale is Ownable {
         uint256 strategicPartnershipTokens = unsoldTokens.mul(55).div(100);
 
         // Note: we will substract the bonus tokens from this grant, since they were already issued for the pre-sale
-        // strategic partners and should&#39;ve been taken from this allocation.
+        // strategic partners and should've been taken from this allocation.
         stox.issue(0xbC14105ccDdeAadB96Ba8dCE18b40C45b6bACf58, strategicPartnershipTokens);
 
         // Issue the remaining tokens as vesting grants:
@@ -848,7 +848,7 @@ contract StoxSmartTokenSale is Ownable {
     /// @param _newOwnerCandidate address The address to transfer ownership to.
     ///
     /// Note that:
-    ///   1. The new owner will need to call StoxSmartToken&#39;s acceptOwnership directly in order to accept the ownership.
+    ///   1. The new owner will need to call StoxSmartToken's acceptOwnership directly in order to accept the ownership.
     ///   2. Calling this method during the token sale will prevent the token sale to continue, since only the owner of
     ///      the StoxSmartToken contract can issue new tokens.
     function transferSmartTokenOwnership(address _newOwnerCandidate) external onlyOwner {
@@ -865,8 +865,8 @@ contract StoxSmartTokenSale is Ownable {
     /// @param _newOwnerCandidate address The address to transfer ownership to.
     ///
     /// Note that:
-    ///   1. The new owner will need to call Trustee&#39;s acceptOwnership directly in order to accept the ownership.
-    ///   2. Calling this method during the token sale won&#39;t be possible, as the Trustee is only created after its
+    ///   1. The new owner will need to call Trustee's acceptOwnership directly in order to accept the ownership.
+    ///   2. Calling this method during the token sale won't be possible, as the Trustee is only created after its
     ///      finalization.
     function transferTrusteeOwnership(address _newOwnerCandidate) external onlyOwner {
         trustee.transferOwnership(_newOwnerCandidate);

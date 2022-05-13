@@ -69,7 +69,7 @@ contract Multimember {
     // Revokes a prior confirmation of the given operation
     function revoke(bytes32 _operation) external {
         uint memberIndex = m_memberIndex[uint(msg.sender)];
-        // make sure they&#39;re an member
+        // make sure they're an member
         if (memberIndex == 0) 
             return;
         uint memberIndexBit = 2**memberIndex;
@@ -141,7 +141,7 @@ contract Multimember {
         var pending = m_pending[_operation];
         uint memberIndex = m_memberIndex[uint(_member)];
 
-        // make sure they&#39;re an member
+        // make sure they're an member
         if (memberIndex == 0) 
             return false;
 
@@ -155,12 +155,12 @@ contract Multimember {
     function confirmAndCheck(bytes32 _operation) internal returns (bool) {
         // determine what index the present sender is:
         uint memberIndex = m_memberIndex[uint(msg.sender)];
-        // make sure they&#39;re an member
+        // make sure they're an member
         if (memberIndex == 0) 
             return;
 
         var pending = m_pending[_operation];
-        // if we&#39;re not yet working on this operation, switch over and reset the confirmation status.
+        // if we're not yet working on this operation, switch over and reset the confirmation status.
         if (pending.yetNeeded == 0) {
             // reset count of confirmations needed.
             pending.yetNeeded = m_required;
@@ -171,7 +171,7 @@ contract Multimember {
         }
         // determine the bit to set for this member.
         uint memberIndexBit = 2**memberIndex;
-        // make sure we (the message sender) haven&#39;t confirmed this operation previously.
+        // make sure we (the message sender) haven't confirmed this operation previously.
         if (pending.membersDone & memberIndexBit == 0) {
             Confirmation(msg.sender, _operation);
             // ok - check if count is enough to go ahead.

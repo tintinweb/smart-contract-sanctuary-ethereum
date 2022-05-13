@@ -169,7 +169,7 @@ contract EIForceCoin is StandardToken, Ownable {
         transfer(WALLET_FOUNDER, ALLOC_FOUNDER);
     }
 	
-    // get jishis&#39; locked amount of token
+    // get jishis' locked amount of token
     function getLockedAmount_jishis(address _jishi) 
         public
 		constant
@@ -188,7 +188,7 @@ contract EIForceCoin is StandardToken, Ownable {
         return 0;
     }
 
-    // get simus&#39; locked amount of token
+    // get simus' locked amount of token
       function getLockedAmount_simus(address _simu)
         public
 		constant

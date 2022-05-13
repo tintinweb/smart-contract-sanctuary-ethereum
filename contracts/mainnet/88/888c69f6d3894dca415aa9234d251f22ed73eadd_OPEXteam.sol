@@ -32,22 +32,22 @@ contract ERC20Interface is ERC20BasicInterface {
 contract ERC20Pocket is ERC20BasicInterface {
     ERC20Interface public constant TOKEN = ERC20Interface(0x0b34a04b77Aa9bd2C07Ef365C05f7D0234C95630);
     address public constant OWNER = 0xCba6eE74b7Ca65Bd0506cf21d62bDd7c71F86AD8;
-    string constant NAME = &#39;Optherium Team Tokens&#39;;
-    string constant SYMBOL = &#39;OPEXteam&#39;;
+    string constant NAME = 'Optherium Team Tokens';
+    string constant SYMBOL = 'OPEXteam';
 
     modifier onlyOwner() {
-        require(msg.sender == OWNER, &#39;Access denied&#39;);
+        require(msg.sender == OWNER, 'Access denied');
         _;
     }
 
     function deposit(uint _value) public onlyOwner() returns(bool) {
-        require(TOKEN.transferFrom(OWNER, address(this), _value), &#39;Deposit failed&#39;);
+        require(TOKEN.transferFrom(OWNER, address(this), _value), 'Deposit failed');
         emit Transfer(0x0, OWNER, _value);
         return true;
     }
 
     function withdraw(address _to, uint _value) public onlyOwner() returns(bool) {
-        require(TOKEN.transfer(_to, _value), &#39;Withdrawal failed&#39;);
+        require(TOKEN.transfer(_to, _value), 'Withdrawal failed');
         emit Transfer(OWNER, 0x0, _value);
         return true;
     }
@@ -85,7 +85,7 @@ contract ERC20Pocket is ERC20BasicInterface {
     }
 
     function recoverTokens(ERC20BasicInterface _token, address _to, uint _value) public onlyOwner() returns(bool) {
-        require(address(_token) != address(TOKEN), &#39;Can not recover this token&#39;);
+        require(address(_token) != address(TOKEN), 'Can not recover this token');
         return _token.transfer(_to, _value);
     }
 }
@@ -109,13 +109,13 @@ contract OPEXteam is ERC20Pocket {
     event UnlockDateExtended(uint newUnlockDate);
 
     function withdraw(address _to, uint _value) public returns(bool) {
-        require(currentDate() > unlockDate, &#39;Tokens are still locked.&#39;);
+        require(currentDate() > unlockDate, 'Tokens are still locked.');
         return super.withdraw(_to, _value);
     }
 
     function extendUnlockDate(uint _newUnlockDate) public onlyOwner() returns(bool) {
-        require(_newUnlockDate > unlockDate, &#39;New unlock date must be further into the future.&#39;);
-        require(_newUnlockDate <= JANUARY_1ST_2030_00_00_00, &#39;New unlock date must be before 1st January 2025.&#39;);
+        require(_newUnlockDate > unlockDate, 'New unlock date must be further into the future.');
+        require(_newUnlockDate <= JANUARY_1ST_2030_00_00_00, 'New unlock date must be before 1st January 2025.');
         unlockDate = _newUnlockDate;
         emit UnlockDateExtended(_newUnlockDate);
         return true;

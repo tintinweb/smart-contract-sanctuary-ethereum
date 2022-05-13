@@ -12,7 +12,7 @@ pragma solidity ^0.4.24;
 // Focus on refining these features, in order to make for a fun, simple and
 // Sustainable experience.
 
-// Shrimpfarm&#39;s killer feature: buying and selling eggs directly to the smart contract.
+// Shrimpfarm's killer feature: buying and selling eggs directly to the smart contract.
 // Snailfarm 1: capturing and holding the Snailmaster position, a ruler collecting dividends.
 // Snailfarm 2: juggling with hot potato boosts to increase hatch size.
 
@@ -247,7 +247,7 @@ contract SnailFarm3 {
     
     function BeginRound() public {
         require(gameActive == false, "cannot start round while game is active");
-        require(now > nextRoundStart, "round downtime isn&#39;t over");
+        require(now > nextRoundStart, "round downtime isn't over");
         require(snailPot > 0, "cannot start round on empty pot");
         
         round = round.add(1);
@@ -769,7 +769,7 @@ contract SnailFarm3 {
         //Time spent since auction start
         uint256 _timeLapsed = now.sub(harvestStartTime);
         
-        //Make sure we&#39;re not beyond the end point
+        //Make sure we're not beyond the end point
         if(_timeLapsed > HARVEST_DURATION) {
             _timeLapsed = HARVEST_DURATION;
         }
@@ -902,7 +902,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

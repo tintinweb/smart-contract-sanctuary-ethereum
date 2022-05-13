@@ -192,7 +192,7 @@ contract Tokensale is Pausable {
     uint public coinSentToEther;
     /* Tokensale start time */
     uint public startTime;
-    /*  Beneficiar&#39;s Ether indexed by Ethereum address */
+    /*  Beneficiar's Ether indexed by Ethereum address */
     mapping(address => Beneficiar) public beneficiars;
   
     /*
@@ -214,15 +214,15 @@ contract Tokensale is Pausable {
         receiveETH(msg.sender);
     }
     /* 
-     * To call to start the Token&#39;s sale
+     * To call to start the Token's sale
      */
     function start() onlyOwner {
-        if (startTime != 0) throw; // Token&#39;s sale was already started
+        if (startTime != 0) throw; // Token's sale was already started
         startTime = now ;              
     }
     
     function receiveETH(address beneficiary) internal {
-        if (msg.value < MIN_ACCEPT_ETHER) throw; // Don&#39;t accept funding under a predefined threshold
+        if (msg.value < MIN_ACCEPT_ETHER) throw; // Don't accept funding under a predefined threshold
         
         uint coinToSend = bonus(msg.value.mul(COIN_PER_ETHER).div(1 ether)); // Compute the number of VenusCoin to send 
         Beneficiar beneficiar = beneficiars[beneficiary];

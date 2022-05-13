@@ -10,7 +10,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -252,7 +252,7 @@ contract MyDFSToken is StandardToken {
     string public name = "MyDFS Token";
     uint8 public decimals = 6;
     string public symbol = "MyDFS";
-    string public version = &#39;H1.0&#39;;
+    string public version = 'H1.0';
     uint256 public totalSupply;
 
     function () external {

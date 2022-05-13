@@ -758,7 +758,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -800,7 +800,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -945,7 +945,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -955,7 +955,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -987,7 +987,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1010,7 +1010,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1042,15 +1042,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1087,13 +1087,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1238,7 +1238,7 @@ contract CoinFlip is Owned, usingOraclize {
         tokensRequiredForAllWins = tokensRequiredForAllWins.add(_amountOfTokens.mul(_numberOfCoinSides));
 
         // Check if contract has enough tokens to pay in case of win.
-        // Each successful flip start adds bet value in tokens to &#39;tokensRequiredForAllWins&#39;
+        // Each successful flip start adds bet value in tokens to 'tokensRequiredForAllWins'
         require(tokensRequiredForAllWins <= token.balanceOf(address(this)), "Not enough tokens in contract balance.");
     }
 
@@ -1282,8 +1282,8 @@ contract CoinFlip is Owned, usingOraclize {
         flips[myid].completed = true;
         
         // Assigning received random number.
-        // Picking only first byte because result is expected to be single ASCII char (&#39;0&#39; or &#39;1&#39; or &#39;2&#39;)
-        // Subtracting 48 because in ASCII table decimal 48 equals &#39;0&#39;, 49 equals &#39;1&#39; etc.
+        // Picking only first byte because result is expected to be single ASCII char ('0' or '1' or '2')
+        // Subtracting 48 because in ASCII table decimal 48 equals '0', 49 equals '1' etc.
         emit OracleResult(bytes(result)[0]);
         flips[myid].result = uint8(bytes(result)[0]) - 48;
         assert(flips[myid].result >= 0 && flips[myid].result <= flips[myid].numberOfCoinSides);

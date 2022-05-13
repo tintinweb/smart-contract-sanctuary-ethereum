@@ -183,7 +183,7 @@ contract InterfaceApp {
     *
     * @param interfaceId Unique identifier (address) of transaction 
     * @param expert Address of Expert hosting the Interface
-    * @param perSecondRateJiffys Expert&#39;s per second rate in Jiffys
+    * @param perSecondRateJiffys Expert's per second rate in Jiffys
     * @param minimumParticipationSeconds Minimum contract duration in seconds
     * @param expertSuretyJiffys Surety that will be put in escrow
     * @param caller Address of optional Caller joining the Interface

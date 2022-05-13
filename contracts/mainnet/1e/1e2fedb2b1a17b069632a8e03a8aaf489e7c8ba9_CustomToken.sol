@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 500000000000000000;
-        name = &#39;RBLK&#39;;
-        symbol = &#39;RBLK&#39;;
+        name = 'RBLK';
+        symbol = 'RBLK';
         decimals = 9;
         balanceOf[0x0b29908ecb4c44fcece3c2adced2e260aa9dae4a] = totalSupply;
         Transfer(address(0), 0x0b29908ecb4c44fcece3c2adced2e260aa9dae4a, totalSupply);

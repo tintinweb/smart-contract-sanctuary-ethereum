@@ -8,7 +8,7 @@ v0.4.24+commit.e67f0147
  *   │  Iris,Tina                                              │  ╩ ┴ ┴┴ ┴┘└┘┴ ┴└─┘   ╩ └─┘
  *   │ 	Qidong,Tuco Z,Jacky H,FeiFei					       └───────────────────────────┐
  *   │  Jerry Broth, Pro Chen, Ling                                                             │ 
- *   │              Without your help, we wouldn&#39;t have the Bifree.io                      │
+ *   │              Without your help, we wouldn't have the Bifree.io                      │
  *   └─────────────────────────────────────────────────────────────────────────────────────┘
  * 
  * This product is protected under license.  Any unauthorized copy, modification, or use without 
@@ -36,7 +36,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -216,7 +216,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -278,8 +278,8 @@ contract StandardToken is ERC20, BasicToken {
 
 contract BifreeToken is Ownable, StandardToken {
 
-    string public name = &#39;Bifree.io Official Token&#39;;
-    string public symbol = &#39;BFT&#39;;
+    string public name = 'Bifree.io Official Token';
+    string public symbol = 'BFT';
     uint8 public decimals = 18;
     uint public INITIAL_SUPPLY = 500000000;
 

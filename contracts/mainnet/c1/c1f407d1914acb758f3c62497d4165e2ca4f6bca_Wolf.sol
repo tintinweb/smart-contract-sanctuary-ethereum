@@ -40,7 +40,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -244,7 +244,7 @@ contract BurnableByOwner is BasicToken {
   function burn(address _address, uint256 _value) public onlyOwner{
     require(_value <= balances[_address]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     address burner = _address;
     balances[burner] = balances[burner].sub(_value);
@@ -307,7 +307,7 @@ contract Crowdsale is Ownable {
   // soft cap
   uint256 public softcap;
   //A balance that does not include the amount of unconfirmed addresses.
-  //The balance which, if a soft cap is reached, can be transferred to the owner&#39;s wallet.
+  //The balance which, if a soft cap is reached, can be transferred to the owner's wallet.
   uint256 public activeBalance;
   // balances for softcap
   mapping(address => uint) public balancesSoftCap;

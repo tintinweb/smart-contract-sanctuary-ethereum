@@ -122,7 +122,7 @@ contract LuckyDice is DSSafeAddSub {
     /*
      * events
     */
-    /* log bets + output to web3 for precise &#39;payout on win&#39; field in UI */
+    /* log bets + output to web3 for precise 'payout on win' field in UI */
     event LogBet(bytes32 indexed DiceRollHash, address indexed PlayerAddress, uint ProfitValue, uint ToJpValue,
         uint BetValue, uint minRollLimit, uint maxRollLimit);
 

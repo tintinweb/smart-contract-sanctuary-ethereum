@@ -15,7 +15,7 @@ library SafeMath {
     function div (uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
     
@@ -49,15 +49,15 @@ interface ERC20CompatibleToken {
  *   1.4. As a result, merchant gets `merchantId`, which is used to create recurring billing for customers.
  *   1.5. Merchant can change their `beneficiary`, `merchant` and authorized charge addresses by calling:
  *     1.4.1. Function `changeMerchantAccount`, which changes account that can control this merchant (`merchantId`).
- *     1.4.2. Function `changeMerchantBeneficiaryAddress`, which changes merchant&#39;s `beneficiary`.
+ *     1.4.2. Function `changeMerchantBeneficiaryAddress`, which changes merchant's `beneficiary`.
  *     1.4.3. Function `changeMerchantChargingAccount`, which (de)authorizes addresses to call `charge` on behalf of this merchant.
  * 2. According to an off-chain agreement with merchant, customer calls `allowRecurringBilling` and:
  *   2.1. Specifies `billingId`, which is given off-chain by merchant (merchant will listen blockchain Event on this ID).
  *   2.2. Specifies `merchantId`, the merchant which will receive tokens.
  *   2.3. Specifies `period` in seconds, during which only one charge can occur.
  *   2.4. Specifies `value`, amount in tokens which can be charged each `period`.
- *     2.4.1. If the customer doesn&#39;t have at least `value` tokens, `allowRecurringBilling` errors.
- *     2.4.2. If the customer doesn&#39;t approved at least `value` tokens for a smart contract, `allowRecurringBilling` errors.
+ *     2.4.1. If the customer doesn't have at least `value` tokens, `allowRecurringBilling` errors.
+ *     2.4.2. If the customer doesn't approved at least `value` tokens for a smart contract, `allowRecurringBilling` errors.
  *   2.5. `billingId` is then used by merchant to charge customer each `period`.
  * 3. Merchant within authorized accounts (1.3) can call the `charge` function each `period` to charge agreed amount from a customer.
  *   3.1. It is impossible to call `charge` if the date of the last charge is less than `period`.
@@ -65,11 +65,11 @@ interface ERC20CompatibleToken {
  *   3.3. Thus, to successfully charge an account, `charge` must be strictly called within 1 and 2 `period`s after the last charge.
  *   3.4. Calling `charge` errors if any of the following occur:
  *     3.4.1. Customer canceled recurring billing with `cancelRecurringBilling`.
- *     3.4.2. Customer&#39;s balance is lower than the chargeable amount.
- *     3.4.3. Customer&#39;s allowance to the smart contract is less than the chargable amount.
+ *     3.4.2. Customer's balance is lower than the chargeable amount.
+ *     3.4.3. Customer's allowance to the smart contract is less than the chargable amount.
  *     3.4.4. Specified `billingId` does not exists.
- *     3.4.5. There&#39;s no `period` passed since the last charge.
- *   3.5. Next charge date increments strictly by `period` each charge, thus, there&#39;s no need to exec `charge` strictly on time.
+ *     3.4.5. There's no `period` passed since the last charge.
+ *   3.5. Next charge date increments strictly by `period` each charge, thus, there's no need to exec `charge` strictly on time.
  * 4. Customer can cancel further billing by calling `cancelRecurringBilling` and passing `billingId`.
  * 5. TokenRecurringBilling smart contract implements `receiveApproval` function for allowing/cancelling billing within one call from
  *    the token smart contract. Parameter `data` is encoded as tightly-packed (uint256 metadata, uint256 billingId).
@@ -144,7 +144,7 @@ contract TokenRecurringBilling {
 
     /// ====================================================== Public Functions ====================================================== \\\
 
-    // Enables merchant with {merchantId} to charge transaction signer&#39;s account according to specified {value} and {period}.
+    // Enables merchant with {merchantId} to charge transaction signer's account according to specified {value} and {period}.
     function allowRecurringBilling (uint256 billingId, uint256 merchantId, uint256 value, uint256 period) public {
         allowRecurringBillingInternal(msg.sender, merchantId, billingId, value, period);
     }
@@ -169,7 +169,7 @@ contract TokenRecurringBilling {
         cancelRecurringBillingInternal(billingId);
     }
 
-    // Charges customer&#39;s account according to defined {billingId} billing rules. Only merchant&#39;s authorized accounts can charge the customer.
+    // Charges customer's account according to defined {billingId} billing rules. Only merchant's authorized accounts can charge the customer.
     function charge (uint256 billingId) public {
 
         BillingRecord storage billingRecord = billingRegistry[billingId];
@@ -198,7 +198,7 @@ contract TokenRecurringBilling {
     /**
      * Invoked by a token smart contract on approveAndCall. Allows or cancels recurring billing.
      * @param sender - Address that approved some tokens for this smart contract.
-     * @param data - Tightly-packed (uint256,uint256) values of (metadata, billingId). Metadata&#39;s `lastChargeAt`
+     * @param data - Tightly-packed (uint256,uint256) values of (metadata, billingId). Metadata's `lastChargeAt`
      *               specifies an action to perform (see `receiveApprovalAction` enum).
      */
     function receiveApproval (address sender, uint, address, bytes data) external tokenOnly {
@@ -227,7 +227,7 @@ contract TokenRecurringBilling {
         emit MerchantAccountChanged(merchantId, newMerchantAccount);
     }
 
-    // Changes merchant&#39;s beneficiary address (address that receives charged tokens) to {newBeneficiaryAddress}.
+    // Changes merchant's beneficiary address (address that receives charged tokens) to {newBeneficiaryAddress}.
     function changeMerchantBeneficiaryAddress (uint256 merchantId, address newBeneficiaryAddress) public isMerchant(merchantId) {
         merchantRegistry[merchantId].beneficiary = newBeneficiaryAddress;
         emit MerchantBeneficiaryAddressChanged(merchantId, newBeneficiaryAddress);

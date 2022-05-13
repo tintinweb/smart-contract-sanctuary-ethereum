@@ -419,8 +419,8 @@ contract _0xBTCNNDividendCards is ERC721 {
     });
     uint newCardId = divCards.push(_divcard) - 1;
 
-    // It&#39;s probably never going to happen, 4 billion tokens are A LOT, but
-    // let&#39;s just be 100% sure we never let this happen.
+    // It's probably never going to happen, 4 billion tokens are A LOT, but
+    // let's just be 100% sure we never let this happen.
     require(newCardId == uint(uint32(newCardId)));
 
     emit Birth(newCardId, _name, _owner);
@@ -444,12 +444,12 @@ contract _0xBTCNNDividendCards is ERC721 {
   function _transfer(address _from, address _to, uint _divCardId)
     private
   {
-    // Since the number of cards is capped to 2^32 we can&#39;t overflow this
+    // Since the number of cards is capped to 2^32 we can't overflow this
     ownershipDivCardCount[_to]++;
     //transfer ownership
     divCardIndexToOwner[_divCardId] = _to;
 
-    // When creating new div cards _from is 0x0, but we can&#39;t account that address.
+    // When creating new div cards _from is 0x0, but we can't account that address.
     if (_from != address(0)) {
       ownershipDivCardCount[_from]--;
       // clear any previously approved ownership exchange
@@ -482,7 +482,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

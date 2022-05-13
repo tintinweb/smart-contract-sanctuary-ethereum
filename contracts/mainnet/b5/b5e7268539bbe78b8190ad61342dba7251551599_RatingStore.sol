@@ -16,7 +16,7 @@ pragma solidity ^0.4.11;
 */
 
 /**
- * Storage contract for Etherep to store ratings and score data.  It&#39;s been 
+ * Storage contract for Etherep to store ratings and score data.  It's been 
  * separated from the main contract because this is much less likely to change
  * than the other parts.  It would allow for upgrading the main contract without
  * losing data.
@@ -69,7 +69,7 @@ contract RatingStore {
 
     /**
      * Set a Score
-     * @param target The address&#39; score we&#39;re setting
+     * @param target The address' score we're setting
      * @param cumulative The cumulative score for the address
      * @param total Total individual ratings for the address
      * @return success If the set was completed successfully
@@ -84,7 +84,7 @@ contract RatingStore {
 
     /**
      * Add a rating
-     * @param target The address&#39; score we&#39;re adding to
+     * @param target The address' score we're adding to
      * @param wScore The weighted rating to add to the score
      * @return success
      */
@@ -98,7 +98,7 @@ contract RatingStore {
 
     /**
      * Get the score for an address
-     * @param target The address&#39; score to return
+     * @param target The address' score to return
      * @return cumulative score
      * @return total ratings
      */
@@ -112,7 +112,7 @@ contract RatingStore {
 
     /**
      * Reset an entire score storage
-     * @param target The address we&#39;re wiping clean
+     * @param target The address we're wiping clean
      */
     function reset(address target) external onlyBy(manager) {
         scores[target] = Score(true, 0,0);
@@ -128,7 +128,7 @@ contract RatingStore {
 
     /**
      * Change the manager
-     * @param newManager The address we&#39;re setting as manager
+     * @param newManager The address we're setting as manager
      */
     function setManager(address newManager) external onlyBy(manager) {
         manager = newManager;
@@ -144,7 +144,7 @@ contract RatingStore {
 
     /**
      * Change the controller
-     * @param newController The address we&#39;re setting as controller
+     * @param newController The address we're setting as controller
      */
     function setController(address newController) external onlyBy(manager) {
         controller = newController;

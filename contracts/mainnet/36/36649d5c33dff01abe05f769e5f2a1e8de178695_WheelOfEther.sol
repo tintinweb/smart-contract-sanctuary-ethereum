@@ -189,7 +189,7 @@ contract WheelOfEther {
         nonContract
     {
         address _customerAddress = msg.sender;
-        // Set the sell amount to the user&#39;s full balance, don&#39;t sell if empty
+        // Set the sell amount to the user's full balance, don't sell if empty
         uint256 sellEth = ethBalanceOf(_customerAddress);
         require(sellEth > 0);
         // Transfer balance and update user ledgers
@@ -242,7 +242,7 @@ contract WheelOfEther {
         returns (uint256 resultNum)
     {
         address _customerAddress = msg.sender;
-        // set the bet amount to the user&#39;s full balance
+        // set the bet amount to the user's full balance
         uint256 betEth = ethBalanceOf(_customerAddress);
         // User cannot bet more than 10% of available pool
         if (betEth > betPool(_customerAddress)/10) {
@@ -486,7 +486,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 

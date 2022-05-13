@@ -214,12 +214,12 @@ contract TRNVendors is TRNData {
     event VendorRemoved(address indexed _vendor);
 
     /**
-     * This emits when vendor&#39;s validation is changed
+     * This emits when vendor's validation is changed
      */
     event VendorValid(address indexed _vendor, bool _valid);
 
     /**
-     * This emits when vendor&#39;s name is updated
+     * This emits when vendor's name is updated
      */
     event VendorUpdated(address indexed _vendor, string _name);
 
@@ -228,7 +228,7 @@ contract TRNVendors is TRNData {
      *      Only owner can operate
      *      Throw when `_vendor` is equal to `address(0)`
      *      Throw unless `_vendor` not exist.
-     *      Throw when `_name`&#39;s length lte 0 or mte 100.
+     *      Throw when `_name`'s length lte 0 or mte 100.
      * @param _vendor The address of vendor
      * @param _name The name of vendor
      * @return Success
@@ -286,7 +286,7 @@ contract TRNVendors is TRNData {
     }
 
     /**
-     * @dev Change the `_vendorId`&#39;s validation
+     * @dev Change the `_vendorId`'s validation
      *      Only owner can operate
      * @param _vendorId The id of vendor
      * @param _valid The validation of vendor
@@ -306,7 +306,7 @@ contract TRNVendors is TRNData {
     }
 
     /**
-     * @dev Update the `_vendorId`&#39;s name
+     * @dev Update the `_vendorId`'s name
      *      Only owner can operate
      * @param _vendorId Then id of vendor
      * @param _name The name of vendor
@@ -539,7 +539,7 @@ library LinkedListLib {
      * @param _node an existing node to search from, e.g. HEAD.
      * @param _value value to seek
      * @param _direction direction to seek in
-     * @return next first node beyond &#39;_node&#39; in direction `_direction`
+     * @return next first node beyond '_node' in direction `_direction`
      */
     function getSortedSpot(LinkedList storage self, uint256 _node, uint256 _value, bool _direction)
         public 
@@ -845,7 +845,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Authorize `_contract` to execute this contract&#39;s funs
+     * @dev Authorize `_contract` to execute this contract's funs
      * @param _contract The contract address
      * @param _name The contract name
      */
@@ -1164,7 +1164,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push order to user&#39;s order list
+     * @dev Push order to user's order list
      * @param _owner The buyer address
      * @param _rnid The room night order id
      * @param _direction direction to step in
@@ -1179,7 +1179,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Remove order from owner&#39;s order list
+     * @dev Remove order from owner's order list
      * @param _owner The owner address
      * @param _rnid The room night order id
      */
@@ -1191,7 +1191,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push order to the vendor&#39;s order list
+     * @dev Push order to the vendor's order list
      * @param _vendor The vendor address
      * @param _rnid The room night order id
      * @param _direction direction to step in
@@ -1206,7 +1206,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Remove order from vendor&#39;s order list
+     * @dev Remove order from vendor's order list
      * @param _vendor The vendor address
      * @param _rnid The room night order id
      */
@@ -1380,7 +1380,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push rate plan to `_vendorId`&#39;s rate plan list
+     * @dev Push rate plan to `_vendorId`'s rate plan list
      * @param _vendorId The vendor id
      * @param _name The name of rate plan
      * @param _ipfs The rate plan IPFS address
@@ -1520,7 +1520,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Modify vendor&#39;s name
+     * @dev Modify vendor's name
      * @param _vendorId The vendor id
      * @param _name Then vendor name
      */

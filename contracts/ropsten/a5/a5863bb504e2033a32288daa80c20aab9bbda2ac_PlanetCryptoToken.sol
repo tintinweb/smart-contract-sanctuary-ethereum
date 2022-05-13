@@ -30,11 +30,11 @@ contract ERC165 is IERC165 {
   bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -171,8 +171,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -190,7 +190,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -282,15 +282,15 @@ contract ERC721_custom is ERC165, IERC721 {
   bytes4 private constant _InterfaceId_ERC721 = 0x80ac58cd;
   /*
    * 0x80ac58cd ===
-   *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-   *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-   *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('balanceOf(address)')) ^
+   *   bytes4(keccak256('ownerOf(uint256)')) ^
+   *   bytes4(keccak256('approve(address,uint256)')) ^
+   *   bytes4(keccak256('getApproved(uint256)')) ^
+   *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+   *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+   *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
    */
 
   constructor()
@@ -559,7 +559,7 @@ contract ERC721_custom is ERC165, IERC721 {
    * @dev Internal function to remove a token ID from the list of a given address
    * Note that this function is left internal to make ERC721Enumerable possible, but is not
    * intended to be called by custom derived contracts: in particular, it emits no Transfer event,
-   * and doesn&#39;t clear approvals.
+   * and doesn't clear approvals.
    * @param from address representing the previous owner of the given token ID
    * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
    */
@@ -655,9 +655,9 @@ contract ERC721Enumerable_custom is ERC165, ERC721_custom, IERC721Enumerable {
   bytes4 private constant _InterfaceId_ERC721Enumerable = 0x780e9d63;
   /**
    * 0x780e9d63 ===
-   *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+   *   bytes4(keccak256('totalSupply()')) ^
+   *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+   *   bytes4(keccak256('tokenByIndex(uint256)'))
    */
 
   /**
@@ -723,7 +723,7 @@ contract ERC721Enumerable_custom is ERC165, ERC721_custom, IERC721Enumerable {
    * @dev Internal function to remove a token ID from the list of a given address
    * This function is internal due to language limitations, see the note in ERC721.sol.
    * It is not intended to be called by custom derived contracts: in particular, it emits no Transfer event,
-   * and doesn&#39;t clear approvals.
+   * and doesn't clear approvals.
    * @param from address representing the previous owner of the given token ID
    * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
    */
@@ -814,9 +814,9 @@ contract ERC721Metadata_custom is ERC165, ERC721_custom, IERC721Metadata {
   bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
   /**
    * 0x5b5e139f ===
-   *   bytes4(keccak256(&#39;name()&#39;)) ^
-   *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+   *   bytes4(keccak256('name()')) ^
+   *   bytes4(keccak256('symbol()')) ^
+   *   bytes4(keccak256('tokenURI(uint256)'))
    */
 
   /**
@@ -1163,7 +1163,7 @@ contract PlanetCryptoToken is ERC721Full_custom{
 
     
     // new ownership grid (x/y)
-    // still doesn&#39;t let us query easily...
+    // still doesn't let us query easily...
     // e.g. 
     // _t = latlngTokenID_grids[startLat];
     // How do we get onto the next lat?
@@ -1668,7 +1668,7 @@ contract PlanetCryptoToken is ERC721Full_custom{
         
         for(uint256 y=0; y< lat_rows.length; y++) {
             //_outputTokenIDs.push(lookupZoomLvl(zoom, lat[c], lng[c]));    
-            //strConcat(uint2str(lookupZoomLvl(zoom, lat[c], lng[c])), &#39;:&#39;);
+            //strConcat(uint2str(lookupZoomLvl(zoom, lat[c], lng[c])), ':');
             for(uint256 x=0; x< lng_columns.length; x++) {
                 
                 
@@ -1678,9 +1678,9 @@ contract PlanetCryptoToken is ERC721Full_custom{
                         
                         
                       _outStr = planetCryptoUtils_interface.strConcat(
-                            _outStr, &#39;[&#39;, planetCryptoUtils_interface.int2str(lat_rows[y]) , &#39;:&#39;, planetCryptoUtils_interface.int2str(lng_columns[x]) );
-                      _outStr = planetCryptoUtils_interface.strConcat(_outStr, &#39;:&#39;, 
-                                    planetCryptoUtils_interface.uint2str(latlngTokenID_grids[lat_rows[y]][lng_columns[x]]), &#39;]&#39;);
+                            _outStr, '[', planetCryptoUtils_interface.int2str(lat_rows[y]) , ':', planetCryptoUtils_interface.int2str(lng_columns[x]) );
+                      _outStr = planetCryptoUtils_interface.strConcat(_outStr, ':', 
+                                    planetCryptoUtils_interface.uint2str(latlngTokenID_grids[lat_rows[y]][lng_columns[x]]), ']');
                     }
                     
                     //_out[c] = latlngTokenID_grids[lat_rows[y]][lng_columns[x]];
@@ -1689,31 +1689,31 @@ contract PlanetCryptoToken is ERC721Full_custom{
                         _out.push()
                         _outputTokenIDs = latlngTokenID_grids[lat_rows[y]][lng_columns[x]];
                         planetCryptoUtils_interface.strConcat(_outputTokenIDs, 
-                        &#39;[&#39;, 
-                        planetCryptoUtils_interface.strConcat(planetCryptoUtils_interface.int2str(lat_rows[y]), &#39;,&#39;, planetCryptoUtils_interface.int2str(lng_columns[x])),
-                        &#39;,&#39;,
-                        planetCryptoUtils_interface.uint2str(latlngTokenID_grids[lat_rows[y]][lng_columns[x]]), &#39;]:&#39;);
+                        '[', 
+                        planetCryptoUtils_interface.strConcat(planetCryptoUtils_interface.int2str(lat_rows[y]), ',', planetCryptoUtils_interface.int2str(lng_columns[x])),
+                        ',',
+                        planetCryptoUtils_interface.uint2str(latlngTokenID_grids[lat_rows[y]][lng_columns[x]]), ']:');
                         
                     } 
                     */
                 } else {
                     //_out[c] = latlngTokenID_zoomAll[zoom][lat_rows[y]][lng_columns[x]];
                     if(latlngTokenID_zoomAll[zoom][lat_rows[y]][lng_columns[x]] > 0){
-                      _outStr = planetCryptoUtils_interface.strConcat(_outStr, &#39;[&#39;, planetCryptoUtils_interface.int2str(lat_rows[y]) , &#39;:&#39;, planetCryptoUtils_interface.int2str(lng_columns[x]) );
-                      _outStr = planetCryptoUtils_interface.strConcat(_outStr, &#39;:&#39;, 
-                                    planetCryptoUtils_interface.uint2str(latlngTokenID_zoomAll[zoom][lat_rows[y]][lng_columns[x]]), &#39;]&#39;);
+                      _outStr = planetCryptoUtils_interface.strConcat(_outStr, '[', planetCryptoUtils_interface.int2str(lat_rows[y]) , ':', planetCryptoUtils_interface.int2str(lng_columns[x]) );
+                      _outStr = planetCryptoUtils_interface.strConcat(_outStr, ':', 
+                                    planetCryptoUtils_interface.uint2str(latlngTokenID_zoomAll[zoom][lat_rows[y]][lng_columns[x]]), ']');
                     }
                     /*
                     if ( latlngTokenID_zoomAll[zoom][lat_rows[y]][lng_columns[x]] > 0){
                         _outputTokenIDs = 
                         planetCryptoUtils_interface.strConcat(_outputTokenIDs, 
-                        &#39;[&#39;, 
+                        '[', 
                         planetCryptoUtils_interface.strConcat(
-                            planetCryptoUtils_interface.int2str(lat_rows[y]), &#39;,&#39;, 
+                            planetCryptoUtils_interface.int2str(lat_rows[y]), ',', 
                             planetCryptoUtils_interface.int2str(lng_columns[x])),
-                        &#39;,&#39;,
+                        ',',
                         planetCryptoUtils_interface.uint2str(
-                            latlngTokenID_zoomAll[zoom][lat_rows[y]][lng_columns[x]]), &#39;]:&#39;);
+                            latlngTokenID_zoomAll[zoom][lat_rows[y]][lng_columns[x]]), ']:');
 
                     }
                     */

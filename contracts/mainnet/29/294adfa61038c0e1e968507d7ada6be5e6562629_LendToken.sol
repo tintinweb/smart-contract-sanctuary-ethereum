@@ -107,7 +107,7 @@ contract Crowdsale {
 
   /**
    * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
-   * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method: 
+   * Example from CappedCrowdsale.sol's _preValidatePurchase method: 
    *   super._preValidatePurchase(_beneficiary, _weiAmount);
    *   require(weiRaised.add(_weiAmount) <= cap);
    * @param _beneficiary Address performing the token purchase
@@ -316,8 +316,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -334,7 +334,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -420,7 +420,7 @@ contract DailyLimitCrowdsale is TimedCrowdsale, Ownable {
     uint256 public minDailyPerUser;
     uint256 public maxDailyPerUser;
 
-    // today&#39;s index => who => value
+    // today's index => who => value
     mapping(uint256 => mapping(address => uint256)) public userSpending;
     // all users
     mapping(uint256 => uint256) public totalSpending;
@@ -496,8 +496,8 @@ contract DailyLimitCrowdsale is TimedCrowdsale, Ownable {
     }
 
     /**
-     * @dev Private function to determine today&#39;s index
-     * @return uint256 of today&#39;s index.
+     * @dev Private function to determine today's index
+     * @return uint256 of today's index.
      */
     function today() private view returns (uint256) {
         return now / 1 days;
@@ -541,7 +541,7 @@ contract LendContract is MintedCrowdsale, DailyLimitCrowdsale {
         P2P_EX      // P2P Exchange
     }
 
-    CrowdsaleStage public stage = CrowdsaleStage.PS; // By default it&#39;s Presale
+    CrowdsaleStage public stage = CrowdsaleStage.PS; // By default it's Presale
     // =============
 
     // Token Distribution
@@ -823,7 +823,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.

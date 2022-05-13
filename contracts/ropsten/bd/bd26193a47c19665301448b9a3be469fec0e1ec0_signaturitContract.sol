@@ -44,9 +44,9 @@ contract signaturitContract {
 
     constructor() public {
       proxy = msg.sender;
-      _mapping_string[&#39;id&#39;] = &#39;id_value&#39;;
-      _mapping_string[&#39;subject&#39;] = &#39;subject_value&#39;;
-      _mapping_string[&#39;body&#39;] = &#39;body_value&#39;;
+      _mapping_string['id'] = 'id_value';
+      _mapping_string['subject'] = 'subject_value';
+      _mapping_string['body'] = 'body_value';
     }
 
     function set_owner(address ownerAdr) permissioned public {
@@ -85,9 +85,9 @@ contract signaturitContract {
 
     function set_struct_Document(string memory id_value,string memory signed_email_value,string memory signer_name_value) permissioned public {
       _File memory tmpFile = _File({
-        _id: &#39;&#39;,
-        _name: &#39;&#39;,
-        _hash: &#39;&#39;
+        _id: '',
+        _name: '',
+        _hash: ''
       });
 
       _Document memory tmp = _Document({

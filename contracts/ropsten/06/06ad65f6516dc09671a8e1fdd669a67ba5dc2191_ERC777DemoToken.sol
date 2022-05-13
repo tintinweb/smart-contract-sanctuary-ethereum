@@ -80,7 +80,7 @@ contract ERC777DemoToken is ERC777Token {
     /// @return the list of all the default operators
     function defaultOperators() public view returns (address[]) { return mDefaultOperators; }
 
-    /// @notice Authorize a third party `_operator` to manage (send) `msg.sender`&#39;s tokens.
+    /// @notice Authorize a third party `_operator` to manage (send) `msg.sender`'s tokens.
     /// @param _operator The operator that wants to be Authorized
     function authorizeOperator(address _operator) public {
         require(_operator != msg.sender);
@@ -92,7 +92,7 @@ contract ERC777DemoToken is ERC777Token {
         //AuthorizedOperator(_operator, msg.sender);
     }
 
-    /// @notice Revoke a third party `_operator`&#39;s rights to manage (send) `msg.sender`&#39;s tokens.
+    /// @notice Revoke a third party `_operator`'s rights to manage (send) `msg.sender`'s tokens.
     /// @param _operator The operator that wants to be Revoked
     function revokeOperator(address _operator) public {
         require(_operator != msg.sender);

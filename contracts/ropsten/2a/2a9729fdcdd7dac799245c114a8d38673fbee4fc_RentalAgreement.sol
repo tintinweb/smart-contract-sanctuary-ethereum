@@ -60,7 +60,7 @@ contract RentalAgreement {
 
   /*General*/
   uint256 public selectedPropertyID = 5;
-  string public selectedCountry=&#39;VEN&#39;;
+  string public selectedCountry='VEN';
   uint256 public selectedStateID=4;
   uint256 public dateLeaseStarts = 2323321212;
   uint256 public leaseDateSelected = 3;
@@ -142,7 +142,7 @@ contract RentalAgreement {
     emit Deposit(msg.sender, amount);
   }
 
-  //The rent is deposited in tenant&#39;s behalf
+  //The rent is deposited in tenant's behalf
   function depositFrom(uint amount) rentalAgreementApproved public {
     require(msg.sender == admin);
     require(EthRental.transferFrom(tenant, this, amount));

@@ -52,7 +52,7 @@ contract BitsiveCoin {
   uint8 public constant decimals = 18; // decimal digit for token price calculation.
   uint256 public totalSupply = 0;
   uint256 public maxSupply = 95000000; // This is max supply amount for token
-  uint256 public rate = 10 ** 15 wei; // This is token rate in terms of wei(eather&#39;s smallest unit).
+  uint256 public rate = 10 ** 15 wei; // This is token rate in terms of wei(eather's smallest unit).
 
  // Timestamps for different dates for pre sale.
   uint256 private startDate = 1529504078;

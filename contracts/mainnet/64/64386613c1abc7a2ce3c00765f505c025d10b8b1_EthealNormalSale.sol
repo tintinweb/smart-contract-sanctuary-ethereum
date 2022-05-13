@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -344,7 +344,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);
@@ -584,7 +584,7 @@ contract EthealNormalSale is Pausable, FinalizableCrowdsale, CappedCrowdsale {
     /// @param _rate Number of HEAL tokens per 1 ETH
     /// @param _softCap Softcap in wei, reaching it ends the sale in _softCapTime seconds
     /// @param _softCapTime Seconds until the sale remains open after reaching _softCap
-    /// @param _cap Maximum cap in wei, we can&#39;t raise more funds
+    /// @param _cap Maximum cap in wei, we can't raise more funds
     /// @param _wallet Address of multisig wallet, which will get all the funds after successful sale
     function EthealNormalSale(
         address _ethealController,
@@ -1008,7 +1008,7 @@ contract EthealNormalSale is Pausable, FinalizableCrowdsale, CappedCrowdsale {
     /// @notice Get contributor addresses to manage refunds or token claims.
     /// @dev If the sale is not yet successful, then it searches in the RefundVault.
     ///  If the sale is successful, it searches in contributors.
-    /// @param _pending If true, then returns addresses which didn&#39;t get their tokens distributed to them
+    /// @param _pending If true, then returns addresses which didn't get their tokens distributed to them
     /// @param _claimed If true, then returns already distributed addresses
     /// @return Array of addresses of contributors
     function getContributors(bool _pending, bool _claimed) view public returns (address[] contributors) {

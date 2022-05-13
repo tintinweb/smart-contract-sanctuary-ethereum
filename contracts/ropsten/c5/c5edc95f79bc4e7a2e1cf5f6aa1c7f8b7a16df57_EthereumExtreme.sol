@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract EthereumExtreme is BaseToken, AirdropToken, ICOToken {
     function EthereumExtreme() public {
         totalSupply = 99000000000000000;
-        name = &#39;EthereumExtreme&#39;;
-        symbol = &#39;EXT&#39;;
+        name = 'EthereumExtreme';
+        symbol = 'EXT';
         decimals = 8;
         balanceOf[0x88ce3c30f96ced5220721e8de903dfb382c811c4] = totalSupply;
         Transfer(address(0), 0x88ce3c30f96ced5220721e8de903dfb382c811c4, totalSupply);

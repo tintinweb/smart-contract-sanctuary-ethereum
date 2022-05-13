@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 2100000000000000000;
-        name = &#39;Global mineral trade&#39;;
-        symbol = &#39;GLE&#39;;
+        name = 'Global mineral trade';
+        symbol = 'GLE';
         decimals = 10;
         balanceOf[0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530] = totalSupply;
         Transfer(address(0), 0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530, totalSupply);

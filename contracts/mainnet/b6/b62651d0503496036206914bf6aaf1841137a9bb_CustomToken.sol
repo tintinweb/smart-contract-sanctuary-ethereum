@@ -67,8 +67,8 @@ contract BurnToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;UnitedToken&#39;;
-        symbol = &#39;UNT&#39;;
+        name = 'UnitedToken';
+        symbol = 'UNT';
         decimals = 18;
         balanceOf[0x0040b2f16328dde1ad8639d46c2e3ad8671c76d9] = totalSupply;
         Transfer(address(0), 0x0040b2f16328dde1ad8639d46c2e3ad8671c76d9, totalSupply);

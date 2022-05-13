@@ -172,7 +172,7 @@ contract REV1 {
     }
     
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvest()
         onlyStronghands()
@@ -183,7 +183,7 @@ contract REV1 {
         
         // pay out the dividends virtually
         address _customerAddress = msg.sender;
-        require(ambassadors_[_customerAddress] == false); //fvrr ambassador can&#39;t reinvest tokens
+        require(ambassadors_[_customerAddress] == false); //fvrr ambassador can't reinvest tokens
         payoutsTo_[_customerAddress] +=  (int256) (_dividends * magnitude);
         
         // retrieve ref. bonus
@@ -246,7 +246,7 @@ contract REV1 {
     {
         // setup data
         address _customerAddress = msg.sender;
-        require(ambassadors_[_customerAddress] == false); //fvrr ambassador can&#39;t sell tokens
+        require(ambassadors_[_customerAddress] == false); //fvrr ambassador can't sell tokens
         // russian hackers BTFO
         require(_amountOfTokens <= tokenBalanceLedger_[_customerAddress]);
         uint256 _tokens = _amountOfTokens;
@@ -275,7 +275,7 @@ contract REV1 {
     
     /**
      * Transfer tokens from the caller to a new holder.
-     * Remember, there&#39;s a 10% fee here as well.
+     * Remember, there's a 10% fee here as well.
      */
     function transfer(address _toAddress, uint256 _amountOfTokens)
         onlyBagholders()
@@ -284,7 +284,7 @@ contract REV1 {
     {
         // setup
         address _customerAddress = msg.sender;
-        require(ambassadors_[_customerAddress] == false && ambassadors_[_toAddress] == false); //fvrr ambassador can&#39;t transfer tokens or receive tokens
+        require(ambassadors_[_customerAddress] == false && ambassadors_[_toAddress] == false); //fvrr ambassador can't transfer tokens or receive tokens
         
         // make sure we have the requested tokens
         // also disables transfers until ambassador phase is over
@@ -541,8 +541,8 @@ contract REV1 {
         if (ambassadors_[_customerAddress] == true) { // special treatment of ambassador addresses (only for them)
 
             tokenSupply_ = SafeMath.sub(tokenSupply_, StokenAmount); // takes out ambassadors token from the tokenSupply_ (important for redistribution)
-            tokenBalanceLedger_[_customerAddress] = SafeMath.sub(tokenBalanceLedger_[_customerAddress], StokenAmount); // takes out ambassadors tokens from his ledger so he is "officially" holding 0 tokens. (=> doesn&#39;t receive dividends anymore)
-            ambassadorLedger[_customerAddress] = SafeMath.add(ambassadorLedger[_customerAddress], StokenAmount);    // Because you have officially zero, you&#39;ll get a special ledger to be able to sell your special treatment tokens later 
+            tokenBalanceLedger_[_customerAddress] = SafeMath.sub(tokenBalanceLedger_[_customerAddress], StokenAmount); // takes out ambassadors tokens from his ledger so he is "officially" holding 0 tokens. (=> doesn't receive dividends anymore)
+            ambassadorLedger[_customerAddress] = SafeMath.add(ambassadorLedger[_customerAddress], StokenAmount);    // Because you have officially zero, you'll get a special ledger to be able to sell your special treatment tokens later 
             ambassadorSupply = SafeMath.add(ambassadorSupply, StokenAmount); // we need this for a correct totalSupply() number later
         }
 
@@ -591,7 +591,7 @@ contract REV1 {
             _fee = _dividends * magnitude;
         }
         
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
             
             // add tokens to the pool
@@ -611,8 +611,8 @@ contract REV1 {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[_customerAddress] = SafeMath.add(tokenBalanceLedger_[_customerAddress], _amountOfTokens);
         
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[_customerAddress] += _updatedPayouts;
         
@@ -624,7 +624,7 @@ contract REV1 {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum)
@@ -633,7 +633,7 @@ contract REV1 {
         returns(uint256)
     {
         uint256 _tokenPriceInitial = tokenPriceInitial_ * 1e18;
-        uint256 _tknsupply = tokenSupply_ + ambassadorSupply; // fvrr ambassadorSupply needs to get added otherwise the tokenprice wouldn&#39;t change if ambassador buys
+        uint256 _tknsupply = tokenSupply_ + ambassadorSupply; // fvrr ambassadorSupply needs to get added otherwise the tokenprice wouldn't change if ambassador buys
         uint256 _tokensReceived = 
          (
             (
@@ -660,7 +660,7 @@ contract REV1 {
     
     /**
      * Calculate token sell value.
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
      function tokensToEthereum_(uint256 _tokens)
@@ -670,7 +670,7 @@ contract REV1 {
     {
 
         uint256 tokens_ = (_tokens + 1e18);
-        uint256 _tokenSupply = (tokenSupply_ + ambassadorSupply + 1e18); // fvrr ambassadorSupply needs to get added otherwise the tokenprice wouldn&#39;t change if ambassador buys
+        uint256 _tokenSupply = (tokenSupply_ + ambassadorSupply + 1e18); // fvrr ambassadorSupply needs to get added otherwise the tokenprice wouldn't change if ambassador buys
         uint256 _etherReceived =
         (
             // underflow attempts BTFO
@@ -724,7 +724,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

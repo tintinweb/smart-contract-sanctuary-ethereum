@@ -3,7 +3,7 @@ pragma solidity ^0.4.21;
 // Updates since last contract 
 // Price increase is now max 200% from 100% 
 // min Price is now 1 szabo from 1 finney. This price is not recommended due to gas. 
-// If you start a new game (amount in pot is 0, and timer hasn&#39;t started) then you will pay NO fees
+// If you start a new game (amount in pot is 0, and timer hasn't started) then you will pay NO fees
 // This means that you can always start a game without any risk. 
 // If no one decides to buy, then you can pay out back, and you will get the pot, which is 100% of your payment back!!
 
@@ -82,11 +82,11 @@ contract ItemMarket{
     	
     	// Previous contract had items. Recreate those
     	
-        AddItemExtra(2000, 10000, 1000000000000000, 500, 2000, "segfault&#39;s ego", 0xef764BAC8a438E7E498c2E5fcCf0f174c3E3F8dB);
+        AddItemExtra(2000, 10000, 1000000000000000, 500, 2000, "segfault's ego", 0xef764BAC8a438E7E498c2E5fcCf0f174c3E3F8dB);
         AddItemExtra(300, 10000, 10000000000000000, 500, 2500, "Hellina", 0x83c0Efc6d8B16D87BFe1335AB6BcAb3Ed3960285);
-        AddItemExtra(600, 10000, 100000000000000000, 500, 2000, "nightman&#39;s gambit", 0x5C035Bb4Cb7dacbfeE076A5e61AA39a10da2E956);
+        AddItemExtra(600, 10000, 100000000000000000, 500, 2000, "nightman's gambit", 0x5C035Bb4Cb7dacbfeE076A5e61AA39a10da2E956);
         AddItemExtra(360000, 10000, 5000000000000000, 200, 1800, "BOHLISH", 0xC84c18A88789dBa5B0cA9C13973435BbcE7e961d);
-        AddItemExtra(900, 2000, 20000000000000000, 1000, 2000, "Phil&#39;s labyrinth", 0x457dEA5F9c185419EA47ff80f896d98aadf1c727);
+        AddItemExtra(900, 2000, 20000000000000000, 1000, 2000, "Phil's labyrinth", 0x457dEA5F9c185419EA47ff80f896d98aadf1c727);
         AddItemExtra(420, 6899, 4200000000000000, 500, 4000, "69,420 (Nice)", 0x477cCD47d62a4929DD11651ab835E132c8eab3B8);
         next_item_index = next_item_index + 2; // this was an item I created. We skip this item. Item after this too, to check if != devs could create 
         // apparently people created wrong settings which got reverted by the add item function. it looked like system was wrong
@@ -287,7 +287,7 @@ contract ItemMarket{
    function div(uint256 a, uint256 b) internal pure returns (uint256) {
       // assert(b > 0); // Solidity automatically throws when dividing by 0
       uint256 c = a / b;
-      // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+      // assert(a == b * c + a % b); // There is no case in which this doesn't hold
       return c;
    }
 

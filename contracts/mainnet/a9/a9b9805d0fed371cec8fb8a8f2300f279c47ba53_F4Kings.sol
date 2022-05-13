@@ -186,7 +186,7 @@ contract F4Kings is modularShort {
 
 		// Team allocation percentages
         // (F3D) + (Pot , Referrals, Community)
-            // Referrals / Community rewards are mathematically designed to come from the winner&#39;s share of the pot.
+            // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
         fees_[0] = F3Ddatasets.TeamFee(22,0);   //48% to pot, 18% to aff, 10% to com, 1% to pot swap, 1% to air drop pot
         fees_[1] = F3Ddatasets.TeamFee(32,0);   //38% to pot, 18% to aff, 10% to com, 1% to pot swap, 1% to air drop pot
         fees_[2] = F3Ddatasets.TeamFee(52,0);   //18% to pot, 18% to aff, 10% to com, 1% to pot swap, 1% to air drop pot
@@ -347,7 +347,7 @@ contract F4Kings is modularShort {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -459,7 +459,7 @@ contract F4Kings is modularShort {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -650,7 +650,7 @@ contract F4Kings is modularShort {
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -1154,7 +1154,7 @@ contract F4Kings is modularShort {
         if (plyr_[_pID].lrnd != 0)
             updateGenVault(_pID, plyr_[_pID].lrnd);
 
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
 
         // set the joined round bool to true
@@ -1173,7 +1173,7 @@ contract F4Kings is modularShort {
         // setup local rID
         uint256 _rID = rID_;
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
 
@@ -1353,7 +1353,7 @@ contract F4Kings is modularShort {
 
         // decide what to do with affiliate share of fees
         // affiliate must not be self, and must have a name registered
-        if ((_affID != 0) && (_affID != _pID) && (plyr_[_affID].name != &#39;&#39;)) 
+        if ((_affID != 0) && (_affID != _pID) && (plyr_[_affID].name != '')) 
         {
             plyr_[_pID].laffID = _affID;
             plyr_[_affID].aff = _aff1.add(plyr_[_affID].aff);
@@ -1498,7 +1498,7 @@ contract F4Kings is modularShort {
     }
 
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, F3Ddatasets.EventReturns memory _eventData_)
         private

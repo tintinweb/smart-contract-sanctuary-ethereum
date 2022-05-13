@@ -19,8 +19,8 @@ contract BanknadToken {
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function BanknadToken() {
       owner = 0xaCa0B051C98B1667B9211aB4A4Cb8CFF03d755Bb;
-      name = &#39;banknad token&#39;;
-      symbol = &#39;BAK&#39;;
+      name = 'banknad token';
+      symbol = 'BAK';
       decimals = 18;
       totalSupply = 10000000000000000000000000000;  // 10 billion
       balanceOf[owner] = 10000000000000000000000000000;

@@ -25,10 +25,10 @@ contract Ownable {
  * @author Yoshikazu Nishimura, G.U.Lab
  * @dev Digital rights management on Blockchain
  * @dev A content will be stored on any accessible storage encrypted by a "common" key.
- * @dev The "common" key is encrypted by an author&#39;s secret key, and get a "secret" key.
+ * @dev The "common" key is encrypted by an author's secret key, and get a "secret" key.
  * @dev This "secret" key is stored on the blockchain, but nobody other than the author can recover it.
  * @dev If an account obtained ownership (right to access a content) will receive encrypted common key
- * @dev by encrypting the "common" key by the account&#39;s public key.
+ * @dev by encrypting the "common" key by the account's public key.
  * @dev The ownership granted account can recover the original "common" key by decrypting it by his private key,
  * @dev and decrypt the content by using the "common" key recovered to get the original readable content.
  */
@@ -134,7 +134,7 @@ contract EthPub is Ownable{
     }
     
     /**
-     * @dev Return content hash at the specified index of msg.sender&#39;s publications)
+     * @dev Return content hash at the specified index of msg.sender's publications)
      * @return contentHash bytes32 content hash
     */
     function authorContentByIndex(uint256 _index) public view returns (bytes32 contentHash) {
@@ -151,7 +151,7 @@ contract EthPub is Ownable{
 
     /**
     * @dev Transfer a content authorship (right to issue content) from original author to another
-    * @dev (It&#39;s rarely used)
+    * @dev (It's rarely used)
     * @param _to address address of an account who will obtain authorship of the content
     * @param _contentHash bytes32 unique id of the content (it can be IPFS hash)
     */

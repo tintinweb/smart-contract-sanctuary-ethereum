@@ -30,7 +30,7 @@ contract FraCoinAuct {
         _FraCoin = addr ; 
         CoinsToBeAuctioned = Coins ; 
         
-        mintCoins(CoinsToBeAuctioned);                                // If Fraports Account doesn&#39;t have enough Coins, they shall be minted on the Account 
+        mintCoins(CoinsToBeAuctioned);                                // If Fraports Account doesn't have enough Coins, they shall be minted on the Account 
     }
     
     function EndAuction () public

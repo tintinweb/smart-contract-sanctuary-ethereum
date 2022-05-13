@@ -6,7 +6,7 @@ contract TestERC {
     // This will be you, the minter. It is set in the constructor.
     address public minter;
 
-    // This mapping stores everyone&#39;s balances.
+    // This mapping stores everyone's balances.
     mapping (address => uint) public balances;
 
     // This event will track when someone sends some tokens.

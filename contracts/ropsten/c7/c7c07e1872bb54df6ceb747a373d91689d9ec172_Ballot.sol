@@ -67,7 +67,7 @@ contract Ballot {
             }
         }
         
-        // if the above method didn&#39;t work, pick the winner totally randomly
+        // if the above method didn't work, pick the winner totally randomly
         if(winnerFound == 0) {  
             random();
         }

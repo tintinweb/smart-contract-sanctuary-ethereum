@@ -105,7 +105,7 @@ contract BBStorage is Ownable {
     /// @dev Only allow access from the latest version of a contract in the network after deployment
     modifier onlyAdminStorage() {
         // // The owner is only allowed to set the storage upon deployment to register the initial contracts, afterwards their direct access is disabled
-        require(admins[keccak256(abi.encodePacked(&#39;admin:&#39;,msg.sender))] == true);
+        require(admins[keccak256(abi.encodePacked('admin:',msg.sender))] == true);
         _;
     }
 
@@ -116,7 +116,7 @@ contract BBStorage is Ownable {
      */
     function addAdmin(address admin, bool add) public onlyOwner {
         require(admin!=address(0x0));
-        admins[keccak256(abi.encodePacked(&#39;admin:&#39;,admin))] = add;
+        admins[keccak256(abi.encodePacked('admin:',admin))] = add;
         emit AdminAdded(admin, add);
     }
     
@@ -231,8 +231,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -249,7 +249,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -357,7 +357,7 @@ contract BBFreelancer is BBStandard{
     _;
   }
   modifier isFreelancerOfJob(bytes jobHash){
-    require(bbs.getAddress(keccak256(abi.encodePacked(jobHash,&#39;FREELANCER&#39;))) == msg.sender);
+    require(bbs.getAddress(keccak256(abi.encodePacked(jobHash,'FREELANCER'))) == msg.sender);
     _;
   }
   modifier isNotOwnerJob(bytes jobHash){
@@ -374,11 +374,11 @@ contract BBFreelancer is BBStandard{
   }
 
   modifier jobNotStarted(bytes jobHash){
-    require(bbs.getUint(keccak256(abi.encodePacked(jobHash, &#39;STATUS&#39;))) == 0x0);
+    require(bbs.getUint(keccak256(abi.encodePacked(jobHash, 'STATUS'))) == 0x0);
     _;
   }
   modifier isNotCanceled(bytes jobHash){
-    require(bbs.getBool(keccak256(abi.encodePacked(jobHash, &#39;CANCEL&#39;))) !=true);
+    require(bbs.getBool(keccak256(abi.encodePacked(jobHash, 'CANCEL'))) !=true);
     _;
   }
   
@@ -406,11 +406,11 @@ contract BBParams is BBFreelancer{
 
   function setFreelancerParams(uint256 paymentLimitTimestamp) onlyAdmin public {
   	require(paymentLimitTimestamp > 0);
-    bbs.setUint(keccak256(&#39;PAYMENT_LIMIT_TIMESTAMP&#39;), paymentLimitTimestamp);
+    bbs.setUint(keccak256('PAYMENT_LIMIT_TIMESTAMP'), paymentLimitTimestamp);
   
   }
   function getFreelancerParams() public view returns(uint256){
-  	return (bbs.getUint(keccak256(&#39;PAYMENT_LIMIT_TIMESTAMP&#39;)));
+  	return (bbs.getUint(keccak256('PAYMENT_LIMIT_TIMESTAMP')));
   }
 
   function setVotingParams(uint256 minVotes, uint256 maxVotes, uint256 voteQuorum,
@@ -426,20 +426,20 @@ contract BBParams is BBFreelancer{
   	require(revealDuration>0);
   	require(bboRewards>0);
 
-    bbs.setUint(keccak256(&#39;MIN_VOTES&#39;), minVotes);
-    bbs.setUint(keccak256(&#39;MAX_VOTES&#39;), maxVotes);
-    bbs.setUint(keccak256(&#39;VOTE_QUORUM&#39;), voteQuorum);
-    bbs.setUint(keccak256(&#39;STAKED_DEPOSIT&#39;), stakeDeposit);
-    bbs.setUint(keccak256(&#39;EVIDENCE_DURATION&#39;), eveidenceDuration);
-    bbs.setUint(keccak256(&#39;COMMIT_DURATION&#39;), commitDuration);
-    bbs.setUint(keccak256(&#39;REVEAL_DURATION&#39;), revealDuration);
-    bbs.setUint(keccak256(&#39;BBO_REWARDS&#39;), bboRewards);
+    bbs.setUint(keccak256('MIN_VOTES'), minVotes);
+    bbs.setUint(keccak256('MAX_VOTES'), maxVotes);
+    bbs.setUint(keccak256('VOTE_QUORUM'), voteQuorum);
+    bbs.setUint(keccak256('STAKED_DEPOSIT'), stakeDeposit);
+    bbs.setUint(keccak256('EVIDENCE_DURATION'), eveidenceDuration);
+    bbs.setUint(keccak256('COMMIT_DURATION'), commitDuration);
+    bbs.setUint(keccak256('REVEAL_DURATION'), revealDuration);
+    bbs.setUint(keccak256('BBO_REWARDS'), bboRewards);
   
   }
   function getVotingParams() public view returns(uint256, uint256,uint256,uint256, uint256,uint256,uint256, uint256,uint256){
-  	return (bbs.getUint(keccak256(&#39;MIN_VOTES&#39;)), bbs.getUint(keccak256(&#39;MAX_VOTES&#39;)), bbs.getUint(keccak256(&#39;VOTE_QUORUM&#39;)), 
-  	bbs.getUint(keccak256(&#39;STAKED_DEPOSIT&#39;)), bbs.getUint(keccak256(&#39;EVIDENCE_DURATION&#39;)), bbs.getUint(keccak256(&#39;COMMIT_DURATION&#39;)), 
-  	bbs.getUint(keccak256(&#39;REVEAL_DURATION&#39;)), bbs.getUint(keccak256(&#39;BBO_REWARDS&#39;)), bbs.getUint(keccak256(&#39;STAKED_VOTE&#39;)));
+  	return (bbs.getUint(keccak256('MIN_VOTES')), bbs.getUint(keccak256('MAX_VOTES')), bbs.getUint(keccak256('VOTE_QUORUM')), 
+  	bbs.getUint(keccak256('STAKED_DEPOSIT')), bbs.getUint(keccak256('EVIDENCE_DURATION')), bbs.getUint(keccak256('COMMIT_DURATION')), 
+  	bbs.getUint(keccak256('REVEAL_DURATION')), bbs.getUint(keccak256('BBO_REWARDS')), bbs.getUint(keccak256('STAKED_VOTE')));
   }
 
 }

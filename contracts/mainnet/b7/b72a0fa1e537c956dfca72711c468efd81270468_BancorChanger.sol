@@ -16,7 +16,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -76,7 +76,7 @@ contract Utils {
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public constant returns (address owner) { owner; }
 
     function transferOwnership(address _newOwner) public;
@@ -181,10 +181,10 @@ contract ITokenHolder is IOwned {
 }
 
 /*
-    We consider every contract to be a &#39;token holder&#39; since it&#39;s currently not possible
+    We consider every contract to be a 'token holder' since it's currently not possible
     for a contract to deny receiving tokens.
 
-    The TokenHolder&#39;s contract sole purpose is to provide a safety mechanism that allows
+    The TokenHolder's contract sole purpose is to provide a safety mechanism that allows
     the owner to send tokens that were sent to the contract by mistake back to their sender.
 */
 contract TokenHolder is ITokenHolder, Owned, Utils {
@@ -216,18 +216,18 @@ contract TokenHolder is ITokenHolder, Owned, Utils {
 /*
     The smart token controller is an upgradable part of the smart token that allows
     more functionality as well as fixes for bugs/exploits.
-    Once it accepts ownership of the token, it becomes the token&#39;s sole controller
+    Once it accepts ownership of the token, it becomes the token's sole controller
     that can execute any of its functions.
 
     To upgrade the controller, ownership must be transferred to a new controller, along with
     any relevant data.
 
     The smart token must be set on construction and cannot be changed afterwards.
-    Wrappers are provided (as opposed to a single &#39;execute&#39; function) for each of the token&#39;s functions, for easier access.
+    Wrappers are provided (as opposed to a single 'execute' function) for each of the token's functions, for easier access.
 
     Note that the controller can transfer token ownership to a new controller that
-    doesn&#39;t allow executing any function on the token, for a trustless solution.
-    Doing that will also remove the owner&#39;s ability to upgrade the controller.
+    doesn't allow executing any function on the token, for a trustless solution.
+    Doing that will also remove the owner's ability to upgrade the controller.
 */
 contract SmartTokenController is TokenHolder {
     ISmartToken public token;   // smart token
@@ -241,13 +241,13 @@ contract SmartTokenController is TokenHolder {
         token = _token;
     }
 
-    // ensures that the controller is the token&#39;s owner
+    // ensures that the controller is the token's owner
     modifier active() {
         assert(token.owner() == address(this));
         _;
     }
 
-    // ensures that the controller is not the token&#39;s owner
+    // ensures that the controller is not the token's owner
     modifier inactive() {
         assert(token.owner() != address(this));
         _;
@@ -299,7 +299,7 @@ contract SmartTokenController is TokenHolder {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public constant returns (string name) { name; }
     function symbol() public constant returns (string symbol) { symbol; }
     function decimals() public constant returns (uint8 decimals) { decimals; }
@@ -351,7 +351,7 @@ contract ITokenChanger {
 /*
     Open issues:
     - Add miner front-running attack protection. The issue is somewhat mitigated by the use of _minReturn when changing
-    - Possibly add getters for reserve fields so that the client won&#39;t need to rely on the order in the struct
+    - Possibly add getters for reserve fields so that the client won't need to rely on the order in the struct
 */
 
 /*
@@ -365,12 +365,12 @@ contract ITokenChanger {
     The changer is upgradable (just like any SmartTokenController).
 
     A note on change paths -
-    Change path is a data structure that&#39;s used when changing a token to another token in the bancor network
-    when the change cannot necessarily be done by single changer and might require multiple &#39;hops&#39;.
+    Change path is a data structure that's used when changing a token to another token in the bancor network
+    when the change cannot necessarily be done by single changer and might require multiple 'hops'.
     The path defines which changers should be used and what kind of change should be done in each step.
 
-    The path format doesn&#39;t include complex structure and instead, it is represented by a single array
-    in which each &#39;hop&#39; is represented by a 2-tuple - smart token & to token.
+    The path format doesn't include complex structure and instead, it is represented by a single array
+    in which each 'hop' is represented by a 2-tuple - smart token & to token.
     In addition, the first element is always the source token.
     The smart token is only used as a pointer to a changer (since changer addresses are more likely to change).
 
@@ -393,12 +393,12 @@ contract BancorChanger is ITokenChanger, SmartTokenController, Managed {
         bool isSet;                     // used to tell if the mapping element is defined
     }
 
-    string public version = &#39;0.2&#39;;
-    string public changerType = &#39;bancor&#39;;
+    string public version = '0.2';
+    string public changerType = 'bancor';
 
     IBancorFormula public formula;                  // bancor calculation formula contract
     IERC20Token[] public reserveTokens;             // ERC20 standard token addresses
-    IERC20Token[] public quickBuyPath;              // change path that&#39;s used in order to buy the token with ETH
+    IERC20Token[] public quickBuyPath;              // change path that's used in order to buy the token with ETH
     mapping (address => Reserve) public reserves;   // reserve token addresses -> reserve data
     uint32 private totalReserveRatio = 0;           // used to efficiently prevent increasing the total reserve ratio above 100%
     uint32 public maxChangeFee = 0;                 // maximum change fee for the lifetime of the contract, represented in ppm, 0...1000000 (0 = no fee, 100 = 0.01%, 1000000 = 100%)
@@ -460,13 +460,13 @@ contract BancorChanger is ITokenChanger, SmartTokenController, Managed {
         _;
     }
 
-    // validates a change path - verifies that the number of elements is odd and that maximum number of &#39;hops&#39; is 10
+    // validates a change path - verifies that the number of elements is odd and that maximum number of 'hops' is 10
     modifier validChangePath(IERC20Token[] _path) {
         require(_path.length > 2 && _path.length <= (1 + 2 * 10) && _path.length % 2 == 1);
         _;
     }
 
-    // allows execution only when changing isn&#39;t disabled
+    // allows execution only when changing isn't disabled
     modifier changingAllowed {
         assert(changingEnabled);
         _;
@@ -636,7 +636,7 @@ contract BancorChanger is ITokenChanger, SmartTokenController, Managed {
         @param _reserveToken           address of the reserve token
         @param _ratio                  constant reserve ratio, represented in ppm, 1-1000000
         @param _enableVirtualBalance   true to enable virtual balance for the reserve, false to disable it
-        @param _virtualBalance         new reserve&#39;s virtual balance
+        @param _virtualBalance         new reserve's virtual balance
     */
     function updateReserve(IERC20Token _reserveToken, uint32 _ratio, bool _enableVirtualBalance, uint256 _virtualBalance)
         public
@@ -670,7 +670,7 @@ contract BancorChanger is ITokenChanger, SmartTokenController, Managed {
     }
 
     /**
-        @dev returns the reserve&#39;s virtual balance if one is defined, otherwise returns the actual balance
+        @dev returns the reserve's virtual balance if one is defined, otherwise returns the actual balance
 
         @param _reserveToken    reserve token contract address
 
@@ -837,7 +837,7 @@ contract BancorChanger is ITokenChanger, SmartTokenController, Managed {
         if (reserve.isVirtualBalanceEnabled)
             reserve.virtualBalance = safeSub(reserve.virtualBalance, amount);
 
-        token.destroy(msg.sender, _sellAmount); // destroy _sellAmount from the caller&#39;s balance in the smart token
+        token.destroy(msg.sender, _sellAmount); // destroy _sellAmount from the caller's balance in the smart token
         assert(_reserveToken.transfer(msg.sender, amount)); // transfer funds to the caller in the reserve token
                                                             // note that it might fail if the actual reserve balance is smaller than the virtual balance
         // calculate the new price using the simple price formula
@@ -880,11 +880,11 @@ contract BancorChanger is ITokenChanger, SmartTokenController, Managed {
             toToken = _path[i + 1];
             changer = BancorChanger(smartToken.owner());
 
-            // if the smart token isn&#39;t the source (from token), the changer doesn&#39;t have control over it and thus we need to approve the request
+            // if the smart token isn't the source (from token), the changer doesn't have control over it and thus we need to approve the request
             if (smartToken != fromToken)
                 ensureAllowance(fromToken, changer, _amount);
 
-            // make the change - if it&#39;s the last one, also provide the minimum return value
+            // make the change - if it's the last one, also provide the minimum return value
             _amount = changer.change(fromToken, toToken, _amount, i == pathLength - 2 ? _minReturn : 1);
             fromToken = toToken;
         }
@@ -957,7 +957,7 @@ contract BancorChanger is ITokenChanger, SmartTokenController, Managed {
     }
 
     /**
-        @dev utility, checks whether allowance for the given spender exists and approves one if it doesn&#39;t
+        @dev utility, checks whether allowance for the given spender exists and approves one if it doesn't
 
         @param _token   token to check the allowance in
         @param _spender approved address
@@ -986,7 +986,7 @@ contract BancorChanger is ITokenChanger, SmartTokenController, Managed {
     function claimTokens(IERC20Token _token, address _from, uint256 _amount) private {
         // if the token is the smart token, no allowance is required - destroy the tokens from the caller and issue them to the local contract
         if (_token == token) {
-            token.destroy(_from, _amount); // destroy _amount tokens from the caller&#39;s balance in the smart token
+            token.destroy(_from, _amount); // destroy _amount tokens from the caller's balance in the smart token
             token.issue(this, _amount); // issue _amount new tokens to the local contract
             return;
         }

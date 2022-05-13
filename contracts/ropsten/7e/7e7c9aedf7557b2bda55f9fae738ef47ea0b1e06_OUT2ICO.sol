@@ -533,7 +533,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -758,7 +758,7 @@ contract OUT2ICO is ERC20Interface, Owned, usingOraclize {
         Open = false;
     }
     
-    /* ERC20Interface function&#39;s implementation */
+    /* ERC20Interface function's implementation */
     function totalSupply() public constant returns (uint){
        return 12e27; // 12 billion 
     }
@@ -771,8 +771,8 @@ contract OUT2ICO is ERC20Interface, Owned, usingOraclize {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -799,7 +799,7 @@ contract OUT2ICO is ERC20Interface, Owned, usingOraclize {
     
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     // ------------------------------------------------------------------------
     function approve(address spender, uint tokens) public returns (bool success){
         allowed[msg.sender][spender] = tokens;
@@ -827,7 +827,7 @@ contract OUT2ICO is ERC20Interface, Owned, usingOraclize {
     }
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];

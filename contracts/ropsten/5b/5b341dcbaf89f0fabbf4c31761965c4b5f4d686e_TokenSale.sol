@@ -22,7 +22,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -129,12 +129,12 @@ contract TokenSale {
   function withdraw(uint16 _day)
   public
   returns (bool) {
-      require(dayFinished(_day), &#39;Day not finished&#39;);
-      require(updateclaimableTokens(msg.sender, _day), &#39;Cannot update claimable tokens&#39;);
+      require(dayFinished(_day), 'Day not finished');
+      require(updateclaimableTokens(msg.sender, _day), 'Cannot update claimable tokens');
       Day storage thisDay = day[_day];
       uint _amount = thisDay.claimableTokens[msg.sender];
       delete thisDay.claimableTokens[msg.sender];
-      require(mybToken.transfer(msg.sender, _amount), &#39;Cannot transfer tokens&#39;);
+      require(mybToken.transfer(msg.sender, _amount), 'Cannot transfer tokens');
       emit LogTokensCollected(msg.sender, _amount, _day, thisDay.weiPerToken, thisDay.weiContributed[msg.sender]);
       return true;
   }

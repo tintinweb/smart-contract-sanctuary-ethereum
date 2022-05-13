@@ -52,8 +52,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -71,7 +71,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     require(_b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -229,7 +229,7 @@ contract UserInterface is Ownable{
     }
     
     function getReferralCode(address addr) external view returns(bytes8){
-        require(accounts[addr].ReferralCode!=bytes8(0),"You don&#39;t have a ReferralCode until now!");
+        require(accounts[addr].ReferralCode!=bytes8(0),"You don't have a ReferralCode until now!");
         return accounts[addr].ReferralCode;
     }
 

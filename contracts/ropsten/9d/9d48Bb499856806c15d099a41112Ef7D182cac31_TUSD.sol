@@ -10,7 +10,7 @@ contract TUSD {
 
     uint256 public totalSupply;
     bytes32 public name;// token name, e.g, pounds for fiat UK pounds.
-    uint8 public decimals;// How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals;// How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     bytes32 public symbol;// An identifier: eg SBX.
 
     uint256 constant private MAX_UINT256 = 2**256 - 1;
@@ -51,7 +51,7 @@ contract TUSD {
     
     /** @dev Creates a new currency/token.
       * param _decimalUnits The decimal units/places the token can have.
-      * param _tokenSymbol The token&#39;s symbol, e.g., GBP.
+      * param _tokenSymbol The token's symbol, e.g., GBP.
       * param _decimalUnits The tokens decimal unites/precision
       * param _amount The amount of tokens to create upon deployment
       * param _owner The owner of the tokens created upon deployment
@@ -217,7 +217,7 @@ contract TUSD {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 }

@@ -79,8 +79,8 @@ library SafeMath32 {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint32 a, uint32 b) internal pure returns (uint32) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -98,7 +98,7 @@ library SafeMath32 {
   function div(uint32 a, uint32 b) internal pure returns (uint32) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint32 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -139,8 +139,8 @@ library SafeMath64 {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint64 a, uint64 b) internal pure returns (uint64) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -158,7 +158,7 @@ library SafeMath64 {
   function div(uint64 a, uint64 b) internal pure returns (uint64) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint64 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -199,8 +199,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint a, uint b) internal pure returns (uint) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -218,7 +218,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }

@@ -406,7 +406,7 @@ contract Foken is Ownable, Pausable, IERC20 {
     }
 
     /**
-     * @dev Approve an address to spend another addresses&#39; tokens.
+     * @dev Approve an address to spend another addresses' tokens.
      * @param owner The address that owns the tokens.
      * @param spender The address that will spend the tokens.
      * @param value The number of tokens that can be spent.

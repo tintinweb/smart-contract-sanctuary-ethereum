@@ -136,7 +136,7 @@ contract FishbankBoosters is Ownable {
     }
 
     //ERC721 functionality
-    //could split this to a different contract but doesn&#39;t make it easier to read
+    //could split this to a different contract but doesn't make it easier to read
     event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
 

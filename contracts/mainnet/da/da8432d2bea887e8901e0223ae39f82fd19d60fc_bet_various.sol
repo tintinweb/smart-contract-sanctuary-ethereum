@@ -12,7 +12,7 @@ contract bet_various{
   uint bettingprice = 0.01 ether;
   Guess[1000] guesses;
   uint    numguesses = 0;
-  bytes32 curhash = &#39;&#39;;
+  bytes32 curhash = '';
   
   uint stasticsarrayitems = 20;
   uint[20] statistics;
@@ -130,7 +130,7 @@ contract bet_various{
     state = State.Locked;
 
     uint lotterynumber = (uint(curhash)+block.timestamp)%(maxguess+1);
-    // now that we know the random number was safely generate, let&#39;s do something with the random number..
+    // now that we know the random number was safely generate, let's do something with the random number..
     var guess = findWinners(lotterynumber);
     uint prize = getLotteryMoney();
     uint remain = this.balance - (prize*numwinners);

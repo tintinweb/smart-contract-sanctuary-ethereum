@@ -116,7 +116,7 @@ contract FishProxy is SharkProxy {
    */
   function() payable {
     // if locked, only allow 0.1 ETH max
-    // Note this doesn&#39;t prevent other contracts to send funds by using selfdestruct(address);
+    // Note this doesn't prevent other contracts to send funds by using selfdestruct(address);
     // See: https://github.com/ConsenSys/smart-contract-best-practices#remember-that-ether-can-be-forcibly-sent-to-an-account
     assert(lockAddr == address(0) || this.balance <= 1e17);
     Deposit(msg.sender, msg.value);

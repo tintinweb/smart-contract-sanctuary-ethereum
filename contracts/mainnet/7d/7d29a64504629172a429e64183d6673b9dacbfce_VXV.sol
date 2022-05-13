@@ -143,7 +143,7 @@ contract VXV is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -161,7 +161,7 @@ contract VXV is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {

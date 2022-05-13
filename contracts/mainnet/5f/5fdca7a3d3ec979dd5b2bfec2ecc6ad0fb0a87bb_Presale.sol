@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -302,7 +302,7 @@ contract Presale is Pausable {
     */
     function invest(address receiver) whenNotPaused payable {
 
-        // Determine if it&#39;s a good time to accept investment from this participant
+        // Determine if it's a good time to accept investment from this participant
         if (getState() == State.PreFunding) {
             // Are we whitelisted for early deposit
             require(earlyParticipantWhitelist[receiver]);
@@ -378,7 +378,7 @@ contract Presale is Pausable {
     function setPricingStrategy(address _pricingStrategy) onlyOwner {
         pricingStrategy = PricingStrategy(_pricingStrategy);
 
-        // Don&#39;t allow setting bad agent
+        // Don't allow setting bad agent
         require(pricingStrategy.isPricingStrategy());
     }
 

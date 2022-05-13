@@ -130,7 +130,7 @@ contract Ethraffle {
         }
     }
 
-    // Refund everyone&#39;s money, start a new raffle, then pause it
+    // Refund everyone's money, start a new raffle, then pause it
     function endRaffle() public {
         if (msg.sender == rakeAddress) {
             paused = true;

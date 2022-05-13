@@ -169,8 +169,8 @@ contract GIN is ERC20Interface, Owned, Blacklist {
     }
 
 
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     function transfer(address to, uint amount) public notBlacklisted returns (bool success) {
         balances[msg.sender] = balances[msg.sender].sub(amount);
@@ -195,13 +195,13 @@ contract GIN is ERC20Interface, Owned, Blacklist {
     }
 
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
         return allowed[tokenOwner][spender];
     }
 
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
     // as this should be implemented in user interfaces 
@@ -234,7 +234,7 @@ contract GIN is ERC20Interface, Owned, Blacklist {
     }
 
     //Token owner give a set allowance to an address to burn his tokens.
-    //address needs to be allowed a set allowance by tokens&#39; owner.
+    //address needs to be allowed a set allowance by tokens' owner.
     function burnFrom(address from, uint256 amount) public notBlacklisted {
         require(amount <= balances[from]);
         require(amount <= allowed[from][msg.sender]);

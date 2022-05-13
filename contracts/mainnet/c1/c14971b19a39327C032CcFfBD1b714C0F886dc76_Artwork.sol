@@ -24,13 +24,13 @@ contract Artwork {
 
 /* 1. Introduction
 
-This text is a plain English translation of the smart contract&#39;s programming logic and represent its terms of use (terms). This plain English translation is a best effort only and while all reasonable precautions have been taken to ensure that the smart contract will behave in the exact way outlined in these terms, mistakes do happen (see The DAO) which may result in unexpected and unintended contract behaviour which may include the total loss of invested funds (Ether), other tokens sent to it as well as accessibility of the contract itself. Due to the nature of smart contracts, once it is deployed on the blockchain it becomes immutably imbedded in it which means that any bugs and/or exploits discovered after deployment are unfixable. Should the code behave differently than outlined in these terms, the code - by the very nature of smart contracts - takes precedent over the terms. By deploying, interacting or otherwise using the smart contract you acknowledge and accept all associated risks while at the same time waive all rights to hold the creator of the smart contract, the artists who deployed the smart contract, its current owner as well as any other parties responsible for potential damages suffered by or caused by you through your interaction with the smart contract to yourself or others. No backsies.
+This text is a plain English translation of the smart contract's programming logic and represent its terms of use (terms). This plain English translation is a best effort only and while all reasonable precautions have been taken to ensure that the smart contract will behave in the exact way outlined in these terms, mistakes do happen (see The DAO) which may result in unexpected and unintended contract behaviour which may include the total loss of invested funds (Ether), other tokens sent to it as well as accessibility of the contract itself. Due to the nature of smart contracts, once it is deployed on the blockchain it becomes immutably imbedded in it which means that any bugs and/or exploits discovered after deployment are unfixable. Should the code behave differently than outlined in these terms, the code - by the very nature of smart contracts - takes precedent over the terms. By deploying, interacting or otherwise using the smart contract you acknowledge and accept all associated risks while at the same time waive all rights to hold the creator of the smart contract, the artists who deployed the smart contract, its current owner as well as any other parties responsible for potential damages suffered by or caused by you through your interaction with the smart contract to yourself or others. No backsies.
 
 2. Contract deployment
 
 This smart contract enables its owner to issue limited edition pieces of art (pieces) that are cryptographically embedded in the Ethereum blockchain. Every piece can be owned, offered for sale, sold, bought, transferred and burned. The contract accepts bid from interested buyers and allows for the cancelation of bids as well as the cancelation of pieces offered for sale and filling of bids. In addition the owner of the contract as well as Ethart will earn a commission for every future sales of pieces irrespective of who owns, buys or sells them using the contract.
 
-The contract creation costs approximately 1.7-1.8 Mgas - assuming a gas price of 20 Gwei, contract creation will cost ~0.03-0.034 ETH or about $12 (@$300/ETH) on the Ethereum main net. If contract creation is not urgent and Ethereum&#39;s pending transactions pool is not congested gas prices can be lowered to ~4 Gwei which would reduce the cost of deployment to ~$2-$3 per artwork.
+The contract creation costs approximately 1.7-1.8 Mgas - assuming a gas price of 20 Gwei, contract creation will cost ~0.03-0.034 ETH or about $12 (@$300/ETH) on the Ethereum main net. If contract creation is not urgent and Ethereum's pending transactions pool is not congested gas prices can be lowered to ~4 Gwei which would reduce the cost of deployment to ~$2-$3 per artwork.
 
 During creation the contract asks for the following parameters:
 
@@ -39,9 +39,9 @@ During creation the contract asks for the following parameters:
 	- Title (the title or name of your artwork, if any)
 	- The link to your file (if any)
 	- Custom text
-	- The owner&#39;s commission in basis points (i.e. 1/100th of a percent)
+	- The owner's commission in basis points (i.e. 1/100th of a percent)
 
-SHA256 hash: A SHA256 hash is a fixed length cryptographic digest of a file. On Mac and Linux it can be calculated by opening a terminal window and typing "openssl sha -sha256" followed by a space and the filename (i.e. "openssl sha -sha256 <FILENAME>") one wants to calculate the hash for. An online tool that serves the same purpose can be found at http://hash.online-convert.com/sha256-generator. By the nature of the cryptographic math the resulting hash is a) a unique fingerprint of the input file which can be independently verified by whomever has access to the original file, b) different for (almost) every file as long as at least one bit is different and c) almost impossible to reverse, meaning you can calculate a SHA256 hash from a file very easily but you can not generate the file from the SHA256 hash. Embedding the SHA256 hash in the contract at it&#39;s deployment therefore proofs that the limited edition pieces controlled by the smart contract&#39;s logic are linked to a particular file: the artwork.
+SHA256 hash: A SHA256 hash is a fixed length cryptographic digest of a file. On Mac and Linux it can be calculated by opening a terminal window and typing "openssl sha -sha256" followed by a space and the filename (i.e. "openssl sha -sha256 <FILENAME>") one wants to calculate the hash for. An online tool that serves the same purpose can be found at http://hash.online-convert.com/sha256-generator. By the nature of the cryptographic math the resulting hash is a) a unique fingerprint of the input file which can be independently verified by whomever has access to the original file, b) different for (almost) every file as long as at least one bit is different and c) almost impossible to reverse, meaning you can calculate a SHA256 hash from a file very easily but you can not generate the file from the SHA256 hash. Embedding the SHA256 hash in the contract at it's deployment therefore proofs that the limited edition pieces controlled by the smart contract's logic are linked to a particular file: the artwork.
 
 Edition size: The edition size is currently limited to a minimum of 1 and a maximum of 1,000 pieces.
 
@@ -49,17 +49,17 @@ Title: the title is stored as a public string in the contract
 
 File link: So people can independently verify that a particular file is associated with a particular instance of a smart contract you can here specify the publicly accessible link to the file. Note that providing a link is not mandatory and some artists may decide to only provide the SHA256 hash and reveal the actual file associated with it at a later point in time or never.
 
-Custom text: This field can be whatever you want it to be. One use case could be a set of custom attributes for limited edition collectible playing cards. In this case you would format your game card attributes in a standard manner for later use e.g. Strength, Constitution, Dexterity, Intelligence, Wisdom as "12,8,6,9,3" which a later application can then read and interpreted according to your game&#39;s rules.
+Custom text: This field can be whatever you want it to be. One use case could be a set of custom attributes for limited edition collectible playing cards. In this case you would format your game card attributes in a standard manner for later use e.g. Strength, Constitution, Dexterity, Intelligence, Wisdom as "12,8,6,9,3" which a later application can then read and interpreted according to your game's rules.
 
-Owner&#39;s commission: the account that deploys the smart contract can set a commission for future sales that will be paid out to the current owner of smart contract. The commission is specified in basis points where 1 basis point equals 0.01%. The commission must be greater than 0 and lower than 9750. If the owner wants to receive 5% for all future sales for example the commission will have to be set as 500.
+Owner's commission: the account that deploys the smart contract can set a commission for future sales that will be paid out to the current owner of smart contract. The commission is specified in basis points where 1 basis point equals 0.01%. The commission must be greater than 0 and lower than 9750. If the owner wants to receive 5% for all future sales for example the commission will have to be set as 500.
 
 At deployment the owner of the smart contract will be set as the account that deployed it. Please make sure to carefully note down your account details including your address, private key, password, JSON file etc and keep it safe and secret. Remember: whoever has access to this information has access to the contract and all the funds and rights associated with it. If you loose this information it is almost certainly lost forever and your funds and artwork with it. Make at least one backup and keep it in a safe location. After contract deployment it is important for you to carefully note down the contract creation transaction receipt number, contract address and ABI for later reference. You and others will require this information to interact with the contract once it is live.
 
-The contract acts as it&#39;s own decentralised exchange with an on chain order book of the lowest ask and highest bid for a piece and allows for trustless trade of the pieces of art via the Ethereum blockchain.
+The contract acts as it's own decentralised exchange with an on chain order book of the lowest ask and highest bid for a piece and allows for trustless trade of the pieces of art via the Ethereum blockchain.
 
 3. Providing a proof
 
-After deployment and before the first pieces can be bought or sold the owner has to provide a proof. This proof demonstrates that the artwork was in fact deployed by the artist. The proof can be in the form of a link to a blog post, a tweet or press release providing at the very least the artwork&#39;s contract address or contract creation transaction number.
+After deployment and before the first pieces can be bought or sold the owner has to provide a proof. This proof demonstrates that the artwork was in fact deployed by the artist. The proof can be in the form of a link to a blog post, a tweet or press release providing at the very least the artwork's contract address or contract creation transaction number.
 
 4. Ethart commission
 
@@ -293,7 +293,7 @@ The owner of a piece can burn it, removing it permanently from the pool of avail
 			_amountOwner = msg.value / 10000 * ownerCommission;
 			_amountEthart = msg.value / 40;
 			_amountSeller = msg.value - _amountOwner - _amountEthart;
-			owner.transfer(_amountOwner);									// Transfer the contract owner&#39;s commission
+			owner.transfer(_amountOwner);									// Transfer the contract owner's commission
 			lowestAskAddress.transfer(_amountSeller);						// Transfer the buy price - commissions to seller
 			registrar.transfer(_amountEthart);								// Transfer Ethart comission to Ethart
 			piecesOwned[lowestAskAddress]--;
@@ -340,7 +340,7 @@ The owner of a piece can burn it, removing it permanently from the pool of avail
 	}
 
 	function fillBid () ownerFirst ethArtOnlyAfterOneYear notLocked(msg.sender, 1) {	// Owner has 24h first right of refusual to fill the bid. Ethart can only fill bids after 1 year.
-		if (pieceWanted && piecesOwned[msg.sender] >= 1) {								// If the current lowest ask address wants to fill a bid it has to cancel it&#39;s sale first and then
+		if (pieceWanted && piecesOwned[msg.sender] >= 1) {								// If the current lowest ask address wants to fill a bid it has to cancel it's sale first and then
 			uint256 _amountOwner;														// fill the bid.
 			uint256 _amountEthart;
 			uint256 _amountSeller;
@@ -348,7 +348,7 @@ The owner of a piece can burn it, removing it permanently from the pool of avail
 			_amountOwner = highestBidPrice / 10000 * ownerCommission;
 			_amountEthart = highestBidPrice / 40;
 			_amountSeller = highestBidPrice - _amountOwner - _amountEthart;
-			owner.transfer(_amountOwner);									// Transfer the contract&#39;s owner&#39;s commission
+			owner.transfer(_amountOwner);									// Transfer the contract's owner's commission
 			msg.sender.transfer(_amountSeller);								// Transfer the buy price - commissions to seller
 			registrar.transfer(_amountEthart);								// Transfer Ethart comission to Ethart
 			piecesOwned[highestBidAddress]++;

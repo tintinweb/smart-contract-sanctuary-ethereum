@@ -157,7 +157,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -167,7 +167,7 @@ contract TokenERC20 {
     function proofOfWork(uint nonce) public{
 
         bytes8 n = bytes8(keccak256(nonce, currentChallenge));    // Generate a random hash based on input
-        require(n >= bytes8(difficulty));                   // Check if it&#39;s under the difficulty
+        require(n >= bytes8(difficulty));                   // Check if it's under the difficulty
 
         uint timeSinceLastProof = (now - timeOfLastProof);  // Calculate time since last reward was given
         require(timeSinceLastProof >=  5 seconds);         // Rewards cannot be given too quickly

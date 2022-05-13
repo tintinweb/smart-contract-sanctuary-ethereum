@@ -389,7 +389,7 @@ contract Exponential is ErrorReporter, CarefulMath {
       *      For example, truncate(Exp{mantissa: 15 * (10**18)}) = 15
       */
     function truncate(Exp memory exp) pure internal returns (uint) {
-        // Note: We are not using careful math here as we&#39;re performing a division that cannot fail
+        // Note: We are not using careful math here as we're performing a division that cannot fail
         return exp.mantissa / 10**18;
     }
 
@@ -433,7 +433,7 @@ contract StandardInterestRateModel is Exponential {
      */
     function getUtilizationRate(uint cash, uint borrows) pure internal returns (IRError, Exp memory) {
         if (borrows == 0) {
-            // Utilization rate is zero when there&#39;s no borrows
+            // Utilization rate is zero when there's no borrows
             return (IRError.NO_ERROR, Exp({mantissa: 0}));
         }
 
@@ -501,10 +501,10 @@ contract StandardInterestRateModel is Exponential {
             return (uint(err0), 0);
         }
 
-        // We&#39;re going to multiply the utilization rate by the spread&#39;s numerator
+        // We're going to multiply the utilization rate by the spread's numerator
         (Error err1, Exp memory utilizationRate1) = mulScalar(utilizationRate0, oneMinusSpreadBasisPoints);
         // mulScalar only overflows when product is greater than or equal to 2^256.
-        // utilization rate&#39;s mantissa is a number between [0e18,1e18]. That means that
+        // utilization rate's mantissa is a number between [0e18,1e18]. That means that
         // utilizationRate1 is a value between [0e18,9e21]. This is strictly less than 2^256.
         assert(err1 == Error.NO_ERROR);
 
@@ -518,7 +518,7 @@ contract StandardInterestRateModel is Exponential {
         // less than 2^256 (which is about 10e77).
         assert(err2 == Error.NO_ERROR);
 
-        // And then divide down by the spread&#39;s denominator (basis points divisor)
+        // And then divide down by the spread's denominator (basis points divisor)
         // as well as by blocks per year.
         (Error err3, Exp memory supplyRate1) = divScalar(supplyRate0, 10000 * blocksPerYear); // basis points * blocks per year
         // divScalar only fails when divisor is zero. This is clearly not the case.

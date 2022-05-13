@@ -45,8 +45,8 @@ contract PlayerBook {
     public
     {
         // premine the dev names (sorry not sorry)
-        // No keys are purchased with this method, it&#39;s simply locking our addresses,
-        // PID&#39;s and names for referral codes.
+        // No keys are purchased with this method, it's simply locking our addresses,
+        // PID's and names for referral codes.
         plyr_[1].addr = adminAddress;
         plyr_[1].name = "inventor";
         plyr_[1].names = 1;
@@ -260,7 +260,7 @@ contract PlayerBook {
     /**
      * @dev players, if you registered a profile, before a game was released, or
      * set the all bool to false when you registered, use this function to push
-     * your profile to a single game.  also, if you&#39;ve  updated your name, you
+     * your profile to a single game.  also, if you've  updated your name, you
      * can use this to push your name to games of your choosing.
      * -functionhash- 0x81c5b206
      * @param _gameID game id
@@ -269,7 +269,7 @@ contract PlayerBook {
     isHuman()
     public
     {
-        require(_gameID <= gID_, "silly player, that game doesn&#39;t exist yet");
+        require(_gameID <= gID_, "silly player, that game doesn't exist yet");
         address _addr = msg.sender;
         uint256 _pID = pIDxAddr_[_addr];
         require(_pID != 0, "hey there buddy, you dont even have an account");
@@ -310,7 +310,7 @@ contract PlayerBook {
     }
 
     /**
-     * @dev players use this to change back to one of your old names.  tip, you&#39;ll
+     * @dev players use this to change back to one of your old names.  tip, you'll
      * still need to push that info to existing games.
      * -functionhash- 0xb9291296
      * @param _nameString the name you want to use
@@ -886,7 +886,7 @@ library MSFun {
     {
         // our proposal key will be a hash of our function name + our contracts address
         // by adding our contracts address to this, we prevent anyone trying to circumvent
-        // the proposal&#39;s security via external calls.
+        // the proposal's security via external calls.
         bytes32 _whatProposal = whatProposal(_whatFunction);
 
         // this is just done to make the code more readable.  grabs the signature count
@@ -968,7 +968,7 @@ library MSFun {
         address _whichAdmin;
 
         //delete the admins votes & log.   i know for loops are terrible.  but we have to do this
-        //for our data stored in mappings.  simply deleting the proposal itself wouldn&#39;t accomplish this.
+        //for our data stored in mappings.  simply deleting the proposal itself wouldn't accomplish this.
         for (uint256 i=0; i < self.proposal_[_whatProposal].count; i++) {
             _whichAdmin = self.proposal_[_whatProposal].log[i];
             delete self.proposal_[_whatProposal].admin[_whichAdmin];

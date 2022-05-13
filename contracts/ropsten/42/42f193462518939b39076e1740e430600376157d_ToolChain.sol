@@ -34,7 +34,7 @@ contract ToolChain {
             }          
         } 
  
-        return (0, 0, &#39;0&#39;, 0); 
+        return (0, 0, '0', 0); 
     } 
     
     function setBorrowAgreement(uint _startTime, uint _estimatedBorrowDays, string _tool) public payable {

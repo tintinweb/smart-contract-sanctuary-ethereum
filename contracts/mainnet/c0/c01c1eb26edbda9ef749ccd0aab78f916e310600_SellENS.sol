@@ -71,7 +71,7 @@ contract SellENSFactory {
   // Called by name sellers to make a new seller child contract.
   function createSellENS(string label, uint price) {
     SellENS sell_ens = new SellENS();
-    // Store the seller&#39;s address so they can get paid when the name sells.
+    // Store the seller's address so they can get paid when the name sells.
     get_info[sell_ens] = SellENSInfo(label, price, msg.sender);
     SellENSCreated(sell_ens);
   }
@@ -88,18 +88,18 @@ contract SellENSFactory {
     
     // Calculate the hash of the name being bought.
     bytes32 label_hash = sha3(label);
-    // Retrieve the name&#39;s deed.
+    // Retrieve the name's deed.
     Deed deed;
     (,deed,,,) = registrar.entries(label_hash);
-    // Verify the deed&#39;s previous owner matches the seller.
+    // Verify the deed's previous owner matches the seller.
     if (deed.previousOwner() != owner) throw;
     // Calculate the hash of the full name (i.e. rumours.eth).
     bytes32 node = sha3(root_node, label_hash);
-    // Set the name&#39;s resolver to the public resolver.
+    // Set the name's resolver to the public resolver.
     ens.setResolver(node, resolver);
     // Configure the resolver to direct payments sent to the name to the buyer.
     resolver.setAddr(node, buyer);
-    // Transfer the name&#39;s deed to the buyer.
+    // Transfer the name's deed to the buyer.
     registrar.transfer(label_hash, buyer);
 
     // Dev fee of 5%

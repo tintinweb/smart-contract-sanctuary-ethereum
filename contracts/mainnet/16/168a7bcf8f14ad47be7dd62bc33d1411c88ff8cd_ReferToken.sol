@@ -17,7 +17,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -169,10 +169,10 @@ contract PackageContract is ReferTokenERC20Basic, MintableToken {
     mapping(address => Package) internal userPackages;
 
     function PackageContract() public {
-        packageType[2][&#39;fee&#39;] = 30;
-        packageType[2][&#39;reward&#39;] = 20;
-        packageType[4][&#39;fee&#39;] = 35;
-        packageType[4][&#39;reward&#39;] = 25;
+        packageType[2]['fee'] = 30;
+        packageType[2]['reward'] = 20;
+        packageType[4]['fee'] = 35;
+        packageType[4]['reward'] = 25;
     }
 
     function depositMint(address _to, uint256 _amount, uint _kindOfPackage) canMint internal returns (bool) {
@@ -239,20 +239,20 @@ contract StatusContract is Ownable {
     event StatusChanged(address participant, uint newStatus);
 
     function StatusContract() public {
-        statusRewardsMap[1][&#39;deposit&#39;] = [3, 2, 1];
-        statusRewardsMap[1][&#39;refReward&#39;] = [3, 1, 1];
+        statusRewardsMap[1]['deposit'] = [3, 2, 1];
+        statusRewardsMap[1]['refReward'] = [3, 1, 1];
 
-        statusRewardsMap[2][&#39;deposit&#39;] = [7, 3, 1];
-        statusRewardsMap[2][&#39;refReward&#39;] = [5, 3, 1];
+        statusRewardsMap[2]['deposit'] = [7, 3, 1];
+        statusRewardsMap[2]['refReward'] = [5, 3, 1];
 
-        statusRewardsMap[3][&#39;deposit&#39;] = [10, 3, 1, 1, 1];
-        statusRewardsMap[3][&#39;refReward&#39;] = [7, 3, 3, 1, 1];
+        statusRewardsMap[3]['deposit'] = [10, 3, 1, 1, 1];
+        statusRewardsMap[3]['refReward'] = [7, 3, 3, 1, 1];
 
-        statusRewardsMap[4][&#39;deposit&#39;] = [10, 5, 3, 3, 1];
-        statusRewardsMap[4][&#39;refReward&#39;] = [10, 5, 3, 3, 3];
+        statusRewardsMap[4]['deposit'] = [10, 5, 3, 3, 1];
+        statusRewardsMap[4]['refReward'] = [10, 5, 3, 3, 3];
 
-        statusRewardsMap[5][&#39;deposit&#39;] = [12, 5, 3, 3, 3];
-        statusRewardsMap[5][&#39;refReward&#39;] = [10, 7, 5, 3, 3];
+        statusRewardsMap[5]['deposit'] = [12, 5, 3, 3, 3];
+        statusRewardsMap[5]['refReward'] = [10, 7, 5, 3, 3];
     }
 
     function getStatusOf(address participant) public view returns (uint) {
@@ -307,7 +307,7 @@ contract ReferToken is ColdWalletToken, StatusContract, ReferTreeContract {
         require(userPackages[_to].since == 0);
         _amount = _amount.mul(rate);
         if (depositMint(_to, _amount, _kindOfPackage)) {
-            payToReferer(_to, _amount, &#39;deposit&#39;);
+            payToReferer(_to, _amount, 'deposit');
             lastPayoutAddress[_to] = now;
         }
     }
@@ -349,9 +349,9 @@ contract ReferToken is ColdWalletToken, StatusContract, ReferTreeContract {
         uint256 refValue = 0;
 
         if (userPackages[rewarded].kindOf != 0) {
-            refValue = userPackages[rewarded].tokenValue.mul(n).mul(packageType[userPackages[rewarded].kindOf][&#39;reward&#39;]).div(30).div(100);
+            refValue = userPackages[rewarded].tokenValue.mul(n).mul(packageType[userPackages[rewarded].kindOf]['reward']).div(30).div(100);
             rewardMint(rewarded, refValue);
-            payToReferer(rewarded, userPackages[rewarded].tokenValue, &#39;refReward&#39;);
+            payToReferer(rewarded, userPackages[rewarded].tokenValue, 'refReward');
         }
         if (n > 0) {
             lastPayoutAddress[rewarded] = now;
@@ -405,7 +405,7 @@ contract ReferToken is ColdWalletToken, StatusContract, ReferTreeContract {
         uint256 withdrawValue = userPackages[msg.sender].tokenValue.div(rate);
         uint256 dateDiff = now - userPackages[msg.sender].since;
         if (dateDiff < userPackages[msg.sender].kindOf.mul(30 days)) {
-            uint256 fee = withdrawValue.mul(packageType[userPackages[msg.sender].kindOf][&#39;fee&#39;]).div(100);
+            uint256 fee = withdrawValue.mul(packageType[userPackages[msg.sender].kindOf]['fee']).div(100);
             withdrawValue = withdrawValue.sub(fee);
             coldWalletAddress.transfer(fee);
         }

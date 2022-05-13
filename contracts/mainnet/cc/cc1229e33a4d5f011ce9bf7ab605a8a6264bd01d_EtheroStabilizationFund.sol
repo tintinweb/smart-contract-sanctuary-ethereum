@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -53,7 +53,7 @@ contract Ownable {
    * @dev Throws if called by any account other than the owner.
    */
   modifier onlyOwner() {
-    require(msg.sender == owner, &#39;Only the owner can call this method&#39;);
+    require(msg.sender == owner, 'Only the owner can call this method');
     _;
   }
 
@@ -76,7 +76,7 @@ contract EtheroStabilizationFund{
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyHero() {
-         require(msg.sender == ethero, &#39;Only Hero call&#39;);
+         require(msg.sender == ethero, 'Only Hero call');
          _;
     }
     
@@ -84,7 +84,7 @@ contract EtheroStabilizationFund{
         
         uint balance = address(this).balance;
         
-        require(balance > estGas, &#39;Not enough funds for transaction&#39;);
+        require(balance > estGas, 'Not enough funds for transaction');
         
         if(ethero.call.value(address(this).balance).gas(estGas)()){
             emit MoneyWithdraw(balance);
@@ -152,7 +152,7 @@ contract EtHero is Ownable{
   
   
   function setStubFund(address _address)onlyOwner public{
-      require(_address>0, &#39;Incorrect address&#39;);
+      require(_address>0, 'Incorrect address');
       stabFund = _address;
       
       
@@ -188,7 +188,7 @@ contract EtHero is Ownable{
       
       Beneficiaries storage s_beneficiaries = beneficiaries[_address];
       
-      require(s_beneficiaries.real, &#39;404: Investor Not Found :(&#39;);
+      require(s_beneficiaries.real, '404: Investor Not Found :(');
       
       
       return(
@@ -254,7 +254,7 @@ contract EtHero is Ownable{
         if(address(this).balance < min_value){
             // Return money from stab. fund
             EtheroStabilizationFund stubF = EtheroStabilizationFund(stabFund);
-            require(stubF.ReturnEthToEthero(), &#39;Forgive, the stabilization fund can not cover your deposit, try to withdraw your interest later &#39;);
+            require(stubF.ReturnEthToEthero(), 'Forgive, the stabilization fund can not cover your deposit, try to withdraw your interest later ');
             emit ResiveFromStubFund(25);
         }
         
@@ -262,7 +262,7 @@ contract EtHero is Ownable{
         
         uint contractBalance = address(this).balance;
         
-        require(contractBalance > min_value, &#39;Out of money, wait a few days, we will attract new investments&#39;);
+        require(contractBalance > min_value, 'Out of money, wait a few days, we will attract new investments');
        
         if(contractBalance > (value.mul(standartPersent).div(1000))){
             return(30);

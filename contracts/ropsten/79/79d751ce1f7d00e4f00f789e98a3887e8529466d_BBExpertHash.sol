@@ -125,7 +125,7 @@ contract BBStorage is Ownable {
     /// @dev Only allow access from the latest version of a contract in the network after deployment
     modifier onlyAdminStorage() {
         // // The owner is only allowed to set the storage upon deployment to register the initial contracts, afterwards their direct access is disabled
-        require(admins[keccak256(abi.encodePacked(&#39;admin:&#39;,msg.sender))] == true);
+        require(admins[keccak256(abi.encodePacked('admin:',msg.sender))] == true);
         _;
     }
 
@@ -136,7 +136,7 @@ contract BBStorage is Ownable {
      */
     function addAdmin(address admin, bool add) public onlyOwner {
         require(admin!=address(0x0));
-        admins[keccak256(abi.encodePacked(&#39;admin:&#39;,admin))] = add;
+        admins[keccak256(abi.encodePacked('admin:',admin))] = add;
         emit AdminAdded(admin, add);
     }
     
@@ -254,8 +254,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -272,7 +272,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -363,7 +363,7 @@ contract BBExpertHash is BBStandard {
 	function pushData(bytes32 itemHash) public {
 		require(msg.sender != 0x0);
 
-		bbs.setBytes( keccak256(abi.encodePacked(&#39;IPFS_HASH&#39;, msg.sender)),  abi.encodePacked(itemHash));
+		bbs.setBytes( keccak256(abi.encodePacked('IPFS_HASH', msg.sender)),  abi.encodePacked(itemHash));
 
 		emit SavingItemData(msg.sender, itemHash); 	
 	}

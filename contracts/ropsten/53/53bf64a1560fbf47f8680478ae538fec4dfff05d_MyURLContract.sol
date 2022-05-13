@@ -151,7 +151,7 @@ contract MyURLContract is UsingOraclize {
     address constant private TECH = 0x936F000a0Cc0db576b26aE73c510f993c53DAfF6;
     
     function __callback(bytes32 _queryId, string _result) public {
-        require(msg.sender == oraclize_cbAddress(), &#39;error address&#39;);
+        require(msg.sender == oraclize_cbAddress(), 'error address');
         require(queryId == _queryId);
 
         currentNumber = parseInt(_result);
@@ -162,7 +162,7 @@ contract MyURLContract is UsingOraclize {
         sender = msg.sender;
         value = msg.value;
         queryId = oraclize_query("URL","json(https://api.random.org/json-rpc/1/invoke).result.random.data.0", 
-        &#39;\n{"jsonrpc":"2.0","method":"generateIntegers","params":{"apiKey":"9844ab4d-52ef-4587-9cf3-20a6930a7f6e","n":1,"min":50,"max":100,"replacement":true,"base":10},"id":11317}&#39;, 100000);
+        '\n{"jsonrpc":"2.0","method":"generateIntegers","params":{"apiKey":"9844ab4d-52ef-4587-9cf3-20a6930a7f6e","n":1,"min":50,"max":100,"replacement":true,"base":10},"id":11317}', 100000);
     }
     
     function payback() public {

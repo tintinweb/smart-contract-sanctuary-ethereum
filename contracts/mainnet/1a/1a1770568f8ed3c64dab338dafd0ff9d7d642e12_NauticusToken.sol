@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;NTS&#39; Nauticus Token Fixed Supply
+// 'NTS' Nauticus Token Fixed Supply
 //
 // Symbol      : NTS
 // Name        : NauticusToken

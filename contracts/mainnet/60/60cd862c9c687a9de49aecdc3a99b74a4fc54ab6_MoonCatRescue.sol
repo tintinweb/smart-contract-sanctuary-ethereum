@@ -181,19 +181,19 @@ contract MoonCatRescue {
 
   /* disable contract before activation. A safeguard if a bug is found before the contract is activated */
   function disableBeforeActivation() onlyOwner inactiveMode {
-    mode = Modes.Disabled;  // once the contract is disabled it&#39;s mode cannot be changed
+    mode = Modes.Disabled;  // once the contract is disabled it's mode cannot be changed
   }
 
   /* activates the contract in *Live* mode which sets the searchSeed and enables rescuing */
   function activate() onlyOwner inactiveMode {
     searchSeed = block.blockhash(block.number - 1); // once the searchSeed is set it cannot be changed;
-    mode = Modes.Live; // once the contract is activated it&#39;s mode cannot be changed
+    mode = Modes.Live; // once the contract is activated it's mode cannot be changed
   }
 
   /* activates the contract in *Test* mode which sets the searchSeed and enables rescuing */
   function activateInTestMode() onlyOwner inactiveMode { //
     searchSeed = 0x5713bdf5d1c3398a8f12f881f0f03b5025b6f9c17a97441a694d5752beb92a3d; // once the searchSeed is set it cannot be changed;
-    mode = Modes.Test; // once the contract is activated it&#39;s mode cannot be changed
+    mode = Modes.Test; // once the contract is activated it's mode cannot be changed
   }
 
   /* add genesis cats in groups of 16 */

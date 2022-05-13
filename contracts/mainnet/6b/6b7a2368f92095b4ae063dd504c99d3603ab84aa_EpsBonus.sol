@@ -1,7 +1,7 @@
 pragma solidity 0.4.21;
 
 // ----------------------------------------------------------------------------
-// &#39;EPSBC&#39; &#39;EPS BONUS&#39; token contract
+// 'EPSBC' 'EPS BONUS' token contract
 //
 // Symbol      : EPSBC
 // Name        : EPS BONUS
@@ -157,8 +157,8 @@ contract EpsBonus is ERC20Interface, Owned, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) onlyPayloadSize(safeMul(2,32)) public  returns (bool success) {
@@ -169,7 +169,7 @@ contract EpsBonus is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -209,7 +209,7 @@ contract EpsBonus is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -218,7 +218,7 @@ contract EpsBonus is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -282,7 +282,7 @@ contract EpsBonus is ERC20Interface, Owned, SafeMath {
     function sell(uint256 amount) public {
         require(address(this).balance >= safeMul(amount ,sellPrice));      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(safeMul(amount ,sellPrice));          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(safeMul(amount ,sellPrice));          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 
     /**
@@ -313,7 +313,7 @@ contract EpsBonus is ERC20Interface, Owned, SafeMath {
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] = safeSub(balances[_from], _value); // Subtract from the targeted balance
-        allowed[_from][msg.sender] = safeSub(allowed[_from][msg.sender], _value); // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] = safeSub(allowed[_from][msg.sender], _value); // Subtract from the sender's allowance
         _totalSupply = safeSub(_totalSupply, _value);  // Update totalSupply
         emit Burn(_from, _value);
         return true;

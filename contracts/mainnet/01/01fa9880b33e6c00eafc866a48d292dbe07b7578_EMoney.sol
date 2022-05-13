@@ -13,7 +13,7 @@ contract owned {
 }
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 contract TokenERC20 {
-    string public name = &#39;Emoney&#39;;
+    string public name = 'Emoney';
     string public symbol = "Em1";
     uint8 public decimals = 2;
     uint256 public totalSupply = 1000000000000;

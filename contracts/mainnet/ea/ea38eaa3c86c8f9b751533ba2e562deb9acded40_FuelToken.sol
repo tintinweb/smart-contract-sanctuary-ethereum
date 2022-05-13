@@ -51,7 +51,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -178,9 +178,9 @@ contract FuelToken is ERC20, Ownable, NonZero {
 
     uint8 public decimals = 18;
     
-    // Mapping to keep user&#39;s balances
+    // Mapping to keep user's balances
     mapping (address => uint256) balances;
-    // Mapping to keep user&#39;s allowances
+    // Mapping to keep user's allowances
     mapping (address => mapping (address => uint256)) allowed;
 
 /////////////////////// VARIABLE INITIALIZATION ///////////////////////
@@ -272,7 +272,7 @@ contract FuelToken is ERC20, Ownable, NonZero {
         return true;
     }
 
-    // Get an address&#39;s FUEL allowance
+    // Get an address's FUEL allowance
     function allowance(address _owner, address _spender) constant returns (uint256 remaining) {
         return allowed[_owner][_spender];
     }

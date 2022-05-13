@@ -58,7 +58,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));
@@ -254,8 +254,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -273,7 +273,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -499,7 +499,7 @@ contract CertificateControllerMock {
   /**
    * @dev Get certificate signer authorization for an operator.
    * @param operator Address whom to check the certificate signer authorization for.
-   * @return bool &#39;true&#39; if operator is authorized as certificate signer, &#39;false&#39; if not.
+   * @return bool 'true' if operator is authorized as certificate signer, 'false' if not.
    */
   function certificateSigners(address operator) external view returns (bool) {
     return _certificateSigners[operator];
@@ -508,7 +508,7 @@ contract CertificateControllerMock {
   /**
    * @dev Set signer authorization for operator.
    * @param operator Address to add/remove as a certificate signer.
-   * @param authorized &#39;true&#39; if operator shall be accepted as certificate signer, &#39;false&#39; if not.
+   * @param authorized 'true' if operator shall be accepted as certificate signer, 'false' if not.
    */
   function _setCertificateSigner(address operator, bool authorized) internal {
     require(operator != address(0), "Action Blocked - Not a valid address");
@@ -757,9 +757,9 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
 
   /**
    * [ERC777 INTERFACE (4/13)]
-   * @dev Get the balance of the account with address &#39;tokenHolder&#39;.
+   * @dev Get the balance of the account with address 'tokenHolder'.
    * @param tokenHolder Address for which the balance is returned.
-   * @return Amount of token held by &#39;tokenHolder&#39; in the token contract.
+   * @return Amount of token held by 'tokenHolder' in the token contract.
    */
   function balanceOf(address tokenHolder) external view returns (uint256) {
     return _balances[tokenHolder];
@@ -785,9 +785,9 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
 
   /**
    * [ERC777 INTERFACE (7/13)]
-   * @dev Set a third party operator address as an operator of &#39;msg.sender&#39; to transfer
+   * @dev Set a third party operator address as an operator of 'msg.sender' to transfer
    * and redeem tokens on its behalf.
-   * @param operator Address to set as an operator for &#39;msg.sender&#39;.
+   * @param operator Address to set as an operator for 'msg.sender'.
    */
   function authorizeOperator(address operator) external {
     _authorizedOperator[operator][msg.sender] = true;
@@ -796,9 +796,9 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
 
   /**
    * [ERC777 INTERFACE (8/13)]
-   * @dev Remove the right of the operator address to be an operator for &#39;msg.sender&#39;
+   * @dev Remove the right of the operator address to be an operator for 'msg.sender'
    * and to transfer and redeem tokens on its behalf.
-   * @param operator Address to rescind as an operator for &#39;msg.sender&#39;.
+   * @param operator Address to rescind as an operator for 'msg.sender'.
    */
   function revokeOperator(address operator) external {
     _authorizedOperator[operator][msg.sender] = false;
@@ -810,7 +810,7 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
    * @dev Indicate whether the operator address is an operator of the tokenHolder address.
    * @param operator Address which may be an operator of tokenHolder.
    * @param tokenHolder Address of a token holder which may have the operator address as an operator.
-   * @return &#39;true&#39; if operator is an operator of &#39;tokenHolder&#39; and &#39;false&#39; otherwise.
+   * @return 'true' if operator is an operator of 'tokenHolder' and 'false' otherwise.
    */
   function isOperatorFor(address operator, address tokenHolder) external view returns (bool) {
     return _isOperatorFor(operator, tokenHolder);
@@ -818,7 +818,7 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
 
   /**
    * [ERC777 INTERFACE (10/13)]
-   * @dev Transfer the amount of tokens from the address &#39;msg.sender&#39; to the address &#39;to&#39;.
+   * @dev Transfer the amount of tokens from the address 'msg.sender' to the address 'to'.
    * @param to Token recipient.
    * @param value Number of tokens to transfer.
    * @param data Information attached to the transfer, by the token holder. [CONTAINS THE CONDITIONAL OWNERSHIP CERTIFICATE]
@@ -832,11 +832,11 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
 
   /**
    * [ERC777 INTERFACE (11/13)]
-   * @dev Transfer the amount of tokens on behalf of the address &#39;from&#39; to the address &#39;to&#39;.
-   * @param from Token holder (or &#39;address(0)&#39; to set from to &#39;msg.sender&#39;).
+   * @dev Transfer the amount of tokens on behalf of the address 'from' to the address 'to'.
+   * @param from Token holder (or 'address(0)' to set from to 'msg.sender').
    * @param to Token recipient.
    * @param value Number of tokens to transfer.
-   * @param data Information attached to the transfer, and intended for the token holder (&#39;from&#39;).
+   * @param data Information attached to the transfer, and intended for the token holder ('from').
    * @param operatorData Information attached to the transfer by the operator. [CONTAINS THE CONDITIONAL OWNERSHIP CERTIFICATE]
    */
   function transferFromWithData(address from, address to, uint256 value, bytes data, bytes operatorData)
@@ -852,7 +852,7 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
 
   /**
    * [ERC777 INTERFACE (12/13)]
-   * @dev Redeem the amount of tokens from the address &#39;msg.sender&#39;.
+   * @dev Redeem the amount of tokens from the address 'msg.sender'.
    * @param value Number of tokens to redeem.
    * @param data Information attached to the redemption, by the token holder. [CONTAINS THE CONDITIONAL OWNERSHIP CERTIFICATE]
    */
@@ -886,9 +886,9 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
 
   /**
    * [INTERNAL]
-   * @dev Check if &#39;value&#39; is multiple of the granularity.
-   * @param value The quantity that want&#39;s to be checked.
-   * @return &#39;true&#39; if &#39;value&#39; is a multiple of the granularity.
+   * @dev Check if 'value' is multiple of the granularity.
+   * @param value The quantity that want's to be checked.
+   * @return 'true' if 'value' is a multiple of the granularity.
    */
   function _isMultiple(uint256 value) internal view returns(bool) {
     return(value.div(_granularity).mul(_granularity) == value);
@@ -898,7 +898,7 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
    * [INTERNAL]
    * @dev Check whether an address is a regular address or not.
    * @param addr Address of the contract that has to be checked.
-   * @return &#39;true&#39; if &#39;addr&#39; is a regular address (not a contract).
+   * @return 'true' if 'addr' is a regular address (not a contract).
    */
   function _isRegularAddress(address addr) internal view returns(bool) {
     if (addr == address(0)) { return false; }
@@ -910,9 +910,9 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
   /**
    * [INTERNAL]
    * @dev Indicate whether the operator address is an operator of the tokenHolder address.
-   * @param operator Address which may be an operator of &#39;tokenHolder&#39;.
-   * @param tokenHolder Address of a token holder which may have the &#39;operator&#39; address as an operator.
-   * @return &#39;true&#39; if &#39;operator&#39; is an operator of &#39;tokenHolder&#39; and &#39;false&#39; otherwise.
+   * @param operator Address which may be an operator of 'tokenHolder'.
+   * @param tokenHolder Address of a token holder which may have the 'operator' address as an operator.
+   * @return 'true' if 'operator' is an operator of 'tokenHolder' and 'false' otherwise.
    */
   function _isOperatorFor(address operator, address tokenHolder) internal view returns (bool) {
     return (operator == tokenHolder
@@ -930,10 +930,10 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
     * @param value Number of tokens to transfer.
     * @param data Information attached to the transfer.
     * @param operatorData Information attached to the transfer by the operator (if any)..
-    * @param preventLocking &#39;true&#39; if you want this function to throw when tokens are sent to a contract not
-    * implementing &#39;erc777tokenHolder&#39;.
-    * ERC777 native transfer functions MUST set this parameter to &#39;true&#39;, and backwards compatible ERC20 transfer
-    * functions SHOULD set this parameter to &#39;false&#39;.
+    * @param preventLocking 'true' if you want this function to throw when tokens are sent to a contract not
+    * implementing 'erc777tokenHolder'.
+    * ERC777 native transfer functions MUST set this parameter to 'true', and backwards compatible ERC20 transfer
+    * functions SHOULD set this parameter to 'false'.
     */
   function _transferWithData(
     address operator,
@@ -988,8 +988,8 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
 
   /**
    * [INTERNAL]
-   * @dev Check for &#39;ERC777TokensSender&#39; hook on the sender and call it.
-   * May throw according to &#39;preventLocking&#39;.
+   * @dev Check for 'ERC777TokensSender' hook on the sender and call it.
+   * May throw according to 'preventLocking'.
    * @param operator Address which triggered the balance decrease (through transfer or redemption).
    * @param from Token holder.
    * @param to Token recipient for a transfer and 0x for a redemption.
@@ -1017,18 +1017,18 @@ contract ERC777 is IERC777, Ownable, ERC820Client, CertificateController, Reentr
 
   /**
    * [INTERNAL]
-   * @dev Check for &#39;ERC777TokensRecipient&#39; hook on the recipient and call it.
-   * May throw according to &#39;preventLocking&#39;.
+   * @dev Check for 'ERC777TokensRecipient' hook on the recipient and call it.
+   * May throw according to 'preventLocking'.
    * @param operator Address which triggered the balance increase (through transfer or issuance).
    * @param from Token holder for a transfer and 0x for an issuance.
    * @param to Token recipient.
    * @param value Number of tokens the recipient balance is increased by.
-   * @param data Extra information, intended for the token holder (&#39;from&#39;).
+   * @param data Extra information, intended for the token holder ('from').
    * @param operatorData Extra information attached by the operator (if any).
-   * @param preventLocking &#39;true&#39; if you want this function to throw when tokens are sent to a contract not
-   * implementing &#39;ERC777TokensRecipient&#39;.
-   * ERC777 native transfer functions MUST set this parameter to &#39;true&#39;, and backwards compatible ERC20 transfer
-   * functions SHOULD set this parameter to &#39;false&#39;.
+   * @param preventLocking 'true' if you want this function to throw when tokens are sent to a contract not
+   * implementing 'ERC777TokensRecipient'.
+   * ERC777 native transfer functions MUST set this parameter to 'true', and backwards compatible ERC20 transfer
+   * functions SHOULD set this parameter to 'false'.
    */
   function _callRecipient(
     address operator,
@@ -1127,7 +1127,7 @@ contract ERC1410 is IERC1410, ERC777 {
   /****************************************************************************/
 
   /**************** Mappings to find partition operators ************************/
-  // Mapping from (tokenHolder, partition, operator) to &#39;approved for partition&#39; status. [TOKEN-HOLDER-SPECIFIC]
+  // Mapping from (tokenHolder, partition, operator) to 'approved for partition' status. [TOKEN-HOLDER-SPECIFIC]
   mapping (address => mapping (bytes32 => mapping (address => bool))) internal _authorizedOperatorByPartition;
 
   // Mapping from partition to controllers for the partition. [NOT TOKEN-HOLDER-SPECIFIC]
@@ -1170,7 +1170,7 @@ contract ERC1410 is IERC1410, ERC777 {
    * @dev Get balance of a tokenholder for a specific partition.
    * @param partition Name of the partition.
    * @param tokenHolder Address for which the balance is returned.
-   * @return Amount of token of partition &#39;partition&#39; held by &#39;tokenHolder&#39; in the token contract.
+   * @return Amount of token of partition 'partition' held by 'tokenHolder' in the token contract.
    */
   function balanceOfByPartition(bytes32 partition, address tokenHolder) external view returns (uint256) {
     return _balanceOfByPartition[tokenHolder][partition];
@@ -1180,7 +1180,7 @@ contract ERC1410 is IERC1410, ERC777 {
    * [ERC1410 INTERFACE (2/10)]
    * @dev Get partitions index of a tokenholder.
    * @param tokenHolder Address for which the partitions index are returned.
-   * @return Array of partitions index of &#39;tokenHolder&#39;.
+   * @return Array of partitions index of 'tokenHolder'.
    */
   function partitionsOf(address tokenHolder) external view returns (bytes32[]) {
     return _partitionsOf[tokenHolder];
@@ -1272,9 +1272,9 @@ contract ERC1410 is IERC1410, ERC777 {
 
   /**
    * [ERC1410 INTERFACE (8/10)]
-   * @dev Set &#39;operator&#39; as an operator for &#39;msg.sender&#39; for a given partition.
+   * @dev Set 'operator' as an operator for 'msg.sender' for a given partition.
    * @param partition Name of the partition.
-   * @param operator Address to set as an operator for &#39;msg.sender&#39;.
+   * @param operator Address to set as an operator for 'msg.sender'.
    */
   function authorizeOperatorByPartition(bytes32 partition, address operator) external {
     _authorizedOperatorByPartition[msg.sender][partition][operator] = true;
@@ -1284,9 +1284,9 @@ contract ERC1410 is IERC1410, ERC777 {
   /**
    * [ERC1410 INTERFACE (9/10)]
    * @dev Remove the right of the operator address to be an operator on a given
-   * partition for &#39;msg.sender&#39; and to transfer and redeem tokens on its behalf.
+   * partition for 'msg.sender' and to transfer and redeem tokens on its behalf.
    * @param partition Name of the partition.
-   * @param operator Address to rescind as an operator on given partition for &#39;msg.sender&#39;.
+   * @param operator Address to rescind as an operator on given partition for 'msg.sender'.
    */
   function revokeOperatorByPartition(bytes32 partition, address operator) external {
     _authorizedOperatorByPartition[msg.sender][partition][operator] = false;
@@ -1300,7 +1300,7 @@ contract ERC1410 is IERC1410, ERC777 {
    * @param partition Name of the partition.
    * @param operator Address which may be an operator of tokenHolder for the given partition.
    * @param tokenHolder Address of a token holder which may have the operator address as an operator for the given partition.
-   * @return &#39;true&#39; if &#39;operator&#39; is an operator of &#39;tokenHolder&#39; for partition &#39;partition&#39; and &#39;false&#39; otherwise.
+   * @return 'true' if 'operator' is an operator of 'tokenHolder' for partition 'partition' and 'false' otherwise.
    */
   function isOperatorForPartition(bytes32 partition, address operator, address tokenHolder) external view returns (bool) {
     return _isOperatorForPartition(partition, operator, tokenHolder);
@@ -1315,7 +1315,7 @@ contract ERC1410 is IERC1410, ERC777 {
    * @param partition Name of the partition.
    * @param operator Address which may be an operator of tokenHolder for the given partition.
    * @param tokenHolder Address of a token holder which may have the operator address as an operator for the given partition.
-   * @return &#39;true&#39; if &#39;operator&#39; is an operator of &#39;tokenHolder&#39; for partition &#39;partition&#39; and &#39;false&#39; otherwise.
+   * @return 'true' if 'operator' is an operator of 'tokenHolder' for partition 'partition' and 'false' otherwise.
    */
    function _isOperatorForPartition(bytes32 partition, address operator, address tokenHolder) internal view returns (bool) {
      return (_isOperatorFor(operator, tokenHolder)
@@ -1380,7 +1380,7 @@ contract ERC1410 is IERC1410, ERC777 {
     _balanceOfByPartition[from][partition] = _balanceOfByPartition[from][partition].sub(value);
     _totalSupplyByPartition[partition] = _totalSupplyByPartition[partition].sub(value);
 
-    // If the balance of the TokenHolder&#39;s partition is zero, finds and deletes the partition.
+    // If the balance of the TokenHolder's partition is zero, finds and deletes the partition.
     if(_balanceOfByPartition[from][partition] == 0) {
       for (uint i = 0; i < _partitionsOf[from].length; i++) {
         if(_partitionsOf[from][i] == partition) {
@@ -1428,8 +1428,8 @@ contract ERC1410 is IERC1410, ERC777 {
 
   /**
    * [INTERNAL]
-   * @dev Retrieve the destination partition from the &#39;data&#39; field.
-   * By convention, a partition change is requested ONLY when &#39;data&#39; starts
+   * @dev Retrieve the destination partition from the 'data' field.
+   * By convention, a partition change is requested ONLY when 'data' starts
    * with the flag: 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
    * When the flag is detected, the destination tranche is ewtracted from the
    * 32 bytes following the flag.
@@ -1454,7 +1454,7 @@ contract ERC1410 is IERC1410, ERC777 {
 
   /**
    * [INTERNAL]
-   * @dev Get the sender&#39;s default partition if setup, or the global default partition if not.
+   * @dev Get the sender's default partition if setup, or the global default partition if not.
    * @param tokenHolder Address for which the default partition is returned.
    * @return Default partition.
    */
@@ -1498,7 +1498,7 @@ contract ERC1410 is IERC1410, ERC777 {
 
   /**
    * [NOT MANDATORY FOR ERC1410 STANDARD][OVERRIDES ERC777 METHOD]
-   * @dev Transfer the value of tokens from the address &#39;msg.sender&#39; to the address &#39;to&#39;.
+   * @dev Transfer the value of tokens from the address 'msg.sender' to the address 'to'.
    * @param to Token recipient.
    * @param value Number of tokens to transfer.
    * @param data Information attached to the transfer, by the token holder. [CONTAINS THE CONDITIONAL OWNERSHIP CERTIFICATE]
@@ -1513,10 +1513,10 @@ contract ERC1410 is IERC1410, ERC777 {
   /**
    * [NOT MANDATORY FOR ERC1410 STANDARD][OVERRIDES ERC777 METHOD]
    * @dev Transfer the value of tokens on behalf of the address from to the address to.
-   * @param from Token holder (or &#39;address(0)&#39;&#39; to set from to &#39;msg.sender&#39;).
+   * @param from Token holder (or 'address(0)'' to set from to 'msg.sender').
    * @param to Token recipient.
    * @param value Number of tokens to transfer.
-   * @param data Information attached to the transfer, and intended for the token holder (&#39;from&#39;). [CAN CONTAIN THE DESTINATION PARTITION]
+   * @param data Information attached to the transfer, and intended for the token holder ('from'). [CAN CONTAIN THE DESTINATION PARTITION]
    * @param operatorData Information attached to the transfer by the operator. [CONTAINS THE CONDITIONAL OWNERSHIP CERTIFICATE]
    */
   function transferFromWithData(address from, address to, uint256 value, bytes data, bytes operatorData)
@@ -1532,14 +1532,14 @@ contract ERC1410 is IERC1410, ERC777 {
 
   /**
    * [NOT MANDATORY FOR ERC1410 STANDARD][OVERRIDES ERC777 METHOD]
-   * @dev Empty function to erase ERC777 redeem() function since it doesn&#39;t handle partitions.
+   * @dev Empty function to erase ERC777 redeem() function since it doesn't handle partitions.
    */
   function redeem(uint256 /*value*/, bytes /*data*/) external { // Comments to avoid compilation warnings for unused variables.
   }
 
   /**
    * [NOT MANDATORY FOR ERC1410 STANDARD][OVERRIDES ERC777 METHOD]
-   * @dev Empty function to erase ERC777 redeemFrom() function since it doesn&#39;t handle partitions.
+   * @dev Empty function to erase ERC777 redeemFrom() function since it doesn't handle partitions.
    */
   function redeemFrom(address /*from*/, uint256 /*value*/, bytes /*data*/, bytes /*operatorData*/) external { // Comments to avoid compilation warnings for unused variables.
   }
@@ -1551,7 +1551,7 @@ contract ERC1410 is IERC1410, ERC777 {
    * @param from Token holder.
    * @param to Token recipient.
    * @param value Number of tokens to transfer.
-   * @param data Information attached to the transfer, and intended for the token holder (&#39;from&#39;) [CAN CONTAIN THE DESTINATION PARTITION].
+   * @param data Information attached to the transfer, and intended for the token holder ('from') [CAN CONTAIN THE DESTINATION PARTITION].
    * @param operatorData Information attached to the transfer by the operator (if any).
    */
   function _transferByDefaultPartitions(
@@ -1684,8 +1684,8 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
   /**
    * [ERC1400 INTERFACE (3/9)]
    * @dev Know if the token can be controlled by operators.
-   * If a token returns &#39;false&#39; for &#39;isControllable()&#39;&#39; then it MUST always return &#39;false&#39; in the future.
-   * @return bool &#39;true&#39; if the token can still be controlled by operators, &#39;false&#39; if it can&#39;t anymore.
+   * If a token returns 'false' for 'isControllable()'' then it MUST always return 'false' in the future.
+   * @return bool 'true' if the token can still be controlled by operators, 'false' if it can't anymore.
    */
   function isControllable() external view returns (bool) {
     return _isControllable;
@@ -1694,7 +1694,7 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
   /**
    * [ERC1400 INTERFACE (4/9)]
    * @dev Know if new tokens can be issued in the future.
-   * @return bool &#39;true&#39; if tokens can still be issued by the issuer, &#39;false&#39; if they can&#39;t anymore.
+   * @return bool 'true' if tokens can still be issued by the issuer, 'false' if they can't anymore.
    */
   function isIssuable() external view returns (bool) {
     return _isIssuable;
@@ -1913,7 +1913,7 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
   /**
    * [NOT MANDATORY FOR ERC1400 STANDARD]
    * @dev Definitely renounce the possibility to control tokens on behalf of tokenHolders.
-   * Once set to false, &#39;_isControllable&#39; can never be set to &#39;true&#39; again.
+   * Once set to false, '_isControllable' can never be set to 'true' again.
    */
   function renounceControl() external onlyOwner {
     _isControllable = false;
@@ -1922,7 +1922,7 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
   /**
    * [NOT MANDATORY FOR ERC1400 STANDARD]
    * @dev Definitely renounce the possibility to issue new tokens.
-   * Once set to false, &#39;_isIssuable&#39; can never be set to &#39;true&#39; again.
+   * Once set to false, '_isIssuable' can never be set to 'true' again.
    */
   function renounceIssuance() external onlyOwner {
     _isIssuable = false;
@@ -1950,7 +1950,7 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
    /**
    * @dev Add a certificate signer for the token.
    * @param operator Address to set as a certificate signer.
-   * @param authorized &#39;true&#39; if operator shall be accepted as certificate signer, &#39;false&#39; if not.
+   * @param authorized 'true' if operator shall be accepted as certificate signer, 'false' if not.
    */
   function setCertificateSigner(address operator, bool authorized) external onlyOwner {
     _setCertificateSigner(operator, authorized);
@@ -1982,7 +1982,7 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
 
   /**
    * [NOT MANDATORY FOR ERC1400 STANDARD][OVERRIDES ERC1410 METHOD]
-   * @dev Redeem the value of tokens from the address &#39;msg.sender&#39;.
+   * @dev Redeem the value of tokens from the address 'msg.sender'.
    * @param value Number of tokens to redeem.
    * @param data Information attached to the redemption, by the token holder. [CONTAINS THE CONDITIONAL OWNERSHIP CERTIFICATE]
    */
@@ -1995,8 +1995,8 @@ contract ERC1400 is IERC1400, ERC1410, MinterRole {
 
   /**
    * [NOT MANDATORY FOR ERC1400 STANDARD][OVERRIDES ERC1410 METHOD]
-   * @dev Redeem the value of tokens on behalf of the address &#39;from&#39;.
-   * @param from Token holder whose tokens will be redeemed (or &#39;address(0)&#39; to set from to &#39;msg.sender&#39;).
+   * @dev Redeem the value of tokens on behalf of the address 'from'.
+   * @param from Token holder whose tokens will be redeemed (or 'address(0)' to set from to 'msg.sender').
    * @param value Number of tokens to redeem.
    * @param data Information attached to the redemption.
    * @param operatorData Information attached to the redemption, by the operator. [CONTAINS THE CONDITIONAL OWNERSHIP CERTIFICATE]
@@ -2116,10 +2116,10 @@ contract ERC1400ERC20 is IERC20, ERC1400 {
    * @param value Number of tokens to transfer.
    * @param data Information attached to the transfer.
    * @param operatorData Information attached to the transfer by the operator (if any).
-   * @param preventLocking &#39;true&#39; if you want this function to throw when tokens are sent to a contract not
-   * implementing &#39;erc777tokenHolder&#39;.
-   * ERC777 native transfer functions MUST set this parameter to &#39;true&#39;, and backwards compatible ERC20 transfer
-   * functions SHOULD set this parameter to &#39;false&#39;.
+   * @param preventLocking 'true' if you want this function to throw when tokens are sent to a contract not
+   * implementing 'erc777tokenHolder'.
+   * ERC777 native transfer functions MUST set this parameter to 'true', and backwards compatible ERC20 transfer
+   * functions SHOULD set this parameter to 'false'.
    */
   function _transferWithData(
     address operator,
@@ -2195,10 +2195,10 @@ contract ERC1400ERC20 is IERC20, ERC1400 {
 
   /**
    * [NOT MANDATORY FOR ERC1400 STANDARD]
-   * @dev Approve the passed address to spend the specified amount of tokens on behalf of &#39;msg.sender&#39;.
+   * @dev Approve the passed address to spend the specified amount of tokens on behalf of 'msg.sender'.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -2251,7 +2251,7 @@ contract ERC1400ERC20 is IERC20, ERC1400 {
   /**
    * [NOT MANDATORY FOR ERC1400ERC20 STANDARD]
    * @dev Register/Unregister the ERC20Token interface with its own address via ERC820.
-   * @param erc20compatible &#39;true&#39; to register the ERC20Token interface, &#39;false&#39; to unregister.
+   * @param erc20compatible 'true' to register the ERC20Token interface, 'false' to unregister.
    */
   function setERC20compatibility(bool erc20compatible) external onlyOwner {
     _setERC20compatibility(erc20compatible);
@@ -2260,7 +2260,7 @@ contract ERC1400ERC20 is IERC20, ERC1400 {
   /**
    * [NOT MANDATORY FOR ERC1400ERC20 STANDARD]
    * @dev Register/unregister the ERC20Token interface.
-   * @param erc20compatible &#39;true&#39; to register the ERC20Token interface, &#39;false&#39; to unregister.
+   * @param erc20compatible 'true' to register the ERC20Token interface, 'false' to unregister.
    */
   function _setERC20compatibility(bool erc20compatible) internal {
     _erc20compatible = erc20compatible;

@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -61,7 +61,7 @@ library SafeMath {
  * @title Ownable
  * @dev The Ownable contract has an owner address, and provides basic authorization control
  * functions, this simplifies the implementation of "user permissions". This adds two-phase
- * ownership control to OpenZeppelin&#39;s Ownable class. In this model, the original owner 
+ * ownership control to OpenZeppelin's Ownable class. In this model, the original owner 
  * designates a new owner but does not actually transfer ownership. The new owner then accepts 
  * ownership and completes the transfer.
  */
@@ -438,7 +438,7 @@ contract AkropolisBaseToken is ERC20, TokenStorage, Ownable {
     function _burn(address _tokensOf, uint256 _amount) internal {
         require(_amount <= balanceOf(_tokensOf),"not enough balance to burn");
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
         balances.subBalance(_tokensOf, _amount);
         balances.subTotalSupply(_amount);
         emit Burn(_tokensOf, _amount);
@@ -741,10 +741,10 @@ contract AkropolisToken is AkropolisBaseToken, Pausable, Lockable, Whitelist {
 
     /**
      * @dev Increase the amount of tokens that an owner allowed to a spender.
-     * @notice increaseApproval should be used instead of approve when the user&#39;s allowance
+     * @notice increaseApproval should be used instead of approve when the user's allowance
      * is greater than 0. Using increaseApproval protects against potential double-spend attacks
      * by moving the check of whether the user has spent their allowance to the time that the transaction 
-     * is mined, removing the user&#39;s ability to double-spend
+     * is mined, removing the user's ability to double-spend
      * @param _spender The address which will spend the funds.
      * @param _addedValue The amount of tokens to increase the allowance by.
      */
@@ -756,10 +756,10 @@ contract AkropolisToken is AkropolisBaseToken, Pausable, Lockable, Whitelist {
 
     /**
      * @dev Decrease the amount of tokens that an owner allowed to a spender.
-     * @notice decreaseApproval should be used instead of approve when the user&#39;s allowance
+     * @notice decreaseApproval should be used instead of approve when the user's allowance
      * is greater than 0. Using decreaseApproval protects against potential double-spend attacks
      * by moving the check of whether the user has spent their allowance to the time that the transaction 
-     * is mined, removing the user&#39;s ability to double-spend
+     * is mined, removing the user's ability to double-spend
      * @param _spender The address which will spend the funds.
      * @param _subtractedValue The amount of tokens to decrease the allowance by.
      */

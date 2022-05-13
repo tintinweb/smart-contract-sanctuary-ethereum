@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -95,7 +95,7 @@ contract Intel{
 
     address public owner;    // Storage variable to hold the address of owner
     
-    ERC20 public token;   // Storage variable of type ERC20 to hold Pareto token&#39;s address
+    ERC20 public token;   // Storage variable of type ERC20 to hold Pareto token's address
     address public ParetoAddress;
 
     
@@ -121,8 +121,8 @@ contract Intel{
 
     /// @author Sheraz
     /// @notice this function creates an Intel
-    /// @dev Uses &#39;now&#39; for timestamps.
-    /// @param intelProvider is the address of the Intel&#39;s provider
+    /// @dev Uses 'now' for timestamps.
+    /// @param intelProvider is the address of the Intel's provider
     /// @param depositAmount is the amount of Pareto tokens deposited by provider
     /// @param desiredReward is the amount of Pareto tokens desired by provider as reward
     /// @param intelID is the ID of Intel which is mapped against an Intel in IntelDB as well as the database external to Ethereum
@@ -153,7 +153,7 @@ contract Intel{
 
     /// @author Sheraz
     /// @notice this function sends rewards to the Intel
-    /// @dev Uses &#39;now&#39; for timestamps.
+    /// @dev Uses 'now' for timestamps.
     /// @param intelIndex is the ID of the Intel to send the rewards to
     /// @param rewardAmount is the amount of Pareto tokens the rewarder wants to reward to the Intel
     /// @return returns true in case of successfull completion
@@ -187,7 +187,7 @@ contract Intel{
 
     /// @author Sheraz
     /// @notice this function distributes rewards to the Intel provider
-    /// @dev Uses &#39;now&#39; for timestamps.
+    /// @dev Uses 'now' for timestamps.
     /// @param intelIndex is the ID of the Intel to distribute tokens to
     /// @return returns true in case of successfull completion
     /// requires 91837 gas on Rinkeby Network
@@ -208,11 +208,11 @@ contract Intel{
        
 
 
-        if (intel.balance > intel.desiredReward){         // check if the Intel&#39;s balance is greater than the reward desired by Provider
-            distributed_amount = intel.desiredReward;    // tarnsfer tokens to the provider&#39;s address equal to the desired reward
+        if (intel.balance > intel.desiredReward){         // check if the Intel's balance is greater than the reward desired by Provider
+            distributed_amount = intel.desiredReward;    // tarnsfer tokens to the provider's address equal to the desired reward
 
         } else {
-            distributed_amount = intel.balance;  // transfer token to the provider&#39;s address equal to Intel&#39;s balance
+            distributed_amount = intel.balance;  // transfer token to the provider's address equal to Intel's balance
         }
 
         uint fee = distributed_amount.div(10);    // calculate 10% as the fee for distribution
@@ -244,15 +244,15 @@ contract Intel{
     /// @notice this function sends back the mistankenly sent non-Pareto ERC20 tokens
     /// @dev only owner can call it
     /// @param destination is the contract address where the tokens were received from mistakenly
-    /// @param account is the external account&#39;s address which sent the wrong tokens
+    /// @param account is the external account's address which sent the wrong tokens
     /// @param amount is the amount of tokens sent
-    /// @param gasLimit is the amount of gas to be sent along with external contract&#39;s transfer call
+    /// @param gasLimit is the amount of gas to be sent along with external contract's transfer call
     /// requires 27431 gas on Rinkeby Network
     function proxy(address destination, address account, uint amount, uint gasLimit) public onlyOwner{
 
         require(destination != ParetoAddress);    // check that the destination is not the Pareto token contract
 
-        // make the call to transfer function of the &#39;destination&#39; contract
+        // make the call to transfer function of the 'destination' contract
         // if(!address(destination).call.gas(gasLimit)(bytes4(keccak256("transfer(address,uint256)")),account, amount)){
         //     revert();
         // }
@@ -286,14 +286,14 @@ contract Intel{
     }
 
     /// @author Sheraz
-    /// @notice It&#39;s a fallback function supposed to return sent Ethers by reverting the transaction
+    /// @notice It's a fallback function supposed to return sent Ethers by reverting the transaction
     function() external{
         revert();
     }
 
     /// @author Sheraz
     /// @notice this function provide the Intel based on its index
-    /// @dev it&#39;s a constant function which can be called
+    /// @dev it's a constant function which can be called
     /// @param intelIndex is the ID of Intel that is to be returned from intelDB
     function getIntel(uint intelIndex) public view returns(address intelProvider, uint depositAmount, uint desiredReward, uint balance, uint intelID, uint rewardAfter, bool rewarded) {
         

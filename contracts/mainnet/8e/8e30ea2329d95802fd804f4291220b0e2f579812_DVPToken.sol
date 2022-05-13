@@ -205,7 +205,7 @@ contract HumanStandardToken is PausableToken {
     string public name;
     uint8 public decimals;
     string public symbol; 
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
 
     constructor (uint256 _initialAmount, string _tokenName,uint8 _decimalUnits, string _tokenSymbol) internal {
         totalSupply_ = _initialAmount;

@@ -2,12 +2,12 @@ pragma solidity ^0.4.24;
 
 contract Owned {
     
-    /// &#39;owner&#39; is the only address that can call a function with 
+    /// 'owner' is the only address that can call a function with 
     /// this modifier
     address public owner;
     address internal newOwner;
     
-    ///@notice The constructor assigns the message sender to be &#39;owner&#39;
+    ///@notice The constructor assigns the message sender to be 'owner'
     constructor() public {
         owner = msg.sender;
     }

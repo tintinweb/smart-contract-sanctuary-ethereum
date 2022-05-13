@@ -20,7 +20,7 @@ contract SafeMath {
 }
 
 // ERC20 standard
-// We don&#39;t use ERC23 standard
+// We don't use ERC23 standard
 contract StdToken is SafeMath {
 // Fields:
      mapping(address => uint256) balances;
@@ -451,7 +451,7 @@ contract Goldmint is SafeMath {
           require(icoTokensSold < ICO_TOKEN_SOFT_CAP);
           setState(State.Refunding);
 
-          // in this state tokens still shouldn&#39;t be transferred
+          // in this state tokens still shouldn't be transferred
           assert(mntToken.lockTransfers());
      }
 
@@ -509,7 +509,7 @@ contract Goldmint is SafeMath {
           tokenManager = _new;
      }
 
-     // TODO: stealing creator&#39;s key means stealing otherCurrenciesChecker key too!
+     // TODO: stealing creator's key means stealing otherCurrenciesChecker key too!
      /*
      function setOtherCurrenciesChecker(address _new) public onlyCreator {
           otherCurrenciesChecker = _new;
@@ -554,13 +554,13 @@ contract Goldmint is SafeMath {
           
           uint8[10] memory discountPercents = [20,15,10,8,6,4,2,0,0,0];
 
-          // We have to multiply by &#39;1 ether&#39; to avoid float truncations
+          // We have to multiply by '1 ether' to avoid float truncations
           // Example: ($7000 * 100) / 120 = $5833.33333
           uint pricePer1000tokensUsd = 
                ((STD_PRICE_USD_PER_1000_TOKENS * 100) * 1 ether) / (100 + discountPercents[priceIndex]);
 
           // Correct: 300000 / 5833.33333333 = 51.42857142
-          // We have to multiply by &#39;1 ether&#39; to avoid float truncations
+          // We have to multiply by '1 ether' to avoid float truncations
           uint mntPerEth = (usdPerEthCoinmarketcapRate * 1000 * 1 ether * 1 ether) / pricePer1000tokensUsd;
           return mntPerEth;
      }
@@ -569,7 +569,7 @@ contract Goldmint is SafeMath {
           require(msg.value!=0);
 
           // The price is selected based on current sold tokens.
-          // Price can &#39;overlap&#39;. For example:
+          // Price can 'overlap'. For example:
           //   1. if currently we sold 699950 tokens (the price is 10% discount)
           //   2. buyer buys 1000 tokens
           //   3. the price of all 1000 tokens would be with 10% discount!!!

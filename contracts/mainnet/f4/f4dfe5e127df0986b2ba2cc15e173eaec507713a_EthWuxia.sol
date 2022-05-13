@@ -5,7 +5,7 @@ pragma solidity ^0.4.21;
 *       _                              __ _     _
 *      | |                            / _| |   (_)
 *    __| | __ _ _ __  _ __  ___  ___ | |_| |_   _  ___
-*   / _` |/ _` | &#39;_ \| &#39;_ \/ __|/ _ \|  _| __| | |/ _ \
+*   / _` |/ _` | '_ \| '_ \/ __|/ _ \|  _| __| | |/ _ \
 *  | (_| | (_| | |_) | |_) \__ \ (_) | | | |_ _| | (_) |
 *   \__,_|\__,_| .__/| .__/|___/\___/|_|  \__(_)_|\___/
 *              | |   | |
@@ -35,7 +35,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -1067,7 +1067,7 @@ contract EthWuxia is ERC721{
 
   /* Withdraw */
   /*
-    NOTICE: These functions withdraw the developer&#39;s cut which is left
+    NOTICE: These functions withdraw the developer's cut which is left
     in the contract by `buy`. User funds are immediately sent to the old
     owner in `buy`, no user funds are left in the contract.
   */

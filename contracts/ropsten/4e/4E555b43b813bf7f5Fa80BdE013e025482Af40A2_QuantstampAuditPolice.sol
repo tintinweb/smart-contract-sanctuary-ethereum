@@ -17,8 +17,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -35,7 +35,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -147,7 +147,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -193,7 +193,7 @@ pragma solidity ^0.4.23;
  * @dev See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  *  for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  *  to avoid typos.
  */
 contract RBAC {
@@ -308,7 +308,7 @@ contract Whitelist is Ownable, RBAC {
   string public constant ROLE_WHITELISTED = "whitelist";
 
   /**
-   * @dev Throws if called by any account that&#39;s not whitelisted.
+   * @dev Throws if called by any account that's not whitelisted.
    */
   modifier onlyWhitelisted() {
     checkRole(msg.sender, ROLE_WHITELISTED);
@@ -358,7 +358,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove an address from the whitelist
    * @param addr address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address addr)
     onlyOwner
@@ -372,7 +372,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove addresses from the whitelist
    * @param addrs addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] addrs)
     onlyOwner
@@ -512,7 +512,7 @@ library LinkedListLib {
     /// @param _node an existing node to search from, e.g. HEAD.
     /// @param _value value to seek
     /// @param _direction direction to seek in
-    //  @return next first node beyond &#39;_node&#39; in direction `_direction`
+    //  @return next first node beyond '_node' in direction `_direction`
     function getSortedSpot(LinkedList storage self, uint256 _node, uint256 _value, bool _direction)
         public view returns (uint256)
     {
@@ -724,7 +724,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -841,7 +841,7 @@ contract QuantstampAuditData is Whitelist {
   // map audits (requestId, Audit)
   mapping(uint256 => Audit) public audits;
 
-  // token used to pay for audits. This contract assumes that the owner of the contract trusts token&#39;s code and
+  // token used to pay for audits. This contract assumes that the owner of the contract trusts token's code and
   // that transfer function (such as transferFrom, transfer) do the right thing
   StandardToken public token;
 
@@ -1022,7 +1022,7 @@ pragma solidity ^0.4.24;
  * @dev Holds tokens destinated to a payee until they withdraw them.
  * The contract that uses the TokenEscrow as its payment method
  * should be its owner, and provide public methods redirecting
- * to the TokenEscrow&#39;s deposit and withdraw.
+ * to the TokenEscrow's deposit and withdraw.
  * Moreover, the TokenEscrow should also be allowed to transfer
  * tokens from the payer to itself.
  */
@@ -1502,7 +1502,7 @@ contract QuantstampAuditPolice is Whitelist {   // solhint-disable max-states-co
    * @param auditNode The address of the audit node.
    * @param requestId The ID of the audit request.
    * @param report The compressed bytecode representation of the report.
-   * @param isVerified Whether the police node&#39;s report matches the submitted report.
+   * @param isVerified Whether the police node's report matches the submitted report.
    *                   If not, the audit node is slashed.
    * @return two bools and a uint256: (true if the report was successfully submitted, true if a slash occurred, the slash amount).
    */
@@ -1562,7 +1562,7 @@ contract QuantstampAuditPolice is Whitelist {   // solhint-disable max-states-co
    * @param requestId The ID of the requested audit.
    */
   function canClaimAuditReward (address auditNode, uint256 requestId) public view returns (bool) {
-    // NOTE: can&#39;t use requires here, as claimNextReward needs to iterate the full list
+    // NOTE: can't use requires here, as claimNextReward needs to iterate the full list
     return
       // the report is in the pending payments list for the audit node
       pendingPayments[auditNode].nodeExists(requestId) &&

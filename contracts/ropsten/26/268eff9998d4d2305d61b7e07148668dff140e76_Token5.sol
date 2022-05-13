@@ -47,8 +47,8 @@ contract Token5 is ERC20 {
 	address owner = msg.sender;
 	mapping(address => uint256)balances;
 	mapping(address => mapping(address => uint256))allowed;
-	string public constant name = &#39;My Token 5&#39;;
-	string public constant symbol = &#39;Token5&#39;;
+	string public constant name = 'My Token 5';
+	string public constant symbol = 'Token5';
 	uint public constant decimals = 18;
 	uint256 public totalSupply = 150000000000e18;
 	uint256 public totalDistributed = 15000000000e18;

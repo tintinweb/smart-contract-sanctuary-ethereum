@@ -1,7 +1,7 @@
 pragma solidity ^0.4.20;
 
-import &#39;./owned.sol&#39;;
-import &#39;./erc20.sol&#39;;
+import './owned.sol';
+import './erc20.sol';
 
 contract BorToken is ERC20,Owned {
     

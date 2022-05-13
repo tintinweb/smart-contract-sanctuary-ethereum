@@ -81,7 +81,7 @@ contract ERC20Token is OMIVIAToken {
     string public name;                   
     uint8 public decimals;                
     string public symbol;       
-    string public version = &#39;1.0&#39;;       
+    string public version = '1.0';       
 
 
     function ERC20Token(

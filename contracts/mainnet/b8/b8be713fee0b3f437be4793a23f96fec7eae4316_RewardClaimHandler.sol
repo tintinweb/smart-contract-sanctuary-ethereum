@@ -72,7 +72,7 @@ contract RewardClaimHandler {
         for(uint i = 0; i < winners.length; i++) {
             totalAmount += rewardAmounts[winners[i]];
             rewardAmounts[winners[i]] = 0;
-            // We don&#39;t use:
+            // We don't use:
             //     winners[i] = 0;
             // because of this:
             // https://ethereum.stackexchange.com/questions/3373/how-to-clear-large-arrays-without-blowing-the-gas-limit

@@ -39,7 +39,7 @@ contract TPP2018TOKEN  {
     string public name;                  
     uint8 public decimals;               
     string public symbol;                
-    string public version = &#39;H1.0&#39;;       
+    string public version = 'H1.0';       
 
     function TPP2018TOKEN () public{
         balances[msg.sender] = 8600000000;               // Give the creator all initial tokens 

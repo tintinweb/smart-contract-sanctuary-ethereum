@@ -1,5 +1,5 @@
 contract Distribution {
-    string public constant name = "See &#39;Code&#39; of the Contract";
+    string public constant name = "See 'Code' of the Contract";
     string public constant symbol = "CODE";
     uint8 public constant decimals = 0;
     function totalSupply() public view returns (uint256){}

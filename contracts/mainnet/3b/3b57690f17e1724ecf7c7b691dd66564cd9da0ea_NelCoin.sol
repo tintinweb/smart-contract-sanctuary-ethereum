@@ -319,7 +319,7 @@ contract NelCoin is ERC20Interface, Burnable, Owned, Permissioned {
     returns(bool success) {
         require(_value <= _allowance[_from][msg.sender], "allowance too low");                           // Check allowance
         require(_value <= _balanceOf[_from], "balance too low");                                       // Is tehere enough coins on account
-        _allowance[_from][msg.sender] = _allowance[_from][msg.sender].sub(_value);  // Subtract from the sender&#39;s allowance
+        _allowance[_from][msg.sender] = _allowance[_from][msg.sender].sub(_value);  // Subtract from the sender's allowance
         _burn(_from, _value);
         emit Approval(_from, msg.sender, _allowance[_from][msg.sender]);
         return true;

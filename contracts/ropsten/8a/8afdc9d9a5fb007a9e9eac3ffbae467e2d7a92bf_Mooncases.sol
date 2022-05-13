@@ -101,7 +101,7 @@ contract Mooncases {
         gameCaseList: _gameCaseList, gamePrice: msg.value, battleCreator: msg.sender });
         battleList[_battleCode] = _battle;
         admin.transfer(msg.value);
-        emit onCreateBattle(_battleCode, &#39;Started&#39;);
+        emit onCreateBattle(_battleCode, 'Started');
     }
     function joinBattle( string _battleCode ) public payable {
         require(isExistingBattle(_battleCode));
@@ -121,7 +121,7 @@ contract Mooncases {
         // delete battle item from battle list
         delete _battle;
         delete battleList[_battleCode];
-        emit onCancelBattle(_battleCode, &#39;Canceled&#39;);
+        emit onCancelBattle(_battleCode, 'Canceled');
     }
     function joinOutBattle( string _battleCode ) public {
         require(isExistingBattle(_battleCode));
@@ -132,10 +132,10 @@ contract Mooncases {
             if ( _battle.joinedPlayers[i] == msg.sender ) {
                 msg.sender.transfer(_battle.gamePrice);
                 delete _battle.joinedPlayers[i];
-                emit onJoinOutPlayInBattle(_battleCode, &#39;success&#39;);
+                emit onJoinOutPlayInBattle(_battleCode, 'success');
             }
         }
-        emit onJoinOutPlayInBattle(_battleCode, &#39;failed&#39;);
+        emit onJoinOutPlayInBattle(_battleCode, 'failed');
     }
     function startBattle(string _battleCode) public returns(bool){
         require(isExistingBattle(_battleCode));
@@ -161,7 +161,7 @@ contract Mooncases {
         uint256 winnerFunds = getWinnerFunds(totalBattlePrice);
         winnerPlayer.transfer(winnerFunds);
         delete battleList[_battleCode];  // Delete Battle from battle list.
-        emit onFinishBattle(_battleCode, &#39;Finished&#39;);
+        emit onFinishBattle(_battleCode, 'Finished');
         return true;
     }
     /***

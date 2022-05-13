@@ -39,7 +39,7 @@ contract ERC20 {
 
 /**
  * FEATURE 2): MultiOwnable implementation
- * Transactions approved by _multiRequires of _multiOwners&#39; addresses will be executed. 
+ * Transactions approved by _multiRequires of _multiOwners' addresses will be executed. 
 
  * All functions needing unit-tests cannot be INTERNAL
  */
@@ -180,7 +180,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -340,7 +340,7 @@ contract ParcelXToken is ERC20, MultiOwnable, Pausable, Convertible {
         require(balances[msg.sender] > 0);
         uint256 amount = balances[msg.sender];
         balances[msg.sender] = 0;
-        balances[tokenPool] = balances[tokenPool].add(amount);   // recycle ParcelX to tokenPool&#39;s init account
+        balances[tokenPool] = balances[tokenPool].add(amount);   // recycle ParcelX to tokenPool's init account
         Converted(msg.sender, destinationAccount, amount, extra);
         return true;
     }

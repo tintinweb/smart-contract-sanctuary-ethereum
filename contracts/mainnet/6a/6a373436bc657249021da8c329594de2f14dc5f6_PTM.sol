@@ -5,7 +5,7 @@ pragma solidity ^0.4.25;
 *
 *  ___ _      _                 _
 *  | _ \ |__ _| |_ _ __  ___ _ _| |_
-*  |  _/ / _` |  _| &#39;  \/ -_) &#39; \  _|
+*  |  _/ / _` |  _| '  \/ -_) ' \  _|
 *  |_| |_\__,_|\__|_|_|_\___|_||_\__|
 *
 *
@@ -184,7 +184,7 @@ contract PTM is Owned, ERC20Token {
         return tempLockTime;
     }
 
-    // show values locked in an account&#39;s timelocks
+    // show values locked in an account's timelocks
     function showLockValues(address _address) public view validAddress(_address) returns (uint256[] _values) {
         return lockValue[_address];
     }
@@ -369,7 +369,7 @@ contract PTM is Owned, ERC20Token {
         emit WrongTokenEmptied(_addr, msg.sender, amount);
     }
 
-    // shouldn&#39;t happen, just in case
+    // shouldn't happen, just in case
     function emptyWrongEther() onlyOwner public {
         uint256 amount = address(this).balance;
         require(amount > 0);

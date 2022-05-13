@@ -478,7 +478,7 @@ contract JCLYLong is Pausable  {
             if (plyr_[_pID].lrnd != 0)
                 updateGenVault(_pID, plyr_[_pID].lrnd);
             
-            plyr_[_pID].lrnd = rID_; // update player&#39;s last round played
+            plyr_[_pID].lrnd = rID_; // update player's last round played
         }
         
         // early round eth limiter (0-100 eth)
@@ -807,7 +807,7 @@ contract JCLYLong is Pausable  {
     function leekStealGo() private {
         // get a number for today dayNum 
         uint leekStealToday_ = (now.sub(round_[rID_].strt) / 1 days); 
-        if (dayStealTime_[leekStealToday_] == 0) // if there hasn&#39;t a winner today, proceed
+        if (dayStealTime_[leekStealToday_] == 0) // if there hasn't a winner today, proceed
         {
             leekStealTracker_++;
             if (randomNum(leekStealTracker_) == true)

@@ -103,7 +103,7 @@ contract FixedSupplyGo7Token  {
         return balances[_owner];
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _value) public  returns (bool success) {
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);

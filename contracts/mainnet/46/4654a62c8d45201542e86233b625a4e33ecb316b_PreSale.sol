@@ -17,7 +17,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -97,8 +97,8 @@ contract IToken {
 
 /**
  * @title Token Receivable
- * @dev Support transfer of ERC20 tokens out of this contract&#39;s address
- * @dev Even if we don&#39;t intend for people to send them here, somebody will
+ * @dev Support transfer of ERC20 tokens out of this contract's address
+ * @dev Even if we don't intend for people to send them here, somebody will
  */
 contract TokenReceivable is Ownable {
     event logTokenTransfer(address token, address to, uint256 amount);
@@ -201,7 +201,7 @@ contract Token is Finalizable, TokenReceivable, EventDefinitions {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -597,7 +597,7 @@ contract Ledger is Finalizable {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -654,7 +654,7 @@ contract Ledger is Finalizable {
     function burn(address _burner, uint256 _amount) public onlyController returns (bool) {
         require(balances[_burner] >= _amount);
         // no need to require _amount <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         balances[_burner] = balances[_burner].sub(_amount);
         totalSupply_ = totalSupply_.sub(_amount);

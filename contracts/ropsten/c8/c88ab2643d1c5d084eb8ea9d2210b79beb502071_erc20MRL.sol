@@ -98,7 +98,7 @@ contract erc20MRL is StandardToken {
     string public name;                   //
     uint8 public decimals;                //
     string public symbol;                 //
-    string public version = &#39;x0.01&#39;;       //
+    string public version = 'x0.01';       //
 
     function erc20MRL(
         uint8 _decimalUnits 

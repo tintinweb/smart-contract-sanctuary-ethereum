@@ -14,7 +14,7 @@ contract SafeMath {
 		//assert(a > 0);// Solidity automatically throws when dividing by 0
 		//assert(b > 0);// Solidity automatically throws when dividing by 0
 		// uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return  a / b;
 	}
 
@@ -335,7 +335,7 @@ contract BankeraToken is ERC223, SafeMath {
 	 *
 	 * Beware that changing an allowance with this method brings the risk that someone may use both the old
 	 * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-	 * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+	 * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
 	 * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
 	 * @param _spender The address which will spend the funds.
 	 * @param _value The amount of tokens to be spent.
@@ -473,7 +473,7 @@ contract BankeraToken is ERC223, SafeMath {
 		for (uint64 workRound = userLastClaimedRewardRound; workRound < _claimTillRound; workRound++) {
 
 			Reward storage rewardInfo = reward[workRound];
-			assert(rewardInfo.isConfigured); //don&#39;t allow to withdraw reward if affected reward is not configured
+			assert(rewardInfo.isConfigured); //don't allow to withdraw reward if affected reward is not configured
 
 			if(accountBalanceInfo.wasModifiedInRoundMap[workRound]){
 				rewardAmountInWei = safeAdd(rewardAmountInWei, safeMul(accountBalanceInfo.roundBalanceMap[workRound], rewardInfo.rewardRate));

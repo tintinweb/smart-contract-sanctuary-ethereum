@@ -90,11 +90,11 @@ contract clientOfdAppBridge {
     
 
     function callURL(string callback_method, string external_url, string external_params) internal dAppBridgeClient returns(bytes32) {
-        uint256 _reward = dAppBridge.getMinReward(&#39;callURL&#39;)+user_callback_gas;
+        uint256 _reward = dAppBridge.getMinReward('callURL')+user_callback_gas;
         return dAppBridge.callURL.value(_reward).gas(current_gas)(callback_method, external_url, external_params, "");
     }
     function callURL(string callback_method, string external_url, string external_params, string json_extract_elemen) internal dAppBridgeClient returns(bytes32) {
-        uint256 _reward = dAppBridge.getMinReward(&#39;callURL&#39;)+user_callback_gas;
+        uint256 _reward = dAppBridge.getMinReward('callURL')+user_callback_gas;
         return dAppBridge.callURL.value(_reward).gas(current_gas)(callback_method, external_url, external_params, json_extract_elemen);
     }
 
@@ -155,7 +155,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
  
@@ -391,7 +391,7 @@ contract DiceRoll is clientOfdAppBridge {
     // This is called from dAppBridge.com with the random number with secure proof
     function callback(bytes32 key, string callbackData) external payable only_dAppBridge {
         require(playerRolls[key].playerAddr != address(0x0));
-        require(playerRolls[key].win == 2); // we&#39;ve already process it if so!
+        require(playerRolls[key].win == 2); // we've already process it if so!
 
         playerRolls[key].result = parseInt(callbackData);
         
@@ -518,7 +518,7 @@ contract DiceRoll is clientOfdAppBridge {
         
         playerRolls[betID] = playerDiceRoll(betID, msg.sender, rollUnder, msg.value, _player_profit, 2, false, 0, now);
 
-        maxPendingPayouts = maxPendingPayouts.add(_player_profit); // don&#39;t add it to contractBalance yet until its a loss
+        maxPendingPayouts = maxPendingPayouts.add(_player_profit); // don't add it to contractBalance yet until its a loss
 
         emit DiceRollResult(betID, msg.sender, rollUnder, 0,
             msg.value, _player_profit, 2, false, now);

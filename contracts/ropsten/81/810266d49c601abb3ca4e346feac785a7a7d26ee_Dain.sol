@@ -122,7 +122,7 @@ contract Dain is Token {
     string public name;                   
     uint8 public decimals;                
     string public symbol;                 
-    string public version = &#39;D1.3&#39;; 
+    string public version = 'D1.3'; 
     uint256 public unitsPerEth;     
     uint256 public maxDainSell;         
     uint256 public totalEthPos;           

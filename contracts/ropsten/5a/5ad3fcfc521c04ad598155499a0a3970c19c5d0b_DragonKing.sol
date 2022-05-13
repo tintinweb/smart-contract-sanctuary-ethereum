@@ -93,7 +93,7 @@ contract DragonKing is mortal {
 	mapping(uint32 => bool) teleported;
 	/** the cost of each character type */
 	uint128[] public costs;
-	/** the value of each character type (cost - fee), so it&#39;s not necessary to compute it each time*/
+	/** the value of each character type (cost - fee), so it's not necessary to compute it each time*/
 	uint128[] public values;
 	/** the fee to be paid each time an character is bought in percent*/
 	uint8 fee;
@@ -239,7 +239,7 @@ contract DragonKing is mortal {
 
 	/**
 	 * leave the game.
-	 * pays out the sender&#39;s balance and removes him and his characters from the game
+	 * pays out the sender's balance and removes him and his characters from the game
 	 * */
 	function exit() public {
 		uint32[] memory removed = new uint32[](50);
@@ -299,7 +299,7 @@ contract DragonKing is mortal {
 	/**
 	 * The volcano eruption can be triggered by anybody but only if enough time has passed since the last eription.
 	 * The volcano hits up to a certain percentage of characters, but at least one.
-	 * The percantage is specified in &#39;percentageToKill&#39;
+	 * The percantage is specified in 'percentageToKill'
 	 * */
 
 	function triggerVolcanoEruption() public {
@@ -341,7 +341,7 @@ contract DragonKing is mortal {
 	 * The value of the loser is transfered to the winner.
 	 * @param knightID the ID of the knight to perfrom the attack
 	 * @param knightIndex the index of the knight in the ids-array. Just needed to save gas costs.
-	 *						In case it&#39;s unknown or incorrect, the index is looked up in the array.
+	 *						In case it's unknown or incorrect, the index is looked up in the array.
 	 * */
 	function fight(uint32 knightID, uint16 knightIndex) public {
 		require(tx.origin == msg.sender);
@@ -400,7 +400,7 @@ contract DragonKing is mortal {
 
 	/**
 	 * pick a random dragon.
-	 * @param nonce a nonce to make sure there&#39;s not always the same dragon chosen in a single block.
+	 * @param nonce a nonce to make sure there's not always the same dragon chosen in a single block.
 	 * @return the index of a random dragon
 	 * */
 	function getRandomDragon(uint256 nonce) internal view returns(uint16) {
@@ -419,7 +419,7 @@ contract DragonKing is mortal {
 
 	/**
 	 * generate a random number.
-	 * @param nonce a nonce to make sure there&#39;s not always the same number returned in a single block.
+	 * @param nonce a nonce to make sure there's not always the same number returned in a single block.
 	 * @return the random number
 	 * */
 	function generateRandomNumber(uint256 nonce) internal view returns(uint) {
@@ -491,8 +491,8 @@ contract DragonKing is mortal {
 
 	/**
 	 * allows the owner to collect the accumulated fees
-	 * sends the given amount to the owner&#39;s address if the amount does not exceed the
-	 * fees (cannot touch the players&#39; balances) minus 100 finney (ensure that oraclize fees can be paid)
+	 * sends the given amount to the owner's address if the amount does not exceed the
+	 * fees (cannot touch the players' balances) minus 100 finney (ensure that oraclize fees can be paid)
 	 * @param amount the amount to be collected
 	 * */
 	function collectFees(uint128 amount) public onlyOwner {

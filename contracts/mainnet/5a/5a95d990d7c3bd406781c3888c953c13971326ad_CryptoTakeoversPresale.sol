@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -377,11 +377,11 @@ contract SupportsInterfaceWithLookup is ERC165 {
   bytes4 public constant InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) internal supportedInterfaces;
 
@@ -426,21 +426,21 @@ contract ERC721BasicToken is SupportsInterfaceWithLookup, ERC721Basic {
   bytes4 private constant InterfaceId_ERC721 = 0x80ac58cd;
   /*
    * 0x80ac58cd ===
-   *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-   *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-   *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('balanceOf(address)')) ^
+   *   bytes4(keccak256('ownerOf(uint256)')) ^
+   *   bytes4(keccak256('approve(address,uint256)')) ^
+   *   bytes4(keccak256('getApproved(uint256)')) ^
+   *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+   *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+   *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
    */
 
   bytes4 private constant InterfaceId_ERC721Exists = 0x4f558e79;
   /*
    * 0x4f558e79 ===
-   *   bytes4(keccak256(&#39;exists(uint256)&#39;))
+   *   bytes4(keccak256('exists(uint256)'))
    */
 
   using SafeMath for uint256;
@@ -772,17 +772,17 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken, ERC721 {
   bytes4 private constant InterfaceId_ERC721Enumerable = 0x780e9d63;
   /**
    * 0x780e9d63 ===
-   *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+   *   bytes4(keccak256('totalSupply()')) ^
+   *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+   *   bytes4(keccak256('tokenByIndex(uint256)'))
    */
 
   bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
   /**
    * 0x5b5e139f ===
-   *   bytes4(keccak256(&#39;name()&#39;)) ^
-   *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+   *   bytes4(keccak256('name()')) ^
+   *   bytes4(keccak256('symbol()')) ^
+   *   bytes4(keccak256('tokenURI(uint256)'))
    */
 
   // Token name
@@ -1121,7 +1121,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -1468,8 +1468,8 @@ contract CryptoTakeoversPresale is Destructible, Pausable, Operatable {
     /// @dev Returns the details of a CryptoTakeovers asset.
     /// @param _tokenId the ID of the asset
     /// @return tokenId the ID of the asset
-    /// @return owner the address of the asset&#39;s owner
-    /// @return tokenURI the URI of the asset&#39;s metadata
+    /// @return owner the address of the asset's owner
+    /// @return tokenURI the URI of the asset's metadata
     /// @return price the asset
     /// @return forSale a bool indicating if the asset is up for sale or not
     function getItem(uint256 _tokenId) external view 
@@ -1485,7 +1485,7 @@ contract CryptoTakeoversPresale is Destructible, Pausable, Operatable {
 
     /// @dev Returns the details of up to 20 assets in one call. Acts as a performance optimization for getItem.
     /// @param _fromIndex the index of the first asset to return (inclusive)
-    /// @param _toIndex the index of the last asset to return (exclusive. use the array&#39;s length value to get the last asset)
+    /// @param _toIndex the index of the last asset to return (exclusive. use the array's length value to get the last asset)
     /// @return ids the IDs of  the requested assets
     /// @return owners the addresses of the owners of the requested assets
     /// @return prices the prices of the requested assets
@@ -1611,7 +1611,7 @@ contract CryptoTakeoversPresale is Destructible, Pausable, Operatable {
     }
 
     /// @dev Allows the operator to burn an item in case of any errors in setting up the items for sale.
-    /// It uses items.burn which makes sure it only works for items we haven&#39;t sold yet (i.e. only works
+    /// It uses items.burn which makes sure it only works for items we haven't sold yet (i.e. only works
     /// for items owned by the operator).
     /// @param _tokenId the ID of the asset to burn
     function burnNFT(uint256 _tokenId) public onlyOperator {
@@ -1649,7 +1649,7 @@ contract CryptoTakeoversPresale is Destructible, Pausable, Operatable {
 
     /// @dev Allows the operator to create an asset but not put it up for sale yet.
     /// @param _tokenId the ID of the asset to mint
-    /// @param _tokenURI the URI of the asset&#39;s metadata
+    /// @param _tokenURI the URI of the asset's metadata
     function mintNFTNotForSale(uint256 _tokenId, string _tokenURI) public onlyOperator {
         items.mint(_tokenId, _tokenURI);
 
@@ -1672,7 +1672,7 @@ contract CryptoTakeoversPresale is Destructible, Pausable, Operatable {
 
     /// @dev Allows the operator to create an asset and immediately put it up for sale.
     /// @param _tokenId the ID of the asset to mint
-    /// @param _tokenURI the URI of the asset&#39;s metadata
+    /// @param _tokenURI the URI of the asset's metadata
     /// @param _tokenPrice the price of the asset
     function mintNFTForSale(uint256 _tokenId, string _tokenURI, uint256 _tokenPrice) public onlyOperator {
         tokenPrices[_tokenId] = _tokenPrice;
@@ -1699,7 +1699,7 @@ contract CryptoTakeoversPresale is Destructible, Pausable, Operatable {
         }
     }
 
-    /// @dev Allows the operator to take an asset that&#39;s not up for sale and put it up for sale.
+    /// @dev Allows the operator to take an asset that's not up for sale and put it up for sale.
     /// @param _tokenId the ID of the asset
     /// @param _tokenPrice the price of the asset
     function setItemForSale(uint256 _tokenId, uint256 _tokenPrice) public onlyOperator {
@@ -1739,7 +1739,7 @@ contract CryptoTakeoversPresale is Destructible, Pausable, Operatable {
         }
     }
 
-    /// @dev Allows the operator to update an asset&#39;s price.
+    /// @dev Allows the operator to update an asset's price.
     /// @param _tokenId the ID of the asset
     /// @param _tokenPrice the new price to set
     function updateItemPrice(uint256 _tokenId, uint256 _tokenPrice) public onlyOperator {
@@ -1801,7 +1801,7 @@ contract CryptoTakeoversPresale is Destructible, Pausable, Operatable {
         discountedItems.length = 0;
     }
 
-    /// @dev An atomic txn optimization for calling resetDiscounts and then setDiscounts, so we don&#39;t have to experience
+    /// @dev An atomic txn optimization for calling resetDiscounts and then setDiscounts, so we don't have to experience
     /// any moment of not having any items under discount.
     /// @param _tokenIds the IDs of the new items to discount
     /// @param _discountPrices the discounted prices of the new items to discount
@@ -1875,7 +1875,7 @@ contract CryptoTakeoversPresale is Destructible, Pausable, Operatable {
         items = CryptoTakeoversNFT(_cryptoTakeoversNFTAddress);
     }
 
-    /// @dev Allows the owner to change the address to which the operator can withdraw this contract&#39;s
+    /// @dev Allows the owner to change the address to which the operator can withdraw this contract's
     /// ETH balance.
     /// @param _withdrawTo the address future withdraws will go to
     function setWithdrawTo(address _withdrawTo) public onlyOwner {

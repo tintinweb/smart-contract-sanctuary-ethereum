@@ -151,8 +151,8 @@ contract MerchantDealsHistory is Contactable, Restricted {
 
     /**
      *  recordDeal creates an event of completed deal
-     *  @param _orderId Identifier of deal&#39;s order
-     *  @param _clientAddress Address of client&#39;s account
+     *  @param _orderId Identifier of deal's order
+     *  @param _clientAddress Address of client's account
      *  @param _clientReputation Updated reputation of the client
      *  @param _merchantReputation Updated reputation of the merchant
      *  @param _isSuccess Identifies whether deal was successful or not
@@ -179,8 +179,8 @@ contract MerchantDealsHistory is Contactable, Restricted {
 
     /**
      *  recordDealCancelReason creates an event of not paid deal that was cancelled 
-     *  @param _orderId Identifier of deal&#39;s order
-     *  @param _clientAddress Address of client&#39;s account
+     *  @param _orderId Identifier of deal's order
+     *  @param _clientAddress Address of client's account
      *  @param _clientReputation Updated reputation of the client
      *  @param _merchantReputation Updated reputation of the merchant
      *  @param _dealHash Hashcode of the deal, describing the order (used for deal verification)
@@ -207,8 +207,8 @@ contract MerchantDealsHistory is Contactable, Restricted {
 
 /**
      *  recordDealRefundReason creates an event of not paid deal that was cancelled 
-     *  @param _orderId Identifier of deal&#39;s order
-     *  @param _clientAddress Address of client&#39;s account
+     *  @param _orderId Identifier of deal's order
+     *  @param _clientAddress Address of client's account
      *  @param _clientReputation Updated reputation of the client
      *  @param _merchantReputation Updated reputation of the merchant
      *  @param _dealHash Hashcode of the deal, describing the order (used for deal verification)
@@ -307,7 +307,7 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
 
     string constant VERSION = "0.3";
 
-    /// Address of merchant&#39;s account, that can withdraw from wallet
+    /// Address of merchant's account, that can withdraw from wallet
     address public merchantAccount;
 
     /// Unique Merchant identifier hash
@@ -331,7 +331,7 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  @param _merchantAccount Address of merchant&#39;s account, that can withdraw from wallet
+     *  @param _merchantAccount Address of merchant's account, that can withdraw from wallet
      *  @param _merchantId Merchant identifier
      */
     function MerchantWallet(address _merchantAccount, string _merchantId) public {
@@ -416,7 +416,7 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  Allows merchant to withdraw funds to it&#39;s own account
+     *  Allows merchant to withdraw funds to it's own account
      */
     function withdraw(uint amount) external {
         withdrawTo(msg.sender, amount);
@@ -430,7 +430,7 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  Allows merchant to change it&#39;s account address
+     *  Allows merchant to change it's account address
      */
     function changeMerchantAccount(address newAccount) external onlyMerchant whenNotPaused {
         merchantAccount = newAccount;
@@ -475,7 +475,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -496,7 +496,7 @@ library SafeMath {
 /**
  *  @title MonethaGateway
  *
- *  MonethaGateway forward funds from order payment to merchant&#39;s wallet and collects Monetha fee.
+ *  MonethaGateway forward funds from order payment to merchant's wallet and collects Monetha fee.
  */
 contract MonethaGateway is Pausable, Contactable, Destructible, Restricted {
 
@@ -534,9 +534,9 @@ contract MonethaGateway is Pausable, Contactable, Destructible, Restricted {
     }
     
     /**
-     *  acceptPayment accept payment from PaymentAcceptor, forwards it to merchant&#39;s wallet
+     *  acceptPayment accept payment from PaymentAcceptor, forwards it to merchant's wallet
      *      and collects Monetha fee.
-     *  @param _merchantWallet address of merchant&#39;s wallet for fund transfer
+     *  @param _merchantWallet address of merchant's wallet for fund transfer
      *  @param _monethaFee is a fee collected by Monetha
      */
     function acceptPayment(address _merchantWallet, uint _monethaFee) external payable onlyMonetha whenNotPaused {
@@ -612,7 +612,7 @@ contract PaymentProcessor is Pausable, Destructible, Contactable, Restricted {
     /// MonethaGateway contract for payment processing
     MonethaGateway public monethaGateway;
 
-    /// MerchantDealsHistory contract of acceptor&#39;s merchant
+    /// MerchantDealsHistory contract of acceptor's merchant
     MerchantDealsHistory public merchantHistory;
 
     /// Address of MerchantWallet, where merchant reputation and funds are stored
@@ -656,7 +656,7 @@ contract PaymentProcessor is Pausable, Destructible, Contactable, Restricted {
     /**
      *  payment Processor sets Monetha Gateway
      *  @param _merchantId Merchant of the acceptor
-     *  @param _merchantHistory Address of MerchantDealsHistory contract of acceptor&#39;s merchant
+     *  @param _merchantHistory Address of MerchantDealsHistory contract of acceptor's merchant
      *  @param _monethaGateway Address of MonethaGateway contract for payment processing
      *  @param _merchantWallet Address of MerchantWallet, where merchant reputation and funds are stored
      */
@@ -721,7 +721,7 @@ contract PaymentProcessor is Pausable, Destructible, Contactable, Restricted {
     }
 
     /**
-     *  cancelOrder is used when client doesn&#39;t pay and order need to be cancelled.
+     *  cancelOrder is used when client doesn't pay and order need to be cancelled.
      *  @param _orderId Identifier of the order
      *  @param _clientReputation Updated reputation of the client
      *  @param _merchantReputation Updated reputation of the merchant
@@ -802,7 +802,7 @@ contract PaymentProcessor is Pausable, Destructible, Contactable, Restricted {
     }
 
     /**
-     *  withdrawRefund performs fund transfer to the client&#39;s account.
+     *  withdrawRefund performs fund transfer to the client's account.
      *  @param _orderId Identifier of the order
      */
     function withdrawRefund(uint _orderId) 

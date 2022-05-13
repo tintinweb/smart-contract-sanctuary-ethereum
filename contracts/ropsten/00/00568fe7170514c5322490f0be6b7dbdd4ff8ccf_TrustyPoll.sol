@@ -68,7 +68,7 @@ contract TrustyPoll is SafeMath {
   }
   
   function createPoll(string title) public {
-      require(keccak256(title) != keccak256(&#39;&#39;));
+      require(keccak256(title) != keccak256(''));
       pollId = safeAdd(pollId, 1);
       polls[pollId] = title;
       pollAuthors[pollId] = msg.sender;

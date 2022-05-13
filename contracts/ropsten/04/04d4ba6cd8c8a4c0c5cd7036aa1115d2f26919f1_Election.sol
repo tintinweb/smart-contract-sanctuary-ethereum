@@ -21,38 +21,38 @@ contract Election {
     string vice_pic;
   }
 
-  // this variable holds the constracts creator, which is the election&#39;s administrator
+  // this variable holds the constracts creator, which is the election's administrator
   address private owner;
 
-  // these variables hold the election&#39;s deadlines (descriptions below)
-  uint256 private insertLimit; // must be given in seconds since the contract&#39;s creation
-  uint256 private joinLimit;   // must be given in seconds since the contract&#39;s creation
-  uint256 private voteLimit;   // must be given in seconds since the contract&#39;s creation
+  // these variables hold the election's deadlines (descriptions below)
+  uint256 private insertLimit; // must be given in seconds since the contract's creation
+  uint256 private joinLimit;   // must be given in seconds since the contract's creation
+  uint256 private voteLimit;   // must be given in seconds since the contract's creation
 
   // this variable defines if the contract is running or not
   bool private _isOn;
 
-  // this variable holds the election&#39;s candidates
+  // this variable holds the election's candidates
   mapping(uint8 => Candidate) private candidates;
   uint8[] private numberList;
 
-  // this variable holds the election&#39;s votes
+  // this variable holds the election's votes
   mapping(string => Vote) private votes;
   mapping(uint8 => uint256) private appuration;
   uint8[] private votesList;
 
-  // this variable holds the election&#39;s voters (the structures are redundant to ensure the hash is unique)
+  // this variable holds the election's voters (the structures are redundant to ensure the hash is unique)
   mapping(address => Voter) private voters;
   address[] private votersList;
 
-  // the constructor must receive the election&#39;s deadlines:
+  // the constructor must receive the election's deadlines:
   // uint256 _insertLimit : the limit to the administrator to insert candidates (the edition limit goes until the first vote enters)
   // uint256 _joinLimit   : the limit to another external account to subscribe to the election
   // uint256 _voteLimit   : the limit to external accounts to insert their votes
   constructor(
-    uint256 _insertLimit, // must be given in seconds since the contract&#39;s creation
-    uint256 _joinLimit,   // must be given in seconds since the contract&#39;s creation
-    uint256 _voteLimit    // must be given in seconds since the contract&#39;s creation
+    uint256 _insertLimit, // must be given in seconds since the contract's creation
+    uint256 _joinLimit,   // must be given in seconds since the contract's creation
+    uint256 _voteLimit    // must be given in seconds since the contract's creation
   ) public {
     owner = msg.sender;
     insertLimit = now + _insertLimit;
@@ -65,7 +65,7 @@ contract Election {
   function shut_down() public {
 
     // only the admin can perform this action
-    require(msg.sender == owner, &#39;This action can be performed only by the account which created the contract&#39;);
+    require(msg.sender == owner, 'This action can be performed only by the account which created the contract');
     _isOn = false;
   }
 
@@ -73,19 +73,19 @@ contract Election {
   function insert_candidate(string memory name, uint8 number, string memory party, string memory vice, string memory candidate_pic, string memory vice_pic) public {
 
     // admin
-    require(msg.sender == owner, &#39;You do not have permission to execute this route&#39;);
+    require(msg.sender == owner, 'You do not have permission to execute this route');
 
     // any function in the contract only is executed if the election is on
-    require(_isOn == true, &#39;This election is closed by the owner, sorry&#39;);
+    require(_isOn == true, 'This election is closed by the owner, sorry');
 
     // deadlines
-    require(now <= insertLimit, &#39;The insertion deadline is over&#39;);
-    require(votesList.length == 0, &#39;The voting already started, you cannot add more candidates&#39;);
+    require(now <= insertLimit, 'The insertion deadline is over');
+    require(votesList.length == 0, 'The voting already started, you cannot add more candidates');
 
     // doubles
-    require(candidates[number].number == 0, &#39;This candidate has already been added. With you want to edit, delete and add again&#39;);
+    require(candidates[number].number == 0, 'This candidate has already been added. With you want to edit, delete and add again');
 
-    // if the candidate&#39;s number already exists, it will be overwritten
+    // if the candidate's number already exists, it will be overwritten
     candidates[number].name = name;
     candidates[number].number = number;
     candidates[number].vice = vice;
@@ -94,7 +94,7 @@ contract Election {
     candidates[number].vice_pic = vice_pic;
     numberList.push(number);
 
-    // start candidate&#39;s personal vote appuration
+    // start candidate's personal vote appuration
     appuration[number] = 0;
   }
 
@@ -102,14 +102,14 @@ contract Election {
   function delete_candidate(uint8 number) public {
 
     // admin
-    require(msg.sender == owner, &#39;You do not have permission to execute this route&#39;);
+    require(msg.sender == owner, 'You do not have permission to execute this route');
 
     // any function in the contract only is executed if the election is on
-    require(_isOn == true, &#39;This election is closed by the owner, sorry&#39;);
+    require(_isOn == true, 'This election is closed by the owner, sorry');
 
     // deadlines
-    require(now <= insertLimit, &#39;The deletion deadline is over&#39;);
-    require(votesList.length == 0, &#39;The voting already started, you cannot delete candidates&#39;);
+    require(now <= insertLimit, 'The deletion deadline is over');
+    require(votesList.length == 0, 'The voting already started, you cannot delete candidates');
 
     // deleting
     delete candidates[number];
@@ -121,16 +121,16 @@ contract Election {
   function join_voter() public {
 
     // not admin
-    require(msg.sender != owner, &#39;Only voters have permission to execute this route&#39;);
+    require(msg.sender != owner, 'Only voters have permission to execute this route');
 
     // any function in the contract only is executed if the election is on
-    require(_isOn == true, &#39;This election is closed by the owner, sorry&#39;);
+    require(_isOn == true, 'This election is closed by the owner, sorry');
 
     // deadlines
-    require(now <= joinLimit, &#39;The join deadline is over&#39;);
+    require(now <= joinLimit, 'The join deadline is over');
 
     // duplicates - an account has as unique id the address and the user hash together (the hash should be unique, like a password)
-    require(voters[msg.sender].from == address(0), &#39;This account has already joined as voter with this address&#39;);
+    require(voters[msg.sender].from == address(0), 'This account has already joined as voter with this address');
 
     // joining
     voters[msg.sender].from = msg.sender;
@@ -143,22 +143,22 @@ contract Election {
   function vote(uint8 number, string memory __hash) public {
 
     // not admin
-    require(msg.sender != owner, &#39;Only voters have permission to execute this route&#39;);
+    require(msg.sender != owner, 'Only voters have permission to execute this route');
 
     // any function in the contract only is executed if the election is on
-    require(_isOn == true, &#39;This election is closed by the owner, sorry&#39;);
+    require(_isOn == true, 'This election is closed by the owner, sorry');
 
     // deadlines
-    require(now <= voteLimit, &#39;The vote deadline is over&#39;);
+    require(now <= voteLimit, 'The vote deadline is over');
 
     // joined
-    require(voters[msg.sender].from != address(0), &#39;This account has not joined as voter with this address&#39;);
+    require(voters[msg.sender].from != address(0), 'This account has not joined as voter with this address');
 
     // already voted
-    require(!voters[msg.sender].voted, &#39;You have already voted in this election&#39;);
+    require(!voters[msg.sender].voted, 'You have already voted in this election');
 
     // valid number
-    require(candidates[number].number != 0, &#39;This candidate does not exist&#39;);
+    require(candidates[number].number != 0, 'This candidate does not exist');
 
     // vote;
     votes[__hash]._hash = __hash;
@@ -190,20 +190,20 @@ contract Election {
       return candidates[number].vice_pic;
   }
 
-  // this function returns the candidate&#39;s appuration
+  // this function returns the candidate's appuration
   function get_appuration(uint8 candidate) public view returns (uint256) {
     return appuration[candidate];
   }
 
   // this function returns your joining status
   function has_joined() public view returns (bool) {
-    require(msg.sender != owner, &#39;Only voters have permission to execute this route&#39;);  
+    require(msg.sender != owner, 'Only voters have permission to execute this route');  
     return (voters[msg.sender].from != address(0));
   }
 
   // this function returns your voting status
   function has_voted() public view returns (bool) {
-    require(msg.sender != owner, &#39;Only voters have permission to execute this route&#39;);
+    require(msg.sender != owner, 'Only voters have permission to execute this route');
     return voters[msg.sender].voted;
   }
 

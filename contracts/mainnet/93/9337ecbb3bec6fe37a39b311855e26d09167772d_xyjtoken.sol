@@ -10,7 +10,7 @@ interface tokenRecipient {
  */
 contract xyjtoken {
     /* 公共变量 */
-    string public standard = &#39;https://tlw.im&#39;;
+    string public standard = 'https://tlw.im';
     string public name; //代币名称
     string public symbol; //代币符号比如
     uint8 public decimals = 18;  //代币单位，展示的小数点后面多少个0,和以太币一样后面是是18个0

@@ -4,8 +4,8 @@ interface tokenRecipient { function receiveApproval(address _from, uint256 _valu
 
 contract SOLOBOT {
     // Public variables of the token
-    string public name = &#39;SOLOBOT&#39;;
-    string public symbol = &#39;BOT&#39;;
+    string public name = 'SOLOBOT';
+    string public symbol = 'BOT';
     uint8 public decimals = 8;
     // 18 decimals is the strongly suggested default, avoid changing it
     uint256 public totalSupply = 40000000000000000;

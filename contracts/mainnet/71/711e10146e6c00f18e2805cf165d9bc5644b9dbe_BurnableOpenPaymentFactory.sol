@@ -9,7 +9,7 @@
 //unless he calls the recover() function before anyone else commit()s.
 
 //Anyone can become the recipient by contributing the commitThreshold with commit().
-//The recipient will never be changed once it&#39;s been set via commit().
+//The recipient will never be changed once it's been set via commit().
 
 //The payer can at any time choose to burn or release to the recipient any amount of funds.
 
@@ -28,7 +28,7 @@ contract BurnableOpenPayment {
     
     //payerString and recipientString enable rudimentary communication/publishing.
     //Although the two parties might quickly move to another medium with better privacy or convenience,
-    //beginning with this is nice because it&#39;s already trustless/transparent/signed/pseudonymous/etc.
+    //beginning with this is nice because it's already trustless/transparent/signed/pseudonymous/etc.
     string public payerString;
     string public recipientString;
     

@@ -50,8 +50,8 @@ contract ABCToken is ERC20 {
     address owner = msg.sender;
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
-    string public constant name = &#39;ABC Token&#39;;
-    string public constant symbol = &#39;ABC&#39;;
+    string public constant name = 'ABC Token';
+    string public constant symbol = 'ABC';
     uint public constant decimals = 18;
     uint256 public totalSupply = 15000000000e18;
     uint256 public totalDistributed = 15000000000e18;    

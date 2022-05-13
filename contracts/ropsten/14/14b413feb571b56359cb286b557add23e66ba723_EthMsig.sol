@@ -308,7 +308,7 @@ contract EthMsig {
   }
 
   /**
-   * Gets signer&#39;s address using ecrecover
+   * Gets signer's address using ecrecover
    * @param operationHash see Data Formats
    * @param signature see Data Formats
    * returns address recovered from the signature

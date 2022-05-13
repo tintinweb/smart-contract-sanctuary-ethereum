@@ -1,10 +1,10 @@
 pragma solidity ^0.4.24;
 
-import &#39;StandardToken.sol&#39;;
+import 'StandardToken.sol';
 
 contract TutorialToken is StandardToken {
     string public name = "IMC GENE";
-    string public symbol = &#39;IMC&#39;;
+    string public symbol = 'IMC';
     uint8 public decimals = 18;
     uint256 public constant INITIAL_SUPPLY = 7579185859000000000000000000;
 

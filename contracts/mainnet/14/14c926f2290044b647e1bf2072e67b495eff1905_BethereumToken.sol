@@ -39,7 +39,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal constant returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -117,7 +117,7 @@ contract BethereumERC223 is ERC223Interface {
     mapping(address => uint256) public balances;
     mapping(address => mapping (address => uint256)) public allowed;
 
-    /* Constructor initializes the owner&#39;s balance and the supply  */
+    /* Constructor initializes the owner's balance and the supply  */
     function BethereumERC223() {
         owner = msg.sender;
     }
@@ -134,7 +134,7 @@ contract BethereumERC223 is ERC223Interface {
         return balances[_address];
     }
 
-    /* Transfer the balance from the sender&#39;s address to the address _to */
+    /* Transfer the balance from the sender's address to the address _to */
     function transfer(address _to, uint _value) returns (bool success) {
         if (balances[msg.sender] >= _value
         && _value > 0
@@ -194,7 +194,7 @@ contract BethereumERC223 is ERC223Interface {
         return _decimals;
     }
 
-    /* Transfer the balance from the sender&#39;s address to the address _to with data _data */
+    /* Transfer the balance from the sender's address to the address _to with data _data */
     function transfer(address _to, uint _value, bytes _data) returns (bool success) {
         if (balances[msg.sender] >= _value
         && _value > 0
@@ -460,7 +460,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
     /**
      * @dev Must be called after crowdsale ends, to do some extra finalization
-     * work. Calls the contract&#39;s finalization function.
+     * work. Calls the contract's finalization function.
      */
     function finalize() onlyOwner public {
         require(!isFinalized);

@@ -40,7 +40,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -159,7 +159,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -360,7 +360,7 @@ contract MeritToken is CappedToken {
     }
     
     // only allow these functions once the token is released (minting is done)
-    // basically the zeppelin &#39;Pausable&#39; token but using my token release flag
+    // basically the zeppelin 'Pausable' token but using my token release flag
     // Only allow our token to be usable once the minting phase is over
     function transfer(address _to, uint256 _value) public released returns (bool) {
         return super.transfer(_to, _value);
@@ -382,22 +382,22 @@ contract MeritToken is CappedToken {
         return super.decreaseApproval(_spender, _subtractedValue);
     }
     
-    // for our token, the balance will always be zero if we&#39;re still minting them
-	// once we&#39;re done minting, the tokens will be effectively released to their owners
+    // for our token, the balance will always be zero if we're still minting them
+	// once we're done minting, the tokens will be effectively released to their owners
     function balanceOf(address _owner) public view released returns (uint256 balance) {
         return super.balanceOf(_owner);
     }
 
-    // lets us see the pre-allocated balance, since we&#39;re just letting the token keep track of all of the allocations
+    // lets us see the pre-allocated balance, since we're just letting the token keep track of all of the allocations
     // instead of going through another complete allocation step for all users
     function actualBalanceOf(address _owner) public view returns (uint256 balance) {
         return super.balanceOf(_owner);
     }
     
-    // revoke a user&#39;s tokens if they have been banned for violating the TOS.
+    // revoke a user's tokens if they have been banned for violating the TOS.
     // Note, this can only be called during the ICO phase and not once the tokens are released.
     function revoke(address _owner) public onlyOwner notReleased returns (uint256 balance) {
-        // the balance should never ben greater than our total supply, so don&#39;t worry about checking
+        // the balance should never ben greater than our total supply, so don't worry about checking
         balance = balances[_owner];
         balances[_owner] = 0;
         totalSupply_ = totalSupply_.sub(balance);

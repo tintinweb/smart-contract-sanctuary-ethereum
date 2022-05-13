@@ -211,7 +211,7 @@ contract Smartolution {
                 msg.sender.transfer(msg.value * idx * idx * (24400 - 500 * msg.value / 1 ether) / 10000000);
             }
         } else {
-            require(user.index <= 10, "It&#39;s too late to request a refund at this point");
+            require(user.index <= 10, "It's too late to request a refund at this point");
 
             msg.sender.transfer(user.index * user.value * 70 / 100);
             user.value = 0;
@@ -224,13 +224,13 @@ contract Smartolution {
      */ 
     function claim(uint amount) public {
         if (msg.sender == advertisementAddress) {
-            require(amount > 0 && amount <= advertisement, "Can&#39;t claim more than was reserved");
+            require(amount > 0 && amount <= advertisement, "Can't claim more than was reserved");
 
             advertisement -= amount;
             msg.sender.transfer(amount);
         } else 
         if (msg.sender == teamAddress) {
-            require(amount > 0 && amount <= team, "Can&#39;t claim more than was reserved");
+            require(amount > 0 && amount <= team, "Can't claim more than was reserved");
 
             team -= amount;
             msg.sender.transfer(amount);

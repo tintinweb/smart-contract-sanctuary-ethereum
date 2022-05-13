@@ -64,10 +64,10 @@ contract DetailedERC20 is ERC20 {
  *  quantum (optional) - enables value accumulation effect to reduce value transfer costs, usually is not used (set to zero)
  *    if non-zero value passed specifies minimum amount of wei to transfer to beneficiary
  *
- * This crowdsale doesn&#39;t own tokens and doesn&#39;t perform any token emission.
+ * This crowdsale doesn't own tokens and doesn't perform any token emission.
  * It expects enough tokens to be available on its address:
  * these tokens are used for issuing them to investors.
- * Token redemption is done in opposite way: tokens accumulate back on contract&#39;s address
+ * Token redemption is done in opposite way: tokens accumulate back on contract's address
  * Beneficiary is specified by its address.
  * This implementation can be used to make several crowdsales with the same token being sold.
  */
@@ -129,7 +129,7 @@ contract Crowdsale {
 	// address where funds are collected
 	address public beneficiary;
 
-	// investor&#39;s mapping, required for token redemption in a failed crowdsale
+	// investor's mapping, required for token redemption in a failed crowdsale
 	// making this field public allows to extend investor-related functionality in the future
 	mapping(address => uint) public balances;
 
@@ -155,10 +155,10 @@ contract Crowdsale {
 	) public {
 
 		// validate crowdsale settings (inputs)
-		// require(_offset > 0); // we don&#39;t really care
+		// require(_offset > 0); // we don't really care
 		require(_length > 0);
 		require(now < _offset + _length); // crowdsale must not be already finished
-		// softCap can be anything, zero means crowdsale doesn&#39;t fail
+		// softCap can be anything, zero means crowdsale doesn't fail
 		require(_hardCap > _softCap || _hardCap == 0);
 		// hardCap must be greater then softCap
 		// quantum can be anything, zero means no accumulation
@@ -192,7 +192,7 @@ contract Crowdsale {
 		assert(collected + price <= hardCap || hardCap == 0); // its still possible to buy at least 1 token
 		require(msg.value >= price); // value sent is enough to buy at least one token
 
-		// call &#39;sender&#39; nicely - investor
+		// call 'sender' nicely - investor
 		address investor = msg.sender;
 
 		// how much tokens we must send to investor
@@ -235,7 +235,7 @@ contract Crowdsale {
 		assert(now >= offset + length); // crowdsale ended
 		assert(collected < softCap); // crowdsale failed
 
-		// call &#39;sender&#39; nicely - investor
+		// call 'sender' nicely - investor
 		address investor = msg.sender;
 
 		// find out how much tokens should be refunded

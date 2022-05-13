@@ -92,7 +92,7 @@ contract Yumo {
     function becomeRenown(bytes32 name) public isHuman() payable {
         require(msg.value >= 1 * 10 ** 16, "Not enough ETH to be renowned!");
         require(!renownedPlayers[msg.sender].isRenowned, "You already registered as renowned!");
-        require(name.length != 0, "Name can&#39;t be empty!");
+        require(name.length != 0, "Name can't be empty!");
         require(!nameList[name], "Following name already exists");
         renownedPlayers[msg.sender].addr = msg.sender;
         renownedPlayers[msg.sender].name = name;
@@ -111,7 +111,7 @@ contract Yumo {
     }
 
     function participate(uint team, address referredAddress) public isHuman() payable {
-        require(currentRound < (2 ** 256 - 1), "Can&#39;t play the game anymore");
+        require(currentRound < (2 ** 256 - 1), "Can't play the game anymore");
         require(!rounds[currentRound].hasGameOver, "The game has already been over");
         uint256 timeLeft = now.sub(rounds[currentRound].checkpoint);
         // game will be over when time out or event sale ended
@@ -128,7 +128,7 @@ contract Yumo {
         distribute(albums, team, referredAddress);
     }
     function useVaults(uint team, uint256 numAlbums) external isHuman() {
-        require(currentRound < (2 ** 256 - 1), "Can&#39;t play the game anymore");
+        require(currentRound < (2 ** 256 - 1), "Can't play the game anymore");
         require(!rounds[currentRound].hasGameOver, "The game has already been over");
         uint256 timeLeft = now.sub(rounds[currentRound].checkpoint);
         // game will be over when time out or event sale ended
@@ -172,7 +172,7 @@ contract Yumo {
     event GameOver(address winner, uint256 rewardGained);
 
     function gameOver() public {
-        require(currentRound < (2 ** 256 - 1), "Can&#39;t play the game anymore");
+        require(currentRound < (2 ** 256 - 1), "Can't play the game anymore");
         require(!rounds[currentRound].hasGameOver, "The game has already been over");
         uint256 timePassed = now.sub(rounds[currentRound].checkpoint);
         require(timePassed >= maxTimeInHours, "game must have triggered the following conditions");
@@ -423,7 +423,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 

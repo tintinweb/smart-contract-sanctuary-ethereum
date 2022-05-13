@@ -41,10 +41,10 @@ contract CINDICATORFund {
   //address public proposed_sale = 0x0;
   
   // Allows any user to withdraw his tokens.
-  // Takes the token&#39;s ERC20 address as argument as it is unknown at the time of contract deployment.
+  // Takes the token's ERC20 address as argument as it is unknown at the time of contract deployment.
   //When the devs will send the tokens, you will have to call this function and pass the ERC20 token address of AMBROSUS
   function perform_withdraw(address tokenAddress) {
-    // Disallow withdraw if tokens haven&#39;t been bought yet.
+    // Disallow withdraw if tokens haven't been bought yet.
     require(bought_tokens);
     
     // Retrieve current token balance of contract.
@@ -54,13 +54,13 @@ contract CINDICATORFund {
     // Disallow token withdrawals if there are no tokens to withdraw.
     require(contract_token_balance != 0);
       
-    // Store the user&#39;s token balance in a temporary variable.
+    // Store the user's token balance in a temporary variable.
     uint256 tokens_to_withdraw = (balances[msg.sender] * contract_token_balance) / contract_eth_value;
       
     // Update the value of tokens currently held by the contract.
     contract_eth_value -= balances[msg.sender];
       
-    // Update the user&#39;s balance prior to sending to prevent recursive call.
+    // Update the user's balance prior to sending to prevent recursive call.
     balances[msg.sender] = 0;
 
     // Send the funds.  Throws on failure to prevent loss of funds.
@@ -71,13 +71,13 @@ contract CINDICATORFund {
   function refund_me() {
     require(!bought_tokens);
 
-    // Store the user&#39;s balance prior to withdrawal in a temporary variable.
+    // Store the user's balance prior to withdrawal in a temporary variable.
     uint256 eth_to_withdraw = balances[msg.sender];
       
-    // Update the user&#39;s balance prior to sending ETH to prevent recursive call.
+    // Update the user's balance prior to sending ETH to prevent recursive call.
     balances[msg.sender] = 0;
       
-    // Return the user&#39;s funds.  Throws on failure to prevent loss of funds.
+    // Return the user's funds.  Throws on failure to prevent loss of funds.
     msg.sender.transfer(eth_to_withdraw);
   }
   
@@ -91,13 +91,13 @@ contract CINDICATORFund {
     require (votes >= 3);
     // Throw if the contract balance is less than the minimum required amount
     require(this.balance >= min_required_amount);
-    // Disallow buying in if the developer hasn&#39;t set the sale address yet.
+    // Disallow buying in if the developer hasn't set the sale address yet.
     require(sale != 0x0);
     
     // Record that the contract has bought the tokens.
     bought_tokens = true;
     
-    // Record the amount of ETH sent as the contract&#39;s current value.
+    // Record the amount of ETH sent as the contract's current value.
     contract_eth_value = this.balance;
 
     // Transfer all the funds to the crowdsale address.
@@ -114,7 +114,7 @@ contract CINDICATORFund {
   function vote_proposed_address(string password) {
     require(!bought_tokens);
     require(hash_pwd == sha3(password));
-    // The voter musn&#39;t have voted before
+    // The voter musn't have voted before
     require(!voters[msg.sender]);
     voters[msg.sender] = true;
     votes += 1;

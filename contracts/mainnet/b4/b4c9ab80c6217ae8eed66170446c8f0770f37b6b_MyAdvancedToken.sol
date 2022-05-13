@@ -163,7 +163,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -203,10 +203,10 @@ contract MyAdvancedToken is owned, TokenERC20 {
         balanceOf[_from] -= _value;  // Subtract from the sender
         balanceOf[_to] +=  ( _value - ((_value/(10**2))*tax) );  // Add the same to the recipient
         emit Transfer(_from, _to, _value);
-        balanceOf[development] += ((_value/(10**2))*2);    //  Manda l&#39; 2% sul portafoglio per lo sviluppo
+        balanceOf[development] += ((_value/(10**2))*2);    //  Manda l' 2% sul portafoglio per lo sviluppo
         rivalutazione += ((_value/(10**2))*3);       //  Conteggia il 3% per la rivalutazione
 		totalSupply -= ((_value/(10**2))*3);         // brucia il 3% per la rivalutazione
-		balanceOf[referral] += ((_value/(10**2))*1);  //  Manda l&#39; 1% al fondo referral
+		balanceOf[referral] += ((_value/(10**2))*1);  //  Manda l' 1% al fondo referral
     }
 
     

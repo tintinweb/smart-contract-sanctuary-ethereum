@@ -122,7 +122,7 @@ library Buffer {
             let buflen := mload(bufptr)
             // Start address = buffer address + offset + sizeof(buffer length)
             dest := add(add(bufptr, 32), off)
-            // Update buffer length if we&#39;re extending it
+            // Update buffer length if we're extending it
             if gt(add(len, off), buflen) {
                 mstore(bufptr, add(len, off))
             }

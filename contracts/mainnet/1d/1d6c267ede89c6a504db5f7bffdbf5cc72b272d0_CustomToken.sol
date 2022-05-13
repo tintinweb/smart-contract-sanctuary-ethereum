@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1600000000000000000000000000;
-        name = &#39;Apex Fund Coin&#39;;
-        symbol = &#39;APEX&#39;;
+        name = 'Apex Fund Coin';
+        symbol = 'APEX';
         decimals = 18;
         balanceOf[0x11ba1406e243Cfe0F01913830428777E81FFA8b8] = totalSupply;
         Transfer(address(0), 0x11ba1406e243Cfe0F01913830428777E81FFA8b8, totalSupply);

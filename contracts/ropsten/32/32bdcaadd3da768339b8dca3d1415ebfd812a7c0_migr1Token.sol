@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 
 // ----------------------------------------------------------------------------
-// &#39;Stake POS&#39; CROWDSALE token contract
+// 'Stake POS' CROWDSALE token contract
 //
 // Deployed to : 0x32bdcaadd3da768339b8dca3d1415ebfd812a7c0
 // Symbol      : MIGR1
@@ -68,8 +68,8 @@ contract StandardToken is Token, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint256 tokens) public returns (bool success) {
@@ -179,7 +179,7 @@ contract migr1Token is StandardToken , IMigrationContract {
 
     modifier isOwner()  { require(msg.sender == ethFundDeposit); _; }
 
-    /// @dev set the token&#39;s tokenExchangeRate,
+    /// @dev set the token's tokenExchangeRate,
     function setTokenExchangeRate(uint256 _tokenExchangeRate) isOwner external {
         require (_tokenExchangeRate != 0);
         require (_tokenExchangeRate != tokenExchangeRate);
@@ -187,7 +187,7 @@ contract migr1Token is StandardToken , IMigrationContract {
         tokenExchangeRate = _tokenExchangeRate;
     }
 
-    /// @dev increase the token&#39;s current supply
+    /// @dev increase the token's current supply
     function increaseSupply (uint256 _value) isOwner external {
         uint256 value = formatDecimals(_value);
         require(value + currentSupply <= totalSupply);
@@ -195,7 +195,7 @@ contract migr1Token is StandardToken , IMigrationContract {
         emit IncreaseSupply(value);
     }
 
-    /// @dev decrease the token&#39;s current supply
+    /// @dev decrease the token's current supply
     function decreaseSupply (uint256 _value) isOwner external {
         uint256 value = formatDecimals(_value);
         require(value + tokenRaised <= currentSupply);
@@ -203,14 +203,14 @@ contract migr1Token is StandardToken , IMigrationContract {
         emit DecreaseSupply(value);
     }
 
-    /// @dev increase the token&#39;s total supply
+    /// @dev increase the token's total supply
     function increaseTotalSupply (uint256 _value) isOwner external {
         uint256 value = formatDecimals(_value);
         totalSupply = safeAdd(totalSupply, value);
         emit IncreaseTotalSupply(value);
     }
 
-    /// @dev decrease the token&#39;s total supply
+    /// @dev decrease the token's total supply
     function decreaseTotalSupply (uint256 _value) isOwner external {
         uint256 value = formatDecimals(_value);
         require (totalSupply - value >= currentSupply);

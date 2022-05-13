@@ -118,7 +118,7 @@ contract Zigilua is StandardToken
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;Z1&#39;;
+    string public version = 'Z1';
     address public zigWallet;
 
     uint256 private _usd;

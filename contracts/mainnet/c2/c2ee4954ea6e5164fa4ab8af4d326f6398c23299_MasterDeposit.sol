@@ -39,7 +39,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -278,7 +278,7 @@ contract MasterDeposit is MasterDepositInterface, Claimable, ReentrancyGuard {
     mapping (address => bool) public childDeposits;
 
     /**
-    * @dev responsible for creating deposits (in this way the owner isn&#39;t exposed to a api/server security breach)
+    * @dev responsible for creating deposits (in this way the owner isn't exposed to a api/server security breach)
     * @dev by loosing the depositCreator key an attacker can only create deposits that will not be a real threat and another depositCreator can be allocated
     */
     mapping (address => bool) public depositCreators;

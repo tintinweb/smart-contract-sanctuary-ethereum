@@ -152,7 +152,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -292,7 +292,7 @@ contract BRXToken is StandardToken, Ownable {
 
   function BRXToken() public {
     // Some percentage of the tokens is already reserved by early employees and investors
-    // Here we&#39;re initializing their balances
+    // Here we're initializing their balances
     distributePreSoldShares();
 
     // Starting price
@@ -329,7 +329,7 @@ contract BRXToken is StandardToken, Ownable {
     // Deciding how many tokens can be bought with the ether received
     uint tokens = getAttoTokensAmountPerWeiInternal(msg.value);
 
-    // Don&#39;t allow to buy more than 1% per transaction (secures from huge investors swalling the whole thing in 1 second)
+    // Don't allow to buy more than 1% per transaction (secures from huge investors swalling the whole thing in 1 second)
     uint allowedInOneTransaction = current_supply / 100;
     require(tokens < allowedInOneTransaction &&
         tokens <= balances[ico_address]);
@@ -438,7 +438,7 @@ contract BRXToken is StandardToken, Ownable {
 
   // ***************************************************************************
   // Some percentage of the tokens is already reserved by early employees and investors
-  // Here we&#39;re initializing their balances
+  // Here we're initializing their balances
 
   function distributePreSoldShares() private onlyOwner {
     // Making it impossible to call this function twice
@@ -470,7 +470,7 @@ contract BRXToken is StandardToken, Ownable {
 
   function getIcoStatus() public view
     returns (string result) {
-    return (isICOClosed) ? &#39;closed&#39; : (isICOOpened) ? &#39;opened&#39; : &#39;not opened&#39; ;
+    return (isICOClosed) ? 'closed' : (isICOOpened) ? 'opened' : 'not opened' ;
   }
   function getCurrentPricePerWei() public view
     returns (uint result) {
@@ -536,7 +536,7 @@ contract BRXToken is StandardToken, Ownable {
   ) public onlyOwner allowedPayments {
     premiumPacks.length += 1;
     premiumPacks[premiumPacks.length-1] = amount;
-    balances[msg.sender] = balances[msg.sender].sub(amount); // will throw and revert the whole thing if doesn&#39;t have this amount
+    balances[msg.sender] = balances[msg.sender].sub(amount); // will throw and revert the whole thing if doesn't have this amount
   }
   function getPremiums() public allowedPayments
     returns (uint amount) {
@@ -563,7 +563,7 @@ contract BRXToken is StandardToken, Ownable {
   // Overriding payment functions to take control over the logic
 
   modifier allowedPayments() {
-    // Don&#39;t allow to transfer coins until the ICO ends
+    // Don't allow to transfer coins until the ICO ends
     require(isICOOpened == false && isICOClosed == true && !frozenAccounts[msg.sender]);
     _;
   }

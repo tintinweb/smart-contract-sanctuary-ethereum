@@ -805,7 +805,7 @@ contract GHIToken is AbstractToken {
   bool internal frozen;
 
   /**
-   * Mapping from sender&#39;s address to the next delegated transfer nonce.
+   * Mapping from sender's address to the next delegated transfer nonce.
    */
   mapping (address => uint256) internal nonces;
 

@@ -37,7 +37,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -108,7 +108,7 @@ contract ERC20CompatibleToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -178,7 +178,7 @@ contract WubCoin is ERC223Interface, ERC20CompatibleToken {
     }
 
     /**
-     * We don&#39;t accept payments to the token contract directly.
+     * We don't accept payments to the token contract directly.
      */
     function() payable {
         revert();
@@ -218,7 +218,7 @@ contract WubCoin is ERC223Interface, ERC20CompatibleToken {
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      This function works the same with the previous one
-     *      but doesn&#39;t contain `_data` param.
+     *      but doesn't contain `_data` param.
      *      Added due to backwards compatibility reasons.
      *
      * @param _to    Receiver address.

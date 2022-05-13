@@ -75,15 +75,15 @@ contract Proxy {
  * Features: transfers, allowances, supply adjustments, lost wallet access recovery.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract ChronoBankPlatform is Owned {
     // Structure of a particular asset.
     struct Asset {
-        uint owner;                       // Asset&#39;s owner id.
-        uint totalSupply;                 // Asset&#39;s total supply.
-        string name;                      // Asset&#39;s name, for information purposes.
-        string description;               // Asset&#39;s description, for information purposes.
+        uint owner;                       // Asset's owner id.
+        uint totalSupply;                 // Asset's total supply.
+        string name;                      // Asset's name, for information purposes.
+        string description;               // Asset's description, for information purposes.
         bool isReissuable;                // Indicates if asset have dynamic of fixed supply.
         uint8 baseUnit;                   // Proposed number of decimals.
         mapping(uint => Wallet) wallets;  // Holders wallets.
@@ -168,7 +168,7 @@ contract ChronoBankPlatform is Owned {
     }
 
     /**
-     * Emits Error if _from doesn&#39;t trust _to.
+     * Emits Error if _from doesn't trust _to.
      */
     modifier checkTrust(address _from, address _to) {
         if (isTrusted(_from, _to)) {

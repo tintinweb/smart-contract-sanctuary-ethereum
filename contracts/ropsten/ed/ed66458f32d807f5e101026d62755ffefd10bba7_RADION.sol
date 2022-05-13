@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -121,7 +121,7 @@ contract RADION is ERC20Interface,Ownable {
          return tokenBalances[tokenOwner];
      }
   
-     // Transfer the balance from owner&#39;s account to another account
+     // Transfer the balance from owner's account to another account
      function transfer(address to, uint tokens) public returns (bool success) {
          require(to != address(0));
          require(tokens <= tokenBalances[msg.sender]);
@@ -172,7 +172,7 @@ contract RADION is ERC20Interface,Ownable {
      
      // ------------------------------------------------------------------------
      // Returns the amount of tokens approved by the owner that can be
-     // transferred to the spender&#39;s account
+     // transferred to the spender's account
      // ------------------------------------------------------------------------
      function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
          return allowed[tokenOwner][spender];
@@ -212,8 +212,8 @@ contract RADION is ERC20Interface,Ownable {
     function mint(address sender, address receiver, uint256 tokenAmount) public {
       require(msg.sender == musicContract || msg.sender == advertisementContract);
       require(tokenBalances[sender] >= tokenAmount);               // checks if it has enough to sell
-      tokenBalances[receiver] = tokenBalances[receiver].add(tokenAmount);                  // adds the amount to buyer&#39;s balance
-      tokenBalances[sender] = tokenBalances[sender].sub(tokenAmount);                        // subtracts amount from seller&#39;s balance
+      tokenBalances[receiver] = tokenBalances[receiver].add(tokenAmount);                  // adds the amount to buyer's balance
+      tokenBalances[sender] = tokenBalances[sender].sub(tokenAmount);                        // subtracts amount from seller's balance
       emit Transfer(sender, receiver, tokenAmount); 
     }
     
@@ -236,8 +236,8 @@ contract RADION is ERC20Interface,Ownable {
         uint tokens = weiAmount.mul(rate);
         
         require(tokenBalances[wallet] >= tokens);               // checks if it has enough to sell
-        tokenBalances[beneficiary] = tokenBalances[beneficiary].add(tokens);                  // adds the amount to buyer&#39;s balance
-        tokenBalances[wallet] = tokenBalances[wallet].sub(tokens);                        // subtracts amount from seller&#39;s balance
+        tokenBalances[beneficiary] = tokenBalances[beneficiary].add(tokens);                  // adds the amount to buyer's balance
+        tokenBalances[wallet] = tokenBalances[wallet].sub(tokens);                        // subtracts amount from seller's balance
         emit Transfer(wallet, beneficiary, tokens); 
     }
  

@@ -3,7 +3,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract PupToken {
     /* Public variables of the token */
-    string public standard = &#39;Token 0.1&#39;;
+    string public standard = 'Token 0.1';
     uint256 public totalSupply = 100000000;
 
     /* This creates an array with all balances */

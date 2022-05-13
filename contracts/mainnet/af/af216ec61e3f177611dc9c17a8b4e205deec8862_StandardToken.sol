@@ -73,7 +73,7 @@ contract TokenHolder is Owned {
     function TokenHolder() {
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -94,7 +94,7 @@ contract StandardToken is SmartToken,SafeMath {
     string public name;
     uint8 public decimals=18;
     string public symbol;
-    string public version = &#39;V0.1&#39;;
+    string public version = 'V0.1';
     uint256 public totalSupply=0;
 
     bool public transferEnabled=false;

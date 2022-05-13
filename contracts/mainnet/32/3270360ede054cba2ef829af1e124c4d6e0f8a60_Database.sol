@@ -16,7 +16,7 @@ contract Database {
       owner.transfer(address(this).balance);
     }
 
-    // Here the &#39;Table&#39; event is treated as an SQL table
+    // Here the 'Table' event is treated as an SQL table
     // Each property is indexed and can be retrieved easily via web3.js
     event Table(uint256 indexed _row, bytes32 indexed _column, bytes32 indexed _value);
     /*

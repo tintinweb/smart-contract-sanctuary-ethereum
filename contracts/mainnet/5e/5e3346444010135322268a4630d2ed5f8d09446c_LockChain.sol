@@ -112,10 +112,10 @@ contract LockChain is StandardToken, SafeMath {
     function LockChain()
     {
       isFinalized = false;                   //controls pre through crowdsale state
-      LockChainFundDeposit = &#39;0x013aF31dc76255d3b33d2185A7148300882EbC7a&#39;;
-      account1Address = &#39;0xe0F2653e7928e6CB7c6D3206163b3E466a29c7C3&#39;;
-      account2Address = &#39;0x25BC70bFda877e1534151cB92D97AC5E69e1F53D&#39;;
-      creatorAddress = &#39;0x953ebf6C38C58C934D58b9b17d8f9D0F121218BB&#39;;
+      LockChainFundDeposit = '0x013aF31dc76255d3b33d2185A7148300882EbC7a';
+      account1Address = '0xe0F2653e7928e6CB7c6D3206163b3E466a29c7C3';
+      account2Address = '0x25BC70bFda877e1534151cB92D97AC5E69e1F53D';
+      creatorAddress = '0x953ebf6C38C58C934D58b9b17d8f9D0F121218BB';
       isPrePreSale = false;
       isPreSale = false;
       isMainSale = false;
@@ -129,7 +129,7 @@ contract LockChain is StandardToken, SafeMath {
       //if (!saleStarted) throw;
       if (msg.value == 0) throw;
       //create tokens
-      uint256 tokens = safeMult(msg.value, tokenExchangeRate); // check that we&#39;re not over totals
+      uint256 tokens = safeMult(msg.value, tokenExchangeRate); // check that we're not over totals
       uint256 checkedSupply = safeAdd(totalSupply, tokens);
 
       if(!isMainSale){
@@ -137,7 +137,7 @@ contract LockChain is StandardToken, SafeMath {
       }
 
       // return money if something goes wrong
-      if (tokenSaleCap < checkedSupply) throw;  // odd fractions won&#39;t be found
+      if (tokenSaleCap < checkedSupply) throw;  // odd fractions won't be found
       totalSupply = checkedSupply;
       //All good. start the transfer
       balances[msg.sender] += tokens;  // safeAdd not needed

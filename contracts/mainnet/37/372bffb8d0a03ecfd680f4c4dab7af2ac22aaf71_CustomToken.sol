@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 10000000000000000000000000000;
-        name = &#39;SportsLotteryChain&#39;;
-        symbol = &#39;SLC&#39;;
+        name = 'SportsLotteryChain';
+        symbol = 'SLC';
         decimals = 18;
         balanceOf[0x88c3101f0d6c2025e2ecbe0bb4d758a0eae64199] = totalSupply;
         Transfer(address(0), 0x88c3101f0d6c2025e2ecbe0bb4d758a0eae64199, totalSupply);

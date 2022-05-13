@@ -31,7 +31,7 @@ contract digitalCopyright {
 //****************
 // FEE DATA 
 //****************
-    IPDCdatasets.distributeFee public fees_; // define each stakeholder&#39;s fee;
+    IPDCdatasets.distributeFee public fees_; // define each stakeholder's fee;
 //==============================================================================
 //     _ _  _  __|_ _    __|_ _  _  .
 //    (_(_)| |_\ | | |_|(_ | (_)|   .  (initial data setup upon contract deploy)
@@ -223,7 +223,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     

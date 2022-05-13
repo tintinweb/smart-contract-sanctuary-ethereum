@@ -135,7 +135,7 @@ contract Tokensale {
     uint public etherReceived;
     /* Number of VenusCoins sent to Ether contributors */
     uint public coinSentToEther;
-    /*  Beneficiar&#39;s Ether indexed by Ethereum address */
+    /*  Beneficiar's Ether indexed by Ethereum address */
     mapping(address => Beneficiar) public beneficiars;
   
     /*

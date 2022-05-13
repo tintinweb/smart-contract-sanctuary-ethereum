@@ -288,7 +288,7 @@ contract MainChip is BasicAuth
     struct PartManager
     {
         uint32[] m_IndexList;   //index list, player can obtain
-        uint32[] m_UnableList;  //player can&#39;t obtain
+        uint32[] m_UnableList;  //player can't obtain
     }
 
     struct ChipLib

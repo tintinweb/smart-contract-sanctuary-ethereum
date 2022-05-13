@@ -4,7 +4,7 @@
   
   Corrections Adonis Valamontes June 26, 2018 
 // ----------------------------------------------------------------------------
-// &#39;BBT&#39; &#39;International Blockchain Bank & Trust&#39;  Blockchain SmartTrust - SCMA
+// 'BBT' 'International Blockchain Bank & Trust'  Blockchain SmartTrust - SCMA
 //
 // (c) by A. Valamontes June 26, 2018. The MIT Licence.
 // ----------------------------------------------------------------------------

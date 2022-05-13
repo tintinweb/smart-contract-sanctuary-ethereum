@@ -188,7 +188,7 @@ contract Spike is ERC20Interface {
         _maximumBuy = newMaximumBuy;
     }
 
-    /// @dev Gets account&#39;s balance
+    /// @dev Gets account's balance
     /// @param _addr Address of the account
     /// @return Account balance
     function balanceOf(address _addr)
@@ -330,7 +330,7 @@ contract Spike is ERC20Interface {
     function transfer(address _to, uint256 _amount)
     public
     returns (bool) {
-        // if sender&#39;s balance has enough unit and amount >= 0,
+        // if sender's balance has enough unit and amount >= 0,
         //      and the sum is not overflow,
         // then do transfer
         if ( (balances[msg.sender] >= _amount) &&

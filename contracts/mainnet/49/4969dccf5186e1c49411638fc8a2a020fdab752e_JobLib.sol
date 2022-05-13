@@ -17,7 +17,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -258,7 +258,7 @@ library JobLib {
      * @param _segmentSequenceNumber Segment sequence number in stream
      * @param _dataHash Content-addressed storage hash of segment data
      * @param _transcodedDataHash Content-addressed storage hash of transcoded segment data
-     * @param _broadcasterSig Broadcaster&#39;s signature over segment
+     * @param _broadcasterSig Broadcaster's signature over segment
      */
     function transcodeReceiptHash(
         string _streamId,

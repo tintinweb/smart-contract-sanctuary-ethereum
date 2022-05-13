@@ -282,8 +282,8 @@ contract StandardBurnableToken is BurnableToken, StandardToken {
 
 
 contract GACToken is MintableToken, StandardBurnableToken {
-    string public name = &#39;Glocal Art Culture Token&#39;;
-    string public symbol = &#39;GACT&#39;;
+    string public name = 'Glocal Art Culture Token';
+    string public symbol = 'GACT';
     uint public decimals = 18;
     uint public INITIAL_SUPPLY = 10000000000 * 10 ** (uint256(18));
 

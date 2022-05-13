@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract GoldenChain is BaseToken, AirdropToken, ICOToken {
     function GoldenChain() public {
         totalSupply = 11600000000000000000000000;
-        name = &#39;GoldenChain&#39;;
-        symbol = &#39;GOLD&#39;;
+        name = 'GoldenChain';
+        symbol = 'GOLD';
         decimals = 18;
         balanceOf[0xf52e4649e7C4f4D0d787cDcc72A50e88AD9c5956] = totalSupply;
         Transfer(address(0), 0xf52e4649e7C4f4D0d787cDcc72A50e88AD9c5956, totalSupply);

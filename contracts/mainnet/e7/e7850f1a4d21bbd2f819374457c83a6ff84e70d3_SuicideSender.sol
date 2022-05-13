@@ -2,15 +2,15 @@ pragma solidity ^0.4.16;
 
 /* A small utility contract that sends ether to other addresses by means of 
  * SUICIDE/SELFDESTRUCT. Unlike for a normal send/call, if the receiving address
- * belongs to a contract, the contract&#39;s code is never called; one can
- * forcibly increase a contract&#39;s balance!
+ * belongs to a contract, the contract's code is never called; one can
+ * forcibly increase a contract's balance!
  *
  * To send $x to y using this technique, simply call `suicideSend(y)` with a 
  * value of $x.
  *
  *
- * If you&#39;re interested in the implications of this trick, I recommend
- * looking at Jo&#227;o Carvalho&#39;s and Richard Moore&#39;s entries to the first
+ * If you're interested in the implications of this trick, I recommend
+ * looking at Jo&#227;o Carvalho's and Richard Moore's entries to the first
  * Underhanded Solidity Contest [1]. Anybody writing smart ontracts should be 
  * aware of forced balance increases lest their contracts be vulnerable.
  * 

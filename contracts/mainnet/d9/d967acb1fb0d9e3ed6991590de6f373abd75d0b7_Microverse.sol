@@ -76,7 +76,7 @@ NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 /**
  * @title Microverse
- * Given the fact that most of the blockchaaaaains are dogshit wrapped in catshit, we&#39;ve decided to come down from the
+ * Given the fact that most of the blockchaaaaains are dogshit wrapped in catshit, we've decided to come down from the
  * highland, just for a while, though.
  * Being smart is lonely, being nice is a compromise.
  * Hello human, we are Evil Morty Fund.
@@ -106,7 +106,7 @@ pragma solidity ^0.4.23;
  * @dev See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  *  for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  *  to avoid typos.
  */
 contract RBAC {
@@ -257,7 +257,7 @@ contract Superuser is Ownable, RBAC {
   }
 
   /**
-   * @dev Throws if called by any account that&#39;s not a superuser.
+   * @dev Throws if called by any account that's not a superuser.
    */
   modifier onlySuperuser() {
     checkRole(msg.sender, ROLE_SUPERUSER);
@@ -434,7 +434,7 @@ contract GarageInterface {
     /**
      * @dev proxy/agent to purchase morties on behalf of senders
      * @param weiAmount The ether amount
-     * @param beneficiary The buyer&#39;s address
+     * @param beneficiary The buyer's address
      */
     function citadelBuy(uint256 weiAmount, address beneficiary) external returns (uint256);
 }
@@ -449,26 +449,26 @@ contract PortalGunInterFace {
 
     /**
      * @dev Give us morty, let there be rick
-     * @param player The player&#39;s address
+     * @param player The player's address
      * @param amount Amount morty sent
      */
     function participate(address player, uint256 amount) external;
 
     /**
      * @dev getter to check EM balance
-     * @param sender The sender&#39;s address
+     * @param sender The sender's address
      */
     function balanceOfMorty(address sender) external view returns (uint256);
 
     /**
      * @dev getter to check C137 balance
-     * @param sender The sender&#39;s address
+     * @param sender The sender's address
      */
     function balanceOfRick(address sender) external view returns (uint256);
 
     /**
      * @dev getter to check FLB balance
-     * @param sender The sender&#39;s address
+     * @param sender The sender's address
      */
     function balanceOfFlurbo(address sender) external view returns (uint256);
 
@@ -528,7 +528,7 @@ contract SpaceshipInterface {
     function getNumDividends() external view returns (uint256);
     
     /**
-     * @dev updates the status, that&#39;s it
+     * @dev updates the status, that's it
      */
     function updateSpaceshipStatus() external;    
 }
@@ -542,7 +542,7 @@ contract SpaceshipInterface {
  * ║║║║║╠╣╠╣╚═╝║║║╚╣╚═╝║╚╗╔╝║╚══╣║║╚╣╚═╝║╚══╗
  * ╚╝╚╝╚╩══╩═══╩╝╚═╩═══╝░╚╝░╚═══╩╝╚═╩═══╩═══╝
  *
- * It&#39;s been a great pleasure coding in solidity!
+ * It's been a great pleasure coding in solidity!
  *
  * @title Microverse
  * @dev secret: 981ea44275dc95cb74b8f768f82d6debfd2f934adc0125de71762051
@@ -796,7 +796,7 @@ contract Microverse is MicroverseBase {
     }
 
     /**
-     * @dev Upgrade Microverse&#39;s components
+     * @dev Upgrade Microverse's components
      * in case of upgrade needed
      */
     function upgradeComponent(
@@ -833,7 +833,7 @@ contract Microverse is MicroverseBase {
     }
 
     /**
-     * @dev refresh evil morty&#39;s address
+     * @dev refresh evil morty's address
      */
     function upgradeEvilMorty()
         external
@@ -864,7 +864,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -907,8 +907,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -925,7 +925,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 

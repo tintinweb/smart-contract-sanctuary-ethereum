@@ -30,7 +30,7 @@ contract RISK{
     /*_____       _     _ _      ______                _   _                 
      |  __ \     | |   | (_)    |  ____|              | | (_)                
      | |__) |   _| |__ | |_  ___| |__ _   _ _ __   ___| |_ _  ___  _ __  ___ 
-     |  ___/ | | | &#39;_ \| | |/ __|  __| | | | &#39;_ \ / __| __| |/ _ \| &#39;_ \/ __|
+     |  ___/ | | | '_ \| | |/ __|  __| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
      | |   | |_| | |_) | | | (__| |  | |_| | | | | (__| |_| | (_) | | | \__ \
      |_|    \__,_|_.__/|_|_|\___|_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/*/
 
@@ -49,7 +49,7 @@ contract RISK{
         require(_teamcnt<255); //max 255 teams, with 0 being unclaimed territories
         
         
-        RGB=colorfilter(RGB);//format and check it&#39;s not one of the UI colors
+        RGB=colorfilter(RGB);//format and check it's not one of the UI colors
         require(!Rounds[_rID].iscolorregistered[RGB]); //color must be unique
         
         
@@ -65,8 +65,8 @@ contract RISK{
         
         uint i;
         for (i =0 ; i<territories.length;i++){
-            require(territories[i]<uint16(2750)); //don&#39;t claim sea provinces
-            require(getownership(territories[i])==uint16(0)); //don&#39;t claim other players&#39; lands
+            require(territories[i]<uint16(2750)); //don't claim sea provinces
+            require(getownership(territories[i])==uint16(0)); //don't claim other players' lands
         }
 
         _teamcnt+=1; //increase the team counter
@@ -88,7 +88,7 @@ contract RISK{
         Rounds[_rID].colorXteam[_teamcnt]=RGB;
         Rounds[_rID].iscolorregistered[RGB]=true;
         Rounds[_rID].teamcnt=_teamcnt;
-        Rounds[_rID].isnameregistered[name]=true;//don&#39;t allow countries with duplicate names
+        Rounds[_rID].isnameregistered[name]=true;//don't allow countries with duplicate names
         Rounds[_rID].pot+=msg.value;
         
         
@@ -122,7 +122,7 @@ contract RISK{
             Rounds[_rID].teamXaddr[msg.sender]=team;
         }
         else{
-            require(Rounds[_rID].teamXaddr[msg.sender]==team); //don&#39;t allow to switch teams   
+            require(Rounds[_rID].teamXaddr[msg.sender]==team); //don't allow to switch teams   
         }
 
 
@@ -153,7 +153,7 @@ contract RISK{
             }
         }
         else{//if truce
-            require(Rounds[_rID].validrollsXteam[team]<Rounds[_rID].maxextensiontruce); //limit number of territories during truce, don&#39;t allow to roll if 50 territories or more
+            require(Rounds[_rID].validrollsXteam[team]<Rounds[_rID].maxextensiontruce); //limit number of territories during truce, don't allow to roll if 50 territories or more
             for  (i = 0 ; i<territories.length;i++){
                 if (getownership(territories[i])!=0){ //only invade neutral provinces
                     continue;
@@ -297,7 +297,7 @@ contract RISK{
         uint256 reimbursement;
         
         
-        if (prevowner==address(0)){ //if it&#39;s the first time the name is purchased, the payment goes to the pot
+        if (prevowner==address(0)){ //if it's the first time the name is purchased, the payment goes to the pot
             Rounds[roundID].pot+=msg.value ;   
         }
         else{
@@ -310,7 +310,7 @@ contract RISK{
         }
         
 
-        nameXaddress[prevowner]=&#39;&#39;; //change the name of the previous owner to empty
+        nameXaddress[prevowner]=''; //change the name of the previous owner to empty
         ownerXname[name]=msg.sender; //set new owner
         priceXname[name]=msg.value; //new buyprice
         bytes32 prevname = nameXaddress[msg.sender];
@@ -352,7 +352,7 @@ contract RISK{
     /*_____      _            _       ______                _   _                 
      |  __ \    (_)          | |     |  ____|              | | (_)                
      | |__) | __ ___   ____ _| |_ ___| |__ _   _ _ __   ___| |_ _  ___  _ __  ___ 
-     |  ___/ &#39;__| \ \ / / _` | __/ _ \  __| | | | &#39;_ \ / __| __| |/ _ \| &#39;_ \/ __|
+     |  ___/ '__| \ \ / / _` | __/ _ \  __| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
      | |   | |  | |\ V / (_| | ||  __/ |  | |_| | | | | (__| |_| | (_) | | | \__ \
      |_|   |_|  |_| \_/ \__,_|\__\___|_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/*/
 
@@ -361,7 +361,7 @@ contract RISK{
     private 
     view
     returns(uint16)
-    {//index is floor division, perform AND with a filter that&#39;s full of 0s except in the 8 bit range we want to access so it returns only that 8bit window
+    {//index is floor division, perform AND with a filter that's full of 0s except in the 8 bit range we want to access so it returns only that 8bit window
         //shift it to the 8 rightmost bits and convert to int16
         return(uint16((Rounds[roundID].owners[terr/32]&(255*2**(8*(uint256(terr%32)))))/(2**(uint256(terr)%32*8))));
     }
@@ -371,7 +371,7 @@ contract RISK{
     private 
     pure
     returns(uint16)
-    {//index if floor division, perform AND with a filter that&#39;s full of 0s except in the 8 bit range we want to access so it returns only that 8bit window
+    {//index if floor division, perform AND with a filter that's full of 0s except in the 8 bit range we want to access so it returns only that 8bit window
         //shift it right and convert to int16
         return(uint16((ownuint&255*2**(8*(uint256(terr)%32)))/(2**(uint256(terr)%32*8))));
     } 
@@ -379,7 +379,7 @@ contract RISK{
 
     function setownership(uint16 terr, uint16 team)
     private
-    { //index is floor division, perform AND with a filter that&#39;s full of 1s except in the 8bit range we want to access so that it removes the prev record
+    { //index is floor division, perform AND with a filter that's full of 1s except in the 8bit range we want to access so that it removes the prev record
         //perform OR with the team number shifted left into the position
         Rounds[roundID].owners[terr/32]=(Rounds[roundID].owners[terr/32]&(115792089237316195423570985008687907853269984665640564039457584007913129639935-(255*(2**(8*(uint256(terr)%32))))))|(uint256(team)*2**((uint256(terr)%32)*8));
     }
@@ -431,7 +431,7 @@ contract RISK{
    /*__      ___               ______                _   _                 
      \ \    / (_)             |  ____|              | | (_)                
       \ \  / / _  _____      _| |__ _   _ _ __   ___| |_ _  ___  _ __  ___ 
-       \ \/ / | |/ _ \ \ /\ / /  __| | | | &#39;_ \ / __| __| |/ _ \| &#39;_ \/ __|
+       \ \/ / | |/ _ \ \ /\ / /  __| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
         \  /  | |  __/\ V  V /| |  | |_| | | | | (__| |_| | (_) | | | \__ \
          \/   |_|\___| \_/\_/ |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/ */
 
@@ -466,7 +466,7 @@ contract RISK{
         uint16 team;
         uint256 balance;
         for (uint i = playerlastroundwithdrawn[msg.sender]+1;i<rID;i++){
-            if (Rounds[i].validrollsXaddr[msg.sender]==0){ //skip if player didn&#39;t take part in the round
+            if (Rounds[i].validrollsXaddr[msg.sender]==0){ //skip if player didn't take part in the round
                 continue;
             }
             
@@ -634,12 +634,12 @@ contract RISK{
    /*_____             ______                _   _
     |  __ \           |  ____|              | | (_)                
     | |  | | _____   _| |__ _   _ _ __   ___| |_ _  ___  _ __  ___ 
-    | |  | |/ _ \ \ / /  __| | | | &#39;_ \ / __| __| |/ _ \| &#39;_ \/ __|
+    | |  | |/ _ \ \ / /  __| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
     | |__| |  __/\ V /| |  | |_| | | | | (__| |_| | (_) | | | \__ \
     |_____/ \___| \_/ |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/ */
    
 
-    //used to load the adjacencies file that&#39;s required to block invalid actions
+    //used to load the adjacencies file that's required to block invalid actions
     function addadjacencies(uint16[] indexes,uint16[] numvals,uint16[] adjs)
     public
     {   
@@ -656,7 +656,7 @@ contract RISK{
     }
 
 
-    //blocks the add function so dev can&#39;t modify the adjacencies after they&#39;ve been loaded, serves as activate function too
+    //blocks the add function so dev can't modify the adjacencies after they've been loaded, serves as activate function too
     function finishedloading()
     public
     {
@@ -696,7 +696,7 @@ contract RISK{
     /* _____ _                   _       
       / ____| |                 | |      
      | (___ | |_ _ __ _   _  ___| |_ ___ 
-      \___ \| __| &#39;__| | | |/ __| __/ __|
+      \___ \| __| '__| | | |/ __| __/ __|
       ____) | |_| |  | |_| | (__| |_\__ \
      |_____/ \__|_|   \__,_|\___|\__|___/*/
 
@@ -749,7 +749,7 @@ contract RISK{
     /*______               _       
      |  ____|             | |      
      | |____   _____ _ __ | |_ ___ 
-     |  __\ \ / / _ \ &#39;_ \| __/ __|
+     |  __\ \ / / _ \ '_ \| __/ __|
      | |___\ V /  __/ | | | |_\__ \
      |______\_/ \___|_| |_|\__|___/*/
 

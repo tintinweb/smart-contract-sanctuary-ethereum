@@ -75,7 +75,7 @@ contract Token is StandardToken {
     string public name = "ICONSORT";
     uint8 public decimals = 18;
     string public symbol = "ICS";
-    string public version = &#39;ICS 0.1&#39;;
+    string public version = 'ICS 0.1';
     address public mintableAddress;
 
     function Token(address sale_address) {

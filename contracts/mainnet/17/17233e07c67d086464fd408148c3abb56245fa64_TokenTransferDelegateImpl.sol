@@ -270,7 +270,7 @@ contract TokenTransferDelegate {
     // The following map is used to keep trace of order fill and cancellation
     // history.
     mapping (bytes32 => uint) public cancelledOrFilled;
-    // This map is used to keep trace of order&#39;s cancellation history.
+    // This map is used to keep trace of order's cancellation history.
     mapping (bytes32 => uint) public cancelled;
     // A map from address to its cutoff timestamp.
     mapping (address => uint) public cutoffs;
@@ -465,8 +465,8 @@ contract TokenTransferDelegateImpl is TokenTransferDelegate, Claimable {
         address prevOwner = address(batch[len - 7]);
         for (uint i = 0; i < len; i += 7) {
             address owner = address(batch[i]);
-            // Pay token to previous order, or to miner as previous order&#39;s
-            // margin split or/and this order&#39;s margin split.
+            // Pay token to previous order, or to miner as previous order's
+            // margin split or/and this order's margin split.
             ERC20 token = ERC20(address(batch[i + 1]));
             // Here batch[i + 2] has been checked not to be 0.
             if (batch[i + 2] != 0x0 && owner != prevOwner) {

@@ -26,7 +26,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -283,22 +283,22 @@ contract Crowdsale is Ownable {
    */
     function getStage() public view returns (string) {
         if(!crowdsaleStarted){
-            return &#39;Crowdsale not started yet&#39;;
+            return 'Crowdsale not started yet';
         }
         if (block.number > preIcoStartBlock && block.number < discountedIcoStartBlock )
         {
-            return &#39;Presale&#39;;
+            return 'Presale';
         }
         else if (block.number >= discountedIcoStartBlock  && block.number < mainIcoStartBlock ) {
-            return &#39;Discounted sale&#39;;
+            return 'Discounted sale';
         }
         else if (block.number >= mainIcoStartBlock && block.number < mainIcoEndBlock )
         {
-            return &#39;Crowdsale&#39;;
+            return 'Crowdsale';
         }
         else if(block.number > mainIcoEndBlock)
         {
-            return &#39;Sale ended&#39;;
+            return 'Sale ended';
         }
       
      }

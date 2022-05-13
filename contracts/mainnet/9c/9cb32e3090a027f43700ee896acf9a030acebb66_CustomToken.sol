@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken, ICOToken {
     function CustomToken() public {
         totalSupply = 300000000000000000000000000;
-        name = &#39;Mutualaidchain&#39;;
-        symbol = &#39;Muac&#39;;
+        name = 'Mutualaidchain';
+        symbol = 'Muac';
         decimals = 18;
         balanceOf[0x7e271cea018c4232f6313dd8171976814f2d9c9d] = totalSupply;
         Transfer(address(0), 0x7e271cea018c4232f6313dd8171976814f2d9c9d, totalSupply);

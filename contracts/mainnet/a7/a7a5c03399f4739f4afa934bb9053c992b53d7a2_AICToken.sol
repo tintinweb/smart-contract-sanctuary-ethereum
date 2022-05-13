@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -78,7 +78,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -119,7 +119,7 @@ library Roles {
  * See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  * for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  * to avoid typos.
  */
 contract RBAC {
@@ -307,7 +307,7 @@ contract Administrable is Ownable, RBAC {
   }
 
   /**
-   * @dev Throws if called by any account that&#39;s not a Admin.
+   * @dev Throws if called by any account that's not a Admin.
    */
   modifier onlyAdmin(string _role) {
     checkRole(msg.sender, _role);
@@ -615,7 +615,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -713,7 +713,7 @@ contract BurnableToken is StandardToken {
     {
         require(_value <= balances[_who]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
         
         balances[_who] = balances[_who].sub(_value);
         totalSupply_ = totalSupply_.sub(_value);

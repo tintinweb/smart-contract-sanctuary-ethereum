@@ -85,7 +85,7 @@ contract NotakeyVerifierForICOP {
             }
         }
 
-        // If the blacklist is empty (0), then that&#39;s fine for the V1 contract (where we validate the bundle);
+        // If the blacklist is empty (0), then that's fine for the V1 contract (where we validate the bundle);
         // For our own sale, however, this attribute is a proxy indicator for whether the address is verified.
         //
         // Account for ignored claims (issued by unrecognized issuers)
@@ -198,7 +198,7 @@ contract SecondPriceAuction {
 	/// Simple constructor.
 	/// Token cap should take be in smallest divisible units.
 	/// 	NOTE: original SecondPriceAuction contract stipulates token cap must be given in whole tokens.
-	///		This does not seem correct, as only whole token values are transferred via transferFrom (which - in our wallet&#39;s case -
+	///		This does not seem correct, as only whole token values are transferred via transferFrom (which - in our wallet's case -
 	///     expects transfers in the smallest divisible amount)
 	function SecondPriceAuction(
 		address _trustedClaimIssuer,
@@ -305,7 +305,7 @@ contract SecondPriceAuction {
 		when_ended
 		only_buyins(_who)
 	{
-		// end the auction if we&#39;re the first one to finalise.
+		// end the auction if we're the first one to finalise.
 		if (endPrice == 0) {
 			endPrice = totalAccounted / tokenCap;
 			Ended(endPrice);
@@ -354,7 +354,7 @@ contract SecondPriceAuction {
 	}
 
 	/// The current price for a single indivisible part of a token. If a buyin happens now, this is
-	/// the highest price per indivisible token part that the buyer will pay. This doesn&#39;t
+	/// the highest price per indivisible token part that the buyer will pay. This doesn't
 	/// include the discount which may be available.
 	function currentPrice() public constant when_active returns (uint weiPerIndivisibleTokenPart) {
 		return ((EURWEI * 184325000 / (now - beginTime + 5760) - EURWEI*5) / DIVISOR);
@@ -429,7 +429,7 @@ contract SecondPriceAuction {
 	/// Ensure the sale is ended.
 	modifier when_ended { require (now >= endTime); _; }
 
-	/// Ensure we&#39;re not halted.
+	/// Ensure we're not halted.
 	modifier when_not_halted { require (!halted); _; }
 
 	/// Ensure `_who` is a participant.

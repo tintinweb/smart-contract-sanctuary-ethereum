@@ -72,7 +72,7 @@ contract FunFairSale is Owned, TokenReceivable {
     function withdraw() onlyOwner {
         if (block.timestamp < deadline) throw;
 
-        //testing return value doesn&#39;t do anything here
+        //testing return value doesn't do anything here
         //but it stops a compiler warning
         if (!owner.call.value(this.balance)()) throw;
     }

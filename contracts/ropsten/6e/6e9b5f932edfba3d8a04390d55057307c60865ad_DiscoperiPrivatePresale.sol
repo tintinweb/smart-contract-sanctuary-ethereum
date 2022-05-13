@@ -109,8 +109,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -127,7 +127,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -382,7 +382,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -575,7 +575,7 @@ contract TokenLockup is ERC20 {
      */     
     function _lockup(address _who, uint256 _amount, uint256 _release) internal {
         if (_release > 0) {
-            require(_who != address(0), "Lockup target address can&#39;t be zero.");
+            require(_who != address(0), "Lockup target address can't be zero.");
             require(_amount > 0, "Lockup amount should be > 0.");   
             require(_release > block.timestamp, "Lockup release time should be > now."); // solium-disable-line security/no-block-members 
             lockedup[_who].push(LockedUp(_amount, _release));
@@ -668,15 +668,15 @@ contract DiscoperiToken is TokenLockup, MintableToken, NoOwner {
      * @param _releaseTime uint256 Tokens release timestamp (can be zero to omit locking up) 
      */ 
     function allocate(address _to, uint256 _amount, uint256 _releaseTime) external onlySaleContract {
-        require(_to != address(0), "Allocate To address can&#39;t be zero");
+        require(_to != address(0), "Allocate To address can't be zero");
         require(_amount > 0, "Allocate amount should be > 0.");
        
         totalSupply_ = totalSupply_.add(_amount);
         saleDitributed = saleDitributed.add(_amount);  
         balances[_to] = balances[_to].add(_amount);
 
-        require(saleDitributed <= SALES_SUPPLY, "Can&#39;t allocate more than SALES SUPPLY.");
-        require(totalSupply_ <= TOTAL_SUPPLY, "Can&#39;t allocate more than TOTAL SUPPLY.");
+        require(saleDitributed <= SALES_SUPPLY, "Can't allocate more than SALES SUPPLY.");
+        require(totalSupply_ <= TOTAL_SUPPLY, "Can't allocate more than TOTAL SUPPLY.");
 
         emit Transfer(address(0), _to, _amount);
 
@@ -769,7 +769,7 @@ contract DiscoperiPrivatePresale is HasNoEther {
      * @param _token address DiscoperiToken contract address  
      */
     constructor(DiscoperiToken _token) public {
-        require(_token != address(0), "Token address can&#39;t be zero.");
+        require(_token != address(0), "Token address can't be zero.");
         token = DiscoperiToken(_token); 
     }
 

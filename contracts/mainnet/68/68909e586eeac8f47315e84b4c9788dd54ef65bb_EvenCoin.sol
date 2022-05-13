@@ -67,7 +67,7 @@ contract EvenCoin is SafeMath {
       isFinalized = false;                   //controls pre through crowdsale state
       saleStarted = false;
       soldCoins = 0;
-      founder = &#39;0x9e8De5BE5B046D2c85db22324260D624E0ddadF4&#39;;
+      founder = '0x9e8De5BE5B046D2c85db22324260D624E0ddadF4';
       initialSupplyPerAddress = 21250 * 10**decimals;
       rewardPerBlockPerAddress = 898444106206663;
       totalGenesisAddresses = 4000;
@@ -204,11 +204,11 @@ contract EvenCoin is SafeMath {
         tokenExchangeRate = 500;
       }
       //create tokens
-      uint256 tokens = safeMult(msg.value, tokenExchangeRate); // check that we&#39;re not over totals
+      uint256 tokens = safeMult(msg.value, tokenExchangeRate); // check that we're not over totals
       uint256 checkedSupply = safeAdd(soldCoins, tokens);
 
       // return money if something goes wrong
-      if (preMinedFund < checkedSupply) throw;  // odd fractions won&#39;t be found
+      if (preMinedFund < checkedSupply) throw;  // odd fractions won't be found
       soldCoins = checkedSupply;
       //All good. start the transfer
       balances[msg.sender] += tokens;  // safeAdd not needed

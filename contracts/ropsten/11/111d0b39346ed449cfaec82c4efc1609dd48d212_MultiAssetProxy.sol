@@ -253,7 +253,7 @@ contract MixinAssetProxyDispatcher is
     Ownable,
     MAssetProxyDispatcher
 {
-    // Mapping from Asset Proxy Id&#39;s to their respective Asset Proxy
+    // Mapping from Asset Proxy Id's to their respective Asset Proxy
     mapping (bytes4 => IAssetProxy) public assetProxies;
 
     /// @dev Registers an asset proxy to its asset proxy id.
@@ -385,7 +385,7 @@ contract MixinAssetProxyDispatcher is
                 let success := call(
                     gas,                    // forward all gas
                     assetProxy,             // call address of asset proxy
-                    0,                      // don&#39;t send any ETH
+                    0,                      // don't send any ETH
                     cdStart,                // pointer to start of input
                     sub(cdEnd, cdStart),    // length of input  
                     cdStart,                // write output over input
@@ -639,11 +639,11 @@ contract MultiAssetProxy is
                     let success := call(
                         gas,                                    // forward all gas
                         assetProxy,                             // call address of asset proxy
-                        0,                                      // don&#39;t send any ETH
+                        0,                                      // don't send any ETH
                         0,                                      // pointer to start of input
                         add(164, nestedAssetDataElementLen),    // length of input  
-                        0,                                      // write output over memory that won&#39;t be reused
-                        0                                       // don&#39;t copy output to memory
+                        0,                                      // write output over memory that won't be reused
+                        0                                       // don't copy output to memory
                     )
 
                     // Revert with reason given by AssetProxy if `transferFrom` call failed

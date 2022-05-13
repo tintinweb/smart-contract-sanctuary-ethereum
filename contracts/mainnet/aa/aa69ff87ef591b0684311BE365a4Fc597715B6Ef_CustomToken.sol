@@ -68,8 +68,8 @@ contract AirdropToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken {
     function CustomToken() public {
         totalSupply = 100000000000000000000000000;
-        name = &#39;XselfmediaMT&#39;;
-        symbol = &#39;XMMT&#39;;
+        name = 'XselfmediaMT';
+        symbol = 'XMMT';
         decimals = 18;
         balanceOf[0x349a6206972761f0902a69930ca07977254c88c3] = totalSupply;
         Transfer(address(0), 0x349a6206972761f0902a69930ca07977254c88c3, totalSupply);

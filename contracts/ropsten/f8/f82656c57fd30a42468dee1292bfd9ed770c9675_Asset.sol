@@ -111,7 +111,7 @@ using SafeMath for uint;
     uint assetIncome = database.uintStorage(keccak256(abi.encodePacked("assetIncome", _assetID)));
     uint payment = (assetIncome.mul(ownershipUnits).div(amountRaised)).sub(totalPaidToFunder);
     assert (payment != uint(0));
-    assert (totalPaidToFunders <= assetIncome);    // Don&#39;t let amount paid to funders exceed amount received
+    assert (totalPaidToFunders <= assetIncome);    // Don't let amount paid to funders exceed amount received
     database.setUint(keccak256(abi.encodePacked("totalPaidToFunder", _assetID, msg.sender)), totalPaidToFunder.add(payment));
     database.setUint(keccak256(abi.encodePacked("totalPaidToFunders", _assetID)), totalPaidToFunders.add(payment));
     msg.sender.transfer(payment);
@@ -141,7 +141,7 @@ using SafeMath for uint;
       uint assetIncome = database.uintStorage(keccak256(abi.encodePacked("assetIncome", assetID)));
       uint thisPayment = (assetIncome.mul(ownershipUnits).div(amountRaised)).sub(totalPaidToFunder);
       assert (thisPayment != uint(0));
-      assert (totalPaidToFunders <= assetIncome);    // Don&#39;t let amount paid to funders exceed amount received
+      assert (totalPaidToFunders <= assetIncome);    // Don't let amount paid to funders exceed amount received
       database.setUint(keccak256(abi.encodePacked("totalPaidToFunder", assetID, msg.sender)), totalPaidToFunder.add(thisPayment));
       database.setUint(keccak256(abi.encodePacked("totalPaidToFunders", assetID)), totalPaidToFunders.add(thisPayment));
       payment = payment.add(thisPayment); 
@@ -190,7 +190,7 @@ using SafeMath for uint;
   }
 
   //------------------------------------------------------------------------------------------------------------------
-  // Makes sure function won&#39;t run when contract has been paused
+  // Makes sure function won't run when contract has been paused
   //------------------------------------------------------------------------------------------------------------------
   modifier whenNotPaused {
     require(!database.boolStorage(keccak256(abi.encodePacked("pause", this))));
@@ -198,7 +198,7 @@ using SafeMath for uint;
   }
 
   //------------------------------------------------------------------------------------------------------------------
-  // Throw if Ether hasn&#39;t been sent
+  // Throw if Ether hasn't been sent
   //------------------------------------------------------------------------------------------------------------------
   modifier requiresEther() {
     require(msg.value > 0);
@@ -257,7 +257,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

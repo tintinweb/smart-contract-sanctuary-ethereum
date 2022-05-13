@@ -97,12 +97,12 @@ contract BPPToken is StandardToken {
     string public name;
     uint8 public decimals; 
     string public symbol;
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
     
     constructor() public {
-        name = &#39;DPC-TEST&#39;;
+        name = 'DPC-TEST';
         decimals = 18;
-        symbol = &#39;DPC&#39;;
+        symbol = 'DPC';
         totalSupply = 100000000 * 10 ** uint256(decimals);
         balances[msg.sender] = totalSupply;
     }

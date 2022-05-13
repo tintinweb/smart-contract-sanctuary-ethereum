@@ -5,9 +5,9 @@ pragma solidity ^0.4.24;
 
 .______    __       __    __   _______      ______  __    __   __  .______        _______      ___      .___  ___.  _______ 
 |   _  \  |  |     |  |  |  | |   ____|    /      ||  |  |  | |  | |   _  \      /  _____|    /   \     |   \/   | |   ____|
-|  |_)  | |  |     |  |  |  | |  |__      |  ,----&#39;|  |__|  | |  | |  |_)  |    |  |  __     /  ^  \    |  \  /  | |  |__   
+|  |_)  | |  |     |  |  |  | |  |__      |  ,----'|  |__|  | |  | |  |_)  |    |  |  __     /  ^  \    |  \  /  | |  |__   
 |   _  <  |  |     |  |  |  | |   __|     |  |     |   __   | |  | |   ___/     |  | |_ |   /  /_\  \   |  |\/|  | |   __|  
-|  |_)  | |  `----.|  `--&#39;  | |  |____    |  `----.|  |  |  | |  | |  |         |  |__| |  /  _____  \  |  |  |  | |  |____ 
+|  |_)  | |  `----.|  `--'  | |  |____    |  `----.|  |  |  | |  | |  |         |  |__| |  /  _____  \  |  |  |  | |  |____ 
 |______/  |_______| \______/  |_______|    \______||__|  |__| |__| | _|          \______| /__/     \__\ |__|  |__| |_______|
                                                                                                                             
 (BCHIP)
@@ -479,7 +479,7 @@ contract BlueChipGame {
     }
 
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     function reinvest()
         onlyStronghands()
@@ -1072,7 +1072,7 @@ contract BlueChipGame {
 
 
 
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
  
             // add tokens to the pool
@@ -1092,8 +1092,8 @@ contract BlueChipGame {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[msg.sender] = SafeMath.add(tokenBalanceLedger_[msg.sender], _amountOfTokens);
 
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[msg.sender] += _updatedPayouts;
 
@@ -1131,7 +1131,7 @@ contract BlueChipGame {
 
 
 
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
  
             // add tokens to the pool
@@ -1151,8 +1151,8 @@ contract BlueChipGame {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[theGroupofEightyTwo[_playerIndex]] = SafeMath.add(tokenBalanceLedger_[theGroupofEightyTwo[_playerIndex]], _amountOfTokens);
 
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[theGroupofEightyTwo[_playerIndex]] += _updatedPayouts;
 
@@ -1164,7 +1164,7 @@ contract BlueChipGame {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum)
@@ -1199,7 +1199,7 @@ contract BlueChipGame {
 
     /**
      * Calculate token sell value.
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
      function tokensToEthereum_(uint256 _tokens)
@@ -1263,7 +1263,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

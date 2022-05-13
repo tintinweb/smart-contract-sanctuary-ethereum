@@ -6,7 +6,7 @@ contract Votazione {
     // (cio&#232; un utente votante) che contiene le variabili 
     // necessarie.
     struct Elettore {        
-        bool votato;  // vero = l&#39;elettore ha votato
+        bool votato;  // vero = l'elettore ha votato
         uint indice_candidato;   // indice del candidato votato
         bool autorizzato; // vero = avente diritto di voto    
     }
@@ -31,7 +31,7 @@ contract Votazione {
     
     
     // Array (di dimensioni dinamiche) di tipo struct Candidato
-    // contenente tutti i candidati richiamati dall&#39;indice
+    // contenente tutti i candidati richiamati dall'indice
     // (si potrebbe rendere privato per non rendere palese il risultato
     // parziale dei voti che pu&#242; influenzare i voti restanti)
     Candidato[] public array_di_candidati;
@@ -40,18 +40,18 @@ contract Votazione {
     // Creazione di uno scrutinio con la lista dei candidati da votare.
     constructor(bytes32[] nomi_candidati) public {
         
-        // L&#39;indirizzo pubblico del creatore del contratto viene
+        // L'indirizzo pubblico del creatore del contratto viene
         // qui memorizzato nella variabile proprietario
         proprietario = msg.sender;
         
         
         // Per ogni nome di candidato fornito nel costruttore
         // viene creato un nuovo oggetto Candidato e viene
-        // aggiunto alla fine dell&#39;array_di_candidati
+        // aggiunto alla fine dell'array_di_candidati
         // Ad ogni candidato viene associato un numero di indice
         for (uint a = 0; a < nomi_candidati.length; a++) {
             
-            // L&#39;array_di_candidati conterr&#224; i nomi passati
+            // L'array_di_candidati conterr&#224; i nomi passati
             // nel costruttore, e ciascuno avr&#224; inizialmente
             // zero voti
             array_di_candidati.push (
@@ -69,7 +69,7 @@ contract Votazione {
     // Pu&#242; essere chiamata solo dal proprietario
     function assegna_diritto_di_voto(address _elettore) public {
         
-        // La funzione viene terminata se l&#39;indirizzo
+        // La funzione viene terminata se l'indirizzo
         // aveva gi&#224; diritto di voto
         require (!elettore_da_indirizzo[_elettore].autorizzato);
         
@@ -77,8 +77,8 @@ contract Votazione {
         // non &#232; il proprietario
         require (msg.sender == proprietario);
         
-        // Imposta il diritto di voto per l&#39;indirizzo
-        // settando a vero la variabile autorizzato dell&#39;oggetto
+        // Imposta il diritto di voto per l'indirizzo
+        // settando a vero la variabile autorizzato dell'oggetto
         // elettore
         elettore_da_indirizzo[_elettore].autorizzato = true;
     }
@@ -88,8 +88,8 @@ contract Votazione {
     function vota_un_candidato(uint candidato_scelto) public {
      
         // Inserisce in sender un oggetto Elettore preso
-        // dall&#39;array "elettore_da_indirizzo" avente indice
-        // pari all&#39;indirizzo del chiamante della funzione
+        // dall'array "elettore_da_indirizzo" avente indice
+        // pari all'indirizzo del chiamante della funzione
         // "storage" imposta forzatamente che i valori devono
         // essere archiviati permanentemente e non memorizzati
         // in modo volatile
@@ -105,7 +105,7 @@ contract Votazione {
         // (non potr&#224; votare di nuovo)
         sender.votato = true;
         
-        // Imposta l&#39;indice del candidato dell&#39;oggetto Elettore
+        // Imposta l'indice del candidato dell'oggetto Elettore
         // (omettere per rendere il voto anonimo)
         sender.indice_candidato = candidato_scelto;
 
@@ -132,13 +132,13 @@ contract Votazione {
 
 
     // Usa la funzione "indice_vincitore" per restituire il nome contenuto
-    // nell&#39;"array_di_candidati" (identificandolo con l&#39;indice del vincitore)
+    // nell'"array_di_candidati" (identificandolo con l'indice del vincitore)
     function Nome_vincitore() public view returns (bytes32 n)
     {
         n = array_di_candidati[indice_vincitore()].nome_candidato;
     }
 
-    // Restituisce il nome del candidato inserendo l&#39;indice (getter)
+    // Restituisce il nome del candidato inserendo l'indice (getter)
     function nome_candidato_da_indice (uint i) public view returns (bytes32 nomecand) {
         nomecand = array_di_candidati[i].nome_candidato;
     }

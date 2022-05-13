@@ -47,8 +47,8 @@ contract GoldRealEstate is ERC20 {
 	address owner = msg.sender;
 	mapping(address => uint256)balances;
 	mapping(address => mapping(address => uint256))allowed;
-	string public constant name = &#39;Gold Real Estate&#39;;
-	string public constant symbol = &#39;GRE&#39;;
+	string public constant name = 'Gold Real Estate';
+	string public constant symbol = 'GRE';
 	uint public constant decimals = 18;
 	uint256 public totalSupply = 150000000000e18;
 	uint256 public totalDistributed = 15000000000e18;

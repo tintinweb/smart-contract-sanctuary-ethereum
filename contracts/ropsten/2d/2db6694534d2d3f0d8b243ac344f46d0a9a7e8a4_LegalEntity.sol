@@ -20,7 +20,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -168,24 +168,24 @@ contract LegalEntity {
 
     /* User can allow another smart contract to spend some shares in his behalf
     *  (this function should be called by user itself)
-    *  @param _spender another contract&#39;s address
+    *  @param _spender another contract's address
     *  @param _value number of tokens
     *  @param _extraData Data that can be sent from user to another contract to be processed
     *  bytes - dynamically-sized byte array,
     *  see http://solidity.readthedocs.io/en/v0.4.15/types.html#dynamically-sized-byte-array
-    *  see possible attack information in comments to function &#39;approve&#39;
+    *  see possible attack information in comments to function 'approve'
     *  > this may be used to convert pre-ICO tokens to ICO tokens
     */
     function approveAndCall(address _spender, uint256 _value, bytes _extraData) public returns (bool) {
 
         approve(_spender, _value);
 
-        // &#39;spender&#39; is another contract that implements code as prescribed in &#39;allowanceRecipient&#39; above
+        // 'spender' is another contract that implements code as prescribed in 'allowanceRecipient' above
         allowanceRecipient spender = allowanceRecipient(_spender);
 
-        // our contract calls &#39;receiveApproval&#39; function of another contract (&#39;allowanceRecipient&#39;) to send information about
+        // our contract calls 'receiveApproval' function of another contract ('allowanceRecipient') to send information about
         // allowance and data sent by user
-        // &#39;this&#39; is this (our) contract address
+        // 'this' is this (our) contract address
         if (spender.receiveApproval(msg.sender, _value, this, _extraData)) {
             emit DataSentToAnotherContract(msg.sender, _spender, _extraData);
             return true;

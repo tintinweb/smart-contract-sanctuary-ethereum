@@ -223,8 +223,8 @@ contract DiceBaseBiz is Pausable {
     用户投注  
    */
   function deposit(uint256 _id,uint8 _stake, uint256 _bean) public whenNotPaused returns(bool) {
-    require(dices[_id].startAt > 0,&#39;Dice not existed !!!&#39;);
-    require(getDiceStatus(_id) == DiceStatus.Progress,&#39;Dice status must be Progressed !!!&#39;);
+    require(dices[_id].startAt > 0,'Dice not existed !!!');
+    require(getDiceStatus(_id) == DiceStatus.Progress,'Dice status must be Progressed !!!');
 
     // 存储用户订单
     Order[] storage _orders = orders[_id];
@@ -247,7 +247,7 @@ contract DiceBaseBiz is Pausable {
     流拍
    */
   function abortiv(uint256 _id) public onlyOwner whenNotPaused returns(bool){
-    require(dices[_id].startAt > 0,&#39;Dice not existed !!!&#39;);
+    require(dices[_id].startAt > 0,'Dice not existed !!!');
 
     // 流拍事件 不收手续费 直接返还资金
     if(beans[_id] == 0){
@@ -269,14 +269,14 @@ contract DiceBaseBiz is Pausable {
     开奖
    */
   function publish(uint256 _id) public onlyOwner returns(bool) {
-    require(dices[_id].startAt > 0,&#39;Dice not existed !!!&#39;);
+    require(dices[_id].startAt > 0,'Dice not existed !!!');
 
     // 获得 总余额
     uint256 _beans = beans[_id];
     // 计算随机数，获得结果
     uint8 result = _generateRandom(_beans,_id);
 
-    require(result > 0 && result <= 6,&#39;Result is not right !!!&#39;);
+    require(result > 0 && result <= 6,'Result is not right !!!');
 
     uint8 _stake = 0;
 

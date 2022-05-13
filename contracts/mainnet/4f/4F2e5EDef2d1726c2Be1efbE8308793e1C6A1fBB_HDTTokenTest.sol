@@ -13,8 +13,8 @@ contract HDTTokenTest {
     function HDTTokenTest() public
     {
         balanceOf[msg.sender] = 21000000;
-        name =&#39;HDTTokenTest&#39;;
-        symbol = &#39;TCC_HDT&#39;;
+        name ='HDTTokenTest';
+        symbol = 'TCC_HDT';
         decimals = 8;
     }
 

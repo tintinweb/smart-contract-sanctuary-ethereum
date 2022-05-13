@@ -70,7 +70,7 @@ contract ExToke is ERC20Interface, Owned, SafeMath {
     address public oldAddress;
     address public tokenAdmin;
     uint public _totalSupply;
-    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.  
+    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.  
     uint256 public unitsOneEthCanBuy;     // How many units of your coin can be bought by 1 ETH?
     address public fundsWallet;           
     uint256 public crowdSaleSupply;

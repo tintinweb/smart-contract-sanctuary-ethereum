@@ -269,8 +269,8 @@ contract ExchangeEfx is SafeMath {
     */
 
     /// @dev Fills the input order.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @param fillTakerTokenAmount Desired amount of takerToken to fill.
     /// @param shouldThrowOnInsufficientBalanceOrAllowance Test if transfer will fail before attempting.
     /// @param v ECDSA signature parameter v.
@@ -392,8 +392,8 @@ contract ExchangeEfx is SafeMath {
     }
 
     /// @dev Cancels the input order.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @param cancelTakerTokenAmount Desired amount of takerToken to cancel in order.
     /// @return Amount of takerToken cancelled.
     // function cancelOrder(
@@ -452,8 +452,8 @@ contract ExchangeEfx is SafeMath {
     */
 
     /// @dev Fills an order with specified parameters and ECDSA signature, throws if specified amount not filled entirely.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @param fillTakerTokenAmount Desired amount of takerToken to fill.
     /// @param v ECDSA signature parameter v.
     /// @param r ECDSA signature parameters r.
@@ -598,8 +598,8 @@ contract ExchangeEfx is SafeMath {
     */
 
     /// @dev Calculates Keccak-256 hash of order with specified parameters.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @return Keccak-256 hash of order.
     function getOrderHash(address[5] orderAddresses, uint[6] orderValues)
         public
@@ -749,10 +749,10 @@ contract ExchangeEfx is SafeMath {
         //         || getAllowance(ZRX_TOKEN_CONTRACT, taker) < requiredTakerZRX
         //     ) return false;
 
-        //     if (!isMakerTokenZRX && (   getBalance(order.makerToken, order.maker) < fillMakerTokenAmount // Don&#39;t double check makerToken if ZRX
+        //     if (!isMakerTokenZRX && (   getBalance(order.makerToken, order.maker) < fillMakerTokenAmount // Don't double check makerToken if ZRX
         //                              || getAllowance(order.makerToken, order.maker) < fillMakerTokenAmount)
         //     ) return false;
-        //     if (!isTakerTokenZRX && (   getBalance(order.takerToken, taker) < fillTakerTokenAmount // Don&#39;t double check takerToken if ZRX
+        //     if (!isTakerTokenZRX && (   getBalance(order.takerToken, taker) < fillTakerTokenAmount // Don't double check takerToken if ZRX
         //                              || getAllowance(order.takerToken, taker) < fillTakerTokenAmount)
         //     ) return false;
         // } else if (   getBalance(order.makerToken, order.maker) < fillMakerTokenAmount
@@ -812,7 +812,7 @@ contract ExchangeEfx is SafeMath {
         return size > 0;
     }
 
-    /// @dev Approves/unnapproves a Validator contract to verify signatures on signer&#39;s behalf.
+    /// @dev Approves/unnapproves a Validator contract to verify signatures on signer's behalf.
     /// @param validatorAddress Address of Validator contract.
     /// @param approval Approval or disapproval of  Validator contract.
     function setSignatureValidatorApproval(

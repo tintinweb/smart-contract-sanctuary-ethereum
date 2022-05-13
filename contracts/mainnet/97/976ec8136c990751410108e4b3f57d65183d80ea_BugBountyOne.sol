@@ -8,7 +8,7 @@ pragma solidity ^0.4.21;
 * //*** A Game Developed By:
 *   _____       _         _         _ ___ _         
 *  |_   _|__ __| |_  _ _ (_)__ __ _| | _ (_)___ ___ 
-*    | |/ -_) _| &#39; \| &#39; \| / _/ _` | |   / (_-</ -_)
+*    | |/ -_) _| ' \| ' \| / _/ _` | |   / (_-</ -_)
 *    |_|\___\__|_||_|_||_|_\__\__,_|_|_|_\_/__/\___|
 *   
 *   &#169; 2018 TechnicalRise.  Written in March 2018.  
@@ -58,7 +58,7 @@ contract BugBountyOne {
     
     function _prand() private returns (uint) {
         uint seed1 = s.getSecret();
-        uint seed2 = uint(block.coinbase); // Get Miner&#39;s Address
+        uint seed2 = uint(block.coinbase); // Get Miner's Address
         uint seed3 = now; // Get the timestamp
         uint seed4 = CryptoKitties.balance;
         uint rand = uint(keccak256(seed1, seed2, seed3, seed4));

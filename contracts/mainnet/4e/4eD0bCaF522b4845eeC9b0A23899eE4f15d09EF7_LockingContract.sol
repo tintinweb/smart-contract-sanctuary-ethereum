@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -156,7 +156,7 @@ contract LockingContract is Ownable {
 
     // Should only be done from another contract.
     // To ensure that the LockingContract can release all noted tokens later,
-    // one should mint/transfer tokens to the LockingContract&#39;s account prior to noting
+    // one should mint/transfer tokens to the LockingContract's account prior to noting
     function noteTokens(address _beneficiary, uint256 _tokenAmount) external onlyOwner onlyWhenLocked {
         uint256 tokenBalance = tokenContract.balanceOf(this);
         require(tokenBalance >= totalTokens.add(_tokenAmount));

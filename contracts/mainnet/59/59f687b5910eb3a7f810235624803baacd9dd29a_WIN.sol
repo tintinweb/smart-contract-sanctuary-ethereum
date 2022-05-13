@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -58,9 +58,9 @@ contract WIN {
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
-            // Test validity of the address &#39;_to&#39;:
+            // Test validity of the address '_to':
         require(_to != 0x0);
-            // Test positiveness of &#39;_value&#39;:
+            // Test positiveness of '_value':
 		require(_value > 0);
 		    // Check the balance of the sender:
         require(balanceOf[msg.sender] >= _value);
@@ -74,16 +74,16 @@ contract WIN {
     }
     
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-            // Test validity of the address &#39;_to&#39;:
+            // Test validity of the address '_to':
         require(_to != 0x0);
-            // Test positiveness of &#39;_value&#39;:
+            // Test positiveness of '_value':
 		require(_value > 0);
 		    // Check the balance of the sender:
         require(balanceOf[msg.sender] >= _value);
             // Check for overflows:
         require(balanceOf[_to] + _value >= balanceOf[_to]); 
             // Update balances of msg.sender and _to:
-            // Check allowance&#39;s sufficiency:
+            // Check allowance's sufficiency:
         require(_value <= allowance[_from][msg.sender]);
             // Update balances of _from and _to:
         balanceOf[_from] = SafeMath.sub(balanceOf[_from], _value);                           
@@ -96,16 +96,16 @@ contract WIN {
     }
 
     function approve(address _spender, uint256 _value) public returns (bool success) {
-            // Test positiveness of &#39;_value&#39;:
+            // Test positiveness of '_value':
 		require(_value > 0); 
         allowance[msg.sender][_spender] = _value;
         return true;
     }
 
     function burn(uint256 _value) public returns (bool success) {
-            // Check msg.sender&#39;s balance sufficiency:
+            // Check msg.sender's balance sufficiency:
         require(balanceOf[msg.sender] >= _value);           
-            // Test positiveness of &#39;_value&#39;:
+            // Test positiveness of '_value':
 		require(_value > 0); 
         balanceOf[msg.sender] = SafeMath.sub(balanceOf[msg.sender], _value);                    
         totalSupply = SafeMath.sub(totalSupply,_value);                              

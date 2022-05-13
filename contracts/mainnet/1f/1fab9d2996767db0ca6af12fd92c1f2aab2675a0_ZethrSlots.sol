@@ -21,7 +21,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -47,7 +47,7 @@ library ZethrTierLibrary {
   function getTier(uint divRate) internal pure returns (uint8) {
 
     // Divide the average dividned rate by magnitude
-    // Remainder doesn&#39;t matter because of the below logic
+    // Remainder doesn't matter because of the below logic
     uint actualDiv = divRate / magnitude;
     if (actualDiv >= 30) {
       return 6;
@@ -1040,8 +1040,8 @@ contract ZethrDividendCards is ERC721Interface {
     });
     uint newCardId = divCards.push(_divcard) - 1;
 
-    // It&#39;s probably never going to happen, 4 billion tokens are A LOT, but
-    // let&#39;s just be 100% sure we never let this happen.
+    // It's probably never going to happen, 4 billion tokens are A LOT, but
+    // let's just be 100% sure we never let this happen.
     require(newCardId == uint(uint32(newCardId)));
 
     emit Birth(newCardId, _name, _owner);
@@ -1065,12 +1065,12 @@ contract ZethrDividendCards is ERC721Interface {
   function _transfer(address _from, address _to, uint _divCardId)
     private
   {
-    // Since the number of cards is capped to 2^32 we can&#39;t overflow this
+    // Since the number of cards is capped to 2^32 we can't overflow this
     ownershipDivCardCount[_to]++;
     //transfer ownership
     divCardIndexToOwner[_divCardId] = _to;
 
-    // When creating new div cards _from is 0x0, but we can&#39;t account that address.
+    // When creating new div cards _from is 0x0, but we can't account that address.
     if (_from != address(0)) {
       ownershipDivCardCount[_from]--;
       // clear any previously approved ownership exchange
@@ -1286,7 +1286,7 @@ contract Zethr {
 
   /**
    * Same as buy, but explicitly sets your dividend percentage.
-   * If this has been called before, it will update your `default&#39; dividend
+   * If this has been called before, it will update your `default' dividend
    *   percentage for regular buy transactions going forward.
    */
   function buyAndSetDivPercentage(address _referredBy, uint8 _divChoice, string /*providedUnhashedPass*/)
@@ -1376,7 +1376,7 @@ contract Zethr {
     / If the user has previously set a dividend rate, sending
     /   Ether directly to the contract simply purchases more at
     /   the most recent rate. If this is their first time, they
-    /   are automatically placed into the 20% rate `bucket&#39;.
+    /   are automatically placed into the 20% rate `bucket'.
     **/
     require(regularPhase);
     address _customerAddress = msg.sender;
@@ -1394,7 +1394,7 @@ contract Zethr {
     require(regularPhase);
     uint _dividends = myDividends(false);
 
-    // Pay out requisite `virtual&#39; dividends.
+    // Pay out requisite `virtual' dividends.
     address _customerAddress = msg.sender;
     payoutsTo_[_customerAddress] += (int256) (_dividends * magnitude);
 
@@ -1451,7 +1451,7 @@ contract Zethr {
   onlyHolders()
   public
   {
-    // No selling during the ICO. You don&#39;t get to flip that fast, sorry!
+    // No selling during the ICO. You don't get to flip that fast, sorry!
     require(!icoPhase);
     require(regularPhase);
 
@@ -1460,7 +1460,7 @@ contract Zethr {
     uint _frontEndTokensToBurn = _amountOfTokens;
 
     // Calculate how many dividend tokens this action burns.
-    // Computed as the caller&#39;s average dividend rate multiplied by the number of front-end tokens held.
+    // Computed as the caller's average dividend rate multiplied by the number of front-end tokens held.
     // As an additional guard, we ensure that the dividend rate is between 2 and 50 inclusive.
     uint userDivRate = getUserAverageDividendRate(msg.sender);
     require((2 * magnitude) <= userDivRate && (50 * magnitude) >= userDivRate);
@@ -1470,7 +1470,7 @@ contract Zethr {
     uint _ethereum = tokensToEthereum_(_frontEndTokensToBurn);
 
     if (_ethereum > currentEthInvested) {
-      // Well, congratulations, you&#39;ve emptied the coffers.
+      // Well, congratulations, you've emptied the coffers.
       currentEthInvested = 0;
     } else {currentEthInvested = currentEthInvested - _ethereum;}
 
@@ -1492,7 +1492,7 @@ contract Zethr {
     int256 _updatedPayouts = (int256) (profitPerDivToken * _divTokensToBurn + (_taxedEthereum * magnitude));
     payoutsTo_[msg.sender] -= _updatedPayouts;
 
-    // Let&#39;s avoid breaking arithmetic where we can, eh?
+    // Let's avoid breaking arithmetic where we can, eh?
     if (divTokenSupply > 0) {
       // Update the value of each remaining back-end dividend token.
       profitPerDivToken = profitPerDivToken.add((_dividends * magnitude) / divTokenSupply);
@@ -1504,7 +1504,7 @@ contract Zethr {
 
   /**
    * Transfer tokens from the caller to a new holder.
-   * No charge incurred for the transfer. We&#39;d make a terrible bank.
+   * No charge incurred for the transfer. We'd make a terrible bank.
    */
   function transfer(address _toAddress, uint _amountOfTokens)
   onlyHolders()
@@ -1533,7 +1533,7 @@ contract Zethr {
 
   /**
    * Transfer tokens from the caller to a new holder: the Used By Smart Contracts edition.
-   * No charge incurred for the transfer. No seriously, we&#39;d make a terrible bank.
+   * No charge incurred for the transfer. No seriously, we'd make a terrible bank.
    */
   function transferFrom(address _from, address _toAddress, uint _amountOfTokens)
   public
@@ -1542,7 +1542,7 @@ contract Zethr {
     // Setup variables
     address _customerAddress = _from;
     bytes memory empty;
-    // Make sure we own the tokens we&#39;re transferring, are ALLOWED to transfer that many tokens,
+    // Make sure we own the tokens we're transferring, are ALLOWED to transfer that many tokens,
     // and are transferring at least one full token.
     require(_amountOfTokens >= MIN_TOKEN_TRANSFER
     && _amountOfTokens <= frontTokenBalanceLedger_[_customerAddress]
@@ -1571,7 +1571,7 @@ contract Zethr {
     transferFromInternal(_from, _to, _amountOfTokens, _data);
   }
 
-  // Who&#39;d have thought we&#39;d need this thing floating around?
+  // Who'd have thought we'd need this thing floating around?
   function totalSupply()
   public
   view
@@ -1794,7 +1794,7 @@ contract Zethr {
     return (uint) ((int256)(profitPerDivToken * dividendTokenBalanceLedger_[_customerAddress]) - payoutsTo_[_customerAddress]) / magnitude;
   }
 
-  // Get the sell price at the user&#39;s average dividend rate
+  // Get the sell price at the user's average dividend rate
   function sellPrice()
   public
   view
@@ -1813,7 +1813,7 @@ contract Zethr {
       price = (1e18 * 0.001 ether) / tokensReceivedForEth;
     }
 
-    // Factor in the user&#39;s average dividend rate
+    // Factor in the user's average dividend rate
     uint theSellPrice = price.sub((price.mul(getUserAverageDividendRate(msg.sender)).div(100)).div(magnitude));
 
     return theSellPrice;
@@ -1838,7 +1838,7 @@ contract Zethr {
       price = (1e18 * 0.001 ether) / tokensReceivedForEth;
     }
 
-    // Factor in the user&#39;s selected dividend rate
+    // Factor in the user's selected dividend rate
     uint theBuyPrice = (price.mul(dividendRate).div(100)).add(price);
 
     return theBuyPrice;
@@ -1855,7 +1855,7 @@ contract Zethr {
     return _amountOfTokens;
   }
 
-  // When selling tokens, we need to calculate the user&#39;s current dividend rate.
+  // When selling tokens, we need to calculate the user's current dividend rate.
   // This is different from their selected dividend rate.
   function calculateEthereumReceived(uint _tokensToSell)
   public
@@ -1871,7 +1871,7 @@ contract Zethr {
   }
 
   /*
-   * Get&#39;s a user&#39;s average dividend rate - which is just their divTokenBalance / tokenBalance
+   * Get's a user's average dividend rate - which is just their divTokenBalance / tokenBalance
    * We multiply by magnitude to avoid precision errors.
    */
 
@@ -1921,10 +1921,10 @@ contract Zethr {
 
     /* Next, we tax for dividends:
        Dividends = (ethereum * div%) / 100
-       Important note: if we&#39;re out of the ICO phase, the 1% sent to div-card holders
+       Important note: if we're out of the ICO phase, the 1% sent to div-card holders
                        is handled prior to any dividend taxes are considered. */
 
-    // Grab the user&#39;s dividend rate
+    // Grab the user's dividend rate
     uint dividendRate = userDividendRate[msg.sender];
 
     // Calculate the total dividends on this buy
@@ -1932,7 +1932,7 @@ contract Zethr {
 
     remainingEth = remainingEth.sub(dividendAmount);
 
-    // If we&#39;re in the ICO and bankroll is buying, don&#39;t tax
+    // If we're in the ICO and bankroll is buying, don't tax
     if (icoPhase && msg.sender == bankrollAddress) {
       remainingEth = remainingEth + dividendAmount;
     }
@@ -1955,8 +1955,8 @@ contract Zethr {
     if (icoPhase) {
       toBankRoll = dividendAmount;
 
-      // If the bankroll is buying, we don&#39;t want to send eth back to the bankroll
-      // Instead, let&#39;s just give it the tokens it would get in an infinite recursive buy
+      // If the bankroll is buying, we don't want to send eth back to the bankroll
+      // Instead, let's just give it the tokens it would get in an infinite recursive buy
       if (msg.sender == bankrollAddress) {
         toBankRoll = 0;
       }
@@ -1972,7 +1972,7 @@ contract Zethr {
 
       // Cannot purchase more than the hard cap during ICO.
       require(ethInvestedDuringICO <= icoHardCap);
-      // Contracts aren&#39;t allowed to participate in the ICO.
+      // Contracts aren't allowed to participate in the ICO.
       require(tx.origin == msg.sender || msg.sender == bankrollAddress);
 
       // Cannot purchase more then the limit per address during the ICO.
@@ -2009,7 +2009,7 @@ contract Zethr {
       payoutsTo_[msg.sender] += (int256) ((profitPerDivToken * dividendTokensBought) - fee);
     }
 
-    // Update the buyer&#39;s token amounts
+    // Update the buyer's token amounts
     frontTokenBalanceLedger_[msg.sender] = frontTokenBalanceLedger_[msg.sender].add(tokensBought);
     dividendTokenBalanceLedger_[msg.sender] = dividendTokenBalanceLedger_[msg.sender].add(dividendTokensBought);
 
@@ -2084,7 +2084,7 @@ contract Zethr {
     }
 
     if (ethTowardsVariablePriceTokens != 0) {
-      // Note: we can&#39;t use "currentEthInvested" for this calculation, we must use:
+      // Note: we can't use "currentEthInvested" for this calculation, we must use:
       //  currentEthInvested + ethTowardsICOPriceTokens
       // This is because a split-buy essentially needs to simulate two separate buys -
       // including the currentEthInvested update that comes BEFORE variable price tokens are bought!
@@ -2168,18 +2168,18 @@ contract Zethr {
 
     if (tokensToSellAtICOPrice != 0) {
 
-      /* Here, unlike the sister equation in ethereumToTokens, we DON&#39;T need to multiply by 1e18, since
-         we will be passed in an amount of tokens to sell that&#39;s already at the 18-decimal precision.
-         We need to divide by 1e18 or we&#39;ll have too much Ether. */
+      /* Here, unlike the sister equation in ethereumToTokens, we DON'T need to multiply by 1e18, since
+         we will be passed in an amount of tokens to sell that's already at the 18-decimal precision.
+         We need to divide by 1e18 or we'll have too much Ether. */
 
       ethFromICOPriceTokens = tokensToSellAtICOPrice.mul(tokenPriceInitial_).div(1e18);
     }
 
     if (tokensToSellAtVariablePrice != 0) {
 
-      /* Note: Unlike the sister function in ethereumToTokens, we don&#39;t have to calculate any "virtual" token count.
+      /* Note: Unlike the sister function in ethereumToTokens, we don't have to calculate any "virtual" token count.
          This is because in sells, we sell the variable price tokens **first**, and then we sell the ICO-price tokens.
-         Thus there isn&#39;t any weird stuff going on with the token supply.
+         Thus there isn't any weird stuff going on with the token supply.
 
          We have the equations for total investment above; note that this is for TOTAL.
          To get the eth received from this sell, we calculate the new total investment after this sell.
@@ -2209,12 +2209,12 @@ contract Zethr {
     if (theDividendsOf(true, _customerAddress) > 0) withdrawFrom(_customerAddress);
 
     // Calculate how many back-end dividend tokens to transfer.
-    // This amount is proportional to the caller&#39;s average dividend rate multiplied by the proportion of tokens being transferred.
+    // This amount is proportional to the caller's average dividend rate multiplied by the proportion of tokens being transferred.
     uint _amountOfDivTokens = _amountOfFrontEndTokens.mul(getUserAverageDividendRate(_customerAddress)).div(magnitude);
 
     if (_customerAddress != msg.sender) {
       // Update the allowed balance.
-      // Don&#39;t update this if we are transferring our own tokens (via transfer or buyAndTransfer)
+      // Don't update this if we are transferring our own tokens (via transfer or buyAndTransfer)
       allowed[_customerAddress][msg.sender] -= _amountOfTokens;
     }
 
@@ -2346,7 +2346,7 @@ contract JackpotHolding is ERC223Receiving {
    * FIELDS
    ****************************/
 
-  // How many times we&#39;ve paid out the jackpot
+  // How many times we've paid out the jackpot
   uint public payOutNumber = 0;
 
   // The amount to divide the token balance by for a pay out (defaults to half the token balance)
@@ -2536,7 +2536,7 @@ contract ZethrGame {
   uint queueHead = 0;
   uint queueTail = 0;
 
-  // Store each player&#39;s latest bet via mapping
+  // Store each player's latest bet via mapping
   mapping(address => BetBase) bets;
 
   // Bet structures must start with this layout
@@ -2549,7 +2549,7 @@ contract ZethrGame {
   }
 
   // Mapping of addresses to their *position* in the queue
-  // Zero = they aren&#39;t in the queue
+  // Zero = they aren't in the queue
   mapping(address => uint) pendingBetsMapping;
 
   // Holds the bankroll controller info
@@ -2660,7 +2660,7 @@ contract ZethrGame {
     for (head = mQueue; head < tail; head++) {
       // Check the head of the queue to see if there is a resolvable bet
       // This means the bet at the queue head is older than 255 blocks AND is not 0
-      // (However, if the address at the head is null, skip it, it&#39;s already been resolved)
+      // (However, if the address at the head is null, skip it, it's already been resolved)
       if (pendingBetsQueue[head] == address(0x0)) {
         continue;
       }
@@ -2679,7 +2679,7 @@ contract ZethrGame {
 
         // Queue-tail is always the "next" open spot, so queue head and tail will never overlap
       } else {
-        // If we can&#39;t resolve a bet, stop going down the queue
+        // If we can't resolve a bet, stop going down the queue
         break;
       }
     }
@@ -3113,7 +3113,7 @@ contract ZethrSlots is ZethrGame {
     // Remove the player from the pending bets queue by setting the address to 0x0
     pendingBetsQueue[index] = address(0x0);
 
-    // Delete the player&#39;s bet by setting the mapping to zero
+    // Delete the player's bet by setting the mapping to zero
     pendingBetsMapping[_playerAddress] = 0;
 
     emit Result(_playerAddress, playerBet.tokenValue.mul(1e14), int(winAmount) - int(lossAmount) - int(jackpotAmount));
@@ -3155,7 +3155,7 @@ contract ZethrSlots is ZethrGame {
     pendingBetsQueue[queueTail] = _player;
     queueTail++;
 
-    // Add the player&#39;s position in the queue to the pending bets mapping
+    // Add the player's position in the queue to the pending bets mapping
     pendingBetsMapping[_player] = queueTail - 1;
 
     // Emit event

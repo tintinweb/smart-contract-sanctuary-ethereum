@@ -43,7 +43,7 @@ contract Elections {
         candidates[candidatesCount] = Candidate(candidatesCount, _name, 0,"");
     }
     function vote (uint  _candidateId, string _candidatesComments) public {
-     //require that they haven&#39;t voted before
+     //require that they haven't voted before
      require(!voters[msg.sender]);
 
      //require a valid candidate

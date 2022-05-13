@@ -97,10 +97,10 @@ contract StandardToken is Token {
 contract QuickTestToken is StandardToken { 
 
     /* Public variables of the token */
-    string public name=&#39;QuickTestName&#39;;                   
+    string public name='QuickTestName';                   
     uint8 public decimals= 2;             
-    string public symbol=&#39;QTN&#39;;             
-    string public version = &#39;H1.0&#39;;    
+    string public symbol='QTN';             
+    string public version = 'H1.0';    
     uint256 public totalSupply = 500000000;
 
    

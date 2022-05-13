@@ -30,7 +30,7 @@ function addCandidate (string _name) private {
  mapping(address => bool) public voters;
  
  function vote(uint _candidateId) public {
-  // require that the voter hasn&#39;t voted before
+  // require that the voter hasn't voted before
   require (!voters[msg.sender]);
 // require a valid candidate
   require (_candidateId > 0 && _candidateId <= candidatesCount);

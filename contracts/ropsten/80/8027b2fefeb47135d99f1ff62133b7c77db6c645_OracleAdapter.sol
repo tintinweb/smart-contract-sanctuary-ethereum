@@ -17,7 +17,7 @@ interface IERC165 {
 /**
     @dev Defines the interface of a standard Diaspore RCN Oracle,
     
-    The contract should also implement it&#39;s ERC165 interface: 0xa265d8e0
+    The contract should also implement it's ERC165 interface: 0xa265d8e0
 
     @notice Each oracle can only support one currency
 
@@ -83,11 +83,11 @@ contract ERC165 is IERC165 {
     bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
     /**
     * 0x01ffc9a7 ===
-    *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+    *   bytes4(keccak256('supportsInterface(bytes4)'))
     */
 
     /**
-    * @dev a mapping of interface id to whether or not it&#39;s supported
+    * @dev a mapping of interface id to whether or not it's supported
     */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -118,7 +118,7 @@ contract ERC165 is IERC165 {
     function _registerInterface(bytes4 interfaceId)
         internal
     {
-        require(interfaceId != 0xffffffff, "Can&#39;t register 0xffffffff");
+        require(interfaceId != 0xffffffff, "Can't register 0xffffffff");
         _supportedInterfaces[interfaceId] = true;
     }
 }
@@ -166,7 +166,7 @@ contract Token {
     @dev Defines the interface of a standard RCN oracle.
 
     The oracle is an agent in the RCN network that supplies a convertion rate between RCN and any other currency,
-    it&#39;s primarily used by the exchange but could be used by any other agent.
+    it's primarily used by the exchange but could be used by any other agent.
 */
 contract Oracle is Ownable {
     uint256 public constant VERSION = 4;

@@ -16,7 +16,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -141,7 +141,7 @@ contract ERCStaking {
   // To save on gas, rather than create a separate mapping for totalStakedFor & personalStakes,
   //  both data structures are stored in a single mapping for a given addresses.
   //
-  // It&#39;s possible to have a non-existing personalStakes, but have tokens in totalStakedFor
+  // It's possible to have a non-existing personalStakes, but have tokens in totalStakedFor
   //  if other users are staking on behalf of a given address.
   mapping (address => StakeContract) public stakeHolders;
 
@@ -426,7 +426,7 @@ contract AfricaTokenStakeWithBonus is BasicStakeContract(ERC20Interface(0x4cc1ae
     // Check that the current stake has unlocked & matches the unstake amount
     require(
       personalStake.unlockedTimestamp <= block.timestamp,
-      "The current stake hasn&#39;t unlocked yet");
+      "The current stake hasn't unlocked yet");
 
     require(
       personalStake.actualAmount == _amount,

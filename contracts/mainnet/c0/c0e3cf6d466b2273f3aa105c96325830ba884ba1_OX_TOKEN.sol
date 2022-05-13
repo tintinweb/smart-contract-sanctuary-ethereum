@@ -73,7 +73,7 @@ contract OX_TOKEN is owned {
 
     // min purchase .1 E = 10**17 wei
     if (!saleOn() || msg.value < 100 finney) {
-      throw; // returns caller&#39;s Ether and unused gas
+      throw; // returns caller's Ether and unused gas
     }
 
     // rate: 1 eth <==> 3000 ox

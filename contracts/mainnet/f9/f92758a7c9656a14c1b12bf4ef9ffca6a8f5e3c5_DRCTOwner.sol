@@ -46,14 +46,14 @@ library StringUtils {
         bytes memory n = bytes(_needle);
         if(h.length < 1 || n.length < 1 || (n.length > h.length))
       return -1;
-    else if(h.length > (2**128 -1)) // since we have to be able to return -1 (if the char isn&#39;t found or input error), this function must return an "int" type with a max length of (2^128 - 1)
+    else if(h.length > (2**128 -1)) // since we have to be able to return -1 (if the char isn't found or input error), this function must return an "int" type with a max length of (2^128 - 1)
       return -1;
     else {
       uint subindex = 0;
       for (uint i = 0; i < h.length; i ++) {
         if (h[i] == n[0]) { // found the first char of b
           subindex = 1;
-          while(subindex < n.length && (i + subindex) < h.length && h[i + subindex] == n[subindex]) {// search until the chars don&#39;t match or until we reach the end of a or b
+          while(subindex < n.length && (i + subindex) < h.length && h[i + subindex] == n[subindex]) {// search until the chars don't match or until we reach the end of a or b
                 subindex++;
           }
           if(subindex == n.length)
@@ -71,8 +71,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -89,7 +89,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -345,7 +345,7 @@ contract MultiOwners is DelayedClaimable, RBAC {
 //   string public constant AUTH_SETAUTHRATE = "setAuthRate";
 
   /**
-   * @dev Throws if called by any account that&#39;s not multiOwners.
+   * @dev Throws if called by any account that's not multiOwners.
    */
   modifier onlyMultiOwners() {
     checkRole(msg.sender, ROLE_MULTIOWNER);
@@ -580,7 +580,7 @@ contract MultiOwners is DelayedClaimable, RBAC {
    * @dev remove an address from the whitelist
    * @param _addr address
    * @return true if the address was removed from the multiOwner list,
-   *         false if the address wasn&#39;t in the multiOwner list
+   *         false if the address wasn't in the multiOwner list
    */
   function removeAddressFromOwners(address _addr)
     onlyMultiOwners
@@ -820,7 +820,7 @@ contract DRCTOwner is MultiOwnerContract {
     }
 
     /**
-     * @dev freeze the account&#39;s balance under urgent situation
+     * @dev freeze the account's balance under urgent situation
      *
      * by default all the accounts will not be frozen until set freeze value as true.
      *
@@ -838,7 +838,7 @@ contract DRCTOwner is MultiOwnerContract {
     }
 
     /**
-     * @dev freeze the account&#39;s balance
+     * @dev freeze the account's balance
      *
      * by default all the accounts will not be frozen until set freeze value as true.
      *
@@ -856,7 +856,7 @@ contract DRCTOwner is MultiOwnerContract {
     }
 
     /**
-     * @dev freeze the account&#39;s balance
+     * @dev freeze the account's balance
      *
      * @param _target address the account should be frozen
      * @param _value uint256 the amount of tokens that will be frozen
@@ -902,7 +902,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal

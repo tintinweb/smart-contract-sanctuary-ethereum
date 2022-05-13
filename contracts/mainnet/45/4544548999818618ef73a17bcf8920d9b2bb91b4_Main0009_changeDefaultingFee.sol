@@ -20,7 +20,7 @@ pragma solidity 0.4.24;
 
 contract Restricted {
 
-    // NB: using bytes32 rather than the string type because it&#39;s cheaper gas-wise:
+    // NB: using bytes32 rather than the string type because it's cheaper gas-wise:
     mapping (address => mapping (bytes32 => bool)) public permissions;
 
     event PermissionGranted(address indexed agent, bytes32 grantedPermission);
@@ -91,7 +91,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0, "div by 0"); // Solidity automatically throws for div by 0 but require to emit reason
         uint256 c = a / b;
-        // require(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // require(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -448,7 +448,7 @@ contract AugmintToken is AugmintTokenInterface {
         Reverts on failue:
             - transfer fails
             - if transferNotification fails (callee must revert on failure)
-            - if targetContract is an account or targetContract doesn&#39;t have neither transferNotification or fallback fx
+            - if targetContract is an account or targetContract doesn't have neither transferNotification or fallback fx
         TODO: make data param generic bytes (see receiver code attempt in Locker.transferNotification)
     */
     function transferAndNotify(TokenReceiver target, uint amount, uint data) external {
@@ -525,7 +525,7 @@ contract AugmintToken is AugmintTokenInterface {
     function _transferFrom(address from, address to, uint256 amount, string narrative) private {
         require(balances[from] >= amount, "balance must >= amount");
         require(allowed[from][msg.sender] >= amount, "allowance must be >= amount");
-        // don&#39;t allow 0 transferFrom if no approval:
+        // don't allow 0 transferFrom if no approval:
         require(allowed[from][msg.sender] > 0, "allowance must be >= 0 even with 0 amount");
 
         /* NB: fee is deducted from owner. It can result that transferFrom of amount x to fail
@@ -609,7 +609,7 @@ pragma solidity 0.4.24;
 contract AugmintReserves is SystemAccount {
 
     function () public payable { // solhint-disable-line no-empty-blocks
-        // to accept ETH sent into reserve (from defaulted loan&#39;s collateral )
+        // to accept ETH sent into reserve (from defaulted loan's collateral )
     }
 
     constructor(address permissionGranterContract) public SystemAccount(permissionGranterContract) {} // solhint-disable-line no-empty-blocks
@@ -695,7 +695,7 @@ contract MonetarySupervisor is Restricted, TokenReceiver { // solhint-disable-li
     LtdParams public ltdParams;
 
     /* Previously deployed AugmintTokens which are accepted for conversion (see transferNotification() )
-        NB: it&#39;s not iterable so old version addresses needs to be added for UI manually after each deploy */
+        NB: it's not iterable so old version addresses needs to be added for UI manually after each deploy */
     mapping(address => bool) public acceptedLegacyAugmintTokens;
 
     event LtdParamsChanged(uint lockDifferenceLimit, uint loanDifferenceLimit, uint allowedDifferenceAmount);
@@ -730,7 +730,7 @@ contract MonetarySupervisor is Restricted, TokenReceiver { // solhint-disable-li
     }
 
     /* Locker requesting interest when locking funds. Enforcing LTD to stay within range allowed by LTD params
-        NB: it does not know about min loan amount, it&#39;s the loan contract&#39;s responsibility to enforce it  */
+        NB: it does not know about min loan amount, it's the loan contract's responsibility to enforce it  */
     function requestInterest(uint amountToLock, uint interestAmount) external {
         // only whitelisted Locker
         require(permissions[msg.sender]["Locker"], "msg.sender must have Locker permission");
@@ -751,7 +751,7 @@ contract MonetarySupervisor is Restricted, TokenReceiver { // solhint-disable-li
     }
 
     /* Issue loan if LTD stays within range allowed by LTD params
-        NB: it does not know about min loan amount, it&#39;s the loan contract&#39;s responsibility to enforce it */
+        NB: it does not know about min loan amount, it's the loan contract's responsibility to enforce it */
     function issueLoan(address borrower, uint loanAmount) external {
          // only whitelisted LoanManager contracts
         require(permissions[msg.sender]["LoanManager"],
@@ -790,7 +790,7 @@ contract MonetarySupervisor is Restricted, TokenReceiver { // solhint-disable-li
     }
 
     /* function to migrate old totalLoanAmount and totalLockedAmount from old monetarySupervisor contract
-        when it&#39;s upgraded.
+        when it's upgraded.
         Set new monetarySupervisor contract in all locker and loanManager contracts before executing this */
     function adjustKPIs(uint totalLoanAmountAdjustment, uint totalLockedAmountAdjustment)
     external restrict("StabilityBoard") {
@@ -809,14 +809,14 @@ contract MonetarySupervisor is Restricted, TokenReceiver { // solhint-disable-li
     }
 
     /* User can request to convert their tokens from older AugmintToken versions in 1:1
-      transferNotification is called from AugmintToken&#39;s transferAndNotify
+      transferNotification is called from AugmintToken's transferAndNotify
      Flow for converting old tokens:
-        1) user calls old token contract&#39;s transferAndNotify with the amount to convert,
+        1) user calls old token contract's transferAndNotify with the amount to convert,
                 addressing the new MonetarySupervisor Contract
-        2) transferAndNotify transfers user&#39;s old tokens to the current MonetarySupervisor contract&#39;s address
+        2) transferAndNotify transfers user's old tokens to the current MonetarySupervisor contract's address
         3) transferAndNotify calls MonetarySupervisor.transferNotification
         4) MonetarySupervisor checks if old AugmintToken is permitted
-        5) MonetarySupervisor issues new tokens to user&#39;s account in current AugmintToken
+        5) MonetarySupervisor issues new tokens to user's account in current AugmintToken
         6) MonetarySupervisor burns old tokens from own balance
     */
     function transferNotification(address from, uint amount, uint /* data, not used */ ) external {
@@ -975,7 +975,7 @@ contract LoanManager is Restricted {
         bool isActive;          // 5
     }
 
-    /* NB: we don&#39;t need to store loan parameters because loan products can&#39;t be altered (only disabled/enabled) */
+    /* NB: we don't need to store loan parameters because loan products can't be altered (only disabled/enabled) */
     struct LoanData {
         uint collateralAmount; // 0
         uint repaymentAmount; // 1
@@ -1069,9 +1069,9 @@ contract LoanManager is Restricted {
         emit NewLoan(productId, loanId, msg.sender, msg.value, loanAmount, repaymentAmount, maturity);
     }
 
-    /* repay loan, called from AugmintToken&#39;s transferAndNotify
+    /* repay loan, called from AugmintToken's transferAndNotify
      Flow for repaying loan:
-        1) user calls token contract&#39;s transferAndNotify loanId passed in data arg
+        1) user calls token contract's transferAndNotify loanId passed in data arg
         2) transferAndNotify transfers tokens to the Lender contract
         3) transferAndNotify calls Lender.transferNotification with lockProductId
     */
@@ -1084,8 +1084,8 @@ contract LoanManager is Restricted {
 
     function collect(uint[] loanIds) external {
         /* when there are a lots of loans to be collected then
-             the client need to call it in batches to make sure tx won&#39;t exceed block gas limit.
-         Anyone can call it - can&#39;t cause harm as it only allows to collect loans which they are defaulted
+             the client need to call it in batches to make sure tx won't exceed block gas limit.
+         Anyone can call it - can't cause harm as it only allows to collect loans which they are defaulted
          TODO: optimise defaulting fee calculations
         */
         uint totalLoanAmountCollected;

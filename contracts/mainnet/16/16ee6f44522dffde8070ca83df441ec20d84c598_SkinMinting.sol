@@ -384,7 +384,7 @@ contract SkinMarket is SkinMix {
         // Check whether this skin is on sale
         require(isOnSale[skinId] == true);
         
-        // Can only withdraw self&#39;s sale
+        // Can only withdraw self's sale
         require(skinIdToOwner[skinId] == msg.sender);
 
         // Withdraw
@@ -402,7 +402,7 @@ contract SkinMarket is SkinMix {
 
         address seller = skinIdToOwner[skinId];
 
-        // Check the sender isn&#39;t the seller
+        // Check the sender isn't the seller
         require(msg.sender != seller);
 
         uint256 _price = desiredPrice[skinId];
@@ -521,7 +521,7 @@ contract SkinMinting is SkinMarket {
     function summon() external payable whenNotPaused {
         // Clear daily summon numbers
         if (accountsLastClearTime[msg.sender] == uint256(0)) {
-            // This account&#39;s first time to summon, we do not need to clear summon numbers
+            // This account's first time to summon, we do not need to clear summon numbers
             accountsLastClearTime[msg.sender] = now;
         } else {
             if (accountsLastClearTime[msg.sender] < levelClearTime && now > levelClearTime) {

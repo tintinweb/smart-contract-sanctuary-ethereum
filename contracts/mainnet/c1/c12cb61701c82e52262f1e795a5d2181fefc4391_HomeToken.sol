@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -255,7 +255,7 @@ contract MintableToken is StandardToken, Ownable {
   }
 }
 
-/// @title The token for the Home Ethereum&#39;s acommodation platform. The totalSupply
+/// @title The token for the Home Ethereum's acommodation platform. The totalSupply
 /// of tokens gets incremented when tokens are bought
 /// @author Merunas Grincalaitis
 contract HomeToken is MintableToken {
@@ -275,7 +275,7 @@ contract HomeToken is MintableToken {
    /// @param _symbol The symbol of the token
    /// @param _decimals The decimals of the token
    /// @param initialSupply The initial amount of tokens created that will go to
-   /// the creator of the token and will be the `totalSupply` because it&#39;s a `MintableToken`
+   /// the creator of the token and will be the `totalSupply` because it's a `MintableToken`
    function HomeToken(string _name, string _symbol, uint8 _decimals, uint initialSupply) {
       require(bytes(_name).length > 0);
       require(bytes(_symbol).length > 0);

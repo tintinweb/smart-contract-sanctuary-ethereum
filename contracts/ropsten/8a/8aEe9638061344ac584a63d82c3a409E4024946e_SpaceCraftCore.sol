@@ -510,19 +510,19 @@ contract DroneOwnerShip is DroneBase{
     string public constant symbol = "SD";
 
     // ERC721, ERC165에 대한 InterfaceSignature
-    bytes4 constant InterfaceSignature_ERC165 = bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+    bytes4 constant InterfaceSignature_ERC165 = bytes4(keccak256('supportsInterface(bytes4)'));
 
     bytes4 constant InterfaceSignature_ERC721 =
-          bytes4(keccak256(&#39;name()&#39;)) ^
-          bytes4(keccak256(&#39;symbol()&#39;)) ^
-          bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-          bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-          bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-          bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-          bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-          bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-          bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-          bytes4(keccak256(&#39;tokenMetadata(uint256,string)&#39;));
+          bytes4(keccak256('name()')) ^
+          bytes4(keccak256('symbol()')) ^
+          bytes4(keccak256('totalSupply()')) ^
+          bytes4(keccak256('balanceOf(address)')) ^
+          bytes4(keccak256('ownerOf(uint256)')) ^
+          bytes4(keccak256('approve(address,uint256)')) ^
+          bytes4(keccak256('transfer(address,uint256)')) ^
+          bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+          bytes4(keccak256('tokensOfOwner(address)')) ^
+          bytes4(keccak256('tokenMetadata(uint256,string)'));
 
     // ERC-721 인터페이스를 적용하고 있는지 확인합니다.
     // ERC-165 and ERC-721.
@@ -872,16 +872,16 @@ contract ClockAuction is SpaceCraftAccessControl, ClockAuctionBase {
     ///  Ref: https://github.com/ethereum/EIPs/issues/165
     ///  Ref: https://github.com/ethereum/EIPs/issues/721
     bytes4 constant InterfaceSignature_ERC721 =
-        bytes4(keccak256(&#39;name()&#39;)) ^
-        bytes4(keccak256(&#39;symbol()&#39;)) ^
-        bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-        bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-        bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-        bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-        bytes4(keccak256(&#39;tokenMetadata(uint256,string)&#39;));
+        bytes4(keccak256('name()')) ^
+        bytes4(keccak256('symbol()')) ^
+        bytes4(keccak256('totalSupply()')) ^
+        bytes4(keccak256('balanceOf(address)')) ^
+        bytes4(keccak256('ownerOf(uint256)')) ^
+        bytes4(keccak256('approve(address,uint256)')) ^
+        bytes4(keccak256('transfer(address,uint256)')) ^
+        bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+        bytes4(keccak256('tokensOfOwner(address)')) ^
+        bytes4(keccak256('tokenMetadata(uint256,string)'));
 
     // 메인 계약의 주소를 셋팅하고, 경매 수수료를 설정합니다.
     function setClockAuction(address _nftAddress, uint256 _cut)
@@ -1119,8 +1119,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -1138,7 +1138,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }

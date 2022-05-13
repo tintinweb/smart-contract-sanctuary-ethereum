@@ -83,8 +83,8 @@ contract LockToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, LockToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;BtonCoin&#39;;
-        symbol = &#39;TON&#39;;
+        name = 'BtonCoin';
+        symbol = 'TON';
         decimals = 18;
         balanceOf[0xddf091e5f385aba4a2054ef1235a12908a0a8943] = totalSupply;
         Transfer(address(0), 0xddf091e5f385aba4a2054ef1235a12908a0a8943, totalSupply);

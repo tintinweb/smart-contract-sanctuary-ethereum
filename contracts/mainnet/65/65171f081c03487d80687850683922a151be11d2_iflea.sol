@@ -158,7 +158,7 @@ contract iflea is StandardToken, Ownable {
         transfer(WALLET_FOUNDER, ALLOC_FOUNDER);
     }
 	
-    // get contributors&#39; locked amount of token
+    // get contributors' locked amount of token
     // this lockup will be released in 8 batches which take place every 180 days
     function getLockedAmount_contributors(address _contributor) 
         public
@@ -180,7 +180,7 @@ contract iflea is StandardToken, Ownable {
         return 0;
     }
 
-    // get investors&#39; locked amount of token
+    // get investors' locked amount of token
     // this lockup will be released in 3 batches: 
     // 1. on delievery date
     // 2. three months after the delivery date

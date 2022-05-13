@@ -9,7 +9,7 @@ contract ETHLotteryInterface {
 }
 
 contract ETHLottery {
-    bytes32 public name = &#39;ETHLottery - Last 1 Byte Lottery&#39;;
+    bytes32 public name = 'ETHLottery - Last 1 Byte Lottery';
     address public manager_address;
     address public owner;
     bool public open;

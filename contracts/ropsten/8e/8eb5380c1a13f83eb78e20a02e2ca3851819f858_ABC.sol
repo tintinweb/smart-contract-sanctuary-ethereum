@@ -114,8 +114,8 @@ contract ABC is ERC20Interface, Pausable {
     }
 
     constructor() public{
-        symbol = &#39;ABC&#39;;
-        name = &#39;Alpha Block Coin&#39;;
+        symbol = 'ABC';
+        name = 'Alpha Block Coin';
         decimals = 18;
         _totalSupply = 100000000*10**uint(decimals);
         balances[owner] = _totalSupply;

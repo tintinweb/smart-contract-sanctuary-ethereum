@@ -76,7 +76,7 @@ contract RWQToken is StandardToken {
     string public name = "RWQToken";       //名称
     uint8 public decimals = 18;            //最多的小数位数
     string public symbol = "RWQ2";          //token简称
-    string public version = &#39;0.1&#39;;         //版本
+    string public version = '0.1';         //版本
 
     function RWQToken(uint256 _initialAmount)  {
         balances[msg.sender] = _initialAmount*10**uint256(decimals); // 初始token数量给予消息发送者

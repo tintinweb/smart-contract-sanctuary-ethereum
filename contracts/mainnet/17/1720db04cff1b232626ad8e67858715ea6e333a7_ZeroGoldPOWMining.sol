@@ -188,21 +188,21 @@ contract ZeroGoldPOWMining is Owned {
         /* Verify the next challenge is different from the current. */
         if (challengeNumber == futureChallengeNumber) {
             // NOTE This is likely the second time that merge() has been
-            //      called in a transaction, so return false (don&#39;t revert).
+            //      called in a transaction, so return false (don't revert).
             return false; 
         }
 
         /* Verify Parent::lastRewardTo == msg.sender. */
         if (miningLeader.lastRewardTo() != msg.sender) {
             // NOTE A different address called mint last 
-            //      so return false (don&#39;t revert).
+            //      so return false (don't revert).
             return false;
         }
             
         /* Verify Parent::lastRewardEthBlockNumber == block.number. */
         if (miningLeader.lastRewardEthBlockNumber() != block.number) {
             // NOTE parent::mint() was called in a different block number 
-            //      so return false (don&#39;t revert).
+            //      so return false (don't revert).
             return false;
         }
 
@@ -213,7 +213,7 @@ contract ZeroGoldPOWMining is Owned {
         bytes32 solution = solutionForChallenge[parentChallengeNumber];
         if (solution != 0x0) return false; // prevent the same answer from awarding twice
         
-        bytes32 digest = &#39;merge&#39;;
+        bytes32 digest = 'merge';
         solutionForChallenge[parentChallengeNumber] = digest;
 
         // We may safely run the relevant logic to give an award to the sender, 
@@ -242,14 +242,14 @@ contract ZeroGoldPOWMining is Owned {
         return true;
     }
 
-    /* Transfer the ZeroGold reward to our mining leader&#39;s payout wallets. */
+    /* Transfer the ZeroGold reward to our mining leader's payout wallets. */
     // NOTE This function will be called twice by MintHelper.merge(), 
     //      once for `minterWallet` and once for `payoutsWallet`.
     function transfer(
         address _wallet, 
         uint _reward
     ) external onlyMintHelper returns (bool) {
-        /* Verify our mining leader isn&#39;t trying to over reward its wallets. */
+        /* Verify our mining leader isn't trying to over reward its wallets. */
         if (_reward > lastRewardAmount) {
             return false;
         }
@@ -289,7 +289,7 @@ contract ZeroGoldPOWMining is Owned {
      */
     function () public payable {
         /* Cancel this transaction. */
-        revert(&#39;Oops! Direct payments are NOT permitted here.&#39;);
+        revert('Oops! Direct payments are NOT permitted here.');
     }
 
     /**

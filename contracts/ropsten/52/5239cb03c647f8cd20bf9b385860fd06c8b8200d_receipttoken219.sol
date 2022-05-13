@@ -589,7 +589,7 @@ function char(byte b) returns (byte c) {
   function GenerateFortuneCookie(uint8 randnum) internal pure returns(string)
   {
       string[48] memory arr = 
-["Today it&#39;s up to you to create the peacefulness you long for.",
+["Today it's up to you to create the peacefulness you long for.",
 "A friend asks only for your time not your money.",
 "If you refuse to accept anything but the best, you very often get it.",
 "A smile is your passport into the hearts of others.",
@@ -601,8 +601,8 @@ function char(byte b) returns (byte c) {
 "People are naturally attracted to you.",
 "A chance meeting opens new doors to success and friendship.",
 "You learn from your mistakes...You will learn a lot today.",
-"If you have something good in your life, don&#39;t let it go! ",
-"What ever you&#39;re goal is in life, embrace it visualize it, and for it will be yours.",
+"If you have something good in your life, don't let it go! ",
+"What ever you're goal is in life, embrace it visualize it, and for it will be yours.",
 "Your shoes will make you happy today.",
 "You cannot love life until you live the life you love.",
 "Be on the lookout for coming events; They cast their shadows beforehand.",
@@ -611,7 +611,7 @@ function char(byte b) returns (byte c) {
 "Meeting adversity well is the source of your strength.",
 "A dream you have will come true.",
 "Our deeds determine us, as much as we determine our deeds.",
-"Never give up. You&#39;re not a failure if you don&#39;t give up.",
+"Never give up. You're not a failure if you don't give up.",
 "You will become great if you believe in yourself.",
 "There is no greater pleasure than seeing your loved ones prosper.",
 "A very attractive person has a message for you.",

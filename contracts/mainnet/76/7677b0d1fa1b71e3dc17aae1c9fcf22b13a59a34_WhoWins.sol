@@ -26,7 +26,7 @@ contract WhoWins {
     // records block number of your last transaction
     mapping (address => uint256) public atBlock;
 
-    // records casino&#39;s address
+    // records casino's address
     address public house;
     constructor() public {
         house = msg.sender;

@@ -34,7 +34,7 @@ contract Ownable {
         @param _to Address of the new owner
     */
     function setOwner(address _to) external onlyOwner returns (bool) {
-        require(_to != address(0), "Owner can&#39;t be 0x0");
+        require(_to != address(0), "Owner can't be 0x0");
         owner = _to;
         emit SetOwner(_to);
         return true;
@@ -47,7 +47,7 @@ contract Ownable {
     @dev Defines the interface of a standard RCN oracle.
 
     The oracle is an agent in the RCN network that supplies a convertion rate between RCN and any other currency,
-    it&#39;s primarily used by the exchange but could be used by any other agent.
+    it's primarily used by the exchange but could be used by any other agent.
 */
 contract Oracle is Ownable {
     uint256 public constant VERSION = 4;
@@ -368,7 +368,7 @@ contract ERC721Base {
     //
 
     /**
-     * @dev Authorize a third party operator to manage (send) msg.sender&#39;s asset
+     * @dev Authorize a third party operator to manage (send) msg.sender's asset
      * @param operator address to be approved
      * @param authorized bool set to true to authorize, false to withdraw authorization
      */
@@ -499,7 +499,7 @@ contract ERC721Base {
     }
 
     /**
-     * @dev Alias of `safeTransferFrom(from, to, assetId, &#39;&#39;)`
+     * @dev Alias of `safeTransferFrom(from, to, assetId, '')`
      *
      * @param from address that currently owns an asset
      * @param to address to receive the ownership of the asset
@@ -512,7 +512,7 @@ contract ERC721Base {
     /**
      * @dev Securely transfers the ownership of a given asset from one address to
      * another address, calling the method `onNFTReceived` on the target address if
-     * there&#39;s code associated with it
+     * there's code associated with it
      *
      * @param from address that currently owns an asset
      * @param to address to receive the ownership of the asset
@@ -653,12 +653,12 @@ contract ERC721Base {
 
 contract SafeWithdraw is Ownable {
     function withdrawTokens(Token token, address to, uint256 amount) external onlyOwner returns (bool) {
-        require(to != address(0), "Can&#39;t transfer to address 0x0");
+        require(to != address(0), "Can't transfer to address 0x0");
         return token.transfer(to, amount);
     }
     
     function withdrawErc721(ERC721Base token, address to, uint256 id) external onlyOwner returns (bool) {
-        require(to != address(0), "Can&#39;t transfer to address 0x0");
+        require(to != address(0), "Can't transfer to address 0x0");
         token.transferFrom(this, to, id);
     }
     
@@ -813,7 +813,7 @@ contract MortgageManager is Cosigner, ERC721Base, SafeWithdraw, BytesUtils {
 
         This cosigner does not have any risk or maintenance cost, so its free.
 
-        @return 0, because it&#39;s free
+        @return 0, because it's free
     */
     function cost(address, uint256, bytes, bytes) public view returns (uint256) {
         return 0;
@@ -874,7 +874,7 @@ contract MortgageManager is Cosigner, ERC721Base, SafeWithdraw, BytesUtils {
                (msg.sender == engine.getCreator(loanId) && creators[msg.sender]),
             "Creator should be borrower or authorized");
         require(engine.isApproved(loanId), "Loan is not approved");
-        require(rcn.allowance(borrower, this) >= REQUIRED_ALLOWANCE, "Manager cannot handle borrower&#39;s funds");
+        require(rcn.allowance(borrower, this) >= REQUIRED_ALLOWANCE, "Manager cannot handle borrower's funds");
         require(tokenConverter != address(0), "Token converter not defined");
         require(loanToLiability[engine][loanId] == 0, "Liability for loan already exists");
 
@@ -995,7 +995,7 @@ contract MortgageManager is Cosigner, ERC721Base, SafeWithdraw, BytesUtils {
         land.setUpdateOperator(mortgage.landId, mortgage.owner);
 
         // Calculate the remaining amount to send to the borrower and 
-        // check that we didn&#39;t expend any contract funds.
+        // check that we didn't expend any contract funds.
         uint256 totalMana = boughtMana.add(mortgage.deposit);        
         uint256 rest = totalMana.sub(currentLandCost);
 
@@ -1050,9 +1050,9 @@ contract MortgageManager is Cosigner, ERC721Base, SafeWithdraw, BytesUtils {
         uint256 mortgageId = loanToLiability[engine][loanId];
         Mortgage storage mortgage = mortgages[mortgageId];
 
-        // Validate that the mortgage wasn&#39;t claimed
+        // Validate that the mortgage wasn't claimed
         require(mortgage.status == Status.Ongoing, "Mortgage not ongoing");
-        require(mortgage.loanId == loanId, "Mortgage don&#39;t match loan id");
+        require(mortgage.loanId == loanId, "Mortgage don't match loan id");
 
         if (mortgage.engine.getStatus(loanId) == Engine.Status.paid || mortgage.engine.getStatus(loanId) == Engine.Status.destroyed) {
             // The mortgage is paid

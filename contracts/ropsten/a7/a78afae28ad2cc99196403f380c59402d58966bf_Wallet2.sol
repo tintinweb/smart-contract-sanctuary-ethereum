@@ -135,7 +135,7 @@ contract Wallet2 is WalletStorage, LoanApprover {
     }
 
     function settleApproveRequest(bytes,bytes,bool,uint256) external returns (bytes32) {
-        revert(&#39;Not implemented&#39;);
+        revert('Not implemented');
     }
 
     function() public payable {}

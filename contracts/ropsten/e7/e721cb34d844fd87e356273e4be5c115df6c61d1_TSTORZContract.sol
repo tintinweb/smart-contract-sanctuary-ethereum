@@ -1045,7 +1045,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1055,7 +1055,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1087,7 +1087,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1110,7 +1110,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1142,15 +1142,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1187,13 +1187,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1263,8 +1263,8 @@ contract Token  {
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -1328,9 +1328,9 @@ contract TSTORZContract is StandardToken, usingOraclize { // CHANGE THIS. Update
     string public name;                   // Token Name
     uint8 public decimals;                // How many decimals to show. To be standard complicant keep it 18
     string public symbol;                 // An identifier: eg SBX, XPR etc..
-    string public version = &#39;V1.0&#39;; 
+    string public version = 'V1.0'; 
     uint256 public unitsOneEthCanBuy;     // How many units of your coin can be bought by 1 ETH?
-    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.  
+    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.  
     address public fundsWallet;           // Where should the raised ETH go?
 
     // This is a constructor function 
@@ -1371,7 +1371,7 @@ contract TSTORZContract is StandardToken, usingOraclize { // CHANGE THIS. Update
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { throw; }
@@ -1384,7 +1384,7 @@ contract TSTORZContract is StandardToken, usingOraclize { // CHANGE THIS. Update
    event LogNewOraclizeQuery(string description);
 
    function TSTOraclzAPI() payable {
-       LogConstructorInitiated("Constructor was initiated. Call &#39;updatePrice()&#39; to send the Oraclize Query.");
+       LogConstructorInitiated("Constructor was initiated. Call 'updatePrice()' to send the Oraclize Query.");
    }
 
    function __callback(bytes32 myid, string result) {

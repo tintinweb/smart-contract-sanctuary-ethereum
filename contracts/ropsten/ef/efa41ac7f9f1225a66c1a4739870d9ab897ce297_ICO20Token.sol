@@ -58,9 +58,9 @@ contract ICO20Token is owned,IERC20{
     
     uint256 public _totalSupply = 40000000000000000000000;
  
-    string public constant symbol = &#39;ICO&#39;;
+    string public constant symbol = 'ICO';
 
-    string public constant name = &#39;ICO20Token&#39;;
+    string public constant name = 'ICO20Token';
     
     uint8 public constant decimals = 14;
     

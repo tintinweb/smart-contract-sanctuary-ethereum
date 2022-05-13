@@ -5,12 +5,12 @@ pragma solidity ^0.4.24;
 
   Purpose:
   I wanted a way for etherless accounts to transact with the blockchain through an identity proxy without paying gas.
-  I&#39;m sure there are many examples of something like this already deployed that work a lot better, this is just me learning.
+  I'm sure there are many examples of something like this already deployed that work a lot better, this is just me learning.
     (I would love feedback: https://twitter.com/austingriffith)
 
   1) An etherless account crafts a meta transaction and signs it
   2) A (properly incentivized) relay account submits the transaction to the BouncerProxy and pays the gas
-  3) If the meta transaction is valid AND the etherless account is a valid &#39;Bouncer&#39;, the transaction is executed
+  3) If the meta transaction is valid AND the etherless account is a valid 'Bouncer', the transaction is executed
       (and the sender is paid in arbitrary tokens from the signer)
 
   Inspired by:
@@ -27,24 +27,24 @@ pragma solidity ^0.4.24;
 
 //use case 1:
 //you deploy the bouncer proxy and use it as a standard identity for your own etherless accounts
-//  (multiple devices you don&#39;t want to store eth on or move private keys to will need to be added as Bouncers)
+//  (multiple devices you don't want to store eth on or move private keys to will need to be added as Bouncers)
 //you run your own relayer and the rewardToken is 0
 
 //use case 2:
 //you deploy the bouncer proxy and use it as a standard identity for your own etherless accounts
-//  (multiple devices you don&#39;t want to store eth on or move private keys to will need to be added as Bouncers)
+//  (multiple devices you don't want to store eth on or move private keys to will need to be added as Bouncers)
 //  a community if relayers are incentivized by the rewardToken to pay the gas to run your transactions for you
 //SEE: universal logins via @avsa
 
 //use case 3:
 //you deploy the bouncer proxy and use it to let third parties submit transactions as a standard identity
-//  (multiple developer accounts will need to be added as Bouncers to &#39;whitelist&#39; them to make meta transactions)
+//  (multiple developer accounts will need to be added as Bouncers to 'whitelist' them to make meta transactions)
 //you run your own relayer and pay for all of their transactions, revoking any bad actors if needed
 //SEE: GitCoin (via @owocki) wants to pay for some of the initial transactions of their Developers to lower the barrier to entry
 
 //use case 4:
 //you deploy the bouncer proxy and use it to let third parties submit transactions as a standard identity
-//  (multiple developer accounts will need to be added as Bouncers to &#39;whitelist&#39; them to make meta transactions)
+//  (multiple developer accounts will need to be added as Bouncers to 'whitelist' them to make meta transactions)
 //you run your own relayer and pay for all of their transactions, revoking any bad actors if needed
 
 // NICK: TODO:
@@ -80,7 +80,7 @@ contract GasBoy {
   function forward(bytes sig, address signer, address destination, uint value, bytes data, address rewardToken, uint rewardAmount) public {
       //the hash contains all of the information about the meta transaction to be called
       bytes32 _hash = getHash(signer, destination, value, data, rewardToken, rewardAmount);
-      //increment the hash so this tx can&#39;t run again
+      //increment the hash so this tx can't run again
       nonce[signer]++;
       //this makes sure signer signed correctly AND signer is a valid bouncer
       require(signerIsWhitelisted(_hash,sig),"GasBoy::forward Signer is not whitelisted");
@@ -107,7 +107,7 @@ contract GasBoy {
     }
   }
 
-  //borrowed from OpenZeppelin&#39;s ESDA stuff:
+  //borrowed from OpenZeppelin's ESDA stuff:
   //https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/cryptography/ECDSA.sol
   function signerIsWhitelisted(bytes32 _hash, bytes _signature) internal view returns (bool){
     bytes32 r;

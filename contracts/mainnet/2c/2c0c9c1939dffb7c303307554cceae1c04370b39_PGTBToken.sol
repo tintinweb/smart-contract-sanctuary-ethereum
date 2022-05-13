@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -81,7 +81,7 @@ contract Token {
 You should inherit from StandardToken or, for a token like you would want to
 deploy in something like Mist, see HumanStandardToken.sol.
 (This implements ONLY the standard functions and NOTHING else.
-If you deploy this, you won&#39;t have anything useful.)
+If you deploy this, you won't have anything useful.)
 
 Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 .*/
@@ -175,7 +175,7 @@ contract HumanStandardToken is StandardToken {
 	//How many decimals to show. ie.
     string public symbol;      
 	//An identifier: eg PGTB
-    string public version = &#39;H0.1&#39;;  
+    string public version = 'H0.1';  
 	//human 0.1 standard. Just an arbitrary versioning scheme.
 
     function HumanStandardToken (

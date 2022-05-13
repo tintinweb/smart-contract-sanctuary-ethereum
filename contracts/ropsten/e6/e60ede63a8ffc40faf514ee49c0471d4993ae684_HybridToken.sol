@@ -114,7 +114,7 @@ contract HybridToken is HybridInterface  {
     }
 
     // =========================================================================
-    // Transfer the balance from token owner&#39;s account to `to` account
+    // Transfer the balance from token owner's account to `to` account
 
     // ------------------------------------------------------------------------
 
@@ -171,14 +171,14 @@ contract HybridToken is HybridInterface  {
     }
     // =========================================================================
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
 
     // ------------------------------------------------------------------------
 
     // - Part of ERC20 pattern that is used to notify contracts that they are
     // about to receive some tokens.
     // - This function is called by the SENDER so that the receiving contract can
-    // use transferFrom() function and take out tokens from sender&#39;s wallet
+    // use transferFrom() function and take out tokens from sender's wallet
 
     // ------------------------------------------------------------------------
 
@@ -211,7 +211,7 @@ contract HybridToken is HybridInterface  {
 
     // =========================================================================
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // =========================================================================
     function allowance(address tokenOwner, address spender) public view returns (uint256 remaining) {
         return allowed[tokenOwner][spender];
@@ -224,7 +224,7 @@ contract HybridToken is HybridInterface  {
     // - Part of ERC20 pattern that is used to notify contracts that they are
     // about to receive some tokens.
     // - This function is called by the RECEVING contract to take out tokens
-    // from sender&#39;s wallet
+    // from sender's wallet
 
     // ------------------------------------------------------------------------
 
@@ -264,7 +264,7 @@ contract HybridToken is HybridInterface  {
 
     // =========================================================================
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
 
     // ------------------------------------------------------------------------
@@ -280,7 +280,7 @@ contract HybridToken is HybridInterface  {
     }
 
     // ========================================================================
-    // Transfer the balance from token owner&#39;s account to `to` account .
+    // Transfer the balance from token owner's account to `to` account .
 
     // ------------------------------------------------------------------------
 
@@ -430,7 +430,7 @@ contract HybridToken is HybridInterface  {
         }
     }
     // =========================================================================
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // =========================================================================
     function () public payable
     {

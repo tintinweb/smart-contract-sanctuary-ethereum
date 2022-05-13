@@ -68,7 +68,7 @@ contract DSExec {
 }
 
 ////// lib/ds-note/src/note.sol
-/// note.sol -- the `note&#39; modifier, for logging calls as events
+/// note.sol -- the `note' modifier, for logging calls as events
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -146,7 +146,7 @@ contract DSSpell is DSExec, DSNote {
         mana = mana_;
         data = data_;
     }
-    // Only marked &#39;done&#39; if CALL succeeds (not exceptional condition).
+    // Only marked 'done' if CALL succeeds (not exceptional condition).
     function cast() public note {
         require(!done, "ds-spell-already-cast");
         exec(whom, data, mana);

@@ -7,7 +7,7 @@ contract GayCoin {
     // mapping (address => mapping (address => uint256)) public allowance;
     mapping (address => mapping (address => uint256)) allowed;
 
-    string public standard = &#39;Gay Coin Standart&#39;;
+    string public standard = 'Gay Coin Standart';
     string public constant name = "GayCoin";
     string public constant symbol = "GAY";
     uint   public constant decimals = 18;

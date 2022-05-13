@@ -140,14 +140,14 @@ contract HasDistributorHandler is Ownable {
     }
 
     function setTokenDistributor (distributorContractVersion _distributorVersion, address _tokenDistributor) public onlyOwner returns (bool) {
-      require(tokenDistributor == 0x0, &#39;Token Distributor already set&#39;);
+      require(tokenDistributor == 0x0, 'Token Distributor already set');
       distributorVersion = _distributorVersion;
       tokenDistributor = _tokenDistributor;
       return true;
     }
 
     function distribute () public returns (bool) {
-        require(tokenDistributor != 0x0, &#39;Token Distributor not set&#39;);
+        require(tokenDistributor != 0x0, 'Token Distributor not set');
 
         if (distributorVersion == distributorContractVersion.v2) {
           /* TODO Check functionaliy and optimize  */
@@ -196,7 +196,7 @@ contract TokenHandler is Ownable {
     }
 
     function setTargetToken (address _targetToken) public onlyOwner returns (bool) {
-      require(targetToken == 0x0, &#39;Target token already set&#39;);
+      require(targetToken == 0x0, 'Target token already set');
       targetToken = _targetToken;
       return true;
     }
@@ -240,14 +240,14 @@ contract VestingHandler is TokenHandler {
     }
 
     function setVestingContract (vestingContractVersion _version, address _vestingContract) public onlyOwner returns (bool) {
-        require(vestingContract == 0x0, &#39;Vesting Contract already set&#39;);
+        require(vestingContract == 0x0, 'Vesting Contract already set');
         vestingContract = _vestingContract;
         targetVersion = _version;
         return true;
     }
 
     function _releaseVesting (vestingContractVersion _version, address _vestingContract, address _targetToken) internal returns (bool) {
-        require(_targetToken != 0x0, &#39;Target token not set&#39;);
+        require(_targetToken != 0x0, 'Target token not set');
         if (_version == vestingContractVersion.v1) {
             return _releaseVesting (_version, _vestingContract);
         } else if (_version == vestingContractVersion.v2){
@@ -259,7 +259,7 @@ contract VestingHandler is TokenHandler {
 
     function _releaseVesting (vestingContractVersion _version, address _vestingContract) internal returns (bool) {
         if (_version != vestingContractVersion.v1) {
-            revert(&#39;You need to pass in the additional argument(s)&#39;);
+            revert('You need to pass in the additional argument(s)');
         }
         IVestingContract(_vestingContract).release();
         return true;
@@ -274,7 +274,7 @@ contract VestingHandler is TokenHandler {
     }
 
     function release () public returns (bool){
-        require(vestingContract != 0x0, &#39;Vesting Contract not set&#39;);
+        require(vestingContract != 0x0, 'Vesting Contract not set');
         return _releaseVesting(targetVersion, vestingContract, targetToken);
     }
 

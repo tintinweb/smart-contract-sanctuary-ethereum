@@ -99,7 +99,7 @@ contract StandardToken is Token {
 }
 
 
-//name this contract whatever you&#39;d like
+//name this contract whatever you'd like
 contract FlowchainToken is StandardToken, Mintable {
 
     /* Public variables of the token */
@@ -160,7 +160,7 @@ contract FlowchainToken is StandardToken, Mintable {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
 
         ApproveAndCallReceiver(_spender).receiveApproval(msg.sender, _value, this, _extraData);
 

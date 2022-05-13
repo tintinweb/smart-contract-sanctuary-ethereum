@@ -69,7 +69,7 @@ contract Aikcoin {
         uint amountRaised;                                     
         amountRaised += msg.value;                            //many thanks bois, couldnt do it without r/me_irl
         require(balanceOf[creator] >= amount);               // checks if it has enough to sell
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= amount;                        // sends ETH to AikcoinCoinMint
         Transfer(creator, msg.sender, amount);               // execute an event reflecting the change
         creator.transfer(amountRaised);

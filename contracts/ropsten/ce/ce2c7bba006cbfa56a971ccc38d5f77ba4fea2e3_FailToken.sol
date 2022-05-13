@@ -22,7 +22,7 @@ Minting structure:
         --transfer 1-10 FAIL tokens from alice to bob, alice will mint 1-10 FAIL tokens and bob will receive 1-10 FAIL tokens, also pool contract will receive 1 FAIL token
         --transfer 11+ FAIL tokens from alice to bob, alice will mint 10 FAIL tokens and bob will receive 11+ FAIL tokens, also pool contract will receive 2 FAIL tokens 
 
- After cap will be reached, if totalSupply between 250 000 and 500 000  each time a FAIL token is transferred, 2% of the transaction is destroyed(it&#39;s rounded because token has 0 decimals ) 
+ After cap will be reached, if totalSupply between 250 000 and 500 000  each time a FAIL token is transferred, 2% of the transaction is destroyed(it's rounded because token has 0 decimals ) 
         --transfer 1 FAIL token from alice to bob, bob will receive 0 FAIL tokens, 1 token will be burned
         --transfer 2 FAIL token from alice to bob, bob will receive 0 FAIL tokens, 2 tokens will be burned
         --transfer 3-100 FAIL tokens from alice to bob, bob will receive 1-98 FAIL tokens, 2 tokens will be burned

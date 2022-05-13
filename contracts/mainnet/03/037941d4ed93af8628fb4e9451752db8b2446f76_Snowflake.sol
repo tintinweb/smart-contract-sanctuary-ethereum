@@ -64,7 +64,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -191,7 +191,7 @@ contract Snowflake is Ownable {
         _;
     }
 
-    // gets the HydroID for an address (throws if address doesn&#39;t have a HydroID or doesn&#39;t have a snowflake)
+    // gets the HydroID for an address (throws if address doesn't have a HydroID or doesn't have a snowflake)
     function getHydroId(address _address) public view returns (string hydroId) {
         require(hasToken(_address), "The address does not have a hydroId");
         return addressDirectory[_address];
@@ -444,7 +444,7 @@ contract Snowflake is Ownable {
         _withdraw(hydroIdFrom, to, amount);
     }
 
-    // allows resolvers to send withdrawal amounts to arbitrary smart contracts &#39;to&#39; hydroIds (throws if unsuccessful)
+    // allows resolvers to send withdrawal amounts to arbitrary smart contracts 'to' hydroIds (throws if unsuccessful)
     function withdrawSnowflakeBalanceFromVia(
         string hydroIdFrom, address via, string hydroIdTo, uint amount, bytes _bytes
     ) public {
@@ -454,7 +454,7 @@ contract Snowflake is Ownable {
         viaContract.snowflakeCall(msg.sender, hydroIdFrom, hydroIdTo, amount, _bytes);
     }
 
-    // allows resolvers to send withdrawal amounts &#39;to&#39; addresses via arbitrary smart contracts 
+    // allows resolvers to send withdrawal amounts 'to' addresses via arbitrary smart contracts 
     function withdrawSnowflakeBalanceFromVia(
         string hydroIdFrom, address via, address to, uint amount, bytes _bytes
     ) public {
@@ -502,7 +502,7 @@ contract Snowflake is Ownable {
     // address ownership functions
     // to claim an address, users need to send a transaction from their snowflake address containing a sealed claim
     // sealedClaims are: keccak256(abi.encodePacked(<address>, <secret>, <hydroId>)),
-    // where <address> is the address you&#39;d like to claim, and <secret> is a SECRET bytes32 value.
+    // where <address> is the address you'd like to claim, and <secret> is a SECRET bytes32 value.
     function initiateClaimDelegated(string hydroId, bytes32 sealedClaim, uint8 v, bytes32 r, bytes32 s) public {
         require(directory[hydroId].owner != address(0), "Must initiate claim for a HydroID with a Snowflake");
 
@@ -529,10 +529,10 @@ contract Snowflake is Ownable {
     function finalizeClaim(bytes32 secret, string hydroId) public {
         bytes32 possibleSealedClaim = keccak256(abi.encodePacked(msg.sender, secret, hydroId));
         require(
-            bytes(initiatedAddressClaims[possibleSealedClaim]).length != 0, "This sealed claim hasn&#39;t been submitted."
+            bytes(initiatedAddressClaims[possibleSealedClaim]).length != 0, "This sealed claim hasn't been submitted."
         );
 
-        // ensure that the claim wasn&#39;t stolen by another HydroID during initialization
+        // ensure that the claim wasn't stolen by another HydroID during initialization
         require(
             keccak256(abi.encodePacked(initiatedAddressClaims[possibleSealedClaim])) ==
             keccak256(abi.encodePacked(hydroId)),

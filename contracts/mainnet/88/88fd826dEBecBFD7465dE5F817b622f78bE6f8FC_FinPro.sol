@@ -248,7 +248,7 @@ contract FinPro is Ownable {
         emit WrongTokenEmptied(_addr, msg.sender, amount);
     }
 
-    // shouldn&#39;t happen, just in case
+    // shouldn't happen, just in case
     function emptyWrongEther() onlyOwner public {
         uint256 amount = address(this).balance;
         require(amount > 0);

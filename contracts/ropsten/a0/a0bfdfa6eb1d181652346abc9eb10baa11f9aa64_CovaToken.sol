@@ -43,8 +43,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -62,7 +62,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     require(_b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -115,8 +115,8 @@ contract CovaToken is ERC20 {
   mapping (address => mapping (address => uint256)) private allowed;
 
   uint256 private totalSupply_ = 65 * (10 ** (8 + 18));
-  string private constant name_ = &#39;Covalent Token&#39;;                                 // Set the token name for display
-  string private constant symbol_ = &#39;COVA&#39;;                                         // Set the token symbol for display
+  string private constant name_ = 'Covalent Token';                                 // Set the token name for display
+  string private constant symbol_ = 'COVA';                                         // Set the token symbol for display
   uint8 private constant decimals_ = 18;                                          // Set the number of decimals for display
   
 
@@ -198,7 +198,7 @@ contract CovaToken is ERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.

@@ -9,7 +9,7 @@ pragma solidity ^0.4.18;
         function div(uint256 a, uint256 b) internal pure returns (uint256) {
             // assert(b > 0); // Solidity automatically throws when dividing by 0
             uint256 c = a / b;
-            // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+            // assert(a == b * c + a % b); // There is no case in which this doesn't hold
             return c;
         }
     
@@ -93,9 +93,9 @@ pragma solidity ^0.4.18;
     contract GAGARIN is Crowdsale {
         
             using SafeMath for uint256;
-            string  public name        = &#39;GAGARIN&#39;;
-    	    string  public symbol      = &#39;GAGAR&#39;;
-    	    string  public standard    = &#39;GAGARIN.MEN&#39;;
+            string  public name        = 'GAGARIN';
+    	    string  public symbol      = 'GAGAR';
+    	    string  public standard    = 'GAGARIN.MEN';
             
     	    uint8   public decimals    = 18;
     	    mapping (address => mapping (address => uint256)) internal allowed;

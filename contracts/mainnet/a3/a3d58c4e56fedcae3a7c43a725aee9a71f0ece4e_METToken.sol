@@ -51,7 +51,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -1143,7 +1143,7 @@ contract Auctions is Pricer, Owned {
         _lastPurchasePrice = lastPurchasePrice;
     }
 
-    /// @notice Skip Initialization and minting if we&#39;re not the OG Metronome
+    /// @notice Skip Initialization and minting if we're not the OG Metronome
     /// @param _token MET token contract address
     /// @param _proceeds Address of Proceeds contract
     /// @param _genesisTime The block.timestamp when first auction started on OG chain
@@ -1582,7 +1582,7 @@ contract Auctions is Pricer, Owned {
         return ((whichAuction(_tick)) * 1 days) / timeScale + dailyAuctionStartTime - 1 days;
     }
 
-    /// @notice start the next day&#39;s auction
+    /// @notice start the next day's auction
     function restartAuction() private {
         uint time;
         uint price;
@@ -1601,7 +1601,7 @@ contract Auctions is Pricer, Owned {
 }
 
 
-/// @title This contract serves as a locker for a founder&#39;s tokens
+/// @title This contract serves as a locker for a founder's tokens
 contract TokenLocker is Ownable {
     using SafeMath for uint;
     uint internal constant QUARTER = 91 days + 450 minutes;

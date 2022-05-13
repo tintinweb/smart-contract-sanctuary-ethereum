@@ -462,8 +462,8 @@ contract BaseInvestmentCompany is  Beneficiary, DebugNow, Owner
 
 
     // количество wei в одном токене
-    // (1 ETH = 1&#39;000&#39;000&#39;000&#39;000&#39;000&#39;000 wei)
-    // (1 ERC20 Token = 1&#39;000&#39;000&#39;000&#39;000&#39;000&#39;000 wei)
+    // (1 ETH = 1'000'000'000'000'000'000 wei)
+    // (1 ERC20 Token = 1'000'000'000'000'000'000 wei)
     uint256 public constant     WEI_COUNT_IN_ONE_TOKEN = uint256(10) ** decimals;
 
     //Размер минимальной инвестиции

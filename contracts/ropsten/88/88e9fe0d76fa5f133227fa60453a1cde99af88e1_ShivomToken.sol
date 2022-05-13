@@ -13,7 +13,7 @@ pragma solidity ^0.4.24;
  * https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
  * Originally based on code by FirstBlood: https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
 
-Write an Ethereum smart contract that can record a user&#39;s public address as having granted permission to another user’s public address. 
+Write an Ethereum smart contract that can record a user's public address as having granted permission to another user’s public address. 
 Assume that the contract will eventually be used by a DApp where users can grant permission and other users can check if they have permission for some entity(Token).
 
 Only the user calling the contract can grant permission for its public address. 
@@ -131,7 +131,7 @@ constructor() public {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -192,8 +192,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -209,8 +209,8 @@ library SafeMath {
     * @dev Multiplies two signed integers, reverts on overflow.
     */
     function mul(int256 a, int256 b) internal pure returns (int256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -231,7 +231,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }

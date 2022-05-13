@@ -12,7 +12,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
   function sub(uint256 a, uint256 b) internal pure returns (uint256) {
@@ -47,8 +47,8 @@ contract DCoin is ERC20Interface {
   using SafeMath for uint;
 
   // State variables
-  string public name = "D&#39;Coin";
-  string public symbol = &#39;DCO&#39;;
+  string public name = "D'Coin";
+  string public symbol = 'DCO';
   uint public decimals = 6;
   address public owner;
   uint public maxCoinCap = 200000000 * (10 ** 6);
@@ -128,7 +128,7 @@ contract DCoin is ERC20Interface {
   // ------------------------------------------------------------------------
   /* 
     While changing approval, the allowed must be changed to 0 than then to updated value
-    The smart contract doesn&#39;t enforces this due to backward competibility but requires frontend to do the validations
+    The smart contract doesn't enforces this due to backward competibility but requires frontend to do the validations
    */
   function approve(address _spender, uint _value) unfreezed(_spender) unfreezed(msg.sender) noEmergencyFreeze() public returns (bool success) {
     require((_value == 0) || (allowed[msg.sender][_spender] == 0));
@@ -150,7 +150,7 @@ contract DCoin is ERC20Interface {
     }
 
   // ------------------------------------------------------------------------
-  // Transferred approved amount from other&#39;s account
+  // Transferred approved amount from other's account
   // ------------------------------------------------------------------------
   function transferFrom(address _from, address _to, uint _value) unfreezed(_to) unfreezed(_from) unfreezed(msg.sender) noEmergencyFreeze() public returns (bool success) {
     require(_value <= allowed[_from][msg.sender]);

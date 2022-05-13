@@ -44,7 +44,7 @@ contract Token {
 You should inherit from StandardToken or, for a token like you would want to
 deploy in something like Mist, see HumanStandardToken.sol.
 (This implements ONLY the standard functions and NOTHING else.
-If you deploy this, you won&#39;t have anything useful.)
+If you deploy this, you won't have anything useful.)
 
 Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 .*/
@@ -116,7 +116,7 @@ contract BLOCKMALL is StandardToken {
     uint256 private constant _INITIAL_SUPPLY = 100000000*10**uint256(decimals);
     uint8 public decimals = 18;         
     uint256 public totalSupply;            
-    //string public version = &#39;H0.1&#39;;
+    //string public version = 'H0.1';
 
     function BLOCKMALL(
     ) public {

@@ -175,7 +175,7 @@ contract FundWallet {
         reserve = _reserve;
     }
 
-    /// @notice Fallback function - recieves ETH but doesn&#39;t alter contributor stakes or raised balance.
+    /// @notice Fallback function - recieves ETH but doesn't alter contributor stakes or raised balance.
     function() public payable {
     }
 

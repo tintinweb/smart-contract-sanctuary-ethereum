@@ -171,7 +171,7 @@ contract CvcProxy is ImplementationStorage {
 
     /**
      * @dev Delegates execution to an implementation contract.
-     * This is a low level function that doesn&#39;t return to its internal call site.
+     * This is a low level function that doesn't return to its internal call site.
      * It will return to the external caller whatever the implementation returns.
      * @param _implementation Address to delegate.
      */
@@ -297,7 +297,7 @@ contract Ownable {
 /**
 * @title CvcMigrator
 * @dev This is a system contract which provides transactional upgrade functionality.
-* It allows the ability to add &#39;upgrade transactions&#39; for multiple proxy contracts and execute all of them in single transaction.
+* It allows the ability to add 'upgrade transactions' for multiple proxy contracts and execute all of them in single transaction.
 */
 contract CvcMigrator is Ownable {
 
@@ -320,7 +320,7 @@ contract CvcMigrator is Ownable {
     * @dev Store migration record for the next migration
     * @param _proxy Proxy address
     * @param _implementation Implementation address
-    * @param _data Pass-through to proxy&#39;s updateToAndCall
+    * @param _data Pass-through to proxy's updateToAndCall
     */
     function addUpgrade(address _proxy, address _implementation, bytes _data) external onlyOwner {
         require(AddressUtils.isContract(_implementation), "Migrator error: no contract code at new implementation address");
@@ -375,7 +375,7 @@ contract CvcMigrator is Ownable {
     * @param _index 0-based index
     * @return address Proxy address
     * @return address Implementation address
-    * @return bytes Pass-through to proxy&#39;s updateToAndCall
+    * @return bytes Pass-through to proxy's updateToAndCall
     */
     function getMigration(uint256 _index) external view returns (address, address, bytes) {
         return (migrations[_index].proxy, migrations[_index].implementation, migrations[_index].data);

@@ -69,7 +69,7 @@ contract POOHWHALE
         uint256 POOHethInContract = address(poohContract).balance;
         uint256 ethToTransfer = address(this).balance;
         
-        // if contract balance is less than 5 ETH, party&#39;s over...
+        // if contract balance is less than 5 ETH, party's over...
         if(POOHethInContract < 5000000000000000000)
         {
             poohContract.exit();

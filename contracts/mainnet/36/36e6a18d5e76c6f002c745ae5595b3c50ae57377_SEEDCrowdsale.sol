@@ -66,8 +66,8 @@ contract TokenController {
 
 /// @title MiniMeToken Contract
 /// @author Jordi Baylina
-/// @dev This token contract&#39;s goal is to make it easy for anyone to clone this
-///  token using the token distribution at a given block, this will allow DAO&#39;s
+/// @dev This token contract's goal is to make it easy for anyone to clone this
+///  token using the token distribution at a given block, this will allow DAO's
 ///  and DApps to upgrade their features in a decentralized manner without
 ///  affecting the original token
 /// @dev It is ERC20 compliant, but still needs to under go further testing.
@@ -83,10 +83,10 @@ contract ApproveAndCallFallBack {
 ///  token controller contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Controlled {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
-    string public version = &#39;MMT_0.2&#39;; //An arbitrary versioning scheme
+    string public version = 'MMT_0.2'; //An arbitrary versioning scheme
 
 
     /// @dev `Checkpoint` is the structure that attaches a block number to a
@@ -249,7 +249,7 @@ contract MiniMeToken is Controlled {
 
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public constant returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -524,7 +524,7 @@ contract MiniMeToken is Controlled {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token controller contract
     function () public payable {
@@ -682,7 +682,7 @@ contract Whitelist is Ownable {
   event WhitelistedAddressRemoved(address addr);
 
   /**
-   * @dev Throws if called by any account that&#39;s not whitelisted.
+   * @dev Throws if called by any account that's not whitelisted.
    */
   modifier onlyWhitelisted() {
     require(whitelist[msg.sender]);
@@ -720,7 +720,7 @@ contract Whitelist is Ownable {
    * @dev remove an address from the whitelist
    * @param addr address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address addr) onlyOwner public returns(bool success) {
     if (whitelist[addr]) {
@@ -734,7 +734,7 @@ contract Whitelist is Ownable {
    * @dev remove addresses from the whitelist
    * @param addrs addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] addrs) onlyOwner public returns(bool success) {
     for (uint256 i = 0; i < addrs.length; i++) {
@@ -817,7 +817,7 @@ contract SEEDWhitelist is Whitelist {
    * @dev remove an address from the whitelist
    * @param addr address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address addr) onlyAdmin public returns(bool success) {
     if (whitelist[addr]) {
@@ -831,7 +831,7 @@ contract SEEDWhitelist is Whitelist {
    * @dev remove addresses from the whitelist
    * @param addrs addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] addrs) onlyAdmin public returns(bool success) {
     for (uint256 i = 0; i < addrs.length; i++) {
@@ -868,7 +868,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

@@ -692,7 +692,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -734,7 +734,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -879,7 +879,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -889,7 +889,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -921,7 +921,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -944,7 +944,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -976,15 +976,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1021,13 +1021,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1085,7 +1085,7 @@ contract multiowned {
         // count of confirmations needed
         uint yetNeeded;
 
-        // bitmap of confirmations where owner #ownerIndex&#39;s decision corresponds to 2**ownerIndex bit
+        // bitmap of confirmations where owner #ownerIndex's decision corresponds to 2**ownerIndex bit
         uint ownersDone;
 
         // position of this operation key in m_multiOwnedPendingIndex
@@ -1120,8 +1120,8 @@ contract multiowned {
         if (confirmAndCheck(_operation)) {
             _;
         }
-        // Even if required number of confirmations has&#39;t been collected yet,
-        // we can&#39;t throw here - because changes to the state have to be preserved.
+        // Even if required number of confirmations has't been collected yet,
+        // we can't throw here - because changes to the state have to be preserved.
         // But, confirmAndCheck itself will throw in case sender is not an owner.
     }
 
@@ -1274,14 +1274,14 @@ contract multiowned {
 
     /// @notice checks if provided address is an owner address
     /// @param _addr address to check
-    /// @return true if it&#39;s an owner
+    /// @return true if it's an owner
     function isOwner(address _addr) public constant returns (bool) {
         return m_ownerIndex[_addr] > 0;
     }
 
     /// @notice Tests ownership of the current caller.
-    /// @return true if it&#39;s an owner
-    // It&#39;s advisable to call it by new owner to make sure that the same erroneous address is not copy-pasted to
+    /// @return true if it's an owner
+    // It's advisable to call it by new owner to make sure that the same erroneous address is not copy-pasted to
     // addOwner/changeOwner and to isOwner.
     function amIOwner() external constant onlyowner returns (bool) {
         return true;
@@ -1329,14 +1329,14 @@ contract multiowned {
     {
         if (512 == m_multiOwnedPendingIndex.length)
             // In case m_multiOwnedPendingIndex grows too much we have to shrink it: otherwise at some point
-            // we won&#39;t be able to do it because of block gas limit.
+            // we won't be able to do it because of block gas limit.
             // Yes, pending confirmations will be lost. Dont see any security or stability implications.
             // TODO use more graceful approach like compact or removal of clearPending completely
             clearPending();
 
         var pending = m_multiOwnedPending[_operation];
 
-        // if we&#39;re not yet working on this operation, switch over and reset the confirmation status.
+        // if we're not yet working on this operation, switch over and reset the confirmation status.
         if (! isOperationActive(_operation)) {
             // reset count of confirmations needed.
             pending.yetNeeded = m_multiOwnedRequired;
@@ -1349,7 +1349,7 @@ contract multiowned {
 
         // determine the bit to set for this owner.
         uint ownerIndexBit = makeOwnerBitmapBit(msg.sender);
-        // make sure we (the message sender) haven&#39;t confirmed this operation previously.
+        // make sure we (the message sender) haven't confirmed this operation previously.
         if (pending.ownersDone & ownerIndexBit == 0) {
             // ok - check if count is enough to go ahead.
             assert(pending.yetNeeded > 0);
@@ -1386,7 +1386,7 @@ contract multiowned {
             // swap, if possible, so free slot is located at the end after the swap
             if (free < m_numOwners && m_owners[m_numOwners] != 0 && m_owners[free] == 0)
             {
-                // owners between swapped slots should&#39;t be renumbered - that saves a lot of gas
+                // owners between swapped slots should't be renumbered - that saves a lot of gas
                 m_owners[free] = m_owners[m_numOwners];
                 m_ownerIndex[m_owners[free]] = free;
                 m_owners[m_numOwners] = 0;
@@ -1475,7 +1475,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -1512,10 +1512,10 @@ contract EthPriceDependent is usingOraclize, multiowned {
     {
         oraclize_setProof(proofType_TLSNotary | proofStorage_IPFS);
         if (!_production) {
-            // Use it when testing with testrpc and etherium bridge. Don&#39;t forget to change address
+            // Use it when testing with testrpc and etherium bridge. Don't forget to change address
             OAR = OraclizeAddrResolverI(0x6f485C8BF6fc43eA212E93BBF8ce046C7f1cb475);
         } else {
-            // Don&#39;t call this while testing as it&#39;s too long and gets in the way
+            // Don't call this while testing as it's too long and gets in the way
             updateETHPriceInCents();
         }
     }
@@ -1527,7 +1527,7 @@ contract EthPriceDependent is usingOraclize, multiowned {
     /// if price is out of bounds - updating attempts continue
     function updateETHPriceInCents() public payable {
         // prohibit running multiple instances of update
-        // however don&#39;t throw any error, because it&#39;s called from __callback as well
+        // however don't throw any error, because it's called from __callback as well
         // and we need to let it update the price anyway, otherwise there is an attack possibility
         if ( !updateRequestExpired() ) {
             NewOraclizeQuery("Oraclize request fail. Previous one still pending");
@@ -1580,7 +1580,7 @@ contract EthPriceDependent is usingOraclize, multiowned {
         m_ETHPriceLowerBound = _price;
     }
 
-    /// @notice set the price of ETH in cents, called in case we don&#39;t get oraclize data
+    /// @notice set the price of ETH in cents, called in case we don't get oraclize data
     ///         for more than double the update interval
     /// @param _price Price in US cents
     function setETHPriceManually(uint _price)
@@ -1644,7 +1644,7 @@ contract EthPriceDependent is usingOraclize, multiowned {
     /// @notice unix timestamp of last update
     uint public m_ETHPriceLastUpdate;
     /// @notice unix timestamp of last update request,
-    ///         don&#39;t allow requesting more than once per update interval
+    ///         don't allow requesting more than once per update interval
     uint public m_ETHPriceLastUpdateRequest;
 
     /// @notice lower bound of the ETH price in cents
@@ -1777,7 +1777,7 @@ contract BoomstarterPresale is ArgumentsChecker, ReentrancyGuard, EthPriceDepend
 
     event FundTransfer(address backer, uint amount, bool isContribution);
 
-    /// @dev checks that owners didn&#39;t finish the sale yet
+    /// @dev checks that owners didn't finish the sale yet
     modifier onlyIfSaleIsActive() {
         require(m_active == true);
         _;
@@ -1827,7 +1827,7 @@ contract BoomstarterPresale is ArgumentsChecker, ReentrancyGuard, EthPriceDepend
 
     /**
      * @notice presale participation. Can buy tokens only in batches by one price
-     *         if price changes mid-transaction, you&#39;ll get only the amount for initial price
+     *         if price changes mid-transaction, you'll get only the amount for initial price
      *         and the rest will be refunded
      */
     function buy()
@@ -1837,7 +1837,7 @@ contract BoomstarterPresale is ArgumentsChecker, ReentrancyGuard, EthPriceDepend
         onlyIfSaleIsActive
         checkLimitsAndDates
     {
-        // don&#39;t allow to buy anything if price change was too long ago
+        // don't allow to buy anything if price change was too long ago
         // effectively enforcing a sale pause
         require( !priceExpired() );
         address investor = msg.sender;
@@ -1856,7 +1856,7 @@ contract BoomstarterPresale is ArgumentsChecker, ReentrancyGuard, EthPriceDepend
         uint centsPerToken;
         if (m_currentTokensSold < c_priceRiseTokenAmount) {
             centsPerToken = c_centsPerTokenFirst;
-            // don&#39;t let price rise happen during this transaction - cap at price change value
+            // don't let price rise happen during this transaction - cap at price change value
             cap = c_priceRiseTokenAmount;
         } else {
             centsPerToken = c_centsPerTokenSecond;
@@ -1909,7 +1909,7 @@ contract BoomstarterPresale is ArgumentsChecker, ReentrancyGuard, EthPriceDepend
         require( m_nextSale != address(0) );
         // cannot accept ether anymore
         m_active = false;
-        // send remaining oraclize ether to the next sale - we don&#39;t need oraclize anymore
+        // send remaining oraclize ether to the next sale - we don't need oraclize anymore
         EthPriceDependent next = EthPriceDependent(m_nextSale);
         next.topUp.value(this.balance)();
         // transfer all remaining tokens to the next sale account

@@ -65,7 +65,7 @@ contract SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -237,8 +237,8 @@ contract DetherAccessControl {
     //
     // It should be noted that these roles are distinct without overlap in their access abilities, the
     // abilities listed for each role above are exhaustive. In particular, while the CEO can assign any
-    // address to any role, the CEO address itself doesn&#39;t have the ability to act in those roles. This
-    // restriction is intentional so that we aren&#39;t tempted to use the CEO address frequently out of
+    // address to any role, the CEO address itself doesn't have the ability to act in those roles. This
+    // restriction is intentional so that we aren't tempted to use the CEO address frequently out of
     // convenience. The less we use an address, the less likely it is that we somehow compromise the
     // account.
 
@@ -343,7 +343,7 @@ contract DetherAccessControl {
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
     function unpause() public onlyCEO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 }
@@ -499,7 +499,7 @@ library BytesLib {
     function concatStorage(bytes storage _preBytes, bytes memory _postBytes) internal {
         assembly {
             // Read the first 32 bytes of _preBytes storage, which is the length
-            // of the array. (We don&#39;t need to use the offset into the slot
+            // of the array. (We don't need to use the offset into the slot
             // because arrays use the entire slot.)
             let fslot := sload(_preBytes_slot)
             // Arrays of 31 bytes or less have an even value in their slot,
@@ -513,7 +513,7 @@ library BytesLib {
             let mlength := mload(_postBytes)
             let newlength := add(slength, mlength)
             // slength can contain both the length and contents of the array
-            // if length < 32 bytes so let&#39;s prepare for that
+            // if length < 32 bytes so let's prepare for that
             // v. http://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage
             switch add(lt(slength, 32), lt(newlength, 32))
             case 2 {
@@ -649,15 +649,15 @@ library BytesLib {
                 // word read from the original array. To read it, we calculate
                 // the length of that partial word and start copying that many
                 // bytes into the array. The first word we copy will start with
-                // data we don&#39;t care about, but the last `lengthmod` bytes will
+                // data we don't care about, but the last `lengthmod` bytes will
                 // land at the beginning of the contents of the new array. When
-                // we&#39;re done copying, we overwrite the full first word with
+                // we're done copying, we overwrite the full first word with
                 // the actual length of the slice.
                 let lengthmod := and(_length, 31)
 
                 // The multiplication in the next line is necessary
                 // because when slicing multiples of 32 bytes (lengthmod == 0)
-                // the following copy loop was copying the origin&#39;s length
+                // the following copy loop was copying the origin's length
                 // and then ending prematurely not copying everything it should.
                 let mc := add(add(tempBytes, lengthmod), mul(0x20, iszero(lengthmod)))
                 let end := add(mc, _length)
@@ -679,7 +679,7 @@ library BytesLib {
                 //allocating the array padded to 32 bytes like the compiler does now
                 mstore(0x40, and(add(mc, 31), not(31)))
             }
-            //if we want a zero-length slice let&#39;s just return a zero-length array
+            //if we want a zero-length slice let's just return a zero-length array
             default {
                 tempBytes := mload(0x40)
 
@@ -772,12 +772,12 @@ library BytesLib {
         assembly {
             let length := mload(_preBytes)
 
-            // if lengths don&#39;t match the arrays are not equal
+            // if lengths don't match the arrays are not equal
             switch eq(length, mload(_postBytes))
             case 1 {
-                // cb is a circuit breaker in the for loop since there&#39;s
+                // cb is a circuit breaker in the for loop since there's
                 //  no said feature for inline assembly loops
-                // cb = 1 - don&#39;t breaker
+                // cb = 1 - don't breaker
                 // cb = 0 - break
                 let cb := 1
 
@@ -819,11 +819,11 @@ library BytesLib {
             let slength := div(and(fslot, sub(mul(0x100, iszero(and(fslot, 1))), 1)), 2)
             let mlength := mload(_postBytes)
 
-            // if lengths don&#39;t match the arrays are not equal
+            // if lengths don't match the arrays are not equal
             switch eq(slength, mlength)
             case 1 {
                 // slength can contain both the length and contents of the array
-                // if length < 32 bytes so let&#39;s prepare for that
+                // if length < 32 bytes so let's prepare for that
                 // v. http://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage
                 if iszero(iszero(slength)) {
                     switch lt(slength, 32)
@@ -837,9 +837,9 @@ library BytesLib {
                         }
                     }
                     default {
-                        // cb is a circuit breaker in the for loop since there&#39;s
+                        // cb is a circuit breaker in the for loop since there's
                         //  no said feature for inline assembly loops
-                        // cb = 1 - don&#39;t breaker
+                        // cb = 1 - don't breaker
                         // cb = 0 - break
                         let cb := 1
 
@@ -1132,7 +1132,7 @@ contract DetherCore is DetherSetup, ERC223ReceivingContract, SafeMath {
     // send eth to the receiver from the bank contract
     bank.withdrawEth(msg.sender, _to, _amount);
     // increase reput for the buyer and the seller Only if the buyer is also whitelisted,
-    // It&#39;s a way to incentive user to trade on the system
+    // It's a way to incentive user to trade on the system
     if (smsCertifier.certified(_to)) {
       volumeBuy[_to] = SafeMath.add(volumeBuy[_to], _amount);
       volumeSell[msg.sender] = SafeMath.add(volumeSell[msg.sender], _amount);

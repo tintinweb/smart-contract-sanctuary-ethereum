@@ -91,15 +91,15 @@ contract JungleScratch is Owned {
         uint game_result = 0;
         uint[] memory RandomResult = new uint[](9);
         
-        RandomResult[0] = uint(keccak256("Pig World is an AWESOME team",secretKey_D,&#39;a&#39;,local_.SecretKey_P)) % 1000 + 1;
-        RandomResult[1] = uint(keccak256(local_.SecretKey_P,"Every Game in our world is provably fair",secretKey_D,&#39;b&#39;)) % 1000 + 1;
-        RandomResult[2] = uint(keccak256(&#39;c&#39;,secretKey_D,"OMG it is a revolution dapp",local_.SecretKey_P)) % 1000 + 1;
-        RandomResult[3] = uint(keccak256(secretKey_D,"hahahaha",local_.SecretKey_P,&#39;d&#39;,"thanks for our team member and all player support.")) % 1000 + 1;
-        RandomResult[4] = uint(keccak256("CC is our CEO",secretKey_D,"he can eat Betel nut",local_.SecretKey_P,&#39;e&#39;)) % 1000 + 1;
-        RandomResult[5] = uint(keccak256(20180612,"justin is our researcher",secretKey_D,"and he love little girl(at least 18, so it is ok)",local_.SecretKey_P,&#39;f&#39;)) % 1000 + 1;
-        RandomResult[6] = uint(keccak256("jeremy is our marketing",secretKey_D,&#39;g&#39;,local_.SecretKey_P,"he is very humble and serious")) % 1000 + 1;
-        RandomResult[7] = uint(keccak256(&#39;h&#39;,secretKey_D,"We are a geek team",local_.SecretKey_P,"we love blockchain")) % 1000 + 1;
-        RandomResult[8] = uint(keccak256(secretKey_D,"hope you win a big prize",local_.SecretKey_P,"love you all!!!",&#39;i&#39;)) % 1000 + 1;
+        RandomResult[0] = uint(keccak256("Pig World is an AWESOME team",secretKey_D,'a',local_.SecretKey_P)) % 1000 + 1;
+        RandomResult[1] = uint(keccak256(local_.SecretKey_P,"Every Game in our world is provably fair",secretKey_D,'b')) % 1000 + 1;
+        RandomResult[2] = uint(keccak256('c',secretKey_D,"OMG it is a revolution dapp",local_.SecretKey_P)) % 1000 + 1;
+        RandomResult[3] = uint(keccak256(secretKey_D,"hahahaha",local_.SecretKey_P,'d',"thanks for our team member and all player support.")) % 1000 + 1;
+        RandomResult[4] = uint(keccak256("CC is our CEO",secretKey_D,"he can eat Betel nut",local_.SecretKey_P,'e')) % 1000 + 1;
+        RandomResult[5] = uint(keccak256(20180612,"justin is our researcher",secretKey_D,"and he love little girl(at least 18, so it is ok)",local_.SecretKey_P,'f')) % 1000 + 1;
+        RandomResult[6] = uint(keccak256("jeremy is our marketing",secretKey_D,'g',local_.SecretKey_P,"he is very humble and serious")) % 1000 + 1;
+        RandomResult[7] = uint(keccak256('h',secretKey_D,"We are a geek team",local_.SecretKey_P,"we love blockchain")) % 1000 + 1;
+        RandomResult[8] = uint(keccak256(secretKey_D,"hope you win a big prize",local_.SecretKey_P,"love you all!!!",'i')) % 1000 + 1;
         
         for (uint n = 0; n < 9; n++) {
             

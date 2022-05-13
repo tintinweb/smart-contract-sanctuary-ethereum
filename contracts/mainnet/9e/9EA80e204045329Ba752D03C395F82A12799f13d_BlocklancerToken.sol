@@ -71,7 +71,7 @@ contract BlocklancerToken is ERC20Interface {
     mapping (address => uint) lastTransferred;
     
     //needed to refund everyone should the ICO fail
-    // needed because the price per LNC isn&#39;t linear
+    // needed because the price per LNC isn't linear
     mapping (address => uint256) balancesEther;
 
     //address of the contract that manages the migration
@@ -107,11 +107,11 @@ contract BlocklancerToken is ERC20Interface {
 
     /// allows to transfer token to another address
     function transfer(address _to, uint256 _value) returns (bool success) {
-        // Don&#39;t allow in funding state
+        // Don't allow in funding state
         if(funding) throw;
 
         var senderBalance = balances[msg.sender];
-        //only allow if the balance of the sender is more than he want&#39;s to send
+        //only allow if the balance of the sender is more than he want's to send
         if (senderBalance >= _value && _value > 0) {
             //reduce the sender balance by the amount he sends
             senderBalance -= _value;
@@ -247,7 +247,7 @@ contract BlocklancerToken is ERC20Interface {
         // Do not allow creating 0 or more than the cap tokens.
         if(msg.value == 0) throw;
         
-        //don&#39;t allow to create more token than the maximum cap
+        //don't allow to create more token than the maximum cap
         if((msg.value  * getExchangeRate()) > (tokenCreationCap - totalTokens)) throw;
 
         //calculate the amount of LNC the sender receives

@@ -5,30 +5,30 @@ pragma solidity 0.4.25;
 *============================================================================================*
 *   
 *                            ,-.----.           ,--,              
-*                            \    /  \        ,--.&#39;|    ,---,     
-*                            |   :    \    ,--,  | :  .&#39;  .&#39; `\   
-*                            |   |  .\ :,---.&#39;|  : &#39;,---.&#39;     \  
+*                            \    /  \        ,--.'|    ,---,     
+*                            |   :    \    ,--,  | :  .'  .' `\   
+*                            |   |  .\ :,---.'|  : ',---.'     \  
 *                            .   :  |: |;   : |  | ;|   |  .`\  | 
-*                            |   |   \ :|   | : _&#39; |:   : |  &#39;  | 
-*                            |   : .   /:   : |.&#39;  ||   &#39; &#39;  ;  : 
-*                            ;   | |`-&#39; |   &#39; &#39;  ; :&#39;   | ;  .  | 
-*                            |   | ;    \   \  .&#39;. ||   | :  |  &#39; 
-*                            :   &#39; |     `---`:  | &#39;&#39;   : | /  ;  
-*                            :   : :          &#39;  ; ||   | &#39;` ,/   
-*                            |   | :          |  : ;;   :  .&#39;     
-*                            `---&#39;.|          &#39;  ,/ |   ,.&#39;       
-*                              `---`          &#39;--&#39;  &#39;---&#39;         
+*                            |   |   \ :|   | : _' |:   : |  '  | 
+*                            |   : .   /:   : |.'  ||   ' '  ;  : 
+*                            ;   | |`-' |   ' '  ; :'   | ;  .  | 
+*                            |   | ;    \   \  .'. ||   | :  |  ' 
+*                            :   ' |     `---`:  | ''   : | /  ;  
+*                            :   : :          '  ; ||   | '` ,/   
+*                            |   | :          |  : ;;   :  .'     
+*                            `---'.|          '  ,/ |   ,.'       
+*                              `---`          '--'  '---'         
 *                _____ _            _   _              __  __ _      _       _     
 *               |_   _| |          | | | |            / _|/ _(_)    (_)     | |    
 *                 | | | |__   ___  | | | |_ __   ___ | |_| |_ _  ___ _  __ _| |    
-*                 | | | &#39;_ \ / _ \ | | | | &#39;_ \ / _ \|  _|  _| |/ __| |/ _` | |    
+*                 | | | '_ \ / _ \ | | | | '_ \ / _ \|  _|  _| |/ __| |/ _` | |    
 *                 | | | | | |  __/ | |_| | | | | (_) | | | | | | (__| | (_| | |    
 *                 \_/ |_| |_|\___|  \___/|_| |_|\___/|_| |_| |_|\___|_|\__,_|_|    
 *                                                                                  
 *               ______ ___________   _____                           _             
 *               | ___ \____ |  _  \ |  ___|                         (_)            
 *               | |_/ /   / / | | | | |____  ___ __   __ _ _ __  ___ _  ___  _ __  
-*               |  __/    \ \ | | | |  __\ \/ / &#39;_ \ / _` | &#39;_ \/ __| |/ _ \| &#39;_ \ 
+*               |  __/    \ \ | | | |  __\ \/ / '_ \ / _` | '_ \/ __| |/ _ \| '_ \ 
 *               | |   .___/ / |/ /  | |___>  <| |_) | (_| | | | \__ \ | (_) | | | |
 *               \_|   \____/|___/   \____/_/\_\ .__/ \__,_|_| |_|___/_|\___/|_| |_|
 *                                             | |                                  
@@ -39,12 +39,12 @@ pragma solidity 0.4.25;
 *                               _T/L              _LT|L/_|__L_|_L_
 *                             _Ll/l_L_          _TL|_T/_L_|__T__|_l_
 *                           _TLl/T_l|_L_      _LL|_Tl/_|__l___L__L_|L_
-*                         _LT_L/L_|_L_l_L_  _&#39;|_|_|T/_L_l__T _ l__|__|L_
+*                         _LT_L/L_|_L_l_L_  _'|_|_|T/_L_l__T _ l__|__|L_
 *                       _Tl_L|/_|__|_|__T _LlT_|_Ll/_l_ _|__[ ]__|__|_l_L_
 *                ..__ _LT_l_l/|__|__l_T _T_L|_|_|l/___|__ | _l__|_ |__|_T_L_  __
 *                   _       ___            _                  _       ___       
 *                  /_\     / __\___  _ __ | |_ _ __ __ _  ___| |_    / __\_   _ 
-*                 //_\\   / /  / _ \| &#39;_ \| __| &#39;__/ _` |/ __| __|  /__\// | | |
+*                 //_\\   / /  / _ \| '_ \| __| '__/ _` |/ __| __|  /__\// | | |
 *                /  _  \ / /__| (_) | | | | |_| | | (_| | (__| |_  / \/  \ |_| |
 *                \_/ \_/ \____/\___/|_| |_|\__|_|  \__,_|\___|\__| \_____/\__, |
 *                                   ╔═╗╔═╗╦      ╔╦╗╔═╗╦  ╦               |___/ 
@@ -65,11 +65,11 @@ pragma solidity 0.4.25;
 *      -> If the referrer has more than 10,000 P4D tokens, they will get 1/3 of the 10% divs
 *      -> If the referrer also has more than 100 P3D tokens, they will be used as the ref
 *         on the buy order to P3D and receive 1/3 of the 10% P3D divs upon purchase
-*  [x] As this contract holds P3D, it will receive ETH dividends proportional to it&#39;s
+*  [x] As this contract holds P3D, it will receive ETH dividends proportional to it's
 *      holdings, this ETH is then distributed to all P4D token holders proportionally
 *  [x] On top of the ETH divs from P3D, you will also receive P3D divs from buys and sells
 *      in the P4D exchange
-*  [x] There&#39;s a 10% div tax for buys, a 5% div tax on sells and a 0% tax on transfers
+*  [x] There's a 10% div tax for buys, a 5% div tax on sells and a 0% tax on transfers
 *  [x] No auto-transfers for dividends or subdividends, they will all be stored until
 *      either withdraw() or reinvest() are called, this makes it easier for external
 *      contracts to calculate how much they received upon a withdraw/reinvest
@@ -319,7 +319,7 @@ contract P4D {
         // calculateTokensReceived() for this contract will return how many tokens can be bought starting at 1e9 P3D per P4D
         // as the price increases by the incremental each time we can just multiply it out and scale it back to e18
         //
-        // this is used as the initial P3D-P4D price as it makes it fairer on other investors that aren&#39;t ambassadors
+        // this is used as the initial P3D-P4D price as it makes it fairer on other investors that aren't ambassadors
         uint256 _P4D_received;
         (, _P4D_received) = calculateTokensReceived(ambassadorQuota_);
         tokenPriceInitial_ = tokenPriceIncremental_ * _P4D_received / 1e18;
@@ -376,7 +376,7 @@ contract P4D {
         // can be mutated with that limit
         // address(this).balance will represent the total amount
         // of ETH dividends from the P3D contract (minus the amount
-        // that&#39;s already been withdrawn)
+        // that's already been withdrawn)
     }
 
     /**
@@ -397,7 +397,7 @@ contract P4D {
 
     /**
      * Allows a customer to pay for a global name on the P4D network
-     * There&#39;s a 0.01 ETH registration fee per name
+     * There's a 0.01 ETH registration fee per name
      * All ETH is distributed to P4D token holders via updateSubdivsFor()
      */
     function registerName(string memory _name)
@@ -433,7 +433,7 @@ contract P4D {
     }
 
     /**
-     * Change your active name to a name that you&#39;ve already purchased
+     * Change your active name to a name that you've already purchased
      */
     function changeActiveNameTo(string memory _name)
         public
@@ -469,9 +469,9 @@ contract P4D {
     }
 
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      * The argument is not used but it allows MetaMask to render
-     * &#39;Reinvest&#39; in your transactions list once the function sig
+     * 'Reinvest' in your transactions list once the function sig
      * is registered to the contract at;
      * https://etherscan.io/address/0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86#writeContract
      */
@@ -487,7 +487,7 @@ contract P4D {
     }
 
     /**
-     * Converts a portion of caller&#39;s dividends to tokens.
+     * Converts a portion of caller's dividends to tokens.
      */
     function reinvestAmount(uint256 _amountOfP3D)
         public
@@ -508,9 +508,9 @@ contract P4D {
     }
 
     /**
-     * Converts all of caller&#39;s subdividends to tokens.
+     * Converts all of caller's subdividends to tokens.
      * The argument is not used but it allows MetaMask to render
-     * &#39;Reinvest Subdivs&#39; in your transactions list once the function sig
+     * 'Reinvest Subdivs' in your transactions list once the function sig
      * is registered to the contract at;
      * https://etherscan.io/address/0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86#writeContract
      */
@@ -526,7 +526,7 @@ contract P4D {
     }
 
     /**
-     * Converts a portion of caller&#39;s subdividends to tokens.
+     * Converts a portion of caller's subdividends to tokens.
      */
     function reinvestSubdivsAmount(uint256 _amountOfETH)
         public
@@ -550,7 +550,7 @@ contract P4D {
     /**
      * Alias of sell(), withdraw() and withdrawSubdivs().
      * The argument is not used but it allows MetaMask to render
-     * &#39;Exit&#39; in your transactions list once the function sig
+     * 'Exit' in your transactions list once the function sig
      * is registered to the contract at;
      * https://etherscan.io/address/0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86#writeContract
      */
@@ -570,7 +570,7 @@ contract P4D {
     /**
      * Withdraws all of the callers dividend earnings.
      * The argument is not used but it allows MetaMask to render
-     * &#39;Withdraw&#39; in your transactions list once the function sig
+     * 'Withdraw' in your transactions list once the function sig
      * is registered to the contract at;
      * https://etherscan.io/address/0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86#writeContract
      */
@@ -612,7 +612,7 @@ contract P4D {
     /**
      * Withdraws all of the callers subdividend earnings.
      * The argument is not used but it allows MetaMask to render
-     * &#39;Withdraw Subdivs&#39; in your transactions list once the function sig
+     * 'Withdraw Subdivs' in your transactions list once the function sig
      * is registered to the contract at;
      * https://etherscan.io/address/0x44691B39d1a75dC4E0A0346CBB15E310e6ED1E86#writeContract
      */
@@ -1146,7 +1146,7 @@ contract P4D {
     ==========================================*/
 
     // This function should always be called before a customers P4D balance changes.
-    // It&#39;s responsible for withdrawing any outstanding ETH dividends from the P3D exchange
+    // It's responsible for withdrawing any outstanding ETH dividends from the P3D exchange
     // as well as distrubuting all of the additional ETH balance since the last update to
     // all of the P4D token holders proportionally.
     // After this it will move any owed subdividends into the customers withdrawable subdividend balance.
@@ -1298,7 +1298,7 @@ contract P4D {
             _fee = _dividends * magnitude;
         }
 
-        // we can&#39;t give people infinite P3D
+        // we can't give people infinite P3D
         if(tokenSupply_ > 0){
 
             // add tokens to the pool
@@ -1318,8 +1318,8 @@ contract P4D {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[_sender] = SafeMath.add(tokenBalanceLedger_[_sender], _amountOfTokens);
 
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        // really I know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        // really I know you think you do but you don't
         payoutsTo_[_sender] += (int256)((profitPerShare_ * _amountOfTokens) - _fee);
 
         // fire events
@@ -1331,7 +1331,7 @@ contract P4D {
 
     /**
      * Calculate token price based on an amount of incoming P3D
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function P3DtoTokens_(uint256 _P3D_received)
@@ -1365,7 +1365,7 @@ contract P4D {
 
     /**
      * Calculate token sell value.
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function tokensToP3D_(uint256 _P4D_tokens)
@@ -1483,7 +1483,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

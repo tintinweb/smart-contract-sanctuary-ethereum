@@ -175,7 +175,7 @@ contract PlayerBook is Ownable {
     }
 
     function addMeToGame(uint256 _gameID) public isHuman {
-        require(_gameID <= gID_, "silly player, that game doesn&#39;t exist yet");
+        require(_gameID <= gID_, "silly player, that game doesn't exist yet");
 
         address _addr = msg.sender;
 

@@ -39,7 +39,7 @@ contract EtherStruct is owned {
 	}
 
 	function increaseWorldLimit(uint newWorldLimitX, uint newWorldLimitY, uint newWorldLimitZ) external onlyOwner {
-		// Ensure we can&#39;t shrink the world to make cubes inaccessible
+		// Ensure we can't shrink the world to make cubes inaccessible
 		require(newWorldLimitX >= worldLimitX && newWorldLimitY >= worldLimitY && newWorldLimitZ >= worldLimitZ);
 
 		// Set the new world limit

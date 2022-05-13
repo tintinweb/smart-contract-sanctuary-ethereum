@@ -19,8 +19,8 @@ contract PaulSportsCoin {
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function PaulSportsCoin() {
       owner = 0xC5E4efdFa02980DBE9892D3236765DA543Da150C;
-      name = &#39;Paul Sports Coin&#39;;
-      symbol = &#39;PS&#39;;
+      name = 'Paul Sports Coin';
+      symbol = 'PS';
       decimals = 18;
       totalSupply = 24000000000000000000000000000;  // 240e26
       balanceOf[owner] = 24000000000000000000000000000;

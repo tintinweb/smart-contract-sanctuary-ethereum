@@ -310,7 +310,7 @@ contract WrapEtheremon is WrapEtheremonInterface, Utils2 {
         address kyberAddress = address(_kyber);
         uint monsterInETH = catchVerify(_kyber, _etheremon, _classId, token, tokenQty);
 
-        // Get the starting token balance of the player&#39;s wallet
+        // Get the starting token balance of the player's wallet
         uint startTokenBalance = token.balanceOf(this);
 
         // Mitigate ERC20 Approve front-running attack, by initially setting
@@ -326,10 +326,10 @@ contract WrapEtheremon is WrapEtheremonInterface, Utils2 {
         // Check that the player has transferred the token to this contract
         require(token.transferFrom(msg.sender, this, tokenQty));
 
-        // Swap player&#39;s token to ETH to send to Etheremon payments contract
+        // Swap player's token to ETH to send to Etheremon payments contract
         uint userETH = _kyber.tradeWithHint(token, tokenQty, ETH_TOKEN_ADDRESS, address(this), maxDestQty, minRate, walletId, "");
 
-        // Check that the use&#39;s ETH >= monsterInETH
+        // Check that the use's ETH >= monsterInETH
         require(userETH >= monsterInETH);
 
         // Acquire the monster and send to player
@@ -385,7 +385,7 @@ contract WrapEtheremon is WrapEtheremonInterface, Utils2 {
 
     /// @dev Calculates token change and returns to player
     /// @param token ERC20 token address
-    /// @param startTokenBalance Starting token balance of the player&#39;s wallet
+    /// @param startTokenBalance Starting token balance of the player's wallet
     function calcPlayerChange(ERC20 token, uint startTokenBalance) private {
         // Calculate change of player
         uint change = token.balanceOf(this) - startTokenBalance;

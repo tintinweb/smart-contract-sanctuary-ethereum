@@ -70,7 +70,7 @@ contract Engine {
     @dev Defines the interface of a standard RCN oracle.
 
     The oracle is an agent in the RCN network that supplies a convertion rate between RCN and any other currency,
-    it&#39;s primarily used by the exchange but could be used by any other agent.
+    it's primarily used by the exchange but could be used by any other agent.
 */
 contract Oracle is Ownable {
     uint256 public constant VERSION = 4;
@@ -330,7 +330,7 @@ contract ERC721Base {
     //
 
     /**
-     * @dev Authorize a third party operator to manage (send) msg.sender&#39;s asset
+     * @dev Authorize a third party operator to manage (send) msg.sender's asset
      * @param operator address to be approved
      * @param authorized bool set to true to authorize, false to withdraw authorization
      */
@@ -461,7 +461,7 @@ contract ERC721Base {
     }
 
     /**
-     * @dev Alias of `safeTransferFrom(from, to, assetId, &#39;&#39;)`
+     * @dev Alias of `safeTransferFrom(from, to, assetId, '')`
      *
      * @param from address that currently owns an asset
      * @param to address to receive the ownership of the asset
@@ -474,7 +474,7 @@ contract ERC721Base {
     /**
      * @dev Securely transfers the ownership of a given asset from one address to
      * another address, calling the method `onNFTReceived` on the target address if
-     * there&#39;s code associated with it
+     * there's code associated with it
      *
      * @param from address that currently owns an asset
      * @param to address to receive the ownership of the asset
@@ -674,7 +674,7 @@ contract LoanEngine is Ownable, ERC721Base {
         string metadata
     ) public returns (uint256) {
         require(deprecated == address(0), "The engine is deprectaed");
-        require(borrower != address(0), "Borrower can&#39;t be 0x0");
+        require(borrower != address(0), "Borrower can't be 0x0");
         require(interestRatePunitory != 0, "P Interest rate wrong encoded");
         require(requestExpiration > now, "Request is already expired");
         require(installmentDuration > 0, "Installment should have a duration");
@@ -876,7 +876,7 @@ contract LoanEngine is Ownable, ERC721Base {
 
         emit AccruedInterest(loan.clock, delta, runningDebt, newInterest, loan.paid, loan.paidBase);
 
-        // Don&#39;t change clock unless we have a change
+        // Don't change clock unless we have a change
         if (newInterest > 0 || delta == nextInstallmentDelta) {
             loan.clock += delta;
             return true;
@@ -906,7 +906,7 @@ contract LoanEngine is Ownable, ERC721Base {
     function fixAdvance(uint256 loanId, uint64 to) external returns (bool) {
         Loan storage loan = loans[loanId];
         require(loan.status == Status.ongoing, "The loan should be ongoing");
-        require(to <= now, "Can&#39;t advance a loan into the future");
+        require(to <= now, "Can't advance a loan into the future");
         require(loan.clock + loan.lentTime < to, "The loan already passed that date");
         moveCheckpoint(loan, to);
         return true;
@@ -926,12 +926,12 @@ contract LoanEngine is Ownable, ERC721Base {
         loan.clock = loan.installmentDuration;
 
         if (cosigner != address(0)) {
-            // The cosigner it&#39;s temporary set to the next address (cosigner + 2), it&#39;s expected that the cosigner will
+            // The cosigner it's temporary set to the next address (cosigner + 2), it's expected that the cosigner will
             // call the method "cosign" to accept the conditions; that method also sets the cosigner to the right
             // address. If that does not happen, the transaction fails.
             loan.cosigner = address(uint256(cosigner) + 2);
             require(Cosigner(cosigner).requestCosign(Engine(this), loanId, cosignerData, oracleData), "Cosign method returned false");
-            require(loan.cosigner == cosigner, "Cosigner didn&#39;t called callback");
+            require(loan.cosigner == cosigner, "Cosigner didn't called callback");
         }
         
         emit Lent(loanId, msg.sender, cosigner);

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 /* 
-Welcome to the greates pyramid scheme of the Internet! And it&#39;s UNSTOPPABLE
+Welcome to the greates pyramid scheme of the Internet! And it's UNSTOPPABLE
 You can access it on IPFS here: https://ipfs.io/ipfs/Qmb6q3oWG33xeNoVppRHv1Mk23e5zMd8JK7dmKAhgiFk9H/
 */
 
@@ -21,7 +21,7 @@ contract UnstoppablePyramid {
         address playerAddr;
         uint parent;
         uint256 amountPlayed;   // We keep track of the amount invested
-        uint256 amountEarned;   // We keep track of the commissions received. It can&#39;t be more than 10x the amount invested
+        uint256 amountEarned;   // We keep track of the commissions received. It can't be more than 10x the amount invested
     }
     PonziFriend[] ponziFriends;
     mapping (address => uint) public ponziFriendsToId;
@@ -43,7 +43,7 @@ contract UnstoppablePyramid {
 
         /* Transfer commission to parents (level 1, 2 & 3) */
 
-        // Transfer to level 1 if parent[l1] hasn&#39;t reached its limit
+        // Transfer to level 1 if parent[l1] hasn't reached its limit
         if(ponziFriends[_parentId].amountEarned < (ponziFriends[_parentId].amountPlayed * 5) && _parentId < ponziFriends.length) {
             // Transfer commission
             ponziFriends[_parentId].playerAddr.transfer(comLevel1);
@@ -100,7 +100,7 @@ contract UnstoppablePyramid {
             // Player exists, update data
             ponziFriends[ponziFriendsToId[msg.sender]].amountPlayed += msg.value;
         } else {
-            // Player doesn&#39;t exist create it
+            // Player doesn't exist create it
             uint pzfId = ponziFriends.push(PonziFriend(msg.sender, _parentId, msg.value, 0)) - 1;
             ponziFriendsToId[msg.sender] = pzfId;
         }

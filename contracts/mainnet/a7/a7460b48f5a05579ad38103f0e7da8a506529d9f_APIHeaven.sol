@@ -101,7 +101,7 @@ pragma solidity ^0.4.14;
          return balances[_owner];
      }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount) returns (bool success) {
         //if(msg.data.length < (3 * 32) + 4) { throw; } //check for invalid length
         if (balances[msg.sender] >= _amount 
@@ -130,8 +130,8 @@ pragma solidity ^0.4.14;
         if(selling == false) revert();     //only presale when selling flag is set to true
         uint256 amount = (msg.value / 1000000000000000) * cloudsPerEth;                 // calculates the amount
         if (balances[owner] < amount) revert();               // checks if it has enough to sell
-        balances[msg.sender] += amount;                   // adds the amount to buyer&#39;s balance
-        balances[owner] -= amount;                         // subtracts amount from seller&#39;s balance
+        balances[msg.sender] += amount;                   // adds the amount to buyer's balance
+        balances[owner] -= amount;                         // subtracts amount from seller's balance
         Transfer(owner, msg.sender, amount);                // execute an event reflecting the change
     }
   

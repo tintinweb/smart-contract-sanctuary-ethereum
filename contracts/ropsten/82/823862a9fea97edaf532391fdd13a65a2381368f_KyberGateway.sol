@@ -83,7 +83,7 @@ contract Ownable {
     @dev Defines the interface of a standard RCN oracle.
 
     The oracle is an agent in the RCN network that supplies a convertion rate between RCN and any other currency,
-    it&#39;s primarily used by the exchange but could be used by any other agent.
+    it's primarily used by the exchange but could be used by any other agent.
 */
 contract Oracle is Ownable {
     uint256 public constant VERSION = 4;

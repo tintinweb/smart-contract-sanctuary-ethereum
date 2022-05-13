@@ -33,7 +33,7 @@ contract MinimunViableToken {
         return allowed[tokenOwner][spender];
     }
     
-    /* This function needs to transfer tokens from the caller&#39;s balance
+    /* This function needs to transfer tokens from the caller's balance
         to the address given as the "_to" parameter */
     function transfer(address _to, uint256 _amount) public {
         require(balance[msg.sender] >= _amount, "Insufficient balance");

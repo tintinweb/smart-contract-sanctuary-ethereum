@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-// &#39;Uncloak&#39; token contract
+// 'Uncloak' token contract
 //
 // Deployed to : 0x58F49a2b2e7D12BD3d7C458bff0cADAc6E1BDD4A
 // Symbol      : UNC
@@ -77,7 +77,7 @@ contract UNC {
         uint amountRaised;                                     
         amountRaised += msg.value;                            //many thanks bois, couldnt do it without r/me_irl
         require(balanceOf[creator] >= amount);               // checks if it has enough to sell
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= amount;                        // sends ETH to DatBoiCoinMint
         Transfer(creator, msg.sender, amount);               // execute an event reflecting the change
         creator.transfer(amountRaised);

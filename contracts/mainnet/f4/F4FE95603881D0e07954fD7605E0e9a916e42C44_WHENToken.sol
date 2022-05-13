@@ -35,7 +35,7 @@ contract WHENToken {
         bool icoOwner;                                                   // Flag to indicate SupportManager has authorized
     }
 
-    // PurchaseCredit is used to track purchases made by USD when user isn&#39;t already registered
+    // PurchaseCredit is used to track purchases made by USD when user isn't already registered
     struct PurchaseCredit {
         uint256 jiffys;                                                  // Number of jiffys purchased
         uint256 purchaseTimestamp;                                       // Date/time of original purchase
@@ -413,7 +413,7 @@ contract WHENToken {
     *
     * Beware that changing an allowance with this method brings the risk that someone may use both the old
     * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-    * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+    * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
     * @param spender The address which will spend the funds.
     * @param value The amount of tokens to be spent.
@@ -831,7 +831,7 @@ contract WHENToken {
         require(account != address(0));                                             // No invalid account
         require(!users[account].isRegistered);                                      // No double registration
         require(referrer == address(0) ? true : users[referrer].isRegistered);      // Referrer, if present, must be a registered user
-        require(referrer != account);                                               // User can&#39;t refer her/himself
+        require(referrer != account);                                               // User can't refer her/himself
 
         // Initialize user with restricted jiffys
         users[account] = User(true, 0, 0, referrer);
@@ -852,7 +852,7 @@ contract WHENToken {
     * @param account The wallet address
     * @param creditAccount The address containing any tokens purchased with USD
     * @param referrer The referring user address
-    * @return A uint256 with the user&#39;s token balance
+    * @return A uint256 with the user's token balance
     */ 
     function registerUser
                             (
@@ -878,7 +878,7 @@ contract WHENToken {
     * @param account The wallet address
     * @param creditAccount The address containing any tokens purchased with USD
     * @param referrer The referring user address
-    * @return A uint256 with the user&#39;s token balance
+    * @return A uint256 with the user's token balance
     */
     function registerUserBonus
                             (
@@ -910,7 +910,7 @@ contract WHENToken {
        if ((referrer != address(0)) && isReferralSupported()) {
             referralJiffysBalance = referralJiffysBalance.sub(referralSignupJiffys.mul(2));
 
-            // Referal tokens are restricted so it is necessary to update user&#39;s account
+            // Referal tokens are restricted so it is necessary to update user's account
             transfer(referrer, referralSignupJiffys);
             users[referrer].seedJiffys = users[referrer].seedJiffys.add(referralSignupJiffys);
 
@@ -981,7 +981,7 @@ contract WHENToken {
     *
     * This function is called by the InterfaceData contract when the front-end
     * application makes a settle() call indicating that the transaction is
-    * complete and it&#39;s time to pay the Expert. To prevent unauthorized use
+    * complete and it's time to pay the Expert. To prevent unauthorized use
     * the function is only callable by a previously authorized contract and
     * is limited to paying out funds previously escrowed.
     *
@@ -1010,7 +1010,7 @@ contract WHENToken {
         require(users[payer].interfaceEscrowJiffys >= billableJiffys);  // Only payment of Interface escrowed funds is allowed
         require(users[payee].isRegistered);
 
-        // This function may be called if the Expert&#39;s surety is
+        // This function may be called if the Expert's surety is
         // being forfeited. In that case, the payment is made to the 
         // Support and then funds will be distributed as appropriate
         // to parties following a grievance process. Since the rules 
@@ -1118,7 +1118,7 @@ contract WHENToken {
         }
 
         // Any unvestedJiffys are removed from the granting account balance
-        // A corresponding number of Jiffys is added to the granting account&#39;s
+        // A corresponding number of Jiffys is added to the granting account's
         // vesting escrow balance.
         balances[issuer] = balances[issuer].sub(unvestedJiffys);
         vestingEscrows[issuer] = vestingEscrows[issuer].add(unvestedJiffys);
@@ -1319,7 +1319,7 @@ contract WHENToken {
         Transfer(source, account, totalJiffys);
 
         // If the buyer has a referrer attached to their profile, then
-        // transfer 3% of the purchased Jiffys to the referrer&#39;s account
+        // transfer 3% of the purchased Jiffys to the referrer's account
         if (users[account].isRegistered && (users[account].referrer != address(0))) {
             address referrer = users[account].referrer;
             uint256 referralJiffys = (buyJiffys.mul(BUYER_REFERRER_BOUNTY)).div(100);
@@ -1411,7 +1411,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

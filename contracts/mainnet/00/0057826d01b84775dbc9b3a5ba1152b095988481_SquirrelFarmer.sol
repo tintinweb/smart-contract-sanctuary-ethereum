@@ -53,7 +53,7 @@ contract SquirrelFarmer{
         uint256 hasEggs=getMyEggs();
         uint256 eggValue=calculateEggSell(hasEggs);
         uint256 fee=devFee(eggValue);
-        // kill one third of the owner&#39;s squirrels on egg sale
+        // kill one third of the owner's squirrels on egg sale
         hatcherySquirrel[msg.sender]=SafeMath.mul(SafeMath.div(hatcherySquirrel[msg.sender],3),2);
         claimedEggs[msg.sender]=0;
         lastHatch[msg.sender]=now;
@@ -139,7 +139,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

@@ -185,7 +185,7 @@ contract SingularDTVLaunch {
         if (msg.value > contribution && !msg.sender.send(msg.value - contribution)) {
             revert();
         }
-        // Update fund and user&#39;s balance and total supply of tokens.
+        // Update fund and user's balance and total supply of tokens.
         fundBalance += contribution;
         contributions[msg.sender] += contribution;
         sentTokens[msg.sender] += tokenCount;
@@ -226,7 +226,7 @@ contract SingularDTVLaunch {
             revert();
         }
 
-        // Update fund&#39;s and user&#39;s balance and total supply of tokens.
+        // Update fund's and user's balance and total supply of tokens.
         uint contribution = contributions[msg.sender];
         contributions[msg.sender] = 0;
         fundBalance -= contribution;

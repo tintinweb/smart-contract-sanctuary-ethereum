@@ -99,13 +99,13 @@ contract ChinaLifeCoin is StandardToken {
     */
     /*
     Created by Shane Chang @2018-05-15:
-    This token is a test sample for technology verification, we don&#39;t want to ICO or anything like this.
+    This token is a test sample for technology verification, we don't want to ICO or anything like this.
     We can use this token to increase the insurance technology for ChinaLife, even for insurance industry.
     */
     string public name;                   //token名称 
     uint8 public decimals;                //小数位
     string public symbol;                 //标识
-    string public version = &#39;V1.0&#39;;       //版本号
+    string public version = 'V1.0';       //版本号
 
     function ChinaLifeCoin(
         uint256 _initialAmount,

@@ -150,7 +150,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -192,7 +192,7 @@ library Roles {
  * @dev See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  *  for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  *  to avoid typos.
  */
 contract RBAC {
@@ -304,7 +304,7 @@ contract Superuser is Ownable, RBAC {
   }
 
   /**
-   * @dev Throws if called by any account that&#39;s not a superuser.
+   * @dev Throws if called by any account that's not a superuser.
    */
   modifier onlySuperuser() {
     checkRole(msg.sender, ROLE_SUPERUSER);
@@ -523,7 +523,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -833,7 +833,7 @@ contract NFTsCrowdsale is NFTsCrowdsaleBase, EthPayPausable, Pausable{
   /**
    * @dev new a Auction
    * @param price price in wei
-   * @param tokenId LDB&#39;s tokenid
+   * @param tokenId LDB's tokenid
    * @param endAt auction end time
    */
   function newAuction(uint128 price, uint256 tokenId, uint256 endAt) whenNotPaused external {
@@ -843,7 +843,7 @@ contract NFTsCrowdsale is NFTsCrowdsaleBase, EthPayPausable, Pausable{
   /**
    * @dev batch New Auctions 
    * @param prices Array price in wei
-   * @param tokenIds Array LDB&#39;s tokenid
+   * @param tokenIds Array LDB's tokenid
    * @param endAts  Array auction end time
    */
   function batchNewAuctions(uint128[] prices, uint256[] tokenIds, uint256[] endAts) whenNotPaused external {
@@ -864,7 +864,7 @@ contract NFTsCrowdsale is NFTsCrowdsaleBase, EthPayPausable, Pausable{
 
   /**
    * @dev pay a auction by erc20 Token
-   * @param tokenId LDB&#39;s tokenid
+   * @param tokenId LDB's tokenid
    */
   function payByErc20 (uint256 tokenId) whenNotPaused external {
     _payByErc20(tokenId);
@@ -872,7 +872,7 @@ contract NFTsCrowdsale is NFTsCrowdsaleBase, EthPayPausable, Pausable{
 
   /**
    * @dev cancel a auction
-   * @param tokenId LDB&#39;s tokenid
+   * @param tokenId LDB's tokenid
    */
   function cancelAuction (uint256 tokenId) external {
     _cancelAuction(tokenId);
@@ -880,7 +880,7 @@ contract NFTsCrowdsale is NFTsCrowdsaleBase, EthPayPausable, Pausable{
 
   /**
    * @dev batch cancel auctions
-   * @param tokenIds Array LDB&#39;s tokenid
+   * @param tokenIds Array LDB's tokenid
    */
   function batchCancelAuctions (uint256[] tokenIds) external {
     uint256 i = 0;

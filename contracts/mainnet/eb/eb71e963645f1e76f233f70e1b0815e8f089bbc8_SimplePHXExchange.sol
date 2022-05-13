@@ -9,7 +9,7 @@ pragma solidity ^0.4.21;
 * //*** Developed By:
 *   _____       _         _         _ ___ _         
 *  |_   _|__ __| |_  _ _ (_)__ __ _| | _ (_)___ ___ 
-*    | |/ -_) _| &#39; \| &#39; \| / _/ _` | |   / (_-</ -_)
+*    | |/ -_) _| ' \| ' \| / _/ _` | |   / (_-</ -_)
 *    |_|\___\__|_||_|_||_|_\__\__,_|_|_|_\_/__/\___|
 *   
 *   &#169; 2018 TechnicalRise.  Written in March 2018.  
@@ -91,7 +91,7 @@ contract SimplePHXExchange {
 
         uint ndx = tknAddrNdx[_offeror];
 
-        // If this isn&#39;t the only offer, reshuffle the array
+        // If this isn't the only offer, reshuffle the array
         // Moving the last entry to the middle of the list
         tknOfferors[ndx] = tknOfferors[tknOfferors.length - 1];
         tknAddrNdx[tknOfferors[tknOfferors.length - 1]] = ndx;
@@ -111,7 +111,7 @@ contract SimplePHXExchange {
         
         uint ndx = ethAddrNdx[_offeror];
 
-        // If this isn&#39;t the only offer, reshuffle the array
+        // If this isn't the only offer, reshuffle the array
         // Moving the last entry to the middle of the list
         ethOfferors[ndx] = ethOfferors[ethOfferors.length - 1];
         ethAddrNdx[ethOfferors[ethOfferors.length - 1]] = ndx;
@@ -186,7 +186,7 @@ contract SimplePHXExchange {
     
     // **
     
-    // A Security Precaution -- Don&#39;t interact with contracts unless you
+    // A Security Precaution -- Don't interact with contracts unless you
     // Have a need to / desire to.
     // Determine if the "_from" address is a contract
     function _humanSender(address _from) private view returns (bool) {

@@ -74,7 +74,7 @@ contract BZxOwnable is Ownable {
 
     event BZxOwnershipTransferred(address indexed previousBZxContract, address indexed newBZxContract);
 
-    // modifier reverts if bZxContractAddress isn&#39;t set
+    // modifier reverts if bZxContractAddress isn't set
     modifier onlyBZx() {
         require(msg.sender == bZxContractAddress, "only bZx contracts can call this function");
         _;

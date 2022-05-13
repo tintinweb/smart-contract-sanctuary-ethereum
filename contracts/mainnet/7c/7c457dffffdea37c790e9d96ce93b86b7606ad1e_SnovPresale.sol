@@ -106,7 +106,7 @@ contract StandardToken is ERC20, SafeMath {
         return balances[_owner];
     }
 
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param _to Address of token receiver.
     /// @param _value Number of tokens to transfer.
     function transfer(address _to, uint256 _value) returns (bool) {
@@ -268,7 +268,7 @@ contract BsToken is StandardToken, MultiOwnable {
     string public symbol;
     uint256 public totalSupply;
     uint8 public decimals = 18;
-    string public version = &#39;v0.1&#39;;
+    string public version = 'v0.1';
 
     address public creator;
     address public seller;
@@ -475,8 +475,8 @@ contract BsPresale_SNOV is SafeMath, Ownable, Pausable {
         sellTokensForEth(msg.sender, msg.value);
     }
 
-    /// We don&#39;t need to use respectTimeFrame modifier here as we do for ETH contributions,
-    /// because foreign transaction can came with a delay thus it&#39;s a problem of outer server to manage time.
+    /// We don't need to use respectTimeFrame modifier here as we do for ETH contributions,
+    /// because foreign transaction can came with a delay thus it's a problem of outer server to manage time.
     /// @param _buyer - ETH address of buyer where we will send tokens to.
     function externalSale(address _buyer, uint256 _amountInUsd, uint256 _tokensSoldNoDecimals, uint256 _unixTs)
             ifNotPaused canNotify {

@@ -272,7 +272,7 @@ contract IndorseSaleContract is  Ownable,SafeMath,Pausable {
       require (!isFinalized);
       require (tx.gasprice <= MAX_GAS_PRICE);
 
-      uint256 tokens = safeMult(_value, tokenExchangeRate);                             // check that we&#39;re not over totals
+      uint256 tokens = safeMult(_value, tokenExchangeRate);                             // check that we're not over totals
       uint256 checkedSupply = safeAdd(totalSupply, tokens);
 
       require (ind.balanceOf(msg.sender) + tokens <= maxTokens);

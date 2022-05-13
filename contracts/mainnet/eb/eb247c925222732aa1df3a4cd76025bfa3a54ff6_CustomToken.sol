@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 68000000000000000000000000;
-        name = &#39;Valuechain&#39;;
-        symbol = &#39;VIC&#39;;
+        name = 'Valuechain';
+        symbol = 'VIC';
         decimals = 18;
         balanceOf[0xa5791f4e7bf0ec01620317cf9f135325a5b47404] = totalSupply;
         Transfer(address(0), 0xa5791f4e7bf0ec01620317cf9f135325a5b47404, totalSupply);

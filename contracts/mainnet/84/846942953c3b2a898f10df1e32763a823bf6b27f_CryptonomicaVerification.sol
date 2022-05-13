@@ -57,7 +57,7 @@ contract CryptonomicaVerification {
     string public stringToSignExample = "I hereby confirm that the address <address lowercase> is my Ethereum address";
 
     /* the same data as above stored as a struct:
-    struct will be returned as &#39;List&#39; in web3j (only one function call needed) */
+    struct will be returned as 'List' in web3j (only one function call needed) */
     mapping(address => Verification) public verification; // (!) Gas requirement: infinite
     struct Verification {
         // all string have to be <= 32 chars
@@ -92,8 +92,8 @@ contract CryptonomicaVerification {
     /* -------------------- Utility functions : ---------------------- */
 
     // (?) CryptonomicaVerification.stringToBytes32(string memory) : Is constant but potentially should not be.
-    // probably because of &#39;using low-level calls&#39; or &#39;using inline assembly that contains certain opcodes&#39;
-    // but &#39;The compiler does not enforce yet that a pure method is not reading from the state.&#39;
+    // probably because of 'using low-level calls' or 'using inline assembly that contains certain opcodes'
+    // but 'The compiler does not enforce yet that a pure method is not reading from the state.'
     // > in fact works as constant
     function stringToBytes32(string memory source) public pure returns (bytes32 result) {// (!) Gas requirement: infinite
         // require(bytes(source).length <= 32); // causes error, but string have to be max 32 chars
@@ -164,7 +164,7 @@ contract CryptonomicaVerification {
         }
 
         // at this stage we can not be sure that key with this fingerprint really owned by user
-        // thus we store it as &#39;unverified&#39;
+        // thus we store it as 'unverified'
         unverifiedFingerprint[msg.sender] = _fingerprint;
 
         signedString[msg.sender] = verification[msg.sender].signedString = _signedString;
@@ -178,7 +178,7 @@ contract CryptonomicaVerification {
 
     event SignedStringUploaded(address indexed fromAccount, string fingerprint, string uploadedString);
 
-    // from &#39;manager&#39; account only
+    // from 'manager' account only
     // (!) Gas requirement: infinite
     function addVerificationData(
         address _acc, //
@@ -246,7 +246,7 @@ contract CryptonomicaVerification {
         address verificationAddedByAccount
     );
 
-    // from user or &#39;manager&#39; account
+    // from user or 'manager' account
     function revokeVerification(address _acc) public {// (!) Gas requirement: infinite
         require(msg.sender == _acc || isManager[msg.sender]);
 

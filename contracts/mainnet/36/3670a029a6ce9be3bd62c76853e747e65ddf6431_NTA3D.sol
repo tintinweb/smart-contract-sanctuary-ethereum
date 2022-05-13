@@ -422,7 +422,7 @@ contract NTA3D is NTA3DEvents {
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node
      * @return time left in seconds
      */
      //tested

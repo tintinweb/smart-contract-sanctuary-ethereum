@@ -31,7 +31,7 @@ contract Insurance {
     mapping (address => uint256) insured;
     
     /*
-    Per risparmiare Gas, il proprietario dell&#39;assicurazione &#232; identificato dal server con
+    Per risparmiare Gas, il proprietario dell'assicurazione &#232; identificato dal server con
     thisContract.events.watchNew({fromBlock: lastBlock}, function (error, event) {
         if(!error) {
             web3.eth.getTransaction(event.transactionHash, function (error, tx) {
@@ -56,7 +56,7 @@ contract Insurance {
     }
     
     /*
-    Assicura una settimana a partire dal momento in cui l&#39;assicurazione viene stipulata
+    Assicura una settimana a partire dal momento in cui l'assicurazione viene stipulata
     (via fallback function)
     */
     function () public payable {

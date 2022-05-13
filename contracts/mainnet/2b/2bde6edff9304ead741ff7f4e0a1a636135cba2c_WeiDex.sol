@@ -6,7 +6,7 @@ pragma solidity >=0.4.22 <0.6.0;
 pragma experimental ABIEncoderV2;
 
 /**
- * @dev Wrappers over Solidity&#39;s arithmetic operations with added overflow
+ * @dev Wrappers over Solidity's arithmetic operations with added overflow
  * checks.
  *
  * Arithmetic operations in Solidity wrap on overflow. This can easily result
@@ -16,14 +16,14 @@ pragma experimental ABIEncoderV2;
  * operation overflows.
  *
  * Using this library instead of the unchecked operations eliminates an entire
- * class of bugs, so it&#39;s recommended to use it always.
+ * class of bugs, so it's recommended to use it always.
  */
 library SafeMath {
     /**
      * @dev Returns the addition of two unsigned integers, reverting on
      * overflow.
      *
-     * Counterpart to Solidity&#39;s `+` operator.
+     * Counterpart to Solidity's `+` operator.
      *
      * Requirements:
      * - Addition cannot overflow.
@@ -39,7 +39,7 @@ library SafeMath {
      * @dev Returns the subtraction of two unsigned integers, reverting on
      * overflow (when the result is negative).
      *
-     * Counterpart to Solidity&#39;s `-` operator.
+     * Counterpart to Solidity's `-` operator.
      *
      * Requirements:
      * - Subtraction cannot overflow.
@@ -55,14 +55,14 @@ library SafeMath {
      * @dev Returns the multiplication of two unsigned integers, reverting on
      * overflow.
      *
-     * Counterpart to Solidity&#39;s `*` operator.
+     * Counterpart to Solidity's `*` operator.
      *
      * Requirements:
      * - Multiplication cannot overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -78,7 +78,7 @@ library SafeMath {
      * @dev Returns the integer division of two unsigned integers. Reverts on
      * division by zero. The result is rounded towards zero.
      *
-     * Counterpart to Solidity&#39;s `/` operator. Note: this function uses a
+     * Counterpart to Solidity's `/` operator. Note: this function uses a
      * `revert` opcode (which leaves remaining gas untouched) while Solidity
      * uses an invalid opcode to revert (consuming all remaining gas).
      *
@@ -89,7 +89,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0, "SafeMath: division by zero");
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -98,7 +98,7 @@ library SafeMath {
      * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
      * Reverts when dividing by zero.
      *
-     * Counterpart to Solidity&#39;s `%` operator. This function uses a `revert`
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
      * opcode (which leaves remaining gas untouched) while Solidity uses an
      * invalid opcode to revert (consuming all remaining gas).
      *
@@ -479,7 +479,7 @@ interface IERC20 {
     function balanceOf(address account) external view returns (uint256);
 
     /**
-     * @dev Moves `amount` tokens from the caller&#39;s account to `recipient`.
+     * @dev Moves `amount` tokens from the caller's account to `recipient`.
      *
      * Returns a boolean value indicating whether the operation succeeded.
      *
@@ -497,14 +497,14 @@ interface IERC20 {
     function allowance(address owner, address spender) external view returns (uint256);
 
     /**
-     * @dev Sets `amount` as the allowance of `spender` over the caller&#39;s tokens.
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
      *
      * Returns a boolean value indicating whether the operation succeeded.
      *
      * > Beware that changing an allowance with this method brings the risk
      * that someone may use both the old and the new allowance by unfortunate
      * transaction ordering. One possible solution to mitigate this race
-     * condition is to first reduce the spender&#39;s allowance to 0 and set the
+     * condition is to first reduce the spender's allowance to 0 and set the
      * desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      *
@@ -514,7 +514,7 @@ interface IERC20 {
 
     /**
      * @dev Moves `amount` tokens from `sender` to `recipient` using the
-     * allowance mechanism. `amount` is then deducted from the caller&#39;s
+     * allowance mechanism. `amount` is then deducted from the caller's
      * allowance.
      *
      * Returns a boolean value indicating whether the operation succeeded.
@@ -552,7 +552,7 @@ library Address {
      * @dev Returns true if `account` is a contract.
      *
      * This test is non-exhaustive, and there may be false-negatives: during the
-     * execution of a contract&#39;s constructor, its address will be reported as
+     * execution of a contract's constructor, its address will be reported as
      * not containing a contract.
      *
      * > It is unsafe to assume that an address for which this function returns
@@ -823,7 +823,7 @@ library SafeERC20 {
     function safeApprove(IERC20 token, address spender, uint256 value) internal {
         // safeApprove should only be called when setting an initial allowance,
         // or when resetting it to zero. To increase and decrease it, use
-        // &#39;safeIncreaseAllowance&#39; and &#39;safeDecreaseAllowance&#39;
+        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
         // solhint-disable-next-line max-line-length
         require((value == 0) || (token.allowance(address(this), spender) == 0),
             "SafeERC20: approve from non-zero to non-zero allowance"
@@ -848,8 +848,8 @@ library SafeERC20 {
      * @param data The call data (encoded using abi.encode or one of its variants).
      */
     function callOptionalReturn(IERC20 token, bytes memory data) private {
-        // We need to perform a low level call here, to bypass Solidity&#39;s return data size checking mechanism, since
-        // we&#39;re implementing it ourselves.
+        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
+        // we're implementing it ourselves.
 
         // A Solidity high level call has three parts:
         //  1. The target address is checked to verify it contains contract code
@@ -1230,7 +1230,7 @@ contract ExchangeKyberProxy is Exchange, LibKyberData {
 
     /**
       * @dev Exchange ETH/TOKEN, TOKEN/ETH or TOKEN/TOKEN using the internal
-      * balance mapping that keeps track of user&#39;s balances. It requires user to first invoke deposit function.
+      * balance mapping that keeps track of user's balances. It requires user to first invoke deposit function.
       * The function relies on KyberNetworkProxy contract.
       */
     function kyberTrade(
@@ -1679,7 +1679,7 @@ contract ExchangeUpgradability is Ownable, ExchangeStorage {
     }
 
     /**
-    * @dev Helper function to migrate user&#39;s Ethers. Should be called in migrateFunds() function.
+    * @dev Helper function to migrate user's Ethers. Should be called in migrateFunds() function.
     */
     function migrateEthers() private {
         address user = msg.sender;
@@ -1691,7 +1691,7 @@ contract ExchangeUpgradability is Ownable, ExchangeStorage {
     }
 
     /**
-    * @dev Helper function to migrate user&#39;s tokens. Should be called in migrateFunds() function.
+    * @dev Helper function to migrate user's tokens. Should be called in migrateFunds() function.
     */
     function migrateTokens(address[] memory tokens) private {
         address user = msg.sender;
@@ -1715,7 +1715,7 @@ contract ExchangeUpgradability is Ownable, ExchangeStorage {
     }
 
     /**
-    * @dev Helper function to migrate user&#39;s Ethers. Should be called only from the new exchange contract.
+    * @dev Helper function to migrate user's Ethers. Should be called only from the new exchange contract.
     */
     function importEthers(address user)
         external
@@ -1745,7 +1745,7 @@ contract ExchangeUpgradability is Ownable, ExchangeStorage {
     }
     
     /**
-    * @dev Helper function to migrate user&#39;s Tokens. Should be called only from the new exchange contract.
+    * @dev Helper function to migrate user's Tokens. Should be called only from the new exchange contract.
     */
     function importTokens(
         address token,

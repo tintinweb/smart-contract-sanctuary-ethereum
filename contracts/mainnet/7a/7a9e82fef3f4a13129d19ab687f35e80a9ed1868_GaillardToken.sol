@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;GAILLARD&#39; token contract
+// 'GAILLARD' token contract
 //
 // Deployed to : 0x7f7195aCE303Fc55E70522B31Df6502C5dfb825A
 // Symbol      : BG
@@ -16,7 +16,7 @@ pragma solidity ^0.4.18;
 // gaillard                                     
 &#233;valuation : pour le territoire de la ville de brive, ca suppl&#233;mentaire  sur 5 ans   pour fond investissement &#233;conomie ess 15%   (0,15)        base:
 production &#233;quipements solaires renouvelables et produits induits de la sarl lur&#231;at    soit       5% &#233;conomie par an sur 5 ans : 5% de part   (0,0025) - 130€ le m&#178; soit 325000€ comme cible sur 5 ans construit -                      4062,5 €
-points Cuma transfert de l&#39; origine p&#233;trole au solaire &#224; 5 ans    :                              15000 €              
+points Cuma transfert de l' origine p&#233;trole au solaire &#224; 5 ans    :                              15000 €              
 points Cuma sur produits Bureau sur 5 ans et 5% ca suppl&#233;mentaire par an     :                   1875 €            base ca 5 ans: 150000€
 points Cuma sur produits origine bio et local (biocoop etc) et 5% ca suppl&#233;mentaire par an  :    3125 €               
 produits origine brive (artisanat, vetement otego, denoy…)      5% ca suppl&#233;mentaire par an   :  3125 €            id:   250000€
@@ -27,7 +27,7 @@ augmentation recyclage plastique brive (mesure ipvmp) et appli de tri (collecte 
 batiments &#233;nergie positive brive                                    10% par an :                6250 €          id: 500000€
 pr&#233;vention sant&#233; (domotique, oc, sports, gym…)              5% par an                           1125 €         id: 13500 €
                                                                                  total:        40267,5 €         
-valeur recherch&#233;e via &#233;mission ou rachat (mod&#232;le basis) et &#224; la condition d&#39;atteinte minimale des objectifs ci-dessus sur 5 ans, arrondi &#224; 40268€                        
+valeur recherch&#233;e via &#233;mission ou rachat (mod&#232;le basis) et &#224; la condition d'atteinte minimale des objectifs ci-dessus sur 5 ans, arrondi &#224; 40268€                        
 ----------------------------------------------------------------------------
 
 */
@@ -155,8 +155,8 @@ contract GaillardToken is ERC20Interface, Owned, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to to account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to to account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -169,7 +169,7 @@ contract GaillardToken is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -202,7 +202,7 @@ contract GaillardToken is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -211,7 +211,7 @@ contract GaillardToken is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account. The spender contract function
+    // from the token owner's account. The spender contract function
     // receiveApproval(...) is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -223,7 +223,7 @@ contract GaillardToken is ERC20Interface, Owned, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

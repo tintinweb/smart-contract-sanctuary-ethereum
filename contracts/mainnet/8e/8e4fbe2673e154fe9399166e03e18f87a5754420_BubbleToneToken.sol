@@ -112,7 +112,7 @@ contract BubbleToneToken is ERC20 {
 
    /**
     *   @dev Get balance of tokens holder
-    *   @param _holder        holder&#39;s address
+    *   @param _holder        holder's address
     *   @return               balance of investor
     */
     function balanceOf(address _holder) constant returns (uint) {

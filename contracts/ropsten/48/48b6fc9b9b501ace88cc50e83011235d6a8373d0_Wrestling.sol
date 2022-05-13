@@ -22,7 +22,7 @@ contract Wrestling {
     uint gains;
 
     /**
-    * The logs that will be emitted in every step of the contract&#39;s life cycle
+    * The logs that will be emitted in every step of the contract's life cycle
     */
 	event WrestlingStartsEvent(address wrestler1, address wrestler2);
 	event EndOfRoundEvent(uint wrestler1Deposit, uint wrestler2Deposit);

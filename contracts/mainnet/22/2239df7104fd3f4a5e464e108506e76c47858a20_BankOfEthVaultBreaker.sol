@@ -34,7 +34,7 @@ pragma solidity^0.4.24;
 * Also - invest min 0.1 ETH for a chance to open a safety deposit box and 
 * instantly win a bonus prize!
 * 
-* The more keys you own in each round, the more distributed ETH you&#39;ll earn!
+* The more keys you own in each round, the more distributed ETH you'll earn!
 * 
 * All profits from thi game feed back into the main BankOfEth contract where 
 * you can also be an investor in and earn a return on!
@@ -68,7 +68,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -356,7 +356,7 @@ contract BankOfEthVaultBreaker {
     function reinvestReturns(uint value, address ref) public {        
         GameRound storage rnd = rounds[latestRoundID];
         _updateReturns(msg.sender, rnd);        
-        require(vaults[msg.sender].totalReturns >= value, "Can&#39;t spend what you don&#39;t have");        
+        require(vaults[msg.sender].totalReturns >= value, "Can't spend what you don't have");        
         vaults[msg.sender].totalReturns = vaults[msg.sender].totalReturns.sub(value);
         vaults[msg.sender].refReturns = min(vaults[msg.sender].refReturns, vaults[msg.sender].totalReturns);
         unclaimedReturns = unclaimedReturns.sub(value);
@@ -505,7 +505,7 @@ contract BankOfEthVaultBreaker {
         
         uint outstanding = _outstandingReturns(_safeBreaker, rnd);
 
-        // if there are any returns, transfer them to the investor&#39;s vaults
+        // if there are any returns, transfer them to the investor's vaults
         if (outstanding > 0) {
             vaults[_safeBreaker].totalReturns = vaults[_safeBreaker].totalReturns.add(outstanding);
         }
@@ -516,7 +516,7 @@ contract BankOfEthVaultBreaker {
         if(rnd.safeBreakers[_safeBreaker].keys == 0) {
             return 0;
         }
-        // check if there&#39;ve been new returns
+        // check if there've been new returns
         uint newReturns = rnd.cumulativeReturnsPoints.sub(
             rnd.safeBreakers[_safeBreaker].lastCumulativeReturnsPoints
             );
@@ -596,11 +596,11 @@ contract BankOfEthVaultBreaker {
         }
     }
     function _airDrop(GameRound storage rnd, uint value) internal {
-        require(msg.sender == tx.origin, "Only Humans Allowed! (or scripts that don&#39;t use smart contracts)!");
+        require(msg.sender == tx.origin, "Only Humans Allowed! (or scripts that don't use smart contracts)!");
         if(value > 100 finney) {
             /**
                 Creates a random number from the last block hash and current timestamp.
-                One could add more seemingly random data like the msg.sender, etc, but that doesn&#39;t 
+                One could add more seemingly random data like the msg.sender, etc, but that doesn't 
                 make it harder for a miner to manipulate the result in their favor (if they intended to).
              */
             uint chance = uint(keccak256(abi.encodePacked(blockhash(block.number - 1), now)));
@@ -621,13 +621,13 @@ contract BankOfEthVaultBreaker {
         require(rnd.softDeadline < now, "Round still running!");
 
 
-        // Transfer jackpot to winner&#39;s vault
+        // Transfer jackpot to winner's vault
         vaults[rnd.lastInvestor].totalReturns = vaults[rnd.lastInvestor].totalReturns.add(rnd.jackpot);
         unclaimedReturns = unclaimedReturns.add(rnd.jackpot);
         
         emit JackpotWon(rnd.lastInvestor, rnd.jackpot, now);
         totalJackpotsWon += rnd.jackpot;
-        // transfer the leftover to the next round&#39;s jackpot
+        // transfer the leftover to the next round's jackpot
         jackpotSeed = jackpotSeed.add( m_nextRoundSeedPercent.mul(rnd.totalInvested));
             
         //Empty the AD pot if it has a balance.

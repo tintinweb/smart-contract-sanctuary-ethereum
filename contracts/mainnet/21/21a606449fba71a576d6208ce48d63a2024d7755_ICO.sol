@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -123,7 +123,7 @@ contract ICO is admined {
     uint256 public completedAt;
     token public tokenReward;
     address constant public creator = 0x6585b849371A40005F9dCda57668C832a5be1777;
-    string public version = &#39;1&#39;;
+    string public version = '1';
     uint256[5] rates = [2327,1551,1163,931,775];
 
     mapping (address => address) public refLed;
@@ -298,7 +298,7 @@ contract ICO is admined {
     }
 
     /*
-    * @dev direct payments doesn&#39;t handle referral system
+    * @dev direct payments doesn't handle referral system
     * so it call contribute with referral 0x0000000000000000000000000000000000000000
     */
 

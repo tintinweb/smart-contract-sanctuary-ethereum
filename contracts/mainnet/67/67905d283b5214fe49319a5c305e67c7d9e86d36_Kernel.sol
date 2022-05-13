@@ -251,7 +251,7 @@ contract AppProxyBase is IAppProxy, AppStorage, DelegateProxy, KernelConstants {
         appId = _appId;
 
         // Implicit check that kernel is actually a Kernel
-        // The EVM doesn&#39;t actually provide a way for us to make sure, but we can force a revert to
+        // The EVM doesn't actually provide a way for us to make sure, but we can force a revert to
         // occur if the kernel is set to 0x0 or a non-code address when we try to call a method on
         // it.
         address appCode = getAppBase(appId);
@@ -271,7 +271,7 @@ contract AppProxyBase is IAppProxy, AppStorage, DelegateProxy, KernelConstants {
 
     function () payable public {
         address target = getCode();
-        require(target != 0); // if app code hasn&#39;t been set yet, don&#39;t call
+        require(target != 0); // if app code hasn't been set yet, don't call
         delegatedFwd(target, msg.data);
     }
 }
@@ -403,7 +403,7 @@ contract Kernel is IKernel, KernelStorage, Initializable, AppProxyFactory, ACLSy
     * @dev Create a new instance of an app linked to this kernel and set its base
     *      implementation if it was not already set
     * @param _name Name of the app
-    * @param _appBase Address of the app&#39;s base implementation
+    * @param _appBase Address of the app's base implementation
     * @return AppProxy instance
     */
     function newAppInstance(bytes32 _name, address _appBase) auth(APP_MANAGER_ROLE, arr(APP_BASES_NAMESPACE, _name)) public returns (IAppProxy appProxy) {
@@ -415,7 +415,7 @@ contract Kernel is IKernel, KernelStorage, Initializable, AppProxyFactory, ACLSy
     * @dev Create a new pinned instance of an app linked to this kernel and set
     *      its base implementation if it was not already set
     * @param _name Name of the app
-    * @param _appBase Address of the app&#39;s base implementation
+    * @param _appBase Address of the app's base implementation
     * @return AppProxy instance
     */
     function newPinnedAppInstance(bytes32 _name, address _appBase) auth(APP_MANAGER_ROLE, arr(APP_BASES_NAMESPACE, _name)) public returns (IAppProxy appProxy) {

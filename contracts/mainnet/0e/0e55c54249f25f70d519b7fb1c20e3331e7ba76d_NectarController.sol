@@ -20,8 +20,8 @@ pragma solidity ^0.4.18;
 
 /// @title MiniMeToken Contract
 /// @author Jordi Baylina
-/// @dev This token contract&#39;s goal is to make it easy for anyone to clone this
-///  token using the token distribution at a given block, this will allow DAO&#39;s
+/// @dev This token contract's goal is to make it easy for anyone to clone this
+///  token using the token distribution at a given block, this will allow DAO's
 ///  and DApps to upgrade their features in a decentralized manner without
 ///  affecting the original token
 /// @dev It is ERC20 compliant, but still needs to under go further testing.
@@ -32,7 +32,7 @@ pragma solidity ^0.4.18;
 /// New getter functions `totalPledgedFeesAt` and `totalPledgedFees`
 /// New Checkpoint[] totalPledgedFeesHistory;
 /// Addition of onBurn function to Controller, called when user tries to burn tokens
-/// Version &#39;MMT_0.2&#39; bumped to &#39;EFX_0.1&#39;
+/// Version 'MMT_0.2' bumped to 'EFX_0.1'
 
 /// @dev The token controller contract must implement these functions
 contract TokenController {
@@ -90,10 +90,10 @@ contract ApproveAndCallFallBack {
 ///  token controller contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Controlled {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
-    string public version = &#39;EFX_0.1&#39;; //An arbitrary versioning scheme
+    string public version = 'EFX_0.1'; //An arbitrary versioning scheme
 
 
     /// @dev `Checkpoint` is the structure that attaches a block number to a
@@ -263,7 +263,7 @@ contract MiniMeToken is Controlled {
 
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public constant returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -594,7 +594,7 @@ contract MiniMeToken is Controlled {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token controller contract
     function () public payable {
@@ -890,7 +890,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -972,7 +972,7 @@ contract NectarController is TokenController, Whitelist {
         // This function is only for use to create tokens on behalf of users of the centralised side of Ethfinex
         // Because there are several different fee tiers (depending on trading volume) token creation rates may not always be proportional to fees contributed.
         // For example if a user is trading with a 0.025% fee as opposed to the standard 0.1% the tokensToCreate the pledged fees will be lower than through using the standard contributeForMakers function
-        // Tokens to create must be calculated off-chain using the issuance equation and current parameters of this contract, multiplied depending on user&#39;s fee tier
+        // Tokens to create must be calculated off-chain using the issuance equation and current parameters of this contract, multiplied depending on user's fee tier
         doProxyAccounting(_owner, _pledgedAmount, _tokensToCreate);
         return true;
     }

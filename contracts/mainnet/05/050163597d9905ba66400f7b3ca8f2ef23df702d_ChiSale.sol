@@ -230,7 +230,7 @@ contract ChiSale is Owned {
 
         // Update the number of tokens sold. This number does not include the
         // number of bonus tokens that were given out, only the number of
-        // tokens that were &#39;bought&#39;.
+        // tokens that were 'bought'.
         tokensSold += tokensToBuy;
 
         // Guard against transfers where the contract attempts to transfer more
@@ -247,7 +247,7 @@ contract ChiSale is Owned {
         // The referral address has a default value set to the contract address
         // of this CHI sale contract in the web application. The application
         // changes this value to a different referral address if a special link
-        // is followed. If the referral address does not equal this contract&#39;s
+        // is followed. If the referral address does not equal this contract's
         // address, the revenue share percentage is paid out to that address.
         if (referralAddress != address(this) && referralAddress != address(0)) {
 
@@ -263,7 +263,7 @@ contract ChiSale is Owned {
             );
         }
 
-        // In the case where a buyer sent in too much ether, or there weren&#39;t
+        // In the case where a buyer sent in too much ether, or there weren't
         // enough tokens available, the remaining ether is sent back to the
         // buyer.
         if (remainder > 0) {
@@ -485,7 +485,7 @@ contract ChiSale is Owned {
                 _boughtTokens -= threshold - _tokensSold;
 
                 // The number of bonus tokens is equal to the remaining number
-                // of tokens in the bonus tier multiplied by the bonus tier&#39;s
+                // of tokens in the bonus tier multiplied by the bonus tier's
                 // percentage. A different bonus will be calculated for the
                 // remaining bought tokens. The number is first multiplied by
                 // the bonus percentage to work to the advantage of the buyer,
@@ -495,7 +495,7 @@ contract ChiSale is Owned {
                 // the other case.
                 bonusTokens += (threshold - _tokensSold) * bonus / 100;
 
-                // The number of sold tokens is &#39;normally&#39; incremented by the
+                // The number of sold tokens is 'normally' incremented by the
                 // number of tokens that have been bought (in that bonus tier).
                 // However, when all remaining tokens in a bonus tier are
                 // purchased, the resulting operation looks as follows:

@@ -63,7 +63,7 @@ contract Ownable {
 }
 
 /// @notice The BrokerVerifier interface defines the functions that a settlement
-/// layer&#39;s broker verifier contract must implement.
+/// layer's broker verifier contract must implement.
 interface BrokerVerifier {
 
     /// @notice The function signature that will be called when a trader opens

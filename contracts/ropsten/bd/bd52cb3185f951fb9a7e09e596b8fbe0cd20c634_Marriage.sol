@@ -70,7 +70,7 @@ contract Marriage {
     }
 
     /**
-    * @dev ringBell is a payable function that allows people to celebrate the couple&#39;s marriage, and
+    * @dev ringBell is a payable function that allows people to celebrate the couple's marriage, and
     * also send Ether to the marriage contract
     */
     function ringBell() public payable {

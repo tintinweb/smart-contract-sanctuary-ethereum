@@ -5,7 +5,7 @@
  * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3e5f4c5f5d5650575a7e50514a5a514a10505b4a">[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
- *      abstraction called a &#39;slice&#39;. A slice represents a part of a string -
+ *      abstraction called a 'slice'. A slice represents a part of a string -
  *      anything from the entire string to a single character, or even no
  *      characters at all (a 0-length slice). Since a slice only has to specify
  *      an offset and a length, copying and manipulating slices is a lot less
@@ -13,8 +13,8 @@
  *
  *      To further reduce gas costs, most functions on slice that need to return
  *      a slice modify the original one instead of allocating a new one; for
- *      instance, `s.split(".")` will return the text up to the first &#39;.&#39;,
- *      modifying s to only contain the remainder of the string after the &#39;.&#39;.
+ *      instance, `s.split(".")` will return the text up to the first '.',
+ *      modifying s to only contain the remainder of the string after the '.'.
  *      In situations where you do not want to modify the original slice, you
  *      can make a copy first with `.copy()`, for example:
  *      `s.copy().split(".")`. Try and avoid using this idiom in loops; since
@@ -32,7 +32,7 @@
  *
  *      For convenience, some functions are provided with non-modifying
  *      variants that create a new slice and return both; for instance,
- *      `s.splitNew(&#39;.&#39;)` leaves s unmodified, and returns two values
+ *      `s.splitNew('.')` leaves s unmodified, and returns two values
  *      corresponding to the left and right parts of the string.
  */
 
@@ -137,7 +137,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal returns (string) {
         var ret = new string(self._len);
@@ -876,7 +876,7 @@ contract FlightDelayConstants {
     // reserve for tail risks
     uint8 constant RESERVE_PERCENT = 1;
     // the weight pattern; in future versions this may become part of the policy struct.
-    // currently can&#39;t be constant because of compiler restrictions
+    // currently can't be constant because of compiler restrictions
     // WEIGHT_PATTERN[0] is not used, just to be consistent
     uint8[6] WEIGHT_PATTERN = [
         0,
@@ -923,13 +923,13 @@ contract FlightDelayConstants {
         // ratings api is v1, see https://developer.flightstats.com/api-docs/ratings/v1
         "[URL] json(https://api.flightstats.com/flex/ratings/rest/v1/json/flight/";
     string constant ORACLIZE_RATINGS_QUERY =
-        "?${[decrypt] BMyq4zhRqJ8ir2kM6TRnwhoU6p/ugrj3whdKOvz26XvgX7AEesXpzyiY15w0bKltLyGr2ZI17oT5g0EblU1kA/wMPS5V9PiBkAksyAI4LW8+4oW3rsBYwxWj/P5kGtsuMLQj+vfjEWUML/IO6A+GsX4uRr/qcTtbgroOor9Iis9oiKLmsW17}).ratings[0][&#39;observations&#39;,&#39;late15&#39;,&#39;late30&#39;,&#39;late45&#39;,&#39;cancelled&#39;,&#39;diverted&#39;,&#39;arrivalAirportFsCode&#39;,&#39;departureAirportFsCode&#39;]";
+        "?${[decrypt] BMyq4zhRqJ8ir2kM6TRnwhoU6p/ugrj3whdKOvz26XvgX7AEesXpzyiY15w0bKltLyGr2ZI17oT5g0EblU1kA/wMPS5V9PiBkAksyAI4LW8+4oW3rsBYwxWj/P5kGtsuMLQj+vfjEWUML/IO6A+GsX4uRr/qcTtbgroOor9Iis9oiKLmsW17}).ratings[0]['observations','late15','late30','late45','cancelled','diverted','arrivalAirportFsCode','departureAirportFsCode']";
     string constant ORACLIZE_STATUS_BASE_URL =
         // flight status api is v2, see https://developer.flightstats.com/api-docs/flightstatus/v2/flight
         "[URL] json(https://api.flightstats.com/flex/flightstatus/rest/v2/json/flight/status/";
     string constant ORACLIZE_STATUS_QUERY =
         // pattern:
-        "?${[decrypt] BI/xJBm/c0rYFpApw5ZoBJCRsVkPHwUgnbbtWTW18wMIC5zLHw8M3MJhf0041kLFqx/i2jj4aIQLX2sNSkm91/PDKydmtP1OOs1XQtAD4DB/mTlLiHcMy63XxoRngHr0ZRR4WBJQKkifhepmgiCht7VlXiYNclpZ0RGqmcndFs5pywIyvfAh}&utc=true).flightStatuses[0][&#39;status&#39;,&#39;delays&#39;,&#39;operationalTimes&#39;]";
+        "?${[decrypt] BI/xJBm/c0rYFpApw5ZoBJCRsVkPHwUgnbbtWTW18wMIC5zLHw8M3MJhf0041kLFqx/i2jj4aIQLX2sNSkm91/PDKydmtP1OOs1XQtAD4DB/mTlLiHcMy63XxoRngHr0ZRR4WBJQKkifhepmgiCht7VlXiYNclpZ0RGqmcndFs5pywIyvfAh}&utc=true).flightStatuses[0]['status','delays','operationalTimes']";
 // <-- prod-mode
 
 // --> test-mode
@@ -939,13 +939,13 @@ contract FlightDelayConstants {
 //            "[URL] json(https://api-test.etherisc.com/flex/ratings/rest/v1/json/flight/";
 //        string constant ORACLIZE_RATINGS_QUERY =
 //            // for testrpc:
-//            ").ratings[0][&#39;observations&#39;,&#39;late15&#39;,&#39;late30&#39;,&#39;late45&#39;,&#39;cancelled&#39;,&#39;diverted&#39;,&#39;arrivalAirportFsCode&#39;,&#39;departureAirportFsCode&#39;]";
+//            ").ratings[0]['observations','late15','late30','late45','cancelled','diverted','arrivalAirportFsCode','departureAirportFsCode']";
 //        string constant ORACLIZE_STATUS_BASE_URL =
 //            // flight status api is v2, see https://developer.flightstats.com/api-docs/flightstatus/v2/flight
 //            "[URL] json(https://api-test.etherisc.com/flex/flightstatus/rest/v2/json/flight/status/";
 //        string constant ORACLIZE_STATUS_QUERY =
 //            // for testrpc:
-//            "?utc=true).flightStatuses[0][&#39;status&#39;,&#39;delays&#39;,&#39;operationalTimes&#39;]";
+//            "?utc=true).flightStatuses[0]['status','delays','operationalTimes']";
 // <-- test-mode
 }
 
@@ -1957,7 +1957,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -1999,7 +1999,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -2118,7 +2118,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) throw;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -2128,7 +2128,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -2162,7 +2162,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         checkok = matchBytes32Prefix(sha256(sig1), result);
         if (checkok == false) return false;
 
@@ -2188,7 +2188,7 @@ contract usingOraclize {
         checkok = verifySig(sha256(tosign1), sig1, sessionPubkey);
         if (checkok == false) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -2223,15 +2223,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -2268,13 +2268,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -2572,7 +2572,7 @@ contract FlightDelayPayout is FlightDelayControlledContract, FlightDelayConstant
      * @param _result
      * @param _proof
      */
-    function __callback(bytes32 _queryId, string _result, bytes _proof) public onlyOraclizeOr(getContract(&#39;FD.Emergency&#39;)) {
+    function __callback(bytes32 _queryId, string _result, bytes _proof) public onlyOraclizeOr(getContract('FD.Emergency')) {
 
         var (policyId, oraclizeTime) = FD_DB.getOraclizeCallback(_queryId);
         LogOraclizeCallback(policyId, _queryId, _result, _proof);

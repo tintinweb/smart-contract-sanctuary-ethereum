@@ -445,7 +445,7 @@ contract Crowdsale is Pausable, TokenVesting {
         if (totalTokensSent < minCap && block.number > endBlock)      // ICO failed    
             return 3;            
     
-        if (endBlock == 0)           // ICO hasn&#39;t been started yet 
+        if (endBlock == 0)           // ICO hasn't been started yet 
             return 4;            
     
         return 0;         
@@ -486,7 +486,7 @@ contract Crowdsale is Pausable, TokenVesting {
         require(!crowdsaleClosed);                       
         require(block.number >= endBlock || totalTokensSent > maxCap - 1000);
                     // - 1000 is used to allow closing of the campaing when contribution is near 
-                    // finished as exact amount of maxCap might be not feasible e.g. you can&#39;t easily buy few tokens. 
+                    // finished as exact amount of maxCap might be not feasible e.g. you can't easily buy few tokens. 
                     // when min contribution is 0.1 Eth.  
 
         require(totalTokensSent >= minCap);
@@ -520,7 +520,7 @@ contract Crowdsale is Pausable, TokenVesting {
         TokenHolder storage backer = tokenHolders[msg.sender];
 
         require(backer.weiReceived > 0);  // ensure that user has sent contribution
-        require(!backer.refunded);        // ensure that user hasn&#39;t been refunded yet
+        require(!backer.refunded);        // ensure that user hasn't been refunded yet
 
         backer.refunded = true;  // save refund status to true
         refundCount++;
@@ -599,7 +599,7 @@ contract Crowdsale is Pausable, TokenVesting {
           
         uint tokensToSend = calculateNoOfTokensToSend(); // calculate number of tokens
 
-        // Ensure that max cap hasn&#39;t been reached
+        // Ensure that max cap hasn't been reached
         require(totalTokensSent + tokensToSend <= maxCap);
         
         TokenHolder storage backer = tokenHolders[_backer];
@@ -756,7 +756,7 @@ contract Token is ERC20, Ownable {
     *
     * Beware that changing an allowance with this method brings the risk that someone may use both the old
     * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-    * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+    * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
     * @param _spender The address which will spend the funds.
     * @param _value The amount of tokens to be spent.

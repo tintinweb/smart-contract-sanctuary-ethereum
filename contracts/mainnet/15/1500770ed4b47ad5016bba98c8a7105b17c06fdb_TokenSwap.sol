@@ -42,7 +42,7 @@ contract Token {
 This implements ONLY the standard functions and NOTHING else.
 For a token like you would want to deploy in something like Mist, see HumanStandardToken.sol.
 
-If you deploy this, you won&#39;t have anything useful.
+If you deploy this, you won't have anything useful.
 
 Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 .*/
@@ -50,8 +50,8 @@ Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -122,9 +122,9 @@ contract HumanStandardToken is StandardToken {
     Some wallets/interfaces might not even bother to look at this information.
     */
     string public name;                   //fancy name: eg Simon Bucks
-    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
-    string public version = &#39;H0.1&#39;;       //human 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'H0.1';       //human 0.1 standard. Just an arbitrary versioning scheme.
 
     function HumanStandardToken(
         uint256 _initialAmount,
@@ -143,7 +143,7 @@ contract HumanStandardToken is StandardToken {
     function approveAndCall(address _spender, uint256 _value, bytes _extraData) returns (bool success) {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { throw; }
@@ -193,7 +193,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -259,9 +259,9 @@ contract TokenSwap is Ownable {
     HumanStandardToken public ndc;
     /* neverdie token contract address and its instance, can be set by owner only */
     HumanStandardToken public tpt;
-    /* signer address, verified in &#39;swap&#39; method, can be set by owner only */
+    /* signer address, verified in 'swap' method, can be set by owner only */
     address public neverdieSigner;
-    /* minimal amount for swap, the amount passed to &#39;swap method can&#39;t be smaller
+    /* minimal amount for swap, the amount passed to 'swap method can't be smaller
        than this value, can be set by owner only */
     uint256 public minSwapAmount = 40;
 
@@ -318,7 +318,7 @@ contract TokenSwap is Ownable {
     /// @param _sender token sender
     /// @param _value value allowed to be spent
     /// @param _tokenContract callee, should be equal to neverdieContractAddress
-    /// @param _extraData  this should be a well formed calldata with function signature preceding which is used to call, for example, &#39;swap&#39; method
+    /// @param _extraData  this should be a well formed calldata with function signature preceding which is used to call, for example, 'swap' method
     function receiveApproval(address _sender, uint256 _value, address _tokenContract, bytes _extraData) external {
         require(_tokenContract == address(ndc));
         assert(this.call(_extraData));

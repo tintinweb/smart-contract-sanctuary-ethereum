@@ -137,7 +137,7 @@ contract DMC is EIP20Interface,Ownable,SafeMath,Pausable{
     string public constant name ="DoMengCoin";
     string public constant symbol = "DMC";
     uint8 public constant decimals = 18;
-    string  public version  = &#39;v0.1&#39;;
+    string  public version  = 'v0.1';
     uint256 public constant initialSupply = 100000000;
     
     mapping (address => uint256) public balances;

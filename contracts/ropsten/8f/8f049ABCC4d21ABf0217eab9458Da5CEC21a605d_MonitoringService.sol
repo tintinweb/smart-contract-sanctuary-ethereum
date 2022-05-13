@@ -215,7 +215,7 @@ contract TokenNetwork is Utils {
     // opened channels in this contract
     uint256 public channel_counter;
 
-    string public constant signature_prefix = &#39;\x19Ethereum Signed Message:\n&#39;;
+    string public constant signature_prefix = '\x19Ethereum Signed Message:\n';
 
     // Only for the limited Red Eyes release
     address public deprecation_executor;
@@ -243,7 +243,7 @@ contract TokenNetwork is Utils {
     struct Participant {
         // Total amount of tokens transferred to this smart contract through
         // the `setTotalDeposit` function, for a specific channel, in the
-        // participant&#39;s benefit.
+        // participant's benefit.
         // This is a strictly monotonic value. Note that direct token transfer
         // into the contract cannot be tracked and will be stuck.
         uint256 deposit;
@@ -315,7 +315,7 @@ contract TokenNetwork is Utils {
         uint256 total_deposit
     );
 
-    // Fires when the deprecation_switch&#39;s value changes
+    // Fires when the deprecation_switch's value changes
     event DeprecationSwitch(bool new_value);
 
     // total_withdraw is how much the participant has withdrawn during the
@@ -529,7 +529,7 @@ contract TokenNetwork is Utils {
         // Red Eyes release token network limit
         require(token.balanceOf(address(this)) + added_deposit <= token_network_deposit_limit);
 
-        // Update the participant&#39;s channel deposit
+        // Update the participant's channel deposit
         participant_state.deposit = total_deposit;
 
         // Calculate the entire channel deposit, to avoid overflow
@@ -556,9 +556,9 @@ contract TokenNetwork is Utils {
     /// amount.
     /// @param total_withdraw Total amount of tokens that are marked as
     /// withdrawn from the channel during the channel lifecycle.
-    /// @param participant_signature Participant&#39;s signature on the withdraw
+    /// @param participant_signature Participant's signature on the withdraw
     /// data.
-    /// @param partner_signature Partner&#39;s signature on the withdraw data.
+    /// @param partner_signature Partner's signature on the withdraw data.
     function setTotalWithdraw(
         uint256 channel_identifier,
         address participant,
@@ -658,7 +658,7 @@ contract TokenNetwork is Utils {
     /// @param additional_hash Computed from the message. Used for message
     /// authentication.
     /// @param nonce Strictly monotonic value used to order transfers.
-    /// @param signature Partner&#39;s signature of the balance proof data.
+    /// @param signature Partner's signature of the balance proof data.
     function closeChannel(
         uint256 channel_identifier,
         address partner,
@@ -710,7 +710,7 @@ contract TokenNetwork is Utils {
 
     /// @notice Called on a closed channel, the function allows the non-closing
     /// participant to provide the last balance proof, which modifies the
-    /// closing participant&#39;s state. Can be called multiple times by anyone.
+    /// closing participant's state. Can be called multiple times by anyone.
     /// @param channel_identifier Identifier for the channel on which this
     /// operation takes place.
     /// @param closing_participant Channel participant who closed the channel.
@@ -721,7 +721,7 @@ contract TokenNetwork is Utils {
     /// @param additional_hash Computed from the message. Used for message
     /// authentication.
     /// @param nonce Strictly monotonic value used to order transfers.
-    /// @param closing_signature Closing participant&#39;s signature of the balance
+    /// @param closing_signature Closing participant's signature of the balance
     /// proof data.
     /// @param non_closing_signature Non-closing participant signature of the
     /// balance proof data.
@@ -754,14 +754,14 @@ contract TokenNetwork is Utils {
         // Calling this function after the settlement window is forbidden to
         // fix the following race condition:
         //
-        // 1 A badly configured node A, that doesn&#39;t have a monitoring service
+        // 1 A badly configured node A, that doesn't have a monitoring service
         //   and is temporarily offline does not call update during the
         //   settlement window.
         // 2 The well behaved partner B, who called close, sees the
-        //   settlement window is over and calls settle. At this point the B&#39;s
+        //   settlement window is over and calls settle. At this point the B's
         //   balance proofs which should be provided by A is missing, so B will
         //   call settle with its balance proof zeroed out.
-        // 3 A restarts and calls update, which will change B&#39;s balance
+        // 3 A restarts and calls update, which will change B's balance
         //   proof.
         // 4 At this point, the transactions from 2 and 3 are racing, and one
         //   of them will fail.
@@ -770,7 +770,7 @@ contract TokenNetwork is Utils {
         // handling on both nodes, the call to update is forbidden after the
         // settlement window. This does not affect safety, since we assume the
         // nodes are always properly configured and have a monitoring service
-        // available to call update on the user&#39;s behalf.
+        // available to call update on the user's behalf.
         require(channel.settle_block_number >= block.number);
 
         // We need the signature from the non-closing participant to allow
@@ -922,7 +922,7 @@ contract TokenNetwork is Utils {
         delete channel.participants[participant2];
         delete channels[channel_identifier];
 
-        // Remove the pair&#39;s channel counter
+        // Remove the pair's channel counter
         delete participants_hash_to_channel_identifier[pair_hash];
 
         // Store balance data needed for `unlock`, including the calculated
@@ -1016,14 +1016,14 @@ contract TokenNetwork is Utils {
         // Transaction must fail
         require(locked_amount > 0);
 
-        // Make sure we don&#39;t transfer more tokens than previously reserved in
+        // Make sure we don't transfer more tokens than previously reserved in
         // the smart contract.
         unlocked_amount = min(unlocked_amount, locked_amount);
 
         // Transfer the rest of the tokens back to the sender
         returned_tokens = locked_amount - unlocked_amount;
 
-        // Remove sender&#39;s unlock data
+        // Remove sender's unlock data
         delete unlock_identifier_to_unlock_data[unlock_key];
 
         emit ChannelUnlocked(
@@ -1135,7 +1135,7 @@ contract TokenNetwork is Utils {
         delete channel.participants[participant2];
         delete channels[channel_identifier];
 
-        // Remove the pair&#39;s channel counter
+        // Remove the pair's channel counter
         delete participants_hash_to_channel_identifier[pair_hash];
 
         emit ChannelSettled(channel_identifier, participant1_balance, participant2_balance);
@@ -1228,7 +1228,7 @@ contract TokenNetwork is Utils {
     /// @param participant Address of the channel participant whose data will be
     /// returned.
     /// @param partner Address of the channel partner.
-    /// @return Participant&#39;s deposit, withdrawn_amount, whether the participant
+    /// @return Participant's deposit, withdrawn_amount, whether the participant
     /// has called `closeChannel` or not, balance_hash, nonce, locksroot,
     /// locked_amount.
     function getChannelParticipantInfo(
@@ -1405,9 +1405,9 @@ contract TokenNetwork is Utils {
         // Lc2 = the amount that can be claimed by participant1 from the pending
         //   transfers (that have not been finalized off-chain), sent by
         //   participant2 to participant1. These are part of the locked amount
-        //   value from participant2&#39;s balance proof. They are considered claimed
+        //   value from participant2's balance proof. They are considered claimed
         //   if the secret corresponding to these locked transfers was registered
-        //   on-chain, in the SecretRegistry contract, before the lock&#39;s expiration.
+        //   on-chain, in the SecretRegistry contract, before the lock's expiration.
         // Lu1 = unclaimable locked amount from L1
         // Lc1 = the amount that can be claimed by participant2 from the pending
         //   transfers (that have not been finalized off-chain),
@@ -1504,7 +1504,7 @@ contract TokenNetwork is Utils {
         // SL2 = min(RmaxP1, L2)
         // S1 = RmaxP1 - SL2
         // Both operations are done by failsafe_subtract
-        // We take out participant2&#39;s pending transfers locked amount, bounding
+        // We take out participant2's pending transfers locked amount, bounding
         // it by the maximum receivable amount of participant1
         (participant1_amount, participant2_locked_amount) = failsafe_subtract(
             participant1_amount,
@@ -1514,7 +1514,7 @@ contract TokenNetwork is Utils {
         // SL1 = min(RmaxP2, L1)
         // S2 = RmaxP2 - SL1
         // Both operations are done by failsafe_subtract
-        // We take out participant1&#39;s pending transfers locked amount, bounding
+        // We take out participant1's pending transfers locked amount, bounding
         // it by the maximum receivable amount of participant2
         (participant2_amount, participant1_locked_amount) = failsafe_subtract(
             participant2_amount,
@@ -1586,7 +1586,7 @@ contract TokenNetwork is Utils {
             participant1_max_transferred
         );
 
-        // Next, we add the participant1&#39;s deposit and subtract the already
+        // Next, we add the participant1's deposit and subtract the already
         // withdrawn amount
         participant1_max_amount = failsafe_addition(
             participant1_net_max_received,
@@ -1642,7 +1642,7 @@ contract TokenNetwork is Utils {
         returns (address signature_address)
     {
         // Length of the actual message: 20 + 32 + 32 + 32 + 32 + 32 + 32
-        string memory message_length = &#39;212&#39;;
+        string memory message_length = '212';
 
         bytes32 message_hash = keccak256(abi.encodePacked(
             signature_prefix,
@@ -1672,7 +1672,7 @@ contract TokenNetwork is Utils {
         returns (address signature_address)
     {
         // Length of the actual message: 20 + 32 + 32 + 32 + 32 + 32 + 32 + 65
-        string memory message_length = &#39;277&#39;;
+        string memory message_length = '277';
 
         bytes32 message_hash = keccak256(abi.encodePacked(
             signature_prefix,
@@ -1703,7 +1703,7 @@ contract TokenNetwork is Utils {
         returns (address signature_address)
     {
         // Length of the actual message: 20 + 32 + 32 + 32 + 20 + 32 + 20 + 32
-        string memory message_length = &#39;220&#39;;
+        string memory message_length = '220';
 
         bytes32 message_hash = keccak256(abi.encodePacked(
             signature_prefix,
@@ -1733,7 +1733,7 @@ contract TokenNetwork is Utils {
         returns (address signature_address)
     {
         // Length of the actual message: 20 + 32 + 32 + 32 + 20 + 32 + 32
-        string memory message_length = &#39;200&#39;;
+        string memory message_length = '200';
 
         bytes32 message_hash = keccak256(abi.encodePacked(
             signature_prefix,
@@ -1800,9 +1800,9 @@ contract TokenNetwork is Utils {
             secrethash := mload(add(locks, add(offset, 64)))
         }
 
-        // Check if the lock&#39;s secret was revealed in the SecretRegistry The
+        // Check if the lock's secret was revealed in the SecretRegistry The
         // secret must have been revealed in the SecretRegistry contract before
-        // the lock&#39;s expiration_block in order for the hash time lock transfer
+        // the lock's expiration_block in order for the hash time lock transfer
         // to be successful.
         reveal_block = secret_registry.getSecretRevealBlockHeight(secrethash);
         if (reveal_block == 0 || expiration_block <= reveal_block) {
@@ -1881,7 +1881,7 @@ contract ServiceRegistry is Utils {
     }
 
     /// Set the URL used to access a service via HTTP.
-    /// When this is called for the first time, the service&#39;s ethereum address
+    /// When this is called for the first time, the service's ethereum address
     /// is also added to `service_addresses`.
     function setURL(string memory new_url) public {
         require(bytes(new_url).length != 0, "new url is empty string");
@@ -1934,7 +1934,7 @@ contract UserDeposit is Utils {
     // Total amount of tokens that have been deposited. This is monotonous and
     // doing a transfer or withdrawing tokens will not decrease total_deposit!
     mapping(address => uint256) public total_deposit;
-    // Current user&#39;s balance, ignoring planned withdraws
+    // Current user's balance, ignoring planned withdraws
     mapping(address => uint256) public balances;
     mapping(address => WithdrawPlan) public withdraw_plans;
 
@@ -2033,7 +2033,7 @@ contract UserDeposit is Utils {
         require(whole_balance <= whole_balance_limit, "too much deposit");
 
         // Actual transfer.
-        require(token.transferFrom(msg.sender, address(this), added_deposit), "tokens didn&#39;t transfer");
+        require(token.transferFrom(msg.sender, address(this), added_deposit), "tokens didn't transfer");
     }
 
     /// @notice Internally transfer deposits between two addresses.
@@ -2101,10 +2101,10 @@ contract UserDeposit is Utils {
         emit BalanceReduced(msg.sender, balances[msg.sender]);
         delete withdraw_plans[msg.sender];
 
-        require(token.transfer(msg.sender, withdrawable), "tokens didn&#39;t transfer");
+        require(token.transfer(msg.sender, withdrawable), "tokens didn't transfer");
     }
 
-    /// @notice The owner&#39;s balance with planned withdrawals deducted
+    /// @notice The owner's balance with planned withdrawals deducted
     /// @param owner Address for which the balance should be returned
     /// @return The remaining balance after planned withdrawals
     function effectiveBalance(address owner)
@@ -2367,7 +2367,7 @@ contract MonitoringService is Utils {
         );
         require(channel_state == TokenNetwork.ChannelState.Closed, "channel not closed");
 
-        // We don&#39;t actually know when the channel has been closed. So we&#39;ll
+        // We don't actually know when the channel has been closed. So we'll
         // make a guess so that assumed_close_block >= real_close_block.
         uint256 assumed_settle_timeout = token_network.settlement_timeout_min();
         require(settle_block_number >= assumed_settle_timeout, "too low settle block number");
@@ -2395,7 +2395,7 @@ contract MonitoringService is Utils {
         require(settle_timeout < uint256(2**256 - 1) / 100, "maliciously big settle timeout");
         require(closed_at_block < uint256(2**256 - 1) / 100, "maliciously big closed_at_block");
 
-        // First allowed block as percentage of settle_timeout. We&#39;re using
+        // First allowed block as percentage of settle_timeout. We're using
         // integers here to avoid accuracy loss during calculations.
         uint256 BEST_CASE = 30;
         uint256 WORST_CASE = 80;
@@ -2436,7 +2436,7 @@ contract MonitoringService is Utils {
         ));
 
         // Only allowed to claim, if channel is settled
-        // Channel is settled if it&#39;s data has been deleted
+        // Channel is settled if it's data has been deleted
         TokenNetwork.ChannelState channel_state;
         uint256 settle_block_number;
         (settle_block_number, channel_state) = token_network.getChannelInfo(
@@ -2454,7 +2454,7 @@ contract MonitoringService is Utils {
         // Make sure that the Reward exists
         require(reward.reward_sender_address != address(0x0), "reward_sender is zero");
 
-        // Add reward to the monitoring service&#39;s balance
+        // Add reward to the monitoring service's balance
         require(user_deposit.transfer(
             reward.reward_sender_address,
             reward.monitoring_service_address,

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;Honey&#39; token contract
+// 'Honey' token contract
 //
 // Deployed to : 0xA49c7811998c44781BD9eeF4Dd1991fEd61C4212
 // Symbol      : HNCN

@@ -155,8 +155,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -173,7 +173,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -334,7 +334,7 @@ contract ExchangePortal is ExchangePortalInterface, Ownable {
   * @param _sourceAmount            Amount to convert from (in _source token)
   * @param _destination             ERC20 token to convert to
   * @param _maxDestinationAmount    The maximum amount of _destination to receive in this trade
-  * @param _minConversionRate       The minimum conversion rate we&#39;re willing to trade for
+  * @param _minConversionRate       The minimum conversion rate we're willing to trade for
   * @param _walletId                Address of the wallet that will receive a cut of the trade
   *
   * @return The amount of _destination received from the trade
@@ -394,8 +394,8 @@ contract ExchangePortal is ExchangePortalInterface, Ownable {
   /**
   * @dev Gets the value of a given amount of some token
   *
-  * @param _from      Address of token we&#39;re converting from
-  * @param _to        Address of token we&#39;re getting the value in
+  * @param _from      Address of token we're converting from
+  * @param _to        Address of token we're getting the value in
   * @param _amount    The amount of _from
   *
   * @return The value of `_amount` amount of _from in terms of _to
@@ -410,9 +410,9 @@ contract ExchangePortal is ExchangePortalInterface, Ownable {
   /**
   * @dev Gets the total value of array of tokens and amounts
   *
-  * @param _fromAddresses    Addresses of all the tokens we&#39;re converting from
+  * @param _fromAddresses    Addresses of all the tokens we're converting from
   * @param _amounts          The amounts of all the tokens
-  * @param _to               The token who&#39;s value we&#39;re converting to
+  * @param _to               The token who's value we're converting to
   *
   * @return The total value of _fromAddresses and _amounts in terms of _to
   */

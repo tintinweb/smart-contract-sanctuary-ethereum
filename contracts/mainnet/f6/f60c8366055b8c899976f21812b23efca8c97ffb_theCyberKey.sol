@@ -24,12 +24,12 @@ contract theCyberKey {
 
         // Check 1:
         //   the lower 4 bytes equal the lower 2 bytes; this can be implemented by padding the lower 2 bytes
-        //   with 0&#39;s for the upper 2 bytes: 00 00 XX XX
-        //   we&#39;ll start with initializing lower 4 to 0 to accomplish this;
+        //   with 0's for the upper 2 bytes: 00 00 XX XX
+        //   we'll start with initializing lower 4 to 0 to accomplish this;
         uint32 lower4Bytes = 0;
 
         // Check 2:
-        //   Lower 4 bytes can&#39;t equal all bytes (which means upper 4 cannot equal 0)
+        //   Lower 4 bytes can't equal all bytes (which means upper 4 cannot equal 0)
         //   Set upper 4 to 1
         uint32 upper4Bytes = 1;
 

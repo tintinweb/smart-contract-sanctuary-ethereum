@@ -22,7 +22,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -399,7 +399,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply = totalSupply.sub(_value);

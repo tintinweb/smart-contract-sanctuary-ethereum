@@ -2,7 +2,7 @@ pragma solidity ^0.4.25;
 
 contract FundEIF {
   
-  mapping(address => uint256) public receivedFunds; //doesn&#39;t include interest returned but allows other addresses to send funds
+  mapping(address => uint256) public receivedFunds; //doesn't include interest returned but allows other addresses to send funds
   uint256 public totalSent;                         //includes reinvested interest + totalOtherReceived outside PoEIF
   uint256 public totalOtherReceived;                //total received outside PoEIF
   uint256 public totalInterestReinvested;           //updated for promotional reasons

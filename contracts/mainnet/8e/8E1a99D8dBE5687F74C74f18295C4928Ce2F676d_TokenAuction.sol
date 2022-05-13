@@ -14,7 +14,7 @@ pragma solidity ^0.4.15;
  * the user includes an encrypted bid tuple, using the public key of the party running the
  * auction, and of course a deposit sufficient to pay for the bid.
  *
- * At the end of the bidding period, the party running the auction sets a &#39;strike price&#39;,
+ * At the end of the bidding period, the party running the auction sets a 'strike price',
  * thereby signaling the start of the sale period. During this period all bidders must
  * execute their bids. To execute a bid a user reveals their bid-tuple. All bids with a
  * price at least as high as the strike price are filled, and all bids under the strike
@@ -287,7 +287,7 @@ contract TokenAuction is SafeMath {
 
   //
   // nobody should be sending funds via this function.... bizarre...
-  // the fact that we adjust proceeds here means that this fcn will OOG if called with a send or transfer. that&#39;s
+  // the fact that we adjust proceeds here means that this fcn will OOG if called with a send or transfer. that's
   // probably good, cuz it prevents the caller from losing their funds.
   //
   function () payable {

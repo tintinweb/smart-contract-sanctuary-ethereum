@@ -11,7 +11,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -140,7 +140,7 @@ contract StandardToken is ERC20, BasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -271,7 +271,7 @@ contract MintableToken is StandardToken, Ownable {
     }
 
     /**
-     * Peterson&#39;s Law Protection
+     * Peterson's Law Protection
      * Claim tokens
      */
     function claimTokens(address _token) public onlyOwner {
@@ -353,7 +353,7 @@ contract CryptoCasherCrowdsale is Ownable, Crowdsale, MintableToken {
         require(_owner != address(0));
         require(_wallet != address(0));
         owner = _owner;
-        //owner = msg.sender; //for test&#39;s
+        //owner = msg.sender; //for test's
         transfersEnabled = true;
         totalSupply = INITIAL_SUPPLY;
         mintForOwner(owner);
@@ -390,7 +390,7 @@ contract CryptoCasherCrowdsale is Ownable, Crowdsale, MintableToken {
 
     function getTotalAmountOfTokens(uint256 _weiAmount) internal view returns (uint256) {
         uint256 currentDate = now;
-        //currentDate = 1537444800; //for test&#39;s (Tue, 20 Sep 2018 12:00:00 GMT)
+        //currentDate = 1537444800; //for test's (Tue, 20 Sep 2018 12:00:00 GMT)
         uint256 currentPeriod = getPeriod(currentDate);
         uint256 amountOfTokens = 0;
         if(currentPeriod == 0 && _weiAmount >= weiMinSalePrivate){

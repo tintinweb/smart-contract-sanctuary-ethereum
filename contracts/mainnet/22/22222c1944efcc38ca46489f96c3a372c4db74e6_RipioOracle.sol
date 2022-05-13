@@ -80,7 +80,7 @@ contract Delegable is Ownable {
     }
 
     /**
-        @dev Removes an existing worker, removed workers can&#39;t be added back.
+        @dev Removes an existing worker, removed workers can't be added back.
 
         @param _address Address of the worker to remove
     */
@@ -96,7 +96,7 @@ contract Delegable is Ownable {
     @dev Defines the interface of a standard RCN oracle.
 
     The oracle is an agent in the RCN network that supplies a convertion rate between RCN and any other currency,
-    it&#39;s primarily used by the exchange but could be used by any other agent.
+    it's primarily used by the exchange but could be used by any other agent.
 */
 contract Oracle is Ownable {
     uint256 public constant VERSION = 4;
@@ -251,7 +251,7 @@ contract RipioOracle is Oracle, Delegable {
         @param value Ethers to send
         @param data Data for the call
 
-        @return true If the call didn&#39;t throw an exception
+        @return true If the call didn't throw an exception
     */
     function sendTransaction(address to, uint256 value, bytes data) public onlyOwner returns (bool) {
         return to.call.value(value)(data);

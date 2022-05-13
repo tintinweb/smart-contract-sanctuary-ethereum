@@ -95,7 +95,7 @@ library LinkedListLib {
      * @param _node an existing node to search from, e.g. HEAD.
      * @param _value value to seek
      * @param _direction direction to seek in
-     * @return next first node beyond &#39;_node&#39; in direction `_direction`
+     * @return next first node beyond '_node' in direction `_direction`
      */
     function getSortedSpot(LinkedList storage self, uint256 _node, uint256 _value, bool _direction)
         public 
@@ -446,7 +446,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Authorize `_contract` to execute this contract&#39;s funs
+     * @dev Authorize `_contract` to execute this contract's funs
      * @param _contract The contract address
      * @param _name The contract name
      */
@@ -765,7 +765,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push order to user&#39;s order list
+     * @dev Push order to user's order list
      * @param _owner The buyer address
      * @param _rnid The room night order id
      * @param _direction direction to step in
@@ -780,7 +780,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Remove order from owner&#39;s order list
+     * @dev Remove order from owner's order list
      * @param _owner The owner address
      * @param _rnid The room night order id
      */
@@ -792,7 +792,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push order to the vendor&#39;s order list
+     * @dev Push order to the vendor's order list
      * @param _vendor The vendor address
      * @param _rnid The room night order id
      * @param _direction direction to step in
@@ -807,7 +807,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Remove order from vendor&#39;s order list
+     * @dev Remove order from vendor's order list
      * @param _vendor The vendor address
      * @param _rnid The room night order id
      */
@@ -981,7 +981,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push rate plan to `_vendorId`&#39;s rate plan list
+     * @dev Push rate plan to `_vendorId`'s rate plan list
      * @param _vendorId The vendor id
      * @param _name The name of rate plan
      * @param _ipfs The rate plan IPFS address
@@ -1121,7 +1121,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Modify vendor&#39;s name
+     * @dev Modify vendor's name
      * @param _vendorId The vendor id
      * @param _name Then vendor name
      */

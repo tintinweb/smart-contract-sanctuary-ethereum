@@ -26,7 +26,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -192,7 +192,7 @@ contract CryptoEngineer is PullPayment{
         boostData[4] = BoostData(0x0, 250, BASE_PRICE * 16);
     }
     /** 
-    * @dev MainContract used this function to verify game&#39;s contract
+    * @dev MainContract used this function to verify game's contract
     */
     function isContractMiniGame() public pure returns(bool _isContractMiniGame)
     {

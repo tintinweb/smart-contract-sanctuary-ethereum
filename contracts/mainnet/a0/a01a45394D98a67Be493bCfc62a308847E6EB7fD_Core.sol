@@ -46,7 +46,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -744,7 +744,7 @@ contract LootboxStore is Base {
   }
 
   function buyEthLootbox(address _lootboxAddress) payable external {
-    // Verify the given lootbox contract exists and they&#39;ve paid enough
+    // Verify the given lootbox contract exists and they've paid enough
     require(ethPricedLootboxes[_lootboxAddress] != 0);
     require(msg.value >= ethPricedLootboxes[_lootboxAddress]);
 

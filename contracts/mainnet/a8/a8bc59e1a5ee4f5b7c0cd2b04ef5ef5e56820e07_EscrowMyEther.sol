@@ -6,7 +6,7 @@ contract EscrowMyEther  {
 
        
         //Each buyer address consist of an array of EscrowStruct
-        //Used to store buyer&#39;s transactions and for buyers to interact with his transactions. (Such as releasing funds to seller)
+        //Used to store buyer's transactions and for buyers to interact with his transactions. (Such as releasing funds to seller)
         struct EscrowStruct
         {    
             address buyer;          //Person who is making payment
@@ -98,7 +98,7 @@ contract EscrowMyEther  {
             
             currentEscrow.notes = notes;
  
-            //Links this transaction to Seller and Escrow&#39;s list of transactions.
+            //Links this transaction to Seller and Escrow's list of transactions.
             currentTransaction.buyer = msg.sender;
             currentTransaction.buyer_nounce = buyerDatabase[msg.sender].length;
 
@@ -255,7 +255,7 @@ contract EscrowMyEther  {
             uint amount = buyerDatabase[msg.sender][ID].amount;
             uint escrow_fee = buyerDatabase[msg.sender][ID].escrow_fee;
 
-            //Move funds under seller&#39;s owership
+            //Move funds under seller's owership
             Funds[seller] += amount;
             Funds[escrow_agent] += escrow_fee;
 
@@ -299,7 +299,7 @@ contract EscrowMyEther  {
 
             //There is no difference whether the buyer or seller activates EscrowEscalation.
             address buyerAddress;
-            uint buyerID; //transaction ID of in buyer&#39;s history
+            uint buyerID; //transaction ID of in buyer's history
             if (switcher == 0) // Buyer
             {
                 buyerAddress = msg.sender;
@@ -320,7 +320,7 @@ contract EscrowMyEther  {
             
         }
         
-        //ID is the transaction ID from Escrow&#39;s history. 
+        //ID is the transaction ID from Escrow's history. 
         //Decision = 0 is for refunding Buyer. Decision = 1 is for releasing funds to Seller
         function escrowDecision(uint ID, uint Decision) public
         {

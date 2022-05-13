@@ -392,7 +392,7 @@ contract FeeBurner is Withdrawable, FeeBurnerInterface, Utils2 {
         (kyberEthKncRate, ) = kyberNetwork.getExpectedRate(ETH_TOKEN_ADDRESS, ERC20(knc), (10 ** 18));
         (kyberKncEthRate, ) = kyberNetwork.getExpectedRate(ERC20(knc), ETH_TOKEN_ADDRESS, (10 ** 18));
 
-        //check "reasonable" spread == diff not too big. rate wasn&#39;t tampered.
+        //check "reasonable" spread == diff not too big. rate wasn't tampered.
         require(kyberEthKncRate * kyberKncEthRate < PRECISION ** 2 * 2);
         require(kyberEthKncRate * kyberKncEthRate > PRECISION ** 2 / 2);
 

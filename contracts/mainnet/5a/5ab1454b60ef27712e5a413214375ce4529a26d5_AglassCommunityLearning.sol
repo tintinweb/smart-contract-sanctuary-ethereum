@@ -75,7 +75,7 @@ contract AglassCommunityLearning is StandardToken {
 
     string public symbol = "ACL";
 
-    string public version = &#39;v0.1&#39;;
+    string public version = 'v0.1';
 
     address public founder;
 

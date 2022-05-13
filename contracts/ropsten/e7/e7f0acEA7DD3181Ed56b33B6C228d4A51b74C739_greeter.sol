@@ -1,6 +1,6 @@
 pragma solidity ^0.4.18;
 // ----------------------------------------------------------------------------
-// &#39;HelloWorld&#39; contract
+// 'HelloWorld' contract
 //
 // Deployed to : 0x91ef4140646d39ee957586cb89dbf70739ca19a5
 

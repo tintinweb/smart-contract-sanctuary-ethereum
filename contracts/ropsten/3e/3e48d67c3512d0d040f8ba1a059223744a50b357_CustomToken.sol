@@ -101,8 +101,8 @@ contract CustomToken is BaseToken, BurnToken, ICOToken {
     function CustomToken() public {
         totalSupply = 66000000000000000000000000;
         balanceOf[0x81d8DDDaA45c18cFF46D82BEb8a26558C5577916] = totalSupply;
-        name = &#39;Qncoin&#39;;
-        symbol = &#39;QNC&#39;;
+        name = 'Qncoin';
+        symbol = 'QNC';
         decimals = 18;
         icoRatio = 20000;
         icoEndtime = 1924941600;

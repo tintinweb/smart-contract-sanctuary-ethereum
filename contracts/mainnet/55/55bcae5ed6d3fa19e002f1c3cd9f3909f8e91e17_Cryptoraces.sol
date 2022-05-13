@@ -22,7 +22,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -203,7 +203,7 @@ function getMaximumBetRate() public view returns(uint256){
 
   function withDrawalether(uint amount) public payable returns(uint256){
       require(msg.sender == manager,"only manager can reach  here");
-      manager.transfer(amount*1000000000000000); // 1 etherin 1000&#39; de birini g&#246;nderebilir.
+      manager.transfer(amount*1000000000000000); // 1 etherin 1000' de birini g&#246;nderebilir.
       return address(this).balance;
   }
 

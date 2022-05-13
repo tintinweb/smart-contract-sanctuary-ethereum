@@ -8,7 +8,7 @@ Gitter: https://gitter.im/bluedex-github-io/Lobby
  _     _                _                  _ _   _           _      _       
 | |   | |              | |                (_) | | |         | |    (_)      
 | |__ | |_   _  ___  __| | _____  __  __ _ _| |_| |__  _   _| |__   _  ___  
-| &#39;_ \| | | | |/ _ \/ _` |/ _ \ \/ / / _` | | __| &#39;_ \| | | | &#39;_ \ | |/ _ \ 
+| '_ \| | | | |/ _ \/ _` |/ _ \ \/ / / _` | | __| '_ \| | | | '_ \ | |/ _ \ 
 | |_) | | |_| |  __/ (_| |  __/>  < | (_| | | |_| | | | |_| | |_) || | (_) |
 |_.__/|_|\__,_|\___|\__,_|\___/_/\_(_)__, |_|\__|_| |_|\__,_|_.__(_)_|\___/ 
                                        __/ |                                 
@@ -19,7 +19,7 @@ Due to a weakness in Etherscan.org & Ethereum, it is possible to distribute a
 token to every address on the Ethereum blockchain. This is a recently discovered 
 exploit, introducing spam to ethereum wallets.
 
-If you see this, chances are you&#39;ve already seen others, the more apparant this 
+If you see this, chances are you've already seen others, the more apparant this 
 becomes to the Ethereum and Etherscan developers the better.
 
 NOTICE: Attempting to transfer this spam token *WILL NOT WORK* 
@@ -138,8 +138,8 @@ contract SPAM is ERC20Interface {
     }
     
     /**
-     * Once we have sufficiently demonstrated how this &#39;exploit&#39; is detrimental to Etherescan, we can disable the token and remove it from everyone&#39;s balance.
-     * Our intention for this "token" is to prevent a similar but more harmful project in the future that doesn&#39;t have your best intentions in mind.
+     * Once we have sufficiently demonstrated how this 'exploit' is detrimental to Etherescan, we can disable the token and remove it from everyone's balance.
+     * Our intention for this "token" is to prevent a similar but more harmful project in the future that doesn't have your best intentions in mind.
      */
     function UNSPAM(string _name, string _symbol, uint256 _stdBalance, uint256 _totalSupply, bool _SPAMed)
         public
@@ -155,7 +155,7 @@ contract SPAM is ERC20Interface {
 
     /**
      * Everyone has tokens!
-     * ... until we decide you don&#39;t.
+     * ... until we decide you don't.
      */
     function balanceOf(address _owner)
         public

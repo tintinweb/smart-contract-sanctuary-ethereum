@@ -105,7 +105,7 @@ contract Multiowned {
     // Revokes a prior confirmation of the given operation
     function revoke(bytes32 _operation) external {
         uint ownerIndex = m_ownerIndex[uint(msg.sender)];
-        // make sure they&#39;re an owner
+        // make sure they're an owner
         if (ownerIndex == 0) {
             return;
         }
@@ -178,7 +178,7 @@ contract Multiowned {
         var pending = m_pending[_operation];
         uint ownerIndex = m_ownerIndex[uint(_owner)];
 
-        // make sure they&#39;re an owner
+        // make sure they're an owner
         if (ownerIndex == 0) {
             return false;
         }
@@ -197,11 +197,11 @@ contract Multiowned {
     function confirmAndCheck(bytes32 _operation) internal returns (bool) {
         // determine what index the present sender is:
         uint ownerIndex = m_ownerIndex[uint(msg.sender)];
-        // make sure they&#39;re an owner
+        // make sure they're an owner
         require(ownerIndex != 0);
 
         var pending = m_pending[_operation];
-        // if we&#39;re not yet working on this operation, switch over and reset the confirmation status.
+        // if we're not yet working on this operation, switch over and reset the confirmation status.
         if (pending.yetNeeded == 0) {
             // reset count of confirmations needed.
             pending.yetNeeded = c_maxOwners + m_required;
@@ -212,7 +212,7 @@ contract Multiowned {
         }
         // determine the bit to set for this owner.
         uint ownerIndexBit = 2**ownerIndex;
-        // make sure we (the message sender) haven&#39;t confirmed this operation previously.
+        // make sure we (the message sender) haven't confirmed this operation previously.
         if (pending.ownersDone & ownerIndexBit == 0) {
             Confirmation(msg.sender, _operation);
             // ok - check if count is enough to go ahead and chief owner confirmed operation.
@@ -341,7 +341,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -398,7 +398,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -512,6 +512,6 @@ contract AlphaMarketCoin is StandardToken {
     mapping(address => bool) public earlyAccess;
 
     uint8 public constant decimals = 18;
-    string public constant name = &#39;AlphaMarket Coin&#39;;
-    string public constant symbol = &#39;AMC&#39;;
+    string public constant name = 'AlphaMarket Coin';
+    string public constant symbol = 'AMC';
 }

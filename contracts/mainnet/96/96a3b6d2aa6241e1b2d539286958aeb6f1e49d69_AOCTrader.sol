@@ -39,8 +39,8 @@ pragma solidity ^0.4.19;
 // *) There is a cooldown period of 1 hour after the contract is reset, before it can be used again.
 //    This is to avoid possible scams where the seller sees a pending TX on the contract, then resets
 //    the contract and call setup() is a much higher price. If the seller does that with very high gas price,
-//    they could change the price for the buyer&#39;s pending TX. A cooldown of 1 hour prevents this attac, as long
-//    as the buyer&#39;s TX confirms within the hour.
+//    they could change the price for the buyer's pending TX. A cooldown of 1 hour prevents this attac, as long
+//    as the buyer's TX confirms within the hour.
 
 
 interface AOCToken {
@@ -72,7 +72,7 @@ contract AOCTrader {
     }
     
     // Before calling setup, the sender must call Approve() on the AOC token 
-    // That sets allowance for this contract to sell the tokens on sender&#39;s behalf
+    // That sets allowance for this contract to sell the tokens on sender's behalf
     function setup(uint256 AOC_amount, uint256 price_in_wei) public {
         require(is_empty()); // must not be in cooldown
         require(AOC.allowance(msg.sender, this) >= AOC_amount); // contract needs enough allowance

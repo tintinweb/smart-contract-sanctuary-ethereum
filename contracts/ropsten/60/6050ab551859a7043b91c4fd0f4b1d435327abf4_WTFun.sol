@@ -180,15 +180,15 @@ contract WTFun{
 
 
 	function makeBet(uint betMask,uint choice,uint betBlock, uint commitLastBlock,uint commit,bytes32 r,bytes32 s,address promoter) external payable{
-        // Check that the bet is in &#39;clean&#39; state.
+        // Check that the bet is in 'clean' state.
         Bet storage bet = bets[commit];
-        require (bet.player == address(0), "Bet can&#39;t reuse");
+        require (bet.player == address(0), "Bet can't reuse");
 
         // Validate input data ranges.
         uint amount = msg.value;
         require (choice >= 1 && choice <= 3, "Only 3 game");
         require (amount >= MIN_BET && amount <= MAX_BET, "Amount out of range.");
-		require (maxBetProfit > 0 , &#39;Bet closed&#39;);
+		require (maxBetProfit > 0 , 'Bet closed');
 
         // Check that commit is valid - it has not expired and its signature is valid.
         require (block.number <= commitLastBlock, "Commit has expired.");
@@ -219,7 +219,7 @@ contract WTFun{
 
         // Check that bet has not expired yet (see comment to BET_EXPIRATION_BLOCKS).
         require (block.number > placeBlockNumber, "SettleBet in the same block as placeBet, or before.");
-        require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 		require ( blockhash(placeBlockNumber) == blockHash , "blockhash not equal" );
 
         uint amount = bet.amount;
@@ -227,11 +227,11 @@ contract WTFun{
 		uint betMask = bet.betMask;
         address player = bet.player;
 
-        // Check that bet is in &#39;active&#39; state.
+        // Check that bet is in 'active' state.
         require (amount != 0, "Bet had been drawn.");
 		require( 1 <= choice && choice <= 3, "Wrong choice");
 
-        // Move bet into &#39;processed&#39; state already.
+        // Move bet into 'processed' state already.
         bet.amount = 0;
 
         bytes32 entropy = keccak256(abi.encodePacked(reveal, blockHash));
@@ -287,7 +287,7 @@ contract WTFun{
         }else if( choice == 2){
             if( ((HEXBASE ** (result[0]-1)) & (betMask & EIGHT_XBIT_MASK)) != 0 ) gameWin = (avgAmount * G8_ODDS / NUM_HUNDRED);
         }else if( choice == 3){
-			require( result.length == 8,&#39;Result not enough&#39;);
+			require( result.length == 8,'Result not enough');
             for(uint8 i = 0; i<result.length;i++){
                 if( ((HEXBASE ** i) & ((betMask >> (result[i]-1)*32) & EIGHT_XBIT_MASK)) != 0) gameWin += (avgAmount * RACE_ODDS / NUM_HUNDRED);
             }
@@ -413,9 +413,9 @@ contract WTFun{
 		Round storage rnd = rounds[rounds.length-1];
 		Investor storage investor = rnd.investors[investAddr];
 
-		require( (ONE_MIN_INVEST <= amount) && (amount <= ONE_MAX_INVEST), &#39;invalid invest amount&#39; );
-		require( (rnd.invest + amount) <= rnd.maxInvest, &#39;invest of a round out of range&#39; );
-		require( investor.investinfo.length < ROUND_AMAN_LIMIT, &#39;person 10 invest times limited in a round&#39; );
+		require( (ONE_MIN_INVEST <= amount) && (amount <= ONE_MAX_INVEST), 'invalid invest amount' );
+		require( (rnd.invest + amount) <= rnd.maxInvest, 'invest of a round out of range' );
+		require( investor.investinfo.length < ROUND_AMAN_LIMIT, 'person 10 invest times limited in a round' );
 
 		if( investor.investinfo.length == 0 ) {
 			rnd.numOfInvestor++;
@@ -428,7 +428,7 @@ contract WTFun{
 		investThisRound += amount;
 
 		// address invest in this round check
-		require( ((ONE_MIN_INVEST <= investThisRound) && (investThisRound <= ONE_MAX_INVEST)), &#39;person 20 eth limit in a round&#39; );
+		require( ((ONE_MIN_INVEST <= investThisRound) && (investThisRound <= ONE_MAX_INVEST)), 'person 20 eth limit in a round' );
 
 		uint profit = rnd.profit;
 		OneInvest memory newInvest;
@@ -556,7 +556,7 @@ contract WTFun{
 		updateRound();
 
 		uint roundLength = rounds.length;
-		require(roundLength >= 2, &#39;not enough round&#39;);
+		require(roundLength >= 2, 'not enough round');
 		uint profitInvest5Round = 0;
 		uint profitPromoter5Round = 0;
 		uint profitDev5Round = 0;

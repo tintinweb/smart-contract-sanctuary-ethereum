@@ -158,31 +158,31 @@ contract CryptoMillionsCrowdsale {
         if( _type == 0 ){
             require(addressToken == 0x0);
             addressToken = _addr;
-            emit eventSetAddress(_addr , now , &#39;Token&#39;);
+            emit eventSetAddress(_addr , now , 'Token');
 		} else if( _type == 1 ){
 			require(addressAPI == 0x0);
             addressAPI = _addr;
-            emit eventSetAddress(_addr , now , &#39;API&#39;);
+            emit eventSetAddress(_addr , now , 'API');
         } else if( _type == 2 ){
             require(addressMarketing == 0x0);
             addressMarketing = _addr;
-            emit eventSetAddress(_addr , now , &#39;Marketing&#39;);
+            emit eventSetAddress(_addr , now , 'Marketing');
 		} else if( _type == 3 ){
             require(addressLegal == 0x0);
             addressLegal = _addr;
-            emit eventSetAddress(_addr , now , &#39;Legal&#39;);
+            emit eventSetAddress(_addr , now , 'Legal');
 		} else if( _type == 4 ){
             require(addressDevelopers == 0x0);
             addressDevelopers = _addr;
-            emit eventSetAddress(_addr , now , &#39;Developers&#39;);
+            emit eventSetAddress(_addr , now , 'Developers');
 		} else if( _type == 5 ){
             require(addressOperations == 0x0);
             addressOperations = _addr;
-            emit eventSetAddress(_addr , now , &#39;Operations&#39;);
+            emit eventSetAddress(_addr , now , 'Operations');
 		} else if( _type == 6 ){
             require(addressWarranty == 0x0);
             addressWarranty = _addr;
-            emit eventSetAddress(_addr , now , &#39;Warranty&#39;);
+            emit eventSetAddress(_addr , now , 'Warranty');
         }
         return true;
     }
@@ -293,7 +293,7 @@ contract CryptoMillionsCrowdsale {
 		addressWarranty.transfer(ethWarranty);
 		CryptoMillionsToken c = CryptoMillionsToken(addressToken);
 		c.buyTokens(msg.sender , totalTokens);
-        setHistory(msg.sender , now , msg.value , tokens , tokensBonus , totalTokens , &#39;ETH&#39; , &#39;&#39;);
+        setHistory(msg.sender , now , msg.value , tokens , tokensBonus , totalTokens , 'ETH' , '');
 		emit eventBuyTokensWithETH(msg.sender , now , msg.value , tokens , tokensBonus , totalTokens);
 	}
 

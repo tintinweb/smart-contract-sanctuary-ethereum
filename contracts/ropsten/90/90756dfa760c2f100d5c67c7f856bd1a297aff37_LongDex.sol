@@ -20,7 +20,7 @@ contract LongDex {
     uint256 public tokenSale;
     uint256 public tokenLeft = 2000 ;
     address beneficiary;
-    //Main ETH Wallet&#39;s address: 0xaF685b7C8fF0B34e706758d61991716f058cB685
+    //Main ETH Wallet's address: 0xaF685b7C8fF0B34e706758d61991716f058cB685
     bool fundingGoalReached = false;
     uint256 public rate = 100;
 

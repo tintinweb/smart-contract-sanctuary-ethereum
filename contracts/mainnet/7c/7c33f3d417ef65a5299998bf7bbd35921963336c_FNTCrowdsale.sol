@@ -150,7 +150,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -321,7 +321,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -554,7 +554,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);
@@ -644,7 +644,7 @@ contract RefundVault is Ownable {
  * @title RefundableCrowdsale
  * @dev Extension of Crowdsale contract that adds a funding goal, and
  * the possibility of users getting a refund if goal is not met.
- * Uses a RefundVault as the crowdsale&#39;s vault.
+ * Uses a RefundVault as the crowdsale's vault.
  */
 contract RefundableCrowdsale is FinalizableCrowdsale {
   using SafeMath for uint256;
@@ -661,7 +661,7 @@ contract RefundableCrowdsale is FinalizableCrowdsale {
     goal = _goal;
   }
 
-  // We&#39;re overriding the fund forwarding from Crowdsale.
+  // We're overriding the fund forwarding from Crowdsale.
   // In addition to sending the funds, we want to call
   // the RefundVault deposit function
   function forwardFunds() internal {
@@ -715,7 +715,7 @@ contract FNTRefundableCrowdsale is RefundableCrowdsale {
     vaultClosed = true;
   }
 
-  // We&#39;re overriding the fund forwarding from Crowdsale.
+  // We're overriding the fund forwarding from Crowdsale.
   // In addition to sending the funds, we want to call
   // the RefundVault deposit function if the vault is not closed,
   // if it is closed we forward teh funds to the wallet
@@ -766,7 +766,7 @@ contract BurnableToken is BasicToken {
     function burn(uint256 _value) public {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);
@@ -924,7 +924,7 @@ contract FNTCrowdsale is FNTRefundableCrowdsale {
   event VestedTeamTokens(address first, address second, address thrid, address fourth);
 
   /**
-   * @dev Throws if called by any account that&#39;s not whitelisted.
+   * @dev Throws if called by any account that's not whitelisted.
    */
   modifier onlyWhitelisted() {
     require(whitelist[msg.sender]);
@@ -943,7 +943,7 @@ contract FNTCrowdsale is FNTRefundableCrowdsale {
    * @param _highFunding address, high funding stage
    * @param _wallet address, wallet to receive ETH raised
    * @param _maxTotalSupply address, maximun token supply
-   * @param _teamAddress address, team&#39;s address
+   * @param _teamAddress address, team's address
    * @param _FSNASAddress address, fsnas address
    */
   function FNTCrowdsale(
@@ -1149,7 +1149,7 @@ contract FNTCrowdsale is FNTRefundableCrowdsale {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);

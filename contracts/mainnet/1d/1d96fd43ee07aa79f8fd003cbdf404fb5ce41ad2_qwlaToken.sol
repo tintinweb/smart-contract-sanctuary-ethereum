@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 
-import &#39;./IERC20.sol&#39;;
-import &#39;./SafeMath.sol&#39;;
+import './IERC20.sol';
+import './SafeMath.sol';
 
 contract qwlaToken is IERC20 {
 

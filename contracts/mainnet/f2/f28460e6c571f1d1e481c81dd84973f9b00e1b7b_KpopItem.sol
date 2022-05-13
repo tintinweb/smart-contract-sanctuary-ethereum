@@ -29,7 +29,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -157,7 +157,7 @@ contract KpopItem is ERC721 {
       prevOwner.transfer(payment);
     }
 
-    // Pay dividend to the current owner of the celeb that&#39;s connected to the item
+    // Pay dividend to the current owner of the celeb that's connected to the item
     uint celebId = celebOf(_itemId);
     KpopCeleb KPOP_CELEB = KpopCeleb(KPOP_CELEB_CONTRACT_ADDRESS);
     address celebOwner = KPOP_CELEB.ownerOf(celebId);

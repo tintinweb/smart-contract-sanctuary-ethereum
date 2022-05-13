@@ -26,7 +26,7 @@ contract SafeMath {
   function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -81,7 +81,7 @@ Origin: the origin address from whose balance the tokens are sent
 Value is the amount of tokens sent
 Data is arbitrary data sent with the token transfer. Simulates ether tx.data
 
-From, origin and value shouldn&#39;t be trusted unless the token contract is trusted.
+From, origin and value shouldn't be trusted unless the token contract is trusted.
 If sender == tx.origin, it is safe to trust it regardless of the token.
 */
 
@@ -140,9 +140,9 @@ contract LiveBox223Token is ERC20, ERC223, Standard223Receiver, SafeMath {
     
         decimals    = 6;                                // Amount of decimals for display purposes
 //      name        = "WeSingCoin";                     // Set the name for display purposes
-//      symbol      = &#39;WSC&#39;;                            // Set the symbol for display purposes
+//      symbol      = 'WSC';                            // Set the symbol for display purposes
         name        = "LiveBoxCoin";                     // Set the name for display purposes
-        symbol      = &#39;LBC&#39;;                            // Set the symbol for display purposes
+        symbol      = 'LBC';                            // Set the symbol for display purposes
 
         uint initialBalance  = (10 ** uint256(decimals)) * 5000*1000*1000;
     
@@ -338,7 +338,7 @@ contract LiveBox223Token is ERC20, ERC223, Standard223Receiver, SafeMath {
       function supportsToken(address token) public view returns (bool) {
         //do not need to to anything with that token address?
         //if (token == 0) { //attila addition
-        if (token != thisContract) { //attila addition, support only our own token, not others&#39; token
+        if (token != thisContract) { //attila addition, support only our own token, not others' token
             return false;
         }
         if(!isTokenSupport) {  //attila addition

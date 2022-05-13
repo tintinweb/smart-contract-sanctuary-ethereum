@@ -14,7 +14,7 @@ contract owned {
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData); }
 contract CSToken is owned {
 	/* Public variables of the token */
-	string public standard = &#39;Token 0.1&#39;;
+	string public standard = 'Token 0.1';
 	string public name;
 	string public symbol;
 	uint8 public decimals;
@@ -113,7 +113,7 @@ contract Crowdsale is owned{
 	function Crowdsale(
 	address _bounties
 	) {
-		tokenReward = new CSToken(0, &#39;MyBit Token&#39;, 8, &#39;MyB&#39;);
+		tokenReward = new CSToken(0, 'MyBit Token', 8, 'MyB');
 		tokenMultiplier = tokenMultiplier**tokenReward.decimals();
 		tokenReward.mintToken(_bounties, 1100000 * tokenMultiplier);
 		presaleDeadline = start + presaleDuration;

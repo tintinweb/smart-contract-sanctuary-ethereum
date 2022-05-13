@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;Blocktopus Proof Of Concept Token&#39; CROWDSALE token contract
+// 'Blocktopus Proof Of Concept Token' CROWDSALE token contract
 //
 // Deployed to : 0x0ad38b112a555dbf3d9f957079e020aed36736db
 // Symbol      : ETHZ
@@ -26,8 +26,8 @@ contract SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -44,7 +44,7 @@ contract SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -229,8 +229,8 @@ contract ECRecovery {
 /**
  * @title Blocktopus filter library
  *
- * @dev Checks whether the msgData is the incoming transaction&#39;s address signed
- * by the Blocktopus&#39; Private Key.
+ * @dev Checks whether the msgData is the incoming transaction's address signed
+ * by the Blocktopus' Private Key.
  */
 
 contract BlocktopusICO is ECRecovery {
@@ -333,8 +333,8 @@ contract ETHZToken is ERC20Interface, Ownable, SafeMath, BlocktopusICO {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -347,7 +347,7 @@ contract ETHZToken is ERC20Interface, Ownable, SafeMath, BlocktopusICO {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -380,7 +380,7 @@ contract ETHZToken is ERC20Interface, Ownable, SafeMath, BlocktopusICO {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -389,7 +389,7 @@ contract ETHZToken is ERC20Interface, Ownable, SafeMath, BlocktopusICO {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {

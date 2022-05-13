@@ -68,7 +68,7 @@ contract Hiname is Honestin {
         withdraw[msg.sender] = withdraw[msg.sender].add(payout);
         reservedBalance[msg.sender] = 0;
         time[msg.sender] = now;
-        emit Withdraw(msg.sender, payout, &#39;collectPercent&#39;);
+        emit Withdraw(msg.sender, payout, 'collectPercent');
     }
 
     function payoutAmount() public view returns (uint) {
@@ -104,7 +104,7 @@ contract Hiname is Honestin {
             sumAll = sumAll.add(sum);
 
             referrer.transfer(sum);
-            emit Withdraw(referrer, sum, &#39;referral&#39;);
+            emit Withdraw(referrer, sum, 'referral');
 
             referrer = myReferrer[referrer];
         }
@@ -233,7 +233,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

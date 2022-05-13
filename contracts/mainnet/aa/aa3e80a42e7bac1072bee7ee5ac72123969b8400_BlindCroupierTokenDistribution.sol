@@ -25,9 +25,9 @@ contract MultiOwnable {
     }
 
     /**
-     * Returns owner&#39;s info
+     * Returns owner's info
      * @param  idx - index of the owner
-     * @return owner - owner&#39;s info
+     * @return owner - owner's info
      */
     function owner (uint idx)   constant   returns (address owner_dot_recipient, uint owner_dot_share) {  
 Owner memory owner;
@@ -317,9 +317,9 @@ library Math {
 /**
  * @title Blind Croupier TokenDistribution
  * It possesses some `WIN` tokens.
- * The distribution is divided into many &#39;periods&#39;.
+ * The distribution is divided into many 'periods'.
  * The zero one is `Presale` with `TOKENS_FOR_PRESALE` tokens
- * It&#39;s ended when all tokens are sold or manually with `endPresale()` function
+ * It's ended when all tokens are sold or manually with `endPresale()` function
  * The length of first period is `FIRST_PERIOD_DURATION`.
  * The length of other periods is `PERIOD_DURATION`.
  * During each period, `TOKENS_PER_PERIOD` are offered for sale (`TOKENS_PER_FIRST_PERIOD` for the first one)
@@ -686,7 +686,7 @@ for(uint __share_iterator__ = 0; __share_iterator__ < owners_dot_share.length;__
         /* destroy unsold tokens */
         if(periods[currentPeriod].tokensSold < tokensForPeriod(currentPeriod)) {
             uint256 toDestroy = tokensForPeriod(currentPeriod) - periods[currentPeriod].tokensSold;
-            /* do not destroy if we don&#39;t have enough to pay investors */
+            /* do not destroy if we don't have enough to pay investors */
             uint256 balance = win.balanceOf(this);
             if(balance < toDestroy + totalUnclaimedTokens) {
                 toDestroy = (balance - totalUnclaimedTokens);

@@ -12,7 +12,7 @@ pragma solidity ^0.4.20;
 * The original autonomous pyramid, improved:
 * [x] More stable than ever, having withstood severe testnet abuse and attack attempts from our community!.
 * [x] Audited, tested, and approved by known community security specialists.
-* [X] New functionality; you can now perform partial sell orders. If you succumb to weak hands, you don&#39;t have to dump all of your bags!
+* [X] New functionality; you can now perform partial sell orders. If you succumb to weak hands, you don't have to dump all of your bags!
 * [x] New functionality; you can now transfer tokens between wallets. Trading is now possible from within the contract!
 * [x] New Feature: PoS Masternodes! The first implementation of Ethereum Staking in the world! Vitalik is mad.
 * [x] Masternodes: Holding 50 IHC allow you to generate a Gangsternode link, Gangsternode links are used as unique entry points to the contract!
@@ -287,7 +287,7 @@ contract IronHands2 is ERC20 {
     function burn(uint256 _value) onlyOwner public {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);

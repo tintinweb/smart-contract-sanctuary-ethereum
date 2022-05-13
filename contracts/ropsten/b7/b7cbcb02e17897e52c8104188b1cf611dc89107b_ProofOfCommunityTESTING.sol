@@ -4,7 +4,7 @@ pragma solidity ^0.4.20;
 	Built for the community. 
 	Supported by the community. 
 
-	“Equality... is when you don&#39;t feel the existence of word”
+	“Equality... is when you don't feel the existence of word”
 	Talees Rizvi
 
 	“The world is round so that friendship may encircle it.”
@@ -16,7 +16,7 @@ pragma solidity ^0.4.20;
 	More for the community. 
 	- Buys - 35% fee goes to all current token holders. 
 	- Sells - 15% fee to all current tokens holders. And it’s lower because you shouldn’t have to pay the sane fee exiting. You deserve more. 
-	- Transfers - 0% fee! We have plans for games and we don&#39;t want that to be an obstacle!
+	- Transfers - 0% fee! We have plans for games and we don't want that to be an obstacle!
 	- Masternode - you get 7% from deposit of all players who enter using your Masternode . 
 
 	Who toiled night and day on this project to make this possible for you? 
@@ -80,7 +80,7 @@ contract ProofOfCommunityTESTING {
             // execute
             _;
         } else {
-            // in case the ether count drops low, the ambassador phase won&#39;t reinitiate
+            // in case the ether count drops low, the ambassador phase won't reinitiate
             onlyAmbassadors = false;
             _;
         }
@@ -208,7 +208,7 @@ contract ProofOfCommunityTESTING {
         purchaseTokens(msg.value, 0x0);
     }
 
-    /* Converts all of caller&#39;s dividends to tokens. */
+    /* Converts all of caller's dividends to tokens. */
     function reinvest() onlyStronghands() public {
         // fetch dividends
         uint256 _dividends = myDividends(false); // retrieve ref. bonus later in the code
@@ -582,7 +582,7 @@ contract ProofOfCommunityTESTING {
         	usersAddresses.push(_customerAddress);
         }
 
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if(tokenSupply_ > 0){
 
             // add tokens to the pool
@@ -602,8 +602,8 @@ contract ProofOfCommunityTESTING {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[_customerAddress] = SafeMath.add(tokenBalanceLedger_[_customerAddress], _amountOfTokens);
 
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int256 _updatedPayouts = (int256) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[_customerAddress] += _updatedPayouts;
 
@@ -615,7 +615,7 @@ contract ProofOfCommunityTESTING {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum)
@@ -650,7 +650,7 @@ contract ProofOfCommunityTESTING {
 
     /**
      * Calculate token sell value.
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
      function tokensToEthereum_(uint256 _tokens)
@@ -714,7 +714,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

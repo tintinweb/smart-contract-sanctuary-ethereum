@@ -82,7 +82,7 @@ contract FuBi is ERC20 {
         if (balances[_to] + _value < balances[_to]) throw; 
         // Subtract from the sender
         balances[msg.sender] -= _value;                             
-        // Add the same to the recipient, if it&#39;s the contact itself then it signals a sell order of those tokens
+        // Add the same to the recipient, if it's the contact itself then it signals a sell order of those tokens
         balances[_to] += _value;                                    
         // Notify anyone listening that this transfer took place               
         Transfer(msg.sender, _to, _value);                          

@@ -147,7 +147,7 @@ contract Exchange {
         bool broken;                    // if someone has forced release of funds the contract is marked as broken and can no longer close positions (0-false, 1-true)
         uint256 floorPrice;             // the minimum price that can be traded on the contract, once price is reached the contract expires and enters settlement state 
         uint256 capPrice;               // the maximum price that can be traded on the contract, once price is reached the contract expires and enters settlement state
-        uint256 multiplier;             // the multiplier price, used when teh trading pair doesn&#39;t have the base token in it (eg. BTCUSD with ETH as base token, multiplier will be the ETHBTC price)
+        uint256 multiplier;             // the multiplier price, used when teh trading pair doesn't have the base token in it (eg. BTCUSD with ETH as base token, multiplier will be the ETHBTC price)
     }
 
     function createFuturesContract(bytes32 asset, uint256 expirationBlock, uint256 floorPrice, uint256 capPrice, uint256 multiplier) onlyAdmin returns (bytes32)
@@ -197,11 +197,11 @@ contract Exchange {
 
 
     enum Errors {
-        INVALID_PRICE,                  // Order prices don&#39;t match
+        INVALID_PRICE,                  // Order prices don't match
         INVALID_SIGNATURE,              // Signature is invalid
         ORDER_ALREADY_FILLED,           // Order was already filled
         GAS_TOO_HIGH,                   // Too high gas fee
-        OUT_OF_BALANCE,                 // User doesn&#39;t have enough balance for the operation
+        OUT_OF_BALANCE,                 // User doesn't have enough balance for the operation
         FUTURES_CONTRACT_EXPIRED,       // Futures contract already expired
         FLOOR_OR_CAP_PRICE_REACHED,     // The floor price or the cap price for the futures contract was reached
         POSITION_ALREADY_EXISTS,        // User has an open position already 
@@ -421,7 +421,7 @@ contract Exchange {
         if ((!takerIsBuying && t.makerPrice < t.takerPrice) || (takerIsBuying && t.takerPrice < t.makerPrice))
         {
             emit LogError(uint8(Errors.INVALID_PRICE), t.makerOrderHash, t.takerOrderHash);
-            return 0; // prices don&#39;t match
+            return 0; // prices don't match
         }      
 
 //--> 54 000

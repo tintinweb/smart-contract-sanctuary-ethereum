@@ -122,8 +122,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -140,7 +140,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -325,7 +325,7 @@ contract BaseInvestmentPool is Ownable, ReentrancyGuard, ERC223Receiver {
   }
 
   /**
-   * @notice withdraws sender&#39;s tokens.
+   * @notice withdraws sender's tokens.
    */
   function withdrawTokens() external nonReentrant {
     require(msg.sender == owner || investments[msg.sender] != 0, "you are not owner and not investor");
@@ -380,7 +380,7 @@ contract BaseInvestmentPool is Ownable, ReentrancyGuard, ERC223Receiver {
   }
 
   /**
-   * @notice withdraws investors&#39;s part of tokens.
+   * @notice withdraws investors's part of tokens.
    */
   function _withdrawInvestorTokens(address _investor) internal {
     uint tokenAmount = _getInvestorTokenAmount(_investor);
@@ -391,7 +391,7 @@ contract BaseInvestmentPool is Ownable, ReentrancyGuard, ERC223Receiver {
   }
 
   /**
-   * @notice withdraws owner&#39;s percent of tokens.
+   * @notice withdraws owner's percent of tokens.
    */
   function _withdrawOwnerTokens() internal {
     require(isFinalized, "contract not finalized yet");
@@ -480,14 +480,14 @@ contract CancellableInvestmentPool is BaseInvestmentPool {
   }
 
   /**
-   * @notice validates contract&#39;s state before cancellation.
+   * @notice validates contract's state before cancellation.
    */
   function _preValidateCancellation() internal {
     require(!isFinalized, "pool is finalized");
   }
 
   /**
-   * @notice validates contract&#39;s state before finalization.
+   * @notice validates contract's state before finalization.
    */
   function _preValidateFinalization() internal {
     super._preValidateFinalization();
@@ -507,7 +507,7 @@ contract CancellableInvestmentPool is BaseInvestmentPool {
 /**
  * @title TimedInvestmentPool
  * @dev The contract extends BaseInvestmentPool and adds additional functionality:
- *      investors can send funds to the contract only in specified time and it&#39;s able to send funds to investment
+ *      investors can send funds to the contract only in specified time and it's able to send funds to investment
  *      address only before specified time (endTime).
  */
 contract TimedInvestmentPool is BaseInvestmentPool {
@@ -546,7 +546,7 @@ contract TimedInvestmentPool is BaseInvestmentPool {
   }
 
   /**
-   * @notice validates investor&#39;s transactions and contract state before applying investors funds.
+   * @notice validates investor's transactions and contract state before applying investors funds.
    */
   function _preValidateInvest(address _beneficiary, uint _amount) internal {
     super._preValidateInvest(_beneficiary, _amount);
@@ -567,7 +567,7 @@ contract TimedInvestmentPool is BaseInvestmentPool {
 /**
  * @title HardCappedInvestmentPool
  * @dev The contract extends BaseInvestmentPool and adds additional functionality:
- *      contract can&#39;t raise more funds than specified cap.
+ *      contract can't raise more funds than specified cap.
  */
 contract HardCappedInvestmentPool is BaseInvestmentPool {
   /**
@@ -590,7 +590,7 @@ contract HardCappedInvestmentPool is BaseInvestmentPool {
   }
 
   /**
-   * @notice validates investor&#39;s transactions and contract state before applying investors funds.
+   * @notice validates investor's transactions and contract state before applying investors funds.
    */
   function _preValidateInvest(address _beneficiary, uint _amount) internal {
     super._preValidateInvest(_beneficiary, _amount);
@@ -603,7 +603,7 @@ contract HardCappedInvestmentPool is BaseInvestmentPool {
 /**
  * @title SoftCappedInvestmentPool
  * @dev The contract extends BaseInvestmentPool and adds additional functionality:
- *      it&#39;s able to send funds to investment address only after specified soft cap is reached.
+ *      it's able to send funds to investment address only after specified soft cap is reached.
  */
 contract SoftCappedInvestmentPool is BaseInvestmentPool {
   /**
@@ -643,7 +643,7 @@ contract SoftCappedInvestmentPool is BaseInvestmentPool {
  */
 contract RefundableInvestmentPool is CancellableInvestmentPool, TimedInvestmentPool {
   /**
-   * @notice who may execute `executeAfterFinalize` function besides owner. If it&#39;s 0x0 then only owner may.
+   * @notice who may execute `executeAfterFinalize` function besides owner. If it's 0x0 then only owner may.
    */
   address public serviceAccount;
 
@@ -674,7 +674,7 @@ contract RefundableInvestmentPool is CancellableInvestmentPool, TimedInvestmentP
 
   /**
    * @param _serviceAccount who may execute `executeAfterFinalize` function besides owner.
-   *                        If it&#39;s 0x0 then only owner may.
+   *                        If it's 0x0 then only owner may.
    */
   constructor(address _serviceAccount) {
     serviceAccount = _serviceAccount;

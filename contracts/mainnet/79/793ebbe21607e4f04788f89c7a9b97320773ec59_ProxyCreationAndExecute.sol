@@ -43,7 +43,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -327,7 +327,7 @@ contract DSProxyFactory {
 
 // By default, all proxies deployed from the same factory store
 // contracts in the same cache. The cache a proxy instance uses can be
-// changed.  The cache uses the sha3 hash of a contract&#39;s bytecode to
+// changed.  The cache uses the sha3 hash of a contract's bytecode to
 // lookup the address
 contract DSProxyCache {
     mapping(bytes32 => address) cache;

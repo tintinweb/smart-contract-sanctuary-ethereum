@@ -12,7 +12,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -130,7 +130,7 @@ contract CryptoStrategiesIntelligence is StandardToken {
     uint8 public decimals = 18;
     uint256 private supplyDecimals = 1 * 10 ** uint256(decimals);
     string public symbol = "CSI";
-    string public version = &#39;v0.1&#39;;
+    string public version = 'v0.1';
     address public founder;
 
     function CryptoStrategiesIntelligence () public {

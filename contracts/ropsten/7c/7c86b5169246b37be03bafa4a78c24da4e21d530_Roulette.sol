@@ -31,7 +31,7 @@ contract Roulette {
     
     // Players place bet
     // Input structure is one place bet will insert both bet_type and bet_amount
-    // Eg: Player place a bet on Single number &#39;36&#39; & Red color both 0.01 ETH
+    // Eg: Player place a bet on Single number '36' & Red color both 0.01 ETH
     // <FOLLOW_BET_ID> && <BET AMOUNT>
     // b_type[0] = 36 && b_amount[0] = 0.01 ETH
     // b_type[1] = 41 && b_amount[1] = 0.01 ETH

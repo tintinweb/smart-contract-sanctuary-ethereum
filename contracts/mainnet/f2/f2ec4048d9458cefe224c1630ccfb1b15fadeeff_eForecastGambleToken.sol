@@ -52,7 +52,7 @@ function () {
 string public name;                 
     uint8 public decimals;
     string public symbol; 
-    string public version = &#39;H1.0&#39;;
+    string public version = 'H1.0';
 function eForecastGambleToken(
         ) {
         balances[msg.sender] = 30000000000;

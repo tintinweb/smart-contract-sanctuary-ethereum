@@ -87,7 +87,7 @@ contract TokenMaster
     //Calculate and change the actual token cost (changeTokenCostInEth)
     //THEN, change the devCut (changeDevCut)
     //FINALLY, change the actual token value (changeActualTokenValue) using tokenCost - devCut
-    //Ex. tokens will not cost 0.01 eth, and dev&#39;s take 10%
+    //Ex. tokens will not cost 0.01 eth, and dev's take 10%
     //  changeTokenCostInEth(0.01 ether)
     //  changeDevCut(0.001 ether)  ||| this is 10% of 0.01
     //  changeActualTokenValue(0.009 ether) ||| this is 0.01 - 0.001 
@@ -118,7 +118,7 @@ contract TokenMaster
     function emptyContract() public onlyOwner
     {
         //Cash out the contract into the owner -- THIS IS BAD
-        //TODO: Change this so the owner can&#39;t cash out the contract
+        //TODO: Change this so the owner can't cash out the contract
         //However, when the contract is reset, use the balance in the contract
         //to buy as many tokens as possible, then cash out the remaining balance
         //This loses the least amount of tokens as possible

@@ -187,7 +187,7 @@ contract EBanker is owned {
     function sell(uint256 amount) canTransfer public {
         require(this.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 
     /// @dev Set the contract that can call release and make the token transferable.
@@ -300,7 +300,7 @@ contract EBankerICO is owned, Killable {
         finalized = true;
         // Make tokens Transferable
         token.releaseTokenTransfer();
-        // Transfer Fund to owner&#39;s address
+        // Transfer Fund to owner's address
         receiver.transfer(this.balance);
     }
 }

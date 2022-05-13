@@ -37,7 +37,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
  
@@ -545,7 +545,7 @@ contract TBL4TokenSale {
         //uint256 _bonusesTokens = _soldTokens * bonusesPercent / soldPercent;
         //issueTokens(bonuses, _bonusesTokens);
 
-        // burn everything but issued (sold + partners) and devs&#39; reserve
+        // burn everything but issued (sold + partners) and devs' reserve
         uint256 _tokensToBurn = token.INITIAL_SUPPLY().sub(issuedTokens).sub(_soldTokens * devsPercent / soldPercent);
         token.burn(_tokensToBurn);
         token.start();

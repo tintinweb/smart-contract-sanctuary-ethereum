@@ -236,7 +236,7 @@ contract HotReward is LibWhitelist {
             }
 
             /* Identifier of transfer function
-             * keccak256(&#39;transfer(address,uint256)&#39;) & 0xFFFFFFFF00000000000000000000000000000000000000000000000000000000
+             * keccak256('transfer(address,uint256)') & 0xFFFFFFFF00000000000000000000000000000000000000000000000000000000
              */
             mstore(0, 0xa9059cbb00000000000000000000000000000000000000000000000000000000)
             mstore(4, to)

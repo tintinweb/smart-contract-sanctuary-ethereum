@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;tripX&#39; CROWDSALE token contract
+// 'tripX' CROWDSALE token contract
 //
 // Deployed to : 0xebdad2e3b2b2fba3cdcb311edae6f68fa2ebd6b2
 // Symbol      : TPX

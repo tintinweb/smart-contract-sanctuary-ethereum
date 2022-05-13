@@ -73,11 +73,11 @@ contract Game {
         if(numberOfResolvedFights < numberOfFights) {
             Fight memory fightToResolve = fights[numberOfResolvedFights];
             
-            //can&#39;t resolve fight after 256 blocks
+            //can't resolve fight after 256 blocks
             if(block.number - 256 > fightToResolve.blocknumber) {
                 fightToResolve.blocknumber = block.number;
             } 
-            //can&#39;t resolve a fight created within same block
+            //can't resolve a fight created within same block
             else if(fightToResolve.blocknumber != block.number) {
                 //resolve fight
                 Unit memory attackingUnit = units[fightToResolve.attackingUnit];
@@ -156,7 +156,7 @@ contract Game {
         Player memory attacker = addressToPlayers[units[attackingUnit].owner];
         Player memory defender = addressToPlayers[units[defendingUnit].owner];
         
-        //units can only attack each other if at least one of them is teamless or they don&#39;t belong to the same team
+        //units can only attack each other if at least one of them is teamless or they don't belong to the same team
         return (!attacker.joinedTeam || !defender.joinedTeam || attacker.team != defender.team);
     }
     
@@ -164,13 +164,13 @@ contract Game {
         external
         progressGame
     {
-        //we can&#39;t attack with units that don&#39;t exist
+        //we can't attack with units that don't exist
         require(attackingUnit < numberOfUnits && defendingUnit < numberOfUnits);
         
-        //we can&#39;t attack with units we don&#39;t control
+        //we can't attack with units we don't control
         require(units[attackingUnit].owner == msg.sender);
         
-        //we can&#39;t attack our own units
+        //we can't attack our own units
         require(units[defendingUnit].owner != msg.sender);
         
         //are the units allowed to fight each other?

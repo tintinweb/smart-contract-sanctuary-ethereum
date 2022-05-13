@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -98,7 +98,7 @@ contract EmbiggenToken is ERC20 {
     initialSupply = _initialSupply;
     initializedTime = (block.timestamp / 3600) * 3600;
     hourRate = annualRate / (365 * 24);
-    require(hourRate <= 223872113856833); // This ensures that (earnedInterset * baseInterest) won&#39;t overflow a uint for any plausible time period
+    require(hourRate <= 223872113856833); // This ensures that (earnedInterset * baseInterest) won't overflow a uint for any plausible time period
     balances[msg.sender] = UserBalance({
       latestBalance: _initialSupply,
       lastCalculated: (block.timestamp / 3600) * 3600

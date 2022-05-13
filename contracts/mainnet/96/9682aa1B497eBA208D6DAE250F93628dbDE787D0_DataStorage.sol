@@ -24,7 +24,7 @@ contract DataStorage {
     modifier onlyRegisteredContracts() {
         // Once the contract has been initialized, direct access is disabled
         if (booleanStorage[keccak256(abi.encodePacked("storage.init"))]) {
-            // Only registered contracts have &#39;write&#39; access from then on
+            // Only registered contracts have 'write' access from then on
             require(
                 //addressStorage[keccak256(abi.encodePacked("contract.address", msg.sender))] == msg.sender
                 booleanStorage[keccak256(abi.encodePacked("contract.is.registered", msg.sender))]

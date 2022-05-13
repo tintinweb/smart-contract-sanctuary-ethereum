@@ -3,8 +3,8 @@ pragma solidity ^0.4.16;
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract TaskCoin {
-    string public name = &#39;TaskCoin&#39;;
-    string public symbol = &#39;TC&#39;;
+    string public name = 'TaskCoin';
+    string public symbol = 'TC';
     uint8 public decimals = 18;
     uint256 public totalSupply = 100000000 * 10 ** uint256(decimals);
 

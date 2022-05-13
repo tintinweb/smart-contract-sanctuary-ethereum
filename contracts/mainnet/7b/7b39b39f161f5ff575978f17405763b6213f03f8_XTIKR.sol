@@ -9,7 +9,7 @@
 pragma solidity ^0.5.7;
 
 // ----------------------------------------------------------------------------
-// &#39;XTIKR&#39; token contract
+// 'XTIKR' token contract
 //
 // Symbol      : XTR
 // Name        : XTIKR
@@ -159,7 +159,7 @@ contract XTIKR is ERC20Interface, Owned, SafeMath {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () external payable {
         revert();

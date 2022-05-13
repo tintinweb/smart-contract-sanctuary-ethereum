@@ -15,7 +15,7 @@ pragma solidity ^0.4.15;
 
 // pragma solidity ^0.4.15;
 
-// import &#39;zeppelin-solidity/contracts/math/SafeMath.sol&#39;;
+// import 'zeppelin-solidity/contracts/math/SafeMath.sol';
 // pragma solidity ^0.4.18;
 
 
@@ -36,7 +36,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -221,7 +221,7 @@ contract FinalizeAgent {
 
   /** Return true if we can run finalizeCrowdsale() properly.
    *
-   * This is a safety check function that doesn&#39;t allow crowdsale to begin
+   * This is a safety check function that doesn't allow crowdsale to begin
    * unless the finalizer has been set up properly.
    */
   function isSane() public constant returns (bool);
@@ -244,7 +244,7 @@ contract FinalizeAgent {
 // pragma solidity ^0.4.18;
 
 
-// import &#39;./ERC20Basic.sol&#39;;
+// import './ERC20Basic.sol';
 // pragma solidity ^0.4.18;
 
 
@@ -432,7 +432,7 @@ contract Crowdsale is Haltable {
 
     endsAt = _end;
 
-    // Don&#39;t mess the dates
+    // Don't mess the dates
     if (startsAt >= endsAt) {
         revert();
     }
@@ -469,7 +469,7 @@ contract Crowdsale is Haltable {
     //get the eth cap for the time period
     uint currentFgcCap = getCurrentFgcCap();
     if (tokenAmount > currentFgcCap) {
-      // We don&#39;t allow more than the current cap
+      // We don't allow more than the current cap
       revert();
     }
 
@@ -651,7 +651,7 @@ contract Crowdsale is Haltable {
   function setFinalizeAgent(FinalizeAgent addr) onlyOwner {
     finalizeAgent = addr;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if (!finalizeAgent.isFinalizeAgent()) {
       revert();
     }
@@ -710,7 +710,7 @@ contract Crowdsale is Haltable {
    */
   function setEndsAt(uint time) onlyOwner {
     if (now > time) {
-      revert(); // Don&#39;t change past
+      revert(); // Don't change past
     }
 
     endsAt = time;
@@ -725,7 +725,7 @@ contract Crowdsale is Haltable {
   function setPricingStrategy(PricingStrategy _pricingStrategy) onlyOwner {
     pricingStrategy = _pricingStrategy;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if (!pricingStrategy.isPricingStrategy()) {
       revert();
     }
@@ -900,7 +900,7 @@ contract Crowdsale is Haltable {
  */
 contract AllocatedCrowdsale is Crowdsale {
 
-  /* The party who holds the full token pool and has approve()&#39;ed tokens for this crowdsale */
+  /* The party who holds the full token pool and has approve()'ed tokens for this crowdsale */
   address public beneficiary;
 
   function AllocatedCrowdsale(address _token, PricingStrategy _pricingStrategy, address _multisigWallet, uint _start, uint _end, uint _minimumFundingGoal, address _beneficiary, uint baseEthCap, uint maxEthPerAddress) 

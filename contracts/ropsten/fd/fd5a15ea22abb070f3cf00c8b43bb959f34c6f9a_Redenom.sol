@@ -155,7 +155,7 @@ contract Redenom is ERC20Interface, Owned{
     function Redenom() public {
         symbol = "NOMT";
         name = "Redenom_test";
-        _totalSupply = 0; // total NOM&#39;s in the game 
+        _totalSupply = 0; // total NOM's in the game 
 
         total_fund = 1000000 * 10**decimals; // 1 000 000.00000000, 1Mt
         epoch_fund = 100000 * 10**decimals; // 100 000.00000000, 100 Kt
@@ -718,15 +718,15 @@ struct Account {
     // ------------------------------------------------------------------------
     // ERC20 allowance:
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
     }
     // ------------------------------------------------------------------------
     // ERC20 transfer:
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -760,7 +760,7 @@ struct Account {
     // ------------------------------------------------------------------------
     // ERC20 approve:
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
     // as this should be implemented in user interfaces 
@@ -802,7 +802,7 @@ struct Account {
     }
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -814,7 +814,7 @@ struct Account {
         return true;
     }
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH https://github.com/ConsenSys/Ethereum-Development-Best-Practices/wiki/Fallback-functions-and-the-fundamental-limitations-of-using-send()-in-Ethereum-&-Solidity
+    // Don't accept ETH https://github.com/ConsenSys/Ethereum-Development-Best-Practices/wiki/Fallback-functions-and-the-fundamental-limitations-of-using-send()-in-Ethereum-&-Solidity
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

@@ -1,7 +1,7 @@
 /*
 /// @title Fantasy Character Generator
 /// @author MarkCTest
-/// @notice I&#39;m not sure how to test Event-Emit in Remix
+/// @notice I'm not sure how to test Event-Emit in Remix
 /// @notice It seems this code does NOT allow us to add multiple characters to the array
 */
 
@@ -43,7 +43,7 @@ uint statModulus = 10 ** statDigitSize;
     // @dev Here we push the CharacterDetails struct onto the characters array
     // @dev We use -1 to shove it on the end of the array?
     uint characterRef = characters.push(CharacterDetails(_firstName, _secondName, 1, uint32(randStrength), uint32(randHealth))) - 1;
-    // @notice Not sure how we &#39;see&#39; the emission of the event in Remix...
+    // @notice Not sure how we 'see' the emission of the event in Remix...
     emit NewCharacter(characterRef, _firstName, _secondName);
   }
   

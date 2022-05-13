@@ -241,7 +241,7 @@ contract Solitaire3D is modularLong {
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -451,7 +451,7 @@ contract Solitaire3D is modularLong {
         if (plyr_[_pID].lrnd != 0)
             updateGenVault(_pID, plyr_[_pID].lrnd);
 
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
 
         // set the joined round bool to true
@@ -588,7 +588,7 @@ contract Solitaire3D is modularLong {
         // setup local rID
         uint256 _rID = rID_;
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
 
         // grab our pot amount
@@ -738,7 +738,7 @@ contract Solitaire3D is modularLong {
     }
 
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _eth, uint256 _keys, S3Ddatasets.EventReturns memory _eventData_)
         private

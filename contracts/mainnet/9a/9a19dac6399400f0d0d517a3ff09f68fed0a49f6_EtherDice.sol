@@ -30,7 +30,7 @@ contract EtherDice {
     //  - 100 for etheroll
     //  - 37 for roulette
     //  etc.
-    // It&#39;s called so because 256-bit entropy is treated like a huge integer and
+    // It's called so because 256-bit entropy is treated like a huge integer and
     // the remainder of its division by modulo is considered bet outcome.
     uint constant MAX_MODULO = 100;
 
@@ -139,7 +139,7 @@ contract EtherDice {
         owner = nextOwner;
     }
 
-    // Fallback function deliberately left empty. It&#39;s primary use case
+    // Fallback function deliberately left empty. It's primary use case
     // is to top up the bank roll.
     function () public payable {
     }
@@ -191,9 +191,9 @@ contract EtherDice {
     /// *** Betting logic
 
     // Bet states:
-    //  amount == 0 && gambler == 0 - &#39;clean&#39; (can place a bet)
-    //  amount != 0 && gambler != 0 - &#39;active&#39; (can be settled or refunded)
-    //  amount == 0 && gambler != 0 - &#39;processed&#39; (can clean storage)
+    //  amount == 0 && gambler == 0 - 'clean' (can place a bet)
+    //  amount != 0 && gambler != 0 - 'active' (can be settled or refunded)
+    //  amount == 0 && gambler != 0 - 'processed' (can clean storage)
     //
     //  NOTE: Storage cleaning is not implemented in this contract version; it will be added
     //        with the next upgrade to prevent polluting Ethereum state with expired bets.
@@ -211,16 +211,16 @@ contract EtherDice {
     //  r, s            - components of ECDSA signature of (commitLastBlock, commit).
     //
     // Commit, being essentially random 256-bit number, is used as a unique bet identifier in
-    // the &#39;bets&#39; mapping.
+    // the 'bets' mapping.
     //
     // Commits are signed with a block limit to ensure that they are used at most once - otherwise
     // it would be possible for a miner to place a bet with a known commit/reveal pair and tamper
     // with the blockhash. Croupier guarantees that commitLastBlock will always be not greater than
     // placeBet block number plus betExpirationBlocks. See whitepaper for details.
     function placeBet(uint betMask, uint modulo, uint commitLastBlock, uint commit, bytes32 r, bytes32 s, uint8 v) external payable {
-        // Check that the bet is in &#39;clean&#39; state.
+        // Check that the bet is in 'clean' state.
         Bet storage bet = bets[commit];
-        require (bet.gambler == address(0), "Bet should be in a &#39;clean&#39; state.");
+        require (bet.gambler == address(0), "Bet should be in a 'clean' state.");
 
         // Validate input data ranges.
         require (modulo > 1 && modulo <= MAX_MODULO, "Modulo should be within range.");
@@ -285,7 +285,7 @@ contract EtherDice {
 
         // Check that bet has not expired yet (see comment to betExpirationBlocks).
         require (block.number > bet.placeBlockNumber, "settleBet in the same block as placeBet, or before.");
-        require (block.number <= bet.placeBlockNumber.add(betExpirationBlocks), "Blockhash can&#39;t be queried by EVM.");
+        require (block.number <= bet.placeBlockNumber.add(betExpirationBlocks), "Blockhash can't be queried by EVM.");
         require (blockhash(bet.placeBlockNumber) == blockHash);
 
         // Settle bet using reveal and blockHash as entropy sources.
@@ -300,10 +300,10 @@ contract EtherDice {
         uint rollUnder = bet.rollUnder;
         address gambler = bet.gambler;
 
-        // Check that bet is in &#39;active&#39; state.
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        // Check that bet is in 'active' state.
+        require (amount != 0, "Bet should be in an 'active' state");
 
-        // Move bet into &#39;processed&#39; state already.
+        // Move bet into 'processed' state already.
         bet.amount = 0;
 
         // The RNG - combine "reveal" and blockhash of placeBet using Keccak256. Miners
@@ -352,16 +352,16 @@ contract EtherDice {
     // in a situation like this, just contact the etherdice.io support, however nothing
     // precludes you from invoking this method yourself.
     function refundBet(uint commit) external {
-        // Check that bet is in &#39;active&#39; state.
+        // Check that bet is in 'active' state.
         Bet storage bet = bets[commit];
         uint amount = bet.amount;
 
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        require (amount != 0, "Bet should be in an 'active' state");
 
         // Check that bet has already expired.
-        require (block.number > bet.placeBlockNumber.add(betExpirationBlocks), "Blockhash can&#39;t be queried by EVM.");
+        require (block.number > bet.placeBlockNumber.add(betExpirationBlocks), "Blockhash can't be queried by EVM.");
 
-        // Move bet into &#39;processed&#39; state, release funds.
+        // Move bet into 'processed' state, release funds.
         bet.amount = 0;
 
         uint diceWinAmount;
@@ -382,7 +382,7 @@ contract EtherDice {
 
         uint houseEdge = amount.mul(HOUSE_EDGE_PERCENT).div(100);
 
-        require (houseEdge <= amount, "Bet doesn&#39;t even cover house edge.");
+        require (houseEdge <= amount, "Bet doesn't even cover house edge.");
         winAmount = amount.sub(houseEdge).mul(modulo).div(rollUnder);
     }
 
@@ -404,8 +404,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -423,7 +423,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }

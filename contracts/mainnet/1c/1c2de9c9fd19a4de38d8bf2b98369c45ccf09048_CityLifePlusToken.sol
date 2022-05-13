@@ -1,7 +1,7 @@
 pragma solidity ^0.4.21;
 
 /** ----------------------------------------------------------------------------
-  * &#39;CL+&#39; &#39;CITYLIFE PLUS Token&#39; token contract
+  * 'CL+' 'CITYLIFE PLUS Token' token contract
   *
   * Symbol      : CL+
   * Name        : CITYLIFE PLUS Token
@@ -276,7 +276,7 @@ contract CityLifePlusToken is ERC20Interface, Pausable {
 
     /**
      * Token owner can approve for `spender` to transferFrom(...) `tokens`
-     * from the token owner&#39;s account. The `spender` contract function
+     * from the token owner's account. The `spender` contract function
      * `receiveApproval(...)` is then executed
      */
     function approveAndCall(address spender, uint tokens, bytes data) public whenNotPaused returns (bool success) {
@@ -290,7 +290,7 @@ contract CityLifePlusToken is ERC20Interface, Pausable {
 
 
     /**
-      * @dev Don&#39;t accept ETH.
+      * @dev Don't accept ETH.
       */
     function () public payable {
         revert();

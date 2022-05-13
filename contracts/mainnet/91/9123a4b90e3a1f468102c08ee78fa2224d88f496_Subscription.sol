@@ -106,8 +106,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -125,7 +125,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -266,7 +266,7 @@ contract ERC20 is IERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -383,7 +383,7 @@ contract ERC20 is IERC20 {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param amount The amount that will be burnt.
@@ -421,7 +421,7 @@ contract Subscription {
     // subscriptionHash  => next valid block number
     mapping(bytes32 => uint256) public nextValidTimestamp;
 
-    //we&#39;ll use a nonce for each from but because transactions can go through
+    //we'll use a nonce for each from but because transactions can go through
     //multiple times, we allow anything but users can use this as a signal for
     //uniqueness
     mapping(address => uint256) public extraNonce;
@@ -541,9 +541,9 @@ contract Subscription {
         );
     }
 
-    // you don&#39;t really need this if you are using the approve/transferFrom method
+    // you don't really need this if you are using the approve/transferFrom method
     // because you control the flow of tokens by approving this contract address,
-    // but to make the contract an extensible example for later user I&#39;ll add this
+    // but to make the contract an extensible example for later user I'll add this
     function cancelSubscription(
         address from, //the subscriber
         address to, //the publisher
@@ -594,7 +594,7 @@ contract Subscription {
         );
         address signer = getSubscriptionSigner(subscriptionHash, signature);
 
-        //make sure they aren&#39;t sending to themselves
+        //make sure they aren't sending to themselves
         require(to != from, "Can not send to the from address");
         //the signature must be valid
         require(signer == from, "Invalid Signature");
@@ -604,7 +604,7 @@ contract Subscription {
             "Subscription is not ready"
         );
 
-        // if there are requirements from the deployer, let&#39;s make sure
+        // if there are requirements from the deployer, let's make sure
         // those are met exactly
         require( requiredToAddress == address(0) || to == requiredToAddress );
         require( requiredTokenAddress == address(0) || tokenAddress == requiredTokenAddress );
@@ -615,7 +615,7 @@ contract Subscription {
         //increment the timestamp by the period so it wont be valid until then
         nextValidTimestamp[subscriptionHash] = block.timestamp.add(periodSeconds);
 
-        //check to see if this nonce is larger than the current count and we&#39;ll set that for this &#39;from&#39;
+        //check to see if this nonce is larger than the current count and we'll set that for this 'from'
         if(nonce > extraNonce[from]){
           extraNonce[from] = nonce;
         }

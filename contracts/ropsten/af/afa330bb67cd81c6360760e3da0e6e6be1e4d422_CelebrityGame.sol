@@ -115,8 +115,8 @@ library SafeMath {
 	* @dev Multiplies two numbers, reverts on overflow.
 	*/
 	function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-		// Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-		// benefit is lost if &#39;b&#39; is also tested.
+		// Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+		// benefit is lost if 'b' is also tested.
 		// See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
 		if (a == 0) {
 			return 0;
@@ -134,7 +134,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b) internal pure returns (uint256) {
 		require(b > 0); // Solidity only automatically asserts when dividing by 0
 		uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
 		return c;
 	}
@@ -254,7 +254,7 @@ contract CelebrityGame is Ownable {
 	 * @param _nameString team desired name for player
 	 * @param _id player id
 	 * (this might cost a lot of gas)
-	 * (tips: The player&#39;s name can be registered multiple times, but the id can only be unique to ensure the integrity of the data)
+	 * (tips: The player's name can be registered multiple times, but the id can only be unique to ensure the integrity of the data)
 	 */
     function registerPlayer(string _nameString, uint256 _id)  external {
         require(keccak256(abi.encodePacked(_name)) != keccak256(abi.encodePacked("")));

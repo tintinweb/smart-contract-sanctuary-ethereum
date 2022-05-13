@@ -138,7 +138,7 @@ contract WTXHCrowdsale is Ownable {
     // 1 ether  = 1000 WTXH
     uint256 public constant oneEtherValue = 1000;
     
-    // Map of all purchaiser&#39;s balances 
+    // Map of all purchaiser's balances 
     mapping(address => uint256) public balances;
 
     // Is a crowdsale closed?

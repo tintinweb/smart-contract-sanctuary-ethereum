@@ -77,7 +77,7 @@ contract GEE {
             codeLength := extcodesize(_to)
         }
 
-        // we decided that we don&#39;t want to lose tokens into contracts
+        // we decided that we don't want to lose tokens into contracts
         require(codeLength == 0);
 
         balances[msg.sender] = sub(balanceOf(msg.sender), _value);
@@ -188,7 +188,7 @@ contract GEE {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

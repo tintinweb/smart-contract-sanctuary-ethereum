@@ -71,8 +71,8 @@ contract AgmoLeaderboardYeah {
         string memory ret = "\x5B";
         
         for (uint i=0; i < games[gameName].leaderboardCount; i++) {
-            string memory result = strConcat(&#39;{"name": "&#39;, games[gameName].leaderboards[i].name , &#39;","score": "&#39;,
-                                uintToString(games[gameName].leaderboards[i].score), &#39;"}&#39;);
+            string memory result = strConcat('{"name": "', games[gameName].leaderboards[i].name , '","score": "',
+                                uintToString(games[gameName].leaderboards[i].score), '"}');
             if(i != games[gameName].leaderboardCount - 1){
                 result = strConcat(result, ",");
             }

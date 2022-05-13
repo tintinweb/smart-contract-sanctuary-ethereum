@@ -28,7 +28,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -256,7 +256,7 @@ contract CyberMusicToken is ERC20 {
     function burn(uint256 _value) onlyOwner public {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);

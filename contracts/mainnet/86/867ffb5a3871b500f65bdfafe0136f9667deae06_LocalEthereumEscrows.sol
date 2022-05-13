@@ -93,7 +93,7 @@ contract LocalEthereumEscrows {
     /// @param _seller The selling party
     /// @param _buyer The buying party
     /// @param _value The amount of the escrow, exclusive of the fee
-    /// @param _fee Localethereum&#39;s commission in 1/10000ths
+    /// @param _fee Localethereum's commission in 1/10000ths
     /// @param _paymentWindowInSeconds The time in seconds from escrow creation that the seller can cancel after
     /// @param _expiry This transaction must be created before this time
     /// @param _v Signature "v" component
@@ -425,7 +425,7 @@ contract LocalEthereumEscrows {
             _s
         );
         if (_relayedSender == _buyer) {
-            // Buyer&#39;s instructions:
+            // Buyer's instructions:
             if (_instructionByte == INSTRUCTION_SELLER_CANNOT_CANCEL) {
                 // Disable seller from cancelling
                 return doDisableSellerCancel(_tradeID, _seller, _buyer, _value, _fee, _additionalGas);
@@ -434,7 +434,7 @@ contract LocalEthereumEscrows {
                 return doBuyerCancel(_tradeID, _seller, _buyer, _value, _fee, _additionalGas);
             }
         } else if (_relayedSender == _seller) {
-            // Seller&#39;s instructions:
+            // Seller's instructions:
             if (_instructionByte == INSTRUCTION_RELEASE) {
                 // Release
                 return doRelease(_tradeID, _seller, _buyer, _value, _fee, _additionalGas);

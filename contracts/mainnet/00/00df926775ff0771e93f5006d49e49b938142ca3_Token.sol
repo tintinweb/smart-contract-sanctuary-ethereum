@@ -24,7 +24,7 @@ contract ERC20Token{
  */
 contract StandardToken is ERC20Token{
   string public version = "1.0";
-  string public name = "preserve one&#39;s health";
+  string public name = "preserve one's health";
   string public symbol = "POH";
   uint8 public  decimals = 18;
 

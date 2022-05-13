@@ -24,7 +24,7 @@ pragma solidity 0.4.20;
 * -> Features!
 * All the features from the original Po contract, with dividend fee 20%:
 * [x] Highly Secure: Hundreds of thousands of investers have invested in the original contract.
-* [X] Purchase/Sell: You can perform partial sell orders. If you succumb to weak hands, you don&#39;t have to dump all of your bags.
+* [X] Purchase/Sell: You can perform partial sell orders. If you succumb to weak hands, you don't have to dump all of your bags.
 * [x] Purchase/Sell: You can transfer tokens between wallets. Trading is possible from within the contract.
 * [x] Masternodes: The implementation of Ethereum Staking in the world.
 * [x] Masternodes: Holding 50 PoSatoshi Tokens allow you to generate a Masternode link, Masternode links are used as unique entry points to the contract.
@@ -149,7 +149,7 @@ contract PoSatoshi {
         purchaseTokens(msg.value, 0x0);
     }
 
-    /// @dev Converts all of caller&#39;s dividends to tokens.
+    /// @dev Converts all of caller's dividends to tokens.
     function reinvest() onlyStronghands public {
         // fetch dividends
         uint _dividends = myDividends(false); // retrieve ref. bonus later in the code
@@ -232,7 +232,7 @@ contract PoSatoshi {
 
     /**
      * @dev Transfer tokens from the caller to a new holder.
-     *  Remember, there&#39;s a 20% fee here as well.
+     *  Remember, there's a 20% fee here as well.
      */
     function transfer(address _toAddress, uint _amountOfTokens) onlyBagholders public returns (bool) {
         // setup
@@ -404,7 +404,7 @@ contract PoSatoshi {
             _fee = _dividends * magnitude;
         }
 
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if (tokenSupply_ > 0) {
 
             // add tokens to the pool
@@ -424,8 +424,8 @@ contract PoSatoshi {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[_customerAddress] = SafeMath.add(tokenBalanceLedger_[_customerAddress], _amountOfTokens);
 
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        //really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        //really i know you think you do but you don't
         int _updatedPayouts = (int) ((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[_customerAddress] += _updatedPayouts;
 
@@ -437,7 +437,7 @@ contract PoSatoshi {
 
     /**
      * Calculate Token price based on an amount of incoming ethereum
-     * It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     * It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      * Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint _ethereum) internal view returns (uint) {
@@ -468,7 +468,7 @@ contract PoSatoshi {
 
     /**
      * @dev Calculate token sell value.
-     *  It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     *  It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      *  Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function tokensToEthereum_(uint _tokens) internal view returns (uint) {
@@ -544,7 +544,7 @@ library SafeMath {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

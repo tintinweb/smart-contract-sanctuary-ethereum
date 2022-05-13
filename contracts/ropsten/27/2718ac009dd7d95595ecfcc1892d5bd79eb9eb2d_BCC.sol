@@ -68,7 +68,7 @@ contract BCC is ERC223 {
 
   uint private startBlock;
   uint public latestDifficultyPeriodStarted;
-  uint public epochCount; // number of &#39;blocks&#39; mined
+  uint public epochCount; // number of 'blocks' mined
   uint public _BLOCKS_PER_READJUSTMENT = 2016;
   uint public  _MINIMUM_TARGET = 2**16;
   uint public  _MAXIMUM_TARGET = 2**224;
@@ -106,7 +106,7 @@ contract BCC is ERC223 {
     // in order to ensure fair launch revert all mining transactions
     // that happen before startBlock
     if (block.number < startBlock) revert();
-    // the PoW must contain work that includes a recent ETC block hash (challenge number) and the msg.sender&#39;s address to prevent MITM attacks
+    // the PoW must contain work that includes a recent ETC block hash (challenge number) and the msg.sender's address to prevent MITM attacks
     bytes32 digest =  keccak256(abi.encodePacked(challengeNumber, msg.sender, nonce));
     // the challenge digest must match the expected
     if (digest != challenge_digest) revert();
@@ -133,7 +133,7 @@ contract BCC is ERC223 {
     return true;
   }
 
-  // a new &#39;block&#39; to be mined
+  // a new 'block' to be mined
   function _startNewMiningEpoch() internal {
     // if max supply for the era will be exceeded next reward round then
     // enter the new era before that happens
@@ -168,7 +168,7 @@ contract BCC is ERC223 {
   function _reAdjustDifficulty() internal {
     uint blocksSinceLastDifficultyPeriod = block.number.sub(latestDifficultyPeriodStarted);
     // assume 360 ETC blocks per hour
-    // we want miners to spend 10 minutes to mine each &#39;block&#39;
+    // we want miners to spend 10 minutes to mine each 'block'
     // about 60 ethereum blocks = one BCC epoch
     uint epochsMined = _BLOCKS_PER_READJUSTMENT;
     // should be 60 times slower than ETC

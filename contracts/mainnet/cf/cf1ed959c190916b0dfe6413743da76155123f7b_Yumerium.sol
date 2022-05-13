@@ -615,7 +615,7 @@ contract TokenERC20 {
 
  
 
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
 
  
 

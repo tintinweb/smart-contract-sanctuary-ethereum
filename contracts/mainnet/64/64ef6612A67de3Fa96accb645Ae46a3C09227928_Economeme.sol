@@ -81,7 +81,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -195,8 +195,8 @@ contract Economeme is ERC721, Ownable {
       newOwner.transfer(excess);
     }
     
-    // If safeTransfer did not succeed, we take lost funds into our cut and will return manually if it wasn&#39;t malicious.
-    // Otherwise we&#39;re going out for some beers.
+    // If safeTransfer did not succeed, we take lost funds into our cut and will return manually if it wasn't malicious.
+    // Otherwise we're going out for some beers.
     if (address(this).balance > endingBalance + creatorCut + devCut) submissionPool += transferAmount;
     
     endingBalance = address(this).balance;
@@ -275,7 +275,7 @@ contract Economeme is ERC721, Ownable {
   * @dev Used by posters to submit and create a new meme.
   */
   function createToken() external payable {
-    // make sure token hasn&#39;t been used yet
+    // make sure token hasn't been used yet
     uint256 tokenId = totalTokens + 1;
     require(memeData[tokenId].price == 0);
     require(msg.value == submissionPrice);
@@ -292,7 +292,7 @@ contract Economeme is ERC721, Ownable {
   }
 
   /**
-  * @dev Withdraw anyone&#39;s creator balance.
+  * @dev Withdraw anyone's creator balance.
   * @param _beneficiary The person whose balance shall be sent to them.
   */
   function withdrawBalance(address _beneficiary) external {
@@ -324,7 +324,7 @@ contract Economeme is ERC721, Ownable {
   }
 
   /**
-  * @dev Determines if token exists by checking it&#39;s price
+  * @dev Determines if token exists by checking it's price
   * @param _tokenId uint256 ID of token
   */
   function tokenExists (uint256 _tokenId) public view returns (bool _exists) {
@@ -334,7 +334,7 @@ contract Economeme is ERC721, Ownable {
 /** ***************************** Only Admin ******************************* **/
   
   /**
-   * @dev Withdraw dev&#39;s cut
+   * @dev Withdraw dev's cut
    * @param _devAmount The amount to withdraw from developer cut.
    * @param _submissionAmount The amount to withdraw form submission pool.
   */

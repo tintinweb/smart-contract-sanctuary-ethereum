@@ -69,8 +69,8 @@ contract IngressRegistrar {
      */
 	constructor() public {
 		owner = msg.sender;
-		addHashType(&#39;md5&#39;);
-		addHashType(&#39;sha1&#39;);
+		addHashType('md5');
+		addHashType('sha1');
 	}
 
     /******************************************/

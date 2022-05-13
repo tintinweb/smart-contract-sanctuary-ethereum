@@ -80,7 +80,7 @@ contract FinalizeAgent {
 
   /** Return true if we can run finalizeCrowdsale() properly.
    *
-   * This is a safety check function that doesn&#39;t allow crowdsale to begin
+   * This is a safety check function that doesn't allow crowdsale to begin
    * unless the finalizer has been set up properly.
    */
   function isSane() public pure returns (bool){
@@ -113,7 +113,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -156,7 +156,7 @@ contract UbricoinPresale {
     // functions on this contract.
     address public tokenManager=0xAC762012330350DDd97Cc64B133536F8E32193a8;
 
-    // Gathered funds can be withdrawn only to escrow&#39;s address.
+    // Gathered funds can be withdrawn only to escrow's address.
     address public escrow=0x28970854Bfa61C0d6fE56Cc9daAAe5271CEaEC09;
 
     // Crowdsale manager has exclusive priveleges to burn presale tokens.
@@ -240,7 +240,7 @@ contract UbricoinPresale {
     function setCrowdsaleManager(address _mgr) public
         onlyTokenManager
     {
-        // You can&#39;t change crowdsale contract when migration is in progress.
+        // You can't change crowdsale contract when migration is in progress.
         if(currentPhase == Phase.Migrating) revert();
         crowdsaleManager = _mgr;
     }
@@ -481,8 +481,8 @@ contract Upgradeable {
     }
 }
 /**
- * The dispatcher is a minimal &#39;shim&#39; that dispatches calls to a targeted
- * contract. Calls are made using &#39;delegatecall&#39;, meaning all storage and value
+ * The dispatcher is a minimal 'shim' that dispatches calls to a targeted
+ * contract. Calls are made using 'delegatecall', meaning all storage and value
  * is kept on the dispatcher. As a result, when the target is updated, the new
  * contract inherits all the stored data and value from the old contract.
  */
@@ -546,8 +546,8 @@ contract Ubricoin is UbricoinPresale,Ownable,Haltable, UbricoinCrowdsale,Upgrade
     using SafeMath for uint256;
     
     // Public variables of the token
-    string public name =&#39;Ubricoin&#39;;
-    string public symbol =&#39;UBN&#39;;
+    string public name ='Ubricoin';
+    string public symbol ='UBN';
     string public version= "1.0";
     uint public decimals=18;
     // 18 decimals is the strongly suggested default, avoid changing it
@@ -602,7 +602,7 @@ contract Ubricoin is UbricoinPresale,Ownable,Haltable, UbricoinCrowdsale,Upgrade
      
     function proofOfWork(uint256 nonce) public{
         bytes8 n = bytes8(keccak256(abi.encodePacked(nonce, currentChallenge)));    // Generate a random hash based on input
-        require(n >= bytes8(difficulty));                   // Check if it&#39;s under the difficulty
+        require(n >= bytes8(difficulty));                   // Check if it's under the difficulty
 
         uint256 timeSinceLastProof = (now - timeOfLastProof);  // Calculate time since last reward was given
         require(timeSinceLastProof >=  5 seconds);         // Rewards cannot be given too quickly
@@ -754,7 +754,7 @@ contract Ubricoin is UbricoinPresale,Ownable,Haltable, UbricoinCrowdsale,Upgrade
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;

@@ -112,8 +112,8 @@ contract ViotheumToken is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -126,7 +126,7 @@ contract ViotheumToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -159,7 +159,7 @@ contract ViotheumToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -188,7 +188,7 @@ contract ViotheumToken is ERC20Interface, Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH- Prevent accidentally send Eth into this contract.
+    // Don't accept ETH- Prevent accidentally send Eth into this contract.
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

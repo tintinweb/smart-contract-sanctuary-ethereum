@@ -9,7 +9,7 @@ There is a freezePeriod option on transfers, if need be. There is also an date o
 last issuance setting, if set, no more tokens can be issued past that time.
 
 The token uses the a standard token API as much as possible, and overrides the transfer
-and transferFrom methods. This way, we dont need special API&#39;s to issue this token.
+and transferFrom methods. This way, we dont need special API's to issue this token.
 We can retain the original StandardToken api, but add additional features.
 
 Upon construction, initial token holders can be specified with their values.
@@ -53,7 +53,7 @@ This file is part of WeiFund.
 This implements ONLY the standard functions and NOTHING else.
 For a token like you would want to deploy in something like Mist, see HumanStandardToken.sol.
 
-If you deploy this, you won&#39;t have anything useful.
+If you deploy this, you won't have anything useful.
 
 Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 .*/
@@ -103,8 +103,8 @@ contract Token {
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -273,12 +273,12 @@ contract IssuedToken is Owned, Issued, StandardToken {
 /// @title Private Service Registry - used to register generated service contracts.
 /// @author Nick Dodson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0c62656f67226863687f63624c6f63627f69627f757f22626978">[email&#160;protected]</a>>
 contract PrivateServiceRegistryInterface {
-  /// @notice register the service &#39;_service&#39; with the private service registry
+  /// @notice register the service '_service' with the private service registry
   /// @param _service the service contract to be registered
-  /// @return the service ID &#39;serviceId&#39;
+  /// @return the service ID 'serviceId'
   function register(address _service) internal returns (uint256 serviceId) {}
 
-  /// @notice is the service in question &#39;_service&#39; a registered service with this registry
+  /// @notice is the service in question '_service' a registered service with this registry
   /// @param _service the service contract address
   /// @return either yes (true) the service is registered or no (false) the service is not
   function isService(address _service) public constant returns (bool) {}
@@ -308,7 +308,7 @@ contract PrivateServiceRegistry is PrivateServiceRegistryInterface {
   }
 
   modifier isNotRegisteredService(address _service) {
-    // if the service &#39;_service&#39; is not a registered service
+    // if the service '_service' is not a registered service
     if (!isService(_service)) {
       _;
     }
@@ -321,13 +321,13 @@ contract PrivateServiceRegistry is PrivateServiceRegistryInterface {
     // create service ID by increasing services length
     serviceId = services.length++;
 
-    // set the new service ID to the &#39;_service&#39; address
+    // set the new service ID to the '_service' address
     services[serviceId] = _service;
 
-    // set the ids store to link to the &#39;serviceId&#39; created
+    // set the ids store to link to the 'serviceId' created
     ids[_service] = serviceId;
 
-    // fire the &#39;ServiceRegistered&#39; event
+    // fire the 'ServiceRegistered' event
     ServiceRegistered(msg.sender, _service);
   }
 

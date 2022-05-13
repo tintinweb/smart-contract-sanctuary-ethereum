@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 /**
- * Devron Kim&#39;s research purose token.
+ * Devron Kim's research purose token.
  * Do not send Ether unless necessary.
 **/
 
@@ -40,7 +40,7 @@ library SafeMath {
 
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -57,7 +57,7 @@ library SafeMath {
 }
 
 contract Token {
-    string public name = "DevronKim&#39;s Research Purpose";
+    string public name = "DevronKim's Research Purpose";
     string public constant symbol = "DRP";
     uint8 public constant decimals = 18;
     uint256 public totalSupply = 100000000 * 10 ** uint256(decimals);
@@ -178,7 +178,7 @@ contract Token {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] = balanceOf[_from].sub(_value);                           // Subtract from the targeted balance
-        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);   // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);   // Subtract from the sender's allowance
         totalSupply = totalSupply.sub(_value);                                     // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -239,6 +239,6 @@ contract DRPtoken is owned, Token {
     function sell(uint256 amount) public {
         require(this.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 }

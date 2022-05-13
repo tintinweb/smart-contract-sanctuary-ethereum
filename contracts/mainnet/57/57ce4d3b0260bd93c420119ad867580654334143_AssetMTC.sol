@@ -29,7 +29,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -190,10 +190,10 @@ contract ERC20Token is ERC20TokenInterface, admined { //Standard definition of a
 * @dev Initial supply creation
 */
 contract AssetMTC is ERC20Token {
-    string public name = &#39;Mega Trade Club&#39;;
+    string public name = 'Mega Trade Club';
     uint8 public decimals = 18;
-    string public symbol = &#39;MTC&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'MTC';
+    string public version = '1';
 
     constructor() public {
         totalSupply = 20000000 * (10**uint256(decimals)); //initial token creation

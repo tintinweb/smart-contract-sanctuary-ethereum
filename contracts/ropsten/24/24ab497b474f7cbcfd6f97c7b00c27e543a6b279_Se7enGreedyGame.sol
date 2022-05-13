@@ -490,7 +490,7 @@ contract Se7enGreedyGame is modularLong {
         if (players[_playerId].lastRoundId != 0)
             updateGenVault(_playerId, players[_playerId].lastRoundId);
 
-        // update player&#39;s last round played
+        // update player's last round played
         players[_playerId].lastRoundId = currendRoundId;
 
         // set the joined round bool to true
@@ -569,7 +569,7 @@ contract Se7enGreedyGame is modularLong {
             relevant proportion to the increase in share supply.
 
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
 
@@ -598,7 +598,7 @@ contract Se7enGreedyGame is modularLong {
         // setup local rID
         uint256 _currendRoundId = currendRoundId;
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = rounds[_currendRoundId].playerId;
 
         // grab our pot amount
@@ -658,7 +658,7 @@ contract Se7enGreedyGame is modularLong {
     }
 
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _playerId, uint256 _eth, uint256 _keys, Greedydatasets.EventReturns memory _eventData_)
         private
@@ -815,7 +815,7 @@ contract Se7enGreedyGame is modularLong {
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds

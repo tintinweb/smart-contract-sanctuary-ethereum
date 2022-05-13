@@ -118,7 +118,7 @@ contract HumanStandardToken is StandardToken {
 
     string public symbol;               
 
-    string public version = &#39;H0.1&#39;;      
+    string public version = 'H0.1';      
 
 
 

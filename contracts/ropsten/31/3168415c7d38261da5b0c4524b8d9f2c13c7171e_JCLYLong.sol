@@ -324,7 +324,7 @@ contract JCLYLong is Pausable  {
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -540,7 +540,7 @@ contract JCLYLong is Pausable  {
             if (plyr_[_pID].lrnd != 0)
                 updateGenVault(_pID, plyr_[_pID].lrnd);
             
-            plyr_[_pID].lrnd = rID_; // update player&#39;s last round played
+            plyr_[_pID].lrnd = rID_; // update player's last round played
         }
         
         // early round eth limiter (0-100 eth)
@@ -867,7 +867,7 @@ contract JCLYLong is Pausable  {
     function leekStealGo() private {
         // get a number for today dayNum 
         uint leekStealToday_ = (now.sub(round_[rID_].strt) / 1 days); 
-        if (dayStealTime_[leekStealToday_] == 0) // if there hasn&#39;t a winner today, proceed
+        if (dayStealTime_[leekStealToday_] == 0) // if there hasn't a winner today, proceed
         {
             leekStealTracker_++;
             if (randomNum(leekStealTracker_) == true)
@@ -1028,7 +1028,7 @@ contract JCLYLong is Pausable  {
             // plyrPhas_[_pID][i].lastClaimedPhID = _lastClaimedPhID;
         }
 
-        // then put into player&#39;s gu 
+        // then put into player's gu 
         if (_guShares > 0) {
             plyr_[_pID].gu = _guShares.add(plyr_[_pID].gu);       
         }

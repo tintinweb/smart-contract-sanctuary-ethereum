@@ -22,7 +22,7 @@ library Roles {
     }
 
     /**
-     * @dev Remove an account&#39;s access to this role.
+     * @dev Remove an account's access to this role.
      */
     function remove(Role storage role, address account) internal {
         require(has(role, account), "Roles: account does not have role");

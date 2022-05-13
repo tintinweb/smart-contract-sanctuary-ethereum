@@ -112,8 +112,8 @@ contract LockToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken, ICOToken, LockToken {
     function CustomToken() public {
         totalSupply = 697924580000;
-        name = &#39;HeraAssets&#39;;
-        symbol = &#39;HERA&#39;;
+        name = 'HeraAssets';
+        symbol = 'HERA';
         decimals = 4;
         balanceOf[0x027f93de146d57314660b449b9249a8ce7c6c796] = totalSupply;
         Transfer(address(0), 0x027f93de146d57314660b449b9249a8ce7c6c796, totalSupply);

@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -159,7 +159,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -228,8 +228,8 @@ contract StandardToken is ERC20, BasicToken {
 contract PentacoreToken is StandardToken {
   using SafeMath for uint256;
 
-  string public name = &#39;PentacoreToken&#39;;
-  string public symbol = &#39;PENT&#39;;
+  string public name = 'PentacoreToken';
+  string public symbol = 'PENT';
   uint256 public constant million = 1000000;
   uint256 public constant tokenCap = 1000 * million; // one billion tokens
   bool public isPaused = true;
@@ -238,7 +238,7 @@ contract PentacoreToken is StandardToken {
   // the PentacoreToken does these tests itself.  This is mandated by legal
   // issues, as follows:
   // - The exchange can be anywhere and it should not be concerned with
-  //   Pentacore&#39;s whitelisting methods.  If the exchange desires, it can
+  //   Pentacore's whitelisting methods.  If the exchange desires, it can
   //   perform its own KYC.
   // - Even after the Crowdsale / ICO if a whitelisted owner tries to sell
   //   their tokens to a non-whitelisted buyer (address), the seller shall be
@@ -258,7 +258,7 @@ contract PentacoreToken is StandardToken {
   uint256 public tokenNAVMicroUSD; // Net Asset Value per token in MicroUSD (millionths of 1 US$)
   uint256 public weiPerUSD; // How many Wei is one US$
 
-  // Who&#39;s Who
+  // Who's Who
   address public owner; // The owner of this contract.
   address public kycAdmin; // The address of the caller which can update the KYC status of an address.
   address public navAdmin; // The address of the caller which can update the NAV/USD and ETH/USD values.
@@ -507,7 +507,7 @@ contract PentacoreToken is StandardToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -540,7 +540,7 @@ contract PentacoreToken is StandardToken {
    * From MonolithDAO Token.sol
    *
    * @dev The sender does not need to be whitelisted.  This is in case they are removed from white list and no longer agree to sell at an exchange.
-   * @dev This function stays untouched (directly inherited), but it&#39;s re-defined for clarity:
+   * @dev This function stays untouched (directly inherited), but it's re-defined for clarity:
    *
    * @param _spender The address which will spend the funds.
    * @param _subtractedValue The amount of tokens to decrease the allowance by.

@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -275,7 +275,7 @@ contract MoraspaceDefense is Owned {
     round[0].over       = true;
     rounds              = 0;
 // these settings can be done by additional transactions
-// truffle develop can&#39;t migrate / test with heavy constructor
+// truffle develop can't migrate / test with heavy constructor
 //    launchpad[1]        = DataSets.Launchpad(100);
 //    launchpad[2]        = DataSets.Launchpad(100);
 //    launchpad[3]        = DataSets.Launchpad(100);

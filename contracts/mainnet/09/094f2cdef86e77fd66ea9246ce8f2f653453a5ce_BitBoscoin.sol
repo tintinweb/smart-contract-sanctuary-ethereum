@@ -9,7 +9,7 @@ pragma solidity ^0.4.24;
 
 contract BitBoscoin {
     /* Public variables of the token */
-    string public standard = &#39;BOSS Token&#39;;
+    string public standard = 'BOSS Token';
     string public name;
     string public symbol;
     uint8 public decimals;

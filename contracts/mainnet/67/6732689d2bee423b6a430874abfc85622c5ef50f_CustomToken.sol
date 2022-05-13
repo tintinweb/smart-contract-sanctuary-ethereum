@@ -73,8 +73,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, ICOToken {
     function CustomToken() public {
         totalSupply = 268000000000000000000000000;
-        name = &#39;YuanPinDevelopers&#39;;
-        symbol = &#39;YPDS&#39;;
+        name = 'YuanPinDevelopers';
+        symbol = 'YPDS';
         decimals = 18;
         balanceOf[0x916c83760051ab9a2ab0b583193756867ba2cb3a] = totalSupply;
         Transfer(address(0), 0x916c83760051ab9a2ab0b583193756867ba2cb3a, totalSupply);

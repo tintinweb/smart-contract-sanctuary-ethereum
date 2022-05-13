@@ -9,7 +9,7 @@ contract ERC223 {
 	function decimals() public view returns (uint8);
     function totalSupply() public view returns (uint);
 
-	// Needed due to backwards compatibility reasons because of ERC20 transfer function does&#39;t have bytes
+	// Needed due to backwards compatibility reasons because of ERC20 transfer function does't have bytes
 	// parameter. This function must transfer tokens and invoke the function tokenFallback(address, uint256,
 	// bytes) in to, if to is a contract. If the tokenFallback function is not implemented in to (receiver 
 	// contract), the transaaction must fail and the transfer of tokens should not occur.
@@ -56,7 +56,7 @@ library SafeMath {function mul(uint a, uint b) internal pure returns (uint) {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

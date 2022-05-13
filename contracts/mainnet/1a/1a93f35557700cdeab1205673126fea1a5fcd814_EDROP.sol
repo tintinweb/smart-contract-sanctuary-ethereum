@@ -1,7 +1,7 @@
 pragma solidity ^0.4.22;
 
 // ----------------------------------------------------------------------------
-// &#39;EDROP Token&#39;
+// 'EDROP Token'
 //
 // NAME     : EDROP Token
 // Symbol   : EDT

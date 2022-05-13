@@ -11,7 +11,7 @@ interface token
 
 contract DCY_preICO 
 {
-    string public name = &#39;CONTRACT DICEYBIT.COM preICO&#39;;
+    string public name = 'CONTRACT DICEYBIT.COM preICO';
     address public beneficiary;
 
     uint public fundingGoal;

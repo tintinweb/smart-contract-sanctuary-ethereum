@@ -8,7 +8,7 @@ contract assignmentTwo40075764 {
     
     constructor() public {
         student = msg.sender;
-        message = &#39;Thanks Professor, this subject is really interesting :D&#39;;
+        message = 'Thanks Professor, this subject is really interesting :D';
     }
     
     function setStudentNumber(uint _studentNumber) public {

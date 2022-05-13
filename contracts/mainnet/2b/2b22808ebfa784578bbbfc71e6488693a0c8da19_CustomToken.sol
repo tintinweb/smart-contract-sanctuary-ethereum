@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 600000000000000000000000000;
-        name = &#39;DeCaiCoin&#39;;
-        symbol = &#39;DCC&#39;;
+        name = 'DeCaiCoin';
+        symbol = 'DCC';
         decimals = 18;
         balanceOf[0x23fdad4428a6aff269b9f267da90a06310666e6b] = totalSupply;
         Transfer(address(0), 0x23fdad4428a6aff269b9f267da90a06310666e6b, totalSupply);

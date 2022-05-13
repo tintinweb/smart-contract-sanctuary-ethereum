@@ -128,7 +128,7 @@ contract UsingTreasury is
     be obtain by calling balances(). If an address has a 0 amount,
     it is removed from the Ledger.
 
-    Note: THIS DOES NOT TEST FOR OVERFLOWS, but it&#39;s safe to
+    Note: THIS DOES NOT TEST FOR OVERFLOWS, but it's safe to
           use to track Ether balances.
 
     Public methods:
@@ -327,7 +327,7 @@ contract AddressSet {
         // Do not allow the removal of HEAD.
         if (_address == address(0)) return;
         Entry storage entry = entries[_address];
-        // If it doesn&#39;t exist already, there is nothing to do.
+        // If it doesn't exist already, there is nothing to do.
         if (!entry.exists) return;
 
         // Stitch together next and prev, delete entry.
@@ -653,13 +653,13 @@ contract VideoPokerUtils {
         if (_draws == 0) return _hand;
         if (_draws == 31) return uint32(getCardsFromHash(_hash, 5, handToBitmap(_hand)));
 
-        // Create a mask of 1&#39;s where new cards should go.
+        // Create a mask of 1's where new cards should go.
         uint _newMask;
         for (uint _i=0; _i<5; _i++) {
             if (_draws & 2**_i == 0) continue;
             _newMask |= 63 * (2**(6*_i));
         }
-        // Create a mask of 0&#39;s where new cards should go.
+        // Create a mask of 0's where new cards should go.
         // Be sure to use only first 30 bits (5 cards x 6 bits)
         uint _discardMask = ~_newMask & (2**31-1);
 
@@ -700,7 +700,7 @@ contract VideoPokerUtils {
             _card = readFromCards(_hand, _i);
             if (_card > 51) return HAND_NOT_COMPUTABLE;
             
-            // update val and suit counts, and if it&#39;s a flush
+            // update val and suit counts, and if it's a flush
             _val = _card % 13;
             _valCounts[_val]++;
             _suitCounts[_card/13]++;
@@ -726,9 +726,9 @@ contract VideoPokerUtils {
         }
 
         if (_numPairs > 0){
-            // If they have quads, they can&#39;t have royal flush, so we can return.
+            // If they have quads, they can't have royal flush, so we can return.
             if (_maxSet==4) return HAND_FK;
-            // One of the two pairs was the trips, so it&#39;s a full house.
+            // One of the two pairs was the trips, so it's a full house.
             if (_maxSet==3 && _numPairs==2) return HAND_FH;
             // Trips is their best hand (no straight or flush possible)
             if (_maxSet==3) return HAND_TK;
@@ -807,7 +807,7 @@ contract VideoPokerUtils {
         pure
         returns (uint _cards)
     {
-        // Return early if we don&#39;t need to pick any cards.
+        // Return early if we don't need to pick any cards.
         if (_numCards == 0) return;
 
         uint _cardIdx = 0;                // index of currentCard
@@ -886,7 +886,7 @@ contract VideoPoker is
     mapping(address => uint) public credits;
 
     // Store a two-way mapping of address <=> userId
-    // If we&#39;ve seen a user before, betting will be just 1 write
+    // If we've seen a user before, betting will be just 1 write
     //  per Game struct vs 2 writes.
     // The trade-off is 3 writes for new users. Seems fair.
     mapping (address => uint32) public userIds;
@@ -1343,7 +1343,7 @@ contract VideoPoker is
                 _iHand = getHand(uint(keccak256(_blockhash, _id)));
                 _dHand = _iHand;
             } else {
-                // can&#39;t finalize with iHand. Draw 5 cards.
+                // can't finalize with iHand. Draw 5 cards.
                 _finalizeFailure(_id, "Initial hand not available. Drawing 5 new cards.");
                 _game.draws = 31;
                 _game.dBlock = uint32(block.number);

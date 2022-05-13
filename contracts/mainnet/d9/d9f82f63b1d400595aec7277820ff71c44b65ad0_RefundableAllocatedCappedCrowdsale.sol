@@ -103,7 +103,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -474,7 +474,7 @@ contract AllocatedCappedCrowdsale is Haltable, ValidationUtil {
     /* Кол-во уникальных адресов, которые у наc получили токены */
     uint public investorCount;
 
-    /*  Сколько wei отдали инвесторам на refund&#39;е в wei */
+    /*  Сколько wei отдали инвесторам на refund'е в wei */
     uint public weiRefunded;
 
     /*  Сколько токенов продали всего */
@@ -561,10 +561,10 @@ contract AllocatedCappedCrowdsale is Haltable, ValidationUtil {
     event SecondStageStartsAtChanged(uint newSecondStageStartsAt);
     event SecondStageEndsAtChanged(uint newSecondStageEndsAt);
 
-    // Событие изменения Soft Cap&#39;а
+    // Событие изменения Soft Cap'а
     event SoftCapChanged(uint newGoal);
 
-    // Событие изменения Hard Cap&#39;а
+    // Событие изменения Hard Cap'а
     event HardCapChanged(uint newGoal);
 
     // Конструктор
@@ -897,7 +897,7 @@ contract AllocatedCappedCrowdsale is Haltable, ValidationUtil {
 
     /**
     * Разделил на 2 метода, чтобы не запутаться при вызове
-    * Эти функции нужны в 2-х случаях: немного не собрали до Cap&#39;а, сами докидываем необходимую сумму, есть приватные инвесторы, для которых существуют особые условия
+    * Эти функции нужны в 2-х случаях: немного не собрали до Cap'а, сами докидываем необходимую сумму, есть приватные инвесторы, для которых существуют особые условия
     */
 
     /* Для первой стадии */
@@ -1075,7 +1075,7 @@ contract AllocatedCappedCrowdsale is Haltable, ValidationUtil {
     }
 
     /**
-     * Позволяет менять владельцу Cap&#39;ы
+     * Позволяет менять владельцу Cap'ы
      */
     function setSoftCapInCents(uint value) public onlyOwner {
         require(value > 0);
@@ -1096,7 +1096,7 @@ contract AllocatedCappedCrowdsale is Haltable, ValidationUtil {
     }
 
     /**
-     * Проверка сбора Soft Cap&#39;а
+     * Проверка сбора Soft Cap'а
      */
     function isSoftCapGoalReached() public constant returns (bool) {
         // Проверка по текущему курсу в центах, считает от общих продаж
@@ -1104,7 +1104,7 @@ contract AllocatedCappedCrowdsale is Haltable, ValidationUtil {
     }
 
     /**
-     * Проверка сбора Hard Cap&#39;а
+     * Проверка сбора Hard Cap'а
      */
     function isHardCapGoalReached() public constant returns (bool) {
         // Проверка по текущему курсу в центах, считает от общих продаж
@@ -1115,7 +1115,7 @@ contract AllocatedCappedCrowdsale is Haltable, ValidationUtil {
      * Возвращает кол-во нераспроданных токенов, которые можно продать, в зависимости от стадии
      */
     function getTokensLeftForSale(State forState) public constant returns (uint) {
-        // Кол-во токенов, которое адрес контракта можеть снять у owner&#39;а и есть кол-во оставшихся токенов, из этой суммы нужно вычесть кол-во которое не участвует в продаже
+        // Кол-во токенов, которое адрес контракта можеть снять у owner'а и есть кол-во оставшихся токенов, из этой суммы нужно вычесть кол-во которое не участвует в продаже
         uint tokenBalance = token.balanceOf(address(this));
         uint tokensReserve = 0;
         if (forState == State.SecondStageFunding) tokensReserve = secondStageReserve.mul(10 ** token.decimals());

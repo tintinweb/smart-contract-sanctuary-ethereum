@@ -14,7 +14,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -34,7 +34,7 @@ library SafeMath {
  * @title Owned contract with safe ownership pass.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract Owned {
     /**
@@ -454,7 +454,7 @@ contract ATxAssetProxy is ERC20, Object, ServiceAllowance {
      *
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      *
      * @return success.
      */
@@ -474,7 +474,7 @@ contract ATxAssetProxy is ERC20, Object, ServiceAllowance {
      *
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      * @param _sender initial caller.
      *
      * @return success.
@@ -509,7 +509,7 @@ contract ATxAssetProxy is ERC20, Object, ServiceAllowance {
      * @param _from holder address to take from.
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      * @param _sender initial caller.
      *
      * @return success.
@@ -615,7 +615,7 @@ contract ATxAssetProxy is ERC20, Object, ServiceAllowance {
         if (_newVersion == 0x0) {
             return false;
         }
-        // Don&#39;t apply freeze-time for the initial setup.
+        // Don't apply freeze-time for the initial setup.
         if (latestVersion == 0x0) {
             latestVersion = _newVersion;
             return true;
@@ -799,7 +799,7 @@ contract GroupsAccessManager is Object, GroupsAccessManagerEmitter {
     mapping(uint => bytes32) index2groupName;
     mapping(bytes32 => uint) groupName2index;
     mapping(bytes32 => Group) groupName2group;
-    mapping(bytes32 => bool) public groupsBlocked; // if groupName => true, then couldn&#39;t be used for confirmation
+    mapping(bytes32 => bool) public groupsBlocked; // if groupName => true, then couldn't be used for confirmation
 
     function() payable public {
         revert();
@@ -1178,9 +1178,9 @@ contract PendingManager is Object, PendingManagerEmitter, PendingManagerInterfac
         }
     }
 
-    /// @dev Pending Manager&#39;s constructor
+    /// @dev Pending Manager's constructor
     ///
-    /// @param _accessManager access manager&#39;s address
+    /// @param _accessManager access manager's address
     function PendingManager(address _accessManager) public {
         require(_accessManager != 0x0);
         accessManager = _accessManager;
@@ -1192,7 +1192,7 @@ contract PendingManager is Object, PendingManagerEmitter, PendingManagerInterfac
 
     /// @notice Update access manager address
     ///
-    /// @param _accessManager access manager&#39;s address
+    /// @param _accessManager access manager's address
     function setAccessManager(address _accessManager) external onlyContractOwner returns (uint) {
         require(_accessManager != 0x0);
         accessManager = _accessManager;
@@ -1201,7 +1201,7 @@ contract PendingManager is Object, PendingManagerEmitter, PendingManagerInterfac
 
     /// @notice Sign in contract
     ///
-    /// @param _contract contract&#39;s address
+    /// @param _contract contract's address
     function signIn(address _contract) external onlyContractOwner returns (uint) {
         require(_contract != 0x0);
         authorized[_contract] = true;
@@ -1210,7 +1210,7 @@ contract PendingManager is Object, PendingManagerEmitter, PendingManagerInterfac
 
     /// @notice Sign out contract
     ///
-    /// @param _contract contract&#39;s address
+    /// @param _contract contract's address
     function signOut(address _contract) external onlyContractOwner returns (uint) {
         require(_contract != 0x0);
         delete authorized[_contract];
@@ -1222,7 +1222,7 @@ contract PendingManager is Object, PendingManagerEmitter, PendingManagerInterfac
     ///
     /// @param _sig target method signature
     /// @param _contract target contract address
-    /// @param _groupName group&#39;s name
+    /// @param _groupName group's name
     /// @param _acceptLimit accepted vote limit
     /// @param _declineLimit decline vote limit
     ///
@@ -1277,7 +1277,7 @@ contract PendingManager is Object, PendingManagerEmitter, PendingManagerInterfac
     /// @notice Remove policy rule
     /// Can be called only by contract owner
     ///
-    /// @param _groupName group&#39;s name
+    /// @param _groupName group's name
     ///
     /// @return code
     function removePolicyRule(
@@ -1711,7 +1711,7 @@ contract ServiceController is MultiSigAdapter {
     mapping(address => bool) emissionProviders;
     mapping(address => bool) burningMans;
 
-    /// @notice Default ServiceController&#39;s constructor
+    /// @notice Default ServiceController's constructor
     ///
     /// @param _pendingManager pending manager address
     /// @param _proxy ERC20 proxy address
@@ -1903,7 +1903,7 @@ contract DataController is OracleMethodAdapter, DataControllerEmitter {
 
     /* STRUCTS */
 
-    /// @title HoldersData couldn&#39;t be public because of internal structures, so needed to provide getters for different parts of _holderData
+    /// @title HoldersData couldn't be public because of internal structures, so needed to provide getters for different parts of _holderData
     struct HoldersData {
         uint countryCode;
         uint sendLimPerDay;

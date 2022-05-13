@@ -77,7 +77,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -234,12 +234,12 @@ contract PoolOwners is Ownable {
         @param _amount The amount that the owner has sent
      */
     function contribute(address _sender, uint256 _amount) private {
-        require(is128Bit(_amount), "Contribution amount isn&#39;t 128bit or smaller");
+        require(is128Bit(_amount), "Contribution amount isn't 128bit or smaller");
         require(!locked, "Crowdsale period over, contribution is locked");
         require(!distributionActive, "Cannot contribute when distribution is active");
         require(_amount >= precisionMinimum, "Amount needs to be above the minimum contribution");
         require(hardCap >= _amount, "Your contribution is greater than the hard cap");
-        require(_amount % precisionMinimum == 0, "Your amount isn&#39;t divisible by the minimum precision");
+        require(_amount % precisionMinimum == 0, "Your amount isn't divisible by the minimum precision");
         require(hardCap >= totalContributed.add(_amount), "Your contribution would cause the total to exceed the hardcap");
 
         totalContributed = totalContributed.add(_amount);
@@ -262,7 +262,7 @@ contract PoolOwners is Ownable {
         @param _owner Wallet of the owner
      */
     function whitelistWallet(address _owner) external onlyOwner() {
-        require(!locked, "Can&#39;t whitelist when the contract is locked");
+        require(!locked, "Can't whitelist when the contract is locked");
         require(_owner != address(0), "Blackhole address");
         whitelist[_owner] = true;
     }
@@ -281,9 +281,9 @@ contract PoolOwners is Ownable {
         @param _value The equivalent contribution value
      */
     function setOwnerShare(address _owner, uint256 _value) public onlyOwner() {
-        require(!locked, "Can&#39;t manually set shares, it&#39;s locked");
+        require(!locked, "Can't manually set shares, it's locked");
         require(!distributionActive, "Cannot set owners share when distribution is active");
-        require(is128Bit(_value), "Contribution value isn&#39;t 128bit or smaller");
+        require(is128Bit(_value), "Contribution value isn't 128bit or smaller");
 
         uint owner = ownerMap.get(uint(_owner));
         uint share;
@@ -299,7 +299,7 @@ contract PoolOwners is Ownable {
 
     /**
         @dev Transfer part or all of your ownership to another address
-        @param _receiver The address that you&#39;re sending to
+        @param _receiver The address that you're sending to
         @param _amount The amount of ownership to send, for your balance refer to `ownerShareTokens`
      */
     function sendOwnership(address _receiver, uint256 _amount) public onlyPoolOwner() {
@@ -308,7 +308,7 @@ contract PoolOwners is Ownable {
 
     /**
         @dev Transfer part or all of your ownership to another address and call the receiving contract
-        @param _receiver The address that you&#39;re sending to
+        @param _receiver The address that you're sending to
         @param _amount The amount of ownership to send, for your balance refer to `ownerShareTokens`
      */
     function sendOwnershipAndCall(address _receiver, uint256 _amount, bytes _data) public onlyPoolOwner() {
@@ -320,9 +320,9 @@ contract PoolOwners is Ownable {
 
     /**
         @dev Transfer part or all of your ownership to another address on behalf of an owner
-        @dev Same principle as approval in ERC20, to be used mostly by external contracts, eg DEX&#39;s
-        @param _owner The address of the owner who&#39;s having tokens sent on behalf of
-        @param _receiver The address that you&#39;re sending to
+        @dev Same principle as approval in ERC20, to be used mostly by external contracts, eg DEX's
+        @param _owner The address of the owner who's having tokens sent on behalf of
+        @param _receiver The address that you're sending to
         @param _amount The amount of ownership to send, for your balance refer to `ownerShareTokens`
      */
     function sendOwnershipFrom(address _owner, address _receiver, uint256 _amount) public {
@@ -341,18 +341,18 @@ contract PoolOwners is Ownable {
         uint oTokens = o << 128 >> 128;
         uint rTokens = r << 128 >> 128;
 
-        require(is128Bit(_amount), "Amount isn&#39;t 128bit or smaller");
-        require(_owner != _receiver, "You can&#39;t send to yourself");
+        require(is128Bit(_amount), "Amount isn't 128bit or smaller");
+        require(_owner != _receiver, "You can't send to yourself");
         require(_receiver != address(0), "Ownership cannot be blackholed");
-        require(oTokens > 0, "You don&#39;t have any ownership");
+        require(oTokens > 0, "You don't have any ownership");
         require(oTokens >= _amount, "The amount exceeds what you have");
         require(!distributionActive, "Distribution cannot be active when sending ownership");
-        require(_amount % precisionMinimum == 0, "Your amount isn&#39;t divisible by the minimum precision amount");
+        require(_amount % precisionMinimum == 0, "Your amount isn't divisible by the minimum precision amount");
 
         oTokens = oTokens.sub(_amount);
 
         if (oTokens == 0) {
-            require(ownerMap.remove(uint(_owner)), "Address doesn&#39;t exist in the map");
+            require(ownerMap.remove(uint(_owner)), "Address doesn't exist in the map");
         } else {
             uint oPercentage = percent(oTokens, valuation, 5);
             require(ownerMap.insert(uint(_owner), oPercentage << 128 | oTokens), "Sender does not exist in the map");
@@ -425,7 +425,7 @@ contract PoolOwners is Ownable {
         if (!is128Bit(currentBalance)) {
             currentBalance = 1 << 128;
         }
-        require(currentBalance > distributionMinimum[_token], "Amount in the contract isn&#39;t above the minimum distribution limit");
+        require(currentBalance > distributionMinimum[_token], "Amount in the contract isn't above the minimum distribution limit");
 
         distribution = currentBalance << 128;
         dToken = _token;
@@ -463,7 +463,7 @@ contract PoolOwners is Ownable {
         uint o = ownerMap.get(uint(owner));
 
         require(o >> 128 > 0, "You need to have a share to claim tokens");
-        require(distributionActive, "Distribution isn&#39;t active");
+        require(distributionActive, "Distribution isn't active");
 
         uint256 tokenAmount = (distribution >> 128).mul(o >> 128).div(100000);
         require(ERC20(dToken).transfer(owner, tokenAmount), "ERC20 transfer failed");

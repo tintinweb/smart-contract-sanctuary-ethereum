@@ -11,7 +11,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -121,7 +121,7 @@ contract CryptoCasherCrowdsale is Ownable, Crowdsale {
         require(_owner != address(0));
         require(_wallet != address(0));
         owner = _owner;
-        owner = msg.sender; //for test&#39;s
+        owner = msg.sender; //for test's
 
         tokenAllocated = tokenAllocated.add(fundAdvisors).add(fundBountyRefferal).add(fundTeam);
     }
@@ -292,7 +292,7 @@ contract CryptoCasherCrowdsale is Ownable, Crowdsale {
     }
 
     /**
-     * Peterson&#39;s Law Protection
+     * Peterson's Law Protection
      * Claim tokens
      */
     function claimTokens(address _token) public onlyOwner {

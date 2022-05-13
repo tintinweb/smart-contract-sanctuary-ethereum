@@ -77,7 +77,7 @@ contract verifiable {
     }
 
     /**
-     * To verify whether a specific signer has signed this contract&#39;s address
+     * To verify whether a specific signer has signed this contract's address
      * @param signer address to verify
      */
     function verify(address signer) public constant returns(bool) {
@@ -547,7 +547,7 @@ contract DividableAsset is AssetHashToken, ERC20Interface {
 
     /**
      * Returns the amount of tokens approved by the owner that can be
-     * transferred to the spender&#39;s account
+     * transferred to the spender's account
      */
     function allowance(address tokenOwner, address spender)
         public view
@@ -557,8 +557,8 @@ contract DividableAsset is AssetHashToken, ERC20Interface {
     }
 
     /**
-     * Transfer the balance from token owner&#39;s account to `to` account
-     * - Owner&#39;s account must have sufficient balance to transfer
+     * Transfer the balance from token owner's account to `to` account
+     * - Owner's account must have sufficient balance to transfer
      * - 0 value transfers are allowed
      */
     function transfer(address to, uint tokens)
@@ -596,7 +596,7 @@ contract DividableAsset is AssetHashToken, ERC20Interface {
 
     /**
      * Token owner can approve for `spender` to transferFrom(...) `tokens`
-     * from the token owner&#39;s account
+     * from the token owner's account
      */
     function approve(address spender, uint tokens)
         public

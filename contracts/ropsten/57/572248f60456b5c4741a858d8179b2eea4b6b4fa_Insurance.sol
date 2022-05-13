@@ -181,7 +181,7 @@ contract Insurance is Destructable, SafeMath  {
     }
 
     /**
-     * Don&#39;t expect to just send money by anyone except the owner
+     * Don't expect to just send money by anyone except the owner
      */
     function () public payable {
         throw;

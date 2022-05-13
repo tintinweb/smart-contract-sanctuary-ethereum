@@ -122,9 +122,9 @@ library BBLib {
         // (sequencing is done by Ethereum itself via the tx nonce).
         mapping (address => uint32) sequenceNumber;
 
-        // NOTE - We don&#39;t actually want to include the encryption PublicKey because _it&#39;s included in the ballotSpec_.
-        // It&#39;s better to ensure ppl actually have the ballot spec by not including it in the contract.
-        // Plus we&#39;re already storing the hash of the ballotSpec anyway...
+        // NOTE - We don't actually want to include the encryption PublicKey because _it's included in the ballotSpec_.
+        // It's better to ensure ppl actually have the ballot spec by not including it in the contract.
+        // Plus we're already storing the hash of the ballotSpec anyway...
 
         // Private key to be set after ballot conclusion - curve25519
         bytes32 ballotEncryptionSeckey;
@@ -143,7 +143,7 @@ library BBLib {
         Sponsor[] sponsors;
         IxIface index;
 
-        // deprecation flag - doesn&#39;t actually do anything besides signal that this contract is deprecated;
+        // deprecation flag - doesn't actually do anything besides signal that this contract is deprecated;
         bool deprecated;
 
         address ballotOwner;
@@ -176,8 +176,8 @@ library BBLib {
     /* Library meta */
 
     function getVersion() external view returns (uint) {
-        // even though this is constant we want to make sure that it&#39;s actually
-        // callable on Ethereum so we don&#39;t accidentally package the constant code
+        // even though this is constant we want to make sure that it's actually
+        // callable on Ethereum so we don't accidentally package the constant code
         // in with an SC using BBLib. This function _must_ be external.
         return BB_VERSION;
     }
@@ -204,7 +204,7 @@ library BBLib {
             // 0x1ff2 is 0001111111110010 in binary
             // by ANDing with subBits we make sure that only bits in positions 0,2,3,13,14,15
             // can be used. these correspond to the option flags at the top, and ETH ballots
-            // that are enc&#39;d or plaintext.
+            // that are enc'd or plaintext.
             require(sb & 0x1ff2 == 0, "bad-sb");
 
             // if we give bad submission bits (e.g. all 0s) then refuse to deploy ballot
@@ -268,12 +268,12 @@ library BBLib {
         // after a voter submits a transaction personally - effectivley disables proxy
         // ballots. You can _always_ submit a new vote _personally_ with this scheme.
         if (db.sequenceNumber[msg.sender] != MAX_UINT32) {
-            // using an IF statement here let&#39;s us save 4800 gas on repeat votes at the cost of 20k extra gas initially
+            // using an IF statement here let's us save 4800 gas on repeat votes at the cost of 20k extra gas initially
             db.sequenceNumber[msg.sender] = MAX_UINT32;
         }
     }
 
-    // Boundaries for constructing the msg we&#39;ll validate the signature of
+    // Boundaries for constructing the msg we'll validate the signature of
     function submitProxyVote(DB storage db, bytes32[5] proxyReq, bytes extra) external {
         // a proxy vote (where the vote is submitted (i.e. tx fee paid by someone else)
         // docs for datastructs: https://github.com/secure-vote/tokenvote/blob/master/Docs/DataStructs.md
@@ -294,8 +294,8 @@ library BBLib {
         address voter = ecrecover(msgHash, v, r, s);
 
         // we need to make sure that this is the most recent vote the voter made, and that it has
-        // not been seen before. NOTE: we&#39;ve already validated the BBFarm namespace before this, so
-        // we know it&#39;s meant for _this_ ballot.
+        // not been seen before. NOTE: we've already validated the BBFarm namespace before this, so
+        // we know it's meant for _this_ ballot.
         uint32 sequence = uint32(proxyReq2);  // last 4 bytes of proxyReq2 - the sequence number
         _proxyReplayProtection(db, voter, sequence);
 
@@ -634,7 +634,7 @@ contract safeSend {
     bool private txMutex3847834;
 
     // we want to be able to call outside contracts (e.g. the admin proxy contract)
-    // but reentrency is bad, so here&#39;s a mutex.
+    // but reentrency is bad, so here's a mutex.
     function doSafeSend(address toAddr, uint amount) internal {
         doSafeSendWData(toAddr, "", amount);
     }
@@ -723,7 +723,7 @@ contract hasAdmins is owned {
     }
 
     function setAdmin(address a, bool _givePerms) only_admin() external {
-        require(a != msg.sender && a != owner, "cannot change your own (or owner&#39;s) permissions");
+        require(a != msg.sender && a != owner, "cannot change your own (or owner's) permissions");
         _setAdmin(a, _givePerms);
     }
 
@@ -931,7 +931,7 @@ library BytesLib {
     function concatStorage(bytes storage _preBytes, bytes memory _postBytes) internal {
         assembly {
             // Read the first 32 bytes of _preBytes storage, which is the length
-            // of the array. (We don&#39;t need to use the offset into the slot
+            // of the array. (We don't need to use the offset into the slot
             // because arrays use the entire slot.)
             let fslot := sload(_preBytes_slot)
             // Arrays of 31 bytes or less have an even value in their slot,
@@ -945,7 +945,7 @@ library BytesLib {
             let mlength := mload(_postBytes)
             let newlength := add(slength, mlength)
             // slength can contain both the length and contents of the array
-            // if length < 32 bytes so let&#39;s prepare for that
+            // if length < 32 bytes so let's prepare for that
             // v. http://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage
             switch add(lt(slength, 32), lt(newlength, 32))
             case 2 {
@@ -1081,15 +1081,15 @@ library BytesLib {
                 // word read from the original array. To read it, we calculate
                 // the length of that partial word and start copying that many
                 // bytes into the array. The first word we copy will start with
-                // data we don&#39;t care about, but the last `lengthmod` bytes will
+                // data we don't care about, but the last `lengthmod` bytes will
                 // land at the beginning of the contents of the new array. When
-                // we&#39;re done copying, we overwrite the full first word with
+                // we're done copying, we overwrite the full first word with
                 // the actual length of the slice.
                 let lengthmod := and(_length, 31)
 
                 // The multiplication in the next line is necessary
                 // because when slicing multiples of 32 bytes (lengthmod == 0)
-                // the following copy loop was copying the origin&#39;s length
+                // the following copy loop was copying the origin's length
                 // and then ending prematurely not copying everything it should.
                 let mc := add(add(tempBytes, lengthmod), mul(0x20, iszero(lengthmod)))
                 let end := add(mc, _length)
@@ -1111,7 +1111,7 @@ library BytesLib {
                 //allocating the array padded to 32 bytes like the compiler does now
                 mstore(0x40, and(add(mc, 31), not(31)))
             }
-            //if we want a zero-length slice let&#39;s just return a zero-length array
+            //if we want a zero-length slice let's just return a zero-length array
             default {
                 tempBytes := mload(0x40)
 
@@ -1150,12 +1150,12 @@ library BytesLib {
         assembly {
             let length := mload(_preBytes)
 
-            // if lengths don&#39;t match the arrays are not equal
+            // if lengths don't match the arrays are not equal
             switch eq(length, mload(_postBytes))
             case 1 {
-                // cb is a circuit breaker in the for loop since there&#39;s
+                // cb is a circuit breaker in the for loop since there's
                 //  no said feature for inline assembly loops
-                // cb = 1 - don&#39;t breaker
+                // cb = 1 - don't breaker
                 // cb = 0 - break
                 let cb := 1
 
@@ -1197,11 +1197,11 @@ library BytesLib {
             let slength := div(and(fslot, sub(mul(0x100, iszero(and(fslot, 1))), 1)), 2)
             let mlength := mload(_postBytes)
 
-            // if lengths don&#39;t match the arrays are not equal
+            // if lengths don't match the arrays are not equal
             switch eq(slength, mlength)
             case 1 {
                 // slength can contain both the length and contents of the array
-                // if length < 32 bytes so let&#39;s prepare for that
+                // if length < 32 bytes so let's prepare for that
                 // v. http://solidity.readthedocs.io/en/latest/miscellaneous.html#layout-of-state-variables-in-storage
                 if iszero(iszero(slength)) {
                     switch lt(slength, 32)
@@ -1215,9 +1215,9 @@ library BytesLib {
                         }
                     }
                     default {
-                        // cb is a circuit breaker in the for loop since there&#39;s
+                        // cb is a circuit breaker in the for loop since there's
                         //  no said feature for inline assembly loops
-                        // cb = 1 - don&#39;t breaker
+                        // cb = 1 - don't breaker
                         // cb = 0 - break
                         let cb := 1
 

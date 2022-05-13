@@ -387,7 +387,7 @@ contract Fishmonger is StandardTile {
     require(filletPrice[_x][_y][_tile] > 0, "Fillet must have a price");
     uint filletAmount = _amount / filletPrice[_x][_y][_tile];
     require(filletAmount>0,"Amount was too low?");
-    //subtract amount from this tile&#39;s fillet balance
+    //subtract amount from this tile's fillet balance
     _decrementTokenBalance(_x,_y,_tile,filletAddress,filletAmount);
     //increment the copper balance
     _incrementTokenBalance(_x,_y,_tile,msg.sender,_amount);

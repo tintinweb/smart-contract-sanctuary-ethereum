@@ -6,7 +6,7 @@ contract MultisigWallet {
         mapping(address => bool) public owners;
         // list transaction
         mapping(uint => Transaction) public transactions;
-        // list tranasction&#39;s ID of one owner
+        // list tranasction's ID of one owner
         mapping(address => uint[]) public OwnerTransaction;
 
         // structure of Transaction

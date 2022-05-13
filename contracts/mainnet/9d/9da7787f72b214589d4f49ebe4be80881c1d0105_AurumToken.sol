@@ -148,7 +148,7 @@ contract AurumToken is ERC20, Ownable {
     constructor() public {
         // Initially total and initial supply are equal
         totalSupply_ = INITIAL_SUPPLY;
-        // Initially assign all tokens to the contract&#39;s creator, to rule them all :-)
+        // Initially assign all tokens to the contract's creator, to rule them all :-)
         balances[msg.sender] = INITIAL_SUPPLY;
         emit Transfer(address(0), msg.sender, INITIAL_SUPPLY);
     }
@@ -194,9 +194,9 @@ contract AurumToken is ERC20, Ownable {
         require(_to != address(0));
         require(_value <= balances[msg.sender]);
 
-        // subtract from sender&#39;s balance
+        // subtract from sender's balance
         balances[msg.sender] = balances[msg.sender].sub(_value);
-        // add to recipient&#39;s balance
+        // add to recipient's balance
         balances[_to] = balances[_to].add(_value);
         emit Transfer(msg.sender, _to, _value);
         return true;

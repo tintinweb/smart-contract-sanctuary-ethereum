@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 contract Zhoan {
     string public token_name;
     
-    //contract admin&#39;s address
+    //contract admin's address
     address private admin_add;
     //decimal setting
     uint8 private decimals = 18;

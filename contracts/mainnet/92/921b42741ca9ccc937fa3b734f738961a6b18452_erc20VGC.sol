@@ -48,7 +48,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -300,7 +300,7 @@ contract erc20VGC is StandardToken {
     string public name;                   
     uint8 public decimals;                
     string public symbol;                 
-    string public version = &#39;vgc.01&#39;;  
+    string public version = 'vgc.01';  
 
     function erc20VGC(
         uint8 _decimalUnits 

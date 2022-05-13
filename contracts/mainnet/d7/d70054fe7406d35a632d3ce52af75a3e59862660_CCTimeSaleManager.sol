@@ -114,7 +114,7 @@ contract OperationalControl {
     /// @dev Unpauses the smart contract. Can only be called by the Game Master
     /// @notice This is public rather than external so it can be called by derived contracts. 
     function unpause() public onlyManager whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 
@@ -198,7 +198,7 @@ contract CCNFTFactory {
         bool
     );
     /// @param _owner The owner whose ships tokens we are interested in.
-    /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+    /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
     ///  expensive (it walks the entire NFT owners array looking for NFT belonging to owner),
     ///  but it also returns a dynamic array, which is only supported for web3 calls, and
     ///  not contract-to-contract calls.
@@ -493,7 +493,7 @@ contract CCTimeSaleManager is ERC721Holder, OperationalControl {
     }
 
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.
@@ -502,7 +502,7 @@ contract CCTimeSaleManager is ERC721Holder, OperationalControl {
         super.unpause();
     }
 
-    /// @dev Remove all Ether from the contract, which is the owner&#39;s cuts
+    /// @dev Remove all Ether from the contract, which is the owner's cuts
     ///  as well as any Ether sent directly to the contract address.
     ///  Always transfers to the NFT (ERC721) contract, but can be called either by
     ///  the owner or the NFT (ERC721) contract.
@@ -539,7 +539,7 @@ contract CCTimeSaleManager is ERC721Holder, OperationalControl {
         CollectibleSale memory onSale = tokenIdToSale[_tokenId];
         require(onSale.isActive == false);
 
-        // Sanity check that no inputs overflow how many bits we&#39;ve allocated
+        // Sanity check that no inputs overflow how many bits we've allocated
         // to store them in the sale struct.
         require(_startingPrice == uint256(uint128(_startingPrice)));
         require(_endingPrice == uint256(uint128(_endingPrice)));
@@ -597,7 +597,7 @@ contract CCTimeSaleManager is ERC721Holder, OperationalControl {
 
         // A bit of insurance against negative values (or wraparound).
         // Probably not necessary (since Ethereum guarnatees that the
-        // now variable doesn&#39;t ever go backwards).
+        // now variable doesn't ever go backwards).
         if (now > _sale.startedAt) {
             secondsPassed = now - _sale.startedAt;
         }
@@ -615,13 +615,13 @@ contract CCTimeSaleManager is ERC721Holder, OperationalControl {
     ///  When testing, make this function public and turn on
     ///  `Current price computation` test suite.
     function _computeCurrentPrice(uint256 _startingPrice, uint256 _endingPrice, uint256 _duration, uint256 _secondsPassed) internal pure returns (uint256) {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our public functions carefully cap the maximum values for
         //  time (at 64-bits) and currency (at 128-bits). _duration is
         //  also known to be non-zero (see the require() statement in
         //  _addSale())
         if (_secondsPassed >= _duration) {
-            // We&#39;ve reached the end of the dynamic pricing portion
+            // We've reached the end of the dynamic pricing portion
             // of the sale, just return the end price.
             return _endingPrice;
         } else {
@@ -629,7 +629,7 @@ contract CCTimeSaleManager is ERC721Holder, OperationalControl {
             // this delta can be negative.
             int256 totalPriceChange = int256(_endingPrice) - int256(_startingPrice);
 
-            // This multiplication can&#39;t overflow, _secondsPassed will easily fit within
+            // This multiplication can't overflow, _secondsPassed will easily fit within
             // 64-bits, and totalPriceChange will easily fit within 128-bits, their product
             // will always fit within 256-bits.
             int256 currentPriceChange = totalPriceChange * int256(_secondsPassed) / int256(_duration);

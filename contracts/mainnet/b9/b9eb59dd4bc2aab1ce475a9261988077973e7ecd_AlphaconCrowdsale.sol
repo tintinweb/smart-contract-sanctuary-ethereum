@@ -11,8 +11,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -29,7 +29,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -284,7 +284,7 @@ contract Locker is Ownable {
   enum State { Init, Ready, Active, Drawn }
 
   struct Beneficiary {
-    uint ratio;             // ratio based on Locker&#39;s initial balance.
+    uint ratio;             // ratio based on Locker's initial balance.
     uint withdrawAmount;    // accumulated tokens beneficiary released
     bool releaseAllTokens;
   }
@@ -361,8 +361,8 @@ contract Locker is Ownable {
   uint public withdrawAmount; // total amount of tokens released
 
   mapping (address => Beneficiary) public beneficiaries;
-  mapping (address => Release) public releases;  // beneficiary&#39;s lock
-  mapping (address => bool) public locked; // whether beneficiary&#39;s lock is instantiated
+  mapping (address => Release) public releases;  // beneficiary's lock
+  mapping (address => bool) public locked; // whether beneficiary's lock is instantiated
 
   uint public numBeneficiaries;
   uint public numLocks;
@@ -829,7 +829,7 @@ contract BaseCrowdsale is HolderBase, Pausable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);
@@ -1358,7 +1358,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -1545,7 +1545,7 @@ contract StagedCrowdsale is KYCCrowdsale {
     uint128 cap;
     uint128 maxPurchaseLimit;
     uint128 minPurchaseLimit;
-    uint128 weiRaised; // stage&#39;s weiAmount raised
+    uint128 weiRaised; // stage's weiAmount raised
     uint32 startTime;
     uint32 endTime;
     bool kyc;
@@ -1671,7 +1671,7 @@ contract StagedCrowdsale is KYCCrowdsale {
       weiAmount = uint(p.maxPurchaseLimit);
     }
 
-    // pre-calculate `toFund` with the period&#39;s cap
+    // pre-calculate `toFund` with the period's cap
     if (p.cap > 0) {
       uint256 postWeiRaised = uint256(p.weiRaised).add(weiAmount);
 

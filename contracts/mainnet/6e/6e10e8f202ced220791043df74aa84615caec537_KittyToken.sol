@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 /* ==================================================================== */
 /* Copyright (c) 2018 The Priate Conquest Project.  All rights reserved.
 /* 
-/* https://www.pirateconquest.com One of the world&#39;s slg games of blockchain 
+/* https://www.pirateconquest.com One of the world's slg games of blockchain 
 /*  
 /* authors rainy@livestar.com/Jonny.Fu@livestar.com
 /*                 
@@ -166,14 +166,14 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
   function div32(uint32 a, uint32 b) internal pure returns (uint32) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint32 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -360,7 +360,7 @@ contract KittyToken is AccessAdmin, ERC721 {
       }      
     }
 
-    // Give the kitty to &#39;_to&#39;
+    // Give the kitty to '_to'
     TokenIdToOwner[_tokenId] = _to;
     ownerTokittyArray[_to].push(_tokenId);
     kittyIdToOwnerIndex[_tokenId] = ownerTokittyArray[_to].length - 1;
@@ -422,7 +422,7 @@ contract KittyToken is AccessAdmin, ERC721 {
     require(retval == 0xf0b9e5ba);
   }
     
-  /// @dev Transfer ownership of an kitty, &#39;_to&#39; must be a vaild address, or the WAR will lost
+  /// @dev Transfer ownership of an kitty, '_to' must be a vaild address, or the WAR will lost
   /// @param _from The current owner of the kitty
   /// @param _to The new owner
   /// @param _tokenId The kitty to transfer
@@ -545,7 +545,7 @@ contract KittyToken is AccessAdmin, ERC721 {
   }
 
   /// @param _owner The owner whose celebrity tokens we are interested in.
-  /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+  /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
   ///  expensive (it walks the entire Persons array looking for persons belonging to owner),
   ///  but it also returns a dynamic array, which is only supported for web3 calls, and
   ///  not contract-to-contract calls.
@@ -565,7 +565,7 @@ contract KittyToken is AccessAdmin, ERC721 {
   }
 
   /// @param _kittyId The kitty whose celebrity tokens we are interested in.
-  /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+  /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
   ///  expensive (it walks the entire Persons array looking for persons belonging to owner),
   ///  but it also returns a dynamic array, which is only supported for web3 calls, and
   ///  not contract-to-contract calls.

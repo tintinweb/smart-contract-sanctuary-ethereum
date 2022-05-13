@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -498,7 +498,7 @@ contract PillarToken is StandardToken, Ownable {
     }
 
     //@notice Function that can be called by purchasers to refund
-    //@notice Used only in case the ICO isn&#39;t successful.
+    //@notice Used only in case the ICO isn't successful.
     function refund() isFundable external {
       if(block.number <= fundingStopBlock) throw;
       if(totalUsedTokens >= minTokensForSale) throw;

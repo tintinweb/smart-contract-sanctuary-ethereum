@@ -125,7 +125,7 @@ contract KittyArena is Random {
 		require(block.number > game.fightBlock);
 		bytes32 seed = bytes32(maxRandom(game.fightBlock));
 		
-		// If game isn&#39;t resolved in 256 blocks and we cannot get the entropy,
+		// If game isn't resolved in 256 blocks and we cannot get the entropy,
 		// we considered it tie
 		if (seed == bytes32(0)) {
 			return TIE;

@@ -49,6 +49,6 @@ contract SimpleCertifier is Owned, Certifier {
 	function setDelegate(address _new) only_owner { delegate = _new; }
 
 	mapping (address => Certification) certs;
-	// So that the server posting puzzles doesn&#39;t have access to the ETH.
+	// So that the server posting puzzles doesn't have access to the ETH.
 	address public delegate = msg.sender;
 }

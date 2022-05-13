@@ -84,7 +84,7 @@ contract Klein is ERC20, owned, SafeMath {
     uint256 public burnedToDate;
     bool first = true;
                                                                     // IKB are issued in tranches, or series of editions. There will be 8 total
-                                                                    // Each IBKSeries represents one of Klein&#39;s receipt books, or a series of issued tokens.
+                                                                    // Each IBKSeries represents one of Klein's receipt books, or a series of issued tokens.
     struct IKBSeries {
         uint256 price;
         uint256 seriesSupply;
@@ -145,11 +145,11 @@ contract Klein is ERC20, owned, SafeMath {
     }
 
     function issueNewSeries() onlyOwner returns (bool success){
-        require(balances[this] <= 0);                            //can only issue a new series if you&#39;ve sold all the old ones
+        require(balances[this] <= 0);                            //can only issue a new series if you've sold all the old ones
         require(currentSeries < 7);
         
         if(!first){
-            currentSeries++;                                        // the first time we run this function, don&#39;t run up the currentSeries counter. Keep it at 0
+            currentSeries++;                                        // the first time we run this function, don't run up the currentSeries counter. Keep it at 0
         } else if (first){
             first=false;                                            // ...but only let this work once.
         } 
@@ -174,11 +174,11 @@ contract Klein is ERC20, owned, SafeMath {
         
         if (receivable % series[currentSeries].price > 0) assert(returnChange(receivable));
         
-        balances[msg.sender] = safeAdd(balances[msg.sender], amount);                             // adds the amount to buyer&#39;s balance
-        balances[this] = safeSubtract(balances[this], amount);      // subtracts amount from seller&#39;s balance
+        balances[msg.sender] = safeAdd(balances[msg.sender], amount);                             // adds the amount to buyer's balance
+        balances[this] = safeSubtract(balances[this], amount);      // subtracts amount from seller's balance
         Transfer(this, msg.sender, amount);                         // execute an event reflecting the change
 
-        for(uint k = 0; k < amount; k++){                           // now let&#39;s make a record of every sale
+        for(uint k = 0; k < amount; k++){                           // now let's make a record of every sale
             records[totalSold] = record(msg.sender, series[currentSeries].price, false);
             totalSold++;
         }
@@ -200,7 +200,7 @@ contract Klein is ERC20, owned, SafeMath {
         for(uint k = 0; k < records.length; k++){                 // go through every record
             if(records[k].addr == msg.sender && recordsChanged < _value) {
                 records[k].addr = _to;                            // change the address associated with this record
-                recordsChanged++;                                 // keep track of how many records you&#39;ve changed in this transfer. After you&#39;ve changed as many records as there are tokens being transferred, conditions of this loop will cease to be true.
+                recordsChanged++;                                 // keep track of how many records you've changed in this transfer. After you've changed as many records as there are tokens being transferred, conditions of this loop will cease to be true.
                 UpdateRecord(k, _to, records[k].price, records[k].burned);
             }
         }
@@ -220,7 +220,7 @@ contract Klein is ERC20, owned, SafeMath {
         for(uint256 k = 0; k < records.length; k++){                 // go through every record
             if(records[k].addr == _from && recordsChanged < _value) {
                 records[k].addr = _to;                            // change the address associated with this record
-                recordsChanged++;                                 // keep track of how many records you&#39;ve changed in this transfer. After you&#39;ve changed as many records as there are tokens being transferred, conditions of this loop will cease to be true.
+                recordsChanged++;                                 // keep track of how many records you've changed in this transfer. After you've changed as many records as there are tokens being transferred, conditions of this loop will cease to be true.
                 UpdateRecord(k, _to, records[k].price, records[k].burned);
             }
         }
@@ -293,7 +293,7 @@ contract Klein is ERC20, owned, SafeMath {
         records[_edition].burned = true;
         burnedToDate++;
         balances[msg.sender] = safeSubtract(balances[msg.sender], 1);
-        theRiver.transfer(halfTheGold);                             // call should fail if this contract isn&#39;t holding enough ETH
+        theRiver.transfer(halfTheGold);                             // call should fail if this contract isn't holding enough ETH
         return true;
     }
 }

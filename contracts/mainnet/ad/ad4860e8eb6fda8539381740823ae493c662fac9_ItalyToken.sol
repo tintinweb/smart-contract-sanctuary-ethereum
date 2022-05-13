@@ -27,7 +27,7 @@ library SafeMath {
  function div(uint256 a, uint256 b) internal constant returns (uint256) {
    // assert(b > 0); // Solidity automatically throws when dividing by 0
    uint256 c = a / b;
-   // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+   // assert(a == b * c + a % b); // There is no case in which this doesn't hold
    return c;
  }
 
@@ -64,12 +64,12 @@ contract ItalyToken is ERC20{
   mapping(address => uint256) balances;
   mapping(address => mapping(address => uint256)) allowed;
   
-  //Funzione che permette di ricevere token solo specificando l&#39;indirizzo
+  //Funzione che permette di ricevere token solo specificando l'indirizzo
   function() payable{
       createTokens();
   }
   
-  //Salviamo l&#39;indirizzo del creatore del contratto per inviare gli ether ricevuti
+  //Salviamo l'indirizzo del creatore del contratto per inviare gli ether ricevuti
   function ItalyToken(){
       owner = msg.sender;
       balances[msg.sender] = TOKEN_TO_CREATOR;
@@ -102,7 +102,7 @@ contract ItalyToken is ERC20{
       return _totalSupply;
   }
   
-  //Ritorna il bilancio dell&#39;utente di un indirizzo
+  //Ritorna il bilancio dell'utente di un indirizzo
   function balanceOf(address _owner) constant returns (uint balance){
       return balances[_owner];
   }
@@ -126,7 +126,7 @@ contract ItalyToken is ERC20{
   //Invio dei token con delega
   function transferFrom(address _from, address _to, uint256 _value) returns (bool success){
       //Controlliamo che chi voglia inviare token da un indirizzo non suo abbia la delega per farlo, che
-      //l&#39;account da dove vngono inviati i token abbia token a sufficienza e
+      //l'account da dove vngono inviati i token abbia token a sufficienza e
       //che i token inviati siano maggiori di 0
       require(
           allowed[_from][msg.sender] >= _value
@@ -139,16 +139,16 @@ contract ItalyToken is ERC20{
       balances[_to] = balances[_to].add(_value);
       //Diminuiamo il valore dei token che il delegato pu&#242; inviare in favore del delegante
       allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);
-      //Chiamaiamo l&#39;evento transfer
+      //Chiamaiamo l'evento transfer
       Transfer(_from, _to, _value);
       return true;
   }
   
-  //Delegare qualcuno all&#39;invio di token
+  //Delegare qualcuno all'invio di token
   function approve(address _spender, uint256 _value) returns (bool success){
-      //Inseriamo l&#39;indirizzo del delegato e il massimo che pu&#242; inviare
+      //Inseriamo l'indirizzo del delegato e il massimo che pu&#242; inviare
       allowed[msg.sender][_spender] = _value;
-      //Chiamiamo l&#39;evento approval
+      //Chiamiamo l'evento approval
       Approval(msg.sender, _spender, _value);
       return true;
   }

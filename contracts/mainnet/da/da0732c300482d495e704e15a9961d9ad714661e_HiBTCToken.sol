@@ -127,7 +127,7 @@ contract PausableToken is StandardToken, Pausable {
 contract HiBTCToken is PausableToken {
     string public name = "HiBTCToken";
     string public symbol = "HIBT";
-    string public version = &#39;1.0.0&#39;;
+    string public version = '1.0.0';
     uint8 public decimals = 18;
 
     function HiBTCToken() {

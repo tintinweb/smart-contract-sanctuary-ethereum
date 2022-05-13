@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;Viral Cash&#39; Contract
+// 'Viral Cash' Contract
 //
 // Deployed to : 0x3144D5F35e9903c17539955Ab53BB22aBFa277f3
 // Symbol      : VCH

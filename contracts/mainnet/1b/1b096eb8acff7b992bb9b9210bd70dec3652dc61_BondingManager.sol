@@ -148,7 +148,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -273,7 +273,7 @@ contract Manager is IManager {
  * potentially break the delegate proxy upgradeability mechanism
  */
 contract ManagerProxyTarget is Manager {
-    // Used to look up target contract address in controller&#39;s registry
+    // Used to look up target contract address in controller's registry
     bytes32 public targetContractId;
 }
 
@@ -293,7 +293,7 @@ library SortedDoublyLL {
 
     // Information for a node in the list
     struct Node {
-        uint256 key;                     // Node&#39;s key used for sorting
+        uint256 key;                     // Node's key used for sorting
         address nextId;                  // Id of next node (smaller key) in the list
         address prevId;                  // Id of previous node (larger key) in the list
     }
@@ -320,8 +320,8 @@ library SortedDoublyLL {
 
     /*
      * @dev Add a node to the list
-     * @param _id Node&#39;s id
-     * @param _key Node&#39;s key
+     * @param _id Node's id
+     * @param _key Node's key
      * @param _prevId Id of previous node for the insert position
      * @param _nextId Id of next node for the insert position
      */
@@ -339,8 +339,8 @@ library SortedDoublyLL {
         address nextId = _nextId;
 
         if (!validInsertPosition(self, _key, prevId, nextId)) {
-            // Sender&#39;s hint was not a valid insert position
-            // Use sender&#39;s hint to find a valid insert position
+            // Sender's hint was not a valid insert position
+            // Use sender's hint to find a valid insert position
             (prevId, nextId) = findInsertPosition(self, _key, prevId, nextId);
         }
 
@@ -373,7 +373,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Remove a node from the list
-     * @param _id Node&#39;s id
+     * @param _id Node's id
      */
     function remove(Data storage self, address _id) public {
         // List must contain the node
@@ -413,8 +413,8 @@ library SortedDoublyLL {
 
     /*
      * @dev Update the key of a node in the list
-     * @param _id Node&#39;s id
-     * @param _newKey Node&#39;s new key
+     * @param _id Node's id
+     * @param _newKey Node's new key
      * @param _prevId Id of previous node for the new insert position
      * @param _nextId Id of next node for the new insert position
      */
@@ -470,7 +470,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Returns the key of a node in the list
-     * @param _id Node&#39;s id
+     * @param _id Node's id
      */
     function getKey(Data storage self, address _id) public view returns (uint256) {
         return self.nodes[_id].key;
@@ -492,7 +492,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Returns the next node (with a smaller key) in the list for a given node
-     * @param _id Node&#39;s id
+     * @param _id Node's id
      */
     function getNext(Data storage self, address _id) public view returns (address) {
         return self.nodes[_id].nextId;
@@ -500,7 +500,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Returns the previous node (with a larger key) in the list for a given node
-     * @param _id Node&#39;s id
+     * @param _id Node's id
      */
     function getPrev(Data storage self, address _id) public view returns (address) {
         return self.nodes[_id].prevId;
@@ -508,7 +508,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Check if a pair of nodes is a valid insertion point for a new node with the given key
-     * @param _key Node&#39;s key
+     * @param _key Node's key
      * @param _prevId Id of previous node for the insert position
      * @param _nextId Id of next node for the insert position
      */
@@ -523,14 +523,14 @@ library SortedDoublyLL {
             // `(_prevId, null)` is a valid insert position if `_prevId` is the tail of the list
             return self.tail == _prevId && _key <= self.nodes[_prevId].key;
         } else {
-            // `(_prevId, _nextId)` is a valid insert position if they are adjacent nodes and `_key` falls between the two nodes&#39; keys
+            // `(_prevId, _nextId)` is a valid insert position if they are adjacent nodes and `_key` falls between the two nodes' keys
             return self.nodes[_prevId].nextId == _nextId && self.nodes[_prevId].key >= _key && _key >= self.nodes[_nextId].key;
         }
     }
 
     /*
      * @dev Descend the list (larger keys to smaller keys) to find a valid insert position
-     * @param _key Node&#39;s key
+     * @param _key Node's key
      * @param _startId Id of node to start ascending the list from
      */
     function descendList(Data storage self, uint256 _key, address _startId) private view returns (address, address) {
@@ -553,7 +553,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Ascend the list (smaller keys to larger keys) to find a valid insert position
-     * @param _key Node&#39;s key
+     * @param _key Node's key
      * @param _startId Id of node to start descending the list from
      */
     function ascendList(Data storage self, uint256 _key, address _startId) private view returns (address, address) {
@@ -576,7 +576,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Find the insert position for a new node with the given key
-     * @param _key Node&#39;s key
+     * @param _key Node's key
      * @param _prevId Id of previous node for the insert position
      * @param _nextId Id of next node for the insert position
      */
@@ -621,7 +621,7 @@ library EarningsPool {
     struct Data {
         uint256 rewardPool;                // Rewards in the pool
         uint256 feePool;                   // Fees in the pool
-        uint256 totalStake;                // Transcoder&#39;s total stake during the pool&#39;s round
+        uint256 totalStake;                // Transcoder's total stake during the pool's round
         uint256 claimableStake;            // Stake that can be used to claim portions of the fee and reward pool
         uint256 transcoderRewardCut;       // Reward cut for the reward pool
         uint256 transcoderFeeShare;        // Fee share for the fee pool
@@ -780,7 +780,7 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
     // Max number of rounds that a caller can claim earnings for at once
     uint256 public maxEarningsClaimsRounds;
 
-    // Represents a transcoder&#39;s current state
+    // Represents a transcoder's current state
     struct Transcoder {
         uint256 lastRewardRound;                             // Last round that the transcoder called reward
         uint256 rewardCut;                                   // % of reward paid to transcoder by a delegator
@@ -795,7 +795,7 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
     // The various states a transcoder can be in
     enum TranscoderStatus { NotRegistered, Registered }
 
-    // Represents a delegator&#39;s current state
+    // Represents a delegator's current state
     struct Delegator {
         uint256 bondedAmount;                    // The amount of bonded tokens
         uint256 fees;                            // The amount of fees collected
@@ -1026,7 +1026,7 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
         if (delegatorStatus(msg.sender) == DelegatorStatus.Unbonded || delegatorStatus(msg.sender) == DelegatorStatus.Unbonding) {
             // New delegate
             // Set start round
-            // Don&#39;t set start round if delegator is in pending state because the start round would not change
+            // Don't set start round if delegator is in pending state because the start round would not change
             del.startRound = currentRound.add(1);
             // If transitioning from unbonding or unbonded state
             // make sure to zero out withdraw round
@@ -1041,12 +1041,12 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
             del.startRound = currentRound.add(1);
             // Update amount to delegate with previous delegation amount
             delegationAmount = delegationAmount.add(del.bondedAmount);
-            // Decrease old delegate&#39;s delegated amount
+            // Decrease old delegate's delegated amount
             delegators[del.delegateAddress].delegatedAmount = delegators[del.delegateAddress].delegatedAmount.sub(del.bondedAmount);
 
             if (transcoderStatus(del.delegateAddress) == TranscoderStatus.Registered) {
                 // Previously delegated to a transcoder
-                // Decrease old transcoder&#39;s total stake
+                // Decrease old transcoder's total stake
                 transcoderPool.updateKey(del.delegateAddress, transcoderPool.getKey(del.delegateAddress).sub(del.bondedAmount), address(0), address(0));
             }
         }
@@ -1055,12 +1055,12 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
         require(delegationAmount > 0);
         // Update delegate
         del.delegateAddress = _to;
-        // Update current delegate&#39;s delegated amount with delegation amount
+        // Update current delegate's delegated amount with delegation amount
         delegators[_to].delegatedAmount = delegators[_to].delegatedAmount.add(delegationAmount);
 
         if (transcoderStatus(_to) == TranscoderStatus.Registered) {
             // Delegated to a transcoder
-            // Increase transcoder&#39;s total stake
+            // Increase transcoder's total stake
             transcoderPool.updateKey(_to, transcoderPool.getKey(del.delegateAddress).add(delegationAmount), address(0), address(0));
         }
 
@@ -1077,7 +1077,7 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
     }
 
     /**
-     * @dev Unbond delegator&#39;s current stake. Delegator enters unbonding state
+     * @dev Unbond delegator's current stake. Delegator enters unbonding state
      */
     function unbond()
         external
@@ -1094,7 +1094,7 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
 
         // Transition to unbonding phase
         del.withdrawRound = currentRound.add(unbondingPeriod);
-        // Decrease delegate&#39;s delegated amount
+        // Decrease delegate's delegated amount
         delegators[del.delegateAddress].delegatedAmount = delegators[del.delegateAddress].delegatedAmount.sub(del.bondedAmount);
         // Update total bonded tokens
         totalBonded = totalBonded.sub(del.bondedAmount);
@@ -1210,7 +1210,7 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
         // Set last round that transcoder called reward
         transcoders[msg.sender].lastRewardRound = currentRound;
 
-        // Create reward based on active transcoder&#39;s stake relative to the total active stake
+        // Create reward based on active transcoder's stake relative to the total active stake
         // rewardTokens = (current mintable tokens for the round * active transcoder stake) / total active stake
         uint256 rewardTokens = minter().createReward(activeTranscoderTotalStake(msg.sender, currentRound), activeTranscoderSet[currentRound].totalStake);
 
@@ -1220,7 +1220,7 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
     }
 
     /**
-     * @dev Update transcoder&#39;s fee pool
+     * @dev Update transcoder's fee pool
      * @param _transcoder Transcoder address
      * @param _fees Fees from verified job claims
      */
@@ -1269,7 +1269,7 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
             del.bondedAmount = del.bondedAmount.sub(penalty);
 
             // If still bonded
-            // - Decrease delegate&#39;s delegated amount
+            // - Decrease delegate's delegated amount
             // - Decrease total bonded tokens
             if (delegatorStatus(_transcoder) == DelegatorStatus.Bonded) {
                 delegators[del.delegateAddress].delegatedAmount = delegators[del.delegateAddress].delegatedAmount.sub(penalty);
@@ -1497,7 +1497,7 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
     }
 
     /**
-     * @dev Return transcoder&#39;s token pools for a given round
+     * @dev Return transcoder's token pools for a given round
      * @param _transcoder Address of transcoder
      * @param _round Round number
      */
@@ -1631,9 +1631,9 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
         EarningsPool.Data storage earningsPool = t.earningsPoolPerRound[_round];
         // Add rewards to reward pool
         earningsPool.rewardPool = earningsPool.rewardPool.add(_rewards);
-        // Update transcoder&#39;s delegated amount with rewards
+        // Update transcoder's delegated amount with rewards
         del.delegatedAmount = del.delegatedAmount.add(_rewards);
-        // Update transcoder&#39;s total stake with rewards
+        // Update transcoder's total stake with rewards
         uint256 newStake = transcoderPool.getKey(_transcoder).add(_rewards);
         transcoderPool.updateKey(_transcoder, newStake, address(0), address(0));
         // Update total bonded tokens with claimable rewards
@@ -1643,7 +1643,7 @@ contract BondingManager is ManagerProxyTarget, IBondingManager {
     /**
      * @dev Update a delegator with token pools shares from its lastClaimRound through a given round
      * @param _delegator Delegator address
-     * @param _endRound The last round for which to update a delegator&#39;s stake with token pools shares
+     * @param _endRound The last round for which to update a delegator's stake with token pools shares
      */
     function updateDelegatorWithEarnings(address _delegator, uint256 _endRound) internal {
         Delegator storage del = delegators[_delegator];

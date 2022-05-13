@@ -186,7 +186,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -290,7 +290,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -385,7 +385,7 @@ contract ReleasableToken is StandardToken, Ownable {
    */
   function setReleaseAgent() onlyOwner inReleaseState(false) public {
 
-    // We don&#39;t do interface check here as we might want to a normal wallet address to act as a release agent
+    // We don't do interface check here as we might want to a normal wallet address to act as a release agent
     releaseAgent = owner;
   }
 
@@ -780,7 +780,7 @@ contract CappedCrowdsale is Crowdsale {
 // File: contracts/SaleStagesLib.sol
 
 /*
- * SaleStagesLib is a part of Pickeringware ltd&#39;s smart contracts
+ * SaleStagesLib is a part of Pickeringware ltd's smart contracts
  * Its intended use is to abstract the implementation of stages away from a contract to ease deployment and codel length
  * It uses a stage struct to store specific details about each stage
  * It has several functions which are used to get/change this data
@@ -850,7 +850,7 @@ library SaleStagesLib {
     }
 
     // Both of the below are checked on the overridden validPurchase() function
-    // Check to see if the tokens they&#39;re about to purchase is above the minimum for this stage
+    // Check to see if the tokens they're about to purchase is above the minimum for this stage
     function checkMinimum(StageStorage storage self, uint8 _stage, uint256 _tokens) internal view returns (bool isValid) {
     	if(_tokens < self.stages[_stage].minimumBuy){
     		return false;
@@ -860,13 +860,13 @@ library SaleStagesLib {
     }
 
     // Both of the below are checked on the overridden validPurchase() function
-    // Check to see if the tokens they&#39;re about to purchase is above the minimum for this stage
+    // Check to see if the tokens they're about to purchase is above the minimum for this stage
     function changeDeadline(StageStorage storage self, uint8 _stage, uint256 _deadline) internal {
         require(self.stages[_stage].deadline > now);
         self.stages[_stage].deadline = _deadline;
     }
 
-    // Checks to see if the tokens they&#39;re about to purchase is below the cap for this stage
+    // Checks to see if the tokens they're about to purchase is below the cap for this stage
     function checkCap(StageStorage storage self, uint8 _stage, uint256 _tokens) internal view returns (bool isValid) {
     	uint256 totalTokens = self.stages[_stage].tokensSold.add(_tokens);
 
@@ -886,7 +886,7 @@ library SaleStagesLib {
     }
     
 	// Both of the below are checked on the overridden validPurchase() function
-    // Check to see if the tokens they&#39;re about to purchase is above the minimum for this stage
+    // Check to see if the tokens they're about to purchase is above the minimum for this stage
     function changePrice(StageStorage storage self, uint8 _stage, uint256 _tokenPrice) internal {
         require(self.stages[_stage].deadline > now);
 
@@ -897,8 +897,8 @@ library SaleStagesLib {
 // File: contracts/PickCrowdsale.sol
 
 /*
- * PickCrowdsale and PickToken are a part of Pickeringware ltd&#39;s smart contracts
- * This uses the SaleStageLib which is also a part of Pickeringware ltd&#39;s smart contracts
+ * PickCrowdsale and PickToken are a part of Pickeringware ltd's smart contracts
+ * This uses the SaleStageLib which is also a part of Pickeringware ltd's smart contracts
  * We create the stages initially in the constructor such that stages cannot be added after the sale has started
  * We then pre-allocate necessary accounts prior to the sale starting
  * This contract implements the stages lib functionality with overriding functions for stages implementation
@@ -1268,7 +1268,7 @@ contract KYCCrowdsale is KYCPayloadDeserializer, PickCrowdsale {
   }  
 
   /// @dev This function can set the server side address
-  /// @param _signerAddress The address derived from server&#39;s private key
+  /// @param _signerAddress The address derived from server's private key
   function setSignerAddress(address _signerAddress) external onlyOwner {
     // EC rcover returns 0 in case of error therefore, this CANNOT be 0.
     require(_signerAddress != 0);

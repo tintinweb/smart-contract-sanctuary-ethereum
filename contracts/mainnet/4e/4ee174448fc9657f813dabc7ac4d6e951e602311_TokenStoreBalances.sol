@@ -17,7 +17,7 @@ contract Token {
 
 contract TokenStoreBalances {
 
-  // Fallback function, don&#39;t accept any ETH
+  // Fallback function, don't accept any ETH
   function() public payable {
     revert();
   }

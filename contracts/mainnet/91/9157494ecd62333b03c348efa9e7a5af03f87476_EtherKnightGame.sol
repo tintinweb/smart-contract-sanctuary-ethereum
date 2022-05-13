@@ -392,7 +392,7 @@ contract EtherKnightGame
     =       PUBLIC FUNCTIONS         =
     ================================*/
     
-    //fallback will be called only from the HDX token contract to fund the game from customers&#39;s HDX20
+    //fallback will be called only from the HDX token contract to fund the game from customers's HDX20
     
      function()
      payable

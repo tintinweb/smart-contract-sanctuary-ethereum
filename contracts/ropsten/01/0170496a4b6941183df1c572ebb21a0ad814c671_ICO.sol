@@ -119,7 +119,7 @@ contract ICO is admined {
 
     //Contract details
     address public creator; //Creator address
-    string public version = &#39;0.1&#39;; //Contract version
+    string public version = '0.1'; //Contract version
 
     //events for log
     event LogFundrisingInitialized(address indexed _creator);

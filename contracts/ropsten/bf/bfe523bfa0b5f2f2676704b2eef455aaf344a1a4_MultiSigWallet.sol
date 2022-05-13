@@ -283,7 +283,7 @@ contract MultiSigWallet {
     }
 
     // call has been separated into its own function in order to take advantage
-    // of the Solidity&#39;s code generator to produce a loop that copies tx.data into memory.
+    // of the Solidity's code generator to produce a loop that copies tx.data into memory.
     function external_call(address _destination, uint _value, uint _dataLength, bytes _data) private returns (bool) {
         bool result;
         assembly {

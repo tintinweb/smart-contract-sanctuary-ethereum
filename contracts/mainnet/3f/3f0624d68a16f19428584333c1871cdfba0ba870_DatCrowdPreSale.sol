@@ -41,7 +41,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -200,7 +200,7 @@ contract Ownable {
  */
 contract DatumGenesisToken is StandardToken, Ownable {
 
-  string public name = "DAT Genesis Token";           //The Token&#39;s name: e.g. Dat Genesis Tokens
+  string public name = "DAT Genesis Token";           //The Token's name: e.g. Dat Genesis Tokens
   uint8 public decimals = 18;                         //Number of decimals of the smallest unit
   string public symbol = "DATG";                             //An identifier: e.g. REP
                                            

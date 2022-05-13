@@ -23,7 +23,7 @@ contract Ownable {
 
 contract TokenAware is Ownable {
   function withdrawToken (address addressOfToken, uint256 amount) public onlyOwner returns (bool) {
-    bytes4 hashOfTransfer = bytes4(keccak256(&#39;transfer(address,uint256)&#39;));
+    bytes4 hashOfTransfer = bytes4(keccak256('transfer(address,uint256)'));
 
     return addressOfToken.call(hashOfTransfer, owner, amount);
   }

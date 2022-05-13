@@ -72,7 +72,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -188,10 +188,10 @@ contract GenesisToken is StandardToken, Ownable {
   using SafeMath for uint256;
 
   // metadata
-  string public constant name = &#39;Genesis&#39;;
-  string public constant symbol = &#39;GNS&#39;;
+  string public constant name = 'Genesis';
+  string public constant symbol = 'GNS';
   uint256 public constant decimals = 18;
-  string public version = &#39;0.0.1&#39;;
+  string public version = '0.0.1';
 
   // events
   event EarnedGNS(address indexed contributor, uint256 amount);

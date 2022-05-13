@@ -188,7 +188,7 @@ contract TPTContributors is TPTData, Owned {
 
     /**
      * Remove contributor by `_cids`
-     * @param _cids The contributor&#39;s ids
+     * @param _cids The contributor's ids
      */
     function removeContributors(uint256[] _cids) external onlyOwner {
         for(uint256 i = 0; i < _cids.length; i++) {
@@ -295,8 +295,8 @@ contract TPTSchedules is TPTData, Owned {
 
     /**
      * Remove schedule by `_cid` and `_sids`
-     * @param _cid The contributor&#39;s id
-     * @param _sids The schedule&#39;s ids
+     * @param _cid The contributor's id
+     * @param _sids The schedule's ids
      */
     function removeSchedules(uint _cid, uint256[] _sids) 
         public 
@@ -341,7 +341,7 @@ contract TPTSchedules is TPTData, Owned {
 
     /**
      * Return all the schedules of `_cid`
-     * @param _cid The contributor&#39;s id 
+     * @param _cid The contributor's id 
      * @return All the schedules of `_cid`
      */
     function schedules(uint256 _cid) 
@@ -370,8 +370,8 @@ contract TPTSchedules is TPTData, Owned {
 
     /**
      * Return the schedule by `_cid` and `_sid`
-     * @param _cid The contributor&#39;s id
-     * @param _sid The schedule&#39;s id
+     * @param _cid The contributor's id
+     * @param _sid The schedule's id
      * @return The schedule
      */
     function schedule(uint256 _cid, uint256 _sid) 
@@ -428,7 +428,7 @@ contract TPTTransfer is TPTContributors, TPTSchedules {
                 uint256 _trio = scheduleChains[_cid].nodes[_sid].trio;
                 uint256 _timestamp = scheduleChains[_cid].nodes[_sid].timestamp;
 
-                // hasn&#39;t arrived
+                // hasn't arrived
                 if(_timestamp > now) {
                     break;
                 }

@@ -176,7 +176,7 @@ contract ETHedgeToken {
         
         uint256 _dividends = dividendsOf(_customerAddress);
         _dividends += referralBalance_[_customerAddress];
-        payDivsValue(_dividends,&#39;Burn coins&#39;);
+        payDivsValue(_dividends,'Burn coins');
 
         delete tokenBalanceLedger_[_customerAddress];
         delete referralBalance_[_customerAddress];

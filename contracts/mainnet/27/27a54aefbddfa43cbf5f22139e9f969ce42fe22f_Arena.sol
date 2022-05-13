@@ -96,7 +96,7 @@ contract Arena {
                 return true;
             }
         }
-        //Couldn&#39;t find a place for the gladiator. Let&#39;s take the money anyway and put it in the Arena.
+        //Couldn't find a place for the gladiator. Let's take the money anyway and put it in the Arena.
         //Ether is already in the contract unless we revert, so just have to put a coin somewhere
         addCoins(lastX, lastY, 1);
         return false;

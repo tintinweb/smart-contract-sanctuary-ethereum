@@ -43,7 +43,7 @@ contract YumeriumManager {
     
     
     function getYumerium(address sender) public payable returns (uint256) {
-        require(YumeriumProducts[msg.sender], "This isn&#39;t our product!");
+        require(YumeriumProducts[msg.sender], "This isn't our product!");
         uint256 amount;
         uint256 exchangeRate;
         if(now < eventSaleEnd) {
@@ -110,12 +110,12 @@ contract YumeriumManager {
 
     // change creator address
     function changeCreator(address _creator) external {
-        require(msg.sender==creator, "You&#39;re not a creator!");
+        require(msg.sender==creator, "You're not a creator!");
         creator = _creator;
     }
     // change creator address
     function changeTeamWallet(address _teamWallet) external {
-        require(msg.sender==creator, "You&#39;re not a creator!");
+        require(msg.sender==creator, "You're not a creator!");
         YumeriumTeamWallet = _teamWallet;
     }
     function changeYDistAddress(address _yDistribution) external {
@@ -125,7 +125,7 @@ contract YumeriumManager {
     
     // change creator address
     function addProduct(address _contractAddress) external {
-        require(msg.sender==creator, "You&#39;re not a creator!");
+        require(msg.sender==creator, "You're not a creator!");
         require(!YumeriumProducts[_contractAddress], "This product is already in the manager");
         if (!YumeriumProducts[_contractAddress])
         {
@@ -135,8 +135,8 @@ contract YumeriumManager {
     }
     // change creator address
     function removeProduct(address _contractAddress) external {
-        require(msg.sender==creator, "You&#39;re not a creator!");
-        require(YumeriumProducts[_contractAddress], "This product isn&#39;t already in the manager");
+        require(msg.sender==creator, "You're not a creator!");
+        require(YumeriumProducts[_contractAddress], "This product isn't already in the manager");
         if (YumeriumProducts[_contractAddress])
         {
             YumeriumProducts[_contractAddress] = false;
@@ -186,7 +186,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 

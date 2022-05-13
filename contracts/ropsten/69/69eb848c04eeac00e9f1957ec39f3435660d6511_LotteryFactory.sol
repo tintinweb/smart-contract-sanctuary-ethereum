@@ -218,7 +218,7 @@ contract LotteryFactory {
 	/**
 	 * @dev Returns token ids by user address for current lottery
 	 * @param _user user address
-	 * @return array of user&#39;s token ids
+	 * @return array of user's token ids
 	 */
 	function tokensOf(address _user) public view returns(uint[]) {
 		Lottery storage lottery = lotteries[lotteryCount - 1];

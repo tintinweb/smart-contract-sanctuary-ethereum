@@ -17,8 +17,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -35,7 +35,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -246,10 +246,10 @@ interface IERC1155 /* is ERC165 */ {
     function safeBatchTransferFrom(address _from, address _to, uint256[] calldata _ids, uint256[] calldata _values, bytes calldata _data) external;
 
     /**
-        @notice Get the balance of an account&#39;s Tokens.
+        @notice Get the balance of an account's Tokens.
         @param _owner  The address of the token holder
         @param _id     ID of the Token
-        @return        The _owner&#39;s balance of the Token type requested
+        @return        The _owner's balance of the Token type requested
      */
     function balanceOf(address _owner, uint256 _id) external view returns (uint256);
 
@@ -257,12 +257,12 @@ interface IERC1155 /* is ERC165 */ {
         @notice Get the balance of multiple account/token pairs
         @param _owners The addresses of the token holders
         @param _ids    ID of the Tokens
-        @return        The _owner&#39;s balance of the Token types requested (i.e. balance for each (owner, id) pair)
+        @return        The _owner's balance of the Token types requested (i.e. balance for each (owner, id) pair)
      */
     function balanceOfBatch(address[] calldata _owners, uint256[] calldata _ids) external view returns (uint256[] memory);
 
     /**
-        @notice Enable or disable approval for a third party ("operator") to manage all of the caller&#39;s tokens.
+        @notice Enable or disable approval for a third party ("operator") to manage all of the caller's tokens.
         @dev MUST emit the ApprovalForAll event on success.
         @param _operator  Address to add to the set of authorized operators
         @param _approved  True if the operator is approved, false to revoke approval
@@ -302,7 +302,7 @@ contract ERC1155 is IERC1155, ERC165, CommonConstants
 /////////////////////////////////////////// ERC165 //////////////////////////////////////////////
 
     /*
-        bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+        bytes4(keccak256('supportsInterface(bytes4)'));
     */
     bytes4 constant private INTERFACE_SIGNATURE_ERC165 = 0x01ffc9a7;
 
@@ -413,10 +413,10 @@ contract ERC1155 is IERC1155, ERC165, CommonConstants
     }
 
     /**
-        @notice Get the balance of an account&#39;s Tokens.
+        @notice Get the balance of an account's Tokens.
         @param _owner  The address of the token holder
         @param _id     ID of the Token
-        @return        The _owner&#39;s balance of the Token type requested
+        @return        The _owner's balance of the Token type requested
      */
     function balanceOf(address _owner, uint256 _id) external view returns (uint256) {
         // The balance of any account can be calculated from the Transfer events history.
@@ -430,7 +430,7 @@ contract ERC1155 is IERC1155, ERC165, CommonConstants
         @notice Get the balance of multiple account/token pairs
         @param _owners The addresses of the token holders
         @param _ids    ID of the Tokens
-        @return        The _owner&#39;s balance of the Token types requested (i.e. balance for each (owner, id) pair)
+        @return        The _owner's balance of the Token types requested (i.e. balance for each (owner, id) pair)
      */
     function balanceOfBatch(address[] calldata _owners, uint256[] calldata _ids) external view returns (uint256[] memory) {
 
@@ -446,7 +446,7 @@ contract ERC1155 is IERC1155, ERC165, CommonConstants
     }
 
     /**
-        @notice Enable or disable approval for a third party ("operator") to manage all of the caller&#39;s tokens.
+        @notice Enable or disable approval for a third party ("operator") to manage all of the caller's tokens.
         @dev MUST emit the ApprovalForAll event on success.
         @param _operator  Address to add to the set of authorized operators
         @param _approved  True if the operator is approved, false to revoke approval
@@ -471,7 +471,7 @@ contract ERC1155 is IERC1155, ERC165, CommonConstants
     function _doSafeTransferAcceptanceCheck(address _operator, address _from, address _to, uint256 _id, uint256 _value, bytes memory _data) internal {
 
         // If this was a hybrid standards solution you would have to check ERC165(_to).supportsInterface(0x4e2312e0) here but as this is a pure implementation of an ERC-1155 token set as recommended by
-        // the standard, it is not necessary. The below should revert in all failure cases i.e. _to isn&#39;t a receiver, or it is and either returns an unknown value or it reverts in the call to indicate non-acceptance.
+        // the standard, it is not necessary. The below should revert in all failure cases i.e. _to isn't a receiver, or it is and either returns an unknown value or it reverts in the call to indicate non-acceptance.
 
 
         // Note: if the below reverts in the onERC1155Received function of the _to address you will have an undefined revert reason returned rather than the one in the require test.
@@ -482,7 +482,7 @@ contract ERC1155 is IERC1155, ERC165, CommonConstants
     function _doSafeBatchTransferAcceptanceCheck(address _operator, address _from, address _to, uint256[] memory _ids, uint256[] memory _values, bytes memory _data) internal {
 
         // If this was a hybrid standards solution you would have to check ERC165(_to).supportsInterface(0x4e2312e0) here but as this is a pure implementation of an ERC-1155 token set as recommended by
-        // the standard, it is not necessary. The below should revert in all failure cases i.e. _to isn&#39;t a receiver, or it is and either returns an unknown value or it reverts in the call to indicate non-acceptance.
+        // the standard, it is not necessary. The below should revert in all failure cases i.e. _to isn't a receiver, or it is and either returns an unknown value or it reverts in the call to indicate non-acceptance.
 
         // Note: if the below reverts in the onERC1155BatchReceived function of the _to address you will have an undefined revert reason returned rather than the one in the require test.
         // If you want predictable revert reasons consider using low level _to.call() style instead so the revert does not bubble up and you can revert yourself on the ERC1155_BATCH_ACCEPTED test.
@@ -639,13 +639,13 @@ contract RCContract is ERC1155, Ownable {
     bytes4 constant private INTERFACE_SIGNATURE_URI = 0x0e89341c;
 
      // Token name
-    string private _contractName = &#39;ReceiptChain&#39;;
+    string private _contractName = 'ReceiptChain';
 
     // Token symbol
-    string private _symbol = &#39;RCPT&#39;;
+    string private _symbol = 'RCPT';
 
     // Base URI
-    string private _baseURI = &#39;https://receiptchain.io/api/items/&#39;;
+    string private _baseURI = 'https://receiptchain.io/api/items/';
 
     // Total Supplies
     mapping(uint256 => uint256) private _totalSupplies;
@@ -743,7 +743,7 @@ contract RCContract is ERC1155, Ownable {
     }
 
     /// @notice Returns the total token supply.
-    /// @dev Throws if &#39;_tokenType&#39; is not a valid SFT
+    /// @dev Throws if '_tokenType' is not a valid SFT
     /// @param _id The type of SFT to get the totalSupply of. Must be less than the return value of totalTokenTypes
     /// @return The total supply of the given SFT
     function totalSupply(uint256 _id) external view returns (uint256) {

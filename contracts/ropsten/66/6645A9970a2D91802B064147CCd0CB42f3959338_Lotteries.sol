@@ -28,8 +28,8 @@ contract Lottery {
     bool public isAllowed;
 
     constructor (bytes32 _name, uint _tickets, uint _price, address payable _owner) public {
-        require(_tickets > 0, &#39;plz set tickets count&#39;);
-        require(_price > 0, &#39;plz set tickets price&#39;);
+        require(_tickets > 0, 'plz set tickets count');
+        require(_price > 0, 'plz set tickets price');
         name = _name;
         owner = _owner;
 
@@ -43,26 +43,26 @@ contract Lottery {
     }
 
     function gotWinner() public {
-        require(leftTickets <=0, &#39;should be no more tickets&#39;);
-        require(finishBlock + delayBlock <= block.number, &#39;please wait a little bit&#39;);
+        require(leftTickets <=0, 'should be no more tickets');
+        require(finishBlock + delayBlock <= block.number, 'please wait a little bit');
         winnerRand = uint(blockhash(finishBlock + delayBlock)) % totalTickets;
         uint winnerIndex = plainTickets[winnerRand];
         winnerPlayer = players[winnerIndex];
     }
 
     function allowEscrow() public {
-        require(msg.sender == winnerPlayer, &#39;should be winner&#39;);
+        require(msg.sender == winnerPlayer, 'should be winner');
         isAllowed = true;
     }
 
     function escrow() public {
-        require(isAllowed == true, &#39;should be allowed&#39;);
+        require(isAllowed == true, 'should be allowed');
         selfdestruct(owner);
     }
 
     function buyTicket() payable public {
-        require(leftTickets > 0, &#39;no more tickets&#39;);
-        require(msg.value >= pricePerTicket, &#39;need pay for one ticket at least&#39;);
+        require(leftTickets > 0, 'no more tickets');
+        require(msg.value >= pricePerTicket, 'need pay for one ticket at least');
 
         uint todo = msg.value / pricePerTicket;
         if (todo > leftTickets) {

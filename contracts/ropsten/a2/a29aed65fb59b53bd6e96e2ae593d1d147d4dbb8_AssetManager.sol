@@ -36,7 +36,7 @@ using SafeMath for uint;
     assert(amountToUnlock > uint(0));
     uint fundingStage = database.uintStorage(keccak256(abi.encodePacked("fundingStage", _assetID)));
     if (fundingStage == uint(2) || fundingStage == uint(5) || fundingStage == uint(0)) { 
-      releaseEscrow(_assetID, msg.sender, amountToUnlock);     // Unlock all of the escrowed MYB since asset has finished it&#39;s lifecycle
+      releaseEscrow(_assetID, msg.sender, amountToUnlock);     // Unlock all of the escrowed MYB since asset has finished it's lifecycle
     }
     else {
       uint amountRaised = database.uintStorage(keccak256(abi.encodePacked("amountRaised", _assetID)));
@@ -133,7 +133,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

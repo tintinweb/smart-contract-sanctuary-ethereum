@@ -87,7 +87,7 @@ contract StandardToken is Token
 }
 
 
-//name this contract whatever you&#39;d like
+//name this contract whatever you'd like
 contract ERC20Token is StandardToken {
 
     function ()
@@ -96,11 +96,11 @@ contract ERC20Token is StandardToken {
     }
 
     string public name;                   //fancy name: eg Simon Bucks
-    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg SBX
-    string public version = &#39;H1.0&#39;;       //human 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'H1.0';       //human 0.1 standard. Just an arbitrary versioning scheme.
 
-//make sure this function name matches the contract name above. So if you&#39;re token is called TutorialToken, make sure the //contract name above is also TutorialToken instead of ERC20Token
+//make sure this function name matches the contract name above. So if you're token is called TutorialToken, make sure the //contract name above is also TutorialToken instead of ERC20Token
 
     function ERC20Token()
     {

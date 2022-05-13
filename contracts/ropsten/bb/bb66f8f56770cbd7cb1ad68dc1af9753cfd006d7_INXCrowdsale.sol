@@ -56,7 +56,7 @@ contract Whitelist is Ownable {
   event WhitelistedAddressRemoved(address addr);
 
   /**
-   * @dev Throws if called by any account that&#39;s not whitelisted.
+   * @dev Throws if called by any account that's not whitelisted.
    */
   modifier onlyWhitelisted() {
     require(whitelist[msg.sender]);
@@ -94,7 +94,7 @@ contract Whitelist is Ownable {
    * @dev remove an address from the whitelist
    * @param addr address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address addr) onlyOwner public returns(bool success) {
     if (whitelist[addr]) {
@@ -108,7 +108,7 @@ contract Whitelist is Ownable {
    * @dev remove addresses from the whitelist
    * @param addrs addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] addrs) onlyOwner public returns(bool success) {
     for (uint256 i = 0; i < addrs.length; i++) {
@@ -146,7 +146,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -278,7 +278,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -385,7 +385,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -511,7 +511,7 @@ contract INXToken is WhitelistedMintableToken, StandardBurnableToken {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 contract Crowdsale {
@@ -665,7 +665,7 @@ contract Crowdsale {
 /**
  * @title MintedCrowdsale (adjusted to use WhitelistedMintableToken)
  * @dev Extension of Crowdsale contract whose tokens are minted in each purchase.
- * MintedCrowdsale should be on the token&#39;s whitelist to enable minting.
+ * MintedCrowdsale should be on the token's whitelist to enable minting.
  */
 contract MintedCrowdsale is Crowdsale {
 

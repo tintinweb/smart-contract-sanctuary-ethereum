@@ -34,7 +34,7 @@ contract SerenityTeamAllocator {
         allocations[0x4296C27536553c59e57Fa8EA47913F5000311f03] = 66666 ether;
     }
 
-    // Unlock team member&#39;s tokens by transferring them to his address
+    // Unlock team member's tokens by transferring them to his address
     function unlock() external {
         require (now >= unlockedAt);
 

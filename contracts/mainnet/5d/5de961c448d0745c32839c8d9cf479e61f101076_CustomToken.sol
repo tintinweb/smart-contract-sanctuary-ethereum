@@ -89,8 +89,8 @@ contract LockToken is BaseToken {
 contract CustomToken is BaseToken, ICOToken, LockToken {
     function CustomToken() public {
         totalSupply = 2100000000000000000000000000;
-        name = &#39;ekkoblockchaintoken&#39;;
-        symbol = &#39;ebkt&#39;;
+        name = 'ekkoblockchaintoken';
+        symbol = 'ebkt';
         decimals = 18;
         balanceOf[0x1a5e273c23518af490ca89d31c23dadd9f3df3a5] = totalSupply;
         Transfer(address(0), 0x1a5e273c23518af490ca89d31c23dadd9f3df3a5, totalSupply);

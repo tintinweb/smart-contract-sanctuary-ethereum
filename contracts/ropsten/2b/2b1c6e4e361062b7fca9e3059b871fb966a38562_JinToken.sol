@@ -222,7 +222,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -337,8 +337,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -355,7 +355,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -414,15 +414,15 @@ contract JinToken is StandardToken, DetailedERC20, Ownable {
     totalSupply_ = INITIAL_SUPPLY * (10 ** uint256(decimals)); // BasicToken
     balances[msg.sender] = totalSupply_;                       // BasicToken
 
-    rules.push(Rule(&#39;PRESALE1&#39;,  1543622400)); // &#39;2018-12-01&#39;
-    rules.push(Rule(&#39;PRESALE2&#39;,  1548979200)); // &#39;2019-02-01&#39;
-    rules.push(Rule(&#39;PRESALE3&#39;,  1554076800)); // &#39;2019-04-01&#39;
-    rules.push(Rule(&#39;PRESALE4&#39;,  1559347200)); // &#39;2019-06-01&#39;
-    rules.push(Rule(&#39;PRESALE5&#39;,  1564617600)); // &#39;2019-08-01&#39;
-    rules.push(Rule(&#39;CROWDSALE&#39;, 1567296000)); // &#39;2019-09-01&#39;
-    rules.push(Rule(&#39;STARTUP&#39;,   1577836800)); // &#39;2020-01-01&#39;
-    rules.push(Rule(&#39;ANGELFUND&#39;, 1567296000)); // &#39;2019-09-01&#39;
-    rules.push(Rule(&#39;TECHTEAM&#39;,  1567296000)); // &#39;2019-09-01&#39;
+    rules.push(Rule('PRESALE1',  1543622400)); // '2018-12-01'
+    rules.push(Rule('PRESALE2',  1548979200)); // '2019-02-01'
+    rules.push(Rule('PRESALE3',  1554076800)); // '2019-04-01'
+    rules.push(Rule('PRESALE4',  1559347200)); // '2019-06-01'
+    rules.push(Rule('PRESALE5',  1564617600)); // '2019-08-01'
+    rules.push(Rule('CROWDSALE', 1567296000)); // '2019-09-01'
+    rules.push(Rule('STARTUP',   1577836800)); // '2020-01-01'
+    rules.push(Rule('ANGELFUND', 1567296000)); // '2019-09-01'
+    rules.push(Rule('TECHTEAM',  1567296000)); // '2019-09-01'
     ruleCount = rules.length;
   }
 
@@ -472,8 +472,8 @@ contract JinToken is StandardToken, DetailedERC20, Ownable {
     uint256 _cliff = rules[lockingType].cliff;
     require(_now >= _cliff);
 
-    // if (rules[lockingType].name.equal(&#39;CROWDSALE&#39;)) {
-    if (isStringEq(rules[lockingType].name, &#39;CROWDSALE&#39;)) {
+    // if (rules[lockingType].name.equal('CROWDSALE')) {
+    if (isStringEq(rules[lockingType].name, 'CROWDSALE')) {
 
       require (amountInLock(user, lockingType) > 0);
 
@@ -482,11 +482,11 @@ contract JinToken is StandardToken, DetailedERC20, Ownable {
 
       return true;
     } else if (
-      isStringEq(rules[lockingType].name, &#39;PRESALE1&#39;)
-      || isStringEq(rules[lockingType].name, &#39;PRESALE2&#39;)
-      || isStringEq(rules[lockingType].name, &#39;PRESALE3&#39;)
-      || isStringEq(rules[lockingType].name, &#39;PRESALE4&#39;)
-      || isStringEq(rules[lockingType].name, &#39;PRESALE5&#39;)) {
+      isStringEq(rules[lockingType].name, 'PRESALE1')
+      || isStringEq(rules[lockingType].name, 'PRESALE2')
+      || isStringEq(rules[lockingType].name, 'PRESALE3')
+      || isStringEq(rules[lockingType].name, 'PRESALE4')
+      || isStringEq(rules[lockingType].name, 'PRESALE5')) {
 
       uint256 approved = approvedRatio(_now, _cliff, 20, 10);
       uint256 availableToClaim =

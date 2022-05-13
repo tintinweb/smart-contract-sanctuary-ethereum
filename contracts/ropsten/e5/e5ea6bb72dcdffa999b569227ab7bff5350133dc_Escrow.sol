@@ -179,7 +179,7 @@ contract Escrow is arbitrated {
         emit OrderConfirmed(orderId);
         numberOfOpenSteps += 1;
         sumAmountOfOpenSteps += step.amount;
-        //Transfer from client&#39;s account to escrow account
+        //Transfer from client's account to escrow account
         coin.transferFrom(msg.sender, this, step.amount);
         //Transfer of fee
         coin.transferFrom(msg.sender, feeAccount, step.feeAmount);

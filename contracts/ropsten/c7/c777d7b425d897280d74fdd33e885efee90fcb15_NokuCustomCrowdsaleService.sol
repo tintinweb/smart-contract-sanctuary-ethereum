@@ -281,8 +281,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -299,7 +299,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -446,7 +446,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -1002,7 +1002,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -1210,7 +1210,7 @@ contract TokenVesting is Ownable {
   }
 
   /**
-   * @dev Calculates the amount that has already vested but hasn&#39;t been released yet.
+   * @dev Calculates the amount that has already vested but hasn't been released yet.
    * @param token ERC20 token which is being vested
    */
   function releasableAmount(ERC20Basic token) public view returns (uint256) {
@@ -1619,22 +1619,22 @@ contract NokuCustomCrowdsale is TokenCappedCrowdsale {
     );
     event LogOnePowerAgeChanged(address indexed sender, uint256 indexed platinumAgeEndBlock, uint256 indexed platinumAgeRate);
 
-    // The end block of the &#39;platinum&#39; age interval
+    // The end block of the 'platinum' age interval
     uint256 public platinumAgeEndBlock;
 
-    // The end block of the &#39;golden&#39; age interval
+    // The end block of the 'golden' age interval
     uint256 public goldenAgeEndBlock;
 
-    // The end block of the &#39;silver&#39; age interval
+    // The end block of the 'silver' age interval
     uint256 public silverAgeEndBlock;
 
-    // The conversion rate of the &#39;platinum&#39; age
+    // The conversion rate of the 'platinum' age
     uint256 public platinumAgeRate;
 
-    // The conversion rate of the &#39;golden&#39; age
+    // The conversion rate of the 'golden' age
     uint256 public goldenAgeRate;
 
-    // The conversion rate of the &#39;silver&#39; age
+    // The conversion rate of the 'silver' age
     uint256 public silverAgeRate;
 
     // The wallet address or contract

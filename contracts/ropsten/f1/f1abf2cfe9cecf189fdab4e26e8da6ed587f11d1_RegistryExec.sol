@@ -68,7 +68,7 @@ contract ScriptExec {
   */
   function configure(address _exec_admin, address _app_storage, address _provider) public {
     require(app_storage == 0, "ScriptExec already configured");
-    require(_app_storage != 0, &#39;Invalid input&#39;);
+    require(_app_storage != 0, 'Invalid input');
     exec_admin = _exec_admin;
     app_storage = _app_storage;
     provider = _provider;
@@ -79,7 +79,7 @@ contract ScriptExec {
 
   /// APPLICATION EXECUTION ///
 
-  bytes4 internal constant EXEC_SEL = bytes4(keccak256(&#39;exec(address,bytes32,bytes)&#39;));
+  bytes4 internal constant EXEC_SEL = bytes4(keccak256('exec(address,bytes32,bytes)'));
 
   /*
   Executes an application using its execution id and storage address.
@@ -90,7 +90,7 @@ contract ScriptExec {
   */
   function exec(bytes32 _exec_id, bytes _calldata) external payable returns (bool success);
 
-  bytes4 internal constant ERR = bytes4(keccak256(&#39;Error(string)&#39;));
+  bytes4 internal constant ERR = bytes4(keccak256('Error(string)'));
 
   // Return the bytes4 action requestor stored at the pointer, and cleans the remaining bytes
   function getAction(uint _ptr) internal pure returns (bytes4 action) {
@@ -102,7 +102,7 @@ contract ScriptExec {
 
   // Checks to see if an error message was returned with the failed call, and emits it if so -
   function checkErrors(bytes32 _exec_id) internal {
-    // If the returned data begins with selector &#39;Error(string)&#39;, get the contained message -
+    // If the returned data begins with selector 'Error(string)', get the contained message -
     string memory message;
     bytes4 err_sel = ERR;
     assembly {
@@ -146,12 +146,12 @@ contract ScriptExec {
   Initializes an instance of an application. Uses default app provider and registry app.
   Uses latest app version by default.
   @param _app_name: The name of the application to initialize
-  @param _init_calldata: Calldata to be forwarded to the application&#39;s initialization function
-  @return exec_id: The execution id (within the application&#39;s storage) of the created application instance
+  @param _init_calldata: Calldata to be forwarded to the application's initialization function
+  @return exec_id: The execution id (within the application's storage) of the created application instance
   @return version: The name of the version of the instance
   */
   function createAppInstance(bytes32 _app_name, bytes _init_calldata) external returns (bytes32 exec_id, bytes32 version) {
-    require(_app_name != 0 && _init_calldata.length >= 4, &#39;invalid input&#39;);
+    require(_app_name != 0 && _init_calldata.length >= 4, 'invalid input');
     (exec_id, version) = StorageInterface(app_storage).createInstance(
       msg.sender, _app_name, provider, registry_exec_id, _init_calldata
     );
@@ -207,13 +207,13 @@ contract ScriptExec {
     return deployed_instances[_deployer].length;
   }
 
-  // The function selector for a simple registry &#39;registerApp&#39; function
-  bytes4 internal constant REGISTER_APP_SEL = bytes4(keccak256(&#39;registerApp(bytes32,address,bytes4[],address[])&#39;));
+  // The function selector for a simple registry 'registerApp' function
+  bytes4 internal constant REGISTER_APP_SEL = bytes4(keccak256('registerApp(bytes32,address,bytes4[],address[])'));
 
   /*
   Returns the index address and implementing address for the simple registry app set as the default
   @return indx: The index address for the registry application - contains getters for the Registry, as well as its init funciton
-  @return implementation: The address implementing the registry&#39;s functions
+  @return implementation: The address implementing the registry's functions
   */
   function getRegistryImplementation() public view returns (address index, address implementation) {
     index = StorageInterface(app_storage).getIndex(registry_exec_id);
@@ -223,7 +223,7 @@ contract ScriptExec {
   /*
   Returns the functions and addresses implementing those functions that make up an application under the give execution id
   @param _exec_id: The execution id that represents the application in storage
-  @return index: The index address of the instance - holds the app&#39;s getter functions and init functions
+  @return index: The index address of the instance - holds the app's getter functions and init functions
   @return functions: A list of function selectors supported by the application
   @return implementations: A list of addresses corresponding to the function selectors, where those selectors are implemented
   */
@@ -255,7 +255,7 @@ contract RegistryExec is ScriptExec {
 
   /// APPLICATION EXECUTION ///
 
-  bytes4 internal constant EXEC_SEL = bytes4(keccak256(&#39;exec(address,bytes32,bytes)&#39;));
+  bytes4 internal constant EXEC_SEL = bytes4(keccak256('exec(address,bytes32,bytes)'));
 
   /*
   Executes an application using its execution id and storage address.
@@ -275,11 +275,11 @@ contract RegistryExec is ScriptExec {
       sel != UPDATE_EXEC_SEL
     );
 
-    // Call &#39;exec&#39; in AbstractStorage, passing in the sender&#39;s address, the app exec id, and the calldata to forward -
+    // Call 'exec' in AbstractStorage, passing in the sender's address, the app exec id, and the calldata to forward -
     if (address(app_storage).call.value(msg.value)(abi.encodeWithSelector(
       EXEC_SEL, msg.sender, _exec_id, _calldata
     )) == false) {
-      // Call failed - emit error message from storage and return &#39;false&#39;
+      // Call failed - emit error message from storage and return 'false'
       checkErrors(_exec_id);
       // Return unspent wei to sender
       address(msg.sender).transfer(address(this).balance);
@@ -289,7 +289,7 @@ contract RegistryExec is ScriptExec {
     // Get returned data
     success = checkReturn();
     // If execution failed,
-    require(success, &#39;Execution failed&#39;);
+    require(success, 'Execution failed');
 
     // Transfer any returned wei back to the sender
     address(msg.sender).transfer(address(this).balance);
@@ -310,18 +310,18 @@ contract RegistryExec is ScriptExec {
   /*
   Creates an instance of a registry application and returns its execution id
   @param _index: The index file of the registry app (holds getters and init functions)
-  @param _implementation: The file implementing the registry&#39;s functionality
+  @param _implementation: The file implementing the registry's functionality
   @return exec_id: The execution id under which the registry will store data
   */
   function createRegistryInstance(address _index, address _implementation) external onlyAdmin() returns (bytes32 exec_id) {
     // Validate input -
-    require(_index != 0 && _implementation != 0, &#39;Invalid input&#39;);
+    require(_index != 0 && _implementation != 0, 'Invalid input');
 
     // Creates a registry from storage and returns the registry exec id -
     exec_id = StorageInterface(app_storage).createRegistry(_index, _implementation);
 
     // Ensure a valid execution id returned from storage -
-    require(exec_id != 0, &#39;Invalid response from storage&#39;);
+    require(exec_id != 0, 'Invalid response from storage');
 
     // If there is not already a default registry exec id set, set it
     if (registry_exec_id == 0)
@@ -347,10 +347,10 @@ contract RegistryExec is ScriptExec {
   */
   function registerApp(bytes32 _app_name, address _index, bytes4[] _selectors, address[] _implementations) external onlyAdmin() {
     // Validate input
-    require(_app_name != 0 && _index != 0, &#39;Invalid input&#39;);
-    require(_selectors.length == _implementations.length && _selectors.length != 0, &#39;Invalid input&#39;);
+    require(_app_name != 0 && _index != 0, 'Invalid input');
+    require(_selectors.length == _implementations.length && _selectors.length != 0, 'Invalid input');
     // Check contract variables for valid initialization
-    require(app_storage != 0 && registry_exec_id != 0 && provider != 0, &#39;Invalid state&#39;);
+    require(app_storage != 0 && registry_exec_id != 0 && provider != 0, 'Invalid state');
 
     // Execute registerApp through AbstractStorage -
     uint emitted;
@@ -359,7 +359,7 @@ contract RegistryExec is ScriptExec {
     (emitted, paid, stored) = StorageInterface(app_storage).exec(msg.sender, registry_exec_id, msg.data);
 
     // Ensure zero values for emitted and paid, and nonzero value for stored -
-    require(emitted == 0 && paid == 0 && stored != 0, &#39;Invalid state change&#39;);
+    require(emitted == 0 && paid == 0 && stored != 0, 'Invalid state change');
   }
 
   /*
@@ -372,10 +372,10 @@ contract RegistryExec is ScriptExec {
   */
   function registerAppVersion(bytes32 _app_name, bytes32 _version_name, address _index, bytes4[] _selectors, address[] _implementations) external onlyAdmin() {
     // Validate input
-    require(_app_name != 0 && _version_name != 0 && _index != 0, &#39;Invalid input&#39;);
-    require(_selectors.length == _implementations.length && _selectors.length != 0, &#39;Invalid input&#39;);
+    require(_app_name != 0 && _version_name != 0 && _index != 0, 'Invalid input');
+    require(_selectors.length == _implementations.length && _selectors.length != 0, 'Invalid input');
     // Check contract variables for valid initialization
-    require(app_storage != 0 && registry_exec_id != 0 && provider != 0, &#39;Invalid state&#39;);
+    require(app_storage != 0 && registry_exec_id != 0 && provider != 0, 'Invalid state');
 
     // Execute registerApp through AbstractStorage -
     uint emitted;
@@ -384,30 +384,30 @@ contract RegistryExec is ScriptExec {
     (emitted, paid, stored) = StorageInterface(app_storage).exec(msg.sender, registry_exec_id, msg.data);
 
     // Ensure zero values for emitted and paid, and nonzero value for stored -
-    require(emitted == 0 && paid == 0 && stored != 0, &#39;Invalid state change&#39;);
+    require(emitted == 0 && paid == 0 && stored != 0, 'Invalid state change');
   }
 
   // Update instance selectors, index, and addresses
-  bytes4 internal constant UPDATE_INST_SEL = bytes4(keccak256(&#39;updateInstance(bytes32,bytes32,bytes32)&#39;));
+  bytes4 internal constant UPDATE_INST_SEL = bytes4(keccak256('updateInstance(bytes32,bytes32,bytes32)'));
 
   /*
-  Updates an application&#39;s implementations, selectors, and index address. Uses default app provider and registry app.
+  Updates an application's implementations, selectors, and index address. Uses default app provider and registry app.
   Uses latest app version by default.
 
   @param _exec_id: The execution id of the application instance to be updated
-  @return success: The success of the call to the application&#39;s updateInstance function
+  @return success: The success of the call to the application's updateInstance function
   */
   function updateAppInstance(bytes32 _exec_id) external returns (bool success) {
     // Validate input. Only the original deployer can update an application -
-    require(_exec_id != 0 && msg.sender == deployed_by[_exec_id], &#39;invalid sender or input&#39;);
+    require(_exec_id != 0 && msg.sender == deployed_by[_exec_id], 'invalid sender or input');
 
     // Get instance metadata from exec id -
     Instance memory inst = instance_info[_exec_id];
 
-    // Call &#39;exec&#39; in AbstractStorage, passing in the sender&#39;s address, the execution id, and
+    // Call 'exec' in AbstractStorage, passing in the sender's address, the execution id, and
     // the calldata to update the application -
     if(address(app_storage).call(
-      abi.encodeWithSelector(EXEC_SEL,            // &#39;exec&#39; selector
+      abi.encodeWithSelector(EXEC_SEL,            // 'exec' selector
         inst.current_provider,                    // application provider address
         _exec_id,                                 // execution id to update
         abi.encodeWithSelector(UPDATE_INST_SEL,   // calldata for Registry updateInstance function
@@ -417,14 +417,14 @@ contract RegistryExec is ScriptExec {
         )
       )
     ) == false) {
-      // Call failed - emit error message from storage and return &#39;false&#39;
+      // Call failed - emit error message from storage and return 'false'
       checkErrors(_exec_id);
       return false;
     }
     // Check returned data to ensure state was correctly changed in AbstractStorage -
     success = checkReturn();
     // If execution failed, revert state and return an error message -
-    require(success, &#39;Execution failed&#39;);
+    require(success, 'Execution failed');
 
     // If execution was successful, the version was updated. Get the latest version
     // and set the exec id instance info -
@@ -436,41 +436,41 @@ contract RegistryExec is ScriptExec {
       inst.app_name
     );
     // Ensure nonzero latest version -
-    require(latest_version != 0, &#39;invalid latest version&#39;);
+    require(latest_version != 0, 'invalid latest version');
     // Set current version -
     instance_info[_exec_id].version_name = latest_version;
   }
 
   // Update instance script exec contract
-  bytes4 internal constant UPDATE_EXEC_SEL = bytes4(keccak256(&#39;updateExec(address)&#39;));
+  bytes4 internal constant UPDATE_EXEC_SEL = bytes4(keccak256('updateExec(address)'));
 
   /*
-  Updates an application&#39;s script executor from this Script Exec to a new address
+  Updates an application's script executor from this Script Exec to a new address
 
   @param _exec_id: The execution id of the application instance to be updated
   @param _new_exec_addr: The new script exec address for this exec id
-  @returns success: The success of the call to the application&#39;s updateExec function
+  @returns success: The success of the call to the application's updateExec function
   */
   function updateAppExec(bytes32 _exec_id, address _new_exec_addr) external returns (bool success) {
     // Validate input. Only the original deployer can migrate the script exec address -
-    require(_exec_id != 0 && msg.sender == deployed_by[_exec_id] && address(this) != _new_exec_addr && _new_exec_addr != 0, &#39;invalid input&#39;);
+    require(_exec_id != 0 && msg.sender == deployed_by[_exec_id] && address(this) != _new_exec_addr && _new_exec_addr != 0, 'invalid input');
 
-    // Call &#39;exec&#39; in AbstractStorage, passing in the sender&#39;s address, the execution id, and
+    // Call 'exec' in AbstractStorage, passing in the sender's address, the execution id, and
     // the calldata to migrate the script exec address -
     if(address(app_storage).call(
-      abi.encodeWithSelector(EXEC_SEL,                            // &#39;exec&#39; selector
+      abi.encodeWithSelector(EXEC_SEL,                            // 'exec' selector
         msg.sender,                                               // sender address
         _exec_id,                                                 // execution id to update
         abi.encodeWithSelector(UPDATE_EXEC_SEL, _new_exec_addr)   // calldata for Registry updateExec
       )
     ) == false) {
-      // Call failed - emit error message from storage and return &#39;false&#39;
+      // Call failed - emit error message from storage and return 'false'
       checkErrors(_exec_id);
       return false;
     }
     // Check returned data to ensure state was correctly changed in AbstractStorage -
     success = checkReturn();
     // If execution failed, revert state and return an error message -
-    require(success, &#39;Execution failed&#39;);
+    require(success, 'Execution failed');
   }
 }

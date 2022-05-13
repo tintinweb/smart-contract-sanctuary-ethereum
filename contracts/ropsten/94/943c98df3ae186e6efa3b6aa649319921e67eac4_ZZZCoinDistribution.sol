@@ -17,7 +17,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -127,7 +127,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -229,8 +229,8 @@ contract Ownable {
 }
 
 contract ZZZCoinERC20Token is StandardToken, Ownable {
-  string public name = &#39;ZZZCoin&#39;;
-  string public symbol = &#39;ZZZ&#39;;
+  string public name = 'ZZZCoin';
+  string public symbol = 'ZZZ';
   uint8 public decimals = 18;
   uint256 private constant initialSupply = 1000000000000000000000000000;
   

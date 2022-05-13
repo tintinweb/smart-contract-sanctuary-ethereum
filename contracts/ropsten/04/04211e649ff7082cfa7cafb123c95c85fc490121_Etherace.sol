@@ -11,9 +11,9 @@ contract Etherace {
     uint256 public precisionFactor = 6; //shares precise to 0.0001%
 
     //team 
-    string public teamOnePrefix = &#39;Team One&#39;;
+    string public teamOnePrefix = 'Team One';
     uint256 public teamOneId = 1; 
-    string public teamTwoPrefix = &#39;Team Two&#39;;
+    string public teamTwoPrefix = 'Team Two';
     uint256 public teamTwoId = 2;
     address public addThreshold = 0x7F00000000000000000000000000000000000000; //addresses that start with 0x00-0x7f on Team One; 0x80-0xff on Team Two
 
@@ -62,19 +62,19 @@ contract Etherace {
     //MODIFIERS
 
     modifier onlyOwner() { 
-        require (msg.sender == owner, &#39;you are not the owner&#39;); 
+        require (msg.sender == owner, 'you are not the owner'); 
         _; 
     }
 
     modifier gameOpen() {
-        require (currentRoundOpen == true, &#39;the game is not open&#39;);
+        require (currentRoundOpen == true, 'the game is not open');
         require (roundResolved == false);
         require (now < roundEndTime);
         _; 
     }
 
     modifier onlyHumans() { 
-        require (msg.sender == tx.origin, &#39;you cannot use a contract&#39;); 
+        require (msg.sender == tx.origin, 'you cannot use a contract'); 
         _; 
     }
     
@@ -109,9 +109,9 @@ contract Etherace {
 
     //start round
     function openRound (uint _timerStart, uint _timerMax) public payable onlyOwner() {
-        require (currentRoundOpen == false, &#39;you can only start the game once&#39;);
-        require (roundResolved == false, &#39;you cannot restart a finished game&#39;); //currently set up so this can only be called once. new games require a new contract 
-        require (msg.value > 0, &#39;you must give a seed&#39;);
+        require (currentRoundOpen == false, 'you can only start the game once');
+        require (roundResolved == false, 'you cannot restart a finished game'); //currently set up so this can only be called once. new games require a new contract 
+        require (msg.value > 0, 'you must give a seed');
 
         roundSetUp = true;
         currentRoundOpen = true;
@@ -126,8 +126,8 @@ contract Etherace {
 
     //dev withdraw
     function devWithdraw() public onlyOwner() {
-        require (devBalance > 0, &#39;you must have an available balance&#39;);
-        require(devBalance <= address(this).balance, &#39;you cannot print money&#39;);
+        require (devBalance > 0, 'you must have an available balance');
+        require(devBalance <= address(this).balance, 'you cannot print money');
         owner.transfer(devBalance);
         devBalance = 0;
     }
@@ -135,7 +135,7 @@ contract Etherace {
     //PUBLIC FUNCTIONS
 
     function buy() public payable gameOpen() onlyHumans() { 
-        require (msg.value >= 1 finney, &#39;you must send at least 0.001 ETH&#39;);
+        require (msg.value >= 1 finney, 'you must send at least 0.001 ETH');
         uint256 _teamID;
         
         //establish team affliation 
@@ -179,9 +179,9 @@ contract Etherace {
     }  
 
     function resolveRound() public onlyHumans() { //can be called by anyone if the round has ended 
-        require (now > roundEndTime, &#39;you can only call this if time has expired&#39;);
-        require (roundSetUp == true, &#39;you cannot call this before the game starts&#39;);
-        require (roundResolved == false, &#39;you can only call this once&#39;);
+        require (now > roundEndTime, 'you can only call this if time has expired');
+        require (roundSetUp == true, 'you cannot call this before the game starts');
+        require (roundResolved == false, 'you can only call this once');
 
         if (teamOneVolume > teamTwoVolume) {
             teamOneWin();
@@ -311,7 +311,7 @@ contract Etherace {
         } else if (teamOneVolume < teamTwoVolume) {
             return teamTwoPrefix;
         } else if (teamOneVolume == teamTwoVolume) {
-            return &#39;a tie? wtf&#39;;
+            return 'a tie? wtf';
         }
     }
 
@@ -336,7 +336,7 @@ contract Etherace {
         uint256 timeFactor = 1000000000000000; //one finney in wei
         uint256 timeShares = uint256(SafeMaths.div(msg.value, timeFactor));
             if (roundEndTime - timeShares < now + 2 minutes) {
-                roundEndTime = now + 2 minutes; //you can&#39;t win by buying up the clock, but you can come close
+                roundEndTime = now + 2 minutes; //you can't win by buying up the clock, but you can come close
             } else {
                 roundEndTime -= timeShares; //subtract one second per finney  
             }
@@ -388,7 +388,7 @@ contract Etherace {
         devBalance += devShare;
         uint256 potAdjusted = pot - devShare;
 
-        emit roundEnded(0, &#39;a tie? wtf!&#39;, potAdjusted);
+        emit roundEnded(0, 'a tie? wtf!', potAdjusted);
 
         teamOneDivsTotal += SafeMaths.div(potAdjusted, 2);
         teamOneDivsUnclaimed += SafeMaths.div(potAdjusted, 2);

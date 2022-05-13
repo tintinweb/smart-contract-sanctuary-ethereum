@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -249,7 +249,7 @@ contract Pausable is Ownable {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overridden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropriate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropriate to concatenate
  * behavior.
  */
 contract Crowdsale is Pausable {
@@ -370,7 +370,7 @@ contract Crowdsale is Pausable {
 
   /**
    * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
-   * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method: 
+   * Example from CappedCrowdsale.sol's _preValidatePurchase method: 
    *   super._preValidatePurchase(_beneficiary, _weiAmount);
    *   require(weiRaised.add(_weiAmount) <= cap);
    * @param _beneficiary Address performing the token purchase
@@ -597,7 +597,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -834,7 +834,7 @@ contract FinalizableCrowdsale is Ownable, TimedCrowdsale {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() public onlyOwner {
     require(!isFinalized);
@@ -862,7 +862,7 @@ contract FinalizableCrowdsale is Ownable, TimedCrowdsale {
  * @title Escrow
  * @dev Base escrow contract, holds funds destinated to a payee until they
  * withdraw them. The contract that uses the escrow as its payment method
- * should be its owner, and provide public methods redirecting to the escrow&#39;s
+ * should be its owner, and provide public methods redirecting to the escrow's
  * deposit and withdraw.
  */
 contract Escrow is Ownable {
@@ -980,7 +980,7 @@ contract RefundEscrow is Ownable, ConditionalEscrow {
   }
 
   /**
-   * @dev Withdraws the beneficiary&#39;s funds.
+   * @dev Withdraws the beneficiary's funds.
    */
   function beneficiaryWithdraw() public {
     require(state == State.Closed);
@@ -1115,7 +1115,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage _role, address _addr)
     internal
@@ -1312,7 +1312,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove an address from the whitelist
    * @param _operator address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(uint256 tier, address _operator)
     public
@@ -1325,7 +1325,7 @@ contract Whitelist is Ownable, RBAC {
    * @dev remove addresses from the whitelist
    * @param _operators addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(uint256 tier, address[] _operators)
     public
@@ -1429,7 +1429,7 @@ contract Bonuslist is Ownable, RBAC {
    * @dev remove an address from the Bonuslist
    * @param _operator address
    * @return true if the address was removed from the Bonuslist,
-   * false if the address wasn&#39;t in the Bonuslist in the first place
+   * false if the address wasn't in the Bonuslist in the first place
    */
   function removeAddressFromBonuslist(address _operator)
     public
@@ -1442,7 +1442,7 @@ contract Bonuslist is Ownable, RBAC {
    * @dev remove addresses from the Bonuslist
    * @param _operators addresses
    * @return true if at least one address was removed from the Bonuslist,
-   * false if all addresses weren&#39;t in the Bonuslist in the first place
+   * false if all addresses weren't in the Bonuslist in the first place
    */
   function removeAddressesFromBonuslist(address[] _operators)
     public

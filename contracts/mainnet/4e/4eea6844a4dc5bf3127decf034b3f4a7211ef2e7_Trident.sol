@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -256,12 +256,12 @@ contract StandardToken is ERC20, BasicToken {
  * @dev Implementation of the Trident token.
  */
 contract Trident is StandardToken, Ownable {
-  string public name = &#39;Trident&#39;;
-  string public symbol = &#39;TDT&#39;;
+  string public name = 'Trident';
+  string public symbol = 'TDT';
   uint public decimals = 18;
-  uint public INITIAL_SUPPLY = 0;  // we&#39;re starting off with zero initial supply and will &#39;mint&#39; as needed
+  uint public INITIAL_SUPPLY = 0;  // we're starting off with zero initial supply and will 'mint' as needed
 
-  // The following were created as arrays instead of mappings since the dapp requires access to all elements (a mapping doesn&#39;t allow access to its keys). Extra iteration gas costs are negligible due to the fact that delegates are usually very limited in number.
+  // The following were created as arrays instead of mappings since the dapp requires access to all elements (a mapping doesn't allow access to its keys). Extra iteration gas costs are negligible due to the fact that delegates are usually very limited in number.
   address[] mintDelegates;   // accounts allowed to mint tokens
   address[] burnDelegates;   // accounts allowed to burn tokens
 
@@ -440,7 +440,7 @@ contract Trident is StandardToken, Ownable {
 
 
   /**
-   * @dev Function to mint tokens and transfer them to contract owner&#39;s address
+   * @dev Function to mint tokens and transfer them to contract owner's address
    * @param _amount The amount of tokens to mint.
    * @return A boolean that indicates if the operation was successful.
    */

@@ -103,10 +103,10 @@ contract MLPPToken is StandardToken {
     function() public {
         revert();
     }
-    string public constant name = &#39;Multilevel People Pool Coin&#39;;
-    string public constant symbol = &#39;MLPP&#39;;
+    string public constant name = 'Multilevel People Pool Coin';
+    string public constant symbol = 'MLPP';
     uint8 public constant decimals = 3;
-    string public constant version = &#39;S1.0&#39;;
+    string public constant version = 'S1.0';
     constructor(uint256 _initialAmount) public {
         balances[msg.sender] = _initialAmount;
         totalSupply_ = _initialAmount;

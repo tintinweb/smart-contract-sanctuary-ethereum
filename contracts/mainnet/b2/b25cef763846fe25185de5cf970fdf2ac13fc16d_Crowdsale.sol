@@ -95,7 +95,7 @@ contract Crowdsale {
         uint amount = msg.value;                                                           //save users eth value
         balanceOf[msg.sender] += amount;                                                   //save users eth value in balance list 
         amountRaised += amount;                                                            //update total amount of crowdsale
-        uint sendTokens = (amount / price) * 10 ** uint256(18);                            //calculate user&#39;s tokens
+        uint sendTokens = (amount / price) * 10 ** uint256(18);                            //calculate user's tokens
         tokenReward.transfer(msg.sender, sendTokens);                                      //send tokens to user
         soldTokensCounter += sendTokens;                                                   //update total sold tokens counter
         FundTransfer(msg.sender, amount, price, true);                                     //pin transaction data in blockchain

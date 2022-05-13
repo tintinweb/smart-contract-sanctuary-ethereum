@@ -1,29 +1,29 @@
 //
-//                                          |\,&#39;\
-//          ___                             | &#39;  \
-//     ___  \ /  ___         ,&#39;\_           | .-. \        /|
-//     \ /  | |,&#39;__ \  ,&#39;\_  |   \          | | | |      ,&#39; |_   /|
-//   _ | |  | |\/  \ \ |   \ | |\_|    _    | |_| |   _ &#39;-. .-&#39;,&#39; |_   _
-//  // | |  | |____| | | |\_|| |__    //    |     | ,&#39;_`. | | &#39;-. .-&#39;,&#39; `. ,&#39;\_
-//  \\_| |_,&#39; .-, _  | | |   | |\ \  //    .| |\_/ | / \ || |   | | / |\  \|   \
-//   `-. .-&#39;| |/ / | | | |   | | \ \//     |  |    | | | || |   | | | |_\ || |\_|
-//     | |  | || \_| | | |   /_\  \ /      | |`    | | | || |   | | | .---&#39;| |
+//                                          |\,'\
+//          ___                             | '  \
+//     ___  \ /  ___         ,'\_           | .-. \        /|
+//     \ /  | |,'__ \  ,'\_  |   \          | | | |      ,' |_   /|
+//   _ | |  | |\/  \ \ |   \ | |\_|    _    | |_| |   _ '-. .-',' |_   _
+//  // | |  | |____| | | |\_|| |__    //    |     | ,'_`. | | '-. .-',' `. ,'\_
+//  \\_| |_,' .-, _  | | |   | |\ \  //    .| |\_/ | / \ || |   | | / |\  \|   \
+//   `-. .-'| |/ / | | | |   | | \ \//     |  |    | | | || |   | | | |_\ || |\_|
+//     | |  | || \_| | | |   /_\  \ /      | |`    | | | || |   | | | .---'| |
 //     | |  | |\___,_\ /_\ _      //       | |     | \_/ || |   | | | |  /\| |
-//     /_\  | |           //_____//       .||`  _   `._,&#39; | |   | | \ `-&#39; /| |
-//          /_\           `------&#39;        \ |  /-\ND _     `.\  | |  `._,&#39; /_\
+//     /_\  | |           //_____//       .||`  _   `._,' | |   | | \ `-' /| |
+//          /_\           `------'        \ |  /-\ND _     `.\  | |  `._,' /_\
 //                                         \|        |HE         `.\
 //                                                                                                                                      
 //        ,--.  ,--. ,-----. ,------.  ,-----.,------. ,--. ,--.,--.   ,--.    
-//        |  &#39;--&#39;  |&#39;  .-.  &#39;|  .--. &#39;&#39;  .--./|  .--. &#39;|  | |  | \  `.&#39;  /    
-//        |  .--.  ||  | |  ||  &#39;--&#39;.&#39;|  |    |  &#39;--&#39;.&#39;|  | |  |  .&#39;    \      
-//        |  |  |  |&#39;  &#39;-&#39;  &#39;|  |\  \ &#39;  &#39;--&#39;\|  |\  \ &#39;  &#39;-&#39;  &#39; /  .&#39;.  \    
-//        `--&#39;  `--&#39; `-----&#39; `--&#39; &#39;--&#39; `-----&#39;`--&#39; &#39;--&#39; `-----&#39; &#39;--&#39;   &#39;--&#39;    
+//        |  '--'  |'  .-.  '|  .--. ''  .--./|  .--. '|  | |  | \  `.'  /    
+//        |  .--.  ||  | |  ||  '--'.'|  |    |  '--'.'|  | |  |  .'    \      
+//        |  |  |  |'  '-'  '|  |\  \ '  '--'\|  |\  \ '  '-'  ' /  .'.  \    
+//        `--'  `--' `-----' `--' '--' `-----'`--' '--' `-----' '--'   '--'    
 //  
 //     The              ,--------. ,-----. ,--. ,--.,------.,--.  ,--. ,---.   
-//      0xDiary        &#39;--.  .--&#39;&#39;  .-.  &#39;|  .&#39;   /|  .---&#39;|  ,&#39;.|  |&#39;   .-&#39;
-//        Token           |  |   |  | |  ||  .   &#39; |  `--, |  |&#39; &#39;  |`.  `-.  
-//                        |  |   &#39;  &#39;-&#39;  &#39;|  |\   \|  `---.|  | `   |.-&#39;    | 
-//                        `--&#39;    `-----&#39; `--&#39; &#39;--&#39;`------&#39;`--&#39;  `--&#39;`-----&#39;
+//      0xDiary        '--.  .--''  .-.  '|  .'   /|  .---'|  ,'.|  |'   .-'
+//        Token           |  |   |  | |  ||  .   ' |  `--, |  |' '  |`.  `-.  
+//                        |  |   '  '-'  '|  |\   \|  `---.|  | `   |.-'    | 
+//                        `--'    `-----' `--' '--'`------'`--'  `--'`-----'
 //   
 //                  A Mineable ERC-20 / ERC-918 Token/Smart Contract
 //                     
@@ -78,7 +78,7 @@
 pragma solidity ^0.4.18;
 // ----------------------------------------------------------------------------
 
-// &#39;0xDiary Token&#39; contract
+// '0xDiary Token' contract
 
 // Mineable ERC20 Token using Proof Of Work
 
@@ -243,7 +243,7 @@ contract _0xDiaryToken is ERC20Interface, Owned {
 
     uint public latestDifficultyPeriodStarted;
 
-    uint public epochCount;//number of &#39;blocks&#39; mined
+    uint public epochCount;//number of 'blocks' mined
 
     uint public _BLOCKS_PER_READJUSTMENT = 250;
 
@@ -314,7 +314,7 @@ contract _0xDiaryToken is ERC20Interface, Owned {
 
         function mint(uint256 nonce, bytes32 challenge_digest) public returns (bool success) {
 
-            //the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender&#39;s address to prevent MITM attacks
+            //the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender's address to prevent MITM attacks
             bytes32 digest =  keccak256(challengeNumber, msg.sender, nonce );
 
             //the challenge digest must match the expected
@@ -350,7 +350,7 @@ contract _0xDiaryToken is ERC20Interface, Owned {
 
         }
 
-    //a new &#39;block&#39; to be mined
+    //a new 'block' to be mined
     function _startNewMiningEpoch() internal {
 
       //if max supply for the era will be exceeded next reward round then enter the new era before that happens
@@ -389,7 +389,7 @@ contract _0xDiaryToken is ERC20Interface, Owned {
         uint ethBlocksSinceLastDifficultyPeriod = block.number - latestDifficultyPeriodStarted;
         //assume 360 ethereum blocks per hour
 
-        //we want miners to spend 2 minutes to mine each &#39;block&#39;, about 12 ethereum blocks = one 0xdiary epoch
+        //we want miners to spend 2 minutes to mine each 'block', about 12 ethereum blocks = one 0xdiary epoch
                       uint epochsMined = _BLOCKS_PER_READJUSTMENT; //256
 
        
@@ -493,8 +493,8 @@ contract _0xDiaryToken is ERC20Interface, Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
 
@@ -512,7 +512,7 @@ contract _0xDiaryToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -555,7 +555,7 @@ contract _0xDiaryToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
 
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
@@ -566,7 +566,7 @@ contract _0xDiaryToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
 
@@ -583,7 +583,7 @@ contract _0xDiaryToken is ERC20Interface, Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
 
     function () public payable {
@@ -606,31 +606,31 @@ contract _0xDiaryToken is ERC20Interface, Owned {
 
 // ----------------------------------------------------------------------------
 //
-//                                          |\,&#39;\
-//          ___                             | &#39;  \
-//     ___  \ /  ___         ,&#39;\_           | .-. \        /|
-//     \ /  | |,&#39;__ \  ,&#39;\_  |   \          | | | |      ,&#39; |_   /|
-//   _ | |  | |\/  \ \ |   \ | |\_|    _    | |_| |   _ &#39;-. .-&#39;,&#39; |_   _
-//  // | |  | |____| | | |\_|| |__    //    |     | ,&#39;_`. | | &#39;-. .-&#39;,&#39; `. ,&#39;\_
-//  \\_| |_,&#39; .-, _  | | |   | |\ \  //    .| |\_/ | / \ || |   | | / |\  \|   \
-//   `-. .-&#39;| |/ / | | | |   | | \ \//     |  |    | | | || |   | | | |_\ || |\_|
-//     | |  | || \_| | | |   /_\  \ /      | |`    | | | || |   | | | .---&#39;| |
+//                                          |\,'\
+//          ___                             | '  \
+//     ___  \ /  ___         ,'\_           | .-. \        /|
+//     \ /  | |,'__ \  ,'\_  |   \          | | | |      ,' |_   /|
+//   _ | |  | |\/  \ \ |   \ | |\_|    _    | |_| |   _ '-. .-',' |_   _
+//  // | |  | |____| | | |\_|| |__    //    |     | ,'_`. | | '-. .-',' `. ,'\_
+//  \\_| |_,' .-, _  | | |   | |\ \  //    .| |\_/ | / \ || |   | | / |\  \|   \
+//   `-. .-'| |/ / | | | |   | | \ \//     |  |    | | | || |   | | | |_\ || |\_|
+//     | |  | || \_| | | |   /_\  \ /      | |`    | | | || |   | | | .---'| |
 //     | |  | |\___,_\ /_\ _      //       | |     | \_/ || |   | | | |  /\| |
-//     /_\  | |           //_____//       .||`  _   `._,&#39; | |   | | \ `-&#39; /| |
-//          /_\           `------&#39;        \ |  /-\ND _     `.\  | |  `._,&#39; /_\
+//     /_\  | |           //_____//       .||`  _   `._,' | |   | | \ `-' /| |
+//          /_\           `------'        \ |  /-\ND _     `.\  | |  `._,' /_\
 //                                         \|        |HE         `.\
 //                                                                                                                                      
 //        ,--.  ,--. ,-----. ,------.  ,-----.,------. ,--. ,--.,--.   ,--.    
-//        |  &#39;--&#39;  |&#39;  .-.  &#39;|  .--. &#39;&#39;  .--./|  .--. &#39;|  | |  | \  `.&#39;  /    
-//        |  .--.  ||  | |  ||  &#39;--&#39;.&#39;|  |    |  &#39;--&#39;.&#39;|  | |  |  .&#39;    \      
-//        |  |  |  |&#39;  &#39;-&#39;  &#39;|  |\  \ &#39;  &#39;--&#39;\|  |\  \ &#39;  &#39;-&#39;  &#39; /  .&#39;.  \    
-//        `--&#39;  `--&#39; `-----&#39; `--&#39; &#39;--&#39; `-----&#39;`--&#39; &#39;--&#39; `-----&#39; &#39;--&#39;   &#39;--&#39;    
+//        |  '--'  |'  .-.  '|  .--. ''  .--./|  .--. '|  | |  | \  `.'  /    
+//        |  .--.  ||  | |  ||  '--'.'|  |    |  '--'.'|  | |  |  .'    \      
+//        |  |  |  |'  '-'  '|  |\  \ '  '--'\|  |\  \ '  '-'  ' /  .'.  \    
+//        `--'  `--' `-----' `--' '--' `-----'`--' '--' `-----' '--'   '--'    
 //  
 //     The              ,--------. ,-----. ,--. ,--.,------.,--.  ,--. ,---.   
-//      0xDiary        &#39;--.  .--&#39;&#39;  .-.  &#39;|  .&#39;   /|  .---&#39;|  ,&#39;.|  |&#39;   .-&#39;
-//        Token           |  |   |  | |  ||  .   &#39; |  `--, |  |&#39; &#39;  |`.  `-.  
-//                        |  |   &#39;  &#39;-&#39;  &#39;|  |\   \|  `---.|  | `   |.-&#39;    | 
-//                        `--&#39;    `-----&#39; `--&#39; &#39;--&#39;`------&#39;`--&#39;  `--&#39;`-----&#39;
+//      0xDiary        '--.  .--''  .-.  '|  .'   /|  .---'|  ,'.|  |'   .-'
+//        Token           |  |   |  | |  ||  .   ' |  `--, |  |' '  |`.  `-.  
+//                        |  |   '  '-'  '|  |\   \|  `---.|  | `   |.-'    | 
+//                        `--'    `-----' `--' '--'`------'`--'  `--'`-----'
 //
 //
 //          0xDiary   0xRing   0xLocket   0xCup   0xDiadem   0xHP   0xSnake

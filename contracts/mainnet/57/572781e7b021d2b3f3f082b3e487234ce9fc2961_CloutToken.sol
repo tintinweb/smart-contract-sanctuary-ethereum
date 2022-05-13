@@ -228,7 +228,7 @@ contract CloutToken is StandardToken {
             }
             
             
-            //Make sure someone isn&#39;t buying more than the remaining supply
+            //Make sure someone isn't buying more than the remaining supply
             check = 0;
             
             check = safeAdd(totalSupply, tokenAmount);
@@ -239,19 +239,19 @@ contract CloutToken is StandardToken {
             }
             
             
-            //Make sure someone isn&#39;t buying more than the current tier
+            //Make sure someone isn't buying more than the current tier
             if (totalSupply < 25000 && check > 25000)
             {
                 revert();
             }
             
-            //Make sure someone isn&#39;t buying more than the current tier
+            //Make sure someone isn't buying more than the current tier
             if (totalSupply < 125000 && check > 125000)
             {
                 revert();
             }
             
-            //Make sure someone isn&#39;t buying more than the current tier
+            //Make sure someone isn't buying more than the current tier
             if (totalSupply < 525000 && check > 525000)
             {
                 revert();
@@ -267,7 +267,7 @@ contract CloutToken is StandardToken {
             
     
         	mint(msg.sender, tokenAmount);
-        	tokenAmount = 0;							//set the &#39;amount&#39; var back to zero
+        	tokenAmount = 0;							//set the 'amount' var back to zero
         	check = 0;
         	rate = 0;
         		

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;WALK&#39; token contract
+// 'WALK' token contract
 //
 // Deployed to : 0xFF0CC9129661Be56eeD8ab09B0A66C6a2Af5bf54
 // Symbol : WKX
@@ -139,8 +139,8 @@ return balances[tokenOwner];
 
 
 // ------------------------------------------------------------------------
-// Transfer the balance from token owner&#39;s account to to account
-// - Owner&#39;s account must have sufficient balance to transfer
+// Transfer the balance from token owner's account to to account
+// - Owner's account must have sufficient balance to transfer
 // - 0 value transfers are allowed
 // ------------------------------------------------------------------------
 function transfer(address to, uint tokens) public returns (bool success) {
@@ -153,7 +153,7 @@ return true;
 
 // ------------------------------------------------------------------------
 // Token owner can approve for spender to transferFrom(...) tokens
-// from the token owner&#39;s account
+// from the token owner's account
 //
 // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
 // recommends that there are no checks for the approval double-spend attack
@@ -186,7 +186,7 @@ return true;
 
 // ------------------------------------------------------------------------
 // Returns the amount of tokens approved by the owner that can be
-// transferred to the spender&#39;s account
+// transferred to the spender's account
 // ------------------------------------------------------------------------
 function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
 return allowed[tokenOwner][spender];
@@ -195,7 +195,7 @@ return allowed[tokenOwner][spender];
 
 // ------------------------------------------------------------------------
 // Token owner can approve for spender to transferFrom(...) tokens
-// from the token owner&#39;s account. The spender contract function
+// from the token owner's account. The spender contract function
 // receiveApproval(...) is then executed
 // ------------------------------------------------------------------------
 function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -207,7 +207,7 @@ return true;
 
 
 // ------------------------------------------------------------------------
-// Don&#39;t accept ETH
+// Don't accept ETH
 // ------------------------------------------------------------------------
 function () public payable {
 revert();

@@ -165,7 +165,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -251,7 +251,7 @@ contract GigERC20 is StandardToken, Ownable {
         bool _transferAllSupplyToOwner,
         bool _locked
     ) public {
-        standard = &#39;ERC20 0.1&#39;;
+        standard = 'ERC20 0.1';
         locked = _locked;
         totalSupply_ = _totalSupply;
 
@@ -337,7 +337,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -391,7 +391,7 @@ contract MintingERC20 is GigERC20 {
     )
         public GigERC20(_initialSupply, _tokenName, _decimals, _symbol, _transferAllSupplyToOwner, _locked)
     {
-        standard = &#39;MintingERC20 0.1&#39;;
+        standard = 'MintingERC20 0.1';
         minters[msg.sender] = true;
         maxSupply = _maxSupply;
     }
@@ -469,9 +469,9 @@ contract GigToken is MintingERC20 {
     event MaxSupplyBurned(uint256 burnedTokens);
 
     function GigToken(bool _locked) public
-        MintingERC20(0, maxSupply, &#39;GigBit&#39;, 18, &#39;GBTC&#39;, false, _locked)
+        MintingERC20(0, maxSupply, 'GigBit', 18, 'GBTC', false, _locked)
     {
-        standard = &#39;GBTC 0.1&#39;;
+        standard = 'GBTC 0.1';
 
         maxSupply = uint256(1000000000).mul(uint256(10) ** decimals);
     }
@@ -665,7 +665,7 @@ contract Multivest is Ownable {
     }
 
     function verify(bytes32 _hash, uint8 _v, bytes32 _r, bytes32 _s) internal pure returns (address) {
-        bytes memory prefix = &#39;\x19Ethereum Signed Message:\n32&#39;;
+        bytes memory prefix = '\x19Ethereum Signed Message:\n32';
 
         return ecrecover(keccak256(prefix, _hash), _v, _r, _s);
     }

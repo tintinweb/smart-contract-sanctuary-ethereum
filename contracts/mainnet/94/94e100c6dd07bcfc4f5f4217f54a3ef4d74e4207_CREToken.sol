@@ -103,7 +103,7 @@ contract Token is SafeMath {
 
 	function burn(uint256 amount) public returns (bool);
 
-	/// mapping the main chain&#39;s key to eth key
+	/// mapping the main chain's key to eth key
 	/// @param key Tf main chain
 	function register(string key) public returns (bool);
 
@@ -121,8 +121,8 @@ contract Token is SafeMath {
 contract StandardToken is Token, CREAuth {
 
 	function transfer(address _to, uint256 _value) public returns (bool ind) {
-		//Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-		//If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+		//Default assumes totalSupply can't be over max (2^256 - 1).
+		//If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
 		//Replace the if with this one instead.
 
 		require(_to != address(0));

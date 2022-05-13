@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -552,7 +552,7 @@ contract Crowdsale {
     }
     
     /**
-     * @dev Mint reserved tokens to the owner&#39;s wallet
+     * @dev Mint reserved tokens to the owner's wallet
      * 
      */
     function preMinting() private  {

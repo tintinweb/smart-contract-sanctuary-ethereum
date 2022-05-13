@@ -257,8 +257,8 @@ contract Crowdsale is Pausable {
         if (backer.weiReceived == 0)
             backersIndex.push(_backer);
 
-        backer.tokensToSend += tokensToSend; // save contributor&#39;s total tokens sent
-        backer.weiReceived = backer.weiReceived.add(msg.value);  // save contributor&#39;s total ether contributed
+        backer.tokensToSend += tokensToSend; // save contributor's total tokens sent
+        backer.weiReceived = backer.weiReceived.add(msg.value);  // save contributor's total ether contributed
 
         if (Step.FundingPublicSale == currentStep) { // Update the total Ether received and tokens sent during public sale
             ethReceivedMain = ethReceivedMain.add(msg.value);
@@ -286,10 +286,10 @@ contract Crowdsale is Pausable {
         uint tokensToSend = msg.value.mul(1e8) / tokenPriceWei;   //1e8 ensures that token gets 8 decimal values
 
         if (Step.FundingPublicSale == currentStep) {  // calculate price of token in public sale
-            require(totalTokensSent + tokensToSend + priorTokensSent <= maxCap); // Ensure that max cap hasn&#39;t been reached
+            require(totalTokensSent + tokensToSend + priorTokensSent <= maxCap); // Ensure that max cap hasn't been reached
         }else {
             tokensToSend += (tokensToSend * 50) / 100;
-            require(totalTokensSent + tokensToSend <= presaleCap); // Ensure that max cap hasn&#39;t been reached for presale
+            require(totalTokensSent + tokensToSend <= presaleCap); // Ensure that max cap hasn't been reached for presale
         }
         return tokensToSend;
     }
@@ -331,7 +331,7 @@ contract Crowdsale is Pausable {
         Backer storage backer = backers[msg.sender];
 
         require(backer.weiReceived > 0);  // ensure that user has sent contribution
-        require(!backer.refunded);        // ensure that user hasn&#39;t been refunded yet
+        require(!backer.refunded);        // ensure that user hasn't been refunded yet
 
         backer.refunded = true;  // save refund status to true
         refundCount++;
@@ -456,7 +456,7 @@ contract Token is ERC20, Ownable {
     *
     * Beware that changing an allowance with this method brings the risk that someone may use both the old
     * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-    * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+    * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
     * @param _spender The address which will spend the funds.
     * @param _value The amount of tokens to be spent.

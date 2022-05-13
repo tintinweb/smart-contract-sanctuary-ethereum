@@ -82,7 +82,7 @@ contract GECToken is StandardToken {
 
 	uint illiquidBalance_amount;
 	mapping (uint => address) illiquidBalance_index;
-	mapping (address => uint) public illiquidBalance; //Balance of &#39;Frozen funds&#39;
+	mapping (address => uint) public illiquidBalance; //Balance of 'Frozen funds'
 
 	// called by crowdsale contract
 	modifier only_minter {
@@ -136,7 +136,7 @@ contract GECToken is StandardToken {
 		return true;
 	}
 
-	// Make sender&#39;s illiquid balance liquid when called after lockout period.
+	// Make sender's illiquid balance liquid when called after lockout period.
 	function makeLiquid()
 		only_minter
 	{

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;ZETA&#39; token contract
+// 'ZETA' token contract
 //
 // Deployed to : 0x9E7F951917Ec5E973FF0F54BF2AAA386F0494388
 // Symbol      : ZETA

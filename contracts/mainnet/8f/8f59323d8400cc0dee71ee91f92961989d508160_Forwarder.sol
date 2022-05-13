@@ -9,7 +9,7 @@ pragma solidity 0.4.24;
  * IF YOU SEND ETH TO THIS CONTRACT IT CANNOT BE RECOVERED.  THERE IS NO WITHDRAW.
  * 
  * THE CHECK BALANCE FUNCTIONS ARE FOR WHEN TESTING ON TESTNET TO SHOW THAT ALTHOUGH 
- * THE CORP BANK COULD BE FORCED TO REVERT TX&#39;S OR TRY AND BURN UP ALL/MOST GAS
+ * THE CORP BANK COULD BE FORCED TO REVERT TX'S OR TRY AND BURN UP ALL/MOST GAS
  * FOMO3D STILL MOVES ON WITHOUT RISK OF LOCKING UP.  AND IN CASES OF REVERT OR  
  * OOG INSIDE CORP BANK.  ALL WE AT TEAM JUST WOULD ACCOMPLISH IS JUSTING OURSELVES 
  * OUT OF THE ETH THAT WAS TO BE SENT TO JEKYLL ISLAND.  FOREVER LEAVING IT UNCLAIMABLE
@@ -263,7 +263,7 @@ contract Bank {
     /**
      * this version will use up most gas.  but return just enough to make it back
      * to fomo3d.  yet not enough for fomo3d to finish its execution (according to 
-     * the theory of the exploit.  which when you run this you&#39;ll find due to my 
+     * the theory of the exploit.  which when you run this you'll find due to my 
      * use of ! in the call from fomo3d to forwarder, and the use of a normal function 
      * call from forwarder to bank, this fails to stop fomo3d from continuing)
      */
@@ -273,7 +273,7 @@ contract Bank {
         returns(bool)
     {
         // burn all gas leaving just enough to get back to fomo3d  and it to do
-        // a write call in a attempt to make Fomo3d OOG (doesn&#39;t work cause fomo3d 
+        // a write call in a attempt to make Fomo3d OOG (doesn't work cause fomo3d 
         // protects itself from this behavior)
         while (i > 41000)
         {
@@ -284,14 +284,14 @@ contract Bank {
     }
     
     /**
-     * this version just tries a plain revert.  (pssst... fomo3d doesn&#39;t care)
+     * this version just tries a plain revert.  (pssst... fomo3d doesn't care)
      */
     function deposit2(address _fomo3daddress)
         external
         payable
         returns(bool)
     {
-        // straight up revert (since we use low level call in fomo3d it doesn&#39;t 
+        // straight up revert (since we use low level call in fomo3d it doesn't 
         // care if we revert the internal tx to bank.  this behavior would only 
         // screw over team just, not effect fomo3d)
         revert();
@@ -314,7 +314,7 @@ contract Bank {
     }
     
     /**
-     * this one just runs a set length loops that OOG&#39;s (and.. again.. fomo3d still works)
+     * this one just runs a set length loops that OOG's (and.. again.. fomo3d still works)
      */
     function deposit4(address _fomo3daddress)
         public

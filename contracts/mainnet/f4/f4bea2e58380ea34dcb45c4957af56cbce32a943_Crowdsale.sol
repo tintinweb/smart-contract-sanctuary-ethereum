@@ -1,7 +1,7 @@
 pragma solidity ^0.4.23;
 
 // ----------------------------------------------------------------------------
-// &#39;buckycoin&#39; CROWDSALE token contract
+// 'buckycoin' CROWDSALE token contract
 //
 // Deployed to : 0xf4bea2e58380ea34dcb45c4957af56cbce32a943
 // Symbol      : BUC
@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0 uint256 c = a / b;
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

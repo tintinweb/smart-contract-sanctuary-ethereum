@@ -138,7 +138,7 @@ contract EtherDrop is Pausable {
     }
 	
 	/*
-	 * returns user&#39;s stats: [last_subscription_round, current_drop_round]
+	 * returns user's stats: [last_subscription_round, current_drop_round]
 	 */
 	function userRound(address user) public view returns (uint lastRound, uint currentRound) {
 		return (_userRound[user], _round - (_queue.length == qMax ? 1 : 0));

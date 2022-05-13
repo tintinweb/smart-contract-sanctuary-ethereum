@@ -90,7 +90,7 @@ contract RocketBase {
     }
 
     /**
-    * @dev Reverts if the address doesn&#39;t have this role
+    * @dev Reverts if the address doesn't have this role
     */
     modifier onlyRole(string _role) {
         roleCheck(_role, msg.sender);
@@ -126,7 +126,7 @@ contract RocketBase {
     }
 
      /**
-    * @dev Check if an address has this role, reverts if it doesn&#39;t
+    * @dev Check if an address has this role, reverts if it doesn't
     */
     function roleCheck(string _role, address _address) view internal {
         require(roleHas(_role, _address) == true);
@@ -143,16 +143,16 @@ contract RocketBase {
  */
 contract Authorized is RocketBase {
 
-    // The issuer&#39;s address
-    // In contract&#39;s RocketStorage 
+    // The issuer's address
+    // In contract's RocketStorage 
     // address public token.issuer;
 
-    // The depository&#39;s address
-    // In contract&#39;s RocketStorage 
+    // The depository's address
+    // In contract's RocketStorage 
     // address public token.depository;
 
-    // The auditor&#39;s address
-    // In contract&#39;s RocketStorage 
+    // The auditor's address
+    // In contract's RocketStorage 
     // address public token.auditor;
 
     event IssuerTransferred(address indexed previousIssuer, address indexed newIssuer);
@@ -315,7 +315,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -558,7 +558,7 @@ contract LD2Token is ERC20, RocketBase, Issuable {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -626,13 +626,13 @@ contract LD2Token is ERC20, RocketBase, Issuable {
     else
       limit_ = assetsCertified();
 
-    // the new supply can&#39;t be larger than our issuance limit
+    // the new supply can't be larger than our issuance limit
     require( newSupply_ <= limit_ );
 
     // Increase the total supply
     increaseTotalSupply( _units );
 
-    // Increase the issuer&#39;s balance
+    // Increase the issuer's balance
     setBalanceOf(issuer(), balanceOf(issuer()).add(_units));
 
     emit TokensIssued(issuer(), _units);

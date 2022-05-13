@@ -1,7 +1,7 @@
 pragma solidity ^0.4.19;
 
 /*
-    Utility contract for Arby and it&#39;s various exchanges
+    Utility contract for Arby and it's various exchanges
     Some of these functions originated from (and then improved upon) DeltaBalances.github.io
     Check balances for multiple ERC20 tokens for multiple users in 1 batched call
     Check exchange rates for many Bancor contracts in one batched call
@@ -32,7 +32,7 @@ contract BalanceCheckerN {
         admin = 0x96670A91E1A0dbAde97fCDC0ABdDEe769C21fc8e;
     }
 
-    //default function, don&#39;t accept any ETH
+    //default function, don't accept any ETH
     function() public payable {
         revert();
     }
@@ -108,7 +108,7 @@ contract BalanceCheckerN {
    }
 
     /* Check the token balances of a wallet for multiple tokens
-       Uses tokenBalance() to be able to return, even if a token isn&#39;t valid
+       Uses tokenBalance() to be able to return, even if a token isn't valid
        Possible error throws:
            - extremely large arrays (gas cost too high)
 
@@ -129,7 +129,7 @@ contract BalanceCheckerN {
     }
 
     /* Check the token allowances of a wallet for multiple tokens
-       Uses tokenBalance() to be able to return, even if a token isn&#39;t valid
+       Uses tokenBalance() to be able to return, even if a token isn't valid
        Possible error throws:
            - extremely large arrays (gas cost too high)
 
@@ -185,7 +185,7 @@ contract BalanceCheckerN {
         return balances;
     }
 
-    /* Check the balances of many address&#39; WETH (which is a 0x ETH wrapper for 0x exchanges)
+    /* Check the balances of many address' WETH (which is a 0x ETH wrapper for 0x exchanges)
        */
     function allWETHbalances(
         address wethAddress,

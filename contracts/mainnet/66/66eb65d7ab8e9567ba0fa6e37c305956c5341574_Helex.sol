@@ -31,7 +31,7 @@
     contract  Helex{
     
 	
-	string public standard = &#39;Helex 7.0&#39;;
+	string public standard = 'Helex 7.0';
     using SafeMath for uint256;
     mapping(address => mapping(address => uint256)) allowed;
     mapping(address => uint256) balances;
@@ -48,7 +48,7 @@
     function  Helex() 
     {
         totalSupply = 2100000000000;
-        symbol = &#39;HLX&#39;;
+        symbol = 'HLX';
         owner = 0x27d5DacEDc4F1C98B56723174eEab8E4EFc9AbA6;
         balances[owner] = 2100000000000;
         decimals = 5;

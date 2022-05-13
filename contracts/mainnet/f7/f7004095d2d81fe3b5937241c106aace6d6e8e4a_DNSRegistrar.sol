@@ -107,7 +107,7 @@ library BytesUtils {
     }
 
     /*
-    * @dev Compares a range of &#39;self&#39; to all of &#39;other&#39; and returns True iff
+    * @dev Compares a range of 'self' to all of 'other' and returns True iff
     *      they are equal.
     * @param self The first byte range to compare.
     * @param offset The offset into the first byte range.
@@ -251,7 +251,7 @@ library BytesUtils {
 
     // Maps characters from 0x30 to 0x7A to their base32 values.
     // 0xFF represents invalid characters in that range.
-    bytes constant base32HexTable = hex&#39;00010203040506070809FFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1FFFFFFFFFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1F&#39;;
+    bytes constant base32HexTable = hex'00010203040506070809FFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1FFFFFFFFFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1F';
 
     /**
      * @dev Decodes unpadded base32 data of up to one word in length.
@@ -425,7 +425,7 @@ library Buffer {
             let buflen := mload(bufptr)
             // Start address = buffer address + offset + sizeof(buffer length)
             dest := add(add(bufptr, 32), off)
-            // Update buffer length if we&#39;re extending it
+            // Update buffer length if we're extending it
             if gt(add(len, off), buflen) {
                 mstore(bufptr, add(len, off))
             }
@@ -620,10 +620,10 @@ library RRUtils {
     using Buffer for *;
 
     /**
-    * @dev Returns the number of bytes in the DNS name at &#39;offset&#39; in &#39;self&#39;.
+    * @dev Returns the number of bytes in the DNS name at 'offset' in 'self'.
     * @param self The byte array to read a name from.
     * @param offset The offset to start reading at.
-    * @return The length of the DNS name at &#39;offset&#39;, in bytes.
+    * @return The length of the DNS name at 'offset', in bytes.
     */
     function nameLength(bytes memory self, uint offset) internal pure returns(uint) {
         uint idx = offset;
@@ -650,10 +650,10 @@ library RRUtils {
     }
 
     /**
-    * @dev Returns the number of labels in the DNS name at &#39;offset&#39; in &#39;self&#39;.
+    * @dev Returns the number of labels in the DNS name at 'offset' in 'self'.
     * @param self The byte array to read a name from.
     * @param offset The offset to start reading at.
-    * @return The number of labels in the DNS name at &#39;offset&#39;, in bytes.
+    * @return The number of labels in the DNS name at 'offset', in bytes.
     */
     function labelCount(bytes memory self, uint offset) internal pure returns(uint) {
         uint count = 0;
@@ -743,7 +743,7 @@ library RRUtils {
     /**
     * @dev Returns the rdata portion of the current record.
     * @param iter The iterator.
-    * @return A new bytes object containing the RR&#39;s RDATA.
+    * @return A new bytes object containing the RR's RDATA.
     */
     function rdata(RRIterator memory iter) internal pure returns(bytes memory) {
         return iter.data.substring(iter.rdataOffset, iter.nextOffset - iter.rdataOffset);
@@ -764,7 +764,7 @@ library RRUtils {
             uint8 window = self.readUint8(off);
             uint8 len = self.readUint8(off + 1);
             if (typeWindow < window) {
-                // We&#39;ve gone past our window; it&#39;s not here.
+                // We've gone past our window; it's not here.
                 return false;
             } else if (typeWindow == window) {
                 // Check this type bitmap
@@ -989,7 +989,7 @@ contract DNSRegistrar {
      * @param name The name to claim, in DNS wire format.
      * @param proof A DNS RRSet proving ownership of the name. Must be verified
      *        in the DNSSEC oracle before calling. This RRSET must contain a TXT
-     *        record for &#39;_ens.&#39; + name, with the value &#39;a=0x...&#39;. Ownership of
+     *        record for '_ens.' + name, with the value 'a=0x...'. Ownership of
      *        the name will be transferred to the address specified in the TXT
      *        record.
      */
@@ -1005,7 +1005,7 @@ contract DNSRegistrar {
     /**
      * @dev Submits proofs to the DNSSEC oracle, then claims a name using those proofs.
      * @param name The name to claim, in DNS wire format.
-     * @param input The data to be passed to the Oracle&#39;s `submitProofs` function. The last
+     * @param input The data to be passed to the Oracle's `submitProofs` function. The last
      *        proof must be the TXT record required by the registrar.
      * @param proof The proof record for the first element in input.
      */
@@ -1016,7 +1016,7 @@ contract DNSRegistrar {
 
     function getLabelHash(bytes memory name) internal view returns(bytes32) {
         uint len = name.readUint8(0);
-        // Check this name is a direct subdomain of the one we&#39;re responsible for
+        // Check this name is a direct subdomain of the one we're responsible for
         require(name.equals(len + 1, rootDomain));
         return name.keccak(1, len);
     }
@@ -1060,7 +1060,7 @@ contract DNSRegistrar {
 
     function parseString(bytes memory str, uint idx, uint len) internal pure returns(address) {
         // TODO: More robust parsing that handles whitespace and multiple key/value pairs
-        if(str.readUint32(idx) != 0x613d3078) return 0; // 0x613d3078 == &#39;a=0x&#39;
+        if(str.readUint32(idx) != 0x613d3078) return 0; // 0x613d3078 == 'a=0x'
         if(len < 44) return 0;
         return hexToAddress(str, idx + 4);
     }

@@ -68,7 +68,7 @@ contract FidgetSpinner is Owned {
     uint deltaOmega = timeElapsed * decayRate;
     int newOmega = omega + (int(deltaOmega) * dir);
 
-    // make sure we didn&#39;t cross zero
+    // make sure we didn't cross zero
     if((omega > 0 && newOmega < 0) || (omega < 0 && newOmega > 0)) {
       return 0;
     }

@@ -17,7 +17,7 @@ contract Token {
 contract StandToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        // check total num , sender&#39;s balance
+        // check total num , sender's balance
         if (balances[msg.sender] >= _value && _value > 0) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;

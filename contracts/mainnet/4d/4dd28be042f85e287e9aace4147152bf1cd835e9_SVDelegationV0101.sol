@@ -13,7 +13,7 @@ contract SVDelegationV0101 {
 
     address public owner;
 
-    // in the last version we didn&#39;t include enough data - this makes it trivial to traverse off-chain
+    // in the last version we didn't include enough data - this makes it trivial to traverse off-chain
     struct Delegation {
         uint64 thisDelegationId;
         uint64 prevDelegationId;
@@ -89,7 +89,7 @@ contract SVDelegationV0101 {
             _tokenDlgt = globalDlgts[voter];
         }
 
-        // default to 0 if we don&#39;t have a valid delegation
+        // default to 0 if we don't have a valid delegation
         if (_validDelegation(_tokenDlgt)) {
             return _tokenDlgt.thisDelegationId;
         }
@@ -110,7 +110,7 @@ contract SVDelegationV0101 {
             return _dlgtRet(_globalDlgt);
         }
 
-        // but if we don&#39;t have a delegation in this contract then resolve according the prev contract
+        // but if we don't have a delegation in this contract then resolve according the prev contract
         address _dlgt;
         uint256 meh;
         (meh, _dlgt, meh, meh) = prevSVDelegation.resolveDelegation(voter, tokenContract);
@@ -180,7 +180,7 @@ contract SVDelegationV0101 {
         for (i = 1; i < totalDelegations; i++) {
             _delegation = historicalDelegations[i];
             if (_delegation.delegatee == delegate) {
-                // since `.push` isn&#39;t available on memory arrays, use their length as the next index location
+                // since `.push` isn't available on memory arrays, use their length as the next index location
                 voters = _appendMemArray(voters, _delegation.delegator);
                 tokenContracts = _appendMemArray(tokenContracts, _delegation.tokenContract);
             }

@@ -3,7 +3,7 @@
  * @dev NumberLottery contract starts with a random,
  * hashed number that the player can try to guess. If the guess is correct,
  * they receive the balance of the contract as a reward (including their bet).
- * If they guess incorrectly, the contract keeps the player&#39;s bet amount. Have fun!
+ * If they guess incorrectly, the contract keeps the player's bet amount. Have fun!
  */
  
 contract NumberLottery 
@@ -48,7 +48,7 @@ contract NumberLottery
           log.push(gameHistory);
           
           // if player guesses correctly, transfer contract balance
-          // else the player&#39;s bet is automatically added to the reward / contract balance
+          // else the player's bet is automatically added to the reward / contract balance
           if (_number == randomNumber) 
           {
               msg.sender.transfer(this.balance);

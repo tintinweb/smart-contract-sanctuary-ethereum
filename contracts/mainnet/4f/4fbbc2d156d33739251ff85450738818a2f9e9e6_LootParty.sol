@@ -594,13 +594,13 @@ contract LootParty is ERC721Enumerable, ReentrancyGuard, Ownable {
 		"Parish Church ", 
 		"Royal Court ", 
 		"Masquerade Ball ", 
-		"Pirate&#39;s Cove ", 
+		"Pirate's Cove ", 
 		"Noble Banquet ", 
 		"Black Death Music Party ", 
-		"Prisoner&#39;s Base ",
+		"Prisoner's Base ",
 		"Jousting Tournament ", 
 		"Hilltop Church ", 
-		"Traveller&#39;s Inn "
+		"Traveller's Inn "
 	];
 
 	string[] private characterPrefix = [

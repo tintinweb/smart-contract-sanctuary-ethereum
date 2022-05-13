@@ -76,7 +76,7 @@ contract StandardToken is BaseToken {
      * Public functions
      */
     /// @notice Send `_value` tokens to `_to` from `msg.sender`.
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param _to Address of token receiver.
     /// @param _value Number of tokens to transfer.
     /// @return Returns success of function call.

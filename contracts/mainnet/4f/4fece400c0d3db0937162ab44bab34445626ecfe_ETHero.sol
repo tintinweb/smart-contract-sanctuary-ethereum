@@ -17,7 +17,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -472,7 +472,7 @@ contract ETHero is Owned, ERC721, ERC721BasicToken {
     // Last token ID
     uint256 public lastTokenId = 0;
 
-    // Users&#39; active heroes
+    // Users' active heroes
     mapping(address => uint256) public activeHero;
 
     // Hero data
@@ -497,7 +497,7 @@ contract ETHero is Owned, ERC721, ERC721BasicToken {
     }
 
     /**
-    * @dev Sets the token&#39;s interchangeable logic contract
+    * @dev Sets the token's interchangeable logic contract
     */
     function setLogicContract(address _logicContract) external onlyOwner {
         logicContract = _logicContract;
@@ -782,7 +782,7 @@ contract ETHero is Owned, ERC721, ERC721BasicToken {
     }
 
     /**
-    * @dev Sets the specified token as user&#39;s active Hero
+    * @dev Sets the specified token as user's active Hero
     * @param _tokenId the hero token to set as active
     */
     function setActiveHero(uint256 _tokenId) external onlyOwnerOf(_tokenId) {

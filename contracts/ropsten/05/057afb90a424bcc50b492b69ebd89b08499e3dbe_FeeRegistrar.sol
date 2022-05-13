@@ -98,9 +98,9 @@ contract FeeRegistrar is Delegated {
     /// fee payer (`msg.sender`) is stored in an array.
     /// The value of the transaction must
     /// match the fee that was set in the contructor.
-    /// The only restriction is that you can&#39;t pay for the null
+    /// The only restriction is that you can't pay for the null
     /// address.
-    /// You also can&#39;t pay more than 10 times for the same address
+    /// You also can't pay more than 10 times for the same address
     /// The value that is received is directly transfered to the
     /// `treasury`.
     /// @param who The address which should be marked as paid.
@@ -144,7 +144,7 @@ contract FeeRegistrar is Delegated {
     /// send the refund
     function revoke(address who, address origin) payable external only_delegate {
         // The value must match the current fee, so we can refund
-        // the payer, since the contract doesn&#39;t hold anything.
+        // the payer, since the contract doesn't hold anything.
         require(msg.value == fee);
         bool found;
 

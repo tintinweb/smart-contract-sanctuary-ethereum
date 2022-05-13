@@ -87,7 +87,7 @@ contract EtherPremierLeague {
  
     /* VARIABLES */
    
-    // List of addresses with permissions to score games in the administrator&#39;s absence.
+    // List of addresses with permissions to score games in the administrator's absence.
     mapping(address => bool)                       referees;
    
     // Is a two digit mapping a valid entry? [including "--" for draws and "XX" for non-prediction]
@@ -102,7 +102,7 @@ contract EtherPremierLeague {
     // Is a game no longer available for predictions to be made?
     mapping (int16  =>  uint)                      gameLocked;
  
-    // A result is either the two character code of a team or &#39;--&#39; for a draw.
+    // A result is either the two character code of a team or '--' for a draw.
     mapping (int16  =>  string)                    gameResult;
  
     // Which game was most recently scored?
@@ -743,15 +743,15 @@ contract EtherPremierLeague {
     }
    
     // Used to override a single result in the event that one is incorrectly
-    // entered. Note that this will by necessity have to move everyone&#39;s &#39;latestGameScored&#39;
-    // AND their streaks back to zero so that `correct&#39; scores can be generated.
+    // entered. Note that this will by necessity have to move everyone's 'latestGameScored'
+    // AND their streaks back to zero so that `correct' scores can be generated.
     // Ideally this function will never have to be used!
     function amendSingleResult(int16 _gameID, string _result)
         public
     {
         require((int16(0) <= _gameID) && (_gameID <= 380));
         gameResult[_gameID] = _result;
-        // TODO: move everyone&#39;s ticker&#39;s back to zero
+        // TODO: move everyone's ticker's back to zero
     }
  
    /* INTERNAL FUNCTIONS */
@@ -761,7 +761,7 @@ contract EtherPremierLeague {
         private
     {
         givethAddress.transfer(givethPool);
-        // Reset the pooled donation balance, else we&#39;ll unbalance things.
+        // Reset the pooled donation balance, else we'll unbalance things.
         givethPool = 0;
     }
  
@@ -847,7 +847,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
  

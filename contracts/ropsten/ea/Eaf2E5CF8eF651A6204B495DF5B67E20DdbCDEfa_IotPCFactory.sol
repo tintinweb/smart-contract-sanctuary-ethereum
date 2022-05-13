@@ -47,7 +47,7 @@ contract IotPC {
     }
 
     function withdraw_funds() only_owner public {
-        require(now > _contract_start_time + _days_till_expiration * 1 days, &#39;Contract expiration not reached&#39;);
+        require(now > _contract_start_time + _days_till_expiration * 1 days, 'Contract expiration not reached');
         _owner.transfer(address(this).balance);
     }
 
@@ -57,12 +57,12 @@ contract IotPC {
 
     function commit(address pko, bytes32 pko_hash, bytes proof, bytes32 s, uint8 sig_v, bytes32 sig_r, bytes32 sig_s ) public {
         address pkd = msg.sender;
-        require(now <= _contract_start_time + _days_till_expiration * 1 days, &#39;Contract expired&#39;);
-        require(validate_pko(pko, pko_hash, proof), &#39;Invalid Merkle proof&#39;);
-        require(iot_devices[pko].s != REVEALED, &#39;Key already revealed for this IoT&#39;);
-        require(iot_devices[pko].pkd == 0 || (now - iot_devices[pko].commit_time) > _delta_to_reveal, &#39;Within reveal time window of another distributor&#39;);
+        require(now <= _contract_start_time + _days_till_expiration * 1 days, 'Contract expired');
+        require(validate_pko(pko, pko_hash, proof), 'Invalid Merkle proof');
+        require(iot_devices[pko].s != REVEALED, 'Key already revealed for this IoT');
+        require(iot_devices[pko].pkd == 0 || (now - iot_devices[pko].commit_time) > _delta_to_reveal, 'Within reveal time window of another distributor');
         bytes32 msgHash = keccak256(_uid, s);
-        require(verify_signature(msgHash, sig_v, sig_r, sig_s, pko), &#39;Invalid signature&#39;);
+        require(verify_signature(msgHash, sig_v, sig_r, sig_s, pko), 'Invalid signature');
         iot_devices[pko].commit_time = now;
         iot_devices[pko].pkd = pkd;
         iot_devices[pko].s = s;
@@ -71,10 +71,10 @@ contract IotPC {
 
     function reveal(bytes32 r, address pko) public {
         address pkd = msg.sender;
-        require(now <= _contract_start_time + _days_till_expiration * 1 days, &#39;Contract expired&#39;);
-        require(iot_devices[pko].s != REVEALED && iot_devices[pko].pkd == pkd && pkd != 0, &#39;Key already revealed for this IoT or committed by another distributor&#39;);
-        require(iot_devices[pko].s == sha256(r), &#39;Invalid key (not SHA256 preimage)&#39;);
-        require(now - iot_devices[pko].commit_time <= _delta_to_reveal, &#39;Not within reveal time window&#39;);
+        require(now <= _contract_start_time + _days_till_expiration * 1 days, 'Contract expired');
+        require(iot_devices[pko].s != REVEALED && iot_devices[pko].pkd == pkd && pkd != 0, 'Key already revealed for this IoT or committed by another distributor');
+        require(iot_devices[pko].s == sha256(r), 'Invalid key (not SHA256 preimage)');
+        require(now - iot_devices[pko].commit_time <= _delta_to_reveal, 'Not within reveal time window');
         iot_devices[pko].s = REVEALED;
         uint delta = _n - _num_of_updated_objects;
         require(delta > 0);

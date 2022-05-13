@@ -17,7 +17,7 @@
     a) Adding the emergency transfer functionality for owner.
     b) Removing the logic of crowdsale according to standard MintToken in order to improve the neatness and
     legibility of the Sharder smart contract coding.
-    c) Adding the broadcast event &#39;Frozen&#39;.
+    c) Adding the broadcast event 'Frozen'.
     d) Changing the parameters of name, symbol, decimal, etc. to lower-case according to convention. Adjust format of input paramters.
     e) The global parameter is added to our smart contact in order to avoid that the exchanges trade Sharder tokens
     before officials partnering with Sharder.
@@ -26,7 +26,7 @@
     g) Lockup and lock-up query functions.
     The deplyed online contract you can found at: https://etherscan.io/address/XXXXXX
 
-    Sharder-Token-v1.0 is expired. You can check the code and get the details on branch &#39;sharder-token-v1.0&#39;.
+    Sharder-Token-v1.0 is expired. You can check the code and get the details on branch 'sharder-token-v1.0'.
 */
 pragma solidity ^0.4.18;
 
@@ -43,7 +43,7 @@ library SafeMath {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -279,7 +279,7 @@ contract SharderToken {
         balanceOf[_from] -= _burnedTokensWithDecimal;
         /// Subtract from the targeted balance
         allowance[_from][msg.sender] -= _burnedTokensWithDecimal;
-        /// Subtract from the sender&#39;s allowance
+        /// Subtract from the sender's allowance
         totalSupply -= _burnedTokensWithDecimal;
         Burn(_from, _burnedTokensWithDecimal);
         return true;
@@ -352,7 +352,7 @@ contract SharderToken {
     }
 
     /**
-    * @dev Lockup account till the date. Can&#39;t lock-up again when this account locked already.
+    * @dev Lockup account till the date. Can't lock-up again when this account locked already.
     * 1 year = 31536000 seconds, 0.5 year = 15768000 seconds
     */
     function lockupAccount(address _address, uint _lockupSeconds) public onlyAdmin {

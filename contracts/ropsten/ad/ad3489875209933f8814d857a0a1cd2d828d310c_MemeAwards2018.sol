@@ -4,7 +4,7 @@ pragma solidity ^0.4.24;
   __  __                                                    _       ___   ___  __  ___  
  |  \/  |                         /\                       | |     |__ \ / _ \/_ |/ _ \ 
  | \  / | ___ _ __ ___   ___     /  \__      ____ _ _ __ __| |___     ) | | | || | (_) |
- | |\/| |/ _ \ &#39;_ ` _ \ / _ \   / /\ \ \ /\ / / _` | &#39;__/ _` / __|   / /| | | || |> _ < 
+ | |\/| |/ _ \ '_ ` _ \ / _ \   / /\ \ \ /\ / / _` | '__/ _` / __|   / /| | | || |> _ < 
  | |  | |  __/ | | | | |  __/  / ____ \ V  V / (_| | | | (_| \__ \  / /_| |_| || | (_) |
  |_|  |_|\___|_| |_| |_|\___| /_/    \_\_/\_/ \__,_|_|  \__,_|___/ |____|\___/ |_|\___/
 
@@ -86,8 +86,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -103,8 +103,8 @@ library SafeMath {
     * @dev Multiplies two signed integers, reverts on overflow.
     */
     function mul(int256 a, int256 b) internal pure returns (int256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -125,7 +125,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -228,11 +228,11 @@ contract ERC165 is IERC165 {
     bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
     /**
      * 0x01ffc9a7 ===
-     *     bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+     *     bytes4(keccak256('supportsInterface(bytes4)'))
      */
 
     /**
-     * @dev a mapping of interface id to whether or not it&#39;s supported
+     * @dev a mapping of interface id to whether or not it's supported
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -365,23 +365,23 @@ contract MemeAwards2018 is ERC165, IERC721, IERC721Metadata, Ownable {
     
     /**
      * 0x5b5e139f ===
-     *     bytes4(keccak256(&#39;name()&#39;)) ^
-     *     bytes4(keccak256(&#39;symbol()&#39;)) ^
-     *     bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+     *     bytes4(keccak256('name()')) ^
+     *     bytes4(keccak256('symbol()')) ^
+     *     bytes4(keccak256('tokenURI(uint256)'))
      */
     bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
     
     /*
      * 0x80ac58cd ===
-     *     bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-     *     bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-     *     bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-     *     bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+     *     bytes4(keccak256('balanceOf(address)')) ^
+     *     bytes4(keccak256('ownerOf(uint256)')) ^
+     *     bytes4(keccak256('approve(address,uint256)')) ^
+     *     bytes4(keccak256('getApproved(uint256)')) ^
+     *     bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+     *     bytes4(keccak256('isApprovedForAll(address,address)')) ^
+     *     bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+     *     bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+     *     bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
      */
     bytes4 private constant _InterfaceId_ERC721 = 0x80ac58cd;
     
@@ -395,7 +395,7 @@ contract MemeAwards2018 is ERC165, IERC721, IERC721Metadata, Ownable {
 
     // Meme template 
     struct Meme {
-        uint32 templateId; //id&#39;s from memeTemplates array
+        uint32 templateId; //id's from memeTemplates array
         string name;
         string category;
         string url;
@@ -425,8 +425,8 @@ contract MemeAwards2018 is ERC165, IERC721, IERC721Metadata, Ownable {
     }
     
     /**
-     * Absolutely predictable, but I&#39;m thinking nobody will bother to exploit this 
-     * as the tokens can only be minted during the first 30 days and I&#39;m not even 
+     * Absolutely predictable, but I'm thinking nobody will bother to exploit this 
+     * as the tokens can only be minted during the first 30 days and I'm not even 
      * sure anyone wants these so for all intents and purposes this function is good 
      * enough for this particular project.
      */
@@ -473,7 +473,7 @@ contract MemeAwards2018 is ERC165, IERC721, IERC721Metadata, Ownable {
                 counter++;
             }
         }
-        // id&#39;s from claimedMemes array
+        // id's from claimedMemes array
         return result;
     }
     

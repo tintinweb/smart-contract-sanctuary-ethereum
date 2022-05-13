@@ -49,7 +49,7 @@ function bet(uint8 _teamSelected) public payable {
     function distributePrizes(uint16 teamWinner) public {
       address[1000] memory winners;
       //We have to create a temporary in memory array with fixed size
-      //Let&#39;s choose 1000
+      //Let's choose 1000
       uint256 count = 0; // This is the count for the array of winners
       uint256 LoserBet = 0; //This will take the value of all losers bet
       uint256 WinnerBet = 0; //This will take the value of all winners bet

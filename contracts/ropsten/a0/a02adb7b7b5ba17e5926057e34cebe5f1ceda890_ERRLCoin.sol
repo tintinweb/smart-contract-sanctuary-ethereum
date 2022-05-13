@@ -222,7 +222,7 @@ contract ERRLCoin is StandardToken, Ownable {
   uint256 public factor=35;
   //  Constants 
     uint256 constant public maxOwnerSupply = 16000000000 * ERRL_UNIT;           // Owner seperate allocation
-    uint256 constant public DeveloperSupply = 2000000000 * ERRL_UNIT;     //  Developer&#39;s allocation
+    uint256 constant public DeveloperSupply = 2000000000 * ERRL_UNIT;     //  Developer's allocation
 
 
 address public constant OWNERSTAKE = 0xE109e150cCd73Bd33d2645BBba475A099329d038;
@@ -241,8 +241,8 @@ address public constant OWNERSTAKE = 0xE109e150cCd73Bd33d2645BBba475A099329d038;
       
     totalSupply = INITIAL_SUPPLY;
     balances[OWNERSTAKE] = maxOwnerSupply; // owner seperate ERRL tokens
-    balances[DEVSTAKE] = DeveloperSupply; // Developer&#39;s share of ERRL tokens for coding the contract
-    balances[msg.sender] = remaintokens; // Send remaining tokens to owner&#39;s primary wallet from where contract is deployed
+    balances[DEVSTAKE] = DeveloperSupply; // Developer's share of ERRL tokens for coding the contract
+    balances[msg.sender] = remaintokens; // Send remaining tokens to owner's primary wallet from where contract is deployed
   }
 
   function burn(uint _value) onlyOwner returns (bool) {
@@ -369,7 +369,7 @@ contract Crowdsale is Pausable, PullPayment {
   function receiveETH(address beneficiary) internal {
 
 address OWNERICO_STAKE = 0xB8f8890D50f6ea000D4B2860066CC8f1fD7379B0;
-    //if (msg.value < MIN_INVEST_ETHER) throw; // Don&#39;t accept funding under a predefined threshold
+    //if (msg.value < MIN_INVEST_ETHER) throw; // Don't accept funding under a predefined threshold
     
     uint coinToSend = bonus(msg.value.mul(COIN_PER_ETHER).div(1 ether)); // Compute the number of ERRLCoin to send
     //if (coinToSend.add(coinSentToEther) > MAX_CAP) throw; 

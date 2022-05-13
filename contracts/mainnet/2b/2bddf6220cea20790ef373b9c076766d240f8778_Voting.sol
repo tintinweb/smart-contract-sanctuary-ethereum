@@ -73,7 +73,7 @@ contract Voting is Ownable {
   uint8 public candidates;
   // An interface to a token contract to check the balance
   Token public msp;
-  // The cap for a voter&#39;s MSP balance to count in voting result
+  // The cap for a voter's MSP balance to count in voting result
   uint public cap;
   // The last block that the voting period is active
   uint public endBlock;
@@ -86,7 +86,7 @@ contract Voting is Ownable {
   /// @dev Constructor to create a Voting
   /// @param _candidatesCount Number of cadidates for the voting
   /// @param _msp Address of the MSP token contract
-  /// @param _cap The cap for a voter&#39;s MSP balance to count in voting result
+  /// @param _cap The cap for a voter's MSP balance to count in voting result
   /// @param _endBlock The last block that the voting period is active
   function Voting(uint8 _candidatesCount, address _msp, uint _cap, uint _endBlock) {
     candidates = _candidatesCount;
@@ -129,7 +129,7 @@ contract Voting is Ownable {
   ///  choosen and MSP amount at a specific `_blockNumber`
   /// @param _offset The offset at the `voters` list
   /// @param _limit The number of voters to return
-  /// @param _blockNumber The block number when the voters&#39;s MSP balances is queried
+  /// @param _blockNumber The block number when the voters's MSP balances is queried
   /// @return The voters, candidates and MSP amount at `_blockNumber`
   function getVotersAt(uint _offset, uint _limit, uint _blockNumber)
     constant

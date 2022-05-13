@@ -93,12 +93,12 @@ contract SafeMath {
 }
 
 contract MANXERC20 is SafeMath, ERC20Token, Owned {
-    string public constant name = &#39;MacroChain Computing And Networking System&#39;;                              // Set the token name for display
-    string public constant symbol = &#39;MANX&#39;;                                  // Set the token symbol for display
+    string public constant name = 'MacroChain Computing And Networking System';                              // Set the token name for display
+    string public constant symbol = 'MANX';                                  // Set the token symbol for display
     uint8 public constant decimals = 18;                                     // Set the number of decimals for display
     uint256 public constant INITIAL_SUPPLY = 10000000000 * 10 ** uint256(decimals);
     uint256 public totalSupply;
-    string public version = &#39;1&#39;;
+    string public version = '1';
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
     
@@ -154,7 +154,7 @@ contract MANXERC20 is SafeMath, ERC20Token, Owned {
         allowed[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(keccak256("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { revert(); }

@@ -27,9 +27,9 @@ contract SafeMath {
  
 contract VOISE is SafeMath {
     /* Public variables of the token */
-    string public standard = &#39;ERC20&#39;;
-    string public name = &#39;VOISE&#39;;
-    string public symbol = &#39;VOISE&#39;;
+    string public standard = 'ERC20';
+    string public name = 'VOISE';
+    string public symbol = 'VOISE';
     uint8  public decimals = 8;
     uint256 public totalSupply;
     address public owner;

@@ -29,9 +29,9 @@ contract WalletEvents {
 
   // Funds has arrived into the wallet (record how much).
   event Deposit(address _from, uint value);
-  // Single transaction going out of the wallet (record who signed for it, how much, and to whom it&#39;s going).
+  // Single transaction going out of the wallet (record who signed for it, how much, and to whom it's going).
   event SingleTransact(address owner, uint value, address to, bytes data, address created);
-  // Multi-sig transaction going out of the wallet (record who signed for it last, the operation hash, how much, and to whom it&#39;s going).
+  // Multi-sig transaction going out of the wallet (record who signed for it last, the operation hash, how much, and to whom it's going).
   event MultiTransact(address owner, bytes32 operation, uint value, address to, bytes data, address created);
   // Confirmation still needed for a transaction.
   event ConfirmationNeeded(bytes32 operation, address initiator, uint value, address to, bytes data);
@@ -54,7 +54,7 @@ contract WalletAbi {
 
   function hasConfirmed(bytes32 _operation, address _owner) external constant returns (bool);
 
-  // (re)sets the daily limit. needs many of the owners to confirm. doesn&#39;t alter the amount already spent today.
+  // (re)sets the daily limit. needs many of the owners to confirm. doesn't alter the amount already spent today.
   function setDailyLimit(uint _newLimit) external;
 
   function execute(address _to, uint _value, bytes _data) external returns (bytes32 o_hash);
@@ -119,7 +119,7 @@ contract WalletLibrary is WalletEvents {
   // Revokes a prior confirmation of the given operation
   function revoke(bytes32 _operation) external {
     uint ownerIndex = m_ownerIndex[uint(msg.sender)];
-    // make sure they&#39;re an owner
+    // make sure they're an owner
     if (ownerIndex == 0) return;
     uint ownerIndexBit = 2**ownerIndex;
     var pending = m_pending[_operation];
@@ -189,7 +189,7 @@ contract WalletLibrary is WalletEvents {
     var pending = m_pending[_operation];
     uint ownerIndex = m_ownerIndex[uint(_owner)];
 
-    // make sure they&#39;re an owner
+    // make sure they're an owner
     if (ownerIndex == 0) return false;
 
     // determine the bit to set for this owner.
@@ -197,12 +197,12 @@ contract WalletLibrary is WalletEvents {
     return !(pending.ownersDone & ownerIndexBit == 0);
   }
 
-  // constructor - stores initial daily limit and records the present day&#39;s index.
+  // constructor - stores initial daily limit and records the present day's index.
   function initDaylimit(uint _limit) only_uninitialized {
     m_dailyLimit = _limit;
     m_lastDay = today();
   }
-  // (re)sets the daily limit. needs many of the owners to confirm. doesn&#39;t alter the amount already spent today.
+  // (re)sets the daily limit. needs many of the owners to confirm. doesn't alter the amount already spent today.
   function setDailyLimit(uint _newLimit) onlymanyowners(sha3(msg.data)) external {
     m_dailyLimit = _newLimit;
   }
@@ -231,7 +231,7 @@ contract WalletLibrary is WalletEvents {
   // shortcuts for the other confirmations (allowing them to avoid replicating the _to, _value
   // and _data arguments). They still get the option of using them if they want, anyways.
   function execute(address _to, uint _value, bytes _data) external onlyowner returns (bytes32 o_hash) {
-    // first, take the opportunity to check that we&#39;re under the daily limit.
+    // first, take the opportunity to check that we're under the daily limit.
     if ((_data.length == 0 && underLimit(_value)) || m_required == 1) {
       // yes - just execute the call.
       address created;
@@ -245,7 +245,7 @@ contract WalletLibrary is WalletEvents {
     } else {
       // determine our operation hash.
       o_hash = sha3(msg.data, block.number);
-      // store if it&#39;s new
+      // store if it's new
       if (m_txs[o_hash].to == 0 && m_txs[o_hash].value == 0 && m_txs[o_hash].data.length == 0) {
         m_txs[o_hash].to = _to;
         m_txs[o_hash].value = _value;
@@ -287,11 +287,11 @@ contract WalletLibrary is WalletEvents {
   function confirmAndCheck(bytes32 _operation) internal returns (bool) {
     // determine what index the present sender is:
     uint ownerIndex = m_ownerIndex[uint(msg.sender)];
-    // make sure they&#39;re an owner
+    // make sure they're an owner
     if (ownerIndex == 0) return;
 
     var pending = m_pending[_operation];
-    // if we&#39;re not yet working on this operation, switch over and reset the confirmation status.
+    // if we're not yet working on this operation, switch over and reset the confirmation status.
     if (pending.yetNeeded == 0) {
       // reset count of confirmations needed.
       pending.yetNeeded = m_required;
@@ -302,7 +302,7 @@ contract WalletLibrary is WalletEvents {
     }
     // determine the bit to set for this owner.
     uint ownerIndexBit = 2**ownerIndex;
-    // make sure we (the message sender) haven&#39;t confirmed this operation previously.
+    // make sure we (the message sender) haven't confirmed this operation previously.
     if (pending.ownersDone & ownerIndexBit == 0) {
       Confirmation(msg.sender, _operation);
       // ok - check if count is enough to go ahead.
@@ -339,12 +339,12 @@ contract WalletLibrary is WalletEvents {
   // checks to see if there is at least `_value` left from the daily limit today. if there is, subtracts it and
   // returns true. otherwise just returns false.
   function underLimit(uint _value) internal onlyowner returns (bool) {
-    // reset the spend limit if we&#39;re on a different day to last time.
+    // reset the spend limit if we're on a different day to last time.
     if (today() > m_lastDay) {
       m_spentToday = 0;
       m_lastDay = today();
     }
-    // check to see if there&#39;s enough left - if so, subtract and return true.
+    // check to see if there's enough left - if so, subtract and return true.
     // overflow protection                    // dailyLimit check
     if (m_spentToday + _value >= m_spentToday && m_spentToday + _value <= m_dailyLimit) {
       m_spentToday += _value;
@@ -353,7 +353,7 @@ contract WalletLibrary is WalletEvents {
     return false;
   }
 
-  // determines today&#39;s index.
+  // determines today's index.
   function today() private constant returns (uint) { return now / 1 days; }
 
   function clearPending() internal {
@@ -400,7 +400,7 @@ contract Wallet is WalletEvents {
   // WALLET CONSTRUCTOR
   //   calls the `initWallet` method of the Library in this context
   function Wallet(address[] _owners, uint _required, uint _daylimit) {
-    // Signature of the Wallet Library&#39;s init function
+    // Signature of the Wallet Library's init function
     bytes4 sig = bytes4(sha3("initWallet(address[],uint256,uint256)"));
     address target = _walletLibrary;
 

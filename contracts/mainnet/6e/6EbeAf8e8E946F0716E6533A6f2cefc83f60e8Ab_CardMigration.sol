@@ -69,11 +69,11 @@ contract SupportsInterfaceWithLookup is ERC165 {
     bytes4 public constant InterfaceId_ERC165 = 0x01ffc9a7;
     /**
     * 0x01ffc9a7 ===
-    *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+    *   bytes4(keccak256('supportsInterface(bytes4)'))
     */
 
     /**
-    * @dev a mapping of interface id to whether or not it&#39;s supported
+    * @dev a mapping of interface id to whether or not it's supported
     */
     mapping(bytes4 => bool) internal supportedInterfaces;
 
@@ -232,7 +232,7 @@ contract CardProto is CardBase {
     }
 
     function nextSeason() public onlyGovernor {
-        //Seasons shouldn&#39;t go to 0 if there is more than the uint8 should hold, the governor should know this &#175;\_(ツ)_/&#175; -M
+        //Seasons shouldn't go to 0 if there is more than the uint8 should hold, the governor should know this &#175;\_(ツ)_/&#175; -M
         require(currentSeason <= 255); 
 
         currentSeason++;
@@ -270,7 +270,7 @@ contract CardProto is CardBase {
 
     // there is a particular design decision driving this:
     // need to be able to iterate over mythics only for card generation
-    // don&#39;t store 5 different arrays: have to use 2 ids
+    // don't store 5 different arrays: have to use 2 ids
     // better to bear this cost (2 bytes per proto card)
     // rather than 1 byte per instance
 
@@ -463,7 +463,7 @@ contract CardProto is CardBase {
     }
 
     // can never adjust tradable cards
-    // each season gets a &#39;balancing beta&#39;
+    // each season gets a 'balancing beta'
     // totally immutable: season, rarity
     function replaceProto(
         uint16 index, uint8 god, uint8 cardType, uint8 mana, uint8 attack, uint8 health, uint8 tribe
@@ -546,8 +546,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -564,7 +564,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -591,21 +591,21 @@ contract ERC721BasicToken is CardProto, SupportsInterfaceWithLookup, ERC721Basic
     bytes4 private constant InterfaceId_ERC721 = 0x80ac58cd;
     /*
     * 0x80ac58cd ===
-    *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-    *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-    *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-    *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+    *   bytes4(keccak256('balanceOf(address)')) ^
+    *   bytes4(keccak256('ownerOf(uint256)')) ^
+    *   bytes4(keccak256('approve(address,uint256)')) ^
+    *   bytes4(keccak256('getApproved(uint256)')) ^
+    *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+    *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+    *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+    *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+    *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
     */
 
     bytes4 private constant InterfaceId_ERC721Exists = 0x4f558e79;
     /*
     * 0x4f558e79 ===
-    *   bytes4(keccak256(&#39;exists(uint256)&#39;))
+    *   bytes4(keccak256('exists(uint256)'))
     */
 
     using SafeMath for uint256;
@@ -1015,17 +1015,17 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken, ERC721 {
     bytes4 private constant InterfaceId_ERC721Enumerable = 0x780e9d63;
     /**
     * 0x780e9d63 ===
-    *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-    *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+    *   bytes4(keccak256('totalSupply()')) ^
+    *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+    *   bytes4(keccak256('tokenByIndex(uint256)'))
     */
 
     bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
     /**
     * 0x5b5e139f ===
-    *   bytes4(keccak256(&#39;name()&#39;)) ^
-    *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-    *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+    *   bytes4(keccak256('name()')) ^
+    *   bytes4(keccak256('symbol()')) ^
+    *   bytes4(keccak256('tokenURI(uint256)'))
     */
 
     /*** Constants ***/
@@ -1375,7 +1375,7 @@ contract CardIntegrationTwo is CardOwnershipTwo {
 
     // PURITY NOTES
     // currently, we only
-    // however, to protect rarity, you&#39;ll never be abl
+    // however, to protect rarity, you'll never be abl
     // this is enforced by the restriction in the create-card function
     // no cards above this point can be found in packs
 

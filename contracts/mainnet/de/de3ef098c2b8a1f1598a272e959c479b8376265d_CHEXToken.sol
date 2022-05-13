@@ -98,11 +98,11 @@ contract Token {
     // A vulernability of the approve method in the ERC20 standard was identified by
     // Mikhail Vladimirov and Dmitry Khovratovich here:
     // https://docs.google.com/document/d/1YLPtQxZu1UAvO9cZ1O2RPXBbT0mooh4DYKjA_jp-RLM
-    // It&#39;s better to use this method which is not susceptible to over-withdrawing by the approvee.
+    // It's better to use this method which is not susceptible to over-withdrawing by the approvee.
     /// @param _spender The address to approve
     /// @param _currentValue The previous value approved, which can be retrieved with allowance(msg.sender, _spender)
     /// @param _newValue The new value to approve, this will replace the _currentValue
-    /// @return bool Whether the approval was a success (see ERC20&#39;s `approve`)
+    /// @return bool Whether the approval was a success (see ERC20's `approve`)
     function compareAndApprove(address _spender, uint256 _currentValue, uint256 _newValue) public returns(bool) {
         if (allowed[msg.sender][_spender] != _currentValue) {
             return false;

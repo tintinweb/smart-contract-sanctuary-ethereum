@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// BokkyPooBah&#39;s DateTime Library v1.00
+// BokkyPooBah's DateTime Library v1.00
 //
 // A gas-efficient Solidity date and time library
 //
@@ -340,7 +340,7 @@ library BokkyPooBahsDateTimeLibrary {
 
 
 // ----------------------------------------------------------------------------
-// BokkyPooBah&#39;s DateTime Library v1.00 - Contract Instance
+// BokkyPooBah's DateTime Library v1.00 - Contract Instance
 //
 // A gas-efficient Solidity date and time library
 //

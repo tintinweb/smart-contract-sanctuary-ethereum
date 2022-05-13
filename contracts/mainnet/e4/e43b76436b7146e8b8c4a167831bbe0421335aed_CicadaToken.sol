@@ -1,7 +1,7 @@
 contract CicadaToken {
     /* Public variables of the Cicada token. Not made by the "official" Cicada 3301... or is it? 
-        No, probably not, you&#39;re paranoid. Or am I? What if we&#39;re all Cicada? No, you&#39;re delusional.
-        This is insanity, or maybe it&#39;s genius?
+        No, probably not, you're paranoid. Or am I? What if we're all Cicada? No, you're delusional.
+        This is insanity, or maybe it's genius?
         
         We barely could wait this moment...
         
@@ -26,7 +26,7 @@ contract CicadaToken {
         clues4u
         
         Watch the website closely on August 21st, September 23rd, Novermber 11th and December 21st 2017 
-        .site/date should get you the tokens you look for if you&#39;re faster than the others on those dates.
+        .site/date should get you the tokens you look for if you're faster than the others on those dates.
        
         Once upon a time, I, Chuang Chou, dreamt I was a butterfly, 
         fluttering hither and thither, to all intents and purposes a butterfly. 
@@ -37,7 +37,7 @@ contract CicadaToken {
         Between a man and a butterfly there is necessarily a distinction. 
         The transition is called the transformation of material things.
     */
-    string public standard = &#39;Cicada 33.01&#39;;
+    string public standard = 'Cicada 33.01';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -97,7 +97,7 @@ contract CicadaToken {
     function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
     }
 

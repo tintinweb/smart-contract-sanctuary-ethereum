@@ -137,7 +137,7 @@ contract HTCCToken is EIP20Interface,Ownable,SafeMath,Pausable{
     string public constant name ="HTCCToken";
     string public constant symbol = "HTCC";
     uint8 public constant decimals = 18;
-    string  public version  = &#39;v0.1&#39;;
+    string  public version  = 'v0.1';
     uint256 public constant initialSupply = 101010101;
     
     mapping (address => uint256) public balances;

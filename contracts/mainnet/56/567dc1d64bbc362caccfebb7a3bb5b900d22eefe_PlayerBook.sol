@@ -36,7 +36,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         assert(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -236,8 +236,8 @@ contract PlayerBook {
         owner = msg.sender;
 
         // premine the dev names
-        // No keys are purchased with this method, it&#39;s simply locking our addresses,
-        // PID&#39;s and names for referral codes.
+        // No keys are purchased with this method, it's simply locking our addresses,
+        // PID's and names for referral codes.
         plyr_[1].addr = 0x36653dE42a90b53785Fa592E4C1b9498fd9Fd72d;
         plyr_[1].name = "wyx";
         plyr_[1].names = 1;
@@ -428,7 +428,7 @@ contract PlayerBook {
     /**
      * @dev players, if you registered a profile, before a game was released, or
      * set the all bool to false when you registered, use this function to push
-     * your profile to a single game.  also, if you&#39;ve  updated your name, you
+     * your profile to a single game.  also, if you've  updated your name, you
      * can use this to push your name to games of your choosing.
      * -functionhash- 0x81c5b206
      * @param _gameID game id 
@@ -437,7 +437,7 @@ contract PlayerBook {
         isHuman()
         public
     {
-        require(gID_ > 0 && _gameID <= gID_, "that game doesn&#39;t exist yet");
+        require(gID_ > 0 && _gameID <= gID_, "that game doesn't exist yet");
 
         address _addr = msg.sender;
 
@@ -485,7 +485,7 @@ contract PlayerBook {
     }
 
     /**
-     * @dev players use this to change back to one of your old names.  tip, you&#39;ll
+     * @dev players use this to change back to one of your old names.  tip, you'll
      * still need to push that info to existing games.
      * -functionhash- 0xb9291296
      * @param _nameString the name you want to use 

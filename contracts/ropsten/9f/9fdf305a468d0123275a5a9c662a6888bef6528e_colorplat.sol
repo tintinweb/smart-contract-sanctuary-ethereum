@@ -21,7 +21,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -52,7 +52,7 @@ contract SimpleERC721 {
     // ------------- Variables 
 
     uint256 public totalSupply;
-    address public deployer; //deployer&#39;s wallet
+    address public deployer; //deployer's wallet
     
     // Basic references
     mapping(uint => address) internal tokenIdToOwner;
@@ -195,7 +195,7 @@ contract SimpleERC721 {
         tokenIndexInOwnerArray[swapToken] = index; // update the index of the token we moved
 
         delete listOfOwnerTokens[_owner][length - 1]; // remove the case we emptied
-        listOfOwnerTokens[_owner].length--; // shorten the array&#39;s length
+        listOfOwnerTokens[_owner].length--; // shorten the array's length
     }
 
     function _clearTokenApproval(uint _tokenId) internal

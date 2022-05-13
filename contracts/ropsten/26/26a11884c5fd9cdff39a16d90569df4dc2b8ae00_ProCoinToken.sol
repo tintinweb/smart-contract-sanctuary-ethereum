@@ -79,8 +79,8 @@ contract TokenController {
 
 /// @title MiniMeToken Contract
 /// @author Jordi Baylina
-/// @dev This token contract&#39;s goal is to make it easy for anyone to clone this
-///  token using the token distribution at a given block, this will allow DAO&#39;s
+/// @dev This token contract's goal is to make it easy for anyone to clone this
+///  token using the token distribution at a given block, this will allow DAO's
 ///  and DApps to upgrade their features in a decentralized manner without
 ///  affecting the original token
 /// @dev It is ERC20 compliant, but still needs to under go further testing.
@@ -94,7 +94,7 @@ contract ApproveAndCallFallBack {
 ///  token controller contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Controlled {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
     string public version = "MMT_0.2"; //An arbitrary versioning scheme
@@ -252,7 +252,7 @@ contract MiniMeToken is Controlled {
 
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public view returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -490,7 +490,7 @@ contract MiniMeToken is Controlled {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token controller contract
     function () public payable {
@@ -626,7 +626,7 @@ contract Ownable {
 // File: contracts\PrimeToken.sol
 
 /**
- * To simplify flow and deploying process we don&#39;t use MiniMe controller approach, instead we extend it through inheritance.
+ * To simplify flow and deploying process we don't use MiniMe controller approach, instead we extend it through inheritance.
  * See https://github.com/Giveth/minime for details of MiniMe.
  *
  * We use Ownable approach implementation from https://github.com/OpenZeppelin/zeppelin-solidity.
@@ -635,7 +635,7 @@ contract Ownable {
  * After minting is done controller must call finishMinting() function to enable transfers and to lock generating new tokens forever.
  * Also, we mix "Controlled" ans "Ownable" approaches (which are actually the same) to bring in double-layered authorization.
  * At the start controller and owner are the same. Controller can generate tokens and set locks.
- * After finishing minting controller loses all it&#39;s abilities, but owner remains able to burn tokens from the special pre-defined address.
+ * After finishing minting controller loses all it's abilities, but owner remains able to burn tokens from the special pre-defined address.
  * Such an approach is intended to increase security and investor confidence.
  */
 

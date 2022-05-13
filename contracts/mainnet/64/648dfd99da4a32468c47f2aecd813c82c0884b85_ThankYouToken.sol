@@ -132,7 +132,7 @@ contract ThankYouToken is ERC20 {
         return allowed[_owner][_spender];
     }
 
-    // Transfer the balance _value from owner&#39;s account (msg.sender) to another account (_to)
+    // Transfer the balance _value from owner's account (msg.sender) to another account (_to)
     function transfer(address _to, uint256 _value) onlyPayloadSize(2 * 32) returns (bool success) {
         if (balances[msg.sender] >= _value && _value > 0 && balances[_to] + _value > balances[_to]) {
 

@@ -3,8 +3,8 @@ pragma solidity ^0.4.19;
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) external; }
 
 contract W4T {
-    string public name = &#39;W4T&#39;;
-    string public symbol = &#39;W4T&#39;;
+    string public name = 'W4T';
+    string public symbol = 'W4T';
     uint8 public decimals = 18;
     uint256 public totalSupply = 1000000000000000000000000;
     uint public miningReward = 1000000000000000000;

@@ -109,7 +109,7 @@ contract EthTweetMe is Ownable {
         uint256 charityPercentage;
         address charityAddress;
     }
-    // Map influencer&#39;s twitterHandle to Influencer struct
+    // Map influencer's twitterHandle to Influencer struct
     mapping(string => Influencer) influencers;
 
     struct EthTweet {

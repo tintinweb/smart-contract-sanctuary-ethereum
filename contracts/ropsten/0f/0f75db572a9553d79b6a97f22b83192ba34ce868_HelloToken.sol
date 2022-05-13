@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -48,15 +48,15 @@ library SafeMath {
 contract HelloToken {
     using SafeMath for uint256;
     // Public variables of the token
-    string public constant name    = "Hello Token";  //The Token&#39;s name
+    string public constant name    = "Hello Token";  //The Token's name
     uint8 public constant decimals = 18;               //Number of decimals of the smallest unit
     string public constant symbol  = "HelloT";            //An identifier    
     // 18 decimals is the strongly suggested default, avoid changing it
     
     // packed to 256bit to save gas usage.
     struct Supplies {
-        // uint128&#39;s max value is about 3e38.
-        // it&#39;s enough to present amount of tokens
+        // uint128's max value is about 3e38.
+        // it's enough to present amount of tokens
         uint128 totalSupply;
     }
     
@@ -64,8 +64,8 @@ contract HelloToken {
     
     // Packed to 256bit to save gas usage.    
     struct Account {
-        // uint112&#39;s max value is about 5e33.
-        // it&#39;s enough to present amount of tokens
+        // uint112's max value is about 5e33.
+        // it's enough to present amount of tokens
         uint112 balance;
     }
     

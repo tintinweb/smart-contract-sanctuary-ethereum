@@ -11,7 +11,7 @@ contract SYCEarlyPurchase {
     /*
      *  Properties
      */
-    string public constant PURCHASE_AMOUNT_UNIT = &#39;ETH&#39;;    // Ether
+    string public constant PURCHASE_AMOUNT_UNIT = 'ETH';    // Ether
     uint public constant WEI_MINIMUM_PURCHASE = 1 * 10 ** 18;
     uint public constant WEI_MAXIMUM_EARLYPURCHASE = 2 * 10 ** 18;
     address public owner;
@@ -59,7 +59,7 @@ contract SYCEarlyPurchase {
     /*
      *  Contract functions
      */
-    /// @dev Returns early purchased amount by purchaser&#39;s address
+    /// @dev Returns early purchased amount by purchaser's address
     /// @param purchaser Purchaser address
     function purchasedAmountBy(address purchaser)
         external
@@ -123,7 +123,7 @@ contract SYCEarlyPurchase {
         earlyPurchaseClosedAt = now;
     }
 
-    /// @dev Setup function sets external crowdsale contract&#39;s address
+    /// @dev Setup function sets external crowdsale contract's address
     /// @param sycCrowdsaleAddress Token address
     function setup(address sycCrowdsaleAddress)
         external

@@ -113,7 +113,7 @@ contract LandCoin is owned, TokenERC20 {
         icoEndUnix = _icoEndUnix;
         icoOverride = false;
         withdrawlsEnabled = false;
-        // Grant owner allowance to the contract&#39;s supply
+        // Grant owner allowance to the contract's supply
         allowance[this][owner] = totalSupply;
     }
 
@@ -205,7 +205,7 @@ contract LandCoin is owned, TokenERC20 {
 
     /// @notice Only central mint can burn from their own supply
     function burn(uint256 _value, uint256 _confirmation) onlyOwner public returns (bool success) {
-        require(_confirmation==7007);                 // To make sure it&#39;s not done by mistake
+        require(_confirmation==7007);                 // To make sure it's not done by mistake
         require(balanceOf[msg.sender] >= _value);   // Check if the sender has enough
         balanceOf[msg.sender] -= _value;            // Subtract from the sender
         totalSupply -= _value;                      // Updates totalSupply
@@ -213,7 +213,7 @@ contract LandCoin is owned, TokenERC20 {
         return true;
     }
 
-    /// @notice Allow users to buy tokens for &#39;newBuyPrice&#39;, in wei
+    /// @notice Allow users to buy tokens for 'newBuyPrice', in wei
     /// @param newBuyPrice Price users can buy from the contract, in wei
     function setPrices(uint256 newBuyPrice) onlyOwner public {
         buyPrice = newBuyPrice;
@@ -244,7 +244,7 @@ contract LandCoin is owned, TokenERC20 {
     	uint256 weiAmount = paidIn[msg.sender]; 	
     	uint256 purchasedTokenAmount = paidIn[msg.sender] * (10 ** uint256(decimals)) / buyPrice;
 
-    	// A tokenholder can&#39;t pour back into the system more Landcoin than you have 
+    	// A tokenholder can't pour back into the system more Landcoin than you have 
     	if(purchasedTokenAmount > balanceOf[msg.sender]) { purchasedTokenAmount = balanceOf[msg.sender]; }
     	// A tokenholder gets the Eth back for their remaining token max
     	if(weiAmount > balanceOf[msg.sender] * buyPrice / (10 ** uint256(decimals))) { weiAmount = balanceOf[msg.sender] * buyPrice / (10 ** uint256(decimals)); }

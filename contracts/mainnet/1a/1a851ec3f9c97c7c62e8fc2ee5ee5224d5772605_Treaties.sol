@@ -57,8 +57,8 @@ contract MintableToken is StandardToken {
 }
 
 contract SafeNetToken is MintableToken {
-    string public name = &#39;SafeNet Token&#39;;
-    string public symbol = &#39;SNT&#39;;
+    string public name = 'SafeNet Token';
+    string public symbol = 'SNT';
     uint8 public decimals = 18;
 
     function SafeNetToken(uint _totalSupply) public {
@@ -87,7 +87,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -203,7 +203,7 @@ contract Treaties {
         requests.push(Request({
             rType: 2,
             beneficiary: msg.sender,
-            treatyHash: &#39;&#39;,
+            treatyHash: '',
             tokensAmount: _tokensAmount,
             ethAmount: msg.value,
             percentage: 0,
@@ -228,7 +228,7 @@ contract Treaties {
         requests.push(Request({
             rType: 3,
             beneficiary: msg.sender,
-            treatyHash: &#39;&#39;,
+            treatyHash: '',
             tokensAmount: _tokensAmount,
             ethAmount: 0,
             percentage: 0,
@@ -245,7 +245,7 @@ contract Treaties {
         requests.push(Request({
             rType: 4,
             beneficiary: msg.sender,
-            treatyHash: &#39;&#39;,
+            treatyHash: '',
             tokensAmount: 0,
             ethAmount: 0,
             percentage: _percentage,

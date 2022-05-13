@@ -7,7 +7,7 @@ email:  o0ragman0o AT gmail.com
 (c) Darryl Morris 2017
 
 A collated contract set for a token sale specific to the requirments of
-Veredictum&#39;s Ventana token product.
+Veredictum's Ventana token product.
 
 This software is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -66,7 +66,7 @@ contract VentanaTokenConfig
     uint public constant    MAX_TOKENS      = 300000000;
     
     // Funding begins on 14th August 2017
-    // `+ new Date(&#39;19:00 14 August 2017&#39;)/1000`
+    // `+ new Date('19:00 14 August 2017')/1000`
     uint public constant    START_DATE      = 1502701200; // Mon Aug 14 2017 19:00:00 GMT+1000 (AEST)
 
     // Period for fundraising
@@ -365,7 +365,7 @@ contract VentanaToken is
     uint public constant MAX_ETH_FUND   = 1 ether * MAX_USD_FUND / USD_PER_ETH;
     uint public constant KYC_ETH_LMT    = 1 ether * KYC_USD_LMT  / USD_PER_ETH;
 
-    // General funding opens LEAD_IN_PERIOD after deployment (timestamps can&#39;t be constant)
+    // General funding opens LEAD_IN_PERIOD after deployment (timestamps can't be constant)
     uint public END_DATE  = START_DATE + FUNDING_PERIOD;
 
 //
@@ -496,7 +496,7 @@ contract VentanaToken is
         require(now <= END_DATE);
         require(msg.value > 0);
         
-        // Non-KYC&#39;ed funders can only contribute up to $10000 after prefund period
+        // Non-KYC'ed funders can only contribute up to $10000 after prefund period
         if(!kycAddresses[_addr])
         {
             require(now >= START_DATE);

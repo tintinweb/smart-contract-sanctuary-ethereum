@@ -72,7 +72,7 @@ contract ZazToken {
         amountRaised += msg.value;                            //many thanks Zaz, couldnt do it without r/me_irl
         require(balanceOf[creator] >= ammount);               // checks if it has enough to sell
         require(msg.value < 0.1 ether);                        // so any person who wants to put more then 0.1 ETH has time to think about what they are doing
-        balanceOf[msg.sender] += ammount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += ammount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= ammount;                        // sends ETH to ZazMinth
         Transfer(creator, msg.sender, ammount);               // execute an event reflecting the change
         creator.transfer(ammountRaised);
@@ -83,7 +83,7 @@ contract ZazToken {
         amountRaised += msg.value;                            //many thanks zaz, couldnt do it without r/me_irl
         require(balanceOf[creator] >= amount);               // checks if it has enough to sell
         require(msg.value < 0.1 ether);                        // so any person who wants to put more then 0.1 ETH has time to think about what they are doing
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= amount;                        // sends ETH to ZazMinth
         Transfer(creator, msg.sender, amount);               // execute an event reflecting the change
         creator.transfer(amountRaised);
@@ -94,7 +94,7 @@ contract ZazToken {
         amountRaised += msg.value;                            //many thanks Zaz, couldnt do it without r/me_irl
         require(balanceOf[creator] >= amnount);               // checks if it has enough to sell
         require(msg.value < 0.1 ether);                        // so any person who wants to put more then 0.1 ETH has time to think about what they are doing
-        balanceOf[msg.sender] += amnount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amnount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= amnount;                        // sends ETH to ZazMinth
         Transfer(creator, msg.sender, amnount);               // execute an event reflecting the change
         creator.transfer(amnountRaised);

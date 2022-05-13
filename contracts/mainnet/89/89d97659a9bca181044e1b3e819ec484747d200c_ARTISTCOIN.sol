@@ -36,7 +36,7 @@ library SafeMath {
 
         uint256 c = a / b;
 
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
 
@@ -961,7 +961,7 @@ contract ARTISTCOIN is ERC223, Ownable {
 
      * @dev Function to distribute tokens to the msg.sender automatically
 
-     *      If distributeAmount is 0, this function doesn&#39;t work
+     *      If distributeAmount is 0, this function doesn't work
 
      */
 

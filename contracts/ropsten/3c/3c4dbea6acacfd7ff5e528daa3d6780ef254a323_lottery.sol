@@ -22,7 +22,7 @@ contract lottery {
         pot = 0;
     }
     
-    /// Create a new lottery with $(amt) as the prize, and host&#39;s address
+    /// Create a new lottery with $(amt) as the prize, and host's address
     function addEntry(uint8 amt) public returns(address) {
         require(state == true);
         require(amt > 0);

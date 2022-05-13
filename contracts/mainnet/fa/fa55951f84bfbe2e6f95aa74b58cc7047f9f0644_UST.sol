@@ -2,12 +2,12 @@ pragma solidity ^0.4.21;
 
 contract Owned {
     
-    /// &#39;owner&#39; is the only address that can call a function with 
+    /// 'owner' is the only address that can call a function with 
     /// this modifier
     address public owner;
     address internal newOwner;
     
-    ///@notice The constructor assigns the message sender to be &#39;owner&#39;
+    ///@notice The constructor assigns the message sender to be 'owner'
     function Owned() public {
         owner = msg.sender;
     }
@@ -145,10 +145,10 @@ contract Controlled is Owned, ERC20Token {
     }
     
     /// @notice get `_user` transferable token amount 
-    /// @param _user The user&#39;s address
+    /// @param _user The user's address
     /// @param _time The present time
-    /// @param _lockTypeIndex The user&#39;s investment lock type
-    /// @return Return the amount of user&#39;s transferable token
+    /// @param _lockTypeIndex The user's investment lock type
+    /// @return Return the amount of user's transferable token
     function calcReleaseToken(address _user, uint256 _time, uint256 _lockTypeIndex) internal view returns (uint256) {
         uint256 _timeDifference = _time.sub(releaseStartTime);
         uint256 _whichPeriod = getPeriod(_lockTypeIndex, _timeDifference);
@@ -170,8 +170,8 @@ contract Controlled is Owned, ERC20Token {
     
     }
     
-    /// @notice get time period for the given &#39;_lockTypeIndex&#39;
-    /// @param _lockTypeIndex The user&#39;s investment locktype index
+    /// @notice get time period for the given '_lockTypeIndex'
+    /// @param _lockTypeIndex The user's investment locktype index
     /// @param _timeDifference The passed time since releaseStartTime to now
     /// @return Return the time period
     function getPeriod(uint256 _lockTypeIndex, uint256 _timeDifference) internal view returns (uint256) {
@@ -210,7 +210,7 @@ contract standardToken is ERC20Token, Controlled {
     
     mapping (address => mapping (address => uint256)) public allowances;
     
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) constant public returns (uint256) {
         return balances[_owner];

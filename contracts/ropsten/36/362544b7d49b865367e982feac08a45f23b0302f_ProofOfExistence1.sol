@@ -8,7 +8,7 @@ contract ProofOfExistence1 {
   function notarize(string document) {
     proof = proofFor(document);
   }
-  // helper function to get a document&#39;s sha256
+  // helper function to get a document's sha256
   // *read-only function*
   function proofFor(string document) constant returns (bytes32) {
     return sha256(document);

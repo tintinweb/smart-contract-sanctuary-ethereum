@@ -110,7 +110,7 @@ contract CertifierHandler is Owned {
         require(who != 0x0);
         // The sender should already be certified
         require(certifier.certified(msg.sender));
-        // The new address shouldn&#39;t already be certified
+        // The new address shouldn't already be certified
         require(!certifier.certified(who));
         // Ensure that the owner of the contract is the
         // certifier of the sender
@@ -178,7 +178,7 @@ contract CertifierHandler is Owned {
     }
 
     /// @notice The owner can lock an account, which is
-    /// basically a blacklist. This shouldn&#39;t be used
+    /// basically a blacklist. This shouldn't be used
     /// often ; but could be useful for re-deployment of
     /// new contract for example.
     /// @param _who The account to lock.

@@ -41,8 +41,8 @@ contract NtzToken {
     event Transfer(address indexed from, address indexed to, uint256 value);
 
     constructor () public {
-        name        = &#39;NtzToken&#39;;
-        symbol      = &#39;NTZ&#39;;
+        name        = 'NtzToken';
+        symbol      = 'NTZ';
         decimals    = 18;
         totalSupply = 1000000000 * 10 ** uint256(decimals);
 

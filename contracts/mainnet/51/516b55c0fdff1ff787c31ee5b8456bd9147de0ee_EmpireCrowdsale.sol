@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -291,10 +291,10 @@ contract MintableToken is StandardToken, Ownable {
 
 contract EmpireToken is StandardToken, Ownable {
 
-  string public name = &#39;Empire Token&#39;;
+  string public name = 'Empire Token';
   uint8 public decimals = 18;
-  string public symbol = &#39;EMP&#39;;
-  string public version = &#39;0.1&#39;;
+  string public symbol = 'EMP';
+  string public version = '0.1';
 
   event Mint(address indexed to, uint256 amount);
   event MintFinished();

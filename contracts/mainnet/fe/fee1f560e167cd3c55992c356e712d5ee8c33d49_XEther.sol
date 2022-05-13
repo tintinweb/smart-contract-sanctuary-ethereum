@@ -396,7 +396,7 @@ contract XEther is Owned {
     {
       return (ownerFeePercent, investorsFeePercent, jackpotPercent,
         minDepositAmount * toGwei, minLotteryAmount * toGwei, minInvestmentAmount,
-        &#39;To get real percentages divide them to 10&#39;);
+        'To get real percentages divide them to 10');
     }
 
     /* Function to change variables */

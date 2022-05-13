@@ -502,7 +502,7 @@ contract FoMo3DFast is modularFast {
 
     // Team allocation percentages
         // (F3D, P3D) + (Pot , Referrals, Community)  解读:TeamFee, PotSplit 第一个参数都是分给现在key holder的比例, 第二个是给Pow3D的比例
-            // Referrals / Community rewards are mathematically designed to come from the winner&#39;s share of the pot.
+            // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
         fees_[0] = F3Ddatasets.TeamFee(80,0);   //10% to pot, 8% to aff, 2% to com
 
         // how to split up the final pot based on which team was picked
@@ -763,7 +763,7 @@ contract FoMo3DFast is modularFast {
     }
 
     /**
-    * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+    * @dev returns time left.  dont spam this, you'll ddos yourself from your node
     * provider
     * -functionhash- 0xc7e284b8
     * @return time left in seconds
@@ -1308,7 +1308,7 @@ contract FoMo3DFast is modularFast {
           if (plyr_[_pID].lrnd != 0)
               updateGenVault(_pID, plyr_[_pID].lrnd);
 
-          // update player&#39;s last round played
+          // update player's last round played
           plyr_[_pID].lrnd = rID_;
 
           // set the joined round bool to true
@@ -1327,7 +1327,7 @@ contract FoMo3DFast is modularFast {
         // setup local rID
         uint256 _rID = rID_;
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
 
@@ -1496,7 +1496,7 @@ contract FoMo3DFast is modularFast {
               relevant proportion to the increase in share supply.
 
               the player will have an additional mask that basically says "based
-              on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+              on the rounds mask, my shares, and how much i've already withdrawn,
               how much is still owed to me?"
           */
 
@@ -1537,7 +1537,7 @@ contract FoMo3DFast is modularFast {
     }
 
     /**
-    * @dev prepares compression data and fires event for buy or reload tx&#39;s
+    * @dev prepares compression data and fires event for buy or reload tx's
     */
     function endTxQR(address _realSender,uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, F3Ddatasets.EventReturns memory _eventData_)
         private

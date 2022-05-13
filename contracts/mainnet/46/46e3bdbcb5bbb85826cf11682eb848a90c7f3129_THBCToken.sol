@@ -84,7 +84,7 @@ contract THBCToken is EIP20Interface,Ownable,SafeMath{
     string public constant name ="THBCToken";
     string public constant symbol = "THBC";
     uint8 public constant decimals = 18;
-    string  public version  = &#39;v0.1&#39;;
+    string  public version  = 'v0.1';
     uint256 public constant initialSupply = 20000000000;
     
     mapping (address => uint256) public balances;

@@ -241,7 +241,7 @@ contract LandLib is Galleasset, DataParser {
 
   constructor(address _galleass) public Galleasset(_galleass) {
     //this is mainly just for human reference and to make it easier to track tiles mentally
-    //it&#39;s expensive and probably won&#39;t be included in production contracts
+    //it's expensive and probably won't be included in production contracts
     tileTypes["Water"]=0;
 
     tileTypes["MainHills"]=1;
@@ -308,7 +308,7 @@ contract LandLib is Galleasset, DataParser {
       StandardTile tileContract = StandardTile(landContract.contractAt(_x,_y,_tile));
       tileContract.onPurchase(_x,_y,_tile,landContract.ownerAt(_x,_y,_tile),landContract.priceAt(_x,_y,_tile));
     }
-    //clear the price so it isn&#39;t for sale anymore
+    //clear the price so it isn't for sale anymore
     landContract.setPriceAt(_x,_y,_tile,0);
     return true;
   }

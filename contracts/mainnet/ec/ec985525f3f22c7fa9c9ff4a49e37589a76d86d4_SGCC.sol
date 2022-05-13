@@ -56,12 +56,12 @@ contract SGCC is SafeMath {
 		decimals = 18;
 		balanceOf[msg.sender] = 20000000000 * (10 ** uint256(decimals)); // Give the creator all initial tokens
 		totalSupply = 20000000000 * (10 ** uint256(decimals)); // Update total supply
-		name = &#39;SGCC&#39;; // Set the name for display purposes
-		symbol = &#39;SGCC&#39;; // Set the symbol for display purposes
+		name = 'SGCC'; // Set the name for display purposes
+		symbol = 'SGCC'; // Set the symbol for display purposes
 		owner = msg.sender;
 	}
 
-	/* Send coins from the caller&#39;s account */
+	/* Send coins from the caller's account */
 	function transfer(address _to, uint256 _value) public {
 		if (_to == 0x0) throw; // Prevent transfer to 0x0 address. Use burn() instead 
 		if (_value <= 0) throw;
@@ -93,7 +93,7 @@ contract SGCC is SafeMath {
 		return true;
 	}
 	
-	/* Permanently delete some number of coins that are in the caller&#39;s account */
+	/* Permanently delete some number of coins that are in the caller's account */
 	function burn(uint256 _value) public returns (bool success) {
 		if (balanceOf[msg.sender] < _value) throw; // Check if the sender has enough
 		if (_value <= 0) throw;
@@ -103,12 +103,12 @@ contract SGCC is SafeMath {
 		return true;
 	}
 
-	/* Make some of the caller&#39;s coins temporarily unavailable */
+	/* Make some of the caller's coins temporarily unavailable */
 	function freeze(uint256 _value) public returns (bool success) {
 		if (balanceOf[msg.sender] < _value) throw; // Check if the sender has enough
 		if (_value <= 0) throw;
 		balanceOf[msg.sender] = SafeMath.safeSub(balanceOf[msg.sender], _value); // Subtract from the sender
-		freezeOf[msg.sender] = SafeMath.safeAdd(freezeOf[msg.sender], _value); // Add to sender&#39;s frozen balance
+		freezeOf[msg.sender] = SafeMath.safeAdd(freezeOf[msg.sender], _value); // Add to sender's frozen balance
 		Freeze(msg.sender, _value); // emit event
 		return true;
 	}
@@ -117,7 +117,7 @@ contract SGCC is SafeMath {
 	function unfreeze(uint256 _value) public returns (bool success) {
 		if (freezeOf[msg.sender] < _value) throw; // Check if the sender has enough
 		if (_value <= 0) throw;
-		freezeOf[msg.sender] = SafeMath.safeSub(freezeOf[msg.sender], _value); // Subtract from sender&#39;s frozen balance
+		freezeOf[msg.sender] = SafeMath.safeSub(freezeOf[msg.sender], _value); // Subtract from sender's frozen balance
 		balanceOf[msg.sender] = SafeMath.safeAdd(balanceOf[msg.sender], _value); // Add to the sender
 		Unfreeze(msg.sender, _value); // emit event
 		return true; 

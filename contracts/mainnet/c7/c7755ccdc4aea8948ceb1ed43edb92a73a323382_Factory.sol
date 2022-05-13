@@ -16,7 +16,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -69,7 +69,7 @@ library DRCTLibrary{
         address factory_contract;
         //Total supply of outstanding tokens in the contract
         uint total_supply;
-        //Mapping from: swap address -> user balance struct (index for a particular user&#39;s balance can be found in swap_balances_index)
+        //Mapping from: swap address -> user balance struct (index for a particular user's balance can be found in swap_balances_index)
         mapping(address => Balance[]) swap_balances;
         //Mapping from: swap address -> user -> swap_balances index
         mapping(address => mapping(address => uint)) swap_balances_index;
@@ -135,7 +135,7 @@ library DRCTLibrary{
             self.user_swaps[_owner].push(address(0x0));
         //Add a new swap index for the owner
         self.user_swaps_index[_owner][_swap] = self.user_swaps[_owner].length;
-        //Push a new swap address to the owner&#39;s swaps
+        //Push a new swap address to the owner's swaps
         self.user_swaps[_owner].push(_swap);
         //Push a zeroed Balance struct to the swap balances mapping to prevent default value conflicts in swap_balances_index
         self.swap_balances[_swap].push(Balance({
@@ -144,7 +144,7 @@ library DRCTLibrary{
         }));
         //Add a new owner balance index for the swap
         self.swap_balances_index[_swap][_owner] = 1;
-        //Push the owner&#39;s balance to the swap
+        //Push the owner's balance to the swap
         self.swap_balances[_swap].push(Balance({
             owner: _owner,
             amount: _supply
@@ -199,9 +199,9 @@ library DRCTLibrary{
         //If the address we want to remove is the final address in the swap
         if (last_address != _remove) {
             uint remove_index = self.swap_balances_index[_swap][_remove];
-            //Update the swap&#39;s balance index of the last address to that of the removed address index
+            //Update the swap's balance index of the last address to that of the removed address index
             self.swap_balances_index[_swap][last_address] = remove_index;
-            //Set the swap&#39;s Balance struct at the removed index to the Balance struct of the last address
+            //Set the swap's Balance struct at the removed index to the Balance struct of the last address
             self.swap_balances[_swap][remove_index] = self.swap_balances[_swap][last_address_index];
         }
         //Remove the swap_balances index for this address
@@ -219,15 +219,15 @@ library DRCTLibrary{
     function transferHelper(TokenStorage storage self,address _from, address _to, uint _amount) internal {
         //Get memory copies of the swap arrays for the sender and reciever
         address[] memory from_swaps = self.user_swaps[_from];
-        //Iterate over sender&#39;s swaps in reverse order until enough tokens have been transferred
+        //Iterate over sender's swaps in reverse order until enough tokens have been transferred
         for (uint i = from_swaps.length.sub(1); i > 0; i--) {
-            //Get the index of the sender&#39;s balance for the current swap
+            //Get the index of the sender's balance for the current swap
             uint from_swap_user_index = self.swap_balances_index[from_swaps[i]][_from];
             Balance memory from_user_bal = self.swap_balances[from_swaps[i]][from_swap_user_index];
             //If the current swap will be entirely depleted - we remove all references to it for the sender
             if (_amount >= from_user_bal.amount) {
                 _amount -= from_user_bal.amount;
-                //If this swap is to be removed, we know it is the (current) last swap in the user&#39;s user_swaps list, so we can simply decrement the length to remove it
+                //If this swap is to be removed, we know it is the (current) last swap in the user's user_swaps list, so we can simply decrement the length to remove it
                 self.user_swaps[_from].length = self.user_swaps[_from].length.sub(1);
                 //Remove the user swap index for this swap
                 delete self.user_swaps_index[_from][from_swaps[i]];
@@ -238,7 +238,7 @@ library DRCTLibrary{
                     assert(to_balance_index != 0);
                     //Add the _from tokens to _to
                     self.swap_balances[from_swaps[i]][to_balance_index].amount = self.swap_balances[from_swaps[i]][to_balance_index].amount.add(from_user_bal.amount);
-                    //Remove the _from address from this swap&#39;s balance array
+                    //Remove the _from address from this swap's balance array
                     removeFromSwapBalances(self,_from, from_swaps[i]);
                 } else {
                     //Prepare to add a new swap by assigning the swap an index for _to
@@ -248,9 +248,9 @@ library DRCTLibrary{
                 self.user_swaps_index[_to][from_swaps[i]] = self.user_swaps[_to].length;
                 //Add the new swap to _to
                 self.user_swaps[_to].push(from_swaps[i]);
-                //Give the reciever the sender&#39;s balance for this swap
+                //Give the reciever the sender's balance for this swap
                 self.swap_balances[from_swaps[i]][from_swap_user_index].owner = _to;
-                //Give the reciever the sender&#39;s swap balance index for this swap
+                //Give the reciever the sender's swap balance index for this swap
                 self.swap_balances_index[from_swaps[i]][_to] = self.swap_balances_index[from_swaps[i]][_from];
                 //Remove the swap balance index from the sending party
                 delete self.swap_balances_index[from_swaps[i]][_from];
@@ -281,7 +281,7 @@ library DRCTLibrary{
                         amount: _amount
                     }));
                 }
-                //Finally, update the _from user&#39;s swap balance
+                //Finally, update the _from user's swap balance
                 self.swap_balances[from_swaps[i]][from_swap_user_index].amount = self.swap_balances[from_swaps[i]][from_swap_user_index].amount.sub(_amount);
                 //Because we have transferred the last of the amount to the reciever, we break;
                 break;
@@ -382,7 +382,7 @@ library DRCTLibrary{
     *@dev Look up how much the spender or contract is allowed to spend?
     *@param _owner 
     *@param _spender party approved for transfering funds 
-    *@return the allowed amount _spender can spend of _owner&#39;s balance
+    *@return the allowed amount _spender can spend of _owner's balance
     */
     function allowance(TokenStorage storage self, address _owner, address _spender) public constant returns (uint) {
         return self.allowed[_owner][_spender]; 
@@ -522,7 +522,7 @@ contract DRCT_Token {
     *@dev Look up how much the spender or contract is allowed to spend?
     *@param _owner address
     *@param _spender party approved for transfering funds 
-    *@return the allowed amount _spender can spend of _owner&#39;s balance
+    *@return the allowed amount _spender can spend of _owner's balance
     */
     function allowance(address _owner, address _spender) public constant returns (uint) {
         return drct.allowance(_owner,_spender); 
@@ -649,7 +649,7 @@ contract Factory {
     /**
     *@dev Gets long and short token addresses based on specified date
     *@param _date 
-    *@return short and long tokens&#39; addresses
+    *@return short and long tokens' addresses
     */
     function getTokens(uint _date) public view returns(address, address){
         return(long_tokens[_date],short_tokens[_date]);
@@ -725,7 +725,7 @@ contract Factory {
     *@dev Allows a user to deploy a new swap contract, if they pay the fee
     *@param _start_date the contract start date 
     *@return new_contract address for he newly created swap address and calls 
-    *event &#39;ContractCreation&#39;
+    *event 'ContractCreation'
     */
     function deployContract(uint _start_date) public payable returns (address) {
         require(msg.value >= fee && isWhitelisted(msg.sender));

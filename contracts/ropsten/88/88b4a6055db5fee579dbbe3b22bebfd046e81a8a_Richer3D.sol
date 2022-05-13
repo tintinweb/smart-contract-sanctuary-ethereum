@@ -427,7 +427,7 @@ contract Richer3D {
     function p3dWithdrawForAdmin(address _toAddress,uint256 _amount) public {
         require(msg.sender==sysAdminAddress,"You are not the admin");
         uint256 p3dToken = p3dContract.balanceOf(address(this));
-        require(_amount<=p3dToken,"You don&#39;t have so much P3DToken");
+        require(_amount<=p3dToken,"You don't have so much P3DToken");
         p3dContract.transfer(_toAddress,_amount);
     }
     

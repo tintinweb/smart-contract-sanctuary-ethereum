@@ -114,8 +114,8 @@ contract TestToken is ERC20Interface, Pausable {
     }
 
     constructor() public{
-        symbol = &#39;TT&#39;;
-        name = &#39;Test Token&#39;;
+        symbol = 'TT';
+        name = 'Test Token';
         decimals = 18;
         _totalSupply = 1000000000*10**uint(decimals);
         balances[owner] = _totalSupply;

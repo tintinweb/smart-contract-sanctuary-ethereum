@@ -52,7 +52,7 @@ contract _Base {
 
 
 contract _ApproveAndCallFallBack {
-    function () public payable {revert();}  // Don&#39;t accept ETH
+    function () public payable {revert();}  // Don't accept ETH
     function erc20() public constant returns (address);
     function spender() public constant returns (address);
     function receiveApproval(uint256[] _data) payable public;

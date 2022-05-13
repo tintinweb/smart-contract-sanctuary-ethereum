@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -227,11 +227,11 @@ contract SupportsInterfaceWithLookup is ERC165 {
   bytes4 public constant InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) internal supportedInterfaces;
 
@@ -278,21 +278,21 @@ contract ERC721BasicToken is SupportsInterfaceWithLookup, ERC721Basic {
     bytes4 private constant InterfaceId_ERC721 = 0x80ac58cd;
     /*
     * 0x80ac58cd ===
-    *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-    *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-    *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-    *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+    *   bytes4(keccak256('balanceOf(address)')) ^
+    *   bytes4(keccak256('ownerOf(uint256)')) ^
+    *   bytes4(keccak256('approve(address,uint256)')) ^
+    *   bytes4(keccak256('getApproved(uint256)')) ^
+    *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+    *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+    *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+    *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+    *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
     */
 
     bytes4 private constant InterfaceId_ERC721Exists = 0x4f558e79;
     /*
     * 0x4f558e79 ===
-    *   bytes4(keccak256(&#39;exists(uint256)&#39;))
+    *   bytes4(keccak256('exists(uint256)'))
     */
 
     using SafeMath for uint256;
@@ -632,17 +632,17 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken, ERC721 {
     bytes4 private constant InterfaceId_ERC721Enumerable = 0x780e9d63;
     /**
     * 0x780e9d63 ===
-    *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-    *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-    *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+    *   bytes4(keccak256('totalSupply()')) ^
+    *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+    *   bytes4(keccak256('tokenByIndex(uint256)'))
     */
 
     bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
     /**
     * 0x5b5e139f ===
-    *   bytes4(keccak256(&#39;name()&#39;)) ^
-    *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-    *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+    *   bytes4(keccak256('name()')) ^
+    *   bytes4(keccak256('symbol()')) ^
+    *   bytes4(keccak256('tokenURI(uint256)'))
     */
 
     string internal uriPrefix;
@@ -859,7 +859,7 @@ contract Ownable {
     }
    
     /**
-    * @dev Throws if called by any account that&#39;s not a superuser.
+    * @dev Throws if called by any account that's not a superuser.
     */
     modifier onlyController() {
         require(isController(msg.sender), "only Controller");
@@ -875,7 +875,7 @@ contract Ownable {
     * @dev Throws if called by any account other than the owner.
     */
     modifier onlyOwner() {
-        require(msg.sender == owner, "sender address must be the owner&#39;s address");
+        require(msg.sender == owner, "sender address must be the owner's address");
         _;
     }
 
@@ -884,7 +884,7 @@ contract Ownable {
     * @param _newOwner The address to transfer ownership to.
     */
     function transferOwnership(address _newOwner) public onlyOwner {
-        require(address(0) != _newOwner, "new owner address must not be the owner&#39;s address");
+        require(address(0) != _newOwner, "new owner address must not be the owner's address");
         newOwner = _newOwner;
     }
 
@@ -892,7 +892,7 @@ contract Ownable {
     * @dev Allows the new owner to confirm that they are taking control of the contract..tr
     */
     function acceptOwnership() public {
-        require(msg.sender == newOwner, "sender address must not be the new owner&#39;s address");
+        require(msg.sender == newOwner, "sender address must not be the new owner's address");
         emit OwnershipTransferred(owner, msg.sender);
         owner = msg.sender;
         newOwner = address(0);
@@ -917,7 +917,7 @@ contract Ownable {
     */
     function addController(address _controller) public onlyOwner {
         require(address(0) != _controller, "controller address must not be 0");
-        require(_controller != owner, "controller address must not be the owner&#39;s address");
+        require(_controller != owner, "controller address must not be the owner's address");
         for (uint8 index = 0; index < controllers.length; index++) {
             if (controllers[index] == _controller) {
                 return;
@@ -979,7 +979,7 @@ contract CryptoBeastiesToken is ERC721Token, Ownable, ICryptoBeastiesToken {
 
     /**
     * @dev Set a Proxy Registry Address, to be used by 3rd-party marketplaces.
-    * @param _proxyRegistryAddress Address of the marketplace&#39;s proxy registry address
+    * @param _proxyRegistryAddress Address of the marketplace's proxy registry address
     */
     function setProxyRegistryAddress(address _proxyRegistryAddress) external onlyOwnerOrController {
         proxyRegistryAddress = _proxyRegistryAddress;
@@ -1015,7 +1015,7 @@ contract CryptoBeastiesToken is ERC721Token, Ownable, ICryptoBeastiesToken {
     }
 
    /**
-   * Override isApprovedForAll to whitelist a 3rd-party marketplace&#39;s proxy accounts to enable gas-less listings.
+   * Override isApprovedForAll to whitelist a 3rd-party marketplace's proxy accounts to enable gas-less listings.
    */
     function isApprovedForAll(
         address owner,

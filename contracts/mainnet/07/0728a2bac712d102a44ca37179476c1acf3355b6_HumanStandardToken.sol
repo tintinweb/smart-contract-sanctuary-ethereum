@@ -40,7 +40,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
@@ -101,9 +101,9 @@ contract HumanStandardToken is StandardToken {
 
     /* Public variables of the token */
     string public name;                   //名称: eg Simon Bucks
-    uint8 public decimals;               //最多的小数位数，How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals;               //最多的小数位数，How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;               //token简称: eg SBX
-    string public version = &#39;H0.1&#39;;    //版本
+    string public version = 'H0.1';    //版本
 
     function HumanStandardToken(uint256 _initialAmount, string _tokenName, uint8 _decimalUnits, string _tokenSymbol) {
         balances[msg.sender] = _initialAmount; // 初始token数量给予消息发送者
@@ -119,7 +119,7 @@ contract HumanStandardToken is StandardToken {
         require((_value == 0) || (allowed[msg.sender][_spender] == 0));
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         require(_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData));

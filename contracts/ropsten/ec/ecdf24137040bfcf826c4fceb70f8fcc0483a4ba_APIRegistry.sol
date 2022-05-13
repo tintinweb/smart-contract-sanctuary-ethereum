@@ -90,7 +90,7 @@ contract APIRegistry is Ownable {
         // make sure input params are valid
         require(pricePerCall != 0 && sellerUsername != "" && apiName != "" && bytes(hostname).length != 0);
         
-        // make sure the name isn&#39;t already taken
+        // make sure the name isn't already taken
         require(apiIds[hostname] == 0);
 
         numApis += 1;
@@ -107,14 +107,14 @@ contract APIRegistry is Ownable {
     }
 
     // ------------------------------------------------------------------------
-    // Get the ID number of an API given it&#39;s hostname
+    // Get the ID number of an API given it's hostname
     // ------------------------------------------------------------------------
     function getApiId(string hostname) public view returns (uint) {
         return apiIds[hostname];
     }
 
     // ------------------------------------------------------------------------
-    // Get info stored for the API but without the dynamic members, because solidity can&#39;t return dynamics to other smart contracts yet
+    // Get info stored for the API but without the dynamic members, because solidity can't return dynamics to other smart contracts yet
     // ------------------------------------------------------------------------
     function getApiByIdWithoutDynamics(
         uint apiId

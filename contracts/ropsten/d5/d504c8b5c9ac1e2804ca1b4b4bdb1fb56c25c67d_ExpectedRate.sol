@@ -648,7 +648,7 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface {
         }
 
         if (add && i == reserveArr.length) {
-            //if reserve wasn&#39;t found add it
+            //if reserve wasn't found add it
             reserveArr.push(reserve);
         }
     }
@@ -714,8 +714,8 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface {
                 rateResult.rateEthToDest,
                 true));
 
-        //when src is ether, reserve1 is doing a "fake" trade. (ether to ether) - don&#39;t burn.
-        //when dest is ether, reserve2 is doing a "fake" trade. (ether to ether) - don&#39;t burn.
+        //when src is ether, reserve1 is doing a "fake" trade. (ether to ether) - don't burn.
+        //when dest is ether, reserve2 is doing a "fake" trade. (ether to ether) - don't burn.
         if (tradeInput.src != ETH_TOKEN_ADDRESS)
             require(feeBurnerContract.handleFees(ethAmount, rateResult.reserve1, tradeInput.walletId));
         if (tradeInput.dest != ETH_TOKEN_ADDRESS)
@@ -726,7 +726,7 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface {
     /* solhint-enable function-max-lines */
 
     /* solhint-disable code-complexity */
-    //@dev this function always src or dest are ether. can&#39;t do token to token
+    //@dev this function always src or dest are ether. can't do token to token
     function searchBestRate(ERC20 src, ERC20 dest, uint srcAmount) internal view returns(address, uint) {
         uint bestRate = 0;
         uint bestReserve = 0;

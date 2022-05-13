@@ -313,18 +313,18 @@ contract SmartCouponsFactory {
     }
 
     function getCouponByCode(string memory _code) public view returns (string memory, uint, uint){
-        require(!isNotInitialized(_code),"Coupon code don&#39;t exist");
+        require(!isNotInitialized(_code),"Coupon code don't exist");
         Coupon memory coupon = coupons[_code];
         return (_code, coupon.balance, coupon.state);
     }
 
     function getDebitsKeysLengthByCode(string memory _code) public view returns (uint) {
-        require(!isNotInitialized(_code),"Coupon code don&#39;t exist");
+        require(!isNotInitialized(_code),"Coupon code don't exist");
         return coupons[_code].debitsKeys.length;
     }
 
     function getDebitByIndexByCode(string memory _code, uint _index) public view returns (string memory, uint, uint) {
-        require(!isNotInitialized(_code),"Coupon code don&#39;t exist");
+        require(!isNotInitialized(_code),"Coupon code don't exist");
         require(isIndexValidCouponsDebits(_code, _index), "Index not valid");
         Debit memory debit = coupons[_code].debits[_index];
         return(debit.product, debit.debitValue, debit.timestamp);
@@ -382,7 +382,7 @@ contract SmartCouponsFactory {
 
     function addDebit(string memory _code, string memory _product, uint _debitValue) public returns (bool, uint) {
         require(isContractProviderAddress(msg.sender),"Unauthorized sender address : not contract provider");
-        require(!isNotInitialized(_code),"Coupon code don&#39;t exist");
+        require(!isNotInitialized(_code),"Coupon code don't exist");
         require(isOnGoing(), "Contract is not on going");
         bool wasDebited = false;
         if((isDebitableCoupon(coupons[_code].balance,_debitValue)) && (isValidCoupon(_code))){
@@ -409,7 +409,7 @@ contract SmartCouponsFactory {
 
     function disableCoupon(string memory _code) public {
         require(isContractOwnerAddress(msg.sender),"Unauthorized sender address : not contract owner");
-        require(!isNotInitialized(_code),"Coupon code don&#39;t exist");
+        require(!isNotInitialized(_code),"Coupon code don't exist");
         require(coupons[_code].state == 1,"Coupon already disabled");
         coupons[_code].state = 0;
         emit DisableCoupon(msg.sender, _code);
@@ -422,7 +422,7 @@ contract SmartCouponsFactory {
 
     function activateCoupon(string memory _code) public {
         require(isContractOwnerAddress(msg.sender),"Unauthorized sender address : not contract owner");
-        require(!isNotInitialized(_code),"Coupon code don&#39;t exist");
+        require(!isNotInitialized(_code),"Coupon code don't exist");
         require(coupons[_code].state == 0,"Coupon already activated");
         coupons[_code].state = 1;
         emit ActivateCoupon(msg.sender, _code);
@@ -447,7 +447,7 @@ contract SmartCouponsFactory {
     }
 
     function isValidCoupon(string memory _code) public view returns (bool) {
-        require(!isNotInitialized(_code),"Coupon code don&#39;t exist");
+        require(!isNotInitialized(_code),"Coupon code don't exist");
         bool isValidCouponBool = false;
         if(coupons[_code].state == 1){
             isValidCouponBool = true;

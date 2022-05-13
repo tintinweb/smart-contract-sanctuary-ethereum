@@ -22,7 +22,7 @@ pragma solidity ^0.4.24;
  * I hope our team gets better and better
  * Thanks every one.
  * 
- * OK!Let&#39;s start the game.
+ * OK!Let's start the game.
  */
 //****************
 // Ownable contract 
@@ -148,7 +148,7 @@ contract Voterplayer is VoterServiceImpl{
      * event GiveVoter
      */
     function giveToVoter(uint _value,uint _id) public {
-        require(msg.sender!=owner,"owner Can&#39;t vote");
+        require(msg.sender!=owner,"owner Can't vote");
         require(balances[msg.sender]>=_value,"balances too low");
         balances[msg.sender]=balances[msg.sender].sub(_value);
         balances[owner]=balances[owner].add(_value);
@@ -221,7 +221,7 @@ contract Voterplayer is VoterServiceImpl{
         owner.transfer(this.balance);
     }
      /**
-     *Obtain player&#39;s periodic benefits
+     *Obtain player's periodic benefits
      */
     function getplayersurplus() public {
         _getplayersurplus();

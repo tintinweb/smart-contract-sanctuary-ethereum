@@ -69,7 +69,7 @@ contract DSMath {
     // // This famous algorithm is called "exponentiation by squaring"
     // // and calculates x^n with x as fixed-point and n as regular unsigned.
     // //
-    // // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // // It's O(log n), instead of O(n) for naive repeated multiplication.
     // //
     // // These facts are why it works:
     // //
@@ -427,7 +427,7 @@ contract TokenBuy is Pausable, Claimable, TokenDestructible, DSMath {
 
     /// @notice Allows users to collect purchased tokens after the sale.
     /// @param recipient the address to collect tokens for
-    /// @dev Here we don&#39;t transfer zero tokens but this is an arbitrary decision.
+    /// @dev Here we don't transfer zero tokens but this is an arbitrary decision.
     function collectFor(address recipient) private {
         uint tokensOwned = balances[recipient];
         if (tokensOwned == 0) return;
@@ -441,7 +441,7 @@ contract TokenBuy is Pausable, Claimable, TokenDestructible, DSMath {
     /// @param max the maximum number of members to process (for gas purposes)
     function collectAll(uint8 max) public returns (uint8 collected) {
         max = uint8(min(max, contributors.length));
-        require(max > 0, "can&#39;t collect for zero users");
+        require(max > 0, "can't collect for zero users");
 
         uint index = contributors.length - 1;
         for(uint offset = 0; offset < max; ++offset) {

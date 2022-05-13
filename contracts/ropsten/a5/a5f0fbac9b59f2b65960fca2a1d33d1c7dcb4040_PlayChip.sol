@@ -540,7 +540,7 @@ contract PlayChip is ERC20Token, Owned, Pausable, SelfDestructible {
       * @param quantity The quantity to transfer, in wei.
       * @dev Exceptional conditions:
       *          * The contract is paused if it is not self-destructing.
-      *          * The sender&#39;s balance is less than the transfer quantity.
+      *          * The sender's balance is less than the transfer quantity.
       *          * The `to` parameter is 0x0.
       * @return Always returns true if no exception was thrown.
       */
@@ -553,7 +553,7 @@ contract PlayChip is ERC20Token, Owned, Pausable, SelfDestructible {
     }
 
     /**
-     * @notice ERC20 approve function; approves `spender` to transfer up to `quantity` tokens on the sender&#39;s behalf.
+     * @notice ERC20 approve function; approves `spender` to transfer up to `quantity` tokens on the sender's behalf.
      * @param spender The approvee.
      * @param quantity The maximum spend quantity in wei; overwrites any existing quantity.
      * @dev Throws an exception if the contract is paused if it is not self-destructing, or if `spender` is 0x0.
@@ -579,7 +579,7 @@ contract PlayChip is ERC20Token, Owned, Pausable, SelfDestructible {
       * @dev Exceptional conditions:
       *          * The contract is paused if it is not self-destructing.
       *          * The `from` account has approved the sender to spend less than the transfer quantity.
-      *          * The `from` account&#39;s balance is less than the transfer quantity.
+      *          * The `from` account's balance is less than the transfer quantity.
       *          * The `to` parameter is 0x0.
       * @return Always returns true if no exception was thrown.
       */
@@ -603,7 +603,7 @@ contract PlayChip is ERC20Token, Owned, Pausable, SelfDestructible {
       * @param quantities A corresponding array of transfer quantities, in wei.
       * @dev Exceptional conditions:
       *          * The `recipients` and `quantities` arrays differ in length.
-      *          * The sender&#39;s balance is less than the transfer quantity.
+      *          * The sender's balance is less than the transfer quantity.
       *          * Any recipient is 0x0.
       * @return Always returns true if no exception was thrown.
       */
@@ -627,7 +627,7 @@ contract PlayChip is ERC20Token, Owned, Pausable, SelfDestructible {
       * @dev Exceptional conditions:
       *          * The contract is paused if it is not self-destructing.
       *          * The `recipients` and `quantities` arrays differ in length.
-      *          * The sender&#39;s balance is less than the transfer quantity.
+      *          * The sender's balance is less than the transfer quantity.
       *          * Any recipient is 0x0.
       * @return Always returns true if no exception was thrown.
       */
@@ -677,7 +677,7 @@ contract PlayChip is ERC20Token, Owned, Pausable, SelfDestructible {
       *          * The contract is paused if it is not self-destructing.
       *          * Any of the `spenders`, `recipients`, or `quantities` arrays differ in length.
       *          * Any spender account has approved the sender to spend less than the transfer quantity.
-      *          * Any spender account&#39;s balance is less than its corresponding transfer quantity.
+      *          * Any spender account's balance is less than its corresponding transfer quantity.
       *          * Any recipient is 0x0.
       * @return Always returns true if no exception was thrown.
       */
@@ -706,9 +706,9 @@ contract PlayChip is ERC20Token, Owned, Pausable, SelfDestructible {
       * @param recipients An array of recipients.
       * @param quantities A corresponding array of transfer quantities, in wei.
       * @dev Exceptional conditions:
-      *          * The sender is not the contract&#39;s owner.
+      *          * The sender is not the contract's owner.
       *          * The `recipients` and `quantities` arrays differ in length.
-      *          * The contract&#39;s balance is less than the transfer quantity.
+      *          * The contract's balance is less than the transfer quantity.
       *          * Any recipient is 0x0.
       * @return Always returns true if no exception was thrown.
       */

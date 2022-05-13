@@ -77,31 +77,31 @@ contract enPuntoCrowdsale {
     	if( _type == 0 ){
 	    	require(token == 0x0);
 	    	token = _addr;
-	    	emit eventSetAddress(&#39;Token&#39; , _addr, now);
+	    	emit eventSetAddress('Token' , _addr, now);
     	} else if( _type == 1 ){
 	    	require(company == 0x0);
 	    	company = _addr;
-	    	emit eventSetAddress(&#39;Company&#39; , _addr, now);
+	    	emit eventSetAddress('Company' , _addr, now);
 	    } else if( _type == 2 ){
 	    	require(marketing == 0x0);
 	    	marketing = _addr;
-	    	emit eventSetAddress(&#39;Marketing&#39; , _addr, now);
+	    	emit eventSetAddress('Marketing' , _addr, now);
 	    } else if( _type == 3 ){
 	    	require(developers == 0x0);
 	    	developers = _addr;
-	    	emit eventSetAddress(&#39;Developers&#39; , _addr, now);
+	    	emit eventSetAddress('Developers' , _addr, now);
 	    } else if( _type == 4 ){
 	    	require(bounty == 0x0);
 	    	bounty = _addr;
-	    	emit eventSetAddress(&#39;Bounty&#39; , _addr, now);
+	    	emit eventSetAddress('Bounty' , _addr, now);
 	    } else if( _type == 5 ){
 	    	require(saved == 0x0);
 	    	saved = _addr;
-	    	emit eventSetAddress(&#39;Saved&#39; , _addr, now);
+	    	emit eventSetAddress('Saved' , _addr, now);
 	    } else if( _type == 6 ){
 	    	require(api == 0x0);
 	    	api = _addr;
-	    	emit eventSetAddress(&#39;API&#39; , _addr, now);
+	    	emit eventSetAddress('API' , _addr, now);
 	    }
     	return true;
     }

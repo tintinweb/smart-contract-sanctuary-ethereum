@@ -220,14 +220,14 @@ contract AnchorPhase is AnchorPhaseInterface {
     }
 
     function respond(uint _value) public {
-        require(_value >= minimumResponseValue, &#39;Response value is less than mininmum&#39;);
+        require(_value >= minimumResponseValue, 'Response value is less than mininmum');
         uint balance = doct.balanceOf(address(this));
-        require(balance > 0, &#39;Contraction Phase did not start&#39;);
+        require(balance > 0, 'Contraction Phase did not start');
         uint responseValue = _min(_value, balance);
         uint rewardMultiplier = responseSequenceMultiplier(responseId - phaseFirstResponseId);
         uint reward = responseValue * rewardMultiplier / HUNDRED_PERCENT;
-        require(anct.transferFrom(msg.sender, address(this), responseValue), &#39;ANCT transfer failed&#39;);
-        require(doct.transfer(msg.sender, reward), &#39;DOCT transfer failed&#39;);
+        require(anct.transferFrom(msg.sender, address(this), responseValue), 'ANCT transfer failed');
+        require(doct.transfer(msg.sender, reward), 'DOCT transfer failed');
         responses[responseId] = Response(msg.sender, block.timestamp, reward);
         emit ContractionPhaseResponse(responseId, responseValue, msg.sender, reward);
         cpq.linkLast(responseId++);
@@ -236,15 +236,15 @@ contract AnchorPhase is AnchorPhaseInterface {
             phaseFirstResponseId = responseId;
             emit ContractionPhaseEnded();
         }
-        require(eToken2.revokeAsset(ANCT, responseValue), &#39;ANCT burn failed&#39;);
+        require(eToken2.revokeAsset(ANCT, responseValue), 'ANCT burn failed');
     }
 
     function expand() public {
         uint startingBalance = anct.balanceOf(address(this));
-        require(startingBalance > 0, &#39;Expansion Phase did not start&#39;);
+        require(startingBalance > 0, 'Expansion Phase did not start');
         uint balance = startingBalance;
         uint64 nextResponseId = cpq.first;
-        require(nextResponseId > 0, &#39;CPQ is empty, proceed to airdrop&#39;);
+        require(nextResponseId > 0, 'CPQ is empty, proceed to airdrop');
         while(true) {
             Response memory response = responses[nextResponseId];
             uint reward = _min(response.reward, balance);
@@ -255,8 +255,8 @@ contract AnchorPhase is AnchorPhaseInterface {
                 nextResponseId = cpq.getNext(nextResponseId);
                 continue;
             }
-            require(doct.transferFrom(response.responder, address(this), reward), &#39;DOCT transfer failed&#39;);
-            require(anct.transfer(response.responder, reward), &#39;ANCT transfer failed&#39;);
+            require(doct.transferFrom(response.responder, address(this), reward), 'DOCT transfer failed');
+            require(anct.transfer(response.responder, reward), 'ANCT transfer failed');
             balance = balance - reward;
             emit ExpansionPhaseReward(nextResponseId, reward, response.responder);
             if (reward == response.reward) {
@@ -280,7 +280,7 @@ contract AnchorPhase is AnchorPhaseInterface {
         if (balance == 0) {
             emit ExpansionPhaseEnded();
         }
-        require(eToken2.revokeAsset(DOCT, startingBalance - balance), &#39;DOCT burn failed&#39;);
+        require(eToken2.revokeAsset(DOCT, startingBalance - balance), 'DOCT burn failed');
     }
 
     function responseSequenceMultiplier(uint _seqNumber) pure public returns(uint) {
@@ -299,19 +299,19 @@ contract AnchorPhase is AnchorPhaseInterface {
     }
 
     function preinitAirdrop() public {
-        require(airdropStarted == false, &#39;Airdrop already started&#39;);
-        require(airdropPreinitBlock == 0, &#39;Airdrop already started&#39;);
-        require(anct.balanceOf(address(this)) > 0, &#39;Nothing to airdrop&#39;);
-        require(cpq.first == 0, &#39;CPQ is not empty, proceed to expand&#39;);
+        require(airdropStarted == false, 'Airdrop already started');
+        require(airdropPreinitBlock == 0, 'Airdrop already started');
+        require(anct.balanceOf(address(this)) > 0, 'Nothing to airdrop');
+        require(cpq.first == 0, 'CPQ is not empty, proceed to expand');
         airdropPreinitBlock = block.number;
         emit AirdropPreinited(block.number);
     }
 
     function initAirdrop() public {
-        require(airdropStarted == false, &#39;Airdrop already started&#39;);
+        require(airdropStarted == false, 'Airdrop already started');
         uint targetBlockNumber = airdropPreinitBlock + 12;
         uint blocksSincePreinit = block.number - airdropPreinitBlock;
-        require(blocksSincePreinit >= 12, &#39;12 blocks did not pass&#39;);
+        require(blocksSincePreinit >= 12, '12 blocks did not pass');
         if (blocksSincePreinit - 12 < 256) {
             airdropPreinitBlock = block.number;
             emit AirdropPreinited(block.number);
@@ -323,10 +323,10 @@ contract AnchorPhase is AnchorPhaseInterface {
     }
 
     function airdrop(address[] memory _receivers, uint[] memory _values) public {
-        require(airdropStarted, &#39;Airdrop is not started&#39;);
-        require(_receivers.length == _values.length, &#39;Lists length differs&#39;);
+        require(airdropStarted, 'Airdrop is not started');
+        require(_receivers.length == _values.length, 'Lists length differs');
         for (uint i = 0; i < _receivers.length; i++) {
-            require(anct.transfer(_receivers[i], _values[i]), &#39;ANCT transfer failed&#39;);
+            require(anct.transfer(_receivers[i], _values[i]), 'ANCT transfer failed');
         }
         if (anct.balanceOf(address(this)) > 0) {
             return;

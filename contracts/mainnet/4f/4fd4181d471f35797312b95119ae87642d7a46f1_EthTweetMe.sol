@@ -113,7 +113,7 @@ contract EthTweetMe is Ownable {
         uint256 charityPercentage;
         address charityAddress;
     }
-    // Map influencer&#39;s twitterHandle to Influencer struct
+    // Map influencer's twitterHandle to Influencer struct
     mapping(string => Influencer) influencers;
 
 
@@ -255,7 +255,7 @@ contract EthTweetMe is Ownable {
     }
 
     // Called by the webapp on behalf of Other/QR code payers.
-    //  Charge an additional fee since we&#39;re paying for gas.
+    //  Charge an additional fee since we're paying for gas.
     function sendPrepaidEthTweet(uint256 _amount, string _influencerTwitterHandle, uint256 _additionalFee) external onlyWebappOrOwner {
         /* require(_amount <= address(this).balance); */
         sendEthTweet(_amount, false, "ETH", false, _influencerTwitterHandle, _additionalFee);
@@ -291,7 +291,7 @@ contract EthTweetMe is Ownable {
     }
 
     // Called by the webapp on behalf of Other/QR code payers.
-    //  Charge an additional fee since we&#39;re paying for gas.
+    //  Charge an additional fee since we're paying for gas.
     function sendPrepaidERC20Tweet(uint256 _amount, string _symbol, string _influencerTwitterHandle, uint256 _additionalFee) external onlyWebappOrOwner {
         sendEthTweet(_amount, true, _symbol, false, _influencerTwitterHandle, _additionalFee);
     }

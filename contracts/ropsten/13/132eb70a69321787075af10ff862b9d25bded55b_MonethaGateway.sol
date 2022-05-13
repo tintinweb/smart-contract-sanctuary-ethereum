@@ -16,7 +16,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -238,7 +238,7 @@ contract ERC20 {
 /**
  *  @title MonethaGateway
  *
- *  MonethaGateway forward funds from order payment to merchant&#39;s wallet and collects Monetha fee.
+ *  MonethaGateway forward funds from order payment to merchant's wallet and collects Monetha fee.
  */
 contract MonethaGateway is Pausable, Contactable, Destructible, Restricted {
 
@@ -277,9 +277,9 @@ contract MonethaGateway is Pausable, Contactable, Destructible, Restricted {
     }
     
     /**
-     *  acceptPayment accept payment from PaymentAcceptor, forwards it to merchant&#39;s wallet
+     *  acceptPayment accept payment from PaymentAcceptor, forwards it to merchant's wallet
      *      and collects Monetha fee.
-     *  @param _merchantWallet address of merchant&#39;s wallet for fund transfer
+     *  @param _merchantWallet address of merchant's wallet for fund transfer
      *  @param _monethaFee is a fee collected by Monetha
      */
     function acceptPayment(address _merchantWallet, uint _monethaFee) external payable onlyMonetha whenNotPaused {
@@ -295,9 +295,9 @@ contract MonethaGateway is Pausable, Contactable, Destructible, Restricted {
     }
 
     /**
-     *  acceptTokenPayment accept token payment from PaymentAcceptor, forwards it to merchant&#39;s wallet
+     *  acceptTokenPayment accept token payment from PaymentAcceptor, forwards it to merchant's wallet
      *      and collects Monetha fee.
-     *  @param _merchantWallet address of merchant&#39;s wallet for fund transfer
+     *  @param _merchantWallet address of merchant's wallet for fund transfer
      *  @param _monethaFee is a fee collected by Monetha
      *  @param _tokenAddress is the token address
      *  @param _value is the order value

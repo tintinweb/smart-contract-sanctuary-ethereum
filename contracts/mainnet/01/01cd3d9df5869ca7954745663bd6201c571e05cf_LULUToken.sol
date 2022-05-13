@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -180,7 +180,7 @@ contract LULUToken is StandardToken {
 
   string public name = "LULU Token";
   string public symbol = "LULU";
-  string public releaseArr = &#39;0000000000000000000&#39;;
+  string public releaseArr = '0000000000000000000';
  
   uint public decimals = 18;
   
@@ -197,42 +197,42 @@ contract LULUToken is StandardToken {
     uint256 y2022 = 1652630400;
     uint256 y2023 = 1684166400;
 
-    if (now > y2019 && now <= 1573833600 && bytes(releaseArr)[0] == &#39;0&#39;) {
-        bytes(releaseArr)[0] = &#39;1&#39;;
+    if (now > y2019 && now <= 1573833600 && bytes(releaseArr)[0] == '0') {
+        bytes(releaseArr)[0] = '1';
         balances[msg.sender] = balances[msg.sender] + totalSupply / 10;
         return releaseArr;
-    } else if (now > 1573833600 && now <= y2020 && bytes(releaseArr)[1] == &#39;0&#39;) {
-        bytes(releaseArr)[1] = &#39;1&#39;;
-        balances[msg.sender] = balances[msg.sender] + totalSupply / 10;
-        return releaseArr;
-    }
-    
-    if (now > y2020 && now <= 1605456000 && bytes(releaseArr)[2] == &#39;0&#39;) {
-        bytes(releaseArr)[2] = &#39;1&#39;;
-        balances[msg.sender] = balances[msg.sender] + totalSupply / 10;
-        return releaseArr;
-    } else if (now > 1605456000 && now <= y2021  && bytes(releaseArr)[3] == &#39;0&#39;) {
-        bytes(releaseArr)[3] = &#39;1&#39;;
+    } else if (now > 1573833600 && now <= y2020 && bytes(releaseArr)[1] == '0') {
+        bytes(releaseArr)[1] = '1';
         balances[msg.sender] = balances[msg.sender] + totalSupply / 10;
         return releaseArr;
     }
     
-    if (now > y2021 && now <= 1636992000 && bytes(releaseArr)[4] == &#39;0&#39;) {
-        bytes(releaseArr)[4] = &#39;1&#39;;
+    if (now > y2020 && now <= 1605456000 && bytes(releaseArr)[2] == '0') {
+        bytes(releaseArr)[2] = '1';
         balances[msg.sender] = balances[msg.sender] + totalSupply / 10;
         return releaseArr;
-    } else if (now > 1636992000 && now <= y2022 && bytes(releaseArr)[5] == &#39;0&#39;) {
-        bytes(releaseArr)[5] = &#39;1&#39;;
+    } else if (now > 1605456000 && now <= y2021  && bytes(releaseArr)[3] == '0') {
+        bytes(releaseArr)[3] = '1';
         balances[msg.sender] = balances[msg.sender] + totalSupply / 10;
         return releaseArr;
     }
     
-    if (now > y2022 && now <= 1668528000 && bytes(releaseArr)[6] == &#39;0&#39;) {
-        bytes(releaseArr)[6] = &#39;1&#39;;
+    if (now > y2021 && now <= 1636992000 && bytes(releaseArr)[4] == '0') {
+        bytes(releaseArr)[4] = '1';
         balances[msg.sender] = balances[msg.sender] + totalSupply / 10;
         return releaseArr;
-    }else if (now > 1668528000  && now <= y2023 && bytes(releaseArr)[7] == &#39;0&#39;) {
-        bytes(releaseArr)[7] = &#39;1&#39;;
+    } else if (now > 1636992000 && now <= y2022 && bytes(releaseArr)[5] == '0') {
+        bytes(releaseArr)[5] = '1';
+        balances[msg.sender] = balances[msg.sender] + totalSupply / 10;
+        return releaseArr;
+    }
+    
+    if (now > y2022 && now <= 1668528000 && bytes(releaseArr)[6] == '0') {
+        bytes(releaseArr)[6] = '1';
+        balances[msg.sender] = balances[msg.sender] + totalSupply / 10;
+        return releaseArr;
+    }else if (now > 1668528000  && now <= y2023 && bytes(releaseArr)[7] == '0') {
+        bytes(releaseArr)[7] = '1';
         balances[msg.sender] = balances[msg.sender] + totalSupply / 10;
         return releaseArr;
     }

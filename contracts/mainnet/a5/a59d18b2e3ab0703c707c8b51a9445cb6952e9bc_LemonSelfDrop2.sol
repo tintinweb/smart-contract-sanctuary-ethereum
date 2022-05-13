@@ -133,7 +133,7 @@ contract LemonSelfDrop2 is Ownable {
     }
     
     
-    // Sends all other tokens that would have been sent to owner (why people do that? We don&#39;t meow)
+    // Sends all other tokens that would have been sent to owner (why people do that? We don't meow)
     function withdrawToken(address token) public onlyOwner {
         Token(token).transfer(owner, Token(token).balanceOf(this));
     }

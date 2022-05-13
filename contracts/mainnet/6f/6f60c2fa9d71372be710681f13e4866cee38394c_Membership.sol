@@ -66,7 +66,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -182,7 +182,7 @@ contract Membership is Ownable {
   function addNewMember(address _user, uint _tier)
     internal
   {
-    // it&#39;s a new member
+    // it's a new member
     uint memberIndex = members.length; // + 1; // add 1 to keep index 0 unoccupied
     uint tierIndex = tierToMemberIndexes[_tier].length;
 
@@ -232,7 +232,7 @@ contract Membership is Ownable {
     } else {
       uint currentTier = members[userToMemberIndex[_user]].tier;
       if (currentTier != _tier) {
-        // user&#39;s in tier 1 are lifetime tier 1 users
+        // user's in tier 1 are lifetime tier 1 users
         require(currentTier != 1);
 
         updateExistingMember(_user, _tier);

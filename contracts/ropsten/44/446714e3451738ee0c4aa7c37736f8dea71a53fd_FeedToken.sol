@@ -21,7 +21,7 @@ library SafeMath {
  function div(uint256 a, uint256 b) internal pure returns (uint256) {
     assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -210,7 +210,7 @@ contract FeedToken is  ProductsInterface,OrderInterface, ERC20Interface,Ownable,
          return tokenBalances[tokenOwner];
      }
   
-     // Transfer the balance from owner&#39;s account to another account
+     // Transfer the balance from owner's account to another account
      function transfer(address to, uint tokens) public returns (bool success) {
          require(to != address(0));
          require(tokens <= tokenBalances[msg.sender]);
@@ -268,7 +268,7 @@ contract FeedToken is  ProductsInterface,OrderInterface, ERC20Interface,Ownable,
      
      // ------------------------------------------------------------------------
      // Returns the amount of tokens approved by the owner that can be
-     // transferred to the spender&#39;s account
+     // transferred to the spender's account
      // ------------------------------------------------------------------------
      function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
          return allowed[tokenOwner][spender];
@@ -305,7 +305,7 @@ contract FeedToken is  ProductsInterface,OrderInterface, ERC20Interface,Ownable,
 
      
      // ------------------------------------------------------------------------
-     // Don&#39;t accept ETH
+     // Don't accept ETH
      // ------------------------------------------------------------------------
      function () public payable {
          revert();
@@ -323,8 +323,8 @@ contract FeedToken is  ProductsInterface,OrderInterface, ERC20Interface,Ownable,
      
      function mint(address wallet, address buyer, uint256 tokenAmount) public onlyOwner {
       require(tokenBalances[wallet] >= tokenAmount);               // checks if it has enough to sell
-      tokenBalances[buyer] = tokenBalances[buyer].add(tokenAmount);                  // adds the amount to buyer&#39;s balance
-      tokenBalances[wallet] = tokenBalances[wallet].sub(tokenAmount);                        // subtracts amount from seller&#39;s balance
+      tokenBalances[buyer] = tokenBalances[buyer].add(tokenAmount);                  // adds the amount to buyer's balance
+      tokenBalances[wallet] = tokenBalances[wallet].sub(tokenAmount);                        // subtracts amount from seller's balance
       emit Transfer(wallet, buyer, tokenAmount); 
       _totalSupply = _totalSupply.sub(tokenAmount);
     }

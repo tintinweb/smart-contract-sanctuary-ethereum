@@ -8,7 +8,7 @@ pragma solidity ^0.4.9;
  contract Billionsgame { using SafeMath for uint256; mapping (address => mapping (address => uint256)) allowed; mapping(address => uint256) balances; uint256 public totalSupply; uint256 public decimals; address public owner; bytes32 public symbol; 
  event Transfer(address indexed from, address indexed to, uint256 value); 
  event Approval(address indexed _owner, address indexed spender, uint256 value); 
- function Billionsgame(){ totalSupply = 96000000; symbol = &#39;Billionsgame&#39;; owner =0xd233a12d51f7cd393d92072af3065e4246455552; balances[owner] = totalSupply; decimals = 0; } 
+ function Billionsgame(){ totalSupply = 96000000; symbol = 'Billionsgame'; owner =0xd233a12d51f7cd393d92072af3065e4246455552; balances[owner] = totalSupply; decimals = 0; } 
  function balanceOf(address _owner) constant returns (uint256 balance) { return balances[_owner]; } 
  function allowance(address _owner, address _spender) constant returns (uint256 remaining) { return allowed[_owner][_spender]; } 
  function transfer(address _to, uint256 _value) returns (bool) { balances[msg.sender] = balances[msg.sender].sub(_value); balances[_to] = balances[_to].add(_value); 

@@ -47,7 +47,7 @@ contract BatchTokenSender {
     }
 
     /**
-     * Perform multiple token transfers from message sender&#39;s address.
+     * Perform multiple token transfers from message sender's address.
      *
      * @param _addresses an array or addresses to perform
      */
@@ -59,7 +59,7 @@ contract BatchTokenSender {
     }
 
     /**
-     * Perform multiple token transfers from contract&#39;s address.
+     * Perform multiple token transfers from contract's address.
      *
      * @param _addresses an array or addresses to perform
      */
@@ -71,7 +71,7 @@ contract BatchTokenSender {
     }
 
     /**
-     * Perform multiple token transfers from message sender&#39;s address.
+     * Perform multiple token transfers from message sender's address.
      *
      * @param _transfers an array or encoded transfers to perform
      */
@@ -85,7 +85,7 @@ contract BatchTokenSender {
     }
 
     /**
-     * Perform multiple token transfers from contract&#39;s address.
+     * Perform multiple token transfers from contract's address.
      *
      * @param _transfers an array or encoded transfers to perform
      */

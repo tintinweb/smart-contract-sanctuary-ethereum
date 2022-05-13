@@ -136,8 +136,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -154,7 +154,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -286,7 +286,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -442,7 +442,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -765,7 +765,7 @@ contract MilestoneLockToken is StandardToken, Ownable {
     }
 
     /**
-     * @dev set account&#39;s milestone.
+     * @dev set account's milestone.
      * @param _milestone number of milestone for LockedBalance applyed.
      * @param _account address for milestone applyed.
     */
@@ -782,7 +782,7 @@ contract MilestoneLockToken is StandardToken, Ownable {
     }
 
     /**
-     * @dev remove LockedBalance&#39;s milestone.
+     * @dev remove LockedBalance's milestone.
      * @param _account address for applyed milestone remove.
      */
     function removeAccountMilestone(address _account) public
@@ -828,7 +828,7 @@ contract MilestoneLockToken is StandardToken, Ownable {
     }
 
     /**
-     * @dev get current milestone&#39;s locked balance percentage
+     * @dev get current milestone's locked balance percentage
      * @param _milestone number of milestone for calculate locked percentage
      */
     function calculateLockedPercentage(uint8 _milestone) internal view
@@ -957,7 +957,7 @@ contract dHena is
     }
 
     /**
-     * @dev Distribute the amount of tokens to owner&#39;s balance.
+     * @dev Distribute the amount of tokens to owner's balance.
      * @param _to The address to transfer to.
      * @param _value The amount to be transffered.
      */

@@ -108,7 +108,7 @@ contract CliffTokenVesting {
 
     /**
      * Allows to vest tokens for beneficiary.
-     * @notice Tokens for vesting will be withdrawn from `msg.sender`&#39;s account. Sender must first approve this amount
+     * @notice Tokens for vesting will be withdrawn from `msg.sender`'s account. Sender must first approve this amount
      * for the smart contract.
      * @param account Account to vest tokens for.
      * @param start The absolute date of vesting start in unix seconds.

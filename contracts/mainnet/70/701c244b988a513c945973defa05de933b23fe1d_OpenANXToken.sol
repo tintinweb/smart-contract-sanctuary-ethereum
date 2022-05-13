@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 
 // ----------------------------------------------------------------------------
-// OAX &#39;openANX Token&#39; crowdfunding contract
+// OAX 'openANX Token' crowdfunding contract
 //
 // Refer to http://openanx.org/ for further information.
 //
@@ -11,7 +11,7 @@ pragma solidity ^0.4.11;
 
 
 // ----------------------------------------------------------------------------
-// OAX &#39;openANX Token&#39; crowdfunding contract - ERC20 Token Interface
+// OAX 'openANX Token' crowdfunding contract - ERC20 Token Interface
 //
 // Refer to http://openanx.org/ for further information.
 //
@@ -40,7 +40,7 @@ contract ERC20Interface {
 
 
 // ----------------------------------------------------------------------------
-// OAX &#39;openANX Token&#39; crowdfunding contract - Owned contracts
+// OAX 'openANX Token' crowdfunding contract - Owned contracts
 //
 // Refer to http://openanx.org/ for further information.
 //
@@ -97,7 +97,7 @@ contract Owned {
 
 
 // ----------------------------------------------------------------------------
-// OAX &#39;openANX Token&#39; crowdfunding contract
+// OAX 'openANX Token' crowdfunding contract
 //
 // Refer to http://openanx.org/ for further information.
 //
@@ -131,7 +131,7 @@ library SafeMath {
 
 
 // ----------------------------------------------------------------------------
-// OAX &#39;openANX Token&#39; crowdfunding contract - Configuration
+// OAX 'openANX Token' crowdfunding contract - Configuration
 //
 // Refer to http://openanx.org/ for further information.
 //
@@ -190,7 +190,7 @@ contract OpenANXTokenConfig {
 
 
 // ----------------------------------------------------------------------------
-// OAX &#39;openANX Token&#39; crowdfunding contract - locked tokens
+// OAX 'openANX Token' crowdfunding contract - locked tokens
 //
 // Refer to http://openanx.org/ for further information.
 //
@@ -442,7 +442,7 @@ contract ERC20Token is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _amount) returns (bool success) {
         if (balances[msg.sender] >= _amount             // User has balance
@@ -475,7 +475,7 @@ contract ERC20Token is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Spender of tokens transfer an amount of tokens from the token owner&#39;s
+    // Spender of tokens transfer an amount of tokens from the token owner's
     // balance to another account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
@@ -502,7 +502,7 @@ contract ERC20Token is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(
         address _owner, 
@@ -548,7 +548,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     address public wallet;
 
     // ------------------------------------------------------------------------
-    // Crowdsale participant&#39;s accounts need to be KYC verified KYC before
+    // Crowdsale participant's accounts need to be KYC verified KYC before
     // the participant can move their tokens
     // ------------------------------------------------------------------------
     mapping(address => bool) public kycRequired;
@@ -602,7 +602,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
     // ------------------------------------------------------------------------
     // Accept ethers from one account for tokens to be created for another
     // account. Can be used by exchanges to purchase tokens on behalf of 
-    // it&#39;s user
+    // it's user
     // ------------------------------------------------------------------------
     function proxyPayment(address participant) payable {
         // No contributions after the crowdsale is finalised
@@ -627,7 +627,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
         // Check if the hard cap will be exceeded
         require(totalSupply + tokens <= TOKENS_HARD_CAP);
 
-        // Add tokens purchased to account&#39;s balance and total supply
+        // Add tokens purchased to account's balance and total supply
         balances[participant] = balances[participant].add(tokens);
         totalSupply = totalSupply.add(tokens);
 
@@ -686,8 +686,8 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from owner&#39;s account to another account, with KYC
-    // verification check for the crowdsale participant&#39;s first transfer
+    // Transfer the balance from owner's account to another account, with KYC
+    // verification check for the crowdsale participant's first transfer
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _amount) returns (bool success) {
         // Cannot transfer before crowdsale ends
@@ -700,9 +700,9 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
-    // Spender of tokens transfer an amount of tokens from the token owner&#39;s
+    // Spender of tokens transfer an amount of tokens from the token owner's
     // balance to another account, with KYC verification check for the
-    // crowdsale participant&#39;s first transfer
+    // crowdsale participant's first transfer
     // ------------------------------------------------------------------------
     function transferFrom(address _from, address _to, uint _amount) 
         returns (bool success)
@@ -717,7 +717,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
-    // openANX to KYC verify the participant&#39;s account
+    // openANX to KYC verify the participant's account
     // ------------------------------------------------------------------------
     function kycVerify(address participant) onlyOwner {
         kycRequired[participant] = false;
@@ -727,7 +727,7 @@ contract OpenANXToken is ERC20Token, OpenANXTokenConfig {
 
 
     // ------------------------------------------------------------------------
-    // Any account can burn _from&#39;s tokens as long as the _from account has 
+    // Any account can burn _from's tokens as long as the _from account has 
     // approved the _amount to be burnt using
     //   approve(0x0, _amount)
     // ------------------------------------------------------------------------

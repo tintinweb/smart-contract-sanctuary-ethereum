@@ -81,7 +81,7 @@ contract Potions{
         uint256 tokensTransferred = getTokensPaidToGame(msg.sender);
 
         // When you transfer a token to the contract, there is a 1 coin difference until you enter the next if statement
-        if( tokensTransferred > paidPlayers[msg.sender]) //can&#39;t play if you don&#39;t pay
+        if( tokensTransferred > paidPlayers[msg.sender]) //can't play if you don't pay
         {
             paidPlayers[msg.sender] = tokensTransferred;
         }

@@ -23,7 +23,7 @@ library SafeMath {
  function div(uint256 a, uint256 b) internal pure returns (uint256) {
    // assert(b > 0); // Solidity automatically throws when dividing by 0
    uint256 c = a / b;
-   // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+   // assert(a == b * c + a % b); // There is no case in which this doesn't hold
    return c;
  }
  /**
@@ -155,10 +155,10 @@ contract TokenController {
 ///  token controller contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Controlled {
     using SafeMath for uint256;
-    string public name; //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name; //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals; //Number of decimals of the smallest unit
     string public symbol; //An identifier: e.g. REP
-    string public version = &#39;V 1.0&#39;; //An arbitrary versioning scheme
+    string public version = 'V 1.0'; //An arbitrary versioning scheme
     /// @dev `Checkpoint` is the structure that attaches a block number to a
     ///  given value, the block number attached is the one that last changed the
     ///  value
@@ -281,7 +281,7 @@ contract MiniMeToken is Controlled {
         // An event to make the transfer easy to find on the blockchain
         emit Transfer(_from, _to, _amount);
     }
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public constant returns(uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -480,7 +480,7 @@ contract MiniMeToken is Controlled {
     function min(uint a, uint b) pure internal returns(uint) {
         return a < b ? a : b;
     }
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token controller contract
     function() public payable {
@@ -556,7 +556,7 @@ contract ERC20 is ERC20Basic {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
  

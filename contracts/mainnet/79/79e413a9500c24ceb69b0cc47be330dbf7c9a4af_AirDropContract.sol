@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
 /// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e084818e89858ca08c8f8f9092898e87ce8f9287">[email&#160;protected]</a>>.
 /// For more information, please visit https://loopring.org.
 
-/// Loopring Foundation&#39;s LRC (20% of total supply) will be locked during the first two years，
+/// Loopring Foundation's LRC (20% of total supply) will be locked during the first two years，
 /// two years later, 1/24 of all locked LRC fund can be unlocked every month.
 
 /// @title ERC20 ERC20 Interface

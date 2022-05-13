@@ -31,7 +31,7 @@ library AddressUtils {
  * @title Ownable
  * @dev The Ownable contract has an owner address, and provides basic authorization control
  * functions, this simplifies the implementation of "user permissions". This adds two-phase
- * ownership control to OpenZeppelin&#39;s Ownable class. In this model, the original owner 
+ * ownership control to OpenZeppelin's Ownable class. In this model, the original owner 
  * designates a new owner but does not actually transfer ownership. The new owner then accepts 
  * ownership and completes the transfer.
  */

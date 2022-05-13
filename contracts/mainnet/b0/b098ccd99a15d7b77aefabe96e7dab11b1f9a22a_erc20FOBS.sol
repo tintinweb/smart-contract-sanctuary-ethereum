@@ -99,7 +99,7 @@ contract erc20FOBS is StandardToken {
     string public name;                   //
     uint8 public decimals;                //
     string public symbol;                 //
-    string public version = &#39;t0.1&#39;;       //
+    string public version = 't0.1';       //
 
     function erc20FOBS(
         string _tokenName,

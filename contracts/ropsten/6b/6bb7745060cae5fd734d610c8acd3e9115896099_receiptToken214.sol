@@ -509,7 +509,7 @@ contract receiptToken214 is ERC721Token {
   function create(address paid1, address paid2, address paid3, address paid4, address paid5, address paid6, address paid7, uint256 randnum) public payable returns (uint256 _tokenId) {
 
 string[48] memory arr = 
-["Today it&#39;s up to you to create the peacefulness you long for.",
+["Today it's up to you to create the peacefulness you long for.",
 "A friend asks only for your time not your money.",
 "If you refuse to accept anything but the best, you very often get it.",
 "A smile is your passport into the hearts of others.",
@@ -521,8 +521,8 @@ string[48] memory arr =
 "People are naturally attracted to you.",
 "A chance meeting opens new doors to success and friendship.",
 "You learn from your mistakes...You will learn a lot today.",
-"If you have something good in your life, don&#39;t let it go! ",
-"What ever you&#39;re goal is in life, embrace it visualize it, and for it will be yours.",
+"If you have something good in your life, don't let it go! ",
+"What ever you're goal is in life, embrace it visualize it, and for it will be yours.",
 "Your shoes will make you happy today.",
 "You cannot love life until you live the life you love.",
 "Be on the lookout for coming events; They cast their shadows beforehand.",
@@ -531,7 +531,7 @@ string[48] memory arr =
 "Meeting adversity well is the source of your strength.",
 "A dream you have will come true.",
 "Our deeds determine us, as much as we determine our deeds.",
-"Never give up. You&#39;re not a failure if you don&#39;t give up.",
+"Never give up. You're not a failure if you don't give up.",
 "You will become great if you believe in yourself.",
 "There is no greater pleasure than seeing your loved ones prosper.",
 "A very attractive person has a message for you.",

@@ -10,7 +10,7 @@ pragma solidity ^0.4.25;
             NTS funding                  -   5%
         Exit Fee                         - FREE
 
-    Everything&#39;s ready, right BOSSes accounts
+    Everything's ready, right BOSSes accounts
 */
 
 contract NeutrinoTokenStandard {

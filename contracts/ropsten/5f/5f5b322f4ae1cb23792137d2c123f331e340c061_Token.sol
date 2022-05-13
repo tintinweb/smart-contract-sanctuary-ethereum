@@ -67,7 +67,7 @@ contract ERC20 is Base {
     mapping (address => mapping (address => uint)) allowed;
     using SafeMath for uint;
     uint public totalSupply;
-    bool public isFrozen = false; //it&#39;s not part of ERC20 specification, however it has to be here to place modifiers on usual ERC20 functions
+    bool public isFrozen = false; //it's not part of ERC20 specification, however it has to be here to place modifiers on usual ERC20 functions
     event Transfer(address indexed _from, address indexed _to, uint _value);
     event Approval(address indexed _owner, address indexed _spender, uint _value);
 
@@ -158,7 +158,7 @@ contract Token is ERC20 {
     uint8 public constant decimals = 18;
 
     //these are settings, i.e. the values set by the initiator at the beginning of each token generation round
-    uint public tgrSettingsAmount; //how much is needed for current round goals. It doesn&#39;t depend on how much total funds is contributed, rather than on how much has the project received.
+    uint public tgrSettingsAmount; //how much is needed for current round goals. It doesn't depend on how much total funds is contributed, rather than on how much has the project received.
     uint public tgrSettingsMinimalInvestment; 
     uint public tgrSettingsPartInvestor;
     uint public tgrSettingsPartProject;
@@ -168,7 +168,7 @@ contract Token is ERC20 {
     uint public tgrSettingsMaxStages;
 
     //these are properties, i.e. some valuable variables which are changed automatically in the process of execution of this smart contract
-    bool public tgrLive = false; //internal variable for status, maybe outdated for an external user, in case the maximum stage has been reached, but the state wasn&#39;t updated
+    bool public tgrLive = false; //internal variable for status, maybe outdated for an external user, in case the maximum stage has been reached, but the state wasn't updated
     uint public tgrStartBlock; //current token generation round initial block number
     uint public tgrNumber; //how many rounds has been started. That means it equals the oridnal number of current active round starting from 1
     uint public tgrAmountCollected; //total amount of funds received by PROJECT
@@ -397,7 +397,7 @@ contract Token is ERC20 {
         return block.number.sub(tgrStartBlock).div(tgrSettingsBlocksPerStage).add(1);        
     }
 
-    //minimumCap is computed in &#39;worst case&#39; scenario, when all contributions are done at the last stage
+    //minimumCap is computed in 'worst case' scenario, when all contributions are done at the last stage
     function minimumCap() public view returns(uint) {
         uint allStakes = (tgrSettingsMaxStages.mul(tgrSettingsPartInvestorIncreasePerStage)).add(tgrSettingsPartInvestor).add(tgrSettingsPartProject).add(tgrSettingsPartFounders);
         if (allStakes == 0) {

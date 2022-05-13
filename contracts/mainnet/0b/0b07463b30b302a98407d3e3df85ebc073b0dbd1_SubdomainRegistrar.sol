@@ -157,7 +157,7 @@ contract Resolver {
  * Users may register a subdomain by calling `register` with the name of the domain
  * they wish to register under, and the label hash of the subdomain they want to
  * register. They must also specify the new owner of the domain, and the referrer,
- * who is paid an optional finder&#39;s fee. The registrar then configures a simple
+ * who is paid an optional finder's fee. The registrar then configures a simple
  * default resolver, which resolves `addr` lookups to the new owner, and sets
  * the `owner` account as the owner of the subdomain in ENS.
  *
@@ -180,7 +180,7 @@ contract Resolver {
  */
 contract SubdomainRegistrar is RegistrarInterface {
 
-    // namehash(&#39;eth&#39;)
+    // namehash('eth')
     bytes32 constant public TLD_NODE = 0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae;
 
     bool public stopped = false;
@@ -299,7 +299,7 @@ contract SubdomainRegistrar is RegistrarInterface {
         bytes32 label = keccak256(name);
         Domain storage domain = domains[label];
 
-        // Don&#39;t allow changing the transfer address once set. Treat 0 as "don&#39;t change" for convenience.
+        // Don't allow changing the transfer address once set. Treat 0 as "don't change" for convenience.
         require(domain.transferAddress == 0 || _transfer == 0 || domain.transferAddress == _transfer);
 
         if (domain.owner != _owner) {
@@ -347,7 +347,7 @@ contract SubdomainRegistrar is RegistrarInterface {
         Domain storage domain = domains[label];
         DomainUnlisted(label);
 
-        domain.name = &#39;&#39;;
+        domain.name = '';
         domain.owner = owner(label);
         domain.price = 0;
         domain.referralFeePPM = 0;
@@ -368,7 +368,7 @@ contract SubdomainRegistrar is RegistrarInterface {
         bytes32 subnode = keccak256(node, keccak256(subdomain));
 
         if (ens.owner(subnode) != 0) {
-            return (&#39;&#39;, 0, 0, 0);
+            return ('', 0, 0, 0);
         }
 
         Domain data = domains[label];
@@ -429,7 +429,7 @@ contract SubdomainRegistrar is RegistrarInterface {
         ens.setSubnodeOwner(node, label, this);
 
         bytes32 subnode = keccak256(node, label);
-        // Set the subdomain&#39;s resolver
+        // Set the subdomain's resolver
         ens.setResolver(subnode, resolver);
 
         // Set the address record on the resolver

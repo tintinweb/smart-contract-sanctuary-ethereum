@@ -22,7 +22,7 @@ contract PoWMLottery {
     
     address masternode_referrer;
     
-    // Can&#39;t buy more than 25 tokens.
+    // Can't buy more than 25 tokens.
     uint256 public MAX_TOKEN_BUYIN = 25;
     
     function PoWMLottery() public {
@@ -101,8 +101,8 @@ contract PoWMLottery {
         isLotteryOpen = false;
         
         // Pick winner as a pseudo-random hash of the timestamp among all the current winners
-        // YES we know this isn&#39;t /truly/ random but unless the prize is worth more than the block mining reward
-        //  it doesn&#39;t fucking matter.
+        // YES we know this isn't /truly/ random but unless the prize is worth more than the block mining reward
+        //  it doesn't fucking matter.
         uint256 winning_number = uint256(keccak256(block.blockhash(block.number - 1))) % num_tickets_current_round;
         address winner = gamblers[winning_number];
         masternode_referrer = winner;
@@ -149,7 +149,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

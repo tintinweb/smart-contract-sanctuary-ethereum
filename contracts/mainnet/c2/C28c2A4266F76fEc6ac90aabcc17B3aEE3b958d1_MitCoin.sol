@@ -3,7 +3,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract MitCoin {
     /* Public variables of the token */
-    string public standard = &#39;MitCoin 0.1&#39;;
+    string public standard = 'MitCoin 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;

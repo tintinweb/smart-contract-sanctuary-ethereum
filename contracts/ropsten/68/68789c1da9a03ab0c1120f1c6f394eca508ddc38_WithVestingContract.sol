@@ -92,7 +92,7 @@ contract TokenHandler is Ownable {
     }
 
     function setTargetToken (address _targetToken) public onlyOwner returns (bool) {
-      require(targetToken == 0x0, &#39;Target token already set&#39;);
+      require(targetToken == 0x0, 'Target token already set');
       targetToken = _targetToken;
       return true;
     }
@@ -136,7 +136,7 @@ contract VestingHandler is TokenHandler {
     }
 
     function setVestingContract (vestingContractVersion _version, address _vestingContract) public onlyOwner returns (bool) {
-        require(vestingContract == 0x0, &#39;Vesting Contract already set&#39;);
+        require(vestingContract == 0x0, 'Vesting Contract already set');
         vestingContract = _vestingContract;
         targetVersion = _version;
         return true;
@@ -155,7 +155,7 @@ contract VestingHandler is TokenHandler {
 
     function _releaseVesting (vestingContractVersion _version, address _vestingContract) internal returns (bool) {
         if (_version != vestingContractVersion.v1) {
-            revert(&#39;You need to pass in the additional argument(s)&#39;);
+            revert('You need to pass in the additional argument(s)');
         }
         IVestingContract(_vestingContract).release();
         return true;
@@ -170,7 +170,7 @@ contract VestingHandler is TokenHandler {
     }
 
     function release () public returns (bool){
-        require(vestingContract != 0x0, &#39;Vesting Contract not set&#39;);
+        require(vestingContract != 0x0, 'Vesting Contract not set');
         return _releaseVesting(targetVersion, vestingContract, targetToken);
     }
 
@@ -189,8 +189,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -207,7 +207,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -294,7 +294,7 @@ contract TokenDistributor is TokenHandler {
     }
 
     function distribute () public returns (bool) {
-        require(targetToken != 0x0, &#39;Target token not set&#39;);
+        require(targetToken != 0x0, 'Target token not set');
         return _distribute(targetToken);
     }
 
@@ -397,7 +397,7 @@ contract WithVestingContract is WeightedTokenDistributor, VestingHandler {
     }
 
     function releaseAndDistribute () public {
-        require(release(), &#39;Failed to release tokens from vesting contract&#39;);
+        require(release(), 'Failed to release tokens from vesting contract');
         distribute();
     }
 

@@ -2,7 +2,7 @@ pragma solidity ^0.4.16;
 
 contract Arbitrade {
 
-   string public standard = &#39;Token 0.1&#39;;
+   string public standard = 'Token 0.1';
    string public name;
    string public symbol;
    uint8 public decimals;
@@ -43,8 +43,8 @@ contract Arbitrade {
             balancesKeys.push(msg.sender);
         }
 
-        name = &#39;Arbitrade&#39;;                                   // Set the name for display purposes
-        symbol = &#39;ARB&#39;;                               // Set the symbol for display purposes
+        name = 'Arbitrade';                                   // Set the name for display purposes
+        symbol = 'ARB';                               // Set the symbol for display purposes
         decimals = 8;                            // Amount of decimals for display purposes
     }
 

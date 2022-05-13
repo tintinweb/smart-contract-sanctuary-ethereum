@@ -111,7 +111,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -146,7 +146,7 @@ contract Whitelist is Ownable {
   event WhitelistedAddressRemoved(address addr);
 
   /**
-   * @dev Throws if called by any account that&#39;s not whitelisted.
+   * @dev Throws if called by any account that's not whitelisted.
    */
   modifier onlyWhitelisted() {
     require(whitelist[msg.sender]);
@@ -184,7 +184,7 @@ contract Whitelist is Ownable {
    * @dev remove an address from the whitelist
    * @param addr address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address addr) onlyOwner public returns(bool success) {
     if (whitelist[addr]) {
@@ -198,7 +198,7 @@ contract Whitelist is Ownable {
    * @dev remove addresses from the whitelist
    * @param addrs addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] addrs) onlyOwner public returns(bool success) {
     for (uint256 i = 0; i < addrs.length; i++) {

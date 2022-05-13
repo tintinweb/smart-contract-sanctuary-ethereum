@@ -309,15 +309,15 @@ contract Haltable is Controlled {
  */
 contract SphereToken is BurnableToken, Haltable {
     
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     string public symbol;              //An identifier: e.g. REP
-    string public version = &#39;SPR_0.1&#39;; //An arbitrary versioning scheme
+    string public version = 'SPR_0.1'; //An arbitrary versioning scheme
     bool public isTransferEnabled;
   mapping (address => mapping (address => uint)) allowed;
 
     function SphereToken(){
-        name = &#39;EtherSphere&#39;;
-        symbol = &#39;SPR&#39;;
+        name = 'EtherSphere';
+        symbol = 'SPR';
         decimals = 4;
         isTransferEnabled = false;
     }

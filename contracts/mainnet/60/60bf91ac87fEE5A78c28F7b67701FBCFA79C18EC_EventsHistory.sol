@@ -159,7 +159,7 @@ contract Safe {
  * Version info is provided for historical and informational purposes.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract EventsHistory is AmbiEnabled, Safe {
     // Event emitter signature to address with Event definiton mapping.

@@ -1,6 +1,6 @@
 pragma solidity ^0.4.25;
 
-//This contract is for anyone that interacts with a p3d style contract that didn&#39;t publish their code on etherscan
+//This contract is for anyone that interacts with a p3d style contract that didn't publish their code on etherscan
 
 contract contractX 
 {

@@ -149,7 +149,7 @@ contract CrowdWithUs {
         atEndOfLifecycle()
         {
             selfdestruct(msg.sender);
-            // creator gets all money that hasn&#39;t be claimed
+            // creator gets all money that hasn't be claimed
 
 
         }

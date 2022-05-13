@@ -179,7 +179,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -220,7 +220,7 @@ contract AssetOwningListener {
  * Features: transfers, allowances, supply adjustments, lost wallet access recovery.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract ChronoBankPlatform is Object, ChronoBankPlatformEmitter {
     using SafeMath for uint;
@@ -244,10 +244,10 @@ contract ChronoBankPlatform is Object, ChronoBankPlatformEmitter {
 
     // Structure of a particular asset.
     struct Asset {
-        uint owner;                       // Asset&#39;s owner id.
-        uint totalSupply;                 // Asset&#39;s total supply.
-        string name;                      // Asset&#39;s name, for information purposes.
-        string description;               // Asset&#39;s description, for information purposes.
+        uint owner;                       // Asset's owner id.
+        uint totalSupply;                 // Asset's total supply.
+        string name;                      // Asset's name, for information purposes.
+        string description;               // Asset's description, for information purposes.
         bool isReissuable;                // Indicates if asset have dynamic or fixed supply.
         uint8 baseUnit;                   // Proposed number of decimals.
         mapping(uint => Wallet) wallets;  // Holders wallets.
@@ -322,7 +322,7 @@ contract ChronoBankPlatform is Object, ChronoBankPlatformEmitter {
     }
 
     /**
-    * @dev UNAUTHORIZED if called not by one of symbol&#39;s partowners or owner
+    * @dev UNAUTHORIZED if called not by one of symbol's partowners or owner
     */
     modifier onlyOneOfOwners(bytes32 _symbol) {
         if (hasAssetRights(msg.sender, _symbol)) {
@@ -331,7 +331,7 @@ contract ChronoBankPlatform is Object, ChronoBankPlatformEmitter {
     }
 
     /**
-    * @dev UNAUTHORIZED if called not by one of partowners or contract&#39;s owner
+    * @dev UNAUTHORIZED if called not by one of partowners or contract's owner
     */
     modifier onlyOneOfContractOwners() {
         if (contractOwner == msg.sender || partowners[msg.sender]) {
@@ -349,7 +349,7 @@ contract ChronoBankPlatform is Object, ChronoBankPlatformEmitter {
     }
 
     /**
-     * Emits Error if _from doesn&#39;t trust _to.
+     * Emits Error if _from doesn't trust _to.
      */
     modifier checkTrust(address _from, address _to) {
         if (isTrusted(_from, _to)) {
@@ -569,7 +569,7 @@ contract ChronoBankPlatform is Object, ChronoBankPlatformEmitter {
     * Adds a co-owner for an asset with provided symbol.
     * @dev Should be performed by a contract owner or its co-owners
     *
-    * @param _symbol asset&#39;s symbol
+    * @param _symbol asset's symbol
     * @param _partowner a co-owner of an asset
     *
     * @return errorCode result code of an operation
@@ -586,7 +586,7 @@ contract ChronoBankPlatform is Object, ChronoBankPlatformEmitter {
     * Removes a co-owner for an asset with provided symbol.
     * @dev Should be performed by a contract owner or its co-owners
     *
-    * @param _symbol asset&#39;s symbol
+    * @param _symbol asset's symbol
     * @param _partowner a co-owner of an asset
     *
     * @return errorCode result code of an operation

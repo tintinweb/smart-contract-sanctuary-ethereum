@@ -59,7 +59,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -109,7 +109,7 @@ library StateMachineLib {
         self.currentStageId = stageId;
     }
 
-    /// @dev Creates a transition from &#39;fromId&#39; to &#39;toId&#39;. If fromId already had a nextId, it deletes the now unreachable stage.
+    /// @dev Creates a transition from 'fromId' to 'toId'. If fromId already had a nextId, it deletes the now unreachable stage.
     /// @param fromId The id of the stage from which the transition begins.
     /// @param toId The id of the stage that will be reachable from "fromId".
     function createTransition(State storage self, bytes32 fromId, bytes32 toId) internal {
@@ -117,7 +117,7 @@ library StateMachineLib {
 
         Stage storage from = self.stages[fromId];
 
-        // Invalidate the stage that won&#39;t be reachable any more
+        // Invalidate the stage that won't be reachable any more
         if (from.nextId != 0) {
             self.validStage[from.nextId] = false;
             delete self.stages[from.nextId];
@@ -192,7 +192,7 @@ contract StateMachine {
 
         while (state.validStage[nextId]) {
             StateMachineLib.Stage storage next = state.stages[nextId];
-            // If the next stage&#39;s condition is true, go to next stage and continue
+            // If the next stage's condition is true, go to next stage and continue
             if (startConditions(nextId)) {
                 state.goToNextStage();
                 nextId = next.nextId;
@@ -221,7 +221,7 @@ contract TimedStateMachine is StateMachine {
 
     event LogSetStageStartTime(bytes32 indexed stageId, uint256 startTime);
 
-    // Stores the start timestamp for each stage (the value is 0 if the stage doesn&#39;t have a start timestamp).
+    // Stores the start timestamp for each stage (the value is 0 if the stage doesn't have a start timestamp).
     mapping(bytes32 => uint256) internal startTime;
 
     /// @dev This function overrides the startConditions function in the parent class in order to enable automatic transitions that depend on the timestamp.
@@ -348,7 +348,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.

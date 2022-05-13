@@ -73,10 +73,10 @@ contract ERC20Token is StandardToken {
     string public name;                   //optional
     uint8 public decimals;                //optional
     string public symbol;                 //Optional
-    string public version = &#39;H1.0&#39;;       //Optional
+    string public version = 'H1.0';       //Optional
 
 
-//this function name matches the contract name above. So if you&#39;re token is called TutorialToken, make sure the //contract name above is also TutorialToken instead of ERC20Token
+//this function name matches the contract name above. So if you're token is called TutorialToken, make sure the //contract name above is also TutorialToken instead of ERC20Token
 
     function ERC20Token(
         ) {

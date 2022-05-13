@@ -34,7 +34,7 @@ contract CVExtender {
     function getAddress() constant returns (string);
 
     function elementsAreSet() constant returns (bool) {
-        //Normally I&#39;d do whitelisting, but for sake of simplicity, lets do blacklisting
+        //Normally I'd do whitelisting, but for sake of simplicity, lets do blacklisting
 
         bytes memory tempEmptyStringTest = bytes(getDescription());
         if(tempEmptyStringTest.length == 0) {

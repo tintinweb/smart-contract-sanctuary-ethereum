@@ -164,7 +164,7 @@ contract TegTokens {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -256,7 +256,7 @@ contract TegTokensSale is owned, TegTokens {
         address myAddress = this;
         require(myAddress.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, owner, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
     // transfer balance to owner
   	function withdrawEther(uint256 amount) onlyOwner public {

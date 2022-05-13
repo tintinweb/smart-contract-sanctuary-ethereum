@@ -1053,7 +1053,7 @@ contract WineSupplyChain is
     }
 
     /// @notice TODO Commenti
-    // TOCHECK AGGIUNGERE REQUIRE SU TIPO_OPERAZIONE = &#39;CASD&#39; ???
+    // TOCHECK AGGIUNGERE REQUIRE SU TIPO_OPERAZIONE = 'CASD' ???
     function startWinery(
         string _harvestTrackID,
         string _offChainProducerIdentity,
@@ -1072,7 +1072,7 @@ contract WineSupplyChain is
     }
 
     /// @notice TODO Commenti
-    // TOCHECK AGGIUNGERE REQUIRE SU TIPO_OPERAZIONE = &#39;CASD&#39; ???
+    // TOCHECK AGGIUNGERE REQUIRE SU TIPO_OPERAZIONE = 'CASD' ???
     function startProduct(
         string _harvestTrackID,
         string _wineryTrackID,

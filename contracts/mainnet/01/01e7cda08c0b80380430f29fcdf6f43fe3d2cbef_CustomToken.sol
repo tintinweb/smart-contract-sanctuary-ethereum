@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 2800000000000000000;
-        name = &#39;蚁巢智能(Ant Nest Intelligence)&#39;;
-        symbol = &#39;AI&#39;;
+        name = '蚁巢智能(Ant Nest Intelligence)';
+        symbol = 'AI';
         decimals = 10;
         balanceOf[0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530] = totalSupply;
         Transfer(address(0), 0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530, totalSupply);

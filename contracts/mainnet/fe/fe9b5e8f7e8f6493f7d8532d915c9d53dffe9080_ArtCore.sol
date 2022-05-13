@@ -100,8 +100,8 @@ contract ArtAccessControl {
     //
     // It should be noted that these roles are distinct without overlap in their access abilities, the
     // abilities listed for each role above are exhaustive. In particular, while the CEO can assign any
-    // address to any role, the CEO address itself doesn&#39;t have the ability to act in those roles. This
-    // restriction is intentional so that we aren&#39;t tempted to use the CEO address frequently out of
+    // address to any role, the CEO address itself doesn't have the ability to act in those roles. This
+    // restriction is intentional so that we aren't tempted to use the CEO address frequently out of
     // convenience. The less we use an address, the less likely it is that we somehow compromise the
     // account.
 
@@ -193,7 +193,7 @@ contract ArtAccessControl {
     /// @notice This is public rather than external so it can be called by
     ///  derived contracts.
     function unpause() public onlyCEO whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 }
@@ -259,11 +259,11 @@ contract ArtBase is ArtAccessControl {
 
     /// @dev Assigns ownership of a specific Art to an address.
     function _transfer(address _from, address _to, uint256 _tokenId) internal {
-        // Since the number of kittens is capped to 2^32 we can&#39;t overflow this
+        // Since the number of kittens is capped to 2^32 we can't overflow this
         ownershipTokenCount[_to]++;
         // transfer ownership
         artIndexToOwner[_tokenId] = _to;
-        // When creating new kittens _from is 0x0, but we can&#39;t account that address.
+        // When creating new kittens _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
             ownershipTokenCount[_from]--;
             // clear any previously approved ownership exchange
@@ -274,7 +274,7 @@ contract ArtBase is ArtAccessControl {
     }
 
     /// @dev An internal method that creates a new art and stores it. This
-    ///  method doesn&#39;t do any checking and should only be called when the
+    ///  method doesn't do any checking and should only be called when the
     ///  input data is known to be valid. Will generate both a Birth event
     ///  and a Transfer event.
     /// @param _generator The generator number of this cat, must be computed by caller.
@@ -288,7 +288,7 @@ contract ArtBase is ArtAccessControl {
     {
         // These requires are not strictly necessary, our calling code should make
         // sure that these conditions are never broken. However! _createArt() is already
-        // an expensive call (for storage), and it doesn&#39;t hurt to be especially careful
+        // an expensive call (for storage), and it doesn't hurt to be especially careful
         // to ensure our data structures are always valid.
         require(_generator == uint256(uint16(_generator)));
 
@@ -298,8 +298,8 @@ contract ArtBase is ArtAccessControl {
         });
         uint256 newArtId = artpieces.push(_art) - 1;
 
-        // It&#39;s probably never going to happen, 4 billion cats is A LOT, but
-        // let&#39;s just be 100% sure we never let this happen.
+        // It's probably never going to happen, 4 billion cats is A LOT, but
+        // let's just be 100% sure we never let this happen.
         require(newArtId == uint256(uint32(newArtId)));
 
         // emit the birth event
@@ -359,19 +359,19 @@ contract ArtOwnership is ArtBase, ERC721 {
     ERC721Metadata public erc721Metadata;
 
     bytes4 constant InterfaceSignature_ERC165 =
-        bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+        bytes4(keccak256('supportsInterface(bytes4)'));
 
     bytes4 constant InterfaceSignature_ERC721 =
-        bytes4(keccak256(&#39;name()&#39;)) ^
-        bytes4(keccak256(&#39;symbol()&#39;)) ^
-        bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-        bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-        bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-        bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-        bytes4(keccak256(&#39;tokenMetadata(uint256,string)&#39;));
+        bytes4(keccak256('name()')) ^
+        bytes4(keccak256('symbol()')) ^
+        bytes4(keccak256('totalSupply()')) ^
+        bytes4(keccak256('balanceOf(address)')) ^
+        bytes4(keccak256('ownerOf(uint256)')) ^
+        bytes4(keccak256('approve(address,uint256)')) ^
+        bytes4(keccak256('transfer(address,uint256)')) ^
+        bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+        bytes4(keccak256('tokensOfOwner(address)')) ^
+        bytes4(keccak256('tokenMetadata(uint256,string)'));
 
     /// @notice Introspection interface as per ERC-165 (https://github.com/ethereum/EIPs/issues/165).
     ///  Returns true for any standardized interfaces implemented by this contract. We implement
@@ -523,7 +523,7 @@ contract ArtOwnership is ArtBase, ERC721 {
 
     /// @notice Returns a list of all Art IDs assigned to an address.
     /// @param _owner The owner whose Kitties we are interested in.
-    /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+    /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
     ///  expensive (it walks the entire Art array looking for cats belonging to owner),
     ///  but it also returns a dynamic array, which is only supported for web3 calls, and
     ///  not contract-to-contract calls.
@@ -704,17 +704,17 @@ contract ArtMinting is ArtOwnership {
 
 /// @title CryptoKitties: Collectible, breedable, and oh-so-adorable cats on the Ethereum blockchain.
 /// @author Axiom Zen (https://www.axiomzen.co)
-/// @dev The main CryptoKitties contract, keeps track of kittens so they don&#39;t wander around and get lost.
+/// @dev The main CryptoKitties contract, keeps track of kittens so they don't wander around and get lost.
 contract ArtCore is ArtMinting {
 
     // This is the main CryptoKitties contract. In order to keep our code seperated into logical sections,
-    // we&#39;ve broken it up in two ways. First, we have several seperately-instantiated sibling contracts
+    // we've broken it up in two ways. First, we have several seperately-instantiated sibling contracts
     // that handle auctions and our super-top-secret genetic combination algorithm. The auctions are
-    // seperate since their logic is somewhat complex and there&#39;s always a risk of subtle bugs. By keeping
+    // seperate since their logic is somewhat complex and there's always a risk of subtle bugs. By keeping
     // them in their own contracts, we can upgrade them without disrupting the main contract that tracks
     // art ownership. The genetic combination algorithm is kept seperate so we can open-source all of
     // the rest of our code without making it _too_ easy for folks to figure out how the genetics work.
-    // Don&#39;t worry, I&#39;m sure someone will reverse engineer it soon enough!
+    // Don't worry, I'm sure someone will reverse engineer it soon enough!
     //
     // Secondly, we break the core contract into multiple files using inheritence, one for each major
     // facet of functionality of CK. This allows us to keep related code bundled together while still
@@ -742,7 +742,7 @@ contract ArtCore is ArtMinting {
     //             We can make up to 5000 "promo" cats that can be given away (especially important when
     //             the community is new), and all others can only be created and then immediately put up
     //             for auction via an algorithmically determined starting price. Regardless of how they
-    //             are created, there is a hard limit of 50k gen0 cats. After that, it&#39;s all up to the
+    //             are created, there is a hard limit of 50k gen0 cats. After that, it's all up to the
     //             community to breed, breed, breed!
 
     
@@ -757,14 +757,14 @@ contract ArtCore is ArtMinting {
         // the creator of the contract is also the initial COO
         cooAddress = msg.sender;
 
-        // start with the mythical kitten 0 - so we don&#39;t have generator-0 parent issues
+        // start with the mythical kitten 0 - so we don't have generator-0 parent issues
         _createArt(0, address(0));
     }
 
 
 
     /// @notice No tipping!
-    /// @dev Reject all Ether from being sent here, unless it&#39;s from one of the
+    /// @dev Reject all Ether from being sent here, unless it's from one of the
     ///  two auction contracts. (Hopefully, we can prevent user accidents.)
     function() external payable {
         require(
@@ -783,13 +783,13 @@ contract ArtCore is ArtMinting {
     ) {
         ArtToken storage art = artpieces[_id];
 
-        // if this variable is 0 then it&#39;s not gestating
+        // if this variable is 0 then it's not gestating
         birthTime = uint256(art.birthTime);
         generator = uint256(art.generator);
     }
 
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.

@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract DogecoinPrivate is BaseToken, AirdropToken, ICOToken {
     function DogecoinPrivate() public {
         totalSupply = 3000000000000000000;
-        name = &#39;DogecoinPrivate&#39;;
-        symbol = &#39;DCP&#39;;
+        name = 'DogecoinPrivate';
+        symbol = 'DCP';
         decimals = 8;
         balanceOf[0x699314d7f6b59C9a2B1e1a8D87C0f37D4024F14E] = totalSupply;
         Transfer(address(0), 0x699314d7f6b59C9a2B1e1a8D87C0f37D4024F14E, totalSupply);

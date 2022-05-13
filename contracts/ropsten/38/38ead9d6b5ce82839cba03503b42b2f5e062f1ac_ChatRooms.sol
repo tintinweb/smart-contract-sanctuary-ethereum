@@ -30,7 +30,7 @@ contract ChatRoom {
         owner = _owner;
         members.push(_owner);
         membersTotal = 1;
-        settings[_owner] = Settings (block.number, &#39;owner&#39;, &#39;&#39;, true, true);
+        settings[_owner] = Settings (block.number, 'owner', '', true, true);
         messagesTotal = 0;
     }
 
@@ -39,9 +39,9 @@ contract ChatRoom {
             membersTotal++;
             members.push(_addr);
             if (msg.sender == owner) {
-                settings[_addr] = Settings (block.number, _name, &#39;&#39;, true, true);
+                settings[_addr] = Settings (block.number, _name, '', true, true);
             } else {
-                settings[_addr] = Settings (block.number, &#39;&#39;, _name, true, false);
+                settings[_addr] = Settings (block.number, '', _name, true, false);
             }
         } else {
             if (msg.sender == owner) {

@@ -93,7 +93,7 @@ contract SponsoredItemGooRaffle {
         if (purchases.numPurchases == purchases.ticketsBought.length) {
             purchases.ticketsBought.length += 1;
         }
-        purchases.ticketsBought[purchases.numPurchases++] = TicketPurchase(raffleTicketsBought, raffleTicketsBought + (amount - 1)); // (eg: buy 10, get id&#39;s 0-9)
+        purchases.ticketsBought[purchases.numPurchases++] = TicketPurchase(raffleTicketsBought, raffleTicketsBought + (amount - 1)); // (eg: buy 10, get id's 0-9)
         
         // Finally update ticket total
         raffleTicketsBought += amount;
@@ -223,7 +223,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

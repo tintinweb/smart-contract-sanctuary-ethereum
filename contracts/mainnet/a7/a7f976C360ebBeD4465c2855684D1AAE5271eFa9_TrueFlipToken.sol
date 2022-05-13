@@ -65,7 +65,7 @@ contract SafeMath {
 }
 
 contract AbstractToken {
-    // This is not an abstract function, because solc won&#39;t recognize generated getter functions for public variables as functions
+    // This is not an abstract function, because solc won't recognize generated getter functions for public variables as functions
     function totalSupply() constant returns (uint256) {}
     function balanceOf(address owner) constant returns (uint256 balance);
     function transfer(address to, uint256 value) returns (bool success);
@@ -92,7 +92,7 @@ contract StandardToken is AbstractToken {
     /*
      *  Read and write storage functions
      */
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param _to Address of token receiver.
     /// @param _value Number of tokens to transfer.
     function transfer(address _to, uint256 _value) returns (bool success) {

@@ -55,7 +55,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -160,7 +160,7 @@ contract StandardToken is ERC20, BasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -342,7 +342,7 @@ contract AirdropLibraToken is Ownable {
 
     }
 
-    //batch airdrop, key-- the receiver&#39;s address, value -- receiver&#39;s amount
+    //batch airdrop, key-- the receiver's address, value -- receiver's amount
     function airdropTokensBatch(address[] receivers, uint256[] amounts) public onlyOwnerOrAdmin onlyWhileAirdropPhaseOpen{
         require(receivers.length > 0 && receivers.length == amounts.length);
         for (uint256 i = 0; i < receivers.length; i++){
@@ -387,7 +387,7 @@ contract AirdropLibraToken is Ownable {
         return airdropDoneList;
     }
 
-    //get the amount has been dropped by user&#39;s address
+    //get the amount has been dropped by user's address
     function getDoneAirdropAmount(address _addr) public view returns (uint256){
         return airdropDoneAmountMap[_addr];
     }

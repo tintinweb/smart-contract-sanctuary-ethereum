@@ -53,9 +53,9 @@ library safeMath {
 
 //Cool Contract
 contract CoolToken {
-    string public standard = &#39;CoolToken&#39;;
-    string public name = &#39;Cool&#39;;
-    string public symbol = &#39;COOL&#39;;
+    string public standard = 'CoolToken';
+    string public name = 'Cool';
+    string public symbol = 'COOL';
     uint8 public decimals = 4;
     uint256 public totalSupply = 1000000000000;
 

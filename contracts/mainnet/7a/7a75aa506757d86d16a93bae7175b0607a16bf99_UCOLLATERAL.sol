@@ -22,7 +22,7 @@ contract ERC20 is ERC20Basic {
   event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-//This proxy contract is necessary because our oracle uses the Transfer event to detect incoming transfers, and can&#39;t distiguish between transfer and transferFrom&#39;
+//This proxy contract is necessary because our oracle uses the Transfer event to detect incoming transfers, and can't distiguish between transfer and transferFrom'
 //users call contribute on the proxy, and the proxy transfers UCASH from the user to itself, then transfers UCASH to the ucollateral contract
 //this allows us to differentiate between contributions that use approve and transfer from, and contributions that occur when ucash is sent directly to the ucollateral contract.
 contract ProxyContributor{

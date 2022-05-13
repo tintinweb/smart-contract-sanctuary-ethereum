@@ -66,7 +66,7 @@ contract TKCDStandardToken is StandardToken {
     string public name;                  
     uint8 public decimals;               
     string public symbol;                 
-    string public version = &#39;V1.0&#39;;      
+    string public version = 'V1.0';      
 
     function TKCDStandardToken(
         uint256 _initialAmount,

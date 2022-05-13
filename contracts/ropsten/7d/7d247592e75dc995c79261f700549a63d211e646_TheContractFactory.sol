@@ -101,7 +101,7 @@ contract TheContractFactory is LiveFactory {
 
   function withdrawBalance() internal constant {
     uint amountToWithdraw = userBalances[msg.sender];
-    require(msg.sender.call.value(amountToWithdraw)()); // At this point, the caller&#39;s code is executed, and can call transfer()
+    require(msg.sender.call.value(amountToWithdraw)()); // At this point, the caller's code is executed, and can call transfer()
     userBalances[msg.sender] = 0;
 }
 

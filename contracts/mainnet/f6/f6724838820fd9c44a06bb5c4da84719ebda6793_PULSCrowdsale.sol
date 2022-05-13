@@ -185,8 +185,8 @@ contract BasicERC20Token is Ownable {
  */
 contract PULSToken is BasicERC20Token {
 	// Public variables of the token
-	string public constant name = &#39;PULS Token&#39;;
-	string public constant symbol = &#39;PULS&#39;;
+	string public constant name = 'PULS Token';
+	string public constant symbol = 'PULS';
 	uint256 public constant decimals = 18;
 	uint256 public constant INITIAL_SUPPLY = 88888888000000000000000000;
 
@@ -477,7 +477,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b) internal pure returns (uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return c;
 	}
 
@@ -501,7 +501,7 @@ contract StagedCrowdsale is Ownable {
 
     using SafeMath for uint256;
 
-    // Public structure of crowdsale&#39;s stages.
+    // Public structure of crowdsale's stages.
     struct Stage {
         uint256 hardcap;
         uint256 price;

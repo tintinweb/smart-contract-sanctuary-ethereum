@@ -301,7 +301,7 @@ contract FoundingTeam is Owned {
     } 
 
     /**
-     * Update the percentages, need all memebers&#39;s signatures
+     * Update the percentages, need all memebers's signatures
      */
     function updatePercentages(uint16 _m0, uint16 _m1, uint16 _m2, uint16 _m3) external onlyMember {
         _resetStatus();
@@ -342,7 +342,7 @@ contract FoundingTeam is Owned {
     }
 
     /**
-     * Update the team members, need all memebers&#39;s signatures
+     * Update the team members, need all memebers's signatures
      */
     function updateMembers(address _m0, address _m1, address _m2, address _m3) external onlyMember {
         _resetStatus();

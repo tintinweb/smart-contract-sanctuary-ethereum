@@ -8,7 +8,7 @@ pragma solidity 0.4.24;
  */
 contract ERC165 {
 
-  // bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+  // bytes4(keccak256('supportsInterface(bytes4)'));
   bytes4 constant INTERFACE_ERC165 = 0x01ffc9a7;
 
   /**
@@ -27,15 +27,15 @@ contract ERC165 {
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
 contract ERC721Basic {
-  // bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-  // bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-  // bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-  // bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;));
+  // bytes4(keccak256('balanceOf(address)')) ^
+  // bytes4(keccak256('ownerOf(uint256)')) ^
+  // bytes4(keccak256('approve(address,uint256)')) ^
+  // bytes4(keccak256('getApproved(uint256)')) ^
+  // bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+  // bytes4(keccak256('isApprovedForAll(address,address)')) ^
+  // bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+  // bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+  // bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'));
   bytes4 constant INTERFACE_ERC721 = 0x80ac58cd;
 
   event Transfer(address indexed _from, address indexed _to, uint256 indexed _tokenId);
@@ -45,7 +45,7 @@ contract ERC721Basic {
   function balanceOf(address _owner) public view returns (uint256 _balance);
   function ownerOf(uint256 _tokenId) public view returns (address _owner);
 
-  // Note: This is not in the official ERC-721 standard so it&#39;s not included in the interface hash
+  // Note: This is not in the official ERC-721 standard so it's not included in the interface hash
   function exists(uint256 _tokenId) public view returns (bool _exists);
 
   function approve(address _to, uint256 _tokenId) public;
@@ -78,9 +78,9 @@ contract ERC721Basic {
  * @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
 contract ERC721Enumerable is ERC721Basic {
-  // bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-  // bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-  // bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;));
+  // bytes4(keccak256('totalSupply()')) ^
+  // bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+  // bytes4(keccak256('tokenByIndex(uint256)'));
   bytes4 constant INTERFACE_ERC721_ENUMERABLE = 0x780e9d63;
 
   function totalSupply() public view returns (uint256);
@@ -94,9 +94,9 @@ contract ERC721Enumerable is ERC721Basic {
  * @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-721.md
  */
 contract ERC721Metadata is ERC721Basic {
-  // bytes4(keccak256(&#39;name()&#39;)) ^
-  // bytes4(keccak256(&#39;symbol()&#39;)) ^
-  // bytes4(keccak256(&#39;tokenURI(uint256)&#39;));
+  // bytes4(keccak256('name()')) ^
+  // bytes4(keccak256('symbol()')) ^
+  // bytes4(keccak256('tokenURI(uint256)'));
   bytes4 constant INTERFACE_ERC721_METADATA = 0x5b5e139f;
 
   function name() public view returns (string _name);
@@ -175,7 +175,7 @@ contract CodexRecordProxy is ProxyOwnable {
   }
 
   /**
-   * @dev Fallback function. Any transaction sent to this contract that doesn&#39;t match the
+   * @dev Fallback function. Any transaction sent to this contract that doesn't match the
    *  upgradeTo signature will fallback to this function, which in turn will use
    *  DELEGATECALL to delegate the transaction data to the implementation.
    */
@@ -197,7 +197,7 @@ contract CodexRecordProxy is ProxyOwnable {
   }
 
   /**
-   * @dev Since name is passed into the ERC721 token constructor, it&#39;s not stored in the CodexRecordProxy
+   * @dev Since name is passed into the ERC721 token constructor, it's not stored in the CodexRecordProxy
    *  contract. Thus, we call into the contract directly to retrieve its value.
    * @return string The name of the token
    */
@@ -208,7 +208,7 @@ contract CodexRecordProxy is ProxyOwnable {
   }
 
   /**
-   * @dev Since symbol is passed into the ERC721 token constructor, it&#39;s not stored in the CodexRecordProxy
+   * @dev Since symbol is passed into the ERC721 token constructor, it's not stored in the CodexRecordProxy
    *  contract. Thus, we call into the contract directly to retrieve its value.
    * @return string The symbol of token
    */

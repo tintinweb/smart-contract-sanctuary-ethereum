@@ -34,13 +34,13 @@ contract demo1 {
    
 
      function deposit() public payable returns (uint) {
-        // Use &#39;require&#39; to test user inputs, &#39;assert&#39; for internal invariants
-        // Here we are making sure that there isn&#39;t an overflow issue
+        // Use 'require' to test user inputs, 'assert' for internal invariants
+        // Here we are making sure that there isn't an overflow issue
         require((playerVault[msg.sender] + msg.value) >= playerVault[msg.sender]);
 
         playerVault[msg.sender] += msg.value;
         // no "this." or "self." required with state variable
-        // all values set to data type&#39;s initial value by default
+        // all values set to data type's initial value by default
 
         return playerVault[msg.sender];
     }

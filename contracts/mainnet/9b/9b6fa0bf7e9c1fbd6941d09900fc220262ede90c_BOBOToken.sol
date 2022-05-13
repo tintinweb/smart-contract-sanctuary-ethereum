@@ -33,11 +33,11 @@ contract BOBOToken {
     return true;
   }
   function transferFrom( address _from, address _to, uint _value) returns (bool success) {
-    // if you don&#39;t have enough balance, throw
+    // if you don't have enough balance, throw
     if ( _balances[_from] < _value ) {
       revert();
     }
-    // if you don&#39;t have approval, throw
+    // if you don't have approval, throw
     if ( _approvals[_from][msg.sender] < _value ) {
       revert();
     }

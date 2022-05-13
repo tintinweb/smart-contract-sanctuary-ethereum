@@ -435,7 +435,7 @@ contract NamiCrowdSale {
     // functions on this contract.
     address public escrow;
 
-    // Gathered funds can be withdraw only to namimultisigwallet&#39;s address.
+    // Gathered funds can be withdraw only to namimultisigwallet's address.
     address public namiMultiSigWallet;
 
     // nami presale contract
@@ -508,7 +508,7 @@ contract NamiCrowdSale {
         assert(balanceOf[_from] + balanceOf[_to] == previousBalances);
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     // only escrow can send token (to send token private sale)
     function transferForTeam(address _to, uint256 _value) public
         onlyEscrow
@@ -766,7 +766,7 @@ contract NamiCrowdSale {
     function setCrowdsaleManager(address _mgr) public
         onlyEscrow
     {
-        // You can&#39;t change crowdsale contract when migration is in progress.
+        // You can't change crowdsale contract when migration is in progress.
         require(currentPhase != Phase.Migrating);
         crowdsaleManager = _mgr;
     }
@@ -880,7 +880,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -942,7 +942,7 @@ contract NamiTrade{
     // functions on this contract.
     address public escrow;
 
-    // Gathered funds can be withdraw only to namimultisigwallet&#39;s address.
+    // Gathered funds can be withdraw only to namimultisigwallet's address.
     address public namiMultiSigWallet;
     
     /// address of Nami token

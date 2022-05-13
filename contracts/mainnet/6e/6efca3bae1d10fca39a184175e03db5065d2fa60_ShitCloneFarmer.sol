@@ -25,7 +25,7 @@ pragma solidity ^0.4.23;
 // 5. I made some changes to the contract that might have fucked it, or not.
 // https://bit.ly/2xc8v53
 // 6. Join our discord @ https://discord.gg/RbgqjPd
-// 7. Let&#39;s stop creating these and move on. M&#39;kay?
+// 7. Let's stop creating these and move on. M'kay?
 // 8. Drops the mic.
 
 contract ShitCloneFarmer {
@@ -74,7 +74,7 @@ contract ShitCloneFarmer {
         uint256 cellValue = calculateCellSell(cellCount);
         uint256 fee = devFee(cellValue);
         
-        // one third of your ShitClones die :&#39;(
+        // one third of your ShitClones die :'(
         ballShitClone[msg.sender] = SafeMath.mul(SafeMath.div(ballShitClone[msg.sender], 3), 2); // =66%
         claimedTime[msg.sender] = 0;
         lastEvent[msg.sender] = now;
@@ -192,7 +192,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

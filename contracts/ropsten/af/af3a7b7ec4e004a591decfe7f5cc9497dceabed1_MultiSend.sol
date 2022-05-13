@@ -111,7 +111,7 @@ contract ERC20 {
     /// @dev Transfers _value number of tokens from address _from to address _to
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success);
 
-    /// @dev Allows _spender to withdraw from the msg.sender&#39;s account up to the _value amount
+    /// @dev Allows _spender to withdraw from the msg.sender's account up to the _value amount
     function approve(address _spender, uint256 _value) public returns (bool success);
 
     /// @dev Returns the amount which _spender is still allowed to withdraw from _owner
@@ -166,7 +166,7 @@ contract Escapable is Owned {
 
     /// @notice Checks to see if `_token` is in the blacklist of tokens
     /// @param _token the token address being queried
-    /// @return False if `_token` is in the blacklist and can&#39;t be taken out of
+    /// @return False if `_token` is in the blacklist and can't be taken out of
     ///  the contract via the `escapeHatch()`
     function isTokenEscapable(address _token) constant public returns (bool) {
         return !escapeBlacklist[_token];
@@ -211,15 +211,15 @@ contract Escapable is Owned {
 ///  with multiple amounts. There are also TightlyPacked functions which in
 ///  some situations allow for gas savings. TightlyPacked is cheaper if you
 ///  need to store input data and if amount is less than 12 bytes. Normal is
-///  cheaper if you don&#39;t need to store input data or if amounts are greater
+///  cheaper if you don't need to store input data or if amounts are greater
 ///  than 12 bytes. Supports deterministic deployment. As explained
 ///  here: https://github.com/ethereum/EIPs/issues/777#issuecomment-356103528
 contract MultiSend is Escapable {
   
-    /// @dev Hardcoded escapeHatchCaller to Griff Green&#39;s DAO Curator Address
+    /// @dev Hardcoded escapeHatchCaller to Griff Green's DAO Curator Address
     address CALLER = 0x839395e20bbB182fa440d08F850E6c7A8f6F0780;
 
-    /// @dev Hardcoded escapeHatchDestination to the WHG&#39;s Multisig 
+    /// @dev Hardcoded escapeHatchDestination to the WHG's Multisig 
     address DESTINATION = 0x8ff920020c8ad673661c8117f2855c384758c572;
 
 //////////

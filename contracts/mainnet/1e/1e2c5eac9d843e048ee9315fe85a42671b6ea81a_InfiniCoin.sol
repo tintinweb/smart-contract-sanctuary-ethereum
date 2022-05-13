@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;InfiniCoin&#39; token contract
+// 'InfiniCoin' token contract
 //
 // Deployed to : 0xd59Ec9D98e498D6Afc5A2d5725C3b12305e932F3
 // Symbol      : INFcoin

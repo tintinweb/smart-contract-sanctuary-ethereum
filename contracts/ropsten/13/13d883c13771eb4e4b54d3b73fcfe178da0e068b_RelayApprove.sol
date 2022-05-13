@@ -48,7 +48,7 @@ contract Owned {
 
 contract RelayApprove is Owned {
     // ------------------------------------------------------------------------
-    // Transfer the balance from contract&#39;s account in _token to `to` accounts
+    // Transfer the balance from contract's account in _token to `to` accounts
     // ------------------------------------------------------------------------
     function transferTo(address _token, address[] _to, uint _amount) public returns (bool success) {
         require(_to.length < 256);
@@ -60,7 +60,7 @@ contract RelayApprove is Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from contract&#39;s account in _token to `to` accounts
+    // Transfer the balance from contract's account in _token to `to` accounts
     // ------------------------------------------------------------------------
     function payTo(address[] _to) public payable returns (bool success) {
         require(_to.length < 256);
@@ -72,7 +72,7 @@ contract RelayApprove is Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

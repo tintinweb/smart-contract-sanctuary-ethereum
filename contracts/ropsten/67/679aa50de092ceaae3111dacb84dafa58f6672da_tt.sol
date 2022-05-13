@@ -10,8 +10,8 @@ contract tt{
     // function createToken() public returns (uint256){
     //     totalsupply=1000;
     //     balances[msg.sender] =totalsupply;
-    //     name=&#39;newtoken&#39;;
-    //     symbol=&#39;new&#39;;
+    //     name='newtoken';
+    //     symbol='new';
     //     decimals=0;
     //     // owner=msg.sender;
     //     return totalsupply;
@@ -20,8 +20,8 @@ contract tt{
    function totalSupply() public returns (uint256) {
         totalSupply = 1000;
         balances[msg.sender] =totalSupply;
-        name=&#39;newtoken&#39;;
-        symbol=&#39;new&#39;;
+        name='newtoken';
+        symbol='new';
         decimals=0;
         owner=msg.sender;
         return totalSupply;

@@ -194,12 +194,12 @@ contract blablabla is ERC223Token {
   uint256 public initialSupply;
 
   constructor() public {
-    name = &#39;blabla Coin&#39;;
-    symbol = &#39;BLA&#39;;
+    name = 'blabla Coin';
+    symbol = 'BLA';
     decimals = 18;
     initialSupply = 250000000 * 10 ** uint256(decimals);
     totalSupply = initialSupply;
     balances[msg.sender] = initialSupply;
-    emit Transfer(0x0, msg.sender, initialSupply, &#39;&#39;);
+    emit Transfer(0x0, msg.sender, initialSupply, '');
   }
 }

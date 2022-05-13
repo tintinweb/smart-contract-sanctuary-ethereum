@@ -393,7 +393,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -453,7 +453,7 @@ contract RefundVault is Ownable {
         To cover the costs for paying investor related functions by ourself as: 
             "add investor in the whitelist" and etc.
 
-        We are getting 3% of the investor&#39;s deposit only if the soft cap
+        We are getting 3% of the investor's deposit only if the soft cap
         is not reached and the investor refund his contribution
     */
     uint256 public constant DEDUCTION = 3;
@@ -606,7 +606,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);
@@ -758,7 +758,7 @@ contract ICOCrowdsale is Ownable, FinalizableCrowdsale, WhitelistedCrowdsale {
         // calculate token amount to be created
         uint256 tokens = getTokenAmount(weiAmount, beneficiary);
 
-        // Check for maximum user&#39;s tokens amount overflow
+        // Check for maximum user's tokens amount overflow
         uint256 beneficiaryBalance = token.balanceOf(beneficiary);
         require(beneficiaryBalance.add(tokens) <= MAX_USER_TOKENS_BALANCE);
 
@@ -1017,7 +1017,7 @@ contract BurnableToken is BasicToken {
     function burn(uint256 _value) public {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);
@@ -1061,7 +1061,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.

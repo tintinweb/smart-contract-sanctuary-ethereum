@@ -27,7 +27,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -185,7 +185,7 @@ contract TEST is StandardToken {
         Some wallets/interfaces might not even bother to look at this information.
     */
     string public version = "H1.0"; 
-    uint256 public totalEthInWei=1;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.  
+    uint256 public totalEthInWei=1;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.  
     address public fundsWallet=0xf8215F8884E0DF8557fd07FccB433777A8012de0;           // Where should the raised ETH go?
  
     Round[] rounds;

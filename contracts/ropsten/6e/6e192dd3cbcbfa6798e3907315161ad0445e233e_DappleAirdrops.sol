@@ -37,8 +37,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -56,7 +56,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -100,7 +100,7 @@ contract Ownable {
     /**
      * Any function with this modifier in its method signature can only be executed by
      * the owner of the contract. Any attempt made by any other account to invoke the 
-     * functions with this modifier will result in a loss of gas and the contract&#39;s state
+     * functions with this modifier will result in a loss of gas and the contract's state
      * will remain untampered.
      * */
     modifier onlyOwner {
@@ -422,7 +422,7 @@ contract DappleAirdrops is Ownable {
      * owner. This is a security feature which was implemented on this contract. It is not possible
      * for the owner of this contract or anyone else to transfer the tokens which belong to others. 
      * 
-     * @param _addr The address of the token&#39;s owner.
+     * @param _addr The address of the token's owner.
      * @param _addressOfToken The contract address of the ERC20 token.
      * 
      * @return The ERC20 token allowance from token owner to this contract. 

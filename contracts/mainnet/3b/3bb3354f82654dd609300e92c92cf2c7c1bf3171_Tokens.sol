@@ -45,7 +45,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b) internal pure returns (uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		// uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return a / b;
 	}
 
@@ -81,7 +81,7 @@ contract System {
 	// @notice To limit functions usage to contract owner
 	modifier onlyOwner() {
 		if (msg.sender != owner) {
-			error(&#39;System: onlyOwner function called by user that is not owner&#39;);
+			error('System: onlyOwner function called by user that is not owner');
 		} else {
 			_;
 		}
@@ -118,7 +118,7 @@ contract System {
 		owner = msg.sender;
 		
 		// make sure owner address is configured
-		if(owner == 0x0) error(&#39;System constructor: Owner address is 0x0&#39;); // Never should happen, but just in case...
+		if(owner == 0x0) error('System constructor: Owner address is 0x0'); // Never should happen, but just in case...
 	}
 	
 	// **** EVENTS
@@ -142,7 +142,7 @@ contract Haltable is System {
 
 	modifier stopInEmergency {
 		if (halted) {
-			error(&#39;Haltable: stopInEmergency function called and contract is halted&#39;);
+			error('Haltable: stopInEmergency function called and contract is halted');
 		} else {
 			_;
 		}
@@ -150,7 +150,7 @@ contract Haltable is System {
 
 	modifier onlyInEmergency {
 		if (!halted) {
-			error(&#39;Haltable: onlyInEmergency function called and contract is not halted&#39;);
+			error('Haltable: onlyInEmergency function called and contract is not halted');
 		} {
 			_;
 		}
@@ -198,7 +198,7 @@ contract HardcodedWallets {
 	 * @notice Constructor, set up the compliance officer oracle wallet
 	 */
 	constructor() public {
-		// set up the founders&#39; oracle wallets
+		// set up the founders' oracle wallets
 		walletFounder1             = 0x5E69332F57Ac45F5fCA43B6b007E8A7b138c2938; // founder #1 (CEO) wallet
 		walletFounder2             = 0x852f9a94a29d68CB95Bf39065BED6121ABf87607; // founder #2 wallet
 		walletFounder3             = 0x0a339965e52dF2c6253989F5E9173f1F11842D83; // founder #3 wallet
@@ -260,7 +260,7 @@ contract Escrow is System, HardcodedWallets {
 	function deposit(uint256 _amount) public returns (bool) {
 		// only ICO could deposit
 		if (msg.sender != addressSCICO) {
-			error(&#39;Escrow: not allowed to deposit&#39;);
+			error('Escrow: not allowed to deposit');
 			return false;
 		}
 		deposited[this] = deposited[this].add(_amount);
@@ -272,7 +272,7 @@ contract Escrow is System, HardcodedWallets {
 	 */
 	function withdraw(address _address, uint256 _amount) public onlyOwner returns (bool) {
 		if (deposited[_address]<_amount) {
-			error(&#39;Escrow: not enough balance&#39;);
+			error('Escrow: not enough balance');
 			return false;
 		}
 		deposited[_address] = deposited[_address].sub(_amount);
@@ -284,16 +284,16 @@ contract Escrow is System, HardcodedWallets {
 	 */
 	function fundICO(uint256 _amount, uint8 _stage) public returns (bool) {
 		if(nextStage !=_stage) {
-			error(&#39;Escrow: ICO stage already funded&#39;);
+			error('Escrow: ICO stage already funded');
 			return false;
 		}
 
 		if (msg.sender != addressSCICO || tx.origin != owner) {
-			error(&#39;Escrow: not allowed to fund the ICO&#39;);
+			error('Escrow: not allowed to fund the ICO');
 			return false;
 		}
 		if (deposited[this]<_amount) {
-			error(&#39;Escrow: not enough balance&#39;);
+			error('Escrow: not enough balance');
 			return false;
 		}
 		bool success = SCTokens.transfer(addressSCICO, _amount);
@@ -361,7 +361,7 @@ contract Tokens is HardcodedWallets, ERC20, Haltable {
 	string public name;
 	string public symbol;
 	uint8 public decimals;
-	string public standard = &#39;H0.1&#39;; // HumanStandardToken is a specialisation of ERC20 defining these parameters
+	string public standard = 'H0.1'; // HumanStandardToken is a specialisation of ERC20 defining these parameters
 
 	// Timelock
 	uint256 public timelockEndTime;
@@ -381,7 +381,7 @@ contract Tokens is HardcodedWallets, ERC20, Haltable {
 	// @notice To limit token transfers while timelocked
 	modifier notTimeLocked() {
 		if (now < timelockEndTime && msg.sender != addressSCICO && msg.sender != addressSCEscrow) {
-			error(&#39;notTimeLocked: Timelock still active. Function is yet unavailable.&#39;);
+			error('notTimeLocked: Timelock still active. Function is yet unavailable.');
 		} else {
 			_;
 		}
@@ -433,12 +433,12 @@ contract Tokens is HardcodedWallets, ERC20, Haltable {
 	 */
 	function transfer(address _to, uint256 _amount) public notTimeLocked stopInEmergency returns (bool success) {
 		if (balances[msg.sender] < _amount) {
-			error(&#39;transfer: the amount to transfer is higher than your token balance&#39;);
+			error('transfer: the amount to transfer is higher than your token balance');
 			return false;
 		}
 
 		if(!SCComplianceService.validate(msg.sender, _to, _amount)) {
-			error(&#39;transfer: not allowed by the compliance service&#39;);
+			error('transfer: not allowed by the compliance service');
 			return false;
 		}
 
@@ -458,16 +458,16 @@ contract Tokens is HardcodedWallets, ERC20, Haltable {
  	 */
 	function transferFrom(address _from, address _to, uint256 _amount) public notTimeLocked stopInEmergency returns (bool success) {
 		if (balances[_from] < _amount) {
-			error(&#39;transferFrom: the amount to transfer is higher than the token balance of the source&#39;);
+			error('transferFrom: the amount to transfer is higher than the token balance of the source');
 			return false;
 		}
 		if (allowed[_from][msg.sender] < _amount) {
-			error(&#39;transferFrom: the amount to transfer is higher than the maximum token transfer allowed by the source&#39;);
+			error('transferFrom: the amount to transfer is higher than the maximum token transfer allowed by the source');
 			return false;
 		}
 
 		if(!SCComplianceService.validate(_from, _to, _amount)) {
-			error(&#39;transfer: not allowed by the compliance service&#39;);
+			error('transfer: not allowed by the compliance service');
 			return false;
 		}
 
@@ -540,22 +540,22 @@ contract Tokens is HardcodedWallets, ERC20, Haltable {
 	 */
 	function refundTokens(address _from, uint256 _amount) public notTimeLocked stopInEmergency returns (bool success) {
         if (tx.origin != _from) {
-            error(&#39;refundTokens: tx.origin did not request the refund directly&#39;);
+            error('refundTokens: tx.origin did not request the refund directly');
             return false;
         }
 
         if (addressSCICO != msg.sender) {
-            error(&#39;refundTokens: caller is not the current ICO address&#39;);
+            error('refundTokens: caller is not the current ICO address');
             return false;
         }
 
         if (balances[_from] < _amount) {
-            error(&#39;refundTokens: the amount to transfer is higher than your token balance&#39;);
+            error('refundTokens: the amount to transfer is higher than your token balance');
             return false;
         }
 
         if(!SCComplianceService.validate(_from, addressSCICO, _amount)) {
-			error(&#39;transfer: not allowed by the compliance service&#39;);
+			error('transfer: not allowed by the compliance service');
 			return false;
 		}
 

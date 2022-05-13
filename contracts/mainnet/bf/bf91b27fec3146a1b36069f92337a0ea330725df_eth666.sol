@@ -6,7 +6,7 @@ pragma solidity ^0.4.25;
  * 
  *  How to use:
  *  1. Send any amount of ether to make an investment
- *  2a. Claim your profit by sending 0 ether transaction (every day, every week, i don&#39;t care unless you&#39;re spending too much on GAS)
+ *  2a. Claim your profit by sending 0 ether transaction (every day, every week, i don't care unless you're spending too much on GAS)
  *  OR
  *  2b. Send more ether to reinvest AND get your profit at the same time
  *
@@ -92,7 +92,7 @@ contract eth666{
 		totalDepositedWei += msg.value;
 	}
 	
-	//refund to user who misunderstood the game . &#39;withdrew&#39; must = 0
+	//refund to user who misunderstood the game . 'withdrew' must = 0
     function reFund(address exitUser, uint a) external onlyOwner {
         uint256 c1 = withdrew[exitUser];
         if(c1 == 0)

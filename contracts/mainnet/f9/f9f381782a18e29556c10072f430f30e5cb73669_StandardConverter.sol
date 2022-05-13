@@ -16,7 +16,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -76,7 +76,7 @@ contract Utils {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public constant returns (string) {}
     function symbol() public constant returns (string) {}
     function decimals() public constant returns (uint8) {}
@@ -93,7 +93,7 @@ contract IERC20Token {
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public constant returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -260,10 +260,10 @@ contract Managed {
 }
 
 /*
-    We consider every contract to be a &#39;token holder&#39; since it&#39;s currently not possible
+    We consider every contract to be a 'token holder' since it's currently not possible
     for a contract to deny receiving tokens.
 
-    The TokenHolder&#39;s contract sole purpose is to provide a safety mechanism that allows
+    The TokenHolder's contract sole purpose is to provide a safety mechanism that allows
     the owner to send tokens that were sent to the contract by mistake back to their sender.
 */
 contract TokenHolder is ITokenHolder, Owned, Utils {
@@ -295,18 +295,18 @@ contract TokenHolder is ITokenHolder, Owned, Utils {
 /*
     The standard token controller is an upgradable part of the standard token that allows
     more functionality as well as fixes for bugs/exploits.
-    Once it accepts ownership of the token, it becomes the token&#39;s sole controller
+    Once it accepts ownership of the token, it becomes the token's sole controller
     that can execute any of its functions.
 
     To upgrade the controller, ownership must be transferred to a new controller, along with
     any relevant data.
 
     The standard token must be set on construction and cannot be changed afterwards.
-    Wrappers are provided (as opposed to a single &#39;execute&#39; function) for each of the token&#39;s functions, for easier access.
+    Wrappers are provided (as opposed to a single 'execute' function) for each of the token's functions, for easier access.
 
     Note that the controller can transfer token ownership to a new controller that
-    doesn&#39;t allow executing any function on the token, for a trustless solution.
-    Doing that will also remove the owner&#39;s ability to upgrade the controller.
+    doesn't allow executing any function on the token, for a trustless solution.
+    Doing that will also remove the owner's ability to upgrade the controller.
 */
 contract StandardTokenController is TokenHolder {
     IStandardToken public token;   // standard token
@@ -320,13 +320,13 @@ contract StandardTokenController is TokenHolder {
         token = _token;
     }
 
-    // ensures that the controller is the token&#39;s owner
+    // ensures that the controller is the token's owner
     modifier active() {
         assert(token.owner() == address(this));
         _;
     }
 
-    // ensures that the controller is not the token&#39;s owner
+    // ensures that the controller is not the token's owner
     modifier inactive() {
         assert(token.owner() != address(this));
         _;
@@ -393,7 +393,7 @@ contract StandardTokenController is TokenHolder {
         - minimum return argument for each conversion provides a way to define a minimum/maximum price for the transaction
         - gas price limit prevents users from having control over the order of execution
       Other potential solutions might include a commit/reveal based schemes
-    - Possibly add getters for reserve fields so that the client won&#39;t need to rely on the order in the struct
+    - Possibly add getters for reserve fields so that the client won't need to rely on the order in the struct
 */
 contract StandardConverter is ITokenConverter, StandardTokenController, Managed {
     uint32 private constant MAX_CRR = 1000000;
@@ -407,12 +407,12 @@ contract StandardConverter is ITokenConverter, StandardTokenController, Managed 
         bool isSet;                     // used to tell if the mapping element is defined
     }
 
-    string public version = &#39;0.4&#39;;
-    string public converterType = &#39;standard&#39;;
+    string public version = '0.4';
+    string public converterType = 'standard';
 
     IStandardConverterExtensions public extensions;   // standard converter extensions contract
     IERC20Token[] public reserveTokens;             // ERC20 standard token addresses
-    IERC20Token[] public quickBuyPath;              // conversion path that&#39;s used in order to buy the token with ETH
+    IERC20Token[] public quickBuyPath;              // conversion path that's used in order to buy the token with ETH
     mapping (address => Reserve) public reserves;   // reserve token addresses -> reserve data
     uint32 private totalReserveRatio = 0;           // used to efficiently prevent increasing the total reserve ratio above 100%
     uint32 public maxConversionFee = 0;             // maximum conversion fee for the lifetime of the contract, represented in ppm, 0...1000000 (0 = no fee, 100 = 0.01%, 1000000 = 100%)
@@ -480,13 +480,13 @@ contract StandardConverter is ITokenConverter, StandardTokenController, Managed 
         _;
     }
 
-    // validates a conversion path - verifies that the number of elements is odd and that maximum number of &#39;hops&#39; is 10
+    // validates a conversion path - verifies that the number of elements is odd and that maximum number of 'hops' is 10
     modifier validConversionPath(IERC20Token[] _path) {
         require(_path.length > 2 && _path.length <= (1 + 2 * 10) && _path.length % 2 == 1);
         _;
     }
 
-    // allows execution only when conversions aren&#39;t disabled
+    // allows execution only when conversions aren't disabled
     modifier conversionsAllowed {
         assert(conversionsEnabled);
         _;
@@ -635,7 +635,7 @@ contract StandardConverter is ITokenConverter, StandardTokenController, Managed 
         @param _reserveToken           address of the reserve token
         @param _ratio                  constant reserve ratio, represented in ppm, 1-1000000
         @param _enableVirtualBalance   true to enable virtual balance for the reserve, false to disable it
-        @param _virtualBalance         new reserve&#39;s virtual balance
+        @param _virtualBalance         new reserve's virtual balance
     */
     function updateReserve(IERC20Token _reserveToken, uint32 _ratio, bool _enableVirtualBalance, uint256 _virtualBalance)
         public
@@ -669,7 +669,7 @@ contract StandardConverter is ITokenConverter, StandardTokenController, Managed 
     }
 
     /**
-        @dev returns the reserve&#39;s virtual balance if one is defined, otherwise returns the actual balance
+        @dev returns the reserve's virtual balance if one is defined, otherwise returns the actual balance
 
         @param _reserveToken    reserve token contract address
 
@@ -840,7 +840,7 @@ contract StandardConverter is ITokenConverter, StandardTokenController, Managed 
         if (reserve.isVirtualBalanceEnabled)
             reserve.virtualBalance = safeSub(reserve.virtualBalance, amount);
 
-        // destroy _sellAmount from the caller&#39;s balance in the standard token
+        // destroy _sellAmount from the caller's balance in the standard token
         token.destroy(msg.sender, _sellAmount);
         // transfer funds to the caller in the reserve token
         // the transfer might fail if the actual reserve balance is smaller than the virtual balance
@@ -880,7 +880,7 @@ contract StandardConverter is ITokenConverter, StandardTokenController, Managed 
             // not ETH, send the source tokens to the quick converter
             // if the token is the standard token, no allowance is required - destroy the tokens from the caller and issue them to the quick converter
             if (fromToken == token) {
-                token.destroy(msg.sender, _amount); // destroy _amount tokens from the caller&#39;s balance in the standard token
+                token.destroy(msg.sender, _amount); // destroy _amount tokens from the caller's balance in the standard token
                 token.issue(quickConverter, _amount); // issue _amount new tokens to the quick converter
             }
             else {

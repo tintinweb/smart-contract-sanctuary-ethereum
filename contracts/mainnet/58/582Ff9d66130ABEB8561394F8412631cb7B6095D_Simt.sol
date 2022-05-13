@@ -19,8 +19,8 @@ contract Simt {
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function Simt() {
       owner = 0x788F4b0458134ED824b9Cae8DaEE198890810754;
-      name = &#39;Simt&#39;;
-      symbol = &#39;SIMT&#39;;
+      name = 'Simt';
+      symbol = 'SIMT';
       decimals = 18;
       totalSupply = 840000000000000000000000000; // 2e26
       balanceOf[owner] = 840000000000000000000000000;

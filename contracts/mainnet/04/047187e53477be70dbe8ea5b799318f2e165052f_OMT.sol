@@ -152,7 +152,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -570,7 +570,7 @@ contract OMT is DSToken("OMT"), ERC223, Controlled {
         return size>0;
     }
 
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token controller contract
     function ()  payable {

@@ -133,7 +133,7 @@ contract CardProto is CardBase {
     }
 
     function nextSeason() public onlyGovernor {
-        //Seasons shouldn&#39;t go to 0 if there is more than the uint8 should hold, the governor should know this &#175;\_(ツ)_/&#175; -M
+        //Seasons shouldn't go to 0 if there is more than the uint8 should hold, the governor should know this &#175;\_(ツ)_/&#175; -M
         require(currentSeason <= 255); 
 
         currentSeason++;
@@ -171,7 +171,7 @@ contract CardProto is CardBase {
 
     // there is a particular design decision driving this:
     // need to be able to iterate over mythics only for card generation
-    // don&#39;t store 5 different arrays: have to use 2 ids
+    // don't store 5 different arrays: have to use 2 ids
     // better to bear this cost (2 bytes per proto card)
     // rather than 1 byte per instance
 
@@ -364,7 +364,7 @@ contract CardProto is CardBase {
     }
 
     // can never adjust tradable cards
-    // each season gets a &#39;balancing beta&#39;
+    // each season gets a 'balancing beta'
     // totally immutable: season, rarity
     function replaceProto(
         uint16 index, uint8 god, uint8 cardType, uint8 mana, uint8 attack, uint8 health, uint8 tribe
@@ -409,7 +409,7 @@ contract CardPackFour {
     event Referral(address indexed referrer, uint value, address purchaser);
 
     /**
-    * purchase &#39;count&#39; of this type of pack
+    * purchase 'count' of this type of pack
     */
     function purchase(uint16 packCount, address referrer) public payable;
 
@@ -494,8 +494,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -512,7 +512,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -540,8 +540,8 @@ library SafeMath64 {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint64 a, uint64 b) internal pure returns (uint64 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -558,7 +558,7 @@ library SafeMath64 {
   function div(uint64 a, uint64 b) internal pure returns (uint64) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint64 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -583,7 +583,7 @@ library SafeMath64 {
 contract AuctionPack is CardPackFour, Pausable {
 
     using SafeMath for uint;
-    // probably a better way to do this/don&#39;t need to do it at all
+    // probably a better way to do this/don't need to do it at all
     using SafeMath64 for uint64;
 
     mapping(address => uint) owed;
@@ -741,7 +741,7 @@ contract AuctionPack is CardPackFour, Pausable {
 
         if (auction.highestBidder != address(0)) {
 
-            // let&#39;s just go with the safe option rather than using send(): probably fine but no loss
+            // let's just go with the safe option rather than using send(): probably fine but no loss
             owed[auction.highestBidder] = owed[auction.highestBidder].add(auction.highestBid);
 
             // give the previous bidder their bonus/consolation card 
@@ -772,7 +772,7 @@ contract AuctionPack is CardPackFour, Pausable {
 
         emit Claimed(id, cardID, auction.highestBidder, auction.highestBid, auction.proto, auction.purity);
 
-        // don&#39;t require this to be a trusted address
+        // don't require this to be a trusted address
         owed[auction.beneficiary] = owed[auction.beneficiary].add(auction.highestBid);
 
         return cardID;

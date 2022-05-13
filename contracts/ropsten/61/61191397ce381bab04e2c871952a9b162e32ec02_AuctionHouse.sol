@@ -33,7 +33,7 @@ library Roles {
     role.bearer[account] = true;
   }
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));

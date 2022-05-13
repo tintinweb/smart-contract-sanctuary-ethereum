@@ -145,7 +145,7 @@ contract Crowdsale is Owned, Stateful {
         uint valueWEI = msg.value;
         uint valueUSDWEI = valueWEI * etherPriceUSDWEI / 1 ether;
         uint tokenPriceUSDWEI = getTokenPriceUSDWEI();
-        if (collectedUSDWEI + valueUSDWEI > totalLimitUSDWEI) { // don&#39;t need so much ether
+        if (collectedUSDWEI + valueUSDWEI > totalLimitUSDWEI) { // don't need so much ether
             valueUSDWEI = totalLimitUSDWEI - collectedUSDWEI;
             valueWEI = valueUSDWEI * 1 ether / etherPriceUSDWEI;
             uint weiToReturn = msg.value - valueWEI;

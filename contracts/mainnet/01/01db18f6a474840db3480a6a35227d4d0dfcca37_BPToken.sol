@@ -251,7 +251,7 @@ contract BPToken is SafeMath, Owned, ERC20 {
         return balances[who];
     }
 
-    /// @notice Transfer `value` BP tokens from sender&#39;s account
+    /// @notice Transfer `value` BP tokens from sender's account
     /// `msg.sender` to provided account address `to`.
     /// @notice This function is disabled during the funding.
     /// @dev Required state: Success
@@ -273,7 +273,7 @@ contract BPToken is SafeMath, Owned, ERC20 {
         }
     }
 
-    /// @notice Transfer `value` BP tokens from sender &#39;from&#39;
+    /// @notice Transfer `value` BP tokens from sender 'from'
     /// to provided account address `to`.
     /// @notice This function is disabled during the funding.
     /// @dev Required state: Success

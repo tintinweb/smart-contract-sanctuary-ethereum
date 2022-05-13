@@ -189,7 +189,7 @@ contract PassThrough is Ownable, PassThroughStorage {
 
     /**
     * @dev Disable a method for two years
-    * Note that the input expected is the method signature as &#39;transfer(address,uint256)&#39;
+    * Note that the input expected is the method signature as 'transfer(address,uint256)'
     * @param _signature string - method signature
     */
     function disableMethod(string memory _signature, uint256 _time) public onlyOwner {
@@ -204,7 +204,7 @@ contract PassThrough is Ownable, PassThroughStorage {
 
     /**
     * @dev Allow a method previously disabled
-    * Note that the input expected is the method signature as &#39;transfer(address,uint256)&#39;
+    * Note that the input expected is the method signature as 'transfer(address,uint256)'
     * @param _signature string - method signature
     */
     function allowMethod(string memory _signature) public onlyOwner {

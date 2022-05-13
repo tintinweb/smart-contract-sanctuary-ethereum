@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public view returns (string) {}
     function symbol() public view returns (string) {}
     function decimals() public view returns (uint8) {}
@@ -22,7 +22,7 @@ contract IERC20Token {
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public view returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -126,7 +126,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != address(0));
         _;
@@ -196,10 +196,10 @@ contract ITokenHolder is IOwned {
 
 
 /*
-    We consider every contract to be a &#39;token holder&#39; since it&#39;s currently not possible
+    We consider every contract to be a 'token holder' since it's currently not possible
     for a contract to deny receiving tokens.
 
-    The TokenHolder&#39;s contract sole purpose is to provide a safety mechanism that allows
+    The TokenHolder's contract sole purpose is to provide a safety mechanism that allows
     the owner to send tokens that were sent to the contract by mistake back to their sender.
 */
 contract TokenHolder is ITokenHolder, Owned, Utils {
@@ -257,12 +257,12 @@ contract ISmartToken is IOwned, IERC20Token {
     bancor network in a single transaction.
 
     A note on conversion paths -
-    Conversion path is a data structure that&#39;s used when converting a token to another token in the bancor network
-    when the conversion cannot necessarily be done by single converter and might require multiple &#39;hops&#39;.
+    Conversion path is a data structure that's used when converting a token to another token in the bancor network
+    when the conversion cannot necessarily be done by single converter and might require multiple 'hops'.
     The path defines which converters should be used and what kind of conversion should be done in each step.
 
-    The path format doesn&#39;t include complex structure and instead, it is represented by a single array
-    in which each &#39;hop&#39; is represented by a 2-tuple - smart token & to token.
+    The path format doesn't include complex structure and instead, it is represented by a single array
+    in which each 'hop' is represented by a 2-tuple - smart token & to token.
     In addition, the first element is always the source token.
     The smart token is only used as a pointer to a converter (since converter addresses are more likely to change).
 
@@ -281,7 +281,7 @@ contract BancorQuickConverter is IBancorQuickConverter, TokenHolder {
     function BancorQuickConverter() public {
     }
 
-    // validates a conversion path - verifies that the number of elements is odd and that maximum number of &#39;hops&#39; is 10
+    // validates a conversion path - verifies that the number of elements is odd and that maximum number of 'hops' is 10
     modifier validConversionPath(IERC20Token[] _path) {
         require(_path.length > 2 && _path.length <= (1 + 2 * 10) && _path.length % 2 == 1);
         _;
@@ -343,8 +343,8 @@ contract BancorQuickConverter is IBancorQuickConverter, TokenHolder {
         bytes32 hash = sha256(_block, tx.gasprice, _addr, _nonce);
 
         // checking that it is the first conversion with the given signature
-        // and that the current block number doesn&#39;t exceeded the maximum block
-        // number that&#39;s allowed with the current signature
+        // and that the current block number doesn't exceeded the maximum block
+        // number that's allowed with the current signature
         require(!conversionHashes[hash] && block.number <= _block);
 
         // recovering the signing address and comparing it to the trusted signer
@@ -353,7 +353,7 @@ contract BancorQuickConverter is IBancorQuickConverter, TokenHolder {
         bytes32 prefixedHash = keccak256(prefix, hash);
         bool verified = ecrecover(prefixedHash, _v, _r, _s) == signerAddress;
 
-        // if the signer is the trusted signer - mark the hash so that it can&#39;t
+        // if the signer is the trusted signer - mark the hash so that it can't
         // be used multiple times
         if (verified)
             conversionHashes[hash] = true;
@@ -439,11 +439,11 @@ contract BancorQuickConverter is IBancorQuickConverter, TokenHolder {
             toToken = _path[i + 1];
             converter = ITokenConverter(smartToken.owner());
 
-            // if the smart token isn&#39;t the source (from token), the converter doesn&#39;t have control over it and thus we need to approve the request
+            // if the smart token isn't the source (from token), the converter doesn't have control over it and thus we need to approve the request
             if (smartToken != _fromToken)
                 ensureAllowance(_fromToken, converter, _amount);
 
-            // make the conversion - if it&#39;s the last one, also provide the minimum return value
+            // make the conversion - if it's the last one, also provide the minimum return value
             _amount = converter.change(_fromToken, toToken, _amount, i == pathLength - 2 ? _minReturn : 1);
             _fromToken = toToken;
         }
@@ -451,7 +451,7 @@ contract BancorQuickConverter is IBancorQuickConverter, TokenHolder {
     }
 
     /**
-        @dev claims the caller&#39;s tokens, converts them to any other token in the bancor network
+        @dev claims the caller's tokens, converts them to any other token in the bancor network
         by following a predefined conversion path and transfers the result tokens to a target account
         note that allowance must be set beforehand
 
@@ -487,7 +487,7 @@ contract BancorQuickConverter is IBancorQuickConverter, TokenHolder {
     }
 
     /**
-        @dev claims the caller&#39;s tokens, converts them to any other token in the bancor network
+        @dev claims the caller's tokens, converts them to any other token in the bancor network
         by following a predefined conversion path and transfers the result tokens back to the sender
         note that allowance must be set beforehand
 
@@ -502,7 +502,7 @@ contract BancorQuickConverter is IBancorQuickConverter, TokenHolder {
     }
 
     /**
-        @dev utility, checks whether allowance for the given spender exists and approves one if it doesn&#39;t
+        @dev utility, checks whether allowance for the given spender exists and approves one if it doesn't
 
         @param _token   token to check the allowance in
         @param _spender approved address

@@ -11,10 +11,10 @@ pragma solidity ^0.4.18;
 //    d88P  Y88b                                  d88P  Y88b         
 //    888    888                                  888    888         
 //    888    888888  888     888  888.d8888b      888    888888  888 
-//    888    888`Y8bd8P&#39;     888  88888K          888    888`Y8bd8P&#39; 
+//    888    888`Y8bd8P'     888  88888K          888    888`Y8bd8P' 
 //    888    888  X88K       Y88  88P"Y8888b.     888    888  X88K   
 //    Y88b  d88P.d8""8b.      Y8bd8P      X88     Y88b  d88P.d8""8b. 
-//     "Y8888P" 888  888       Y88P   88888P&#39;      "Y8888P" 888  888 
+//     "Y8888P" 888  888       Y88P   88888P'      "Y8888P" 888  888 
 //
 //
 // ******************************
@@ -28,7 +28,7 @@ pragma solidity ^0.4.18;
 // making it so that the contract is tested to the fullest ability before
 // the live version is deployed. The website is currently under development
 // and will be continually improved as time goes on, once the live version
-// is deployed, you can access it&#39;s contract and data through the root url
+// is deployed, you can access it's contract and data through the root url
 // (https://addresswars.io/) and there will always be a copy of the website
 // on a subdomain that you can visit in order to view and interact with this
 // contract at any time in the future.
@@ -54,7 +54,7 @@ pragma solidity ^0.4.18;
 // wallet address which you can issue transactions from but only non-contract 
 // addresses (ie addresses where you can issue a transaction directly) can play.
 // From here, you can simply call the enlist() function and send the relevant
-// fee (in the beta it&#39;s 0 ETH, for the live it will be 0.01 ETH). After the
+// fee (in the beta it's 0 ETH, for the live it will be 0.01 ETH). After the
 // transaction succeeds, you will have your very own, randomly generated
 // address card that you can now put up for wager or use to attempt to claim
 // other address cards with!
@@ -66,11 +66,11 @@ pragma solidity ^0.4.18;
 // or wagering), once 10 copies of your own address are circulating, you will
 // no longer be able to transfer or wager your own address (although you can
 // still use it to claim other addresses). It is important to note that there
-// is no way to &#39;destroy&#39; a copy of a card in circulation and your own address
-// card cannot be transferred back to you (and you can&#39;t attempt to claim your
+// is no way to 'destroy' a copy of a card in circulation and your own address
+// card cannot be transferred back to you (and you can't attempt to claim your
 // own address card).
 // To wager a card, simply call the wagerCardForAmount() function and send
-// the relevant fee (in the beta it&#39;s 0 ETH, for the live it will be 0.005 ETH)
+// the relevant fee (in the beta it's 0 ETH, for the live it will be 0.005 ETH)
 // as well as the address of the card you wish to wager and the amount you are
 // willing to wager it for (in wei). From this point, any other address can
 // attempt to claim the address card you listed but the card that will be put up
@@ -90,7 +90,7 @@ pragma solidity ^0.4.18;
 // claim a card if you are the current claim contender or if the card address is 
 // the same as your address (ie you enlisted and got that card).
 // To attempt to claim, you need to first assemble an army of 3 address cards
-// (these cards don&#39;t have to be unique but you do have to own them) and send the 
+// (these cards don't have to be unique but you do have to own them) and send the 
 // current cheapest wager price to the attemptToClaimCard() function. This function  
 // will do all of the calculation work for you and determine if you managed to claim
 // the card or not. The first thing that happens is the contract randomly picks 
@@ -99,8 +99,8 @@ pragma solidity ^0.4.18;
 // After this point, all of the complex maths happens and the final attack
 // and defence numbers will be calculated based on all of the cards types,
 // modifiers and the base attack and defence stats.
-// From here it&#39;s simply a matter of determining how many hits got through
-// on both claimer and claim contender, it&#39;s calculated as follows;
+// From here it's simply a matter of determining how many hits got through
+// on both claimer and claim contender, it's calculated as follows;
 // opponentsHits = yourCard[attack] - opponentsCard[defence]
 //  ^ will be 0 if opponentsCard[defence] > yourCard[attack]
 // This is totalled up for both the claimer and the claim contender and the
@@ -139,7 +139,7 @@ pragma solidity ^0.4.18;
 //   2. the address you are transferring to must already be enlisted
 //   3. the address you are transferring the card to must have less than 
 //      8 unique cards already (or they must already own the card)
-//   4. you cannot transfer a card back to it&#39;s original address
+//   4. you cannot transfer a card back to it's original address
 //   5. if you are gifting your own address card, the claim limit will apply
 //      and if 10 copies already exist, you will not be able to gift your card.
 //
@@ -223,7 +223,7 @@ contract AddressWarsBeta {
   // V_: if a versing card is of a certain type, your card
   //     will get bonus att/def numbers
   // V_SWAP: this will swap the versing cards att and def
-  //         numbers after they&#39;ve been modified by any
+  //         numbers after they've been modified by any
   //         other active modifiers
   // R_V: your card resists the type advantages of the versing card,
   //      normal type cards cannot receive this modifier
@@ -513,7 +513,7 @@ contract AddressWarsBeta {
     // the current main seed, tmpSeed will be the current representation of the seed
     _seed = tmpSeed;
 
-    // now that we&#39;re done, it&#39;s time to log the event
+    // now that we're done, it's time to log the event
     AddressDidEnlist(msg.sender);
 
   }
@@ -523,7 +523,7 @@ contract AddressWarsBeta {
   // address is your own address, you will simply give them a copy (limited to 10
   // total copies) but otherwise the player will take that address off you if they
   // are successful.
-  // here&#39;s what can happen when you wager;
+  // here's what can happen when you wager;
   // 1. if an opponent is successful in claiming your card, they will receive 50%
   //    of the wager amount back, the dev gets 2% and you get 48%
   // 2. if an opponent is unsuccessful in claiming your card, you will receive
@@ -565,7 +565,7 @@ contract AddressWarsBeta {
     // dev receives the wagering fee
     _balanceOf[dev] = SafeMath.add(_balanceOf[dev], wageringFee);
 
-    // now that we&#39;re done, it&#39;s time to log the event
+    // now that we're done, it's time to log the event
     AddressCardWasWagered(cardAddress, msg.sender, amount);
 
   }
@@ -590,7 +590,7 @@ contract AddressWarsBeta {
     // now update our statistics
     updateCardStatistics(cardAddress);
 
-    // now that we&#39;re done, it&#39;s time to log the event
+    // now that we're done, it's time to log the event
     AddressCardWagerWasCancelled(cardAddress, msg.sender);
 
   }
@@ -639,7 +639,7 @@ contract AddressWarsBeta {
 
     // before we process the outcome, we should log the event.
     // order is important here as we should log a successful 
-    // claim attempt then a transfer (if that&#39;s what happens)
+    // claim attempt then a transfer (if that's what happens)
     // instead of the other way around
     ClaimAttempt(
       totalHits[0] < totalHits[1], // it was successful if we had less hits than the opponent
@@ -840,7 +840,7 @@ contract AddressWarsBeta {
     require(cardAddressExists(owner));
     require(cardAddressExists(cardAddress));
 
-    // check if it&#39;s your own address
+    // check if it's your own address
     if (owner == cardAddress) {
       return 0;
     }
@@ -864,7 +864,7 @@ contract AddressWarsBeta {
     require(cardAddressExists(cardAddress));
 
     uint256[] memory ownerIndexes = new uint256[](ownerCountOfCard(owner, cardAddress));
-    // check if it&#39;s your own address
+    // check if it's your own address
     if (owner == cardAddress) {
       return (true, ownerIndexes);
     }
@@ -977,13 +977,13 @@ contract AddressWarsBeta {
     uint256 firstMatchedIndex;
     bool isWagered;
     (firstMatchedIndex, isWagered, , , ) = getOwnerOfCardsCheapestWager(fromAddress, cardAddress);
-    require(isWagered == false); // you cannot transfer a card if it&#39;s currently wagered
+    require(isWagered == false); // you cannot transfer a card if it's currently wagered
 
     require(cardAddressExists(toAddress));
-    require(toAddress != cardAddress); // can&#39;t transfer a card to it&#39;s original address
+    require(toAddress != cardAddress); // can't transfer a card to it's original address
     require(ownerHasCardSimple(toAddress, cardAddress) || _cardsOf[toAddress].length < MAX_UNIQUE_CARDS_PER_ADDRESS);
 
-    // firstly, if toAddress doesn&#39;t have a copy we need to add one
+    // firstly, if toAddress doesn't have a copy we need to add one
     if (!ownerHasCardSimple(toAddress, cardAddress)) {
       _cardsOf[toAddress].push(cardAddress);
     } 
@@ -1005,7 +1005,7 @@ contract AddressWarsBeta {
 
     } else {
 
-      // firstly we need to cache the current index from our fromAddress&#39; _cardsOf
+      // firstly we need to cache the current index from our fromAddress' _cardsOf
       uint256 cardIndexOfSender = getCardIndexOfOwner(cardAddress, fromAddress);
 
       // now just update the address at the firstMatchedIndex
@@ -1026,7 +1026,7 @@ contract AddressWarsBeta {
 
     }
 
-    // now that we&#39;re done, it&#39;s time to log the event
+    // now that we're done, it's time to log the event
     AddressCardWasTransferred(cardAddress, fromAddress, toAddress);
 
   }
@@ -1104,7 +1104,7 @@ contract AddressWarsBeta {
       }
 
     }
-    // we void our bonus if they aren&#39;t all of the type
+    // we void our bonus if they aren't all of the type
     if (!allOfSameType[0]) {
       cumulativeAttackBonuses[0] = 0;
       cumulativeDefenceBonuses[0] = 0;
@@ -1114,7 +1114,7 @@ contract AddressWarsBeta {
       cumulativeDefenceBonuses[1] = 0;
     }
     // now add the bonus figures to the initial attack numbers, they will be 0
-    // if they either weren&#39;t all of the same type or if no cards actually had
+    // if they either weren't all of the same type or if no cards actually had
     // the ALL_ modifier
     for (i = 0; i < 3; i++) {
       // for your cards
@@ -1169,7 +1169,7 @@ contract AddressWarsBeta {
     for (i = 0; i < 3; i++) {
 
       // start with your cards
-      // first check if the card we&#39;re versing resists our type advantage
+      // first check if the card we're versing resists our type advantage
       if (allCards[1][i]._cardModifier != uint256(MODIFIER.R_V)) {
         // test all the possible combinations of advantages
         if (
@@ -1234,7 +1234,7 @@ contract AddressWarsBeta {
 
     }
 
-    // we&#39;re all done!
+    // we're all done!
     return (allAttackFigures, allDefenceFigures);
 
   }
@@ -1581,7 +1581,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

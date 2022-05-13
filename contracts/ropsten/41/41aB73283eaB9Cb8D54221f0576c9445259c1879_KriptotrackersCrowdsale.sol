@@ -35,8 +35,8 @@ library SafeMath {
      * @dev Multiplies two unsigned integers, reverts on overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -55,7 +55,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -139,7 +139,7 @@ library SafeERC20 {
     function safeApprove(IERC20 token, address spender, uint256 value) internal {
         // safeApprove should only be called when setting an initial allowance,
         // or when resetting it to zero. To increase and decrease it, use
-        // &#39;safeIncreaseAllowance&#39; and &#39;safeDecreaseAllowance&#39;
+        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
         require((value == 0) || (token.allowance(address(this), spender) == 0));
         callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, value));
     }
@@ -161,8 +161,8 @@ library SafeERC20 {
      * @param data The call data (encoded using abi.encode or one of its variants).
      */
     function callOptionalReturn(IERC20 token, bytes memory data) private {
-        // We need to perform a low level call here, to bypass Solidity&#39;s return data size checking mechanism, since
-        // we&#39;re implementing it ourselves.
+        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
+        // we're implementing it ourselves.
 
         // A Solidity high level call has three parts:
         //  1. The target address is checked to verify it contains contract code
@@ -221,7 +221,7 @@ contract ReentrancyGuard {
  * The external interface represents the basic interface for purchasing tokens, and conforms
  * the base architecture for crowdsales. It is *not* intended to be modified / overridden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropriate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropriate to concatenate
  * behavior.
  */
 contract Crowdsale is ReentrancyGuard {
@@ -310,7 +310,7 @@ contract Crowdsale is ReentrancyGuard {
 
     /**
      * @dev low level token purchase ***DO NOT OVERRIDE***
-     * This function has a non-reentrancy guard, so it shouldn&#39;t be called by
+     * This function has a non-reentrancy guard, so it shouldn't be called by
      * another `nonReentrant` function.
      * @param beneficiary Recipient of the token purchase
      */
@@ -336,7 +336,7 @@ contract Crowdsale is ReentrancyGuard {
     /**
      * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met.
      * Use `super` in contracts that inherit from Crowdsale to extend their validations.
-     * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method:
+     * Example from CappedCrowdsale.sol's _preValidatePurchase method:
      *     super._preValidatePurchase(beneficiary, weiAmount);
      *     require(weiRaised().add(weiAmount) <= cap);
      * @param beneficiary Address performing the token purchase
@@ -368,7 +368,7 @@ contract Crowdsale is ReentrancyGuard {
     }
 
     /**
-     * @dev Executed when a purchase has been validated and is ready to be executed. Doesn&#39;t necessarily emit/send
+     * @dev Executed when a purchase has been validated and is ready to be executed. Doesn't necessarily emit/send
      * tokens.
      * @param beneficiary Address receiving the tokens
      * @param tokenAmount Number of tokens to be purchased
@@ -413,7 +413,7 @@ contract Crowdsale is ReentrancyGuard {
  * https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
  *
  * This implementation emits additional Approval events, allowing applications to reconstruct the allowance status for
- * all accounts just by listening to said events. Note that this isn&#39;t required by the specification, and other
+ * all accounts just by listening to said events. Note that this isn't required by the specification, and other
  * compliant implementations may not do it.
  */
 contract ERC20 is IERC20 {
@@ -465,7 +465,7 @@ contract ERC20 is IERC20 {
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param spender The address which will spend the funds.
      * @param value The amount of tokens to be spent.
@@ -563,7 +563,7 @@ contract ERC20 is IERC20 {
     }
 
     /**
-     * @dev Approve an address to spend another addresses&#39; tokens.
+     * @dev Approve an address to spend another addresses' tokens.
      * @param owner The address that owns the tokens.
      * @param spender The address that will spend the tokens.
      * @param value The number of tokens that can be spent.
@@ -578,7 +578,7 @@ contract ERC20 is IERC20 {
 
     /**
      * @dev Internal function that burns an amount of the token of a given
-     * account, deducting from the sender&#39;s allowance for said account. Uses the
+     * account, deducting from the sender's allowance for said account. Uses the
      * internal burn function.
      * Emits an Approval event (reflecting the reduced allowance).
      * @param account The account whose tokens will be burnt.
@@ -610,7 +610,7 @@ library Roles {
     }
 
     /**
-     * @dev remove an account&#39;s access to this role
+     * @dev remove an account's access to this role
      */
     function remove(Role storage role, address account) internal {
         require(account != address(0));
@@ -864,7 +864,7 @@ contract FinalizableCrowdsale is TimedCrowdsale {
 
     /**
      * @dev Must be called after crowdsale ends, to do some extra finalization
-     * work. Calls the contract&#39;s finalization function.
+     * work. Calls the contract's finalization function.
      */
     function finalize() public {
         require(!_finalized);
@@ -941,7 +941,7 @@ contract Secondary {
   * the Escrow rules, and there is no need to check for payable functions or
   * transfers in the inheritance tree. The contract that uses the escrow as its
   * payment method should be its primary, and provide public methods redirecting
-  * to the escrow&#39;s deposit and withdraw.
+  * to the escrow's deposit and withdraw.
   */
 contract Escrow is Secondary {
     using SafeMath for uint256;
@@ -1073,7 +1073,7 @@ contract RefundEscrow is ConditionalEscrow {
     }
 
     /**
-     * @dev Withdraws the beneficiary&#39;s funds.
+     * @dev Withdraws the beneficiary's funds.
      */
     function beneficiaryWithdraw() public {
         require(_state == State.Closed);
@@ -1082,7 +1082,7 @@ contract RefundEscrow is ConditionalEscrow {
 
     /**
      * @dev Returns whether refundees can withdraw their deposits (be refunded). The overridden function receives a
-     * &#39;payee&#39; argument, but we ignore it here since the condition is global, not per-payee.
+     * 'payee' argument, but we ignore it here since the condition is global, not per-payee.
      */
     function withdrawalAllowed(address) public view returns (bool) {
         return _state == State.Refunding;
@@ -1564,7 +1564,7 @@ contract KriptotrackersCrowdsale is Crowdsale,
 	    }
 
 		/**
-	     * The base rate function is overridden to revert, since this crowdsale doesn&#39;t use it, and
+	     * The base rate function is overridden to revert, since this crowdsale doesn't use it, and
 	     * all calls to it are a mistake.
 	     */
 	    function rate() public view returns (uint256) {

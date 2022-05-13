@@ -11,11 +11,11 @@ contract SuperCoin {
   event Transfer(address indexed _from, address indexed _to, uint256 _value);
 
   function name() public pure returns (string) {
-    return &#39;Super Coin from Zainan&#39;;
+    return 'Super Coin from Zainan';
   }
 
   function symbol() public pure returns (string) {
-    return &#39;SUPERCOIN&#39;;
+    return 'SUPERCOIN';
   }
 
   function decimals() public pure returns (uint8) {

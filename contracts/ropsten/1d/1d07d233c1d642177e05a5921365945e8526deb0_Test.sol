@@ -60,7 +60,7 @@ library JsmnSolLib {
             bytes1 c = s[parser.pos];
 
             // Quote -> end of string
-            if (c == &#39;"&#39;) {
+            if (c == '"') {
                 (success, token) = allocateToken(parser, tokens);
                 if (!success) {
                     parser.pos = start;
@@ -73,9 +73,9 @@ library JsmnSolLib {
             if (c == 92 && parser.pos + 1 < s.length) {
                 // handle escaped characters: skip over it
                 parser.pos++;
-                if (s[parser.pos] == &#39;\"&#39; || s[parser.pos] == &#39;/&#39; || s[parser.pos] == &#39;\\&#39;
-                || s[parser.pos] == &#39;f&#39; || s[parser.pos] == &#39;r&#39; || s[parser.pos] == &#39;n&#39;
-                || s[parser.pos] == &#39;b&#39; || s[parser.pos] == &#39;t&#39;) {
+                if (s[parser.pos] == '\"' || s[parser.pos] == '/' || s[parser.pos] == '\\'
+                || s[parser.pos] == 'f' || s[parser.pos] == 'r' || s[parser.pos] == 'n'
+                || s[parser.pos] == 'b' || s[parser.pos] == 't') {
                     continue;
                 } else {
                     // all other values are INVALID
@@ -97,7 +97,7 @@ library JsmnSolLib {
 
         for (; parser.pos < s.length; parser.pos++) {
             c = s[parser.pos];
-            if (c == &#39; &#39; || c == &#39;\t&#39; || c == &#39;\n&#39; || c == &#39;\r&#39; || c == &#39;,&#39;
+            if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == ','
             || c == 0x7d || c == 0x5d) {
                 found = true;
                 break;
@@ -164,7 +164,7 @@ library JsmnSolLib {
                     token = tokens[i];
                     if (token.startSet && !token.endSet) {
                         if (token.jsmnType != tokenType) {
-                            // found a token that hasn&#39;t been closed but from a different type
+                            // found a token that hasn't been closed but from a different type
                             return (RETURN_ERROR_INVALID_JSON, tokens, 0);
                         }
                         parser.toksuper = - 1;
@@ -195,7 +195,7 @@ library JsmnSolLib {
             }
 
             // 0x42
-            if (c == &#39;"&#39;) {
+            if (c == '"') {
                 r = parseString(parser, tokens, s);
 
                 if (r != RETURN_SUCCESS) {
@@ -208,18 +208,18 @@ library JsmnSolLib {
                 continue;
             }
 
-            // &#39; &#39;, \r, \t, \n
-            if (c == &#39; &#39; || c == 0x11 || c == 0x12 || c == 0x14) {
+            // ' ', \r, \t, \n
+            if (c == ' ' || c == 0x11 || c == 0x12 || c == 0x14) {
                 continue;
             }
 
             // 0x3a
-            if (c == &#39;:&#39;) {
+            if (c == ':') {
                 parser.toksuper = int(parser.toknext - 1);
                 continue;
             }
 
-            if (c == &#39;,&#39;) {
+            if (c == ',') {
                 if (parser.toksuper != - 1
                 && tokens[uint(parser.toksuper)].jsmnType != JsmnType.ARRAY
                 && tokens[uint(parser.toksuper)].jsmnType != JsmnType.OBJECT) {
@@ -236,7 +236,7 @@ library JsmnSolLib {
             }
 
             // Primitive
-            if ((c >= &#39;0&#39; && c <= &#39;9&#39;) || c == &#39;-&#39; || c == &#39;f&#39; || c == &#39;t&#39; || c == &#39;n&#39;) {
+            if ((c >= '0' && c <= '9') || c == '-' || c == 'f' || c == 't' || c == 'n') {
                 if (parser.toksuper != - 1) {
                     token = tokens[uint(parser.toksuper)];
                     if (token.jsmnType == JsmnType.OBJECT
@@ -286,7 +286,7 @@ library JsmnSolLib {
         bool decimals = false;
         bool negative = false;
         for (uint i = 0; i < bresult.length; i++) {
-            if ((i == 0) && (bresult[i] == &#39;-&#39;)) {
+            if ((i == 0) && (bresult[i] == '-')) {
                 negative = true;
             }
             if ((bresult[i] >= 48) && (bresult[i] <= 57)) {
@@ -321,7 +321,7 @@ library JsmnSolLib {
     }
 
     function parseBool(string _a) pure public returns (bool) {
-        if (strCompare(_a, &#39;true&#39;) == 0) {
+        if (strCompare(_a, 'true') == 0) {
             return true;
         } else {
             return false;
@@ -352,7 +352,7 @@ library JsmnSolLib {
 
 contract Test {
 
-    string public json = &#39;{ "key_1": "value", "key_2": 23, "key_3": true }&#39;;
+    string public json = '{ "key_1": "value", "key_2": 23, "key_3": true }';
 
     constructor() public {
     }

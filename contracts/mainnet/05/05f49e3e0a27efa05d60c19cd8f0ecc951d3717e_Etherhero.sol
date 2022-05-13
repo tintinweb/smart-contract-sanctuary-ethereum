@@ -15,7 +15,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns(uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -53,7 +53,7 @@ contract Ownable {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyOwner() {
-        require(msg.sender == owner, &#39;Only the owner can call this method&#39;);
+        require(msg.sender == owner, 'Only the owner can call this method');
         _;
     }
 }
@@ -77,14 +77,14 @@ contract EtherheroStabilizationFund {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyHero() {
-        require(msg.sender == etherHero, &#39;Only Hero call&#39;);
+        require(msg.sender == etherHero, 'Only Hero call');
         _;
     }
 
     function ReturnEthToEtherhero() public onlyHero returns(bool) {
 
         uint balance = address(this).balance;
-        require(balance > estGas, &#39;Not enough funds for transaction&#39;);
+        require(balance > estGas, 'Not enough funds for transaction');
 
         if (etherHero.call.value(address(this).balance).gas(estGas)()) {
             emit MoneyWithdraw(balance);
@@ -173,7 +173,7 @@ contract Etherhero is Ownable {
 
         Beneficiaries storage s_beneficiaries = beneficiaries[_address];
 
-        require(s_beneficiaries.real, &#39;Investor Not Found&#39;);
+        require(s_beneficiaries.real, 'Investor Not Found');
 
         return (
             s_beneficiaries.investorAddress,
@@ -234,7 +234,7 @@ contract Etherhero is Ownable {
             }
         }
         //If the balance is less than 6% of total deposits, stop paying
-        require(address(this).balance >= remain, &#39;contract balance is too small&#39;);
+        require(address(this).balance >= remain, 'contract balance is too small');
 
         uint rate = userDeposit[msg.sender].mul(standartPercent).div(1000).mul(payoutRatio);
         userTime[msg.sender] = now;
@@ -252,7 +252,7 @@ contract Etherhero is Ownable {
         
         if (msg.value > 0) {
             //check for minimum deposit 
-            require(msg.value >= minPayment, &#39;Minimum deposit 1 finney&#39;);
+            require(msg.value >= minPayment, 'Minimum deposit 1 finney');
             
             if (userDeposit[msg.sender] == 0) {
                 emit NewInvestor(msg.sender, msg.value);

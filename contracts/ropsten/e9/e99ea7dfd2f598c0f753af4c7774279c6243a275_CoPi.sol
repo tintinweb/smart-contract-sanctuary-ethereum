@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;PiCoin&#39; token contract
+// 'PiCoin' token contract
 //
 // Deployed to : 0x7d715c835B6b7D1EAcE195C8B41383B2104c752d
 // Symbol      : CoPi
@@ -99,7 +99,7 @@ contract CoPi is ERC20Interface, Owned, SafeMath {
     string public name = "CoPi";
 
     // It must be 18, until decimals alignment is implemented in ()
-    // DON&#39;T FORGET to update _totalSupply in the constructor
+    // DON'T FORGET to update _totalSupply in the constructor
     uint8 public decimals = 18;  
     
     uint256 public totalSupply;
@@ -133,13 +133,13 @@ contract CoPi is ERC20Interface, Owned, SafeMath {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to to account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to to account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address _to, uint256 _tokens) public returns (bool success) {
         require(_to != address(0));
-        // it&#39;s handled by safeSub
+        // it's handled by safeSub
         // require(tokens <= balances[msg.sender]);
 
         balances[msg.sender] = safeSub(balances[msg.sender], _tokens);
@@ -150,7 +150,7 @@ contract CoPi is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account
+    // from the token owner's account
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
     // as this should be implemented in user interfaces 
@@ -185,7 +185,7 @@ contract CoPi is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address _tokenOwner, address _spender) public view returns (uint256 remaining) {
         return allowed[_tokenOwner][_spender];
@@ -193,7 +193,7 @@ contract CoPi is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can increase approval for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account.
+    // from the token owner's account.
     // From MonolithDAO Token.sol
     // ------------------------------------------------------------------------
     function increaseApproval(address _spender, uint256 _addedValue) public returns (bool) {
@@ -205,7 +205,7 @@ contract CoPi is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can reduce approval for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account.
+    // from the token owner's account.
     // From MonolithDAO Token.sol
     // ------------------------------------------------------------------------
     function decreaseApproval(address _spender, uint256 _subtractedValue) public returns (bool) {
@@ -221,7 +221,7 @@ contract CoPi is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account. The spender contract function
+    // from the token owner's account. The spender contract function
     // receiveApproval(...) is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address _spender, uint256 _tokens, bytes _data) public returns (bool _success) {
@@ -235,7 +235,7 @@ contract CoPi is ERC20Interface, Owned, SafeMath {
     // Accept ETH and transfer tokens to the sender
     // ------------------------------------------------------------------------
     function () public payable {
-        // revert(); // don&#39;t accept ETH
+        // revert(); // don't accept ETH
         //TODO: align token decimals to ETH decimals (18)
         uint256 tokens = safeMul(price, msg.value); // price - number of token decimals in 1e-18 ETH
         ERC20Interface(owner).transfer(msg.sender, tokens);
@@ -246,7 +246,7 @@ contract CoPi is ERC20Interface, Owned, SafeMath {
     }
 
     // ------------------------------------------------------------------------
-    // Allows any ERC20 tokens accidentially sent to this contract&#39;s address 
+    // Allows any ERC20 tokens accidentially sent to this contract's address 
     // to be transferred to the owner address
     // ------------------------------------------------------------------------
     function transferAnyERC20Token(address _tokenAddress, uint256 _tokens) public onlyOwner returns (bool _success) {

@@ -397,7 +397,7 @@ CONTRACT DESCRIPTION
 
 This court provides the nomin contract with a confiscation
 facility, if enough havven owners vote to confiscate a target
-account&#39;s nomins.
+account's nomins.
 
 This is designed to provide a mechanism to respond to abusive
 contracts such as nomin wrappers, which would allow users to
@@ -415,16 +415,16 @@ The foundation, or any user with a sufficient havven balance may bring a
 confiscation motion.
 A motion lasts for a default period of one week, with a further confirmation
 period in which the foundation approves the result.
-The latter period may conclude early upon the foundation&#39;s decision to either
+The latter period may conclude early upon the foundation's decision to either
 veto or approve the mooted confiscation motion.
 If the confirmation period elapses without the foundation making a decision,
 the motion fails.
 
-The weight of a havven holder&#39;s vote is determined by examining their
+The weight of a havven holder's vote is determined by examining their
 average balance over the last completed fee period prior to the
 beginning of a given motion.
 Thus, since a fee period can roll over in the middle of a motion, we must
-also track a user&#39;s average balance of the last two periods.
+also track a user's average balance of the last two periods.
 This system is designed such that it cannot be attacked by users transferring
 funds between themselves, while also not requiring them to lock their havvens
 for the duration of the vote. This is possible since any transfer that increases
@@ -567,7 +567,7 @@ contract Court is Owned, SafeDecimalMath {
     // Nay: voting against a motion.
     enum Vote {Abstention, Yea, Nay}
 
-    // A given account&#39;s vote in some confiscation motion.
+    // A given account's vote in some confiscation motion.
     // This requires the default value of the Vote enum to correspond to an abstention.
     mapping(address => mapping(uint => Vote)) public vote;
 
@@ -741,7 +741,7 @@ contract Court is Owned, SafeDecimalMath {
     }
 
     /* Shared vote setup function between voteFor and voteAgainst.
-     * Returns the voter&#39;s vote weight. */
+     * Returns the voter's vote weight. */
     function setupVote(uint motionID)
         internal
         returns (uint)
@@ -756,7 +756,7 @@ contract Court is Owned, SafeDecimalMath {
         // The voter may not cast votes on themselves.
         require(msg.sender != motionTarget[motionID]);
 
-        // Ensure the voter&#39;s vote weight is current.
+        // Ensure the voter's vote weight is current.
         havven.recomputeAccountLastAverageBalance(msg.sender);
 
         uint weight;
@@ -778,7 +778,7 @@ contract Court is Owned, SafeDecimalMath {
     }
 
     /* The sender casts a vote in favour of confiscation of the
-     * target account&#39;s nomin balance. */
+     * target account's nomin balance. */
     function voteFor(uint motionID)
         external
     {
@@ -789,7 +789,7 @@ contract Court is Owned, SafeDecimalMath {
     }
 
     /* The sender casts a vote against confiscation of the
-     * target account&#39;s nomin balance. */
+     * target account's nomin balance. */
     function voteAgainst(uint motionID)
         external
     {
@@ -1053,7 +1053,7 @@ contract ExternStateProxyFeeToken is Proxyable, SafeDecimalMath {
     {
         require(to != address(0));
 
-        // The fee is deducted from the sender&#39;s balance, in addition to
+        // The fee is deducted from the sender's balance, in addition to
         // the transferred quantity.
         uint fee = transferFeeIncurred(value);
         uint totalCharge = safeAdd(value, fee);
@@ -1078,7 +1078,7 @@ contract ExternStateProxyFeeToken is Proxyable, SafeDecimalMath {
     {
         require(to != address(0));
 
-        // The fee is deducted from the sender&#39;s balance, in addition to
+        // The fee is deducted from the sender's balance, in addition to
         // the transferred quantity.
         uint fee = transferFeeIncurred(value);
         uint totalCharge = safeAdd(value, fee);
@@ -1131,7 +1131,7 @@ contract ExternStateProxyFeeToken is Proxyable, SafeDecimalMath {
         return true;
     }
 
-    /* Donate tokens from the sender&#39;s balance into the fee pool. */
+    /* Donate tokens from the sender's balance into the fee pool. */
     function donateToFeePool(uint n)
         external
         optionalProxy
@@ -1198,14 +1198,14 @@ fee period.
 
 Ether price is continually updated by an external oracle, and the value
 of the backing is computed on this basis. To ensure the integrity of
-this system, if the contract&#39;s price has not been updated recently enough,
+this system, if the contract's price has not been updated recently enough,
 it will temporarily disable itself until it receives more price information.
 
 The contract owner may at any time initiate contract liquidation.
 During the liquidation period, most contract functions will be deactivated.
 No new nomins may be issued or bought, but users may sell nomins back
 to the system.
-If the system&#39;s collateral falls below a specified level, then anyone
+If the system's collateral falls below a specified level, then anyone
 may initiate liquidation.
 
 After the liquidation period has elapsed, which is initially 90 days,
@@ -1355,7 +1355,7 @@ contract EtherNomin is ExternStateProxyFeeToken {
         return safeMul_dec(eth, etherPrice);
     }
 
-    /* Return the current fiat value of the contract&#39;s balance.
+    /* Return the current fiat value of the contract's balance.
      * Reverts if the price is stale. */
     function fiatBalance()
         public
@@ -1498,7 +1498,7 @@ contract EtherNomin is ExternStateProxyFeeToken {
         returns (bool)
     {
         // Not being in liquidation implies the timestamp is uint max, so it would roll over.
-        // We need to check whether we&#39;re in liquidation first.
+        // We need to check whether we're in liquidation first.
         if (isLiquidating()) {
             // These timestamps and durations have values clamped within reasonable values and
             // cannot overflow.
@@ -1540,7 +1540,7 @@ contract EtherNomin is ExternStateProxyFeeToken {
 
     /* Update the current ether price and update the last updated time,
      * refreshing the price staleness.
-     * Also checks whether the contract&#39;s collateral levels have fallen to low,
+     * Also checks whether the contract's collateral levels have fallen to low,
      * and initiates liquidation if that is the case.
      * Exceptional conditions:
      *     Not called by the oracle.
@@ -1552,7 +1552,7 @@ contract EtherNomin is ExternStateProxyFeeToken {
         // Should be callable only by the oracle.
         require(msg.sender == oracle);
         // Must be the most recently sent price, but not too far in the future.
-        // (so we can&#39;t lock ourselves out of updating the oracle for longer than this)
+        // (so we can't lock ourselves out of updating the oracle for longer than this)
         require(lastPriceUpdate < timeSent && timeSent < now + 10 minutes);
 
         etherPrice = price;
@@ -1623,7 +1623,7 @@ contract EtherNomin is ExternStateProxyFeeToken {
     /* Sends n nomins to the pool from the sender, in exchange for
      * $n minus the fee worth of ether.
      * Exceptional conditions:
-     *     Insufficient nomins in sender&#39;s wallet.
+     *     Insufficient nomins in sender's wallet.
      *     Insufficient funds in the pool to pay sender.
      *     Price is stale if not in liquidation. */
     function sell(uint n)
@@ -1633,7 +1633,7 @@ contract EtherNomin is ExternStateProxyFeeToken {
 
         // Price staleness check occurs inside the call to saleProceedsEther,
         // but we allow people to sell their nomins back to the system
-        // if we&#39;re in liquidation, regardless.
+        // if we're in liquidation, regardless.
         uint proceeds;
         if (isLiquidating()) {
             proceeds = saleProceedsEtherAllowStale(n);
@@ -1720,7 +1720,7 @@ contract EtherNomin is ExternStateProxyFeeToken {
     }
 
     /* If a confiscation court motion has passed and reached the confirmation
-     * state, the court may transfer the target account&#39;s balance to the fee pool
+     * state, the court may transfer the target account's balance to the fee pool
      * and freeze its participation in further transactions. */
     function confiscateBalance(address target)
         external
@@ -1871,7 +1871,7 @@ contract ExternStateProxyToken is SafeDecimalMath, Proxyable {
         symbol = _symbol;
         totalSupply = initialSupply;
 
-        // if the state isn&#39;t set, create a new one
+        // if the state isn't set, create a new one
         if (_state == TokenState(0)) {
             state = new TokenState(_owner, address(this));
             state.setBalanceOf(initialBeneficiary, totalSupply);
@@ -1992,7 +1992,7 @@ contract HavvenEscrow is Owned, LimitedSetup(8 weeks), SafeDecimalMath {
     // These are the times at which each given quantity of havvens vests.
     mapping(address => uint[2][]) public vestingSchedules;
 
-    // An account&#39;s total vested havven balance to save recomputing this for fee extraction purposes.
+    // An account's total vested havven balance to save recomputing this for fee extraction purposes.
     mapping(address => uint) public totalVestedAccountBalance;
 
     // The total remaining vested balance, for verifying the actual havven balance of this contract against.
@@ -2031,7 +2031,7 @@ contract HavvenEscrow is Owned, LimitedSetup(8 weeks), SafeDecimalMath {
         return totalVestedAccountBalance[account];
     }
 
-    /* The number of vesting dates in an account&#39;s schedule. */
+    /* The number of vesting dates in an account's schedule. */
     function numVestingEntries(address account)
         public
         view
@@ -2146,13 +2146,13 @@ contract HavvenEscrow is Owned, LimitedSetup(8 weeks), SafeDecimalMath {
         delete totalVestedAccountBalance[account];
     }
 
-    /* Add a new vesting entry at a given time and quantity to an account&#39;s schedule.
+    /* Add a new vesting entry at a given time and quantity to an account's schedule.
      * A call to this should be accompanied by either enough balance already available
      * in this contract, or a corresponding call to havven.endow(), to ensure that when
      * the funds are withdrawn, there is enough balance, as well as correctly calculating
      * the fees.
      * Note; although this function could technically be used to produce unbounded
-     * arrays, it&#39;s only in the foundation&#39;s command to add to these lists. */
+     * arrays, it's only in the foundation's command to add to these lists. */
     function appendVestingEntry(address account, uint time, uint quantity)
         public
         onlyOwner
@@ -2313,7 +2313,7 @@ Any unclaimed fees roll over into the common pot for the next period.
 
 The fee entitlement of a havven holder is proportional to their average
 havven balance over the last fee period. This is computed by measuring the
-area under the graph of a user&#39;s balance over time, and then when fees are
+area under the graph of a user's balance over time, and then when fees are
 distributed, dividing through by the duration of the fee period.
 
 We need only update fee entitlement on transfer when the havven balances of the sender
@@ -2322,7 +2322,7 @@ trading in the havven market. A havven holder pays for his own recomputation whe
 he wants to change his position, which saves the foundation having to maintain a pot
 dedicated to resourcing this.
 
-A hypothetical user&#39;s balance history over one fee period, pictorially:
+A hypothetical user's balance history over one fee period, pictorially:
 
       s ____
        |    |
@@ -2346,9 +2346,9 @@ recipient.
 Note that a transfer keeps global supply of havvens invariant.
 The sum of all balances is constant, and unmodified by any transfer.
 So the sum of all balances multiplied by the duration of a fee period is also
-constant, and this is equivalent to the sum of the area of every user&#39;s
+constant, and this is equivalent to the sum of the area of every user's
 time/balance graph. Dividing through by that duration yields back the total
-havven supply. So, at the end of a fee period, we really do yield a user&#39;s
+havven supply. So, at the end of a fee period, we really do yield a user's
 average share in the havven supply over that period.
 
 A slight wrinkle is introduced if we consider the time r when the fee period
@@ -2391,7 +2391,7 @@ contract Havven is ExternStateProxyToken, SelfDestructible {
     mapping(address => uint) public currentBalanceSum;
 
     // Average account balances in the last completed fee period. This is proportional
-    // to that account&#39;s last period fee entitlement.
+    // to that account's last period fee entitlement.
     // (i.e. currentBalanceSum for the previous period divided through by duration)
     // WARNING: This may not have been updated for the latest fee period at the
     //          time it is queried.
@@ -2399,7 +2399,7 @@ contract Havven is ExternStateProxyToken, SelfDestructible {
     mapping(address => uint) public lastAverageBalance;
 
     // The average account balances in the period before the last completed fee period.
-    // This is used as a person&#39;s weight in a confiscation vote, so it implies that
+    // This is used as a person's weight in a confiscation vote, so it implies that
     // the vote duration must be no longer than the fee period in order to guarantee that 
     // no portion of a fee period used for determining vote weights falls within the
     // duration of a vote it contributes to.
@@ -2415,7 +2415,7 @@ contract Havven is ExternStateProxyToken, SelfDestructible {
     uint public feePeriodStartTime = 3;
     // The actual start of the last fee period (seconds).
     // This, and the penultimate fee period can be initially set to any value
-    //   0 < val < now, as everyone&#39;s individual lastTransferTime will be 0
+    //   0 < val < now, as everyone's individual lastTransferTime will be 0
     //   and as such, their lastAvgBal/penultimateAvgBal will be set to that value
     //   apart from the contract, which will have totalSupply
     uint public lastFeePeriodStartTime = 2;
@@ -2566,7 +2566,7 @@ contract Havven is ExternStateProxyToken, SelfDestructible {
         return true;
     }
 
-    /* Compute the last period&#39;s fee entitlement for the message sender
+    /* Compute the last period's fee entitlement for the message sender
      * and then deposit it into their nomin account. */
     function withdrawFeeEntitlement()
         public
@@ -2616,11 +2616,11 @@ contract Havven is ExternStateProxyToken, SelfDestructible {
             safeMul(preBalance, now - lastTransferTimestamp[account])
         );
 
-        // Update the last time this user&#39;s balance changed.
+        // Update the last time this user's balance changed.
         lastTransferTimestamp[account] = now;
     }
 
-    /* Update the given account&#39;s previous period fee entitlement value.
+    /* Update the given account's previous period fee entitlement value.
      * Do nothing if the last transfer occurred since the fee period rolled over.
      * If the entitlement was updated, also update the last transfer time to be
      * at the timestamp of the rollover, so if this should do nothing if called more
@@ -2685,9 +2685,9 @@ contract Havven is ExternStateProxyToken, SelfDestructible {
         }
     }
 
-    /* Recompute and return the given account&#39;s average balance information.
+    /* Recompute and return the given account's average balance information.
      * This also rolls over the fee period if necessary, and brings
-     * the account&#39;s current balance sum up to date. */
+     * the account's current balance sum up to date. */
     function _recomputeAccountLastAverageBalance(address account)
         internal
         preCheckFeePeriodRollover
@@ -2697,7 +2697,7 @@ contract Havven is ExternStateProxyToken, SelfDestructible {
         return lastAverageBalance[account];
     }
 
-    /* Recompute and return the sender&#39;s average balance information. */
+    /* Recompute and return the sender's average balance information. */
     function recomputeLastAverageBalance()
         external
         optionalProxy
@@ -2706,7 +2706,7 @@ contract Havven is ExternStateProxyToken, SelfDestructible {
         return _recomputeAccountLastAverageBalance(messageSender);
     }
 
-    /* Recompute and return the given account&#39;s average balance information. */
+    /* Recompute and return the given account's average balance information. */
     function recomputeAccountLastAverageBalance(address account)
         external
         returns (uint)

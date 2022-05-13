@@ -87,8 +87,8 @@ contract Ownable {
 
 /**
  * @title AbstractWTIndex
- * @dev Interface of WTIndex contract, inherits from OpenZeppelin&#39;s Ownable and
- * from WT&#39;s &#39;AbstractBaseContract&#39;.
+ * @dev Interface of WTIndex contract, inherits from OpenZeppelin's Ownable and
+ * from WT's 'AbstractBaseContract'.
  */
 contract AbstractWTIndex is Ownable, AbstractBaseContract {
     address[] public hotels;
@@ -117,7 +117,7 @@ contract AbstractWTIndex is Ownable, AbstractBaseContract {
 /**
  * @title AbstractHotel
  * @dev Interface of Hotel contract, inherits from
- * WT&#39;s &#39;AbstractBaseContract&#39;.
+ * WT's 'AbstractBaseContract'.
  */
 contract AbstractHotel is AbstractBaseContract {
 
@@ -145,7 +145,7 @@ contract AbstractHotel is AbstractBaseContract {
     }
 
     /**
-     * @dev `editInfo` Allows owner to change hotel&#39;s dataUri.
+     * @dev `editInfo` Allows owner to change hotel's dataUri.
      * @param  _dataUri New dataUri pointer of this hotel
      */
     function editInfo(string _dataUri) public onlyFromIndex {
@@ -161,7 +161,7 @@ contract AbstractHotel is AbstractBaseContract {
 
     /**
      * @dev Allows owner to change hotel manager.
-     * @param _newManager New manager&#39;s address
+     * @param _newManager New manager's address
      */
     function changeManager(address _newManager) public onlyFromIndex {
         _changeManagerImpl(_newManager);
@@ -177,7 +177,7 @@ contract AbstractHotel is AbstractBaseContract {
 /**
  * @title Hotel, contract for a Hotel registered in the WT network
  * @dev A contract that represents a hotel in the WT network. Inherits
- * from WT&#39;s &#39;AbstractHotel&#39;.
+ * from WT's 'AbstractHotel'.
  */
 contract Hotel is AbstractHotel {
 
@@ -219,7 +219,7 @@ contract Hotel is AbstractHotel {
 /**
  * @title WTIndex, registry of all hotels registered on WT
  * @dev The hotels are stored in an array and can be filtered by the owner
- * address. Inherits from OpenZeppelin&#39;s `Ownable` and `AbstractBaseContract`.
+ * address. Inherits from OpenZeppelin's `Ownable` and `AbstractBaseContract`.
  */
 contract WTIndex is AbstractWTIndex {
 
@@ -231,9 +231,9 @@ contract WTIndex is AbstractWTIndex {
     // Mapping of hotels position in the general hotel index
     mapping(address => uint) public hotelsIndex;
 
-    // Mapping of the hotels indexed by manager&#39;s address
+    // Mapping of the hotels indexed by manager's address
     mapping(address => address[]) public hotelsByManager;
-    // Mapping of hotels position in the manager&#39;s indexed hotel index
+    // Mapping of hotels position in the manager's indexed hotel index
     mapping(address => uint) public hotelsByManagerIndex;
 
     // Address of the LifToken contract
@@ -268,7 +268,7 @@ contract WTIndex is AbstractWTIndex {
     /**
      * @dev `registerHotel` Register new hotel in the index.
      * Emits `HotelRegistered` on success.
-     * @param  dataUri Hotel&#39;s data pointer
+     * @param  dataUri Hotel's data pointer
      */
     function registerHotel(string dataUri) external {
         Hotel newHotel = new Hotel(msg.sender, dataUri, this);
@@ -282,15 +282,15 @@ contract WTIndex is AbstractWTIndex {
     /**
      * @dev `deleteHotel` Allows a manager to delete a hotel, i. e. call destroy
      * on the target Hotel contract. Emits `HotelDeleted` on success.
-     * @param  hotel  Hotel&#39;s address
+     * @param  hotel  Hotel's address
      */
     function deleteHotel(address hotel) external {
         // Ensure hotel address is valid
         require(hotel != address(0));
         // Ensure we know about the hotel at all
         require(hotelsIndex[hotel] != uint(0));
-        // Ensure that the caller is the hotel&#39;s rightful owner
-        // There may actually be a hotel on index zero, that&#39;s why we use a double check
+        // Ensure that the caller is the hotel's rightful owner
+        // There may actually be a hotel on index zero, that's why we use a double check
         require(hotelsByManager[msg.sender][hotelsByManagerIndex[hotel]] != address(0));
 
         Hotel hotelInstance = Hotel(hotel);
@@ -311,7 +311,7 @@ contract WTIndex is AbstractWTIndex {
      * @dev `callHotel` Call hotel in the index, the hotel can only
      * be called by its manager. Effectively proxies a hotel call.
      * Emits HotelCalled on success.
-     * @param  hotel Hotel&#39;s address
+     * @param  hotel Hotel's address
      * @param  data Encoded method call to be done on Hotel contract.
      */
     function callHotel(address hotel, bytes data) external {
@@ -319,7 +319,7 @@ contract WTIndex is AbstractWTIndex {
         require(hotel != address(0));
         // Ensure we know about the hotel at all
         require(hotelsIndex[hotel] != uint(0));
-        // Ensure that the caller is the hotel&#39;s rightful owner
+        // Ensure that the caller is the hotel's rightful owner
         require(hotelsByManager[msg.sender][hotelsByManagerIndex[hotel]] != address(0));
         Hotel hotelInstance = Hotel(hotel);
         // Ensure we are calling only our own hotels
@@ -332,7 +332,7 @@ contract WTIndex is AbstractWTIndex {
     /**
      * @dev `transferHotel` Allows to change ownership of
      * the hotel contract. Emits HotelTransferred on success.
-     * @param hotel Hotel&#39;s address
+     * @param hotel Hotel's address
      * @param newManager Address to which the hotel will belong after transfer.
      */
     function transferHotel(address hotel, address newManager) external {
@@ -342,8 +342,8 @@ contract WTIndex is AbstractWTIndex {
         require(newManager != address(0));
         // Ensure we know about the hotel at all
         require(hotelsIndex[hotel] != uint(0));
-        // Ensure that the caller is the hotel&#39;s rightful owner
-        // There may actually be a hotel on index zero, that&#39;s why we use a double check
+        // Ensure that the caller is the hotel's rightful owner
+        // There may actually be a hotel on index zero, that's why we use a double check
         require(hotelsByManager[msg.sender][hotelsByManagerIndex[hotel]] != address(0));
 
         Hotel hotelInstance = Hotel(hotel);

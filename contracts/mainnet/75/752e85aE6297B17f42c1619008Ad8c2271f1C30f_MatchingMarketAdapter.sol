@@ -322,7 +322,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -507,7 +507,7 @@ contract Asset is DSMath, ERC20Interface {
 
     /**
      * @notice Send `_value` tokens to `_to` from `msg.sender`
-     * @dev Transfers sender&#39;s tokens to a given address
+     * @dev Transfers sender's tokens to a given address
      * @dev Similar to transfer(address, uint, bytes), but without _data parameter
      * @param _to Address of token receiver
      * @param _value Number of tokens to transfer
@@ -638,7 +638,7 @@ contract Shares is SharesInterface, Asset {
 
     /**
      * @notice Send `_value` tokens to `_to` from `msg.sender`
-     * @dev Transfers sender&#39;s tokens to a given address
+     * @dev Transfers sender's tokens to a given address
      * @dev Similar to transfer(address, uint, bytes), but without _data parameter
      * @param _to Address of token receiver
      * @param _value Number of tokens to transfer
@@ -804,8 +804,8 @@ contract Fund is DSMath, DBC, Owned, Shares, FundInterface {
         address exchangeAddress; // address of the exchange this order is on
         bytes32 orderId; // Id as returned from exchange
         UpdateType updateType; // Enum: make, take (cancel should be ignored)
-        address makerAsset; // Order maker&#39;s asset
-        address takerAsset; // Order taker&#39;s asset
+        address makerAsset; // Order maker's asset
+        address takerAsset; // Order taker's asset
         uint makerQuantity; // Quantity of makerAsset to be traded
         uint takerQuantity; // Quantity of takerAsset to be traded
         uint timestamp; // Time of order creation in seconds
@@ -1340,7 +1340,7 @@ contract Fund is DSMath, DBC, Owned, Shares, FundInterface {
 
             if (assetHoldings == 0) continue;
 
-            // participant&#39;s ownership percentage of asset holdings
+            // participant's ownership percentage of asset holdings
             ownershipQuantities[i] = mul(assetHoldings, shareQuantity) / _totalSupply;
 
             // CRITICAL ERR: Not enough fund asset balance for owed ownershipQuantitiy, eg in case of unreturned asset quantity at address(exchanges[i].exchange) address
@@ -2162,7 +2162,7 @@ contract MatchingMarket is MatchingEvents, ExpiringMarket, DSNote {
     //       to put offer in the sorted list.
     //
     // If matching is disabled:
-    //     * calls expiring market&#39;s offer().
+    //     * calls expiring market's offer().
     //     * available to everyone without authorization.
     //     * no sorting is done.
     //
@@ -2380,8 +2380,8 @@ contract MatchingMarket is MatchingEvents, ExpiringMarket, DSNote {
     }
 
     //return the best offer for a token pair
-    //      the best offer is the lowest one if it&#39;s an ask,
-    //      and highest one if it&#39;s a bid offer
+    //      the best offer is the lowest one if it's an ask,
+    //      and highest one if it's a bid offer
     function getBestOffer(ERC20 sell_gem, ERC20 buy_gem) public constant returns(uint) {
         return _best[sell_gem][buy_gem];
     }
@@ -2389,7 +2389,7 @@ contract MatchingMarket is MatchingEvents, ExpiringMarket, DSNote {
     //return the next worse offer in the sorted list
     //      the worse offer is the higher one if its an ask,
     //      a lower one if its a bid offer,
-    //      and in both cases the newer one if they&#39;re equal.
+    //      and in both cases the newer one if they're equal.
     function getWorseOffer(uint id) public constant returns(uint) {
         return _rank[id].prev;
     }
@@ -2397,7 +2397,7 @@ contract MatchingMarket is MatchingEvents, ExpiringMarket, DSNote {
     //return the next better offer in the sorted list
     //      the better offer is in the lower priced one if its an ask,
     //      the next higher priced one if its a bid offer
-    //      and in both cases the older one if they&#39;re equal.
+    //      and in both cases the older one if they're equal.
     function getBetterOffer(uint id) public constant returns(uint) {
 
         return _rank[id].next;
@@ -2409,7 +2409,7 @@ contract MatchingMarket is MatchingEvents, ExpiringMarket, DSNote {
     }
 
     //get the first unsorted offer that was inserted by a contract
-    //      Contracts can&#39;t calculate the insertion position of their offer because it is not an O(1) operation.
+    //      Contracts can't calculate the insertion position of their offer because it is not an O(1) operation.
     //      Their offers get put in the unsorted list of offers.
     //      Keepers can calculate the insertion position offchain and pass it to the insert() function to insert
     //      the unsorted offer into the sorted list. Unsorted offers will not be matched, but can be bought with buy().
@@ -2588,8 +2588,8 @@ contract MatchingMarket is MatchingEvents, ExpiringMarket, DSNote {
 
     //return true if offers[low] priced less than or equal to offers[high]
     function _isPricedLtOrEq(
-        uint low,   //lower priced offer&#39;s id
-        uint high   //higher priced offer&#39;s id
+        uint low,   //lower priced offer's id
+        uint high   //higher priced offer's id
     )
     internal
     view
@@ -3138,7 +3138,7 @@ contract SimplePriceFeed is SimplePriceFeedInterface, DSThing, DBC {
     @param ofAsset Asset for which price should be returned
     @return {
       "price": "Price formatting: mul(exchangePrice, 10 ** decimal), to avoid floating numbers",
-      "timestamp": "When the asset&#39;s price was updated"
+      "timestamp": "When the asset's price was updated"
     }
     */
     function getPrice(address ofAsset)
@@ -3817,7 +3817,7 @@ contract CanonicalPriceFeed is OperatorStaking, SimplePriceFeed, CanonicalRegist
         return (
             isRecent,
             mul(10 ** uint(quoteDecimals), 10 ** uint(assetDecimals)) / inputPrice,
-            quoteDecimals   // TODO: check on this; shouldn&#39;t it be assetDecimals?
+            quoteDecimals   // TODO: check on this; shouldn't it be assetDecimals?
         );
     }
 

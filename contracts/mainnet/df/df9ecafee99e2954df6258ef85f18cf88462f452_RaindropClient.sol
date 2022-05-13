@@ -124,7 +124,7 @@ contract RaindropClient is Withdrawable {
         return _userSignUp(userName, msg.sender, false);
     }
 
-    // Allows the Hydro API to delete official users iff they&#39;ve signed keccak256("Delete") with their private key
+    // Allows the Hydro API to delete official users iff they've signed keccak256("Delete") with their private key
     function deleteUserForUser(string userName, uint8 v, bytes32 r, bytes32 s) public onlyOwner {
         bytes32 userNameHash = keccak256(userName);
         require(userNameHashTaken(userNameHash));

@@ -27,7 +27,7 @@ contract SignalPylon {
      *  Signal (vote)
      *  @dev Represents a particular vote or signal captured/cast
      *       at a specific blockheight. Note: signaling uses the
-     *       entire available token balance of the caller&#39;s account.
+     *       entire available token balance of the caller's account.
     \*****************************************************************/
     struct Signal {
         address signaler;

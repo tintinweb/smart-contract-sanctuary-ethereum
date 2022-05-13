@@ -11,9 +11,9 @@
 pragma solidity ^0.4.11;
 
 contract Token {
-    string public standard = &#39;Token 0.1.8 diceybit.com&#39;;
-    string public name = &#39;DICEYBIT.COM&#39;;
-    string public symbol = &#39;dСBT&#39;;
+    string public standard = 'Token 0.1.8 diceybit.com';
+    string public name = 'DICEYBIT.COM';
+    string public symbol = 'dСBT';
     uint8 public decimals = 0;
     uint256 public totalSupply = 100000000;
 

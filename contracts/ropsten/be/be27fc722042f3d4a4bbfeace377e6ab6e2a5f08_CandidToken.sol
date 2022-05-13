@@ -1,5 +1,5 @@
 pragma solidity ^0.4.19;
-//import &#39;zeppelin-solidity/contracts/token/ERC20/ERC20.sol&#39;;
+//import 'zeppelin-solidity/contracts/token/ERC20/ERC20.sol';
 
 library SafeMath {
     function add(uint a, uint b) internal pure returns (uint c) {

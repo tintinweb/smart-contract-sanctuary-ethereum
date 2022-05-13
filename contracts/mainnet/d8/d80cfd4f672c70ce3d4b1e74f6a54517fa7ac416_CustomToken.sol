@@ -33,7 +33,7 @@ contract Ownable {
     owner = msg.sender;
   }
 
-// Any call to the contract not from the creator&#39;s account will be thrown.   
+// Any call to the contract not from the creator's account will be thrown.   
   modifier onlyOwner() {
     require(msg.sender == owner);
     _;

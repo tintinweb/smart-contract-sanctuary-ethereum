@@ -8,9 +8,9 @@ contract testeot {
     uint256 public circulatingSupply = 0;  	
     uint8   public decimals = 18;
     //   
-    string  public standard = &#39;ERC20 Token&#39;;
-    string  public name = &#39;testeot&#39;;
-    string  public symbol = &#39;testeot&#39;;            
+    string  public standard = 'ERC20 Token';
+    string  public name = 'testeot';
+    string  public symbol = 'testeot';            
     uint256 public crowdsalePrice = 100;                          	
     uint256 public crowdsaleClosed = 0;                 
     address public daoMultisig = msg.sender;

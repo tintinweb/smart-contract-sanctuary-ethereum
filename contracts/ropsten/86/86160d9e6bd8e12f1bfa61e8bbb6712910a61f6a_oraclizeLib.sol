@@ -263,7 +263,7 @@ library oraclizeLib {
         return oraclize().setCustomGasPrice(gasPrice);
     }
 
-    // setting to internal doesn&#39;t cause major increase in deployment and saves gas
+    // setting to internal doesn't cause major increase in deployment and saves gas
     // per use, for this tiny function
     function getCodeSize(address _addr)
     public
@@ -466,7 +466,7 @@ library oraclizeLib {
             res[ctr] = 0x5F;
             ctr++;
             for (uint x = 0; x < elemArray[i].length; x++) {
-                // if there&#39;s a bug with larger strings, this may be the culprit
+                // if there's a bug with larger strings, this may be the culprit
                 if (x % 23 == 0) {
                     uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                     elemcborlen += 0x40;

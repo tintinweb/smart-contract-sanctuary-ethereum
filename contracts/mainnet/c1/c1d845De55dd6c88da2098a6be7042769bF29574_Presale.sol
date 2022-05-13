@@ -197,7 +197,7 @@ contract Presale is SafeMath, Pausable {
         uint SOCXToSend = (msg.value / tokenPriceWei) * multiplier; // calculate number of tokens
 
         
-        if (safeAdd(SOCXSentToETH, SOCXToSend) > maxCap) revert();  // ensure that max cap hasn&#39;t been reached yet
+        if (safeAdd(SOCXSentToETH, SOCXToSend) > maxCap) revert();  // ensure that max cap hasn't been reached yet
 
         Backer storage backer = backers[_backer];                   // access backer record
         backer.SOCXSent = safeAdd(backer.SOCXSent, SOCXToSend);     // calculate number of tokens sent by backer

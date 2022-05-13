@@ -160,7 +160,7 @@ contract ERC721Auction is Beneficiary {
 
         if (!ERC721Contract.transfer(msg.sender, _tokenId)) {
             revert();
-            //can&#39;t complete transfer if this fails
+            //can't complete transfer if this fails
         }
 
         AuctionWon(_tokenId, msg.sender, auction.seller, price);

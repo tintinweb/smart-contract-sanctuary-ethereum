@@ -4,7 +4,7 @@ pragma solidity ^0.4.25;
  * 
  * Investment Contract
  *  - GAIN 1% PER HOURS (every 6000/24 blocks in average)
- *  - NO COMMISSION on your investment (every ether stays on contract&#39;s balance)
+ *  - NO COMMISSION on your investment (every ether stays on contract's balance)
  *  - NO FEES
  *
  * How to use:

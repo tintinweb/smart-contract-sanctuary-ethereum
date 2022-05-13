@@ -213,7 +213,7 @@ contract WorkIt is ERC20Interface {
       require(false);
     }
     if (committment.daysCompleted >= committment.daysCommitted) {
-      // Don&#39;t allow us to go over our committed days
+      // Don't allow us to go over our committed days
       return;
     }
     committment.workoutProofs[currentDayOfWeek()] = storeImageString(proofHash);

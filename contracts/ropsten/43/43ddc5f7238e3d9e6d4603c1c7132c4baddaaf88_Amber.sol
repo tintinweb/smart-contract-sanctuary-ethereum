@@ -27,7 +27,7 @@ library SafeMathExt{
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -161,15 +161,15 @@ contract Amber{
     =          MODIFIERS           =
     ==============================*/
     modifier onlyContractOwner(){
-    	require(msg.sender == _contractOwner, &#39;Sender is not the contract owner.&#39;);
+    	require(msg.sender == _contractOwner, 'Sender is not the contract owner.');
     	_;
     }
     modifier isNotAContract(){
-        require (msg.sender == tx.origin, &#39;Contracts are not allowed to interact.&#39;);
+        require (msg.sender == tx.origin, 'Contracts are not allowed to interact.');
         _;
     }
     modifier isRunning(){
-    	require(_startTime != 0 && _startTime <= now, &#39;The contract is not running yet.&#39;);
+    	require(_startTime != 0 && _startTime <= now, 'The contract is not running yet.');
     	_;
     }
 
@@ -211,8 +211,8 @@ contract Amber{
 
     function _buy(uint256 badgeID_, address msgSender_, uint256 msgValue_) internal{
         address previousOwner = _badgeFactory.getOwner(badgeID_);
-        require(PureAmber.isNotSelf(msgSender_, _badgeFactory.getOwner(badgeID_)), &#39;You can not buy from yourself.&#39;);
-        require(PureAmber.isValidBuy(_badgeFactory.getPrice(badgeID_), msgValue_), &#39;It is not a valid buy.&#39;);        
+        require(PureAmber.isNotSelf(msgSender_, _badgeFactory.getOwner(badgeID_)), 'You can not buy from yourself.');
+        require(PureAmber.isValidBuy(_badgeFactory.getPrice(badgeID_), msgValue_), 'It is not a valid buy.');        
 
         _diviSplit(badgeID_, previousOwner, msgSender_, msgValue_);
         _extendBadges(badgeID_, msgSender_, _badgeBasePrice);
@@ -299,7 +299,7 @@ contract Amber{
     }
 
     function _withdrawDivis(address msgSender_) internal{
-    	require (_balanceDivis[msgSender_] >= 0, &#39;Hack attempt: Sender does not have enough Divis to withdraw.&#39;);
+    	require (_balanceDivis[msgSender_] >= 0, 'Hack attempt: Sender does not have enough Divis to withdraw.');
     	uint256 payout = _balanceDivis[msgSender_];
         _resetBalanceDivis(msgSender_);
         _transferDivis(msgSender_, payout);

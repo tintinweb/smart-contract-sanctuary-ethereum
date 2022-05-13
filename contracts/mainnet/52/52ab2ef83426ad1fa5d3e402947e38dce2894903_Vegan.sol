@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
 // --- 0.4.21+commit.dfe3193c
-// --- &#39;VEGAN&#39; &#39;Vegan&#39; token contract
+// --- 'VEGAN' 'Vegan' token contract
 // --- Symbol      : VEGAN
 // --- Name        : Vegan
 // --- Total supply: Generated from contributions
@@ -136,8 +136,8 @@ contract Owned {
     }
 
 // ------------------------------------------------------------------------
-// --- Transfer the balance from token owner&#39;s account to `to` account
-// --- Owner&#39;s account must have sufficient balance to transfer
+// --- Transfer the balance from token owner's account to `to` account
+// --- Owner's account must have sufficient balance to transfer
 // --- 0 value transfers are allowed
 // ------------------------------------------------------------------------
 
@@ -180,7 +180,7 @@ contract Owned {
 
 // ------------------------------------------------------------------------
 // --- Token owner can approve for `spender` to transferFrom(...) `tokens`
-// --- from the token owner&#39;s account. The `spender` contract function
+// --- from the token owner's account. The `spender` contract function
 // --- `receiveApproval(...)` is then executed
 // ------------------------------------------------------------------------
 

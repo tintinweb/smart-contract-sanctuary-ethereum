@@ -19,7 +19,7 @@ contract CryptoBattle {
     uint public baseStamina = 2;
     uint public baseStrength = 1;
 
-    string public constant name = &#39;CryptoBattle v0.0.1&#39;;
+    string public constant name = 'CryptoBattle v0.0.1';
     
     mapping (address => Hero) public heroes;
     mapping (uint => Battle) public battles;

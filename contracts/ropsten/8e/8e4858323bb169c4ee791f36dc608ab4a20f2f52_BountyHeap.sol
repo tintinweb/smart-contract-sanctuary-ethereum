@@ -131,7 +131,7 @@ contract BountyHeap{
   }
 
   function breakCompleteness(uint holeIndex, uint filledIndex, address recipient) public{
-    require(holeIndex > 0); // 0 index is empty by design (doesn&#39;t count)
+    require(holeIndex > 0); // 0 index is empty by design (doesn't count)
     require(data.getByIndex(holeIndex).id == 0); //holeIndex has nullNode
     require(data.getByIndex(filledIndex).id != 0); // filledIndex has a node
     require(holeIndex < filledIndex); //HOLE IN MIDDLE OF HEAP!

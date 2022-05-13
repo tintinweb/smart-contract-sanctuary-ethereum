@@ -44,7 +44,7 @@ contract NRC1Receiver {
 
 /// @title NRC1 interface
 contract NRC1 {
-    // Contract should also define the following constants with your token&#39;s metadata:
+    // Contract should also define the following constants with your token's metadata:
     // string public constant name = "Your Token Name";
     // string public constant symbol = "SYM";
     // uint8 public constant decimals = 18;
@@ -137,7 +137,7 @@ contract StandardToken is NRC1 {
         _balances[msg.sender] = _balances[msg.sender].sub(amount);
         _balances[to] = _balances[to].add(amount);
 
-        // Call tokenFallback() if &#39;to&#39; is a contract. Rejects if not implemented.
+        // Call tokenFallback() if 'to' is a contract. Rejects if not implemented.
         if (codeLength > 0) {
             NRC1Receiver(to).tokenFallback(msg.sender, amount, data);
         }
@@ -147,7 +147,7 @@ contract StandardToken is NRC1 {
     }
 
     function approve(address spender, uint256 amount) public returns (bool success) {
-        // To change the approve amount you first have to reduce the addresses&#39;
+        // To change the approve amount you first have to reduce the addresses'
         //  allowance to zero by calling `approve(spender, 0)` if it is not
         //  already 0 to mitigate the race condition described here:
         //  https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729

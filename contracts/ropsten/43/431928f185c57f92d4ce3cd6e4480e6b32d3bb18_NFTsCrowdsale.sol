@@ -44,7 +44,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage _role, address _addr)
     internal
@@ -260,7 +260,7 @@ contract Superuser is Ownable, RBAC {
   }
 
   /**
-   * @dev Throws if called by any account that&#39;s not a superuser.
+   * @dev Throws if called by any account that's not a superuser.
    */
   modifier onlySuperuser() {
     checkRole(msg.sender, ROLE_SUPERUSER);
@@ -368,37 +368,37 @@ contract ERC721Basic is ERC165 {
   bytes4 internal constant InterfaceId_ERC721 = 0x80ac58cd;
   /*
    * 0x80ac58cd ===
-   *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-   *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-   *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('balanceOf(address)')) ^
+   *   bytes4(keccak256('ownerOf(uint256)')) ^
+   *   bytes4(keccak256('approve(address,uint256)')) ^
+   *   bytes4(keccak256('getApproved(uint256)')) ^
+   *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+   *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+   *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
    */
 
   bytes4 internal constant InterfaceId_ERC721Exists = 0x4f558e79;
   /*
    * 0x4f558e79 ===
-   *   bytes4(keccak256(&#39;exists(uint256)&#39;))
+   *   bytes4(keccak256('exists(uint256)'))
    */
 
   bytes4 internal constant InterfaceId_ERC721Enumerable = 0x780e9d63;
   /**
    * 0x780e9d63 ===
-   *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+   *   bytes4(keccak256('totalSupply()')) ^
+   *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+   *   bytes4(keccak256('tokenByIndex(uint256)'))
    */
 
   bytes4 internal constant InterfaceId_ERC721Metadata = 0x5b5e139f;
   /**
    * 0x5b5e139f ===
-   *   bytes4(keccak256(&#39;name()&#39;)) ^
-   *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+   *   bytes4(keccak256('name()')) ^
+   *   bytes4(keccak256('symbol()')) ^
+   *   bytes4(keccak256('tokenURI(uint256)'))
    */
 
   event Transfer(
@@ -492,7 +492,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -881,7 +881,7 @@ contract NFTsCrowdsale is NFTsCrowdsaleBase, Pausable {
   /**
    * @dev new a Auction
    * @param price price in wei
-   * @param tokenId Tavern&#39;s tokenid
+   * @param tokenId Tavern's tokenid
    * @param endAt auction end time
    */
   function newAuction(uint128 price, uint256 tokenId, uint256 startAt, uint256 endAt) whenNotPaused external {
@@ -895,7 +895,7 @@ contract NFTsCrowdsale is NFTsCrowdsaleBase, Pausable {
   /**
    * @dev batch New Auctions 
    * @param prices Array price in wei
-   * @param tokenIds Array Tavern&#39;s tokenid
+   * @param tokenIds Array Tavern's tokenid
    * @param endAts  Array auction end time
    */
   function batchNewAuctions(uint128[] prices, uint256[] tokenIds, uint256[] startAts, uint256[] endAts) whenNotPaused external {
@@ -916,7 +916,7 @@ contract NFTsCrowdsale is NFTsCrowdsaleBase, Pausable {
 
   /**
    * @dev pay a auction by erc20 Token
-   * @param tokenId Tavern&#39;s tokenid
+   * @param tokenId Tavern's tokenid
    */
   function payByErc20 (uint256 tokenId) whenNotPaused2 external {
     _payByErc20(tokenId);
@@ -924,7 +924,7 @@ contract NFTsCrowdsale is NFTsCrowdsaleBase, Pausable {
 
   /**
    * @dev cancel a auction
-   * @param tokenId Tavern&#39;s tokenid
+   * @param tokenId Tavern's tokenid
    */
   function cancelAuction (uint256 tokenId) external {
     _cancelAuction(tokenId);
@@ -932,7 +932,7 @@ contract NFTsCrowdsale is NFTsCrowdsaleBase, Pausable {
 
   /**
    * @dev batch cancel auctions
-   * @param tokenIds Array Tavern&#39;s tokenid
+   * @param tokenIds Array Tavern's tokenid
    */
   function batchCancelAuctions (uint256[] tokenIds) external {
     uint256 i = 0;

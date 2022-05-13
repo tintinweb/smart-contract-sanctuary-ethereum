@@ -17,10 +17,10 @@
 // 저희는 호텔, 사무실, 쇼핑몰에 독점 계약을 맺고 전기차가 이용할 수 있는 eCharge 충전소 50,000개를 더 설치하고 소유, 운영할 계획이며, 이로써 수익을 창출할 것입니다. 백엔드와 결제 시스템은 블록체인을 바탕으로 운영되며, 차 소유주는 본 시스템을 이용하여 배터리 충전에 사용되는 에너지를 저렴한 
 // 가격에 구입하고, 비싼 값으로 판매할 수 있습니다.
 //
-// F&#233;licitations! Voici votre token airdrop gratuit. Pour en savoir plus sur le projet: https://echarge.io, Tableau des bonus et dates de l&#39;ICO.
-// Nous installerons, poss&#232;derons et g&#233;rerons plus de 50 000 bornes de recharge pour voitures &#233;lectriques sur la base d&#39;un contrat exclusif d&#233;butant en h&#244;tels, bureaux et centres commerciaux pour g&#233;n&#233;rer des recettes gr&#226;ce &#224; l&#39;usage de ces
+// F&#233;licitations! Voici votre token airdrop gratuit. Pour en savoir plus sur le projet: https://echarge.io, Tableau des bonus et dates de l'ICO.
+// Nous installerons, poss&#232;derons et g&#233;rerons plus de 50 000 bornes de recharge pour voitures &#233;lectriques sur la base d'un contrat exclusif d&#233;butant en h&#244;tels, bureaux et centres commerciaux pour g&#233;n&#233;rer des recettes gr&#226;ce &#224; l'usage de ces
 // bornes. Le syst&#232;me logiciel et de paiement est bas&#233; sur la blockchain pour permettre au propri&#233;taire de la voiture
-// d&#39;utiliser sa voiture comme une batterie pour acheter de l&#39;&#233;nergie &#224; bas prix et vendre de l&#39;&#233;nergie &#224; un prix &#233;lev&#233;. 
+// d'utiliser sa voiture comme une batterie pour acheter de l'&#233;nergie &#224; bas prix et vendre de l'&#233;nergie &#224; un prix &#233;lev&#233;. 
                                                                                                               
 pragma solidity 0.4.18;
 

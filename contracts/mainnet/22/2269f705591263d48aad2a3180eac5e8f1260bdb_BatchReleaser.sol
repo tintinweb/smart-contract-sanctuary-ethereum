@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -197,7 +197,7 @@ contract TokenVesting is Ownable {
   }
 
   /**
-   * @dev Calculates the amount that has already vested but hasn&#39;t been released yet.
+   * @dev Calculates the amount that has already vested but hasn't been released yet.
    * @param token ERC20 token which is being vested
    */
   function releasableAmount(ERC20Basic token) public view returns (uint256) {
@@ -240,7 +240,7 @@ contract VariableRateTokenVesting is TokenVesting {
         uint256[] _cumulativeRates,
         uint256 _interval
     ) public
-        // We don&#39;t need `duration`, also always allow revoking.
+        // We don't need `duration`, also always allow revoking.
         TokenVesting(_beneficiary, _start, /*cliff*/0, /*duration: uint max*/~uint256(0), true)
     {
         // Validate rates.

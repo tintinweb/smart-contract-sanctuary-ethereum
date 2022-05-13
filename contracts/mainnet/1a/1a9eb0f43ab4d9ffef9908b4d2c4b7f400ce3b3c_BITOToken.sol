@@ -12,7 +12,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
   function sub(uint256 a, uint256 b) internal pure returns (uint256) {
@@ -47,8 +47,8 @@ contract BITOToken is ERC20Interface {
   using SafeMath for uint;
 
   // State variables
-  string public symbol = &#39;BITO&#39;;
-  string public name = &#39;BITO Coin&#39;;
+  string public symbol = 'BITO';
+  string public name = 'BITO Coin';
   uint public decimals = 8;
   address public owner;
   uint public totalSupply = 210000000 * (10 **8);
@@ -132,7 +132,7 @@ contract BITOToken is ERC20Interface {
     }
 
   // ------------------------------------------------------------------------
-  // Transferred approved amount from other&#39;s account
+  // Transferred approved amount from other's account
   // ------------------------------------------------------------------------
   function transferFrom(address _from, address _to, uint _value) unfreezed(_to) unfreezed(_from) noEmergencyFreeze() public returns (bool success) {
     require(_value <= allowed[_from][msg.sender]);

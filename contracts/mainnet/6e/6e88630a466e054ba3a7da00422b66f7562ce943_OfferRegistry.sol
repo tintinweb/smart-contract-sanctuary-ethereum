@@ -122,8 +122,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -140,7 +140,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -286,7 +286,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -461,7 +461,7 @@ contract NectarToken is MintableToken {
         emit Approval(msg.sender, _spender, _value);
 
         // Call the receiveApproval function on the contract you want to be notified.
-        // This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        // This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //
         // receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //
@@ -592,7 +592,7 @@ contract OfferMultiSig is Pausable {
     }
 
     /**
-     * Function called by ambassador to cancel a channel that hasn&#39;t been joined yet
+     * Function called by ambassador to cancel a channel that hasn't been joined yet
      */
     function cancelAgreement() public whenNotPaused {
         // require the channel is not open yet
@@ -674,7 +674,7 @@ contract OfferMultiSig is Pausable {
         address _ambassador = getSig(_state, _sigV[0], _sigR[0], _sigS[0]);
         address _expert = getSig(_state, _sigV[1], _sigR[1], _sigS[1]);
         require(getTokenAddress(_state) == nectarAddress, "Invalid token address");
-        require(settlementPeriodEnd <= block.number, "Settlement period hasn&#39;t ended");
+        require(settlementPeriodEnd <= block.number, "Settlement period hasn't ended");
         require(isClosed == 0, "Offer is closed");
         require(isInSettlementState == 1, "Offer is not in settlement state");
 
@@ -706,7 +706,7 @@ contract OfferMultiSig is Pausable {
         require(getTokenAddress(_state) == nectarAddress, "Invalid token address");
         require(isClosed == 0, "Offer is closed");
         
-        /// @dev make sure we&#39;re not in dispute
+        /// @dev make sure we're not in dispute
         require(isInSettlementState == 0, "Offer is in settlement state");
 
         /// @dev must have close flag
@@ -1016,13 +1016,13 @@ contract OfferRegistry is Pausable {
     function initializeOfferChannel(uint128 guid, address _ambassador, address _expert, uint _settlementPeriodLength) external whenNotPaused {
         require(address(0) != _expert, "Invalid expert address");
         require(address(0) != _ambassador, "Invalid ambassador address");
-        require(msg.sender == _ambassador, "Initializer isn&#39;t ambassador");
+        require(msg.sender == _ambassador, "Initializer isn't ambassador");
         require(guidToChannel[guid].msig == address(0), "GUID already in use");
 
         bytes32 key = getParticipantsHash(_ambassador, _expert);
 
         if (participantsToChannel[key] != address(0)) {
-            /// @dev check to make sure the participants don&#39;t already have an open channel
+            /// @dev check to make sure the participants don't already have an open channel
             // solium-disable-next-line indentation
             require(OfferMultiSig(participantsToChannel[key]).isChannelOpen() == false,
                 "Channel already exists between parties");
@@ -1147,8 +1147,8 @@ contract OfferRegistry is Pausable {
              _msigAddress := mload(add(_state, 160)) // [128-159] - msig address where funds and offer are managed
              _balanceA := mload(add(_state,192)) // [160-191] balance in nectar for ambassador
              _balanceB := mload(add(_state,224)) // [192-223] balance in nectar for expert
-             _ambassador := mload(add(_state, 96)) // [64-95] - offer&#39;s ambassador address
-             _expert := mload(add(_state, 128)) // [96-127] - offer&#39;s expert address
+             _ambassador := mload(add(_state, 96)) // [64-95] - offer's ambassador address
+             _expert := mload(add(_state, 128)) // [96-127] - offer's expert address
              _isClosed := mload(add(_state, 32)) // [0-31] - 0 or 1 for if the state is marked as closed
              _token := mload(add(_state, 256)) // [224-255] - nectar token address
              _mask := mload(add(_state, 480)) // [448-479] - assertion mask

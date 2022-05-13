@@ -5,7 +5,7 @@
 pragma solidity 0.5.3;
 
 /**
- * @dev Wrappers over Solidity&#39;s arithmetic operations with added overflow
+ * @dev Wrappers over Solidity's arithmetic operations with added overflow
  * checks.
  *
  * Arithmetic operations in Solidity wrap on overflow. This can easily result
@@ -15,14 +15,14 @@ pragma solidity 0.5.3;
  * operation overflows.
  *
  * Using this library instead of the unchecked operations eliminates an entire
- * class of bugs, so it&#39;s recommended to use it always.
+ * class of bugs, so it's recommended to use it always.
  */
 library SafeMath {
     /**
      * @dev Returns the addition of two unsigned integers, reverting on
      * overflow.
      *
-     * Counterpart to Solidity&#39;s `+` operator.
+     * Counterpart to Solidity's `+` operator.
      *
      * Requirements:
      * - Addition cannot overflow.
@@ -38,7 +38,7 @@ library SafeMath {
      * @dev Returns the subtraction of two unsigned integers, reverting on
      * overflow (when the result is negative).
      *
-     * Counterpart to Solidity&#39;s `-` operator.
+     * Counterpart to Solidity's `-` operator.
      *
      * Requirements:
      * - Subtraction cannot overflow.
@@ -54,14 +54,14 @@ library SafeMath {
      * @dev Returns the multiplication of two unsigned integers, reverting on
      * overflow.
      *
-     * Counterpart to Solidity&#39;s `*` operator.
+     * Counterpart to Solidity's `*` operator.
      *
      * Requirements:
      * - Multiplication cannot overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -77,7 +77,7 @@ library SafeMath {
      * @dev Returns the integer division of two unsigned integers. Reverts on
      * division by zero. The result is rounded towards zero.
      *
-     * Counterpart to Solidity&#39;s `/` operator. Note: this function uses a
+     * Counterpart to Solidity's `/` operator. Note: this function uses a
      * `revert` opcode (which leaves remaining gas untouched) while Solidity
      * uses an invalid opcode to revert (consuming all remaining gas).
      *
@@ -88,7 +88,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0, "SafeMath: division by zero");
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -97,7 +97,7 @@ library SafeMath {
      * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
      * Reverts when dividing by zero.
      *
-     * Counterpart to Solidity&#39;s `%` operator. This function uses a `revert`
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
      * opcode (which leaves remaining gas untouched) while Solidity uses an
      * invalid opcode to revert (consuming all remaining gas).
      *
@@ -129,7 +129,7 @@ library Roles {
     }
 
     /**
-     * @dev Remove an account&#39;s access to this role.
+     * @dev Remove an account's access to this role.
      */
     function remove(Role storage role, address account) internal {
         require(has(role, account), "Roles: account does not have role");
@@ -164,7 +164,7 @@ interface IERC20 {
     function balanceOf(address account) external view returns (uint256);
 
     /**
-     * @dev Moves `amount` tokens from the caller&#39;s account to `recipient`.
+     * @dev Moves `amount` tokens from the caller's account to `recipient`.
      *
      * Returns a boolean value indicating whether the operation succeeded.
      *
@@ -182,14 +182,14 @@ interface IERC20 {
     function allowance(address owner, address spender) external view returns (uint256);
 
     /**
-     * @dev Sets `amount` as the allowance of `spender` over the caller&#39;s tokens.
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
      *
      * Returns a boolean value indicating whether the operation succeeded.
      *
      * > Beware that changing an allowance with this method brings the risk
      * that someone may use both the old and the new allowance by unfortunate
      * transaction ordering. One possible solution to mitigate this race
-     * condition is to first reduce the spender&#39;s allowance to 0 and set the
+     * condition is to first reduce the spender's allowance to 0 and set the
      * desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      *
@@ -199,7 +199,7 @@ interface IERC20 {
 
     /**
      * @dev Moves `amount` tokens from `sender` to `recipient` using the
-     * allowance mechanism. `amount` is then deducted from the caller&#39;s
+     * allowance mechanism. `amount` is then deducted from the caller's
      * allowance.
      *
      * Returns a boolean value indicating whether the operation succeeded.
@@ -354,7 +354,7 @@ contract Pausable is PauserRole {
  * Additionally, an `Approval` event is emitted on calls to `transferFrom`.
  * This allows applications to reconstruct the allowance for all accounts just
  * by listening to said events. Other implementations of the EIP may not emit
- * these events, as it isn&#39;t required by the specification.
+ * these events, as it isn't required by the specification.
  *
  * Finally, the non-standard `decreaseAllowance` and `increaseAllowance`
  * functions have been added to mitigate the well-known issues around setting
@@ -424,7 +424,7 @@ contract ERC20 is IERC20 {
      * Requirements:
      * - `sender` and `recipient` cannot be the zero address.
      * - `sender` must have a balance of at least `value`.
-     * - the caller must have allowance for `sender`&#39;s tokens of at least
+     * - the caller must have allowance for `sender`'s tokens of at least
      * `amount`.
      */
     function transferFrom(address sender, address recipient, uint256 amount) public returns (bool) {
@@ -537,7 +537,7 @@ contract ERC20 is IERC20 {
 
     /**
      * @dev Destoys `amount` tokens from `account`.`amount` is then deducted
-     * from the caller&#39;s allowance.
+     * from the caller's allowance.
      *
      * See `_burn` and `_approve`.
      */
@@ -557,7 +557,7 @@ library Address {
      * @dev Returns true if `account` is a contract.
      *
      * This test is non-exhaustive, and there may be false-negatives: during the
-     * execution of a contract&#39;s constructor, its address will be reported as
+     * execution of a contract's constructor, its address will be reported as
      * not containing a contract.
      *
      * > It is unsafe to assume that an address for which this function returns
@@ -608,7 +608,7 @@ library SafeERC20 {
     function safeApprove(IERC20 token, address spender, uint256 value) internal {
         // safeApprove should only be called when setting an initial allowance,
         // or when resetting it to zero. To increase and decrease it, use
-        // &#39;safeIncreaseAllowance&#39; and &#39;safeDecreaseAllowance&#39;
+        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
         // solhint-disable-next-line max-line-length
         require((value == 0) || (token.allowance(address(this), spender) == 0),
             "SafeERC20: approve from non-zero to non-zero allowance"
@@ -633,8 +633,8 @@ library SafeERC20 {
      * @param data The call data (encoded using abi.encode or one of its variants).
      */
     function callOptionalReturn(IERC20 token, bytes memory data) private {
-        // We need to perform a low level call here, to bypass Solidity&#39;s return data size checking mechanism, since
-        // we&#39;re implementing it ourselves.
+        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
+        // we're implementing it ourselves.
 
         // A Solidity high level call has three parts:
         //  1. The target address is checked to verify it contains contract code
@@ -907,7 +907,7 @@ contract TokenVesting is Ownable {
 
 
     /**
-     * @dev Calculates the amount that has already vested but hasn&#39;t been released yet.
+     * @dev Calculates the amount that has already vested but hasn't been released yet.
      * @param token ERC20 token which is being vested
      */
     function _releasableAmount(IERC20 token) private view returns (uint256) {
@@ -945,7 +945,7 @@ contract NexxoToken is Ownable, ERC20, Pausable, ERC20Burnable {
     uint8 public decimals;
     uint public _totalSupply;
     uint256 public unitsOneEthCanBuy;     // How many units of your coin can be bought by 1 ETH?
-    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We&#39;ll store the total ETH raised via our ICO here.  
+    uint256 public totalEthInWei;         // WEI is the smallest unit of ETH (the equivalent of cent in USD or satoshi in BTC). We'll store the total ETH raised via our ICO here.  
     address payable fundsWallet;           // Where should the raised ETH go?
 
     mapping(address => uint) balances;
@@ -967,7 +967,7 @@ contract NexxoToken is Ownable, ERC20, Pausable, ERC20Burnable {
     }
 
    // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () external payable {
         totalEthInWei = totalEthInWei + msg.value;
@@ -1000,8 +1000,8 @@ contract NexxoToken is Ownable, ERC20, Pausable, ERC20Burnable {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to to account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to to account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -1014,7 +1014,7 @@ contract NexxoToken is Ownable, ERC20, Pausable, ERC20Burnable {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -1047,7 +1047,7 @@ contract NexxoToken is Ownable, ERC20, Pausable, ERC20Burnable {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -1056,7 +1056,7 @@ contract NexxoToken is Ownable, ERC20, Pausable, ERC20Burnable {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account. The spender contract function
+    // from the token owner's account. The spender contract function
     // receiveApproval(...) is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes memory data) public returns (bool success) {

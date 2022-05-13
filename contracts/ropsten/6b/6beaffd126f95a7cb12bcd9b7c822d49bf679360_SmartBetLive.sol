@@ -10,13 +10,13 @@ contract SmartBetLive {
     //The expiration time of the game, expressed in seconds from Jan 1st, 1970
     uint public expirationTime;
 
-    //The last player&#39;s address
+    //The last player's address
     address public currentWinner;
 
     //Minimum amount to send to the contract
     uint public minimumAmount;
 
-    //All the players&#39; addresses
+    //All the players' addresses
     address[] public uniquePlayers;
 
     //This to avoid duplicates into uniquePlayers array
@@ -72,11 +72,11 @@ contract SmartBetLive {
         //Total amount raised is updated
         totalRaised += msg.value;
 
-        //Let&#39;s notify all the users on our Website that a new player donated
+        //Let's notify all the users on our Website that a new player donated
         emit NotifyNewPayment();
     }
 
-    //Now let&#39;s send the prizes to all players
+    //Now let's send the prizes to all players
     function sendPrizes() public {
 
         //First of all, we can do it just if the game has ended
@@ -88,10 +88,10 @@ contract SmartBetLive {
         //Get the total amount raised from the Contract
         uint amount = address(this).balance;
 
-        //Continue only if there are some money into Contract&#39;s wallet
+        //Continue only if there are some money into Contract's wallet
         require(amount > 0);
 
-        //Let&#39;s extract the prize for the winner
+        //Let's extract the prize for the winner
         uint prizeForWinner = amount * winnerPercentage / 100;
 
         //Send first prize to the Winner
@@ -103,13 +103,13 @@ contract SmartBetLive {
         //if there is more than one player (we hope so!!!)
         if(uniquePlayers.length > 1) {
 
-            //Let&#39;s extract the TOTAL prize for other players first
+            //Let's extract the TOTAL prize for other players first
             uint prizeForOthers = amount * othersPercentage / 100;
 
             //Decrease money for the team
             remainingMoneyForTeam = remainingMoneyForTeam - prizeForOthers;
 
-            //Now let&#39;s calculate how much eths will be sent to EVERY single non-winner player
+            //Now let's calculate how much eths will be sent to EVERY single non-winner player
             prizeForOthers = prizeForOthers / (uniquePlayers.length - 1);
 
             //Now send prizes to other players
@@ -124,7 +124,7 @@ contract SmartBetLive {
         //Finally, send remaining contract money to the owner
         owner.transfer(remainingMoneyForTeam);
 
-        //Let&#39;s notify all the users on our Website that the contract paid everybody
+        //Let's notify all the users on our Website that the contract paid everybody
         emit NotifyNewPayment();
     }
 
@@ -142,18 +142,18 @@ contract SmartBetLive {
     ** Eventual prize for other players
      */
     function getData() public view returns (uint, uint, uint, address, uint, uint, uint, uint, uint, uint) {
-        //Let&#39;s extract the prize for the winner
+        //Let's extract the prize for the winner
         uint prizeForWinner = totalRaised * winnerPercentage / 100;
 
-        //Let&#39;s assume that only one player joined the game, so there are no other players
+        //Let's assume that only one player joined the game, so there are no other players
         uint prizeForOthers = 0;
 
         //if there is more than one player (we hope so!!!)
         if(uniquePlayers.length > 1) {
-            //Let&#39;s extract the TOTAL prize for other players first
+            //Let's extract the TOTAL prize for other players first
             prizeForOthers = totalRaised * othersPercentage / 100;
 
-            //Now let&#39;s calculate how much eths will be sent to EVERY single non-winner player
+            //Now let's calculate how much eths will be sent to EVERY single non-winner player
             prizeForOthers = prizeForOthers / (uniquePlayers.length - 1);
         }
         return (

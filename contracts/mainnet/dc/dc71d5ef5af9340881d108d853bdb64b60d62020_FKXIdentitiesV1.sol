@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -241,7 +241,7 @@ function propose(bytes32 _rootHash, string _ipfsAddress) public onlyInitiators
   // proposal should not be present already, i.e timestamp has to be in an uninitialized state, i.e. zero 
   require(proposals[_rootHash].timestamp == 0 ) ;
 
-  // writes the proposal for the _ipfsAddress, timestamp it &#39;now&#39; and set the qty to zero (i.e. no votes yet)
+  // writes the proposal for the _ipfsAddress, timestamp it 'now' and set the qty to zero (i.e. no votes yet)
   address[] memory newVoterAcct = new address[](maxValidators) ; 
   Proposal memory newProposal = Proposal( _ipfsAddress , now, 0, 0, 0, newVoterAcct ) ; 
   proposals[_rootHash] = newProposal ; 
@@ -274,7 +274,7 @@ function howManyVoters(bytes32 _rootHash) constant public returns (uint)
 function vote(bytes32 _rootHash, bool _vote) public onlyValidators
 {
   // if timestamp == 0 it means such proposal does not exist, i.e. was never timestamped hence 
-  //  contains the &#39;zero&#39; uninitialized value
+  //  contains the 'zero' uninitialized value
   require(proposals[_rootHash].timestamp > 0) ;
 
   // checks this validator have not already voted for this proposal
@@ -305,7 +305,7 @@ function vote(bytes32 _rootHash, bool _vote) public onlyValidators
   if ( isConsensusObtained(proposals[_rootHash].totalAffirmativeVotes) )
   {
   // need to make sure the consensuated vote had not already been written to the storage area ipfsAddresses
-  // so we don&#39;t write duplicate info again, just to save some gas :) and also b/c it&#39;s the right thing to do 
+  // so we don't write duplicate info again, just to save some gas :) and also b/c it's the right thing to do 
   // to minimize entropy in the universe... hence, we need to check for an empty string
     bytes memory tempEmptyString = bytes(ipfsAddresses[_rootHash]) ; 
     if ( tempEmptyString.length == 0 ) 
@@ -321,7 +321,7 @@ function vote(bytes32 _rootHash, bool _vote) public onlyValidators
 } 
 
 
-// returns the total number of ipfsAddresses ever stored in the definitive immutable storage &#39;ipfsAddresses&#39;
+// returns the total number of ipfsAddresses ever stored in the definitive immutable storage 'ipfsAddresses'
 function getTotalQtyIpfsAddresses() constant public returns (uint)
 { 
   return ipfsAddressesAcct.length ; 
@@ -375,15 +375,15 @@ function getTimestampProposal(bytes32 _rootHash) constant public returns (uint _
 
 
 // returns the total quantity of active validators
-// only &#39;active&#39; ones quantity  
+// only 'active' ones quantity  
 function getQtyValidators() constant public returns (uint)
 {
   return qtyValidators ; 
 }
 
-// It returns the address of an active validator in the specific &#39;_t&#39; vector position of active validators 
-// vector positions start at zero and ends at &#39;getQtyValidators - 1&#39; so in order to get all vaidators 
-// you have to iterate one by one from 0 to &#39; getQtyValidators -1 &#39;
+// It returns the address of an active validator in the specific '_t' vector position of active validators 
+// vector positions start at zero and ends at 'getQtyValidators - 1' so in order to get all vaidators 
+// you have to iterate one by one from 0 to ' getQtyValidators -1 '
 function getValidatorAddress(int _t) constant public returns (address _validatorAddr)
 {
    int x = -1 ; 
@@ -397,7 +397,7 @@ function getValidatorAddress(int _t) constant public returns (address _validator
    }
 }
  
-// returns true if the rootHash was impacted, i.e. it&#39;s available and exists in the ipfsAddresses array
+// returns true if the rootHash was impacted, i.e. it's available and exists in the ipfsAddresses array
 // and false if otherwise
 
 function getStatusForRootHash(bytes32 _rootHash) constant public returns (bool)

@@ -190,7 +190,7 @@ contract BattleboardData is IBattleboardData  {
       }
         
         function createNullTile(uint16 _battleboardId) private    {
-      //We need to create a tile with ID 0 that won&#39;t be on the board. This lets us know if any other tile is ID 0 then that means it&#39;s a blank tile. 
+      //We need to create a tile with ID 0 that won't be on the board. This lets us know if any other tile is ID 0 then that means it's a blank tile. 
         if ((_battleboardId <0) || (_battleboardId > totalBattleboards)) {revert();}
         Tile memory tile ;
         tile.tileType = 0; 
@@ -229,13 +229,13 @@ contract BattleboardData is IBattleboardData  {
       TilesonBoard[battleboardId][tileId].tileType= 0;
       for (uint i =0; i< Battleboards[battleboardId].team1.length; i++) {
           if (Battleboards[battleboardId].team1[i] == TilesonBoard[battleboardId][tileId].owner) {
-             //should be safe because a team can&#39;t be killed if there are 0 teams to kill. 
+             //should be safe because a team can't be killed if there are 0 teams to kill. 
              Battleboards[battleboardId].numTeams1 -= 1; 
           }
       }
       for (i =0; i< Battleboards[battleboardId].team2.length; i++) {
           if (Battleboards[battleboardId].team2[i] == TilesonBoard[battleboardId][tileId].owner) {
-             //should be safe because a team can&#39;t be killed if there are 0 teams to kill. 
+             //should be safe because a team can't be killed if there are 0 teams to kill. 
              Battleboards[battleboardId].numTeams2 -= 1; 
           }
       }
@@ -243,7 +243,7 @@ contract BattleboardData is IBattleboardData  {
      
      function addTeamtoBoard(uint16 battleboardId, address owner, uint8 team) onlySERAPHIM external {
         
-        //Can&#39;t add a team if the board is live, or if the board is already full of teams. 
+        //Can't add a team if the board is live, or if the board is already full of teams. 
          if (Battleboards[battleboardId].isLive == true) {revert();}
          if ((Battleboards[battleboardId].prize == 0) &&(Battleboards[battleboardId].numTeams == maxFreeTeams)) {revert();}
          if ((Battleboards[battleboardId].prize != 0) &&(Battleboards[battleboardId].numTeams == maxPaidTeams)) {revert();}
@@ -285,7 +285,7 @@ contract BattleboardData is IBattleboardData  {
         }
         
         function withdrawEther()  onlyCREATOR external {
-   //shouldn&#39;t have any eth here but just in case. 
+   //shouldn't have any eth here but just in case. 
     creatorAddress.transfer(this.balance);
 }
 
@@ -503,7 +503,7 @@ function getRandomNumber(uint16 maxRandom, uint8 min, address privateAddress) co
      function SafeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
     /// Read access
      }

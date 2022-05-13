@@ -32,7 +32,7 @@ contract SafeMath {
 // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
 // ----------------------------------------------------------------------------
 contract ERC20Interface {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function balanceOf(address _owner) public view returns (uint256 balance) { _owner; balance; }
     function allowance(address _owner, address _spender) public view returns (uint256 remaining) { _owner; _spender; remaining; }
 
@@ -61,7 +61,7 @@ contract ERC20Token is ERC20Interface, SafeMath {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
 
     function transfer(address _to, uint256 _value) public returns (bool success)
@@ -80,7 +80,7 @@ contract ERC20Token is ERC20Interface, SafeMath {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success)
     {
@@ -102,7 +102,7 @@ contract ERC20Token is ERC20Interface, SafeMath {
         @param _spender approved address
         @param _value   allowance amount
 
-        @return true if the approval was successful, false if it wasn&#39;t
+        @return true if the approval was successful, false if it wasn't
     */
 
     function approve(address _spender, uint256 _value) public returns (bool success)

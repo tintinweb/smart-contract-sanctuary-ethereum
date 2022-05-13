@@ -170,7 +170,7 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
 
     string constant VERSION = "0.4";
 
-    /// Address of merchant&#39;s account, that can withdraw from wallet
+    /// Address of merchant's account, that can withdraw from wallet
     address public merchantAccount;
 
     /// Unique Merchant identifier hash
@@ -205,7 +205,7 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  @param _merchantAccount Address of merchant&#39;s account, that can withdraw from wallet
+     *  @param _merchantAccount Address of merchant's account, that can withdraw from wallet
      *  @param _merchantId Merchant identifier
      */
     function MerchantWallet(address _merchantAccount, string _merchantId) public {
@@ -290,7 +290,7 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  Allows merchant to withdraw funds to it&#39;s own account
+     *  Allows merchant to withdraw funds to it's own account
      */
     function withdraw(uint amount) external {
         withdrawTo(msg.sender, amount);
@@ -312,7 +312,7 @@ contract MerchantWallet is Pausable, SafeDestructible, Contactable, Restricted {
     }
 
     /**
-     *  Allows merchant to change it&#39;s account address
+     *  Allows merchant to change it's account address
      */
     function changeMerchantAccount(address newAccount) external onlyMerchant whenNotPaused {
         merchantAccount = newAccount;

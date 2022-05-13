@@ -62,7 +62,7 @@ contract OysterPrePearl {
         uint amount;
         amount = msg.value * buyPrice;                    // calculates the amount
         totalSupply += amount;                            // increases the total supply 
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         funds += msg.value;                               // track eth amount raised
         Transfer(this, msg.sender, amount);               // execute an event reflecting the change
     }
@@ -180,7 +180,7 @@ contract OysterPrePearl {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;

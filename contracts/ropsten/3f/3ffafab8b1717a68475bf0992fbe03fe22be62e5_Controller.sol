@@ -1064,7 +1064,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1074,7 +1074,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1106,7 +1106,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1129,7 +1129,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1161,15 +1161,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1206,13 +1206,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1300,11 +1300,11 @@ contract ScheduleClient is usingOraclize {
     }
 
     function cancel(bytes32 hash) external {
-        require(msg.sender == _owner, &#39;cancel: the msg.sender is not the owner of this contract&#39;);
+        require(msg.sender == _owner, 'cancel: the msg.sender is not the owner of this contract');
         ScheduleCall memory call = _scheduleCalls[hash];
 
-        require(call.canceled == false, &#39;cancel: this schedule was already canceled&#39;);
-        require(call.executionsAmount > call.executed, &#39;cancel: there are no active schedule calls&#39;);
+        require(call.canceled == false, 'cancel: this schedule was already canceled');
+        require(call.executionsAmount > call.executed, 'cancel: there are no active schedule calls');
         _checkCancelAvailability(call.creationDate, call.executed, call.delay);
 
         uint256 availableCalls = call.executionsAmount - call.executed;
@@ -1315,9 +1315,9 @@ contract ScheduleClient is usingOraclize {
     }
 
     function emergencyExit() external {
-        require(msg.sender == _controller, &#39;emerganceExit: the msg.sender is not the controller contract&#39;);
+        require(msg.sender == _controller, 'emerganceExit: the msg.sender is not the controller contract');
         if(_getTokenBalance() > 0) {
-            require(_token.transfer(_owner, _token.balanceOf(address(this))), &#39;emerganceExit: the tokens was not transferred to the owner&#39;);
+            require(_token.transfer(_owner, _token.balanceOf(address(this))), 'emerganceExit: the tokens was not transferred to the owner');
         }
 
         selfdestruct(_owner);
@@ -1423,7 +1423,7 @@ contract ScheduleClient is usingOraclize {
         require(
             block.timestamp < creationDate + ((executed + 1) * delay) - 2 minutes ||
             block.timestamp > creationDate + ((executed + 1) * delay) + 2 minutes,
-            &#39;_checkCancelAvailability: you cannot cancel schedule call +- 2 minutes from current and last scheduled call&#39;
+            '_checkCancelAvailability: you cannot cancel schedule call +- 2 minutes from current and last scheduled call'
         );
     }
 

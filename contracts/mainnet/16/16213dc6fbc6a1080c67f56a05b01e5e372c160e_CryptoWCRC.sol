@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -65,7 +65,7 @@ library SafeMath32 {
   function div(uint32 a, uint32 b) internal pure returns (uint32) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint32 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -99,7 +99,7 @@ library SafeMath16 {
   function div(uint16 a, uint16 b) internal pure returns (uint16) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint16 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -840,15 +840,15 @@ contract WorldCupAuction is WorldCupHelper, AuctionPaused {
 	event PurchaseToken(address indexed _from, address indexed _to, uint256 _tokenId, uint256 _tokenPrice, uint256 _timestamp, uint256 _purchaseCounter);
 
 	/// @dev ERC721 Token upper limit of price, cap.
-	///  Cap is the upper limit of price. It represented eth&#39;s cap if isEthPayable is true 
-	///  or erc20 token&#39;s cap if isEthPayable is false.
-	///  Note!!! Using &#39;wei&#39; for eth&#39;s cap units. Using minimum units for erc20 token cap units.
+	///  Cap is the upper limit of price. It represented eth's cap if isEthPayable is true 
+	///  or erc20 token's cap if isEthPayable is false.
+	///  Note!!! Using 'wei' for eth's cap units. Using minimum units for erc20 token cap units.
 	uint public cap;
 
     uint public finalCap;
 
 	/// @dev 1 equal to 0.001
-	/// erc721 token&#39;s price increasing. Each purchase the price increases 5%
+	/// erc721 token's price increasing. Each purchase the price increases 5%
 	uint public increasePermillage = 50;
 
 	/// @dev 1 equal to 0.001
@@ -860,7 +860,7 @@ contract WorldCupAuction is WorldCupHelper, AuctionPaused {
 	PayerInterface public payerContract = PayerInterface(address(0));
 
     /// @dev If isEthPayable is true, users can only use eth to buy current erc721 token.
-    ///  If isEthPayable is false, that mean&#39;s users can only use PayerInterface&#39;s token to buy current erc721 token.
+    ///  If isEthPayable is false, that mean's users can only use PayerInterface's token to buy current erc721 token.
     bool public isEthPayable;
 
     uint public purchaseCounter = 0;

@@ -66,7 +66,7 @@ contract FcsCoin is StandardToken {
     string public name;                   
     uint8 public decimals;                
     string public symbol;                 
-    string public version = &#39;F1.0&#39;; 
+    string public version = 'F1.0'; 
     uint256 public unitsOneEthCanBuy;     
     uint256 public totalEthInWei;         
     address public fundsWallet;           

@@ -399,7 +399,7 @@ contract UpgradeableToken is StandardToken {
    * Upgrade states:
    *
    * - NotAllowed: the child contract has not reached a condition where the upgrade can begin
-   * - WaitingForAgent: token allows upgrade, but we don&#39;t have a new agent yet
+   * - WaitingForAgent: token allows upgrade, but we don't have a new agent yet
    * - ReadyToUpgrade: the agent is set, but not a single token has been upgraded yet
    * - Upgrading: upgrade agent is set and the balance holders can upgrade their tokens
    *
@@ -598,7 +598,7 @@ contract VestedToken is StandardToken, LimitedTransferToken {
    *
    * @param holder address The address of the holder
    * @param time uint64 The specific time
-   * @return An uint representing a holder&#39;s total amount of transferable tokens
+   * @return An uint representing a holder's total amount of transferable tokens
    */
   function transferableTokens(address holder, uint64 time) constant public returns (uint256) {
     uint256 grantIndex = tokenGrantsCount(holder);
@@ -660,7 +660,7 @@ contract VestedToken is StandardToken, LimitedTransferToken {
 
       // Interpolate all vested tokens.
       // As before cliff the shortcut returns 0, we can use just calculate a value
-      // in the vesting rect (as shown in above&#39;s figure)
+      // in the vesting rect (as shown in above's figure)
 
       uint vestedTokens = tokens.mul(time.sub(start)).div(vesting.sub(start));
       return vestedTokens;
@@ -738,8 +738,8 @@ contract VestedToken is StandardToken, LimitedTransferToken {
  */
 contract ProvideToken is BurnableToken, MintableToken, VestedToken, UpgradeableToken {
 
-  string public constant name = &#39;Provide&#39;;
-  string public constant symbol = &#39;PRVD&#39;;
+  string public constant name = 'Provide';
+  string public constant symbol = 'PRVD';
   uint public constant decimals = 8;
 
   function ProvideToken()  UpgradeableToken(msg.sender) { }

@@ -64,7 +64,7 @@ contract Curio is ERC721 {
   string public constant NAME = "Curio";
   string public constant SYMBOL = "CUR";
 
-  // Array of token&#39;s data
+  // Array of token's data
   Token[] tokens;
 
   // A mapping from token IDs to the address that owns them
@@ -162,7 +162,7 @@ contract Curio is ERC721 {
   }
 
   /**
-   * @dev Default payable function rejects all Ether from being sent here, unless it&#39;s from auction contract.
+   * @dev Default payable function rejects all Ether from being sent here, unless it's from auction contract.
    */
   function() external payable {
     require(msg.sender == address(auction));
@@ -259,7 +259,7 @@ contract Curio is ERC721 {
    * @dev Unpause the contract. Can only be called by owner, since
    *      one reason we may pause the contract is when admin account is
    *      compromised. Requires auction contract addresses
-   *      to be set before contract can be unpaused. Also, we can&#39;t have
+   *      to be set before contract can be unpaused. Also, we can't have
    *      newContractAddress set either, because then the contract was upgraded.
    */
   function unpause() onlyOwner whenPaused public {
@@ -360,7 +360,7 @@ contract Curio is ERC721 {
   /**
    * @dev Returns a list of all tokens assigned to an address.
    * @param _owner The owner whose tokens we are interested in
-   * @notice This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+   * @notice This method MUST NEVER be called by smart contract code. First, it's fairly
    *         expensive (it walks the entire token array looking for tokens belonging to owner),
    *         but it also returns a dynamic array, which is only supported for web3 calls, and
    *         not contract-to-contract calls.
@@ -602,7 +602,7 @@ contract Curio is ERC721 {
     // Transfer ownership
     tokenIndexToOwner[_tokenId] = _to;
 
-    // When creating new token _from is 0x0, but we can&#39;t account that address
+    // When creating new token _from is 0x0, but we can't account that address
     if (_from != address(0)) {
       ownershipTokenCount[_from]--;
 

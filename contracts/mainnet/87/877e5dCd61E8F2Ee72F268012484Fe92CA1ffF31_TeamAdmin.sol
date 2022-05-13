@@ -263,7 +263,7 @@ library MSFun {
     {
         // our proposal key will be a hash of our function name + our contracts address 
         // by adding our contracts address to this, we prevent anyone trying to circumvent
-        // the proposal&#39;s security via external calls.
+        // the proposal's security via external calls.
         bytes32 _whatProposal = whatProposal(_whatFunction);
         
         // this is just done to make the code more readable.  grabs the signature count
@@ -345,7 +345,7 @@ library MSFun {
         address _whichAdmin;
         
         //delete the admins votes & log.   i know for loops are terrible.  but we have to do this 
-        //for our data stored in mappings.  simply deleting the proposal itself wouldn&#39;t accomplish this.
+        //for our data stored in mappings.  simply deleting the proposal itself wouldn't accomplish this.
         for (uint256 i=0; i < self.proposal_[_whatProposal].count; i++) {
             _whichAdmin = self.proposal_[_whatProposal].log[i];
             delete self.proposal_[_whatProposal].admin[_whichAdmin];

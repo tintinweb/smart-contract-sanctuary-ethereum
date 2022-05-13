@@ -65,8 +65,8 @@ contract ownerYHT {
 
 //knifeOption
 contract KEO is ownerYHT,Erc20Token {
-    string public name= &#39;KEO&#39;; 
-    string public symbol = &#39;KEO&#39;; 
+    string public name= 'KEO'; 
+    string public symbol = 'KEO'; 
     uint8 public decimals = 0;
 	
 	uint256 public moneyTotal = 60000000;//Total amount of Erc20Token
@@ -143,7 +143,7 @@ contract KEO is ownerYHT,Erc20Token {
 	/**
 	 *Thawing frozen money
 	 *Note: The value unit here is the unit before the 18th power 
-	 *that hasn&#39;t been multiplied by 10, that is, the same unit as 
+	 *that hasn't been multiplied by 10, that is, the same unit as 
 	 * the money whose initial definition was frozen.
 	 */
 	event EventUnLockFreeze(address indexed from,uint256 value);

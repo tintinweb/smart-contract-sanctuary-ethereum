@@ -64,7 +64,7 @@ contract HonestisNetworkETHpreICO {
 
     }
 
-    // notice Transfer `_value` H.N Token tokens from sender&#39;s account
+    // notice Transfer `_value` H.N Token tokens from sender's account
     // `msg.sender` to provided account address `_to`.
     // notice This function is disabled during the funding.
     // dev Required state: Operational
@@ -212,6 +212,6 @@ function refundTRA() external {
 }
 
 function preICOregulations() external returns(string wow) {
-	return &#39;Regulations of preICO are present at website  honestis.network and by using this smartcontract you commit that you accept and will follow those rules&#39;;
+	return 'Regulations of preICO are present at website  honestis.network and by using this smartcontract you commit that you accept and will follow those rules';
 }
 }

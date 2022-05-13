@@ -118,8 +118,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -136,7 +136,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -281,7 +281,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -926,7 +926,7 @@ contract Vault is StaticAccessControlled
         view
     {
         // The actual balance could be greater than totalBalances[token] because anyone
-        // can send tokens to the contract&#39;s address which cannot be accounted for
+        // can send tokens to the contract's address which cannot be accounted for
         assert(TokenInteract.balanceOf(token, address(this)) >= totalBalances[token]);
     }
 }
@@ -1114,7 +1114,7 @@ library FractionMath {
     }
 
     /**
-     * Returns a fraction from two uint256&#39;s. Fits them into uint128 if necessary.
+     * Returns a fraction from two uint256's. Fits them into uint128 if necessary.
      *
      * @param  num  The numerator
      * @param  den  The denominator
@@ -3724,8 +3724,8 @@ library BorrowShared {
         // Move owedTokens from lender to exchange wrapper
         pullOwedTokensFromLender(state, transaction);
 
-        // Sell just the lender&#39;s owedToken (if trader deposit is in heldToken)
-        // Otherwise sell both the lender&#39;s owedToken and the trader&#39;s deposit in owedToken
+        // Sell just the lender's owedToken (if trader deposit is in heldToken)
+        // Otherwise sell both the lender's owedToken and the trader's deposit in owedToken
         uint256 sellAmount = transaction.depositInHeldToken ?
             transaction.lenderAmount :
             transaction.lenderAmount.add(transaction.depositAmount);
@@ -4288,7 +4288,7 @@ library IncreasePositionImpl {
             "IncreasePositionImpl#validateIncrease: Loan callTimeLimit is less than the position"
         );
 
-        // require the position to end no later than the loanOffering&#39;s maximum acceptable end time
+        // require the position to end no later than the loanOffering's maximum acceptable end time
         uint256 positionEndTimestamp = uint256(position.startTimestamp).add(position.maxDuration);
         uint256 offeringEndTimestamp = block.timestamp.add(transaction.loanOffering.maxDuration);
         require(
@@ -5087,7 +5087,7 @@ contract MarginAdmin is Ownable {
  * Contains events for the Margin contract.
  *
  * NOTE: Any Margin function libraries that use events will need to both define the event here
- *       and copy the event into the library itself as libraries don&#39;t support sharing events
+ *       and copy the event into the library itself as libraries don't support sharing events
  */
 contract MarginEvents {
     // ============ Events ============
@@ -5895,7 +5895,7 @@ contract PositionGetters is MarginStorage {
 
     /**
      * Get a Position by id. This does not validate the position exists. If the position does not
-     * exist, all 0&#39;s will be returned.
+     * exist, all 0's will be returned.
      *
      * @param  positionId  Unique ID of the position
      * @return             Addresses corresponding to:
@@ -6113,7 +6113,7 @@ library TransferImpl {
             "TransferImpl#transferLoanImpl: Cannot transfer ownership to self"
         );
 
-        // Doesn&#39;t change the state of positionId; figures out the final owner of loan.
+        // Doesn't change the state of positionId; figures out the final owner of loan.
         // That is, newLender may pass ownership to a different address.
         address finalLender = TransferInternal.grantLoanOwnership(
             positionId,
@@ -6152,7 +6152,7 @@ library TransferImpl {
             "TransferImpl#transferPositionImpl: Cannot transfer ownership to self"
         );
 
-        // Doesn&#39;t change the state of positionId; figures out the final owner of position.
+        // Doesn't change the state of positionId; figures out the final owner of position.
         // That is, newOwner may pass ownership to a different address.
         address finalOwner = TransferInternal.grantPositionOwnership(
             positionId,
@@ -6613,7 +6613,7 @@ contract Margin is
     }
 
     /**
-     * Cancel an amount of a loan offering. Only callable by the loan offering&#39;s payer.
+     * Cancel an amount of a loan offering. Only callable by the loan offering's payer.
      *
      * @param  addresses     Array of addresses:
      *
@@ -6929,7 +6929,7 @@ contract ERC20Position is
     // Current State of this contract. See State enum
     State public state;
 
-    // Address of the position&#39;s heldToken. Cached for convenience and lower-cost withdrawals
+    // Address of the position's heldToken. Cached for convenience and lower-cost withdrawals
     address public heldToken;
 
     // Position has been closed using a trusted recipient
@@ -7127,7 +7127,7 @@ contract ERC20Position is
      * NOTE: It is possible that this contract could be sent heldToken by external sources
      * other than from the Margin contract. In this case the payout for token holders
      * would be greater than just that from the normal payout. This is fine because
-     * nobody has incentive to send this contract extra funds, and if they do then it&#39;s
+     * nobody has incentive to send this contract extra funds, and if they do then it's
      * also fine just to let the token holders have it.
      *
      * NOTE: If there are significant rounding errors, then it is possible that withdrawing later is
@@ -7164,7 +7164,7 @@ contract ERC20Position is
     // ============ Public Constant Functions ============
 
     /**
-     * ERC20 decimals function. Returns the same number of decimals as the position&#39;s owedToken
+     * ERC20 decimals function. Returns the same number of decimals as the position's owedToken
      *
      * @return  The number of decimal places, or revert if the baseToken has no such function.
      */
@@ -7376,7 +7376,7 @@ contract ERC20PositionWithdrawer is ReentrancyGuard
 
     /**
      * After a Margin Position (that backs a ERC20 Margin Token) is closed, the remaining Margin
-     * Token holders are able to withdraw the Margin Position&#39;s heldToken from the Margin Token
+     * Token holders are able to withdraw the Margin Position's heldToken from the Margin Token
      * contract. This function allows a holder to atomically withdraw the token and trade it for a
      * different ERC20 before returning the funds to the holder.
      *

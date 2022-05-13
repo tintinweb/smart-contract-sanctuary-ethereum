@@ -81,7 +81,7 @@ contract CoinToss {
     }
     
     modifier checkContractHealth() {
-        require (address(this).balance >= lockedInBets + jackpotSize + devFeeSize, "This contract doesn&#39;t have enough balance, it is stopped till someone donate to this game!");
+        require (address(this).balance >= lockedInBets + jackpotSize + devFeeSize, "This contract doesn't have enough balance, it is stopped till someone donate to this game!");
         _;
     }
 
@@ -119,7 +119,7 @@ contract CoinToss {
         require (getCollateralBalance() >= 2 * amount, "If we accept this, this contract will be in danger!");
 
         require (block.number <= ticketLastBlock, "Ticket has expired.");
-        bytes32 signatureHash = keccak256(abi.encodePacked(&#39;\x19Ethereum Signed Message:\n37&#39;, uint40(ticketLastBlock), ticketID));
+        bytes32 signatureHash = keccak256(abi.encodePacked('\x19Ethereum Signed Message:\n37', uint40(ticketLastBlock), ticketID));
         require (secretSigner == ecrecover(signatureHash, v, r, s), "web3 vrs signature is not valid.");
 
         jackpotSize += amount * JACKPOT_FEE / 1000;
@@ -326,7 +326,7 @@ contract CoinToss {
         }
     }
 
-    // Helper routine to move &#39;processed&#39; bets into &#39;clean&#39; state.
+    // Helper routine to move 'processed' bets into 'clean' state.
     function clearProcessedBet(uint ticketID) private {
         Bet storage bet = bets[ticketID];
 

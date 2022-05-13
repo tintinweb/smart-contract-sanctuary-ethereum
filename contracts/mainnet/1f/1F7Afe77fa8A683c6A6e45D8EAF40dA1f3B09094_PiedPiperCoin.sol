@@ -68,7 +68,7 @@ contract PiedPiperCoin is StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;PPC1.0&#39;;
+    string public version = 'PPC1.0';
 
     function PiedPiperCoin(
         uint256 _initialAmount,

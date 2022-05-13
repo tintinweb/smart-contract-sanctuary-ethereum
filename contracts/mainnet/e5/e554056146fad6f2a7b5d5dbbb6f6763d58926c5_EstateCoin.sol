@@ -445,7 +445,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);
@@ -470,7 +470,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
  * @title RefundableCrowdsale
  * @dev Extension of Crowdsale contract that adds a funding goal, and
  * the possibility of users getting a refund if goal is not met.
- * Uses a RefundVault as the crowdsale&#39;s vault.
+ * Uses a RefundVault as the crowdsale's vault.
  */
 contract RefundableCrowdsale is FinalizableCrowdsale {
   using SafeMath for uint256;
@@ -486,7 +486,7 @@ contract RefundableCrowdsale is FinalizableCrowdsale {
     goal = 2950000000000000000000; // Minimal goal is 2950ETH = 4400ETH - 1450ETH(funding on Waves Platform)
   }
 
-  // We&#39;re overriding the fund forwarding from Crowdsale.
+  // We're overriding the fund forwarding from Crowdsale.
   // In addition to sending the funds, we want to call
   // the RefundVault deposit function
   function forwardFunds() internal {
@@ -521,7 +521,7 @@ contract RefundableCrowdsale is FinalizableCrowdsale {
 /**
  * @title ESCCrowdsale
  * CappedCrowdsale - sets a max boundary for raised funds
- * RefundableCrowdsale - set a min goal to be reached and returns funds if it&#39;s not met
+ * RefundableCrowdsale - set a min goal to be reached and returns funds if it's not met
  */
 contract ESCCrowdsale is CappedCrowdsale, RefundableCrowdsale {
 

@@ -12,7 +12,7 @@
 //								BTC raised: 386.808										//
 //								ETH raised: 24451.896									//
 //								EOS raised: 1468860										//
-//								In accordance with Clipper Coin Venture&#39;s plan (also	//
+//								In accordance with Clipper Coin Venture's plan (also	//
 //								viewable on the same website), the appropriate 			//
 //								proportion of coins will be delivered to ICOInfo, a 	//
 //								certain proportion will be deleted, and the rest held 	//
@@ -159,8 +159,8 @@ contract StandardToken is ERC20Protocol {
     }
 
     function transfer(address _to, uint _value) onlyPayloadSize(2 * 32) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value) {

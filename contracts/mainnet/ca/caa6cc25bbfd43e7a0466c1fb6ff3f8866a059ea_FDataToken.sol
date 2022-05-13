@@ -128,7 +128,7 @@ contract TokenBase is ERC20Interface, Pausable, SafeMath {
     
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint256 remaining) {
         return allowed[tokenOwner][spender];
@@ -207,7 +207,7 @@ contract TokenBase is ERC20Interface, Pausable, SafeMath {
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] = SafeMath.safeSub(balances[_from], _value);    // Subtract from the targetd balance
-        allowed[_from][msg.sender] = SafeMath.safeSub(allowed[_from][msg.sender], _value);  // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] = SafeMath.safeSub(allowed[_from][msg.sender], _value);  // Subtract from the sender's allowance
         _totalSupply = SafeMath.safeSub(_totalSupply,_value);  
         emit Burn(_from, _value);
         return true;
@@ -216,8 +216,8 @@ contract TokenBase is ERC20Interface, Pausable, SafeMath {
 
 contract FDataToken is TokenBase{
 
-    string internal _tokenName = &#39;FData&#39;;
-    string internal _tokenSymbol = &#39;FDT&#39;;
+    string internal _tokenName = 'FData';
+    string internal _tokenSymbol = 'FDT';
     uint256 internal _tokenDecimals = 18;
     uint256 internal _initialSupply = 10000000000;
     

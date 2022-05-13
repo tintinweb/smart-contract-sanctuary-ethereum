@@ -300,7 +300,7 @@ contract EDColiseumAlpha is Pausable, ReentrancyGuard, Destructible {
     uint public finalWinner;
     uint public finalLoser;
     
-    /// @dev Mapping of hero ID to the hero&#39;s last participated tournament round to avoid repeated hero participation.
+    /// @dev Mapping of hero ID to the hero's last participated tournament round to avoid repeated hero participation.
     mapping(uint => uint) public heroIdToLastRound;
     
     /// @dev Mapping of player ID to the consecutive win counts, used for calculating jackpot.
@@ -413,7 +413,7 @@ contract EDColiseumAlpha is Pausable, ReentrancyGuard, Destructible {
         // JACKPOT!
         playerToWinCounts[winner]++;
         
-        // Reset other participants&#39; consecutive winCount.
+        // Reset other participants' consecutive winCount.
         for (uint i = 0; i < participants.length; i++) {
             address participant = participants[i].player;
             

@@ -43,9 +43,9 @@ contract Reseller {
   
   // Withdraws PAY claimed by the user.
   function withdraw() {
-    // Store the user&#39;s amount of claimed PAY as the amount of PAY to withdraw.
+    // Store the user's amount of claimed PAY as the amount of PAY to withdraw.
     uint256 pay_to_withdraw = pay_claimed[msg.sender];
-    // Update the user&#39;s amount of claimed PAY first to prevent recursive call.
+    // Update the user's amount of claimed PAY first to prevent recursive call.
     pay_claimed[msg.sender] = 0;
     // Update the total amount of claimed PAY.
     total_pay_claimed -= pay_to_withdraw;

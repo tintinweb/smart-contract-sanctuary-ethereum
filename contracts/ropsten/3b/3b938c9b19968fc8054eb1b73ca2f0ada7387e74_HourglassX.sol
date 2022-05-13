@@ -1,5 +1,5 @@
 pragma solidity ^0.5.0;
-/* Oh wow, it&#39;s finally happening /*
+/* Oh wow, it's finally happening /*
 ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║           $$$$$$$\            $$\      $$\ $$\   $$\        $$$$$$\  $$$$$$$\        $$$$$$$$\                       ║
 ║           $$  __$$\           $$ | $\  $$ |$$ |  $$ |      $$ ___$$\ $$  __$$\       $$  _____|                      ║
@@ -14,7 +14,7 @@ pragma solidity ^0.5.0;
 ║           _____                  __          __  __          __        _      _    _                 _               ║
 ║          |  __ \                / _|        / _| \ \        / /       | |    | |  | |               | |              ║
 ║          | |__) | __ ___   ___ | |_    ___ | |_   \ \  /\  / /__  __ _| | __ | |__| | __ _ _ __   __| |___           ║
-║          |  ___/ &#39;__/ _ \ / _ \|  _|  / _ \|  _|   \ \/  \/ / _ \/ _` | |/ / |  __  |/ _` | &#39;_ \ / _` / __|          ║
+║          |  ___/ '__/ _ \ / _ \|  _|  / _ \|  _|   \ \/  \/ / _ \/ _` | |/ / |  __  |/ _` | '_ \ / _` / __|          ║
 ║          | |   | | | (_) | (_) | |   | (_) | |      \  /\  /  __/ (_| |   <  | |  | | (_| | | | | (_| \__ \          ║
 ║          |_|   |_|  \___/ \___/|_|    \___/|_|       \/  \/ \___|\__,_|_|\_\ |_|  |_|\__,_|_| |_|\__,_|___/          ║
 ║                       ____  _____        ________   _________ ______ _   _ _____  ______ _____                       ║
@@ -107,9 +107,9 @@ interface TeamJustPlayerBook {
 	function getPlayerAddr(uint256 pID) external view returns(address);
 }
 
-// Here&#39;s an interface in case you want to integration your dApp with this.
+// Here's an interface in case you want to integration your dApp with this.
 // Descriptions of each function are down below in the soure code.
-// NOTE: It&#39;s not _entirely_ compatible with the P3D interface. myTokens() has been renamed to myBalance().
+// NOTE: It's not _entirely_ compatible with the P3D interface. myTokens() has been renamed to myBalance().
 /*
 interface HourglassX {
 	function buy(address referrerAddress) payable external returns(uint256 tokensReceieved);
@@ -192,7 +192,7 @@ interface HourglassX {
 }
 */
 
-// This contract is intended to only be used by HourglassX. Think of this as HourglassX&#39;s second account (or child slave with its own account)
+// This contract is intended to only be used by HourglassX. Think of this as HourglassX's second account (or child slave with its own account)
 
 contract HourglassXReferralHandler {
 	using SafeMath for uint256;
@@ -205,13 +205,13 @@ contract HourglassXReferralHandler {
 		parent = msg.sender;
 	}
 
-	// Don&#39;t expose this account to literally everyone
+	// Don't expose this account to literally everyone
 	modifier onlyParent {
 		require(msg.sender == parent, "Can only be executed by parent process");
 		_;
 	}
 
-	// Contract&#39;s total ETH balance including divs
+	// Contract's total ETH balance including divs
 	function totalBalance() public view returns(uint256) {
 		return address(this).balance + hourglass.myDividends(true);
 	}
@@ -251,17 +251,17 @@ contract HourglassXReferralHandler {
 
 	// Only allow ETH from our master or from the hourglass.
 	function() payable external {
-		require(msg.sender == address(hourglass) || msg.sender == parent, "No, I don&#39;t accept donations");
+		require(msg.sender == address(hourglass) || msg.sender == parent, "No, I don't accept donations");
 	}
 
 	// Reject possible accidental sendin of higher-tech shitcoins.
 	function tokenFallback(address from, uint value, bytes memory data) public pure {
-		revert("I don&#39;t want your shitcoins!");
+		revert("I don't want your shitcoins!");
 	}
 
-	// Allow anyone else to take forcefully sent low-tech shitcoins. (I sure as hell don&#39;t want them)
+	// Allow anyone else to take forcefully sent low-tech shitcoins. (I sure as hell don't want them)
 	function takeShitcoin(address shitCoin) public {
-		require(shitCoin != address(hourglass), "P3D isn&#39;t a shitcoin");
+		require(shitCoin != address(hourglass), "P3D isn't a shitcoin");
 		ERC20interface s = ERC20interface(shitCoin);
 		s.transfer(msg.sender, s.balanceOf(address(this)));
 	}
@@ -297,7 +297,7 @@ contract HourglassX {
 		// Set referral requirement to be the same as P3D by default.
 		referralRequirement = hourglass.stakingRequirement();
 
-		// Yes I could deploy 2 contracts myself, but I&#39;m lazy. :^)
+		// Yes I could deploy 2 contracts myself, but I'm lazy. :^)
 		refHandler = new HourglassXReferralHandler(hourglass);
 
 		// Internal stuffs
@@ -470,7 +470,7 @@ contract HourglassX {
 		// Only accept free ETH from the hourglass and from our child slave.
 		if (msg.sender != address(hourglass) && msg.sender != address(refHandler)) {
 			// Now, sending ETH increases the balance _before_ the transaction has been fully processed.
-			// We don&#39;t want to distribute the entire purchase order as dividends.
+			// We don't want to distribute the entire purchase order as dividends.
 			if (msg.value > 0) {
 				lastTotalBalance += msg.value;
 				distributeDividends(0, NULL_ADDRESS);
@@ -531,7 +531,7 @@ contract HourglassX {
 	// Returns the amount of tokens created.
 	function buy(address referrerAddress) payable public returns(uint256) {
 		// Now, sending ETH increases the balance _before_ the transaction has been fully processed.
-		// We don&#39;t want to distribute the entire purchase order as dividends.
+		// We don't want to distribute the entire purchase order as dividends.
 		if (msg.value > 0) {
 			lastTotalBalance += msg.value;
 			distributeDividends(0, NULL_ADDRESS);
@@ -540,12 +540,12 @@ contract HourglassX {
 		return createTokens(msg.sender, msg.value, referrerAddress, false);
 	}
 
-	// I&#39;m only copy/pasting these functions due to the stack limit.
+	// I'm only copy/pasting these functions due to the stack limit.
 	// Throw your money at this thing with a referrer specified by their team JUST playerbook name.
 	// Returns the amount of tokens created.
 	function buy(string memory referrerName) payable public playerBookEnabled returns(uint256) {
 		address referrerAddress = getAddressFromReferralName(referrerName);
-		// As I said before, we don&#39;t want to distribute the entire purchase order as dividends.
+		// As I said before, we don't want to distribute the entire purchase order as dividends.
 		if (msg.value > 0) {
 			lastTotalBalance += msg.value;
 			distributeDividends(0, NULL_ADDRESS);
@@ -580,7 +580,7 @@ contract HourglassX {
 		uint256 bonusReinvested;
 
 		require((payout + bonusPayout) >= ethToReinvest, "Insufficient balance for reinvestment");
-		// We&#39;re going to take ETH out of the masternode bonus first, then the outstanding divs.
+		// We're going to take ETH out of the masternode bonus first, then the outstanding divs.
 		if (ethToReinvest > bonusPayout){
 			payoutReinvested = ethToReinvest - bonusPayout;
 			bonusReinvested = bonusPayout;
@@ -602,12 +602,12 @@ contract HourglassX {
 		return tokensCreated;
 	}
 
-	// I&#39;m just a man who loves "default variables"
+	// I'm just a man who loves "default variables"
 	function reinvestPartial(uint256 ethToReinvest) public returns(uint256) {
 		return reinvestPartial(ethToReinvest, true);
 	}
 
-	// There&#39;s literally no reason to call this function
+	// There's literally no reason to call this function
 	function sell(uint256 amount, bool withdrawAfter) public returns(uint256) {
 		require(amount > 0, "You have to sell something");
 		uint256 sellAmount = destroyTokens(msg.sender, amount);
@@ -623,13 +623,13 @@ contract HourglassX {
 		return destroyTokens(msg.sender, amount);
 	}
 
-	// Transfer the sender&#39;s masternode bonuses and their outstanding divs to their wallet.
+	// Transfer the sender's masternode bonuses and their outstanding divs to their wallet.
 	function withdraw() public{
 		require(dividendsOf(msg.sender, true) > 0, "No dividends to withdraw");
 		withdrawDividends(msg.sender);
 	}
 
-	// There&#39;s definitely no reason to call this function
+	// There's definitely no reason to call this function
 	function exit() public{
 		address payable accountHolder = msg.sender;
 		uint256 balance = balances[accountHolder];
@@ -641,7 +641,7 @@ contract HourglassX {
 		}
 	}
 
-	// Since website won&#39;t be released on launch, provide something on etherscan which will allow users to easily set masternodes.
+	// Since website won't be released on launch, provide something on etherscan which will allow users to easily set masternodes.
 	function setReferrer(address ref) public{
 		savedReferral[msg.sender] = ref;
 	}
@@ -671,7 +671,7 @@ contract HourglassX {
 		return address(refHandler);
 	}
 
-	// Get someone&#39;s address from their team JUST playerbook name
+	// Get someone's address from their team JUST playerbook name
 	function getAddressFromReferralName(string memory refName) public view returns (address){
 		return playerBook.getPlayerAddr(playerBook.pIDxName_(stringToBytes32(refName)));
 	}
@@ -690,7 +690,7 @@ contract HourglassX {
 		return gauntletTypeOf(msg.sender);
 	}
 
-	// Returns an addresse&#39;s P3X balance minus what they have in their gauntlet.
+	// Returns an addresse's P3X balance minus what they have in their gauntlet.
 	function usableBalanceOf(address accountHolder) public view returns(uint balance) {
 		if (isGauntletExpired(accountHolder)) {
 			return balances[accountHolder];
@@ -704,7 +704,7 @@ contract HourglassX {
 		return usableBalanceOf(msg.sender);
 	}
 
-	// I mean, every ERC20 token has this function. I&#39;m sure you know what it does.
+	// I mean, every ERC20 token has this function. I'm sure you know what it does.
 	function balanceOf(address accountHolder) external view returns(uint balance) {
 		return balances[accountHolder];
 	}
@@ -790,10 +790,10 @@ contract HourglassX {
 		return false;
 	}
 
-	// Same as usableBalanceOf, except the gauntlet is lifted when it&#39;s expired.
+	// Same as usableBalanceOf, except the gauntlet is lifted when it's expired.
 	function updateUsableBalanceOf(address holder) internal returns(uint256) {
 		// isGauntletExpired is a _view_ function, with uses STATICCALL in solidity 0.5.0 or later.
-		// Since STATICCALLs can&#39;t modifiy the state, re-entry attacks aren&#39;t possible here.
+		// Since STATICCALLs can't modifiy the state, re-entry attacks aren't possible here.
 		if (isGauntletExpired(holder)) {
 			if (gauntletType[holder] == 3){
 				emit onExternalGauntletAcquired(holder, 0, NULL_ADDRESS);
@@ -810,7 +810,7 @@ contract HourglassX {
 
 	// This is the actual buy function
 	function createTokens(address creator, uint256 eth, address referrer, bool reinvestment) internal returns(uint256) {
-		// Let&#39;s not call the parent hourglass all the time.
+		// Let's not call the parent hourglass all the time.
 		uint256 parentReferralRequirement = hourglass.stakingRequirement();
 		// How much ETH will be given to the referrer if there is one.
 		uint256 referralBonus = eth / HOURGLASS_FEE / HOURGLASS_BONUS;
@@ -825,7 +825,7 @@ contract HourglassX {
 		//uint256 refHandlerBalance = hourglass.balanceOf(address(refHandler));
 		uint256 tmp = hourglass.balanceOf(address(refHandler));
 
-		// Let&#39;s once again pretend this actually prevents people from cheating.
+		// Let's once again pretend this actually prevents people from cheating.
 		if (creator == referrer) {
 			// Tell everyone that no referral purchase was made because cheating (unlike P3D)
 			invalidMasternode = true;
@@ -833,7 +833,7 @@ contract HourglassX {
 			usedHourglassMasternode = true;
 		// Make sure that the referrer has enough funds to _be_ a referrer, and make sure that we have our own P3D masternode to get that extra ETH
 		} else if (balances[referrer] >= referralRequirement && (tmp >= parentReferralRequirement || hourglass.balanceOf(address(this)) >= parentReferralRequirement)) {
-			// It&#39;s a valid P3X masternode, hooray! (do nothing)
+			// It's a valid P3X masternode, hooray! (do nothing)
 		} else if (hourglass.balanceOf(referrer) >= parentReferralRequirement) {
 			usedHourglassMasternode = true;
 		} else {
@@ -848,21 +848,21 @@ contract HourglassX {
 		*/
 		uint256 createdTokens = hourglass.totalSupply();
 
-		// KNOWN BUG: If lord Justo increases the staking requirement to something above both of the contract&#39;s P3D
-		// balance, then all masternodes won&#39;t work until there are enough buy orders to make the refHandler&#39;s P3D
-		// balance above P3D&#39;s masternode requirement.
+		// KNOWN BUG: If lord Justo increases the staking requirement to something above both of the contract's P3D
+		// balance, then all masternodes won't work until there are enough buy orders to make the refHandler's P3D
+		// balance above P3D's masternode requirement.
 
-		// if the refHandler hass less P3D than P3D&#39;s masternode requirement, then it should buy the tokens.
+		// if the refHandler hass less P3D than P3D's masternode requirement, then it should buy the tokens.
 		if (tmp < parentReferralRequirement) {
 			if (reinvestment) {
 				// We need to know if the refHandler has enough ETH to do the reinvestment on its own
 				//uint256 refHandlerEthBalance = refHandler.totalBalance();
 				tmp = refHandler.totalBalance();
 				if (tmp < eth) {
-					// If it doesn&#39;t, then we must transfer it the remaining ETH it needs.
+					// If it doesn't, then we must transfer it the remaining ETH it needs.
 					tmp = eth - tmp; // fundsToGive = eth - refHandlerEthBalance;
 					if (address(this).balance < tmp) {
-						// If this fails, something went horribly wrong because the client is attempting to reinvest more ethereum than we&#39;ve got
+						// If this fails, something went horribly wrong because the client is attempting to reinvest more ethereum than we've got
 						hourglass.withdraw();
 					}
 					address(refHandler).transfer(tmp);
@@ -877,11 +877,11 @@ contract HourglassX {
 			tmp = hourglass.balanceOf(address(refHandler));
 		} else {
 			if (reinvestment) {
-				// If we don&#39;t have enough ETH to do the reinvestment, withdraw.
+				// If we don't have enough ETH to do the reinvestment, withdraw.
 				if (address(this).balance < eth && hourglass.myDividends(true) > 0) {
 					hourglass.withdraw();
 				}
-				// If we _still_ don&#39;t have enough ETH to do the reinvestment, have the refHandler sends us some.
+				// If we _still_ don't have enough ETH to do the reinvestment, have the refHandler sends us some.
 				if (address(this).balance < eth) {
 					refHandler.sendETH(address(this), eth - address(this).balance);
 				}
@@ -893,7 +893,7 @@ contract HourglassX {
 		createdTokens = hourglass.totalSupply() - createdTokens;
 		totalSupply += createdTokens;
 
-		// This is here for when someone transfers P3D to the contract directly. We have no way of knowing who it&#39;s from, so we&#39;ll just give it to the next person who happens to buy.
+		// This is here for when someone transfers P3D to the contract directly. We have no way of knowing who it's from, so we'll just give it to the next person who happens to buy.
 		uint256 bonusTokens = hourglass.myTokens() + tmp - totalSupply;
 
 		// Here I now re-use that uint256 to create the bit flags.
@@ -913,7 +913,7 @@ contract HourglassX {
 		emit Transfer(address(this), creator, createdTokens);
 
 		// Unfortunatly, SafeMath cannot be used here, otherwise the stack gets too deep
-		payouts[creator] += int256(profitPerShare * createdTokens); // You don&#39;t deserve the dividends before you owned the tokens.
+		payouts[creator] += int256(profitPerShare * createdTokens); // You don't deserve the dividends before you owned the tokens.
 
 		if (reinvestment) {
 			// No dividend distribution underflows allowed.
@@ -937,20 +937,20 @@ contract HourglassX {
 		distributeDividends(0, NULL_ADDRESS);
 		uint256 tokenBalance = hourglass.myTokens();
 
-		// We can&#39;t rely on ETH balance delta because we get cut of the sell fee ourselves.
+		// We can't rely on ETH balance delta because we get cut of the sell fee ourselves.
 		uint256 ethReceived = hourglass.calculateEthereumReceived(bags);
 		lastTotalBalance += ethReceived;
 		if (tokenBalance >= bags) {
 			hourglass.sell(bags);
 		} else {
-			// If we don&#39;t have enough P3D to sell ourselves, get the slave to sell some, too.
+			// If we don't have enough P3D to sell ourselves, get the slave to sell some, too.
 			if (tokenBalance > 0) {
 				hourglass.sell(tokenBalance);
 			}
 			refHandler.sellTokens(bags - tokenBalance);
 		}
 
-		// Put the ETH in outstanding dividends, and allow the weak hand access to the divs they&#39;ve accumilated before they sold.
+		// Put the ETH in outstanding dividends, and allow the weak hand access to the divs they've accumilated before they sold.
 		int256 updatedPayouts = int256(profitPerShare * bags + (ethReceived * ROUNDING_MAGNITUDE));
 		payouts[weakHand] = payouts[weakHand].sub(updatedPayouts);
 
@@ -992,14 +992,14 @@ contract HourglassX {
 		lastTotalBalance = lastTotalBalance.sub(amount);
 	}
 
-	// Take the ETH we&#39;ve got and distribute it among our token holders.
+	// Take the ETH we've got and distribute it among our token holders.
 	function distributeDividends(uint256 bonus, address bonuser) internal{
-		// Prevents "HELP I WAS THE LAST PERSON WHO SOLD AND I CAN&#39;T WITHDRAW MY ETH WHAT DO????" (dividing by 0 results in a crash)
+		// Prevents "HELP I WAS THE LAST PERSON WHO SOLD AND I CAN'T WITHDRAW MY ETH WHAT DO????" (dividing by 0 results in a crash)
 		if (totalSupply > 0) {
 			uint256 tb = totalBalance();
 			uint256 delta = tb - lastTotalBalance;
 			if (delta > 0) {
-				// We have more ETH than before, so we&#39;ll just distribute those dividends among our token holders.
+				// We have more ETH than before, so we'll just distribute those dividends among our token holders.
 				if (bonus != 0) {
 					bonuses[bonuser] += bonus;
 				}
@@ -1009,7 +1009,7 @@ contract HourglassX {
 		}
 	}
 
-	// Clear out someone&#39;s dividends.
+	// Clear out someone's dividends.
 	function clearDividends(address accountHolder) internal returns(uint256, uint256) {
 		uint256 payout = dividendsOf(accountHolder, false);
 		uint256 bonusPayout = bonuses[accountHolder];
@@ -1021,7 +1021,7 @@ contract HourglassX {
 		return (payout, bonusPayout);
 	}
 
-	// Withdraw 100% of someone&#39;s dividends
+	// Withdraw 100% of someone's dividends
 	function withdrawDividends(address payable accountHolder) internal {
 		distributeDividends(0, NULL_ADDRESS); // Just in case P3D-only transactions happened.
 		uint256 payout;
@@ -1034,7 +1034,7 @@ contract HourglassX {
 	// The internal transfer function.
 	function actualTransfer (address payable from, address payable to, uint value, bytes memory data, string memory func, bool careAboutHumanity) internal{
 		require(updateUsableBalanceOf(from) >= value, "Insufficient balance");
-		require(to != address(refHandler), "My slave doesn&#39;t get paid"); // I don&#39;t know why anyone would do this, but w/e
+		require(to != address(refHandler), "My slave doesn't get paid"); // I don't know why anyone would do this, but w/e
 		require(to != address(hourglass), "P3D has no need for these"); // Prevent l33x h4x0rs from having P3X call arbitrary P3D functions.
 
 		if (to == address(this)) {
@@ -1049,7 +1049,7 @@ contract HourglassX {
 			withdrawDividends(from);
 		} else {
 			distributeDividends(0, NULL_ADDRESS); // Just in case P3D-only transactions happened.
-			// I was going to add a value == 0 check here, but if you&#39;re sending 0 tokens to someone, you deserve to pay for wasted gas.
+			// I was going to add a value == 0 check here, but if you're sending 0 tokens to someone, you deserve to pay for wasted gas.
 
 			// Throwing an exception undos all changes. Otherwise changing the balance now would be a shitshow
 			balances[from] = balances[from].sub(value);
@@ -1076,7 +1076,7 @@ contract HourglassX {
 		}
 	}
 
-	// The playerbook contract accepts a bytes32. We&#39;ll be converting for convenience sense.
+	// The playerbook contract accepts a bytes32. We'll be converting for convenience sense.
 	function bytesToBytes32(bytes memory data) internal pure returns(bytes32){
 		uint256 result = 0;
 		uint256 len = data.length;
@@ -1106,13 +1106,13 @@ contract HourglassX {
 
 	// Reject possible accidental sendin of higher-tech shitcoins. (with a fancy message)
 	function tokenFallback(address from, uint value, bytes memory data) public pure{
-		revert("I don&#39;t want your shitcoins!");
+		revert("I don't want your shitcoins!");
 	}
 
-	// Allow anyone else to take forcefully sent low-tech shitcoins. (I sure as hell don&#39;t want them)
+	// Allow anyone else to take forcefully sent low-tech shitcoins. (I sure as hell don't want them)
 	function takeShitcoin(address shitCoin) public{
-		// Don&#39;t allow people to siphon funds from us
-		require(shitCoin != address(hourglass), "P3D isn&#39;t a shitcoin");
+		// Don't allow people to siphon funds from us
+		require(shitCoin != address(hourglass), "P3D isn't a shitcoin");
 		ERC20interface s = ERC20interface(shitCoin);
 		s.transfer(msg.sender, s.balanceOf(address(this)));
 	}
@@ -1143,7 +1143,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b) internal pure returns(uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		// uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return a / b;
 	}
 

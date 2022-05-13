@@ -238,9 +238,9 @@ contract Spendcoin is ERC20Interface, Tokenlock {
 
     // ------------------------------------------------------------------------
 
-    // Transfer the balance from token owner&#39;s account to `to` account
+    // Transfer the balance from token owner's account to `to` account
 
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // - Owner's account must have sufficient balance to transfer
 
     // - 0 value transfers are allowed
 
@@ -264,7 +264,7 @@ contract Spendcoin is ERC20Interface, Tokenlock {
 
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
 
-    // from the token owner&#39;s account
+    // from the token owner's account
 
     //
 
@@ -326,7 +326,7 @@ contract Spendcoin is ERC20Interface, Tokenlock {
 
     // Returns the amount of tokens approved by the owner that can be
 
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
 
     // ------------------------------------------------------------------------
 

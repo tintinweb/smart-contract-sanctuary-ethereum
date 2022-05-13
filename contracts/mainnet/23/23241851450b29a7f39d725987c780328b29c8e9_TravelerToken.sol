@@ -253,7 +253,7 @@ contract TravelerToken is BurnableToken {
   }
 
   /**
-  * @dev &#39;tokenFallback&#39; function in accordance to the ERC223 standard. Rejects all incoming ERC223 token transfers.
+  * @dev 'tokenFallback' function in accordance to the ERC223 standard. Rejects all incoming ERC223 token transfers.
   */
   function tokenFallback(address from_, uint256 value_, bytes data_) public {
     from_; value_; data_;

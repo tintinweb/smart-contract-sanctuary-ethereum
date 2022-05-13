@@ -50,7 +50,7 @@ contract Game{
     // phases[gameState.phase].shareGoal=673128360964834*1000000000;
     // phases[gameState.phase].ethGoal=(gameState.origShares).ethRec(phases[gameState.phase].shareGoal);
     phases[gameState.phase].stage=1;
-    // log(&#39;phases&#39;,gameState.phase);
+    // log('phases',gameState.phase);
   }
   string public gameName = "Entrepreneur";
 ////////////////////////////////////////////////////

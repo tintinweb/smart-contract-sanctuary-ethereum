@@ -228,7 +228,7 @@ contract Crowdsale is ReentrancyGuard {
 
   /**
    * @dev low level token purchase ***DO NOT OVERRIDE***
-   * This function has a non-reentrancy guard, so it shouldn&#39;t be called by
+   * This function has a non-reentrancy guard, so it shouldn't be called by
    * another `nonReentrant` function.
    * @param beneficiary Endereco recebedor dos tokens
    */

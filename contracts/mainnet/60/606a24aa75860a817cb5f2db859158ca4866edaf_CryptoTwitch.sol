@@ -347,8 +347,8 @@ contract CryptoTwitch is ERC721 {
     });
     uint256 newItemId = items.push(_item) - 1;
 
-    // It&#39;s probably never going to happen, 4 billion tokens are A LOT, but
-    // let&#39;s just be 100% sure we never let this happen.
+    // It's probably never going to happen, 4 billion tokens are A LOT, but
+    // let's just be 100% sure we never let this happen.
     require(newItemId == uint256(uint32(newItemId)));
 
     Birth(newItemId, _name, _owner);
@@ -376,12 +376,12 @@ contract CryptoTwitch is ERC721 {
 
   /// @dev Assigns ownership of a specific item to an address.
   function _transfer(address _from, address _to, uint256 _tokenId) private {
-    // Since the number of items is capped to 2^32 we can&#39;t overflow this
+    // Since the number of items is capped to 2^32 we can't overflow this
     ownershipTokenCount[_to]++;
     //transfer ownership
     itemIndexToOwner[_tokenId] = _to;
 
-    // When creating new items _from is 0x0, but we can&#39;t account that address.
+    // When creating new items _from is 0x0, but we can't account that address.
     if (_from != address(0)) {
       ownershipTokenCount[_from]--;
       // clear any previously approved ownership exchange

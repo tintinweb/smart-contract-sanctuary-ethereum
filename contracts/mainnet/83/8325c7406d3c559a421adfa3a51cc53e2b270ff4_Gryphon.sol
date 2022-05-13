@@ -96,8 +96,8 @@ contract Gryphon is ERC20, Ownable {
 
     uint256 totalSupply_; // of hurtle token
 
-    string public name = &#39;Gryphon&#39;;
-    string public symbol = &#39;GXC&#39;;
+    string public name = 'Gryphon';
+    string public symbol = 'GXC';
     uint256 public decimals = 4;
     uint256 public initialSupply = 2000000000; //2billion
 

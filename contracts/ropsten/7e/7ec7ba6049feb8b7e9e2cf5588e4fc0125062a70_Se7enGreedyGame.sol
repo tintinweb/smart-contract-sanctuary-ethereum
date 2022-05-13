@@ -211,7 +211,7 @@ contract Se7enGreedyGame is modularLong {
           if (players[_playerId].lastRoundId != 0)
               updateGenVault(_playerId, players[_playerId].lastRoundId);
 
-          // update player&#39;s last round played
+          // update player's last round played
           players[_playerId].lastRoundId = currendRoundId;
       }
 
@@ -367,7 +367,7 @@ contract Se7enGreedyGame is modularLong {
         // setup local rID
         uint256 _currendRoundId = currendRoundId;
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = rounds[_currendRoundId].playerId;
 
         // grab our pot amount
@@ -543,7 +543,7 @@ contract Se7enGreedyGame is modularLong {
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds

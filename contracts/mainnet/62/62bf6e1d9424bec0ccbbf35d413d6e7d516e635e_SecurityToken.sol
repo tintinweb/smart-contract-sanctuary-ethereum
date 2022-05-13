@@ -112,7 +112,7 @@ contract AffiliateList is Ownable, IAffiliateList {
             // this address was previously registered
 
             if(startTimestamp == 0) {
-                // don&#39;t update the start timestamp
+                // don't update the start timestamp
 
                 if(endTimestamp == 0) {
                     affiliateStart[addr] = 0;
@@ -164,7 +164,7 @@ contract InvestorList is Ownable, IInvestorList {
     mapping (address => string) internal investorList;
 
     /**
-     * @dev Throws if called by any account that&#39;s not investorListed.
+     * @dev Throws if called by any account that's not investorListed.
      * @param role string
      */
     modifier validRole(string role) {
@@ -304,7 +304,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -368,7 +368,7 @@ contract SecurityController is ISecurityController, Ownable {
         // Must be called from address in the transferAuthPermission mapping
         require(transferAuthPermission[msg.sender]);
 
-        // don&#39;t allow &#39;from&#39; to be zero
+        // don't allow 'from' to be zero
         require(from != 0);
 
         // verify expiry is in future, but not more than 30 days
@@ -465,7 +465,7 @@ contract SecurityController is ISecurityController, Ownable {
      * @return canTransfer Whether the transfer can occur at all.
      * @return useLockoutTime Whether the lockoutTime should be used to determine which tokens to transfer.
      * @return newTokensAreRestricted Whether the transferred tokens should be marked as restricted.
-     * @return preservePurchaseDate Whether the purchase date on the tokens should be preserved, or reset to &#39;now&#39;.
+     * @return preservePurchaseDate Whether the purchase date on the tokens should be preserved, or reset to 'now'.
      */
     function checkTransfer(address _from, address _to, uint _value, uint lockoutTime)
         public
@@ -482,7 +482,7 @@ contract SecurityController is ISecurityController, Ownable {
         //
         // otherwise must meet holding period
 
-        // presently this isn&#39;t used, so always setting to false to avoid warning
+        // presently this isn't used, so always setting to false to avoid warning
         preservePurchaseDate = false;
 
         bool transferIsAuthorized = isTransferAuthorized(_from, _to);
@@ -711,7 +711,7 @@ contract SecurityLedger is Ownable {
             }
 
             if(lockoutTime > 0) {
-                // skip if it is more recent than the lockout period AND it&#39;s restricted
+                // skip if it is more recent than the lockout period AND it's restricted
                 if(lot.restricted && lot.purchaseDate > lockoutTime) {
                     continue;
                 }
@@ -735,7 +735,7 @@ contract SecurityLedger is Ownable {
                 break;
             }
 
-            // If we&#39;re here, then amount in this lot is not yet enough.
+            // If we're here, then amount in this lot is not yet enough.
             // Take all of it.
             numTransferrableTokens = numTransferrableTokens.add(lotAmount);
             if(removeTokens) {
@@ -1050,8 +1050,8 @@ contract TransferAuthorizations is Ownable, ITransferAuthorizations {
     }
 
     /**
-     * @dev Sets the authorization for a transfer to occur between the &#39;from&#39; and
-     *      &#39;to&#39; addresses, to expire at the &#39;expiry&#39; time.
+     * @dev Sets the authorization for a transfer to occur between the 'from' and
+     *      'to' addresses, to expire at the 'expiry' time.
      * @param from The address from which funds would be transferred.
      * @param to The address to which funds would be transferred. This can be
      *           the zero address to allow transfers to any address.

@@ -29,7 +29,7 @@ contract DripContract
     
     function deposit(uint256 amount) payable public
     {
-        require(msg.value == amount, "Amount doesn&#39;t match");
+        require(msg.value == amount, "Amount doesn't match");
     }
     
     function getBalance() public view returns (uint256)

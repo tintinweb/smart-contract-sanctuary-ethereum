@@ -39,17 +39,17 @@ contract InterbetCoinCrowdsale {
     uint public icoPhaseTimeInterval = 1 weeks; // Interval of ICO phases
 
     uint public icoStart; // ICO starts one week after Presale ended
-    uint public icoTimeBonusPhase1End; // ICO&#39;s phase 1 end
-    uint public icoTimeBonusPhase2End; // ICO&#39;s phase 2 end
-    uint public icoEnd; // ICO&#39;s phase 3 end
+    uint public icoTimeBonusPhase1End; // ICO's phase 1 end
+    uint public icoTimeBonusPhase2End; // ICO's phase 2 end
+    uint public icoEnd; // ICO's phase 3 end
     uint public icoPrice = 5000; // Base price of ICO: 5,000 IBC = 1 ETH
     uint public totalFundingGoalInIBC = 630000000 * (10 ** ibcTokenDecimals); // Funding goal is 630 Mil IBC: 30 Mil (Presale) + 600 Mil (ICO)
     uint public fundingRatePredictionBonusPoolInIBC = 70000000 * (10 ** ibcTokenDecimals); // Funding rate prediction bonus pool of minimum 70 Mil IBC
 
     uint public icoReferralBonusInPercentage = 5; // 5% bonus for both referrer and contributor
-    uint public icoPhase1TimeBonusInPercentage = 20; // 20% bonus for ICO&#39;s phase 1
-    uint public icoPhase2TimeBonusInPercentage = 10; // 10% bonus for ICO&#39;s phase 2
-    uint public icoPhase3TimeBonusInPercentage = 0; // No bonus for ICO&#39;s phase 3
+    uint public icoPhase1TimeBonusInPercentage = 20; // 20% bonus for ICO's phase 1
+    uint public icoPhase2TimeBonusInPercentage = 10; // 10% bonus for ICO's phase 2
+    uint public icoPhase3TimeBonusInPercentage = 0; // No bonus for ICO's phase 3
     uint public icoFundingRatePredictionBonusInPercentage = 25; // 25% bonus for predicting the correct final funding rate
 
     uint public fundingRatePredictionBonusClaimWindow = 4 weeks; // After this window, the remaining pool of prediction bonus tokens will be destroyed

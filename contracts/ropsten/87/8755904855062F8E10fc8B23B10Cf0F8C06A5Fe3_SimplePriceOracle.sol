@@ -294,7 +294,7 @@ pragma solidity ^0.5.4;
 /**
   * @title Careful Math
   * @author Compound
-  * @notice Derived from OpenZeppelin&#39;s SafeMath library
+  * @notice Derived from OpenZeppelin's SafeMath library
   *         https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/math/SafeMath.sol
   */
 contract CarefulMath {
@@ -570,7 +570,7 @@ contract Exponential is CarefulMath {
      *      For example, truncate(Exp{mantissa: 15 * expScale}) = 15
      */
     function truncate(Exp memory exp) pure internal returns (uint) {
-        // Note: We are not using careful math here as we&#39;re performing a division that cannot fail
+        // Note: We are not using careful math here as we're performing a division that cannot fail
         return exp.mantissa / expScale;
     }
 
@@ -811,7 +811,7 @@ pragma solidity ^0.5.4;
 
 
 /**
- * @title Compound&#39;s CToken Contract
+ * @title Compound's CToken Contract
  * @notice Abstract base for CTokens
  * @author Compound
  */
@@ -1171,7 +1171,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
     }
 
     /**
-     * @notice Get a snapshot of the account&#39;s balances, and the cached exchange rate
+     * @notice Get a snapshot of the account's balances, and the cached exchange rate
      * @dev This is used by comptroller to more efficiently perform liquidity checks.
      * @param account Address of the account to snapshot
      * @return (possible error, token balance, borrow balance, exchange rate mantissa)
@@ -1254,7 +1254,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
     }
 
     /**
-     * @notice Accrue interest to updated borrowIndex and then calculate account&#39;s borrow balance using the updated borrowIndex
+     * @notice Accrue interest to updated borrowIndex and then calculate account's borrow balance using the updated borrowIndex
      * @param account The address whose balance should be calculated after updating borrowIndex
      * @return The calculated balance
      */
@@ -1410,7 +1410,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
 
         /* Calculate the number of blocks elapsed since the last accrual */
         (vars.mathErr, vars.blockDelta) = subUInt(vars.currentBlockNumber, accrualBlockNumber);
-        assert(vars.mathErr == MathError.NO_ERROR); // Block delta should always succeed and if it doesn&#39;t, blow up.
+        assert(vars.mathErr == MathError.NO_ERROR); // Block delta should always succeed and if it doesn't, blow up.
 
         /*
          * Calculate the interest accumulated into borrows and reserves and the new index:
@@ -1473,7 +1473,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             // accrueInterest emits logs on errors, but we still want to log the fact that an attempted borrow failed
             return fail(Error(error), FailureInfo.MINT_ACCRUE_INTEREST_FAILED);
         }
-        // mintFresh emits the actual Mint event if successful and logs on errors, so we don&#39;t need to
+        // mintFresh emits the actual Mint event if successful and logs on errors, so we don't need to
         return mintFresh(msg.sender, mintAmount);
     }
 
@@ -1500,7 +1500,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             return failOpaque(Error.COMPTROLLER_REJECTION, FailureInfo.MINT_COMPTROLLER_REJECTION, allowed);
         }
 
-        /* Verify market&#39;s block number equals current block number */
+        /* Verify market's block number equals current block number */
         if (accrualBlockNumber != getBlockNumber()) {
             return fail(Error.MARKET_NOT_FRESH, FailureInfo.MINT_FRESHNESS_CHECK);
         }
@@ -1551,7 +1551,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
          *  Note: The cToken must handle variations between ERC-20 and ETH underlying.
          *  On success, the cToken holds an additional mintAmount of cash.
          *  If doTransferIn fails despite the fact we checked pre-conditions,
-         *   we revert because we can&#39;t be sure if side effects occurred.
+         *   we revert because we can't be sure if side effects occurred.
          */
         vars.err = doTransferIn(minter, mintAmount);
         if (vars.err != Error.NO_ERROR) {
@@ -1584,7 +1584,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             // accrueInterest emits logs on errors, but we still want to log the fact that an attempted redeem failed
             return fail(Error(error), FailureInfo.REDEEM_ACCRUE_INTEREST_FAILED);
         }
-        // redeemFresh emits redeem-specific logs on errors, so we don&#39;t need to
+        // redeemFresh emits redeem-specific logs on errors, so we don't need to
         return redeemFresh(msg.sender, redeemTokens, 0);
     }
 
@@ -1600,7 +1600,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             // accrueInterest emits logs on errors, but we still want to log the fact that an attempted redeem failed
             return fail(Error(error), FailureInfo.REDEEM_ACCRUE_INTEREST_FAILED);
         }
-        // redeemFresh emits redeem-specific logs on errors, so we don&#39;t need to
+        // redeemFresh emits redeem-specific logs on errors, so we don't need to
         return redeemFresh(msg.sender, 0, redeemAmount);
     }
 
@@ -1667,7 +1667,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             return failOpaque(Error.COMPTROLLER_REJECTION, FailureInfo.REDEEM_COMPTROLLER_REJECTION, allowed);
         }
 
-        /* Verify market&#39;s block number equals current block number */
+        /* Verify market's block number equals current block number */
         if (accrualBlockNumber != getBlockNumber()) {
             return fail(Error.MARKET_NOT_FRESH, FailureInfo.REDEEM_FRESHNESS_CHECK);
         }
@@ -1701,7 +1701,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
          *  Note: The cToken must handle variations between ERC-20 and ETH underlying.
          *  On success, the cToken has redeemAmount less of cash.
          *  If doTransferOut fails despite the fact we checked pre-conditions,
-         *   we revert because we can&#39;t be sure if side effects occurred.
+         *   we revert because we can't be sure if side effects occurred.
          */
         vars.err = doTransferOut(redeemer, vars.redeemAmount);
         require(vars.err == Error.NO_ERROR, "redeem transfer out failed");
@@ -1731,7 +1731,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             // accrueInterest emits logs on errors, but we still want to log the fact that an attempted borrow failed
             return fail(Error(error), FailureInfo.BORROW_ACCRUE_INTEREST_FAILED);
         }
-        // borrowFresh emits borrow-specific logs on errors, so we don&#39;t need to
+        // borrowFresh emits borrow-specific logs on errors, so we don't need to
         return borrowFresh(msg.sender, borrowAmount);
     }
 
@@ -1755,7 +1755,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             return failOpaque(Error.COMPTROLLER_REJECTION, FailureInfo.BORROW_COMPTROLLER_REJECTION, allowed);
         }
 
-        /* Verify market&#39;s block number equals current block number */
+        /* Verify market's block number equals current block number */
         if (accrualBlockNumber != getBlockNumber()) {
             return fail(Error.MARKET_NOT_FRESH, FailureInfo.BORROW_FRESHNESS_CHECK);
         }
@@ -1796,7 +1796,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
          *  Note: The cToken must handle variations between ERC-20 and ETH underlying.
          *  On success, the cToken borrowAmount less of cash.
          *  If doTransferOut fails despite the fact we checked pre-conditions,
-         *   we revert because we can&#39;t be sure if side effects occurred.
+         *   we revert because we can't be sure if side effects occurred.
          */
         vars.err = doTransferOut(borrower, borrowAmount);
         require(vars.err == Error.NO_ERROR, "borrow transfer out failed");
@@ -1826,7 +1826,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             // accrueInterest emits logs on errors, but we still want to log the fact that an attempted borrow failed
             return fail(Error(error), FailureInfo.REPAY_BORROW_ACCRUE_INTEREST_FAILED);
         }
-        // repayBorrowFresh emits repay-borrow-specific logs on errors, so we don&#39;t need to
+        // repayBorrowFresh emits repay-borrow-specific logs on errors, so we don't need to
         return repayBorrowFresh(msg.sender, msg.sender, repayAmount);
     }
 
@@ -1842,7 +1842,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             // accrueInterest emits logs on errors, but we still want to log the fact that an attempted borrow failed
             return fail(Error(error), FailureInfo.REPAY_BEHALF_ACCRUE_INTEREST_FAILED);
         }
-        // repayBorrowFresh emits repay-borrow-specific logs on errors, so we don&#39;t need to
+        // repayBorrowFresh emits repay-borrow-specific logs on errors, so we don't need to
         return repayBorrowFresh(msg.sender, borrower, repayAmount);
     }
 
@@ -1870,7 +1870,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             return failOpaque(Error.COMPTROLLER_REJECTION, FailureInfo.REPAY_BORROW_COMPTROLLER_REJECTION, allowed);
         }
 
-        /* Verify market&#39;s block number equals current block number */
+        /* Verify market's block number equals current block number */
         if (accrualBlockNumber != getBlockNumber()) {
             return fail(Error.MARKET_NOT_FRESH, FailureInfo.REPAY_BORROW_FRESHNESS_CHECK);
         }
@@ -1923,7 +1923,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
          *  Note: The cToken must handle variations between ERC-20 and ETH underlying.
          *  On success, the cToken holds an additional repayAmount of cash.
          *  If doTransferIn fails despite the fact we checked pre-conditions,
-         *   we revert because we can&#39;t be sure if side effects occurred.
+         *   we revert because we can't be sure if side effects occurred.
          */
         vars.err = doTransferIn(payer, vars.repayAmount);
         require(vars.err == Error.NO_ERROR, "repay borrow transfer in failed");
@@ -1963,7 +1963,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             return fail(Error(error), FailureInfo.LIQUIDATE_ACCRUE_COLLATERAL_INTEREST_FAILED);
         }
 
-        // liquidateBorrowFresh emits borrow-specific logs on errors, so we don&#39;t need to
+        // liquidateBorrowFresh emits borrow-specific logs on errors, so we don't need to
         return liquidateBorrowFresh(msg.sender, borrower, repayAmount, cTokenCollateral);
     }
 
@@ -1983,12 +1983,12 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             return failOpaque(Error.COMPTROLLER_REJECTION, FailureInfo.LIQUIDATE_COMPTROLLER_REJECTION, allowed);
         }
 
-        /* Verify market&#39;s block number equals current block number */
+        /* Verify market's block number equals current block number */
         if (accrualBlockNumber != getBlockNumber()) {
             return fail(Error.MARKET_NOT_FRESH, FailureInfo.LIQUIDATE_FRESHNESS_CHECK);
         }
 
-        /* Verify cTokenCollateral market&#39;s block number equals current block number */
+        /* Verify cTokenCollateral market's block number equals current block number */
         if (cTokenCollateral.accrualBlockNumber() != getBlockNumber()) {
             return fail(Error.MARKET_NOT_FRESH, FailureInfo.LIQUIDATE_COLLATERAL_FRESHNESS_CHECK);
         }
@@ -2166,7 +2166,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
         // Ensure invoke comptroller.isComptroller() returns true
         require(newComptroller.isComptroller(), "marker method returned false");
 
-        // Set market&#39;s comptroller to newComptroller
+        // Set market's comptroller to newComptroller
         comptroller = newComptroller;
 
         // Emit NewComptroller(oldComptroller, newComptroller)
@@ -2186,7 +2186,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             // accrueInterest emits logs on errors, but on top of that we want to log the fact that an attempted reserve factor change failed.
             return fail(Error(error), FailureInfo.SET_RESERVE_FACTOR_ACCRUE_INTEREST_FAILED);
         }
-        // _setReserveFactorFresh emits reserve-factor-specific logs on errors, so we don&#39;t need to.
+        // _setReserveFactorFresh emits reserve-factor-specific logs on errors, so we don't need to.
         return _setReserveFactorFresh(newReserveFactorMantissa);
     }
 
@@ -2201,7 +2201,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             return fail(Error.UNAUTHORIZED, FailureInfo.SET_RESERVE_FACTOR_ADMIN_CHECK);
         }
 
-        // Verify market&#39;s block number equals current block number
+        // Verify market's block number equals current block number
         if (accrualBlockNumber != getBlockNumber()) {
             // TODO: static_assert + no error code?
             return fail(Error.MARKET_NOT_FRESH, FailureInfo.SET_RESERVE_FACTOR_FRESH_CHECK);
@@ -2231,7 +2231,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             // accrueInterest emits logs on errors, but on top of that we want to log the fact that an attempted reduce reserves failed.
             return fail(Error(error), FailureInfo.REDUCE_RESERVES_ACCRUE_INTEREST_FAILED);
         }
-        // _reduceReservesFresh emits reserve-reduction-specific logs on errors, so we don&#39;t need to.
+        // _reduceReservesFresh emits reserve-reduction-specific logs on errors, so we don't need to.
         return _reduceReservesFresh(reduceAmount);
     }
 
@@ -2251,7 +2251,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             return fail(Error.UNAUTHORIZED, FailureInfo.REDUCE_RESERVES_ADMIN_CHECK);
         }
 
-        // We fail gracefully unless market&#39;s block number equals current block number
+        // We fail gracefully unless market's block number equals current block number
         if (accrualBlockNumber != getBlockNumber()) {
             // TODO: static_assert + no error code?
             return fail(Error.MARKET_NOT_FRESH, FailureInfo.REDUCE_RESERVES_FRESH_CHECK);
@@ -2263,7 +2263,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
         }
 
         // Check reduceAmount ≤ reserves[n] (totalReserves)
-        // TODO: I&#39;m following the spec literally here but I think we should we just use SafeMath instead and fail on an error (which would be underflow)
+        // TODO: I'm following the spec literally here but I think we should we just use SafeMath instead and fail on an error (which would be underflow)
         if (reduceAmount > totalReserves) {
             return fail(Error.BAD_INPUT, FailureInfo.REDUCE_RESERVES_VALIDATION);
         }
@@ -2301,7 +2301,7 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             // accrueInterest emits logs on errors, but on top of that we want to log the fact that an attempted change of interest rate model failed
             return fail(Error(error), FailureInfo.SET_INTEREST_RATE_MODEL_ACCRUE_INTEREST_FAILED);
         }
-        // _setInterestRateModelFresh emits interest-rate-model-update-specific logs on errors, so we don&#39;t need to.
+        // _setInterestRateModelFresh emits interest-rate-model-update-specific logs on errors, so we don't need to.
         return _setInterestRateModelFresh(newInterestRateModel);
     }
 
@@ -2321,13 +2321,13 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
             return fail(Error.UNAUTHORIZED, FailureInfo.SET_INTEREST_RATE_MODEL_OWNER_CHECK);
         }
 
-        // We fail gracefully unless market&#39;s block number equals current block number
+        // We fail gracefully unless market's block number equals current block number
         if (accrualBlockNumber != getBlockNumber()) {
             // TODO: static_assert + no error code?
             return fail(Error.MARKET_NOT_FRESH, FailureInfo.SET_INTEREST_RATE_MODEL_FRESH_CHECK);
         }
 
-        // Track the market&#39;s current interest rate model
+        // Track the market's current interest rate model
         oldInterestRateModel = interestRateModel;
 
         // Ensure invoke newInterestRateModel.isInterestRateModel() returns true
@@ -2366,8 +2366,8 @@ contract CToken is EIP20Interface, Exponential, TokenErrorReporter, ReentrancyGu
 
     /**
      * @dev Performs a transfer out, ideally returning an explanatory error code upon failure tather than reverting.
-     *  If caller has not called checked protocol&#39;s balance, may revert due to insufficient cash held in the contract.
-     *  If caller has checked protocol&#39;s balance, and verified it is >= amount, this should not revert in normal conditions.
+     *  If caller has not called checked protocol's balance, may revert due to insufficient cash held in the contract.
+     *  If caller has checked protocol's balance, and verified it is >= amount, this should not revert in normal conditions.
      */
     function doTransferOut(address payable to, uint amount) internal returns (Error);
 }
@@ -2398,7 +2398,7 @@ pragma solidity ^0.5.4;
 
 
 /**
- * @title Compound&#39;s CErc20 Contract
+ * @title Compound's CErc20 Contract
  * @notice CTokens which wrap an EIP-20 underlying
  * @author Compound
  */
@@ -2573,8 +2573,8 @@ contract CErc20 is CToken {
 
     /**
      * @dev Similar to EIP20 transfer, except it handles a False result from `transfer` and returns an explanatory
-     *      error code rather than reverting. If caller has not called checked protocol&#39;s balance, this may revert due to
-     *      insufficient cash held in this contract. If caller has checked protocol&#39;s balance prior to this call, and verified
+     *      error code rather than reverting. If caller has not called checked protocol's balance, this may revert due to
+     *      insufficient cash held in this contract. If caller has checked protocol's balance prior to this call, and verified
      *      it is >= amount, this should not revert in normal conditions.
      *
      *      Note: This wrapper safely handles non-standard ERC-20 tokens that do not return a value.

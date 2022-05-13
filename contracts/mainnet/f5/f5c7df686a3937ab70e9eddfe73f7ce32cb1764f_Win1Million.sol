@@ -15,7 +15,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -141,7 +141,7 @@ contract Win1Million {
             
         } else {
             currentGameId = gameBars[barId].CurrentGameId;
-            require(games[currentGameId].BarId > 0); // Ensure it hasn&#39;t been closed already
+            require(games[currentGameId].BarId > 0); // Ensure it hasn't been closed already
             if(games[currentGameId].CurrentTotal.add(gameAmt) > gameBars[barId].Limit) {
                 require(msg.value == minGamePlayAmount);
             }
@@ -177,7 +177,7 @@ contract Win1Million {
             
         } else {
             currentGameId = gameBars[barId].CurrentGameId;
-            require(games[currentGameId].BarId > 0); // Ensure it hasn&#39;t been closed already
+            require(games[currentGameId].BarId > 0); // Ensure it hasn't been closed already
             if(games[currentGameId].CurrentTotal.add(gameAmt) > gameBars[barId].Limit) {
                 require(msg.value == minGamePlayAmount);
             }
@@ -258,7 +258,7 @@ contract Win1Million {
             address playerAddress
             
         );
-    // players can cancel their participation in a game as long as it hasn&#39;t completed
+    // players can cancel their participation in a game as long as it hasn't completed
     // they lose their houseEdge fee (And pay any gas of course)
     function player_cancelGame(uint256 barId) public {
         address _playerAddr = msg.sender;

@@ -46,7 +46,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -525,10 +525,10 @@ contract YummyBase is ERC721BasicToken {
         // Used as pregnancy timer and breeding cooldown
         uint64 cooldownEndBlock;
 
-        // Mother&#39;s token ID
+        // Mother's token ID
         uint32 motherId;
 
-        // Father&#39;s token ID
+        // Father's token ID
         uint32 fatherId;
 
         // ID of the father for tokens that are pregnant
@@ -633,7 +633,7 @@ contract YummyBase is ERC721BasicToken {
     }
 
     /**
-     * @dev Generates a token&#39;s dna
+     * @dev Generates a token's dna
      */
     function _generateRandomDna() internal view returns (uint256) {
         return uint256(keccak256(now));
@@ -729,8 +729,8 @@ contract YummyBreeding is YummyBase {
     }
 
     /**
-    * @dev Set the cooldown end block for the token, based on it&#39;s current cooldownIndex
-    * Increment cooldownIndex if it hasn&#39;t hit the cap
+    * @dev Set the cooldown end block for the token, based on it's current cooldownIndex
+    * Increment cooldownIndex if it hasn't hit the cap
     */
     function _triggerCooldown(Token storage _token) internal {
         _token.cooldownEndBlock = uint64((cooldowns[_token.cooldownIndex] / secondsPerBlock) + block.number);
@@ -796,12 +796,12 @@ contract YummyBreeding is YummyBase {
         // No self-breeding
         if (_motherId == _fatherId) { return false; }
 
-        // No breeding token&#39;s father
+        // No breeding token's father
         if (_mother.motherId == _fatherId || _mother.fatherId == _fatherId) {
             return false;
         }
 
-        // No breeding token&#39;s mother
+        // No breeding token's mother
         if (_father.motherId == _motherId || _mother.fatherId == _motherId) {
             return false;
         }
@@ -877,7 +877,7 @@ contract YummyBreeding is YummyBase {
     /**
      * @dev Breed tokens. Will either make the mother pregnant, or fail completely
      * @notice Requires a prepayment of the fee given out to the first caller of giveBirth()
-     * If successful, mother becomes pregnant and father&#39;s cooldown begins
+     * If successful, mother becomes pregnant and father's cooldown begins
      */
     function breedWithAuto(uint256 _motherId, uint256 _fatherId)
         external
@@ -929,7 +929,7 @@ contract YummyBreeding is YummyBase {
             parentGeneration = father.generation;
         }
 
-        // Compute the new token&#39;s DNA
+        // Compute the new token's DNA
         // @todo plug in geneMixer function here
         uint256 dna = _generateRandomDna();
         uint8 species = 1;
@@ -946,7 +946,7 @@ contract YummyBreeding is YummyBase {
         // Send the balance fee to the person who made birth happen
         msg.sender.transfer(autoBirthFee);
 
-        // Return the new token&#39;s ID
+        // Return the new token's ID
         return tokenId;
     }
 

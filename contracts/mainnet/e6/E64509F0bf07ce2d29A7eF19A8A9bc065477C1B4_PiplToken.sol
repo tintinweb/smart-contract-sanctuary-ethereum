@@ -1,7 +1,7 @@
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData); }
 
 contract PiplToken {
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -18,8 +18,8 @@ contract PiplToken {
     function PiplToken() {
         balances[msg.sender] = 753190753700000000;
         _totalSupply = 753190753700000000;
-        name = &#39;PiplCoin&#39;;
-        symbol = &#39;PIPL&#39;;
+        name = 'PiplCoin';
+        symbol = 'PIPL';
         decimals = 8;
         owner = msg.sender;
     }

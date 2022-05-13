@@ -11,7 +11,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -65,7 +65,7 @@ contract Wrapped_Ether {
     }
 
     /**
-    *@dev This function &#39;unwraps&#39; an _amount of Ether in the sender&#39;s balance by transferring 
+    *@dev This function 'unwraps' an _amount of Ether in the sender's balance by transferring 
     *Ether to them
     *@param _value The amount of the token to unwrap
     */

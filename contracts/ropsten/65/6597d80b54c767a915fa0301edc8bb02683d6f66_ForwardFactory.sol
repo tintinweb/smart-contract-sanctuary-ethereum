@@ -1,5 +1,5 @@
 // Bytecode origin https://www.reddit.com/r/ethereum/comments/6ic49q/any_assembly_programmers_willing_to_write_a/dj5ceuw/
-// Modified version of Vitalik&#39;s https://www.reddit.com/r/ethereum/comments/6c1jui/delegatecall_forwarders_how_to_save_5098_on/
+// Modified version of Vitalik's https://www.reddit.com/r/ethereum/comments/6c1jui/delegatecall_forwarders_how_to_save_5098_on/
 // Credits to Jordi Baylina for this way of deploying contracts https://gist.github.com/jbaylina/e8ac19b8e7478fd10cf0363ad1a5a4b3
 
 // Forwarder is slightly modified to only return 256 bytes (8 normal returns)

@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -105,7 +105,7 @@ contract Token {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overridden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropriate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropriate to concatenate
  * behavior.
  */
 contract Crowdsale is Ownable {
@@ -240,15 +240,15 @@ contract Crowdsale is Ownable {
 
   function getStageName () public view returns (string) {
     uint8 stageIndex = _getStageIndex();
-    if (stageIndex == 1) return &#39;Private ICO&#39;;
-    if (stageIndex == 2) return &#39;Private ICO end&#39;;
-    if (stageIndex == 3) return &#39;Pre ICO&#39;;
-    if (stageIndex == 4) return &#39;Pre ICO end&#39;;
-    if (stageIndex == 5) return &#39;Early Bird&#39;;
-    if (stageIndex == 6) return &#39;Early Bird end&#39;;
-    if (stageIndex == 7) return &#39;ICO&#39;;
-    if (stageIndex == 8) return &#39;ICO is over&#39;;
-    return &#39;Pause&#39;;
+    if (stageIndex == 1) return 'Private ICO';
+    if (stageIndex == 2) return 'Private ICO end';
+    if (stageIndex == 3) return 'Pre ICO';
+    if (stageIndex == 4) return 'Pre ICO end';
+    if (stageIndex == 5) return 'Early Bird';
+    if (stageIndex == 6) return 'Early Bird end';
+    if (stageIndex == 7) return 'ICO';
+    if (stageIndex == 8) return 'ICO is over';
+    return 'Pause';
   }
 
   /**
@@ -290,7 +290,7 @@ contract Crowdsale is Ownable {
 
   /**
    * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
-   * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method: 
+   * Example from CappedCrowdsale.sol's _preValidatePurchase method: 
    *   super._preValidatePurchase(_beneficiary, _weiAmount);
    *   require(weiRaised.add(_weiAmount) <= cap);
    * @param _beneficiary Address performing the token purchase

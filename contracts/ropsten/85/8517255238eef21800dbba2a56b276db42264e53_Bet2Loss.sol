@@ -140,7 +140,7 @@ contract Bet2Loss is B2GBToken{
 				AirdropCheck();
 
 				Bet storage bet = bets[commit];
-				require (bet.gambler == address(0), "Bet should be in a &#39;clean&#39; state.");
+				require (bet.gambler == address(0), "Bet should be in a 'clean' state.");
 				require (balances[msg.sender] >= betnumber, "no more balances");
 				require (modulo > 1 && modulo <= MAX_MODULO, "Modulo should be within range.");
 				require (betMask >= 0 && betMask < modulo, "Mask should be within range.");
@@ -178,7 +178,7 @@ contract Bet2Loss is B2GBToken{
 				uint placeBlockNumber = bet.placeBlockNumber;
 
 				require (block.number > placeBlockNumber, "settleBet in the same block as placeBet, or before.");
-				require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+				require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
 				settleBetCommon(bet, reveal);
 		}
@@ -191,7 +191,7 @@ contract Bet2Loss is B2GBToken{
 				uint placeBlockNumber = bet.placeBlockNumber;
 				address gambler = bet.gambler;
 
-				require (betnumber != 0, "Bet should be in an &#39;active&#39; state");
+				require (betnumber != 0, "Bet should be in an 'active' state");
 
 				bytes32 entropy = keccak256(abi.encodePacked(reveal, placeBlockNumber));
 				uint dice = uint(entropy) % modulo;

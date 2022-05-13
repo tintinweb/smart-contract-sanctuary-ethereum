@@ -215,12 +215,12 @@ contract EtherbotsBase is EtherbotsPrivileges {
     function _transfer(address _from, address _to, uint256 _tokenId) internal {
         // No cap on number of parts
         // Very unlikely to ever be 2^256 parts owned by one account
-        // Shouldn&#39;t waste gas checking for overflow
-        // no point making it less than a uint --> mappings don&#39;t pack
+        // Shouldn't waste gas checking for overflow
+        // no point making it less than a uint --> mappings don't pack
         addressToTokensOwned[_to]++;
         // transfer ownership
         partIndexToOwner[_tokenId] = _to;
-        // New parts are transferred _from 0x0, but we can&#39;t account that address.
+        // New parts are transferred _from 0x0, but we can't account that address.
         if (_from != address(0)) {
             addressToTokensOwned[_from]--;
             // clear any previously approved ownership exchange
@@ -291,8 +291,8 @@ contract EtherbotsBase is EtherbotsPrivileges {
 
 
 // This contract implements both the original ERC-721 standard and
-// the proposed &#39;deed&#39; standard of 841
-// I don&#39;t know which standard will eventually be adopted - support both for now
+// the proposed 'deed' standard of 841
+// I don't know which standard will eventually be adopted - support both for now
 
 
 /// @title Interface for contracts conforming to ERC-721: Deed Standard
@@ -489,20 +489,20 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
 
     // transfers a part to another account
     function transfer(address _to, uint256 _tokenId) public whenNotPaused payable {
-        // payable for ERC721 --> don&#39;t actually send eth @<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="217e61">[email&#160;protected]</a>
+        // payable for ERC721 --> don't actually send eth @<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="217e61">[email&#160;protected]</a>
         require(msg.value == 0);
 
         // Safety checks to prevent accidental transfers to common accounts
         require(_to != address(0));
         require(_to != address(this));
-        // can&#39;t transfer parts to the auction contract directly
+        // can't transfer parts to the auction contract directly
         require(_to != address(auction));
-        // can&#39;t transfer parts to any of the battle contracts directly
+        // can't transfer parts to any of the battle contracts directly
         for (uint j = 0; j < approvedBattles.length; j++) {
             require(_to != approvedBattles[j]);
         }
 
-        // Cannot send tokens you don&#39;t own
+        // Cannot send tokens you don't own
         require(owns(msg.sender, _tokenId));
 
         // perform state changes necessary for transfer
@@ -516,14 +516,14 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
         // Safety checks to prevent accidental transfers to common accounts
         require(_to != address(0));
         require(_to != address(this));
-        // can&#39;t transfer parts to the auction contract directly
+        // can't transfer parts to the auction contract directly
         require(_to != address(auction));
-        // can&#39;t transfer parts to any of the battle contracts directly
+        // can't transfer parts to any of the battle contracts directly
         for (uint j = 0; j < approvedBattles.length; j++) {
             require(_to != approvedBattles[j]);
         }
 
-        // Cannot send tokens you don&#39;t own
+        // Cannot send tokens you don't own
         require(ownsAll(msg.sender, _tokenIds));
 
         for (uint k = 0; k < _tokenIds.length; k++) {
@@ -538,10 +538,10 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
     // approves the (_to) address to use the transferFrom function on the token with id (_tokenId)
     // if you want to clear all approvals, simply pass the zero address
     function approve(address _to, uint256 _deedId) external whenNotPaused payable {
-        // payable for ERC721 --> don&#39;t actually send eth @<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="055a45">[email&#160;protected]</a>
+        // payable for ERC721 --> don't actually send eth @<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="055a45">[email&#160;protected]</a>
         require(msg.value == 0);
 // use internal function?
-        // Cannot approve the transfer of tokens you don&#39;t own
+        // Cannot approve the transfer of tokens you don't own
         require(owns(msg.sender, _deedId));
 
         // Store the approval (can only approve one at a time)
@@ -556,7 +556,7 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
         for (uint i = 0; i < _tokenIds.length; i++) {
             uint _tokenId = _tokenIds[i];
 
-            // Cannot approve the transfer of tokens you don&#39;t own
+            // Cannot approve the transfer of tokens you don't own
             require(owns(msg.sender, _tokenId));
 
             // Store the approval (can only approve one at a time)
@@ -593,7 +593,7 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
     // returns a dynamic array of the ids of all tokens which are owned by (_owner)
     // Looping through every possible part and checking it against the owner is
     // actually much more efficient than storing a mapping or something, because
-    // it won&#39;t be executed as a transaction
+    // it won't be executed as a transaction
     function tokensOfOwner(address _owner) external view returns(uint256[] ownerTokens) {
         uint256 totalParts = totalSupply();
 
@@ -759,7 +759,7 @@ contract EtherbotsNFT is EtherbotsBase, ERC721Enumerable, ERC721Original {
     }
 
     function takeOwnership(uint256 _deedId) external payable {
-        // payable for ERC721 --> don&#39;t actually send eth @<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5eaf5">[email&#160;protected]</a>
+        // payable for ERC721 --> don't actually send eth @<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5eaf5">[email&#160;protected]</a>
         require(msg.value == 0);
 
         address _from = partIndexToOwner[_deedId];
@@ -1038,7 +1038,7 @@ contract DutchAuction is NFTAuctionBase, EtherbotsPrivileges {
 
     // Creates an auction and lists it.
     function createAuction( uint256 _partId, uint256 _startPrice, uint256 _endPrice, uint256 _duration, address _seller ) external whenNotPaused {
-        // Sanity check that no inputs overflow how many bits we&#39;ve allocated
+        // Sanity check that no inputs overflow how many bits we've allocated
         // to store them in the auction struct.
         require(_startPrice == uint256(uint128(_startPrice)));
         require(_endPrice == uint256(uint128(_endPrice)));
@@ -1095,7 +1095,7 @@ contract DutchAuction is NFTAuctionBase, EtherbotsPrivileges {
         return sum / LAST_CONSIDERED;
     }
 
-    // Allows a user to cancel an auction before it&#39;s resolved.
+    // Allows a user to cancel an auction before it's resolved.
     // Returns the part to the seller.
 
     function cancelAuction(uint256 _partId) external {
@@ -1123,7 +1123,7 @@ contract DutchAuction is NFTAuctionBase, EtherbotsPrivileges {
     // Allows owner to cancel an auction.
     // ONLY able to be used when contract is paused,
     // in the case of emergencies.
-    // Parts returned to seller as it&#39;s equivalent to them 
+    // Parts returned to seller as it's equivalent to them 
     // calling cancel.
     function cancelAuctionWhenPaused(uint256 _partId) whenPaused onlyOwner external {
         Auction storage auction = tokenIdToAuction[_partId];

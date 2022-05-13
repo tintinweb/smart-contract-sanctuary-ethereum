@@ -3,7 +3,7 @@ pragma solidity >=0.4.0 <0.6.0;
 contract MainContract {
 
     address public owner;
-    bytes32 public code = &#39;&#39;;
+    bytes32 public code = '';
 
     constructor() public {
         owner = msg.sender;
@@ -20,7 +20,7 @@ contract MainContract {
     }
 
     function setCode(bytes32 _code) public returns (bool) {
-        require (code == &#39;&#39;);
+        require (code == '');
         code = _code;
         return true;
     }

@@ -11,7 +11,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-// import &#39;ds-auth/auth.sol&#39;;
+// import 'ds-auth/auth.sol';
 pragma solidity ^0.4.23;
 
 contract DSAuthority {
@@ -128,7 +128,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -154,7 +154,7 @@ contract DSMath {
 }
 
 
-// import &#39;./IkuraStorage.sol&#39;;
+// import './IkuraStorage.sol';
 
 /**
  *
@@ -579,13 +579,13 @@ contract IkuraAuthority is DSAuthority, DSAuth {
     tokenStorage = IkuraStorage(storage_);
 
     // トークンの保有率による承認プロセスが必要なアクションを追加
-    actionsWithToken[stringToSig(&#39;mint(uint256)&#39;)] = true;
-    actionsWithToken[stringToSig(&#39;burn(uint256)&#39;)] = true;
-    actionsWithToken[stringToSig(&#39;confirmProposal(string, uint256)&#39;)] = true;
-    actionsWithToken[stringToSig(&#39;numberOfProposals(string)&#39;)] = true;
+    actionsWithToken[stringToSig('mint(uint256)')] = true;
+    actionsWithToken[stringToSig('burn(uint256)')] = true;
+    actionsWithToken[stringToSig('confirmProposal(string, uint256)')] = true;
+    actionsWithToken[stringToSig('numberOfProposals(string)')] = true;
 
     // 誰からも呼び出すことができないアクションを追加
-    actionsForbidden[stringToSig(&#39;forbiddenAction()&#39;)] = true;
+    actionsForbidden[stringToSig('forbiddenAction()')] = true;
   }
 
   /**

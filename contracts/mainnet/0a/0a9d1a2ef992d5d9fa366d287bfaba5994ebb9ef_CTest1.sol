@@ -212,7 +212,7 @@ contract CTest1 is StandardToken {
         }
         
         
-        //Make sure someone isn&#39;t buying more than the remaining supply
+        //Make sure someone isn't buying more than the remaining supply
         uint256 check = safeSub(totalSupply, tokens);
         if (check < 0)
         {
@@ -220,19 +220,19 @@ contract CTest1 is StandardToken {
         }
         
         
-        //Make sure someone isn&#39;t buying more than the current tier
+        //Make sure someone isn't buying more than the current tier
         if (totalSupply > 975000 && check < 975000)
         {
             throw;
         }
         
-        //Make sure someone isn&#39;t buying more than the current tier
+        //Make sure someone isn't buying more than the current tier
         if (totalSupply > 875000 && check < 875000)
         {
             throw;
         }
         
-        //Make sure someone isn&#39;t buying more than the current tier
+        //Make sure someone isn't buying more than the current tier
         if (totalSupply > 475000 && check < 475000)
         {
             throw;

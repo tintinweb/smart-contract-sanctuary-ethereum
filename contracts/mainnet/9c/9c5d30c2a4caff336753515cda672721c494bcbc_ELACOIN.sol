@@ -101,7 +101,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -145,7 +145,7 @@ library Roles {
  * @dev See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  *  for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  *  to avoid typos.
  */
 contract RBAC {
@@ -309,8 +309,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -327,7 +327,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -440,7 +440,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -599,7 +599,7 @@ contract PausableToken is StandardToken, Pausable, RBAC {
      * @dev Remove an administrator.
      * @param _administrator Address of the administrator to be removed.
      * @return True if the administrator has been removed,
-     *  false if the address wasn&#39;t an administrator in the first place.
+     *  false if the address wasn't an administrator in the first place.
      */
     function removeAdministrator(address _administrator) onlyOwner public returns (bool) {
         if (isAdministrator(_administrator)) {

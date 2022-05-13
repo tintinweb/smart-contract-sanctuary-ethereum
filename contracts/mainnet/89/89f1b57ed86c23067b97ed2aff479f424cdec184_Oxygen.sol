@@ -86,7 +86,7 @@ contract Oxygen is StandardToken {
     string public name;                   // Token Name
     uint8 public decimals;                // How many decimals to show. To be standard complicant keep it 18
     string public symbol;                 // An identifier: eg SBX, XPR etc..
-    string public version = &#39;V1.0&#39;;
+    string public version = 'V1.0';
     uint256 public unitsOneEthCanBuy;     
     uint256 public totalEthInWei;        
     address public fundsWallet;         

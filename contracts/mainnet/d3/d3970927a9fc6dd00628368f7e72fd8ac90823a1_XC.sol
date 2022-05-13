@@ -20,7 +20,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // require(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // require(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // require(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -107,9 +107,9 @@ contract Token is ERC20 {
 
     uint256 public constant initialSupply = 10 * (10 ** 8) * (10 ** uint256(decimals));
 
-    string public constant name = &#39;INK Coin&#39;;
+    string public constant name = 'INK Coin';
 
-    string public constant symbol = &#39;INK&#39;;
+    string public constant symbol = 'INK';
 
 
     function() public {

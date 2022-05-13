@@ -61,7 +61,7 @@ contract AudigentAudience is Ownable {
 
     modifier onlyNewSigner(address _signer) {
         if (_signerToPartner[_signer] == msg.sender) {
-            revert(&#39;Signer already assigned to this partner&#39;);
+            revert('Signer already assigned to this partner');
         }
         require(_signer != owner);
         require(_signerToPartner[_signer] != _signer);
@@ -76,7 +76,7 @@ contract AudigentAudience is Ownable {
 
     function createHash(uint256 _hash, address _partner) public onlyOwner {
         if (_hashToSignature[_hash].partner != address(0)) {
-            revert(&#39;Hash already exists&#39;);
+            revert('Hash already exists');
         }
         _hashToSignature[_hash] = Signature(_partner, new address[](0));
     }
@@ -105,7 +105,7 @@ contract AudigentAudience is Ownable {
             }
         }
         if (alreadySigned == true) {
-            revert(&#39;Hash already signed&#39;);
+            revert('Hash already signed');
         }
 
         _hashToSignature[_hash].signatures.push(msg.sender);

@@ -35,7 +35,7 @@ library StringUtils {
     	bytes memory n = bytes(_needle);
     	if(h.length < 1 || n.length < 1 || (n.length > h.length)) 
     		return -1;
-    	else if(h.length > (2**128 -1)) // since we have to be able to return -1 (if the char isn&#39;t found or input error), this function must return an "int" type with a max length of (2^128 - 1)
+    	else if(h.length > (2**128 -1)) // since we have to be able to return -1 (if the char isn't found or input error), this function must return an "int" type with a max length of (2^128 - 1)
     		return -1;									
     	else
     	{
@@ -45,7 +45,7 @@ library StringUtils {
     			if (h[i] == n[0]) // found the first char of b
     			{
     				subindex = 1;
-    				while(subindex < n.length && (i + subindex) < h.length && h[i + subindex] == n[subindex]) // search until the chars don&#39;t match or until we reach the end of a or b
+    				while(subindex < n.length && (i + subindex) < h.length && h[i + subindex] == n[subindex]) // search until the chars don't match or until we reach the end of a or b
     				{
     					subindex++;
     				}	
@@ -84,7 +84,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

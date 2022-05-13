@@ -337,7 +337,7 @@ contract LibMath is
         // ideal value. This is undefined when the ideal value is zero.
         //
         // The ideal value is `numerator * target / denominator`.
-        // Let&#39;s call `numerator * target % denominator` the remainder.
+        // Let's call `numerator * target % denominator` the remainder.
         // The absolute error is `remainder / denominator`.
         //
         // When the ideal value is zero, we require the absolute error to
@@ -753,13 +753,13 @@ library LibBytes {
         // Store address into array memory
         assembly {
             // The address occupies 20 bytes and mstore stores 32 bytes.
-            // First fetch the 32-byte word where we&#39;ll be storing the address, then
+            // First fetch the 32-byte word where we'll be storing the address, then
             // apply a mask so we have only the bytes in the word that the address will not occupy.
             // Then combine these bytes with the address and store the 32 bytes back to memory with mstore.
 
             // 1. Add index to address of bytes array
             // 2. Load 32-byte word from memory
-            // 3. Apply 12-byte mask to obtain extra bytes occupying word of memory where we&#39;ll store the address
+            // 3. Apply 12-byte mask to obtain extra bytes occupying word of memory where we'll store the address
             let neighbors := and(
                 mload(add(b, index)),
                 0xffffffffffffffffffffffff0000000000000000000000000000000000000000
@@ -1099,7 +1099,7 @@ contract LibOrder is
     ));
 
     // A valid order remains fillable until it is expired, fully filled, or cancelled.
-    // An order&#39;s state is unaffected by external factors, like account balances.
+    // An order's state is unaffected by external factors, like account balances.
     enum OrderStatus {
         INVALID,                     // Default value
         INVALID_MAKER_ASSET_AMOUNT,  // Order does not have a valid maker asset amount
@@ -1121,14 +1121,14 @@ contract LibOrder is
         uint256 makerFee;               // Amount of ZRX paid to feeRecipient by maker when order is filled. If set to 0, no transfer of ZRX from maker to feeRecipient will be attempted.
         uint256 takerFee;               // Amount of ZRX paid to feeRecipient by taker when order is filled. If set to 0, no transfer of ZRX from taker to feeRecipient will be attempted.
         uint256 expirationTimeSeconds;  // Timestamp in seconds at which order expires.
-        uint256 salt;                   // Arbitrary number to facilitate uniqueness of the order&#39;s hash.
+        uint256 salt;                   // Arbitrary number to facilitate uniqueness of the order's hash.
         bytes makerAssetData;           // Encoded data that can be decoded by a specified proxy contract when transferring makerAsset. The last byte references the id of this proxy.
         bytes takerAssetData;           // Encoded data that can be decoded by a specified proxy contract when transferring takerAsset. The last byte references the id of this proxy.
     }
     // solhint-enable max-line-length
 
     struct OrderInfo {
-        uint8 orderStatus;                    // Status that describes order&#39;s validity and fillability.
+        uint8 orderStatus;                    // Status that describes order's validity and fillability.
         bytes32 orderHash;                    // EIP712 hash of the order (see LibOrder.getOrderHash).
         uint256 orderTakerAssetFilledAmount;  // Amount of order that has already been filled.
     }
@@ -1232,7 +1232,7 @@ contract LibFillResults is
     struct MatchedFillResults {
         FillResults left;                    // Amounts filled and fees paid of left order.
         FillResults right;                   // Amounts filled and fees paid of right order.
-        uint256 leftMakerAssetSpreadAmount;  // Spread between price of left and right order, denominated in the left order&#39;s makerAsset, paid to taker.
+        uint256 leftMakerAssetSpreadAmount;  // Spread between price of left and right order, denominated in the left order's makerAsset, paid to taker.
     }
 
     /// @dev Adds properties of both FillResults instances.
@@ -1328,7 +1328,7 @@ contract IMatchOrders {
 
     /// @dev Match two complementary orders that have a profitable spread.
     ///      Each order is filled at their respective price point. However, the calculations are
-    ///      carried out as though the orders are both being filled at the right order&#39;s price point.
+    ///      carried out as though the orders are both being filled at the right order's price point.
     ///      The profit made by the left order goes to the taker (who matched the two orders).
     /// @param leftOrder First order to match.
     /// @param rightOrder Second order to match.
@@ -1378,7 +1378,7 @@ contract ISignatureValidator {
     )
         external;
 
-    /// @dev Approves/unnapproves a Validator contract to verify signatures on signer&#39;s behalf.
+    /// @dev Approves/unnapproves a Validator contract to verify signatures on signer's behalf.
     /// @param validatorAddress Address of Validator contract.
     /// @param approval Approval or disapproval of  Validator contract.
     function setSignatureValidatorApproval(
@@ -1804,7 +1804,7 @@ contract LibConstants {
 
 contract MWeth {
 
-    /// @dev Converts message call&#39;s ETH value into WETH.
+    /// @dev Converts message call's ETH value into WETH.
     function convertEthToWeth()
         internal;
 
@@ -1858,7 +1858,7 @@ contract MixinWeth is
         );
     }
 
-    /// @dev Converts message call&#39;s ETH value into WETH.
+    /// @dev Converts message call's ETH value into WETH.
     function convertEthToWeth()
         internal
     {
@@ -1896,7 +1896,7 @@ contract MixinWeth is
             "OVERSOLD_WETH"
         );
 
-        // Calculate amount of WETH that hasn&#39;t been sold.
+        // Calculate amount of WETH that hasn't been sold.
         uint256 wethRemaining = safeSub(msg.value, wethSold);
 
         // Calculate ETH fee to pay to feeRecipient.
@@ -2119,7 +2119,7 @@ contract MExchangeWrapper {
 
 contract IForwarderCore {
 
-    /// @dev Purchases as much of orders&#39; makerAssets as possible by selling up to 95% of transaction&#39;s ETH value.
+    /// @dev Purchases as much of orders' makerAssets as possible by selling up to 95% of transaction's ETH value.
     ///      Any ZRX required to pay fees for primary orders will automatically be purchased by this contract.
     ///      5% of ETH value is reserved for paying fees to order feeRecipients (in ZRX) and forwarding contract feeRecipient (in ETH).
     ///      Any ETH not spent will be refunded to sender.
@@ -2203,7 +2203,7 @@ contract MixinForwarderCore is
 {
     using LibBytes for bytes;
 
-    /// @dev Constructor approves ERC20 proxy to transfer ZRX and WETH on this contract&#39;s behalf.
+    /// @dev Constructor approves ERC20 proxy to transfer ZRX and WETH on this contract's behalf.
     constructor ()
         public
     {
@@ -2216,7 +2216,7 @@ contract MixinForwarderCore is
         ZRX_TOKEN.approve(proxyAddress, MAX_UINT);
     }
 
-    /// @dev Purchases as much of orders&#39; makerAssets as possible by selling up to 95% of transaction&#39;s ETH value.
+    /// @dev Purchases as much of orders' makerAssets as possible by selling up to 95% of transaction's ETH value.
     ///      Any ZRX required to pay fees for primary orders will automatically be purchased by this contract.
     ///      5% of ETH value is reserved for paying fees to order feeRecipients (in ZRX) and forwarding contract feeRecipient (in ETH).
     ///      Any ETH not spent will be refunded to sender.
@@ -2249,14 +2249,14 @@ contract MixinForwarderCore is
         uint256 zrxBuyAmount;
         uint256 makerAssetAmountPurchased;
         if (orders[0].makerAssetData.equals(ZRX_ASSET_DATA)) {
-            // Calculate amount of WETH that won&#39;t be spent on ETH fees.
+            // Calculate amount of WETH that won't be spent on ETH fees.
             wethSellAmount = getPartialAmountFloor(
                 PERCENTAGE_DENOMINATOR,
                 safeAdd(PERCENTAGE_DENOMINATOR, feePercentage),
                 msg.value
             );
             // Market sell available WETH.
-            // ZRX fees are paid with this contract&#39;s balance.
+            // ZRX fees are paid with this contract's balance.
             orderFillResults = marketSellWeth(
                 orders,
                 wethSellAmount,
@@ -2272,7 +2272,7 @@ contract MixinForwarderCore is
                 msg.value
             );
             // Market sell 95% of WETH.
-            // ZRX fees are payed with this contract&#39;s balance.
+            // ZRX fees are payed with this contract's balance.
             orderFillResults = marketSellWeth(
                 orders,
                 wethSellAmount,
@@ -2335,7 +2335,7 @@ contract MixinForwarderCore is
         uint256 makerAssetAmountPurchased;
         if (orders[0].makerAssetData.equals(ZRX_ASSET_DATA)) {
             // If the makerAsset is ZRX, it is not necessary to pay fees out of this
-            // contracts&#39;s ZRX balance because fees are factored into the price of the order.
+            // contracts's ZRX balance because fees are factored into the price of the order.
             orderFillResults = marketBuyExactZrxWithWeth(
                 orders,
                 makerAssetFillAmount,
@@ -2345,7 +2345,7 @@ contract MixinForwarderCore is
             makerAssetAmountPurchased = safeSub(orderFillResults.makerAssetFilledAmount, orderFillResults.takerFeePaid);
         } else {
             // Attemp to purchase desired amount of makerAsset.
-            // ZRX fees are payed with this contract&#39;s balance.
+            // ZRX fees are payed with this contract's balance.
             orderFillResults = marketBuyExactAmountWithWeth(
                 orders,
                 makerAssetFillAmount,
@@ -2505,7 +2505,7 @@ contract IERC721Token {
         external;
 
     /// @notice Enable or disable approval for a third party ("operator") to manage
-    ///         all of `msg.sender`&#39;s assets
+    ///         all of `msg.sender`'s assets
     /// @dev Emits the ApprovalForAll event. The contract MUST allow
     ///      multiple operators per owner.
     /// @param _operator Address to add to the set of authorized operators
@@ -2807,7 +2807,7 @@ contract LibAbiEncoder {
             //   2. <area>End     -- End of this area in memory. This value may
             //                       be precomputed (before writing contents),
             //                       or it may be computed as contents are written.
-            //   3. <area>Offset  -- Current offset into area. If an area&#39;s End
+            //   3. <area>Offset  -- Current offset into area. If an area's End
             //                       is precomputed, this variable tracks the
             //                       offsets of contents as they are written.
 
@@ -2831,7 +2831,7 @@ contract LibAbiEncoder {
             let dataAreaStart := paramsAreaEnd
             let dataAreaEnd := dataAreaStart
 
-            // Offset from the source data we&#39;re reading from
+            // Offset from the source data we're reading from
             let sourceOffset := order
             // arrayLenBytes and arrayLenWords track the length of a dynamically-allocated bytes array.
             let arrayLenBytes := 0

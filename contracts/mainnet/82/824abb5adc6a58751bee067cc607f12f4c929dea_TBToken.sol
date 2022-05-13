@@ -148,8 +148,8 @@ contract StandardToken is ERC20, ERC223, SafeMath, Owned {
 }
 
 contract TBToken is StandardToken {
-  string public name = &#39;TBToken&#39;;
-  string public symbol = &#39;TB&#39;;
+  string public name = 'TBToken';
+  string public symbol = 'TB';
   uint public decimals = 18;
 
   uint256 public createTime         = 1527436800;  //20180528 //1528128000;  //20180605 00:00:00

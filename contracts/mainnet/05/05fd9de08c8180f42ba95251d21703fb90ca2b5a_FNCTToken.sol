@@ -166,7 +166,7 @@ contract FNCTToken is ERC223Interface, SafeMath {
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      This function works the same with the previous one
-     *      but doesn&#39;t contain `_data` param.
+     *      but doesn't contain `_data` param.
      *      Added due to backwards compatibility reasons.
      *
      * @param _to    Receiver address.

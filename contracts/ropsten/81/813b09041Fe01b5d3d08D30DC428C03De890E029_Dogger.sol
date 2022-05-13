@@ -183,7 +183,7 @@ contract NFT {
   }
   //
   //for some reason transactions never return a receipt if this is "Transfer" even though there is no conflict with the name
-  // I have no effing clue what I&#39;m doing wrong but I had to rename this to "NFTTransfer" and it works now :(
+  // I have no effing clue what I'm doing wrong but I had to rename this to "NFTTransfer" and it works now :(
   //
   event NFTTransfer(address from, address to, uint256 tokenId);
 

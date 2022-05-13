@@ -184,7 +184,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -481,9 +481,9 @@ contract Token is Ownable, ERC20Interface, Enums {
     //    team can spend up to 25 tokens till next 24 weeks;
     //  3. Someone transfers another 100 tokens to the team basket;
     //  4. ...
-    // Problem is, actually, you can&#39;t spend any of these extra 100
+    // Problem is, actually, you can't spend any of these extra 100
     // tokens until 96 weeks will elapse since minting finish date.
-    // That&#39;s because after next 24 weeks will be unlocked only
+    // That's because after next 24 weeks will be unlocked only
     // 25 tokens more (25% of *minted* tokens) and so on.
     // So, DO NOT send tokens to the team basket until 96 weeks elapse!
     function isFrozen(
@@ -531,7 +531,7 @@ contract Token is Ownable, ERC20Interface, Enums {
     }
 
     // Save amount of spent tokens by team till 96 weeks after minting
-    // finish date. This is vital because without the check we&#39;ll eventually
+    // finish date. This is vital because without the check we'll eventually
     // overflow the uint256.
     function saveTeamSpent(address _owner, uint _value) internal {
         if (wpTokensBaskets.isTeam(_owner)) {
@@ -648,7 +648,7 @@ contract TokenSale is Killable, Enums {
         remainingSupply = _supplyAmount.mul(dec);
     }
 
-    // Fallback function. Here we&#39;ll receive all investments.
+    // Fallback function. Here we'll receive all investments.
     function() external payable {
         purchase();
     }

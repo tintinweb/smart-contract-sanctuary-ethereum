@@ -143,7 +143,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -755,7 +755,7 @@ contract Ownable {
 /*
  *  @title CryptoFlower
  *  @dev This is a constrained but compliant ERC725 token implementation with additional genome sequence for each token
- *  @dev rewrites the CanTransfer modifier of OZs&#39; implementation in order to disable transfers
+ *  @dev rewrites the CanTransfer modifier of OZs' implementation in order to disable transfers
  */
 contract CryptoFlower is ERC721Token, Ownable {
 
@@ -907,7 +907,7 @@ contract CryptoFlowerRaiser {
     // the owner of the contract
     address public owner;
 
-    // onlyOwner modifier extracted from OZs&#39; Ownable contract
+    // onlyOwner modifier extracted from OZs' Ownable contract
     modifier onlyOwner() {
         require(msg.sender == owner);
         _;
@@ -974,7 +974,7 @@ contract CryptoFlowerRaiser {
             token.mint(beneficiary, generator, karma);
         }
 
-        raised += msg.value; // we don&#39;t care about overflows here ;)
+        raised += msg.value; // we don't care about overflows here ;)
         emit Donation(beneficiary, msg.value, raised);
 
         // forward funds to storage

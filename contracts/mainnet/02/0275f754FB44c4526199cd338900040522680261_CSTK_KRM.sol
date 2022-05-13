@@ -219,7 +219,7 @@ contract CSTKDropToken is ERC20, Owned {
   }
 
   // ------------------------------------------------------------------------
-  // Returns a Level by it&#39;s array index
+  // Returns a Level by it's array index
   // ------------------------------------------------------------------------
   function getLevelByIndex(uint index) public view returns (uint256 price, uint256 available) {
     price = levels[index].price;
@@ -234,7 +234,7 @@ contract CSTKDropToken is ERC20, Owned {
   }
 
   // ------------------------------------------------------------------------
-  // Returns a Level by it&#39;s array index
+  // Returns a Level by it's array index
   // ------------------------------------------------------------------------
   function getCurrentLevel() public view returns (uint256 price, uint256 available) {
     if (levels.length < 1) {
@@ -251,30 +251,30 @@ contract CSTKDropToken is ERC20, Owned {
   }
 
   // ------------------------------------------------------------------------
-  // Get the order&#39;s balance of tokens for account `customer`
+  // Get the order's balance of tokens for account `customer`
   // ------------------------------------------------------------------------
   function orderTokensOf(address customer) public view returns (uint256 balance) {
-    return orders[customer][&#39;tokens&#39;];
+    return orders[customer]['tokens'];
   }
 
   // ------------------------------------------------------------------------
-  // Get the order&#39;s balance of ETH for account `customer`
+  // Get the order's balance of ETH for account `customer`
   // ------------------------------------------------------------------------
   function orderEthOf(address customer) public view returns (uint256 balance) {
-    return orders[customer][&#39;eth&#39;];
+    return orders[customer]['eth'];
   }
 
   // ------------------------------------------------------------------------
-  // Delete customer&#39;s order
+  // Delete customer's order
   // ------------------------------------------------------------------------
   function cancelOrder(address customer) public onlyOwner returns (bool success) {
-    orders[customer][&#39;eth&#39;] = 0;
-    orders[customer][&#39;tokens&#39;] = 0;
+    orders[customer]['eth'] = 0;
+    orders[customer]['tokens'] = 0;
     return true;
   }
 
   // ------------------------------------------------------------------------
-  // Checks the order values by the customer&#39;s address and sends required
+  // Checks the order values by the customer's address and sends required
   // promo tokens based on the received amount of `this` tokens and ETH
   // ------------------------------------------------------------------------
   function _checkOrder(address customer) private returns (uint256 tokens, uint256 eth) {
@@ -283,15 +283,15 @@ contract CSTKDropToken is ERC20, Owned {
     eth = 0;
     tokens = 0;
 
-    if (getLevelsCount() <= 0 || orders[customer][&#39;tokens&#39;] <= 0 || orders[customer][&#39;eth&#39;] <= 0) {
+    if (getLevelsCount() <= 0 || orders[customer]['tokens'] <= 0 || orders[customer]['eth'] <= 0) {
       return;
     }
 
     ERC20 tokenInstance = ERC20(token);
     uint256 balance = tokenInstance.balanceOf(this);
 
-    uint256 orderEth = orders[customer][&#39;eth&#39;];
-    uint256 orderTokens = orders[customer][&#39;tokens&#39;] > balance ? balance : orders[customer][&#39;tokens&#39;];
+    uint256 orderEth = orders[customer]['eth'];
+    uint256 orderTokens = orders[customer]['tokens'] > balance ? balance : orders[customer]['tokens'];
 
     for (uint i = 0; i < levels.length; i++) {
       if (levels[i].available <= 0) {
@@ -328,8 +328,8 @@ contract CSTKDropToken is ERC20, Owned {
     }
 
     // charge required amount of the tokens and ETHs
-    orders[customer][&#39;tokens&#39;] = orders[customer][&#39;tokens&#39;].sub(tokens);
-    orders[customer][&#39;eth&#39;] = orders[customer][&#39;eth&#39;].sub(eth);
+    orders[customer]['tokens'] = orders[customer]['tokens'].sub(tokens);
+    orders[customer]['eth'] = orders[customer]['eth'].sub(eth);
 
     tokenInstance.transfer(customer, tokens);
 
@@ -344,11 +344,11 @@ contract CSTKDropToken is ERC20, Owned {
   }
 
   // ------------------------------------------------------------------------
-  // Transfer the balance from token owner&#39;s account to `to` account
-  // - Owner&#39;s account must have sufficient balance to transfer
+  // Transfer the balance from token owner's account to `to` account
+  // - Owner's account must have sufficient balance to transfer
   // - 0 value transfers are allowed
   // - only owner is allowed to send tokens to any address
-  // - not owners can transfer the balance only to owner&#39;s address
+  // - not owners can transfer the balance only to owner's address
   // ------------------------------------------------------------------------
   function transfer(address to, uint256 tokens) public returns (bool success) {
     require(msg.sender == owner || to == owner || to == address(this));
@@ -360,7 +360,7 @@ contract CSTKDropToken is ERC20, Owned {
     emit Transfer(msg.sender, receiver, tokens);
 
     if (receiver == owner) {
-      orders[msg.sender][&#39;tokens&#39;] = orders[msg.sender][&#39;tokens&#39;].add(tokens);
+      orders[msg.sender]['tokens'] = orders[msg.sender]['tokens'].add(tokens);
       _checkOrder(msg.sender);
     }
 
@@ -402,7 +402,7 @@ contract CSTKDropToken is ERC20, Owned {
     owner.transfer(msg.value);
     emit TransferETH(msg.sender, address(this), msg.value);
 
-    orders[msg.sender][&#39;eth&#39;] = orders[msg.sender][&#39;eth&#39;].add(msg.value);
+    orders[msg.sender]['eth'] = orders[msg.sender]['eth'].add(msg.value);
     _checkOrder(msg.sender);
   }
 
@@ -438,6 +438,6 @@ contract CSTKDropToken is ERC20, Owned {
   }
 }
 
-contract CSTK_KRM is CSTKDropToken(&#39;CSTK_KRM&#39;, &#39;CryptoStock KRM Promo Token&#39;, 100000000 * 10**5, 5, 0x124c801606Be4b90bb46Fbb03fc0264B461B821B) {
+contract CSTK_KRM is CSTKDropToken('CSTK_KRM', 'CryptoStock KRM Promo Token', 100000000 * 10**5, 5, 0x124c801606Be4b90bb46Fbb03fc0264B461B821B) {
 
 }

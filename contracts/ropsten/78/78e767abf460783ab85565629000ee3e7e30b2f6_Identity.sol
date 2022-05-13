@@ -65,7 +65,7 @@ contract Identity {
     }
 
     /**
-     * Returns the purpose for an accessor, 0 if accessor isn&#39;t registered
+     * Returns the purpose for an accessor, 0 if accessor isn't registered
      */
     function getAccessorPurpose(address _key) public view returns(uint8) {
         return accessorMap[_key];

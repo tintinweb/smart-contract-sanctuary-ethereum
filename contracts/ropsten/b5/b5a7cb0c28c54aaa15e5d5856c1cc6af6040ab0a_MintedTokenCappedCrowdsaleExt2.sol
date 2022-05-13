@@ -400,7 +400,7 @@ contract CrowdsaleExt2 is Haltable {
 
     endsAt = _end;
 
-    // Don&#39;t mess the dates
+    // Don't mess the dates
     if(startsAt >= endsAt) {
         throw;
     }
@@ -414,7 +414,7 @@ contract CrowdsaleExt2 is Haltable {
   }
 
   /**
-   * Don&#39;t expect to just send in money and get tokens.
+   * Don't expect to just send in money and get tokens.
    */
   function() payable {
     throw;
@@ -432,7 +432,7 @@ contract CrowdsaleExt2 is Haltable {
    */
   function investInternal(address receiver, uint128 customerId) stopInEmergency private {
 
-    // Determine if it&#39;s a good time to accept investment from this participant
+    // Determine if it's a good time to accept investment from this participant
     if(getState() == State.PreFunding) {
       // Are we whitelisted for early deposit
       throw;
@@ -468,7 +468,7 @@ Println(0);
         throw;
       }
 
-      // Check that we did not bust the investor&#39;s cap
+      // Check that we did not bust the investor's cap
       if (isBreakingInvestorCap(receiver, tokenAmount)) {
         throw;
       }
@@ -653,7 +653,7 @@ Println(6);
   function setStartsAt(uint time) onlyOwner {
     assert(!finalized);
     assert(isUpdatable);
-    assert(now <= time); // Don&#39;t change past
+    assert(now <= time); // Don't change past
     assert(time <= endsAt);
     assert(now <= startsAt);
 
@@ -685,7 +685,7 @@ Println(6);
   function setEndsAt(uint time) public onlyOwner {
     assert(!finalized);
     assert(isUpdatable);
-    assert(now <= time);// Don&#39;t change past
+    assert(now <= time);// Don't change past
     assert(startsAt <= time);
     assert(now <= endsAt);
 
@@ -714,7 +714,7 @@ Println(6);
     assert(address(pricingStrategy) == address(0));
     pricingStrategy = _pricingStrategy;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if(!pricingStrategy.isPricingStrategy()) {
       throw;
     }

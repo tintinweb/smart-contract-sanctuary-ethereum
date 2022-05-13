@@ -137,7 +137,7 @@ contract BetWorldCup2018 {
         bets[bet_id].winner, bets[bet_id].isAvailable, bets[bet_id].description);
     }
     function setDisableBet(uint bet_id) external onlyOwner{
-      disableBets[bet_id]=&#39;disable&#39;;
+      disableBets[bet_id]='disable';
     }
     function getDisableBet(uint bet_id) external view returns (string) {
         return disableBets[bet_id];

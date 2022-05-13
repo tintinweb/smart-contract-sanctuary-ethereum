@@ -620,8 +620,8 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
     address toUser = _from;     //probably this
     if (_sendTo.length == 20){  //but use data for sendTo otherwise.
 
-      // I&#39;m about 90% sure I don&#39;t need to do the casting here, but for
-      // like twenty gas, I&#39;ll take the protection from potentially
+      // I'm about 90% sure I don't need to do the casting here, but for
+      // like twenty gas, I'll take the protection from potentially
       // stomping on weird memory locations.
       
       uint256 asmAddress;
@@ -687,24 +687,24 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
   }
 
   
-  // In order to see the ERC20 total balance, we&#39;re calling an external contract,
-  // and this contract claims to be ERC20, but we don&#39;t know what&#39;s really there.
-  // We can&#39;t rely on the EVM or solidity to enforce "view", so even though a
-  // normal token can rely on itself to be non-malicious, we can&#39;t.
-  // We have no idea what potentially evil tokens we&#39;ll be interacting with.
+  // In order to see the ERC20 total balance, we're calling an external contract,
+  // and this contract claims to be ERC20, but we don't know what's really there.
+  // We can't rely on the EVM or solidity to enforce "view", so even though a
+  // normal token can rely on itself to be non-malicious, we can't.
+  // We have no idea what potentially evil tokens we'll be interacting with.
   // The call to check the reported balance needs to go after the state changes,
-  // even though it&#39;s un-natural. Now, on one hand, this function might at first
-  // appear safe, since we&#39;re only allowing the sweeper address to access
+  // even though it's un-natural. Now, on one hand, this function might at first
+  // appear safe, since we're only allowing the sweeper address to access
   // *this function,* but we are reading the state of the globalBalance.
   // In theory, a malicious token could do the following:
-  //  1a) Check if the caller of balanceOf is our contract, if it&#39;s not, act normally.
+  //  1a) Check if the caller of balanceOf is our contract, if it's not, act normally.
   //  1b) If the caller is our contract, it does the following:
   //  2) Read our contracts globalBalance for its own address.
-  //  3) Sets our contract&#39;s balance of the token (in the token controller) to our internal globalBalance
+  //  3) Sets our contract's balance of the token (in the token controller) to our internal globalBalance
   //  4) Allocates some other address the difference in globalBalance and actual balance for our contract.
   //  5) Report back to this function exactly the amount we had in globalBalance.
   // (which, by then is true, since they were stolen).
-  // Now we&#39;re always going to see 0 extra tokens, and our users have had their tokens perminantly lost.
+  // Now we're always going to see 0 extra tokens, and our users have had their tokens perminantly lost.
   // bonus: this is why there is no "sweep all" function.
     
   // Detect ERC20 tokens that have been sent to the contract without a deposit (lost tokens),
@@ -741,7 +741,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
   // this function allows for on-chain orders to be created
   function order(
     address[4] _addressData,
-    uint256[4] _numberData //web3 isn&#39;t ready for structs.
+    uint256[4] _numberData //web3 isn't ready for structs.
   )
     external
     notLocked
@@ -803,7 +803,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
 
   function trade(
     address[4] _addressData,
-    uint256[4] _numberData, //web3 isn&#39;t ready for structs.
+    uint256[4] _numberData, //web3 isn't ready for structs.
     uint8 _v,
     bytes32 _r,
     bytes32 _s,
@@ -828,7 +828,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
     
     tradeAmount = safeSub(_numberData[0], orderFills[hash]); //avail to trade
     
-    //balance of giveToken / amount I said I&#39;d give of giveToken * amount I said I want of getToken
+    //balance of giveToken / amount I said I'd give of giveToken * amount I said I want of getToken
     if (
       tradeAmount > safeDiv(
         safeMul(balances[_addressData[1]][_addressData[2]], _numberData[0]),
@@ -845,7 +845,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
     if (tradeAmount > _amount) { tradeAmount = _amount; }
     
         //_numberData[0] is takerTokenAmount
-    if (tradeAmount == 0) { //idfk. There&#39;s nothing there to get. Canceled? Traded?
+    if (tradeAmount == 0) { //idfk. There's nothing there to get. Canceled? Traded?
       if (orderFills[hash] < _numberData[0]) { //Maker seems to be missing tokens?
         FailedTrade(
           (bytes32(_addressData[0]) ^ bytes32(_addressData[1])),
@@ -926,7 +926,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
     }
         
     
-    if ( //if there&#39;s a compliance restriction.
+    if ( //if there's a compliance restriction.
       ((_addressData[0] != address(0x0)) //if not Eth, and restricted, check with Compliance.
         && (restrictedTokens[_addressData[0]] )
         && ! Compliance(complianceAddress).validateTrade(_addressData[0], _addressData[2], msg.sender)
@@ -978,7 +978,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
   // Cancel a signed order, once this is confirmed nobody will be able to trade it anymore
   function cancelOrder(
     address[4] _addressData,
-    uint256[4] _numberData //web3 isn&#39;t ready for structs.
+    uint256[4] _numberData //web3 isn't ready for structs.
   )
     external
     returns(uint256 amountCancelled)
@@ -986,7 +986,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
     
     require(msg.sender == _addressData[2]);
     
-    //  msg.sender can &#39;cancel&#39; nonexistent orders since they&#39;re offchain.
+    //  msg.sender can 'cancel' nonexistent orders since they're offchain.
     bytes32 hash = getHash(_addressData, _numberData);
  
     amountCancelled = safeSub(_numberData[0],orderFills[hash]);
@@ -1155,7 +1155,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
   
   function testTrade(
     address[4] _addressData,
-    uint256[4] _numberData, //web3 isn&#39;t ready for structs.
+    uint256[4] _numberData, //web3 isn't ready for structs.
     uint8 _v,
     bytes32 _r,
     bytes32 _s,
@@ -1210,7 +1210,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
   // return value in order of _takerTokenAddress
   function availableVolume(
     address[4] _addressData,
-    uint256[4] _numberData, //web3 isn&#39;t ready for structs.
+    uint256[4] _numberData, //web3 isn't ready for structs.
     uint8 _v,
     bytes32 _r,
     bytes32 _s
@@ -1274,7 +1274,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
   // return value in order of _takerTokenAddress
   function amountFilled(
     address[4] _addressData,
-    uint256[4] _numberData //web3 isn&#39;t ready for structs.
+    uint256[4] _numberData //web3 isn't ready for structs.
   )
     external
     view
@@ -1333,7 +1333,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
   
   function getHash(
     address[4] _addressData,
-    uint256[4] _numberData //web3 isn&#39;t ready for structs.
+    uint256[4] _numberData //web3 isn't ready for structs.
   )
     public
     view
@@ -1673,7 +1673,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
     q: why would someone ever want to buy an out-of-the-money,
        collaterized call option at strike price?
 
-    a: if an american option is executed, and the collateral&#39;s movement
+    a: if an american option is executed, and the collateral's movement
        makes it later out of the money, the value of the option would
        need to be calculated by including the "pre-executed" amount.
        * 
@@ -1940,11 +1940,11 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
   }
 
 
-  //get an option&#39;s Hash&#39;s address
+  //get an option's Hash's address
   //  (•_•)  ( •_•)>⌐■-■  (⌐■_■)
   //
   //going from 32 bytes to 20 bytes still gives us 160 bits of hash goodness.
-  //that&#39;s still a crazy large number, and used by ethereum for addresses.
+  //that's still a crazy large number, and used by ethereum for addresses.
   function getOptionAddress(
     address _assetTokenAddress,
     uint256 _assetTokenAmount,
@@ -2004,7 +2004,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
   / Default Options Registration Code
   ************************************/
   // Register emits an event and adds it to restrictedToken.
-  // We&#39;ll deal with any other needed registration later.
+  // We'll deal with any other needed registration later.
   // Set up for upgradeable external contract.
   // return bools.
   
@@ -2088,7 +2088,7 @@ contract UberDelta is SafeMath, OwnerManager, Helper {
   }
   
   
-  // for v1, we&#39;ll simply return if there&#39;s a restriction.
+  // for v1, we'll simply return if there's a restriction.
   function isOptionPairRegistered(
     address _assetTokenAddress,
     uint256 _assetTokenAmount,

@@ -74,7 +74,7 @@ contract ReferContract is ReferConstants, Ownable {
      // decrease the price if there is less traffic to attract more users.
     function updateRate(uint _newRate) onlyOwner public {
         require(baseRate != 0);
-        // rate shouldn&#39;t be less than half or more than twice.
+        // rate shouldn't be less than half or more than twice.
         require(_newRate.mul(2) > baseRate && baseRate.mul(2) > _newRate);
         baseRate = _newRate;
     }
@@ -118,15 +118,15 @@ contract ReferContract is ReferConstants, Ownable {
         
         if (userLevel[msg.sender] == 0) { // new user
             userLevel[msg.sender] = level;
-            if (getTokenBalance(ref) < 1) {  // The referee doesn&#39;t have a token 
+            if (getTokenBalance(ref) < 1) {  // The referee doesn't have a token 
                 ref = owner; // change referee
             }
             userReferrer[msg.sender] = ref; // permanently set owner as the referrer
             referContractInterface.decrement(userReferrer[msg.sender]);
         } else { // old user
             require(userLevel[msg.sender] == level);
-            if (getTokenBalance(userReferrer[msg.sender]) < 1) { // The referee doesn&#39;t have a token
-                ref = owner; // only change the parent but don&#39;t change gradparents
+            if (getTokenBalance(userReferrer[msg.sender]) < 1) { // The referee doesn't have a token
+                ref = owner; // only change the parent but don't change gradparents
             } else {
                 ref = userReferrer[msg.sender];
             }

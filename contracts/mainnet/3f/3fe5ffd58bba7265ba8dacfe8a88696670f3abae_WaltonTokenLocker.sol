@@ -21,11 +21,11 @@ contract WaltonTokenLocker {
     uint256 public releaseTime;
     string constant public name = "refund locker V2";
 
-    Token public token = Token(&#39;0xb7cB1C96dB6B22b0D3d9536E0108d062BD488F74&#39;);
+    Token public token = Token('0xb7cB1C96dB6B22b0D3d9536E0108d062BD488F74');
 
     function WaltonTokenLocker() public {
         // refund account
-        beneficiary = address(&#39;0x38A9e09E14397Fe3A5Fe59dfc1d98D8B8897D610&#39;);
+        beneficiary = address('0x38A9e09E14397Fe3A5Fe59dfc1d98D8B8897D610');
         releaseTime = 1538236800;     // 2018-09-30 00:00
     }
 

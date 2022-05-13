@@ -46,7 +46,7 @@ contract TicHTUContract is ERC20Interface{
     
     // ------------------------------------------------------------------------
     // Constructor
-	// @_owner: owner&#39;s address where to keep donations
+	// @_owner: owner's address where to keep donations
     // ------------------------------------------------------------------------
     constructor() public{
         symbol = "HTU";
@@ -71,7 +71,7 @@ contract TicHTUContract is ERC20Interface{
     }
     
     // ------------------------------------------------------------------------
-    // Transfers the tokens from contracts balance of OBL&#39;s
+    // Transfers the tokens from contracts balance of OBL's
     // ------------------------------------------------------------------------
     function _transfer(address _to, uint _tokens) internal returns (bool success){
         require(_to != 0x0);
@@ -128,7 +128,7 @@ contract TicHTUContract is ERC20Interface{
         rate = _rate;
     }
 	// ------------------------------------------------------------------------
-    // calls ERC20&#39;s transfer function to send tokens to beneficiary
+    // calls ERC20's transfer function to send tokens to beneficiary
     // ------------------------------------------------------------------------
     function _deliverTokens(address _beneficiary, uint256 _tokenAmount) internal {
         _transfer(_beneficiary,_tokenAmount);

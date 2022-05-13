@@ -47,7 +47,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -130,7 +130,7 @@ contract ERC20FXT {
       withdrawlState = 0;
       // Address KYCStatus
       addressKYCStatus[admin] = uint8(KYCStatus.cleared);
-      // Initially assign all  tokens to the contract&#39;s creator.
+      // Initially assign all  tokens to the contract's creator.
       balanceOf[msg.sender] = totalSupply;
       emit Transfer(address(0), msg.sender, totalSupply);
     }

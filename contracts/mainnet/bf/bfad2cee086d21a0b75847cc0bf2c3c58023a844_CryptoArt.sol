@@ -195,7 +195,7 @@ contract CanvasFactory is TimeAware, Withdrawable {
 
     uint8 public constant WIDTH = 48;
     uint8 public constant HEIGHT = 48;
-    uint32 public constant PIXEL_COUNT = 2304; //WIDTH * HEIGHT doesn&#39;t work for some reason
+    uint32 public constant PIXEL_COUNT = 2304; //WIDTH * HEIGHT doesn't work for some reason
 
     uint32 public constant MAX_CANVAS_COUNT = 1000;
     uint8 public constant MAX_ACTIVE_CANVAS = 12;
@@ -225,8 +225,8 @@ contract CanvasFactory is TimeAware, Withdrawable {
     }
 
     /**
-    * @notice   Creates new canvas. There can&#39;t be more canvases then MAX_CANVAS_COUNT.
-    *           There can&#39;t be more unfinished canvases than MAX_ACTIVE_CANVAS.
+    * @notice   Creates new canvas. There can't be more canvases then MAX_CANVAS_COUNT.
+    *           There can't be more unfinished canvases than MAX_ACTIVE_CANVAS.
     */
     function createCanvas() external returns (uint canvasId) {
         return _createCanvasInternal(0x0);
@@ -249,7 +249,7 @@ contract CanvasFactory is TimeAware, Withdrawable {
     }
 
     /**
-    * @notice   Sets pixel. Given canvas can&#39;t be yet finished.
+    * @notice   Sets pixel. Given canvas can't be yet finished.
     */
     function setPixel(uint32 _canvasId, uint32 _index, uint8 _color) external {
         Canvas storage _canvas = _getCanvas(_canvasId);
@@ -279,7 +279,7 @@ contract CanvasFactory is TimeAware, Withdrawable {
         }
 
         if (!anySet) {
-            //If didn&#39;t set any pixels - revert to show that transaction failed
+            //If didn't set any pixels - revert to show that transaction failed
             revert();
         }
 
@@ -412,7 +412,7 @@ contract CanvasFactory is TimeAware, Withdrawable {
         uint8 state;
 
         /**
-        * Owner of canvas. Canvas doesn&#39;t have an owner until initial bidding ends.
+        * Owner of canvas. Canvas doesn't have an owner until initial bidding ends.
         */
         address owner;
 
@@ -451,7 +451,7 @@ contract CanvasFactory is TimeAware, Withdrawable {
 }
 
 /**
-* @notice   Useful methods to manage canvas&#39; state.
+* @notice   Useful methods to manage canvas' state.
 */
 contract CanvasState is CanvasFactory {
 
@@ -466,13 +466,13 @@ contract CanvasState is CanvasFactory {
     }
 
     /**
-    * Ensures that canvas&#39;s saved state is STATE_OWNED.
+    * Ensures that canvas's saved state is STATE_OWNED.
     *
     * Because initial bidding is based on current time, we had to find a way to
     * trigger saving new canvas state. Every transaction (not a call) that
     * requires state owned should use it modifier as a last one.
     *
-    * Thank&#39;s to that, we can make sure, that canvas state gets updated.
+    * Thank's to that, we can make sure, that canvas state gets updated.
     */
     modifier forceOwned(uint32 _canvasId) {
         Canvas storage canvas = _getCanvas(_canvasId);
@@ -489,14 +489,14 @@ contract CanvasState is CanvasFactory {
         Canvas storage canvas = _getCanvas(_canvasId);
         if (canvas.state != STATE_INITIAL_BIDDING) {
             //if state is set to owned, or not finished
-            //it means it doesn&#39;t depend on current time -
-            //we don&#39;t have to double check
+            //it means it doesn't depend on current time -
+            //we don't have to double check
             return canvas.state;
         }
 
         //state initial bidding - as that state depends on
         //current time, we have to double check if initial bidding
-        //hasn&#39;t finish yet
+        //hasn't finish yet
         uint finishTime = canvas.initialBiddingFinishTime;
         if (finishTime == 0 || finishTime > getTime()) {
             return STATE_INITIAL_BIDDING;
@@ -507,7 +507,7 @@ contract CanvasState is CanvasFactory {
     }
 
     /**
-    * @notice   Returns all canvas&#39; id for a given state.
+    * @notice   Returns all canvas' id for a given state.
     */
     function getCanvasByState(uint8 _state) external view returns (uint32[]) {
         uint size;
@@ -550,7 +550,7 @@ contract CanvasState is CanvasFactory {
 
     /**
     * @dev  Slices array from start (inclusive) to end (exclusive).
-    *       Doesn&#39;t modify input array.
+    *       Doesn't modify input array.
     */
     function _slice(uint32[] memory _array, uint _start, uint _end) internal pure returns (uint32[]) {
         require(_start <= _end);
@@ -579,10 +579,10 @@ contract CanvasState is CanvasFactory {
 contract RewardableCanvas is CanvasState {
 
     /**
-    * As it&#39;s hard to operate on floating numbers, each fee will be calculated like this:
-    * PRICE * COMMISSION / COMMISSION_DIVIDER. It&#39;s impossible to keep float number here.
+    * As it's hard to operate on floating numbers, each fee will be calculated like this:
+    * PRICE * COMMISSION / COMMISSION_DIVIDER. It's impossible to keep float number here.
     *
-    * ufixed COMMISSION = 0.039; may seem useful, but it&#39;s not possible to multiply ufixed * uint.
+    * ufixed COMMISSION = 0.039; may seem useful, but it's not possible to multiply ufixed * uint.
     */
     uint public constant COMMISSION = 39;
     uint public constant TRADE_REWARD = 61;
@@ -595,7 +595,7 @@ contract RewardableCanvas is CanvasState {
     mapping(uint => FeeHistory) private canvasToFeeHistory;
 
     /**
-    * @notice   Adds all unpaid commission to the owner&#39;s pending withdrawals.
+    * @notice   Adds all unpaid commission to the owner's pending withdrawals.
     *           Ethers to withdraw has to be greater that 0, otherwise transaction
     *           will be rejected.
     *           Can be called only by the owner.
@@ -651,7 +651,7 @@ contract RewardableCanvas is CanvasState {
         uint _lastPaidIndex = _history.paidCommissionIndex;
 
         if (_lastIndex < 0) {
-            //means that FeeHistory hasn&#39;t been created yet
+            //means that FeeHistory hasn't been created yet
             return 0;
         }
 
@@ -683,7 +683,7 @@ contract RewardableCanvas is CanvasState {
         uint _pixelsOwned = getPaintedPixelsCountByAddress(_address, _canvasId);
 
         if (_lastIndex < 0) {
-            //means that FeeHistory hasn&#39;t been created yet
+            //means that FeeHistory hasn't been created yet
             return (0, _pixelsOwned);
         }
 
@@ -706,7 +706,7 @@ contract RewardableCanvas is CanvasState {
         uint _lastIndex = _history.commissionCumulative.length - 1;
 
         if (_lastIndex < 0) {
-            //means that FeeHistory hasn&#39;t been created yet
+            //means that FeeHistory hasn't been created yet
             return 0;
         }
 
@@ -734,7 +734,7 @@ contract RewardableCanvas is CanvasState {
         uint _lastIndex = _history.rewardsCumulative.length - 1;
 
         if (_lastIndex < 0) {
-            //means that FeeHistory hasn&#39;t been created yet
+            //means that FeeHistory hasn't been created yet
             return 0;
         }
 
@@ -777,7 +777,7 @@ contract RewardableCanvas is CanvasState {
     /**
     * @notice   Calculates how the money from selling canvas will be split.
     *
-    * @return  Commission, sum of painters&#39; rewards and a seller&#39;s profit.
+    * @return  Commission, sum of painters' rewards and a seller's profit.
     */
     function splitTrade(uint _amount) public pure returns (
         uint commission,
@@ -800,7 +800,7 @@ contract RewardableCanvas is CanvasState {
     }
 
     /**
-    * @notice   Adds a bid to fee history. Doesn&#39;t perform any checks if the bid is valid!
+    * @notice   Adds a bid to fee history. Doesn't perform any checks if the bid is valid!
     * @return  Returns how the bid was split. Same value as _splitBid function.
     */
     function _registerBid(uint32 _canvasId, uint _amount) internal stateBidding(_canvasId) returns (
@@ -813,7 +813,7 @@ contract RewardableCanvas is CanvasState {
 
         FeeHistory storage _history = _getFeeHistory(_canvasId);
         // We have to save the difference between new bid and a previous one.
-        // Because we save data as cumulative sum, it&#39;s enough to save
+        // Because we save data as cumulative sum, it's enough to save
         // only the new value.
 
         _history.commissionCumulative.push(_commission);
@@ -823,7 +823,7 @@ contract RewardableCanvas is CanvasState {
     }
 
     /**
-    * @notice   Adds a bid to fee history. Doesn&#39;t perform any checks if the bid is valid!
+    * @notice   Adds a bid to fee history. Doesn't perform any checks if the bid is valid!
     * @return  Returns how the trade ethers were split. Same value as splitTrade function.
     */
     function _registerTrade(uint32 _canvasId, uint _amount)
@@ -1032,7 +1032,7 @@ contract CanvasMarket is BiddableCanvas {
         SellOffer memory sellOffer = canvasForSale[_canvasId];
 
         require(msg.sender != canvas.owner);
-        //don&#39;t sell for the owner
+        //don't sell for the owner
         require(sellOffer.isForSale);
         require(msg.value >= sellOffer.minPrice);
         require(sellOffer.seller == canvas.owner);
@@ -1206,7 +1206,7 @@ contract CanvasMarket is BiddableCanvas {
 
         require(canvas.owner == msg.sender);
         require(oldOffer.isForSale);
-        //don&#39;t allow to cancel if there is no offer
+        //don't allow to cancel if there is no offer
 
         canvasForSale[_canvasId] = SellOffer(false, msg.sender, 0, 0x0);
 
@@ -1252,7 +1252,7 @@ contract CryptoArt is CanvasMarket {
     }
 
     /**
-    * @notice   Returns array of canvas&#39;s ids. Returned canvases have sell offer.
+    * @notice   Returns array of canvas's ids. Returned canvases have sell offer.
     *           If includePrivateOffers is true, includes offers that are targeted
     *           only to one specified address.
     */
@@ -1272,7 +1272,7 @@ contract CryptoArt is CanvasMarket {
     }
 
     /**
-    * @notice   Returns array of all the owners of all of pixels. If some pixel hasn&#39;t
+    * @notice   Returns array of all the owners of all of pixels. If some pixel hasn't
     *           been painted yet, 0x0 address will be returned.
     */
     function getCanvasPainters(uint32 _canvasId) external view returns (address[]) {

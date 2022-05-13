@@ -163,7 +163,7 @@ contract TokenERC20 is  ERC20, BurnableToken, Controlled {
     string public name;
     string public symbol;
     uint8 public decimals = 18;
-    string public version = &#39;v1.0&#39;;
+    string public version = 'v1.0';
 
     // 18 decimals is the strongly suggested default, avoid changing it
     uint256 public totalSupply;
@@ -297,7 +297,7 @@ contract TokenERC20 is  ERC20, BurnableToken, Controlled {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -523,7 +523,7 @@ contract SafeasyToken is AdvancedToken {
         name = "Safeasy Token";
         decimals = 6;
         symbol = "SET";
-        version = &#39;v1.1&#39;;
+        version = 'v1.1';
 
         uint256 initialSupply = uint256(2* 10 ** 9);
         totalSupply = initialSupply.mul( 10 ** uint256(decimals));

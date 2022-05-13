@@ -207,7 +207,7 @@ contract ERC20Token is ERC20TokenInterface,  Admined, Pausable { //Standard defi
         require(_to != address(0)); //If you dont want that people destroy token
         require(frozen[msg.sender]==false);
         if (globalLock == true) {
-            require(locked[msg.sender] <= now, &#39;Tokens locked as single&#39;);
+            require(locked[msg.sender] <= now, 'Tokens locked as single');
         }
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
@@ -225,7 +225,7 @@ contract ERC20Token is ERC20TokenInterface,  Admined, Pausable { //Standard defi
         require(_to != address(0)); //If you dont want that people destroy token
         require(frozen[_from]==false);
         if (globalLock == true) {
-            require(locked[msg.sender] <= now, &#39;Tokens locked as single&#39;);
+            require(locked[msg.sender] <= now, 'Tokens locked as single');
         }
         allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);
         balances[_from] = balances[_from].sub(_value);
@@ -288,10 +288,10 @@ contract Token {
 */
 contract AxelToken is ERC20Token {
 
-    string public name = &#39;AXEL-AIRDROP&#39;;
+    string public name = 'AXEL-AIRDROP';
     uint8 public decimals = 18;
-    string public symbol = &#39;AXEL&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'AXEL';
+    string public version = '1';
 
     /**
     * @notice token contructor.
@@ -335,7 +335,7 @@ contract AxelToken is ERC20Token {
     }
 
     /**
-    * @notice this contract will revert on direct non-function calls, also it&#39;s not payable
+    * @notice this contract will revert on direct non-function calls, also it's not payable
     * @dev Function to handle callback calls to contract
     */
     function() public {

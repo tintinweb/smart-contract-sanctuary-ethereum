@@ -109,7 +109,7 @@ contract ERC20Token is StandardToken, Ownable {
 
     string public name;
     string public symbol;
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
     uint256 public totalCoin;
     uint8 public decimals;
     uint256 public exchangeRate;
@@ -122,7 +122,7 @@ contract ERC20Token is StandardToken, Ownable {
         decimals        = 18;
         totalCoin       = 20000000000;                       // Total Supply of Coin
         totalSupply     = totalCoin * 10**uint(decimals); // Total Supply of Coin
-        balances[owner] = totalSupply;                    // Total Supply sent to Owner&#39;s Address
+        balances[owner] = totalSupply;                    // Total Supply sent to Owner's Address
         exchangeRate    = 12000000;                            // 100 Coins per ETH   (changable)
         symbol          = "ICSA";                       // Your Ticker Symbol  (changable)
         name            = "ICONSORTSS";             // Your Coin Name      (changable)

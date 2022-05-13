@@ -25,8 +25,8 @@ pragma experimental "v0.5.0";
 //      - setBeginTimeTS(utcTimestamp) - Work on contract can be started after this timestamp (default is contract creation time).
 //                                       Also defines the start of Day and Week for accounting and daily limits.
 //                                       Day transition time should be convenient for the employee (like 4am),
-//                                       so that work doesn&#39;t cross between days,
-//                                       The excess won&#39;t be transferred to the next day.
+//                                       so that work doesn't cross between days,
+//                                       The excess won't be transferred to the next day.
 //
 //  4. Client hires the Employee by invoking hire(addressOfEmployee, ratePerHourInWei)
 //     This starts the project and puts the contract in a workable state.
@@ -38,7 +38,7 @@ pragma experimental "v0.5.0";
 //
 //      invoke stopWork() when he finishes working to stop the timer.
 //
-//    After the timer is stopped - the ETH earnings are calculated and recorded on Employee&#39;s internal balance.
+//    After the timer is stopped - the ETH earnings are calculated and recorded on Employee's internal balance.
 //    If the stopWork() is invoked after more hours had passed than dailyLimit - the excess is ignored
 //    and only the dailyLimit is added to the internal balance.
 //
@@ -52,21 +52,21 @@ pragma experimental "v0.5.0";
 //    That way only money earned during the last paydayFrequencyInDays is at risk.
 //
 //  7. Client can fire() the Employee after his services are no longer needed.
-//    That would stop any ongoing work by terminating the timer and won&#39;t allow to start the work again.
+//    That would stop any ongoing work by terminating the timer and won't allow to start the work again.
 //
 //  8. If anything in the relationship or hour counting goes wrong, there are safety functions:
 //      - refundAll() - terminates all unwithdrawn earnings.
 //      - refund(amount) - terminates the (amount) of unwithdrawn earnings.
 //    Can be only called if not working.
 //    Both of these can be called by Client or Employee.
-//      * TODO: Still need to think if allowing Client to do that won&#39;t hurt the Employee.
-//      * TODO: SecondsWorkedToday don&#39;t reset after refund, so dailyLimit still affects
+//      * TODO: Still need to think if allowing Client to do that won't hurt the Employee.
+//      * TODO: SecondsWorkedToday don't reset after refund, so dailyLimit still affects
 //      * TODO: Think of a better name. ClearEarnings?
 //
 //  9. Client can withdraw any excess ETH from the contract via:
 //      - clientWithdrawAll() - withdraws all funds minus locked in earnings.
 //      - clientWithdraw(amount) - withdraws (amount), not locked in earnings.
-//     Can be invoked only if Employee isn&#39;t hired or has been fired.
+//     Can be invoked only if Employee isn't hired or has been fired.
 //
 // 10. Client and Contract Ownership can be made "Public"/"None" by calling:
 //      - releaseOwnership()
@@ -101,7 +101,7 @@ contract HourlyPay {
     ////////////////////////////////
     // Contract Limits and maximums
     
-    uint16 public contractDurationInDays = 365;  // Overall contract duration in days, default is 365 and it&#39;s also maximum for safety reasons
+    uint16 public contractDurationInDays = 365;  // Overall contract duration in days, default is 365 and it's also maximum for safety reasons
     uint8 public dailyHourLimit = 8;               // Limits the hours per day, max 24 hours
     uint8 public paydayFrequencyInDays = 3;       // How often can Withdraw be called, default is every 3 days
 
@@ -140,7 +140,7 @@ contract HourlyPay {
 
     modifier beforeHire {
         require(employeeAddress == 0x0);                        // Contract can hire someone only once
-        require(hired == false);                                // Shouldn&#39;t be already hired
+        require(hired == false);                                // Shouldn't be already hired
         _;
     }
 
@@ -273,11 +273,11 @@ contract HourlyPay {
         require(working == false);
         
         require(now > beginTimeTS); // can start working only after contract beginTimeTS
-        require(now < beginTimeTS + (contractDurationInDays * 1 days)); // can&#39;t start after contractDurationInDays has passed since beginTimeTS
+        require(now < beginTimeTS + (contractDurationInDays * 1 days)); // can't start after contractDurationInDays has passed since beginTimeTS
         
         checkForNewDay();
         
-        require(workedTodayInSeconds < dailyHourLimit * 1 hours); // can&#39;t start if already approached dailyHourLimit
+        require(workedTodayInSeconds < dailyHourLimit * 1 hours); // can't start if already approached dailyHourLimit
 
         require(address(this).balance > earnings); // balance must be greater than earnings        
 
@@ -347,9 +347,9 @@ contract HourlyPay {
     }
     
     function withdrawAfterEnd() external onlyEmployee {
-        require(owner == 0x0); // only if there&#39;s no owner
+        require(owner == 0x0); // only if there's no owner
         require(now > beginTimeTS + (contractDurationInDays * 1 days)); // only after contract end
-        require(address(this).balance > 0); // only if there&#39;s balance
+        require(address(this).balance > 0); // only if there's balance
 
         employeeAddress.transfer(address(this).balance);
         emit Withdrawal(address(this).balance, employeeAddress, now);

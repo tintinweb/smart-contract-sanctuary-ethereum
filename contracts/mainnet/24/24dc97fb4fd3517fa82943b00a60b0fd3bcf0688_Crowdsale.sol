@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -278,7 +278,7 @@ contract ICrowdsaleProcessor is Ownable, HasManager {
   // Total collected Ethereum: must be updated every time tokens has been sold
   uint256 public totalCollected;
 
-  // Total amount of project&#39;s token sold: must be updated every time tokens has been sold
+  // Total amount of project's token sold: must be updated every time tokens has been sold
   uint256 public totalSold;
 
   // Crowdsale minimal goal, must be greater or equal to Forecasting min amount
@@ -320,7 +320,7 @@ contract ICrowdsaleProcessor is Ownable, HasManager {
   function start(uint256 _startTimestamp, uint256 _endTimestamp, address _fundingAddress)
     public onlyManager() hasntStarted() hasntStopped();
 
-  // Is crowdsale failed (completed, but minimal goal wasn&#39;t reached)
+  // Is crowdsale failed (completed, but minimal goal wasn't reached)
   function isFailed() public constant returns (bool);
 
   // Is crowdsale active (i.e. the token can be sold)
@@ -358,7 +358,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -589,7 +589,7 @@ contract BasicCrowdsale is ICrowdsaleProcessor {
     public
     onlyManager()   // manager is CrowdsaleController instance
     hasntStarted()  // not yet started
-    hasntStopped()  // crowdsale wasn&#39;t cancelled
+    hasntStopped()  // crowdsale wasn't cancelled
   {
     require(_fundingAddress != address(0));
 
@@ -641,7 +641,7 @@ contract BasicCrowdsale is ICrowdsaleProcessor {
       // it was started
       started &&
 
-      // hard cap wasn&#39;t reached yet
+      // hard cap wasn't reached yet
       totalCollected < hardCap &&
 
       // and current time is within the crowdfunding period
@@ -725,7 +725,7 @@ contract Crowdsale is BasicCrowdsale, Whitelist, WithBonusPeriods {
   function releaseTokens()
     public
     onlyManager()             // manager is CrowdsaleController instance
-    hasntStopped()            // crowdsale wasn&#39;t cancelled
+    hasntStopped()            // crowdsale wasn't cancelled
     whenCrowdsaleSuccessful() // crowdsale was successful
   {
     // see token example
@@ -767,10 +767,10 @@ contract Crowdsale is BasicCrowdsale, Whitelist, WithBonusPeriods {
     totalSold += tokensSold;
   }
 
-  // project&#39;s owner withdraws ETH funds to the funding address upon successful crowdsale
+  // project's owner withdraws ETH funds to the funding address upon successful crowdsale
   function withdraw(uint256 _amount) public // can be done partially
-    onlyOwner() // project&#39;s owner
-    hasntStopped()  // crowdsale wasn&#39;t cancelled
+    onlyOwner() // project's owner
+    hasntStopped()  // crowdsale wasn't cancelled
     whenCrowdsaleSuccessful() // crowdsale completed successfully
   {
     require(_amount <= address(this).balance);

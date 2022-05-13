@@ -83,7 +83,7 @@ contract Aion {
     event ScheduleCallEvent(uint256 indexed blocknumber, address indexed from, address to, uint256 value, uint256 gaslimit,
                             uint256 gasprice, uint256 fee, bytes data, uint256 indexed AionID, bool schedType);
     
-    // Log for cancelation of a scheduled call (no fee is charged, all funds are moved from client&#39;s smart contract to client&#39;s address)                        
+    // Log for cancelation of a scheduled call (no fee is charged, all funds are moved from client's smart contract to client's address)                        
     event CancellScheduledTxEvent(address indexed from, uint256 Total, bool Status, uint256 indexed AionID);
     
 

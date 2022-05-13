@@ -167,17 +167,17 @@ contract ChanChain {
 	public
 	payFeeReplyThread
 	isHalted {
-		// Make sure you can&#39;t reply to an nonexistant thread
+		// Make sure you can't reply to an nonexistant thread
 		require(_replyTo < indexThreads && _replyTo > 0);
 		// Post the reply with nextReply = 0 as this is the last message in the chain
 		replies[indexReplies] = reply(_text, _ipfsHash, _replyTo, 0, now);
 		// Update the thread
-		// We&#39;re first to reply
+		// We're first to reply
 		if(threads[_replyTo].indexFirstReply == 0){
 			threads[_replyTo].indexFirstReply = indexReplies;
 			threads[_replyTo].indexLastReply = indexReplies;
 		}
-		// We&#39;re not first to reply so we update the previous reply as well
+		// We're not first to reply so we update the previous reply as well
 		else {
 			replies[threads[_replyTo].indexLastReply].nextReply = indexReplies;
 			threads[_replyTo].indexLastReply = indexReplies;

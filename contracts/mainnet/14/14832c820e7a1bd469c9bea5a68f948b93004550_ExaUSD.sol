@@ -107,7 +107,7 @@ contract ExaUSD is StandardToken {
     string public name;                  
     uint8 public decimals;              
     string public symbol;
-    string public version = &#39;v1.0&#39;;
+    string public version = 'v1.0';
 
     function ExaUSD() {
         balances[msg.sender] = 100000000000000000000;

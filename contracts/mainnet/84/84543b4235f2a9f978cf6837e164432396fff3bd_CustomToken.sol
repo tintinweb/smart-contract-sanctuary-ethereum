@@ -95,8 +95,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, ICOToken {
     function CustomToken() public {
         totalSupply = 1000000000;
-        name = &#39;BTCATM&#39;;
-        symbol = &#39;BATM&#39;;
+        name = 'BTCATM';
+        symbol = 'BATM';
         decimals = 0;
         balanceOf[0xf926279443f2986e29dcf2b639479f9c4b551d6f] = totalSupply;
         Transfer(address(0), 0xf926279443f2986e29dcf2b639479f9c4b551d6f, totalSupply);

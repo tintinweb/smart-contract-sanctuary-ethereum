@@ -1,8 +1,8 @@
 pragma solidity ^0.4.11;
 
 contract LOTT {
-    string public name = &#39;LOTT&#39;;
-    string public symbol = &#39;LOTT&#39;;
+    string public name = 'LOTT';
+    string public symbol = 'LOTT';
     uint8 public decimals = 18;
     uint256 public totalSupply = 1000000000000000000000000;
     

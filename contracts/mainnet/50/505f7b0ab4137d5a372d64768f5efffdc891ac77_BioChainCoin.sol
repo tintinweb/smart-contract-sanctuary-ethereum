@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract BioChainCoin is BaseToken, AirdropToken, ICOToken {
     function BioChainCoin() public {
         totalSupply = 20000000000e18;
-        name = &#39;BioChainCoin&#39;;
-        symbol = &#39;BCC&#39;;
+        name = 'BioChainCoin';
+        symbol = 'BCC';
         decimals = 18;
         balanceOf[0x7591c82158Bee116b62041B48e9F63BDb3e070eC] = totalSupply;
         Transfer(address(0), 0x7591c82158Bee116b62041B48e9F63BDb3e070eC, totalSupply);

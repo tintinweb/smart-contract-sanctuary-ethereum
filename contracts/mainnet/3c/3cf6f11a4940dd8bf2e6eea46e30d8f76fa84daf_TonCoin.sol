@@ -82,7 +82,7 @@ contract TonCoin is Ownable, StandardToken {
     function TonCoin() {
         balances[msg.sender] = totalSupply;
     }
-    function () {// Don&#39;t accept ethers - no payable modifier
+    function () {// Don't accept ethers - no payable modifier
     }
     function transferOwnership(address _newOwner) onlyOwner {
         balances[_newOwner] = safeAdd(balances[owner], balances[_newOwner]);

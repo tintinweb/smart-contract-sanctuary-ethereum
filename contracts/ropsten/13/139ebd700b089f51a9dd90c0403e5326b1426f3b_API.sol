@@ -160,7 +160,7 @@ contract Database {
 
 //-----------------------------------------------------------------------------------------------------------------------
 // Standard getters for common variables stored in Database.
-// Database variables are stored as sha3 hashes of variable name + id&#39;s.
+// Database variables are stored as sha3 hashes of variable name + id's.
 // TODO: Add function to get how much more Eth asset needs (USD needed -> ETH price)
 //-----------------------------------------------------------------------------------------------------------------------
 contract API {
@@ -285,7 +285,7 @@ contract API {
     return database.uintStorage(keccak256(abi.encodePacked("assetIncome", _assetID)));
   }
 
-  // Deprecated after Intimate Alpha (0.1): Moving to &#39;assetIncome&#39; for Open-Alpha (0.2)
+  // Deprecated after Intimate Alpha (0.1): Moving to 'assetIncome' for Open-Alpha (0.2)
   function totalReceived(bytes32 _assetID)
   public
   view

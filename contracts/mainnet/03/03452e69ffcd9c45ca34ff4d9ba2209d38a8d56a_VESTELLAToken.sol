@@ -294,7 +294,7 @@ contract BurnableToken is StandardToken {
 
 
 /**
- * @dev Rewrite the key functions, add the modifier &#39;whenNotPaused&#39;,owner can stop the transaction.
+ * @dev Rewrite the key functions, add the modifier 'whenNotPaused',owner can stop the transaction.
  */
 contract PausableToken is StandardToken, Pausable {
     function transfer(

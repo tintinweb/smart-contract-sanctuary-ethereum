@@ -6,8 +6,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -199,7 +199,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -343,7 +343,7 @@ contract ReleasableToken is ERC20, Ownable {
      *
      */
     modifier canTransfer(address _sender) {
-        require(released || transferAgents[_sender], "For the token to be able to transfer: it&#39;s required that the crowdsale is in released state; or the sender is a transfer agent.");
+        require(released || transferAgents[_sender], "For the token to be able to transfer: it's required that the crowdsale is in released state; or the sender is a transfer agent.");
         _;
     }
 
@@ -354,7 +354,7 @@ contract ReleasableToken is ERC20, Ownable {
      */
     function setReleaseAgent(address addr) public onlyOwner inReleaseState(false) {
 
-        // We don&#39;t do interface check here as we might want to a normal wallet address to act as a release agent
+        // We don't do interface check here as we might want to a normal wallet address to act as a release agent
         releaseAgent = addr;
     }
 
@@ -376,7 +376,7 @@ contract ReleasableToken is ERC20, Ownable {
 
     /** The function can be called only before or after the tokens have been released */
     modifier inReleaseState(bool releaseState) {
-        require(releaseState == released, "It&#39;s required that the state to check aligns with the released flag.");
+        require(releaseState == released, "It's required that the state to check aligns with the released flag.");
         _;
     }
 
@@ -416,7 +416,7 @@ contract UpgradeableToken is StandardToken {
      * Upgrade states.
      *
      * - NotAllowed: The child contract has not reached a condition where the upgrade can begin
-     * - WaitingForAgent: Token allows upgrade, but we don&#39;t have a new agent yet
+     * - WaitingForAgent: Token allows upgrade, but we don't have a new agent yet
      * - ReadyToUpgrade: The agent is set and the balance holders can upgrade their tokens
      *
      */
@@ -446,7 +446,7 @@ contract UpgradeableToken is StandardToken {
 
         UpgradeState state = getUpgradeState();
 
-        require(state == UpgradeState.ReadyToUpgrade, "It&#39;s required that the upgrade state is ready.");
+        require(state == UpgradeState.ReadyToUpgrade, "It's required that the upgrade state is ready.");
 
         // Validate input value.
         require(value > 0, "The upgrade value is required to be above 0.");
@@ -467,7 +467,7 @@ contract UpgradeableToken is StandardToken {
      */
     function setUpgradeAgent(address agent) external {
 
-        require(canUpgrade(), "It&#39;s required to be in canUpgrade() condition when setting upgrade agent.");
+        require(canUpgrade(), "It's required to be in canUpgrade() condition when setting upgrade agent.");
 
         require(agent != address(0), "Agent is required to be an non-empty address when setting upgrade agent.");
 
@@ -485,7 +485,7 @@ contract UpgradeableToken is StandardToken {
         require(upgradeAgent.isUpgradeAgent(), "The provided updateAgent contract is required to be compliant to the UpgradeAgent interface method when setting upgrade agent.");
 
         // Make sure that token supplies match in source and target
-        require(upgradeAgent.originalSupply() == totalSupply_, "The provided upgradeAgent contract&#39;s originalSupply is required to be equivalent to existing contract&#39;s totalSupply_ when setting upgrade agent.");
+        require(upgradeAgent.originalSupply() == totalSupply_, "The provided upgradeAgent contract's originalSupply is required to be equivalent to existing contract's totalSupply_ when setting upgrade agent.");
 
         emit UpgradeAgentSet(upgradeAgent);
     }

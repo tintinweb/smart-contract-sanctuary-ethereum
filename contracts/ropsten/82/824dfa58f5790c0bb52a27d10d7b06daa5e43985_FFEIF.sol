@@ -154,9 +154,9 @@ contract FFEIF is FOMOEvents {
 											  // NOTE2: If multInc_ is 0, the amount of FFEIF purchased is used as the value (which is still ten times more than the real value)
 	uint256 public multIncFactor_ = 10;		  // Further factor to multiply multInc_ by before processing (this is for finer adjustments when multInc_ is set to 0)
 	uint256 public multLastChange = now;      // stores timestamp of the last increase/decrease so the next decay can by calculated - note that for non-linear decay, the timestamp only changes to the next minute or multiple of minutes that have passed
-	uint256 public multDecayPerMinute = 1;    // every minute the multiplier reduces by this amount (isn&#39;t X10 this time so is the true decrease per minute  - i.e. 1)
+	uint256 public multDecayPerMinute = 1;    // every minute the multiplier reduces by this amount (isn't X10 this time so is the true decrease per minute  - i.e. 1)
 											  // NOTE: For non-linear decay, a value of 1 means it halves every minute (1 is added to the amount and divided rather than subtracted)
-	uint256 public multStart = 24 hours;       // the max time that should be left for the multiplier to increase through more purchases - won&#39;t increase when timer is above this
+	uint256 public multStart = 24 hours;       // the max time that should be left for the multiplier to increase through more purchases - won't increase when timer is above this
 	uint256 public multCurrent = 10;	      // the current multiplier times 10 - defaults to a real value of 1 and this is also the minimum allowed
 	
     uint256 public rndMax_ = 24 hours;      // max length a round timer can be
@@ -173,7 +173,7 @@ contract FFEIF is FOMOEvents {
     
     uint256 public fundEIF = 0;               // the EasyInvestForever accumulated fund yet to be sent (5% of incoming ETH)
     uint256 public totalEIF = 0;              // total EasyInvestForever fund already sent
-    uint256 public seedDonated = 0;           // total sent to seedingPot payable function (doesn&#39;t keep track of msg.sender)
+    uint256 public seedDonated = 0;           // total sent to seedingPot payable function (doesn't keep track of msg.sender)
     address public FundEIF = 0x7B5DB91627A89454aD4acEbd172a4C5AFc936228; // Usual fund address to send EIF funds too - updateable
     
 
@@ -304,7 +304,7 @@ function calcMult(uint256 keysBought, bool validIncrease) internal returns (bool
 	bool thresholdReached = (multStart > round_[rID_].end - _now);
 	
 	// work out if linear and update the last change time depending on this 
-	// multLastChange updates all the time even when multiplier inactive or at minimum and doesn&#39;t change
+	// multLastChange updates all the time even when multiplier inactive or at minimum and doesn't change
 	bool currentlyLinear = false;
 	if (multLinear == 1 || (multLinear == 2 && !thresholdReached)) { currentlyLinear = true; multLastChange = _now;}
 	else  multLastChange = multLastChange.add((secondsPassed/60).mul(60)); //updates every 60 seconds only
@@ -414,32 +414,32 @@ function setStore(string _variable, uint256 _value) public  {  // we used uint25
        //now loop through all elements 
     	for (uint i=0; i<numElements; i++) {
     	   bytes32 _varname = keccak256(bytes(varname[i])); 
-	   if (_varname==keccak256(&#39;rndGap_&#39;)) rndGap_=varvalue[i]; else 
-	   if (_varname==keccak256(&#39;rndInit_&#39;)) rndInit_=varvalue[i]; else
-	   if (_varname==keccak256(&#39;rndInc_&#39;)) rndInc_=varvalue[i]; else
-	   if (_varname==keccak256(&#39;rndIncDivisor_&#39;)) rndIncDivisor_=varvalue[i]; else
-	   if (_varname==keccak256(&#39;potSeedRate&#39;)) potSeedRate=varvalue[i]; else
-	   if (_varname==keccak256(&#39;potNextSeedTime&#39;)) potNextSeedTime=varvalue[i]; else
-	   if (_varname==keccak256(&#39;seedingThreshold&#39;)) seedingThreshold=varvalue[i]; else
-	   if (_varname==keccak256(&#39;seedingDivisor&#39;)) seedingDivisor=varvalue[i]; else
-	   if (_varname==keccak256(&#39;seedRoundEnd&#39;)) seedRoundEnd=varvalue[i]; else
-	   if (_varname==keccak256(&#39;linearPrice&#39;)) linearPrice=varvalue[i]; else
-	   if (_varname==keccak256(&#39;multPurchase&#39;)) multPurchase=varvalue[i]; else
-	   if (_varname==keccak256(&#39;multAllowLast&#39;)) multAllowLast=varvalue[i]; else
-	   if (_varname==keccak256(&#39;maxMult&#39;)) maxMult=varvalue[i]; else
-	   if (_varname==keccak256(&#39;multInc_&#39;)) multInc_=varvalue[i]; else
-	   if (_varname==keccak256(&#39;multIncFactor_&#39;)) multIncFactor_=varvalue[i]; else
-	   if (_varname==keccak256(&#39;multLastChange&#39;)) multLastChange=varvalue[i]; else
-	   if (_varname==keccak256(&#39;multDecayPerMinute&#39;)) multDecayPerMinute=varvalue[i]; else
-	   if (_varname==keccak256(&#39;multStart&#39;)) multStart=varvalue[i]; else
-	   if (_varname==keccak256(&#39;multCurrent&#39;)) multCurrent=varvalue[i]; else
-	   if (_varname==keccak256(&#39;rndMax_&#39;)) rndMax_=varvalue[i]; else
-	   if (_varname==keccak256(&#39;earlyRoundLimit&#39;)) earlyRoundLimit=varvalue[i]; else
-	   if (_varname==keccak256(&#39;earlyRoundLimitUntil&#39;)) earlyRoundLimitUntil=varvalue[i]; else
-	   if (_varname==keccak256(&#39;divPercentage&#39;)) {divPercentage=varvalue[i]; if (divPercentage>75) divPercentage=75;} else
-	   if (_varname==keccak256(&#39;divPotPercentage&#39;)) {divPotPercentage=varvalue[i]; if (divPotPercentage>50) divPotPercentage=50;} else
-	   if (_varname==keccak256(&#39;nextRoundPercentage&#39;)) {nextRoundPercentage=varvalue[i]; if (nextRoundPercentage>40) nextRoundPercentage=40;} else
-	   if (_varname==keccak256(&#39;affFee&#39;)) {affFee=varvalue[i]; if (affFee>15) affFee=15;}
+	   if (_varname==keccak256('rndGap_')) rndGap_=varvalue[i]; else 
+	   if (_varname==keccak256('rndInit_')) rndInit_=varvalue[i]; else
+	   if (_varname==keccak256('rndInc_')) rndInc_=varvalue[i]; else
+	   if (_varname==keccak256('rndIncDivisor_')) rndIncDivisor_=varvalue[i]; else
+	   if (_varname==keccak256('potSeedRate')) potSeedRate=varvalue[i]; else
+	   if (_varname==keccak256('potNextSeedTime')) potNextSeedTime=varvalue[i]; else
+	   if (_varname==keccak256('seedingThreshold')) seedingThreshold=varvalue[i]; else
+	   if (_varname==keccak256('seedingDivisor')) seedingDivisor=varvalue[i]; else
+	   if (_varname==keccak256('seedRoundEnd')) seedRoundEnd=varvalue[i]; else
+	   if (_varname==keccak256('linearPrice')) linearPrice=varvalue[i]; else
+	   if (_varname==keccak256('multPurchase')) multPurchase=varvalue[i]; else
+	   if (_varname==keccak256('multAllowLast')) multAllowLast=varvalue[i]; else
+	   if (_varname==keccak256('maxMult')) maxMult=varvalue[i]; else
+	   if (_varname==keccak256('multInc_')) multInc_=varvalue[i]; else
+	   if (_varname==keccak256('multIncFactor_')) multIncFactor_=varvalue[i]; else
+	   if (_varname==keccak256('multLastChange')) multLastChange=varvalue[i]; else
+	   if (_varname==keccak256('multDecayPerMinute')) multDecayPerMinute=varvalue[i]; else
+	   if (_varname==keccak256('multStart')) multStart=varvalue[i]; else
+	   if (_varname==keccak256('multCurrent')) multCurrent=varvalue[i]; else
+	   if (_varname==keccak256('rndMax_')) rndMax_=varvalue[i]; else
+	   if (_varname==keccak256('earlyRoundLimit')) earlyRoundLimit=varvalue[i]; else
+	   if (_varname==keccak256('earlyRoundLimitUntil')) earlyRoundLimitUntil=varvalue[i]; else
+	   if (_varname==keccak256('divPercentage')) {divPercentage=varvalue[i]; if (divPercentage>75) divPercentage=75;} else
+	   if (_varname==keccak256('divPotPercentage')) {divPotPercentage=varvalue[i]; if (divPotPercentage>50) divPotPercentage=50;} else
+	   if (_varname==keccak256('nextRoundPercentage')) {nextRoundPercentage=varvalue[i]; if (nextRoundPercentage>40) nextRoundPercentage=40;} else
+	   if (_varname==keccak256('affFee')) {affFee=varvalue[i]; if (affFee>15) affFee=15;}
 		}
 		//clear elements by resetting index
 		numElements = 0;
@@ -625,7 +625,7 @@ function setStore(string _variable, uint256 _value) public  {  // we used uint25
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -737,7 +737,7 @@ function setStore(string _variable, uint256 _value) public  {  // we used uint25
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -935,7 +935,7 @@ function setStore(string _variable, uint256 _value) public  {  // we used uint25
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -1420,7 +1420,7 @@ function setStore(string _variable, uint256 _value) public  {  // we used uint25
         if (plyr_[_pID].lrnd != 0)
             updateGenVault(_pID, plyr_[_pID].lrnd);
 
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
 
         // set the joined round bool to true
@@ -1440,7 +1440,7 @@ function setStore(string _variable, uint256 _value) public  {  // we used uint25
         // setup local rID
         uint256 _rID = rID_;
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
 
@@ -1564,7 +1564,7 @@ function setStore(string _variable, uint256 _value) public  {  // we used uint25
 
         // decide what to do with affiliate share of fees
         // affiliate must not be self, and must have a name registered
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit FOMOEvents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
         } else {
@@ -1642,7 +1642,7 @@ function setStore(string _variable, uint256 _value) public  {  // we used uint25
             relevant proportion to the increase in share supply.
 
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
 
@@ -1683,7 +1683,7 @@ function setStore(string _variable, uint256 _value) public  {  // we used uint25
     }
 
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, FFEIFDatasets.EventReturns memory _eventData_)
         private

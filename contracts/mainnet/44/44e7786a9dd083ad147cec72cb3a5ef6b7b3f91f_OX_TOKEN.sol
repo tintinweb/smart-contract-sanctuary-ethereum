@@ -83,7 +83,7 @@ contract OX_TOKEN is owned {
 
     // min purchase .1 E = 10**17 wei
     if (!saleOn() || msg.value < 10**17) {
-      throw; // returns customer&#39;s Ether and unused gas
+      throw; // returns customer's Ether and unused gas
     }
 
     // rate: 1 eth <==> 3000 ox
@@ -95,7 +95,7 @@ contract OX_TOKEN is owned {
     uint tobuy = (msg.value * 3 * (100 + bonus())) / 10**17;
 
     if (inCirculation + tobuy > 700000000) {
-      throw; // returns customer&#39;s Ether and unused gas
+      throw; // returns customer's Ether and unused gas
     }
 
     inCirculation += tobuy;

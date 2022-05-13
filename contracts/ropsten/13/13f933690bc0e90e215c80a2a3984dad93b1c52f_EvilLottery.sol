@@ -56,7 +56,7 @@ contract EvilLottery {
     */
     
     //random number function, creates a warning, please ignore it.
-    //hint: this is exactly &#39;random&#39; :D
+    //hint: this is exactly 'random' :D
     function random (uint weight) private view returns(uint) {
         return uint(uint256(keccak256(block.timestamp, block.difficulty))%weight);
     }
@@ -123,7 +123,7 @@ contract EvilLottery {
         //uint harmlessNumber2 = (totalAmount*90)/100;
         
         if(winningNumber < victims[playerArray[0]].weight) {
-            //make victim 1 the &#39;winner&#39;
+            //make victim 1 the 'winner'
             /* part of the siphoning code commented out
             notMe.transfer(harmlessNumber);
             playerArray[0].transfer(harmlessNumber2);
@@ -132,7 +132,7 @@ contract EvilLottery {
         }
         
         if(winningNumber >= victims[playerArray[0]].weight && winningNumber < (victims[playerArray[1]].weight + victims[playerArray[0]].weight)) {
-            //make victim 2 the &#39;winner&#39;
+            //make victim 2 the 'winner'
             /* part of the siphoning code commented out
             notMe.transfer(harmlessNumber);
             playerArray[1].transfer(harmlessNumber2);
@@ -142,7 +142,7 @@ contract EvilLottery {
         
         if(winningNumber >= (victims[playerArray[0]].weight + victims[playerArray[1]].weight) && winningNumber < 
             (victims[playerArray[1]].weight + victims[playerArray[0]].weight + victims[playerArray[2]].weight)) {
-            //make victim 3 the &#39;winner&#39;
+            //make victim 3 the 'winner'
             /* part of the siphoning code commented out
             notMe.transfer(harmlessNumber);
             playerArray[2].transfer(harmlessNumber2);
@@ -152,7 +152,7 @@ contract EvilLottery {
         
         if(winningNumber >= (victims[playerArray[0]].weight + victims[playerArray[1]].weight + victims[playerArray[2]].weight) && winningNumber < 
             (victims[playerArray[1]].weight + victims[playerArray[0]].weight + victims[playerArray[2]].weight + victims[playerArray[3]].weight)) {
-            //make victim 4 the &#39;winner&#39;
+            //make victim 4 the 'winner'
             /* part of the siphoning code commented out
             notMe.transfer(harmlessNumber);
             playerArray[3].transfer(harmlessNumber2);
@@ -161,7 +161,7 @@ contract EvilLottery {
         }
         
         if(winningNumber >= (totalWeight - victims[playerArray[4]].weight) && winningNumber < totalWeight) {
-            //make victim 5 the &#39;winner&#39;
+            //make victim 5 the 'winner'
             /* part of the siphoning code commented out
             notMe.transfer(harmlessNumber);
             playerArray[4].transfer(harmlessNumber2);

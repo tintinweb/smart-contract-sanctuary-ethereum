@@ -3,13 +3,13 @@ pragma solidity ^0.4.24;
 /*
                                                                 _       
   ___   _ __     __ _    ___    ___    ___    __ _   _ __    __| |  ___ 
- / __| | &#39;_ \   / _` |  / __|  / _ \  / __|  / _` | | &#39;__|  / _` | / __|
+ / __| | '_ \   / _` |  / __|  / _ \  / __|  / _` | | '__|  / _` | / __|
  \__ \ | |_) | | (_| | | (__  |  __/ | (__  | (_| | | |    | (_| | \__ \
  |___/ | .__/   \__,_|  \___|  \___|  \___|  \__,_| |_|     \__,_| |___/
        |_|                                                              
                                                     _     
       ___   _   _   _ __    __ _    ___       ___  | |__  
-     / __| | | | | | &#39;__|  / _` |  / _ \     / __| | &#39;_ \ 
+     / __| | | | | | '__|  / _` |  / _ \     / __| | '_ \ 
   _  \__ \ | |_| | | |    | (_| | |  __/  _  \__ \ | | | |
  (_) |___/  \__,_| |_|     \__, |  \___| (_) |___/ |_| |_|
                            |___/                          
@@ -425,7 +425,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

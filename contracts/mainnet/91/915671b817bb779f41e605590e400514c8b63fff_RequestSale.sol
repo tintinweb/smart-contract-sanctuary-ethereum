@@ -52,11 +52,11 @@ contract RequestSale {
     uint256 contract_token_balance = token.balanceOf(address(this));
     // Disallow token withdrawals if there are no tokens to withdraw.
     require(contract_token_balance == 0);
-    // Store the user&#39;s token balance in a temporary variable.
+    // Store the user's token balance in a temporary variable.
     uint256 tokens_to_withdraw = (balances[msg.sender] * contract_token_balance) / contract_eth_value;
     // Update the value of tokens currently held by the contract.
     contract_eth_value -= balances[msg.sender];
-    // Update the user&#39;s balance prior to sending to prevent recursive call.
+    // Update the user's balance prior to sending to prevent recursive call.
     balances[msg.sender] = 0;
     // Send the funds.  Throws on failure to prevent loss of funds.
     require(token.transfer(msg.sender, tokens_to_withdraw));
@@ -64,11 +64,11 @@ contract RequestSale {
   
   // Allows any caller to get his eth refunded.
   function refund_me() {
-    // Store the user&#39;s balance prior to withdrawal in a temporary variable.
+    // Store the user's balance prior to withdrawal in a temporary variable.
     uint256 eth_to_withdraw = balances[msg.sender];
-    // Update the user&#39;s balance prior to sending ETH to prevent recursive call.
+    // Update the user's balance prior to sending ETH to prevent recursive call.
     balances[msg.sender] = 0;
-    // Return the user&#39;s funds.  Throws on failure to prevent loss of funds.
+    // Return the user's funds.  Throws on failure to prevent loss of funds.
     msg.sender.transfer(eth_to_withdraw);
   }
   
@@ -82,7 +82,7 @@ contract RequestSale {
     require(this.balance >= min_required_amount);
     // Record that the contract has bought the tokens.
     bought_tokens = true;
-    // Record the amount of ETH sent as the contract&#39;s current value.
+    // Record the amount of ETH sent as the contract's current value.
     contract_eth_value = this.balance;
     // Transfer all the funds to the crowdsale address.
     require(sale.call.value(contract_eth_value)());
@@ -98,9 +98,9 @@ contract RequestSale {
   
   // Default function.  Called when a user sends ETH to the contract.
   function () payable {
-    // Only allow deposits if the contract hasn&#39;t already purchased the tokens.
+    // Only allow deposits if the contract hasn't already purchased the tokens.
     require(!bought_tokens);
-    // Only allow deposits that won&#39;t exceed the contract&#39;s ETH cap.
+    // Only allow deposits that won't exceed the contract's ETH cap.
     require(this.balance + msg.value < eth_cap);
     // Update records of deposited ETH to include the received amount.
     balances[msg.sender] += msg.value;

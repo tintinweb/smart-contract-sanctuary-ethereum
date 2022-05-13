@@ -41,7 +41,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -136,7 +136,7 @@ contract StandardToken is ERC20, BasicToken {
     *
     * Beware that changing an allowance with this method brings the risk that someone may use both the old
     * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-    * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+    * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
     * @param _spender The address which will spend the funds.
     * @param _value The amount of tokens to be spent.
@@ -222,9 +222,9 @@ contract StandardToken is ERC20, BasicToken {
 contract AdminManager {
     event ChangeOwner(address _oldOwner, address _newOwner);
     event SetAdmin(address _address, bool _isAdmin);
-    //constract&#39;s owner
+    //constract's owner
     address public owner;
-    //constract&#39;s admins. permission less than owner
+    //constract's admins. permission less than owner
     mapping(address=>bool) public admins;
 
     /**
@@ -251,7 +251,7 @@ contract AdminManager {
     }
 
     /**
-     * change this constract&#39;s owner
+     * change this constract's owner
      */
     function changeOwner(address _newOwner) public onlyOwner {
         require(_newOwner != address(0));
@@ -291,7 +291,7 @@ contract PausableToken is StandardToken, AdminManager {
 
     /**
      * @dev called by the owner to set new pause flags
-     * pausedPublic can&#39;t be false while pausedOwnerAdmin is true
+     * pausedPublic can't be false while pausedOwnerAdmin is true
      */
     function setPause(bool _isPause) onlyAdmins public {
         require(paused != _isPause);

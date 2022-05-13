@@ -15,7 +15,7 @@ contract Utils {
 	//     _;
 	// }
 
-	// validates an address - currently only checks that it isn&#39;t null
+	// validates an address - currently only checks that it isn't null
 	modifier validAddress(address _address) {
 	    require(_address != address(0));
 	    _;
@@ -186,8 +186,8 @@ contract SomeCoin is Utils, ERC20Interface, Owned, SafeMath, bundinha {
 	uint myVariable;
 	string bundinha;
 
-	string public name = &#39;&#39;;
-	string public symbol = &#39;&#39;;
+	string public name = '';
+	string public symbol = '';
 	uint8 public decimals = 0;
 	uint256 public totalSupply = 0;
 	uint256 public maxSupply = 50000000000000000000000;
@@ -274,7 +274,7 @@ contract SomeCoin is Utils, ERC20Interface, Owned, SafeMath, bundinha {
 		return ERC20Interface(_token).transfer(_to, _amount);
 	}
 
-	// Don&#39;t accept ETH
+	// Don't accept ETH
 	function () payable {
 		revert();
 	}

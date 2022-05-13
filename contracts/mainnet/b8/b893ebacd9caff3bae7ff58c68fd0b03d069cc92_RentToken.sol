@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;Rent&#39; token contract
+// 'Rent' token contract
 // Deployed to : 0x6A0ECB46363E806cE5d37c5D36dDAdCECaB27034
 // Symbol      : RENT
 // Name        : Rent Token

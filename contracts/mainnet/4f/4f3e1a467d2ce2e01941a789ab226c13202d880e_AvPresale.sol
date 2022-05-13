@@ -153,7 +153,7 @@ contract AvPresale {
         _;
     }
 
-    //Works on users&#39;s command
+    //Works on users's command
     modifier tokenHoldersOnly(){
         require(balances[msg.sender] > 0);
         _;
@@ -188,7 +188,7 @@ contract AvPresale {
         _;
     }
 	
-	//Works on owner&#39;s command
+	//Works on owner's command
     modifier onlyOwner(){
         require(msg.sender == OWNER);
         _;

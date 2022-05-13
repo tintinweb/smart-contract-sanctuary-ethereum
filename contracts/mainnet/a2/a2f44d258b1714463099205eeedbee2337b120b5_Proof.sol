@@ -88,7 +88,7 @@ contract Crowdsale is owned {
         if (tokensPerUSD > 0) {
             uint valueWei = msg.value;
             uint valueUSD = valueWei * etherPrice / 1000000000000000000;
-            if (collectedUSD + valueUSD > totalLimitUSD) { // don&#39;t need so much ether
+            if (collectedUSD + valueUSD > totalLimitUSD) { // don't need so much ether
                 valueUSD = totalLimitUSD - collectedUSD;
                 valueWei = valueUSD * 1000000000000000000 / etherPrice;
                 msg.sender.transfer(msg.value - valueWei);
@@ -199,8 +199,8 @@ contract Crowdsale is owned {
 
 contract Token is Crowdsale {
     
-    string  public standard    = &#39;Token 0.1&#39;;
-    string  public name        = &#39;PROOF&#39;;
+    string  public standard    = 'Token 0.1';
+    string  public name        = 'PROOF';
     string  public symbol      = "PF";
     uint8   public decimals    = 0;
 

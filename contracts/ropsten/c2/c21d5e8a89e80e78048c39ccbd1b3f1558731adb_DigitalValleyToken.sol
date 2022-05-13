@@ -134,14 +134,14 @@ contract DigitalValleyToken is ERC20Token {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
 
     function DigitalValleyToken() {
         totalSupply = 88000000 * 100000000;
         balances[msg.sender] = totalSupply;
-        name = &#39;DigitalValleyToken&#39;;
+        name = 'DigitalValleyToken';
         decimals = 8;
-        symbol = &#39;DVT&#39;;
+        symbol = 'DVT';
         price = 714285714285714;
         limit = totalSupply - 10000000000000;
     }

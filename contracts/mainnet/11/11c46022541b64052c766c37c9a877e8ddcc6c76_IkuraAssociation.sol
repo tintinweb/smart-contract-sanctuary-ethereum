@@ -13,7 +13,7 @@
 
 pragma solidity ^0.4.23;
 
-// import &#39;ds-auth/auth.sol&#39;;
+// import 'ds-auth/auth.sol';
 contract DSAuthority {
     function canCall(
         address src, address dst, bytes4 sig
@@ -68,7 +68,7 @@ contract DSAuth is DSAuthEvents {
     }
 }
 
-// import &#39;ds-math/math.sol&#39;;
+// import 'ds-math/math.sol';
 contract DSMath {
     function add(uint x, uint y) internal pure returns (uint z) {
         require((z = x + y) >= x);
@@ -112,7 +112,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -137,7 +137,7 @@ contract DSMath {
     }
 }
 
-// import &#39;./IkuraStorage.sol&#39;;
+// import './IkuraStorage.sol';
 /**
  *
  * ロジックの更新に影響されない永続化データを保持するクラス
@@ -528,7 +528,7 @@ contract IkuraStorage is DSMath, DSAuth {
 }
 
 
-// import &#39;./IkuraTokenEvent.sol&#39;;
+// import './IkuraTokenEvent.sol';
 /**
  * Tokenでの処理に関するイベント定義
  *
@@ -559,7 +559,7 @@ contract IkuraTokenEvent {
 }
 
 
-// import &#39;./IkuraToken.sol&#39;;
+// import './IkuraToken.sol';
 /**
  *
  * トークンロジック
@@ -902,7 +902,7 @@ contract IkuraToken is IkuraTokenEvent, DSMath, DSAuth {
   function mint(address sender, uint amount) public auth returns (bool) {
     require(amount > 0);
 
-    _association.newProposal(keccak256(&#39;mint&#39;), sender, amount, &#39;&#39;);
+    _association.newProposal(keccak256('mint'), sender, amount, '');
 
     return true;
     /*return proposalEntity.mint(sender, amount);*/
@@ -926,7 +926,7 @@ contract IkuraToken is IkuraTokenEvent, DSMath, DSAuth {
     require(_storage.coinBalance(sender) >= amount);
     require(_storage.tokenBalance(sender) >= amount);
 
-    _association.newProposal(keccak256(&#39;burn&#39;), sender, amount, &#39;&#39;);
+    _association.newProposal(keccak256('burn'), sender, amount, '');
 
     return true;
     /*return proposalEntity.burn(sender, amount);*/
@@ -944,7 +944,7 @@ contract IkuraToken is IkuraTokenEvent, DSMath, DSAuth {
   /**
    * 指定した種類の提案数を取得する
    *
-   * @param type_ 提案の種類（&#39;mint&#39; | &#39;burn&#39; | &#39;transferMinimumFee&#39; | &#39;transferFeeRate&#39;）
+   * @param type_ 提案の種類（'mint' | 'burn' | 'transferMinimumFee' | 'transferFeeRate'）
    *
    * @return 提案数（承認されていないものも含む）
    */
@@ -1035,8 +1035,8 @@ contract IkuraAssociation is DSMath, DSAuth {
   event BurnExecuted(uint proposalId, address proposer, uint amount);
 
   constructor() public {
-    proposals[keccak256(&#39;mint&#39;)] = mintProposals;
-    proposals[keccak256(&#39;burn&#39;)] = burnProposals;
+    proposals[keccak256('mint')] = mintProposals;
+    proposals[keccak256('burn')] = burnProposals;
 
     // @NOTE リリース時にcontractのdeploy -> watch contract -> setOwnerの流れを
     //省略したい場合は、ここで直接controllerのアドレスを指定するとショートカットできます
@@ -1079,8 +1079,8 @@ contract IkuraAssociation is DSMath, DSAuth {
 
     // 提案の種類毎に実行すべき内容を実行する
     // @NOTE literal_stringとbytesは単純に比較できないのでkeccak256のハッシュ値で比較している
-    if (type_ == keccak256(&#39;mint&#39;)) emit MintProposalAdded(proposalId, proposer, amount);
-    if (type_ == keccak256(&#39;burn&#39;)) emit BurnProposalAdded(proposalId, proposer, amount);
+    if (type_ == keccak256('mint')) emit MintProposalAdded(proposalId, proposer, amount);
+    if (type_ == keccak256('burn')) emit BurnProposalAdded(proposalId, proposer, amount);
 
     // 本人は当然承認
     confirmProposal(type_, proposer, proposalId);
@@ -1106,16 +1106,16 @@ contract IkuraAssociation is DSMath, DSAuth {
 
     // 提案の種類毎に実行すべき内容を実行する
     // @NOTE literal_stringとbytesは単純に比較できないのでkeccak256のハッシュ値で比較している
-    if (type_ == keccak256(&#39;mint&#39;)) emit MintConfirmed(proposalId, confirmer, proposal.amount);
-    if (type_ == keccak256(&#39;burn&#39;)) emit BurnConfirmed(proposalId, confirmer, proposal.amount);
+    if (type_ == keccak256('mint')) emit MintConfirmed(proposalId, confirmer, proposal.amount);
+    if (type_ == keccak256('burn')) emit BurnConfirmed(proposalId, confirmer, proposal.amount);
 
-    if (isProposalExecutable(type_, proposalId, proposal.proposer, &#39;&#39;)) {
+    if (isProposalExecutable(type_, proposalId, proposal.proposer, '')) {
       proposal.executed = true;
 
       // 提案の種類毎に実行すべき内容を実行する
       // @NOTE literal_stringとbytesは単純に比較できないのでkeccak256のハッシュ値で比較している
-      if (type_ == keccak256(&#39;mint&#39;)) executeMintProposal(proposalId);
-      if (type_ == keccak256(&#39;burn&#39;)) executeBurnProposal(proposalId);
+      if (type_ == keccak256('mint')) executeMintProposal(proposalId);
+      if (type_ == keccak256('burn')) executeBurnProposal(proposalId);
     }
   }
 
@@ -1200,7 +1200,7 @@ contract IkuraAssociation is DSMath, DSAuth {
   /**
    * 指定した種類の提案数を取得する
    *
-   * @param type_ 提案の種類（&#39;mint&#39; | &#39;burn&#39; | &#39;transferMinimumFee&#39; | &#39;transferFeeRate&#39;）
+   * @param type_ 提案の種類（'mint' | 'burn' | 'transferMinimumFee' | 'transferFeeRate'）
    *
    * @return 提案数（承認されていないものも含む）
    */
@@ -1211,7 +1211,7 @@ contract IkuraAssociation is DSMath, DSAuth {
   /**
    * 未承認で有効期限の切れていない提案の数を返す
    *
-   * @param type_ 提案の種類（&#39;mint&#39; | &#39;burn&#39; | &#39;transferMinimumFee&#39; | &#39;transferFeeRate&#39;）
+   * @param type_ 提案の種類（'mint' | 'burn' | 'transferMinimumFee' | 'transferFeeRate'）
    *
    * @return 提案数
    */
@@ -1252,7 +1252,7 @@ contract IkuraAssociation is DSMath, DSAuth {
    * @param proposalId 提案ID
    */
   function executeMintProposal(uint proposalId) internal returns (bool) {
-    Proposal storage proposal = proposals[keccak256(&#39;mint&#39;)][proposalId];
+    Proposal storage proposal = proposals[keccak256('mint')][proposalId];
 
     // ここでも念のためチェックを入れる
     require(proposal.amount > 0);
@@ -1279,7 +1279,7 @@ contract IkuraAssociation is DSMath, DSAuth {
    * @param proposalId 提案ID
    */
   function executeBurnProposal(uint proposalId) internal returns (bool) {
-    Proposal storage proposal = proposals[keccak256(&#39;burn&#39;)][proposalId];
+    Proposal storage proposal = proposals[keccak256('burn')][proposalId];
 
     // ここでも念のためチェックを入れる
     require(proposal.amount > 0);

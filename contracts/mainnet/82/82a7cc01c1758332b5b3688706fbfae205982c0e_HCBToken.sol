@@ -122,8 +122,8 @@ contract Token is SafeMath {
 contract BasicToken is Token ,HCBFreeze{
 
 	function transfer(address _to, uint256 _value) stoppable public returns (bool ind) {
-		//Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-		//If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+		//Default assumes totalSupply can't be over max (2^256 - 1).
+		//If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
 		//Replace the if with this one instead.
 		require(_to!= address(0));
 		require(frozenCheck(msg.sender,_to));
@@ -167,7 +167,7 @@ contract BasicToken is Token ,HCBFreeze{
 	}
 	mapping (address => uint256)                      internal balances;
 	mapping (address => bool)                         private  frozenAccount;    //Save frozen account
-	mapping (address => string)                       private  keys;            //mapping main chain&#39;s public key and Eth key
+	mapping (address => string)                       private  keys;            //mapping main chain's public key and Eth key
 }
 contract HCBToken is BasicToken{
 

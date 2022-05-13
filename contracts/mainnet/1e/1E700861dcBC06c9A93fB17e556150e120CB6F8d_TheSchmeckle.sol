@@ -4,7 +4,7 @@ pragma solidity ^0.4.11;
 
 contract TheSchmeckle {
 
-    string public standard = &#39;CoRToken&#39;;
+    string public standard = 'CoRToken';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -15,8 +15,8 @@ contract TheSchmeckle {
     function TheSchmeckle() {
         totalSupply = 1000000000;
         balanceOf[this] = totalSupply;
-        name = &#39;Schmeckle&#39;;
-        symbol = &#39;SHM&#39;;
+        name = 'Schmeckle';
+        symbol = 'SHM';
         decimals = 0;
         sellPrice = 100000000000000;
         buyPrice = 100000000000000;

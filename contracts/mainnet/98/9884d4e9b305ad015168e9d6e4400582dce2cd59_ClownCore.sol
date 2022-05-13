@@ -248,19 +248,19 @@ contract Ownership is Base, token, owned {
     uint public promoTypeNum;
 
     bytes4 constant InterfaceSignature_ERC165 =
-        bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+        bytes4(keccak256('supportsInterface(bytes4)'));
 
     bytes4 constant InterfaceSignature_ERC721 =
-        bytes4(keccak256(&#39;name()&#39;)) ^
-        bytes4(keccak256(&#39;symbol()&#39;)) ^
-        bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-        bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-        bytes4(keccak256(&#39;ownerOf(uint)&#39;)) ^
-        bytes4(keccak256(&#39;approve(address,uint)&#39;)) ^
-        bytes4(keccak256(&#39;transfer(address,uint)&#39;)) ^
-        bytes4(keccak256(&#39;transferFrom(address,address,uint)&#39;)) ^
-        bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-        bytes4(keccak256(&#39;tokenMetadata(uint,string)&#39;));
+        bytes4(keccak256('name()')) ^
+        bytes4(keccak256('symbol()')) ^
+        bytes4(keccak256('totalSupply()')) ^
+        bytes4(keccak256('balanceOf(address)')) ^
+        bytes4(keccak256('ownerOf(uint)')) ^
+        bytes4(keccak256('approve(address,uint)')) ^
+        bytes4(keccak256('transfer(address,uint)')) ^
+        bytes4(keccak256('transferFrom(address,address,uint)')) ^
+        bytes4(keccak256('tokensOfOwner(address)')) ^
+        bytes4(keccak256('tokenMetadata(uint,string)'));
 
 
     function supportsInterface(bytes4 _interfaceID) external view returns (bool)

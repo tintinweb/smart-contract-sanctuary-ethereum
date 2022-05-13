@@ -139,7 +139,7 @@ Set the king to the Ethereum Address which is encoded as 160 bits of the 256 bit
 
       uint previousEpochCount = ERC918Interface(minedToken).epochCount();
 
-      //Forward to another contract, typically a pool&#39;s owned  mint contract
+      //Forward to another contract, typically a pool's owned  mint contract
       require(proxyMinterInterface(proxyMinter).proxyMint(nonce, challenge_digest));
 
      //make sure that the minedToken really was proxy minted through the proxyMint delegate call chain

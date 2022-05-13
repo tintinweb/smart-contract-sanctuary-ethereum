@@ -134,13 +134,13 @@ contract CryptoList {
     // we check that the Item has not been sold yet
     require(item.buyer == 0X0);
 
-    // we don&#39;t allow the seller to buy his own Item
+    // we don't allow the seller to buy his own Item
     require(msg.sender != item.seller);
 
     // we check that the value sent corresponds to the price of the Item
     require(msg.value == item.price);
 
-    // keep buyer&#39;s information
+    // keep buyer's information
     item.buyer = msg.sender;
 
     // the buyer can pay the seller

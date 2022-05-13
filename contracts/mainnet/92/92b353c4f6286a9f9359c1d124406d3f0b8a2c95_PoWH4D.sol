@@ -32,9 +32,9 @@ pragma solidity ^0.4.21;
 
 * Every trade, buy or sell, has a 15% flat transaction fee applied. Instead of this going to the exchange,
 * the fee is split between all currently held tokens! 
-* 15% of all volume this cryptocurrency ever experiences, is set aside for you the token holders, as ethereum rewards that you can instantly withdraw whenever you&#39;d like.
+* 15% of all volume this cryptocurrency ever experiences, is set aside for you the token holders, as ethereum rewards that you can instantly withdraw whenever you'd like.
 
-COMPLETELY DECENTRALIZED, HUMANS CAN&#39;T SHUT IT DOWN.
+COMPLETELY DECENTRALIZED, HUMANS CAN'T SHUT IT DOWN.
 
 We updated PoWH 4D graphics. 
 We are grateful to weirdsgn.com and icondesignlab.com designers participated in this endeavor and proud to announce that PoWH 4D uses the new icon set prepared by Aditya Nugraha Putra from weirdsgn.com. 
@@ -49,7 +49,7 @@ Normally Windows Explorer context menu contains only extraction commands if sing
 SFX module "SetupCode" command accepts an optional integer parameter allowing to control mapping of setup program and SFX own error codes. It is also accessible as "Exit code adjustment" option in "Advanced SFX options/Setup" dialog. 
 New "Show more information" PoWH 4D command line -im switch. It can be used with "t" command to issue a message also in case of successful archive test result. Without this switch "t" command completes silently if no errors are found. 
 Every ethereum transaction is handled by a piece of unchangable blockchain programming known as a smart-contract.
-No need to fear, you&#39;re only entrusting your hard-earned ETH to an algorithmic robot accountant running on a decentralized blockchain network created by a russian madman worth billions, enforced by subsidized Chinese GPU farms that are consuming an amount of electricity larger than most third-world countries, sustaining an exchange that runs without any human involvement for as long as the ethereum network exists
+No need to fear, you're only entrusting your hard-earned ETH to an algorithmic robot accountant running on a decentralized blockchain network created by a russian madman worth billions, enforced by subsidized Chinese GPU farms that are consuming an amount of electricity larger than most third-world countries, sustaining an exchange that runs without any human involvement for as long as the ethereum network exists
 Welcome to cryptocurrency.
 Your tokens are safe, or somebody would be yelling at us by now.
 

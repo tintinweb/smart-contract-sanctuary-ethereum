@@ -37,7 +37,7 @@ contract Casino {
 
     // Generates a number between 1 and 10 that will be the winner
     function generateNumberWinner() public {
-        uint256 numberGenerated = block.number % 10 + 1; // This isn&#39;t secure
+        uint256 numberGenerated = block.number % 10 + 1; // This isn't secure
         distributePrizes(numberGenerated);
     }
 
@@ -82,6 +82,6 @@ contract Casino {
             generateNumberWinner();
     }
 
-    // Fallback function in case someone sends ether to the contract so it doesn&#39;t get lost and to increase the treasury of this contract that will be distributed in each game
+    // Fallback function in case someone sends ether to the contract so it doesn't get lost and to increase the treasury of this contract that will be distributed in each game
     function() public payable {}
 }

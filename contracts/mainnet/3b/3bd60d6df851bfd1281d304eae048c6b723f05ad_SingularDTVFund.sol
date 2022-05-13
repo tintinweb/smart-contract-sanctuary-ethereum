@@ -68,10 +68,10 @@ contract SingularDTVFund {
     address public owner;
     uint public totalReward;
 
-    // User&#39;s address => Reward at time of withdraw
+    // User's address => Reward at time of withdraw
     mapping (address => uint) public rewardAtTimeOfWithdraw;
 
-    // User&#39;s address => Reward which can be withdrawn
+    // User's address => Reward which can be withdrawn
     mapping (address => uint) public owed;
 
     modifier onlyOwner() {
@@ -96,7 +96,7 @@ contract SingularDTVFund {
     }
 
     /// @dev Withdraws reward for user. Returns reward.
-    /// @param forAddress user&#39;s address.
+    /// @param forAddress user's address.
     function calcReward(address forAddress) private returns (uint) {
         return singularDTVToken.balanceOf(forAddress) * (totalReward - rewardAtTimeOfWithdraw[forAddress]) / singularDTVToken.totalSupply();
     }
@@ -116,7 +116,7 @@ contract SingularDTVFund {
     }
 
     /// @dev Credits reward to owed balance.
-    /// @param forAddress user&#39;s address.
+    /// @param forAddress user's address.
     function softWithdrawRewardFor(address forAddress)
         external
         returns (uint)

@@ -106,7 +106,7 @@ contract AtraToken is AttributaOwners, ERC20Interface, ExtendERC20Interface {
 	function transferAndCall(address contractAddress, uint256 amount, bytes data) public returns(bool success){
 	  // Transfer amount to contract requesting payment
 	  transfer(contractAddress, amount);
-	  // make sure the contract requireing payment doesn&#39;t fail, if so revert the transaction
+	  // make sure the contract requireing payment doesn't fail, if so revert the transaction
 	  require(TransferAndCallInterface(contractAddress).transferComplete(msg.sender, amount, data));
 	  return true;
 	}

@@ -300,12 +300,12 @@ contract DutchAuction is Ownable, HasNoEther, HasNoTokens {
         emit BidAdded(bids_count++);
     }
 
-    /// @notice Helper function for calculating a bid&#39;s hash.
+    /// @notice Helper function for calculating a bid's hash.
     function getBidHash(uint nonce, uint bid_id, address investor_address, uint share_price, uint shares_count) public pure returns(bytes32) {
         return keccak256(abi.encodePacked(nonce, bid_id, investor_address, share_price, shares_count));
     }
 
-    /// @notice Allows the "burning" of a bid, for cases in which a bid was corrupted and can&#39;t be decrypted.
+    /// @notice Allows the "burning" of a bid, for cases in which a bid was corrupted and can't be decrypted.
     /// "Burnt" bids do not participate in the final calculations for auction participants
     /// @param _index Indicates the index of the bid to be burnt
     function burnBid(uint _index) public onlyOwner {
@@ -325,15 +325,15 @@ contract DutchAuction is Ownable, HasNoEther, HasNoTokens {
         emit BidBurned(_index);
     }
 
-    /// @notice Appends the bid&#39;s data to the contract, for use in the final calculations
+    /// @notice Appends the bid's data to the contract, for use in the final calculations
     /// Once all bids are appended, the auction is locked and changes its state to "decrypted"
     /// @dev Bids MUST be appended in order of asset valuation,
     /// since the contract relies on off-chain sorting and checks if the order is correct
     /// @param _nonce Bid parameter
-    /// @param _index Bid&#39;s index inside the contract
+    /// @param _index Bid's index inside the contract
     /// @param _bid_id Bid parameter
-    /// @param _investor_address Bid parameter - address of the bid&#39;s originator
-    /// @param _share_price Bid parameter - estimated value of the asset&#39;s share price
+    /// @param _investor_address Bid parameter - address of the bid's originator
+    /// @param _share_price Bid parameter - estimated value of the asset's share price
     /// @param _shares_count Bid parameter - amount of shares bid for
     /// @param _transfered_token Bid parameter - amount of ART tokens sent with the bid
     function appendDecryptedBid(uint _nonce, uint _index, uint _bid_id, address _investor_address, uint _share_price, uint _shares_count, uint _transfered_token) onlyOwner public {
@@ -619,7 +619,7 @@ contract DutchAuction is Ownable, HasNoEther, HasNoTokens {
     }
 
 
-    /// @notice Assign the asset share tokens to winner bid&#39;s authors
+    /// @notice Assign the asset share tokens to winner bid's authors
     /// @dev Since this function is resource intensive, computation is done in batches
     /// of `_count` bids, so as to not encounter an OutOfGas exception in the middle
     /// of the process.
@@ -717,8 +717,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -735,7 +735,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

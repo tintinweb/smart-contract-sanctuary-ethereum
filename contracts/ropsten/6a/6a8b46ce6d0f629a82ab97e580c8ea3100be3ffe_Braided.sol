@@ -99,7 +99,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage _role, address _addr)
     internal
@@ -247,7 +247,7 @@ contract Superuser is Ownable, RBAC {
   }
 
   /**
-   * @dev Throws if called by any account that&#39;s not a superuser.
+   * @dev Throws if called by any account that's not a superuser.
    */
   modifier onlySuperuser() {
     checkRole(msg.sender, ROLE_SUPERUSER);
@@ -393,7 +393,7 @@ contract Braided is BraidedInterface, Superuser {
   // get the block hash for the block number on the specified strand
   function getBlockHash(uint strandID, uint blockNumber) external view validStrandID(strandID) returns (bytes32) {
     Block memory theBlock = blocks[strandID][blockByNumber[strandID][blockNumber]];
-    // blockByNumber has 0 for blocks that don&#39;t exist, 
+    // blockByNumber has 0 for blocks that don't exist, 
     // which could give the wrong block, so check.
     require(theBlock.blockNumber == blockNumber, INVALID_BLOCK);
     return theBlock.blockHash;

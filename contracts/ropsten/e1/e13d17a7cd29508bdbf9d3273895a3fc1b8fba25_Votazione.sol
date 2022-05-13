@@ -6,7 +6,7 @@ contract Votazione {
     // (cio&#232; un utente votante) che contiene le variabili 
     // necessarie.
     struct Elettore {        
-        bool votato;  // vero = l&#39;elettore ha gi&#224; votato
+        bool votato;  // vero = l'elettore ha gi&#224; votato
         uint indice_candidato;   // indice del candidato votato
         bool autorizzato; // vero = avente diritto di voto    
     }
@@ -43,7 +43,7 @@ contract Votazione {
      
     
     // Array (di dimensioni dinamiche) di tipo struct Candidato
-    // contenente tutti i candidati richiamati dall&#39;indice
+    // contenente tutti i candidati richiamati dall'indice
     // (candidati_e_voti &#232; visibile ma inizialmente &#232; vuoto)
     //
     // array_di_candidati verr&#224; copiato in candidati_e_voti alla
@@ -55,7 +55,7 @@ contract Votazione {
     // Costruttore
     constructor() public {
         
-        // L&#39;indirizzo pubblico del proprietario del contratto viene
+        // L'indirizzo pubblico del proprietario del contratto viene
         // qui memorizzato nella variabile proprietario
         proprietario = msg.sender;
 
@@ -63,7 +63,7 @@ contract Votazione {
         info.votazioni_aperte = false;
 
 
-        // sblocca l&#39;inserimento di nuovi candidati
+        // sblocca l'inserimento di nuovi candidati
         info.candidati_bloccati = false;
 
         // nasconde il risultato delle votazioni
@@ -81,7 +81,7 @@ contract Votazione {
 
     
     // Questa funzione crea un nuovo oggetto Candidato 
-    // aggiungendolo alla fine dell&#39;array array_di_candidati
+    // aggiungendolo alla fine dell'array array_di_candidati
     //
     // Ad ogni candidato viene associato un numero di indice
     function aggiungi_candidato (string _candidato) public {
@@ -90,10 +90,10 @@ contract Votazione {
         // non &#232; il proprietario
         require (msg.sender == proprietario);
 
-        // Termina se l&#39;inserimento di nuovi candidati &#232; stato bloccato
+        // Termina se l'inserimento di nuovi candidati &#232; stato bloccato
         require (!info.candidati_bloccati);
         
-        // Viene aggiunto all&#39;array array_di_candidati il nuovo candidato
+        // Viene aggiunto all'array array_di_candidati il nuovo candidato
         // col nome passato dalla funzione.
         // Il candidato avr&#224; inizialmente zero voti
         array_di_candidati.push (   
@@ -123,7 +123,7 @@ contract Votazione {
         // state avviate le votazioni in precedenza)
         require (!info.candidati_bloccati);
  
-        // Blocca l&#39;inserimento di nuovi candidati
+        // Blocca l'inserimento di nuovi candidati
         info.candidati_bloccati = true;
 
         // Abilita le votazioni per tutti i votanti
@@ -145,8 +145,8 @@ contract Votazione {
         // Rendi visibili i risultati
         info.risultato_visibile = true;
 
-        // Copia il contenuto non visibile dell&#39;array array_di_candidati
-        // nell&#39;array pubblico candidati_e_voti
+        // Copia il contenuto non visibile dell'array array_di_candidati
+        // nell'array pubblico candidati_e_voti
         candidati_e_voti = array_di_candidati;
     }
 
@@ -156,7 +156,7 @@ contract Votazione {
     // Pu&#242; essere chiamata solo dal proprietario
     function assegna_diritto_di_voto (address _elettore) public {
         
-        // La funzione viene terminata se l&#39;indirizzo
+        // La funzione viene terminata se l'indirizzo
         // aveva gi&#224; diritto di voto
         require (!info_elettore[_elettore].autorizzato);
         
@@ -164,8 +164,8 @@ contract Votazione {
         // non &#232; il proprietario
         require (msg.sender == proprietario);
         
-        // Imposta il diritto di voto per l&#39;indirizzo _elettore
-        // settando a vero la variabile autorizzato dell&#39;oggetto
+        // Imposta il diritto di voto per l'indirizzo _elettore
+        // settando a vero la variabile autorizzato dell'oggetto
         // elettore
         info_elettore[_elettore].autorizzato = true;
     }
@@ -175,8 +175,8 @@ contract Votazione {
     function vota_un_candidato (uint candidato_scelto) public {
      
         // Inserisce in sender un oggetto Elettore preso
-        // dall&#39;array "info_elettore" avente indice
-        // pari all&#39;indirizzo del chiamante della funzione.
+        // dall'array "info_elettore" avente indice
+        // pari all'indirizzo del chiamante della funzione.
         Elettore storage sender = info_elettore[msg.sender];
         
         // Termina la funzione se le votazioni non sono ancora aperte
@@ -192,7 +192,7 @@ contract Votazione {
         // (non potr&#224; votare di nuovo)
         sender.votato = true;
         
-        // Imposta l&#39;indice del candidato dell&#39;oggetto Elettore
+        // Imposta l'indice del candidato dell'oggetto Elettore
         // (omettere per rendere il voto anonimo)
         sender.indice_candidato = candidato_scelto;
 
@@ -225,22 +225,22 @@ contract Votazione {
 
 
     // Usa la funzione "indice_vincitore" per restituire il nome contenuto
-    // nell&#39;"array_di_candidati" (identificandolo con l&#39;indice del vincitore)
+    // nell'"array_di_candidati" (identificandolo con l'indice del vincitore)
     function nome_vincitore () public view returns (string n)
     {
         // Termina la funzione se il risultato deve restare nascosto
         require (info.risultato_visibile);
 
-        // estrae il nome dall&#39;oggetto array_di_candidati
+        // estrae il nome dall'oggetto array_di_candidati
         n = array_di_candidati[indice_vincitore()].nome_candidato;
     }
 
-    // Restituisce il nome del candidato inserendo l&#39;indice (getter)
+    // Restituisce il nome del candidato inserendo l'indice (getter)
     function nome_candidato_da_indice (uint i) public view returns (string nomecand) {
-        // Se l&#39;indice passato alla funzione &#232; tra quelli presenti in memoria
+        // Se l'indice passato alla funzione &#232; tra quelli presenti in memoria
         if (i<array_di_candidati.length){
             nomecand = array_di_candidati[i].nome_candidato;
-        // Se l&#39;indice passato &#232; troppo grande
+        // Se l'indice passato &#232; troppo grande
         } else {
             nomecand = "Nessun candidato in questo indice!";
         }

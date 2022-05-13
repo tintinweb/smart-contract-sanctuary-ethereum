@@ -1,8 +1,8 @@
 pragma solidity ^0.4.11;
 
 contract DMINT {
-    string public name = &#39;DMINT&#39;;
-    string public symbol = &#39;DMINT&#39;;
+    string public name = 'DMINT';
+    string public symbol = 'DMINT';
     uint8 public decimals = 18;
     uint256 public totalSupply = 1000000000000000000000000000;
     uint public miningReward = 1000000000000000000;

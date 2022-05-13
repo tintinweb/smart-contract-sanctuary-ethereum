@@ -114,8 +114,8 @@ contract VXR is ERC20Interface, Pausable {
     }
 
     constructor() public{
-        symbol = &#39;VTest3&#39;;
-        name = &#39;VTest3&#39;;
+        symbol = 'VTest3';
+        name = 'VTest3';
         decimals = 18;
         _totalSupply = 1000000000*10**uint(decimals);
         balances[owner] = _totalSupply;

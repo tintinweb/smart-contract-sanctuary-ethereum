@@ -65,7 +65,7 @@ contract Token is StandardToken {
     string public name = "BASIC";
     uint8 public decimals = 8;
     string public symbol = "BASIC";
-    string public version = &#39;BASIC 0.1&#39;;
+    string public version = 'BASIC 0.1';
 
     function Token() public {
         totalSupply = 1000000000000000; // 10 million

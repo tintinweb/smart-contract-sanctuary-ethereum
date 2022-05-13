@@ -7,7 +7,7 @@ email:  ecorpnu AT gmail.com
 (Adapted from VentanaToken.sol by Darryl Morris)
 
 A collated contract set for a token sale specific to the requirments of
-Ozreal&#39;s OZRealestates token product.
+Ozreal's OZRealestates token product.
 
 This software is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -358,7 +358,7 @@ contract OZRealestatesToken is
     uint public constant MAX_ETH_FUND   = 1 ether * MAX_USD_FUND / USD_PER_ETH;
     uint public constant KYC_ETH_LMT    = 1 ether * KYC_USD_LMT  / USD_PER_ETH;
 
-    // General funding opens LEAD_IN_PERIOD after deployment (timestamps can&#39;t be constant)
+    // General funding opens LEAD_IN_PERIOD after deployment (timestamps can't be constant)
     uint public END_DATE  = START_DATE + FUNDING_PERIOD;
 
 //
@@ -489,7 +489,7 @@ contract OZRealestatesToken is
         require(now <= END_DATE);
         require(msg.value > 0);
         
-        // Non-KYC&#39;ed funders can only contribute up to $10000 after prefund period
+        // Non-KYC'ed funders can only contribute up to $10000 after prefund period
         if(!kycAddresses[_addr])
         {
             require(now >= START_DATE);

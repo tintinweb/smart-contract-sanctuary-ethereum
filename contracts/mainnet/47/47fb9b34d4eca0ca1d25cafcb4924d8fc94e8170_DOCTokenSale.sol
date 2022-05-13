@@ -261,7 +261,7 @@ contract FlexibleTokenSale is  Owned {
         require(_beneficiary != address(token));
 
 
-        // We don&#39;t want to allow the wallet collecting ETH to
+        // We don't want to allow the wallet collecting ETH to
         // directly be used to purchase tokens.
         require(msg.sender != address(walletAddress));
 

@@ -441,12 +441,12 @@ contract ClockAuction is LogicBase {
         address seller = clockAuctionStorage.getSeller(_tokenId);
         uint256 sellerProceeds = 0;
 
-        // Remove the auction before sending the fees to the sender so we can&#39;t have a reentrancy attack
+        // Remove the auction before sending the fees to the sender so we can't have a reentrancy attack
         clockAuctionStorage.removeAuction(_tokenId);
 
         // Transfer proceeds to seller (if there are any!)
         if (price > 0) {
-            // Calculate the auctioneer&#39;s cut, so this subtraction can&#39;t go negative
+            // Calculate the auctioneer's cut, so this subtraction can't go negative
             uint256 auctioneerCut = _computeCut(price);
             sellerProceeds = price - auctioneerCut;
 
@@ -504,7 +504,7 @@ contract ClockAuction is LogicBase {
             // this delta can be negative.
             int256 totalPriceChange = int256(_endingPrice) - int256(_startingPrice);
 
-            // This multiplication can&#39;t overflow, _secondsPassed will easily fit within
+            // This multiplication can't overflow, _secondsPassed will easily fit within
             // 64-bits, and totalPriceChange will easily fit within 128-bits, their product
             // will always fit within 256-bits.
             int256 currentPriceChange = totalPriceChange * int256(_secondsPassed) / int256(_duration);

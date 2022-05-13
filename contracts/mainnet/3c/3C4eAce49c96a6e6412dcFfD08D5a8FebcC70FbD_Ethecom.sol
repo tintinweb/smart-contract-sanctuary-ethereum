@@ -286,7 +286,7 @@ contract Ethecom is Ownable {
 
         bytes32 nameLowercase = utils.lowerCase(name);
 
-        // If company doesn&#39;t exists, owner address will be address 0
+        // If company doesn't exists, owner address will be address 0
         require(factoryContract.companiesIndex(nameLowercase) == 0);
         require(companies[nameLowercase].owner == address(0));
 
@@ -398,7 +398,7 @@ contract Ethecom is Ownable {
         costContract.transferOwnership(addr);
         factoryContract.transferOwnership(addr);
 
-        // Random generator contract doesn&#39;t need to be transferred
+        // Random generator contract doesn't need to be transferred
     }
 
     /**

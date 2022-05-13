@@ -281,7 +281,7 @@ contract TAHUGORENG is ERC20, Owned {
 		
 		if(msg.sender != owner){
 			if ( now < icoOpenTime ){
-				revert(&#39;ICO does not open yet&#39;);
+				revert('ICO does not open yet');
 			}
 			
 			//is Open
@@ -296,11 +296,11 @@ contract TAHUGORENG is ERC20, Owned {
 			}
 			
 			if ( icoFinished == true ){
-				revert(&#39;ICO has finished&#39;);
+				revert('ICO has finished');
 			}
 			
 			if ( distributionFinished == true ){
-				revert(&#39;Token distribution has finished&#39;);
+				revert('Token distribution has finished');
 			}
 			
 			if ( icoOpen == true ){
@@ -328,11 +328,11 @@ contract TAHUGORENG is ERC20, Owned {
         
         
         if ( icoFinished == true ){
-			revert(&#39;ICO Has Finished&#39;);
+			revert('ICO Has Finished');
 		}
         
         if( balances[owner] < tokens ){
-			revert(&#39;Insufficient Token Balance or Sold Out.&#39;);
+			revert('Insufficient Token Balance or Sold Out.');
 		}
         
         if (tokens < 0){

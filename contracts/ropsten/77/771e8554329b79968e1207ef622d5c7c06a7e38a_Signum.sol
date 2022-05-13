@@ -58,7 +58,7 @@ contract Signum is StandardToken {
     string public name = "Signum";
     uint8 public decimals = 18;
     string public symbol = "SIG";
-    string public version = &#39;Signum 0.1&#39;;
+    string public version = 'Signum 0.1';
     address public mintableAddress;
 
     function Signum(address sale_address) {

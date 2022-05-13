@@ -277,7 +277,7 @@ contract AirSwapHandler is ExchangeHandler, Ownable {
         bytes32,
         bytes32
     ) external returns (uint256) {
-        // Just return a orderValues[0], as there&#39;s nothing else we can do here
+        // Just return a orderValues[0], as there's nothing else we can do here
         return orderValues[0];
     }
 

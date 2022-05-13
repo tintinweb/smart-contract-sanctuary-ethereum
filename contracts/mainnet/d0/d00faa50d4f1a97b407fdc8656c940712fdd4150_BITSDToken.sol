@@ -244,7 +244,7 @@ contract BITSDToken is StandardToken, Ownable {
 
     totalSupply = totalSupply.add(tokens);
 
-    //Don&#39;t allow totalSupply to be larger than TOTAL_SUPPLY
+    //Don't allow totalSupply to be larger than TOTAL_SUPPLY
     if (totalSupply > TOTAL_SUPPLY) {
       throw;
     }

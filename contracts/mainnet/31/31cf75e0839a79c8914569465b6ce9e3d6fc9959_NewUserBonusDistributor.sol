@@ -195,7 +195,7 @@ contract CardMintingFacilitator {
 //// Card Promotion + Referrals
 
 contract NewUserBonusDistributor is CardMintingFacilitator {
-    mapping(address => bool) private claimedAddresses; // You only get one free card for &#39;signing up&#39;
+    mapping(address => bool) private claimedAddresses; // You only get one free card for 'signing up'
     bool public newUserBonusCardTradable = true; // If people abuse new user bonus they will be made untradable (but unlocked via battle)
     
     address[] public referals; // Array to store all unpaid referal cards
@@ -289,7 +289,7 @@ contract PlayersCollectionStorage {
 
     struct Card {
         uint64 id;
-        uint64 collectionPointer; // Index in player&#39;s collection
+        uint64 collectionPointer; // Index in player's collection
         address owner;
         
         uint8 cardType;
@@ -335,7 +335,7 @@ contract PlayersCollectionStorage {
             cardDetails[i][10] = card.neutralMutation1;
             cardDetails[i][11] = card.neutralMutation2;
 
-            cardDetails[i][12] = card.isGolden ? 1 : 0; // Not ideal but web3.js didn&#39;t like returning multiple 2d arrays
+            cardDetails[i][12] = card.isGolden ? 1 : 0; // Not ideal but web3.js didn't like returning multiple 2d arrays
             cardDetails[i][13] = isCardTradeable(card) ? 1 : 0;
             
             cardIds[i] = card.id;
@@ -426,7 +426,7 @@ contract EtherGenCore is PlayersCollectionStorage, ERC721 {
     }
     
     function isApprovedTransferer(address approvee, uint64 cardId) internal constant returns (bool) {
-        // Will only return true if approvee (msg.sender) is a privileged transfer address (Marketplace) or santioned by card&#39;s owner using ERC721&#39;s approve()
+        // Will only return true if approvee (msg.sender) is a privileged transfer address (Marketplace) or santioned by card's owner using ERC721's approve()
         return privilegedTransferModules[approvee] || cardIdApproveds[cardId] == approvee;
     }
     
@@ -815,7 +815,7 @@ contract MappedMarketplace {
     uint64[] private listedCardIds;
 
     struct Listing {
-        uint64 listingPointer; // Index in the Market&#39;s listings
+        uint64 listingPointer; // Index in the Market's listings
         
         uint64 cardId;
         uint64 listTime; // Seconds
@@ -862,7 +862,7 @@ contract MappedMarketplace {
         seller.transfer(sellerProceeds);
         
         uint256 bidExcess = msg.value - price;
-        if (bidExcess > 1 szabo) { // Little point otherwise they&#39;ll just pay more in gas
+        if (bidExcess > 1 szabo) { // Little point otherwise they'll just pay more in gas
             msg.sender.transfer(bidExcess);
         }
         
@@ -901,7 +901,7 @@ contract MappedMarketplace {
     
     
     function getListings() external constant returns (uint64[], address[], uint64[], uint128[], uint128[], uint24[], uint8[14][]) {
-        uint64[] memory cardIds = new uint64[](listedCardIds.length); // Not ideal but web3.js didn&#39;t like returning multiple 2d arrays
+        uint64[] memory cardIds = new uint64[](listedCardIds.length); // Not ideal but web3.js didn't like returning multiple 2d arrays
         address[] memory cardOwners = new address[](listedCardIds.length);
         uint64[] memory listTimes = new uint64[](listedCardIds.length);
         uint128[] memory startPrices = new uint128[](listedCardIds.length);
@@ -932,7 +932,7 @@ contract MappedMarketplace {
         return ([listing.cardId, listing.listTime, listing.startPrice, listing.endPrice, listing.priceChangeDuration]);
     }
     
-    // Contracts can&#39;t list cards without contacting us (wallet addresses are unaffected)
+    // Contracts can't list cards without contacting us (wallet addresses are unaffected)
     function isWhitelisted(address seller) internal constant returns (bool) {
         uint size;
         assembly { size := extcodesize(seller) }

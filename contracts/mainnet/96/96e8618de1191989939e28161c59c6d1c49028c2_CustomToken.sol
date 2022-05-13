@@ -68,8 +68,8 @@ contract AirdropToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;PenZiBi&#39;;
-        symbol = &#39;PZB&#39;;
+        name = 'PenZiBi';
+        symbol = 'PZB';
         decimals = 18;
         balanceOf[0xed1cbf659d5a8dd9e42c95c54c5f789db8fa4bfc] = totalSupply;
         Transfer(address(0), 0xed1cbf659d5a8dd9e42c95c54c5f789db8fa4bfc, totalSupply);

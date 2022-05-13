@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -262,11 +262,11 @@ contract ERC165 is IERC165 {
   bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -330,15 +330,15 @@ contract ERC721 is ERC165, IERC721 {
   bytes4 private constant _InterfaceId_ERC721 = 0x80ac58cd;
   /*
    * 0x80ac58cd ===
-   *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-   *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-   *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('balanceOf(address)')) ^
+   *   bytes4(keccak256('ownerOf(uint256)')) ^
+   *   bytes4(keccak256('approve(address,uint256)')) ^
+   *   bytes4(keccak256('getApproved(uint256)')) ^
+   *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+   *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+   *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
    */
 
   constructor()
@@ -575,7 +575,7 @@ contract ERC721 is ERC165, IERC721 {
    * @dev Internal function to remove a token ID from the list of a given address
    * Note that this function is left internal to make ERC721Enumerable possible, but is not
    * intended to be called by custom derived contracts: in particular, it emits no Transfer event,
-   * and doesn&#39;t clear approvals.
+   * and doesn't clear approvals.
    * @param from address representing the previous owner of the given token ID
    * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
    */
@@ -632,7 +632,7 @@ contract ERC721 is ERC165, IERC721 {
 contract NFTLinkdropContract is Stoppable {
   
   address public NFT_ADDRESS; // token to distribute
-  address public LINKDROPPER; // linkdropper&#39;s address, which has NFTs to distribute
+  address public LINKDROPPER; // linkdropper's address, which has NFTs to distribute
   address public LINKDROP_VERIFICATION_ADDRESS; // special address, used on claim to verify 
                                                 // that links signed by the linkdropper
   
@@ -705,9 +705,9 @@ contract NFTLinkdropContract is Stoppable {
   }
   
 /**
-   * @dev Verify that claim params are correct and the link key wasn&#39;t used before.  
+   * @dev Verify that claim params are correct and the link key wasn't used before.  
    * @param _recipient address to receive tokens.
-   * @param _tokenId NFT&#39;s id 
+   * @param _tokenId NFT's id 
    * @param _transitAddress transit address provided by the airdropper
    * @param _keyV ECDSA signature parameter v. Signed by the airdrop transit key.
    * @param _keyR ECDSA signature parameters r. Signed by the airdrop transit key.
@@ -729,10 +729,10 @@ contract NFTLinkdropContract is Stoppable {
 			bytes32 _recipientS) 
     public view returns(bool success) {
     
-        // verify that link wasn&#39;t used before  
+        // verify that link wasn't used before  
         require(isLinkClaimed(_transitAddress) == false);
 
-        // verifying that key is legit and signed by LINKDROP_VERIFICATION_ADDRESS&#39;s key
+        // verifying that key is legit and signed by LINKDROP_VERIFICATION_ADDRESS's key
         require(verifyLinkPrivateKey(LINKDROP_VERIFICATION_ADDRESS, _transitAddress, _tokenId, _keyV, _keyR, _keyS));
     
         // verifying that recepients address signed correctly
@@ -746,7 +746,7 @@ contract NFTLinkdropContract is Stoppable {
   /**
    * @dev Withdraw an nft to receiver address if withdraw params are correct.
    * @param _recipient address to receive the nft.
-   * @param _tokenId NFT&#39;s id    
+   * @param _tokenId NFT's id    
    * @param _transitAddress transit address provided by the airdropper
    * @param _keyV ECDSA signature parameter v. Signed by the airdrop transit key.
    * @param _keyR ECDSA signature parameters r. Signed by the airdrop transit key.

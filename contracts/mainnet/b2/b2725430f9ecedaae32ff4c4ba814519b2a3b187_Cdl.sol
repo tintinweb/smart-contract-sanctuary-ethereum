@@ -23,7 +23,7 @@ Let’s play. If you win, we’ll give you the answer.
 #,         ,#
  ##       ##
   ###, ,###
-   &#39;#####&#39;
+   '#####'
 /##### #####/
 #   #   #   #
  ###     ###
@@ -211,7 +211,7 @@ library SafeXHD {
                 return 0;
             }
             uint c = a / b;
-            // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+            // assert(a == b * c + a % b); // There is no case in which this doesn't hold
             return c;
         }
      

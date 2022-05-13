@@ -52,7 +52,7 @@ library SafeMath {
     {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -397,7 +397,7 @@ contract MiracleTeleToken is ERC20Token, Owned {
     }
 
     /**
-     * Don&#39;t accept ETH, it is utility token
+     * Don't accept ETH, it is utility token
      */
 	function ()
 	    public

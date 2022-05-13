@@ -117,7 +117,7 @@ contract NicknameRegistrar is DSAuth {
     }
 
     function transferMyName(address to) public payable onlyPaid {
-        require(hasName(msg.sender), "You don&#39;t have a name to transfer!");
+        require(hasName(msg.sender), "You don't have a name to transfer!");
         pendingNameTransfers[to] = names[msg.sender];
         _inTransfer[stringToBytes32(names[msg.sender])] = true;
         

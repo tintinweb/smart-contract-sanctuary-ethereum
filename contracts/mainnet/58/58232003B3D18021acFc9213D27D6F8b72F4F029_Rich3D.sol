@@ -33,7 +33,7 @@ pragma solidity ^0.4.24;
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -1078,8 +1078,8 @@ contract Rich3D {
         }
         // 分享，如果没有分享，进入到社区基金（自己的邀请码也是会进入自己，前提是自己要注册）
         uint256 _aff = (_eth.mul(8)).div(100);
-        //if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
-        if (plyr_[_affID].name != &#39;&#39;) {    
+        //if (_affID != _pID && plyr_[_affID].name != '') {
+        if (plyr_[_affID].name != '') {    
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit onAffiliatePayout(
                 _affID, 

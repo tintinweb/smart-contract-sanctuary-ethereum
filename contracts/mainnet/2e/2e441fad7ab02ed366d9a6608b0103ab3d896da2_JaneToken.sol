@@ -4,9 +4,9 @@ contract tokenRecipient {
 
 contract JaneToken {
     /* Public variables of the Jane Career Coaching Token token */
-    string public standard = &#39;Jane 1.0&#39;;
-    string public name = &#39;JaneCareerCoachingToken&#39;;
-    string public symbol = &#39;JANE&#39;;
+    string public standard = 'Jane 1.0';
+    string public name = 'JaneCareerCoachingToken';
+    string public symbol = 'JANE';
     uint8 public decimals = 8;
     uint256 public totalSupply = 10000000000000000;
 

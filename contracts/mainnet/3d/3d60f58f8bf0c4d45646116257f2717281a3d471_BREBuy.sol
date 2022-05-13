@@ -4,7 +4,7 @@ contract BREBuy {
 
     struct ContractParam {
         uint32  totalSize ; 
-        uint256 singlePrice;  // 一个eth &#39;
+        uint256 singlePrice;  // 一个eth '
         uint8  pumpRate;
         bool hasChange;
     }

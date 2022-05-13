@@ -116,7 +116,7 @@ contract EnergyStore is owned, consumerRegistry, producerRegistry {
     uint64 constant maxEnergy = 18446 * GWh;
   
     struct Bid {
-        // producer&#39;s public key
+        // producer's public key
         address producer;
         
         // day for which the offer is valid
@@ -154,8 +154,8 @@ contract EnergyStore is owned, consumerRegistry, producerRegistry {
     mapping(uint32 => uint) public asksIndex;
     
     /// @notice Offer `(aenergy / 1.0e6).toFixed(6)` kWh of energy for
-    ///         day `aday` at a price `(aprice / 1.0e3).toFixed(3) + &#39;
-    ///         ct/kWh&#39;` above market price for a date given as day
+    ///         day `aday` at a price `(aprice / 1.0e3).toFixed(3) + '
+    ///         ct/kWh'` above market price for a date given as day
     ///         `aday` whilst asserting that the current date and time
     ///         in nanoseconds since 1970 is `atimestamp`.
     ///
@@ -178,7 +178,7 @@ contract EnergyStore is owned, consumerRegistry, producerRegistry {
             
             // NOTE: Should we sanity-check timestamps here (ensure that
             //       they are either in the past or not in the too-distant
-            //       future compared to the last block&#39;s timestamp)?
+            //       future compared to the last block's timestamp)?
 
             emit BidRevoked(bids[idx].producer, bids[idx].day, bids[idx].price, bids[idx].energy);   
         }
@@ -272,7 +272,7 @@ contract EnergyStore is owned, consumerRegistry, producerRegistry {
                 emit DealRevoked(asks[asksIdx].producer, asks[asksIdx].day, asks[asksIdx].price, asks[asksIdx].energy, asks[asksIdx].userID);
             }
             
-            // ...then record the customer&#39;s choice
+            // ...then record the customer's choice
             asksIndex[auserID] = asks.length;
             asks.push(Ask({
                 producer: aproducer,

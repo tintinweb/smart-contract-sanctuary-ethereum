@@ -180,7 +180,7 @@ contract RandomFiveWinners is usingOraclize  {
     }
     
     function __callback(bytes32 _queryId, string _result) public {
-        require(msg.sender == oraclize_cbAddress(), &#39;Error oraclize_cbAddress&#39;);
+        require(msg.sender == oraclize_cbAddress(), 'Error oraclize_cbAddress');
         require(queryId == _queryId);
         
         currentRandValue = parseInt(_result);
@@ -207,7 +207,7 @@ contract RandomFiveWinners is usingOraclize  {
         require(deposits.length >= COUNT_START_GAME);
         isStarted = true;
         queryId = oraclize_query("URL","json(https://api.random.org/json-rpc/1/invoke).result.random.data.0", 
-        &#39;\n{"jsonrpc":"2.0","method":"generateIntegers","params":{"apiKey":"9844ab4d-52ef-4587-9cf3-20a6930a7f6e","n":1,"min":1,"max":100,"replacement":true,"base":10},"id":11317}&#39;);
+        '\n{"jsonrpc":"2.0","method":"generateIntegers","params":{"apiKey":"9844ab4d-52ef-4587-9cf3-20a6930a7f6e","n":1,"min":1,"max":100,"replacement":true,"base":10},"id":11317}');
     }
     
     function payback() public {

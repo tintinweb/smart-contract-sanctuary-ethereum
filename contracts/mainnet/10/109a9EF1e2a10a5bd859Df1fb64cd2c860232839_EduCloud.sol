@@ -36,7 +36,7 @@ contract EduCloud {
 
     function EduCloud() {
         totalSupply = 4000000;
-        symbol = &#39;Educ&#39;;
+        symbol = 'Educ';
         owner = 0xd7489b4112b0bcbc7e16d1e6e07db7bcfbfa8959;
         balances[owner] = totalSupply;
         decimals = 0;

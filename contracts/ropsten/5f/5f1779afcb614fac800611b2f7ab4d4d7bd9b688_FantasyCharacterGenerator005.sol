@@ -1,7 +1,7 @@
 /*
 /// @title Fantasy Character Generator - version 005
 /// @author MarkCTest
-/// @notice I&#39;m not sure how to test Event-Emit in Remix
+/// @notice I'm not sure how to test Event-Emit in Remix
 /// @notice Deploy to Ropsten cost $0.14 / 0.000629 gas
 */
 
@@ -45,7 +45,7 @@ uint statModulus = 10 ** statDigitSize;
     CharacterDetails memory character = CharacterDetails(_firstName, _secondName, 1, uint32(randStrength), uint32(randHealth));
     characters.push(character);
     
-    // @notice Not sure how we &#39;see&#39; the emission of the event in Remix...
+    // @notice Not sure how we 'see' the emission of the event in Remix...
     emit NewCharacter(_firstName, _secondName);
   }
   

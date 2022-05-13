@@ -220,7 +220,7 @@ contract CrowdsaleToken is StandardToken, Ownable {
         return true;
     }
 
-    // send waiting tokens to customer&#39;s balance
+    // send waiting tokens to customer's balance
     function release(address _to) external onlyOwner {
         require(_to != address(0));
 

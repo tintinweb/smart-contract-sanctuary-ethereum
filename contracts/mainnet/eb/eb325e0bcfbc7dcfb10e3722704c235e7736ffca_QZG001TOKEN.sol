@@ -6,7 +6,7 @@ contract tokenRecipient {
 
 contract QZG001TOKEN{
    
-    string public standard = &#39;QZG001TOKEN 0.1&#39;;
+    string public standard = 'QZG001TOKEN 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;

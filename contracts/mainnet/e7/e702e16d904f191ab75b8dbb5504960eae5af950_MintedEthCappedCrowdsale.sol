@@ -24,7 +24,7 @@ contract SafeMathLib {
   function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 }
@@ -157,7 +157,7 @@ contract StandardToken is ERC20, SafeMathLib {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -233,7 +233,7 @@ contract BurnableToken is StandardToken {
   function burn(uint256 _value) public {
     require(_value <= balances[msg.sender]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     address burner = msg.sender;
     balances[burner] = safeSub(balances[burner],_value);
@@ -278,7 +278,7 @@ contract UpgradeableToken is StandardToken {
    * Upgrade states.
    *
    * - NotAllowed: The child contract has not reached a condition where the upgrade can bgun
-   * - WaitingForAgent: Token allows upgrade, but we don&#39;t have a new agent yet
+   * - WaitingForAgent: Token allows upgrade, but we don't have a new agent yet
    * - ReadyToUpgrade: The agent is set, but not a single token has been upgraded yet
    * - Upgrading: Upgrade agent is set and the balance holders can upgrade their tokens
    *
@@ -409,7 +409,7 @@ contract ReleasableToken is ERC20, Ownable {
    */
   function setReleaseAgent(address addr) onlyOwner inReleaseState(false) public {
 
-    // We don&#39;t do interface check here as we might want to a normal wallet address to act as a release agent
+    // We don't do interface check here as we might want to a normal wallet address to act as a release agent
     releaseAgent = addr;
   }
 
@@ -611,7 +611,7 @@ contract FinalizeAgent {
 
   /** Return true if we can run finalizeCrowdsale() properly.
    *
-   * This is a safety check function that doesn&#39;t allow crowdsale to begin
+   * This is a safety check function that doesn't allow crowdsale to begin
    * unless the finalizer has been set up properly.
    */
   function isSane() public view returns (bool);
@@ -851,7 +851,7 @@ contract Crowdsale is Allocatable, Haltable, SafeMathLib {
 
     endsAt = _end;
 
-    // Don&#39;t mess the dates
+    // Don't mess the dates
     require(startsAt < endsAt);
 
     // Minimum funding goal can be zero
@@ -860,7 +860,7 @@ contract Crowdsale is Allocatable, Haltable, SafeMathLib {
   }
 
   /**
-   * Don&#39;t expect to just send in money and get tokens.
+   * Don't expect to just send in money and get tokens.
    */
   function() payable public {
     invest(msg.sender);
@@ -890,7 +890,7 @@ contract Crowdsale is Allocatable, Haltable, SafeMathLib {
 
     uint256 tokenAmount;
     uint256 weiAmount = msg.value;
-    // Determine if it&#39;s a good time to accept investment from this participant
+    // Determine if it's a good time to accept investment from this participant
     if (getState() == State.PreFunding) {
         // Are we whitelisted for early deposit
         require(earlyParticipantWhitelist[receiver]);
@@ -1102,7 +1102,7 @@ contract Crowdsale is Allocatable, Haltable, SafeMathLib {
   function setFinalizeAgent(FinalizeAgent addr) public onlyOwner {
     finalizeAgent = addr;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     require(finalizeAgent.isFinalizeAgent());
   }
 
@@ -1180,7 +1180,7 @@ contract Crowdsale is Allocatable, Haltable, SafeMathLib {
   function setPricingStrategy(PricingStrategy _pricingStrategy) public onlyOwner {
     pricingStrategy = _pricingStrategy;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     require(pricingStrategy.isPricingStrategy());
   }
 
@@ -1493,7 +1493,7 @@ contract EthTranchePricing is PricingStrategy, Ownable, SafeMathLib {
   }
 
   function isSane(address _crowdsale) public view returns(bool) {
-    // Our tranches are not bound by time, so we can&#39;t really check are we sane
+    // Our tranches are not bound by time, so we can't really check are we sane
     // so we presume we are ;)
     // In the future we could save and track raised tokens, and compare it to
     // the Crowdsale contract.

@@ -35,8 +35,8 @@ contract boleno {
       if (now < 1502755200 && msg.sender != supplier) throw;// Cannot trade until Tuesday, August 15, 2017 12:00:00 AM (End of ICO)
       if (balances[msg.sender] < _value) throw;            // Does the spender have enough Bolenos to send?
       if (balances[_to] + _value < balances[_to]) throw;   // Overflow?
-      balances[msg.sender] -= _value;                      // Subtract the Bolenos from the sender&#39;s balance
-      balances[_to] += _value;                             // Add the Bolenos to the recipient&#39;s balance
+      balances[msg.sender] -= _value;                      // Subtract the Bolenos from the sender's balance
+      balances[_to] += _value;                             // Add the Bolenos to the recipient's balance
       Transfer(msg.sender, _to, _value);                   // Send Bolenos transfer event
       return true;                                         // Return true to client
     }
@@ -47,9 +47,9 @@ contract boleno {
       if (balances[_from] < _value) throw;                  // Does the spender have enough Bolenos to send?
       if(allowed[_from][msg.sender] < _value) throw;        // Is the sender allowed to spend as much money on behalf of the spender?
       if (balances[_to] + _value < balances[_to]) throw;    // Overflow?
-      balances[_from] -= _value;                            // Subtract the Bolenos from the sender&#39;s balance
+      balances[_from] -= _value;                            // Subtract the Bolenos from the sender's balance
       allowed[_from][msg.sender] -= _value;                 // Update allowances record
-      balances[_to] += _value;                              // Add the Bolenos to the recipient&#39;s balance
+      balances[_to] += _value;                              // Add the Bolenos to the recipient's balance
       Transfer(_from, _to, _value);                         // Send Bolenos transfer event
       return true;                                          // Return true to client
      }
@@ -89,8 +89,8 @@ contract boleno {
       uint256 purchaserBounty = (bolenos / 100) * (100 + bounty);// Add bounty to the purchased amount
       if(balances[supplier] < purchaserBounty) throw;       // Does the supplier have enough BLN tokens to sell?
       if (balances[msg.sender] + purchaserBounty < balances[msg.sender]) throw; // Overflow?
-      balances[supplier] -= purchaserBounty;                // Subtract the Bolenos from the supplier&#39;s balance
-      balances[msg.sender] += purchaserBounty;              // Add the Bolenos to the buyer&#39;s balance
+      balances[supplier] -= purchaserBounty;                // Subtract the Bolenos from the supplier's balance
+      balances[msg.sender] += purchaserBounty;              // Add the Bolenos to the buyer's balance
       Transfer(supplier, msg.sender, purchaserBounty);      // Send Bolenos transfer event
       /*
         Then give Bolenos to the referrer
@@ -98,8 +98,8 @@ contract boleno {
       uint256 referrerBounty = (bolenos / 100) * bounty;    // Only the bounty percentage is added to the referrer
       if(balances[supplier] < referrerBounty) throw;        // Does the supplier have enough BLN tokens to sell?
       if (balances[referrer] + referrerBounty < balances[referrer]) throw; // Overflow?
-      balances[supplier] -= referrerBounty;                 // Subtract the Bolenos from the supplier&#39;s balance
-      balances[referrer] += referrerBounty;                 // Add the Bolenos to the buyer&#39;s balance
+      balances[supplier] -= referrerBounty;                 // Subtract the Bolenos from the supplier's balance
+      balances[referrer] += referrerBounty;                 // Add the Bolenos to the buyer's balance
       Transfer(supplier, referrer, referrerBounty);         // Send Bolenos transfer event
     }
 
@@ -140,8 +140,8 @@ contract boleno {
       uint256 bolenos = msg.value * blnpereth;              // Determine amount of equivalent Bolenos to the Ethers received
       if(balances[supplier] < bolenos) throw;               // Does the supplier have enough BLN tokens to sell?
       if (balances[msg.sender] + bolenos < balances[msg.sender]) throw; // Overflow?
-      balances[supplier] -= bolenos;                        // Subtract the Bolenos the supplier&#39;s balance
-      balances[msg.sender] += bolenos;                      // Add the Bolenos to the buyer&#39;s balance
+      balances[supplier] -= bolenos;                        // Subtract the Bolenos the supplier's balance
+      balances[msg.sender] += bolenos;                      // Add the Bolenos to the buyer's balance
       Transfer(supplier, msg.sender, bolenos);              // Send Bolenos transfer event
     }
 }

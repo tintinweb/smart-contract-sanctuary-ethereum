@@ -190,10 +190,10 @@ contract Token is Finalizable, TokenReceivable, SafeMath, EventDefinitions, Paus
 	}
 
 	// Transfer a number of AirTokens to the internal AirFox ledger address
-	// by a user&#39;s MDN, digits only including country code, no white space, dashes,
+	// by a user's MDN, digits only including country code, no white space, dashes,
 	// plusses, or any other special characters. Encode using web3.fromAscii()
-	// with 32 bytes as the length. If you don&#39;t encode the MDN properly, they
-	// won&#39;t receive the AirTokens.
+	// with 32 bytes as the length. If you don't encode the MDN properly, they
+	// won't receive the AirTokens.
 	//
 	// Example for US number (country code 1):  16175551234
 	// web3.fromAscii("16175555555", 32);

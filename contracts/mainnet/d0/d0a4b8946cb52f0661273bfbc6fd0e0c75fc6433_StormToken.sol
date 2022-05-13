@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -175,7 +175,7 @@ contract StormToken is Token {
     crowdsaleContractAddress = _crowdsaleAddress;
   }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -187,7 +187,7 @@ contract StormToken is Token {
         _;
     }
 
-    // allows execution only when transfers aren&#39;t disabled
+    // allows execution only when transfers aren't disabled
     modifier transfersAllowed {
         assert(transfersEnabled);
         _;
@@ -250,7 +250,7 @@ contract StormToken is Token {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transfer(address _to, uint256 _value) public transfersAllowed returns (bool success) {
         assert(super.transfer(_to, _value));
@@ -275,7 +275,7 @@ contract StormToken is Token {
         @param _to      target address
         @param _value   transfer amount
 
-        @return true if the transfer was successful, false if it wasn&#39;t
+        @return true if the transfer was successful, false if it wasn't
     */
     function transferFrom(address _from, address _to, uint256 _value) public transfersAllowed returns (bool success) {
         assert(super.transferFrom(_from, _to, _value));

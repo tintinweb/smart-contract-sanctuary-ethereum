@@ -97,7 +97,7 @@ contract Prover {
 
     // internal functions
     function _addEntry(bytes32 dataHash) internal {
-        // ensure the entry doesn&#39;t exist
+        // ensure the entry doesn't exist
         assert(!ledger[msg.sender].hashes.contains(dataHash));
         // update UserAccount (hashes then entries)
         ledger[msg.sender].hashes.insert(dataHash);
@@ -117,7 +117,7 @@ contract Prover {
         if (rebate > 0) {
             msg.sender.transfer(rebate);
         }
-        // delete from userlist if this was the user&#39;s last entry
+        // delete from userlist if this was the user's last entry
         if (ledger[msg.sender].hashes.length() == 0) {
             users.remove(msg.sender);
         }

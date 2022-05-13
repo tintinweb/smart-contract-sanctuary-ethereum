@@ -60,7 +60,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -238,7 +238,7 @@ contract TokenVesting is Ownable {
   }
 
   /**
-   * @dev Calculates the amount that has already vested but hasn&#39;t been released yet.
+   * @dev Calculates the amount that has already vested but hasn't been released yet.
    * @param token ERC20 token which is being vested
    */
   function releasableAmount(ERC20Basic token) public view returns (uint256) {
@@ -283,15 +283,15 @@ contract GenesisManager is Ownable {
 
     // Initial token supply issued
     uint256 public initialSupply;
-    // Crowd&#39;s portion of the initial token supply
+    // Crowd's portion of the initial token supply
     uint256 public crowdSupply;
-    // Company&#39;s portion of the initial token supply
+    // Company's portion of the initial token supply
     uint256 public companySupply;
-    // Team&#39;s portion of the initial token supply
+    // Team's portion of the initial token supply
     uint256 public teamSupply;
-    // Investors&#39; portion of the initial token supply
+    // Investors' portion of the initial token supply
     uint256 public investorsSupply;
-    // Community&#39;s portion of the initial token supply
+    // Community's portion of the initial token supply
     uint256 public communitySupply;
 
     // Token amount in grants for the team
@@ -305,9 +305,9 @@ contract GenesisManager is Ownable {
     // and timelock grants release locked tokens
     uint256 public grantsStartTimestamp;
 
-    // Map receiver addresses => contracts holding receivers&#39; vesting tokens
+    // Map receiver addresses => contracts holding receivers' vesting tokens
     mapping (address => address) public vestingHolders;
-    // Map receiver addresses => contracts holding receivers&#39; time locked tokens
+    // Map receiver addresses => contracts holding receivers' time locked tokens
     mapping (address => address) public timeLockedHolders;
 
     enum Stages {
@@ -465,7 +465,7 @@ contract GenesisManager is Ownable {
         // Receiver must not have already received a grant with a vesting schedule
         require(vestingHolders[_receiver] == address(0));
 
-        // Create a vesting holder contract to act as the holder of the grant&#39;s tokens
+        // Create a vesting holder contract to act as the holder of the grant's tokens
         // Note: the vesting grant is revokable
         TokenVesting holder = new TokenVesting(_receiver, grantsStartTimestamp, _timeToCliff, _vestingDuration, true);
         vestingHolders[_receiver] = holder;
@@ -499,7 +499,7 @@ contract GenesisManager is Ownable {
         // Receiver must not have already received a grant with timelocked tokens
         require(timeLockedHolders[_receiver] == address(0));
 
-        // Create a timelocked holder contract to act as the holder of the grant&#39;s tokens
+        // Create a timelocked holder contract to act as the holder of the grant's tokens
         TokenTimelock holder = new TokenTimelock(token, _receiver, grantsStartTimestamp);
         timeLockedHolders[_receiver] = holder;
 

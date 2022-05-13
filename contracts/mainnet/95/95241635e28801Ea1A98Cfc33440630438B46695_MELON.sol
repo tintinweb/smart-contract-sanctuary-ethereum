@@ -36,7 +36,7 @@ contract MELON {
 
     function MELON() {
         totalSupply = 3911133;
-        symbol = &#39;MELON&#39;;
+        symbol = 'MELON';
         owner = 0x91b5a9194b0293d793dc15678d46575894d45898;
         balances[owner] = totalSupply;
         decimals = 0;

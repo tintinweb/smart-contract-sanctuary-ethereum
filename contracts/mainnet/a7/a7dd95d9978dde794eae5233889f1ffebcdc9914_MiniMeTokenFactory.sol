@@ -11,7 +11,7 @@ library SafeMath {
   function div(uint a, uint b) internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -187,10 +187,10 @@ contract Controlled {
 contract MiniMeToken is ERC20, Controlled {
     using SafeMath for uint;
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
-    string public version = &#39;MMT_0.1&#39;; //An arbitrary versioning scheme
+    string public version = 'MMT_0.1'; //An arbitrary versioning scheme
 
 
     /// @dev `Checkpoint` is the structure that attaches a block number to a
@@ -352,7 +352,7 @@ contract MiniMeToken is ERC20, Controlled {
            return true;
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) constant returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -626,7 +626,7 @@ contract MiniMeToken is ERC20, Controlled {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s controller has not been
+    /// @notice The fallback function: If the contract's controller has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token controller contract
     function ()  payable {
@@ -803,7 +803,7 @@ contract VestedToken is LimitedTransferToken, GrantsControlled {
     grants[_holder][_grantId] = grants[_holder][grants[_holder].length.sub(1)];
     grants[_holder].length -= 1;
 
-    // This will call MiniMe&#39;s doTransfer method, so token is transferred according to
+    // This will call MiniMe's doTransfer method, so token is transferred according to
     // MiniMe Token logic
     doTransfer(_holder, receiver, nonVested);
 
@@ -825,7 +825,7 @@ contract VestedToken is LimitedTransferToken, GrantsControlled {
    * @dev Calculate the total amount of transferable tokens of a holder at a given time
    * @param holder address The address of the holder
    * @param time uint64 The specific time.
-   * @return An uint representing a holder&#39;s total amount of transferable tokens.
+   * @return An uint representing a holder's total amount of transferable tokens.
    */
   function transferableTokens(address holder, uint64 time) constant public returns (uint256) {
     uint256 grantIndex = tokenGrantsCount(holder);
@@ -892,7 +892,7 @@ contract VestedToken is LimitedTransferToken, GrantsControlled {
 
       // Interpolate all vested tokens.
       // As before cliff the shortcut returns 0, we can use just calculate a value
-      // in the vesting rect (as shown in above&#39;s figure)
+      // in the vesting rect (as shown in above's figure)
 
       // vestedTokens = tokens * (time - start) / (vesting - start)
       uint256 vestedTokens = SafeMath.div(
@@ -1074,7 +1074,7 @@ contract District0xContribution is Pausable, HasNoTokens, TokenController {
 
     bool public tokenTransfersEnabled = false;                          // DNT token transfers will be enabled manually
                                                                         // after first contribution period
-                                                                        // Can&#39;t be disabled back
+                                                                        // Can't be disabled back
     struct Contributor {
         uint amount;                        // Amount of ETH contributed by an address in given contribution period
         bool isCompensated;                 // Whether this contributor received DNT token for ETH contribution
@@ -1397,7 +1397,7 @@ contract District0xContribution is Pausable, HasNoTokens, TokenController {
 
     /*
      Following constant methods are used for tests and contribution web app
-     They don&#39;t impact logic of contribution contract, therefor DOES NOT NEED TO BE AUDITED
+     They don't impact logic of contribution contract, therefor DOES NOT NEED TO BE AUDITED
      */
 
     // Used by contribution front-end to obtain contribution period properties
@@ -1434,7 +1434,7 @@ contract District0xContribution is Pausable, HasNoTokens, TokenController {
             maxGasPrice);
     }
 
-    // Used by contribution front-end to obtain contributor&#39;s properties
+    // Used by contribution front-end to obtain contributor's properties
     function getContributor(address contributorAddress)
         constant
         returns(uint, bool, uint)

@@ -117,7 +117,7 @@ contract OHiWE is ERC20 {
     
     function transferFrom( address _from, address _to, uint256 _amount ) public onlyUnlockToken returns (bool)  {
         require( _to != address(0), "Receiver can not be 0x0");
-        require(balances[_from] > _amount, "Source&#39;s balance is not enough");
+        require(balances[_from] > _amount, "Source's balance is not enough");
         require(allowed[_from][msg.sender] > _amount, "Allowance is not enough");
         require(!locked[_from], "From address is locked");
         balances[_from] = (balances[_from]).sub(_amount);

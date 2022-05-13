@@ -1,7 +1,7 @@
 pragma solidity 0.4.21;
 
 // ----------------------------------------------------------------------------
-// &#39;Digitize Coin Presale&#39; contract: https://digitizecoin.com 
+// 'Digitize Coin Presale' contract: https://digitizecoin.com 
 //
 // Digitize Coin - DTZ: 0x664e6db4044f23c95de63ec299aaa9b39c59328d
 // SoftCap: 600 ether
@@ -95,7 +95,7 @@ library SafeMath {
 }
 
 // ----------------------------------------------------------------------------
-// RefundVault for &#39;Digitize Coin&#39; project imported from:
+// RefundVault for 'Digitize Coin' project imported from:
 // https://github.com/OpenZeppelin/zeppelin-solidity/blob/master/contracts/crowdsale/distribution/utils/RefundVault.sol
 //
 // Radek Ostrowski / http://startonchain.com / https://digitizecoin.com 

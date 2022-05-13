@@ -63,8 +63,8 @@ contract TKN is SafeMath{
       uint256 initialSupply = 1000000;
       balanceOf[msg.sender] = initialSupply;              // Give the creator all initial tokens
       totalSupply = initialSupply;                        // Update total supply
-      name = &#39;TKN Token&#39;;                                   // Set the name for display purposes
-      symbol = &#39;TKN&#39;;                               // Set the symbol for display purposes
+      name = 'TKN Token';                                   // Set the name for display purposes
+      symbol = 'TKN';                               // Set the symbol for display purposes
       decimals = 18;                            // Amount of decimals for display purposes
   		owner = msg.sender;
     }

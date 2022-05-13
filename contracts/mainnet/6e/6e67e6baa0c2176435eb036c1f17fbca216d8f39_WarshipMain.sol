@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 pragma solidity ^0.4.18;
 
-//It&#39;s open source,but... ;) Good luck! :P
+//It's open source,but... ;) Good luck! :P
 /**
  * @title Ownable
  * @dev The Ownable contract has an owner address, and provides basic authorization control
@@ -74,7 +74,7 @@ contract Pausable is Beneficiary{
     }
 
     function unpause() public onlyOwner whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 } 
@@ -93,7 +93,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -356,7 +356,7 @@ contract WarshipMain is WarshipAccess{
     
 
     // @dev An internal method that creates a new ship and stores it. This
-    ///  method doesn&#39;t do any checking and should only be called when the
+    ///  method doesn't do any checking and should only be called when the
     ///  input data is known to be valid. 
     function _createship (uint256 _wsic, address _owner) internal returns(uint){
         //wsic2ship

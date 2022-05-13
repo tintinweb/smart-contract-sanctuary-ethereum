@@ -14,7 +14,7 @@ contract RACEFORETH {
     // Prevents people from going too fast!
     uint256 public speed_limit = 50 finney;
     
-    // Keep track of everyone&#39;s score
+    // Keep track of everyone's score
     mapping (address => uint256) racerScore;
     mapping (address => uint256) racerSpeedLimit;
     

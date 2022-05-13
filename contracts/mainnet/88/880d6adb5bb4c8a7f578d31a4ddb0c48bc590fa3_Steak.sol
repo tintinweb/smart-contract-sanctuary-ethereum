@@ -24,7 +24,7 @@ pragma solidity ^0.4.15;
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -207,7 +207,7 @@ contract SteakToken is Ownable {
 
 
 
-   // Sending ETH to this contract&#39;s address registers the investment.
+   // Sending ETH to this contract's address registers the investment.
    function () payable {
     invest(msg.sender);
   }
@@ -225,7 +225,7 @@ contract SteakToken is Ownable {
 
     forwardFunds();
 
-    if (investedAmount > 0) { // If they&#39;ve already invested, increase their balance.
+    if (investedAmount > 0) { // If they've already invested, increase their balance.
       investments[beneficiary] = investedAmount + weiAmount; // investedAmount.add(weiAmount);
     } else { // If new investor
       investors.push(beneficiary);
@@ -259,7 +259,7 @@ contract SteakToken is Ownable {
 
     for (uint i=0; i < numberOfInvestors; i++) {
       address investorAddr = investors[i];
-      if (!claimed[investorAddr]) { // If the investor hasn&#39;t already claimed their BOV.
+      if (!claimed[investorAddr]) { // If the investor hasn't already claimed their BOV.
         claimed[investorAddr] = true;
         uint amountInvested = investments[investorAddr];
         uint bovEarned = amountInvested.mul(initialSale).div(weiRaised);
@@ -325,7 +325,7 @@ contract SteakToken is Ownable {
   }
 
 
-  // Calculate initial mining prize (0.0357 ether&#39;s worth of BOV). This is called in endCrowdsale().
+  // Calculate initial mining prize (0.0357 ether's worth of BOV). This is called in endCrowdsale().
   function setInitialPrize() internal returns (uint) {
     require(crowdsaleHasEnded());
     require(initialPrizeBov == 0); // Can only be set once
@@ -433,8 +433,8 @@ contract Steak is AuctionCrowdsale {
 
   // Add Madame BOV as a beef judge.
   function initMembers() onlyOwner {
-    addMember(0, &#39;&#39;);                        // Must add an empty first member
-    addMember(msg.sender, &#39;Madame BOV&#39;);
+    addMember(0, '');                        // Must add an empty first member
+    addMember(msg.sender, 'Madame BOV');
   }
 
 
@@ -482,7 +482,7 @@ contract Steak is AuctionCrowdsale {
 
   /* Submit a steak picture. (After crowdsale has ended.)
   *  WARNING: Before taking the picture, call getDailyHash() and  minutesToPost()
-  *  so you can be sure that you have the correct dailyHash and that it won&#39;t expire before you post it.
+  *  so you can be sure that you have the correct dailyHash and that it won't expire before you post it.
   */
   function submitSteak(address addressToAward, bytes32 steakPicUrl)  returns (uint submissionID) {
     require(crowdsaleHasEnded());
@@ -520,7 +520,7 @@ contract Steak is AuctionCrowdsale {
   // Members judge steak pics, providing justification if necessary.
   function judge(uint submissionNumber, bool supportsSubmission, bytes32 justificationText) onlyMembers {
     Submission storage s = submissions[submissionNumber];         // Get the submission.
-    require(!s.judged);                                     // Musn&#39;t be judged.
+    require(!s.judged);                                     // Musn't be judged.
 
     s.judged = true;
     s.judgedBy = msg.sender;
@@ -530,7 +530,7 @@ contract Steak is AuctionCrowdsale {
     if (supportsSubmission) { // If it passed muster, credit the user and admin.
       uint prizeAmount = getSteakPrize(); // Calculate BOV prize
       s.awarded = prizeAmount;            // Record amount in the Submission
-      mint(s.recipient, prizeAmount);     // Credit the user&#39;s account
+      mint(s.recipient, prizeAmount);     // Credit the user's account
 
       // Credit the member one-third of the prize amount.
       uint adminAward = prizeAmount.div(3);
@@ -564,9 +564,9 @@ contract Steak is AuctionCrowdsale {
 
 
   // Always call this before calling dailyHash and submitting a steak.
-  // If expired, the new hash is set to the last block&#39;s hash.
+  // If expired, the new hash is set to the last block's hash.
   function getDailyHash() public returns (bytes32) {
-    if (dailyHashExpires > now) { // If the hash hasn&#39;t expired yet, return it.
+    if (dailyHashExpires > now) { // If the hash hasn't expired yet, return it.
       return dailyHash;
     } else { // Udderwise, set the new dailyHash and dailyHashExpiration.
 
@@ -576,7 +576,7 @@ contract Steak is AuctionCrowdsale {
 
       // Set the new expiration, jumping ahead in 24-hour increments so the expiration time remains roughly constant from day to day (e.g. 3am).
       uint nextExpiration = dailyHashExpires + 24 hours; // It will already be expired, so set it to next possible date.
-      while (nextExpiration < now) { // if it&#39;s still in the past, advance by 24 hours.
+      while (nextExpiration < now) { // if it's still in the past, advance by 24 hours.
         nextExpiration += 24 hours;
       }
       dailyHashExpires = nextExpiration;

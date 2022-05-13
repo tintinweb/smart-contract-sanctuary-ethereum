@@ -191,7 +191,7 @@ contract PausableToken is StandardToken, Pausable {
 
 contract GSToken is PausableToken {
 
-    string  public name = "GrEARN&#39;s Token";
+    string  public name = "GrEARN's Token";
     string  public symbol = "GST";
     uint    public decimals = 18;
 

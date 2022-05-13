@@ -100,8 +100,8 @@ contract CustomToken is BaseToken, BurnToken, ICOToken {
     constructor(address icoAddress) public {
         totalSupply = 210000000000000000;
         balanceOf[msg.sender] = totalSupply;
-        name = &#39;DAP&#39;;
-        symbol = &#39;DAP&#39;;
+        name = 'DAP';
+        symbol = 'DAP';
         decimals = 8;
         icoRatio = 10000;
         icoEndtime = 1590940800;

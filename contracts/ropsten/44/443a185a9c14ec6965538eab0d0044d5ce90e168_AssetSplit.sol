@@ -39,7 +39,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -350,7 +350,7 @@ contract AssetSplit is Owned {
     uint256 charitySplitAmount = onePercentOfSplit.mul(charitySplitPercent);
     uint256 burnSplitAmount = onePercentOfSplit.mul(burnSplitPercent);
 
-    // double check that we&#39;re not going to try to send too many tokens
+    // double check that we're not going to try to send too many tokens
     require(
       operationalSplitAmount
         .add(daoSplitAmount)

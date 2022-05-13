@@ -192,7 +192,7 @@ pragma solidity ^0.4.23;
         function migrate() isOwner external {
             if(isFunding)
             {
-                revert("isFunding is cann&#39;t migrate");
+                revert("isFunding is cann't migrate");
             }
             require(newContractAddr != address(0x0));
      

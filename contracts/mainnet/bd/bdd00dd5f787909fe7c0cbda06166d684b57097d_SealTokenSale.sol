@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -293,13 +293,13 @@ contract SealTokenSale is Pausable {
     // set a too-high transaction price and be able to buy earlier
     require(tx.gasprice <= maxTxGasPrice);
 
-    // make sure we&#39;re in pre or main sale period
+    // make sure we're in pre or main sale period
     require(isPublicTokenSaleRunning());
 
     // check if KYC ok
     require(userHasKYC(msg.sender));
 
-    // check user is sending enough Wei for the stage&#39;s rules
+    // check user is sending enough Wei for the stage's rules
     require(aboveMinimumPurchase());
 
     address sender = msg.sender;
@@ -330,7 +330,7 @@ contract SealTokenSale is Pausable {
     // check destination address not null
     require(_wallet != address(0));
 
-    // make sure that we&#39;re in private sale or presale
+    // make sure that we're in private sale or presale
     require(isPrivateSaleRunning() || isPreSaleRunning());
 
     // check cap
@@ -358,7 +358,7 @@ contract SealTokenSale is Pausable {
     // check destination address not null
     require(_wallet != address(0));
 
-    // make sure the sale hasn&#39;t ended yet
+    // make sure the sale hasn't ended yet
     require(!hasEnded());
 
     // check amount not more than reserved
@@ -382,7 +382,7 @@ contract SealTokenSale is Pausable {
     // check destination address not null
     require(_wallet != address(0));
 
-    // make sure the sale hasn&#39;t ended yet
+    // make sure the sale hasn't ended yet
     require(!hasEnded());
 
     // check amount not more than reserved
@@ -488,7 +488,7 @@ contract SealTokenSale is Pausable {
   * @dev Start Presale
   */
   function startPreSale() public onlyOwner {
-    // make sure we&#39;re in the private sale state
+    // make sure we're in the private sale state
     require(currentState == TokenSaleState.Private);
 
     // move to presale
@@ -499,7 +499,7 @@ contract SealTokenSale is Pausable {
   * @dev Go back to private sale
   */
   function goBackToPrivateSale() public onlyOwner {
-    // make sure we&#39;re in the pre sale
+    // make sure we're in the pre sale
     require(currentState == TokenSaleState.Pre);
 
     // go back to private
@@ -510,7 +510,7 @@ contract SealTokenSale is Pausable {
   * @dev Start Main sale
   */
   function startMainSale() public onlyOwner {
-    // make sure we&#39;re in the presale state
+    // make sure we're in the presale state
     require(currentState == TokenSaleState.Pre);
 
     // move to main sale
@@ -521,7 +521,7 @@ contract SealTokenSale is Pausable {
   * @dev Go back to Presale
   */
   function goBackToPreSale() public onlyOwner {
-    // make sure we&#39;re in the main sale
+    // make sure we're in the main sale
     require(currentState == TokenSaleState.Main);
 
     // go back to presale
@@ -532,7 +532,7 @@ contract SealTokenSale is Pausable {
   * @dev Ends the operation of the contract
   */
   function finishContract() public onlyOwner {
-    // make sure we&#39;re in the main sale
+    // make sure we're in the main sale
     require(currentState == TokenSaleState.Main);
 
     // make sure there are no pending reservations
@@ -553,7 +553,7 @@ contract SealTokenSale is Pausable {
     token.finishMinting();
 
     // transfer ownership of the token contract to the owner,
-    // so it isn&#39;t locked to be a child of the crowd sale contract
+    // so it isn't locked to be a child of the crowd sale contract
     token.transferOwnership(owner);
   }
 
@@ -594,7 +594,7 @@ contract SealTokenSale is Pausable {
   }
 
   /**
-  * @dev Approve user&#39;s KYC
+  * @dev Approve user's KYC
   * @param _user User Address
   */
   function approveUserKYC(address _user) onlyOwnerOrKYCWallet public {
@@ -606,7 +606,7 @@ contract SealTokenSale is Pausable {
   }
 
   /**
-   * @dev Disapprove user&#39;s KYC
+   * @dev Disapprove user's KYC
    * @param _user User Address
    */
   function disapproveUserKYC(address _user) onlyOwnerOrKYCWallet public {
@@ -618,7 +618,7 @@ contract SealTokenSale is Pausable {
   }
 
   /**
-   * @dev Approve user&#39;s KYC and sets referrer
+   * @dev Approve user's KYC and sets referrer
    * @param _user User Address
    * @param _referrerAddress Referrer Address
    */
@@ -678,7 +678,7 @@ contract SealTokenSale is Pausable {
   }
 
   /**
-  * @dev Get User&#39;s referrer address
+  * @dev Get User's referrer address
   * @param _user User Address
   */
   function getUserReferrer(address _user) public view returns (address) {
@@ -686,7 +686,7 @@ contract SealTokenSale is Pausable {
   }
 
   /**
-  * @dev Get User&#39;s reserved amount
+  * @dev Get User's reserved amount
   * @param _user User Address
   */
   function getReservedAmount(address _user) public view returns (uint256) {
@@ -823,7 +823,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.

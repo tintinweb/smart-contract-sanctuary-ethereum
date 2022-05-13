@@ -63,8 +63,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -81,7 +81,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -132,7 +132,7 @@ contract Etherauction is ContractOwner {
   function addAuctionReward() public payable {
     uint256 minBid = getMinAuctionValue();
     if (msg.value < minBid)
-      revert(&#39;value error&#39;);
+      revert('value error');
 
     uint value = msg.value - minBid;
 
@@ -331,7 +331,7 @@ contract Etherauction is ContractOwner {
   function _auction(uint256 value, address invitorAddr) internal {
     bool ended = (block.timestamp > gameLastAuctionTime + gameSecondLeft) ? true: false;
     if (ended) {
-      revert(&#39;this round end!!!&#39;);
+      revert('this round end!!!');
     }
 
     uint256 len = gameAuction[gameId].length;
@@ -389,7 +389,7 @@ contract Etherauction is ContractOwner {
     if (_id == gameId) {
       bool ended = (block.timestamp > gameLastAuctionTime + gameSecondLeft) ? true: false;
       if (ended == false)
-        revert(&#39;game is still on, cannot claim reward&#39;);
+        revert('game is still on, cannot claim reward');
     }
 
     uint _reward = 0;
@@ -407,7 +407,7 @@ contract Etherauction is ContractOwner {
     (contributeValue, sharedValue) = _getGameInfoPart3(_addr, _id);
 
     if (_claimed)
-      revert(&#39;already claimed!&#39;);
+      revert('already claimed!');
 
     for (uint k = 0; k < gameAuction[_id].length; k++) {
       if (gameAuction[_id][k].addr == _addr) {
@@ -452,7 +452,7 @@ contract Etherauction is ContractOwner {
         msg.sender.transfer(money); 
         emit GameRewardRefund(gameId, msg.sender, money);
       } else {
-        revert(&#39;cannot refund because you are no.2 bidder&#39;);
+        revert('cannot refund because you are no.2 bidder');
       }
     }   
   }
@@ -593,7 +593,7 @@ contract Etherauction is ContractOwner {
               _myReward = _myReward + gameAuction[d.gameId][gameAuction[d.gameId].length - 2].bid;
             }
 
-            // add no.2 bidder&#39;s money to winner
+            // add no.2 bidder's money to winner
             // address loseBidder = gameAuction[d.gameId][gameAuction[d.gameId].length - 2].addr;
 
             totalMoney = 0;

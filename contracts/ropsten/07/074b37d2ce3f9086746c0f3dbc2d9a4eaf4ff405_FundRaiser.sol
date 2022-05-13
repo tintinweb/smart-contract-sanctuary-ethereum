@@ -43,7 +43,7 @@ contract FundRaiser {
     event Withdrawl(address sender, uint amount);
     
     /**
-     * If this event is emited with a &#39;success&#39; = false, this means that the
+     * If this event is emited with a 'success' = false, this means that the
      * funding event has expired and the funds were not raised.
      **/
     event FundsRaised(bool success);

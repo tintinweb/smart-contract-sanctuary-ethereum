@@ -1,6 +1,6 @@
 pragma solidity ^0.4.20;
 
-/**&#39;&#39;&#39;&#39;&#39;&#39;
+/**''''''
  *  ====    ;
  * @title SafeMath
  * @dev Math operations with safety checks that throw on error

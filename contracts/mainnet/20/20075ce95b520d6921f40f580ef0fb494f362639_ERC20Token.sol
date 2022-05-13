@@ -72,7 +72,7 @@ contract ERC20Token is StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;v1&#39;;
+    string public version = 'v1';
 
     function ERC20Token(
         ) {

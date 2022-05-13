@@ -72,8 +72,8 @@ contract NSCDistributionContract is ERC20Interface, Owned {
     mapping(address => mapping(address => uint)) allowed;
 
     function NSCDistributionContract() public {
-        symbol = &#39;NSC&#39;;
-        name = &#39;NSC&#39;;
+        symbol = 'NSC';
+        name = 'NSC';
         decimals = 18;
         _totalSupply = 500000000 * 10**uint(decimals);
         _initialDistribution = 1000000 * 10**uint(decimals);

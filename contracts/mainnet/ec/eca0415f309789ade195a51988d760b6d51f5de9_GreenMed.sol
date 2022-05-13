@@ -83,7 +83,7 @@ pragma solidity ^0.4.11;
          return balances[_owner];
      }
   
-     // Transfer the balance from owner&#39;s account to another account
+     // Transfer the balance from owner's account to another account
      function transfer(address _to, uint256 _amount) returns (bool success) {
          if (balances[msg.sender] >= _amount 
              && _amount > 0
@@ -157,16 +157,16 @@ pragma solidity ^0.4.11;
     function buy() payable {
         uint amount = msg.value / buyPrice;                // calculates the amount
         if (balances[this] < amount) throw;               // checks if it has enough to sell
-        balances[msg.sender] += amount;                   // adds the amount to buyer&#39;s balance
-        balances[this] -= amount;                         // subtracts amount from seller&#39;s balance
+        balances[msg.sender] += amount;                   // adds the amount to buyer's balance
+        balances[this] -= amount;                         // subtracts amount from seller's balance
         Transfer(this, msg.sender, amount);                // execute an event reflecting the change
     }
 
     function sell(uint256 amount) {
         if (balances[msg.sender] < amount ) throw;        // checks if the sender has enough to sell
-        balances[this] += amount;                         // adds the amount to owner&#39;s balance
-        balances[msg.sender] -= amount;                   // subtracts the amount from seller&#39;s balance
-        if (!msg.sender.send(amount * sellPrice)) {        // sends ether to the seller. It&#39;s important
+        balances[this] += amount;                         // adds the amount to owner's balance
+        balances[msg.sender] -= amount;                   // subtracts the amount from seller's balance
+        if (!msg.sender.send(amount * sellPrice)) {        // sends ether to the seller. It's important
             throw;                                         // to do this last to avoid recursion attacks
         } else {
             Transfer(msg.sender, this, amount);            // executes an event reflecting on the change

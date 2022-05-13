@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -81,7 +81,7 @@ contract Token {
 You should inherit from StandardToken or, for a token like you would want to
 deploy in something like Mist, see HumanStandardToken.sol.
 (This implements ONLY the standard functions and NOTHING else.
-If you deploy this, you won&#39;t have anything useful.)
+If you deploy this, you won't have anything useful.)
 
 Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 .*/
@@ -170,9 +170,9 @@ contract HumanStandardToken is StandardToken {
     Some wallets/interfaces might not even bother to look at this information.
     */
     string public name;                   //fancy name: eg YEE: a Token for Yee Ecosystem.
-    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 YEE = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 YEE = 980 base units. It's like comparing 1 wei to 1 ether.
     string public symbol;                 //An identifier: eg YEE
-    string public version = &#39;H0.1&#39;;       //human 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'H0.1';       //human 0.1 standard. Just an arbitrary versioning scheme.
 
     function HumanStandardToken (
         uint256 _initialAmount,
@@ -192,7 +192,7 @@ contract HumanStandardToken is StandardToken {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(keccak256("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { throw; }

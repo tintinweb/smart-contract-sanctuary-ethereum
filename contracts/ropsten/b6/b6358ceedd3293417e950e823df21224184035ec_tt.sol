@@ -10,8 +10,8 @@ contract tt{
     function createToken() public{
         balances[msg.sender]=1000;
         totalsupply=1000;
-        name=&#39;newtoken&#39;;
-        symbol=&#39;new&#39;;
+        name='newtoken';
+        symbol='new';
         decimals=0;
         owner=msg.sender;
 

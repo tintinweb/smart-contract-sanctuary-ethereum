@@ -58,9 +58,9 @@ contract EIco20Token is owned,IERC20{
     
     uint256 public _totalSupply = 40000000000000000000000;
  
-    string public constant symbol = &#39;EICO&#39;;
+    string public constant symbol = 'EICO';
 
-    string public constant name = &#39;EIco20Token&#39;;
+    string public constant name = 'EIco20Token';
     
     uint8 public constant decimals = 14;
     

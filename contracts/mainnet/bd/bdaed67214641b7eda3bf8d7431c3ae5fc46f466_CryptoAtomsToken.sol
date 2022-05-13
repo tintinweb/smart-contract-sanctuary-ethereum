@@ -457,7 +457,7 @@ contract CryptoAtomsToken is Ownable {
         }
         
         /// @notice Enable or disable approval for a third party ("operator") to manage
-        ///  all of `msg.sender`&#39;s assets.
+        ///  all of `msg.sender`'s assets.
         /// @dev Emits the ApprovalForAll event. The contract MUST allow
         ///  multiple operators per owner.
         /// @param _operator Address to add to the set of authorized operators.
@@ -486,18 +486,18 @@ contract CryptoAtomsToken is Ownable {
     //ERC165
 
         bytes4 constant Sign_ERC165 =
-            bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+            bytes4(keccak256('supportsInterface(bytes4)'));
         
         bytes4 constant Sign_ERC721 =
-            bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-            bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-            bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;)) ^
-            bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-            bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-            bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-            bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-            bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-            bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;));
+            bytes4(keccak256('balanceOf(address)')) ^
+            bytes4(keccak256('ownerOf(uint256)')) ^
+            bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)')) ^
+            bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+            bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+            bytes4(keccak256('approve(address,uint256)')) ^
+            bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+            bytes4(keccak256('getApproved(uint256)')) ^
+            bytes4(keccak256('isApprovedForAll(address,address)'));
             
         function supportsInterface(bytes4 interfaceID) external view returns (bool)
         {
@@ -547,7 +547,7 @@ contract CryptoAtomsToken is Ownable {
             uid = _tokenId;
             if (uid == 0) 
             {
-                bid = &#39;0&#39;;
+                bid = '0';
             }
             else 
             {

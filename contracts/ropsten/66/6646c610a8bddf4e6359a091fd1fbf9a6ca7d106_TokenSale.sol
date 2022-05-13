@@ -22,7 +22,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -107,8 +107,8 @@ contract TokenSale {
   external
   onlyOwner
   returns (bool){
-    require(start == 0, &#39;Already started&#39;);
-    require(_timestamp >= now  && _timestamp.sub(now) < 2592000, &#39;Start time not in range&#39;);
+    require(start == 0, 'Already started');
+    require(_timestamp >= now  && _timestamp.sub(now) < 2592000, 'Start time not in range');
     uint saleAmount = tokensPerDay.mul(365);
     require(mybToken.transferFrom(msg.sender, address(this), saleAmount));
     start = _timestamp;
@@ -136,7 +136,7 @@ contract TokenSale {
     require(_day.length <= 50);
     require(msg.value >= _day.length);   // need at least 1 wei per day
     uint256 amountPerDay = msg.value.div(_day.length);
-    assert (amountPerDay.mul(_day.length) == msg.value);   // Don&#39;t allow any rounding error
+    assert (amountPerDay.mul(_day.length) == msg.value);   // Don't allow any rounding error
     for (uint8 i = 0; i < _day.length; i++){
       require(addContribution(msg.sender, amountPerDay, _day[i]));
     }
@@ -261,7 +261,7 @@ contract TokenSale {
     return dayFor(now) > _day;
   }
 
-  // @notice reverts if the current day isn&#39;t less than 365
+  // @notice reverts if the current day isn't less than 365
   function duringSale(uint16 _day)
   public
   view

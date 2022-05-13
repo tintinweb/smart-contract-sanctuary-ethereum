@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-// &#39;SampleToken&#39; token contract
+// 'SampleToken' token contract
 // Symbol      : S
 // Name        : SampleToken
 // Total supply: 100000000

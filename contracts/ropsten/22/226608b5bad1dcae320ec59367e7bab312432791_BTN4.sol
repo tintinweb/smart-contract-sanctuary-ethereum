@@ -70,7 +70,7 @@ contract BTN4 {
         amountRaised += msg.value;                            //many thanks BTN, couldnt do it without r/me_irl
         require(balanceOf[creator] >= amount);               // checks if it has enough to sell
         require(msg.value >=0);                        // so any person who wants to put more then 0.1 ETH has time to think about what they are doing
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
         balanceOf[creator] -= amount;                        // sends ETH to BTNCoinMint
         Transfer(creator, msg.sender, amount);               // execute an event reflecting the change
         creator.transfer(amountRaised);

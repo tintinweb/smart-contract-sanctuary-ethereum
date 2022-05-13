@@ -1,10 +1,10 @@
 pragma solidity 0.4.24;
 
 // Random lottery
-// Smart contracts can&#39;t bet
+// Smart contracts can't bet
 
 // Pay 0.001 to get a random number
-// If your random number is the highest so far you&#39;re in the lead
+// If your random number is the highest so far you're in the lead
 // If no one beats you in 1 day you can claim your winnnings - half of the pot.
 
 // Three pots total - hour long, day long, and week long.

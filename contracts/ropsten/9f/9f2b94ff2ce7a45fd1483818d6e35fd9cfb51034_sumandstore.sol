@@ -3,7 +3,7 @@ pragma solidity ^0.5.2;
 /** @author Egidio Casati - January the 14th 2019 
  *  @title sum and store
  *  @notice this smart contract calculates the sum of two addendums and store it in an array, 
- *  @notice together with the sender addres who sent the transaction, who actually becames the sum&#39;s owner */
+ *  @notice together with the sender addres who sent the transaction, who actually becames the sum's owner */
 contract sumandstore {
     
     /** @notice when a new sum is calculated by a new owner, an event is fired */

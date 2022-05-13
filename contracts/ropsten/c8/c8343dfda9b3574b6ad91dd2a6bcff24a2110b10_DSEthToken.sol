@@ -41,11 +41,11 @@ contract DSTokenBase is ERC20
         return true;
     }
     function transferFrom( address from, address to, uint value) returns (bool ok) {
-        // if you don&#39;t have enough balance, throw
+        // if you don't have enough balance, throw
         if( _balances[from] < value ) {
             throw;
         }
-        // if you don&#39;t have approval, throw
+        // if you don't have approval, throw
         if( _approvals[from][msg.sender] < value ) {
             throw;
         }

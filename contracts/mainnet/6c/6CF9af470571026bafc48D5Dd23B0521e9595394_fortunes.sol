@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 
 contract fortunes {
     
-    string public standard = &#39;Fortunes&#39;;
+    string public standard = 'Fortunes';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -43,7 +43,7 @@ contract fortunes {
     modifier only_owner() 
         { require(msg.sender == owner, "only owner can call."); _; }
     modifier only_currowner(uint _idx) 
-        { require(fortune_arr[_idx].current_owner == msg.sender, "you&#39;re not the owner"); _; }
+        { require(fortune_arr[_idx].current_owner == msg.sender, "you're not the owner"); _; }
     modifier idx_inrange(uint _idx)
         { require(_idx >= 0 && _idx < fortune_arr.length, "idx out of range"); _; }
         
@@ -142,7 +142,7 @@ contract fortunes {
     // start auction
     function fortune_sell(uint _idx, uint basebid, uint endt) 
         public idx_inrange(_idx) only_currowner(_idx) {
-        require(_idx > 0, "I&#39;ll always be here with you.");
+        require(_idx > 0, "I'll always be here with you.");
         require(!fortune_arr[_idx].forsale, "already selling");
         require(endt <= 7 days, "auction time too long");
         fortune_arr[_idx].current_bid = basebid;

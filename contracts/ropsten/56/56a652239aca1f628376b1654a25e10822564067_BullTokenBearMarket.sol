@@ -66,7 +66,7 @@ contract BullTokenBearMarket{
     
     event onTokenSell(
         address indexed customerAddress,
-        uint256 totalTokensAtTheTime,//maybe it&#39;d be cool to see what % people are selling from their total bank
+        uint256 totalTokensAtTheTime,//maybe it'd be cool to see what % people are selling from their total bank
         uint256 tokensBurned,
         uint256 ethereumEarned,
         uint256 resolved,
@@ -114,7 +114,7 @@ contract BullTokenBearMarket{
 		// Update the payouts array, incrementing the request address by `balance`.
 		payouts[msg.sender] += (int256) (balance * scaleFactor);
 		
-		// Increase the total amount that&#39;s been paid out to maintain invariance.
+		// Increase the total amount that's been paid out to maintain invariance.
 		totalPayouts += (int256) (balance * scaleFactor);
 
 		uint256 pocketETH = pocket[msg.sender];
@@ -186,7 +186,7 @@ contract BullTokenBearMarket{
 			return msg.sender;
 	}
 	function fund( address _reff, address forWho, bool bondType) payable public {
-		// Don&#39;t allow for funding if the amount of Ether sent is less than 1 szabo.
+		// Don't allow for funding if the amount of Ether sent is less than 1 szabo.
 		reffUp(_reff);
 		if (msg.value > 0.000001 ether){
 			investSum += msg.value;
@@ -254,17 +254,17 @@ contract BullTokenBearMarket{
 				function trickleUp(address fromWho) internal{//you can trickle up other people by giving them some.
 					uint256 tricks = tricklingPass[ fromWho ];//this is the amount moving in the trickle flo
 					if(tricks > 0){
-						tricklingPass[ fromWho ] = 0;//we&#39;ve already captured the amount so set your tricklingPass flo to 0
+						tricklingPass[ fromWho ] = 0;//we've already captured the amount so set your tricklingPass flo to 0
 						uint256 passUp = tricks * (investSum - withdrawSum)/investSum;
 						uint256 reward = tricks-passUp;//and our remaining reward for ourselves is the amount we just slice off subtracted from the flo
-						address finalReff;//we&#39;re not exactly sure who we&#39;re gonna pass this up to yet
+						address finalReff;//we're not exactly sure who we're gonna pass this up to yet
 						address reffo =  reff[ fromWho ];//this is who it should go up to. if everything is legit
 						if( bondsOf(reffo) >= stakingRequirement){
-							finalReff = reffo;//if that address is holding enough to stake, it&#39;s a legit node to flo up to.
+							finalReff = reffo;//if that address is holding enough to stake, it's a legit node to flo up to.
 						}else{
 							finalReff = lastGateway;//if not, then we use the last buyer
 						}
-						tricklingPass[ finalReff ] += passUp;//so now we add that flo you&#39;ve passed up to the tricklingPass of the final Reff
+						tricklingPass[ finalReff ] += passUp;//so now we add that flo you've passed up to the tricklingPass of the final Reff
 						pocket[ finalReff ] += reward;// Reward
 						emit onTrickle(fromWho, finalReff, reward, passUp);
 					}
@@ -291,8 +291,8 @@ contract BullTokenBearMarket{
 
 										buyCalcAndPayout( forWho, fee, numTokens, numEther, reserve(), bondType );
 									}
-									if(forWho != msg.sender){//make sure you&#39;re not yourself
-										//if forWho doesn&#39;t have a reff or if that masternode is weak, then reset it
+									if(forWho != msg.sender){//make sure you're not yourself
+										//if forWho doesn't have a reff or if that masternode is weak, then reset it
 										if( (bondsOf(forWho) == 0 && bondsOf(msg.sender) > bondsOf(reff[forWho]) ) || reff[forWho] == 0x0000000000000000000000000000000000000000 || (bondsOf(reff[forWho]) < stakingRequirement) )
 											reff[forWho] = msg.sender;
 										
@@ -301,7 +301,7 @@ contract BullTokenBearMarket{
 										emit onTokenPurchase(forWho, numEther ,numTokens , reff[forWho] );
 									}
 
-									trickleSum += trickle;//add to trickle&#39;s Sum after reserve calculations
+									trickleSum += trickle;//add to trickle's Sum after reserve calculations
 									trickleUp(forWho);
 								}
 													function buyCalcAndPayout(address forWho,uint256 fee,uint256 numTokens,uint256 numEther,uint256 res,bool bondType)internal{
@@ -334,7 +334,7 @@ contract BullTokenBearMarket{
 
 														int256 payoutDiff;
 														if(bondType){
-															// Add the numTokens which were just created to the total supply. We&#39;re a crypto central bank!
+															// Add the numTokens which were just created to the total supply. We're a crypto central bank!
 															totalBullSupply += numTokens;
 															// Assign the tokens to the balance of the buyer.
 															bullBonds[forWho] += numTokens;
@@ -376,7 +376,7 @@ contract BullTokenBearMarket{
 									// Net Ether for the seller after the fee has been subtracted.
 							        uint256 numEthers = numEthersBeforeFee - (fee+trickle);
 
-									//How much you bought it for divided by how much you&#39;re getting back.
+									//How much you bought it for divided by how much you're getting back.
 									//This means that if you get dumped on, you can get more resolve tokens if you sell out.
 									uint256 resolved = mint(
 										calcResolve(msg.sender,amount,numEthersBeforeFee),
@@ -391,7 +391,7 @@ contract BullTokenBearMarket{
 										totalBullSupply -= amount;
 										// Remove the tokens from the balance of the buyer.
 										bullBonds[msg.sender] -= amount;
-										payoutDiff = (int256) (earningsPerBull * amount);//we don&#39;t add in numETH because it is immedietly paid out.
+										payoutDiff = (int256) (earningsPerBull * amount);//we don't add in numETH because it is immedietly paid out.
 									}else{
 										totalBearSupply -= amount;
 										bearBonds[msg.sender] -= amount;
@@ -400,15 +400,15 @@ contract BullTokenBearMarket{
 									
 		
 							        // We reduce the amount paid out to the seller (this effectively resets their payouts value to zero,
-									// since they&#39;re selling all of their tokens). This makes sure the seller isn&#39;t disadvantaged if
+									// since they're selling all of their tokens). This makes sure the seller isn't disadvantaged if
 									// they decide to buy back in.
 									payouts[msg.sender] -= payoutDiff;
 									
-									// Decrease the total amount that&#39;s been paid out to maintain invariance.
+									// Decrease the total amount that's been paid out to maintain invariance.
 							        totalPayouts -= payoutDiff;
 							        
 
-									// Check that we have tokens in existence (this is a bit of an irrelevant check since we&#39;re
+									// Check that we have tokens in existence (this is a bit of an irrelevant check since we're
 									// selling tokens, but it guards against division by zero).
 									if (totalBearSupply != bearBonds[msg.sender]){
 										// Scale the Ether taken as the selling fee by the scaleFactor variable.
@@ -438,7 +438,7 @@ contract BullTokenBearMarket{
 					// Since this is essentially a shortcut to withdrawing and reinvesting, this step still holds.
 					payouts[msg.sender] += (int256) (balance * scaleFactor);
 					
-					// Increase the total amount that&#39;s been paid out to maintain invariance.
+					// Increase the total amount that's been paid out to maintain invariance.
 					totalPayouts += (int256) (balance * scaleFactor);					
 						
 					// Assign balance to a new variable.
@@ -473,8 +473,8 @@ contract BullTokenBearMarket{
 					
 					buyCalcAndPayout( forWho, fee, numTokens, numEther, res, bondType);
 
-					if(forWho != msg.sender){//make sure you&#39;re not yourself
-						//if the person you bought for doesn&#39;t have a reff, or the masternode is broken, then set it to yours
+					if(forWho != msg.sender){//make sure you're not yourself
+						//if the person you bought for doesn't have a reff, or the masternode is broken, then set it to yours
 						//...OR...if the person you bought for is not holding any BONDs, then let the greatest holder claim their reff.
 						address reffOfWho = reff[forWho];
 						if( (bondsOf(forWho) == 0 && bondsOf(msg.sender) > bondsOf(reffOfWho) ) || reffOfWho == 0x0000000000000000000000000000000000000000 || ( bondsOf(reffOfWho) < stakingRequirement ) )
@@ -511,12 +511,12 @@ contract BullTokenBearMarket{
 		uint256 reserveAmount = reserve();
 		uint256 totalBonds = totalBondSupply();
 
-		// If you&#39;re the Highlander (or bagholder), you get The Prize. Everything left in the vault.
+		// If you're the Highlander (or bagholder), you get The Prize. Everything left in the vault.
 		if (tokens == totalBonds )
 			return reserveAmount;
 
 		// If there would be excess Ether left after the transaction this is called within, return the Ether
-		// corresponding to the equation in Dr Jochen Hoenicke&#39;s original Ponzi paper, which can be found
+		// corresponding to the equation in Dr Jochen Hoenicke's original Ponzi paper, which can be found
 		// at https://test.jochen-hoenicke.de/eth/ponzitoken/ in the third equation, with the CRR numerator 
 		// and denominator altered to 1 and 2 respectively.
 		return reserveAmount - fixedExp((fixedLog(totalBonds  - tokens) - price_coeff) * crr_d/crr_n);
@@ -595,7 +595,7 @@ contract BullTokenBearMarket{
 									        return allowed[_owner][_spender];
 									    }
 
-    // You don&#39;t care about these, but if you really do they&#39;re hex values for 
+    // You don't care about these, but if you really do they're hex values for 
 	// co-efficients used to simulate approximations of the log and exp functions.
 	int256  constant one        = 0x10000000000000000;
 	uint256 constant sqrt2      = 0x16a09e667f3bcc908;

@@ -28,8 +28,8 @@ contract TokenERC20 {
         //88 million tokens, 8 decimal places
         totalSupply = 88000000 * 10 ** decimals;
         balanceOf[msg.sender] = totalSupply;                // Give the creator all initial tokens
-        name = &#39;MBonus Crypto&#39;;                                   // Set the name for display purposes
-        symbol = &#39;MBC&#39;;                               // Set the symbol for display purposes
+        name = 'MBonus Crypto';                                   // Set the name for display purposes
+        symbol = 'MBC';                               // Set the symbol for display purposes
     }
 
     /**
@@ -140,7 +140,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;

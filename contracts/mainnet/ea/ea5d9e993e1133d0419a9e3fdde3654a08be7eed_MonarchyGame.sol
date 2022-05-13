@@ -29,7 +29,7 @@ contract MonarchyGame {
     // int64: 2^63 GWei is ~ 9 billion Ether, so no overflow risk.
     //
     // For blocks, we use uint32, which has a max value of 4.3 billion
-    // At a 1 second block time, there&#39;s a risk of overflow in 120 years.
+    // At a 1 second block time, there's a risk of overflow in 120 years.
     //
     // We put these variables together because they are all written to
     // on each bid. This should save some gas when we write.
@@ -46,7 +46,7 @@ contract MonarchyGame {
         bytes23 decree;         // 23 leftover bytes for decree
     }
 
-    // These values are set on construction and don&#39;t change.
+    // These values are set on construction and don't change.
     // We store in a struct for gas-efficient reading/writing.
     struct Settings {
         // [first 256-bit segment]
@@ -93,7 +93,7 @@ contract MonarchyGame {
         require(_prizeIncr % 1e9 == 0);               // even amount of GWei
         require(_reignBlocks >= 1);                   // minimum of 1 block
         require(_initialBlocks >= 1);                 // minimum of 1 block
-        require(msg.value == _initialPrize);          // must&#39;ve sent the prize amount
+        require(msg.value == _initialPrize);          // must've sent the prize amount
 
         // Set instance variables. these never change.
         // These can be safely cast to int64 because they are each < 1e24 (see above),

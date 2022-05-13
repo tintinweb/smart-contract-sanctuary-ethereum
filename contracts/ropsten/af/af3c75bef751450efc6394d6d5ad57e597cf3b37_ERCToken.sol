@@ -83,7 +83,7 @@ library SafeMath {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -202,7 +202,7 @@ contract ERC20Token is ERC20Interface, ERC223Interface, ERCTokenType {
     // Function to verify that all the requirements to transfer are satisfied
     // The destination is not the null address
     // The tokens have been released for sale
-    // The sender&#39;s tokens are not locked in a timevault
+    // The sender's tokens are not locked in a timevault
     function checkTransferRequirements(address _to, uint _value) private view {
         require(_to != address(0));
         require(released == true);
@@ -366,7 +366,7 @@ contract VersionedToken is owned {
     }
 
     /**
-     * This is the fallback function that is called whenever a contract is called but can&#39;t find the called function.
+     * This is the fallback function that is called whenever a contract is called but can't find the called function.
      * In this case we delegate the call to the implementing contract ERCTokenImpl
      *
      * Instead of using delegatecall() in Solidity we use the assembly because it allows us to return values to the caller

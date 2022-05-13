@@ -68,7 +68,7 @@ contract Whitelist {
         ///Get the number of total voters
         totalVoters = voters.getLength();
         
-        ///If this action has been reported by more than the half of voters, it&#39;s added to the whitelist.
+        ///If this action has been reported by more than the half of voters, it's added to the whitelist.
         if ((totalVoters >= minVoters) && (!whitelisted[actionId]) && (totalVoters -  actionReports < actionReports)){
             whitelisted[actionId] = true;
             whitelist.push(actionId);

@@ -41,8 +41,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -61,7 +61,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -111,7 +111,7 @@ pragma solidity ^0.5.0;
  * https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
  *
  * This implementation emits additional Approval events, allowing applications to reconstruct the allowance status for
- * all accounts just by listening to said events. Note that this isn&#39;t required by the specification, and other
+ * all accounts just by listening to said events. Note that this isn't required by the specification, and other
  * compliant implementations may not do it.
  */
 contract ERC20 is IERC20 {
@@ -163,7 +163,7 @@ contract ERC20 is IERC20 {
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param spender The address which will spend the funds.
      * @param value The amount of tokens to be spent.
@@ -272,7 +272,7 @@ contract ERC20 is IERC20 {
 
     /**
      * @dev Internal function that burns an amount of the token of a given
-     * account, deducting from the sender&#39;s allowance for said account. Uses the
+     * account, deducting from the sender's allowance for said account. Uses the
      * internal burn function.
      * Emits an Approval event (reflecting the reduced allowance).
      * @param account The account whose tokens will be burnt.
@@ -314,7 +314,7 @@ library Roles {
     }
 
     /**
-     * @dev remove an account&#39;s access to this role
+     * @dev remove an account's access to this role
      */
     function remove(Role storage role, address account) internal {
         require(account != address(0));
@@ -634,7 +634,7 @@ contract ControllableERC20Token is ERC20, SuperControllable {
      * Account can only have one controller. 
      */
     function selectController(address controller) public whenNetworkNotFrozen {
-        require(superController() != controller); // can&#39;t select super controller
+        require(superController() != controller); // can't select super controller
         require(isController(controller));
         require(!isAccountFrozen(msg.sender), "sender account is frozen");
 
@@ -659,7 +659,7 @@ contract ControllableERC20Token is ERC20, SuperControllable {
 
     /**
      * @dev Initiates transfer where receiver-selected controller decides 
-     * if transfer should happen. Sender&#39;s tokens are held in escrow (this contract) until
+     * if transfer should happen. Sender's tokens are held in escrow (this contract) until
      * approved or declined. If transfer is declined by controller, sender is refunded.
      * If transfer is neither approved nor declined, sender can refund 
      * after expiration time.
@@ -681,7 +681,7 @@ contract ControllableERC20Token is ERC20, SuperControllable {
 
     /**
      * @dev Initiates transfer where sender-selected controller and receiver both decide 
-     * if transfer should happen. Sender&#39;s tokens are held in escrow (this contract) until
+     * if transfer should happen. Sender's tokens are held in escrow (this contract) until
      * approved or declined. If transfer is declined by controller or receiver, sender is refunded.
      * If transfer is neither approved nor declined, sender can refund 
      * after expiration time.

@@ -365,7 +365,7 @@ contract SketchMarket is Ownable {
     SketchBought(sketchIndex, price, seller, bidder); // note that SketchNoLongerForSale event will not be fired
   }
 
-  // Buy a Sketch that&#39;s up for sale now, provided you&#39;ve matched the Offer price and it&#39;s not on offer to a specific buyer
+  // Buy a Sketch that's up for sale now, provided you've matched the Offer price and it's not on offer to a specific buyer
   function buySketch(uint256 sketchIndex) external payable {      
     Offer storage offer = sketchIndexToOffer[sketchIndex];
     uint256 messageValue = msg.value;
@@ -419,17 +419,17 @@ contract SketchMarket is Ownable {
   function enterBidForSketch(uint256 sketchIndex) external payable {
       require(totalSupply != 0);
       require(sketchIndex < totalSupply);
-      require(sketchIndexToHolder[sketchIndex] != 0x0); // can&#39;t bid on "non-owned" Sketch (theoretically impossible anyway)
-      require(sketchIndexToHolder[sketchIndex] != msg.sender); // can&#39;t bid on a Sketch that you own
+      require(sketchIndexToHolder[sketchIndex] != 0x0); // can't bid on "non-owned" Sketch (theoretically impossible anyway)
+      require(sketchIndexToHolder[sketchIndex] != msg.sender); // can't bid on a Sketch that you own
 
       uint256 price = msg.value; // in wei
 
-      require(price > 0); // can&#39;t bid zero
+      require(price > 0); // can't bid zero
       require(price == uint256(uint128(price))); // length check for computeCut(...)      
 
       Bid storage existing = sketchIndexToHighestBid[sketchIndex];
 
-      require(price > existing.value); // can&#39;t bid less than highest bid
+      require(price > existing.value); // can't bid less than highest bid
 
       if (existing.value > 0) {
           // Place the amount from the previous highest bid into escrow for withdrawal at any time
@@ -443,8 +443,8 @@ contract SketchMarket is Ownable {
   function withdrawBidForSketch(uint256 sketchIndex) public {
     require(totalSupply != 0);
     require(sketchIndex < totalSupply);
-    require(sketchIndexToHolder[sketchIndex] != 0x0); // can&#39;t bid on "non-owned" Sketch (theoretically impossible anyway)
-    require(sketchIndexToHolder[sketchIndex] != msg.sender); // can&#39;t withdraw a bid for a Sketch that you own
+    require(sketchIndexToHolder[sketchIndex] != 0x0); // can't bid on "non-owned" Sketch (theoretically impossible anyway)
+    require(sketchIndexToHolder[sketchIndex] != msg.sender); // can't withdraw a bid for a Sketch that you own
       
     Bid storage bid = sketchIndexToHighestBid[sketchIndex];
     require(bid.bidder == msg.sender); // it has to be your bid
@@ -459,7 +459,7 @@ contract SketchMarket is Ownable {
   }
 
   function computeCut(uint256 price) internal view returns (uint256) {
-    // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+    // NOTE: We don't use SafeMath (or similar) in this function because
     //  all of our entry functions carefully cap the maximum values for
     //  currency (at 128-bits), and ownerCut <= 10000. The result of this
     //  function is always guaranteed to be <= _price.

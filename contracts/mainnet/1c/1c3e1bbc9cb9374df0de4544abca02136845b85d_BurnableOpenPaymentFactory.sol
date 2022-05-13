@@ -11,7 +11,7 @@
 //If the BOP is in the Open state,
 //anyone can become the recipient by contributing the commitThreshold with commit().
 //This changes the state from Open to Committed. The BOP will never return to the Open state.
-//The recipient will never be changed once it&#39;s been set via commit().
+//The recipient will never be changed once it's been set via commit().
 
 //In the committed state,
 //the payer can at any time choose to burn or release to the recipient any amount of funds.
@@ -61,7 +61,7 @@ contract BurnableOpenPayment {
 
 	//payerString and recipientString enable rudimentary communication/publishing.
 	//Although the two parties might quickly move to another medium with better privacy or convenience,
-	//beginning with this is nice because it&#39;s already trustless/transparent/signed/pseudonymous/etc.
+	//beginning with this is nice because it's already trustless/transparent/signed/pseudonymous/etc.
 	string public payerString;
 	string public recipientString;
 

@@ -107,7 +107,7 @@ contract MonaLease {
         return (renters[_renterAddress]._assigned);
     }
 
-    //Add ETH to a renter&#39;s purse
+    //Add ETH to a renter's purse
     function deposit(address _renterAddress) payable public {
         _depositForRenter(_renterAddress, msg.value);
     }
@@ -123,7 +123,7 @@ contract MonaLease {
         }
     }
 
-    //If ETH sent to this contract, attempt to deposit it for renter registered under the sender&#39;s address.
+    //If ETH sent to this contract, attempt to deposit it for renter registered under the sender's address.
     function () payable public {
         _depositForRenter(msg.sender, msg.value);
     }
@@ -145,7 +145,7 @@ contract MonaLease {
         return intervalsElapsed * rentalFiatAmount;
     }
 
-    //If (and only if) rent is due, send it to the owner&#39;s account.
+    //If (and only if) rent is due, send it to the owner's account.
     function takeRent(address _renterAddress) internal returns (bool) {
        // Renter memory renter = getRenter(_renterAddress);
         uint256 dueFiat = getAmountDue(_renterAddress);

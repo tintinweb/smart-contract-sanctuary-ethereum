@@ -92,7 +92,7 @@ contract Date {
     bytes32 constant private DECEMBER = keccak256("Dec");
 
     /// @return the number of the month based on its name.
-    /// @param _month the first three letters of a month&#39;s name e.g. "Jan".
+    /// @param _month the first three letters of a month's name e.g. "Jan".
     function _monthToNumber(string _month) internal pure returns (uint8) {
         bytes32 month = keccak256(abi.encodePacked(_month));
         if (month == JANUARY) {
@@ -224,7 +224,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice memory self) internal pure returns (string memory) {
         string memory ret = new string(self._len);
@@ -1830,7 +1830,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1840,7 +1840,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -1872,7 +1872,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -1895,7 +1895,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -1927,15 +1927,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1972,13 +1972,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
         // Here we are loading the last 32 bytes. We exploit the fact that
-        // &#39;mload&#39; will pad with zeroes if we overread.
-        // There is no &#39;mload8&#39; to do this, but that would be nicer.
+        // 'mload' will pad with zeroes if we overread.
+        // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
         // Alternative solution:
-        // &#39;byte&#39; is not working due to the Solidity parser, so lets
-        // use the second best option, &#39;and&#39;
+        // 'byte' is not working due to the Solidity parser, so lets
+        // use the second best option, 'and'
         // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -2016,8 +2016,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -2035,7 +2035,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -2089,10 +2089,10 @@ contract JSON is usingOraclize{
         require(keccak256(jsonPrefix) == prefixHash, "prefix mismatch");
 
         strings.slice memory body = _json.toSlice();
-        body.split(":".toSlice()); //we are sure that &#39;:&#39; is included in the string, body now contains the rate+&#39;}&#39;
+        body.split(":".toSlice()); //we are sure that ':' is included in the string, body now contains the rate+'}'
         json_len = body._len;
         body.until("}".toSlice());
-        require(body._len == json_len-1,"not json format"); //ensure that the json is properly terminated with a &#39;}&#39;
+        require(body._len == json_len-1,"not json format"); //ensure that the json is properly terminated with a '}'
         return body.toString();
 
     }
@@ -2103,13 +2103,13 @@ contract ParseIntScientific {
 
     using SafeMath for uint256;
 
-    byte constant private PLUS_ASCII = byte(43); //decimal value of &#39;+&#39;
-    byte constant private DASH_ASCII = byte(45); //decimal value of &#39;-&#39;
-    byte constant private DOT_ASCII = byte(46); //decimal value of &#39;.&#39;
-    byte constant private ZERO_ASCII = byte(48); //decimal value of &#39;0&#39;
-    byte constant private NINE_ASCII = byte(57); //decimal value of &#39;9&#39;
-    byte constant private E_ASCII = byte(69); //decimal value of &#39;E&#39;
-    byte constant private e_ASCII = byte(101); //decimal value of &#39;e&#39;
+    byte constant private PLUS_ASCII = byte(43); //decimal value of '+'
+    byte constant private DASH_ASCII = byte(45); //decimal value of '-'
+    byte constant private DOT_ASCII = byte(46); //decimal value of '.'
+    byte constant private ZERO_ASCII = byte(48); //decimal value of '0'
+    byte constant private NINE_ASCII = byte(57); //decimal value of '9'
+    byte constant private E_ASCII = byte(69); //decimal value of 'E'
+    byte constant private e_ASCII = byte(101); //decimal value of 'e'
 
     /// @dev ParseIntScientific delegates the call to _parseIntScientific(string, uint) with the 2nd argument being 0.
     function _parseIntScientific(string _inString) internal pure returns (uint) {
@@ -2130,25 +2130,25 @@ contract ParseIntScientific {
         uint mint = 0; // the final uint returned
         uint mintDec = 0; // the uint following the decimal point
         uint mintExp = 0; // the exponent
-        uint decMinted = 0; // how many decimals were &#39;minted&#39;.
-        uint expIndex = 0; // the position in the byte array that &#39;e&#39; was found (if found)
-        bool integral = false; // indicates the existence of the integral part, it should always exist (even if 0) e.g. &#39;e+1&#39;  or &#39;.1&#39; is not valid
-        bool decimals = false; // indicates a decimal number, set to true if &#39;.&#39; is found
+        uint decMinted = 0; // how many decimals were 'minted'.
+        uint expIndex = 0; // the position in the byte array that 'e' was found (if found)
+        bool integral = false; // indicates the existence of the integral part, it should always exist (even if 0) e.g. 'e+1'  or '.1' is not valid
+        bool decimals = false; // indicates a decimal number, set to true if '.' is found
         bool exp = false; // indicates if the number being parsed has an exponential representation
         bool minus = false; // indicated if the exponent is negative
         bool plus = false; // indicated if the exponent is positive
 
         for (uint i = 0; i < inBytes.length; i++) {
             if ((inBytes[i] >= ZERO_ASCII) && (inBytes[i] <= NINE_ASCII) && (!exp)) {
-                // &#39;e&#39; not encountered yet, minting integer part or decimals
+                // 'e' not encountered yet, minting integer part or decimals
                 if (decimals) {
-                    // &#39;.&#39; encountered
+                    // '.' encountered
                     //use safeMath in case there is an overflow
                     mintDec = mintDec.mul(10);
                     mintDec = mintDec.add(uint(inBytes[i]) - uint(ZERO_ASCII));
                     decMinted++; //keep track of the #decimals
                 } else {
-                    // integral part (before &#39;.&#39;)
+                    // integral part (before '.')
                     integral = true;
                     //use safeMath in case there is an overflow
                     mint = mint.mul(10);
@@ -2159,7 +2159,7 @@ contract ParseIntScientific {
                 mintExp = mintExp.mul(10);
                 mintExp = mintExp.add(uint(inBytes[i]) - uint(ZERO_ASCII));
             } else if (inBytes[i] == DOT_ASCII) {
-                //an integral part before should always exist before &#39;.&#39;
+                //an integral part before should always exist before '.'
                 require(integral, "missing integral part");
                 // an extra decimal point makes the format invalid
                 require(!decimals, "duplicate decimal point");
@@ -2167,21 +2167,21 @@ contract ParseIntScientific {
                 require(!exp, "decimal after exponent");
                 decimals = true;
             } else if (inBytes[i] == DASH_ASCII) {
-                // an extra &#39;-&#39; should be considered an invalid character
+                // an extra '-' should be considered an invalid character
                 require(!minus, "duplicate -");
                 require(!plus, "extra sign");
                 require(expIndex + 1 == i, "- sign not immediately after e");
                 minus = true;
             } else if (inBytes[i] == PLUS_ASCII) {
-                // an extra &#39;+&#39; should be considered an invalid character
+                // an extra '+' should be considered an invalid character
                 require(!plus, "duplicate +");
                 require(!minus, "extra sign");
                 require(expIndex + 1 == i, "+ sign not immediately after e");
                 plus = true;
             } else if ((inBytes[i] == E_ASCII) || (inBytes[i] == e_ASCII)) {
-                //an integral part before should always exist before &#39;e&#39;
+                //an integral part before should always exist before 'e'
                 require(integral, "missing integral part");
-                // an extra &#39;e&#39; or &#39;E&#39; should be considered an invalid character
+                // an extra 'e' or 'E' should be considered an invalid character
                 require(!exp, "duplicate exponent symbol");
                 exp = true;
                 expIndex = i;
@@ -2264,7 +2264,7 @@ contract Base64 {
         bytes memory result = new bytes(length);
         uint index;
 
-        // base64 encoded strings can&#39;t be length 0 and they must be divisble by 4
+        // base64 encoded strings can't be length 0 and they must be divisble by 4
         require(length > 0  && length % 4 == 0, "invalid base64 encoding");
 
         if (keccak256(abi.encodePacked(_encoded[length - 2])) == keccak256("=")) {
@@ -2461,10 +2461,10 @@ contract Oracle is usingOraclize, Base64, Date, JSON, Controllable, ParseIntScie
         if (token.exists) {
             require(token.rate != 0, "token rate is 0");
             // Safely convert the token amount to ether based on the exchange rate.
-            // return the value and a &#39;true&#39; implying that the token is protected
+            // return the value and a 'true' implying that the token is protected
             return (true, _amount.mul(token.rate).div(token.magnitude));
         }
-        // this returns a &#39;false&#39; to imply that a card is not protected 
+        // this returns a 'false' to imply that a card is not protected 
         return (false, 0);
         
     }
@@ -2479,7 +2479,7 @@ contract Oracle is usingOraclize, Base64, Date, JSON, Controllable, ParseIntScie
         require(_tokens.length == _symbols.length && _tokens.length == _magnitude.length, "parameter lengths do not match");
         // Add each token to the list of supported tokens.
         for (uint i = 0; i < _tokens.length; i++) {
-            // Require that the token doesn&#39;t already exist.
+            // Require that the token doesn't already exist.
             address token = _tokens[i];
             require(!tokens[token].exists, "token already exists");
             // Store the intermediate values.
@@ -2531,9 +2531,9 @@ contract Oracle is usingOraclize, Base64, Date, JSON, Controllable, ParseIntScie
     function updateTokenRate(address _token, uint _rate, uint _updateDate) external onlyController {
         // Require that the token exists.
         require(tokens[_token].exists, "token does not exist");
-        // Update the token&#39;s rate.
+        // Update the token's rate.
         tokens[_token].rate = _rate;
-        // Update the token&#39;s last update timestamp.
+        // Update the token's last update timestamp.
         tokens[_token].lastUpdate = _updateDate;
         // Emit the rate update event.
         emit UpdatedTokenRate(msg.sender, _token, _rate);

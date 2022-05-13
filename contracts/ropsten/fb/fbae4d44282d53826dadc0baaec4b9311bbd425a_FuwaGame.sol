@@ -273,7 +273,7 @@ contract FuwaGame is modularLong {
           if (players[_playerId].lastRoundId != 0)
               updateGenVault(_playerId, players[_playerId].lastRoundId);
 
-          // update player&#39;s last round played
+          // update player's last round played
           players[_playerId].lastRoundId = currendRoundId;
       }
 
@@ -430,7 +430,7 @@ contract FuwaGame is modularLong {
         // setup local rID
         uint256 _currendRoundId = currendRoundId;
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = rounds[_currendRoundId].playerId;
 
         // grab our pot amount
@@ -506,8 +506,8 @@ contract FuwaGame is modularLong {
       public
       onlyOwner
     {
-        require(isActive == false, &#39;you must close game first&#39;);
-        require(closeTime.add(2 weeks) < now, &#39;methods can be executed only after close the game two weeks before&#39;);
+        require(isActive == false, 'you must close game first');
+        require(closeTime.add(2 weeks) < now, 'methods can be executed only after close the game two weeks before');
         // 销毁合约
         selfdestruct(communityAddress);
     }
@@ -627,7 +627,7 @@ contract FuwaGame is modularLong {
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds

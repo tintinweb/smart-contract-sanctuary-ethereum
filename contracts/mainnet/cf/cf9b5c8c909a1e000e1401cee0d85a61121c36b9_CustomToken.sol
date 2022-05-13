@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 150000000000000000000000000;
-        name = &#39;ChaoDaoLian&#39;;
-        symbol = &#39;CDL&#39;;
+        name = 'ChaoDaoLian';
+        symbol = 'CDL';
         decimals = 18;
         balanceOf[0x97f38f9957dca0f48fcc48202ece69e7920b7b4b] = totalSupply;
         Transfer(address(0), 0x97f38f9957dca0f48fcc48202ece69e7920b7b4b, totalSupply);

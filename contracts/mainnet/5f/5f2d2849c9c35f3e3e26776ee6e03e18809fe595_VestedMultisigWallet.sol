@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -759,7 +759,7 @@ contract SimpleMultisigWallet is ERC223Receiver {
 
 
     /// @dev Implementation of ERC223 receiver fallback function in order to protect
-    /// @dev sending tokens (standard ERC223) to smart tokens who doesn&#39;t except them
+    /// @dev sending tokens (standard ERC223) to smart tokens who doesn't except them
     function tokenFallback(address /*_origin*/, uint /*_value*/, bytes /*_data*/) public returns (bool ok) {
         return true;
     }
@@ -817,7 +817,7 @@ contract SimpleTokenVesting is Ownable {
     }
 
     /// @dev Implementation of ERC223 receiver fallback function in order to protect
-    /// @dev sending tokens (standard ERC223) to smart tokens who doesn&#39;t except them
+    /// @dev sending tokens (standard ERC223) to smart tokens who doesn't except them
     function tokenFallback(address /*_origin*/, uint /*_value*/, bytes /*_data*/) pure public returns (bool ok) {
         return true;
     }

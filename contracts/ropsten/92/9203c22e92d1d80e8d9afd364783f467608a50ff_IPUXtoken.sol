@@ -4,7 +4,7 @@ ___________________________________________________________________
   _      _                                        ______           
   |  |  /          /                                /              
 --|-/|-/-----__---/----__----__---_--_----__-------/-------__------
-  |/ |/    /___) /   /   &#39; /   ) / /  ) /___)     /      /   )     
+  |/ |/    /___) /   /   ' /   ) / /  ) /___)     /      /   )     
 __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
 
 
@@ -13,16 +13,16 @@ __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
 | |     _____    | | | |   ______     | | | | _____  _____ | | | |  ____  ____  | |
 | |    |_   _|   | | | |  |_   __ \   | | | ||_   _||_   _|| | | | |_  _||_  _| | |
 | |      | |     | | | |    | |__) |  | | | |  | |    | |  | | | |   \ \  / /   | |
-| |      | |     | | | |    |  ___/   | | | |  | &#39;    &#39; |  | | | |    > `&#39; <    | |
-| |     _| |_    | | | |   _| |_      | | | |   \ `--&#39; /   | | | |  _/ /&#39;`\ \_  | |
-| |    |_____|   | | | |  |_____|     | | | |    `.__.&#39;    | | | | |____||____| | |
+| |      | |     | | | |    |  ___/   | | | |  | '    ' |  | | | |    > `' <    | |
+| |     _| |_    | | | |   _| |_      | | | |   \ `--' /   | | | |  _/ /'`\ \_  | |
+| |    |_____|   | | | |  |_____|     | | | |    `.__.'    | | | | |____||____| | |
 | |              | | | |              | | | |              | | | |              | |
-| &#39;--------------&#39; | | &#39;--------------&#39; | | &#39;--------------&#39; | | &#39;--------------&#39; |
- &#39;----------------&#39;   &#39;----------------&#39;   &#39;----------------&#39;   &#39;----------------&#39; 
+| '--------------' | | '--------------' | | '--------------' | | '--------------' |
+ '----------------'   '----------------'   '----------------'   '----------------' 
 
   
 // ----------------------------------------------------------------------------
-// &#39;IPUX&#39; Token contract with following features
+// 'IPUX' Token contract with following features
 //      => ERC20 Compliance
 //      => Higher degree of control by owner - safeguard functionality
 //      => selfdestruct ability by owner
@@ -61,7 +61,7 @@ __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
       function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
       }
     
@@ -239,7 +239,7 @@ __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
             require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
             require(_value <= allowance[_from][msg.sender]);    // Check allowance
             balanceOf[_from] = balanceOf[_from].sub(_value);                         // Subtract from the targeted balance
-            allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);             // Subtract from the sender&#39;s allowance
+            allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);             // Subtract from the sender's allowance
             totalSupply = totalSupply.sub(_value);                              // Update totalSupply
             emit  Burn(_from, _value);
             return true;

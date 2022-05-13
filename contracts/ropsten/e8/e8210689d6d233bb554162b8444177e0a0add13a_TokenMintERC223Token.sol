@@ -43,7 +43,7 @@ pragma solidity ^0.4.24;
  *
  * NOTE: original event was:
  *    event Transfer(address indexed from, address indexed to, uint value, bytes indexed data);
- * however &#39;bytes indexed data&#39; was replaced with &#39;bytes data&#39; because of this issue with truffle tests:
+ * however 'bytes indexed data' was replaced with 'bytes data' because of this issue with truffle tests:
  * https://github.com/trufflesuite/truffle/issues/405
  *
  */

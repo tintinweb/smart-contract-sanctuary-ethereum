@@ -18,7 +18,7 @@ contract Ownable {
         @param _to Address of the new owner
     */
     function transferTo(address _to) public onlyOwner returns (bool) {
-        require(_to != address(0), "Can&#39;t transfer to address 0x0");
+        require(_to != address(0), "Can't transfer to address 0x0");
         owner = _to;
         return true;
     }
@@ -153,7 +153,7 @@ contract SwapEtherToToken {
     ERC20 constant internal ETH_TOKEN_ADDRESS = ERC20(0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee);
 
     /*
-    @dev Swap the user&#39;s ETH to ERC20 token
+    @dev Swap the user's ETH to ERC20 token
     @param token destination token contract address
     @param destAddress address to send swapped tokens to
     */
@@ -182,7 +182,7 @@ contract SwapTokenToEther {
         
     ERC20 constant internal ETH_TOKEN_ADDRESS = ERC20(0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee);
 
-    //@dev Swap the user&#39;s ERC20 token to ETH
+    //@dev Swap the user's ERC20 token to ETH
     //@param token source token contract address
     //@param tokenQty amount of source tokens
     //@param destAddress address to send swapped ETH to
@@ -197,7 +197,7 @@ contract SwapTokenToEther {
         // Check that the player has transferred the token to this contract
         require(token.transferFrom(msg.sender, this, tokenQty));
 
-        // Set the spender&#39;s token allowance to tokenQty
+        // Set the spender's token allowance to tokenQty
         require(token.approve(proxy, tokenQty));
 
         // Get the minimum conversion rate
@@ -219,7 +219,7 @@ contract SwapTokenToToken {
     ERC20 constant internal ETH_TOKEN_ADDRESS = ERC20(0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee);
 
     /*
-    @dev Swap the user&#39;s ERC20 token to another ERC20 token
+    @dev Swap the user's ERC20 token to another ERC20 token
     @param srcToken source token contract address
     @param srcQty amount of source tokens
     @param destToken destination token contract address
@@ -236,7 +236,7 @@ contract SwapTokenToToken {
         // Check that the player has transferred the token to this contract
         require(srcToken.transferFrom(msg.sender, this, srcQty));
 
-        // Set the spender&#39;s token allowance to tokenQty
+        // Set the spender's token allowance to tokenQty
         require(srcToken.approve(proxy, srcQty));
 
         (uint minConversionRate,) = proxy.getExpectedRate(srcToken, ETH_TOKEN_ADDRESS, srcQty);

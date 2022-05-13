@@ -92,7 +92,7 @@ contract AccessControl {
   /// @notice This is public rather than external so it can be called by
   ///  derived contracts.
   function unpause() public onlyOwner whenPaused {
-    // can&#39;t unpause if contract was upgraded
+    // can't unpause if contract was upgraded
     paused = false;
   }
 }
@@ -107,7 +107,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -314,8 +314,8 @@ contract ReleaseableToken is LockableToken {
 }
 
 contract N2Contract is ReleaseableToken {
-  string public name = &#39;N2Chain&#39;;
-  string public symbol = &#39;N2C&#39;;
+  string public name = 'N2Chain';
+  string public symbol = 'N2C';
   uint8 public decimals = 4;
 
   // Set in case the core contract is broken and an upgrade is required
@@ -325,7 +325,7 @@ contract N2Contract is ReleaseableToken {
 
   /// @dev Used to mark the smart contract as upgraded, in case there is a serious
   ///  breaking bug. This method does nothing but keep track of the new contract and
-  ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+  ///  emit a message indicating that the new address is set. It's up to clients of this
   ///  contract to update to the new contract address in that case. (This contract will
   ///  be paused indefinitely if such an upgrade takes place.)
   /// @param _v2Address new address
@@ -335,7 +335,7 @@ contract N2Contract is ReleaseableToken {
   }
 
   /// @dev Override unpause so it requires all external contract addresses
-  ///  to be set before contract can be unpaused. Also, we can&#39;t have
+  ///  to be set before contract can be unpaused. Also, we can't have
   ///  newContractAddress set either, because then the contract was upgraded.
   /// @notice This is public rather than external so we can call super.unpause
   ///  without using an expensive CALL.

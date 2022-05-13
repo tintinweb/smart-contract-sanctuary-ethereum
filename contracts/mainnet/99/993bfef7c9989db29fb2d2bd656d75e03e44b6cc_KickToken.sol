@@ -28,7 +28,7 @@ contract KickUtils {
 	function Utils() {
 	}
 
-	// validates an address - currently only checks that it isn&#39;t null
+	// validates an address - currently only checks that it isn't null
 	modifier validAddress(address _address) {
 		require(_address != 0x0);
 		_;
@@ -77,11 +77,11 @@ contract KickToken is KickOwned, KickUtils {
 	struct Dividend {uint256 time; uint256 tenThousandth; uint256 countComplete;}
 
 	/* Public variables of the token */
-	string public standard = &#39;Token 0.1&#39;;
+	string public standard = 'Token 0.1';
 
-	string public name = &#39;Experimental KickCoin&#39;;
+	string public name = 'Experimental KickCoin';
 
-	string public symbol = &#39;EKICK&#39;;
+	string public symbol = 'EKICK';
 
 	uint8 public decimals = 8;
 

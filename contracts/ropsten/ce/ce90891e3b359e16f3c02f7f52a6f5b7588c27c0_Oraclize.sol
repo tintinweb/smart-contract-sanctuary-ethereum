@@ -7,7 +7,7 @@ Copyright (c) 2016-2017 Oraclize LTD
 Oraclize Connector v1.2.0
 */
 
-// &#39;compressed&#39; alternative, where all modifiers have been changed to FUNCTIONS
+// 'compressed' alternative, where all modifiers have been changed to FUNCTIONS
 // which is cheaper for deployment, potentially cheaper execution
 
 pragma solidity ^0.4.11;
@@ -49,8 +49,8 @@ contract Oraclize {
     external
     {
         onlyadmin();
-        //bytes memory nil = &#39;&#39;;
-        addCbAddress(newCbAddress, addressType, hex&#39;&#39;);
+        //bytes memory nil = '';
+        addCbAddress(newCbAddress, addressType, hex'');
     }
 
     // proof is currently a placeholder for when associated proof for addressType is added

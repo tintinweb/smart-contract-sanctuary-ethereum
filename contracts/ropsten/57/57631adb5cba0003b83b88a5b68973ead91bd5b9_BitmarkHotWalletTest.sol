@@ -147,7 +147,7 @@ contract Pausable is Ownable {
 
 // File: contracts/BitmarkHotWalletForLegacyToken.sol
 
-// import &#39;zeppelin-solidity/contracts/ownership/Ownable.sol&#39;;
+// import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
 // contract Authorizable is Ownable {
 //     address public trustee;

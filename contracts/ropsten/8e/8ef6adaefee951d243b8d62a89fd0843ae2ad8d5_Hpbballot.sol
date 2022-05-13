@@ -183,7 +183,7 @@ contract Hpbballot {
             voterArray.push(Voter(msg.sender,0,new address[](0)));
             
             candidateIndexMap[msg.sender]=0;
-	        candidateArray.push(Candidate(msg.sender,&#39;0&#39;,&#39;0&#39;,0,0,new address[](0)));
+	        candidateArray.push(Candidate(msg.sender,'0','0',0,0,new address[](0)));
             
 	        emit ChangeOfBlocks(_version,startBlock,_endBlock,_minAmount,_capacity);
      }

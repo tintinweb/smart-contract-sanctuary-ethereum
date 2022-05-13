@@ -87,7 +87,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage _role, address _addr)
     internal
@@ -255,7 +255,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -344,8 +344,8 @@ contract CryptoHeroRocket is Ownable, RBAC {
   string internal constant ROLE_MINTER = "minter";
   string internal constant ROLE_BURNER = "burner";
 
-  string public name = &#39;Crypto Hero Rocket&#39;;
-  string public symbol = &#39;CH &#128640;&#39;;
+  string public name = 'Crypto Hero Rocket';
+  string public symbol = 'CH &#128640;';
   uint8 public decimals; //=0 by default
 
   uint256 public totalSupply;
@@ -421,7 +421,7 @@ contract CryptoHeroRocket is Ownable, RBAC {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.

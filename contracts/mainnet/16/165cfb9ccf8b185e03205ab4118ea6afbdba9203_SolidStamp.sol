@@ -120,8 +120,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -138,7 +138,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -170,7 +170,7 @@ contract Upgradable is Ownable, Pausable {
 
     /// @dev Used to mark the smart contract as upgraded, in case there is a serious
     ///  breaking bug. This method does nothing but keep track of the new contract and
-    ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+    ///  emit a message indicating that the new address is set. It's up to clients of this
     ///  contract to update to the new contract address in that case. (This contract will
     ///  be paused indefinitely if such an upgrade takes place.)
     /// @param _v2Address new address
@@ -280,7 +280,7 @@ contract SolidStampRegister is Ownable
       ContractSolidStamp = _newSolidStamp;
     }
 
-    /// @notice We don&#39;t want your arbitrary ether
+    /// @notice We don't want your arbitrary ether
     function() payable public {
         revert();
     }    
@@ -464,7 +464,7 @@ contract SolidStamp is Ownable, Pausable, Upgradable {
         msg.sender.transfer(_amount);
     }
 
-    /// @dev Override unpause so we can&#39;t have newContractAddress set,
+    /// @dev Override unpause so we can't have newContractAddress set,
     ///  because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.
@@ -475,7 +475,7 @@ contract SolidStamp is Ownable, Pausable, Upgradable {
         super.unpause();
     }
 
-    /// @notice We don&#39;t want your arbitrary ether
+    /// @notice We don't want your arbitrary ether
     function() payable public {
         revert();
     }

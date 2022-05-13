@@ -58,9 +58,9 @@ contract HashBux is owned,IERC20{
     
     uint256 public _totalSupply = 80000000;
  
-    string public symbol = &#39;HASH&#39;;
+    string public symbol = 'HASH';
 
-    string public name = &#39;HashBux&#39;;
+    string public name = 'HashBux';
     
     uint8 public decimals = 0;
     

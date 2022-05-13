@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     require(_b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -151,7 +151,7 @@ contract ERC777DemoToken is ERC777Token {
     /// @return the list of all the default operators
     function defaultOperators() public view returns (address[]) { return mDefaultOperators; }
 
-    /// @notice Authorize a third party `_operator` to manage (send) `msg.sender`&#39;s tokens.
+    /// @notice Authorize a third party `_operator` to manage (send) `msg.sender`'s tokens.
     /// @param _operator The operator that wants to be Authorized
     function authorizeOperator(address _operator) public {
         require(_operator != msg.sender);
@@ -163,7 +163,7 @@ contract ERC777DemoToken is ERC777Token {
         //AuthorizedOperator(_operator, msg.sender);
     }
 
-    /// @notice Revoke a third party `_operator`&#39;s rights to manage (send) `msg.sender`&#39;s tokens.
+    /// @notice Revoke a third party `_operator`'s rights to manage (send) `msg.sender`'s tokens.
     /// @param _operator The operator that wants to be Revoked
     function revokeOperator(address _operator) public {
         require(_operator != msg.sender);
@@ -213,7 +213,7 @@ contract ERC777DemoToken is ERC777Token {
     }
 
     /// @notice Internal function that ensures `_amount` is multiple of the granularity
-    /// @param _amount The quantity that want&#39;s to be checked
+    /// @param _amount The quantity that want's to be checked
     function requireMultiple(uint256 _amount) internal view {
         require(_amount/mGranularity*mGranularity == _amount);
     }

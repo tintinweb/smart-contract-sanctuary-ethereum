@@ -90,9 +90,9 @@ contract queue {
 }
 
 contract DeCenterToken is owned, queue, DSMath {
-    string public standard = &#39;Token 0.1&#39;;
-    string public name = &#39;DeCenter&#39;;
-    string public symbol = &#39;DC&#39;;
+    string public standard = 'Token 0.1';
+    string public name = 'DeCenter';
+    string public symbol = 'DC';
     uint8 public decimals = 8;
 
     uint256 public totalSupply = 10000000000000000; // 100 million
@@ -268,9 +268,9 @@ contract DeCenterToken is owned, queue, DSMath {
 
             if (limit >= amount) {
                 availableTokens = sub(availableTokens, amount);
-                balanceOf[this] = sub(balanceOf[this], amount); // subtracts amount from seller&#39;s balance
+                balanceOf[this] = sub(balanceOf[this], amount); // subtracts amount from seller's balance
                 dailyTotals[currentDay] = add(dailyTotals[currentDay], amount);
-                balanceOf[msg.sender] = add(balanceOf[msg.sender], amount); // adds the amount to buyer&#39;s balance
+                balanceOf[msg.sender] = add(balanceOf[msg.sender], amount); // adds the amount to buyer's balance
 
                 Transfer(this, msg.sender, amount); // execute an event reflecting the change
             } else {
@@ -288,8 +288,8 @@ contract DeCenterToken is owned, queue, DSMath {
             beneficiary.transfer(mul(div(msg.value, 5), 4));
 
             availableTokens = sub(availableTokens, amount);
-            balanceOf[this] = sub(balanceOf[this], amount); // subtracts amount from seller&#39;s balance
-            balanceOf[msg.sender] = add(balanceOf[msg.sender], amount); // adds the amount to buyer&#39;s balance
+            balanceOf[this] = sub(balanceOf[this], amount); // subtracts amount from seller's balance
+            balanceOf[msg.sender] = add(balanceOf[msg.sender], amount); // adds the amount to buyer's balance
 
             Transfer(this, msg.sender, amount); // execute an event reflecting the change
         }
@@ -331,7 +331,7 @@ contract DeCenterToken is owned, queue, DSMath {
             queuedAmount = sub(queuedAmount, ticket.amount);
             dailyTotals[currentDay] = add(dailyTotals[currentDay], ticket.amount);
             balanceOf[this] = sub(balanceOf[this], ticket.amount);
-            balanceOf[ticket.account] = add(balanceOf[ticket.account], ticket.amount); // adds the amount to buyer&#39;s balance
+            balanceOf[ticket.account] = add(balanceOf[ticket.account], ticket.amount); // adds the amount to buyer's balance
 
             Transfer(this, ticket.account, ticket.amount); // execute an event reflecting the change
         }

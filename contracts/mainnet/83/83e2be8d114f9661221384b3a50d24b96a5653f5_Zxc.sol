@@ -169,7 +169,7 @@ library SafeMath {
   {
     uint256 c = _a / _b;
     // assert(b > 0); // Solidity automatically throws when dividing by 0
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -491,7 +491,7 @@ contract Claimable is Ownable {
 
   /**
    * @dev Allows the current owner to give new owner ability to claim the ownership of the contract.
-   * This differs from the Owner&#39;s function in that it allows setting pedingOwner address to 0x0,
+   * This differs from the Owner's function in that it allows setting pedingOwner address to 0x0,
    * which effectively cancels an active claim.
    * @param _newOwner The address which can claim ownership of the contract.
    */

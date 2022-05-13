@@ -112,17 +112,17 @@ contract LicenseAccessControl {
   event Unpaused();
 
   /**
-   * @notice CEO&#39;s address FOOBAR
+   * @notice CEO's address FOOBAR
    */
   address public ceoAddress;
 
   /**
-   * @notice CFO&#39;s address
+   * @notice CFO's address
    */
   address public cfoAddress;
 
   /**
-   * @notice COO&#39;s address
+   * @notice COO's address
    */
   address public cooAddress;
 
@@ -220,7 +220,7 @@ contract LicenseAccessControl {
 
   /**
    * @notice Sets a new withdrawalAddress
-   * @param _newWithdrawalAddress - the address where we&#39;ll send the funds
+   * @param _newWithdrawalAddress - the address where we'll send the funds
    */
   function setWithdrawalAddress(address _newWithdrawalAddress) external onlyCEO {
     require(_newWithdrawalAddress != address(0));
@@ -316,7 +316,7 @@ contract LicenseBase is LicenseAccessControl {
   /** anyone **/
 
   /**
-   * @notice Get a license&#39;s productId
+   * @notice Get a license's productId
    * @param _licenseId the license id
    */
   function licenseProductId(uint256 _licenseId) public view returns (uint256) {
@@ -324,7 +324,7 @@ contract LicenseBase is LicenseAccessControl {
   }
 
   /**
-   * @notice Get a license&#39;s attributes
+   * @notice Get a license's attributes
    * @param _licenseId the license id
    */
   function licenseAttributes(uint256 _licenseId) public view returns (uint256) {
@@ -332,7 +332,7 @@ contract LicenseBase is LicenseAccessControl {
   }
 
   /**
-   * @notice Get a license&#39;s issueTime
+   * @notice Get a license's issueTime
    * @param _licenseId the license id
    */
   function licenseIssuedTime(uint256 _licenseId) public view returns (uint256) {
@@ -340,7 +340,7 @@ contract LicenseBase is LicenseAccessControl {
   }
 
   /**
-   * @notice Get a license&#39;s issueTime
+   * @notice Get a license's issueTime
    * @param _licenseId the license id
    */
   function licenseExpirationTime(uint256 _licenseId) public view returns (uint256) {
@@ -356,7 +356,7 @@ contract LicenseBase is LicenseAccessControl {
   }
 
   /**
-   * @notice Get a license&#39;s info
+   * @notice Get a license's info
    * @param _licenseId the license id
    */
   function licenseInfo(uint256 _licenseId)
@@ -418,7 +418,7 @@ contract AffiliateProgram is Pausable {
   event AffiliateCredit(
     // The address of the affiliate
     address affiliate,
-    // The store&#39;s ID of what was sold (e.g. a tokenId)
+    // The store's ID of what was sold (e.g. a tokenId)
     uint256 productId,
     // The amount owed this affiliate in this sale
     uint256 amount
@@ -477,7 +477,7 @@ contract AffiliateProgram is Pausable {
   }
 
   /**
-   * @dev AffiliateProgram constructor - keeps the address of it&#39;s parent store
+   * @dev AffiliateProgram constructor - keeps the address of it's parent store
    * and pauses the contract
    */
   function AffiliateProgram(address _storeAddress) public {
@@ -503,7 +503,7 @@ contract AffiliateProgram is Pausable {
    *  To that end, if the whitelistRate is exactly 1bp, we use that as a signal for blacklisting
    *  and return a rate of zero. The upside is that we can completely turn off
    *  sending transactions to a particular address when this is needed. The
-   *  downside is that you can&#39;t issued 1/100th of a percent commission.
+   *  downside is that you can't issued 1/100th of a percent commission.
    *  However, since this is such a small amount its an acceptable tradeoff.
    *
    *  This implementation does not use the _productId, _pruchaseId,
@@ -563,7 +563,7 @@ contract AffiliateProgram is Pausable {
 
   /**
    * @notice credit an affiliate for a purchase
-   * @dev credit accepts eth and credits the affiliate&#39;s balance for the amount
+   * @dev credit accepts eth and credits the affiliate's balance for the amount
    *
    * @param _affiliate - the address of the affiliate to credit
    * @param _purchaseId - the purchaseId of the sale
@@ -602,7 +602,7 @@ contract AffiliateProgram is Pausable {
 
   /**
    * @notice withdraw
-   * @dev withdraw the msg.sender&#39;s balance
+   * @dev withdraw the msg.sender's balance
    */
   function withdraw() public whenNotPaused {
     _performWithdraw(msg.sender, msg.sender);
@@ -610,7 +610,7 @@ contract AffiliateProgram is Pausable {
 
   /**
    * @notice withdraw from a specific account
-   * @dev withdrawFrom allows the owner to withdraw an affiliate&#39;s unclaimed
+   * @dev withdrawFrom allows the owner to withdraw an affiliate's unclaimed
    * ETH, after the alotted time.
    *
    * This function can be called even if the contract is paused
@@ -801,7 +801,7 @@ contract LicenseInventory is LicenseBase {
     require(_productExists(_productId));
     uint256 newInventoryLevel = products[_productId].available.add(_inventoryAdjustment);
 
-    // A supply of "0" means "unlimited". Otherwise we need to ensure that we&#39;re not over-creating this product
+    // A supply of "0" means "unlimited". Otherwise we need to ensure that we're not over-creating this product
     if(products[_productId].supply > 0) {
       // you have to take already sold into account
       require(products[_productId].sold.add(newInventoryLevel) <= products[_productId].supply);
@@ -817,7 +817,7 @@ contract LicenseInventory is LicenseBase {
   {
     require(_productExists(_productId));
     uint256 newInventoryLevel = products[_productId].available.sub(_inventoryAdjustment);
-    // unnecessary because we&#39;re using SafeMath and an unsigned int
+    // unnecessary because we're using SafeMath and an unsigned int
     // require(newInventoryLevel >= 0);
     products[_productId].available = newInventoryLevel;
   }
@@ -1049,7 +1049,7 @@ contract LicenseInventory is LicenseBase {
    * of dealing with excess refunds). This method is public so that clients can
    * read the exact amount our contract expects to receive.
    *
-   * @param _productId - the product we&#39;re calculating for
+   * @param _productId - the product we're calculating for
    * @param _numCycles - the number of cycles to calculate for
    */
   function costForProductCycles(uint256 _productId, uint256 _numCycles)
@@ -1064,7 +1064,7 @@ contract LicenseInventory is LicenseBase {
    * @notice returns if this product is a subscription or not
    * @dev Some products are subscriptions and others are not. An interval of 0
    * means the product is not a subscription
-   * @param _productId - the product we&#39;re checking
+   * @param _productId - the product we're checking
    */
   function isSubscriptionProduct(uint256 _productId) public view returns (bool) {
     return intervalOf(_productId) > 0;
@@ -1092,7 +1092,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -1152,14 +1152,14 @@ contract LicenseOwnership is LicenseInventory, ERC721, ERC165, ERC721Metadata, E
   string public tokenMetadataBaseURI = "https://api.dottabot.com/";
 
   /**
-   * @notice token&#39;s name
+   * @notice token's name
    */
   function name() external pure returns (string) {
     return NAME;
   }
 
   /**
-   * @notice symbols&#39;s name
+   * @notice symbols's name
    */
   function symbol() external pure returns (string) {
     return SYMBOL;
@@ -1734,7 +1734,7 @@ contract LicenseSale is LicenseOwnership {
   * @dev Requires that the value sent is exactly the price of the product
   * @param _productId - the product to purchase
   * @param _numCycles - the number of cycles being purchased. This number should be `1` for non-subscription products and the number of cycles for subscriptions.
-  * @param _assignee - the address to assign the purchase to (doesn&#39;t have to be msg.sender)
+  * @param _assignee - the address to assign the purchase to (doesn't have to be msg.sender)
   * @param _affiliate - the address to of the affiliate - use address(0) if none
   */
   function purchase(
@@ -1753,17 +1753,17 @@ contract LicenseSale is LicenseOwnership {
     require(_assignee != address(0));
     // msg.value can be zero: free products are supported
 
-    // Don&#39;t bother dealing with excess payments. Ensure the price paid is
+    // Don't bother dealing with excess payments. Ensure the price paid is
     // accurate. No more, no less.
     require(msg.value == costForProductCycles(_productId, _numCycles));
 
-    // Non-subscription products should send a _numCycle of 1 -- you can&#39;t buy a
+    // Non-subscription products should send a _numCycle of 1 -- you can't buy a
     // multiple quantity of a non-subscription product with this function
     if(!isSubscriptionProduct(_productId)) {
       require(_numCycles == 1);
     }
 
-    // this can, of course, be gamed by malicious miners. But it&#39;s adequate for our application
+    // this can, of course, be gamed by malicious miners. But it's adequate for our application
     // Feel free to add your own strategies for product attributes
     // solium-disable-next-line security/no-block-members, zeppelin/no-arithmetic-operations
     uint256 attributes = uint256(keccak256(block.blockhash(block.number-1)))^_productId^(uint256(_assignee));

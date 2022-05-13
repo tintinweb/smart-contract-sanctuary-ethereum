@@ -5,7 +5,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;B333&#39; token contract
+// 'B333' token contract
 //
 // Deployed to : 0x2faDe3DBD09803D65Be506bCd8BB871775197e72
 // Symbol      : B333
@@ -135,7 +135,7 @@ contract B333Token is ERC20Interface, Owned, SafeMath {
         return true;
     }
 
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     function () public payable {
         revert();
     }

@@ -22,18 +22,18 @@ pragma solidity ^0.4.21;
 *     ###                                                                                      
 *  
 *       ____
-*      /\&#39; .\    _____
+*      /\' .\    _____
 *     /: \___\  / .  /\
-*     \&#39; / . / /____/..\
-*      \/___/  \&#39;  &#39;\  /
-*               \&#39;__&#39;\/
+*     \' / . / /____/..\
+*      \/___/  \'  '\  /
+*               \'__'\/
 *
 * // Probably Unfair //
 *
 * //*** Developed By:
 *   _____       _         _         _ ___ _         
 *  |_   _|__ __| |_  _ _ (_)__ __ _| | _ (_)___ ___ 
-*    | |/ -_) _| &#39; \| &#39; \| / _/ _` | |   / (_-</ -_)
+*    | |/ -_) _| ' \| ' \| / _/ _` | |   / (_-</ -_)
 *    |_|\___\__|_||_|_||_|_\__\__,_|_|_|_\_/__/\___|
 *   
 *   &#169; 2018 TechnicalRise.  Written in March 2018.  
@@ -181,7 +181,7 @@ contract PHXroll is PHXReceivingContract, usingDSSafeAddSub {
     /*
      * events
     */
-    /* log bets + output to web3 for precise &#39;payout on win&#39; field in UI */
+    /* log bets + output to web3 for precise 'payout on win' field in UI */
     event LogBet(uint indexed BetID, address indexed PlayerAddress, uint indexed RewardValue, uint ProfitValue, uint BetValue, uint PlayerNumber);      
     /* output to web3 UI on bet result*/
     /* Status: 0=lose, 1=win, 2=win + failed send, 3=refund, 4=refund + failed send*/
@@ -214,7 +214,7 @@ contract PHXroll is PHXReceivingContract, usingDSSafeAddSub {
     // that relies on the fact that "who" will mine and "when" they will
     // mine is random.  This is usually vulnerable to "inside the block"
     // attacks where someone writes a contract mined in the same block
-    // and calls this contract from it -- but we don&#39;t accept transactions
+    // and calls this contract from it -- but we don't accept transactions
     // from other contracts, lessening that risk.  It seems like someone
     // would therefore need to be able to predict the block miner and
     // block timestamp in advance to hack this.  
@@ -223,7 +223,7 @@ contract PHXroll is PHXReceivingContract, usingDSSafeAddSub {
     // 
     function _pRand(uint _modulo) internal view returns (uint) {
         require((1 < _modulo) && (_modulo <= 1000));
-        uint seed1 = uint(block.coinbase); // Get Miner&#39;s Address
+        uint seed1 = uint(block.coinbase); // Get Miner's Address
         uint seed2 = now; // Get the timestamp
         return uint(keccak256(seed1, seed2)) % _modulo;
     }

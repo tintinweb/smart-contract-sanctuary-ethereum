@@ -41,8 +41,8 @@ contract PlayerBook {
     public 
     {
        
-         // No keys are purchased with this method, it&#39;s simply locking our addresses,
-        // PID&#39;s and names for referral codes.
+         // No keys are purchased with this method, it's simply locking our addresses,
+        // PID's and names for referral codes.
         plyr_[1].addr = 0x7e474fe5Cfb720804860215f407111183cbc2f85;
         plyr_[1].name = "kenny";
         plyr_[1].names = 1;
@@ -256,7 +256,7 @@ contract PlayerBook {
     /**
      * @dev players, if you registered a profile, before a game was released, or
      * set the all bool to false when you registered, use this function to push
-     * your profile to a single game.  also, if you&#39;ve  updated your name, you
+     * your profile to a single game.  also, if you've  updated your name, you
      * can use this to push your name to games of your choosing.
      * -functionhash- 0x81c5b206
      * @param _gameID game id 

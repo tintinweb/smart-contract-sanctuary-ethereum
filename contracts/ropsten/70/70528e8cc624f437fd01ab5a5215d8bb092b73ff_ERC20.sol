@@ -1,7 +1,7 @@
 pragma solidity ^0.4.25;
 
 // ----------------------------------------------------------------------------
-// &#39;CNB&#39;  token contract
+// 'CNB'  token contract
 //
 // Owner Address : 0x3917492c197b61d7D8F66255E073E8ff582197f0
 // Symbol      : CNB
@@ -39,7 +39,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
     }
     
@@ -265,7 +265,7 @@ contract ERC20 is owned {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -302,7 +302,7 @@ contract ERC20 is owned {
     function buy() payable public returns (uint amount){
           require(msg.value > 0);
           amount = ((msg.value.mul(BuyPrice)).mul( 10 ** uint256(decimals))).div(1 ether);
-          balanceOf[this] -= amount;                        // adds the amount to owner&#39;s balance
+          balanceOf[this] -= amount;                        // adds the amount to owner's balance
           balanceOf[msg.sender] += amount; 
           _transfer(this, msg.sender, amount);
           return amount;
@@ -315,10 +315,10 @@ contract ERC20 is owned {
     function sell(uint amount) public returns (uint revenue){
         
         require(balanceOf[msg.sender] >= amount);         // checks if the sender has enough to sell
-        balanceOf[this] += amount;                        // adds the amount to owner&#39;s balance
-        balanceOf[msg.sender] -= amount;                  // subtracts the amount from seller&#39;s balance
+        balanceOf[this] += amount;                        // adds the amount to owner's balance
+        balanceOf[msg.sender] -= amount;                  // subtracts the amount from seller's balance
         revenue = (amount.mul(1 ether)).div(SellPrice.mul(10 ** uint256(decimals))) ;
-        msg.sender.transfer(revenue);                     // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+        msg.sender.transfer(revenue);                     // sends ether to the seller: it's important to do this last to prevent recursion attacks
         _transfer(msg.sender, this, amount);               // executes an event reflecting on the change
        return revenue;                                   // ends function and returns
         

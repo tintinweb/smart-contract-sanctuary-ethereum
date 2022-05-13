@@ -1,6 +1,6 @@
 pragma solidity ^0.4.15;
 
-//import &#39;./lib/safeMath.sol&#39;;
+//import './lib/safeMath.sol';
 /**
  * @title SafeMath
  * @dev Math operations with safety checks that throw on error
@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -31,7 +31,7 @@ library SafeMath {
   }
 }
 
-// import &#39;./ERC20.sol&#39;;
+// import './ERC20.sol';
 contract ERC20 {
   uint256 public totalSupply;
   function transferFrom(address from, address to, uint256 value) returns (bool);
@@ -43,7 +43,7 @@ contract ERC20 {
   event Transfer(address indexed from, address indexed to, uint256 value);
 }
 
-// import &#39;./helpers/BasicToken.sol&#39;;
+// import './helpers/BasicToken.sol';
 contract BasicToken is ERC20 {
     using SafeMath for uint256;
 
@@ -120,7 +120,7 @@ contract BasicToken is ERC20 {
 
 }
 
-// import &#39;./BiQToken.sol&#39;;
+// import './BiQToken.sol';
 contract BiQToken is BasicToken {
 
   using SafeMath for uint256;

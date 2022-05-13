@@ -17,7 +17,7 @@ contract SafeMath {
   function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -201,49 +201,49 @@ contract MiBoodleToken is ERC20,SafeMath,Haltable {
         end = safeAdd(now, _end);
     }
 
-    //&#39;owner&#39; can set minimum ether to accept
+    //'owner' can set minimum ether to accept
     // @param _minInvest Minimum value of ether
     function setMinimumEtherToAccept(uint256 _minInvest) public stopIfHalted onlyOwner {
         minInvest = _minInvest;
     }
 
-    //&#39;owner&#39; can set maximum ether to accept
+    //'owner' can set maximum ether to accept
     // @param _maxInvest Maximum value of ether
     function setMaximumEtherToAccept(uint256 _maxInvest) public stopIfHalted onlyOwner {
         maxInvest = _maxInvest;
     }
 
-    //&#39;owner&#39; can set start time of pre funding
+    //'owner' can set start time of pre funding
     // @param _preFundingStart Starting time of prefunding
     function setPreFundingStartTime(uint256 _preFundingStart) public stopIfHalted onlyOwner {
         preFundingStart = now + _preFundingStart;
     }
 
-    //&#39;owner&#39; can set start time of funding
+    //'owner' can set start time of funding
     // @param _start Starting time of funding
     function setFundingStartTime(uint256 _start) public stopIfHalted onlyOwner {
         start = now + _start;
     }
 
-    //&#39;owner&#39; can set end time of funding
+    //'owner' can set end time of funding
     // @param _end Ending time of funding
     function setFundingEndTime(uint256 _end) public stopIfHalted onlyOwner {
         end = now + _end;
     }
 
-    //&#39;owner&#39; can set transfer enable or disable
+    //'owner' can set transfer enable or disable
     // @param _isTransferEnable Token transfer enable or disable
     function setTransferEnable(bool _isTransferEnable) public stopIfHalted onlyOwner {
         isTransferEnable = _isTransferEnable;
     }
 
-    //&#39;owner&#39; can set number of tokens per Ether in prefunding
+    //'owner' can set number of tokens per Ether in prefunding
     // @param _preFundingtokens Tokens per Ether in prefunding
     function setPreFundingtokens(uint256 _preFundingtokens) public stopIfHalted onlyOwner {
         preFundingtokens = _preFundingtokens;
     }
 
-    //&#39;owner&#39; can set number of tokens per Ether in funding
+    //'owner' can set number of tokens per Ether in funding
     // @param _fundingTokens Tokens per Ether in funding
     function setFundingtokens(uint256 _fundingTokens) public stopIfHalted onlyOwner {
         fundingTokens = _fundingTokens;
@@ -284,7 +284,7 @@ contract MiBoodleToken is ERC20,SafeMath,Haltable {
         assignTokens(_investor,_tokens);
     }
 
-    // transfer the tokens to investor&#39;s address
+    // transfer the tokens to investor's address
     // Common function code for cashInvestment and Crowdsale Investor
     function assignTokens(address _investor, uint256 _tokens) internal {
         // Creating tokens and  increasing the totalSupply
@@ -370,7 +370,7 @@ contract MiBoodleToken is ERC20,SafeMath,Haltable {
         return allowedToBurn[_owner][_spender];
     }
 
-    //  Transfer `value` miBoodle tokens from sender&#39;s account
+    //  Transfer `value` miBoodle tokens from sender's account
     // `msg.sender` to provided account address `to`.
     // @param _to The address of the recipient
     // @param _value The number of miBoodle tokens to transfer
@@ -391,7 +391,7 @@ contract MiBoodleToken is ERC20,SafeMath,Haltable {
         return true;
     }
 
-    //  Transfer `value` miBoodle tokens from sender &#39;from&#39;
+    //  Transfer `value` miBoodle tokens from sender 'from'
     // to provided account address `to`.
     // @param from The address of the sender
     // @param to The address of the recipient
@@ -436,7 +436,7 @@ contract MiBoodleToken is ERC20,SafeMath,Haltable {
         return true;
     }
 
-    //  Burn `value` miBoodle tokens from sender&#39;s account
+    //  Burn `value` miBoodle tokens from sender's account
     // `msg.sender` to provided _value.
     // @param _value The number of miBoodle tokens to destroy
     // @return Whether the Burn was successful or not
@@ -454,7 +454,7 @@ contract MiBoodleToken is ERC20,SafeMath,Haltable {
         return true;
     }
 
-    //  Burn `value` miBoodle tokens from sender &#39;from&#39;
+    //  Burn `value` miBoodle tokens from sender 'from'
     // to provided account address `to`.
     // @param from The address of the burner
     // @param to The address of the token holder from token to burn

@@ -60,7 +60,7 @@ contract UtlToken is StandardToken {
     string public name = "Utile Token";
     uint8 public decimals = 18;
     string public symbol = "UTL";
-    string public version = &#39;UTL_1.0&#39;;
+    string public version = 'UTL_1.0';
     address public presaleAddress;
     address public mainsaleAddress;
     address public platformAddress;

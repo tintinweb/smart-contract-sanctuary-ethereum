@@ -9,7 +9,7 @@ contract messageBoard {
         message = _editMessage;
     }
     function showMessage() public view{
-        message = &#39;abcd&#39;;
+        message = 'abcd';
     }
     function pay() public payable {
         people++;

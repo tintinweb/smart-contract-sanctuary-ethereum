@@ -5,7 +5,7 @@ contract TestReturnValues {
     string message = "";
     
     function retrunError() public {
-        message = "I&#39;m an error message";
+        message = "I'm an error message";
         require(false, message);
     }   
 }

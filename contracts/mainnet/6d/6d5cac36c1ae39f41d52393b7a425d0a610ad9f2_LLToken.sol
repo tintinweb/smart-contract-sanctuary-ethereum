@@ -128,7 +128,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -614,9 +614,9 @@ contract ReleaseableToken is Operational, LockableToken {
 }
 
 contract LLToken is ReleaseableToken {
-    string public standard = &#39;2017082602&#39;;
-    string public name = &#39;LLToken&#39;;
-    string public symbol = &#39;LLT&#39;;
+    string public standard = '2017082602';
+    string public name = 'LLToken';
+    string public symbol = 'LLT';
     uint8 public decimals = 8;
 
     function LLToken(

@@ -148,8 +148,8 @@ contract StandardToken is ERC20, ERC223, SafeMath, Owned {
 }
 
 contract DccbtcToken is StandardToken {
-  string public name = &#39;Dccbtc Token&#39;;
-  string public symbol = &#39;DCCT&#39;;
+  string public name = 'Dccbtc Token';
+  string public symbol = 'DCCT';
   uint public decimals = 18;
 
 

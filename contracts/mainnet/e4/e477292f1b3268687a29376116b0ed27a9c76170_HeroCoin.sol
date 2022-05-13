@@ -8,7 +8,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -169,7 +169,7 @@ contract HeroCoin is StandardToken {
 
 
     uint256 pointMultiplier = 1e18; //100% = 1*10^18 points
-    uint256 totalRakePoints; //total amount of rakes ever paid out as a points value. increases monotonically, but the number range is 2^256, that&#39;s enough.
+    uint256 totalRakePoints; //total amount of rakes ever paid out as a points value. increases monotonically, but the number range is 2^256, that's enough.
     uint256 unclaimedRakes; //amount of coins unclaimed. acts like a special entry to balances
     uint256 constant percentForSale = 30;
 

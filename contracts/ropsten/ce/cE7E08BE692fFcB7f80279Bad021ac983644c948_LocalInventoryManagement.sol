@@ -36,17 +36,17 @@ contract LocalInventoryManagement {
     }
     
     modifier isProductExist(string memory _id) {
-        require(mapProduct[_id].isValue == false, &#39;product already exists&#39;);
+        require(mapProduct[_id].isValue == false, 'product already exists');
         _;
     }
     
     modifier isShopOwner(string memory _shopOwnerId) {
-        require(mapShopOwner[_shopOwnerId].isValue == true, &#39;Invalid shop owner id&#39;);
+        require(mapShopOwner[_shopOwnerId].isValue == true, 'Invalid shop owner id');
         _;
     }
     
     modifier isCategory(string memory _categoryId) {
-        require(mapCategory[_categoryId].isValue == true, &#39;Invalid category id&#39;);
+        require(mapCategory[_categoryId].isValue == true, 'Invalid category id');
         _;
     }
     
@@ -70,7 +70,7 @@ contract LocalInventoryManagement {
                             isShopOwner(_shopOwnerId) 
                             isCategory(_categoryId) 
                             returns(bool success) {
-        mapProduct[_id] = Product(_id, _name, _categoryId, _shopOwnerId, _quantity, &#39;Available&#39;, true);
+        mapProduct[_id] = Product(_id, _name, _categoryId, _shopOwnerId, _quantity, 'Available', true);
         return (true);
     }
     

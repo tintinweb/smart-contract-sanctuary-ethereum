@@ -393,19 +393,19 @@ contract PaintingOwnership is BitpaintingBase, ERC721 {
     ERC721Metadata public erc721Metadata;
 
     bytes4 constant InterfaceSignature_ERC165 =
-        bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+        bytes4(keccak256('supportsInterface(bytes4)'));
 
     bytes4 constant InterfaceSignature_ERC721 =
-        bytes4(keccak256(&#39;name()&#39;)) ^
-        bytes4(keccak256(&#39;symbol()&#39;)) ^
-        bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-        bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-        bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-        bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-        bytes4(keccak256(&#39;tokenMetadata(uint256,string)&#39;));
+        bytes4(keccak256('name()')) ^
+        bytes4(keccak256('symbol()')) ^
+        bytes4(keccak256('totalSupply()')) ^
+        bytes4(keccak256('balanceOf(address)')) ^
+        bytes4(keccak256('ownerOf(uint256)')) ^
+        bytes4(keccak256('approve(address,uint256)')) ^
+        bytes4(keccak256('transfer(address,uint256)')) ^
+        bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+        bytes4(keccak256('tokensOfOwner(address)')) ^
+        bytes4(keccak256('tokenMetadata(uint256,string)'));
 
     /// @notice Introspection interface as per ERC-165 (https://github.com/ethereum/EIPs/issues/165).
     ///  Returns true for any standardized interfaces implemented by this contract. We implement

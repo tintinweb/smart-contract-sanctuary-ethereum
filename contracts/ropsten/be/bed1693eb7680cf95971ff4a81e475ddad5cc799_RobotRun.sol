@@ -11,7 +11,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
  
@@ -106,7 +106,7 @@ contract RobotRun{
     }
     //creating game account
     function create_account() public returns(string,address,uint){
-        //if player doesn&#39;t exists
+        //if player doesn't exists
         if(!players[msg.sender].exists){
             Players.push(msg.sender);
             players[msg.sender] = Player(msg.sender,0,0,0,true);

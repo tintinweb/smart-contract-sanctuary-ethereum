@@ -67,7 +67,7 @@ contract ICO is owned {
     // = msg.value * tokpereth/1e20 * (bonus+100)
 
     // NOTE: this calculation does not take decimals into account, because
-    //       in MOB case there aren&#39;t any (decimals == 0)
+    //       in MOB case there aren't any (decimals == 0)
     uint qty =
       multiply( divide( multiply( msg.value,
                                   tokpereth ),

@@ -125,7 +125,7 @@ contract ResolverClient {
     _;
   }
 
-  /// Function modifier to check resolver&#39;s locking status.
+  /// Function modifier to check resolver's locking status.
   modifier unless_resolver_is_locked() {
     require(is_locked() == false);
     _;
@@ -315,7 +315,7 @@ contract MarketplaceCommon is ResolverClient, ACConditions, DigixConstants {
   }
 }
 
-/// @title Digix&#39;s Marketplace
+/// @title Digix's Marketplace
 /// @author Digix Holdings Pte Ltd
 /// @notice This contract is for KYC-approved users to purchase DGX using ETH
 contract Marketplace is MarketplaceCommon {

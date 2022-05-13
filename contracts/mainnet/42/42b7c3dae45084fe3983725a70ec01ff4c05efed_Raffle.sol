@@ -690,7 +690,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -732,7 +732,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -877,7 +877,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -887,7 +887,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -919,7 +919,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -942,7 +942,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -974,15 +974,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -1019,13 +1019,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1054,7 +1054,7 @@ contract Raffle is usingOraclize
 		uint startTotal;
 	}
 	
-	// TODO - solidity doesn&#39;t support returning of structs (yet)
+	// TODO - solidity doesn't support returning of structs (yet)
 	/*
 	struct Winner
 	{
@@ -1069,7 +1069,7 @@ contract Raffle is usingOraclize
 	uint8 constant public ROUND_DATA_COUNT = 2; // keeping data for 2 rounds should be enough
 	uint8 constant public RANDOMIZER_RETRY_COUNT = 3; // just in case oraclize callback fails
 	uint8 constant public RANDOM_BYTES_COUNT = 32; // a 256-bit int
-	uint8 constant public MAX_FEE_PERCENTAGE = 10; // safeguard so fee can&#39;t ever be more than 10%
+	uint8 constant public MAX_FEE_PERCENTAGE = 10; // safeguard so fee can't ever be more than 10%
 	uint8 constant public MAX_RANDOM_DELAY = 120; // 120 is max according to this: https://github.com/oraclize/ethereum-api/issues/22#issuecomment-365029344
 
 	// systematic variables
@@ -1103,7 +1103,7 @@ contract Raffle is usingOraclize
 	uint oraclizeGasPrice = 0;
 	uint8 oraclizeWinnerTimeOffset = 30;
 	// public variables
-	// TODO - solidity doesn&#39;t support returning of structs (yet)
+	// TODO - solidity doesn't support returning of structs (yet)
 	address[] pastWinnerAddresses;
 	uint[] pastWinnerEntries;
 	uint[] pastWinnerPrizes;
@@ -1128,7 +1128,7 @@ contract Raffle is usingOraclize
 	
 	function destroyContract() public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		_abortAllRounds();
 		selfdestruct(owner);
@@ -1160,7 +1160,7 @@ contract Raffle is usingOraclize
 	
 	function setRoundLength(uint32 value) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(value >= 300); // not allowed under 5 minutes
 		roundLength = value;
@@ -1203,7 +1203,7 @@ contract Raffle is usingOraclize
 	
 	function setOraclizeGasPrice(uint value) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(value > 0);
 		oraclizeGasPrice = value;
@@ -1217,7 +1217,7 @@ contract Raffle is usingOraclize
 	
 	function setOraclizeRoundGasFee(uint value) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(value > 0);
 		oraclizeRoundGasFee = value;
@@ -1230,7 +1230,7 @@ contract Raffle is usingOraclize
 	
 	function setOraclizeWinnerGasFee(uint value) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(value > 0);
 		oraclizeWinnerGasFee = value;
@@ -1243,7 +1243,7 @@ contract Raffle is usingOraclize
 	
 	function setOraclizeWinnerTimeOffset(uint8 value) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(value <= MAX_RANDOM_DELAY);
 		oraclizeWinnerTimeOffset = value;
@@ -1273,7 +1273,7 @@ contract Raffle is usingOraclize
 		return roundTotals[currentRoundIndex];
 	}
 	
-	// TODO - solidity doesn&#39;t support returning of structs
+	// TODO - solidity doesn't support returning of structs
 	function getPastWinnerAddresses() public view returns (address[])
 	{
 		return pastWinnerAddresses;
@@ -1379,7 +1379,7 @@ contract Raffle is usingOraclize
 	
 	function changeMinimumBet(uint value) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		nextMinimumBet = value;
 		queuedMinimumBet = true;
@@ -1387,7 +1387,7 @@ contract Raffle is usingOraclize
 	
 	function changeMaximumPlayers(uint32 value) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		nextMaximumPlayers = value;
 		queuedMaximumPlayers = true;
@@ -1395,7 +1395,7 @@ contract Raffle is usingOraclize
 	
 	function changeFeePercentage(uint8 value) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(value <= MAX_FEE_PERCENTAGE);
 		nextFeePercentage = value;
@@ -1404,14 +1404,14 @@ contract Raffle is usingOraclize
 	
 	function addFunds() public payable
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		funds += msg.value;
 	}
 	
 	function withdrawFunds(uint value) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(funds >= value);
 		funds -= value;
@@ -1420,7 +1420,7 @@ contract Raffle is usingOraclize
 	
 	function startRound(bool ignoreOraclize) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(oraclizeGasPrice > 0);
 		require(!running);
@@ -1440,7 +1440,7 @@ contract Raffle is usingOraclize
 	
 	function stopRound(bool abortRound) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(running);
 		running = false;
@@ -1452,7 +1452,7 @@ contract Raffle is usingOraclize
 	
 	function restartRound(bool ignoreOraclize, bool forceAbortRound) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(oraclizeGasPrice > 0);
 		require(running);
@@ -1475,7 +1475,7 @@ contract Raffle is usingOraclize
 	
 	function manualFinalizeRound() public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == owner);
 		require(running);
 		require(!currentRoundFinishing);
@@ -1484,7 +1484,7 @@ contract Raffle is usingOraclize
 	
 	function enterCurrentRound() public payable
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.value >= minimumBet);
 		require(running);
 		uint index = currentRoundIndex;
@@ -1504,7 +1504,7 @@ contract Raffle is usingOraclize
 	
 	function __callback(bytes32 _queryId, string _result, bytes _proof) public
 	{
-		require(owner != 0x0); // makes sure a destroyed contract doesn&#39;t accept transactions
+		require(owner != 0x0); // makes sure a destroyed contract doesn't accept transactions
 		require(msg.sender == oraclize_cbAddress());
 		oraclizeQueued = false;
 		if (running)
@@ -1533,7 +1533,7 @@ contract Raffle is usingOraclize
 		if (_canPayOraclize(oraclizeRoundGasFee))
 		{
 			oraclizeQueued = true;
-			// just need a callback, don&#39;t care about the result
+			// just need a callback, don't care about the result
 			funds -= oraclizeRoundGasFee * oraclizeGasPrice;
 			oraclize_query(_calcRemainingRoundTime(), "URL", "", oraclizeRoundGasFee);
 		}
@@ -1627,7 +1627,7 @@ contract Raffle is usingOraclize
 				roundTotals[currentRoundIndex] = 0;
 				uint prize = total * (100 - feePercentage) / 100;
 				funds += total - prize; // fee
-				// TODO - solidity doesn&#39;t support returning of structs (yet)
+				// TODO - solidity doesn't support returning of structs (yet)
 				//pastWinners.push(Winner(winner.playerAddress, winner.entry, prize, uint64(block.timestamp)));
 				pastWinnerAddresses.push(winnerAddress);
 				pastWinnerEntries.push(winnerEntry);

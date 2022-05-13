@@ -35,7 +35,7 @@ contract theCyberMemberUtilities {
   address private constant THECYBERADDRESS_ = 0x97A99C819544AD0617F48379840941eFbe1bfAE1;
   theCyberInterface theCyber = theCyberInterface(THECYBERADDRESS_);
 
-  // Set up variables for checking the contract&#39;s membership status.
+  // Set up variables for checking the contract's membership status.
   bool private isMember_;
   uint8 private memberId_;
 
@@ -219,7 +219,7 @@ contract theCyberMemberUtilities {
 
   // We also want to be able to access any tokens that are sent to the contract.
   function donateTokens(address _tokenContractAddress) public membersOnly {
-    // Make sure that we didn&#39;t pass in the current contract address by mistake.
+    // Make sure that we didn't pass in the current contract address by mistake.
     require(_tokenContractAddress != address(this));
 
     // Log the donation of any tokens that have been sent into the contract.
@@ -229,7 +229,7 @@ contract theCyberMemberUtilities {
     ERC20(_tokenContractAddress).transfer(donationAddress_, ERC20(_tokenContractAddress).balanceOf(this));
   }
 
-  // The donation address for lost ether / ERC20 tokens should match theCyber&#39;s.
+  // The donation address for lost ether / ERC20 tokens should match theCyber's.
   function donationAddress() public view returns(address) {
     return donationAddress_;
   }

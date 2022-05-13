@@ -37,7 +37,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -209,5 +209,5 @@ contract FLYCoin is MigrationSource, ERC20 {
     emit Vacate(_addr, o_balance);
   }
 
-  // Don&#39;t accept ETH. Starting from Solidity 0.4.0, contracts without a fallback function automatically revert payments
+  // Don't accept ETH. Starting from Solidity 0.4.0, contracts without a fallback function automatically revert payments
 }

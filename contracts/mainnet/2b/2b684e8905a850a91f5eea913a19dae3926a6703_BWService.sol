@@ -83,7 +83,7 @@ contract BWData {
         owner = msg.sender;
     }
 
-    // Can&#39;t send funds straight to this contract. Avoid people sending by mistake.
+    // Can't send funds straight to this contract. Avoid people sending by mistake.
     function () payable public {
         revert();
     }
@@ -286,8 +286,8 @@ contract BWData {
         //      -> Total boost is (2+2+2+2+2+2+2+2) * 8 / 10 = 14.4 finney
         //   D) I boost attack with 3 tiles of 1, 5 and 10 finney respectively
         //      -> Total boost is (ss1+5+10) * 3 / 10 = 4.8 finney
-        // This division by 10 can&#39;t create fractions since our uint is wei, and we can&#39;t have overflow from the multiplication
-        // We do allow fractions of finney here since the boosted values aren&#39;t stored anywhere, only used for attack rolls and sent in events
+        // This division by 10 can't create fractions since our uint is wei, and we can't have overflow from the multiplication
+        // We do allow fractions of finney here since the boosted values aren't stored anywhere, only used for attack rolls and sent in events
         boost.attackBoost = (boost.attackBoost / 10 * boost.numAttackBoosts);
         boost.defendBoost = (boost.defendBoost / 10 * boost.numDefendBoosts);
 
@@ -355,7 +355,7 @@ contract BWService {
         owner = msg.sender;
     }
 
-    // Can&#39;t send funds straight to this contract. Avoid people sending by mistake.
+    // Can't send funds straight to this contract. Avoid people sending by mistake.
     function () payable public {
         revert();
     }
@@ -421,7 +421,7 @@ contract BWService {
         uint blockValue;
         for (uint16 i = 0; i < tileCount; i++) {
             (claimer, blockValue) = bwData.getTileClaimerAndBlockValue(_claimedTileIds[i]);
-            require(claimer != 0); // Can&#39;t do this on never-owned tiles
+            require(claimer != 0); // Can't do this on never-owned tiles
             require(claimer == _msgSender); // Only current claimer can fortify claim
 
             if (_useBattleValue) {
@@ -457,23 +457,23 @@ contract BWService {
         return seed % _upper;
     }
 
-    // A user tries to claim a tile that&#39;s already owned by another user. A battle ensues.
+    // A user tries to claim a tile that's already owned by another user. A battle ensues.
     // A random roll is done with % based on attacking vs defending amounts.
     function attackTile(address _msgSender, uint16 _tileId, uint _attackAmount, bool _useBattleValue, bool _autoFortify) public isValidCaller {
-        require(_attackAmount >= 1 finney);         // Don&#39;t allow attacking with less than one base tile price.
+        require(_attackAmount >= 1 finney);         // Don't allow attacking with less than one base tile price.
         require(_attackAmount % 1 finney == 0);
 
         address claimer;
         uint blockValue;
         (claimer, blockValue) = bwData.getTileClaimerAndBlockValue(_tileId);
         
-        require(claimer != 0); // Can&#39;t do this on never-owned tiles
-        require(claimer != _msgSender); // Can&#39;t attack one&#39;s own tiles
-        require(claimer != owner); // Can&#39;t attack owner&#39;s tiles because it is used for raffle.
+        require(claimer != 0); // Can't do this on never-owned tiles
+        require(claimer != _msgSender); // Can't attack one's own tiles
+        require(claimer != owner); // Can't attack owner's tiles because it is used for raffle.
 
         // Calculate boosted amounts for attacker and defender
         // The base attack amount is sent in the by the user.
-        // The base defend amount is the attacked tile&#39;s current blockValue.
+        // The base defend amount is the attacked tile's current blockValue.
         uint attackBoost;
         uint defendBoost;
         (attackBoost, defendBoost) = bwData.calculateBattleBoost(_tileId, _msgSender, claimer);
@@ -510,15 +510,15 @@ contract BWService {
                     // Fortify the won tile using attack amount
                     fortifyClaim(_msgSender, _tileId, _attackAmount);
                 } else {
-                    addUserBattleValue(_msgSender, _attackAmount); // Don&#39;t include boost here!
+                    addUserBattleValue(_msgSender, _attackAmount); // Don't include boost here!
                 }
             }
         } else {
             // Tile successfully defended!
             if (_useBattleValue) {
-                subUserBattleValue(_msgSender, _attackAmount, false); // Don&#39;t include boost here!
+                subUserBattleValue(_msgSender, _attackAmount, false); // Don't include boost here!
             }
-            addUserBattleValue(claimer, _attackAmount); // Don&#39;t include boost here!
+            addUserBattleValue(claimer, _attackAmount); // Don't include boost here!
 
             // Send update event
             emit TileDefendedSuccessfully(_tileId, _msgSender, _attackAmount, totalAttackAmount, claimer, blockValue, totalDefendAmount, attackRoll, block.timestamp);
@@ -541,7 +541,7 @@ contract BWService {
 
         require(sourceTileClaimer == _msgSender);
         require(destTileClaimer == _msgSender);
-        require(_moveAmount >= 1 finney); // Can&#39;t be less
+        require(_moveAmount >= 1 finney); // Can't be less
         require(_moveAmount % 1 finney == 0); // Move amount must be in multiples of 1 finney
         // require(sourceTile.blockValue - _moveAmount >= BASE_TILE_PRICE_WEI); // Must always leave some at source
         
@@ -570,7 +570,7 @@ contract BWService {
     function withdrawBattleValue(address msgSender, uint _battleValueInWei) public isValidCaller returns (uint) {
         require(bwData.hasUser(msgSender));
         require(_battleValueInWei % 1 finney == 0); // Must be divisible by 1 finney
-        uint fee = _battleValueInWei / WITHDRAW_FEE; // Since we divide by 20 we can never create infinite fractions, so we&#39;ll always count in whole wei amounts.
+        uint fee = _battleValueInWei / WITHDRAW_FEE; // Since we divide by 20 we can never create infinite fractions, so we'll always count in whole wei amounts.
         require(_battleValueInWei - fee < _battleValueInWei); // prevent underflow
 
         uint amountToWithdraw = _battleValueInWei - fee;
@@ -586,15 +586,15 @@ contract BWService {
         uint userBattleValue = bwData.getUserBattleValue(_userId);
         require(userBattleValue + _amount > userBattleValue); // prevent overflow
         uint newBattleValue = userBattleValue + _amount;
-        bwData.setUserBattleValue(_userId, newBattleValue); // Don&#39;t include boost here!
+        bwData.setUserBattleValue(_userId, newBattleValue); // Don't include boost here!
         emit UserBattleValueUpdated(_userId, newBattleValue, false);
     }
     
     function subUserBattleValue(address _userId, uint _amount, bool _isWithdraw) public isValidCaller {
         uint userBattleValue = bwData.getUserBattleValue(_userId);
-        require(_amount <= userBattleValue); // Must be less than user&#39;s battle value - also implicitly checks that underflow isn&#39;t possible
+        require(_amount <= userBattleValue); // Must be less than user's battle value - also implicitly checks that underflow isn't possible
         uint newBattleValue = userBattleValue - _amount;
-        bwData.setUserBattleValue(_userId, newBattleValue); // Don&#39;t include boost here!
+        bwData.setUserBattleValue(_userId, newBattleValue); // Don't include boost here!
         emit UserBattleValueUpdated(_userId, newBattleValue, _isWithdraw);
     }
 

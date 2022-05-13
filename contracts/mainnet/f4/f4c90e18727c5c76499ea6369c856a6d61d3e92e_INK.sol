@@ -67,9 +67,9 @@ contract INK is EIP20Interface {
     function INK() public {
         totalSupply = 10 * (10**8) * (10**9);                // Update total supply
         balances[msg.sender] = totalSupply;                  // Give the creator all initial tokens
-        name = &#39;INK token&#39;;                                  // Set the name for display purposes
+        name = 'INK token';                                  // Set the name for display purposes
         decimals = 9;                                        // Amount of decimals for display purposes
-        symbol = &#39;INK&#39;;                                      // Set the symbol for display purposes
+        symbol = 'INK';                                      // Set the symbol for display purposes
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success) {

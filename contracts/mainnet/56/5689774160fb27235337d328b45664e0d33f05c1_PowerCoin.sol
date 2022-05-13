@@ -140,7 +140,7 @@ contract PowerCoin is Ownable, StandardToken {
         balances[msg.sender] = totalSupply; // 80 percent goes to the public sale
     }
 
-    // Don&#39;t accept ethers - no payable modifier
+    // Don't accept ethers - no payable modifier
     function () payable{
     }
 

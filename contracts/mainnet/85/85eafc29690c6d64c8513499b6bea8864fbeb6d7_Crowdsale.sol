@@ -41,7 +41,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -217,7 +217,7 @@ contract Crowdsale {
     minPurchase = _minPurchase;
   }
 
-   // @notice Set&#39;s the rate of tokens per ether for each round
+   // @notice Set's the rate of tokens per ether for each round
   function setNewRatesCustom (uint256 _r1, uint256 _r2, uint256 _r3, uint256 _r4, uint256 _r5, uint256 _r6) onlyOwner external {
     require(_r1 > 0 && _r2 > 0 && _r3 > 0 && _r4 > 0 && _r5 > 0 && _r6 > 0);
     rateLevels[1] = _r1;
@@ -228,7 +228,7 @@ contract Crowdsale {
     rateLevels[6] = _r6;
   }
 
-   // @notice Set&#39;s the rate of tokens per ether for each round
+   // @notice Set's the rate of tokens per ether for each round
   function setNewRatesBase (uint256 _r1) onlyOwner external {
     require(_r1 > 0);
     rateLevels[1] = _r1;
@@ -497,7 +497,7 @@ contract Crowdsale {
       uint256 weiNextRound = amount.sub(weiThisRound);
       uint256 tokensNextRound = 0;
 
-      // If there&#39;s excessive wei for the last tier, refund those
+      // If there's excessive wei for the last tier, refund those
       uint256 nextRound = roundSelected.add(1);
       if(roundSelected != 6) {
         tokensNextRound = _getTokensAmount(weiNextRound, nextRound);

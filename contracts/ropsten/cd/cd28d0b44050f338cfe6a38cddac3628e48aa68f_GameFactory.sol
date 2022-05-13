@@ -4,7 +4,7 @@
  *      | - |    / /     | |   
  *      |_|_|   /___|   _|_|_  
  *    _|"""""|_|"""""|_|"""""| 
- *    "`-0-0-&#39;"`-0-0-&#39;"`-0-0-&#39; 
+ *    "`-0-0-'"`-0-0-'"`-0-0-' 
  */
 
 pragma solidity ^ 0.4.24; 
@@ -32,7 +32,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -245,7 +245,7 @@ contract IGame {
  *      | - |    / /     | |   
  *      |_|_|   /___|   _|_|_  
  *    _|"""""|_|"""""|_|"""""| 
- *    "`-0-0-&#39;"`-0-0-&#39;"`-0-0-&#39; 
+ *    "`-0-0-'"`-0-0-'"`-0-0-' 
  */
 
 contract A21 is IGame, Owned {
@@ -331,9 +331,9 @@ contract A21 is IGame, Owned {
 		require(_price >= MINIMUM_PRICE && _price <= MAXIMUM_PRICE, "price not in range (MINIMUM_PRICE, MAXIMUM_PRICE)");
 		require(_timespan >= MINIMUM_TIMESPAN && _timespan <= MAXIMUM_TIMESPAN, "timespan not in range(MINIMUM_TIMESPAN, MAXIMUM_TIMESPAN)");
 		require(_name[0] != 0, "invaild name"); 
-        require(_profitOfManager <=20, "[profitOfManager] don&#39;t take too much commission :)");
-        require(_profitOfFirstPlayer <=50, "[profitOfFirstPlayer] don&#39;t take too much commission :)");
-        require(_profitOfWinner <=100 && (_profitOfManager + _profitOfWinner + _profitOfFirstPlayer) <=100, "[profitOfWinner] don&#39;t take too much commission :)");
+        require(_profitOfManager <=20, "[profitOfManager] don't take too much commission :)");
+        require(_profitOfFirstPlayer <=50, "[profitOfFirstPlayer] don't take too much commission :)");
+        require(_profitOfWinner <=100 && (_profitOfManager + _profitOfWinner + _profitOfFirstPlayer) <=100, "[profitOfWinner] don't take too much commission :)");
         
         creator = msg.sender;
 		owner = 0x56C4ECf7fBB1B828319d8ba6033f8F3836772FA9; 
@@ -498,8 +498,8 @@ contract A21 is IGame, Owned {
  *    |A.--. ||2.--. ||1.--. |
  *    | (\/) || (\/) || :/\: |
  *    | :\/: || :\/: || (__) |
- *    | &#39;--&#39;A|| &#39;--&#39;2|| &#39;--&#39;1|
- *    `------&#39;`------&#39;`------&#39;
+ *    | '--'A|| '--'2|| '--'1|
+ *    `------'`------'`------'
  *    === private functions ===
  */
 
@@ -614,7 +614,7 @@ contract A21 is IGame, Owned {
 			balances[owner] = 0;
 		}
 
-		// For the main reason of gas fee, we don&#39;t release all players&#39; awards, so please withdraw it by yourself. 
+		// For the main reason of gas fee, we don't release all players' awards, so please withdraw it by yourself. 
 	}
 
 	function eval(uint256 c1, uint256 c2)  private pure returns (uint256){
@@ -712,9 +712,9 @@ contract GameFactory is Owned {
 		bytes32 name = _name.nameFilter();
         require(name[0] != 0, "invaild name");
         require(checkName(name), "duplicate name");
-        require(_profitOfManager <=20, "[profitOfManager] don&#39;t take too much commission :)");
-        require(_profitOfFirstPlayer <=50, "[profitOfFirstPlayer] don&#39;t take too much commission :)");
-        require(_profitOfWinner <=100 && (_profitOfManager + _profitOfWinner + _profitOfFirstPlayer) <=100, "[profitOfWinner] don&#39;t take too much commission :)");
+        require(_profitOfManager <=20, "[profitOfManager] don't take too much commission :)");
+        require(_profitOfFirstPlayer <=50, "[profitOfFirstPlayer] don't take too much commission :)");
+        require(_profitOfWinner <=100 && (_profitOfManager + _profitOfWinner + _profitOfFirstPlayer) <=100, "[profitOfWinner] don't take too much commission :)");
         require(msg.value >= getTicketPrice(_profitOfManager), "fee is not enough");
 
         address game = new A21(_manager, name, _title, _price, _timespan, _profitOfManager, _profitOfFirstPlayer, _profitOfWinner);

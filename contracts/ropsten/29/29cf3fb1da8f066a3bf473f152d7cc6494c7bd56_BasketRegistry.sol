@@ -37,7 +37,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -191,7 +191,7 @@ contract BasketRegistry {
     return (b.basketAddress, b.arranger, b.name, b.symbol, b.tokens, b.weights, b.totalMinted, b.totalBurned);
   }
 
-  /// @dev Look up a basket&#39;s arranger
+  /// @dev Look up a basket's arranger
   /// @param  _basketAddress                       Address of basket to check
   /// @return arranger
   function getBasketArranger(address _basketAddress) public view returns (address) {

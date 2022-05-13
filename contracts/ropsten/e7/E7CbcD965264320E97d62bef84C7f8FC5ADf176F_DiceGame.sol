@@ -20,7 +20,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -182,12 +182,12 @@ contract DiceGame {
         Bet storage bet = bets[commit];
         uint amount = bet.amount;
         address player = bet.player;
-        require(amount != 0, "Bet should be in an &#39;active&#39; state");
+        require(amount != 0, "Bet should be in an 'active' state");
 
         // Check that bet has already expired.
-        require(block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require(block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
-        // Move bet into &#39;processed&#39; state, release funds.
+        // Move bet into 'processed' state, release funds.
         bet.amount = 0;
         uint profit = getDiceWinAmount(amount, bet.roll, bet.lessThan, bet.isInvited);
         maxPendingPayouts = maxPendingPayouts.sub(profit);

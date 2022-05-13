@@ -17,7 +17,7 @@ contract TransferAndCallbackReceiver {
 // File: contracts/test/ContractWithCallback.sol
 
 /**
-    This contract is used in testing PathToken&#39; TransferAndCallback functionality
+    This contract is used in testing PathToken' TransferAndCallback functionality
  */
 
 

@@ -237,7 +237,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -353,7 +353,7 @@ contract ERC721Base is AssetRegistryStorage, IERC721Base, ERC165 {
   //
 
   /**
-   * @dev Authorize a third party operator to manage (send) msg.sender&#39;s asset
+   * @dev Authorize a third party operator to manage (send) msg.sender's asset
    * @param operator address to be approved
    * @param authorized bool set to true to authorize, false to withdraw authorization
    */
@@ -448,7 +448,7 @@ contract ERC721Base is AssetRegistryStorage, IERC721Base, ERC165 {
 
     _addAssetTo(beneficiary, assetId);
 
-    Transfer(0, beneficiary, assetId, msg.sender, &#39;&#39;);
+    Transfer(0, beneficiary, assetId, msg.sender, '');
   }
 
   function _destroy(uint256 assetId) internal {
@@ -457,7 +457,7 @@ contract ERC721Base is AssetRegistryStorage, IERC721Base, ERC165 {
 
     _removeAssetFrom(holder, assetId);
 
-    Transfer(holder, 0, assetId, msg.sender, &#39;&#39;);
+    Transfer(holder, 0, assetId, msg.sender, '');
   }
 
   //
@@ -490,20 +490,20 @@ contract ERC721Base is AssetRegistryStorage, IERC721Base, ERC165 {
   }
 
   /**
-   * @dev Alias of `safeTransferFrom(from, to, assetId, &#39;&#39;)`
+   * @dev Alias of `safeTransferFrom(from, to, assetId, '')`
    *
    * @param from address that currently owns an asset
    * @param to address to receive the ownership of the asset
    * @param assetId uint256 ID of the asset to be transferred
    */
   function safeTransferFrom(address from, address to, uint256 assetId) public {
-    return _doTransferFrom(from, to, assetId, &#39;&#39;, msg.sender, true);
+    return _doTransferFrom(from, to, assetId, '', msg.sender, true);
   }
 
   /**
    * @dev Securely transfers the ownership of a given asset from one address to
    * another address, calling the method `onNFTReceived` on the target address if
-   * there&#39;s code associated with it
+   * there's code associated with it
    *
    * @param from address that currently owns an asset
    * @param to address to receive the ownership of the asset
@@ -524,7 +524,7 @@ contract ERC721Base is AssetRegistryStorage, IERC721Base, ERC165 {
    * @param assetId uint256 ID of the asset to be transferred
    */
   function transferFrom(address from, address to, uint256 assetId) public {
-    return _doTransferFrom(from, to, assetId, &#39;&#39;, msg.sender, false);
+    return _doTransferFrom(from, to, assetId, '', msg.sender, false);
   }
 
   function _doTransferFrom(
@@ -743,9 +743,9 @@ contract LANDRegistry is Storage,
 {
 
   function initialize(bytes) public {
-    _name = &#39;Decentraland LAND&#39;;
-    _symbol = &#39;LAND&#39;;
-    _description = &#39;Contract that stores the Decentraland LAND registry&#39;;
+    _name = 'Decentraland LAND';
+    _symbol = 'LAND';
+    _description = 'Contract that stores the Decentraland LAND registry';
   }
 
   modifier onlyProxyOwner() {

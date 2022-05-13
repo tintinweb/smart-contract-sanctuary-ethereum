@@ -4,9 +4,9 @@ interface ERC721Metadata {
 
     /// @dev ERC-165 (draft) interface signature for ERC721
     // bytes4 internal constant INTERFACE_SIGNATURE_ERC721Metadata = // 0x2a786f11
-    //     bytes4(keccak256(&#39;name()&#39;)) ^
-    //     bytes4(keccak256(&#39;symbol()&#39;)) ^
-    //     bytes4(keccak256(&#39;deedUri(uint256)&#39;));
+    //     bytes4(keccak256('name()')) ^
+    //     bytes4(keccak256('symbol()')) ^
+    //     bytes4(keccak256('deedUri(uint256)'));
 
     /// @notice A descriptive name for a collection of deeds managed by this
     ///  contract
@@ -84,7 +84,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -187,16 +187,16 @@ interface ERC721 {
 
     /// @dev ERC-165 (draft) interface signature for itself
     // bytes4 internal constant INTERFACE_SIGNATURE_ERC165 = // 0x01ffc9a7
-    //     bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+    //     bytes4(keccak256('supportsInterface(bytes4)'));
 
     /// @dev ERC-165 (draft) interface signature for ERC721
     // bytes4 internal constant INTERFACE_SIGNATURE_ERC721 = // 0xda671b9b
-    //     bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-    //     bytes4(keccak256(&#39;countOfDeeds()&#39;)) ^
-    //     bytes4(keccak256(&#39;countOfDeedsByOwner(address)&#39;)) ^
-    //     bytes4(keccak256(&#39;deedOfOwnerByIndex(address,uint256)&#39;)) ^
-    //     bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-    //     bytes4(keccak256(&#39;takeOwnership(uint256)&#39;));
+    //     bytes4(keccak256('ownerOf(uint256)')) ^
+    //     bytes4(keccak256('countOfDeeds()')) ^
+    //     bytes4(keccak256('countOfDeedsByOwner(address)')) ^
+    //     bytes4(keccak256('deedOfOwnerByIndex(address,uint256)')) ^
+    //     bytes4(keccak256('approve(address,uint256)')) ^
+    //     bytes4(keccak256('takeOwnership(uint256)'));
 
     /// @notice Query a contract to see if it supports a certain interface
     /// @dev Returns `true` the interface is supported and `false` otherwise,
@@ -330,7 +330,7 @@ contract ERC721Deed is ERC721 {
 
   /**
   * @dev Gets the deed ID of the specified address at the specified index
-  * @param _owner address for the deed&#39;s owner
+  * @param _owner address for the deed's owner
   * @param _index uint256 for the n-th deed in the list of deeds owned by this owner
   * @return uint256 representing the ID of the deed
   */
@@ -343,7 +343,7 @@ contract ERC721Deed is ERC721 {
 
   /**
   * @dev Gets all deed IDs of the specified address
-  * @param _owner address for the deed&#39;s owner
+  * @param _owner address for the deed's owner
   * @return uint256[] representing all deed IDs owned by the passed address
   */
   function deedsOf(address _owner)
@@ -540,7 +540,7 @@ contract FactbarDeed is ERC721Deed, Pausable, PullPayment, ReentrancyGuard {
   address indexed newOwner, uint256 oldPrice, uint256 newPrice,
   uint256 transferFeeAmount, uint256 excess,  uint256 oldOwnerPaymentAmount );
 
-  // Payments to the deed&#39;s fee address via PullPayment are also supported by this contract.
+  // Payments to the deed's fee address via PullPayment are also supported by this contract.
   event Payment(uint256 indexed id, address indexed sender, address 
   indexed factTeam, uint256 amount);
 
@@ -578,20 +578,20 @@ contract FactbarDeed is ERC721Deed, Pausable, PullPayment, ReentrancyGuard {
 
   // ERC-165 Metadata
   bytes4 internal constant INTERFACE_SIGNATURE_ERC165 = // 0x01ffc9a7
-      bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+      bytes4(keccak256('supportsInterface(bytes4)'));
 
   bytes4 internal constant INTERFACE_SIGNATURE_ERC721 = // 0xda671b9b
-      bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-      bytes4(keccak256(&#39;countOfDeeds()&#39;)) ^
-      bytes4(keccak256(&#39;countOfDeedsByOwner(address)&#39;)) ^
-      bytes4(keccak256(&#39;deedOfOwnerByIndex(address,uint256)&#39;)) ^
-      bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-      bytes4(keccak256(&#39;takeOwnership(uint256)&#39;));
+      bytes4(keccak256('ownerOf(uint256)')) ^
+      bytes4(keccak256('countOfDeeds()')) ^
+      bytes4(keccak256('countOfDeedsByOwner(address)')) ^
+      bytes4(keccak256('deedOfOwnerByIndex(address,uint256)')) ^
+      bytes4(keccak256('approve(address,uint256)')) ^
+      bytes4(keccak256('takeOwnership(uint256)'));
 
   bytes4 internal constant INTERFACE_SIGNATURE_ERC721Metadata = // 0x2a786f11
-      bytes4(keccak256(&#39;name()&#39;)) ^
-      bytes4(keccak256(&#39;symbol()&#39;)) ^
-      bytes4(keccak256(&#39;deedUri(uint256)&#39;));
+      bytes4(keccak256('name()')) ^
+      bytes4(keccak256('symbol()')) ^
+      bytes4(keccak256('deedUri(uint256)'));
 
 
   function FactbarDeed() public {}
@@ -744,7 +744,7 @@ contract FactbarDeed is ERC721Deed, Pausable, PullPayment, ReentrancyGuard {
     transferFee, excess, oldOwnerPayment);
   }
 
-  // these events can be turned on to make up for Solidity&#39;s horrifying logging situation
+  // these events can be turned on to make up for Solidity's horrifying logging situation
   // event logUint(address add, string text, uint256 value);
   // event simpleLogUint(string text, uint256 value);
 
@@ -761,7 +761,7 @@ contract FactbarDeed is ERC721Deed, Pausable, PullPayment, ReentrancyGuard {
   external nonReentrant {
     withdrawPayments();
     if (msg.sender == owner) {
-      // The contract&#39;s balance MUST stay backing the outstanding withdrawals.
+      // The contract's balance MUST stay backing the outstanding withdrawals.
       //  Only the surplus not needed for any backing can be withdrawn by the owner.
       uint256 surplus = address(this).balance.sub(totalPayments);
       if (surplus > 0) {

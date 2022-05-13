@@ -37,7 +37,7 @@ contract Election {
     }
 
     function vote (uint _candidateId) public {
-        // require that they haven&#39;t voted before
+        // require that they haven't voted before
         require(voters[msg.sender].timesVote < 0);
 
         // require a valid candidate

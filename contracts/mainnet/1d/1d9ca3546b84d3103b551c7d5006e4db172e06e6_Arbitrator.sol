@@ -81,7 +81,7 @@ contract Arbitrator is Owned {
         LogSetCustomDisputeFee(question_id, fee);
     }
 
-    /// @notice Return the dispute fee for the specified question. 0 indicates that we won&#39;t arbitrate it.
+    /// @notice Return the dispute fee for the specified question. 0 indicates that we won't arbitrate it.
     /// @param question_id The question in question
     /// @dev Uses a general default, but can be over-ridden on a question-by-question basis.
     function getDisputeFee(bytes32 question_id) 
@@ -103,7 +103,7 @@ contract Arbitrator is Owned {
         LogSetQuestionFee(fee);
     }
 
-    /// @notice Submit the arbitrator&#39;s answer to a question.
+    /// @notice Submit the arbitrator's answer to a question.
     /// @param realitycheck The RealityCheck contract address
     /// @param question_id The question in question
     /// @param answer The answer

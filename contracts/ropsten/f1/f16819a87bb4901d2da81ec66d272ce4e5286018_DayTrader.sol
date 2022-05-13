@@ -137,7 +137,7 @@ contract DayTrader{
 
   /*** PRIVATE FUNCTIONS ***/
 
-  // If a bag hasn&#39;t been purchased in over $timeout,
+  // If a bag hasn't been purchased in over $timeout,
   // reset its level back to 0 but retain the existing owner
   function getBagLevel(Bag bag) private view returns (uint256) {
     if (now <= (SafeMath.add(bag.purchasedAt, timeout))) {
@@ -201,7 +201,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

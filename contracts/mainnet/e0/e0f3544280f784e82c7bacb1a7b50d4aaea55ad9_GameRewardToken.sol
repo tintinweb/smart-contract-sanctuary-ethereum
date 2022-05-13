@@ -209,7 +209,7 @@ contract TokenERC20 is SafeMath{
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] = safeSub(balanceOf[_from], _value);                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] = safeSub(allowance[_from][msg.sender], _value);             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] = safeSub(allowance[_from][msg.sender], _value);             // Subtract from the sender's allowance
         totalSupply = safeSub(totalSupply,_value);                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -319,7 +319,7 @@ contract GameRewardToken is owned, TokenERC20 {
         emit Transfer(_from, _to, _value);
     }
 
-    ///@notice change token&#39;s name and symbol
+    ///@notice change token's name and symbol
     function updateNameAndSymbol(string _newname, string _newsymbol) onlyOwner public{
       name = _newname;
       symbol = _newsymbol;
@@ -416,7 +416,7 @@ contract GameRewardToken is owned, TokenERC20 {
 
         createdTokens = safeAdd(createdTokens,earlyBonus);
 
-        // don&#39;t go over the limit!
+        // don't go over the limit!
         if(getState()==State.PrivateFunding){
             require(safeAdd(tokensSold,createdTokens) <= tokenPrivateMax);
         }else{
@@ -473,7 +473,7 @@ contract GameRewardToken is owned, TokenERC20 {
     /// @notice request to receive bounty tokens
     /// @dev require State == Succes
     function requestBounty() external{
-        require(releasedBountyTokens); //locked bounty hunter&#39;s token for 7 days after end of campaign
+        require(releasedBountyTokens); //locked bounty hunter's token for 7 days after end of campaign
         require(getState()==State.Success);
         assert (bounties[msg.sender]>0);
         balanceOf[msg.sender] = safeAdd(balanceOf[msg.sender],bounties[msg.sender]);
@@ -489,8 +489,8 @@ contract GameRewardToken is owned, TokenERC20 {
     /// @dev Required state: Success
     function finalizeCrowdfunding() external {
         // Abort if not in Funding Success state.
-        require (getState() == State.Success); // don&#39;t finalize unless we won
-        require (!finalizedCrowdfunding); // can&#39;t finalize twice (so sneaky!)
+        require (getState() == State.Success); // don't finalize unless we won
+        require (!finalizedCrowdfunding); // can't finalize twice (so sneaky!)
 
         // prevent more creation of tokens
         finalizedCrowdfunding = true;

@@ -28,7 +28,7 @@ contract Ownable {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyOwner() {
-        require(msg.sender == owner, "You&#39;re not the owner!");
+        require(msg.sender == owner, "You're not the owner!");
         _;
     }
 
@@ -38,7 +38,7 @@ contract Ownable {
      * the smart contract.
      */
     modifier onlyAnyOwners() {
-        require(allOwnersMap[msg.sender] == 1, "You&#39;re not the owner or never were the owner!");
+        require(allOwnersMap[msg.sender] == 1, "You're not the owner or never were the owner!");
         _;
     }
 
@@ -149,7 +149,7 @@ contract Migratable is Suicidable {
         require(hasRequestedForMigration, "please make a migration request");
         require(requestedForMigrationAt + 604800 < now, "migration is timelocked for 7 days");
         require(gasCostInGwei > 0, "gas cost must be more than 0");
-        require(gasCostInGwei < 20, "gas cost can&#39;t be more than 20");
+        require(gasCostInGwei < 20, "gas cost can't be more than 20");
 
         // Figure out how much ether to send
         uint gasLimit = 21000;
@@ -284,7 +284,7 @@ contract Bitwords is Migratable {
      * Process all the refund requests in the queue. This is called by the Bitwords
      * server ideally right after chargeAdvertisers has been called.
      *
-     * This function will only process refunds that have passed it&#39;s timelock and
+     * This function will only process refunds that have passed it's timelock and
      * it will only refund maximum to how much the advertiser currently has in
      * his balance.
      */
@@ -295,14 +295,14 @@ contract Bitwords is Migratable {
         inProcessRefunds = true;
 
         for (uint j = lastProccessedIndex; j < refundQueue.length; j++) {
-            // If we haven&#39;t passed the timelock for this refund request, then
+            // If we haven't passed the timelock for this refund request, then
             // we stop the loop. Reaching here means that all the requests
             // in next iterations have also not reached their timelocks.
             if (refundQueue[j].processAfter > now) break;
 
             // Find the minimum that needs to be withdrawn. This is important
             // because since every call to chargeAdvertisers might update the
-            // advertiser&#39;s balance, it is possible that the amount that the
+            // advertiser's balance, it is possible that the amount that the
             // advertiser requests for is small.
             uint cappedAmount = refundQueue[j].amount;
             if (advertiserBalances[refundQueue[j].advertiser] < cappedAmount)
@@ -314,7 +314,7 @@ contract Bitwords is Migratable {
                 continue;
             }
 
-            // deduct advertiser&#39;s balance and send the ether
+            // deduct advertiser's balance and send the ether
             advertiserBalances[refundQueue[j].advertiser] -= cappedAmount;
             refundQueue[j].advertiser.transfer(cappedAmount);
             refundQueue[j].amount = 0;
@@ -380,7 +380,7 @@ contract Bitwords is Migratable {
             }
             if (advertiserBalances[advertisers[i]] < toWithdraw) toWithdraw = advertiserBalances[advertisers[i]];
 
-            // Update the advertiser&#39;s balance
+            // Update the advertiser's balance
             advertiserBalances[advertisers[i]] -= toWithdraw;
             emit DeductFromAdvertiser(advertisers[i], toWithdraw, advertiserBalances[advertisers[i]]);
 
@@ -405,7 +405,7 @@ contract Bitwords is Migratable {
                 emit PayoutToPublisher(publishers[i], publisherNetCut, advertisers[i]);
             }
 
-            // send bitwords it&#39;s cut
+            // send bitwords it's cut
             bitwordsWithdrawlAddress.transfer(bitwordsNetCut);
             emit PayoutToBitwords(bitwordsWithdrawlAddress, bitwordsNetCut, advertisers[i]);
         }
@@ -479,9 +479,9 @@ contract Bitwords is Migratable {
      * Called by an advertiser when he/she wants to manually process a refund
      * that he/she has requested for earlier.
      *
-     * This function will first find a refund request, check if it&#39;s valid (as
-     * in, has it passed it&#39;s timelock?, is there enough balance? etc.) and
-     * then process it, updating the advertiser&#39;s balance along the way.
+     * This function will first find a refund request, check if it's valid (as
+     * in, has it passed it's timelock?, is there enough balance? etc.) and
+     * then process it, updating the advertiser's balance along the way.
      */
     mapping(address => bool) private inProcessMyRefund;
     function processMyRefund () public {

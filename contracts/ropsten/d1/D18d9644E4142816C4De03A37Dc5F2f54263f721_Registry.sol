@@ -176,7 +176,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -238,7 +238,7 @@ contract PLCRVoting {
     uint public pollNonce;
 
     mapping(uint => Poll) public pollMap; // maps pollID to Poll struct
-    mapping(address => uint) public voteTokenBalance; // maps user&#39;s address to voteToken balance
+    mapping(address => uint) public voteTokenBalance; // maps user's address to voteToken balance
 
     mapping(address => DLL.Data) dllMap;
     AttributeStore.Data store;
@@ -314,14 +314,14 @@ contract PLCRVoting {
     /**
     @notice Commits vote using hash of choice and secret salt to conceal vote until reveal
     @param _pollID Integer identifier associated with target poll
-    @param _secretHash Commit keccak256 hash of voter&#39;s choice and salt (tightly packed in this order)
+    @param _secretHash Commit keccak256 hash of voter's choice and salt (tightly packed in this order)
     @param _numTokens The number of tokens to be committed towards the target poll
     @param _prevPollID The ID of the poll that the user has voted the maximum number of tokens in which is still less than or equal to numTokens
     */
     function commitVote(uint _pollID, bytes32 _secretHash, uint _numTokens, uint _prevPollID) public {
         require(commitPeriodActive(_pollID));
 
-        // if msg.sender doesn&#39;t have enough voting rights,
+        // if msg.sender doesn't have enough voting rights,
         // request for enough voting rights
         if (voteTokenBalance[msg.sender] < _numTokens) {
             uint remainder = _numTokens.sub(voteTokenBalance[msg.sender]);
@@ -335,7 +335,7 @@ contract PLCRVoting {
         // prevent user from committing a secretHash of 0
         require(_secretHash != 0);
 
-        // Check if _prevPollID exists in the user&#39;s DLL or if _prevPollID is 0
+        // Check if _prevPollID exists in the user's DLL or if _prevPollID is 0
         require(_prevPollID == 0 || dllMap[msg.sender].contains(_prevPollID));
 
         uint nextPollID = dllMap[msg.sender].getNext(_prevPollID);
@@ -360,7 +360,7 @@ contract PLCRVoting {
     /**
     @notice                 Commits votes using hashes of choices and secret salts to conceal votes until reveal
     @param _pollIDs         Array of integer identifiers associated with target polls
-    @param _secretHashes    Array of commit keccak256 hashes of voter&#39;s choices and salts (tightly packed in this order)
+    @param _secretHashes    Array of commit keccak256 hashes of voter's choices and salts (tightly packed in this order)
     @param _numsTokens      Array of numbers of tokens to be committed towards the target polls
     @param _prevPollIDs     Array of IDs of the polls that the user has voted the maximum number of tokens in which is still less than or equal to numTokens
     */
@@ -377,7 +377,7 @@ contract PLCRVoting {
     }
 
     /**
-    @dev Compares previous and next poll&#39;s committed tokens for sorting purposes
+    @dev Compares previous and next poll's committed tokens for sorting purposes
     @param _prevID Integer identifier associated with previous poll in sorted order
     @param _nextID Integer identifier associated with next poll in sorted order
     @param _voter Address of user to check DLL position for
@@ -513,7 +513,7 @@ contract PLCRVoting {
 
     /**
     @notice Determines if poll is over
-    @dev Checks isExpired for specified poll&#39;s revealEndDate
+    @dev Checks isExpired for specified poll's revealEndDate
     @return Boolean indication of whether polling period is over
     */
     function pollEnded(uint _pollID) constant public returns (bool ended) {
@@ -524,7 +524,7 @@ contract PLCRVoting {
 
     /**
     @notice Checks if the commit period is still active for the specified poll
-    @dev Checks isExpired for the specified poll&#39;s commitEndDate
+    @dev Checks isExpired for the specified poll's commitEndDate
     @param _pollID Integer identifier associated with target poll
     @return Boolean indication of isCommitPeriodActive for target poll
     */
@@ -536,7 +536,7 @@ contract PLCRVoting {
 
     /**
     @notice Checks if the reveal period is still active for the specified poll
-    @dev Checks isExpired for the specified poll&#39;s revealEndDate
+    @dev Checks isExpired for the specified poll's revealEndDate
     @param _pollID Integer identifier associated with target poll
     */
     function revealPeriodActive(uint _pollID) constant public returns (bool active) {
@@ -621,7 +621,7 @@ contract PLCRVoting {
     }
 
     /*
-    @dev Takes the last node in the user&#39;s DLL and iterates backwards through the list searching
+    @dev Takes the last node in the user's DLL and iterates backwards through the list searching
     for a node with a value less than or equal to the provided _numTokens value. When such a node
     is found, if the provided _pollID matches the found nodeID, this operation is an in-place
     update. In that case, return the previous node of the node being updated. Otherwise return the
@@ -779,10 +779,10 @@ contract Parameterizer {
         // length of reveal period for voting in parameterizer
         set("pRevealStageLen", _parameters[7]);
 
-        // percentage of losing party&#39;s deposit distributed to winning party
+        // percentage of losing party's deposit distributed to winning party
         set("dispensationPct", _parameters[8]);
 
-        // percentage of losing party&#39;s deposit distributed to winning party in parameterizer
+        // percentage of losing party's deposit distributed to winning party in parameterizer
         set("pDispensationPct", _parameters[9]);
 
         // type of majority out of 100 necessary for candidate success
@@ -803,7 +803,7 @@ contract Parameterizer {
     // -----------------------
 
     /**
-    @notice propose a reparamaterization of the key _name&#39;s value to _value.
+    @notice propose a reparamaterization of the key _name's value to _value.
     @param _name the name of the proposed param to be set
     @param _value the proposed value to set the param to be set
     */
@@ -888,7 +888,7 @@ contract Parameterizer {
         // prop.owner and prop.deposit will be 0, thereby preventing theft
         if (canBeSet(_propID)) {
             // There is no challenge against the proposal. The processBy date for the proposal has not
-            // passed, but the proposal&#39;s appExpirty date has passed.
+            // passed, but the proposal's appExpirty date has passed.
             set(prop.name, prop.value);
             emit _ProposalAccepted(_propID, prop.name, prop.value);
             delete proposals[_propID];
@@ -932,7 +932,7 @@ contract Parameterizer {
         uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID);
         uint reward = voterReward(msg.sender, _challengeID);
 
-        // subtract voter&#39;s information to preserve the participation ratios of other voters
+        // subtract voter's information to preserve the participation ratios of other voters
         // compared to the remaining pool of rewards
         challenge.winningTokens -= voterTokens;
         challenge.rewardPool -= reward;
@@ -961,10 +961,10 @@ contract Parameterizer {
     // --------
 
     /**
-    @dev                Calculates the provided voter&#39;s token reward for the given poll.
+    @dev                Calculates the provided voter's token reward for the given poll.
     @param _voter       The address of the voter whose reward balance is to be returned
-    @param _challengeID The ID of the challenge the voter&#39;s reward is being calculated for
-    @return             The uint indicating the voter&#39;s reward
+    @param _challengeID The ID of the challenge the voter's reward is being calculated for
+    @return             The uint indicating the voter's reward
     */
     function voterReward(address _voter, uint _challengeID)
     public view returns (uint) {
@@ -1045,7 +1045,7 @@ contract Parameterizer {
         ParamProposal memory prop = proposals[_propID];
         Challenge storage challenge = challenges[prop.challengeID];
 
-        // winner gets back their full staked deposit, and dispensationPct*loser&#39;s stake
+        // winner gets back their full staked deposit, and dispensationPct*loser's stake
         uint reward = challengeWinnerReward(prop.challengeID);
 
         challenge.winningTokens = voting.getTotalNumberOfTokensForWinningOption(prop.challengeID);
@@ -1177,7 +1177,7 @@ contract Registry {
     /**
     @dev                Allows the owner of a listingHash to increase their unstaked deposit.
     @param _listingHash A listingHash msg.sender is the owner of
-    @param _amount      The number of ERC20 tokens to increase a user&#39;s unstaked deposit
+    @param _amount      The number of ERC20 tokens to increase a user's unstaked deposit
     */
     function deposit(bytes32 _listingHash, uint _amount) external {
         Listing storage listing = listings[_listingHash];
@@ -1260,7 +1260,7 @@ contract Registry {
     /**
     @dev                Starts a poll for a listingHash which is either in the apply stage or
                         already in the whitelist. Tokens are taken from the challenger and the
-                        applicant&#39;s deposits are locked.
+                        applicant's deposits are locked.
     @param _listingHash The listingHash being challenged, whether listed or in application
     @param _data        Extra data relevant to the challenge. Think IPFS hashes.
     */
@@ -1312,7 +1312,7 @@ contract Registry {
     }
 
     /**
-    @dev                Updates a listingHash&#39;s status from &#39;application&#39; to &#39;listing&#39; or resolves
+    @dev                Updates a listingHash's status from 'application' to 'listing' or resolves
                         a challenge if one exists.
     @param _listingHash The listingHash whose status is being updated
     */
@@ -1327,7 +1327,7 @@ contract Registry {
     }
 
     /**
-    @dev                  Updates an array of listingHashes&#39; status from &#39;application&#39; to &#39;listing&#39; or resolves
+    @dev                  Updates an array of listingHashes' status from 'application' to 'listing' or resolves
                           a challenge if one exists.
     @param _listingHashes The listingHashes whose status are being updated
     */
@@ -1358,7 +1358,7 @@ contract Registry {
         uint reward = voterTokens.mul(challengeInstance.rewardPool)
                       .div(challengeInstance.totalTokens);
 
-        // Subtracts the voter&#39;s information to preserve the participation ratios
+        // Subtracts the voter's information to preserve the participation ratios
         // of other voters compared to the remaining pool of rewards
         challengeInstance.totalTokens -= voterTokens;
         challengeInstance.rewardPool -= reward;
@@ -1388,10 +1388,10 @@ contract Registry {
     // --------
 
     /**
-    @dev                Calculates the provided voter&#39;s token reward for the given poll.
+    @dev                Calculates the provided voter's token reward for the given poll.
     @param _voter       The address of the voter whose reward balance is to be returned
     @param _challengeID The pollID of the challenge a reward balance is being queried for
-    @return             The uint indicating the voter&#39;s reward
+    @return             The uint indicating the voter's reward
     */
     function voterReward(address _voter, uint _challengeID)
     public view returns (uint) {
@@ -1497,8 +1497,8 @@ contract Registry {
     function resolveChallenge(bytes32 _listingHash) private {
         uint challengeID = listings[_listingHash].challengeID;
 
-        // Calculates the winner&#39;s reward,
-        // which is: (winner&#39;s full stake) + (dispensationPct * loser&#39;s stake)
+        // Calculates the winner's reward,
+        // which is: (winner's full stake) + (dispensationPct * loser's stake)
         uint reward = determineReward(challengeID);
 
         // Sets flag on challenge being processed

@@ -253,7 +253,7 @@ contract EtherMinerals is ERC721 {
     createMineral("Karpatite", 10000000000000000);
     createMineral("Uvarovite", 10000000000000000);
     createMineral("Kryptonite", 10000000000000000);
-    createMineral("Good ol&#39; Rock", 10000000000000000);
+    createMineral("Good ol' Rock", 10000000000000000);
     createMineral("Malachite", 10000000000000000);
     createMineral("Silver", 10000000000000000);
     createMineral("Burmese Tourmaline" ,10000000000000000);

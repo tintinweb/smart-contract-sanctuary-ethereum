@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 100000000000000000000000000;
-        name = &#39;AFD&#39;;
-        symbol = &#39;AFD&#39;;
+        name = 'AFD';
+        symbol = 'AFD';
         decimals = 18;
         balanceOf[0x5eeae4727711db2bed8099866a6a2301a9f4937b] = totalSupply;
         Transfer(address(0), 0x5eeae4727711db2bed8099866a6a2301a9f4937b, totalSupply);

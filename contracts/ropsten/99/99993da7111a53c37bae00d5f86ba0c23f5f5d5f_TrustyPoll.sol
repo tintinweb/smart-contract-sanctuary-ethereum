@@ -68,14 +68,14 @@ contract TrustyPoll is SafeMath {
   }
   
   function createPoll(bytes32 title) public {
-      require(title != &#39;&#39;);
+      require(title != '');
       pollId = safeAdd(pollId, 1);
       polls[pollId] = title;
       pollAuthors[pollId] = msg.sender;
   }
   
   function createOption(uint poll, bytes32 title) public {
-      require(title != &#39;&#39;);
+      require(title != '');
       require(pollAuthors[poll] == msg.sender);
       optionId  = safeAdd(optionId, 1);
       pollOptions[poll].push(Option(optionId, title, poll));

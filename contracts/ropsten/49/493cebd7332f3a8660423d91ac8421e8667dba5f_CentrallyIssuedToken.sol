@@ -19,7 +19,7 @@ pragma solidity ^0.4.6;
 // pragma solidity ^0.4.18;
 
 
-// import &#39;./ERC20Basic.sol&#39;;
+// import './ERC20Basic.sol';
 // pragma solidity ^0.4.18;
 
 
@@ -46,7 +46,7 @@ contract ERC20 is ERC20Basic {
   function approve(address spender, uint256 value) public returns (bool);
   event Approval(address indexed owner, address indexed spender, uint256 value);
 }
-// import &#39;./StandardToken.sol&#39;;
+// import './StandardToken.sol';
 /**
  * This smart contract code is Copyright 2017 TokenMarket Ltd. For more information see https://tokenmarket.net
  *
@@ -56,7 +56,7 @@ contract ERC20 is ERC20Basic {
 // pragma solidity ^0.4.15;
 
 
-// import &#39;zeppelin-solidity/contracts/token/ERC20.sol&#39;;
+// import 'zeppelin-solidity/contracts/token/ERC20.sol';
 // import "zeppelin-solidity/contracts/math/SafeMath.sol";
 // pragma solidity ^0.4.18;
 
@@ -78,7 +78,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -207,7 +207,7 @@ contract UpgradeableToken is StandardToken {
    * Upgrade states.
    *
    * - NotAllowed: The child contract has not reached a condition where the upgrade can bgun
-   * - WaitingForAgent: Token allows upgrade, but we don&#39;t have a new agent yet
+   * - WaitingForAgent: Token allows upgrade, but we don't have a new agent yet
    * - ReadyToUpgrade: The agent is set, but not a single token has been upgraded yet
    * - Upgrading: Upgrade agent is set and the balance holders can upgrade their tokens
    *
@@ -405,7 +405,7 @@ contract ReleasableToken is ERC20, Ownable {
    */
   function setReleaseAgent(address addr) onlyOwner inReleaseState(false) public {
 
-    // We don&#39;t do interface check here as we might want to a normal wallet address to act as a release agent
+    // We don't do interface check here as we might want to a normal wallet address to act as a release agent
     releaseAgent = addr;
   }
 
@@ -456,8 +456,8 @@ contract ReleasableToken is ERC20, Ownable {
 // import "./PausableToken.sol";
 // pragma solidity ^0.4.15;
 
-// import &#39;./StandardToken.sol&#39;;
-// import &#39;zeppelin-solidity/contracts/lifecycle/Pausable.sol&#39;;
+// import './StandardToken.sol';
+// import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
 // pragma solidity ^0.4.18;
 
 

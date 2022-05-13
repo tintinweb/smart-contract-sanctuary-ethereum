@@ -100,7 +100,7 @@ contract Ownable {
     _;
   }
 
-   // validates an address - currently only checks that it isn&#39;t null
+   // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -143,7 +143,7 @@ contract MANNStandardToken is MANNCOINToken, Ownable {
         if (frozenAccount[msg.sender]) return false;
         require(
             (balances[msg.sender] >= _value) // Check if the sender has enough
-            && (_value > 0) // Don&#39;t allow 0value transfer
+            && (_value > 0) // Don't allow 0value transfer
             && (_to != address(0)) // Prevent transfer to 0x0 address
             && (balances[_to].add(_value) >= balances[_to]) // Check for overflows
             && (msg.data.length >= (2 * 32) + 4)); //mitigates the ERC20 short address attack
@@ -160,7 +160,7 @@ contract MANNStandardToken is MANNCOINToken, Ownable {
         require(
             (allowed[_from][msg.sender] >= _value) // Check allowance
             && (balances[_from] >= _value) // Check if the sender has enough
-            && (_value > 0) // Don&#39;t allow 0value transfer
+            && (_value > 0) // Don't allow 0value transfer
             && (_to != address(0)) // Prevent transfer to 0x0 address
             && (balances[_to].add(_value) >= balances[_to]) // Check for overflows
             && (msg.data.length >= (2 * 32) + 4) //mitigates the ERC20 short address attack
@@ -216,7 +216,7 @@ contract MANNCOIN is MANNStandardToken {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         require(_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData));

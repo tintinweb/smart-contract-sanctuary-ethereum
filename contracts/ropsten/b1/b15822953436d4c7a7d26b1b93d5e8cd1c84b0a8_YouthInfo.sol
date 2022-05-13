@@ -21,13 +21,13 @@ contract YouthInfo {
     }
     
     modifier checkAge(uint _age) {
-        require(_age >= ageRange, &#39;Age must be greater than 18&#39;);
+        require(_age >= ageRange, 'Age must be greater than 18');
         _;
     }
 
     modifier isUnique(string _name, string _fatherName) {
         string storage fatherName = personValidity[_name];
-        require(keccak256(abi.encodePacked(fatherName)) != keccak256(abi.encodePacked(_fatherName)), &#39;Person already exists&#39;);
+        require(keccak256(abi.encodePacked(fatherName)) != keccak256(abi.encodePacked(_fatherName)), 'Person already exists');
         _;
     }
     

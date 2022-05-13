@@ -63,7 +63,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         assert(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -765,7 +765,7 @@ contract ReserveBag is DRSEvents {
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node provider
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
      */
@@ -1124,7 +1124,7 @@ contract ReserveBag is DRSEvents {
         private
         returns(DRSDatasets.EventReturns)
     {
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
 
         // set the joined round bool to true
@@ -1175,7 +1175,7 @@ contract ReserveBag is DRSEvents {
 
         uint256 _pot = round_[_rID].pot;
 
-        // eth for last player&#39;s prize
+        // eth for last player's prize
         uint256 _win = getWin(_pot);
 
         // eth for drsCoin dividend
@@ -1184,7 +1184,7 @@ contract ReserveBag is DRSEvents {
         // eth for team perfit
         uint256 _com = getTeamPerfit(_pot);
 
-        // eth put to next round&#39;s pot
+        // eth put to next round's pot
         uint256 _newPot = _pot.sub(_win).sub(_drsCoinDividend).sub(_com);
 
         // deposit team perfit
@@ -1217,7 +1217,7 @@ contract ReserveBag is DRSEvents {
         startIndex = 0;
         endIndex = 0;
 
-        // add rest eth to next round&#39;s pot
+        // add rest eth to next round's pot
         round_[_rID].pot = _newPot;
 
         return _eventData_;
@@ -1320,7 +1320,7 @@ contract ReserveBag is DRSEvents {
     }
 
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _eth, uint256 _keyIndex, DRSDatasets.EventReturns memory _eventData_) private
     {

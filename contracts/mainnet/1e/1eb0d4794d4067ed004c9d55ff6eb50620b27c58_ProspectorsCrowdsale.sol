@@ -124,7 +124,7 @@ contract DSMath {
         // This famous algorithm is called "exponentiation by squaring"
         // and calculates x^n with x as fixed-point and n as regular unsigned.
         //
-        // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+        // It's O(log n), instead of O(n) for naive repeated multiplication.
         //
         // These facts are why it works:
         //
@@ -260,7 +260,7 @@ contract ProspectorsCrowdsale is Owned, DSMath
         var buy_amount = cast(min(can_with_bonus, available_with_bonus()));
         remains = sub(remains, wmul(buy_amount, cast(bonus_price)));
         
-        if (buy_amount < can_with_bonus) //calculate tokens amount by standart price if tokens with bonus don&#39;t cover eth amount
+        if (buy_amount < can_with_bonus) //calculate tokens amount by standart price if tokens with bonus don't cover eth amount
         {
             var can_without_bonus = wdiv(cast(remains), cast(price));
             var buy_without_bonus = cast(min(can_without_bonus, available_without_bonus()));

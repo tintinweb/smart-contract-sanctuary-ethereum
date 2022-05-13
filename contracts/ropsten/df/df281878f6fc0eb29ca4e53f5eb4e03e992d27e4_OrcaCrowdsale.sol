@@ -164,7 +164,7 @@ contract CommunityLock is ERC777TokensRecipient, ERC820Implementer, Ownable {
 
     function burn(uint256 _amount) public onlyOwner {
         require(_amount > 0);
-        token.burn(_amount, &#39;&#39;);
+        token.burn(_amount, '');
     }
 
     function tokensReceived(address, address, address, uint256, bytes, bytes) public {}
@@ -182,8 +182,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -200,7 +200,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -272,7 +272,7 @@ contract ERC777TokenScheduledTimelock is ERC820Implementer, ERC777TokensRecipien
         }
         if (tokens > 0) {
             totalVested = totalVested.sub(tokens);
-            token.send(_to, tokens, &#39;&#39;);
+            token.send(_to, tokens, '');
             emit Released(_to, tokens);
         }
     }
@@ -557,14 +557,14 @@ contract OrcaCrowdsale is TokenRecoverable, ExchangeRateConsumer {
     function initialize() public onlyOwner {
         require(!initialized);
 
-        token.mint(timelock, TEAM_TOKENS, &#39;&#39;);
+        token.mint(timelock, TEAM_TOKENS, '');
         timelock.scheduleTimelock(TEAM_WALLET, TEAM_TOKENS, TEAM_TOKEN_LOCK_DATE);
 
-        token.mint(ADVISORS_WALLET, ADVISORS_TOKENS, &#39;&#39;);
-        token.mint(PARTNER_WALLET, PARTNER_TOKENS, &#39;&#39;);
+        token.mint(ADVISORS_WALLET, ADVISORS_TOKENS, '');
+        token.mint(PARTNER_WALLET, PARTNER_TOKENS, '');
 
         communityLock = new CommunityLock(token);
-        token.mint(communityLock, COMMUNITY_TOKENS, &#39;&#39;);
+        token.mint(communityLock, COMMUNITY_TOKENS, '');
 
         initialized = true;
     }
@@ -587,7 +587,7 @@ contract OrcaCrowdsale is TokenRecoverable, ExchangeRateConsumer {
         require(preSaleTokens >= tokensInBatch);
 
         preSaleTokens = preSaleTokens.sub(tokensInBatch);
-        token.mint(timelock, tokensInBatch, &#39;&#39;);
+        token.mint(timelock, tokensInBatch, '');
 
         address receiver;
         uint256 lockTill;
@@ -624,7 +624,7 @@ contract OrcaCrowdsale is TokenRecoverable, ExchangeRateConsumer {
 
             uint256 tokens = amount.sub(excessTokens);
 
-            token.mint(receiver, tokens, &#39;&#39;);
+            token.mint(receiver, tokens, '');
 
             if (excessTokens > 0) {
                 emit ManualTokenMintRequiresRefund(receiver, excessTokens); // solhint-disable-line
@@ -651,7 +651,7 @@ contract OrcaCrowdsale is TokenRecoverable, ExchangeRateConsumer {
 
             tokensLeft = tokensLeft.sub(amount);
 
-            token.mint(receiver, amount, &#39;&#39;);
+            token.mint(receiver, amount, '');
         }
 
         bountyTokensLeft = tokensLeft;
@@ -679,7 +679,7 @@ contract OrcaCrowdsale is TokenRecoverable, ExchangeRateConsumer {
             tokens = tokens.sub(excessTokens);
         }
 
-        token.mint(_beneficiary, tokens, &#39;&#39;);
+        token.mint(_beneficiary, tokens, '');
 
         WALLET.transfer(weiReceived);
         emit TokenPurchase(msg.sender, _beneficiary, weiReceived, usdReceived, exchangeRate, tokens); // solhint-disable-line
@@ -707,7 +707,7 @@ contract OrcaCrowdsale is TokenRecoverable, ExchangeRateConsumer {
 
     /**
     * @dev Must be called after crowdsale ends, to do some extra finalization
-    * work. Calls the contract&#39;s finalization function.
+    * work. Calls the contract's finalization function.
     */
     function finalize() public onlyOwner onlyInitialized {
         require(!isFinalized);

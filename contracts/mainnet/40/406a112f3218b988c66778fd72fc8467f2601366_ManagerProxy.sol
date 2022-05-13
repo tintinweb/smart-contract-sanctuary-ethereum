@@ -151,7 +151,7 @@ contract Manager is IManager {
  * potentially break the delegate proxy upgradeability mechanism
  */
 contract ManagerProxyTarget is Manager {
-    // Used to look up target contract address in controller&#39;s registry
+    // Used to look up target contract address in controller's registry
     bytes32 public targetContractId;
 }
 
@@ -175,7 +175,7 @@ contract ManagerProxy is ManagerProxyTarget {
     }
 
     /**
-     * @dev Uses delegatecall to execute function calls on this proxy contract&#39;s target contract using its own storage context.
+     * @dev Uses delegatecall to execute function calls on this proxy contract's target contract using its own storage context.
      * This fallback function will look up the address of the target contract using the Controller and the target contract ID.
      * It will then use the calldata for a function call as the data payload for a delegatecall on the target contract. The return value
      * of the executed function call will also be returned

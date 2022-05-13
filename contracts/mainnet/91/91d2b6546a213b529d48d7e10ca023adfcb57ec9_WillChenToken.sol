@@ -190,8 +190,8 @@ contract WillChenToken is StandardToken, Ownable{
     string public symbol;
     uint public decimals;
     constructor() public{
-        name = &#39;WillChen CGY&#39;;
-        symbol = &#39;CGY&#39;;
+        name = 'WillChen CGY';
+        symbol = 'CGY';
         decimals = 2;
         totalSupply_ = 80000000 * 10 **uint(decimals);
         balances[msg.sender] = totalSupply_;

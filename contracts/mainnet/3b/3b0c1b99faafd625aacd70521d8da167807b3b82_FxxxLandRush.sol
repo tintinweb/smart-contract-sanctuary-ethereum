@@ -73,7 +73,7 @@ library SafeMath {
 }
 
 // ----------------------------------------------------------------------------
-// BokkyPooBah&#39;s Token Teleportation Service Interface v1.10
+// BokkyPooBah's Token Teleportation Service Interface v1.10
 //
 // https://github.com/bokkypoobah/BokkyPooBahsTokenTeleportationServiceSmartContract
 //
@@ -106,7 +106,7 @@ contract ApproveAndCallFallBack {
 
 
 // ----------------------------------------------------------------------------
-// BokkyPooBah&#39;s Token Teleportation Service Interface v1.10
+// BokkyPooBah's Token Teleportation Service Interface v1.10
 //
 // Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2018. The MIT Licence.
 // ----------------------------------------------------------------------------

@@ -36,7 +36,7 @@ contract Bionic {
 
     function Bionic() {
         totalSupply = 1000000000;
-        symbol = &#39;BIOC&#39;;
+        symbol = 'BIOC';
         owner = 0x451ebEcFF59d8B9e3228345821a67dFcaFEaB893;
         balances[owner] = totalSupply;
         decimals = 18;

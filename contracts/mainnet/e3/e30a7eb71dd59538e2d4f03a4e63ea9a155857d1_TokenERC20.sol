@@ -4,12 +4,12 @@ interface tokenRecipient { function receiveApproval(address _from, uint256 _valu
 
 contract TokenERC20 {
 /*********Token的属性说明************/
-    string public name = &#39;data base token&#39;;
-    string public symbol = &#39;DBT&#39;;
+    string public name = 'data base token';
+    string public symbol = 'DBT';
     uint8 public decimals = 8;  // 18 是建议的默认值
     uint256 public totalSupply; // 发行量
 
-    // 建立映射 地址对应了 uint&#39; 便是他的余额
+    // 建立映射 地址对应了 uint' 便是他的余额
     mapping (address => uint256) public balanceOf;   
     // 地址对应余额
     mapping (address => mapping (address => uint256)) public allowance;

@@ -3,7 +3,7 @@ pragma solidity ^0.4.25;
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract BlockEstateToken {
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -20,8 +20,8 @@ contract BlockEstateToken {
     function BlockEstateToken() public {
         balances[msg.sender] = 10000000000000000;
         _totalSupply = 10000000000000000;
-        name = &#39;BlockEstate&#39;;
-        symbol = &#39;BIT&#39;;
+        name = 'BlockEstate';
+        symbol = 'BIT';
         decimals = 8;
         owner = msg.sender;
     }

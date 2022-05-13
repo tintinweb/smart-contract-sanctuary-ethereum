@@ -15,7 +15,7 @@ contract Greeter is Mortal {
 
     /* This runs when the contract is executed */
     constructor() public {
-        greeting = "Well, hello there! I am Gruvin&#39;s first Ethereum contract!";
+        greeting = "Well, hello there! I am Gruvin's first Ethereum contract!";
     }
 
     /* Main function */

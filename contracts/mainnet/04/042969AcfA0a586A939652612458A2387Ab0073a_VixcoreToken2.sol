@@ -114,7 +114,7 @@ contract VixcoreToken2 is Owned {
     } 
 
     /**
-     * Default function when someone&#39;s transferring to this contract 
+     * Default function when someone's transferring to this contract 
      * The next 3 functions are the same
      */  
     function () payable public {

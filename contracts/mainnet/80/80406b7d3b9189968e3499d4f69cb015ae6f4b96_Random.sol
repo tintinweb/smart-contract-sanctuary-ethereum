@@ -76,7 +76,7 @@ contract Random {
         }
     }
     
-    /// function for ticket sending from owner&#39;s address to designated address
+    /// function for ticket sending from owner's address to designated address
     function transfer(address _to, uint _ticketNum) public {    
         require(msg.sender == tickets[_ticketNum] && _to != address(0));
         tickets[_ticketNum] = _to;
@@ -84,7 +84,7 @@ contract Random {
     }
 
 
-    /// manager&#39;s opportunity to write off ETH from the contract, in a case of unforseen contract blocking (possible in only case of more than 24 hours from the moment of lottery ending had passed and a new one has not started)
+    /// manager's opportunity to write off ETH from the contract, in a case of unforseen contract blocking (possible in only case of more than 24 hours from the moment of lottery ending had passed and a new one has not started)
     function manager_withdraw() onlyManager public {
         require(block.number >= endBlockNumber + liveBlocksNumber);
         msg.sender.transfer(address(this).balance);
@@ -394,7 +394,7 @@ contract RNDInvestor {
 
     mapping (address => mapping (address => uint256)) allowed;
 
-    string public standard = &#39;Random 1.1&#39;;
+    string public standard = 'Random 1.1';
     string public constant name = "Random Investor Token";
     string public constant symbol = "RINVEST";
     uint   public constant decimals = 0;

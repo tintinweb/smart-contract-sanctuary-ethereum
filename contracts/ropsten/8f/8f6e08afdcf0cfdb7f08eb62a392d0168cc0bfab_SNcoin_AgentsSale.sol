@@ -137,7 +137,7 @@ contract SNcoin_AgentsSale is Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept plain ETH transfers
+    // Don't accept plain ETH transfers
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

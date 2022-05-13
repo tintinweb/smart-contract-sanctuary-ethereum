@@ -32,7 +32,7 @@ contract HardcodedWallets {
 	 * @notice Constructor, set up the compliance officer oracle wallet
 	 */
 	constructor() public {
-		// set up the founders&#39; oracle wallets
+		// set up the founders' oracle wallets
 		walletFounder1             = 0x5E69332F57Ac45F5fCA43B6b007E8A7b138c2938; // founder #1 (CEO) wallet
 		walletFounder2             = 0x852f9a94a29d68CB95Bf39065BED6121ABf87607; // founder #2 wallet
 		walletFounder3             = 0x0a339965e52dF2c6253989F5E9173f1F11842D83; // founder #3 wallet
@@ -66,7 +66,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b) internal pure returns (uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		// uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return a / b;
 	}
 
@@ -98,7 +98,7 @@ contract System {
 	// @notice To limit functions usage to contract owner
 	modifier onlyOwner() {
 		if (msg.sender != owner) {
-			error(&#39;System: onlyOwner function called by user that is not owner&#39;);
+			error('System: onlyOwner function called by user that is not owner');
 		} else {
 			_;
 		}
@@ -135,7 +135,7 @@ contract System {
 		owner = msg.sender;
 		
 		// make sure owner address is configured
-		if(owner == 0x0) error(&#39;System constructor: Owner address is 0x0&#39;); // Never should happen, but just in case...
+		if(owner == 0x0) error('System constructor: Owner address is 0x0'); // Never should happen, but just in case...
 	}
 	
 	// **** EVENTS
@@ -183,7 +183,7 @@ contract Escrow is System, HardcodedWallets {
 	function deposit(uint256 _amount) public returns (bool) {
 		// only ICO could deposit
 		if (msg.sender != addressSCICO) {
-			error(&#39;Escrow: not allowed to deposit&#39;);
+			error('Escrow: not allowed to deposit');
 			return false;
 		}
 		deposited[this] = deposited[this].add(_amount);
@@ -195,7 +195,7 @@ contract Escrow is System, HardcodedWallets {
 	 */
 	function withdraw(address _address, uint256 _amount) public onlyOwner returns (bool) {
 		if (deposited[_address]<_amount) {
-			error(&#39;Escrow: not enough balance&#39;);
+			error('Escrow: not enough balance');
 			return false;
 		}
 		deposited[_address] = deposited[_address].sub(_amount);
@@ -207,16 +207,16 @@ contract Escrow is System, HardcodedWallets {
 	 */
 	function fundICO(uint256 _amount, uint8 _stage) public returns (bool) {
 		if(nextStage !=_stage) {
-			error(&#39;Escrow: ICO stage already funded&#39;);
+			error('Escrow: ICO stage already funded');
 			return false;
 		}
 
 		if (msg.sender != addressSCICO || tx.origin != owner) {
-			error(&#39;Escrow: not allowed to fund the ICO&#39;);
+			error('Escrow: not allowed to fund the ICO');
 			return false;
 		}
 		if (deposited[this]<_amount) {
-			error(&#39;Escrow: not enough balance&#39;);
+			error('Escrow: not enough balance');
 			return false;
 		}
 		bool success = SCTokens.transfer(addressSCICO, _amount);
@@ -281,7 +281,7 @@ contract RefundVault is HardcodedWallets, System {
 	// @notice To limit functions usage to contract owner
 	modifier onlyICOContract() {
 		if (msg.sender != addressSCICO) {
-			error(&#39;RefundVault: onlyICOContract function called by user that is not ICOContract&#39;);
+			error('RefundVault: onlyICOContract function called by user that is not ICOContract');
 		} else {
 			_;
 		}
@@ -310,7 +310,7 @@ contract RefundVault is HardcodedWallets, System {
 	 */
 	function deposit(address _investor, uint256 _tokenAmount) onlyICOContract public payable returns (bool) {
 		if (state != State.Active) {
-			error(&#39;deposit: state != State.Active&#39;);
+			error('deposit: state != State.Active');
 			return false;
 		}
 		deposited[_investor] = deposited[_investor].add(msg.value);
@@ -320,11 +320,11 @@ contract RefundVault is HardcodedWallets, System {
 	}
 
 	/**
-	 * @notice When ICO finalizes funds are transferred to founders&#39; wallets
+	 * @notice When ICO finalizes funds are transferred to founders' wallets
 	 */
 	function close() onlyICOContract public returns (bool) {
 		if (state != State.Active) {
-			error(&#39;close: state != State.Active&#39;);
+			error('close: state != State.Active');
 			return false;
 		}
 		state = State.Closed;
@@ -343,7 +343,7 @@ contract RefundVault is HardcodedWallets, System {
 	 */
 	function enableRefunds() onlyICOContract public returns (bool) {
 		if (state != State.Active) {
-			error(&#39;enableRefunds: state != State.Active&#39;);
+			error('enableRefunds: state != State.Active');
 			return false;
 		}
 		state = State.Refunding;
@@ -358,11 +358,11 @@ contract RefundVault is HardcodedWallets, System {
 	 */
 	function refund(address _investor) onlyICOContract public returns (bool) {
 		if (state != State.Refunding) {
-			error(&#39;refund: state != State.Refunding&#39;);
+			error('refund: state != State.Refunding');
 			return false;
 		}
 		if (deposited[_investor] == 0) {
-			error(&#39;refund: no deposit to refund&#39;);
+			error('refund: no deposit to refund');
 			return false;
 		}
 		uint256 depositedValue = deposited[_investor];
@@ -394,7 +394,7 @@ contract RefundVault is HardcodedWallets, System {
 
 	// **** EVENTS
 
-	// Triggered when ICO contract closes the vault and forwards funds to the founders&#39; wallets
+	// Triggered when ICO contract closes the vault and forwards funds to the founders' wallets
 	event Closed();
 
 	// Triggered when ICO contract initiates refunding
@@ -411,7 +411,7 @@ contract Haltable is System {
 
 	modifier stopInEmergency {
 		if (halted) {
-			error(&#39;Haltable: stopInEmergency function called and contract is halted&#39;);
+			error('Haltable: stopInEmergency function called and contract is halted');
 		} else {
 			_;
 		}
@@ -419,7 +419,7 @@ contract Haltable is System {
 
 	modifier onlyInEmergency {
 		if (!halted) {
-			error(&#39;Haltable: onlyInEmergency function called and contract is not halted&#39;);
+			error('Haltable: onlyInEmergency function called and contract is not halted');
 		} {
 			_;
 		}
@@ -494,16 +494,16 @@ contract ICO is HardcodedWallets, Haltable {
 	 */
 	function buyTokens() public stopInEmergency payable returns (bool) {
 		if (msg.value == 0) {
-			error(&#39;buyTokens: ZeroPurchase&#39;);
+			error('buyTokens: ZeroPurchase');
 			return false;
 		}
 
 		uint256 tokenAmount = buyTokensLowLevel(msg.sender, msg.value);
 
-		// Send the investor&#39;s ethers to the vault
+		// Send the investor's ethers to the vault
 		if (!SCRefundVault.deposit.value(msg.value)(msg.sender, tokenAmount)) {
-			revert(&#39;buyTokens: unable to transfer collected funds from ICO contract to Refund Vault&#39;); // Revert needed to refund investor on error
-			// error(&#39;buyTokens: unable to transfer collected funds from ICO contract to Refund Vault&#39;);
+			revert('buyTokens: unable to transfer collected funds from ICO contract to Refund Vault'); // Revert needed to refund investor on error
+			// error('buyTokens: unable to transfer collected funds from ICO contract to Refund Vault');
 			// return false;
 		}
 
@@ -529,37 +529,37 @@ contract ICO is HardcodedWallets, Haltable {
 	 */
 	function buyTokensLowLevel(address _beneficiary, uint256 _weisAmount) private stopInEmergency returns (uint256 tokenAmount) {
 		if (_beneficiary == 0x0) {
-			revert(&#39;buyTokensLowLevel: _beneficiary == 0x0&#39;); // Revert needed to refund investor on error
-			// error(&#39;buyTokensLowLevel: _beneficiary == 0x0&#39;);
+			revert('buyTokensLowLevel: _beneficiary == 0x0'); // Revert needed to refund investor on error
+			// error('buyTokensLowLevel: _beneficiary == 0x0');
 			// return 0;
 		}
 		if (timestamp() < startTime || timestamp() > endTime) {
-			revert(&#39;buyTokensLowLevel: Not withinPeriod&#39;); // Revert needed to refund investor on error
-			// error(&#39;buyTokensLowLevel: Not withinPeriod&#39;);
+			revert('buyTokensLowLevel: Not withinPeriod'); // Revert needed to refund investor on error
+			// error('buyTokensLowLevel: Not withinPeriod');
 			// return 0;
 		}
 		if (!SCWhitelist.isInvestor(_beneficiary)) {
-			revert(&#39;buyTokensLowLevel: Investor is not registered on the whitelist&#39;); // Revert needed to refund investor on error
-			// error(&#39;buyTokensLowLevel: Investor is not registered on the whitelist&#39;);
+			revert('buyTokensLowLevel: Investor is not registered on the whitelist'); // Revert needed to refund investor on error
+			// error('buyTokensLowLevel: Investor is not registered on the whitelist');
 			// return 0;
 		}
 		if (isFinalized) {
-			revert(&#39;buyTokensLowLevel: ICO is already finalized&#39;); // Revert needed to refund investor on error
-			// error(&#39;buyTokensLowLevel: ICO is already finalized&#39;);
+			revert('buyTokensLowLevel: ICO is already finalized'); // Revert needed to refund investor on error
+			// error('buyTokensLowLevel: ICO is already finalized');
 			// return 0;
 		}
 
 		// Verify whether enough ether has been sent to buy the min amount of investment
 		if (_weisAmount < weisMinInvestment) {
-			revert(&#39;buyTokensLowLevel: Minimal investment not reached. Not enough ethers to perform the minimal purchase&#39;); // Revert needed to refund investor on error
-			// error(&#39;buyTokensLowLevel: Minimal investment not reached. Not enough ethers to perform the minimal purchase&#39;);
+			revert('buyTokensLowLevel: Minimal investment not reached. Not enough ethers to perform the minimal purchase'); // Revert needed to refund investor on error
+			// error('buyTokensLowLevel: Minimal investment not reached. Not enough ethers to perform the minimal purchase');
 			// return 0;
 		}
 
 		// Verify whether there are enough tokens to sell
 		if (weisRaised.add(_weisAmount) > weisHardCap) {
-			revert(&#39;buyTokensLowLevel: HardCap reached. Not enough tokens on ICO contract to perform this purchase&#39;); // Revert needed to refund investor on error
-			// error(&#39;buyTokensLowLevel: HardCap reached. Not enough tokens on ICO contract to perform this purchase&#39;);
+			revert('buyTokensLowLevel: HardCap reached. Not enough tokens on ICO contract to perform this purchase'); // Revert needed to refund investor on error
+			// error('buyTokensLowLevel: HardCap reached. Not enough tokens on ICO contract to perform this purchase');
 			// return 0;
 		}
 
@@ -574,8 +574,8 @@ contract ICO is HardcodedWallets, Haltable {
 
 		// Send the tokens to the investor
 		if (!SCTokens.transfer(_beneficiary, tokenAmount)) {
-			revert(&#39;buyTokensLowLevel: unable to transfer tokens from ICO contract to beneficiary&#39;); // Revert needed to refund investor on error
-			// error(&#39;buyTokensLowLevel: unable to transfer tokens from ICO contract to beneficiary&#39;);
+			revert('buyTokensLowLevel: unable to transfer tokens from ICO contract to beneficiary'); // Revert needed to refund investor on error
+			// error('buyTokensLowLevel: unable to transfer tokens from ICO contract to beneficiary');
 			// return 0;
 		}
 		emit BuyTokensLowLevel(msg.sender, _beneficiary, _weisAmount, tokenAmount); // Event log
@@ -606,18 +606,18 @@ contract ICO is HardcodedWallets, Haltable {
 	 */
 	function finalize(bool _forceRefund) onlyOwner public returns (bool) {
 		if (isFinalized) {
-			error(&#39;finalize: ICO is already finalized.&#39;);
+			error('finalize: ICO is already finalized.');
 			return false;
 		}
 
 		if (weisRaised >= weisSoftCap && !_forceRefund) {
 			if (!SCRefundVault.close()) {
-				error(&#39;finalize: SCRefundVault.close() failed&#39;);
+				error('finalize: SCRefundVault.close() failed');
 				return false;
 			}
 		} else {
 			if (!SCRefundVault.enableRefunds()) {
-				error(&#39;finalize: SCRefundVault.enableRefunds() failed&#39;);
+				error('finalize: SCRefundVault.enableRefunds() failed');
 				return false;
 			}
 			if(_forceRefund) {
@@ -628,12 +628,12 @@ contract ICO is HardcodedWallets, Haltable {
 		// Move remaining ICO tokens back to the Escrow
 		uint256 balanceAmount = SCTokens.balanceOf(this);
 		if (!SCTokens.transfer(address(SCEscrow), balanceAmount)) {
-			error(&#39;finalize: unable to return remaining ICO tokens&#39;);
+			error('finalize: unable to return remaining ICO tokens');
 			return false;
 		}
 		// Adjust Escrow balance correctly
 		if(!SCEscrow.deposit(balanceAmount)) {
-			error(&#39;finalize: unable to return remaining ICO tokens&#39;);
+			error('finalize: unable to return remaining ICO tokens');
 			return false;
 		}
 
@@ -649,12 +649,12 @@ contract ICO is HardcodedWallets, Haltable {
 	 */
 	function claimRefund() public stopInEmergency returns (bool) {
 		if (!isFinalized) {
-			error(&#39;claimRefund: ICO is not yet finalized.&#39;);
+			error('claimRefund: ICO is not yet finalized.');
 			return false;
 		}
 
 		if (!SCRefundVault.isRefunding()) {
-			error(&#39;claimRefund: RefundVault state != State.Refunding&#39;);
+			error('claimRefund: RefundVault state != State.Refunding');
 			return false;
 		}
 
@@ -662,12 +662,12 @@ contract ICO is HardcodedWallets, Haltable {
 		uint256 tokenAmount = SCRefundVault.getTokensAcquired(msg.sender);
 		emit GetBackTokensOnRefund(msg.sender, this, tokenAmount); // Event Log
 		if (!SCTokens.refundTokens(msg.sender, tokenAmount)) {
-			error(&#39;claimRefund: unable to transfer investor tokens to ICO contract before refunding&#39;);
+			error('claimRefund: unable to transfer investor tokens to ICO contract before refunding');
 			return false;
 		}
 
 		if (!SCRefundVault.refund(msg.sender)) {
-			error(&#39;claimRefund: SCRefundVault.refund() failed&#39;);
+			error('claimRefund: SCRefundVault.refund() failed');
 			return false;
 		}
 
@@ -676,7 +676,7 @@ contract ICO is HardcodedWallets, Haltable {
 
 	function fundICO() public onlyOwner {
 		if (!SCEscrow.fundICO(tokensHardCap, ICOStage)) {
-			revert(&#39;ICO funding failed&#39;);
+			revert('ICO funding failed');
 		}
 	}
 
@@ -716,13 +716,13 @@ contract ICOPreSale is ICO {
 	 */
 	constructor(address _SCEscrow, address _SCTokens, address _SCWhitelist, address _SCRefundVault) public {
 		if (_SCTokens == 0x0) {
-			revert(&#39;Tokens Constructor: _SCTokens == 0x0&#39;);
+			revert('Tokens Constructor: _SCTokens == 0x0');
 		}
 		if (_SCWhitelist == 0x0) {
-			revert(&#39;Tokens Constructor: _SCWhitelist == 0x0&#39;);
+			revert('Tokens Constructor: _SCWhitelist == 0x0');
 		}
 		if (_SCRefundVault == 0x0) {
-			revert(&#39;Tokens Constructor: _SCRefundVault == 0x0&#39;);
+			revert('Tokens Constructor: _SCRefundVault == 0x0');
 		}
 		
 		SCTokens = Tokens(_SCTokens);
@@ -783,7 +783,7 @@ contract Tokens is HardcodedWallets, ERC20, Haltable {
 	string public name;
 	string public symbol;
 	uint8 public decimals;
-	string public standard = &#39;H0.1&#39;; // HumanStandardToken is a specialisation of ERC20 defining these parameters
+	string public standard = 'H0.1'; // HumanStandardToken is a specialisation of ERC20 defining these parameters
 
 	// Timelock
 	uint256 public timelockEndTime;
@@ -803,7 +803,7 @@ contract Tokens is HardcodedWallets, ERC20, Haltable {
 	// @notice To limit token transfers while timelocked
 	modifier notTimeLocked() {
 		if (now < timelockEndTime && msg.sender != addressSCICO && msg.sender != addressSCEscrow) {
-			error(&#39;notTimeLocked: Timelock still active. Function is yet unavailable.&#39;);
+			error('notTimeLocked: Timelock still active. Function is yet unavailable.');
 		} else {
 			_;
 		}
@@ -855,12 +855,12 @@ contract Tokens is HardcodedWallets, ERC20, Haltable {
 	 */
 	function transfer(address _to, uint256 _amount) public notTimeLocked stopInEmergency returns (bool success) {
 		if (balances[msg.sender] < _amount) {
-			error(&#39;transfer: the amount to transfer is higher than your token balance&#39;);
+			error('transfer: the amount to transfer is higher than your token balance');
 			return false;
 		}
 
 		if(!SCComplianceService.validate(msg.sender, _to, _amount)) {
-			error(&#39;transfer: not allowed by the compliance service&#39;);
+			error('transfer: not allowed by the compliance service');
 			return false;
 		}
 
@@ -880,16 +880,16 @@ contract Tokens is HardcodedWallets, ERC20, Haltable {
  	 */
 	function transferFrom(address _from, address _to, uint256 _amount) public notTimeLocked stopInEmergency returns (bool success) {
 		if (balances[_from] < _amount) {
-			error(&#39;transferFrom: the amount to transfer is higher than the token balance of the source&#39;);
+			error('transferFrom: the amount to transfer is higher than the token balance of the source');
 			return false;
 		}
 		if (allowed[_from][msg.sender] < _amount) {
-			error(&#39;transferFrom: the amount to transfer is higher than the maximum token transfer allowed by the source&#39;);
+			error('transferFrom: the amount to transfer is higher than the maximum token transfer allowed by the source');
 			return false;
 		}
 
 		if(!SCComplianceService.validate(_from, _to, _amount)) {
-			error(&#39;transfer: not allowed by the compliance service&#39;);
+			error('transfer: not allowed by the compliance service');
 			return false;
 		}
 
@@ -962,22 +962,22 @@ contract Tokens is HardcodedWallets, ERC20, Haltable {
 	 */
 	function refundTokens(address _from, uint256 _amount) public notTimeLocked stopInEmergency returns (bool success) {
         if (tx.origin != _from) {
-            error(&#39;refundTokens: tx.origin did not request the refund directly&#39;);
+            error('refundTokens: tx.origin did not request the refund directly');
             return false;
         }
 
         if (addressSCICO != msg.sender) {
-            error(&#39;refundTokens: caller is not the current ICO address&#39;);
+            error('refundTokens: caller is not the current ICO address');
             return false;
         }
 
         if (balances[_from] < _amount) {
-            error(&#39;refundTokens: the amount to transfer is higher than your token balance&#39;);
+            error('refundTokens: the amount to transfer is higher than your token balance');
             return false;
         }
 
         if(!SCComplianceService.validate(_from, addressSCICO, _amount)) {
-			error(&#39;transfer: not allowed by the compliance service&#39;);
+			error('transfer: not allowed by the compliance service');
 			return false;
 		}
 
@@ -1041,7 +1041,7 @@ contract Whitelist is HardcodedWallets, System {
 	function addInvestor(address _wallet) external isManager returns (bool) {
 		// Checks whether this wallet has been previously added as an investor
 		if (walletsICO[_wallet]) {
-			error(&#39;addInvestor: this wallet has been previously granted as ICO investor&#39;);
+			error('addInvestor: this wallet has been previously granted as ICO investor');
 			return false;
 		}
 

@@ -17,7 +17,7 @@ pragma solidity 0.4.24;
 * - overbid will be refunded
 *
 * -> Idle Game Rules:
-* - Each machine you own have a pre-defined milk production rate, which will produce milk over time as long as you&#39;re still owning it.
+* - Each machine you own have a pre-defined milk production rate, which will produce milk over time as long as you're still owning it.
 * - You can sell your milk and claim a proportion of the milk fund.
 * - You cannot sell milk within the first hour of a new potato starts.
 * - The selling price of a milk depends on the Milk Fund and the total milk supply, the formula is:
@@ -81,7 +81,7 @@ contract MilkMachineHotPotato {
     /// @dev A mapping from potato IDs to the address the sponsor who will receive the dev cut.
     mapping(uint => address) potatoIdToSponsor;
 
-    /// @dev A mapping from potato ID to index of the ownerPotatoes&#39; potatoes list.
+    /// @dev A mapping from potato ID to index of the ownerPotatoes' potatoes list.
     mapping(uint => uint) potatoIdToOwnerPotatoesIndex;
 
     // Store the production unit start time to calculate sell price.
@@ -422,7 +422,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

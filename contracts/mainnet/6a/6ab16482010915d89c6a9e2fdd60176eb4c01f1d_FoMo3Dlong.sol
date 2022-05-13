@@ -14,19 +14,19 @@ pragma solidity ^0.4.24;
  * ┌─┐┬─┐┌─┐┌┬┐┬ ┬┌─┐┌┬┐                          /__/ (_(__(_)/ (_/_)_(_)/ (_(_(_(__(/_(_(_
  * ├─┘├┬┘│ │ │││ ││   │                      (__ /              .-/  &#169; Jekyll Island Inc. 2018
  * ┴  ┴└─└─┘─┴┘└─┘└─┘ ┴                                        (_/   .--,-``-.
- *========,---,.======================____==========================/   /     &#39;.=======,---,====*
- *      ,&#39;  .&#39; |                    ,&#39;  , `.                       / ../        ;    .&#39;  .&#39; `\
- *    ,---.&#39;   |    ,---.        ,-+-,.&#39; _ |    ,---.              \ ``\  .`-    &#39; ,---.&#39;     \
- *    |   |   .&#39;   &#39;   ,&#39;\    ,-+-. ;   , ||   &#39;   ,&#39;\      ,---,.  \___\/   \   : |   |  .`\  |
- *    :   :  :    /   /   |  ,--.&#39;|&#39;   |  ||  /   /   |   ,&#39;  .&#39; |       \   :   | :   : |  &#39;  |
- *    :   |  |-, .   ; ,. : |   |  ,&#39;, |  |, .   ; ,. : ,---.&#39;   |       /  /   /  |   &#39; &#39;  ;  :
- *    |   :  ;/| &#39;   | |: : |   | /  | |--&#39;  &#39;   | |: : |   |  .&#39;        \  \   \  &#39;   | ;  .  |
- *    |   |   .&#39; &#39;   | .; : |   : |  | ,     &#39;   | .; : :   |.&#39;      ___ /   :   | |   | :  |  &#39;
- *    &#39;   :  &#39;   |   :    | |   : |  |/      |   :    | `---&#39;       /   /\   /   : &#39;   : | /  ;
- *    |   |  |    \   \  /  |   | |`-&#39;        \   \  /             / ,,/  &#39;,-    . |   | &#39;` ,/
- *    |   :  \     `----&#39;   |   ;/             `----&#39;              \ &#39;&#39;\        ;  ;   :  .&#39;
- *====|   | ,&#39;==============&#39;---&#39;==========(long version)===========\   \     .&#39;===|   ,.&#39;======*
- *    `----&#39;                                                         `--`-,,-&#39;     &#39;---&#39;
+ *========,---,.======================____==========================/   /     '.=======,---,====*
+ *      ,'  .' |                    ,'  , `.                       / ../        ;    .'  .' `\
+ *    ,---.'   |    ,---.        ,-+-,.' _ |    ,---.              \ ``\  .`-    ' ,---.'     \
+ *    |   |   .'   '   ,'\    ,-+-. ;   , ||   '   ,'\      ,---,.  \___\/   \   : |   |  .`\  |
+ *    :   :  :    /   /   |  ,--.'|'   |  ||  /   /   |   ,'  .' |       \   :   | :   : |  '  |
+ *    :   |  |-, .   ; ,. : |   |  ,', |  |, .   ; ,. : ,---.'   |       /  /   /  |   ' '  ;  :
+ *    |   :  ;/| '   | |: : |   | /  | |--'  '   | |: : |   |  .'        \  \   \  '   | ;  .  |
+ *    |   |   .' '   | .; : |   : |  | ,     '   | .; : :   |.'      ___ /   :   | |   | :  |  '
+ *    '   :  '   |   :    | |   : |  |/      |   :    | `---'       /   /\   /   : '   : | /  ;
+ *    |   |  |    \   \  /  |   | |`-'        \   \  /             / ,,/  ',-    . |   | '` ,/
+ *    |   :  \     `----'   |   ;/             `----'              \ ''\        ;  ;   :  .'
+ *====|   | ,'=============='---'==========(long version)===========\   \     .'===|   ,.'======*
+ *    `----'                                                         `--`-,,-'     '---'
  *             ╔═╗┌─┐┌─┐┬┌─┐┬┌─┐┬   ┌─────────────────────────┐ ╦ ╦┌─┐┌┐ ╔═╗┬┌┬┐┌─┐ 
  *             ║ ║├┤ ├┤ ││  │├─┤│   │   https://exitscam.me   │ ║║║├┤ ├┴┐╚═╗│ │ ├┤  
  *             ╚═╝└  └  ┴└─┘┴┴ ┴┴─┘ └─┬─────────────────────┬─┘ ╚╩╝└─┘└─┘╚═╝┴ ┴ └─┘ 
@@ -44,7 +44,7 @@ pragma solidity ^0.4.24;
  *   │ Psaints, Satoshi, Vitalik, Nano 2nd, Bogdanoffs         Isaac Newton, Nikola Tesla, │ 
  *   │ Le Comte De Saint Germain, Albert Einstein, Socrates, & all the volunteer moderator │
  *   │ & support staff, content, creators, autonomous agents, and indie devs for P3D.      │
- *   │              Without your help, we wouldn&#39;t have the time to code this.             │
+ *   │              Without your help, we wouldn't have the time to code this.             │
  *   └─────────────────────────────────────────────────────────────────────────────────────┘
  * 
  * This product is protected under license.  Any unauthorized copy, modification, or use without 
@@ -235,7 +235,7 @@ contract FoMo3Dlong is modularLong {
 
 		// Team allocation percentages
         // (F3D, P3D) + (Pot , Referrals, Community)
-            // Referrals / Community rewards are mathematically designed to come from the winner&#39;s share of the pot.
+            // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
         fees_[0] = F3Ddatasets.TeamFee(60,0);   //20% to pot, 20% to aff, 0% to com, 0% to pot swap, 0% to air drop pot
         fees_[1] = F3Ddatasets.TeamFee(60,0);   //20% to pot, 20% to aff, 0% to com, 0% to pot swap, 0% to air drop pot
         fees_[2] = F3Ddatasets.TeamFee(60,0);   //20% to pot, 20% to aff, 0% to com, 0% to pot swap, 0% to air drop pot
@@ -404,7 +404,7 @@ contract FoMo3Dlong is modularLong {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -526,7 +526,7 @@ contract FoMo3Dlong is modularLong {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -723,7 +723,7 @@ contract FoMo3Dlong is modularLong {
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -1222,7 +1222,7 @@ contract FoMo3Dlong is modularLong {
         if (plyr_[_pID].lrnd != 0)
             updateGenVault(_pID, plyr_[_pID].lrnd);
             
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
             
         // set the joined round bool to true
@@ -1241,7 +1241,7 @@ contract FoMo3Dlong is modularLong {
         // setup local rID
         uint256 _rID = rID_;
         
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
         
@@ -1380,7 +1380,7 @@ contract FoMo3Dlong is modularLong {
         uint256 _aff = _eth / 5;
         
         // if the _affID is invalid, the portion goes into the pot
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             _eth = _eth.sub(_aff);
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit F3Devents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
@@ -1420,7 +1420,7 @@ contract FoMo3Dlong is modularLong {
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         
@@ -1461,7 +1461,7 @@ contract FoMo3Dlong is modularLong {
     }
     
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, F3Ddatasets.EventReturns memory _eventData_)
         private

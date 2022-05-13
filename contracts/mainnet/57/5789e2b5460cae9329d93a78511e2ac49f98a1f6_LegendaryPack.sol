@@ -132,7 +132,7 @@ contract CardProto is CardBase {
     }
 
     function nextSeason() public onlyGovernor {
-        //Seasons shouldn&#39;t go to 0 if there is more than the uint8 should hold, the governor should know this &#175;\_(ツ)_/&#175; -M
+        //Seasons shouldn't go to 0 if there is more than the uint8 should hold, the governor should know this &#175;\_(ツ)_/&#175; -M
         require(currentSeason <= 255); 
 
         currentSeason++;
@@ -170,7 +170,7 @@ contract CardProto is CardBase {
 
     // there is a particular design decision driving this:
     // need to be able to iterate over mythics only for card generation
-    // don&#39;t store 5 different arrays: have to use 2 ids
+    // don't store 5 different arrays: have to use 2 ids
     // better to bear this cost (2 bytes per proto card)
     // rather than 1 byte per instance
 
@@ -362,7 +362,7 @@ contract CardProto is CardBase {
     }
 
     // can never adjust tradable cards
-    // each season gets a &#39;balancing beta&#39;
+    // each season gets a 'balancing beta'
     // totally immutable: season, rarity
     function replaceProto(
         uint16 index, uint8 god, uint8 cardType, uint8 mana, uint8 attack, uint8 health, uint8 tribe
@@ -452,7 +452,7 @@ contract NFT is ERC721, ERC165, ERC721Metadata, ERC721Enumerable {}
 
 contract CardOwnership is NFT, CardProto {
 
-    // doing this strategy doesn&#39;t save gas
+    // doing this strategy doesn't save gas
     // even setting the length to the max and filling in
     // unfortunately - maybe if we stop it boundschecking
     // address[] owners;
@@ -645,7 +645,7 @@ contract CardOwnership is NFT, CardProto {
         require(to != address(this));
 
         // TODO: why is this necessary
-        // if you&#39;re approved, why does it matter where it comes from?
+        // if you're approved, why does it matter where it comes from?
         require(ownerOf(id) == from);
 
         require(isSenderApprovedFor(id));
@@ -849,7 +849,7 @@ contract CardIntegration is CardOwnership {
 
     // PURITY NOTES
     // currently, we only
-    // however, to protect rarity, you&#39;ll never be abl
+    // however, to protect rarity, you'll never be abl
     // this is enforced by the restriction in the create-card function
     // no cards above this point can be found in packs
 
@@ -870,7 +870,7 @@ contract CardPack {
     event Referral(address indexed referrer, uint value, address purchaser);
 
     /**
-    * purchase &#39;count&#39; of this type of pack
+    * purchase 'count' of this type of pack
     */
     function purchase(uint16 packCount, address referrer) public payable;
 
@@ -1265,8 +1265,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -1283,7 +1283,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

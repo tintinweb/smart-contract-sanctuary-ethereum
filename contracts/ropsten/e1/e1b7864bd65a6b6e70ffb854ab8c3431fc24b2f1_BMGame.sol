@@ -36,7 +36,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -583,7 +583,7 @@ contract BMGame is BMEvents {
     }
 
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * @return time left in seconds
      */
@@ -1060,7 +1060,7 @@ contract BMGame is BMEvents {
         if (plyr_[_pID].lrnd != 0)
             updateGenVault(_pID, plyr_[_pID].lrnd);
 
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
 
         // set the joined round bool to true
@@ -1079,7 +1079,7 @@ contract BMGame is BMEvents {
         // setup local rID
         uint256 _rID = rID_;
 
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
 
@@ -1254,7 +1254,7 @@ contract BMGame is BMEvents {
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
 
@@ -1294,7 +1294,7 @@ contract BMGame is BMEvents {
     }
 
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, BMDatasets.EventReturns memory _eventData_)
     private
@@ -1331,7 +1331,7 @@ contract BMGame is BMEvents {
     {
 
         // can only be ran once
-        require(msg.sender == owner, &#39;only dev!&#39;);
+        require(msg.sender == owner, 'only dev!');
         require(activated_ == false, "BiMoney Game already activated");
 
         // activate the contract 

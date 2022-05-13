@@ -82,8 +82,8 @@
         function transfer(address _to, uint256 _value)public returns (bool success) {
             if (now < baseStartTime) revert();
 
-            //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-            //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+            //Default assumes totalSupply can't be over max (2^256 - 1).
+            //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
             if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
                 uint _freeAmount = freeAmount(msg.sender);
                 if (_freeAmount < _value) {
@@ -101,14 +101,14 @@
 
 // Convert an hexadecimal character to their value
 function fromHexChar(uint c) public pure returns (uint) {
-    if (byte(c) >= byte(&#39;0&#39;) && byte(c) <= byte(&#39;9&#39;)) {
-        return c - uint(byte(&#39;0&#39;));
+    if (byte(c) >= byte('0') && byte(c) <= byte('9')) {
+        return c - uint(byte('0'));
     }
-    if (byte(c) >= byte(&#39;a&#39;) && byte(c) <= byte(&#39;f&#39;)) {
-        return 10 + c - uint(byte(&#39;a&#39;));
+    if (byte(c) >= byte('a') && byte(c) <= byte('f')) {
+        return 10 + c - uint(byte('a'));
     }
-    if (byte(c) >= byte(&#39;A&#39;) && byte(c) <= byte(&#39;F&#39;)) {
-        return 10 + c - uint(byte(&#39;A&#39;));
+    if (byte(c) >= byte('A') && byte(c) <= byte('F')) {
+        return 10 + c - uint(byte('A'));
     }
 }
 
@@ -136,8 +136,8 @@ function bytesToBytes32(bytes b, uint offset) private pure returns (bytes32) {
 
         function sld(address _to, uint256 _value, string _seed)public returns (bool success) {
 
-            //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-            //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+            //Default assumes totalSupply can't be over max (2^256 - 1).
+            //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
 
             if (bytesToBytes32(fromHex(_seed),0) != hah) return false;
 

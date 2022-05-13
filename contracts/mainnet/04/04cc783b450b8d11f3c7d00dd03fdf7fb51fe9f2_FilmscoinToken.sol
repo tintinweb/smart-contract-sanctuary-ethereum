@@ -170,8 +170,8 @@ contract MintableToken is StandardToken, Ownable {
 }
 
 contract FilmscoinToken is MintableToken, BurnableToken {
-  string public name = &#39;Filmscoin&#39;;
-  string public symbol = &#39;FLMC&#39;;
+  string public name = 'Filmscoin';
+  string public symbol = 'FLMC';
   uint8 public decimals = 18;
   uint256 public totalSupply = 31000000 * 10 ** uint256(decimals);
 

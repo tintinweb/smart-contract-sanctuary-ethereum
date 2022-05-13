@@ -71,7 +71,7 @@ contract SafeMath {
      function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -320,7 +320,7 @@ contract ManageBattleboards is AccessControl, SafeMath  {
 
 
  function takePet(uint64 petId) private {
-           //This contract takes ownership of pets who are entered into battleboards and later distributes the losers&#39; pets to the winners. 
+           //This contract takes ownership of pets who are entered into battleboards and later distributes the losers' pets to the winners. 
                IPetCardData PetCardData = IPetCardData(petCardDataContract);
                 PetCardData.transferPet(msg.sender, address(this), petId);
         }
@@ -360,7 +360,7 @@ contract ManageBattleboards is AccessControl, SafeMath  {
        if (battleboardData.isBattleboardLive(battleboardId) == false) {revert();}
        battleboardData.killBoard(battleboardId); 
         if ((battleboardData.getNumTeams(battleboardId,1) != 0) && (battleboardData.getNumTeams(battleboardId,2) != 0)) {revert();}
-        //No teams are out, function shouldn&#39;t be called. 
+        //No teams are out, function shouldn't be called. 
         uint8 id;
         uint64 petId;
         address owner;
@@ -385,7 +385,7 @@ contract ManageBattleboards is AccessControl, SafeMath  {
                  PetCardData.transferPet(address(this), owner, petId);
                 winners.push(owner); 
               }
-            //give team 2&#39;s pets to team 1.   
+            //give team 2's pets to team 1.   
         for (i =0; i<(safeDiv(battleboardData.getMaxFreeTeams(),2)); i++) {
                   owner = battleboardData.getOwner(battleboardId, 2, i);
                   id = battleboardData.getTileIDByOwner(battleboardId,owner);
@@ -404,7 +404,7 @@ contract ManageBattleboards is AccessControl, SafeMath  {
                  PetCardData.transferPet(address(this), owner, petId);
                 winners.push(owner); 
               }
-            //give team 1&#39;s pets to team 2  
+            //give team 1's pets to team 2  
         for (i =0; i<(safeDiv(battleboardData.getMaxFreeTeams(),2)); i++) {
                   owner = battleboardData.getOwner(battleboardId, 1, i);
                   id = battleboardData.getTileIDByOwner(battleboardId,owner);
@@ -469,14 +469,14 @@ contract ManageBattleboards is AccessControl, SafeMath  {
        }
        
        function getSpeed(uint64 petId, uint64 accessoryId) private constant returns (uint16) {
-           //this speed function returns pet&#39;s base Luck + any accessory boost from the clovers;
+           //this speed function returns pet's base Luck + any accessory boost from the clovers;
            IAccessoryData accessoryData = IAccessoryData(accessoryDataContract);
            IPetCardData petCardData = IPetCardData(petCardDataContract);
 
        uint16 temp;
        uint8 accessorySeriesId;
          (,,,temp,,,,,,) = petCardData.getPet(petId);
-         //first get the pet&#39;s base luck. 
+         //first get the pet's base luck. 
            (,accessorySeriesId,) = accessoryData.getAccessory(accessoryId);
            if (accessorySeriesId == 5) {temp += 5;}
             if (accessorySeriesId == 6) {temp += 10;}
@@ -496,7 +496,7 @@ contract ManageBattleboards is AccessControl, SafeMath  {
              (,isLive,,,,,restrictions,, numTeams1,numTeams2,,) = battleboardData.getBattleboard(battleboardId);
                
              if (restrictionsAllow(angelId, restrictions) == false) {revert();} 
-            if (isLive== true) {revert();} //Can&#39;t add a team to a board that&#39;s already live.
+            if (isLive== true) {revert();} //Can't add a team to a board that's already live.
              if (team == 1) {
                 if (numTeams1 == 0) {position = 10;}
                if (numTeams1 ==1) {position = 12;}
@@ -574,7 +574,7 @@ contract ManageBattleboards is AccessControl, SafeMath  {
                 
          uint8 position = getRandomNumber(49,15,seed);
           //if desided position is already full, try three times to place them in an open spot. Odds are max 0.6% that the tx reverts. 
-          //Random tiles are in the middle of the board and won&#39;t conflict with anangels. 
+          //Random tiles are in the middle of the board and won't conflict with anangels. 
           //Random tiels CAN be on the same position as a monster, though. 
            if (battleboardData.getTileIDbyPosition(_battleboardId, position)!= 0) {
               
@@ -642,7 +642,7 @@ contract ManageBattleboards is AccessControl, SafeMath  {
         selfdestruct(creatorAddress);
     }
                 function withdrawEther()  onlyCREATOR external {
-   //shouldn&#39;t have any eth here but just in case. 
+   //shouldn't have any eth here but just in case. 
     creatorAddress.transfer(this.balance);
 }
           

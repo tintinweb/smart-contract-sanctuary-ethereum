@@ -1,10 +1,10 @@
 //This glorious coin is named after an ethical woman named Ingrid Zurlo.
 //Hopefully this plummits in value and becomes a useful tool for people looking
 //to learn a little coding. The individual this is named after also inspired a 
-//a different coin called twiceAweekCoin, but that&#39;s a more legit effort to make
+//a different coin called twiceAweekCoin, but that's a more legit effort to make
 //something. 
 
-//  Children should always be at the center of their parents&#39; decisions!
+//  Children should always be at the center of their parents' decisions!
 
 pragma solidity ^0.4.23;
 

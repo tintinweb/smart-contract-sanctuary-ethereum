@@ -27,9 +27,9 @@ contract SafeMath {
 
 contract Token is SafeMath {
     /* Public variables of the token */
-    string public standard = &#39;ERC20&#39;;
-    string public name = &#39;Edgeless&#39;;
-    string public symbol = &#39;EDG&#39;;
+    string public standard = 'ERC20';
+    string public name = 'Edgeless';
+    string public symbol = 'EDG';
     uint8 public decimals = 0;
     uint256 public totalSupply;
     address public owner;

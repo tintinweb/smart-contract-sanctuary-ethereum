@@ -420,7 +420,7 @@ contract Goldmint is SafeMath {
           // only switch to this state if less than ICO_TOKEN_SOFT_CAP sold
           require(icoTokensSold<ICO_TOKEN_SOFT_CAP);
 
-          // in this state tokens still shouldn&#39;t be transferred
+          // in this state tokens still shouldn't be transferred
           assert(mntToken.lockTransfers());
      }
 
@@ -535,13 +535,13 @@ contract Goldmint is SafeMath {
           
           uint8[10] memory discountPercents = [20,15,10,8,6,4,2,0,0,0];
 
-          // We have to multiply by &#39;1 ether&#39; to avoid float truncations
+          // We have to multiply by '1 ether' to avoid float truncations
           // Example: ($7000 * 100) / 120 = $5833.33333
           uint pricePer1000tokensUsd = 
                ((STD_PRICE_USD_PER_1000_TOKENS * 100) * (1 ether / 1 wei)) / (100 + discountPercents[priceIndex]);
 
           // Correct: 300000 / 5833.33333333 = 51.42857142
-          // We have to multiply by &#39;1 ether&#39; to avoid float truncations
+          // We have to multiply by '1 ether' to avoid float truncations
           uint mntPerEth = (ETH_PRICE_IN_USD * 1000 * (1 ether / 1 wei) * (1 ether / 1 wei)) / pricePer1000tokensUsd;
           return mntPerEth;
      }
@@ -550,7 +550,7 @@ contract Goldmint is SafeMath {
           require(msg.value!=0);
 
           // The price is selected based on current sold tokens.
-          // Price can &#39;overlap&#39;. For example:
+          // Price can 'overlap'. For example:
           //   1. if currently we sold 699950 tokens (the price is 10% discount)
           //   2. buyer buys 1000 tokens
           //   3. the price of all 1000 tokens would be with 10% discount!!!
@@ -558,7 +558,7 @@ contract Goldmint is SafeMath {
 
           issueTokensInternal(_buyer,newTokens);
 
-          // update &#39;buyers&#39; map
+          // update 'buyers' map
           // (only when buying from ETH)
           TokenBuyer memory b = buyers[msg.sender];
           b.weiSent = safeAdd(b.weiSent, msg.value);

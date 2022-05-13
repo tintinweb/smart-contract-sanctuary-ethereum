@@ -18,7 +18,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -227,7 +227,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
     /**
     * @dev Must be called after crowdsale ends, to do some extra finalization
-    * work. Calls the contract&#39;s finalization function.
+    * work. Calls the contract's finalization function.
     */
     function finalize() onlyOwner public {
         require(!isFinalized);
@@ -251,7 +251,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
  * @title RefundableCrowdsale
  * @dev Extension of Crowdsale contract that adds a funding goal, and
  * the possibility of users getting a refund if goal is not met.
- * Uses a RefundVault as the crowdsale&#39;s vault.
+ * Uses a RefundVault as the crowdsale's vault.
  */
 contract RefundableCrowdsale is FinalizableCrowdsale {
     using SafeMath for uint256;
@@ -268,7 +268,7 @@ contract RefundableCrowdsale is FinalizableCrowdsale {
         goal = _goal;
     }
 
-    // We&#39;re overriding the fund forwarding from Crowdsale.
+    // We're overriding the fund forwarding from Crowdsale.
     // In addition to sending the funds, we want to call
     // the RefundVault deposit function
     function forwardFunds() internal {
@@ -518,7 +518,7 @@ contract ElepigCrowdsale is CappedCrowdsale, RefundableCrowdsale, ControlledAcce
     // ================= Address Management Over ==================
 
 
-    // Token Purchase, function will be called when &#39;data&#39; is sent in 
+    // Token Purchase, function will be called when 'data' is sent in 
     // FOR KYC
     function donate(uint8 _v, bytes32 _r, bytes32 _s) 
     onlyValidAccess(_v,_r,_s) public payable{

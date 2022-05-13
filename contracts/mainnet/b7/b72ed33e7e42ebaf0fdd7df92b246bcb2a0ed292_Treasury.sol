@@ -14,7 +14,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -41,7 +41,7 @@ contract ServiceAllowance {
  * @title Owned contract with safe ownership pass.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract Owned {
     /**
@@ -235,7 +235,7 @@ contract ERC20 {
 ///
 /// Treasury for CCs deposits for particular fund with bmc-days calculations.
 /// Accept BMC deposits from Continuous Contributors via oracle and
-/// calculates bmc-days metric for each CC&#39;s role.
+/// calculates bmc-days metric for each CC's role.
 contract Treasury is OracleContractAdapter, ServiceAllowance, TreasuryEmitter {
 
     /* ERROR CODES */
@@ -311,7 +311,7 @@ contract Treasury is OracleContractAdapter, ServiceAllowance, TreasuryEmitter {
     /// @param _value amount of tokens to deposit
     /// @param _feeAmount amount of tokens that will be taken from _value as fee
     /// @param _feeAddress destination address for fee transfer
-    /// @param _lockupDate lock up date for deposit. Until that date the deposited value couldn&#39;t be withdrawn
+    /// @param _lockupDate lock up date for deposit. Until that date the deposited value couldn't be withdrawn
     ///
     /// @return result code of an operation
     function deposit(bytes32 _userKey, uint _value, uint _feeAmount, address _feeAddress, uint _lockupDate) external onlyOracle returns (uint) {

@@ -9,7 +9,7 @@ pragma solidity ^0.4.18;
 //   \___//_/\_\_|  |_|\____/|_| \_/_/    \_\_____\____/_____|_| \_|
 //
 //  Official website: http://0xmonacoin.org
-// &#39;0xMonacoin&#39; contract
+// '0xMonacoin' contract
 // Mineable ERC20 Token using Proof Of Work
 // Symbol      : 0xMONA
 // Name        : 0xMonacoin Token
@@ -120,7 +120,7 @@ contract _0xMonacoinToken is ERC20Interface, Owned {
     uint public _totalSupply;
 
     uint public latestDifficultyPeriodStarted;
-    uint public epochCount; // number of &#39;blocks&#39; mined
+    uint public epochCount; // number of 'blocks' mined
     uint public _BLOCKS_PER_READJUSTMENT = 1024;
 
     // a little number
@@ -181,7 +181,7 @@ contract _0xMonacoinToken is ERC20Interface, Owned {
     }
 
     function mint(uint256 nonce, bytes32 challenge_digest) public returns (bool success) {
-        // the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender&#39;s address to prevent MITM attacks
+        // the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender's address to prevent MITM attacks
         bytes32 digest = keccak256(challengeNumber, msg.sender, nonce);
 
         // the challenge digest must match the expected
@@ -216,7 +216,7 @@ contract _0xMonacoinToken is ERC20Interface, Owned {
         return true;
     }
 
-    // a new &#39;block&#39; to be mined
+    // a new 'block' to be mined
     function _startNewMiningEpoch() internal {
         // if max supply for the era will be exceeded next reward round then enter the new era before that happens
 
@@ -251,7 +251,7 @@ contract _0xMonacoinToken is ERC20Interface, Owned {
         uint ethBlocksSinceLastDifficultyPeriod = block.number - latestDifficultyPeriodStarted;
         // assume 360 ethereum blocks per hour
 
-        // we want miners to spend 10 minutes to mine each &#39;block&#39;, about 60 ethereum blocks = one atlantis epoch
+        // we want miners to spend 10 minutes to mine each 'block', about 60 ethereum blocks = one atlantis epoch
         uint epochsMined = _BLOCKS_PER_READJUSTMENT;
 
         uint targetEthBlocksPerDiffPeriod = epochsMined * 60; // should be 60 times slower than ethereum
@@ -338,8 +338,8 @@ contract _0xMonacoinToken is ERC20Interface, Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -351,7 +351,7 @@ contract _0xMonacoinToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -382,7 +382,7 @@ contract _0xMonacoinToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -390,7 +390,7 @@ contract _0xMonacoinToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -401,7 +401,7 @@ contract _0xMonacoinToken is ERC20Interface, Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

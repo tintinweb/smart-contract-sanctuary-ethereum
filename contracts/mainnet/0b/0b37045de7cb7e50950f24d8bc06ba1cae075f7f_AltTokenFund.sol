@@ -13,7 +13,7 @@ contract StandardToken {
 
     /* Read and write storage functions */
 
-    // Transfers sender&#39;s tokens to a given address. Returns success.
+    // Transfers sender's tokens to a given address. Returns success.
     function transfer(address _to, uint256 _value) public returns (bool success) {
         if (balances[msg.sender] >= _value && _value > 0) {
             balances[msg.sender] -= _value;

@@ -5,7 +5,7 @@
 // We have more than 15-years history of creation of aviation equipment and helicopters. 
 // Company with great potential for development in real time.
 
-// By this link you&#39;ll find more information about I AM AERO 
+// By this link you'll find more information about I AM AERO 
 // https://www.youtube.com/watch?v=7NJS4UFVMDQ
 
 // For more information, please visit our website: www.iamaero.io

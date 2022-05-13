@@ -98,7 +98,7 @@ contract Ownable {
     _;
   }
 
-   // validates an address - currently only checks that it isn&#39;t null
+   // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -198,7 +198,7 @@ contract EROSCOIN is EroStandardToken {
     Some wallets/interfaces might not even bother to look at this information.
     */
     
-    uint256 constant public decimals = 8; //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 TTC = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+    uint256 constant public decimals = 8; //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 TTC = 980 base units. It's like comparing 1 wei to 1 ether.
     uint256 public totalSupply = 240 * (10**7) * 10**8 ; // 2.4 billion tokens, 8 decimal places
     string constant public name = "EROSCOIN"; //fancy name: eg EROSCOIN Alpha
     string constant public symbol = "ERO"; //An identifier: eg ERO
@@ -213,7 +213,7 @@ contract EROSCOIN is EroStandardToken {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         require(_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData));

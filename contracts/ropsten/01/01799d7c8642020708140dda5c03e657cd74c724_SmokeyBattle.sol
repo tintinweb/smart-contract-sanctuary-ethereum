@@ -22,7 +22,7 @@ contract SmokeyBattle {
 
 
     modifier pokemonValid(uint index) {
-        require(index < pokemon.length, &#39;Smokeymon does not exist&#39;);
+        require(index < pokemon.length, 'Smokeymon does not exist');
         require(pokemon[index].health > 0, "Your pokemon is dead bruhh");
         _;
     }
@@ -37,7 +37,7 @@ contract SmokeyBattle {
         Smokeymon storage sourceSmokeymon = pokemon[source];
         Smokeymon storage targetSmokeymon = pokemon[target];
 
-        require(sourceSmokeymon.owner == msg.sender, "You don&#39;t own this pokeymans");
+        require(sourceSmokeymon.owner == msg.sender, "You don't own this pokeymans");
 
         uint8 clampedPower = sourceSmokeymon.attackPower >= targetSmokeymon.health
         ? targetSmokeymon.health

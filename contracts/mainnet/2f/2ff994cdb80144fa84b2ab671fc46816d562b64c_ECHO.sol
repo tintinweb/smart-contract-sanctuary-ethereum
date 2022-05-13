@@ -14,7 +14,7 @@ library SafeMath {
   function Div(uint a, uint b) internal pure returns (uint) {
     //assert(b > 0); // Solidity automatically throws when Dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -55,7 +55,7 @@ contract Ownable {
   //add another owner
   address deployer;
 
-  //Constructor for the contract to store owner&#39;s account on deployement
+  //Constructor for the contract to store owner's account on deployement
   function Ownable() public {
     owner = msg.sender;
     deployer = msg.sender;
@@ -67,7 +67,7 @@ contract Ownable {
       _;
   }
 
-  //ownership can be transferred to provided newOwner. Function can only be initiated by contract owner&#39;s account
+  //ownership can be transferred to provided newOwner. Function can only be initiated by contract owner's account
   function transferOwnership(address _newOwner) public onlyOwner {
     require (_newOwner != address(0));
     owner = _newOwner;
@@ -269,7 +269,7 @@ contract ECHO is ERC20 {
     }
 
     /**
-    * @dev Transfer sender&#39;s token to a given address
+    * @dev Transfer sender's token to a given address
     *
     * @param _to The address which you want to transfer to
     * @param _value the amount of tokens to be transferred

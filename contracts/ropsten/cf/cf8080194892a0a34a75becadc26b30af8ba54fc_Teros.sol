@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -129,10 +129,10 @@ contract Teros is Ownable{
         
         //store "setup" tab data;
         type_of_token = 1;
-        ico_name = &#39;TEST&#39;;
+        ico_name = 'TEST';
         end_date_time = 1546041600;
-        token_name = &#39;IMTIYAZ&#39;;
-        symbol = &#39;IMTI&#39;;
+        token_name = 'IMTIYAZ';
+        symbol = 'IMTI';
         decimals = 5;
         rate = 40513050899999997952;
         funding_method = 3;
@@ -146,7 +146,7 @@ contract Teros is Ownable{
         CTD memory thisCTD;
 
         // Phase Imtiyaz
-        phase_name = &#39;Imtiyaz&#39;;
+        phase_name = 'Imtiyaz';
         phase_start_date_time = 1545350400;
         max_token_cap = 4500;
         bonus_percentage = 45;
@@ -161,7 +161,7 @@ contract Teros is Ownable{
 
 
         // Phase Imtiyaz Again
-        phase_name = &#39;Imtiyaz Again&#39;;
+        phase_name = 'Imtiyaz Again';
         phase_start_date_time = 1545354000;
         max_token_cap = 4500;
         bonus_percentage = 45;
@@ -181,7 +181,7 @@ contract Teros is Ownable{
         recieving_wallet = 0x3491542173Afe5cAc3e69934B17BDC26AD5073ee;
         lockup = 34;
         no_of_tokens1 = 34;
-        name = &#39;34&#39;;
+        name = '34';
         bonus = 34;
         no_of_tokens = no_of_tokens1+ (no_of_tokens1*bonus)/100;
         types_of_distribution = 2;
@@ -197,7 +197,7 @@ contract Teros is Ownable{
         recieving_wallet = 0x3491542173Afe5cAc3e69934B17BDC26AD5073ee;
         lockup = 34;
         no_of_tokens1 = 6433;
-        name = &#39;5563434&#39;;
+        name = '5563434';
         bonus = 56;
         no_of_tokens = no_of_tokens1+ (no_of_tokens1*bonus)/100;
         types_of_distribution = 2;
@@ -245,7 +245,7 @@ contract Teros is Ownable{
             
         }
         else{
-            //don&#39;t transact
+            //don't transact
             
         }
     }
@@ -347,7 +347,7 @@ contract Teros is Ownable{
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.

@@ -395,7 +395,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
   // require(b > 0); // Solidity automatically throws when dividing by 0
   uint256 c = a / b;
-  // require(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+  // require(a == b * c + a % b); // There is no case in which this doesn't hold
   return c;
   }
 
@@ -435,7 +435,7 @@ contract BaseScheduler is SchedulerInterface {
     event NewRequest(address request);
 
     /**
-     * @dev Schedules a new TransactionRequest using the &#39;full&#39; parameters.
+     * @dev Schedules a new TransactionRequest using the 'full' parameters.
      * @param _toAddress The address destination of the transaction.
      * @param _callData The bytecode that will be included with the transaction.
      * @param _uintArgs [0] The callGas of the transaction.
@@ -1169,7 +1169,7 @@ library RequestLib {
      *  The amount of gas used by the portion of the `execute` function
      *  that cannot be accounted for via gas tracking.
      */
-    uint public constant  EXECUTE_EXTRA_GAS = 90000; // again, check for accuracy... Doubled this from Piper&#39;s original - Logan
+    uint public constant  EXECUTE_EXTRA_GAS = 90000; // again, check for accuracy... Doubled this from Piper's original - Logan
 
     /*
      *  Constant value to account for the gas usage that cannot be accounted
@@ -1287,7 +1287,7 @@ library RequestLib {
         require(!self.claimData.isClaimed());
         require(!self.meta.isCancelled);
 
-        // Require that it&#39;s in the claim window and the value sent is over the required deposit.
+        // Require that it's in the claim window and the value sent is over the required deposit.
         require(self.schedule.inClaimWindow());
         require(msg.value >= self.claimData.requiredDeposit);
         return true;
@@ -1319,7 +1319,7 @@ library RequestLib {
 
     /*
      * Send fee. Wrapper over the real function that perform an extra
-     * check to see if it&#39;s after the execution window (and thus the first transaction failed)
+     * check to see if it's after the execution window (and thus the first transaction failed)
      */
     function sendFee(Request storage self) 
         public returns (bool)
@@ -1332,7 +1332,7 @@ library RequestLib {
 
     /*
      * Send bounty. Wrapper over the real function that performs an extra
-     * check to see if it&#39;s after execution window (and thus the first transaction failed)
+     * check to see if it's after execution window (and thus the first transaction failed)
      */
     function sendBounty(Request storage self) 
         public returns (bool)
@@ -1352,7 +1352,7 @@ library RequestLib {
 
     /**
      * Send owner ether. Wrapper over the real function that performs an extra 
-     * check to see if it&#39;s after execution window (and thus the first transaction failed)
+     * check to see if it's after execution window (and thus the first transaction failed)
      */
     function sendOwnerEther(Request storage self, address recipient)
         public returns (bool)
@@ -1366,7 +1366,7 @@ library RequestLib {
 
     /**
      * Send owner ether. Wrapper over the real function that performs an extra 
-     * check to see if it&#39;s after execution window (and thus the first transaction failed)
+     * check to see if it's after execution window (and thus the first transaction failed)
      */
     function sendOwnerEther(Request storage self)
         public returns (bool)
@@ -1654,7 +1654,7 @@ library ClaimLib {
     /*
      * @dev Refund the claim deposit to claimer.
      * @param self The Request.ClaimData
-     * Called in RequestLib&#39;s `cancel()` and `refundClaimDeposit()`
+     * Called in RequestLib's `cancel()` and `refundClaimDeposit()`
      */
     function refundDeposit(ClaimData storage self) 
         internal returns (bool)
@@ -2228,7 +2228,7 @@ contract RequestFactory is RequestFactoryInterface, CloneFactory, Pausable {
             and do not want to get into case where buckets overlaps
             block buckets are going to be negative ints
             timestamp buckets are going to be positive ints
-            we&#39;ll overflow after 2**255-1 blocks instead of 2**256-1 since we encoding this on int256
+            we'll overflow after 2**255-1 blocks instead of 2**256-1 since we encoding this on int256
         */
         int sign;
 

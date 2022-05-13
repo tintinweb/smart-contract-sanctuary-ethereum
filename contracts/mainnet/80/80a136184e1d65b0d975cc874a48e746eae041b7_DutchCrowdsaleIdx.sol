@@ -52,7 +52,7 @@ library Contract {
     last();
   }
 
-  bytes32 internal constant EXEC_PERMISSIONS = keccak256(&#39;script_exec_permissions&#39;);
+  bytes32 internal constant EXEC_PERMISSIONS = keccak256('script_exec_permissions');
 
   // Sets up contract execution - reads execution id and sender from storage and
   // places in memory, creating getters. Calling this function should be the first
@@ -148,10 +148,10 @@ library Contract {
   // Checks to ensure the application was correctly executed -
   function validState() private pure {
     if (freeMem() < 0x180)
-      revert(&#39;Expected Contract.execute()&#39;);
+      revert('Expected Contract.execute()');
 
     if (buffPtr() != 0 && buffPtr() < 0x180)
-      revert(&#39;Invalid buffer pointer&#39;);
+      revert('Invalid buffer pointer');
 
     assert(execID() != bytes32(0) && sender() != address(0));
   }
@@ -177,19 +177,19 @@ library Contract {
   // If the current action is not storing, reverts
   function isStoring() private pure {
     if (currentAction() != STORES)
-      revert(&#39;Invalid current action - expected STORES&#39;);
+      revert('Invalid current action - expected STORES');
   }
 
   // If the current action is not emitting, reverts
   function isEmitting() private pure {
     if (currentAction() != EMITS)
-      revert(&#39;Invalid current action - expected EMITS&#39;);
+      revert('Invalid current action - expected EMITS');
   }
 
   // If the current action is not paying, reverts
   function isPaying() private pure {
     if (currentAction() != PAYS)
-      revert(&#39;Invalid current action - expected PAYS&#39;);
+      revert('Invalid current action - expected PAYS');
   }
 
   // Initializes a storage buffer in memory -
@@ -203,7 +203,7 @@ library Contract {
       mstore(add(0x20, ptr), 0) // buffer length
       // Update free memory pointer -
       mstore(0x40, add(0x40, ptr))
-      // Set expected next function to &#39;NONE&#39; -
+      // Set expected next function to 'NONE' -
       mstore(0x100, 1)
     }
   }
@@ -214,10 +214,10 @@ library Contract {
     if (buffPtr() == bytes32(0))
       startBuffer();
 
-    // Ensure that the current action is not &#39;storing&#39;, and that the buffer has not already
+    // Ensure that the current action is not 'storing', and that the buffer has not already
     // completed a STORES action -
     if (stored() != 0 || currentAction() == STORES)
-      revert(&#39;Duplicate request - stores&#39;);
+      revert('Duplicate request - stores');
   }
 
   // Checks whether or not it is valid to create an EMITS action request -
@@ -226,10 +226,10 @@ library Contract {
     if (buffPtr() == bytes32(0))
       startBuffer();
 
-    // Ensure that the current action is not &#39;emitting&#39;, and that the buffer has not already
+    // Ensure that the current action is not 'emitting', and that the buffer has not already
     // completed an EMITS action -
     if (emitted() != 0 || currentAction() == EMITS)
-      revert(&#39;Duplicate request - emits&#39;);
+      revert('Duplicate request - emits');
   }
 
   // Checks whether or not it is valid to create a PAYS action request -
@@ -238,10 +238,10 @@ library Contract {
     if (buffPtr() == bytes32(0))
       startBuffer();
 
-    // Ensure that the current action is not &#39;paying&#39;, and that the buffer has not already
+    // Ensure that the current action is not 'paying', and that the buffer has not already
     // completed an PAYS action -
     if (paid() != 0 || currentAction() == PAYS)
-      revert(&#39;Duplicate request - pays&#39;);
+      revert('Duplicate request - pays');
   }
 
   // Placeholder function when no pre or post condition for a function is needed
@@ -272,10 +272,10 @@ library Contract {
 
   // Storing data, emitting events, and forwarding payments: //
 
-  bytes4 internal constant EMITS = bytes4(keccak256(&#39;Emit((bytes32[],bytes)[])&#39;));
-  bytes4 internal constant STORES = bytes4(keccak256(&#39;Store(bytes32[])&#39;));
-  bytes4 internal constant PAYS = bytes4(keccak256(&#39;Pay(bytes32[])&#39;));
-  bytes4 internal constant THROWS = bytes4(keccak256(&#39;Error(string)&#39;));
+  bytes4 internal constant EMITS = bytes4(keccak256('Emit((bytes32[],bytes)[])'));
+  bytes4 internal constant STORES = bytes4(keccak256('Store(bytes32[])'));
+  bytes4 internal constant PAYS = bytes4(keccak256('Pay(bytes32[])'));
+  bytes4 internal constant THROWS = bytes4(keccak256('Error(string)'));
 
   // Function enums -
   enum NextFunction {
@@ -286,7 +286,7 @@ library Contract {
   function validStoreDest() private pure {
     // Ensure that the next function expected pushes a storage destination -
     if (expected() != NextFunction.STORE_DEST)
-      revert(&#39;Unexpected function order - expected storage destination to be pushed&#39;);
+      revert('Unexpected function order - expected storage destination to be pushed');
 
     // Ensure that the current buffer is pushing STORES actions -
     isStoring();
@@ -299,7 +299,7 @@ library Contract {
       expected() != NextFunction.VAL_SET &&
       expected() != NextFunction.VAL_INC &&
       expected() != NextFunction.VAL_DEC
-    ) revert(&#39;Unexpected function order - expected storage value to be pushed&#39;);
+    ) revert('Unexpected function order - expected storage value to be pushed');
 
     // Ensure that the current buffer is pushing STORES actions -
     isStoring();
@@ -309,7 +309,7 @@ library Contract {
   function validPayDest() private pure {
     // Ensure that the next function expected pushes a payment destination -
     if (expected() != NextFunction.PAY_DEST)
-      revert(&#39;Unexpected function order - expected payment destination to be pushed&#39;);
+      revert('Unexpected function order - expected payment destination to be pushed');
 
     // Ensure that the current buffer is pushing PAYS actions -
     isPaying();
@@ -319,7 +319,7 @@ library Contract {
   function validPayAmt() private pure {
     // Ensure that the next function expected pushes a payment amount -
     if (expected() != NextFunction.PAY_AMT)
-      revert(&#39;Unexpected function order - expected payment amount to be pushed&#39;);
+      revert('Unexpected function order - expected payment amount to be pushed');
 
     // Ensure that the current buffer is pushing PAYS actions -
     isPaying();
@@ -329,7 +329,7 @@ library Contract {
   function validEvent() private pure {
     // Ensure that the next function expected pushes an event -
     if (expected() != NextFunction.EMIT_LOG)
-      revert(&#39;Unexpected function order - expected event to be pushed&#39;);
+      revert('Unexpected function order - expected event to be pushed');
 
     // Ensure that the current buffer is pushing EMITS actions -
     isEmitting();
@@ -342,9 +342,9 @@ library Contract {
     assembly {
       // Get pointer to buffer length -
       let ptr := add(0x20, mload(0xc0))
-      // Push requestor to the end of buffer, as well as to the &#39;current action&#39; slot -
+      // Push requestor to the end of buffer, as well as to the 'current action' slot -
       mstore(add(0x20, add(ptr, mload(ptr))), action_req)
-      // Push &#39;0&#39; to the end of the 4 bytes just pushed - this will be the length of the STORES action
+      // Push '0' to the end of the 4 bytes just pushed - this will be the length of the STORES action
       mstore(add(0x24, add(ptr, mload(ptr))), 0)
       // Increment buffer length - 0x24 plus the previous length
       mstore(ptr, add(0x24, mload(ptr)))
@@ -359,7 +359,7 @@ library Contract {
     setFreeMem();
   }
 
-  // Sets a passed in location to a value passed in via &#39;to&#39;
+  // Sets a passed in location to a value passed in via 'to'
   function set(bytes32 _field) conditions(validStoreDest, validStoreVal) internal pure returns (bytes32) {
     assembly {
       // Get pointer to buffer length -
@@ -477,7 +477,7 @@ library Contract {
     else if (expected() == NextFunction.VAL_DEC)
       _amt = uint(_val).sub(_amt);
     else
-      revert(&#39;Expected VAL_INC or VAL_DEC&#39;);
+      revert('Expected VAL_INC or VAL_DEC');
 
     assembly {
       // Get pointer to buffer length -
@@ -503,7 +503,7 @@ library Contract {
       else
         _amt = uint(_val).sub(_amt);
     } else {
-      revert(&#39;Expected VAL_DEC&#39;);
+      revert('Expected VAL_DEC');
     }
 
     assembly {
@@ -527,9 +527,9 @@ library Contract {
     assembly {
       // Get pointer to buffer length -
       let ptr := add(0x20, mload(0xc0))
-      // Push requestor to the end of buffer, as well as to the &#39;current action&#39; slot -
+      // Push requestor to the end of buffer, as well as to the 'current action' slot -
       mstore(add(0x20, add(ptr, mload(ptr))), action_req)
-      // Push &#39;0&#39; to the end of the 4 bytes just pushed - this will be the length of the EMITS action
+      // Push '0' to the end of the 4 bytes just pushed - this will be the length of the EMITS action
       mstore(add(0x24, add(ptr, mload(ptr))), 0)
       // Increment buffer length - 0x24 plus the previous length
       mstore(ptr, add(0x24, mload(ptr)))
@@ -730,9 +730,9 @@ library Contract {
     assembly {
       // Get pointer to buffer length -
       let ptr := add(0x20, mload(0xc0))
-      // Push requestor to the end of buffer, as well as to the &#39;current action&#39; slot -
+      // Push requestor to the end of buffer, as well as to the 'current action' slot -
       mstore(add(0x20, add(ptr, mload(ptr))), action_req)
-      // Push &#39;0&#39; to the end of the 4 bytes just pushed - this will be the length of the PAYS action
+      // Push '0' to the end of the 4 bytes just pushed - this will be the length of the PAYS action
       mstore(add(0x24, add(ptr, mload(ptr))), 0)
       // Increment buffer length - 0x24 plus the previous length
       mstore(ptr, add(0x24, mload(ptr)))
@@ -851,9 +851,9 @@ library DutchCrowdsaleIdx {
   using SafeMath for uint;
   using ArrayUtils for bytes32[];
 
-  bytes32 internal constant EXEC_PERMISSIONS = keccak256(&#39;script_exec_permissions&#39;);
+  bytes32 internal constant EXEC_PERMISSIONS = keccak256('script_exec_permissions');
 
-  // Returns the storage location of a script execution address&#39;s permissions -
+  // Returns the storage location of a script execution address's permissions -
   function execPermissions(address _exec) internal pure returns (bytes32)
     { return keccak256(_exec, EXEC_PERMISSIONS); }
 
@@ -861,7 +861,7 @@ library DutchCrowdsaleIdx {
 
   // Storage location of crowdsale admin address
   function admin() internal pure returns (bytes32)
-    { return keccak256(&#39;sale_admin&#39;); }
+    { return keccak256('sale_admin'); }
 
   // Whether the crowdsale and token are configured, and the sale is ready to run
   function isConfigured() internal pure returns (bytes32)
@@ -875,7 +875,7 @@ library DutchCrowdsaleIdx {
   function burnExcess() internal pure returns (bytes32)
     { return keccak256("burn_excess_unsold"); }
 
-  // Storage location of the crowdsale&#39;s start time
+  // Storage location of the crowdsale's start time
   function startTime() internal pure returns (bytes32)
     { return keccak256("sale_start_time"); }
 
@@ -887,15 +887,15 @@ library DutchCrowdsaleIdx {
   function tokensRemaining() internal pure returns (bytes32)
     { return keccak256("sale_tokens_remaining"); }
 
-  // Returns the storage location of crowdsale&#39;s max number of tokens to sell
+  // Returns the storage location of crowdsale's max number of tokens to sell
   function maxSellCap() internal pure returns (bytes32)
     { return keccak256("token_sell_cap"); }
 
-  // Returns the storage location of crowdsale&#39;s starting sale rate
+  // Returns the storage location of crowdsale's starting sale rate
   function startRate() internal pure returns (bytes32)
     { return keccak256("sale_start_rate"); }
 
-  // Returns the storage location of crowdsale&#39;s ending sale rate
+  // Returns the storage location of crowdsale's ending sale rate
   function endRate() internal pure returns (bytes32)
     { return keccak256("sale_end_rate"); }
 
@@ -929,17 +929,17 @@ library DutchCrowdsaleIdx {
 
   // Whether or not the sale is whitelist-enabled
   function isWhitelisted() internal pure returns (bytes32)
-    { return keccak256(&#39;sale_is_whitelisted&#39;); }
+    { return keccak256('sale_is_whitelisted'); }
 
-  // Stores the sale&#39;s whitelist
+  // Stores the sale's whitelist
   function saleWhitelist() internal pure returns (bytes32)
     { return keccak256("sale_whitelist"); }
 
-  // Stores a spender&#39;s maximum number of tokens allowed to be purchased
+  // Stores a spender's maximum number of tokens allowed to be purchased
   function whitelistMaxTok(address _spender) internal pure returns (bytes32)
     { return keccak256(_spender, "max_tok", saleWhitelist()); }
 
-  // Stores a spender&#39;s minimum token purchase amount
+  // Stores a spender's minimum token purchase amount
   function whitelistMinTok(address _spender) internal pure returns (bytes32)
     { return keccak256(_spender, "min_tok", saleWhitelist()); }
 
@@ -973,7 +973,7 @@ library DutchCrowdsaleIdx {
   function allowed(address _owner, address _spender) internal pure returns (bytes32)
     { return keccak256(_spender, keccak256(_owner, TOKEN_ALLOWANCES)); }
 
-  // Storage seed for token &#39;transfer agent&#39; status for any address
+  // Storage seed for token 'transfer agent' status for any address
   // Transfer agents can transfer tokens, even if the crowdsale has not yet been finalized
   bytes32 internal constant TOKEN_TRANSFER_AGENTS = keccak256("token_transfer_agents");
 
@@ -983,7 +983,7 @@ library DutchCrowdsaleIdx {
   /// INIT FUNCTION ///
 
   /*
-  Creates a crowdsale with initial conditions. The admin should now configure the crowdsale&#39;s token.
+  Creates a crowdsale with initial conditions. The admin should now configure the crowdsale's token.
 
   @param _wallet: The team funds wallet, where crowdsale purchases are forwarded
   @param _total_supply: The total supply of the token that will exist
@@ -1118,7 +1118,7 @@ library DutchCrowdsaleIdx {
     uint current_rate;
     (current_rate, ) = getRateAndTimeRemaining(values_arr[0], values_arr[2], values_arr[1], values_arr[3]);
 
-    // If the current rate and tokens remaining cannot be purchased using 1 wei, return &#39;true&#39; for is_crowdsale_full
+    // If the current rate and tokens remaining cannot be purchased using 1 wei, return 'true' for is_crowdsale_full
     if (current_rate.mul(num_remaining).div(10 ** values_arr[4]) == 0)
       return (true, max_sellable);
   }
@@ -1252,8 +1252,8 @@ library DutchCrowdsaleIdx {
 
   @param _storage: The address where application storage is located
   @param _exec_id: The application execution id under which storage for this instance is located
-  @return num_whitelisted: The length of the sale&#39;s whitelist
-  @return whitelist: The sale&#39;s whitelisted addresses
+  @return num_whitelisted: The length of the sale's whitelist
+  @return whitelist: The sale's whitelisted addresses
   */
   function getCrowdsaleWhitelist(address _storage, bytes32 _exec_id) external view returns (uint num_whitelisted, address[] whitelist) {
     // Read whitelist length from storage
@@ -1279,7 +1279,7 @@ library DutchCrowdsaleIdx {
   function balanceOf(address _storage, bytes32 _exec_id, address _owner) external view returns (uint)
     { return uint(GetterInterface(_storage).read(_exec_id, balances(_owner))); }
 
-  // Returns the amount of tokens a spender may spend on an owner&#39;s behalf
+  // Returns the amount of tokens a spender may spend on an owner's behalf
   function allowance(address _storage, bytes32 _exec_id, address _owner, address _spender) external view returns (uint)
     { return uint(GetterInterface(_storage).read(_exec_id, allowed(_owner, _spender))); }
 
@@ -1291,11 +1291,11 @@ library DutchCrowdsaleIdx {
   function totalSupply(address _storage, bytes32 _exec_id) external view returns (uint)
     { return uint(GetterInterface(_storage).read(_exec_id, tokenTotalSupply())); }
 
-  // Returns the token&#39;s name
+  // Returns the token's name
   function name(address _storage, bytes32 _exec_id) external view returns (bytes32)
     { return GetterInterface(_storage).read(_exec_id, tokenName()); }
 
-  // Returns token&#39;s symbol
+  // Returns token's symbol
   function symbol(address _storage, bytes32 _exec_id) external view returns (bytes32)
     { return GetterInterface(_storage).read(_exec_id, tokenSymbol()); }
 

@@ -61,7 +61,7 @@ contract StandardToken is Token {
     string messageString = "[Welcome to the ZerroXBToken-2 Project 0xbt.net]";
 
     function transfer(address _to, uint _value) returns (bool) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[msg.sender] >= _value && balances[_to] + _value >= balances[_to]) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;
@@ -72,7 +72,7 @@ contract StandardToken is Token {
     }
     
     function transfer_data(address _to, uint _value, string _data) returns (bool) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[msg.sender] >= _value && balances[_to] + _value >= balances[_to]) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;

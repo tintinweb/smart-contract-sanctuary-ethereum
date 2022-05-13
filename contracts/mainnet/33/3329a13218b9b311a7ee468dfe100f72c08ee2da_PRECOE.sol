@@ -351,7 +351,7 @@ contract PRECOE {
         scheduleRates[_level] = _rate;
     }
 
-    // not really needed as we fix the max tiers on contract creation but just for completeness&#39; sake we&#39;ll call this
+    // not really needed as we fix the max tiers on contract creation but just for completeness' sake we'll call this
     // when all tiers have been added to the contract (not possible to deploy with all of them)
     function closeTierAddition() public {
         require(msg.sender == owner);
@@ -368,7 +368,7 @@ contract PRECOE {
     function div(uint256 a, uint256 b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

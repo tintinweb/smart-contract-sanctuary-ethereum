@@ -15,7 +15,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -266,7 +266,7 @@ contract ERC777Helper is ERC777Token, ERC20Token, ERC820Implementer {
 
     /**
      * @notice Internal function that ensures `_amount` is multiple of the granularity
-     * @param _amount The quantity that want&#39;s to be checked
+     * @param _amount The quantity that want's to be checked
      */
     function requireMultiple(uint256 _amount) internal view {
         require(_amount.div(mGranularity).mul(mGranularity) == _amount);
@@ -436,7 +436,7 @@ contract ERC20TokenCompat is ERC777Helper, Owned {
      * @notice ERC20 backwards compatible transfer.
      * @param _to The address of the recipient
      * @param _amount The number of tokens to be transferred
-     * @return `true`, if the transfer can&#39;t be done, it should fail.
+     * @return `true`, if the transfer can't be done, it should fail.
      */
     function transfer(address _to, uint256 _amount) public erc20 returns (bool success) {
         doSend(msg.sender, _to, _amount, "", msg.sender, "", false);
@@ -448,7 +448,7 @@ contract ERC20TokenCompat is ERC777Helper, Owned {
      * @param _from The address holding the tokens being transferred
      * @param _to The address of the recipient
      * @param _amount The number of tokens to be transferred
-     * @return `true`, if the transfer can&#39;t be done, it should fail.
+     * @return `true`, if the transfer can't be done, it should fail.
      */
     function transferFrom(address _from, address _to, uint256 _amount) public erc20 returns (bool success) {
         require(_amount <= mAllowed[_from][msg.sender]);
@@ -464,7 +464,7 @@ contract ERC20TokenCompat is ERC777Helper, Owned {
      *  `msg.sender` approves `_spender` to spend `_amount` tokens on its behalf.
      * @param _spender The address of the account able to transfer the tokens
      * @param _amount The number of tokens to be approved for transfer
-     * @return `true`, if the approve can&#39;t be done, it should fail.
+     * @return `true`, if the approve can't be done, it should fail.
      */
     function approve(address _spender, uint256 _amount) public erc20 returns (bool success) {
         mAllowed[msg.sender][_spender] = _amount;
@@ -569,7 +569,7 @@ contract ERC777StandardToken is ERC777Helper, Owned {
     }
 
     /**
-     * @notice Authorize a third party `_operator` to manage (send) `msg.sender`&#39;s tokens.
+     * @notice Authorize a third party `_operator` to manage (send) `msg.sender`'s tokens.
      * @param _operator The operator that wants to be Authorized
      */
     function authorizeOperator(address _operator) public {
@@ -579,7 +579,7 @@ contract ERC777StandardToken is ERC777Helper, Owned {
     }
 
     /**
-     * @notice Revoke a third party `_operator`&#39;s rights to manage (send) `msg.sender`&#39;s tokens.
+     * @notice Revoke a third party `_operator`'s rights to manage (send) `msg.sender`'s tokens.
      * @param _operator The operator that wants to be Revoked
      */
     function revokeOperator(address _operator) public {
@@ -738,7 +738,7 @@ contract SafeGuard is Owned {
 
     /**
      * @dev call has been separated into its own function in order to take advantage
-     *  of the Solidity&#39;s code generator to produce a loop that copies tx.data into memory.
+     *  of the Solidity's code generator to produce a loop that copies tx.data into memory.
      */
     function externalCall(address destination, uint value, uint dataLength, bytes data)
     private
@@ -1055,7 +1055,7 @@ contract CALL is ERC820Implementer, ERC777StandardToken, ERC20TokenCompat, ERC20
      * @param _from The address holding the tokens being transferred
      * @param _to The address of the recipient
      * @param _amount The number of tokens to be transferred
-     * @return `true`, if the transfer can&#39;t be done, it should fail.
+     * @return `true`, if the transfer can't be done, it should fail.
      */
     function transferFrom(address _from, address _to, uint256 _amount) public erc20 returns (bool success) {
         uint256 allowance = balancesDB.getAllowance(_from, msg.sender);
@@ -1072,7 +1072,7 @@ contract CALL is ERC820Implementer, ERC777StandardToken, ERC20TokenCompat, ERC20
      *  `msg.sender` approves `_spender` to spend `_amount` tokens on its behalf.
      * @param _spender The address of the account able to transfer the tokens
      * @param _amount The number of tokens to be approved for transfer
-     * @return `true`, if the approve can&#39;t be done, it should fail.
+     * @return `true`, if the approve can't be done, it should fail.
      */
     function approve(address _spender, uint256 _amount) public erc20 returns (bool success) {
         require(balancesDB.setApprove(msg.sender, _spender, _amount));
@@ -1109,7 +1109,7 @@ contract CALL is ERC820Implementer, ERC777StandardToken, ERC20TokenCompat, ERC20
     }
 
     /**
-         * @notice Authorize a third party `_operator` to manage (send) `msg.sender`&#39;s tokens at remote database.
+         * @notice Authorize a third party `_operator` to manage (send) `msg.sender`'s tokens at remote database.
          * @param _operator The operator that wants to be Authorized
          */
     function authorizeOperator(address _operator) public {
@@ -1119,7 +1119,7 @@ contract CALL is ERC820Implementer, ERC777StandardToken, ERC20TokenCompat, ERC20
     }
 
     /**
-     * @notice Revoke a third party `_operator`&#39;s rights to manage (send) `msg.sender`&#39;s tokens at remote database.
+     * @notice Revoke a third party `_operator`'s rights to manage (send) `msg.sender`'s tokens at remote database.
      * @param _operator The operator that wants to be Revoked
      */
     function revokeOperator(address _operator) public {

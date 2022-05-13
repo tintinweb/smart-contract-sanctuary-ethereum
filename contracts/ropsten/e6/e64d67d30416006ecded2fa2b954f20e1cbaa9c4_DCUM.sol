@@ -19,19 +19,19 @@ pragma solidity ^0.4.24;
  * 
  *                ,,))))))));,
  *             __)))))))))))))),
- *  \|/       -\(((((&#39;&#39;&#39;&#39;((((((((.
- *  -*-==//////((&#39;&#39;  .     `)))))),
- *  /|\      ))| o    ;-.    &#39;(((((                                  ,(,
- *           ( `|    /  )    ;))))&#39;                               ,_))^;(~
- *              |   |   |   ,))((((_     _____------~~~-.        %,;(;(>&#39;;&#39;~
- *              o_);   ;    )))(((` ~---~  `::           \      %%~~)(v;(`(&#39;~
- *                    ;    &#39;&#39;&#39;&#39;````         `:       `:::|\,__,%%    );`&#39;; ~
- *                   |   _                )     /      `:|`----&#39;     `-&#39;
+ *  \|/       -\(((((''''((((((((.
+ *  -*-==//////((''  .     `)))))),
+ *  /|\      ))| o    ;-.    '(((((                                  ,(,
+ *           ( `|    /  )    ;))))'                               ,_))^;(~
+ *              |   |   |   ,))((((_     _____------~~~-.        %,;(;(>';'~
+ *              o_);   ;    )))(((` ~---~  `::           \      %%~~)(v;(`('~
+ *                    ;    ''''````         `:       `:::|\,__,%%    );`'; ~
+ *                   |   _                )     /      `:|`----'     `-'
  *             ______/\/~    |                 /        /
- *           /~;;.____/;;&#39;  /          ___--,-(   `;;;/
- *          / //  _;______;&#39;------~~~~~    /;;/\    /
+ *           /~;;.____/;;'  /          ___--,-(   `;;;/
+ *          / //  _;______;'------~~~~~    /;;/\    /
  *         //  | |                        / ;   \;;,\
- *        (<_  | ;                      /&#39;,/-----&#39;  _>
+ *        (<_  | ;                      /',/-----'  _>
  *         \_| ||_                     //~;~~~~~~~~~
  *             `\_|                   (,~~  
  *                                     \~\
@@ -73,7 +73,7 @@ pragma solidity ^0.4.24;
  * The tokens collect dividends, which in turn pay into the payout pool
  * to be split 50/50.
  * 
- * If your seeing this contract in it&#39;s initial configuration, it should be
+ * If your seeing this contract in it's initial configuration, it should be
  * set to 150%, and pointed at PoWH:
  * 0xB3775fB83F7D12A36E0475aBdD1FCA35c091efBe
  * 
@@ -248,7 +248,7 @@ contract DCUM is Owned {
             uint payoutToSend = balance < participants[payoutOrder].payout ? balance : participants[payoutOrder].payout;
             //if we have something to pay them
             if(payoutToSend > 0){
-                //subtract how much we&#39;ve spent
+                //subtract how much we've spent
                 balance -= payoutToSend;
                 //subtract the amount paid from the amount owed
                 backlog -= payoutToSend;
@@ -256,7 +256,7 @@ contract DCUM is Owned {
                 creditRemaining[participants[payoutOrder].etherAddress] -= payoutToSend;
                 //credit their account the amount they are being paid
                 participants[payoutOrder].payout -= payoutToSend;
-                //Try and pay them, making best effort. But if we fail? Run out of gas? That&#39;s not our problem any more.
+                //Try and pay them, making best effort. But if we fail? Run out of gas? That's not our problem any more.
                 if(participants[payoutOrder].etherAddress.call.value(payoutToSend).gas(1000000)()){
                     //Record that they were paid
                     emit Payout(payoutToSend, participants[payoutOrder].etherAddress);
@@ -274,7 +274,7 @@ contract DCUM is Owned {
                 // go to the next person in line
                 payoutOrder += 1;
             }
-            //If we&#39;ve run out of people to pay, stop
+            //If we've run out of people to pay, stop
             if(payoutOrder >= participants.length){
                 return;
             }

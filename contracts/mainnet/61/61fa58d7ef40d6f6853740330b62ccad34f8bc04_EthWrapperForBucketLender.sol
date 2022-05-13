@@ -118,8 +118,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -136,7 +136,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -725,7 +725,7 @@ contract Vault is StaticAccessControlled
         view
     {
         // The actual balance could be greater than totalBalances[token] because anyone
-        // can send tokens to the contract&#39;s address which cannot be accounted for
+        // can send tokens to the contract's address which cannot be accounted for
         assert(TokenInteract.balanceOf(token, address(this)) >= totalBalances[token]);
     }
 }
@@ -913,7 +913,7 @@ library FractionMath {
     }
 
     /**
-     * Returns a fraction from two uint256&#39;s. Fits them into uint128 if necessary.
+     * Returns a fraction from two uint256's. Fits them into uint128 if necessary.
      *
      * @param  num  The numerator
      * @param  den  The denominator
@@ -3523,8 +3523,8 @@ library BorrowShared {
         // Move owedTokens from lender to exchange wrapper
         pullOwedTokensFromLender(state, transaction);
 
-        // Sell just the lender&#39;s owedToken (if trader deposit is in heldToken)
-        // Otherwise sell both the lender&#39;s owedToken and the trader&#39;s deposit in owedToken
+        // Sell just the lender's owedToken (if trader deposit is in heldToken)
+        // Otherwise sell both the lender's owedToken and the trader's deposit in owedToken
         uint256 sellAmount = transaction.depositInHeldToken ?
             transaction.lenderAmount :
             transaction.lenderAmount.add(transaction.depositAmount);
@@ -4087,7 +4087,7 @@ library IncreasePositionImpl {
             "IncreasePositionImpl#validateIncrease: Loan callTimeLimit is less than the position"
         );
 
-        // require the position to end no later than the loanOffering&#39;s maximum acceptable end time
+        // require the position to end no later than the loanOffering's maximum acceptable end time
         uint256 positionEndTimestamp = uint256(position.startTimestamp).add(position.maxDuration);
         uint256 offeringEndTimestamp = block.timestamp.add(transaction.loanOffering.maxDuration);
         require(
@@ -4886,7 +4886,7 @@ contract MarginAdmin is Ownable {
  * Contains events for the Margin contract.
  *
  * NOTE: Any Margin function libraries that use events will need to both define the event here
- *       and copy the event into the library itself as libraries don&#39;t support sharing events
+ *       and copy the event into the library itself as libraries don't support sharing events
  */
 contract MarginEvents {
     // ============ Events ============
@@ -5694,7 +5694,7 @@ contract PositionGetters is MarginStorage {
 
     /**
      * Get a Position by id. This does not validate the position exists. If the position does not
-     * exist, all 0&#39;s will be returned.
+     * exist, all 0's will be returned.
      *
      * @param  positionId  Unique ID of the position
      * @return             Addresses corresponding to:
@@ -5912,7 +5912,7 @@ library TransferImpl {
             "TransferImpl#transferLoanImpl: Cannot transfer ownership to self"
         );
 
-        // Doesn&#39;t change the state of positionId; figures out the final owner of loan.
+        // Doesn't change the state of positionId; figures out the final owner of loan.
         // That is, newLender may pass ownership to a different address.
         address finalLender = TransferInternal.grantLoanOwnership(
             positionId,
@@ -5951,7 +5951,7 @@ library TransferImpl {
             "TransferImpl#transferPositionImpl: Cannot transfer ownership to self"
         );
 
-        // Doesn&#39;t change the state of positionId; figures out the final owner of position.
+        // Doesn't change the state of positionId; figures out the final owner of position.
         // That is, newOwner may pass ownership to a different address.
         address finalOwner = TransferInternal.grantPositionOwnership(
             positionId,
@@ -6412,7 +6412,7 @@ contract Margin is
     }
 
     /**
-     * Cancel an amount of a loan offering. Only callable by the loan offering&#39;s payer.
+     * Cancel an amount of a loan offering. Only callable by the loan offering's payer.
      *
      * @param  addresses     Array of addresses:
      *
@@ -6712,22 +6712,22 @@ library MarginHelper {
  *   - Outstanding Principal
  *     - The amount of principal that the bucket is responsible for in the margin position
  *   - Weight
- *     - Used to keep track of each account&#39;s weighted ownership within a bucket
+ *     - Used to keep track of each account's weighted ownership within a bucket
  *     - Relative weight between buckets is meaningless
- *     - Only accounts&#39; relative weight within a bucket matters
+ *     - Only accounts' relative weight within a bucket matters
  *
  * - Token Deposits:
  *   - Go into a particular bucket, determined by time since the start of the position
  *     - If the position has not started: bucket = 0
  *     - If the position has started:     bucket = ceiling(time_since_start / BUCKET_TIME)
  *     - This is always the highest bucket; no higher bucket yet exists
- *   - Increase the bucket&#39;s Available Amount
- *   - Increase the bucket&#39;s weight and the account&#39;s weight in that bucket
+ *   - Increase the bucket's Available Amount
+ *   - Increase the bucket's weight and the account's weight in that bucket
  *
  * - Token Withdrawals:
  *   - Can be from any bucket with available amount
- *   - Decrease the bucket&#39;s Available Amount
- *   - Decrease the bucket&#39;s weight and the account&#39;s weight in that bucket
+ *   - Decrease the bucket's Available Amount
+ *   - Decrease the bucket's weight and the account's weight in that bucket
  *
  * - Increasing the Position (Lending):
  *   - The lowest buckets with Available Amount are used first
@@ -6822,7 +6822,7 @@ contract BucketLender is
     uint256 public availableTotal;
 
     /**
-     * Outstanding Principal is the share of the margin position&#39;s principal that each bucket
+     * Outstanding Principal is the share of the margin position's principal that each bucket
      * is responsible for. That is, each bucket with Outstanding Principal is owed
      * (Outstanding Principal)*E^(RT) owedTokens in repayment.
      */
@@ -6833,10 +6833,10 @@ contract BucketLender is
     uint256 public principalTotal;
 
     /**
-     * Weight determines an account&#39;s proportional share of a bucket. Relative weights have no
+     * Weight determines an account's proportional share of a bucket. Relative weights have no
      * meaning if they are not for the same bucket. Likewise, the relative weight of two buckets has
      * no meaning. However, the relative weight of two accounts within the same bucket is equal to
-     * the accounts&#39; shares in the bucket and are therefore proportional to the payout that they
+     * the accounts' shares in the bucket and are therefore proportional to the payout that they
      * should expect from withdrawing from that bucket.
      */
     // Weight for each account in each bucket
@@ -7365,11 +7365,11 @@ contract BucketLender is
      * Allows users to withdraw their lent funds. An account can withdraw its weighted share of the
      * bucket.
      *
-     * While the position is open, a bucket&#39;s share is equal to:
+     * While the position is open, a bucket's share is equal to:
      *   Owed Token: (Available Amount) + (Outstanding Principal) * (1 + interest)
      *   Held Token: 0
      *
-     * After the position is closed, a bucket&#39;s share is equal to:
+     * After the position is closed, a bucket's share is equal to:
      *   Owed Token: (Available Amount)
      *   Held Token: (Held Token Balance) * (Outstanding Principal) / (Total Outstanding Principal)
      *
@@ -7546,7 +7546,7 @@ contract BucketLender is
             uint32(block.timestamp)
         );
 
-        // return the bucket&#39;s share
+        // return the bucket's share
         return MathHelpers.getPartialAmount(
             lentPrincipal,
             principalTotal,
@@ -7583,7 +7583,7 @@ contract BucketLender is
     function rebalanceBucketsInternal()
         private
     {
-        // if force-closed, don&#39;t update the outstanding principal values; they are needed to repay
+        // if force-closed, don't update the outstanding principal values; they are needed to repay
         // lenders with heldToken
         if (wasForceClosed) {
             return;
@@ -7733,7 +7733,7 @@ contract BucketLender is
         private
         returns (uint256, uint256)
     {
-        // calculate the user&#39;s share
+        // calculate the user's share
         uint256 bucketWeight = weightForBucket[bucket];
         if (bucketWeight == 0) {
             return (0, 0);
@@ -7832,7 +7832,7 @@ contract BucketLender is
             return 0;
         }
 
-        // user&#39;s principal for the bucket
+        // user's principal for the bucket
         uint256 principalForBucketForAccount = MathHelpers.getPartialAmount(
             userWeight,
             bucketWeight,
@@ -7862,7 +7862,7 @@ contract BucketLender is
     )
         private
     {
-        // don&#39;t spend the gas to sstore unless we need to change the value
+        // don't spend the gas to sstore unless we need to change the value
         if (criticalBucket == bucket) {
             return;
         }

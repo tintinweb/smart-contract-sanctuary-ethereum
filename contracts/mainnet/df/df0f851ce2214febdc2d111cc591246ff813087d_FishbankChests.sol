@@ -232,7 +232,7 @@ contract FishbankBoosters is Ownable {
     }
 
     //ERC721 functionality
-    //could split this to a different contract but doesn&#39;t make it easier to read
+    //could split this to a different contract but doesn't make it easier to read
     event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
 
@@ -422,7 +422,7 @@ contract FishbankChests is Ownable {
     }
 
     //ERC721 functionality
-    //could split this to a different contract but doesn&#39;t make it easier to read
+    //could split this to a different contract but doesn't make it easier to read
     event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
 
@@ -715,7 +715,7 @@ contract ERC721Auction is Beneficiary {
 
         if (!ERC721Contract.transfer(msg.sender, _tokenId)) {
             revert();
-            //can&#39;t complete transfer if this fails
+            //can't complete transfer if this fails
         }
 
         AuctionWon(_tokenId, msg.sender, auction.seller, price);
@@ -995,7 +995,7 @@ contract Fishbank is ChestsStore {
 
         newAttempt.fisher = msg.sender;
         newAttempt.feePaid = aquariumCost;
-        //set the fee paid so it can be returned if the hash doesn&#39;t get resolved fast enough
+        //set the fee paid so it can be returned if the hash doesn't get resolved fast enough
         newAttempt.seed = _seed;
         //sets the seed that gets combined with the random seed of the owner
         newAttempt.deadline = uint64(now + resolveTime);
@@ -1242,7 +1242,7 @@ contract Fishbank is ChestsStore {
 
 
     //ERC721 functionality
-    //could split this to a different contract but doesn&#39;t make it easier to read
+    //could split this to a different contract but doesn't make it easier to read
     event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
 

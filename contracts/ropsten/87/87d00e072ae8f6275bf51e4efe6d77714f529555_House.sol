@@ -14,7 +14,7 @@ contract SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         assert(b != 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -403,7 +403,7 @@ contract House is SafeMath, Owned {
     function increaseWager(uint betId, uint forecast, uint256 additionalWager, string memory createdBy) public {
         require(additionalWager>0,"Increase wager amount should be greater than zero");
         require(balance[msg.sender]>=additionalWager,"Not enough balance");
-        require(playerBetForecastWager[msg.sender][betId][forecast] > 0,"Haven&#39;t placed any bet for this forecast. Use callBet instead");
+        require(playerBetForecastWager[msg.sender][betId][forecast] > 0,"Haven't placed any bet for this forecast. Use callBet instead");
         require(bets[betId].betType != BetType.headtohead || betTotalBets[betId] == 1,"Head to head bet has been already called");
         uint256 wager = playerBetForecastWager[msg.sender][betId][forecast] + additionalWager;
         require(bets[betId].maximumWager==0 || wager<=bets[betId].maximumWager,"The updated wager is higher then the maximum accepted");
@@ -437,7 +437,7 @@ contract House is SafeMath, Owned {
      * Remove a Bet
      */
     function removeBet(uint betId, string memory createdBy) public {
-        require(bets[betId].createdBy == msg.sender,"Caller and player created don&#39;t match");
+        require(bets[betId].createdBy == msg.sender,"Caller and player created don't match");
         require(playerBetTotalBets[msg.sender][betId] > 0, "Player should has placed at least one bet");
         require(betTotalBets[betId] == playerBetTotalBets[msg.sender][betId],"The bet has been called by other player");
         updateBetDataFromOracle(betId);  
@@ -461,11 +461,11 @@ contract House is SafeMath, Owned {
      * Refute a Bet
      */
     function refuteBet(uint betId, string memory createdBy) public {
-        require(playerBetTotalAmount[msg.sender][betId]>0,"Caller hasn&#39;t placed any bet");
+        require(playerBetTotalAmount[msg.sender][betId]>0,"Caller hasn't placed any bet");
         require(!playerBetRefuted[msg.sender][betId],"Already refuted");
         updateBetDataFromOracle(betId);  
-        require(bets[betId].isOutcomeSet, "Refute isn&#39;t allowed when no outcome has been set");
-        require(bets[betId].freezeDateTime > now, "Refute isn&#39;t allowed when Event freeze has passed");
+        require(bets[betId].isOutcomeSet, "Refute isn't allowed when no outcome has been set");
+        require(bets[betId].freezeDateTime > now, "Refute isn't allowed when Event freeze has passed");
         playerBetRefuted[msg.sender][betId] = true;
         betRefutedAmount[betId] += playerBetTotalAmount[msg.sender][betId];
         if (betRefutedAmount[betId] >= betTotalAmount[betId]) {
@@ -478,7 +478,7 @@ contract House is SafeMath, Owned {
      * Calculates bet outcome for player
      */
     function calculateBetOutcome(uint betId, bool isCancelled, uint forecast) public view returns (uint256 betOutcome) {
-        require(playerBetTotalAmount[msg.sender][betId]>0, "Caller hasn&#39;t placed any bet");
+        require(playerBetTotalAmount[msg.sender][betId]>0, "Caller hasn't placed any bet");
         if (isCancelled) {
             return playerBetTotalAmount[msg.sender][betId];            
         } else {
@@ -495,7 +495,7 @@ contract House is SafeMath, Owned {
      * Settle a Bet
      */
     function settleBet(uint betId, string memory createdBy) public {
-        require(playerBetTotalAmount[msg.sender][betId]>0, "Caller hasn&#39;t placed any bet");
+        require(playerBetTotalAmount[msg.sender][betId]>0, "Caller hasn't placed any bet");
         require(!playerBetSettled[msg.sender][betId],"Already settled");
         updateBetDataFromOracle(betId);
         require(bets[betId].isCancelled || bets[betId].isOutcomeSet,"Bet should be cancelled or has an outcome");
@@ -587,7 +587,7 @@ contract House is SafeMath, Owned {
 
 
     function withdraw(uint256 amount) public {
-        require(address(this).balance>=amount,"Insufficient House balance. Shouldn&#39;t have happened");
+        require(address(this).balance>=amount,"Insufficient House balance. Shouldn't have happened");
         require(balance[msg.sender]>=amount,"Insufficient balance");
         balance[msg.sender] = sub(balance[msg.sender],amount);
         msg.sender.transfer(amount);

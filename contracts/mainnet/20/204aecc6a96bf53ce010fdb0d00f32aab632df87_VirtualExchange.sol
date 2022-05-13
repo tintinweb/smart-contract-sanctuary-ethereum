@@ -252,7 +252,7 @@ pragma solidity ^0.4.18;
 	        uint tokens = msg.value * 10**18 / price();
 	
 
-	        // Total tokens should be more than user want&#39;s to buy
+	        // Total tokens should be more than user want's to buy
 	        require(balances[owner]>tokens);
 	
 
@@ -435,7 +435,7 @@ pragma solidity ^0.4.18;
 	
 
 	    /**
-	     * Just being sent some cash? Let&#39;s buy tokens
+	     * Just being sent some cash? Let's buy tokens
 	     */
 	    function() payable {
 	        buy();

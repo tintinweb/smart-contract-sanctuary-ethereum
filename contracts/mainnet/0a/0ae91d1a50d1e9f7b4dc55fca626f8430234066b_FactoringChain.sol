@@ -4,12 +4,12 @@ pragma solidity ^0.4.21;
 // ----------------------------------------------------------------------------
 contract Owned {
     
-    /// &#39;owner&#39; is the only address that can call a function with 
+    /// 'owner' is the only address that can call a function with 
     /// this modifier
     address public owner;
     address internal newOwner;
     
-    ///@notice The constructor assigns the message sender to be &#39;owner&#39;
+    ///@notice The constructor assigns the message sender to be 'owner'
     function Owned() public {
         owner = msg.sender;
     }
@@ -50,7 +50,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

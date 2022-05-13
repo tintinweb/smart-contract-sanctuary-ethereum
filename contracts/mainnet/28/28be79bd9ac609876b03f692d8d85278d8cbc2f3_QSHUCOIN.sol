@@ -47,7 +47,7 @@ library SafeMath {
      
      /**
       * 
-      * @dev The Ownable constructor sets the original &#39;owner&#39; of the contract to the
+      * @dev The Ownable constructor sets the original 'owner' of the contract to the
       *         sender account.
       */
       

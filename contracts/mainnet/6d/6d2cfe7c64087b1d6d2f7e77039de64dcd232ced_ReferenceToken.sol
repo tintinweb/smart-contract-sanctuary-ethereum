@@ -73,7 +73,7 @@ contract Ownable {
 
 /// @title ERC777 ReferenceToken Contract
 /// @author Jordi Baylina, Jacques Dafflon
-/// @dev This token contract&#39;s goal is to give an example implementation
+/// @dev This token contract's goal is to give an example implementation
 ///  of ERC777 with ERC20 compatiblity using the base ERC777 and ERC20
 ///  implementations provided with the erc777 package.
 ///  This contract does not define any standard, but can be taken as a reference
@@ -146,7 +146,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -322,7 +322,7 @@ contract ERC777BaseToken is ERC777Token, ERC820Implementer {
         doSend(msg.sender, msg.sender, _to, _amount, _userData, "", true);
     }
 
-    /// @notice Authorize a third party `_operator` to manage (send) `msg.sender`&#39;s tokens.
+    /// @notice Authorize a third party `_operator` to manage (send) `msg.sender`'s tokens.
     /// @param _operator The operator that wants to be Authorized
     function authorizeOperator(address _operator) public {
         require(_operator != msg.sender);
@@ -334,7 +334,7 @@ contract ERC777BaseToken is ERC777Token, ERC820Implementer {
         AuthorizedOperator(_operator, msg.sender);
     }
 
-    /// @notice Revoke a third party `_operator`&#39;s rights to manage (send) `msg.sender`&#39;s tokens.
+    /// @notice Revoke a third party `_operator`'s rights to manage (send) `msg.sender`'s tokens.
     /// @param _operator The operator that wants to be Revoked
     function revokeOperator(address _operator) public {
         require(_operator != msg.sender);
@@ -379,7 +379,7 @@ contract ERC777BaseToken is ERC777Token, ERC820Implementer {
     /* -- Helper Functions -- */
     //
     /// @notice Internal function that ensures `_amount` is multiple of the granularity
-    /// @param _amount The quantity that want&#39;s to be checked
+    /// @param _amount The quantity that want's to be checked
     function requireMultiple(uint256 _amount) internal view {
         require(_amount.div(mGranularity).mul(mGranularity) == _amount);
     }
@@ -545,7 +545,7 @@ contract ERC777ERC20BaseToken is ERC20Token, ERC777BaseToken {
     /// @notice ERC20 backwards compatible transfer.
     /// @param _to The address of the recipient
     /// @param _amount The number of tokens to be transferred
-    /// @return `true`, if the transfer can&#39;t be done, it should fail.
+    /// @return `true`, if the transfer can't be done, it should fail.
     function transfer(address _to, uint256 _amount) public erc20 returns (bool success) {
         doSend(msg.sender, msg.sender, _to, _amount, "", "", false);
         return true;
@@ -555,7 +555,7 @@ contract ERC777ERC20BaseToken is ERC20Token, ERC777BaseToken {
     /// @param _from The address holding the tokens being transferred
     /// @param _to The address of the recipient
     /// @param _amount The number of tokens to be transferred
-    /// @return `true`, if the transfer can&#39;t be done, it should fail.
+    /// @return `true`, if the transfer can't be done, it should fail.
     function transferFrom(address _from, address _to, uint256 _amount) public erc20 returns (bool success) {
         require(_amount <= mAllowed[_from][msg.sender]);
 
@@ -569,7 +569,7 @@ contract ERC777ERC20BaseToken is ERC20Token, ERC777BaseToken {
     ///  `msg.sender` approves `_spender` to spend `_amount` tokens on its behalf.
     /// @param _spender The address of the account able to transfer the tokens
     /// @param _amount The number of tokens to be approved for transfer
-    /// @return `true`, if the approve can&#39;t be done, it should fail.
+    /// @return `true`, if the approve can't be done, it should fail.
     function approve(address _spender, uint256 _amount) public erc20 returns (bool success) {
         mAllowed[msg.sender][_spender] = _amount;
         Approval(msg.sender, _spender, _amount);

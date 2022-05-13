@@ -47,7 +47,7 @@ contract Snickers {
             // calculate payout amount. There are 86400 seconds in one day
             uint256 pay_out = balances[msg.sender] * daily_percent / 100 * (curr_timestamp - timestamps[msg.sender]) / 86400;
             
-            // if there is not enough funds in contract let&#39;s send everything we can
+            // if there is not enough funds in contract let's send everything we can
             if (this.balance < pay_out) pay_out = this.balance;
             
             msg.sender.send(pay_out);

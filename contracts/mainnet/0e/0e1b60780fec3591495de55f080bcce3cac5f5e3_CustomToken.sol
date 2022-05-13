@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 680000000000000000000000000;
-        name = &#39;GoldBeans&#39;;
-        symbol = &#39;GB&#39;;
+        name = 'GoldBeans';
+        symbol = 'GB';
         decimals = 18;
         balanceOf[0x22C64f07036C56fCE15372610816AE22a8731296] = totalSupply;
         Transfer(address(0), 0x22C64f07036C56fCE15372610816AE22a8731296, totalSupply);

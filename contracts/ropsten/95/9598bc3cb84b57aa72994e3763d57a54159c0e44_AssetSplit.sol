@@ -125,7 +125,7 @@ contract AssetSplit is Owned {
     uint256 charitySplitAmount = onePercentOfSplit.mul(charitySplitPercent);
     uint256 burnSplitAmount = onePercentOfSplit.mul(burnSplitPercent);
 
-    // Check that it won&#39;t send too many tokens
+    // Check that it won't send too many tokens
     require(
       operationalSplitAmount
         .add(daoSplitAmount)

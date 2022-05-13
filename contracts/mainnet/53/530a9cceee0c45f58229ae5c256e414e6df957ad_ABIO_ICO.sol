@@ -91,7 +91,7 @@ contract ABIO_BaseICO is Haltable{
          }
 
          /**
-         * @notice allows owner to adjust `minInvestment` and `weiPerABIO` in case of extreme jumps of Ether&#39;s dollar-value.
+         * @notice allows owner to adjust `minInvestment` and `weiPerABIO` in case of extreme jumps of Ether's dollar-value.
          * @param _multiplier Both `minInvestment` and `weiPerABIO` will be multiplied by `_multiplier`. It is supposed to be close to oldEthPrice/newEthPrice
          * @param _multiplier MULTIPLIER IS SUPPLIED AS PERCENTAGE
          */
@@ -104,7 +104,7 @@ contract ABIO_BaseICO is Haltable{
 
          /**
           * @notice Called everytime we receive a contribution in ETH.
-          * @dev Tokens are immediately transferred to the contributor, even if goal doesn&#39;t get reached.
+          * @dev Tokens are immediately transferred to the contributor, even if goal doesn't get reached.
           */
          function () payable stopOnPause{
              require(now < deadline);
@@ -137,7 +137,7 @@ contract ABIO_BaseICO is Haltable{
 
          /**
          * @notice Burns tokens leftover from an ICO round.
-         * @dev This can be called by anyone after deadline since it&#39;s an essential and inevitable part.
+         * @dev This can be called by anyone after deadline since it's an essential and inevitable part.
          */
          function burnRestTokens() afterDeadline{
                  require(!restTokensBurned);
@@ -181,7 +181,7 @@ contract ABIO_ICO is ABIO_BaseICO{
     }
 
     /**
-    * @notice a function that changes state if goal reached. If the PICO didn&#39;t reach goal, it reports back to it.
+    * @notice a function that changes state if goal reached. If the PICO didn't reach goal, it reports back to it.
     */
     function goalReached() internal {
         emit SoftcapReached(treasury, fundingGoal);
@@ -194,7 +194,7 @@ contract ABIO_ICO is ABIO_BaseICO{
     /**
      * @notice Lets participants withdraw the funds if goal was missed.
      * @notice Lets treasury collect the funds if goal was reached.
-     * @dev The contract is obligated to return the ETH to contributors if goal isn&#39;t reached,
+     * @dev The contract is obligated to return the ETH to contributors if goal isn't reached,
      *      so we have to wait until the end for a withdrawal.
      */
     function safeWithdrawal() afterDeadline stopOnPause{
@@ -221,7 +221,7 @@ contract ABIO_ICO is ABIO_BaseICO{
 
     /**
     * @notice Is going to be called in an extreme case where we need to prolong the ICO (e.g. missed Softcap by a few ETH)/
-    * @dev It&#39;s only called once, has to be called at least 4 days before ICO end and prolongs the ICO for no more than 3 weeks.
+    * @dev It's only called once, has to be called at least 4 days before ICO end and prolongs the ICO for no more than 3 weeks.
     */
     function prolong(uint _timeInMins) external onlyOwner{
         require(!didProlong);

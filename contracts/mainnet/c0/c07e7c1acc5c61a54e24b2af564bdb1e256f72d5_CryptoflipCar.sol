@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 contract CryptoflipCar {
-string version = &#39;1.1&#39;;
+string version = '1.1';
 address ownerAddress = 0x3177Abbe93422c9525652b5d4e1101a248A99776;
 address foundTeamAddress = 0x30A38029bEd78159B0342FF9722C3B56479328D8;
 
@@ -348,7 +348,7 @@ return c;
 function div(uint256 a, uint256 b) internal pure returns (uint256) {
 // assert(b > 0); // Solidity automatically throws when dividing by 0
 uint c = a / b;
-// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 return c;
 }
 
@@ -373,8 +373,8 @@ function addCompany(string name, address address1, uint256 price, bool is_releas
   companies[companyId].curPrice   = price;
   companies[companyId].ownerAddress = address1;
   companies[companyId].is_released   = is_released;
-  companies[companyId].adv_text = &#39;Your Ad here&#39;;
-  companies[companyId].adv_link = &#39;http://cryptoflipcars.site/&#39;;
+  companies[companyId].adv_text = 'Your Ad here';
+  companies[companyId].adv_link = 'http://cryptoflipcars.site/';
   companies[companyId].adv_price   = 5000000000000000;
   companies[companyId].adv_owner = address1;
 }
@@ -405,8 +405,8 @@ function addMake(string name, address address1, uint256 price, uint256 companyId
   makes[makeId].ownerAddress = address1;
   makes[makeId].companyId   = companyId;
   makes[makeId].is_released   = is_released;
-  makes[makeId].adv_text = &#39;Your Ad here&#39;;
-  makes[makeId].adv_link = &#39;http://cryptoflipcars.site/&#39;;
+  makes[makeId].adv_text = 'Your Ad here';
+  makes[makeId].adv_link = 'http://cryptoflipcars.site/';
   makes[makeId].adv_price   = 5000000000000000;
   makes[makeId].adv_owner = address1;
 }
@@ -424,7 +424,7 @@ function InitiateCars() public onlyOwner {
   addCar("507 Black", 0x3177abbe93422c9525652b5d4e1101a248a99776, 10000000000000000 ,1, 4, true);
   addCar("507 Silver", 0x62d5be95c330b512b35922e347319afd708da981, 16200000000000000 ,1, 4, true);
   addCar("Z8 Black with Red Interior", 0x3177abbe93422c9525652b5d4e1101a248a99776, 10000000000000000 ,1, 5, true);
-  addCar("Gordon Ramsey&#39;s Grey LaFerrari", 0x3177abbe93422c9525652b5d4e1101a248a99776, 10000000000000000 ,2, 6, true);
+  addCar("Gordon Ramsey's Grey LaFerrari", 0x3177abbe93422c9525652b5d4e1101a248a99776, 10000000000000000 ,2, 6, true);
   carsAreInitiated = true;
 }
 
@@ -443,8 +443,8 @@ function addCar(string name, address address1, uint256 price, uint256 companyId,
   cars[carId].companyId   = companyId;
   cars[carId].makeId   = makeId;
   cars[carId].is_released   = is_released;
-  cars[carId].adv_text = &#39;Your Ad here&#39;;
-  cars[carId].adv_link = &#39;http://cryptoflipcars.site/&#39;;
+  cars[carId].adv_text = 'Your Ad here';
+  cars[carId].adv_link = 'http://cryptoflipcars.site/';
   cars[carId].adv_price   = 5000000000000000;
   cars[carId].adv_owner = address1;
 }

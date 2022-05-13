@@ -132,7 +132,7 @@ contract ViotToken is Ownable, StandardToken {
         balances[msg.sender] = totalSupply;
     }
 
-    // Don&#39;t accept ethers - no payable modifier
+    // Don't accept ethers - no payable modifier
     function () {
     }
 

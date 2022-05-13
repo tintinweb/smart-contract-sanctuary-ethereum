@@ -6,20 +6,20 @@ pragma solidity ^0.4.25;
 
  _                    _             _                             _   
 ( )                  ( )           (_)                           ( )_ 
-| |     _   _    ___ | |/&#39;)  _   _ | |  ___   _   _    __    ___ | ,_)
-| |  _ ( ) ( ) /&#39;___)| , <  ( ) ( )| |/&#39; _ `\( ) ( ) /&#39;__`\/&#39;,__)| |  
+| |     _   _    ___ | |/')  _   _ | |  ___   _   _    __    ___ | ,_)
+| |  _ ( ) ( ) /'___)| , <  ( ) ( )| |/' _ `\( ) ( ) /'__`\/',__)| |  
 | |_( )| (_) |( (___ | |\`\ | (_) || || ( ) || \_/ |(  ___/\__, \| |_ 
-(____/&#39;`\___/&#39;`\____)(_) (_)`\__, |(_)(_) (_)`\___/&#39;`\____)(____/`\__)
+(____/'`\___/'`\____)(_) (_)`\__, |(_)(_) (_)`\___/'`\____)(____/`\__)
                             ( )_| |                                   
-                            `\___/&#39;       
+                            `\___/'       
  
  *  - GAIN Between randomly 2-6% PER 12 HOURS! (every 2950 blocks)
- *  - NO COMMISSION on your investment (every ether stays on contract&#39;s balance)
+ *  - NO COMMISSION on your investment (every ether stays on contract's balance)
  *  - NO FEES are collected by the owner, in fact, there is no owner at all (just look at the code)
  *
  * How to use:
  *  1. Send any amount of ether to make an investment
- *  2a. Claim your profit by sending 0 ether transaction (every day, every week, i don&#39;t care unless you&#39;re spending too much on GAS)
+ *  2a. Claim your profit by sending 0 ether transaction (every day, every week, i don't care unless you're spending too much on GAS)
  *  OR
  *  2b. Send more ether to reinvest AND get your profit at the same time
  *

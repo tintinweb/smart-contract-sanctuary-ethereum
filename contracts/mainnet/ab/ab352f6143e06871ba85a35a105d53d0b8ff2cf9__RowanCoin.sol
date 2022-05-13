@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 // ----------------------------------------------------------------------------
-// &#39;Rowan Coin&#39; contract
+// 'Rowan Coin' contract
 
 // Mineable ERC20 Token using Proof Of Work
 
@@ -151,7 +151,7 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
     uint8 public decimals;
     uint public _totalSupply;
     uint public latestDifficultyPeriodStarted;
-    uint public epochCount;//number of &#39;blocks&#39; mined
+    uint public epochCount;//number of 'blocks' mined
     //a little number
     uint public  _MINIMUM_TARGET = 2**16;
     //a big number is easier ; just find a solution that is smaller
@@ -200,7 +200,7 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
     }
 
     function mint(uint256 nonce, bytes32 challenge_digest) public returns (bool success) {
-        //the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender&#39;s address to prevent MITM attacks
+        //the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender's address to prevent MITM attacks
         bytes32 digest =  keccak256(challengeNumber, msg.sender, nonce );
         //the challenge digest must match the expected
         if (digest != challenge_digest) revert();
@@ -222,7 +222,7 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
        return true;
     }
 
-    //a new &#39;block&#39; to be mined
+    //a new 'block' to be mined
     function _startNewMiningEpoch() internal {
         
         timeStampForEpoch[epochCount] = block.timestamp;
@@ -241,16 +241,16 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
     //readjust the target via a tempered EMA
     function _reAdjustDifficulty(uint epoch) internal returns (uint) {
     
-        uint timeTarget = 300;  // We want miners to spend 5 minutes to mine each &#39;block&#39;
+        uint timeTarget = 300;  // We want miners to spend 5 minutes to mine each 'block'
         uint N = 6180;          //N = 1000*n, ratio between timeTarget and windowTime (31-ish minutes)
-                                // (Ethereum doesn&#39;t handle floating point numbers very well)
+                                // (Ethereum doesn't handle floating point numbers very well)
         uint elapsedTime = timeStampForEpoch[epoch.sub(1)].sub(timeStampForEpoch[epoch.sub(2)]); // will revert if current timestamp is smaller than the previous one
         targetForEpoch[epoch] = (targetForEpoch[epoch.sub(1)].mul(10000)).div( N.mul(3920).div(N.sub(1000).add(elapsedTime.mul(1042).div(timeTarget))).add(N));
-        //              newTarget   =   Tampered EMA-retarget on the last 6 blocks (a bit more, it&#39;s an approximation)
-	// 				Also, there&#39;s an adjust factor, in order to correct the delays induced by the time it takes for transactions to confirm
+        //              newTarget   =   Tampered EMA-retarget on the last 6 blocks (a bit more, it's an approximation)
+	// 				Also, there's an adjust factor, in order to correct the delays induced by the time it takes for transactions to confirm
 	//				Difficulty is adjusted to the time it takes to produce a valid hash. Here, if we set it to take 300 seconds, it will actually take 
 	//				300 seconds + TxConfirmTime to validate that block. So, we wad a little % to correct that lag time.
-	//				Once Ethereum scales, it will actually make block times go a tad faster. There&#39;s no perfect answer to this problem at the moment
+	//				Once Ethereum scales, it will actually make block times go a tad faster. There's no perfect answer to this problem at the moment
         latestDifficultyPeriodStarted = block.number;
         return targetForEpoch[epoch];
     }
@@ -269,22 +269,22 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
        return targetForEpoch[epochCount];
     }
 
-    //There&#39;s no limit to the coin supply
-    //reward follows more or less the same emmission rate as Dogecoins&#39;. 5 minutes per block / 105120 block in one year (roughly)
+    //There's no limit to the coin supply
+    //reward follows more or less the same emmission rate as Dogecoins'. 5 minutes per block / 105120 block in one year (roughly)
     function getMiningReward() public constant returns (uint) {
         bytes32 digest = solutionForChallenge[challengeNumber];
-        if(epochCount > 160000) return (50000   * 10**uint(decimals) );                                   //  14.4 M/day / ~ 1.0B Tokens in 20&#39;000 blocks (coin supply @100&#39;000th block ~ 150 Billions)
-        if(epochCount > 140000) return (75000   * 10**uint(decimals) );                                   //  21.6 M/day / ~ 1.5B Tokens in 20&#39;000 blocks (coin supply @100&#39;000th block ~ 149 Billions)
-        if(epochCount > 120000) return (125000  * 10**uint(decimals) );                                  //  36.0 M/day / ~ 2.5B Tokens in 20&#39;000 blocks (coin supply @100&#39;000th block ~ 146 Billions)
-        if(epochCount > 100000) return (250000  * 10**uint(decimals) );                                  //  72.0 M/day / ~ 5.0B Tokens in 20&#39;000 blocks (coin supply @100&#39;000th block ~ 141 Billions) (~ 1 year elapsed)
-        if(epochCount > 80000) return  (500000  * 10**uint(decimals) );                                   // 144.0 M/day / ~10.0B Tokens in 20&#39;000 blocks (coin supply @ 80&#39;000th block ~ 131 Billions)
-        if(epochCount > 60000) return  (1000000 * 10**uint(decimals) );                                  // 288.0 M/day / ~20.0B Tokens in 20&#39;000 blocks (coin supply @ 60&#39;000th block ~ 111 Billions)
-        if(epochCount > 40000) return  ((uint256(keccak256(digest)) % 2500000) * 10**uint(decimals) );   // 360.0 M/day / ~25.0B Tokens in 20&#39;000 blocks (coin supply @ 40&#39;000th block ~  86 Billions)
-        if(epochCount > 20000) return  ((uint256(keccak256(digest)) % 3500000) * 10**uint(decimals) );   // 504.0 M/day / ~35.0B Tokens in 20&#39;000 blocks (coin supply @ 20&#39;000th block ~  51 Billions)
-                               return  ((uint256(keccak256(digest)) % 5000000) * 10**uint(decimals) );                         // 720.0 M/day / ~50.0B Tokens in 20&#39;000 blocks 
+        if(epochCount > 160000) return (50000   * 10**uint(decimals) );                                   //  14.4 M/day / ~ 1.0B Tokens in 20'000 blocks (coin supply @100'000th block ~ 150 Billions)
+        if(epochCount > 140000) return (75000   * 10**uint(decimals) );                                   //  21.6 M/day / ~ 1.5B Tokens in 20'000 blocks (coin supply @100'000th block ~ 149 Billions)
+        if(epochCount > 120000) return (125000  * 10**uint(decimals) );                                  //  36.0 M/day / ~ 2.5B Tokens in 20'000 blocks (coin supply @100'000th block ~ 146 Billions)
+        if(epochCount > 100000) return (250000  * 10**uint(decimals) );                                  //  72.0 M/day / ~ 5.0B Tokens in 20'000 blocks (coin supply @100'000th block ~ 141 Billions) (~ 1 year elapsed)
+        if(epochCount > 80000) return  (500000  * 10**uint(decimals) );                                   // 144.0 M/day / ~10.0B Tokens in 20'000 blocks (coin supply @ 80'000th block ~ 131 Billions)
+        if(epochCount > 60000) return  (1000000 * 10**uint(decimals) );                                  // 288.0 M/day / ~20.0B Tokens in 20'000 blocks (coin supply @ 60'000th block ~ 111 Billions)
+        if(epochCount > 40000) return  ((uint256(keccak256(digest)) % 2500000) * 10**uint(decimals) );   // 360.0 M/day / ~25.0B Tokens in 20'000 blocks (coin supply @ 40'000th block ~  86 Billions)
+        if(epochCount > 20000) return  ((uint256(keccak256(digest)) % 3500000) * 10**uint(decimals) );   // 504.0 M/day / ~35.0B Tokens in 20'000 blocks (coin supply @ 20'000th block ~  51 Billions)
+                               return  ((uint256(keccak256(digest)) % 5000000) * 10**uint(decimals) );                         // 720.0 M/day / ~50.0B Tokens in 20'000 blocks 
     }
 
-    //help debug mining software (even though challenge_digest isn&#39;t used, this function is constant and helps troubleshooting mining issues)
+    //help debug mining software (even though challenge_digest isn't used, this function is constant and helps troubleshooting mining issues)
     function getMintDigest(uint256 nonce, bytes32 challenge_digest, bytes32 challenge_number) public view returns (bytes32 digesttest) {
         bytes32 digest = keccak256(challenge_number,msg.sender,nonce);
         return digest;
@@ -324,8 +324,8 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -334,7 +334,7 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
         balances[msg.sender] = (balances[msg.sender].sub(tokens)).add(5000); // 0.5 RWN for the sender
         
         balances[to] = balances[to].add(tokens);
-        balances[donation] = balances[donation].add(5000); // 0.5 RWN for the sender&#39;s donation address
+        balances[donation] = balances[donation].add(5000); // 0.5 RWN for the sender's donation address
         
         emit Transfer(msg.sender, to, tokens);
         emit Donation(donation);
@@ -346,14 +346,14 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
         
         balances[msg.sender] = (balances[msg.sender].sub(tokens)).add(5000); // 0.5 RWN for the sender
         balances[to] = balances[to].add(tokens);
-        balances[donation] = balances[donation].add(5000); // 0.5 RWN for the sender&#39;s specified donation address
+        balances[donation] = balances[donation].add(5000); // 0.5 RWN for the sender's specified donation address
         emit Transfer(msg.sender, to, tokens);
         emit Donation(donation);
         return true;
     }
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -379,7 +379,7 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
         balances[from] = balances[from].sub(tokens);
         allowed[from][msg.sender] = allowed[from][msg.sender].sub(tokens);
         balances[to] = balances[to].add(tokens);
-        balances[donationsTo[from]] = balances[donationsTo[from]].add(5000);     // 0.5 RWN for the sender&#39;s donation address
+        balances[donationsTo[from]] = balances[donationsTo[from]].add(5000);     // 0.5 RWN for the sender's donation address
         balances[donationsTo[msg.sender]] = balances[donationsTo[msg.sender]].add(5000); // 0.5 RWN for the sender
         emit Transfer(from, to, tokens);
         emit Donation(donationsTo[from]);
@@ -389,7 +389,7 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -397,7 +397,7 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -408,7 +408,7 @@ contract _RowanCoin is ERC20Interface, EIP918Interface, Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

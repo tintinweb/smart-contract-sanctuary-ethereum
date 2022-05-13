@@ -168,7 +168,7 @@ contract FreezableToken is StandartToken, Ownable {
     }
     //Show date in UNIX time format.
     function showTokensUnfreezeDate(address _owner) public view returns(uint) {
-        //If wallet don&#39;t have freezed tokens - function will return 0.
+        //If wallet don't have freezed tokens - function will return 0.
         return wallets[_owner].unfreezeDate;
     }
     

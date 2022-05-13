@@ -300,8 +300,8 @@ contract TokenTransferDelegate is Claimable {
         for (uint i = 0; i < len; i += 6) {
             address owner = address(batch[i]);
             address prevOwner = address(batch[(i + len - 6) % len]);
-            // Pay token to previous order, or to miner as previous order&#39;s
-            // margin split or/and this order&#39;s margin split.
+            // Pay token to previous order, or to miner as previous order's
+            // margin split or/and this order's margin split.
             ERC20 token = ERC20(address(batch[i + 1]));
             // Here batch[i+2] has been checked not to be 0.
             if (owner != prevOwner) {

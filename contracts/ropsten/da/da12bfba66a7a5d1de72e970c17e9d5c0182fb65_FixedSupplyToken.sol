@@ -15,8 +15,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -33,7 +33,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -174,8 +174,8 @@ contract FixedSupplyToken is ERC20, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint256 tokens) public returns (bool success) {
@@ -191,7 +191,7 @@ contract FixedSupplyToken is ERC20, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -206,7 +206,7 @@ contract FixedSupplyToken is ERC20, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can increase the allowance amount that was approved
-    // for `spender` to transferFrom(...) `tokens` from the token owner&#39;s account
+    // for `spender` to transferFrom(...) `tokens` from the token owner's account
     // ------------------------------------------------------------------------
     function increaseApproval(address spender, uint256 addedValue) public returns (bool success){
         allowed[msg.sender][spender] = (allowed[msg.sender][spender].add(addedValue));
@@ -217,7 +217,7 @@ contract FixedSupplyToken is ERC20, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can decrease the allowance amount that was approved
-    // for `spender` to transferFrom(...) `tokens` from the token owner&#39;s account
+    // for `spender` to transferFrom(...) `tokens` from the token owner's account
     // ------------------------------------------------------------------------
     function decreaseApproval(address spender, uint256 subtractedValue) public returns (bool success)
     {
@@ -256,7 +256,7 @@ contract FixedSupplyToken is ERC20, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public view returns (uint256 remaining) {
         return allowed[tokenOwner][spender];
@@ -265,7 +265,7 @@ contract FixedSupplyToken is ERC20, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint256 tokens, bytes data) public returns (bool success) {
@@ -277,7 +277,7 @@ contract FixedSupplyToken is ERC20, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function() public payable {
         revert();

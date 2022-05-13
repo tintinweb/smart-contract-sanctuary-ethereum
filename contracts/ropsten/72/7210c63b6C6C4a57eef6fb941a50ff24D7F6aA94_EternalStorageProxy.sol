@@ -42,7 +42,7 @@ contract Proxy {
             /*
                 0x40 is the "free memory slot", meaning a pointer to next slot of empty memory. mload(0x40)
                 loads the data in the free memory slot, so `ptr` is a pointer to the next slot of empty
-                memory. It&#39;s needed because we&#39;re going to write the return data of delegatecall to the
+                memory. It's needed because we're going to write the return data of delegatecall to the
                 free memory slot.
             */
             let ptr := mload(0x40)
@@ -51,8 +51,8 @@ contract Proxy {
                 First argument is the destination to which data is copied(ptr)
                 Second argument specifies the start position of the copied data.
                     Since calldata is sort of its own unique location in memory,
-                    0 doesn&#39;t refer to 0 in memory or 0 in storage - it just refers to the zeroth byte of calldata.
-                    That&#39;s always going to be the zeroth byte of the function selector.
+                    0 doesn't refer to 0 in memory or 0 in storage - it just refers to the zeroth byte of calldata.
+                    That's always going to be the zeroth byte of the function selector.
                 Third argument, calldatasize, specifies how much data will be copied.
                     calldata is naturally calldatasize bytes long (same thing as msg.data.length)
             */
@@ -83,7 +83,7 @@ contract Proxy {
                 because we assigned it like ptr := mload(0x40).
                 Because we use 0x40 as a free memory pointer,
                 we want to make sure that the next time we want to allocate memory,
-                we aren&#39;t overwriting anything important.
+                we aren't overwriting anything important.
                 So, by adding ptr and returndatasize,
                 we get a memory location beyond the end of the data we will be copying to ptr.
                 We place this in at 0x40, and any reads from 0x40 will now read from free memory
@@ -268,7 +268,7 @@ contract OwnedUpgradeabilityProxy is UpgradeabilityOwnerStorage, UpgradeabilityP
 /**
  * @title EternalStorageProxy
  * @dev This proxy holds the storage of the token contract and delegates every call to the current implementation set.
- * Besides, it allows to upgrade the token&#39;s behaviour towards further implementations, and provides basic
+ * Besides, it allows to upgrade the token's behaviour towards further implementations, and provides basic
  * authorization control functionalities
  */
 contract EternalStorageProxy is OwnedUpgradeabilityProxy, EternalStorage {}

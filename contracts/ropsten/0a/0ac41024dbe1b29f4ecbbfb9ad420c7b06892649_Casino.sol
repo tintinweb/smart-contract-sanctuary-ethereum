@@ -54,7 +54,7 @@ contract Casino {
 
     // Generates a number between 1 and 10 that will be the winner
     function generateNumberWinner() public {
-        uint256 numberGenerated = block.number % 10 + 1; // This isn&#39;t secure
+        uint256 numberGenerated = block.number % 10 + 1; // This isn't secure
         distributePrizes(numberGenerated);
     }
 

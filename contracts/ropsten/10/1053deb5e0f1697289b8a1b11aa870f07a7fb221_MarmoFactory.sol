@@ -175,7 +175,7 @@ contract Proxy {
             calldatacopy(0, 0, calldatasize)
             
             // Call the implementation.
-            // out and outsize are 0 because we don&#39;t know the size yet.
+            // out and outsize are 0 because we don't know the size yet.
             // replace 0x0 with delegated address
             let result := delegatecall(gas, 0x0000000000000000000000000000000000000000, 0, calldatasize, 0, 0)
 

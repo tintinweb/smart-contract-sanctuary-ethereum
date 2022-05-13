@@ -51,8 +51,8 @@ pragma solidity ^0.4.24;
 // REFERRALS
 // Unlocked by owning at least 300 snails
 // Every buy through a referral link gives 6% to the referred address
-// Addresses aren&#39;t bound to their referral link
-// Referrals don&#39;t profit from hatching eggs
+// Addresses aren't bound to their referral link
+// Referrals don't profit from hatching eggs
 
 */
 
@@ -187,7 +187,7 @@ contract SnailThrone {
     // BuySnail 
     
     function BuySnail(address _ref) public payable {
-        require(gameStarted == true, "game hasn&#39;t started yet");
+        require(gameStarted == true, "game hasn't started yet");
         require(tx.origin == msg.sender, "contracts not allowed");
         require(msg.value <= TOKEN_MAX_BUY, "maximum buy = 4 ETH");
         
@@ -215,10 +215,10 @@ contract SnailThrone {
     // SellSnail
     
     function SellSnail(uint256 _tokensSold) public {
-        require(gameStarted == true, "game hasn&#39;t started yet");
+        require(gameStarted == true, "game hasn't started yet");
         require(hatcherySnail[msg.sender] >= _tokensSold, "not enough snails to sell");
         
-        //Call ClaimDivs so ETH isn&#39;t blackholed
+        //Call ClaimDivs so ETH isn't blackholed
         ClaimDivs();
 
         //Check token price, sell price is half of current buy price
@@ -260,7 +260,7 @@ contract SnailThrone {
     // Costs half the ETH of a normal buy
     
     function HatchEgg() public payable {
-        require(gameStarted == true, "game hasn&#39;t started yet");
+        require(gameStarted == true, "game hasn't started yet");
         require(msg.value > 0, "need ETH to hatch eggs");
         
         //Check how many eggs the ether sent can pay for
@@ -341,11 +341,11 @@ contract SnailThrone {
     }
     
     // FeedEgg
-    // Sacrifices the player&#39;s eggs to the FrogPot
+    // Sacrifices the player's eggs to the FrogPot
     // Gives ETH in return
     
     function FeedEgg() public {
-        require(gameStarted == true, "game hasn&#39;t started yet");
+        require(gameStarted == true, "game hasn't started yet");
         
         //Check number of eggs to hatch
         uint256 _eggsUsed = ComputeMyEggs(msg.sender);
@@ -365,8 +365,8 @@ contract SnailThrone {
     // Distributes SnailGod pot to winner, restarts timer 
     
     function AscendGod() public {
-		require(gameStarted == true, "game hasn&#39;t started yet");
-        require(now >= godTimer, "pharaoh hasn&#39;t ascended yet");
+		require(gameStarted == true, "game hasn't started yet");
+        require(now >= godTimer, "pharaoh hasn't ascended yet");
         
         //Reset timer and start new round 
         godTimer = now + GOD_TIMER_START;
@@ -388,7 +388,7 @@ contract SnailThrone {
     // Sacrifices snails to become the Pharaoh
     
     function BecomePharaoh(uint256 _snails) public {
-        require(gameStarted == true, "game hasn&#39;t started yet");
+        require(gameStarted == true, "game hasn't started yet");
         require(hatcherySnail[msg.sender] >= _snails, "not enough snails in hatchery");
         
         //Run end round function if round is over
@@ -396,7 +396,7 @@ contract SnailThrone {
             AscendGod();
         }
         
-        //Call ClaimDivs so ETH isn&#39;t blackholed
+        //Call ClaimDivs so ETH isn't blackholed
         ClaimDivs();
         
         //Check number of snails to remove from pharaohReq
@@ -543,7 +543,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

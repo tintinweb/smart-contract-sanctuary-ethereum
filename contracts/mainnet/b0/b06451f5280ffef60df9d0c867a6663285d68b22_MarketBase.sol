@@ -79,7 +79,7 @@ contract BookKeeping {
     // _amount should be greator than 0
     function _sharesBought(ShareHolders storage _shareHolders, address _owner, uint _amount) 
     internal {
-        // If user didn&#39;t have shares earlier, he is now a share holder!
+        // If user didn't have shares earlier, he is now a share holder!
         if (_shareHolders.ownerAddressToShares[_owner] == 0) {
             _shareHolders.numberOfShareHolders += 1;
         }
@@ -185,7 +185,7 @@ contract CompanyBase is BookKeeping, CompanyConstants {
         // Address of person who registered this company and will receive money from the share sales.
         address ownedBy; 
         
-        // The exact time in future before which shares can&#39;t be released!
+        // The exact time in future before which shares can't be released!
         // if shares are just released then nextSharesReleaseTime will be (now + coolDownTime);
         uint nextSharesReleaseTime; 
 
@@ -301,7 +301,7 @@ contract ApprovalContract is CompanyAccessControl {
     // the bytes32 hash is the hash of the company name!
     mapping(bytes32 => address) public approvedToLaunch;
     
-    // Make sure that we don&#39;t add two companies with same name
+    // Make sure that we don't add two companies with same name
     mapping(bytes32 => bool) public registredCompanyNames;
     
     // Approve addresses to launch a company with the given name
@@ -386,7 +386,7 @@ contract CompanyMain is CompanyBase, ApprovalContract, TradingVolume {
     {
         bytes32 companyNameHash = keccak256(_companyName);
         
-        // There shouldn&#39;t be a company that is already registered with same name!
+        // There shouldn't be a company that is already registered with same name!
         require(registredCompanyNames[companyNameHash] == false);
         
         // Max 10% shares can be released in one release cycle, to control liquidation
@@ -432,7 +432,7 @@ contract CompanyMain is CompanyBase, ApprovalContract, TradingVolume {
     {
         bytes32 companyNameHash = keccak256(_companyName);
         
-        // There shouldn&#39;t be a company that is already registered with same name!
+        // There shouldn't be a company that is already registered with same name!
         require(registredCompanyNames[companyNameHash] == false);
         
         // Owner have the permissions to launch the company
@@ -509,7 +509,7 @@ contract CompanyMain is CompanyBase, ApprovalContract, TradingVolume {
         emit Claimed(_companyId, _numberOfShares, msg.sender);
     }
     
-    // Company&#39;s next shares can be released only by the CEO of the company! 
+    // Company's next shares can be released only by the CEO of the company! 
     // So there should exist a CEO first
     function releaseNextShares(uint _companyId) 
     external 
@@ -519,7 +519,7 @@ contract CompanyMain is CompanyBase, ApprovalContract, TradingVolume {
         
         require(company.ceoOfCompany == msg.sender);
         
-        // If there are unclaimedShares with the company, then new shares can&#39;t be relased!
+        // If there are unclaimedShares with the company, then new shares can't be relased!
         require(company.unclaimedShares == 0 );
         
         require(now >= company.nextSharesReleaseTime);
@@ -837,7 +837,7 @@ contract MarketBase is CompanyMain {
         require(_getRemainingSharesInOrder(_order) >= _amount);
     }
 
-    // Checks if the owner have at least &#39;_amount&#39; shares of the company
+    // Checks if the owner have at least '_amount' shares of the company
     // _amount > 0
     function _verifyOwnershipOfTokens(uint _companyId, address _owner, uint _amount) 
     view

@@ -51,7 +51,7 @@ contract AudigentSegment is Ownable {
 
     modifier onlyNewSigner(address _signer) {
         if (_signerToAgency[_signer] == msg.sender) {
-            revert(&#39;Signer already assigned to this agency&#39;);
+            revert('Signer already assigned to this agency');
         }
         require(_signer != owner);
         require(_signerToAgency[_signer] != _signer);
@@ -66,7 +66,7 @@ contract AudigentSegment is Ownable {
 
     function createHash(uint256 _hash) public onlyOwner {
         if (_hashToSignatures[_hash].length > 0) {
-            revert(&#39;Hash already exists&#39;);
+            revert('Hash already exists');
         }
         _hashToSignatures[_hash] = new address[](0);
     }
@@ -90,7 +90,7 @@ contract AudigentSegment is Ownable {
             }
         }
         if (alreadySigned == true) {
-            revert(&#39;Hash already signed&#39;);
+            revert('Hash already signed');
         }
 
         _hashToSignatures[_hash].push(msg.sender);

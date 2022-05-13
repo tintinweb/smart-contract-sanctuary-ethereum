@@ -198,8 +198,8 @@ contract StandardBurnableToken is BurnableToken, StandardToken,MintableToken {
 }
 
 contract BvesToken is StandardBurnableToken {
-    string public name = &#39;Behavior Value Ecosystem&#39;;
-    string public symbol = &#39;BVES&#39;;
+    string public name = 'Behavior Value Ecosystem';
+    string public symbol = 'BVES';
     uint8 public decimals = 8;
     uint256 public INITIAL_SUPPLY = 210000000000000000; 
     

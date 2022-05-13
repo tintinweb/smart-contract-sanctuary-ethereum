@@ -36,7 +36,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -149,7 +149,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -278,7 +278,7 @@ contract Ownable {
 /**
  * @title Inbest Token initial distribution
  *
- * @dev Distribute Investors&#39; and Company&#39;s tokens
+ * @dev Distribute Investors' and Company's tokens
  */
 contract InbestDistribution is Ownable {
   using SafeMath for uint256;
@@ -374,7 +374,7 @@ contract InbestDistribution is Ownable {
     require(startTime > now); //Allocations are allowed only before starTime
     require(AVAILABLE_PRESALE_SUPPLY >= _totalAllocated); //Current allocation must be less than remaining presale supply
     require(allocations[_recipient].totalAllocated == 0 && _totalAllocated > 0); // Must be the first and only allocation for this recipient
-    require(_recipient != companyWallet); // Receipient of presale allocation can&#39;t be company wallet
+    require(_recipient != companyWallet); // Receipient of presale allocation can't be company wallet
 
     // Allocate
     AVAILABLE_PRESALE_SUPPLY = AVAILABLE_PRESALE_SUPPLY.sub(_totalAllocated);
@@ -389,10 +389,10 @@ contract InbestDistribution is Ownable {
    */
  function transferTokens (address _recipient) public {
    require(_recipient != address(0));
-   require(now >= startTime); //Tokens can&#39;t be transfered until start date
-   require(_recipient != companyWallet); // Tokens allocated to COMPANY can&#39;t be withdrawn.
+   require(now >= startTime); //Tokens can't be transfered until start date
+   require(_recipient != companyWallet); // Tokens allocated to COMPANY can't be withdrawn.
    require(now >= allocations[_recipient].endCliff); // Cliff period must be ended
-   // Receipient can&#39;t claim more IBST tokens than allocated
+   // Receipient can't claim more IBST tokens than allocated
    require(allocations[_recipient].amountClaimed < allocations[_recipient].totalAllocated);
 
    uint256 newAmountClaimed;
@@ -419,10 +419,10 @@ contract InbestDistribution is Ownable {
   */
  function manualContribution(address _recipient, uint256 _tokensToTransfer) public onlyOwnerOrAdmin {
    require(_recipient != address(0));
-   require(_recipient != companyWallet); // Company can&#39;t withdraw tokens for itself
+   require(_recipient != companyWallet); // Company can't withdraw tokens for itself
    require(_tokensToTransfer > 0); // The amount must be valid
-   require(now >= startTime); // Tokens cant&#39;t be transfered until start date
-   //Company can&#39;t trasnfer more tokens than allocated
+   require(now >= startTime); // Tokens cant't be transfered until start date
+   //Company can't trasnfer more tokens than allocated
    require(allocations[companyWallet].amountClaimed.add(_tokensToTransfer) <= allocations[companyWallet].totalAllocated);
 
    //Transfer

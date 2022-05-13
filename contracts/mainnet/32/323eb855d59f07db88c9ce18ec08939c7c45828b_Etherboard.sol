@@ -52,7 +52,7 @@ contract Etherboard {
         // Get leader
         Leader memory leader = popLeader(msg.sender);
         
-        // Add to leader&#39;s bid
+        // Add to leader's bid
         leader.amount += bid_amount;
         
         // Insert leader in appropriate position
@@ -76,14 +76,14 @@ contract Etherboard {
         
         require(leader.amount > 0);
         
-        // Set leader&#39;s url if it is not an empty string
+        // Set leader's url if it is not an empty string
         bytes memory tmp_url = bytes(url);
         if (tmp_url.length != 0) {
             // Set url
             leader.url = url;
         }
         
-        // Set leader&#39;s img_url if it is not an empty string
+        // Set leader's img_url if it is not an empty string
         bytes memory tmp_img_url = bytes(img_url);
         if (tmp_img_url.length != 0) {
             // Set image url

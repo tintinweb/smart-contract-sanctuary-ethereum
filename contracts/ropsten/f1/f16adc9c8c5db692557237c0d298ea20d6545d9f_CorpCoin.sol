@@ -154,7 +154,7 @@ contract IdentityStore is Ownable {
     
     function getUserTenantId(
         address _userAddress) view public returns(string) {
-        require(userAddressExists(_userAddress), "There&#39;s no account tied to the address");
+        require(userAddressExists(_userAddress), "There's no account tied to the address");
         return tenantAddressMapping[_userAddress].tenantId;
     }
 
@@ -182,8 +182,8 @@ contract IdentityStore is Ownable {
     function updateAddress(address oldUserAddress, address newUserAddress) onlyOwner internal {
         User memory existingUser = tenantAddressMapping[oldUserAddress];
         
-        require(!userAddressExists(newUserAddress), "There&#39;s already an account tied to this address");
-        require(userAddressExists(oldUserAddress), "There&#39;s no account tied to the address origin");
+        require(!userAddressExists(newUserAddress), "There's already an account tied to this address");
+        require(userAddressExists(oldUserAddress), "There's no account tied to the address origin");
 
         tenantHashMapping[existingUser.tenantHash] = newUserAddress;
         tenantAddressMapping[newUserAddress] = existingUser;

@@ -12,7 +12,7 @@
    hMMMM/   sMMMMs     :MMy     yMMMMo   /MMMMh     GIFT TOKENS. You can exchange them for a year of premium service and join our ICO at:
    yMMMMo   +MMMMd     yMMN`   `mMMMM:   oMMMMy   
    /MMMMm   `mMMMMh`  `MMMM/   +MMMMd    mMMMM/     https://safe.ad
-    mMMMMo   .mMMMMNs-`&#39;`&#39;`    /MMMMm- `sMMMMm    
+    mMMMMo   .mMMMMNs-`'`'`    /MMMMm- `sMMMMm    
     :MMMMM+   `sMMMMMMMmmmmy.   hMMMMMMMMMMMN-      The product is already running.
      /MMMMMy`   .omMMMMMMMMMy    +mMMMMMMMMy.     
       -NMMMMNo`    ./oyhhhho`      ./oso+:`         ICO will help us to create the next big thing.

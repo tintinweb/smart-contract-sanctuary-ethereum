@@ -198,7 +198,7 @@ contract MobSquads is ERC721 {
   /// hit a mobster
   function hitMobster(uint256 _victim  , uint256 _hitter) public payable returns (bool){
     address mobsterOwner = mobsterIndexToOwner[_victim];
-    require(msg.sender != mobsterOwner); // it doesn&#39;t make sense, but hey
+    require(msg.sender != mobsterOwner); // it doesn't make sense, but hey
     require(msg.sender==mobsterIndexToOwner[_hitter]); // they must be a hitter owner
 
     // Godfather cannot be hit
@@ -529,8 +529,8 @@ contract MobSquads is ERC721 {
         gangHits.length++;
     }
 
-    // It&#39;s probably never going to happen, 4 billion tokens are A LOT, but
-    // let&#39;s just be 100% sure we never let this happen.
+    // It's probably never going to happen, 4 billion tokens are A LOT, but
+    // let's just be 100% sure we never let this happen.
     require(newMobsterId == uint256(uint32(newMobsterId)));
 
     Birth(newMobsterId, _name, _owner);
@@ -558,12 +558,12 @@ contract MobSquads is ERC721 {
 
   /// @dev Assigns ownership of a specific mobster to an address.
   function _transfer(address _from, address _to, uint256 _tokenId) private {
-    // Since the number of mobsters is capped to 2^32 we can&#39;t overflow this
+    // Since the number of mobsters is capped to 2^32 we can't overflow this
     ownershipTokenCount[_to]++;
     //transfer ownership
     mobsterIndexToOwner[_tokenId] = _to;
 
-    // When creating new mobsters _from is 0x0, but we can&#39;t account that address.
+    // When creating new mobsters _from is 0x0, but we can't account that address.
     if (_from != address(0)) {
       ownershipTokenCount[_from]--;
       // clear any previously approved ownership exchange
@@ -606,7 +606,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

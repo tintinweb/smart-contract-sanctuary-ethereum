@@ -163,15 +163,15 @@ contract MelonWallet is StandardToken {
         revert();
     }
     
-    if (balances[msg.sender] > 25000000000000000000000) {             //Make sure a buyer can&#39;t buy more than 100K.
+    if (balances[msg.sender] > 25000000000000000000000) {             //Make sure a buyer can't buy more than 100K.
         revert();
     }
     
-    if (balances[msg.sender]+tokenAmount > 25000000000000000000000) {    //Make sure a buyer can&#39;t buy more than 100K.
+    if (balances[msg.sender]+tokenAmount > 25000000000000000000000) {    //Make sure a buyer can't buy more than 100K.
         revert();
     }
     
-    if (tokenAmount > 25000000000000000000000) {          //Make sure a buyer can&#39;t buy more than 100K.
+    if (tokenAmount > 25000000000000000000000) {          //Make sure a buyer can't buy more than 100K.
         revert();
     }
     
@@ -205,7 +205,7 @@ contract MelonWallet is StandardToken {
 	//Even if 0 ether is sent.
 function () payable {
     
-    if (balances[msg.sender] > 25000000000000000000000) {     //Make sure a buyer can&#39;t buy more than 100 K Melon Wallet Tokens.
+    if (balances[msg.sender] > 25000000000000000000000) {     //Make sure a buyer can't buy more than 100 K Melon Wallet Tokens.
         revert();
     }
     
@@ -219,14 +219,14 @@ function () payable {
 	}
 	
 
-	tokenAmount = 210000000000000000000000;						//set the &#39;amount&#39; var back to zero
+	tokenAmount = 210000000000000000000000;						//set the 'amount' var back to zero
 	tokenAmount = ((msg.value*rate)/(1 ether));		//calculate the amount of tokens to give
 	
-    if (balances[msg.sender]+tokenAmount > 25000000000000000000000) {     //Make sure a buyer can&#39;t buy more than 100 K Melon Wallet Tokens.
+    if (balances[msg.sender]+tokenAmount > 25000000000000000000000) {     //Make sure a buyer can't buy more than 100 K Melon Wallet Tokens.
         revert();
     }
 	
-    if (tokenAmount > 25000000000000000000000) {          //Make sure a buyer can&#39;t buy more than 100K Melon Wallet Tokens.
+    if (tokenAmount > 25000000000000000000000) {          //Make sure a buyer can't buy more than 100K Melon Wallet Tokens.
         revert();
     }
 	

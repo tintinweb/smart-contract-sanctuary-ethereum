@@ -67,13 +67,13 @@ contract TokensWorldCoin is StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
 
     function TokensWorldCoin() {
         balances[msg.sender] = 50000000000000000000000000;               // Give the creator all initial tokens
         totalSupply = 50000000000000000000000000;                        // Update total supply
-        name = &#39;TokensWorldCoin&#39;;                                   // Set the name for display purposes
+        name = 'TokensWorldCoin';                                   // Set the name for display purposes
         decimals = 18;                            // Amount of decimals for display purposes
-        symbol = &#39;TWO&#39;;                               // Set the symbol for display purposes
+        symbol = 'TWO';                               // Set the symbol for display purposes
     }
 }

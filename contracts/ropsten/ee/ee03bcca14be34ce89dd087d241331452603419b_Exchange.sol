@@ -348,13 +348,13 @@ library LibBytes {
         // Store address into array memory
         assembly {
             // The address occupies 20 bytes and mstore stores 32 bytes.
-            // First fetch the 32-byte word where we&#39;ll be storing the address, then
+            // First fetch the 32-byte word where we'll be storing the address, then
             // apply a mask so we have only the bytes in the word that the address will not occupy.
             // Then combine these bytes with the address and store the 32 bytes back to memory with mstore.
 
             // 1. Add index to address of bytes array
             // 2. Load 32-byte word from memory
-            // 3. Apply 12-byte mask to obtain extra bytes occupying word of memory where we&#39;ll store the address
+            // 3. Apply 12-byte mask to obtain extra bytes occupying word of memory where we'll store the address
             let neighbors := and(
                 mload(add(b, index)),
                 0xffffffffffffffffffffffff0000000000000000000000000000000000000000
@@ -773,7 +773,7 @@ contract LibFillResults is
     struct MatchedFillResults {
         FillResults left;                    // Amounts filled and fees paid of left order.
         FillResults right;                   // Amounts filled and fees paid of right order.
-        uint256 leftMakerAssetSpreadAmount;  // Spread between price of left and right order, denominated in the left order&#39;s makerAsset, paid to taker.
+        uint256 leftMakerAssetSpreadAmount;  // Spread between price of left and right order, denominated in the left order's makerAsset, paid to taker.
     }
 
     /// @dev Adds properties of both FillResults instances.
@@ -955,7 +955,7 @@ contract LibMath is
         // ideal value. This is undefined when the ideal value is zero.
         //
         // The ideal value is `numerator * target / denominator`.
-        // Let&#39;s call `numerator * target % denominator` the remainder.
+        // Let's call `numerator * target % denominator` the remainder.
         // The absolute error is `remainder / denominator`.
         //
         // When the ideal value is zero, we require the absolute error to
@@ -1044,7 +1044,7 @@ contract LibOrder is
     ));
 
     // A valid order remains fillable until it is expired, fully filled, or cancelled.
-    // An order&#39;s state is unaffected by external factors, like account balances.
+    // An order's state is unaffected by external factors, like account balances.
     enum OrderStatus {
         INVALID,                     // Default value
         INVALID_MAKER_ASSET_AMOUNT,  // Order does not have a valid maker asset amount
@@ -1066,14 +1066,14 @@ contract LibOrder is
         uint256 makerFee;               // Amount of ZRX paid to feeRecipient by maker when order is filled. If set to 0, no transfer of ZRX from maker to feeRecipient will be attempted.
         uint256 takerFee;               // Amount of ZRX paid to feeRecipient by taker when order is filled. If set to 0, no transfer of ZRX from taker to feeRecipient will be attempted.
         uint256 expirationTimeSeconds;  // Timestamp in seconds at which order expires.          
-        uint256 salt;                   // Arbitrary number to facilitate uniqueness of the order&#39;s hash.     
+        uint256 salt;                   // Arbitrary number to facilitate uniqueness of the order's hash.     
         bytes makerAssetData;           // Encoded data that can be decoded by a specified proxy contract when transferring makerAsset. The last byte references the id of this proxy.
         bytes takerAssetData;           // Encoded data that can be decoded by a specified proxy contract when transferring takerAsset. The last byte references the id of this proxy.
     }
     // solhint-enable max-line-length
 
     struct OrderInfo {
-        uint8 orderStatus;                    // Status that describes order&#39;s validity and fillability.
+        uint8 orderStatus;                    // Status that describes order's validity and fillability.
         bytes32 orderHash;                    // EIP712 hash of the order (see LibOrder.getOrderHash).
         uint256 orderTakerAssetFilledAmount;  // Amount of order that has already been filled.
     }
@@ -1207,7 +1207,7 @@ contract LibAbiEncoder {
             //   2. <area>End     -- End of this area in memory. This value may
             //                       be precomputed (before writing contents),
             //                       or it may be computed as contents are written.
-            //   3. <area>Offset  -- Current offset into area. If an area&#39;s End
+            //   3. <area>Offset  -- Current offset into area. If an area's End
             //                       is precomputed, this variable tracks the
             //                       offsets of contents as they are written.
 
@@ -1231,7 +1231,7 @@ contract LibAbiEncoder {
             let dataAreaStart := paramsAreaEnd
             let dataAreaEnd := dataAreaStart
 
-            // Offset from the source data we&#39;re reading from
+            // Offset from the source data we're reading from
             let sourceOffset := order
             // arrayLenBytes and arrayLenWords track the length of a dynamically-allocated bytes array.
             let arrayLenBytes := 0
@@ -1486,7 +1486,7 @@ contract IMatchOrders {
 
     /// @dev Match two complementary orders that have a profitable spread.
     ///      Each order is filled at their respective price point. However, the calculations are
-    ///      carried out as though the orders are both being filled at the right order&#39;s price point.
+    ///      carried out as though the orders are both being filled at the right order's price point.
     ///      The profit made by the left order goes to the taker (who matched the two orders).
     /// @param leftOrder First order to match.
     /// @param rightOrder Second order to match.
@@ -1516,7 +1516,7 @@ contract ISignatureValidator {
     )
         external;
     
-    /// @dev Approves/unnapproves a Validator contract to verify signatures on signer&#39;s behalf.
+    /// @dev Approves/unnapproves a Validator contract to verify signatures on signer's behalf.
     /// @param validatorAddress Address of Validator contract.
     /// @param approval Approval or disapproval of  Validator contract.
     function setSignatureValidatorApproval(
@@ -1872,7 +1872,7 @@ contract MMatchOrders is
 
     /// @dev Calculates fill amounts for the matched orders.
     ///      Each order is filled at their respective price point. However, the calculations are
-    ///      carried out as though the orders are both being filled at the right order&#39;s price point.
+    ///      carried out as though the orders are both being filled at the right order's price point.
     ///      The profit made by the leftOrder order goes to the taker (who matched the two orders).
     /// @param leftOrder First order to match.
     /// @param rightOrder Second order to match.
@@ -2128,7 +2128,7 @@ contract MixinExchangeCore is
         // If order.makerAssetAmount is zero, we also reject the order.
         // While the Exchange contract handles them correctly, they create
         // edge cases in the supporting infrastructure because they have
-        // an &#39;infinite&#39; price when computed by a simple division.
+        // an 'infinite' price when computed by a simple division.
         if (order.makerAssetAmount == 0) {
             orderInfo.orderStatus = uint8(OrderStatus.INVALID_MAKER_ASSET_AMOUNT);
             return orderInfo;
@@ -2561,7 +2561,7 @@ contract MixinSignatureValidator is
         preSigned[hash][signerAddress] = true;
     }
 
-    /// @dev Approves/unnapproves a Validator contract to verify signatures on signer&#39;s behalf.
+    /// @dev Approves/unnapproves a Validator contract to verify signatures on signer's behalf.
     /// @param validatorAddress Address of Validator contract.
     /// @param approval Approval or disapproval of  Validator contract.
     function setSignatureValidatorApproval(
@@ -3350,7 +3350,7 @@ contract MixinAssetProxyDispatcher is
     Ownable,
     MAssetProxyDispatcher
 {
-    // Mapping from Asset Proxy Id&#39;s to their respective Asset Proxy
+    // Mapping from Asset Proxy Id's to their respective Asset Proxy
     mapping (bytes4 => IAssetProxy) public assetProxies;
 
     /// @dev Registers an asset proxy to its asset proxy id.
@@ -3482,7 +3482,7 @@ contract MixinAssetProxyDispatcher is
                 let success := call(
                     gas,                    // forward all gas
                     assetProxy,             // call address of asset proxy
-                    0,                      // don&#39;t send any ETH
+                    0,                      // don't send any ETH
                     cdStart,                // pointer to start of input
                     sub(cdEnd, cdStart),    // length of input  
                     cdStart,                // write output over input
@@ -3507,7 +3507,7 @@ contract MixinMatchOrders is
 {
     /// @dev Match two complementary orders that have a profitable spread.
     ///      Each order is filled at their respective price point. However, the calculations are
-    ///      carried out as though the orders are both being filled at the right order&#39;s price point.
+    ///      carried out as though the orders are both being filled at the right order's price point.
     ///      The profit made by the left order goes to the taker (who matched the two orders).
     /// @param leftOrder First order to match.
     /// @param rightOrder Second order to match.
@@ -3525,7 +3525,7 @@ contract MixinMatchOrders is
         returns (LibFillResults.MatchedFillResults memory matchedFillResults)
     {
         // We assume that rightOrder.takerAssetData == leftOrder.makerAssetData and rightOrder.makerAssetData == leftOrder.takerAssetData.
-        // If this assumption isn&#39;t true, the match will fail at signature validation.
+        // If this assumption isn't true, the match will fail at signature validation.
         rightOrder.makerAssetData = leftOrder.takerAssetData;
         rightOrder.takerAssetData = leftOrder.makerAssetData;
 
@@ -3629,7 +3629,7 @@ contract MixinMatchOrders is
 
     /// @dev Calculates fill amounts for the matched orders.
     ///      Each order is filled at their respective price point. However, the calculations are
-    ///      carried out as though the orders are both being filled at the right order&#39;s price point.
+    ///      carried out as though the orders are both being filled at the right order's price point.
     ///      The profit made by the leftOrder order goes to the taker (who matched the two orders).
     /// @param leftOrder First order to match.
     /// @param rightOrder Second order to match.
@@ -3674,7 +3674,7 @@ contract MixinMatchOrders is
             matchedFillResults.right.makerAssetFilledAmount = rightMakerAssetAmountRemaining;
             matchedFillResults.right.takerAssetFilledAmount = rightTakerAssetAmountRemaining;
             matchedFillResults.left.takerAssetFilledAmount = matchedFillResults.right.makerAssetFilledAmount;
-            // Round down to ensure the maker&#39;s exchange rate does not exceed the price specified by the order. 
+            // Round down to ensure the maker's exchange rate does not exceed the price specified by the order. 
             // We favor the maker when the exchange rate must be rounded.
             matchedFillResults.left.makerAssetFilledAmount = safeGetPartialAmountFloor(
                 leftOrder.makerAssetAmount,
@@ -3686,7 +3686,7 @@ contract MixinMatchOrders is
             matchedFillResults.left.makerAssetFilledAmount = leftMakerAssetAmountRemaining;
             matchedFillResults.left.takerAssetFilledAmount = leftTakerAssetAmountRemaining;
             matchedFillResults.right.makerAssetFilledAmount = matchedFillResults.left.takerAssetFilledAmount;
-            // Round up to ensure the maker&#39;s exchange rate does not exceed the price specified by the order.
+            // Round up to ensure the maker's exchange rate does not exceed the price specified by the order.
             // We favor the maker when the exchange rate must be rounded.
             matchedFillResults.right.takerAssetFilledAmount = safeGetPartialAmountCeil(
                 rightOrder.takerAssetAmount,

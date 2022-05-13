@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-// This contract is a fork of Dr. Todd Proebsting&#39;s parimutuel contract. https://programtheblockchain.com/posts/2018/05/08/writing-a-parimutuel-wager-contract/
+// This contract is a fork of Dr. Todd Proebsting's parimutuel contract. https://programtheblockchain.com/posts/2018/05/08/writing-a-parimutuel-wager-contract/
 // Additional gas guzzling shitcoding by Woody Deck.
 
 contract WhatDoesNadiaThink {
@@ -63,11 +63,11 @@ contract WhatDoesNadiaThink {
     }
 
     function resolve(uint256 _winningResponse) public {
-        require(now > marketClosureTime && state == States.Open); // States of smart contracts are updated only when someone transacts with them. The answer function looks up the Unix time that is converted on the front end to see if the market is still open. The state doesn&#39;t change until resolved, so both cases must be true in order to use the resolve() function, otherwise the owner could resolve early or change the answer after. &#39;
+        require(now > marketClosureTime && state == States.Open); // States of smart contracts are updated only when someone transacts with them. The answer function looks up the Unix time that is converted on the front end to see if the market is still open. The state doesn't change until resolved, so both cases must be true in order to use the resolve() function, otherwise the owner could resolve early or change the answer after. '
         require(msg.sender == owner);
 
         winningResponse = _winningResponse; // This is the internally used integer, as arrays in Solidity start from 0.
-        winningAnswer = winningResponse + 1; // Publically posts the correct answer. The &#39;+ 1&#39; addition is for the frontend and to avoid layman confusion with arrays that start from zero.
+        winningAnswer = winningResponse + 1; // Publically posts the correct answer. The '+ 1' addition is for the frontend and to avoid layman confusion with arrays that start from zero.
         
         if (totalPerResponse[winningResponse] == 0) {
             state = States.Cancelled; // If nobody bet on the winning answer, the market is cancelled, else it is resolved. Losing bets will be refunded. 

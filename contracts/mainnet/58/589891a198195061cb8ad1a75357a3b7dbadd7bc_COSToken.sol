@@ -263,13 +263,13 @@ contract COSTokenBase is ERC20, COSStop, Freezeable{
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowances[_from][msg.sender]);    // Check allowance
         balances[_from] -= _value;                         // Subtract from the targeted balance
-        allowances[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowances[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
     }
     /**
-     * Transfer owner&#39;s power to others
+     * Transfer owner's power to others
      *
      * @param _to the address of the successor
      */

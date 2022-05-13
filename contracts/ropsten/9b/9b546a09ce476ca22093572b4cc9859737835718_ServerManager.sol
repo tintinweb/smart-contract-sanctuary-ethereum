@@ -681,7 +681,7 @@ contract NujaBattle is Geometry, StateManager {
     //////////////////////////////////////////////////////////////////
     // Match functions
 
-    // Get the next turn metadata from old metadata and move&#39;s output
+    // Get the next turn metadata from old metadata and move's output
     function nextTurn(
       uint indexServer,
       uint[3] metadata,
@@ -941,7 +941,7 @@ contract ServerManager is Geometry, StateManager {
     mapping (uint => uint) serverMatch;
     uint matchNb;
 
-    // Necessary to get user&#39;s server
+    // Necessary to get user's server
     mapping (address => uint) serverUserNumber;
     mapping (address => mapping (uint => uint)) serverUserIndex;
 
@@ -1011,7 +1011,7 @@ contract ServerManager is Geometry, StateManager {
             servers[indexServer].state = 1;
         }
         else if(servers[indexServer].state == 1) {
-            // If player has already joined the server, it can&#39;t be offline
+            // If player has already joined the server, it can't be offline
             require(servers[indexServer].playerNb == 0);
             servers[indexServer].state = 0;
         }
@@ -1185,7 +1185,7 @@ contract ServerManager is Geometry, StateManager {
         return serverRet-1;
     }
 
-    // Get current id of the server&#39;s match
+    // Get current id of the server's match
     function getServerCurrentMatch(uint indexServer) public view returns(uint matchRet) {
         require(indexServer < serverNumber);
 

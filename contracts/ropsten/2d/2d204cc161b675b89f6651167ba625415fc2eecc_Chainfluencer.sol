@@ -7,10 +7,10 @@ contract ERC20Interface{ //제 3자 송금기능은 빠진 컨트랙트로 기�
   function balanceOf(address who) public view returns (uint);
   //who 주소의 계정에 자산이 얼마 있는가?, 리턴값 : 계정에 보유한 토큰 수
   function transfer(address to, uint value) public returns (bool);
-  //내가 가진 토큰 value 개를 to 에게 보내라. 여기서 &#39;나&#39; 는 가스를 소모하여 transfer 함수를 호출한 계정입니다. , 리턴값 : 성공/실패
+  //내가 가진 토큰 value 개를 to 에게 보내라. 여기서 '나' 는 가스를 소모하여 transfer 함수를 호출한 계정입니다. , 리턴값 : 성공/실패
   event Transfer(address indexed from, address indexed to, uint value);
   //이벤트는 외부에서 호출하는 함수가 아닌 소스 내부에서 호출되는 이벤트 함수입니다.
-  //ERC20 에 따르면 &#39;토큰이 이동할 때에는 반드시 Transfer 이벤트를 발생시켜라.&#39; 라고 규정 짓고 있습니다.
+  //ERC20 에 따르면 '토큰이 이동할 때에는 반드시 Transfer 이벤트를 발생시켜라.' 라고 규정 짓고 있습니다.
 }
 
 
@@ -36,8 +36,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -55,7 +55,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     require(_b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -112,7 +112,7 @@ contract BasicToken is ERC20Interface{
     // address(0)은 값이 없다는 것.
     // require란 참이면 실행하는 것.
     require (_value <= balances[msg.sender]);
-    // 함수를 호출한 &#39;나&#39;의 토큰 잔고가 보내는 토큰의 개수보다 크거나 같을때 실행.
+    // 함수를 호출한 '나'의 토큰 잔고가 보내는 토큰의 개수보다 크거나 같을때 실행.
 
     balances[msg.sender] = balances[msg.sender].sub(_value);
     //sub는 뺄셈. , 보낸 토큰개수만큼 뺀다.
@@ -138,7 +138,7 @@ contract StandardToken is ERC20, BasicToken{
   //ERC20에 선언된 인터페이스를 구현하는 컨트랙트.
 
   mapping (address => mapping (address => uint)) internal allowed;
-  // allowed 매핑은 &#39;누가&#39;,&#39;누구에게&#39;,&#39;얼마의&#39; 인출권한을 줄지를 저장하는 것. ex) allowed[누가][누구에게] = 얼마;
+  // allowed 매핑은 '누가','누구에게','얼마의' 인출권한을 줄지를 저장하는 것. ex) allowed[누가][누구에게] = 얼마;
 
   function transferFrom(address _from, address _to, uint _value) public returns (bool){
     require(_to != address(0));

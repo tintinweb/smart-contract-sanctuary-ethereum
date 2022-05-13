@@ -3,7 +3,7 @@ pragma solidity ^0.4.8;
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData); }
 
 contract TMN {
-    string public standard = &#39;ERC20&#39;;
+    string public standard = 'ERC20';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -20,8 +20,8 @@ contract TMN {
     function TMN() {
         totalSupply = 4955000000000;
         balanceOf[msg.sender] = totalSupply;                                     
-        name = &#39;Transmission&#39;;                                   
-        symbol = &#39;TMN&#39;;                          
+        name = 'Transmission';                                   
+        symbol = 'TMN';                          
         decimals = 4;                            
     }
 

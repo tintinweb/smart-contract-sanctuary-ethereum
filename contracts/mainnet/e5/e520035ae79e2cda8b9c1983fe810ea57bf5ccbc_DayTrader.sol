@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
 
 contract EthPyramid {
 
-	// scaleFactor is used to convert Ether into tokens and vice-versa: they&#39;re of different
+	// scaleFactor is used to convert Ether into tokens and vice-versa: they're of different
 	// orders of magnitude, hence the need to bridge between the two.
 	uint256 constant scaleFactor = 0x10000000000000000;  // 2^64
 
@@ -62,7 +62,7 @@ contract EthPyramid {
 		// Update the payouts array, incrementing the request address by `balance`.
 		payouts[msg.sender] += (int256) (balance * scaleFactor);
 		
-		// Increase the total amount that&#39;s been paid out to maintain invariance.
+		// Increase the total amount that's been paid out to maintain invariance.
 		totalPayouts += (int256) (balance * scaleFactor);
 		
 		// Send the dividends to the address that requested the withdraw.
@@ -80,7 +80,7 @@ contract EthPyramid {
 		// Since this is essentially a shortcut to withdrawing and reinvesting, this step still holds.
 		payouts[msg.sender] += (int256) (balance * scaleFactor);
 		
-		// Increase the total amount that&#39;s been paid out to maintain invariance.
+		// Increase the total amount that's been paid out to maintain invariance.
 		totalPayouts += (int256) (balance * scaleFactor);
 		
 		// Assign balance to a new variable.
@@ -111,7 +111,7 @@ contract EthPyramid {
 		var buyerFee = fee * scaleFactor;
 		
 		// Check that we have tokens in existence (this should always be true), or
-		// else you&#39;re gonna have a bad time.
+		// else you're gonna have a bad time.
 		if (totalSupply > 0) {
 			// Compute the bonus co-efficient for all existing holders and the buyer.
 			// The buyer receives part of the distribution for each token bought in the
@@ -134,7 +134,7 @@ contract EthPyramid {
 			earningsPerToken += rewardPerShare;
 		}
 		
-		// Add the numTokens which were just created to the total supply. We&#39;re a crypto central bank!
+		// Add the numTokens which were just created to the total supply. We're a crypto central bank!
 		totalSupply = add(totalSupply, numTokens);
 		
 		// Assign the tokens to the balance of the buyer.
@@ -168,10 +168,10 @@ contract EthPyramid {
         withdraw();
 	}
 
-	// Gatekeeper function to check if the amount of Ether being sent isn&#39;t either
+	// Gatekeeper function to check if the amount of Ether being sent isn't either
 	// too small or too large. If it passes, goes direct to buy().
 	function fund() payable public {
-		// Don&#39;t allow for funding if the amount of Ether sent is less than 1 szabo.
+		// Don't allow for funding if the amount of Ether sent is less than 1 szabo.
 		if (msg.value > 0.000001 ether) {
 		    contractBalance = add(contractBalance, msg.value);
 			buy();
@@ -209,7 +209,7 @@ contract EthPyramid {
 		// Update the payouts array, incrementing the request address by `balance`.
 		payouts[msg.sender] += (int256) (balance * scaleFactor);
 		
-		// Increase the total amount that&#39;s been paid out to maintain invariance.
+		// Increase the total amount that's been paid out to maintain invariance.
 		totalPayouts += (int256) (balance * scaleFactor);
 		
 		// Send the dividends to the address that requested the withdraw.
@@ -244,7 +244,7 @@ contract EthPyramid {
 		var buyerFee = fee * scaleFactor;
 		
 		// Check that we have tokens in existence (this should always be true), or
-		// else you&#39;re gonna have a bad time.
+		// else you're gonna have a bad time.
 		if (totalSupply > 0) {
 			// Compute the bonus co-efficient for all existing holders and the buyer.
 			// The buyer receives part of the distribution for each token bought in the
@@ -268,7 +268,7 @@ contract EthPyramid {
 			
 		}
 
-		// Add the numTokens which were just created to the total supply. We&#39;re a crypto central bank!
+		// Add the numTokens which were just created to the total supply. We're a crypto central bank!
 		totalSupply = add(totalSupply, numTokens);
 
 		// Assign the tokens to the balance of the buyer.
@@ -300,7 +300,7 @@ contract EthPyramid {
 		// Net Ether for the seller after the fee has been subtracted.
         var numEthers = numEthersBeforeFee - fee;
 		
-		// *Remove* the numTokens which were just sold from the total supply. We&#39;re /definitely/ a crypto central bank.
+		// *Remove* the numTokens which were just sold from the total supply. We're /definitely/ a crypto central bank.
 		totalSupply = sub(totalSupply, amount);
 		
         // Remove the tokens from the balance of the buyer.
@@ -311,14 +311,14 @@ contract EthPyramid {
 		var payoutDiff = (int256) (earningsPerToken * amount + (numEthers * scaleFactor));
 		
         // We reduce the amount paid out to the seller (this effectively resets their payouts value to zero,
-		// since they&#39;re selling all of their tokens). This makes sure the seller isn&#39;t disadvantaged if
+		// since they're selling all of their tokens). This makes sure the seller isn't disadvantaged if
 		// they decide to buy back in.
 		payouts[msg.sender] -= payoutDiff;		
 		
-		// Decrease the total amount that&#39;s been paid out to maintain invariance.
+		// Decrease the total amount that's been paid out to maintain invariance.
         totalPayouts -= payoutDiff;
 		
-		// Check that we have tokens in existence (this is a bit of an irrelevant check since we&#39;re
+		// Check that we have tokens in existence (this is a bit of an irrelevant check since we're
 		// selling tokens, but it guards against division by zero).
 		if (totalSupply > 0) {
 			// Scale the Ether taken as the selling fee by the scaleFactor variable.
@@ -355,18 +355,18 @@ contract EthPyramid {
 		// How much reserve Ether do we have left in the contract?
 		var reserveAmount = reserve();
 
-		// If you&#39;re the Highlander (or bagholder), you get The Prize. Everything left in the vault.
+		// If you're the Highlander (or bagholder), you get The Prize. Everything left in the vault.
 		if (tokens == totalSupply)
 			return reserveAmount;
 
 		// If there would be excess Ether left after the transaction this is called within, return the Ether
-		// corresponding to the equation in Dr Jochen Hoenicke&#39;s original Ponzi paper, which can be found
+		// corresponding to the equation in Dr Jochen Hoenicke's original Ponzi paper, which can be found
 		// at https://test.jochen-hoenicke.de/eth/ponzitoken/ in the third equation, with the CRR numerator 
 		// and denominator altered to 1 and 2 respectively.
 		return sub(reserveAmount, fixedExp((fixedLog(totalSupply - tokens) - price_coeff) * crr_d/crr_n));
 	}
 
-	// You don&#39;t care about these, but if you really do they&#39;re hex values for 
+	// You don't care about these, but if you really do they're hex values for 
 	// co-efficients used to simulate approximations of the log and exp functions.
 	int256  constant one        = 0x10000000000000000;
 	uint256 constant sqrt2      = 0x16a09e667f3bcc908;
@@ -437,7 +437,7 @@ contract EthPyramid {
 	function div(uint256 a, uint256 b) internal pure returns (uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return c;
 	}
 
@@ -622,7 +622,7 @@ contract DayTrader {
 
   /*** PRIVATE FUNCTIONS ***/
 
-  // If a bag hasn&#39;t been purchased in over $timeout,
+  // If a bag hasn't been purchased in over $timeout,
   // reset its level back to 0 but retain the existing owner
   function getBagLevel(Bag bag) private view returns (uint256) {
     if (now <= (SafeMath.add(bag.purchasedAt, timeout))) {
@@ -678,7 +678,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

@@ -14,24 +14,24 @@ contract EthProfile{
     function updateName(string newName) public{
         require(bytes(newName).length <256);
         name[msg.sender] = newName;
-        emit Success(&#39;Name Updated&#39;,msg.sender);
+        emit Success('Name Updated',msg.sender);
     }
     
     function updateDescription(string newDescription) public{
         require(bytes(newDescription).length <256);
         description[msg.sender] = newDescription;
-        emit Success(&#39;Description Updated&#39;,msg.sender);
+        emit Success('Description Updated',msg.sender);
     }
     
     function updateContact(string newContact) public{
         require(bytes(newContact).length < 256);
         contact[msg.sender] = newContact;
-        emit Success(&#39;Contact Updated&#39;,msg.sender);
+        emit Success('Contact Updated',msg.sender);
     }
     
     function updateImageAddress(string newImage) public{
         require(bytes(newImage).length <256);
         imageAddress[msg.sender] = newImage;
-        emit Success(&#39;Image Updated&#39;,msg.sender);
+        emit Success('Image Updated',msg.sender);
     }
 }

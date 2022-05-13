@@ -24,7 +24,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -68,7 +68,7 @@ library Roles {
     }
 
     /**
-     * @dev remove an address&#39; access to this role
+     * @dev remove an address' access to this role
      */
     function remove(Role storage role, address addr)
     internal
@@ -110,7 +110,7 @@ library Roles {
  * @dev See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  *  for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  *  to avoid typos.
  */
 contract RBAC {
@@ -210,7 +210,7 @@ contract RBAC {
 /**
  * @title RBACWithAdmin
  * @author Matt Condon (@Shrugs)
- * @dev It&#39;s recommended that you define constants in the contract,
+ * @dev It's recommended that you define constants in the contract,
  * @dev like ROLE_ADMIN below, to avoid typos.
  */
 contract RBACWithAdmin is RBAC {
@@ -382,7 +382,7 @@ contract ERC20 is ERC20Basic {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 contract Crowdsale {

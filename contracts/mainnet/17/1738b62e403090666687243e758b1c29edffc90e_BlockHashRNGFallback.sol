@@ -74,7 +74,7 @@ contract BlockHashRNG is RNG {
         if (randomNumber[_block] != 0) { // If the number is set.
             uint rewardToSend = reward[_block];
             reward[_block] = 0;
-            msg.sender.send(rewardToSend); // Note that the use of send is on purpose as we don&#39;t want to block in case msg.sender has a fallback issue.
+            msg.sender.send(rewardToSend); // Note that the use of send is on purpose as we don't want to block in case msg.sender has a fallback issue.
         }
     }
 
@@ -102,7 +102,7 @@ contract BlockHashRNGFallback is BlockHashRNG {
         if (randomNumber[_block] != 0) { // If the random number is set.
             uint rewardToSend=reward[_block];
             reward[_block]=0;
-            msg.sender.send(rewardToSend); // Note that the use of send is on purpose as we don&#39;t want to block in case the msg.sender has a fallback issue.
+            msg.sender.send(rewardToSend); // Note that the use of send is on purpose as we don't want to block in case the msg.sender has a fallback issue.
         }
     }
     

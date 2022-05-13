@@ -2,11 +2,11 @@ pragma solidity ^0.4.20;
 
 /*
     ____
-   /\&#39; .\    _____
+   /\' .\    _____
   /: \___\  / .  /\
-  \&#39; / . / /____/..\
-   \/___/  \&#39;  &#39;\  /
-            \&#39;__&#39;\/
+  \' / . / /____/..\
+   \/___/  \'  '\  /
+            \'__'\/
 
  Developer:  TechnicalRise
  
@@ -45,16 +45,16 @@ contract PHXFlip is PHXReceivingContract {
 	  require(_phxToken(msg.sender));
 	  
 	  uint _possibleWinnings = 2 * _value;
-	  // This doesn&#39;t require the PHX Balance to be greater than double the bet
-	  // So check the contract&#39;s PHX Balance before wagering!
-	  if(_prand(2) == 1) { // i.e. if it&#39;s "heads"
+	  // This doesn't require the PHX Balance to be greater than double the bet
+	  // So check the contract's PHX Balance before wagering!
+	  if(_prand(2) == 1) { // i.e. if it's "heads"
 	      if(PHXTKN.balanceOf(this) >= _possibleWinnings) {
 	          PHXTKN.transfer(_from, _possibleWinnings);
 	      } else {
 	          PHXTKN.transfer(_from,PHXTKN.balanceOf(this));
 	      }
 	  } else {
-	      // And if you don&#39;t win, you just don&#39;t win, and it keeps your money
+	      // And if you don't win, you just don't win, and it keeps your money
 	  }
     }
     
@@ -62,11 +62,11 @@ contract PHXFlip is PHXReceivingContract {
     // that relies on the fact that "who" will mine and "when" they will
     // mine is random.  This is obviously vulnerable to "inside the block"
     // attacks where someone writes a contract mined in the same block
-    // and calls this contract from it -- but we don&#39;t accept transactions
+    // and calls this contract from it -- but we don't accept transactions
     // from foreign contracts, lessening that risk
     function _prand(uint _modulo) private view returns (uint) {
         require((1 < _modulo) && (_modulo <= 10000)); // Keep it greater than 0, less than 10K.
-        uint seed1 = uint(block.coinbase); // Get Miner&#39;s Address
+        uint seed1 = uint(block.coinbase); // Get Miner's Address
         uint seed2 = now; // Get the timestamp
         return uint(keccak256(seed1, seed2)) % _modulo;
     }

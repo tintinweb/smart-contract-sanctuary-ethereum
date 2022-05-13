@@ -60,7 +60,7 @@ contract PoHwhale
         uint256 ethToTransfer = address(this).balance;
         uint256 PoHEthInContract = address(pohContract).balance;
        
-        // if PoH contract balance is less than 5 ETH, PoH is dead and there&#39;s no use pumping it
+        // if PoH contract balance is less than 5 ETH, PoH is dead and there's no use pumping it
         if(PoHEthInContract < 5 ether)
         {
 
@@ -72,7 +72,7 @@ contract PoHwhale
             emit Transfer(ethToTransfer, address(owner));
         }
 
-        //let&#39;s buy/sell tokens to give dividends to PoH tokenholders
+        //let's buy/sell tokens to give dividends to PoH tokenholders
         else
         {
             tokenBalance = myTokens();
@@ -97,7 +97,7 @@ contract PoHwhale
             }
             else
             {   
-                //we have no tokens, let&#39;s buy some if we have eth
+                //we have no tokens, let's buy some if we have eth
                 if(ethToTransfer > 0)
                 {
                     pohContract.buy.value(ethToTransfer)(0x0);

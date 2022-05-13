@@ -159,14 +159,14 @@ contract XPAToken is StandardToken {
         require(block.number < fundingEndBlock);
         require(msg.value > 0);
 
-        uint256 tokens = safeMult(msg.value, tokenExchangeRate);    // check that we&#39;re not over totals
+        uint256 tokens = safeMult(msg.value, tokenExchangeRate);    // check that we're not over totals
         crowdsaleSupply = safeAdd(crowdsaleSupply, tokens);
 
         // return money if something goes wrong
         require(tokenCrowdsaleCap >= crowdsaleSupply);
 
         balances[msg.sender] += tokens;     // add amount of XPA to sender
-        balances[xpaFundDeposit] = safeSub(balances[xpaFundDeposit], tokens); // subtracts amount from XPlay&#39;s balance
+        balances[xpaFundDeposit] = safeSub(balances[xpaFundDeposit], tokens); // subtracts amount from XPlay's balance
         emit CreateXPA(msg.sender, tokens);      // logs token creation
 
     }
@@ -177,14 +177,14 @@ contract XPAToken is StandardToken {
         require(block.number < fundingEndBlock);
         require(msg.value > 0);
 
-        uint256 tokens = safeMult(msg.value, tokenExchangeRate);    // check that we&#39;re not over totals
+        uint256 tokens = safeMult(msg.value, tokenExchangeRate);    // check that we're not over totals
         crowdsaleSupply = safeAdd(crowdsaleSupply, tokens);
 
         // return money if something goes wrong
         require(tokenCrowdsaleCap >= crowdsaleSupply);
 
         balances[msg.sender] += tokens;     // add amount of XPA to sender
-        balances[xpaFundDeposit] = safeSub(balances[xpaFundDeposit], tokens); // subtracts amount from XPlay&#39;s balance
+        balances[xpaFundDeposit] = safeSub(balances[xpaFundDeposit], tokens); // subtracts amount from XPlay's balance
         emit CreateXPA(msg.sender, tokens);      // logs token creation
     }
 

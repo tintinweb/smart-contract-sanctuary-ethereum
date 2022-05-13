@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 contract Pimp {
-string public name = &#39;Pimp Token&#39;; 
-string public symbol = &#39;pt&#39;; 
+string public name = 'Pimp Token'; 
+string public symbol = 'pt'; 
 mapping (address => uint) balances; 
 event Transfer(address _from, address _to, uint256 _value); 
 function Pimp()  { 

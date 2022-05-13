@@ -51,7 +51,7 @@ contract Token {
 You should inherit from StandardToken or, for a token like you would want to
 deploy in something like Mist, see HumanStandardToken.sol.
 (This implements ONLY the standard functions and NOTHING else.
-If you deploy this, you won&#39;t have anything useful.)
+If you deploy this, you won't have anything useful.)
 
 Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 .*/
@@ -59,7 +59,7 @@ Implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/20
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[msg.sender] >= _value && _value > 0) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;
@@ -113,10 +113,10 @@ contract SDAXToken is StandardToken {
     */
     string public name;                   //fancy name: eg SUNDAX TOKEN
     string public symbol;                 //An identifier: eg SDAX
-    string public version = &#39;V0.1&#39;;       // 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'V0.1';       // 0.1 standard. Just an arbitrary versioning scheme.
 
     uint8 public constant decimals = 18;                              // Amount of decimals for display purposes
-    uint256 public constant PRECISION = (10 ** uint256(decimals));  // token&#39;s precision
+    uint256 public constant PRECISION = (10 ** uint256(decimals));  // token's precision
 
     constructor(
     uint256 _initialAmount,
@@ -145,7 +145,7 @@ contract SDAXToken is StandardToken {
         allowed[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         if(!_spender.call(bytes4(bytes32(keccak256("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { revert(); }

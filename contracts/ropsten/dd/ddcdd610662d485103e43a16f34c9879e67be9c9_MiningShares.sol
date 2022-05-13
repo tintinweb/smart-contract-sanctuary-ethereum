@@ -247,7 +247,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -283,7 +283,7 @@ contract Utils {
 	function safeDiv(uint256 _x, uint256 _y)internal pure returns (uint256){
 	    // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return _x / _y;
 	}
 	
@@ -819,7 +819,7 @@ contract CommonArgsSetter is DataCaller{
 }
 
 contract IDummyToken is IERC20Token, IERC223Token, IERC223Receiver, ICaller, IOwned {
-    // these function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these function isn't abstract since the compiler emits automatically generated getter functions as external
     function operator() public pure returns(ITokenOperator) {}
     //ITokenOperator public operator;
 }
@@ -935,7 +935,7 @@ contract IMiningSharesImpl is ICalled, ICaller {
 }
 
 contract ITokenOperator is ISmartToken, ICalled, ICaller {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function dummy() public pure returns (IDummyToken) {}
     
     function updateChanges(address) public;

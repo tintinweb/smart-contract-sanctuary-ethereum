@@ -4,14 +4,14 @@ pragma solidity ^0.4.24;
  *
  * Infinite3 Contract
  *  - GAIN 3% EVERY 24 HOURS (every 5900 blocks)
- *  - 0.5% for Promotion on your investment (every ether stays on contract&#39;s balance)
+ *  - 0.5% for Promotion on your investment (every ether stays on contract's balance)
  *  - 0.5% dev commision
  *  - 10% affliate commision 
  *  - 89% Payout commision 
  *
  * How to use:
  *  1. Send any amount of ether to make an investment(minimum 0.01)
- *  2a. Claim your profit by sending 0 ether transaction (every day, every week, i don&#39;t care unless you&#39;re spending too much on GAS)
+ *  2a. Claim your profit by sending 0 ether transaction (every day, every week, i don't care unless you're spending too much on GAS)
  *  OR
  *  2b. Send more ether to reinvest AND get your profit at the same time
  *
@@ -205,7 +205,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

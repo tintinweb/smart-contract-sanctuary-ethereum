@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -53,7 +53,7 @@ library SafeMath {
  * Note: the ERC-165 identifier for this interface is 0x5b5e139f.
  */
 contract ERC721Metadata /* is ERC721 */ {
-    string public tokenURIPrefix = &#39;https://backend.tribe.wtf/meta/product/&#39;;
+    string public tokenURIPrefix = 'https://backend.tribe.wtf/meta/product/';
 
     /// @notice A distinct Uniform Resource Identifier (URI) for a given asset.
     /// @dev Throws if `_tokenId` is not a valid NFT. URIs are defined in RFC

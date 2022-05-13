@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -94,7 +94,7 @@ contract ERC20 is ERC20Basic {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 contract Crowdsale {
@@ -396,7 +396,7 @@ contract UpdatableCrowdsale is AllowanceCrowdsale, Ownable {
    * for which we will be selling tokens.
    * @param _rate Number of tokens a buyer gets per wei at the start of the crowdsale
    * @param _wallet The address of the wallet from which tokens will be sold
-   * @param _token The ERC20 token contract that holds the tokens we&#39;re selling
+   * @param _token The ERC20 token contract that holds the tokens we're selling
    */
   constructor (uint256 _rate, address _wallet, ERC20 _token) public
     AllowanceCrowdsale(_wallet)

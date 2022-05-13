@@ -49,7 +49,7 @@ contract WethAgent{
     address public owner;
     modifiedWETH w;
     
-    //used so that other people can&#39;t take eth from my instance of WethAgent as WethAgent holds my Ethereum and Wrapped Ethereum&#39;
+    //used so that other people can't take eth from my instance of WethAgent as WethAgent holds my Ethereum and Wrapped Ethereum'
     modifier isOwner{
         require(msg.sender==owner); 
         _;
@@ -69,11 +69,11 @@ contract WethAgent{
     
     //takes eth from what the contract was initialized with and puts it in modifiedWETH
     function callDeposit(uint amount) isOwner public{
-        //may also be doable with modifiedWETH&#39;s fallback function?&#39;
+        //may also be doable with modifiedWETH's fallback function?'
         address(w).call.value(amount)(bytes4(keccak256("deposit()")));//address(w).call.value(amount)(0xd0e30db0);
     }
     
-    //transfers the contract&#39;s WETH to another address&#39;
+    //transfers the contract's WETH to another address'
     function callTransfer(address dst, uint amount) isOwner public {
         w.transfer(dst, amount);
     }

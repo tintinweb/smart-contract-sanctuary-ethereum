@@ -22,7 +22,7 @@ contract CSportsConstants {
 
 }
 
-/// @title A facet of CSportsCore that manages an individual&#39;s authorized role against access privileges.
+/// @title A facet of CSportsCore that manages an individual's authorized role against access privileges.
 /// @author CryptoSports, Inc. (https://cryptosports.team))
 /// @dev See the CSportsCore contract documentation to understand how the various CSports contract facets are arranged.
 contract CSportsAuth is CSportsConstants {
@@ -213,8 +213,8 @@ contract CSportsRosterPlayer {
 
     struct RealWorldPlayer {
 
-        // The player&#39;s certified identification. This is the md5 hash of
-        // {player&#39;s last name}-{player&#39;s first name}-{player&#39;s birthday in YYYY-MM-DD format}-{serial number}
+        // The player's certified identification. This is the md5 hash of
+        // {player's last name}-{player's first name}-{player's birthday in YYYY-MM-DD format}-{serial number}
         // where the serial number is usually 0, but gives us an ability to deal with making
         // sure all MD5s are unique.
         uint128 md5Token;
@@ -344,7 +344,7 @@ contract CSportsLeagueRoster is CSportsAuth, CSportsRosterPlayer  {
       revert();
     }
     for (uint32 i = 0; i < _md5Tokens.length; i++) {
-      // We won&#39;t try to put an md5Token duplicate by using the md5TokenToRosterIndex
+      // We won't try to put an md5Token duplicate by using the md5TokenToRosterIndex
       // mapping (notice we need to deal with the fact that a non-existent mapping returns 0)
       if ( (realWorldPlayers.length == 0) ||
            ((md5TokenToRosterIndex[_md5Tokens[i]] == 0) && (realWorldPlayers[0].md5Token != _md5Tokens[i])) ) {
@@ -359,7 +359,7 @@ contract CSportsLeagueRoster is CSportsAuth, CSportsRosterPlayer  {
                                                   });
         uint256 _rosterIndex = realWorldPlayers.push(_realWorldPlayer) - 1;
 
-        // It&#39;s probably never going to happen, but just in case, we need
+        // It's probably never going to happen, but just in case, we need
         // to make sure our realWorldPlayers can be indexed by a uint32
         require(_rosterIndex < 4294967295);
 
@@ -394,7 +394,7 @@ contract CSportsLeagueRoster is CSportsAuth, CSportsRosterPlayer  {
 
   /// @dev Function to remove a particular md5Token from our array of players. This function
   ///   will be blocked after we are completed with development. Deleting entries would
-  ///   screw up the ids of realWorldPlayers held by the core contract&#39;s playerTokens structure.
+  ///   screw up the ids of realWorldPlayers held by the core contract's playerTokens structure.
   /// @param _md5Token - The MD5 token of the entry to remove.
   function removeRealWorldPlayer(uint128 _md5Token) public onlyCommissioner onlyUnderDevelopment  {
     for (uint32 i = 0; i < uint32(realWorldPlayers.length); i++) {

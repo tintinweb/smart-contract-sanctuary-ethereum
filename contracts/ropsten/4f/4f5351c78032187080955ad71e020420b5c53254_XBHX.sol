@@ -67,9 +67,9 @@ contract XBHX is EIP20 {
         owner = msg.sender;
         totalSupply = 100000000;            // Update total supply
         balances[msg.sender] = totalSupply; // Give the creator all initial tokens
-        name = &#39;Bhired Test Token&#39;;         // Set the name for display purposes
+        name = 'Bhired Test Token';         // Set the name for display purposes
         decimals = 0;                       // Amount of decimals for display purposes
-        symbol = &#39;XBHX&#39;;                    // Set the symbol for display purposes
+        symbol = 'XBHX';                    // Set the symbol for display purposes
     }
 
     function whoOwnsYou() public view returns(address){

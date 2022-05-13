@@ -284,7 +284,7 @@ contract QwasderToken is ERC20Basic, Ownable {
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
      *      Beware that changing an allowance with this method brings the risk that someone may use both
      *      the old and the new allowance by unfortunate transaction ordering. One possible solution to
-     *      mitigate this race condition is to first reduce the spender&#39;s allowance to 0 and set the
+     *      mitigate this race condition is to first reduce the spender's allowance to 0 and set the
      *      desired value afterwards.
      * @param spender The address which will spend the funds.
      * @param amount The amount of tokens to be spent.
@@ -488,10 +488,10 @@ contract QwasderToken is ERC20Basic, Ownable {
     }
 
     /**
-     * @dev Set a new release date for investor&#39;s transfers.
+     * @dev Set a new release date for investor's transfers.
      *      Must be executed before the current release date, and the new
      *      date must be a later one. Up to one more week for security reasons.
-     * @param date UNIX timestamp of the new release date for investor&#39;s transfers.
+     * @param date UNIX timestamp of the new release date for investor's transfers.
      * @return True if the operation was successful.
      */
     function setPublicRelease(uint256 date) onlyOwner public returns (bool success) {
@@ -504,10 +504,10 @@ contract QwasderToken is ERC20Basic, Ownable {
     }
 
     /**
-     * @dev Set a new release date for partners&#39; transfers.
+     * @dev Set a new release date for partners' transfers.
      *      Must be executed before the current release date, and the new
      *      date must be a later one. Up to one more week for security reasons.
-     * @param date UNIX timestamp of the new release date for partners&#39; transfers.
+     * @param date UNIX timestamp of the new release date for partners' transfers.
      * @return True if the operation was successful.
      */
     function setPartnersRelease(uint256 date) onlyOwner public returns (bool success) {
@@ -520,10 +520,10 @@ contract QwasderToken is ERC20Basic, Ownable {
     }
 
     /**
-     * @dev Function to set a new unlock date for partners&#39; minting grants.
+     * @dev Function to set a new unlock date for partners' minting grants.
      *      Must be executed before the current unlock date, and the new
      *      date must be a later one. Up to one more week for security reasons.
-     * @param date UNIX timestamp of the new unlock date for partners&#39; grants.
+     * @param date UNIX timestamp of the new unlock date for partners' grants.
      * @param extendLocking boolean value, true to extend the locking periods,
      *        false to leave the current dates.
      * @return True if the operation was successful.

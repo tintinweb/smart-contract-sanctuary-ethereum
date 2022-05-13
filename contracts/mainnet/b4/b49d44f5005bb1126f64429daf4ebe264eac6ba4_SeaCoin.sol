@@ -103,7 +103,7 @@ contract StandardToken is ERC20, Ownable{
         return balances[_owner];
     }
 
-    //Transfer the balance from owner&#39;s account to another account
+    //Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount)
         external
         notZeroAddress(_to)

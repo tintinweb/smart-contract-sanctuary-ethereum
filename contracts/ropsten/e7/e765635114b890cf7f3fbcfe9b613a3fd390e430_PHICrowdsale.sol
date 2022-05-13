@@ -11,7 +11,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -83,8 +83,8 @@ contract BasicToken is ERC20Basic {
     */
     function transfer(address _to, uint256 _value) public onlyPayloadSize(2) returns (bool) {
         uint256 timeCurrent = now;
-        //timeCurrent = 1538438400; //Tue, 02 Oct 2018 00:00:00 GMT  $$$ for test&#39;s
-        //timeCurrent = 1543708800; // Sun, 02 Dec 2018 00:00:00 GMT  $$$ for test&#39;s
+        //timeCurrent = 1538438400; //Tue, 02 Oct 2018 00:00:00 GMT  $$$ for test's
+        //timeCurrent = 1543708800; // Sun, 02 Dec 2018 00:00:00 GMT  $$$ for test's
         require(timeCurrent >= timeFreezeTransfer);
         require(_to != address(0));
         require(_value <= balances[msg.sender]);
@@ -120,8 +120,8 @@ contract StandardToken is ERC20, BasicToken {
      */
     function transferFrom(address _from, address _to, uint256 _value) public onlyPayloadSize(3) returns (bool) {
         uint256 timeCurrent = now;
-        //timeCurrent = 1538438400; //Tue, 02 Oct 2018 00:00:00 GMT  $$$ for test&#39;s
-        //timeCurrent = 1543708800; // Sun, 02 Dec 2018 00:00:00 GMT  $$$ for test&#39;s
+        //timeCurrent = 1538438400; //Tue, 02 Oct 2018 00:00:00 GMT  $$$ for test's
+        //timeCurrent = 1543708800; // Sun, 02 Dec 2018 00:00:00 GMT  $$$ for test's
         require(timeCurrent >= timeFreezeTransfer);
 
         require(_to != address(0));
@@ -141,7 +141,7 @@ contract StandardToken is ERC20, BasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -247,7 +247,7 @@ contract MintableToken is StandardToken, Ownable {
     }
 
     /**
-     * Peterson&#39;s Law Protection
+     * Peterson's Law Protection
      * Claim tokens
      */
     function claimTokens(address _token) public onlyOwner {
@@ -335,7 +335,7 @@ contract PHICrowdsale is Ownable, Crowdsale, MintableToken {
     {
         require(_owner != address(0));
         owner = _owner;
-        //owner = msg.sender; // $$$ for test&#39;s
+        //owner = msg.sender; // $$$ for test's
         transfersEnabled = true;
         mintingFinished = false;
         totalSupply = INITIAL_SUPPLY;
@@ -369,8 +369,8 @@ contract PHICrowdsale is Ownable, Crowdsale, MintableToken {
 
     function getTotalAmountOfTokens(uint256 _weiAmount) internal returns (uint256) {
         uint256 currentDate = now;
-        currentDate = 1538438400; // (02 Oct 2018) // $$$ for test&#39;s
-        //currentDate = 1540051200; // (20 Oct 2018) // $$$ for test&#39;s
+        currentDate = 1538438400; // (02 Oct 2018) // $$$ for test's
+        //currentDate = 1540051200; // (20 Oct 2018) // $$$ for test's
         uint currentPeriod = 0;
         currentPeriod = getPeriod(currentDate);
         uint256 amountOfTokens = 0;

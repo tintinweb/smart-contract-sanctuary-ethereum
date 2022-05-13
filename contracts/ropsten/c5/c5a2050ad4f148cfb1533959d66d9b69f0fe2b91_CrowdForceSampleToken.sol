@@ -120,7 +120,7 @@ contract ERC20Token is ERC20Interface, Owned {
     return balances[_owner];
   }
 
-  /* Transfer the balance from owner&#39;s account to another account */
+  /* Transfer the balance from owner's account to another account */
 
   function transfer(address _to, uint _amount) returns (bool success) {
     // amount sent cannot exceed balance
@@ -149,7 +149,7 @@ contract ERC20Token is ERC20Interface, Owned {
     return true;
   }
 
-  /* Spender of tokens transfers tokens from the owner&#39;s balance */
+  /* Spender of tokens transfers tokens from the owner's balance */
   /* Must be pre-approved by owner */
 
   function transferFrom(address _from, address _to, uint _amount) returns (bool success) {
@@ -440,7 +440,7 @@ contract CrowdForceSampleToken is ERC20Token {
     Transfer(0x0, msg.sender, tokens);
     TokensIssued(msg.sender, tokens, balances[msg.sender], msg.value);
 
-    // transfer Ether if we&#39;re over the threshold
+    // transfer Ether if we're over the threshold
     if ( icoThresholdReached() ) wallet.transfer(this.balance);
   }
   
@@ -543,7 +543,7 @@ contract CrowdForceSampleToken is ERC20Token {
   /* will be newBalance = tokens * TOKEN_SUPPLY_ICO / tokensIssuedIco */
       
   function computeAirdrop(address _participant)  returns (uint airdrop) {
-    // return 0 if it&#39;s too early or ico was not successful
+    // return 0 if it's too early or ico was not successful
     if ( atNow() < DATE_ICO_END || !icoThresholdReached() ) return 0;
     
     // return  0 is the airdrop was already claimed

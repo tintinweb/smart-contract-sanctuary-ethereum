@@ -441,7 +441,7 @@ contract Distributable is StandardToken, Ownable, Whitelist, DateKernel {
     returns (uint256)
     {
         member storage mbr = teams[_member];
-        require(mbr.tokensLeft > 0, "You&#39;ve spent your share");
+        require(mbr.tokensLeft > 0, "You've spent your share");
         uint256 multiplier;
         uint256 callback;
         uint256 curDate = determineDate();

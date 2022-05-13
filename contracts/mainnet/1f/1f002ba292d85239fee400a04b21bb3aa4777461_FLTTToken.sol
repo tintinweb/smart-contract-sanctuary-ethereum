@@ -39,7 +39,7 @@ contract FLTTToken {
     mapping(address => uint256) public balances;
     mapping(address => mapping (address => uint256)) public allowed;
 
-    /* Constructor initializes the owner&#39;s balance and the supply  */
+    /* Constructor initializes the owner's balance and the supply  */
     function FLTTToken() {
         owner = msg.sender;
         _currentSupply = _initialSupply;
@@ -67,7 +67,7 @@ contract FLTTToken {
         return balances[_address];
     }
 
-    /* Transfer the balance from the sender&#39;s address to the address _to */
+    /* Transfer the balance from the sender's address to the address _to */
     function transfer(address _to, uint _value) returns (bool success) {
         if (balances[msg.sender] >= _value
             && _value > 0
@@ -131,7 +131,7 @@ contract FLTTToken {
         return _decimals;
     }
 
-    /* Transfer the balance from the sender&#39;s address to the address _to with data _data */
+    /* Transfer the balance from the sender's address to the address _to with data _data */
     function transfer(address _to, uint _value, bytes _data) returns (bool success) {
         if (balances[msg.sender] >= _value
             && _value > 0

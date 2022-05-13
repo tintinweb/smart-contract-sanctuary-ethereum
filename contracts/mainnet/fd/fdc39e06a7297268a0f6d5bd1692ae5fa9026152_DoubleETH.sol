@@ -1,6 +1,6 @@
 pragma solidity ^0.4.15;
 
-// Double ETH in just 3 days will automatically be sent back to the sender&#39;s address
+// Double ETH in just 3 days will automatically be sent back to the sender's address
 // ETH 1 sender will be sent back 2 ETH
 // Create by HitBTC => https://hitbtc.com/DICE-to-ETH
 

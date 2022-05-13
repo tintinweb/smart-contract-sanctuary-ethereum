@@ -4,7 +4,7 @@ pragma solidity ^0.4.24;
 |  ____             __ _     _    _____      _         _       	 |
 | |  _ \           / _(_)   | |  / ____|    (_)       (_)        |
 | | |_) |_ __ ___ | |_ _ ___| |_| |     ___  _ _ __    _  ___    |
-| |  _ <| &#39;__/ _ \|  _| / __| __| |    / _ \| | &#39;_ \  | |/ _ \   |
+| |  _ <| '__/ _ \|  _| / __| __| |    / _ \| | '_ \  | |/ _ \   |
 | | |_) | | | (_) | | | \__ \ |_| |___| (_) | | | | |_| | (_) |  |
 | |____/|_|  \___/|_| |_|___/\__|\_____\___/|_|_| |_(_)_|\___/   |
 |																 |
@@ -17,8 +17,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -34,8 +34,8 @@ library SafeMath {
     * @dev Multiplies two signed integers, reverts on overflow.
     */
     function mul(int256 a, int256 b) internal pure returns (int256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -56,7 +56,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }

@@ -48,7 +48,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -151,8 +151,8 @@ contract STQPreSale is Ownable, ReentrancyGuard {
     }
 
     /// @notice Tests ownership of the current caller.
-    /// @return true if it&#39;s an owner
-    // It&#39;s advisable to call it by new owner to make sure that the same erroneous address is not copy-pasted to
+    /// @return true if it's an owner
+    // It's advisable to call it by new owner to make sure that the same erroneous address is not copy-pasted to
     // addOwner/changeOwner and to isOwner.
     function amIOwner() external constant onlyOwner returns (bool) {
         return true;

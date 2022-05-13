@@ -19,8 +19,8 @@ contract BankhadCoin {
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function BankhadCoin() {
       owner = 0xaCa0B051C98B1667B9211aB4A4Cb8CFF03d755Bb;
-      name = &#39;Bankhad Coin&#39;;
-      symbol = &#39;BAK&#39;;
+      name = 'Bankhad Coin';
+      symbol = 'BAK';
       decimals = 18;
       totalSupply = 10000000000000000000000000000;  // 10 billion
       balanceOf[owner] = 10000000000000000000000000000;

@@ -330,7 +330,7 @@ contract IQTCrowdsale is Owned{
 	}
 	
 	/**
-	 * Check if all contributor&#39;s token are successfully distributed
+	 * Check if all contributor's token are successfully distributed
 	 */
 	function checkIfAllIQTDistributed(){
 	    address currentParticipantAddress;

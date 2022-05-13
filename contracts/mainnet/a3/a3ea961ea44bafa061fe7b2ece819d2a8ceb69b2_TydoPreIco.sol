@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -134,9 +134,9 @@ contract TydoPreIco is Owned {
     uint amount = msg.value.mul(COINS_PER_ETH).div(1 ether).mul(tokenDecMult);
     amount = addBonus(amount);
     //emit Debug("buy amount", amount);
-    require(amount > 0, &#39;amount must be positive&#39;);
+    require(amount > 0, 'amount must be positive');
     token.transferFrom(address(owner), address(this), amount);
-    //emit Debug(&#39;transfered &#39;, amount);
+    //emit Debug('transfered ', amount);
     balances[msg.sender] = balances[msg.sender].add(amount);
     ethBalances[msg.sender] += msg.value;
     ethCollected = ethCollected.add(msg.value);
@@ -146,7 +146,7 @@ contract TydoPreIco is Owned {
   function addBonus(uint256 amount) internal pure returns(uint256 _newAmount) {
     
     uint256 mult = bonus.add(100);
-    //emit Debug(&#39;mult &#39;, mult);
+    //emit Debug('mult ', mult);
     amount = amount.mul(mult).div(100);
     return amount;
   }

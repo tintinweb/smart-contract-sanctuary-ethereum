@@ -128,15 +128,15 @@ contract KWHToken is StandardToken, SafeMath {
       uint256 tokens;
       if(isIco)
         {
-            tokens = safeMult(msg.value, icoTokenExchangeRate); // check that we&#39;re not over totals
+            tokens = safeMult(msg.value, icoTokenExchangeRate); // check that we're not over totals
         } else {
-            tokens = safeMult(msg.value, preSaleTokenExchangeRate); // check that we&#39;re not over totals
+            tokens = safeMult(msg.value, preSaleTokenExchangeRate); // check that we're not over totals
         }
     
       uint256 checkedSupply = safeAdd(totalSupply, tokens);
  
       // return money if something goes wrong
-      if (tokenCreationCap < checkedSupply) throw;  // odd fractions won&#39;t be found
+      if (tokenCreationCap < checkedSupply) throw;  // odd fractions won't be found
  
       totalSupply = checkedSupply;
       balances[msg.sender] += tokens;  // safeAdd not needed; bad semantics to use here

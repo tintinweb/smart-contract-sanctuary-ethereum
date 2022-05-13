@@ -69,7 +69,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -179,7 +179,7 @@ contract CityToken is ERC721, Ownable {
 
     // make sure price > 0
     require(_startingPrice > 0);
-    // make sure token hasn&#39;t been used yet
+    // make sure token hasn't been used yet
     require(cityData[_tokenId].price == 0);
     
     // create new token
@@ -271,7 +271,7 @@ contract CityToken is ERC721, Ownable {
     // raise event
     CityPurchased(_tokenId, newOwner, price);
 
-    // Transfer payment to old owner minus the developer&#39;s and pool&#39;s cut.
+    // Transfer payment to old owner minus the developer's and pool's cut.
     oldOwner.transfer(price.sub(devCut.add(poolCut)));
 
     // Transfer 10% profit to current country owner
@@ -326,7 +326,7 @@ contract CityToken is ERC721, Ownable {
   }
 
   /**
-  * @dev Withdraw dev&#39;s cut
+  * @dev Withdraw dev's cut
   */
   function withdraw() onlyOwner public {
     owner.transfer(devOwed);
@@ -334,7 +334,7 @@ contract CityToken is ERC721, Ownable {
   }
 
   /**
-  * @dev Sets item&#39;s payout
+  * @dev Sets item's payout
   * @param _itemId itemId to be changed
   */
   function setPayout(uint256 _itemId, uint256 _newPayout) onlyOwner public {
@@ -404,7 +404,7 @@ contract CityToken is ERC721, Ownable {
   }
 
   /**
-  * @dev Determines if token exists by checking it&#39;s price
+  * @dev Determines if token exists by checking it's price
   * @param _tokenId uint256 ID of token
   */
   function tokenExists (uint256 _tokenId) public view returns (bool _exists) {

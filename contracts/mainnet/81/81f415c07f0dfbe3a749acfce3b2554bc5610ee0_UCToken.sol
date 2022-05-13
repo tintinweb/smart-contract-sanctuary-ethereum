@@ -92,7 +92,7 @@ contract UCToken is StandardToken {
     string public name = "Useless Coin Token";
     uint8 public decimals = 18;
     string public symbol = "UCT";
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
 
     function UCToken() {
         balances[msg.sender] = 3000000000000000000000000000;

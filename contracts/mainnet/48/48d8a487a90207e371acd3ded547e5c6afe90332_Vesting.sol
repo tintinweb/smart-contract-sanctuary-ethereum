@@ -214,7 +214,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -424,8 +424,8 @@ contract Vesting is DSMath {
   /// @param _startTime Grant start time as seconds since unix epoch
   /// Allows backdating grants by passing time in the past. If `0` is passed here current blocktime is used. 
   /// @param _amount Total number of tokens in grant
-  /// @param _vestingDuration Number of months of the grant&#39;s duration
-  /// @param _vestingCliff Number of months of the grant&#39;s vesting cliff
+  /// @param _vestingDuration Number of months of the grant's duration
+  /// @param _vestingCliff Number of months of the grant's vesting cliff
   function addTokenGrant(address _recipient, uint256 _startTime, uint128 _amount, uint16 _vestingDuration, uint16 _vestingCliff) public 
   onlyColonyMultiSig
   noGrantExistsForUser(_recipient)
@@ -499,7 +499,7 @@ contract Vesting is DSMath {
   function calculateGrantClaim(address _recipient) public view returns (uint16, uint128) {
     Grant storage tokenGrant = tokenGrants[_recipient];
 
-    // For grants created with a future start date, that hasn&#39;t been reached, return 0, 0
+    // For grants created with a future start date, that hasn't been reached, return 0, 0
     if (now < tokenGrant.startTime) {
       return (0, 0);
     }

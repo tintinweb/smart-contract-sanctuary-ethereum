@@ -132,8 +132,8 @@ library SafeMath {
      * @dev Multiplies two numbers, reverts on overflow.
      */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -151,7 +151,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -517,7 +517,7 @@ contract Commercializ3d is
         duringRound {
         require(
             squareToOwner[squareId] == msg.sender,
-            "Can&#39;t set square price for a square you don&#39;t own!"
+            "Can't set square price for a square you don't own!"
         );
 
         uint256 tax = _priceToTax(newPrice);
@@ -531,7 +531,7 @@ contract Commercializ3d is
         _distributeTax(msg.value, referrer);
         _changeSquarePrice(squareId, newPrice);
 
-        // NOTE: Currently we extend round for &#39;every&#39; square price change. Alternatively could do only on
+        // NOTE: Currently we extend round for 'every' square price change. Alternatively could do only on
         // increases or decreases or changes exceeding some magnitude
         _extendRound();
         _logRoundExtensionVolume(msg.value);
@@ -547,7 +547,7 @@ contract Commercializ3d is
         address oldOwner = squareToOwner[squareId];
         require(
             oldOwner != msg.sender,
-            "Can&#39;t buy a square you already own"
+            "Can't buy a square you already own"
         );
 
         uint256 tax = _priceToTax(newPrice);
@@ -646,7 +646,7 @@ contract Commercializ3d is
 
         // distribute landholder things
         for (i = minSquareId; i <= maxSquareId; i++) {
-            // NOTE: We don&#39;t exclude the jackpot winner(s) here, so the winner(s) is paid &#39;twice&#39;
+            // NOTE: We don't exclude the jackpot winner(s) here, so the winner(s) is paid 'twice'
             uint256 landholderAllocation = complements[i].mul(landholderJackpot).div(totalPriceComplement);
 
             asyncSend(squareToOwner[i], landholderAllocation);

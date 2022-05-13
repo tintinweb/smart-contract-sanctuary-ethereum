@@ -12,14 +12,14 @@ pragma solidity ^0.4.20;
   _____                                __ 
  |  __ \                              / _|
  | |__) |____      _____ _ __    ___ | |_ 
- |  ___/ _ \ \ /\ / / _ \ &#39;__|  / _ \|  _|
+ |  ___/ _ \ \ /\ / / _ \ '__|  / _ \|  _|
  | |  | (_) \ V  V /  __/ |    | (_) | |  
  |_|   \___/ \_/\_/ \___|_|     \___/|_| 
 
  __      ___           _ _           _        _____       _   _       
  \ \    / / |         | (_)         (_)      |  __ \     | | (_)      
   \ \  / /| | __ _  __| |_ _ __ ___  _ _ __  | |__) |   _| |_ _ _ __  
-   \ \/ / | |/ _` |/ _` | | &#39;_ ` _ \| | &#39;__| |  ___/ | | | __| | &#39;_ \ 
+   \ \/ / | |/ _` |/ _` | | '_ ` _ \| | '__| |  ___/ | | | __| | '_ \ 
     \  /  | | (_| | (_| | | | | | | | | |    | |   | |_| | |_| | | | |
      \/   |_|\__,_|\__,_|_|_| |_| |_|_|_|    |_|    \__,_|\__|_|_| |_|
 
@@ -27,7 +27,7 @@ pragma solidity ^0.4.20;
 * -> Features!
 * All the features from the original Po contract, with dividend fee 40%:
 * [x] Highly Secure: Hundreds of thousands of investers have invested in the original contract.
-* [X] Purchase/Sell: You can perform partial sell orders. If you succumb to weak hands, you don&#39;t have to dump all of your bags.
+* [X] Purchase/Sell: You can perform partial sell orders. If you succumb to weak hands, you don't have to dump all of your bags.
 * [x] Purchase/Sell: You can transfer tokens between wallets. Trading is possible from within the contract.
 * [x] Masternodes: The implementation of Ethereum Staking in the world.
 * [x] Masternodes: Holding 50 PowerOfPutin Tokens allow you to generate a Masternode link, Masternode links are used as unique entry points to the contract.
@@ -317,7 +317,7 @@ READ  THE CONTRACT FAGGOTS
     function burn(uint256 _value) onlyOwner public {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);

@@ -12,8 +12,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -31,7 +31,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -391,14 +391,14 @@ contract EtherHiLo is Ownable, EtherHiLoRandomNumberRequester {
         }
 
         // this should never happen according to the odds,
-        // and the fact that we don&#39;t allow people to bet
+        // and the fact that we don't allow people to bet
         // so large that they can take the whole pot in one
         // fell swoop - however, a number of people could
         // theoretically all win simultaneously and cause
         // this scenario.  This will try to at a minimum
         // send them back what they bet and then since it
         // is recorded on the blockchain we can verify that
-        // the winnings sent don&#39;t match what they should be
+        // the winnings sent don't match what they should be
         // and we can manually send the rest to the player.
         uint transferAmount = winnings;
         if (transferAmount > this.balance) {
@@ -431,7 +431,7 @@ contract EtherHiLo is Ownable, EtherHiLoRandomNumberRequester {
         to.transfer(amount);
     }
 
-    // cleans up a player abandoned game, but only if it&#39;s
+    // cleans up a player abandoned game, but only if it's
     // greater than 24 hours old.
     function cleanupAbandonedGame(address player) public onlyOwner {
         require(player != address(0));

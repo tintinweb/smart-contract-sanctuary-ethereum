@@ -14,7 +14,7 @@ contract ERC20Interface {
 
 contract UBCToken is ERC20Interface{
     /* 合约初始参数*/
-    string public standard = &#39;Token 1.0.8&#39;;
+    string public standard = 'Token 1.0.8';
     string public constant name="Ubiquitous Business Credit 2.0";
     string public constant symbol="UBC";
     uint8 public constant decimals=10;

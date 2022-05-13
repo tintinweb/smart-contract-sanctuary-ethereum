@@ -14,7 +14,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -71,7 +71,7 @@ contract Utils {
 }
 
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public pure returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -109,7 +109,7 @@ contract Owned is IOwned {
 
 
 contract IToken {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public pure returns (string) {}
     function symbol() public pure returns (string) {}
     function decimals() public pure returns (uint8) {}
@@ -127,9 +127,9 @@ contract IToken {
 
 contract Token is IToken, Owned, Utils {
     
-    string public standard = &#39;&#39;;
-    string public name = &#39;&#39;;
-    string public symbol = &#39;&#39;;
+    string public standard = '';
+    string public name = '';
+    string public symbol = '';
     uint8 public decimals = 0;
     uint256 public totalSupply = 0;
 
@@ -141,8 +141,8 @@ contract Token is IToken, Owned, Utils {
 
     constructor() public 
     {
-        name = &#39;MKC&#39;;
-        symbol = &#39;MKC&#39;;
+        name = 'MKC';
+        symbol = 'MKC';
         decimals = 8;
         totalSupply = 1000000000 * 10 ** uint256(decimals);
 
@@ -214,7 +214,7 @@ contract IMKC {
 
 contract SmartToken is Owned, Token {
 
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
 
     event NewSmartToken(address _token);
 

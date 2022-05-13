@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -717,7 +717,7 @@ contract BoulePreSale is Ownable{
     // @notice Get the price for a BOU token at any given block number
     // @param _blockNumber the block for which the price is requested
     // @return price of boule
-    // If sale isn&#39;t ongoing for that block, returns 0.
+    // If sale isn't ongoing for that block, returns 0.
     function getPrice(uint _blockNumber) constant public returns (uint256) {
         if (_blockNumber >= finalBlock) return 0;
         if(_blockNumber <= discountBlock){
@@ -843,7 +843,7 @@ contract BoulePreSale is Ownable{
 
     function doFinalizeSale()
     internal {
-        // Doesn&#39;t check if saleStopped is false, because sale could end in a emergency stop.
+        // Doesn't check if saleStopped is false, because sale could end in a emergency stop.
         // This function cannot be successfully called twice, because it will top being the controller,
         // and the generateTokens call will fail if called again.
 

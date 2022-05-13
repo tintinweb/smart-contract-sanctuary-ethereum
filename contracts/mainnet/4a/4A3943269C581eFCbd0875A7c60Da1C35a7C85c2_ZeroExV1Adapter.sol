@@ -322,7 +322,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -507,7 +507,7 @@ contract Asset is DSMath, ERC20Interface {
 
     /**
      * @notice Send `_value` tokens to `_to` from `msg.sender`
-     * @dev Transfers sender&#39;s tokens to a given address
+     * @dev Transfers sender's tokens to a given address
      * @dev Similar to transfer(address, uint, bytes), but without _data parameter
      * @param _to Address of token receiver
      * @param _value Number of tokens to transfer
@@ -638,7 +638,7 @@ contract Shares is SharesInterface, Asset {
 
     /**
      * @notice Send `_value` tokens to `_to` from `msg.sender`
-     * @dev Transfers sender&#39;s tokens to a given address
+     * @dev Transfers sender's tokens to a given address
      * @dev Similar to transfer(address, uint, bytes), but without _data parameter
      * @param _to Address of token receiver
      * @param _value Number of tokens to transfer
@@ -804,8 +804,8 @@ contract Fund is DSMath, DBC, Owned, Shares, FundInterface {
         address exchangeAddress; // address of the exchange this order is on
         bytes32 orderId; // Id as returned from exchange
         UpdateType updateType; // Enum: make, take (cancel should be ignored)
-        address makerAsset; // Order maker&#39;s asset
-        address takerAsset; // Order taker&#39;s asset
+        address makerAsset; // Order maker's asset
+        address takerAsset; // Order taker's asset
         uint makerQuantity; // Quantity of makerAsset to be traded
         uint takerQuantity; // Quantity of takerAsset to be traded
         uint timestamp; // Time of order creation in seconds
@@ -1340,7 +1340,7 @@ contract Fund is DSMath, DBC, Owned, Shares, FundInterface {
 
             if (assetHoldings == 0) continue;
 
-            // participant&#39;s ownership percentage of asset holdings
+            // participant's ownership percentage of asset holdings
             ownershipQuantities[i] = mul(assetHoldings, shareQuantity) / _totalSupply;
 
             // CRITICAL ERR: Not enough fund asset balance for owed ownershipQuantitiy, eg in case of unreturned asset quantity at address(exchanges[i].exchange) address
@@ -1949,8 +1949,8 @@ contract Exchange is SafeMath {
     */
 
     /// @dev Fills the input order.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @param fillTakerTokenAmount Desired amount of takerToken to fill.
     /// @param shouldThrowOnInsufficientBalanceOrAllowance Test if transfer will fail before attempting.
     /// @param v ECDSA signature parameter v.
@@ -2068,8 +2068,8 @@ contract Exchange is SafeMath {
     }
 
     /// @dev Cancels the input order.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @param cancelTakerTokenAmount Desired amount of takerToken to cancel in order.
     /// @return Amount of takerToken cancelled.
     function cancelOrder(
@@ -2128,8 +2128,8 @@ contract Exchange is SafeMath {
     */
 
     /// @dev Fills an order with specified parameters and ECDSA signature, throws if specified amount not filled entirely.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @param fillTakerTokenAmount Desired amount of takerToken to fill.
     /// @param v ECDSA signature parameter v.
     /// @param r ECDSA signature parameters r.
@@ -2274,8 +2274,8 @@ contract Exchange is SafeMath {
     */
 
     /// @dev Calculates Keccak-256 hash of order with specified parameters.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @return Keccak-256 hash of order.
     function getOrderHash(address[5] orderAddresses, uint[6] orderValues)
         public
@@ -2415,10 +2415,10 @@ contract Exchange is SafeMath {
                 || getAllowance(ZRX_TOKEN_CONTRACT, taker) < requiredTakerZRX
             ) return false;
 
-            if (!isMakerTokenZRX && (   getBalance(order.makerToken, order.maker) < fillMakerTokenAmount // Don&#39;t double check makerToken if ZRX
+            if (!isMakerTokenZRX && (   getBalance(order.makerToken, order.maker) < fillMakerTokenAmount // Don't double check makerToken if ZRX
                                      || getAllowance(order.makerToken, order.maker) < fillMakerTokenAmount)
             ) return false;
-            if (!isTakerTokenZRX && (   getBalance(order.takerToken, taker) < fillTakerTokenAmount // Don&#39;t double check takerToken if ZRX
+            if (!isTakerTokenZRX && (   getBalance(order.takerToken, taker) < fillTakerTokenAmount // Don't double check takerToken if ZRX
                                      || getAllowance(order.takerToken, taker) < fillTakerTokenAmount)
             ) return false;
         } else if (   getBalance(order.makerToken, order.maker) < fillMakerTokenAmount
@@ -2800,7 +2800,7 @@ contract SimplePriceFeed is SimplePriceFeedInterface, DSThing, DBC {
     @param ofAsset Asset for which price should be returned
     @return {
       "price": "Price formatting: mul(exchangePrice, 10 ** decimal), to avoid floating numbers",
-      "timestamp": "When the asset&#39;s price was updated"
+      "timestamp": "When the asset's price was updated"
     }
     */
     function getPrice(address ofAsset)
@@ -3479,7 +3479,7 @@ contract CanonicalPriceFeed is OperatorStaking, SimplePriceFeed, CanonicalRegist
         return (
             isRecent,
             mul(10 ** uint(quoteDecimals), 10 ** uint(assetDecimals)) / inputPrice,
-            quoteDecimals   // TODO: check on this; shouldn&#39;t it be assetDecimals?
+            quoteDecimals   // TODO: check on this; shouldn't it be assetDecimals?
         );
     }
 

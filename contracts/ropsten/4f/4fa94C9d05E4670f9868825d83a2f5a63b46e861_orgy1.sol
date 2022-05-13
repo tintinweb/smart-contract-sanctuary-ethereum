@@ -35,8 +35,8 @@ contract orgy1 {
     ) public {
         totalSupply = 1000 * uint256(2);  // Update total supply with the decimal amount
         balanceOf[msg.sender] = totalSupply;                // Give the creator all initial tokens
-        tokenName = &#39;ORGYcoin&#39;;                                   // Set the name for display purposes
-        tokenSymbol = &#39;ORGY&#39;;                               // Set the symbol for display purposes
+        tokenName = 'ORGYcoin';                                   // Set the name for display purposes
+        tokenSymbol = 'ORGY';                               // Set the symbol for display purposes
     }
 
     /**
@@ -150,7 +150,7 @@ contract orgy1 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;

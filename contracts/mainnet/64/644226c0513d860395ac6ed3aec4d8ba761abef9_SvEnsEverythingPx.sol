@@ -394,7 +394,7 @@ contract SvEnsRegistrar {
     }
 
     /**
-     * Register a name that&#39;s not currently registered
+     * Register a name that's not currently registered
      * @param subnode The hash of the label to register.
      * @param _owner The address of the new owner.
      */
@@ -403,7 +403,7 @@ contract SvEnsRegistrar {
     }
 
     /**
-     * Register a name that&#39;s not currently registered
+     * Register a name that's not currently registered
      * @param subnodeStr The label to register.
      * @param _owner The address of the new owner.
      */
@@ -414,7 +414,7 @@ contract SvEnsRegistrar {
     }
 
     /**
-     * INTERNAL - Register a name that&#39;s not currently registered
+     * INTERNAL - Register a name that's not currently registered
      * @param subnode The hash of the label to register.
      * @param _owner The address of the new owner.
      */

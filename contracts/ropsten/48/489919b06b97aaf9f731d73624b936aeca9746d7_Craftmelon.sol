@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 contract Craftmelon {
     /* Public variables of the token */
-    string public standard = &#39;Token 0.1&#39;;
+    string public standard = 'Token 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -93,8 +93,8 @@ contract Craftmelon {
         amount = _amount * buyPrice;                                        // calculates the amount
         
         require(balanceOf[_seller] >= amount);               // checks if it has enough to sell
-        balanceOf[_seller] -= amount;                               // subtracts amount from seller&#39;s balance
-        balanceOf[msg.sender] += amount;                         // adds the amount to buyer&#39;s balance
+        balanceOf[_seller] -= amount;                               // subtracts amount from seller's balance
+        balanceOf[msg.sender] += amount;                         // adds the amount to buyer's balance
         
         Transfer(_seller, msg.sender, amount);                   // execute an event reflecting the change
       

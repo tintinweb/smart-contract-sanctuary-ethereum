@@ -115,26 +115,26 @@ contract ArtStamp {
     //edit both title and metadata with one transaction, will make things easier on the front end
     function editPieceData(uint id, string newTitle, string newMetadata) public {
         bool ownership = hasOwnership(id);
-        require(ownership, "You don&#39;t own this piece");
+        require(ownership, "You don't own this piece");
         pieces[id].metadata = newMetadata;
         pieces[id].title = newTitle;
     }
 
     function editMetadata(uint id, string newMetadata) public {
         bool ownership = hasOwnership(id);
-        require(ownership, "You don&#39;t own this piece");
+        require(ownership, "You don't own this piece");
         pieces[id].metadata = newMetadata;
     }
 
     function editTitle(uint id, string newTitle) public {
         bool ownership = hasOwnership(id);
-        require(ownership, "You don&#39;t own this piece");
+        require(ownership, "You don't own this piece");
         pieces[id].title = newTitle;
     }
 
     function escrowTransfer(uint id, address recipient) public {
         bool ownership = hasOwnership(id);
-        require(ownership, "You don&#39;t own this piece");
+        require(ownership, "You don't own this piece");
 
         //set owner of piece to artstamp smart contract
         pieces[id].owner = address(this);
@@ -175,7 +175,7 @@ contract ArtStamp {
         require(msg.sender == escrowLedger[id].sender.signee ||
             msg.sender == escrowLedger[id].recipient.signee || 
             msg.sender == escrowLedger[id].witness.signee, 
-            "You don&#39;t own this piece");
+            "You don't own this piece");
 
         bool allHaveSigned = true;
 
@@ -212,7 +212,7 @@ contract ArtStamp {
     function transferPiece(uint id, address _to) public
     {
         bool ownership = hasOwnership(id);
-        require(ownership, "You don&#39;t own this piece");
+        require(ownership, "You don't own this piece");
 
         //check if there is a witness, if so initiate escrow
         if(pieces[id].witness != 0x0000000000000000000000000000000000000000){

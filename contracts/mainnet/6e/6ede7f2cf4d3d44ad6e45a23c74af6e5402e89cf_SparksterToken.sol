@@ -118,7 +118,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -270,8 +270,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -288,7 +288,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -342,7 +342,7 @@ contract SparksterToken is StandardToken, Ownable{
 	uint256 public penalty;
 	uint256 public maxGasPrice; // The maximum allowed gas for the purchase function.
 	uint256 internal nextGroupNumber;
-	uint256 public sellPrice; // sellPrice wei:1 spark token; we won&#39;t allow to sell back parts of a token.
+	uint256 public sellPrice; // sellPrice wei:1 spark token; we won't allow to sell back parts of a token.
 	mapping(address => Member) internal members;
 	mapping(uint256 => Group) internal groups;
 	uint256 public openGroupNumber;
@@ -416,7 +416,7 @@ contract SparksterToken is StandardToken, Ownable{
 	}
 
 	function mintTokens(uint256 amount) public onlyOwner {
-		// Here, we&#39;ll consider amount to be the full token amount, so we have to get its decimal value.
+		// Here, we'll consider amount to be the full token amount, so we have to get its decimal value.
 		uint256 decimalAmount = amount.mul(uint(10)**decimals);
 		totalSupply_ = totalSupply_.add(decimalAmount);
 		balances[msg.sender] = balances[msg.sender].add(decimalAmount);
@@ -424,13 +424,13 @@ contract SparksterToken is StandardToken, Ownable{
 	}
 
 	function purchase() public canPurchase payable returns(bool success) {
-		require(msg.sender != address(0)); // Don&#39;t allow the 0 address.
+		require(msg.sender != address(0)); // Don't allow the 0 address.
 		Member storage memberRecord = members[msg.sender];
 		Group storage openGroup = groups[openGroupNumber];
 		require(openGroup.ratio > 0); // Group must be initialized.
 		uint256 currentTimestamp = block.timestamp;
 		require(currentTimestamp >= openGroup.startTime && currentTimestamp <= openGroup.deadline);																 //the timestamp must be greater than or equal to the start time and less than or equal to the deadline time
-		require(!openGroup.distributing && !openGroup.distributed); // Don&#39;t allow to purchase if we&#39;re in the middle of distributing this group; Don&#39;t let someone buy tokens on the current group if that group is already distributed.
+		require(!openGroup.distributing && !openGroup.distributed); // Don't allow to purchase if we're in the middle of distributing this group; Don't let someone buy tokens on the current group if that group is already distributed.
 		require(tx.gasprice <= maxGasPrice); // Restrict maximum gas this transaction is allowed to consume.
 		uint256 weiAmount = msg.value;																		// The amount purchased by the current member
 		require(weiAmount >= 0.1 ether);
@@ -444,8 +444,8 @@ contract SparksterToken is StandardToken, Ownable{
 			require(userWeiTotal <= openGroup.max2); // Allow to contribute no more than max2 in phase 2.
 			emit WantsToPurchase(msg.sender, weiAmount, openGroupNumber, false);
 			return true;
-		} else { // We&#39;ve passed both phases 1 and 2.
-			require(userWeiTotal <= openGroup.max3); // Don&#39;t allow to contribute more than max3 in phase 3.
+		} else { // We've passed both phases 1 and 2.
+			require(userWeiTotal <= openGroup.max3); // Don't allow to contribute more than max3 in phase 3.
 			emit WantsToPurchase(msg.sender, weiAmount, openGroupNumber, false);
 			return true;
 		}
@@ -531,9 +531,9 @@ contract SparksterToken is StandardToken, Ownable{
 		return true;
 	}
 	
-	function buyback(uint256 amount) public canSell { // Can&#39;t sell unless owner has allowed it.
+	function buyback(uint256 amount) public canSell { // Can't sell unless owner has allowed it.
 		uint256 decimalAmount = amount.mul(uint(10)**decimals); // convert the full token value to the smallest unit possible.
-		require(balances[msg.sender].sub(decimalAmount) >= getLockedTokens_(msg.sender)); // Don&#39;t allow to sell locked tokens.
+		require(balances[msg.sender].sub(decimalAmount) >= getLockedTokens_(msg.sender)); // Don't allow to sell locked tokens.
 		balances[msg.sender] = balances[msg.sender].sub(decimalAmount); // Do this before transferring to avoid re-entrance attacks; will throw if result < 0.
 		// Amount is considered to be how many full tokens the user wants to sell.
 		uint256 totalCost = amount.mul(sellPrice); // sellPrice is the per-full-token value.
@@ -615,7 +615,7 @@ contract SparksterToken is StandardToken, Ownable{
 	
 	function instructOracleToDistribute(uint256 groupNumber) public onlyOwner {
 		Group storage theGroup = groups[groupNumber];
-		require(groupNumber < nextGroupNumber && !theGroup.distributed); // can&#39;t have already distributed
+		require(groupNumber < nextGroupNumber && !theGroup.distributed); // can't have already distributed
 		emit WantsToDistribute(groupNumber);
 	}
 	
@@ -653,7 +653,7 @@ contract SparksterToken is StandardToken, Ownable{
 	}
 	
 	function burn(uint256 amount) public onlyOwner {
-		// Burns tokens from the owner&#39;s supply and doesn&#39;t touch allocated tokens.
+		// Burns tokens from the owner's supply and doesn't touch allocated tokens.
 		// Decrease totalSupply and leftOver by the amount to burn so we can decrease the circulation.
 		balances[msg.sender] = balances[msg.sender].sub(amount); // Will throw if result < 0
 		totalSupply_ = totalSupply_.sub(amount); // Will throw if result < 0
@@ -667,7 +667,7 @@ contract SparksterToken is StandardToken, Ownable{
 		uint256 increaseSupplyBy = multiplier.sub(ownerBalance); // We need to mint owner*splitFactor - owner additional tokens.
 		balances[msg.sender] = multiplier;
 		totalSupply_ = totalSupply_.mul(splitFactor);
-		emit Transfer(address(0), msg.sender, increaseSupplyBy); // Notify exchange that we&#39;ve minted tokens.
+		emit Transfer(address(0), msg.sender, increaseSupplyBy); // Notify exchange that we've minted tokens.
 		// Next, increase group ratios by splitFactor, so users will receive ratio * splitFactor tokens per ether.
 		uint256 n = nextGroupNumber;
 		require(n > 0); // Must have at least one group.
@@ -683,7 +683,7 @@ contract SparksterToken is StandardToken, Ownable{
 		uint256 ownerBalance = balances[msg.sender];
 		uint256 divier = ownerBalance.div(splitFactor);
 		uint256 decreaseSupplyBy = ownerBalance.sub(divier);
-		// We don&#39;t use burnTokens here since the amount to subtract might be more than what the owner currently holds in their unallocated supply which will cause the function to throw.
+		// We don't use burnTokens here since the amount to subtract might be more than what the owner currently holds in their unallocated supply which will cause the function to throw.
 		totalSupply_ = totalSupply_.div(splitFactor);
 		balances[msg.sender] = divier;
 		// Notify the exchanges of how many tokens were burned.
@@ -777,8 +777,8 @@ contract SparksterToken is StandardToken, Ownable{
 	}
 
 	function transferRecovery(address _from, address _to, uint256 _value) public onlyOwner returns (bool success) {
-		// Will be used if someone sends tokens to an incorrect address by accident. This way, we have the ability to recover the tokens. For example, sometimes there&#39;s a problem of lost tokens if someone sends tokens to a contract address that can&#39;t utilize the tokens.
-		allowed[_from][msg.sender] = allowed[_from][msg.sender].add(_value); // Authorize the owner to spend on someone&#39;s behalf.
+		// Will be used if someone sends tokens to an incorrect address by accident. This way, we have the ability to recover the tokens. For example, sometimes there's a problem of lost tokens if someone sends tokens to a contract address that can't utilize the tokens.
+		allowed[_from][msg.sender] = allowed[_from][msg.sender].add(_value); // Authorize the owner to spend on someone's behalf.
 		return transferFrom(_from, _to, _value);
 	}
 }

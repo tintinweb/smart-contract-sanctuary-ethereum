@@ -46,7 +46,7 @@ contract DNNRedemption {
     uint256 public seed = 8633926795440059073718754917553891166080514579013872221976080033791214;
 
     /////////////////////////////////////////////////
-    // We&#39;ll keep track of who we have sent DNN to //
+    // We'll keep track of who we have sent DNN to //
     /////////////////////////////////////////////////
     mapping(address => uint256) holders;
 
@@ -100,12 +100,12 @@ contract DNNRedemption {
         doesNotHaveDNN(beneficiary)
         returns (uint256)
     {
-        // Number of tokens that we&#39;ll send
+        // Number of tokens that we'll send
         uint256 tokenCount = (uint(keccak256(abi.encodePacked(blockhash(block.number-1), seed ))) % 1000);
 
-        // If the amount is over 200 then we&#39;ll cap the tokens we&#39;ll
+        // If the amount is over 200 then we'll cap the tokens we'll
         // give to 200 to prevent giving too many. Since the highest amount
-        // of tokens earned in the bounty was 99 DNN, we&#39;ll be issuing a bonus to everyone
+        // of tokens earned in the bounty was 99 DNN, we'll be issuing a bonus to everyone
         // for the long wait.
         if (tokenCount > 200) {
             tokenCount = 200;
@@ -114,7 +114,7 @@ contract DNNRedemption {
         // Change atto-DNN to DNN
         tokenCount = tokenCount * 1 ether;
 
-        // If we have reached our max tokens then we&#39;ll bail out of the transaction
+        // If we have reached our max tokens then we'll bail out of the transaction
         if (tokensDistributed+tokenCount > maxTokensToDistribute) {
             revert();
         }

@@ -28,13 +28,13 @@ contract testamento{
     //Esta funci&#243;n es la que le permite unicamente al owner ir ingresando fondos
     //en su legado.
     function ingresarFondos() payable public {
-        require(msg.sender == owner, &#39;Esta persona no puede ingresar fondos.&#39;);
+        require(msg.sender == owner, 'Esta persona no puede ingresar fondos.');
     }
     
     //Esta funci&#243;n es la que llama el or&#225;culo cuando deja de recibir los signos
     //vitales del owner
     function seMurio () public {
-        require(msg.sender == reloj, &#39;Este no es el or&#225;culo&#39;);
+        require(msg.sender == reloj, 'Este no es el or&#225;culo');
         heredar();
     }
     
@@ -45,7 +45,7 @@ contract testamento{
     
     //Esta funci&#243;n permite al owner ver el balance del contrato.
     function getBalance () public view returns (uint256){
-        require(msg.sender == owner, &#39;Esta persona no puede ver el balance&#39;);
+        require(msg.sender == owner, 'Esta persona no puede ver el balance');
         return (address(this).balance);
     }
 }

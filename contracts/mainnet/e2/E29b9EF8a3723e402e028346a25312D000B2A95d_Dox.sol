@@ -51,8 +51,8 @@ contract Dox {
     mapping(address => mapping(address => uint)) allowed;
 
     constructor() public {
-        symbol = &#39;DOX&#39;;
-        name = &#39;DOX Token&#39;;
+        symbol = 'DOX';
+        name = 'DOX Token';
         decimals = 18;
         totalSupply = 1000000000 * 10**uint(decimals);
         balances[msg.sender] = totalSupply;

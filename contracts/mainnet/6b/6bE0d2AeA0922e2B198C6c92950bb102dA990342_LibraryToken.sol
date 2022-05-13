@@ -45,7 +45,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -223,7 +223,7 @@ contract LibraryToken is ERC721 {
   )
     public
   {
-    // Caller can&#39;t be approver of request
+    // Caller can't be approver of request
     require(msg.sender != _to);
 
     // Caller must own token.
@@ -456,9 +456,9 @@ contract LibraryToken is ERC721 {
   }
 
   /**
-    * For querying developer&#39;s cut which is left in the contract by `purchase`
+    * For querying developer's cut which is left in the contract by `purchase`
     * @param _price The token actual price
-    * @return _devCut The developer&#39;s cut
+    * @return _devCut The developer's cut
     */
   function calculateDevCut (uint256 _price) public view returns (uint256 _devCut) {
     if (_price < TIER1) {
@@ -483,7 +483,7 @@ contract LibraryToken is ERC721 {
   }
 
   /**
-    * @dev This function withdrawing all of developer&#39;s cut which is left in the contract by `purchase`.
+    * @dev This function withdrawing all of developer's cut which is left in the contract by `purchase`.
     * User funds are immediately sent to the old owner in `purchase`, no user funds are left in the contract
     * expect funds that stay in the contract that are waiting to be sent to a founder of a library when we would assign him.
     */
@@ -494,7 +494,7 @@ contract LibraryToken is ERC721 {
   }
 
   /**
-    * @dev This function withdrawing selected amount of developer&#39;s cut which is left in the contract by `purchase`.
+    * @dev This function withdrawing selected amount of developer's cut which is left in the contract by `purchase`.
     * User funds are immediately sent to the old owner in `purchase`, no user funds are left in the contract
     * expect funds that stay in the contract that are waiting to be sent to a founder of a library when we would assign him.
     * @param _amount The amount to withdraw
@@ -507,7 +507,7 @@ contract LibraryToken is ERC721 {
   }
 
     /**
-    * @dev This function withdrawing selected amount of developer&#39;s cut which is left in the contract by `purchase`.
+    * @dev This function withdrawing selected amount of developer's cut which is left in the contract by `purchase`.
     * User funds are immediately sent to the old owner in `purchase`, no user funds are left in the contract
     * expect funds that stay in the contract that are waiting to be sent to a founder of a library when we would assign him.
     */
@@ -547,7 +547,7 @@ contract LibraryToken is ERC721 {
     Bought(_tokenId, newOwner, price);
     Sold(_tokenId, oldOwner, price);
 
-    // Devevloper&#39;s cut which is left in contract and accesed by
+    // Devevloper's cut which is left in contract and accesed by
     // `withdrawAll` and `withdrawAmount` methods.
     uint256 devCut = calculateDevCut(price);
     developersCut = developersCut.add(devCut);
@@ -568,7 +568,7 @@ contract LibraryToken is ERC721 {
   }
 
   /**
-    * @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+    * @dev This method MUST NEVER be called by smart contract code. First, it's fairly
     * expensive (it walks the entire Cities array looking for cities belonging to owner),
     * but it also returns a dynamic array, which is only supported for web3 calls, and
     * not contract-to-contract calls.
@@ -597,7 +597,7 @@ contract LibraryToken is ERC721 {
   }
 
     /**
-    * @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+    * @dev This method MUST NEVER be called by smart contract code. First, it's fairly
     * expensive (it walks the entire Cities array looking for cities belonging to owner),
     * but it also returns a dynamic array, which is only supported for web3 calls, and
     * not contract-to-contract calls.
@@ -736,13 +736,13 @@ contract LibraryToken is ERC721 {
     * @param _tokenId The id of token to change owner
     */
   function _transfer(address _from, address _to, uint256 _tokenId) private {
-    // Since the number of library is capped to 2^32 we can&#39;t overflow this
+    // Since the number of library is capped to 2^32 we can't overflow this
     ownershipTokenCount[_to] = ownershipTokenCount[_to].add(1);
 
     //transfer ownership
     libraryIndexToOwner[_tokenId] = _to;
 
-    // When creating new libraries _from is 0x0, but we can&#39;t account that address.
+    // When creating new libraries _from is 0x0, but we can't account that address.
     if (_from != address(0)) {
       ownershipTokenCount[_from] = ownershipTokenCount[_from].sub(1);
 

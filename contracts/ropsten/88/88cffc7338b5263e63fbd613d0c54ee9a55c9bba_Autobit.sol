@@ -165,7 +165,7 @@ contract TokenBase is EIP20Interface, Manage, Math {
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowed[_from][msg.sender]);    // Check allowance
         balances[_from] -= _value;                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;

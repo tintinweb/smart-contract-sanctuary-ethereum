@@ -87,7 +87,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -184,7 +184,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -328,7 +328,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply = totalSupply.sub(_value);
@@ -527,14 +527,14 @@ contract Scale is MintableToken, HasNoEther, BurnableToken {
      // Add to the msg.sender balance
      balances[msg.sender] = balances[msg.sender].add(_value);
      
-     // Subtract from the contract&#39;s balance
+     // Subtract from the contract's balance
      balances[address(this)] = balances[address(this)].sub(_value);
 
      // Fire an event for transfer
      emit Transfer(address(this), msg.sender, _value);
    }
 
-   /// @dev stake function reduces the user&#39;s total available balance and adds it to their staking balance
+   /// @dev stake function reduces the user's total available balance and adds it to their staking balance
    /// @param _value how many tokens a user wants to stake
    function stakeScale(address _user, uint256 _value) private returns (bool success) {
 
@@ -577,13 +577,13 @@ contract Scale is MintableToken, HasNoEther, BurnableToken {
        return true;
    }
 
-    /// @dev deposit a user&#39;s initial stake plus earnings if the user unstaked at least 14 days ago
+    /// @dev deposit a user's initial stake plus earnings if the user unstaked at least 14 days ago
     function claimStake() external returns (bool) {
 
       // Require that at least 14 days have passed (days)
       require(now.div(timingVariable).sub(stakeBalances[msg.sender].unstakeTime) >= 14);
 
-      // Get the user&#39;s stake balance 
+      // Get the user's stake balance 
       uint _userStakeBalance = stakeBalances[msg.sender].stakeBalance;
 
       // Calculate tokens to mint using unstakeTime, rewards are not received during power-down period
@@ -662,7 +662,7 @@ contract Scale is MintableToken, HasNoEther, BurnableToken {
 
       uint _initialStakeTimeInVariable = stakeBalances[msg.sender].initialStakeTime; // When the user started staking as a unique day in unix time
       uint _timePassedSinceStakeInVariable = _unstakeTime.sub(_initialStakeTimeInVariable); // How much time has passed, in days, since the user started staking.
-      uint _stakePercentages = 0; // Keeps an additive track of the user&#39;s staking percentages over time
+      uint _stakePercentages = 0; // Keeps an additive track of the user's staking percentages over time
       uint _tokensToMint = 0; // How many new Scale tokens to create
       uint _lastDayStakeWasUpdated;  // Last day the totalScaleStaked was updated
       uint _lastStakeDay; // Last day that the user staked
@@ -676,7 +676,7 @@ contract Scale is MintableToken, HasNoEther, BurnableToken {
        _unstakeTime = _initialStakeTimeInVariable.add(365);
        _timePassedSinceStakeInVariable = 365;
       }
-      // Average this msg.sender&#39;s relative percentage ownership of totalScaleStaked throughout each day since they started staking
+      // Average this msg.sender's relative percentage ownership of totalScaleStaked throughout each day since they started staking
       for (uint i = _initialStakeTimeInVariable; i < _unstakeTime; i++) {
 
         // Total amount user has staked on i day
@@ -718,10 +718,10 @@ contract Scale is MintableToken, HasNoEther, BurnableToken {
             }
         }
       }
-        // Get the account&#39;s average percentage staked of the total stake over the course of all days they have been staking
+        // Get the account's average percentage staked of the total stake over the course of all days they have been staking
         uint _stakePercentageAverage = calculateFraction(_stakePercentages, _timePassedSinceStakeInVariable, 0);
 
-        // Calculate this account&#39;s mint rate per second while staking
+        // Calculate this account's mint rate per second while staking
         uint _finalMintRate = stakingMintRate.mul(_stakePercentageAverage);
 
         // Account for 18 decimals when calculating the amount of tokens to mint
@@ -736,7 +736,7 @@ contract Scale is MintableToken, HasNoEther, BurnableToken {
     /// @dev set the new totalStakingHistory mapping to the current timestamp and totalScaleStaked
     function setTotalStakingHistory() private {
 
-      // Get now in terms of the variable staking accuracy (days in Scale&#39;s case)
+      // Get now in terms of the variable staking accuracy (days in Scale's case)
       uint _nowAsTimingVariable = now.div(timingVariable);
 
       // Set the totalStakingHistory as a timestamp of the totalScaleStaked today
@@ -764,7 +764,7 @@ contract Scale is MintableToken, HasNoEther, BurnableToken {
         // Determine the token mint amount, determined from the number of seconds passed and the ownerMintRate
         _tokenMintCount = calculateMintTotal(_timePassedSinceLastMint, ownerMintRate);
 
-        // Mint the owner&#39;s tokens; this also increases totalSupply
+        // Mint the owner's tokens; this also increases totalSupply
         _mintingSuccess = mint(msg.sender, _tokenMintCount);
 
         require(_mintingSuccess);
@@ -799,7 +799,7 @@ contract Scale is MintableToken, HasNoEther, BurnableToken {
         // Determine the token mint amount, determined from the number of seconds passed and the ownerMintRate
         _tokenMintCount = calculateMintTotal(_timePassedSinceLastMint, poolMintRate);
 
-        // Mint the owner&#39;s tokens; this also increases totalSupply
+        // Mint the owner's tokens; this also increases totalSupply
         _mintingSuccess = mint(pool, _tokenMintCount);
 
         require(_mintingSuccess);

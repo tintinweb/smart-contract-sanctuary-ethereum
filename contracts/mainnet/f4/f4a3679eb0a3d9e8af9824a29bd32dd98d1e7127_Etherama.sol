@@ -453,7 +453,7 @@ contract EtheramaCore is EtheramaGasPriceLimit {
         return reward;
     }
     
-    //user&#39;s total reward from all the tokens on the table. includes share reward + referal bonus + promo bonus
+    //user's total reward from all the tokens on the table. includes share reward + referal bonus + promo bonus
     function getUserTotalReward(address userAddress, bool incShareBonus, bool incRefBonus, bool incPromoBonus) public view returns(uint256 res) {
         for (uint256 i = 0; i < _controllerContractCount; i++) {
             address dataContractAddress = Etherama(_controllerIndexer[i]).getDataContractAddress();
@@ -462,27 +462,27 @@ contract EtheramaCore is EtheramaGasPriceLimit {
         }
     }
     
-    //current user&#39;s reward
+    //current user's reward
     function getCurrentUserReward(bool incRefBonus, bool incPromoBonus) public view returns(uint256) {
         return getUserTotalReward(msg.sender, true, incRefBonus, incPromoBonus);
     }
  
-    //current user&#39;s total reward from all the tokens on the table
+    //current user's total reward from all the tokens on the table
     function getCurrentUserTotalReward() public view returns(uint256) {
         return getUserTotalReward(msg.sender, true, true, true);
     }
     
-    //user&#39;s share bonus from all the tokens on the table
+    //user's share bonus from all the tokens on the table
     function getCurrentUserShareBonus() public view returns(uint256) {
         return getUserTotalReward(msg.sender, true, false, false);
     }
     
-    //current user&#39;s ref bonus from all the tokens on the table
+    //current user's ref bonus from all the tokens on the table
     function getCurrentUserRefBonus() public view returns(uint256) {
         return getUserTotalReward(msg.sender, false, true, false);
     }
     
-    //current user&#39;s promo bonus from all the tokens on the table
+    //current user's promo bonus from all the tokens on the table
     function getCurrentUserPromoBonus() public view returns(uint256) {
         return getUserTotalReward(msg.sender, false, false, true);
     }
@@ -508,7 +508,7 @@ contract EtheramaCore is EtheramaGasPriceLimit {
         emit onWithdrawUserBonus(msg.sender, reward);
     }
 
-    //gather all the user&#39;s reward and prepare it to withdaw
+    //gather all the user's reward and prepare it to withdaw
     function getRewardAndPrepareWithdraw() internal returns(uint256 reward) {
         
         for (uint256 i = 0; i < _controllerContractCount; i++) {
@@ -532,7 +532,7 @@ contract EtheramaCore is EtheramaGasPriceLimit {
         return reward;
     }
     
-    //withdaw all the remamining ETH if there is no one active contract. We don&#39;t want to leave them here forever
+    //withdaw all the remamining ETH if there is no one active contract. We don't want to leave them here forever
     function withdrawRemainingEthAfterAll() onlyAdministrator public {
         for (uint256 i = 0; i < _controllerContractCount; i++) {
             if (Etherama(_controllerIndexer[i]).isActive()) revert();
@@ -575,7 +575,7 @@ contract EtheramaData {
     uint64 constant public PRICE_SPEED_PERCENT = 5;
     // Token price speed interval. For instance, if PRICE_SPEED_PERCENT = 5 and PRICE_SPEED_INTERVAL = 10000 it means that after 10000 tokens are bought/sold  token price will increase/decrease for 5%.
     uint64 constant public PRICE_SPEED_INTERVAL = 10000;
-    // lock-up period in days. Until this period is expeired nobody can close the contract or withdraw users&#39; funds
+    // lock-up period in days. Until this period is expeired nobody can close the contract or withdraw users' funds
     uint64 constant public EXP_PERIOD_DAYS = 365;
 
     
@@ -878,7 +878,7 @@ contract Etherama {
         _data.setHasMaxPurchaseLimit(val);
     }
         
-    // activate the controller contract. After calling this function anybody can start trading the contrant&#39;s tokens
+    // activate the controller contract. After calling this function anybody can start trading the contrant's tokens
     function activate() onlyAdministrator public {
         require(!isActive);
         
@@ -941,7 +941,7 @@ contract Etherama {
         purchaseTokens(msg.value, address(0x0), 1);
     }
 
-    // withdraw token owner&#39;s reward
+    // withdraw token owner's reward
     function withdrawTokenOwnerReward() onlyAdministrator public {
         uint256 reward = getTokenOwnerReward();
         
@@ -1121,7 +1121,7 @@ contract Etherama {
         return _core.convertRealTo256(_data._realTokenPrice());
     }
 
-    //contract&#39;s eth balance
+    //contract's eth balance
     function getTotalEthBalance() public view returns(uint256) {
         return address(this).balance;
     }
@@ -1141,12 +1141,12 @@ contract Etherama {
         return getTotalTokenSupply() - getRemainingTokenAmount();
     }
     
-    //user&#39;s token amount which were bought from the contract
+    //user's token amount which were bought from the contract
     function getUserLocalTokenBalance(address userAddress) public view returns(uint256) {
         return _data.getUserTokenLocalBalance(userAddress);
     }
     
-    //current user&#39;s token amount which were bought from the contract
+    //current user's token amount which were bought from the contract
     function getCurrentUserLocalTokenBalance() public view returns(uint256) {
         return getUserLocalTokenBalance(msg.sender);
     }    
@@ -1178,7 +1178,7 @@ contract Etherama {
         return ( SafeMath.max(_core.MIN_ETH_DEAL_VAL(), tokensToEth(minTokenVal, true)), SafeMath.min(_core.MAX_ETH_DEAL_VAL(), tokensToEth(maxTokenVal, true)) );
     }
     
-    //user&#39;s total reward from all the tokens on the table. includes share reward + referal bonus + promo bonus
+    //user's total reward from all the tokens on the table. includes share reward + referal bonus + promo bonus
     function getUserReward(address userAddress, bool isTotal) public view returns(uint256) {
         return isTotal ? 
             _core.getUserTotalReward(userAddress, true, true, true) :
@@ -1246,11 +1246,11 @@ contract Etherama {
         return (fromToken ? ethAmount : tokenAmount, totalFeeEth, tokenPrice);
     }
 
-    //returns max user&#39;s purchase limit in tokens if _hasMaxPurchaseLimit pamam is set true. If it is a user cannot by more tokens that hs already bought on some other exchange
+    //returns max user's purchase limit in tokens if _hasMaxPurchaseLimit pamam is set true. If it is a user cannot by more tokens that hs already bought on some other exchange
     function getUserMaxPurchase(address userAddress) public view returns(uint256) {
         return _token.balanceOf(userAddress) - SafeMath.mul(getUserLocalTokenBalance(userAddress), 2);
     }
-    //current urser&#39;s max purchase limit in tokens
+    //current urser's max purchase limit in tokens
     function getCurrentUserMaxPurchase() public view returns(uint256) {
         return getUserMaxPurchase(msg.sender);
     }
@@ -1260,16 +1260,16 @@ contract Etherama {
         return _data._tokenOwnerReward();
     }
 
-    //current user&#39;s won promo bonuses
+    //current user's won promo bonuses
     function getCurrentUserTotalPromoBonus() public view returns(uint256) {
         return _data.getUserTotalPromoBonus(msg.sender);
     }
 
-    //current user&#39;s won big promo bonuses
+    //current user's won big promo bonuses
     function getCurrentUserBigPromoBonus() public view returns(uint256) {
         return _data.getUserBigPromoBonus(msg.sender);
     }
-    //current user&#39;s won quick promo bonuses
+    //current user's won quick promo bonuses
     function getCurrentUserQuickPromoBonus() public view returns(uint256) {
         return _data.getUserQuickPromoBonus(msg.sender);
     }
@@ -1297,7 +1297,7 @@ contract Etherama {
         require(tokenAmount >= minReturn);
 
         if (_data._hasMaxPurchaseLimit()) {
-            //user has to have at least equal amount of tokens which he&#39;s willing to buy 
+            //user has to have at least equal amount of tokens which he's willing to buy 
             require(getCurrentUserMaxPurchase() >= tokenAmount);
         }
 
@@ -1520,7 +1520,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -1572,17 +1572,17 @@ library RealMath {
     int256 constant REAL_IBITS = REAL_BITS - REAL_FBITS;
     
     /**
-     * What&#39;s the first non-fractional bit
+     * What's the first non-fractional bit
      */
     int128 constant REAL_ONE = int128(1) << REAL_FBITS;
     
     /**
-     * What&#39;s the last fractional bit?
+     * What's the last fractional bit?
      */
     int128 constant REAL_HALF = REAL_ONE >> 1;
     
     /**
-     * What&#39;s two? Two is pretty useful.
+     * What's two? Two is pretty useful.
      */
     int128 constant REAL_TWO = REAL_ONE << 1;
     
@@ -1608,7 +1608,7 @@ library RealMath {
     int128 constant REAL_TWO_PI = 6908435304715;
     
     /**
-     * What&#39;s the sign bit?
+     * What's the sign bit?
      */
     int128 constant SIGN_MASK = int128(1) << 127;
     
@@ -1717,7 +1717,7 @@ library RealMath {
         return div(toReal(numerator), toReal(denominator));
     }
     
-    // Now we have some fancy math things (like pow and trig stuff). This isn&#39;t
+    // Now we have some fancy math things (like pow and trig stuff). This isn't
     // in the RealMath that was deployed with the original Macroverse
     // deployment, so it needs to be linked into your contract statically.
     
@@ -1826,7 +1826,7 @@ library RealMath {
         // Find the high bit
         int64 high_bit = findbit(hibit(uint256(real_arg)));
         
-        // We&#39;ll shift so the high bit is the lowest non-fractional bit.
+        // We'll shift so the high bit is the lowest non-fractional bit.
         shift = high_bit - int64(REAL_FBITS);
         
         if (shift < 0) {
@@ -1860,7 +1860,7 @@ library RealMath {
             return 0;
         }
         
-        // We know it&#39;s positive, so rescale it to be between [1 and 2)
+        // We know it's positive, so rescale it to be between [1 and 2)
         int128 real_rescaled;
         int64 shift;
         (real_rescaled, shift) = rescale(real_arg);
@@ -1988,7 +1988,7 @@ library RealMath {
                 // Outside of domain!
                 revert();
             }
-            // Otherwise it&#39;s 0
+            // Otherwise it's 0
             return 0;
         }
         
@@ -2005,13 +2005,13 @@ library RealMath {
         }
         
         if (real_base < 0) {
-            // It&#39;s a negative base to a non-integer power.
+            // It's a negative base to a non-integer power.
             // In general pow(-x^y) is undefined, unless y is an int or some
             // weird rational-number-based relationship holds.
             revert();
         }
         
-        // If it&#39;s not a special case, actually do it.
+        // If it's not a special case, actually do it.
         return exp(mul(real_exponent, ln(real_base)));
     }
 }

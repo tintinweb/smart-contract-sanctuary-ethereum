@@ -44,7 +44,7 @@ contract TimeLockedWallet {
         createdAt = now;                                                                                                                    
     }                                                                                                                                       
                                                                                                                                             
-    // Don&#39;t accept ETH.                                                                                                                    
+    // Don't accept ETH.                                                                                                                    
     function () public payable {                                                                                                            
         revert();                                                                                                                           
     }                                                                                                                                       
@@ -89,10 +89,10 @@ contract TimeLockedWalletFactory {
         // Create new wallet.
         wallet = new TimeLockedWallet(msg.sender, _owner, _unlockDate);
         
-        // Add wallet to sender&#39;s wallets.
+        // Add wallet to sender's wallets.
         wallets[msg.sender].push(wallet);
 
-        // If owner is the same as sender then add wallet to sender&#39;s wallets too.
+        // If owner is the same as sender then add wallet to sender's wallets too.
         if(msg.sender != _owner){
             wallets[_owner].push(wallet);
         }

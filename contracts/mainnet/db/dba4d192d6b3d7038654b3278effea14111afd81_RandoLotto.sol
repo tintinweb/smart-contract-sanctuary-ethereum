@@ -1,11 +1,11 @@
 pragma solidity 0.4.23;
 
 // Random lottery
-// Smart contracts can&#39;t bet
+// Smart contracts can't bet
 
 // Pay 0.001eth or higher to get a random number
-// You probably shouldn&#39;t pay higher than 0.001eth, there&#39;s no reason.
-// If your random number is the highest so far you&#39;re in the lead
+// You probably shouldn't pay higher than 0.001eth, there's no reason.
+// If your random number is the highest so far you're in the lead
 // If no one beats you in 1 day you can claim your winnnings - the entire balance.
 
 // 1% dev fee on winnings
@@ -43,7 +43,7 @@ contract RandoLotto {
         
         if (now > lastTimestamp + 1 days) { sendWinnings(); }
     
-        // We include msg.sender in the randomNumber so that it&#39;s not the same for different blocks
+        // We include msg.sender in the randomNumber so that it's not the same for different blocks
         uint256 randomNumber = randomContract.random(10000000000000000000);
         
         if (randomNumber > highScore) {
@@ -133,7 +133,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

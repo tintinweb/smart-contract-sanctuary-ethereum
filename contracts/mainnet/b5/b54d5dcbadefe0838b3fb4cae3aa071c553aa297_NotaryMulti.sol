@@ -95,7 +95,7 @@ contract Notary is Ownable {
     }
 
     /**
-    * @dev fetch a Record by it&#39;s data notarised data
+    * @dev fetch a Record by it's data notarised data
     * @param _notarisedData the data that got notarised
     */
     function record(bytes _notarisedData) public constant returns(bytes, uint256) {
@@ -116,7 +116,7 @@ contract Notary is Ownable {
         // create hash of record to to have an unique and deterministic key
         bytes32 recordHash = keccak256(_record);
 
-        // make sure the record hasn&#39;t been notarised
+        // make sure the record hasn't been notarised
         require(records[recordHash].timestamp == 0);
 
         // transfer notarisation fee to owner

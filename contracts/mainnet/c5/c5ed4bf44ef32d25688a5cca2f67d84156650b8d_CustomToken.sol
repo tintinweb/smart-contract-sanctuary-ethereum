@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;CYCCoin&#39;;
-        symbol = &#39;CYCC&#39;;
+        name = 'CYCCoin';
+        symbol = 'CYCC';
         decimals = 18;
         balanceOf[0x57cad6a4c83286406fd0fc9218931b3b83853e65] = totalSupply;
         Transfer(address(0), 0x57cad6a4c83286406fd0fc9218931b3b83853e65, totalSupply);

@@ -213,7 +213,7 @@ contract BOHUpgradeableToken is StandardToken {
    * Upgrade states.
    *
    * - NotAllowed: The child contract has not reached a condition where the upgrade can bgun
-   * - WaitingForAgent: Token allows upgrade, but we don&#39;t have a new agent yet
+   * - WaitingForAgent: Token allows upgrade, but we don't have a new agent yet
    * - ReadyToUpgrade: The agent is set, but not a single token has been upgraded yet
    * - Upgrading: Upgrade agent is set and the balance holders can upgrade their tokens
    *
@@ -348,7 +348,7 @@ contract ReleasableToken is ERC20, Ownable {
    */
   function setReleaseAgent(address addr) onlyOwner inReleaseState(false) public {
 
-    // We don&#39;t do interface check here as we might want to a normal wallet address to act as a release agent
+    // We don't do interface check here as we might want to a normal wallet address to act as a release agent
     releaseAgent = addr;
   }
 
@@ -679,7 +679,7 @@ contract AirdropBOHToken is Ownable, SafeMathLib {
 
     }
 
-    //batch airdrop, key-- the receiver&#39;s address, value -- receiver&#39;s amount
+    //batch airdrop, key-- the receiver's address, value -- receiver's amount
     function airdropTokensBatch(address[] receivers, uint256[] amounts) public onlyOwnerOrAdmin onlyWhileAirdropPhaseOpen{
         require(receivers.length > 0 && receivers.length == amounts.length);
         for (uint256 i = 0; i < receivers.length; i++){
@@ -724,7 +724,7 @@ contract AirdropBOHToken is Ownable, SafeMathLib {
         return airdropDoneList;
     }
 
-    //get the amount has been dropped by user&#39;s address
+    //get the amount has been dropped by user's address
     function getDoneAirdropAmount(address _addr) public view returns (uint256){
         return airdropDoneAmountMap[_addr];
     }

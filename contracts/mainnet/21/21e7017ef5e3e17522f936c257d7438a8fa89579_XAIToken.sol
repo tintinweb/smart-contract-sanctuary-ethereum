@@ -89,7 +89,7 @@ contract XAIToken is StandardXAIToken {
     string public name = "AVALANCHE TOKEN";
     uint8 public decimals = 18;
     string public symbol = "XAIT";
-    string public version = &#39;XAIT 0.1&#39;;
+    string public version = 'XAIT 0.1';
     address public mintableAddress;
     address public creator;
 

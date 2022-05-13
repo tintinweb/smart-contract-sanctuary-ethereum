@@ -28,8 +28,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -46,7 +46,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -473,7 +473,7 @@ contract LinniaRecords is Ownable, Pausable, Destructible {
 
     /* Public functions */
 
-    /// Add a record by user without any provider&#39;s signatures.
+    /// Add a record by user without any provider's signatures.
     /// @param dataHash the hash of the data
     /// @param metadata plaintext metadata for the record
     /// @param dataUri the ipfs path of the encrypted data
@@ -490,7 +490,7 @@ contract LinniaRecords is Ownable, Pausable, Destructible {
         return true;
     }
 
-    /// Add a record by user without any provider&#39;s signatures and get a reward.
+    /// Add a record by user without any provider's signatures and get a reward.
     ///
     /// @param dataHash the hash of the data
     /// @param metadata plaintext metadata for the record
@@ -532,12 +532,12 @@ contract LinniaRecords is Ownable, Pausable, Destructible {
     {
         // add the file first
         require(_addRecord(dataHash, owner, metadata, dataUri) == true);
-        // add provider&#39;s sig to the file
+        // add provider's sig to the file
         require(_addSig(dataHash, msg.sender));
         return true;
     }
 
-    /// Add a provider&#39;s signature to a linnia record,
+    /// Add a provider's signature to a linnia record,
     /// i.e. adding an attestation
     /// This function is only callable by a provider
     /// @param dataHash the data hash of the linnia record
@@ -551,7 +551,7 @@ contract LinniaRecords is Ownable, Pausable, Destructible {
         return true;
     }
 
-    /// Add a provider&#39;s signature to a linnia record
+    /// Add a provider's signature to a linnia record
     /// i.e. adding an attestation
     /// This function can be called by anyone. As long as the signatures are
     /// indeed from a provider, the sig will be added to the record.
@@ -568,7 +568,7 @@ contract LinniaRecords is Ownable, Pausable, Destructible {
     {
         // find the root hash of the record
         bytes32 rootHash = rootHashOf(dataHash);
-        // recover the provider&#39;s address from signature
+        // recover the provider's address from signature
         address provider = recover(rootHash, r, s, v);
         // add sig
         require(_addSig(dataHash, provider));

@@ -25,7 +25,7 @@ library SafeMath {
      * @dev Integer division of two numbers, truncating the quotient.
      */
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
-       // Don&#39;t `assert(b > 0)` because Solidity automatically throws when dividing by 0 since version 0.4.
+       // Don't `assert(b > 0)` because Solidity automatically throws when dividing by 0 since version 0.4.
        
        return a / b;
     }
@@ -44,7 +44,7 @@ library SafeMath {
      */
     function add(uint256 a, uint256 b) internal pure returns (uint256 c) {
         c = a + b;
-        // Don&#39;t `assert(c>=a && c>=b)` because addition is commutative (and it costs more gas).
+        // Don't `assert(c>=a && c>=b)` because addition is commutative (and it costs more gas).
         // Cf. https://ethereum.stackexchange.com/questions/15258/safemath-safe-add-function-assertions-against-overflows
         assert(c >= a);
     
@@ -109,7 +109,7 @@ contract ERC20Interface {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      *
      * @param _spender The address which will spend the funds.
@@ -148,7 +148,7 @@ contract ERC20 is ERC20Interface {
 
     using SafeMath for uint256;
 
-    // The name of the token (e.g. &#39;Crypto20&#39;, &#39;Golem Network Token&#39;, &#39;Bancor Network Token&#39;...)
+    // The name of the token (e.g. 'Crypto20', 'Golem Network Token', 'Bancor Network Token'...)
     string public name;
 
     // The ticker of the token (e.g. C20, GNT, BNT...)
@@ -163,11 +163,11 @@ contract ERC20 is ERC20Interface {
 
     // The total number of tokens in existence.
     // Do not forget to take into account the number of decimals.
-    // @todo do we have to clarify that totalSupply has `internal` as visibility (it&#39;s the default value)?
+    // @todo do we have to clarify that totalSupply has `internal` as visibility (it's the default value)?
     uint256 totalSupply_;
 
     // Map containing the amount of tokens owned by every address.
-    // @todo do we have to clarify that balances has `internal` as visibility (it&#39;s the default value)?
+    // @todo do we have to clarify that balances has `internal` as visibility (it's the default value)?
     mapping(address => uint256) balances;
 
     // Map containing the amount of tokens that every owner allowed to every spender.
@@ -236,7 +236,7 @@ contract ERC20 is ERC20Interface {
         require(_value <= allowed[_from][msg.sender]);
 
         // @todo do we need to add a control on _value? (i.e. `require(_value > 0)`)
-        // @todo search &#39;mitigate short address attack&#39;
+        // @todo search 'mitigate short address attack'
 
         balances[_from] = balances[_from].sub(_value);
         balances[_to] = balances[_to].add(_value);
@@ -264,7 +264,7 @@ contract ERC20 is ERC20Interface {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      *
      * @param _spender The address which will spend the funds.
@@ -273,8 +273,8 @@ contract ERC20 is ERC20Interface {
      */
     function approve(address _spender, uint256 _value) public returns (bool) {
         // @todo check this control.
-        // To change the approve amount you first have to reduce the addresses&#39;
-        //  allowance to zero by calling &#39;approve(_spender, 0)&#39; if it is not
+        // To change the approve amount you first have to reduce the addresses'
+        //  allowance to zero by calling 'approve(_spender, 0)' if it is not
         //  already 0 to mitigate the race condition described here:
         //  https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
         require((_value == 0) || (allowed[msg.sender][_spender] == 0));

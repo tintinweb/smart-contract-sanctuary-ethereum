@@ -311,8 +311,8 @@ contract ICOContract {
     address[] public investContracts = [0x0]; // accepted InvestContracts
     mapping(address => uint) public investContractsIndices;
 
-    uint public totalEther; // How much Ether is collected = sum of all milestones&#39; etherAmount
-    uint public totalToken; // how many tokens are distributed = sum of all milestones&#39; tokenAmount
+    uint public totalEther; // How much Ether is collected = sum of all milestones' etherAmount
+    uint public totalToken; // how many tokens are distributed = sum of all milestones' tokenAmount
 
     uint public tokenLeft;
     uint public etherLeft;
@@ -338,7 +338,7 @@ contract ICOContract {
 
     Milestone[] public milestones;
     uint public currentMilestone; //0 indicates that no milestone has started, so the real ones start from 1
-    uint public sealTimestamp; //Until when it&#39;s possible to add new and change existing milestones
+    uint public sealTimestamp; //Until when it's possible to add new and change existing milestones
 
     modifier only(address _sender) {
         require(msg.sender == _sender);
@@ -368,7 +368,7 @@ contract ICOContract {
     /// @dev Create an ICOContract.
     /// @param _tokenAddress Address of project token contract
     /// @param _projectWallet Address of project developers wallet
-    /// @param _sealTimestamp Until this timestamp it&#39;s possible to alter milestones
+    /// @param _sealTimestamp Until this timestamp it's possible to alter milestones
     /// @param _minimumCap Wei value of minimum cap for responsible ICO
     /// @param _maximumCap Wei value of maximum cap for responsible ICO
     /// @param _minimalInvestment minimal possible investment
@@ -527,7 +527,7 @@ contract InvestContract is TokenPullable, Pullable {
     }
 
     mapping(address => ArbiterInfo) public arbiters; //arbiterAddress => ArbiterInfo{acceptance, voteDelay}
-    address[] public arbiterList = [0x0]; //it&#39;s needed to show complete arbiter list
+    address[] public arbiterList = [0x0]; //it's needed to show complete arbiter list
 
     //this structure can be optimized
     struct Dispute {

@@ -24,7 +24,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -182,12 +182,12 @@ contract MultipleVesting is Ownable {
      * @param _time Timestamp of time to check for
      */
     function calculateVestedTokens(Grant _grant, uint256 _time) private pure returns (uint256) {
-        // If we&#39;re before the cliff, then nothing is vested.
+        // If we're before the cliff, then nothing is vested.
         if (_time < _grant.cliff) {
             return 0;
         }
 
-        // If we&#39;re after the end of the vesting period - everything is vested;
+        // If we're after the end of the vesting period - everything is vested;
         if (_time >= _grant.duration) {
             return _grant.value;
         }
@@ -208,7 +208,7 @@ contract MultipleVesting is Ownable {
                 continue;
             }
 
-            // Make sure the holder doesn&#39;t transfer more than what he already has.
+            // Make sure the holder doesn't transfer more than what he already has.
             uint256 transferable = vested.sub(grant.transferred);
             if (transferable == 0) {
                 continue;
@@ -232,7 +232,7 @@ contract MultipleVesting is Ownable {
             return;
         }
 
-        // Make sure the holder doesn&#39;t transfer more than what he already has.
+        // Make sure the holder doesn't transfer more than what he already has.
         uint256 transferable = vested.sub(grant.transferred);
         if (transferable == 0) {
             return;

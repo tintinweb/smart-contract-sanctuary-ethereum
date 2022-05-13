@@ -101,7 +101,7 @@ contract TicketPro
         {
             uint16 index = ticketIndices[i];
             //needs to use revert as all changes should be reversed
-            //if the user doesnt&#39;t hold all the tickets 
+            //if the user doesnt't hold all the tickets 
             assert(inventory[giver][index] != bytes32(0));
             bytes32 ticket = inventory[giver][index];
             inventory[recipient].push(ticket);

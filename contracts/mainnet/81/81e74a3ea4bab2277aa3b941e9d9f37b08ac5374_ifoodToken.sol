@@ -17,7 +17,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -63,7 +63,7 @@ contract ifoodToken is ERC20 {
   // Balances for each account
   mapping(address => uint256) balances;
   // Tokens with time lock
-  // Only when the tokens&#39; blockNumber is less than current block number,
+  // Only when the tokens' blockNumber is less than current block number,
   // can the tokens be minted to the owner
   mapping(address => TokensWithLock) lockTokens;
   // Owner of account approves the transfer of an amount to another account

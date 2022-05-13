@@ -65,7 +65,7 @@ contract CryptoVault {
     /** Payables **/
     // Payable fallback
     function () external payable {
-        revert(); // Don&#39;t accept funds by mistake.
+        revert(); // Don't accept funds by mistake.
     }
     
     // Activate vault
@@ -101,7 +101,7 @@ contract CryptoVault {
         return true;
     }
     
-    // Deposit funds to someone else&#39;s vault
+    // Deposit funds to someone else's vault
     function depositFunds(address _beneficiaryAddress) external payable returns (bool success) {
         require(vaults[_beneficiaryAddress].vaultActive);
         uint _newBalanceWei = vaults[_beneficiaryAddress].balanceWei + msg.value;
@@ -133,7 +133,7 @@ contract CryptoVault {
         require(msg.value > 0);
         uint _newBalanceWei = vaults[cryptoVaultCreator].balanceWei + msg.value;
         require(_newBalanceWei >= msg.value); // Avoid overflow
-        vaults[cryptoVaultCreator].balanceWei = _newBalanceWei; // Credit cryptoVaultCreator&#39;s vault
+        vaults[cryptoVaultCreator].balanceWei = _newBalanceWei; // Credit cryptoVaultCreator's vault
         emit Notification("Thanks for the donation!", msg.sender, msg.value, _newBalanceWei);
         return true;
     }
@@ -170,7 +170,7 @@ contract CryptoVault {
         return true;
     }
     
-    // Transfer funds from vault to someone else&#39;s vault
+    // Transfer funds from vault to someone else's vault
     function transferFunds(uint _amountWei, address _beneficiaryAddress) external returns (bool success) {
         require(vaults[_beneficiaryAddress].vaultActive); // Only transfer if beneficiary has a vault
         require(vaults[msg.sender].balanceWei >= _amountWei);
@@ -184,9 +184,9 @@ contract CryptoVault {
         uint _newBalanceWeiBeneficiary = vaults[_beneficiaryAddress].balanceWei + _amountWei;
         require(_newBalanceWeiBeneficiary >= _amountWei);
         /** Update balances **/
-        vaults[msg.sender].balanceWei = _newBalanceWeiSender; // Update sender&#39;s balance
+        vaults[msg.sender].balanceWei = _newBalanceWeiSender; // Update sender's balance
         vaults[msg.sender].freeAllowanceWei = _freeAllowanceWei - _amountWei; // Update remaining allowance
-        vaults[_beneficiaryAddress].balanceWei = _newBalanceWeiBeneficiary; // Update beneficiary&#39;s balance
+        vaults[_beneficiaryAddress].balanceWei = _newBalanceWeiBeneficiary; // Update beneficiary's balance
         emit Notification("Funds transferred", msg.sender, _beneficiaryAddress, _amountWei, _newBalanceWeiSender, _newBalanceWeiBeneficiary);
         return true;
     }

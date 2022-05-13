@@ -17,7 +17,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -49,7 +49,7 @@ library SortedDoublyLL {
 
     // Information for a node in the list
     struct Node {
-        uint256 key;                     // Node&#39;s key used for sorting
+        uint256 key;                     // Node's key used for sorting
         address nextId;                  // Id of next node (smaller key) in the list
         address prevId;                  // Id of previous node (larger key) in the list
     }
@@ -76,8 +76,8 @@ library SortedDoublyLL {
 
     /*
      * @dev Add a node to the list
-     * @param _id Node&#39;s id
-     * @param _key Node&#39;s key
+     * @param _id Node's id
+     * @param _key Node's key
      * @param _prevId Id of previous node for the insert position
      * @param _nextId Id of next node for the insert position
      */
@@ -95,8 +95,8 @@ library SortedDoublyLL {
         address nextId = _nextId;
 
         if (!validInsertPosition(self, _key, prevId, nextId)) {
-            // Sender&#39;s hint was not a valid insert position
-            // Use sender&#39;s hint to find a valid insert position
+            // Sender's hint was not a valid insert position
+            // Use sender's hint to find a valid insert position
             (prevId, nextId) = findInsertPosition(self, _key, prevId, nextId);
         }
 
@@ -129,7 +129,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Remove a node from the list
-     * @param _id Node&#39;s id
+     * @param _id Node's id
      */
     function remove(Data storage self, address _id) public {
         // List must contain the node
@@ -169,8 +169,8 @@ library SortedDoublyLL {
 
     /*
      * @dev Update the key of a node in the list
-     * @param _id Node&#39;s id
-     * @param _newKey Node&#39;s new key
+     * @param _id Node's id
+     * @param _newKey Node's new key
      * @param _prevId Id of previous node for the new insert position
      * @param _nextId Id of next node for the new insert position
      */
@@ -226,7 +226,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Returns the key of a node in the list
-     * @param _id Node&#39;s id
+     * @param _id Node's id
      */
     function getKey(Data storage self, address _id) public view returns (uint256) {
         return self.nodes[_id].key;
@@ -248,7 +248,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Returns the next node (with a smaller key) in the list for a given node
-     * @param _id Node&#39;s id
+     * @param _id Node's id
      */
     function getNext(Data storage self, address _id) public view returns (address) {
         return self.nodes[_id].nextId;
@@ -256,7 +256,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Returns the previous node (with a larger key) in the list for a given node
-     * @param _id Node&#39;s id
+     * @param _id Node's id
      */
     function getPrev(Data storage self, address _id) public view returns (address) {
         return self.nodes[_id].prevId;
@@ -264,7 +264,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Check if a pair of nodes is a valid insertion point for a new node with the given key
-     * @param _key Node&#39;s key
+     * @param _key Node's key
      * @param _prevId Id of previous node for the insert position
      * @param _nextId Id of next node for the insert position
      */
@@ -279,14 +279,14 @@ library SortedDoublyLL {
             // `(_prevId, null)` is a valid insert position if `_prevId` is the tail of the list
             return self.tail == _prevId && _key <= self.nodes[_prevId].key;
         } else {
-            // `(_prevId, _nextId)` is a valid insert position if they are adjacent nodes and `_key` falls between the two nodes&#39; keys
+            // `(_prevId, _nextId)` is a valid insert position if they are adjacent nodes and `_key` falls between the two nodes' keys
             return self.nodes[_prevId].nextId == _nextId && self.nodes[_prevId].key >= _key && _key >= self.nodes[_nextId].key;
         }
     }
 
     /*
      * @dev Descend the list (larger keys to smaller keys) to find a valid insert position
-     * @param _key Node&#39;s key
+     * @param _key Node's key
      * @param _startId Id of node to start ascending the list from
      */
     function descendList(Data storage self, uint256 _key, address _startId) private view returns (address, address) {
@@ -309,7 +309,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Ascend the list (smaller keys to larger keys) to find a valid insert position
-     * @param _key Node&#39;s key
+     * @param _key Node's key
      * @param _startId Id of node to start descending the list from
      */
     function ascendList(Data storage self, uint256 _key, address _startId) private view returns (address, address) {
@@ -332,7 +332,7 @@ library SortedDoublyLL {
 
     /*
      * @dev Find the insert position for a new node with the given key
-     * @param _key Node&#39;s key
+     * @param _key Node's key
      * @param _prevId Id of previous node for the insert position
      * @param _nextId Id of next node for the insert position
      */

@@ -14,7 +14,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -345,7 +345,7 @@ contract Slot is Ownable {
         // loop throught the prizes 
         for (uint8 i = 0; i < prizes.length; i++) {
             // GAS: 21000 Paid for every transaction. (prizes.length)
-            participants[gameNumber][winnerIndex%SIZE].transfer(prizes[i]); // msg.sender pays the gas, he&#39;s refunded later, % to wrap around
+            participants[gameNumber][winnerIndex%SIZE].transfer(prizes[i]); // msg.sender pays the gas, he's refunded later, % to wrap around
             PrizeAwarded(gameNumber, participants[gameNumber][winnerIndex%SIZE], prizes[i]);
 
             // increment index to the next winner to receive the next prize

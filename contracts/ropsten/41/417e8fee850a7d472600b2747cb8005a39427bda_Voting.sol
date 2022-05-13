@@ -110,7 +110,7 @@ contract Members {
     function resignOwnMembership() public {
         require(isRegularOrBoardMember(msg.sender));
     
-        // don&#39;t allow last man standing to resign
+        // don't allow last man standing to resign
         if (getNumberOfMembers() == 1) {
             revert();
         }

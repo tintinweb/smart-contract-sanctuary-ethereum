@@ -99,9 +99,9 @@ contract Exchange {
 
 
     enum Errors {
-        INVLID_PRICE,           // Order prices don&#39;t match
+        INVLID_PRICE,           // Order prices don't match
         INVLID_SIGNATURE,       // Signature is invalid
-        TOKENS_DONT_MATCH,      // Maker/taker tokens don&#39;t match
+        TOKENS_DONT_MATCH,      // Maker/taker tokens don't match
         ORDER_ALREADY_FILLED,   // Order was already filled
         GAS_TOO_HIGH            // Too high gas fee
     }
@@ -351,7 +351,7 @@ contract Exchange {
         {
             LogError(uint8(Errors.TOKENS_DONT_MATCH), t.makerOrderHash, t.takerOrderHash);
             return 0;
-        } // tokens don&#39;t match
+        } // tokens don't match
 
         if (t.takerGasFee > 100 finney)
         {
@@ -368,7 +368,7 @@ contract Exchange {
         ))
         {
             LogError(uint8(Errors.INVLID_PRICE), t.makerOrderHash, t.takerOrderHash);
-            return 0; // prices don&#39;t match
+            return 0; // prices don't match
         }
 
         TradeValues memory tv = TradeValues({
@@ -528,11 +528,11 @@ contract Exchange {
         );
         require(ecrecover(keccak256("\x19Ethereum Signed Message:\n32", orderHash), v[0], rs[0], rs[1]) == cancelAddresses[2]);
 
-        // Cancel action should be signed by cancel&#39;s initiator
+        // Cancel action should be signed by cancel's initiator
         bytes32 cancelHash = keccak256(this, orderHash, cancelAddresses[3], cancelValues[3]);
         require(ecrecover(keccak256("\x19Ethereum Signed Message:\n32", cancelHash), v[1], rs[2], rs[3]) == cancelAddresses[3]);
 
-        // Order owner should be same as cancel&#39;s initiator
+        // Order owner should be same as cancel's initiator
         require(cancelAddresses[2] == cancelAddresses[3]);
 
         // Do not allow to cancel already canceled or filled orders

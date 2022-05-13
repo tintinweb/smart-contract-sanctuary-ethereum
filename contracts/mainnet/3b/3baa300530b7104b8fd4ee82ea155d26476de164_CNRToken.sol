@@ -48,7 +48,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -221,7 +221,7 @@ contract CNRToken is ERC20, CNRAddBalanceInterface, CNRAddTokenInterface, Platfo
     // баланс рассчитывается по формуле:
     // общее количество токенов контракта _token_address, которым владеет контракт CNR
     // умножаем на количество токенов CNR у _owner, делим на totalSupply (получаем долю)
-    // и отнимаем уже выведенную _owner&#39;ом сумму токенов
+    // и отнимаем уже выведенную _owner'ом сумму токенов
     //Доступный к выводу баланс в токенах некоторого ICO
     function balanceOfToken(address _owner, address _token_address)
     public view

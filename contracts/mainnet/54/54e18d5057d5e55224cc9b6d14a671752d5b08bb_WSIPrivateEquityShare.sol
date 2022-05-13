@@ -2,8 +2,8 @@ pragma solidity ^0.4.8;
 
 contract WSIPrivateEquityShare {
     /* Public variables of the token */
-    string public constant name = &#39;WSI Private Equity Share&#39;;
-    string public constant symbol = &#39;WSIPES&#39;;
+    string public constant name = 'WSI Private Equity Share';
+    string public constant symbol = 'WSIPES';
     uint256 public constant totalSupply = 10000;
     uint8 public decimals = 2;
 

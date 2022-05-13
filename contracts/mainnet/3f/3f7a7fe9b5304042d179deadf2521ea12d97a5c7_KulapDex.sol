@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint a, uint b) pure internal returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -92,9 +92,9 @@ contract Ownable {
 interface ERC20 {
     function totalSupply() external view returns (uint supply);
     function balanceOf(address _owner) external view returns (uint balance);
-    function transfer(address _to, uint _value) external; // Some ERC20 doesn&#39;t have return
-    function transferFrom(address _from, address _to, uint _value) external; // Some ERC20 doesn&#39;t have return
-    function approve(address _spender, uint _value) external; // Some ERC20 doesn&#39;t have return
+    function transfer(address _to, uint _value) external; // Some ERC20 doesn't have return
+    function transferFrom(address _from, address _to, uint _value) external; // Some ERC20 doesn't have return
+    function approve(address _spender, uint _value) external; // Some ERC20 doesn't have return
     function allowance(address _owner, address _spender) external view returns (uint remaining);
     function decimals() external view returns(uint digits);
     event Approval(address indexed _owner, address indexed _spender, uint _value);
@@ -277,7 +277,7 @@ contract KulapDex is Ownable {
             assert(_dest.balanceOf(this) == destAmountBefore.add(destAmount));
         }
 
-        // Throw exception if destination amount doesn&#39;t meet user requirement.
+        // Throw exception if destination amount doesn't meet user requirement.
         assert(destAmount >= _minDestAmount);
 
         return destAmount;
@@ -295,11 +295,11 @@ contract KulapDex is Ownable {
         if (etherERC20 == src) {
             destAmount = _trade(tradingProxyIndex, src, srcAmount, dest, 1);
 
-            // Throw exception if destination amount doesn&#39;t meet user requirement.
+            // Throw exception if destination amount doesn't meet user requirement.
             assert(destAmount >= minDestAmount);
 
             // Send back token to sender
-            // Some ERC20 Smart contract not return Bool, so we can&#39;t check here
+            // Some ERC20 Smart contract not return Bool, so we can't check here
             // require(dest.transfer(msg.sender, destAmount));
             dest.transfer(msg.sender, destAmount);
         
@@ -310,7 +310,7 @@ contract KulapDex is Ownable {
 
             destAmount = _trade(tradingProxyIndex, src, srcAmount, dest, 1);
 
-            // Throw exception if destination amount doesn&#39;t meet user requirement.
+            // Throw exception if destination amount doesn't meet user requirement.
             assert(destAmount >= minDestAmount);
 
             // Send back ether to sender
@@ -356,7 +356,7 @@ contract KulapDex is Ownable {
             pathSrcAmount = destAmount;
         }
 
-        // Throw exception if destination amount doesn&#39;t meet user requirement.
+        // Throw exception if destination amount doesn't meet user requirement.
         assert(destAmount >= minDestAmount);
 
         // Trade Any -> ETH
@@ -368,7 +368,7 @@ contract KulapDex is Ownable {
         // Trade Any -> Token
         } else {
             // Send back token to sender
-            // Some ERC20 Smart contract not return Bool, so we can&#39;t check here
+            // Some ERC20 Smart contract not return Bool, so we can't check here
             // require(dest.transfer(msg.sender, destAmount));
             dest.transfer(msg.sender, destAmount);
         }

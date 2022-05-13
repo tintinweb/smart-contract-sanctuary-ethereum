@@ -169,7 +169,7 @@ contract RetirePets is AccessControl, SafeMath {
             IPetCardData petCardData = IPetCardData(petCardDataContract);
          // Send this function the petIds of 6 of your Wild Easy (2 star pets) to receive 1 3 star pet. 
          
-         //won&#39;t throw an error if you send a level3 pet, but will still recycle. This is to reduce gas costs for everyone. 
+         //won't throw an error if you send a level3 pet, but will still recycle. This is to reduce gas costs for everyone. 
          if (checkPet(pet1) <5) {revert();}
          if (checkPet(pet2) <5) {revert();}
          if (checkPet(pet3) <5) {revert();}
@@ -225,7 +225,7 @@ contract RetirePets is AccessControl, SafeMath {
         
       
         IPetCardData petCardData = IPetCardData(petCardDataContract);
-        uint64 petId = petCardData.setPet(opponentId, msg.sender, &#39;Rover&#39;, _luck, _auraRed, _auraYellow, _auraBlue);
+        uint64 petId = petCardData.setPet(opponentId, msg.sender, 'Rover', _luck, _auraRed, _auraYellow, _auraBlue);
         EventNewPet(petId);
         }
 

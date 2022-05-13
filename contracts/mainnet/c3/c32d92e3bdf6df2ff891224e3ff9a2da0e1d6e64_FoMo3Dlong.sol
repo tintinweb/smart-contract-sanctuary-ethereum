@@ -279,7 +279,7 @@ contract FoMo3Dlong is modularLong {
         
         uint256 _pID = pIDxAddr_[msg.sender];
         uint256 _affID;
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             _affID = plyr_[_pID].laff;
         } 
@@ -357,7 +357,7 @@ contract FoMo3Dlong is modularLong {
         
         uint256 _pID = pIDxAddr_[msg.sender];
         uint256 _affID;
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             _affID = plyr_[_pID].laff;
         } 
@@ -1015,7 +1015,7 @@ contract FoMo3Dlong is modularLong {
         }
         
         // MODIFY 如果推荐人不存在 10% -> _com
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit F3Devents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
         } else {

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;BBT&#39; &#39;International Blockchain Bank & Trust&#39;  Blockchain Vault Contract
+// 'BBT' 'International Blockchain Bank & Trust'  Blockchain Vault Contract
 // Working Version
 // (c) by A. Valamontes with doecoins / Geopay.me Inc 2018. The MIT Licence.
 // ----------------------------------------------------------------------------

@@ -3,7 +3,7 @@ pragma solidity ^0.4.22;
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract IWABOO {
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -20,8 +20,8 @@ contract IWABOO {
     function IWABOO() public {
         balances[msg.sender] = 18000000000000000;
         _totalSupply = 18000000000000000;
-        name = &#39;IWABOO&#39;;
-        symbol = &#39;IWB&#39;;
+        name = 'IWABOO';
+        symbol = 'IWB';
         decimals = 8;
         owner = msg.sender;
     }

@@ -1,4 +1,4 @@
-// proxy.sol - execute actions atomically through the proxy&#39;s identity
+// proxy.sol - execute actions atomically through the proxy's identity
 
 // Copyright (C) 2017  DappHub, LLC
 
@@ -191,7 +191,7 @@ contract DSProxyFactory {
 
 // By default, all proxies deployed from the same factory store
 // contracts in the same cache. The cache a proxy instance uses can be
-// changed.  The cache uses the sha3 hash of a contract&#39;s bytecode to
+// changed.  The cache uses the sha3 hash of a contract's bytecode to
 // lookup the address
 contract DSProxyCache {
     mapping(bytes32 => address) cache;

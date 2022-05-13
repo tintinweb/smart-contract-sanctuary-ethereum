@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -88,7 +88,7 @@ contract InvestorsList is Ownable {
         bool isVerified;
     }
 
-    /*Investor&#39;s end*/
+    /*Investor's end*/
 
     mapping (address => bool) manipulators;
     mapping (address => bytes32) public nativeInvestorsIds;
@@ -106,7 +106,7 @@ contract InvestorsList is Ownable {
         manipulators[saleAddress] = isAllowedToManipulate;
     }
 
-    /*Manipulators&#39; end*/
+    /*Manipulators' end*/
 
     function setInvestorId(address investorAddress, bytes32 id) external onlyOwner{
         require(investorAddress != 0x0 && id != 0);

@@ -53,7 +53,7 @@ contract BBRTradingToken {
      * @param _value The amount to be transferred.
      */
     function transfer(address _to, uint256 _value) isRunning validAddress public returns (bool success) {
-        // BBR token can&#39;t be burned
+        // BBR token can't be burned
         require(_to != address(0));
         require(balanceOf[msg.sender] >= _value);
         require(balanceOf[_to] + _value >= balanceOf[_to]);
@@ -70,7 +70,7 @@ contract BBRTradingToken {
      * @param _value uint256 the amount of tokens to be transferred
      */
     function transferFrom(address _from, address _to, uint256 _value) isRunning validAddress public returns (bool success) {
-        // BBR token can&#39;t be burned
+        // BBR token can't be burned
         require(_to != address(0));
         require(balanceOf[_from] >= _value);
         require(balanceOf[_to] + _value >= balanceOf[_to]);

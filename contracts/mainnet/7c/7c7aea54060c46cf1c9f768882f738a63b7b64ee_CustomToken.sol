@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 600000000000000000000000000;
-        name = &#39;PrajnaParamitaCloud&#39;;
-        symbol = &#39;PRMI&#39;;
+        name = 'PrajnaParamitaCloud';
+        symbol = 'PRMI';
         decimals = 18;
         balanceOf[0x290a76806ec39e731877b8874a32761d60321bcd] = totalSupply;
         Transfer(address(0), 0x290a76806ec39e731877b8874a32761d60321bcd, totalSupply);

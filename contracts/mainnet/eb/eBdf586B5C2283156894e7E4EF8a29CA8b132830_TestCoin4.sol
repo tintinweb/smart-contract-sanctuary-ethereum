@@ -5,9 +5,9 @@ contract TestCoin4 {
     // totalSupply = maximum 210000 Coins with 18 decimals;   
     uint256 public totalSupply = 210000000000000000000000;	
     uint8   public decimals = 18;    
-    string  public standard = &#39;ERC20 Token&#39;;
-    string  public name = &#39;TestCoin4&#39;;
-    string  public symbol = &#39;TestCoin4&#39;;
+    string  public standard = 'ERC20 Token';
+    string  public name = 'TestCoin4';
+    string  public symbol = 'TestCoin4';
     uint256 public circulatingSupply = 0;   
     uint256 availableSupply;              
     uint256 price= 1;                          	

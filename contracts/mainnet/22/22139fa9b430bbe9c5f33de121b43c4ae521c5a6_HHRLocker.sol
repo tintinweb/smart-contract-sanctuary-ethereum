@@ -74,7 +74,7 @@ contract HHRLocker is Ownable {
     
     function HHRFallback(address _from, uint _value, uint _code){
         
-    } //troll&#39;s trap
+    } //troll's trap
     function getToken(uint _amount,address _to) onlyOwner {
         uint deltaTime = now-lockTime;
         uint yearNum = deltaTime.div(1 years);

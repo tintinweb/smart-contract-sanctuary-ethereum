@@ -83,7 +83,7 @@ contract BaseToken is ERC20, DSMath {
 
 contract GMSToken is BaseToken {
 
-    string public standard = &#39;GMSToken 1.0&#39;;
+    string public standard = 'GMSToken 1.0';
     string public name;
     string public symbol;
     uint8 public decimals;

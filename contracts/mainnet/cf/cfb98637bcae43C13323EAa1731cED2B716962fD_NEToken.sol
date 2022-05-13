@@ -228,7 +228,7 @@ contract NEToken is StandardToken {
         require(block.number <= fundingEndBlock);
         require(msg.value > 0);
 
-        // First we check the ETH cap, as it&#39;s easier to calculate, return
+        // First we check the ETH cap, as it's easier to calculate, return
         // the contribution if the cap has been reached already
         uint256 checkedReceivedEth = safeAdd(totalReceivedEth, msg.value);
         require(checkedReceivedEth <= ETH_RECEIVED_CAP);
@@ -275,7 +275,7 @@ contract NEToken is StandardToken {
         uint256 netVal = balances[msg.sender];
         require(netVal >= TOKEN_MIN); // At least TOKEN_MIN tokens have to be redeemed
 
-        // Move the tokens of the caller to Nimiq&#39;s address
+        // Move the tokens of the caller to Nimiq's address
         if (!super.transfer(ethFundDeposit, netVal)) throw;
 
         // Log the redeeming of this tokens
@@ -371,7 +371,7 @@ contract NEToken is StandardToken {
         LogRefund(msg.sender, ethVal);
 
         // Send the contributions only after we have updated all the balances
-        // If you&#39;re using a contract, make sure it works with .transfer() gas limits
+        // If you're using a contract, make sure it works with .transfer() gas limits
         msg.sender.transfer(ethVal);
     }
 }

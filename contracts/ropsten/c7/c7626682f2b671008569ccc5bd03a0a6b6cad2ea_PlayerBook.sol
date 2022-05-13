@@ -268,7 +268,7 @@ pragma solidity ^0.4.24;
 // "./PlayerBookInterface.sol";
 // "./SafeMath.sol";
 // "./NameFilter.sol";
-// &#39;openzeppelin-solidity/contracts/ownership/Ownable.sol&#39;;
+// 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
 
 contract PlayerBook is PlayerBookInterface, Ownable {
     using NameFilter for string;
@@ -303,8 +303,8 @@ contract PlayerBook is PlayerBookInterface, Ownable {
     public
     {
         // premine the dev names (sorry not sorry)
-        // No keys are purchased with this method, it&#39;s simply locking our addresses,
-        // PID&#39;s and names for referral codes.
+        // No keys are purchased with this method, it's simply locking our addresses,
+        // PID's and names for referral codes.
         address addr1 = 0x62199eaFD8f0DA50bE2176d49D3DB3Aff2A9B771; // 0xd137ab6F7663Cba07771eE1c2B3F314F64737C10; // 0xA025f1fd8e06537BCE646530f3BdB2b42F42f4c3 (ganache)
         address addr2 = 0xEF01Eb3D7D78eE0aD7e640E3081dFe9AfB06C32F; // 0x5C1e273fdc8222c43c9bBA4f8422135a90c234fa; // 0x889c8c14117A8253E9aFBf11aB524fE48e2Bb071 (ganache)
         bytes32 name1 = "mercury";
@@ -526,7 +526,7 @@ contract PlayerBook is PlayerBookInterface, Ownable {
     /**
      * @dev players, if you registered a profile, before a game was released, or
      * set the all bool to false when you registered, use this function to push
-     * your profile to a single game.  also, if you&#39;ve  updated your name, you
+     * your profile to a single game.  also, if you've  updated your name, you
      * can use this to push your name to games of your choosing.
      * -functionhash- 0x81c5b206
      * @param _gameID game id
@@ -535,7 +535,7 @@ contract PlayerBook is PlayerBookInterface, Ownable {
     isHuman()
     public
     {
-        require(_gameID <= gID_, "silly player, that game doesn&#39;t exist yet");
+        require(_gameID <= gID_, "silly player, that game doesn't exist yet");
         address _addr = msg.sender;
         uint256 _pID = pIDxAddr_[_addr];
         require(_pID != 0, "hey there buddy, you dont even have an account");
@@ -576,7 +576,7 @@ contract PlayerBook is PlayerBookInterface, Ownable {
     }
 
     /**
-     * @dev players use this to change back to one of your old names.  tip, you&#39;ll
+     * @dev players use this to change back to one of your old names.  tip, you'll
      * still need to push that info to existing games.
      * -functionhash- 0xb9291296
      * @param _nameString the name you want to use

@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -166,7 +166,7 @@ contract Marketplace is Ownable {
     }
 
     /**
-     * @dev Sets the publication fee that&#39;s charged to users to publish items
+     * @dev Sets the publication fee that's charged to users to publish items
      * @param publicationFee - Fee amount in wei this contract charges to publish an item
      */
     function setPublicationFee(uint256 publicationFee) onlyOwner public {
@@ -176,7 +176,7 @@ contract Marketplace is Ownable {
     }
 
     /**
-     * @dev Sets the share cut for the owner of the contract that&#39;s
+     * @dev Sets the share cut for the owner of the contract that's
      *  charged to the seller on a successful sale.
      * @param ownerCut - Share amount, from 0 to 100
      */
@@ -215,7 +215,7 @@ contract Marketplace is Ownable {
             expiresAt: expiresAt
         });
 
-        // Check if there&#39;s a publication fee and
+        // Check if there's a publication fee and
         // transfer the amount to marketplace owner.
         if (publicationFeeInWei > 0) {
             require(acceptedToken.transferFrom(

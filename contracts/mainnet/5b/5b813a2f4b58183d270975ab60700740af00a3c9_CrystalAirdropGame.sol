@@ -25,7 +25,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -69,7 +69,7 @@ contract CrystalAirdropGame {
     uint256 public noRoundMiniGame;
     CryptoMiningWarInterface public MiningWarContract;
     /** 
-    * Admin can set the bonus of game&#39;s reward
+    * Admin can set the bonus of game's reward
     */
     uint256 public MINI_GAME_BONUS = 100;
     /** 
@@ -119,7 +119,7 @@ contract CrystalAirdropGame {
     }
 
     /** 
-    * @dev MainContract used this function to verify game&#39;s contract
+    * @dev MainContract used this function to verify game's contract
     */
     function isContractMiniGame() public pure returns( bool _isContractMiniGame )
     {
@@ -139,7 +139,7 @@ contract CrystalAirdropGame {
     /** 
     * @dev Main Contract call this function to setup mini game.
     * @param _miningWarRoundNumber is current main game round number
-    * @param _miningWarDeadline Main game&#39;s end time
+    * @param _miningWarDeadline Main game's end time
     */
     function setupMiniGame( uint256 _miningWarRoundNumber, uint256 _miningWarDeadline ) public
     {
@@ -177,7 +177,7 @@ contract CrystalAirdropGame {
     }
 
     /**
-    * @dev end Mini Game&#39;s round
+    * @dev end Mini Game's round
     */
     function endMiniGame() private  
     {  

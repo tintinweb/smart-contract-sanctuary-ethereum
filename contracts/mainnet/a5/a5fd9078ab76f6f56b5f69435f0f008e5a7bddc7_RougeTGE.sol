@@ -9,7 +9,7 @@ contract RGE {
 
 contract RougeTGE {
     
-    string public version = &#39;v1.1&#39;;
+    string public version = 'v1.1';
     
     address owner; 
 

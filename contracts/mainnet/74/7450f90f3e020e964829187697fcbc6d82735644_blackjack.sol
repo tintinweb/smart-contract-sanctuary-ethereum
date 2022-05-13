@@ -190,7 +190,7 @@ contract blackjack is casino {
 
   /**
    * by surrendering half the bet is returned to the player.
-   * send the plain server seed to check if it&#39;s correct
+   * send the plain server seed to check if it's correct
    * @param seed the server seed
    **/
   function surrender(bytes32 seed) onlyAuthorized public {
@@ -204,7 +204,7 @@ contract blackjack is casino {
   }
 
   /** 
-   * first checks if deck and the player&#39;s number of cards are correct, then checks if the player won and if so, sends the win.
+   * first checks if deck and the player's number of cards are correct, then checks if the player won and if so, sends the win.
    * @param deck      the partial deck
    *        seed      the plain server seed
    *        numCards  the number of cards per hand
@@ -290,11 +290,11 @@ contract blackjack is casino {
   }
 
   /**
-   *   calculates the value of the player&#39;s hands.
+   *   calculates the value of the player's hands.
    *   @param cards     holds the (partial) deck.
    *          numCards  the number of cards per player hand
-   *          pSplits   the player&#39;s splits (hand index)
-   *   @return the values of the player&#39;s hands
+   *          pSplits   the player's splits (hand index)
+   *   @return the values of the player's hands
    **/
   function getPlayerValues(uint8[] cards, uint8[] numCards, uint8[] pSplits) constant internal returns(uint8[5] playerValues) {
     uint8 cardIndex;
@@ -303,15 +303,15 @@ contract blackjack is casino {
   }
 
   /**
-   *   recursively plays the player&#39;s hands.
+   *   recursively plays the player's hands.
    *   @param hIndex        the hand index
    *          cIndex        the index of the next card to draw
    *          sIndex        the index of the next split, if there is any
-   *          playerValues  the values of the player&#39;s hands (not yet complete)
+   *          playerValues  the values of the player's hands (not yet complete)
    *          cards         holds the (partial) deck.
    *          numCards      the number of cards per player hand
    *          pSplits        the array of splits
-   *   @return the values of the player&#39;s hands and the current card index
+   *   @return the values of the player's hands and the current card index
    **/
   function playHand(uint8 hIndex, uint8 cIndex, uint8 sIndex, uint8[5] playerValues, uint8[] cards, uint8[] numCards, uint8[] pSplits) constant internal returns(uint8, uint8, uint8[5]) {
     playerValues[hIndex] = cardValues[cards[cIndex] % 13];
@@ -338,10 +338,10 @@ contract blackjack is casino {
 
 
   /**
-   *   calculates the value of a dealer&#39;s hand.
+   *   calculates the value of a dealer's hand.
    *   @param cards     holds the (partial) deck.
    *          numCards  the number of cards the player holds
-   *   @return the value of the dealer&#39;s hand and a flag indicating if the dealer has got a blackjack
+   *   @return the value of the dealer's hand and a flag indicating if the dealer has got a blackjack
    **/
   function getDealerValue(uint8[] cards, uint8 numCards) constant internal returns(uint8 dealerValue, bool bj) {
 

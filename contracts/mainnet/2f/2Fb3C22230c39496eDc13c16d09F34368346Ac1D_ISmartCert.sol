@@ -13,7 +13,7 @@ contract ISmartCert {
 	string constant CODE_ACCESS_POSTER_NOT_AUTHORIZED = "A002";
 	string constant CODE_ACCESS_ISSUER_NOT_AUTHORIZED = "A003";
 	string constant CODE_ACCESS_VERIFY_NOT_AUTHORIZED = "A004";
-	string constant MSG_ISSUER_SIG_NOT_MATCHED = "E001"; //"Issuer&#39;s address not matched with signed hash";
+	string constant MSG_ISSUER_SIG_NOT_MATCHED = "E001"; //"Issuer's address not matched with signed hash";
 	string constant MSG_DOC_REGISTERED = "E002"; //"Document already registered"; 
 	string constant MSG_REVOKED = "E003"; //"Document already revoked"; 	
 	string constant MSG_NOTREG = "E004"; //"Document not registered";

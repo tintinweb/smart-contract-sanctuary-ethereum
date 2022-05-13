@@ -311,7 +311,7 @@ contract ERC721Proxy is
                 let success := call(
                     gas,            // forward all gas
                     token,          // call address of token contract
-                    0,              // don&#39;t send any ETH
+                    0,              // don't send any ETH
                     0,              // pointer to start of input
                     100,            // length of input
                     0,              // write output to null

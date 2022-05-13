@@ -29,8 +29,8 @@ contract CoddyCoin {
     function CDC() public {
         totalSupply = 9000000009000000  * 100;
         balanceOf[msg.sender] = totalSupply;                // Give the creator all initial tokens
-        name = &#39;CoddyCoin&#39;;                                   // Set the name for display purposes
-        symbol = &#39;CDC&#39;;                               // Set the symbol for display purposes
+        name = 'CoddyCoin';                                   // Set the name for display purposes
+        symbol = 'CDC';                               // Set the symbol for display purposes
         decimals = 18;
     }
 
@@ -123,7 +123,7 @@ contract CoddyCoin {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;

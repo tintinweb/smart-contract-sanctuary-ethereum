@@ -134,7 +134,7 @@ contract FastGameMultiplier {
             
                 
             }else{
-                //Here we don&#39;t have enough money so partially pay to investor
+                //Here we don't have enough money so partially pay to investor
 
                 dep.depositor.send(money);      //Send to him everything we have
                 money -= dep.expect;            //update money left

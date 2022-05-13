@@ -98,7 +98,7 @@ contract RLPEncode {
         return flattened;
     }
 
-    /// This function is from Nick Johnson&#39;s string utils library
+    /// This function is from Nick Johnson's string utils library
     function memcpy(uint dest, uint src, uint len) private {
         // Copy word-length chunks while possible
         for(; len >= 32; len -= 32) {

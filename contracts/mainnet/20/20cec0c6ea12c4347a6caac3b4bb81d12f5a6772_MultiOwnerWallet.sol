@@ -68,7 +68,7 @@ contract MultiOwnerWallet {
     function transfer(address _to, uint256 _amount) external returns (bool _success) {
         bytes32 _hash;
         bool    _subResult;
-        _hash = keccak256(address(token), &#39;transfer&#39;, _to, _amount);
+        _hash = keccak256(address(token), 'transfer', _to, _amount);
         if ( actions[_hash].origin == 0x00 ) {
             emit newTransferAction(_hash, _to, _amount, msg.sender);
         }
@@ -81,7 +81,7 @@ contract MultiOwnerWallet {
     function bulkTransfer(address[] _to, uint256[] _amount) external returns (bool _success) {
         bytes32 _hash;
         bool    _subResult;
-        _hash = keccak256(address(token), &#39;bulkTransfer&#39;, _to, _amount);
+        _hash = keccak256(address(token), 'bulkTransfer', _to, _amount);
         if ( actions[_hash].origin == 0x00 ) {
             emit newBulkTransferAction(_hash, _to, _amount, msg.sender);
         }
@@ -93,7 +93,7 @@ contract MultiOwnerWallet {
     }
     function changeTokenAddress(address _tokenAddress) external returns (bool _success) {
         bytes32 _hash;
-        _hash = keccak256(address(token), &#39;changeTokenAddress&#39;, _tokenAddress);
+        _hash = keccak256(address(token), 'changeTokenAddress', _tokenAddress);
         if ( actions[_hash].origin == 0x00 ) {
             emit newChangeTokenAddressAction(_hash, _tokenAddress, msg.sender);
         }
@@ -105,7 +105,7 @@ contract MultiOwnerWallet {
     function addNewOwner(address _owner) external returns (bool _success) {
         bytes32 _hash;
         require( ! owners[_owner] );
-        _hash = keccak256(address(token), &#39;addNewOwner&#39;, _owner);
+        _hash = keccak256(address(token), 'addNewOwner', _owner);
         if ( actions[_hash].origin == 0x00 ) {
             emit newAddNewOwnerAction(_hash, _owner, msg.sender);
         }
@@ -118,7 +118,7 @@ contract MultiOwnerWallet {
     function delOwner(address _owner) external returns (bool _success) {
         bytes32 _hash;
         require( owners[_owner] );
-        _hash = keccak256(address(token), &#39;delOwner&#39;, _owner);
+        _hash = keccak256(address(token), 'delOwner', _owner);
         if ( actions[_hash].origin == 0x00 ) {
             emit newDelOwnerAction(_hash, _owner, msg.sender);
         }

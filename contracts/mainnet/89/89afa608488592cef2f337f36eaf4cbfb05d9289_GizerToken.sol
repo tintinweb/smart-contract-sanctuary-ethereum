@@ -2,7 +2,7 @@ pragma solidity ^0.4.20;
 
 // ----------------------------------------------------------------------------
 //
-// GZR &#39;Gizer Gaming&#39; token public sale contract
+// GZR 'Gizer Gaming' token public sale contract
 //
 // For details, please visit: http://www.gizer.io
 //
@@ -147,7 +147,7 @@ contract ERC20Token is ERC20Interface, Owned {
     return balances[_owner];
   }
 
-  /* Transfer the balance from owner&#39;s account to another account */
+  /* Transfer the balance from owner's account to another account */
 
   function transfer(address _to, uint _amount) public returns (bool success) {
     // amount sent cannot exceed balance
@@ -176,7 +176,7 @@ contract ERC20Token is ERC20Interface, Owned {
     return true;
   }
 
-  /* Spender of tokens transfers tokens from the owner&#39;s balance */
+  /* Spender of tokens transfers tokens from the owner's balance */
   /* Must be pre-approved by owner */
 
   function transferFrom(address _from, address _to, uint _amount) public returns (bool success) {

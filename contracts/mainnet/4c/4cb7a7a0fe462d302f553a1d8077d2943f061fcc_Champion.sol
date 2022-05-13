@@ -36,7 +36,7 @@ contract Champion {
 
     function Champion() {
         totalSupply = 25000000;
-        symbol = &#39;CNP&#39;;
+        symbol = 'CNP';
         owner = 0x1eca6ef43a7561b5ccffaa81a26d28cf6f3b8f6c;
         balances[owner] = totalSupply;
         decimals = 0;

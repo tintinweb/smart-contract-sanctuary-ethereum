@@ -78,8 +78,8 @@ interface tokenRecipient {
 }
 
 contract MOBToken {
-    string public name = &#39;Motion Block&#39;;
-    string public symbol = &#39;MOB&#39;;
+    string public name = 'Motion Block';
+    string public symbol = 'MOB';
     uint8 public decimals = 18;
     uint256 public totalSupply = 1000 * 10 ** 26;
 

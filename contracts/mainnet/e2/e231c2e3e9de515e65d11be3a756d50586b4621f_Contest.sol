@@ -102,7 +102,7 @@ if(winners.length < prizeWinners.length) winners.push(msg.sender);
 }
 
 /**
-* adds msg.sender to the voter list and updates vote related mappings if msg.value is enough, the vote is done between the deadlines and the voter didn&#39;t vote already
+* adds msg.sender to the voter list and updates vote related mappings if msg.value is enough, the vote is done between the deadlines and the voter didn't vote already
 */
 function vote(address candidate) payable{
 if(msg.value < votingFee) 

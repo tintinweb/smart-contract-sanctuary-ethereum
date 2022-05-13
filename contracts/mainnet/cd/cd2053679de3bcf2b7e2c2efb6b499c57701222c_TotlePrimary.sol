@@ -336,8 +336,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -355,7 +355,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     require(_b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -424,7 +424,7 @@ library Utils {
     uint256 constant internal MAX_UINT = 2**256-1;
     address constant internal ETH_ADDRESS = address(0x0);
 
-    // Currently constants can&#39;t be accessed from other contracts, so providing functions to do that here
+    // Currently constants can't be accessed from other contracts, so providing functions to do that here
     function precision() internal pure returns (uint256) { return PRECISION; }
     function max_qty() internal pure returns (uint256) { return MAX_QTY; }
     function max_rate() internal pure returns (uint256) { return MAX_RATE; }
@@ -435,7 +435,7 @@ library Utils {
 
     /// @notice Retrieve the number of decimals used for a given ERC20 token
     /// @dev As decimals are an optional feature in ERC20, this contract uses `call` to
-    /// ensure that an exception doesn&#39;t cause transaction failure
+    /// ensure that an exception doesn't cause transaction failure
     /// @param token the token for which we should retrieve the decimals
     /// @return decimals the number of decimals in the given token
     function getDecimals(address token)
@@ -466,7 +466,7 @@ library Utils {
 
             switch success
             case 0 {
-                decimals := 0 // If the token doesn&#39;t implement `decimals()`, return 0 as default
+                decimals := 0 // If the token doesn't implement `decimals()`, return 0 as default
             }
             case 1 {
                 decimals := mload(ptr) // Set decimals to return data from call
@@ -547,7 +547,7 @@ library Utils {
         }
     }
 
-    /// @notice Bringing this in from the Math library as we&#39;ve run out of space in TotlePrimary (see EIP-170)
+    /// @notice Bringing this in from the Math library as we've run out of space in TotlePrimary (see EIP-170)
     function min(uint256 a, uint256 b) internal pure returns (uint256) {
         return a < b ? a : b;
     }
@@ -656,7 +656,7 @@ contract TotlePrimary is Withdrawable, Pausable {
         address sourceToken;
         address destinationToken;
         uint256 amount;
-        bool isSourceAmount; //true if amount is sourceToken, false if it&#39;s destinationToken
+        bool isSourceAmount; //true if amount is sourceToken, false if it's destinationToken
         Order[] orders;
     }
 
@@ -718,7 +718,7 @@ contract TotlePrimary is Withdrawable, Pausable {
 
     /// @notice Constructor
     /// @param _tokenTransferProxy address of the TokenTransferProxy
-    /// @param _signer the suggester&#39;s address that signs the payloads. More can be added with add/removeSigner functions
+    /// @param _signer the suggester's address that signs the payloads. More can be added with add/removeSigner functions
     constructor (address _tokenTransferProxy, address _signer/*, address _logger*/) public {
         tokenTransferProxy = TokenTransferProxy(_tokenTransferProxy);
         signers[_signer] = true;
@@ -969,7 +969,7 @@ contract TotlePrimary is Withdrawable, Pausable {
                 balances[tokenIndex].balance = sourceAmount;
                 return true;
             }
-            this.log("Didn&#39;t get enough token", 0,0x0);
+            this.log("Didn't get enough token", 0,0x0);
             return false;
         }
         return true;

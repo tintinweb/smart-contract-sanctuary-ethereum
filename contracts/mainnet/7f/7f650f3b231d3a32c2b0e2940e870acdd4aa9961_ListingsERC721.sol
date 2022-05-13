@@ -189,7 +189,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -262,7 +262,7 @@ contract ListingsERC721 is Ownable {
         require(price > 0, "price less than zero");
         require(allowance > 0, "allowance less than zero");
         require(dateEnds > 0, "dateEnds less than zero");
-        require(ERC721(tokenContractAddress).ownerOf(allowance) == msg.sender, "user doesn&#39;t own this token");
+        require(ERC721(tokenContractAddress).ownerOf(allowance) == msg.sender, "user doesn't own this token");
         bytes32 listingId = getHashInternal(tokenContractAddress, price, allowance, dateEnds, salt);
         Listing memory listing = Listing(msg.sender, tokenContractAddress, price, allowance, now, dateEnds);
         listings[listingId] = listing;
@@ -286,7 +286,7 @@ contract ListingsERC721 is Ownable {
         //make sure listing is still available
         require(now <= listing.dateEnds);
         //make sure that the seller still has that amount to sell
-        require(tokenContract.ownerOf(tokenId) == seller, "user doesn&#39;t own this token");
+        require(tokenContract.ownerOf(tokenId) == seller, "user doesn't own this token");
         //make sure that the seller still will allow that amount to be sold
         require(tokenContract.getApproved(tokenId) == address(this));
         require(msg.value == price);

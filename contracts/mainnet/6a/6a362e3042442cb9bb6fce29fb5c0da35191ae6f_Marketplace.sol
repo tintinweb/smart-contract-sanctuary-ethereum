@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -214,7 +214,7 @@ contract Marketplace is Ownable {
     }
 
     function createProduct(bytes32 id, string name, address beneficiary, uint pricePerSecond, Currency currency, uint minimumSubscriptionSeconds) public whenNotHalted {
-        require(id != 0); //, "Product ID can&#39;t be empty/null");
+        require(id != 0); //, "Product ID can't be empty/null");
         require(pricePerSecond > 0); //, "Free streams go through different channel");
         Product storage p = products[id];
         require(p.id == 0); //, "Product with this ID already exists");        
@@ -300,7 +300,7 @@ contract Marketplace is Ownable {
 
     /**
     * Transfer a valid subscription from msg.sender to a new address.
-    * If the address already has a valid subscription, extends the subscription by the msg.sender&#39;s remaining period.
+    * If the address already has a valid subscription, extends the subscription by the msg.sender's remaining period.
     */
     function transferSubscription(bytes32 productId, address newSubscriber) public whenNotHalted {
         bool isValid = false;
@@ -318,7 +318,7 @@ contract Marketplace is Ownable {
 
     function _getSubscription(bytes32 productId, address subscriber) internal constant returns (bool subIsValid, Product storage, TimeBasedSubscription storage) {
         Product storage p = products[productId];
-        require(p.id != 0); //, "Product doesn&#39;t exist");
+        require(p.id != 0); //, "Product doesn't exist");
         TimeBasedSubscription storage s = p.subscriptions[subscriber];
         return (s.endTimestamp >= block.timestamp, p, s);
     }
@@ -362,7 +362,7 @@ contract Marketplace is Ownable {
     }
 
     /**
-    * Allow updating currency exchange rates even if time of exchange rate isn&#39;t known
+    * Allow updating currency exchange rates even if time of exchange rate isn't known
     */
     function updateExchangeRates(uint dataUsd) public {
         require(msg.sender == currencyUpdateAgent);

@@ -112,7 +112,7 @@ contract ERC20Token is admined, ERC20 { //Standar definition of an ERC20Token
     * A mapping of frozen accounts and unfreeze dates
     *
     * In case your account balance is fronzen and you 
-    * think it&#39;s an error please contact the support team
+    * think it's an error please contact the support team
     *
     * This function is only intended to lock specific wallets
     * as explained on project white paper
@@ -234,10 +234,10 @@ contract ERC20Token is admined, ERC20 { //Standar definition of an ERC20Token
 * @dev ERC20 Token compliant
 */
 contract AssetViV is ERC20Token {
-    string public name = &#39;VIVALID&#39;;
+    string public name = 'VIVALID';
     uint8 public decimals = 18;
-    string public symbol = &#39;ViV&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'ViV';
+    string public version = '1';
 
     /**
     * @notice token contructor.
@@ -263,7 +263,7 @@ contract AssetViV is ERC20Token {
 
     
     /**
-    * @notice this contract will revert on direct non-function calls, also it&#39;s not payable
+    * @notice this contract will revert on direct non-function calls, also it's not payable
     * @dev Function to handle callback calls to contract
     */
     function() public {

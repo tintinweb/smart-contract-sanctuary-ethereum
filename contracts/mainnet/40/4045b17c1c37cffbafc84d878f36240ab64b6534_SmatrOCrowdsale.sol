@@ -105,7 +105,7 @@ contract ICrowdsaleProcessor is Ownable, HasManager {
   // Total collected Ethereum: must be updated every time tokens has been sold
   uint256 public totalCollected;
 
-  // Total amount of project&#39;s token sold: must be updated every time tokens has been sold
+  // Total amount of project's token sold: must be updated every time tokens has been sold
   uint256 public totalSold;
 
   // Crowdsale minimal goal, must be greater or equal to Forecasting min amount
@@ -147,7 +147,7 @@ contract ICrowdsaleProcessor is Ownable, HasManager {
   function start(uint256 _startTimestamp, uint256 _endTimestamp, address _fundingAddress)
     public onlyManager() hasntStarted() hasntStopped();
 
-  // Is crowdsale failed (completed, but minimal goal wasn&#39;t reached)
+  // Is crowdsale failed (completed, but minimal goal wasn't reached)
   function isFailed() public constant returns (bool);
 
   // Is crowdsale active (i.e. the token can be sold)
@@ -209,7 +209,7 @@ contract BasicCrowdsale is ICrowdsaleProcessor {
     public
     onlyManager()   // manager is CrowdsaleController instance
     hasntStarted()  // not yet started
-    hasntStopped()  // crowdsale wasn&#39;t cancelled
+    hasntStopped()  // crowdsale wasn't cancelled
   {
     require(_fundingAddress != address(0));
 
@@ -261,7 +261,7 @@ contract BasicCrowdsale is ICrowdsaleProcessor {
       // it was started
       started &&
 
-      // hard cap wasn&#39;t reached yet
+      // hard cap wasn't reached yet
       totalCollected < hardCap &&
 
       // and current time is within the crowdfunding period
@@ -301,7 +301,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -442,7 +442,7 @@ contract SmatrOCrowdsale is BasicCrowdsale {
   function releaseTokens()
     public
     onlyManager()             // manager is CrowdsaleController instance
-    hasntStopped()            // crowdsale wasn&#39;t cancelled
+    hasntStopped()            // crowdsale wasn't cancelled
     whenCrowdsaleSuccessful() // crowdsale was successful
   {
     // do nothing
@@ -465,17 +465,17 @@ contract SmatrOCrowdsale is BasicCrowdsale {
     sellTokens(msg.sender, msg.value);
   }
 
-  // sels the project&#39;s token to buyers
+  // sels the project's token to buyers
   function sellTokens(address _recepient, uint256 _value)
     internal
     hasBeenStarted()     // crowdsale started
-    hasntStopped()       // wasn&#39;t cancelled by owner
+    hasntStopped()       // wasn't cancelled by owner
     whenCrowdsaleAlive() // in active state
   {
     uint256 newTotalCollected = totalCollected + _value;
 
     if (hardCap < newTotalCollected) {
-      // don&#39;t sell anything above the hard cap
+      // don't sell anything above the hard cap
 
       uint256 refund = newTotalCollected - hardCap;
       uint256 diff = _value - refund;
@@ -501,13 +501,13 @@ contract SmatrOCrowdsale is BasicCrowdsale {
     totalSold += tokensSold;
   }
 
-  // project&#39;s owner withdraws ETH funds to the funding address upon successful crowdsale
+  // project's owner withdraws ETH funds to the funding address upon successful crowdsale
   function withdraw(
     uint256 _amount // can be done partially
   )
     public
-    onlyOwner() // project&#39;s owner
-    hasntStopped()  // crowdsale wasn&#39;t cancelled
+    onlyOwner() // project's owner
+    hasntStopped()  // crowdsale wasn't cancelled
     whenCrowdsaleSuccessful() // crowdsale completed successfully
   {
     require(_amount <= this.balance);

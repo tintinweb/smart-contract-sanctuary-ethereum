@@ -79,7 +79,7 @@ contract bigBankLittleBank is DefconPro {
     
     uint public houseFee = 2; //Fee is 2%
     uint public houseCommission = 0; //keeps track of commission
-    uint public bookKeeper = 0; //keeping track of what the balance should be to tie into auto pause script if it doesn&#39;t match contracte balance
+    uint public bookKeeper = 0; //keeping track of what the balance should be to tie into auto pause script if it doesn't match contracte balance
     
     bytes32 emptyBet = 0x0000000000000000000000000000000000000000000000000000000000000000;
     
@@ -109,7 +109,7 @@ contract bigBankLittleBank is DefconPro {
 
     //main deposit function
     function depositBank() public defcon4 payable {
-        if(userBank[msg.sender] == 0) {//if the user doesn&#39;t have funds
+        if(userBank[msg.sender] == 0) {//if the user doesn't have funds
             userBank[msg.sender] = msg.value;//make balance = the funds
         } else {
             userBank[msg.sender] = (userBank[msg.sender]).add(msg.value);//if user already has funds, add to what exists
@@ -153,7 +153,7 @@ contract bigBankLittleBank is DefconPro {
         require(betBanks[_betId1].bet != emptyBet && betBanks[_betId2].bet != emptyBet);//require that both tokens are active and hold funds
         require(betBanks[_betId1].owner == msg.sender || betBanks[_betId2].owner == msg.sender); //require that the user submitting is the owner of one of the tokens
         require(betBanks[_betId1].owner != betBanks[_betId2].owner);//prevent a user from betting 2 tokens he owns, prevent possible exploits
-        require(_betId1 != _betId2);//require that user doesn&#39;t bet token against itself
+        require(_betId1 != _betId2);//require that user doesn't bet token against itself
     
         //unhash the bets to calculate winner
         uint bet1ConvertedAddr = uint(betBanks[_betId1].owner);
@@ -297,7 +297,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

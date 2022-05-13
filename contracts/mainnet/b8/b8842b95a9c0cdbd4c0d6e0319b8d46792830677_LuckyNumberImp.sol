@@ -2,29 +2,29 @@ pragma solidity ^0.4.15;
 
 // MMMMWKkk0KNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNKOkOKWMMMMMM //
 // MMMMXl.....,cdOXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXOo:,.....dNMMMM //
-// MMMWd.        .&#39;cxKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0d:&#39;.        .xMMMM //
+// MMMWd.        .'cxKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0d:'.        .xMMMM //
 // MMMK,   ......   ..:xXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMWKd;.    .....    :XMMM //
-// MMWd.   .;;;,,&#39;..   .&#39;lkXNWWNNNWMMMMMMMMMMWNNWWWNKkc..  ...&#39;,;;;,.   .kMMM //
-// MMNc   .,::::::;,&#39;..   ..,;;,,dNMMMMMMMMMMXl,;;;,..   ..&#39;;;::::::&#39;.  .lWMM //
-// MM0&#39;   .;:::::::;;&#39;..        ;0MMMMMMMMMMMWO&#39;        ..,;;:::::::;.   ;KMM //
-// MMx.  .&#39;;::::;,&#39;...        .:0MMMMMMMMMMMMMWO;.        ...&#39;;;::::;..  .OMM //
-// MWd.  .,:::;&#39;..          .,xNMMMMMMMMMMMMMMMMXd&#39;.          ..,;:::&#39;.  .xMM //
-// MNl.  .,:;&#39;..         .,ckNMMMMMMMMMMMMMMMMMMMMXxc&#39;.         ..&#39;;:,.  .dWM //
-// MNc   .,,..    .;:clox0NWXXWMMMMMMMMMMMMMMMMMMWXXWXOxolc:;.    ..,&#39;.  .oWM //
+// MMWd.   .;;;,,'..   .'lkXNWWNNNWMMMMMMMMMMWNNWWWNKkc..  ...',;;;,.   .kMMM //
+// MMNc   .,::::::;,'..   ..,;;,,dNMMMMMMMMMMXl,;;;,..   ..';;::::::'.  .lWMM //
+// MM0'   .;:::::::;;'..        ;0MMMMMMMMMMMWO'        ..,;;:::::::;.   ;KMM //
+// MMx.  .';::::;,'...        .:0MMMMMMMMMMMMMWO;.        ...';;::::;..  .OMM //
+// MWd.  .,:::;'..          .,xNMMMMMMMMMMMMMMMMXd'.          ..,;:::'.  .xMM //
+// MNl.  .,:;'..         .,ckNMMMMMMMMMMMMMMMMMMMMXxc'.         ..';:,.  .dWM //
+// MNc   .,,..    .;:clox0NWXXWMMMMMMMMMMMMMMMMMMWXXWXOxolc:;.    ..,'.  .oWM //
 // MNc   ...     .oWMMMNXNMW0odXMMMMMMMMMMMMMMMMKooKWMNXNMMMNc.     ...  .oWM //
 // MNc.          ;KMMMMNkokNMXlcKMMMMMMMMMMMMMM0coNMNxoOWMMMM0,          .oWM //
 // MNc         .;0MMMMMMWO:dNMNoxWMMMMMMMMMMMMNddNMNocKMMMMMMWO,         .oWM //
 // MX:        .lXMMMMMMMMM0lOMMNXWMMMMMMMMMMMMWXNMMklKMMMMMMMMM0:.       .lNM //
 // MX;      .;kWMMMMMMMMMMMXNMMMMMMMMMMMMMMMMMMMMMMNNMMMMMMMMMMMNx,.      cNM //
 // MO.    .:kNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNx:.  . ,0M //
-// Wl..&#39;:dKWMMMMMMMWNK000KNMMMMMMMMMMMMMMMMMMMMMMMMMWNK000KNMMMMMMMMW0o;...dW //
+// Wl..':dKWMMMMMMMWNK000KNMMMMMMMMMMMMMMMMMMMMMMMMMWNK000KNMMMMMMMMW0o;...dW //
 // NxdOXWMMMMMMMW0olcc::;,,cxXWMMMMMMMMMMMMMMMMMMWKd:,,;::ccld0WMMMMMMMWKkokW //
-// MMMMMMMMMMMWOlcd0XWWWN0x:.,OMMMMMMMMMMMMMMMMMWk,&#39;cxKNWWWXOdcl0MMMMMMMMMMMM //
+// MMMMMMMMMMMWOlcd0XWWWN0x:.,OMMMMMMMMMMMMMMMMMWk,'cxKNWWWXOdcl0MMMMMMMMMMMM //
 // MMMMMMMMMMMWKKWMMMMMMMMMWK0XMMMMMMMMMMMMMMMMMMXOXWMMMMMMMMMN0XMMMMMMMMMMMM //
 // MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWK0OOOO0KWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM //
-// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNo.......&#39;xWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM //
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNo.......'xWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM //
 // MMMNKOkkkk0XNMMMMMMMMMMMMMMMMMMWO;.    .:0WMMMMMMMMMMMMMMMMMWNKOkkkkOKNMMM //
-// MMWXOkxddoddxxkKWMMMMMMMMMMMMMMMMXo...&#39;dNMMMMMMMMMMMMMMMMN0kxxdodddxk0XMMM //
+// MMWXOkxddoddxxkKWMMMMMMMMMMMMMMMMXo...'dNMMMMMMMMMMMMMMMMN0kxxdodddxk0XMMM //
 // MMMMMMMMMMMMWNKKNMMMMMMMMMMMMMMMMWOc,,c0WMMMMMMMMMMMMMMMMXKKNWMMMMMMMMMMMM //
 // MMMMMMMMWXKKXXNWMMMMMMMMMMWWWWWX0xcclc:cxKNWWWWWMMMMMMMMMMWNXXKKXWMMMMMMMM //
 // MMMWXOxdoooddxkO0NMMMMMMMWKkxxdlloxKNX0dolodxxkXMMMMMMMWX0OkxddooddxOXWMMM //
@@ -260,7 +260,7 @@ contract LuckyNumberImp is LuckyNumber, Mortal, Random {
     // Internal implementation of revealNumber().
     function _revealNumber(address _requestor) 
     internal {
-        // waitTime has passed, render this requestor&#39;s number.
+        // waitTime has passed, render this requestor's number.
         uint256 luckyBlock = _revealBlock(_requestor);
         // 
         // TIME LIMITATION:

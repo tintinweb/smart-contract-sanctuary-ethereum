@@ -28,7 +28,7 @@ contract ERC721 {
  */
 contract DivisibleFirstCommonsForumToken is ERC721 {
 
-  //This contract&#39;s owner
+  //This contract's owner
   address private contractOwner;
 
   //Participation token storage.
@@ -86,7 +86,7 @@ contract DivisibleFirstCommonsForumToken is ERC721 {
     return ownerToTokenShare[_owner][firstCommonsForumId];
   }
 
-  // We use parameter &#39;_tokenId&#39; as the divisibility
+  // We use parameter '_tokenId' as the divisibility
   function transfer(address _to, uint256 _tokenId) external {
 
     // Requiring this contract be tradable

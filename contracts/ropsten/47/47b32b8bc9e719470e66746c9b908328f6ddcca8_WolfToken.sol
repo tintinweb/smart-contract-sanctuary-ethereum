@@ -77,7 +77,7 @@ contract WolfToken is StandardToken {
     string public symbol;
     address public owner;
     address public registrar;
-    string public version = &#39;H1.0&#39;;       //human 0.1 standard. Just an arbitrary versioning scheme.
+    string public version = 'H1.0';       //human 0.1 standard. Just an arbitrary versioning scheme.
 
     constructor() {
         balances[0x9B86e22E396eb372B87837C3e83295576DCb4951] = 2000000;

@@ -184,7 +184,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -267,7 +267,7 @@ contract AssetCreation {
     require(_managerPercentage < uint(100) && _managerPercentage > uint(0) , "manager percentage is too high or too low");
     require(_amountToBeRaised > uint(100), "amountToBeRaised is too low");           // Minimum asset price
     bytes32 assetID = keccak256(abi.encodePacked(msg.sender, _amountToEscrow, _managerPercentage, _amountToBeRaised, _installerID, _assetType, _blockAtCreation));
-    require(database.uintStorage(keccak256(abi.encodePacked("fundingStage", assetID))) == uint(0), "AssetID already exists.");    // This ensures the asset isn&#39;t currently live or being funded
+    require(database.uintStorage(keccak256(abi.encodePacked("fundingStage", assetID))) == uint(0), "AssetID already exists.");    // This ensures the asset isn't currently live or being funded
     database.setUint(keccak256(abi.encodePacked("fundingStage", assetID)), uint(1));       // Allow this asset to receive funding
     address staker = database.addressStorage(keccak256(abi.encodePacked("assetStaker", assetID)));
     if (staker != address(0)) { 
@@ -284,7 +284,7 @@ contract AssetCreation {
   }
 
   //----------------------------------------------------------------------------------------------------------------------------------------
-  // This function locks MyBit tokens to the asset for the length of it&#39;s lifecycle
+  // This function locks MyBit tokens to the asset for the length of it's lifecycle
   //----------------------------------------------------------------------------------------------------------------------------------------
   function lockAssetEscrow(bytes32 _assetID, uint _amountToEscrow, address _escrowDepositer)
   internal
@@ -292,7 +292,7 @@ contract AssetCreation {
     if (_amountToEscrow == 0) { return true; }
     uint escrowedMYB = database.uintStorage(keccak256(abi.encodePacked("escrowedMYB", _escrowDepositer)));
     uint depositedMYB = database.uintStorage(keccak256(abi.encodePacked("depositedMYB", _escrowDepositer)));
-    // assert (_amountToEscrow <= depositedMYB);    // TODO: Safemath should throw here if this isn&#39;t the case
+    // assert (_amountToEscrow <= depositedMYB);    // TODO: Safemath should throw here if this isn't the case
     database.setUint(keccak256(abi.encodePacked("depositedMYB", _escrowDepositer)), depositedMYB.sub(_amountToEscrow)); 
     database.setUint(keccak256(abi.encodePacked("escrowedMYB", _escrowDepositer)), escrowedMYB.add(_amountToEscrow));
     database.setUint(keccak256(abi.encodePacked("escrowedForAsset", _assetID)), _amountToEscrow);
@@ -315,7 +315,7 @@ contract AssetCreation {
     bytes32 functionHash = keccak256(abi.encodePacked(address(this), _functionSigner, "removeAsset", _assetID));
     require(database.boolStorage(functionHash));
     database.setBool(functionHash, false);
-    database.setUint(keccak256(abi.encodePacked("fundingStage", _assetID)), uint(5));   // Asset won&#39;t receive income & ownership won&#39;t be able to be traded.
+    database.setUint(keccak256(abi.encodePacked("fundingStage", _assetID)), uint(5));   // Asset won't receive income & ownership won't be able to be traded.
     emit LogAssetRemoved(_assetID, msg.sender);
     return true;
   }
@@ -377,7 +377,7 @@ contract AssetCreation {
   //------------------------------------------------------------------------------------------------------------------
 
   //------------------------------------------------------------------------------------------------------------------
-  // Makes sure function won&#39;t run when contract has been paused
+  // Makes sure function won't run when contract has been paused
   //------------------------------------------------------------------------------------------------------------------
   modifier whenNotPaused {
     require(!database.boolStorage(keccak256(abi.encodePacked("pause", address(this)))));
@@ -385,7 +385,7 @@ contract AssetCreation {
   }
 
   //------------------------------------------------------------------------------------------------------------------
-  // Don&#39;t accept null value for bytes32 parameter
+  // Don't accept null value for bytes32 parameter
   //------------------------------------------------------------------------------------------------------------------
   modifier noEmptyBytes(bytes32 _data) {
     require(_data != bytes32(0));
@@ -393,7 +393,7 @@ contract AssetCreation {
   }
 
   //------------------------------------------------------------------------------------------------------------------
-  // Don&#39;t accept null value for uint
+  // Don't accept null value for uint
   //------------------------------------------------------------------------------------------------------------------
   modifier notZero(uint _uint) {
     require(_uint != 0);

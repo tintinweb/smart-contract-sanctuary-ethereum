@@ -22,7 +22,7 @@ contract GodMode {
     /// @dev Is the contract paused?
     bool public isPaused;
 
-    /// @dev God&#39;s address
+    /// @dev God's address
     address public god;
 
     /// @dev Only God can run this function
@@ -96,7 +96,7 @@ pragma solidity ^0.4.24;
 /// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef8d9a9d95af8d9a9d95818a9c9bc18c8082">[email&#160;protected]</a>>
 /// @dev Provides functionality to reference the resource interface contract
 contract KingOfEthResourcesInterfaceReferencer is GodMode {
-    /// @dev The interface contract&#39;s address
+    /// @dev The interface contract's address
     address public interfaceContract;
 
     /// @dev Only the interface contract can run this function
@@ -158,7 +158,7 @@ contract KingOfEthResource is
     /// @dev Current resource supply
     uint public resourceSupply;
 
-    /// @dev ERC20 token&#39;s decimals
+    /// @dev ERC20 token's decimals
     uint8 public constant decimals = 0;
 
     /// @dev mapping of addresses to holdings

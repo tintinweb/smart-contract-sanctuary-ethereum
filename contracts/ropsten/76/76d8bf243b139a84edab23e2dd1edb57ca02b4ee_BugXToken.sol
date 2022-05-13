@@ -399,7 +399,7 @@ contract BugXToken is StandardToken {
     }
 
 
-    /// @dev set the token&#39;s tokenExchangeRate,
+    /// @dev set the token's tokenExchangeRate,
     function setTokenExchangeRate(uint256 _RateOne,uint256 _RateTwo,uint256 _RateThree) onlyOwner external {
         require (_RateOne != 0 && _RateTwo != 0 && _RateThree != 0);
         require (_RateOne != tokenExchangeRate && _RateTwo != tokenExchangeRateTwo && _RateThree != tokenExchangeRateThree);
@@ -409,7 +409,7 @@ contract BugXToken is StandardToken {
         tokenExchangeRateThree = _RateThree;
     }
 
-    /// @dev increase the token&#39;s supply
+    /// @dev increase the token's supply
     function increaseSupply (uint256 _value) onlyOwner external {
         uint256 value = formatDecimals(_value);
         require (value + currentSupply <= totalSupply);
@@ -417,7 +417,7 @@ contract BugXToken is StandardToken {
         emit IncreaseSupply(value);
     }
 
-    /// @dev decrease the token&#39;s supply
+    /// @dev decrease the token's supply
     function decreaseSupply (uint256 _value) onlyOwner external {
         uint256 value = formatDecimals(_value);
         require (value + tokenRaised <= currentSupply);

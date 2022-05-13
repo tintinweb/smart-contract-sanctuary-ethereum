@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -281,7 +281,7 @@ using SafeMath for uint256;
     }
 
     /**
-    @dev Gets the address of any account in &#39;accountList&#39;.
+    @dev Gets the address of any account in 'accountList'.
     @param _index The index to query the address of
     @return An address pointing to a registered account
     */
@@ -335,7 +335,7 @@ using SafeMath for uint256;
     }
 
     /**
-    @dev Send a specified amount of tokens from sender address to &#39;_recipient&#39;.
+    @dev Send a specified amount of tokens from sender address to '_recipient'.
     @param _recipient address receiving tokens
     @param _amount the amount of tokens to be transferred
     @return A bool set true if successful, false otherwise
@@ -441,7 +441,7 @@ using SafeMath for uint256;
     }
 
     /**
-    @dev Function permanently disabling &#39;burn()&#39; and &#39;setBurner()&#39;.
+    @dev Function permanently disabling 'burn()' and 'setBurner()'.
     @dev Already burned tokens are not recoverable.
     @dev Effects of this transaction are irreversible.
     @return A bool set true if successful, false otherwise
@@ -485,7 +485,7 @@ using SafeMath for uint256;
     @dev Maintenance function, if accountsList grows too long back end can safely clean unused accounts
         and push the renewed list into the contract.
     @dev Accounts removed from the list must be deactivated with maintenanceDeactivateUser(_user)
-    @param _accountsList A list containing the accounts&#39; addresses
+    @param _accountsList A list containing the accounts' addresses
     @return A bool set true if successful, false otherwise
      */
     function maintenanceSetAccountsList(address[] _accountsList) onlyOwner onlyUnderMaintenance returns (bool) {
@@ -507,7 +507,7 @@ using SafeMath for uint256;
     @dev Auxiliary method used in constructor to reserve some tokens and lock them in some cases.
     @param _address The address to assign tokens
     @param _amount The amount of tokens
-    @param _lock True to lock until &#39;lockExpiration&#39;, false to not
+    @param _lock True to lock until 'lockExpiration', false to not
     @return A bool set true if successful, false otherwise
      */
     function _setup(address _address, uint256 _amount, bool _lock) internal returns (bool) {
@@ -521,7 +521,7 @@ using SafeMath for uint256;
     }
 
     /**
-    @dev Function implementing the shared logic of &#39;transfer()&#39; and &#39;transferFrom()&#39;
+    @dev Function implementing the shared logic of 'transfer()' and 'transferFrom()'
     @param _from address sending tokens
     @param _recipient address receiving tokens
     @param _amount tokens to send
@@ -542,7 +542,7 @@ using SafeMath for uint256;
 
     /**
     @dev Updates the user history with the latest balance.
-    @param _address The Account&#39;s address to update
+    @param _address The Account's address to update
     @return A bool set true if successful, false otherwise
      */
     function _updateHistory(address _address) internal returns (bool) {

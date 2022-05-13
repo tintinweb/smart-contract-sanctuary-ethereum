@@ -102,7 +102,7 @@ library Math {
         // >>> mp.dps = 100
         // >>> coeffs = [mp.log(2)**i / mp.factorial(i) for i in range(1, 21)]
         // >>> shifts = [64 - int(mp.log(c, 2)) for c in coeffs]
-        // >>> print(&#39;\n&#39;.join(hex(int(c * (1 << s))) + &#39;, &#39; + str(s) for c, s in zip(coeffs, shifts)))
+        // >>> print('\n'.join(hex(int(c * (1 << s))) + ', ' + str(s) for c, s in zip(coeffs, shifts)))
         int result = int(ONE) << 64;
         int zpow = z;
         result += 0xb17217f7d1cf79ab * zpow;
@@ -461,7 +461,7 @@ contract StandardToken is Token {
     /*
      *  Public functions
      */
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success
+    /// @dev Transfers sender's tokens to a given address. Returns success
     /// @param to Address of token receiver
     /// @param value Number of tokens to transfer
     /// @return Was transfer successful?
@@ -677,7 +677,7 @@ contract Event {
     function sellAllOutcomes(uint outcomeTokenCount)
         public
     {
-        // Revoke sender&#39;s outcome tokens of all outcomes
+        // Revoke sender's outcome tokens of all outcomes
         for (uint8 i = 0; i < outcomeTokens.length; i++)
             outcomeTokens[i].revoke(msg.sender, outcomeTokenCount);
         // Transfer collateral tokens to sender
@@ -733,8 +733,8 @@ contract Event {
     /// @return Event hash
     function getEventHash() public constant returns (bytes32);
 
-    /// @dev Exchanges sender&#39;s winning outcome tokens for collateral tokens
-    /// @return Sender&#39;s winnings
+    /// @dev Exchanges sender's winning outcome tokens for collateral tokens
+    /// @return Sender's winnings
     function redeemWinnings() public returns (uint);
 }
 

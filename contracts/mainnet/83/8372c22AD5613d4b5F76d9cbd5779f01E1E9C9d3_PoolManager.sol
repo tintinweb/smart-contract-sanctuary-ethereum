@@ -201,8 +201,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -221,7 +221,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -454,7 +454,7 @@ library SortitionSumTreeFactory {
         ID = tree.nodeIndexesToIDs[treeIndex];
     }
 
-    /** @dev Gets a specified ID&#39;s associated value.
+    /** @dev Gets a specified ID's associated value.
      *  @param _key The key of the tree.
      *  @param _ID The ID of the value.
      *  @return The associated value.
@@ -504,7 +504,7 @@ library SortitionSumTreeFactory {
  * right and check for limits.
  * When using this library be sure of using maxNewFixed() as the upper limit for
  * creation of fixed point numbers. Use maxFixedMul(), maxFixedDiv() and
- * maxFixedAdd() if you want to be certain that those operations don&#39;t 
+ * maxFixedAdd() if you want to be certain that those operations don't 
  * overflow.
  */
 library FixidityLib {
@@ -593,7 +593,7 @@ library FixidityLib {
     /**
      * @notice Maximum value that can be safely used as a multiplication operator.
      * @dev Calculated as sqrt(maxInt256()*fixed1()). 
-     * Be careful with your sqrt() implementation. I couldn&#39;t find a calculator
+     * Be careful with your sqrt() implementation. I couldn't find a calculator
      * that would give the exact square root of maxInt256*fixed1 so this number
      * is below the real number by no more than 3*10**28. It is safe to use as
      * a limit for your multiplications, although powers of two of numbers over
@@ -782,7 +782,7 @@ library FixidityLib {
      * Test integer(newFixed(-maxNewFixed())) returns -maxNewFixed()*fixed1()
      */
     function integer(int256 x) public pure returns (int256) {
-        return (x / fixed1()) * fixed1(); // Can&#39;t overflow
+        return (x / fixed1()) * fixed1(); // Can't overflow
     }
 
     /**
@@ -796,7 +796,7 @@ library FixidityLib {
      * Test fractional(-fixed1()+1) returns -10^24-1
      */
     function fractional(int256 x) public pure returns (int256) {
-        return x - (x / fixed1()) * fixed1(); // Can&#39;t overflow
+        return x - (x / fixed1()) * fixed1(); // Can't overflow
     }
 
     /**
@@ -914,7 +914,7 @@ library FixidityLib {
      */
     function reciprocal(int256 x) public pure returns (int256) {
         assert(x != 0);
-        return (fixed1()*fixed1()) / x; // Can&#39;t overflow
+        return (fixed1()*fixed1()) / x; // Can't overflow
     }
 
     /**
@@ -1172,7 +1172,7 @@ contract Pool is Ownable {
   }
 
   /**
-   * @notice Calculates a user&#39;s winnings.  This is their deposit plus their winnings, if any.
+   * @notice Calculates a user's winnings.  This is their deposit plus their winnings, if any.
    * @param _addr The address of the user
    */
   function winnings(address _addr) public view returns (int256) {
@@ -1188,8 +1188,8 @@ contract Pool is Ownable {
   }
 
   /**
-   * @notice Calculates a user&#39;s remaining balance.  This is their winnings less how much they&#39;ve withdrawn.
-   * @return The users&#39;s current balance.
+   * @notice Calculates a user's remaining balance.  This is their winnings less how much they've withdrawn.
+   * @return The users's current balance.
    */
   function balanceOf(address _addr) public view returns (int256) {
     Entry storage entry = entries[_addr];
@@ -1206,8 +1206,8 @@ contract Pool is Ownable {
   }
 
   /**
-   * @notice Selects and returns the winner&#39;s address
-   * @return The winner&#39;s address
+   * @notice Selects and returns the winner's address
+   * @return The winner's address
    */
   function winnerAddress() public view returns (address) {
     return winningAddress;
@@ -1277,7 +1277,7 @@ contract Pool is Ownable {
 
   /**
    * @notice Computes the entropy used to generate the random number.
-   * The blockhash of the lock end block is XOR&#39;d with the secret revealed by the owner.
+   * The blockhash of the lock end block is XOR'd with the secret revealed by the owner.
    * @return The computed entropy value
    */
   function _entropy() internal view returns (uint256) {
@@ -1328,7 +1328,7 @@ contract Pool is Ownable {
   }
 
   /**
-   * @notice Retrieves information about a user&#39;s entry in the Pool.
+   * @notice Retrieves information about a user's entry in the Pool.
    * @return Returns a tuple containing:
    *    addr (the address of the user)
    *    amount (the amount they deposited)
@@ -1351,7 +1351,7 @@ contract Pool is Ownable {
   }
 
   /**
-   * @notice Calculates the maximum pool size so that it doesn&#39;t overflow after earning interest
+   * @notice Calculates the maximum pool size so that it doesn't overflow after earning interest
    * @dev poolSize = totalDeposits + totalDeposits * interest => totalDeposits = poolSize / (1 + interest)
    * @return The maximum size of the pool to be deposited into the money market
    */
@@ -1362,7 +1362,7 @@ contract Pool is Ownable {
   }
 
   /**
-   * @notice Estimates the current effective interest rate using the money market&#39;s current supplyRateMantissa and the lock duration in blocks.
+   * @notice Estimates the current effective interest rate using the money market's current supplyRateMantissa and the lock duration in blocks.
    * @return The current estimated effective interest rate
    */
   function currentInterestFractionFixedPoint24() public view returns (int256) {
@@ -1502,7 +1502,7 @@ contract PoolManager is Ownable {
    * @param _owner The owner of the PoolManager.  They are able to change settings and are set as the owner of new lotteries.
    * @param _moneyMarket The Compound Finance MoneyMarket contract to supply and withdraw tokens.
    * @param _token The token to use for the Pools
-   * @param _openDurationInBlocks The duration between a Pool&#39;s creation and when it can be locked.
+   * @param _openDurationInBlocks The duration between a Pool's creation and when it can be locked.
    * @param _lockDurationInBlocks The duration that a Pool must be locked for.
    * @param _ticketPrice The price that tickets should sell for
    * @param _feeFractionFixedPoint18 The fraction of the gross winnings that should be transferred to the owner as the fee.  Is a fixed point 18 number.

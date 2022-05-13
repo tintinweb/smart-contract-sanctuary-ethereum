@@ -115,7 +115,7 @@ contract ERC20Token {
 ///  will reduce contract sise and gas cost
 contract MiniMeTokenI is ERC20Token, Burnable {
 
-  string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+  string public name;                //The Token's name: e.g. DigixDAO Tokens
   uint8 public decimals;             //Number of decimals of the smallest unit
   string public symbol;              //An identifier: e.g. REP
   string public version = "MMT_0.1"; //An arbitrary versioning scheme
@@ -234,7 +234,7 @@ contract Distribution is Controlled, TokenController {
 
   MiniMeTokenI public token;
 
-  address public reserveWallet; // Team&#39;s wallet address
+  address public reserveWallet; // Team's wallet address
 
   uint256 public totalSupplyCap; // Total Token supply to be generated
   uint256 public totalReserve; // A number of tokens to reserve for the team/bonuses
@@ -246,7 +246,7 @@ contract Distribution is Controlled, TokenController {
 
   /// @param _token Address of the SEN token contract
   ///  the contribution finalizes.
-  /// @param _reserveWallet Team&#39;s wallet address to distribute reserved pool
+  /// @param _reserveWallet Team's wallet address to distribute reserved pool
   /// @param _totalSupplyCap Maximum amount of tokens to generate during the contribution
   /// @param _totalReserve A number of tokens to reserve for the team/bonuses
   function Distribution(

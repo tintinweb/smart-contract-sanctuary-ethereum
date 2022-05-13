@@ -62,8 +62,8 @@ contract Deceum is SafeMath{
     function Deceum() {
         balanceOf[msg.sender] = 10000000000000000000000000;              // Give the creator all initial tokens
         totalSupply = 10000000000000000000000000;                        // Update total supply
-        name = &#39;Deceum&#39;;                                   // Set the name for display purposes
-        symbol = &#39;DCM&#39;;                               // Set the symbol for display purposes
+        name = 'Deceum';                                   // Set the name for display purposes
+        symbol = 'DCM';                               // Set the symbol for display purposes
         decimals = 18;                            // Amount of decimals for display purposes
         owner = msg.sender;
     }

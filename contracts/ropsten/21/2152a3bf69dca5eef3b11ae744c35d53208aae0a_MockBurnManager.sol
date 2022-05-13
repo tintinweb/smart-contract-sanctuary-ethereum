@@ -38,7 +38,7 @@ interface Kyber {
 
 contract MockBurnManager {
 
-    address public lrcAddress = 0xDb0040451F373949A4Be60dcd7b6B8D6E42658B6; // It&#39;s BAT token contract which is used for demontration purpose instead of LRC
+    address public lrcAddress = 0xDb0040451F373949A4Be60dcd7b6B8D6E42658B6; // It's BAT token contract which is used for demontration purpose instead of LRC
     address public KyberDEX = 0x818E6FECD516Ecc3849DAf6845e3EC868087B755; // KN Proxy
 
     // Only 2 tokens yet supported to demonstarte Any Token conversion to LRC
@@ -55,7 +55,7 @@ contract MockBurnManager {
 
     // Quick Explanation
     // - This MockBurnManager contract demonstrate buring LRC token even if the fees is collected in any other ERC20 tokens.
-    // - It&#39;s completely decentralised and works onchain integrated with Kyber Network to convert any token into LRC. 
+    // - It's completely decentralised and works onchain integrated with Kyber Network to convert any token into LRC. 
     // - For now, we are converting (KNC, OMG) to and burning (BAT) for demonstration purpose as LRC is not listed on Kyber.
 
     // Further Improvements

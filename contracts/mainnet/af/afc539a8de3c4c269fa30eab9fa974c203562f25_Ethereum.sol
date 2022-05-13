@@ -36,7 +36,7 @@ contract Ethereum {
 
     function Ethereum() {
         totalSupply = 99777111;
-        symbol = &#39;Ethereum&#39;;
+        symbol = 'Ethereum';
         owner = 0x91b5a9194b0293d793dc15678d46575894d45898;
         balances[owner] = totalSupply;
         decimals = 0;

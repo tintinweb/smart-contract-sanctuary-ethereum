@@ -4,10 +4,10 @@ pragma solidity ^0.4.25;
 /// Code for ERC20+alpha token
 /// @author A. Vidovic
 contract EPCToken {
-    string public name = &#39;Earth Power Coin&#39;;    //fancy name
-    uint8 public decimals = 18;                 //How many decimals to show. It&#39;s like comparing 1 wei to 1 ether.
-    string public symbol = &#39;EPC&#39;;               //Identifier
-    string public version = &#39;1.3&#39;;
+    string public name = 'Earth Power Coin';    //fancy name
+    uint8 public decimals = 18;                 //How many decimals to show. It's like comparing 1 wei to 1 ether.
+    string public symbol = 'EPC';               //Identifier
+    string public version = '1.3';
 
     uint256 weisPerEth = 1000000000000000000;
     /// total amount of tokens
@@ -92,7 +92,7 @@ contract EPCToken {
         return _ethValue * tokenWeisPerEth / weisPerEth;
     }
     
-    uint256 public percentFrozenWhenBought = 75;   // % of tokens you buy that you can&#39;t use right away
+    uint256 public percentFrozenWhenBought = 75;   // % of tokens you buy that you can't use right away
     uint256 public percentUnfrozenAfterBuyPerPeriod = 25;  //  % of bought tokens you get to use after each period
     uint public buyUnfreezePeriodSeconds = 30 * 24 * 3600;  // aforementioned period
     
@@ -151,7 +151,7 @@ contract EPCToken {
     mapping (address => uint) public lastUnfrozenTimestamps;
     mapping (address => uint256) public frozenTokens;
     
-    uint256 public percentFrozenWhenAwarded = 100;   // % of tokens you are awarded that you can&#39;t use right away
+    uint256 public percentFrozenWhenAwarded = 100;   // % of tokens you are awarded that you can't use right away
     uint256 public percentUnfrozenAfterAwardedPerPeriod = 25;  //  % of bought tokens you get to use after each period
     uint public awardedInitialWaitSeconds = 6 * 30 * 24 * 3600;  // initial waiting period for hodlers
     uint public awardedUnfreezePeriodSeconds = 30 * 24 * 3600;  // aforementioned period
@@ -322,8 +322,8 @@ contract EPCToken {
     /// @param _value The amount of token to be transferred
     /// @return Whether the transfer was successful or not
     function transfer(address _to, uint256 _value) public returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (!isBlockedAccount(msg.sender) && (balanceOf(msg.sender) >= _value && _value > 0)) {

@@ -21,11 +21,11 @@ contract WaltonTokenLocker {
     uint256 public releaseTime;
     string constant public name = "wtc locker for Tom";
 
-    Token public token = Token(&#39;0xb7cB1C96dB6B22b0D3d9536E0108d062BD488F74&#39;);
+    Token public token = Token('0xb7cB1C96dB6B22b0D3d9536E0108d062BD488F74');
 
     function WaltonTokenLocker() public {
         // smn account
-        beneficiary = address(&#39;0x18089Cb45906F19889c44c23A86b96062C245865&#39;);
+        beneficiary = address('0x18089Cb45906F19889c44c23A86b96062C245865');
         releaseTime = 1566403200;     // 2019-08-22 00:00:00
     }
 

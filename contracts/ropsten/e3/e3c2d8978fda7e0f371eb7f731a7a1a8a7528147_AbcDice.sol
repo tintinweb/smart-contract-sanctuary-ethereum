@@ -1,7 +1,7 @@
 /**+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                             abcDice: a Block Chain Gambling Game.
 
-                            Don&#39;t trust anyone but the CODE!
+                            Don't trust anyone but the CODE!
  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
  
 /**+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -133,7 +133,7 @@ contract AbcDice {
         croupier = DUMMY_ADDRESS;
     }
     
-    // Fallback function deliberately left empty. It&#39;s primary use case
+    // Fallback function deliberately left empty. It's primary use case
     // is to top up the bank roll.
     function () public payable {
     }
@@ -151,7 +151,7 @@ contract AbcDice {
     {
         //验证_commit为"clean"状态.
         Bet storage bet = bets[_commit];
-        require (bet.gambler == address(0), "Bet should be in a &#39;clean&#39; state.");
+        require (bet.gambler == address(0), "Bet should be in a 'clean' state.");
 
         //验证签名.
         bytes32 signatureHash = keccak256(abi.encodePacked(_commit));
@@ -217,7 +217,7 @@ contract AbcDice {
         uint commit = uint(keccak256(abi.encodePacked(_reveal)));
         Bet storage bet = bets[commit];
         //验证 commit 状态.
-        require(bet.gambler != address(0) && bet.amount > 0, "Bet should be in an &#39;active&#39; state.");
+        require(bet.gambler != address(0) && bet.amount > 0, "Bet should be in an 'active' state.");
         //验证 place 未过期
         require (block.number > bet.placeBlockNumber, "settleBet in the same block as placeBet, or before.");
         require (block.number <= bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Bet expired.");
@@ -232,16 +232,16 @@ contract AbcDice {
         public
         onlyHuman 
     {
-         // Check that bet is in &#39;active&#39; state.
+         // Check that bet is in 'active' state.
         Bet storage bet = bets[_commit];
         uint amount = bet.amount;
 
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        require (amount != 0, "Bet should be in an 'active' state");
 
         // Check that bet has already expired.
         require (block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Bet not yet expired.");
 
-        // Move bet into &#39;processed&#39; state, release funds.
+        // Move bet into 'processed' state, release funds.
         bet.amount = 0;
 
         uint diceWinAmount;
@@ -250,7 +250,7 @@ contract AbcDice {
 
         assert(diceWinAmount <= lockedInBets);
         lockedInBets -= uint128(diceWinAmount);
-        // If jackpotSize overflow, that&#39;s very few accident, we offered jackpotFee.
+        // If jackpotSize overflow, that's very few accident, we offered jackpotFee.
         if(jackpotFee <= jackpotSize)
             jackpotSize -= uint128(jackpotFee);
 
@@ -269,10 +269,10 @@ contract AbcDice {
         uint rollUnder = _bet.rollUnder;
         address gambler = _bet.gambler;
 
-        // Check that bet is in &#39;active&#39; state.
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        // Check that bet is in 'active' state.
+        require (amount != 0, "Bet should be in an 'active' state");
 
-        // Move bet into &#39;processed&#39; state already.
+        // Move bet into 'processed' state already.
         _bet.amount = 0;
 
         // The RNG - combine "reveal" and tx hash of placeBet using Keccak256. Miners
@@ -344,7 +344,7 @@ contract AbcDice {
             houseEdge = HOUSE_EDGE_MINIMUM_AMOUNT;
         }
 
-        require (houseEdge + jackpotFee <= amount, "Bet doesn&#39;t even cover house edge.");
+        require (houseEdge + jackpotFee <= amount, "Bet doesn't even cover house edge.");
         winAmount = (amount - houseEdge - jackpotFee) * modulo / rollUnder;
     }
 

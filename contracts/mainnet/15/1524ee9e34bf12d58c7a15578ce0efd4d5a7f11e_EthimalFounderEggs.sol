@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;EthimalFounderEggs&#39; Founder Egg Sale Contract
+// 'EthimalFounderEggs' Founder Egg Sale Contract
 // Deployed to : 0x1524Ee9e34bF12d58C7A15578cE0efD4D5A7f11E
 // Symbol      : EGG
 // Name        : EthimalFounderEggs Token
@@ -137,8 +137,8 @@ contract EthimalFounderEggs is ERC20Interface, Owned, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -151,7 +151,7 @@ contract EthimalFounderEggs is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -184,7 +184,7 @@ contract EthimalFounderEggs is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -193,7 +193,7 @@ contract EthimalFounderEggs is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -204,7 +204,7 @@ contract EthimalFounderEggs is ERC20Interface, Owned, SafeMath {
     }
 
     // ------------------------------------------------------------------------
-    // 50 EGG &#39;Ethimal Founder Eggs&#39; per 1 ETH
+    // 50 EGG 'Ethimal Founder Eggs' per 1 ETH
     // ------------------------------------------------------------------------
     function () public payable {
         require(now >= startDate && now <= endDate);

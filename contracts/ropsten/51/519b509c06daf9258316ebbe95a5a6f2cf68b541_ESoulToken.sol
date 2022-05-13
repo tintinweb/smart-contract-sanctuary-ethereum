@@ -2,7 +2,7 @@ pragma solidity ^0.4.19;
 
 // ----------------------------------------------------------------------------
 
-// &#39;Ethereum Soul&#39; contract
+// 'Ethereum Soul' contract
 
 // Mineable ERC20 Token using Proof Of Work
 
@@ -232,7 +232,7 @@ contract ESoulToken is ERC20Interface, Owned {
 
     uint public latestDifficultyPeriodStarted;
 
-    uint public epochCount;//number of &#39;blocks&#39; mined
+    uint public epochCount;//number of 'blocks' mined
 
     uint public _BLOCKS_PER_READJUSTMENT = 1024;
 
@@ -331,7 +331,7 @@ contract ESoulToken is ERC20Interface, Owned {
     function mint(uint256 nonce, bytes32 challenge_digest) public returns (bool success) {
 
 
-            //the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender&#39;s address to prevent MITM attacks
+            //the PoW must contain work that includes a recent ethereum block hash (challenge number) and the msg.sender's address to prevent MITM attacks
             bytes32 digest =  keccak256(challengeNumber, msg.sender, nonce );
 
             //the challenge digest must match the expected
@@ -388,8 +388,8 @@ contract ESoulToken is ERC20Interface, Owned {
             // hard code a reference to the "Parent" ERC918 Contract ( in this case 0xBitcoin)
             // Verify that the Parent contract was minted in this block, by the same person calling this contract
             // then followthrough with the resulting mint logic
-            // don&#39;t call revert, but return true or false based on success
-            // this method shouldn&#39;t revert because it will be calleed in the same transaction as a "Parent" mint attempt
+            // don't call revert, but return true or false based on success
+            // this method shouldn't revert because it will be calleed in the same transaction as a "Parent" mint attempt
             //ensure that mergeMint() can only be called once per Parent::mint()
             //do this by ensuring that the "new" challenge number from Parent::challenge post mint can be called once
             //and that this block time is the same as this mint, and the caller is msg.sender
@@ -400,16 +400,16 @@ contract ESoulToken is ERC20Interface, Owned {
             bytes32 future_challengeNumber = block.blockhash(block.number - 1);
 
             if(challengeNumber == future_challengeNumber){
-                return false; // ( this is likely the second time that mergeMint() has been called in a transaction, so return false (don&#39;t revert))
+                return false; // ( this is likely the second time that mergeMint() has been called in a transaction, so return false (don't revert))
             }
 
             if(ERC918Interface(parentAddress).lastRewardTo() != msg.sender){
-                return false; // a different address called mint last so return false ( don&#39;t revert)
+                return false; // a different address called mint last so return false ( don't revert)
             }
             
 
             if(ERC918Interface(parentAddress).lastRewardEthBlockNumber() != block.number){
-                return false; // parent::mint() was called in a different block number so return false ( don&#39;t revert)
+                return false; // parent::mint() was called in a different block number so return false ( don't revert)
             }
 
             //we have verified that _startNewMiningEpoch has not been run more than once this block by verifying that
@@ -418,7 +418,7 @@ contract ESoulToken is ERC20Interface, Owned {
             // is the sender that has called mint
             
             //ESOUL will have the same challenge numbers as 0xBitcoin, this means that mining for one is literally the same process as mining for the other
-            // we want to make sure that one can&#39;t use a combination of merge and mint to get two blocks of ESOUL for each valid nonce, since the same solution 
+            // we want to make sure that one can't use a combination of merge and mint to get two blocks of ESOUL for each valid nonce, since the same solution 
             //    applies to each coin
             // for this reason, we update the solutionForChallenge hashmap with the value of parent::challengeNumber when a solution is merge minted.
             // when a miner finds a valid solution, if they call this::mint(), without the next few lines of code they can then subsequently use the mint helper and in one transaction
@@ -430,10 +430,10 @@ contract ESoulToken is ERC20Interface, Owned {
             bytes32 solution = solutionForChallenge[parentChallengeNumber];
             if(solution != 0x0) return false;  //prevent the same answer from awarding twice
 
-            //now that we&#39;ve checked that the next challenge wasn&#39;t reused, apply the current ESOUL challenge 
-            //this will prevent the &#39;previous&#39; challenge from being reused
+            //now that we've checked that the next challenge wasn't reused, apply the current ESOUL challenge 
+            //this will prevent the 'previous' challenge from being reused
             
-            bytes32 digest = &#39;merge&#39;;
+            bytes32 digest = 'merge';
             solutionForChallenge[challengeNumber] = digest;
 
             //so now we may safely run the relevant logic to give an award to the sender, and update the contract
@@ -463,7 +463,7 @@ contract ESoulToken is ERC20Interface, Owned {
     }
 
 
-    //a new &#39;block&#39; to be mined
+    //a new 'block' to be mined
     
     function _startNewMiningEpoch() internal {
 
@@ -619,9 +619,9 @@ contract ESoulToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
 
-    // Transfer the balance from token owner&#39;s account to `to` account
+    // Transfer the balance from token owner's account to `to` account
 
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // - Owner's account must have sufficient balance to transfer
 
     // - 0 value transfers are allowed
 
@@ -644,7 +644,7 @@ contract ESoulToken is ERC20Interface, Owned {
 
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
 
-    // from the token owner&#39;s account
+    // from the token owner's account
 
     //
 
@@ -705,7 +705,7 @@ contract ESoulToken is ERC20Interface, Owned {
 
     // Returns the amount of tokens approved by the owner that can be
 
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
 
     // ------------------------------------------------------------------------
 
@@ -720,7 +720,7 @@ contract ESoulToken is ERC20Interface, Owned {
 
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
 
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
 
     // `receiveApproval(...)` is then executed
 
@@ -740,7 +740,7 @@ contract ESoulToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
 
-    // Don&#39;t accept ETH
+    // Don't accept ETH
 
     // ------------------------------------------------------------------------
 

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.16;
 
 // ----------------------------------------------------------------------------
-// DLE &#39;Daleone&#39; token contract
+// DLE 'Daleone' token contract
 //
 // Potential buyers of this token are encouraged to perform their due diligence
 // on the business proposition and individuals behind this token
@@ -151,7 +151,7 @@ contract DaleoneToken is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
     function transfer(address _to, uint _amount) returns (bool success) {
         if (balances[msg.sender] >= _amount             // User has balance
@@ -184,7 +184,7 @@ contract DaleoneToken is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Spender of tokens transfer an amount of tokens from the token owner&#39;s
+    // Spender of tokens transfer an amount of tokens from the token owner's
     // balance to another account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
@@ -211,7 +211,7 @@ contract DaleoneToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(
         address _owner,
@@ -222,7 +222,7 @@ contract DaleoneToken is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ethers - no payable modifier
+    // Don't accept ethers - no payable modifier
     // ------------------------------------------------------------------------
     function () {
     }

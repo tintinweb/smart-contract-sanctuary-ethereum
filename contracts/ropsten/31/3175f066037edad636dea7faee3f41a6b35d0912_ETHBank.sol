@@ -28,7 +28,7 @@ pragma solidity 0.4.25;
 *     any amount from 0.01 ETH.
 *  2. Verify your transaction in the history of your application or etherscan.io, specifying the address
 *     of your wallet.
-*  3. Claim your profit by sending 0 ether transaction (every day, every week, i don&#39;t care unless you&#39;re
+*  3. Claim your profit by sending 0 ether transaction (every day, every week, i don't care unless you're
 *      spending too much on GAS)
 *
 * RECOMMENDED GAS LIMIT: 180000
@@ -59,7 +59,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

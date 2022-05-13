@@ -137,8 +137,8 @@ contract DeaultERC20 is ERC20Interface, Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -150,7 +150,7 @@ contract DeaultERC20 is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -181,7 +181,7 @@ contract DeaultERC20 is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -189,7 +189,7 @@ contract DeaultERC20 is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -200,7 +200,7 @@ contract DeaultERC20 is ERC20Interface, Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();
@@ -247,7 +247,7 @@ contract IGCoin is DeaultERC20 {
     uint8   private constant LN2_EXPONENT = 122;
     
     /**
-        Auto-generated via &#39;PrintFunctionBancorFormula.py&#39;
+        Auto-generated via 'PrintFunctionBancorFormula.py'
     */
     uint256[128] private maxExpArray;    
     
@@ -258,13 +258,13 @@ contract IGCoin is DeaultERC20 {
     uint8 private constant MIN_PRECISION = 120;
 
     /**
-        Auto-generated via &#39;PrintLn2ScalingFactors.py&#39;
+        Auto-generated via 'PrintLn2ScalingFactors.py'
     */
     uint256 private constant LN2_NUMERATOR   = 0x3f80fe03f80fe03f80fe03f80fe03f8;
     uint256 private constant LN2_DENOMINATOR = 0x5b9de1d10bf4103d647b0955897ba80;
 
     /**
-        Auto-generated via &#39;PrintFunctionOptimalLog.py&#39; and &#39;PrintFunctionOptimalExp.py&#39;
+        Auto-generated via 'PrintFunctionOptimalLog.py' and 'PrintFunctionOptimalExp.py'
     */
     uint256 private constant OPT_LOG_MAX_VAL = 0x15bf0a8b1457695355fb8ac404e7a79e3; // 462491687273110168575455517921668397539
     uint256 private constant OPT_EXP_MAX_VAL = 0x800000000000000000000000000000000; // 2722258935367507707706996859454145691648 2^131
@@ -423,7 +423,7 @@ contract IGCoin is DeaultERC20 {
     }
     
 
-    /// @notice Deposits &#39;_value&#39; in wei to the reserve address
+    /// @notice Deposits '_value' in wei to the reserve address
     /// @param _value The number of wei to be transferred to the 
     /// reserve address
     function deposit(uint256 _value) private {
@@ -431,7 +431,7 @@ contract IGCoin is DeaultERC20 {
         balances[reserveAddress] += _value;
     }
   
-    /// @notice Withdraws &#39;_value&#39; in wei from the reserve address
+    /// @notice Withdraws '_value' in wei from the reserve address
     /// @param _value The number of wei to be transferred from the 
     /// reserve address    
     function withdraw(uint256 _value) private pure {
@@ -439,7 +439,7 @@ contract IGCoin is DeaultERC20 {
          _value = _value;
     }
     
-    /// @notice Transfers &#39;_value&#39; in aToken to the &#39;_to&#39; address
+    /// @notice Transfers '_value' in aToken to the '_to' address
     /// @param _to The recipient address
     /// @param _value The amount of wei to transfer
     function transfer(address _to, uint256 _value) public returns (bool success) {
@@ -532,7 +532,7 @@ contract IGCoin is DeaultERC20 {
         }
         else
         {
-            // TODO don&#39;t sell more than the ICO amount if one transaction is huge
+            // TODO don't sell more than the ICO amount if one transaction is huge
             //debugVal = msg.value;
             ask = ICOask;                                   // ICO sale price (wei/Token)
             amount = 1e16*msg.value / ask;                  // calculates the amount of aToken (1e18*wei/(wei/Token))
@@ -587,8 +587,8 @@ contract IGCoin is DeaultERC20 {
         
         _totalSupply -= amount;                 // burn the tokens
         require(balances[reserveAddress] >= revenue);
-        balances[reserveAddress] -= revenue;             // adds the amount to owner&#39;s balance
-        balances[msg.sender] -= amount;                 // subtracts the amount from seller&#39;s balance
+        balances[reserveAddress] -= revenue;             // adds the amount to owner's balance
+        balances[msg.sender] -= amount;                 // subtracts the amount from seller's balance
         Contract reserve = Contract(reserveAddress);
         reserve.sendFunds(msg.sender, revenue);
         
@@ -612,16 +612,16 @@ contract IGCoin is DeaultERC20 {
     }    
     
 
-    /// @notice Compute &#39;_k * (1+1/_q) ^ _n&#39;, with precision &#39;_p&#39;
+    /// @notice Compute '_k * (1+1/_q) ^ _n', with precision '_p'
     /// @dev The higher the precision, the higher the gas cost. It should be
-    /// something around the log of &#39;n&#39;. When &#39;p == n&#39;, the
+    /// something around the log of 'n'. When 'p == n', the
     /// precision is absolute (sans possible integer overflows).
     /// Much smaller values are sufficient to get a great approximation.
     /// @param _k input param k
     /// @param _q input param q
     /// @param _n input param n
     /// @param _p input param p
-    /// @return &#39;_k * (1+1/_q) ^ _n&#39;   
+    /// @return '_k * (1+1/_q) ^ _n'   
     function fracExp(uint256 _k, uint256 _q, uint256 _n, uint256 _p) internal pure returns (uint256) {
       uint256 s = 0;
       uint256 N = 1;
@@ -923,7 +923,7 @@ contract IGCoin is DeaultERC20 {
     }
 
     /**
-        This function can be auto-generated by the script &#39;PrintFunctionGeneralExp.py&#39;.
+        This function can be auto-generated by the script 'PrintFunctionGeneralExp.py'.
         It approximates "e ^ x" via maclaurin summation: "(x^0)/0! + (x^1)/1! + ... + (x^n)/n!".
         It returns "e ^ (x / 2 ^ precision) * 2 ^ precision", that is, the result is upshifted for accuracy.
         The global "maxExpArray" maps each "precision" to "((maximumExponent + 1) << (MAX_PRECISION - precision)) - 1".
@@ -972,7 +972,7 @@ contract IGCoin is DeaultERC20 {
     /**
         Return log(x / FIXED_1) * FIXED_1
         Input range: FIXED_1 <= x <= LOG_EXP_MAX_VAL - 1
-        Auto-generated via &#39;PrintFunctionOptimalLog.py&#39;
+        Auto-generated via 'PrintFunctionOptimalLog.py'
     */
     function optimalLog(uint256 x) internal pure returns (uint256) {
         uint256 res = 0;
@@ -1007,7 +1007,7 @@ contract IGCoin is DeaultERC20 {
     /**
         Return e ^ (x / FIXED_1) * FIXED_1
         Input range: 0 <= x <= OPT_EXP_MAX_VAL - 1
-        Auto-generated via &#39;PrintFunctionOptimalExp.py&#39;
+        Auto-generated via 'PrintFunctionOptimalExp.py'
     */
     function optimalExp(uint256 x) internal pure returns (uint256) {
         uint256 res = 0;

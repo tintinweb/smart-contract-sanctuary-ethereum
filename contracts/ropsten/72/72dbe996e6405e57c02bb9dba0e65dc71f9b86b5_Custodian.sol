@@ -11,7 +11,7 @@ pragma solidity ^0.4.21;
   * This contract signals the unlocking through a co-operative callback
   * scheme.
   * This contract also provides time lock and revocation features.
-  * Requests made by a &#39;primary&#39; account have a default time lock applied.
+  * Requests made by a 'primary' account have a default time lock applied.
   * All other request must pay a 1 ETH stake and have an extended time lock
   * applied.
   * A request that is completed will prevent all previous pending requests
@@ -150,7 +150,7 @@ contract Custodian {
       *
       * @dev  If called by an account other than the primary a 1 ETH stake
       * must be paid. This is an anti-spam measure. As well as the callback
-      * and the lock identifier parameters a &#39;whitelisted address&#39; is required
+      * and the lock identifier parameters a 'whitelisted address' is required
       * for compatibility with existing signature schemes.
       *
       * @param  _lockId  The identifier of a pending request in a co-operating contract.

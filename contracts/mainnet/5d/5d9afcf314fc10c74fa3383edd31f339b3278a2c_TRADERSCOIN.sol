@@ -36,7 +36,7 @@ contract TRADERSCOIN {
 
     function TRADERSCOIN() {
         totalSupply = 100000000;
-        symbol = &#39;TRADE&#39;;
+        symbol = 'TRADE';
         owner = 0x1104ca8dd85aeFc33d4947fB6d71824Fb33F0A51;
         balances[owner] = totalSupply;
         decimals = 8;

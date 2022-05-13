@@ -32,7 +32,7 @@ contract Token {
 		&& _value > 0
 		&& balances[_to] + _value > balances[_to]) {
 			balances[msg.sender] -= _value;
-			balances[_to] += _value;					// add value to receiver&#39;s balance
+			balances[_to] += _value;					// add value to receiver's balance
 			Transfer(msg.sender, _to, _value);
 			return true;
 		} else {

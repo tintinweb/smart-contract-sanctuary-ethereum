@@ -33,8 +33,8 @@
 // associated with _index, send the bid (in wei, not ether) along with
 // the function execution of market_DeclareBid(_index).
 
-// Note that if there&#39;s a transaction involving ether (successful sale, 
-// accepted bid, etc..), the ether (don&#39;t forget: in units of wei) is not
+// Note that if there's a transaction involving ether (successful sale, 
+// accepted bid, etc..), the ether (don't forget: in units of wei) is not
 // automatically credited to an account; it has to be withdrawn by
 // calling market_WithdrawWei().
 
@@ -107,9 +107,9 @@ contract _List_Glory_{
         info_OwnerOfContract = msg.sender;
 	    info_Name = "List, Glory";
 	    info_Symbol = "L, G";
-        listTINAmotley.push("Now that, that there, that&#39;s for everyone");
+        listTINAmotley.push("Now that, that there, that's for everyone");
         listTINAmotleyIndexToAddress[0] = address(0);
-        listTINAmotley.push("Everyone&#39;s invited");
+        listTINAmotley.push("Everyone's invited");
         listTINAmotleyIndexToAddress[1] = address(0);
         listTINAmotley.push("Just bring your lists");
         listTINAmotleyIndexToAddress[2] = address(0);
@@ -161,9 +161,9 @@ contract _List_Glory_{
         listTINAmotleyIndexToAddress[25] = info_OwnerOfContract;
 	listTINAmotley.push("Over the crust");
         listTINAmotleyIndexToAddress[26] = info_OwnerOfContract;
-	listTINAmotley.push("You&#39;re the top");
+	listTINAmotley.push("You're the top");
         listTINAmotleyIndexToAddress[27] = info_OwnerOfContract;
-	listTINAmotley.push("You&#39;re the top");
+	listTINAmotley.push("You're the top");
         listTINAmotleyIndexToAddress[28] = info_OwnerOfContract;
 	listTINAmotley.push("Be fruitful!");
         listTINAmotleyIndexToAddress[29] = info_OwnerOfContract;
@@ -199,7 +199,7 @@ contract _List_Glory_{
         listTINAmotleyIndexToAddress[44] = info_OwnerOfContract;
 	listTINAmotley.push("(Mumbled)");
         listTINAmotleyIndexToAddress[45] = info_OwnerOfContract;
-	listTINAmotley.push("Everything&#39;s for sale");
+	listTINAmotley.push("Everything's for sale");
         listTINAmotleyIndexToAddress[46] = info_OwnerOfContract;
 	listTINAmotley.push("Just bring your lists");
         listTINAmotleyIndexToAddress[47] = info_OwnerOfContract;
@@ -292,7 +292,7 @@ contract _List_Glory_{
         // Remove for sale.
         market_WithdrawForSale(_tokenId);
         rawTransfer (initialOwner, _to, _tokenId);
-        // Remove new owner&#39;s bid, if it exists.
+        // Remove new owner's bid, if it exists.
         clearNewOwnerBid(_to, _tokenId);
         return true;
     }
@@ -336,7 +336,7 @@ contract _List_Glory_{
         return true;
     }
     
-    // I&#39;ll take it. Must send at least as many wei as minValue in 
+    // I'll take it. Must send at least as many wei as minValue in 
     // forSale structure.
     function market_BuyForSale(uint256 _tokenId) payable external returns(bool){
         require (_tokenId < listTINAmotleyTotalSupply);
@@ -417,7 +417,7 @@ contract _List_Glory_{
     
     // Retrieve money to successful sale, failed bid, withdrawn bid, etc.
     //  All in wei. Note that refunds, income, etc. are NOT automatically
-    // deposited in the user&#39;s address. The user must withdraw the funds.
+    // deposited in the user's address. The user must withdraw the funds.
     function market_WithdrawWei() external returns(bool) {
        uint256 amount = info_PendingWithdrawals[msg.sender];
        require (amount > 0);

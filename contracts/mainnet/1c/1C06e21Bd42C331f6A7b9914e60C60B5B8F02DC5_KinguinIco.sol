@@ -54,7 +54,7 @@ Origin: the origin address from whose balance the tokens are sent
 Value is the amount of tokens sent
 Data is arbitrary data sent with the token transfer. Simulates ether tx.data
 
-From, origin and value shouldn&#39;t be trusted unless the token contract is trusted.
+From, origin and value shouldn't be trusted unless the token contract is trusted.
 If sender == tx.origin, it is safe to trust it regardless of the token.
 */
 
@@ -290,7 +290,7 @@ contract KinguinIco is SafeMath, ERC223Receiver {
  
   function KinguinIco() {
     owner = msg.sender; // this contract owner
-    api = msg.sender; // initially api address is the contract owner&#39;s address 
+    api = msg.sender; // initially api address is the contract owner's address 
     krs = KinguinKrowns(0xdfb410994b66778bd6cc2c82e8ffe4f7b2870006); // KRS token 
   } 
  

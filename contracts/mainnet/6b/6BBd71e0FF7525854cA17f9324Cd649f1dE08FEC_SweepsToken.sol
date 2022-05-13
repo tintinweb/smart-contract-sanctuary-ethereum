@@ -134,7 +134,7 @@ contract ERC20Token is ERC20TokenInterface, ManagedToken{
     * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
     * Beware that changing an allowance with this method brings the risk that someone may use both the old
     * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-    * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+    * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
     * @param _spender The address which will spend the funds.
     * @param _value The amount of tokens to be spent.
@@ -147,7 +147,7 @@ contract ERC20Token is ERC20TokenInterface, ManagedToken{
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -200,7 +200,7 @@ contract SweepsToken is ERC20Token{
 
     constructor() public payable {
         require(gasleft() >= 4000000, "Contract needs at least 4000000");
-        name = "World&#39;s 1st Blockchain Sweepstakes";                                   // Set the name for display purposes
+        name = "World's 1st Blockchain Sweepstakes";                                   // Set the name for display purposes
         decimals = 0;                                       // Amount of decimals for display purposes
         symbol = "SPRIZE";                               // Set the symbol for display purposes
         currentDay = 0;

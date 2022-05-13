@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-import &#39;./IERC20.sol&#39;;
+import './IERC20.sol';
 
 contract Token is IERC20 {
     

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.0;
 contract DuqueBrewingCompany {
     /* Public variables of the DuqueBrewingCompany */
-    string public standard = &#39;DuqueBrewingCompany 0.1&#39;;
+    string public standard = 'DuqueBrewingCompany 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;

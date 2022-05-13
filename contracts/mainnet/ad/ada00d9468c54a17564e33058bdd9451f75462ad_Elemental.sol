@@ -53,10 +53,10 @@ contract ElementalToken is Token {
 }
 
 contract Elemental is ElementalToken {
-    string public name = &#39;Elemental&#39;;                  
+    string public name = 'Elemental';                  
     uint8 public decimals = 18;                
-    string public symbol = &#39;ELEM&#39;;                 
-    string public version = &#39;1.0&#39;; 
+    string public symbol = 'ELEM';                 
+    string public version = '1.0'; 
     uint256 public unitsOneEthCanBuy = 1600;    
     uint256 public totalEthInWei;         
     address public fundsWallet;          

@@ -49,7 +49,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -207,10 +207,10 @@ contract ProductionUnitToken {
         cookieProductionMultiplier = _cookieProductionMultiplier;
         startTime = _startTime;
 
-        // Set ambassadors&#39; maximum one time pre-mine amount (Total 1.47 ETH pre-mine including last 2 ambassadors from contest).
+        // Set ambassadors' maximum one time pre-mine amount (Total 1.47 ETH pre-mine including last 2 ambassadors from contest).
         // MA
         ambassadorsMaxPremine[0xFEA0904ACc8Df0F3288b6583f60B86c36Ea52AcD] = 0.28 ether;
-        ambassadorsPremined[address(0)] = true; // first ambassador don&#39;t need prerequisite
+        ambassadorsPremined[address(0)] = true; // first ambassador don't need prerequisite
 
         // BL
         ambassadorsMaxPremine[0xc951D3463EbBa4e9Ec8dDfe1f42bc5895C46eC8f] = 0.28 ether;
@@ -271,7 +271,7 @@ contract ProductionUnitToken {
         purchaseTokens(msg.value, 0x0);
     }
 
-    /// @dev Converts all of caller&#39;s dividends to tokens.
+    /// @dev Converts all of caller's dividends to tokens.
     function reinvest() onlyStronghands public {
         // fetch dividends
         uint256 _dividends = myDividends(false); // retrieve ref. bonus later in the code
@@ -352,7 +352,7 @@ contract ProductionUnitToken {
 
     /**
      * @dev Transfer tokens from the caller to a new holder.
-     *  Remember, there&#39;s a fee here as well.
+     *  Remember, there's a fee here as well.
      */
     function transfer(address _toAddress, uint256 _amountOfTokens) onlyBagholders public returns (bool) {
         // setup
@@ -557,7 +557,7 @@ contract ProductionUnitToken {
 
     /**
      * @dev Calculate Token price based on an amount of incoming ethereum
-     *  It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     *  It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      *  Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum) internal view returns (uint256) {
@@ -587,7 +587,7 @@ contract ProductionUnitToken {
 
     /**
      * @dev Calculate token sell value.
-     *  It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     *  It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      *  Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function tokensToEthereum_(uint256 _tokens) internal view returns (uint256) {

@@ -34,8 +34,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -52,7 +52,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -147,9 +147,9 @@ contract Oracle is OracleRequest {
         return uint256(100 ether).div(EUR_WEI);
     }
 
-    /*** Make sure currency doesn&#39;t get stranded in this contract ***/
+    /*** Make sure currency doesn't get stranded in this contract ***/
 
-    // If this contract gets a balance in some ERC20 contract after it&#39;s finished, then we can rescue it.
+    // If this contract gets a balance in some ERC20 contract after it's finished, then we can rescue it.
     function rescueToken(ERC20Basic _foreignToken, address _to)
     public
     onlyTokenAssignmentControl

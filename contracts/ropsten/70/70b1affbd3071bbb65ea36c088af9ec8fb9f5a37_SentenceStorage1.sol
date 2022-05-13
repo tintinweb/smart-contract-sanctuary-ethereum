@@ -35,7 +35,7 @@ contract SentenceStorage1 {
 
   function getDocData(uint x) public view returns (string memory,address) {
     if(x ==indexDocData){
-      return (string(&#39;none&#39;) ,address(0x0));
+      return (string('none') ,address(0x0));
 
     }
     return (docData[x].ipfsHash,docData[x].ownerAddress);

@@ -46,7 +46,7 @@ contract safeSend {
     bool private txMutex3847834;
 
     // we want to be able to call outside contracts (e.g. the admin proxy contract)
-    // but reentrency is bad, so here&#39;s a mutex.
+    // but reentrency is bad, so here's a mutex.
     function doSafeSend(address toAddr, uint amount) internal {
         doSafeSendWData(toAddr, "", amount);
     }
@@ -169,7 +169,7 @@ contract hasAdmins is owned {
     }
 
     function setAdmin(address a, bool _givePerms) only_admin() external {
-        require(a != msg.sender && a != owner, "cannot change your own (or owner&#39;s) permissions");
+        require(a != msg.sender && a != owner, "cannot change your own (or owner's) permissions");
         _setAdmin(a, _givePerms);
     }
 
@@ -476,7 +476,7 @@ contract SVIndexBackend is IxBackendIface {
     /* user democ admin functions */
 
     function dInit(address defaultErc20, address initOwner, bool disableErc20OwnerClaim) only_editors() external returns (bytes32 democHash) {
-        // generating the democHash in this way guarentees it&#39;ll be unique/hard-to-brute-force
+        // generating the democHash in this way guarentees it'll be unique/hard-to-brute-force
         // (particularly because prevBlockHash and now are part of the hash)
         democHash = keccak256(abi.encodePacked(democList.length, blockhash(block.number-1), defaultErc20, now));
         _addDemoc(democHash, defaultErc20, initOwner, disableErc20OwnerClaim);
@@ -504,7 +504,7 @@ contract SVIndexBackend is IxBackendIface {
         // set owner and editor
         d.owner = newOwner;
         d.editors[d.editorEpoch][newOwner] = true;
-        // disable the ability to claim now that it&#39;s done
+        // disable the ability to claim now that it's done
         d.erc20OwnerClaimDisabled = true;
         emit DemocOwnerSet(democHash, newOwner);
         emit DemocClaimed(democHash);
@@ -574,7 +574,7 @@ contract SVIndexBackend is IxBackendIface {
         uint localBallotId = democs[democHash].allBallots.length;
         democs[democHash].allBallots.push(ballotId);
 
-        // do this for anything that doesn&#39;t qualify as a community ballot
+        // do this for anything that doesn't qualify as a community ballot
         if (countTowardsLimit) {
             democs[democHash].includedBasicBallots.push(ballotId);
         }

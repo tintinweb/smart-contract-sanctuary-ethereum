@@ -13,7 +13,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -720,7 +720,7 @@ contract UnicornCoinMarket is UnicornMarket {
 
     /**
     * Facilitates a trade from one user to another.
-    * Requires that the transaction is signed properly, the trade isn&#39;t past its expiration, and all funds are present to fill the trade.
+    * Requires that the transaction is signed properly, the trade isn't past its expiration, and all funds are present to fill the trade.
     * Calls tradeBalances().
     * Updates orderFills with the amount traded.
     * Emits a Trade event.

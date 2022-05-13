@@ -195,7 +195,7 @@ contract HasDailyLimit {
         vars.usedToday += uint112(_amount);
     }
 
-    // If necessary, resets the day&#39;s usage.
+    // If necessary, resets the day's usage.
     // Then returns the amount remaining for today.
     function updateAndGetRemaining() private returns (uint _amtRemaining) {
         if (today() > vars.lastDay) {
@@ -299,7 +299,7 @@ contract AddressSet {
         // Do not allow the removal of HEAD.
         if (_address == address(0)) return;
         Entry storage entry = entries[_address];
-        // If it doesn&#39;t exist already, there is nothing to do.
+        // If it doesn't exist already, there is nothing to do.
         if (!entry.exists) return;
 
         // Stitch together next and prev, delete entry.
@@ -366,7 +366,7 @@ contract AddressSet {
     be obtain by calling balances(). If an address has a 0 amount,
     it is removed from the Ledger.
 
-    Note: THIS DOES NOT TEST FOR OVERFLOWS, but it&#39;s safe to
+    Note: THIS DOES NOT TEST FOR OVERFLOWS, but it's safe to
           use to track Ether balances.
 
     Public methods:
@@ -908,7 +908,7 @@ contract TaskManager is
     function startMonarchyGame(uint _index)
         public
     {
-        // Don&#39;t bother trying if it&#39;s not startable
+        // Don't bother trying if it's not startable
         IMonarchyController _mc = getMonarchyController();
         if (!_mc.getIsStartable(_index)){
             _taskError("Game is not currently startable.");

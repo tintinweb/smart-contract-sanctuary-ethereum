@@ -139,7 +139,7 @@ contract TokenERC20 {
 
 	function burnFrom(address _from, uint256 _value) public returns (bool success) {
 		balanceOf[_from] = balanceOf[_from].sub(_value);                         // Subtract from the targeted balance
-		allowance[_from][msg.sender] =allowance[_from][msg.sender].sub(_value);             // Subtract from the sender&#39;s allowance
+		allowance[_from][msg.sender] =allowance[_from][msg.sender].sub(_value);             // Subtract from the sender's allowance
 		totalSupply = totalSupply.sub(_value);                              // Update totalSupply
 		emit Burn(_from, _value);
 		return true;

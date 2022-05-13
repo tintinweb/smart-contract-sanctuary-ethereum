@@ -36,9 +36,9 @@ contract MacroTokenContract{
     uint256 public totalSupply = 0;
     bool public lockdown = false;
 
-    string public standard = &#39;Macro token&#39;;
-    string public name = &#39;Macro&#39;;
-    string public symbol = &#39;MCR&#39;;
+    string public standard = 'Macro token';
+    string public name = 'Macro';
+    string public symbol = 'MCR';
     uint8 public decimals = 8;
 
     mapping (address => uint256) balances;

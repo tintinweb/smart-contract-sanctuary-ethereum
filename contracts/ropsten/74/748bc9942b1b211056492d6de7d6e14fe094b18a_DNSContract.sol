@@ -18,7 +18,7 @@ pragma solidity ^0.4.20;
     /**
      * internal domain name validation
      *  
-     * domain name contains only numbers, alphabets and &#39;-&#39; character
+     * domain name contains only numbers, alphabets and '-' character
      * 
      * returns 0x0 on failure
      * 

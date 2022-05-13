@@ -44,7 +44,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage _role, address _addr)
     internal
@@ -260,7 +260,7 @@ contract Superuser is Ownable, RBAC {
   }
 
   /**
-   * @dev Throws if called by any account that&#39;s not a superuser.
+   * @dev Throws if called by any account that's not a superuser.
    */
   modifier onlySuperuser() {
     checkRole(msg.sender, ROLE_SUPERUSER);
@@ -388,7 +388,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -625,9 +625,9 @@ contract Tavern is ITavern, TavernBase, Superuser {
 
   
   /**
-   * @dev get Tavern&#39;s influence by tokenId
+   * @dev get Tavern's influence by tokenId
    * @param tokenId tokenId
-   * @return uint256 Tavern&#39;s influence 
+   * @return uint256 Tavern's influence 
    *
    * The influence of Tavern determines its ability to distribute candy daily.
    */
@@ -637,10 +637,10 @@ contract Tavern is ITavern, TavernBase, Superuser {
 
 
   /**
-   * @dev get Tavern&#39;s weightsApportion 
+   * @dev get Tavern's weightsApportion 
    * @param userLevel userLevel
    * @param lordLevel lordLevel
-   * @return uint256 Tavern&#39;s weightsApportion
+   * @return uint256 Tavern's weightsApportion
    * The candy that the user rewards when completing the candy mission will be assigned to the user and the lord. 
    * The distribution ratio is determined by weightsApportion
    */
@@ -649,22 +649,22 @@ contract Tavern is ITavern, TavernBase, Superuser {
   }
 
   /**
-   * @dev get Tavern&#39;s level by tokenId
+   * @dev get Tavern's level by tokenId
    * @param tokenId tokenId
-   * @return uint256 Tavern&#39;s level
+   * @return uint256 Tavern's level
    */
   function levelByToken(uint256 tokenId) external view returns(uint256) {
     return powerContract.levelByToken(tokenId);
   }
 
   /**
-   * @dev get a Tavern&#39;s infomation 
+   * @dev get a Tavern's infomation 
    * @param tokenId tokenId
-   * @return uint256 Tavern&#39;s construction time
-   * @return int Tavern&#39;s longitude value 
-   * @return int Tavern&#39;s latitude value
-   * @return uint8 Tavern&#39;s popularity
-   * @return uint256 Tavern&#39;s activeness
+   * @return uint256 Tavern's construction time
+   * @return int Tavern's longitude value 
+   * @return int Tavern's latitude value
+   * @return uint8 Tavern's popularity
+   * @return uint256 Tavern's activeness
    */
   function tavern(uint256 tokenId) external view returns (uint256, int, int, uint8, uint256){
     return super._tavern(tokenId);
@@ -718,7 +718,7 @@ contract Tavern is ITavern, TavernBase, Superuser {
   }
 
   /**
-   * @dev upgrade Tavern&#39;s activeness 
+   * @dev upgrade Tavern's activeness 
    * @param tokenId tokenId
    * @param deltaActiveness delta activeness
    */
@@ -727,7 +727,7 @@ contract Tavern is ITavern, TavernBase, Superuser {
   }
 
   /**
-   * @dev upgrade batch Taverns&#39;s activeness 
+   * @dev upgrade batch Taverns's activeness 
    * @param tokenIds Array of tokenId
    * @param deltaActiveness  array of delta activeness
    */
@@ -736,16 +736,16 @@ contract Tavern is ITavern, TavernBase, Superuser {
   }
 
   /**
-   * @dev set Taverns&#39;s popularity 
-   * @param tokenId Tavern&#39;s tokenId
-   * @param popularity Tavern&#39;s popularity
+   * @dev set Taverns's popularity 
+   * @param tokenId Tavern's tokenId
+   * @param popularity Tavern's popularity
    */
   function popularitySetting(uint256 tokenId, uint8 popularity) onlySuperuser external {
     super._popularitySetting(tokenId, popularity);
   }
 
   /**
-   * @dev set batch Taverns&#39;s popularity 
+   * @dev set batch Taverns's popularity 
    * @param tokenIds Array of tokenId
    * @param popularitys Array of popularity
    */

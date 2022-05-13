@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 100000000000000000000000000;
-        name = &#39;YDLGENES&#39;;
-        symbol = &#39;YDLG&#39;;
+        name = 'YDLGENES';
+        symbol = 'YDLG';
         decimals = 18;
         balanceOf[0xa5791f4e7bf0ec01620317cf9f135325a5b47404] = totalSupply;
         Transfer(address(0), 0xa5791f4e7bf0ec01620317cf9f135325a5b47404, totalSupply);

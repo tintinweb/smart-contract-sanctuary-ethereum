@@ -17,7 +17,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -159,8 +159,8 @@ contract StandardToken is ERC20 {
 
 contract CommonToken is StandardToken, MultiOwnable {
 
-    string public constant name   = &#39;TMSY&#39;;
-    string public constant symbol = &#39;TMSY&#39;;
+    string public constant name   = 'TMSY';
+    string public constant symbol = 'TMSY';
     uint8 public constant decimals = 18;
 
     uint256 public saleLimit;   // 85% of tokens for sale.
@@ -320,21 +320,21 @@ contract CommonToken is StandardToken, MultiOwnable {
     }
 
     /**
-     * Until all tokens are sold, tokens can be transfered to/from owner&#39;s accounts.
+     * Until all tokens are sold, tokens can be transfered to/from owner's accounts.
      */
     function transfer(address _to, uint256 _value) ifUnlocked(msg.sender, _to) public returns (bool) {
         return super.transfer(_to, _value);
     }
 
     /**
-     * Until all tokens are sold, tokens can be transfered to/from owner&#39;s accounts.
+     * Until all tokens are sold, tokens can be transfered to/from owner's accounts.
      */
     function transferFrom(address _from, address _to, uint256 _value) ifUnlocked(_from, _to) public returns (bool) {
         return super.transferFrom(_from, _to, _value);
     }
 
     function burn(uint256 _value) public returns (bool) {
-        require(_value > 0, &#39;Value is zero&#39;);
+        require(_value > 0, 'Value is zero');
 
         balances[msg.sender] = balances[msg.sender].sub(_value);
         totalSupply = totalSupply.sub(_value);

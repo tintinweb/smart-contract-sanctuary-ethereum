@@ -70,7 +70,7 @@ contract MilcToken is ERC20Interface, Ownable, SafeMath {
 
     /**
     * Max Tokens: 40 Millions MILC with 18 Decimals.
-    * The smallest unit is called "Hey". 1&#39;000&#39;000&#39;000&#39;000&#39;000&#39;000 Hey = 1 MILC
+    * The smallest unit is called "Hey". 1'000'000'000'000'000'000 Hey = 1 MILC
     */
     uint256 constant public MAX_TOKENS = 40 * 1000 * 1000 * 10 ** uint256(18);
 
@@ -113,7 +113,7 @@ contract MilcToken is ERC20Interface, Ownable, SafeMath {
     /**
     * Beware that changing an allowance with this method brings the risk that someone may use both the old
     * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-    * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+    * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
     */
     function approve(address spender, uint256 value) public returns (bool) {

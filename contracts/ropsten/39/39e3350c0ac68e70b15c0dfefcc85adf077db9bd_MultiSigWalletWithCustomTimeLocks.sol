@@ -259,7 +259,7 @@ contract MultiSigWallet {
     }
 
     // call has been separated into its own function in order to take advantage
-    // of the Solidity&#39;s code generator to produce a loop that copies tx.data into memory.
+    // of the Solidity's code generator to produce a loop that copies tx.data into memory.
     function external_call(address destination, uint value, uint dataLength, bytes data) internal returns (bool) {
         bool result;
         assembly {
@@ -582,7 +582,7 @@ contract MultiSigWalletWithCustomTimeLocks is MultiSigWallet {
         }
     }
 
-    /// @dev Returns the custom timelock for a function, or the default timelock if a custom value isn&#39;t set
+    /// @dev Returns the custom timelock for a function, or the default timelock if a custom value isn't set
     /// @param _funcId Function signature (encoded bytes)
     /// @return Timelock value
     function getSecondsTimeLocked(bytes4 _funcId)
@@ -596,7 +596,7 @@ contract MultiSigWalletWithCustomTimeLocks is MultiSigWallet {
             return secondsTimeLockedDefault;
     }
 
-    /// @dev Returns the custom timelock for a function, or the default timelock if a custom value isn&#39;t set
+    /// @dev Returns the custom timelock for a function, or the default timelock if a custom value isn't set
     /// @param _funcId Function signature (complete string)
     /// @return Timelock value
     function getSecondsTimeLockedByString(string _funcId)
@@ -607,7 +607,7 @@ contract MultiSigWalletWithCustomTimeLocks is MultiSigWallet {
         return (getSecondsTimeLocked(bytes4(keccak256(abi.encodePacked(_funcId)))));
     }
 
-    /// @dev Returns the custom timelock for a transaction, or the default timelock if a custom value isn&#39;t set
+    /// @dev Returns the custom timelock for a transaction, or the default timelock if a custom value isn't set
     /// @param transactionId Transaction ID.
     /// @return Timelock value
     function getSecondsTimeLockedByTx(uint transactionId)

@@ -475,7 +475,7 @@ contract Servable is Ownable {
  *
  * Compliant with the Hubii Nahmii specification v0.12.
  *
- * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin&#39;s SafeMath library
+ * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin's SafeMath library
  */
 
 
@@ -2110,7 +2110,7 @@ contract Configurable is Ownable {
  *
  * Compliant with the Hubii Nahmii specification v0.12.
  *
- * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin&#39;s SafeMath library
+ * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin's SafeMath library
  */
 
 
@@ -2137,7 +2137,7 @@ library SafeMathUintLib {
     {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -2317,7 +2317,7 @@ library SettlementChallengeTypesLib {
         // Info on challenged driip
         Driip challenged;
 
-        // True is equivalent to reward coming from wallet&#39;s balance
+        // True is equivalent to reward coming from wallet's balance
         bool walletInitiated;
 
         // True if proposal has been terminated

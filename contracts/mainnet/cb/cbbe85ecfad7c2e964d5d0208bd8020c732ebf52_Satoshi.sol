@@ -98,7 +98,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal returns (string) {
         var ret = new string(self._len);

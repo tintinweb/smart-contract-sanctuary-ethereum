@@ -65,7 +65,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -97,8 +97,8 @@ contract HireMe is Ownable {
         uint timestamp;      // 2. The timestamp of when the bid was made
         address bidder;      // 3. The address of the bidder
         uint amount;         // 4. The amount of ETH in the bid
-        string email;        // 5. The bidder&#39;s email address
-        string organisation; // 6. The bidder&#39;s organisation
+        string email;        // 5. The bidder's email address
+        string organisation; // 6. The bidder's organisation
     }
 
     event BidMade(uint indexed id, address indexed bidder, uint indexed amount);
@@ -134,7 +134,7 @@ contract HireMe is Ownable {
     // balance per address.
     mapping (address => uint) public addressBalance;
 
-    // The Internet Archive&#39;s ETH donation address
+    // The Internet Archive's ETH donation address
     address public charityAddress = 0x635599b0ab4b5c6B1392e0a2D1d69cF7d1ddDF02;
 
     // Only the contract owner may end this contract, and may do so only if

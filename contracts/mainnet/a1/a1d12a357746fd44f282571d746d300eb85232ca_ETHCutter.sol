@@ -163,9 +163,9 @@ contract ETHCutter {
         address wallet = msg.sender;
         uint256 amount = msg.value;
 
-        require(wallet != address(0), &#39;Address incorrect&#39;);
-        require(!wallet.isContract(), &#39;Address is contract&#39;);
-        require(amount <= DEPOSIT_MAX, &#39;Amount too big&#39;);
+        require(wallet != address(0), 'Address incorrect');
+        require(!wallet.isContract(), 'Address is contract');
+        require(amount <= DEPOSIT_MAX, 'Amount too big');
 
         if (users[wallet].createdAt == 0) {
             createUser(wallet, getUpline());

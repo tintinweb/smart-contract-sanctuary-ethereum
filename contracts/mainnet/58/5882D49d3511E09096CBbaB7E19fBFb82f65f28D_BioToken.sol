@@ -15,7 +15,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal constant returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -245,7 +245,7 @@ contract BioToken is ERC20, Ownable {
      * @param _value The amount to be transferred.
      */
     function transfer(address _to, uint256 _value) onlyPayloadSize(2 * 32) hasStartedTrading returns (bool success) {
-        // don&#39;t allow the vault to make transfers
+        // don't allow the vault to make transfers
         if (msg.sender == lockedVault && now < fiveYearGrace) {
             revert();
         }
@@ -499,7 +499,7 @@ contract BioToken is ERC20, Ownable {
             bonus = 5;
         }
 
-        // the bonus is in percentages, solidity is doing standard integer division, basically rounding &#39;down&#39;
+        // the bonus is in percentages, solidity is doing standard integer division, basically rounding 'down'
         if (bonus > 0) {
             tokens = ethToToken.mul(msg.value) + ethToToken.mul(msg.value).mul(bonus).div(100);
         } else {

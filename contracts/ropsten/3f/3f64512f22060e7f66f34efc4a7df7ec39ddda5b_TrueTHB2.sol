@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -355,7 +355,7 @@ contract BurnableToken is BasicToken {
   function burn(uint256 _value) public {
     require(_value <= balances.balanceOf(msg.sender));
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     address burner = msg.sender;
     balances.subBalance(burner, _value);
@@ -418,7 +418,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -492,7 +492,7 @@ contract StandardToken is ERC20, BasicToken {
 
 contract CanDelegate is StandardToken {
     // If this contract needs to be upgraded, the new contract will be stored
-    // in &#39;delegate&#39; and any ERC20 calls to this contract will be delegated to that one.
+    // in 'delegate' and any ERC20 calls to this contract will be delegated to that one.
     DelegateERC20 public delegate;
 
     event DelegatedTo(address indexed newContract);
@@ -710,9 +710,9 @@ contract TrueTHB2 is StandardDelegate, PausableToken, BurnableToken, NoOwner, Ca
 
     //Change the minimum and maximum amount that can be burned at once. Burning
     //may be disabled by setting both to 0 (this will not be done under normal
-    //operation, but we can&#39;t add checks to disallow it without losing a lot of
+    //operation, but we can't add checks to disallow it without losing a lot of
     //flexibility since burning could also be as good as disabled
-    //by setting the minimum extremely high, and we don&#39;t want to lock
+    //by setting the minimum extremely high, and we don't want to lock
     //in any particular cap for the minimum)
     function changeBurnBounds(uint newMin, uint newMax) onlyOwner public {
         require(newMin <= newMax);

@@ -95,7 +95,7 @@ contract GasToken1 {
     // `value` words of EVM storage. The minted tokens are owned by the
     // caller of this function.
     function mint(uint256 value) public {
-        uint256 storage_location_array = STORAGE_LOCATION_ARRAY;  // can&#39;t use constants inside assembly
+        uint256 storage_location_array = STORAGE_LOCATION_ARRAY;  // can't use constants inside assembly
 
         if (value == 0) {
             return;
@@ -126,7 +126,7 @@ contract GasToken1 {
     }
 
     function freeStorage(uint256 value) internal {
-        uint256 storage_location_array = STORAGE_LOCATION_ARRAY;  // can&#39;t use constants inside assembly
+        uint256 storage_location_array = STORAGE_LOCATION_ARRAY;  // can't use constants inside assembly
 
         // Read supply
         uint256 supply;

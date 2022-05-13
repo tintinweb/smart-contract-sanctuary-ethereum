@@ -98,7 +98,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -249,7 +249,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -780,11 +780,11 @@ contract MCoinDistribution is Ownable {
   * @param window to commit [0-totalWindows)
   */
   function commitOn(uint256 window) public payable {
-    // Distribution didn&#39;t ended
+    // Distribution didn't ended
     require(currentWindow() < totalWindows);
     // Commit only for present or future windows
     require(currentWindow() <= window);
-    // Don&#39;t commit after distribution is finished
+    // Don't commit after distribution is finished
     require(window < totalWindows);
     // Minimum commitment
     require(0.01 ether <= msg.value);
@@ -812,7 +812,7 @@ contract MCoinDistribution is Ownable {
   function withdraw(uint256 window) public returns (uint256 reward) {
     // Requested window already been closed
     require(window < currentWindow());
-    // The sender hasn&#39;t made a commitment for requested window
+    // The sender hasn't made a commitment for requested window
     if (commitment[msg.sender][window] == 0) {
       return 0;
     }

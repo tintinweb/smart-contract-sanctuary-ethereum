@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // Almacert v.1.0.8
-// Universita&#39; degli Studi di Cagliari
+// Universita' degli Studi di Cagliari
 // http://www.unica.it
 // @authors:
 // Flosslab s.r.l. <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1b8bfb7be91b7bdbea2a2bdb0b3ffb2bebc">[email&#160;protected]</a>>
@@ -85,8 +85,8 @@ contract Almacert {
     function removeStudent(string _id) restricted public {
         require(student[_id].hash != 0x00);
         student[_id].hash = 0x00;
-        student[_id].fCode = &#39;&#39;;
-        student[_id].session = &#39;&#39;;
+        student[_id].fCode = '';
+        student[_id].session = '';
     }
 
     function changeOwner(address _new_owner) restricted public{

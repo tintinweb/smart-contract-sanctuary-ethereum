@@ -176,7 +176,7 @@ contract Insurance is Destructable, SafeMath  {
     }
 
     /**
-     * Don&#39;t expect to just send money
+     * Don't expect to just send money
      */
     function () payable {
         throw;

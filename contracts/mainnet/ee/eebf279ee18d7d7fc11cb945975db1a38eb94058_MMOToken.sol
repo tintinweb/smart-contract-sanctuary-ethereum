@@ -48,7 +48,7 @@ contract MMOToken is ERC20 {
 
     mapping (address => mapping (address => uint256)) allowed;
 
-    string public name = "MMO&#39;s game art foundation";
+    string public name = "MMO's game art foundation";
     string public constant symbol = "MMO";
     uint public constant decimals = 18;
     bool public stopped;

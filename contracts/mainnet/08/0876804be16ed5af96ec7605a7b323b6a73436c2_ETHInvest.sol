@@ -15,12 +15,12 @@ pragma solidity ^0.4.24;
  *
  * ETHInvest Contract
  *  - GAIN 4% PER 24 HOURS (every 5900 blocks) 
- *  - NO COMMISSION on your investment (every ether stays on contract&#39;s balance)
+ *  - NO COMMISSION on your investment (every ether stays on contract's balance)
  *  - NO FEES are collected by the owner, in fact, there is no owner at all (just look at the code)
  *
  * How to use: 
  *  1. Send any amount of ether to make an investment
- *  2. Claim your profit by sending 0 ether transaction (every day, every week, i don&#39;t care unless you&#39;re spending too much on GAS)
+ *  2. Claim your profit by sending 0 ether transaction (every day, every week, i don't care unless you're spending too much on GAS)
  *  OR /  Send more ether to reinvest AND get your profit at the same time
  *
  * RECOMMENDED GAS LIMIT: 70000

@@ -180,7 +180,7 @@ contract _0xBitconnect {
 
   /**
    * Same as buy, but explicitly sets your dividend percentage.
-   * If this has been called before, it will update your `default&#39; dividend
+   * If this has been called before, it will update your `default' dividend
    *   percentage for regular buy transactions going forward.
    */
   function buyAndSetDivPercentage(uint _0xbtcAmount, address _referredBy, uint8 _divChoice, string providedUnhashedPass)
@@ -255,7 +255,7 @@ contract _0xBitconnect {
     require(regularPhase);
     uint _dividends = myDividends(false);
 
-    // Pay out requisite `virtual&#39; dividends.
+    // Pay out requisite `virtual' dividends.
     address _customerAddress            = msg.sender;
     payoutsTo_[_customerAddress]       += (int256) (_dividends * magnitude);
 
@@ -320,7 +320,7 @@ contract _0xBitconnect {
     uint _frontEndTokensToBurn = _amountOfTokens;
 
     // Calculate how many dividend tokens this action burns.
-    // Computed as the caller&#39;s average dividend rate multiplied by the number of front-end tokens held.
+    // Computed as the caller's average dividend rate multiplied by the number of front-end tokens held.
     // As an additional guard, we ensure that the dividend rate is between 2 and 50 inclusive.
     uint userDivRate  = getUserAverageDividendRate(msg.sender);
     require ((2*magnitude) <= userDivRate && (50*magnitude) >= userDivRate );
@@ -330,7 +330,7 @@ contract _0xBitconnect {
     uint _0xbtc = tokensTo0xbtc_(_frontEndTokensToBurn);
 
     if (_0xbtc > current0xbtcInvested){
-      // Well, congratulations, you&#39;ve emptied the coffers.
+      // Well, congratulations, you've emptied the coffers.
       current0xbtcInvested = 0;
     } else { current0xbtcInvested = current0xbtcInvested - _0xbtc; }
 
@@ -352,7 +352,7 @@ contract _0xBitconnect {
     int256 _updatedPayouts  = (int256) (profitPerDivToken * _divTokensToBurn + (_taxed0xbtc * magnitude));
     payoutsTo_[msg.sender] -= _updatedPayouts;
 
-    // Let&#39;s avoid breaking arithmetic where we can, eh?
+    // Let's avoid breaking arithmetic where we can, eh?
     if (divTokenSupply > 0) {
       // Update the value of each remaining back-end dividend token.
       profitPerDivToken = profitPerDivToken.add((_dividends * magnitude) / divTokenSupply);
@@ -364,7 +364,7 @@ contract _0xBitconnect {
 
   /**
    * Transfer tokens from the caller to a new holder.
-   * No charge incurred for the transfer. We&#39;d make a terrible bank.
+   * No charge incurred for the transfer. We'd make a terrible bank.
    */
   function transfer(address _toAddress, uint _amountOfTokens)
   onlyHolders()
@@ -395,7 +395,7 @@ contract _0xBitconnect {
 
   /**
    * Transfer tokens from the caller to a new holder: the Used By Smart Contracts edition.
-   * No charge incurred for the transfer. No seriously, we&#39;d make a terrible bank.
+   * No charge incurred for the transfer. No seriously, we'd make a terrible bank.
    */
   function transferFrom(address _from, address _toAddress, uint _amountOfTokens)
   public
@@ -404,7 +404,7 @@ contract _0xBitconnect {
     // Setup variables
     address _customerAddress     = _from;
     bytes memory empty;
-    // Make sure we own the tokens we&#39;re transferring, are ALLOWED to transfer that many tokens,
+    // Make sure we own the tokens we're transferring, are ALLOWED to transfer that many tokens,
     // and are transferring at least one full token.
     require(_amountOfTokens >= MIN_TOKEN_TRANSFER
     && _amountOfTokens <= frontTokenBalanceLedger_[_customerAddress]
@@ -433,7 +433,7 @@ contract _0xBitconnect {
     transferFromInternal(_from, _to, _amountOfTokens, _data);
   }
 
-  // Who&#39;d have thought we&#39;d need this thing floating around?
+  // Who'd have thought we'd need this thing floating around?
   function totalSupply()
   public
   view
@@ -623,7 +623,7 @@ contract _0xBitconnect {
     return (uint) ((int256)(profitPerDivToken * dividendTokenBalanceLedger_[_customerAddress]) - payoutsTo_[_customerAddress]) / magnitude;
   }
 
-  // Get the sell price at the user&#39;s average dividend rate
+  // Get the sell price at the user's average dividend rate
   function sellPrice()
   public
   view
@@ -637,7 +637,7 @@ contract _0xBitconnect {
 
     price = (1e18 * 0.001 ether) / tokensReceivedFor0xbtc;
 
-    // Factor in the user&#39;s average dividend rate
+    // Factor in the user's average dividend rate
     uint theSellPrice = price.sub((price.mul(getUserAverageDividendRate(msg.sender)).div(100)).div(magnitude));
 
     return theSellPrice;
@@ -657,7 +657,7 @@ contract _0xBitconnect {
 
     price = (1e18 * 0.001 ether) / tokensReceivedFor0xbtc;
 
-    // Factor in the user&#39;s selected dividend rate
+    // Factor in the user's selected dividend rate
     uint theBuyPrice = (price.mul(dividendRate).div(100)).add(price);
 
     return theBuyPrice;
@@ -675,7 +675,7 @@ contract _0xBitconnect {
     return  _amountOfTokens;
   }
 
-  // When selling tokens, we need to calculate the user&#39;s current dividend rate.
+  // When selling tokens, we need to calculate the user's current dividend rate.
   // This is different from their selected dividend rate.
   function calculate0xbtcReceived(uint _tokensToSell)
   public
@@ -691,7 +691,7 @@ contract _0xBitconnect {
   }
 
   /*
-   * Get&#39;s a user&#39;s average dividend rate - which is just their divTokenBalance / tokenBalance
+   * Get's a user's average dividend rate - which is just their divTokenBalance / tokenBalance
    * We multiply by magnitude to avoid precision errors.
    */
 
@@ -748,7 +748,7 @@ contract _0xBitconnect {
 
     remaining0xbtc   = remaining0xbtc.sub(dividendAmount);
 
-    // If we&#39;re in the ICO and bankroll is buying, don&#39;t tax
+    // If we're in the ICO and bankroll is buying, don't tax
     // if (icoPhase && msg.sender == bankrollAddress) {
     //   remaining0xbtc = remaining0xbtc + dividendAmount;
     // }
@@ -789,7 +789,7 @@ contract _0xBitconnect {
     profitPerDivToken       = profitPerDivToken.add((toTokenHolders.mul(magnitude)).div(divTokenSupply));
     payoutsTo_[msg.sender] += (int256) ((profitPerDivToken * tokensBought.mul(userDividendRate[msg.sender])) - fee);
 
-    // Update the buyer&#39;s token amounts
+    // Update the buyer's token amounts
     frontTokenBalanceLedger_[msg.sender] = frontTokenBalanceLedger_[msg.sender].add(tokensBought);
     dividendTokenBalanceLedger_[msg.sender] = dividendTokenBalanceLedger_[msg.sender].add(tokensBought.mul(userDividendRate[msg.sender]));
 
@@ -875,7 +875,7 @@ contract _0xBitconnect {
 
     if (tokensToSellAtVariablePrice != 0) {
 
-      /* Note: Unlike the sister function in btcToTokens, we don&#39;t have to calculate any "virtual" token count.
+      /* Note: Unlike the sister function in btcToTokens, we don't have to calculate any "virtual" token count.
 
          We have the equations for total investment above; note that this is for TOTAL.
          To get the 0xbtc received from this sell, we calculate the new total investment after this sell.
@@ -905,12 +905,12 @@ contract _0xBitconnect {
     if(theDividendsOf(true, _customerAddress) > 0) withdrawFrom(_customerAddress);
 
     // Calculate how many back-end dividend tokens to transfer.
-    // This amount is proportional to the caller&#39;s average dividend rate multiplied by the proportion of tokens being transferred.
+    // This amount is proportional to the caller's average dividend rate multiplied by the proportion of tokens being transferred.
     uint _amountOfDivTokens = _amountOfFrontEndTokens.mul(getUserAverageDividendRate(_customerAddress)).div(magnitude);
 
     if (_customerAddress != msg.sender){
       // Update the allowed balance.
-      // Don&#39;t update this if we are transferring our own tokens (via transfer or buyAndTransfer)
+      // Don't update this if we are transferring our own tokens (via transfer or buyAndTransfer)
       allowed[_customerAddress][msg.sender] -= _amountOfTokens;
     }
 
@@ -1023,7 +1023,7 @@ contract ERC223Receiving {
   function tokenFallback(address _from, uint _amountOfTokens, bytes _data) public returns (bool);
 }
 
-// Think it&#39;s safe to say y&#39;all know what this is.
+// Think it's safe to say y'all know what this is.
 
 library SafeMath {
 
@@ -1039,7 +1039,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

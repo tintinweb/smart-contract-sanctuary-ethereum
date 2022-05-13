@@ -25,7 +25,7 @@ contract subsetSum {
 
     // Initial set up
     constructor (uint256[] memory setElements, uint256 expiry) public {
-        require(setElements.length>0 && expiry > now, &#39;Invalid parameters&#39;);
+        require(setElements.length>0 && expiry > now, 'Invalid parameters');
         numbers = setElements;
         for (uint256 i = 0; i<setElements.length; i++) {
             numberCheck[setElements[i]].exists=true;
@@ -40,22 +40,22 @@ contract subsetSum {
 
     // Only for the competition administrator
     modifier adminOnly {
-        require(msg.sender==admin, &#39;This requires admin privileges&#39;);
+        require(msg.sender==admin, 'This requires admin privileges');
         _;
     }
 
     // Only for authorised entrants
     modifier restrictedAccess {
-        require(now<expiryTime && authorisedEntrants[msg.sender], &#39;Unauthorised entrant&#39;);
+        require(now<expiryTime && authorisedEntrants[msg.sender], 'Unauthorised entrant');
         _;
     }
 
     // Withdrawal of prize pot is only allowed after the competition is over, if and only if
     // the withdrawer is currently on top of the leaderboard OR
     // there is no leader, so admin requests withdrawal OR
-    // a month has passed after the deadline and the winner hasn&#39;t withdrawn the prize pot, so admin requests withdrawal.
+    // a month has passed after the deadline and the winner hasn't withdrawn the prize pot, so admin requests withdrawal.
     modifier winnerOnly {
-        require(now>expiryTime && (msg.sender==leader.id || ((address(0)==leader.id || now>expiryTime+2629746) && msg.sender==admin)), "You don&#39;t have permission to withdraw the prize");
+        require(now>expiryTime && (msg.sender==leader.id || ((address(0)==leader.id || now>expiryTime+2629746) && msg.sender==admin)), "You don't have permission to withdraw the prize");
         _;
     }
 
@@ -84,7 +84,7 @@ contract subsetSum {
         return (numbers, leader.id, address(this).balance, expiryTime);
     }
 
-    // This (fallback) function allows anybody to add to the prize pot by simply sending ETH to the contract&#39;s address
+    // This (fallback) function allows anybody to add to the prize pot by simply sending ETH to the contract's address
     function () public payable {    }
 
     // For the sake of vanity...
@@ -99,24 +99,24 @@ contract subsetSum {
 
     // Allows people to submit a new answer to the leaderboard. If it beats the current record, the new attempt will be recorded on the leaderboard.
     function submitAnswer(uint256[] negativeSetSubmission, uint256[] positiveSetSubmission) public restrictedAccess returns (string response) {
-        require(negativeSetSubmission.length+positiveSetSubmission.length>0, &#39;Invalid submission.&#39;);
+        require(negativeSetSubmission.length+positiveSetSubmission.length>0, 'Invalid submission.');
         uint256 sumNegative = 0;
         uint256 sumPositive = 0;
         // Add everything up
         for (uint256 i = 0; i<negativeSetSubmission.length; i++) {
-            require(numberCheck[negativeSetSubmission[i]].exists && !numberCheck[negativeSetSubmission[i]].isUsed, &#39;Invalid submission.&#39;);
+            require(numberCheck[negativeSetSubmission[i]].exists && !numberCheck[negativeSetSubmission[i]].isUsed, 'Invalid submission.');
             sumNegative+=negativeSetSubmission[i];
             numberCheck[negativeSetSubmission[i]].isUsed = true;
         }
         for (i = 0; i<positiveSetSubmission.length; i++) {
-            require(numberCheck[positiveSetSubmission[i]].exists && !numberCheck[positiveSetSubmission[i]].isUsed, &#39;Invalid submission.&#39;);
+            require(numberCheck[positiveSetSubmission[i]].exists && !numberCheck[positiveSetSubmission[i]].isUsed, 'Invalid submission.');
             sumPositive+=positiveSetSubmission[i];
             numberCheck[positiveSetSubmission[i]].isUsed = true;
         }
         // Input looks valid, now set everything back to normal
         for (i = 0; i<negativeSetSubmission.length; i++) numberCheck[negativeSetSubmission[i]].isUsed = false;
         for (i = 0; i<positiveSetSubmission.length; i++) numberCheck[positiveSetSubmission[i]].isUsed = false;
-        // Check the new result, if it&#39;s a new record, record it
+        // Check the new result, if it's a new record, record it
         uint256 difference = _diff(sumNegative, sumPositive);
         if (leader.id==address(0) || difference<leader.difference) {
             leader.id = msg.sender;
@@ -127,7 +127,7 @@ contract subsetSum {
             return "Congratulations, you are now on the top of the leaderboard.";
         } else {
             emit RunnerUpSubmission(msg.sender, difference);
-            return "Sorry, you haven&#39;t beaten the record.";
+            return "Sorry, you haven't beaten the record.";
         }
     }
 

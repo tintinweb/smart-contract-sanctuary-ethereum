@@ -81,8 +81,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -99,7 +99,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -321,7 +321,7 @@ library CheckedERC20 {
         if (_value > 0) {
             uint256 balance = _token.balanceOf(this);
             asmTransfer(_token, _to, _value);
-            require(_token.balanceOf(this) == balance.sub(_value), "checkedTransfer: Final balance didn&#39;t match");
+            require(_token.balanceOf(this) == balance.sub(_value), "checkedTransfer: Final balance didn't match");
         }
     }
 
@@ -329,7 +329,7 @@ library CheckedERC20 {
         if (_value > 0) {
             uint256 toBalance = _token.balanceOf(_to);
             asmTransferFrom(_token, _from, _to, _value);
-            require(_token.balanceOf(_to) == toBalance.add(_value), "checkedTransfer: Final balance didn&#39;t match");
+            require(_token.balanceOf(_to) == toBalance.add(_value), "checkedTransfer: Final balance didn't match");
         }
     }
 
@@ -401,7 +401,7 @@ contract MultiChanger is CanReclaimToken {
 
     // Source: https://github.com/gnosis/MultiSigWallet/blob/master/contracts/MultiSigWallet.sol
     // call has been separated into its own function in order to take advantage
-    // of the Solidity&#39;s code generator to produce a loop that copies tx.data into memory.
+    // of the Solidity's code generator to produce a loop that copies tx.data into memory.
     function externalCall(address destination, uint value, bytes data, uint dataOffset, uint dataLength) internal returns (bool result) {
         // solium-disable-next-line security/no-inline-assembly
         assembly {

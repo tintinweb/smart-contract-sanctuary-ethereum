@@ -98,7 +98,7 @@ library DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -283,7 +283,7 @@ contract ButtonBase is DSAuth, Accounting {
     uint public startingPrice = 2 finney;
     uint internal _priceMultiplier = 106 * 10 **16;
     uint32 internal _n = 4; //increase the price after every n presses
-    uint32 internal _period = 30 minutes;// what&#39;s the period for pressing the button
+    uint32 internal _period = 30 minutes;// what's the period for pressing the button
     uint internal _newCampaignFraction = ONE_PERCENT_WAD; //1%
     uint internal _devFraction = 10 * ONE_PERCENT_WAD - _newCampaignFraction; //9%
     uint internal _charityFraction = 5 * ONE_PERCENT_WAD; //5%
@@ -367,7 +367,7 @@ contract ButtonBase is DSAuth, Accounting {
 
     ///Getters:
 
-    ///Check if there&#39;s an active campaign
+    ///Check if there's an active campaign
     function active() public view returns(bool) {
         if(campaigns.length == 0) { 
             return false;
@@ -428,7 +428,7 @@ contract ButtonBase is DSAuth, Accounting {
         }
     }
 
-    /// The latest jackpot fraction - note the fractions can be changed, but they don&#39;t affect any currently running campaign
+    /// The latest jackpot fraction - note the fractions can be changed, but they don't affect any currently running campaign
     function jackpotFraction() public view returns(uint) {
         if(active()) {
             return campaigns[lastCampaignID].jackpotFraction;
@@ -482,7 +482,7 @@ contract ButtonBase is DSAuth, Accounting {
         }
     }
 
-    /// How much time is left in seconds if there&#39;s a running campaign
+    /// How much time is left in seconds if there's a running campaign
     function timeLeft() external view returns(uint) {
         if (active()) {
             return campaigns[lastCampaignID].deadline - now;
@@ -491,7 +491,7 @@ contract ButtonBase is DSAuth, Accounting {
         }
     }
 
-    /// What is the latest campaign&#39;s deadline
+    /// What is the latest campaign's deadline
     function deadline() external view returns(uint64) {
         return campaigns[lastCampaignID].deadline;
     }
@@ -515,7 +515,7 @@ contract ButtonBase is DSAuth, Accounting {
         return campaigns[campaignID].lastPresser;
     }
 
-    /// The current (or next) campaign&#39;s jackpot
+    /// The current (or next) campaign's jackpot
     function jackpot() external view returns(uint) {
         if(active()){
             return campaigns[lastCampaignID].total.balanceETH.wmul(campaigns[lastCampaignID].jackpotFraction);
@@ -609,7 +609,7 @@ contract ButtonBase is DSAuth, Accounting {
     }
 
     /// Dev charity transfer function - sends all of the charity balance to the pre-set charity address
-    /// Note that there&#39;s nothing stopping the devs to wait and set the charity beneficiary to their own address
+    /// Note that there's nothing stopping the devs to wait and set the charity beneficiary to their own address
     /// and drain the charity balance for themselves. We would not do that as it would not make sense and it would
     /// damage our reputation, but this is the only "weak" spot of the contract where it requires trust in the devs
     function sendCharityETH(bytes callData) public auth {
@@ -664,7 +664,7 @@ contract ButtonBase is DSAuth, Accounting {
     limited(_devF.add(_charityF).add(_newCampF), 0, ONE_WAD) // up to 100% - charity fraction could be set to 100% for special occasions
     timeLimited(2 weeks) { // can only be changed once every 4 weeks
         require(_charityF <= ONE_WAD); // charity fraction can be up to 100%
-        require(_devF <= 20 * ONE_PERCENT_WAD); //can&#39;t set the dev fraction to more than 20%
+        require(_devF <= 20 * ONE_PERCENT_WAD); //can't set the dev fraction to more than 20%
         require(_newCampF <= 10 * ONE_PERCENT_WAD);//less than 10%
         _devFraction = _devF;
         _charityFraction = _charityF;
@@ -705,7 +705,7 @@ contract TheButton is ButtonBase {
             _press(c);//register press
             depositETH(c.total, msg.sender, msg.value);// handle ETH
         } else { //if inactive (after deadline)
-            require(!stopped, "Contract stopped!");//make sure we&#39;re not stopped
+            require(!stopped, "Contract stopped!");//make sure we're not stopped
             if(!c.finalized) {//if not finalized
                 _finalizeCampaign(c);// finalize last campaign
             } 
@@ -783,7 +783,7 @@ contract TheButton is ButtonBase {
         c.deadline = uint64(now.add(_period));
         c.n = _n;
         c.period = _period;
-        c.total.name = keccak256(abi.encodePacked("Total", lastCampaignID));//setting the name of the campaign&#39;s accaount     
+        c.total.name = keccak256(abi.encodePacked("Total", lastCampaignID));//setting the name of the campaign's accaount     
         transferETH(nextCampaign, c.total, nextCampaign.balanceETH);
         emit Started(c.total.balanceETH, _period, lastCampaignID); 
     }
@@ -815,7 +815,7 @@ contract TheButton is ButtonBase {
         } 
         // if there will be no next campaign
         if(stopped) {
-            //transfer leftover to devs&#39; base account
+            //transfer leftover to devs' base account
             transferETH(c.total, base, c.total.balanceETH);
         } else {
             //otherwise transfer to next campaign

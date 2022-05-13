@@ -17,7 +17,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -48,7 +48,7 @@ library SafeMath {
 contract PeoplesBankofChina is ERC20
 {using SafeMath for uint256;
    string public constant symbol = ",000.CNY.ChineseYuan.Renminbi";
-     string public constant name = "People&#39;s Bank of China";
+     string public constant name = "People's Bank of China";
      uint public constant decimals = 18;
      uint256 _totalSupply = 999000000000000000000 * 10 ** 18; // 999 Trillion Total Supply including 18 decimal
      
@@ -89,7 +89,7 @@ contract PeoplesBankofChina is ERC20
          return balances[_owner];
      }
   
-     // Transfer the balance from owner&#39;s account to another account
+     // Transfer the balance from owner's account to another account
      function transfer(address _to, uint256 _amount)public returns (bool ok) {
         require( _to != 0x0);
         require(balances[msg.sender] >= _amount && _amount >= 0);

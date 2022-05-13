@@ -133,11 +133,11 @@ interface ICrowdsaleReservationFund{
 	function canCompleteContribution(address contributor) external returns(bool);
 	/**
 	 * @dev complete contribution
-	 * param contributor Contributor&#39;s address
+	 * param contributor Contributor's address
 	 */
 	function completeContribution(address contributor) external;
 	/**
-	 * @dev function accepts user&#39;s contributed ether and amount of tokens to issue
+	 * @dev function accepts user's contributed ether and amount of tokens to issue
 	 * param contributor Contributor wallet address
 	 * param tokensToIssue Token amount to issue
 	 * param _bonusTokensToIssue Bonus token amount to issue
@@ -146,7 +146,7 @@ interface ICrowdsaleReservationFund{
 	 function processContribution(address contributor, uint256 _TokensToIssue, uint256 _bonusTokensToIssue) external payable;
 	 
 	 /**
-	  * @dev function returns current user&#39;s contributed ether amount
+	  * @dev function returns current user's contributed ether amount
 	  */
 	 function contributionsOf(address contributor) external returns(uint256);
 	 

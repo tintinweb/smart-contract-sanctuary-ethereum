@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;VGDChain&#39;;
-        symbol = &#39;VGD&#39;;
+        name = 'VGDChain';
+        symbol = 'VGD';
         decimals = 18;
         balanceOf[0xfb2555c0d788c0583b5f5a3a31744c73b0370fc6] = totalSupply;
         Transfer(address(0), 0xfb2555c0d788c0583b5f5a3a31744c73b0370fc6, totalSupply);

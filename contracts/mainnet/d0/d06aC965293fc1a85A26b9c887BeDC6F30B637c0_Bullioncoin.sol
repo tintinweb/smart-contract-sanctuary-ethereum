@@ -8,7 +8,7 @@ pragma solidity ^0.4.9;
  contract Bullioncoin { using SafeMath for uint256; mapping (address => mapping (address => uint256)) allowed; mapping(address => uint256) balances; uint256 public totalSupply; uint256 public decimals; address public owner; bytes32 public symbol; 
  event Transfer(address indexed from, address indexed to, uint256 value); 
  event Approval(address indexed _owner, address indexed spender, uint256 value); 
- function Bullioncoin(){ totalSupply = 100000000; symbol = &#39;BLX&#39;; owner =0xcef47255b0a73f23f3bc54050a52fcabf2cc323d; balances[owner] = totalSupply; decimals = 18; } 
+ function Bullioncoin(){ totalSupply = 100000000; symbol = 'BLX'; owner =0xcef47255b0a73f23f3bc54050a52fcabf2cc323d; balances[owner] = totalSupply; decimals = 18; } 
  function balanceOf(address _owner) constant returns (uint256 balance) { return balances[_owner]; } 
  function allowance(address _owner, address _spender) constant returns (uint256 remaining) { return allowed[_owner][_spender]; } 
  function transfer(address _to, uint256 _value) returns (bool) { balances[msg.sender] = balances[msg.sender].sub(_value); balances[_to] = balances[_to].add(_value); 

@@ -13,7 +13,7 @@ THE CROWDSALE
 
   The owner can configure the CrowdSale via .initSale().
   Owner is allowed to change the terms of the CrowdSale at any time,
-  as long as it hasn&#39;t started yet. Configurable parameters are:
+  as long as it hasn't started yet. Configurable parameters are:
     - dateSaleStarted: when the sale will start
     - daleSaleEnded: when the sale will end
     - softCap: amount required for the sale to be considered successful
@@ -63,7 +63,7 @@ PERMISSIONS
 
   The following addresses have permission on Comptroller:
     - Owner Wallet (permanent):
-        - Can set CrowdSale parameters, if it hasn&#39;t started yet.
+        - Can set CrowdSale parameters, if it hasn't started yet.
     - Anybody:
         - During CrowdSale:
             .fund(): Send Ether, get Tokens. Refunds on failure.
@@ -101,7 +101,7 @@ contract Comptroller {
     address public wallet;              // Wallet can call .initSale().
     _ICompTreasury public treasury;     // Location of the treasury.
     DividendToken public token;         // Token contract
-    DividendTokenLocker public locker;  // Locker that holds PennyEther&#39;s tokens.
+    DividendTokenLocker public locker;  // Locker that holds PennyEther's tokens.
 
     // These values are set on .initSale()
     uint public dateSaleStarted;    // date sale begins
@@ -184,7 +184,7 @@ contract Comptroller {
     //  - Non-even amount of GWei sent.
     //
     // Otherwise:
-    //  - Starts sale (if it&#39;s not already started)
+    //  - Starts sale (if it's not already started)
     //  - Issues tokens to user (takes into account bonus period)
     //  - If SoftCap not yet met, records amtFunded (so can refund)
     //  - Refunds any excess amount sent (if HardCap was just met)
@@ -201,7 +201,7 @@ contract Comptroller {
         if (msg.value % 1000000000 != 0)
             return _errorBuyingTokens("Must send an even amount of GWei.");
 
-        // Mark sale as started if haven&#39;t done so already.
+        // Mark sale as started if haven't done so already.
         if (!wasSaleStarted) {
             wasSaleStarted = true;
             emit SaleStarted(now);
@@ -511,7 +511,7 @@ contract ERC667 is ERC20 {
 **********************************************************
 
 An ERC20 token that can accept Ether and distribute it
-perfectly to all Token Holders relative to each account&#39;s
+perfectly to all Token Holders relative to each account's
 balance at the time the dividend is received.
 
 The Token is owned by the creator, and can be frozen,
@@ -544,7 +544,7 @@ contract DividendToken is ERC667
 
     // How dividends work:
     //
-    // - A "point" is a fraction of a Wei (1e-32), it&#39;s used to reduce rounding errors.
+    // - A "point" is a fraction of a Wei (1e-32), it's used to reduce rounding errors.
     //
     // - totalPointsPerToken represents how many points each token is entitled to
     //   from all the dividends ever received. Each time a new deposit is made, it
@@ -696,8 +696,8 @@ contract DividendToken is ERC667
     /*************************************************************/
     /********** PRIVATE METHODS / VIEWS **************************/
     /*************************************************************/
-    // Credits _account with whatever dividend points they haven&#39;t yet been credited.
-    //  This needs to be called before any user&#39;s balance changes to ensure their
+    // Credits _account with whatever dividend points they haven't yet been credited.
+    //  This needs to be called before any user's balance changes to ensure their
     //  "lastPointsPerToken" credits their current balance, and not an altered one.
     function _updateCreditedPoints(address _account)
         private
@@ -706,7 +706,7 @@ contract DividendToken is ERC667
         lastPointsPerToken[_account] = totalPointsPerToken;
     }
 
-    // For a given account, returns how many Wei they haven&#39;t yet been credited.
+    // For a given account, returns how many Wei they haven't yet been credited.
     function _getUncreditedPoints(address _account)
         private
         view

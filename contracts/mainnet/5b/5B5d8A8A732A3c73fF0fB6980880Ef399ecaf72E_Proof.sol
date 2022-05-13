@@ -125,7 +125,7 @@ contract Crowdsale is ManualMigration {
         require(now < crowdsaleFinishTime);
         uint valueWei = msg.value;
         uint valueUSD = valueWei * etherPrice / 1000000000000000000;
-        if (collectedUSD + valueUSD > totalLimitUSD) { // don&#39;t need so much ether
+        if (collectedUSD + valueUSD > totalLimitUSD) { // don't need so much ether
             valueUSD = totalLimitUSD - collectedUSD;
             valueWei = valueUSD * 1000000000000000000 / etherPrice;
             require(msg.sender.call.gas(3000000).value(msg.value - valueWei)());
@@ -277,8 +277,8 @@ contract Fund {
  */
 contract Token is Crowdsale, Fund {
     
-    string  public standard    = &#39;Token 0.1&#39;;
-    string  public name        = &#39;PROOF&#39;;
+    string  public standard    = 'Token 0.1';
+    string  public name        = 'PROOF';
     string  public symbol      = "PF";
     uint8   public decimals    = 0;
 

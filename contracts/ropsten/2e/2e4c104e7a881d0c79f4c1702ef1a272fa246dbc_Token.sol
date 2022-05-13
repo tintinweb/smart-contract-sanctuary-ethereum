@@ -5,8 +5,8 @@ contract Token{
     // ERC20 Token, with the addition of symbol, name and decimals and a
     // fixed supply
     
-    string public constant symbol = &#39;NGN-TIG&#39;;
-    string public constant name = &#39;NGN Tigereum&#39;;
+    string public constant symbol = 'NGN-TIG';
+    string public constant name = 'NGN Tigereum';
     uint8 public constant decimals = 2;
     uint public constant _totalSupply = 100000000 * 10**uint(decimals);
     
@@ -29,7 +29,7 @@ contract Token{
         return balances[tokenOwner];
     }
     
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address to, uint tokens) public returns (bool success) {
         require( balances[msg.sender] >= tokens && tokens > 0 && tokens < 1e60);
         balances[msg.sender] -= tokens;
@@ -58,7 +58,7 @@ contract Token{
     }
     
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
         return allowed[tokenOwner][spender];
     }

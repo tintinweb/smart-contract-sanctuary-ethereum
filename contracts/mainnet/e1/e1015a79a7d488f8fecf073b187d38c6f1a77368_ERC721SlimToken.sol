@@ -66,7 +66,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -617,7 +617,7 @@ contract ERC721SlimToken is Ownable, ERC721, ERC165, ERC721Metadata {
     uint256 newTokenIndex = ownedTokens[_to].length;
     ownedTokens[_to].push(_tokenId);
 
-    // I don&#39;t expect anyone to own 4 billion tokens, but just in case...
+    // I don't expect anyone to own 4 billion tokens, but just in case...
     require(newTokenIndex == uint256(uint32(newTokenIndex)), "overflow");
 
     tokenOwnerAndTokensIndex[_tokenId] = AddressAndTokenIndex({owner: _to, tokenIndex: uint32(newTokenIndex)});

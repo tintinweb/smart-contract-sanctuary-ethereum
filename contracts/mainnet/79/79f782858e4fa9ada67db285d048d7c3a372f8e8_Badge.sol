@@ -31,22 +31,22 @@ contract ConfigInterface {
         /// @return Whether the configuration setting was successful or not.
         function setConfigUint(bytes32 _key, uint256 _val) returns(bool success);
 
-        /// @notice getConfigAddress gets configuration `_key`&#39;s value
+        /// @notice getConfigAddress gets configuration `_key`'s value
         /// @param _key The key name of the configuration.
         /// @return The configuration value
         function getConfigAddress(bytes32 _key) returns(address val);
 
-        /// @notice getConfigBool gets configuration `_key`&#39;s value
+        /// @notice getConfigBool gets configuration `_key`'s value
         /// @param _key The key name of the configuration.
         /// @return The configuration value
         function getConfigBool(bytes32 _key) returns(bool val);
 
-        /// @notice getConfigBytes gets configuration `_key`&#39;s value
+        /// @notice getConfigBytes gets configuration `_key`'s value
         /// @param _key The key name of the configuration.
         /// @return The configuration value
         function getConfigBytes(bytes32 _key) returns(bytes32 val);
 
-        /// @notice getConfigUint gets configuration `_key`&#39;s value
+        /// @notice getConfigUint gets configuration `_key`'s value
         /// @param _key The key name of the configuration.
         /// @return The configuration value
         function getConfigUint(bytes32 _key) returns(uint256 val);
@@ -55,7 +55,7 @@ contract ConfigInterface {
         /// @return Whether the configuration setting was successful or not.
         function addAdmin(address _admin) returns(bool success);
 
-        /// @notice removeAdmin removes  `_admin`&#39;s rights
+        /// @notice removeAdmin removes  `_admin`'s rights
         /// @param _admin The key name of the configuration.
         /// @return Whether the configuration setting was successful or not.
         function removeAdmin(address _admin) returns(bool success);
@@ -302,9 +302,9 @@ contract Badge {
         address public owner;
         bool public locked;
         string public name;                   //fancy name: eg Simon Bucks
-        uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It&#39;s like comparing 1 wei to 1 ether.
+        uint8 public decimals;                //How many decimals to show. ie. There could 1000 base units with 3 decimals. Meaning 0.980 SBX = 980 base units. It's like comparing 1 wei to 1 ether.
         string public symbol;                 //An identifier: eg SBX
-        string public version = &#39;H0.1&#39;;       //human 0.1 standard. Just an arbitrary versioning scheme.
+        string public version = 'H0.1';       //human 0.1 standard. Just an arbitrary versioning scheme.
 
         /// @return total amount of tokens
         uint256 public totalSupply;

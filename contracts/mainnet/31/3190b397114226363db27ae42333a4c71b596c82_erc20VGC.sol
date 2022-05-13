@@ -99,7 +99,7 @@ contract erc20VGC is StandardToken {
     string public name;                   //
     uint8 public decimals;                //
     string public symbol;                 //
-    string public version = &#39;t0.01&#39;;       //
+    string public version = 't0.01';       //
 
     function erc20VGC(
         uint8 _decimalUnits 

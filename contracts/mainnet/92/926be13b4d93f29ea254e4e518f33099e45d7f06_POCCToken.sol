@@ -124,7 +124,7 @@ contract POCCToken is StandardToken  {
         _;
     }
    
-     /// @dev decrease the token&#39;s supply
+     /// @dev decrease the token's supply
     function decreaseSupply (uint256 _value) onlyOwner  public{
         if (balances[owner] < _value)  revert();
         uint256 value = safeMult(_value , 10 ** decimals);

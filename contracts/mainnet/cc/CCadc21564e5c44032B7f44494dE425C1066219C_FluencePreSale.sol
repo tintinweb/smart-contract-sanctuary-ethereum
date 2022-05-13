@@ -191,7 +191,7 @@ contract FluencePreSale is Haltable, SafeMath {
         beneficiary = to;
     }
 
-    // Withdraw contract&#39;s balance to beneficiary account
+    // Withdraw contract's balance to beneficiary account
     function withdraw() onlyOwner softCapReached external {
         require(this.balance > 0);
         beneficiary.transfer(this.balance);
@@ -221,7 +221,7 @@ contract FluencePreSale is Haltable, SafeMath {
 
         totalSupply = safeAdd(totalSupply, tokensToIssue);
 
-        // Goal is already reached, can&#39;t issue any more tokens
+        // Goal is already reached, can't issue any more tokens
         if(totalSupply > SUPPLY_LIMIT) {
             revert();
         }

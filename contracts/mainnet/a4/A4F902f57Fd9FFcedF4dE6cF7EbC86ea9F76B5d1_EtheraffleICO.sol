@@ -33,16 +33,16 @@ contract EtheraffleICO is EtheraffleLOT {
     uint public tier1Total;
     uint public tier2Total;
     uint public tier3Total;
-    /* Etheraffle&#39;s multisig wallet & LOT token addresses */
+    /* Etheraffle's multisig wallet & LOT token addresses */
     address public etheraffle;
     /* ICO status toggle */
     bool public ICORunning = true;
-    /* Map of purchaser&#39;s ethereum addresses to their purchase amounts for calculating bonuses*/
+    /* Map of purchaser's ethereum addresses to their purchase amounts for calculating bonuses*/
     mapping (address => uint) public tier0;
     mapping (address => uint) public tier1;
     mapping (address => uint) public tier2;
     mapping (address => uint) public tier3;
-    /* Instantiate the variables to hold Etheraffle&#39;s LOT & freeLOT token contract instances */
+    /* Instantiate the variables to hold Etheraffle's LOT & freeLOT token contract instances */
     EtheraffleLOT LOT;
     EtheraffleLOT FreeLOT;
     /* Event loggers */
@@ -90,7 +90,7 @@ contract EtheraffleICO is EtheraffleLOT {
     *       LOT are sent in accordance with how much ether is invested, and in what
     *       tier the investment was made. The function also stores the amount of ether
     *       invested for later conversion to the amount of bonus LOT owed. Once the
-    *       crowdsale is over and the final number of tokens sold is known, the purchaser&#39;s
+    *       crowdsale is over and the final number of tokens sold is known, the purchaser's
     *       bonuses can be calculated. Using the fallback function allows LOT purchasers to
     *       simply send ether to this address in order to purchase LOT, without having
     *       to call a function. The requirements also also mean that once the crowdsale is
@@ -112,7 +112,7 @@ contract EtheraffleICO is EtheraffleLOT {
             tier0[msg.sender] += msg.value;
             /* Track total investment in tier one for later bonus calculation */
             tier0Total += msg.value;
-            /* Number of LOT this tier&#39;s purchase results in */
+            /* Number of LOT this tier's purchase results in */
             numLOT = (msg.value * tier0LOT) / (1 * 10 ** 18);
             /* Transfer the number of LOT bought to the purchaser */
             LOT.transfer(msg.sender, numLOT);
@@ -152,7 +152,7 @@ contract EtheraffleICO is EtheraffleLOT {
     *           in order to receive their bonus LOT owed to them, as
     *           calculated by their share of the total amount of LOT
     *           sales in the tier(s) following their purchase. Once
-    *           claimed, user&#39;s purchased amounts are set to 1 wei rather
+    *           claimed, user's purchased amounts are set to 1 wei rather
     *           than zero, to allow the contract to maintain a list of
     *           purchasers in each. All investors, regardless of tier/amount,
     *           receive ten free entries into the flagship Saturday
@@ -227,7 +227,7 @@ contract EtheraffleICO is EtheraffleLOT {
     function refundEther() external onlyIfNotRunning {
         uint amount;
         if(tier0[msg.sender] > 1) {
-            /* Add balance of caller&#39;s address in this tier to the amount */
+            /* Add balance of caller's address in this tier to the amount */
             amount += tier0[msg.sender];
             /* Zero callers balance in this tier */
             tier0[msg.sender] = 0;
@@ -259,8 +259,8 @@ contract EtheraffleICO is EtheraffleLOT {
         return;
     }
     /**
-    * @dev    Function callable only by Etheraffle&#39;s multi-sig wallet. It
-    *         transfers the tier&#39;s raised ether to the etheraffle multisig wallet
+    * @dev    Function callable only by Etheraffle's multi-sig wallet. It
+    *         transfers the tier's raised ether to the etheraffle multisig wallet
     *         once the tier is over.
     *
     * @param _tier    The tier from which the withdrawal is being made.
@@ -297,7 +297,7 @@ contract EtheraffleICO is EtheraffleLOT {
         }
     }
     /**
-    * @dev    Function callable only by Etheraffle&#39;s multi-sig wallet.
+    * @dev    Function callable only by Etheraffle's multi-sig wallet.
     *         It transfers any remaining unsold LOT tokens to the
     *         Etheraffle multisig wallet. Function only callable once
     *         the withdraw period and ∴ the ICO ends.

@@ -243,7 +243,7 @@ contract LoopringProtocol {
     ///                           cancelAmount.
     /// @param buyNoMoreThanAmountB -
     ///                           This indicates when a order should be considered
-    ///                           as &#39;completely filled&#39;.
+    ///                           as 'completely filled'.
     /// @param marginSplitPercentage -
     ///                           Percentage of margin split to share with miner.
     /// @param v                  Order ECDSA signature parameter v.
@@ -259,7 +259,7 @@ contract LoopringProtocol {
         bytes32    s
         ) external;
     /// @dev   Set a cutoff timestamp to invalidate all orders whose timestamp
-    ///        is smaller than or equal to the new value of the address&#39;s cutoff
+    ///        is smaller than or equal to the new value of the address's cutoff
     ///        timestamp, for a specific trading pair.
     /// @param cutoff The cutoff timestamp, will default to `block.timestamp`
     ///        if it is 0.
@@ -269,14 +269,14 @@ contract LoopringProtocol {
         uint cutoff
         ) external;
     /// @dev   Set a cutoff timestamp to invalidate all orders whose timestamp
-    ///        is smaller than or equal to the new value of the address&#39;s cutoff
+    ///        is smaller than or equal to the new value of the address's cutoff
     ///        timestamp.
     /// @param cutoff The cutoff timestamp, will default to `block.timestamp`
     ///        if it is 0.
     function cancelAllOrders(uint cutoff) external;
     /// @dev Submit a order-ring for validation and settlement.
-    /// @param addressList  List of each order&#39;s owner, tokenS, and authAddr.
-    ///                     Note that next order&#39;s `tokenS` equals this order&#39;s
+    /// @param addressList  List of each order's owner, tokenS, and authAddr.
+    ///                     Note that next order's `tokenS` equals this order's
     ///                     `tokenB`.
     /// @param uintArgsList List of uint-type arguments in this order:
     ///                     amountS, amountB, validSince (second),
@@ -300,7 +300,7 @@ contract LoopringProtocol {
     ///                     recipient address.
     ///                     The signer address is used for sign this tx.
     ///                     The Recipient address for fee collection. If this is
-    ///                     &#39;0x0&#39;, all fees will be paid to the address who had
+    ///                     '0x0', all fees will be paid to the address who had
     ///                     signed this transaction, not `msg.sender`. Noted if
     ///                     LRC need to be paid back to order owner as the result
     ///                     of fee selection model, LRC will also be sent from
@@ -644,7 +644,7 @@ contract TokenRegistry is Claimable {
     ////////////////////////////////////////////////////////////////////////////
     struct TokenInfo {
         uint   pos;      // 0 mens unregistered; if > 0, pos + 1 is the
-                         // token&#39;s position in `addresses`.
+                         // token's position in `addresses`.
         string symbol;   // Symbol of the token
     }
     ////////////////////////////////////////////////////////////////////////////
@@ -698,7 +698,7 @@ contract TokenRegistry is Claimable {
         // We will replace the token we need to unregister with the last token
         // Only the pos of the last token will need to be updated
         address lastToken = addresses[addresses.length - 1];
-        // Don&#39;t do anything if the last token is the one we want to delete
+        // Don't do anything if the last token is the one we want to delete
         if (addr != lastToken) {
             // Swap with the last token and update the pos
             addresses[pos - 1] = lastToken;
@@ -920,8 +920,8 @@ contract TokenTransferDelegate is Claimable {
         for (uint i = 0; i < len; i += 7) {
             address owner = address(batch[i]);
             address prevOwner = address(batch[(i + len - 7) % len]);
-            // Pay token to previous order, or to miner as previous order&#39;s
-            // margin split or/and this order&#39;s margin split.
+            // Pay token to previous order, or to miner as previous order's
+            // margin split or/and this order's margin split.
             ERC20 token = ERC20(address(batch[i + 1]));
             // Here batch[i + 2] has been checked not to be 0.
             if (owner != prevOwner) {
@@ -1032,10 +1032,10 @@ contract LoopringProtocolImpl is LoopringProtocol {
     // Exchange rate (rate) is the amount to sell or sold divided by the amount
     // to buy or bought.
     //
-    // Rate ratio is the ratio between executed rate and an order&#39;s original
+    // Rate ratio is the ratio between executed rate and an order's original
     // rate.
     //
-    // To require all orders&#39; rate ratios to have coefficient ofvariation (CV)
+    // To require all orders' rate ratios to have coefficient ofvariation (CV)
     // smaller than 2.5%, for an example , rateRatioCVSThreshold should be:
     //     `(0.025 * RATE_RATIO_SCALE)^2` or 62500.
     uint    public constant rateRatioCVSThreshold        = 62500;
@@ -1046,7 +1046,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
     // The following map is used to keep trace of order fill and cancellation
     // history.
     mapping (bytes32 => uint) public cancelledOrFilled;
-    // This map is used to keep trace of order&#39;s cancellation history.
+    // This map is used to keep trace of order's cancellation history.
     mapping (bytes32 => uint) public cancelled;
     // A map from address to its cutoff timestamp.
     mapping (address => uint) public cutoffs;
@@ -1063,7 +1063,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
     /// @param tokenB       Token to buy.
     /// @param amountS      Maximum amount of tokenS to sell.
     /// @param amountB      Minimum amount of tokenB to buy if all amountS sold.
-    /// @param authAddr     An address to verify miner has access to the order&#39;s
+    /// @param authAddr     An address to verify miner has access to the order's
     ///                     auth private-key.
     /// @param validSince   Indicating when this order should be treated as
     ///                     valid for trading, in second.
@@ -1095,7 +1095,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
         uint8   marginSplitPercentage;
     }
     /// @param order        The original order
-    /// @param orderHash    The order&#39;s hash
+    /// @param orderHash    The order's hash
     /// @param feeSelection -
     ///                     A miner-supplied value indicating if LRC (value = 0)
     ///                     or margin split is choosen by the miner (value = 1).
@@ -1225,9 +1225,9 @@ contract LoopringProtocolImpl is LoopringProtocol {
         )
         public
     {
-        // Check if the highest bit of ringIndex is &#39;1&#39;.
+        // Check if the highest bit of ringIndex is '1'.
         require(ringIndex & ENTERED_MASK != ENTERED_MASK); // "attempted to re-ent submitRing function");
-        // Set the highest bit of ringIndex to &#39;1&#39;.
+        // Set the highest bit of ringIndex to '1'.
         ringIndex |= ENTERED_MASK;
         RingParams memory params = RingParams(
             addressList,
@@ -1274,8 +1274,8 @@ contract LoopringProtocolImpl is LoopringProtocol {
             }
         }
     }
-    /// @dev Verify the ringHash has been signed with each order&#39;s auth private
-    ///      keys as well as the miner&#39;s private key.
+    /// @dev Verify the ringHash has been signed with each order's auth private
+    ///      keys as well as the miner's private key.
     function verifyRingSignatures(RingParams params)
         private
         pure
@@ -1356,15 +1356,15 @@ contract LoopringProtocolImpl is LoopringProtocol {
         // these rates are correct.
         verifyMinerSuppliedFillRates(params.ringSize, orders);
         // Scale down each order independently by substracting amount-filled and
-        // amount-cancelled. Order owner&#39;s current balance and allowance are
+        // amount-cancelled. Order owner's current balance and allowance are
         // not taken into consideration in these operations.
         scaleRingBasedOnHistoricalRecords(delegate, params.ringSize, orders);
         // Based on the already verified exchange rate provided by ring-miners,
         // we can furthur scale down orders based on token balance and allowance,
-        // then find the smallest order of the ring, then calculate each order&#39;s
+        // then find the smallest order of the ring, then calculate each order's
         // `fillAmountS`.
         calculateRingFillAmount(params.ringSize, orders);
-        // Calculate each order&#39;s `lrcFee` and `lrcRewrard` and splict how much
+        // Calculate each order's `lrcFee` and `lrcRewrard` and splict how much
         // of `fillAmountS` shall be paid to matching order or miner as margin
         // split.
         calculateRingFees(
@@ -1469,7 +1469,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
         uint cvs = MathUint.cvsquare(rateRatios, _rateRatioScale);
         require(cvs <= rateRatioCVSThreshold); // "miner supplied exchange rate is not evenly discounted");
     }
-    /// @dev Calculate each order&#39;s fee or LRC reward.
+    /// @dev Calculate each order's fee or LRC reward.
     function calculateRingFees(
         TokenTransferDelegate delegate,
         uint            ringSize,
@@ -1488,7 +1488,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
             OrderState memory state = orders[i];
             uint lrcReceiable = 0;
             if (state.lrcFee == 0) {
-                // When an order&#39;s LRC fee is 0 or smaller than the specified fee,
+                // When an order's LRC fee is 0 or smaller than the specified fee,
                 // we help miner automatically select margin-split.
                 state.marginSplitAsFee = true;
                 state.order.marginSplitPercentage = _marginSplitPercentageBase;
@@ -1509,7 +1509,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
                     lrcReceiable = nextFillAmountS;
                 }
                 uint lrcTotal = lrcSpendable + lrcReceiable;
-                // If order doesn&#39;t have enough LRC, set margin split to 100%.
+                // If order doesn't have enough LRC, set margin split to 100%.
                 if (lrcTotal < state.lrcFee) {
                     state.lrcFee = lrcTotal;
                     state.order.marginSplitPercentage = _marginSplitPercentageBase;
@@ -1574,7 +1574,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
             }
         }
     }
-    /// @dev Calculate each order&#39;s fill amount.
+    /// @dev Calculate each order's fill amount.
     function calculateRingFillAmount(
         uint          ringSize,
         OrderState[]  orders
@@ -1605,7 +1605,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
             );
         }
     }
-    /// @return The smallest order&#39;s index.
+    /// @return The smallest order's index.
     function calculateOrderFillAmount(
         OrderState        state,
         OrderState        next,
@@ -1645,7 +1645,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
         }
     }
     /// @dev Scale down all orders based on historical fill or cancellation
-    ///      stats but key the order&#39;s original exchange rate.
+    ///      stats but key the order's original exchange rate.
     function scaleRingBasedOnHistoricalRecords(
         TokenTransferDelegate delegate,
         uint ringSize,
@@ -1701,7 +1701,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
         uint balance = token.balanceOf(tokenOwner);
         return (allowance < balance ? allowance : balance);
     }
-    /// @dev verify input data&#39;s basic integrity.
+    /// @dev verify input data's basic integrity.
     function verifyInputDataIntegrity(RingParams params)
         private
         pure
@@ -1769,7 +1769,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
             params.feeSelections
         );
     }
-    /// @dev validate order&#39;s parameters are OK.
+    /// @dev validate order's parameters are OK.
     function validateOrder(Order order)
         private
         view
@@ -1808,7 +1808,7 @@ contract LoopringProtocolImpl is LoopringProtocol {
             order.marginSplitPercentage
         );
     }
-    /// @dev Verify signer&#39;s signature.
+    /// @dev Verify signer's signature.
     function verifySignature(
         address signer,
         bytes32 hash,

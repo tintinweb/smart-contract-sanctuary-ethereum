@@ -97,8 +97,8 @@ contract Token {
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         if (balances[msg.sender] >= _value && _value > 0) {
@@ -197,8 +197,8 @@ contract ERC20nator is StandardToken, Ownable {
     // from https://ethereum.stackexchange.com/a/13658/16
     function hexStrToBytes(string _hexString) constant returns (bytes) {
         //Check hex string is valid
-        if (bytes(_hexString)[0]!=&#39;0&#39; ||
-            bytes(_hexString)[1]!=&#39;x&#39; ||
+        if (bytes(_hexString)[0]!='0' ||
+            bytes(_hexString)[1]!='x' ||
             bytes(_hexString).length%2!=0 ||
             bytes(_hexString).length<4) {
                 throw;

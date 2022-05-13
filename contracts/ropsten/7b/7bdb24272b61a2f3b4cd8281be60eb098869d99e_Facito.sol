@@ -99,8 +99,8 @@ contract Facito {
     function readArticle(string _id) public returns (bool success) {
         bytes32 _byteID = stringToBytes32(_id);
 
-        require(articles[_byteID].UnspentOutputs[msg.sender] == 0, "Article already read"); // Check article hasn&#39;t already been read
-        require(articles[_byteID].Author != msg.sender, "Author cannot read own article"); // Check author isn&#39;t reading own article
+        require(articles[_byteID].UnspentOutputs[msg.sender] == 0, "Article already read"); // Check article hasn't already been read
+        require(articles[_byteID].Author != msg.sender, "Author cannot read own article"); // Check author isn't reading own article
 
         emit ReadArticle(_byteID, articles[_byteID].Author, msg.sender, articles[_byteID].Title); // Emit read article
 

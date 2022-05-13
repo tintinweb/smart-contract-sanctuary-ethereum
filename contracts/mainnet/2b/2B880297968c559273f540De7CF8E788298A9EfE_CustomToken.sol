@@ -100,8 +100,8 @@ contract CustomToken is BaseToken, BurnToken, ICOToken {
     constructor(address icoAddress) public {
         totalSupply = 210000000000000000;
         balanceOf[msg.sender] = totalSupply;
-        name = &#39;VPEToken&#39;;
-        symbol = &#39;VPE&#39;;
+        name = 'VPEToken';
+        symbol = 'VPE';
         decimals = 8;
         icoRatio = 10000;
         icoEndtime = 1559318400;

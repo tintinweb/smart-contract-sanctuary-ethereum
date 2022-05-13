@@ -99,7 +99,7 @@ contract erc20TRFT is StandardToken {
     string public name;                   //
     uint8 public decimals;                //
     string public symbol;                 //
-    string public version = &#39;trft0.01a&#39;;       //
+    string public version = 'trft0.01a';       //
 
     function erc20TRFT(
         uint8 _decimalUnits 

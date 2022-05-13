@@ -143,7 +143,7 @@ is Ownable
 
   /**
   * @dev Sets the manager
-  * @param _address Manager&#39;s address
+  * @param _address Manager's address
   */
   function setManager(
     address _address
@@ -184,7 +184,7 @@ is Ownable
   // helpers
 
   /**
-   * @dev Checks if a user-id&#39;s been used
+   * @dev Checks if a user-id's been used
    * @param _uid The user-id
    */
   function isUidSet(
@@ -198,7 +198,7 @@ is Ownable
 
 
   /**
-   * @dev Checks if an address&#39;s been used
+   * @dev Checks if an address's been used
    * @param _address The address
    */
   function isAddressSet(
@@ -280,7 +280,7 @@ is Ownable
     require(isAddressSet(_address));
 
     string memory uid = __uidByAddress[_address].lastUid;
-    __uidByAddress[_address] = Uid(&#39;&#39;, __uidByAddress[_address].lastUpdate);
+    __uidByAddress[_address] = Uid('', __uidByAddress[_address].lastUpdate);
     __addressByUid[uid] = Address(address(0), __addressByUid[uid].lastUpdate);
     identities--;
     IdentityRemoved(_address, uid);
@@ -505,7 +505,7 @@ is TweedentityManagerInterfaceMinimal, Ownable
 
   /**
    * @dev Sets a store to be used by the manager
-   * @param _appNickname The nickname of the app for which the store&#39;s been configured
+   * @param _appNickname The nickname of the app for which the store's been configured
    * @param _address The address of the store
    */
   function setAStore(

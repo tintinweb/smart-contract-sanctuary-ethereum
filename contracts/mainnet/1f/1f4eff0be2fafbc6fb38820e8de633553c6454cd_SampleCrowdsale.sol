@@ -54,7 +54,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -423,7 +423,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner {
     require(!isFinalized);
@@ -452,7 +452,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
  * In this example we are providing following extensions:
  * CappedCrowdsale - sets a max boundary for raised funds
  *
- * After adding multiple features it&#39;s good practice to run integration tests
+ * After adding multiple features it's good practice to run integration tests
  * to ensure that subcontracts works together as intended.
  */
 contract SampleCrowdsale is CappedCrowdsale,FinalizableCrowdsale {

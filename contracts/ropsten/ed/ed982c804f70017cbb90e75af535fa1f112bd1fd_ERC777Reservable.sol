@@ -15,8 +15,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -34,7 +34,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -160,7 +160,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));
@@ -523,7 +523,7 @@ contract ERC777 is IERC777, IERC20, ERC820Client, MinterRole, ozs_Ownable {
   /**
    * [NOT MANDATORY FOR ERC777 STANDARD]
    * @dev Registers/Unregisters the ERC20Token interface with its own address via ERC820
-   * @param erc20compatible &#39;true&#39; to register the ERC20Token interface, &#39;false&#39; to unregister
+   * @param erc20compatible 'true' to register the ERC20Token interface, 'false' to unregister
    */
   function setERC20compatibility(bool erc20compatible) external onlyOwner {
     _setERC20compatibility(erc20compatible);
@@ -532,7 +532,7 @@ contract ERC777 is IERC777, IERC20, ERC820Client, MinterRole, ozs_Ownable {
   /**
    * [NOT MANDATORY FOR ERC777 STANDARD]
    * @dev Helper function to registers/unregister the ERC20Token interface
-   * @param erc20compatible &#39;true&#39; to register the ERC20Token interface, &#39;false&#39; to unregister
+   * @param erc20compatible 'true' to register the ERC20Token interface, 'false' to unregister
    */
   function _setERC20compatibility(bool erc20compatible) internal {
     _erc20compatible = erc20compatible;
@@ -546,7 +546,7 @@ contract ERC777 is IERC777, IERC20, ERC820Client, MinterRole, ozs_Ownable {
   /**
    * [NOT MANDATORY FOR ERC777 STANDARD]
    * @dev egisters/Unregisters the ERC20Token interface with its own address via ERC820
-   * @param erc820compatible &#39;true&#39; to register the ERC820Token interface, &#39;false&#39; to unregister
+   * @param erc820compatible 'true' to register the ERC820Token interface, 'false' to unregister
    */
   function setERC820compatibility(bool erc820compatible) external onlyOwner {
     _setERC820compatibility(erc820compatible);
@@ -556,7 +556,7 @@ contract ERC777 is IERC777, IERC20, ERC820Client, MinterRole, ozs_Ownable {
    * [NOT MANDATORY FOR ERC777 STANDARD]
    * @dev Helper function to register/Unregister the ERC777Token interface with its own address via ERC820
    *  and allows/disallows the ERC820 methods
-   * @param erc820compatible &#39;true&#39; to register the ERC777Token interface, &#39;false&#39; to unregister
+   * @param erc820compatible 'true' to register the ERC777Token interface, 'false' to unregister
    */
   function _setERC820compatibility(bool erc820compatible) internal {
     _erc820compatible = erc820compatible;
@@ -587,7 +587,7 @@ contract ERC777 is IERC777, IERC20, ERC820Client, MinterRole, ozs_Ownable {
   }
 
   /**
-   * [ERC777 INTERFACE (3/13)][OVERRIDES ERC20 METHOD] - Required since &#39;_totalSupply&#39; is private in ERC20
+   * [ERC777 INTERFACE (3/13)][OVERRIDES ERC20 METHOD] - Required since '_totalSupply' is private in ERC20
    * @dev Get the total number of minted tokens.
    * @return Total supply of tokens currently in circulation.
    */
@@ -596,7 +596,7 @@ contract ERC777 is IERC777, IERC20, ERC820Client, MinterRole, ozs_Ownable {
   }
 
   /**
-   * [ERC777 INTERFACE (4/13)] [OVERRIDES ERC20 METHOD] - Required since &#39;_balances&#39; is private in ERC20
+   * [ERC777 INTERFACE (4/13)] [OVERRIDES ERC20 METHOD] - Required since '_balances' is private in ERC20
    * @dev Get the balance of the account with address tokenHolder.
    * @param tokenHolder Address for which the balance is returned.
    * @return Amount of token held by tokenHolder in the token contract.
@@ -713,7 +713,7 @@ contract ERC777 is IERC777, IERC20, ERC820Client, MinterRole, ozs_Ownable {
 
   /**
    * @dev Internal function that checks if `amount` is multiple of the granularity.
-   * @param amount The quantity that want&#39;s to be checked.
+   * @param amount The quantity that want's to be checked.
    * @return `true` if `amount` is a multiple of the granularity.
    */
   function _isMultiple(uint256 amount) internal view returns(bool) {
@@ -908,7 +908,7 @@ contract ERC777 is IERC777, IERC20, ERC820Client, MinterRole, ozs_Ownable {
 
   /**
    * [NOT MANDATORY FOR ERC777 STANDARD]
-   * @dev Mint the amout of tokens for the recipient &#39;to&#39;.
+   * @dev Mint the amout of tokens for the recipient 'to'.
    * @param to Token recipient.
    * @param amount Number of tokens minted.
    * @param data Information attached to the minting, and intended for the recipient (to).
@@ -986,7 +986,7 @@ contract ERC777 is IERC777, IERC20, ERC820Client, MinterRole, ozs_Ownable {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.

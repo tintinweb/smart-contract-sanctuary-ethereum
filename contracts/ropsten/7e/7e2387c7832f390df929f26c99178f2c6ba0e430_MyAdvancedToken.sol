@@ -43,9 +43,9 @@ contract owned {
  */
 contract token {
     /* 公共变量 */
-    string public site = &#39;WWW.CBANK.IN&#39;; // 合约银行 www.contractbank.cn 
+    string public site = 'WWW.CBANK.IN'; // 合约银行 www.contractbank.cn 
     string public name; //代币名称
-    string public symbol; //代币符号比如&#39;$&#39;
+    string public symbol; //代币符号比如'$'
     uint8 public decimals = 18;  //代币单位，展示的小数点后面多少个0,和以太币一样后面是是18个0
     uint256 public totalSupply; //代币总量
 

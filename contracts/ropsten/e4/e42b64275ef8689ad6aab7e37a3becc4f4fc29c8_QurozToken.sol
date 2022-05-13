@@ -240,7 +240,7 @@ contract QurozToken {
     return true;
   }
   
-  function lock(address _lockAddress) public onlyOwner returns (bool) {  // stop _lockAddress&#39;s transfer
+  function lock(address _lockAddress) public onlyOwner returns (bool) {  // stop _lockAddress's transfer
     require(_lockAddress != address(0));
     require(_lockAddress != owner);
     require(locked[_lockAddress] != true);

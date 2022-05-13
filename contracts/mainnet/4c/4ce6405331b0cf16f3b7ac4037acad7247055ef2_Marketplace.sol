@@ -103,7 +103,7 @@ contract Marketplace is Ownable {
 
     function unlist(address _caller, uint256 _tokenId) public nftOnly {
         address _seller = listings[_tokenId].seller;
-        // Allow owner to unlist (via nft) for when it&#39;s time to shut this down
+        // Allow owner to unlist (via nft) for when it's time to shut this down
         require(_seller == _caller || address(owner) == _caller);
         nft.transfer(_seller, _tokenId);
         delete listings[_tokenId];
@@ -114,7 +114,7 @@ contract Marketplace is Ownable {
         Listing memory _listing = listings[_tokenId];
         address _seller = _listing.seller;
 
-        require(_caller != _seller); // Doesn&#39;t make sense for someone to buy/sell their own token.
+        require(_caller != _seller); // Doesn't make sense for someone to buy/sell their own token.
         require(listingActive(_tokenId));
 
         uint256 _price = currentPrice(_tokenId);

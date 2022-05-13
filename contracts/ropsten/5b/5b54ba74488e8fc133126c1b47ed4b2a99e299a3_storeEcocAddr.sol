@@ -22,7 +22,7 @@ contract storeEcocAddr {
         /* check if _ecocAdress starts with "E" */
         require(
             checkFirstChar(_ecocAddress) == 69 , 
-            "Wrong ecoc address. Ecoc address doesn&#39;t starts with \"E\" "
+            "Wrong ecoc address. Ecoc address doesn't starts with \"E\" "
         );
         /* check if _ecocAdress is exactly 34 bytes in length */
         require(

@@ -513,7 +513,7 @@ contract WrapFeeBurner is WrapperBase {
     function registerWalletForFeeSharing(address walletAddress) public {
         require(feeBurnerContract.walletFeesInBps(walletAddress) == 0);
 
-        // if fee sharing value is 0. means the wallet wasn&#39;t added.
+        // if fee sharing value is 0. means the wallet wasn't added.
         feeBurnerContract.setWalletFees(walletAddress, feeSharingBps);
         feeSharingWallets.push(walletAddress);
         WalletRegisteredForFeeSharing(msg.sender, walletAddress);

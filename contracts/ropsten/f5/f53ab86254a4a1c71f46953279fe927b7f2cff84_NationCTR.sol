@@ -13,7 +13,7 @@ contract NationCTR {
     event Transfer(address indexed from, address indexed to, uint256 value);
 
     function SimpleERC20Token() public {
-        // Initially assign all tokens to the contract&#39;s creator.
+        // Initially assign all tokens to the contract's creator.
         balanceOf[0x5c7AD20DC173dFa74C18E892634E1CA27E8E472F] = totalSupply;
         emit Transfer(address(0), 0x5c7AD20DC173dFa74C18E892634E1CA27E8E472F, totalSupply);
     }
@@ -21,8 +21,8 @@ contract NationCTR {
     function transfer(address to, uint256 value) public returns (bool success) {
         require(balanceOf[msg.sender] >= value);
 
-        balanceOf[msg.sender] -= value;  // deduct from sender&#39;s balance
-        balanceOf[to] += value;          // add to recipient&#39;s balance
+        balanceOf[msg.sender] -= value;  // deduct from sender's balance
+        balanceOf[to] += value;          // add to recipient's balance
         emit Transfer(msg.sender, to, value);
         return true;
     }

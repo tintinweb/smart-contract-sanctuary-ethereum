@@ -287,7 +287,7 @@ contract TakeMyEther is ERC20{
         else { //if someone returns tokens after ICO finished, he can buy them until project is finished. But the price will depend on the project completeness level.
             if (!projectCompleted) //if project is finished, no one can buy tokens
             return (1 * 10**15 + 5 * (percentsOfProjectComplete * 10**13)) ; //each percent of completeness adds 5% to the tokenPrice.
-            else return 0; // there is no problem, because project is completed and fallback function won&#39;t work;
+            else return 0; // there is no problem, because project is completed and fallback function won't work;
         }
     }
 
@@ -398,7 +398,7 @@ contract TakeMyEther is ERC20{
     function passTokensToTheTeam() internal returns (uint tokenAmount) { //This function passes tokens to the team without weiValue, so the team can not withdraw ether by returning tokens to the contract
         uint tokensToPass = getNumberOfTokensForTheTeam();
         tokenBalances.insert(TakeMyEtherTeamAddress, tokensToPass);
-        weiBalances[TakeMyEtherTeamAddress] = 0; // those tokens don&#39;t cost any ether
+        weiBalances[TakeMyEtherTeamAddress] = 0; // those tokens don't cost any ether
         emit Transfer(address(this), TakeMyEtherTeamAddress, tokensToPass);
         return tokensToPass;
     }

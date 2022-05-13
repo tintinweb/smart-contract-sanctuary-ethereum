@@ -181,7 +181,7 @@ contract B2Lab_TokenPlus{
    
   	/*
      *Params: null
-     *Return: Error (if the sender doesn&#39;t meet the requirements) or Tokens (otherwise)
+     *Return: Error (if the sender doesn't meet the requirements) or Tokens (otherwise)
      */
 	function buyTokens() payable public checkIsIdentity(msg.sender){
 	
@@ -207,7 +207,7 @@ contract B2Lab_TokenPlus{
    
 	/*
      *Params: address, uint256[]
-     *Return: Error (if the sender and the recipient doesn&#39;t meet the requirements) or Token Transfer (otherwise)
+     *Return: Error (if the sender and the recipient doesn't meet the requirements) or Token Transfer (otherwise)
      */
     function transferTokens(address _to, uint256[] _tokenId) public checkIsIdentity(msg.sender) checkIsIdentity(_to){
 		

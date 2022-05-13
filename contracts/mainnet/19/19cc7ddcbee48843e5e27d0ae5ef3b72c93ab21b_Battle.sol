@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -755,7 +755,7 @@ contract Battle is BattleBase, Random, Pausable {
 						uint256 _defenderRank,
 						uint16 _defenderLevel) external payable whenNotPaused onlyOwnerOf(_challengerCardId) {
 		require(battleStart != false, "battle has not started"); //make sure the battle has started
-		require(msg.sender != hogsmashToken.ownerOf(_defenderCardId), "cannot challenge own cards"); //make sure user doesn&#39;t attack his own cards
+		require(msg.sender != hogsmashToken.ownerOf(_defenderCardId), "cannot challenge own cards"); //make sure user doesn't attack his own cards
 		Card storage challenger = cards[_challengerCardId];		
 		require((_statUp[0] + _statUp[1] + _statUp[2] + _statUp[3] + _statUp[4])==challenger.flexiGems, "flexi gems not used up"); //flexi points must be exactly used, not more not less
 		
@@ -848,7 +848,7 @@ contract Battle is BattleBase, Random, Pausable {
 			uint32(stats[1]),
 			uint32(stats[8]),
 			uint32(stats[3]),
-			uint16(stats[4]), //pretty sure trimming down the uint won&#39;t affect the number as max is just 80000
+			uint16(stats[4]), //pretty sure trimming down the uint won't affect the number as max is just 80000
 			uint256(stats[9])
 		);
 			
@@ -1178,7 +1178,7 @@ contract Battle is BattleBase, Random, Pausable {
 	}
 		
 	
-	/// @dev Compute developer&#39;s fee
+	/// @dev Compute developer's fee
 	/// @param _challengeFee - transaction fee
 	function _calculateFee(uint256 _challengeFee) internal view returns (uint256) {
 		return developerCut.mul(_challengeFee/10000);

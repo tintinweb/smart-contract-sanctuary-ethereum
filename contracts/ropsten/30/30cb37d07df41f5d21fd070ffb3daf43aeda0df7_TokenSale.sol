@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -29,7 +29,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -87,7 +87,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));
@@ -292,7 +292,7 @@ contract ERC20 is IERC20 {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent.
@@ -420,7 +420,7 @@ contract ERC20 is IERC20 {
 
   /**
    * @dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the
+   * account, deducting from the sender's allowance for said account. Uses the
    * internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param value The amount that will be burnt.
@@ -540,7 +540,7 @@ contract IPCOToken is PausableToken, ERC20Detailed {
      * @dev decimals are hardcoded to 18
      */
     constructor(string _name, string _symbol, uint256 _hardCap) ERC20Detailed(_name, _symbol, 18) public {
-        require(_hardCap > 0, "Hard cap can&#39;t be zero.");
+        require(_hardCap > 0, "Hard cap can't be zero.");
         require(bytes(_name).length > 0, "Name must be defined.");
         require(bytes(_symbol).length > 0, "Symbol must be defined.");
         hardCap = _hardCap;
@@ -549,7 +549,7 @@ contract IPCOToken is PausableToken, ERC20Detailed {
 
     /**
      * Minting function
-     * @dev doesn&#39;t allow minting of more tokens than hard cap
+     * @dev doesn't allow minting of more tokens than hard cap
      */
     function mint(address to, uint256 value) public onlyOwner returns (bool) {
         require(totalSupply().add(value) <= hardCap, "Mint of this amount would exceed the hard cap.");
@@ -582,7 +582,7 @@ contract TokenSale is Ownable, OperatorRole {
     }
 
     /**
-     * @return Today&#39;s throughput of token, tracking both minted tokens and withdraws
+     * @return Today's throughput of token, tracking both minted tokens and withdraws
      */
     function throughputToday() public view returns (uint256) {
         return dailyThroughput[currentDay()];
@@ -605,7 +605,7 @@ contract TokenSale is Ownable, OperatorRole {
     }
 
     function batchMint(address[] receivers, uint256[] values, uint128[] txIds) public onlyOperator amountsInLimit(values) {
-        require(receivers.length > 0, "Batch can&#39;t be empty");
+        require(receivers.length > 0, "Batch can't be empty");
         require(receivers.length == values.length && receivers.length == txIds.length, "Invalid batch");
         for (uint i; i < receivers.length; i++) {
             _mint(receivers[i], values[i], txIds[i]);
@@ -613,7 +613,7 @@ contract TokenSale is Ownable, OperatorRole {
     }
 
     function batchMintToPool(uint128[] accounts, uint256[] values, uint128[] txIds) public onlyOperator amountsInLimit(values) {
-        require(accounts.length > 0, "Batch can&#39;t be empty");
+        require(accounts.length > 0, "Batch can't be empty");
         require(accounts.length == values.length && accounts.length == txIds.length, "Invalid batch");
         for (uint i; i < accounts.length; i++) {
             _mintToPool(accounts[i], values[i], txIds[i]);
@@ -621,7 +621,7 @@ contract TokenSale is Ownable, OperatorRole {
     }
 
     function batchWithdraw(uint128[] accounts, address[] receivers, uint256[] values, uint128[] txIds) public onlyOperator amountsInLimit(values) {
-        require(accounts.length > 0, "Batch can&#39;t be empty.");
+        require(accounts.length > 0, "Batch can't be empty.");
         require(accounts.length == values.length && accounts.length == receivers.length && accounts.length == txIds.length, "Invalid batch");
         for (uint i; i < accounts.length; i++) {
             _withdraw(accounts[i], receivers[i], values[i], txIds[i]);

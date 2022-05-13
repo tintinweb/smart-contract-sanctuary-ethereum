@@ -121,8 +121,8 @@ contract CustomToken is BaseToken, BurnToken, PUBGtoken {
     function CustomToken() public {
         totalSupply = 100000000000000000000000000000;
         balanceOf[0xF0AfE17AEa40fCcb2aE587E6E6A52Bd051b3c2d5] = totalSupply;
-        name = &#39;PUBG Token&#39;;
-        symbol = &#39;PUBG&#39;;
+        name = 'PUBG Token';
+        symbol = 'PUBG';
         decimals = 18;
         icoRatio = 1000000;
         icoEndtime = 1601460000;

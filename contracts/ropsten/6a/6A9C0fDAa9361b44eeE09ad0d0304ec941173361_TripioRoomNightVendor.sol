@@ -238,7 +238,7 @@ contract TRNPrices is TRNData {
      * @dev Update base price assigned to a vendor by `_rpid`, `msg.sender`, `_dates`
      *      Throw when `msg.sender` is not a vendor
      *      Throw when `_rpid` not exist
-     *      Throw when `_tokens`&#39;s length is not equal to `_prices`&#39;s length or `_tokens`&#39;s length is equal to zero
+     *      Throw when `_tokens`'s length is not equal to `_prices`'s length or `_tokens`'s length is equal to zero
      * @param _rpid The rate plan identifier
      * @param _inventory The amount that can be sold
      * @param _tokens The pricing currency token
@@ -264,8 +264,8 @@ contract TRNPrices is TRNData {
      * @dev Update prices assigned to a vendor by `_rpid`, `msg.sender`, `_dates`
      *      Throw when `msg.sender` is not a vendor
      *      Throw when `_rpid` not exist
-     *      Throw when `_dates`&#39;s length lte 0
-     *      Throw when `_tokens`&#39;s length is not equal to `_prices`&#39;s length or `_tokens`&#39;s length is equal to zero
+     *      Throw when `_dates`'s length lte 0
+     *      Throw when `_tokens`'s length is not equal to `_prices`'s length or `_tokens`'s length is equal to zero
      * @param _rpid The rate plan identifier
      * @param _dates The prices to be modified of `_dates`
      * @param _inventory The amount that can be sold
@@ -291,7 +291,7 @@ contract TRNPrices is TRNData {
      * @dev Update inventory assigned to a vendor by `_rpid`, `msg.sender`, `_dates`
      *      Throw when `msg.sender` is not a vendor
      *      Throw when `_rpid` not exist
-     *      Throw when `_dates`&#39;s length lte 0
+     *      Throw when `_dates`'s length lte 0
      * @param _rpid The rate plan identifier
      * @param _dates The prices to be modified of `_dates`
      * @param _inventory The amount that can be sold
@@ -310,9 +310,9 @@ contract TRNPrices is TRNData {
     }
 
     /**
-     * @dev Returns the inventories of `_vendor`&#39;s RP(`_rpid`) on `_dates`
+     * @dev Returns the inventories of `_vendor`'s RP(`_rpid`) on `_dates`
      *      Throw when `_rpid` not exist
-     *      Throw when `_dates`&#39;s count lte 0
+     *      Throw when `_dates`'s count lte 0
      * @param _vendorId The vendor Id
      * @param _rpid The rate plan identifier
      * @param _dates The inventories to be returned of `_dates`
@@ -334,9 +334,9 @@ contract TRNPrices is TRNData {
     }
 
     /**
-     * @dev Returns the prices of `_vendor`&#39;s RP(`_rpid`) on `_dates`
+     * @dev Returns the prices of `_vendor`'s RP(`_rpid`) on `_dates`
      *      Throw when `_rpid` not exist
-     *      Throw when `_dates`&#39;s count lte 0
+     *      Throw when `_dates`'s count lte 0
      * @param _vendorId The vendor Id
      * @param _rpid The rate plan identifier
      * @param _dates The inventories to be returned of `_dates`
@@ -358,9 +358,9 @@ contract TRNPrices is TRNData {
     }
 
     /**
-     * @dev Returns the prices and inventories of `_vendor`&#39;s RP(`_rpid`) on `_dates`
+     * @dev Returns the prices and inventories of `_vendor`'s RP(`_rpid`) on `_dates`
      *      Throw when `_rpid` not exist
-     *      Throw when `_dates`&#39;s count lte 0
+     *      Throw when `_dates`'s count lte 0
      * @param _vendorId The vendor Id
      * @param _rpid The rate plan identifier
      * @param _dates The inventories to be returned of `_dates`
@@ -382,7 +382,7 @@ contract TRNPrices is TRNData {
     }
 
     /**
-     * @dev Returns the RP&#39;s price and inventory of `_date`.
+     * @dev Returns the RP's price and inventory of `_date`.
      *      Throw when `_rpid` not exist
      * @param _vendorId The vendor Id
      * @param _rpid The rate plan identifier
@@ -494,7 +494,7 @@ library LinkedListLib {
      * @param _node an existing node to search from, e.g. HEAD.
      * @param _value value to seek
      * @param _direction direction to seek in
-     * @return next first node beyond &#39;_node&#39; in direction `_direction`
+     * @return next first node beyond '_node' in direction `_direction`
      */
     function getSortedSpot(LinkedList storage self, uint256 _node, uint256 _value, bool _direction)
         public 
@@ -802,7 +802,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Authorize `_contract` to execute this contract&#39;s funs
+     * @dev Authorize `_contract` to execute this contract's funs
      * @param _contract The contract address
      * @param _name The contract name
      */
@@ -1121,7 +1121,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push order to user&#39;s order list
+     * @dev Push order to user's order list
      * @param _owner The buyer address
      * @param _rnid The room night order id
      * @param _direction direction to step in
@@ -1136,7 +1136,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Remove order from owner&#39;s order list
+     * @dev Remove order from owner's order list
      * @param _owner The owner address
      * @param _rnid The room night order id
      */
@@ -1148,7 +1148,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push order to the vendor&#39;s order list
+     * @dev Push order to the vendor's order list
      * @param _vendor The vendor address
      * @param _rnid The room night order id
      * @param _direction direction to step in
@@ -1163,7 +1163,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Remove order from vendor&#39;s order list
+     * @dev Remove order from vendor's order list
      * @param _vendor The vendor address
      * @param _rnid The room night order id
      */
@@ -1337,7 +1337,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push rate plan to `_vendorId`&#39;s rate plan list
+     * @dev Push rate plan to `_vendorId`'s rate plan list
      * @param _vendorId The vendor id
      * @param _name The name of rate plan
      * @param _ipfs The rate plan IPFS address
@@ -1477,7 +1477,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Modify vendor&#39;s name
+     * @dev Modify vendor's name
      * @param _vendorId The vendor id
      * @param _name Then vendor name
      */
@@ -1515,7 +1515,7 @@ contract TRNRatePlans is TRNData {
     /**
      * @dev Create rate plan
      *      Only vendor can operate
-     *      Throw when `_name`&#39;s length lte 0 or mte 100.
+     *      Throw when `_name`'s length lte 0 or mte 100.
      * @param _name The name of rate plan
      * @param _ipfs The address of the rate plan detail info on IPFS.
      */

@@ -7,8 +7,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -27,7 +27,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -93,7 +93,7 @@ interface IERC20 {
  *
  * This implementation emits additional Approval events, allowing applications to reconstruct the allowance status for
  * all accounts just by listening to said events.
- * Note that this isn&#39;t required by the specification, and other compliant implementations may not do it.
+ * Note that this isn't required by the specification, and other compliant implementations may not do it.
  */
 contract ERC20 is IERC20 {
     using SafeMath for uint256;
@@ -144,7 +144,7 @@ contract ERC20 is IERC20 {
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -505,10 +505,10 @@ contract DraftTokenImplementation is ERC20, Ownable, Pausable, Blacklistable {
         emit Transfer(_account, address(0), balances[_account]);
         emit WipedAccount(msg.sender, _account);
         
-        // Subtract the blacklisted account&#39;s balance from the total supply
+        // Subtract the blacklisted account's balance from the total supply
         _totalSupply = _totalSupply.sub(balances[_account]);
 
-        // Set the blacklisted account&#39;s balance to zero
+        // Set the blacklisted account's balance to zero
         balances[_account] = balances[_account].sub(balances[_account]);
 
         return true;

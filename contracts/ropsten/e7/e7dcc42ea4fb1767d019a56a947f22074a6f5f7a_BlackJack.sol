@@ -8,12 +8,12 @@ pragma solidity ^0.4.25;
 //RULES:
 
 //Split Under 21 Rule
-//Modified split: If either of the player&#39;s hand 
+//Modified split: If either of the player's hand 
 //in a split beats dealer, player wins bet on both hands automatically
 //But if Player busts on either deck, Dealer wins bet on both decks.
-//If player&#39;s first hand has a standoff with dealer, player&#39;s other hand
+//If player's first hand has a standoff with dealer, player's other hand
 //must beat dealer, otherwise dealer wins
-//If player&#39;s second hand stands off with dealer,
+//If player's second hand stands off with dealer,
 //player gets original bet back
 
 //Player can either double down or split, player cannot split
@@ -114,7 +114,7 @@ contract BlackJack {
         _safeBalance += msg.value;
         _origBalance += msg.value;
         
-        //Register player&#39;s address
+        //Register player's address
         _player = msg.sender;
         
         //log event    
@@ -156,7 +156,7 @@ contract BlackJack {
     function placeBet(uint256 bet) isValidAddr isPlayer newRound public returns (string) {
         uint256 betEth;
         
-        //only reset player&#39;s bet if not a double down or split or insurance bet
+        //only reset player's bet if not a double down or split or insurance bet
         if(_dDown == false && _split == false && _insurance == false)
             _pBet = 0;
         
@@ -166,12 +166,12 @@ contract BlackJack {
         require(betEth >= 1 wei && betEth <= 1000 wei, "Bet Limits are 1 wei - 1000 wei.");
         
         //make sure player can afford bet
-        require(betEth <= _safeBalance, "Sorry, You don&#39;t have enough to place that bet.");
+        require(betEth <= _safeBalance, "Sorry, You don't have enough to place that bet.");
         
         //update balance
         _safeBalance -= betEth;
         
-        //don&#39;t replace original bet with insurance bet
+        //don't replace original bet with insurance bet
         if(_insurance == false)
             _pBet += betEth;
         
@@ -202,7 +202,7 @@ contract BlackJack {
         uint256 tempBalance = 0;
         //if player lost money
         if(_safeBalance <= _origBalance)
-            _dMsg = "You would have lost Ether! Good thing I&#39;m a generous smart contract. Original bet returned.";
+            _dMsg = "You would have lost Ether! Good thing I'm a generous smart contract. Original bet returned.";
         else
             _dMsg = "You are a worthy advesary! Original bet returned.";
         
@@ -257,7 +257,7 @@ contract BlackJack {
             _pCard2 = 11;
         }
         
-        //player&#39;s total
+        //player's total
         _pCardTotal = _pCard1 + _pCard2;
         
         //Insurance
@@ -267,7 +267,7 @@ contract BlackJack {
             _insurance = true;
         }
         
-        //dealer&#39;s total
+        //dealer's total
         _dCardTotal = _dCard1 + _dCard2;
         
         
@@ -275,7 +275,7 @@ contract BlackJack {
         if(_pCardTotal == 21) {
             //if there might be a standoff
             if(_dCard1 == 10) {
-                //show dealer&#39;s second card
+                //show dealer's second card
                 _dCard2 = RNG();
                 //Ace is always 11 in this case
                 if(_dCard2 == 1) 
@@ -300,27 +300,27 @@ contract BlackJack {
         }
         //Normal turn
         else
-            _dMsg = " --> Player&#39;s Turn.";
+            _dMsg = " --> Player's Turn.";
         
         //split
         if(_pCard1 == _pCard2) {
             if(_insurance == true)
-                _dMsg = " --> Player&#39;s Turn. Want Insurance? Player can Split.";
+                _dMsg = " --> Player's Turn. Want Insurance? Player can Split.";
             else
-                _dMsg = " --> Player&#39;s Turn. Player can Split.";
+                _dMsg = " --> Player's Turn. Player can Split.";
             _split = true;
         }
         
         //Double down - Reno Rule (9 or 10 or 11)
         if(_pCardTotal == 9 || _pCardTotal == 10 || _pCardTotal == 11) {
             if(_insurance == true) {
-                _dMsg = " --> Player&#39;s Turn. Want Insurance? Player can Double Down.";
+                _dMsg = " --> Player's Turn. Want Insurance? Player can Double Down.";
                 if(_split == true)
-                    _dMsg = " --> Player&#39;s Turn. Want Insurance? Player can Split or Double Down.";
+                    _dMsg = " --> Player's Turn. Want Insurance? Player can Split or Double Down.";
             } else {
-                _dMsg = " --> Player&#39;s Turn. Player can Double Down.";
+                _dMsg = " --> Player's Turn. Player can Double Down.";
                 if(_split == true)
-                    _dMsg = " --> Player&#39;s Turn. Player can Split or Double Down.";
+                    _dMsg = " --> Player's Turn. Player can Split or Double Down.";
             }
             _dDown = true;
         }
@@ -368,7 +368,7 @@ contract BlackJack {
         //handle double down, Insurance and Splitting
         dDownInsSplit();
         
-        //Dealer&#39;s turn
+        //Dealer's turn
         if(_splitCount < 2) {
             //show Dealer Card 2
             _dCard2 = RNG();
@@ -378,11 +378,11 @@ contract BlackJack {
                 _dCard2 = 11;
             }
          
-            //update Dealer&#39;s card Total
+            //update Dealer's card Total
             _dCardTotal = _dCard1 + _dCard2;
         
             uint256 _dCardIndex = 0;        
-            //Dealer must Hit to 16 and Stand on all 17&#39;s
+            //Dealer must Hit to 16 and Stand on all 17's
             while(_dCardTotal < 17) {
                 _dNewCard[_dCardIndex] = RNG();
                 //Ace
@@ -408,7 +408,7 @@ contract BlackJack {
             } else {
                 if(_splitting == true) {
                     _splitCount += 1;
-                    _dMsg = " --> Player&#39;s Turn.";
+                    _dMsg = " --> Player's Turn.";
                 }
                 else {
                     _dMsg = " --> BlackJack! Dealer Wins.";
@@ -425,7 +425,7 @@ contract BlackJack {
         } else if(_dCardTotal > 21) {
             if(_splitting == true) {
                 _splitCount += 1;
-                _dMsg = " --> Player&#39;s Turn.";
+                _dMsg = " --> Player's Turn.";
                 //update balance
                 _safeBalance += (_pBet * 2);
             }
@@ -443,7 +443,7 @@ contract BlackJack {
                 if((21 - _dCardTotal) < (21 - _pCardTotal)) {
                     if(_splitting == true) {
                         _splitCount += 1;
-                        _dMsg = " --> Player&#39;s Turn.";
+                        _dMsg = " --> Player's Turn.";
                     }
                     else {
                         _dMsg = " --> Dealer Wins.";
@@ -453,7 +453,7 @@ contract BlackJack {
                 } else if((21 - _dCardTotal) > (21 - _pCardTotal)) {
                     if(_splitting == true) {
                         _splitCount += 1;
-                        _dMsg = " --> Player&#39;s Turn.";
+                        _dMsg = " --> Player's Turn.";
                         //update balance
                         _safeBalance += (_pBet * 2);
                     }
@@ -467,7 +467,7 @@ contract BlackJack {
                 } else {
                     if(_splitting == true) {
                         _splitCount += 1;
-                        _dMsg = " --> Player&#39;s Turn.";
+                        _dMsg = " --> Player's Turn.";
                         //update balance
                         _safeBalance += _pBet;
                     }
@@ -500,7 +500,7 @@ contract BlackJack {
             //remove chance to split
             _split = false;
         }
-        //if player has a chance to get insurance but doesn&#39;t
+        //if player has a chance to get insurance but doesn't
         if(_insurance == true) {
             //remove chance to get insurance
             _insurance = false;
@@ -526,7 +526,7 @@ contract BlackJack {
             _pNewCard = 11;
         }
         
-        //update player&#39;s card total
+        //update player's card total
         _pCardTotal += _pNewCard;
         
         //let dealer finish his hand and end round
@@ -544,7 +544,7 @@ contract BlackJack {
             //remove chance to double down
             _dDown = false;
         }
-        //if player has a chance to get insurance but doesn&#39;t
+        //if player has a chance to get insurance but doesn't
         if(_insurance == true) {
             //remove chance to get insurance
             _insurance = false;
@@ -575,7 +575,7 @@ contract BlackJack {
         //turn chance to split again off
         _split = false;
         
-        //If player&#39;s cards are both Aces
+        //If player's cards are both Aces
         if(_pCard1 == 11) {
             //deal only one more card for card 1
             _pNewCard = RNG();
@@ -589,7 +589,7 @@ contract BlackJack {
             
             //turn splitting off
             _splitting = false;
-            //make sure dealer doesn&#39;t draw again
+            //make sure dealer doesn't draw again
             _splitCount = 2;
             
             //deal only one more card for card 2
@@ -669,7 +669,7 @@ contract BlackJack {
         if(_cTotal == 21) {
             //if there might be a standoff
             if(_dCard1 >= 10) {
-                //show dealer&#39;s second card
+                //show dealer's second card
                 _dCard2 = RNG();
                 //update dealer card total
                 _dCardTotal = _dCard1 + _dCard2;
@@ -698,7 +698,7 @@ contract BlackJack {
             //if player was insured
             if(_insured == true) {
                 _insured = false;
-                //show dealer&#39;s second card
+                //show dealer's second card
                 _dCard2 = RNG();
                 //update dealer card total
                 _dCardTotal = _dCard1 + _dCard2;
@@ -709,7 +709,7 @@ contract BlackJack {
             _roundInProgress = false; 
         }
         else
-            _dMsg = " --> Player&#39;s Turn.";
+            _dMsg = " --> Player's Turn.";
         
     }
     

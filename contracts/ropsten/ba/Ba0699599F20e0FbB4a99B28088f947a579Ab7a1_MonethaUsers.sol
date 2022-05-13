@@ -110,12 +110,12 @@ contract MonethaUsers is Contactable {
     event UpdatedUser(address indexed _userAddress, string _name, uint256 _newStarScore, uint256 _newReputationScore, uint256 _newSignedDealsCount);
 
     /**
-     *  registerUser associates a Monetha user&#39;s ethereum address with his nickname and trust score
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _name corresponds to use&#39;s nickname
-     *  @param _starScore represents user&#39;s star score
-     *  @param _reputationScore represents user&#39;s reputation score
-     *  @param _signedDealsCount represents user&#39;s signed deal count
+     *  registerUser associates a Monetha user's ethereum address with his nickname and trust score
+     *  @param _userAddress address of user's wallet
+     *  @param _name corresponds to use's nickname
+     *  @param _starScore represents user's star score
+     *  @param _reputationScore represents user's reputation score
+     *  @param _signedDealsCount represents user's signed deal count
      */
     function registerUser(address _userAddress, string _name, uint256 _starScore, uint256 _reputationScore, uint256 _signedDealsCount)
         external onlyOwner
@@ -132,8 +132,8 @@ contract MonethaUsers is Contactable {
 
     /**
      *  updateStarScore updates the star score of a Monetha user
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedStars represents user&#39;s new star score
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedStars represents user's new star score
      */
     function updateStarScore(address _userAddress, uint256 _updatedStars)
         external onlyOwner
@@ -164,8 +164,8 @@ contract MonethaUsers is Contactable {
 
     /**
      *  updateReputationScore updates the reputation score of a Monetha user
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedReputation represents user&#39;s new reputation score
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedReputation represents user's new reputation score
      */
     function updateReputationScore(address _userAddress, uint256 _updatedReputation)
         external onlyOwner
@@ -196,9 +196,9 @@ contract MonethaUsers is Contactable {
 
     /**
      *  updateTrustScore updates the trust score of a Monetha user
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedStars represents user&#39;s new star score
-     *  @param _updatedReputation represents user&#39;s new reputation score
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedStars represents user's new star score
+     *  @param _updatedReputation represents user's new reputation score
      */
     function updateTrustScore(address _userAddress, uint256 _updatedStars, uint256 _updatedReputation)
         external onlyOwner
@@ -232,8 +232,8 @@ contract MonethaUsers is Contactable {
 
     /**
      *  updateSignedDealsCount updates the star score of a Monetha user
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedSignedDeals represents user&#39;s new signed deals
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedSignedDeals represents user's new signed deals
      */
     function updateSignedDealsCount(address _userAddress, uint256 _updatedSignedDeals)
         external onlyOwner
@@ -268,8 +268,8 @@ contract MonethaUsers is Contactable {
 
     /**
      *  updateName updates the name of a Monetha user
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _updatedName represents user&#39;s new nick name
+     *  @param _userAddress address of user's wallet
+     *  @param _updatedName represents user's new nick name
      */
     function updateName(address _userAddress, string _updatedName)
         external onlyOwner

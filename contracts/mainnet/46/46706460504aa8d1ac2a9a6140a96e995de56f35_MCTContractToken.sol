@@ -327,7 +327,7 @@ contract MCTCrowdsale is Owned, safeMath {
         }
         if(buyMCT(_msgSender, tokenBuy)) {                                      // Buy MCT Token
             totalCrowdsaleEther += _msgValue;
-            tokenUsersSave[_msgSender].value += _msgValue;                      // Store each person&#39;s Ether
+            tokenUsersSave[_msgSender].value += _msgValue;                      // Store each person's Ether
             return true;
         }
         return false;

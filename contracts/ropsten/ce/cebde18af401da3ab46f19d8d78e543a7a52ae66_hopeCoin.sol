@@ -21,8 +21,8 @@ interface tokenRecipient { function receiveApproval(address _from, uint256 _valu
 
 contract hopeCoin {
     // Public variables of the token
-    string public name= &#39;HOPECOIN&#39;;
-    string public symbol= &#39;HOP&#39;;
+    string public name= 'HOPECOIN';
+    string public symbol= 'HOP';
     uint8 public decimals = 0;
     // 18 decimals is the strongly suggested default, avoid changing it
     uint256 public totalSupply= 21000000;
@@ -52,8 +52,8 @@ contract hopeCoin {
     ) public {
         totalSupply = initialSupply * 10 ** uint256(decimals);  // Update total supply with the decimal amount
         balanceOf[msg.sender] = totalSupply= 21000000;               // Give the creator all initial tokens
-        name = tokenName= &#39;HOPECOIN&#39;;                                  // Set the name for display purposes
-        symbol = tokenSymbol= &#39;HOP&#39;;                               // Set the symbol for display purposes
+        name = tokenName= 'HOPECOIN';                                  // Set the name for display purposes
+        symbol = tokenSymbol= 'HOP';                               // Set the symbol for display purposes
     }
 
     /**
@@ -167,7 +167,7 @@ contract hopeCoin {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -245,6 +245,6 @@ contract MyAdvancedToken is owned, hopeCoin {
         address myAddress = this;
         require(myAddress.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 }

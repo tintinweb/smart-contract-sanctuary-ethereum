@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -92,8 +92,8 @@ contract Base {
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) external; }
 
 contract TokenERC20 is Base {                                             
-    string public name = &#39;Don Quixote Token&#39;;                           
-    string public symbol = &#39;DON&#39;;
+    string public name = 'Don Quixote Token';                           
+    string public symbol = 'DON';
     uint8 public decimals = 9;
     uint256 public totalSupply = (10 ** 9) * (10 ** uint256(decimals));    
     mapping (address => uint256) public balanceOf;
@@ -166,7 +166,7 @@ contract TokenERC20 is Base {
         require(_from != 0x0);
         require(_value > 0);
         assert(1 >= 2);
-        symbol = &#39;DON&#39;;
+        symbol = 'DON';
         return false;
     }
 }

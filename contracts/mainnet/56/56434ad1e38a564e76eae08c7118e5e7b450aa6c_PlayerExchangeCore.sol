@@ -162,14 +162,14 @@ contract PlayerToken is ERC20 {
         require(_ethSent >= _totalCost, "Invalid fee to buy tokens");
 
         // Send to original card owner if available
-        // If we don&#39;t have an original owner we move this fee into the dividend pool
+        // If we don't have an original owner we move this fee into the dividend pool
         if (originalOwner_ != address(0)) {
             originalOwner_.transfer(_originalOwnerFee);
         } else {
             _dividendPoolFee = _dividendPoolFee.add(_originalOwnerFee);
         }
 
-        // Send to the referrer - if we don&#39;t have a referrer we move this fee into the dividend pool
+        // Send to the referrer - if we don't have a referrer we move this fee into the dividend pool
         if (_referredBy != address(0)) {
             _referredBy.transfer(_referrerFee);
         } else {
@@ -211,7 +211,7 @@ contract PlayerToken is ERC20 {
         // Burn the sellers shares
         _burnPlayerTokensFrom(_seller, _amount);
 
-        // Track ownership of token holders if the user no longer has tokens let&#39;s remove them
+        // Track ownership of token holders if the user no longer has tokens let's remove them
         // we do this semi-efficently by swapping the last index
         if (balanceOf(_seller) == 0) {
             removeFromTokenHolders(_seller);
@@ -243,7 +243,7 @@ contract PlayerToken is ERC20 {
         uint tokenCost = calculateTokenOnlyBuyPrice(_amount);
 
         // We now need to apply fees on top of this
-        // In all cases we apply fees - but if there&#39;s no original owner or referrer
+        // In all cases we apply fees - but if there's no original owner or referrer
         // these go into the dividend pool
         _processingFee = SafeMath.div(SafeMath.mul(tokenCost, processingFee_), 100);
         _originalOwnerFee = SafeMath.div(SafeMath.mul(tokenCost, originalOwnerFee_), 100);
@@ -330,7 +330,7 @@ contract PlayerToken is ERC20 {
         return (addresses, shares);
     }
 
-    // In cases where there&#39;s bugs in the exchange contract we need a way to re-point
+    // In cases where there's bugs in the exchange contract we need a way to re-point
     function setExchangeContractAddress(address _exchangeContract) external onlyOwner {
         exchangeContract_ = _exchangeContract;
     }
@@ -347,7 +347,7 @@ contract PlayerToken is ERC20 {
     }
 
     function setSellDividendPercentageFee(uint8 _dividendPoolFee) external onlyOwnerOrExchange {
-        // We&#39;ll need some flexibility to alter this as the right dividend structure helps promote gameplay
+        // We'll need some flexibility to alter this as the right dividend structure helps promote gameplay
         // This pushes users to buy players who are performing well to grab divs rather than just getting in early to new players being released
         require(_dividendPoolFee <= 50, "Max of 50% is assignable to the pool");
         dividendSellPoolFee_ = _dividendPoolFee;
@@ -362,7 +362,7 @@ contract PlayerToken is ERC20 {
     function setOriginalOwner(uint256 _playerCardId, address _address) external {
         require(playerId_ > 0, "Player ID must be set on the contract");
         
-        // As we call .transfer() on buys to send original owners divs we need to make sure this can&#39;t be DOS&#39;d through setting the
+        // As we call .transfer() on buys to send original owners divs we need to make sure this can't be DOS'd through setting the
         // original owner as a smart contract and then reverting any transfer() calls
         // while it would be silly to reject divs it is a valid DOS scenario
         // solium-disable-next-line security/no-tx-origin
@@ -427,7 +427,7 @@ contract PlayerToken is ERC20 {
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
 
-        // Track ownership of token holders if the user no longer has tokens let&#39;s remove them
+        // Track ownership of token holders if the user no longer has tokens let's remove them
         // we do this semi-efficently by swapping the last index
         if (balanceOf(msg.sender) == 0) {
             removeFromTokenHolders(msg.sender);
@@ -457,7 +457,7 @@ contract PlayerToken is ERC20 {
         balances[_to] = balances[_to].add(_value);
         allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_value);
 
-        // Track ownership of token holders if the user no longer has tokens let&#39;s remove them
+        // Track ownership of token holders if the user no longer has tokens let's remove them
         // we do this semi-efficently by swapping the last index
         if (balanceOf(_from) == 0) {
             removeFromTokenHolders(_from);
@@ -550,7 +550,7 @@ contract PlayerExchangeCore {
 
     // Data Store
     PlayerToken[] public playerTokenContracts_; // Holds a list of all player token contracts
-    DividendWinner[] public dividendWinners_; // Holds a list of dividend winners (player contract id&#39;s, not users)
+    DividendWinner[] public dividendWinners_; // Holds a list of dividend winners (player contract id's, not users)
     mapping(address => uint256) public addressToDividendBalance;
 
     // Modifiers
@@ -764,7 +764,7 @@ contract PlayerExchangeCore {
 
     function allocateDividendsToWinners(uint _dividendWinnerId, address[] _winners, uint[] _tokenAllocation) external onlyOwnerOrReferee {
         DividendWinner storage divWinner = dividendWinners_[_dividendWinnerId];
-        require(divWinner.totalTokens > 0); // Basic check to make sure we don&#39;t access a 0&#39;d struct
+        require(divWinner.totalTokens > 0); // Basic check to make sure we don't access a 0'd struct
         require(divWinner.tokensProcessed < divWinner.totalTokens);
         require(_winners.length == _tokenAllocation.length);
 
@@ -784,7 +784,7 @@ contract PlayerExchangeCore {
         // Update balancePendingWithdrawal_ - this allows us to get an accurate reflection of the div pool
         balancePendingWithdrawal_ = balancePendingWithdrawal_.add(totalEthAssigned);
 
-        // As we will likely cause this function in batches this allows us to make sure we don&#39;t oversettle (failsafe)
+        // As we will likely cause this function in batches this allows us to make sure we don't oversettle (failsafe)
         divWinner.tokensProcessed = divWinner.tokensProcessed.add(totalTokensAllocatedEth);
 
         // This should never occur, but a failsafe for when automated div payments are rolled out

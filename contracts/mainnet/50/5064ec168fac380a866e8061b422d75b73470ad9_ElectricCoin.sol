@@ -3,7 +3,7 @@ pragma solidity ^0.4.21;
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract ElectricCoin {
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -20,8 +20,8 @@ contract ElectricCoin {
     function ElectricCoin() public {
         balances[msg.sender] = 30000000000000000;
         _totalSupply = 30000000000000000;
-        name = &#39;ElectricCoin&#39;;
-        symbol = &#39;ETR&#39;;
+        name = 'ElectricCoin';
+        symbol = 'ETR';
         decimals = 8;
         owner = msg.sender;
     }

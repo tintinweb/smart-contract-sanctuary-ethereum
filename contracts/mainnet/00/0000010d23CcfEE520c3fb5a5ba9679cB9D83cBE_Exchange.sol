@@ -5,8 +5,8 @@ interface tokenRecipient {
 }
 
 contract ZFX {
-    string public name = &#39;ZFX&#39;;
-    string public symbol = &#39;ZFX&#39;;
+    string public name = 'ZFX';
+    string public symbol = 'ZFX';
     uint8 public decimals = 18;
     uint public totalSupply = 1000000 * 10 ** uint(decimals);
     address public owner;
@@ -150,7 +150,7 @@ contract ZFX {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;

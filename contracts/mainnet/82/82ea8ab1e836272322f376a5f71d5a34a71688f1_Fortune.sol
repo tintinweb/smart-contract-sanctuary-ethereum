@@ -4,7 +4,7 @@
  * This is an automatically generated file. It will be overwritten.
  *
  * For the original source see
- *    &#39;/Users/swaldman/Dropbox/BaseFolders/development-why/gitproj/eth-fortune/src/main/solidity/Fortune.sol&#39;
+ *    '/Users/swaldman/Dropbox/BaseFolders/development-why/gitproj/eth-fortune/src/main/solidity/Fortune.sol'
  */
 
 pragma solidity ^0.4.10;

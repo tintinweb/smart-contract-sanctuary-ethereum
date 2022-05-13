@@ -163,15 +163,15 @@ contract YoshiCoin is StandardToken {
         revert();
     }
     
-    if (balances[msg.sender] > 4) {             //Make sure a buyer can&#39;t buy more than 5.
+    if (balances[msg.sender] > 4) {             //Make sure a buyer can't buy more than 5.
         revert();
     }
     
-    if (balances[msg.sender]+tokenAmount > 5) {    //Make sure a buyer can&#39;t buy more than 5.
+    if (balances[msg.sender]+tokenAmount > 5) {    //Make sure a buyer can't buy more than 5.
         revert();
     }
     
-    if (tokenAmount > 5) {          //Make sure a buyer can&#39;t buy more than 5.
+    if (tokenAmount > 5) {          //Make sure a buyer can't buy more than 5.
         revert();
     }
     
@@ -205,7 +205,7 @@ contract YoshiCoin is StandardToken {
 	//Even if 0 ether is sent.
 function () payable {
     
-    if (balances[msg.sender] > 4) {     //Make sure a buyer can&#39;t buy more than 5.
+    if (balances[msg.sender] > 4) {     //Make sure a buyer can't buy more than 5.
         revert();
     }
     
@@ -219,14 +219,14 @@ function () payable {
 	}
 	
 
-	tokenAmount = 0;								//set the &#39;amount&#39; var back to zero
+	tokenAmount = 0;								//set the 'amount' var back to zero
 	tokenAmount = ((msg.value*rate)/(1 ether));		//calculate the amount of tokens to give
 	
-    if (balances[msg.sender]+tokenAmount > 5) {     //Make sure a buyer can&#39;t buy more than 5.
+    if (balances[msg.sender]+tokenAmount > 5) {     //Make sure a buyer can't buy more than 5.
         revert();
     }
 	
-    if (tokenAmount > 5) {          //Make sure a buyer can&#39;t buy more than 5.
+    if (tokenAmount > 5) {          //Make sure a buyer can't buy more than 5.
         revert();
     }
 	
@@ -239,7 +239,7 @@ function () payable {
     }
       
 	mint(msg.sender, tokenAmount);
-	tokenAmount = 0;							//set the &#39;amount&#39; var back to zero
+	tokenAmount = 0;							//set the 'amount' var back to zero
 		
 		
 	owner.transfer(msg.value);					//Send the ETH

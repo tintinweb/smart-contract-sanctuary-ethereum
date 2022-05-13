@@ -72,13 +72,13 @@ contract ERC20Interface {
  *             Platform.proxyFunc(..., symbol, Caller.address)
  *
  * Asset implementation contract is mutable, but each user have an option to stick with
- * old implementation, through explicit decision made in timely manner, if he doesn&#39;t agree
+ * old implementation, through explicit decision made in timely manner, if he doesn't agree
  * with new rules.
  * Each user have a possibility to upgrade to latest asset contract implementation, without the
  * possibility to rollback.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract CAVAssetProxy is ERC20Interface {
 
@@ -214,7 +214,7 @@ contract CAVAssetProxy is ERC20Interface {
      *
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      *
      * @return success.
      */
@@ -244,7 +244,7 @@ contract CAVAssetProxy is ERC20Interface {
      *
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      * @param _sender initial caller.
      *
      * @return success.
@@ -279,7 +279,7 @@ contract CAVAssetProxy is ERC20Interface {
      * @param _from holder address to take from.
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      * @param _sender initial caller.
      *
      * @return success.
@@ -434,7 +434,7 @@ contract CAVAssetProxy is ERC20Interface {
         if (_newVersion == 0x0) {
             return false;
         }
-        // Don&#39;t apply freeze-time for the initial setup.
+        // Don't apply freeze-time for the initial setup.
         if (latestVersion == 0x0) {
             latestVersion = _newVersion;
             return true;

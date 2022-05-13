@@ -16,7 +16,7 @@ contract MillionDollarToken {
     event Transfer(address indexed from, address indexed to, uint256 value);
     
     //~ Setup
-    string public standard = &#39;MillionDollarToken&#39;;
+    string public standard = 'MillionDollarToken';
     string public name = "MillionDollarToken";
     string public symbol = "MDT";
     uint8 public decimals = 0;

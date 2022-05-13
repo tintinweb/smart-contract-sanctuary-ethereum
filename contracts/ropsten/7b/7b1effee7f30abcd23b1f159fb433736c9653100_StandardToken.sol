@@ -143,11 +143,11 @@ contract BAToken is StandardToken, SafeMath {
       if (block.number > fundingEndBlock) throw;
       if (msg.value == 0) throw;
 
-      uint256 tokens = safeMult(msg.value, tokenExchangeRate); // check that we&#39;re not over totals
+      uint256 tokens = safeMult(msg.value, tokenExchangeRate); // check that we're not over totals
       uint256 checkedSupply = safeAdd(totalSupply, tokens);
 
       // return money if something goes wrong
-      if (tokenCreationCap < checkedSupply) throw;  // odd fractions won&#39;t be found
+      if (tokenCreationCap < checkedSupply) throw;  // odd fractions won't be found
 
       totalSupply = checkedSupply;
       balances[msg.sender] += tokens;  // safeAdd not needed; bad semantics to use here
@@ -177,7 +177,7 @@ contract BAToken is StandardToken, SafeMath {
       totalSupply = safeSubtract(totalSupply, batVal); // extra safe
       uint256 ethVal = batVal / tokenExchangeRate;     // should be safe; previous throws covers edges
       LogRefund(msg.sender, ethVal);               // log it 
-      if (!msg.sender.send(ethVal)) throw;       // if you&#39;re using a contract; make sure it works with .send gas limits
+      if (!msg.sender.send(ethVal)) throw;       // if you're using a contract; make sure it works with .send gas limits
     }
 
 }

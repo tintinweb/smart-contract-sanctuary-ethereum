@@ -190,8 +190,8 @@ contract GWBCToken is StandardToken, Ownable{
     string public symbol;
     uint public decimals;
     constructor() public{
-        name = &#39;GWBC Token&#39;;
-        symbol = &#39;GWBC&#39;;
+        name = 'GWBC Token';
+        symbol = 'GWBC';
         decimals = 2;
         totalSupply_ = 10000000000 * 10 **uint(decimals);
         balances[msg.sender] = totalSupply_;

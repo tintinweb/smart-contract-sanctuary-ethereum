@@ -5,7 +5,7 @@ pragma solidity ^0.4.11;
   still non-transferrable, on an IOU basis. Like HitBTC, but with protection,
   control, and guarantee of either the purchased tokens or ETH refunded.
 
-  The Buyer&#39;s ETH will be locked into the contract until the purchased
+  The Buyer's ETH will be locked into the contract until the purchased
   IOU/tokens arrive here and are ready for the buyer to invoke withdraw(),
   OR until cut-off time defined below is exceeded and as a result ETH
   refunds/withdrawals become enabled.
@@ -14,7 +14,7 @@ pragma solidity ^0.4.11;
   before the cut-off time defined below, otherwise the buyer gains the
   ability to withdraw their ETH.
 
-  The buyer&#39;s ETH will ONLY be released to the seller AFTER the adequate
+  The buyer's ETH will ONLY be released to the seller AFTER the adequate
   amount of tokens have been deposited for ALL purchases.
 
   Withdrawal/distribution ETA: 2-3 weeks from ICO close
@@ -80,7 +80,7 @@ contract IOU {
   //  NET token contract address (IOU offering)
   NEToken public token = NEToken(0xcfb98637bcae43C13323EAa1731cED2B716962fD);
 
-  // The seller&#39;s address (to receive ETH upon distribution, and for authing safeties)
+  // The seller's address (to receive ETH upon distribution, and for authing safeties)
   address seller = 0xB00Ae1e677B27Eee9955d632FF07a8590210B366;
 
   // Halt further purchase ability just in case
@@ -125,7 +125,7 @@ contract IOU {
   }
 
   /*
-    Release buyer&#39;s ETH to seller ONLY if amount of contract&#39;s tokens balance
+    Release buyer's ETH to seller ONLY if amount of contract's tokens balance
     is >= to the amount that still needs to be withdrawn. Protects buyer.
 
     The seller must call this function manually after depositing the adequate
@@ -140,41 +140,41 @@ contract IOU {
     // Halt further purchases
     halt_purchases = true;
 
-    // Release buyer&#39;s ETH to the seller
+    // Release buyer's ETH to the seller
     seller.transfer(this.balance);
   }
 
   function withdraw() payable {
     /*
-      Main mechanism to ensure a buyer&#39;s purchase/ETH/IOU is safe.
+      Main mechanism to ensure a buyer's purchase/ETH/IOU is safe.
 
-      Refund the buyer&#39;s ETH if we&#39;re beyond the cut-off date of our distribution
-      promise AND if the contract doesn&#39;t have an adequate amount of tokens
+      Refund the buyer's ETH if we're beyond the cut-off date of our distribution
+      promise AND if the contract doesn't have an adequate amount of tokens
       to distribute to the buyer. Time-sensitive buyer/ETH protection is only
-      applicable if the contract doesn&#39;t have adequate tokens for the buyer.
+      applicable if the contract doesn't have adequate tokens for the buyer.
 
       The "adequacy" check prevents the seller and/or third party attacker
-      from locking down buyers&#39; ETH by sending in an arbitrary amount of tokens.
+      from locking down buyers' ETH by sending in an arbitrary amount of tokens.
 
       If for whatever reason the tokens remain locked for an unexpected period
       beyond the time defined by block.number, patient buyers may still wait until
       the contract is filled with their purchased IOUs/tokens. Once the tokens
       are here, they can initiate a withdraw() to retrieve their tokens. Attempting
       to withdraw any sooner (after the block has been mined, but tokens not arrived)
-      will result in a refund of buyer&#39;s ETH.
+      will result in a refund of buyer's ETH.
     */
     if(block.number > 4230000 && iou_purchased[msg.sender] > token.balanceOf(address(this))) {
-      // We didn&#39;t fulfill our promise to have adequate tokens withdrawable at xx time
-      // Refund the buyer&#39;s ETH automatically instead
+      // We didn't fulfill our promise to have adequate tokens withdrawable at xx time
+      // Refund the buyer's ETH automatically instead
       uint256 eth_to_refund = eth_sent[msg.sender];
 
-      // If the user doesn&#39;t have any ETH or tokens to withdraw, get out ASAP
+      // If the user doesn't have any ETH or tokens to withdraw, get out ASAP
       if(eth_to_refund == 0 || iou_purchased[msg.sender] == 0) throw;
 
       // Adjust total purchased so others can buy, and so numbers align with total_iou_withdrawn
       total_iou_purchased -= iou_purchased[msg.sender];
 
-      // Clear record of buyer&#39;s ETH and IOU balance before refunding
+      // Clear record of buyer's ETH and IOU balance before refunding
       eth_sent[msg.sender] = 0;
       iou_purchased[msg.sender] = 0;
 
@@ -190,10 +190,10 @@ contract IOU {
 
     uint256 iou_to_withdraw = iou_purchased[msg.sender];
 
-    // If the user doesn&#39;t have any IOUs to withdraw, get out ASAP
+    // If the user doesn't have any IOUs to withdraw, get out ASAP
     if(iou_to_withdraw == 0) throw;
 
-    // Clear record of buyer&#39;s IOU and ETH balance before transferring out
+    // Clear record of buyer's IOU and ETH balance before transferring out
     iou_purchased[msg.sender] = 0;
     eth_sent[msg.sender] = 0;
 

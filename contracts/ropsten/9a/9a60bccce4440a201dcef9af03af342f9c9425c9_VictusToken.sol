@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;Victus&#39; token contract
+// 'Victus' token contract
 //
 // Symbol      : W2W
 // Name        : Victus 
@@ -153,7 +153,7 @@ contract VictusToken is ERC20Interface, Owned, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

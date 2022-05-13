@@ -39,7 +39,7 @@ contract WhiteListAccess {
 // ----------------------------------------------------------------------------
 contract NRB_Common is WhiteListAccess {
     
-    string public name;             // contract&#39;s name
+    string public name;             // contract's name
     bool _init;
     
     function NRB_Common() public { ETH_address = 0x1; }
@@ -253,7 +253,7 @@ contract NRB_Users is NRB_Common {
         }
     }
     
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     function () public payable {
         revert();
     }

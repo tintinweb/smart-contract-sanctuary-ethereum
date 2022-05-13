@@ -1,9 +1,9 @@
 pragma solidity ^0.4.2;
 
 contract DappToken {
-    string public name = &#39;Ancap Token&#39;;
-    string public symbol = &#39;ANCAP&#39;;
-    string public standard = &#39;Ancap Token v1.0&#39;;
+    string public name = 'Ancap Token';
+    string public symbol = 'ANCAP';
+    string public standard = 'Ancap Token v1.0';
     uint256 public totalSupply;
 
     event Transfer(

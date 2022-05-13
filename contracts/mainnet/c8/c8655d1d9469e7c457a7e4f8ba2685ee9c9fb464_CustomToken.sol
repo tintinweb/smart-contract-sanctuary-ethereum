@@ -111,8 +111,8 @@ contract LockToken is BaseToken {
 contract CustomToken is BaseToken, BurnToken, ICOToken, LockToken {
     function CustomToken() public {
         totalSupply = 300000000000000000000000000;
-        name = &#39;Biwanp&#39;;
-        symbol = &#39;BWP&#39;;
+        name = 'Biwanp';
+        symbol = 'BWP';
         decimals = 18;
         balanceOf[0xc50a3762ec6e21d43346441561519878ae2200d7] = totalSupply;
         Transfer(address(0), 0xc50a3762ec6e21d43346441561519878ae2200d7, totalSupply);

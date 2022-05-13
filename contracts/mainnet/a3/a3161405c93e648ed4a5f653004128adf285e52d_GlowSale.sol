@@ -144,7 +144,7 @@ contract GlowSale is Ownable {
     }
 
     /*******************************************************************************
-     * Whitelist&#39;s section
+     * Whitelist's section
      */
     // с сайта backEndOperator авторизует инвестора
     function authorize(address wlCandidate) public backEnd  {
@@ -166,7 +166,7 @@ contract GlowSale is Ownable {
         return whitelist[wlCandidate];
     }
     /*******************************************************************************
-     * Payable&#39;s section
+     * Payable's section
      */
 
     function isPreSale() public constant returns(bool) {

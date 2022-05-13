@@ -104,7 +104,7 @@ contract TokenTrader is Owned {
         ActivatedEvent(buysTokens, sellsTokens);
     }
 
-    // Maker can activate or deactivate this contract&#39;s buying and
+    // Maker can activate or deactivate this contract's buying and
     // selling status
     //
     // The ActivatedEvent() event is logged with the following
@@ -125,7 +125,7 @@ contract TokenTrader is Owned {
     // can buy asset tokens.
     //
     // Maker deposits asset tokens to this contract by calling the
-    // asset&#39;s transfer() method with the following parameters
+    // asset's transfer() method with the following parameters
     //   _to     is the address of THIS contract
     //   _value  is the number of asset tokens to be transferred
     //
@@ -252,7 +252,7 @@ contract TokenTrader is Owned {
     // Taker buys asset tokens by sending ethers
     //
     // The TakerBoughtAsset() event is logged with the following parameters
-    //   buyer           is the buyer&#39;s address
+    //   buyer           is the buyer's address
     //   ethersSent      is the number of ethers sent by the buyer
     //   ethersReturned  is the number of ethers sent back to the buyer as
     //                   change
@@ -284,7 +284,7 @@ contract TokenTrader is Owned {
     }
 
     // Taker sells asset tokens for ethers by:
-    // 1. Calling the asset&#39;s approve() method with the following parameters
+    // 1. Calling the asset's approve() method with the following parameters
     //    _spender            is the address of this contract
     //    _value              is the number of tokens to be sold
     // 2. Calling this takerSellAsset() method with the following parameter
@@ -292,7 +292,7 @@ contract TokenTrader is Owned {
     //                        by the taker
     //
     // The TakerSoldAsset() event is logged with the following parameters
-    //   seller                  is the seller&#39;s address
+    //   seller                  is the seller's address
     //   amountOfTokensToSell    is the amount of the asset tokens being
     //                           sold by the taker
     //   tokensSold              is the number of the asset tokens sold
@@ -396,7 +396,7 @@ contract TokenTraderFactory is Owned {
     //   sellsTokens  true
     //
     // The TradeListing() event is logged with the following parameters
-    //   ownerAddress        is the Maker&#39;s address
+    //   ownerAddress        is the Maker's address
     //   tokenTraderAddress  is the address of the newly created TokenTrader contract
     //   asset               is the ERC20 asset address
     //   buyPrice            is the buy price in ethers per `units` of asset tokens
@@ -497,7 +497,7 @@ contract FixedSupplyToken is ERC20 {
         return balances[_owner];
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount) returns (bool success) {
         if (balances[msg.sender] >= _amount
             && _amount > 0
@@ -630,16 +630,16 @@ contract TokenToken is FixedSupplyToken{
       tokenExchange.transfer(msg.value * tokenRatios[i] / 1e18);
     }
     tokensBought += amount;
-    balances[msg.sender] += amount;                   // adds the amount to buyer&#39;s balance
-    balances[this] -= amount;                         // subtracts amount from seller&#39;s balance
+    balances[msg.sender] += amount;                   // adds the amount to buyer's balance
+    balances[this] -= amount;                         // subtracts amount from seller's balance
     Transfer(this, msg.sender, amount);                // execute an event reflecting the change
     return amount;                                     // ends function and returns
   }
 
   function sell(uint amount) returns (uint256 revenue){   // Sell in tokens
     if (balances[msg.sender] < amount ) throw;        // checks if the sender has enough to sell
-    balances[this] += amount;                         // adds the amount to owner&#39;s balance
-    balances[msg.sender] -= amount;                   // subtracts the amount from seller&#39;s balance
+    balances[this] += amount;                         // adds the amount to owner's balance
+    balances[msg.sender] -= amount;                   // subtracts the amount from seller's balance
 
     uint256 subTokensToSell = 0;
     revenue = 0;
@@ -660,8 +660,8 @@ contract TokenToken is FixedSupplyToken{
 
   function breakdown(uint256 amount) {   // Breakdown in tokens
     if (balances[msg.sender] < amount ) throw;        // checks if the sender has enough to sell
-    balances[this] += amount;                         // adds the amount to owner&#39;s balance
-    balances[msg.sender] -= amount;                   // subtracts the amount from seller&#39;s balance
+    balances[this] += amount;                         // adds the amount to owner's balance
+    balances[msg.sender] -= amount;                   // subtracts the amount from seller's balance
 
     uint256 subTokensToSell = 0;
     for (uint i = 0; i < tokenExchanges.length; ++i) { // Unsafe code: what if the loop errors halfway?

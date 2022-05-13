@@ -168,7 +168,7 @@ contract DistrictsAdmin is Ownable, Pausable {
 
   /// @dev Used to mark the smart contract as upgraded, in case there is a serious
   ///  breaking bug. This method does nothing but keep track of the new contract and
-  ///  emit a message indicating that the new address is set. It&#39;s up to clients of this
+  ///  emit a message indicating that the new address is set. It's up to clients of this
   ///  contract to update to the new contract address in that case.
   /// @param _v2Address new address
   function setNewAddress(address _v2Address) public onlyOwner whenPaused {
@@ -287,7 +287,7 @@ contract DistrictsCore is DistrictsAdmin {
     string name;
   }
 
-  District[8] public districts; // there is no &#39;0&#39; district - this will be used to indicate no exit
+  District[8] public districts; // there is no '0' district - this will be used to indicate no exit
 
   // for keeping track of who is where
   mapping(uint256 => uint8) narcoIndexToLocation;

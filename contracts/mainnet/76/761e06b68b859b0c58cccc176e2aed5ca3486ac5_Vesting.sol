@@ -147,7 +147,7 @@ contract Vesting is DBC {
     function isBeneficiary() constant returns (bool) { return msg.sender == beneficiary; }
     function isVestingStarted() constant returns (bool) { return vestingStartTime != 0; }
 
-    /// @notice Calculates the quantity of Melon asset that&#39;s currently withdrawable
+    /// @notice Calculates the quantity of Melon asset that's currently withdrawable
     /// @return withdrawable Quantity of withdrawable Melon asset
     function calculateWithdrawable() constant returns (uint withdrawable) {
         uint timePassed = now.sub(vestingStartTime);

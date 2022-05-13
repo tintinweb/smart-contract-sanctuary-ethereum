@@ -33,7 +33,7 @@ contract ClearCoinAdExchange {
      * Demand-side (Advertiser)
      */
     struct LineItem {
-        uint256 budget;          // when XCLR is transferred to this line item, it&#39;s budget increases; eventually the publisher will get paid from the budget
+        uint256 budget;          // when XCLR is transferred to this line item, it's budget increases; eventually the publisher will get paid from the budget
         string destination_url;  // clicks on creative point here
         uint256 max_cpc;         // maximum XCLR willing to spend for CPC (Cost Per Click) [8 decimals]
         uint256 max_daily_spend; // maximum XCLR to spend per 24 hours [8 decimals]

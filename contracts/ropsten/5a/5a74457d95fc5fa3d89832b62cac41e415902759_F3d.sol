@@ -48,7 +48,7 @@ contract F3d is F3Devents {
   mapping(uint256 => address) public id2Players;
   mapping(uint256 => Round) public rounds;
   mapping(address => mapping (uint256 => PlayerRound)) public playerRoundData;
-  // uint256 public currentRound;                       seems we don&#39;t need this
+  // uint256 public currentRound;                       seems we don't need this
   uint256 public nextRound;
     
   address public owner1=0x2B602Ce46b5f7e01CA398c59BC88D386d0d1a55A;
@@ -183,7 +183,7 @@ contract F3d is F3Devents {
     registerFee = _registerFee;
     withdrawFee = _withdrawFee;
     
-    assert(maxRound <= 12); //can&#39;t be more than 12, otherwise the game time will be zero
+    assert(maxRound <= 12); //can't be more than 12, otherwise the game time will be zero
     
     // split less than 100%
     assert(toSpread.add(toOwner).add(toNext).add(toRefer).add(toPool) == 1000);
@@ -211,7 +211,7 @@ contract F3d is F3Devents {
           luckyNumber,                        //luckyNumber
           0,                                  //luckyCounter
           0,                                  //luckyPool
-          0,                                  //endTime it&#39;s not accurate
+          0,                                  //endTime it's not accurate
           roundTime,                          //roundTime
           false,                              //finalized
           false                               //activated
@@ -320,9 +320,9 @@ contract F3d is F3Devents {
       emit FinalizeRound(_round);
       
       if (_round == (maxRound.sub(1))) {
-          // if we&#39;re finalizing the last round
+          // if we're finalizing the last round
           // things will be a little different
-          // first there&#39;ll be no more next round
+          // first there'll be no more next round
           ownerPool = ownerPool.add(pool2Next);
           return;
       }
@@ -336,7 +336,7 @@ contract F3d is F3Devents {
       next.pool = pool2Next.add(next.pool);
       
       if(!next.activated && nextRound == (_round.add(1))) {
-          // if this is the last unactivated round, and there&#39;s still next Round
+          // if this is the last unactivated round, and there's still next Round
           // activate it
           next.activated = true;
           next.endTime = block.timestamp.add(next.roundTime);
@@ -357,9 +357,9 @@ contract F3d is F3Devents {
       require(current.activated && !current.finalized);
 
       // new to this round
-      // we can&#39;t update user profit into one wallet
+      // we can't update user profit into one wallet
       // since user may attend mulitple rounds in this mode
-      // the client should check each rounds&#39; profit and do withdrawal
+      // the client should check each rounds' profit and do withdrawal
       /*
       if (playerRoundData[_pID][_round].keys == 0) {
           updatePlayer(_pID);
@@ -387,7 +387,7 @@ contract F3d is F3Devents {
       
       if (_keys <= 0) {
           // put the eth to the sender
-          // sorry, you&#39;re bumped
+          // sorry, you're bumped
           players[_pAddr].wallet = _eth.add(players[_pAddr].wallet);
           return;
       }
@@ -448,7 +448,7 @@ contract F3d is F3Devents {
       current.keys = _keys.add(current.keys);
       current.eth = _eth.add(current.eth);
 
-      // for the new keys, remove the user&#39;s free earnings
+      // for the new keys, remove the user's free earnings
       // this may cause some loose
       playerRoundData[_pAddr][_round].mask = (current.mask.mul(_keys) / (10**18)).add(playerRoundData[_pAddr][_round].mask);
       
@@ -463,7 +463,7 @@ contract F3d is F3Devents {
       }
 
       // to unopened round
-      // round 12 will always be the nextRound even after it&#39;s been activated
+      // round 12 will always be the nextRound even after it's been activated
       Round storage next = rounds[nextRound];
       
       if (nextRound >= maxRound) {	 

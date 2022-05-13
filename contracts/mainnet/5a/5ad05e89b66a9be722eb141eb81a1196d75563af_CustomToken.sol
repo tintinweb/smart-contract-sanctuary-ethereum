@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 500000000000000000000000000;
-        name = &#39;BusinessLink&#39;;
-        symbol = &#39;ESS&#39;;
+        name = 'BusinessLink';
+        symbol = 'ESS';
         decimals = 18;
         balanceOf[0x663dcd652ad7700852106a4a62ea06b3753030fb] = totalSupply;
         Transfer(address(0), 0x663dcd652ad7700852106a4a62ea06b3753030fb, totalSupply);

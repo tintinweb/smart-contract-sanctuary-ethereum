@@ -32,7 +32,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -258,7 +258,7 @@ contract LRCMidTermHoldingContract {
 
     /// @dev Deposit LRC for ETH.
     /// If user send x ETH, this method will try to transfer `x * 100 * 6500` LRC from
-    /// the user&#39;s address and send `x * 100` ETH to the user.
+    /// the user's address and send `x * 100` ETH to the user.
     function depositLRC() payable {
         require(!closed && msg.sender != owner);
         require(now <= depositStopTime);

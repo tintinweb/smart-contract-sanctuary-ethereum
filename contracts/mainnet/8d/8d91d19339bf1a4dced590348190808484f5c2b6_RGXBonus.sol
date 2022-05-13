@@ -116,7 +116,7 @@ contract RGXBonus is EIP20 {
     uint public fundingEnd;
     uint8 public discountMultiplier;
     uint8 public discountDecimal;
-    string public version = &#39;v2.1&#39;;
+    string public version = 'v2.1';
     
     modifier fundingOpen() {
         require(now < fundingEnd);

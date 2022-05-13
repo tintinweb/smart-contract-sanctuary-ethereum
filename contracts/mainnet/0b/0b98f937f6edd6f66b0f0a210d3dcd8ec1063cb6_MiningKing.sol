@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -154,7 +154,7 @@ Set the king to the Ethereum Address which is encoded as 160 bits of the 256 bit
 
       if(proxyMintArray.length == 1)
       {
-        //Forward to the last proxyMint contract, typically a pool&#39;s owned  mint contract
+        //Forward to the last proxyMint contract, typically a pool's owned  mint contract
         require(proxyMinterInterface(proxyMinter).proxyMint(nonce, challenge_digest));
       }else{
         //if array length is greater than 1, pop the proxyMinter from the front of the array and keep cascading down the chain...

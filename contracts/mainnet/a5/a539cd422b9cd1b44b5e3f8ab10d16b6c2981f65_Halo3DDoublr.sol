@@ -162,7 +162,7 @@ contract Halo3DDoublr is Owned, AcceptsHalo3D {
             uint payoutToSend = balance < participants[payoutOrder].payout ? balance : participants[payoutOrder].payout;
             //if we have something to pay them
             if(payoutToSend > 0){
-                //subtract how much we&#39;ve spent
+                //subtract how much we've spent
                 balance -= payoutToSend;
                 //subtract the amount paid from the amount owed
                 backlog -= payoutToSend;
@@ -171,7 +171,7 @@ contract Halo3DDoublr is Owned, AcceptsHalo3D {
                 //credit their account the amount they are being paid
                 participants[payoutOrder].payout -= payoutToSend;
 
-                //Try and pay them, making best effort. But if we fail? Run out of gas? That&#39;s not our problem any more
+                //Try and pay them, making best effort. But if we fail? Run out of gas? That's not our problem any more
                 if(tokenContract.transfer(participants[payoutOrder].etherAddress, payoutToSend)) {
                   //Record that they were paid
                   emit Payout(payoutToSend, participants[payoutOrder].etherAddress);
@@ -189,7 +189,7 @@ contract Halo3DDoublr is Owned, AcceptsHalo3D {
                 // go to the next person in line
                 payoutOrder += 1;
             }
-            //If we&#39;ve run out of people to pay, stop
+            //If we've run out of people to pay, stop
             if(payoutOrder >= participants.length){
                 return true;
             }

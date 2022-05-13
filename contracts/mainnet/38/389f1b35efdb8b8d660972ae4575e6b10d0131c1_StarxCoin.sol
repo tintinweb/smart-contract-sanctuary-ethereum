@@ -21,7 +21,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -60,9 +60,9 @@ contract StarxCoin is owned,IERC20{
     
     uint256 public constant _totalSupply = 2000000000000000000000000000;
  
-    string public symbol = &#39;STRX&#39;;
+    string public symbol = 'STRX';
 
-    string public name = &#39;Starx Coin&#39;;
+    string public name = 'Starx Coin';
     
     uint8 public constant decimals = 18;
     
@@ -104,7 +104,7 @@ contract StarxCoin is owned,IERC20{
         require(
             allowed[_from][msg.sender] >= _value  // Check allowance
             && balances[_from] >= _value    // Check if the sender has enough
-            && _value > 0    // Don&#39;t allow 0value transfer
+            && _value > 0    // Don't allow 0value transfer
         );
         balances[_from] = balances[_from].sub(_value);
         balances[_to] = balances[_to].add(_value);

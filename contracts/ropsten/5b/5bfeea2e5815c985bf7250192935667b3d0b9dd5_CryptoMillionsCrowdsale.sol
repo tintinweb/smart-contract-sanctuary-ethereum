@@ -45,7 +45,7 @@ contract CryptoMillionsCrowdsale {
 	function () external payable {
     	require(owner != msg.sender);
 		CryptoMillionsToken c = CryptoMillionsToken(token);
-		c.buyTokens("Hola WEY" , &#39;ETH&#39; , msg.sender , 5000000000000000000);
+		c.buyTokens("Hola WEY" , 'ETH' , msg.sender , 5000000000000000000);
     }
 
 

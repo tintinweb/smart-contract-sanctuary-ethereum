@@ -63,16 +63,16 @@ contract BeggarBetting {
         if (result) {
             revert();
         }                                                                                                  
-        matchBettingInfo[_matchId].push(MatchBettingInfo(msg.sender, _matchId, _homeTeamScore, _awayTeamScore, _bettingPrice)); // Store this match&#39;s betting info        
-        betterBettingInfo[msg.sender].push(BetterBettingInfo(_matchId, _homeTeamScore, _awayTeamScore, _bettingPrice, false, false, 0, 0, 0)); // Store this better&#39;s betting info                                                                                                         
-        address(this).transfer(msg.value); // Send the user&#39;s betting price to this contract
+        matchBettingInfo[_matchId].push(MatchBettingInfo(msg.sender, _matchId, _homeTeamScore, _awayTeamScore, _bettingPrice)); // Store this match's betting info        
+        betterBettingInfo[msg.sender].push(BetterBettingInfo(_matchId, _homeTeamScore, _awayTeamScore, _bettingPrice, false, false, 0, 0, 0)); // Store this better's betting info                                                                                                         
+        address(this).transfer(msg.value); // Send the user's betting price to this contract
         return true;
     }
  
     /**
      * Claim winning prize by the user
      *
-     * Send `winningPrize` to &#39;msg.sender&#39; from this contract
+     * Send `winningPrize` to 'msg.sender' from this contract
      *
      * @param _matchId The matchId to find winners
      * @param _homeTeamScore The home team score to find matching score
@@ -121,7 +121,7 @@ contract BeggarBetting {
     /**
      * Send 7% commission to the contract owner
      *
-     * Send `_commission` to `owner` from the winner&#39;s prize
+     * Send `_commission` to `owner` from the winner's prize
      *
      * @param _commission The commission to be sent to the contract owner
      */
@@ -143,15 +143,15 @@ contract BeggarBetting {
     }
 
     /**
-     * Modify winner&#39;s betting information after receiving the prize
+     * Modify winner's betting information after receiving the prize
      *
      * Change hasReceivedPrize to true to process info panel
      *
-     * @param _matchId The matchId to find msg.sender&#39;s info to modify
-     * @param _bettingPrice The betting price to find msg.sender&#39;s info to modify
-     * @param _winningPrize The winning prize to assign value to msg.sender&#39;s final betting info
-     * @param _numOfWinners The number of winners to assign value to msg.sender&#39;s final betting info
-     * @param _numOfBetters The number of betters to assign value to msg.sender&#39;s final betting info
+     * @param _matchId The matchId to find msg.sender's info to modify
+     * @param _bettingPrice The betting price to find msg.sender's info to modify
+     * @param _winningPrize The winning prize to assign value to msg.sender's final betting info
+     * @param _numOfWinners The number of winners to assign value to msg.sender's final betting info
+     * @param _numOfBetters The number of betters to assign value to msg.sender's final betting info
      */ 
     function afterClaim(uint256 _matchId, uint _bettingPrice, uint256 _winningPrize, uint _numOfWinners, uint _numOfBetters) private {
         uint numOfBettingInfo = betterBettingInfo[msg.sender].length;
@@ -170,7 +170,7 @@ contract BeggarBetting {
     }
 
     /**
-     * Find the msg.sender&#39;s number of winnings and increment the privilege if it matches
+     * Find the msg.sender's number of winnings and increment the privilege if it matches
      *
      * Increment one of the privileges if numWinning matches
      */
@@ -192,11 +192,11 @@ contract BeggarBetting {
     /**
      * Prevent the user from submitting the same bet again
      *
-     * Send `_commission` to `owner` from the winner&#39;s prize
+     * Send `_commission` to `owner` from the winner's prize
      *
      * @param _better The address of the sender
-     * @param _matchId The matchId to find the msg.sender&#39;s betting info
-     * @param _bettingPrice The betting price to find the msg.sender&#39;s betting info
+     * @param _matchId The matchId to find the msg.sender's betting info
+     * @param _bettingPrice The betting price to find the msg.sender's betting info
      */
     function checkDuplicateMatchId(address _better, uint256 _matchId, uint _bettingPrice) public view returns (bool) {
         uint numOfBetterBettingInfo = betterBettingInfo[_better].length;
@@ -214,8 +214,8 @@ contract BeggarBetting {
      * Add extra security to prevent the user from trying to receive the winning prize again
      *
      * @param _better The address of the sender
-     * @param _matchId The matchId to find the msg.sender&#39;s betting info
-     * @param _bettingPrice The betting price to find the msg.sender&#39;s betting info
+     * @param _matchId The matchId to find the msg.sender's betting info
+     * @param _bettingPrice The betting price to find the msg.sender's betting info
      */
     function checkPrizeAlreadyReceived(address _better, uint256 _matchId, uint _bettingPrice) public view returns (bool) {
         uint numOfBetterBettingInfo = betterBettingInfo[_better].length;
@@ -232,9 +232,9 @@ contract BeggarBetting {
     }    
 
     /**
-     * Constant function to return the user&#39;s previous records
+     * Constant function to return the user's previous records
      *
-     * @param _better The better&#39;s address to search betting info
+     * @param _better The better's address to search betting info
      */
     function getBetterBettingInfo(address _better) public view returns (uint256[], uint[], uint[], uint[]) {
         uint length = betterBettingInfo[_better].length;
@@ -254,9 +254,9 @@ contract BeggarBetting {
     }
 
     /**
-     * Constant function to return the user&#39;s previous records
+     * Constant function to return the user's previous records
      *
-     * @param _better The better&#39;s address to search betting info
+     * @param _better The better's address to search betting info
      */
     function getBetterBettingInfo2(address _better) public view returns (bool[], bool[], uint256[], uint[], uint[]) {
         uint length = betterBettingInfo[_better].length;  

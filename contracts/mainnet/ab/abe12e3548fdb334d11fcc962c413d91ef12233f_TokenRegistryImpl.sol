@@ -211,7 +211,7 @@ contract TokenRegistryImpl is TokenRegistry, Claimable {
     mapping (string => address) symbolMap;
     struct TokenInfo {
         uint   pos;      // 0 mens unregistered; if > 0, pos + 1 is the
-                         // token&#39;s position in `addresses`.
+                         // token's position in `addresses`.
         string symbol;   // Symbol of the token
     }
     /// @dev Disable default function.
@@ -246,7 +246,7 @@ contract TokenRegistryImpl is TokenRegistry, Claimable {
         // We will replace the token we need to unregister with the last token
         // Only the pos of the last token will need to be updated
         address lastToken = addresses[addresses.length - 1];
-        // Don&#39;t do anything if the last token is the one we want to delete
+        // Don't do anything if the last token is the one we want to delete
         if (addr != lastToken) {
             // Swap with the last token and update the pos
             addresses[pos - 1] = lastToken;

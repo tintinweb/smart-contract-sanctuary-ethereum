@@ -3,7 +3,7 @@ pragma solidity ^0.4.22;
 contract tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract EnergyModulationProject {
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -20,8 +20,8 @@ contract EnergyModulationProject {
     function EnergyModulationProject() public {
         balances[msg.sender] = 75000000000000000;
         _totalSupply = 75000000000000000;
-        name = &#39;Energy Modulation Project&#39;;
-        symbol = &#39;EMP&#39;;
+        name = 'Energy Modulation Project';
+        symbol = 'EMP';
         decimals = 8;
         owner = msg.sender;
     }

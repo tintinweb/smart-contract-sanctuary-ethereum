@@ -115,8 +115,8 @@ contract Token {
 contract StandardToken is Token {
 
     function transfer(address _to, uint256 _value) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
         //if (balances[msg.sender] >= _value && _value > 0) {
@@ -174,7 +174,7 @@ contract DentacoinToken is owned, SafeMath, StandardToken {
     uint256 public sellPriceEth = 1 finney;                                 // Sell price for Dentacoins
     uint256 public gasForDCN = 5 finney;                                    // Eth from contract against DCN to pay tx (10 times sellPriceEth)
     uint256 public DCNForGas = 10;                                          // DCN to contract against eth to pay tx
-    uint256 public gasReserve = 1 ether;                                    // Eth amount that remains in the contract for gas and can&#39;t be sold
+    uint256 public gasReserve = 1 ether;                                    // Eth amount that remains in the contract for gas and can't be sold
     uint256 public minBalanceForAccounts = 10 finney;                       // Minimal eth balance of sender and recipient
     bool public directTradeAllowed = false;                                 // Halt trading DCN by sending to the contract directly
 
@@ -249,7 +249,7 @@ contract DentacoinToken is owned, SafeMath, StandardToken {
         if (buyPriceEth == 0 || msg.value < buyPriceEth) throw;             // Avoid dividing 0, sending small amounts and spam
         amount = msg.value / buyPriceEth;                                   // Calculate the amount of Dentacoins
         if (balances[this] < amount) throw;                                 // Check if it has enough to sell
-        balances[msg.sender] = safeAdd(balances[msg.sender], amount);       // Add the amount to buyer&#39;s balance
+        balances[msg.sender] = safeAdd(balances[msg.sender], amount);       // Add the amount to buyer's balance
         balances[this] = safeSub(balances[this], amount);                   // Subtract amount from Dentacoin balance
         Transfer(this, msg.sender, amount);                                 // Execute an event reflecting the change
         return amount;
@@ -262,11 +262,11 @@ contract DentacoinToken is owned, SafeMath, StandardToken {
         if (balances[msg.sender] < amount) throw;                           // Check if the sender has enough to sell
         revenue = safeMul(amount, sellPriceEth);                            // Revenue = eth that will be send to the user
         if (safeSub(this.balance, revenue) < gasReserve) throw;             // Keep min amount of eth in contract to provide gas for transactions
-        if (!msg.sender.send(revenue)) {                                    // Send ether to the seller. It&#39;s important
+        if (!msg.sender.send(revenue)) {                                    // Send ether to the seller. It's important
             throw;                                                          // To do this last to avoid recursion attacks
         } else {
             balances[this] = safeAdd(balances[this], amount);               // Add the amount to Dentacoin balance
-            balances[msg.sender] = safeSub(balances[msg.sender], amount);   // Subtract the amount from seller&#39;s balance
+            balances[msg.sender] = safeSub(balances[msg.sender], amount);   // Subtract the amount from seller's balance
             Transfer(this, msg.sender, revenue);                            // Execute an event reflecting on the change
             return revenue;                                                 // End function and returns
         }
@@ -276,14 +276,14 @@ contract DentacoinToken is owned, SafeMath, StandardToken {
 /* refund to owner */
     function refundToOwner (uint256 amountOfEth, uint256 dcn) onlyOwner {
         uint256 eth = safeMul(amountOfEth, 1 ether);
-        if (!msg.sender.send(eth)) {                                        // Send ether to the owner. It&#39;s important
+        if (!msg.sender.send(eth)) {                                        // Send ether to the owner. It's important
             throw;                                                          // To do this last to avoid recursion attacks
         } else {
             Transfer(this, msg.sender, eth);                                // Execute an event reflecting on the change
         }
         if (balances[this] < dcn) throw;                                    // Check if it has enough to sell
-        balances[msg.sender] = safeAdd(balances[msg.sender], dcn);          // Add the amount to buyer&#39;s balance
-        balances[this] = safeSub(balances[this], dcn);                      // Subtract amount from seller&#39;s balance
+        balances[msg.sender] = safeAdd(balances[msg.sender], dcn);          // Add the amount to buyer's balance
+        balances[this] = safeSub(balances[this], dcn);                      // Subtract amount from seller's balance
         Transfer(this, msg.sender, dcn);                                    // Execute an event reflecting the change
     }
 

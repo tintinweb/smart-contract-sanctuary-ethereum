@@ -91,7 +91,7 @@ contract TwoXJackpot {
   function changeStartTime(uint256 _time) public onlyContractOwner {
     require(now < _time); // only allow changing it to something in the future
     gameStartTime = _time;
-    lastAction = gameStartTime; // Don&#39;t forget to update last action too :)
+    lastAction = gameStartTime; // Don't forget to update last action too :)
   }
 
   // Change the start time for fair launch
@@ -212,7 +212,7 @@ contract TwoXJackpot {
     jackpotLastWinner = jackpotLastQualified;
     jackpotLastPayout = payout;
 
-    // Let&#39;s store now new winner in list of game winners
+    // Let's store now new winner in list of game winners
     games[gameIndex].winners.push(jackpotLastQualified);
     games[gameIndex].winnerPayouts.push(payout);
 
@@ -337,7 +337,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

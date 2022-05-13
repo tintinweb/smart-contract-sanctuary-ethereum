@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 2000000000000000000000000000;
-        name = &#39;EX68Token&#39;;
-        symbol = &#39;EX68&#39;;
+        name = 'EX68Token';
+        symbol = 'EX68';
         decimals = 18;
         balanceOf[0xf437c762cd574753dd5a48d06371ce5ed940e164] = totalSupply;
         Transfer(address(0), 0xf437c762cd574753dd5a48d06371ce5ed940e164, totalSupply);

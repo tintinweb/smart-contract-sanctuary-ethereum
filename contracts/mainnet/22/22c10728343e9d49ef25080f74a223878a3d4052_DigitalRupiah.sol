@@ -2,9 +2,9 @@ pragma solidity ^0.4.8;
 
 contract DigitalRupiah {
     /* Public variables of the token */
-    string public standard = &#39;ERC20&#39;;
-    string public name =  &#39;Digital Rupiah&#39;;
-    string public symbol = &#39;DRP&#39; ;
+    string public standard = 'ERC20';
+    string public name =  'Digital Rupiah';
+    string public symbol = 'DRP' ;
     uint8 public decimals = 8 ;
     uint256 public totalSupply = 10000000000000000;
 

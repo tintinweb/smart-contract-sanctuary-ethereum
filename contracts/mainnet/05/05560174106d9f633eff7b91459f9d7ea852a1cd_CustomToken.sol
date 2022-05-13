@@ -46,8 +46,8 @@ contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 10000000000000000000000000000;
         balanceOf[0xF588D792fA8a634162760482a7B61DD1AB99b1F1] = totalSupply;
-        name = &#39;IoTeX&#39;;
-        symbol = &#39;IOTX&#39;;
+        name = 'IoTeX';
+        symbol = 'IOTX';
         decimals = 18;
     }
 }

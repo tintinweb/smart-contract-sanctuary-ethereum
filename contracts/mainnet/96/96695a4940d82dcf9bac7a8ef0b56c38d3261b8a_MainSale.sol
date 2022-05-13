@@ -134,7 +134,7 @@ contract MainSale is Ownable {
     }
     
     /*******************************************************************************
-     * Whitelist&#39;s section
+     * Whitelist's section
      */
     function authorize(address wlCandidate) public onlyOwner  {
         require(wlCandidate != address(0x0));
@@ -153,7 +153,7 @@ contract MainSale is Ownable {
     }
     
     /*******************************************************************************
-     * Setter&#39;s Section
+     * Setter's Section
      */
 
     function setStartCloseSale(uint256 newStartSale) public onlyOwner {
@@ -208,7 +208,7 @@ contract MainSale is Ownable {
         if (now >= startCloseSale || now <= endCloseSale) {
             require(isWhitelisted(msg.sender));
             closeSale(msg.sender, msg.value);
-            stageNow = "Close Sale for Whitelist&#39;s members";
+            stageNow = "Close Sale for Whitelist's members";
             
         } else if (now >= startStage1 || now <= endStage1) {
             sale1(msg.sender, msg.value);

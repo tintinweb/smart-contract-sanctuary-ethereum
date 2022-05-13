@@ -42,7 +42,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -73,7 +73,7 @@ library SafeMath64 {
   function div(uint64 a, uint64 b) internal constant returns (uint64) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint64 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -263,7 +263,7 @@ contract VestingERC20 {
 
         TokenReleased(_token, _granter, _vester, amountToSend);
 
-        // send tokens to the vester&#39;s balance
+        // send tokens to the vester's balance
         balancePerPersonPerToken[_token][_vester] = balancePerPersonPerToken[_token][_vester].add(amountToSend); 
     }
 
@@ -280,7 +280,7 @@ contract VestingERC20 {
     {
         if(now < _grant.cliffTime) 
         {
-            // the grant didn&#39;t start 
+            // the grant didn't start 
             return 0;
         }
         else if(now >= _grant.endTime)

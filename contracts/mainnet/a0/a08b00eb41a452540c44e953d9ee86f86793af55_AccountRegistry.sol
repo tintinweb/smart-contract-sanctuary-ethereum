@@ -106,7 +106,7 @@ contract AccountRegistry is Ownable, AccountRegistryInterface{
   }
 
   /**
-   * @notice Retreive account ID associated with a user&#39;s address
+   * @notice Retreive account ID associated with a user's address
    * @param _address Address to look up
    * @return account id as uint256 if exists, otherwise reverts
    */

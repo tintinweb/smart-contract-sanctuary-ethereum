@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract Woyager is BaseToken, AirdropToken, ICOToken {
     function Woyager() public {
         totalSupply = 1000000000e18;
-        name = &#39;Woyager&#39;;
-        symbol = &#39;WYX&#39;;
+        name = 'Woyager';
+        symbol = 'WYX';
         decimals = 18;
         balanceOf[0x6e3a106E91f7ddB1C52F68fd3dB61AdCAbfbAa33] = totalSupply;
         Transfer(address(0), 0x6e3a106E91f7ddB1C52F68fd3dB61AdCAbfbAa33, totalSupply);

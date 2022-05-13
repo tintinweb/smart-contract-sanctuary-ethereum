@@ -156,7 +156,7 @@ contract Hodl is BlockableContract{
     }
     
     /**
-    * returns safe&#39;s values&#39;
+    * returns safe's values'
     */
     function Getsafe(uint256 _id) public view
         returns (uint256 id, address user, address tokenAddress, uint256 amount, uint256 time)
@@ -400,7 +400,7 @@ contract Hodl is BlockableContract{
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
     

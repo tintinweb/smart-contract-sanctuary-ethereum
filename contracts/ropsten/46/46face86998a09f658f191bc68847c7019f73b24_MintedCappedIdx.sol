@@ -72,7 +72,7 @@ library Contract {
     last();
   }
 
-  bytes32 internal constant EXEC_PERMISSIONS = keccak256(&#39;script_exec_permissions&#39;);
+  bytes32 internal constant EXEC_PERMISSIONS = keccak256('script_exec_permissions');
 
   // Sets up contract execution - reads execution id and sender from storage and
   // places in memory, creating getters. Calling this function should be the first
@@ -185,10 +185,10 @@ library Contract {
   // Checks to ensure the application was correctly executed -
   function validState() private pure {
     if (freeMem() < 0x180)
-      revert(&#39;Expected Contract.execute()&#39;);
+      revert('Expected Contract.execute()');
 
     if (buffPtr() != 0 && buffPtr() < 0x180)
-      revert(&#39;Invalid buffer pointer&#39;);
+      revert('Invalid buffer pointer');
 
     assert(execID() != bytes32(0) && sender() != address(0));
   }
@@ -214,19 +214,19 @@ library Contract {
   // If the current action is not storing, reverts
   function isStoring() private pure {
     if (currentAction() != STORES)
-      revert(&#39;Invalid current action - expected STORES&#39;);
+      revert('Invalid current action - expected STORES');
   }
 
   // If the current action is not emitting, reverts
   function isEmitting() private pure {
     if (currentAction() != EMITS)
-      revert(&#39;Invalid current action - expected EMITS&#39;);
+      revert('Invalid current action - expected EMITS');
   }
 
   // If the current action is not paying, reverts
   function isPaying() private pure {
     if (currentAction() != PAYS)
-      revert(&#39;Invalid current action - expected PAYS&#39;);
+      revert('Invalid current action - expected PAYS');
   }
 
   // Initializes a storage buffer in memory -
@@ -240,7 +240,7 @@ library Contract {
       mstore(add(0x20, ptr), 0) // buffer length
       // Update free memory pointer -
       mstore(0x40, add(0x40, ptr))
-      // Set expected next function to &#39;NONE&#39; -
+      // Set expected next function to 'NONE' -
       mstore(0x100, 1)
     }
   }
@@ -251,10 +251,10 @@ library Contract {
     if (buffPtr() == bytes32(0))
       startBuffer();
 
-    // Ensure that the current action is not &#39;storing&#39;, and that the buffer has not already
+    // Ensure that the current action is not 'storing', and that the buffer has not already
     // completed a STORES action -
     if (stored() != 0 || currentAction() == STORES)
-      revert(&#39;Duplicate request - stores&#39;);
+      revert('Duplicate request - stores');
   }
 
   // Checks whether or not it is valid to create an EMITS action request -
@@ -263,10 +263,10 @@ library Contract {
     if (buffPtr() == bytes32(0))
       startBuffer();
 
-    // Ensure that the current action is not &#39;emitting&#39;, and that the buffer has not already
+    // Ensure that the current action is not 'emitting', and that the buffer has not already
     // completed an EMITS action -
     if (emitted() != 0 || currentAction() == EMITS)
-      revert(&#39;Duplicate request - emits&#39;);
+      revert('Duplicate request - emits');
   }
 
   // Checks whether or not it is valid to create a PAYS action request -
@@ -275,10 +275,10 @@ library Contract {
     if (buffPtr() == bytes32(0))
       startBuffer();
 
-    // Ensure that the current action is not &#39;paying&#39;, and that the buffer has not already
+    // Ensure that the current action is not 'paying', and that the buffer has not already
     // completed an PAYS action -
     if (paid() != 0 || currentAction() == PAYS)
-      revert(&#39;Duplicate request - pays&#39;);
+      revert('Duplicate request - pays');
   }
 
   // Placeholder function when no pre or post condition for a function is needed
@@ -309,10 +309,10 @@ library Contract {
 
   // Storing data, emitting events, and forwarding payments: //
 
-  bytes4 internal constant EMITS = bytes4(keccak256(&#39;Emit((bytes32[],bytes)[])&#39;));
-  bytes4 internal constant STORES = bytes4(keccak256(&#39;Store(bytes32[])&#39;));
-  bytes4 internal constant PAYS = bytes4(keccak256(&#39;Pay(bytes32[])&#39;));
-  bytes4 internal constant THROWS = bytes4(keccak256(&#39;Error(string)&#39;));
+  bytes4 internal constant EMITS = bytes4(keccak256('Emit((bytes32[],bytes)[])'));
+  bytes4 internal constant STORES = bytes4(keccak256('Store(bytes32[])'));
+  bytes4 internal constant PAYS = bytes4(keccak256('Pay(bytes32[])'));
+  bytes4 internal constant THROWS = bytes4(keccak256('Error(string)'));
 
   // Function enums -
   enum NextFunction {
@@ -323,7 +323,7 @@ library Contract {
   function validStoreDest() private pure {
     // Ensure that the next function expected pushes a storage destination -
     if (expected() != NextFunction.STORE_DEST)
-      revert(&#39;Unexpected function order - expected storage destination to be pushed&#39;);
+      revert('Unexpected function order - expected storage destination to be pushed');
 
     // Ensure that the current buffer is pushing STORES actions -
     isStoring();
@@ -336,7 +336,7 @@ library Contract {
       expected() != NextFunction.VAL_SET &&
       expected() != NextFunction.VAL_INC &&
       expected() != NextFunction.VAL_DEC
-    ) revert(&#39;Unexpected function order - expected storage value to be pushed&#39;);
+    ) revert('Unexpected function order - expected storage value to be pushed');
 
     // Ensure that the current buffer is pushing STORES actions -
     isStoring();
@@ -346,7 +346,7 @@ library Contract {
   function validPayDest() private pure {
     // Ensure that the next function expected pushes a payment destination -
     if (expected() != NextFunction.PAY_DEST)
-      revert(&#39;Unexpected function order - expected payment destination to be pushed&#39;);
+      revert('Unexpected function order - expected payment destination to be pushed');
 
     // Ensure that the current buffer is pushing PAYS actions -
     isPaying();
@@ -356,7 +356,7 @@ library Contract {
   function validPayAmt() private pure {
     // Ensure that the next function expected pushes a payment amount -
     if (expected() != NextFunction.PAY_AMT)
-      revert(&#39;Unexpected function order - expected payment amount to be pushed&#39;);
+      revert('Unexpected function order - expected payment amount to be pushed');
 
     // Ensure that the current buffer is pushing PAYS actions -
     isPaying();
@@ -366,7 +366,7 @@ library Contract {
   function validEvent() private pure {
     // Ensure that the next function expected pushes an event -
     if (expected() != NextFunction.EMIT_LOG)
-      revert(&#39;Unexpected function order - expected event to be pushed&#39;);
+      revert('Unexpected function order - expected event to be pushed');
 
     // Ensure that the current buffer is pushing EMITS actions -
     isEmitting();
@@ -379,10 +379,10 @@ library Contract {
     assembly {
       // Get pointer to buffer length -
       let ptr := add(0x20, mload(0xc0))
-      // Push requestor to the end of buffer, as well as to the &#39;current action&#39; slot -
+      // Push requestor to the end of buffer, as well as to the 'current action' slot -
       mstore(add(0x20, add(ptr, mload(ptr))), action_req)
       mstore(0xe0, action_req)
-      // Push &#39;0&#39; to the end of the 4 bytes just pushed - this will be the length of the STORES action
+      // Push '0' to the end of the 4 bytes just pushed - this will be the length of the STORES action
       mstore(add(0x24, add(ptr, mload(ptr))), 0)
       // Increment buffer length - 0x24 plus the previous length
       mstore(ptr, add(0x24, mload(ptr)))
@@ -392,14 +392,14 @@ library Contract {
       mstore(0x100, 2)
       // Set a pointer to the length of the current request within the buffer
       mstore(sub(ptr, 0x20), add(ptr, mload(ptr)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
     }
   }
 
-  // Sets a passed in location to a value passed in via &#39;to&#39;
+  // Sets a passed in location to a value passed in via 'to'
   function set(bytes32 _field) conditions(validStoreDest, validStoreVal) internal pure returns (bytes32) {
     assembly {
       // Get pointer to buffer length -
@@ -417,7 +417,7 @@ library Contract {
       )
       // Update number of storage slots pushed to -
       mstore(0x120, add(1, mload(0x120)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -436,7 +436,7 @@ library Contract {
       mstore(ptr, add(0x20, mload(ptr)))
       // Set the expected next function - STORE_DEST
       mstore(0x100, 2)
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -481,7 +481,7 @@ library Contract {
       )
       // Update number of storage slots pushed to -
       mstore(0x120, add(1, mload(0x120)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -509,7 +509,7 @@ library Contract {
       )
       // Update number of storage slots pushed to -
       mstore(0x120, add(1, mload(0x120)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -525,7 +525,7 @@ library Contract {
     else if (expected() == NextFunction.VAL_DEC)
       _amt = uint(_val).sub(_amt);
     else
-      revert(&#39;Expected VAL_INC or VAL_DEC&#39;);
+      revert('Expected VAL_INC or VAL_DEC');
 
     assembly {
       // Get pointer to buffer length -
@@ -536,7 +536,7 @@ library Contract {
       mstore(ptr, add(0x20, mload(ptr)))
       // Set the expected next function - STORE_DEST
       mstore(0x100, 2)
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -553,7 +553,7 @@ library Contract {
       else
         _amt = uint(_val).sub(_amt);
     } else {
-      revert(&#39;Expected VAL_DEC&#39;);
+      revert('Expected VAL_DEC');
     }
 
     assembly {
@@ -565,7 +565,7 @@ library Contract {
       mstore(ptr, add(0x20, mload(ptr)))
       // Set the expected next function - STORE_DEST
       mstore(0x100, 2)
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -579,10 +579,10 @@ library Contract {
     assembly {
       // Get pointer to buffer length -
       let ptr := add(0x20, mload(0xc0))
-      // Push requestor to the end of buffer, as well as to the &#39;current action&#39; slot -
+      // Push requestor to the end of buffer, as well as to the 'current action' slot -
       mstore(add(0x20, add(ptr, mload(ptr))), action_req)
       mstore(0xe0, action_req)
-      // Push &#39;0&#39; to the end of the 4 bytes just pushed - this will be the length of the EMITS action
+      // Push '0' to the end of the 4 bytes just pushed - this will be the length of the EMITS action
       mstore(add(0x24, add(ptr, mload(ptr))), 0)
       // Increment buffer length - 0x24 plus the previous length
       mstore(ptr, add(0x24, mload(ptr)))
@@ -592,7 +592,7 @@ library Contract {
       mstore(0x100, 6)
       // Set a pointer to the length of the current request within the buffer
       mstore(sub(ptr, 0x20), add(ptr, mload(ptr)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -627,7 +627,7 @@ library Contract {
       )
       // Update number of events pushed to buffer -
       mstore(0x140, add(1, mload(0x140)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -664,7 +664,7 @@ library Contract {
       )
       // Update number of events pushed to buffer -
       mstore(0x140, add(1, mload(0x140)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -702,7 +702,7 @@ library Contract {
       )
       // Update number of events pushed to buffer -
       mstore(0x140, add(1, mload(0x140)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -741,7 +741,7 @@ library Contract {
       )
       // Update number of events pushed to buffer -
       mstore(0x140, add(1, mload(0x140)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -781,7 +781,7 @@ library Contract {
       )
       // Update number of events pushed to buffer -
       mstore(0x140, add(1, mload(0x140)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -795,10 +795,10 @@ library Contract {
     assembly {
       // Get pointer to buffer length -
       let ptr := add(0x20, mload(0xc0))
-      // Push requestor to the end of buffer, as well as to the &#39;current action&#39; slot -
+      // Push requestor to the end of buffer, as well as to the 'current action' slot -
       mstore(add(0x20, add(ptr, mload(ptr))), action_req)
       mstore(0xe0, action_req)
-      // Push &#39;0&#39; to the end of the 4 bytes just pushed - this will be the length of the PAYS action
+      // Push '0' to the end of the 4 bytes just pushed - this will be the length of the PAYS action
       mstore(add(0x24, add(ptr, mload(ptr))), 0)
       // Increment buffer length - 0x24 plus the previous length
       mstore(ptr, add(0x24, mload(ptr)))
@@ -808,7 +808,7 @@ library Contract {
       mstore(0x100, 8)
       // Set a pointer to the length of the current request within the buffer
       mstore(sub(ptr, 0x20), add(ptr, mload(ptr)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -833,7 +833,7 @@ library Contract {
       )
       // Update number of payment destinations to be pushed to -
       mstore(0x160, add(1, mload(0x160)))
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -852,7 +852,7 @@ library Contract {
       mstore(ptr, add(0x20, mload(ptr)))
       // Set the expected next function - PAY_AMT
       mstore(0x100, 8)
-      // If the free-memory pointer does not point beyond the buffer&#39;s current size, update it
+      // If the free-memory pointer does not point beyond the buffer's current size, update it
       if lt(mload(0x40), add(0x20, add(ptr, mload(ptr)))) {
         mstore(0x40, add(0x20, add(ptr, mload(ptr))))
       }
@@ -898,9 +898,9 @@ library MintedCappedIdx {
   using SafeMath for uint;
   using ArrayUtils for bytes32[];
 
-  bytes32 internal constant EXEC_PERMISSIONS = keccak256(&#39;script_exec_permissions&#39;);
+  bytes32 internal constant EXEC_PERMISSIONS = keccak256('script_exec_permissions');
 
-  // Returns the storage location of a script execution address&#39;s permissions -
+  // Returns the storage location of a script execution address's permissions -
   function execPermissions(address _exec) internal pure returns (bytes32)
     { return keccak256(_exec, EXEC_PERMISSIONS); }
 
@@ -908,7 +908,7 @@ library MintedCappedIdx {
 
   // Storage location of crowdsale admin address
   function admin() internal pure returns (bytes32)
-    { return keccak256(&#39;sale_admin&#39;); }
+    { return keccak256('sale_admin'); }
 
   // Whether the crowdsale and token are configured, and the sale is ready to run
   function isConfigured() internal pure returns (bytes32)
@@ -918,7 +918,7 @@ library MintedCappedIdx {
   function isFinished() internal pure returns (bytes32)
     { return keccak256("sale_is_completed"); }
 
-  // Storage location of the crowdsale&#39;s start time
+  // Storage location of the crowdsale's start time
   function startTime() internal pure returns (bytes32)
     { return keccak256("sale_start_time"); }
 
@@ -964,11 +964,11 @@ library MintedCappedIdx {
   function tierDuration(uint _idx) internal pure returns (bytes32)
     { return keccak256(_idx, "duration", saleTierList()); }
 
-  // Whether or not the tier&#39;s duration is modifiable (before it has begin)
+  // Whether or not the tier's duration is modifiable (before it has begin)
   function tierModifiable(uint _idx) internal pure returns (bytes32)
     { return keccak256(_idx, "mod_stat", saleTierList()); }
 
-  // Returns the storage location of the tier&#39;s whitelist status
+  // Returns the storage location of the tier's whitelist status
   function tierWhitelisted(uint _idx) internal pure returns (bytes32)
     { return keccak256(_idx, "wl_stat", saleTierList()); }
 
@@ -996,15 +996,15 @@ library MintedCappedIdx {
 
   /// WHITELIST ///
 
-  // Stores a tier&#39;s whitelist
+  // Stores a tier's whitelist
   function tierWhitelist(uint _idx) internal pure returns (bytes32)
     { return keccak256(_idx, "tier_whitelists"); }
 
-  // Stores a spender&#39;s minimum token purchase amount for a given whitelisted tier
+  // Stores a spender's minimum token purchase amount for a given whitelisted tier
   function whitelistMinTok(uint _idx, address _spender) internal pure returns (bytes32)
     { return keccak256(_spender, "min_tok", tierWhitelist(_idx)); }
 
-  // Stores a spender&#39;s maximum number of tokens allowed to be purchased
+  // Stores a spender's maximum number of tokens allowed to be purchased
   function whitelistMaxTok(uint _idx, address _spender) internal pure returns (bytes32)
     { return keccak256(_spender, "max_tok", tierWhitelist(_idx)); }
 
@@ -1038,7 +1038,7 @@ library MintedCappedIdx {
   function allowed(address _owner, address _spender) internal pure returns (bytes32)
     { return keccak256(_spender, keccak256(_owner, TOKEN_ALLOWANCES)); }
 
-  // Storage seed for token &#39;transfer agent&#39; status for any address
+  // Storage seed for token 'transfer agent' status for any address
   // Transfer agents can transfer tokens, even if the crowdsale has not yet been finalized
   bytes32 internal constant TOKEN_TRANSFER_AGENTS = keccak256("token_transfer_agents");
 
@@ -1047,7 +1047,7 @@ library MintedCappedIdx {
 
   // Whether or not the token is unlocked for transfers
   function tokensUnlocked() internal pure returns (bytes32)
-    { return keccak256(&#39;sale_tokens_unlocked&#39;); }
+    { return keccak256('sale_tokens_unlocked'); }
 
   /// RESERVED TOKENS ///
 
@@ -1072,7 +1072,7 @@ library MintedCappedIdx {
     { return keccak256(_destination, "precision", reservedDestinations()); }
 
   /*
-  Creates a crowdsale with initial conditions. The admin should now initialize the crowdsale&#39;s token, as well
+  Creates a crowdsale with initial conditions. The admin should now initialize the crowdsale's token, as well
   as any additional tiers of the crowdsale that will exist, followed by finalizing the initialization of the crowdsale.
 
   @param _team_wallet: The team funds wallet, where crowdsale purchases are forwarded
@@ -1109,7 +1109,7 @@ library MintedCappedIdx {
       || _start_time + _initial_tier_duration <= _start_time
       || _initial_tier_token_sell_cap == 0
       || _admin == address(0)
-    ) revert(&#39;improper initialization&#39;);
+    ) revert('improper initialization');
 
     // Set up STORES action requests -
     Contract.storing();
@@ -1132,7 +1132,7 @@ library MintedCappedIdx {
     Contract.set(tierDuration(uint(0))).to(_initial_tier_duration);
     // Tier minimum purchase size
     Contract.set(tierMin(uint(0))).to(_initial_tier_min_purchase);
-    // Whether this tier&#39;s duration is modifiable prior to its start time
+    // Whether this tier's duration is modifiable prior to its start time
     Contract.set(tierModifiable(uint(0))).to(_initial_tier_duration_is_modifiable);
     // Whether this tier requires an address be whitelisted to complete token purchase
     Contract.set(tierWhitelisted(uint(0))).to(_initial_tier_is_whitelisted);
@@ -1255,7 +1255,7 @@ library MintedCappedIdx {
   @param _storage: The address where application storage is located
   @param _exec_id: The application execution id under which storage for this instance is located
   @return tier_name: The name of the current tier
-  @return tier_index: The current tier&#39;s index in the crowdsale_tiers() list
+  @return tier_index: The current tier's index in the crowdsale_tiers() list
   @return tier_ends_at: The time at which purcahses for the current tier are forcibly locked
   @return tier_tokens_remaining: The amount of tokens remaining to be purchased in the current tier
   @return tier_price: The price of each token purchased this tier, in wei
@@ -1288,7 +1288,7 @@ library MintedCappedIdx {
     tier_tokens_remaining = read_values[2];
     uint num_tiers = read_values[3];
 
-    // If it is beyond the tier&#39;s end time, loop through tiers until the current one is found
+    // If it is beyond the tier's end time, loop through tiers until the current one is found
     while (now >= tier_ends_at && ++tier_index < num_tiers) {
       uint tier_duration = uint(GetterInterface(_storage).read(_exec_id, tierDuration(tier_index)));
       tier_ends_at += tier_duration;
@@ -1434,7 +1434,7 @@ library MintedCappedIdx {
   }
 
   /*
-  Loops through all tiers and their durations, and returns the passed-in index&#39;s start and end dates
+  Loops through all tiers and their durations, and returns the passed-in index's start and end dates
 
   @param _storage: The address where application storage is located
   @param _exec_id: The application execution id under which storage for this instance is located
@@ -1511,8 +1511,8 @@ library MintedCappedIdx {
   @param _storage: The address where application storage is located
   @param _exec_id: The application execution id under which storage for this instance is located
   @param _tier_index: The index of the tier about which the whitelist information will be pulled
-  @return num_whitelisted: The length of the tier&#39;s whitelist array
-  @return whitelist: The tier&#39;s whitelisted addresses
+  @return num_whitelisted: The length of the tier's whitelist array
+  @return whitelist: The tier's whitelisted addresses
   */
   function getTierWhitelist(address _storage, bytes32 _exec_id, uint _tier_index) external view returns (uint num_whitelisted, address[] memory whitelist) {
     // Read from storage and get returned tier whitelist length
@@ -1537,7 +1537,7 @@ library MintedCappedIdx {
   function balanceOf(address _storage, bytes32 _exec_id, address _owner) external view returns (uint)
     { return uint(GetterInterface(_storage).read(_exec_id, balances(_owner))); }
 
-  // Returns the amount of tokens a spender may spend on an owner&#39;s behalf
+  // Returns the amount of tokens a spender may spend on an owner's behalf
   function allowance(address _storage, bytes32 _exec_id, address _owner, address _spender) external view returns (uint)
     { return uint(GetterInterface(_storage).read(_exec_id, allowed(_owner, _spender))); }
 
@@ -1549,11 +1549,11 @@ library MintedCappedIdx {
   function totalSupply(address _storage, bytes32 _exec_id) external view returns (uint)
     { return uint(GetterInterface(_storage).read(_exec_id, tokenTotalSupply())); }
 
-  // Returns the token&#39;s name
+  // Returns the token's name
   function name(address _storage, bytes32 _exec_id) external view returns (bytes32)
     { return GetterInterface(_storage).read(_exec_id, tokenName()); }
 
-  // Returns token&#39;s symbol
+  // Returns token's symbol
   function symbol(address _storage, bytes32 _exec_id) external view returns (bytes32)
     { return GetterInterface(_storage).read(_exec_id, tokenSymbol()); }
 
@@ -1597,7 +1597,7 @@ library MintedCappedIdx {
 
   @param _storage: The address where application storage is located
   @param _exec_id: The application execution id under storage for this app instance is located
-  @return num_destinations: The length of the crowdsale&#39;s reserved token destination array
+  @return num_destinations: The length of the crowdsale's reserved token destination array
   @return reserved_destinations: A list of the addresses which have reserved tokens or percents
   */
   function getReservedTokenDestinationList(address _storage, bytes32 _exec_id) external view

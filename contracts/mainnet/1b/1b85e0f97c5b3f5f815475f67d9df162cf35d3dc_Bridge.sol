@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -157,7 +157,7 @@ contract ICrowdsaleProcessor is Ownable, HasManager {
   // Total collected Ethereum: must be updated every time tokens has been sold
   uint256 public totalCollected;
 
-  // Total amount of project&#39;s token sold: must be updated every time tokens has been sold
+  // Total amount of project's token sold: must be updated every time tokens has been sold
   uint256 public totalSold;
 
   // Crowdsale minimal goal, must be greater or equal to Forecasting min amount
@@ -199,7 +199,7 @@ contract ICrowdsaleProcessor is Ownable, HasManager {
   function start(uint256 _startTimestamp, uint256 _endTimestamp, address _fundingAddress)
     public onlyManager() hasntStarted() hasntStopped();
 
-  // Is crowdsale failed (completed, but minimal goal wasn&#39;t reached)
+  // Is crowdsale failed (completed, but minimal goal wasn't reached)
   function isFailed() public constant returns (bool);
 
   // Is crowdsale active (i.e. the token can be sold)
@@ -314,7 +314,7 @@ contract BasicCrowdsale is ICrowdsaleProcessor {
     public
     onlyManager()   // manager is CrowdsaleController instance
     hasntStarted()  // not yet started
-    hasntStopped()  // crowdsale wasn&#39;t cancelled
+    hasntStopped()  // crowdsale wasn't cancelled
   {
     require(_fundingAddress != address(0));
 
@@ -366,7 +366,7 @@ contract BasicCrowdsale is ICrowdsaleProcessor {
       // it was started
       started &&
 
-      // hard cap wasn&#39;t reached yet
+      // hard cap wasn't reached yet
       totalCollected < hardCap &&
 
       // and current time is within the crowdfunding period
@@ -530,7 +530,7 @@ contract Bridge is BasicCrowdsale {
     return (ethReward, tokenReward);
   }
 
-  // Change token address (in case you&#39;ve used the dafault token address during bridge deployment)
+  // Change token address (in case you've used the dafault token address during bridge deployment)
   function changeToken(address _newToken) public onlyOwner() {
     token = DefaultToken(_newToken);
 

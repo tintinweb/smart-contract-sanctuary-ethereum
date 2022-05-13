@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     require(_b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -158,7 +158,7 @@ contract ClientFunctions is Base{
     }
     // esta funcion es llamada por el cliente, cuando el banco central (estado) le otorga el dinero 
     function removeClientToken(uint256 _value) isClient public{
-        require(clients[msg.sender].Tokens >= _value, "You don&#39;t have that many tokens");
+        require(clients[msg.sender].Tokens >= _value, "You don't have that many tokens");
         clients[msg.sender].Tokens = clients[msg.sender].Tokens.sub(_value);
     }
     // esta funcion es llamada por cliente para saber cuantos Tokens le quedan disponibles
@@ -195,7 +195,7 @@ contract BankFunctions is ClientFunctions{
     } 
     
     function removeBankToken(uint256 _value) isBank public{
-        require(banks[msg.sender].Tokens >= _value, "You don&#39;t have that many tokens");
+        require(banks[msg.sender].Tokens >= _value, "You don't have that many tokens");
         banks[msg.sender].Tokens = banks[msg.sender].Tokens.sub(_value);
     }
     // funcion llamada por el banco owner del Loan, permite saldar la deuda

@@ -3470,7 +3470,7 @@ contract MNY {
             _tokenCount = add(_tokenCount, _tokensAfforded);
             circulatingSupply = add(circulatingSupply, _tokensAfforded);
 
-            // we&#39;ve spent up - go around again and issue tokens to recipient
+            // we've spent up - go around again and issue tokens to recipient
             allocateTokens(0, _tokenCount);
         }
         else {
@@ -3582,7 +3582,7 @@ contract MNY {
     function div(uint256 a, uint256 b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

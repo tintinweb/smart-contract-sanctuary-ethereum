@@ -79,7 +79,7 @@ contract WhiteListAccess {
 // CNTCommon contract
 // ----------------------------------------------------------------------------
 contract NRB_Common is WhiteListAccess {
-    string public name;             // contract&#39;s name
+    string public name;             // contract's name
     function NRB_Common() public { ETH_address = 0x1; }
 
     // Deployment

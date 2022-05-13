@@ -315,11 +315,11 @@ contract Ethername is EthernameRaw {
     commission = 200;
 
     // reserved word
-    nameToRecord[bytes32(&#39;&#39;)] = Record(this, 0);
+    nameToRecord[bytes32('')] = Record(this, 0);
 
     // initial register
-    _register(bytes32(&#39;ethername&#39;), this);
-    _register(bytes32(&#39;root&#39;), msg.sender);
+    _register(bytes32('ethername'), this);
+    _register(bytes32('root'), msg.sender);
   }
 
 

@@ -63,7 +63,7 @@ contract SaleCallbackInterface {
 
 contract Sale is SafeMath {
     
-    address public creator;		    // address of the contract&#39;s creator
+    address public creator;		    // address of the contract's creator
     address public delegate;		// address of an entity allowed to perform administrative functions on behalf of the creator
     
     address public marketplace;	    // address of another smart contract that manages the token and Smart Exchange
@@ -160,7 +160,7 @@ contract Sale is SafeMath {
     
     function buy(address _recipient) public payable {
         
-        // _recipient address must not be all 0&#39;s
+        // _recipient address must not be all 0's
         
         require(_recipient != address(0x0));
 
@@ -184,11 +184,11 @@ contract Sale is SafeMath {
 		
         require(block.timestamp < finish);
 		
-		// either the token sale isn&#39;t restricted, or the sender is on the whitelist
+		// either the token sale isn't restricted, or the sender is on the whitelist
 
         require((! restricted) || whitelist[msg.sender]);
         
-        // either the token sale isn&#39;t restricted, or the recipient is on the whitelist
+        // either the token sale isn't restricted, or the recipient is on the whitelist
 
         require((! restricted) || whitelist[_recipient]);
         
@@ -211,7 +211,7 @@ contract Sale is SafeMath {
             participantIndex.push(_recipient);
         }
         
-        // increment the participant&#39;s sub-tokens and sub-ether
+        // increment the participant's sub-tokens and sub-ether
 
         participantTokens[_recipient] = safeAdd(participantTokens[_recipient], totalTokens);
         participantValues[_recipient] = safeAdd(participantValues[_recipient], msg.value);
@@ -308,7 +308,7 @@ contract Sale is SafeMath {
         
         require(this.balance >= _value);
         
-        // increment the amount that&#39;s been withdrawn
+        // increment the amount that's been withdrawn
         
         withdrawls = safeAdd(withdrawls, _value);
         
@@ -408,7 +408,7 @@ contract Sale is SafeMath {
     
     function reverse(address _recipient) ifDelegate external {
         
-        // the recipient address must not be all 0&#39;s
+        // the recipient address must not be all 0's
         
         require(_recipient != address(0x0));
         
@@ -448,7 +448,7 @@ contract Sale is SafeMath {
     
     function grant(address _recipient, uint256 _tokens) ifDelegate external {
         
-       	// the recipient&#39;s address cannot be 0-value
+       	// the recipient's address cannot be 0-value
        
         require(_recipient != address(0x0));
 		
@@ -463,11 +463,11 @@ contract Sale is SafeMath {
             participantIndex.push(_recipient);
         }
         
-        // add sub-tokens to the recipient&#39;s balance
+        // add sub-tokens to the recipient's balance
         
         participantTokens[_recipient] = safeAdd(participantTokens[_recipient], _tokens);
         
-        // add sub-tokens to the sale&#39;s total
+        // add sub-tokens to the sale's total
         
         tokens = safeAdd(tokens, _tokens);
         

@@ -9,8 +9,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -29,7 +29,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -103,7 +103,7 @@ contract HoprChannel {
     struct State {
         bool isSet;
         // number of open channels
-        // Note: the smart contract doesn&#39;t know the actual
+        // Note: the smart contract doesn't know the actual
         //       channels but it knows how many open ones
         //       there are.
         uint256 openChannels;
@@ -168,7 +168,7 @@ contract HoprChannel {
         
         states[msg.sender].stakedEther = states[msg.sender].stakedEther.sub(amount);
         
-        // Register the channels at both participants&#39; state
+        // Register the channels at both participants' state
         states[msg.sender].openChannels = states[msg.sender].openChannels.add(1);
         states[counterParty].openChannels = states[counterParty].openChannels.add(1);
         

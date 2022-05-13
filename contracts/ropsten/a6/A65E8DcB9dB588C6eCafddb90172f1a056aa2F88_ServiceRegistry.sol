@@ -104,7 +104,7 @@ contract ServiceRegistry is Utils {
     }
 
     /// Set the URL used to access a service via HTTP.
-    /// When this is called for the first time, the service&#39;s ethereum address
+    /// When this is called for the first time, the service's ethereum address
     /// is also added to `service_addresses`.
     function setURL(string memory new_url) public {
         require(bytes(new_url).length != 0, "new url is empty string");

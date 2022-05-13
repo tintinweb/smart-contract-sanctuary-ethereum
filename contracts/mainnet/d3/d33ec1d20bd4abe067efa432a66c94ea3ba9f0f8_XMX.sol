@@ -81,8 +81,8 @@ contract token {
 }
 
 contract XMX is owned, token {
-    string public name = &#39;China dragon&#39;; //代币名称
-    string public symbol = &#39;CYT3&#39;; //代币符号比如&#39;$&#39;
+    string public name = 'China dragon'; //代币名称
+    string public symbol = 'CYT3'; //代币符号比如'$'
     uint8 public decimals = 18;  //代币单位，展示的小数点后面多少个0,和以太币一样后面是是18个0
     uint256 public totalSupply; //代币总量
     uint256 initialSupply =0;

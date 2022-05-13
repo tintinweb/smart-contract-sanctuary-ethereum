@@ -13,7 +13,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -392,7 +392,7 @@ contract KNOWToken is ERC20
          return allowed[_owner][_spender];
      }
 
-     // Transfer the balance from owner&#39;s account to another account
+     // Transfer the balance from owner's account to another account
      function transfer(address _to, uint256 _amount)public returns (bool success) {
         require( _to != 0x0);
         require(balances[msg.sender] >= _amount && _amount >= 0);
@@ -402,7 +402,7 @@ contract KNOWToken is ERC20
              return true;
      }
     
-     // Transfer the balance from owner&#39;s account to another account
+     // Transfer the balance from owner's account to another account
     function transferTokens(address _to, uint256 _amount) private returns(bool success) {
         require( _to != 0x0);       
         require(balances[address(this)] >= _amount && _amount > 0);

@@ -73,8 +73,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, ICOToken {
     function CustomToken() public {
         totalSupply = 268000000000000000000000000;
-        name = &#39;YuanDevelopersCoin&#39;;
-        symbol = &#39;YDS&#39;;
+        name = 'YuanDevelopersCoin';
+        symbol = 'YDS';
         decimals = 18;
         balanceOf[0x0b8d528b35d0e5d6826ecad665c51dab5a671c13] = totalSupply;
         Transfer(address(0), 0x0b8d528b35d0e5d6826ecad665c51dab5a671c13, totalSupply);

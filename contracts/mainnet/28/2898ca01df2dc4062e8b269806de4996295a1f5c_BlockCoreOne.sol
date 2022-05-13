@@ -152,7 +152,7 @@ contract AuctionBase {
         address seller = auction.seller;
 
         // The bid is good! Remove the auction before sending the fees
-        // to the sender so we can&#39;t have a reentrancy attack.
+        // to the sender so we can't have a reentrancy attack.
         _removeAuction(_tokenId);
         
         // Tell the world!
@@ -242,16 +242,16 @@ contract BlockOwnership is BlockBase, ERC721 {
   string public constant symbol = "CB";
 
   bytes4 constant InterfaceSignature_ERC721 =
-      bytes4(keccak256(&#39;name()&#39;)) ^
-      bytes4(keccak256(&#39;symbol()&#39;)) ^
-      bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-      bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-      bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-      bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-      bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-      bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-      bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-      bytes4(keccak256(&#39;tokenMetadata(uint256,string)&#39;));
+      bytes4(keccak256('name()')) ^
+      bytes4(keccak256('symbol()')) ^
+      bytes4(keccak256('totalSupply()')) ^
+      bytes4(keccak256('balanceOf(address)')) ^
+      bytes4(keccak256('ownerOf(uint256)')) ^
+      bytes4(keccak256('approve(address,uint256)')) ^
+      bytes4(keccak256('transfer(address,uint256)')) ^
+      bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+      bytes4(keccak256('tokensOfOwner(address)')) ^
+      bytes4(keccak256('tokenMetadata(uint256,string)'));
       
       function _owns(address _claimant, uint256 _tokenId) internal constant returns (bool) {
           return blockIndexToOwner[_tokenId] == _claimant;

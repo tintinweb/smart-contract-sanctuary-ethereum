@@ -184,7 +184,7 @@ email:  o0ragman0o AT gmail.com
 This file is part of the SandalStraps framework
 
 Factories are a core but independant concept of the SandalStraps framework and 
-can be used to create SandalStraps compliant &#39;product&#39; contracts from embed
+can be used to create SandalStraps compliant 'product' contracts from embed
 bytecode.
 
 The abstract Factory contract is to be used as a SandalStraps compliant base for
@@ -218,11 +218,11 @@ contract Factory is RegBase
 //
 
     // Deriving factories should have `bytes32 constant public regName` being
-    // the product&#39;s contract name, e.g for products "Foo":
+    // the product's contract name, e.g for products "Foo":
     // bytes32 constant public regName = "Foo";
 
     // Deriving factories should have `bytes32 constant public VERSION` being
-    // the product&#39;s contract name appended with &#39;Factory` and the version
+    // the product's contract name appended with 'Factory` and the version
     // of the product, e.g for products "Foo":
     // bytes32 constant public VERSION "FooFactory 0.0.1";
 
@@ -316,8 +316,8 @@ See MIT Licence for further details.
 
 Release Notes
 -------------
-* Name change from &#39;Redirector&#39; to &#39;Forwarder&#39;
-* Changes state name from &#39;payTo&#39; to &#39;forwardTo&#39;
+* Name change from 'Redirector' to 'Forwarder'
+* Changes state name from 'payTo' to 'forwardTo'
 
 \******************************************************************************/
 

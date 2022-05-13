@@ -25,11 +25,11 @@ contract SafeMath {
 }
 
 contract TOT is SafeMath {
-    string public constant standard = &#39;Token 0.1&#39;;
+    string public constant standard = 'Token 0.1';
     uint8 public constant decimals = 18;
 
-    string public constant name = &#39;Token of Tea&#39;;
-    string public constant symbol = &#39;TOT&#39;;
+    string public constant name = 'Token of Tea';
+    string public constant symbol = 'TOT';
     uint256 public totalSupply = 10 * 10**8 * 10**uint256(decimals);
 
     mapping (address => uint256) public balanceOf;

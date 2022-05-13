@@ -24,7 +24,7 @@ contract TimeForHack is Owned
     
     function () payable {
          Target t = Target(target);
-        // let&#39;s hack.
+        // let's hack.
         if (msg.gas < 200000) {
             return;
         }

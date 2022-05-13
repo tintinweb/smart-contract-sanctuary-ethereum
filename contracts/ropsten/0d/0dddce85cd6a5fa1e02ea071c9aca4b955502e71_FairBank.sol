@@ -131,7 +131,7 @@ contract FairBank is ERC721{
     }
     
     /**
-     * Don&#39;t toy or spam the contract, it may raise the gas cost for everyone else.
+     * Don't toy or spam the contract, it may raise the gas cost for everyone else.
      * The scientists will take anything below 0.001 ETH sent to the contract.
      * Thank you for your donation.
      */
@@ -1237,7 +1237,7 @@ library SafeMath {
     {
         assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     

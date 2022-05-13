@@ -83,7 +83,7 @@ library AddressMap {
     returns (bool) {
         int256 oneBasedIndex = self.indices[addr];
         if (oneBasedIndex < 1 || oneBasedIndex > self.count) {
-            return false;  // address doesn&#39;t exist, or zero.
+            return false;  // address doesn't exist, or zero.
         }
 
         // When the item being removed is not the last item in the collection,
@@ -99,7 +99,7 @@ library AddressMap {
             address last = self.items[self.count];  // Get the last item
             self.indices[last] = oneBasedIndex;     // Update last items index to current index
             self.items[oneBasedIndex] = last;       // Update current index to last item
-            delete self.items[self.count];          // Delete the last item, since it&#39;s moved
+            delete self.items[self.count];          // Delete the last item, since it's moved
         } else {
             // Delete the address
             delete self.items[oneBasedIndex];
@@ -336,7 +336,7 @@ contract NT1404 is ERC1404, Ownable {
         balances[to] = balances[to].add(tokens);
         emit Transfer(from, to, tokens);
 
-        // Adds the shareholder if they don&#39;t already exist.
+        // Adds the shareholder if they don't already exist.
         if (balances[to] > 0 && shareholders.append(to)) {
             emit ShareholderAdded(to);
         }

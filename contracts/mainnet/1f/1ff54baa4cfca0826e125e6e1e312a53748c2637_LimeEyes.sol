@@ -6,19 +6,19 @@ pragma solidity ^0.4.18;
 // (https://limeeyes.com/)
 /*
              ___                  ___        
-         .-&#39;&#39;   &#39;&#39;-.          .-&#39;&#39;   &#39;&#39;-.    
-       .&#39;           &#39;.      .&#39;           &#39;.  
+         .-''   ''-.          .-''   ''-.    
+       .'           '.      .'           '.  
       /   . -  ;  - . \    /   . -  ;  - . \ 
-     (  &#39; `-._|_,&#39;_,.- )  (  &#39; `-._|_,&#39;_,.- )
-      &#39;,,.--_,4"-;_  ,&#39;    &#39;,,.--_,4"-;_  ,&#39; 
-        &#39;-.;   \ _.-&#39;        &#39;-.;   \ _.-&#39;   
-            &#39;&#39;&#39;&#39;&#39;                &#39;&#39;&#39;&#39;&#39;       
+     (  ' `-._|_,'_,.- )  (  ' `-._|_,'_,.- )
+      ',,.--_,4"-;_  ,'    ',,.--_,4"-;_  ,' 
+        '-.;   \ _.-'        '-.;   \ _.-'   
+            '''''                '''''       
 */
 // Welcome to LimeEyes!
 //
-// This smart contract allows users to purchase shares of any artwork that&#39;s
+// This smart contract allows users to purchase shares of any artwork that's
 // been added to the system and it will pay dividends to all shareholders
-// upon the purchasing of new shares! It&#39;s special in the way it works because
+// upon the purchasing of new shares! It's special in the way it works because
 // the shares can only be bought in certain amounts and the price of those 
 // shares is dependant on how many other shares there are already. Each
 // artwork starts with 1 share available for purchase and upon each sale,
@@ -29,7 +29,7 @@ pragma solidity ^0.4.18;
     If the artwork has had shares purchased 4 times, the next purchase will
     be for 5 shares of the artwork. Upon the purchasing of these shares, the
     owner will receive the dividends equivelent to 5 shares worth of the sale
-    value. It&#39;s also important to note that the artwork owner cannot purchase
+    value. It's also important to note that the artwork owner cannot purchase
     shares of their own art, instead they just inherit the shares for purchase
     and pass it onto the next buyer at each sale.
 */ 
@@ -40,7 +40,7 @@ pragma solidity ^0.4.18;
 // and add that much on top of your base price, for example;
 /*
     If the artwork has a base price of 0.01 ETH and there have been 250 shares 
-    purchased so far, it would mean that the base price will gain 250% of it&#39;s
+    purchased so far, it would mean that the base price will gain 250% of it's
     value which comes to 0.035 ETH (100% + 250% of the base price).
 */
 // The special thing about this is because the shares are intrinsicly linked with
@@ -54,7 +54,7 @@ pragma solidity ^0.4.18;
     shares purchased. In contrast, if you own 250 shares of the artwork, you should 
     expect to see 250% * 0.01 ETH = 0.025 ETH each time the artwork has shares bought.
   
-    It&#39;s good to point out that if you were the first buyer and owned 1 share, the next
+    It's good to point out that if you were the first buyer and owned 1 share, the next
     buyer is going to be purchasing 2 shares which means you have 1 out of the 3 shares
     total and hence you will receive 33% of that sale, at the next step there will be
     6 shares total and your 1 share is now worth 16% of the sale price, as mentioned
@@ -62,7 +62,7 @@ pragma solidity ^0.4.18;
     1 share will trend towards 1% of the base price over a long period of time.
 */
 //
-// If you&#39;re an artist and are interested in listing some of your works on the site
+// If you're an artist and are interested in listing some of your works on the site
 // and in this contract, please visit the website (https://limeeyes.com/) and contact
 // the main developer via the links on the site!
 //
@@ -114,7 +114,7 @@ contract LimeEyes {
 
 	// This function will create a new artwork within the contract,
 	// the title is changeable later by the dev but the owner and
-	// basePrice cannot be changed once it&#39;s been created.
+	// basePrice cannot be changed once it's been created.
 	// The owner of the artwork will start off with 1 share and any
 	// other addresses may now purchase shares for it.
 	function createArtwork(string title, address owner, uint256 basePrice) public onlyDev {
@@ -151,7 +151,7 @@ contract LimeEyes {
 
 	// This function is only for the website and whether or not
 	// it displays a certain artwork, any user may still buy shares
-	// for an invisible artwork although it&#39;s not really art unless
+	// for an invisible artwork although it's not really art unless
 	// you can view it.
 	// This is exclusively reserved for copyright cases should any
 	// artworks be flagged as such.
@@ -216,7 +216,7 @@ contract LimeEyes {
 		// Make sure the buyer sent enough ETH
 		require(msg.value >= currentPrice);
 
-		// Send back the excess if there&#39;s any.
+		// Send back the excess if there's any.
 		uint256 purchaseExcess = msg.value - currentPrice;
 		if (purchaseExcess > 0)
 			msg.sender.transfer(purchaseExcess);
@@ -225,7 +225,7 @@ contract LimeEyes {
 		// (this will potentially cost a lot of gas)
 		for (uint256 i = 0; i < artwork._shareholders.length; i++) {
 			address shareholder = artwork._shareholders[i];
-			if (shareholder != address(this)) { // transfer ETH if the shareholder isn&#39;t this contract
+			if (shareholder != address(this)) { // transfer ETH if the shareholder isn't this contract
 				shareholder.transfer((currentPrice * artwork._shares[shareholder]) / totalShares);
 			}
 		}
@@ -270,9 +270,9 @@ contract LimeEyes {
 		// in order to accommodate for the owner. from here we just need to adjust the triangular
 		// number formula slightly to get;
 		// Shares After n Purchases = ((n + 1) * (n + 2)) / 2
-		// Let&#39;s say the art is being purchased for a second time which means the purchaser is
+		// Let's say the art is being purchased for a second time which means the purchaser is
 		// buying 3 shares and therefore the owner will get 3 shares worth of dividends from the
-		// overall purchase value. As it&#39;s the 2nd purchase, there are (3 * 4) / 2 = 6 shares total
+		// overall purchase value. As it's the 2nd purchase, there are (3 * 4) / 2 = 6 shares total
 		// according to our formula which is as expected.
 		uint256 totalShares = ((artwork._purchases + 1) * (artwork._purchases + 2)) / 2;
 
@@ -285,7 +285,7 @@ contract LimeEyes {
 		// The current price is also directly related the total number of shares, it simply treats
 		// the total number of shares as a percentage and adds that much on top of the base price.
 		// For example if the base price was 0.01 ETH and there were 250 shares total it would mean
-		// that the price would gain 250% of it&#39;s value = 0.035 ETH (100% + 250%);
+		// that the price would gain 250% of it's value = 0.035 ETH (100% + 250%);
 		// Current Price = (Base Price * (100 + Total Shares)) / 100
 		prices[1] = (prices[0] * (100 + totalShares)) / 100;
 		// The next price would just be the same as the current price but we have a few extra shares.

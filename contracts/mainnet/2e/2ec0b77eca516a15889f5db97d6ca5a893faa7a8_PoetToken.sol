@@ -67,7 +67,7 @@ contract StandardToken is AbstractToken, Owned {
     /*
      *  Read and write storage functions
      */
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param _to Address of token receiver.
     /// @param _value Number of tokens to transfer.
     function transfer(address _to, uint256 _value) returns (bool success) {
@@ -217,7 +217,7 @@ contract PoetToken is Token {
     mapping(uint8 => uint8) daysInMonth;
 
     // UNIX timestamp for September 1, 2017
-    // It&#39;s a date when first 2% of foundation reserve will be unlocked
+    // It's a date when first 2% of foundation reserve will be unlocked
     uint Sept1_2017 = 1504224000;
 
     // Number of days since September 1, 2017 before all tokens will be unlocked

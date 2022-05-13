@@ -32,8 +32,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -50,7 +50,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -188,7 +188,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -279,7 +279,7 @@ contract VerityToken is StandardToken {
 }
 
 contract VerityEvent {
-    /// Contract&#39;s owner, used for permission management
+    /// Contract's owner, used for permission management
     address public owner;
 
     /// Token contract address, used for tokend distribution
@@ -385,7 +385,7 @@ contract VerityEvent {
     }
     ConsensusRules consensusRules;
 
-    /// Event&#39;s states
+    /// Event's states
     /// Events advance in the order defined here. Once the event reaches "Reward"
     /// state, it cannot advance further.
     /// Event states:
@@ -394,8 +394,8 @@ contract VerityEvent {
     ///                        new wallets can be added to the participats list during this state.
     ///   - Running         -- Event is running, no new participants can be added
     ///   - DisputeTimeout  -- Dispute possible
-    ///   - Reward          -- Participants can claim their payouts here - final state; can&#39;t be modified.
-    ///   - Failed          -- Event failed (no consensus, not enough users, timeout, ...) - final state; can&#39;t be modified
+    ///   - Reward          -- Participants can claim their payouts here - final state; can't be modified.
+    ///   - Failed          -- Event failed (no consensus, not enough users, timeout, ...) - final state; can't be modified
     enum EventStates {
         Waiting,
         Application,
@@ -435,7 +435,7 @@ contract VerityEvent {
         payable
     {
         require(_applicationStartTime < _applicationEndTime);
-        require(_eventStartTime > _applicationEndTime, "Event can&#39;t start before applications close.");
+        require(_eventStartTime > _applicationEndTime, "Event can't start before applications close.");
 
         applicationStartTime = _applicationStartTime;
         applicationEndTime = _applicationEndTime;
@@ -496,7 +496,7 @@ contract VerityEvent {
 
     /// A modifier signifying that a certain method can only be used when the event
     /// is in a certain state.
-    /// @param _state The event&#39;s required state
+    /// @param _state The event's required state
     /// Example:
     /// 	function claimReward() onlyParticipanting onlyState(EventStates.Reward) {
     /// 		// ... content
@@ -536,7 +536,7 @@ contract VerityEvent {
     modifier onlyChangeableState() {
         require(
             uint(eventState) < uint(EventStates.Reward),
-            "Event state can&#39;t be modified anymore."
+            "Event state can't be modified anymore."
         );
         _;
     }
@@ -632,7 +632,7 @@ contract VerityEvent {
 
     /// Assign the actual rewards.
     /// Receives a list of addresses and a list rewards. Mapping between the two
-    /// is done by the addresses&#39; and reward&#39;s numerical index in the list, so
+    /// is done by the addresses' and reward's numerical index in the list, so
     /// order is important.
     /// @param _addresses A list of addresses
     /// @param _etherRewards A list of ether rewards, must be the exact same length as addresses
@@ -693,7 +693,7 @@ contract VerityEvent {
         checkApprovalRatio();
     }
 
-    /// Called by event resolvers if they don&#39;t agree with rewards
+    /// Called by event resolvers if they don't agree with rewards
     function rejectRewards(uint validationRound, string altHash)
         public
         onlyState(EventStates.Running)
@@ -780,7 +780,7 @@ contract VerityEvent {
             rewardsValidation.approvalCount + rewardsValidationRound - 1 >
             rewardsValidation.rejectionCount - rewardsValidation.altHashes.length + 1
         ) {
-            markAsFailed("Consensus can&#39;t be reached");
+            markAsFailed("Consensus can't be reached");
         } else {
             restartValidation();
         }
@@ -845,7 +845,7 @@ contract VerityEvent {
         return false;
     }
 
-    /// Returns the calling user&#39;s assigned rewards. Can be 0.
+    /// Returns the calling user's assigned rewards. Can be 0.
     /// Only available to participating users in the Reward state, since rewards
     /// are not assigned before that.
     function getReward()
@@ -983,7 +983,7 @@ contract VerityEvent {
         VerityToken(tokenAddress).transfer(owner, tokenBalance);
     }
 
-    /// Advances the event&#39;s state to the next one. Only for internal use.
+    /// Advances the event's state to the next one. Only for internal use.
     function advanceState() private onlyChangeableState {
         eventState = EventStates(uint(eventState) + 1);
         emit StateTransition(eventState);

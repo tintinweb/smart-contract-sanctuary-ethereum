@@ -44,7 +44,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -96,7 +96,7 @@ contract ExtraHolderContract is TokenRecipient {
     uint ensureFullfield;
 
     for(uint index = 0; index < _recipients.length; index++) {
-      // overflow check isn&#39;t required.. I suppose :D
+      // overflow check isn't required.. I suppose :D
       ensureFullfield = ensureFullfield + _partions[index];
       require(_partions[index] > 0);
       require(_recipients[index] != address(0x0));

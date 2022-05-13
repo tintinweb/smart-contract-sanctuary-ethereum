@@ -2,17 +2,17 @@
 //
 //                                     _
 //                                _.-~~.)              SMARTCONTRACT.RU
-//          _.--~~~~~---....__  .&#39; . .,&#39;          
-//        ,&#39;. . . . . . . . . .~- ._ (                 Development smart-contracts
-//       ( .. .g. . . . . . . . . . .~-._              Investor&#39;s office for ICO
+//          _.--~~~~~---....__  .' . .,'          
+//        ,'. . . . . . . . . .~- ._ (                 Development smart-contracts
+//       ( .. .g. . . . . . . . . . .~-._              Investor's office for ICO
 //    .~__.-~    ~`. . . . . . . . . . . -.
 //    `----..._      ~-=~~-. . . . . . . . ~-.         Telegram: https://goo.gl/FRP4nz    
 //              ~-._   `-._ ~=_~~--. . . . . .~.
 //               | .~-.._  ~--._-.    ~-. . . . ~-.
-//                \ .(   ~~--.._~&#39;       `. . . . .~-.                ,
-//                 `._\         ~~--.._    `. . . . . ~-.    .- .   ,&#39;/
-// _  . _ . -~\        _ ..  _          ~~--.`_. . . . . ~-_     ,-&#39;,&#39;`  .
-//              ` ._           ~                ~--. . . . .~=.-&#39;. /. `
+//                \ .(   ~~--.._~'       `. . . . .~-.                ,
+//                 `._\         ~~--.._    `. . . . . ~-.    .- .   ,'/
+// _  . _ . -~\        _ ..  _          ~~--.`_. . . . . ~-_     ,-','`  .
+//              ` ._           ~                ~--. . . . .~=.-'. /. `
 //        - . -~            -. _ . - ~ - _   - ~     ~--..__~ _,. /   \  - ~
 //               . __ ..                   ~-               ~~_. (  `
 // )`. _ _               `-       ..  - .    . - ~ ~ .    \    ~-` ` `  `. _
@@ -321,7 +321,7 @@ contract BurnableToken is StandardToken {
 /* This is your discount for development smartcontract 5% */
 /* For order smart-contract please contact at Telegram: https://t.me/joinchat/Bft2vxACXWjuxw8jH15G6w */
 
-/* We develop inverstor&#39;s office for ICO, operator&#39;s dashboard for ICO, Token Air Drop  */
+/* We develop inverstor's office for ICO, operator's dashboard for ICO, Token Air Drop  */
 /* <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f79e999198b7849a9685839498998385969483d98582">[email&#160;protected]</a> */
 
 contract Token is CappedToken, BurnableToken {

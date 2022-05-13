@@ -162,7 +162,7 @@ contract LightPool {
         require(base != address(0));
         require(quote != address(0));
 
-        // Make sure there&#39;s no such configured token
+        // Make sure there's no such configured token
         bytes32 tokenHash = keccak256(base, quote, msg.sender);
         require(markets[tokenHash].walletAddress == address(0));
 
@@ -281,7 +281,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -307,7 +307,7 @@ contract DSMath {
 }
 
 ////// lib/lpc/lib/ds-token/lib/ds-stop/lib/ds-note/src/note.sol
-/// note.sol -- the `note&#39; modifier, for logging calls as events
+/// note.sol -- the `note' modifier, for logging calls as events
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -369,9 +369,9 @@ contract DSNote {
 
 /* pragma solidity ^0.4.13; */
 
-/* import &#39;ds-auth/auth.sol&#39;; */
-/* import &#39;ds-note/note.sol&#39;; */
-/* import &#39;ds-math/math.sol&#39;; */
+/* import 'ds-auth/auth.sol'; */
+/* import 'ds-note/note.sol'; */
+/* import 'ds-math/math.sol'; */
 
 contract DSThing is DSAuth, DSNote, DSMath {
 

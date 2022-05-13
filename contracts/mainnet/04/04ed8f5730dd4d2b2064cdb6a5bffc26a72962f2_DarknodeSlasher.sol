@@ -84,8 +84,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -102,7 +102,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -228,7 +228,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -432,7 +432,7 @@ contract BurnableToken is BasicToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply_ = totalSupply_.sub(_value);
@@ -697,10 +697,10 @@ contract DarknodeRegistryStore is Ownable {
     /// @notice Instantiates a darknode and appends it to the darknodes
     /// linked-list.
     ///
-    /// @param _darknodeID The darknode&#39;s ID.
-    /// @param _darknodeOwner The darknode&#39;s owner&#39;s address
-    /// @param _bond The darknode&#39;s bond value
-    /// @param _publicKey The darknode&#39;s public key
+    /// @param _darknodeID The darknode's ID.
+    /// @param _darknodeOwner The darknode's owner's address
+    /// @param _bond The darknode's bond value
+    /// @param _publicKey The darknode's public key
     /// @param _registeredAt The time stamp when the darknode is registered.
     /// @param _deregisteredAt The time stamp when the darknode is deregistered.
     function appendDarknode(
@@ -1050,7 +1050,7 @@ contract DarknodeRegistry is Ownable {
         nextSlasher = _slasher;
     }
 
-    /// @notice Allow the DarknodeSlasher contract to slash half of a darknode&#39;s
+    /// @notice Allow the DarknodeSlasher contract to slash half of a darknode's
     /// bond and deregister it. The bond is distributed as follows:
     ///   1/2 is kept by the guilty prover
     ///   1/8 is rewarded to the first challenger
@@ -1125,7 +1125,7 @@ contract DarknodeRegistry is Ownable {
     /// @notice Retrieves a list of darknodes which are registered for the
     /// current epoch.
     /// @param _start A darknode ID used as an offset for the list. If _start is
-    ///        0x0, the first dark node will be used. _start won&#39;t be
+    ///        0x0, the first dark node will be used. _start won't be
     ///        included it is not registered for the epoch.
     /// @param _count The number of darknodes to retrieve starting from _start.
     ///        If _count is 0, all of the darknodes from _start are
@@ -1265,7 +1265,7 @@ contract DarknodeRegistry is Ownable {
 }
 
 /// @notice The BrokerVerifier interface defines the functions that a settlement
-/// layer&#39;s broker verifier contract must implement.
+/// layer's broker verifier contract must implement.
 interface BrokerVerifier {
 
     /// @notice The function signature that will be called when a trader opens
@@ -1526,7 +1526,7 @@ contract Orderbook is Ownable {
     bytes32[] private orderbook;
 
     // Order details are exposed through directly accessing this mapping, or
-    // through the getter functions below for each of the order&#39;s fields.
+    // through the getter functions below for each of the order's fields.
     mapping(bytes32 => Order) public orders;
 
     event LogFeeUpdated(uint256 previousFee, uint256 nextFee);
@@ -1740,7 +1740,7 @@ library SettlementUtils {
     /// use this function.
     /// @dev When verifying two orders for settlement, you should also:
     ///   1) verify the orders have been confirmed together
-    ///   2) verify the orders&#39; traders are distinct
+    ///   2) verify the orders' traders are distinct
     /// @param _buy The buy order details.
     /// @param _sell The sell order details.
     function verifyMatchDetails(OrderDetails memory _buy, OrderDetails memory _sell) internal pure returns (bool) {
@@ -1842,7 +1842,7 @@ contract DarknodeSlasher is Ownable {
         // Hash the order
         bytes32 orderID = SettlementUtils.hashOrder(details, order);
 
-        // Check the order details haven&#39;t already been submitted
+        // Check the order details haven't already been submitted
         require(!orderSubmitted[orderID], "already submitted");
 
         // Store the order details and the challenger
@@ -1861,7 +1861,7 @@ contract DarknodeSlasher is Ownable {
     /// @param _sellID The order ID of a sell order that was maliciously
     ///        confirmed with the `_buyID`.
     function submitChallenge(bytes32 _buyID, bytes32 _sellID) external {
-        // Check that the match hasn&#39;t been submitted previously
+        // Check that the match hasn't been submitted previously
         require(!challengeSubmitted[_buyID][_sellID], "already challenged");
 
         // Check that the order details have been submitted

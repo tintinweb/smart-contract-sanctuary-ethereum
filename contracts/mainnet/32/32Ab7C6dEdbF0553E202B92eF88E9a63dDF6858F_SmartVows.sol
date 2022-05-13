@@ -77,7 +77,7 @@ contract SmartVows is Ownable, Util {
     string public partner1_name;
     string public partner2_name;
     
-    // Partners&#39; eth address
+    // Partners' eth address
     address public partner1_address;
     address public partner2_address;
     

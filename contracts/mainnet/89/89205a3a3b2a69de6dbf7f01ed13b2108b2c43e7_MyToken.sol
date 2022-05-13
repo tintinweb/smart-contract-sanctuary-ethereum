@@ -80,7 +80,7 @@ contract Congress is owned {
                         voteWeight: 0,
                         canAddProposals: false,
                         memberSince: now,
-                        name: &#39;&#39;
+                        name: ''
                 });
                 if (congressLeader != 0) owner = congressLeader;
 
@@ -179,7 +179,7 @@ contract Congress is owned {
                 p.numberOfVotes += voteWeight; // Increase the number of votes
                 if (supportsProposal) { // If they support the proposal
                         p.currentResult += int(voteWeight); // Increase score
-                } else { // If they don&#39;t
+                } else { // If they don't
                         p.currentResult -= int(voteWeight); // Decrease the score
                 }
                 // Create a log of this event

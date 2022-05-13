@@ -139,7 +139,7 @@ contract UECToken {
         require(itemRegistry.priceOf(_itemId) > 0);
         uint256 price = itemRegistry.priceOf(_itemId);
         address itemOwner = itemRegistry.ownerOf(_itemId);
-        listItem(_itemId, price,itemOwner,&#39;&#39;,itemOwner);
+        listItem(_itemId, price,itemOwner,'',itemOwner);
     }
     function listMultipleItems(uint256[] _itemIds, uint256 _price, address _owner, bytes32 _itemName) onlyAdmins() external {
         for (uint256 i = 0; i < _itemIds.length; i++) {

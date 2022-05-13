@@ -219,7 +219,7 @@ contract CryptoFamousOwnership is CryptoFamousBase {
   }
 
   /// @notice Returns a list of all Card IDs currently owned by `_owner`
-  /// @dev (this thing iterates, don&#39;t call from smart contract code)
+  /// @dev (this thing iterates, don't call from smart contract code)
   function tokensOfOwner(address _owner) external view returns(uint256[] ownerTokens) {
       uint256 tokenCount = ownerAddressToCardCount[_owner];
 
@@ -269,7 +269,7 @@ contract CryptoFamousStorage is CryptoFamousOwnership {
       _;
   }
 
-  /// @dev mapping from Card ID to information about that card&#39;s last trade
+  /// @dev mapping from Card ID to information about that card's last trade
   mapping (uint256 => SaleInfo) public cardIdToSaleInfo;
 
   /// @dev mapping from Card ID to the current value stashed away for a future claimer
@@ -277,14 +277,14 @@ contract CryptoFamousStorage is CryptoFamousOwnership {
   /// @dev total amount of stashed payouts
   uint256 public totalStashedPayouts;
 
-  /// @dev if we fail to send any value to a Card&#39;s previous owner as part of the
-  /// invite/steal transaction we&#39;ll hold it in this contract. This mapping records the amount
+  /// @dev if we fail to send any value to a Card's previous owner as part of the
+  /// invite/steal transaction we'll hold it in this contract. This mapping records the amount
   /// owed to that "previous owner".
   mapping (address => uint256) public addressToFailedOldOwnerTransferAmount;
   /// @dev total amount of failed old owner transfers
   uint256 public totalFailedOldOwnerTransferAmounts;
 
-  /// @dev mapping from Card ID to that card&#39;s current perk text
+  /// @dev mapping from Card ID to that card's current perk text
   mapping (uint256 => string) public cardIdToPerkText;
 
   function authorized_setCardPerkText(uint256 _cardId, string _perkText) external requireAuthorizedLogicContract {
@@ -361,7 +361,7 @@ contract CryptoFamousStorage is CryptoFamousOwnership {
     return balance;
   }
 
-  /// @dev the Bursar account can use this to withdraw the contract&#39;s net balance
+  /// @dev the Bursar account can use this to withdraw the contract's net balance
   function bursarPayOutNetContractBalance(address _to) external requireBursar {
       uint256 payout = netContractBalance();
 
@@ -372,7 +372,7 @@ contract CryptoFamousStorage is CryptoFamousOwnership {
       }
   }
 
-  /// @dev Any wallet owed value that&#39;s recorded under `addressToFailedOldOwnerTransferAmount`
+  /// @dev Any wallet owed value that's recorded under `addressToFailedOldOwnerTransferAmount`
   /// can use this function to withdraw that value.
   function withdrawFailedOldOwnerTransferAmount() external whenNotPaused {
       uint256 failedTransferAmount = addressToFailedOldOwnerTransferAmount[msg.sender];
@@ -411,7 +411,7 @@ contract CryptoFamous is CryptoFamousBase {
     /// @dev Fired whenever a Card is claimed.
     event CardClaimCompleted(uint256 indexed cardId, address previousClaimer, address newClaimer, address indexed owner);
 
-    /// @dev Fired whenever a Card&#39;s perk text is updated.
+    /// @dev Fired whenever a Card's perk text is updated.
     event CardPerkTextUpdated(uint256 indexed cardId, string newPerkText);
 
     /// @notice Reference to the contract that handles the creation and ownership changes between cards.
@@ -498,7 +498,7 @@ contract CryptoFamous is CryptoFamousBase {
 
     /// @dev claiming a social identity requires a signature provided by the CryptoFamous backend
     /// to verify the authenticity of the claim. Once a Card is claimed by an address, that address
-    /// has access to the Card&#39;s current and future earnings on the system.
+    /// has access to the Card's current and future earnings on the system.
     function _claimSocialNetworkIdentity(uint256 _socialNetworkType, uint256 _socialId, address _claimerAddress, uint8 _v, bytes32 _r, bytes32 _s) private returns (uint256) {
       uint8 _socialNetworkType8 = uint8(_socialNetworkType);
       require(_socialNetworkType == uint256(_socialNetworkType8));
@@ -545,7 +545,7 @@ contract CryptoFamous is CryptoFamousBase {
         }
     }
 
-    /// @dev The Card&#39;s perk text is displayed prominently on its profile and will likely be
+    /// @dev The Card's perk text is displayed prominently on its profile and will likely be
     /// used for promotional reasons.
     function setCardPerkText(uint256 _cardId, string _perkText) external whenNotPaused {
       address cardClaimer;
@@ -666,7 +666,7 @@ contract CryptoFamous is CryptoFamousBase {
 
         require(newOwner != address(0));
 
-        // Check for sent value overflow (which realistically wouldn&#39;t happen)
+        // Check for sent value overflow (which realistically wouldn't happen)
         uint128 sentValue = uint128(msg.value);
         require(uint256(sentValue) == msg.value);
 

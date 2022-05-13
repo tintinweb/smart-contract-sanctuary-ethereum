@@ -22,8 +22,8 @@ contract owned {
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract StarterTokenBase {
-    string public constant _myTokeName = &#39;Starter Token&#39;;
-    string public constant _mySymbol = &#39;STRT&#39;;
+    string public constant _myTokeName = 'Starter Token';
+    string public constant _mySymbol = 'STRT';
     uint public constant _myinitialSupply = 20000000;
     // Public variables of the token
     string public name;

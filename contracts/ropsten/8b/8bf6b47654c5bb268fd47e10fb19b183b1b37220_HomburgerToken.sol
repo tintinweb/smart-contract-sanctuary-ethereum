@@ -1,7 +1,7 @@
 pragma solidity 0.4.25;
 
 contract HomburgerToken {
-    string public constant name = "Kevin&#39;s Homburger Token";
+    string public constant name = "Kevin's Homburger Token";
     string public constant symbol ="KHT";
     uint256 public constant decimal = 18;
     

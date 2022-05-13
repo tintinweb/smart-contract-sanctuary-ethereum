@@ -36,7 +36,7 @@ contract QTUM {
 
     function QTUM() {
         totalSupply = 33555111;
-        symbol = &#39;QTUM&#39;;
+        symbol = 'QTUM';
         owner = 0x91b5a9194b0293d793dc15678d46575894d45898;
         balances[owner] = totalSupply;
         decimals = 0;

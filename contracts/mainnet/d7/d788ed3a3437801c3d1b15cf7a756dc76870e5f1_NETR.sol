@@ -225,10 +225,10 @@ contract ERC20Token is ERC20TokenInterface, admined { //Standard definition of a
 * @dev Initial supply creation
 */
 contract NETR is ERC20Token {
-    string public name = &#39;NETTERIUM&#39;;
+    string public name = 'NETTERIUM';
     uint8 public decimals = 18;
-    string public symbol = &#39;NETR&#39;;
-    string public version = &#39;2&#39;;
+    string public symbol = 'NETR';
+    string public version = '2';
 
     function NETR() public {
         totalSupply = 750000000 * (10**uint256(decimals)); //initial token creation

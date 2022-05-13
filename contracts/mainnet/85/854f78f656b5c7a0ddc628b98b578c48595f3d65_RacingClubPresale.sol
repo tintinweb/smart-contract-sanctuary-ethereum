@@ -96,10 +96,10 @@ contract RacingClubPresale is AccessControl {
   // Max count which can be bought with one transaction
   uint256 private constant MAX_ORDER = 5;
 
-  // 0 - 9 valid Id&#39;s for cars
+  // 0 - 9 valid Id's for cars
   uint256 private constant CAR_MODELS = 10;
 
-  // The special car (the most rarest one) which can&#39;t be picked even with MAX_ORDER
+  // The special car (the most rarest one) which can't be picked even with MAX_ORDER
   uint256 public constant UNICORN_ID = 0;
 
   // Maps any number from 0 - 255 to 0 - 9 car Id
@@ -169,7 +169,7 @@ contract RacingClubPresale is AccessControl {
     }
     fillRandomCars(randomCars, startFrom);
 
-    // add new cars to the owner&#39;s list
+    // add new cars to the owner's list
     for (uint256 i = 0; i < randomCars.length; i++) {
       ownerToCars[msg.sender].push(randomCars[i]);
     }
@@ -252,7 +252,7 @@ contract RacingClubPresale is AccessControl {
     // All purchases within a same block will get different car combinations
     // as current price is changed at the end of the purchase.
     //
-    // We don&#39;t need super secure random algorithm as it&#39;s just presale
+    // We don't need super secure random algorithm as it's just presale
     // and if someone can time the block and grab the desired car we are just happy for him / her
     bytes32 rand32 = keccak256(currentPrice, now);
     uint256 randIndex = 0;
@@ -294,9 +294,9 @@ contract RacingClubPresale is AccessControl {
 
   function updateAppreciationStep() private {
     // this method is called once per purcahse
-    // so use &#39;greater than&#39; not to miss the limit
+    // so use 'greater than' not to miss the limit
     if (currentPrice > PRICE_LIMIT_1) {
-      // don&#39;t update if there is no change
+      // don't update if there is no change
       if (appreciationStep != APPRECIATION_STEP_2) {
         appreciationStep = APPRECIATION_STEP_2;
       }
@@ -418,7 +418,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

@@ -168,7 +168,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -275,11 +275,11 @@ contract CelebsParty is CelebsPartyGate {
                 fameBalance[oldAgent] = SafeMath.add(fameBalance[oldAgent], halfOriginalFame);
             }
         }
-        // set the celebrity&#39;s agent to the current player
+        // set the celebrity's agent to the current player
         celeb.agent = newAgent;
         // set the new min required bid
         celeb.agentAwe = _agentAwe;
-        // deduct the sent fame amount from the current player&#39;s balance
+        // deduct the sent fame amount from the current player's balance
         circulatingFame = SafeMath.sub(circulatingFame, _agentAwe);
         fameBalance[newAgent] = SafeMath.sub(fameBalance[newAgent], _agentAwe);
         AgentHired(_identifier, newAgent, celeb.isQueued);
@@ -301,7 +301,7 @@ contract CelebsParty is CelebsPartyGate {
         uint256 generatedFame = uint256(SafeMath.mul((block.number - celeb.lastFameBlock), celeb.famePerBlock));
         // 91% of the sale will go the previous owner
         uint256 payment = uint256(SafeMath.div(SafeMath.mul(salePrice, 91), 100));
-        // 4% of the sale will go to the celebrity&#39;s agent
+        // 4% of the sale will go to the celebrity's agent
         uint256 agentFee = uint256(SafeMath.div(SafeMath.mul(salePrice, 4), 100));
         // 3% of the sale will go to the developer of the game
         uint256 devFee = uint256(SafeMath.div(SafeMath.mul(salePrice, 3), 100));
@@ -310,7 +310,7 @@ contract CelebsParty is CelebsPartyGate {
         // calculate any excess wei that should be refunded
         uint256 purchaseExcess = SafeMath.sub(msg.value, salePrice);
         if (oldOwner != address(this)) {
-            // only transfer the funds if the contract doesn&#39;t own the celebrity (no pre-mine)
+            // only transfer the funds if the contract doesn't own the celebrity (no pre-mine)
             oldOwner.transfer(payment);
         } else {
             // if this is the first sale, main proceeds go to the prize pool
@@ -324,7 +324,7 @@ contract CelebsParty is CelebsPartyGate {
         uint256 spoils = SafeMath.div(generatedFame, 2);
         circulatingFame = SafeMath.add(circulatingFame, spoils);
         fameBalance[newOwner] = SafeMath.add(fameBalance[newOwner], spoils);
-        // don&#39;t send the dev anything, but make a note of it
+        // don't send the dev anything, but make a note of it
         devBalance = SafeMath.add(devBalance, devFee);
         // increase the prize pool balance
         prizePool = SafeMath.add(prizePool, prizeFee);
@@ -409,7 +409,7 @@ contract CelebsParty is CelebsPartyGate {
         address player = msg.sender;
         // ensure that enough blocks have been mined (no one has bid within this time period)
         require(block.number - celeb.lastQueueBlock >= minRequiredBlockQueueTime);
-        // ensure the celebrity isn&#39;t already released!
+        // ensure the celebrity isn't already released!
         require(celeb.isQueued);
         // ensure current agent is the current player
         require(celeb.agent == player);

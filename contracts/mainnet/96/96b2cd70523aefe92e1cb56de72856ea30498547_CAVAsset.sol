@@ -62,7 +62,7 @@ contract CAVPlatform {
  * Receives calls from the proxy, and calls back immediatly without arguments modification.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract CAVAsset is CAVAssetInterface {
 
@@ -97,7 +97,7 @@ contract CAVAsset is CAVAssetInterface {
     }
 
     /**
-    *  Only assets&#39;s admins are allowed to execute
+    *  Only assets's admins are allowed to execute
     */
     modifier onlyAuthorized() {
         if (isAuthorized(msg.sender)) {

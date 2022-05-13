@@ -82,7 +82,7 @@ contact e-mail: info@maxipro.pro
 contract Token is Crowdsale {
     
    
-    string  public name        = &#39;MaxiPRO&#39;;
+    string  public name        = 'MaxiPRO';
     string  public symbol      = "MPR";
     uint8   public decimals    = 0;
 

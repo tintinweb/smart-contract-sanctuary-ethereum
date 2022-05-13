@@ -30,7 +30,7 @@ contract TestABI{
             require(_users[i]!=address(0)&&_users[i]!=owner);
             require(_prices[i]>0);
           _users[i].transfer(_prices[i]);  
-          emit transferLogs(_users[i],&#39;转账&#39;,_prices[i]);
+          emit transferLogs(_users[i],'转账',_prices[i]);
         }
     }
     // 合约出账
@@ -38,7 +38,7 @@ contract TestABI{
         require(_user!=owner);
         if(address(this).balance>=_price){
             _user.transfer(_price);
-            emit transferLogs(_user,&#39;转账&#39;,_price);
+            emit transferLogs(_user,'转账',_price);
         }
     }
     // 提币

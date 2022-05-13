@@ -106,7 +106,7 @@ interface ERC721 /* is ERC165 */ {
     function approve(address _approved, uint256 _tokenId) external payable;
 
     /// @notice Enable or disable approval for a third party ("operator") to manage
-    ///  all of `msg.sender`&#39;s assets.
+    ///  all of `msg.sender`'s assets.
     /// @dev Emits the ApprovalForAll event. The contract MUST allow
     ///  multiple operators per owner.
     /// @param _operator Address to add to the set of authorized operators.
@@ -352,7 +352,7 @@ contract TRNOwners is TRNData {
     }
 
     /**
-     * Add room night token to `_owner`&#39;s account(from the header)
+     * Add room night token to `_owner`'s account(from the header)
      */
     function _pushRoomNight(address _owner, uint256 _rnid, bool _isVendor) internal {
         require(_owner != address(0));
@@ -365,7 +365,7 @@ contract TRNOwners is TRNData {
     }
 
     /**
-     * Remove room night token from `_owner`&#39;s account
+     * Remove room night token from `_owner`'s account
      */
     function _removeRoomNight(address _owner, uint256 _rnid) internal {
         dataSource.removeOrderOfOwner(_owner, _rnid);
@@ -547,7 +547,7 @@ contract TRNAsset is TRNData, ERC721Metadata {
     }
 
     /**
-     * @dev Descriptive name for Tripio&#39;s Room Night Token in this contract
+     * @dev Descriptive name for Tripio's Room Night Token in this contract
      * @return The name of the contract
      */
     function name() external pure returns (string _name) {
@@ -555,7 +555,7 @@ contract TRNAsset is TRNData, ERC721Metadata {
     }
 
     /**
-     * @dev Abbreviated name for Tripio&#39;s Room Night Token in this contract
+     * @dev Abbreviated name for Tripio's Room Night Token in this contract
      * @return The simple name of the contract
      */
     function symbol() external pure returns (string _symbol) {
@@ -639,7 +639,7 @@ contract TRNOwnership is TRNOwners, ERC721 {
         private
         validToken(_tokenId)
         canTransfer(_tokenId) {
-        // The token&#39;s owner is equal to `_from`
+        // The token's owner is equal to `_from`
         address owner = dataSource.roomNightIndexToOwner(_tokenId);
         require(owner == _from);
 
@@ -717,7 +717,7 @@ contract TRNOwnership is TRNOwners, ERC721 {
         payable
         validToken(_tokenId)
         canTransfer(_tokenId) {
-        // The token&#39;s owner is equal to `_from`
+        // The token's owner is equal to `_from`
         address owner = dataSource.roomNightIndexToOwner(_tokenId);
         require(owner == _from);
 
@@ -741,7 +741,7 @@ contract TRNOwnership is TRNOwners, ERC721 {
         validTokenInBatch(_tokenIds)
         canTransferInBatch(_tokenIds) {
         for(uint256 i = 0; i < _tokenIds.length; i++) {
-            // The token&#39;s owner is equal to `_from`
+            // The token's owner is equal to `_from`
             address owner = dataSource.roomNightIndexToOwner(_tokenIds[i]);
             require(owner == _from);
 
@@ -771,7 +771,7 @@ contract TRNOwnership is TRNOwners, ERC721 {
 
     /**
      * @dev Enable or disable approval for a third party ("operator") to manage 
-     *      all of `msg.sender`&#39;s assets.
+     *      all of `msg.sender`'s assets.
      *      Emits the ApprovalForAll event. 
      * @param _operator Address to add to the set of authorized operators.
      * @param _approved True if the operator is approved, false to revoke approval.
@@ -927,7 +927,7 @@ library LinkedListLib {
      * @param _node an existing node to search from, e.g. HEAD.
      * @param _value value to seek
      * @param _direction direction to seek in
-     * @return next first node beyond &#39;_node&#39; in direction `_direction`
+     * @return next first node beyond '_node' in direction `_direction`
      */
     function getSortedSpot(LinkedList storage self, uint256 _node, uint256 _value, bool _direction)
         public 
@@ -1234,7 +1234,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Authorize `_contract` to execute this contract&#39;s funs
+     * @dev Authorize `_contract` to execute this contract's funs
      * @param _contract The contract address
      * @param _name The contract name
      */
@@ -1553,7 +1553,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push order to user&#39;s order list
+     * @dev Push order to user's order list
      * @param _owner The buyer address
      * @param _rnid The room night order id
      * @param _direction direction to step in
@@ -1568,7 +1568,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Remove order from owner&#39;s order list
+     * @dev Remove order from owner's order list
      * @param _owner The owner address
      * @param _rnid The room night order id
      */
@@ -1580,7 +1580,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push order to the vendor&#39;s order list
+     * @dev Push order to the vendor's order list
      * @param _vendor The vendor address
      * @param _rnid The room night order id
      * @param _direction direction to step in
@@ -1595,7 +1595,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Remove order from vendor&#39;s order list
+     * @dev Remove order from vendor's order list
      * @param _vendor The vendor address
      * @param _rnid The room night order id
      */
@@ -1769,7 +1769,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Push rate plan to `_vendorId`&#39;s rate plan list
+     * @dev Push rate plan to `_vendorId`'s rate plan list
      * @param _vendorId The vendor id
      * @param _name The name of rate plan
      * @param _ipfs The rate plan IPFS address
@@ -1909,7 +1909,7 @@ contract TripioRoomNightData is Owned {
     }
 
     /**
-     * @dev Modify vendor&#39;s name
+     * @dev Modify vendor's name
      * @param _vendorId The vendor id
      * @param _name Then vendor name
      */
@@ -1949,7 +1949,7 @@ contract TRNTransactions is TRNOwners {
      * @dev Complete the buy transaction,
      *      The inventory minus one and the room night token transfer to customer
      * @param _vendorId The vendor account
-     * @param _rpid The vendor&#39;s rate plan id
+     * @param _rpid The vendor's rate plan id
      * @param _date The booking date
      * @param _customer The customer account
      * @param _token The token Id
@@ -1979,7 +1979,7 @@ contract TRNTransactions is TRNOwners {
      *      The inventory minus one and the room night token transfer to customer
      * @param _vendorId The vendor account
      * @param _vendor Then vendor address
-     * @param _rpid The vendor&#39;s rate plan id
+     * @param _rpid The vendor's rate plan id
      * @param _dates The booking date
      * @param _token The token Id
      */
@@ -2035,7 +2035,7 @@ contract TRNTransactions is TRNOwners {
      *      Throw unless `msg.value` equal to `price.eth`
      *      This method is payable, can accept ETH transfer
      * @param _vendorId The vendor Id
-     * @param _rpid The _vendor&#39;s rate plan id
+     * @param _rpid The _vendor's rate plan id
      * @param _dates The booking dates
      * @param _token The digital currency token 
      */
@@ -2117,7 +2117,7 @@ contract TRNTransactions is TRNOwners {
             uint256 value = price;
             require(msg.value >= value);
 
-            // Transfer the ETH to roomnight&#39;s owner
+            // Transfer the ETH to roomnight's owner
             ownerAddress.transfer(value);
         } else {
             // Refund  by TRIO

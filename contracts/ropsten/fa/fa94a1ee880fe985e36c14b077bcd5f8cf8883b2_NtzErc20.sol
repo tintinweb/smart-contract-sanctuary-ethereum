@@ -11,8 +11,8 @@ pragma solidity ^0.4.18;
 contract NtzErc20 {
 
     // Variabel publik yang bisa diakses oleh semua orang secara langsung
-    string  public name = &#39;NtzToken&#39;;
-    string  public symbol = &#39;NTZ&#39;;
+    string  public name = 'NtzToken';
+    string  public symbol = 'NTZ';
     uint8   public decimals = 18; // 18 decimals sangat disarankan dalam smartcontract/ethereum
     uint256 public totalSupply = 1000000000 * 10 ** uint256(decimals);
 

@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 /* ==================================================================== */
 /* Copyright (c) 2018 The MagicAcademy Project.  All rights reserved.
 /* 
-/* https://www.magicacademy.io One of the world&#39;s first idle strategy games of blockchain 
+/* https://www.magicacademy.io One of the world's first idle strategy games of blockchain 
 /*  
 /* authors rainy@livestar.com/Jonny.Fu@livestar.com
 /*                 
@@ -152,7 +152,7 @@ contract RareCards is AccessAdmin, ERC721 {
   /**mapping**/
   /// @dev map tokenId to owner (tokenId -> address)
   mapping (uint256 => address) public IndexToOwner;
-  /// @dev search rare item index in owner&#39;s array (tokenId -> index)
+  /// @dev search rare item index in owner's array (tokenId -> index)
   mapping (uint256 => uint256) indexOfOwnedToken;
   /// @dev list of owned rare items by owner
   mapping (address => uint256[]) ownerToRareArray;
@@ -342,7 +342,7 @@ contract RareCards is AccessAdmin, ERC721 {
   // }
 
   /// @notice Transfers the ownership of a rare item from one address to another address
-  /// @dev Transfer ownership of a rare item, &#39;_to&#39; must be a vaild address, or the card will lost
+  /// @dev Transfer ownership of a rare item, '_to' must be a vaild address, or the card will lost
   /// @param _from The current owner of rare item
   /// @param _to The new owner
   /// @param _tokenId The rare item to transfer
@@ -443,7 +443,7 @@ contract RareCards is AccessAdmin, ERC721 {
   }
 
   /// @param _owner The owner whose celebrity tokens we are interested in.
-  /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+  /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
   ///  expensive (it walks the entire Persons array looking for persons belonging to owner),
   ///  but it also returns a dynamic array, which is only supported for web3 calls, and
   ///  not contract-to-contract calls.
@@ -519,7 +519,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

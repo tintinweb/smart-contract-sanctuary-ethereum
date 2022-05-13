@@ -301,7 +301,7 @@ contract Coinchangex {
 
   /**
   * Facilitates a trade from one user to another.
-  * Requires that the transaction is signed properly, the trade isn&#39;t past its expiration, and all funds are present to fill the trade.
+  * Requires that the transaction is signed properly, the trade isn't past its expiration, and all funds are present to fill the trade.
   * Calls tradeBalances().
   * Updates orderFills with the amount traded.
   * Emits a Trade event.

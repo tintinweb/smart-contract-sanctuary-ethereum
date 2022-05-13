@@ -112,7 +112,7 @@ contract SicBo is Owned {
         
         uint dice1 = uint(keccak256("Pig World ia a Awesome game place", local_.SecretKey_P, secretKey_D)) % 6 + 1;
         uint dice2 = uint(keccak256(secretKey_D, "So you will like us so much!!!!", local_.SecretKey_P)) % 6 + 1;
-        uint dice3 = uint(keccak256(local_.SecretKey_P, secretKey_D, "Don&#39;t think this is unfair", "Our game are always provably fair...")) % 6 + 1;
+        uint dice3 = uint(keccak256(local_.SecretKey_P, secretKey_D, "Don't think this is unfair", "Our game are always provably fair...")) % 6 + 1;
     
         uint amount = 0;
         uint total = dice1 + dice2 + dice3;

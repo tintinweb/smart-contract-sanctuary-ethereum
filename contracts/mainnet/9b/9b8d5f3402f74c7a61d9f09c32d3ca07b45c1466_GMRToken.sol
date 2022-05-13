@@ -68,7 +68,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -201,7 +201,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -491,7 +491,7 @@ contract GimmerTokenSale is Pausable {
 
     /**
     * @dev Supporter structure, which allows us to track
-    * how much the user has bought so far, and if he&#39;s flagged as known
+    * how much the user has bought so far, and if he's flagged as known
     */
     struct Supporter {
         uint256 weiSpent; // the total amount of Wei this address has sent to this contract
@@ -522,10 +522,10 @@ contract GimmerTokenSale is Pausable {
 
     /* Bonus Tokens based on the ETH Contributed in single transaction */
     uint256 public constant TOKEN_RATE_BASE_RATE = 2500; // Base Price for reference only
-    uint256 public constant TOKEN_RATE_05_PERCENT_BONUS = 2625; // 05% Bonus Tokens During Crowd Sale&#39;s Week 4
-    uint256 public constant TOKEN_RATE_10_PERCENT_BONUS = 2750; // 10% Bonus Tokens During Crowd Sale&#39;s Week 3
-    uint256 public constant TOKEN_RATE_15_PERCENT_BONUS = 2875; // 15% Bonus Tokens During Crowd Sale&#39;sWeek 2
-    uint256 public constant TOKEN_RATE_20_PERCENT_BONUS = 3000; // 20% Bonus Tokens During Crowd Sale&#39;sWeek 1
+    uint256 public constant TOKEN_RATE_05_PERCENT_BONUS = 2625; // 05% Bonus Tokens During Crowd Sale's Week 4
+    uint256 public constant TOKEN_RATE_10_PERCENT_BONUS = 2750; // 10% Bonus Tokens During Crowd Sale's Week 3
+    uint256 public constant TOKEN_RATE_15_PERCENT_BONUS = 2875; // 15% Bonus Tokens During Crowd Sale'sWeek 2
+    uint256 public constant TOKEN_RATE_20_PERCENT_BONUS = 3000; // 20% Bonus Tokens During Crowd Sale'sWeek 1
     uint256 public constant TOKEN_RATE_25_PERCENT_BONUS = 3125; // 25% Bonus Tokens, During PreSale when >= 30 ETH & < 300 ETH
     uint256 public constant TOKEN_RATE_30_PERCENT_BONUS = 3250; // 30% Bonus Tokens, During PreSale when >= 300 ETH & < 3000 ETH
     uint256 public constant TOKEN_RATE_40_PERCENT_BONUS = 3500; // 40% Bonus Tokens, During PreSale when >= 3000 ETH
@@ -566,7 +566,7 @@ contract GimmerTokenSale is Pausable {
     /**
      * Constructor
      * @param _fundWallet Address to forward all received Ethers to
-     * @param _kycManagerWallet KYC Manager wallet to approve / disapprove user&#39;s KYC
+     * @param _kycManagerWallet KYC Manager wallet to approve / disapprove user's KYC
      * @param _saleWeiLimitWithoutKYC Maximum amount of Wei an address can spend in the contract without KYC during the crowdsale
      * @param _maxTxGas Maximum gas price a transaction can have before being reverted
      */
@@ -606,7 +606,7 @@ contract GimmerTokenSale is Pausable {
         require(tx.gasprice <= maxTxGas);
         // valid purchase identifies which stage the contract is at (PreState/Token Sale)
         // making sure were inside the contribution period and the user
-        // is sending enough Wei for the stage&#39;s rules
+        // is sending enough Wei for the stage's rules
         require(validPurchase());
 
         address sender = msg.sender;
@@ -651,7 +651,7 @@ contract GimmerTokenSale is Pausable {
 
         finished = true;
 
-        // send the 10% commission to Gimmer&#39;s fund wallet
+        // send the 10% commission to Gimmer's fund wallet
         uint256 tenPC = tokensSold.div(10);
         token.mint(fundWallet, tenPC);
 
@@ -659,7 +659,7 @@ contract GimmerTokenSale is Pausable {
         token.finishMinting();
 
         // transfer ownership of the token contract to the fund wallet,
-        // so it isn&#39;t locked to be a child of the crowd sale contract
+        // so it isn't locked to be a child of the crowd sale contract
         token.transferOwnership(fundWallet);
     }
 
@@ -753,7 +753,7 @@ contract GimmerTokenSale is Pausable {
 
     /**
     * @dev Returns if an user has KYC approval or not
-    * @return A boolean representing the user&#39;s KYC status
+    * @return A boolean representing the user's KYC status
     */
     function userHasKYC(address _user) public constant returns (bool) {
         return supportersMap[_user].hasKYC;

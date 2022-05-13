@@ -79,7 +79,7 @@ contract DatCoin is ERC20Interface {
         return balances[_owner];
     }
  
-    // Transfer the balance from sender&#39;s account to another account
+    // Transfer the balance from sender's account to another account
     function transfer(address _to, uint256 _amount) returns (bool) {
         if (balances[msg.sender] >= _amount
             && _amount > 0

@@ -4,7 +4,7 @@ ___________________________________________________________________
   _      _                                        ______           
   |  |  /          /                                /              
 --|-/|-/-----__---/----__----__---_--_----__-------/-------__------
-  |/ |/    /___) /   /   &#39; /   ) / /  ) /___)     /      /   )     
+  |/ |/    /___) /   /   ' /   ) / /  ) /___)     /      /   )     
 __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
 
 
@@ -20,7 +20,7 @@ __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
 
 
 // ----------------------------------------------------------------------------
-// &#39;DeposiToken (DT10)&#39; contract with following functionalities:
+// 'DeposiToken (DT10)' contract with following functionalities:
 //      => Higher control of owner
 //      => SafeMath implementation 
 //      => Referral system - 3 level
@@ -50,7 +50,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -225,7 +225,7 @@ contract DepositToken_10 {
     
     /* Function will allow users to withdraw their referrer bonus  */
     function claimReferrerBonus() public {
-        require(referrerBonusBalance[msg.sender] > 0, &#39;Insufficient referrer bonus&#39;);
+        require(referrerBonusBalance[msg.sender] > 0, 'Insufficient referrer bonus');
         referrerBonusBalance[msg.sender] = 0;
         msg.sender.transfer(referrerBonusBalance[msg.sender]);
     }
@@ -276,7 +276,7 @@ contract DepositToken_10 {
         (bool success, ) =    theStocksTokenContract.call.value(finaPlatformFee).gas(53000)("");
         
         // This checks if ether transfer to stock contract is successful, otherwise revert
-        require(success, &#39;Ether transfer to DA Token contract failed&#39;);
+        require(success, 'Ether transfer to DA Token contract failed');
         
         // всего токенов в системе
         _tokens = _tokens.add(_value);

@@ -76,8 +76,8 @@ contract CoinStacks {
     // check if the user has enough balance to place the current coin
     require(balances[msg.sender] + msg.value >= betAmount);
 
-    // Add the transaction amount to the user&#39;s balance
-    // and deduct current coin cost from user&#39;s balance
+    // Add the transaction amount to the user's balance
+    // and deduct current coin cost from user's balance
     balances[msg.sender] += (msg.value - betAmount);
 
     uint32 coinCoord = (uint32(_x) << 16) | uint16(_y);
@@ -112,7 +112,7 @@ contract CoinStacks {
   function withdrawBalance(uint256 _amountToWithdraw) external{
     require(_amountToWithdraw != 0);
     require(balances[msg.sender] >= _amountToWithdraw);
-    // Subtract the withdrawn amount from the user&#39;s balance
+    // Subtract the withdrawn amount from the user's balance
     balances[msg.sender] -= _amountToWithdraw;
 
     msg.sender.transfer(_amountToWithdraw);

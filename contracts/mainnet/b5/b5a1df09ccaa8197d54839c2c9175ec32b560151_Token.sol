@@ -11,7 +11,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -136,7 +136,7 @@ contract ERC20Token {
 
 contract TokenI is ERC20Token, Controlled {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
 
@@ -291,8 +291,8 @@ contract Token is TokenI {
 
     /* Send coins */
     function transfer(address _to, uint256 _value) realUser(_to) moreThanZero(_value) public returns (bool) {
-        //infoAddr(&#39;msg.sender&#39;, msg.sender);
-        //infoBool(&#39;typeOf msg.sender&#39;, isContract(msg.sender));
+        //infoAddr('msg.sender', msg.sender);
+        //infoBool('typeOf msg.sender', isContract(msg.sender));
         require(balanceOf[msg.sender] >= _value);           // Check if the sender has enough
         require(balanceOf[_to] + _value > balanceOf[_to]); // Check for overflows
         balanceOf[msg.sender] = balanceOf[msg.sender] - _value;                     // Subtract from the sender

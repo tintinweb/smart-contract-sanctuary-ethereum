@@ -63,8 +63,8 @@ pragma solidity ^0.4.25;
   /*@dev Multiplies two numbers, reverts on overflow.*/
   
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
 	
     if (a == 0) {return 0;}
 
@@ -79,7 +79,7 @@ pragma solidity ^0.4.25;
 	// Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
     // assert(a == b * c + a % b); 
-	// There is no case in which this doesn&#39;t hold
+	// There is no case in which this doesn't hold
     return c;}
 
   /*@dev Subtracts two numbers, reverts on overflow (i.e. if subtrahend is greater than minuend).*/
@@ -176,7 +176,7 @@ interface IERC20 {
   /*@dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
     * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent. */
   
@@ -242,7 +242,7 @@ interface IERC20 {
     emit Transfer(account, address(0), amount); }
 
   /*@dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the* internal burn function.
+   * account, deducting from the sender's allowance for said account. Uses the* internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param amount The amount that will be burnt. */
    

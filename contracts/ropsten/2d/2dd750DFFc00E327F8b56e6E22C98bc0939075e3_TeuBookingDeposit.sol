@@ -58,7 +58,7 @@ library SafeMath {
   function div256(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity automatically revert()s when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

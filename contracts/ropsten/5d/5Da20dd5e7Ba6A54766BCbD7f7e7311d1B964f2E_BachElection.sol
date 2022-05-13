@@ -32,7 +32,7 @@ contract BachElection {
     }
 
     function vote (uint _candidateId) public {
-        // require that they haven&#39;t voted before
+        // require that they haven't voted before
         require(!voters[msg.sender]);
 
         // require a valid candidate

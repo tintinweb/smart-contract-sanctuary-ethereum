@@ -469,7 +469,7 @@ contract DecentBetVault is SafeMath {
         unlockedAtTime = safeAdd(getTime(), timeOffset);
     }
 
-    /// @notice Transfer locked tokens to Decent.bet&#39;s multisig wallet
+    /// @notice Transfer locked tokens to Decent.bet's multisig wallet
     function unlock() external {
         // Wait your turn!
         if (getTime() < unlockedAtTime) throw;
@@ -563,7 +563,7 @@ contract DecentBetToken is SafeMath, ERC20 {
 
     address public decentBetMultisig;
 
-    DecentBetVault public timeVault; // DecentBet&#39;s time-locked vault
+    DecentBetVault public timeVault; // DecentBet's time-locked vault
 
     event Upgrade(address indexed _from, address indexed _to, uint256 _value);
 
@@ -624,7 +624,7 @@ contract DecentBetToken is SafeMath, ERC20 {
         return balances[who];
     }
 
-    /// @notice Transfer `value` DBET tokens from sender&#39;s account
+    /// @notice Transfer `value` DBET tokens from sender's account
     /// `msg.sender` to provided account address `to`.
     /// @notice This function is disabled during the funding.
     /// @dev Required state: Success
@@ -645,7 +645,7 @@ contract DecentBetToken is SafeMath, ERC20 {
         return false;
     }
 
-    /// @notice Transfer `value` DBET tokens from sender &#39;from&#39;
+    /// @notice Transfer `value` DBET tokens from sender 'from'
     /// to provided account address `to`.
     /// @notice This function is disabled during the funding.
     /// @dev Required state: Success
@@ -722,7 +722,7 @@ contract DecentBetToken is SafeMath, ERC20 {
         if (getState() != State.Success) throw;
         // Abort if not in Success state.
         if (agent == 0x0) throw;
-        // don&#39;t set agent to nothing
+        // don't set agent to nothing
         if (msg.sender != upgradeMaster) throw;
         // Only a master can designate the next agent
         upgradeAgent = UpgradeAgent(agent);
@@ -755,7 +755,7 @@ contract DecentBetToken is SafeMath, ERC20 {
         if (msg.sender != upgradeMaster) throw;
         // only upgradeMaster can finalize
         if (finalizedUpgrade) throw;
-        // can&#39;t finalize twice
+        // can't finalize twice
 
         finalizedUpgrade = true;
         // prevent future upgrades
@@ -839,10 +839,10 @@ contract DecentBetToken is SafeMath, ERC20 {
         getState() != State.CommunitySale &&
         getState() != State.PublicSale) throw;
 
-        // User hasn&#39;t been whitelisted for pre-sale.
+        // User hasn't been whitelisted for pre-sale.
         if(getState() == State.PreSale && !preSaleAllowed[msg.sender]) throw;
 
-        // User hasn&#39;t been whitelisted for community sale.
+        // User hasn't been whitelisted for community sale.
         if(getState() == State.CommunitySale && !communitySaleAllowed[msg.sender]) throw;
 
         // Do not allow creating 0 tokens.
@@ -854,16 +854,16 @@ contract DecentBetToken is SafeMath, ERC20 {
         allocateTokens(msg.sender, createdTokens);
     }
 
-    // Allocates tokens to an investors&#39; address
+    // Allocates tokens to an investors' address
     function allocateTokens(address _address, uint amount) internal {
 
         // we are creating tokens, so increase the totalSupply.
         totalSupply = safeAdd(totalSupply, amount);
 
-        // don&#39;t go over the limit!
+        // don't go over the limit!
         if (totalSupply > tokenCreationMax) throw;
 
-        // Don&#39;t allow community whitelisted addresses to purchase more than their cap.
+        // Don't allow community whitelisted addresses to purchase more than their cap.
         if(getState() == State.CommunitySale) {
             // Community sale day 1.
             // Whitelisted addresses can purchase a maximum of 100k DBETs (10k USD).
@@ -903,14 +903,14 @@ contract DecentBetToken is SafeMath, ERC20 {
     function finalizeCrowdfunding() external {
         // Abort if not in Funding Success state.
         if (getState() != State.Success) throw;
-        // don&#39;t finalize unless we won
+        // don't finalize unless we won
         if (finalizedCrowdfunding) throw;
-        // can&#39;t finalize twice (so sneaky!)
+        // can't finalize twice (so sneaky!)
 
         // prevent more creation of tokens
         finalizedCrowdfunding = true;
 
-        // Founder&#39;s supply : 18% of total goes to vault, time locked for 6 months
+        // Founder's supply : 18% of total goes to vault, time locked for 6 months
         uint256 vaultTokens = safeDiv(safeMul(totalSupply, vaultPercentOfTotal), crowdfundPercentOfTotal);
         balances[timeVault] = safeAdd(balances[timeVault], vaultTokens);
         Transfer(0, timeVault, vaultTokens);

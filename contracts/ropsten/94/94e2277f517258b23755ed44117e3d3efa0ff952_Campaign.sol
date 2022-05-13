@@ -127,7 +127,7 @@ contract Campaign is Ownable, SafeMath {
   }
 
   function unpause() public whenPaused onlyOwner {
-      // can&#39;t unpause if contract was upgraded
+      // can't unpause if contract was upgraded
       paused = false;
   }
 

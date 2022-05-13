@@ -20,7 +20,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract token {
     /* Public variables of the token */
-    string public standard = &#39;Token 0.1&#39;;
+    string public standard = 'Token 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -154,8 +154,8 @@ contract VNDCash is owned, token {
     function buy() payable {
         uint256 amount = msg.value * buyRate;              // calculates the amount
         if (balanceOf[this] < amount) throw;               // checks if it has enough to sell
-        balanceOf[msg.sender] += amount;                   // adds the amount to buyer&#39;s balance
-        balanceOf[this] -= amount;                         // subtracts amount from seller&#39;s balance
+        balanceOf[msg.sender] += amount;                   // adds the amount to buyer's balance
+        balanceOf[this] -= amount;                         // subtracts amount from seller's balance
         Transfer(this, msg.sender, amount);                // execute an event reflecting the change
     }
     

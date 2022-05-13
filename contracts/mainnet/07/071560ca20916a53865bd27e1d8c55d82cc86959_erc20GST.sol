@@ -94,7 +94,7 @@ contract erc20GST is StandardToken {
     string public name;                   
     uint8 public decimals;                
     string public symbol;                 
-    string public version = &#39;gst.01a&#39;;       
+    string public version = 'gst.01a';       
 
     function erc20GST(
         uint8 _decimalUnits 

@@ -66,7 +66,7 @@ contract StandardToken is AbstractToken, Owned {
     /*
      *  Read and write storage functions
      */
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param _to Address of token receiver.
     /// @param _value Number of tokens to transfer.
     function transfer(address _to, uint256 _value) public returns (bool success) {

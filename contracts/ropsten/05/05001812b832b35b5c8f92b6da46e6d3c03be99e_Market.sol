@@ -191,7 +191,7 @@ contract Market is Owned {
             notPaused 
             validPrediction(_predictionId, _amount, _outcomeId) {
             
-        require(predictions[_predictionId].userPayments[msg.sender] == _amount, "User haven&#39;t paid for the forecast");
+        require(predictions[_predictionId].userPayments[msg.sender] == _amount, "User haven't paid for the forecast");
 
         uint amount = _amount.sub(predictions[_predictionId].fee);
         totalFeeCollected = totalFeeCollected.add(predictions[_predictionId].fee);

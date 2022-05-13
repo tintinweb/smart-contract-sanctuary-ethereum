@@ -63,7 +63,7 @@ contract ERC20Token {
  * @title TokenSafe
  *
  * @dev Abstract contract that serves as a base for the token safes. It is a multi-group token safe, where each group
- *      has it&#39;s own release time and multiple accounts with locked tokens.
+ *      has it's own release time and multiple accounts with locked tokens.
  */
 contract TokenSafe {
     using SafeMath for uint;
@@ -564,7 +564,7 @@ contract IndividualCapsFundraiser is BasicFundraiser {
     }
 
     /**
-     * @dev We validate the new amount doesn&#39;t surpass maximum contribution cap
+     * @dev We validate the new amount doesn't surpass maximum contribution cap
      */
     function handleTokens(address _address, uint256 _tokens) internal {
         require(individualMaxCapTokens == 0 || token.balanceOf(_address).plus(_tokens) <= individualMaxCapTokens);
@@ -602,7 +602,7 @@ contract StandardToken is ERC20Token {
     /**
      * @dev Get the balance of an address.
      *
-     * @param _address The address which&#39;s balance will be checked.
+     * @param _address The address which's balance will be checked.
      *
      * @return The current balance of the address.
      */
@@ -1034,7 +1034,7 @@ contract FinalizableFundraiser is BasicFundraiser {
 
     /**
      * @dev Override this function to add extra work when a fundraiser is finalized.
-     * Don&#39;t forget to add super.finalization() to execute this part.
+     * Don't forget to add super.finalization() to execute this part.
      */
     function finalization() internal {
         beneficiary.transfer(address(this).balance);
@@ -1314,7 +1314,7 @@ contract PausableToken is StandardToken, HasOwner {
         emit Unpause();
     }
 
-    /// Overrides of the standard token&#39;s functions to add the paused/unpaused functionality.
+    /// Overrides of the standard token's functions to add the paused/unpaused functionality.
 
     function transfer(address _to, uint256 _value) public whenNotPaused returns (bool) {
         return super.transfer(_to, _value);

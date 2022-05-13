@@ -59,7 +59,7 @@ contract Token is StandardToken {
     function Token() public {
         name = "HASHGARD";
         decimals = 18;
-        symbol = &#39;GARD&#39;;
+        symbol = 'GARD';
         version = "V1.0";
         initialAmount = 100000000 * 1000 * 10 ** 18;
         balances[msg.sender] = initialAmount;

@@ -30,9 +30,9 @@ contract pyramidMKII {
 	address public consul;
 	address patrician;
 	
-    string public standard = &#39;PYRAMIDMKII&#39;;
-    string public name = &#39;PYRAMIDMKII&#39;;
-    string public symbol = &#39;PM2&#39;;
+    string public standard = 'PYRAMIDMKII';
+    string public name = 'PYRAMIDMKII';
+    string public symbol = 'PM2';
     uint8 public decimals = 0 ;
 	
 	constructor() public {                                                     
@@ -44,7 +44,7 @@ contract pyramidMKII {
 	
 	function addSurplus() public payable { surplus += msg.value; }              // used to pay off the debt in final round
 	
-	function callSurplus() public {                                             // if there&#39;s enough surplus 
+	function callSurplus() public {                                             // if there's enough surplus 
 	    require(surplus >= blksze, "not enough surplus");                       // users can call this to make a new block 
 	    blockData[IDX].value += blksze;                                         // without increasing outstanding
 	    surplus -= blksze;
@@ -107,7 +107,7 @@ contract pyramidMKII {
 		balances[owner].ebalance += (val/100);                                  // 1% for hedge fund
 		balances[consul].ebalance += (val*7)/100 ;                              // 7% for consul
 		balances[patrician].ebalance+= (val/50);                                // 2% for patrician
-		patrician = addr;                                                       // now you&#39;re the patrician
+		patrician = addr;                                                       // now you're the patrician
 		uint256 nsurp = (mval < blksze)? blksze-mval : (surplus < blksze)? surplus : 0;
 		nsurp = (surplus >= nsurp)? nsurp : 0;
 		mval += nsurp;                                                          // complete a block using surplus

@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -115,14 +115,14 @@ contract Token {
 contract STC is Token, Owned {
     using SafeMath for uint256;
 
-    string public constant name    = "Sailor Test Chain Token";  //The Token&#39;s name
+    string public constant name    = "Sailor Test Chain Token";  //The Token's name
     uint8 public constant decimals = 18;               //Number of decimals of the smallest unit
     string public constant symbol  = "STC";            //An identifier    
 
     // packed to 256bit to save gas usage.
     struct Supplies {
-        // uint128&#39;s max value is about 3e38.
-        // it&#39;s enough to present amount of tokens
+        // uint128's max value is about 3e38.
+        // it's enough to present amount of tokens
         uint128 total;
     }
 
@@ -130,8 +130,8 @@ contract STC is Token, Owned {
 
     // Packed to 256bit to save gas usage.    
     struct Account {
-        // uint112&#39;s max value is about 5e33.
-        // it&#39;s enough to present amount of tokens
+        // uint112's max value is about 5e33.
+        // it's enough to present amount of tokens
         uint112 balance;
         // safe to store timestamp
         uint32 lastMintedTimestamp;
@@ -177,11 +177,11 @@ contract STC is Token, Owned {
         return accounts[_owner].balance;
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount)public returns (bool success) {
         require(isSealed());
 		
-        // according to FFC&#39;s total supply, never overflow here
+        // according to FFC's total supply, never overflow here
         if ( accounts[msg.sender].balance >= _amount && _amount > 0) {            
             accounts[msg.sender].balance -= uint112(_amount);
             accounts[_to].balance = _amount.add(accounts[_to].balance).toUINT112();
@@ -205,7 +205,7 @@ contract STC is Token, Owned {
     )public returns (bool success) {
         require(isSealed());
 
-        // according to FFC&#39;s total supply, never overflow here
+        // according to FFC's total supply, never overflow here
         if (accounts[_from].balance >= _amount
             && allowed[_from][msg.sender] >= _amount
             && _amount > 0) {
@@ -232,7 +232,7 @@ contract STC is Token, Owned {
         allowed[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         //if(!_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { revert(); }

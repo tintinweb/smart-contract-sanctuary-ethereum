@@ -80,7 +80,7 @@ contract BitplusToken {
         fundingEndBlock = _fundingEndBlock;
     }
 
-    /// @notice Transfer `_value` BPNT tokens from sender&#39;s account
+    /// @notice Transfer `_value` BPNT tokens from sender's account
     /// `msg.sender` to provided account address `_to`.
     /// @notice This function is disabled during the funding.
     /// @dev Required state: Operational

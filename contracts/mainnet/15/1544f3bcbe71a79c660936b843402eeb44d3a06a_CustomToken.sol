@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken, ICOToken {
     function CustomToken() public {
         totalSupply = 21000000000000000000000000000;
-        name = &#39;FundofFunds&#39;;
-        symbol = &#39;FOF&#39;;
+        name = 'FundofFunds';
+        symbol = 'FOF';
         decimals = 18;
         balanceOf[0xfb3eb237657ed64ec8ae40da2a02e3dbaab2505f] = totalSupply;
         Transfer(address(0), 0xfb3eb237657ed64ec8ae40da2a02e3dbaab2505f, totalSupply);

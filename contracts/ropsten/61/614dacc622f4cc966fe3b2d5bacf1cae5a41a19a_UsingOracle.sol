@@ -42,7 +42,7 @@ contract UsingOracle {
     }
 
     modifier onlyFromOracle() {
-        require(msg.sender == address(oracle), "Sender address doesn&#39;t equal Oracle");
+        require(msg.sender == address(oracle), "Sender address doesn't equal Oracle");
         _;
     }
 }

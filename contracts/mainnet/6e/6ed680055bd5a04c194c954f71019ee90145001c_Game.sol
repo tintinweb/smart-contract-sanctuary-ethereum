@@ -2,12 +2,12 @@ pragma solidity ^0.4.24;
 // King of the Crypto Hill contract by Spielley
 // P3D contract designed by TEAM JUST and here integrated for dividend payout purpose, not active in testnet version.
 // See P3D proof of concept at : https://divgarden.dvx.me/
-// Or look at it&#39;s code at: https://etherscan.io/address/0xdaa282aba7f4aa757fac94024dfb89f8654582d3#code
+// Or look at it's code at: https://etherscan.io/address/0xdaa282aba7f4aa757fac94024dfb89f8654582d3#code
 // any derivative of KOTCH is allowed if:
-// - 1% additional on payouts happen to original KOTCH contract creator&#39;s eth account: 0x0B0eFad4aE088a88fFDC50BCe5Fb63c6936b9220
+// - 1% additional on payouts happen to original KOTCH contract creator's eth account: 0x0B0eFad4aE088a88fFDC50BCe5Fb63c6936b9220
 // - contracts are not designed or used to scam people or mallpractices
 // This game is intended for fun, Spielley is not liable for any bugs the contract may contain. 
-// Don&#39;t play with crypto you can&#39;t afford to lose
+// Don't play with crypto you can't afford to lose
 
 
 
@@ -137,8 +137,8 @@ contract FixedSupplyToken is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -151,7 +151,7 @@ contract FixedSupplyToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -184,7 +184,7 @@ contract FixedSupplyToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public view returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -193,7 +193,7 @@ contract FixedSupplyToken is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {

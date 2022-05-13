@@ -1,7 +1,7 @@
 pragma solidity ^0.4.23;
 
 // ----------------------------------------------------------------------------
-// &#39;BBT&#39; &#39;International Blockchain Bank & Trust&#39; token contract
+// 'BBT' 'International Blockchain Bank & Trust' token contract
 //
 // Symbol      : BBT
 // Name        : BBT Token

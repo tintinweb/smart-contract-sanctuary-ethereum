@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -139,17 +139,17 @@ contract Avatarium is Ownable, ERC721 {
     // --- Storage --- //
 
 
-    // @dev A mapping from Avatar ID to the owner&#39;s address.
+    // @dev A mapping from Avatar ID to the owner's address.
     mapping (uint => address) public avatarIndexToOwner;
 
-    // @dev A mapping from the owner&#39;s address to the tokens it owns.
+    // @dev A mapping from the owner's address to the tokens it owns.
     mapping (address => uint256) public ownershipTokenCount;
 
-    // @dev A mapping from Avatar&#39;s ID to an address that has been approved
+    // @dev A mapping from Avatar's ID to an address that has been approved
     // to call transferFrom().
     mapping (uint256 => address) public avatarIndexToApproved;
 
-    // @dev A private mapping from Avatar&#39;s ID to its price.
+    // @dev A private mapping from Avatar's ID to its price.
     mapping (uint256 => uint256) private avatarIndexToPrice;
 
 
@@ -289,7 +289,7 @@ contract Avatarium is Ownable, ERC721 {
 
         _transfer(oldOwner, newOwner, _tokenId);
 
-        // Pay previous token Owner, if it&#39;s not the contract
+        // Pay previous token Owner, if it's not the contract
         if (oldOwner != address(this)) {
             oldOwner.transfer(payment);
         }

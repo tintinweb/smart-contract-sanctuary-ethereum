@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 
-//Remix js testing > deploy > test deployed ctrt with Remix&#39;s interface
+//Remix js testing > deploy > test deployed ctrt with Remix's interface
 contract Exchange {
     //for reading variable value tests: from Remix:  gas limit 1442419, gas price 1 Gwei
     //deployed at: 0xf01a2920c01729bd3fb03c744bed34ba35dbfdd0 Rinkeby
@@ -15,7 +15,7 @@ contract Exchange {
 
     constructor() public {
         owner = msg.sender;
-        zString = &#39;Hello&#39;;
+        zString = 'Hello';
         zAddress = 0x479CC461fEcd078F766eCc58533D6F69580CF3AC;
         zUint256  = 1234567890;
         zBool    = true;

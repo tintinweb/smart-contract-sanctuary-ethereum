@@ -8,7 +8,7 @@ contract D {
 }
 
 contract C {
-    D public d = new D(4); // will be executed as part of C&#39;s constructor
+    D public d = new D(4); // will be executed as part of C's constructor
 
     function createD(uint arg) public {
         D newD = new D(arg);

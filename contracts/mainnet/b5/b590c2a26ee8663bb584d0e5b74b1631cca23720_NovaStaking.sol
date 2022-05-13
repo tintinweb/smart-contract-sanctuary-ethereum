@@ -7,8 +7,8 @@ library SafeMath {
 
   // @dev Multiplies two numbers, throws on overflow.
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -23,7 +23,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -180,7 +180,7 @@ contract NovaMasterAccess {
   }
 
   // @dev Adds or removes a game from the list of suppressed games.
-  //   Suppressed games won&#39;t show up on the site, but can still be interacted with
+  //   Suppressed games won't show up on the site, but can still be interacted with
   //   by users.
   // @param _game - the game to be promoted
   // @param _isSuppressed - true for suppressed, false for not
@@ -249,7 +249,7 @@ contract NovaStakingBase is NovaMasterAccess, iNovaStaking {
   function _transfer(address _from, address _to, uint _value) 
     internal
   {
-    require(_from != _to, "can&#39;t transfer to yourself");
+    require(_from != _to, "can't transfer to yourself");
     balances[_from] = balances[_from].sub(_value);
     balances[_to] = balances[_to].add(_value);
     emit Transfer(_from, _to, _value);
@@ -286,7 +286,7 @@ contract NovaStakeManagement is NovaStakingBase {
   // Emitted whenever a user or game takes a payout from the system
   event Payout(address indexed staker, uint amount, uint endWeek);
 
-  // Emitted whenever a user&#39;s stake is increased or decreased.
+  // Emitted whenever a user's stake is increased or decreased.
   event ChangeStake(uint week, uint indexed game, address indexed staker, uint prevStake, uint newStake,
     uint accountStake, uint gameStake, uint totalStake);
 
@@ -302,9 +302,9 @@ contract NovaStakeManagement is NovaStakingBase {
   uint public totalStaked;
 
   // @dev Tracks stakes by week for accounts and games. Each is updated when a user changes their stake.
-  //   These can be zero if they haven&#39;t been updated during the current week, so "zero"
+  //   These can be zero if they haven't been updated during the current week, so "zero"
   //     just means "look at the week before", as no stakes have been changed.
-  //   When setting a stake to zero, the system records a "1". This is safe, because it&#39;s stored
+  //   When setting a stake to zero, the system records a "1". This is safe, because it's stored
   //     with 18 significant digits, and the calculation 
   // Mapping(Week => Mapping(Game => Mapping(Account => Stake)))
   mapping(uint => mapping(uint => mapping(address => uint))) public weekGameAccountStakes;
@@ -331,8 +331,8 @@ contract NovaStakeManagement is NovaStakingBase {
   }
 
 
-  // @dev Sets the sender&#39;s stake on a game to an amount.
-  // @param _game - the game to increase or decrease the sender&#39;s stake on
+  // @dev Sets the sender's stake on a game to an amount.
+  // @param _game - the game to increase or decrease the sender's stake on
   // @param _newStake - The new stake value. Can be an increase or decrease,
   //   but must be different than their current stake, and lower than their staking balance.
   function setStake(uint _game, uint _newStake)
@@ -348,10 +348,10 @@ contract NovaStakeManagement is NovaStakingBase {
     }
   }
 
-  // @dev Increases the sender&#39;s stake on a game by an amount.
-  // @param _game - the game to increase the sender&#39;s stake on
+  // @dev Increases the sender's stake on a game by an amount.
+  // @param _game - the game to increase the sender's stake on
   // @param _increase - The increase must be non-zero, and less than 
-  //   or equal to the user&#39;s available staking balance
+  //   or equal to the user's available staking balance
   function increaseStake(uint _game, uint _increase)
     public
   returns(uint newStake) {
@@ -370,9 +370,9 @@ contract NovaStakeManagement is NovaStakingBase {
     _storeStakes(_game, msg.sender, prevStake, newStake, gameStake, accountStake, totalStake);
   }
 
-  // @dev Decreases the sender&#39;s stake on a game by an amount.
-  // @param _game - the game to decrease the sender&#39;s stake on
-  // @param _decrease - The decrease must be non-zero, and less than or equal to the user&#39;s stake on the game
+  // @dev Decreases the sender's stake on a game by an amount.
+  // @param _game - the game to decrease the sender's stake on
+  // @param _decrease - The decrease must be non-zero, and less than or equal to the user's stake on the game
   function decreaseStake(uint _game, uint _decrease)
     public
   returns(uint newStake) {
@@ -403,7 +403,7 @@ contract NovaStakeManagement is NovaStakingBase {
     
     uint lastWeekStake;
     for (uint i = startWeek; i < endWeek; i++) {
-      // Get the stake for the week. Use the last week&#39;s stake if the stake hasn&#39;t changed
+      // Get the stake for the week. Use the last week's stake if the stake hasn't changed
       uint weeklyStake = weekAccountStakes[i][msg.sender] == 0 
           ? lastWeekStake 
           : weekAccountStakes[i][msg.sender];
@@ -418,7 +418,7 @@ contract NovaStakeManagement is NovaStakingBase {
 
     }
     // If the weekly stake for the end week is not set, set it to the
-    //   last week&#39;s stake, to ensure we know what to pay out.
+    //   last week's stake, to ensure we know what to pay out.
     // This works even if the end week is the current week; the value
     //   will be overwritten if necessary by future stake changes
     if(weekAccountStakes[endWeek][msg.sender] == 0) {
@@ -446,7 +446,7 @@ contract NovaStakeManagement is NovaStakingBase {
 
     uint lastWeekStake;
     for (week; week < endWeek; week++) {
-      // Get the stake for the week. Use the last week&#39;s stake if the stake hasn&#39;t changed
+      // Get the stake for the week. Use the last week's stake if the stake hasn't changed
       uint weeklyStake = weekGameStakes[week][_game] == 0 
           ? lastWeekStake 
           : weekGameStakes[week][_game];
@@ -460,7 +460,7 @@ contract NovaStakeManagement is NovaStakingBase {
       _payout = _payout.add(weeklyPayout);
     }
     // If the weekly stake for the end week is not set, set it to 
-    //   the last week&#39;s stake, to ensure we know what to pay out
+    //   the last week's stake, to ensure we know what to pay out
     //   This works even if the end week is the current week; the value
     //   will be overwritten if necessary by future stake changes
     if(weekGameStakes[endWeek][_game] == 0) {
@@ -479,7 +479,7 @@ contract NovaStakeManagement is NovaStakingBase {
   // @param _prevStake - the previous stake of the staker on that game
   // @param _newStake - the newly updated stake of the staker on that game
   // @param _gameStake - the new total stake for the game
-  // @param _accountStake - the new total stake for the staker&#39;s account
+  // @param _accountStake - the new total stake for the staker's account
   // @param _totalStake - the new total stake for the system as a whole
   function _storeStakes(uint _game, address _staker, uint _prevStake, uint _newStake,
     uint _gameStake, uint _accountStake, uint _totalStake)
@@ -492,14 +492,14 @@ contract NovaStakeManagement is NovaStakingBase {
     accountStaked[msg.sender] = _accountStake;
     totalStaked = _totalStake;
     
-    // Each of these stores the weekly stake as "1" if it&#39;s been set to 0.
+    // Each of these stores the weekly stake as "1" if it's been set to 0.
     // This tracks the difference between "not set this week" and "set to zero this week"
     weekGameAccountStakes[_currentWeek][_game][_staker] = _newStake > 0 ? _newStake : 1;
     weekAccountStakes[_currentWeek][_staker] = _accountStake > 0 ? _accountStake : 1;
     weekGameStakes[_currentWeek][_game] = _gameStake > 0 ? _gameStake : 1;
     weekTotalStakes[_currentWeek] = _totalStake > 0 ? _totalStake : 1;
 
-    // Get the last payout week; set it to this week if there hasn&#39;t been a week.
+    // Get the last payout week; set it to this week if there hasn't been a week.
     // This lets the user iterate payouts correctly.
     if(lastPayoutWeekByAccount[_staker] == 0) {
       lastPayoutWeekByAccount[_staker] = _currentWeek - 1;
@@ -514,7 +514,7 @@ contract NovaStakeManagement is NovaStakingBase {
 
   // @dev Internal function to get the total stake for a given week
   // @notice This updates the stored values for intervening weeks, 
-  //   as that&#39;s more efficient at 100 or more users
+  //   as that's more efficient at 100 or more users
   // @param _week - the week in which to calculate the total stake
   // @returns _stake - the total stake in that week
   function _getWeekTotalStake(uint _week)
@@ -543,7 +543,7 @@ contract NovaStakeManagement is NovaStakingBase {
     uint _currentWeek = _getCurrentWeek();
     require(_startWeek < _currentWeek, "must get at least one week");
     endWeek = _numberOfWeeks == 0 ? _currentWeek : _startWeek + _numberOfWeeks;
-    require(endWeek <= _currentWeek, "can&#39;t get more than the current week");
+    require(endWeek <= _currentWeek, "can't get more than the current week");
   }
 }
 
@@ -571,8 +571,8 @@ contract NovaStaking is NovaStakeManagement {
   // @notice Other methods of sending NVT to this contract will still work, but will result in you losing your NVT.
   // @param _sender is the original sender of the message
   // @param _amount is the amount of NVT that was approved
-  // @param _contract is the contract that sent the approval; we check to be sure it&#39;s the NVT contract
-  // @param _data is the data that is passed in along with the call. It&#39;s not used here
+  // @param _contract is the contract that sent the approval; we check to be sure it's the NVT contract
+  // @param _data is the data that is passed in along with the call. It's not used here
   function receiveApproval(address _sender, uint _amount, address _contract, bytes _data)
     public
   {
@@ -612,7 +612,7 @@ contract NovaStaking is NovaStakeManagement {
     external
   {
     uint withdrawalAmount = amount > 0 ? amount : balances[msg.sender];
-    require(withdrawalAmount > 0, "Can&#39;t withdraw - zero balance");
+    require(withdrawalAmount > 0, "Can't withdraw - zero balance");
     uint newBalance = balances[msg.sender].sub(withdrawalAmount);
     balances[msg.sender] = newBalance;
     emit Withdrawal(msg.sender, withdrawalAmount, newBalance);
@@ -627,7 +627,7 @@ contract NovaStaking is NovaStakeManagement {
     external
     onlyGameAdmin(_game)
   {
-    // Take the funding, and apply it to the GAME&#39;s address (a fake ETH address...)
+    // Take the funding, and apply it to the GAME's address (a fake ETH address...)
     _transfer(msg.sender, address(_game), _tokensToToAdd);
   }
 
@@ -638,7 +638,7 @@ contract NovaStaking is NovaStakeManagement {
     external
     onlyGameAdmin(_game)
   {
-    // Take the NVT funds from the game, and apply them to the game admin&#39;s address
+    // Take the NVT funds from the game, and apply them to the game admin's address
     _transfer(address(_game), msg.sender, _tokensToWithdraw);
   }
 }

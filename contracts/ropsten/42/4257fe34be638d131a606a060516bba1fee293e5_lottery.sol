@@ -38,7 +38,7 @@ contract lottery {
     
     //Adds a player to the struct
     //Checks that player has enough Funds
-    //checks if there aren&#39;t already 5 players
+    //checks if there aren't already 5 players
     //wager must be more than 0
     function addPlayer() public payable {
         address newPlayer = msg.sender;

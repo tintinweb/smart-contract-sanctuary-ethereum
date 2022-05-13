@@ -162,10 +162,10 @@ contract Token is ERC20 {
 }
 
 contract Gambit is Token, Owned {
-  string public constant name     = &#39;Gambit&#39;;
+  string public constant name     = 'Gambit';
   uint8  public constant decimals = 8;
-  string public constant symbol   = &#39;GAM&#39;;
-  string public constant version  = &#39;1.0.0&#39;;
+  string public constant symbol   = 'GAM';
+  string public constant version  = '1.0.0';
   uint256 internal _totalBurnt    = 0;
 
   // Constructor

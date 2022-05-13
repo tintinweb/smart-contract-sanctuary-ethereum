@@ -83,7 +83,7 @@ contract RamenCoin is StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;0.0&#39;;
+    string public version = '0.0';
     uint256 public unitsOneEthCanBuy;
     uint256 public totalEthInWei;
     address public fundsWallet;
@@ -144,7 +144,7 @@ contract RamenCoin is StandardToken {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

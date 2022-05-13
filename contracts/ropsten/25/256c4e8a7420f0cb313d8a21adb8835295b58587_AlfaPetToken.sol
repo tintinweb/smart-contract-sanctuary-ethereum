@@ -420,7 +420,7 @@ contract AlfaPetToken {
 
     /**
     * @dev Internal function that burns an amount of the token of a given
-    * account, deducting from the sender&#39;s allowance for said account. Uses the
+    * account, deducting from the sender's allowance for said account. Uses the
     * internal _burn function.
     * @param _account The account which tokens will be burnt.
     * @param _amount The amount that will be burnt.

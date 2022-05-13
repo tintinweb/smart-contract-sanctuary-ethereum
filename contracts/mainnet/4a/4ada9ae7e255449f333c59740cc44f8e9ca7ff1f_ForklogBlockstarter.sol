@@ -73,7 +73,7 @@ http://www.xorbin.com/tools/md5-hash-calculator
 http://onlinemd5.com/
 
 The content of the contract goes below between long lines of stars (*).
-Don&#39;t copy star lines when generating SHA256/MD5. Copy only text in between.
+Don't copy star lines when generating SHA256/MD5. Copy only text in between.
 
 ********************************************************************************
 # Contract between Forklog and Blockstarter

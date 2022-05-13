@@ -114,7 +114,7 @@ contract AppCoins is ERC20Interface{
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balances[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -165,7 +165,7 @@ contract Ownable is ErrorThrower {
 
     function _transferOwnership(address _newOwner) internal {
         if(_newOwner == address(0)){
-            emit Error("transferOwnership","New owner&#39;s address needs to be different than 0x0");
+            emit Error("transferOwnership","New owner's address needs to be different than 0x0");
             return;
         }
 

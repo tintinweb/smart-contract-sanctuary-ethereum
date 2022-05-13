@@ -147,7 +147,7 @@ contract FinalizeAgent {
 
   /** Return true if we can run finalizeCrowdsale() properly.
    *
-   * This is a safety check function that doesn&#39;t allow crowdsale to begin
+   * This is a safety check function that doesn't allow crowdsale to begin
    * unless the finalizer has been set up properly.
    */
   function isSane() public constant returns (bool);
@@ -323,7 +323,7 @@ contract Crowdsale is Haltable {
 
     endsAt = _end;
 
-    // Don&#39;t mess the dates
+    // Don't mess the dates
     if(startsAt >= endsAt) {
         throw;
     }
@@ -333,7 +333,7 @@ contract Crowdsale is Haltable {
   }
 
   /**
-   * Don&#39;t expect to just send in money and get tokens.
+   * Don't expect to just send in money and get tokens.
    */
   function() payable {
     throw;
@@ -351,7 +351,7 @@ contract Crowdsale is Haltable {
    */
   function investInternal(address receiver, uint128 customerId) stopInEmergency private {
 
-    // Determine if it&#39;s a good time to accept investment from this participant
+    // Determine if it's a good time to accept investment from this participant
     State state = getState();
     if (state == State.Funding) {
       // Retail participants can only come in when the crowdsale is running
@@ -416,7 +416,7 @@ contract Crowdsale is Haltable {
    *
    */
   function preallocate(address receiver, uint tokenAmount, uint weiAmount) public onlyOwner {
-    // Free pre-allocations don&#39;t count as "sold tokens"
+    // Free pre-allocations don't count as "sold tokens"
     if (weiAmount == 0) {
       tokenAmountOf[receiver] = tokenAmountOf[receiver].plus(tokenAmount);
       assignTokens(receiver, tokenAmount);
@@ -514,7 +514,7 @@ contract Crowdsale is Haltable {
   function setFinalizeAgent(FinalizeAgent addr) onlyOwner {
     finalizeAgent = addr;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if(!finalizeAgent.isFinalizeAgent()) {
       throw;
     }
@@ -554,13 +554,13 @@ contract Crowdsale is Haltable {
    */
   function setStartsAt(uint time) onlyOwner {
 
-    // Don&#39;t put into past
+    // Don't put into past
     if (time < now) { throw; }
 
     // Change endsAt first...
     if (time > endsAt) { throw; }
 
-    // If crowdsale has already started, the start can&#39;t be postponed anymore
+    // If crowdsale has already started, the start can't be postponed anymore
     if (startsAt < now) { throw; }
 
     startsAt = time;
@@ -580,7 +580,7 @@ contract Crowdsale is Haltable {
   function setEndsAt(uint time) onlyOwner {
 
     if (now > time) {
-      throw; // Don&#39;t change past
+      throw; // Don't change past
     }
 
     endsAt = time;
@@ -595,7 +595,7 @@ contract Crowdsale is Haltable {
   function setPricingStrategy(PricingStrategy _pricingStrategy) onlyOwner {
     pricingStrategy = _pricingStrategy;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if(!pricingStrategy.isPricingStrategy()) {
       throw;
     }
@@ -775,7 +775,7 @@ contract ReleasableToken is ERC20, Ownable {
    */
   function setReleaseAgent(address addr) onlyOwner inReleaseState(false) public {
 
-    // We don&#39;t do interface check here as we might want to a normal wallet address to act as a release agent
+    // We don't do interface check here as we might want to a normal wallet address to act as a release agent
     releaseAgent = addr;
   }
 

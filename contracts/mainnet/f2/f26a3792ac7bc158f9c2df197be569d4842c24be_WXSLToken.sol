@@ -25,7 +25,7 @@ contract TokenERC20 {
     string public symbol;
     uint8 public decimals = 18;
     // 18 decimals is the strongly suggested default, avoid changing it
-    uint256 public totalSupply; // 285000000, &#39;WXSL&#39;, &#39;WXSL&#39;
+    uint256 public totalSupply; // 285000000, 'WXSL', 'WXSL'
 
     // This creates an array with all balances
     mapping (address => uint256) public balanceOf;
@@ -162,7 +162,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -239,6 +239,6 @@ contract WXSLToken is owned, TokenERC20 {
     function sell(uint256 amount) public {
         require(this.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 }

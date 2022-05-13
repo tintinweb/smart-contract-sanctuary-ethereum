@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     if (a == 0) {
       return 0;
     }
@@ -27,7 +27,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -205,7 +205,7 @@ interface ERC721 /* is ERC165 */ {
     function approve(address _approved, uint256 _tokenId) external;
 
     /// @notice Enable or disable approval for a third party ("operator") to manage
-    ///  all of `msg.sender`&#39;s assets
+    ///  all of `msg.sender`'s assets
     /// @dev Emits the ApprovalForAll event. The contract MUST allow
     ///  multiple operators per owner.
     /// @param _operator Address to add to the set of authorized operators
@@ -293,11 +293,11 @@ contract SupportsInterfaceWithLookup is ERC165 {
   bytes4 public constant InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) internal supportedInterfaces;
 
@@ -336,7 +336,7 @@ contract SupportsInterfaceWithLookup is ERC165 {
 
 /**
  * @title BitGuildAccessAdmin
- * @dev Allow two roles: &#39;owner&#39; or &#39;operator&#39;
+ * @dev Allow two roles: 'owner' or 'operator'
  *      - owner: admin/superuser (e.g. with financial rights)
  *      - operator: can update configurations
  */
@@ -567,19 +567,19 @@ contract ComposableTopDown is ERC721, ERC998ERC721TopDown, ERC998ERC721TopDownEn
   bytes4 constant ERC721_RECEIVED_NEW = 0x150b7a02;
     /**
    * 0x5b5e139f ===
-   *   bytes4(keccak256(&#39;name()&#39;)) ^
-   *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+   *   bytes4(keccak256('name()')) ^
+   *   bytes4(keccak256('symbol()')) ^
+   *   bytes4(keccak256('tokenURI(uint256)'))
    */
   bytes4  constant InterfaceId_ERC998 = 0x520bdcbe;
-              //InterfaceId_ERC998 = bytes4(keccak256(&#39;tokenOwnerOf(uint256)&#39;)) ^
-              // bytes4(keccak256(&#39;ownerOfChild(address,uint256)&#39;)) ^
-              // bytes4(keccak256(&#39;onERC721Received(address,address,uint256,bytes)&#39;)) ^
-              // bytes4(keccak256(&#39;onERC998RemovedChild(address,address,uint256,bytes)&#39;)) ^
-              // bytes4(keccak256(&#39;transferChild(address,address,uint256)&#39;)) ^
-              // bytes4(keccak256(&#39;safeTransferChild(address,address,uint256)&#39;)) ^
-              // bytes4(keccak256(&#39;safeTransferChild(address,address,uint256,bytes)&#39;)) ^
-              // bytes4(keccak256(&#39;getChild(address,address,uint256,uint256)&#39;));
+              //InterfaceId_ERC998 = bytes4(keccak256('tokenOwnerOf(uint256)')) ^
+              // bytes4(keccak256('ownerOfChild(address,uint256)')) ^
+              // bytes4(keccak256('onERC721Received(address,address,uint256,bytes)')) ^
+              // bytes4(keccak256('onERC998RemovedChild(address,address,uint256,bytes)')) ^
+              // bytes4(keccak256('transferChild(address,address,uint256)')) ^
+              // bytes4(keccak256('safeTransferChild(address,address,uint256)')) ^
+              // bytes4(keccak256('safeTransferChild(address,address,uint256,bytes)')) ^
+              // bytes4(keccak256('getChild(address,address,uint256,uint256)'));
 
 
 
@@ -1144,9 +1144,9 @@ contract ERC998TopDownToken is SupportsInterfaceWithLookup, ERC721Enumerable, ER
   bytes4 private constant InterfaceId_ERC721Enumerable = 0x780e9d63;
   /**
    * 0x780e9d63 ===
-   *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+   *   bytes4(keccak256('totalSupply()')) ^
+   *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+   *   bytes4(keccak256('tokenByIndex(uint256)'))
    */
   bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
               

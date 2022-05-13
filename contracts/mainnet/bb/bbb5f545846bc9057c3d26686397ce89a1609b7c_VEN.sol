@@ -52,7 +52,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -124,7 +124,7 @@ contract Token {
 contract VEN is Token, Owned {
     using SafeMath for uint256;
 
-    string public constant name    = "VeChain Token";  //The Token&#39;s name
+    string public constant name    = "VeChain Token";  //The Token's name
     uint8 public constant decimals = 18;               //Number of decimals of the smallest unit
     string public constant symbol  = "VEN";            //An identifier    
 
@@ -191,7 +191,7 @@ contract VEN is Token, Owned {
         return accounts[_owner].balance.add(accounts[_owner].rawTokens);
     }
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount) returns (bool success) {
         require(isSealed());
 
@@ -255,7 +255,7 @@ contract VEN is Token, Owned {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         //if(!_spender.call(bytes4(bytes32(sha3("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { revert(); }
@@ -422,7 +422,7 @@ contract VENSale is Owned{
         require(msg.value >= 0.01 ether);
 
         uint256 rate = exchangeRate();
-        // here don&#39;t need to check stage. rate is only valid when in sale
+        // here don't need to check stage. rate is only valid when in sale
         require(rate > 0);
 
         uint256 remained = officialLimit.sub(officialSold_.get());
@@ -457,7 +457,7 @@ contract VENSale is Owned{
     /// @notice manually offer tokens to channels
     function offerToChannels(uint256 _venAmount) onlyOwner {
         Stage stg = stage();
-        // since the settlement may be delayed, so it&#39;s allowed in closed stage
+        // since the settlement may be delayed, so it's allowed in closed stage
         require(stg == Stage.Early || stg == Stage.Normal || stg == Stage.Closed);
 
         channelsSold = channelsSold.add(_venAmount);
@@ -516,7 +516,7 @@ contract VENSale is Owned{
         ven.mint(
             venVault,
             reservedForTeam.add(reservedForOperations),
-            false // team and operations reserved portion can&#39;t share unsold tokens
+            false // team and operations reserved portion can't share unsold tokens
         );
 
         ven.mint(

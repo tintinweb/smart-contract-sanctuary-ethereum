@@ -1,29 +1,29 @@
 pragma solidity ^0.4.23;/*
  _ _____  ___   _ _  __ 
- ` __ ___  ___  _  _  ,&#39; 
-  `. __  ____   /__ ,&#39;
-    `.  __  __ /  ,&#39;       
-      `.__ _  /_,&#39;
-        `. _ /,&#39;
-          `./&#39;             
+ ` __ ___  ___  _  _  ,' 
+  `. __  ____   /__ ,'
+    `.  __  __ /  ,'       
+      `.__ _  /_,'
+        `. _ /,'
+          `./'             
           ,/`.             
-        ,&#39;/ __`.        
-      ,&#39;_/_  _ _`.      
-    ,&#39;__/_ ___ _  `.       
-  ,&#39;_  /___ __ _ __ `.  
- &#39;-.._/____   _  __  _`.
+        ,'/ __`.        
+      ,'_/_  _ _`.      
+    ,'__/_ ___ _  `.       
+  ,'_  /___ __ _ __ `.  
+ '-.._/____   _  __  _`.
 PyrConnect
 Decentralized Securities Licensing
 */
 contract PeerLicensing{
-	// scaleFactor is used to convert Ether into tokens and vice-versa: they&#39;re of different
+	// scaleFactor is used to convert Ether into tokens and vice-versa: they're of different
 	// orders of magnitude, hence the need to bridge between the two.
 	uint256 constant scaleFactor = 0x10000000000000000;// 2^64
 
 	// CRR = 50%
 	// CRR is Cash Reserve Ratio (in this case Crypto Reserve Ratio).
 	// For more on this: check out https://en.wikipedia.org/wiki/Reserve_requirement
-	uint256 constant trickTax = 3;//divides flux&#39;d fee and for every pass up
+	uint256 constant trickTax = 3;//divides flux'd fee and for every pass up
 	int constant crr_n = 1; // CRR numerator
 	int constant crr_d = 2; // CRR denominator
 
@@ -82,7 +82,7 @@ contract PeerLicensing{
     
     event onTokenSell(
         address indexed customerAddress,
-        uint256 totalTokensAtTheTime,//maybe it&#39;d be cool to see what % people are selling from their total bank
+        uint256 totalTokensAtTheTime,//maybe it'd be cool to see what % people are selling from their total bank
         uint256 tokensBurned,
         uint256 ethereumEarned,
         uint256 resolved
@@ -132,7 +132,7 @@ contract PeerLicensing{
 		// Update the payouts array, incrementing the request address by `balance`.
 		payouts[msg.sender] += (int256) (balance * scaleFactor);
 		
-		// Increase the total amount that&#39;s been paid out to maintain invariance.
+		// Increase the total amount that's been paid out to maintain invariance.
 		totalPayouts += (int256) (balance * scaleFactor);
 
 		uint256 pocketETH = pocket[msg.sender];
@@ -196,7 +196,7 @@ contract PeerLicensing{
 			return _rgb;
 	}
 	//BONUS
-	//when you don&#39;t pick a color, the contract will need a default. which will be your current color
+	//when you don't pick a color, the contract will need a default. which will be your current color
 	/*function edgePigmentR()internal view returns (uint256 x)
 	{if(holdings[msg.sender]==0)return 0;else return 255 * souleculeR[msg.sender]/holdings[msg.sender];}
 	function edgePigmentG()internal view returns (uint256 x)
@@ -222,7 +222,7 @@ contract PeerLicensing{
 		fund_color( reffo, forWho, edgePigment(0),edgePigment(1),edgePigment(2) );
 	}
 	function fund_color( address _reff, address forWho,uint256 soulR,uint256 soulG,uint256 soulB) payable public {
-		// Don&#39;t allow for funding if the amount of Ether sent is less than 1 szabo.
+		// Don't allow for funding if the amount of Ether sent is less than 1 szabo.
 		reffUp(_reff);
 		if (msg.value > 0.000001 ether){
 			investSum += msg.value;
@@ -265,8 +265,8 @@ contract PeerLicensing{
 			For the ecosystem:
 			Reinvest discount = FluxFee * resolveGroupWithdrawnChoiceSum / ( resolveGroupWithdrawnChoiceSum + resolveGroupReinvestChoiceSum )
 			
-			The reinvest discounted price is equal to the flux&#39;d fee multiplied by
-			the sum of ETH chosen to be withdrawn from the pyramid&#39;s resolve type divided by
+			The reinvest discounted price is equal to the flux'd fee multiplied by
+			the sum of ETH chosen to be withdrawn from the pyramid's resolve type divided by
 			the sum of BOTH ETH chosen to be withdrawn AND chosen to be reinvested in the same type.
 			
 			This means that the more your community reinvests in another, the better your reinvest deal.
@@ -275,12 +275,12 @@ contract PeerLicensing{
 			bonus = 1;
 		}
 		if(buyOrSell)
-			return  _eth/bonus * withdrawSum/(investSum);//we&#39;ve already added it in.
+			return  _eth/bonus * withdrawSum/(investSum);//we've already added it in.
 		else
 			return  _eth/bonus * (withdrawSum + _eth)/investSum;
 	
 		//gotta multiply and stuff in that order in order to get a high precision taxed amount.
-		//because grouping (withdrawSum / investSum) can&#39;t return a precise decimal.
+		//because grouping (withdrawSum / investSum) can't return a precise decimal.
 		//so instead we expand the value by multiplying then shrink it. by the denominator
 
 		/*
@@ -291,7 +291,7 @@ contract PeerLicensing{
 		100eth IN & 10eth OUT = 10% tax fee (returning 10)
 
 		!!! keep in mind there is no fee if there are no holders. So if 100% of the eth has left
-		the contract that means there can&#39;t possibly be holders to tax you. Funny how that works.
+		the contract that means there can't possibly be holders to tax you. Funny how that works.
 
 		The flux fee also forces communities to help eachother more and more if the value drops.
 		*/
@@ -315,17 +315,17 @@ contract PeerLicensing{
 				function trickleUp() internal{
 					uint256 tricks = tricklingFlo[ msg.sender ];//this is the amount moving in the trickle flo
 					if(tricks > 0){
-						tricklingFlo[ msg.sender ] = 0;//we&#39;ve already captured the amount so set your tricklingFlo flo to 0
-						uint256 passUp = tricks/trickTax;//to get the amount we&#39;re gonna pass up. divide by trickTax
+						tricklingFlo[ msg.sender ] = 0;//we've already captured the amount so set your tricklingFlo flo to 0
+						uint256 passUp = tricks/trickTax;//to get the amount we're gonna pass up. divide by trickTax
 						uint256 reward = tricks-passUp;//and our remaining reward for ourselves is the amount we just slice off subtracted from the flo
-						address finalReff;//we&#39;re not exactly sure who we&#39;re gonna pass this up to yet
+						address finalReff;//we're not exactly sure who we're gonna pass this up to yet
 						address reffo =  reff[msg.sender];//this is who it should go up to. if everything is legit
 						if( holdings[reffo] >= stakingRequirement){
-							finalReff = reffo;//if that address is holding enough to stake, it&#39;s a legit node to flo up to.
+							finalReff = reffo;//if that address is holding enough to stake, it's a legit node to flo up to.
 						}else{
 							finalReff = lastGateway;//if not, then we use the last buyer
 						}
-						tricklingFlo[ finalReff ] += passUp;//so now we add that flo you&#39;ve passed up to the tricklingFlo of the final Reff
+						tricklingFlo[ finalReff ] += passUp;//so now we add that flo you've passed up to the tricklingFlo of the final Reff
 						pocket[ msg.sender ] += reward;// oh yeah... and that reward... I gotchu
 					}
 				}
@@ -350,13 +350,13 @@ contract PeerLicensing{
 
 									addPigment(numTokens,soulR,soulG,soulB);
 
-									trickleSum += trickle;//add to trickle&#39;s Sum after reserve calculations
+									trickleSum += trickle;//add to trickle's Sum after reserve calculations
 									trickleUp();
 								
 									emit onTokenPurchase(forWho, numEther ,numTokens , reff[msg.sender]);
 									
-									if(forWho != msg.sender){//make sure you&#39;re not yourself
-										//if forWho doesn&#39;t have a reff, then reset it
+									if(forWho != msg.sender){//make sure you're not yourself
+										//if forWho doesn't have a reff, then reset it
 										if(reff[forWho] == 0x0000000000000000000000000000000000000000)
 											{reff[forWho] = msg.sender;}
 											emit onBoughtFor(msg.sender, forWho,numEther,numTokens,reff[msg.sender]);
@@ -385,7 +385,7 @@ contract PeerLicensing{
 														//resolve reward tracking stuff
 														avgFactor_ethSpent[forWho] += numEther;
 
-														// Add the numTokens which were just created to the total supply. We&#39;re a crypto central bank!
+														// Add the numTokens which were just created to the total supply. We're a crypto central bank!
 														totalBondSupply += numTokens;
 														// Assign the tokens to the balance of the buyer.
 														holdings[forWho] += numTokens;
@@ -422,7 +422,7 @@ contract PeerLicensing{
 									// Net Ether for the seller after the fee has been subtracted.
 							        uint256 numEthers = numEthersBeforeFee - (fee+trickle);
 
-									//How much you bought it for divided by how much you&#39;re getting back.
+									//How much you bought it for divided by how much you're getting back.
 									//This means that if you get dumped on, you can get more resolve tokens if you sell out.
 									uint256 resolved = mint(
 										calcResolve(msg.sender,amount,numEthersBeforeFee),
@@ -440,18 +440,18 @@ contract PeerLicensing{
 									// Remove the tokens from the balance of the buyer.
 									holdings[msg.sender] -= amount;
 
-									int256 payoutDiff = (int256) (earningsPerBond * amount);//we don&#39;t add in numETH because it is immedietly paid out.
+									int256 payoutDiff = (int256) (earningsPerBond * amount);//we don't add in numETH because it is immedietly paid out.
 		
 							        // We reduce the amount paid out to the seller (this effectively resets their payouts value to zero,
-									// since they&#39;re selling all of their tokens). This makes sure the seller isn&#39;t disadvantaged if
+									// since they're selling all of their tokens). This makes sure the seller isn't disadvantaged if
 									// they decide to buy back in.
 									payouts[msg.sender] -= payoutDiff;		
 									
-									// Decrease the total amount that&#39;s been paid out to maintain invariance.
+									// Decrease the total amount that's been paid out to maintain invariance.
 							        totalPayouts -= payoutDiff;
 							        
 
-									// Check that we have tokens in existence (this is a bit of an irrelevant check since we&#39;re
+									// Check that we have tokens in existence (this is a bit of an irrelevant check since we're
 									// selling tokens, but it guards against division by zero).
 									if (totalBondSupply > 0) {
 										// Scale the Ether taken as the selling fee by the scaleFactor variable.
@@ -481,7 +481,7 @@ contract PeerLicensing{
 					// Since this is essentially a shortcut to withdrawing and reinvesting, this step still holds.
 					payouts[msg.sender] += (int256) (balance * scaleFactor);
 					
-					// Increase the total amount that&#39;s been paid out to maintain invariance.
+					// Increase the total amount that's been paid out to maintain invariance.
 					totalPayouts += (int256) (balance * scaleFactor);					
 						
 					// Assign balance to a new variable.
@@ -521,8 +521,8 @@ contract PeerLicensing{
 					//trickleSum -= pocketETH;
 					trickleSum += trickle - pocketETH;
 					emit onReinvestment(msg.sender,numEther,numTokens);
-					if(msg.sender != msg.sender){//make sure you&#39;re not yourself
-						//if forWho doesn&#39;t have a reff, then reset it
+					if(msg.sender != msg.sender){//make sure you're not yourself
+						//if forWho doesn't have a reff, then reset it
 						if(reff[msg.sender] == 0x0000000000000000000000000000000000000000)
 							{reff[msg.sender] = msg.sender;}
 							emit onBoughtFor(msg.sender, msg.sender,numEther,numTokens,reff[msg.sender]);
@@ -556,12 +556,12 @@ contract PeerLicensing{
 		// How much reserve Ether do we have left in the contract?
 		uint256 reserveAmount = reserve();
 
-		// If you&#39;re the Highlander (or bagholder), you get The Prize. Everything left in the vault.
+		// If you're the Highlander (or bagholder), you get The Prize. Everything left in the vault.
 		if (tokens == totalBondSupply )
 			return reserveAmount;
 
 		// If there would be excess Ether left after the transaction this is called within, return the Ether
-		// corresponding to the equation in Dr Jochen Hoenicke&#39;s original Ponzi paper, which can be found
+		// corresponding to the equation in Dr Jochen Hoenicke's original Ponzi paper, which can be found
 		// at https://test.jochen-hoenicke.de/eth/ponzitoken/ in the third equation, with the CRR numerator 
 		// and denominator altered to 1 and 2 respectively.
 		return reserveAmount - fixedExp((fixedLog(totalBondSupply  - tokens) - price_coeff) * crr_d/crr_n);
@@ -650,7 +650,7 @@ contract PeerLicensing{
 									        return allowed[_owner][_spender];
 									    }
 
-    // You don&#39;t care about these, but if you really do they&#39;re hex values for 
+    // You don't care about these, but if you really do they're hex values for 
 	// co-efficients used to simulate approximations of the log and exp functions.
 	int256  constant one        = 0x10000000000000000;
 	uint256 constant sqrt2      = 0x16a09e667f3bcc908;

@@ -191,7 +191,7 @@ contract METADOLLAR is ERC20Interface, owned{
 		_transfer(msg.sender, this, amount);
 		uint256 revenue = amount * sellPrice;
 		require(this.balance >= revenue);
-		msg.sender.transfer(revenue);                		// sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+		msg.sender.transfer(revenue);                		// sends ether to the seller: it's important to do this last to prevent recursion attacks
 	}
 	
 	/// @notice Allow user to sell maximum possible amount of tokens, depend on ether amount on contract
@@ -425,7 +425,7 @@ contract METADOLLAR is ERC20Interface, owned{
 		sellPrice = priceInWei;
 	}
 
-	/// @notice &#39;freeze? Prevent | Allow&#39; &#39;account&#39; from sending and receiving tokens
+	/// @notice 'freeze? Prevent | Allow' 'account' from sending and receiving tokens
 	/// @param account - address to be frozen
 	/// @param freeze - select is the account frozen or not
 	function freezeAccount(address account, bool freeze) isOwner {

@@ -296,8 +296,8 @@ contract  FeeRateControlled is Controlled{
 contract StandardToken is Token, FeeRateControlled {
 
     function transfer(address _to, uint256 _value) public transferAllowed(msg.sender) returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         if (balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
             balances[msg.sender] -= _value;
@@ -548,7 +548,7 @@ contract HanYinToken is StableToken{
     string public name = "HanYin stable Token";
     uint8 public decimals = 6;
     string public symbol = "HYT";
-    string public version = &#39;v1.0&#39;;
+    string public version = 'v1.0';
     uint256 public allocateEndTime;
 
 

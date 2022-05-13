@@ -18,7 +18,7 @@ pragma solidity ^0.4.21;
 contract AuthorizedList {
 
     bytes32 constant APHRODITE = keccak256("Goddess of Love!");
-    bytes32 constant CUPID = keccak256("Aphrodite&#39;s Little Helper.");
+    bytes32 constant CUPID = keccak256("Aphrodite's Little Helper.");
     bytes32 constant BULKTRANSFER = keccak256("Bulk Transfer User.");
     mapping (address => mapping(bytes32 => bool)) internal authorized;
     mapping (bytes32 => bool) internal contractPermissions;
@@ -89,7 +89,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // require(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // require(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // require(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     */
@@ -198,7 +198,7 @@ contract Freezable is AuthorizedList, Authorized {
     function Freezable() public AuthorizedList() Authorized() { }
 
     /**
-    * @dev Throws if called by any account that&#39;s frozen.
+    * @dev Throws if called by any account that's frozen.
     */
     modifier notFrozen {
         require(!frozenAccounts[msg.sender]);
@@ -208,7 +208,7 @@ contract Freezable is AuthorizedList, Authorized {
     /**
     * @dev check if an account is frozen
     * @param account address to check
-    * @return true iff the address is in the list of frozen accounts and hasn&#39;t been unfrozen
+    * @return true iff the address is in the list of frozen accounts and hasn't been unfrozen
     */
     function isFrozen(address account) public view returns (bool) {
         return frozenAccounts[account];
@@ -231,7 +231,7 @@ contract Freezable is AuthorizedList, Authorized {
     * @dev remove an address from the list of frozen accounts
     * @param account address to unfreeze
     * @return true if the address was removed from the list of frozen accounts, 
-    * false if the address wasn&#39;t in the list in the first place 
+    * false if the address wasn't in the list in the first place 
     */
     function unfreezeAccount(address account) public ifAuthorized(msg.sender, APHRODITE) returns (bool success) {
         if (frozenAccounts[account]) {
@@ -434,7 +434,7 @@ pragma solidity ^0.4.21;
 
 
 
-/// Collect all the state variables for the token&#39;s functions into a single contract
+/// Collect all the state variables for the token's functions into a single contract
 contract BasicTokenStorage is AuthorizedList, Authorized, TokenSettings, AllowancesLedger, TokenLedger {
 
     /// @dev Ensure that authorization is set
@@ -635,8 +635,8 @@ contract StandardToken is IERC20Basic, BasicToken, IERC20 {
     /// @param _value The number/amount to transfer
     function transferFrom(address _from, address _to, uint256 _value) public whenNotPaused notFrozen returns (bool) {
 
-        // Don&#39;t send tokens to 0x0 address, use burn function that updates totalSupply
-        // and don&#39;t waste gas sending tokens to yourself
+        // Don't send tokens to 0x0 address, use burn function that updates totalSupply
+        // and don't waste gas sending tokens to yourself
         require(_to != address(0) && _from != _to);
 
         require(!isFrozen(_from) && !isFrozen(_to));
@@ -718,7 +718,7 @@ contract Aphrodite is AuthorizedList, Authorized, RecoverCurrency, StandardToken
     /// @dev Constructor that gives msg.sender/creator all of existing tokens.
     function Aphrodite() Authorized()  public {
     
-        /// We need to initialize totalsupply and creator&#39;s balance
+        /// We need to initialize totalsupply and creator's balance
         totalsupply = INITIAL_SUPPLY;
         balances[msg.sender] = INITIAL_SUPPLY;
 

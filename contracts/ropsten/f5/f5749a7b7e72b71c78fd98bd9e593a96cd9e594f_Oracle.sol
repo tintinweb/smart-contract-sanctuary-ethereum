@@ -93,7 +93,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage _role, address _addr)
     internal
@@ -305,7 +305,7 @@ contract Oracle is Authorizable {
     }
 
     modifier onlyFromTrustedServer() {
-        require(msg.sender == trustedServer, "Sender address doesn&#39;t equal trusted server");
+        require(msg.sender == trustedServer, "Sender address doesn't equal trusted server");
         _;
     }
 

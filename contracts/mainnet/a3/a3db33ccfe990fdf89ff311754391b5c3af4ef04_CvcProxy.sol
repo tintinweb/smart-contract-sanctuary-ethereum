@@ -171,7 +171,7 @@ contract CvcProxy is ImplementationStorage {
 
     /**
      * @dev Delegates execution to an implementation contract.
-     * This is a low level function that doesn&#39;t return to its internal call site.
+     * This is a low level function that doesn't return to its internal call site.
      * It will return to the external caller whatever the implementation returns.
      * @param _implementation Address to delegate.
      */

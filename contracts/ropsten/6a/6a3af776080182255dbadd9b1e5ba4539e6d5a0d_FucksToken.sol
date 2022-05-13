@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;&#39; token contract
+// '' token contract
 //
 // 部署地址 : 
 // 标志      : LOVE
@@ -196,7 +196,7 @@ contract FucksToken is ERC20Interface, Owned, SafeMath {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner&#39;s account. The spender contract function
+    // from the token owner's account. The spender contract function
     // receiveApproval(...) is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {

@@ -92,7 +92,7 @@ contract Bill {
 		return fundValue[_owner];
 	}
 
-    /*refund &#39;msg.sender&#39; in the case the Token Sale didn&#39;t reach ite minimum 
+    /*refund 'msg.sender' in the case the Token Sale didn't reach ite minimum 
     funding goal*/
     function reFund() payable returns (bool success) {
         if(now <= closeTime) throw;     
@@ -109,7 +109,7 @@ contract Bill {
     }
 
 	
-	/*refund _fundaddr in the case the Token Sale didn&#39;t reach its minimum 
+	/*refund _fundaddr in the case the Token Sale didn't reach its minimum 
     funding goal*/
 	function reFundByOther(address _fundaddr) payable returns (bool success) {
 	    if(now <= closeTime) throw;    

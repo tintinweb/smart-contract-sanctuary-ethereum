@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -49,7 +49,7 @@ library SafeMath {
 /**
  * @title PNS - Physical Form of CryptoCurrency Name System
  * @dev Physical form cryptocurrency name system smart contract is implemented 
- * to manage and record physical form cryptocurrency manufacturers&#39; 
+ * to manage and record physical form cryptocurrency manufacturers' 
  * informations, such as the name of the manufacturer, the public key 
  * of the key pair whose private key signed the certificate of the physical 
  * form cryptocurrency, etc.

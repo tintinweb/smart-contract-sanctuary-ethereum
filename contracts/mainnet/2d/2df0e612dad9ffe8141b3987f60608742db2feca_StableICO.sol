@@ -185,8 +185,8 @@ contract ERC223Token_STA is ERC223, SafeMath, Ownable {
     //assemble the given address bytecode. If bytecode exists then the _addr is a contract.
     function isContract(address _addr) private returns (bool is_contract) {
         uint length;
-        _addr = _addr;  // workaround for Mist&#39;s inability to compile
-        is_contract = is_contract;  // workaround for Mist&#39;s inability to compile
+        _addr = _addr;  // workaround for Mist's inability to compile
+        is_contract = is_contract;  // workaround for Mist's inability to compile
         assembly {
                 //retrieve the size of the code on target address, this needs assembly
                 length := extcodesize(_addr)
@@ -320,8 +320,8 @@ contract ERC223Token_STB is ERC223, SafeMath, Ownable {
     //assemble the given address bytecode. If bytecode exists then the _addr is a contract.
     function isContract(address _addr) private returns (bool is_contract) {
         uint length;
-        _addr = _addr;  // workaround for Mist&#39;s inability to compile
-        is_contract = is_contract;  // workaround for Mist&#39;s inability to compile
+        _addr = _addr;  // workaround for Mist's inability to compile
+        is_contract = is_contract;  // workaround for Mist's inability to compile
         assembly {
             //retrieve the size of the code on target address, this needs assembly
             length := extcodesize(_addr)
@@ -587,7 +587,7 @@ contract StableICO is Ownable, SafeMath {
         }
     }
     
-    // send owner&#39;s funds to the ICO owner - after ICO
+    // send owner's funds to the ICO owner - after ICO
     function transferEthToOwner(uint256 _amount) public onlyOwner { 
         if (!isIcoFinished || _amount <= 0 || _amount > ownersEth) throw;
         owner.transfer(_amount); 

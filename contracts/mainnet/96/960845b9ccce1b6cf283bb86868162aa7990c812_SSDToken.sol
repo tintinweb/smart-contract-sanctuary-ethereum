@@ -38,7 +38,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -169,10 +169,10 @@ contract ERC20 {
 contract ERC20Token is ERC20 {
     using SafeMath for uint256;
 
-    string public standard = &#39;Cryptoken 0.1.1&#39;;
+    string public standard = 'Cryptoken 0.1.1';
 
-    string public name = &#39;&#39;;            // the token name
-    string public symbol = &#39;&#39;;          // the token symbol
+    string public name = '';            // the token name
+    string public symbol = '';          // the token symbol
     uint8 public decimals = 0;          // the number of decimals
 
     // mapping of our users to balance
@@ -229,7 +229,7 @@ contract ERC20Token is ERC20 {
      *
      * and Bob can claim, say 10, from that by doing
      *      Bob.transferFrom(Alice, Bob, 10);       // spend only 10
-     * and Bob&#39;s balance shall be 20 in the allowance.
+     * and Bob's balance shall be 20 in the allowance.
      */
     /// Initiate a transfer of `_value` from `_from` to `_to`
     function transferFrom(address _from, address _to, uint256 _value)         
@@ -274,7 +274,7 @@ contract ERC20Token is ERC20 {
         // sanity check
         require(_spender != 0x0 && _spender != address(this));            
 
-        // if the allowance isn&#39;t 0, it can only be updated to 0 to prevent 
+        // if the allowance isn't 0, it can only be updated to 0 to prevent 
         // an allowance change immediately after withdrawal
         require(allowed[msg.sender][_spender] == 0);
 
@@ -306,7 +306,7 @@ contract SSDToken is ERC20Token, Guarded, Claimable {
 
     // our constructor, just supply the total supply.
     function SSDToken() 
-        ERC20Token(&#39;SIOUSADA&#39;, &#39;SSD&#39;, 18) 
+        ERC20Token('SIOUSADA', 'SSD', 18) 
     {
         totalSupply = SUPPLY;
         balances[msg.sender] = SUPPLY;

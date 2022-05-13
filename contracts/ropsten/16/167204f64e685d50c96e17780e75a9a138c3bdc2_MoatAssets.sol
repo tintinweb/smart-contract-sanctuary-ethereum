@@ -62,7 +62,7 @@ contract MoatAssets is KyberTrade {
     }
 
     function WithdrawEther(uint EtherAmount) public {
-        require(EtherAmount >= Balances[msg.sender][ETH], "You can&#39;t withdraw more than what you have.");
+        require(EtherAmount >= Balances[msg.sender][ETH], "You can't withdraw more than what you have.");
         Balances[msg.sender][ETH] -= EtherAmount;
         msg.sender.transfer(EtherAmount);
         emit eWithdrawEther(msg.sender, EtherAmount);

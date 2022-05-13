@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -302,7 +302,7 @@ contract Marketplace is Ownable {
 
     /**
     * Transfer a valid subscription from msg.sender to a new address.
-    * If the address already has a valid subscription, extends the subscription by the msg.sender&#39;s remaining period.
+    * If the address already has a valid subscription, extends the subscription by the msg.sender's remaining period.
     */
     function transferSubscription(bytes32 productId, address newSubscriber) public whenNotHalted {
         var (isValid, product, sub) = _getSubscription(productId, msg.sender);

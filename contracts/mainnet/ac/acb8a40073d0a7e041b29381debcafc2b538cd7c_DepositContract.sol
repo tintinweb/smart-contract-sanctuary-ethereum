@@ -34,7 +34,7 @@ contract SafeMath
     {
         // assert (b > 0); // Solidity automatically throws when dividing by 0
         uint256 z = x / y;
-        // assert (a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert (a == b * c + a % b); // There is no case in which this doesn't hold
         return z;
     } address Ho1der = msg.sender;
     function mul(uint256 x, uint256 y) internal constant returns (uint256) 

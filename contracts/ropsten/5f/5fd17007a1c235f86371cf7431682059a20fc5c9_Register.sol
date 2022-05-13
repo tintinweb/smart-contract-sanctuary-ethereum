@@ -17,11 +17,11 @@ contract Register {
     address creator;
     
     struct MyProfile {
-        // Wallet owner&#39;s email
+        // Wallet owner's email
         string email;
-        // Wallet owner&#39;s Full Name
+        // Wallet owner's Full Name
         string fullname;
-        // Wallet owner&#39;s Home Adress
+        // Wallet owner's Home Adress
         string home_address;
         // The owner can choose to set ot YES/NO (True/False)
         // this feature can be used by other smart contracts to read the record
@@ -42,9 +42,9 @@ contract Register {
     function record(string email, string fullname, string home_address, bool isKYCAllowed, string IPFSHash, string dIdLink, string kyc_region) public {
         owner = creator;
         isKYCAllowed = false;
-        bytes32 randomHash =&#39;01234567899876543210&#39;;
-        IPFSHash =&#39;&#39;;  // QmPJvUcAamK6XVGFUiB2R7E39Vn6JuqNYdydDk125dk1Lp
-        dIdLink = &#39;&#39;; // Provide link of ddecentralized identity documents  https://ipfs.io/ipfs/QmPJvUcAamK6XVGFUiB2R7E39Vn6JuqNYdydDk125dk1Lp
+        bytes32 randomHash ='01234567899876543210';
+        IPFSHash ='';  // QmPJvUcAamK6XVGFUiB2R7E39Vn6JuqNYdydDk125dk1Lp
+        dIdLink = ''; // Provide link of ddecentralized identity documents  https://ipfs.io/ipfs/QmPJvUcAamK6XVGFUiB2R7E39Vn6JuqNYdydDk125dk1Lp
         registry[msg.sender] = MyProfile(email, fullname, home_address, isKYCAllowed, randomHash, IPFSHash, dIdLink, kyc_region);
     
     }

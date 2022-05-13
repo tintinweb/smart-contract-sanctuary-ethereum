@@ -98,7 +98,7 @@ contract RaffleStrangeLoop {
     }
 
     function getRefund() notFinished {
-        // Can only refund when it&#39;s been 24 hours after the deadline
+        // Can only refund when it's been 24 hours after the deadline
         int timeLeft = int(chooseWinnerDeadline) - int(block.timestamp);
         require(timeLeft < -86400);
 

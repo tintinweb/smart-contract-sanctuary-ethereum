@@ -193,7 +193,7 @@ contract MetaDollar is ERC20Interface, owned{
 		require(this.balance >= revenue);
 	    uint commission = msg.value/sellCommission; // Sell Commission 0.2% of wei tx
         require(address(this).send(commission));
-		msg.sender.transfer(revenue);         // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+		msg.sender.transfer(revenue);         // sends ether to the seller: it's important to do this last to prevent recursion attacks
 	}
 	
 	/// @notice Allow user to sell maximum possible amount of metadollars, depend on ether amount on contract
@@ -399,7 +399,7 @@ contract MetaDollar is ERC20Interface, owned{
 		sellPrice = priceInWei;
 	}
 
-	/// @notice &#39;freeze? Prevent | Allow&#39; &#39;account&#39; from sending and receiving metadollars
+	/// @notice 'freeze? Prevent | Allow' 'account' from sending and receiving metadollars
 	/// @param account - address to be frozen
 	/// @param freeze - select is the account frozen or not
 	function freezeAccount(address account, bool freeze) isOwner {
@@ -507,7 +507,7 @@ contract MetaDollar is ERC20Interface, owned{
 		uint256 revenue = amount * currentTokenPrice / 2;
 		require(this.balance >= revenue);
 		_transfer(msg.sender, this, amount);
-		msg.sender.transfer(revenue);                	// sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+		msg.sender.transfer(revenue);                	// sends ether to the seller: it's important to do this last to prevent recursion attacks
 	}
 
 	/// @notice Sell all of metadollars for all ether of this smartcontract

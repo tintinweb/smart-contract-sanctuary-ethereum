@@ -4,7 +4,7 @@ pragma solidity ^0.4.11;
  * @title Owned contract with safe ownership pass.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract Owned {
     /**

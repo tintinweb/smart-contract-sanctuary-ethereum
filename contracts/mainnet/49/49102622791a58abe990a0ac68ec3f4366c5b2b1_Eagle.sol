@@ -222,7 +222,7 @@ contract Eagle is Owner, EagleEvent
 		emit onEventVerify(_from);
 	}
 	
-	// reset the user&#39;s state for some malicious attacks
+	// reset the user's state for some malicious attacks
 	function resetState(address _from) public onlyOwner
 	{
 		require(states[_from] == State.Report || states[_from] == State.Lock);

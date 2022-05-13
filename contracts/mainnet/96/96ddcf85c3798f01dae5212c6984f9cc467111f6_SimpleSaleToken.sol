@@ -92,7 +92,7 @@ contract SimpleSaleToken is iERC20Token, SafeMath {
   address public beneficiary;
   mapping (address => uint) balances;
   mapping (address => mapping (address => uint)) approvals;  //transfer approvals, from -> to
-  // namehash(&#39;addr.reverse&#39;)
+  // namehash('addr.reverse')
   //bytes32 constant ADDR_REVERSE_NODE = 0x91d1777781884d03a6757a803996e38de2a42967fb37eeaca72729271025a9e2;
   address constant ENS_REVERSE_REGISTRAR = 0x9062C0A6Dbd6108336BcBe4593a3D1cE05512069;
 

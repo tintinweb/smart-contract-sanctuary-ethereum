@@ -66,7 +66,7 @@ contract InvestorList is Ownable, IInvestorList {
     mapping (address => string) internal investorList;
 
     /**
-     * @dev Throws if called by any account that&#39;s not investorListed.
+     * @dev Throws if called by any account that's not investorListed.
      * @param role string
      */
     modifier validRole(string role) {

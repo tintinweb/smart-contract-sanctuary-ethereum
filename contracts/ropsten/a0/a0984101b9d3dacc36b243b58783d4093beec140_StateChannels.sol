@@ -95,7 +95,7 @@ contract StateChannels is ECVerify {
         }
 
         bytes32 fingerprint = sha3(
-            &#39;newChannel&#39;,
+            'newChannel',
             channelId,
             address0,
             address1,
@@ -142,7 +142,7 @@ contract StateChannels is ECVerify {
         }
 
         bytes32 fingerprint = sha3(
-            &#39;updateState&#39;,
+            'updateState',
             channelId,
             sequenceNumber,
             state
@@ -178,7 +178,7 @@ contract StateChannels is ECVerify {
         }
 
         bytes32 fingerprint = sha3(
-            &#39;startChallengePeriod&#39;,
+            'startChallengePeriod',
             channelId
         );
 

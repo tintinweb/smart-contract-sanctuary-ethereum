@@ -116,7 +116,7 @@ contract StandardERC20Token is IERC20Token, Utils {
         validAddress(_spender)
         returns (bool success)
     {
-        // if the allowance isn&#39;t 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
+        // if the allowance isn't 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
         require(_value == 0 || allowance[msg.sender][_spender] == 0);
 
         allowance[msg.sender][_spender] = _value;
@@ -127,7 +127,7 @@ contract StandardERC20Token is IERC20Token, Utils {
 
 
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public constant returns (address) { owner; }
 
     function transferOwnership(address _newOwner) public;

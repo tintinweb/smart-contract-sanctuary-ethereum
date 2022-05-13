@@ -63,7 +63,7 @@ contract MissionToken is StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;H0.1&#39;;
+    string public version = 'H0.1';
 
     function MissionToken(uint256 _initialAmount, string _tokenName, uint8 _decimalUnits, string _tokenSymbol) {
         balances[msg.sender] = _initialAmount;

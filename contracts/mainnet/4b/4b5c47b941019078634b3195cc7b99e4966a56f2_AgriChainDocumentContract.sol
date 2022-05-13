@@ -60,33 +60,33 @@ contract AgriChainContract   is BaseAgriChainContract
          AgriChainNextData=_Next;
          AgriChainPrevData=_Prev;
          AgriChainRootData=_Root;
-         EventChanged(this,&#39;Chain&#39;);
+         EventChanged(this,'Chain');
     }
     
      function setChainNext(address _Next)  onlyBy(creator)  
     {
          AgriChainNextData=_Next;
-         EventChangedAddress(this,&#39;ChainNext&#39;,_Next);
+         EventChangedAddress(this,'ChainNext',_Next);
     }
    
 
     function setChainPrev(address _Prev)  onlyBy(creator)  
     {
          AgriChainPrevData=_Prev;
-         EventChangedAddress(this,&#39;ChainNext&#39;,_Prev);
+         EventChangedAddress(this,'ChainNext',_Prev);
     }
     
    
    function setChainRoot(address _Root)  onlyBy(creator)  
     {
          AgriChainRootData=_Root;
-         EventChangedAddress(this,&#39;ChainRoot&#39;,_Root);
+         EventChangedAddress(this,'ChainRoot',_Root);
     }
     
      function setChainType(string _Type)  onlyBy(creator)  
     {
          AgriChainType=_Type;
-         EventChangedString(this,&#39;ChainType&#39;,_Type);
+         EventChangedString(this,'ChainType',_Type);
     }
       
 }
@@ -112,28 +112,28 @@ contract AgriChainMasterContract   is AgriChainContract
     function setAgriChainProduction(address _AgriChain)  onlyBy(creator) onlyIfNotSealed()
     {
          AgriChainProduction = _AgriChain;
-         EventChangedAddress(this,&#39;AgriChainProduction&#39;,_AgriChain);
+         EventChangedAddress(this,'AgriChainProduction',_AgriChain);
     }
     function setAgriChainCultivation(address _AgriChain)  onlyBy(creator) onlyIfNotSealed()
     {
          AgriChainCultivation = _AgriChain;
-         EventChangedAddress(this,&#39;AgriChainCultivation&#39;,_AgriChain);
+         EventChangedAddress(this,'AgriChainCultivation',_AgriChain);
     }
     function setAgriChainDistribution(address _AgriChain)  onlyBy(creator) onlyIfNotSealed()
     {
          AgriChainDistribution = _AgriChain;
-         EventChangedAddress(this,&#39;AgriChainDistribution&#39;,_AgriChain);
+         EventChangedAddress(this,'AgriChainDistribution',_AgriChain);
     }
     
     function setAgriChainDocuments(address _AgriChain)  onlyBy(creator) onlyIfNotSealed()
     {
          AgriChainDocuments = _AgriChain;
-         EventChangedAddress(this,&#39;AgriChainDocuments&#39;,_AgriChain);
+         EventChangedAddress(this,'AgriChainDocuments',_AgriChain);
     }
     function setAgriChainContext(address _AgriChain)  onlyBy(creator) onlyIfNotSealed()
     {
          AgriChainContext = _AgriChain;
-         EventChangedAddress(this,&#39;AgriChainContext&#39;,_AgriChain);
+         EventChangedAddress(this,'AgriChainContext',_AgriChain);
     }
     
 }
@@ -158,33 +158,33 @@ contract AgriChainProductionContract   is BaseAgriChainContract
     function setOrganization(string _Organization)  onlyBy(creator)  onlyIfNotSealed()
     {
           Organization = _Organization;
-          EventChangedString(this,&#39;Organization&#39;,_Organization);
+          EventChangedString(this,'Organization',_Organization);
 
     }
     
     function setProduct(string _Product)  onlyBy(creator) onlyIfNotSealed()
     {
           Product = _Product;
-          EventChangedString(this,&#39;Product&#39;,_Product);
+          EventChangedString(this,'Product',_Product);
         
     }
     
     function setDescription(string _Description)  onlyBy(creator) onlyIfNotSealed()
     {
           Description = _Description;
-          EventChangedString(this,&#39;Description&#39;,_Description);
+          EventChangedString(this,'Description',_Description);
     }
     function setAgriChainData(address _AgriChainData)  onlyBy(creator) onlyIfNotSealed()
     {
          AgriChainData = _AgriChainData;
-         EventChangedAddress(this,&#39;AgriChainData&#39;,_AgriChainData);
+         EventChangedAddress(this,'AgriChainData',_AgriChainData);
     }
     
     
     function setAgriChainSeal(string _AgriChainSeal)  onlyBy(creator) onlyIfNotSealed()
     {
          AgriChainSeal = _AgriChainSeal;
-         EventChangedString(this,&#39;AgriChainSeal&#39;,_AgriChainSeal);
+         EventChangedString(this,'AgriChainSeal',_AgriChainSeal);
     }
     
     
@@ -192,7 +192,7 @@ contract AgriChainProductionContract   is BaseAgriChainContract
     function setNotes(string _Notes)  onlyBy(creator)
     {
          Notes =  _Notes;
-         EventChanged(this,&#39;Notes&#39;);
+         EventChanged(this,'Notes');
     }
 }
 
@@ -213,7 +213,7 @@ contract AgriChainDataContract   is AgriChainContract
          
           AgriChainLabel=_Label;
           AgriChainDescription=_Description;
-          EventChanged(this,&#39;Data&#39;);
+          EventChanged(this,'Data');
     }
    
     //International language data
@@ -222,7 +222,7 @@ contract AgriChainDataContract   is AgriChainContract
           
           AgriChainLabelInt=_LabelInt;
           AgriChainDescriptionInt=_DescriptionInt;
-          EventChanged(this,&#39;DataInt&#39;);
+          EventChanged(this,'DataInt');
     }
    
       
@@ -261,14 +261,14 @@ contract AgriChainDocumentContract   is AgriChainDataContract
           FileName=_FileName;
           FileHash=_FileHash;
           FileData=_FileData;          
-          EventChanged(this,&#39;setDocumentData&#39;);
+          EventChanged(this,'setDocumentData');
        
     } 
     
     function setCurrentRevision(address _Revision)  onlyBy(creator)  
     {
           CurrentRevision = _Revision;
-          EventChangedAddress(this,&#39;CurrentRevision&#39;,_Revision);
+          EventChangedAddress(this,'CurrentRevision',_Revision);
         
     } 
      
@@ -295,14 +295,14 @@ contract AgriChainProductionLotContract   is AgriChainDataContract
           QuantityInitial = _Initial;
           QuantityAvailable = _Initial;
           QuantityUnit = _Unit;
-          EventChangedInt32(this,&#39;QuantityInitial&#39;,_Initial);
+          EventChangedInt32(this,'QuantityInitial',_Initial);
 
     }
   
     function UseQuantity(int32 _Use)  onlyBy(creator)  
     {
           QuantityAvailable = QuantityAvailable-_Use;
-          EventChangedInt32(this,&#39;QuantityAvailable&#39;,QuantityAvailable);
+          EventChangedInt32(this,'QuantityAvailable',QuantityAvailable);
 
     }
   

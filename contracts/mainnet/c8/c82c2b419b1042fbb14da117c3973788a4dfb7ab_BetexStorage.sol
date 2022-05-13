@@ -197,7 +197,7 @@ contract BetexStorage is Ownable {
 
     /**
      * @dev Add a new address to the funders
-     * @param _funder funder&#39;s address
+     * @param _funder funder's address
      */
     function addFunder(address _funder) public onlyOwner {
         if (!funded[_funder]) {
@@ -208,7 +208,7 @@ contract BetexStorage is Ownable {
    
     /**
      * @return true if address is a funder address
-     * @param _funder funder&#39;s address
+     * @param _funder funder's address
      */
     function isFunder(address _funder) public view returns(bool) {
         return funded[_funder];
@@ -231,7 +231,7 @@ contract BetexStorage is Ownable {
     /**
      * @dev Add a new oraclize funding order
      * @param _orderId oraclize order id
-     * @param _beneficiary who&#39;ll get the tokens
+     * @param _beneficiary who'll get the tokens
      * @param _funds paid wei amount
      * @param _bonus bonus amount
      */

@@ -31,7 +31,7 @@ contract Greedy is Owned {
     //A scam Game, 资金盘, 老鼠會, Ponzi scheme.
     //The Game like Fomo3D, But more simple and more short time.
     //Audit & be responsible for yourself.
-    //The code is really simple, so don&#39;t ask idiot question.
+    //The code is really simple, so don't ask idiot question.
     
     //Round Global Info
     uint public Round = 1;

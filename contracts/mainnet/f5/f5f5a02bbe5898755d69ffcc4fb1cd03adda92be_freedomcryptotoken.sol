@@ -20,8 +20,8 @@ contract owned {
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract freedomcryptotoken {
-    string public constant _myTokeName = &#39;FreeDomCrypto&#39;;//change here
-    string public constant _mySymbol = &#39;FDOMC&#39;;//change here
+    string public constant _myTokeName = 'FreeDomCrypto';//change here
+    string public constant _mySymbol = 'FDOMC';//change here
     uint public constant _myinitialSupply = 100000;//leave it
     uint8 public constant _myDecimal = 18;//leave it
     // Public variables of the token
@@ -167,7 +167,7 @@ contract freedomcryptotoken {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -246,7 +246,7 @@ contract MyAdvancedToken is owned, freedomcryptotoken {
     function sell(uint256 amount) public {
         require(this.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
       bytes32 public currentChallenge;                         // The coin starts with a challenge
     uint public timeOfLastProof;                             // Variable to keep track of when rewards were given
@@ -254,7 +254,7 @@ contract MyAdvancedToken is owned, freedomcryptotoken {
 
     function proofOfWork(uint nonce){
         bytes8 n = bytes8(sha3(nonce, currentChallenge));    // Generate a random hash based on input
-        require(n >= bytes8(difficulty));                   // Check if it&#39;s under the difficulty
+        require(n >= bytes8(difficulty));                   // Check if it's under the difficulty
 
         uint timeSinceLastProof = (now - timeOfLastProof);  // Calculate time since last reward was given
         require(timeSinceLastProof >=  5 seconds);         // Rewards cannot be given too quickly

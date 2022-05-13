@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 /* ==================================================================== */
 /* Copyright (c) 2018 The Priate Conquest Project.  All rights reserved.
 /* 
-/* https://www.pirateconquest.com One of the world&#39;s slg games of blockchain 
+/* https://www.pirateconquest.com One of the world's slg games of blockchain 
 /*  
 /* authors rainy@livestar.com/Jonny.Fu@livestar.com
 /*                 
@@ -30,7 +30,7 @@ contract CaptainSell {
   //mapping
   mapping(uint32 => uint256) captainToCount; 
   /// @notice No tipping!
-  /// @dev Reject all Ether from being sent here, unless it&#39;s from one of the
+  /// @dev Reject all Ether from being sent here, unless it's from one of the
   ///  two auction contracts. (Hopefully, we can prevent user accidents.)
   function() external payable {
   }

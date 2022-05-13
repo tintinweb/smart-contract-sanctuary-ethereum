@@ -4,7 +4,7 @@
 // Team Two: 0x8..., 0x9..., 0xa..., 0xb..., 0xc..., 0xd..., 0xe..., 0x0...
 
 // DISCLAIMER: This is an experimental game in distributed psychology and distributed technology.
-// DISCLAIMER: You can, and likely will, lose any ETH you send to this contract. Don&#39;t send more than you can afford to lose. Or any at all.
+// DISCLAIMER: You can, and likely will, lose any ETH you send to this contract. Don't send more than you can afford to lose. Or any at all.
 
 // RULES:
 
@@ -12,8 +12,8 @@
 // 2. The pot is divided among the winning team members, proportional to a weighted share of team volume. 
 // 3. Each team has a different share price that increases at a rate of 102% per ETH of buy volume.
 // 4. Every new buy adds time to the clock at the rate of 1 second/finney. The timer is capped at 24h.
-// 5. You can also reduce the clock at the rate of 1 second/finney, but this does not count towards your share. The timer can&#39;t go below 5 minutes with this method.
-// 6. Referrals and dividends are distributed by team. 50% of each new buy is proportionally split between that team&#39;s members.
+// 5. You can also reduce the clock at the rate of 1 second/finney, but this does not count towards your share. The timer can't go below 5 minutes with this method.
+// 6. Referrals and dividends are distributed by team. 50% of each new buy is proportionally split between that team's members.
 // 7. New seeded rounds with new teams will begin on a semi-regular basis based on user interest. Each game will use a new contract.
 // 8. In the unlikely event of a tie, the pot is distributed proportionally as weighted shares of total volume.
 // 9. The minimum buy starts at 1 finney and increases with share price. No maximum.
@@ -29,7 +29,7 @@
 // B. Get in early and shill your team to collect divs.
 // C. Manage risk by playing both sides of the fence.
 // D. Flex your whale wallet by front running and reducing the timer.
-// E. Piggy back on big players by making sure you&#39;re on the same team.
+// E. Piggy back on big players by making sure you're on the same team.
 // F. Gain a larger share of divs by supporting the underdog.
 // G. Buy smaller amounts to maximize your share count.
 
@@ -550,7 +550,7 @@ contract ZEROxRACER {
             require (timeShares < roundEndTime, "you sent an absurd amount! relax vitalik"); 
 
             if (roundEndTime - timeShares < now + 5 minutes) {
-                roundEndTime = now + 5 minutes; //you can&#39;t win by buying up the clock, but you can come close
+                roundEndTime = now + 5 minutes; //you can't win by buying up the clock, but you can come close
             } else {
                 roundEndTime -= timeShares; //subtract one second per finney  
             }

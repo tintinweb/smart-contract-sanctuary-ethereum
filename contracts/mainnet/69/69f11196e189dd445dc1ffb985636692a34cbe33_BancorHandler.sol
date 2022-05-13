@@ -25,7 +25,7 @@ contract BancorHandler {
         bytes32 r, // ignore
         bytes32 s // ignore
     ) external returns (uint256) {
-        // Just return a massive number, as there&#39;s nothing else we can do here
+        // Just return a massive number, as there's nothing else we can do here
         return MAX_UINT;
     }
 

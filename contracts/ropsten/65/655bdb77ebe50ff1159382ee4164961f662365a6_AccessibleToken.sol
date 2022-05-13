@@ -46,9 +46,9 @@ contract AccessibleToken is Owned {
     
     uint256 public _totalSupply = 40000000000000000000000;
  
-    string public constant symbol = &#39;ADT&#39;;
+    string public constant symbol = 'ADT';
 
-    string public constant name = &#39;Doctor&#39;;
+    string public constant name = 'Doctor';
     
     uint8 public constant decimals = 14;
     

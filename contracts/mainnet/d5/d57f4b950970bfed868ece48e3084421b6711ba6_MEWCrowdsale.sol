@@ -25,7 +25,7 @@ library SafeMath
   {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -116,7 +116,7 @@ contract BasicToken is ERC20Basic
   // this is called if 
   function RevokeTokens(address target) internal
   {
-      //require(mCanSpend[from]==0),"Can only call this if AML hasn&#39;t been completed correctly");
+      //require(mCanSpend[from]==0),"Can only call this if AML hasn't been completed correctly");
       // block this address from further spending
       require(mCanSpend[target]!=9);
       mCanSpend[target]=9;
@@ -335,7 +335,7 @@ contract BasicToken is ERC20Basic
   {
     require(_fraction<10000);//, "Fractional part must be less than 10000");
     
-    uint256 main = _whole.mul(10**decimals); // works fine now i&#39;ve removed the retarded divide by 0 assert in safemath
+    uint256 main = _whole.mul(10**decimals); // works fine now i've removed the retarded divide by 0 assert in safemath
     uint256 part = _fraction.mul(10**14);
     uint256 value = main + part;
     
@@ -430,7 +430,7 @@ contract StandardToken is ERC20, BasicToken
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -504,7 +504,7 @@ contract StandardToken is ERC20, BasicToken
 /**
  * @title Ownable
  * @dev The Ownable contract has an owner address, and provides basic authorization control
- * functions, this simplifies the implementation of &#39;user permissions&#39;.
+ * functions, this simplifies the implementation of 'user permissions'.
  */
 contract Ownable
 {
@@ -640,7 +640,7 @@ contract MintableToken is StandardToken, Ownable
     require( _amount >= MINIMUM_ETHER_SPEND * exchange);//, "Must spend at least minimum ether");
     require( (_amount+balances[_to]) <= MAXIMUM_ETHER_SPEND * exchange);//, "Must not spend more than maximum ether");
    
-    // bail if we&#39;re out of tokens (will be amazing if this happens but hey!)
+    // bail if we're out of tokens (will be amazing if this happens but hey!)
     if (balances[MEW_CROWDSALE_FUND]<_amount)
     {
          return false;
@@ -821,7 +821,7 @@ contract MultiSig
     }
 }
 
-// i get the abstraction of crowdsale vs token but tbh I&#39;d rather have most of this rolled up in a single contract
+// i get the abstraction of crowdsale vs token but tbh I'd rather have most of this rolled up in a single contract
 // kind of makes sense that one function of a token is a crowdsale too but hey
 // - guess it could make the transactions lighter but then so does inheritance in the token... 
 // tbd whether to do it or not.
@@ -885,7 +885,7 @@ contract MEWCrowdsale is Crowdsale
     constructor() public 
     {
         require(mCURRENT_STATE == STATE_UNINITIALISED);//, "State machine is not in uninitialised state");
-        // check we&#39;re the owner when calling the crowdsale (wouldn&#39;t really matter as eth goes in to our fund but would look weird having multiple crowdsales!)
+        // check we're the owner when calling the crowdsale (wouldn't really matter as eth goes in to our fund but would look weird having multiple crowdsales!)
         if (mOwner!=0)
         {
             require (msg.sender == mOwner);//, "Cannot create a crowdsale unless you own the contract");
@@ -904,7 +904,7 @@ contract MEWCrowdsale is Crowdsale
       // set up the sender as the owner
       mOwner = msg.sender;
       
-      // set the aux owner of the token - otherwise the contract owns it and we can&#39;t access owner functions
+      // set the aux owner of the token - otherwise the contract owns it and we can't access owner functions
       mToken.SetAuxOwner(mOwner);
       
       // create the reserve and allocate found tokens
@@ -974,7 +974,7 @@ contract MEWCrowdsale is Crowdsale
     
     function unpauseSALE() public
     {
-        require (mPausedTime !=0);//, "Cannot unpause a sale which isn&#39;t paused");
+        require (mPausedTime !=0);//, "Cannot unpause a sale which isn't paused");
         require (msg.sender == mOwner);//, "Cannot call unpauseSALE unless you own the contract");
         mFUNDING_CURRENT_DURATION = block.timestamp.add(mPausedTime);
         mPausedTime=0;
@@ -990,7 +990,7 @@ contract MEWCrowdsale is Crowdsale
     // low level token purchase function
     function buyTokens(address beneficiary) public payable
     {
-        // a lot of stuff wouldn&#39;t work without optimisation on - out of gas - someone fix remix please   
+        // a lot of stuff wouldn't work without optimisation on - out of gas - someone fix remix please   
           require (mCURRENT_STATE>=STATE_PRESALE);//, "STATE: Sale has not been started");
           //require (mCURRENT_STATE!=STATE_SALE_PAUSE, "STATE: Sale is paused");
           require (block.timestamp >= mFUNDING_SALE_TIMESTAMP);//, "STATE: Timestamp has not been initialised, did you start the sale?");
@@ -1024,7 +1024,7 @@ contract MEWCrowdsale is Crowdsale
         address SIGN_ADDRESS1 = address(0xa5a5f62BfA22b1E42A98Ce00131eA658D5E29B37);
         address SIGN_ADDRESS2 = address(0x9115a6162D6bC3663dC7f4Ea46ad87db6B9CB926);
         
-        require (msg.sender == SIGN_ADDRESS1 || msg.sender == SIGN_ADDRESS2);//, "Must be founders signing this - can&#39;t sign anyway but this will bomb");
+        require (msg.sender == SIGN_ADDRESS1 || msg.sender == SIGN_ADDRESS2);//, "Must be founders signing this - can't sign anyway but this will bomb");
         
         // store the current block time
         uint256 blocktime = block.timestamp;
@@ -1041,7 +1041,7 @@ contract MEWCrowdsale is Crowdsale
             
         }
         
-        // if we&#39;re the first person with the address then set it and bail
+        // if we're the first person with the address then set it and bail
         if (newAddress==0)
         {
             newAddress = newWallet;

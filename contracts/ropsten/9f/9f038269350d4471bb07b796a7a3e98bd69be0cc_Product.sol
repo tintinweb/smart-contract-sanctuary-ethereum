@@ -220,7 +220,7 @@ contract Product is Owned {
     }      
 
     function transferToPool() public onlyOwnerOrSuperOwner {
-        require(pool != address(0), &#39;Pool should be set&#39;);
+        require(pool != address(0), 'Pool should be set');
         uint balance = tokenBalance();
         paused = true;
         assert(IERC20(token).transfer(pool, balance));

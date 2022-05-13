@@ -283,7 +283,7 @@ contract OrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface, Orde
     struct OrderLimits {
         uint minNewOrderSizeUsd; // Basis for setting min new order size Eth
         uint maxOrdersPerTrade;     // Limit number of iterated orders per trade / getRate loops.
-        uint minNewOrderSizeWei;    // Below this value can&#39;t create new order.
+        uint minNewOrderSizeWei;    // Below this value can't create new order.
         uint minOrderSizeWei;       // below this value order will be removed.
     }
 
@@ -372,7 +372,7 @@ contract OrderbookReserve is OrderIdManager, Utils2, KyberReserveInterface, Orde
         kncPerEthBaseRatePrecision = contracts.feeBurner.kncPerEthRatePrecision();
     }
 
-    ///@dev separate init function for this contract, if this init is in the C&#39;tor. gas consumption too high.
+    ///@dev separate init function for this contract, if this init is in the C'tor. gas consumption too high.
     function init() public returns(bool) {
         if ((tokenToEthList != address(0)) && (ethToTokenList != address(0))) return true;
         if ((tokenToEthList != address(0)) || (ethToTokenList != address(0))) revert();

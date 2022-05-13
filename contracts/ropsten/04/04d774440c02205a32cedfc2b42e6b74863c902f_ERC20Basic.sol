@@ -39,7 +39,7 @@ contract ERC20Basic {
 
     // Funcao que realiza transferencia do executor da funcao(msg.sender) para o receiver de numTokens
     function transfer(address receiver, uint numTokens) public returns (bool) {
-        // Predicado &#39;if&#39; para verificar se a carteira do executor da funcao (remetente) tem a quantidade necessaria de tokens para concretizar a transacao, caso nao a possua, sai da funcao e nenhuma alteracao no bloco eh feita, caso possua, realiza as proximas instrucoes
+        // Predicado 'if' para verificar se a carteira do executor da funcao (remetente) tem a quantidade necessaria de tokens para concretizar a transacao, caso nao a possua, sai da funcao e nenhuma alteracao no bloco eh feita, caso possua, realiza as proximas instrucoes
         require(numTokens <= balances[msg.sender]);
         // Remove tokens do executor da funcao (remetente)
         balances[msg.sender] = balances[msg.sender].sub(numTokens);
@@ -88,7 +88,7 @@ contract ERC20Basic {
 // Funcao que impede ataques de overflow ao realizar operacoes matematicas. Gera pouco impacto no tamanho do contrato e penalidades de custo de armazenamento
 library SafeMath {
     function sub(uint256 a, uint256 b) internal pure returns(uint256) {
-        // Verifica se &#39;b&#39; eh menor que &#39;a&#39;, se sim continua, se nao, retorna
+        // Verifica se 'b' eh menor que 'a', se sim continua, se nao, retorna
         assert(b <= a);
         return a - b;
     }

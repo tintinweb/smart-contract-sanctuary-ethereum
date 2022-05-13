@@ -67,7 +67,7 @@ contract VRFtoken is ERC20Burnable
         returns (bool)
     {
         if (balances[msg.sender] >= amount && // Sender has enough?
-            balances[to] + amount > balances[to]) // Transfer won&#39;t cause overflow?
+            balances[to] + amount > balances[to]) // Transfer won't cause overflow?
         {
             balances[msg.sender] -= amount;
             balances[to] += amount;
@@ -85,7 +85,7 @@ contract VRFtoken is ERC20Burnable
     {
         if (balances[from] >= amount && // Account has enough?
             allowed[from][msg.sender] >= amount && // Sender can act for account for this amount?
-            balances[to] + amount > balances[to]) // Transfer won&#39;t cause overflow?
+            balances[to] + amount > balances[to]) // Transfer won't cause overflow?
         {
             balances[from] -= amount;
             allowed[from][msg.sender] -= amount;

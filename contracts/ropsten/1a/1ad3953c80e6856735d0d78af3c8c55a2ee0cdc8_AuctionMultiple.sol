@@ -142,7 +142,7 @@ contract AuctionMultiple is Auction {
     emit LogText("constructor");
 
 
-    require(_howMany > 1, "This auction is suited to multiple items. With 1 item only - use different code. Or remove this &#39;require&#39; - you&#39;ve been warned");
+    require(_howMany > 1, "This auction is suited to multiple items. With 1 item only - use different code. Or remove this 'require' - you've been warned");
     howMany = _howMany;
 
     bids[HEAD] = Bid({

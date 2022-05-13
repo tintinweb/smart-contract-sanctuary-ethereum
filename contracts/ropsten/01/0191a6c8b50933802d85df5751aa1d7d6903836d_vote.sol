@@ -13,11 +13,11 @@ contract vote {
     uint public endVoteDate;
     bool public needAnotherVote;
 
-    // Candidat&#39;s address => amount of votes
+    // Candidat's address => amount of votes
     mapping (address => uint) public votes;
     
     // Vote options
-    // 0 - Address hasn&#39;t voted yet
+    // 0 - Address hasn't voted yet
     // 1 - Vote for candidat A
     // 2 - Vote for candidat B
     // 3 - against all
@@ -33,7 +33,7 @@ contract vote {
     
     function makeVote(uint _vote) public {
         require(now < endVoteDate);
-        require(voteOptions[msg.sender] == 0); // Msg sender hasn&#39;t voted yet
+        require(voteOptions[msg.sender] == 0); // Msg sender hasn't voted yet
         require(msg.sender != candidatA && msg.sender != candidatB); 
         if(_vote == 1) {
             votes[candidatA] += 1;    

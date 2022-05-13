@@ -38,7 +38,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -427,7 +427,7 @@ contract SatisfactionToken is ERC20, CheckpointStorage, NoOwner {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    *
    * @param _spender The address which will spend the funds.
@@ -538,7 +538,7 @@ contract SatisfactionToken is ERC20, CheckpointStorage, NoOwner {
   }
 
   /**
-   * @param _owner The address that&#39;s balance is being requested
+   * @param _owner The address that's balance is being requested
    * @return The balance of `_owner` at the current block
    */
   function balanceOf(address _owner) public view returns (uint256) {

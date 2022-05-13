@@ -95,7 +95,7 @@ contract HpbBallot {
         address[] candidateMapAddrs;
         
         // 已经投票了的候选者账户地址-》投票数
-        // The candidate&#39;s account address has been voted
+        // The candidate's account address has been voted
         mapping (address => uint) candidateMap;
         
     }
@@ -128,7 +128,7 @@ contract HpbBallot {
     uint public capacity;
     
     // 投票者的地址与投票者序号（voterArray下标）对应关系，便于查询和减少gas消耗
-    // The voter&#39;s address corresponds to the voter&#39;s ordinal number (voter Array subscript), making it easy to query and reduce gas consumption
+    // The voter's address corresponds to the voter's ordinal number (voter Array subscript), making it easy to query and reduce gas consumption
     mapping (address => uint) public voterIndexMap;
     
     // 增加候选者
@@ -226,7 +226,7 @@ contract HpbBallot {
             voterArray.push(Voter(msg.sender,0,0,new address[](0)));
             
             candidateIndexMap[msg.sender]=0;
-	        candidateArray.push(Candidate(msg.sender,&#39;0&#39;,&#39;0&#39;,0,new address[](0)));
+	        candidateArray.push(Candidate(msg.sender,'0','0',0,new address[](0)));
             
 	        emit ChangeOfBlocks(_version,startBlock,_endBlock,_capacity);
      }
@@ -644,7 +644,7 @@ contract HpbBallot {
     }
     
     /**
-     * 获取候选人的竞选详细情况，包括投票者 Obtain details of candidates&#39; campaign, including voters.
+     * 获取候选人的竞选详细情况，包括投票者 Obtain details of candidates' campaign, including voters.
      */
     function fechVoteResultForCandidate(
        address candidateAddr

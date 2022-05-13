@@ -194,8 +194,8 @@ library OrderLibrary {
     }
 
     /// @dev Creates order struct from value arrays.
-    /// @param addresses Array of trade&#39;s maker, makerToken and takerToken.
-    /// @param values Array of trade&#39;s makerTokenAmount, takerTokenAmount, expires and nonce.
+    /// @param addresses Array of trade's maker, makerToken and takerToken.
+    /// @param values Array of trade's makerTokenAmount, takerTokenAmount, expires and nonce.
     /// @return Order struct
     function createOrder(address[3] addresses, uint[4] values) internal pure returns (Order memory) {
         return Order({
@@ -305,8 +305,8 @@ contract Exchange is Ownable, ExchangeInterface {
     }
 
     /// @dev Takes an order.
-    /// @param addresses Array of trade&#39;s maker, makerToken and takerToken.
-    /// @param values Array of trade&#39;s makerTokenAmount, takerTokenAmount, expires and nonce.
+    /// @param addresses Array of trade's maker, makerToken and takerToken.
+    /// @param values Array of trade's makerTokenAmount, takerTokenAmount, expires and nonce.
     /// @param signature Signed order along with signature mode.
     /// @param maxFillAmount Maximum amount of the order to be filled.
     function trade(address[3] addresses, uint[4] values, bytes signature, uint maxFillAmount) external {
@@ -314,8 +314,8 @@ contract Exchange is Ownable, ExchangeInterface {
     }
 
     /// @dev Cancels an order.
-    /// @param addresses Array of trade&#39;s maker, makerToken and takerToken.
-    /// @param values Array of trade&#39;s makerTokenAmount, takerTokenAmount, expires and nonce.
+    /// @param addresses Array of trade's maker, makerToken and takerToken.
+    /// @param values Array of trade's makerTokenAmount, takerTokenAmount, expires and nonce.
     function cancel(address[3] addresses, uint[4] values) external {
         OrderLibrary.Order memory order = OrderLibrary.createOrder(addresses, values);
 
@@ -331,8 +331,8 @@ contract Exchange is Ownable, ExchangeInterface {
     }
 
     /// @dev Creates an order which is then indexed in the orderbook.
-    /// @param addresses Array of trade&#39;s makerToken and takerToken.
-    /// @param values Array of trade&#39;s makerTokenAmount, takerTokenAmount, expires and nonce.
+    /// @param addresses Array of trade's makerToken and takerToken.
+    /// @param values Array of trade's makerTokenAmount, takerTokenAmount, expires and nonce.
     function order(address[2] addresses, uint[4] values) external {
         OrderLibrary.Order memory order = OrderLibrary.createOrder(
             [msg.sender, addresses[0], addresses[1]],
@@ -362,8 +362,8 @@ contract Exchange is Ownable, ExchangeInterface {
     }
 
     /// @dev Checks if a order can be traded.
-    /// @param addresses Array of trade&#39;s maker, makerToken and takerToken.
-    /// @param values Array of trade&#39;s makerTokenAmount, takerTokenAmount, expires and nonce.
+    /// @param addresses Array of trade's maker, makerToken and takerToken.
+    /// @param values Array of trade's makerTokenAmount, takerTokenAmount, expires and nonce.
     /// @param signature Signed order along with signature mode.
     /// @return Boolean if order can be traded
     function canTrade(address[3] addresses, uint[4] values, bytes signature)
@@ -386,8 +386,8 @@ contract Exchange is Ownable, ExchangeInterface {
     }
 
     /// @dev Checks how much of an order can be filled.
-    /// @param addresses Array of trade&#39;s maker, makerToken and takerToken.
-    /// @param values Array of trade&#39;s makerTokenAmount, takerTokenAmount, expires and nonce.
+    /// @param addresses Array of trade's maker, makerToken and takerToken.
+    /// @param values Array of trade's makerTokenAmount, takerTokenAmount, expires and nonce.
     /// @return Amount of the order which can be filled.
     function availableAmount(address[3] addresses, uint[4] values) external view returns (uint) {
         OrderLibrary.Order memory order = OrderLibrary.createOrder(addresses, values);

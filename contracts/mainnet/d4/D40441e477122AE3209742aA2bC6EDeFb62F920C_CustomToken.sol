@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 800000000000000000000000000;
-        name = &#39;EthereumLegend&#39;;
-        symbol = &#39;ETLG&#39;;
+        name = 'EthereumLegend';
+        symbol = 'ETLG';
         decimals = 18;
         balanceOf[0xbcfe91ed0eaa53975b485384ac3b2f6825be2cf4] = totalSupply;
         Transfer(address(0), 0xbcfe91ed0eaa53975b485384ac3b2f6825be2cf4, totalSupply);

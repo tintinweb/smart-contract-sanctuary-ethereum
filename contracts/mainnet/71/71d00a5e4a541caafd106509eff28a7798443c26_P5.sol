@@ -57,7 +57,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -135,7 +135,7 @@ contract Whitelist is Ownable {
   event WhitelistedAddressRemoved(address addr);
 
   /**
-   * @dev Throws if called by any account that&#39;s not whitelisted.
+   * @dev Throws if called by any account that's not whitelisted.
    */
   modifier onlyWhitelisted() {
     require(whitelist[msg.sender]);
@@ -173,7 +173,7 @@ contract Whitelist is Ownable {
    * @dev remove an address from the whitelist
    * @param addr address
    * @return true if the address was removed from the whitelist,
-   * false if the address wasn&#39;t in the whitelist in the first place
+   * false if the address wasn't in the whitelist in the first place
    */
   function removeAddressFromWhitelist(address addr) onlyOwner public returns(bool success) {
     if (whitelist[addr]) {
@@ -187,7 +187,7 @@ contract Whitelist is Ownable {
    * @dev remove addresses from the whitelist
    * @param addrs addresses
    * @return true if at least one address was removed from the whitelist,
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] addrs) onlyOwner public returns(bool success) {
     for (uint256 i = 0; i < addrs.length; i++) {
@@ -379,7 +379,7 @@ contract P4 is Whitelist {
         purchaseTokens(msg.sender, msg.value);
     }
 
-    /// @dev Converts all of caller&#39;s dividends to tokens.
+    /// @dev Converts all of caller's dividends to tokens.
     function reinvest() onlyDivis public {
         address _customerAddress = msg.sender;
 
@@ -493,7 +493,7 @@ contract P4 is Whitelist {
 
     /**
      * @dev Transfer tokens from the caller to a new holder.
-     *  Remember, there&#39;s a 15% fee here as well.
+     *  Remember, there's a 15% fee here as well.
      */
     function transfer(address _toAddress, uint256 _amountOfTokens) onlyTokenHolders external returns (bool){
 
@@ -672,7 +672,7 @@ contract P4 is Whitelist {
             _fee = _dividends * magnitude;
         }
 
-        // we can&#39;t give people infinite ethereum
+        // we can't give people infinite ethereum
         if (tokenSupply_ > 0) {
             // add tokens to the pool
             tokenSupply_ = SafeMath.add(tokenSupply_, _amountOfTokens);
@@ -690,8 +690,8 @@ contract P4 is Whitelist {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[_customerAddress] = SafeMath.add(tokenBalanceLedger_[_customerAddress], _amountOfTokens);
 
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them;
-        // really i know you think you do but you don&#39;t
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them;
+        // really i know you think you do but you don't
         int256 _updatedPayouts = (int256) (profitPerShare_ * _amountOfTokens - _fee);
         payoutsTo_[_customerAddress] += _updatedPayouts;
 
@@ -708,7 +708,7 @@ contract P4 is Whitelist {
 
     /**
      * @dev Calculate Token price based on an amount of incoming ethereum
-     *  It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     *  It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      *  Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum) internal pure returns (uint256) {
@@ -717,7 +717,7 @@ contract P4 is Whitelist {
 
     /**
      * @dev Calculate token sell value.
-     *  It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     *  It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      *  Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function tokensToEthereum_(uint256 _tokens) internal pure returns (uint256) {
@@ -786,7 +786,7 @@ contract P5 is P4 {
         require(false && _amountOfTokens > 0);
     }
 
-    //Instead of exiting use the transfer function and change someone&#39;s LIFE!!! P4RTY ON!!!
+    //Instead of exiting use the transfer function and change someone's LIFE!!! P4RTY ON!!!
     function exit() external {
         require(false);
     }

@@ -25,7 +25,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -211,7 +211,7 @@ contract EyeToken is ERC20, Ownable {
     */
     function transferICO(address _to, uint256 _value) public onlyOwner returns (bool) {
         assert(isICO);
-        require(_to != address(0), "Zero address &#39;To&#39;");
+        require(_to != address(0), "Zero address 'To'");
         require(_value <= balances[wallet], "Not enought balance");
         balances[wallet] = balances[wallet].sub(_value);
         balances[_to] = balances[_to].add(_value);
@@ -249,7 +249,7 @@ contract EyeToken is ERC20, Ownable {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -314,8 +314,8 @@ contract EyeToken is ERC20, Ownable {
      * @param _value The amount to be transferred.
      */
     function _transfer(address _from, address _to, uint256 _value) internal allowTransfer(_from) returns (bool) {
-        require(_to != address(0), "Zero address &#39;To&#39;");
-        require(_from != address(0), "Zero address &#39;From&#39;");
+        require(_to != address(0), "Zero address 'To'");
+        require(_from != address(0), "Zero address 'From'");
         require(_value <= balances[_from], "Not enought balance");
         balances[_from] = balances[_from].sub(_value);
         balances[_to] = balances[_to].add(_value);

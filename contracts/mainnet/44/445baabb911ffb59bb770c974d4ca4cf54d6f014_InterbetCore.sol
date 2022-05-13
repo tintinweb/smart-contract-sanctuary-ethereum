@@ -124,7 +124,7 @@ contract InterbetCore {
 		revert();
 	}
 
-	/// Update verifier&#39;s data
+	/// Update verifier's data
 	function updateVerifier(uint feeRate) external {
 		require(feeRate >= 0 && feeRate <= ((10 ** feeRateDecimals) * 100));
 

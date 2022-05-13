@@ -15,7 +15,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -331,7 +331,7 @@ contract TrivialToken is StandardToken, PullPayment {
             address currentContributor = contributors[nextContributorIndexToBeGivenTokens++];
             uint256 tokensForContributor = SafeMath.div(
                 SafeMath.mul(tokensForIco, contributions[currentContributor]),
-                amountRaised  // amountRaised can&#39;t be 0, ICO is cancelled then
+                amountRaised  // amountRaised can't be 0, ICO is cancelled then
             );
             balances[currentContributor] = tokensForContributor;
             tokensDistributedToContributors = SafeMath.add(tokensDistributedToContributors, tokensForContributor);

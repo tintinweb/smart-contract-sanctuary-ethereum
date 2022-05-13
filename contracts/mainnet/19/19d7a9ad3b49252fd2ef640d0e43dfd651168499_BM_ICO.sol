@@ -213,7 +213,7 @@ contract BM_ICO
 
     function () payable
     {
-        buy(&#39;&#39;);
+        buy('');
     }
 
     function collect() isOwner

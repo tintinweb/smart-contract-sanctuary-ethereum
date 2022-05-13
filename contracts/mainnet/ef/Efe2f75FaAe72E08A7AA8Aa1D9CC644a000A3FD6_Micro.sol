@@ -394,7 +394,7 @@ contract Micro {
             onlyOwner
             betsActive
     {
-        require((newParticipants <= 100) && (newParticipants > numberOfBets)); //Check that newParticipants don&#39;t exceed bets array length and exceed current round existing bets
+        require((newParticipants <= 100) && (newParticipants > numberOfBets)); //Check that newParticipants don't exceed bets array length and exceed current round existing bets
         participants = newParticipants;
         setExpectedReturn((((((oneBet*participants) * (100-(rollUnder-1))) / (rollUnder-1)+(oneBet*participants)))*houseEdge/houseEdgeDivisor) / 0.01 ether);
     }

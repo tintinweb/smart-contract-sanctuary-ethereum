@@ -115,9 +115,9 @@ contract Phoenix is StandardToken, SafeMath {
     {
       isFinalized = false;                   //controls pre through crowdsale state
       saleStarted = false;
-      PhoenixFundDeposit = &#39;0xCA0664Cc0c1E1EE6CF4507670C9060e03f16F508&#39;;
-      PhoenixExchangeDeposit = &#39;0x7A0B7a6c058b354697fbC5E641C372E877593631&#39;;
-      ethFundDeposit = &#39;0xfF0b05152A8477A92E5774685667e32484A76f6A&#39;;
+      PhoenixFundDeposit = '0xCA0664Cc0c1E1EE6CF4507670C9060e03f16F508';
+      PhoenixExchangeDeposit = '0x7A0B7a6c058b354697fbC5E641C372E877593631';
+      ethFundDeposit = '0xfF0b05152A8477A92E5774685667e32484A76f6A';
       totalSupply = PhoenixFund + PhoenixExchangeFund;
       balances[PhoenixFundDeposit] = PhoenixFund;    // Deposit tokens for Owners
       balances[PhoenixExchangeDeposit] = PhoenixExchangeFund;    // Deposit tokens for Exchange and Promotion
@@ -146,12 +146,12 @@ contract Phoenix is StandardToken, SafeMath {
         isPreSale = false;
       }
       //create tokens
-      uint256 tokens = safeMult(msg.value, tokenExchangeRate); // check that we&#39;re not over totals
+      uint256 tokens = safeMult(msg.value, tokenExchangeRate); // check that we're not over totals
       uint256 checkedSupply = safeAdd(totalSupply, tokens);
 
       // return money if something goes wrong
       if(isPreSale && tokenPreSaleCap < checkedSupply) throw;
-      if (tokenCreationCap < checkedSupply) throw;  // odd fractions won&#39;t be found
+      if (tokenCreationCap < checkedSupply) throw;  // odd fractions won't be found
       totalSupply = checkedSupply;
       //All good. start the transfer
       balances[msg.sender] += tokens;  // safeAdd not needed

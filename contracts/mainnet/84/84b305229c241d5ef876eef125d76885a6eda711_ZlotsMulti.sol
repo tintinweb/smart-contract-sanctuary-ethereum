@@ -15,9 +15,9 @@ pragma solidity ^0.4.24;
 *   35.64%  Two Matching Icons
 *       - 10.00% : 2x    Multiplier [Two Rockets]
 *       - 15.00% : 1.33x Multiplier [Two Gold  Pyramids]
-*       - 15.00% : 1x    Multiplier [Two &#39;Z&#39; Symbols]
-*       - 15.00% : 1x    Multiplier [Two &#39;T&#39; Symbols]
-*       - 15.00% : 1x    Multiplier [Two &#39;H&#39; Symbols]
+*       - 15.00% : 1x    Multiplier [Two 'Z' Symbols]
+*       - 15.00% : 1x    Multiplier [Two 'T' Symbols]
+*       - 15.00% : 1x    Multiplier [Two 'H' Symbols]
 *       - 15.00% : 1.33x Multiplier [Two Purple Pyramids]
 *       - 15.00% : 2x    Multiplier [Two Ether Icons]
 *   6.79%   One Of Each Pyramid
@@ -27,9 +27,9 @@ pragma solidity ^0.4.24;
 *   5.00%   Three Matching Icons
 *       -  3.00% : 12x   Multiplier [Three Rockets]
 *       -  5.00% : 10x   Multiplier [Three Gold  Pyramids]
-*       - 27.67% : 7.5x  Multiplier [Three &#39;Z&#39; Symbols]
-*       - 27.67% : 7.5x  Multiplier [Three &#39;T&#39; Symbols]
-*       - 27.67% : 7.5x  Multiplier [Three &#39;H&#39; Symbols]
+*       - 27.67% : 7.5x  Multiplier [Three 'Z' Symbols]
+*       - 27.67% : 7.5x  Multiplier [Three 'T' Symbols]
+*       - 27.67% : 7.5x  Multiplier [Three 'H' Symbols]
 *       -  5.00% : 10x   Multiplier [Three Purple Pyramids]
 *       -  4.00% : 15x   Multiplier [Three Ether Icons]
 *   0.28%   Z T H Prize
@@ -210,7 +210,7 @@ contract ZlotsMulti is ZethrShell {
 
     // ---------------------- Modifiers
 
-    // Makes sure that player porfit can&#39;t exceed a maximum amount
+    // Makes sure that player porfit can't exceed a maximum amount
     // We use the max win here - 50x
     modifier betIsValid(uint _betSize, uint divRate, uint8 spins) {
       require(_betSize.div(spins).mul(50) <= getMaxProfit(divRate));
@@ -326,7 +326,7 @@ contract ZlotsMulti is ZethrShell {
         playerSpin memory spin = playerSpins[_tkn.sender];
  
         // We update the contract balance *before* the spin is over, not after
-        // This means that we don&#39;t have to worry about unresolved rolls never resolving
+        // This means that we don't have to worry about unresolved rolls never resolving
         // (we also update it when a player wins)
         addContractBalance(divRate, _wagered);
 
@@ -388,11 +388,11 @@ contract ZlotsMulti is ZethrShell {
         
         for(uint i=0; i<spin.spins; i++){
         
-        // If the block is more than 255 blocks old, we can&#39;t get the result
+        // If the block is more than 255 blocks old, we can't get the result
         // Also, if the result has already happened, fail as well
         uint result;
         if (block.number - spin.blockn > 255) {
-          result = 1000000; // Can&#39;t win: default to largest number
+          result = 1000000; // Can't win: default to largest number
           
           output[i] = 1000000;
         } else {
@@ -674,7 +674,7 @@ contract ZlotsMulti is ZethrShell {
     }
 }
 
-// And here&#39;s the boring bit.
+// And here's the boring bit.
 
 /**
  * @title SafeMath
@@ -700,7 +700,7 @@ library SafeMath {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

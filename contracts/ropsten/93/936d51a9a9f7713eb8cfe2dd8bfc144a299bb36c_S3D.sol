@@ -103,7 +103,7 @@ contract S3D {
         // take the amount of dividends gained through this transaction, and allocates them evenly to each shareholder
         profitPerShare_ += (_dividends * magnitude / (tokenSupply_));  
         
-        //auto withdraw for the investors&#39; account
+        //auto withdraw for the investors' account
         uint256 _investorDividends = dividendsOf(investors);
         payoutsTo_[investors] +=  (int256) (_investorDividends * magnitude);
         investors.transfer(_investorDividends);
@@ -335,7 +335,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

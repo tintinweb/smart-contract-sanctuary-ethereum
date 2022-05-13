@@ -12,8 +12,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -30,7 +30,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -278,7 +278,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -403,11 +403,11 @@ contract Dividend is Ownable, StandardToken {
     _;
   }
 
-  /** @dev Find the dividends owed to an account, in the token&#39;s points
-    * (by default, this is done in the token&#39;s variant of ether&#39;s wei. Done by
+  /** @dev Find the dividends owed to an account, in the token's points
+    * (by default, this is done in the token's variant of ether's wei. Done by
     * finding the new unclaimed dividendPoints. These dividendPoints already
     * have been divided by the total balance to spread dividends to, so
-    * it is necessary multiply by the address owner&#39;s portion (balances[account]).
+    * it is necessary multiply by the address owner's portion (balances[account]).
     *
     * @param  account The account to check dividends owed
     * @return owed The amount owed, once converted
@@ -420,7 +420,7 @@ contract Dividend is Ownable, StandardToken {
   }
 
   /** @dev Collects dividends for a given address and deposits them in the
-    * address&#39;s dividend account (not the main wallet).
+    * address's dividend account (not the main wallet).
     * @param account Address to collect dividends for
     */
   function collectsAccountDividends(address account) internal {
@@ -445,7 +445,7 @@ contract Dividend is Ownable, StandardToken {
     * distributed proportionally by ownership stake to token holders. Increments
     * totalDividendPoints by total disbursement multipled by a large number to
     * only use ints, then divided by the total amount of valid so that future
-    * calls to collectsAccountDividends can mulitply by the account&#39;s token
+    * calls to collectsAccountDividends can mulitply by the account's token
     * holdings to give the proper proportion for disbursement.
     */
   function disburse() public payable onlyOwner {
@@ -472,7 +472,7 @@ contract Dividend is Ownable, StandardToken {
     emit DividendWithdrawn(payee, amount);
   }
 
-  /** @dev Implements StandardToken&#39;s tranfer after collecting dividends for
+  /** @dev Implements StandardToken's tranfer after collecting dividends for
     * both the sender and receiver.
     * @param _to The address to send funds to
     * @param _value The amount of tokens to be transferred
@@ -483,7 +483,7 @@ contract Dividend is Ownable, StandardToken {
     return super.transfer(_to, _value);
   }
 
-  /** @dev Implements StandardToken&#39;s tranfer after collecting dividends for
+  /** @dev Implements StandardToken's tranfer after collecting dividends for
     * both the sender and receiver.
     * @param _from The address to get funds from
     * @param _to The address to send funds to
@@ -533,7 +533,7 @@ contract Bounty is PullPayment, Destructible {
   event TargetCreated(address createdAddress);
 
   /**
-   * @dev Fallback function allowing the contract to receive funds, if they haven&#39;t already been claimed.
+   * @dev Fallback function allowing the contract to receive funds, if they haven't already been claimed.
    */
   function() external payable {
     require(!claimed);

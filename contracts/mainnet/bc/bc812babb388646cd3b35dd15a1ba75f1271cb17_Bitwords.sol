@@ -90,7 +90,7 @@ contract Bitwords is Ownable {
      * @param cpc           The cost-per-click
      * @param publisher     The address of the publisher from whom we should credit ether
      * 
-     * TODO: have the advertiser&#39;s signature also involved.
+     * TODO: have the advertiser's signature also involved.
      */ 
     function chargeAdvertiser (address advertiser, uint clicks, uint cpc, address publisher) onlyOwner public {
         uint cost = clicks * cpc;

@@ -167,7 +167,7 @@ contract BookERC20EthV1p1 {
   // and then multiplied by ethRwrdRate, it still fits in 2^127, allowing us to save
   // some gas by storing executed + fee fields as uint128.
   // even with 18 decimals, this still allows order sizes up to 1,000,000,000.
-  // if we encounter a token with e.g. 36 decimals we&#39;ll have to revisit ...
+  // if we encounter a token with e.g. 36 decimals we'll have to revisit ...
   uint constant baseMaxSize = 10 ** 30;
 
   // the counter currency (ETH)
@@ -348,7 +348,7 @@ contract BookERC20EthV1p1 {
   //
   // Helps a web ui get a consistent snapshot of balances.
   //
-  // It would be nice to return the off-exchange ETH balance too but there&#39;s a
+  // It would be nice to return the off-exchange ETH balance too but there's a
   // bizarre bug in geth (and apparently as a result via MetaMask) that leads
   // to unpredictable behaviour when looking up client balances in constant
   // functions - see e.g. https://github.com/ethereum/solidity/issues/2325 .
@@ -380,7 +380,7 @@ contract BookERC20EthV1p1 {
     // if we cannot trust the token then why are we allowing it to be traded?
     uint amountBase = baseToken.allowance(client, book);
     require(amountBase > 0);
-    // NB: needs change for older ERC20 tokens that don&#39;t return bool
+    // NB: needs change for older ERC20 tokens that don't return bool
     require(baseToken.transferFrom(client, book, amountBase));
     // belt and braces
     assert(baseToken.allowance(client, book) == 0);
@@ -398,7 +398,7 @@ contract BookERC20EthV1p1 {
     balanceBaseForClient[client] -= amountBase;
     // we trust the ERC20 token contract not to do nasty things like call back into us -
     // if we cannot trust the token then why are we allowing it to be traded?
-    // NB: needs change for older ERC20 tokens that don&#39;t return bool
+    // NB: needs change for older ERC20 tokens that don't return bool
     require(baseToken.transfer(client, amountBase));
     ClientPaymentEvent(client, ClientPaymentEventType.Transfer, BalanceType.Base, -int(amountBase));
   }
@@ -671,7 +671,7 @@ contract BookERC20EthV1p1 {
     refundUnmatchedAndFinish(orderId, Status.Done, ReasonCode.ClientCancel);
   }
 
-  // Public Order Placement - continue placing an order in &#39;NeedsGas&#39; state
+  // Public Order Placement - continue placing an order in 'NeedsGas' state
   //
   function continueOrder(uint128 orderId, uint maxMatches) public {
     address client = msg.sender;
@@ -687,7 +687,7 @@ contract BookERC20EthV1p1 {
 
   // Internal Order Placement - remove a still-open order from the book.
   //
-  // Caller&#39;s job to update/refund the order + raise event, this just
+  // Caller's job to update/refund the order + raise event, this just
   // updates the order chain and bitmask.
   //
   // Too expensive to do on each resting order match - we only do this for an
@@ -900,8 +900,8 @@ contract BookERC20EthV1p1 {
       }
     }
     if (matchStopReason == MatchStopReason.None) {
-      // we&#39;ve reached the last bitmap we need to search,
-      // we&#39;ll stop at btiEnd not 256 this time.
+      // we've reached the last bitmap we need to search,
+      // we'll stop at btiEnd not 256 this time.
       while (bti <= btiEnd && wbm != 0) {
         if ((wbm & 1) != 0) {
           // careful - copy-and-pasted in loop above ...
@@ -921,7 +921,7 @@ contract BookERC20EthV1p1 {
       }
     }
     // Careful - if we exited the first loop early, or we went into the second loop,
-    // (luckily can&#39;t both happen) then we haven&#39;t flushed the dirty bitmap back to
+    // (luckily can't both happen) then we haven't flushed the dirty bitmap back to
     // storage - do that now if we need to.
     if (dbm != cbm) {
       occupiedPriceBitmaps[bmi] = dbm;
@@ -1016,7 +1016,7 @@ contract BookERC20EthV1p1 {
   //   nextTheirOrderId:
   //     If we did not completely match their order, will be same as theirOrderId.
   //     If we completely matched their order, will be orderId of next order at the
-  //     same price - or zero if this was the last order and we&#39;ve now filled it.
+  //     same price - or zero if this was the last order and we've now filled it.
   //
   //   matchStopReason:
   //     If our order is completely matched, matchStopReason will be Satisfied.
@@ -1065,7 +1065,7 @@ contract BookERC20EthV1p1 {
   // must do that if theirsDead is true.
   //
   // No sanity checks are made - the caller must be sure the order is
-  // not already done and has sufficient remaining. (Yes, we&#39;d like to
+  // not already done and has sufficient remaining. (Yes, we'd like to
   // check here too but we cannot afford the gas).
   //
   function recordTheirMatch(
@@ -1196,7 +1196,7 @@ contract BookERC20EthV1p1 {
   // Returns the price where we found the order(s), the depth at that price
   // (zero if none found), order count there, and the current blockNumber.
   //
-  // (The blockNumber is handy if you&#39;re taking a snapshot which you intend
+  // (The blockNumber is handy if you're taking a snapshot which you intend
   //  to keep up-to-date with the market order events).
   //
   // To walk the book, the caller should start by calling walkBook with the
@@ -1238,7 +1238,7 @@ contract BookERC20EthV1p1 {
         wbm /= 2;
       }
     }
-    // we&#39;ve reached the last bitmap we need to search, stop at btiEnd not 256 this time.
+    // we've reached the last bitmap we need to search, stop at btiEnd not 256 this time.
     while (bti <= btiEnd && wbm != 0) {
       if ((wbm & 1) != 0) {
         // careful - copy-pasted in above loop

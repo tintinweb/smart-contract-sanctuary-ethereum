@@ -118,7 +118,7 @@ contract Utils {
     function Utils() public {
     }
     
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -158,8 +158,8 @@ contract Utils {
     Moviecoin Token
 */
 contract Moviecoin is ERC20Interface, Owned, Utils {
-    string name_ = &#39;Dayibi&#39;;  
-    string  symbol_ = &#39;DYB&#39;;
+    string name_ = 'Dayibi';  
+    string  symbol_ = 'DYB';
     uint8 decimals_ = 8; 
     uint256 totalSupply_ = 10 ** 18;
 
@@ -172,7 +172,7 @@ contract Moviecoin is ERC20Interface, Owned, Utils {
     }
 
   /**
-  * @dev token&#39;s symbol
+  * @dev token's symbol
   */
   
   function name() public constant returns (string){
@@ -188,7 +188,7 @@ contract Moviecoin is ERC20Interface, Owned, Utils {
 
   
   /**
-  * @dev token&#39;s symbol
+  * @dev token's symbol
   */
   function symbol() public constant returns (string){
       return symbol_;
@@ -202,7 +202,7 @@ contract Moviecoin is ERC20Interface, Owned, Utils {
    }
     
   /**
-  * @dev token&#39;s decimals
+  * @dev token's decimals
   */
    function decimals() public constant returns (uint){
         return decimals_;
@@ -259,7 +259,7 @@ contract Moviecoin is ERC20Interface, Owned, Utils {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -281,7 +281,7 @@ contract Moviecoin is ERC20Interface, Owned, Utils {
   }
   
   /**
-   * @dev Don&#39;t accept ETH
+   * @dev Don't accept ETH
    */
    function () public payable {
        revert();

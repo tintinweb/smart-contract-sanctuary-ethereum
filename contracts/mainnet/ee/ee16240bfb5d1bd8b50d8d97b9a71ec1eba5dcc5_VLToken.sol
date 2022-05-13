@@ -75,7 +75,7 @@ contract SafeMath {
   function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -284,7 +284,7 @@ contract VLToken is ERC20, Ownable, SafeMath {
         assignTokens(msg.sender, calculatedTokens);
     }
 
-    // Function will transfer the tokens to investor&#39;s address
+    // Function will transfer the tokens to investor's address
     // Common function code for assigning tokens
     function assignTokens(address investor, uint256 tokens) internal {
         // Debit tokens from ether exchange wallet
@@ -317,7 +317,7 @@ contract VLToken is ERC20, Ownable, SafeMath {
         return allowed[_owner][_spender];
     }
 
-    //  Transfer `value` VLT tokens from sender&#39;s account
+    //  Transfer `value` VLT tokens from sender's account
     // `msg.sender` to provided account address `to`.
     // @param _to The address of the recipient
     // @param _value The number of VLT tokens to transfer
@@ -335,7 +335,7 @@ contract VLToken is ERC20, Ownable, SafeMath {
         return true;
     }
 
-    //  Transfer `value` VLT tokens from sender &#39;from&#39;
+    //  Transfer `value` VLT tokens from sender 'from'
     // to provided account address `to`.
     // @param from The address of the sender
     // @param to The address of the recipient

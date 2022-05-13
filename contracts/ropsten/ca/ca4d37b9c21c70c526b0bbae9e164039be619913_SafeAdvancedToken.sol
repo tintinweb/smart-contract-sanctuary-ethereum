@@ -255,7 +255,7 @@ contract TokenERC20 is owned {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] = balanceOf[_from].sub(_value);    // Subtract from the targeted balance//!S!M
-        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value); // Subtract from the sender&#39;s allowance//!S!M
+        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value); // Subtract from the sender's allowance//!S!M
         totalSupply = totalSupply.sub(_value);                              // Update totalSupply//!S!M
         emit Burn(_from, _value);
         return true;
@@ -338,7 +338,7 @@ contract SafeAdvancedToken is TokenERC20 {
     event TimeOut(string command, int256 time);
     function isPreICO() public view returns(int8){
         if(ICOSet==true){
-            emit TimeOut(&#39;isPreICO&#39;, int256(preICOendTime - now));
+            emit TimeOut('isPreICO', int256(preICOendTime - now));
             if ((now>=preICOstartTime)&&(now<=preICOendTime)){
                 return 1;
             } else {
@@ -350,7 +350,7 @@ contract SafeAdvancedToken is TokenERC20 {
     }
     function isICO() public view returns(int8){
         if(ICOSet==true){
-            emit TimeOut(&#39;isICO&#39;, int256(ICOendTime - now));
+            emit TimeOut('isICO', int256(ICOendTime - now));
             if ((now>=ICOstartTime)&&(now<=ICOendTime)){
                 return 1;
             } else {
@@ -362,7 +362,7 @@ contract SafeAdvancedToken is TokenERC20 {
     }
     function isICOOver() public view returns(int8){        
         if(ICOSet==true){
-            emit TimeOut(&#39;isICOOver&#39;, int256(ICOendTime - now));
+            emit TimeOut('isICOOver', int256(ICOendTime - now));
             if (now>ICOendTime){            
                 return 1;
             } else {
@@ -474,7 +474,7 @@ contract SafeAdvancedToken is TokenERC20 {
         require(_transfer(this, msg.sender, amount)==true);   // 进行转账
     }
 
-    /// 通知销售&#39;金额&#39;令牌合同
+    /// 通知销售'金额'令牌合同
     /// 参数金额的待售令牌
 
     bool public sellAllowed = false;

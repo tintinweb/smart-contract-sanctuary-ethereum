@@ -51,8 +51,8 @@ contract Crowdsale is owned {
 
 contract EnterRentToken is Crowdsale {
     
-    string  public standard    = &#39;Token 1.3&#39;;
-    string  public name        = &#39;Enter Rent Token&#39;;
+    string  public standard    = 'Token 1.3';
+    string  public name        = 'Enter Rent Token';
     string  public symbol      = "ERT";
     uint8   public decimals    = 18;
 

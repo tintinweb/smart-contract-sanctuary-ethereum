@@ -112,7 +112,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                                    // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);                        // Check allowance
         balanceOf[_from] -= _value;                                             // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;                                 // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;                                 // Subtract from the sender's allowance
         totalSupply -= _value;                                                  // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -229,7 +229,7 @@ contract MyGlobeToken is owned, TokenERC20 {
         txpct = newtxpct;
     }
     
-    /// @notice Send `pointsvalue` points to &#39;pointsto&#39; 
+    /// @notice Send `pointsvalue` points to 'pointsto' 
     /// @param pointsto The address that will receive the points 
     /// @param pointsvalue The number of points to send     
     function transferpoints(address pointsto, uint256 pointsvalue) public {
@@ -296,7 +296,7 @@ contract MyGlobeToken is owned, TokenERC20 {
         //Finalise
         setPrices(NSP0,Price0,Quant0);                                          //Sets prices
         _transfer(msg.sender, this, tokenamount);                               //Transfers tokens from seller to contract
-        msg.sender.transfer(discsellvalue);                                     //Sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(discsellvalue);                                     //Sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
     
     
@@ -319,7 +319,7 @@ contract MyGlobeToken is owned, TokenERC20 {
         setPrices(NSP0,Price0,Quant0);                                          //Sets prices
         _transfer(msg.sender, this, tokenamount);                               //Transfers tokens from seller to contract
         givepoints(msg.sender, pointsbonus);                                    //give bonus points to donor
-        charityaddress.transfer(discsellvalue);                                 //Sends ether to the seller. It&#39;s important to do this last to avoid recursion attack 
+        charityaddress.transfer(discsellvalue);                                 //Sends ether to the seller. It's important to do this last to avoid recursion attack 
     }
 
 

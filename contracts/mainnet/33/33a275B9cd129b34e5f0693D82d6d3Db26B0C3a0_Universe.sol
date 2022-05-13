@@ -46,7 +46,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -377,7 +377,7 @@ contract ERC721YC is YouCollectBase {
       //transfer ownership
       tokenIndexToOwner[_tokenId] = _to;
 
-      // When creating new collectibles _from is 0x0, but we can&#39;t account that address.
+      // When creating new collectibles _from is 0x0, but we can't account that address.
       if (_from != address(0)) {
         // clear any previously approved ownership exchange
         delete tokenIndexToApproved[_tokenId];
@@ -389,7 +389,7 @@ contract ERC721YC is YouCollectBase {
 
 
     /// @param _owner The owner whose celebrity tokens we are interested in.
-    /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+    /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
     ///  expensive (it walks the entire tokens array looking for tokens belonging to owner),
     ///  but it also returns a dynamic array, which is only supported for web3 calls, and
     ///  not contract-to-contract calls.

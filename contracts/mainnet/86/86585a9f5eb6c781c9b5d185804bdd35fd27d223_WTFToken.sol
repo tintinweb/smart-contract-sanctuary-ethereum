@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -258,7 +258,7 @@ contract BurnableToken is StandardToken {
  * @dev ERC20 WTF Token Network Token (WTF)
  *
  * WTF Tokens are divisible by 1e8 (100,000,000) base
- * units referred to as &#39;Grains&#39;.
+ * units referred to as 'Grains'.
  *
  * WTF are displayed using 8 decimal places of precision.
  *
@@ -274,8 +274,8 @@ contract BurnableToken is StandardToken {
  */
 contract WTFToken is BurnableToken, Pausable {
 
-  string public constant name = &#39;WTF Token&#39;;                   // Set the token name for display
-  string public constant symbol = &#39;WTF&#39;;                                       // Set the token symbol for display
+  string public constant name = 'WTF Token';                   // Set the token name for display
+  string public constant symbol = 'WTF';                                       // Set the token symbol for display
   uint8 public constant decimals = 8;                                          // Set the number of decimals for display
   uint256 constant INITIAL_SUPPLY = 10000000 * 10**uint256(decimals);          // 10 Million WTF specified in Grains
   uint256 public sellPrice;
@@ -394,10 +394,10 @@ contract WTFToken is BurnableToken, Pausable {
     */
   function sell(uint256 amount) external returns (uint256 revenue){
       require(balances[msg.sender] - bonuses[msg.sender] * freezingPercentage / 100 >= amount);           // Checks if the sender has enough to sell
-      balances[this] = balances[this].add(amount);                                                        // Adds the amount to owner&#39;s balance
-      balances[msg.sender] = balances[msg.sender].sub(amount);                                            // Subtracts the amount from seller&#39;s balance
+      balances[this] = balances[this].add(amount);                                                        // Adds the amount to owner's balance
+      balances[msg.sender] = balances[msg.sender].sub(amount);                                            // Subtracts the amount from seller's balance
       revenue = amount.mul(sellPrice);                                                                    // Calculate the seller reward
-      msg.sender.transfer(revenue);                                                                       // Sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+      msg.sender.transfer(revenue);                                                                       // Sends ether to the seller: it's important to do this last to prevent recursion attacks
       Transfer(msg.sender, this, amount);                                                                 // Executes an event reflecting on the change
       return revenue;                                                                                     // Ends function and returns
   }

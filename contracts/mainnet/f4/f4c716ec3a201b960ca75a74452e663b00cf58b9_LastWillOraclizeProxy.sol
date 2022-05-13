@@ -174,7 +174,7 @@ contract usingOraclize {
  * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="64051605070c0a0d00240a0b10000b104a0a0110">[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
- *      abstraction called a &#39;slice&#39;. A slice represents a part of a string -
+ *      abstraction called a 'slice'. A slice represents a part of a string -
  *      anything from the entire string to a single character, or even no
  *      characters at all (a 0-length slice). Since a slice only has to specify
  *      an offset and a length, copying and manipulating slices is a lot less
@@ -182,8 +182,8 @@ contract usingOraclize {
  *
  *      To further reduce gas costs, most functions on slice that need to return
  *      a slice modify the original one instead of allocating a new one; for
- *      instance, `s.split(".")` will return the text up to the first &#39;.&#39;,
- *      modifying s to only contain the remainder of the string after the &#39;.&#39;.
+ *      instance, `s.split(".")` will return the text up to the first '.',
+ *      modifying s to only contain the remainder of the string after the '.'.
  *      In situations where you do not want to modify the original slice, you
  *      can make a copy first with `.copy()`, for example:
  *      `s.copy().split(".")`. Try and avoid using this idiom in loops; since
@@ -201,7 +201,7 @@ contract usingOraclize {
  *
  *      For convenience, some functions are provided with non-modifying
  *      variants that create a new slice and return both; for instance,
- *      `s.splitNew(&#39;.&#39;)` leaves s unmodified, and returns two values
+ *      `s.splitNew('.')` leaves s unmodified, and returns two values
  *      corresponding to the left and right parts of the string.
  */
 pragma solidity ^0.4.16;
@@ -305,7 +305,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal returns (string) {
         var ret = new string(self._len);
@@ -941,7 +941,7 @@ contract LastWillOraclizeProxy is usingOraclize, LastWillOraclizeProxyI {
     }
 
     /**
-     * The result look like &#39;["1469624867", "1469624584",...&#39;
+     * The result look like '["1469624867", "1469624584",...'
      */
     function __callback(bytes32 queryId, string result, bytes) {
         if (msg.sender != oraclize_cbAddress()) revert();
@@ -953,7 +953,7 @@ contract LastWillOraclizeProxy is usingOraclize, LastWillOraclizeProxyI {
 
     /************************** Internal **************************/
 
-    // json(https://api.etherscan.io/api?module=account&action=txlist&address=0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a&startblock=0&endblock=99999999&page=0&offset=0&sort=desc&apikey=FJ39P2DIU8IX8U9N2735SUKQWG3HPPGPX8).result[?(@.from==&#39;<address>&#39;)].timeStamp
+    // json(https://api.etherscan.io/api?module=account&action=txlist&address=0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a&startblock=0&endblock=99999999&page=0&offset=0&sort=desc&apikey=FJ39P2DIU8IX8U9N2735SUKQWG3HPPGPX8).result[?(@.from=='<address>')].timeStamp
     function buildUrl(address target, uint startBlock, uint endBlock) internal constant returns (string) {
         strings.slice memory strAddress = toHex(target).toSlice();
         uint8 i = 0; // count of the strings below
@@ -965,9 +965,9 @@ contract LastWillOraclizeProxy is usingOraclize, LastWillOraclizeProxyI {
         parts[i++] = uint2str(startBlock).toSlice();
         parts[i++] = "&endblock=".toSlice();
         parts[i++] = uint2str(endBlock).toSlice();
-        parts[i++] = "&sort=desc&apikey=FJ39P2DIU8IX8U9N2735SUKQWG3HPPGPX8).result[?(@.from==&#39;0x".toSlice();
+        parts[i++] = "&sort=desc&apikey=FJ39P2DIU8IX8U9N2735SUKQWG3HPPGPX8).result[?(@.from=='0x".toSlice();
         parts[i++] = strAddress;
-        parts[i++] = "&#39;)].timeStamp".toSlice();
+        parts[i++] = "')].timeStamp".toSlice();
         return "".toSlice()
                  .join(parts);
     }

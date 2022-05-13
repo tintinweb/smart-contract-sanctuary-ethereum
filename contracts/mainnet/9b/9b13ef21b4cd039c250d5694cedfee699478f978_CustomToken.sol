@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1200000000000000000000000000;
-        name = &#39;Motioncoin&#39;;
-        symbol = &#39;MTC&#39;;
+        name = 'Motioncoin';
+        symbol = 'MTC';
         decimals = 18;
         balanceOf[0xa7ae5391681d264af3abe7f91bd05666bee57b91] = totalSupply;
         Transfer(address(0), 0xa7ae5391681d264af3abe7f91bd05666bee57b91, totalSupply);

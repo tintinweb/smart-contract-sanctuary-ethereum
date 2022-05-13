@@ -165,7 +165,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -212,7 +212,7 @@ contract MyAdvancedToken is owned, TokenERC20 {
     }
 
 
-    //pay violator&#39;s debt by send coin
+    //pay violator's debt by send coin
     function punish(address violator,address victim,uint amount) public onlyOwner
     {
       _transfer(violator,victim,amount);
@@ -264,7 +264,7 @@ contract MyAdvancedToken is owned, TokenERC20 {
     function sell(uint256 amount) public {
         require(this.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 
     /// @notice lock some amount token 
@@ -295,7 +295,7 @@ contract MyAdvancedToken is owned, TokenERC20 {
     /// @param amount token that user wish to unlock 
     function userUnlockToken (uint256 amount) public returns(bool res) {
         require(lockedAmount[msg.sender] >= amount);        // make sure no more token user could unlock
-        require(now >= lockedTime[msg.sender]);             // make sure won&#39;t unlock too soon
+        require(now >= lockedTime[msg.sender]);             // make sure won't unlock too soon
         lockedAmount[msg.sender] -= amount;
         balanceOf[msg.sender] += amount;
         UserUnlock(amount);

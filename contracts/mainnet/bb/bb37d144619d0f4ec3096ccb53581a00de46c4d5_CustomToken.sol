@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 314190000000000000000;
-        name = &#39;shared pay velocity chain&#39;;
-        symbol = &#39;SPVC&#39;;
+        name = 'shared pay velocity chain';
+        symbol = 'SPVC';
         decimals = 12;
         balanceOf[0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530] = totalSupply;
         Transfer(address(0), 0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530, totalSupply);

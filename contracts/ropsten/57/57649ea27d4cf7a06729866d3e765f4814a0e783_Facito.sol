@@ -81,7 +81,7 @@ contract Facito {
     }
 
     function readArticle(bytes32 _id) public returns (bool success) {
-        require(articles[_id].UnspentOutputs[msg.sender] == 0, "Article already read"); // Check article hasn&#39;t already been read
+        require(articles[_id].UnspentOutputs[msg.sender] == 0, "Article already read"); // Check article hasn't already been read
 
         articles[_id].UnspentOutputs[msg.sender] = 1; // Set spent
 

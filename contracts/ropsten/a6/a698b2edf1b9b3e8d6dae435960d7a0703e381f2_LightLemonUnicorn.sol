@@ -2,7 +2,7 @@ pragma solidity ^0.4.16;
 
 /// Once upon a time, the LLU contract is created. The Light Lemon Unicorn (LLU) is a smart contract which provides Magic Lemon Juice for sharing and caring.
 /// This will be a fun project: To bring and share the World of the Light Lemon Unicorn to everybody who likes to see, visit and experience.
-/// Main goal of this project is to create, build and see what happens. Let&#39;s start with the journey and see where the LLU will be in 3 years. 
+/// Main goal of this project is to create, build and see what happens. Let's start with the journey and see where the LLU will be in 3 years. 
 /// Let the heartiness of the Light Lemon Unicorn and her friends shine upon us!
 
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) external; }
@@ -128,6 +128,6 @@ contract LightLemonUnicorn {
 
 }
 
-/// Glad you red this code. It&#39;s a shit copy paste code isn&#39;t it. Because I am not really good at coding (read: really not good). 
+/// Glad you red this code. It's a shit copy paste code isn't it. Because I am not really good at coding (read: really not good). 
 /// But if it works, it works right? 
 /// We hope the messages/feellings the LLU encompasses will reach the people, who will like the concept of Light Lemon Unicorn! Whatever that may be.

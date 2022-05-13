@@ -72,7 +72,7 @@ contract ERC20 is ERC20Interface {
 contract ERC20TokenFactory {
     
     function ERC20TokenFactory() public {
-        createERC20Token(10000000000, &#39;TokenPocket Token&#39;, 4, &#39;TPT&#39;);
+        createERC20Token(10000000000, 'TokenPocket Token', 4, 'TPT');
     }
     
     function createERC20Token(uint256 _initialAmount, string _name, uint8 _decimals, string _symbol) 

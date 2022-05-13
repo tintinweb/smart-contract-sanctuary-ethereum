@@ -152,7 +152,7 @@ library Math {
         // This famous algorithm is called "exponentiation by squaring"
         // and calculates x^n with x as fixed-point and n as regular unsigned.
         //
-        // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+        // It's O(log n), instead of O(n) for naive repeated multiplication.
         //
         // These facts are why it works:
         //
@@ -421,7 +421,7 @@ contract TokenLogic is TokenLogicEvents, TokenLogicI, SecuredWithRoles {
     Token public token;     // facade: Token.sol:Token
 
     /* White lists are used to restrict who can transact with whom.
-     * Since we can&#39;t iterate over the mapping we need to store the keys separaterly in the
+     * Since we can't iterate over the mapping we need to store the keys separaterly in the
      *   listNames
      */
     bytes32[] public listNames;
@@ -605,7 +605,7 @@ contract Token is TokenI, SecuredWithRoles, TokenEvents {
     TokenLogicI public logic;
 
     function Token(string name_, string symbol_, address rolesContract) public SecuredWithRoles(name_, rolesContract) {
-        // you can&#39;t create logic here, because this contract would be the owner.
+        // you can't create logic here, because this contract would be the owner.
         name = name_;
         symbol = symbol_;
     }
@@ -745,7 +745,7 @@ contract SweetTokenLogic is TokenLogic {
 
 contract SweetToken is Token {
     function SweetToken(string name_, string symbol_, address rolesContract) public Token(name_, symbol_, rolesContract) {
-        // you shouldn&#39;t create logic here, because this contract would be the owner.
+        // you shouldn't create logic here, because this contract would be the owner.
     }
 
 }

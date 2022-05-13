@@ -118,7 +118,7 @@ contract Blockgame {
       _;
   }
 
-  // Verify that constest hasn&#39;t closed
+  // Verify that constest hasn't closed
   modifier beforeCutoff(uint _date) {
     require(gameRecords[_date].closedTime > currentTime());
     _;

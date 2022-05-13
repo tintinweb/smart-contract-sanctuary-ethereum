@@ -77,7 +77,7 @@ contract Glv is StandardToken {
     string public name;                   //token名称: Glv 
     uint8 public decimals;                //小数位
     string public symbol;                 //标识
-    string public version = &#39;H0.1&#39;;       //版本号
+    string public version = 'H0.1';       //版本号
 
     function Glv(
         uint256 _initialAmount,

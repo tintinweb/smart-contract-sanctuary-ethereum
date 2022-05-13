@@ -123,7 +123,7 @@ library BytesUtils {
     }
 
     /*
-    * @dev Compares a range of &#39;self&#39; to all of &#39;other&#39; and returns True iff
+    * @dev Compares a range of 'self' to all of 'other' and returns True iff
     *      they are equal.
     * @param self The first byte range to compare.
     * @param offset The offset into the first byte range.
@@ -267,7 +267,7 @@ library BytesUtils {
 
     // Maps characters from 0x30 to 0x7A to their base32 values.
     // 0xFF represents invalid characters in that range.
-    bytes constant base32HexTable = hex&#39;00010203040506070809FFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1FFFFFFFFFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1F&#39;;
+    bytes constant base32HexTable = hex'00010203040506070809FFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1FFFFFFFFFFFFFFFFFFFFF0A0B0C0D0E0F101112131415161718191A1B1C1D1E1F';
 
     /**
      * @dev Decodes unpadded base32 data of up to one word in length.
@@ -425,7 +425,7 @@ library Buffer {
             let buflen := mload(bufptr)
             // Start address = buffer address + offset + sizeof(buffer length)
             dest := add(add(bufptr, 32), off)
-            // Update buffer length if we&#39;re extending it
+            // Update buffer length if we're extending it
             if gt(add(len, off), buflen) {
                 mstore(bufptr, add(len, off))
             }

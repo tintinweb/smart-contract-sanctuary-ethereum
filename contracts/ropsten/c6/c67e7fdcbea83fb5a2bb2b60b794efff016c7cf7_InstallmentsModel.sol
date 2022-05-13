@@ -192,7 +192,7 @@ contract Model is IERC165 {
         @param timestamp Timestamp of the obligation query
 
         @return amount Amount pending to pay on the given timestamp
-        @return defined True If the amount returned is fixed and can&#39;t change
+        @return defined True If the amount returned is fixed and can't change
     */
     function getObligation(bytes32 id, uint64 timestamp) external view returns (uint256 amount, bool defined);
 
@@ -253,7 +253,7 @@ contract Model is IERC165 {
         The registry could be paid before or after the date, but the debt will always be
             considered overdue if paid after this timestamp.
 
-        This is the estimated final payment date of the debt if it&#39;s always paid on each exact dueTime.
+        This is the estimated final payment date of the debt if it's always paid on each exact dueTime.
 
         @param id Id of the registry
 
@@ -330,10 +330,10 @@ contract Model is IERC165 {
         Not all models have internal clocks, a model without an internal clock should always return false.
 
         Calls to this method should be possible from any address,
-            multiple calls to run shouldn&#39;t affect the internal calculations of the model.
+            multiple calls to run shouldn't affect the internal calculations of the model.
 
         @dev If the call had no effect the method would return False,
-            that is no sign of things going wrong, and the call shouldn&#39;t be wrapped on a require
+            that is no sign of things going wrong, and the call shouldn't be wrapped on a require
 
         @param id If of the registry
 
@@ -429,11 +429,11 @@ contract ERC165 is IERC165 {
     bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
     /**
     * 0x01ffc9a7 ===
-    *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+    *   bytes4(keccak256('supportsInterface(bytes4)'))
     */
 
     /**
-    * @dev a mapping of interface id to whether or not it&#39;s supported
+    * @dev a mapping of interface id to whether or not it's supported
     */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -464,7 +464,7 @@ contract ERC165 is IERC165 {
     function _registerInterface(bytes4 interfaceId)
         internal
     {
-        require(interfaceId != 0xffffffff, "Can&#39;t register 0xffffffff");
+        require(interfaceId != 0xffffffff, "Can't register 0xffffffff");
         _supportedInterfaces[interfaceId] = true;
     }
 }
@@ -853,7 +853,7 @@ contract InstallmentsModel is ERC165, BytesUtils, Ownable, Model, ModelDescripto
         Config storage config = configs[id];
         State storage state = states[id];
         uint64 lentTime = config.lentTime;
-        require(lentTime < target, "Clock can&#39;t go negative");
+        require(lentTime < target, "Clock can't go negative");
         uint64 targetClock = target - lentTime;
         require(targetClock > state.clock, "Clock is ahead of target");
         return _advanceClock(id, targetClock);
@@ -878,7 +878,7 @@ contract InstallmentsModel is ERC165, BytesUtils, Ownable, Model, ModelDescripto
         State storage state = states[id];
         Config storage config = configs[id];
 
-        // Can&#39;t be before creation
+        // Can't be before creation
         if (timestamp < config.lentTime) {
             return (0, true);
         }
@@ -1113,7 +1113,7 @@ contract InstallmentsModel is ERC165, BytesUtils, Ownable, Model, ModelDescripto
                 _interestRate: _interestRate
             });
 
-            // Don&#39;t change clock unless we have a change
+            // Don't change clock unless we have a change
             if (installmentCompleted || newInterest > 0) {
                 clock += delta;
                 interest += newInterest;
@@ -1170,9 +1170,9 @@ contract InstallmentsModel is ERC165, BytesUtils, Ownable, Model, ModelDescripto
     ) internal pure returns (uint128 cuota, uint256 interestRate, uint24 installments, uint40 duration, uint32 timeUnit) {
         (cuota, interestRate, installments, duration, timeUnit) = _decodeData(_data);
 
-        require(cuota > 0, "Cuota can&#39;t be 0");
-        require(installments > 0, "Installments can&#39;t be 0");
-        require(timeUnit > 0, "Time unit can&#39;t be 0");
+        require(cuota > 0, "Cuota can't be 0");
+        require(installments > 0, "Installments can't be 0");
+        require(timeUnit > 0, "Time unit can't be 0");
 
         require(timeUnit <= duration, "Time unit must be lower or equal than installment duration");
         require(timeUnit < interestRate, "Interest rate by time unit is too low");

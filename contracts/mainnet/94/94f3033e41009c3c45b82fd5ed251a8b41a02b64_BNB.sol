@@ -82,7 +82,7 @@ contract BNB is owned {
     }
 
     /**
-      send &#39;_value&#39; tokens to &#39;_to&#39; from your account
+      send '_value' tokens to '_to' from your account
      */
     function transfer(address _to , uint256 _value) public  returns(bool success){
       _transfer(msg.sender, _to, _value);
@@ -90,7 +90,7 @@ contract BNB is owned {
     }
     
     /**
-        send &#39;_value&#39; tokens to &#39;_to&#39; on behalf to &#39;_from&#39;
+        send '_value' tokens to '_to' on behalf to '_from'
      */
     function transferFrom(address _from, address _to, uint256 _value) public returns(bool success){
       require(_value <= allowance[_from][msg.sender]);
@@ -102,7 +102,7 @@ contract BNB is owned {
     /**
      * 
       set allowance for other address
-      allows &#39;_spender&#39; to spend no more than &#39;_value&#39; tokens on you behalf
+      allows '_spender' to spend no more than '_value' tokens on you behalf
      */
     function approve(address _spender, uint256 _value)  public returns (bool success) {
       allowance[msg.sender][_spender] = _value;
@@ -113,7 +113,7 @@ contract BNB is owned {
     /**
      set allowance for other address and nofity
 
-     allows &#39;_spender&#39; to spend no more than &#39;_value&#39; tokens on you behalf,and then ping the contract about it
+     allows '_spender' to spend no more than '_value' tokens on you behalf,and then ping the contract about it
      */
     function approveAndCall(address _spender,uint256 _value, bytes memory _extraData) public returns (bool success) {
       tokenRecipient spender = tokenRecipient(_spender);
@@ -125,7 +125,7 @@ contract BNB is owned {
     
     /**
       Destroy tokens
-      remove &#39;_value&#39; tokens from the system irreversibly
+      remove '_value' tokens from the system irreversibly
      */
     function burn(uint256 _value) onlyOwner public returns (bool success) {
       require(balanceOf[msg.sender] >= _value);
@@ -137,7 +137,7 @@ contract BNB is owned {
     
     /**
      destroy tokens from other account
-     remove &#39;_value&#39; tokens from the system irreversibly or &#39;_from&#39; 
+     remove '_value' tokens from the system irreversibly or '_from' 
     */
     function burnFrom(address _from, uint256 _value) onlyOwner public returns(bool success){
       require(balanceOf[_from] >= _value);

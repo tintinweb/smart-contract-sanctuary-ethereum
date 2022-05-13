@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -131,7 +131,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -310,7 +310,7 @@ contract StarbaseToken is StandardToken {
     }
 
     /**
-     * @dev Setup function sets external contracts&#39; addresses
+     * @dev Setup function sets external contracts' addresses
      * @param starbaseCrowdsaleAddr Crowdsale contract address.
      * @param starbaseMarketingCampaignAddr Marketing campaign contract address
      */
@@ -352,7 +352,7 @@ contract StarbaseToken is StandardToken {
     }
 
     /**
-     * @dev Declares a public offering plan to make company&#39;s tokens transferable
+     * @dev Declares a public offering plan to make company's tokens transferable
      * @param tokenCount Number of tokens to transfer.
      * @param unlockCompanysTokensAt Time of the tokens will be unlocked
      */
@@ -470,7 +470,7 @@ contract StarbaseToken is StandardToken {
      */
 
     /**
-     * @dev Transfers sender&#39;s tokens to a given address. Returns success.
+     * @dev Transfers sender's tokens to a given address. Returns success.
      * @param to Address of token receiver.
      * @param value Number of tokens to transfer.
      */
@@ -540,7 +540,7 @@ contract StarbaseToken is StandardToken {
             return false;
         }
 
-        // company&#39;s tokens may be locked up
+        // company's tokens may be locked up
         if (from == company) {
             if (tokenCount > numOfTransferableCompanysTokens()) {
                 return false;
@@ -549,14 +549,14 @@ contract StarbaseToken is StandardToken {
 
         uint256 untransferableTokenCount = 0;
 
-        // early contributor&#39;s tokens may be locked up
+        // early contributor's tokens may be locked up
         if (initialEcTokenAllocation[from] > 0) {
             untransferableTokenCount = SafeMath.add(
                 untransferableTokenCount,
                 numOfUntransferableEcTokens(from));
         }
 
-        // EP and CS purchasers&#39; tokens should be untransferable initially
+        // EP and CS purchasers' tokens should be untransferable initially
         if (starbaseCrowdsale.isEnded()) {
             uint256 passedDays =
                 SafeMath.sub(now, starbaseCrowdsale.endedAt()) / 86400; // 1d = 86400s
@@ -585,7 +585,7 @@ contract StarbaseToken is StandardToken {
     }
 
     /**
-     * @dev Returns the number of transferable company&#39;s tokens
+     * @dev Returns the number of transferable company's tokens
      */
     function numOfTransferableCompanysTokens() constant public returns (uint256) {
         uint256 unlockedTokens = 0;

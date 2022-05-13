@@ -52,8 +52,8 @@ contract GravatarRegistry {
 
   // the gravatar at position 0 of gravatars[]
   // is fake
-  // it&#39;s a mythical gravatar
-  // that doesn&#39;t really exist
+  // it's a mythical gravatar
+  // that doesn't really exist
   // dani will invoke this function once when this contract is deployed
   // but then no more
   function setMythicalGravatar() public {

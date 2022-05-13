@@ -75,7 +75,7 @@ contract JobChain
     {
         contractOwner = msg.sender;
 
-        // Test data to save time during unit testing. When made productive this could be removed, but doesn&#39;t have to be.
+        // Test data to save time during unit testing. When made productive this could be removed, but doesn't have to be.
         createTestData();        
      
     }
@@ -235,7 +235,7 @@ contract JobChain
     }
 
     /// @notice Returns amount of Ether due in Wei to the caller.
-    /// @dev Doesn&#39;t care about emergency stop, this is just returning a value
+    /// @dev Doesn't care about emergency stop, this is just returning a value
     function getJobHunterWithdrawalAmount() public view
     returns (uint amountWeiDue)
     {

@@ -137,7 +137,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -432,7 +432,7 @@ contract ERC20 is ERC20Interface{
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     // ------------------------------------------------------------------------
     function approve(address _spender, uint _amount) 
     public 
@@ -478,7 +478,7 @@ contract ERC20 is ERC20Interface{
     public 
     returns (bool success) {
         balances[_from] = balances[_from].sub(_amount);                         // Subtract from the targeted balance
-        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_amount);             // Subtract from the sender&#39;s allowance
+        allowed[_from][msg.sender] = allowed[_from][msg.sender].sub(_amount);             // Subtract from the sender's allowance
         supply = supply.sub(_amount);                              // Update supply
         emit LogBurn(_from, _amount);
         emit Transfer(_from, address(0), _amount);
@@ -518,7 +518,7 @@ contract ERC20 is ERC20Interface{
 
     // ------------------------------------------------------------------------
     // Fallback function
-    // Won&#39;t accept ETH
+    // Won't accept ETH
     // ------------------------------------------------------------------------
     function () 
     public 

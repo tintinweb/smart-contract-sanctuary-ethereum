@@ -410,7 +410,7 @@ contract Modultrade is OracleOwnable, Deployer {
   address feeAddress
   ) public onlyOracleOrOwner {
     ModultradeProposal proposal = new ModultradeProposal(address(this), seller, mtrContractAddress);
-    LogEvent (address(proposal), &#39;ModultradeProposal&#39;, 1);
+    LogEvent (address(proposal), 'ModultradeProposal', 1);
     proposal.setProposal(id, title, price, currency, units, total, validUntil);
     proposal.setFee(fee, feeAddress);
     proposal.setOracle(oracle);

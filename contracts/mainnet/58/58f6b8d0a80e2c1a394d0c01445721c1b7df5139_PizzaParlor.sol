@@ -82,16 +82,16 @@ contract PizzaParlor {
   mapping (bytes32 => uint8) public stacksTransferred;
 
   //tx1&2: players submit to a particular commit hash their stack of pogs (the two txs can happen on the same block, no one is waiting)
-  //these go to the Cryptogs contract and it is transferStackAndCall&#39;ed to here
+  //these go to the Cryptogs contract and it is transferStackAndCall'ed to here
   function onTransferStack(address _sender, uint _token1, uint _token2, uint _token3, uint _token4, uint _token5, bytes32 _commit){
 
     //make sure this came from the Cryptogs contract
     require(msg.sender == cryptogsAddress);
 
-    //make sure this commit is unique / doesn&#39;t already exist
+    //make sure this commit is unique / doesn't already exist
     require(commitReceipt[_commit][_sender] == 0);
 
-    //make sure there aren&#39;t already two stacks submitted
+    //make sure there aren't already two stacks submitted
     require(stacksTransferred[_commit]<2);
     stacksTransferred[_commit]++;
 

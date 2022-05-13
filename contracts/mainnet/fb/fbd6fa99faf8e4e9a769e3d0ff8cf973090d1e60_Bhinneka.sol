@@ -72,8 +72,8 @@ function BTImint( address _client, uint256 _value) onlyowner public {
   totalToken = safeAdd(totalToken, numBTI);
   Transfer(owner, _client, numBTI);
 }
-//Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-//If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check requireit doesn&#39;t wrap.
+//Default assumes totalSupply can't be over max (2^256 - 1).
+//If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check requireit doesn't wrap.
 //Replace the if with this one instead.
 function transfer(address _to, uint256 _value) public returns (bool success) {
     require(!hault);

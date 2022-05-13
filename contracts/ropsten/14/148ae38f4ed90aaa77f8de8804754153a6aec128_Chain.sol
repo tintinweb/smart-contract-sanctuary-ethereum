@@ -50,8 +50,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -70,7 +70,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -309,7 +309,7 @@ contract Registrable is IRegistrable, Suicidal {
   function _register()
   internal
   returns (bool) {
-    require(!_isRegistered, "i&#39;m already register");
+    require(!_isRegistered, "i'm already register");
 
     _isRegistered = true;
     emit LogRegister(msg.sender, address(this), true);
@@ -330,7 +330,7 @@ contract Registrable is IRegistrable, Suicidal {
   function _unregister(IRegistrable _newInstance)
   internal
   returns (bool) {
-    require(_isRegistered, "i&#39;m not even register");
+    require(_isRegistered, "i'm not even register");
     require(address(_newInstance) != address(0x0), "[unregister] _newInstance address is empty");
     require(address(_newInstance) != address(this), "[unregister] _newInstance is me");
 
@@ -381,7 +381,7 @@ contract SingleStorageStrategy is IStorageStrategy, Suicidal {
   event LogNewStorage(IStorageBase indexed storageAddress);
 
   constructor (IStorageBase _storage) public {
-    require(address(_storage) != address(0x0), "storage can&#39;t be empty");
+    require(address(_storage) != address(0x0), "storage can't be empty");
     singleStorage = _storage;
   }
 
@@ -592,7 +592,7 @@ contract ChainStorage is StorageBase {
     // shard => proposal => counts
     // Im using mapping, because its less gas consuming that array,
     // and also it is much easier to work with mapping than with array
-    // unfortunately we can&#39;t be able to delete this data to release gas, why?
+    // unfortunately we can't be able to delete this data to release gas, why?
     // because to do this, we need to save all the keys and then run loop for all keys... that may cause OOG
     // also storing keys is more gas consuming so... I made decision to stay with mapping and never delete history
     mapping (uint256 => mapping(bytes32 => uint256)) counts;
@@ -620,11 +620,11 @@ contract ChainStorage is StorageBase {
   constructor(uint8 _blocksPerPhase,
     uint8 _minimumStakingTokenPercentage,
     bool _updateMinimumStakingTokenPercentageEnabled) public {
-    require(_blocksPerPhase > 0, "_blocksPerPhase can&#39;t be empty");
+    require(_blocksPerPhase > 0, "_blocksPerPhase can't be empty");
     blocksPerPhase = _blocksPerPhase;
 
-    require(_minimumStakingTokenPercentage > 0, "_minimumStakingTokenPercentage can&#39;t be empty");
-    require(_minimumStakingTokenPercentage <= 100, "_minimumStakingTokenPercentage can&#39;t be over 100%");
+    require(_minimumStakingTokenPercentage > 0, "_minimumStakingTokenPercentage can't be empty");
+    require(_minimumStakingTokenPercentage <= 100, "_minimumStakingTokenPercentage can't be over 100%");
     minimumStakingTokenPercentage = _minimumStakingTokenPercentage;
 
     updateMinimumStakingTokenPercentageEnabled = _updateMinimumStakingTokenPercentageEnabled;
@@ -731,8 +731,8 @@ contract ChainStorage is StorageBase {
   returns (bool) {
     require(updateMinimumStakingTokenPercentageEnabled, "update not available");
 
-    require(_minimumStakingTokenPercentage > 0, "_minimumStakingTokenPercentage can&#39;t be empty");
-    require(_minimumStakingTokenPercentage <= 100, "_minimumStakingTokenPercentage can&#39;t be over 100%");
+    require(_minimumStakingTokenPercentage > 0, "_minimumStakingTokenPercentage can't be empty");
+    require(_minimumStakingTokenPercentage <= 100, "_minimumStakingTokenPercentage can't be over 100%");
     minimumStakingTokenPercentage = _minimumStakingTokenPercentage;
 
     emit LogChainConfig(blocksPerPhase, _minimumStakingTokenPercentage, true);

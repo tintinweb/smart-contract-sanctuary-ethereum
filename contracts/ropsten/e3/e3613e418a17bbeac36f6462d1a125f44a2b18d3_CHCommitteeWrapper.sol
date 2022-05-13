@@ -66,7 +66,7 @@ interface ChickenHunt {
 /**
  * @title ChickenHuntCommittee
  * @author M.H. Kang
- * @notice Wrapper solution to unintended mistake that the committee could use ChickenHunt ether with callFor function. This vulnerability was discovered by &#39;blah&#39;. Thank you!
+ * @notice Wrapper solution to unintended mistake that the committee could use ChickenHunt ether with callFor function. This vulnerability was discovered by 'blah'. Thank you!
  */
 contract CHCommitteeWrapper {
 

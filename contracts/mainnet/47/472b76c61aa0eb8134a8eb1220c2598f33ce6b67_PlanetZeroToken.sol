@@ -57,7 +57,7 @@ contract SafeMath {
   function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -84,7 +84,7 @@ contract PlanetZeroToken is ERC20, SafeMath, Ownable {
   string public name;
   string public symbol;
   uint8 public decimals = 6;
-  string public version = &#39;v0.1&#39;; 
+  string public version = 'v0.1'; 
   uint public initialSupply;
   uint public totalSupply;
 
@@ -95,8 +95,8 @@ contract PlanetZeroToken is ERC20, SafeMath, Ownable {
     initialSupply = 1000000000 * 10 ** uint256(decimals);
     totalSupply = initialSupply;
     balances[msg.sender] = totalSupply;
-    name = &#39;Planet zero token&#39;;   
-    symbol = &#39;Planet0&#39;;
+    name = 'Planet zero token';   
+    symbol = 'Planet0';
   }
 
   function burn(uint256 _value) public returns (bool){

@@ -147,7 +147,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal pure returns (string) {
         var ret = new string(self._len);
@@ -318,7 +318,7 @@ contract OperationalControl {
     /// @dev Unpauses the smart contract. Can only be called by the Game Master
     /// @notice This is public rather than external so it can be called by derived contracts. 
     function unpause() public onlyManager whenPaused {
-        // can&#39;t unpause if contract was upgraded
+        // can't unpause if contract was upgraded
         paused = false;
     }
 
@@ -346,18 +346,18 @@ contract CSCPreSaleItemBase is ERC721, OperationalControl, StringHelpers {
     /// @notice Name and symbol of the non fungible token, as defined in ERC721.
     string public constant NAME = "CSCPreSaleFactory";
     string public constant SYMBOL = "CSCPF";
-    bytes4 constant InterfaceSignature_ERC165 = bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+    bytes4 constant InterfaceSignature_ERC165 = bytes4(keccak256('supportsInterface(bytes4)'));
     bytes4 constant InterfaceSignature_ERC721 =
-        bytes4(keccak256(&#39;name()&#39;)) ^
-        bytes4(keccak256(&#39;symbol()&#39;)) ^
-        bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-        bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-        bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-        bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transfer(address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-        bytes4(keccak256(&#39;tokensOfOwner(address)&#39;)) ^
-        bytes4(keccak256(&#39;tokenMetadata(uint256,string)&#39;));
+        bytes4(keccak256('name()')) ^
+        bytes4(keccak256('symbol()')) ^
+        bytes4(keccak256('totalSupply()')) ^
+        bytes4(keccak256('balanceOf(address)')) ^
+        bytes4(keccak256('ownerOf(uint256)')) ^
+        bytes4(keccak256('approve(address,uint256)')) ^
+        bytes4(keccak256('transfer(address,uint256)')) ^
+        bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+        bytes4(keccak256('tokensOfOwner(address)')) ^
+        bytes4(keccak256('tokenMetadata(uint256,string)'));
     
     /// @dev CSC Pre Sale Struct, having details of the collectible
     struct CSCPreSaleItem {
@@ -515,7 +515,7 @@ contract CSCPreSaleItemBase is ERC721, OperationalControl, StringHelpers {
     }
     
     /// @param _owner The owner whose collectibles tokens we are interested in.
-    /// @dev This method MUST NEVER be called by smart contract code. First, it&#39;s fairly
+    /// @dev This method MUST NEVER be called by smart contract code. First, it's fairly
     ///  expensive (it walks the entire CSCPreSaleItem array looking for collectibles belonging to owner),
     ///  but it also returns a dynamic array, which is only supported for web3 calls, and
     ///  not contract-to-contract calls.
@@ -639,13 +639,13 @@ contract CSCPreSaleItemBase is ERC721, OperationalControl, StringHelpers {
         _Obj.owner = _to;
         allPreSaleItems[generatedCollectibleId] = _Obj;
         
-        // Since the number of preSaleItem is capped to 2^32 we can&#39;t overflow this
+        // Since the number of preSaleItem is capped to 2^32 we can't overflow this
         ownershipTokenCount[_to]++;
         
         //transfer ownership
         preSaleItemIndexToOwner[_tokenId] = _to;
         
-        // When creating new collectibles _from is 0x0, but we can&#39;t account that address.
+        // When creating new collectibles _from is 0x0, but we can't account that address.
         if (_from != address(0)) {
           ownershipTokenCount[_from]--;
           // clear any previously approved ownership exchange
@@ -776,7 +776,7 @@ contract CSCPreSaleManager is CSCPreSaleItemBase {
     
     
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.
@@ -786,7 +786,7 @@ contract CSCPreSaleManager is CSCPreSaleItemBase {
     }
 
     /// @dev Override unpause so it requires all external contract addresses
-    ///  to be set before contract can be unpaused. Also, we can&#39;t have
+    ///  to be set before contract can be unpaused. Also, we can't have
     ///  newContractAddress set either, because then the contract was upgraded.
     /// @notice This is public rather than external so we can call super.unpause
     ///  without using an expensive CALL.
@@ -808,7 +808,7 @@ contract CSCPreSaleManager is CSCPreSaleItemBase {
         allPreSaleItems.push(_Obj);
     }
 
-    /// @dev Remove all Ether from the contract, which is the owner&#39;s cuts
+    /// @dev Remove all Ether from the contract, which is the owner's cuts
     ///  as well as any Ether sent directly to the contract address.
     ///  Always transfers to the NFT (ERC721) contract, but can be called either by
     ///  the owner or the NFT (ERC721) contract.

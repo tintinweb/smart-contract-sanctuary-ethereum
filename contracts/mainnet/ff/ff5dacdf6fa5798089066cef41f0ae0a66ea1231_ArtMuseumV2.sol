@@ -117,7 +117,7 @@ contract ArtMuseumBase is Ownable {
 	mapping(address=>mapping(uint8 => uint32)) userArtworkSequenceNumber;
 	/** the cost of each artwork type */
 	uint128[] public costs;
-	/** the value of each artwork type (cost - fee), so it&#39;s not necessary to compute it each time*/
+	/** the value of each artwork type (cost - fee), so it's not necessary to compute it each time*/
 	uint128[] public values;
 	/** the fee to be paid each time an artwork is bought in percent*/
 	uint8 public fee;
@@ -151,8 +151,8 @@ contract ArtMuseumBase is Ownable {
 
 	/**
 	 * allows the owner to collect the accumulated fees
-	 * sends the given amount to the owner&#39;s address if the amount does not exceed the
-	 * fees (cannot touch the players&#39; balances)
+	 * sends the given amount to the owner's address if the amount does not exceed the
+	 * fees (cannot touch the players' balances)
 	 * */
 	function collectFees(uint128 amount) public onlyOwner {
 		uint collectedFees = getFees();
@@ -449,7 +449,7 @@ contract usingOraclize { // is ArtMuseumBase {
  * @author Nick Johnson <arachnid@notdot.net>
  *
  * @dev Functionality in this library is largely implemented using an
- *      abstraction called a &#39;slice&#39;. A slice represents a part of a string -
+ *      abstraction called a 'slice'. A slice represents a part of a string -
  *      anything from the entire string to a single character, or even no
  *      characters at all (a 0-length slice). Since a slice only has to specify
  *      an offset and a length, copying and manipulating slices is a lot less
@@ -457,8 +457,8 @@ contract usingOraclize { // is ArtMuseumBase {
  *
  *      To further reduce gas costs, most functions on slice that need to return
  *      a slice modify the original one instead of allocating a new one; for
- *      instance, `s.split(".")` will return the text up to the first &#39;.&#39;,
- *      modifying s to only contain the remainder of the string after the &#39;.&#39;.
+ *      instance, `s.split(".")` will return the text up to the first '.',
+ *      modifying s to only contain the remainder of the string after the '.'.
  *      In situations where you do not want to modify the original slice, you
  *      can make a copy first with `.copy()`, for example:
  *      `s.copy().split(".")`. Try and avoid using this idiom in loops; since
@@ -476,7 +476,7 @@ contract usingOraclize { // is ArtMuseumBase {
  *
  *      For convenience, some functions are provided with non-modifying
  *      variants that create a new slice and return both; for instance,
- *      `s.splitNew(&#39;.&#39;)` leaves s unmodified, and returns two values
+ *      `s.splitNew('.')` leaves s unmodified, and returns two values
  *      corresponding to the left and right parts of the string.
  */
 
@@ -523,7 +523,7 @@ library strings {
 	/*
 	 * @dev Copies a slice to a new string.
 	 * @param self The slice to copy.
-	 * @return A newly allocated string containing the slice&#39;s text.
+	 * @return A newly allocated string containing the slice's text.
 	 */
 	function toString(slice self) internal pure returns (string) {
 		string memory ret = new string(self._len);
@@ -830,7 +830,7 @@ contract ArtMuseumV1 is ArtMuseumBase, usingOraclize {
 	}
 
 	/**
-	 * sends a query to oraclize in order to get random numbers in &#39;inseconds&#39; seconds
+	 * sends a query to oraclize in order to get random numbers in 'inseconds' seconds
 	 */
 	function triggerSteal(uint32 inseconds, uint gasAmount) internal {
 		// Check if we have enough remaining funds

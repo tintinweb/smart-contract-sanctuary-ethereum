@@ -5,7 +5,7 @@ contract CryptAI
 {
 
 
-    string 		public standard = &#39;Token 0.1&#39;;
+    string 		public standard = 'Token 0.1';
 	string 		public name = "CryptAI"; 
 	string 		public symbol = "TAI";
 	uint8 		public decimals = 2; 

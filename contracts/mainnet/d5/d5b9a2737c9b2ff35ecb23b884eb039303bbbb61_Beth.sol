@@ -141,7 +141,7 @@ contract Beth is Token {
     }
 
     // Allows setting a descriptive string, which will aid any users in migrating their token
-    // to a newer version of the contract. This field provides a kind of &#39;double-layer&#39; of
+    // to a newer version of the contract. This field provides a kind of 'double-layer' of
     // authentication for any migration announcement, as it can only be set by WeTrust.
     /// @param _migrationInfo The information string to be stored on the contract
     function setMigrationInfo(string _migrationInfo) onlyOwner public {

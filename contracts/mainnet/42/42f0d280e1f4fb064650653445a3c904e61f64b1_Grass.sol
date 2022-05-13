@@ -115,9 +115,9 @@ contract Grass is Math
     owner = msg.sender;
     admins[msg.sender] = true;
     totalSupply = 0;                        
-    name = &#39;GRASS Token&#39;;                   
+    name = 'GRASS Token';                   
     decimals = 18;                          
-    symbol = &#39;GRASS&#39;;
+    symbol = 'GRASS';
     availableTokens = 800 * 10**18;
     currentTokenPriceInDollar = 35 * 100; // 35.00$ (price may change) 
 

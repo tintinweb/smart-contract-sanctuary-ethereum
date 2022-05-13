@@ -1,8 +1,8 @@
 pragma solidity ^0.5.2;
 contract HelloCoin {
-string public name = &#39;HelloCoin&#39;; 
+string public name = 'HelloCoin'; 
 //currency name. Please feel free to change it
-string public symbol = &#39;hc&#39;; 
+string public symbol = 'hc'; 
 //choose a currency symbol. Please feel free to change it
 mapping (address => uint) balances; 
 //a key-value pair to store addresses and their account balances

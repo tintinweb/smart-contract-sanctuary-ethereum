@@ -103,7 +103,7 @@ contract ERC20Token is ERC20Interface {
     }
 
     /**
-     * Transfer token to a specified address from &#39;msg.sender&#39;.
+     * Transfer token to a specified address from 'msg.sender'.
      * @param recipient - The address to transfer to.
      * @param amount - The amount to be transferred.
      * @return true if transfer is successfull, error otherwise.
@@ -144,7 +144,7 @@ contract ERC20Token is ERC20Interface {
      * Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param spender - The address which will spend the funds.
      * @param amount - The amount of tokens to be spent.
@@ -255,21 +255,21 @@ contract PausableToken is Ownable, ERC20Token {
     }
 
     /**
-     * ERC20 specific &#39;transfer&#39; is only allowed, if contract is not in paused state.
+     * ERC20 specific 'transfer' is only allowed, if contract is not in paused state.
     **/
     function transfer(address recipient, uint256 amount) public whenNotPaused returns (bool) {
         return super.transfer(recipient, amount);
     }
 
     /**
-     * ERC20 specific &#39;transferFrom&#39; is only allowed, if contract is not in paused state.
+     * ERC20 specific 'transferFrom' is only allowed, if contract is not in paused state.
     **/
     function transferFrom(address from, address to, uint256 amount) public whenNotPaused returns (bool) {
         return super.transferFrom(from, to, amount);
     }
 
     /**
-     * ERC20 specific &#39;approve&#39; is only allowed, if contract is not in paused state.
+     * ERC20 specific 'approve' is only allowed, if contract is not in paused state.
     **/
     function approve(address spender, uint256 amount) public whenNotPaused returns (bool) {
         return super.approve(spender, amount);
@@ -288,7 +288,7 @@ contract BloxiaToken is Ownable, ERC20Token, PausableToken, BurnableToken {
     uint256 constant initial_supply = 500000000 * (10 ** uint256(decimals)); // 500 Million
 
     /**
-     * Constructor that gives &#39;msg.sender&#39; all of existing tokens.
+     * Constructor that gives 'msg.sender' all of existing tokens.
     **/
     constructor() public {
         _totalSupply = initial_supply;

@@ -96,13 +96,13 @@ contract CryptoPlanets {
         // Verify that the address actually own a planet
         require(addressPlanetsCount[msg.sender] > 0);
 
-        // We verify that this address doesn&#39;t own this planet
+        // We verify that this address doesn't own this planet
         require(planets[_planetId].ownerAddress != msg.sender);
 
         // We verify that this planet has resources
         require(planets[_planetId].curResources > 0);
 
-        // Transfer a random amount of resources (between 1% and 90%) of the resources of the planet to the stealer if it&#39;s attack is better than the planet&#39;s owner defense
+        // Transfer a random amount of resources (between 1% and 90%) of the resources of the planet to the stealer if it's attack is better than the planet's owner defense
         if(addressAttackCount[msg.sender] > addressDefenseCount[planets[_planetId].ownerAddress]) {
             // Generate a random number between 1 and 49
             uint random = uint(keccak256(now, msg.sender, randNonce)) % 49;
@@ -154,12 +154,12 @@ contract CryptoPlanets {
         createPlanet("Blue Lagoon", 100000000000000000); 
         createPlanet("GreenPeace", 100000000000000000); 
         createPlanet("Medusa", 100000000000000000); 
-        createPlanet("O&#39;Ranger", 100000000000000000); 
+        createPlanet("O'Ranger", 100000000000000000); 
         createPlanet("Queen", 90000000000000000); 
         createPlanet("Citrus", 90000000000000000); 
-        createPlanet("O&#39;Ranger II", 90000000000000000); 
+        createPlanet("O'Ranger II", 90000000000000000); 
         createPlanet("Craterion", 50000000000000000);
-        createPlanet("Dark&#39;Air", 50000000000000000);
+        createPlanet("Dark'Air", 50000000000000000);
 
     }
 }

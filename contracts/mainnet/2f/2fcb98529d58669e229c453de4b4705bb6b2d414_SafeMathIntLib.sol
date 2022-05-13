@@ -11,7 +11,7 @@ pragma solidity ^0.4.25;
  *
  * Compliant with the Hubii Nahmii specification v0.12.
  *
- * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin&#39;s SafeMath library
+ * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin's SafeMath library
  */
 
 

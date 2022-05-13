@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// &#39;SymChain&#39; token contract
+// 'SymChain' token contract
 //
 // Deployed to : 0x631D86ED87Cf6e3dFB9863cafcADa34B7796b937
 // Symbol      : SYMC

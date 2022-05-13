@@ -66,13 +66,13 @@ contract BlockDEXtoken is StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;1.0&#39;;
+    string public version = '1.0';
 
     constructor () public {
         balances[msg.sender] = 500000000 * 1 ether / 1 wei;               // Give the creator all initial tokens
         totalSupply = 500000000 * 1 ether / 1 wei;                        // Update total supply
-        name = &#39;BlockDEX&#39;;                                   // Set the name for display purposes
+        name = 'BlockDEX';                                   // Set the name for display purposes
         decimals = 18;                            // Amount of decimals for display purposes
-        symbol = &#39;BDEX&#39;;                               // Set the symbol for display purposes
+        symbol = 'BDEX';                               // Set the symbol for display purposes
     }
 }

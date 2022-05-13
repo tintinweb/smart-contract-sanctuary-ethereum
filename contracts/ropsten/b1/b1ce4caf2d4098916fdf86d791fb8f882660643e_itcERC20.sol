@@ -58,9 +58,9 @@ contract itcERC20 is owned,IERC20{
     
     uint256 public constant _totalSupply = 28000000000000000000000000;
  
-    string public constant symbol = &#39;ITC&#39;;
+    string public constant symbol = 'ITC';
 
-    string public constant name = &#39;itcERC20&#39;;
+    string public constant name = 'itcERC20';
     
     uint8 public constant decimals = 18;
     

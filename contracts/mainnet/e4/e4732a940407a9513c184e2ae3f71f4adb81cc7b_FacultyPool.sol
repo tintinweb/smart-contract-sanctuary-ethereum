@@ -21,7 +21,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage role, address addr)
     internal
@@ -61,7 +61,7 @@ library Roles {
  * @dev See //contracts/mocks/RBACMock.sol for an example of usage.
  * This RBAC method uses strings to key roles. It may be beneficial
  *  for you to write your own implementation of this interface using Enums or similar.
- * It&#39;s also recommended that you define constants in the contract, like ROLE_ADMIN below,
+ * It's also recommended that you define constants in the contract, like ROLE_ADMIN below,
  *  to avoid typos.
  */
 contract RBAC {
@@ -160,7 +160,7 @@ contract RBAC {
 /**
  * @title RBACWithAdmin
  * @author Matt Condon (@Shrugs)
- * @dev It&#39;s recommended that you define constants in the contract,
+ * @dev It's recommended that you define constants in the contract,
  * @dev like ROLE_ADMIN below, to avoid typos.
  */
 contract RBACWithAdmin is RBAC {
@@ -237,7 +237,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 

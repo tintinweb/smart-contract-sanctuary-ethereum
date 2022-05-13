@@ -4,9 +4,9 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract LINK {
     /* Public variables of the token */
-    string public standard = &#39;Token 0.3&#39;;
-    string public version = &#39;H1.0&#39;;       //human 0.1 standard. Just an arbitrary versioning scheme.
-    string public smartcarAI = &#39;AI.1&#39;;      //Smart Car 0.1 standard. Just an arbitrary versioning scheme.
+    string public standard = 'Token 0.3';
+    string public version = 'H1.0';       //human 0.1 standard. Just an arbitrary versioning scheme.
+    string public smartcarAI = 'AI.1';      //Smart Car 0.1 standard. Just an arbitrary versioning scheme.
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -35,7 +35,7 @@ contract LINK {
     /* Provenance Blockchain TX ID for FinCEN Document */
         filehash = 0xb2374c663a19b69ff38e75213fcf8bf4403835131dd9e132eae8ba3bb3a3b366;
     /* End Provinance */
-    /* LinKay Mercantile Bank (LMB) - The Banking (R)evolution in &#39;Internet Of Cash&#39; */
+    /* LinKay Mercantile Bank (LMB) - The Banking (R)evolution in 'Internet Of Cash' */
     /* The LINK token is a revolutiopn in car ownership by using smart contacts embeded in the Automobile main control module                       */
     /* The new car owner buys a LINK Tokenized automobile without a classic bank loan. A new bank is created to provide decentralized               */
     /* car loans to consumers. The new car owner makes the car payments they a smart contact directly linked to the new car. The LINK tokens        */

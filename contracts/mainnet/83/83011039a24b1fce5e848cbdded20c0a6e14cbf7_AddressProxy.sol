@@ -13,7 +13,7 @@ contract AddressProxy {
     address public client;
 
     /**
-    * @dev If the proxy is locked, the client can&#39;t access the proxy anymore
+    * @dev If the proxy is locked, the client can't access the proxy anymore
     */
     bool public locked;
 
@@ -76,14 +76,14 @@ contract AddressProxy {
     }
 
     /**
-    * @dev lock&#39;s down the proxy and prevent the call of "exec" by ownerAddress and recoveryAddress
+    * @dev lock's down the proxy and prevent the call of "exec" by ownerAddress and recoveryAddress
     */
     function lock() external auth() {
         locked = true;
     }
 
     /**
-    * @dev unlock&#39;s the proxy. Can only be done by recovery address
+    * @dev unlock's the proxy. Can only be done by recovery address
     */
     function unlock() external onlyOwner() {
         locked = false;

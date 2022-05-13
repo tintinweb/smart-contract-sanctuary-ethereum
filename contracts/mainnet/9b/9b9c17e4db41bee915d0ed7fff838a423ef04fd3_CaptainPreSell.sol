@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 /* ==================================================================== */
 /* Copyright (c) 2018 The Priate Conquest Project.  All rights reserved.
 /* 
-/* https://www.pirateconquest.com One of the world&#39;s slg games of blockchain 
+/* https://www.pirateconquest.com One of the world's slg games of blockchain 
 /*  
 /* authors rainy@livestar.com/Jonny.Fu@livestar.com
 /*                 
@@ -66,7 +66,7 @@ contract CaptainPreSell is Random {
   mapping(uint32 => uint256) captainToCount;
   mapping(address => uint32[]) captainUserMap; 
   /// @notice No tipping!
-  /// @dev Reject all Ether from being sent here, unless it&#39;s from one of the
+  /// @dev Reject all Ether from being sent here, unless it's from one of the
   ///  two auction contracts. (Hopefully, we can prevent user accidents.)
   function() external payable {
   }
@@ -166,14 +166,14 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
   function div32(uint32 a, uint32 b) internal pure returns (uint32) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint32 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

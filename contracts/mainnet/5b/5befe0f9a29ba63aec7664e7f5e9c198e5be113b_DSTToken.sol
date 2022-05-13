@@ -17,7 +17,7 @@ contract SafeMath {
   function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -355,7 +355,7 @@ contract DSTToken is ERC20, Ownable, SafeMath {
         assignTokensWallet(walletAddresses[4],cashInvestor, assignedTokens);
     }
 
-    // // Function will transfer the tokens to investor&#39;s address
+    // // Function will transfer the tokens to investor's address
     // // Common function code for Crowdsale Investor And Cash Investor 
     // function assignTokens(address investor, uint256 tokens) internal {
     //     // Creating tokens and  increasing the totalSupply
@@ -368,7 +368,7 @@ contract DSTToken is ERC20, Ownable, SafeMath {
     //     Transfer(0, investor, tokens);
     // }
 
-    // Function will transfer the tokens to investor&#39;s address
+    // Function will transfer the tokens to investor's address
     // Common function code for Crowdsale Investor And Cash Investor 
     function assignTokensWallet(address walletAddress,address investor, uint256 tokens) internal {
         // Check wallet have enough token balance to assign
@@ -405,7 +405,7 @@ contract DSTToken is ERC20, Ownable, SafeMath {
         return allowed[_owner][_spender];
     }
 
-    //  Transfer `value` DST tokens from sender&#39;s account
+    //  Transfer `value` DST tokens from sender's account
     // `msg.sender` to provided account address `to`.
     // @param _to The address of the recipient
     // @param _value The number of DST tokens to transfer
@@ -423,7 +423,7 @@ contract DSTToken is ERC20, Ownable, SafeMath {
         return true;
     }
 
-    //  Transfer `value` DST tokens from sender &#39;from&#39;
+    //  Transfer `value` DST tokens from sender 'from'
     // to provided account address `to`.
     // @param from The address of the sender
     // @param to The address of the recipient

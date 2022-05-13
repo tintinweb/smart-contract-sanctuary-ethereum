@@ -295,7 +295,7 @@ contract CanYaCoin is Owned {
 
         emit Transfer(from, to, value.sub(_feeAmount));                     // Transaction event
         
-        // Don&#39;t emit if whitelisted
+        // Don't emit if whitelisted
         if (!feeWhitelist_[from]) {
             if(_feeAmount > 0){
                 emit Transfer(from, feeRecipient, _feeAmount);              // Fee transfer event

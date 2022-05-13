@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
  * @title Owned contract with safe ownership pass.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract Owned {
     /**
@@ -131,7 +131,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -367,7 +367,7 @@ contract ATxAssetProxy is ERC20, Object, ServiceAllowance {
      *
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      *
      * @return success.
      */
@@ -387,7 +387,7 @@ contract ATxAssetProxy is ERC20, Object, ServiceAllowance {
      *
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      * @param _sender initial caller.
      *
      * @return success.
@@ -422,7 +422,7 @@ contract ATxAssetProxy is ERC20, Object, ServiceAllowance {
      * @param _from holder address to take from.
      * @param _to holder address to give to.
      * @param _value amount to transfer.
-     * @param _reference transfer comment to be included in a platform&#39;s Transfer event.
+     * @param _reference transfer comment to be included in a platform's Transfer event.
      * @param _sender initial caller.
      *
      * @return success.

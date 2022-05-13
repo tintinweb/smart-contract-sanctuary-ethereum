@@ -138,7 +138,7 @@ contract NoFakeCoin is Ownable, StandardToken {
         balances[0x8895dc78dcd0310c862e8aeacc5daa3faa3b7239] = 90 * (10**6) * (10**18); // remaining goes to the foundation account
     }
 
-    // Don&#39;t accept ethers - no payable modifier
+    // Don't accept ethers - no payable modifier
     function () {
     }
 

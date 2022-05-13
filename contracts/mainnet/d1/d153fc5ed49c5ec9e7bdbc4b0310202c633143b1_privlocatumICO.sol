@@ -98,7 +98,7 @@ library SafeMath {
 
         uint256 c = a / b;
 
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
 
@@ -280,7 +280,7 @@ contract privlocatum is ERC20, Owned {
 
 
 
-    //Sends tokens from sender&#39;s account
+    //Sends tokens from sender's account
 
     function transfer(address _to, uint256 _value) onlyPayloadSize(2 * 32) returns (bool success) {
 

@@ -315,11 +315,11 @@ contract ItemSelling {
         emit Bought(_itemId, newOwner, price);
         emit Sold(_itemId, oldOwner, price);
 
-        // Devevloper&#39;s cut which is left in contract and accesed by
+        // Devevloper's cut which is left in contract and accesed by
         // `withdrawAll` and `withdrawAmountTo` methods.
         uint256 devCut = calculateDevCut(price);
 
-        // Transfer payment to old owner minus the developer&#39;s cut.
+        // Transfer payment to old owner minus the developer's cut.
         if (!isAdmin(oldOwner)){
             oldOwner.transfer(price.sub(devCut));
         }

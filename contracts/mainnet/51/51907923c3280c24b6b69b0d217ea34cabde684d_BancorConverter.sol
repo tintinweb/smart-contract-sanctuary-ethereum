@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public view returns (address) {}
 
     function transferOwnership(address _newOwner) public;
@@ -28,7 +28,7 @@ contract Utils {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != address(0));
         _;
@@ -88,7 +88,7 @@ contract Utils {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public view returns (string) {}
     function symbol() public view returns (string) {}
     function decimals() public view returns (uint8) {}
@@ -266,10 +266,10 @@ contract ITokenHolder is IOwned {
 
 
 /*
-    We consider every contract to be a &#39;token holder&#39; since it&#39;s currently not possible
+    We consider every contract to be a 'token holder' since it's currently not possible
     for a contract to deny receiving tokens.
 
-    The TokenHolder&#39;s contract sole purpose is to provide a safety mechanism that allows
+    The TokenHolder's contract sole purpose is to provide a safety mechanism that allows
     the owner to send tokens that were sent to the contract by mistake back to their sender.
 */
 contract TokenHolder is ITokenHolder, Owned, Utils {
@@ -303,18 +303,18 @@ contract TokenHolder is ITokenHolder, Owned, Utils {
 /*
     The smart token controller is an upgradable part of the smart token that allows
     more functionality as well as fixes for bugs/exploits.
-    Once it accepts ownership of the token, it becomes the token&#39;s sole controller
+    Once it accepts ownership of the token, it becomes the token's sole controller
     that can execute any of its functions.
 
     To upgrade the controller, ownership must be transferred to a new controller, along with
     any relevant data.
 
     The smart token must be set on construction and cannot be changed afterwards.
-    Wrappers are provided (as opposed to a single &#39;execute&#39; function) for each of the token&#39;s functions, for easier access.
+    Wrappers are provided (as opposed to a single 'execute' function) for each of the token's functions, for easier access.
 
     Note that the controller can transfer token ownership to a new controller that
-    doesn&#39;t allow executing any function on the token, for a trustless solution.
-    Doing that will also remove the owner&#39;s ability to upgrade the controller.
+    doesn't allow executing any function on the token, for a trustless solution.
+    Doing that will also remove the owner's ability to upgrade the controller.
 */
 contract SmartTokenController is TokenHolder {
     ISmartToken public token;   // smart token
@@ -329,13 +329,13 @@ contract SmartTokenController is TokenHolder {
         token = _token;
     }
 
-    // ensures that the controller is the token&#39;s owner
+    // ensures that the controller is the token's owner
     modifier active() {
         assert(token.owner() == address(this));
         _;
     }
 
-    // ensures that the controller is not the token&#39;s owner
+    // ensures that the controller is not the token's owner
     modifier inactive() {
         assert(token.owner() != address(this));
         _;
@@ -452,7 +452,7 @@ contract IEtherToken is ITokenHolder, IERC20Token {
         - minimum return argument for each conversion provides a way to define a minimum/maximum price for the transaction
         - gas price limit prevents users from having control over the order of execution
       Other potential solutions might include a commit/reveal based schemes
-    - Possibly add getters for the connector fields so that the client won&#39;t need to rely on the order in the struct
+    - Possibly add getters for the connector fields so that the client won't need to rely on the order in the struct
 */
 contract BancorConverter is ITokenConverter, SmartTokenController, Managed {
     uint32 private constant MAX_WEIGHT = 1000000;
@@ -466,12 +466,12 @@ contract BancorConverter is ITokenConverter, SmartTokenController, Managed {
         bool isSet;                     // used to tell if the mapping element is defined
     }
 
-    string public version = &#39;0.7&#39;;
-    string public converterType = &#39;bancor&#39;;
+    string public version = '0.7';
+    string public converterType = 'bancor';
 
     IBancorConverterExtensions public extensions;       // bancor converter extensions contract
     IERC20Token[] public connectorTokens;               // ERC20 standard token addresses
-    IERC20Token[] public quickBuyPath;                  // conversion path that&#39;s used in order to buy the token with ETH
+    IERC20Token[] public quickBuyPath;                  // conversion path that's used in order to buy the token with ETH
     mapping (address => Connector) public connectors;   // connector token addresses -> connector data
     uint32 private totalConnectorWeight = 0;            // used to efficiently prevent increasing the total connector weight above 100%
     uint32 public maxConversionFee = 0;                 // maximum conversion fee for the lifetime of the contract, represented in ppm, 0...1000000 (0 = no fee, 100 = 0.01%, 1000000 = 100%)
@@ -542,13 +542,13 @@ contract BancorConverter is ITokenConverter, SmartTokenController, Managed {
         _;
     }
 
-    // validates a conversion path - verifies that the number of elements is odd and that maximum number of &#39;hops&#39; is 10
+    // validates a conversion path - verifies that the number of elements is odd and that maximum number of 'hops' is 10
     modifier validConversionPath(IERC20Token[] _path) {
         require(_path.length > 2 && _path.length <= (1 + 2 * 10) && _path.length % 2 == 1);
         _;
     }
 
-    // allows execution only when conversions aren&#39;t disabled
+    // allows execution only when conversions aren't disabled
     modifier conversionsAllowed {
         assert(conversionsEnabled);
         _;
@@ -704,7 +704,7 @@ contract BancorConverter is ITokenConverter, SmartTokenController, Managed {
         @param _connectorToken         address of the connector token
         @param _weight                 constant connector weight, represented in ppm, 1-1000000
         @param _enableVirtualBalance   true to enable virtual balance for the connector, false to disable it
-        @param _virtualBalance         new connector&#39;s virtual balance
+        @param _virtualBalance         new connector's virtual balance
     */
     function updateConnector(IERC20Token _connectorToken, uint32 _weight, bool _enableVirtualBalance, uint256 _virtualBalance)
         public
@@ -738,7 +738,7 @@ contract BancorConverter is ITokenConverter, SmartTokenController, Managed {
     }
 
     /**
-        @dev returns the connector&#39;s virtual balance if one is defined, otherwise returns the actual balance
+        @dev returns the connector's virtual balance if one is defined, otherwise returns the actual balance
 
         @param _connectorToken  connector token contract address
 
@@ -904,7 +904,7 @@ contract BancorConverter is ITokenConverter, SmartTokenController, Managed {
         if (connector.isVirtualBalanceEnabled)
             connector.virtualBalance = safeSub(connector.virtualBalance, amount);
 
-        // destroy _sellAmount from the caller&#39;s balance in the smart token
+        // destroy _sellAmount from the caller's balance in the smart token
         token.destroy(msg.sender, _sellAmount);
         // transfer funds to the caller in the connector token
         // the transfer might fail if the actual connector balance is smaller than the virtual balance
@@ -939,7 +939,7 @@ contract BancorConverter is ITokenConverter, SmartTokenController, Managed {
             // not ETH, send the source tokens to the quick converter
             // if the token is the smart token, no allowance is required - destroy the tokens from the caller and issue them to the quick converter
             if (fromToken == token) {
-                token.destroy(msg.sender, _amount); // destroy _amount tokens from the caller&#39;s balance in the smart token
+                token.destroy(msg.sender, _amount); // destroy _amount tokens from the caller's balance in the smart token
                 token.issue(quickConverter, _amount); // issue _amount new tokens to the quick converter
             }
             else {
@@ -985,12 +985,12 @@ contract BancorConverter is ITokenConverter, SmartTokenController, Managed {
 
     /**
         @dev helper, dispatches the Conversion event
-        The function also takes the tokens&#39; decimals into account when calculating the current price
+        The function also takes the tokens' decimals into account when calculating the current price
 
         @param _connectorToken  connector token contract address
         @param _amount          amount purchased/sold (in the source token)
         @param _returnAmount    amount returned (in the target token)
-        @param isPurchase       true if it&#39;s a purchase, false if it&#39;s a sale
+        @param isPurchase       true if it's a purchase, false if it's a sale
     */
     function dispatchConversionEvent(IERC20Token _connectorToken, uint256 _amount, uint256 _returnAmount, bool isPurchase) private {
         Connector storage connector = connectors[_connectorToken];

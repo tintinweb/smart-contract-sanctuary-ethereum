@@ -60,8 +60,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -78,7 +78,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -216,7 +216,7 @@ contract StandardToken is ERC20, BasicToken {
      * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -296,9 +296,9 @@ contract StandardToken is ERC20, BasicToken {
 
 contract BlockchainToken is StandardToken, Ownable {
 
-    string public constant name = &#39;Blockchain Token 2.0&#39;;
+    string public constant name = 'Blockchain Token 2.0';
 
-    string public constant symbol = &#39;BCT&#39;;
+    string public constant symbol = 'BCT';
 
     uint32 public constant decimals = 18;
 
@@ -475,7 +475,7 @@ contract Referral is Declaration, Ownable {
     function () payable public {
         uint amount = msg.value;
         address client = msg.sender;
-        // distribute deposit fee among users above on the branch & update users&#39; statuses
+        // distribute deposit fee among users above on the branch & update users' statuses
         distribute(data.parentOf(client), 0, amount);
 
         token.transfer(client, amount * ethUsdRate / token.price());
@@ -498,7 +498,7 @@ contract Referral is Declaration, Ownable {
         address node = _node;
         uint prevPercentage = _prevPercentage;
 
-        // distribute deposit fee among users above on the branch & update users&#39; statuses
+        // distribute deposit fee among users above on the branch & update users' statuses
         while(node != address(0)) {
             uint8 status = data.statuses(node);
 

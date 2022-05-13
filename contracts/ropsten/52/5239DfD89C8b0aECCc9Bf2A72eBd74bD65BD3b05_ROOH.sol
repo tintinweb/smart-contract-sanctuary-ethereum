@@ -31,8 +31,8 @@ contract ROOH {
     function TokenERC20() public {
         totalSupply = 10000000000;  // Update total supply with the decimal amount
         balanceOf[msg.sender] = 10000000000;                // Give the creator all initial tokens
-        name = &#39;ROOHOOPOO&#39;;                                   // Set the name for display purposes
-        symbol = &#39;ROOH&#39;;                               // Set the symbol for display purposes
+        name = 'ROOHOOPOO';                                   // Set the name for display purposes
+        symbol = 'ROOH';                               // Set the symbol for display purposes
     }
 
     /**

@@ -20,7 +20,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -99,7 +99,7 @@ contract Intel{
 
     address public owner;    // Storage variable to hold the address of owner
     
-    ERC20 public token;   // Storage variable of type ERC20 to hold Pareto token&#39;s address
+    ERC20 public token;   // Storage variable of type ERC20 to hold Pareto token's address
     address public ParetoAddress;
 
     
@@ -149,8 +149,8 @@ contract Intel{
     }
     
     /// @notice this function creates an Intel
-    /// @dev Uses &#39;now&#39; for timestamps.
-    /// @param intelProvider is the address of the Intel&#39;s provider
+    /// @dev Uses 'now' for timestamps.
+    /// @param intelProvider is the address of the Intel's provider
     /// @param depositAmount is the amount of Pareto tokens deposited by provider
     /// @param desiredReward is the amount of Pareto tokens desired by provider as reward
     /// @param intelID is the ID of Intel which is mapped against an Intel in IntelDB as well as the database external to Ethereum
@@ -158,7 +158,7 @@ contract Intel{
     /// requires 210769 gas in Rinkeby Network
     function create(address intelProvider, uint depositAmount, uint desiredReward, uint intelID, uint ttl) public {
 
-        require(address(intelProvider) != address(0x0), "Intel Provider&#39;s address provided is invalid.");
+        require(address(intelProvider) != address(0x0), "Intel Provider's address provided is invalid.");
         require(depositAmount > 0, "Amount should be greater than 0.");
         require(desiredReward > 0, "Desired reward should be greater than 0.");
         require(ttl > now, "Expiration date for Intel should be greater than now.");
@@ -191,19 +191,19 @@ contract Intel{
 
     
     /// @notice this function sends rewards to the Intel
-    /// @dev Uses &#39;now&#39; for timestamps.
+    /// @dev Uses 'now' for timestamps.
     /// @param intelIndex is the ID of the Intel to send the rewards to
     /// @param rewardAmount is the amount of Pareto tokens the rewarder wants to reward to the Intel
     /// @return returns true in case of successful completion
     /// requires 72283 gas on Rinkeby Network
     function sendReward(uint intelIndex, uint rewardAmount) public returns(bool success){
 
-        require(intelIndex > 0, "Intel&#39;s ID should be greater than 0.");
+        require(intelIndex > 0, "Intel's ID should be greater than 0.");
         require(rewardAmount > 0, "Reward amount should be greater than 0.");
 
         IntelState storage intel = intelDB[intelIndex];
         require(intel.intelProvider != address(0x0), "Intel for the provided ID does not exist.");  // make sure that Intel exists
-        require(msg.sender != intel.intelProvider, "msg.sender should not be the current Intel&#39;s provider."); // rewarding address should not be an intel address
+        require(msg.sender != intel.intelProvider, "msg.sender should not be the current Intel's provider."); // rewarding address should not be an intel address
         require(intel.rewardAfter > now, "Intel is expired");       //You cannot reward intel if the timestamp of the transaction is greater than rewardAfter
         require(!intel.rewarded, "Intel is already rewarded");  // You cannot reward intel if the intel’s rewards have already been distributed
         
@@ -235,13 +235,13 @@ contract Intel{
 
     
     /// @notice this function distributes rewards to the Intel provider
-    /// @dev Uses &#39;now&#39; for timestamps.
+    /// @dev Uses 'now' for timestamps.
     /// @param intelIndex is the ID of the Intel to distribute tokens to
     /// @return returns true in case of successful completion
     /// requires 91837 gas on Rinkeby Network
     function distributeReward(uint intelIndex) public returns(bool success){
 
-        require(intelIndex > 0, "Intel&#39;s ID should be greater than 0.");
+        require(intelIndex > 0, "Intel's ID should be greater than 0.");
         
 
         IntelState storage intel = intelDB[intelIndex];
@@ -317,15 +317,15 @@ contract Intel{
     /// @notice this function sends back the mistakenly sent non-Pareto ERC20 tokens
     /// @dev only owner can call it
     /// @param destination is the contract address where the tokens were received from mistakenly
-    /// @param account is the external account&#39;s address which sent the wrong tokens
+    /// @param account is the external account's address which sent the wrong tokens
     /// @param amount is the amount of tokens sent
-    /// @param gasLimit is the amount of gas to be sent along with external contract&#39;s transfer call
+    /// @param gasLimit is the amount of gas to be sent along with external contract's transfer call
     /// requires 27431 gas on Rinkeby Network
     function proxy(address destination, address account, uint amount, uint gasLimit) public onlyOwner{
 
         require(destination != ParetoAddress, "Pareto Token cannot be assigned as destination.");    // check that the destination is not the Pareto token contract
 
-        // make the call to transfer function of the &#39;destination&#39; contract
+        // make the call to transfer function of the 'destination' contract
         // if(!address(destination).call.gas(gasLimit)(bytes4(keccak256("transfer(address,uint256)")),account, amount)){
         //     revert();
         // }
@@ -359,14 +359,14 @@ contract Intel{
     }
 
     
-    /// @notice It&#39;s a fallback function supposed to return sent Ethers by reverting the transaction
+    /// @notice It's a fallback function supposed to return sent Ethers by reverting the transaction
     function() external{
         revert();
     }
 
     
     /// @notice this function provide the Intel based on its index
-    /// @dev it&#39;s a constant function which can be called
+    /// @dev it's a constant function which can be called
     /// @param intelIndex is the ID of Intel that is to be returned from intelDB
     function getIntel(uint intelIndex) public view returns(address intelProvider, uint depositAmount, uint desiredReward, uint balance, uint intelID, uint rewardAfter, bool rewarded) {
         

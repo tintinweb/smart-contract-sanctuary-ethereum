@@ -238,8 +238,8 @@ contract MadStores is SafeMath {
 
   // _maxProducts >= 1
   // note that array will always have _maxResults entries. ignore productID = 0
-  // this is a general purpose get-products fcn. it&#39;s main use will be when not looking up products by vendor address, category, or region.
-  // if you&#39;re performing a search based on any of those parameters then it will be more efficient to call the most specific variant: getVendorProducts,
+  // this is a general purpose get-products fcn. it's main use will be when not looking up products by vendor address, category, or region.
+  // if you're performing a search based on any of those parameters then it will be more efficient to call the most specific variant: getVendorProducts,
   // getCategoryProducts, or getRegionProducts. if searching based on 2 or more parameters then compare vendorProductCounts[_vendorAddr] to
   // categoryProductCounts[_tlc], to regionProductCounts[_tlr], and call the function that corresponds to the smallest number of products.
   //

@@ -83,7 +83,7 @@ contract CardboardUnicornAssembler {
   }
 
   /**
-   * Update the price of a CardboardUnicorn to be 1/1000 a real Unicorn&#39;s price
+   * Update the price of a CardboardUnicorn to be 1/1000 a real Unicorn's price
    */
   function updatePriceFromRealUnicornPrice() {
     require(block.timestamp > lastPriceSetDate + 7 days); // If owner set the price, cannot sync right after

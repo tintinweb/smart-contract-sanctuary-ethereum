@@ -24,7 +24,7 @@ interface PermissionInterface{
 /** @title Arbitrator
  *  Arbitrator abstract contract.
  *  When developing arbitrator contracts we need to:
- *  -Define the functions for dispute creation (createDispute) and appeal (appeal). Don&#39;t forget to store the arbitrated contract and the disputeID (which should be unique, use nbDisputes).
+ *  -Define the functions for dispute creation (createDispute) and appeal (appeal). Don't forget to store the arbitrated contract and the disputeID (which should be unique, use nbDisputes).
  *  -Define the functions for cost display (arbitrationCost and appealCost).
  *  -Allow giving rulings. For this a function must call arbitrable.rule(disputeID,ruling).
  */
@@ -169,7 +169,7 @@ contract Arbitrable{
  *  @title Arbitrable Permission List
  *  @dev This is an arbitrator curated registry. Anyone can post an item with a deposit. If no one complains within a defined time period, the item is added to the registry.
  *  Anyone can complain and also post a deposit. If someone does, a dispute is created. The winner of the dispute gets the deposit of the other party and the item is added or removed accordingly.
- *  To make a request, parties have to deposit a stake and the arbitration fees. If the arbitration fees change between the submitter&#39;s payment and the challenger&#39;s payment, a part of the submitter stake can be used as an arbitration fee deposit.
+ *  To make a request, parties have to deposit a stake and the arbitration fees. If the arbitration fees change between the submitter's payment and the challenger's payment, a part of the submitter stake can be used as an arbitration fee deposit.
  *  In case the arbitrator refuses to rule, the item is put in the initial absent status and the balance is split equally between parties.
  */
 contract ArbitrablePermissionList is PermissionInterface, Arbitrable {
@@ -200,7 +200,7 @@ contract ArbitrablePermissionList is PermissionInterface, Arbitrable {
     /* Events */
 
     /**
-     *  @dev Called when the item&#39;s status changes or when it is contested/resolved.
+     *  @dev Called when the item's status changes or when it is contested/resolved.
      *  @param submitter Address of the submitter, if any.
      *  @param challenger Address of the challenger, if any.
      *  @param value The value of the item.

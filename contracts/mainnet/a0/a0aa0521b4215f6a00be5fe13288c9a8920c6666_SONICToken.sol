@@ -2,7 +2,7 @@ pragma solidity ^0.4.20;
 
 contract SONICToken {
     /* ERC20 Public variables of the token */
-    string public constant version = &#39;SONIC 0.2&#39;;
+    string public constant version = 'SONIC 0.2';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -45,7 +45,7 @@ contract SONICToken {
 
     /**
      * Initializes contract with initial supply tokens to the creator of the contract
-     * In our case, there&#39;s no initial supply. Tokens will be created as ether is sent
+     * In our case, there's no initial supply. Tokens will be created as ether is sent
      * to the fall-back function. Then tokens are burned when ether is withdrawn.
      */
     function SONICToken(
@@ -79,7 +79,7 @@ contract SONICToken {
     function transfer(address _to, uint256 _value) notPendingWithdrawal {
         if (balanceOf[msg.sender] < _value) throw;           // Check if the sender has enough
         if (balanceOf[_to] + _value < balanceOf[_to]) throw; // Check for overflows
-        if (withdrawalRequests[_to].sinceTime > 0) throw;    // can&#39;t move tokens when _to is pending withdrawal
+        if (withdrawalRequests[_to].sinceTime > 0) throw;    // can't move tokens when _to is pending withdrawal
         balanceOf[msg.sender] -= _value;                     // Subtract from the sender
         balanceOf[_to] += _value;                            // Add the same to the recipient
         Transfer(msg.sender, _to, _value);                   // Notify anyone listening that this transfer took place
@@ -125,10 +125,10 @@ contract SONICToken {
      */
     function transferFrom(address _from, address _to, uint256 _value)
     returns (bool success) {
-        // note that we can&#39;t use notPendingWithdrawal modifier here since this function does a transfer
+        // note that we can't use notPendingWithdrawal modifier here since this function does a transfer
         // on the behalf of _from
-        if (withdrawalRequests[_from].sinceTime > 0) throw;   // can&#39;t move tokens when _from is pending withdrawal
-        if (withdrawalRequests[_to].sinceTime > 0) throw;     // can&#39;t move tokens when _to is pending withdrawal
+        if (withdrawalRequests[_from].sinceTime > 0) throw;   // can't move tokens when _from is pending withdrawal
+        if (withdrawalRequests[_to].sinceTime > 0) throw;     // can't move tokens when _to is pending withdrawal
         if (balanceOf[_from] < _value) throw;                 // Check if the sender has enough
         if (balanceOf[_to] + _value < balanceOf[_to]) throw;  // Check for overflows
         if (_value > allowance[_from][msg.sender]) throw;     // Check allowance
@@ -232,12 +232,12 @@ contract SONICToken {
         uint256 amount = balanceOf[msg.sender];
         if (amount == 0) throw;                      // cannot withdraw
         if (amount + extra > this.balance) {
-            throw;                                   // contract doesn&#39;t have enough balance
+            throw;                                   // contract doesn't have enough balance
         }
 
         balanceOf[msg.sender] = 0;
         if (totalSupply < totalSupply - amount) {
-            throw;                                   // don&#39;t let it underflow (should not happen since amount <= totalSupply)
+            throw;                                   // don't let it underflow (should not happen since amount <= totalSupply)
         } else {
             totalSupply -= amount;                   // deflate the supply!
         }

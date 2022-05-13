@@ -87,7 +87,7 @@ contract AmberToken is Token, Owned {
 		phaseStart = now;
 	}
 
-	/// Return the current unlock-phase. Won&#39;t work until after the contract
+	/// Return the current unlock-phase. Won't work until after the contract
 	/// has `finalise()` called.
 	function currentPhase()
 		public
@@ -302,7 +302,7 @@ contract AmbrosusSale {
 		public
 	{
 		uint256 bought = buyinReturn(msg.sender) * msg.value;
-		require (bought > 0);   // be kind and don&#39;t punish the idiots.
+		require (bought > 0);   // be kind and don't punish the idiots.
 
 		// Bounded value, see STANDARD_BUYIN.
 		tokens.mint(msg.sender, bought);

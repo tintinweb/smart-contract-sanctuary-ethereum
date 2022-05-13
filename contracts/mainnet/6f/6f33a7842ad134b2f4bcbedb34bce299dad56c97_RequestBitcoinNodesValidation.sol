@@ -24,7 +24,7 @@ library SafeMathInt {
 
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     int256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -61,7 +61,7 @@ library SafeMathUint96 {
   function div(uint96 a, uint96 b) internal pure returns (uint96) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint96 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -93,7 +93,7 @@ library SafeMathUint8 {
   function div(uint8 a, uint8 b) internal pure returns (uint8) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint8 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -126,7 +126,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -1279,7 +1279,7 @@ contract RequestCore is Administrable {
     }
     
     /**
-     * @dev Internal: Init payees for a request (needed to avoid &#39;stack too deep&#39; in createRequest()).
+     * @dev Internal: Init payees for a request (needed to avoid 'stack too deep' in createRequest()).
      * @param _requestId Request id
      * @param _payees array of payees address
      * @param _expectedAmounts array of payees initial expected amounts
@@ -1572,7 +1572,7 @@ contract RequestBitcoinNodesValidation is CurrencyContract {
     // every time a transaction is sent to one of these addresses, it will be interpreted offchain as a refund (index 0 is the main payee, next indexes are for sub-payee)
     mapping(bytes32 => string[256]) public payerRefundAddress;
 
-    // event triggered when the refund addresses are added after the creation via &#39;addPayerRefundAddressAction&#39;
+    // event triggered when the refund addresses are added after the creation via 'addPayerRefundAddressAction'
     event RefundAddressAdded(bytes32 indexed requestId);
 
     /**
@@ -1592,7 +1592,7 @@ contract RequestBitcoinNodesValidation is CurrencyContract {
      * @dev msg.sender must be the main payee.
      *
      * @param _payeesIdAddress array of payees address (the index 0 will be the payee - must be msg.sender - the others are subPayees)
-     * @param _payeesPaymentAddress array of payees bitcoin address for payment as bytes (bitcoin address don&#39;t have a fixed size)
+     * @param _payeesPaymentAddress array of payees bitcoin address for payment as bytes (bitcoin address don't have a fixed size)
      *                                           [
      *                                            uint8(payee1_bitcoin_address_size)
      *                                            string(payee1_bitcoin_address)
@@ -1602,7 +1602,7 @@ contract RequestBitcoinNodesValidation is CurrencyContract {
      *                                           ]
      * @param _expectedAmounts array of Expected amount to be received by each payees
      * @param _payer Entity expected to pay
-     * @param _payerRefundAddress payer bitcoin addresses for refund as bytes (bitcoin address don&#39;t have a fixed size)
+     * @param _payerRefundAddress payer bitcoin addresses for refund as bytes (bitcoin address don't have a fixed size)
      *                                           [
      *                                            uint8(payee1_refund_bitcoin_address_size)
      *                                            string(payee1_refund_bitcoin_address)

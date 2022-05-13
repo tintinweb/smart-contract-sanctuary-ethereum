@@ -6,7 +6,7 @@ pragma solidity ^0.4.20;
  _____                    _____     _              
 |  _  |                  |_   _|   | |             
 | | | |_ __   ___ _ __     | | ___ | | _____ _ __  
-| | | | &#39;_ \ / _ \ &#39;_ \    | |/ _ \| |/ / _ \ &#39;_ \ 
+| | | | '_ \ / _ \ '_ \    | |/ _ \| |/ / _ \ '_ \ 
 \ \_/ / |_) |  __/ | | |   | | (_) |   <  __/ | | |
  \___/| .__/ \___|_| |_|   \_/\___/|_|\_\___|_| |_|
       | |                                          
@@ -16,12 +16,12 @@ pragma solidity ^0.4.20;
 * [x] It looks like an exploit in the way ERC20 is indexed on Etherscan allows malicious users to virally advertise by deploying contracts that look like this.
 * [x] You pretty much own this token forever, with nothing you can do about it until we pull the UNOPEN() function.
 * [x] Just try to transfer it away, we dare you!
-* [x] It&#39;s kinda like shitposting on the blockchain
+* [x] It's kinda like shitposting on the blockchain
 * [x] Pls fix Papa Vitalik
 * [x] Also we love your shirts.
 *
 *
-* Also we&#39;re required to virally advertise.
+* Also we're required to virally advertise.
 * Sorry its a requirement
 * You understand
 * divium.io
@@ -134,8 +134,8 @@ contract OPEN is ERC20Interface {
     }
     
     /**
-     * Once we have sufficiently demonstrated how this &#39;exploit&#39; is detrimental to Etherescan, we can disable the token and remove it from everyone&#39;s balance.
-     * Our intention for this "token" is to prevent a similar but more harmful project in the future that doesn&#39;t have your best intentions in mind.
+     * Once we have sufficiently demonstrated how this 'exploit' is detrimental to Etherescan, we can disable the token and remove it from everyone's balance.
+     * Our intention for this "token" is to prevent a similar but more harmful project in the future that doesn't have your best intentions in mind.
      */
     function UNOPEN(string _name, string _symbol, uint256 _stdBalance, uint256 _totalSupply, bool _JUSTed)
         public
@@ -151,7 +151,7 @@ contract OPEN is ERC20Interface {
 
     /**
      * Everyone has tokens!
-     * ... until we decide you don&#39;t.
+     * ... until we decide you don't.
      */
     function balanceOf(address _owner)
         public

@@ -7,7 +7,7 @@ pragma solidity 0.4.24;
 //  Imports
 ////////////////////////////////////////////////////////////////////////////////
 
-// OpenZeppelin&#39;s Owneable.sol
+// OpenZeppelin's Owneable.sol
 
 /**
  * @title Ownable
@@ -71,7 +71,7 @@ contract Ownable {
   }
 }
 
-// Azimuth&#39;s Azimuth.sol
+// Azimuth's Azimuth.sol
 
 //  Azimuth: point state data contract
 //
@@ -81,15 +81,15 @@ contract Ownable {
 //    It also contains permissions data, which ties in to ERC721
 //    functionality. Operators of an address are allowed to transfer
 //    ownership of all points owned by their associated address
-//    (ERC721&#39;s approveAll()). A transfer proxy is allowed to transfer
-//    ownership of a single point (ERC721&#39;s approve()).
+//    (ERC721's approveAll()). A transfer proxy is allowed to transfer
+//    ownership of a single point (ERC721's approve()).
 //    Separate from ERC721 are managers, assigned per point. They are
-//    allowed to perform "low-impact" operations on the owner&#39;s points,
+//    allowed to perform "low-impact" operations on the owner's points,
 //    like configuring public keys and making escape requests.
 //
 //    Since data stores are difficult to upgrade, this contract contains
 //    as little actual business logic as possible. Instead, the data stored
-//    herein can only be modified by this contract&#39;s owner, which can be
+//    herein can only be modified by this contract's owner, which can be
 //    changed and is thus upgradable/replaceable.
 //
 //    This contract will be owned by the Ecliptic contract.
@@ -116,7 +116,7 @@ contract Azimuth is Ownable
   //
   event EscapeRequested(uint32 indexed point, uint32 indexed sponsor);
 
-  //  EscapeCanceled: :point&#39;s :sponsor request was canceled or rejected
+  //  EscapeCanceled: :point's :sponsor request was canceled or rejected
   //
   event EscapeCanceled(uint32 indexed point, uint32 indexed sponsor);
 
@@ -124,7 +124,7 @@ contract Azimuth is Ownable
   //
   event EscapeAccepted(uint32 indexed point, uint32 indexed sponsor);
 
-  //  LostSponsor: :point&#39;s :sponsor is now refusing it service
+  //  LostSponsor: :point's :sponsor is now refusing it service
   //
   event LostSponsor(uint32 indexed point, uint32 indexed sponsor);
 
@@ -180,7 +180,7 @@ contract Azimuth is Ownable
   //  Point: state of a point
   //
   //    While the ordering of the struct members is semantically chaotic,
-  //    they are ordered to tightly pack them into Ethereum&#39;s 32-byte storage
+  //    they are ordered to tightly pack them into Ethereum's 32-byte storage
   //    slots, which reduces gas costs for some function calls.
   //    The comment ticks indicate assumed slot boundaries.
   //
@@ -215,7 +215,7 @@ contract Azimuth is Ownable
 
     //  sponsor: the point that supports this one on the network, or,
     //           if :hasSponsor is false, the last point that supported it.
-    //           (by default, the point&#39;s half-width prefix)
+    //           (by default, the point's half-width prefix)
     //
     uint32 sponsor;
 
@@ -277,7 +277,7 @@ contract Azimuth is Ownable
   mapping(uint32 => Deed) public rights;
 
   //  operators: per owner, per address, has the right to transfer ownership
-  //             of all the owner&#39;s points (ERC721)
+  //             of all the owner's points (ERC721)
   //
   mapping(address => mapping(address => bool)) public operators;
 
@@ -372,7 +372,7 @@ contract Azimuth is Ownable
 
   //  setDnsDomains(): set the base domains used for contacting galaxies
   //
-  //    Note: since a string is really just a byte[], and Solidity can&#39;t
+  //    Note: since a string is really just a byte[], and Solidity can't
   //    work with two-dimensional arrays yet, we pass in the three
   //    domains as individual strings.
   //
@@ -415,7 +415,7 @@ contract Azimuth is Ownable
               point.keyRevisionNumber);
     }
 
-    //  getKeyRevisionNumber(): gets the revision number of _point&#39;s current
+    //  getKeyRevisionNumber(): gets the revision number of _point's current
     //                          public keys
     //
     function getKeyRevisionNumber(uint32 _point)
@@ -449,7 +449,7 @@ contract Azimuth is Ownable
                point.cryptoSuiteVersion != 0 );
     }
 
-    //  getContinuityNumber(): returns _point&#39;s current continuity number
+    //  getContinuityNumber(): returns _point's current continuity number
     //
     function getContinuityNumber(uint32 _point)
       view
@@ -484,7 +484,7 @@ contract Azimuth is Ownable
       return points[_point].spawned;
     }
 
-    //  hasSponsor(): returns true if _point&#39;s sponsor is providing it service
+    //  hasSponsor(): returns true if _point's sponsor is providing it service
     //
     function hasSponsor(uint32 _point)
       view
@@ -494,7 +494,7 @@ contract Azimuth is Ownable
       return points[_point].hasSponsor;
     }
 
-    //  getSponsor(): returns _point&#39;s current (or most recent) sponsor
+    //  getSponsor(): returns _point's current (or most recent) sponsor
     //
     function getSponsor(uint32 _point)
       view
@@ -554,7 +554,7 @@ contract Azimuth is Ownable
       return points[_point].escapeRequested;
     }
 
-    //  getEscapeRequest(): returns _point&#39;s current escape request
+    //  getEscapeRequest(): returns _point's current escape request
     //
     //    the returned escape request is only valid as long as isEscaping()
     //    returns true
@@ -664,13 +664,13 @@ contract Azimuth is Ownable
       emit BrokeContinuity(_point, point.continuityNumber);
     }
 
-    //  registerSpawn(): add a point to its prefix&#39;s list of spawned points
+    //  registerSpawn(): add a point to its prefix's list of spawned points
     //
     function registerSpawned(uint32 _point)
       onlyOwner
       external
     {
-      //  if a point is its own prefix (a galaxy) then don&#39;t register it
+      //  if a point is its own prefix (a galaxy) then don't register it
       //
       uint32 prefix = getPrefix(_point);
       if (prefix == _point)
@@ -684,7 +684,7 @@ contract Azimuth is Ownable
       emit Spawned(prefix, _point);
     }
 
-    //  loseSponsor(): indicates that _point&#39;s sponsor is no longer providing
+    //  loseSponsor(): indicates that _point's sponsor is no longer providing
     //                 it service
     //
     function loseSponsor(uint32 _point)
@@ -785,7 +785,7 @@ contract Azimuth is Ownable
       bool had = point.hasSponsor;
       uint32 prev = point.sponsor;
 
-      //  if we didn&#39;t have a sponsor, and won&#39;t get one,
+      //  if we didn't have a sponsor, and won't get one,
       //  or if we get the sponsor we already have,
       //  nothing will change, so jump out early.
       //
@@ -797,11 +797,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different sponsor, do some gymnastics
       //  to keep the reverse lookup gapless.  delete the point from the old
-      //  sponsor&#39;s list, then fill that gap with the list tail.
+      //  sponsor's list, then fill that gap with the list tail.
       //
       if (had)
       {
-        //  i: current index in previous sponsor&#39;s list of sponsored points
+        //  i: current index in previous sponsor's list of sponsored points
         //
         uint256 i = sponsoringIndexes[prev][_point];
 
@@ -848,7 +848,7 @@ contract Azimuth is Ownable
       bool was = point.escapeRequested;
       uint32 prev = point.escapeRequestedTo;
 
-      //  if we weren&#39;t escaping, and won&#39;t be,
+      //  if we weren't escaping, and won't be,
       //  or if we were escaping, and the new target is the same,
       //  nothing will change, so jump out early.
       //
@@ -860,11 +860,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different request, do some gymnastics
       //  to keep the reverse lookup gapless.  delete the point from the old
-      //  sponsor&#39;s list, then fill that gap with the list tail.
+      //  sponsor's list, then fill that gap with the list tail.
       //
       if (was)
       {
-        //  i: current index in previous sponsor&#39;s list of sponsored points
+        //  i: current index in previous sponsor's list of sponsored points
         //
         uint256 i = escapeRequestsIndexes[prev][_point];
 
@@ -964,7 +964,7 @@ contract Azimuth is Ownable
 
     //  management proxy
 
-    //  getManagementProxy(): returns _point&#39;s current management proxy
+    //  getManagementProxy(): returns _point's current management proxy
     //
     function getManagementProxy(uint32 _point)
       view
@@ -974,7 +974,7 @@ contract Azimuth is Ownable
       return rights[_point].managementProxy;
     }
 
-    //  isManagementProxy(): returns true if _proxy is _point&#39;s management proxy
+    //  isManagementProxy(): returns true if _proxy is _point's management proxy
     //
     function isManagementProxy(uint32 _point, address _proxy)
       view
@@ -1022,7 +1022,7 @@ contract Azimuth is Ownable
 
     //  spawn proxy
 
-    //  getSpawnProxy(): returns _point&#39;s current spawn proxy
+    //  getSpawnProxy(): returns _point's current spawn proxy
     //
     function getSpawnProxy(uint32 _point)
       view
@@ -1032,7 +1032,7 @@ contract Azimuth is Ownable
       return rights[_point].spawnProxy;
     }
 
-    //  isSpawnProxy(): returns true if _proxy is _point&#39;s spawn proxy
+    //  isSpawnProxy(): returns true if _proxy is _point's spawn proxy
     //
     function isSpawnProxy(uint32 _point, address _proxy)
       view
@@ -1081,7 +1081,7 @@ contract Azimuth is Ownable
 
     //  voting proxy
 
-    //  getVotingProxy(): returns _point&#39;s current voting proxy
+    //  getVotingProxy(): returns _point's current voting proxy
     //
     function getVotingProxy(uint32 _point)
       view
@@ -1091,7 +1091,7 @@ contract Azimuth is Ownable
       return rights[_point].votingProxy;
     }
 
-    //  isVotingProxy(): returns true if _proxy is _point&#39;s voting proxy
+    //  isVotingProxy(): returns true if _proxy is _point's voting proxy
     //
     function isVotingProxy(uint32 _point, address _proxy)
       view
@@ -1102,7 +1102,7 @@ contract Azimuth is Ownable
     }
 
     //  canVoteAs(): true if _who is the owner of _point,
-    //               or the voting proxy of _point&#39;s owner
+    //               or the voting proxy of _point's owner
     //
     function canVoteAs(uint32 _point, address _who)
       view
@@ -1140,7 +1140,7 @@ contract Azimuth is Ownable
 
     //  transfer proxy
 
-    //  getTransferProxy(): returns _point&#39;s current transfer proxy
+    //  getTransferProxy(): returns _point's current transfer proxy
     //
     function getTransferProxy(uint32 _point)
       view
@@ -1150,7 +1150,7 @@ contract Azimuth is Ownable
       return rights[_point].transferProxy;
     }
 
-    //  isTransferProxy(): returns true if _proxy is _point&#39;s transfer proxy
+    //  isTransferProxy(): returns true if _proxy is _point's transfer proxy
     //
     function isTransferProxy(uint32 _point, address _proxy)
       view
@@ -1161,7 +1161,7 @@ contract Azimuth is Ownable
     }
 
     //  canTransfer(): true if _who is the owner or transfer proxy of _point,
-    //                 or is an operator for _point&#39;s current owner
+    //                 or is an operator for _point's current owner
     //
     function canTransfer(uint32 _point, address _who)
       view
@@ -1200,7 +1200,7 @@ contract Azimuth is Ownable
     }
 
     //  isOperator(): returns true if _operator is allowed to transfer
-    //                ownership of _owner&#39;s points
+    //                ownership of _owner's points
     //
     function isOperator(address _owner, address _operator)
       view
@@ -1245,7 +1245,7 @@ contract Azimuth is Ownable
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous owner&#39;s list of owned points
+        //  i: current index in previous owner's list of owned points
         //
         uint256 i = pointOwnerIndexes[prev][_point];
 
@@ -1270,7 +1270,7 @@ contract Azimuth is Ownable
         pointOwnerIndexes[prev][_point] = 0;
       }
 
-      //  update the owner list and the owner&#39;s index list
+      //  update the owner list and the owner's index list
       //
       rights[_point].owner = _owner;
       pointsOwnedBy[_owner].push(_point);
@@ -1278,7 +1278,7 @@ contract Azimuth is Ownable
       emit OwnerChanged(_point, _owner);
     }
 
-    //  setManagementProxy(): makes _proxy _point&#39;s management proxy
+    //  setManagementProxy(): makes _proxy _point's management proxy
     //
     function setManagementProxy(uint32 _point, address _proxy)
       onlyOwner
@@ -1293,11 +1293,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different manager, do some gymnastics
       //  to keep the reverse lookup gapless.  delete the point from the
-      //  old manager&#39;s list, then fill that gap with the list tail.
+      //  old manager's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous manager&#39;s list of managed points
+        //  i: current index in previous manager's list of managed points
         //
         uint256 i = managerForIndexes[prev][_point];
 
@@ -1333,7 +1333,7 @@ contract Azimuth is Ownable
       emit ChangedManagementProxy(_point, _proxy);
     }
 
-    //  setSpawnProxy(): makes _proxy _point&#39;s spawn proxy
+    //  setSpawnProxy(): makes _proxy _point's spawn proxy
     //
     function setSpawnProxy(uint32 _point, address _proxy)
       onlyOwner
@@ -1348,11 +1348,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different spawn proxy, do some
       //  gymnastics to keep the reverse lookup gapless.  delete the point
-      //  from the old proxy&#39;s list, then fill that gap with the list tail.
+      //  from the old proxy's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous proxy&#39;s list of spawning points
+        //  i: current index in previous proxy's list of spawning points
         //
         uint256 i = spawningForIndexes[prev][_point];
 
@@ -1388,7 +1388,7 @@ contract Azimuth is Ownable
       emit ChangedSpawnProxy(_point, _proxy);
     }
 
-    //  setVotingProxy(): makes _proxy _point&#39;s voting proxy
+    //  setVotingProxy(): makes _proxy _point's voting proxy
     //
     function setVotingProxy(uint32 _point, address _proxy)
       onlyOwner
@@ -1403,11 +1403,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different voter, do some gymnastics
       //  to keep the reverse lookup gapless.  delete the point from the
-      //  old voter&#39;s list, then fill that gap with the list tail.
+      //  old voter's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous voter&#39;s list of points it was
+        //  i: current index in previous voter's list of points it was
         //     voting for
         //
         uint256 i = votingForIndexes[prev][_point];
@@ -1444,7 +1444,7 @@ contract Azimuth is Ownable
       emit ChangedVotingProxy(_point, _proxy);
     }
 
-    //  setManagementProxy(): makes _proxy _point&#39;s transfer proxy
+    //  setManagementProxy(): makes _proxy _point's transfer proxy
     //
     function setTransferProxy(uint32 _point, address _proxy)
       onlyOwner
@@ -1459,11 +1459,11 @@ contract Azimuth is Ownable
 
       //  if the point used to have a different transfer proxy, do some
       //  gymnastics to keep the reverse lookup gapless.  delete the point
-      //  from the old proxy&#39;s list, then fill that gap with the list tail.
+      //  from the old proxy's list, then fill that gap with the list tail.
       //
       if (0x0 != prev)
       {
-        //  i: current index in previous proxy&#39;s list of transferable points
+        //  i: current index in previous proxy's list of transferable points
         //
         uint256 i = transferringForIndexes[prev][_point];
 
@@ -1512,7 +1512,7 @@ contract Azimuth is Ownable
     }
 }
 
-// Azimuth&#39;s ReadsAzimuth.sol
+// Azimuth's ReadsAzimuth.sol
 
 //  ReadsAzimuth: referring to and testing against the Azimuth
 //                data contract
@@ -1526,7 +1526,7 @@ contract ReadsAzimuth
   //
   Azimuth public azimuth;
 
-  //  constructor(): set the Azimuth data contract&#39;s address
+  //  constructor(): set the Azimuth data contract's address
   //
   constructor(Azimuth _azimuth)
     public
@@ -1579,7 +1579,7 @@ contract Censures is ReadsAzimuth
   //
   event Forgiven(uint16 indexed by, uint32 indexed who);
 
-  //  censuring: per point, the points they&#39;re censuring
+  //  censuring: per point, the points they're censuring
   //
   mapping(uint16 => uint32[]) public censuring;
 
@@ -1662,7 +1662,7 @@ contract Censures is ReadsAzimuth
     external
     activePointManager(_as)
   {
-    require( //  can&#39;t censure self
+    require( //  can't censure self
              //
              (_as != _who) &&
              //
@@ -1672,7 +1672,7 @@ contract Censures is ReadsAzimuth
 
     //  only stars and galaxies may censure, and only galaxies may censure
     //  other galaxies. (enum gets smaller for higher point sizes)
-    //  this function&#39;s signature makes sure planets cannot censure.
+    //  this function's signature makes sure planets cannot censure.
     //
     Azimuth.Size asSize = azimuth.getPointSize(_as);
     Azimuth.Size whoSize = azimuth.getPointSize(_who);
@@ -1700,8 +1700,8 @@ contract Censures is ReadsAzimuth
     //  below, we perform the same logic twice: once on the canonical data,
     //  and once on the reverse lookup
     //
-    //  i: current index in _as&#39;s list of censures
-    //  j: current index in _who&#39;s list of points that have censured it
+    //  i: current index in _as's list of censures
+    //  j: current index in _who's list of points that have censured it
     //
     uint256 i = censuringIndexes[_as][_who];
     uint256 j = censuredByIndexes[_who][_as];

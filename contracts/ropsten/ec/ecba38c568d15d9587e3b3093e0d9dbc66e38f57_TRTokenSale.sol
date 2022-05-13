@@ -106,7 +106,7 @@ contract TRTokenSale {
         require(msg.sender == admin);
         require(tokenContract.transfer(admin, tokenContract.balanceOf(this)));
 
-        // UPDATE: Let&#39;s not destroy the contract here
+        // UPDATE: Let's not destroy the contract here
         // Just transfer the balance to the admin
         admin.transfer(address(this).balance);
     }

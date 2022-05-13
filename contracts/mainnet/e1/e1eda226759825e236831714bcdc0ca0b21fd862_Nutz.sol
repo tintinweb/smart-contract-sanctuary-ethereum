@@ -188,7 +188,7 @@ contract Nutz is Ownable, ERC20 {
   function powerDown(address powerAddr, address _holder, uint256 _amountBabz) public onlyOwner {
     bytes memory empty;
     _checkDestination(powerAddr, _holder, _amountBabz, empty);
-    // NTZ transfered from power pool to user&#39;s balance
+    // NTZ transfered from power pool to user's balance
     Transfer(powerAddr, _holder, _amountBabz);
   }
 

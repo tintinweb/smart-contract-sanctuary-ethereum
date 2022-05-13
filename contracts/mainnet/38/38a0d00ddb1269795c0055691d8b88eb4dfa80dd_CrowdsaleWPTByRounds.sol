@@ -10,8 +10,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     if (_a == 0) {
       return 0;
     }
@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     require(_b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -206,12 +206,12 @@ contract Token is MintableToken {
  * The way to add new features to a base crowdsale is by multiple inheritance.
  * In this example we are providing following extensions:
  * CappedCrowdsale - sets a max boundary for raised funds
- * RefundableCrowdsale - set a min goal to be reached and returns funds if it&#39;s not met
+ * RefundableCrowdsale - set a min goal to be reached and returns funds if it's not met
  *
- * After adding multiple features it&#39;s good practice to run integration tests
+ * After adding multiple features it's good practice to run integration tests
  * to ensure that subcontracts works together as intended.
  */
-// XXX There doesn&#39;t seem to be a way to split this line that keeps solium
+// XXX There doesn't seem to be a way to split this line that keeps solium
 // happy. See:
 // https://github.com/duaraghav8/Solium/issues/205
 // --elopio - 2018-05-10

@@ -7,8 +7,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -185,9 +185,9 @@ contract EthBattle is Ownable {
         address player = msg.sender;
         uint256 weiAmount = msg.value;
 
-        require(player != address(0), "Player&#39;s address is missing");
+        require(player != address(0), "Player's address is missing");
         require(weiAmount >= MIN_PLAY_AMOUNT, "The bet is too low");
-        require(_gtaBet <= balanceOf(player), "Player&#39;s got not enough GTA");
+        require(_gtaBet <= balanceOf(player), "Player's got not enough GTA");
 
         uint256 _bet = aggregateBet(weiAmount, _gtaBet);
 
@@ -204,10 +204,10 @@ contract EthBattle is Ownable {
     function playMeta(address _player, address _referral, uint256 _gtaBet) onlyProxy public payable {
         uint256 weiAmount = msg.value;
 
-        require(_player != address(0), "Player&#39;s address is missing");
-        require(_gtaBet <= balanceOf(_player), "Player&#39;s got not enough GTA");
+        require(_player != address(0), "Player's address is missing");
+        require(_gtaBet <= balanceOf(_player), "Player's got not enough GTA");
 
-        //Important! For meta plays the &#39;weight&#39; is not connected the the actual bet (since the bet comes from proxy)
+        //Important! For meta plays the 'weight' is not connected the the actual bet (since the bet comes from proxy)
         //but static and equals META_BET_WEIGHT
         uint256 _bet = aggregateBet(META_BET_WEIGHT, _gtaBet);
 
@@ -226,7 +226,7 @@ contract EthBattle is Ownable {
         playSeedGenerator.newPlaySeed(_player);
 
         if (_gtaBet > 0) {
-            //player&#39;s using GTA
+            //player's using GTA
             transferInternally(_player, owner, _gtaBet);
         }
 
@@ -257,7 +257,7 @@ contract EthBattle is Ownable {
     }
 
     function winInternal(address _player, bytes32 _seed) internal {
-        require(_player != address(0), "Winner&#39;s address is missing");
+        require(_player != address(0), "Winner's address is missing");
         require(playSeedGenerator.findSeed(_player) == _seed, "Wrong seed!");
         playSeedGenerator.cleanSeedUp(_player);
 
@@ -270,7 +270,7 @@ contract EthBattle is Ownable {
 
     function aggregateBet(uint256 _bet, uint256 _gtaBet) internal view returns (uint256) {
         //get market price of the GTA, multiply by bet, and apply a bonus on it.
-        //since both &#39;price&#39; and &#39;bet&#39; are in &#39;wei&#39;, we need to drop 10*18 decimals at the end
+        //since both 'price' and 'bet' are in 'wei', we need to drop 10*18 decimals at the end
         uint256 _gtaValueWei = store.getTokenBuyPrice().mul(_gtaBet).div(1 ether).mul(100 + TOKEN_USE_BONUS).div(100);
 
         //sum up with ETH bet

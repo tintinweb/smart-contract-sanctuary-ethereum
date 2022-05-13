@@ -120,7 +120,7 @@ contract FFS is ERC20, Ownable {
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
 
-    string public name = "For Fuck&#39;s Sake!";
+    string public name = "For Fuck's Sake!";
     string public url = "http://ffs.lol";
     string public symbol = "FFS";
     

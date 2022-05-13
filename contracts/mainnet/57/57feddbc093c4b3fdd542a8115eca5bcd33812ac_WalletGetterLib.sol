@@ -108,7 +108,7 @@ library WalletGetterLib {
   /// @dev Get last 10 transactions for the day, fixed at 10 until fork
   /// @param self Wallet in contract storage
   /// @param _date Timestamp of day requested
-  /// @return bytes32[10] Last 10 tx&#39;s starting with latest
+  /// @return bytes32[10] Last 10 tx's starting with latest
   function getTransactions(WalletMainLib.WalletData storage self, uint _date) constant returns (bytes32[10]) {
     bytes32[10] memory t;
     uint li = self.transactions[_date].length - 1;
@@ -118,10 +118,10 @@ library WalletGetterLib {
     return t;
   }
 
-  /// @dev Get the number of tx&#39;s with the same id
+  /// @dev Get the number of tx's with the same id
   /// @param self Wallet in contract storage
   /// @param _id ID of transactions requested
-  /// @return uint Number of tx&#39;s with same ID
+  /// @return uint Number of tx's with same ID
   function getTransactionLength(WalletMainLib.WalletData storage self, bytes32 _id) constant returns (uint) {
     return self.transactionInfo[_id].length;
   }
@@ -221,7 +221,7 @@ library WalletMainLib {
     mapping (uint => bytes32[]) transactions;
     //Tracks the index of each owner in the owners Array
     mapping (address => uint) ownerIndex;
-    //Array of Transaction&#39;s by id, new tx&#39;s with exact inputs as previous tx will add to array
+    //Array of Transaction's by id, new tx's with exact inputs as previous tx will add to array
     mapping (bytes32 => Transaction[]) transactionInfo;
 
   }
@@ -448,7 +448,7 @@ library WalletMainLib {
     if(msg.sender != address(this)){
       bool allGood;
       uint _amount;
-      // if the owner is revoking his/her confirmation but doesn&#39;t know the
+      // if the owner is revoking his/her confirmation but doesn't know the
       // specific transaction id hash
       if(!_confirm) {
         allGood = revokeConfirm(self, _id);
@@ -473,7 +473,7 @@ library WalletMainLib {
           self.transactions[now / 1 days].push(_id);
         } else { // else the transaction is already pending
           _number--; // set the index to the index of the existing transaction
-          //make sure the sender isn&#39;t already confirmed
+          //make sure the sender isn't already confirmed
           allGood = checkNotConfirmed(self, _id, _number);
           if(!allGood)
             return (false,_id);

@@ -8,7 +8,7 @@ pragma solidity ^0.4.24;
  */
 contract Ownable {
 
-    // Owner&#39;s address
+    // Owner's address
     address public owner;
 
     /**
@@ -83,8 +83,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-      // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-      // benefit is lost if &#39;b&#39; is also tested.
+      // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+      // benefit is lost if 'b' is also tested.
       // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -102,7 +102,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0); // Solidity only automatically asserts when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -264,7 +264,7 @@ contract AoraTgeCoin is IERC20, Ownable {
     }
 
     /**
-    * @dev Fallback function. Can&#39;t send ether to this contract. 
+    * @dev Fallback function. Can't send ether to this contract. 
     */
     function () external payable {
         revert();
@@ -274,7 +274,7 @@ contract AoraTgeCoin is IERC20, Ownable {
     * @dev This method can be used by the owner to extract mistakenly sent tokens
     * or Ether sent to this contract.
     * @param _token address The address of the token contract that you want to
-    * recover set to 0 in case you want to extract ether. It can&#39;t be ElpisToken.
+    * recover set to 0 in case you want to extract ether. It can't be ElpisToken.
     */
     function claimTokens(address _token) public onlyOwner {
         if (_token == address(0)) {

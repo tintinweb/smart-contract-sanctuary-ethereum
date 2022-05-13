@@ -9,7 +9,7 @@ pragma solidity ^0.4.18;
 // /(_))((_)((_)\  /(_)|((_)((_)\  
 //(_)) |_ ((_)((_)(_)) )\___ _((_) 
 /// __|| |/ // _ \| _ ((/ __| || | 
-//\__ \  &#39; <| (_) |   /| (__| __ | 
+//\__ \  ' <| (_) |   /| (__| __ | 
 //|___/ _|\_\\___/|_|_\ \___|_||_| 
 //--------------------------------
 
@@ -27,7 +27,7 @@ pragma solidity ^0.4.18;
 
 // Skorch is the first PoW+PoS mineable ERC20 token using Keccak256 (Sha3) algorithm
 // 210 Million Total Supply 
-// 21 Million available for Proof of Work mining based on Bitcoin&#39;s SHA256 Algorithm
+// 21 Million available for Proof of Work mining based on Bitcoin's SHA256 Algorithm
 // 21k (21,000) SKO Required to be held in your wallet to gain Proof of Stake Rewards
 // 189 Million of 210 Million total supply will be minted by the smart contract for PoS rewards 
 // 30% PoS rewards for the first year but decreases each year after until 0 

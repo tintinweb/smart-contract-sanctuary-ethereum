@@ -23,7 +23,7 @@ contract Token {
     // Public variables of the token
     string public name;
     string public symbol;
-    string public author = &#39;GMMGHoldings: DobroCoin (ByVitiook) v 1.1&#39;;
+    string public author = 'GMMGHoldings: DobroCoin (ByVitiook) v 1.1';
     uint8 public decimals = 8;
     // 18 decimals is the strongly suggested default, avoid changing it
     uint256 public totalSupply;
@@ -236,7 +236,7 @@ contract DobrocoinContract is owned, Token {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -274,7 +274,7 @@ contract DobrocoinContract is owned, Token {
         address myAddress = this;
         require(myAddress.balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
     }
 }

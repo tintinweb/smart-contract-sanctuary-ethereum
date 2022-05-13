@@ -25,7 +25,7 @@ contract SafeMath {
     function safeDiv(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -107,8 +107,8 @@ contract StandardToken is Token, SafeMath {
         return infos[index[_owner]].tokenBalances;
     }
 
-    //  To change the approve amount you first have to reduce the addresses&#39;
-    //  allowance to zero by calling &#39;approve(_spender, 0)&#39; if it is not
+    //  To change the approve amount you first have to reduce the addresses'
+    //  allowance to zero by calling 'approve(_spender, 0)' if it is not
     //  already 0 to mitigate the race condition described here:
     //  https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
     function approve(address _spender, uint256 _value) public onlyPayloadSize(2) returns (bool success) {
@@ -422,7 +422,7 @@ contract JCFv3 is StandardToken {
     function burn(address _who, uint256 _value) external only_if_controlWallet {
         require(_value <= infos[index[_who]].tokenBalances);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
         infos[index[_who]].tokenBalances = safeSub(infos[index[_who]].tokenBalances, _value);
 
         tokenCap = safeSub(tokenCap, _value);

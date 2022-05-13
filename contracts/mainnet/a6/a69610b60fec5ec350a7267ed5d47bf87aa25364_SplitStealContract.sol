@@ -100,10 +100,10 @@ contract SplitStealContract is owned, priced {
         require(_to != address(0));
         owner = _to;
     }
-    /** @dev So Owner can&#39;t take away player&#39;s money in the middle of the game.
+    /** @dev So Owner can't take away player's money in the middle of the game.
     Owner can only withdraw earnings of the game contract and not the entire balance.
     Earnings are calculated after every game is finished, i.e.; when both players
-    have cliamed reward. If a player doens&#39;t claim reward for a game, those ether 
+    have cliamed reward. If a player doens't claim reward for a game, those ether 
     can not be reclaimed until 1 week. After 1 week Owner of contract has power of disqualifying 
     Players who did not finihs the game. FAIR ENOUGH ?
     */
@@ -141,7 +141,7 @@ contract SplitStealContract is owned, priced {
     }
 
     function setGameRules(uint256 _fees, uint256 _minBet, uint256 _maxBet, uint256 _stageTimeout) public onlyOwner {
-        require(_stageTimeout >= 60*60*24*7);//Owner can&#39;t set it to below 1 week
+        require(_stageTimeout >= 60*60*24*7);//Owner can't set it to below 1 week
         require((_fees * 100 ) < _minBet);//Fees will always be less that 1 % of bet
         require(_minBet < _maxBet);
         emit NewGameRules(REGISTRATION_COST, _fees, MINIMUM_COST_OF_BET, _minBet, MAXIMUM_COST_OF_BET, _maxBet, STAGE_TIMEOUT, _stageTimeout);
@@ -309,7 +309,7 @@ contract SplitStealContract is owned, priced {
                 contractEarnings = contractEarnings + commission;
                 emit ContractEarnings(gameNumber, commission, "GAME_ABANDONED");
             }
-            //Bet amount can&#39;t be less than commission.
+            //Bet amount can't be less than commission.
             //Hence no -ve check is required
             ethTransfer(gameNumber, player, game.bets[player].betAmount);
             return true;
@@ -328,7 +328,7 @@ contract SplitStealContract is owned, priced {
             gameReward = ((100 + game.k) * game.bets[player].betAmount) / 100;
             reward = gameReward < totalBet ? gameReward : totalBet; //Min (X+Y, (100+K)*X/100)
             game.reward[player] = reward - commission;
-            //Min (X+Y, (100+K)*X/100) can&#39;t be less than commision.
+            //Min (X+Y, (100+K)*X/100) can't be less than commision.
             //Hence no -ve check is required
             contractEarnings = contractEarnings + (totalBet - game.reward[player]);
             emit ContractEarnings(gameNumber, (totalBet - game.reward[player]), "OPPONENT_DISQUALIFIED");
@@ -338,7 +338,7 @@ contract SplitStealContract is owned, priced {
         if ( !isEven(game.bets[player].actualChoice) && !isEven(game.bets[opponent].actualChoice) ) { // Split Split
             reward = (game.bets[player].betAmount + game.bets[opponent].betAmount) / 2;
             game.reward[player] = reward - commission;
-            //(X+Y)/2 can&#39;t be less than commision.
+            //(X+Y)/2 can't be less than commision.
             //Hence no -ve check is required
             if ( game.claimedReward[opponent] ) {
                 uint256 gameEarnings = (totalBet - game.reward[player] - game.reward[opponent]);
@@ -361,7 +361,7 @@ contract SplitStealContract is owned, priced {
             gameReward = (((100 + game.k) * game.bets[player].betAmount)/100);
             reward = gameReward < totalBet ? gameReward : totalBet; 
             game.reward[player] = reward - commission;
-            //Min (X+Y, (100+K)*X/100) can&#39;t be less than commision.
+            //Min (X+Y, (100+K)*X/100) can't be less than commision.
             //Hence no -ve check is required
             if ( game.claimedReward[opponent] ) {
                 gameEarnings = (totalBet - game.reward[player] - game.reward[opponent]);
@@ -422,8 +422,8 @@ contract SplitStealContract is owned, priced {
 
     /** 
      *  If both palayer(s) does(-es) not reveal choice in time they get disqualified.
-     *  If both players do not reveal choice in time, Game&#39;s earnings are updated.
-     *  If one of the player does not reveal choice, then game&#39;s earnings are not updated.
+     *  If both players do not reveal choice in time, Game's earnings are updated.
+     *  If one of the player does not reveal choice, then game's earnings are not updated.
      *  Player who has revealed is given chance to claim reward.
      */
 

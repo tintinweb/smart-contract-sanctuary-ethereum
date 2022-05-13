@@ -73,8 +73,8 @@ contract ICOToken is BaseToken {
 contract CustomToken is BaseToken, ICOToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;GIOCO&#39;;
-        symbol = &#39;GIC&#39;;
+        name = 'GIOCO';
+        symbol = 'GIC';
         decimals = 18;
         balanceOf[0x516dc06b3940c3f3c30bf7480c893625f74cc2ca] = totalSupply;
         Transfer(address(0), 0x516dc06b3940c3f3c30bf7480c893625f74cc2ca, totalSupply);

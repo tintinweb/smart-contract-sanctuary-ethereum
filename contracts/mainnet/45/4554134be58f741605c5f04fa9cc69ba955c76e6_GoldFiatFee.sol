@@ -6,7 +6,7 @@ contract IGold {
     function burnTokens(address _who, uint _tokens);
 }
 
-// StdToken inheritance is commented, because no &#39;totalSupply&#39; needed
+// StdToken inheritance is commented, because no 'totalSupply' needed
 contract IMNTP { /*is StdToken */
     function balanceOf(address _owner) constant returns (uint256);
 

@@ -18,11 +18,11 @@ contract Payment {
 
 	function withdraw(address buyer) public returns (bool) {
 	    require(msg.sender == owner, "You are not allowed to withdraw.");
-	    require(deposits[buyer].amount > 0, "There&#39;s no deposit in this address.");
+	    require(deposits[buyer].amount > 0, "There's no deposit in this address.");
 	    require(deposits[buyer].allowed == 1 || 
 	    /*(deposits[buyer].allowed == 0 && deposits[buyer].timestamp + 2 * 7 * 24 * 3600 < block.timestamp),*/
 	    (deposits[buyer].allowed == 0 && deposits[buyer].timestamp + 2 * 7 * 10 < block.timestamp),
-	    "The owner of this deposit hasn&#39;t allowed to withdraw and two weeks hasn&#39;t passed since the deposit.");
+	    "The owner of this deposit hasn't allowed to withdraw and two weeks hasn't passed since the deposit.");
         uint deposited = deposits[buyer].amount;
         deposits[buyer].amount = 0;
         deposits[buyer].allowed = 0;

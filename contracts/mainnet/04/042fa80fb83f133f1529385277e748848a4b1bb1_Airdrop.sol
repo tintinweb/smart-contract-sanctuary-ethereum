@@ -26,7 +26,7 @@ contract Airdrop {
    * @dev Perform the airdrop. Restricted to no more than 300 accounts in a single transactions
    * @notice More than 300 accounts will exceed gas block limit. It is recommended to perform
    * batches using no more than 250 accounts as the actual gas cost is dependent on the
-   * tokenContractAddress&#39;s implementation of transfer())
+   * tokenContractAddress's implementation of transfer())
    *
    * @param tokenContractAddress The address of the token contract being transfered.
    * @param recipients Array of accounts receiving tokens.

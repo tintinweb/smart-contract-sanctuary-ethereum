@@ -323,7 +323,7 @@ contract PoP{
 		uint256 bettingRecordValue = getWinningsForRecord(bettingRecord, true);
 		uint256 amountToMineForBettingRecord = computeAmountToMineForBettingRecord(bettingRecord, false);
 
-		// If it is current game we need to not remove the record as it&#39;s value might increase but amend it and re-insert
+		// If it is current game we need to not remove the record as it's value might increase but amend it and re-insert
 		if(bettingRecord.gameId == currentGameNumber) {
 			bettingRecord.withdrawnAmount = bettingRecord.withdrawnAmount.add(bettingRecordValue);
 			bettingRecord.withdrawnPopAmount = bettingRecord.withdrawnPopAmount.add(amountToMineForBettingRecord);
@@ -349,7 +349,7 @@ contract PoP{
 		if(record.gameId == currentGameNumber) {
 			uint256 halfPot = currentPot.sub(initialSeed).div(2);
 			if(potAtBet >= halfPot) {
-				return true; // You are in the front of the array and we won&#39;t process your record until you are in the back
+				return true; // You are in the front of the array and we won't process your record until you are in the back
 			}
 		}
 		return false;
@@ -822,7 +822,7 @@ library WrappedArray {
 
 	/* ItemAtIndex returns the item at index */
 	function itemAtIndex (Data storage self, uint256 index) internal view returns(GameMetaDataElement elem) {
-		/* Can&#39;t access something outside of scope of array */
+		/* Can't access something outside of scope of array */
 		assert(index < self.array.length); 
 		return self.array[index];
 	}
@@ -859,7 +859,7 @@ library CompactArray {
 
 	/* Replaces item at index with last item in array and resizes array accordingly */
 	function removeItemAtIndex (Data storage self, uint256 index) internal {
-		/* Can&#39;t remove something outside of scope of array */
+		/* Can't remove something outside of scope of array */
 		assert(index < self.len);
 
 		/* Deleting the last element in array is same as length - 1 */
@@ -885,7 +885,7 @@ library CompactArray {
 		return self.array[self.len];
 	}
 
-	/* PopNext keeps track of an index that loops through the array and pops the next item so that push pop doesn&#39;t necessarily return the item you pushed */
+	/* PopNext keeps track of an index that loops through the array and pops the next item so that push pop doesn't necessarily return the item you pushed */
 	function getNext (Data storage self) internal returns(Element elem) {
 		assert(self.len > 0);
 			
@@ -905,7 +905,7 @@ library CompactArray {
 	
 	/* ItemAtIndex returns the item at index */
 	function itemAtIndex (Data storage self, uint256 index) internal view returns(Element elem) {
-		/* Can&#39;t access something outside of scope of array */
+		/* Can't access something outside of scope of array */
 		assert(index < self.len);
 			
 		return self.array[index];
@@ -939,7 +939,7 @@ library UIntSet {
 
 	/* Adds an item to the set */
 	function insert (Data storage self, uint256 element) internal {
-		// Don&#39;t need to insert element if entry already exists
+		// Don't need to insert element if entry already exists
 		if(contains(self, element)) {
 			return;
 		}

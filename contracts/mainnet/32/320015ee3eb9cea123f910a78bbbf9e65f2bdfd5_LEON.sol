@@ -4,8 +4,8 @@ pragma solidity ^0.4.19;
 
 /**
  * @title Moderated
- * @dev restricts execution of &#39;onlyModerator&#39; modified functions to the contract moderator
- * @dev restricts execution of &#39;ifUnrestricted&#39; modified functions to when unrestricted 
+ * @dev restricts execution of 'onlyModerator' modified functions to the contract moderator
+ * @dev restricts execution of 'ifUnrestricted' modified functions to when unrestricted 
  *      boolean state is true
  * @dev allows for the extraction of ether or other ERC20 tokens mistakenly sent to this address
  */
@@ -105,7 +105,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -172,7 +172,7 @@ contract LEON is Moderated {
 		function _transfer(address _from, address _to, uint256 _value) internal returns (bool) {
 			// Do not allow transfers to 0x0 or to this contract
 			require(_to != address(0x0) && _to != address(this));
-			// Do not allow transfer of value greater than sender&#39;s current balance
+			// Do not allow transfer of value greater than sender's current balance
 			require(_value <= balances[_from]);
 			// Update balance of sending address
 			balances[_from] = balances[_from].sub(_value);	
@@ -197,7 +197,7 @@ contract LEON is Moderated {
 		*
 		* Beware that changing an allowance with this method brings the risk that someone may use both the old
 		* and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-		* race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+		* race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
 		* https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
 		* @param _spender The address which will spend the funds.
 		* @param _value The amount of tokens to be spent.

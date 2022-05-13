@@ -263,7 +263,7 @@ library oraclizeLib {
         return oraclize().setCustomGasPrice(gasPrice);
     }
 
-    // setting to internal doesn&#39;t cause major increase in deployment and saves gas
+    // setting to internal doesn't cause major increase in deployment and saves gas
     // per use, for this tiny function
     function getCodeSize(address _addr)
     public
@@ -466,7 +466,7 @@ library oraclizeLib {
             res[ctr] = 0x5F;
             ctr++;
             for (uint x = 0; x < elemArray[i].length; x++) {
-                // if there&#39;s a bug with larger strings, this may be the culprit
+                // if there's a bug with larger strings, this may be the culprit
                 if (x % 23 == 0) {
                     uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                     elemcborlen += 0x40;
@@ -493,7 +493,7 @@ library oraclizeLib {
  * @author Nick Johnson <arachnid@notdot.net>
  *
  * @dev Functionality in this library is largely implemented using an
- *      abstraction called a &#39;slice&#39;. A slice represents a part of a string -
+ *      abstraction called a 'slice'. A slice represents a part of a string -
  *      anything from the entire string to a single character, or even no
  *      characters at all (a 0-length slice). Since a slice only has to specify
  *      an offset and a length, copying and manipulating slices is a lot less
@@ -501,8 +501,8 @@ library oraclizeLib {
  *
  *      To further reduce gas costs, most functions on slice that need to return
  *      a slice modify the original one instead of allocating a new one; for
- *      instance, `s.split(".")` will return the text up to the first &#39;.&#39;,
- *      modifying s to only contain the remainder of the string after the &#39;.&#39;.
+ *      instance, `s.split(".")` will return the text up to the first '.',
+ *      modifying s to only contain the remainder of the string after the '.'.
  *      In situations where you do not want to modify the original slice, you
  *      can make a copy first with `.copy()`, for example:
  *      `s.copy().split(".")`. Try and avoid using this idiom in loops; since
@@ -520,7 +520,7 @@ library oraclizeLib {
  *
  *      For convenience, some functions are provided with non-modifying
  *      variants that create a new slice and return both; for instance,
- *      `s.splitNew(&#39;.&#39;)` leaves s unmodified, and returns two values
+ *      `s.splitNew('.')` leaves s unmodified, and returns two values
  *      corresponding to the left and right parts of the string.
  */
 
@@ -623,7 +623,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal pure returns (string) {
         string memory ret = new string(self._len);
@@ -1225,7 +1225,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -2100,11 +2100,11 @@ contract DiceOnline is DiceOffline {
     
     function doOraclize(bool isSystem) internal returns(bytes32) {
         randomQueryID += 1;
-        string memory queryString1 = "[URL] [&#39;json(https://api.random.org/json-rpc/1/invoke).result.random[\"data\"]&#39;, &#39;\\n{\"jsonrpc\":\"2.0\",\"method\":\"generateSignedIntegers\",\"params\":{\"apiKey\":\"";
+        string memory queryString1 = "[URL] ['json(https://api.random.org/json-rpc/1/invoke).result.random[\"data\"]', '\\n{\"jsonrpc\":\"2.0\",\"method\":\"generateSignedIntegers\",\"params\":{\"apiKey\":\"";
         string memory queryString2 = random_api_key;
         string memory queryString3 = "\",\"n\":3,\"min\":1,\"max\":6},\"id\":";
         string memory queryString4 = oraclizeLib.uint2str(randomQueryID);
-        string memory queryString5 = "}&#39;]";
+        string memory queryString5 = "}']";
 
         string memory queryString1_2 = queryString1.toSlice().concat(queryString2.toSlice());
         string memory queryString1_2_3 = queryString1_2.toSlice().concat(queryString3.toSlice());
@@ -2125,11 +2125,11 @@ contract DiceOnline is DiceOffline {
         strings.slice memory sl_result = result.toSlice();
         sl_result = sl_result.beyond("[".toSlice()).until("]".toSlice());        
       
-        string memory numString = sl_result.split(&#39;, &#39;.toSlice()).toString();
+        string memory numString = sl_result.split(', '.toSlice()).toString();
         uint num1 = oraclizeLib.parseInt(numString);
-        numString = sl_result.split(&#39;, &#39;.toSlice()).toString();
+        numString = sl_result.split(', '.toSlice()).toString();
         uint num2 = oraclizeLib.parseInt(numString);
-        numString = sl_result.split(&#39;, &#39;.toSlice()).toString();
+        numString = sl_result.split(', '.toSlice()).toString();
         uint num3 = oraclizeLib.parseInt(numString);
         if(num1 < 1 || num1 > 6){            
             return;

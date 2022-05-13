@@ -28,7 +28,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -134,7 +134,7 @@ contract IADTGE is manager {
     uint256 public completedAt;
     address public creator;
     uint256[2] public rates = [6250,5556];//Base rate is 5000 IAD/ETH - 1st 15 days 20% discount/2nd 15 days 10% discount
-    string public version = &#39;1&#39;;
+    string public version = '1';
 
     //events for log
     event LogFundingReceived(address _addr, uint _amount, uint _currentTotal);

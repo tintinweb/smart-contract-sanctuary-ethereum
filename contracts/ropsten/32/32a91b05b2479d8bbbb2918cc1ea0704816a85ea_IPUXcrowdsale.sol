@@ -4,7 +4,7 @@ ___________________________________________________________________
   _      _                                        ______           
   |  |  /          /                                /              
 --|-/|-/-----__---/----__----__---_--_----__-------/-------__------
-  |/ |/    /___) /   /   &#39; /   ) / /  ) /___)     /      /   )     
+  |/ |/    /___) /   /   ' /   ) / /  ) /___)     /      /   )     
 __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
 
 
@@ -13,12 +13,12 @@ __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
 | |     _____    | | | |   ______     | | | | _____  _____ | | | |  ____  ____  | |
 | |    |_   _|   | | | |  |_   __ \   | | | ||_   _||_   _|| | | | |_  _||_  _| | |
 | |      | |     | | | |    | |__) |  | | | |  | |    | |  | | | |   \ \  / /   | |
-| |      | |     | | | |    |  ___/   | | | |  | &#39;    &#39; |  | | | |    > `&#39; <    | |
-| |     _| |_    | | | |   _| |_      | | | |   \ `--&#39; /   | | | |  _/ /&#39;`\ \_  | |
-| |    |_____|   | | | |  |_____|     | | | |    `.__.&#39;    | | | | |____||____| | |
+| |      | |     | | | |    |  ___/   | | | |  | '    ' |  | | | |    > `' <    | |
+| |     _| |_    | | | |   _| |_      | | | |   \ `--' /   | | | |  _/ /'`\ \_  | |
+| |    |_____|   | | | |  |_____|     | | | |    `.__.'    | | | | |____||____| | |
 | |              | | | |              | | | |              | | | |              | |
-| &#39;--------------&#39; | | &#39;--------------&#39; | | &#39;--------------&#39; | | &#39;--------------&#39; |
- &#39;----------------&#39;   &#39;----------------&#39;   &#39;----------------&#39;   &#39;----------------&#39; 
+| '--------------' | | '--------------' | | '--------------' | | '--------------' |
+ '----------------'   '----------------'   '----------------'   '----------------' 
 
                                 __________________________________________________________________
                                       __                                      __                  
@@ -30,7 +30,7 @@ __/__|____(___ _/___(___ _(___/_/_/__/_(___ _____/______(___/__o_o_
                                                                   
   
 // ----------------------------------------------------------------------------
-// &#39;IPUX&#39; Crowdsale contract with following features
+// 'IPUX' Crowdsale contract with following features
 //      => Token address change
 //      => SafeMath implementation 
 //      => Ether sent to owner immediately
@@ -62,7 +62,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -165,7 +165,7 @@ contract IPUXcrowdsale is owned {
      * @param _tokenAddress Address of the token
      */
     function updateToken(address _tokenAddress, uint256 _tokenDecimal) public onlyOwner {
-        require(_tokenAddress != address(0), &#39;Address is invalid&#39;);
+        require(_tokenAddress != address(0), 'Address is invalid');
         tokenAddress = _tokenAddress;
         tokenDecimal = _tokenDecimal;
     }
@@ -175,7 +175,7 @@ contract IPUXcrowdsale is owned {
      */
     function () payable external {
         // no acceptance of ether if hard cap is reached
-        require(fundRaised < hardcap, &#39;hard cap is reached&#39;);
+        require(fundRaised < hardcap, 'hard cap is reached');
         // token distribution only if ICO is going on. Else, it will accept ether but no tokens given
 		if((icoPeriod1start < now && icoPeriod1end > now) || (icoPeriod2start < now && icoPeriod2end > now) || icoPeriod3start < now && icoPeriod3end > now){
         // calculate token amount to be sent, as pe weiamount * exchangeRate

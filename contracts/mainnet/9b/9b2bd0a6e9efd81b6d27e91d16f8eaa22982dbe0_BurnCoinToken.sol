@@ -111,8 +111,8 @@ interface tokenRecipient {
 }
 
 contract BurnCoinToken is StandardToken, Ownable {
-    string public constant name = &#39;Burn Coin&#39;;
-    string public constant symbol = &#39;BRN&#39;;
+    string public constant name = 'Burn Coin';
+    string public constant symbol = 'BRN';
     uint public constant decimals = 8;
     uint public totalSupply = 500000000 * 10 ** uint(decimals); //500,000,000
     mapping (address => bool) public frozenAccounts;

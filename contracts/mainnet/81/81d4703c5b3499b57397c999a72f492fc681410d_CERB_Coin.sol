@@ -67,7 +67,7 @@ contract CERB_Coin
                 {
                     remaining = remaining - finalTokens;
                     _transfer(owner,rec_address, finalTokens);    
-                    TransferSell(owner, rec_address, finalTokens,&#39;Offline&#39;);
+                    TransferSell(owner, rec_address, finalTokens,'Offline');
                 }
             else
                 {
@@ -254,7 +254,7 @@ contract CERB_Coin
           require(balanceOf[_from] >= _value);                                  // Check if the targeted balance is enough
           require(_value <= allowance[_from][msg.sender]);                      // Check allowance
           balanceOf[_from] -= _value;                                           // Subtract from the targeted balance
-          allowance[_from][msg.sender] -= _value;                               // Subtract from the sender&#39;s allowance
+          allowance[_from][msg.sender] -= _value;                               // Subtract from the sender's allowance
           totalSupply -= _value;                                                // Update totalSupply
           Burn(_from, _value);
           return true;

@@ -230,8 +230,8 @@ contract Ion_Chain is Functions {
             uint256 valueWei = _amount_ * buyPrice;
             msg.sender.transfer(msg.value - valueWei);
         }
-        balances[msg.sender] += _amount_;                  // adds the amount to buyer&#39;s balance
-        balances[this] -= _amount_;                        // subtracts amount from seller&#39;s balance
+        balances[msg.sender] += _amount_;                  // adds the amount to buyer's balance
+        balances[this] -= _amount_;                        // subtracts amount from seller's balance
         Transfer(this, msg.sender, _amount_);              
         
         return _amount_;                                    

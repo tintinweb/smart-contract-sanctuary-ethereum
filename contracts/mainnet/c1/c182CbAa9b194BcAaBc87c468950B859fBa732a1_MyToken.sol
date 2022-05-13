@@ -53,8 +53,8 @@ contract MyToken is owned{
     function MyToken() {
         balanceOf[msg.sender] = 3000000;              // Give the creator all initial tokens
         totalSupply = 3000000;                        // Update total supply
-        name = &#39;GamityTest4&#39;;                                   // Set the name for display purposes
-        symbol = &#39;GMTEST4&#39;;                                     // Set the symbol for display purposes
+        name = 'GamityTest4';                                   // Set the name for display purposes
+        symbol = 'GMTEST4';                                     // Set the symbol for display purposes
         decimals = 0;                                       // Amount of decimals for display purposes
     }
 
@@ -122,7 +122,7 @@ contract MyToken is owned{
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -155,7 +155,7 @@ contract MyToken is owned{
     
     function rest()  returns (bool success){    
         require(balanceOf[msg.sender] >= 5000);         // checks if the sender has enough to sell
-        balanceOf[this] += 5000;                        // adds the amount to owner&#39;s balance
+        balanceOf[this] += 5000;                        // adds the amount to owner's balance
         balanceOf[msg.sender] -= 5000; 
         restFinish[msg.sender] = block.timestamp + 3 days;
         return true; 
@@ -172,18 +172,18 @@ contract MyToken is owned{
 
     function sell(uint amount) returns (uint revenue){
         require(balanceOf[msg.sender] >= amount);         // checks if the sender has enough to sell
-        balanceOf[this] += amount;                        // adds the amount to owner&#39;s balance
-        balanceOf[msg.sender] -= amount;                  // subtracts the amount from seller&#39;s balance
+        balanceOf[this] += amount;                        // adds the amount to owner's balance
+        balanceOf[msg.sender] -= amount;                  // subtracts the amount from seller's balance
         revenue = amount * sellPrice;
-        require(msg.sender.send(revenue));                // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+        require(msg.sender.send(revenue));                // sends ether to the seller: it's important to do this last to prevent recursion attacks
         Transfer(msg.sender, this, amount);               // executes an event reflecting on the change
         return revenue;                                   // ends function and returns
     }
     
     function getTokens() onlyOwner  returns (uint amount) {
         require(balanceOf[this] >= amount);               // checks if it has enough to sell
-        balanceOf[msg.sender] += amount;                  // adds the amount to buyer&#39;s balance
-        balanceOf[this] -= amount;                        // subtracts amount from seller&#39;s balance
+        balanceOf[msg.sender] += amount;                  // adds the amount to buyer's balance
+        balanceOf[this] -= amount;                        // subtracts amount from seller's balance
         Transfer(this, msg.sender, amount);               // execute an event reflecting the change
         return amount;                                    // ends function and returns
     }
@@ -194,7 +194,7 @@ contract MyToken is owned{
 
     
     function getEther(uint amount) onlyOwner returns (bool success) {
-        require(msg.sender.send(amount));                 // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+        require(msg.sender.send(amount));                 // sends ether to the seller: it's important to do this last to prevent recursion attacks
         return true;                                  // ends function and returns
     }
     

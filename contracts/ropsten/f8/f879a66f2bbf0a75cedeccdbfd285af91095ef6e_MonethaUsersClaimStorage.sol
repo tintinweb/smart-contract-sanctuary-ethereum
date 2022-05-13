@@ -99,8 +99,8 @@ contract MonethaUsersClaimStorage is Contactable {
 
     /**
      *  updateUserClaim updates user claim status and adds token to his wallet
-     *  @param _userAddress address of user&#39;s wallet
-     *  @param _tokens corresponds to user&#39;s token that is to be claimed.
+     *  @param _userAddress address of user's wallet
+     *  @param _tokens corresponds to user's token that is to be claimed.
      */
     function updateUserClaim(address _userAddress, uint256 _tokens)
         external onlyOwner returns (bool)
@@ -131,7 +131,7 @@ contract MonethaUsersClaimStorage is Contactable {
 
     /**
      *  deleteUserClaim deletes user account
-     *  @param _userAddress corresponds to address of user&#39;s wallet
+     *  @param _userAddress corresponds to address of user's wallet
      */
     function deleteUserClaim(address _userAddress)
         external onlyOwner returns (bool)

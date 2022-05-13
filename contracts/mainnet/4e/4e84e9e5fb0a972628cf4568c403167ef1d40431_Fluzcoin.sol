@@ -54,7 +54,7 @@ contract Fluzcoin is Token {
     uint256 public constant totalSupply = 3223000000 * 10**18;
 
     uint public launched = 0; // Time of locking distribution and retiring founder; 0 means not launched
-    address public founder = 0xCB7ECAB8EEDd4b53d0F48E421D56fBA262AF57FC; // Founder&#39;s address
+    address public founder = 0xCB7ECAB8EEDd4b53d0F48E421D56fBA262AF57FC; // Founder's address
     mapping (address => uint256) public balances;
     mapping (address => mapping (address => uint256)) public allowed;
     
@@ -82,7 +82,7 @@ contract Fluzcoin is Token {
     }
 
     /**
-     * Transfer with checking if it&#39;s allowed
+     * Transfer with checking if it's allowed
      */
     function transfer(address _to, uint256 _value) public canTransfer returns (bool success) {
         if (balances[msg.sender] < _value) {
@@ -95,7 +95,7 @@ contract Fluzcoin is Token {
     }
 
     /**
-     * Transfer with checking if it&#39;s allowed
+     * Transfer with checking if it's allowed
      */
     function transferFrom(address _from, address _to, uint256 _value) public canTransfer returns (bool success) {
         if (balances[_from] < _value || allowed[_from][msg.sender] < _value) {

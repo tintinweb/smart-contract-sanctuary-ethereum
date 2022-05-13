@@ -152,7 +152,7 @@ contract MultiSigWallet {
         public
         ownerExists(msg.sender)
         transactionExists(transactionId)
-   //     notConfirmed(transactionId, msg.sender) // removed because we do not need it, we&#39;d like to update confirmation status for delayed owner
+   //     notConfirmed(transactionId, msg.sender) // removed because we do not need it, we'd like to update confirmation status for delayed owner
     {
         if (msg.sender == delayedOwner)
         {

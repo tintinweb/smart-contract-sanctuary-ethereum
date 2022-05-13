@@ -79,7 +79,7 @@ contract ERC20 is ERC20Basic {
 contract TokenLoot is Ownable {
 
   // FIELDS
-  /* signer address, verified in &#39;receiveTokenLoot&#39; method, can be set by owner only */
+  /* signer address, verified in 'receiveTokenLoot' method, can be set by owner only */
   address public neverdieSigner;
   /* Nonces */
   mapping (address => uint256) public nonces;

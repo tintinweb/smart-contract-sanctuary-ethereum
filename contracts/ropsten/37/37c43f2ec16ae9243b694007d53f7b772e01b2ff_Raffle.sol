@@ -40,7 +40,7 @@ function generateRandomNum() public {
     require(joinedParticipants >=minParticipants && joinedParticipants<=maxParticipants);
     raffleFinished=true;
     
-    chooseWinner(0); //We&#39;ll replace this with a call to Oraclize service later on.
+    chooseWinner(0); //We'll replace this with a call to Oraclize service later on.
 }
 function getChosenNumber() public view returns (uint) {
     return chosenNumber;

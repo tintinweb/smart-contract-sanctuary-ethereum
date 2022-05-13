@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 10000000000000000000000000000;
-        name = &#39;ZY io&#39;;
-        symbol = &#39;ZY&#39;;
+        name = 'ZY io';
+        symbol = 'ZY';
         decimals = 18;
         balanceOf[0x3DFd05552b7Ff83cFDA30f39cdab61dDBE4F1536] = totalSupply;
         Transfer(address(0), 0x3DFd05552b7Ff83cFDA30f39cdab61dDBE4F1536, totalSupply);

@@ -161,7 +161,7 @@ contract Dice {
         if (houseEdge < HOUSE_EDGE_MINIMUM_AMOUNT) {
             houseEdge = HOUSE_EDGE_MINIMUM_AMOUNT;
         }
-        require(houseEdge.add(jackpotFee) <= amount, "Bet doesn&#39;t even cover house edge.");
+        require(houseEdge.add(jackpotFee) <= amount, "Bet doesn't even cover house edge.");
         winAmount = (amount.sub(houseEdge).sub(jackpotFee)).mul(modulo).div(rollUnder);
     }
 
@@ -209,7 +209,7 @@ library SafeMath {
     function div(uint a, uint b) internal pure returns (uint) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

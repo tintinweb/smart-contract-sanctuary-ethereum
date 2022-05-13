@@ -6,8 +6,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -24,7 +24,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -232,7 +232,7 @@ contract ERC1155 is IERC1155, IERC1155Extended, IERC1155BatchTransfer, IERC1155B
     }
 
     function approve(address _spender, uint256 _id, uint256 _currentValue, uint256 _value) external {
-        // if the allowance isn&#39;t 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
+        // if the allowance isn't 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
         require(_value == 0 || allowances[_id][msg.sender][_spender] == _currentValue);
         allowances[_id][msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _id, _currentValue, _value);

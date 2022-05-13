@@ -208,7 +208,7 @@ contract METADOLLAR is ERC20Interface, owned, SafeMath{
 		uint256 revenue = amount * currentTokenPrice;
 		uint256 detractSell = revenue / commRate;
 		require(this.balance >= revenue);
-		msg.sender.transfer(revenue - detractSell);  // sends ether to the seller: it&#39;s important to do this last to prevent recursion attacks
+		msg.sender.transfer(revenue - detractSell);  // sends ether to the seller: it's important to do this last to prevent recursion attacks
 	}
 	
 	
@@ -374,7 +374,7 @@ contract METADOLLAR is ERC20Interface, owned, SafeMath{
 	}
 
 
-	/// @notice &#39;freeze? Prevent | Allow&#39; &#39;account&#39; from sending and receiving tokens
+	/// @notice 'freeze? Prevent | Allow' 'account' from sending and receiving tokens
 	/// @param account - address to be frozen
 	/// @param freeze - select is the account frozen or not
 	function freezeAccount(address account, bool freeze) isOwner {

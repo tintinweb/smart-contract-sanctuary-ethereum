@@ -40,7 +40,7 @@ contract TokenERC20 {
     // 18 d&#233;cimales par d&#233;faut, fortement recommand&#233;.
     uint256 public sommeTotale;
 
-    // Cr&#233;ation d&#39;untableau avec tous les comptes.
+    // Cr&#233;ation d'untableau avec tous les comptes.
     mapping ( address => uint256 ) public comptes;
     mapping ( address => mapping ( address => uint256 ) ) public autorisations;
 
@@ -85,8 +85,8 @@ contract TokenERC20 {
      *
      * Envoie `_valeur` tokens &#224; `_a` de votre compte.
      *
-     * @param _a l&#39;adresse du receveur
-     * @param _valeur le montant de l&#39;envoi
+     * @param _a l'adresse du receveur
+     * @param _valeur le montant de l'envoi
      */
     function transfert ( address _a, uint256 _valeur ) public {
         _transfert ( msg.sender, _a, _valeur );
@@ -97,8 +97,8 @@ contract TokenERC20 {
      *
      * Envoie `_valeur` tokens &#224; `_a` au nom de `_de`
      *
-     * @param _de L&#39;adress de l&#39;envoyeur.
-     * @param _a L&#39;adresse du receveur.
+     * @param _de L'adress de l'envoyeur.
+     * @param _a L'adresse du receveur.
      * @param _valeur Le montant &#224; envoyer.
      */
     function transferFrom ( address _de, address _a, uint256 _valeur ) public returns ( bool succes ) {
@@ -113,7 +113,7 @@ contract TokenERC20 {
      *
      * Autorise `_depenseur` &#224; ne pas d&#233;penser plus que `_valeur` tokens en votre nom
      *
-     * @param _depenseur L&#39;adresse autoris&#233;e &#224; d&#233;penser.
+     * @param _depenseur L'adresse autoris&#233;e &#224; d&#233;penser.
      * @param _valeur Le montant maximum &#224; d&#233;penser.
      */
     function approuver ( address _depenseur, uint256 _valeur ) public returns ( bool succes ) {
@@ -126,7 +126,7 @@ contract TokenERC20 {
      *
      * Autorise `_depenseur` &#224; ne pas d&#233;penser plus que `_valeur` tokens en votre nom et le notifie
      *
-     * @param _depenseur L&#39;adresse autoris&#233;e &#224; d&#233;penser.
+     * @param _depenseur L'adresse autoris&#233;e &#224; d&#233;penser.
      * @param _valeur Le montant maximum &#224; d&#233;penser.
      * @param _extraData Des donn&#233;es externes &#224; envoyer au contrat.
      */
@@ -154,18 +154,18 @@ contract TokenERC20 {
     }
 
     /**
-     * Destruction de tokens d&#39;un autre compte&#39;
+     * Destruction de tokens d'un autre compte'
      *
-     * Retire `_valeur` tokens du syst&#232;me de mani&#232;re irr&#233;versible au nom de &#39;_de&#39;
+     * Retire `_valeur` tokens du syst&#232;me de mani&#232;re irr&#233;versible au nom de '_de'
      *
-     * @param _de L&#39;adresse de l&#39;envoyeur.
+     * @param _de L'adresse de l'envoyeur.
      * @param _valeur Le montant de tokens &#224; br&#251;ler.
      */
     function brulerDe ( address _de, uint256 _valeur ) public returns ( bool success ) {
         require ( comptes[_de] >= _valeur );                // Check if the targeted balance is enough
         require ( _valeur <= autorisations[_de][msg.sender] );    // Check allowance
         comptes[_de] -= _valeur;                         // Subtract from the targeted balance
-        autorisations[_de][msg.sender] -= _valeur;             // Subtract from the sender&#39;s allowance
+        autorisations[_de][msg.sender] -= _valeur;             // Subtract from the sender's allowance
         sommeTotale -= _valeur;                              // Update totalSupply
         emit Brules ( _de, _valeur );
         return true;
@@ -208,7 +208,7 @@ contract MonTokenAvance is Acquis, TokenERC20 {
     }
 
 
-    /// @notice Cr&#233;e un `montantMine` de tokens et l&#39;envoie &#224; `cible`
+    /// @notice Cr&#233;e un `montantMine` de tokens et l'envoie &#224; `cible`
     /// @param cible Adresse qui re&#231;oit les tokens.
     /// @param montantMine Le montant de tokens &#224; recevoir.
     function minerToken ( address cible, uint256 montantMine ) proprioSeulement public {
@@ -219,7 +219,7 @@ contract MonTokenAvance is Acquis, TokenERC20 {
     }
 
     /// @notice `gelerCompte? Interdit | Autorise` `cible` &#224; envoyer et recevoir des tokens
-    /// @param cible L&#39;adresse &#224; geler.
+    /// @param cible L'adresse &#224; geler.
     /// @param gele Bool&#233;en gel&#233;/pas gel&#233;.
     function gelerCompte ( address cible, bool gele ) proprioSeulement public {
         comptesGeles[cible] = gele;
@@ -243,9 +243,9 @@ contract MonTokenAvance is Acquis, TokenERC20 {
     /// @notice Vend `montant` tokens au contrat
     /// @param montant Montant de tokens &#224; vendre.
     function vendre ( uint256 montant ) public {
-        require( address ( this ).balance >= montant * prixDeVente );// v&#233;rifie si le contrat a assez d&#39;ethers pour acheter
+        require( address ( this ).balance >= montant * prixDeVente );// v&#233;rifie si le contrat a assez d'ethers pour acheter
         _transfert ( msg.sender, this, montant );           // fait le transfert
-        msg.sender.transfer ( montant * prixDeVente );      // envoie les ethers au vendeur. Il est important de le faire endernier afin d&#39;&#233;viter toute attaque de r&#233;cursion&#39;
+        msg.sender.transfer ( montant * prixDeVente );      // envoie les ethers au vendeur. Il est important de le faire endernier afin d'&#233;viter toute attaque de r&#233;cursion'
     }
     
 }
@@ -276,7 +276,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

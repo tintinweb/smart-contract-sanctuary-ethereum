@@ -30,7 +30,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 }
@@ -110,7 +110,7 @@ contract StandardToken is ERC20, BasicToken {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -191,9 +191,9 @@ contract FourArt is StandardToken, Owned {
     mapping (address => bool) private TeamAdviserPartner;
 
     //Years
-    uint32 public constant firstYear = 1543536000; /// seconds since 01.01.1970 to 28.09.2018 (18:00:00 o&#39;clock GMT) saleEndDate + 1 year
-    uint32 public constant secondYear = 1569628800; /// seconds since 01.01.1970 to 28.09.2019 (18:00:00 o&#39;clock GMT) saleEndDate + 2 year
-    uint32 public constant thirdYear = 1601251200; /// seconds since 01.01.1970 to 28.09.2020 (18:00:00 o&#39;clock GMT) saleEndDate + 2 year
+    uint32 public constant firstYear = 1543536000; /// seconds since 01.01.1970 to 28.09.2018 (18:00:00 o'clock GMT) saleEndDate + 1 year
+    uint32 public constant secondYear = 1569628800; /// seconds since 01.01.1970 to 28.09.2019 (18:00:00 o'clock GMT) saleEndDate + 2 year
+    uint32 public constant thirdYear = 1601251200; /// seconds since 01.01.1970 to 28.09.2020 (18:00:00 o'clock GMT) saleEndDate + 2 year
 
     //FounderAddress1 is main founder
     address private FounderAddress1 = 0xc2e9248160EE2f77D69611fA45a36F941EAfC1ca;
@@ -249,7 +249,7 @@ contract FourArt is StandardToken, Owned {
     /// @notice Buy tokens from contract by sending ether
     function buy() payable public {
         // This will work after lisitng coin on exchange
-        require(now > 1543536000); /// seconds since 01.01.1970 to 30.11.2018 (18:00:00 o&#39;clock GMT)
+        require(now > 1543536000); /// seconds since 01.01.1970 to 30.11.2018 (18:00:00 o'clock GMT)
         uint amount = msg.value.div(buyPrice);       /// calculates the amount
         _transfer(owner, msg.sender, amount.mul(1e18));   /// makes the transfers
     }
@@ -258,7 +258,7 @@ contract FourArt is StandardToken, Owned {
     /// @param amount of tokens to be sold
     function sell(uint256 amount) public {
         // This will work after lisitng coin on exchange
-        require(now > 1543536000); /// seconds since 01.01.1970 to 30.11.2018 (18:00:00 o&#39;clock GMT) 
+        require(now > 1543536000); /// seconds since 01.01.1970 to 30.11.2018 (18:00:00 o'clock GMT) 
         require(amount > 0);
         require(balances[msg.sender] >= amount);
         uint256 requiredBalance = (amount.mul(sellPrice));

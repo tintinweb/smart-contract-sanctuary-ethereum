@@ -33,11 +33,11 @@ contract ClockAuctionBase {
   ERC721Basic public nfContract;
 
   /*
-  * @dev The owner&#39;s cut on each auction, measured in 1/100 of a percent
+  * @dev The owner's cut on each auction, measured in 1/100 of a percent
   * 1 = 0,001%
   * 1000 = 1%
   * 10000 = 10%
-  * 10&#39;000 = 100%;
+  * 10'000 = 100%;
   */
   uint256 public ownerCut;
 
@@ -67,7 +67,7 @@ contract ClockAuctionBase {
   );
 
   /*
-  * @dev Checks ownership of a token (uses the ERC721&#39; ownerOf() function)
+  * @dev Checks ownership of a token (uses the ERC721' ownerOf() function)
   */
   function _owns(address _address, uint256 _tokenId)
   internal view returns (bool)
@@ -147,7 +147,7 @@ contract ClockAuctionBase {
 
     // Transfer winnings to the seller
     if (price > 0) {
-      // Compute the owner&#39;s cut
+      // Compute the owner's cut
       // _computeCut is guaranteed to return a value <= price
       uint256 auctioneerCut = _computeCut(price);
       uint256 sellerProceeds = price - auctioneerCut;
@@ -234,7 +234,7 @@ contract ClockAuctionBase {
   }
 
   /*
-  * @dev Computes the owner&#39;s cut of an auction sale
+  * @dev Computes the owner's cut of an auction sale
   */
   function _computeCut(uint256 _price)
   internal

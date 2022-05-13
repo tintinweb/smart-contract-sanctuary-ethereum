@@ -1,7 +1,7 @@
 pragma solidity ^0.4.25;
 
 // ----------------------------------------------------------------------------
-// BokkyPooBah&#39;s Pricefeed from a single source
+// BokkyPooBah's Pricefeed from a single source
 //
 // Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2018. The MIT Licence.
 // ----------------------------------------------------------------------------

@@ -718,7 +718,7 @@ contract FraudChallengable is Ownable {
  *
  * Compliant with the Hubii Nahmii specification v0.12.
  *
- * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin&#39;s SafeMath library
+ * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin's SafeMath library
  */
 
 
@@ -2386,7 +2386,7 @@ contract ConfigurableOperational is Configurable {
  *
  * Compliant with the Hubii Nahmii specification v0.12.
  *
- * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin&#39;s SafeMath library
+ * Copyright (C) 2017-2018 Hubii AS based on Open-Zeppelin's SafeMath library
  */
 
 
@@ -2413,7 +2413,7 @@ library SafeMathUintLib {
     {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -3588,14 +3588,14 @@ contract Validatable is Ownable {
  * @notice A recipient of ethers and tokens
  */
 contract Beneficiary {
-    /// @notice Receive ethers to the given wallet&#39;s given balance type
+    /// @notice Receive ethers to the given wallet's given balance type
     /// @param wallet The address of the concerned wallet
     /// @param balanceType The target balance type of the wallet
     function receiveEthersTo(address wallet, string memory balanceType)
     public
     payable;
 
-    /// @notice Receive token to the given wallet&#39;s given balance type
+    /// @notice Receive token to the given wallet's given balance type
     /// @dev The wallet must approve of the token transfer prior to calling this function
     /// @param wallet The address of the concerned wallet
     /// @param balanceType The target balance type of the wallet
@@ -5182,7 +5182,7 @@ contract AuthorizableServable is Servable {
 
 /**
  * @title Wallet locker
- * @notice An ownable to lock and unlock wallets&#39; balance holdings of specific currency(ies)
+ * @notice An ownable to lock and unlock wallets' balance holdings of specific currency(ies)
  */
 contract WalletLocker is Ownable, Configurable, AuthorizableServable {
     using SafeMathUintLib for uint256;
@@ -5247,7 +5247,7 @@ contract WalletLocker is Ownable, Configurable, AuthorizableServable {
     // Functions
     // -----------------------------------------------------------------------------------------------------------------
 
-    /// @notice Lock the given locked wallet&#39;s fungible amount of currency on behalf of the given locker wallet
+    /// @notice Lock the given locked wallet's fungible amount of currency on behalf of the given locker wallet
     /// @param lockedWallet The address of wallet that will be locked
     /// @param lockerWallet The address of wallet that locks
     /// @param amount The amount to be locked
@@ -5292,7 +5292,7 @@ contract WalletLocker is Ownable, Configurable, AuthorizableServable {
         emit LockFungibleByProxyEvent(lockedWallet, lockerWallet, amount, currencyCt, currencyId, visibleTimeoutInSeconds);
     }
 
-    /// @notice Lock the given locked wallet&#39;s non-fungible IDs of currency on behalf of the given locker wallet
+    /// @notice Lock the given locked wallet's non-fungible IDs of currency on behalf of the given locker wallet
     /// @param lockedWallet The address of wallet that will be locked
     /// @param lockerWallet The address of wallet that locks
     /// @param ids The IDs to be locked
@@ -5337,7 +5337,7 @@ contract WalletLocker is Ownable, Configurable, AuthorizableServable {
         emit LockNonFungibleByProxyEvent(lockedWallet, lockerWallet, ids, currencyCt, currencyId, visibleTimeoutInSeconds);
     }
 
-    /// @notice Unlock the given locked wallet&#39;s fungible amount of currency previously
+    /// @notice Unlock the given locked wallet's fungible amount of currency previously
     /// locked by the given locker wallet
     /// @param lockedWallet The address of the locked wallet
     /// @param lockerWallet The address of the locker wallet
@@ -5365,7 +5365,7 @@ contract WalletLocker is Ownable, Configurable, AuthorizableServable {
         emit UnlockFungibleEvent(lockedWallet, lockerWallet, amount, currencyCt, currencyId);
     }
 
-    /// @notice Unlock by proxy the given locked wallet&#39;s fungible amount of currency previously
+    /// @notice Unlock by proxy the given locked wallet's fungible amount of currency previously
     /// locked by the given locker wallet
     /// @param lockedWallet The address of the locked wallet
     /// @param lockerWallet The address of the locker wallet
@@ -5389,7 +5389,7 @@ contract WalletLocker is Ownable, Configurable, AuthorizableServable {
         emit UnlockFungibleByProxyEvent(lockedWallet, lockerWallet, amount, currencyCt, currencyId);
     }
 
-    /// @notice Unlock the given locked wallet&#39;s non-fungible IDs of currency previously
+    /// @notice Unlock the given locked wallet's non-fungible IDs of currency previously
     /// locked by the given locker wallet
     /// @param lockedWallet The address of the locked wallet
     /// @param lockerWallet The address of the locker wallet
@@ -5417,7 +5417,7 @@ contract WalletLocker is Ownable, Configurable, AuthorizableServable {
         emit UnlockNonFungibleEvent(lockedWallet, lockerWallet, ids, currencyCt, currencyId);
     }
 
-    /// @notice Unlock by proxy the given locked wallet&#39;s non-fungible IDs of currency previously
+    /// @notice Unlock by proxy the given locked wallet's non-fungible IDs of currency previously
     /// locked by the given locker wallet
     /// @param lockedWallet The address of the locked wallet
     /// @param lockerWallet The address of the locker wallet

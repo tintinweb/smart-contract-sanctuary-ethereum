@@ -85,7 +85,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -195,7 +195,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -305,12 +305,12 @@ contract Pausable is Ownable {
  */
 contract ElementToken is StandardToken, Pausable {
 
-  string public name = &#39;&#39;;               // Set the token name for display
-  string public symbol = &#39;&#39;;             // Set the token symbol for display
+  string public name = '';               // Set the token name for display
+  string public symbol = '';             // Set the token symbol for display
   uint8 public decimals = 0;             // Set the token symbol for display
 
   /**
-   * @dev Don&#39;t allow tokens to be sent to the contract
+   * @dev Don't allow tokens to be sent to the contract
    */
   modifier rejectTokensToContract(address _to) {
     require(_to != address(this));
@@ -469,7 +469,7 @@ contract AirdropComponent {
   }
 
   /**
-   * @dev Helper function that returns the timestamp for when a user&#39;s airdropped tokens will unlock
+   * @dev Helper function that returns the timestamp for when a user's airdropped tokens will unlock
    * @param _address address of airdropped user
    * @return uint256 timestamp
    */
@@ -521,7 +521,7 @@ contract AirdropComponent {
     // Check that the airdropped tokens are unlocked & matches the given withdraw amount
     require(
       airdrop.unlockTimestamp <= now,
-      "The airdrop hasn&#39;t unlocked yet");
+      "The airdrop hasn't unlocked yet");
 
     require(
       airdrop.amount == _amount,
@@ -612,7 +612,7 @@ contract StakingLockup is ERC900, AirdropComponent {
   // To save on gas, rather than create a separate mapping for totalStakedFor & personalStakes,
   //  both data structures are stored in a single mapping for a given addresses.
   //
-  // It&#39;s possible to have a non-existing personalStakes, but have tokens in totalStakedFor
+  // It's possible to have a non-existing personalStakes, but have tokens in totalStakedFor
   //  if other users are staking on behalf of a given address.
   mapping (address => StakeContainer) public stakeHolders;
 
@@ -766,7 +766,7 @@ contract StakingLockup is ERC900, AirdropComponent {
     // Check that the current stake has unlocked & matches the unstake amount
     require(
       personalStake.unlockedTimestamp <= now,
-      "The current stake hasn&#39;t unlocked yet");
+      "The current stake hasn't unlocked yet");
 
     require(
       personalStake.amount == _amount,
@@ -827,7 +827,7 @@ contract StakingLockup is ERC900, AirdropComponent {
 
     /**
    * @notice MUST return true if the optional history functions are implemented, otherwise false
-   * @dev Since we don&#39;t implement the optional interface, this always returns false
+   * @dev Since we don't implement the optional interface, this always returns false
    * @return bool Whether or not the optional history functions are implemented
    */
   function supportsHistory() public pure returns (bool) {

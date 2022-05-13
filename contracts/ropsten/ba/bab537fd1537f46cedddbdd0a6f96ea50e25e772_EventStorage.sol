@@ -245,7 +245,7 @@ contract GasMeterValidation {
     function validate(bytes, bytes) public {
         uint lim_before;
         uint lim_after;
-        bytes4 sel = bytes4(keccak256(&#39;ValidateEventStorage(bytes,bytes)&#39;));
+        bytes4 sel = bytes4(keccak256('ValidateEventStorage(bytes,bytes)'));
         bool success;
         assembly {
             let ptr_in := mload(0x40)

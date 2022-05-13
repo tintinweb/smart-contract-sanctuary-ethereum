@@ -25,7 +25,7 @@ contract AccountMngmt {
     function giveOwnership(uint _Acct, address _newowner) public {
         //ensure the message sender is the admin of the account
         require(Accounts[_Acct].AdminAddr == msg.sender, "You must be the account admin to transfer ownership");
-        //change the account&#39;s admin
+        //change the account's admin
         Accounts[_Acct].AdminAddr = _newowner;
     }
     function approveViewer(uint _Acct, address _User) public {
@@ -58,7 +58,7 @@ contract AccountMngmt {
         require(Accounts[_Acct].AdminAddr == msg.sender, "You must be the account admin to disallow writers");
         //ensure the specified user address belongs to the specified account address 
         require(Users[_User].AcctId == _Acct, "The specified user must belong to the account");
-        //remove the user&#39;s write access
+        //remove the user's write access
         Users[_User].CanWrite = false;
     }
     function ownerWithdraw(uint _Amount) public{

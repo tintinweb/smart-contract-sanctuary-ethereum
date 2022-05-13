@@ -107,8 +107,8 @@ contract TokenController {
 
 /// @title MiniMeToken Contract
 /// @author Jordi Baylina
-/// @dev This token contract&#39;s goal is to make it easy for anyone to clone this
-///  token using the token distribution at a given block, this will allow DAO&#39;s
+/// @dev This token contract's goal is to make it easy for anyone to clone this
+///  token using the token distribution at a given block, this will allow DAO's
 ///  and DApps to upgrade their features in a decentralized manner without
 ///  affecting the original token
 /// @dev It is ERC20 compliant, but still needs to under go further testing.
@@ -122,10 +122,10 @@ contract ApproveAndCallFallBack {
 ///  token owner contract, which Giveth will call a "Campaign"
 contract MiniMeToken is Ownable {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
-    string public version = &#39;MMT_0.2&#39;; //An arbitrary versioning scheme
+    string public version = 'MMT_0.2'; //An arbitrary versioning scheme
 
 
     /// @dev `Checkpoint` is the structure that attaches a block number to a
@@ -288,7 +288,7 @@ contract MiniMeToken is Ownable {
 
     }
 
-    /// @param _owner The address that&#39;s balance is being requested
+    /// @param _owner The address that's balance is being requested
     /// @return The balance of `_owner` at the current block
     function balanceOf(address _owner) public constant returns (uint256 balance) {
         return balanceOfAt(_owner, block.number);
@@ -563,7 +563,7 @@ contract MiniMeToken is Ownable {
         return a < b ? a : b;
     }
 
-    /// @notice The fallback function: If the contract&#39;s owner has not been
+    /// @notice The fallback function: If the contract's owner has not been
     ///  set to 0, then the `proxyPayment` method is called which relays the
     ///  ether and creates tokens as described in the token owner contract
     function () public payable {

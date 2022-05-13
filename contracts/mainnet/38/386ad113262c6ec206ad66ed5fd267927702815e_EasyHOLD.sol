@@ -32,7 +32,7 @@ pragma solidity ^0.4.24;
  *  22	    77,44
  *  23	    84,64
  *  24	    92,16
- *  25	    100     <- YOU&#39;ll get 100% if you HOLD for 25 days
+ *  25	    100     <- YOU'll get 100% if you HOLD for 25 days
  *  26	    108,16
  *  27	    116,64
  *  28	    125,44
@@ -42,7 +42,7 @@ pragma solidity ^0.4.24;
  *  32	    163,84
  *  33	    174,24
  *  34	    184,96
- *  35	    196     <- YOU&#39;ll get 200% if you HOLD for 35 days
+ *  35	    196     <- YOU'll get 200% if you HOLD for 35 days
  * AND SO ON
  *
  * How to use:

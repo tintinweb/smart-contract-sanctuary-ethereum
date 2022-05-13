@@ -1,7 +1,7 @@
 pragma solidity 0.4.21;
 
 // ----------------------------------------------------------------------------
-// TokenVesting for &#39;Digitize Coin&#39; project based on:
+// TokenVesting for 'Digitize Coin' project based on:
 // https://github.com/OpenZeppelin/zeppelin-solidity/blob/master/contracts/token/ERC20/TokenVesting.sol
 //
 // Radek Ostrowski / http://startonchain.com / https://digitizecoin.com
@@ -113,7 +113,7 @@ contract TokenVesting {
   }
 
   /**
-   * @dev Calculates the amount that has already vested but hasn&#39;t been released yet.
+   * @dev Calculates the amount that has already vested but hasn't been released yet.
    * @param _token ERC20 token which is being vested
    */
   function releasableAmount(CutdownToken _token) public view returns (uint256) {

@@ -223,7 +223,7 @@ contract FreezableToken is BasicToken
     view
     returns(uint)
     {
-        //If wallet don&#39;t have freezed tokens - function will return 0.
+        //If wallet don't have freezed tokens - function will return 0.
         return wallets[owner].unfreezeDate;
     }
     
@@ -307,7 +307,7 @@ contract Airdropper is MultisendableToken
     
     function finishAirdrops() public onlyOwner 
     {
-        // Can&#39;t finish airdrop before send all tokens for airdrop.
+        // Can't finish airdrop before send all tokens for airdrop.
         require(airdropDistributedTokensAmount == airdropTotalSupply);
         airdropFinished = true;
         emit AirdropFinished();

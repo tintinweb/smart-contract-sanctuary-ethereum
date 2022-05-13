@@ -14,7 +14,7 @@ library SafeMathLib{
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -150,7 +150,7 @@ contract LoveTracker is Ownable {
     }
     
     /**
-     * @dev An allowed address can transfer tokens from another&#39;s address.
+     * @dev An allowed address can transfer tokens from another's address.
      * @param _from The owner of the tokens to be transferred.
      * @param _to The address to which the tokens will be transferred.
      * @param _amount The amount of tokens to be transferred.
@@ -170,7 +170,7 @@ contract LoveTracker is Ownable {
     }
     
     /**
-     * @dev Approves a wallet to transfer tokens on one&#39;s behalf.
+     * @dev Approves a wallet to transfer tokens on one's behalf.
      * @param _spender The wallet approved to spend tokens.
      * @param _amount The amount of tokens approved to spend.
     **/
@@ -205,7 +205,7 @@ contract LoveTracker is Ownable {
     /**
      * @dev Called by delegate with a signed hash of the transaction data to allow a user
      * @dev to transfer tokens without paying gas in Ether (they pay in COIN instead).
-     * @param _nonce Nonce of the user&#39;s new transaction.
+     * @param _nonce Nonce of the user's new transaction.
      * @param _from The user that has signed the data and will have COIN transferred.
      * @param _to The address to transfer COIN to.
      * @param _value The amount of COIN to transfer.
@@ -447,7 +447,7 @@ contract LoveTracker is Ownable {
     }
     
     /**
-     * @dev Allowed amount for a user to spend of another&#39;s tokens.
+     * @dev Allowed amount for a user to spend of another's tokens.
      * @param _owner The owner of the tokens approved to spend.
      * @param _spender The address of the user allowed to spend the tokens.
     **/
@@ -488,8 +488,8 @@ contract LoveTracker is Ownable {
         assembly {
             r := mload(add(sig, 32))
             s := mload(add(sig, 64))
-            // Here we are loading the last 32 bytes. We exploit the fact that &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // Here we are loading the last 32 bytes. We exploit the fact that 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
         }
         // Albeit non-transactional signatures are not specified by the YP, one would expect it to match the YP range of [27, 28]

@@ -657,7 +657,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -699,7 +699,7 @@ contract usingOraclize {
                 res[ctr] = 0x5F;
                 ctr++;
                 for (uint x = 0; x < elemArray[i].length; x++) {
-                    // if there&#39;s a bug with larger strings, this may be the culprit
+                    // if there's a bug with larger strings, this may be the culprit
                     if (x % 23 == 0) {
                         uint elemcborlen = elemArray[i].length - x >= 24 ? 23 : elemArray[i].length - x;
                         elemcborlen += 0x40;
@@ -844,7 +844,7 @@ contract usingOraclize {
     }
 
     modifier oraclize_randomDS_proofVerify(bytes32 _queryId, string _result, bytes _proof) {
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         require((_proof[0] == "L") && (_proof[1] == "P") && (_proof[2] == 1));
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -854,7 +854,7 @@ contract usingOraclize {
     }
 
     function oraclize_randomDS_proofVerify__returnCode(bytes32 _queryId, string _result, bytes _proof) internal returns (uint8){
-        // Step 1: the prefix has to match &#39;LP\x01&#39; (Ledger Proof version 1)
+        // Step 1: the prefix has to match 'LP\x01' (Ledger Proof version 1)
         if ((_proof[0] != "L")||(_proof[1] != "P")||(_proof[2] != 1)) return 1;
 
         bool proofVerified = oraclize_randomDS_proofVerify__main(_proof, _queryId, bytes(_result), oraclize_getNetworkName());
@@ -886,7 +886,7 @@ contract usingOraclize {
         bytes memory sig1 = new bytes(uint(proof[ledgerProofLength+(32+8+1+32)+1])+2);
         copyBytes(proof, ledgerProofLength+(32+8+1+32), sig1.length, sig1, 0);
 
-        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if &#39;result&#39; is the prefix of sha256(sig1)
+        // Step 3: we assume sig1 is valid (it will be verified during step 5) and we verify if 'result' is the prefix of sha256(sig1)
         if (!matchBytes32Prefix(sha256(sig1), result, uint(proof[ledgerProofLength+32+8]))) return false;
 
         // Step 4: commitment match verification, keccak256(delay, nbytes, unonce, sessionKeyHash) == commitment in storage.
@@ -909,7 +909,7 @@ contract usingOraclize {
         copyBytes(proof, ledgerProofLength, 32+8+1+32, tosign1, 0);
         if (!verifySig(sha256(tosign1), sig1, sessionPubkey)) return false;
 
-        // verify if sessionPubkeyHash was verified already, if not.. let&#39;s do it!
+        // verify if sessionPubkeyHash was verified already, if not.. let's do it!
         if (oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] == false){
             oraclize_randomDS_sessionKeysHashVerified[sessionPubkeyHash] = oraclize_randomDS_proofVerify__sessionKeyValidity(proof, sig2offset);
         }
@@ -941,15 +941,15 @@ contract usingOraclize {
     }
 
     // the following function has been written by Alex Beregszaszi (@axic), use it under the terms of the MIT license
-    // Duplicate Solidity&#39;s ecrecover, but catching the CALL return value
+    // Duplicate Solidity's ecrecover, but catching the CALL return value
     function safer_ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) internal returns (bool, address) {
         // We do our own memory management here. Solidity uses memory offset
         // 0x40 to store the current end of memory. We write past it (as
-        // writes are memory extensions), but don&#39;t update the offset so
+        // writes are memory extensions), but don't update the offset so
         // Solidity will reuse it. The memory used here is only needed for
         // this context.
 
-        // FIXME: inline assembly can&#39;t access return values
+        // FIXME: inline assembly can't access return values
         bool ret;
         address addr;
 
@@ -986,13 +986,13 @@ contract usingOraclize {
             s := mload(add(sig, 64))
 
             // Here we are loading the last 32 bytes. We exploit the fact that
-            // &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
 
             // Alternative solution:
-            // &#39;byte&#39; is not working due to the Solidity parser, so lets
-            // use the second best option, &#39;and&#39;
+            // 'byte' is not working due to the Solidity parser, so lets
+            // use the second best option, 'and'
             // v := and(mload(add(sig, 65)), 255)
         }
 
@@ -1203,7 +1203,7 @@ contract EOSBetBankroll is ERC20, EOSBetBankrollInterface {
 		else {
 			// edge case where ALL money was cashed out from bankroll
 			// so currentSupplyOfTokens == 0
-			// currentTotalBankroll can == 0 or not, if someone mines/selfdestruct&#39;s to the contract
+			// currentTotalBankroll can == 0 or not, if someone mines/selfdestruct's to the contract
 			// but either way, give all the bankroll to person who deposits ether
 			creditedTokens = SafeMath.mul(contributedEther, 100);
 		}
@@ -1297,7 +1297,7 @@ contract EOSBetBankroll is ERC20, EOSBetBankrollInterface {
 		//		new bets as well. This does not mean that bettors will lose their money without recompense. They will be allowed to call the 
 		// 		"refund" function in the respective game smart contract once payouts are un-frozen.
 		// 4. Finally, the owner can modify and withdraw the developers reward, which will fund future development, including new games, a sexier frontend,
-		// 		and TRUE DAO governance so that onlyOwner functions don&#39;t have to exist anymore ;) and in order to effectively react to changes 
+		// 		and TRUE DAO governance so that onlyOwner functions don't have to exist anymore ;) and in order to effectively react to changes 
 		// 		in the market (lower the percentage because of increased competition in the blockchain casino space, etc.)
 
 	function transferOwnership(address newOwner) public {
@@ -1356,8 +1356,8 @@ contract EOSBetBankroll is ERC20, EOSBetBankrollInterface {
 		return balances[_owner];
 	}
 
-	// don&#39;t allow transfers before the required wait-time
-	// and don&#39;t allow transfers to this contract addr, it&#39;ll just kill tokens
+	// don't allow transfers before the required wait-time
+	// and don't allow transfers to this contract addr, it'll just kill tokens
 	function transfer(address _to, uint256 _value) public returns (bool success){
 		require(balances[msg.sender] >= _value 
 			&& contributionTime[msg.sender] + WAITTIMEUNTILWITHDRAWORTRANSFER <= block.timestamp
@@ -1373,8 +1373,8 @@ contract EOSBetBankroll is ERC20, EOSBetBankrollInterface {
 		return true;
 	}
 
-	// don&#39;t allow transfers before the required wait-time
-	// and don&#39;t allow transfers to the contract addr, it&#39;ll just kill tokens
+	// don't allow transfers before the required wait-time
+	// and don't allow transfers to the contract addr, it'll just kill tokens
 	function transferFrom(address _from, address _to, uint _value) public returns(bool){
 		require(allowed[_from][msg.sender] >= _value 
 			&& balances[_from] >= _value 
@@ -1433,7 +1433,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -1660,7 +1660,7 @@ contract EOSBetDice is usingOraclize, EOSBetGameInterface {
 			&& data.etherReceived > 0
 			&& REFUNDSACTIVE);
 
-		// set paidout == true, so users can&#39;t request more refunds, and a super delayed oraclize __callback will just get reverted
+		// set paidout == true, so users can't request more refunds, and a super delayed oraclize __callback will just get reverted
 		diceData[oraclizeQueryId].paidOut = true;
 
 		// subtract etherReceived because the bet is being refunded
@@ -1695,7 +1695,7 @@ contract EOSBetDice is usingOraclize, EOSBetGameInterface {
 
 		uint256 gasToSend = INITIALGASFORORACLIZE + (uint256(1005) * rolls);
 
-		EOSBetBankrollInterface(BANKROLLER).payOraclize(oraclize_getPrice(&#39;random&#39;, gasToSend));
+		EOSBetBankrollInterface(BANKROLLER).payOraclize(oraclize_getPrice('random', gasToSend));
 
 		// oraclize_newRandomDSQuery(delay in seconds, bytes of random data, gas for callback function)
 		bytes32 oraclizeQueryId = oraclize_newRandomDSQuery(0, 30, gasToSend);

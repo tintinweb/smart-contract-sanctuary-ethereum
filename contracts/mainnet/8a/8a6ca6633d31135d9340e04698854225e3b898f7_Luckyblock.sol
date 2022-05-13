@@ -155,7 +155,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an address&#39; access to this role
+   * @dev remove an address' access to this role
    */
   function remove(Role storage _role, address _addr)
     internal
@@ -307,7 +307,7 @@ contract Superuser is Ownable, RBAC {
   }
 
   /**
-   * @dev Throws if called by any account that&#39;s not a superuser.
+   * @dev Throws if called by any account that's not a superuser.
    */
   modifier onlySuperuser() {
     checkRole(msg.sender, ROLE_SUPERUSER);
@@ -361,7 +361,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -721,14 +721,14 @@ contract Luckyblock is Superuser, Pausable, ILuckyblock {
     
     require(!_luckyblockBase.ended, "luckyblock is ended");
 
-    // check sender&#39;s ether balance 
+    // check sender's ether balance 
     require(msg.value >= _luckyblockSpend.spendEtherCount, "sender value not enough");
 
     // check spend
     if (_luckyblockSpend.spendTokenAddresses[0] != address(0x0)) {
       for (uint8 i = 0; i < _luckyblockSpend.spendTokenAddresses.length; i++) {
 
-        // check sender&#39;s erc20 balance 
+        // check sender's erc20 balance 
         require(
           ERC20Interface(
             _luckyblockSpend.spendTokenAddresses[i]
@@ -751,7 +751,7 @@ contract Luckyblock is Superuser, Pausable, ILuckyblock {
     if (_luckyblockEarn.earnTokenAddresses[0] !=
       address(0x0)) {
       for (uint8 j= 0; j < _luckyblockEarn.earnTokenAddresses.length; j++) {
-        // check sender&#39;s erc20 balance 
+        // check sender's erc20 balance 
         uint256 earnTokenCount = _luckyblockEarn.earnTokenCount[j];
         require(
           ERC20Interface(_luckyblockEarn.earnTokenAddresses[j])

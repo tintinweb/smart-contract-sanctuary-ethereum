@@ -20,7 +20,7 @@ contract ConsoToken {
         totalSupply = 100000;
         balanceOf[msg.sender] = totalSupply;
         name = "Conso Coin";
-        symbol = &#39;CCN&#39;;
+        symbol = 'CCN';
     }
 
     function _transfer(address _from, address _to, uint _value) internal {

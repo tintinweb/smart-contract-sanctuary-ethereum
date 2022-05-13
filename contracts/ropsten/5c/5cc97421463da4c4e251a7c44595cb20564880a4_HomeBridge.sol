@@ -339,7 +339,7 @@ contract ForeignBridge {
     /// Transfer `value` to `recipient` on this `foreign` chain.
     ///
     /// does not affect `home` chain. does not do a relay.
-    /// as specificed in ERC20 this doesn&#39;t fail if tokens == 0.
+    /// as specificed in ERC20 this doesn't fail if tokens == 0.
     function transfer(address recipient, uint256 tokens) public returns (bool) {
         require(balances[msg.sender] >= tokens);
         // fails if there is an overflow
@@ -459,7 +459,7 @@ contract ForeignBridge {
         // Protection from misbehaving authority
         var hash = keccak256(recipient, value, transactionHash);
 
-        // don&#39;t allow authority to confirm deposit twice
+        // don't allow authority to confirm deposit twice
         require(!Helpers.addressArrayContains(deposits[hash], msg.sender));
 
         deposits[hash].push(msg.sender);
@@ -491,7 +491,7 @@ contract ForeignBridge {
     /// which transfers `value - relayCost` to `recipient` completing the transfer.
     function transferHomeViaRelay(address recipient, uint256 value, uint256 homeGasPrice) public {
         require(balances[msg.sender] >= value);
-        // don&#39;t allow 0 value transfers to home
+        // don't allow 0 value transfers to home
         require(value > 0);
 
         uint256 estimatedWeiCostOfWithdraw = estimatedGasCostOfWithdraw * homeGasPrice;

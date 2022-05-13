@@ -1,12 +1,12 @@
 pragma solidity ^0.4.24;
 
-/* You&#39;ve seen all of this before. Here are the differences.
+/* You've seen all of this before. Here are the differences.
 
-// A. A quarter of your clones die when you sell ideas. Market saturation, y&#39;see?
-// B. You can "become" Norsefire and take the dev fees, since he&#39;s involved in everything.
+// A. A quarter of your clones die when you sell ideas. Market saturation, y'see?
+// B. You can "become" Norsefire and take the dev fees, since he's involved in everything.
 // B. 1. The Norsefire boon is a hot potato. If someone else buys it off you, you profit.
 // B. 2. When Norsefire flips, we actually send him 5% of the increase. You receive 50%, the contract receives the other 45%.
-// C. You get your &#39;free&#39; clones for 0.00232 Ether, because throwbaaaaaack.
+// C. You get your 'free' clones for 0.00232 Ether, because throwbaaaaaack.
 // D. Referral rates have been dropped to 5% instead of 20%. The referral target must have bought in.
 // E. The generation rate of ideas have been halved, as a sign of my opinion of the community at large.
 // F. God knows this will probably be successful in spite of myself.
@@ -112,7 +112,7 @@ contract CloneWars {
         uint256 hasIdeas        = getMyIdeas();
         uint256 ideaValue       = calculateIdeaSell(hasIdeas);
         uint256 fee             = devFee(ideaValue);
-        // Destroy a quarter the owner&#39;s clones when selling ideas thanks to market saturation.
+        // Destroy a quarter the owner's clones when selling ideas thanks to market saturation.
         arrayOfClones[_caller]  = (arrayOfClones[msg.sender].div(4)).mul(3);
         claimedIdeas[_caller]   = 0;
         lastDeploy[_caller]     = now;
@@ -214,7 +214,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

@@ -5,8 +5,8 @@ contract CrackMe {
  event Won() ;
  event Try(bytes32 b32Candidate);
  //bytes32 challenge=hex"fc4b2e93d9ec97f3942d6c2532d5953555b2748c679b25c26956a91622fdb3d0";
- bytes32 b32Salt=&#39;&#39;;
- bytes32 b32SaltedChallenge=&#39;&#39;;
+ bytes32 b32Salt='';
+ bytes32 b32SaltedChallenge='';
  string sBadAnswer="Wrong answer!";
  
  constructor(bytes __bChallenge) public {

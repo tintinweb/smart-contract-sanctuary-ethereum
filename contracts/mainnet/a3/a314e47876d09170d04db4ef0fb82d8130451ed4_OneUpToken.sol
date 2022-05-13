@@ -136,8 +136,8 @@ contract OneUpToken is StandardToken {
   function() payable {
     require(msg.value >= 1 finney);
 
-    // Try to move yoshicoins into this contract&#39;s address. They will no
-    // longer be usable since this contract can&#39;t spend them.
+    // Try to move yoshicoins into this contract's address. They will no
+    // longer be usable since this contract can't spend them.
     require(yoshicoin.transferFrom(msg.sender, this, 5));
 
     totalSupply = safeAdd(totalSupply, 1);

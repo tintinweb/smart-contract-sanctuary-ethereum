@@ -117,7 +117,7 @@ contract BasicKNOW is ERC223 {
         return _totalSupply;
     }
         
-    /// @dev Gets account&#39;s balance
+    /// @dev Gets account's balance
     /// @param _addr Address of the account
     /// @return Account balance
     function balanceOf(address _addr) 

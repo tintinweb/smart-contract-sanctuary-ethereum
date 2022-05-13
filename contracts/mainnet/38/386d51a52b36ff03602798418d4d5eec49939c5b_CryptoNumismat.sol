@@ -3,7 +3,7 @@ contract CryptoNumismat
 {
     address owner;
 
-    string public standard = &#39;CryptoNumismat&#39;;
+    string public standard = 'CryptoNumismat';
     string public name;
     string public symbol;
     uint8 public decimals;

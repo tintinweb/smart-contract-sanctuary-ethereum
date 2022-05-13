@@ -222,10 +222,10 @@ contract Token {
 */
 contract AxelToken is ERC20Token {
 
-    string public name = &#39;PIZZA-AIRDROP&#39;;
+    string public name = 'PIZZA-AIRDROP';
     uint8 public decimals = 18;
-    string public symbol = &#39;PIZZA&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'PIZZA';
+    string public version = '1';
 
     /**
     * @notice token contructor.  250000000
@@ -268,7 +268,7 @@ contract AxelToken is ERC20Token {
     }
 
     /**
-    * @notice this contract will revert on direct non-function calls, also it&#39;s not payable
+    * @notice this contract will revert on direct non-function calls, also it's not payable
     * @dev Function to handle callback calls to contract
     */
     function() public {

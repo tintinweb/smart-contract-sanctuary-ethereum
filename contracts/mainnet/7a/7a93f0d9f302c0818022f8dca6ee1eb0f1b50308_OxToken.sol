@@ -299,7 +299,7 @@ contract OxToken is StandardToken, LimitedTransferToken, Ownable {
 
     totalSupply = totalSupply.add(tokens);
 
-    //Don&#39;t allow totalSupply to be larger than MAX_SUPPLY
+    //Don't allow totalSupply to be larger than MAX_SUPPLY
     if (totalSupply > MAX_SUPPLY) {
       throw;
     }

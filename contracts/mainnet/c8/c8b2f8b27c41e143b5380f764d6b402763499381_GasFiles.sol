@@ -58,9 +58,9 @@ contract GasFiles is owned,IERC20{
     
     uint256 public constant _totalSupply = 10000000000000000;
  
-    string public constant symbol = &#39;GAS&#39;;
+    string public constant symbol = 'GAS';
 
-    string public constant name = &#39;Gas Files&#39;;
+    string public constant name = 'Gas Files';
     
     uint8 public constant decimals = 8;
     

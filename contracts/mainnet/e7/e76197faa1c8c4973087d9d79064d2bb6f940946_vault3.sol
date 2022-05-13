@@ -5,7 +5,7 @@ contract vault3 {
     address public account2;
     address public account3;
 
-    // There&#39;s only one God account1
+    // There's only one God account1
     // with the only extra privilege to change account2 or account3
     modifier onlyGod() {
         require(msg.sender == account1, "You are not God");

@@ -412,7 +412,7 @@ contract ESCCrowdsale is Ownable {
 
   // send ether to the fund collection wallet
   // override to create custom fund forwarding mechanisms...
-  // We&#39;re overriding the fund forwarding from Crowdsale.
+  // We're overriding the fund forwarding from Crowdsale.
   // In addition to sending the funds, we want to call
   // the RefundVault deposit function
   function forwardFunds() internal {
@@ -438,7 +438,7 @@ contract ESCCrowdsale is Ownable {
     
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);

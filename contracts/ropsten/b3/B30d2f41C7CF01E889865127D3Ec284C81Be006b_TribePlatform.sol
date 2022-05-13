@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -149,7 +149,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -254,7 +254,7 @@ contract OwnableChild {
 contract ERC20Metadata {
 	string public name;
     string public symbol;
-    string public tokenURIPrefix = &#39;https://backend.tribe.wtf/meta/tribe/&#39;;
+    string public tokenURIPrefix = 'https://backend.tribe.wtf/meta/tribe/';
 
     /// @notice A descriptive name for a collection of NFTs in this contract
     function name() external view returns (string _name){
@@ -519,7 +519,7 @@ contract Tribe is StandardToken, OwnableChild, ERC20Metadata
 
     /**
      * TODO: remove rounding errors
-     * TODO: check if simple payments can be made, and if the gas price is set automatically higher (default transaction don&#39;t work)
+     * TODO: check if simple payments can be made, and if the gas price is set automatically higher (default transaction don't work)
      * This default payment cannot be called by "transfer" or "send" from another contract (because of gas limitation, we need more gas for state change)
      * WORKAROUND: call "TRIBEADDRESS.call.value(WEIVALUE)()"
      */

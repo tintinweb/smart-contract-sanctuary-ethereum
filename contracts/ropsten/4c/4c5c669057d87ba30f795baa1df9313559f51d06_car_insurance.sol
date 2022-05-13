@@ -51,10 +51,10 @@ contract car_insurance{
     }
     
     
-    //apply compensation on user&#39;s side -> input car&#39;s info
+    //apply compensation on user's side -> input car's info
     function apply_compensation() public
     {
-        if(cars[msg.sender].license!=0) // checking if it&#39;s existing
+        if(cars[msg.sender].license!=0) // checking if it's existing
         {
             //if it exists then,
             cars[msg.sender].is_applied = true; // set applied status as true
@@ -69,7 +69,7 @@ contract car_insurance{
                 compensate(msg.sender);
                 reset_application(msg.sender);
             }
-            else{//if not, don&#39;t compensate, just reset &#39;
+            else{//if not, don't compensate, just reset '
                 reset_application(msg.sender);
             }
             

@@ -295,7 +295,7 @@ contract RajTestICO is owned, Killable {
         finalized = true;
         // Make tokens Transferable
         token.releaseTokenTransfer();
-        // Transfer Fund to owner&#39;s address
+        // Transfer Fund to owner's address
         receiver.transfer(this.balance);
     }
 }

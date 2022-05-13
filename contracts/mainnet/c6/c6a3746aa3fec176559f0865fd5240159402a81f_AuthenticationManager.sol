@@ -69,7 +69,7 @@ contract AuthenticationManager {
 
     /* Adds a user to our list of admins */
     function addAdmin(address _address) {
-        /* Ensure we&#39;re an admin */
+        /* Ensure we're an admin */
         if (!isCurrentAdmin(msg.sender))
             throw;
 
@@ -86,11 +86,11 @@ contract AuthenticationManager {
 
     /* Removes a user from our list of admins but keeps them in the history audit */
     function removeAdmin(address _address) {
-        /* Ensure we&#39;re an admin */
+        /* Ensure we're an admin */
         if (!isCurrentAdmin(msg.sender))
             throw;
 
-        /* Don&#39;t allow removal of self */
+        /* Don't allow removal of self */
         if (_address == msg.sender)
             throw;
 
@@ -105,7 +105,7 @@ contract AuthenticationManager {
 
     /* Adds a user/contract to our list of account readers */
     function addAccountReader(address _address) {
-        /* Ensure we&#39;re an admin */
+        /* Ensure we're an admin */
         if (!isCurrentAdmin(msg.sender))
             throw;
 
@@ -122,7 +122,7 @@ contract AuthenticationManager {
 
     /* Removes a user/contracts from our list of account readers but keeps them in the history audit */
     function removeAccountReader(address _address) {
-        /* Ensure we&#39;re an admin */
+        /* Ensure we're an admin */
         if (!isCurrentAdmin(msg.sender))
             throw;
 

@@ -188,7 +188,7 @@ contract HomeBridge {
     /// Transfer `value` to `recipient` on this `foreign` chain.
     ///
     /// does not affect `home` chain. does not do a relay.
-    /// as specificed in ERC20 this doesn&#39;t fail if tokens == 0.
+    /// as specificed in ERC20 this doesn't fail if tokens == 0.
     function transfer(address recipient, uint256 tokens) public returns (bool) {
         require(balances[msg.sender] >= tokens);
         // fails if there is an overflow
@@ -352,7 +352,7 @@ contract ForeignBridge {
         // Protection from misbehaving authority
         var hash = keccak256(recipient, value, transactionHash);
 
-        // don&#39;t allow authority to confirm deposit twice
+        // don't allow authority to confirm deposit twice
         require(!Helpers.addressArrayContains(deposits[hash], msg.sender));
 
         deposits[hash].push(msg.sender);

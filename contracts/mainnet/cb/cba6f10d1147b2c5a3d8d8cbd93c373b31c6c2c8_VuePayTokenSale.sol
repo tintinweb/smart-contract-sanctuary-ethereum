@@ -53,7 +53,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -197,7 +197,7 @@ contract VuePayTokenSale is StandardToken, Ownable {
 	// Token data
 	string public constant name = "VuePay Token";
 	string public constant symbol = "VUP";
-	uint256 public constant decimals = 18;  // Since our decimals equals the number of wei per ether, we needn&#39;t multiply sent values when converting between VUP and ETH.
+	uint256 public constant decimals = 18;  // Since our decimals equals the number of wei per ether, we needn't multiply sent values when converting between VUP and ETH.
 	string public version = "1.0";
 	
 	// Addresses and contracts
@@ -374,7 +374,7 @@ contract VuePayTokenSale is StandardToken, Ownable {
 	function endICO() public onlyOwner{
 		// Do not end an already ended sale
 		require(!saleHasEnded);
-		// Can&#39;t end a sale that hasn&#39;t hit its minimum cap
+		// Can't end a sale that hasn't hit its minimum cap
 		require(minCapReached);
 		
 		saleHasEnded = true;
@@ -423,7 +423,7 @@ contract VuePayTokenSale is StandardToken, Ownable {
 
 	// Allows VuePay to withdraw funds
 	function withdrawFunds() public onlyOwner {
-		// Disallow withdraw if the minimum hasn&#39;t been reached
+		// Disallow withdraw if the minimum hasn't been reached
 		require(minCapReached);
 		require(this.balance > 0);
 		if(this.balance > 0) {

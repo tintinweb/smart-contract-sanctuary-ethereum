@@ -91,7 +91,7 @@ contract WTATokenPool is Ownable {
     bool active;
   }
 
-  // Player&#39;s time-locked safe to store tokens
+  // Player's time-locked safe to store tokens
   struct PlayerSafe {
     mapping (uint256 => uint256) lockValue;
     mapping (uint256 => uint256) lockTime;
@@ -271,7 +271,7 @@ contract WTATokenPool is Ownable {
     emit TokenLocked(_tid, _pid, _amount, lockTime);
   }
 
-  // show a player&#39;s allocated tokens
+  // show a player's allocated tokens
   function showPlayerSafeByAddress(address _addr, uint256 _tid) public view returns (uint256 _locked, uint256 _unlocked, uint256 _withdrawable) {
     uint256 pid = gamebook.getPlayerIdByAddress(_addr);
     require(pid > 0, "showPlayerSafeByAddress wrong");

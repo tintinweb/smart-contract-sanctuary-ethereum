@@ -93,7 +93,7 @@ contract IEstateRegistry {
  * the `migrationId`. Or, if the migration code must be applied only after
  * another migration has been already applied, use the `isMigration` modifier.
  * This helper supports multiple inheritance.
- * WARNING: It is the developer&#39;s responsibility to ensure that migrations are
+ * WARNING: It is the developer's responsibility to ensure that migrations are
  * applied in a correct order, or that they are run at all.
  * See `Initializable` for a simpler version.
  */
@@ -332,7 +332,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 

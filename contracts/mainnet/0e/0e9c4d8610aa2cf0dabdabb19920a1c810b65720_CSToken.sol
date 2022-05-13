@@ -27,11 +27,11 @@ contract CSToken is owned {
 	}
 
 	/* Public variables of the token */
-	string public standard = &#39;Token 0.1&#39;;
+	string public standard = 'Token 0.1';
 
-	string public name = &#39;KickCoin&#39;;
+	string public name = 'KickCoin';
 
-	string public symbol = &#39;KC&#39;;
+	string public symbol = 'KC';
 
 	uint8 public decimals = 8;
 

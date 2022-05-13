@@ -64,7 +64,7 @@ contract Axioms {
         airdrop.timeStamp=now;
         airdrop.distributor = msg.sender;
         airdrop.tokenSC = Token(_smartContract);
-       }else revert(&#39;Air Drop not added, Please make sure you send your ERC20 tokens to the smart contract before adding new airdrop&#39;);
+       }else revert('Air Drop not added, Please make sure you send your ERC20 tokens to the smart contract before adding new airdrop');
    }
 
     ///@notice  Distirbutes a differen quantity of tokens to all the specified addresses.

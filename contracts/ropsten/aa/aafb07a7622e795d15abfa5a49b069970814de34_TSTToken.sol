@@ -101,8 +101,8 @@ contract TSTToken is BaseToken, BurnToken, ICOToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000;
         balanceOf[0x6d9b27c9e4e361601efc6a740f045c41112d9224] = totalSupply;
-        name = &#39;TST Token&#39;;
-        symbol = &#39;TST&#39;;
+        name = 'TST Token';
+        symbol = 'TST';
         decimals = 18;
         icoRatio = 1;
         icoEndtime = 1575158400;

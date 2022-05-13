@@ -16,7 +16,7 @@ contract owned {
   }
 }
 
-// Kuberan Govender&#39;s ERC20 coin
+// Kuberan Govender's ERC20 coin
 contract Kuberand is owned
 {
   string  public name;

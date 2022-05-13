@@ -14,7 +14,7 @@ library SafeMath {
 	function div(uint256 a, uint256 b) internal pure returns (uint256) {
 		// assert(b > 0); // Solidity automatically throws when dividing by 0
 		uint256 c = a / b;
-		// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+		// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 		return c;
 	}
 
@@ -368,7 +368,7 @@ contract VernamCrowdSale is Ownable {
 		// Transfer Ethers
 		benecifiary.transfer(_weiAmount);
 		
-		// Stores the participant&#39;s contributed wei
+		// Stores the participant's contributed wei
 		contributedInWei[_participant] = contributedInWei[_participant].add(_weiAmount);
 		
 		// If it is in threeHotHours tokens will not be minted they will be stored in mapping threeHotHoursTokens
@@ -479,7 +479,7 @@ contract VernamCrowdSale is Ownable {
     }
 	
 	/** @dev Function which calculate tokens for every month (6 months).
-      * @param weiAmount Participant&#39;s contribution in wei.
+      * @param weiAmount Participant's contribution in wei.
       * @param currentLevelPrice Price of the tokens for the current level.
       * @param nextLevelPrice Price of the tokens for the next level.
       * @param currentLevelCap Current level cap in wei.

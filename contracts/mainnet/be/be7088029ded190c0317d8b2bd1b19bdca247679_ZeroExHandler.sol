@@ -349,8 +349,8 @@ contract ZeroExExchange is ZXSafeMath {
     */
 
     /// @dev Fills the input order.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @param fillTakerTokenAmount Desired amount of takerToken to fill.
     /// @param shouldThrowOnInsufficientBalanceOrAllowance Test if transfer will fail before attempting.
     /// @param v ECDSA signature parameter v.
@@ -468,8 +468,8 @@ contract ZeroExExchange is ZXSafeMath {
     }
 
     /// @dev Cancels the input order.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @param cancelTakerTokenAmount Desired amount of takerToken to cancel in order.
     /// @return Amount of takerToken cancelled.
     function cancelOrder(
@@ -528,8 +528,8 @@ contract ZeroExExchange is ZXSafeMath {
     */
 
     /// @dev Fills an order with specified parameters and ECDSA signature, throws if specified amount not filled entirely.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @param fillTakerTokenAmount Desired amount of takerToken to fill.
     /// @param v ECDSA signature parameter v.
     /// @param r ECDSA signature parameters r.
@@ -674,8 +674,8 @@ contract ZeroExExchange is ZXSafeMath {
     */
 
     /// @dev Calculates Keccak-256 hash of order with specified parameters.
-    /// @param orderAddresses Array of order&#39;s maker, taker, makerToken, takerToken, and feeRecipient.
-    /// @param orderValues Array of order&#39;s makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
+    /// @param orderAddresses Array of order's maker, taker, makerToken, takerToken, and feeRecipient.
+    /// @param orderValues Array of order's makerTokenAmount, takerTokenAmount, makerFee, takerFee, expirationTimestampInSec, and salt.
     /// @return Keccak-256 hash of order.
     function getOrderHash(address[5] orderAddresses, uint[6] orderValues)
         public
@@ -815,10 +815,10 @@ contract ZeroExExchange is ZXSafeMath {
                 || getAllowance(ZRX_TOKEN_CONTRACT, taker) < requiredTakerZRX
             ) return false;
 
-            if (!isMakerTokenZRX && (   getBalance(order.makerToken, order.maker) < fillMakerTokenAmount // Don&#39;t double check makerToken if ZRX
+            if (!isMakerTokenZRX && (   getBalance(order.makerToken, order.maker) < fillMakerTokenAmount // Don't double check makerToken if ZRX
                                      || getAllowance(order.makerToken, order.maker) < fillMakerTokenAmount)
             ) return false;
-            if (!isTakerTokenZRX && (   getBalance(order.takerToken, taker) < fillTakerTokenAmount // Don&#39;t double check takerToken if ZRX
+            if (!isTakerTokenZRX && (   getBalance(order.takerToken, taker) < fillTakerTokenAmount // Don't double check takerToken if ZRX
                                      || getAllowance(order.takerToken, taker) < fillTakerTokenAmount)
             ) return false;
         } else if (   getBalance(order.makerToken, order.maker) < fillMakerTokenAmount
@@ -881,7 +881,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -1080,8 +1080,8 @@ contract ZeroExHandler is ExchangeHandler, Ownable {
         uint256[6] orderValues
     ) internal returns (bool) {
         return (
-            (orderAddresses[1] == address(0) ||    // Order&#39;s taker is anybody
-            orderAddresses[1] == address(this)) && // Or the order&#39;s taker is this handler
+            (orderAddresses[1] == address(0) ||    // Order's taker is anybody
+            orderAddresses[1] == address(this)) && // Or the order's taker is this handler
             orderValues[3] == 0 &&                 // takerFees are 0
             orderValues[4] > block.timestamp       // Order is not expired
         );

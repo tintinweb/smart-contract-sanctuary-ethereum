@@ -76,14 +76,14 @@ contract EthernityFinancialOracle{
         (_gasPrice , _gasLimit) = payToOracle (_gasPrice , _gasLimit);
         users[msg.sender].callBack = _callBack;
         users[msg.sender].asked = true;
-        Request (&#39;ETH&#39;, &#39;USD&#39;, msg.sender , _gasPrice , _gasLimit );
+        Request ('ETH', 'USD', msg.sender , _gasPrice , _gasLimit );
     }
     
     function requestCoinToUSD(string _coin , bool _callBack , uint _gasPrice , uint _gasLimit) payable receivePayment notBanned {
     	(_gasPrice , _gasLimit) = payToOracle (_gasPrice , _gasLimit);
         users[msg.sender].callBack = _callBack;
         users[msg.sender].asked = true;
-        Request (_coin, &#39;USD&#39;, msg.sender , _gasPrice , _gasLimit );
+        Request (_coin, 'USD', msg.sender , _gasPrice , _gasLimit );
     }
     
     function requestRate(string _coin, string _againstCoin , bool _callBack , uint _gasPrice , uint _gasLimit) payable receivePayment notBanned {

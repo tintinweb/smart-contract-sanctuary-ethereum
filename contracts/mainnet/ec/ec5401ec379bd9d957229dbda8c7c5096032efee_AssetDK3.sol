@@ -1,7 +1,7 @@
 pragma solidity 0.4.21;
 /**
 * @notice DK3 TOKEN CONTRACT
-* The Messiah&#39;s Donkey Coin
+* The Messiah's Donkey Coin
 * The Basic Coin that will be used during the time of 3rd Temple in Jerusalem!
 * @dev ERC-20 Token Standar Compliant
 * @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="87e1a9e6e9f3e8e9eee8a9e6ece2ebc7e0eae6eeeba9e4e8ea">[email&#160;protected]</a>
@@ -157,10 +157,10 @@ contract ERC20Token is admined, ERC20TokenInterface { //Standar definition of an
 * @dev ERC20 Token
 */
 contract AssetDK3 is ERC20Token {
-    string public name =&#39;Donkey3&#39;;
+    string public name ='Donkey3';
     uint8 public decimals = 18;
-    string public symbol = &#39;DK3&#39;;
-    string public version = &#39;1&#39;;
+    string public symbol = 'DK3';
+    string public version = '1';
     
     /**
     * @notice token contructor.
@@ -186,7 +186,7 @@ contract AssetDK3 is ERC20Token {
 
     
     /**
-    * @notice this contract will revert on direct non-function calls, also it&#39;s not payable
+    * @notice this contract will revert on direct non-function calls, also it's not payable
     * @dev Function to handle callback calls to contract
     */
     function() public {

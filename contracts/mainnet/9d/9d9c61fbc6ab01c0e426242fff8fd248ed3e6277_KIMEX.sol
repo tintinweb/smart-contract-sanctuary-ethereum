@@ -43,7 +43,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -117,7 +117,7 @@ contract KIMEX is Owner {
     event Approval(address indexed owner, address indexed spender, uint256 value); // ERC20 standard event
     event Transfer(address indexed from, address indexed to, uint256 value); // ERC20 standard event
 
-    event ModifyWhiteList(address investorAddress, bool isWhiteListed);  // Add or remove investor&#39;s address to or from white list
+    event ModifyWhiteList(address investorAddress, bool isWhiteListed);  // Add or remove investor's address to or from white list
     event StartICO(uint state); // Start ICO sales
     event EndICO(uint state); // End ICO sales
     
@@ -126,8 +126,8 @@ contract KIMEX is Owner {
     
     event IssueTokens(address investorAddress, uint256 amount, uint256 tokenAmount, uint state); // Issue tokens to investor
     event RevokeTokens(address investorAddress, uint256 amount, uint256 tokenAmount, uint256 txFee); // Revoke tokens after ending ICO for incompleted KYC investors
-    event AllocateTokensForFounder(address founderAddress, uint256 founderAllocatedTime, uint256 tokenAmount); // Allocate tokens to founders&#39; address
-    event AllocateTokensForTeam(address teamAddress, uint256 teamAllocatedTime, uint256 tokenAmount); // Allocate tokens to team&#39;s address
+    event AllocateTokensForFounder(address founderAddress, uint256 founderAllocatedTime, uint256 tokenAmount); // Allocate tokens to founders' address
+    event AllocateTokensForTeam(address teamAddress, uint256 teamAllocatedTime, uint256 tokenAmount); // Allocate tokens to team's address
     event AllocateReservedTokens(address reservedAddress, uint256 tokenAmount); // Allocate reserved tokens
     
 

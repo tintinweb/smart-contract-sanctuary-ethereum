@@ -105,7 +105,7 @@ contract FastMultipliers {
                 //После выплаты депозиты + процента удаляется из очереди this investor is fully paid, so remove him
                 delete queue[i];
             }else{
-                //Here we don&#39;t have enough money so partially pay to investor
+                //Here we don't have enough money so partially pay to investor
                 dep.depositor.send(money); //Send to him everything we have
                 dep.expect -= money;       //Update the expected amount
                 break;                     //Exit cycle
@@ -127,7 +127,7 @@ contract FastMultipliers {
         }
 
         //If you are applying for the prize you should invest more than minimal amount
-        //Otherwize it doesn&#39;t count
+        //Otherwize it doesn't count
         if(value >= MIN_INVESTMENT_FOR_PRIZE) {
             previosDepositInfo = lastDepositInfo;
             lastDepositInfo = LastDepositInfo(uint128(currentQueueSize), uint128(now));

@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -191,7 +191,7 @@ function finishMinting() onlyOwner canMint public returns (bool) {
 function burn(uint256 _value) onlyOwner public {
     require(_value <= balanceOf[msg.sender]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     address burner = msg.sender;
     balanceOf[burner] = balanceOf[burner].sub(_value);
@@ -214,7 +214,7 @@ function burnFrom(address _from, uint256 _value) onlyOwner public returns (bool 
         require(balanceOf[_from] >= _value);                                                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);                                    // Check allowance
         balanceOf[_from] = balanceOf[_from].sub(_value);                                   // Subtract from the targeted balance
-        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);             // Subtract from the sender's allowance
         totalSupply = totalSupply.sub(_value);                                                // Update totalSupply
         emit Burn(_from, _value);
         return true;

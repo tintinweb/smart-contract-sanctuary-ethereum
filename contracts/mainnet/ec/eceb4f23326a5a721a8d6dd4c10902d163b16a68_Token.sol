@@ -85,7 +85,7 @@ contract Token is SafeMath, Owned {
 
     }
 
-    /* don&#39;t allow zero address */
+    /* don't allow zero address */
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;

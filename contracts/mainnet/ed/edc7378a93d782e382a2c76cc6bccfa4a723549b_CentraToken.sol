@@ -105,7 +105,7 @@ pragma solidity ^0.4.11;
           return balances[_owner];
       }
    
-      // Transfer the balance from owner&#39;s account to another account
+      // Transfer the balance from owner's account to another account
       function transfer(address _to, uint256 _amount) returns (bool success) {
 
           if(now < ico_start) throw;
@@ -235,7 +235,7 @@ pragma solidity ^0.4.11;
     function div(uint a, uint b) internal returns (uint) {
       // assert(b > 0); // Solidity automatically throws when dividing by 0
       uint c = a / b;
-      // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+      // assert(a == b * c + a % b); // There is no case in which this doesn't hold
       return c;
     }
 

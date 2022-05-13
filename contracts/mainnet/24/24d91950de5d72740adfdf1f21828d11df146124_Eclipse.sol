@@ -143,7 +143,7 @@ contract Eclipse is owned, TokenERC20 {
 
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function Eclipse() 
-    TokenERC20(1000000000, &#39;Eclipse&#39;, &#39;ECP&#39;) public {
+    TokenERC20(1000000000, 'Eclipse', 'ECP') public {
          unitsOneEthCanBuy = 1893;
     }
 

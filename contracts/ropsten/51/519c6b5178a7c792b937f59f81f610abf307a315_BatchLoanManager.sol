@@ -13,7 +13,7 @@ contract Ownable {
     address public owner;
 
     modifier onlyOwner() {
-        require(msg.sender == owner, &#39;The sender is not the owner&#39;);
+        require(msg.sender == owner, 'The sender is not the owner');
         _;
     }
 
@@ -27,7 +27,7 @@ contract Ownable {
         @param _to Address of the new owner
     */
     function transferTo(address _to) public onlyOwner returns (bool) {
-        require(_to != address(0), &#39;to, should not be the address 0x0&#39;);
+        require(_to != address(0), 'to, should not be the address 0x0');
         owner = _to;
         return true;
     }
@@ -44,7 +44,7 @@ contract SimpleDelegable is Ownable {
     }
 
     modifier onlyDelegate() {
-        require(delegates[msg.sender], &#39;The sender is not a delegate&#39;);
+        require(delegates[msg.sender], 'The sender is not a delegate');
         _;
     }
 

@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -236,16 +236,16 @@ contract FundRepository is Callable {
     }
 
     function claimToken(bytes32 platform, string platformId, address _token) public onlyCaller returns (uint256) {
-        require(!issueResolved(platform, platformId), "Can&#39;t claim token, issue is already resolved.");
+        require(!issueResolved(platform, platformId), "Can't claim token, issue is already resolved.");
         uint256 totalTokenBalance = balance(platform, platformId, _token);
         db.deleteUint(keccak256(abi.encodePacked("funds.tokenBalance", platform, platformId, _token)));
         return totalTokenBalance;
     }
 
     function refundToken(bytes32 _platform, string _platformId, address _owner, address _token) public onlyCaller returns (uint256) {
-        require(!issueResolved(_platform, _platformId), "Can&#39;t refund token, issue is already resolved.");
+        require(!issueResolved(_platform, _platformId), "Can't refund token, issue is already resolved.");
 
-        //delete amount from user, so he can&#39;t refund again
+        //delete amount from user, so he can't refund again
         uint256 userTokenBalance = amountFunded(_platform, _platformId, _owner, _token);
         db.deleteUint(keccak256(abi.encodePacked("funds.amountFundedByUser", _platform, _platformId, _owner, _token)));
 
@@ -365,7 +365,7 @@ contract ApproveAndCallFallBack {
  * @author Nick Johnson <arachnid@notdot.net>
  *
  * @dev Functionality in this library is largely implemented using an
- *      abstraction called a &#39;slice&#39;. A slice represents a part of a string -
+ *      abstraction called a 'slice'. A slice represents a part of a string -
  *      anything from the entire string to a single character, or even no
  *      characters at all (a 0-length slice). Since a slice only has to specify
  *      an offset and a length, copying and manipulating slices is a lot less
@@ -373,8 +373,8 @@ contract ApproveAndCallFallBack {
  *
  *      To further reduce gas costs, most functions on slice that need to return
  *      a slice modify the original one instead of allocating a new one; for
- *      instance, `s.split(".")` will return the text up to the first &#39;.&#39;,
- *      modifying s to only contain the remainder of the string after the &#39;.&#39;.
+ *      instance, `s.split(".")` will return the text up to the first '.',
+ *      modifying s to only contain the remainder of the string after the '.'.
  *      In situations where you do not want to modify the original slice, you
  *      can make a copy first with `.copy()`, for example:
  *      `s.copy().split(".")`. Try and avoid using this idiom in loops; since
@@ -392,7 +392,7 @@ contract ApproveAndCallFallBack {
  *
  *      For convenience, some functions are provided with non-modifying
  *      variants that create a new slice and return both; for instance,
- *      `s.splitNew(&#39;.&#39;)` leaves s unmodified, and returns two values
+ *      `s.splitNew('.')` leaves s unmodified, and returns two values
  *      corresponding to the left and right parts of the string.
  */
 
@@ -497,7 +497,7 @@ library strings {
     /*
      * @dev Copies a slice to a new string.
      * @param self The slice to copy.
-     * @return A newly allocated string containing the slice&#39;s text.
+     * @return A newly allocated string containing the slice's text.
      */
     function toString(slice self) internal pure returns (string) {
         string memory ret = new string(self._len);
@@ -1287,10 +1287,10 @@ contract FundRequestContract is Callable, ApproveAndCallFallBack {
      */
     function doFunding(bytes32 _platform, string _platformId, address _token, uint256 _value, address _funder) internal returns (bool success) {
         if (_token == ETHER_ADDRESS) {
-            //must check this, so we don&#39;t have people foefeling with the amounts
+            //must check this, so we don't have people foefeling with the amounts
             require(msg.value == _value);
         }
-        require(!fundRepository.issueResolved(_platform, _platformId), "Can&#39;t fund tokens, platformId already claimed");
+        require(!fundRepository.issueResolved(_platform, _platformId), "Can't fund tokens, platformId already claimed");
         for (uint idx = 0; idx < preconditions.length; idx++) {
             if (address(preconditions[idx]) != address(0)) {
                 require(preconditions[idx].isValid(_platform, _platformId, _token, _value, _funder));

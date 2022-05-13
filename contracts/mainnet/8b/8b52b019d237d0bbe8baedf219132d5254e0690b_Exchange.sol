@@ -15,7 +15,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         require(b > 0, "div by 0"); // Solidity automatically throws for div by 0 but require to emit reason
         uint256 c = a / b;
-        // require(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // require(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -55,7 +55,7 @@ library SafeMath {
 
 contract Restricted {
 
-    // NB: using bytes32 rather than the string type because it&#39;s cheaper gas-wise:
+    // NB: using bytes32 rather than the string type because it's cheaper gas-wise:
     mapping (address => mapping (bytes32 => bool)) public permissions;
 
     event PermissionGranted(address indexed agent, bytes32 grantedPermission);
@@ -229,7 +229,7 @@ contract Rates is Restricted {
 
 }
 
-/* Augmint&#39;s Internal Exchange
+/* Augmint's Internal Exchange
 
   For flows see: https://github.com/Augmint/augmint-contracts/blob/master/docs/exchangeFlow.png
 
@@ -310,9 +310,9 @@ contract Exchange is Restricted {
         return _placeSellTokenOrder(msg.sender, price, tokenAmount);
     }
 
-    /* place sell token order called from AugmintToken&#39;s transferAndNotify
+    /* place sell token order called from AugmintToken's transferAndNotify
      Flow:
-        1) user calls token contract&#39;s transferAndNotify price passed in data arg
+        1) user calls token contract's transferAndNotify price passed in data arg
         2) transferAndNotify transfers tokens to the Exchange contract
         3) transferAndNotify calls Exchange.transferNotification with lockProductId
     */
@@ -405,7 +405,7 @@ contract Exchange is Restricted {
 
         require(buy.price >= sell.price, "buy price must be >= sell price");
 
-        // pick maker&#39;s price (whoever placed order sooner considered as maker)
+        // pick maker's price (whoever placed order sooner considered as maker)
         uint32 price = buyTokenId > sellTokenId ? sell.price : buy.price;
 
         uint publishedRate;

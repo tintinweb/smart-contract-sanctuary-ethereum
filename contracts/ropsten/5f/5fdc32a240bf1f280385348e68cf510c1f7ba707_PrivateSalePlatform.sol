@@ -100,7 +100,7 @@ contract Car is Owned {
         _;
     }
 
-    /* view function used for checking car&#39;s availability */
+    /* view function used for checking car's availability */
     function getCarState() public constant returns (bool) {
         return activate;
     }
@@ -203,7 +203,7 @@ contract PrivateSalePlatform is Owned {
         (msg.sender).transfer(value);
     }
 
-    /* view function used for checking car&#39;s availability */
+    /* view function used for checking car's availability */
     function getCarState(string carName) public constant carExist(carName) returns (bool) {
         return Cars[carName].getCarState();
     }

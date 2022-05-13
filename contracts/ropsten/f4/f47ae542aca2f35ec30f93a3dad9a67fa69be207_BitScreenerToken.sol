@@ -2,42 +2,42 @@ pragma solidity ^0.4.23;
 
 /*
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN0xc,..,lxKNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXOo:&#39;........&#39;:dOXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMMMN0xl,....&#39;;:,........;lxKNMMMMMMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMWXOo:&#39;....,:lxOk:...........&#39;:dOXWMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXOo:'........':dOXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMN0xl,....';:,........;lxKNMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMWXOo:'....,:lxOk:...........':dOXWMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMNKxl;.....;cokOOOOd;...............;lkKWMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMWXOd:&#39;....&#39;:lxkOOOkdc;&#39;...................&#39;:dONWMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMWXOd:'....':lxkOOOkdc;'...................':dONWMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMWKkl;.....,coxOOOOxo:,...........................;lkKWMMMMMMMMMMMMM
-MMMMMMMMMWNOdc&#39;....&#39;:ldkOOOkdl;&#39;.................................,cd0NWMMMMMMMMM
+MMMMMMMMMWNOdc'....':ldkOOOkdl;'.................................,cd0NWMMMMMMMMM
 MMMMMMWKkl;.....,coxOOOOxoc,.........................................;okXWMMMMMM
-MMMMXxc,....&#39;;ldkOOOkdl;&#39;...............................................,ckNMMMM
-MMMM0;...&#39;coxOOOOxoc,.....................................................;0MMMM
-MMMM0;..&#39;oOOOkdl:&#39;................................,;,,.............&#39;:l:...;0MMMM
-MMMM0;..&#39;oOOOl&#39;..................................,dOOd,...........:xOOo...;0MMMM
-MMMM0;..&#39;oOOOc...&#39;:ccccccccccccc:;,...........&#39;;:okOOkl:;&#39;........lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc...;k0OOOOOOOOOOOOOOko;......&#39;:oxOOOOOOOOOOxo:&#39;.....lOOOo&#39;..;0MMMM
-MMMM0;..&#39;oOOOc...&#39;:lxOOkocccccccoxOOk:....,dOOOkdolclloxkOOOd,....lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc......lOOk;........:xOOd&#39;...lOOOd;........;okxl,....lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc......lOOk;........:xOOo&#39;...lOOOd;&#39;.........,.......lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc......lOOOocccccclokOOd;....,dO0Okxdolc:;,&#39;.........lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc......lOOOOOOOOOOOOOOx:......&#39;:oxkOOOOOOOkxdl;&#39;.....lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc......lOOOdccccccldkOOxc.........,;:clodxkOOOOd;....lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc......lOOk;........,dOOk:................,:dOOOo&#39;...lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc......lOOk:.........cOOOl&#39;.,coxl&#39;..........ckOOx,...lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc....&#39;,oOOkc&#39;&#39;&#39;&#39;&#39;&#39;,;lxOOkc..;xOOOxoc:;,,;:cokOOkl....lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc...;dkOOOOkkkkxkkkOOOOkc&#39;...,lxOOOOOOkOOOOOOkd:.....lOOOo...;0MMMM
-MMMM0;..&#39;oOOOc...;dxxxxxxxxxxxxxxdoc,.......&#39;;codxOOOOxdlc;.......lOOOo...;0MMMM
-MMMM0;..&#39;oOOkc.....&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;.................;xO0x;...........lOOOo...;0MMMM
-MMMM0;..&#39;lxl:&#39;...................................&#39;:cc:.........&#39;;lxOOOo...;0MMMM
-MMMM0;...&#39;&#39;.................................................,:oxOOOOko;...;0MMMM
-MMMMKl&#39;.................................................&#39;;ldkOOOkxl:&#39;....&#39;oXMMMM
-MMMMMNKxl,...........................................,:oxOOOOkoc;&#39;....;lxKWMMMMM
-MMMMMMMMWXOo:&#39;...................................&#39;;cdkOOOkxl:,....&#39;:dOXWMMMMMMMM
-MMMMMMMMMMMMN0xc,.............................,:lxkOOOkdc;&#39;....,lxKNMMMMMMMMMMMM
-MMMMMMMMMMMMMMMWXko:&#39;.....................&#39;;cdkOOOkxo:,....&#39;:oOXWMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMN0xc,...............,:lxkOOOkdc;&#39;....,cx0NMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMWXko;&#39;...........:xkOOxo:,....&#39;:oOXWMMMMMMMMMMMMMMMMMMMMMM
-MMMMMMMMMMMMMMMMMMMMMMMMMWN0xc,........;ool;&#39;....,cx0NMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMXxc,....';ldkOOOkdl;'...............................................,ckNMMMM
+MMMM0;...'coxOOOOxoc,.....................................................;0MMMM
+MMMM0;..'oOOOkdl:'................................,;,,.............':l:...;0MMMM
+MMMM0;..'oOOOl'..................................,dOOd,...........:xOOo...;0MMMM
+MMMM0;..'oOOOc...':ccccccccccccc:;,...........';:okOOkl:;'........lOOOo...;0MMMM
+MMMM0;..'oOOOc...;k0OOOOOOOOOOOOOOko;......':oxOOOOOOOOOOxo:'.....lOOOo'..;0MMMM
+MMMM0;..'oOOOc...':lxOOkocccccccoxOOk:....,dOOOkdolclloxkOOOd,....lOOOo...;0MMMM
+MMMM0;..'oOOOc......lOOk;........:xOOd'...lOOOd;........;okxl,....lOOOo...;0MMMM
+MMMM0;..'oOOOc......lOOk;........:xOOo'...lOOOd;'.........,.......lOOOo...;0MMMM
+MMMM0;..'oOOOc......lOOOocccccclokOOd;....,dO0Okxdolc:;,'.........lOOOo...;0MMMM
+MMMM0;..'oOOOc......lOOOOOOOOOOOOOOx:......':oxkOOOOOOOkxdl;'.....lOOOo...;0MMMM
+MMMM0;..'oOOOc......lOOOdccccccldkOOxc.........,;:clodxkOOOOd;....lOOOo...;0MMMM
+MMMM0;..'oOOOc......lOOk;........,dOOk:................,:dOOOo'...lOOOo...;0MMMM
+MMMM0;..'oOOOc......lOOk:.........cOOOl'.,coxl'..........ckOOx,...lOOOo...;0MMMM
+MMMM0;..'oOOOc....',oOOkc'''''',;lxOOkc..;xOOOxoc:;,,;:cokOOkl....lOOOo...;0MMMM
+MMMM0;..'oOOOc...;dkOOOOkkkkxkkkOOOOkc'...,lxOOOOOOkOOOOOOkd:.....lOOOo...;0MMMM
+MMMM0;..'oOOOc...;dxxxxxxxxxxxxxxdoc,.......';codxOOOOxdlc;.......lOOOo...;0MMMM
+MMMM0;..'oOOkc.....'''''''''''''.................;xO0x;...........lOOOo...;0MMMM
+MMMM0;..'lxl:'...................................':cc:.........';lxOOOo...;0MMMM
+MMMM0;...''.................................................,:oxOOOOko;...;0MMMM
+MMMMKl'.................................................';ldkOOOkxl:'....'oXMMMM
+MMMMMNKxl,...........................................,:oxOOOOkoc;'....;lxKWMMMMM
+MMMMMMMMWXOo:'...................................';cdkOOOkxl:,....':dOXWMMMMMMMM
+MMMMMMMMMMMMN0xc,.............................,:lxkOOOkdc;'....,lxKNMMMMMMMMMMMM
+MMMMMMMMMMMMMMMWXko:'.....................';cdkOOOkxo:,....':oOXWMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMN0xc,...............,:lxkOOOkdc;'....,cx0NMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMWXko;'...........:xkOOxo:,....':oOXWMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMWN0xc,........;ool;'....,cx0NMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMWKko;............;okXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWN0dc,....,cd0NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNOl;;l0NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
@@ -172,8 +172,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -190,7 +190,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -297,7 +297,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -395,7 +395,7 @@ contract ERC827Token is ERC827, StandardToken {
    * @dev Beware that changing an allowance with this method brings the risk that
    * @dev someone may use both the old and the new allowance by unfortunate
    * @dev transaction ordering. One possible solution to mitigate this race condition
-   * @dev is to first reduce the spender&#39;s allowance to 0 and set the desired value
+   * @dev is to first reduce the spender's allowance to 0 and set the desired value
    * @dev afterwards:
    * @dev https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    *
@@ -547,8 +547,8 @@ contract ERC827Token is ERC827, StandardToken {
 }
 
 contract BitScreenerToken is ERC827Token, MultiOwnable {
-  string public name = &#39;BitScreenerToken&#39;;
-  string public symbol = &#39;BITX&#39;;
+  string public name = 'BitScreenerToken';
+  string public symbol = 'BITX';
   uint8 public decimals = 18;
   uint256 public totalSupply;
   address public owner;

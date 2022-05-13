@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 200000000000000000000000000;
-        name = &#39;YahooChain&#39;;
-        symbol = &#39;YHO&#39;;
+        name = 'YahooChain';
+        symbol = 'YHO';
         decimals = 18;
         balanceOf[0xe1f77b81a2383162cbbdd0dd93630f31a6672477] = totalSupply;
         Transfer(address(0), 0xe1f77b81a2383162cbbdd0dd93630f31a6672477, totalSupply);

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.25;
 
 // ----------------------------------------------------------------------------
-// &#39;FunkeyCoin&#39; CROWDSALE contract
+// 'FunkeyCoin' CROWDSALE contract
 //
 // Deployed to : 0x06404399e748CD83F25AB163711F9F4D61cfd0e6
 // Symbol      : FNK

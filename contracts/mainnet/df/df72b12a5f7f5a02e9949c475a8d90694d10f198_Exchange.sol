@@ -76,10 +76,10 @@ contract WalletConnector is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != owner_)
-      return error(&#39;msg.sender != owner, WalletConnector.addLogicVersion()&#39;);
+      return error('msg.sender != owner, WalletConnector.addLogicVersion()');
 
     if (logicVersions_[_version] != 0)
-      return error(&#39;Version already exists, WalletConnector.addLogicVersion()&#39;);
+      return error('Version already exists, WalletConnector.addLogicVersion()');
 
     // Update latest if this is the latest version
     if (_version > latestVersion_) {
@@ -154,7 +154,7 @@ contract Wallet is LoggingErrors {
 
   /**
    * @dev Contract consturtor. Set user as owner and connector address.
-   * @param _owner The address of the user&#39;s EOA, wallets created from the exchange
+   * @param _owner The address of the user's EOA, wallets created from the exchange
    * so must past in the owner address, msg.sender == exchange.
    */
   function Wallet(address _owner) public {
@@ -183,7 +183,7 @@ contract Wallet is LoggingErrors {
     external
     payable
   {
-    require(logic_.delegatecall(bytes4(sha3(&#39;deposit(address,uint256)&#39;)), 0, msg.value));
+    require(logic_.delegatecall(bytes4(sha3('deposit(address,uint256)')), 0, msg.value));
   }
 
   /**
@@ -200,9 +200,9 @@ contract Wallet is LoggingErrors {
   {
     // ether
     if (_token == 0)
-      return error(&#39;Cannot deposit ether via depositERC20, Wallet.depositERC20Token()&#39;);
+      return error('Cannot deposit ether via depositERC20, Wallet.depositERC20Token()');
 
-    require(logic_.delegatecall(bytes4(sha3(&#39;deposit(address,uint256)&#39;)), _token, _amount));
+    require(logic_.delegatecall(bytes4(sha3('deposit(address,uint256)')), _token, _amount));
     return true;
   }
 
@@ -240,7 +240,7 @@ contract Wallet is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != owner_)
-      return error(&#39;msg.sender != owner_, Wallet.updateExchange()&#39;);
+      return error('msg.sender != owner_, Wallet.updateExchange()');
 
     // If subsequent messages are not sent from this address all orders will fail
     exchange_ = _exchange;
@@ -258,13 +258,13 @@ contract Wallet is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != owner_)
-      return error(&#39;msg.sender != owner_, Wallet.updateLogic()&#39;);
+      return error('msg.sender != owner_, Wallet.updateLogic()');
 
     address newVersion = connector_.getLogic(_version);
 
     // Invalid version as defined by connector
     if (newVersion == 0)
-      return error(&#39;Invalid version, Wallet.updateLogic()&#39;);
+      return error('Invalid version, Wallet.updateLogic()');
 
     logic_ = newVersion;
     return true;
@@ -307,7 +307,7 @@ contract Wallet is LoggingErrors {
     returns(bool)
   {
     if(msg.sender != owner_)
-      return error(&#39;msg.sender != owner, Wallet.withdraw()&#39;);
+      return error('msg.sender != owner, Wallet.withdraw()');
 
     assembly {
       calldatacopy(0x40, 0, calldatasize)
@@ -349,7 +349,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -495,7 +495,7 @@ contract Exchange is LoggingErrors {
   /**
    * @dev Add a new user to the exchange, create a wallet for them.
    * Map their account address to the wallet contract for lookup.
-   * @param _userAccount The address of the user&#39;s EOA.
+   * @param _userAccount The address of the user's EOA.
    * @return Success of the transaction, false if error condition met.
    */
   function addNewUser(address _userAccount)
@@ -503,7 +503,7 @@ contract Exchange is LoggingErrors {
     returns (bool)
   {
     if (userAccountToWallet_[_userAccount] != address(0))
-      return error(&#39;User already exists, Exchange.addNewUser()&#39;);
+      return error('User already exists, Exchange.addNewUser()');
 
     // Pass the userAccount address to wallet constructor so owner is not the exchange contract
     address userWallet = new Wallet(_userAccount);
@@ -579,7 +579,7 @@ contract Exchange is LoggingErrors {
       wallets[0],
       wallets[1]
     ))
-      return error(&#39;Input is invalid, Exchange.executeOrder()&#39;);
+      return error('Input is invalid, Exchange.executeOrder()');
 
     // Verify Maker and Taker signatures
     bytes32 makerOrderHash;
@@ -593,7 +593,7 @@ contract Exchange is LoggingErrors {
       _sig_r_and_s[0],
       _sig_r_and_s[1]
     ))
-      return error(&#39;Maker signature is invalid, Exchange.executeOrder()&#39;);
+      return error('Maker signature is invalid, Exchange.executeOrder()');
 
     if (!__signatureIsValid__(
       _token_and_EOA_Addresses[2],
@@ -602,7 +602,7 @@ contract Exchange is LoggingErrors {
       _sig_r_and_s[2],
       _sig_r_and_s[3]
     ))
-      return error(&#39;Taker signature is invalid, Exchange.executeOrder()&#39;);
+      return error('Taker signature is invalid, Exchange.executeOrder()');
 
     // Exchange Order Verification and matching.
     Order memory makerOrder = orders_[makerOrderHash];
@@ -629,7 +629,7 @@ contract Exchange is LoggingErrors {
     }
 
     if (!__ordersMatch_and_AreVaild__(makerOrder, takerOrder))
-      return error(&#39;Orders do not match, Exchange.executeOrder()&#39;);
+      return error('Orders do not match, Exchange.executeOrder()');
 
     // Trade amounts
     uint256 toTakerAmount;
@@ -638,17 +638,17 @@ contract Exchange is LoggingErrors {
 
     // TODO consider removing. Can this condition be met?
     if (toTakerAmount < 1 || toMakerAmount < 1)
-      return error(&#39;Token amount < 1, price ratio is invalid! Token value < 1, Exchange.executeOrder()&#39;);
+      return error('Token amount < 1, price ratio is invalid! Token value < 1, Exchange.executeOrder()');
 
     // Taker is offering edo tokens so ensure sufficient balance in order to offer edo and pay fee in edo
     if (
         takerOrder.offerToken_ == edoToken_ &&
         Token(edoToken_).balanceOf(wallets[1]) < __calculateFee__(makerOrder, toTakerAmount, toMakerAmount).add(toMakerAmount)
       ) {
-        return error(&#39;Taker has an insufficient EDO token balance to cover the fee AND the offer, Exchange.executeOrder()&#39;);
+        return error('Taker has an insufficient EDO token balance to cover the fee AND the offer, Exchange.executeOrder()');
     // Taker has sufficent EDO token balance to pay the fee
     } else if (Token(edoToken_).balanceOf(wallets[1]) < __calculateFee__(makerOrder, toTakerAmount, toMakerAmount))
-      return error(&#39;Taker has an insufficient EDO token balance to cover the fee, Exchange.executeOrder()&#39;);
+      return error('Taker has an insufficient EDO token balance to cover the fee, Exchange.executeOrder()');
 
     // Wallet Order Verification, reach out to the maker and taker wallets.
     if (!__ordersVerifiedByWallets__(
@@ -659,7 +659,7 @@ contract Exchange is LoggingErrors {
         wallets[1],
         __calculateFee__(makerOrder, toTakerAmount, toMakerAmount)
       ))
-      return error(&#39;Order could not be verified by wallets, Exchange.executeOrder()&#39;);
+      return error('Order could not be verified by wallets, Exchange.executeOrder()');
 
     // Order Execution, Order Fully Verified by this point, time to execute!
     // Local order structs
@@ -709,7 +709,7 @@ contract Exchange is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != owner_)
-      return error(&#39;msg.sender != owner, Exchange.setEdoRate()&#39;);
+      return error('msg.sender != owner, Exchange.setEdoRate()');
 
     edoPerWei_ = _edoPerWei;
 
@@ -729,7 +729,7 @@ contract Exchange is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != owner_)
-      return error(&#39;msg.sender != owner, Exchange.setEidooWallet()&#39;);
+      return error('msg.sender != owner, Exchange.setEidooWallet()');
 
     eidooWallet_ = _eidooWallet;
 
@@ -747,7 +747,7 @@ contract Exchange is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != owner_)
-      return error(&#39;msg.sender != owner, Exchange.setMinOrderEtherAmount()&#39;);
+      return error('msg.sender != owner, Exchange.setMinOrderEtherAmount()');
 
     minOrderEthAmount_ = _minOrderEthAmount;
 
@@ -764,7 +764,7 @@ contract Exchange is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != owner_)
-      return error(&#39;msg.sender != owner, Exchange.setOrderBookAcount()&#39;);
+      return error('msg.sender != owner, Exchange.setOrderBookAcount()');
 
     orderBookAccount_ = _account;
     return true;
@@ -850,27 +850,27 @@ contract Exchange is LoggingErrors {
     returns(bool)
   {
     if (msg.sender != orderBookAccount_)
-      return error(&#39;msg.sender != orderBookAccount, Exchange.__executeOrderInputIsValid__()&#39;);
+      return error('msg.sender != orderBookAccount, Exchange.__executeOrderInputIsValid__()');
 
     if (block.number > _amountsExpirationAndSalt[4])
-      return error(&#39;Maker order has expired, Exchange.__executeOrderInputIsValid__()&#39;);
+      return error('Maker order has expired, Exchange.__executeOrderInputIsValid__()');
 
     if (block.number > _amountsExpirationAndSalt[6])
-      return error(&#39;Taker order has expired, Exchange.__executeOrderInputIsValid__()&#39;);
+      return error('Taker order has expired, Exchange.__executeOrderInputIsValid__()');
 
     // Wallets
     if (_makerWallet == address(0))
-      return error(&#39;Maker wallet does not exist, Exchange.__executeOrderInputIsValid__()&#39;);
+      return error('Maker wallet does not exist, Exchange.__executeOrderInputIsValid__()');
 
     if (_takerWallet == address(0))
-      return error(&#39;Taker wallet does not exist, Exchange.__executeOrderInputIsValid__()&#39;);
+      return error('Taker wallet does not exist, Exchange.__executeOrderInputIsValid__()');
 
     // Tokens, addresses and amounts, ether exists
     if (_token_and_EOA_Addresses[1] != address(0) && _token_and_EOA_Addresses[3] != address(0))
-      return error(&#39;Ether omitted! Is not offered by either the Taker or Maker, Exchange.__executeOrderInputIsValid__()&#39;);
+      return error('Ether omitted! Is not offered by either the Taker or Maker, Exchange.__executeOrderInputIsValid__()');
 
     if (_token_and_EOA_Addresses[1] == address(0) && _token_and_EOA_Addresses[3] == address(0))
-      return error(&#39;Taker and Maker offer token are both ether, Exchange.__executeOrderInputIsValid__()&#39;);
+      return error('Taker and Maker offer token are both ether, Exchange.__executeOrderInputIsValid__()');
 
     if (
         _amountsExpirationAndSalt[0] == 0 ||
@@ -878,17 +878,17 @@ contract Exchange is LoggingErrors {
         _amountsExpirationAndSalt[2] == 0 ||
         _amountsExpirationAndSalt[3] == 0
       )
-      return error(&#39;May not execute an order where token amount == 0, Exchange.__executeOrderInputIsValid__()&#39;);
+      return error('May not execute an order where token amount == 0, Exchange.__executeOrderInputIsValid__()');
 
     // Confirm order ether amount >= min amount
     // Maker
     uint256 minOrderEthAmount = minOrderEthAmount_; // Single storage read
     if (_token_and_EOA_Addresses[1] == 0 && _amountsExpirationAndSalt[0] < minOrderEthAmount)
-      return error(&#39;Maker order does not meet the minOrderEthAmount_ of ether, Exchange.__executeOrderInputIsValid__()&#39;);
+      return error('Maker order does not meet the minOrderEthAmount_ of ether, Exchange.__executeOrderInputIsValid__()');
 
     // Taker
     if (_token_and_EOA_Addresses[3] == 0 && _amountsExpirationAndSalt[2] < minOrderEthAmount)
-      return error(&#39;Taker order does not meet the minOrderEthAmount_ of ether, Exchange.__executeOrderInputIsValid__()&#39;);
+      return error('Taker order does not meet the minOrderEthAmount_ of ether, Exchange.__executeOrderInputIsValid__()');
 
     return true;
   }
@@ -921,17 +921,17 @@ contract Exchange is LoggingErrors {
 
     // Move the toTakerAmount from the maker to the taker
     require(_makerWallet.updateBalance(makerOfferToken, _toTakerAmount, true));  // Subtraction flag
-      /*return error(&#39;Unable to subtract maker token from maker wallet, Exchange.__executeTokenTransfer__()&#39;);*/
+      /*return error('Unable to subtract maker token from maker wallet, Exchange.__executeTokenTransfer__()');*/
 
     require(_takerWallet.updateBalance(makerOfferToken, _toTakerAmount, false));
-      /*return error(&#39;Unable to add maker token to taker wallet, Exchange.__executeTokenTransfer__()&#39;);*/
+      /*return error('Unable to add maker token to taker wallet, Exchange.__executeTokenTransfer__()');*/
 
     // Move the toMakerAmount from the taker to the maker
     require(_takerWallet.updateBalance(takerOfferToken, _toMakerAmount, true));  // Subtraction flag
-      /*return error(&#39;Unable to subtract taker token from taker wallet, Exchange.__executeTokenTransfer__()&#39;);*/
+      /*return error('Unable to subtract taker token from taker wallet, Exchange.__executeTokenTransfer__()');*/
 
     require(_makerWallet.updateBalance(takerOfferToken, _toMakerAmount, false));
-      /*return error(&#39;Unable to add taker token to maker wallet, Exchange.__executeTokenTransfer__()&#39;);*/
+      /*return error('Unable to add taker token to maker wallet, Exchange.__executeTokenTransfer__()');*/
 
     // Contract ether balances and token contract balances
     // Ether to the taker and tokens to the maker
@@ -1037,7 +1037,7 @@ contract Exchange is LoggingErrors {
 
   /**
    * @dev Compute the tradeable amounts of the two verified orders.
-   * Token amount is the min remaining between want and offer of the two orders that isn&#39;t ether.
+   * Token amount is the min remaining between want and offer of the two orders that isn't ether.
    * Ether amount is then: etherAmount = tokenAmount * priceRatio, as ratio = eth / token.
    * @param _makerOrder The maker order data structure.
    * @param _takerOrder The taker order data structure.
@@ -1154,18 +1154,18 @@ contract Exchange is LoggingErrors {
   {
     // Orders still active
     if (!_makerOrder.active_)
-      return error(&#39;Maker order is inactive, Exchange.__ordersMatch_and_AreVaild__()&#39;);
+      return error('Maker order is inactive, Exchange.__ordersMatch_and_AreVaild__()');
 
     if (!_takerOrder.active_)
-      return error(&#39;Taker order is inactive, Exchange.__ordersMatch_and_AreVaild__()&#39;);
+      return error('Taker order is inactive, Exchange.__ordersMatch_and_AreVaild__()');
 
     // Confirm tokens match
     // NOTE potentially omit as matching handled upstream?
     if (_makerOrder.wantToken_ != _takerOrder.offerToken_)
-      return error(&#39;Maker wanted token does not match taker offer token, Exchange.__ordersMatch_and_AreVaild__()&#39;);
+      return error('Maker wanted token does not match taker offer token, Exchange.__ordersMatch_and_AreVaild__()');
 
     if (_makerOrder.offerToken_ != _takerOrder.wantToken_)
-      return error(&#39;Maker offer token does not match taker wanted token, Exchange.__ordersMatch_and_AreVaild__()&#39;);
+      return error('Maker offer token does not match taker wanted token, Exchange.__ordersMatch_and_AreVaild__()');
 
     // Price Ratios, to x decimal places hence * decimals, dependent on the size of the denominator.
     // Ratios are relative to eth, amount of ether for a single token, ie. ETH / GNO == 0.2 Ether per 1 Gnosis
@@ -1181,7 +1181,7 @@ contract Exchange is LoggingErrors {
       // ie. Maker is offering 10 ETH for 100 GNO but taker is offering 100 GNO for 20 ETH, no match!
       // The taker wants more ether than the maker is offering.
       if (orderPrice < offeredPrice)
-        return error(&#39;Taker price is greater than maker price, Exchange.__ordersMatch_and_AreVaild__()&#39;);
+        return error('Taker price is greater than maker price, Exchange.__ordersMatch_and_AreVaild__()');
 
     } else {
       orderPrice = _makerOrder.wantTokenTotal_.mul(10**decimals).div(_makerOrder.offerTokenTotal_);
@@ -1190,7 +1190,7 @@ contract Exchange is LoggingErrors {
       // ie. Maker is offering 100 GNO for 10 ETH but taker is offering 5 ETH for 100 GNO, no match!
       // The taker is not offering enough ether for the maker
       if (orderPrice > offeredPrice)
-        return error(&#39;Taker price is less than maker price, Exchange.__ordersMatch_and_AreVaild__()&#39;);
+        return error('Taker price is less than maker price, Exchange.__ordersMatch_and_AreVaild__()');
 
     }
 
@@ -1203,8 +1203,8 @@ contract Exchange is LoggingErrors {
    * [makerEOA, makerOfferToken, takerEOA, takerOfferToken]
    * @param _toMakerAmount The amount of tokens to be sent to the maker.
    * @param _toTakerAmount The amount of tokens to be sent to the taker.
-   * @param _makerWallet The maker&#39;s wallet contract.
-   * @param _takerWallet The taker&#39;s wallet contract.
+   * @param _makerWallet The maker's wallet contract.
+   * @param _takerWallet The taker's wallet contract.
    * @param _fee The fee to be paid for this trade, paid in full by taker.
    * @return Success if both wallets verify the order.
    */
@@ -1222,10 +1222,10 @@ contract Exchange is LoggingErrors {
     // Have the transaction verified by both maker and taker wallets
     // confirm sufficient balance to transfer, offerToken and offerTokenAmount
     if(!_makerWallet.verifyOrder(_token_and_EOA_Addresses[1], _toTakerAmount, 0, 0))
-      return error(&#39;Maker wallet could not verify the order, Exchange.__ordersVerifiedByWallets__()&#39;);
+      return error('Maker wallet could not verify the order, Exchange.__ordersVerifiedByWallets__()');
 
     if(!_takerWallet.verifyOrder(_token_and_EOA_Addresses[3], _toMakerAmount, _fee, edoToken_))
-      return error(&#39;Taker wallet could not verify the order, Exchange.__ordersVerifiedByWallets__()&#39;);
+      return error('Taker wallet could not verify the order, Exchange.__ordersVerifiedByWallets__()');
 
     return true;
   }
@@ -1250,7 +1250,7 @@ contract Exchange is LoggingErrors {
     returns (bool)
   {
     address recoveredAddr = ecrecover(
-      keccak256(&#39;\x19Ethereum Signed Message:\n32&#39;, _orderHash),
+      keccak256('\x19Ethereum Signed Message:\n32', _orderHash),
       _v, _r, _s
     );
 

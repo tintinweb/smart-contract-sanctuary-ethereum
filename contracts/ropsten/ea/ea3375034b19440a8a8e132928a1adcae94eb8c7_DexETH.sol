@@ -12,8 +12,8 @@ contract SafeMath {
    * @return A uint result.
    */
   function safeMul(uint a, uint b) internal pure returns (uint c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     if (a == 0) {
       return 0;
     }
@@ -269,7 +269,7 @@ contract DexETH is SafeMath {
   
   /**
    * @dev Allows the current admin to withdraw batch of tokens and/or eth from this contract back to their owner in a single transaction.
-   * @param user The account that will have it&#39;s tokens and/or eth withdrawn.
+   * @param user The account that will have it's tokens and/or eth withdrawn.
    * @param _tokens The tokens and/or eth that will be withdrawn.
    */
   function withdrawAllForAccount(address user, address[] _tokens) onlyAdmin external {

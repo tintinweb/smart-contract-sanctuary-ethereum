@@ -63,8 +63,8 @@ pragma solidity ^0.4.25;
   /*@dev Multiplies two numbers, reverts on overflow.*/
   
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
 	
     if (a == 0) {return 0;}
 
@@ -79,7 +79,7 @@ pragma solidity ^0.4.25;
 	// Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
     // assert(a == b * c + a % b); 
-	// There is no case in which this doesn&#39;t hold
+	// There is no case in which this doesn't hold
     return c;}
 
   /*@dev Subtracts two numbers, reverts on overflow (i.e. if subtrahend is greater than minuend).*/
@@ -176,7 +176,7 @@ interface IERC20 {
   /*@dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
     * @param spender The address which will spend the funds.
    * @param value The amount of tokens to be spent. */
   
@@ -242,7 +242,7 @@ interface IERC20 {
     emit Transfer(account, address(0), amount); }
 
   /*@dev Internal function that burns an amount of the token of a given
-   * account, deducting from the sender&#39;s allowance for said account. Uses the* internal burn function.
+   * account, deducting from the sender's allowance for said account. Uses the* internal burn function.
    * @param account The account whose tokens will be burnt.
    * @param amount The amount that will be burnt. */
    
@@ -324,7 +324,7 @@ contract MCSToken is Ownable, IERC20, ERC20Burnable {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overridden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropriate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropriate to concatenate
  * behavior.
  */
 contract Crowdsale is Ownable, ERC20{
@@ -479,7 +479,7 @@ contract Crowdsale is Ownable, ERC20{
   // Internal interface (extensible)
   // -----------------------------------------
   /*@dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
-   * Example from CappedCrowdsale.sol&#39;s _preValidatePurchase method:
+   * Example from CappedCrowdsale.sol's _preValidatePurchase method:
    *  super._preValidatePurchase(beneficiary, weiAmount); require(weiRaised().add(weiAmount) <= cap);
    * @param beneficiary Address performing the token purchase
    * @param weiAmount Value in wei involved in the purchase*/  

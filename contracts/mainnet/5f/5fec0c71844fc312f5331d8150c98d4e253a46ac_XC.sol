@@ -19,8 +19,8 @@ contract XC {
     /* Initializes contract with initial supply tokens to the creator of the contract */
     function XC() {
       owner = 0xda5869b7fc11E216fF9F62789eEE3a5BD97D5073;
-      name = &#39;X Chain&#39;;
-      symbol = &#39;XC&#39;;
+      name = 'X Chain';
+      symbol = 'XC';
       decimals = 18;
       totalSupply = 1000000000000000000000000000; // 2e28
       balanceOf[owner] = 1000000000000000000000000000;

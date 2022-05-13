@@ -184,7 +184,7 @@ contract CryptoStars {
     
     function transferStar(address to, uint starIndex) payable {
         if (starIndexToAddress[starIndex] != msg.sender) throw;
-        if (msg.value < transferPrice) throw;                       // Didn&#39;t send enough ETH
+        if (msg.value < transferPrice) throw;                       // Didn't send enough ETH
 
         starIndexToAddress[starIndex] = to;
         balanceOf[msg.sender]--;
@@ -239,7 +239,7 @@ contract CryptoStars {
         Offer offer = starsOfferedForSale[starIndex];
         if (!offer.isForSale) throw;                                            // star not actually for sale
         if (offer.onlySellTo != 0x0 && offer.onlySellTo != msg.sender) throw;   // star not supposed to be sold to this user
-        if (msg.value < offer.minValue) throw;                                  // Didn&#39;t send enough ETH
+        if (msg.value < offer.minValue) throw;                                  // Didn't send enough ETH
         if (offer.seller != starIndexToAddress[starIndex]) throw;               // Seller no longer owner of star
 
         address seller = offer.seller;
@@ -282,7 +282,7 @@ contract CryptoStars {
         if (starIndex > MaxStarIndexAvailable) throw;     //Above Current Offering Range
         if (starIndex < MinStarIndexAvailable) throw;       //Below Current Offering Range
         if (starIndexToAddress[starIndex] != 0x0) throw;    //Star is already owned
-        if (msg.value < initialPrice) throw;               // Didn&#39;t send enough ETH
+        if (msg.value < initialPrice) throw;               // Didn't send enough ETH
         
         starIndexToAddress[starIndex] = msg.sender;   
         starIndexToSTRZName[starIndex] = strSTRZName;      //Assign the star to new owner

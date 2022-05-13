@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -350,7 +350,7 @@ contract Slot is Ownable, Pausable {
       // Providing random numbers within a deterministic system is, naturally, an impossible task.
       // However, we can approximate with pseudo-random numbers by utilising data which is generally unknowable
       // at the time of transacting. Such data might include the block’s hash.
-      // The last blockhash used should be random enough. Adding the rest of these deterministic factors doesn&#39;t change much.
+      // The last blockhash used should be random enough. Adding the rest of these deterministic factors doesn't change much.
 
         return uint256(keccak256(block.blockhash(block.number-1), block.blockhash(block.number-100)))%_size;
     }
@@ -366,7 +366,7 @@ contract Slot is Ownable, Pausable {
                 distributeJackpot(winnerIndex);
             }
             
-            participants[gameNumber][winnerIndex%SIZE].transfer(prizes[i]); // msg.sender pays the gas, he&#39;s refunded later, % to wrap around
+            participants[gameNumber][winnerIndex%SIZE].transfer(prizes[i]); // msg.sender pays the gas, he's refunded later, % to wrap around
             PrizeAwarded(gameNumber, participants[gameNumber][winnerIndex%SIZE], prizes[i]);
 
             // increment index to the next winner to receive the next prize
@@ -423,7 +423,7 @@ contract Slot is Ownable, Pausable {
 
     function makeUndestroyable() onlyOwner {
         undestroyable = true;
-        // can&#39;t be reversed, jackpot only claimable by actual win
+        // can't be reversed, jackpot only claimable by actual win
     }
 
 }

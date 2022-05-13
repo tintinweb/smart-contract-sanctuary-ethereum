@@ -67,9 +67,9 @@ contract Dex2 {
   uint8 constant CLOSED = 2;
 
   bytes32 constant HASHTYPES =
-      keccak256(&#39;string title&#39;, &#39;address market_address&#39;, &#39;uint64 nonce&#39;, &#39;uint64 expire_time_sec&#39;,
-                &#39;uint64 amount_e8&#39;, &#39;uint64 price_e8&#39;, &#39;uint8 immediate_or_cancel&#39;, &#39;uint8 action&#39;,
-                &#39;uint16 cash_token_code&#39;, &#39;uint16 stock_token_code&#39;);
+      keccak256('string title', 'address market_address', 'uint64 nonce', 'uint64 expire_time_sec',
+                'uint64 amount_e8', 'uint64 price_e8', 'uint8 immediate_or_cancel', 'uint8 action',
+                'uint16 cash_token_code', 'uint16 stock_token_code');
 
   //----------------- States that cannot be changed once set: --------------------------------------
 
@@ -137,9 +137,9 @@ contract Dex2 {
     emit ChangeMarketStatusEvent(status_);
   }
 
-  // Each trader can specify a withdraw address (but cannot change it later). Once a trader&#39;s
+  // Each trader can specify a withdraw address (but cannot change it later). Once a trader's
   // withdraw address is set, following withdrawals of this trader will go to the withdraw address
-  // instead of the trader&#39;s address.
+  // instead of the trader's address.
   function setWithdrawAddr(address withdrawAddr) external {
     if (withdrawAddr == 0) revert();
     if (traders[msg.sender].withdrawAddr != 0) revert();  // cannot change withdrawAddr once set
@@ -165,7 +165,7 @@ contract Dex2 {
   // Deposit token (other than ETH) from msg.sender for a specified trader.
   //
   // After the deposit has been confirmed enough times on the blockchain, it will be added to the
-  // trader&#39;s token account for trading.
+  // trader's token account for trading.
   function depositToken(address traderAddr, uint16 tokenCode, uint originalAmount) external {
     if (marketStatus != ACTIVE) revert();
     if (traderAddr == 0) revert();

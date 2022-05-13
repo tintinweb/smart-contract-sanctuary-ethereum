@@ -1,5 +1,5 @@
 contract Simple {
-    string public name = &#39;No name&#39;;
+    string public name = 'No name';
     
     function setName(string newName) public {
         name = newName;

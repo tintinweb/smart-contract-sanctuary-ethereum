@@ -75,7 +75,7 @@ contract Spacedrop {
     address signer = ecrecover(keccak256(prefix, h), v, r, s);
     require(signer == sender && signer != address(0));
 
-    // check this claim hasn&#39;t been recorded already, then record it
+    // check this claim hasn't been recorded already, then record it
     require(!used[h]);
     used[h] = true;
   }

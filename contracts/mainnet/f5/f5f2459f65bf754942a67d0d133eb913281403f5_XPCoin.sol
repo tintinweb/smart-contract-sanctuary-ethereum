@@ -65,7 +65,7 @@ contract XPCoin //  XPCoin Smart Contract Start
                 if(remaining > 0)
                 {
                      _transfer(owner, dests[i], values[i]);  // Transfer Token Via Internal Transfer Function
-                     TokenTransferEvent(owner, dests[i], values[i],&#39;MultipleAccount&#39;); // Raise Event After Transfer
+                     TokenTransferEvent(owner, dests[i], values[i],'MultipleAccount'); // Raise Event After Transfer
                 }
                 else
                 {
@@ -83,7 +83,7 @@ contract XPCoin //  XPCoin Smart Contract Start
         if (remaining > 0)
         {
                      _transfer(owner, receiversAddress, amountToTransfer);  // Transfer Token Via Internal Transfer Function
-                     TokenTransferEvent(owner, receiversAddress, amountToTransfer,&#39;SingleAccount&#39;); // Raise Event After Transfer
+                     TokenTransferEvent(owner, receiversAddress, amountToTransfer,'SingleAccount'); // Raise Event After Transfer
         }
         else
         {
@@ -233,7 +233,7 @@ contract XPCoin //  XPCoin Smart Contract Start
           require(balanceOf[_from] >= _value);                                  // Check If The Target Has Enough Balance
           require(_value <= allowance[_from][msg.sender]);                      // Check Allowance
           balanceOf[_from] -= _value;                                           // Subtract From The Targeted Balance
-          allowance[_from][msg.sender] -= _value;                               // Subtract From The Sender&#39;s Allowance
+          allowance[_from][msg.sender] -= _value;                               // Subtract From The Sender's Allowance
           totalSupply -= _value;                                                // Update TotalSupply
           remaining -= _value;                                                  // Update Remaining
           Burn(_from, _value);

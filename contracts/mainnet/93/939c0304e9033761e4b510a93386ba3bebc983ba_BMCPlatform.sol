@@ -4,7 +4,7 @@ pragma solidity ^0.4.11;
  * @title Owned contract with safe ownership pass.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract Owned {
     /**
@@ -194,7 +194,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -229,7 +229,7 @@ contract Proxy {
  * Features: transfers, allowances, supply adjustments, lost wallet access recovery.
  *
  * Note: all the non constant functions return false instead of throwing in case if state change
- * didn&#39;t happen yet.
+ * didn't happen yet.
  */
 contract BMCPlatform is Object, BMCPlatformEmitter {
 
@@ -258,10 +258,10 @@ contract BMCPlatform is Object, BMCPlatformEmitter {
 
     // Structure of a particular asset.
     struct Asset {
-        uint owner;                       // Asset&#39;s owner id.
-        uint totalSupply;                 // Asset&#39;s total supply.
-        string name;                      // Asset&#39;s name, for information purposes.
-        string description;               // Asset&#39;s description, for information purposes.
+        uint owner;                       // Asset's owner id.
+        uint totalSupply;                 // Asset's total supply.
+        string name;                      // Asset's name, for information purposes.
+        string description;               // Asset's description, for information purposes.
         bool isReissuable;                // Indicates if asset have dynamic or fixed supply.
         uint8 baseUnit;                   // Proposed number of decimals.
         mapping(uint => Wallet) wallets;  // Holders wallets.
@@ -348,7 +348,7 @@ contract BMCPlatform is Object, BMCPlatformEmitter {
     }
 
     /**
-     * Emits Error if _from doesn&#39;t trust _to.
+     * Emits Error if _from doesn't trust _to.
      */
     modifier checkTrust(address _from, address _to) {
         if (shouldBeTrusted(_from, _to) == OK) {
@@ -822,7 +822,7 @@ contract BMCPlatform is Object, BMCPlatformEmitter {
         }
 
         if (_newOwner == 0x0) {
-            return _error(BMC_PLATFORM_INVALID_NEW_OWNER, "Can&#39;t change ownership to 0x0");
+            return _error(BMC_PLATFORM_INVALID_NEW_OWNER, "Can't change ownership to 0x0");
         }
 
         Asset asset = assets[_symbol];

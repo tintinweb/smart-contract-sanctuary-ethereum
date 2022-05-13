@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-// &#39;SampleToken&#39; token contract
+// 'SampleToken' token contract
 //
 // Deployed to : 0x915371C89d1610E614a9927CA3F71B3EC3D54c41
 // Symbol      : 0S

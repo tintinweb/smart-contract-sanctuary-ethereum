@@ -11,7 +11,7 @@ pragma solidity 0.4.20;
 *   .~^(,&|/o.   
 *  |`-------^|
 *  \         /
-*   `=======&#39;  
+*   `======='  
 * 
 * https://ramencoin.me
 *
@@ -21,8 +21,8 @@ pragma solidity 0.4.20;
 * -> Another Contract????
 * In short, this is a contract to accept RAMEN token / ETH donations from community members
 * as a way of gathering funds for regular marketing, contest and helping to fight hunger.
-* [✓] Hands of Titanium! This contract never sells, it can&#39;t and just simply don&#39;t know how to sell!
-* [✓] Community Goods: All rewards will be used for promotional costs / contest prizes and our initiative to fight hunger, when the accumulated rewards reaches a certain amount, we&#39;ll begin some campaigns.
+* [✓] Hands of Titanium! This contract never sells, it can't and just simply don't know how to sell!
+* [✓] Community Goods: All rewards will be used for promotional costs / contest prizes and our initiative to fight hunger, when the accumulated rewards reaches a certain amount, we'll begin some campaigns.
 * [✓] Transparency: How rewards will be used will be regularly updated and sometimes voted on by the community in website and/or discord announcement.
 * [✓] Security: This is an honor system and the dev asks that you trust in the efforts as this is a serious and long term project.
 * 
@@ -120,7 +120,7 @@ contract RAMENInterface {
     /// @dev Converts all incoming ethereum to tokens for the caller, and passes down the referral addy (if any)
     function buy(address _referredBy) public payable returns (uint256);
 
-    /// @dev Converts all of caller&#39;s dividends to tokens.
+    /// @dev Converts all of caller's dividends to tokens.
     function reinvest() public;
 
     /// @dev Alias of sell() and withdraw().
@@ -134,7 +134,7 @@ contract RAMENInterface {
 
     /**
      * @dev Transfer tokens from the caller to a new holder.
-     *  Remember, there&#39;s a 15% fee here as well.
+     *  Remember, there's a 15% fee here as well.
      */
     function transfer(address _toAddress, uint256 _amountOfTokens) public returns (bool);
 
@@ -191,14 +191,14 @@ contract RAMENInterface {
 
     /**
      * @dev Calculate Token price based on an amount of incoming ethereum
-     *  It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     *  It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      *  Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function ethereumToTokens_(uint256 _ethereum) internal view returns (uint256);
 
     /**
      * @dev Calculate token sell value.
-     *  It&#39;s an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
+     *  It's an algorithm, hopefully we gave you the whitepaper with it in scientific notation;
      *  Some conversions occurred to prevent decimal errors or underflows / overflows in solidity code.
      */
     function tokensToEthereum_(uint256 _tokens) internal view returns (uint256);
@@ -302,7 +302,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

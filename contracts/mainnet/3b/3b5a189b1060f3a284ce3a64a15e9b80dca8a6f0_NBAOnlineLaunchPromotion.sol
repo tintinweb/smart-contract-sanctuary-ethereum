@@ -62,7 +62,7 @@ contract NBAOnlineLaunchPromotion {
     function refund() external {
         // Safely transfer players deposit back
         uint256 depositAmount = deposits[msg.sender];
-        deposits[msg.sender] = 0; // Can&#39;t withdraw twice obviously
+        deposits[msg.sender] = 0; // Can't withdraw twice obviously
         msg.sender.transfer(depositAmount);
     }
     
@@ -72,7 +72,7 @@ contract NBAOnlineLaunchPromotion {
         
         // Safely transfer back to player
         uint256 depositAmount = deposits[depositor];
-        deposits[depositor] = 0; // Can&#39;t withdraw twice obviously
+        deposits[depositor] = 0; // Can't withdraw twice obviously
         
         // Sends back to correct depositor
         depositor.transfer(depositAmount);
@@ -145,7 +145,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

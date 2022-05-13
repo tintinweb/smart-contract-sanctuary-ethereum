@@ -25,7 +25,7 @@ library SafeMath {
     function div (uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
     
@@ -77,8 +77,8 @@ contract ZeroGravityToken {
     bytes constant public ethSignedMessagePrefix = "\x19Ethereum Signed Message:\n";
     bytes32 constant public sigDestinationTransfer = keccak256(
         "address Token Contract Address",
-        "address Sender&#39;s Address",
-        "address Recipient&#39;s Address",
+        "address Sender's Address",
+        "address Recipient's Address",
         "uint256 Amount to Transfer (last six digits are decimals)",
         "uint256 Fee in Tokens Paid to Executor (last six digits are decimals)",
         "address Account which Receives Fee",
@@ -174,7 +174,7 @@ contract ZeroGravityToken {
      * @param signer - account which made a signature
      * @param deadline - until when the signature is valid
      * @param sigId - signature unique ID. Signatures made with the same signature ID cannot be submitted twice
-     * @param sig - signature made by `from`, which is the proof of `from`&#39;s agreement with the above parameters
+     * @param sig - signature made by `from`, which is the proof of `from`'s agreement with the above parameters
      * @param sigStd - chosen standard for signature validation. The signer must explicitly tell which standard they use
      * @param sigDest - for which type of action this signature was made
      */
@@ -257,10 +257,10 @@ contract ZeroGravityToken {
      * This function distincts transaction signer from transaction executor. It allows anyone to transfer tokens
      * from the `from` account by providing a valid signature, which can only be obtained from the `from` account
      * owner.
-     * Note that passed parameter sigId is unique and cannot be passed twice (prevents replay attacks). When there&#39;s
+     * Note that passed parameter sigId is unique and cannot be passed twice (prevents replay attacks). When there's
      * a need to make signature once again (because the first one is lost or whatever), user should sign the message
-     * with the same sigId, thus ensuring that the previous signature can&#39;t be used if the new one passes.
-     * Use case: the user wants to send some tokens to another user or smart contract, but don&#39;t have ether to do so.
+     * with the same sigId, thus ensuring that the previous signature can't be used if the new one passes.
+     * Use case: the user wants to send some tokens to another user or smart contract, but don't have ether to do so.
      * @param from - the account giving its signature to transfer `value` tokens to `to` address
      * @param to - the account receiving `value` tokens
      * @param value - the value in tokens to transfer
@@ -268,7 +268,7 @@ contract ZeroGravityToken {
      * @param feeRecipient - account which will receive fee
      * @param deadline - until when the signature is valid
      * @param sigId - signature unique ID. Signatures made with the same signature ID cannot be submitted twice
-     * @param sig - signature made by `from`, which is the proof of `from`&#39;s agreement with the above parameters
+     * @param sig - signature made by `from`, which is the proof of `from`'s agreement with the above parameters
      * @param sigStd - chosen standard for signature validation. The signer must explicitly tell which standard they use
      */
     function transferViaSignature ( 		   	  				  	  	      		 			  		 	  	 		 	 		 		 	  	 			 	   		    	  	 			  			 	   		 	 		
@@ -291,10 +291,10 @@ contract ZeroGravityToken {
     }
 
     /**
-     * Allow `spender` to take `value` tokens from the transaction sender&#39;s account.
+     * Allow `spender` to take `value` tokens from the transaction sender's account.
      * Beware that changing an allowance with this method brings the risk that `spender` may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param spender - the address authorized to spend
      * @param value - the maximum amount they can spend
@@ -316,7 +316,7 @@ contract ZeroGravityToken {
      * @param feeRecipient - account which will receive fee
      * @param deadline - until when the signature is valid
      * @param sigId - signature unique ID. Signatures made with the same signature ID cannot be submitted twice
-     * @param sig - signature made by `from`, which is the proof of `from`&#39;s agreement with the above parameters
+     * @param sig - signature made by `from`, which is the proof of `from`'s agreement with the above parameters
      * @param sigStd - chosen standard for signature validation. The signer must explicitly tell which standard they use
      */
     function approveViaSignature (
@@ -364,7 +364,7 @@ contract ZeroGravityToken {
      * @param feeRecipient - account which will receive fee
      * @param deadline - until when the signature is valid
      * @param sigId - signature unique ID. Signatures made with the same signature ID cannot be submitted twice
-     * @param sig - signature made by `from`, which is the proof of `from`&#39;s agreement with the above parameters
+     * @param sig - signature made by `from`, which is the proof of `from`'s agreement with the above parameters
      * @param sigStd - chosen standard for signature validation. The signer must explicitly tell which standard they use
      */
     function transferFromViaSignature (
@@ -391,7 +391,7 @@ contract ZeroGravityToken {
     /**
      * Utility function, which acts the same as approve(...), but also calls `receiveApproval` function on a
      * `spender` address, which is usually the address of the smart contract. In the same call, smart contract can
-     * withdraw tokens from the sender&#39;s account and receive additional `extraData` for processing.
+     * withdraw tokens from the sender's account and receive additional `extraData` for processing.
      * @param spender - the address to be authorized to spend tokens
      * @param value - the max amount the `spender` can withdraw
      * @param extraData - some extra information to send to the approved contract
@@ -413,7 +413,7 @@ contract ZeroGravityToken {
      * @param feeRecipient - account which will receive fee
      * @param deadline - until when the signature is valid
      * @param sigId - signature unique ID. Signatures made with the same signature ID cannot be submitted twice
-     * @param sig - signature made by `from`, which is the proof of `from`&#39;s agreement with the above parameters
+     * @param sig - signature made by `from`, which is the proof of `from`'s agreement with the above parameters
      * @param sigStd - chosen standard for signature validation. The signer must explicitly tell which standard they use
      */
     function approveAndCallViaSignature (
@@ -473,7 +473,7 @@ contract ZeroGravityToken {
 
         uint256 remaining = totalSupply.mul(40).div(60); // Portion of tokens for DreamTeam (40%)
 
-        // To make the total supply rounded (no fractional part), subtract the fractional part from DreamTeam&#39;s balance
+        // To make the total supply rounded (no fractional part), subtract the fractional part from DreamTeam's balance
         uint256 fractionalPart = remaining.add(totalSupply) % (uint256(10) ** decimals);
         remaining = remaining.sub(fractionalPart); // Remove the fractional part to round the totalSupply
 

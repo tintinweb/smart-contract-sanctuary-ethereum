@@ -108,7 +108,7 @@ contract TrustyPoll is SafeMath {
   }
   
   function createPoll(bytes32 title) public {
-      require(title != &#39;&#39;);
+      require(title != '');
 
     //ensure approve() method of TRP Token is called before creating poll or this contract will not be able to do the transfer on your behalf.
     require(Token(tokenAddress).transferFrom(msg.sender, this, fee));
@@ -119,7 +119,7 @@ contract TrustyPoll is SafeMath {
   }
   
   function createOption(uint poll, bytes32 title) public {
-      require(title != &#39;&#39;);
+      require(title != '');
       require(pollAuthors[poll] == msg.sender);
       optionId  = safeAdd(optionId, 1);
       pollOptions[poll].push(Option(optionId, title));

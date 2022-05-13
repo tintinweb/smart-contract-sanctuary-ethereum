@@ -155,7 +155,7 @@ contract SpaceXToken is ERC20Interface, Owned, Pausable {
     uint256 public totalPrice;
     uint256 public _totalSupply;        // Total number of presale tokens available
     
-    string public version = &#39;1.0&#39;;      // The current version of token
+    string public version = '1.0';      // The current version of token
     string public symbol;           
     string public  name;
     
@@ -207,14 +207,14 @@ contract SpaceXToken is ERC20Interface, Owned, Pausable {
     }
 
 
-    /** @dev Transfer the tokens from token owner&#39;s account to `to` account
+    /** @dev Transfer the tokens from token owner's account to `to` account
      *  @param to address where token is to be sent
      *  @param tokens  number of tokens
       
      */
     
     // ------------------------------------------------------------------------
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
@@ -224,7 +224,7 @@ contract SpaceXToken is ERC20Interface, Owned, Pausable {
         return true;
     }
 
-    /** @dev Token owner can approve for `spender` to transferFrom(...) `tokens` from the token owner&#39;s account
+    /** @dev Token owner can approve for `spender` to transferFrom(...) `tokens` from the token owner's account
      *  @param spender address of spender 
      *  @param tokens number of tokens
      
@@ -276,7 +276,7 @@ contract SpaceXToken is ERC20Interface, Owned, Pausable {
     }
 
     /** 
-     *  @dev Token owner can approve for `spender` to transferFrom(...) `tokens` from the token owner&#39;s account. The `spender` contract function`receiveApproval(...)` is then executed
+     *  @dev Token owner can approve for `spender` to transferFrom(...) `tokens` from the token owner's account. The `spender` contract function`receiveApproval(...)` is then executed
      
       
      */
@@ -357,7 +357,7 @@ contract SpaceXToken is ERC20Interface, Owned, Pausable {
     
     /** 
      *  @dev Owner can transfer out any accidentally sent ERC20 tokens
-     *  @dev Transfer the tokens from token owner&#39;s account to `to` account
+     *  @dev Transfer the tokens from token owner's account to `to` account
      *  @param tokenAddress address where token is to be sent
      *  @param tokens  number of tokens
      */

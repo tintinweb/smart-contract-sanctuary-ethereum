@@ -10,7 +10,7 @@ library SafeMath {
   function div(uint256 x, uint256 y) internal constant returns (uint256) {
     // assert(y > 0); // Solidity automatically throws when dividing by 0
     uint256 z = x / y;
-    // assert(x == y * z + x % y); // There is no case in which this doesn&#39;t hold
+    // assert(x == y * z + x % y); // There is no case in which this doesn't hold
     return z;
   }
   

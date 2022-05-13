@@ -73,8 +73,8 @@ contract ERC20Token is ERC20Interface {
 }
 
 contract CoomiToken is ERC20Token {
-  string public constant name = &#39;Coomi&#39;;
-  string public constant symbol = &#39;COOMI&#39;;
+  string public constant name = 'Coomi';
+  string public constant symbol = 'COOMI';
   uint8 public constant decimals = 18;
 
   constructor(uint256 _totalSupply) public {

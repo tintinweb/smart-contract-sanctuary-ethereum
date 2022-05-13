@@ -21,7 +21,7 @@ contract NewCurrency is ERC20 {
     string public symbol = "OMCUR";
     string public name = "Om Currency";
     uint8 public decimal = 3;
-    string public version = &#39;OMCUR 0.1&#39;;
+    string public version = 'OMCUR 0.1';
 
     constructor() public {
         balances[msg.sender] = _totalSupply;

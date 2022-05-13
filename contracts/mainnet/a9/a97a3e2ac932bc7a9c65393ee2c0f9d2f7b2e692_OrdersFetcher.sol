@@ -145,7 +145,7 @@ library SafeMathUint256 {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -654,7 +654,7 @@ contract OrdersFetcher is Controlled, IOrdersFetcher {
         if (_orders.getWorseOrderId(_betterOrderId) != _worseOrderId) {
             return (descendOrderList(_type, _price, _betterOrderId));
         } else if (_orders.getBetterOrderId(_worseOrderId) != _betterOrderId) {
-            // Coverage: This condition is likely unreachable or at least seems to be. Rather than remove it I&#39;m keeping it for now just to be paranoid
+            // Coverage: This condition is likely unreachable or at least seems to be. Rather than remove it I'm keeping it for now just to be paranoid
             return (ascendOrderList(_type, _price, _worseOrderId));
         }
         return (_betterOrderId, _worseOrderId);

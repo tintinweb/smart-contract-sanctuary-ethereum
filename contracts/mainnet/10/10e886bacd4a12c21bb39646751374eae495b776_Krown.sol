@@ -31,7 +31,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract token {
     /* Public variables of the token */
-    string public decentralizedEconomy = &#39;PLUTOCRACY&#39;;
+    string public decentralizedEconomy = 'PLUTOCRACY';
     string public name;
     string public symbol;
     uint8 public decimals;

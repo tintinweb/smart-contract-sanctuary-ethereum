@@ -11,7 +11,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -68,7 +68,7 @@ contract Exchange{
     mapping(address => ListAsset) public listOfAssets;
     //Maps an OrderID to the list of orders
     mapping(uint256 => Order) public orders;
-    //An mapping of a token address to the orderID&#39;s
+    //An mapping of a token address to the orderID's
     mapping(address =>  uint256[]) public forSale;
     //Index telling where a specific tokenId is in the forSale array
     mapping(uint256 => uint256) internal forSaleIndex;
@@ -257,7 +257,7 @@ contract Exchange{
     }
 
     /**
-    *@dev getOrders allows parties to get an array of all orderId&#39;s open for a given token
+    *@dev getOrders allows parties to get an array of all orderId's open for a given token
     *@param _token address of the drct token
     *@return _uint[] an array of the orders in the orderbook
     */
@@ -266,7 +266,7 @@ contract Exchange{
     }
 
     /**
-    *@dev getUserOrders allows parties to get an array of all orderId&#39;s open for a given user
+    *@dev getUserOrders allows parties to get an array of all orderId's open for a given user
     *@param _user address 
     *@return _uint[] an array of the orders in the orderbook for the user
     */

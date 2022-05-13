@@ -165,7 +165,7 @@ contract PAIStandardToken is StandardToken,Ownable{
   
   address internal saleAddr;                                 //private sale wallet address
   uint256 public crowdETHTotal = 0;                 //The ETH amount of current crowdsale
-  mapping (address => uint256) public crowdETHs;    //record user&#39;s balance of crowdsale
+  mapping (address => uint256) public crowdETHs;    //record user's balance of crowdsale
   uint256 public crowdPrice = 10000;                //crowdsale price 1(ETH):10000(PAI)
   uint256 public crowdTarget = 5000 ether;          //The total ETH of crowdsale
   bool public reflectSwitch = false;                // Whether to allow user to reflect PAI

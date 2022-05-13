@@ -1,6 +1,6 @@
 pragma solidity ^0.4.10;
 
-// Inspiration from other ICO&#39;s are used in this contract!
+// Inspiration from other ICO's are used in this contract!
 // Please contact me when there are critical errors, thanks!
 
 contract ForeignToken {

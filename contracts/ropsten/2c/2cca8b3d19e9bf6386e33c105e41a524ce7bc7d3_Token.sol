@@ -67,7 +67,7 @@ contract ERC20 is Base {
     mapping (address => mapping (address => uint)) allowed;
     using SafeMath for uint;
     uint public totalSupply;
-    bool public isFrozen = false; //it&#39;s not part of ERC20 specification, however it has to be here to place modifiers on usual ERC20 functions
+    bool public isFrozen = false; //it's not part of ERC20 specification, however it has to be here to place modifiers on usual ERC20 functions
     event Transfer(address indexed _from, address indexed _to, uint _value);
     event Approval(address indexed _owner, address indexed _spender, uint _value);
 
@@ -158,7 +158,7 @@ contract Token is ERC20 {
     uint8 public constant decimals = 18;
 
     //these are settings, i.e. the values set by the initiator at the beginning of each token generation round
-    uint public tgrSettingsAmount; //how much is needed for current round goals. It doesn&#39;t depend on how much total funds is contributed, rather than on how much has the project received.
+    uint public tgrSettingsAmount; //how much is needed for current round goals. It doesn't depend on how much total funds is contributed, rather than on how much has the project received.
     uint public tgrSettingsMinimalContribution; 
     uint public tgrSettingsPartContributor;
     uint public tgrSettingsPartProject;
@@ -371,7 +371,7 @@ contract Token is ERC20 {
     }
 
 
-    //Status of tgr is initially defined by the start block of the tgr, if it&#39;s zero then tgr is not live
+    //Status of tgr is initially defined by the start block of the tgr, if it's zero then tgr is not live
     function tgrLive() view public returns(bool) {
         if (tgrStartBlock == 0) {
             return false;

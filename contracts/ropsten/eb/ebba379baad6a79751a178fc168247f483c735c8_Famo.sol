@@ -414,7 +414,7 @@ contract Famo{
         // set up address 
         address _addr = msg.sender;
         // can have more than one name
-        //require(plyMap[_addr].name == &#39;&#39;, "sorry you already have a name");
+        //require(plyMap[_addr].name == '', "sorry you already have a name");
         require(nameAddress[_name] == address(0x0), "sorry that names already taken");
 
         // add name to player profile, registry, and name book
@@ -581,7 +581,7 @@ contract Famo{
             // 1% airDropPot
             airDropPot_ = airDropPot_.add((_eth)/(100));
             
-            if( plyMap[_pID].aff == address(0) || plyMap[ plyMap[_pID].aff].name == &#39;&#39; ){
+            if( plyMap[_pID].aff == address(0) || plyMap[ plyMap[_pID].aff].name == '' ){
                 // %67 Pot
                 roundList[iCurRdIdx].iSharePot += (_eth*67)/(100);
             }else{
@@ -643,7 +643,7 @@ contract Famo{
         }
             
 
-        // update player&#39;s last round played
+        // update player's last round played
         plyMap[_pID].iLastRoundId = roundList.length;
         return;
     }
@@ -707,7 +707,7 @@ contract Famo{
          // setup local rID
         uint256 _rIDIdx = roundList.length - 1;
         
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         address _winPID = roundList[_rIDIdx].plyr;
 
         // grab our pot amount

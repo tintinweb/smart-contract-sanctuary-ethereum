@@ -800,7 +800,7 @@ contract HelloGoldSale is Pausable, SafeMath {
       if (tokens <= coinsLeftInTier) {
         uint256 actualTokens = tokens;
         uint refund = 0;
-        if (tokens > coinsRemaining) { //can&#39;t sell desired # tokens
+        if (tokens > coinsRemaining) { //can't sell desired # tokens
             Reduction("in tier",recipient,tokens,coinsRemaining);
             actualTokens = coinsRemaining;
             refund = safeSub(tokens, coinsRemaining ); // refund amount in tokens
@@ -866,7 +866,7 @@ contract HelloGoldSale is Pausable, SafeMath {
     if ((val > 0) || (maxRefund > 0)){
         Reduction("finished crowdsale, returning ",recipient,value,totalTokens);
         // return the remainder !
-        recipient.transfer(val+maxRefund); // if you can&#39;t return the balance, abort whole process
+        recipient.transfer(val+maxRefund); // if you can't return the balance, abort whole process
     }
     if (!multiSig.send(this.balance)) {
         ethRaised = safeSub(ethRaised,this.balance);

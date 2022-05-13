@@ -146,8 +146,8 @@ contract RSPScienceInterface {
 contract RockScissorPaper is StandardToken, Ownable {
         using SafeMath for uint256;
 
-        string public   name                = &#39;RockScissorPaper&#39;;
-        string public   symbol              = &#39;RSP&#39;;
+        string public   name                = 'RockScissorPaper';
+        string public   symbol              = 'RSP';
         uint8 public    decimals            = 18;
 
         // uint256 public  initialAmount        = 5 * 10**uint(decimals+6);
@@ -328,7 +328,7 @@ contract RockScissorPaper is StandardToken, Ownable {
 
                 // lastGameId[msg.sender]      = gameId;
                 // Todo: Last GameId
-                // Let&#39;s be absolutely sure array don&#39;t hit its limits
+                // Let's be absolutely sure array don't hit its limits
                 require (gameId == uint256(uint32(gameId)));
                 GameCreated (msg.sender, gameId, pose);
         }
@@ -382,7 +382,7 @@ contract RockScissorPaper is StandardToken, Ownable {
                 game.sek        = sek;
 
                 address     referral;
-                // Let&#39;s start solving the game
+                // Let's start solving the game
                 uint256     posebits        = rspScience.calcPoseBits (sek, game.creatorPose, game.playerPose);
 
                 // RK, SC, PA,   RK, SC, PA
@@ -390,7 +390,7 @@ contract RockScissorPaper is StandardToken, Ownable {
                 if ((posebits % 9) == 0) {                                  // 9, 18 or 36
                         require (drawPrize >= 0);
 
-                        // draw (we don&#39;t take any fees - fair enough?)
+                        // draw (we don't take any fees - fair enough?)
                         _transferFrom (this, game.creator, drawPrize);
                         _transferFrom (this, game.player, drawPrize);
                 }
@@ -441,7 +441,7 @@ contract RockScissorPaper is StandardToken, Ownable {
         }
 
         // Or the game could be automatically solved a few moments later by the owner,
-        // charging a &#39;solverFee&#39;
+        // charging a 'solverFee'
         function autoSolveGame (uint256 gameId, uint256 sek, uint256 solFee) onlyOwner public {
                 _solveGame (gameId, sek, solFee);
         }

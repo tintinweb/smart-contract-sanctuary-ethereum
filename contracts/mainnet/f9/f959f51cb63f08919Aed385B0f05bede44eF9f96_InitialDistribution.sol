@@ -179,7 +179,7 @@ contract InitialDistribution {
     }
 
     /**
-        @notice Transfers awarded MILs to the caller&#39;s account.
+        @notice Transfers awarded MILs to the caller's account.
     */
     function withdrawMILs(uint256 _MILs) public postEnd funded {
         uint256 daysSinceEnd = (now - lockUpEnd) / 1 days;

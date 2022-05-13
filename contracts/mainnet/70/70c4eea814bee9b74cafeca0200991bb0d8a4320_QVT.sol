@@ -205,7 +205,7 @@ contract QVT is StandardToken {
         // Count expected tokens price
         uint tokens = _value / price();
 
-        // Total tokens should be more than user want&#39;s to buy
+        // Total tokens should be more than user want's to buy
         require(balances[owner]>tokens);
 
         // Gave +50% of tokents on pre-ico
@@ -340,7 +340,7 @@ contract QVT is StandardToken {
     }
 
     /**
-     * Just being sent some cash? Let&#39;s buy tokens
+     * Just being sent some cash? Let's buy tokens
      */
     function() payable {
         buy();

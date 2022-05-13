@@ -48,7 +48,7 @@ library SafeMath {
      
      /**
       * 
-      * @dev The Ownable constructor sets the original &#39;owner&#39; of the contract to the
+      * @dev The Ownable constructor sets the original 'owner' of the contract to the
       *         sender account.
       */
       
@@ -398,7 +398,7 @@ contract QSHU is ERC223, Ownable {
     
 /**
  * @dev Function to distribute tokens to the msg.sender automatically
- * If distributeAmount is 0 , this function doesn&#39;t work&#39;
+ * If distributeAmount is 0 , this function doesn't work'
  */
  
     function autoDistribute() payable public {

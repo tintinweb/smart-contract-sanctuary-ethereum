@@ -33,8 +33,8 @@ library SafeMath {
     * @dev Multiplies two numbers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -53,7 +53,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -135,7 +135,7 @@ library Roles {
     }
 
     /**
-     * @dev remove an account&#39;s access to this role
+     * @dev remove an account's access to this role
      */
     function remove(Role storage role, address account) internal {
         require(account != address(0));
@@ -274,11 +274,11 @@ contract ERC165 is IERC165 {
     bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
     /**
      * 0x01ffc9a7 ===
-     *     bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+     *     bytes4(keccak256('supportsInterface(bytes4)'))
      */
 
     /**
-     * @dev a mapping of interface id to whether or not it&#39;s supported
+     * @dev a mapping of interface id to whether or not it's supported
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -334,15 +334,15 @@ contract ERC721 is ERC165, IERC721 {
     bytes4 private constant _InterfaceId_ERC721 = 0x80ac58cd;
     /*
      * 0x80ac58cd ===
-     *     bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-     *     bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-     *     bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-     *     bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+     *     bytes4(keccak256('balanceOf(address)')) ^
+     *     bytes4(keccak256('ownerOf(uint256)')) ^
+     *     bytes4(keccak256('approve(address,uint256)')) ^
+     *     bytes4(keccak256('getApproved(uint256)')) ^
+     *     bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+     *     bytes4(keccak256('isApprovedForAll(address,address)')) ^
+     *     bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+     *     bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+     *     bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
      */
 
     constructor () public {
@@ -546,7 +546,7 @@ contract ERC721 is ERC165, IERC721 {
      * @dev Internal function to remove a token ID from the list of a given address
      * Note that this function is left internal to make ERC721Enumerable possible, but is not
      * intended to be called by custom derived contracts: in particular, it emits no Transfer event,
-     * and doesn&#39;t clear approvals.
+     * and doesn't clear approvals.
      * @param from address representing the previous owner of the given token ID
      * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
      */
@@ -627,9 +627,9 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
     bytes4 private constant _InterfaceId_ERC721Enumerable = 0x780e9d63;
     /**
      * 0x780e9d63 ===
-     *     bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-     *     bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-     *     bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+     *     bytes4(keccak256('totalSupply()')) ^
+     *     bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+     *     bytes4(keccak256('tokenByIndex(uint256)'))
      */
 
     /**
@@ -687,7 +687,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
      * @dev Internal function to remove a token ID from the list of a given address
      * This function is internal due to language limitations, see the note in ERC721.sol.
      * It is not intended to be called by custom derived contracts: in particular, it emits no Transfer event,
-     * and doesn&#39;t clear approvals.
+     * and doesn't clear approvals.
      * @param from address representing the previous owner of the given token ID
      * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
      */
@@ -762,7 +762,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
     }
 
     /**
-     * @dev Private function to add a token to this extension&#39;s ownership-tracking data structures.
+     * @dev Private function to add a token to this extension's ownership-tracking data structures.
      * @param to address representing the new owner of the given token ID
      * @param tokenId uint256 ID of the token to be added to the tokens list of the given address
      */
@@ -773,7 +773,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
     }
 
     /**
-     * @dev Private function to remove a token from this extension&#39;s ownership-tracking data structures. Note that
+     * @dev Private function to remove a token from this extension's ownership-tracking data structures. Note that
      * while the token is not assigned a new owner, the _ownedTokensIndex mapping is _not_ updated: this allows for
      * gas optimizations e.g. when performing a transfer operation (avoiding double writes).
      * This has O(1) time complexity, but alters the order of the _ownedTokens array.
@@ -781,7 +781,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
      * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
      */
     function _removeTokenFromOwnerEnumeration(address from, uint256 tokenId) private {
-        // To prevent a gap in from&#39;s tokens array, we store the last token in the index of the token to delete, and
+        // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
         uint256 lastTokenIndex = _ownedTokens[from].length.sub(1);
@@ -790,16 +790,16 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
         uint256 tokenIndex = _ownedTokensIndex[tokenId];
 
         _ownedTokens[from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
-        _ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token&#39;s index
+        _ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
 
         // Note that this will handle single-element arrays. In that case, both tokenIndex and lastTokenIndex are going
         // to be zero. The swap operation will therefore have no effect, but the token _will_ be deleted during the
-        // &#39;pop&#39; operation.
+        // 'pop' operation.
 
         // This also deletes the contents at the last position of the array
         _ownedTokens[from].length--;
 
-        // Note that _ownedTokensIndex[tokenId] hasn&#39;t been cleared: it still points to the old slot (now occcupied by
+        // Note that _ownedTokensIndex[tokenId] hasn't been cleared: it still points to the old slot (now occcupied by
         // lasTokenId).
     }
 }
@@ -818,9 +818,9 @@ contract ERC721Metadata is ERC165, ERC721, IERC721Metadata {
     bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
     /**
      * 0x5b5e139f ===
-     *     bytes4(keccak256(&#39;name()&#39;)) ^
-     *     bytes4(keccak256(&#39;symbol()&#39;)) ^
-     *     bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+     *     bytes4(keccak256('name()')) ^
+     *     bytes4(keccak256('symbol()')) ^
+     *     bytes4(keccak256('tokenURI(uint256)'))
      */
 
     /**
@@ -1195,12 +1195,12 @@ contract Cryptomeetup is ERC721Full, ERC721Pausable, ERC721Mintable, ERC721Holde
         emit Bought(tokenId, newOwner, price);
         emit Sold(tokenId, oldOwner, price);
 
-        // Devevloper&#39;s cut which is left in contract and accesed by
+        // Devevloper's cut which is left in contract and accesed by
         // `withdrawAll` and `withdrawAmountTo` methods.
         uint256 devCut = calculateDevCut(price);
 
         uint256 _pool = price.mul(toPool).div(100);
-        // Transfer payment to old owner minus the developer&#39;s cut.
+        // Transfer payment to old owner minus the developer's cut.
         oldOwner.transfer(price.sub(devCut).sub(_pool));
 
 
@@ -1233,7 +1233,7 @@ contract Cryptomeetup is ERC721Full, ERC721Pausable, ERC721Mintable, ERC721Holde
 
     /* Withdraw */
     /*
-        NOTICE: These functions withdraw the developer&#39;s cut which is left
+        NOTICE: These functions withdraw the developer's cut which is left
         in the contract by `buy`. User funds are immediately sent to the old
         owner in `buy`, no user funds are left in the contract.
     */

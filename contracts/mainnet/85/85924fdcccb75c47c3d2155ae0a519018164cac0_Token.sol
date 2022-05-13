@@ -77,7 +77,7 @@ contract Token is StandardToken {
     string public name = "Telomere Coin";
     uint8 public decimals = 0;
     string public symbol = "TXY";
-    string public version = &#39;TXY 1.0&#39;;
+    string public version = 'TXY 1.0';
     address public mintableAddress;
 
     function Token(address sale_address) {

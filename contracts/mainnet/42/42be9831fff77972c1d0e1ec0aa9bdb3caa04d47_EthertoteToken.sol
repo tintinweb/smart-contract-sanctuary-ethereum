@@ -8,7 +8,7 @@ pragma solidity ^0.4.24;
 //  Ethertote token contract
 //
 //  (parts of the token contract
-//  are based on the &#39;MiniMeToken&#39; - Jordi Baylina)
+//  are based on the 'MiniMeToken' - Jordi Baylina)
 //
 //  Fully ERC20 Compliant token
 //
@@ -110,7 +110,7 @@ contract EthertoteToken {
     // be 0x0 unless cloned
     uint private parentSnapShotBlock;
 
-    // creationBlock is the &#39;genesis&#39; block number when contract is deployed
+    // creationBlock is the 'genesis' block number when contract is deployed
     uint public creationBlock;
 
     // balances is the mapping which tracks the balance of each address
@@ -123,7 +123,7 @@ contract EthertoteToken {
     // Checkpoint array tracks the history of the totalSupply of the token
     Checkpoint[] totalSupplyHistory;
 
-    // needs to be set to &#39;true&#39; to allow tokens to be transferred
+    // needs to be set to 'true' to allow tokens to be transferred
     bool public transfersEnabled;
 
 
@@ -308,7 +308,7 @@ contract EthertoteToken {
     
 // _spender is the address of the contract able to transfer the tokens
 // _amount is the amount of tokens to be approved for transfer
-// return &#39;true&#39; if the function call was successful
+// return 'true' if the function call was successful
 // ----------------------------------------------------------------------------    
     function approveAndCall(address _spender, uint256 _amount, bytes _extraData
     ) public returns (bool success) {
@@ -460,7 +460,7 @@ contract EthertoteToken {
     }
 
 // ----------------------------------------------------------------------------
-// fallback function: If the contract&#39;s controller has not been set to 0, 
+// fallback function: If the contract's controller has not been set to 0, 
 // then the `proxyPayment` method is called which relays the eth and creates 
 // tokens as described in the token controller contract
 // ----------------------------------------------------------------------------

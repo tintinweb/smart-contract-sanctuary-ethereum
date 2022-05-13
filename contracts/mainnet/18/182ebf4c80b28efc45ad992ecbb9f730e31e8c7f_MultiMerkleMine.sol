@@ -40,7 +40,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -120,7 +120,7 @@ contract MerkleMine {
     // Start block where a third party caller (not the recipient) can generate and split the allocation with the recipient
     // As the current block gets closer to `callerAllocationEndBlock`, the caller receives a larger precentage of the allocation
     uint256 public callerAllocationStartBlock;
-    // From this block onwards, a third party caller (not the recipient) can generate and claim the recipient&#39;s full allocation
+    // From this block onwards, a third party caller (not the recipient) can generate and claim the recipient's full allocation
     uint256 public callerAllocationEndBlock;
     // Number of blocks in the caller allocation period as defined by `callerAllocationEndBlock` - `callerAllocationStartBlock`
     uint256 public callerAllocationPeriod;
@@ -131,7 +131,7 @@ contract MerkleMine {
     // Track the already generated allocations for recipients
     mapping (address => bool) public generated;
 
-    // Check that a recipient&#39;s allocation has not been generated
+    // Check that a recipient's allocation has not been generated
     modifier notGenerated(address _recipient) {
         require(!generated[_recipient]);
         _;
@@ -160,7 +160,7 @@ contract MerkleMine {
      * @param _balanceThreshold Minimum ETH balance threshold for recipients included in genesis state
      * @param _genesisBlock Block number of genesis - used to determine which ETH accounts are included in the genesis state
      * @param _callerAllocationStartBlock Start block where a third party caller (not the recipient) can generate and split the allocation with the recipient
-     * @param _callerAllocationEndBlock From this block onwards, a third party caller (not the recipient) can generate and claim the recipient&#39;s full allocation
+     * @param _callerAllocationEndBlock From this block onwards, a third party caller (not the recipient) can generate and claim the recipient's full allocation
      */
     function MerkleMine(
         address _token,
@@ -198,7 +198,7 @@ contract MerkleMine {
     }
 
     /**
-     * @dev Start the generation period - first checks that this contract&#39;s balance is equal to `totalGenesisTokens`
+     * @dev Start the generation period - first checks that this contract's balance is equal to `totalGenesisTokens`
      * The generation period must not already be started
      */
     function start() external isNotStarted {
@@ -209,13 +209,13 @@ contract MerkleMine {
     }
 
     /**
-     * @dev Generate a recipient&#39;s token allocation. Generation period must be started. Starting from `callerAllocationStartBlock`
-     * a third party caller (not the recipient) can invoke this function to generate the recipient&#39;s token
+     * @dev Generate a recipient's token allocation. Generation period must be started. Starting from `callerAllocationStartBlock`
+     * a third party caller (not the recipient) can invoke this function to generate the recipient's token
      * allocation and claim a percentage of it. The percentage of the allocation claimed by the
      * third party caller is determined by how many blocks have elapsed since `callerAllocationStartBlock`.
      * After `callerAllocationEndBlock`, a third party caller can claim the full allocation
      * @param _recipient Recipient of token allocation
-     * @param _merkleProof Proof of recipient&#39;s inclusion in genesis state Merkle root
+     * @param _merkleProof Proof of recipient's inclusion in genesis state Merkle root
      */
     function generate(address _recipient, bytes _merkleProof) external isStarted notGenerated(_recipient) {
         // Check the Merkle proof
@@ -253,7 +253,7 @@ contract MerkleMine {
     }
 
     /**
-     * @dev Return the amount of tokens claimable by a third party caller when generating a recipient&#39;s token allocation at a given block
+     * @dev Return the amount of tokens claimable by a third party caller when generating a recipient's token allocation at a given block
      * @param _blockNumber Block at which to compute the amount of tokens claimable by a third party caller
      */
     function callerTokenAmountAtBlock(uint256 _blockNumber) public view returns (uint256) {
@@ -265,7 +265,7 @@ contract MerkleMine {
             return tokensPerAllocation;
         } else {
             // During the caller allocation period, the third party caller can claim an increasing percentage
-            // of the recipient&#39;s allocation based on a linear curve - as more blocks pass in the caller allocation
+            // of the recipient's allocation based on a linear curve - as more blocks pass in the caller allocation
             // period, the amount claimable by the third party caller increases linearly
             uint256 blocksSinceCallerAllocationStartBlock = _blockNumber.sub(callerAllocationStartBlock);
             return tokensPerAllocation.mul(blocksSinceCallerAllocationStartBlock).div(callerAllocationPeriod);
@@ -295,7 +295,7 @@ library BytesUtil{
     }
     
     /**
-     * @dev Copy &#39;len&#39; bytes from memory address &#39;src&#39;, to address &#39;dest&#39;.
+     * @dev Copy 'len' bytes from memory address 'src', to address 'dest'.
      * This function does not check the or destination, it only copies
      * the bytes.
      * @param src Memory address of source byte array
@@ -322,9 +322,9 @@ library BytesUtil{
     }
 
     /**
-     * @dev Creates a &#39;bytes memory&#39; variable from the memory address &#39;addr&#39;, with the
-     * length &#39;len&#39;. The function will allocate new memory for the bytes array, and
-     * the &#39;len bytes starting at &#39;addr&#39; will be copied into that new memory.
+     * @dev Creates a 'bytes memory' variable from the memory address 'addr', with the
+     * length 'len'. The function will allocate new memory for the bytes array, and
+     * the 'len bytes starting at 'addr' will be copied into that new memory.
      * @param addr Memory address of input byte array
      * @param len Number of bytes to copy from input byte array
      */
@@ -335,11 +335,11 @@ library BytesUtil{
     }
     
     /**
-     * @dev Copies &#39;len&#39; bytes from &#39;bts&#39; into a new array, starting at the provided &#39;startIndex&#39;.
+     * @dev Copies 'len' bytes from 'bts' into a new array, starting at the provided 'startIndex'.
      * Returns the new copy.
      * Requires that:
-     *  - &#39;startIndex + len <= self.length&#39;
-     * The length of the substring is: &#39;len&#39;
+     *  - 'startIndex + len <= self.length'
+     * The length of the substring is: 'len'
      * @param bts Memory byte array to copy from
      * @param startIndex Index of `bts` to start copying bytes from
      * @param len Number of bytes to copy from `bts`
@@ -423,7 +423,7 @@ contract MultiMerkleMine {
 		);
 
 		for (uint256 k = 0; k < _recipients.length; k++) {
-			// If recipient&#39;s token allocation has not been generated, generate the token allocation
+			// If recipient's token allocation has not been generated, generate the token allocation
 			// Else, continue to the next recipient
 			if (!mine.generated(_recipients[k])) {
 				mine.generate(_recipients[k], proofs[k]);
@@ -433,7 +433,7 @@ contract MultiMerkleMine {
 		uint256 newBalanceSinceAllocation = token.balanceOf(this);
 		uint256 callerTokensGenerated = newBalanceSinceAllocation.sub(initialBalance);
 
-		// Transfer caller&#39;s portion of tokens generated by this function call 
+		// Transfer caller's portion of tokens generated by this function call 
 		if (callerTokensGenerated > 0) {
 			require(token.transfer(msg.sender, callerTokensGenerated));
 		}

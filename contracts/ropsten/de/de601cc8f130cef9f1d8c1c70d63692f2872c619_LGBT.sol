@@ -69,7 +69,7 @@ contract ERC20 is ERC20Basic {function allowance(address owner, address spender)
 /*  SafeMath - the lowest gas library - Math operations with safety checks that throw on error */
 library SafeMath {function mul(uint256 a, uint256 b) internal pure returns (uint256) {uint256 c = a * b; assert(a == 0 || c / a == b); return c;}
 // assert(b > 0); // Solidity automatically throws when dividing by 0
-// assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+// assert(a == b * c + a % b); // There is no case in which this doesn't hold
 function div(uint256 a, uint256 b) internal pure returns (uint256) {uint256 c = a / b; return c;}
 function sub(uint256 a, uint256 b) internal pure returns (uint256) {assert(b <= a); return a - b;}
 function add(uint256 a, uint256 b) internal pure returns (uint256) {uint256 c = a + b; assert(c >= a); return c;}}
@@ -97,7 +97,7 @@ function transferFrom(address _from, address _to, uint256 _value) public returns
 balances[_to] = balances[_to].add(_value); balances[_from] = balances[_from].sub(_value); allowed[_from][msg.sender] = _allowance.sub(_value); Transfer(_from, _to, _value); return true;}
 /*  Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
     param _spender The address which will spend the funds.
-    param _value The amount of Douglas Adams&#39; tokens to be spent.
+    param _value The amount of Douglas Adams' tokens to be spent.
 */
 function approve(address _spender, uint256 _value) public returns (bool) {
 //  To change the approve amount you must first reduce the allowance
@@ -123,12 +123,12 @@ function transferOwnership(address newOwner) public onlyOwner {require(newOwner 
 contract LGBT is StandardToken, Ownable {
     string public constant name = "Rainbow$";
         string public constant symbol = "LGBT";
-            string public version = &#39;V1.04.07.2018&#39;;
+            string public version = 'V1.04.07.2018';
             uint public constant decimals = 18;
         uint256 public initialSupply;
     uint256 public unitsOneEthCanBuy;           /*  How many units of LGBT can be bought by 1 ETH?  */
 uint256 public totalEthInWei;                   /*  WEI is the smallest unit of ETH (the equivalent */
-                                                /*  of cent in USD or satoshi in BTC). We&#39;ll store  */
+                                                /*  of cent in USD or satoshi in BTC). We'll store  */
                                                 /*  the total ETH raised via the contract here.     */
 address public fundsWallet;                     /*  Where should ETH sent to the contract go?       */
     function LGBT () public {
@@ -146,7 +146,7 @@ Transfer(fundsWallet, msg.sender, amount);      /*  Broadcast a message to the b
 fundsWallet.transfer(msg.value);}
 /*  Approves and then calls the receiving contract */
 function approveAndCall(address _spender, uint256 _value, bytes _extraData) public returns (bool success) {allowed[msg.sender][_spender] = _value; Approval(msg.sender, _spender, _value);
-/*  call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+/*  call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
     receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
     it is assumed that when does this that the call *should* succeed, otherwise one would use vanilla approve instead.  */
 if(!_spender.call(bytes4(bytes32(keccak256("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData)) { return; } return true;}

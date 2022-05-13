@@ -43,7 +43,7 @@ contract Ownable {
     @dev Defines the interface of a standard RCN oracle.
 
     The oracle is an agent in the RCN network that supplies a convertion rate between RCN and any other currency,
-    it&#39;s primarily used by the exchange but could be used by any other agent.
+    it's primarily used by the exchange but could be used by any other agent.
 */
 contract Oracle is Ownable {
     uint256 public constant VERSION = 4;
@@ -373,7 +373,7 @@ contract Model is IERC165 {
         @param timestamp Timestamp of the obligation query
 
         @return amount Amount pending to pay on the given timestamp
-        @return defined True If the amount returned is fixed and can&#39;t change
+        @return defined True If the amount returned is fixed and can't change
     */
     function getObligation(bytes32 id, uint64 timestamp) external view returns (uint256 amount, bool defined);
 
@@ -434,7 +434,7 @@ contract Model is IERC165 {
         The registry could be paid before or after the date, but the debt will always be
             considered overdue if paid after this timestamp.
 
-        This is the estimated final payment date of the debt if it&#39;s always paid on each exact dueTime.
+        This is the estimated final payment date of the debt if it's always paid on each exact dueTime.
 
         @param id Id of the registry
 
@@ -511,10 +511,10 @@ contract Model is IERC165 {
         Not all models have internal clocks, a model without an internal clock should always return false.
 
         Calls to this method should be possible from any address,
-            multiple calls to run shouldn&#39;t affect the internal calculations of the model.
+            multiple calls to run shouldn't affect the internal calculations of the model.
 
         @dev If the call had no effect the method would return False,
-            that is no sign of things going wrong, and the call shouldn&#39;t be wrapped on a require
+            that is no sign of things going wrong, and the call shouldn't be wrapped on a require
 
         @param id If of the registry
 
@@ -566,11 +566,11 @@ contract ERC165 is IERC165 {
     bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
     /**
     * 0x01ffc9a7 ===
-    *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+    *   bytes4(keccak256('supportsInterface(bytes4)'))
     */
 
     /**
-    * @dev a mapping of interface id to whether or not it&#39;s supported
+    * @dev a mapping of interface id to whether or not it's supported
     */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -601,7 +601,7 @@ contract ERC165 is IERC165 {
     function _registerInterface(bytes4 interfaceId)
         internal
     {
-        require(interfaceId != 0xffffffff, "Can&#39;t register 0xffffffff");
+        require(interfaceId != 0xffffffff, "Can't register 0xffffffff");
         _supportedInterfaces[interfaceId] = true;
     }
 }
@@ -831,7 +831,7 @@ contract ERC721Base is ERC165 {
     //
 
     /**
-     * @dev Authorize a third party operator to manage (send) msg.sender&#39;s asset
+     * @dev Authorize a third party operator to manage (send) msg.sender's asset
      * @param _operator address to be approved
      * @param _authorized bool set to true to authorize, false to withdraw authorization
      */
@@ -849,7 +849,7 @@ contract ERC721Base is ERC165 {
      */
     function approve(address _operator, uint256 _assetId) external {
         address holder = _ownerOf(_assetId);
-        require(msg.sender == holder || _isApprovedForAll(msg.sender, holder), "msg.sender can&#39;t approve");
+        require(msg.sender == holder || _isApprovedForAll(msg.sender, holder), "msg.sender can't approve");
         if (_getApprovedAddress(_assetId) != _operator) {
             _approval[_assetId] = _operator;
             emit Approval(holder, _operator, _assetId);
@@ -936,12 +936,12 @@ contract ERC721Base is ERC165 {
     }
 
     modifier addressDefined(address _target) {
-        require(_target != address(0), "Target can&#39;t be 0x0");
+        require(_target != address(0), "Target can't be 0x0");
         _;
     }
 
     /**
-     * @dev Alias of `safeTransferFrom(from, to, assetId, &#39;&#39;)`
+     * @dev Alias of `safeTransferFrom(from, to, assetId, '')`
      *
      * @param _from address that currently owns an asset
      * @param _to address to receive the ownership of the asset
@@ -954,7 +954,7 @@ contract ERC721Base is ERC165 {
     /**
      * @dev Securely transfers the ownership of a given asset from one address to
      * another address, calling the method `onNFTReceived` on the target address if
-     * there&#39;s code associated with it
+     * there's code associated with it
      *
      * @param _from address that currently owns an asset
      * @param _to address to receive the ownership of the asset
@@ -1329,7 +1329,7 @@ contract DebtEngine is ERC721Base {
 
         // Paid only required amount
         paid = _safePay(_id, debt.model, _amount);
-        require(paid <= _amount, "Paid can&#39;t be more than requested");
+        require(paid <= _amount, "Paid can't be more than requested");
 
         IOracle oracle = IOracle(debt.oracle);
         if (oracle != address(0)) {
@@ -1387,12 +1387,12 @@ contract DebtEngine is ERC721Base {
 
         // Call addPaid on model
         paid = _safePay(id, debt.model, available);
-        require(paid <= available, "Paid can&#39;t exceed available");
+        require(paid <= available, "Paid can't exceed available");
 
         // Convert back to required pull amount
         if (oracle != address(0)) {
             paidToken = _toToken(paid, tokens, equivalent);
-            require(paidToken <= amount, "Paid can&#39;t exceed requested");
+            require(paidToken <= amount, "Paid can't exceed requested");
         } else {
             paidToken = paid;
         }
@@ -1479,7 +1479,7 @@ contract DebtEngine is ERC721Base {
                 tokens,
                 equivalent
             );
-            require(paidTokens[i] <= tokenAmount, "Paid can&#39;t exceed requested");
+            require(paidTokens[i] <= tokenAmount, "Paid can't exceed requested");
 
             emit Paid({
                 _id: _ids[i],
@@ -1525,7 +1525,7 @@ contract DebtEngine is ERC721Base {
 
         // Paid only required amount
         paid = _safePay(_id, debt.model, _amount);
-        require(paid <= _amount, "Paid can&#39;t be more than requested");
+        require(paid <= _amount, "Paid can't be more than requested");
 
         // Get token amount to use as payment
         paidToken = _oracle != address(0) ? _toToken(paid, _tokens, _equivalent) : paid;
@@ -1801,7 +1801,7 @@ contract LoanApprover is IERC165 {
 /**
     @dev Defines the interface of a standard Diaspore RCN Oracle,
     
-    The contract should also implement it&#39;s ERC165 interface: 0xa265d8e0
+    The contract should also implement it's ERC165 interface: 0xa265d8e0
 
     @notice Each oracle can only support one currency
 
@@ -2387,7 +2387,7 @@ contract LoanManager is BytesUtils {
                 ),
                 "Cosign method returned false"
             );
-            require(request.cosigner == _cosigner, "Cosigner didn&#39;t callback");
+            require(request.cosigner == _cosigner, "Cosigner didn't callback");
             request.salt = auxSalt;
         }
 
@@ -2557,7 +2557,7 @@ contract LoanManager is BytesUtils {
         if (_cosigner != address(0)) {
             request.cosigner = address(uint256(_cosigner) + 2);
             require(Cosigner(_cosigner).requestCosign(Engine(address(this)), uint256(futureDebt), _cosignerData, _oracleData), "Cosign method returned false");
-            require(request.cosigner == _cosigner, "Cosigner didn&#39;t callback");
+            require(request.cosigner == _cosigner, "Cosigner didn't callback");
             request.salt = uint256(read(_requestData, O_SALT, L_SALT));
         }
     }

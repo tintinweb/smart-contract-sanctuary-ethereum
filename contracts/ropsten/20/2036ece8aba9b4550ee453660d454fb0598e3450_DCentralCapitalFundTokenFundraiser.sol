@@ -62,7 +62,7 @@ contract ERC20Token {
  * @title TokenSafe
  *
  * @dev Abstract contract that serves as a base for the token safes. It is a multi-group token safe, where each group
- *      has it&#39;s own release time and multiple accounts with locked tokens.
+ *      has it's own release time and multiple accounts with locked tokens.
  */
 contract TokenSafe {
     using SafeMath for uint;
@@ -530,7 +530,7 @@ contract StandardToken is ERC20Token {
     /**
      * @dev Get the balance of an address.
      *
-     * @param _address The address which&#39;s balance will be checked.
+     * @param _address The address which's balance will be checked.
      *
      * @return The current balance of the address.
      */
@@ -878,7 +878,7 @@ contract FinalizableFundraiser is BasicFundraiser {
 
     /**
      * @dev Override this function to add extra work when a fundraiser is finalized.
-     * Don&#39;t forget to add super.finalization() to execute this part.
+     * Don't forget to add super.finalization() to execute this part.
      */
     function finalization() internal {
         beneficiary.transfer(address(this).balance);

@@ -50,8 +50,8 @@ contract QBToken is ERC20 {
     address owner = msg.sender;
     mapping (address => uint256) balances;
     mapping (address => mapping (address => uint256)) allowed;
-    string public constant name = &#39;Q B Token&#39;;
-    string public constant symbol = &#39;QBT&#39;;
+    string public constant name = 'Q B Token';
+    string public constant symbol = 'QBT';
     uint public constant decimals = 18;
     uint256 public totalSupply = 15000000000e18;
     uint256 public totalDistributed =  3000000000e18;    

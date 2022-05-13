@@ -162,7 +162,7 @@ contract TokenERC20 {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;
@@ -228,7 +228,7 @@ contract QRG is owned, TokenERC20 {
     }
 
     function () public payable {
-        require (buyPrice != 0);                          // don&#39;t allow purchases before price has been set
+        require (buyPrice != 0);                          // don't allow purchases before price has been set
         uint amountTokens = msg.value*buyPrice;           // calculate tokens to be sent
         _transfer(this, msg.sender, amountTokens);        // makes the token transfer
         owner.transfer(msg.value);

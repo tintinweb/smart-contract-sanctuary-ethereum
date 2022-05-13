@@ -44,7 +44,7 @@ contract CyberyTokenSale {
         _;
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -85,7 +85,7 @@ contract CyberyTokenSale {
     // approve has to be called twice in 2 separate transactions - 
     // once to change the allowance to 0 and secondly to change it to the new allowance value
     function approve(address _spender, uint256 _value) validAddress(_spender) returns (bool success) {
-        // if the allowance isn&#39;t 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
+        // if the allowance isn't 0, it can only be updated to 0 to prevent an allowance change immediately after withdrawal
         require(_value == 0 || allowed[msg.sender][_spender] == 0);
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);

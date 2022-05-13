@@ -239,7 +239,7 @@ contract FlyToTheMoon is FlyToTheMoonEvents {
         onlyHuman()
         public
     {
-        require(_rndNo <= rndNo, "You&#39;re running too fast");
+        require(_rndNo <= rndNo, "You're running too fast");
         uint256 _total = (((round_m[_rndNo].eth).mul(playerRound_m[_rndNo][msg.sender].keys)).mul(60) / ((round_m[_rndNo].keys).mul(100)));
         uint256 _withdrawed = playerRound_m[_rndNo][msg.sender].withdraw;
         require(_total > _withdrawed, "No need to withdraw");
@@ -266,10 +266,10 @@ contract FlyToTheMoon is FlyToTheMoonEvents {
         onlyHuman()
         public
     {
-        require(_rndNo <= rndNo, "You&#39;re running too fast");
+        require(_rndNo <= rndNo, "You're running too fast");
         require(now > round_m[_rndNo].endTime, "Wait patiently");
         require(round_m[_rndNo].leader == msg.sender, "The prize is not yours");
-        require(round_m[_rndNo].award == false, "Can&#39;t get prizes repeatedly");
+        require(round_m[_rndNo].award == false, "Can't get prizes repeatedly");
 
         uint256 _ethOut = ((round_m[_rndNo].eth).mul(35) / (100));
         round_m[_rndNo].award = true;

@@ -132,7 +132,7 @@ contract ChampFactory is Pausable{
         uint256 defencePower;
         uint256 cooldownReduction;
         uint256 price;
-        uint256 onChampId; //can not be used to decide if item is on champ, because champ&#39;s id can be 0, &#39;bool onChamp&#39; solves it.
+        uint256 onChampId; //can not be used to decide if item is on champ, because champ's id can be 0, 'bool onChamp' solves it.
         bool onChamp; 
         bool forSale; //is item for sale?
     }
@@ -237,7 +237,7 @@ contract ChampFactory is Pausable{
     }
     
 
-    /// @notice Gets champ&#39;s reward in wei
+    /// @notice Gets champ's reward in wei
     function getChampReward(uint256 _position) public view returns(uint256) {
         if(_position <= 800){
             //percentageMultipier = 10,000
@@ -249,7 +249,7 @@ contract ChampFactory is Pausable{
             //available funds are all funds - already pending
             uint256 availableWithdrawal = address(this).balance.sub(pendingWithdrawal);
 
-            //calculate reward for champ&#39;s position
+            //calculate reward for champ's position
             //1000000 = percentageMultipier * 100
             return availableWithdrawal / 1000000 * rewardPercentage;
         }else{
@@ -290,7 +290,7 @@ contract ChampFactory is Pausable{
              readyTime: 0,
              winCount: 0,
              lossCount: 0,
-             position: leaderboard.length + 1, //Last place in leaderboard is new champ&#39;s position. Used in new champ struct bellow. +1 to avoid zero position.
+             position: leaderboard.length + 1, //Last place in leaderboard is new champ's position. Used in new champ struct bellow. +1 to avoid zero position.
              price: 0,
              withdrawCooldown: uint256(block.timestamp), 
              eq_sword: 0,
@@ -322,20 +322,20 @@ contract ChampFactory is Pausable{
     }
     
 
-    /// @notice Change champ&#39;s name
+    /// @notice Change champ's name
     function changeChampsName(uint _champId, string _name) external 
     onlyOwnerOfChamp(_champId){
         champToName[_champId] = _name;
     }
 
 
-    /// @notice Change players&#39;s name
+    /// @notice Change players's name
     function changePlayersName(string _name) external {
         addressInfo[msg.sender].name = _name;
     }
 
 
-    /// @notice Withdraw champ&#39;s reward
+    /// @notice Withdraw champ's reward
     /// @param _id Champ id
     /// @dev Move champ reward to pending withdrawal to his wallet. 
     function withdrawChamp(uint _id) external 
@@ -354,7 +354,7 @@ contract ChampFactory is Pausable{
     }
     
 
-    /// @dev Send all pending funds of caller&#39;s address
+    /// @dev Send all pending funds of caller's address
     function withdrawToAddress(address _address) external 
     whenNotPaused {
         address playerAddress = _address;
@@ -363,7 +363,7 @@ contract ChampFactory is Pausable{
         require(share > 0); //is it more than 0?
 
         //first sets players withdrawal pending to 0 and subtract amount from playerWithdrawals then transfer funds to avoid reentrancy
-        addressInfo[playerAddress].withdrawal = 0; //set player&#39;s withdrawal pendings to 0 
+        addressInfo[playerAddress].withdrawal = 0; //set player's withdrawal pendings to 0 
         pendingWithdrawal = pendingWithdrawal.sub(share); //subtract share from total pendings 
         
         playerAddress.transfer(share); //transfer
@@ -484,7 +484,7 @@ contract Items is ChampFactory {
             }
 
             item.onChamp = true; //item is on champ
-            item.onChampId = _champId; //champ&#39;s id
+            item.onChampId = _champId; //champ's id
 
             //put on
             if(item.itemType == 1){
@@ -687,7 +687,7 @@ contract ItemMarket is Items {
      */
     ///@notice Cancel sale. Should not be called without checking if item is really for sale.
     function _cancelItemSale(Item storage item) private {
-      //No need to overwrite item&#39;s price
+      //No need to overwrite item's price
       item.forSale = false;
       itemsForSaleCount--;
     }
@@ -726,7 +726,7 @@ contract ItemMarket is Items {
     }
     
 
-    /// @notice Calcels item&#39;s sale
+    /// @notice Calcels item's sale
     function cancelItemSale(uint256 _id) public 
     itemIsForSale(_id) 
     onlyOwnerOfItem(_id){
@@ -834,7 +834,7 @@ contract ChampAttack is ItemForge {
     /*
      * View
      */
-    /// @notice Gets champ&#39;s attack power, defence power and cooldown reduction with items on
+    /// @notice Gets champ's attack power, defence power and cooldown reduction with items on
     function getChampStats(uint256 _champId) public view returns(uint256,uint256,uint256){
         Champ storage champ = champs[_champId];
         Item storage sword = items[champ.eq_sword];
@@ -858,7 +858,7 @@ contract ChampAttack is ItemForge {
      * Pure
      */
     /// @notice Subtracts ability points. Helps to not cross minimal attack ability points -> 2
-    /// @param _playerAttackPoints Actual player&#39;s attack points
+    /// @param _playerAttackPoints Actual player's attack points
     /// @param _x Amount to subtract 
     function subAttack(uint256 _playerAttackPoints, uint256 _x) internal pure returns (uint256) {
         return (_playerAttackPoints <= _x + 2) ? 2 : _playerAttackPoints - _x;
@@ -866,7 +866,7 @@ contract ChampAttack is ItemForge {
     
 
     /// @notice Subtracts ability points. Helps to not cross minimal defence ability points -> 1
-    /// @param _playerDefencePoints Actual player&#39;s defence points
+    /// @param _playerDefencePoints Actual player's defence points
     /// @param _x Amount to subtract 
     function subDefence(uint256 _playerDefencePoints, uint256 _x) internal pure returns (uint256) {
         return (_playerDefencePoints <= _x) ? 1 : _playerDefencePoints - _x;
@@ -877,7 +877,7 @@ contract ChampAttack is ItemForge {
      * Private
      */
     /// @dev Is called from from Attack function after the winner is already chosen
-    /// @dev Updates abilities, champ&#39;s stats and swaps positions
+    /// @dev Updates abilities, champ's stats and swaps positions
     function _attackCompleted(Champ storage _winnerChamp, Champ storage _defeatedChamp, uint256 _pointsGiven, uint256 _pointsToAttackPower) private {
         /*
          * Updates abilities after fight
@@ -886,7 +886,7 @@ contract ChampAttack is ItemForge {
         _winnerChamp.attackPower += _pointsToAttackPower; //increase attack power
         _winnerChamp.defencePower += _pointsGiven - _pointsToAttackPower; //max point that was given - already given to AP
                 
-        //defeated champ&#39;s abilities update
+        //defeated champ's abilities update
         //checks for not cross minimal AP & DP points
         _defeatedChamp.attackPower = subAttack(_defeatedChamp.attackPower, _pointsToAttackPower); //decrease attack power
         _defeatedChamp.defencePower = subDefence(_defeatedChamp.defencePower, _pointsGiven - _pointsToAttackPower); // decrease defence power
@@ -894,7 +894,7 @@ contract ChampAttack is ItemForge {
 
 
         /*
-         * Update champs&#39; wins and losses
+         * Update champs' wins and losses
          */
         _winnerChamp.winCount++;
         _defeatedChamp.lossCount++;
@@ -948,7 +948,7 @@ contract ChampAttack is ItemForge {
         (,enemyChampDefencePower,) = getChampStats(_targetId);
 
 
-        //if attacker&#39;s AP is more than target&#39;s DP then attacker wins
+        //if attacker's AP is more than target's DP then attacker wins
         if (myChampAttackPower > enemyChampDefencePower) {
             
             //this should demotivate players from farming on way weaker champs than they are
@@ -1050,7 +1050,7 @@ contract ChampMarket is ChampAttack {
      */
      ///@dev Cancel sale. Should not be called without checking if champ is really for sale.
      function _cancelChampSale(Champ storage champ) private {
-        //cancel champ&#39;s sale
+        //cancel champ's sale
         //no need waste gas to overwrite his price.
         champ.forSale = false;
         champsForSaleCount--;

@@ -221,7 +221,7 @@ contract SelectOne is Base
     bytes32 public gameEncryptedText;  
     uint public gameResult;            
     string public gameRandon1;          
-    string public constant gameRandon2 = &#39;ChinasNewGovernmentBracesforTrump&#39;;   
+    string public constant gameRandon2 = 'ChinasNewGovernmentBracesforTrump';   
     uint  public gameBeginTime;        
     uint  public gameEndTime;           
     bool public gameOver = true;       
@@ -244,7 +244,7 @@ contract SelectOne is Base
         gameID++;                           
         currentBanker = msg.sender;
         gameEncryptedText = _gameEncryptedText;
-        gameRandon1 = &#39;&#39;;          
+        gameRandon1 = '';          
         gameBeginTime = now;                
         gameEndTime = now.add(gameTime);
         gameBeginPlayNo = playNo;          
@@ -418,7 +418,7 @@ contract SelectOne is Base
         require(!gameOver);       
         require(gameEndTime < now); 
         if(lastBlockNumber == block.number){                           
-            emit OnOpenGameResult(gameID, msg.sender,0, &#39;&#39;,false, 2, now, getEventId());
+            emit OnOpenGameResult(gameID, msg.sender,0, '',false, 2, now, getEventId());
             return;
         }
 
@@ -439,7 +439,7 @@ contract SelectOne is Base
         if(betInfoIsLocked){
             betInfoIsLocked = false;    
         }
-        emit OnOpenGameResult(gameID, msg.sender,   0,  &#39;&#39;,  true, 1, now, getEventId());
+        emit OnOpenGameResult(gameID, msg.sender,   0,  '',  true, 1, now, getEventId());
         _result = true;
 
         unLock();  

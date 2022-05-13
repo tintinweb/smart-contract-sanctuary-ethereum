@@ -26,7 +26,7 @@ contract Config {
 
     function addConfig(bytes32 slot, bytes32 value) public {
         require (msg.sender == owner);
-        require (slot != 0x0);  // Don&#39;t allow to set owner using addConfig function to avoid not intendet behaviour.
+        require (slot != 0x0);  // Don't allow to set owner using addConfig function to avoid not intendet behaviour.
         assembly {
             sstore(slot, value)
         }

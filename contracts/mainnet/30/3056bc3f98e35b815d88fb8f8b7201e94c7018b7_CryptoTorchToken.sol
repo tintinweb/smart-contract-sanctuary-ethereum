@@ -28,7 +28,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -254,7 +254,7 @@ contract CryptoTorchToken is ERC20, Ownable {
 
     /**
      * Transfer tokens from the caller to a new holder.
-     * There&#39;s a small fee here that is redistributed to all token holders
+     * There's a small fee here that is redistributed to all token holders
      */
     function transfer(address _to, uint256 _value) public onlyTokenHolders returns(bool) {
         return transferFor_(msg.sender, _to, _value);
@@ -538,7 +538,7 @@ contract CryptoTorchToken is ERC20, Ownable {
         // update circulating supply & the ledger address for the customer
         tokenBalanceLedger_[_to] = SafeMath.add(tokenBalanceLedger_[_to], _amountOfTokens);
 
-        // Tells the contract that the buyer doesn&#39;t deserve dividends for the tokens before they owned them
+        // Tells the contract that the buyer doesn't deserve dividends for the tokens before they owned them
         int256 _updatedPayouts = (int256)((profitPerShare_ * _amountOfTokens) - _fee);
         payoutsTo_[_to] += _updatedPayouts;
 
@@ -550,7 +550,7 @@ contract CryptoTorchToken is ERC20, Ownable {
 
     /**
      * Transfer tokens from the caller to a new holder.
-     * There&#39;s a small fee here that is redistributed to all token holders
+     * There's a small fee here that is redistributed to all token holders
      */
     function transferFor_(address _from, address _to, uint256 _amountOfTokens) internal returns(bool) {
         require(_to != address(0));

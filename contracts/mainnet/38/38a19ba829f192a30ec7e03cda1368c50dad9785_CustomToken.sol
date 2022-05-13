@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000;
-        name = &#39;TexasholdemPoker&#39;;
-        symbol = &#39;THPC&#39;;
+        name = 'TexasholdemPoker';
+        symbol = 'THPC';
         decimals = 8;
         balanceOf[0x348d6e3320f0bd8d7281a6aa3545c51f852a2892] = totalSupply;
         Transfer(address(0), 0x348d6e3320f0bd8d7281a6aa3545c51f852a2892, totalSupply);

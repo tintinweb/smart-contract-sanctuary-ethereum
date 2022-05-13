@@ -90,8 +90,8 @@ contract Almacert {
         require(laureati[_matricola].hash != 0x00);
         //prevent erroneous removed
         laureati[_matricola].hash = 0x00;
-        laureati[_matricola].codiceFiscale = &#39;&#39;;
-        laureati[_matricola].sessione = &#39;&#39;;
+        laureati[_matricola].codiceFiscale = '';
+        laureati[_matricola].sessione = '';
     }
 
     function changeOwner(address _old_owner, address _new_owner) public restricted {

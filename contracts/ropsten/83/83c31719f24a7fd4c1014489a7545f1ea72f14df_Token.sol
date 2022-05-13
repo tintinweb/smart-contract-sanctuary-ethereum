@@ -67,7 +67,7 @@ contract ERC20 is Base {
     mapping (address => mapping (address => uint)) allowed;
     using SafeMath for uint;
     uint public totalSupply;
-    bool public isFrozen = false; //it&#39;s not part of ERC20 specification, however it has to be here to place modifiers on usual ERC20 functions
+    bool public isFrozen = false; //it's not part of ERC20 specification, however it has to be here to place modifiers on usual ERC20 functions
     event Transfer(address indexed _from, address indexed _to, uint _value);
     event Approval(address indexed _owner, address indexed _spender, uint _value);
 
@@ -384,7 +384,7 @@ contract Token is ERC20 {
         return block.number.sub(tgrStartBlock).div(tgrSettingsBlocksPerStage).add(1);        
     }
 
-    //minimumCap is computed in &#39;worst case&#39; scenario, when all contributions are done at the last stage
+    //minimumCap is computed in 'worst case' scenario, when all contributions are done at the last stage
     function minimumCap() public view returns(uint) {
         uint allStakes = (tgrSettingsMaxStages.mul(tgrSettingsPartInvestorIncreasePerStage)).add(tgrSettingsPartInvestor).add(tgrSettingsPartProject).add(tgrSettingsPartFounders);
         if (allStakes == 0) {

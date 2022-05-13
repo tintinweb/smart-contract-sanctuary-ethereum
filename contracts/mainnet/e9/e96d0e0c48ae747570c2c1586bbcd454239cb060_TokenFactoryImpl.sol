@@ -353,7 +353,7 @@ contract ERC20Token is ERC20 {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -485,7 +485,7 @@ contract TokenFactory {
         address firstHolder
     );
     /// @dev Deploy an ERC20 token contract, register it with TokenRegistry,
-    ///      and returns the new token&#39;s address.
+    ///      and returns the new token's address.
     /// @param name The name of the token
     /// @param symbol The symbol of the token.
     /// @param decimals The decimals of the token.

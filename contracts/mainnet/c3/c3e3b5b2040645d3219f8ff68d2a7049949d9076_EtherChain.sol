@@ -96,8 +96,8 @@ contract ICOToken is BaseToken {
 contract EtherChain is BaseToken, AirdropToken, ICOToken {
     function EtherChain() public {
         totalSupply = 100000000000e8;
-        name = &#39;EtherChain&#39;;
-        symbol = &#39;ETC&#39;;
+        name = 'EtherChain';
+        symbol = 'ETC';
         decimals = 8;
         balanceOf[0x3fB5Fc9bAda7f102EaCc82260C00BaA2D034d98b] = totalSupply;
         Transfer(address(0), 0x3fB5Fc9bAda7f102EaCc82260C00BaA2D034d98b, totalSupply);

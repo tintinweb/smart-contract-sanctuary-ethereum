@@ -9,7 +9,7 @@ pragma solidity ^0.4.18;
         function div(uint256 a, uint256 b) internal pure returns (uint256) {
             // assert(b > 0); // Solidity automatically throws when dividing by 0
             uint256 c = a / b;
-            // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+            // assert(a == b * c + a % b); // There is no case in which this doesn't hold
             return c;
         }
     
@@ -93,9 +93,9 @@ pragma solidity ^0.4.18;
     contract QUASI is Crowdsale {
         
             using SafeMath for uint256;
-            string  public name        = &#39;QUASI&#39;;
-    	    string  public symbol      = &#39;QUASI&#39;;
-    	    string  public standard    = &#39;CryptoQ 0.1&#39;;
+            string  public name        = 'QUASI';
+    	    string  public symbol      = 'QUASI';
+    	    string  public standard    = 'CryptoQ 0.1';
             
     	    uint8   public decimals    = 18;
     	    mapping (address => mapping (address => uint256)) internal allowed;

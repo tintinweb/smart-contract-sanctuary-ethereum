@@ -84,7 +84,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -220,7 +220,7 @@ contract BallerToken is Ownable, Destructible {
 
     /**
     * @dev Gets list of teams owned by a person.
-    * @dev note: don&#39;t want to call this in the smart contract, expensive op.
+    * @dev note: don't want to call this in the smart contract, expensive op.
     * @param _owner address of the owner
     * @return ownedTeams list of the teams owned by the owner
     */
@@ -243,7 +243,7 @@ contract BallerToken is Ownable, Destructible {
     /*
      * @dev gets the address of owner of the team
      * @param _tokenId is id of the team
-     * @return owner the owner of the team&#39;s address
+     * @return owner the owner of the team's address
     */
     function ownerOf(uint _tokenId) public view returns (address owner) {
       owner = teamIndexToOwner[_tokenId];
@@ -270,7 +270,7 @@ contract BallerToken is Ownable, Destructible {
     /**
     * @dev Allows user to buy a team from the old owner.
     * @dev Pays old owner minus commission, updates price.
-    * @param _teamId id of the team they&#39;re trying to buy
+    * @param _teamId id of the team they're trying to buy
     */
     function purchase(uint _teamId) public payable {
       address oldOwner = ownerOf(_teamId);
@@ -293,7 +293,7 @@ contract BallerToken is Ownable, Destructible {
       teamIndexToPrice[_teamId] = newPrice;
 
       _transfer(oldOwner, newOwner, _teamId);
-      // Pay old tokenOwner, unless it&#39;s the smart contract
+      // Pay old tokenOwner, unless it's the smart contract
       if (oldOwner != address(this)) {
         oldOwner.transfer(payment);
       }
@@ -334,7 +334,7 @@ contract BallerToken is Ownable, Destructible {
       uint newTeamId = ballerTeams.push(currTeam) - 1;
 
       // make sure we never overflow amount of tokens possible to be created
-      // 4 billion tokens...shouldn&#39;t happen.
+      // 4 billion tokens...shouldn't happen.
       require(newTeamId == uint256(uint32(newTeamId)));
 
       BallerCreated(newTeamId, _name, _owner);

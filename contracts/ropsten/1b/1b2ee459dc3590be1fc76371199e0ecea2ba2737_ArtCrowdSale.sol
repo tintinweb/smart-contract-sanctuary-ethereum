@@ -242,8 +242,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -260,7 +260,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -345,7 +345,7 @@ contract FinalizableCrowdsale is TimedCrowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);
@@ -579,9 +579,9 @@ contract ArtCrowdSale is RefundableCrowdsale {
 
   function _getTokenAmount(uint256 _weiAmount) internal view returns(uint256) {
     uint256 precision = 4;
-    // 4 digits after decimal point, if it&#39;s 71832, then user&#39;ll get 7.1832 token
+    // 4 digits after decimal point, if it's 71832, then user'll get 7.1832 token
     uint256 adjustedAmount = _roundDivision(_weiAmount, price, precision);
-    // artcoin&#39;s decimal is 18, so just use 1 ether
+    // artcoin's decimal is 18, so just use 1 ether
     return adjustedAmount.mul(1 ether).div(10 ** precision);
   }
 

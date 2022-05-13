@@ -314,7 +314,7 @@ contract Pob{
 	}
 	
 	//only owner can change this, just in case, the game change the final date. 
-	//this won&#39;t change anything else beside the game end date
+	//this won't change anything else beside the game end date
 	function setBetEndTime(uint256 _newBetEndTime) 
 		isOwner()
 		public
@@ -346,7 +346,7 @@ contract Pob{
 		view 
 		returns (uint256)
 	{
-		//don&#39;t show it until the vote finish
+		//don't show it until the vote finish
 		if(now < PRIZE_END_TIME){
 			return 0;
 		}

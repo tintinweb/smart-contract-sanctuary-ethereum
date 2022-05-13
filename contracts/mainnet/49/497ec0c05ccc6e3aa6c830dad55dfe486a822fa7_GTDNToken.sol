@@ -271,7 +271,7 @@ contract TokenERC20 is ERC20, Ownable{
         require(balances[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowances[_from][msg.sender]);    // Check allowance
         balances[_from] = balances[_from].sub(_value);                         // Subtract from the targeted balance
-        allowances[_from][msg.sender] = allowances[_from][msg.sender].sub(_value);             // Subtract from the sender&#39;s allowance
+        allowances[_from][msg.sender] = allowances[_from][msg.sender].sub(_value);             // Subtract from the sender's allowance
         totalSupply = totalSupply.sub(_value);                                 // Update totalSupply
         emit Burn(_from, _value);
         return true;

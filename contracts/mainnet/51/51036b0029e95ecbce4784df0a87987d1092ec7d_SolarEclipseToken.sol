@@ -63,9 +63,9 @@ contract StandardToken is Token {
 
 contract SolarEclipseToken is StandardToken {
     uint8 public decimals = 18;
-    string public name = &#39;Solar Eclipse Token&#39;;
+    string public name = 'Solar Eclipse Token';
     address owner;
-    string public symbol = &#39;SET&#39;;
+    string public symbol = 'SET';
 
     uint startTime = 1503330410; // Aug 21, 2017 at 15:46:50 UTC
     uint endTime = 1503349461; // Aug 21, 2017 at 21:04:21 UTC

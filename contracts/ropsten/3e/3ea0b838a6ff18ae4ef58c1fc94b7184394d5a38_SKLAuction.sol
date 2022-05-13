@@ -22,7 +22,7 @@ library Roles {
   }
 
   /**
-   * @dev remove an account&#39;s access to this role
+   * @dev remove an account's access to this role
    */
   function remove(Role storage role, address account) internal {
     require(account != address(0));
@@ -255,8 +255,8 @@ library SafeMath {
   * @dev Multiplies two numbers, reverts on overflow.
   */
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-    // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (a == 0) {
       return 0;
@@ -274,7 +274,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     require(b > 0); // Solidity only automatically asserts when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
     return c;
   }
@@ -350,11 +350,11 @@ contract ERC165 is IERC165 {
   bytes4 private constant _InterfaceId_ERC165 = 0x01ffc9a7;
   /**
    * 0x01ffc9a7 ===
-   *   bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;))
+   *   bytes4(keccak256('supportsInterface(bytes4)'))
    */
 
   /**
-   * @dev a mapping of interface id to whether or not it&#39;s supported
+   * @dev a mapping of interface id to whether or not it's supported
    */
   mapping(bytes4 => bool) private _supportedInterfaces;
 
@@ -420,15 +420,15 @@ contract ERC721 is ERC165, IERC721 {
   bytes4 private constant _InterfaceId_ERC721 = 0x80ac58cd;
   /*
    * 0x80ac58cd ===
-   *   bytes4(keccak256(&#39;balanceOf(address)&#39;)) ^
-   *   bytes4(keccak256(&#39;ownerOf(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;approve(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;getApproved(uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;setApprovalForAll(address,bool)&#39;)) ^
-   *   bytes4(keccak256(&#39;isApprovedForAll(address,address)&#39;)) ^
-   *   bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;safeTransferFrom(address,address,uint256,bytes)&#39;))
+   *   bytes4(keccak256('balanceOf(address)')) ^
+   *   bytes4(keccak256('ownerOf(uint256)')) ^
+   *   bytes4(keccak256('approve(address,uint256)')) ^
+   *   bytes4(keccak256('getApproved(uint256)')) ^
+   *   bytes4(keccak256('setApprovalForAll(address,bool)')) ^
+   *   bytes4(keccak256('isApprovedForAll(address,address)')) ^
+   *   bytes4(keccak256('transferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256)')) ^
+   *   bytes4(keccak256('safeTransferFrom(address,address,uint256,bytes)'))
    */
 
   constructor()
@@ -665,7 +665,7 @@ contract ERC721 is ERC165, IERC721 {
    * @dev Internal function to remove a token ID from the list of a given address
    * Note that this function is left internal to make ERC721Enumerable possible, but is not
    * intended to be called by custom derived contracts: in particular, it emits no Transfer event,
-   * and doesn&#39;t clear approvals.
+   * and doesn't clear approvals.
    * @param from address representing the previous owner of the given token ID
    * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
    */
@@ -752,9 +752,9 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
   bytes4 private constant _InterfaceId_ERC721Enumerable = 0x780e9d63;
   /**
    * 0x780e9d63 ===
-   *   bytes4(keccak256(&#39;totalSupply()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenOfOwnerByIndex(address,uint256)&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenByIndex(uint256)&#39;))
+   *   bytes4(keccak256('totalSupply()')) ^
+   *   bytes4(keccak256('tokenOfOwnerByIndex(address,uint256)')) ^
+   *   bytes4(keccak256('tokenByIndex(uint256)'))
    */
 
   /**
@@ -820,7 +820,7 @@ contract ERC721Enumerable is ERC165, ERC721, IERC721Enumerable {
    * @dev Internal function to remove a token ID from the list of a given address
    * This function is internal due to language limitations, see the note in ERC721.sol.
    * It is not intended to be called by custom derived contracts: in particular, it emits no Transfer event,
-   * and doesn&#39;t clear approvals.
+   * and doesn't clear approvals.
    * @param from address representing the previous owner of the given token ID
    * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
    */
@@ -908,9 +908,9 @@ contract ERC721Metadata is ERC165, ERC721, IERC721Metadata {
   bytes4 private constant InterfaceId_ERC721Metadata = 0x5b5e139f;
   /**
    * 0x5b5e139f ===
-   *   bytes4(keccak256(&#39;name()&#39;)) ^
-   *   bytes4(keccak256(&#39;symbol()&#39;)) ^
-   *   bytes4(keccak256(&#39;tokenURI(uint256)&#39;))
+   *   bytes4(keccak256('name()')) ^
+   *   bytes4(keccak256('symbol()')) ^
+   *   bytes4(keccak256('tokenURI(uint256)'))
    */
 
   /**
@@ -1023,7 +1023,7 @@ contract AuctionBase {
     event AuctionSuccessful(uint256 _tokenId, uint256 _totalPrice, address winner);
     event AuctionCancelled(uint256 _tokenId);
 
-    /// @dev DON&#39;T give me money
+    /// @dev DON'T give me money
     function() external {}
 
     /// @dev Returns true if the claimant owns the token.
@@ -1085,7 +1085,7 @@ contract AuctionBase {
         Auction storage auction = tokenIdToAuction[_tokenId];
 
         // Explicitly check that this auction is currently live.
-        // (Because of how Ethereum mappings work, we can&#39;t just count
+        // (Because of how Ethereum mappings work, we can't just count
         // on the lookup above failing. An invalid _tokenId will just
         // return an auction object that is all zeros.)
         require(_isOnAuction(auction));
@@ -1100,14 +1100,14 @@ contract AuctionBase {
         address seller = auction.seller;
 
         // The bid is good! Remove the auction before sending the fees
-        // to the sender so we can&#39;t have a reentrancy attack.
+        // to the sender so we can't have a reentrancy attack.
         _removeAuction(_tokenId);
 
         // Transfer proceeds to seller (if there are any!)
         if (price > 0) {
-            //  Calculate the auctioneer&#39;s cut.
+            //  Calculate the auctioneer's cut.
             // (NOTE: _computeCut() is guaranteed to return a
-            //  value <= price, so this subtraction can&#39;t go negative.)
+            //  value <= price, so this subtraction can't go negative.)
             uint256 auctioneerCut = _computeCut(price);
             uint256 sellerProceeds = price - auctioneerCut;
             // sellerProceeds *= 1000000000000000000;
@@ -1118,7 +1118,7 @@ contract AuctionBase {
             // a contract with an invalid fallback function. We explicitly
             // guard against reentrancy attacks by removing the auction
             // before calling transfer(), and the only thing the seller
-            // can DoS is the sale of their own asset! (And if it&#39;s an
+            // can DoS is the sale of their own asset! (And if it's an
             // accident, they can call cancelAuction(). )
             seller.transfer(sellerProceeds);
         }
@@ -1150,7 +1150,7 @@ contract AuctionBase {
 
         // A bit of insurance against negative values (or wraparound).
         // Probably not necessary (since Ethereum guarnatees that the
-        // now variable doesn&#39;t ever go backwards).
+        // now variable doesn't ever go backwards).
         if (now > _auction.startedAt) {
             secondsPassed = now - _auction.startedAt;
         }
@@ -1173,13 +1173,13 @@ contract AuctionBase {
         uint256 _duration,
         uint256 _secondsPassed
     ) internal pure returns (uint256) {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our public functions carefully cap the maximum values for
         //  time (at 64-bits) and currency (at 128-bits). _duration is
         //  also known to be non-zero (see the require() statement in
         //  _addAuction())
         if (_secondsPassed >= _duration) {
-            // We&#39;ve reached the end of the dynamic pricing portion
+            // We've reached the end of the dynamic pricing portion
             // of the auction, just return the end price.
             return _endingPrice;
         } else {
@@ -1187,7 +1187,7 @@ contract AuctionBase {
             // this delta can be negative.
             int256 totalPriceChange = int256(_endingPrice) - int256(_startingPrice);
 
-            // This multiplication can&#39;t overflow, _secondsPassed will easily fit within
+            // This multiplication can't overflow, _secondsPassed will easily fit within
             // 64-bits, and totalPriceChange will easily fit within 128-bits, their product
             // will always fit within 256-bits.
             int256 currentPriceChange = totalPriceChange * int256(_secondsPassed) / int256(_duration);
@@ -1200,10 +1200,10 @@ contract AuctionBase {
         }
     }
 
-    /// @dev Computes owner&#39;s cut of a sale.
+    /// @dev Computes owner's cut of a sale.
     /// @param _price - Sale price of NFT.
     function _computeCut(uint256 _price) internal view returns (uint256) {
-        // NOTE: We don&#39;t use SafeMath (or similar) in this function because
+        // NOTE: We don't use SafeMath (or similar) in this function because
         //  all of our entry functions carefully cap the maximum values for
         //  currency (at 128-bits), and ownerCut <= 10000 (see the require()
         //  statement in the ClockAuction constructor). The result of this
@@ -1227,7 +1227,7 @@ library MySafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -1385,7 +1385,7 @@ contract SKLAuction is Pausable, AuctionBase {
     //         nonFungibleContract = candidateContract;
     //    }
 
-    // /// @dev Remove all Ether from the contract, which is the owner&#39;s cuts
+    // /// @dev Remove all Ether from the contract, which is the owner's cuts
     // ///  as well as any Ether sent directly to the contract address.
     // ///  Always transfers to the NFT contract, but can be called either by
     // ///  the owner or the NFT contract.
@@ -1436,7 +1436,7 @@ contract SKLAuction is Pausable, AuctionBase {
         token.transferFrom(0xd37AE76bBc61e86a7D643a1291F1f6a951AA2E2B, seller, 5 * 1000000000000000000);
     }
 
-    /// @dev Cancels an auction that hasn&#39;t been won yet.
+    /// @dev Cancels an auction that hasn't been won yet.
     ///  Returns the NFT to original owner.
     /// @notice This is a state-modifying function that can
     ///  be called while the contract is paused.

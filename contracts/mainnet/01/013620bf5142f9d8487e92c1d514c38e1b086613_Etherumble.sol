@@ -68,7 +68,7 @@ contract Etherumble {
     
 
     function() public payable hasValue {
-        checkinter();//first check if it&#39;s a good block for ending a game. this way there is no new user after the winner block hash is calculated
+        checkinter();//first check if it's a good block for ending a game. this way there is no new user after the winner block hash is calculated
         players[nbUsers] = msg.sender;
         bets[nbUsers] = msg.value;
         

@@ -146,7 +146,7 @@ contract StandardToken is SafeMath, ERC20  {
         return balances[_owner];
     }
 
-    /// @dev Transfers sender&#39;s tokens to a given address. Returns success.
+    /// @dev Transfers sender's tokens to a given address. Returns success.
     /// @param _to Address of token receiver.
     /// @param _value Number of tokens to transfer.
     function transfer(address _to, uint256 _value) public returns (bool) {
@@ -218,7 +218,7 @@ contract ERC827Token is ERC827, StandardToken {
      Beware that changing an allowance with this method brings the risk that
      someone may use both the old and the new allowance by unfortunate
      transaction ordering. One possible solution to mitigate this race condition
-     is to first reduce the spender&#39;s allowance to 0 and set the desired value
+     is to first reduce the spender's allowance to 0 and set the desired value
      afterwards:
      https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
 
@@ -424,7 +424,7 @@ contract InvestBox is PaymentManager, Managed {
         return (_now - inv.created)/_period; // get full days
     }
 
-    /** @dev loop &#39;for&#39; wrapper, where 100,000%, 10^3 decimal */
+    /** @dev loop 'for' wrapper, where 100,000%, 10^3 decimal */
     function loopFor(uint256 _condition, uint256 _data, uint256 _bonus) internal pure returns (uint256 r) {
         assembly {
             for { let i := 0 } lt(i, _condition) { i := add(i, 1) } {

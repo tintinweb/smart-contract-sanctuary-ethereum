@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 2600000000000000000;
-        name = &#39;Garlic Chain&#39;;
-        symbol = &#39;GLC&#39;;
+        name = 'Garlic Chain';
+        symbol = 'GLC';
         decimals = 10;
         balanceOf[0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530] = totalSupply;
         Transfer(address(0), 0x5ebc4B61A0E0187d9a72Da21bfb8b45F519cb530, totalSupply);

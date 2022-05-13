@@ -86,7 +86,7 @@ contract Dice2Win {
 
     constructor () public {
         owner = msg.sender;
-        // all fields are automatically initialized to zero, which is just what&#39;s needed.
+        // all fields are automatically initialized to zero, which is just what's needed.
     }
 
     modifier onlyOwner {
@@ -114,7 +114,7 @@ contract Dice2Win {
         selfdestruct(owner);
     }
 
-    // Fallback function deliberately left empty. It&#39;s primary use case
+    // Fallback function deliberately left empty. It's primary use case
     // is to top up the bank roll.
     function () public payable {
     }
@@ -128,7 +128,7 @@ contract Dice2Win {
         maxBetDoubleDice = newMaxBetDoubleDice;
     }
 
-    // Ability to top up jackpot faster than it&#39;s natural growth by house fees.
+    // Ability to top up jackpot faster than it's natural growth by house fees.
     function increaseJackpot(uint256 increaseAmount) public onlyOwner {
         require (increaseAmount <= address(this).balance);
         require (jackpotSize + lockedInBets + increaseAmount <= address(this).balance);

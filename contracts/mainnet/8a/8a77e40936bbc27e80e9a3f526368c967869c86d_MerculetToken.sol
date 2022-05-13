@@ -103,7 +103,7 @@ contract Token is ERC20 {
 
 contract MerculetToken is Token {
     
-    string public version = &#39;v1.0&#39;;
+    string public version = 'v1.0';
     string public name;
     uint8 public decimals;
     string public symbol;

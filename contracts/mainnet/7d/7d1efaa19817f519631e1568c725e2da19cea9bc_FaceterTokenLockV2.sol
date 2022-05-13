@@ -51,7 +51,7 @@ contract FaceterTokenLockV2 {
     }
 
     function recoverTokens(ERC20Interface _token) public returns(bool) {
-        // Don&#39;t allow recovering Faceter Token till the end of lock.
+        // Don't allow recovering Faceter Token till the end of lock.
         if (_token == FaceterToken && now < 1585699200 && unlockStep != 8) {
             return false;
         }

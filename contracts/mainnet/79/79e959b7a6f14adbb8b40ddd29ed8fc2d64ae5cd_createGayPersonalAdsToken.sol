@@ -9,7 +9,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract GayPersonalAdsToken {
     /* Public variables of the token */
-    string public standard = &#39;GayPersonalAds 0.1&#39;;
+    string public standard = 'GayPersonalAds 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -104,7 +104,7 @@ contract GayPersonalAdsToken {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         Burn(_from, _value);
         return true;

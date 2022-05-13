@@ -86,7 +86,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -139,7 +139,7 @@ contract Ethen is Pausable {
     // Time after expiration, until order will still be valid to trade.
     //
     // All trades are signed by server so it should not be possible to trade
-    // expired orders. Let&#39;s say, signing happens at the last second.
+    // expired orders. Let's say, signing happens at the last second.
     // Some time needed for transaction to be mined. If we going to require
     // here in contract that expiration time should always be less than
     // a block.timestamp than such trades will not be successful.

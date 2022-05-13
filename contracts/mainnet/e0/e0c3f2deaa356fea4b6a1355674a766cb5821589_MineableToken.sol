@@ -54,7 +54,7 @@ contract MineableToken is owned {
                   uint value );
 
   // ERC20-compatible version only, breaks ERC223 compliance but etherscan
-  // and exchanges only support ERC20 version. Can&#39;t overload events
+  // and exchanges only support ERC20 version. Can't overload events
 
   event Transfer( address indexed from,
                   address indexed to,

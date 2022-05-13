@@ -9,11 +9,11 @@
 
 
 // Step 1. Download Metamask Chrome Extension & Create an Account
-// Step 2. Select the &#39;Ropsten Test Network&#39; from the networks dropdown
+// Step 2. Select the 'Ropsten Test Network' from the networks dropdown
 // Step 3. Goto https://faucet.metamask.io/ and request 1 ether from the faucet
 // Step 4. Goto remix.ethereum.org
-// Step 5. Under &#39;compiler&#39; tab set compiler version to 0.4.20+commit.3155dd80
-// Step 6. Under run tab, set environment to &#39;Injected Web3&#39;
+// Step 5. Under 'compiler' tab set compiler version to 0.4.20+commit.3155dd80
+// Step 6. Under run tab, set environment to 'Injected Web3'
 
 
 //https://www.ethereum.org/token

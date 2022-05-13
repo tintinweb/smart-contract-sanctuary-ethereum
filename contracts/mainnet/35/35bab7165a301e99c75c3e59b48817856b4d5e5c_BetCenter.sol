@@ -33,7 +33,7 @@ contract DataCenterBridge {
 
   /**
    * @dev set network will indicate which net will be used
-   * @notice comment out `networkID` to avoid &#39;unused parameter&#39; warning
+   * @notice comment out `networkID` to avoid 'unused parameter' warning
    */
   function setNetwork(uint8 /*networkID*/) internal returns(bool){
     return setNetwork();
@@ -136,7 +136,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

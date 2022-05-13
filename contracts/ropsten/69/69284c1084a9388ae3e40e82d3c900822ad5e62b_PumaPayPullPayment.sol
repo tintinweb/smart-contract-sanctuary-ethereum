@@ -26,8 +26,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -44,7 +44,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -176,7 +176,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -454,7 +454,7 @@ contract PumaPayPullPayment is Ownable {
     struct PullPayment {
         string merchantID;                      /// ID of the merchant
         string paymentID;                       /// ID of the payment
-        string currency;                        /// 3-letter abbr i.e. &#39;EUR&#39; / &#39;USD&#39; etc.
+        string currency;                        /// 3-letter abbr i.e. 'EUR' / 'USD' etc.
         uint256 initialPaymentAmountInCents;    /// initial payment amount in fiat in cents
         uint256 fiatAmountInCents;              /// payment amount in fiat in cents
         uint256 frequency;                      /// how often merchant can pull - in seconds
@@ -582,7 +582,7 @@ contract PumaPayPullPayment is Ownable {
     }
 
     /// @dev Sets the exchange rate for a currency. - can be executed only by the onwer.
-    /// Emits &#39;LogSetExchangeRate&#39; with the currency and the updated rate.
+    /// Emits 'LogSetExchangeRate' with the currency and the updated rate.
     /// The balance of the owner is checked and if funding is needed 1 ETH is transferred.
     /// @param _currency - address of the executor which cannot be zero address
     /// @param _rate - address of the executor which cannot be zero address
@@ -607,7 +607,7 @@ contract PumaPayPullPayment is Ownable {
     /// @dev Registers a new pull payment to the PumaPay Pull Payment Contract - The registration can be executed only by one of the executors of the PumaPay Pull Payment Contract
     /// and the PumaPay Pull Payment Contract checks that the pull payment has been singed by the client of the account.
     /// The balance of the executor (msg.sender) is checked and if funding is needed 1 ETH is transferred.
-    /// Emits &#39;LogPaymentRegistered&#39; with client address, beneficiary address and paymentID.
+    /// Emits 'LogPaymentRegistered' with client address, beneficiary address and paymentID.
     /// @param v - recovery ID of the ETH signature. - https://github.com/ethereum/EIPs/issues/155
     /// @param r - R output of ECDSA signature.
     /// @param s - S output of ECDSA signature.
@@ -615,7 +615,7 @@ contract PumaPayPullPayment is Ownable {
     /// @param _paymentID - ID of the payment.
     /// @param _client - client address that is linked to this pull payment.
     /// @param _beneficiary - address that is allowed to execute this pull payment.
-    /// @param _currency - currency of the payment / 3-letter abbr i.e. &#39;EUR&#39;.
+    /// @param _currency - currency of the payment / 3-letter abbr i.e. 'EUR'.
     /// @param _fiatAmountInCents - payment amount in fiat in cents.
     /// @param _frequency - how often merchant can pull - in seconds.
     /// @param _numberOfPayments - amount of pull payments merchant can make
@@ -677,7 +677,7 @@ contract PumaPayPullPayment is Ownable {
     /// and the PumaPay Pull Payment Contract checks that the beneficiary and the paymentID have been singed by the client of the account.
     /// This method sets the cancellation of the pull payment in the pull payments array for this beneficiary specified.
     /// The balance of the executor (msg.sender) is checked and if funding is needed 1 ETH is transferred.
-    /// Emits &#39;LogPaymentCancelled&#39; with beneficiary address and paymentID.
+    /// Emits 'LogPaymentCancelled' with beneficiary address and paymentID.
     /// @param v - recovery ID of the ETH signature. - https://github.com/ethereum/EIPs/issues/155
     /// @param r - R output of ECDSA signature.
     /// @param s - S output of ECDSA signature.
@@ -715,18 +715,18 @@ contract PumaPayPullPayment is Ownable {
 
     /// @dev Executes a pull payment for the msg.sender - The pull payment should exist and the payment request
     /// should be valid in terms of when it can be executed.
-    /// Emits &#39;LogPullPaymentExecuted&#39; with client address, msg.sender as the beneficiary address and the paymentID.
+    /// Emits 'LogPullPaymentExecuted' with client address, msg.sender as the beneficiary address and the paymentID.
     /// Use Case 1: Single/Recurring Fixed Pull Payment (initialPaymentAmountInCents == 0 )
     /// ------------------------------------------------
     /// We calculate the amount in PMA using the rate for the currency specified in the pull payment
-    /// and the &#39;fiatAmountInCents&#39; and we transfer from the client account the amount in PMA.
+    /// and the 'fiatAmountInCents' and we transfer from the client account the amount in PMA.
     /// After execution we set the last payment timestamp to NOW, the next payment timestamp is incremented by
     /// the frequency and the number of payments is decresed by 1.
     /// Use Case 2: Recurring Fixed Pull Payment with initial fee (initialPaymentAmountInCents > 0)
     /// ------------------------------------------------------------------------------------------------
     /// We calculate the amount in PMA using the rate for the currency specified in the pull payment
-    /// and the &#39;initialPaymentAmountInCents&#39; and we transfer from the client account the amount in PMA.
-    /// After execution we set the last payment timestamp to NOW and the &#39;initialPaymentAmountInCents to ZERO.
+    /// and the 'initialPaymentAmountInCents' and we transfer from the client account the amount in PMA.
+    /// After execution we set the last payment timestamp to NOW and the 'initialPaymentAmountInCents to ZERO.
     /// @param _client - address of the client from which the msg.sender requires to pull funds.
     function executePullPayment(address _client, string _paymentID)
     public

@@ -123,7 +123,7 @@ contract BlupassICO is Owned {
     // ----------------------------------------------------------------------------
     // Function to handle eth transfers
     // It invokes when someone sends ETH to this contract address.
-    // Requires enough gas for the execution otherwise it&#39;ll throw out of gas error.
+    // Requires enough gas for the execution otherwise it'll throw out of gas error.
     // tokens are transferred to user
     // ETH are transferred to current owner
     // minimum 1 ETH investment

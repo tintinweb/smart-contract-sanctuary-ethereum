@@ -139,16 +139,16 @@ contract Sale {
         require(msg.sender == address(r0) || msg.sender == address(r1) || msg.sender == address(r2));
         require(block.timestamp >= start);
 
-        // if we&#39;ve gone past the softcap, make sure the sale
+        // if we've gone past the softcap, make sure the sale
         // stays open for no longer than SOFTCAP_TIME past the current block
         if (this.balance > softcap && block.timestamp < end && (end - block.timestamp) > SOFTCAP_TIME)
             end = block.timestamp + SOFTCAP_TIME;
 
-        // If we&#39;ve reached end-of-sale conditions, accept
+        // If we've reached end-of-sale conditions, accept
         // this as the last contribution and emit the EndSale event.
         // (Technically this means we allow exactly one contribution
         // after the end of the sale.)
-        // Conversely, if we haven&#39;t started the sale yet, emit
+        // Conversely, if we haven't started the sale yet, emit
         // the StartSale event.
         if (block.timestamp > end || this.balance > cap) {
             require(live);

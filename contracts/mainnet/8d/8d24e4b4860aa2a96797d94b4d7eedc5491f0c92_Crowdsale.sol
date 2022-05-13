@@ -603,7 +603,7 @@ contract Crowdsale is GuidedByRoles, ERC20Provider{
         isPausedCrowdsale = mode;
     }
 
-    // For example - After 5 years of the project&#39;s existence, all of us suddenly decided collectively
+    // For example - After 5 years of the project's existence, all of us suddenly decided collectively
     // (company + investors) that it would be more profitable for everyone to switch to another smart
     // contract responsible for tokens. The company then prepares a new token, investors
     // disassemble, study, discuss, etc. 
@@ -705,7 +705,7 @@ contract Crowdsale is GuidedByRoles, ERC20Provider{
     // transfers) to the wallet of BTC, that together with previously received money will exceed the hardcap in total.
     // In this case, we will refund all the amounts above, in order not to exceed the hardcap.
 
-    // Collection of money in BTC will be carried out via one common wallet. The wallet&#39;s address will be published
+    // Collection of money in BTC will be carried out via one common wallet. The wallet's address will be published
     // everywhere (in a white paper, on the TokenSale website, on Telegram, on Bitcointalk, in this code, etc.)
     // Anyone interested can check that the administrator of the smart contract writes down exactly the amount
     // in ETH (in equivalent for BTC) there. In theory, the ability to bypass a smart contract to accept money in

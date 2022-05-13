@@ -107,7 +107,7 @@ contract ZethrShell is ZethrBankrollBridge{
 contract Zethroll is ZethrShell {
   using SafeMath for uint;
 
-  // Makes sure that player profit can&#39;t exceed a maximum amount,
+  // Makes sure that player profit can't exceed a maximum amount,
   //  that the bet size is valid, and the playerNumber is in range.
   modifier betIsValid(uint _betSize, uint _playerNumber, uint divRate) {
      require(  calculateProfit(_betSize, _playerNumber) < getMaxProfit(divRate)
@@ -155,7 +155,7 @@ contract Zethroll is ZethrShell {
 
   // Events
 
-  // Logs bets + output to web3 for precise &#39;payout on win&#39; field in UI
+  // Logs bets + output to web3 for precise 'payout on win' field in UI
   event LogBet(address sender, uint value, uint rollUnder);
 
   // Outputs to web3 UI on bet result
@@ -288,7 +288,7 @@ contract Zethroll is ZethrShell {
     playerRoll memory roll = playerRolls[target];
     require(roll.tokenValue > 0); // No re-entracy
     require(roll.blockn != block.number);
-    // If the block is more than 255 blocks old, we can&#39;t get the result
+    // If the block is more than 255 blocks old, we can't get the result
     // Also, if the result has already happened, fail as well
     uint result;
     if (block.number - roll.blockn > 255) {
@@ -507,7 +507,7 @@ library SafeMath {
   function div(uint a, uint b) internal pure returns (uint) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

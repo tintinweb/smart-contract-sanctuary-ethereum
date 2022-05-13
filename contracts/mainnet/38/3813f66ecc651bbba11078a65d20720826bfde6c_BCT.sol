@@ -51,8 +51,8 @@ contract StandardToken is Token {
     uint256 constant MAX_UINT256 = 2**256 - 1;
 
     function transfer(address _to, uint256 _value) public returns (bool success) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
-        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn&#39;t wrap.
+        //Default assumes totalSupply can't be over max (2^256 - 1).
+        //If your token leaves out totalSupply and can issue more tokens as time goes on, you need to check if it doesn't wrap.
         //Replace the if with this one instead.
         //require(balances[msg.sender] >= _value && balances[_to] + _value > balances[_to]);
         require(balances[msg.sender] >= _value);
@@ -108,7 +108,7 @@ contract BCTStandardToken is StandardToken {
     string public name;                   //fancy name: eg Simon Bucks
     uint8 public decimals;                //How many decimals to show. 
     string public symbol;                 //An identifier
-    string public version = &#39;F0.1&#39;;       // Just an arbitrary versioning scheme.
+    string public version = 'F0.1';       // Just an arbitrary versioning scheme.
 
      constructor(
         uint256 _initialAmount,
@@ -128,7 +128,7 @@ contract BCTStandardToken is StandardToken {
         allowed[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
 
-        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn&#39;t have to include a contract in here just for this.
+        //call the receiveApproval function on the contract you want to be notified. This crafts the function signature manually so one doesn't have to include a contract in here just for this.
         //receiveApproval(address _from, uint256 _value, address _tokenContract, bytes _extraData)
         //it is assumed when one does this that the call *should* succeed, otherwise one would use vanilla approve instead.
         require(_spender.call(bytes4(bytes32(keccak256("receiveApproval(address,uint256,address,bytes)"))), msg.sender, _value, this, _extraData));

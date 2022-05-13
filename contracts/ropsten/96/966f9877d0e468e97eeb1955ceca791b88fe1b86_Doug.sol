@@ -2,9 +2,9 @@ pragma solidity ^0.4.19;
 contract Doug{
     mapping (bytes32 => uint) public contracts;
     function Doug() {
-        contracts[&#39;hww&#39;] = 1;
-        contracts[&#39;brian&#39;] = 2;
-        contracts[&#39;zzy&#39;] = 7;
+        contracts['hww'] = 1;
+        contracts['brian'] = 2;
+        contracts['zzy'] = 7;
     }
     
     function getDougName(string _name) public view returns(string) {

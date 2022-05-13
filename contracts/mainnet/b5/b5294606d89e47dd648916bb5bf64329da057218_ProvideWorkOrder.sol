@@ -92,7 +92,7 @@ contract ProvideWorkOrder {
 
   /**
    * Complete the transaction by remitting the exact amount of PRVD tokens due.
-   * The service provider&#39;s payment is escrowed in the payment escrow wallet
+   * The service provider's payment is escrowed in the payment escrow wallet
    * and the platform fee is remitted to Provide.
    *
    * Partial payments will be rejected.

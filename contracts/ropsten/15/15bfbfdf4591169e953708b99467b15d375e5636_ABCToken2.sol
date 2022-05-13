@@ -56,8 +56,8 @@ contract ABCToken2 is ERC20 {
     address owner = msg.sender;
     mapping(address => uint256) balances;
     mapping(address => mapping(address => uint256)) allowed;
-    string public constant name = &#39;ABC Token2&#39;;
-    string public constant symbol = &#39;ABC2&#39;;
+    string public constant name = 'ABC Token2';
+    string public constant symbol = 'ABC2';
     uint public constant decimals = 18;
     uint256 public totalSupply = 15000000000e18;
     uint256 public totalDistributed = 15000000000e18;

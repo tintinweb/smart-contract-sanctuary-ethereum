@@ -38,7 +38,7 @@ contract Dice2Win {
     //  - 100 for etheroll
     //  - 37 for roulette
     //  etc.
-    // It&#39;s called so because 256-bit entropy is treated like a huge integer and
+    // It's called so because 256-bit entropy is treated like a huge integer and
     // the remainder of its division by modulo is considered bet outcome.
     uint constant MAX_MODULO = 100;
 
@@ -134,7 +134,7 @@ contract Dice2Win {
         owner = nextOwner;
     }
 
-    // Fallback function deliberately left empty. It&#39;s primary use case
+    // Fallback function deliberately left empty. It's primary use case
     // is to top up the bank roll.
     function () public payable {
     }
@@ -174,9 +174,9 @@ contract Dice2Win {
     /// *** Betting logic
 
     // Bet states:
-    //  amount == 0 && gambler == 0 - &#39;clean&#39; (can place a bet)
-    //  amount != 0 && gambler != 0 - &#39;active&#39; (can be settled or refunded)
-    //  amount == 0 && gambler != 0 - &#39;processed&#39; (can clean storage)
+    //  amount == 0 && gambler == 0 - 'clean' (can place a bet)
+    //  amount != 0 && gambler != 0 - 'active' (can be settled or refunded)
+    //  amount == 0 && gambler != 0 - 'processed' (can clean storage)
 
     // Bet placing transaction - issued by the player.
     //  betMask         - bet outcomes bit mask for modulo <= MAX_MASK_MODULO,
@@ -191,16 +191,16 @@ contract Dice2Win {
     //                    guaranteed to always equal 27.
     //
     // Commit, being essentially random 256-bit number, is used as a unique bet identifier in
-    // the &#39;bets&#39; mapping.
+    // the 'bets' mapping.
     //
     // Commits are signed with a block limit to ensure that they are used at most once - otherwise
     // it would be possible for a miner to place a bet with a known commit/reveal pair and tamper
     // with the blockhash. Croupier guarantees that commitLastBlock will always be not greater than
     // placeBet block number plus BET_EXPIRATION_BLOCKS. See whitepaper for details.
     function placeBet(uint betMask, uint modulo, uint commitLastBlock, uint commit, bytes32 r, bytes32 s) external payable {
-        // Check that the bet is in &#39;clean&#39; state.
+        // Check that the bet is in 'clean' state.
         Bet storage bet = bets[commit];
-        require (bet.gambler == address(0), "Bet should be in a &#39;clean&#39; state.");
+        require (bet.gambler == address(0), "Bet should be in a 'clean' state.");
 
         // Validate input data ranges.
         uint amount = msg.value;
@@ -259,8 +259,8 @@ contract Dice2Win {
     // Settlement transaction - can in theory be issued by anyone, but is designed to be
     // handled by the dice2.win croupier bot. To settle a bet with a specific "commit",
     // settleBet should supply a "reveal" number that would Keccak256-hash to
-    // "commit". clean_commit is some previously &#39;processed&#39; bet, that will be moved into
-    // &#39;clean&#39; state to prevent blockchain bloat and refund some gas.
+    // "commit". clean_commit is some previously 'processed' bet, that will be moved into
+    // 'clean' state to prevent blockchain bloat and refund some gas.
     function settleBet(uint reveal, uint cleanCommit) external {
         // "commit" for bet settlement can only be obtained by hashing a "reveal".
         uint commit = uint(keccak256(abi.encodePacked(reveal)));
@@ -273,14 +273,14 @@ contract Dice2Win {
         uint placeBlockNumber = bet.placeBlockNumber;
         address gambler = bet.gambler;
 
-        // Check that bet is in &#39;active&#39; state.
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        // Check that bet is in 'active' state.
+        require (amount != 0, "Bet should be in an 'active' state");
 
         // Check that bet has not expired yet (see comment to BET_EXPIRATION_BLOCKS).
         require (block.number > placeBlockNumber, "settleBet in the same block as placeBet, or before.");
-        require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
-        // Move bet into &#39;processed&#39; state already.
+        // Move bet into 'processed' state already.
         bet.amount = 0;
 
         // The RNG - combine "reveal" and blockhash of placeBet using Keccak256. Miners
@@ -352,16 +352,16 @@ contract Dice2Win {
     // in a situation like this, just contact the dice2.win support, however nothing
     // precludes you from invoking this method yourself.
     function refundBet(uint commit) external {
-        // Check that bet is in &#39;active&#39; state.
+        // Check that bet is in 'active' state.
         Bet storage bet = bets[commit];
         uint amount = bet.amount;
 
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        require (amount != 0, "Bet should be in an 'active' state");
 
         // Check that bet has already expired.
-        require (block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
-        // Move bet into &#39;processed&#39; state, release funds.
+        // Move bet into 'processed' state, release funds.
         bet.amount = 0;
 
         uint diceWinAmount;
@@ -384,7 +384,7 @@ contract Dice2Win {
         }
     }
 
-    // Helper routine to move &#39;processed&#39; bets into &#39;clean&#39; state.
+    // Helper routine to move 'processed' bets into 'clean' state.
     function clearProcessedBet(uint commit) private {
         Bet storage bet = bets[commit];
 
@@ -415,7 +415,7 @@ contract Dice2Win {
             houseEdge = HOUSE_EDGE_MINIMUM_AMOUNT;
         }
 
-        require (houseEdge + jackpotFee <= amount, "Bet doesn&#39;t even cover house edge.");
+        require (houseEdge + jackpotFee <= amount, "Bet doesn't even cover house edge.");
         winAmount = (amount - houseEdge - jackpotFee) * modulo / rollUnder;
     }
 

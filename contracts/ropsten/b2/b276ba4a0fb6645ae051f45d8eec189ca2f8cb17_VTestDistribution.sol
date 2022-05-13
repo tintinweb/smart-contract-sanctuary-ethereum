@@ -71,8 +71,8 @@ contract VTest is ERC20Interface, Owned {
     mapping(address => mapping(address => uint)) allowed;
 
     function VTest() public {
-        symbol = &#39;VTest&#39;;
-        name = &#39;VTest Token&#39;;
+        symbol = 'VTest';
+        name = 'VTest Token';
         decimals = 18;
         _totalSupply = 1000000000 * 10**uint(decimals);
         balances[owner] = _totalSupply;

@@ -39,7 +39,7 @@ contract xkToken {
         return balances[_owner];
     }
  
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to,uint256 _amount)public returns (bool success) {
     require(_to != address(0));
     require(_amount > 0 && _amount <= balances[msg.sender]);

@@ -203,7 +203,7 @@ contract TripCash is Ownable {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -248,7 +248,7 @@ contract TripCash is Ownable {
     }
 
     /**
-     * @dev function for rewarding token holders, who didn&#39;t transfer in 1 or 2 years
+     * @dev function for rewarding token holders, who didn't transfer in 1 or 2 years
      * @param _holder token holders address
      */
 
@@ -282,7 +282,7 @@ contract TripCash is Ownable {
      * Unsold and undistributed tokens will be vested (50% for 2 years, 50% for 4 years) 
      * to be allocated for the future development needs of the project; 
      * in case of high unexpected volatility of the token, 
-     * part or all of the vested tokens can be burned to support the token&#39;s value.
+     * part or all of the vested tokens can be burned to support the token's value.
      * /
     /**
      * function for after ICO burning tokens which was not bought
@@ -292,7 +292,7 @@ contract TripCash is Ownable {
         require(_value > 0);
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner] - _value;

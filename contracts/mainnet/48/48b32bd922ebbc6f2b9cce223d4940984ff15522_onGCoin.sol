@@ -1,6 +1,6 @@
 contract onGCoin {
     /* Public variables of the token */
-    string public standard = &#39;onGCoin&#39;;
+    string public standard = 'onGCoin';
     string public name;
     string public symbol;
     uint8 public decimals;

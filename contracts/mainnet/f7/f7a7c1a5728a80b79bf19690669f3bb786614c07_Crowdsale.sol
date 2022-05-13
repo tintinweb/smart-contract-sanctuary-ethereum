@@ -1,6 +1,6 @@
 pragma solidity 0.4.24;
 // ----------------------------------------------------------------------------
-// &#39;RIPT&#39; token crowdsale contract
+// 'RIPT' token crowdsale contract
 //
 // Deployed to : 0xef9EcD8a0A2E4b31d80B33E243761f4D93c990a8
 // Symbol      : RIPT
@@ -24,7 +24,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0 uint256 c = a / b;
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

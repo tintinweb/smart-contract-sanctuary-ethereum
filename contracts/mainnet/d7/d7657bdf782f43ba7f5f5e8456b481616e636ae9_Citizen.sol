@@ -108,9 +108,9 @@ library Helper {
         uint256 len = bytes(_username).length;
         // Im Raum [4, 18]
         if ((len < 4) || (len > 18)) return false;
-        // Letzte Char != &#39; &#39;
+        // Letzte Char != ' '
         if (bytes(_username)[len-1] == 32) return false;
-        // Erste Char != &#39;0&#39;
+        // Erste Char != '0'
         return uint256(bytes(_username)[0]) != 48;
     }
 
@@ -246,7 +246,7 @@ interface F2mInterface {
     // Dividends from all sources (DApps, Donate ...)
     function pushDividends() public payable;
     /**
-     * Converts all of caller&#39;s dividends to tokens.
+     * Converts all of caller's dividends to tokens.
      */
     //function reinvest() public;
     //function buy() public payable;
@@ -329,8 +329,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -346,8 +346,8 @@ library SafeMath {
     * @dev Multiplies two signed integers, reverts on overflow.
     */
     function mul(int256 a, int256 b) internal pure returns (int256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -368,7 +368,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }

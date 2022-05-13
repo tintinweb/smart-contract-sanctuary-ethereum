@@ -117,7 +117,7 @@ contract CanvasFactory is TimeAware {
 
     uint8 public constant WIDTH = 64;
     uint8 public constant HEIGHT = 64;
-    uint32 public constant PIXEL_COUNT = 4096; //WIDTH * HEIGHT doesn&#39;t work for some reason
+    uint32 public constant PIXEL_COUNT = 4096; //WIDTH * HEIGHT doesn't work for some reason
 
     uint32 public constant MAX_CANVAS_COUNT = 1000;
     uint8 public constant MAX_ACTIVE_CANVAS = 12;
@@ -145,8 +145,8 @@ contract CanvasFactory is TimeAware {
     }
 
     /**
-    * @notice   Creates new canvas. There can&#39;t be more canvases then MAX_CANVAS_COUNT.
-    *           There can&#39;t be more unfinished canvases than MAX_ACTIVE_CANVAS.
+    * @notice   Creates new canvas. There can't be more canvases then MAX_CANVAS_COUNT.
+    *           There can't be more unfinished canvases than MAX_ACTIVE_CANVAS.
     */
     function createCanvas() external returns (uint canvasId) {
         require(canvases.length < MAX_CANVAS_COUNT);
@@ -161,7 +161,7 @@ contract CanvasFactory is TimeAware {
     }
 
     /**
-    * @notice   Sets pixel. Given canvas can&#39;t be yet finished.
+    * @notice   Sets pixel. Given canvas can't be yet finished.
     */
     function setPixel(uint32 _canvasId, uint32 _index, uint8 _color) external notFinished(_canvasId) validPixelIndex(_index) {
         require(_color > 0);
@@ -169,8 +169,8 @@ contract CanvasFactory is TimeAware {
         Canvas storage canvas = _getCanvas(_canvasId);
         Pixel storage pixel = canvas.pixels[_index];
 
-        // pixel always has a painter. If it&#39;s equal to address(0) it means 
-        // that pixel hasn&#39;t been set.
+        // pixel always has a painter. If it's equal to address(0) it means 
+        // that pixel hasn't been set.
         if (pixel.painter == 0x0) {
             canvas.paintedPixelsCount++;
         } else {
@@ -266,7 +266,7 @@ contract CanvasFactory is TimeAware {
         uint8 state;
 
         /**
-        * Owner of canvas. Canvas doesn&#39;t have an owner until initial bidding ends. 
+        * Owner of canvas. Canvas doesn't have an owner until initial bidding ends. 
         */
         address owner;
 
@@ -302,10 +302,10 @@ contract CanvasFactory is TimeAware {
 contract BiddableCanvas is CanvasFactory, Withdrawable {
 
     /**
-    * As it&#39;s hard to operate on floating numbers, each fee will be calculated like this:
-    * PRICE * COMMISSION / COMMISSION_DIVIDER. It&#39;s impossible to keep float number here.
+    * As it's hard to operate on floating numbers, each fee will be calculated like this:
+    * PRICE * COMMISSION / COMMISSION_DIVIDER. It's impossible to keep float number here.
     *
-    * ufixed COMMISSION = 0.039; may seem useful, but it&#39;s not possible to multiply ufixed * uint.
+    * ufixed COMMISSION = 0.039; may seem useful, but it's not possible to multiply ufixed * uint.
     */
     uint public constant COMMISSION = 39;
     uint public constant COMMISSION_DIVIDER = 1000;
@@ -336,13 +336,13 @@ contract BiddableCanvas is CanvasFactory, Withdrawable {
     }
 
     /**
-    * Ensures that canvas&#39;s saved state is STATE_OWNED.
+    * Ensures that canvas's saved state is STATE_OWNED.
     *
     * Because initial bidding is based on current time, we had to find a way to
     * trigger saving new canvas state. Every transaction (not a call) that
     * requires state owned should use it modifier as a last one.
     *
-    * Thank&#39;s to that, we can make sure, that canvas state gets updated.
+    * Thank's to that, we can make sure, that canvas state gets updated.
     */
     modifier forceOwned(uint32 _canvasId) {
         Canvas storage canvas = _getCanvas(_canvasId);
@@ -403,14 +403,14 @@ contract BiddableCanvas is CanvasFactory, Withdrawable {
         Canvas storage canvas = _getCanvas(_canvasId);
         if (canvas.state != STATE_INITIAL_BIDDING) {
             //if state is set to owned, or not finished
-            //it means it doesn&#39;t depend on current time -
-            //we don&#39;t have to double check
+            //it means it doesn't depend on current time -
+            //we don't have to double check
             return canvas.state;
         }
 
         //state initial bidding - as that state depends on
         //current time, we have to double check if initial bidding
-        //hasn&#39;t finish yet
+        //hasn't finish yet
         uint finishTime = canvas.initialBiddingFinishTime;
         if (finishTime == 0 || finishTime > getTime()) {
             return STATE_INITIAL_BIDDING;
@@ -421,7 +421,7 @@ contract BiddableCanvas is CanvasFactory, Withdrawable {
     }
 
     /**
-    * @notice   Returns all canvas&#39; id for a given state.
+    * @notice   Returns all canvas' id for a given state.
     */
     function getCanvasByState(uint8 _state) external view returns (uint32[]) {
         uint size;
@@ -446,7 +446,7 @@ contract BiddableCanvas is CanvasFactory, Withdrawable {
 
     /**
     * @notice   Returns reward for painting pixels in wei. That reward is proportional
-    *           to number of set pixels. For example let&#39;s assume that the address has painted
+    *           to number of set pixels. For example let's assume that the address has painted
     *           2048 pixels, which is 50% of all pixels. He will be rewarded
     *           with 50% of winning bid minus fee.
     */
@@ -508,7 +508,7 @@ contract BiddableCanvas is CanvasFactory, Withdrawable {
     }
 
     /**
-    * @notice   Only for the owner of the contract. Adds commission to the owner&#39;s
+    * @notice   Only for the owner of the contract. Adds commission to the owner's
     *           pending withdrawals.
     */
     function addCommissionToPendingWithdrawals(uint32 _canvasId)
@@ -556,7 +556,7 @@ contract BiddableCanvas is CanvasFactory, Withdrawable {
 
     /**
     * @dev  Slices array from start (inclusive) to end (exclusive).
-    *       Doesn&#39;t modify input array.
+    *       Doesn't modify input array.
     */
     function _slice(uint32[] memory _array, uint _start, uint _end) internal pure returns (uint32[]) {
         require(_start <= _end);
@@ -624,7 +624,7 @@ contract CanvasMarket is BiddableCanvas {
         SellOffer memory sellOffer = canvasForSale[_canvasId];
 
         require(msg.sender != canvas.owner);
-        //don&#39;t sell for the owner
+        //don't sell for the owner
         require(sellOffer.isForSale);
         require(msg.value >= sellOffer.minPrice);
         require(sellOffer.seller == canvas.owner);
@@ -802,7 +802,7 @@ contract CanvasMarket is BiddableCanvas {
 
         require(canvas.owner == msg.sender);
         require(oldOffer.isForSale);
-        //don&#39;t allow to cancel if there is no offer
+        //don't allow to cancel if there is no offer
 
         canvasForSale[_canvasId] = SellOffer(false, msg.sender, 0, 0x0);
 
@@ -919,7 +919,7 @@ contract CryptoArt is CanvasMarket {
     }
 
     /**
-    * @notice   Returns array of canvas&#39;s ids. Returned canvases have sell offer.
+    * @notice   Returns array of canvas's ids. Returned canvases have sell offer.
     *           If includePrivateOffers is true, includes offers that are targeted
     *           only to one specified address.
     */
@@ -939,7 +939,7 @@ contract CryptoArt is CanvasMarket {
     }
 
     /**
-    * @notice   Returns array of all the owners of all of pixels. If some pixel hasn&#39;t
+    * @notice   Returns array of all the owners of all of pixels. If some pixel hasn't
     *           been painted yet, 0x0 address will be returned.
     */
     function getCanvasPainters(uint32 _canvasId) external view returns (address[]) {

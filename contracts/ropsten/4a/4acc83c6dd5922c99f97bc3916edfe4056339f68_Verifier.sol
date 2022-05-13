@@ -43,7 +43,7 @@ contract Verifier {
     }
     // Maximum length we support  
     require(length <= 999999);
-    // The length of the message&#39;s length in base-10    
+    // The length of the message's length in base-10    
     uint256 lengthLength = 0;
     // The divisor to get the next left-most message length digit   
     uint256 divisor = 100000;
@@ -61,7 +61,7 @@ if (lengthLength == 0) {
       }
       // Found a non-zero digit or non-leading zero digit   
       lengthLength++;
-      // Remove this digit from the message length&#39;s current value  
+      // Remove this digit from the message length's current value  
       length -= digit * divisor;
       // Shift our base-10 divisor over      
       divisor /= 10;

@@ -154,7 +154,7 @@ contract FastBetMultiplier {
                 //this investor is fully paid, so remove him
                 delete queue[idx];
             }else{
-                //Here we don&#39;t have enough money so partially pay to investor
+                //Here we don't have enough money so partially pay to investor
                 dep.depositor.send(money); //Send to him everything we have
                 dep.expect -= money;       //Update the expected amount
                 break;                     //Exit cycle

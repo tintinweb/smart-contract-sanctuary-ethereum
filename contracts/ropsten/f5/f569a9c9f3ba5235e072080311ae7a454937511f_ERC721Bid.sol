@@ -95,7 +95,7 @@ library Roles {
     }
 
     /**
-     * @dev remove an account&#39;s access to this role
+     * @dev remove an account's access to this role
      */
     function remove(Role storage role, address account) internal {
         require(account != address(0));
@@ -225,8 +225,8 @@ library SafeMath {
     * @dev Multiplies two unsigned integers, reverts on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -242,8 +242,8 @@ library SafeMath {
     * @dev Multiplies two signed integers, reverts on overflow.
     */
     function mul(int256 a, int256 b) internal pure returns (int256) {
-        // Gas optimization: this is cheaper than requiring &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -264,7 +264,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0);
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }
@@ -630,7 +630,7 @@ contract ERC721Bid is Ownable, Pausable, ERC721BidStorage {
     * transaction being reverted.
     * Note: 
     * @notice The contract address is always the message sender.
-    * This method should be seen as &#39;acceptBid&#39;.
+    * This method should be seen as 'acceptBid'.
     * It is the only way to accept a bid for an ERC721.
     * @param _from The address which previously owned the token
     * @param _tokenId The NFT identifier which is being transferred
@@ -847,7 +847,7 @@ contract ERC721Bid is Ownable, Pausable, ERC721BidStorage {
     }
 
     /**
-    * @dev Sets the share cut for the owner of the contract that&#39;s
+    * @dev Sets the share cut for the owner of the contract that's
     * charged to the seller on a successful sale
     * @param _ownerCutPerMillion - Share amount, from 0 to 999,999
     */

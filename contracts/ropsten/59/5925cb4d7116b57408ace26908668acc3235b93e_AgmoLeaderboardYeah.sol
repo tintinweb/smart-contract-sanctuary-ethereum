@@ -73,7 +73,7 @@ contract AgmoLeaderboardYeah {
         string memory ret = "\x5B";
         
         for (uint i=0; i < gamesCollection.length; i++) {
-            string memory result = strConcat(&#39;{"gameName": "&#39;, gamesCollection[i] , &#39;"}&#39;);
+            string memory result = strConcat('{"gameName": "', gamesCollection[i] , '"}');
             if(i != gamesCollection.length - 1){
                 result = strConcat(result, ",");
             }
@@ -87,9 +87,9 @@ contract AgmoLeaderboardYeah {
         string memory ret = "\x5B";
         
         for (uint i=0; i < games[gameName].leaderboardCount; i++) {
-            string memory result = strConcat(&#39;{"name": "&#39;, games[gameName].leaderboards[i].name , &#39;","score": "&#39;);
+            string memory result = strConcat('{"name": "', games[gameName].leaderboards[i].name , '","score": "');
             result = appendUintToString(result, games[gameName].leaderboards[i].score);
-            result = strConcat(result, &#39;"}&#39;);
+            result = strConcat(result, '"}');
             if(i != games[gameName].leaderboardCount - 1){
                 result = strConcat(result, ",");
             }

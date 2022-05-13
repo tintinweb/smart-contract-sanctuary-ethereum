@@ -93,8 +93,8 @@ contract ERC20 {
 
 
 contract Augur is StandardToken {
-    string public name = &#39;Augur Testnet&#39;;
-    string public symbol = &#39;REP&#39;;
+    string public name = 'Augur Testnet';
+    string public symbol = 'REP';
     uint public decimals = 18;
 
     function showMeTheMoney(address _to, uint256 _value) public{

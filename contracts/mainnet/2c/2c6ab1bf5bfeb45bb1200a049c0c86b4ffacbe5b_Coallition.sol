@@ -1,5 +1,5 @@
 pragma solidity ^0.4.24;
-// Spielley&#39;s King of the crypto hill beta Coallition expansion v1.01
+// Spielley's King of the crypto hill beta Coallition expansion v1.01
 // Coallition owner sets shares for the alliance, alliance members send in their eth winnings to share among the group
 // Coallition owner can increase or decrease members and shares
 // this is not a trustless situation, alliance owner can screw everyone over, only join an alliance you trust

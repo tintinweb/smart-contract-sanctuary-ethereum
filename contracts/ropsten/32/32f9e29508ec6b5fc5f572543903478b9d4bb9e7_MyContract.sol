@@ -24,7 +24,7 @@ event Approval(
 mapping(address=>uint) balances;
     
       constructor () public{
-        tokenname = &#39;Noopur&#39;;
+        tokenname = 'Noopur';
         symbol = "NPR";
         decimal = 0.0;
         totalSupply = 100;

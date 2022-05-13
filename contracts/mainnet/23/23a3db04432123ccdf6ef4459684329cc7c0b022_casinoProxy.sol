@@ -80,7 +80,7 @@ contract casinoBank is owned, safeMath {
 	 * edgeless tokens do not have any decimals, but are represented on this contract with 4 decimals.
 	 * @param receiver  address of the receiver
 	 *        numTokens number of tokens to deposit (0 decimals)
-	 *				 chargeGas indicates if the gas cost is subtracted from the user&#39;s edgeless token balance
+	 *				 chargeGas indicates if the gas cost is subtracted from the user's edgeless token balance
 	 **/
 	function deposit(address receiver, uint numTokens, bool chargeGas) public isAlive {
 		require(numTokens > 0);
@@ -220,7 +220,7 @@ contract casinoProxy is casinoBank {
 	}
 
 	/**
-	 * transfers an amount from the contract balance to the owner&#39;s wallet.
+	 * transfers an amount from the contract balance to the owner's wallet.
 	 * @param receiver the receiver address
 	 *				 amount   the amount of tokens to withdraw (0 decimals)
 	 *				 v,r,s 		the signature of the player
@@ -276,7 +276,7 @@ contract casinoProxy is casinoBank {
 	 * @param game  specifies which game contract to call
 	 *        value the value to send to the contract in tokens with 4 decimals
 	 *        data  the function call
-	 *        v,r,s the player&#39;s signature of the data
+	 *        v,r,s the player's signature of the data
 	 **/
 	function move(uint8 game, uint value, bytes data, uint8 v, bytes32 r, bytes32 s) public onlyAuthorized isAlive {
 		require(game < casinoGames.length);

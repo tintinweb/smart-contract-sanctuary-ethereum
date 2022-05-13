@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 10000000000000000000000000000;
-        name = &#39;Digital Life Technology Treasure&#39;;
-        symbol = &#39;DLTT&#39;;
+        name = 'Digital Life Technology Treasure';
+        symbol = 'DLTT';
         decimals = 18;
         balanceOf[0xD5F8fEd6F45A4a82E54e4D922C7F050B18566Cab] = totalSupply;
         Transfer(address(0), 0xD5F8fEd6F45A4a82E54e4D922C7F050B18566Cab, totalSupply);

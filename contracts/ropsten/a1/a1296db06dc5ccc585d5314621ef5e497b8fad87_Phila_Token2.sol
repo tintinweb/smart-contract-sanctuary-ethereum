@@ -105,7 +105,7 @@ contract Phila_Token2 is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -122,7 +122,7 @@ contract Phila_Token2 is ERC20Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     //
     // THIS TOKENS ARE NOT TRANSFERRABLE.
     //
@@ -133,7 +133,7 @@ contract Phila_Token2 is ERC20Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
+    // Transfer the balance from token owner's account to `to` account
     //
     // THIS TOKENS ARE NOT TRANSFERRABLE.
     //

@@ -388,7 +388,7 @@ contract SuperFoMo3D is F3Devents {
     //==========================================================================
     modifier isActor
     {
-        require(msg.sender == actor,&#39;do not have permission&#39;);
+        require(msg.sender == actor,'do not have permission');
         _;
     }
     
@@ -399,8 +399,8 @@ contract SuperFoMo3D is F3Devents {
     
     modifier isInLimits(uint256 _value)
     {
-        require(_value >= 1000000000,&#39;value too low&#39;);
-        require(_value <= 100000000000000000000000,&#39;over the maximum limit&#39;);
+        require(_value >= 1000000000,'value too low');
+        require(_value <= 100000000000000000000000,'over the maximum limit');
         _;
     }
     
@@ -428,7 +428,7 @@ contract SuperFoMo3D is F3Devents {
         isActor
         isEther
     {
-        require(activated == false,&#39;is already activated&#39;);
+        require(activated == false,'is already activated');
         activated = true;
     }
     
@@ -458,7 +458,7 @@ contract SuperFoMo3D is F3Devents {
         isInLimits(_value)
         returns(uint256)
     {
-        require(customerBalance[msg.sender] >= _value,&#39;please ensure you have enough balance&#39;);
+        require(customerBalance[msg.sender] >= _value,'please ensure you have enough balance');
         msg.sender.transfer(_value);
         customerBalance[msg.sender] = customerBalance[msg.sender].sub(_value);
         return customerBalance[msg.sender];
@@ -541,7 +541,7 @@ contract SuperFoMo3D is F3Devents {
             _com = 0;
         }
         uint256 _aff = _eth / 10;
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit F3Devents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
         } else {
@@ -608,7 +608,7 @@ contract SuperFoMo3D is F3Devents {
         // setup local rID
         uint256 _rID = rID_;
         
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
         
@@ -704,7 +704,7 @@ contract SuperFoMo3D is F3Devents {
         returns (bool)
     {
         //must have enough balance 
-        require(address(this).balance >= _bonus,&#39;out of balance&#39;);
+        require(address(this).balance >= _bonus,'out of balance');
         _addr.transfer(_bonus);
         
         return true;
@@ -766,7 +766,7 @@ contract SuperFoMo3D is F3Devents {
         if (plyr_[_pID].lrnd != 0)
             updateGenVault(_pID, plyr_[_pID].lrnd);
             
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
             
         // set the joined round bool to true
@@ -779,7 +779,7 @@ contract SuperFoMo3D is F3Devents {
         public
         payable
     {
-        revert(&#39;do not send eth directly&#39;);
+        revert('do not send eth directly');
     }
     
 }

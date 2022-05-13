@@ -35,7 +35,7 @@ library SafeMath {
         // Solidity only automatically asserts when dividing by 0
         require(b > 0, "SafeMath: division by zero");
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
 
         return c;
     }

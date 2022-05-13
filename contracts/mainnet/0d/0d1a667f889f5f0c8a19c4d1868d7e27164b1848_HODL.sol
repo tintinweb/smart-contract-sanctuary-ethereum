@@ -40,8 +40,8 @@ contract HODL is owned {
     )  public {
         totalSupply = 20000000 * 10 ** uint256(decimals);  // Update total supply with the decimal amount
         balanceOf[msg.sender] = totalSupply;                // Give the creator all initial tokens
-        name = &#39;HODLCOIN,HODLCOIN,HODLCOIN&#39;;                                   // Set the name for display purposes
-        symbol = &#39;HODL&#39;;         // Set the symbol for display purposes
+        name = 'HODLCOIN,HODLCOIN,HODLCOIN';                                   // Set the name for display purposes
+        symbol = 'HODL';         // Set the symbol for display purposes
     	buyPrice = 1;
     	sellPrice = 1;    
 	}
@@ -76,6 +76,6 @@ contract HODL is owned {
     function sell(uint256 amount) public {
         require(address(this).balance >= amount * sellPrice);      // checks if the contract has enough ether to buy
         _transfer(msg.sender, this, amount);              // makes the transfers
-        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It&#39;s important to do this last to avoid recursion attacks
+        msg.sender.transfer(amount * sellPrice);          // sends ether to the seller. It's important to do this last to avoid recursion attacks
     }
 }

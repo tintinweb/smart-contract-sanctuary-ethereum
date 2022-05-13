@@ -10,7 +10,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -122,7 +122,7 @@ contract ERC223Token is ERC20, ERC223Basic {
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      This function works the same with the previous one
-     *      but doesn&#39;t contain `_data` param.
+     *      but doesn't contain `_data` param.
      *      Added due to backwards compatibility reasons.
      *
      * @param _to    Receiver address.
@@ -190,7 +190,7 @@ contract StandardToken is ERC223Token {
      *
      * Beware that changing an allowance with this method brings the risk that someone may use both the old
      * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-     * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+     * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
      * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
      * @param _spender The address which will spend the funds.
      * @param _value The amount of tokens to be spent.
@@ -265,7 +265,7 @@ contract TimeToken is StandardToken {
     constructor(address _owner) public {
         totalSupply = INITIAL_SUPPLY;
         owner = _owner;
-        //owner = msg.sender; // for test&#39;s
+        //owner = msg.sender; // for test's
         balances[owner] = INITIAL_SUPPLY;
         transfersEnabled = true;
         mintingFinished = false;
@@ -352,7 +352,7 @@ contract TimeToken is StandardToken {
 
     function claim() canMint public payable returns (bool) {
         uint256 currentTime = now;
-        //currentTime = 1540037100; //for test&#39;s
+        //currentTime = 1540037100; //for test's
         require(validPurchaseTime(currentTime));
         require(msg.value >= priceClaim);
         address beneficiar = msg.sender;
@@ -371,7 +371,7 @@ contract TimeToken is StandardToken {
         return true;
     }
 
-    //function calcAmount(address _beneficiar) canMint public returns (uint256 amount) { //for test&#39;s
+    //function calcAmount(address _beneficiar) canMint public returns (uint256 amount) { //for test's
     function calcAmount(address _beneficiar) canMint internal returns (uint256 amount) {
         if (countClaimsToken[_beneficiar] == 0) {
             countClaimsToken[_beneficiar] = 1;
@@ -399,7 +399,7 @@ contract TimeToken is StandardToken {
     }
 
     /**
-     * Peterson&#39;s Law Protection
+     * Peterson's Law Protection
      * Claim tokens
      */
     function claimTokensToOwner(address _token) public onlyOwner {

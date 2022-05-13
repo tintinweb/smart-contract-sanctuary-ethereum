@@ -175,7 +175,7 @@ contract GazeCoinCrowdsaleWhitelist is Administered {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ethers - no payable modifier
+    // Don't accept ethers - no payable modifier
     // ------------------------------------------------------------------------
     function () public {
     }

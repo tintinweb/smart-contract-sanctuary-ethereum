@@ -139,7 +139,7 @@ contract Bet0xgameMaster {
     modifier endsAtAfterBetsCloseAt(uint _betsCloseAt, uint _endsAt) {
         require(
             _betsCloseAt < _endsAt,
-            "Bets can&#39;t close after game ends."
+            "Bets can't close after game ends."
         );
         _;
     }
@@ -220,7 +220,7 @@ contract Bet0xgameMaster {
         );
     }
 
-    // Returns only first 32 characters of each team&#39;s name
+    // Returns only first 32 characters of each team's name
     function getGames(uint[] _gameIds) public view returns(
         uint[], bytes32[], bytes32[], bool[], uint[], uint[]
     ) {

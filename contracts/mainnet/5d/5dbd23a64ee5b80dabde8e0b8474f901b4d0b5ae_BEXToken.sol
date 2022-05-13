@@ -15,8 +15,8 @@ contract ERC20 {
 // The BEX Token Standard Interface
 contract BEXInterface {
 
-    // burn some BEX token from sender&#39;s account to a specific address which nobody can spent
-    // this function only called by contract&#39;s owner
+    // burn some BEX token from sender's account to a specific address which nobody can spent
+    // this function only called by contract's owner
     function burn(uint _value, uint _burnpwd) returns (bool success);
 }
 
@@ -72,7 +72,7 @@ contract BEXToken is ERC20, BEXInterface {
     }
     
     function approve(address _spender, uint _value) notAllowBurnedAddr(msg.sender) returns (bool success) {
-        // To change the approve amount you first have to reduce the addresses&#39;s allowance to zero
+        // To change the approve amount you first have to reduce the addresses's allowance to zero
         if (_value != 0 && allowed[msg.sender][_spender] != 0) {
             return false;
         }

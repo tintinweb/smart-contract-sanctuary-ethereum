@@ -60,7 +60,7 @@ contract Token is StandardToken {
     string public name = "MED X";
     uint8 public decimals = 18;
     string public symbol = "MED";
-    string public version = &#39;MED 1.0&#39;;
+    string public version = 'MED 1.0';
     address public mintableAddress;
 
     function Token(address sale_address) {

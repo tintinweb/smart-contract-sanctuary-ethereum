@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;BBX&#39; token contract
+// 'BBX' token contract
 //
 // Deployed to : 0xEF871E2F799bbF939964E9b707Cb2805EB4Bd515
 // Symbol      : BBX

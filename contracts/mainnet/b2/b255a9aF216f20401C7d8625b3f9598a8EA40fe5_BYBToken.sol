@@ -40,7 +40,7 @@ contract Token {
 contract RegularToken is Token {
 
     function transfer(address _to, uint _value) public returns (bool) {
-        //Default assumes totalSupply can&#39;t be over max (2^256 - 1).
+        //Default assumes totalSupply can't be over max (2^256 - 1).
         if (balances[msg.sender] >= _value && balances[_to] + _value >= balances[_to]) {
             balances[msg.sender] -= _value;
             balances[_to] += _value;

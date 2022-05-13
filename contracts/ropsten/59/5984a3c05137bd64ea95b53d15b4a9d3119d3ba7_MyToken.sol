@@ -256,8 +256,8 @@ contract MyToken is ERC20Interface, Owned, SafeMath {
 
     function MyToken(uint _sellRate,uint _buyRate) public payable {
         require(_sellRate >0 && _buyRate > 0);
-        symbol = &#39;ADM&#39;;
-        name = &#39;AdmCoin&#39;;
+        symbol = 'ADM';
+        name = 'AdmCoin';
         decimals = 8;
         totalSupply = 2000000000 * 10**uint(decimals);
         balances[owner] = totalSupply;

@@ -86,14 +86,14 @@ contract Exam is Ownable,SafeMath{
         @param _decimals Token decimals
     */
     constructor() public {
-        name = &#39;EXAM&#39;; // Set the name for display purposes
-        symbol = &#39;EXM&#39;; // Set the symbol for display purposes
+        name = 'EXAM'; // Set the name for display purposes
+        symbol = 'EXM'; // Set the symbol for display purposes
         decimals = 18; // Amount of decimals for display purposes
         totalSupply = 410000000 * 10**uint(decimals); // Update total supply
         balanceOf[msg.sender] = totalSupply; // Give the creator all initial tokens
     }
     
-    //can&#39;t Accept Ether
+    //can't Accept Ether
     function() public payable{
         revert();
     }

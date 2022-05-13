@@ -3,7 +3,7 @@
  *  This contract implements american option.
  *  Holders of the Option tokens can make a purchase of the underlying asset
  *  at the price of Strike until the Expiration time.
- *  The Strike price and Expiration date are set once and can&#39;t be changed.
+ *  The Strike price and Expiration date are set once and can't be changed.
  *  Author: Alexey Bukhteyev
  **/
 
@@ -27,7 +27,7 @@ contract ERC20 {
 
 /*
     Allows to recreate OptionToken contract on the same address.
-    Just create new TokenHolders(OptionToken) and reinitiallize OptionToken using it&#39;s address
+    Just create new TokenHolders(OptionToken) and reinitiallize OptionToken using it's address
 */
 contract TokenHolders {
     address public owner;
@@ -61,7 +61,7 @@ contract TokenHolders {
     allows to token holder to buy some asset for the fixed strike price before expiration date.
 */
 contract OptionToken {
-    string public standard = &#39;ERC20&#39;;
+    string public standard = 'ERC20';
     string public name;
     string public symbol;
     uint8 public decimals;

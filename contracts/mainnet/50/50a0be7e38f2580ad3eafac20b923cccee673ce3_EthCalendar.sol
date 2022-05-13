@@ -49,7 +49,7 @@ contract EthCalendar {
 
     // Ensures sender is not the owner of a specific day
     modifier notDayOwner(uint16 dayId) {
-        require(msg.sender != dayStructs[dayId].owner, "sender can&#39;t be owner of day");
+        require(msg.sender != dayStructs[dayId].owner, "sender can't be owner of day");
         _;
     }
 

@@ -87,7 +87,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -432,7 +432,7 @@ contract EthealDeposit is Ownable, HasNoTokens {
         return transactionId;
     }
 
-    /// @notice Forwarding a transaction, internal function, doesn&#39;t check sale status for speed up mass actions.
+    /// @notice Forwarding a transaction, internal function, doesn't check sale status for speed up mass actions.
     /// @return whether forward was successful or not
     function forwardTransactionInternal(uint256 _id, bytes memory _whitelistSign) internal returns (bool) {
         require(_id < transactionCount);
@@ -446,7 +446,7 @@ contract EthealDeposit is Ownable, HasNoTokens {
         bytes memory _whitelistCall = bytesToArgument(_whitelistSign, 96);
 
         // forwarding transaction to sale contract
-        if (! sale.call.value(transactions[_id].amount)(bytes4(keccak256(&#39;depositEth(address,uint256,bytes)&#39;)), transactions[_id].beneficiary, uint256(transactions[_id].time), _whitelistCall) ) {
+        if (! sale.call.value(transactions[_id].amount)(bytes4(keccak256('depositEth(address,uint256,bytes)')), transactions[_id].beneficiary, uint256(transactions[_id].time), _whitelistCall) ) {
             return false;
         }
         transactions[_id].cleared = true;

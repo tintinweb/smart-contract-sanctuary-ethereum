@@ -125,7 +125,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -283,14 +283,14 @@ contract HorseyExchange is Pausable { //also Ownable
 
         emit SaleCanceled(tokenId);
 
-        //Return true if this user is still &#39;active&#39; within the exchange
+        //Return true if this user is still 'active' within the exchange
         //This will help with client side actions
         return userBarn[msg.sender].length > 0;
     }
 
     /**
         @dev Performs the purchase of a token that is present on the market - this includes checking that the
-            proper amount is sent + appliced fee, updating seller&#39;s balance, updated collected fees and
+            proper amount is sent + appliced fee, updating seller's balance, updated collected fees and
             transfering token to buyer
             Only market tokens can be purchased
         @param tokenId ID of the token we wish to purchase
@@ -486,7 +486,7 @@ contract EthorseHelpers {
 
     /**
         @param raceAddress - address of this race
-        @param eth_address - user&#39;s ethereum wallet address
+        @param eth_address - user's ethereum wallet address
         @return true if user is winner + name of the winning horse (LTC,BTC,ETH,...)
     */
     function _isWinnerOf(address raceAddress, address eth_address) internal view returns (bool,bytes32)
@@ -723,7 +723,7 @@ contract HorseyToken is EthorseHelpers,Pausable {
         @dev Allows a user to claim a special horsey with the same dna as the race one
             Cant be used on paused
             The sender has to be a winner of the race and must never have claimed a special horsey from this race
-        @param raceAddress The race&#39;s address
+        @param raceAddress The race's address
     */
     function claim(address raceAddress) external payable
     costs(claimingFee)
@@ -768,7 +768,7 @@ contract HorseyToken is EthorseHelpers,Pausable {
 
     /**
         @dev Allows a user to burn a token he owns to get carrots
-            The mount of carrots given is equal to the horsey&#39;s feedingCounter upon burning
+            The mount of carrots given is equal to the horsey's feedingCounter upon burning
             Cant be called on a horsey with a pending feeding
             Cant be called while paused
         @param tokenId ID of the token to burn
@@ -870,7 +870,7 @@ contract HorseyToken is EthorseHelpers,Pausable {
     }
 
     /**
-        @dev Internal function to increase a horsey&#39;s rarity
+        @dev Internal function to increase a horsey's rarity
             Uses a random value to assess if the feeding process increases rarity
             The chances of having a rarity increase are based on the current feedingCounter
         @param tokenId ID of the token to "feed"
@@ -884,7 +884,7 @@ contract HorseyToken is EthorseHelpers,Pausable {
         uint256 probabilityByRarity = 10 ** (uint256(tier).add(1));
         uint256 randNum = uint256(keccak256(abi.encodePacked(tokenId, blockHash))) % probabilityByRarity;
 
-        //Scale probability based on horsey&#39;s level
+        //Scale probability based on horsey's level
         if(randNum <= (feedingCounter * rarityMultiplier)){
             _increaseRarity(tokenId, blockHash);
         }
@@ -1193,7 +1193,7 @@ contract HorseyPilot {
 
     /**
         @dev Make a proposal and add to pending proposals
-        @param methodId a string representing the function ie. &#39;renameHorsey()&#39;
+        @param methodId a string representing the function ie. 'renameHorsey()'
         @param parameter parameter to be used if invocation is approved
     */
     function makeProposal( uint8 methodId, uint256 parameter ) external

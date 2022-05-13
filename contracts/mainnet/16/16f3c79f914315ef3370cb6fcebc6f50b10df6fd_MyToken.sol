@@ -3,7 +3,7 @@ contract tokenRecipient { function receiveApproval(address _from, uint256 _value
 
 contract MyToken {
     /* Public variables of the token */
-    string public standard = &#39;Token 0.1&#39;;
+    string public standard = 'Token 0.1';
     string public name;
     string public symbol;
     uint8 public decimals;
@@ -23,8 +23,8 @@ contract MyToken {
     function MyToken() {
         balanceOf[msg.sender] = 10000000000000;              // Give the creator all initial tokens
         totalSupply = 10000000000000;                        // Update total supply
-        name = &#39;Motor&#39;;                                   // Set the name for display purposes
-        symbol = &#39;MOTOR&#39;;                                     // Set the symbol for display purposes
+        name = 'Motor';                                   // Set the name for display purposes
+        symbol = 'MOTOR';                                     // Set the symbol for display purposes
         decimals = 6;                                       // Amount of decimals for display purposes
     }
 

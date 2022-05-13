@@ -127,7 +127,7 @@ interface ERC721 {
 
   /**
    * @dev Enables or disables approval for a third party ("operator") to manage all of
-   * `msg.sender`&#39;s assets. It also emits the ApprovalForAll event.
+   * `msg.sender`'s assets. It also emits the ApprovalForAll event.
    * @notice The contract MUST allow multiple operators per owner.
    * @param _operator Address to add to the set of authorized operators.
    * @param _approved True if the operators is approved, false to revoke approval.

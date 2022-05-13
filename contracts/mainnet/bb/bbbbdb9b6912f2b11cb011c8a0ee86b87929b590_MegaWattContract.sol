@@ -174,15 +174,15 @@ contract MegaWattContract is ERC20Token
     string public name;                 // Название
     uint8 public decimals;              // Сколько десятичных знаков
     string public symbol;               // Идентификатор (трехбуквенный обычно)
-    string public version = &#39;1.0&#39;;      // Версия
+    string public version = '1.0';      // Версия
 
     function MegaWattContract()
     {
         totalSupply = 380000000000000;
         balances[msg.sender] = 380000000000000;  // Передача создателю всех выпущенных монет
-        name = &#39;MegaWattContract&#39;;
+        name = 'MegaWattContract';
         decimals = 6;
-        symbol = &#39;MWC&#39;;
+        symbol = 'MWC';
         price = 119047619047619;
         limit = 0;
     }

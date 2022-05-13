@@ -148,8 +148,8 @@ contract StandardToken is ERC20, ERC223, SafeMath, Owned {
 }
 
 contract TOXToken is StandardToken {
-  string public name = &#39;TOXToken&#39;;
-  string public symbol = &#39;TOX&#39;;
+  string public name = 'TOXToken';
+  string public symbol = 'TOX';
   uint public decimals = 8;
 
   uint256 public createTime         = 1527782400;

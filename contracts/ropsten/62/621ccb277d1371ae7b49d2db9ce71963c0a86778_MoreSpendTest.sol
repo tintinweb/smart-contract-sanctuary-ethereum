@@ -34,7 +34,7 @@ contract MoreSpendTest{
         require(msg.sender == contractOwner);
         uint arrayLength = listUsers.length;
 
-        spendQty[user] = 0; // Aunque no haria falta ponerlo a 0 ya que al buscar el mejor no va a analizar este gasto al no estar array, pero asi &#39;limpiamos&#39; su rastro
+        spendQty[user] = 0; // Aunque no haria falta ponerlo a 0 ya que al buscar el mejor no va a analizar este gasto al no estar array, pero asi 'limpiamos' su rastro
         
         // Obtener el indice del usuario ya que es necesario para hacer sustitucion y borrado
         for (uint i=0; i<arrayLength; i++) {

@@ -101,8 +101,8 @@ contract CANtoSOLVEmigration is Graceful, Owned {
     }
 
     function migrate(uint _value) public returns(bool) {
-        _softRequire(oldToken.transferFrom(msg.sender, address(this), _value), &#39;Old token transfer failed&#39;);
-        _hardRequire(newToken.transfer(msg.sender, _value), &#39;New token transfer failed&#39;);
+        _softRequire(oldToken.transferFrom(msg.sender, address(this), _value), 'Old token transfer failed');
+        _hardRequire(newToken.transfer(msg.sender, _value), 'New token transfer failed');
         emit Migrated(msg.sender, _value);
         return true;
     }

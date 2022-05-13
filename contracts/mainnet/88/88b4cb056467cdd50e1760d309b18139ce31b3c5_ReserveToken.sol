@@ -77,7 +77,7 @@ contract ReserveToken {
 
          //Ensure that we dont go over the max the tank has set.
         require(totalSupply + newcoins < maxSupply);
-        //Ensure that we don&#39;t go oever the maximum amount of coins.
+        //Ensure that we don't go oever the maximum amount of coins.
         require(totalSupply + newcoins < tankImposedMax);
 
         
@@ -161,7 +161,7 @@ contract ReserveToken {
         tankOut += _amount;
         //Adding in new tank withdraw.
         tank.transfer(_amount);
-        //transfering amount to tank&#39;s balance.
+        //transfering amount to tank's balance.
     }
 
     //This is an ethereum withdraw for the tank.
@@ -180,7 +180,7 @@ contract ReserveToken {
         tankOut += tankAllowance - tankOut; //We give whats left to our tankout makeing whats left zero. so tank cant double withdraw.
         //Adding in new tank withdraw.
         tank.transfer(tankAllowance - tankOut);
-        //transfering amount to tank&#39;s balance.
+        //transfering amount to tank's balance.
     }
 
 
@@ -223,7 +223,7 @@ contract ReserveToken {
             return firstTTax;
     }
 
-    // Transfer the balance from tank&#39;s account to another account
+    // Transfer the balance from tank's account to another account
     function transfer(address _to, uint256 _amount) public returns (bool success) {
         //variables we are working with.
         uint256 fromBalance = balances[msg.sender];
@@ -302,7 +302,7 @@ contract ReserveToken {
      function GrabUnallocatedValue() public {
          address inAddress = msg.sender;
          require(inAddress == tank);
-         //Sometimes someone sends money straight to the contract but that isn&#39;t recorded in the value of teh contract.
+         //Sometimes someone sends money straight to the contract but that isn't recorded in the value of teh contract.
          //So here we allow tank to withdraw those extra funds
          address walletaddress = this;
          if (walletaddress.balance * 1 ether > valueOfContract) {

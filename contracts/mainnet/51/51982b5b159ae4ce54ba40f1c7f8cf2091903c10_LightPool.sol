@@ -92,7 +92,7 @@ contract LightPool {
         require(base != address(0));
         require(quote != address(0));
 
-        // Make sure there&#39;s no such configured token
+        // Make sure there's no such configured token
         bytes32 tokenHash = keccak256(base, quote, msg.sender);
         require(markets[tokenHash].walletAddress == address(0));
 

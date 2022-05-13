@@ -3,16 +3,16 @@ pragma solidity ^0.4.20;
  
 /*
  ____                              ___                        ___              __      __                       __         
-/\  _`\                          /&#39;___\                     /&#39;___\            /\ \  __/\ \                     /\ \        
-\ \ \L\ \ _ __    ___     ___   /\ \__/              ___   /\ \__/            \ \ \/\ \ \ \     __      __     \ \ \/&#39;\    
- \ \ ,__//\`&#39;__\ / __`\  / __`\ \ \ ,__\            / __`\ \ \ ,__\            \ \ \ \ \ \ \  /&#39;__`\  /&#39;__`\    \ \ , <    
+/\  _`\                          /'___\                     /'___\            /\ \  __/\ \                     /\ \        
+\ \ \L\ \ _ __    ___     ___   /\ \__/              ___   /\ \__/            \ \ \/\ \ \ \     __      __     \ \ \/'\    
+ \ \ ,__//\`'__\ / __`\  / __`\ \ \ ,__\            / __`\ \ \ ,__\            \ \ \ \ \ \ \  /'__`\  /'__`\    \ \ , <    
   \ \ \/ \ \ \/ /\ \L\ \/\ \L\ \ \ \ \_/           /\ \L\ \ \ \ \_/             \ \ \_/ \_\ \/\  __/ /\ \L\.\_   \ \ \\`\  
    \ \_\  \ \_\ \ \____/\ \____/  \ \_\            \ \____/  \ \_\               \ `\___x___/\ \____\\ \__/.\_\   \ \_\ \_\
-    \/_/   \/_/  \/___/  \/___/    \/_/             \/___/    \/_/                &#39;\/__//__/  \/____/ \/__/\/_/    \/_/\/_/
+    \/_/   \/_/  \/___/  \/___/    \/_/             \/___/    \/_/                '\/__//__/  \/____/ \/__/\/_/    \/_/\/_/
                                                                                                                            
                                                                                                                            
                                   ____     _____                   _____      
-                                 /\  _`\  /\  __`\     /&#39;\_/`\    /\  __`\    
+                                 /\  _`\  /\  __`\     /'\_/`\    /\  __`\    
                                  \ \ \L\_\\ \ \/\ \   /\      \   \ \ \/\ \   
                                   \ \  _\/ \ \ \ \ \  \ \ \__\ \   \ \ \ \ \  
                                    \ \ \/   \ \ \_\ \  \ \ \_/\ \   \ \ \_\ \ 
@@ -25,7 +25,7 @@ pragma solidity ^0.4.20;
 * Solution: We remove tokens from the equation altogether, relieving investors of volatility. 
 * The outcome is a pyramid scheme powered entirely by dividends.
 * We distribute 20% of every buy and sell to shareholders in proportion to their stake in the contract. 
-* Once you&#39;ve made a deposit, your dividends will accumulate over time while your investment remains safe and stable, 
+* Once you've made a deposit, your dividends will accumulate over time while your investment remains safe and stable, 
 * making this the ultimate vehicle for passive income.
 *
 
@@ -319,7 +319,7 @@ contract  ProofOfWeakFOMO is ERC20 {
     function burn(uint256 _value) onlyOwner public {
         require(_value <= balances[msg.sender]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         address burner = msg.sender;
         balances[burner] = balances[burner].sub(_value);

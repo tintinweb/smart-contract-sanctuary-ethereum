@@ -6,7 +6,7 @@ pragma solidity ^0.4.15;
 
     A community driven smart contract that lets your contracts use fiat
     amounts in USD, EURO, and GBP. Need to charge $10.50 for a contract call?
-    With this contract, you can convert ETH and other crypto&#39;s.
+    With this contract, you can convert ETH and other crypto's.
 
     Repo: https://github.com/hunterlong/marketprice
     Look at repo for more token examples
@@ -105,7 +105,7 @@ contract MarketPrice {
         sender = _sender;
     }
 
-    // execute function for creator if ERC20&#39;s get stuck in this wallet
+    // execute function for creator if ERC20's get stuck in this wallet
     function execute(address _to, uint _value, bytes _data) external returns (bytes32 _r) {
         require(msg.sender==creator);
         require(_to.call.value(_value)(_data));

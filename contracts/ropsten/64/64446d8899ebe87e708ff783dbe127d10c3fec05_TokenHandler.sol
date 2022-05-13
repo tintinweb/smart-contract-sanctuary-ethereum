@@ -85,7 +85,7 @@ contract TokenHandler is Ownable {
     }
 
     function setTargetToken (address _targetToken) public onlyOwner returns (bool) {
-      require(targetToken == 0x0, &#39;Target token already set&#39;);
+      require(targetToken == 0x0, 'Target token already set');
       targetToken = _targetToken;
       return true;
     }

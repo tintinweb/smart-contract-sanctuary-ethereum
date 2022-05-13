@@ -45,8 +45,8 @@ contract BaseToken {
 contract CustomToken is BaseToken {
     function CustomToken() public {
         totalSupply = 1000000000000000000000000000;
-        name = &#39;NANOProcessingUnit&#39;;
-        symbol = &#39;NPU&#39;;
+        name = 'NANOProcessingUnit';
+        symbol = 'NPU';
         decimals = 18;
         balanceOf[0xa5791f4e7bf0ec01620317cf9f135325a5b47404] = totalSupply;
         Transfer(address(0), 0xa5791f4e7bf0ec01620317cf9f135325a5b47404, totalSupply);

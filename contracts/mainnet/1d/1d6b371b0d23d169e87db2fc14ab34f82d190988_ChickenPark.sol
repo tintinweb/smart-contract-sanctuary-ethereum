@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 //    _____ _     _      _                _____           _    
 //   / ____| |   (_)    | |              |  __ \         | |   
 //  | |    | |__  _  ___| | _____ _ __   | |__) |_ _ _ __| | __
-//  | |    | &#39;_ \| |/ __| |/ / _ \ &#39;_ \  |  ___/ _` | &#39;__| |/ /
+//  | |    | '_ \| |/ __| |/ / _ \ '_ \  |  ___/ _` | '__| |/ /
 //  | |____| | | | | (__|   <  __/ | | | | |  | (_| | |  |   < 
 //   \_____|_| |_|_|\___|_|\_\___|_| |_| |_|   \__,_|_|  |_|\_\
 
@@ -26,7 +26,7 @@ pragma solidity ^0.4.24;
 // ------- Who? ------- 
 //Only 1/10 smarter than vitalik.
 //<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adccc9c0c4c3edcec5c4cec6c8c3ddccdfc683c4c2">[email&#160;protected]</a>
-//Sometime we think plama is a Pseudo topic, but it&#39;s a only way to speed up the TPS.
+//Sometime we think plama is a Pseudo topic, but it's a only way to speed up the TPS.
 //And Everybody will also trust the Node & Result.
 
 library SafeMath {
@@ -406,7 +406,7 @@ contract ChickenPark is Owned{
         
         if (_customerAddress != msg.sender){
         // Update the allowed balance.
-        // Don&#39;t update this if we are transferring our own tokens (via transfer or buyAndTransfer)
+        // Don't update this if we are transferring our own tokens (via transfer or buyAndTransfer)
             allowed[_customerAddress][msg.sender] = allowed[_customerAddress][msg.sender].sub(_amountOfTokens);
         }
 

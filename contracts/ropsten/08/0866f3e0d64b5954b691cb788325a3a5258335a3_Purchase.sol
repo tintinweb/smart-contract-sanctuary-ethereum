@@ -12,7 +12,7 @@ contract Purchase {
 
     // Ensure that `msg.value` is an even number.
     // Division will truncate if it is an odd number.
-    // Check via multiplication that it wasn&#39;t an odd number.
+    // Check via multiplication that it wasn't an odd number.
     constructor() public payable {
         seller = msg.sender;
         value = msg.value / 2;

@@ -85,7 +85,7 @@ contract GoDice{
         owner = nextOwner;
     }
 
-    // Fallback function deliberately left empty. It&#39;s primary use case
+    // Fallback function deliberately left empty. It's primary use case
     // is to top up the bank roll.
     function () external payable {
     }
@@ -127,9 +127,9 @@ contract GoDice{
 
 
     function placeBet(uint betMask, uint modulo, uint commitLastBlock, uint commit, uint8 v, bytes32 r, bytes32 s) external payable {
-        // Check that the bet is in &#39;clean&#39; state.
+        // Check that the bet is in 'clean' state.
         Bet storage bet = bets[commit];
-        require (bet.gambler == address(0), "Bet should be in a &#39;clean&#39; state.");
+        require (bet.gambler == address(0), "Bet should be in a 'clean' state.");
 
         // Validate input data ranges.
         uint amount = msg.value;
@@ -200,7 +200,7 @@ contract GoDice{
 
         // Check that bet has not expired yet (see comment to BET_EXPIRATION_BLOCKS).
         require (block.number > placeBlockNumber, "settleBet in the same block as placeBet, or before.");
-        require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number <= placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
         require (blockhash(placeBlockNumber) == blockHash);
 
         // Settle bet using reveal and blockHash as entropy sources.
@@ -214,7 +214,7 @@ contract GoDice{
         Bet storage bet = bets[commit];
 
         // Check that canonical block hash can still be verified.
-        require (block.number <= canonicalBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number <= canonicalBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
         // Verify placeBet receipt.
         requireCorrectReceipt(4 + 32 + 32 + 4);
@@ -237,10 +237,10 @@ contract GoDice{
         uint rollUnder = bet.rollUnder;
         address payable gambler = bet.gambler;
 
-        // Check that bet is in &#39;active&#39; state.
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        // Check that bet is in 'active' state.
+        require (amount != 0, "Bet should be in an 'active' state");
 
-        // Move bet into &#39;processed&#39; state already.
+        // Move bet into 'processed' state already.
         bet.amount = 0;
 
 
@@ -298,16 +298,16 @@ contract GoDice{
 
 
     function refundBet(uint commit) external {
-        // Check that bet is in &#39;active&#39; state.
+        // Check that bet is in 'active' state.
         Bet storage bet = bets[commit];
         uint amount = bet.amount;
 
-        require (amount != 0, "Bet should be in an &#39;active&#39; state");
+        require (amount != 0, "Bet should be in an 'active' state");
 
         // Check that bet has already expired.
-        require (block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can&#39;t be queried by EVM.");
+        require (block.number > bet.placeBlockNumber + BET_EXPIRATION_BLOCKS, "Blockhash can't be queried by EVM.");
 
-        // Move bet into &#39;processed&#39; state, release funds.
+        // Move bet into 'processed' state, release funds.
         bet.amount = 0;
 
         uint diceWinAmount;
@@ -333,7 +333,7 @@ contract GoDice{
             houseEdge = HOUSE_EDGE_MINIMUM_AMOUNT;
         }
 
-        require (houseEdge + jackpotFee <= amount, "Bet doesn&#39;t even cover house edge.");
+        require (houseEdge + jackpotFee <= amount, "Bet doesn't even cover house edge.");
         winAmount = (amount - houseEdge - jackpotFee) * modulo / rollUnder;
     }
 

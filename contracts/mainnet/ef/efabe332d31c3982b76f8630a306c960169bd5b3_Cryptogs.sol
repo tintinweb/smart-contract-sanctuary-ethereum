@@ -150,7 +150,7 @@ contract Cryptogs is NFT, Ownable {
 
     address public slammerTime;
     function setSlammerTime(address _slammerTime) public onlyOwner returns (bool){
-      //in order to trust that this contract isn&#39;t sending a player&#39;s tokens
+      //in order to trust that this contract isn't sending a player's tokens
       // to a different contract, the slammertime contract is set once and
       // only once -- at deploy
       require(slammerTime==address(0));
@@ -162,7 +162,7 @@ contract Cryptogs is NFT, Ownable {
       bytes32 image;
       //perhaps some are harder to flip over?
       //perhaps some have magical metadata?
-      //I don&#39;t know, it&#39;s late and I&#39;m weird
+      //I don't know, it's late and I'm weird
     }
 
     Item[] private items;
@@ -349,7 +349,7 @@ contract Cryptogs is NFT, Ownable {
       require(msg.sender==stacks[_stack].owner);
       //make sure there is no mode set yet
       require(mode[_stack]==0);
-      //make sure they aren&#39;t trying to cancel a counterstack using this function
+      //make sure they aren't trying to cancel a counterstack using this function
       require(stackCounter[_stack]==0x00000000000000000000000000000000);
 
       delete stacks[_stack];
@@ -426,7 +426,7 @@ contract Cryptogs is NFT, Ownable {
 
     //tx 4: player one commits and flips coin up
     //at this point, the timeout goes into effect and if any transaction including
-    //the coin flip don&#39;t come back in time, we need to allow the other party
+    //the coin flip don't come back in time, we need to allow the other party
     //to withdraw all tokens... this keeps either player from refusing to
     //reveal their commit. (every tx from here on out needs to update the lastBlock and lastActor)
     //and in the withdraw function you check currentblock-lastBlock > timeout = refund to lastActor
@@ -434,7 +434,7 @@ contract Cryptogs is NFT, Ownable {
     //we could even have a little timer on the front end that tells you how long your opponnet has
     //before they will forfet
     function startCoinFlip(bytes32 _stack, bytes32 _counterStack, bytes32 _commit) public returns (bool) {
-      //make sure it&#39;s the owner of the first stack (player one) doing the flip
+      //make sure it's the owner of the first stack (player one) doing the flip
       require(stacks[_stack].owner==msg.sender);
       //the counter must be a counter of stack 1
       require(stackCounter[_counterStack]==_stack);
@@ -452,7 +452,7 @@ contract Cryptogs is NFT, Ownable {
 
     //tx5: player one ends coin flip with reveal
     function endCoinFlip(bytes32 _stack, bytes32 _counterStack, bytes32 _reveal) public returns (bool) {
-      //make sure it&#39;s the owner of the first stack (player one) doing the flip
+      //make sure it's the owner of the first stack (player one) doing the flip
       require(stacks[_stack].owner==msg.sender);
       //the counter must be a counter of stack 1
       require(stackCounter[_counterStack]==_stack);
@@ -466,7 +466,7 @@ contract Cryptogs is NFT, Ownable {
       //make sure hash of reveal == commit
       if(keccak256(_reveal)!=commit[_stack]){
         //commit/reveal failed.. this can happen if they
-        //reload, so don&#39;t punish, just go back to the
+        //reload, so don't punish, just go back to the
         //start of the coin flip stage
         mode[_stack]=1;
         CoinFlipFail(_stack);
@@ -498,10 +498,10 @@ contract Cryptogs is NFT, Ownable {
     //tx6 next player raises slammer
     function raiseSlammer(bytes32 _stack, bytes32 _counterStack, bytes32 _commit) public returns (bool) {
       if(lastActor[_stack]==stacks[_stack].owner){
-        //it is player2&#39;s turn
+        //it is player2's turn
         require(stacks[_counterStack].owner==msg.sender);
       }else{
-        //it is player1&#39;s turn
+        //it is player1's turn
         require(stacks[_stack].owner==msg.sender);
       }
       //the counter must be a counter of stack 1
@@ -522,10 +522,10 @@ contract Cryptogs is NFT, Ownable {
     //tx7 player throws slammer
     function throwSlammer(bytes32 _stack, bytes32 _counterStack, bytes32 _reveal) public returns (bool) {
       if(lastActor[_stack]==stacks[_stack].owner){
-        //it is player2&#39;s turn
+        //it is player2's turn
         require(stacks[_counterStack].owner==msg.sender);
       }else{
-        //it is player1&#39;s turn
+        //it is player1's turn
         require(stacks[_stack].owner==msg.sender);
       }
       //the counter must be a counter of stack 1
@@ -540,7 +540,7 @@ contract Cryptogs is NFT, Ownable {
       uint256[10] memory flipped;
       if(keccak256(_reveal)!=commit[_stack]){
         //commit/reveal failed.. this can happen if they
-        //reload, so don&#39;t punish, just go back to the
+        //reload, so don't punish, just go back to the
         //start of the slammer raise
         mode[_stack]=3;
         throwSlammerEvent(_stack,msg.sender,address(0),flipped);
@@ -625,7 +625,7 @@ contract Cryptogs is NFT, Ownable {
       //the counter must be a counter of stack 1
       require( stackCounter[_counterStack]==_stack );
       require( counterOfStack[_stack]==_counterStack );
-      //the bad guy shouldn&#39;t be able to drain
+      //the bad guy shouldn't be able to drain
       require( lastActor[_stack]==msg.sender );
       //must be after timeout period
       require( block.number - lastBlock[_stack] >= TIMEOUTBLOCKS);

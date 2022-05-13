@@ -161,11 +161,11 @@ contract CampaignContract {
 	}
 
 	function contribute() external hasKYCInfo(msg.sender) payable {
-		//Make sure they&#39;re not attempting to submit more than max.
+		//Make sure they're not attempting to submit more than max.
 		uint256 finalAttempted = amountAttempted[msg.sender].add(msg.value);
 		require(finalAttempted <= maxContribution);
 	
-		//Make sure the attempt added with the already submitted amount isn&#39;t more than max.
+		//Make sure the attempt added with the already submitted amount isn't more than max.
 		uint256 finalAmount = amountContributed[msg.sender].add(finalAttempted);
 		require(finalAmount >= minContribution);
 		require(finalAmount <= maxContribution);
@@ -196,7 +196,7 @@ contract CampaignContract {
 	}
 
 	function resetKYC(address addr) external onlyOwner hasKYCInfo(addr) {
-		//Cant reset KYC for someone who you&#39;ve accepted from already.
+		//Cant reset KYC for someone who you've accepted from already.
 		require(amountContributed[addr] == 0);
 	
 		//Someone having their KYC reset must have withdrawn their attempts.

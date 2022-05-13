@@ -20,8 +20,8 @@ contract owned {
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public; }
 
 contract NobleAssetsCoin {
-    string public constant _myTokeName = &#39;NobleAssetsCoin&#39;;
-    string public constant _mySymbol = &#39;NBAC&#39;;
+    string public constant _myTokeName = 'NobleAssetsCoin';
+    string public constant _mySymbol = 'NBAC';
     uint public constant _myinitialSupply = 21000000;
     uint8 public constant _myDecimal = 0;
     // Public variables of the token

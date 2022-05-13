@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-// &#39;buckycoin&#39; AIRDROP token contract
+// 'buckycoin' AIRDROP token contract
 //
 // Deployed to : 0xbf4de56095f9e39d59fd4f54bc63b39f4f0f7afc
 // Symbol      : BUC

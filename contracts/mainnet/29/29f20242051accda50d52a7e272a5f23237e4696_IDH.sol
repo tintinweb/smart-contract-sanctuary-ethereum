@@ -66,9 +66,9 @@ contract IDH is EIP20Interface {
     function IDH() public {
         balances[msg.sender] = (10 ** 8 * 5) * (10 ** 18);               // Give the creator all initial tokens
         totalSupply = (10 ** 8 * 5) * (10 ** 18);                        // Update total supply
-        name = &#39;Identity Hub Token&#39;;                                            // Set the name for display purposes
+        name = 'Identity Hub Token';                                            // Set the name for display purposes
         decimals = 18;                                                   // Amount of decimals for display purposes
-        symbol = &#39;IDHUB&#39;;                                                  // Set the symbol for display purposes
+        symbol = 'IDHUB';                                                  // Set the symbol for display purposes
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success) {

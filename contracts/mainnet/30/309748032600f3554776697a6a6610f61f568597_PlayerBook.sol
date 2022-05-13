@@ -67,8 +67,8 @@ contract PlayerBook {
         public
     {
         // premine the dev names (sorry not sorry)
-            // No keys are purchased with this method, it&#39;s simply locking our addresses,
-            // PID&#39;s and names for referral codes. //引用代码的PID和名称
+            // No keys are purchased with this method, it's simply locking our addresses,
+            // PID's and names for referral codes. //引用代码的PID和名称
         plyr_[1].addr = 0x584f2b61b5fdae9aed5d12e1bf7f77db3766fc68;  //justo的钱包地址
         plyr_[1].name = "justo";
         plyr_[1].names = 1;
@@ -282,7 +282,7 @@ contract PlayerBook {
     /**
      * @dev players, if you registered a profile, before a game was released, or
      * set the all bool to false when you registered, use this function to push
-     * your profile to a single game.  also, if you&#39;ve  updated your name, you
+     * your profile to a single game.  also, if you've  updated your name, you
      * can use this to push your name to games of your choosing.
      * -functionhash- 0x81c5b206
      * @param _gameID game id
@@ -291,7 +291,7 @@ contract PlayerBook {
         isHuman()
         public
     {
-        require(_gameID <= gID_, "silly player, that game doesn&#39;t exist yet");
+        require(_gameID <= gID_, "silly player, that game doesn't exist yet");
         address _addr = msg.sender;
         uint256 _pID = pIDxAddr_[_addr];
         require(_pID != 0, "hey there buddy, you dont even have an account");
@@ -332,7 +332,7 @@ contract PlayerBook {
     }
 
     /**
-     * @dev players use this to change back to one of your old names.  tip, you&#39;ll
+     * @dev players use this to change back to one of your old names.  tip, you'll
      * still need to push that info to existing games.
      * -functionhash- 0xb9291296
      * @param _nameString the name you want to use

@@ -153,8 +153,8 @@ contract ElearningCoin is owned, token {
     function buy() payable {
         if(isSelling == false) revert();
         uint amount = msg.value * buyRate;                  // calculates the amount
-        balanceOf[msg.sender] += amount;                   // adds the amount to buyer&#39;s balance
-        balanceOf[owner] -= amount;                         // subtracts amount from seller&#39;s balance
+        balanceOf[msg.sender] += amount;                   // adds the amount to buyer's balance
+        balanceOf[owner] -= amount;                         // subtracts amount from seller's balance
         Transfer(owner, msg.sender, amount);                // execute an event reflecting the change
     }
     

@@ -392,7 +392,7 @@ contract MyEtherCityGame {
             _healthPopulation = 0;
         }
         
-        // The indicator can&#39;t be more than 10
+        // The indicator can't be more than 10
         if(_healthPopulation > 10) {
             _healthPopulation = 10;
         }
@@ -431,7 +431,7 @@ contract MyEtherCityGame {
             _amusementPopulation = 0;
         }
         
-        // The indicator can&#39;t be more than 10
+        // The indicator can't be more than 10
         if(_amusementPopulation > 10) {
             _amusementPopulation = 10;
         }
@@ -630,7 +630,7 @@ contract MyEtherCityGame {
             lands[_landId].landPrice = _landPrice;
             
         } else if(_typeUpdate == 1) {
-            // The owner can&#39;t change the commission if the land is occupied
+            // The owner can't change the commission if the land is occupied
             require(lands[_landId].isOccupied == false);
             
             // Land is for rent
@@ -674,19 +674,19 @@ contract MyEtherCityGame {
     
     // We use this function to let users rent lands.
     function rentLand(uint _landId, bool _createCity, uint _cityId) public {
-        // The owner can rent the land even if it&#39;s not marked forRent
+        // The owner can rent the land even if it's not marked forRent
         if(lands[_landId].ownerAddress != msg.sender) {
             require(lands[_landId].landForRent == true);
         }
 
-        // Cities can&#39;t rent a land if it&#39;s already occupied
+        // Cities can't rent a land if it's already occupied
         require(lands[_landId].isOccupied == false);
                     
         if(_createCity == true) {
             // We create the city if the user is renting this land for a new city
             createCity(_landId);
         } else {
-            // Cities can&#39;t rent a land if they are already landing one
+            // Cities can't rent a land if they are already landing one
             require(cities[_cityId].landId == 0);
         
             // We update the land and city if the user is renting the land for an existing city
@@ -712,7 +712,7 @@ contract MyEtherCityGame {
     
     // The dev can use this function to create an innocupied land
     function CreateLand(uint256 _landPrice, address _owner) public onlyCeo {
-        // We can&#39;t create more than 300 lands.
+        // We can't create more than 300 lands.
         if(lands.length < 300) {
             lands.push(Land(_owner, _landPrice, false, false, 0, false, 0));
         }

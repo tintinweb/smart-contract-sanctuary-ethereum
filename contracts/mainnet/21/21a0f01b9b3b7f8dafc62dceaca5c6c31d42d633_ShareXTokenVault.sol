@@ -23,7 +23,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -118,8 +118,8 @@ contract ShareXERC20 is Ownable{
     uint256 public totalSupply;													//Maximum amount of Token supplies
 
     //define dictionaries of balance
-    mapping (address => uint256) public balanceOf;								//Announce the dictionary of account&#39;s balance
-    mapping (address => mapping (address => uint256)) public allowance;			//Announce the dictionary of account&#39;s available balance
+    mapping (address => uint256) public balanceOf;								//Announce the dictionary of account's balance
+    mapping (address => mapping (address => uint256)) public allowance;			//Announce the dictionary of account's available balance
 	//===================public variables definition end==================
 
 	
@@ -130,9 +130,9 @@ contract ShareXERC20 is Ownable{
 	
 	//===================Contract Initialization Sequence Definition start===================
     function ShareXERC20 () public {
-		decimals=8;															//Assignment of Token&#39;s decimals
-		totalSupply = 1000000000 * 10 ** uint256(decimals);  				//Assignment of Token&#39;s total supply with decimals
-        balanceOf[owner] = totalSupply;                						//Assignment of Token&#39;s creator initial tokens
+		decimals=8;															//Assignment of Token's decimals
+		totalSupply = 1000000000 * 10 ** uint256(decimals);  				//Assignment of Token's total supply with decimals
+        balanceOf[owner] = totalSupply;                						//Assignment of Token's creator initial tokens
         name = "ShareX";                                   					//Set the name of Token
         symbol = "SEXC";                               						//Set the symbol of  Token
         
@@ -145,8 +145,8 @@ contract ShareXERC20 is Ownable{
 	*	Funtion: Transfer funtions
 	*	Type:Internal
 	*	Parameters:
-			@_from:	address of sender&#39;s account
-			@_to:	address of recipient&#39;s account
+			@_from:	address of sender's account
+			@_to:	address of recipient's account
 			@_value:transaction amount
 	*/
     function _transfer(address _from, address _to, uint _value) internal {
@@ -171,7 +171,7 @@ contract ShareXERC20 is Ownable{
 	*	Funtion: Transfer tokens
 	*	Type:Public
 	*	Parameters:
-			@_to:	address of recipient&#39;s account
+			@_to:	address of recipient's account
 			@_value:transaction amount
 	*/
     function transfer(address _to, uint256 _value) public returns (bool success) {
@@ -184,8 +184,8 @@ contract ShareXERC20 is Ownable{
 	*	Funtion: Transfer tokens from other address
 	*	Type:Public
 	*	Parameters:
-			@_from:	address of sender&#39;s account
-			@_to:	address of recipient&#39;s account
+			@_from:	address of sender's account
+			@_to:	address of recipient's account
 			@_value:transaction amount
 	*/
 
@@ -201,7 +201,7 @@ contract ShareXERC20 is Ownable{
 	*	Funtion: Approve usable amount for an account
 	*	Type:Public
 	*	Parameters:
-			@_spender:	address of spender&#39;s account
+			@_spender:	address of spender's account
 			@_value:	approve amount
 	*/
     function approve(address _spender, uint256 _value) public 
@@ -227,7 +227,7 @@ contract ShareXERC20 is Ownable{
         }
     }
     /*
-	*	Funtion: Transfer owner&#39;s authority and account balance
+	*	Funtion: Transfer owner's authority and account balance
 	*	Type:Public and onlyOwner
 	*	Parameters:
 			@newOwner:	address of newOwner
@@ -409,7 +409,7 @@ contract ShareXTokenVault is Ownable {
 
         address reserveWallet = msg.sender;
 
-        // Can&#39;t claim before Lock ends
+        // Can't claim before Lock ends
         require(block.timestamp > timeLocks[reserveWallet]);
 
         // Must Only claim once
@@ -469,7 +469,7 @@ contract ShareXTokenVault is Ownable {
         // uint256 stage = (block.timestamp.sub(lockedAt)).div(vestingMonths);
         uint256 stage  = (block.timestamp).sub(firstTime).div(vestingMonths);
 
-        //Ensures team vesting stage doesn&#39;t go past teamVestingStages
+        //Ensures team vesting stage doesn't go past teamVestingStages
         if(stage > teamVestingStages){
             stage = teamVestingStages;
         }

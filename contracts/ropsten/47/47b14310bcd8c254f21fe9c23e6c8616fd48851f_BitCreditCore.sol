@@ -32,7 +32,7 @@ event Transfer(address indexed from, address indexed to, uint256 value);
 event Approval(address indexed _owner, address indexed spender, uint256 value);
 function BitCreditCore() {
 totalSupply = 500000000;
-symbol = &#39;BCT&#39;;
+symbol = 'BCT';
 owner = 0x9a71f27161b105df6b60cee126a65fe005bfa9f0;
 balances[owner] = totalSupply;
 decimals = 18;

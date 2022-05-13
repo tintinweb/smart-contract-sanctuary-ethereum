@@ -16,7 +16,7 @@ contract FlipToken {
     event Transfer(address indexed from, address indexed to, uint256 value);
     
     //~ Setup
-    string public standard = &#39;FLIP&#39;;
+    string public standard = 'FLIP';
     string public name = "Flip";
     string public symbol = "FLIP";
     uint8 public decimals = 0;

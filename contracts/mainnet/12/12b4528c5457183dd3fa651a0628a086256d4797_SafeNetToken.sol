@@ -57,8 +57,8 @@ contract MintableToken is StandardToken {
 }
 
 contract SafeNetToken is MintableToken {
-    string public name = &#39;SafeNet Token&#39;;
-    string public symbol = &#39;SNT&#39;;
+    string public name = 'SafeNet Token';
+    string public symbol = 'SNT';
     uint8 public decimals = 18;
 
     function SafeNetToken(uint _totalSupply) public {

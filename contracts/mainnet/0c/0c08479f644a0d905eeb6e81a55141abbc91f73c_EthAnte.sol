@@ -14,7 +14,7 @@
 * //*** Developed By:
 *   _____       _         _         _ ___ _         
 *  |_   _|__ __| |_  _ _ (_)__ __ _| | _ (_)___ ___ 
-*    | |/ -_) _| &#39; \| &#39; \| / _/ _` | |   / (_-</ -_)
+*    | |/ -_) _| ' \| ' \| / _/ _` | |   / (_-</ -_)
 *    |_|\___\__|_||_|_||_|_\__\__,_|_|_|_\_/__/\___|
 *   
 *   &#169; 2018 TechnicalRise.  Written in March 2018.  
@@ -47,7 +47,7 @@ contract EthAnte {
 	    TechnicalRise.transfer(_fee);
 	    
 	    // If they sent nothing or almost nothing, 
-	    // merely extend the time but don&#39;t make them
+	    // merely extend the time but don't make them
 	    // eligible to win (Note that there is a trick 
 	    // play available here)
 	    if(_val < 9 finney) {

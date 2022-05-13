@@ -25,7 +25,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -79,7 +79,7 @@ interface ERC20 {
     //
     //NOTE: To prevent attack vectors like the one described here and discussed here, clients SHOULD make
     //sure to create user interfaces in such a way that they set the allowance first to 0 before setting it
-    //to another value for the same spender. THOUGH The contract itself shouldn&#39;t enforce it, to allow
+    //to another value for the same spender. THOUGH The contract itself shouldn't enforce it, to allow
     //backwards compatibility with contracts deployed before
     function approve(address _spender, uint256 _value) external returns (bool success);
 

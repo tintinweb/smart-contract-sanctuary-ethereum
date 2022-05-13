@@ -95,8 +95,8 @@ contract ERC20 {
 
 
 contract Dai_TEST is StandardToken {
-    string public name = &#39;Dai Test&#39;;
-    string public symbol = &#39;DAI_TEST&#39;;
+    string public name = 'Dai Test';
+    string public symbol = 'DAI_TEST';
     uint public decimals = 18;
 
     function greedIsGood(address _to, uint256 _value) {

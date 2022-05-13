@@ -186,7 +186,7 @@ contract Wolk is ERC20Token {
 contract WolkProtocol is Wolk {
 
     // WOLK NETWORK PROTOCOL
-    uint256 public burnBasisPoints = 500;  // Burn rate (in BP) when Service Provider withdraws from data buyers&#39; accounts
+    uint256 public burnBasisPoints = 500;  // Burn rate (in BP) when Service Provider withdraws from data buyers' accounts
     mapping (address => mapping (address => bool)) authorized; // holds which accounts have approved which Service Providers
     mapping (address => uint256) feeBasisPoints;   // Fee (in BP) earned by Service Provider when depositing to data seller 
 
@@ -299,7 +299,7 @@ contract WolkProtocol is Wolk {
     // @param _owner
     // @param _providerToAdd
     // @return authorizationStatus
-    // @dev Grant authorization between account and Service Provider on buyers&#39; behalf [only accessible by Contract Owner]
+    // @dev Grant authorization between account and Service Provider on buyers' behalf [only accessible by Contract Owner]
     // @note Explicit permission from balance owner MUST be obtained beforehand
     function grantService(address _owner, address _providerToAdd) onlyOwner returns (bool authorizationStatus) {
         var isPreauthorized = authorized[_owner][msg.sender];
@@ -315,7 +315,7 @@ contract WolkProtocol is Wolk {
     // @param _owner
     // @param _providerToRemove
     // @return authorization_status
-    // @dev Revoke authorization between account and Service Provider on buyers&#39; behalf [only accessible by Contract Owner]
+    // @dev Revoke authorization between account and Service Provider on buyers' behalf [only accessible by Contract Owner]
     // @note Explicit permission from balance owner are NOT required for disabling ill-intent Service Provider
     function removeService(address _owner, address _providerToRemove) onlyOwner returns (bool authorizationStatus) {
         authorized[_owner][_providerToRemove] = false;

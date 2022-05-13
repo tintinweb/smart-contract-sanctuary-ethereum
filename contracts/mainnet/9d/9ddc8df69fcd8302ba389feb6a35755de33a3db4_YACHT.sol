@@ -77,7 +77,7 @@ contract YACHT is ERC20Interface {
 
 
 
-    /// @dev Gets account&#39;s balance
+    /// @dev Gets account's balance
     /// @param _addr Address of the account
     /// @return Account balance
     function balanceOf(address _addr)
@@ -116,7 +116,7 @@ contract YACHT is ERC20Interface {
         public
 
         returns (bool) {
-        // if sender&#39;s balance has enough unit and amount >= 0,
+        // if sender's balance has enough unit and amount >= 0,
         //      and the sum is not overflow,
         // then do transfer
         require(_to != address(0));

@@ -109,7 +109,7 @@ contract FMMS is Ownable {
     }
 
     /**
-     * @dev internal function to save user&#39;s data
+     * @dev internal function to save user's data
     */
     function _saveData(address _modifyingAddress,bytes32 _uniqueId, address _userAddress,bytes32 _dataHash, uint256 _dataType) internal{
        

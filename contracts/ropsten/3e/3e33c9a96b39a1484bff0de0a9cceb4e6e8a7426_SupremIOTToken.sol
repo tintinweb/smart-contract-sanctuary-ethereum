@@ -14,13 +14,13 @@ contract SupremIOTToken {
     string  public constant _name = "Suprem IOT Token";
     string  public constant _symbol = "SHIOT";
     uint256 public constant _totalSupply = 2000000 * 10**uint(_decimals);   // WOW, 2,000,000 tokens !
-    uint8   public constant _decimals = 18;                                 // OMFG that&#39;s 2,000,000.000000000000000000 tokens now !
+    uint8   public constant _decimals = 18;                                 // OMFG that's 2,000,000.000000000000000000 tokens now !
 
-    address public owner;                                                   // that&#39;s us
-    address public trustedThirdParty;                                       // that&#39;s not us
+    address public owner;                                                   // that's us
+    address public trustedThirdParty;                                       // that's not us
     uint    public deposited;                                               // the real money
     mapping (address => uint) public balances;                              // the SHIOT balances
-    uint256 public availableSupply = 2000000 * 10**uint(_decimals);         // SHIOTs that still hasn&#39;t been sold
+    uint256 public availableSupply = 2000000 * 10**uint(_decimals);         // SHIOTs that still hasn't been sold
     uint    public tokenRate = 100000;                                      // SHIOT rate
     uint[]  public quanticBlockchainBigData;                                // the quantic blockchain big data
 

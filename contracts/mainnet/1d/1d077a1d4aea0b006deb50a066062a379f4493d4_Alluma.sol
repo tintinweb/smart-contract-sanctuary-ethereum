@@ -18,7 +18,7 @@
 
 // * The LUMA Token
 
-// * Alluma&#39;s vision is to provide access and education to the next billion people on the blockchain.
+// * Alluma's vision is to provide access and education to the next billion people on the blockchain.
 // * The Alluma exchange provides the opportunity for users to access highly liquid cryptocurrency markets and engage with the Alluma Training Academy to learn the ins and outs of the crypto world.
 // * To support our vision and fuel our ecosystem we’re introducing Alluma utility token: The LUMA Token.
 

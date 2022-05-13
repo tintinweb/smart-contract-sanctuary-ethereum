@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-// &#39;CTB&#39; &#39;CrypTollBooth Token&#39; token contract
+// 'CTB' 'CrypTollBooth Token' token contract
 //
 // Symbol      : CTB
 // Name        : CrypTollBooth

@@ -172,7 +172,7 @@ contract FoMo3DSoon is F3Devents{
 
 		// Team allocation percentages
         // (F3D, P3D) + (Pot , Referrals, Community)
-            // Referrals / Community rewards are mathematically designed to come from the winner&#39;s share of the pot.
+            // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
         fees_[0] = F3Ddatasets.TeamFee(30,6);   //50% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
         fees_[1] = F3Ddatasets.TeamFee(43,0);   //43% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
         fees_[2] = F3Ddatasets.TeamFee(56,10);  //20% to pot, 10% to aff, 2% to com, 1% to pot swap, 1% to air drop pot
@@ -344,7 +344,7 @@ contract FoMo3DSoon is F3Devents{
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -466,7 +466,7 @@ contract FoMo3DSoon is F3Devents{
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -662,14 +662,14 @@ contract FoMo3DSoon is F3Devents{
         // is ICO phase over??  & theres eth in the round?
         if (_now > round_[_rID].strt + rndGap_ && round_[_rID].eth != 0 && _now <= round_[_rID].end)
             return ( (round_[_rID].keys.add(1000000000000000000)).ethRec(1000000000000000000) );
-        else if (_now <= round_[_rID].end) // round hasn&#39;t ended (in ICO phase, or ICO phase is over, but round eth is 0)
+        else if (_now <= round_[_rID].end) // round hasn't ended (in ICO phase, or ICO phase is over, but round eth is 0)
             return ( ((round_[_rID].ico.keys()).add(1000000000000000000)).ethRec(1000000000000000000) );
         else // rounds over.  need price for new round
             return ( 100000000000000 ); // init
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -1171,7 +1171,7 @@ contract FoMo3DSoon is F3Devents{
         // is ICO phase over??  & theres eth in the round?
         if (_now > round_[_rID].strt + rndGap_ && round_[_rID].eth != 0 && _now <= round_[_rID].end)
             return ( (round_[_rID].eth).keysRec(_eth) );
-        else if (_now <= round_[_rID].end) // round hasn&#39;t ended (in ICO phase, or ICO phase is over, but round eth is 0)
+        else if (_now <= round_[_rID].end) // round hasn't ended (in ICO phase, or ICO phase is over, but round eth is 0)
             return ( (round_[_rID].ico).keysRec(_eth) );
         else // rounds over.  need keys for new round
             return ( (_eth).keys() );
@@ -1202,7 +1202,7 @@ contract FoMo3DSoon is F3Devents{
         // is ICO phase over??  & theres eth in the round?
         if (_now > round_[_rID].strt + rndGap_ && round_[_rID].eth != 0 && _now <= round_[_rID].end)
             return ( (round_[_rID].keys.add(_keys)).ethRec(_keys) );
-        else if (_now <= round_[_rID].end) // round hasn&#39;t ended (in ICO phase, or ICO phase is over, but round eth is 0)
+        else if (_now <= round_[_rID].end) // round hasn't ended (in ICO phase, or ICO phase is over, but round eth is 0)
             return ( (((round_[_rID].ico).keys()).add(_keys)).ethRec(_keys) );
         else // rounds over.  need price for new round
             return ( (_keys).eth() );
@@ -1335,7 +1335,7 @@ contract FoMo3DSoon is F3Devents{
             if (plyr_[_pID].lrnd != 0)
                 updateGenVault(_pID, plyr_[_pID].lrnd);
             
-            // update player&#39;s last round played
+            // update player's last round played
             plyr_[_pID].lrnd = _rID;
             
             // set the joined round bool to true
@@ -1359,7 +1359,7 @@ contract FoMo3DSoon is F3Devents{
         if (round_[_rID].eth == 0 && round_[_rID].ico > 0)
             roundClaimICOKeys(_rID);
         
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
         
@@ -1391,10 +1391,10 @@ contract FoMo3DSoon is F3Devents{
         {
             // This ensures Team Just cannot influence the outcome of FoMo3D with
             // bank migrations by breaking outgoing transactions.
-            // Something we would never do. But that&#39;s not the point.
+            // Something we would never do. But that's not the point.
             // We spent 2000$ in eth re-deploying just to patch this, we hold the 
             // highest belief that everything we create should be trustless.
-            // Team JUST, The name you shouldn&#39;t have to trust.
+            // Team JUST, The name you shouldn't have to trust.
             _p3d = _p3d.add(_com);
             _com = 0;
         }
@@ -1499,10 +1499,10 @@ contract FoMo3DSoon is F3Devents{
         {
             // This ensures Team Just cannot influence the outcome of FoMo3D with
             // bank migrations by breaking outgoing transactions.
-            // Something we would never do. But that&#39;s not the point.
+            // Something we would never do. But that's not the point.
             // We spent 2000$ in eth re-deploying just to patch this, we hold the 
             // highest belief that everything we create should be trustless.
-            // Team JUST, The name you shouldn&#39;t have to trust.
+            // Team JUST, The name you shouldn't have to trust.
             _p3d = _com;
             _com = 0;
         }
@@ -1516,7 +1516,7 @@ contract FoMo3DSoon is F3Devents{
         
         // decide what to do with affiliate share of fees
         // affiliate must not be self, and must have a name registered
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             plyr_[_affID].aff = _aff.add(plyr_[_affID].aff);
             emit F3Devents.onAffiliatePayout(_affID, plyr_[_affID].addr, plyr_[_affID].name, _rID, _pID, _aff, now);
         } else {
@@ -1597,7 +1597,7 @@ contract FoMo3DSoon is F3Devents{
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         
@@ -1638,7 +1638,7 @@ contract FoMo3DSoon is F3Devents{
     }
     
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _rID, uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, F3Ddatasets.EventReturns memory _eventData_)
         private

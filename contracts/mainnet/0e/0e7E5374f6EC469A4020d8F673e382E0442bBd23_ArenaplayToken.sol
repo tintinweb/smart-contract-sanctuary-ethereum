@@ -114,7 +114,7 @@ contract ERC20Token is Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     // ------------------------------------------------------------------------
     // BK NOTE - This function will return true/false instead of throwing an
     //           error, as the conditions protect against overflows and 
@@ -162,8 +162,8 @@ contract ERC20Token is Owned {
     }
 
     // ------------------------------------------------------------------------
-    // Spender of tokens transfer an amount of tokens from the token owner&#39;s
-    // balance to the spender&#39;s account. The owner of the tokens must already
+    // Spender of tokens transfer an amount of tokens from the token owner's
+    // balance to the spender's account. The owner of the tokens must already
     // have approve(...)-d this transfer
     // ------------------------------------------------------------------------
     // BK NOTE - This function will return true/false instead of throwing an
@@ -206,7 +206,7 @@ contract ERC20Token is Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     // BK Ok
     function allowance(
@@ -297,7 +297,7 @@ contract ArenaplayToken is ERC20Token {
     // ------------------------------------------------------------------------
     // Buy tokens from the contract
     // ------------------------------------------------------------------------
-    // BK Ok - Account can send tokens directly to this contract&#39;s address
+    // BK Ok - Account can send tokens directly to this contract's address
     function () payable {
         proxyPayment(msg.sender);
     }
@@ -395,7 +395,7 @@ contract ArenaplayToken is ERC20Token {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from owner&#39;s account to another account, with a
+    // Transfer the balance from owner's account to another account, with a
     // check that the crowdsale is finalised
     // ------------------------------------------------------------------------
     // BK Ok
@@ -410,7 +410,7 @@ contract ArenaplayToken is ERC20Token {
 
 
     // ------------------------------------------------------------------------
-    // Spender of tokens transfer an amount of tokens from the token owner&#39;s
+    // Spender of tokens transfer an amount of tokens from the token owner's
     // balance to another account, with a check that the crowdsale is
     // finalised
     // ------------------------------------------------------------------------

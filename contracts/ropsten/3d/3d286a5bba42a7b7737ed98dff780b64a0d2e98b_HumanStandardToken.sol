@@ -87,7 +87,7 @@ contract HumanStandardToken is StandardToken {
     string public name;
     uint8 public decimals;
     string public symbol;
-    string public version = &#39;Naive Neanderthal&#39;;
+    string public version = 'Naive Neanderthal';
 
     function HumanStandardToken () {
         totalSupply = 42000000;

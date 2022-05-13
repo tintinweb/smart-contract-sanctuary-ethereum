@@ -123,7 +123,7 @@ contract DSMath {
     // This famous algorithm is called "exponentiation by squaring"
     // and calculates x^n with x as fixed-point and n as regular unsigned.
     //
-    // It&#39;s O(log n), instead of O(n) for naive repeated multiplication.
+    // It's O(log n), instead of O(n) for naive repeated multiplication.
     //
     // These facts are why it works:
     //
@@ -409,7 +409,7 @@ contract DSProxyFactory {
 
 // By default, all proxies deployed from the same factory store
 // contracts in the same cache. The cache a proxy instance uses can be
-// changed.  The cache uses the sha3 hash of a contract&#39;s bytecode to
+// changed.  The cache uses the sha3 hash of a contract's bytecode to
 // lookup the address
 contract DSProxyCache {
     mapping(bytes32 => address) cache;
@@ -573,7 +573,7 @@ contract WETH is ERC20 {
 }
 
 /**
-    A contract to help creating creating CDPs in MakerDAO&#39;s system
+    A contract to help creating creating CDPs in MakerDAO's system
     The motivation for this is simply to save time and automate some steps for people who
     want to create CDPs often
 */
@@ -600,7 +600,7 @@ contract CDPer is DSStop, DSMath {
     // DSValue public feed = DSValue(0xA944bd4b25C9F186A846fd5668941AA3d3B8425F);  // Price feed
     // OtcInterface public otc = OtcInterface(0x8cf1Cab422A0b6b554077A361f8419cDf122a9F9);
 
-    ///You won&#39;t be able to create a CDP or trade less than these values
+    ///You won't be able to create a CDP or trade less than these values
     uint public minETH = WAD / 20; //0.05 ETH
     uint public minDai = WAD * 50; //50 Dai
 
@@ -643,7 +643,7 @@ contract CDPer is DSStop, DSMath {
 
      /**
      @notice create a CDP and join with the ETH sent to this function
-     @dev This function wraps ETH, converts to PETH, creates a CDP, joins with the PETH created and gives the CDP to the sender. Will revert if there&#39;s not enough WETH to buy with the acceptable slippage
+     @dev This function wraps ETH, converts to PETH, creates a CDP, joins with the PETH created and gives the CDP to the sender. Will revert if there's not enough WETH to buy with the acceptable slippage
      */
     function createAndJoinCDP() public stoppable payable returns(bytes32 id) {
 
@@ -657,17 +657,17 @@ contract CDPer is DSStop, DSMath {
     }
 
     /**
-     @notice create a CDP from all the Dai in the sender&#39;s balance - needs Dai transfer approval
-     @dev this function will sell the Dai at otc for weth and then do the same as create and JoinCDP.  Will revert if there&#39;s not enough WETH to buy with the acceptable slippage
+     @notice create a CDP from all the Dai in the sender's balance - needs Dai transfer approval
+     @dev this function will sell the Dai at otc for weth and then do the same as create and JoinCDP.  Will revert if there's not enough WETH to buy with the acceptable slippage
      */
     function createAndJoinCDPAllDai() public returns(bytes32 id) {
         return createAndJoinCDPDai(dai.balanceOf(msg.sender));
     }
 
     /**
-     @notice create a CDP from the given amount of Dai in the sender&#39;s balance - needs Dai transfer approval
-     @dev this function will sell the Dai at otc for weth and then do the same as create and JoinCDP.  Will revert if there&#39;s not enough WETH to buy with the acceptable slippage
-     @param amount - dai to transfer from the sender&#39;s balance (needs approval)
+     @notice create a CDP from the given amount of Dai in the sender's balance - needs Dai transfer approval
+     @dev this function will sell the Dai at otc for weth and then do the same as create and JoinCDP.  Will revert if there's not enough WETH to buy with the acceptable slippage
+     @param amount - dai to transfer from the sender's balance (needs approval)
      */
     function createAndJoinCDPDai(uint amount) public auth stoppable returns(bytes32 id) {
         require(amount >= minDai);
@@ -704,7 +704,7 @@ contract CDPer is DSStop, DSMath {
     }
 
     /**
-     @notice create a CDP all the Dai in the sender&#39;s balance (needs approval), and then create Dai and reinvest it in the CDP until the target liquidation price is reached (or the minimum investment amount)
+     @notice create a CDP all the Dai in the sender's balance (needs approval), and then create Dai and reinvest it in the CDP until the target liquidation price is reached (or the minimum investment amount)
      @dev same as openAndJoinCDPDai, but then draw and reinvest dai. Will revert if trades are not possible.
      */
     function createCDPLeveragedAllDai() public returns(bytes32 id) {
@@ -712,7 +712,7 @@ contract CDPer is DSStop, DSMath {
     }
     
     /**
-     @notice create a CDP the given amount of Dai in the sender&#39;s balance (needs approval), and then create Dai and reinvest it in the CDP until the target liquidation price is reached (or the minimum investment amount)
+     @notice create a CDP the given amount of Dai in the sender's balance (needs approval), and then create Dai and reinvest it in the CDP until the target liquidation price is reached (or the minimum investment amount)
      @dev same as openAndJoinCDPDai, but then draw and reinvest dai. Will revert if trades are not possible.
      */
     function createCDPLeveragedDai(uint amount) public auth stoppable returns(bytes32 id) {
@@ -734,7 +734,7 @@ contract CDPer is DSStop, DSMath {
 
     /**
      @notice Shuts a CDP and returns the value in the form of ETH. You need to give permission for the amount of debt in Dai, so that the contract will draw it from your account. You need to give the CDP to this contract before using this function. You also need to send a small amount of MKR to this contract so that the fee can be paid.
-     @dev this function pays all debt(from the sender&#39;s account) and fees(there must be enough MKR present on this account), then it converts PETH to WETH, and then WETH to ETH, finally it sends the balance to the sender
+     @dev this function pays all debt(from the sender's account) and fees(there must be enough MKR present on this account), then it converts PETH to WETH, and then WETH to ETH, finally it sends the balance to the sender
      @param _id id of the CDP to shut - it must be given to this contract
      */
     function shutForETH(uint _id) public auth stoppable {
@@ -755,7 +755,7 @@ contract CDPer is DSStop, DSMath {
 
     /**
      @notice shuts the CDP and returns all the value in the form of Dai. You need to give permission for the amount of debt in Dai, so that the contract will draw it from your account. You need to give the CDP to this contract before using this function. You also need to send a small amount of MKR to this contract so that the fee can be paid.
-     @dev this function pays all debt(from the sender&#39;s account) and fees(there must be enough MKR present on this account), then it converts PETH to WETH, then trades WETH for Dai, and sends it to the sender
+     @dev this function pays all debt(from the sender's account) and fees(there must be enough MKR present on this account), then it converts PETH to WETH, then trades WETH for Dai, and sends it to the sender
      @param _id id of the CDP to shut - it must be given to this contract
      */
     function shutForDai(uint _id) public auth stoppable {

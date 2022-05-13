@@ -31,7 +31,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -131,7 +131,7 @@ contract LRCLongTermHoldingContract {
     uint public constant DEPOSIT_PERIOD             = 60 days; // = 2 months
 
     // 18 months after deposit, user can withdrawal all or part of his/her LRC with bonus.
-    // The bonus is this contract&#39;s initial LRC balance.
+    // The bonus is this contract's initial LRC balance.
     uint public constant WITHDRAWAL_DELAY           = 540 days; // = 1 year and 6 months
 
     // This implies a 0.001ETH fee per 10000 LRC partial withdrawal;

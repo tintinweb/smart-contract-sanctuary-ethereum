@@ -5,7 +5,7 @@ pragma solidity ^0.4.24;
 *.......................Blockchain rentable advertising........................*
 *..............................................................................*
 * First, I just want to say we are so excited and humbled to get this far and  *
-* that you&#39;re even reading this. So thank you!                                 *
+* that you're even reading this. So thank you!                                 *
 *                                                                              *
 * This file is organized into multiple contracts that separate functionality   *
 * into logical parts. The deployed contract, SuMain, is at the bottom and      *
@@ -338,7 +338,7 @@ contract SuNFT is ERC165, ERC721, ERC721Metadata, ERC721Enumerable, SupportsInte
     }
 
     /// @notice Enable or disable approval for a third party ("operator") to
-    ///  manage all of `msg.sender`&#39;s assets
+    ///  manage all of `msg.sender`'s assets
     /// @dev Emits the ApprovalForAll event. The contract MUST allow
     ///  multiple operators per owner.
     /// @param _operator Address to add to the set of authorized operators
@@ -510,7 +510,7 @@ contract SuNFT is ERC165, ERC721, ERC721Metadata, ERC721Enumerable, SupportsInte
     ///  See commented out code in constructor, saves hella gas
     mapping (address => uint256[]) private _tokensOfOwnerWithSubstitutions;
 
-    /// @dev (Location + 1) of each NFT in its owner&#39;s list
+    /// @dev (Location + 1) of each NFT in its owner's list
     ///  Nomenclature: this[key] = value
     ///  If value != 0, _tokensOfOwnerWithSubstitutions[owner][value - 1] = nftId
     ///  If value == 0, _tokensOfOwnerWithSubstitutions[owner][key - 1] = nftId
@@ -619,7 +619,7 @@ contract SuOperation is SuNFT {
     /// @param _squareId The top-left is 1, to its right is 2, ..., top-right is
     ///  100 and then 101 is below 1... the last one at bottom-right is 10000
     /// @param _squareId A 10x10 image for your square, in 8-bit RGB words
-    ///  ordered like the squares are ordered. See Imagemagick&#39;s command
+    ///  ordered like the squares are ordered. See Imagemagick's command
     ///  convert -size 10x10 -depth 8 in.rgb out.png
     /// @param _title A description of your square (max 64 bytes UTF-8)
     /// @param _href A hyperlink for your square (max 96 bytes)

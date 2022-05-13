@@ -223,7 +223,7 @@ contract StandardToken is ERC20, BasicToken {
    * @dev Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -315,8 +315,8 @@ library SafeMath {
   * @dev Multiplies two numbers, throws on overflow.
   */
   function mul(uint256 _a, uint256 _b) internal pure returns (uint256 c) {
-    // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-    // benefit is lost if &#39;b&#39; is also tested.
+    // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
     // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
     if (_a == 0) {
       return 0;
@@ -333,7 +333,7 @@ library SafeMath {
   function div(uint256 _a, uint256 _b) internal pure returns (uint256) {
     // assert(_b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = _a / _b;
-    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn&#39;t hold
+    // assert(_a == _b * c + _a % _b); // There is no case in which this doesn't hold
     return _a / _b;
   }
 
@@ -406,25 +406,25 @@ contract JinToken is StandardToken, Ownable {
     balances[msg.sender] = INITIAL_SUPPLY;
     totalSupply_ = INITIAL_SUPPLY;
 
-    cliffs[uint256(LockingType.PRESALE1)] = 1543622400; // &#39;2018-12-01&#39;
-    cliffs[uint256(LockingType.PRESALE2)] = 1548979200; // &#39;2019-02-01&#39;
-    cliffs[uint256(LockingType.PRESALE3)] = 1554076800; // &#39;2019-04-01&#39;
-    cliffs[uint256(LockingType.PRESALE4)] = 1559347200; // &#39;2019-06-01&#39;
-    cliffs[uint256(LockingType.PRESALE5)] = 1564617600; // &#39;2019-08-01&#39;
-    cliffs[uint256(LockingType.CROWDSALE)] = 1567296000; // &#39;2019-09-01&#39;
-    cliffs[uint256(LockingType.STARTUP)] = 1577836800; // &#39;2020-01-01&#39;
-    cliffs[uint256(LockingType.ANGELFUND)] = 1567296000; // &#39;2019-09-01&#39;
-    cliffs[uint256(LockingType.TECHTEAM)] = 1567296000; // &#39;2019-09-01&#39;
+    cliffs[uint256(LockingType.PRESALE1)] = 1543622400; // '2018-12-01'
+    cliffs[uint256(LockingType.PRESALE2)] = 1548979200; // '2019-02-01'
+    cliffs[uint256(LockingType.PRESALE3)] = 1554076800; // '2019-04-01'
+    cliffs[uint256(LockingType.PRESALE4)] = 1559347200; // '2019-06-01'
+    cliffs[uint256(LockingType.PRESALE5)] = 1564617600; // '2019-08-01'
+    cliffs[uint256(LockingType.CROWDSALE)] = 1567296000; // '2019-09-01'
+    cliffs[uint256(LockingType.STARTUP)] = 1577836800; // '2020-01-01'
+    cliffs[uint256(LockingType.ANGELFUND)] = 1567296000; // '2019-09-01'
+    cliffs[uint256(LockingType.TECHTEAM)] = 1567296000; // '2019-09-01'
 
-    // cliffs[2] = 1543622400; // &#39;2018-12-01&#39; // presale: stage 1
-    // cliffs[3] = 1548979200; // &#39;2019-02-01&#39; // presale: stage 2
-    // cliffs[4] = 1554076800; // &#39;2019-04-01&#39; // presale: stage 3
-    // cliffs[5] = 1559347200; // &#39;2019-06-01&#39; // presale: stage 4
-    // cliffs[6] = 1564617600; // &#39;2019-08-01&#39; // presale: stage 5
-    // cliffs[1] = 1567296000; // &#39;2019-09-01&#39; // crowdsale
-    // cliffs[11] = 1577836800; // &#39;2020-01-01&#39; // startup team
-    // cliffs[12] = 1567296000; // &#39;2019-09-01&#39; // angel fund
-    // cliffs[13] = 1567296000; // &#39;2019-09-01&#39; // tech team
+    // cliffs[2] = 1543622400; // '2018-12-01' // presale: stage 1
+    // cliffs[3] = 1548979200; // '2019-02-01' // presale: stage 2
+    // cliffs[4] = 1554076800; // '2019-04-01' // presale: stage 3
+    // cliffs[5] = 1559347200; // '2019-06-01' // presale: stage 4
+    // cliffs[6] = 1564617600; // '2019-08-01' // presale: stage 5
+    // cliffs[1] = 1567296000; // '2019-09-01' // crowdsale
+    // cliffs[11] = 1577836800; // '2020-01-01' // startup team
+    // cliffs[12] = 1567296000; // '2019-09-01' // angel fund
+    // cliffs[13] = 1567296000; // '2019-09-01' // tech team
   }
 
   event TransferToLock(

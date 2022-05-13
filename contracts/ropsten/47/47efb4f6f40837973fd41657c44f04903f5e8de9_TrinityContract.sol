@@ -172,7 +172,7 @@ contract TrinityContract{
                                                          0,
                                                          status.Opening,
                                                          true,
-                                                         &#39;&#39;);
+                                                         '');
 
 
         
@@ -396,7 +396,7 @@ contract TrinityContract{
 
         channelInfo.channelStatus = status.None;
 
-        // settle period have over and partner didn&#39;t provide final transaction information, contract will withdraw closer assets
+        // settle period have over and partner didn't provide final transaction information, contract will withdraw closer assets
         Mytoken.transfer(channelInfo.channelCloser, channelInfo.closerSettleBalance);
         Mytoken.transfer(channelInfo.channelSettler, channelInfo.partnerSettleBalance);
 
@@ -462,7 +462,7 @@ contract TrinityContract{
         if (nonce <= channelInfo.withdrawNonce){
             channelInfo.channelTotalBalance = sub256(channelInfo.channelTotalBalance, lockAmount);
             Mytoken.transfer(receiver, lockAmount);
-            channelInfo.withdrawLockHash = &#39;&#39;;
+            channelInfo.withdrawLockHash = '';
             channelInfo.timeLockVerifier = address(0);
             channelInfo.withdrawNonce = 0;
         }
@@ -499,7 +499,7 @@ contract TrinityContract{
         channelInfo.channelTotalBalance = sub256(channelInfo.channelTotalBalance, lockAmount);
         Mytoken.transfer(receiver, lockAmount);
         
-        channelInfo.withdrawLockHash = &#39;&#39;;
+        channelInfo.withdrawLockHash = '';
         channelInfo.timeLockVerifier = address(0);
         channelInfo.withdrawNonce = 0;
         

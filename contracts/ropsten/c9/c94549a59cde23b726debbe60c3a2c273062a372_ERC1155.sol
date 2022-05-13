@@ -62,7 +62,7 @@ interface IERC1155 /* is ERC165 */ {
     /**
         @notice Transfers value amount of an _id from the _from address to the _to address specified.
         @dev MUST emit TransferSingle event on success.
-        Caller must be approved to manage the _from account&#39;s tokens (see isApprovedForAll).
+        Caller must be approved to manage the _from account's tokens (see isApprovedForAll).
         MUST throw if `_to` is the zero address.
         MUST throw if balance of sender for token `_id` is lower than the `_value` sent.
         MUST throw on any other error.
@@ -78,7 +78,7 @@ interface IERC1155 /* is ERC165 */ {
     /**
         @notice Send multiple types of Tokens from a 3rd party in one transfer (with safety call).
         @dev MUST emit TransferBatch event on success.
-        Caller must be approved to manage the _from account&#39;s tokens (see isApprovedForAll).
+        Caller must be approved to manage the _from account's tokens (see isApprovedForAll).
         MUST throw if `_to` is the zero address.
         MUST throw if length of `_ids` is not the same as length of `_values`.
         MUST throw if any of the balance of sender for token `_ids` is lower than the respective `_values` sent.
@@ -93,10 +93,10 @@ interface IERC1155 /* is ERC165 */ {
     function safeBatchTransferFrom(address _from, address _to, uint256[] calldata _ids, uint256[] calldata _values, bytes calldata _data) external;
 
     /**
-        @notice Get the balance of an account&#39;s Tokens.
+        @notice Get the balance of an account's Tokens.
         @param _owner  The address of the token holder
         @param _id     ID of the Token
-        @return        The _owner&#39;s balance of the Token type requested
+        @return        The _owner's balance of the Token type requested
      */
     function balanceOf(address _owner, uint256 _id) external view returns (uint256);
 
@@ -104,12 +104,12 @@ interface IERC1155 /* is ERC165 */ {
         @notice Get the balance of multiple account/token pairs
         @param _owners The addresses of the token holders
         @param _ids    ID of the Tokens
-        @return        The _owner&#39;s balance of the Token types requested
+        @return        The _owner's balance of the Token types requested
      */
     function balanceOfBatch(address[] calldata _owners, uint256[] calldata _ids) external view returns (uint256[] memory);
 
     /**
-        @notice Enable or disable approval for a third party ("operator") to manage all of the caller&#39;s tokens.
+        @notice Enable or disable approval for a third party ("operator") to manage all of the caller's tokens.
         @dev MUST emit the ApprovalForAll event on success.
         @param _operator  Address to add to the set of authorized operators
         @param _approved  True if the operator is approved, false to revoke approval
@@ -198,8 +198,8 @@ library SafeMath {
     * @dev Multiplies two numbers, throws on overflow.
     */
     function mul(uint256 a, uint256 b) internal pure returns (uint256 c) {
-        // Gas optimization: this is cheaper than asserting &#39;a&#39; not being zero, but the
-        // benefit is lost if &#39;b&#39; is also tested.
+        // Gas optimization: this is cheaper than asserting 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
         // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
         if (a == 0) {
             return 0;
@@ -216,7 +216,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -256,7 +256,7 @@ contract ERC1155 is IERC1155, ERC165
 /////////////////////////////////////////// ERC165 //////////////////////////////////////////////
 
     /*
-        bytes4(keccak256(&#39;supportsInterface(bytes4)&#39;));
+        bytes4(keccak256('supportsInterface(bytes4)'));
     */
     bytes4 constant private INTERFACE_SIGNATURE_ERC165 = 0x01ffc9a7;
 
@@ -287,7 +287,7 @@ contract ERC1155 is IERC1155, ERC165
     /**
         @notice Transfers value amount of an _id from the _from address to the _to addresses specified. Each parameter array should be the same length, with each index correlating.
         @dev MUST emit TransferSingle event on success.
-        Caller must be approved to manage the _from account&#39;s tokens (see isApprovedForAll).
+        Caller must be approved to manage the _from account's tokens (see isApprovedForAll).
         MUST Throw if `_to` is the zero address.
         MUST Throw if `_id` is not a valid token ID.
         MUST Throw on any other error.
@@ -318,7 +318,7 @@ contract ERC1155 is IERC1155, ERC165
     /**
         @notice Send multiple types of Tokens from a 3rd party in one transfer (with safety call).
         @dev MUST emit TransferBatch event on success.
-        Caller must be approved to manage the _from account&#39;s tokens (see isApprovedForAll).
+        Caller must be approved to manage the _from account's tokens (see isApprovedForAll).
         MUST Throw if `_to` is the zero address.
         MUST Throw if any of the `_ids` is not a valid token ID.
         MUST Throw on any other error.
@@ -357,10 +357,10 @@ contract ERC1155 is IERC1155, ERC165
     }
 
     /**
-        @notice Get the balance of an account&#39;s Tokens.
+        @notice Get the balance of an account's Tokens.
         @param _owner  The address of the token holder
         @param _id     ID of the Token
-        @return        The _owner&#39;s balance of the Token type requested
+        @return        The _owner's balance of the Token type requested
      */
     function balanceOf(address _owner, uint256 _id) external view returns (uint256) {
         // The balance of any account can be calculated from the Transfer events history.
@@ -374,7 +374,7 @@ contract ERC1155 is IERC1155, ERC165
         @notice Get the balance of multiple account/token pairs
         @param _owners The addresses of the token holders
         @param _ids    ID of the Tokens
-        @return        The _owner&#39;s balance of the Token types requested
+        @return        The _owner's balance of the Token types requested
      */
     function balanceOfBatch(address[] calldata _owners, uint256[] calldata _ids) external view returns (uint256[] memory) {
 
@@ -390,7 +390,7 @@ contract ERC1155 is IERC1155, ERC165
     }
 
     /**
-        @notice Enable or disable approval for a third party ("operator") to manage all of the caller&#39;s tokens.
+        @notice Enable or disable approval for a third party ("operator") to manage all of the caller's tokens.
         @dev MUST emit the ApprovalForAll event on success.
         @param _operator  Address to add to the set of authorized operators
         @param _approved  True if the operator is approved, false to revoke approval

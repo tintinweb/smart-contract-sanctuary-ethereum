@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -259,9 +259,9 @@ contract PausableToken is StandardToken, Pausable {
 contract PallyCoin is PausableToken {
    using SafeMath for uint256;
 
-   string public constant name = &#39;PallyCoin&#39;;
+   string public constant name = 'PallyCoin';
 
-   string public constant symbol = &#39;PAL&#39;;
+   string public constant symbol = 'PAL';
 
    uint8 public constant decimals = 18;
 
@@ -275,7 +275,7 @@ contract PallyCoin is PausableToken {
 
    address public crowdsale;
 
-   /// @notice Only allows the execution of the function if it&#39;s comming from crowdsale
+   /// @notice Only allows the execution of the function if it's comming from crowdsale
    modifier onlyCrowdsale() {
       require(msg.sender == crowdsale);
       _;
@@ -287,12 +287,12 @@ contract PallyCoin is PausableToken {
    /// @notice Constructor used to set the platform & development tokens. This is
    /// The 20% + 20% of the 100 M tokens used for platform and development team.
    /// The owner, msg.sender, is able to do allowance for other contracts. Remember
-   /// to use `transferFrom()` if you&#39;re allowed
+   /// to use `transferFrom()` if you're allowed
    function PallyCoin() {
       balances[msg.sender] = 40000000;
    }
 
-   /// @notice Function to set the crowdsale smart contract&#39;s address only by the owner of this token
+   /// @notice Function to set the crowdsale smart contract's address only by the owner of this token
    /// @param _crowdsale The address that will be used
    function setCrowdsaleAddress(address _crowdsale) external onlyOwner whenNotPaused {
       require(_crowdsale != address(0));
@@ -307,7 +307,7 @@ contract PallyCoin is PausableToken {
       require(_buyer != address(0));
       require(tokens > 0);
 
-      // Check that the limit of 10M presale tokens hasn&#39;t been met yet
+      // Check that the limit of 10M presale tokens hasn't been met yet
       require(tokensDistributedPresale < 10000000);
 
       tokensDistributedPresale = tokensDistributedPresale.add(tokens);
@@ -321,7 +321,7 @@ contract PallyCoin is PausableToken {
       require(_buyer != address(0));
       require(tokens > 0);
 
-      // Check that the limit of 50M ICO tokens hasn&#39;t been met yet
+      // Check that the limit of 50M ICO tokens hasn't been met yet
       require(tokensDistributedCrowdsale < 50000000);
 
       tokensDistributedCrowdsale = tokensDistributedCrowdsale.add(tokens);

@@ -22,7 +22,7 @@ contract WaltonTokenLocker {
     string public name;
     address public wtcFundation;
 
-    Token public token = Token(&#39;0x554622209Ee05E8871dbE1Ac94d21d30B61013c2&#39;);
+    Token public token = Token('0x554622209Ee05E8871dbE1Ac94d21d30B61013c2');
 
     function WaltonTokenLocker(string _name, address _token, address _beneficiary, uint256 _releaseTime) public {
         // smn account

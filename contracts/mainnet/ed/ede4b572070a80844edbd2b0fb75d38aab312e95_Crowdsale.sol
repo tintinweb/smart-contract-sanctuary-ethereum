@@ -53,7 +53,7 @@ contract Crowdsale {
         if(amount == 0 ) revert();   // Need to send some ether at least
         else if( amount < 250 finney) {
             if (sehrRaised < fundingGoal) {
-                if(now < startTime + 31 days) revert();    // Need to invest at least 0.25 Ether during the pre-sale if the funding goal hasn&#39;t been reached yet
+                if(now < startTime + 31 days) revert();    // Need to invest at least 0.25 Ether during the pre-sale if the funding goal hasn't been reached yet
             }
         }
         

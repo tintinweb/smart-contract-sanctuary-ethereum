@@ -355,7 +355,7 @@ contract Registrar {
         // right shift operator: a >> b == a / 2**b
     }
     /**
-     * @dev Assign the owner in ENS, if we&#39;re still the registrar
+     * @dev Assign the owner in ENS, if we're still the registrar
      * @param _hash hash to change owner
      * @param _newOwner new owner to transfer to
      */
@@ -460,7 +460,7 @@ contract Registrar {
 
         var auctionState = state(_hash);
         if(auctionState == Mode.Owned) {
-            // Too late! Bidder loses their bid. Get&#39;s 0.5% back.
+            // Too late! Bidder loses their bid. Get's 0.5% back.
             bid.closeDeed(5);
             BidRevealed(_hash, msg.sender, value, 1);
         } else if(auctionState != Mode.Reveal) {
@@ -480,7 +480,7 @@ contract Registrar {
 
             // set new winner
             // per the rules of a vickery auction, the value becomes the previous highestBid
-            h.value = h.highestBid;  // will be zero if there&#39;s only 1 bidder
+            h.value = h.highestBid;  // will be zero if there's only 1 bidder
             h.highestBid = value;
             h.deed = bid;
             BidRevealed(_hash, msg.sender, value, 2);
@@ -490,7 +490,7 @@ contract Registrar {
             bid.closeDeed(995);
             BidRevealed(_hash, msg.sender, value, 3);
         } else {
-            // bid doesn&#39;t affect auction
+            // bid doesn't affect auction
             bid.closeDeed(995);
             BidRevealed(_hash, msg.sender, value, 4);
         }
@@ -526,7 +526,7 @@ contract Registrar {
     function finalizeAuction(bytes32 _hash) onlyOwner(_hash) {
         entry h = _entries[_hash];
         
-        // handles the case when there&#39;s only a single bidder (h.value is zero)
+        // handles the case when there's only a single bidder (h.value is zero)
         h.value =  max(h.value, minPrice);
         h.deed.setBalance(h.value, true);
 
@@ -548,7 +548,7 @@ contract Registrar {
     }
 
     /**
-     * @dev After some time, or if we&#39;re no longer the registrar, the owner can release
+     * @dev After some time, or if we're no longer the registrar, the owner can release
      *      the name and get their ether back.
      * @param _hash The node to release
      */
@@ -600,12 +600,12 @@ contract Registrar {
 
     /**
      * @dev Allows anyone to delete the owner and resolver records for a (subdomain of) a
-     *      name that is not currently owned in the registrar. If passing, eg, &#39;foo.bar.eth&#39;,
-     *      the owner and resolver fields on &#39;foo.bar.eth&#39; and &#39;bar.eth&#39; will all be cleared.
+     *      name that is not currently owned in the registrar. If passing, eg, 'foo.bar.eth',
+     *      the owner and resolver fields on 'foo.bar.eth' and 'bar.eth' will all be cleared.
      * @param labels A series of label hashes identifying the name to zero out, rooted at the
-     *        registrar&#39;s root. Must contain at least one element. For instance, to zero 
-     *        &#39;foo.bar.eth&#39; on a registrar that owns &#39;.eth&#39;, pass an array containing
-     *        [sha3(&#39;foo&#39;), sha3(&#39;bar&#39;)].
+     *        registrar's root. Must contain at least one element. For instance, to zero 
+     *        'foo.bar.eth' on a registrar that owns '.eth', pass an array containing
+     *        [sha3('foo'), sha3('bar')].
      */
     function eraseNode(bytes32[] labels) {
         if(labels.length == 0) throw;
@@ -628,7 +628,7 @@ contract Registrar {
         ens.setSubnodeOwner(node, labels[idx], address(this));
         node = sha3(node, labels[idx]);
         
-        // Recurse if there&#39;s more labels
+        // Recurse if there's more labels
         if(idx > 0)
             _eraseNodeHierarchy(idx - 1, labels, node);
 
@@ -714,7 +714,7 @@ contract Whitelist is Ownable {
   event WhitelistedAddressRemoved(address addr);
 
   /**
-   * @dev Throws if called by any account that&#39;s not whitelisted.
+   * @dev Throws if called by any account that's not whitelisted.
    */
   modifier onlyWhitelisted() {
     require(whitelist[msg.sender]);
@@ -752,7 +752,7 @@ contract Whitelist is Ownable {
    * @dev remove an address from the whitelist
    * @param addr address
    * @return true if the address was removed from the whitelist, 
-   * false if the address wasn&#39;t in the whitelist in the first place 
+   * false if the address wasn't in the whitelist in the first place 
    */
   function removeAddressFromWhitelist(address addr) onlyOwner public returns(bool success) {
     if (whitelist[addr]) {
@@ -766,7 +766,7 @@ contract Whitelist is Ownable {
    * @dev remove addresses from the whitelist
    * @param addrs addresses
    * @return true if at least one address was removed from the whitelist, 
-   * false if all addresses weren&#39;t in the whitelist in the first place
+   * false if all addresses weren't in the whitelist in the first place
    */
   function removeAddressesFromWhitelist(address[] addrs) onlyOwner public returns(bool success) {
     for (uint256 i = 0; i < addrs.length; i++) {
@@ -805,7 +805,7 @@ contract BedOracleV1 is Whitelist {
     function add(bytes32 _shaBid, uint reward, bytes _cypherBid, bytes8 _gasPrices)
         external payable
     {
-        // Validate that the bid doesn&#39;t exist
+        // Validate that the bid doesn't exist
         require(bids_[_shaBid].owner == 0);
         require(msg.value > 0.01 ether + reward);
 
@@ -822,12 +822,12 @@ contract BedOracleV1 is Whitelist {
         );
 
         // Emit an Added Event. We store the cypherBid inside the events because
-        // it isn&#39;t neccisarry for any of the other steps while bidding
+        // it isn't neccisarry for any of the other steps while bidding
         emit Added(msg.sender, _shaBid, _gasPrices, _cypherBid);
     }
 
     // bid is responsable for calling the newBid function
-    // Note: bid is onlyWhitelisted to make sure that we don&#39;t preemptivly bid
+    // Note: bid is onlyWhitelisted to make sure that we don't preemptivly bid
     // on a name.
     function bid(bytes32 _shaBid) external onlyWhitelisted {
         Bid storage b = bids_[_shaBid];
@@ -855,7 +855,7 @@ contract BedOracleV1 is Whitelist {
 
         registrar_.transfer(b.hash, b.owner);
 
-        // make sure subsequent calls to &#39;forfeit&#39; don&#39;t affect us.
+        // make sure subsequent calls to 'forfeit' don't affect us.
         b.value = 0;
 
         // add gas to balance
@@ -868,8 +868,8 @@ contract BedOracleV1 is Whitelist {
     function forfeit(bytes32 _shaBid) external onlyWhitelisted {
         Bid storage b = bids_[_shaBid];
 
-        // this is here to make sure that we don&#39;t steal the customers money
-        // after they call &#39;add&#39;.
+        // this is here to make sure that we don't steal the customers money
+        // after they call 'add'.
         require(registrar_.state(b.hash) == Registrar.Mode.Owned);
 
         // give back the lost bid value.

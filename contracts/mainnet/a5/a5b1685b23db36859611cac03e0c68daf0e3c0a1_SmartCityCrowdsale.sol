@@ -137,8 +137,8 @@ contract SmartCityCrowdsale {
 
         walletAddress.transfer(amount); // Send funds to the Wallet
 		
-        balances[_receiver] = balances[_receiver].add(amount); // Add the amount invested to Investor&#39;s ballance
-		purchases[_receiver] = purchases[_receiver].add(tokensCnt); // Add tokens to Investor&#39;s purchases
+        balances[_receiver] = balances[_receiver].add(amount); // Add the amount invested to Investor's ballance
+		purchases[_receiver] = purchases[_receiver].add(tokensCnt); // Add tokens to Investor's purchases
         raisedEth = raisedEth.add(amount); // Increase raised funds counter
 		availablePositions = availablePositions.sub(positionsCnt);
 		usedPositions = usedPositions.add(positionsCnt);

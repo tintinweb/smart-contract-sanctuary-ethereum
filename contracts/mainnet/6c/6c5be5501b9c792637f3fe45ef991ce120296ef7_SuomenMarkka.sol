@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;SuomenMarkka&#39; token contract
+// 'SuomenMarkka' token contract
 //
 // Deployed to : 0x9bcb2b841Ef87d7238f4D3b1D0B2af7cef6D0604
 // Symbol      : FIM

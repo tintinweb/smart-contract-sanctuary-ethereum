@@ -10,7 +10,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -302,8 +302,8 @@ contract Presale {
 
 contract Token is MintableToken {
 
-    string public constant name = &#39;Privatix Presale&#39;;
-    string public constant symbol = &#39;PRIXY&#39;;
+    string public constant name = 'Privatix Presale';
+    string public constant symbol = 'PRIXY';
     uint256 public constant decimals = 8;
 
     function transferFrom(address from, address to, uint256 value) returns (bool) {

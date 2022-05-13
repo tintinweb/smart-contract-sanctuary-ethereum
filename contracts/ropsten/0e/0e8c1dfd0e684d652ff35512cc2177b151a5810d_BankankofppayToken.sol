@@ -141,7 +141,7 @@ contract BankankofppayToken is StandardToken, SafeMath {
 
     modifier isOwner()  { require(msg.sender == ethFundDeposit); _; }
 
-    /// @dev set the token&#39;s tokenExchangeRate,
+    /// @dev set the token's tokenExchangeRate,
     function setTokenExchangeRate(uint256 _tokenExchangeRate) isOwner external {
         if (_tokenExchangeRate == 0) throw;
         if (_tokenExchangeRate == tokenExchangeRate) throw;
@@ -149,7 +149,7 @@ contract BankankofppayToken is StandardToken, SafeMath {
         tokenExchangeRate = _tokenExchangeRate;
     }
 
-    /// @dev increase the token&#39;s supply
+    /// @dev increase the token's supply
     function increaseSupply (uint256 _value) isOwner external {
         uint256 value = formatDecimals(_value);
         if (value + currentSupply > totalSupply) throw;
@@ -157,7 +157,7 @@ contract BankankofppayToken is StandardToken, SafeMath {
         IncreaseSupply(value);
     }
 
-    /// @dev decrease the token&#39;s supply
+    /// @dev decrease the token's supply
     function decreaseSupply (uint256 _value) isOwner external {
         uint256 value = formatDecimals(_value);
         if (value + tokenRaised > currentSupply) throw;

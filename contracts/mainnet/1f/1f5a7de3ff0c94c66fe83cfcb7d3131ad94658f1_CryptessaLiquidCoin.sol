@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;CLC&#39; token contract
+// 'CLC' token contract
 //
 // Deployed to : 0x58d77F6F45613FD669c576a84E980Da82379416a
 // Symbol      : CLC

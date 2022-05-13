@@ -1,7 +1,7 @@
 pragma solidity ^0.4.25;
 
 // ----------------------------------------------------------------------------
-// BokkyPooBah&#39;s Pricefeed from a single source
+// BokkyPooBah's Pricefeed from a single source
 //
 // Deployed to: 0xD649c9b68BB78e8fd25c0B7a9c22c42f57768c91
 //

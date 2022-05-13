@@ -18,7 +18,7 @@ library SafeMath {
         // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
 
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -262,7 +262,7 @@ contract OpsManaged is Owned {
     }
 
 
-    // Owner and Admin can change the admin address. Address can also be set to 0 to &#39;disable&#39; it.
+    // Owner and Admin can change the admin address. Address can also be set to 0 to 'disable' it.
     function setAdminAddress(address _adminAddress) external onlyOwnerOrAdmin returns (bool) {
         require(_adminAddress != owner);
         require(_adminAddress != address(this));
@@ -276,7 +276,7 @@ contract OpsManaged is Owned {
     }
 
 
-    // Owner and Admin can change the operations address. Address can also be set to 0 to &#39;disable&#39; it.
+    // Owner and Admin can change the operations address. Address can also be set to 0 to 'disable' it.
     function setOpsAddress(address _opsAddress) external onlyOwnerOrAdmin returns (bool) {
         require(_opsAddress != owner);
         require(_opsAddress != address(this));

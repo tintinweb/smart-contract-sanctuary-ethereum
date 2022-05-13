@@ -170,7 +170,7 @@ contract ERC20 is owned {
         require(balanceOf[_from] >= _value);                // Check if the targeted balance is enough
         require(_value <= allowance[_from][msg.sender]);    // Check allowance
         balanceOf[_from] -= _value;                         // Subtract from the targeted balance
-        allowance[_from][msg.sender] -= _value;             // Subtract from the sender&#39;s allowance
+        allowance[_from][msg.sender] -= _value;             // Subtract from the sender's allowance
         totalSupply -= _value;                              // Update totalSupply
         emit Burn(_from, _value);
         return true;
@@ -292,7 +292,7 @@ contract ERC20PreICO is owned, Killable {
 
         token.transfer(receiver, tokensAmount);
 
-        // Transfer Fund to owner&#39;s address
+        // Transfer Fund to owner's address
         owner.transfer(this.balance);
 
     }

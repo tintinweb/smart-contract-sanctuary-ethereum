@@ -26,7 +26,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -80,11 +80,11 @@ contract FundsSplitter {
 
     /**
      * @dev initialization function
-     * @param _client Address where client&#39;s share goes
-     * @param _starbase Address where starbase&#39;s share goes
+     * @param _client Address where client's share goes
+     * @param _starbase Address where starbase's share goes
      * @param _starbasePercentage Number that denotes client percentage share (between 1 and 100)
      * @param _star Star ERC20 token address
-     * @param _tokenOnSale Token on sale&#39;s ERC20 token address
+     * @param _tokenOnSale Token on sale's ERC20 token address
      */
     constructor(
         address _client,

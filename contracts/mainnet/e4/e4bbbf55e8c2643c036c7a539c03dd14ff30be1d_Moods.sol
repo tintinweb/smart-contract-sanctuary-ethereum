@@ -9,13 +9,13 @@ string[] public listMoods;
 
 constructor() public{
     owner = msg.sender;
-    possibleMoods[&#39;&#128528;&#39;] = true;
-    possibleMoods[&#39;&#128515;&#39;] = true;
-    possibleMoods[&#39;&#128532;&#39;] = true;
-    listMoods.push(&#39;&#128528;&#39;);
-    listMoods.push(&#39;&#128515;&#39;);
-    listMoods.push(&#39;&#128532;&#39;);
-    currentMood = &#39;&#128528;&#39;;
+    possibleMoods['&#128528;'] = true;
+    possibleMoods['&#128515;'] = true;
+    possibleMoods['&#128532;'] = true;
+    listMoods.push('&#128528;');
+    listMoods.push('&#128515;');
+    listMoods.push('&#128532;');
+    currentMood = '&#128528;';
 }
 
 event moodChanged(address _sender, string _moodChange);

@@ -1,7 +1,7 @@
 /* 
 	The following is a lucky draw lite contract.
     Compare to the full version, this version doesnt save tickets and winners onchain. 
-    By saving tickets and winners offchain, it saves running cost but still keep it&#39;s neutral.
+    By saving tickets and winners offchain, it saves running cost but still keep it's neutral.
 	
     Steps:
 	1. Owner deploy the contract and list of valid ticket will be saved offchain

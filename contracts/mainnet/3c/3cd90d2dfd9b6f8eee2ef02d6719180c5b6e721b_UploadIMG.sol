@@ -1,6 +1,6 @@
 pragma solidity ^0.4.20;
 
-// Upload URL contract for Item Market game. Everyone can upload URLs for all ID&#39;s (cannot be prevented on blockchain) 
+// Upload URL contract for Item Market game. Everyone can upload URLs for all ID's (cannot be prevented on blockchain) 
 // However, UI will only check owner data.
 
 contract UploadIMG{

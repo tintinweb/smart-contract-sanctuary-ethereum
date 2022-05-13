@@ -14,7 +14,7 @@ contract UBXTestToken {
     uint256 public totalSupply;
 
     mapping(address => uint256) public balanceOf;
-    //This is how we will know if one account is allowed to spend on another account&#39;s behalf.
+    //This is how we will know if one account is allowed to spend on another account's behalf.
     mapping(address => mapping(address => uint256)) public allowance;
 
     event Transfer (
@@ -48,7 +48,7 @@ contract UBXTestToken {
         return true;
     }
 
-    //Approves another account to spend tokens on the owner&#39;s behalf.
+    //Approves another account to spend tokens on the owner's behalf.
     //We are basically approving an exchange to transfer tokens on our behalf.
     function approve(address _spender, uint256 _value) public returns(bool success) {
         allowance[msg.sender][_spender] = _value;

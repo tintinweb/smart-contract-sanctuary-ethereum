@@ -15,9 +15,9 @@ contract Mmmm
     address     owner = 0x12C3Fd99ab45Bd806128E96062dc5A6C273d8AF6;
 
 
-    string      public standard = &#39;Token 0.1&#39;;
-    string      public name = &#39;Mmmm.....&#39;; 
-    string      public symbol = &#39;YUM&#39;;
+    string      public standard = 'Token 0.1';
+    string      public name = 'Mmmm.....'; 
+    string      public symbol = 'YUM';
     uint8       public decimals = 14; 
     uint256     public totalSupply = 500000000000000000000;
     

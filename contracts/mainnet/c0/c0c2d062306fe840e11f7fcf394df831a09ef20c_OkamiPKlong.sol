@@ -81,7 +81,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
     
@@ -690,7 +690,7 @@ contract OkamiPKlong is OPKevents {
 
 		// Team allocation percentages
         // (long, opk) + (Pot , Referrals, Community)
-            // Referrals / Community rewards are mathematically designed to come from the winner&#39;s share of the pot.
+            // Referrals / Community rewards are mathematically designed to come from the winner's share of the pot.
         fees_[0] = OPKdatasets.TeamFee(30,6);   //50% to pot, 10% to aff, 3% to com, 1% to pot swap
         fees_[1] = OPKdatasets.TeamFee(43,0);   //43% to pot, 10% to aff, 3% to com, 1% to pot swap
         fees_[2] = OPKdatasets.TeamFee(56,10);  //20% to pot, 10% to aff, 3% to com, 1% to pot swap
@@ -808,7 +808,7 @@ contract OkamiPKlong is OPKevents {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -863,7 +863,7 @@ contract OkamiPKlong is OPKevents {
         // manage affiliate residuals
         uint256 _affID;
         // if no affiliate code was given or player tried to use their own, lolz
-        if (_affCode == &#39;&#39; || _affCode == plyr_[_pID].name)
+        if (_affCode == '' || _affCode == plyr_[_pID].name)
         {
             // use last stored affiliate code
             _affID = plyr_[_pID].laff;
@@ -1058,7 +1058,7 @@ contract OkamiPKlong is OPKevents {
     }
     
     /**
-     * @dev returns time left.  dont spam this, you&#39;ll ddos yourself from your node 
+     * @dev returns time left.  dont spam this, you'll ddos yourself from your node 
      * provider
      * -functionhash- 0xc7e284b8
      * @return time left in seconds
@@ -1608,7 +1608,7 @@ contract OkamiPKlong is OPKevents {
         if (plyr_[_pID].lrnd != 0)
             updateGenVault(_pID, plyr_[_pID].lrnd);
             
-        // update player&#39;s last round played
+        // update player's last round played
         plyr_[_pID].lrnd = rID_;
             
         // set the joined round bool to true
@@ -1633,7 +1633,7 @@ contract OkamiPKlong is OPKevents {
         // setup local rID
         uint256 _rID = rID_;
         
-        // grab our winning player and team id&#39;s
+        // grab our winning player and team id's
         uint256 _winPID = round_[_rID].plyr;
         uint256 _winTID = round_[_rID].team;
         
@@ -1822,7 +1822,7 @@ contract OkamiPKlong is OPKevents {
         uint256 _aff_left;
         // decide what to do with affiliate share of fees
         // affiliate must not be self, and must have a name registered
-        if (_affID != _pID && plyr_[_affID].name != &#39;&#39;) {
+        if (_affID != _pID && plyr_[_affID].name != '') {
             // XXX
             _aff_left = calculateAffiliate(_rID,_pID,_aff);
         }else {
@@ -1906,7 +1906,7 @@ contract OkamiPKlong is OPKevents {
             relevant proportion to the increase in share supply.
             
             the player will have an additional mask that basically says "based
-            on the rounds mask, my shares, and how much i&#39;ve already withdrawn,
+            on the rounds mask, my shares, and how much i've already withdrawn,
             how much is still owed to me?"
         */
         
@@ -1947,7 +1947,7 @@ contract OkamiPKlong is OPKevents {
     }
     
     /**
-     * @dev prepares compression data and fires event for buy or reload tx&#39;s
+     * @dev prepares compression data and fires event for buy or reload tx's
      */
     function endTx(uint256 _pID, uint256 _team, uint256 _eth, uint256 _keys, OPKdatasets.EventReturns memory _eventData_)
         private

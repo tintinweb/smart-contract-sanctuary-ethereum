@@ -2,7 +2,7 @@ pragma solidity ^0.4.16;
 
 //Base class of token-owner
 contract Ownable {
-	address public owner;														//owner&#39;s address
+	address public owner;														//owner's address
 
 	function Ownable() public 
 	{
@@ -14,7 +14,7 @@ contract Ownable {
 		_;
 	}
 	/*
-	*	Funtion: Transfer owner&#39;s authority 
+	*	Funtion: Transfer owner's authority 
 	*	Type:Public and onlyOwner
 	*	Parameters:
 			@newOwner:	address of newOwner
@@ -45,8 +45,8 @@ contract XiaoMuBiaoERC20 is Ownable{
     uint256 public totalSupply;													//Maximum amount of Token supplies
 
     //define dictionaries of balance
-    mapping (address => uint256) public balanceOf;								//Announce the dictionary of account&#39;s balance
-    mapping (address => mapping (address => uint256)) public allowance;			//Announce the dictionary of account&#39;s available balance
+    mapping (address => uint256) public balanceOf;								//Announce the dictionary of account's balance
+    mapping (address => mapping (address => uint256)) public allowance;			//Announce the dictionary of account's available balance
 	//===================public variables definition end==================
 
 	
@@ -57,9 +57,9 @@ contract XiaoMuBiaoERC20 is Ownable{
 	
 	//===================Contract Initialization Sequence Definition start===================
     function XiaoMuBiaoERC20 () public {
-		decimals=7;															//Assignment of Token&#39;s decimals
-		totalSupply = 500000000000 * 10 ** uint256(decimals);  				//Assignment of Token&#39;s total supply with decimals
-        balanceOf[owner] = totalSupply;                					//Assignment of Token&#39;s creator initial tokens
+		decimals=7;															//Assignment of Token's decimals
+		totalSupply = 500000000000 * 10 ** uint256(decimals);  				//Assignment of Token's total supply with decimals
+        balanceOf[owner] = totalSupply;                					//Assignment of Token's creator initial tokens
         name = "XiaoMuBiao";                                   					//Set the name of Token
         symbol = "XMB";                               					//Set the symbol of  Token
         
@@ -72,8 +72,8 @@ contract XiaoMuBiaoERC20 is Ownable{
 	*	Funtion: Transfer funtions
 	*	Type:Internal
 	*	Parameters:
-			@_from:	address of sender&#39;s account
-			@_to:	address of recipient&#39;s account
+			@_from:	address of sender's account
+			@_to:	address of recipient's account
 			@_value:transaction amount
 	*/
     function _transfer(address _from, address _to, uint _value) internal {
@@ -97,7 +97,7 @@ contract XiaoMuBiaoERC20 is Ownable{
 	*	Funtion: Transfer tokens
 	*	Type:Public
 	*	Parameters:
-			@_to:	address of recipient&#39;s account
+			@_to:	address of recipient's account
 			@_value:transaction amount
 	*/
     function transfer(address _to, uint256 _value) public {
@@ -109,8 +109,8 @@ contract XiaoMuBiaoERC20 is Ownable{
 	*	Funtion: Transfer tokens from other address
 	*	Type:Public
 	*	Parameters:
-			@_from:	address of sender&#39;s account
-			@_to:	address of recipient&#39;s account
+			@_from:	address of sender's account
+			@_to:	address of recipient's account
 			@_value:transaction amount
 	*/
 
@@ -126,7 +126,7 @@ contract XiaoMuBiaoERC20 is Ownable{
 	*	Funtion: Approve usable amount for an account
 	*	Type:Public
 	*	Parameters:
-			@_spender:	address of spender&#39;s account
+			@_spender:	address of spender's account
 			@_value:	approve amount
 	*/
     function approve(address _spender, uint256 _value) public 
@@ -152,7 +152,7 @@ contract XiaoMuBiaoERC20 is Ownable{
         }
     }
     /*
-	*	Funtion: Transfer owner&#39;s authority and account balance
+	*	Funtion: Transfer owner's authority and account balance
 	*	Type:Public and onlyOwner
 	*	Parameters:
 			@newOwner:	address of newOwner

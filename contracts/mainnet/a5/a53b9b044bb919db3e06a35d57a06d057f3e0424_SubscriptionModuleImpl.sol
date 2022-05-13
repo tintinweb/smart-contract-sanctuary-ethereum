@@ -6,7 +6,7 @@ pragma solidity ^0.4.11;
 // ALTHOUGH THIS SMART CONTRACT WAS CREATED WITH GREAT CARE AND IN THE HOPE OF BEING USEFUL, NO GUARANTEES OF FLAWLESS OPERATION CAN BE GIVEN.
 // IN PARTICULAR - SUBTILE BUGS, HACKER ATTACKS OR MALFUNCTION OF UNDERLYING TECHNOLOGY CAN CAUSE UNINTENTIONAL BEHAVIOUR.
 // YOU ARE STRONGLY ENCOURAGED TO STUDY THIS SMART CONTRACT CAREFULLY IN ORDER TO UNDERSTAND POSSIBLE EDGE CASES AND RISKS.
-// DON&#39;T USE THIS SMART CONTRACT IF YOU HAVE SUBSTANTIAL DOUBTS OR IF YOU DON&#39;T KNOW WHAT YOU ARE DOING.
+// DON'T USE THIS SMART CONTRACT IF YOU HAVE SUBSTANTIAL DOUBTS OR IF YOU DON'T KNOW WHAT YOU ARE DOING.
 //
 // THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
 // AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
@@ -263,11 +263,11 @@ contract SubscriptionBase {
         uint32 initialXrate_d;  // denominator
         uint16 xrateProviderId; // id of a registered exchange rate provider
         uint paidUntil;         // subscription is paid until time
-        uint chargePeriod;      // subscription can&#39;t be charged more often than this period
+        uint chargePeriod;      // subscription can't be charged more often than this period
         uint depositAmount;     // upfront deposit on creating subscription (possibly recalculated using exchange rate)
 
-        uint startOn;           // for offer: can&#39;t be accepted before  <startOn> ; for subscription: can&#39;t be charged before <startOn>
-        uint expireOn;          // for offer: can&#39;t be accepted after  <expireOn> ; for subscription: can&#39;t be charged after  <expireOn>
+        uint startOn;           // for offer: can't be accepted before  <startOn> ; for subscription: can't be charged before <startOn>
+        uint expireOn;          // for offer: can't be accepted after  <expireOn> ; for subscription: can't be charged after  <expireOn>
         uint execCounter;       // for offer: max num of subscriptions available  ; for subscription: num of charges made.
         bytes descriptor;       // subscription payload (subject): evaluated by service provider.
         uint onHoldSince;       // subscription: on-hold since time or 0 if not onHold. offer: unused: //ToDo: to be implemented
@@ -462,7 +462,7 @@ contract SubscriptionModuleImpl is SubscriptionModule, Owned  {
     }
 
     ///@dev register new exchange rate provider.
-    ///     XRateProvider can&#39;t be de-registered, because they could be still in use by some subscription.
+    ///     XRateProvider can't be de-registered, because they could be still in use by some subscription.
     function registerXRateProvider(XRateProvider addr) public notSuspended only(owner) returns (uint16 xrateProviderId) {
         xrateProviderId = uint16(xrateProviders.length);
         xrateProviders.push(addr);
@@ -482,7 +482,7 @@ contract SubscriptionModuleImpl is SubscriptionModule, Owned  {
 
     ///@notice makes single payment to service provider.
     ///@param _value - amount of SAN token to sent
-    ///@param _paymentData - &#39;payment purpose&#39; code usually issued by service provider to customer before payment.
+    ///@param _paymentData - 'payment purpose' code usually issued by service provider to customer before payment.
     ///@param _to - service provider contract
     ///@return `true` on success; `false` of failure (if caller is a contract) or throw an exception (if caller is not a contract)
     //
@@ -499,7 +499,7 @@ contract SubscriptionModuleImpl is SubscriptionModule, Owned  {
 
     ///@notice makes single preapproved payment to service provider. An amount must be already preapproved by payment sender to recepient.
     ///@param _value - amount of SAN token to sent
-    ///@param _paymentData - &#39;payment purpose&#39; code usually issued by service provider to customer before payment.
+    ///@param _paymentData - 'payment purpose' code usually issued by service provider to customer before payment.
     ///@param _from - sender of the payment (other than msg.sender)
     ///@param _to - service provider contract
     ///@return `true` on success; `false` of failure (if caller is a contract) or throw an exception (if caller is not a contract)
@@ -552,7 +552,7 @@ contract SubscriptionModuleImpl is SubscriptionModule, Owned  {
 
     ///@notice execute periodic subscription payment.
     ///        Any of customer, service provider and platform owner can execute this function.
-    ///        This ensures, that the subscription charge doesn&#39;t become delayed.
+    ///        This ensures, that the subscription charge doesn't become delayed.
     ///        At least the platform owner has an incentive to get fee and thus can trigger the function.
     ///        An execution fails if subscription is not in status `CHARGEABLE`.
     ///@param subId - subscription to be charged.
@@ -657,12 +657,12 @@ contract SubscriptionModuleImpl is SubscriptionModule, Owned  {
     ///    This allows to create a subscription bound to another token or even fiat currency.
     ///@param _pricePerHour - subscription price per hour in SAN
     ///@param _xrateProviderId - id of external exchange rate provider from subscription currency to SAN; "0" means subscription is priced in SAN natively.
-    ///@param _chargePeriod - time period to charge; subscription can&#39;t be charged more often than this period. Time units are native ethereum time, returning by `now`, i.e. seconds.
-    ///@param _expireOn - offer can&#39;t be accepted after this time.
+    ///@param _chargePeriod - time period to charge; subscription can't be charged more often than this period. Time units are native ethereum time, returning by `now`, i.e. seconds.
+    ///@param _expireOn - offer can't be accepted after this time.
     ///@param _offerLimit - how many subscription are available to created from this offer; there is no magic number for unlimited offer -- use big number instead.
     ///@param _depositAmount - upfront deposit required for creating a subscription; this deposit becomes fully returned on subscription is over.
     ///       currently this deposit is not subject of platform fees and will be refunded in full. Next versions of this module can use deposit in case of outstanding payments.
-    ///@param _startOn - a subscription from this offer can&#39;t be created before this time. Time units are native ethereum time, returning by `now`, i.e. seconds.
+    ///@param _startOn - a subscription from this offer can't be created before this time. Time units are native ethereum time, returning by `now`, i.e. seconds.
     ///@param _descriptor - arbitrary bytes as an offer descriptor. This descriptor is copied into subscription and then service provider becomes it passed in notifications.
     //
     function createSubscriptionOffer(uint _pricePerHour, uint16 _xrateProviderId, uint _chargePeriod, uint _expireOn, uint _offerLimit, uint _depositAmount, uint _startOn, bytes _descriptor)
@@ -698,7 +698,7 @@ contract SubscriptionModuleImpl is SubscriptionModule, Owned  {
 
 
     ///@notice updates currently available number of subscription for this offer.
-    ///        Other offer&#39;s parameter can&#39;t be updated because they are considered to be a public offer reviewed by customers.
+    ///        Other offer's parameter can't be updated because they are considered to be a public offer reviewed by customers.
     ///        The service provider should recreate the offer as a new one in case of other changes.
     //
     function updateSubscriptionOffer(uint _offerId, uint _offerLimit) public notSuspended {
@@ -712,7 +712,7 @@ contract SubscriptionModuleImpl is SubscriptionModule, Owned  {
     ///@notice accept given offer and create a new subscription on the base of it.
     ///
     ///@dev the service provider (offer.`transferTo`) becomes notified about new subscription by call `onSubNew(newSubId, _offerId)`.
-    ///     It is provider&#39;s responsibility to retrieve and store any necessary information about offer and this new subscription. Some of info is only available at this point.
+    ///     It is provider's responsibility to retrieve and store any necessary information about offer and this new subscription. Some of info is only available at this point.
     ///     The Service Provider can also reject the new subscription by throwing an exception or returning `false` from `onSubNew(newSubId, _offerId)` event handler.
     ///@param _offerId   - id of the offer to be accepted
     ///@param _expireOn  - subscription expiration time; no charges are possible behind this time.
@@ -737,7 +737,7 @@ contract SubscriptionModuleImpl is SubscriptionModule, Owned  {
         newSub.paidUntil = newSub.startOn = max(_startOn, now);     //no debts before actual creation time!
         newSub.expireOn = _expireOn;
         newSub.depositAmount = _applyXchangeRate(newSub.depositAmount, newSub);                    // <=== possible reentrancy
-        //depositAmount is now stored in the sub, so burn the same amount from customer&#39;s account.
+        //depositAmount is now stored in the sub, so burn the same amount from customer's account.
         assert (san._burnForDeposit(msg.sender, newSub.depositAmount));
         assert (ServiceProvider(newSub.transferTo).onSubNew(newSubId, _offerId));                  // <=== possible reentrancy; service provider can still reject the new subscription here
 
@@ -930,7 +930,7 @@ contract SubscriptionModuleImpl is SubscriptionModule, Owned  {
     }
 
 
-    ///@notice create simple unlocked deposit, required by some services. It can be considered as prove of customer&#39;s stake.
+    ///@notice create simple unlocked deposit, required by some services. It can be considered as prove of customer's stake.
     ///        This desposit can be claimed back by the customer at anytime.
     ///        The service provider is responsible to check the deposit before providing the service.
     ///@param _value - non zero deposit amount.

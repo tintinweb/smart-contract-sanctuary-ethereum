@@ -36,7 +36,7 @@ contract HELLO {
 
     function HELLO() {
         totalSupply = 10000000000000000;
-        symbol = &#39;HLO&#39;;
+        symbol = 'HLO';
         owner =0xCf7393c56a09C0Ae5734Bdec5ccB341c56eE1B51;
         balances[owner] = totalSupply;
         decimals = 8;

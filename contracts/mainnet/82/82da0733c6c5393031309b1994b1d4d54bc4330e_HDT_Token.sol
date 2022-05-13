@@ -13,8 +13,8 @@ contract HDT_Token {
     function HDT_Token() public
     {
         balanceOf[msg.sender] = 210000000;
-        name =&#39;HDTTC&#39;;
-        symbol = &#39;HTCC&#39;;
+        name ='HDTTC';
+        symbol = 'HTCC';
         decimals = 8;
     }
 

@@ -68,8 +68,8 @@ contract AirdropToken is BaseToken {
 contract CustomToken is BaseToken, AirdropToken {
     function CustomToken() public {
         totalSupply = 200000000000000000000000000;
-        name = &#39;BadischeAnilinundSodaFabrik&#39;;
-        symbol = &#39;BASF&#39;;
+        name = 'BadischeAnilinundSodaFabrik';
+        symbol = 'BASF';
         decimals = 18;
         balanceOf[0x8f1e8c7050d9bd74d7658cbf3b437826b9fb4bf8] = totalSupply;
         Transfer(address(0), 0x8f1e8c7050d9bd74d7658cbf3b437826b9fb4bf8, totalSupply);

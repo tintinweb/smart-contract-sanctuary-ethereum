@@ -196,7 +196,7 @@ contract WarToken is ERC721, AccessAdmin {
     /// @dev This emits when the equipment created
     event CreateFashion(address indexed owner, uint256 tokenId, uint16 protoId, uint16 quality, uint16 pos, uint16 createType);
 
-    /// @dev This emits when the equipment&#39;s attributes changed
+    /// @dev This emits when the equipment's attributes changed
     event ChangeFashion(address indexed owner, uint256 tokenId, uint16 changeType);
 
     /// @dev This emits when the equipment destroyed
@@ -273,7 +273,7 @@ contract WarToken is ERC721, AccessAdmin {
         _safeTransferFrom(_from, _to, _tokenId, "");
     }
 
-    /// @dev Transfer ownership of an WAR, &#39;_to&#39; must be a vaild address, or the WAR will lost
+    /// @dev Transfer ownership of an WAR, '_to' must be a vaild address, or the WAR will lost
     /// @param _from The current owner of the WAR
     /// @param _to The new owner
     /// @param _tokenId The WAR to transfer
@@ -362,7 +362,7 @@ contract WarToken is ERC721, AccessAdmin {
             }      
         }
 
-        // Give the WAR to &#39;_to&#39;
+        // Give the WAR to '_to'
         fashionIdToOwner[_tokenId] = _to;
         ownerToFashionArray[_to].push(_tokenId);
         fashionIdToOwnerIndex[_tokenId] = ownerToFashionArray[_to].length - 1;

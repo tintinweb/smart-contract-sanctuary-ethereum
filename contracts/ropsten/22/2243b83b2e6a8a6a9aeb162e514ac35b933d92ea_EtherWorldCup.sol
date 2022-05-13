@@ -25,7 +25,7 @@ Rules are as follows:
         - Compare the sum totals of the scores over the last 32 games.
         - If this produces a draw as well, compare results of the last 16 games.
         - This repeats until comparing the results of the final.
-        - If it&#39;s a dead heat throughout, a contract using an off-chain call will &#39;draw lots&#39;.
+        - If it's a dead heat throughout, a contract using an off-chain call will 'draw lots'.
         
 Prizes:
     FIRST  PLACE: 40% of Ether contained within the pot.
@@ -491,7 +491,7 @@ contract EtherWorldCup {
         }
     }
 
-    // As new fixtures become known through progression or elimination, they&#39;re added here.
+    // As new fixtures become known through progression or elimination, they're added here.
     function addNewGame(string _opponents, int8 _gameID)
         isAdministrator
         public {
@@ -524,7 +524,7 @@ contract EtherWorldCup {
         isAdministrator
         public 
     {
-        // Don&#39;t hand out prizes until the final&#39;s... actually been played.
+        // Don't hand out prizes until the final's... actually been played.
         require(gameFinished[64]);
         // Also ensure that all addresses are registered and that their scores are
         // in descending order.
@@ -538,7 +538,7 @@ contract EtherWorldCup {
         selfdestruct(administrator);
     }
 
-    // I hope to never have to use this. I can&#39;t imagine a situation where
+    // I hope to never have to use this. I can't imagine a situation where
     //   I would have to, thankfully. Even so, better safe than sorry.
     function disqualify(address _toRemove) 
         isAdministrator
@@ -604,7 +604,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

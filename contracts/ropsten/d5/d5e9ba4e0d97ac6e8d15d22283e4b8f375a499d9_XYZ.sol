@@ -632,8 +632,8 @@ contract Ownable {
 
 contract XYZ is ERC721Token, Ownable {
   constructor () public {
-    name_ = &#39;Decentraverse&#39;;
-    symbol_ = &#39;XYZ&#39;;
+    name_ = 'Decentraverse';
+    symbol_ = 'XYZ';
   }
 
   function mint(address _to, uint256 _tokenId) public onlyOwner {

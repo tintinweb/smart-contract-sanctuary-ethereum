@@ -67,7 +67,7 @@ contract Ganada is StandardToken {
     uint8 public decimals = 18;
     uint256 private supplyDecimals = 1 * 10 ** uint256(decimals);
     string public symbol = "GND";
-    string public version = &#39;v0.1&#39;;
+    string public version = 'v0.1';
     address public founder;
     constructor  (uint256 supply) public {
         founder = msg.sender;

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.0;
 contract TheAclydProject {
     /* Public variables of the DuqueBrewingCompany */
-    string public standard = &#39;The Aclyd Project Bahamas Reg. 123543639&#39;;
+    string public standard = 'The Aclyd Project Bahamas Reg. 123543639';
     string public name;
     string public symbol;
     uint8 public decimals;

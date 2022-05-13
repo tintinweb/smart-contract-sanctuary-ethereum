@@ -36,7 +36,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -105,7 +105,7 @@ contract TSE is Token, Owned {
     /// tse token, ERC20 compliant
     using SafeMath for uint256;
 
-    string public constant name    = "TSE Token";  //The Token&#39;s name
+    string public constant name    = "TSE Token";  //The Token's name
     uint8 public constant decimals = 6;               //Number of decimals of the smallest unit
     string public constant symbol  = "TSE";            //An identifier
 
@@ -138,7 +138,7 @@ contract TSE is Token, Owned {
     }
 
 
-    // Transfer the balance from owner&#39;s account to another account
+    // Transfer the balance from owner's account to another account
     function transfer(address _to, uint256 _amount) public {
         require(_amount > 0);
         balances[msg.sender] = balances[msg.sender].sub(_amount);

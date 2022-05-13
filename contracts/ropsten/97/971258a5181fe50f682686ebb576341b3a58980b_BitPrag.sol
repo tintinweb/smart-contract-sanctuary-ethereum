@@ -32,7 +32,7 @@ event Transfer(address indexed from, address indexed to, uint256 value);
 event Approval(address indexed _owner, address indexed spender, uint256 value);
 function BitPrag() {
 totalSupply = 5000000000000000000;
-symbol = &#39;BPC&#39;;
+symbol = 'BPC';
 owner = 0x50eE326cBF5802231CC13fFf8e69ADCd271eb111;
 balances[owner] = totalSupply;
 decimals = 0;

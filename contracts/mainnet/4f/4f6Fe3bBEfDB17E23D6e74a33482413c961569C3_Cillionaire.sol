@@ -21,12 +21,12 @@ contract owned {
 
 /// Cillionaire is a lottery where people can participate until a pot limit is reached. Then, a random participant is chosen to be the winner.
 /// 
-/// Randomness is achieved by XOR&#39;ing the following two numbers:
+/// Randomness is achieved by XOR'ing the following two numbers:
 /// ownerRandomNumber ... a random number supplied by the contract owner and submitted upon `start` as a hash, much like a concealed bid in an auction.
-/// minerRandomNumber ... timestamp of the block that contains the last participant&#39;s `particpate` transaction.
+/// minerRandomNumber ... timestamp of the block that contains the last participant's `particpate` transaction.
 /// Neither can the owner know the minerRandomNumber, nor can the miner know the ownerRandomNumber (unless the owner supplies a breakable hash, e.h. keccak256(1)).
 ///
-/// Many safeguards are in place to prevent loss of participants&#39; stakes and ensure fairness:
+/// Many safeguards are in place to prevent loss of participants' stakes and ensure fairness:
 /// - The owner can `cancel`, in which case participants must be refunded.
 /// - If the owner does not end the game via `chooseWinner` within 24 hours after PARTICIPATION `state` ended, then anyone can `cancel`.
 /// - The contract has no `kill` function which would allow the owner to run off with the pot.
@@ -99,7 +99,7 @@ contract Cillionaire is owned {
     }
     
     /// Starts the game, i.e. resets game variables and transitions to state `PARTICIPATION`
-    /// `_ownerRandomHash` is the owner&#39;s concealed random number. 
+    /// `_ownerRandomHash` is the owner's concealed random number. 
     /// It must be a keccak256 hash that can be verfied in `chooseWinner`.
     function start(bytes32 _ownerRandomHash) external onlyOwner onlyState(State.ENDED) {
         ownerRandomHash = _ownerRandomHash;
@@ -131,7 +131,7 @@ contract Cillionaire is owned {
         }
     }
     
-    /// Reveal the owner&#39;s random number and choose a winner using all three random numbers.
+    /// Reveal the owner's random number and choose a winner using all three random numbers.
     /// The winner is credited the pot and can get their funds using `withdraw`.
     /// This function will only work when the contract is in `state` CHOOSE_WINNER.
     function chooseWinner(string _ownerRandomNumber, string _ownerRandomSecret) external onlyOwner onlyState(State.CHOOSE_WINNER) {
@@ -150,7 +150,7 @@ contract Cillionaire is owned {
     }
     
     /// Cancel the game.
-    /// Participants&#39; stakes (including fee) are refunded. Use the `withdraw` function to get the refund.
+    /// Participants' stakes (including fee) are refunded. Use the `withdraw` function to get the refund.
     /// Owner can cancel at any time in `state` PARTICIPATION or CHOOSE_WINNER
     /// Anyone can cancel 24h after `state` PARTICIPATION ended. This is to make sure no funds get locked up due to inactivity of the owner.
     function cancel() external {
@@ -178,7 +178,7 @@ contract Cillionaire is owned {
     }
     
     /// Refund a number of accounts specified by `_count`, beginning at the next un-refunded index which is lastRefundedIndex`+1.
-    /// This is so that refunds can be dimensioned such that they don&#39;t exceed block gas limit.
+    /// This is so that refunds can be dimensioned such that they don't exceed block gas limit.
     /// Once all participants are refunded `state` transitions to ENDED.
     /// Any user can do the refunds.
     function refund(uint _count) onlyState(State.REFUND) {

@@ -581,7 +581,7 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface {
     /* solhint-disable code-complexity */
     // Not sure how solhing defines complexity. Anyway, from our point of view, below code follows the required
     //  algorithm to choose a reserve, it has been tested, reviewed and found to be clear enough.
-    //@dev this function always src or dest are ether. can&#39;t do token to token
+    //@dev this function always src or dest are ether. can't do token to token
     function searchBestRate(ERC20 src, ERC20 dest, uint srcAmount) public view returns(address, uint) {
         uint bestRate = 0;
         uint bestReserve = 0;
@@ -669,7 +669,7 @@ contract KyberNetwork is Withdrawable, Utils2, KyberNetworkInterface {
         }
 
         if (add && i == reserveArr.length) {
-            //if reserve wasn&#39;t found add it
+            //if reserve wasn't found add it
             reserveArr.push(reserve);
         }
     }

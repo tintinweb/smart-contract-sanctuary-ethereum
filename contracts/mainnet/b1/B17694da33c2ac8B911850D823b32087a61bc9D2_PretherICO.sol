@@ -93,7 +93,7 @@ contract TokenWithMint is ERC20, Owned {
 		}
 	}
 
-	//Sends tokens from sender&#39;s account
+	//Sends tokens from sender's account
     function transfer(address _to, uint256 _value) onlyPayloadSize(2 * 32) returns (bool success) {
         if (balance[msg.sender] >= _value && balance[_to] + _value > balance[_to]) {
             balance[msg.sender] -= _value;
@@ -130,7 +130,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

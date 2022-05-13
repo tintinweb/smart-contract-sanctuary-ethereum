@@ -207,7 +207,7 @@ contract FinalizeAgent {
 
   /** Return true if we can run finalizeCrowdsale() properly.
    *
-   * This is a safety check function that doesn&#39;t allow crowdsale to begin
+   * This is a safety check function that doesn't allow crowdsale to begin
    * unless the finalizer has been set up properly.
    */
   function isSane() public constant returns (bool);
@@ -402,7 +402,7 @@ contract Crowdsale is Haltable {
 
     endsAt = _end;
 
-    // Don&#39;t mess the dates
+    // Don't mess the dates
     if(startsAt >= endsAt) {
         throw;
     }
@@ -412,7 +412,7 @@ contract Crowdsale is Haltable {
   }
 
   /**
-   * Don&#39;t expect to just send in money and get tokens.
+   * Don't expect to just send in money and get tokens.
    */
   function() payable {
     throw;
@@ -430,7 +430,7 @@ contract Crowdsale is Haltable {
    */
   function investInternal(address receiver, uint128 customerId) stopInEmergency private {
 
-    // Determine if it&#39;s a good time to accept investment from this participant
+    // Determine if it's a good time to accept investment from this participant
     if(getState() == State.PreFunding) {
       // Are we whitelisted for early deposit
       if(!earlyParticipantWhitelist[receiver]) {
@@ -598,7 +598,7 @@ contract Crowdsale is Haltable {
   function setFinalizeAgent(FinalizeAgent addr) onlyOwner {
     finalizeAgent = addr;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if(!finalizeAgent.isFinalizeAgent()) {
       throw;
     }
@@ -648,7 +648,7 @@ contract Crowdsale is Haltable {
   function setEndsAt(uint time) onlyOwner {
 
     if(now > time) {
-      throw; // Don&#39;t change past
+      throw; // Don't change past
     }
 
     endsAt = time;
@@ -663,7 +663,7 @@ contract Crowdsale is Haltable {
   function setPricingStrategy(PricingStrategy _pricingStrategy) onlyOwner {
     pricingStrategy = _pricingStrategy;
 
-    // Don&#39;t allow setting bad agent
+    // Don't allow setting bad agent
     if(!pricingStrategy.isPricingStrategy()) {
       throw;
     }
@@ -814,7 +814,7 @@ contract Crowdsale is Haltable {
  */
 contract AllocatedCrowdsale is Crowdsale {
 
-  /* The party who holds the full token pool and has approve()&#39;ed tokens for this crowdsale */
+  /* The party who holds the full token pool and has approve()'ed tokens for this crowdsale */
   address public beneficiary;
 
   function AllocatedCrowdsale(address _token, PricingStrategy _pricingStrategy, address _multisigWallet, uint _start, uint _end, uint _minimumFundingGoal, address _beneficiary) Crowdsale(_token, _pricingStrategy, _multisigWallet, _start, _end, _minimumFundingGoal) {

@@ -356,7 +356,7 @@ contract ICO is Ownable, ERC223ReceivingContract {
 
     uint256 public price = 0.002 ether / 1e3;
     uint256 public minPurchase = 0.01 ether;
-    // Token holders&#39; paid amount in ether
+    // Token holders' paid amount in ether
     mapping(address => uint256) buyers;
 
     // Tokens sold for ether

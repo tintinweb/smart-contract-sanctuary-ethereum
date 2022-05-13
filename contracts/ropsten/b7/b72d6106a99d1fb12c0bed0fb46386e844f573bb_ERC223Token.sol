@@ -1,7 +1,7 @@
 pragma solidity ^0.4.18;
 
 // ----------------------------------------------------------------------------
-// &#39;XFB&#39; &#39;XFB&#39; token contract
+// 'XFB' 'XFB' token contract
 //
 // Symbol      : XFB
 // Name        : XFB
@@ -143,8 +143,8 @@ contract ERC223Token is ERC223Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner&#39;s account to `to` account
-    // - Owner&#39;s account must have sufficient balance to transfer
+    // Transfer the balance from token owner's account to `to` account
+    // - Owner's account must have sufficient balance to transfer
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     //function transfer(address to, uint tokens) public returns (bool success) {
@@ -157,7 +157,7 @@ contract ERC223Token is ERC223Interface, Owned {
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      This function works the same with the previous one
-     *      but doesn&#39;t contain `_data` param.
+     *      but doesn't contain `_data` param.
      *      Added due to backwards compatibility reasons.
      *
      * @param _to    Receiver address.
@@ -215,7 +215,7 @@ contract ERC223Token is ERC223Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account
+    // from the token owner's account
     //
     // https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
     // recommends that there are no checks for the approval double-spend attack
@@ -248,7 +248,7 @@ contract ERC223Token is ERC223Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender&#39;s account
+    // transferred to the spender's account
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -257,7 +257,7 @@ contract ERC223Token is ERC223Interface, Owned {
 
     // ------------------------------------------------------------------------
     // Token owner can approve for `spender` to transferFrom(...) `tokens`
-    // from the token owner&#39;s account. The `spender` contract function
+    // from the token owner's account. The `spender` contract function
     // `receiveApproval(...)` is then executed
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
@@ -269,7 +269,7 @@ contract ERC223Token is ERC223Interface, Owned {
 
 
     // ------------------------------------------------------------------------
-    // Don&#39;t accept ETH
+    // Don't accept ETH
     // ------------------------------------------------------------------------
     function () public payable {
         revert();

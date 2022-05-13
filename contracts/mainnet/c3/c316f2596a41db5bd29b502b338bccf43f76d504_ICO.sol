@@ -101,7 +101,7 @@ contract ICO is admined{
     token public tokenReward; //Address of the valit token used as reward
     address public creator; //Address of the contract deployer
     string public campaignUrl; //Web site of the campaing
-    string public version = &#39;2&#39;;
+    string public version = '2';
 
     FiatContract price = FiatContract(0x8055d0504666e2B6942BeB8D6014c964658Ca591); // MAINNET ADDRESS
     //FiatContract price = FiatContract(0x2CDe56E5c8235D6360CCbb0c57Ce248Ca9C80909); // TESTNET ADDRESS (ROPSTEN)
@@ -199,7 +199,7 @@ contract ICO is admined{
 
     /**
     * @notice Function to handle eth transfers
-    * @dev BEWARE: if a call to this functions doesn&#39;t have
+    * @dev BEWARE: if a call to this functions doesn't have
     * enought gas, transaction could not be finished
     */
 

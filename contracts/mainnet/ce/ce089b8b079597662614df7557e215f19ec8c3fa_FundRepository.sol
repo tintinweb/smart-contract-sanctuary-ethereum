@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -214,16 +214,16 @@ contract FundRepository is Callable {
     }
 
     function claimToken(bytes32 platform, string platformId, address _token) public onlyCaller returns (uint256) {
-        require(!issueResolved(platform, platformId), "Can&#39;t claim token, issue is already resolved.");
+        require(!issueResolved(platform, platformId), "Can't claim token, issue is already resolved.");
         uint256 totalTokenBalance = balance(platform, platformId, _token);
         db.deleteUint(keccak256(abi.encodePacked("funds.tokenBalance", platform, platformId, _token)));
         return totalTokenBalance;
     }
 
     function refundToken(bytes32 _platform, string _platformId, address _owner, address _token) public onlyCaller returns (uint256) {
-        require(!issueResolved(_platform, _platformId), "Can&#39;t refund token, issue is already resolved.");
+        require(!issueResolved(_platform, _platformId), "Can't refund token, issue is already resolved.");
 
-        //delete amount from user, so he can&#39;t refund again
+        //delete amount from user, so he can't refund again
         uint256 userTokenBalance = amountFunded(_platform, _platformId, _owner, _token);
         db.deleteUint(keccak256(abi.encodePacked("funds.amountFundedByUser", _platform, _platformId, _owner, _token)));
 

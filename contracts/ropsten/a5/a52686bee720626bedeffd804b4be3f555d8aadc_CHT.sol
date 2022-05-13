@@ -114,8 +114,8 @@ contract CHT is ERC20Interface, Pausable {
     }
 
     constructor() public{
-        symbol = &#39;CHT&#39;;
-        name = &#39;Crypto Hole Token&#39;;
+        symbol = 'CHT';
+        name = 'Crypto Hole Token';
         decimals = 0;
         _totalSupply = 100000000*10**uint(decimals);
         balances[owner] = _totalSupply;

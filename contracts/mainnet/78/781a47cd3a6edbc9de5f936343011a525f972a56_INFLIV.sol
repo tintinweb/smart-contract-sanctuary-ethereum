@@ -35,8 +35,8 @@ contract SafeMath {
   }
 }
 contract INFLIV is SafeMath{
-    string public name = &#39;infliv&#39;;
-    string public symbol = &#39;ifv&#39;;
+    string public name = 'infliv';
+    string public symbol = 'ifv';
     uint8 public decimals = 18;
     uint256 public totalSupply = 310000000000000000000000000;  
 	address public owner = 0x35Be5C0DD2018ba75F34E371459d18C21d68b842;
@@ -67,8 +67,8 @@ contract INFLIV is SafeMath{
         ) {
         balanceOf[msg.sender] = initialSupply = 310000000000000000000000000;              // Give the creator all initial tokens
         totalSupply = initialSupply = 310000000000000000000000000;                        // Update total supply
-        name = tokenName = &#39;infliv&#39;;                                   // Set the name for display purposes
-        symbol = tokenSymbol = &#39;ifv&#39;;                               // Set the symbol for display purposes
+        name = tokenName = 'infliv';                                   // Set the name for display purposes
+        symbol = tokenSymbol = 'ifv';                               // Set the symbol for display purposes
         decimals = decimalUnits = 18;                            // Amount of decimals for display purposes
 		owner = msg.sender;
     }

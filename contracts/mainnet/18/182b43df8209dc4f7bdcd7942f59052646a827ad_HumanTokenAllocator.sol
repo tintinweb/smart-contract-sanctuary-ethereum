@@ -174,7 +174,7 @@ contract HumanTokenAllocator {
     *   @dev Function to issues tokens for investors who made purchases in other cryptocurrencies
     *   @param _holder        address the tokens will be issued to
     *   @param _humanValue    number of Human tokens
-    *   @param _txHash        transaction hash of investor&#39;s payment
+    *   @param _txHash        transaction hash of investor's payment
     */
 
     function buyForInvestor(
@@ -401,7 +401,7 @@ contract HumanToken is ERC20 {
   
    /**
     *   @dev Get balance of tokens holder
-    *   @param _holder        holder&#39;s address
+    *   @param _holder        holder's address
     *   @return               balance of investor
     */
     function balanceOf(address _holder) constant returns (uint) {

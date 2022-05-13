@@ -66,7 +66,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -154,7 +154,7 @@ contract BaseToken is ERC20Interface {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -609,8 +609,8 @@ contract PausableSignedTransferToken is SignedTransferToken, PausableToken {
 // File: contracts/FourToken.sol
 
 contract FourToken is CappedToken, PausableSignedTransferToken  {
-  string public name = &#39;The 4th Pillar Token&#39;;
-  string public symbol = &#39;FOUR&#39;;
+  string public name = 'The 4th Pillar Token';
+  string public symbol = 'FOUR';
   uint256 public decimals = 18;
 
   // Max supply of 400 million
@@ -746,7 +746,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
   /**
    * @dev Must be called after crowdsale ends, to do some extra finalization
-   * work. Calls the contract&#39;s finalization function.
+   * work. Calls the contract's finalization function.
    */
   function finalize() onlyOwner public {
     require(!isFinalized);
@@ -911,13 +911,13 @@ contract FourCrowdsale is TokenCappedCrowdsale, WhitelistCrowdsale, FinalizableC
   function setRate(uint256 _rate) public onlyOwner  {
     require(now < startTime); // cant change once the sale has started
     rate = _rate;
-    RateChanged(_rate, &#39;rate&#39;);
+    RateChanged(_rate, 'rate');
   }
 
   function setBonus(uint256 _bonus) public onlyOwner  {
     require(now < startTime); // cant change once the sale has started
     bonus = _bonus;
-    RateChanged(_bonus, &#39;bonus&#39;);
+    RateChanged(_bonus, 'bonus');
   }
 
   function processPresaleOrEarlyContributors(address[] _beneficiaries, uint256[] _tokenAmounts) public onlyOwner {

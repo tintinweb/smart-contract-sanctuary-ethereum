@@ -14,7 +14,7 @@ library SafeMathLib{
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -77,7 +77,7 @@ contract ApproveAndCallFallBack {
 
 /**
  * @title Coinvest COIN Token
- * @dev ERC20 contract utilizing ERC865-ish structure (3esmit&#39;s implementation with alterations).
+ * @dev ERC20 contract utilizing ERC865-ish structure (3esmit's implementation with alterations).
  * @dev to allow users to pay Ethereum fees in tokens.
 **/
 contract GameTesterToken is Ownable {
@@ -164,7 +164,7 @@ contract GameTesterToken is Ownable {
     }
     
     /**
-     * @dev An allowed address can transfer tokens from another&#39;s address.
+     * @dev An allowed address can transfer tokens from another's address.
      * @param _from The owner of the tokens to be transferred.
      * @param _to The address to which the tokens will be transferred.
      * @param _amount The amount of tokens to be transferred.
@@ -181,7 +181,7 @@ contract GameTesterToken is Ownable {
     }
     
     /**
-     * @dev Approves a wallet to transfer tokens on one&#39;s behalf.
+     * @dev Approves a wallet to transfer tokens on one's behalf.
      * @param _spender The wallet approved to spend tokens.
      * @param _amount The amount of tokens approved to spend.
     **/
@@ -312,7 +312,7 @@ contract GameTesterToken is Ownable {
      * @param _to The address to transfer COIN to.
      * @param _value The amount of COIN to transfer.
      * @param _gasPrice Price (IN COIN) that will be paid per unit of gas by user to "delegate".
-     * @param _nonce Nonce of the user&#39;s new transaction.
+     * @param _nonce Nonce of the user's new transaction.
     **/
     function transferPreSigned(
         bytes _signature,
@@ -354,7 +354,7 @@ contract GameTesterToken is Ownable {
     /**
      * @dev Called by a delegate with signed hash to approve a transaction for user.
      * @dev All variables equivalent to transfer except _to:
-     * @param _to The address that will be approved to transfer COIN from user&#39;s wallet.
+     * @param _to The address that will be approved to transfer COIN from user's wallet.
     **/
     function approvePreSigned(
         bytes _signature,
@@ -453,7 +453,7 @@ contract GameTesterToken is Ownable {
     /**
      * @dev approveAndCallPreSigned allows a user to approve a contract and call a function on it
      * @dev in the same transaction. As with the other presigneds, a delegate calls this with signed data from user.
-     * @dev This function is the big reason we&#39;re using gas price and calculating gas use.
+     * @dev This function is the big reason we're using gas price and calculating gas use.
      * @dev Using this with the investment contract can result in varying gas costs.
      * @param _extraData The data to send to the contract.
     **/
@@ -570,7 +570,7 @@ contract GameTesterToken is Ownable {
      * @param _extraData Extra data of tx if needed. Transfers and approves will leave this null.
      * @param _function Function signature of the pre-signed function being used.
      * @param _gasPrice The agreed-upon amount of COIN to be paid per unit of gas.
-     * @param _nonce The user&#39;s nonce of the new transaction.
+     * @param _nonce The user's nonce of the new transaction.
     **/
     function getPreSignedHash(
         bytes4 _function,
@@ -594,7 +594,7 @@ contract GameTesterToken is Ownable {
      * @param _value The amont of tokens to transfer/approve/etc.
      * @param _extraData The extra data included in the transaction, if any.
      * @param _gasPrice The amount of token wei to be paid to the delegate for each unit of gas.
-     * @param _nonce The user&#39;s nonce for this transaction.
+     * @param _nonce The user's nonce for this transaction.
     **/
     function recoverPreSigned(
         bytes _sig,
@@ -640,8 +640,8 @@ contract GameTesterToken is Ownable {
         assembly {
             r := mload(add(sig, 32))
             s := mload(add(sig, 64))
-            // Here we are loading the last 32 bytes. We exploit the fact that &#39;mload&#39; will pad with zeroes if we overread.
-            // There is no &#39;mload8&#39; to do this, but that would be nicer.
+            // Here we are loading the last 32 bytes. We exploit the fact that 'mload' will pad with zeroes if we overread.
+            // There is no 'mload8' to do this, but that would be nicer.
             v := byte(0, mload(add(sig, 96)))
         }
         // Albeit non-transactional signatures are not specified by the YP, one would expect it to match the YP range of [27, 28]
@@ -691,7 +691,7 @@ contract GameTesterToken is Ownable {
     }
     
     /**
-     * @dev Allowed amount for a user to spend of another&#39;s tokens.
+     * @dev Allowed amount for a user to spend of another's tokens.
      * @param _owner The owner of the tokens approved to spend.
      * @param _spender The address of the user allowed to spend the tokens.
     **/
@@ -729,7 +729,7 @@ contract GameTesterToken is Ownable {
       onlyOwner
     returns (bool success)
     {
-        // These 6 are the signatures of our pre-signed functions. Don&#39;t want the owner messin&#39; around.
+        // These 6 are the signatures of our pre-signed functions. Don't want the owner messin' around.
         require(_ourSig == 0x1296830d || _ourSig == 0x617b390b || _ourSig == 0xadb8249e ||
             _ourSig == 0x8be52783 || _ourSig == 0xc8d4b389 || _ourSig == 0xe391a7c4);
         standardSigs[_standardSig] = _ourSig;

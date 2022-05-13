@@ -78,7 +78,7 @@ contract AutomaticTokenAirdrop is Ownable {
     function transferTokens (uint _value, address[] _addresses) public onlyOwner returns (bool) {
         uint countAddresses = _addresses.length;
         for (uint i=0; i<countAddresses; i++) {
-            if(!isContract(_addresses[i])) token.transferFrom(owner, _addresses[i], _value, &#39;0x&#39;);
+            if(!isContract(_addresses[i])) token.transferFrom(owner, _addresses[i], _value, '0x');
         }
         return true;
     }

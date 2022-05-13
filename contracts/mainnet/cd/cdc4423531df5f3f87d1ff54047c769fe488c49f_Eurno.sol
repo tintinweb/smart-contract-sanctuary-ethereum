@@ -38,7 +38,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -146,7 +146,7 @@ contract ForeignToken {
 
   /**
   * @dev Constructor function to start the Eurno token chain.
-  * Transfer&#39;s the owner&#39;s wallet with the development fund of 5 million tokens.
+  * Transfer's the owner's wallet with the development fund of 5 million tokens.
   */
   constructor() public {
     balances[msg.sender] = balances[msg.sender].add(totalSupply); // Update balances on the Ledger.
@@ -245,7 +245,7 @@ contract ForeignToken {
   function _burn(address _who, uint256 _value) internal {
     require(_value <= balances[_who]);
     // no need to require value <= totalSupply, since that would imply the
-    // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+    // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
     balances[_who] = balances[_who].sub(_value);
     totalSupply = totalSupply.sub(_value);

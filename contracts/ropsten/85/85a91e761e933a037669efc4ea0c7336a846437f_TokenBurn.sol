@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -244,7 +244,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -342,7 +342,7 @@ contract StartToken is Startable, ERC223TokenCompatible, StandardToken {
      * This storage will be cleared once the ICO completes, see closeIco().
      *
      * ---- ICO-Platform Note ----
-     * The horizon-globex.com ICO platform&#39;s KYC app will register a hash of the Contributors
+     * The horizon-globex.com ICO platform's KYC app will register a hash of the Contributors
      * KYC submission on the blockchain. Our Swiss financial-intermediary KYC provider will be 
      * notified of the submission and retrieve the Contributor data for formal review.
      *
@@ -360,14 +360,14 @@ contract StartToken is Startable, ERC223TokenCompatible, StandardToken {
      * This will be cleared once the ICO completes, see closeIco().
      *
      * ---- ICO-Platform Note ----
-     * The horizon-globex.com ICO platform&#39;s registered KYC provider submits their approval
+     * The horizon-globex.com ICO platform's registered KYC provider submits their approval
      * for this Contributor to particpate using the ICO-Platform portal. 
      *
      * Each Contributor will then be sent the Ethereum, Bitcoin and IBAN account numbers to
      * deposit their Approved Contribution in exchange for VOX Tokens.
      * -- End ICO-Platform Note --
      *
-     * @param who   The user&#39;s address.
+     * @param who   The user's address.
      */
     function kycApproved(address who) public onlyOwner {
         require(who != 0x0, "Cannot approve a null address.");
@@ -398,7 +398,7 @@ contract StartToken is Startable, ERC223TokenCompatible, StandardToken {
      * During the ICO phase the owner will allocate tokens once KYC completes and funds are deposited.
      *
      * ---- ICO-Platform Note ----
-     * The horizon-globex.com ICO platform&#39;s portal shall issue VOX Token to Contributors on receipt of 
+     * The horizon-globex.com ICO platform's portal shall issue VOX Token to Contributors on receipt of 
      * the Approved Contribution funds at the KYC providers Escrow account/wallets.
      * Only after VOX Tokens are issued to the Contributor can the Swiss KYC provider allow the transfer
      * of funds from their Escrow to Company.
@@ -470,7 +470,7 @@ contract BurnToken is StandardToken {
         require(_value > 0);
 		require(_value <= balances[_burner]);
         // no need to require value <= totalSupply, since that would imply the
-        // sender&#39;s balance is greater than the totalSupply, which *should* be an assertion failure
+        // sender's balance is greater than the totalSupply, which *should* be an assertion failure
 
         balances[_burner] = balances[_burner].sub(_value);
         totalSupply = totalSupply.sub(_value);

@@ -56,7 +56,7 @@ contract SafeMath {
     Owned contract interface
 */
 contract IOwned {
-    // this function isn&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // this function isn't abstract since the compiler emits automatically generated getter functions as external
     function owner() public constant returns (address owner) { owner; }
 
     function transferOwnership(address _newOwner) public;
@@ -112,7 +112,7 @@ contract Owned is IOwned {
     ERC20 Standard Token interface
 */
 contract IERC20Token {
-    // these functions aren&#39;t abstract since the compiler emits automatically generated getter functions as external
+    // these functions aren't abstract since the compiler emits automatically generated getter functions as external
     function name() public constant returns (string name) { name; }
     function symbol() public constant returns (string symbol) { symbol; }
     function decimals() public constant returns (uint8 decimals) { decimals; }
@@ -133,10 +133,10 @@ contract ITokenHolder is IOwned {
 }
 
 /*
-    We consider every contract to be a &#39;token holder&#39; since it&#39;s currently not possible
+    We consider every contract to be a 'token holder' since it's currently not possible
     for a contract to deny receiving tokens.
 
-    The TokenHolder&#39;s contract sole purpose is to provide a safety mechanism that allows
+    The TokenHolder's contract sole purpose is to provide a safety mechanism that allows
     the owner to send tokens that were sent to the contract by mistake back to their sender.
 */
 contract TokenHolder is ITokenHolder, Owned {
@@ -146,7 +146,7 @@ contract TokenHolder is ITokenHolder, Owned {
     function TokenHolder() {
     }
 
-    // validates an address - currently only checks that it isn&#39;t null
+    // validates an address - currently only checks that it isn't null
     modifier validAddress(address _address) {
         require(_address != 0x0);
         _;
@@ -191,13 +191,13 @@ contract ISmartToken is ITokenHolder, IERC20Token {
 
     The bancor price floor contract is a simple contract that allows selling smart tokens for a constant ETH price
 
-    &#39;Owned&#39; is specified here for readability reasons
+    'Owned' is specified here for readability reasons
 */
 contract BancorPriceFloor is Owned, TokenHolder, SafeMath {
     uint256 public constant TOKEN_PRICE_N = 1;      // crowdsale price in wei (numerator)
     uint256 public constant TOKEN_PRICE_D = 100;    // crowdsale price in wei (denominator)
 
-    string public version = &#39;0.1&#39;;
+    string public version = '0.1';
     ISmartToken public token; // smart token the contract allows selling
 
     /**

@@ -107,6 +107,6 @@ contract AssetPriceOracle is DSAuth {
     }
 
     function () public {
-        // dont receive ether via fallback method (by not having &#39;payable&#39; modifier on this function).
+        // dont receive ether via fallback method (by not having 'payable' modifier on this function).
     }
 }

@@ -12,7 +12,7 @@ contract ERC20Interface {
 }
 
 contract AKCToken is ERC20Interface{
-    string public standard = &#39;Token 1.0&#39;;
+    string public standard = 'Token 1.0';
     string public constant name="Artwork File";
     string public constant symbol="AKC";
     uint8 public constant decimals=9;

@@ -247,8 +247,8 @@ contract BitSTDLogic {
       *
       * sends the value token to "to", representing "from"
       *
-      * @param _from sender&#39;s address
-      * @param _to recipient&#39;s address
+      * @param _from sender's address
+      * @param _to recipient's address
       * @param _value number sent
      */
     function transferFrom(address _from, address sender, address _to, uint256 _value) onlyOwner public returns (bool success) {
@@ -318,7 +318,7 @@ contract BitSTDLogic {
         require(f_value >= _value);                             // Check that the target balance is adequate
         require(_value <= a_value);                             // Check the allowance
         setBalanceOf(_from, f_value - _value);                // Subtract from the goal balance
-        data.setAllowance(_from, sender, f_value - _value);  // Minus the sender&#39;s allowance
+        data.setAllowance(_from, sender, f_value - _value);  // Minus the sender's allowance
         data.addTotalSupply(totalSupply() - _value);         // update totalSupply
 
         return true;

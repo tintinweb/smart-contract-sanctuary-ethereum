@@ -58,9 +58,9 @@ contract CcoindDigital is owned,IERC20{
     
     uint256 public _totalSupply = 10000000;
  
-    string public symbol = &#39;CCD&#39;;
+    string public symbol = 'CCD';
 
-    string public name = &#39;CcoindDigital&#39;;
+    string public name = 'CcoindDigital';
     
     uint8 public decimals = 0;
     

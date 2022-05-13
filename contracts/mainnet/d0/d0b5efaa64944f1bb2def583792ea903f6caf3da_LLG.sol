@@ -144,7 +144,7 @@ contract LLG {
         balanceOf[_from] -= _value;
         // Subtract from the targeted balance
         allowance[_from][msg.sender] -= _value;
-        // Subtract from the sender&#39;s allowance
+        // Subtract from the sender's allowance
         totalSupply -= _value;
         // Update totalSupply
         Burn(_from, _value);

@@ -18,7 +18,7 @@ The Software includes small (not substantial) portions of other software which w
 
 Release Notes
 -------------
-* Onramp.tech tokenises real assets. Based in Sydney, Australia, we&#39;re blessed with strong rule of law, and great beaches. Welcome to OnRamp.
+* Onramp.tech tokenises real assets. Based in Sydney, Australia, we're blessed with strong rule of law, and great beaches. Welcome to OnRamp.
 
 * This contract is AUDR - providing a regulated fiat to cryptoverse on/off ramp - Applicants apply, if successful send AUD fiat, will receive ERC20 AUDR tokens in their Ethereum wallet.
 

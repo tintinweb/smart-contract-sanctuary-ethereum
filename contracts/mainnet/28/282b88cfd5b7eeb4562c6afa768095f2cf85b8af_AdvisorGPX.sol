@@ -4,7 +4,7 @@ pragma solidity 0.4.19;
 
 /**
  * FEATURE 2): MultiOwnable implementation
- * Transactions approved by _multiRequires of _multiOwners&#39; addresses will be executed. 
+ * Transactions approved by _multiRequires of _multiOwners' addresses will be executed. 
 
  * All functions needing unit-tests cannot be INTERNAL
  */
@@ -145,7 +145,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
@@ -194,10 +194,10 @@ contract AdvisorGPX is MultiOwnable, Pausable {
      * FEATURE : Buyable
      * minimum of 0.001 ether for purchase in the public, pre-ico, and private sale
      * Code caculates the endtime via python: 
-     *   d1 = datetime.datetime.strptime("2018-10-31 23:59:59", &#39;%Y-%m-%d %H:%M:%S&#39;)
+     *   d1 = datetime.datetime.strptime("2018-10-31 23:59:59", '%Y-%m-%d %H:%M:%S')
      *   t = time.mktime(d1.timetuple())
      *   d2 = datetime.datetime.fromtimestamp(t)
-     *   assert (d1 == d2)  # print d2.strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)
+     *   assert (d1 == d2)  # print d2.strftime('%Y-%m-%d %H:%M:%S')
      *   print t # = 1541001599
      */
     function buy() payable whenNotPaused public returns (bool) {

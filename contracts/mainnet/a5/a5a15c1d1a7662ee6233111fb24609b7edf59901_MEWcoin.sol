@@ -25,7 +25,7 @@ library SafeMath
   {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -116,7 +116,7 @@ contract BasicToken is ERC20Basic
   // this is called if 
   function RevokeTokens(address target) internal
   {
-      //require(mCanSpend[from]==0),"Can only call this if AML hasn&#39;t been completed correctly");
+      //require(mCanSpend[from]==0),"Can only call this if AML hasn't been completed correctly");
       // block this address from further spending
       require(mCanSpend[target]!=9);
       mCanSpend[target]=9;
@@ -335,7 +335,7 @@ contract BasicToken is ERC20Basic
   {
     require(_fraction<10000);//, "Fractional part must be less than 10000");
     
-    uint256 main = _whole.mul(10**decimals); // works fine now i&#39;ve removed the retarded divide by 0 assert in safemath
+    uint256 main = _whole.mul(10**decimals); // works fine now i've removed the retarded divide by 0 assert in safemath
     uint256 part = _fraction.mul(10**14);
     uint256 value = main + part;
     
@@ -430,7 +430,7 @@ contract StandardToken is ERC20, BasicToken
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -504,7 +504,7 @@ contract StandardToken is ERC20, BasicToken
 /**
  * @title Ownable
  * @dev The Ownable contract has an owner address, and provides basic authorization control
- * functions, this simplifies the implementation of &#39;user permissions&#39;.
+ * functions, this simplifies the implementation of 'user permissions'.
  */
 contract Ownable
 {
@@ -640,7 +640,7 @@ contract MintableToken is StandardToken, Ownable
     require( _amount >= MINIMUM_ETHER_SPEND * exchange);//, "Must spend at least minimum ether");
     require( (_amount+balances[_to]) <= MAXIMUM_ETHER_SPEND * exchange);//, "Must not spend more than maximum ether");
    
-    // bail if we&#39;re out of tokens (will be amazing if this happens but hey!)
+    // bail if we're out of tokens (will be amazing if this happens but hey!)
     if (balances[MEW_CROWDSALE_FUND]<_amount)
     {
          return false;

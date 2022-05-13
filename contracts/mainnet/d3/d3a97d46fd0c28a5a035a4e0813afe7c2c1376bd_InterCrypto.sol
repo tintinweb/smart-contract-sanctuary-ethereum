@@ -119,7 +119,7 @@ contract myUsingOracalize is Ownable {
     }
 
     // This will not throw error on wrong input, but instead consume large and unknown amount of gas
-    // This should never occure as it&#39;s use with the ShapeShift deposit return value is checked before calling function
+    // This should never occure as it's use with the ShapeShift deposit return value is checked before calling function
     function parseAddr(string _a) internal returns (address){
         bytes memory tmp = bytes(_a);
         uint160 iaddr = 0;
@@ -175,7 +175,7 @@ contract InterCrypto is Ownable, myUsingOracalize {
 
     // Return the price of using Oracalize
     function getInterCryptoPrice() constant public returns (uint) {
-        return oraclize_getPrice(&#39;URL&#39;);
+        return oraclize_getPrice('URL');
     }
 
     // Create a cryptocurrency conversion using Oracalize and Shapeshift return address = msg.sender
@@ -268,7 +268,7 @@ contract InterCrypto is Ownable, myUsingOracalize {
             Transaction memory transaction = Transaction(_returnAddress, msg.value-oracalizePrice);
             transactions[transactionID] = transaction;
             
-            // Create post data string like &#39; {"withdrawal":"LbZcDdMeP96ko85H21TQii98YFF9RgZg3D","pair":"eth_ltc","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}&#39;
+            // Create post data string like ' {"withdrawal":"LbZcDdMeP96ko85H21TQii98YFF9RgZg3D","pair":"eth_ltc","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}'
             string memory postData = createShapeShiftTransactionPost(_coinSymbol, _toAddress);
 
             // TODO: send custom gasLimit for retrn transaction equal to the exact cost of __callback. Note that this should only be donewhen the contract is finalized
@@ -327,10 +327,10 @@ contract InterCrypto is Ownable, myUsingOracalize {
     }
 
     function createShapeShiftTransactionPost(string _coinSymbol, string _toAddress) internal returns (string sFinal) {
-        string memory s1 = &#39; {"withdrawal":"&#39;;
-        string memory s3 = &#39;","pair":"eth_&#39;;
-        string memory s5 = &#39;","returnAddress":"&#39;;
-        string memory s7 = &#39;"}&#39;;
+        string memory s1 = ' {"withdrawal":"';
+        string memory s3 = '","pair":"eth_';
+        string memory s5 = '","returnAddress":"';
+        string memory s7 = '"}';
 
         bytes memory bFinal = concatBytes(bytes(s1), bytes(_toAddress), bytes(s3), bytes(_coinSymbol), bytes(s5), bytes(addressToBytes(msg.sender)), bytes(s7));
 
@@ -340,9 +340,9 @@ contract InterCrypto is Ownable, myUsingOracalize {
         // Authored by https://github.com/axic
     function nibbleToChar(uint nibble) internal returns (uint ret) {
         if (nibble > 9)
-        return nibble + 87; // nibble + &#39;a&#39;- 10
+        return nibble + 87; // nibble + 'a'- 10
         else
-        return nibble + 48; // &#39;0&#39;
+        return nibble + 48; // '0'
     }
 
     // Authored by https://github.com/axic

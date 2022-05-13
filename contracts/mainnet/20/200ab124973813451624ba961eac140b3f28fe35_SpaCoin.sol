@@ -21,11 +21,11 @@ contract SpaCoin {
 
     function allocate(address newHolder, int64 value)  payable {
         if (msg.sender != owner) {
-            InvalidCoinUsage(&#39;Only owner can allocate coins&#39;) ;
+            InvalidCoinUsage('Only owner can allocate coins') ;
             return ;
         }
         if (value < 0) {
-            InvalidCoinUsage(&#39;Cannot allocate negative value&#39;) ;
+            InvalidCoinUsage('Cannot allocate negative value') ;
             return ;
         }
 
@@ -34,14 +34,14 @@ contract SpaCoin {
             outstanding_coins -= value ;
             CoinAllocation(newHolder, value, outstanding_coins) ;
         } else {
-            InvalidCoinUsage(&#39;value to allocate larger than outstanding coins&#39;) ;
+            InvalidCoinUsage('value to allocate larger than outstanding coins') ;
         }
     }
     
     function move(address destination, int64 value)  {
         address source = msg.sender ;
         if (value <= 0) {
-            InvalidCoinUsage(&#39;Must move value greater than zero&#39;) ;
+            InvalidCoinUsage('Must move value greater than zero') ;
             return ;
         }
         if (holdings[source] >= value) {
@@ -49,7 +49,7 @@ contract SpaCoin {
             holdings[source] -= value ;
             CoinMovement(source, destination, value) ;
         } else {
-            InvalidCoinUsage(&#39;value to move larger than holdings&#39;) ;
+            InvalidCoinUsage('value to move larger than holdings') ;
         }
     }
     

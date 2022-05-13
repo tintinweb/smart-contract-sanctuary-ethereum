@@ -225,7 +225,7 @@ contract Magic8Ball is Pausable {
         questionId = nextQuestionId;
         nextQuestionId++;
 
-        questions[questionId] = Question(questionId, msg.sender, tokenContract, bountyAmount, question, false, &#39;&#39;);
+        questions[questionId] = Question(questionId, msg.sender, tokenContract, bountyAmount, question, false, '');
 
         assignOracles(questionId, oracles);
 
@@ -260,7 +260,7 @@ contract Magic8Ball is Pausable {
     }
 
     /**
-    * @dev Allows the asker of a question to remove users from the list of &#39;allowed oracles&#39; that can answer their
+    * @dev Allows the asker of a question to remove users from the list of 'allowed oracles' that can answer their
     * question.  Can only be used by the question asker of the specified question ID, will throw an exception for
     * anyone else.
     * @param questionId Id of the question that the provided oracles will no longer be allowed to answer

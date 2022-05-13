@@ -14,7 +14,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal constant returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -303,7 +303,7 @@ contract Slot is Ownable, Pausable { // TODO: for production disable tokenDestru
         require(beneficiary != 0x0);
         require(msg.value >= PRICE);
         require(msg.value/PRICE <= 255); // maximum of 255 tickets, to avoid overflow on uint8
-        // I can&#39;t see somebody sending more than the size of the lottery, other than to try to win the jackpot
+        // I can't see somebody sending more than the size of the lottery, other than to try to win the jackpot
         
         // calculate number of tickets, issue tokens and add participants
         // every 100 finney buys a ticket, the rest is returned
@@ -318,7 +318,7 @@ contract Slot is Ownable, Pausable { // TODO: for production disable tokenDestru
     }
 
     function addParticipant(address _participant, uint8 _numberOfTickets) private {
-        // TODO: check access of this function, it shouldn&#39;t be tampered with
+        // TODO: check access of this function, it shouldn't be tampered with
         // add participants and increment count
         // should gracefully handle multiple tickets accross games
 
@@ -327,7 +327,7 @@ contract Slot is Ownable, Pausable { // TODO: for production disable tokenDestru
 
             // msg.sender triggers the drawing of lots
             if (counter % (SIZE-1) == 0) { 
-                // takes the participant&#39;s address as the seed
+                // takes the participant's address as the seed
                 awardPrizes(uint256(_participant)); 
             } 
             
@@ -365,7 +365,7 @@ contract Slot is Ownable, Pausable { // TODO: for production disable tokenDestru
                 winnerIndex -= SIZE;
             }
 
-            participants[winnerIndex+i].transfer(prizes[i]); // msg.sender pays the gas, he&#39;s refunded later
+            participants[winnerIndex+i].transfer(prizes[i]); // msg.sender pays the gas, he's refunded later
             
             PrizeAwarded(gameNumber,  participants[winnerIndex+i], prizes[i]);
         }

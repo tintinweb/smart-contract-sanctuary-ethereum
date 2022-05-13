@@ -65,7 +65,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -105,7 +105,7 @@ library SafeMath32 {
   function div(uint32 a, uint32 b) internal pure returns (uint32) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint32 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -139,7 +139,7 @@ library SafeMath16 {
   function div(uint16 a, uint16 b) internal pure returns (uint16) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint16 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 
@@ -293,14 +293,14 @@ contract Solethium is Ownable, ERC721 {
     }
     
     /**
-    ** @dev this method is used to calculate Developer&#39;s Cut in the game
+    ** @dev this method is used to calculate Developer's Cut in the game
     **/
     function returnDevelopersCut(uint256 _price) private view returns(uint) {
             return _price.mul(devCutPromille).div(1000);
     }
 
     /**
-    ** @dev this method is used to calculate Parent Object&#39;s Owner Cut in the game
+    ** @dev this method is used to calculate Parent Object's Owner Cut in the game
     ** owner of PARENT objects will get : percentWhenParent % from his Objects + any additional bonuses he may have from SPECIAL trade objects
     ** that are increasing PARENT percentage
     **/
@@ -340,14 +340,14 @@ contract Solethium is Ownable, ERC721 {
             address newOwner = msg.sender; // buyer
 
             require(msg.value >= price);
-            require(msg.sender != _obj.owner); // can&#39;t buy again the same thing!
+            require(msg.sender != _obj.owner); // can't buy again the same thing!
 
             uint256 excess = msg.value.sub(price);
             
             // calculate if percentage will go to parent Object owner 
             crySolObjects[_obj.parentID].owner.transfer(returnParentObjectCut(_obj, price));
 
-            // Transfer payment to old owner minus the developer&#39;s cut, parent owner&#39;s cut and any special Object&#39;s cut.
+            // Transfer payment to old owner minus the developer's cut, parent owner's cut and any special Object's cut.
              uint256 _oldOwnerCut = 0;
             _oldOwnerCut = price.sub(returnDevelopersCut(price));
             _oldOwnerCut = _oldOwnerCut.sub(returnParentObjectCut(_obj, price));
@@ -376,7 +376,7 @@ contract Solethium is Ownable, ERC721 {
 
 
     /**
-    ** @dev this method is used to SET user&#39;s nickname
+    ** @dev this method is used to SET user's nickname
     **/
     function setOwnerNickName(address _owner, string _nickName) external {
         require(msg.sender == _owner);
@@ -384,7 +384,7 @@ contract Solethium is Ownable, ERC721 {
     }
 
     /**
-    ** @dev this method is used to GET user&#39;s nickname
+    ** @dev this method is used to GET user's nickname
     **/
     function getOwnerNickName(address _owner) external view returns(string) {
         return ownerToNickname[_owner];
@@ -419,7 +419,7 @@ contract Solethium is Ownable, ERC721 {
     ** @dev this method is used to modify parentID if needed later;
     **      For this game it is very important to keep intended hierarchy; you never know WHEN exactly transaction will be confirmed in the blockchain
     **      Every Object creation is transaction; if by some accident Objects get "wrong" ID in the crySolObjects array, this is the method where we can adjust parentId
-    **      for objects orbiting it (we don&#39;t want for Moon to end up orbiting Mars :) )
+    **      for objects orbiting it (we don't want for Moon to end up orbiting Mars :) )
     **/
     function setParentID (uint _crySolObjectID, uint16 _parentID) external onlyOwner() {
         crySolObjects[_crySolObjectID].parentID = _parentID;

@@ -631,7 +631,7 @@ contract ReleasableToken is ERC20, Ownable {
    */
   function setReleaseAgent(address addr) onlyOwner inReleaseState(false) public {
 
-    // We don&#39;t do interface check here as we might want to a normal wallet address to act as a release agent
+    // We don't do interface check here as we might want to a normal wallet address to act as a release agent
     releaseAgent = addr;
   }
 
@@ -716,7 +716,7 @@ contract UpgradeableToken is StandardToken {
    * Upgrade states.
    *
    * - NotAllowed: The child contract has not reached a condition where the upgrade can bgun
-   * - WaitingForAgent: Token allows upgrade, but we don&#39;t have a new agent yet
+   * - WaitingForAgent: Token allows upgrade, but we don't have a new agent yet
    * - ReadyToUpgrade: The agent is set, but not a single token has been upgraded yet
    * - Upgrading: Upgrade agent is set and the balance holders can upgrade their tokens
    *
@@ -1229,7 +1229,7 @@ contract DayToken is  ReleasableToken, MintableToken, UpgradeableToken {
         return updateBalanceOf(_id);
     }
 
-    /** Function to update balance of sender&#39;s Timemint
+    /** Function to update balance of sender's Timemint
         * returns true if balance updated, false otherwise
         */
     function updateMyTimeMintBalance() public returns (bool) {
@@ -1239,7 +1239,7 @@ contract DayToken is  ReleasableToken, MintableToken, UpgradeableToken {
 
     /**
         * Standard ERC20 function overidden.
-        * Used to transfer day tokens from caller&#39;s address to another
+        * Used to transfer day tokens from caller's address to another
         * @param _to address to which Day tokens are to be transferred
         * @param _value Number of Day tokens to be transferred
         */
@@ -1485,7 +1485,7 @@ contract DayToken is  ReleasableToken, MintableToken, UpgradeableToken {
     }
 
 
-    /** Function to add a team address as a contributor and store it&#39;s time issued to calculate vesting period
+    /** Function to add a team address as a contributor and store it's time issued to calculate vesting period
         * Called by owner
         */
     function addTeamTimeMints(address _adr, uint _id, uint _tokens, bool _isTest) public onlyOwner {

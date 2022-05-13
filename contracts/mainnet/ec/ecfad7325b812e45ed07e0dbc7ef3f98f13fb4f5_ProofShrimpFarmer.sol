@@ -84,7 +84,7 @@ contract ProofShrimpFarmer is AcceptsProof {
     }
 
     /**
-     * Fallback function for the contract.  Since this contract does not use ETH then don&#39;t accept it.
+     * Fallback function for the contract.  Since this contract does not use ETH then don't accept it.
      */
     function() payable public {
       revert();
@@ -140,7 +140,7 @@ contract ProofShrimpFarmer is AcceptsProof {
         require(initialized);
         uint256 hasEggs=getMyEggs();
         uint256 eggValue=calculateEggSell(hasEggs);
-		// This version doesn&#39;t have devfees.
+		// This version doesn't have devfees.
         // uint256 fee=devFee(eggValue);
         claimedEggs[msg.sender]=0;
         lastHatch[msg.sender]=now;
@@ -190,7 +190,7 @@ contract ProofShrimpFarmer is AcceptsProof {
     }
 
     // Calculate devfee in game
-	// This version doesn&#39;t use devFee
+	// This version doesn't use devFee
     function devFee(uint256 amount) public pure returns(uint256){
         return SafeMath.div(SafeMath.mul(amount,4),100);
     }
@@ -253,7 +253,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return c;
   }
 

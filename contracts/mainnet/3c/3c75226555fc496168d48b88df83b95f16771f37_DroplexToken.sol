@@ -27,9 +27,9 @@ contract SafeMath {
 
 contract DroplexToken is SafeMath {
     /* Public variables of the token */
-    string public standard = &#39;ERC20&#39;;
-    string public name = &#39;Droplex Token&#39;;
-    string public symbol = &#39;DROP&#39;;
+    string public standard = 'ERC20';
+    string public name = 'Droplex Token';
+    string public symbol = 'DROP';
     uint8 public decimals = 0;
     uint256 public totalSupply = 30000000;
     address public owner = 0xaBE3d12e5518BF8266bB91B56913962ce1F77CF4;

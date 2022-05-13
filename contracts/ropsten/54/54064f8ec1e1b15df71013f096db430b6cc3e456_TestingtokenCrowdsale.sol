@@ -5,12 +5,12 @@ pragma solidity ^0.4.25;
  * @title ERC20Basic
  * 
  *    .oooooo.                                             .o8                     oooo            
-     d8P&#39;  `Y8b                                           "888                     `888            
+     d8P'  `Y8b                                           "888                     `888            
      888          oooo d8b  .ooooo.  oooo oooo    ooo  .oooo888   .oooo.o  .oooo.    888   .ooooo.  
-     888          `888""8P d88&#39; `88b  `88. `88.  .8&#39;  d88&#39; `888  d88(  "8 `P  )88b   888  d88&#39; `88b 
-     888           888     888   888   `88..]88..8&#39;   888   888  `"Y88b.   .oP"888   888  888ooo888 
-   o 88b    ooo   888     888   888    `888&#39;`888&#39;    888   888  o.  )88b d8(  888   888  888    .o 
-   ``Y8bood8P&#39;  d888b    `Y8bod8P&#39;     `8&#39;  `8&#39;     `Y8bod88P" 8""888P&#39; `Y888""8o o888o `Y8bod8P&#39; 
+     888          `888""8P d88' `88b  `88. `88.  .8'  d88' `888  d88(  "8 `P  )88b   888  d88' `88b 
+     888           888     888   888   `88..]88..8'   888   888  `"Y88b.   .oP"888   888  888ooo888 
+   o 88b    ooo   888     888   888    `888'`888'    888   888  o.  )88b d8(  888   888  888    .o 
+   ``Y8bood8P'  d888b    `Y8bod8P'     `8'  `8'     `Y8bod88P" 8""888P' `Y888""8o o888o `Y8bod8P' 
    
  * @dev Simpler version of ERC20 interface
  * @dev see https://github.com/ethereum/EIPs/issues/179
@@ -59,7 +59,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         // uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return a / b;
     }
 
@@ -91,7 +91,7 @@ library SafeMath {
  * The external interface represents the basic interface for purchasing tokens, and conform
  * the base architecture for crowdsales. They are *not* intended to be modified / overriden.
  * The internal interface conforms the extensible and modifiable surface of crowdsales. Override
- * the methods to add functionality. Consider using &#39;super&#39; where appropiate to concatenate
+ * the methods to add functionality. Consider using 'super' where appropiate to concatenate
  * behavior.
  */
 contract Crowdsale {
@@ -289,7 +289,7 @@ contract Ownable {
 contract TestingtokenCrowdsale is Crowdsale, Ownable {
     using SafeMath for uint256;
 
-    // Map of all purchaiser&#39;s balances (doesn&#39;t include bounty amounts)
+    // Map of all purchaiser's balances (doesn't include bounty amounts)
     mapping(address => uint256) public balances;
 
     // Amount of issued tokens

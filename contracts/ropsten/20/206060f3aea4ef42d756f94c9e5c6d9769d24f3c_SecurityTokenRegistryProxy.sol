@@ -167,7 +167,7 @@ contract EternalStorage {
     /// @notice used to intialize the array
     /// Ex1- mapping (address => address[]) public reputation;
     /// reputation[0x1] = new address[](0); It can be replaced as
-    /// setArray(hash(&#39;reputation&#39;, 0x1), new address[](0)); 
+    /// setArray(hash('reputation', 0x1), new address[](0)); 
     
     function setArray(bytes32 _key, address[] _value) internal {
         addressArrayStorage[_key] = _value;
@@ -216,7 +216,7 @@ contract EternalStorage {
     /// @notice set the value of particular index of the address array
     /// Ex1- mapping(bytes32 => address[]) moduleList;
     /// general way is -- moduleList[moduleType][index] = temp; 
-    /// It can be re-write as -- setArrayIndexValue(keccak256(abi.encodePacked(&#39;moduleList&#39;, moduleType)), index, temp); 
+    /// It can be re-write as -- setArrayIndexValue(keccak256(abi.encodePacked('moduleList', moduleType)), index, temp); 
 
     function setArrayIndexValue(bytes32 _key, uint256 _index, address _value) internal {
         addressArrayStorage[_key][_index] = _value;
@@ -299,7 +299,7 @@ contract Proxy {
             calldatacopy(0, 0, calldatasize)
 
             // Call the implementation.
-            // out and outsize are 0 because we don&#39;t know the size yet.
+            // out and outsize are 0 because we don't know the size yet.
             let result := delegatecall(gas, implementation, 0, calldatasize, 0, 0)
 
             // Copy the returned data.
@@ -510,7 +510,7 @@ contract OwnedUpgradeabilityProxy is UpgradeabilityProxy {
 /**
  * @title SecurityTokenRegistryProxy
  * @dev This proxy holds the storage of the SecurityTokenRegistry contract and delegates every call to the current implementation set.
- * Besides, it allows to upgrade the SecurityTokenRegistry&#39;s behaviour towards further implementations, and provides basic
+ * Besides, it allows to upgrade the SecurityTokenRegistry's behaviour towards further implementations, and provides basic
  * authorization control functionalities
  */
 /*solium-disable-next-line no-empty-blocks*/

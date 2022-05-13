@@ -94,7 +94,7 @@ library SafeMath {
   function div(uint256 a, uint256 b) internal pure returns (uint256) {
     // assert(b > 0); // Solidity automatically throws when dividing by 0
     // uint256 c = a / b;
-    // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
     return a / b;
   }
 
@@ -215,7 +215,7 @@ contract StandardToken is ERC20, BasicToken {
    *
    * Beware that changing an allowance with this method brings the risk that someone may use both the old
    * and the new allowance by unfortunate transaction ordering. One possible solution to mitigate this
-   * race condition is to first reduce the spender&#39;s allowance to 0 and set the desired value afterwards:
+   * race condition is to first reduce the spender's allowance to 0 and set the desired value afterwards:
    * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
    * @param _spender The address which will spend the funds.
    * @param _value The amount of tokens to be spent.
@@ -357,7 +357,7 @@ contract EOSclassic is StandardToken, HasNoEther
     event LogRegister (address user, string key);
 
     // ************************************************************
-    // Constructor; mints all tokens, assigns founder&#39;s allocation
+    // Constructor; mints all tokens, assigns founder's allocation
     // ************************************************************
     constructor() public 
     {
@@ -368,10 +368,10 @@ contract EOSclassic is StandardToken, HasNoEther
         // Announce initial allocation
         emit Transfer(0x0, address(this), TOTAL_SUPPLY);
         
-        // Transfer founder&#39;s allocation
+        // Transfer founder's allocation
         balances[address(this)] = balances[address(this)].sub(foundersAllocation);
         balances[msg.sender] = balances[msg.sender].add(foundersAllocation);
-        // Announce founder&#39;s allocation
+        // Announce founder's allocation
         emit Transfer(address(this), msg.sender, foundersAllocation);
     }
 
@@ -439,7 +439,7 @@ contract EOSclassic is StandardToken, HasNoEther
 
     // Returns the latest EOS key registered.
     // EOS token holders that never registered their EOS public key 
-    // can do so using the &#39;register&#39; function in EOSclassic and then request restitution 
+    // can do so using the 'register' function in EOSclassic and then request restitution 
     // via the EOS mainnet arbitration process.
     // EOS holders that previously registered can update their keys here;
     // This contract could be used in future key snapshots for future EOS forks.
@@ -460,15 +460,15 @@ contract EOSclassic is StandardToken, HasNoEther
             // EOSclassic key was registered; return this over the original crowdsale address
             return _eosKey;
         } else {
-            // EOSclassic doesn&#39;t have an EOS public key registered; return any original crowdsale key
+            // EOSclassic doesn't have an EOS public key registered; return any original crowdsale key
             _eosKey = queryEOSCrowdsaleKey(_address);
             return _eosKey;
         }
     }
 
-    // EOSclassic developer&#39;s note: the registration function is identical
+    // EOSclassic developer's note: the registration function is identical
     // to the original EOS crowdsale registration function with only the
-    // freeze function removed, and &#39;emit&#39; added to the LogRegister event,
+    // freeze function removed, and 'emit' added to the LogRegister event,
     // per updated Solidity standards.
     //
     // Value should be a public key.  Read full key import policy.

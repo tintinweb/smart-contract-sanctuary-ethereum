@@ -320,7 +320,7 @@ contract Millionaire is MillionaireInterface,Milevents {
 
     /**
      * @dev external contracts interact with Millionare via investing MF Coin
-     * @param _addr player&#39;s address
+     * @param _addr player's address
      * @param _affID affiliate ID
      * @param _mfCoin eth amount to buy MF Coin
      * @param _general eth amount assign to general
@@ -562,7 +562,7 @@ contract Millionaire is MillionaireInterface,Milevents {
     }
 
     /**
-     * @dev If unfortunate the game has problem or has no winner at long time, we&#39;ll end the game and divide the pot equally among all MF users
+     * @dev If unfortunate the game has problem or has no winner at long time, we'll end the game and divide the pot equally among all MF users
      */
     function splitPot()
         external
@@ -657,7 +657,7 @@ contract Millionaire is MillionaireInterface,Milevents {
 //==============================================================================
 library Mildatasets {
 
-    // between `DRAWN&#39; and `ASSIGNED&#39;, someone need to claim winners.
+    // between `DRAWN' and `ASSIGNED', someone need to claim winners.
     enum RoundState {
         UNKNOWN,        // aim to differ from normal states
         STARTED,        // start current round
@@ -701,7 +701,7 @@ library Mildatasets {
         RoundState                      state;              // round state
         uint256                         drawCode;           // draw code
         uint256                         totalNum;           // total number
-        mapping (address => uint256)    winnerNum;          // winners&#39; number
+        mapping (address => uint256)    winnerNum;          // winners' number
         address[]                       winners;            // winners
     }
 
@@ -741,7 +741,7 @@ library SafeMath {
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         // assert(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn&#39;t hold
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 

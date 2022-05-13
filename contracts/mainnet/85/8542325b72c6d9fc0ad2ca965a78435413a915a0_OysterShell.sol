@@ -397,7 +397,7 @@ contract OysterShell {
         // Subtract from the targeted balance
         balances[_from] -= _value;
         
-        // Subtract from the sender&#39;s allowance
+        // Subtract from the sender's allowance
         allowance[_from][msg.sender] -= _value;
         
         // Update totalSupply

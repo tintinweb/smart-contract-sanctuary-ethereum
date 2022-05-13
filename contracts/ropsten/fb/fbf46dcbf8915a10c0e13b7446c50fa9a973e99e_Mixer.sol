@@ -34,10 +34,10 @@ contract Mixer {
 		// Ensure the user has deposited that much
 		require(amount <= balances[msg.sender]);
 		
-		// Subtract from that user&#39;s balance
+		// Subtract from that user's balance
 		balances[msg.sender] -= amount;
 		
-		// Pay the user&#39;s new address
+		// Pay the user's new address
 		if (!output.send(amount)) {
 			// Return the balance if it fails
 			balances[msg.sender] += amount;

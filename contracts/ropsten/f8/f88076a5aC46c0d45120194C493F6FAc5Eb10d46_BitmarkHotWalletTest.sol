@@ -134,7 +134,7 @@ contract BitmarkHotWalletTest is Authorizable, Pausable {
     mapping(address => mapping(uint256 => address)) internal ownedAssets;
 
     bytes4 internal constant Interface_ERC721TransferFrom = 0x23b872dd;
-    // bytes4(keccak256(&#39;transferFrom(address,address,uint256)&#39;))
+    // bytes4(keccak256('transferFrom(address,address,uint256)'))
 
     event ERC721TokenDeposit(address indexed tokenContract, uint256 indexed tokenId, address indexed to);
     event ERC721TokenWithdraw(address indexed tokenContract, uint256 indexed tokenId, address indexed to);

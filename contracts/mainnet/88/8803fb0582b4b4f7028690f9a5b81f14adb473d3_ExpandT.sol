@@ -2,9 +2,9 @@ pragma solidity ^0.4.11;
 
 contract ExpandT {
     /* Public variables of the token */
-    string public standard = &#39;ERC20&#39;;
-    string public name =  &#39;ExpandT&#39;;
-    string public symbol = &#39;ET&#39; ;
+    string public standard = 'ERC20';
+    string public name =  'ExpandT';
+    string public symbol = 'ET' ;
     uint8 public decimals = 8 ;
     uint256 public totalSupply = 1500000000000000;
 

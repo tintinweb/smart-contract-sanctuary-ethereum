@@ -70,7 +70,7 @@ contract ERC20Token {
 
 contract TokenI is ERC20Token, Controlled {
 
-    string public name;                //The Token&#39;s name: e.g. DigixDAO Tokens
+    string public name;                //The Token's name: e.g. DigixDAO Tokens
     uint8 public decimals;             //Number of decimals of the smallest unit
     string public symbol;              //An identifier: e.g. REP
 
