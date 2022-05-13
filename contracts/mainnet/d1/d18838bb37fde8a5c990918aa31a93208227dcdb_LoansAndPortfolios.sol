@@ -64,7 +64,7 @@ library SafeMath {
     return a % b;
   }
 }
-// by <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5b9b0b4bbb1a7bafba7b4a2bcb6af95b6babcbbb3b4b7a7bcbefbb6bab8">[email&#160;protected]</a>  for the consensys course
+// by <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d5b9b0b4bbb1a7bafba7b4a2bcb6af95b6babcbbb3b4b7a7bcbefbb6bab8>[email&#160;protected]</a>  for the consensys course
 
 
 /*

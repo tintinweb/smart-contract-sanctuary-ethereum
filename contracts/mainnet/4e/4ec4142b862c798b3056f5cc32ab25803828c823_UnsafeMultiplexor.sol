@@ -33,7 +33,7 @@ contract ERC20 {
 }
 
 /// @title Owned
-/// @author Adri&#224; Massanet <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="90f1f4e2f9f1d0f3fff4f5f3fffee4f5e8e4bef9ff">[email&#160;protected]</a>>
+/// @author Adri&#224; Massanet <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=90f1f4e2f9f1d0f3fff4f5f3fffee4f5e8e4bef9ff>[email&#160;protected]</a>>
 /// @notice The Owned contract has an owner address, and provides basic 
 ///  authorization control functions, this simplifies & the implementation of
 ///  user permissions; this contract has three work flows for a change in

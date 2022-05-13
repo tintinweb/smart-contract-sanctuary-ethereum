@@ -48,7 +48,7 @@ library SafeMath {
 
 /*
  * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aacbd8cbc9c2c4c3ceeac4c5decec5de84c4cfde">[email&#160;protected]</a>>
+ * @author Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aacbd8cbc9c2c4c3ceeac4c5decec5de84c4cfde>[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
  *      abstraction called a 'slice'. A slice represents a part of a string -

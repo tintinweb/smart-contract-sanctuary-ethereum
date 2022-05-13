@@ -2,7 +2,7 @@
 pragma solidity ^0.4.11;
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3054554455705148595f5d4a555e1e535f">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3054554455705148595f5d4a555e1e535f>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
     // Required methods
     function totalSupply() public view returns (uint256 total);
@@ -28,7 +28,7 @@ contract ERC721 {
 
 
 /// @title A facet of PixelCore that manages special access privileges.
-/// @author Oliver Schneider <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c7aea9a1a887b7aebfa2aba4a8aea9b4e9aea8">[email&#160;protected]</a>> (https://pixelcoins.io)
+/// @author Oliver Schneider <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c7aea9a1a887b7aebfa2aba4a8aea9b4e9aea8>[email&#160;protected]</a>> (https://pixelcoins.io)
 contract PixelAuthority {
 
     /// @dev Emited when contract is upgraded
@@ -54,7 +54,7 @@ contract PixelAuthority {
 
 
 /// @title Base contract for PixelCoins. Holds all common structs, events and base variables.
-/// @author Oliver Schneider <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="056c6b636a45756c7d6069666a6c6b762b6c6a">[email&#160;protected]</a>> (https://pixelcoins.io)
+/// @author Oliver Schneider <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=056c6b636a45756c7d6069666a6c6b762b6c6a>[email&#160;protected]</a>> (https://pixelcoins.io)
 /// @dev See the PixelCore contract documentation to understand how the various contract facets are arranged.
 contract PixelBase is PixelAuthority {
     /*** EVENTS ***/
@@ -114,7 +114,7 @@ contract PixelBase is PixelAuthority {
 
 
 /// @title The facet of the PixelCoins core contract that manages ownership, ERC-721 (draft) compliant.
-/// @author Oliver Schneider <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d7beb9b1b897a7beafb2bbb4b8beb9a4f9beb8">[email&#160;protected]</a>> (https://pixelcoins.io), based on Axiom Zen (https://www.axiomzen.co)
+/// @author Oliver Schneider <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d7beb9b1b897a7beafb2bbb4b8beb9a4f9beb8>[email&#160;protected]</a>> (https://pixelcoins.io), based on Axiom Zen (https://www.axiomzen.co)
 /// @dev Ref: https://github.com/ethereum/EIPs/issues/721
 ///  See the PixelCore contract documentation to understand how the various contract facets are arranged.
 contract PixelOwnership is PixelBase, ERC721 {
@@ -653,7 +653,7 @@ contract PixelAuction is PixelMinting {
 
 
 /// @title PixelCore: Pixels in the blockchain
-/// @author Oliver Schneider <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9bf2f5fdf4dbebf2e3fef7f8f4f2f5e8b5f2f4">[email&#160;protected]</a>> (https://pixelcoins.io), based on Axiom Zen (https://www.axiomzen.co)
+/// @author Oliver Schneider <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9bf2f5fdf4dbebf2e3fef7f8f4f2f5e8b5f2f4>[email&#160;protected]</a>> (https://pixelcoins.io), based on Axiom Zen (https://www.axiomzen.co)
 /// @dev The main PixelCoins contract
 contract PixelCore is PixelAuction {
 

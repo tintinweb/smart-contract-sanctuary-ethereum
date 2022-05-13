@@ -3,7 +3,7 @@ pragma solidity 0.4.15;
 // From https://github.com/ConsenSys/MultiSigWallet/blob/master/contracts/solidity/MultiSigWallet.sol @ e3240481928e9d2b57517bd192394172e31da487
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a4d7d0c1c2c5ca8ac3c1cbd6c3c1e4c7cbcad7c1cad7ddd78acac1d0">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a4d7d0c1c2c5ca8ac3c1cbd6c3c1e4c7cbcad7c1cad7ddd78acac1d0>[email&#160;protected]</a>>
 contract MultiSigWallet {
 
     uint constant public MAX_OWNER_COUNT = 50;

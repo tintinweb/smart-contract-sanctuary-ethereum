@@ -1214,7 +1214,7 @@ contract usingOraclize {
 // </ORACLIZE_API>
 /*
  * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4120332022292f2825012f2e35252e356f2f2435">[email&#160;protected]</a>>
+ * @author Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4120332022292f2825012f2e35252e356f2f2435>[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
  *      abstraction called a 'slice'. A slice represents a part of a string -

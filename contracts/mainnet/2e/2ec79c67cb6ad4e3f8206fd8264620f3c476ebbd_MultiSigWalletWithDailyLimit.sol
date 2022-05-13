@@ -42,7 +42,7 @@ contract Factory {
 }
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddaea9b8bbbcb3f3bab8b2afbab89dbeb2b3aeb8b3aea4aef3b3b8a9">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ddaea9b8bbbcb3f3bab8b2afbab89dbeb2b3aeb8b3aea4aef3b3b8a9>[email&#160;protected]</a>>
 contract MultiSigWallet {
 
     /*
@@ -432,7 +432,7 @@ contract MultiSigWallet {
 }
 
 /// @title Multisignature wallet with daily limit - Allows an owner to withdraw a daily limit without multisig.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9cefe8f9fafdf2b2fbf9f3eefbf9dcfff3f2eff9f2efe5efb2f2f9e8">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9cefe8f9fafdf2b2fbf9f3eefbf9dcfff3f2eff9f2efe5efb2f2f9e8>[email&#160;protected]</a>>
 contract MultiSigWalletWithDailyLimit is MultiSigWallet {
 
     /*

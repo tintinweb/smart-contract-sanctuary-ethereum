@@ -133,7 +133,7 @@ contract StandardToken is ERC20, SafeMath {
 }
 
 /// @title Niobium Token
-/// @author Fernando Mauro Barrueco~ FMB~ <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b0ded9dfd3dfd9def0d9d3dcdfc5d49ed3dfdd">[email&#160;protected]</a>>
+/// @author Fernando Mauro Barrueco~ FMB~ <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b0ded9dfd3dfd9def0d9d3dcdfc5d49ed3dfdd>[email&#160;protected]</a>>
 contract NiobiumToken is Ownable, StandardToken {
 
     string public name = " Niobium";          // name of the token

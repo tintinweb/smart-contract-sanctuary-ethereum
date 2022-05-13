@@ -4,7 +4,7 @@ pragma solidity ^0.4.21;
 // EtherGuy DApp fee will be stored here 
 // Buying any token gives right to claim 
 // UI: etherguy.surge.sh/dividend.html
-// Made by EtherGuy, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8de8f9e5e8ffeaf8f4cde0ece4e1a3eee2e0">[email&#160;protected]</a> 
+// Made by EtherGuy, <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8de8f9e5e8ffeaf8f4cde0ece4e1a3eee2e0>[email&#160;protected]</a> 
 
 // IF THERE IS ANY BUG the data will be rerolled from here. See the discord https://discord.gg/R84hD6f if anything happens or mail me 
 

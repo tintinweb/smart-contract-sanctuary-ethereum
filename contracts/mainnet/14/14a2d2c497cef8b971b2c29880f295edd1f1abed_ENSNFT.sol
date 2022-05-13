@@ -821,7 +821,7 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken, ERC721 {
 
 /*
  * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7d6c5d6d4dfd9ded3f7d9d8c3d3d8c399d9d2c3">[email&#160;protected]</a>>
+ * @author Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b7d6c5d6d4dfd9ded3f7d9d8c3d3d8c399d9d2c3>[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
  *      abstraction called a 'slice'. A slice represents a part of a string -

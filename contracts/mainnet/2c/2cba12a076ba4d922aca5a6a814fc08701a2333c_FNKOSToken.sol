@@ -2,7 +2,7 @@ pragma solidity	^0.4.18;
 //
 // FogLink OS Token
 // Author: FNK
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="41323431312e333501272e262d282f2a6f282e">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=41323431312e333501272e262d282f2a6f282e>[email&#160;protected]</a>
 // Telegram	community: https://t.me/fnkofficial
 //
 contract FNKOSToken {	

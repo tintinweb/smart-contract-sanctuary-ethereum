@@ -1,7 +1,7 @@
 /**
  * Copyright (C) Virtue Fintech FZ-LLC, Dubai
  * All rights reserved.
- * Author: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="25484d4c65534c575150400b434c4b444b4640">[email&#160;protected]</a> 
+ * Author: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=25484d4c65534c575150400b434c4b444b4640>[email&#160;protected]</a> 
  *
  * MIT License
  *

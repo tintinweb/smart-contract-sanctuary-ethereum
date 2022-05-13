@@ -1,7 +1,7 @@
 pragma solidity ^0.4.4;
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8af9feefecebe4a4edefe5f8edefcae9e5e4f9efe4f9f3f9a4e4effe">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8af9feefecebe4a4edefe5f8edefcae9e5e4f9efe4f9f3f9a4e4effe>[email&#160;protected]</a>>
 contract MultiSigWallet {
 
     uint constant public MAX_OWNER_COUNT = 50;
@@ -396,7 +396,7 @@ library SafeMath {
 
 /**
  * @title Multi signature wallet for presale of Starbase crowdsale
- * @author Starbase PTE. LTD. - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5acaba3aa85b6b1a4b7a7a4b6a0eba6aa">[email&#160;protected]</a>>
+ * @author Starbase PTE. LTD. - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c5acaba3aa85b6b1a4b7a7a4b6a0eba6aa>[email&#160;protected]</a>>
  */
 contract StarbasePresaleWallet is MultiSigWallet {
     /*

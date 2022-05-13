@@ -2,7 +2,7 @@ pragma solidity ^0.4.21;
 
 // ERC20 contract which has the dividend shares of Ethopolis in it 
 // The old contract had a bug in it, thanks to ccashwell for notifying.
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3451405c514653414d7459555d581a575b59">[email&#160;protected]</a> 
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3451405c514653414d7459555d581a575b59>[email&#160;protected]</a> 
 // ethopolis.io 
 // etherguy.surge.sh [if the .io site is up this might be outdated, one of those sites will be up-to-date]
 // Selling tokens (and buying them) will be online at etherguy.surge.sh/dividends.html and might be moved to the ethopolis site.

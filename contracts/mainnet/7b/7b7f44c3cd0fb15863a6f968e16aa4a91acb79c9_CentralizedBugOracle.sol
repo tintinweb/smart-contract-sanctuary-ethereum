@@ -13,13 +13,13 @@ contract Oracle {
 
 
 /// @title Proxied - indicates that a contract will be proxied. Also defines storage requirements for Proxy.
-/// @author Alan Lu - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="02636e636c42656c6d716b712c726f">[email&#160;protected]</a>>
+/// @author Alan Lu - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=02636e636c42656c6d716b712c726f>[email&#160;protected]</a>>
 contract Proxied {
     address public masterCopy;
 }
 
 /// @title Proxy - Generic proxy contract allows to execute all transactions applying the code of a master contract.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0271766764636c42656c6d716b712c726f">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0271766764636c42656c6d716b712c726f>[email&#160;protected]</a>>
 contract Proxy is Proxied {
     /// @dev Constructor function sets address of master copy contract.
     /// @param _masterCopy Master copy address.

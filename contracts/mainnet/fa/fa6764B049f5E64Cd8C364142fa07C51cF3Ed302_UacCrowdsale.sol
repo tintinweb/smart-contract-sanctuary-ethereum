@@ -457,7 +457,7 @@ contract ICOEngineInterface {
  * @dev Base crowdsale contract to be inherited by the UacCrowdsale and Reservation contracts.
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="254c4b434a655344494c414c515c494447560b4a5742">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=254c4b434a655344494c414c515c494447560b4a5742>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.19;
 
@@ -649,7 +649,7 @@ contract CrowdsaleBase is Pausable, CanReclaimToken, ICOEngineInterface, KYCBase
  * @title Reservation
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2e474048416e584f42474a475a57424f4c5d00415c49">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2e474048416e584f42474a475a57424f4c5d00415c49>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.19;
 
@@ -950,7 +950,7 @@ contract PausableToken is StandardToken, Pausable {
  * @title Ubiatar Coin token
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="71181f171e3107101d18151805081d1013025f1e0316">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=71181f171e3107101d18151805081d1013025f1e0316>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.19;
 
@@ -978,7 +978,7 @@ contract UacToken is CanReclaimToken, MintableToken, PausableToken {
  * @dev A token holder contract that allows the release of tokens to the UbiatarPlay Wallet.
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="eb82858d84ab9d8a87828f829f92878a8998c584998c">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=eb82858d84ab9d8a87828f829f92878a8998c584998c>[email&#160;protected]</a>>
  */
 
 pragma solidity ^0.4.19;
@@ -1077,7 +1077,7 @@ contract UbiatarPlayVault {
  * @dev A token holder contract that allows multiple beneficiaries to extract their tokens after a given release time.
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bbd2d5ddd4fbcddad7d2dfd2cfc2d7dad9c895d4c9dc">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bbd2d5ddd4fbcddad7d2dfd2cfc2d7dad9c895d4c9dc>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.17;
 
@@ -1208,7 +1208,7 @@ contract PresaleTokenVault {
  * @title UacCrowdsale
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0d64636b624d7b6c616469647974616c6f7e23627f6a">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0d64636b624d7b6c616469647974616c6f7e23627f6a>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.19;
 

@@ -143,7 +143,7 @@ library SafeERC20 {
 
 /**
  * @title VestTokenAllocation contract
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="096e7c7a7d687f666e7c6064687b686c7a496e64686065276a6664">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=096e7c7a7d687f666e7c6064687b686c7a496e64686065276a6664>[email&#160;protected]</a>>
  */
 contract VestTokenAllocation is Ownable {
     using SafeMath for uint256;

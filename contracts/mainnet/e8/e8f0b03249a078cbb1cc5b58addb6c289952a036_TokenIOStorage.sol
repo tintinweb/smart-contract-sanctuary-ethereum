@@ -96,7 +96,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 @title TokenIOStorage - Serves as derived contract for TokenIO contract and
 is used to upgrade interfaces in the event of deprecating the main contract.
 
-@author Ryan Tate <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89fbf0e8e7a7fde8fdecc9fde6e2ece7a7e0e6">[email&#160;protected]</a>>, Sean Pollock <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cebdabafa0e0bea1a2a2a1ada58ebaa1a5aba0e0a7a1">[email&#160;protected]</a>>
+@author Ryan Tate <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=89fbf0e8e7a7fde8fdecc9fde6e2ece7a7e0e6>[email&#160;protected]</a>>, Sean Pollock <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cebdabafa0e0bea1a2a2a1ada58ebaa1a5aba0e0a7a1>[email&#160;protected]</a>>
 
 @notice Storage contract
 

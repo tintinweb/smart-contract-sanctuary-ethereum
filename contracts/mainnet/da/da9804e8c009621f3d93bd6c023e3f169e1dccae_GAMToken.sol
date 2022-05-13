@@ -2,13 +2,13 @@ pragma solidity ^0.4.21;
 
 /*
  * Abstract Token Smart Contract.  Copyright &#169; 2017 by Grab A Meal.
- * Author: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8cbc7c6dcc9cbdce8cfdac9cac9c5cdc9c486dfc7dac4cc">[email&#160;protected]</a>
+ * Author: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a8cbc7c6dcc9cbdce8cfdac9cac9c5cdc9c486dfc7dac4cc>[email&#160;protected]</a>
  */
 
  
  /*
  * Safe Math Smart Contract.  Copyright &#169; 2017 by Grab A Meal.
- * Author: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fe9d91908a9f9d8abe998c9f9c9f939b9f92d089918c929a">[email&#160;protected]</a>
+ * Author: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fe9d91908a9f9d8abe998c9f9c9f939b9f92d089918c929a>[email&#160;protected]</a>
  * https://github.com/OpenZeppelin/zeppelin-solidity/blob/master/contracts/math/SafeMath.sol
  */
 

@@ -1,7 +1,7 @@
 pragma solidity ^0.4.15;
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86f5f2e3e0e7e8a8e1e3e9f4e1e3c6e5e9e8f5e3e8f5fff5a8e8e3f2">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=86f5f2e3e0e7e8a8e1e3e9f4e1e3c6e5e9e8f5e3e8f5fff5a8e8e3f2>[email&#160;protected]</a>>
 contract MultiSigWallet {
 
     /*
@@ -392,7 +392,7 @@ contract MultiSigWallet {
 
 
 /// @title Multisignature wallet with daily limit - Allows an owner to withdraw a daily limit without multisig.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4c7c0d1d2d5da9ad3d1dbc6d3d1f4d7dbdac7d1dac7cdc79adad1c0">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b4c7c0d1d2d5da9ad3d1dbc6d3d1f4d7dbdac7d1dac7cdc79adad1c0>[email&#160;protected]</a>>
 contract MultiSigWalletWithDailyLimit is MultiSigWallet {
 
     /*

@@ -322,7 +322,7 @@ contract BurnableToken is StandardToken {
 /* For order smart-contract please contact at Telegram: https://t.me/joinchat/Bft2vxACXWjuxw8jH15G6w */
 
 /* We develop inverstor's office for ICO, operator's dashboard for ICO, Token Air Drop  */
-/* <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f79e999198b7849a9685839498998385969483d98582">[email&#160;protected]</a> */
+/* <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f79e999198b7849a9685839498998385969483d98582>[email&#160;protected]</a> */
 
 contract Token is CappedToken, BurnableToken {
 

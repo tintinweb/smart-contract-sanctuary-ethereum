@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 // @notice TOKEN CONTRACT
 // @dev ERC-20 with ERC223 protection Token Standard Compliant
 // @author Geoffrey Tipton at AEN
-// creditTo Ethereum Commonwealth founder. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c0809140d1e0d022c091804091e0919010f000d1f1f050f42031e0b">[email&#160;protected]</a> for the 223 Standard
+// creditTo Ethereum Commonwealth founder. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6c0809140d1e0d022c091804091e0919010f000d1f1f050f42031e0b>[email&#160;protected]</a> for the 223 Standard
 
 // ----------------------------------------------------------------------------
 // 'AEN' token contract

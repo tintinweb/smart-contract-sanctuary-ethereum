@@ -1,7 +1,7 @@
 pragma solidity ^0.4.21;
 
 /// @title Multisignature wallet - Allows multiple parties to agree on send ERC20 token transactions before execution.
-/// @author Based on code by Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1a2a5b4b7b0bfffb6b4bea3b6b491b2bebfa2b4bfa2a8a2ffbfb4a5">[email&#160;protected]</a>>
+/// @author Based on code by Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d1a2a5b4b7b0bfffb6b4bea3b6b491b2bebfa2b4bfa2a8a2ffbfb4a5>[email&#160;protected]</a>>
 
 /*
  * ERC20 interface

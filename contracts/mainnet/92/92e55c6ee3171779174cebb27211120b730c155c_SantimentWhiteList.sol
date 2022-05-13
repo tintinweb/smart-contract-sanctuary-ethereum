@@ -26,7 +26,7 @@ pragma solidity ^0.4.11;
 //
 
 /// @author written by ethernian for Santiment Sagl
-/// @notice report bugs to: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9dffe8faeeddf8e9f5f8eff3f4fcf3b3fef2f0">[email&#160;protected]</a>
+/// @notice report bugs to: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9dffe8faeeddf8e9f5f8eff3f4fcf3b3fef2f0>[email&#160;protected]</a>
 /// @title Santiment WhiteList contract
 contract SantimentWhiteList {
 

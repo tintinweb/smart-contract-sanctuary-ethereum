@@ -574,7 +574,7 @@ contract CryptoControlToken is BurnableToken, PausableToken, CappedToken {
     string public name = "CryptoControl";
     string public symbol = "CCIO";
     uint8 public decimals = 8;
-    string public contactInformation = "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="33505c5d475250477350414a43475c505c5d47415c5f1d5a5c">[email&#160;protected]</a>";
+    string public contactInformation = "<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=33505c5d475250477350414a43475c505c5d47415c5f1d5a5c>[email&#160;protected]</a>";
 
 
     constructor () CappedToken(100000000000000000) {}

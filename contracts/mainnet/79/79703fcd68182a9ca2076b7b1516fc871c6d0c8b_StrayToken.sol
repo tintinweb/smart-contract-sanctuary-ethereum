@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f99d988f9cb9989296949b98d79a9694">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f99d988f9cb9989296949b98d79a9694>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 contract Ownable {
   address public owner;

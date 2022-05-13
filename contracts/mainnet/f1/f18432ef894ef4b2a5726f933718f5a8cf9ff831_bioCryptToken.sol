@@ -82,7 +82,7 @@ contract Ownable {
 
 /**
  * @title Contracts that should not own Ether
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83f1e6eee0ecc3b1">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=83f1e6eee0ecc3b1>[email&#160;protected]</a>π.com>
  * @dev This tries to block incoming ether to prevent accidental loss of Ether. Should Ether end up
  * in the contract, it will allow the owner to reclaim this ether.
  * @notice Ether can still be sent to this contract by:
@@ -275,7 +275,7 @@ contract CanReclaimToken is Ownable {
 
 /**
  * @title Contracts that should not own Tokens
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5b7a0a8a6aa85f7">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c5b7a0a8a6aa85f7>[email&#160;protected]</a>π.com>
  * @dev This blocks incoming ERC223 tokens to prevent accidental loss of tokens.
  * Should tokens (any ERC20Basic compatible) end up in the contract, it allows the
  * owner to reclaim the tokens.

@@ -283,8 +283,8 @@ contract StandardToken is BasicToken, ERC20 {
 
 
 /// @title - Tether Token Contract - Tether.to
-/// @author Enrico Rubboli - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cca9a2bea5afa38caea5b8aaa5a2a9b4e2afa3a1">[email&#160;protected]</a>>
-/// @author Will Harborne - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7e091712123e1b0a161817101b06501d1113">[email&#160;protected]</a>>
+/// @author Enrico Rubboli - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cca9a2bea5afa38caea5b8aaa5a2a9b4e2afa3a1>[email&#160;protected]</a>>
+/// @author Will Harborne - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7e091712123e1b0a161817101b06501d1113>[email&#160;protected]</a>>
 
 contract TetherToken is Pausable, StandardToken {
 

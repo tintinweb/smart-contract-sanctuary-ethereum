@@ -12,7 +12,7 @@
 */
 pragma solidity 0.4.21;
 /// @title Utility Functions for address
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d7bcb8b9b0bbbeb6b9b097bbb8b8a7a5beb9b0f9b8a5b0">[email&#160;protected]</a>>
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d7bcb8b9b0bbbeb6b9b097bbb8b8a7a5beb9b0f9b8a5b0>[email&#160;protected]</a>>
 library StringUtil {
     function stringToBytes12(string str)
         internal
@@ -55,7 +55,7 @@ library StringUtil {
   limitations under the License.
 */
 /// @title Utility Functions for address
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c8aca9a6a1ada488a4a7a7b8baa1a6afe6a7baaf">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c8aca9a6a1ada488a4a7a7b8baa1a6afe6a7baaf>[email&#160;protected]</a>>
 library AddressUtil {
     function isContract(address addr)
         internal
@@ -109,7 +109,7 @@ library AddressUtil {
 */
 /// @title ERC20 Token Interface
 /// @dev see https://github.com/ethereum/EIPs/issues/20
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c383d323539301c3033332c2e35323b72332e3b">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5c383d323539301c3033332c2e35323b72332e3b>[email&#160;protected]</a>>
 contract ERC20 {
     function balanceOf(address who) view public returns (uint256);
     function allowance(address owner, address spender) view public returns (uint256);
@@ -130,7 +130,7 @@ contract ERC20 {
   limitations under the License.
 */
 /// @title Utility Functions for uint
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="99fdf8f7f0fcf5d9f5f6f6e9ebf0f7feb7f6ebfe">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=99fdf8f7f0fcf5d9f5f6f6e9ebf0f7feb7f6ebfe>[email&#160;protected]</a>>
 library MathUint {
     function mul(uint a, uint b) internal pure returns (uint c) {
         c = a * b;
@@ -181,7 +181,7 @@ library MathUint {
 }
 /// @title ERC20 Token Implementation
 /// @dev see https://github.com/ethereum/EIPs/issues/20
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcd8ddd2d5d9d0fcd0d3d3ccced5d2db92d3cedb">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bcd8ddd2d5d9d0fcd0d3d3ccced5d2db92d3cedb>[email&#160;protected]</a>>
 contract ERC20Token is ERC20 {
     using MathUint for uint;
     string  public name;
@@ -450,8 +450,8 @@ contract Claimable is Ownable {
 }
 /// @title Token Register Contract
 /// @dev This contract maintains a list of tokens the Protocol supports.
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6ada9a8a1aaafa7a8a186aaa9a9b6b4afa8a1e8a9b4a1">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1f7b7e71767a735f7370706f6d76717831706d78">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c6ada9a8a1aaafa7a8a186aaa9a9b6b4afa8a1e8a9b4a1>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1f7b7e71767a735f7370706f6d76717831706d78>[email&#160;protected]</a>>.
 contract TokenRegistry is Claimable {
     using AddressUtil for address;
     address tokenMintAddr;
@@ -602,8 +602,8 @@ contract TokenRegistry is Claimable {
 /// @title ERC20 Token Mint
 /// @dev This contract deploys ERC20 token contract and registered the contract
 ///      so the token can be traded with Loopring Protocol.
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="761d1918111a1f171811361a191906041f181158190411">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef8b8e81868a83af8380809f9d868188c1809d88">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=761d1918111a1f171811361a191906041f181158190411>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ef8b8e81868a83af8380809f9d868188c1809d88>[email&#160;protected]</a>>.
 contract TokenFactory {
     using AddressUtil for address;
     using StringUtil for string;

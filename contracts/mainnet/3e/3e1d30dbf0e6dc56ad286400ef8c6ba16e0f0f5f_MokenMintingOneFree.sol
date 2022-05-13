@@ -1,7 +1,7 @@
 pragma solidity 0.4.24;
 pragma experimental "v0.5.0";
 /******************************************************************************\
-* Author: Nick Mudge, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="741a1d171f34191b1f111a075a1d1b">[email&#160;protected]</a>
+* Author: Nick Mudge, <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=741a1d171f34191b1f111a075a1d1b>[email&#160;protected]</a>
 * Mokens
 * Copyright (c) 2018
 *

@@ -240,7 +240,7 @@ pragma solidity ^0.4.11;
 
 /// @title Wanchain Token Contract
 /// For more information about this token sale, please visit https://wanchain.org
-/// @author Cathy - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="177476637f6e57607679747f767e7939786570">[email&#160;protected]</a>>
+/// @author Cathy - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=177476637f6e57607679747f767e7939786570>[email&#160;protected]</a>>
 contract WanToken is StandardToken {
     using SafeMath for uint;
 
@@ -368,7 +368,7 @@ pragma solidity ^0.4.11;
 /// @title Wanchain Contribution Contract
 /// ICO Rules according: https://www.wanchain.org/crowdsale
 /// For more information about this token sale, please visit https://wanchain.org
-/// @author Zane Liang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2f554e414a43464e41486f584e414c474e464101405d48">[email&#160;protected]</a>>
+/// @author Zane Liang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2f554e414a43464e41486f584e414c474e464101405d48>[email&#160;protected]</a>>
 contract WanchainContribution is Owned {
     using SafeMath for uint;
 

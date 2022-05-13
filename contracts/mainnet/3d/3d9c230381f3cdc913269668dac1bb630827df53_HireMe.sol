@@ -356,4 +356,4 @@ contract HireMe is Ownable {
 //-----END PGP SIGNATURE-----
 
 // AUTHOR:
-//Koh Wei Jie <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c3a0acadb7a2a0b783a8acabb4a6aaa9aaa6eda0acae">[email&#160;protected]</a>>
+//Koh Wei Jie <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c3a0acadb7a2a0b783a8acabb4a6aaa9aaa6eda0acae>[email&#160;protected]</a>>

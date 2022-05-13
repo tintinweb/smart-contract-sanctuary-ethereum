@@ -3,8 +3,8 @@
 /* 
 /* https://ether.online  The first RPG game of blockchain 
 /*  
-/* authors <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ed9f848e8685988399889fc39e858883ad8a808c8481c38e8280">[email&#160;protected]</a>   
-/*         <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="780b0b1d0b0d161c11161f381f15191114561b1715">[email&#160;protected]</a>            
+/* authors <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ed9f848e8685988399889fc39e858883ad8a808c8481c38e8280>[email&#160;protected]</a>   
+/*         <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=780b0b1d0b0d161c11161f381f15191114561b1715>[email&#160;protected]</a>            
 /* ==================================================================== */
 
 pragma solidity ^0.4.20;

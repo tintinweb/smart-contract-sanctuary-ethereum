@@ -6,7 +6,7 @@ pragma solidity ^0.4.21;
 // It is suggested you do withdraw once in a while. If someone still finds an attack after this fixed contrat 
 // they are unable the steal any of your withdrawn eth. Withdrawing does not sell your tokens!
 // UI: etherguy.surge.sh/dividend.html
-// Made by EtherGuy, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc8d9c5c8dfcad8d4edc0ccc4c183cec2c0">[email&#160;protected]</a> 
+// Made by EtherGuy, <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=adc8d9c5c8dfcad8d4edc0ccc4c183cec2c0>[email&#160;protected]</a> 
 // Version 2 of contract. Exploit(s) found by ccashwell in v1, thanks for reporting them!
 
 

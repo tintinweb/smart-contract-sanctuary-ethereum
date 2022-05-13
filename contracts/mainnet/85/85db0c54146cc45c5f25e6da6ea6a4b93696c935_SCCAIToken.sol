@@ -206,7 +206,7 @@ contract BasicERC20Token {
 
 /**
  * @title Source Code Chain AI Token.
- * @author Bertrand Huang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bfdddacdcbcdded1db91d7caded1d8ffccd0cacddcdadcdc91d6d0">[email&#160;protected]</a>>.
+ * @author Bertrand Huang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bfdddacdcbcdded1db91d7caded1d8ffccd0cacddcdadcdc91d6d0>[email&#160;protected]</a>>.
  */
 contract SCCAIToken is BasicERC20Token {
     using SafeMath for uint256;

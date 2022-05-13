@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 /*
 *   gibmireinbier
 *   0xA4a799086aE18D7db6C4b57f496B081b44888888
-*   <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b2c22292622392e222529222e390b2c262a222765282426">[email&#160;protected]</a>
+*   <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4b2c22292622392e222529222e390b2c262a222765282426>[email&#160;protected]</a>
 */
 
 interface WhitelistInterface {

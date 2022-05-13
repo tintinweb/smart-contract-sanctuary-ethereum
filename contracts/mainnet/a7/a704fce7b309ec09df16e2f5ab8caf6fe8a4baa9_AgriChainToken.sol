@@ -11,7 +11,7 @@ pragma solidity ^0.4.24;
 // Company          : AgriChain Pty Ltd (trading as BlockGrain)
 //                  : https://agrichain.com
 // Version          : 2.1 
-// Author           : Martin Halford <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d7e69725d7c7a6f747e757c7473337e7270">[email&#160;protected]</a>>
+// Author           : Martin Halford <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1d7e69725d7c7a6f747e757c7473337e7270>[email&#160;protected]</a>>
 // Published        : 15 Aug 2018
 //
 // ----------------------------------------------------------------------------

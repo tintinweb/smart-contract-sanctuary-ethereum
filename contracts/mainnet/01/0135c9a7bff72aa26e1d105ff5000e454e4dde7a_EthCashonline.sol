@@ -6,7 +6,7 @@ pragma solidity ^0.4.24;
 *~~~~~~~~~~~~~~~~~~~~~~~
 * Web: ethcash.online
 * Web mirrors: ethcash.global | ethcash.club
-* Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4f20212326212a0f2a3b272c2e3c276120212326212a">[email&#160;protected]</a>
+* Email: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4f20212326212a0f2a3b272c2e3c276120212326212a>[email&#160;protected]</a>
 * Telergam: ETHCash_Online
 *~~~~~~~~~~~~~~~~~~~~~~~
 *  - GAIN 3,50% PER 24 HOURS

@@ -155,7 +155,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 @title TokenIOStorage - Serves as derived contract for TokenIO contract and
 is used to upgrade interfaces in the event of deprecating the main contract.
 
-@author Ryan Tate <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5c7ccd4db9bc1d4c1d0f5c1daded0db9bdcda">[email&#160;protected]</a>>, Sean Pollock <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f685939798d886999a9a99959db682999d9398d89f99">[email&#160;protected]</a>>
+@author Ryan Tate <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b5c7ccd4db9bc1d4c1d0f5c1daded0db9bdcda>[email&#160;protected]</a>>, Sean Pollock <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f685939798d886999a9a99959db682999d9398d89f99>[email&#160;protected]</a>>
 
 @notice Storage contract
 
@@ -410,7 +410,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 @title TokenIOLib
 
-@author Ryan Tate <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5a28233b34742e3b2e3f1a2e35313f34743335">[email&#160;protected]</a>>, Sean Pollock <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0c7f696d62227c636060636f674c7863676962226563">[email&#160;protected]</a>>
+@author Ryan Tate <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5a28233b34742e3b2e3f1a2e35313f34743335>[email&#160;protected]</a>>, Sean Pollock <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0c7f696d62227c636060636f674c7863676962226563>[email&#160;protected]</a>>
 
 @notice This library proxies the TokenIOStorage contract for the interface contract,
 allowing the library and the interfaces to remain stateless, and share a universally
@@ -1748,7 +1748,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /**
 @title TokenIOAuthority - Authority Smart Contract for Token, Inc.
 
-@author Ryan Tate <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="64161d050a4a1005100124100b0f010a4a0d0b">[email&#160;protected]</a>>, Sean Pollock <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7e0d1b1f10500e111212111d153e0a11151b10501711">[email&#160;protected]</a>>
+@author Ryan Tate <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=64161d050a4a1005100124100b0f010a4a0d0b>[email&#160;protected]</a>>, Sean Pollock <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7e0d1b1f10500e111212111d153e0a11151b10501711>[email&#160;protected]</a>>
 
 @notice Contract uses generalized storage contract, `TokenIOStorage`, for
 upgradeability of interface contract.

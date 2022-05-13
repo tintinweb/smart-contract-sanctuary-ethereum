@@ -152,7 +152,7 @@ contract myUsingOraclize is Ownable {
  * @title InterCrypto
  * @dev The InterCrypto offers a no-commission service using Oraclize and ShapeShift
  * that allows for on-blockchain conversion from Ether to any other blockchain that ShapeShift supports.
- * @author Jack Tanner - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fe94908acfc8be979dd09f9dd08b95">[email&#160;protected]</a>>
+ * @author Jack Tanner - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fe94908acfc8be979dd09f9dd08b95>[email&#160;protected]</a>>
  */
 contract InterCrypto is Ownable, myUsingOraclize {
     // _______________VARIABLES_______________

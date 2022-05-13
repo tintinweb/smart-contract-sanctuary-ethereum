@@ -4,7 +4,7 @@ pragma solidity 0.4.21;
 * No Middle Man
 * Support the Israeli People Directly!
 * @dev ERC-20 Token Standar Compliant
-* @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ff99d19e918b90919690d19e949a93bf98929e9693d19c9092">[email&#160;protected]</a>
+* @author Fares A. Akel C. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ff99d19e918b90919690d19e949a93bf98929e9693d19c9092>[email&#160;protected]</a>
 */
 
 /**

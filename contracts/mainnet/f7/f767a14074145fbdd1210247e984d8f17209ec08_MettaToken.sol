@@ -3,7 +3,7 @@ pragma solidity ^0.4.25;
 /** For more info visit www.MettaCreative.world
  * 
  * Need a custom token for your own event? Interested in using smart contracts?
- * Contact the developer! Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a597c0cbdc9397959dce94c4c3e5cad5c4dcd48bc6cac8">[email&#160;protected]</a>
+ * Contact the developer! Email: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a597c0cbdc9397959dce94c4c3e5cad5c4dcd48bc6cac8>[email&#160;protected]</a>
  */
 
 /** The MIT License (MIT)

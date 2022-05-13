@@ -1,5 +1,5 @@
 // Human token smart contract.
-// Developed by Phenom.Team <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6dfd8d0d9f6c6ded3d8d9db98c2d3d7db">[email&#160;protected]</a>>
+// Developed by Phenom.Team <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b6dfd8d0d9f6c6ded3d8d9db98c2d3d7db>[email&#160;protected]</a>>
 pragma solidity ^0.4.21;
 
 

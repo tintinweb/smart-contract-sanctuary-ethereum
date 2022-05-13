@@ -505,7 +505,7 @@ contract Ownable {
 
 /**
  * @title Helps contracts guard against reentrancy attacks.
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7103141c121e3143">[email&#160;protected]</a>π.com>, Eenae <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="47262b223f223e072a2e3f253e332234692e28">[email&#160;protected]</a>>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7103141c121e3143>[email&#160;protected]</a>π.com>, Eenae <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=47262b223f223e072a2e3f253e332234692e28>[email&#160;protected]</a>>
  * @dev If you mark a function `nonReentrant`, you should also
  * mark it `external`.
  */

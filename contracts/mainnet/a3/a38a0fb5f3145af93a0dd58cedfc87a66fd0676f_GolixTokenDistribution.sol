@@ -385,7 +385,7 @@ contract PausableToken is StandardToken, Pausable {
 
 /**
  * @title Golix Token contract - ERC20 compatible token contract.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f79082848396819890829e9a9685969284b7909a969e9bd994989a">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f79082848396819890829e9a9685969284b7909a969e9bd994989a>[email&#160;protected]</a>>
  */
 contract GolixToken is PausableToken, MintableToken {
     string public constant name = "Golix Token";
@@ -433,7 +433,7 @@ library SafeERC20 {
 
 /**
  * @title VestTokenAllocation contract
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec8b999f988d9a838b9985818d9e8d899fac8b818d8580c28f8381">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ec8b999f988d9a838b9985818d9e8d899fac8b818d8580c28f8381>[email&#160;protected]</a>>
  */
 contract VestTokenAllocation is Ownable {
     using SafeMath for uint256;
@@ -709,7 +709,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
 /**
  * @title Golix token distribution contract - crowdsale contract for the Golix tokens.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9cfbe9efe8fdeaf3fbe9f5f1fdeefdf9efdcfbf1fdf5f0b2fff3f1">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9cfbe9efe8fdeaf3fbe9f5f1fdeefdf9efdcfbf1fdf5f0b2fff3f1>[email&#160;protected]</a>>
  */
 contract GolixTokenDistribution is FinalizableCrowdsale {
     uint256 constant public TOTAL_TOKENS_SUPPLY = 1274240097e18; // 1,274,240,097 tokens

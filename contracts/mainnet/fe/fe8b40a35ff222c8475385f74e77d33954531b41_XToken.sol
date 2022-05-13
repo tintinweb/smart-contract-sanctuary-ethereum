@@ -20,7 +20,7 @@ pragma solidity ^0.4.24;
 // TEAM X All Rights Received. http://teamx.club 
 // This product is protected under license.  Any unauthorized copy, modification, or use without 
 // express written consent from the creators is prohibited.
-// Any cooperation Please email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f5869087839c9690b5819094988ddb96998097">[email&#160;protected]</a>
+// Any cooperation Please email: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f5869087839c9690b5819094988ddb96998097>[email&#160;protected]</a>
 // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 contract Owned {

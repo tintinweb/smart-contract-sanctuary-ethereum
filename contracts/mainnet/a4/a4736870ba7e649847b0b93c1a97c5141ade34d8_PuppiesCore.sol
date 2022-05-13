@@ -45,7 +45,7 @@ contract Ownable {
 
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7d3d2c3d2f7d6cfded8dacdd2d999d4d8">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b7d3d2c3d2f7d6cfded8dacdd2d999d4d8>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
     // Required methods
     function totalSupply() public view returns (uint256 total);
@@ -691,7 +691,7 @@ contract PuppyOwnership is PuppyBase, ERC721 {
         }
     }
 
-    /// @dev Adapted from memcpy() by @arachnid (Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a5b485b595254535e7a54554e5e554e14545f4e">[email&#160;protected]</a>>)
+    /// @dev Adapted from memcpy() by @arachnid (Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3a5b485b595254535e7a54554e5e554e14545f4e>[email&#160;protected]</a>>)
     ///  This method is licenced under the Apache License.
     ///  Ref: https://github.com/Arachnid/solidity-stringutils/blob/2f6ca9accb48ae14c66f1437ec50ed19a0616f78/strings.sol
     function _memcpy(uint _dest, uint _src, uint _len) private view {
@@ -713,7 +713,7 @@ contract PuppyOwnership is PuppyBase, ERC721 {
         }
     }
 
-    /// @dev Adapted from toString(slice) by @arachnid (Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="37564556545f595e537759584353584319595243">[email&#160;protected]</a>>)
+    /// @dev Adapted from toString(slice) by @arachnid (Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=37564556545f595e537759584353584319595243>[email&#160;protected]</a>>)
     ///  This method is licenced under the Apache License.
     ///  Ref: https://github.com/Arachnid/solidity-stringutils/blob/2f6ca9accb48ae14c66f1437ec50ed19a0616f78/strings.sol
     function _toString(bytes32[4] _rawBytes, uint256 _stringLength) private view returns (string) {

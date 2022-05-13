@@ -1,7 +1,7 @@
 /**
  * Copyright (C) Siousada.io
  * All rights reserved.
- * Author: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="88e1e6eee7c8fbe1e7fdfbe9ece9a6e1e7">[email&#160;protected]</a>
+ * Author: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=88e1e6eee7c8fbe1e7fdfbe9ece9a6e1e7>[email&#160;protected]</a>
  *
  * MIT License
  *

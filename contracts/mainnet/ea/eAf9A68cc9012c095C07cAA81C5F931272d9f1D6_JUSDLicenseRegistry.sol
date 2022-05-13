@@ -1,4 +1,4 @@
-/* Author: Victor Mezrin  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5d3ccc6d1cad7e5c8c0dfd7cccb8bc6cac8">[email&#160;protected]</a> */
+/* Author: Victor Mezrin  <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a5d3ccc6d1cad7e5c8c0dfd7cccb8bc6cac8>[email&#160;protected]</a> */
 
 pragma solidity ^0.4.24;
 

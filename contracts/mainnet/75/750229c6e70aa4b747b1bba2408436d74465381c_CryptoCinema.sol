@@ -28,7 +28,7 @@ contract Ownable {
 }
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b0d4d5c4d5f0d1c8d9dfddcad5de9ed3df">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b0d4d5c4d5f0d1c8d9dfddcad5de9ed3df>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
   // Required methods
   function approve(address _to, uint256 _tokenId) public;

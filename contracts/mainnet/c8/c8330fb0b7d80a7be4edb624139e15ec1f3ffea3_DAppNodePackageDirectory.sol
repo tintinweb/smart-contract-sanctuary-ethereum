@@ -3,7 +3,7 @@ pragma solidity ^0.4.19;
 
 
 /// @title Owned
-/// @author Adri&#224; Massanet <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd9c998f949cbd9e9299989e929389988589d39492">[email&#160;protected]</a>>
+/// @author Adri&#224; Massanet <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fd9c998f949cbd9e9299989e929389988589d39492>[email&#160;protected]</a>>
 /// @notice The Owned contract has an owner address, and provides basic 
 ///  authorization control functions, this simplifies & the implementation of
 ///  user permissions; this contract has three work flows for a change in
@@ -118,7 +118,7 @@ contract ERC20 {
 pragma solidity ^0.4.19;
 /*
     Copyright 2016, Jordi Baylina
-    Contributor: Adri&#224; Massanet <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="670603150e06270408030204080913021f13490e08">[email&#160;protected]</a>>
+    Contributor: Adri&#224; Massanet <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=670603150e06270408030204080913021f13490e08>[email&#160;protected]</a>>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

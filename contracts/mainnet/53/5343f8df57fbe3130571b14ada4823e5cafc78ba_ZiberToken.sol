@@ -1,7 +1,7 @@
 pragma solidity ^0.4.13;
 
  /// @title Ownable contract - base contract with an owner
- /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2642435066554b475452454948525447455243474b0845494b">[email&#160;protected]</a>
+ /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2642435066554b475452454948525447455243474b0845494b>[email&#160;protected]</a>
 contract Ownable {
   address public owner;
 
@@ -22,7 +22,7 @@ contract Ownable {
 }
 
  /// @title ERC20 interface see https://github.com/ethereum/EIPs/issues/20
- /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec88899aac9f818d9e988f8382989e8d8f98898d81c28f8381">[email&#160;protected]</a>
+ /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ec88899aac9f818d9e988f8382989e8d8f98898d81c28f8381>[email&#160;protected]</a>
 contract ERC20 {
   uint public totalSupply;
   function balanceOf(address who) constant returns (uint);
@@ -36,7 +36,7 @@ contract ERC20 {
 }
 
  /// @title SafeMath contract - math operations with safety checks
- /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="acc8c9daecdfc1cdded8cfc3c2d8decdcfd8c9cdc182cfc3c1">[email&#160;protected]</a>
+ /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=acc8c9daecdfc1cdded8cfc3c2d8decdcfd8c9cdc182cfc3c1>[email&#160;protected]</a>
 contract SafeMath {
   function safeMul(uint a, uint b) internal returns (uint) {
     uint c = a * b;
@@ -84,7 +84,7 @@ contract SafeMath {
 }
 
 /// @title ZiberToken contract - standard ERC20 token with Short Hand Attack and approve() race condition mitigation.
-/// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="197d7c6f596a74786b6d7a76776d6b787a6d7c7874377a7674">[email&#160;protected]</a>
+/// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=197d7c6f596a74786b6d7a76776d6b787a6d7c7874377a7674>[email&#160;protected]</a>
 contract ZiberToken is SafeMath, ERC20, Ownable {
  string public name = "Ziber Token";
  string public symbol = "ZBR";

@@ -340,7 +340,7 @@ contract ICOEngineInterface {
  * @dev Base crowdsale contract to be inherited by the UacCrowdsale and Reservation contracts.
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92fbfcf4fdd2e4f3fefbf6fbe6ebfef3f0e1bcfde0f5">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=92fbfcf4fdd2e4f3fefbf6fbe6ebfef3f0e1bcfde0f5>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.19;
 
@@ -888,7 +888,7 @@ contract PausableToken is StandardToken, Pausable {
  * @title Ubiatar Coin token
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb2b5bdb49badbab7b2bfb2afa2b7bab9a8f5b4a9bc">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dbb2b5bdb49badbab7b2bfb2afa2b7bab9a8f5b4a9bc>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.19;
 
@@ -916,7 +916,7 @@ contract UacToken is CanReclaimToken, MintableToken, PausableToken {
  * @dev A token holder contract that allows the release of tokens to the UbiatarPlay Wallet.
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80e9eee6efc0f6e1ece9e4e9f4f9ece1e2f3aeeff2e7">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=80e9eee6efc0f6e1ece9e4e9f4f9ece1e2f3aeeff2e7>[email&#160;protected]</a>>
  */
 
 pragma solidity ^0.4.19;
@@ -1015,7 +1015,7 @@ contract UbiatarPlayVault {
  * @dev A token holder contract that allows multiple beneficiaries to extract their tokens after a given release time.
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83eaede5ecc3f5e2efeae7eaf7faefe2e1f0adecf1e4">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=83eaede5ecc3f5e2efeae7eaf7faefe2e1f0adecf1e4>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.17;
 
@@ -1146,7 +1146,7 @@ contract PresaleTokenVault {
  * @title UacCrowdsale
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="60090e060f2016010c09040914190c0102134e0f1207">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=60090e060f2016010c09040914190c0102134e0f1207>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.19;
 
@@ -1331,7 +1331,7 @@ contract UacCrowdsale is CrowdsaleBase {
  * @title Reservation
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9c0c7cfc6e9dfc8c5c0cdc0ddd0c5c8cbda87c6dbce">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a9c0c7cfc6e9dfc8c5c0cdc0ddd0c5c8cbda87c6dbce>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.19;
 

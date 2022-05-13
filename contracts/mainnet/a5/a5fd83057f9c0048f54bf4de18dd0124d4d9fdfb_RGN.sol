@@ -8,7 +8,7 @@ pragma solidity ^0.4.18;
 // Total supply: 100,000,000.000000000000000000
 // Decimals    : 18
 //
-// Contract Developed by Rana Islam <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5b3228373a36293a346b621b3c363a32377538343675">[email&#160;protected]</a>
+// Contract Developed by Rana Islam <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5b3228373a36293a346b621b3c363a32377538343675>[email&#160;protected]</a>
 //
 // (c) BokkyPooBah / Bok Consulting Pty Ltd 2017. The MIT Licence.
 // ----------------------------------------------------------------------------

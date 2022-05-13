@@ -5,7 +5,7 @@
 
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1063647576717e3e77757f62777550737f7e63757e6369633e7e7564">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1063647576717e3e77757f62777550737f7e63757e6369633e7e7564>[email&#160;protected]</a>>
 contract MultiSigWallet {
 
     uint constant public MAX_OWNER_COUNT = 50;

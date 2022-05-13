@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
 // MetaMorph
 // http://MetaMorph.pro
 // ERC20 Compliant Token
-// Contract developer: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7b1e161e091c12151c1e161e091c1e15181e3b1c161a121755181416">[email&#160;protected]</a>
+// Contract developer: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7b1e161e091c12151c1e161e091c1e15181e3b1c161a121755181416>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------
 
 

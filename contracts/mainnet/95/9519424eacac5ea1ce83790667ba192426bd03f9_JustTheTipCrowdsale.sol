@@ -9,7 +9,7 @@ pragma solidity ^0.4.15;
    `.```                 `````````````````.`.,:;;;;;;;;;;;;;;:
    .````..               ``````````````````````     ```;;``
       .                 ``` ###'```` #.`````````
-      ``                ```# ` # ``<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a18ae1">[email&#160;protected]</a>`@'```````..
+      ``                ```# ` # ``<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a18ae1>[email&#160;protected]</a>`@'```````..
        .               ```@````',`@ ```# ````````
          .             ````````@ ,+``` #````````..
           .`         `.``````````` ``` @```````````````..

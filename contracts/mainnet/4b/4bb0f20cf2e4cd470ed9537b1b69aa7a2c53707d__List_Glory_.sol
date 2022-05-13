@@ -16,7 +16,7 @@
 // A list element associated with _index can be claimed if 
 // gift_CanBeClaimed(_index) returns true. For inquiries
 // about receiving lines owned by info_ownerOfContract for free, 
-// email <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afe3c6dcdbfbe6e1eec2c0dbc3cad6efc8c2cec6c381ccc0c281">[email&#160;protected]</a> 
+// email <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=afe3c6dcdbfbe6e1eec2c0dbc3cad6efc8c2cec6c381ccc0c281>[email&#160;protected]</a> 
 
 // In general, the functions that begin with "gift_" are used for 
 // claiming, transferring, and creating script lines without cost beyond 

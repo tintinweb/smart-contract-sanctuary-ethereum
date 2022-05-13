@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 /**
     ERC20 Interface
-    @author DongOk Peter Ryu - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b242f22250b322c2c2f392a3823652224">[email&#160;protected]</a>>
+    @author DongOk Peter Ryu - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4b242f22250b322c2c2f392a3823652224>[email&#160;protected]</a>>
 */
 contract ERC20 {
     function totalSupply() public constant returns (uint supply);
@@ -18,7 +18,7 @@ contract ERC20 {
 
 /**
     LOCKABLE TOKEN
-    @author DongOk Peter Ryu - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="18777c717658617f7f7c6a796b70367177">[email&#160;protected]</a>>
+    @author DongOk Peter Ryu - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=18777c717658617f7f7c6a796b70367177>[email&#160;protected]</a>>
 */
 contract Lockable {
     uint public creationTime;
@@ -132,7 +132,7 @@ library SafeMath {
 
 /**
     YGGDRASH Token
-    @author DongOk Peter Ryu - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b747f72755b627c7c7f697a6873357274">[email&#160;protected]</a>>
+    @author DongOk Peter Ryu - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1b747f72755b627c7c7f697a6873357274>[email&#160;protected]</a>>
 */
 contract YeedToken is ERC20, Lockable {
     using SafeMath for uint;

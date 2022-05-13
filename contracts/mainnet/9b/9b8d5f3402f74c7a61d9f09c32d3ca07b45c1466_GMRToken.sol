@@ -310,7 +310,7 @@ contract MintableToken is StandardToken, Ownable {
 
 /**
 * @title Gimmer Token Smart Contract
-* @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92fee7f1f3e1d2f5fbfffff7e0bcfcf7e6">[email&#160;protected]</a>, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89e3e0fdece7edfbe8c9eae1e0fdfde6ede8a7eae6e4">[email&#160;protected]</a>
+* @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=92fee7f1f3e1d2f5fbfffff7e0bcfcf7e6>[email&#160;protected]</a>, <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=89e3e0fdece7edfbe8c9eae1e0fdfde6ede8a7eae6e4>[email&#160;protected]</a>
 */
 contract GMRToken is MintableToken {
     // Constants
@@ -422,7 +422,7 @@ contract Pausable is Ownable {
 
 /**
 * @title Gimmer Token Smart Contract
-* @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="18746d7b796b587f7175757d6a36767d6c">[email&#160;protected]</a>, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="62080b16070c06100322010a0b16160d06034c010d0f">[email&#160;protected]</a>
+* @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=18746d7b796b587f7175757d6a36767d6c>[email&#160;protected]</a>, <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=62080b16070c06100322010a0b16160d06034c010d0f>[email&#160;protected]</a>
 */
 contract GimmerToken is MintableToken {
     // Constants
@@ -484,7 +484,7 @@ contract GimmerToken is MintableToken {
 
 /**
 * @title Gimmer Token Sale Smart Contract
-* @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6dac3d5d7c5f6d1dfdbdbd3c498d8d3c2">[email&#160;protected]</a>, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5bfbca1b0bbb1a7b495b6bdbca1a1bab1b4fbb6bab8">[email&#160;protected]</a>
+* @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b6dac3d5d7c5f6d1dfdbdbd3c498d8d3c2>[email&#160;protected]</a>, <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d5bfbca1b0bbb1a7b495b6bdbca1a1bab1b4fbb6bab8>[email&#160;protected]</a>
 */
 contract GimmerTokenSale is Pausable {
     using SafeMath for uint256;
@@ -813,7 +813,7 @@ contract GimmerTokenSale is Pausable {
 
 /**
 * @title Gimmer Token Sale Manager Smart Contract
-* @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="335f4650524073545a5e5e56411d5d5647">[email&#160;protected]</a>, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="472d2e33222923352607242f2e33332823266924282a">[email&#160;protected]</a>
+* @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=335f4650524073545a5e5e56411d5d5647>[email&#160;protected]</a>, <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=472d2e33222923352607242f2e33332823266924282a>[email&#160;protected]</a>
 */
 contract GMRTokenManager is Ownable {
     using SafeMath for uint256;

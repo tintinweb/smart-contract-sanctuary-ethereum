@@ -2,7 +2,7 @@ pragma solidity ^0.4.11;
 
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd8e89989b9c93d39a98928f9a98bd9e92938e98938e848ed3939889">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fd8e89989b9c93d39a98928f9a98bd9e92938e98938e848ed3939889>[email&#160;protected]</a>>
 contract MultiSigWallet {
 
     uint constant public MAX_OWNER_COUNT = 50;

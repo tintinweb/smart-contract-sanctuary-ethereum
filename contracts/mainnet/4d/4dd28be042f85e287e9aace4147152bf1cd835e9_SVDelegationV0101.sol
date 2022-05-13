@@ -2,7 +2,7 @@ pragma solidity ^0.4.19;
 
 // DELEGATION SC v1.1
 // (c) SecureVote 2018
-// Author: Max Kaye <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5b363a231b283e382e293e752d342f3e">[email&#160;protected]</a>>
+// Author: Max Kaye <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5b363a231b283e382e293e752d342f3e>[email&#160;protected]</a>>
 // Released under MIT licence
 
 // the most up-to-date version of the contract lives at delegate.secvote.eth

@@ -14,7 +14,7 @@
 pragma solidity ^0.4.24;
 
 /// @title God Mode
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8eecfbfcf4ceecfbfcf4e0ebfdfaa0ede1e3">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8eecfbfcf4ceecfbfcf4e0ebfdfaa0ede1e3>[email&#160;protected]</a>>
 /// @dev This contract provides a basic interface for God
 ///  in a contract as well as the ability for God to pause
 ///  the contract
@@ -93,7 +93,7 @@ pragma solidity ^0.4.24;
 
 
 /// @title King of Eth: Resources Interface Referencer
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b3d1c6c1c9f3d1c6c1c9ddd6c0c79dd0dcde">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b3d1c6c1c9f3d1c6c1c9ddd6c0c79dd0dcde>[email&#160;protected]</a>>
 /// @dev Provides functionality to reference the resource interface contract
 contract KingOfEthResourcesInterfaceReferencer is GodMode {
     /// @dev The interface contract's address
@@ -148,7 +148,7 @@ contract ERC20Interface {
 }
 
 /// @title King of Eth: Resource
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="553720272f153720272f3b3026217b363a38">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=553720272f153720272f3b3026217b363a38>[email&#160;protected]</a>>
 /// @dev Common contract implementation for resources
 contract KingOfEthResource is
       ERC20Interface
@@ -396,7 +396,7 @@ pragma solidity ^0.4.24;
 
 
 /// @title King of Eth Resource: Uranium
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="680a1d1a12280a1d1a12060d1b1c460b0705">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=680a1d1a12280a1d1a12060d1b1c460b0705>[email&#160;protected]</a>>
 /// @dev ERC20 contract for the uranium resource
 contract KingOfEthResourceUranium is KingOfEthResource {
     /// @dev The ERC20 token name

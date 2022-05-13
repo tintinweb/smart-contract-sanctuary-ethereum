@@ -3,7 +3,7 @@ file:   AUDR.sol
 ver:    0.0.1_deploy
 author: OnRamp Technologies Pty Ltd
 date:   18-Sep-2018
-email:  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="394a4c4949564b4d7956574b585449174d5c5a51">[email&#160;protected]</a>
+email:  <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=394a4c4949564b4d7956574b585449174d5c5a51>[email&#160;protected]</a>
 
 Licence
 -------

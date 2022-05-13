@@ -12,7 +12,7 @@ pragma solidity ^0.4.19;
 /**
  * @title ERC20 Basic smart contract
  * @author Copyright (c) 2016 Smart Contract Solutions, Inc.
- * @author "Manuel Araoz <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f89599968d9d94998a999782b89f95999194d69b9795">[email&#160;protected]</a>>"
+ * @author "Manuel Araoz <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f89599968d9d94998a999782b89f95999194d69b9795>[email&#160;protected]</a>>"
  * @dev Simpler version of ERC20 interface
  * @dev see https://github.com/ethereum/EIPs/issues/179
  * @dev license: "MIT", source: https://github.com/OpenZeppelin/zeppelin-solidity
@@ -28,7 +28,7 @@ contract ERC20Basic {
 /**
  * @title Ownable smart contract
  * @author Copyright (c) 2016 Smart Contract Solutions, Inc.
- * @author "Manuel Araoz <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="91fcf0ffe4f4fdf0e3f0feebd1f6fcf0f8fdbff2fefc">[email&#160;protected]</a>>"
+ * @author "Manuel Araoz <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=91fcf0ffe4f4fdf0e3f0feebd1f6fcf0f8fdbff2fefc>[email&#160;protected]</a>>"
  * @dev license: "MIT", source: https://github.com/OpenZeppelin/zeppelin-solidity
  * @author modification: Dmitriy Khizhinskiy @McFly.aero
  * @dev The Ownable contract has an owner address, and provides basic authorization control
@@ -137,7 +137,7 @@ contract MultiOwners {
 /**
  * @title SafeMath
  * @author Copyright (c) 2016 Smart Contract Solutions, Inc.
- * @author "Manuel Araoz <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="660b070813030a071407091c26010b070f0a4805090b">[email&#160;protected]</a>>"
+ * @author "Manuel Araoz <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=660b070813030a071407091c26010b070f0a4805090b>[email&#160;protected]</a>>"
  * @dev license: "MIT", source: https://github.com/OpenZeppelin/zeppelin-solidity
  * @dev Math operations with safety checks that throw on error
  */
@@ -198,7 +198,7 @@ library SafeMath {
 /**
  * @title BasicToken smart contract
  * @author Copyright (c) 2016 Smart Contract Solutions, Inc.
- * @author "Manuel Araoz <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c0ada1aeb5a5aca1b2a1afba80a7ada1a9aceea3afad">[email&#160;protected]</a>>"
+ * @author "Manuel Araoz <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c0ada1aeb5a5aca1b2a1afba80a7ada1a9aceea3afad>[email&#160;protected]</a>>"
  * @dev license: "MIT", source: https://github.com/OpenZeppelin/zeppelin-solidity
  * @author modification: Dmitriy Khizhinskiy @McFly.aero
  */
@@ -258,7 +258,7 @@ contract BasicToken is ERC20Basic {
 /**
  * @title ERC20 smart contract
  * @author Copyright (c) 2016 Smart Contract Solutions, Inc.
- * @author "Manuel Araoz <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b3ded2ddc6d6dfd2c1d2dcc9f3d4ded2dadf9dd0dcde">[email&#160;protected]</a>>"
+ * @author "Manuel Araoz <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b3ded2ddc6d6dfd2c1d2dcc9f3d4ded2dadf9dd0dcde>[email&#160;protected]</a>>"
  * @dev license: "MIT", source: https://github.com/OpenZeppelin/zeppelin-solidity
  * @author modification: Dmitriy Khizhinskiy @McFly.aero
  */
@@ -280,7 +280,7 @@ contract ERC20 is ERC20Basic {
 /**
  * @title Standard ERC20 token
  * @author Copyright (c) 2016 Smart Contract Solutions, Inc.
- * @author "Manuel Araoz <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d7bab6b9a2b2bbb6a5b6b8ad97b0bab6bebbf9b4b8ba">[email&#160;protected]</a>>"
+ * @author "Manuel Araoz <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d7bab6b9a2b2bbb6a5b6b8ad97b0bab6bebbf9b4b8ba>[email&#160;protected]</a>>"
  * @dev license: "MIT", source: https://github.com/OpenZeppelin/zeppelin-solidity
  * @author modification: Dmitriy Khizhinskiy @McFly.aero
  * @dev Implementation of the basic standard token.
@@ -380,7 +380,7 @@ contract StandardToken is ERC20, BasicToken {
 /**
  * @title Mintable token smart contract
  * @author Copyright (c) 2016 Smart Contract Solutions, Inc.
- * @author "Manuel Araoz <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5538343b2030393427343a2f153238343c397b363a38">[email&#160;protected]</a>>"
+ * @author "Manuel Araoz <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5538343b2030393427343a2f153238343c397b363a38>[email&#160;protected]</a>>"
  * @dev license: "MIT", source: https://github.com/OpenZeppelin/zeppelin-solidity
  * @author modification: Dmitriy Khizhinskiy @McFly.aero
  * @dev Simple ERC20 Token example, with mintable token creation

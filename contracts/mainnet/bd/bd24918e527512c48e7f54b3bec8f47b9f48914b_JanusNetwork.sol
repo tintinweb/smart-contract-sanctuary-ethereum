@@ -1,6 +1,6 @@
 // &#169; Janus. 2018 All Rights Reserved
 // https://janusnetwork.info
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="771e191118371d161902041912030018051c591e191118">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=771e191118371d161902041912030018051c591e191118>[email&#160;protected]</a>
 
 pragma solidity ^0.4.18;
 

@@ -609,7 +609,7 @@ contract TimedCrowdsale is Crowdsale {
 /**
  * @title MilestoneCrowdsale
  * @dev Crowdsale with multiple milestones separated by time and cap
- * @author Nikola Wyatt <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="66080f0d090a0748111f07121226000909020807120f0908480f09">[email&#160;protected]</a>>
+ * @author Nikola Wyatt <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=66080f0d090a0748111f07121226000909020807120f0908480f09>[email&#160;protected]</a>>
  */
 contract MilestoneCrowdsale is TimedCrowdsale {
     using SafeMath for uint256;

@@ -51,7 +51,7 @@ library SafeMath {
 }
 
 /// @title Role based access control mixin for MUST Platform
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f1e131a0d51051e120f161313103f18121e1613511c1012">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7f1e131a0d51051e120f161313103f18121e1613511c1012>[email&#160;protected]</a>>
 /// @dev Ignore DRY approach to achieve readability
 contract RBACMixin {
   /// @notice Constant string message to throw on lack of access
@@ -174,7 +174,7 @@ interface IMintableToken {
 
 
 /// @title Very simplified implementation of Token Bucket Algorithm to secure token minting
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aecfc2cbdc80d4cfc3dec7c2c2c1eec9c3cfc7c280cdc1c3">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aecfc2cbdc80d4cfc3dec7c2c2c1eec9c3cfc7c280cdc1c3>[email&#160;protected]</a>>
 /// @notice Works with tokens implemented Mintable interface
 /// @dev Transfer ownership/minting role to contract and execute mint over TokenBucket proxy to secure
 contract TokenBucket is RBACMixin, IMintableToken {

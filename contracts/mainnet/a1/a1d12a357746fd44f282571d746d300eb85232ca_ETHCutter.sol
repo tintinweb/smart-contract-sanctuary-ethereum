@@ -10,7 +10,7 @@ pragma solidity ^0.4.24;
  *  1. Set an address of you upline in DATA field (if exists), and send 0.1-100 ETH to contract address. Gas limit: 300000.
  *  2. Send 0 or not more than 0.1 ETH and get your profit. You can get profit at any time (every minute, every hour, every day).
  *
- * EMAIL: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0e6b7a666d7b7a7a6b7c4e69636f6762206d6163">[email&#160;protected]</a>
+ * EMAIL: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0e6b7a666d7b7a7a6b7c4e69636f6762206d6163>[email&#160;protected]</a>
  * TELEGRAM SUPPORT 24/7: https://t.me/ethcutter_support or tg://resolve?domain=ethcutter_support
  * TELEGRAM CHAT (RU): https://t.me/ethcutter_ru or tg://resolve?domain=ethcutter_ru
  * TELEGRAM CHAT (EN): https://t.me/ethcutter_en or tg://resolve?domain=ethcutter_en

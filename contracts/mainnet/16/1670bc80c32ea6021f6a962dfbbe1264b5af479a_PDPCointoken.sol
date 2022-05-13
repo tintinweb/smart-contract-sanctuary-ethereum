@@ -96,7 +96,7 @@ contract Token {
 
 /*
  * Safe Math Smart Contract.  Copyright &#169; 2016–2017 by ABDK Consulting.
- * Author: Mikhail Vladimirov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="503d393b3831393c7e263c3134393d39223f2610373d31393c7e333f3d">[email&#160;protected]</a>>
+ * Author: Mikhail Vladimirov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=503d393b3831393c7e263c3134393d39223f2610373d31393c7e333f3d>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.16;
 

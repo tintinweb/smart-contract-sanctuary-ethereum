@@ -1,7 +1,7 @@
 //sol Wallet
 // Multi-sig, daily-limited account proxy/wallet.
 // @authors:
-// Gav Wood <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="52351237263a3637247c313d3f">[email&#160;protected]</a>>
+// Gav Wood <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=52351237263a3637247c313d3f>[email&#160;protected]</a>>
 // inheritable "property" contract that enables methods to be protected by requiring the acquiescence of either a
 // single, or, crucially, each of a number of, designated owners.
 // usage:

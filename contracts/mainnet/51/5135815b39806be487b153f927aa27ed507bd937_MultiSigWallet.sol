@@ -2,7 +2,7 @@ pragma solidity ^0.4.23;
 
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3546415053545b1b52505a47525075565a5b46505b464c461b5b5041">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3546415053545b1b52505a47525075565a5b46505b464c461b5b5041>[email&#160;protected]</a>>
 /// modified by Juwita Winadwiastuti - <juwita.winadwiastuti[at]hara.ag>
 contract MultiSigWallet {
 

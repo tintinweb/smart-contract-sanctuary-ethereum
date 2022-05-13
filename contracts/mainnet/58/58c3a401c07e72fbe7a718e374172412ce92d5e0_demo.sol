@@ -35,7 +35,7 @@ pragma solidity ^0.4.25;
 * 2.在右上角搜索窗口输入我们的合约地址就可以看到我们的每次分享链
 * 3.点击Contract Creation（合同）
 * 4.点击code   
-* 联系邮箱：<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="284e4a11184c5e461a1b1f68585a475c474645494144064b4745">[email&#160;protected]</a>
+* 联系邮箱：<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=284e4a11184c5e461a1b1f68585a475c474645494144064b4745>[email&#160;protected]</a>
 */
 
 contract demo{

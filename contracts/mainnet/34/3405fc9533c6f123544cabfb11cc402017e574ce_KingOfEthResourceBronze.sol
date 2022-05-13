@@ -14,7 +14,7 @@
 pragma solidity ^0.4.24;
 
 /// @title God Mode
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a485f58506a485f5850444f595e04494547">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2a485f58506a485f5850444f595e04494547>[email&#160;protected]</a>>
 /// @dev This contract provides a basic interface for God
 ///  in a contract as well as the ability for God to pause
 ///  the contract
@@ -93,7 +93,7 @@ pragma solidity ^0.4.24;
 
 
 /// @title King of Eth: Resources Interface Referencer
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="036176717943617671796d6670772d606c6e">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=036176717943617671796d6670772d606c6e>[email&#160;protected]</a>>
 /// @dev Provides functionality to reference the resource interface contract
 contract KingOfEthResourcesInterfaceReferencer is GodMode {
     /// @dev The interface contract's address
@@ -148,7 +148,7 @@ contract ERC20Interface {
 }
 
 /// @title King of Eth: Resource
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b495e59516b495e5951454e585f05484446">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2b495e59516b495e5951454e585f05484446>[email&#160;protected]</a>>
 /// @dev Common contract implementation for resources
 contract KingOfEthResource is
       ERC20Interface
@@ -396,7 +396,7 @@ pragma solidity ^0.4.24;
 
 
 /// @title King of Eth Resource: Bronze
-/// @author Anthony Burzillo <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="593b2c2b23193b2c2b23373c2a2d773a3634">[email&#160;protected]</a>>
+/// @author Anthony Burzillo <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=593b2c2b23193b2c2b23373c2a2d773a3634>[email&#160;protected]</a>>
 /// @dev ERC20 contract for the bronze resource
 contract KingOfEthResourceBronze is KingOfEthResource {
     /// @dev The ERC20 token name

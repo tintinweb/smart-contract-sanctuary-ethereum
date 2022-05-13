@@ -19,7 +19,7 @@
 pragma solidity 0.4.10;
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c8bbbcadaea9a6e6afada7baafad88aba7a6bbada6bbb1bbe6a6adbc">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c8bbbcadaea9a6e6afada7baafad88aba7a6bbada6bbb1bbe6a6adbc>[email&#160;protected]</a>>
 contract MultiSigWallet {
 
     uint constant public MAX_OWNER_COUNT = 50;
@@ -383,7 +383,7 @@ contract MultiSigWallet {
 }
 
 /// @title Multisignature wallet with time lock- Allows multiple parties to execute a transaction after a time lock has passed.
-/// @author Amir Bandeali - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd9c90948fbdcd85ad8f9297989e89d39e9290">[email&#160;protected]</a>>
+/// @author Amir Bandeali - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fd9c90948fbdcd85ad8f9297989e89d39e9290>[email&#160;protected]</a>>
 contract MultiSigWalletWithTimeLock is MultiSigWallet {
 
     event ConfirmationTimeSet(uint indexed transactionId, uint confirmationTime);

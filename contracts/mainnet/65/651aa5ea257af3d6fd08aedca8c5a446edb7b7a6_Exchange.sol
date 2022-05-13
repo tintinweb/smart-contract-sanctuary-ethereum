@@ -62,7 +62,7 @@ interface Token {
 
 //solhint-disable-next-line
 /// @title TokenTransferProxy - Transfers tokens on behalf of exchange
-/// @author Ahmed Ali <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86c7eeebe3e2c6e4eff2e0efe8e3fea8e5e9eb">[email&#160;protected]</a>>
+/// @author Ahmed Ali <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=86c7eeebe3e2c6e4eff2e0efe8e3fea8e5e9eb>[email&#160;protected]</a>>
 contract TokenTransferProxy {
 
     modifier onlyExchange {
@@ -182,8 +182,8 @@ contract SafeMath {
 
 
 /// @title Exchange - Facilitates exchange of ERC20 tokens.
-/// @author Amir Bandeali - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6504080c1725551d35170a0f0006114b060a08">[email&#160;protected]</a>>, Will Warren - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6a1bfbaba96e6ae86a4b9bcb3b5a2f8b5b9bb">[email&#160;protected]</a>>
-// Modified by Ahmed Ali <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="85c4ede8e0e1c5e7ecf1e3ecebe0fdabe6eae8">[email&#160;protected]</a>>
+/// @author Amir Bandeali - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6504080c1725551d35170a0f0006114b060a08>[email&#160;protected]</a>>, Will Warren - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d6a1bfbaba96e6ae86a4b9bcb3b5a2f8b5b9bb>[email&#160;protected]</a>>
+// Modified by Ahmed Ali <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=85c4ede8e0e1c5e7ecf1e3ecebe0fdabe6eae8>[email&#160;protected]</a>>
 contract Exchange is SafeMath {
 
     // Error Codes

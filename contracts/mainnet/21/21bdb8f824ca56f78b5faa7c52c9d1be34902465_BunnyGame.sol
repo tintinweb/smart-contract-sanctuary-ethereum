@@ -19,7 +19,7 @@ pragma solidity ^0.4.23;
 * Author:  Konstantin G...
 * Telegram: @bunnygame
 * 
-* email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dcb5b2bab39cbea9b2b2a5bfb3b5b2f2bfb3">[email&#160;protected]</a>
+* email: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dcb5b2bab39cbea9b2b2a5bfb3b5b2f2bfb3>[email&#160;protected]</a>
 * site : http://bunnycoin.co
 * @title Ownable
 * @dev The Ownable contract has an owner address, and provides basic authorization control
@@ -259,7 +259,7 @@ contract BaseRabbit  is Ownable {
 
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="90f4f5e4f5d0f1e8f9fffdeaf5febef3ff">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=90f4f5e4f5d0f1e8f9fffdeaf5febef3ff>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
     // Required methods 
  

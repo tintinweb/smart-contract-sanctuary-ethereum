@@ -8,7 +8,7 @@ Matching pledges of this kind are quite common (companies may pledge to match al
 
 Note that as Ethereum is still relatively new at this stage, not many charities have an Ethereum address to take donations yet, though it's our hope that more will come. The main charity with an Ethereum donation address at this time is Heifer International, whose Ethereum address is 0xb30cb3b3E03A508Db2A0a3e07BA1297b47bb0fb1 (see https://www.heifer.org/what-you-can-do/give/digital-currency.html)
 
-Visit EthPledge.com to play with this smart contract. Reach out: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e1828e8f95808295a1a49589b18d84858684cf828e8c">[email&#160;protected]</a>
+Visit EthPledge.com to play with this smart contract. Reach out: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e1828e8f95808295a1a49589b18d84858684cf828e8c>[email&#160;protected]</a>
 
 */
 

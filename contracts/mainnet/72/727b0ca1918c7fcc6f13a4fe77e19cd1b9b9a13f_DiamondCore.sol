@@ -66,7 +66,7 @@ library SafeMath {
     
     
     /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-    /// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="046061706144657c6d6b697e616a2a676b">[email&#160;protected]</a>> (https://github.com/dete)
+    /// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=046061706144657c6d6b697e616a2a676b>[email&#160;protected]</a>> (https://github.com/dete)
     contract ERC721 {
     function totalSupply() external view returns (uint256 total);
     function balanceOf(address _owner) external view returns (uint256 balance);

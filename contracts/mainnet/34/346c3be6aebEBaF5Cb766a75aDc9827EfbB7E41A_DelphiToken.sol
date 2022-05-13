@@ -110,7 +110,7 @@ contract StandardToken is Token {
 
 
 /// @title DelphiToken contract
-/// @author Christopher Grant - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="16757e647f656279667e73645672737a667e7f387b77647d736265">[email&#160;protected]</a>>
+/// @author Christopher Grant - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=16757e647f656279667e73645672737a667e7f387b77647d736265>[email&#160;protected]</a>>
 contract DelphiToken is StandardToken {
 
     /*

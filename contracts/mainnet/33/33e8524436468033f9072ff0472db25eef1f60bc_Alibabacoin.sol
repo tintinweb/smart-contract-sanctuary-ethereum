@@ -14,9 +14,9 @@ pragma solidity ^0.4.24;
 //
 // (c) ALIBABACOIN Foundation 
 //
-// <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5a292f2a2a35282e1a3b3633383b383b393533343c352f343e3b2e33353474393537">[email&#160;protected]</a>
-// <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7506141910063514191c17141714161a1c1b131a001b1114011c1a1b5b161a18">[email&#160;protected]</a> 
-// <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ee87808881ae8f82878c8f8c8f8d81878088819b808a8f9a878180c08d8183">[email&#160;protected]</a>
+// <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5a292f2a2a35282e1a3b3633383b383b393533343c352f343e3b2e33353474393537>[email&#160;protected]</a>
+// <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7506141910063514191c17141714161a1c1b131a001b1114011c1a1b5b161a18>[email&#160;protected]</a> 
+// <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ee87808881ae8f82878c8f8c8f8d81878088819b808a8f9a878180c08d8183>[email&#160;protected]</a>
 //
 // ----------------------------------------------------------------------------
 

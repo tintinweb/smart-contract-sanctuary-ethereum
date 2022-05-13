@@ -375,7 +375,7 @@ contract StandardToken is ERC20, BasicToken {
 }
 /**
  * @title Helps contracts guard agains rentrancy attacks.
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bbc9ded6d8d4fb89">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bbc9ded6d8d4fb89>[email&#160;protected]</a>π.com>
  * @notice If you mark a function `nonReentrant`, you should also
  * mark it `external`.
  */

@@ -455,7 +455,7 @@ contract SatisfactionToken is ERC20, CheckpointStorage, NoOwner {
    *
    * @dev approve should be called when allowed[_spender] == 0. To increment
    * @dev allowed value is better to use this function to avoid 2 calls (and wait until
-   * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="136753777665">[email&#160;protected]</a> he first transaction is mined)
+   * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=136753777665>[email&#160;protected]</a> he first transaction is mined)
    * @dev From MonolithDAO Token.sol
    *
    * @param _spender The address which will spend the funds.

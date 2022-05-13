@@ -1,6 +1,6 @@
 pragma solidity 0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3b7b2a5b693b2b8bcbeb1b2fdb0bcbe">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d3b7b2a5b693b2b8bcbeb1b2fdb0bcbe>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 contract ERC20Basic {
   function totalSupply() public view returns (uint256);

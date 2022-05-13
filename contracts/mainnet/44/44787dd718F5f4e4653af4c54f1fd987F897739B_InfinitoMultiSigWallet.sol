@@ -12,7 +12,7 @@ pragma solidity ^0.5.0;
 
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9be8effefdfaf5b5fcfef4e9fcfedbf8f4f5e8fef5e8e2e8b5f5feef">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9be8effefdfaf5b5fcfef4e9fcfedbf8f4f5e8fef5e8e2e8b5f5feef>[email&#160;protected]</a>>
 contract InfinitoMultiSigWallet {
 
     /*

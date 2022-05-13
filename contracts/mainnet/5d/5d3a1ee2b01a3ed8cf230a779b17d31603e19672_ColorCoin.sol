@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4a0a5b2a184a5afaba9a6a5eaa7aba9">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c4a0a5b2a184a5afaba9a6a5eaa7aba9>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 // input  /Users/chae/dev/colorcoin/coin-ver2/color-erc20.sol
 // flattened :  Thursday, 10-Jan-19 03:27:25 UTC

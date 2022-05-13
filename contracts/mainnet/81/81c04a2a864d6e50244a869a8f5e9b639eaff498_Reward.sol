@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 /*
 *   gibmireinbier
 *   0xA4a799086aE18D7db6C4b57f496B081b44888888
-*   <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9cfbf5fef1f5eef9f5f2fef5f9eedcfbf1fdf5f0b2fff3f1">[email&#160;protected]</a>
+*   <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9cfbf5fef1f5eef9f5f2fef5f9eedcfbf1fdf5f0b2fff3f1>[email&#160;protected]</a>
 */
 
 library SafeMath {

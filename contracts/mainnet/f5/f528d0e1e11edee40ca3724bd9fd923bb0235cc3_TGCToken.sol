@@ -191,7 +191,7 @@ contract StandardToken is BasicToken, ERC20 {
 
 /// @title TGC Protocol Token.
 /// For more information about this token sale, please visit http://mijunyun.com
-/// @author lengfeng - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9df1f8f3fafbf8f3faddf0f4f7e8f3e4e8f3b3fef2f0">[email&#160;protected]</a>>, tianlong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="780c1119161417161f381511120d16010d16561b1715">[email&#160;protected]</a>>.
+/// @author lengfeng - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9df1f8f3fafbf8f3faddf0f4f7e8f3e4e8f3b3fef2f0>[email&#160;protected]</a>>, tianlong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=780c1119161417161f381511120d16010d16561b1715>[email&#160;protected]</a>>.
 contract TGCToken is StandardToken {
     string public constant NAME = "Tigercoin";
     string public constant SYMBOL = "TGC";

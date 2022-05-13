@@ -559,7 +559,7 @@ contract PausableToken is StandardToken, Pausable {
  * @title MFT token
  *
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="365f5850597640575a5f525f424f5a57544518594451">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=365f5850597640575a5f525f424f5a57544518594451>[email&#160;protected]</a>>
  */
 pragma solidity 0.4.24;
 

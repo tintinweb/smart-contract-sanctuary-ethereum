@@ -1,6 +1,6 @@
 // &#169; atomux.net. 2018 All Rights Reserved
 // https://atomux.net
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="254c4b434a6544514a48505d0b4b4051">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=254c4b434a6544514a48505d0b4b4051>[email&#160;protected]</a>
 // twitter.com/atomuxnet
 // By Atomux DEV.
 // Token: AtomUX(AUX)

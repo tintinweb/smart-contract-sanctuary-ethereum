@@ -8,7 +8,7 @@ pragma solidity ^0.4.18;
 // Total supply: 1,000,000.000000000000000000
 // Decimals    : 3
 //
-// (c) Erick & <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fcae959f9d8e9893d2be938e9b998fbc899a9d9e9fd2999889d29e8e">[email&#160;protected]</a>
+// (c) Erick & <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fcae959f9d8e9893d2be938e9b998fbc899a9d9e9fd2999889d29e8e>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------
 
 

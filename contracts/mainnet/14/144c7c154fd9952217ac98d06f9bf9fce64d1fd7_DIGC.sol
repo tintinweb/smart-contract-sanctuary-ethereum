@@ -2,7 +2,7 @@ pragma solidity ^0.4.23;
 // sol token
 // 
 // Rui-Shan Lu Team
-// Lursun <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="761a03040503184f474246474536111b171f1a5815191b">[email&#160;protected]</a>>
+// Lursun <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=761a03040503184f474246474536111b171f1a5815191b>[email&#160;protected]</a>>
 // reference https://ethereum.org/token
 
 contract owned {

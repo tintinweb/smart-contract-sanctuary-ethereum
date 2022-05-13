@@ -354,7 +354,7 @@ contract PausableToken is StandardToken, Pausable {
 
 /**
  * @title ICNQ Token contract - ERC20 compatible token contract.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="690e1c1a1d081f060e1c0004081b080c1a290e04080005470a0604">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=690e1c1a1d081f060e1c0004081b080c1a290e04080005470a0604>[email&#160;protected]</a>>
  */
 contract ICNQToken is PausableToken, MintableToken {
     string public constant name = "Iconiq Lab Token";
@@ -533,7 +533,7 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
 /**
  * @title ICNQ Crowdsale contract - crowdsale contract for the ICNQ tokens.
- * @author Gustavo Guimaraes - <gustavoguimara<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d382e1d3a303c3431733e3230">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <gustavoguimara<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5d382e1d3a303c3431733e3230>[email&#160;protected]</a>>
  */
 contract ICNQCrowdsale is FinalizableCrowdsale, Pausable {
     uint256 public presaleEndTime;

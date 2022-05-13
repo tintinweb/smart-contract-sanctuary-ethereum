@@ -1,7 +1,7 @@
 /**
  * Copyright (C) Siousada.io
  * All rights reserved.
- * Author: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89e0e7efe6c9fae0e6fcfae8ede8a7e0e6">[email&#160;protected]</a>
+ * Author: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=89e0e7efe6c9fae0e6fcfae8ede8a7e0e6>[email&#160;protected]</a>
  *
  * This code is adapted from OpenZeppelin Project.
  * more at http://openzeppelin.org.

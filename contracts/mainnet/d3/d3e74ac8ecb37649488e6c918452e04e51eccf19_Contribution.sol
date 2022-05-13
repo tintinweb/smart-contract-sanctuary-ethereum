@@ -1,7 +1,7 @@
 pragma solidity ^0.4.8;
 
 // folio.ninja ERC20 Token & Crowdsale Contract
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="244d4a424b64424b484d4b0a4a4d4a4e45">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=244d4a424b64424b484d4b0a4a4d4a4e45>[email&#160;protected]</a>
 // Cap of 12,632,000 Tokens
 // 632,000 Tokens to Foundation
 // 25,000 ETH Cap that goes to Developers

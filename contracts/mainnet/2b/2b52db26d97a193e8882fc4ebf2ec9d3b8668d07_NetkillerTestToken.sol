@@ -3,7 +3,7 @@ pragma solidity ^0.4.25;
 /******************************************/
 /*       Netkiller Mini TOKEN             */
 /******************************************/
-/* Author netkiller <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ff919a8b949693939a8dbf928c91d19c9092">[email&#160;protected]</a>>   */
+/* Author netkiller <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ff919a8b949693939a8dbf928c91d19c9092>[email&#160;protected]</a>>   */
 /* Home http://www.netkiller.cn           */
 /* Version 2018-09-26 Test Token          */
 /******************************************/

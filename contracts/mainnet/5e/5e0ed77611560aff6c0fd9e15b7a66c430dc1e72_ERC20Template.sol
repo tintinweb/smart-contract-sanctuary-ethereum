@@ -518,7 +518,7 @@ contract PausableToken is StandardToken, Pausable {
 
 /**
  * Use OpenZeppelin Libraries
- * @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fe9a9b889b92918e9b8cbe989c9b9bd091909b">[email&#160;protected]</a>
+ * @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fe9a9b889b92918e9b8cbe989c9b9bd091909b>[email&#160;protected]</a>
  */
 contract ERC20Template is DetailedERC20, PausableToken, BurnableToken, CappedToken {
   /**

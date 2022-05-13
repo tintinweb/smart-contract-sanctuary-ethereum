@@ -2,7 +2,7 @@ pragma solidity ^0.4.21;
 
 /**
  * @title Serpentio Contract <http://serpentio.com> - April 2018
- * @Author Alber Erre <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0e6f7c6c627b69614e69636f6762206d6163">[email&#160;protected]</a>> <http://albererre.com>
+ * @Author Alber Erre <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0e6f7c6c627b69614e69636f6762206d6163>[email&#160;protected]</a>> <http://albererre.com>
  * Technical details here: https://medium.com/@alber_erre/serpentio-a-snake-on-the-ethereum-blockchain-non-linear-distribution-scheme-b116bfa187d8
  */
 

@@ -373,7 +373,7 @@ contract Crowdsale is Pausable {
     
   /**
    * 
-   * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="44362129272b0476">[email&#160;protected]</a>π.com>
+   * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=44362129272b0476>[email&#160;protected]</a>π.com>
    * @dev Prevents a contract from calling itself, directly or indirectly.
    * @notice If you mark a function `nonReentrant`, you should also
    * mark it `external`. Calling one nonReentrant function from

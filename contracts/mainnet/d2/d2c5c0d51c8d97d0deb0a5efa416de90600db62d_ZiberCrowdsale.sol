@@ -3,7 +3,7 @@ pragma solidity ^0.4.13;
 pragma solidity ^0.4.13;
 
  /// @title SafeMath contract - math operations with safety checks
- /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1074756650637d716264737f7e646271736475717d3e737f7d">[email&#160;protected]</a>
+ /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1074756650637d716264737f7e646271736475717d3e737f7d>[email&#160;protected]</a>
 contract SafeMath {
   function safeMul(uint a, uint b) internal returns (uint) {
     uint c = a * b;
@@ -55,7 +55,7 @@ pragma solidity ^0.4.13;
 pragma solidity ^0.4.13;
 
  /// @title Ownable contract - base contract with an owner
- /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2a6a7b482b1afa3b0b6a1adacb6b0a3a1b6a7a3afeca1adaf">[email&#160;protected]</a>
+ /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c2a6a7b482b1afa3b0b6a1adacb6b0a3a1b6a7a3afeca1adaf>[email&#160;protected]</a>
 contract Ownable {
   address public owner;
 
@@ -77,7 +77,7 @@ contract Ownable {
 
 
 /// @title Haltable contract - abstract contract that allows children to implement an emergency stop mechanism.
-/// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2347465563504e425157404c4d575142405746424e0d404c4e">[email&#160;protected]</a>
+/// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2347465563504e425157404c4d575142405746424e0d404c4e>[email&#160;protected]</a>
 /// Originally envisioned in FirstBlood ICO contract.
 contract Haltable is Ownable {
   bool public halted;
@@ -111,7 +111,7 @@ pragma solidity ^0.4.13;
 
 
  /// @title Killable contract - base contract that can be killed by owner. All funds in contract will be sent to the owner.
- /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="81e5e4f7c1f2ece0f3f5e2eeeff5f3e0e2f5e4e0ecafe2eeec">[email&#160;protected]</a>
+ /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=81e5e4f7c1f2ece0f3f5e2eeeff5f3e0e2f5e4e0ecafe2eeec>[email&#160;protected]</a>
 contract Killable is Ownable {
   function kill() onlyOwner {
     selfdestruct(owner);
@@ -127,7 +127,7 @@ pragma solidity ^0.4.13;
 pragma solidity ^0.4.13;
 
  /// @title ERC20 interface see https://github.com/ethereum/EIPs/issues/20
- /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1276776452617f736066717d7c666073716677737f3c717d7f">[email&#160;protected]</a>
+ /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1276776452617f736066717d7c666073716677737f3c717d7f>[email&#160;protected]</a>
 contract ERC20 {
   uint public totalSupply;
   function balanceOf(address who) constant returns (uint);
@@ -146,7 +146,7 @@ pragma solidity ^0.4.13;
 
 
 /// @title ZiberToken contract - standard ERC20 token with Short Hand Attack and approve() race condition mitigation.
-/// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aecacbd8eeddc3cfdcdacdc1c0dadccfcddacbcfc380cdc1c3">[email&#160;protected]</a>
+/// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aecacbd8eeddc3cfdcdacdc1c0dadccfcddacbcfc380cdc1c3>[email&#160;protected]</a>
 contract ZiberToken is SafeMath, ERC20, Ownable {
  string public name = "Ziber Token";
  string public symbol = "ZBR";
@@ -294,7 +294,7 @@ contract ZiberToken is SafeMath, ERC20, Ownable {
 
 
 /// @title ZiberCrowdsale contract - contract for token sales.
-/// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="acc8c9daecdfc1cdded8cfc3c2d8decdcfd8c9cdc182cfc3c1">[email&#160;protected]</a>
+/// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=acc8c9daecdfc1cdded8cfc3c2d8decdcfd8c9cdc182cfc3c1>[email&#160;protected]</a>
 contract ZiberCrowdsale is Haltable, Killable, SafeMath {
 
   /// Total count of tokens distributed via ICO

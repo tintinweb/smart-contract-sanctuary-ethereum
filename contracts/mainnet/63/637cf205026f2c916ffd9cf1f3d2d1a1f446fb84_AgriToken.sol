@@ -11,7 +11,7 @@ pragma solidity ^0.4.24;
 // Company          : AgriChain Pty Ltd 
 //                  : https://agrichain.com
 // Version          : 2.0
-// Author           : Martin Halford <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caa9bea58aabadb8a3a9a2aba3a4e4a9a5a7">[email&#160;protected]</a>>
+// Author           : Martin Halford <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=caa9bea58aabadb8a3a9a2aba3a4e4a9a5a7>[email&#160;protected]</a>>
 // Published        : 13 Aug 2018
 //
 // ----------------------------------------------------------------------------

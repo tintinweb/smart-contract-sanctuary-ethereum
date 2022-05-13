@@ -30,7 +30,7 @@ pragma solidity ^0.4.22;
  *    https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/LICENSE
  *
  * 
- * Contact Us : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8deee2e3f9eceef9cde5e8f5e1ece3f9a3eee2e0">[email&#160;protected]</a>
+ * Contact Us : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8deee2e3f9eceef9cde5e8f5e1ece3f9a3eee2e0>[email&#160;protected]</a>
  * Website    : http://hexlant.com
  * Medium Blog: https://medium.com/hexlant
  */

@@ -4,7 +4,7 @@ pragma solidity ^0.4.24;
 // Universita' degli Studi di Cagliari
 // http://www.unica.it
 // @authors:
-// Flosslab s.r.l. <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1b8bfb7be91b7bdbea2a2bdb0b3ffb2bebc">[email&#160;protected]</a>>
+// Flosslab s.r.l. <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d1b8bfb7be91b7bdbea2a2bdb0b3ffb2bebc>[email&#160;protected]</a>>
 
 contract Almacert {
 

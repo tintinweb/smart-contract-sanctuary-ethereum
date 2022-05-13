@@ -2,7 +2,7 @@ pragma solidity ^0.4.13;
 // -------------------------------------------------
 // 0.4.13+commit.0fb4cb1a
 // EthPoker.io ERC20 PKT token contract
-// Contact <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2243464f4b4c6247564a524d4947500c4b4d">[email&#160;protected]</a> for any query
+// Contact <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2243464f4b4c6247564a524d4947500c4b4d>[email&#160;protected]</a> for any query
 // GET READY FOR LIFT OFF 03/January/17 (Bitcoin's Anniversary)
 // -------------------------------------------------
 // ERC Token Standard #20 Interface https://github.com/ethereum/EIPs/issues/20

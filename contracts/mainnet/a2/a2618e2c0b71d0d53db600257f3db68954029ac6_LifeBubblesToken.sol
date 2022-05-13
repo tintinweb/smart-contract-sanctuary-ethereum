@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
 // LifeBubbles
 // http://LifeBubbles.org
 // ERC20 Compliant Token
-// Contract developer: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="81e4ece4f3e6e8efe6e4ece4f3e6e4efe2e4c1e6ece0e8edafe2eeec">[email&#160;protected]</a>
+// Contract developer: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=81e4ece4f3e6e8efe6e4ece4f3e6e4efe2e4c1e6ece0e8edafe2eeec>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------
 
 

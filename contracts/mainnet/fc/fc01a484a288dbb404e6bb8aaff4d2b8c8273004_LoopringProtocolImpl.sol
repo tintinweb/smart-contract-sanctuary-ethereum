@@ -12,8 +12,8 @@
 */
 pragma solidity 0.4.19;
 /// @title Utility Functions for uint8
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c3733323b30353d323b1c3033332c2e35323b72332e3b">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1175707f78747d517d7e7e6163787f763f7e6376">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5c3733323b30353d323b1c3033332c2e35323b72332e3b>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1175707f78747d517d7e7e6163787f763f7e6376>[email&#160;protected]</a>>.
 library MathUint8 {
     function xorReduce(
         uint8[] arr,
@@ -42,7 +42,7 @@ library MathUint8 {
   limitations under the License.
 */
 /// @title Utility Functions for uint
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2f4b4e41464a436f4340405f5d46414801405d48">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2f4b4e41464a436f4340405f5d46414801405d48>[email&#160;protected]</a>>
 library MathUint {
     function mul(uint a, uint b) internal pure returns (uint c) {
         c = a * b;
@@ -104,8 +104,8 @@ library MathUint {
   limitations under the License.
 */
 /// @title Utility Functions for byte32
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b9d2d6d7ded5d0d8d7def9d5d6d6c9cbd0d7de97d6cbde">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3054515e59555c705c5f5f4042595e571e5f4257">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b9d2d6d7ded5d0d8d7def9d5d6d6c9cbd0d7de97d6cbde>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3054515e59555c705c5f5f4042595e571e5f4257>[email&#160;protected]</a>>.
 library MathBytes32 {
     function xorReduce(
         bytes32[]   arr,
@@ -147,7 +147,7 @@ library MathBytes32 {
 */
 /// @title ERC20 Token Interface
 /// @dev see https://github.com/ethereum/EIPs/issues/20
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="791d1817101c1539151616090b10171e57160b1e">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=791d1817101c1539151616090b10171e57160b1e>[email&#160;protected]</a>>
 contract ERC20 {
     uint public totalSupply;
     event Transfer(address indexed from, address indexed to, uint256 value);
@@ -171,8 +171,8 @@ contract ERC20 {
   limitations under the License.
 */
 /// @title Loopring Token Exchange Protocol Contract Interface
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a1e1b14131f163a1615150a0813141d5415081d">[email&#160;protected]</a>>
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a3c8cccdc4cfcac2cdc4e3cfccccd3d1cacdc48dccd1c4">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7a1e1b14131f163a1615150a0813141d5415081d>[email&#160;protected]</a>>
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a3c8cccdc4cfcac2cdc4e3cfccccd3d1cacdc48dccd1c4>[email&#160;protected]</a>>
 contract LoopringProtocol {
     ////////////////////////////////////////////////////////////////////////////
     /// Constants                                                            ///
@@ -308,8 +308,8 @@ contract LoopringProtocol {
 */
 /// @title Ethereum Address Register Contract
 /// @dev This contract maintains a name service for addresses and miner.
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="33585c5d545f5a525d54735f5c5c43415a5d541d5c4154">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83e7e2edeae6efc3efececf3f1eaede4adecf1e4">[email&#160;protected]</a>>,
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=33585c5d545f5a525d54735f5c5c43415a5d541d5c4154>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=83e7e2edeae6efc3efececf3f1eaede4adecf1e4>[email&#160;protected]</a>>,
 contract NameRegistry {
     uint public nextId = 0;
     mapping (uint    => Participant) public participantMap;
@@ -597,8 +597,8 @@ contract Claimable is Ownable {
 }
 /// @title Token Register Contract
 /// @dev This contract maintains a list of tokens the Protocol supports.
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="13787c7d747f7a727d74537f7c7c63617a7d743d7c6174">[email&#160;protected]</a>>,
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7317121d1a161f331f1c1c03011a1d145d1c0114">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=13787c7d747f7a727d74537f7c7c63617a7d743d7c6174>[email&#160;protected]</a>>,
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7317121d1a161f331f1c1c03011a1d145d1c0114>[email&#160;protected]</a>>.
 contract TokenRegistry is Claimable {
     address[] public addresses;
     mapping (address => TokenInfo) addressMap;
@@ -737,7 +737,7 @@ contract TokenRegistry is Claimable {
 /// @title TokenTransferDelegate
 /// @dev Acts as a middle man to transfer ERC20 tokens on behalf of different
 /// versions of Loopring protocol to avoid ERC20 re-authorization.
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c1a5a0afa8a4ad81adaeaeb1b3a8afa6efaeb3a6">[email&#160;protected]</a>>.
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c1a5a0afa8a4ad81adaeaeb1b3a8afa6efaeb3a6>[email&#160;protected]</a>>.
 contract TokenTransferDelegate is Claimable {
     using MathUint for uint;
     ////////////////////////////////////////////////////////////////////////////
@@ -900,8 +900,8 @@ contract TokenTransferDelegate is Claimable {
     }
 }
 /// @title Loopring Token Exchange Protocol Implementation Contract
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a0e0b04030f062a0605051a1803040d4405180d">[email&#160;protected]</a>>,
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7dcd8d9d0dbded6d9d0f7dbd8d8c7c5ded9d099d8c5d0">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6a0e0b04030f062a0605051a1803040d4405180d>[email&#160;protected]</a>>,
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b7dcd8d9d0dbded6d9d0f7dbd8d8c7c5ded9d099d8c5d0>[email&#160;protected]</a>>
 ///
 /// Recognized contributing developers from the community:
 ///     https://github.com/Brechtpd

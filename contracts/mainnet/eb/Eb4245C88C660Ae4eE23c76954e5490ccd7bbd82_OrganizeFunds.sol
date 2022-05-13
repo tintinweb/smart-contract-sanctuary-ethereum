@@ -2,7 +2,7 @@ pragma solidity ^0.4.15;
 
 /**
  *
- * @author  David Rosen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="432822222d272c2a37032e202c2d6d2c3124">[email&#160;protected]</a>>
+ * @author  David Rosen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=432822222d272c2a37032e202c2d6d2c3124>[email&#160;protected]</a>>
  *
  * Version A
  *

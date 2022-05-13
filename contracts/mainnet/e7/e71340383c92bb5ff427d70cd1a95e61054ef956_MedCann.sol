@@ -5,7 +5,7 @@ The MedCann
 ERC-20 Token Standard Compliant
 EIP-621 Compliant
 
-Contract developer: Oyewole Samuel <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="24464d5047415650644349454d480a474b49">[email&#160;protected]</a>
+Contract developer: Oyewole Samuel <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=24464d5047415650644349454d480a474b49>[email&#160;protected]</a>
 
 Token name is MedCann
 Token symbol is Mcan

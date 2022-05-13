@@ -2,7 +2,7 @@
 * OasisToken (OASIS) is the official token of a neural interface project Oasis.
 * The OasisToken contract complies with the ERC20 standard.
 * Web: http://oasis.ac
-* Mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb2b5bdb49bb4baa8b2a8f5bab8">[email&#160;protected]</a>
+* Mail: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dbb2b5bdb49bb4baa8b2a8f5bab8>[email&#160;protected]</a>
 * Facebook: http://fb.me/Oasis.ac.neuro
 * Twitter: @oasis_ac
 */

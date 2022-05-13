@@ -75,8 +75,8 @@ contract Ownable {
 
 /**
  * @title ZTXOwnershipHolder - Sole responsibility is to hold and transfer ZTX ownership
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a2c5d7d1d6c3d4cde2d8d7ced7d0c7d2d7c0cecbc18ccbcd">[email&#160;protected]</a>>
- * @author Timo Hedke - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e5918c888aa59f9089909780959087898c86cb8c8a">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a2c5d7d1d6c3d4cde2d8d7ced7d0c7d2d7c0cecbc18ccbcd>[email&#160;protected]</a>>
+ * @author Timo Hedke - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e5918c888aa59f9089909780959087898c86cb8c8a>[email&#160;protected]</a>>
  */
 contract ZTXOwnershipHolder is Ownable {
 

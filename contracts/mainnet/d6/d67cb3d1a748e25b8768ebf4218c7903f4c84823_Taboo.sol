@@ -9,7 +9,7 @@ pragma solidity ^0.4.23;
  * Version 18.4.29
  *
  * https://taboou.com
- * <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4734323737283533073326252828326924282a">[email&#160;protected]</a>
+ * <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4734323737283533073326252828326924282a>[email&#160;protected]</a>
  */
 
 

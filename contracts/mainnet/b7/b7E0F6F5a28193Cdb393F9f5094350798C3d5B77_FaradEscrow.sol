@@ -1,7 +1,7 @@
 /**
  * Copyright (C) Virtue Fintech FZ-LLC, Dubai
  * All rights reserved.
- * Author: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="026f6a6b42746b707677672c646b6c636c6167">[email&#160;protected]</a>
+ * Author: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=026f6a6b42746b707677672c646b6c636c6167>[email&#160;protected]</a>
  *
  * This code is adapted from OpenZeppelin Project.
  * more at http://openzeppelin.org.

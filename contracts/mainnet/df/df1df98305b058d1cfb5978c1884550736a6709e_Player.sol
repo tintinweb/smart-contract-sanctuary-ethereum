@@ -299,7 +299,7 @@ library Datasets {
  * @title Player Contract
  * @dev http://www.puzzlebid.com/
  * @author PuzzleBID Game Team 
- * @dev Simon<<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddabaeb4afa4a5b09decebeef3beb2b0">[email&#160;protected]</a>>
+ * @dev Simon<<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ddabaeb4afa4a5b09decebeef3beb2b0>[email&#160;protected]</a>>
  */
 contract Player {
 

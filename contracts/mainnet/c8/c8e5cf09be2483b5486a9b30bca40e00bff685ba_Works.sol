@@ -195,7 +195,7 @@ library Datasets {
  * @title Works Contract
  * @dev http://www.puzzlebid.com/
  * @author PuzzleBID Game Team 
- * @dev Simon<<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fc8a8f958e858491bccdcacfd29f9391">[email&#160;protected]</a>>
+ * @dev Simon<<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fc8a8f958e858491bccdcacfd29f9391>[email&#160;protected]</a>>
  */
 contract Works {
 

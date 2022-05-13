@@ -32,7 +32,7 @@ contract ERC20Basic {
  * @title SwapTokenForEther
  * Swap tokens of participant1 for ether of participant2
  *
- * @author Vladimir Khramov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="27514b46434e4a4e55094c4f55464a485167544a4655535d094e48">[email&#160;protected]</a>>
+ * @author Vladimir Khramov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=27514b46434e4a4e55094c4f55464a485167544a4655535d094e48>[email&#160;protected]</a>>
  */
 contract Swap {
 

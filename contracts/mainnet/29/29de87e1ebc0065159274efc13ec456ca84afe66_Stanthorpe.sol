@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
 // Stanthorpe
 // https://www.dcom.world
 // ERC20 Compliant
-// Contract developer: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9efbf3fbecf9f7f0f9fbf3fbecf9fbf0fdfbdef9f3fff7f2b0fdf1f3">[email&#160;protected]</a>
+// Contract developer: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9efbf3fbecf9f7f0f9fbf3fbecf9fbf0fdfbdef9f3fff7f2b0fdf1f3>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------
 
 

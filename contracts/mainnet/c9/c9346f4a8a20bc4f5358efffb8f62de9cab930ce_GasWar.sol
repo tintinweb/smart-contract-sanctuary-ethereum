@@ -2,7 +2,7 @@ pragma solidity ^0.4.21;
 
 // Written by EtherGuy
 // UI: GasWar.surge.sh 
-// Mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a4f5e424f584d5f536a474b434604494547">[email&#160;protected]</a>
+// Mail: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2a4f5e424f584d5f536a474b434604494547>[email&#160;protected]</a>
 
 contract GasWar{
     

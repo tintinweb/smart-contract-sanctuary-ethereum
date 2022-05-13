@@ -51,7 +51,7 @@ library SafeMath {
 }
 
 /// @title Role based access control mixin for Rasmart Platform
-/// @author Abha Mai <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef828e868e8d878ed7ddaf88828e8683c18c8082">[email&#160;protected]</a>>
+/// @author Abha Mai <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ef828e868e8d878ed7ddaf88828e8683c18c8082>[email&#160;protected]</a>>
 /// @dev Ignore DRY approach to achieve readability
 contract RBACMixin {
   /// @notice Constant string message to throw on lack of access
@@ -174,7 +174,7 @@ interface IMintableToken {
 
 
 /// @title Very simplified implementation of Token Bucket Algorithm to secure token minting
-/// @author Abha Mai <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="513c303830333930696311363c30383d7f323e3c">[email&#160;protected]</a>>
+/// @author Abha Mai <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=513c303830333930696311363c30383d7f323e3c>[email&#160;protected]</a>>
 /// @notice Works with tokens implemented Mintable interface
 /// @dev Transfer ownership/minting role to contract and execute mint over PlatformBucket proxy to secure
 contract PlatformBucket is RBACMixin, IMintableToken {

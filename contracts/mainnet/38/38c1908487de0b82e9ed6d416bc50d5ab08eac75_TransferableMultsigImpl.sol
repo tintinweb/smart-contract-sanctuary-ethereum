@@ -24,7 +24,7 @@ pragma solidity 0.4.21;
   limitations under the License.
 */
 /// @title Transferable Multisignature Contract
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e387828d8a868fa38f8c8c93918a8d84cd8c9184">[email&#160;protected]</a>>.
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e387828d8a868fa38f8c8c93918a8d84cd8c9184>[email&#160;protected]</a>>.
 contract TransferableMultsig {
     // Note that address recovered from signatures must be strictly increasing.
     function execute(
@@ -47,7 +47,7 @@ contract TransferableMultsig {
         external;
 }
 /// @title An Implementation of TransferableMultsig。
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f1b1e11161a133f1310100f0d16111851100d18">[email&#160;protected]</a>>.
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7f1b1e11161a133f1310100f0d16111851100d18>[email&#160;protected]</a>>.
 contract TransferableMultsigImpl is TransferableMultsig {
     uint public nonce;                  // (only) mutable state
     uint public threshold;              // immutable state

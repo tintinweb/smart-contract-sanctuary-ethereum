@@ -87,7 +87,7 @@ contract ZiberToken {
 
 
     /// SafeMath contract - math operations with safety checks
-    /// @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6703021127140a061513040809131506041302060a4904080a">[email&#160;protected]</a>
+    /// @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6703021127140a061513040809131506041302060a4904080a>[email&#160;protected]</a>
     function safeMul(uint a, uint b) internal returns (uint) {
       uint c = a * b;
       assert(a == 0 || c / a == b);

@@ -3,7 +3,7 @@ pragma solidity ^0.4.18;
 ///EtherDrugs
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3b7b6a7b693b2abbabcbea9b6bdfdb0bc">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d3b7b6a7b693b2abbabcbea9b6bdfdb0bc>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
     function approve(address _to, uint256 _tokenId) public;
     function balanceOf(address _owner) public view returns (uint256 balance);

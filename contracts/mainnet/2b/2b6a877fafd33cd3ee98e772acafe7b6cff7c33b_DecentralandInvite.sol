@@ -2,7 +2,7 @@
 pragma solidity 0.4.24;
 
 
-// File openzeppelin-solidity/contracts/token/ERC721/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="135641502421225172607a703d607c7f5365223d22233d23">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC721/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=135641502421225172607a703d607c7f5365223d22233d23>[email&#160;protected]</a>
 
 /**
  * @title ERC721 Non-Fungible Token Standard basic interface
@@ -51,7 +51,7 @@ contract ERC721Basic {
 }
 
 
-// File openzeppelin-solidity/contracts/token/ERC721/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9adfc8d9ada8abb4e9f5f6daecabb4abaab4aa">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC721/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9adfc8d9ada8abb4e9f5f6daecabb4abaab4aa>[email&#160;protected]</a>
 
 /**
  * @title ERC-721 Non-Fungible Token Standard, optional enumeration extension
@@ -90,7 +90,7 @@ contract ERC721 is ERC721Basic, ERC721Enumerable, ERC721Metadata {
 }
 
 
-// File openzeppelin-solidity/contracts/token/ERC721/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="682d3a2b5f5a593a0d0b0d011e0d1a461b0704281e594659584658">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC721/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=682d3a2b5f5a593a0d0b0d011e0d1a461b0704281e594659584658>[email&#160;protected]</a>
 
 /**
  * @title ERC721 token receiver interface
@@ -127,7 +127,7 @@ contract ERC721Receiver {
 }
 
 
-// File openzeppelin-solidity/contracts/math/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ecbf8d8a89a18d9884c29f8380ac9addc2dddcc2dc">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/math/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ecbf8d8a89a18d9884c29f8380ac9addc2dddcc2dc>[email&#160;protected]</a>
 
 /**
  * @title SafeMath
@@ -180,7 +180,7 @@ library SafeMath {
 }
 
 
-// File openzeppelin-solidity/contracts/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a7b5e5e485f49496f4e535649144955567a4c0b140b0a140a">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3a7b5e5e485f49496f4e535649144955567a4c0b140b0a140a>[email&#160;protected]</a>
 
 /**
  * Utility library of inline functions on addresses
@@ -210,7 +210,7 @@ library AddressUtils {
 }
 
 
-// File openzeppelin-solidity/contracts/token/ERC721/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="236671601411126142504a40774c48464d0d504c4f6355120d12130d13">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC721/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=236671601411126142504a40774c48464d0d504c4f6355120d12130d13>[email&#160;protected]</a>
 
 /**
  * @title ERC721 Non-Fungible Token Standard basic implementation
@@ -530,7 +530,7 @@ contract ERC721BasicToken is ERC721Basic {
 }
 
 
-// File openzeppelin-solidity/contracts/token/ERC721/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3f7a6d7c080d0e6b50545a51114c50537f490e110e0f110f">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC721/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3f7a6d7c080d0e6b50545a51114c50537f490e110e0f110f>[email&#160;protected]</a>
 
 /**
  * @title Full ERC721 Token
@@ -720,7 +720,7 @@ contract ERC721Token is ERC721, ERC721BasicToken {
 }
 
 
-// File openzeppelin-solidity/contracts/ownership/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6b241c050a09070e451804072b1d5a455a5b455b">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/ownership/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6b241c050a09070e451804072b1d5a455a5b455b>[email&#160;protected]</a>
 
 /**
  * @title Ownable

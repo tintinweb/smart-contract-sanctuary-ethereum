@@ -5,7 +5,7 @@ The OCTIRON
 ERC-20 Token Standard Compliant
 EIP-621 Compliant
 
-Contract developer: Oyewole Samuel <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a08031e090f181e2a0d070b030644090507">[email&#160;protected]</a>
+Contract developer: Oyewole Samuel <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6a08031e090f181e2a0d070b030644090507>[email&#160;protected]</a>
 */
 
 /**

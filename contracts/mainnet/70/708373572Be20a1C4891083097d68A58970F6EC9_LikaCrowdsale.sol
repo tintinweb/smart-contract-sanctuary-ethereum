@@ -1,6 +1,6 @@
 pragma solidity ^0.4.18;
 
-//Contract By Yoav Taieb. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="750c1a14035b1c1a06111003351218141c195b161a18">[email&#160;protected]</a>
+//Contract By Yoav Taieb. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=750c1a14035b1c1a06111003351218141c195b161a18>[email&#160;protected]</a>
 
 library SafeMath {
   function mul(uint256 a, uint256 b) internal pure returns (uint256) {

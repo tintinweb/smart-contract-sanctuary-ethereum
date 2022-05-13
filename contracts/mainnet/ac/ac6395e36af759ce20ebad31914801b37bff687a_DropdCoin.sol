@@ -5,7 +5,7 @@ The Regen Coin
 ERC-20 Token Standard Compliant
 EIP-621 Compliant
 
-Contract developer: Oyewole Samuel <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5a38332e393f282e1a3d373b333674393537">[email&#160;protected]</a>
+Contract developer: Oyewole Samuel <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5a38332e393f282e1a3d373b333674393537>[email&#160;protected]</a>
 */
 
 /**

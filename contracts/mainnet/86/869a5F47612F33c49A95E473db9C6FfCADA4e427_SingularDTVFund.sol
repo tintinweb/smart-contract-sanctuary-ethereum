@@ -240,8 +240,8 @@ contract AbstractSingularDTVToken is Token {
 }
 
 /// @title Fund contract - Implements reward distribution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3b484f5e5d5a55155c5e54495c5e7b585455485e5548424815555e4f">[email&#160;protected]</a>>
-/// @author Milad Mostavi - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="49242025282d6724263a3d283f20092a26273a2c273a303a67272c3d">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3b484f5e5d5a55155c5e54495c5e7b585455485e5548424815555e4f>[email&#160;protected]</a>>
+/// @author Milad Mostavi - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=49242025282d6724263a3d283f20092a26273a2c273a303a67272c3d>[email&#160;protected]</a>>
 contract SingularDTVFund {
     string public version = "0.1.0";
 
@@ -349,9 +349,9 @@ contract SingularDTVFund {
 }
 
 /// @title Token Creation contract - Implements token creation functionality.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7d4d3c2c1c6c989c0c2c8d5c0c2e7c4c8c9d4c2c9d4ded489c9c2d3">[email&#160;protected]</a>>
-/// @author Razvan Pop - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="90e2f1eae6f1febee0ffe0d0f3fffee3f5fee3e9e3befef5e4">[email&#160;protected]</a>>
-/// @author Milad Mostavi - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80ede9ece1e4aeedeff3f4e1f6e9c0e3efeef3e5eef3f9f3aeeee5f4">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a7d4d3c2c1c6c989c0c2c8d5c0c2e7c4c8c9d4c2c9d4ded489c9c2d3>[email&#160;protected]</a>>
+/// @author Razvan Pop - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=90e2f1eae6f1febee0ffe0d0f3fffee3f5fee3e9e3befef5e4>[email&#160;protected]</a>>
+/// @author Milad Mostavi - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=80ede9ece1e4aeedeff3f4e1f6e9c0e3efeef3e5eef3f9f3aeeee5f4>[email&#160;protected]</a>>
 contract SingularDTVLaunch {
     string public version = "0.1.0";
 
@@ -712,8 +712,8 @@ contract StandardToken is Token {
 }
 
 /// @title Token contract - Implements token issuance.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82f1f6e7e4e3ecace5e7edf0e5e7c2e1edecf1e7ecf1fbf1acece7f6">[email&#160;protected]</a>>
-/// @author Milad Mostavi - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c0ada9aca1a4eeadafb3b4a1b6a980a3afaeb3a5aeb3b9b3eeaea5b4">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=82f1f6e7e4e3ecace5e7edf0e5e7c2e1edecf1e7ecf1fbf1acece7f6>[email&#160;protected]</a>>
+/// @author Milad Mostavi - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c0ada9aca1a4eeadafb3b4a1b6a980a3afaeb3a5aeb3b9b3eeaea5b4>[email&#160;protected]</a>>
 contract SingularDTVToken is StandardToken {
     string public version = "0.1.0";
 

@@ -136,7 +136,7 @@ contract Pausable is Ownable {
 
 /**
 * @title Helps contracts guard agains reentrancy attacks.
-* @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="97e5f2faf4f8d7a5">[email&#160;protected]</a>π.com>
+* @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=97e5f2faf4f8d7a5>[email&#160;protected]</a>π.com>
 * @notice If you mark a function `nonReentrant`, you should also
 * mark it `external`.
 */

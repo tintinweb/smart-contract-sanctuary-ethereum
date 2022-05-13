@@ -354,7 +354,7 @@ contract PausableToken is StandardToken, Pausable {
 
 /**
  * @title ICNQ Token contract - ERC20 compatible token contract.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="88effdfbfce9fee7effde1e5e9fae9edfbc8efe5e9e1e4a6ebe7e5">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=88effdfbfce9fee7effde1e5e9fae9edfbc8efe5e9e1e4a6ebe7e5>[email&#160;protected]</a>>
  */
 contract ICNQToken is PausableToken, MintableToken {
     string public constant name = "Iconiq Lab Token";
@@ -366,7 +366,7 @@ contract ICNQToken is PausableToken, MintableToken {
 
 /**
  * @title Team And Advisors contract - Keep locked ICNQ tokens allocated to team and advisors for a determined time.
- * @author Gustavo Guimaraes - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9bfceee8effaedf4fceef2f6fae9fafee8dbfcf6faf2f7b5f8f4f6">[email&#160;protected]</a>>
+ * @author Gustavo Guimaraes - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9bfceee8effaedf4fceef2f6fae9fafee8dbfcf6faf2f7b5f8f4f6>[email&#160;protected]</a>>
  */
 
 contract TeamAndAdvisorsAllocation is Ownable {

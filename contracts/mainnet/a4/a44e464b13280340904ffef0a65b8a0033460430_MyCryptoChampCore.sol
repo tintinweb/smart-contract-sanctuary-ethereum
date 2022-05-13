@@ -1140,6 +1140,6 @@ contract MyCryptoChampCore is ChampMarket {
 		  trading them and the best 800 champs are daily rewarded by real Ether.
 
 		Feel free to ask any questions
-		<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="127a777e7e7d527f6b71606b62667d717a737f623c7b7d">[email&#160;protected]</a>
+		<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=127a777e7e7d527f6b71606b62667d717a737f623c7b7d>[email&#160;protected]</a>
 	*/
 }

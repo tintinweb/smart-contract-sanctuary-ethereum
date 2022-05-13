@@ -912,7 +912,7 @@ contract ERC721Full is ERC721, ERC721Enumerable, ERC721Metadata {
 
 /*
  * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d3c2f3c3e353334391d33322939322973333829">[email&#160;protected]</a>>
+ * @author Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5d3c2f3c3e353334391d33322939322973333829>[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
  *      abstraction called a 'slice'. A slice represents a part of a string -

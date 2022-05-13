@@ -12,7 +12,7 @@
 */
 pragma solidity 0.4.21;
 /// @title Utility Functions for uint
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0561646b6c606945696a6a75776c6b622b6a7762">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0561646b6c606945696a6a75776c6b622b6a7762>[email&#160;protected]</a>>
 library MathUint {
     function mul(uint a, uint b) internal pure returns (uint c) {
         c = a * b;
@@ -86,7 +86,7 @@ library MathUint {
   limitations under the License.
 */
 /// @title Utility Functions for address
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aecacfc0c7cbc2eec2c1c1dedcc7c0c980c1dcc9">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aecacfc0c7cbc2eec2c1c1dedcc7c0c980c1dcc9>[email&#160;protected]</a>>
 library AddressUtil {
     function isContract(address addr)
         internal
@@ -116,7 +116,7 @@ library AddressUtil {
 */
 /// @title ERC20 Token Interface
 /// @dev see https://github.com/ethereum/EIPs/issues/20
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="284c4946414d4468444747585a41464f06475a4f">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=284c4946414d4468444747585a41464f06475a4f>[email&#160;protected]</a>>
 contract ERC20 {
     function balanceOf(address who) view public returns (uint256);
     function allowance(address owner, address spender) view public returns (uint256);
@@ -126,7 +126,7 @@ contract ERC20 {
 }
 /// @title ERC20 Token Implementation
 /// @dev see https://github.com/ethereum/EIPs/issues/20
-/// @author Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cda9aca3a4a8a18da1a2a2bdbfa4a3aae3a2bfaa">[email&#160;protected]</a>>
+/// @author Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cda9aca3a4a8a18da1a2a2bdbfa4a3aae3a2bfaa>[email&#160;protected]</a>>
 contract ERC20Token is ERC20 {
     using MathUint for uint;
     string  public name;

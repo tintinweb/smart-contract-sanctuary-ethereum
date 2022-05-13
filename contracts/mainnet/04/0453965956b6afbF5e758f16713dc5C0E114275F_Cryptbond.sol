@@ -1,5 +1,5 @@
 /**
- * Do you have any questions or suggestions? Emails us @ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3e4d4b4e4e514c4a7e5d4c474e4a5c51505a10505b4a">[email&#160;protected]</a>
+ * Do you have any questions or suggestions? Emails us @ <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3e4d4b4e4e514c4a7e5d4c474e4a5c51505a10505b4a>[email&#160;protected]</a>
  * 
  * ===================== CRYPTBOND NETWORK =======================*
   oooooooo8 oooooooooo ooooo  oooo oooooooooo  ooooooooooo oooooooooo    ooooooo  oooo   oooo ooooooooo   

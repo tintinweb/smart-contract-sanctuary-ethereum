@@ -1,7 +1,7 @@
 pragma solidity ^0.4.11;
 /*
 Original Code from Toshendra Sharma Course at UDEMY
-Personalization and modifications by Fares Akel - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d2b632c233922232422632c2628210d2a202c2421632e2220">[email&#160;protected]</a>
+Personalization and modifications by Fares Akel - <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4d2b632c233922232422632c2628210d2a202c2421632e2220>[email&#160;protected]</a>
 */
 contract admined {
 	address public admin;

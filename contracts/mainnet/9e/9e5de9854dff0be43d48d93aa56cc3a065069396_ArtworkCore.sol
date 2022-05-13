@@ -36,7 +36,7 @@ contract Ownable {
 }
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="583c3d2c3d183920313735223d36763b37">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=583c3d2c3d183920313735223d36763b37>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
     // Required methods
     function approve(address _to, uint256 _tokenId) external;
@@ -800,7 +800,7 @@ contract ArtworkUnique {
     }
 
     /// title String Utils - String utility functions
-    /// @author Piper Merriam - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adddc4ddc8dfc0c8dfdfc4ccc0edcac0ccc4c183cec2c0">[email&#160;protected]</a>>
+    /// @author Piper Merriam - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=adddc4ddc8dfc0c8dfdfc4ccc0edcac0ccc4c183cec2c0>[email&#160;protected]</a>>
     ///https://github.com/pipermerriam/ethereum-string-utils
     function _uintToBytes(uint v) private pure returns (bytes32 ret) {
         if (v == 0) {
@@ -1049,7 +1049,7 @@ contract ArtworkOwnership is ArtworkBase, ArtworkUnique, ERC721 {
         artworkIndexToApproved[_tokenId] = _approved;
     }
 
-    /// @dev Adapted from memcpy() by @arachnid (Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43223122202b2d2a27032d2c37272c376d2d2637">[email&#160;protected]</a>>)
+    /// @dev Adapted from memcpy() by @arachnid (Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=43223122202b2d2a27032d2c37272c376d2d2637>[email&#160;protected]</a>>)
     ///  This method is licenced under the Apache License.
     ///  Ref: https://github.com/Arachnid/solidity-stringutils/blob/2f6ca9accb48ae14c66f1437ec50ed19a0616f78/strings.sol
     function _memcpy(uint _dest, uint _src, uint _len) private view {
@@ -1071,7 +1071,7 @@ contract ArtworkOwnership is ArtworkBase, ArtworkUnique, ERC721 {
         }
     }
 
-    /// @dev Adapted from toString(slice) by @arachnid (Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8feefdeeece7e1e6ebcfe1e0fbebe0fba1e1eafb">[email&#160;protected]</a>>)
+    /// @dev Adapted from toString(slice) by @arachnid (Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8feefdeeece7e1e6ebcfe1e0fbebe0fba1e1eafb>[email&#160;protected]</a>>)
     ///  This method is licenced under the Apache License.
     ///  Ref: https://github.com/Arachnid/solidity-stringutils/blob/2f6ca9accb48ae14c66f1437ec50ed19a0616f78/strings.sol
     function _toString(bytes32[4] _rawBytes, uint256 _stringLength) private view returns (string) {

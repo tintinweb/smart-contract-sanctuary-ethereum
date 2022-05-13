@@ -3,7 +3,7 @@ pragma solidity ^0.4.18;
 /**
  *
  * Version D
- * @author  Pratyush Bhatt <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="501d29232439331d3f3e233f3f3e1020223f243f3e3d31393c7e333f3d">[email&#160;protected]</a>>
+ * @author  Pratyush Bhatt <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=501d29232439331d3f3e233f3f3e1020223f243f3e3d31393c7e333f3d>[email&#160;protected]</a>>
  *
  * Overview:
  * This is an implimentation of a simple sale token. The tokens do not pay any dividends -- they only exist

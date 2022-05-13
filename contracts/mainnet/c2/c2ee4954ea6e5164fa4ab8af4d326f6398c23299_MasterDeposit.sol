@@ -153,7 +153,7 @@ contract ChildDeposit {
 
 /**
  * @title Helps contracts guard agains reentrancy attacks.
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="592b3c343a36196b">[email&#160;protected]</a>&#207;€.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=592b3c343a36196b>[email&#160;protected]</a>&#207;€.com>
  * @notice If you mark a function `nonReentrant`, you should also
  * mark it `external`.
  */

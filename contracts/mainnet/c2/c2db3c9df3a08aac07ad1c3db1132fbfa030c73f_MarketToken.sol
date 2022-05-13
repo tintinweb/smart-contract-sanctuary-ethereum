@@ -274,7 +274,7 @@ contract StandardToken is ERC20, BasicToken {
 /// @title Upgradeable Token
 /// @notice allows for us to update some of the needed functionality in our tokens post deployment. Inspiration taken
 /// from Golems migrate functionality.
-/// @author Phil Elsasser <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="19697170755974786b727c6d696b766d767a7675377076">[email&#160;protected]</a>>
+/// @author Phil Elsasser <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=19697170755974786b727c6d696b766d767a7675377076>[email&#160;protected]</a>>
 contract UpgradeableToken is Ownable, BurnableToken, StandardToken {
 
     address public upgradeableTarget;       // contract address handling upgrade
@@ -312,7 +312,7 @@ contract UpgradeableToken is Ownable, BurnableToken, StandardToken {
 /// @title Market Token
 /// @notice Our membership token.  Users must lock tokens to enable trading for a given Market Contract
 /// as well as have a minimum balance of tokens to create new Market Contracts.
-/// @author Phil Elsasser <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="66160e0f0a260b07140d0312161409120905090a480f09">[email&#160;protected]</a>>
+/// @author Phil Elsasser <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=66160e0f0a260b07140d0312161409120905090a480f09>[email&#160;protected]</a>>
 contract MarketToken is UpgradeableToken {
 
     string public constant name = "MARKET Protocol Token";

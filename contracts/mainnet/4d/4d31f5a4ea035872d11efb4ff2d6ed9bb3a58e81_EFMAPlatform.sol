@@ -21,7 +21,7 @@ pragma solidity ^0.4.24;
 // This product is protected under license.  Any unauthorized copy, modification, or use without 
 // express written consent from the creators is prohibited.
 // v 0.1.3
-// Any cooperation Please email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ed9e889f9b848e88ad99888c8095c38e81988f">[email&#160;protected]</a>
+// Any cooperation Please email: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ed9e889f9b848e88ad99888c8095c38e81988f>[email&#160;protected]</a>
 // Follow these step to become a site owner:
 // 1. fork git repository: https://github.com/teamx-club/escape-mmm
 // 2. modify file: js/config.js

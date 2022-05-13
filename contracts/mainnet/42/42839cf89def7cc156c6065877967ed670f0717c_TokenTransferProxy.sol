@@ -84,7 +84,7 @@ contract Ownable {
 
 
 /// @title TokenTransferProxy - Transfers tokens on behalf of contracts that have been approved via decentralized governance.
-/// @author Amir Bandeali - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d7c70746f5d2d654d6f7277787e69337e7270">[email&#160;protected]</a>>, Will Warren - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec9b858080acdc94bc9e8386898f98c28f8381">[email&#160;protected]</a>>
+/// @author Amir Bandeali - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1d7c70746f5d2d654d6f7277787e69337e7270>[email&#160;protected]</a>>, Will Warren - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ec9b858080acdc94bc9e8386898f98c28f8381>[email&#160;protected]</a>>
 contract TokenTransferProxy is Ownable {
 
     /// @dev Only authorized addresses can invoke functions with this modifier.

@@ -92,7 +92,7 @@ contract ERC721 is ERC165 {
     function tokenMetadata(uint256 _tokenId) external view returns (string infoUrl);
 }
 
-// Based on strings library by Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4a5b6a5a7acaaada084aaabb0a0abb0eaaaa1b0">[email&#160;protected]</a>>
+// Based on strings library by Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c4a5b6a5a7acaaada084aaabb0a0abb0eaaaa1b0>[email&#160;protected]</a>>
 // Apache license
 // https://github.com/Arachnid/solidity-stringutils
 library strings {
@@ -252,7 +252,7 @@ contract PausableSimple is OwnableSimple {
 
 // heavily modified from https://github.com/dob/auctionhouse/blob/master/contracts/AuctionHouse.sol
 // license: MIT
-// original author: Doug Petkanics (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="85f5e0f1eee4ebece6f6c5e2e8e4ece9abe6eae8">[email&#160;protected]</a>) https://github.com/dob
+// original author: Doug Petkanics (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=85f5e0f1eee4ebece6f6c5e2e8e4ece9abe6eae8>[email&#160;protected]</a>) https://github.com/dob
 contract PresaleMarket is PausableSimple {
     struct Auction {
         address seller;

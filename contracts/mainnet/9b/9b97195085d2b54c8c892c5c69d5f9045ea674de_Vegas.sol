@@ -9,7 +9,7 @@ pragma solidity ^0.4.21;
 
 // HOST: ethlasvegas.surge.sh 
 // Made by EtherGuy 
-// Questions or suggestions? <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0663726e637461737f466b676f6a2865696b">[email&#160;protected]</a> 
+// Questions or suggestions? <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0663726e637461737f466b676f6a2865696b>[email&#160;protected]</a> 
 
 contract RNG{
      uint256 secret = 0;

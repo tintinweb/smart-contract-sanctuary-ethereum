@@ -1661,7 +1661,7 @@ contract BlockchainCutiesCore /*is ERC721, CutieCoreInterface*/
 
 /*
  * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9afbe8fbf9f2f4f3fedaf4f5eefef5eeb4f4ffee">[email&#160;protected]</a>>
+ * @author Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9afbe8fbf9f2f4f3fedaf4f5eefef5eeb4f4ffee>[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
  *      abstraction called a 'slice'. A slice represents a part of a string -

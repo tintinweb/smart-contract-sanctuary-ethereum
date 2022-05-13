@@ -273,7 +273,7 @@ library SafeMath {
 
 /**
  *  @title SortitionSumTreeFactory
- *  @author Enrique Piqueras - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1b4a1b8a0a4b4a3b0a2a291b6bcb0b8bdffb2bebc">[email&#160;protected]</a>>
+ *  @author Enrique Piqueras - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d1b4a1b8a0a4b4a3b0a2a291b6bcb0b8bdffb2bebc>[email&#160;protected]</a>>
  *  @dev A factory of trees that keep track of staked values for sortition.
  */
 library SortitionSumTreeFactory {

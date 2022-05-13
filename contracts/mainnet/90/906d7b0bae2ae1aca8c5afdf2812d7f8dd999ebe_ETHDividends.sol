@@ -15,7 +15,7 @@ pragma solidity ^0.4.18;
 
  Developer:
  
- <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6eed7d9c5f6ddd3d3dbd7dfda98dbd3">[email&#160;protected]</a>
+ <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b6eed7d9c5f6ddd3d3dbd7dfda98dbd3>[email&#160;protected]</a>
  https://t.me/XaosPL
  https://discord.gg/3zVBb
 	

@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 /**
 * @notice Block Coin Bit Token Contract
 * @dev ERC-223 Token Standar Compliant
-* Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="731212011c1d04121f07160115011200160133141e121a1f5d101c1e">[email&#160;protected]</a>
+* Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=731212011c1d04121f07160115011200160133141e121a1f5d101c1e>[email&#160;protected]</a>
 */
 
 /**

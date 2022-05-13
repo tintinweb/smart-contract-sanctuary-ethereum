@@ -142,7 +142,7 @@ contract myUsingOracalize is Ownable {
 }
 
 /// @title Inter-crypto currency converter
-/// @author Jack Tanner - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82e8ecf6b3b4c2ebe1ace3e1acf7e9">[email&#160;protected]</a>>
+/// @author Jack Tanner - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=82e8ecf6b3b4c2ebe1ace3e1acf7e9>[email&#160;protected]</a>>
 contract InterCrypto is Ownable, myUsingOracalize {
     // _______________VARIABLES_______________
     struct Transaction {
