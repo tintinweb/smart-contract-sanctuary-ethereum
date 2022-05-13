@@ -12,7 +12,7 @@ pragma solidity ^0.4.20;
 // An ERC223 standard
 //
 // author: Kryptono Team
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="37605e5b5b5e565a775c454e474358595819524f545f56595052">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=37605e5b5b5e565a775c454e474358595819524f545f56595052>[email&#160;protected]</a>
 
 library SafeMath {
 

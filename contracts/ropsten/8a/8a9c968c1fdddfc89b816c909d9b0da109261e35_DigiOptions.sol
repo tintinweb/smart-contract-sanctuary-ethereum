@@ -10,8 +10,8 @@
  Public repository:
  https://github.com/berlincode/digioptions-contracts.js
 
- <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cda8a1acbeb9a4aee3aea2a9a88daaa0aca4a1e3aea2a0">[email&#160;protected]</a>
- <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5a8a4aca985a1aca2acaab5b1acaaabb6eba6aaa8">[email&#160;protected]</a>
+ <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cda8a1acbeb9a4aee3aea2a9a88daaa0aca4a1e3aea2a0>[email&#160;protected]</a>
+ <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c5a8a4aca985a1aca2acaab5b1acaaabb6eba6aaa8>[email&#160;protected]</a>
 
 */
 

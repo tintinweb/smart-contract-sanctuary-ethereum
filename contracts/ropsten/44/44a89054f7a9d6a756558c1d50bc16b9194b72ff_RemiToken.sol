@@ -4,7 +4,7 @@ pragma solidity 0.4.24;
 
 /**
  * @title Lockable Token
- * @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3950575f5679405e5e5d4b584a51175056">[email&#160;protected]</a>
+ * @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3950575f5679405e5e5d4b584a51175056>[email&#160;protected]</a>
  */
 contract Lockable {
     bool public tokenTransfer;
@@ -176,7 +176,7 @@ library SafeMath {
 
 /**
  * @title REMI Token Contract.
- * @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fc95929a93bc8e9991959588d29593">[email&#160;protected]</a>
+ * @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fc95929a93bc8e9991959588d29593>[email&#160;protected]</a>
  * @notice This contract is the updated version that fixes the unlocking bug.
  * This source code is audited by external auditors.
  */

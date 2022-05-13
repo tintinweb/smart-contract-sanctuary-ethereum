@@ -2,7 +2,7 @@ pragma solidity 0.4.25;
 /**
 * PRIWGR TOKEN Contract
 * ERC-20 Token Standard Compliant
-* @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="66004807081209080f0948070d030a26010b070f0a4805090b">[email&#160;protected]</a>
+* @author Fares A. Akel C. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=66004807081209080f0948070d030a26010b070f0a4805090b>[email&#160;protected]</a>
 */
 
 /**

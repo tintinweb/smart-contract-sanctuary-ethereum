@@ -122,7 +122,7 @@ contract ERC20Token {
 
 /**
  *  预测事件合约对象
- *  @author ZhangZuoCong <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b78e8780808384858480f7c6c699d4d8da">[email&#160;protected]</a>>
+ *  @author ZhangZuoCong <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b78e8780808384858480f7c6c699d4d8da>[email&#160;protected]</a>>
  */
 contract GuessBaseBiz is Pausable {
 

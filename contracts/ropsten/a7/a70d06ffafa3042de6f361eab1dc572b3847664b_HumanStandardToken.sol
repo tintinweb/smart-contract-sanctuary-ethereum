@@ -9,7 +9,7 @@ Token implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/
 
 Smart City Coin Test Net is as the name implies Test Network - it was deployed in order to test functionalities, options, user interface, liquidity, price fluctuation, type of users, 
 market research and get first-hand feedback from all involved. We ask all users to be aware of test nature of the token - have patience and preferably 
-report all errors, opinions, shortcomings to our email address <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2940474f46695a44485b5d4a405d504a4640475d4c5a5d07474c5d07">[email&#160;protected]</a> Ask for bounty program for reporting shortcomings and improvement of functionalities. 
+report all errors, opinions, shortcomings to our email address <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2940474f46695a44485b5d4a405d504a4640475d4c5a5d07474c5d07>[email&#160;protected]</a> Ask for bounty program for reporting shortcomings and improvement of functionalities. 
 
 Smart City Coin Test Network is life real-world test with the goal to gather inputs for the Smart City Coin project.
 

@@ -32,7 +32,7 @@ library SafeMath {
     }
 
     // Copyright (c) 2018
-    // Contract Signed by: Rython Support Team <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="691a1c1919061b1d291b101d010607470006">[email&#160;protected]</a>
+    // Contract Signed by: Rython Support Team <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=691a1c1919061b1d291b101d010607470006>[email&#160;protected]</a>
 
     /*
     * @dev Subtracts two numbers, throws on overflow (i.e. if subtrahend is greater than minuend).

@@ -517,7 +517,7 @@ library SafeERC20 {
 
 /**
  * @title Helps contracts guard against reentrancy attacks.
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1260777f717d5220">[email&#160;protected]</a>π.com>, Eenae <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="63020f061b061a230e">[email&#160;protected]</a>ixbytes.io>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1260777f717d5220>[email&#160;protected]</a>π.com>, Eenae <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=63020f061b061a230e>[email&#160;protected]</a>ixbytes.io>
  * @dev If you mark a function `nonReentrant`, you should also
  * mark it `external`.
  */

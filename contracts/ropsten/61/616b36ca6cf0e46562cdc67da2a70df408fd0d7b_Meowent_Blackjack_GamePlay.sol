@@ -1358,5 +1358,5 @@ contract Meowent_Blackjack_GamePlay is Blackjack_Functionality
 /* =================================================================
 Contact HEAD : Integration User Workflow
 ==================================================================== */
-//Create by <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89e4ece6feece7fdc9eee4e8e0e5a7eae6e4">[email&#160;protected]</a> +886 975330002
+//Create by <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=89e4ece6feece7fdc9eee4e8e0e5a7eae6e4>[email&#160;protected]</a> +886 975330002
 //Worship Lu Goddess Forever

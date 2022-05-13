@@ -20,7 +20,7 @@ pragma solidity 0.5.0;
 pragma experimental ABIEncoderV2;
 
 /// @title Drago Interface - Allows interaction with the Drago contract.
-/// @author Gabriele Rigo - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96f1f7f4d6e4fff1f9f4faf9f5fdb8f5f9fb">[email&#160;protected]</a>>
+/// @author Gabriele Rigo - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=96f1f7f4d6e4fff1f9f4faf9f5fdb8f5f9fb>[email&#160;protected]</a>>
 // solhint-disable-next-line
 interface DragoFace {
     
@@ -61,7 +61,7 @@ interface DragoFace {
 }
 
 /// @title Drago Registry Interface - Allows external interaction with Drago Registry.
-/// @author Gabriele Rigo - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="88efe9eac8fae1efe7eae4e7ebe3a6ebe7e5">[email&#160;protected]</a>>
+/// @author Gabriele Rigo - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=88efe9eac8fae1efe7eae4e7ebe3a6ebe7e5>[email&#160;protected]</a>>
 // solhint-disable-next-line
 interface DragoRegistryFace {
 
@@ -94,7 +94,7 @@ interface DragoRegistryFace {
 }
 
 /// @title Drago Data Helper - Allows to query multiple data of a drago at once.
-/// @author Gabriele Rigo - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f4939596b4869d939b96989b979fda979b99">[email&#160;protected]</a>>
+/// @author Gabriele Rigo - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f4939596b4869d939b96989b979fda979b99>[email&#160;protected]</a>>
 // solhint-disable-next-line
 contract HGetDragoData {
     

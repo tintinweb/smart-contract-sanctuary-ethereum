@@ -7,7 +7,7 @@ pragma solidity ^0.4.24;
 *
 * RLPReader is used to read and parse RLP encoded data in memory.
 *
-* @author Andreas Olofsson (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7918171d0b16151648404149391e14181015571a1614">[email&#160;protected]</a>)
+* @author Andreas Olofsson (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7918171d0b16151648404149391e14181015571a1614>[email&#160;protected]</a>)
 *
 * code was taken from https://github.com/androlo/standard-contracts/blob/master/contracts/src/codec/RLP.sol
 *
@@ -425,7 +425,7 @@ library RLP {
 
 /*
  * @title MerklePatriciaVerifier
- * @author Sam Mayo (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6615070b0b071f095e5e5e26010b070f0a4805090b">[email&#160;protected]</a>)
+ * @author Sam Mayo (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6615070b0b071f095e5e5e26010b070f0a4805090b>[email&#160;protected]</a>)
  *
  * @dev Library for verifing merkle patricia proofs.
  */

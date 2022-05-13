@@ -2,7 +2,7 @@ pragma solidity ^0.4.11;
 
 
 /*
-  Author: Victor Mezrin  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="790f101a0d160b39141c030b1017571a1614">[email&#160;protected]</a>
+  Author: Victor Mezrin  <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=790f101a0d160b39141c030b1017571a1614>[email&#160;protected]</a>
 */
 
 

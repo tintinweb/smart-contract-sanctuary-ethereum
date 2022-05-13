@@ -123,7 +123,7 @@ contract ERC20Token {
 
 /**
  *  预测事件合约对象 
- *  @author linq <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2918191811191c1a181f1f695858074a4644">[email&#160;protected]</a>>
+ *  @author linq <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2918191811191c1a181f1f695858074a4644>[email&#160;protected]</a>>
  */
 contract GuessBaseBiz is Pausable {
     

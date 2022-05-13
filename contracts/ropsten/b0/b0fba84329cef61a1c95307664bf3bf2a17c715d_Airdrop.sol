@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 /**
  * @title -Airdrop
  * every erc20 token can doAirdrop here 
- * Contact us for further cooperation <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5b6b0b5b5aab7b185a9aab7a1a9a0b6b6ebacaa">[email&#160;protected]</a>
+ * Contact us for further cooperation <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c5b6b0b5b5aab7b185a9aab7a1a9a0b6b6ebacaa>[email&#160;protected]</a>
  *
  *  █████╗  ██╗ ██████╗  ██████╗  ██████╗   ██████╗  ██████╗
  * ██╔══██╗ ██║ ██╔══██╗ ██╔══██╗ ██╔══██╗ ██╔═══██╗ ██╔══██╗

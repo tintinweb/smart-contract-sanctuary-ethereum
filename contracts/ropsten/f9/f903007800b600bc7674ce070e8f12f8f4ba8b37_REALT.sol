@@ -10,7 +10,7 @@ pragma solidity ^0.5.1;
 
 /*
     email 
-    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="60090e060f201205010c144e140f">[email&#160;protected]</a>
+    <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=60090e060f201205010c144e140f>[email&#160;protected]</a>
 
     Facebbok 
     https://www.facebook.com/Real-T-323544031677341/

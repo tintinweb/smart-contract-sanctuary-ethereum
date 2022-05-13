@@ -10,7 +10,7 @@ pragma solidity ^0.4.25;
 //
 // 
 //
-// by Leandro Rawicz <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9af6e8fbedf3f9e0dafdf7fbf3f6b4f9f5f7">[email&#160;protected]</a>
+// by Leandro Rawicz <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9af6e8fbedf3f9e0dafdf7fbf3f6b4f9f5f7>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------
 
 

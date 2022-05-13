@@ -125,7 +125,7 @@ contract StandardToken is ERC20, SafeMath {
 }
 
 /// @title Veritaseum Token
-/// @author Riaan F Venter~ RFVenter~ <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3f524c587f4d5949115650">[email&#160;protected]</a>>
+/// @author Riaan F Venter~ RFVenter~ <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3f524c587f4d5949115650>[email&#160;protected]</a>>
 contract VeritaseumToken is Ownable, StandardToken {
 
     string public name = "Veritaseum";          // name of the token

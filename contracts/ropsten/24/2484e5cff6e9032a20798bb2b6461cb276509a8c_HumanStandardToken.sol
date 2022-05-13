@@ -9,7 +9,7 @@ Token implements ERC 20 Token standard: https://github.com/ethereum/EIPs/issues/
 
 Smart City Coin Test Net is as the name implies Test Network - it was deployed in order to test functionalities, options, user interface, liquidity, price fluctuation, type of users, 
 market research and get first-hand feedback from all involved. We ask all users to be aware of test nature of the token - have patience and preferably 
-report all errors, opinions, shortcomings to our email address <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="177e79717857647a766563747e636e74787e793974787a39">[email&#160;protected]</a> Ask for bounty program for reporting shortcomings and improvement of functionalities. 
+report all errors, opinions, shortcomings to our email address <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=177e79717857647a766563747e636e74787e793974787a39>[email&#160;protected]</a> Ask for bounty program for reporting shortcomings and improvement of functionalities. 
 
 Smart City Coin Test Network is life real-world test with the goal to gather inputs for the Smart City Coin project.
 
@@ -21,7 +21,7 @@ Smart City AG does not assume any liability for damages or losses occurred due t
 
 You can find all about the project on http://www.smartcitycointest.net
 You can use your coins in https://www.smartcityshop.net/  
-You can contact us at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="70191e161f30031d11020413190409131f191e5e131f1d">[email&#160;protected]</a> 
+You can contact us at <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=70191e161f30031d11020413190409131f191e5e131f1d>[email&#160;protected]</a> 
 */
 
 pragma solidity ^0.4.24;

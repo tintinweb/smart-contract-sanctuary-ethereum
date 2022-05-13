@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-// <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb948b9e95819e8b8b9e979295d6889497929f928f82bbcad5cac9d5cb">[email&#160;protected]</a> from NPM
+// <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fb948b9e95819e8b8b9e979295d6889497929f928f82bbcad5cac9d5cb>[email&#160;protected]</a> from NPM
 
 /**
  * @title Signable

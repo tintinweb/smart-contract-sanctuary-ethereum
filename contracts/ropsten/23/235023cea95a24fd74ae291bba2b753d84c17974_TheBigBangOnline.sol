@@ -2,7 +2,7 @@
 This software code is prohibited for copying and distribution. 
 The violation of this requirement will be punished by law. 
 
-Contact e-mail: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="75011d10171c1217141b121a1b191c1b103505071a011a1b18141c195b161a18">[email&#160;protected]</a>
+Contact e-mail: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=75011d10171c1217141b121a1b191c1b103505071a011a1b18141c195b161a18>[email&#160;protected]</a>
 
 Test code. 
 */

@@ -192,7 +192,7 @@ contract StandardToken is BasicToken, ERC20 {
 
 /// @title Loopring Protocol Token.
 /// For more information about this token sale, please visit https://loopring.org
-/// @author Kongliang Zhong - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="395256575e555058575e79555656494b50575e17564b5e">[email&#160;protected]</a>>, Daniel Wang - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5d1d4dbdcd0d9f5d9dadac5c7dcdbd29bdac7d2">[email&#160;protected]</a>>.
+/// @author Kongliang Zhong - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=395256575e555058575e79555656494b50575e17564b5e>[email&#160;protected]</a>>, Daniel Wang - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b5d1d4dbdcd0d9f5d9dadac5c7dcdbd29bdac7d2>[email&#160;protected]</a>>.
 contract LoopringToken is StandardToken {
     string public constant NAME = "LoopringCoin";
     string public constant SYMBOL = "LRC";

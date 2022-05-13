@@ -2,7 +2,7 @@ pragma solidity ^0.4.11;
 
 
 /// @title Interface for contracts conforming to ERC-721: Non-Fungible Tokens
-/// @author Dieter Shirley <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6a2a3b2a386a7beafa9abbca3a8e8a5a9">[email&#160;protected]</a>> (https://github.com/dete)
+/// @author Dieter Shirley <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c6a2a3b2a386a7beafa9abbca3a8e8a5a9>[email&#160;protected]</a>> (https://github.com/dete)
 contract ERC721 {
     function implementsERC721() public pure returns (bool);
     function totalSupply() public view returns (uint256 total);

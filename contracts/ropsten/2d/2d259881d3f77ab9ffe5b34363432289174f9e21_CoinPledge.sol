@@ -149,7 +149,7 @@ contract Ownable {
 /// @notice Reach your goals and have fun with friends
 /// @dev All function calls are currently implement without side effects
 /// @web: ylv.io
-/// @email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="70041f30091c065e191f">[email&#160;protected]</a>
+/// @email: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=70041f30091c065e191f>[email&#160;protected]</a>
 /// @gitHub: https://github.com/ylv-io/coinpledge/tree/master
 /// @twitter: https://twitter.com/ylv_io
 

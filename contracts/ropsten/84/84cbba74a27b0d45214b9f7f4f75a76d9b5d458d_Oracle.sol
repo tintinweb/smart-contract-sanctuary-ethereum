@@ -54,8 +54,8 @@ contract Owned {
 }
 
 /*
- * Kryptium Tracker Samrt Contract.  Copyright &#169; 2018 by Kryptium Team <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cea7a0a8a18ea5bcb7bebaa7bba3e0a7a1">[email&#160;protected]</a>>.
- * Author: Giannis Zarifis <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6bcacb7a4bfb0bfa596bda4afa6a2bfa3bbf8bfb9">[email&#160;protected]</a>>.
+ * Kryptium Tracker Samrt Contract.  Copyright &#169; 2018 by Kryptium Team <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cea7a0a8a18ea5bcb7bebaa7bba3e0a7a1>[email&#160;protected]</a>>.
+ * Author: Giannis Zarifis <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d6bcacb7a4bfb0bfa596bda4afa6a2bfa3bbf8bfb9>[email&#160;protected]</a>>.
  */
 contract Oracle is SafeMath, Owned {
 

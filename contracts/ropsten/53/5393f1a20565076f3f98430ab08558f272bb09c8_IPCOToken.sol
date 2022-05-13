@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bbdfdacddefbdad0d4d6d9da95d8d4d6">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bbdfdacddefbdad0d4d6d9da95d8d4d6>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 // input  /home/masa331/code/solidity/xixoio-contracts/contracts/IPCOToken.sol
 // flattened :  Thursday, 22-Nov-18 08:56:08 UTC

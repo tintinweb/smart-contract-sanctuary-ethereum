@@ -2,7 +2,7 @@ pragma solidity 0.4.25;
 /**
 * PRIME TOKEN Contract
 * ERC-20 Token Standard Compliant
-* @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e680c887889289888f89c8878d838aa6818b878f8ac885898b">[email&#160;protected]</a>
+* @author Fares A. Akel C. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e680c887889289888f89c8878d838aa6818b878f8ac885898b>[email&#160;protected]</a>
 */
 
 /**

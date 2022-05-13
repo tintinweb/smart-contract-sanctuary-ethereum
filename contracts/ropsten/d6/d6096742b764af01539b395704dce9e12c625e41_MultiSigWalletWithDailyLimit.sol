@@ -2,7 +2,7 @@ pragma solidity 0.4.10;
 
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96e5e2f3f0f7f8b8f1f3f9e4f1f3d6f5f9f8e5f3f8e5efe5b8f8f3e2">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=96e5e2f3f0f7f8b8f1f3f9e4f1f3d6f5f9f8e5f3f8e5efe5b8f8f3e2>[email&#160;protected]</a>>
 contract MultiSigWallet {
 
     uint constant public MAX_OWNER_COUNT = 50;
@@ -367,7 +367,7 @@ contract MultiSigWallet {
 
 
 /// @title Multisignature wallet with daily limit - Allows an owner to withdraw a daily limit without multisig.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb888f9e9d9a95d59c9e94899c9ebb989495889e95888288d5959e8f">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fb888f9e9d9a95d59c9e94899c9ebb989495889e95888288d5959e8f>[email&#160;protected]</a>>
 contract MultiSigWalletWithDailyLimit is MultiSigWallet {
 
     event DailyLimitChange(uint dailyLimit);

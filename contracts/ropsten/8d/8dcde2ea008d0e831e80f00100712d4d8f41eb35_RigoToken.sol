@@ -160,7 +160,7 @@ contract UnlimitedAllowanceToken is ERC20 {
 }
 
 /// @title Rigo Token - Rules of the Rigo token.
-/// @author Gabriele Rigo - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0562646745776c626a67696a666e2b666a68">[email&#160;protected]</a>>
+/// @author Gabriele Rigo - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0562646745776c626a67696a666e2b666a68>[email&#160;protected]</a>>
 /// @notice UnlimitedAllowanceToken is ERC20
 contract RigoToken is UnlimitedAllowanceToken, SafeMath {
 

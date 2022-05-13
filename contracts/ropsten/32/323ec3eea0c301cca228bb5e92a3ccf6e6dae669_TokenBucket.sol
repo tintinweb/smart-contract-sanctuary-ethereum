@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 // File: contracts/mixins/RBACMixin.sol
 
 /// @title Role based access control mixin for MUST Platform
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4d5d8d1c69aced5d9c4ddd8d8dbf4d3d9d5ddd89ad7dbd9">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b4d5d8d1c69aced5d9c4ddd8d8dbf4d3d9d5ddd89ad7dbd9>[email&#160;protected]</a>>
 /// @dev Ignore DRY approach to achieve readability
 contract RBACMixin {
   /// @notice Constant string message to throw on lack of access
@@ -180,7 +180,7 @@ interface IMintableToken {
 
 
 /// @title Very simplified implementation of Token Bucket Algorithm to secure token minting
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bcddd0d9ce92c6ddd1ccd5d0d0d3fcdbd1ddd5d092dfd3d1">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bcddd0d9ce92c6ddd1ccd5d0d0d3fcdbd1ddd5d092dfd3d1>[email&#160;protected]</a>>
 /// @notice Works with tokens implemented Mintable interface
 /// @dev Transfer ownership/minting role to contract and execute mint over TokenBucket proxy to secure
 contract TokenBucket is RBACMixin, IMintableToken {

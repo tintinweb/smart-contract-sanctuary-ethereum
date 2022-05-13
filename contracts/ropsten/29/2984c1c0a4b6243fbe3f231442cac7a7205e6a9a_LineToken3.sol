@@ -4,7 +4,7 @@ pragma solidity ^0.4.18;
 // 'LineToken3' token contract
 //
 // Deployed to : 0x79c6C8Fcf8F40F961E7a132dA6F3b8516A583bE0
-// Symbol      : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="91f5d1">[email&#160;protected]</a> 
+// Symbol      : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=91f5d1>[email&#160;protected]</a> 
 // Name        : LineToken3
 // Total supply: 1000000000
 // Decimals    : 8
@@ -113,7 +113,7 @@ contract LineToken3 is ERC20Interface, Owned, SafeMath {
     // Constructor
     // ------------------------------------------------------------------------
     function LineToken3() public {
-        symbol = "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="264266">[email&#160;protected]</a>";
+        symbol = "<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=264266>[email&#160;protected]</a>";
         name = "LineToken3";
         decimals = 8;
         _totalSupply = 100000000000000000;

@@ -1,5 +1,5 @@
 /* 
-@title Trextokenclassic Project created by <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8cbc4c7dbcdc5c9c6c9ccdbe8cfc5c9c1c486cbc7c5">[email&#160;protected]</a>
+@title Trextokenclassic Project created by <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a8cbc4c7dbcdc5c9c6c9ccdbe8cfc5c9c1c486cbc7c5>[email&#160;protected]</a>
  */
 pragma solidity ^0.4.18;
 
@@ -40,7 +40,7 @@ library SafeMath {
     }
 
     // Copyright (c) 2018
-    // Contract developed by: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f3c13100c1a121e111e1b0c3f18121e1613511c1012">[email&#160;protected]</a>
+    // Contract developed by: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7f3c13100c1a121e111e1b0c3f18121e1613511c1012>[email&#160;protected]</a>
       
     /*
     * @dev Adds two numbers, throws on overflow.

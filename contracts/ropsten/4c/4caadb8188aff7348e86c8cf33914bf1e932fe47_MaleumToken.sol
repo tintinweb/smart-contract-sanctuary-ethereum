@@ -7,7 +7,7 @@ pragma solidity ^0.4.23;
 // For details, please visit: http://Maleum.io
 //
 //
-// written by Alex Kampa - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b7a705b68727074797a35787476">[email&#160;protected]</a>
+// written by Alex Kampa - <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1b7a705b68727074797a35787476>[email&#160;protected]</a>
 //
 // ----------------------------------------------------------------------------
 

@@ -32,7 +32,7 @@ interface Token {
 }
 
 /// @title Multiple Balances Helper - Allows to receive a list of pools for a specific group.
-/// @author Gabriele Rigo - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95f2f4f7d5e7fcf2faf7f9faf6febbf6faf8">[email&#160;protected]</a>>
+/// @author Gabriele Rigo - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=95f2f4f7d5e7fcf2faf7f9faf6febbf6faf8>[email&#160;protected]</a>>
 // solhint-disable-next-line
 contract HGetMultipleBalances {
 

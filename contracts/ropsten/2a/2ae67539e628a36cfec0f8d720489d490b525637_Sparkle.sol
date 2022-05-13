@@ -430,7 +430,7 @@ contract Ownable {
 // File: contracts/SparkleToken.sol
 
 /**
- * @dev OpenZeppelin Solidity v2.0.0 imports (Using: npm <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2c435c494256495c5c49404542015f434045484558556c1e021c021c">[email&#160;protected]</a>)
+ * @dev OpenZeppelin Solidity v2.0.0 imports (Using: npm <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=2c435c494256495c5c49404542015f434045484558556c1e021c021c>[email&#160;protected]</a>)
  */
 
 

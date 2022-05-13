@@ -1,5 +1,5 @@
 pragma solidity ^0.4.24;
-/// @author Global Group - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1b6b6bdbeb3b0bdb8abb4b591b6bcb0b8bdffb2bebc">[email&#160;protected]</a>>
+/// @author Global Group - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d1b6b6bdbeb3b0bdb8abb4b591b6bcb0b8bdffb2bebc>[email&#160;protected]</a>>
 library SafeMath {
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
         if (a == 0) {

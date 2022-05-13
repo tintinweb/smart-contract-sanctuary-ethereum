@@ -393,7 +393,7 @@ contract Ownable {
 }
 
 /// @title Alex token implementation
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="abcac7ced985d1cac6dbc2c7c7c4ebccc6cac2c785c8c4c6">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=abcac7ced985d1cac6dbc2c7c7c4ebccc6cac2c785c8c4c6>[email&#160;protected]</a>>
 /// @dev Implements ERC20
 contract MainCoin is BurnableToken, Ownable {
   /// @notice Constant field with token full name

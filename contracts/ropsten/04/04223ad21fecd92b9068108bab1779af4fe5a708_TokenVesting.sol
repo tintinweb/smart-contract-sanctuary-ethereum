@@ -366,7 +366,7 @@ contract OPTCToken is StandardToken, BlackList {
 /** 
 /** 
  * @title TokenVesting
- * @dev Fixed and Rewrite by Jason (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c58555b5b5e2c1d1d420f0301">[email&#160;protected]</a>) 9/25/2018
+ * @dev Fixed and Rewrite by Jason (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6c58555b5b5e2c1d1d420f0301>[email&#160;protected]</a>) 9/25/2018
  */
 contract TokenVesting is Ownable {
   using SafeMath for uint256;

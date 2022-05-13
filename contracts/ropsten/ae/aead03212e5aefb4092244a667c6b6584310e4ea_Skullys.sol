@@ -928,7 +928,7 @@ contract Ownable {
 // File: contracts\Skullys.sol
 
 /// @title Skullys
-/// @author Hoank <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bfd7d0ded1d4ffdccdc6cfcbd0d18c91dcd0d2">[email&#160;protected]</a>>
+/// @author Hoank <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bfd7d0ded1d4ffdccdc6cfcbd0d18c91dcd0d2>[email&#160;protected]</a>>
 /// @notice Skullys ERC721 interface for minting, cloning, and transfering Skullys tokens
 
 contract Skullys is ERC721Full ("SkullysToken", "SKL"), Ownable {

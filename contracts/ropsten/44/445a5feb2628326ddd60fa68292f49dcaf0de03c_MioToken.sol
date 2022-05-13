@@ -629,7 +629,7 @@ contract PausableToken is StandardToken, Pausable {
  * @title SnapshotToken
  * ERC20 Token inspired by Jordi Baylina's MiniMeToken to record historical balances
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="046d6a626b447265686d606d707d686566772a6b7663">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=046d6a626b447265686d606d707d686566772a6b7663>[email&#160;protected]</a>>
  */
 
 pragma solidity ^0.4.24;  // solhint-disable-line
@@ -856,7 +856,7 @@ contract SnapshotToken is BurnableToken, MintableToken, PausableToken {
 /**
  * @title MultiSendToken
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3babdb5bc93a5b2bfbab7baa7aabfb2b1a0fdbca1b4">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d3babdb5bc93a5b2bfbab7baa7aabfb2b1a0fdbca1b4>[email&#160;protected]</a>>
  */
 
 pragma solidity ^0.4.24;  // solhint-disable-line
@@ -885,7 +885,7 @@ contract MultiSendToken is BasicToken {
 /**
  * @title MioToken
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aac3c4ccc5eadccbc6c3cec3ded3c6cbc8d984c5d8cd">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aac3c4ccc5eadccbc6c3cec3ded3c6cbc8d984c5d8cd>[email&#160;protected]</a>>
  */
 
 pragma solidity ^0.4.24;  // solhint-disable-line

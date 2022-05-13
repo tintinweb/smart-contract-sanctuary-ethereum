@@ -1,7 +1,7 @@
 pragma solidity ^0.4.20;
 
 /// @title kryptono exchange AirDropContract for KNOW token
-/// @author Trong Cau Ta <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e6a6c7170797d7f6b767d736b6d5e79737f7772307d7173">[email&#160;protected]</a>>
+/// @author Trong Cau Ta <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1e6a6c7170797d7f6b767d736b6d5e79737f7772307d7173>[email&#160;protected]</a>>
 /// For more information, please visit kryptono.exchange
 
 /// @title ERC20

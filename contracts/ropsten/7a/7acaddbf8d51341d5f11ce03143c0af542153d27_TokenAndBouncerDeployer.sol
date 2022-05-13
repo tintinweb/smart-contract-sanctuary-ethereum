@@ -1,7 +1,7 @@
 pragma solidity 0.4.24;
 
 
-// File openzeppelin-solidity/contracts/token/ERC20/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c188849382f3f1efb2aead81b7f0eff0f3eff1">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC20/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c188849382f3f1efb2aead81b7f0eff0f3eff1>[email&#160;protected]</a>
 
 /**
  * @title ERC20 interface
@@ -37,7 +37,7 @@ interface IERC20 {
 }
 
 
-// File openzeppelin-solidity/contracts/math/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5e6d4d3d0f8d4c1dd9bc6dad9f5c3849b84879b85">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/math/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b5e6d4d3d0f8d4c1dd9bc6dad9f5c3849b84879b85>[email&#160;protected]</a>
 
 /**
  * @title SafeMath
@@ -104,7 +104,7 @@ library SafeMath {
 }
 
 
-// File openzeppelin-solidity/contracts/token/ERC20/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4005120372706e332f2c0036716e71726e70">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC20/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4005120372706e332f2c0036716e71726e70>[email&#160;protected]</a>
 
 /**
  * @title Standard ERC20 token
@@ -306,7 +306,7 @@ contract ERC20 is IERC20 {
 }
 
 
-// File openzeppelin-solidity/contracts/token/ERC20/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c89ba9aead8d9a8bfaf8e6bba7a488bef9e6f9fae6f8">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC20/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c89ba9aead8d9a8bfaf8e6bba7a488bef9e6f9fae6f8>[email&#160;protected]</a>
 
 /**
  * @title SafeERC20
@@ -348,7 +348,7 @@ library SafeERC20 {
 }
 
 
-// File openzeppelin-solidity/contracts/ownership/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a4ebd3cac5c6c8c18ad7cbc8e4d2958a95968a94">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/ownership/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a4ebd3cac5c6c8c18ad7cbc8e4d2958a95968a94>[email&#160;protected]</a>
 
 /**
  * @title Ownable
@@ -413,7 +413,7 @@ contract Ownable {
 }
 
 
-// File openzeppelin-solidity/contracts/access/rbac/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a6855565f49144955567a4c0b140b08140a">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/access/rbac/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3a6855565f49144955567a4c0b140b08140a>[email&#160;protected]</a>
 
 /**
  * @title Roles
@@ -469,7 +469,7 @@ library Roles {
 }
 
 
-// File openzeppelin-solidity/contracts/access/rbac/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="44160605076a372b280432756a75766a74">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/access/rbac/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=44160605076a372b280432756a75766a74>[email&#160;protected]</a>
 
 /**
  * @title RBAC (Role-Based Access Control)
@@ -574,7 +574,7 @@ contract RBAC {
 }
 
 
-// File openzeppelin-solidity/contracts/cryptography/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1451575047553a677b785462253a25263a24">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/cryptography/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=1451575047553a677b785462253a25263a24>[email&#160;protected]</a>
 
 /**
  * @title Elliptic curve signature operations
@@ -647,7 +647,7 @@ library ECDSA {
 }
 
 
-// File openzeppelin-solidity/contracts/access/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="12417b757c7366676077507d677c7177603c617d7e5264233c23203c22">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/access/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=12417b757c7366676077507d677c7177603c617d7e5264233c23203c22>[email&#160;protected]</a>
 
 /**
  * @title SignatureBouncer
@@ -862,7 +862,7 @@ contract EscrowedERC20Bouncer is SignatureBouncer {
 }
 
 
-// File openzeppelin-solidity/contracts/token/ERC20/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f3a2d3c4d4f3216110b1e1d131a510c10133f094e514e4d514f">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC20/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7f3a2d3c4d4f3216110b1e1d131a510c10133f094e514e4d514f>[email&#160;protected]</a>
 
 /**
  * @title Mintable token
@@ -950,7 +950,7 @@ contract MintableERC20Bouncer is SignatureBouncer {
 }
 
 
-// File openzeppelin-solidity/contracts/token/ERC20/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="490c1b0a7b790d2c3d2820252c2d673a2625093f7867787b6779">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC20/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=490c1b0a7b790d2c3d2820252c2d673a2625093f7867787b6779>[email&#160;protected]</a>
 
 /**
  * @title ERC20Detailed token
@@ -971,7 +971,7 @@ contract ERC20Detailed is IERC20 {
 }
 
 
-// File openzeppelin-solidity/contracts/proposals/ERC1046/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="11457e7a747f5c746570757065703f627e7d5167203f20233f21">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/proposals/ERC1046/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=11457e7a747f5c746570757065703f627e7d5167203f20233f21>[email&#160;protected]</a>
 
 /**
  * @title ERC-1047 Token Metadata

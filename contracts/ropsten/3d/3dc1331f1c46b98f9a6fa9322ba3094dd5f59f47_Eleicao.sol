@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 // T&#237;tulo: Contrato para vota&#231;&#227;o de elei&#231;&#227;o do nome da Biblioeca do IFTM - Campus Paracatu
 
-// Desenvolvido por: Nataniel P. Santos (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6a8a7b2a7a8afa3aab5a786a1aba7afaae8a5a9ab">[email&#160;protected]</a>)
+// Desenvolvido por: Nataniel P. Santos (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c6a8a7b2a7a8afa3aab5a786a1aba7afaae8a5a9ab>[email&#160;protected]</a>)
 
 // Descri&#231;&#227;o: Esse Smart Contract foi desenvolvido com o objetivo de ser utilizaddo para realizar
 // a vota&#231;&#227;o da escolha do nome da biblioteca. Sua utliza&#231;&#227;o foi pensada na facilidade do eleitor,

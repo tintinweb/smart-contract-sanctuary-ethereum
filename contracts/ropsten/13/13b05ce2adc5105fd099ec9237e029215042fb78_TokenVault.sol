@@ -144,7 +144,7 @@ library SafeERC20 {
 /**
  * @title Token Vault contract.
  * @version 1.0
- * @author Validity Labs AG <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="50393e363f1026313c39343924293c3132237e3f2237">[email&#160;protected]</a>>
+ * @author Validity Labs AG <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=50393e363f1026313c39343924293c3132237e3f2237>[email&#160;protected]</a>>
  */
 
 pragma solidity ^0.4.24;  // solhint-disable-line

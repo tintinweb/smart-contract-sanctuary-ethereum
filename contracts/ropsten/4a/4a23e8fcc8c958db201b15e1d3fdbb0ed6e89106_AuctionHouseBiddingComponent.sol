@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="553134233015343e3a3837347b363a38">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=553134233015343e3a3837347b363a38>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 library SafeMath {
 
@@ -942,7 +942,7 @@ contract Secondary {
 }
 
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96f2f7e0f3d6f7fdf9fbf4f7b8f5f9fb">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=96f2f7e0f3d6f7fdf9fbf4f7b8f5f9fb>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 contract IBidRegistry {
   enum AuctionStatus {

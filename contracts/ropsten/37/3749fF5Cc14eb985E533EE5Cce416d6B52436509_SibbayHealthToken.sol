@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd999c8b98bd9c9692909f9cd39e9290">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fd999c8b98bd9c9692909f9cd39e9290>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 // input  /home/henry/learning/git/smartContract/truffle/022-sht/contracts-bak/SibbayHealthToken.sol
 // flattened :  Saturday, 17-Nov-18 06:24:45 UTC

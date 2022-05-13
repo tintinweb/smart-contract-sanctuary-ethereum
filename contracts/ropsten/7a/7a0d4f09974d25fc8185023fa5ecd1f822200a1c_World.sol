@@ -946,7 +946,7 @@ contract ERC721Token is SupportsInterfaceWithLookup, ERC721BasicToken, ERC721 {
 
 /**
 * @title Block42 land token contract
-* @author Richard Fu (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="98eaf1fbf0f9eafcfed8faf4f7fbf3acaab6eff7eaf4fc">[email&#160;protected]</a>)
+* @author Richard Fu (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=98eaf1fbf0f9eafcfed8faf4f7fbf3acaab6eff7eaf4fc>[email&#160;protected]</a>)
 * @dev Complant with OpenZeppelin's implementation of the ERC721 spec
 */
 

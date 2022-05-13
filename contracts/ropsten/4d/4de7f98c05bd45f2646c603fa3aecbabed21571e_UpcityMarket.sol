@@ -617,7 +617,7 @@ contract BancorFormula is Utils {
 }
 
 /// @title Definition for a resource token used by upcity.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c3aea683aea6b1a8afa6a9a6b1a8eda0acae">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c3aea683aea6b1a8afa6a9a6b1a8eda0acae>[email&#160;protected]</a>)
 interface IResourceToken {
 
 	function transfer(address to, uint256 amt) external returns (bool);
@@ -630,7 +630,7 @@ interface IResourceToken {
 }
 
 /// @title Base contract defining common error codes.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="731e16331e1601181f16191601185d101c1e">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=731e16331e1601181f16191601185d101c1e>[email&#160;protected]</a>)
 contract Errors {
 
 	string internal constant ERROR_MAX_HEIGHT = "MAX_HEIGHT";
@@ -648,7 +648,7 @@ contract Errors {
 
 /// @title Base for contracts that require a separate
 /// initialization step beyond the constructor.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82efe7c2efe7f0e9eee7e8e7f0e9ace1edef">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=82efe7c2efe7f0e9eee7e8e7f0e9ace1edef>[email&#160;protected]</a>)
 /// @dev Deriving contracts should call super._init() in their initialization step
 /// to initialize the contract.
 contract Uninitialized is Errors {
@@ -677,7 +677,7 @@ contract Uninitialized is Errors {
 
 /// @title Base class for contracts that want to restrict access to privileged
 /// functions to either the contract creator or a group of addresses.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="432e26032e2631282f26292631286d202c2e">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=432e26032e2631282f26292631286d202c2e>[email&#160;protected]</a>)
 /// @dev Derived contracts should set isAuthority to true for each address
 /// with privileged access to functions protected by the onlyAuthority modifier.
 contract Restricted is Errors {
@@ -706,7 +706,7 @@ contract Restricted is Errors {
 }
 
 /// @title Bancor market for UpCity's resources.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="09646c49646c7b62656c636c7b62276a6664">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=09646c49646c7b62656c636c7b62276a6664>[email&#160;protected]</a>)
 contract UpcityMarket is BancorFormula, Uninitialized, Restricted {
 
 	using SafeMath for uint256;

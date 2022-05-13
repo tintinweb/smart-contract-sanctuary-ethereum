@@ -1,8 +1,8 @@
 pragma solidity ^0.4.25;
 
 // Professor Rui-Shan Lu Team
-// Rs Lu  <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e597968990d7d5d5d5a58288848c89cb868a88">[email&#160;protected]</a>>
-// Lursun <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cba7beb9b8bea5f2fafffbfaf88baca6aaa2a7e5a8a4a6">[email&#160;protected]</a>>
+// Rs Lu  <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=e597968990d7d5d5d5a58288848c89cb868a88>[email&#160;protected]</a>>
+// Lursun <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=cba7beb9b8bea5f2fafffbfaf88baca6aaa2a7e5a8a4a6>[email&#160;protected]</a>>
 
 contract ERC20{
     function transfer(address _to, uint256 _value) public;

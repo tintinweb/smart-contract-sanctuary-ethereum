@@ -1,7 +1,7 @@
 /*
  * EURD Token Smart Contract.
  * Copyright (c) 2018 by DEXFin Exchange Limited.
- * Contact: <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="157471787c7b5571706d737c7b3b706d767d747b7270">[email&#160;protected]</a>>
+ * Contact: <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=157471787c7b5571706d737c7b3b706d767d747b7270>[email&#160;protected]</a>>
  */
 pragma solidity ^0.4.20;
 

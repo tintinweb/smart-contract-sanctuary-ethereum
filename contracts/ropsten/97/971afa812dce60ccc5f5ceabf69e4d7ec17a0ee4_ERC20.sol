@@ -12,7 +12,7 @@ pragma solidity ^0.4.25;
 //
 //Website Url - https://swiss-turbo.com
 //
-//Email - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="70191e161f3003071903035d040502121f5e131f1d">[email&#160;protected]</a>
+//Email - <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=70191e161f3003071903035d040502121f5e131f1d>[email&#160;protected]</a>
 
 
 contract owned {

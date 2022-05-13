@@ -5,7 +5,7 @@ pragma solidity ^0.4.18;
 // An ERC20 standard
 //
 // author: Gifto Team
-// Contact: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec888d989b84828b99958982ac8b818d8580c28f8381">[email&#160;protected]</a>
+// Contact: <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ec888d989b84828b99958982ac8b818d8580c28f8381>[email&#160;protected]</a>
 
 contract ERC20Interface {
     // Get the total token supply

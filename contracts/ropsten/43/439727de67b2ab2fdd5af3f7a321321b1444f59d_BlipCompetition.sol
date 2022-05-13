@@ -711,7 +711,7 @@ contract Pausable is Ownable {
 
 /**
  * @title BlipToken
- * @author Carlos Beltran <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c3aaaeb7aba2b7a0a2b1afacb083a4aea2aaafeda0acae">[email&#160;protected]</a>>
+ * @author Carlos Beltran <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c3aaaeb7aba2b7a0a2b1afacb083a4aea2aaafeda0acae>[email&#160;protected]</a>>
  *
  * @dev This contract implements the ERC721Token standard interface
  */
@@ -752,7 +752,7 @@ contract BlipToken is ERC721Token, Ownable {
 
 /**
  * @title BlipCompetition
- * @author Carlos Beltran <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fb92968f939a8f989a89979488bb9c969a9297d5989496">[email&#160;protected]</a>>
+ * @author Carlos Beltran <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fb92968f939a8f989a89979488bb9c969a9297d5989496>[email&#160;protected]</a>>
  *
  * @dev This contract manages competition entries and the funds associated with them.
  * Authorized accounts can payout the winners or refund them if necessary.

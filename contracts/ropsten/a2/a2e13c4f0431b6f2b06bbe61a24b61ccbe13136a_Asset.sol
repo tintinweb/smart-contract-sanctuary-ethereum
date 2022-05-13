@@ -2,7 +2,7 @@ pragma solidity 0.4.25;
 /**
 * @notice VSTER TOKEN CONTRACT
 * @dev ERC-20 Token Standar Compliant
-* @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8fe9a1eee1fbe0e1e6e0a1eee4eae3cfe8e2eee6e3a1ece0e2">[email&#160;protected]</a>
+* @author Fares A. Akel C. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8fe9a1eee1fbe0e1e6e0a1eee4eae3cfe8e2eee6e3a1ece0e2>[email&#160;protected]</a>
 */
 
 /**

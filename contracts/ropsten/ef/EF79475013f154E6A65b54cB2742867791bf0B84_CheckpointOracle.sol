@@ -6,7 +6,7 @@ pragma solidity ^0.5.10;
 
 /**
  * @title CheckpointOracle
- * @author Gary Rong<<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f99e988b808b96979eb99c8d919c8b9c8c94d7968b9e">[email&#160;protected]</a>>, Martin Swende <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="234e4251574a4d0d5054464d47466346574b465146564e0d4c5144">[email&#160;protected]</a>>
+ * @author Gary Rong<<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f99e988b808b96979eb99c8d919c8b9c8c94d7968b9e>[email&#160;protected]</a>>, Martin Swende <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=234e4251574a4d0d5054464d47466346574b465146564e0d4c5144>[email&#160;protected]</a>>
  * @dev Implementation of the blockchain checkpoint registrar.
  */
 contract CheckpointOracle {

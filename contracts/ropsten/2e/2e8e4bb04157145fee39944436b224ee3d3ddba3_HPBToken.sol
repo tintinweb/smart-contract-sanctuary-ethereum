@@ -193,7 +193,7 @@ contract StandardToken is BasicToken, ERC20 {
 
 /// @title HPB Protocol Token.
 /// For more information about this token sale, please visit https://gxn.io
-/// @author Arnold - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="47263529282b2307203f29692e28">[email&#160;protected]</a>>, Bob - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef8d808daf889781c18680">[email&#160;protected]</a>>.
+/// @author Arnold - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=47263529282b2307203f29692e28>[email&#160;protected]</a>>, Bob - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=ef8d808daf889781c18680>[email&#160;protected]</a>>.
 contract HPBToken is StandardToken {
     string public constant NAME = "HPBCoin";
     string public constant SYMBOL = "HPB";

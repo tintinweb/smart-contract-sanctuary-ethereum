@@ -2,7 +2,7 @@ pragma solidity ^0.4.18;
 
 /************************************************** */
 /* WhenHub InterfaceApp Smart Contract                */
-/* Author: Nik Kalyani  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbb5b2b09bacb3beb5b3aeb9f5b8b4b6">[email&#160;protected]</a>             */
+/* Author: Nik Kalyani  <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dbb5b2b09bacb3beb5b3aeb9f5b8b4b6>[email&#160;protected]</a>             */
 /* Copyright (c) 2018 CalendarTree, Inc.            */
 /* https://interface.whenhub.com                    */
 /************************************************** */

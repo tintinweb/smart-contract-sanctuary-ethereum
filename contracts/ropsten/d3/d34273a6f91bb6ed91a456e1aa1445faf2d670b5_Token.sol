@@ -2,7 +2,7 @@
 pragma solidity 0.4.25;
 
 
-// File openzeppelin-solidity/contracts/token/ERC20/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d49d918697e6e4faa7bbb894a2e6fae4fae4">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC20/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d49d918697e6e4faa7bbb894a2e6fae4fae4>[email&#160;protected]</a>
 
 /**
  * @title ERC20 interface
@@ -38,7 +38,7 @@ interface IERC20 {
 }
 
 
-// File openzeppelin-solidity/contracts/token/ERC20/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6839485f4f682a3b2a7afaaa3a2e8b5a9aa86b0f4e8f6e8f6">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC20/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c6839485f4f682a3b2a7afaaa3a2e8b5a9aa86b0f4e8f6e8f6>[email&#160;protected]</a>
 
 /**
  * @title ERC20Detailed token
@@ -80,7 +80,7 @@ contract ERC20Detailed is IERC20 {
 }
 
 
-// File openzeppelin-solidity/contracts/math/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="54073532311935203c7a273b381422667a647a64">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/math/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=54073532311935203c7a273b381422667a647a64>[email&#160;protected]</a>
 
 /**
  * @title SafeMath
@@ -147,7 +147,7 @@ library SafeMath {
 }
 
 
-// File openzeppelin-solidity/contracts/token/ERC20/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="397c6b7a0b09174a5655794f0b17091709">[email&#160;protected]</a>
+// File openzeppelin-solidity/contracts/token/ERC20/<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=397c6b7a0b09174a5655794f0b17091709>[email&#160;protected]</a>
 
 /**
  * @title Standard ERC20 token

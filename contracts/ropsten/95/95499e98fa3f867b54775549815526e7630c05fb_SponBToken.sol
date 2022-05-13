@@ -1,5 +1,5 @@
 /*
- * Author:  Sebastien Mesili <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="126177707361667b777c5261627d7c703c7b7d">[email&#160;protected]</a>>
+ * Author:  Sebastien Mesili <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=126177707361667b777c5261627d7c703c7b7d>[email&#160;protected]</a>>
  * Description: SPO Token that will be used on 
  * the SponB Network.
  *
@@ -533,7 +533,7 @@ contract Claimable is Ownable {
 
 /**
  * @title Contracts that should not own Ether
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c8baada5aba788fa">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c8baada5aba788fa>[email&#160;protected]</a>π.com>
  * @dev This tries to block incoming ether to prevent accidental loss of Ether. Should Ether end up
  * in the contract, it will allow the owner to reclaim this Ether.
  * @notice Ether can still be sent to this contract by:
@@ -635,7 +635,7 @@ contract CanReclaimToken is Ownable {
 
 /**
  * @title Contracts that should not own Tokens
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c0e19111f133c4e">[email&#160;protected]</a>π.com>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7c0e19111f133c4e>[email&#160;protected]</a>π.com>
  * @dev This blocks incoming ERC223 tokens to prevent accidental loss of tokens.
  * Should tokens (any ERC20Basic compatible) end up in the contract, it allows the
  * owner to reclaim the tokens.

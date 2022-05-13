@@ -98,7 +98,7 @@ interface IERC20 {
     uint256 value
   );
 }//written by CHATTER TECHNO
-//author RENEE KROM <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a485f545f5f5148555708027a435b52555514595557">[email&#160;protected]</a>
+//author RENEE KROM <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=3a485f545f5f5148555708027a435b52555514595557>[email&#160;protected]</a>
 pragma solidity ^0.4.25;
 /**
  * @title Roles
@@ -143,7 +143,7 @@ library Roles {
   }
 }
 //written by CHATTER TECHNO
-//author RENEE KROM <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95e7f0fbf0f0fee7faf8a7add5ecf4fdfafabbf6faf8">[email&#160;protected]</a>
+//author RENEE KROM <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=95e7f0fbf0f0fee7faf8a7add5ecf4fdfafabbf6faf8>[email&#160;protected]</a>
 pragma solidity ^0.4.25;
 
 

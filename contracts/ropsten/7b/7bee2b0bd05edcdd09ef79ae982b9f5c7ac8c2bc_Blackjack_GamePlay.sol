@@ -647,5 +647,5 @@ contract Blackjack_GamePlay is Blackjack_Functionality, MoneyMoney_Transection {
 Contact HEAD : Integrated User functionality Workflow
 ==================================================================== */
 
-//Create by <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ce1e9e3fbe9e2f8ccebe1ede5e0a2efe3e1">[email&#160;protected]</a> 
+//Create by <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=8ce1e9e3fbe9e2f8ccebe1ede5e0a2efe3e1>[email&#160;protected]</a> 
 //Worship Lu Godness

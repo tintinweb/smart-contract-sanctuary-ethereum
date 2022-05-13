@@ -490,7 +490,7 @@ library oraclizeLib {
 
 /*
  * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a1c0d3c0c2c9cfc8c5e1cfced5c5ced58fcfc4d5">[email&#160;protected]</a>>
+ * @author Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a1c0d3c0c2c9cfc8c5e1cfced5c5ced58fcfc4d5>[email&#160;protected]</a>>
  *
  * @dev Functionality in this library is largely implemented using an
  *      abstraction called a 'slice'. A slice represents a part of a string -

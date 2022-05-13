@@ -17,7 +17,7 @@ contract ERC20 {
 
 /**
  * @title Lockable Token
- * @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fc95929a93bc859b9b988e9d8f94d29593">[email&#160;protected]</a>
+ * @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=fc95929a93bc859b9b988e9d8f94d29593>[email&#160;protected]</a>
  */
 contract Lockable {
     bool public tokenTransfer;
@@ -143,7 +143,7 @@ library SafeMath {
 
 /**
  * @title YGGDRASH Token Contract.
- * @author <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="40292e262f0039272724322133286e292f">[email&#160;protected]</a>
+ * @author <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=40292e262f0039272724322133286e292f>[email&#160;protected]</a>
  * @notice This contract is the updated version that fixes the unlocking bug.
  * This source code is audited by external auditors.
  */

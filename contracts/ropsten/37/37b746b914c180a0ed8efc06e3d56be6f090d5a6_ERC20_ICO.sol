@@ -9,7 +9,7 @@ pragma solidity ^0.4.25;
 // Total supply: 400000000
 // Decimals    : 18
 // Website     : https://www.ramlogics.com/cannabanc
-// Email       : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bfdcded1d1deddded1dcffdcded1d1deddded1dc91dcd0d2">[email&#160;protected]</a>
+// Email       : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bfdcded1d1deddded1dcffdcded1d1deddded1dc91dcd0d2>[email&#160;protected]</a>
 // POWERED BY Cannabanc.
 
 // (c) by Team @ cannabanc 2018.

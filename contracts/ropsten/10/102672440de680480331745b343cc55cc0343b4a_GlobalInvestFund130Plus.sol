@@ -6,7 +6,7 @@ pragma solidity 0.4.25;
  * Twitter:     https://twitter.com/InvestFund_twit?lang=ru 
  * Telegram:    https://telegram.me/GIFund_Chat
  * Iinstagram:  https://www.instagram.com/globalinvestfund/
- * Email:       <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9cec5c6cbc8c5cbc5c6cac2cac1c8c0c7cfdcc7cde9cec4c8c0c587cac6c4">[email&#160;protected]</a>  
+ * Email:       <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a9cec5c6cbc8c5cbc5c6cac2cac1c8c0c7cfdcc7cde9cec4c8c0c587cac6c4>[email&#160;protected]</a>  
  * 
  * 
  *  About the Project
@@ -90,7 +90,7 @@ library Address {
 
 /**
  * @title Helps contracts guard against reentrancy attacks.
- * @author Remco Bloemen <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4f3d2a222c200f7d">[email&#160;protected]</a>π.com>, Eenae <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6809040d100d11280501100a111c0d1b460107">[email&#160;protected]</a>>
+ * @author Remco Bloemen <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=4f3d2a222c200f7d>[email&#160;protected]</a>π.com>, Eenae <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6809040d100d11280501100a111c0d1b460107>[email&#160;protected]</a>>
  * @dev If you mark a function `nonReentrant`, you should also
  * mark it `external`.
  */

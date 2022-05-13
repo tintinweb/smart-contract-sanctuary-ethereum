@@ -2,7 +2,7 @@ pragma solidity 0.4.24;
 /**
 * @title CEELO CONTRACT
 * @dev ERC-20 Token Standard Compliant
-* @author Fares A. Akel C. <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="34521a555a405b5a5d5b1a555f5158745359555d581a575b59">[email&#160;protected]</a>
+* @author Fares A. Akel C. <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=34521a555a405b5a5d5b1a555f5158745359555d581a575b59>[email&#160;protected]</a>
 */
 
 // <ORACLIZE_API>

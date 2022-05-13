@@ -1,6 +1,6 @@
 pragma solidity ^0.5.1;
 
-// Made By Tom - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="23574c4e63474655574c4c574b0d404c4e">[email&#160;protected]</a>
+// Made By Tom - <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=23574c4e63474655574c4c574b0d404c4e>[email&#160;protected]</a>
 
 library SafeMath
 {

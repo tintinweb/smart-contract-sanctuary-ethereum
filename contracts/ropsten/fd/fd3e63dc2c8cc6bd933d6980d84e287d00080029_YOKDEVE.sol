@@ -186,7 +186,7 @@ contract StandardToken is AbstractToken, Owned, SafeMath {
 }
 
 /// @title Token contract - Implements Standard ERC20 with additional features.
-/// @author Zerion - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="60090e020f18201a0512090f0e4e090f">[email&#160;protected]</a>>
+/// @author Zerion - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=60090e020f18201a0512090f0e4e090f>[email&#160;protected]</a>>
 contract Token is StandardToken {
 
 	// Time of the contract creation
@@ -234,7 +234,7 @@ contract Token is StandardToken {
 }
 
 // @title Token contract - Implements Standard ERC20 Token for DEVE project.
-/// @author Zerion - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6e07000c01162e140b1c070100400701">[email&#160;protected]</a>>
+/// @author Zerion - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6e07000c01162e140b1c070100400701>[email&#160;protected]</a>>
 contract YOKDEVE is Token {
 
 	/// TOKEN META DATA

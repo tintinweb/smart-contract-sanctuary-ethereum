@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9cfff3f2e8fdffe8dcfdf0f9e8f4f9f2fdb2fff3f1">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=9cfff3f2e8fdffe8dcfdf0f9e8f4f9f2fdb2fff3f1>[email&#160;protected]</a>
 
 contract ERC20Basic {
     function totalSupply() public view returns (uint256);

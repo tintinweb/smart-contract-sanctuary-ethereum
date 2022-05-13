@@ -307,7 +307,7 @@ contract StandardToken is ERC20, BasicToken {
 /**
  * @title PXL implementation based on StandardToken ERC-20 contract.
  *
- * @author Charls Kim - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a2c1d18cc9cbcfe2c0c3d6d6cec7c7ccd68cc1cdcf">[email&#160;protected]</a>>
+ * @author Charls Kim - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a2c1d18cc9cbcfe2c0c3d6d6cec7c7ccd68cc1cdcf>[email&#160;protected]</a>>
  * @dev see https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
  */
 contract PXL is StandardToken, CustomToken, ExtendsOwnable {

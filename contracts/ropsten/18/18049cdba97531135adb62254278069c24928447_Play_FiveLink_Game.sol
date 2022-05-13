@@ -615,8 +615,8 @@ Contact END : Five link game playing procedures
 
 
 /* =================================================================
-Contact HEAD : Worship LU godness from <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0568606a72606b71456268646c692b666a68">[email&#160;protected]</a>
+Contact HEAD : Worship LU godness from <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=0568606a72606b71456268646c692b666a68>[email&#160;protected]</a>
 ==================================================================== */
 /* =================================================================
-Contact END : Worship LU godness from <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7518101a02101b01351218141c195b161a18">[email&#160;protected]</a>
+Contact END : Worship LU godness from <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7518101a02101b01351218141c195b161a18>[email&#160;protected]</a>
 ==================================================================== */

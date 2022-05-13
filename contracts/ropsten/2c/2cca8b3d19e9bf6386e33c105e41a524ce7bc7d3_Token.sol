@@ -2,9 +2,9 @@
 //Generally speaking, the difference between plain ERC20 token is in way of generating token via prescribed TGR (Token Generation Rounds)
 //and possibility to burn token to receive contributed Ether back
 
-// Authors: Alexander Shevtsov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1a3b0bfb5bebcbdbeb6b8bfe6e791b6bcb0b8bdffb2bebc">[email&#160;protected]</a>>
-//          Vladimir Bobrov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="abddebcfcec8cec5dfded9d2ccd9c4dedb85c8c4c6">[email&#160;protected]</a>>
-//          vladiuz1 <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5b2d281b3a29293a22753234">[email&#160;protected]</a>>
+// Authors: Alexander Shevtsov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d1a3b0bfb5bebcbdbeb6b8bfe6e791b6bcb0b8bdffb2bebc>[email&#160;protected]</a>>
+//          Vladimir Bobrov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=abddebcfcec8cec5dfded9d2ccd9c4dedb85c8c4c6>[email&#160;protected]</a>>
+//          vladiuz1 <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5b2d281b3a29293a22753234>[email&#160;protected]</a>>
 // License: see the repository file
 // Last updated: 09 July 2018
 pragma solidity ^0.4.22;

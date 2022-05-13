@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9bdb8afbc99b8b2b6b4bbb8f7bab6b4">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=d9bdb8afbc99b8b2b6b4bbb8f7bab6b4>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 // input  /home/masa331/code/solidity/xixoio-contracts/contracts/TokenSale.sol
 // flattened :  Thursday, 22-Nov-18 08:58:35 UTC

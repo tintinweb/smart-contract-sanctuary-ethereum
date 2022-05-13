@@ -3,7 +3,7 @@
  * source       https://github.com/MCROEngineering/zoom/
  * @name        Zoom Contract
  * @package     ZoomDev
- * @author      Micky Socaci <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aec3c7cdc5d7eec0c1d9c2c7d8cb80dcc1">[email&#160;protected]</a>>
+ * @author      Micky Socaci <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=aec3c7cdc5d7eec0c1d9c2c7d8cb80dcc1>[email&#160;protected]</a>>
  * @license     MIT
 
  Generic ABI Batch caller 

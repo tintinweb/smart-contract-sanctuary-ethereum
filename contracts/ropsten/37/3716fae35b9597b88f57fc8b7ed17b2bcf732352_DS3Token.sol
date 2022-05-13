@@ -8,7 +8,7 @@ pragma solidity ^0.4.25;
 // Name        : dash saeid #3 test Token
 // Total supply: 100000000
 // Decimals    : 5
-// Owner       : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f88bd69d8282998c91cec0b89f95999194d69b9795">[email&#160;protected]</a>
+// Owner       : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=f88bd69d8282998c91cec0b89f95999194d69b9795>[email&#160;protected]</a>
 // ----------------------------------------------------------------------------
 
 

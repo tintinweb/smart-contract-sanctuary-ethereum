@@ -266,7 +266,7 @@ contract StandardToken is ERC20, BasicToken {
 // File: contracts/mixins/ERC223Mixin.sol
 
 /// @title Custom implementation of ERC223 
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6908050c1b471308041900050506290e04080005470a0604">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=6908050c1b471308041900050506290e04080005470a0604>[email&#160;protected]</a>>
 contract ERC223Mixin is StandardToken {
   event Transfer(address indexed from, address indexed to, uint256 value, bytes data);
 
@@ -381,7 +381,7 @@ contract ERC223Mixin is StandardToken {
 // File: contracts/mixins/RBACMixin.sol
 
 /// @title Role based access control mixin for MUST Platform
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbbab7bea9f5a1bab6abb2b7b7b49bbcb6bab2b7f5b8b4b6">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=dbbab7bea9f5a1bab6abb2b7b7b49bbcb6bab2b7f5b8b4b6>[email&#160;protected]</a>>
 /// @dev Ignore DRY approach to achieve readability
 contract RBACMixin {
   /// @notice Constant string message to throw on lack of access
@@ -501,7 +501,7 @@ contract RBACMixin {
 // File: contracts/mixins/RBACERC223TokenFinalization.sol
 
 /// @title Role based token finalization mixin
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a1b161f0854001b170a131616153a1d171b131654191517">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7a1b161f0854001b170a131616153a1d171b131654191517>[email&#160;protected]</a>>
 contract RBACERC223TokenFinalization is ERC223Mixin, RBACMixin {
   event Finalize();
   /// @notice Public field inicates the finalization state of smart-contract
@@ -666,7 +666,7 @@ contract StandardBurnableToken is BurnableToken, StandardToken {
 // File: contracts/MustToken.sol
 
 /// @title MUST Platform token implementation
-/// @author Aler Denisov <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a3c2cfc6d18dd9c2ced3cacfcfcce3c4cec2cacf8dc0ccce">[email&#160;protected]</a>>
+/// @author Aler Denisov <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a3c2cfc6d18dd9c2ced3cacfcfcce3c4cec2cacf8dc0ccce>[email&#160;protected]</a>>
 /// @dev Implements ERC20, ERC223 and MintableToken interfaces as well as capped and finalization logic
 contract MustToken is StandardBurnableToken, RBACERC223TokenFinalization, RBACMintableTokenMixin {
   /// @notice Constant field with token full name

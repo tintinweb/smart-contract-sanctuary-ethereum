@@ -968,7 +968,7 @@ contract Secondary {
 }
 
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c3a7a2b5a683a2a8acaea1a2eda0acae">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c3a7a2b5a683a2a8acaea1a2eda0acae>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 contract IBidRegistry {
   enum AuctionStatus {

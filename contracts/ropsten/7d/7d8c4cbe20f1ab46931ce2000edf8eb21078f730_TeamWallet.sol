@@ -42,8 +42,8 @@ library ECDSA {
 }
 
 /// @title Multisignature wallet - Allows multiple parties to agree on transactions before execution.
-/// @author Stefan George - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bbc8cfdedddad595dcded4c9dcdefbd8d4d5c8ded5c8c2c895d5decf">[email&#160;protected]</a>>
-/// @author Hung Le - <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c9a1bca7aea5a489bfb3a6bda8e7aaa6a4e7bfa7">[email&#160;protected]</a>>
+/// @author Stefan George - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=bbc8cfdedddad595dcded4c9dcdefbd8d4d5c8ded5c8c2c895d5decf>[email&#160;protected]</a>>
+/// @author Hung Le - <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=c9a1bca7aea5a489bfb3a6bda8e7aaa6a4e7bfa7>[email&#160;protected]</a>>
 contract TeamWallet {
     using ECDSA for bytes32;
 

@@ -687,7 +687,7 @@ contract Ownable {
 
 /*
  * @title String & slice utility library for Solidity contracts.
- * @author Nick Johnson <<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0c1d2c1c3c8cec9c4e0cecfd4c4cfd48ecec5d4">[email&#160;protected]</a>>
+ * @author Nick Johnson <<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=a0c1d2c1c3c8cec9c4e0cecfd4c4cfd48ecec5d4>[email&#160;protected]</a>>
  */
 
 pragma solidity ^0.4.20;

@@ -305,7 +305,7 @@ contract ERC20 is IERC20 {
 }
 
 /// @title Base contract defining common error codes.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d30381d30382f36313837382f36733e3230">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=5d30381d30382f36313837382f36733e3230>[email&#160;protected]</a>)
 contract Errors {
 
 	string internal constant ERROR_MAX_HEIGHT = "MAX_HEIGHT";
@@ -323,7 +323,7 @@ contract Errors {
 
 /// @title Base class for contracts that want to restrict access to privileged
 /// functions to either the contract creator or a group of addresses.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="157870557870677e79707f70677e3b767a78">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=157870557870677e79707f70677e3b767a78>[email&#160;protected]</a>)
 /// @dev Derived contracts should set isAuthority to true for each address
 /// with privileged access to functions protected by the onlyAuthority modifier.
 contract Restricted is Errors {
@@ -352,7 +352,7 @@ contract Restricted is Errors {
 }
 
 /// @title Base for contracts that don't want to hold ether.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c11193c11190e17101916190e17521f1311">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=7c11193c11190e17101916190e17521f1311>[email&#160;protected]</a>)
 /// @dev Reverts in the fallback function.
 contract Nonpayable is Errors {
 
@@ -364,7 +364,7 @@ contract Nonpayable is Errors {
 }
 
 /// @title ERC20 token contract for upcity resources.
-/// @author Lawrence Forman (<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b1dcd4f1dcd4c3daddd4dbd4c3da9fd2dedc">[email&#160;protected]</a>)
+/// @author Lawrence Forman (<a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=b1dcd4f1dcd4c3daddd4dbd4c3da9fd2dedc>[email&#160;protected]</a>)
 contract UpcityResourceToken is ERC20, Restricted, Nonpayable {
 
 	using SafeMath for uint256;

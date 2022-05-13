@@ -1,6 +1,6 @@
 pragma solidity ^0.4.24;
 // produced by the Solididy File Flattener (c) David Appleton 2018
-// contact : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="62060314072203090d0f00034c010d0f">[email&#160;protected]</a>
+// contact : <a href=/cdn-cgi/l/email-protection class=__cf_email__ data-cfemail=62060314072203090d0f00034c010d0f>[email&#160;protected]</a>
 // released under Apache 2.0 licence
 // input  /Users/mkhong/project/production/dapp-project/ArtDapp/contracts/ElatToken.sol
 // flattened :  Tuesday, 08-Jan-19 07:27:55 UTC
