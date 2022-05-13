@@ -20,6 +20,13 @@ logger = logging.getLogger(__name__)
 DEBUG_RAISE = False
 DEBUG_PRINT_CONTRACTS = False
 
+def fixEmail(data):
+    pre = '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="'
+    suf = '">[email&#160;protected]</a>'
+    if pre not in data:
+        return data
+    return data.replace(pre, pre.replace('"',"")).replace(suf, suf.replace('"',""))
+
 def main():
     description = ""
     examples = ""
@@ -85,6 +92,7 @@ def main():
 
 
             with open(fpath, "wb") as fw:
+                source = fixEmail(source)
                 fw.write(bytes(source, "utf8"))
 
             print("[%d/%d] dumped --> %s (%-20s) -> %s" % (nr, amount, c["address"], c["name"], fpath))
