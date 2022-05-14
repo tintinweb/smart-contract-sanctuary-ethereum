@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity >= 0.7.3;
+
+contract HelloWorld{
+
+    event UpdatedMessage(string oldStr, string newStr);
+
+    string public message; //public => everybody can read it
+
+    constructor (string memory initMessage) {
+        message = initMessage;
+    }
+
+    function update(string memory newMessage) public{
+        string memory oldMsg = message;
+        message = newMessage;
+        emit UpdatedMessage(oldMsg, newMessage);
+    }
+}
