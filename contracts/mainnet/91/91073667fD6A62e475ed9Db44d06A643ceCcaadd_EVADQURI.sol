@@ -1,0 +1,424 @@
+// SPDX-License-Identifier: MIT
+
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNNNNNNNNNNNNNNNNNNNNNNNNNNNWMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMXl'''''''''''''''''''''''''''lXMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; .:lllllllllc. .:lllllllc. ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ;XMMMMMMMMMN: ,KMMMMMMMX; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ;XMMMMMMMMMN: ,KMMMMMMMX; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ;XMMMMMMMMMN: ,KMMMMMMMX; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ;XMMMMMMMMMN: ,KMMMMMMMX; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ;XMMMMMMMMMN: ,KMMMMMMMX; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ;XMMMMMMMMMWklxNMMMMMMMX; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMK; ;XMMMMMMMMMMMMMMMMMMMMMX; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMNklkNMMMMMMMMMMMMMMMMMMMMMWklkNMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNWMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNKOdl:'cXMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNKkdl;'.  .';xNMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWX0kdoc;.. ..,:lxOKNMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWX0xoc,..  ..;cok0XWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMNd,'...':ldk0KNWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMK; 'ldkKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMNx:,....,:lxkOKNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXOxl:,.   .';ldkKNWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXOkxoc,.. ..;cok0XWMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWX0koc,.. ..,dNMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWX0koc;lXMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWWMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMNkdOKNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMXc  .':ok0NWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX0xl:'. ..;clxOXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNKx'  .....,cdkKNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ,xO0xo:'...':ox0NWMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ,kKMMMMWKOdl;'.',;xNMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ,kKMMMMMMMMMN0xo; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ,kKMMMWX0xl:'...':xNMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN: 'dkkoc,.  .,cokKNMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWXOo.  .  ..;ldOXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMWKko:,.  .':cox0NWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX:  .,cdOKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMNkx0XWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMWWWWNKOkkkOXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMWNNWWX0kxxxxxokXWWWWWWWWWWWWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMNXNWWN0xxOKXXXNWWWWWWWWWWWWWWWWWWWWWMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMWWXXWWNNXXXNXXNWWWWWWWWWWWWWWWWWWWWWWNNXNWWMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMWNXXXKXXXXNNNNNNNXKXNNNWWWWWWWWWWWWWWWWWWWWNXXXWMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMWWWNNK0OO0000KKKXXXNNNNXKXNWWMMMWNNNWNNNWWWWWWWWWWWNNNWMMMMMMMMMMMMMM
+// WWWWWWWWWWWWNNNXK0OkkkkkkO000KKKKKKKXK0KXXNNKKKKKXWX0XWWWWWWWWNNNNNNNNWMMMMMMMMMMMM
+// WWWWWWWWNNNNNXXX0kxxxkOOOOOOO000K0000kkOOOOOxxOkkkOkddO000KXNNNNXXXXNNNWWMMMMMMMMMM
+// WMMWWWWWNNNXXXXKkdddxkO0000000OOO0KXK0kkxxxkkkOkdl:;,;:loodkO0KKKKXXXXNXNWMMMMMMMMM
+// WWWWWWNNXKKKKK0kooodxO00KKKKXNXOdONMMNKOxddxkO0Oxl;,,,,;:clddxkO0000KKXXKXWMMMMMMMM
+// KKKK0OO00OOOkkdcclloxk0KXNNXXXNNOx0WMWNXK0OkOKXXKkl;;:::clloddxxkkkkO00KKKXMMMMMMMM
+// kkkkkxxxxxddol:;:c::cldk0NWWX0O0NKxkNWNWNKkldKWWWNXKOkxxddooooooodxkkOOOOO0NMMMMMMM
+// lllllllcc::;,'.',,,''',:ldkOOxlcdOkldO00OOl''o0XNNNWWNKOxocc::cllooodxkkkkkXMMMMMMM
+// ;;,,,,,''................'',,,...,:,':lc;;;,'',:codddol:;;,,;;::::ccclodddx0WMMMMMM
+// '.....................................''....................',,;;;;;;;:cclo0WMMMMMM
+// ................................................................'''''..,;:oXMMMMMMM
+// .........................................................................;OWMMMMMMM
+// .........................................................................oNMMMMMMMM
+// ........................................................................lXMMMMMMMMM
+// ..........''',,'......................................................'dNMMMMMMMMMM
+// lldddddoooll:;'.....................................................'l0WMMMMMMMMMMM
+// MMMMMMMMMMMMWXKOxol:,'......,;,''.................................,cOWMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMWNKOdc;'.....''..............................',:dXMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMWKx;.................'''''..........',,;:ccdXMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMM0:.............',,,,,,'''...'',;cok00OkkkONMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMKl'.............;lllllloodxkO0KXWMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMWKkoc,.......:xNWWWWWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN0kkOOOKWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMNx:::::::::::::::::::::::::::dNMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMK; .,;,;;,,;;;;;;;;;;,;;,;,. ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ;KWWWWWWWWWWWWWWWWWWWWWX; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ;XMMMMMMMMMMMMMMMMMMMMMX; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ;XMMMMMMMMMMMMMMMMMMMMMX; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMN: '0MMMMMMMMMMMMMMMMMMMMM0' ;XMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMWd  oWMMMMMMMMMMMMMMMMMMMWo  oWMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX: .dNMMMMMMMMMMMMMMMMMNd. :XMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMK:  ;xXWMMMMMMMMMMMWXx;  cKMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNk;. .;lddxkOOkxdl;. .;kNMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN0o:'.         .':d0WMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNX0OOkkkkO0KNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMXdcokKNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMNo.. .':lx0XWWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWX0xo:'.  .';ldOXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0, .',.. .,cokKNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ,kKN0koc,...':lx0XWMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ,kKMMMMMWXOxl:,,,'oNMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ,kKMMMMMMMWNKOxo; ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; ,kKMMWXOdl;'...':oOWMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; .coo:,.  .,cdkKNMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNKOd:.    .';lx0XWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMWOl:'.  .,codkKNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX;..;ldOXWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMWK0NWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMWNXXK00KXNWMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNOoc,.........,:oONMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0l'  .,:clooool:,.  .l0WMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMXl. .lkXWMMMMMMMMMWXkl' .lXMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMK; .oXMMMMMMMMMMMMMMMMMXo. ,KMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMNc .kWMMMMMMMMMMMMMMMMMMMWk. :XMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMk. lWMMMMMMMMMMMMMMMMMMMMMWo .kMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMd .xMMMMMMMMMMMMMMMMMMMMMMMx. dMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMk. oWMMMMMMMMMMMMMMMMMMMMMMd .xMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMX; '0MMMMMMMMMMMMMMMMMMMMM0, ,KMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMO. 'kWMMMMMMMMMMMMMMMMMWO, .kMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0; .;xXWMMMMMMMMMMMWXk:. ,OWMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNx;. .;ldxxOOOOkdl;.  ,xNMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMW0o:'.         .':oONMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNK0Okxxxxk0KNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+// MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+
+pragma solidity ^0.8.0;
+
+import "./Base64.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+
+/**
+ * @title EVADQURI
+ * @dev EVADQURI delegate token tokenURI rendering library.
+ * @author 0xAnimist (kanon.art) for EVADAO
+ */
+library EVADQURI {
+
+  function packSVG(uint256 _tokenId, uint256 _sourceTokenId, bool _valid) public pure returns(string memory) {
+    string[9] memory parts;
+    parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base {fill: rgb(40,40,40); font-family: "Helvetica", Arial, sans-serif;} .firstLevel { font-size: 14px;} .secondLevel {font-size: 8px; line-height: 10px;}</style><rect width="100%" height="100%" fill="WhiteSmoke" /><text x="10" y="25" class="base firstLevel">EVADQ token # ';
+
+    parts[1] = Strings.toString(_tokenId);
+
+    parts[2] = '</text><text x="10" y="40" class="base secondLevel">';
+
+    if(_valid){
+      parts[3] = 'Redeemable for EVADAO token #: ';
+
+          parts[4] = Strings.toString(_sourceTokenId);
+        }else{
+          parts[3] = 'No underlying EVADAO token';
+
+          parts[4] = '';
+        }
+
+        parts[5] = '</text></svg>';
+
+        return string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5]));
+  }
+
+  function packName(uint256 _tokenId, bool _valid) public pure returns(string memory) {
+    if(_valid){
+      return string(abi.encodePacked('"name": "EVADQ token #', Strings.toString(_tokenId), '",'));
+    }
+    return string(abi.encodePacked('"name": "INVALID EVADQ token #', Strings.toString(_tokenId), '",'));
+  }
+
+  function packDescription(uint256 _tokenId, uint256 _sourceTokenId, bool _valid) public pure returns(string memory) {
+    string memory description;
+    if(_valid){
+      description = '"description": "This token is set as the ERC721Delegable delegate of EVADAO NFT #';
+    }else{
+      description = '"description": "This token was previously set as the ERC721Delegable delegate of EVADAO NFT #';
+    }
+    return string(abi.encodePacked(description, Strings.toString(_sourceTokenId), '.",'));
+  }
+
+
+  function renderURI(
+    string memory _name,
+    string memory _description,
+    string memory _svg
+  ) public pure returns(string memory) {
+    string memory metadata = string(abi.encodePacked(
+      '{',
+      _name,
+      _description
+    ));
+
+    string memory json = Base64.encode(bytes(string(abi.encodePacked(
+      metadata,
+      '"image": "data:image/svg+xml;base64,',
+      Base64.encode(bytes(_svg)),
+      '"}'))));
+
+    return string(abi.encodePacked('data:application/json;base64,', json));
+  }
+
+
+  //Address to string encodeing by k06a
+  //see: https://ethereum.stackexchange.com/questions/8346/convert-address-to-string
+  function toString(address account) internal pure returns(string memory) {
+    return toString(abi.encodePacked(account));
+  }
+
+  function toString(bytes32 value) internal pure returns(string memory) {
+    return toString(abi.encodePacked(value));
+  }
+
+  function toString(bytes memory data) internal pure returns(string memory) {
+    bytes memory alphabet = "0123456789abcdef";
+
+    bytes memory str = new bytes(2 + data.length * 2);
+    str[0] = "0";
+    str[1] = "x";
+    for (uint i = 0; i < data.length; i++) {
+        str[2+i*2] = alphabet[uint(uint8(data[i] >> 4))];
+        str[3+i*2] = alphabet[uint(uint8(data[i] & 0x0f))];
+    }
+    return string(str);
+  }
+
+
+
+}
+
+// SPDX-License-Identifier: MIT
+
+// https://kanon.art
+//
+//
+//                                   [email protected]@@@@@@@@@@$$$
+//                               [email protected]@@@@@$$$$$$$$$$$$$$##
+//                           $$$$$$$$$$$$$$$$$#########***
+//                        $$$$$$$$$$$$$$$#######**!!!!!!
+//                     ##$$$$$$$$$$$$#######****!!!!=========
+//                   ##$$$$$$$$$#$#######*#***!!!=!===;;;;;
+//                 *#################*#***!*!!======;;;:::
+//                ################********!!!!====;;;:::~~~~~
+//              **###########******!!!!!!==;;;;::~~~--,,,-~
+//             ***########*#*******!*!!!!====;;;::::~~-,,......,-
+//            ******#**********!*!!!!=!===;;::~~~-,........
+//           ***************!*!!!!====;;:::~~-,,..........
+//         !************!!!!!!===;;::~~--,............
+//         !!!*****!!*!!!!!===;;:::~~--,,..........
+//        =!!!!!!!!!=!==;;;::~~-,,...........
+//        =!!!!!!!!!====;;;;:::~~--,........
+//       ==!!!!!!=!==;=;;:::~~--,...:~~--,,,..
+//       ===!!!!!=====;;;;;:::~~~--,,..#*=;;:::~--,.
+//       ;=============;;;;;;::::~~~-,,...$$###==;;:~--.
+//      :;;==========;;;;;;::::~~~--,,[email protected]@$$##*!=;:~-.
+//      :;;;;;===;;;;;;;::::~~~--,,...$$$$#*!!=;~-
+//       :;;;;;;;;;;:::::~~~~---,,...!*##**!==;~,
+//       :::;:;;;;:::~~~~---,,,...~;=!!!!=;;:~.
+//       ~:::::::::::::~~~~~---,,,....-:;;=;;;~,
+//        ~~::::::::~~~~~~~-----,,,......,~~::::~-.
+//         -~~~~~~~~~~~~~-----------,,,.......,-~~~~~,.
+//          ---~~~-----,,,,,........,---,.
+//           ,,--------,,,,,,.........
+//             .,,,,,,,,,,,,......
+//                ...............
+//                    .........
+
+
+pragma solidity ^0.8.0;
+
+/// [MIT License]
+/// @title Base64
+/// @notice Provides a function for encoding some bytes in base64
+/// @author Brecht Devos <[email protected]>
+library Base64 {
+
+  bytes internal constant TABLE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+  /// @notice Encodes some bytes to the base64 representation
+  function encode(bytes memory data) internal pure returns (string memory) {
+      uint256 len = data.length;
+      if (len == 0) return "";
+
+      // multiply by 4/3 rounded up
+      uint256 encodedLen = 4 * ((len + 2) / 3);
+
+      // Add some extra buffer at the end
+      bytes memory result = new bytes(encodedLen + 32);
+
+      bytes memory table = TABLE;
+
+      assembly {
+          let tablePtr := add(table, 1)
+          let resultPtr := add(result, 32)
+
+          for {
+              let i := 0
+          } lt(i, len) {
+
+          } {
+              i := add(i, 3)
+              let input := and(mload(add(data, i)), 0xffffff)
+
+              let out := mload(add(tablePtr, and(shr(18, input), 0x3F)))
+              out := shl(8, out)
+              out := add(out, and(mload(add(tablePtr, and(shr(12, input), 0x3F))), 0xFF))
+              out := shl(8, out)
+              out := add(out, and(mload(add(tablePtr, and(shr(6, input), 0x3F))), 0xFF))
+              out := shl(8, out)
+              out := add(out, and(mload(add(tablePtr, and(input, 0x3F))), 0xFF))
+              out := shl(224, out)
+
+              mstore(resultPtr, out)
+
+              resultPtr := add(resultPtr, 4)
+          }
+
+          switch mod(len, 3)
+          case 1 {
+              mstore(sub(resultPtr, 2), shl(240, 0x3d3d))
+          }
+          case 2 {
+              mstore(sub(resultPtr, 1), shl(248, 0x3d))
+          }
+
+          mstore(result, encodedLen)
+      }
+
+      return string(result);
+  }
+
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Strings.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev String operations.
+ */
+library Strings {
+    bytes16 private constant _HEX_SYMBOLS = "0123456789abcdef";
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation.
+     */
+    function toHexString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0x00";
+        }
+        uint256 temp = value;
+        uint256 length = 0;
+        while (temp != 0) {
+            length++;
+            temp >>= 8;
+        }
+        return toHexString(value, length);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation with fixed length.
+     */
+    function toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+        bytes memory buffer = new bytes(2 * length + 2);
+        buffer[0] = "0";
+        buffer[1] = "x";
+        for (uint256 i = 2 * length + 1; i > 1; --i) {
+            buffer[i] = _HEX_SYMBOLS[value & 0xf];
+            value >>= 4;
+        }
+        require(value == 0, "Strings: hex length insufficient");
+        return string(buffer);
+    }
+}
