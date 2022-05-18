@@ -1,0 +1,1 @@
+contract Test { uint256 public constant randomValue = 12345; }
