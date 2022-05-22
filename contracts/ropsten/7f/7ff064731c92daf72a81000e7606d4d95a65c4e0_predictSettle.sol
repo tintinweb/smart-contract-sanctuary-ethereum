@@ -1,0 +1,31 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-05-22
+*/
+
+pragma solidity ^0.8.14;
+
+interface Predict {
+    function settle() external;
+    function lockInGuess(uint8 n) external payable;
+    function isComplete() external returns (bool);
+}
+
+contract predictSettle {
+    address preditAddress = 0x9E4D3de32bd99097530b054E9755Ec3cF447a678;
+    Predict predit = Predict(preditAddress);
+
+    //address _owner;
+
+    function lock() public payable {
+        //_owner = msg.sender;
+        predit.lockInGuess{value: 1 ether}(0);
+    }
+
+    function trySettle() public {
+        predit.settle();
+        require(predit.isComplete() == true);
+        payable(msg.sender).transfer(address(this).balance);
+    }
+
+    receive() external payable {}
+}

@@ -1,0 +1,22 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-05-22
+*/
+
+pragma solidity ^0.4.21;
+
+contract GuessTheRandomNumberChallenge {
+    uint8 answer;
+
+    function GuessTheRandomNumberChallenge() public {
+        answer = uint8(keccak256(block.blockhash(block.number - 1), now));
+    }
+
+    function getInput(bytes32 b, uint t) public pure returns (uint8) {
+        uint8 input = uint8(keccak256(b, t));
+        return input;
+    }
+
+    function getAns() public view returns (uint8) {
+        return answer;
+    }
+}
