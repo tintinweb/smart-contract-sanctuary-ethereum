@@ -1,0 +1,19 @@
+pragma solidity =0.7.3;
+
+contract MyFirstContract {
+    
+    uint256 number;
+
+    function setNumber(uint256 _num) public {
+        number = _num;
+    }
+
+    // you can view the state variable but not use it
+    function getNumber() public view returns (uint256) {
+        return number;
+    }
+
+    function addNumber(uint256 _paras) public view returns(uint256){
+        return number + _paras;
+    }
+}
