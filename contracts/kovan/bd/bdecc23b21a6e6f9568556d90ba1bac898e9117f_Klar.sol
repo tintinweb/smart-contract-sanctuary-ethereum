@@ -1,0 +1,82 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-05-27
+*/
+
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity >=0.7.0 <0.9.0;
+
+interface IERC20 {
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    function totalSupply() external view returns (uint256);
+    function balanceOf(address account) external view returns (uint256);
+    function transfer(address to, uint256 amount) external returns (bool);
+    function allowance(address owner, address spender) external view returns (uint256);
+    function approve(address spender, uint256 amount) external returns (bool);
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
+}
+
+contract Klar {
+    IERC20 public token1;
+    IERC20 public token2;
+    IERC20 public account1;
+
+    address public _account;
+    address public _token1;
+    address public _token2;
+    uint256 public _amount1;
+    uint256 public _amount2;   
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Swap (
+        //address indexed _account,
+        address _token1,
+        address _token2,
+        uint256 _amount1,
+        uint256 _amount2
+    );
+
+
+    function exchangeSetup (
+        address __account,
+        address __token1,
+        address __token2,
+        uint256 __amount1,
+        uint256 __amount2
+    ) public returns (bool success) {
+        _account = __account;
+        _token1 = __token1;
+        _token2 = __token2;
+        _amount1 = __amount1;
+        _amount2 = __amount2;
+        return true;
+    }
+
+    function exchangeApprove () public returns (bool success) {
+        //token1 = IERC20(_token1);
+        account1 = IERC20(_account);
+
+        //token1.approve(_account, _amount1);
+        account1.approve(address(this), _amount2);
+        
+        //emit Approval(_token1, _account, _amount1);
+        emit Approval(_account, address(this), _amount2);
+
+        return true;
+    }
+
+    function exchangeTransfer () public returns (bool success) {
+        //token1 = IERC20(_token1);
+        token2 = IERC20(_token2);
+
+        //token1.transferFrom(_account, address(this), _amount1);
+        token2.transferFrom(_account, address(this), _amount2);
+
+        emit Transfer(_account, address(this), _amount2);
+        //emit Swap (_token1, _token2, _amount1, _amount2);
+
+        return true;
+    }
+
+}
