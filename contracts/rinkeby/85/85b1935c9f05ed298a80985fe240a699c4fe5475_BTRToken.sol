@@ -1,0 +1,881 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-06-01
+*/
+
+// SPDX-License-Identifier: MIT
+// File: @openzeppelin/contracts/utils/Context.sol
+
+
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+// File: @openzeppelin/contracts/access/Ownable.sol
+
+
+// OpenZeppelin Contracts v4.4.1 (access/Ownable.sol)
+
+pragma solidity ^0.8.0;
+
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+        _;
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// File: @openzeppelin/contracts/token/ERC20/IERC20.sol
+
+
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+// File: @openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol
+
+
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/IERC20Metadata.sol)
+
+pragma solidity ^0.8.0;
+
+
+/**
+ * @dev Interface for the optional metadata functions from the ERC20 standard.
+ *
+ * _Available since v4.1._
+ */
+interface IERC20Metadata is IERC20 {
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() external view returns (string memory);
+
+    /**
+     * @dev Returns the symbol of the token.
+     */
+    function symbol() external view returns (string memory);
+
+    /**
+     * @dev Returns the decimals places of the token.
+     */
+    function decimals() external view returns (uint8);
+}
+
+// File: @openzeppelin/contracts/token/ERC20/ERC20.sol
+
+
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/ERC20.sol)
+
+pragma solidity ^0.8.0;
+
+
+
+
+/**
+ * @dev Implementation of the {IERC20} interface.
+ *
+ * This implementation is agnostic to the way tokens are created. This means
+ * that a supply mechanism has to be added in a derived contract using {_mint}.
+ * For a generic mechanism see {ERC20PresetMinterPauser}.
+ *
+ * TIP: For a detailed writeup see our guide
+ * https://forum.zeppelin.solutions/t/how-to-implement-erc20-supply-mechanisms/226[How
+ * to implement supply mechanisms].
+ *
+ * We have followed general OpenZeppelin Contracts guidelines: functions revert
+ * instead returning `false` on failure. This behavior is nonetheless
+ * conventional and does not conflict with the expectations of ERC20
+ * applications.
+ *
+ * Additionally, an {Approval} event is emitted on calls to {transferFrom}.
+ * This allows applications to reconstruct the allowance for all accounts just
+ * by listening to said events. Other implementations of the EIP may not emit
+ * these events, as it isn't required by the specification.
+ *
+ * Finally, the non-standard {decreaseAllowance} and {increaseAllowance}
+ * functions have been added to mitigate the well-known issues around setting
+ * allowances. See {IERC20-approve}.
+ */
+contract ERC20 is Context, IERC20, IERC20Metadata {
+    mapping(address => uint256) private _balances;
+
+    mapping(address => mapping(address => uint256)) private _allowances;
+
+    uint256 private _totalSupply;
+
+    string private _name;
+    string private _symbol;
+
+    /**
+     * @dev Sets the values for {name} and {symbol}.
+     *
+     * The default value of {decimals} is 18. To select a different value for
+     * {decimals} you should overload it.
+     *
+     * All two of these values are immutable: they can only be set once during
+     * construction.
+     */
+    constructor(string memory name_, string memory symbol_) {
+        _name = name_;
+        _symbol = symbol_;
+    }
+
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() public view virtual override returns (string memory) {
+        return _name;
+    }
+
+    /**
+     * @dev Returns the symbol of the token, usually a shorter version of the
+     * name.
+     */
+    function symbol() public view virtual override returns (string memory) {
+        return _symbol;
+    }
+
+    /**
+     * @dev Returns the number of decimals used to get its user representation.
+     * For example, if `decimals` equals `2`, a balance of `505` tokens should
+     * be displayed to a user as `5.05` (`505 / 10 ** 2`).
+     *
+     * Tokens usually opt for a value of 18, imitating the relationship between
+     * Ether and Wei. This is the value {ERC20} uses, unless this function is
+     * overridden;
+     *
+     * NOTE: This information is only used for _display_ purposes: it in
+     * no way affects any of the arithmetic of the contract, including
+     * {IERC20-balanceOf} and {IERC20-transfer}.
+     */
+    function decimals() public view virtual override returns (uint8) {
+        return 18;
+    }
+
+    /**
+     * @dev See {IERC20-totalSupply}.
+     */
+    function totalSupply() public view virtual override returns (uint256) {
+        return _totalSupply;
+    }
+
+    /**
+     * @dev See {IERC20-balanceOf}.
+     */
+    function balanceOf(address account) public view virtual override returns (uint256) {
+        return _balances[account];
+    }
+
+    /**
+     * @dev See {IERC20-transfer}.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - the caller must have a balance of at least `amount`.
+     */
+    function transfer(address to, uint256 amount) public virtual override returns (bool) {
+        address owner = _msgSender();
+        _transfer(owner, to, amount);
+        return true;
+    }
+
+    /**
+     * @dev See {IERC20-allowance}.
+     */
+    function allowance(address owner, address spender) public view virtual override returns (uint256) {
+        return _allowances[owner][spender];
+    }
+
+    /**
+     * @dev See {IERC20-approve}.
+     *
+     * NOTE: If `amount` is the maximum `uint256`, the allowance is not updated on
+     * `transferFrom`. This is semantically equivalent to an infinite approval.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     */
+    function approve(address spender, uint256 amount) public virtual override returns (bool) {
+        address owner = _msgSender();
+        _approve(owner, spender, amount);
+        return true;
+    }
+
+    /**
+     * @dev See {IERC20-transferFrom}.
+     *
+     * Emits an {Approval} event indicating the updated allowance. This is not
+     * required by the EIP. See the note at the beginning of {ERC20}.
+     *
+     * NOTE: Does not update the allowance if the current allowance
+     * is the maximum `uint256`.
+     *
+     * Requirements:
+     *
+     * - `from` and `to` cannot be the zero address.
+     * - `from` must have a balance of at least `amount`.
+     * - the caller must have allowance for ``from``'s tokens of at least
+     * `amount`.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) public virtual override returns (bool) {
+        address spender = _msgSender();
+        _spendAllowance(from, spender, amount);
+        _transfer(from, to, amount);
+        return true;
+    }
+
+    /**
+     * @dev Atomically increases the allowance granted to `spender` by the caller.
+     *
+     * This is an alternative to {approve} that can be used as a mitigation for
+     * problems described in {IERC20-approve}.
+     *
+     * Emits an {Approval} event indicating the updated allowance.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     */
+    function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool) {
+        address owner = _msgSender();
+        _approve(owner, spender, allowance(owner, spender) + addedValue);
+        return true;
+    }
+
+    /**
+     * @dev Atomically decreases the allowance granted to `spender` by the caller.
+     *
+     * This is an alternative to {approve} that can be used as a mitigation for
+     * problems described in {IERC20-approve}.
+     *
+     * Emits an {Approval} event indicating the updated allowance.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     * - `spender` must have allowance for the caller of at least
+     * `subtractedValue`.
+     */
+    function decreaseAllowance(address spender, uint256 subtractedValue) public virtual returns (bool) {
+        address owner = _msgSender();
+        uint256 currentAllowance = allowance(owner, spender);
+        require(currentAllowance >= subtractedValue, "ERC20: decreased allowance below zero");
+        unchecked {
+            _approve(owner, spender, currentAllowance - subtractedValue);
+        }
+
+        return true;
+    }
+
+    /**
+     * @dev Moves `amount` of tokens from `sender` to `recipient`.
+     *
+     * This internal function is equivalent to {transfer}, and can be used to
+     * e.g. implement automatic token fees, slashing mechanisms, etc.
+     *
+     * Emits a {Transfer} event.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `from` must have a balance of at least `amount`.
+     */
+    function _transfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {
+        require(from != address(0), "ERC20: transfer from the zero address");
+        require(to != address(0), "ERC20: transfer to the zero address");
+
+        _beforeTokenTransfer(from, to, amount);
+
+        uint256 fromBalance = _balances[from];
+        require(fromBalance >= amount, "ERC20: transfer amount exceeds balance");
+        unchecked {
+            _balances[from] = fromBalance - amount;
+        }
+        _balances[to] += amount;
+
+        emit Transfer(from, to, amount);
+
+        _afterTokenTransfer(from, to, amount);
+    }
+
+    /** @dev Creates `amount` tokens and assigns them to `account`, increasing
+     * the total supply.
+     *
+     * Emits a {Transfer} event with `from` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - `account` cannot be the zero address.
+     */
+    function _mint(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: mint to the zero address");
+
+        _beforeTokenTransfer(address(0), account, amount);
+
+        _totalSupply += amount;
+        _balances[account] += amount;
+        emit Transfer(address(0), account, amount);
+
+        _afterTokenTransfer(address(0), account, amount);
+    }
+
+    /**
+     * @dev Destroys `amount` tokens from `account`, reducing the
+     * total supply.
+     *
+     * Emits a {Transfer} event with `to` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - `account` cannot be the zero address.
+     * - `account` must have at least `amount` tokens.
+     */
+    function _burn(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: burn from the zero address");
+
+        _beforeTokenTransfer(account, address(0), amount);
+
+        uint256 accountBalance = _balances[account];
+        require(accountBalance >= amount, "ERC20: burn amount exceeds balance");
+        unchecked {
+            _balances[account] = accountBalance - amount;
+        }
+        _totalSupply -= amount;
+
+        emit Transfer(account, address(0), amount);
+
+        _afterTokenTransfer(account, address(0), amount);
+    }
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the `owner` s tokens.
+     *
+     * This internal function is equivalent to `approve`, and can be used to
+     * e.g. set automatic allowances for certain subsystems, etc.
+     *
+     * Emits an {Approval} event.
+     *
+     * Requirements:
+     *
+     * - `owner` cannot be the zero address.
+     * - `spender` cannot be the zero address.
+     */
+    function _approve(
+        address owner,
+        address spender,
+        uint256 amount
+    ) internal virtual {
+        require(owner != address(0), "ERC20: approve from the zero address");
+        require(spender != address(0), "ERC20: approve to the zero address");
+
+        _allowances[owner][spender] = amount;
+        emit Approval(owner, spender, amount);
+    }
+
+    /**
+     * @dev Updates `owner` s allowance for `spender` based on spent `amount`.
+     *
+     * Does not update the allowance amount in case of infinite allowance.
+     * Revert if not enough allowance is available.
+     *
+     * Might emit an {Approval} event.
+     */
+    function _spendAllowance(
+        address owner,
+        address spender,
+        uint256 amount
+    ) internal virtual {
+        uint256 currentAllowance = allowance(owner, spender);
+        if (currentAllowance != type(uint256).max) {
+            require(currentAllowance >= amount, "ERC20: insufficient allowance");
+            unchecked {
+                _approve(owner, spender, currentAllowance - amount);
+            }
+        }
+    }
+
+    /**
+     * @dev Hook that is called before any transfer of tokens. This includes
+     * minting and burning.
+     *
+     * Calling conditions:
+     *
+     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
+     * will be transferred to `to`.
+     * - when `from` is zero, `amount` tokens will be minted for `to`.
+     * - when `to` is zero, `amount` of ``from``'s tokens will be burned.
+     * - `from` and `to` are never both zero.
+     *
+     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     */
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {}
+
+    /**
+     * @dev Hook that is called after any transfer of tokens. This includes
+     * minting and burning.
+     *
+     * Calling conditions:
+     *
+     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
+     * has been transferred to `to`.
+     * - when `from` is zero, `amount` tokens have been minted for `to`.
+     * - when `to` is zero, `amount` of ``from``'s tokens have been burned.
+     * - `from` and `to` are never both zero.
+     *
+     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     */
+    function _afterTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {}
+}
+
+// File: contracts/Harvey.sol
+
+
+pragma solidity ^0.8.0;
+
+
+
+contract BTRToken is ERC20, Ownable {
+    //Variables
+    address public _owner;
+    address[] public _loyalCustomers; //an array of loyal customers
+
+    mapping(address => uint256) public _balances; //mapping of balances
+
+    _Reward[] public _rewardsPool; //array to hold all the rewards available
+
+    struct _Reward {
+        uint8 id;
+        string rewardName;
+        uint256 rewardCost;
+    } //basic template of a reward
+
+    //function to create a reward
+    function _addReward(
+        uint8 id,
+        string memory rewardName,
+        uint256 rewardCost
+    ) public {
+        _rewardsPool.push(_Reward(id, rewardName, rewardCost));
+    }
+
+    //function to create all rewards
+    function _createRewardPool() internal {
+        _addReward(0, "Couples Coupon", 10);
+        _addReward(1, "LateNight Movie", 20);
+        _addReward(2, "Backstage Pass", 30);
+        _addReward(3, "Birthday Pass", 40);
+        _addReward(4, "Kiddies Fun", 50);
+    }
+
+    uint8[] public _purchasedRewardsID; //this is an array of Ids but it is always empty at the beginning of the SC.
+    mapping(address => uint8[]) public _purchasedRewards; //mapping holds the addresses to the purchased rewards array.
+
+    constructor() ERC20("Harvey", "HRV") {
+        _owner = msg.sender;
+        _mint(msg.sender, 1000);
+        _createRewardPool(); //function to create all available rewards
+    }
+
+    //ADMIN FUNCTIONS
+    //ADMIN FUNCTIONS
+    //ADMIN FUNCTIONS
+
+    //function to check if a customer's address is in the array
+    function _isLoyalCustomer(address _address)
+        public
+        view
+        returns (bool, uint256)
+    {
+        for (uint256 s = 0; s < _loyalCustomers.length; s += 1) {
+            if (_address == _loyalCustomers[s]) return (true, s);
+        }
+        return (false, 0);
+    }
+
+    // YET TO BE TESTED!!!**
+    //ADMIN FUNCTION 01
+    //this adds a loyal customer to the loyalCustomer Array
+    function _addLoyalCustomer(address _loyalCustomer) public {
+        require(msg.sender == _owner, "Only the Owner can add new customers");
+        (bool isLoyalCustomer, ) = _isLoyalCustomer(_loyalCustomer);
+        require(isLoyalCustomer != true, "Can't add Address twice");
+        _loyalCustomers.push(_loyalCustomer);
+        //add the customer to the mapping that stores the purchased rewards and assign an empty array of IDs to him.
+        _purchasedRewards[_loyalCustomer] = _purchasedRewardsID;
+    }
+
+    //ADMIN FUNCTION 01
+    //function allows the owner to send reward tokens to loyal customers
+    function _rewardLoyalCustomers(address _loyalCustomer, uint256 _amount)
+        public
+        payable
+    {
+        require(msg.sender == _owner, "Only the Owner can reward customers");
+        require(
+            balanceOf(msg.sender) > _amount,
+            "Insufficient Balance for NestOil"
+        );
+        (bool isLoyalCustomer, ) = _isLoyalCustomer(_loyalCustomer);
+        require(
+            isLoyalCustomer == true,
+            "Can't reward this Address. Not a loyal Customer"
+        );
+        transfer(_loyalCustomer, _amount);
+    }
+
+    //ADMIN FUNCTION 02
+    //function to allow only the owner to mint extra tokens
+    function _extraMint(uint256 amount) public payable {
+        require(msg.sender == _owner, "Only the Owner can mint new tokens");
+        _mint(msg.sender, amount);
+    }
+
+    //ADMIN FUNCTIONS 03
+    //function to return admin balance
+    function _viewAdminBalance() public view returns (uint256) {
+        return balanceOf(_owner);
+    }
+
+    //ADMIN FUNCTIONS 04
+    //function to return a list of all the loyalCustomers
+    function _viewAllLoyalCustomers() public view returns (address[] memory) {
+        return _loyalCustomers;
+    }
+
+    //admn helper function 05
+    //function to check if list provided in array is the actual list of loyal customers
+    function _isListActual(address[] memory _arrayOfLoyalCustomers)
+        public
+        view
+        returns (bool maybe, uint256 id)
+    {
+        for (uint256 i = 0; i < _arrayOfLoyalCustomers.length; ) {
+            if (_arrayOfLoyalCustomers[i] == _loyalCustomers[i]) {
+                return (true, i);
+            }
+            return (false, 0);
+        }
+    }
+
+    //ADMIN FUNCTIONS 05
+    //function that allows for sending(batching) of transactions to multiple addresses at once
+    //_arrayOfloyalCustomers = array of loyal customer addresses
+    //_amount = The amount of tokens all addresses will receive
+    function multiSendTokensToCustomers(
+        address[] memory _arrayOfLoyalCustomers,
+        uint256 _amount
+    ) public payable returns (bool) {
+        require(msg.sender == _owner, "Not the owner");
+        require(
+            balanceOf(msg.sender) > _amount,
+            "Insufficient Balance for NestOil"
+        );
+        (bool isActual, ) = _isListActual(_arrayOfLoyalCustomers);
+        require(
+            isActual == true,
+            "Can't reward these addresses. Not the actual list"
+        );
+
+        for (uint256 i = 0; i < _loyalCustomers.length && i <= 200; i++) {
+            if (_loyalCustomers[i] != address(0)) {
+                transfer(_loyalCustomers[i], _amount);
+            }
+        }
+        return true;
+    }
+
+    // ///ADMIN FUNCTIONS 06
+    // //function to self destruct
+    // function selfDestruct(address _address) public {
+    //     require(msg.sender == _owner, "only the owner can call self destruct");
+    //     selfdestruct(payable(_address));
+    // }
+
+    //USER FUNCTIONS
+    //USER FUNCTIONS
+    //USER FUNCTIONS
+
+    //USER FUNCTIONS 02
+    //function to return user balance
+    function _viewUserBalance(address _loyalCustomerAddress)
+        public
+        view
+        returns (uint256)
+    {
+        return balanceOf(_loyalCustomerAddress);
+    }
+
+    //USER FUNCTIONS 03
+    //function allows loyalCustomers to transfer tokens between themselves.
+    function _loyalCustomersTransferTokens(address _to, uint256 _amount)
+        public
+        payable
+    {
+        (bool isLoyalCustomer, ) = _isLoyalCustomer(_to);
+        require(
+            isLoyalCustomer == true,
+            "Only a loyal customer is allowed to receive Tokens"
+        );
+        require(_amount > 0, "You can't transfer 0 tokens");
+        require(balanceOf(msg.sender) > _amount, "Insufficient Balance");
+        transfer(_to, _amount);
+    }
+
+    // YET TO BE TESTED!!!**
+    //USER FUNCTIONS 06
+    function _purchaseRewards(uint8[] memory chosenIds) public payable {
+        (bool isLoyalCustomer, ) = _isLoyalCustomer(msg.sender);
+        require(
+            isLoyalCustomer == true,
+            "Only a loyal customer is allowed to purchase these Items"
+        );
+        uint256 _totalCost = _findTotalCost(chosenIds);
+        require(_totalCost > 0, "You must click an Item");
+        require(balanceOf(msg.sender) > _totalCost, "Insufficient Funds");
+        _burn(msg.sender, _totalCost);
+        _updatePurchasedRewardsMapping(msg.sender, chosenIds); //update the mapping variable that tracks a users address to purchased Rewards
+    }
+
+    // YET TO BE TESTED!!!**
+    //HELPER FUNCTION 01
+    function _findTotalCost(uint8[] memory chosenIds)
+        public
+        view
+        returns (uint256)
+    {
+        uint256 _totalCost = 0;
+        for (uint256 s = 0; s < chosenIds.length; s += 1) {
+            uint8 chosenRewardID = chosenIds[s];
+            uint256 chosenRewardCost = _rewardsPool[chosenRewardID].rewardCost;
+            _totalCost += chosenRewardCost;
+        }
+        return _totalCost;
+    }
+
+    // YET TO BE TESTED!!!**
+    //HELPER FUNCTION 02
+    //function that updates the list of items purchased
+    function _addTwoArrays(address _address, uint8[] memory _justPurchased)
+        public
+        returns (uint8[] memory)
+    {
+        uint8[] storage _updatedList = _purchasedRewards[_address]; //create an array that references the existing one in the mapping
+        for (uint256 s = 0; s < _justPurchased.length; s += 1) {
+            _updatedList.push(_justPurchased[s]); //add the items from the new one to the old one
+        }
+        return _updatedList; //final array is updated
+    }
+
+    //HELPER FUNCTION 03
+    //function that replaces the _purchasedRewards mapping with the new array after combining
+    function _updatePurchasedItems(
+        uint8[] memory _updatedList,
+        address _address
+    ) public {
+        _purchasedRewards[_address] = _updatedList;
+    }
+
+    //HELPER FUNCTION 04
+    //function that retrieves the array list of uint8 ids from the exsitiing _purchasedRewards mapping
+    function _getListOfExistingPurchasedItems(address _address)
+        public
+        view
+        returns (uint8[] memory)
+    {
+        (bool isLoyalCustomer, ) = _isLoyalCustomer(_address);
+        require(isLoyalCustomer == true, "You are checking an Illegal Address");
+        return _purchasedRewards[_address];
+    }
+
+    function _updatePurchasedRewardsMapping(
+        address _address,
+        uint8[] memory chosenIds
+    ) public {
+        uint8[] memory _existingIds;
+        _existingIds = _getListOfExistingPurchasedItems(_address); //HELPER FUNCTION 04
+        uint8[] memory _updatedListIds;
+        _updatedListIds = _addTwoArrays(_address, chosenIds); //HELPER FUNCTION 02
+        _updatePurchasedItems(_updatedListIds, _address); //HELPER FUNCTION 03
+    }
+}
