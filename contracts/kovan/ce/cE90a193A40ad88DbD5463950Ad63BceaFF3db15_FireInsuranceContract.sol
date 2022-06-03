@@ -1,0 +1,1860 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.7;
+
+pragma experimental ABIEncoderV2;
+
+import "LinkTokenInterface.sol";
+import "AggregatorInterface.sol";
+import "AggregatorV3Interface.sol";
+import "Strings.sol";
+import "ShambaFireConsumer.sol";
+
+contract FireInsuranceProvider {
+    
+    address public insurer = msg.sender;
+    AggregatorV3Interface internal priceFeed;
+
+    uint public constant DAY_IN_SECONDS = 60; //How many seconds in a day. 60 for testing, 86400 for Production
+    
+    uint256 constant private ORACLE_PAYMENT = 0.1 * 10**19; // 1 LINK
+    address public constant LINK_KOVAN = 0xa36085F69e2889c224210F603D836748e7dC0088 ; //address of LINK token on Kovan
+    
+    //here is where all the insurance contracts are stored.
+    mapping (address => FireInsuranceContract) contracts; 
+    
+    
+    constructor()  payable {
+        priceFeed = AggregatorV3Interface(0x9326BFA02ADD2366b30bacB125260Af641031331);
+    }
+
+    /**
+     * @dev Prevents a function being run unless it's called by the Insurance Provider
+     */
+    modifier onlyOwner() {
+		require(insurer == msg.sender,'Only Insurance provider can do this');
+        _;
+    }
+    
+
+   /**
+    * @dev Event to log when a contract is created
+    */    
+    event contractCreated(address _insuranceContract, uint _premium, uint _totalCover);
+    
+    
+    /**
+     * @dev Create a new contract for client, automatically approved and deployed to the blockchain
+     */ 
+    function newContract(address payable _client, uint _duration, uint _premium, uint _payoutValue) public payable onlyOwner() returns(address) {
+        
+
+        //create contract, send payout amount so contract is fully funded plus a small buffer
+        FireInsuranceContract i = (new FireInsuranceContract){value:((_payoutValue * 1 ether) / (uint(getLatestPrice())))}(_client, _duration, _premium, _payoutValue, LINK_KOVAN,ORACLE_PAYMENT);
+         
+        contracts[address(i)] = i;  //store insurance contract in contracts Map
+        
+        //emit an event to say the contract has been created and funded
+        emit contractCreated(address(i), msg.value, _payoutValue);
+        
+        //now that contract has been created, we need to fund it with enough LINK tokens to fulfil 1 Oracle request per day, with a small buffer added
+        LinkTokenInterface link = LinkTokenInterface(i.getChainlinkToken());
+        link.transfer(address(i), ((_duration / DAY_IN_SECONDS) + 2) * ORACLE_PAYMENT * 2);
+        
+        
+        return address(i);
+        
+    }
+    
+
+    /**
+     * @dev returns the contract for a given address
+     */
+    function getContract(address _contract) external view returns (FireInsuranceContract) {
+        return contracts[_contract];
+    }
+    
+    /**
+     * @dev updates the contract for a given address
+     */
+    function updateContract(address _contract,
+        string memory dataset_code,
+        string memory selected_band,
+        string memory image_scale,
+        string memory start_date,
+        string memory end_date,
+        ShambaFireConsumer.Geometry[] memory geometry
+    ) external {
+        FireInsuranceContract i = FireInsuranceContract(_contract);
+        i.updateContract(dataset_code, selected_band, image_scale, start_date, end_date, geometry);
+    }
+    
+    /**
+     * @dev gets the current fire for a given contract address
+     */
+    function getContractFire(address _contract) external view returns(uint) {
+        FireInsuranceContract i = FireInsuranceContract(_contract);
+        return i.getCurrentFire();
+    }
+    
+    /**
+     * @dev gets the current fire for a given contract address
+     */
+    function getContractRequestCount(address _contract) external view returns(uint) {
+        FireInsuranceContract i = FireInsuranceContract(_contract);
+        return i.getRequestCount();
+    }
+    
+    
+    
+    /**
+     * @dev Get the insurer address for this insurance provider
+     */
+    function getInsurer() external view returns (address) {
+        return insurer;
+    }
+    
+    
+    
+    /**
+     * @dev Get the status of a given Contract
+     */
+    function getContractStatus(address _address) external view returns (bool) {
+        FireInsuranceContract i = FireInsuranceContract(_address);
+        return i.getContractStatus();
+    }
+    
+    /**
+     * @dev Return how much ether is in this master contract
+     */
+    function getContractBalance() external view returns (uint) {
+        return address(this).balance;
+    }
+    
+    /**
+     * @dev Function to end provider contract, in case of bugs or needing to update logic etc, funds are returned to insurance provider, including any remaining LINK tokens
+     */
+    function endContractProvider() external payable onlyOwner() {
+        LinkTokenInterface link = LinkTokenInterface(LINK_KOVAN);
+        require(link.transfer(msg.sender, link.balanceOf(address(this))), "Unable to transfer");
+        selfdestruct(payable(insurer));
+    }
+    
+    event latestPriceReceived(uint80 roundID, 
+            int price,
+            uint startedAt,
+            uint timeStamp,
+            uint80 answeredInRound);
+
+    /**
+     * Returns the latest price
+     */
+    function getLatestPrice() public returns (int) {
+        (
+            uint80 roundID, 
+            int price,
+            uint startedAt,
+            uint timeStamp,
+            uint80 answeredInRound
+        ) = priceFeed.latestRoundData();
+        // If the round is not complete yet, timestamp is 0
+
+        emit latestPriceReceived(roundID, price, startedAt, timeStamp, answeredInRound);
+        
+        require(timeStamp > 0, "Round not complete");
+        return price;
+    }
+    
+
+}
+
+
+contract FireInsuranceContract is ShambaFireConsumer  {
+
+    AggregatorV3Interface internal priceFeed;
+    
+    uint public constant DAY_IN_SECONDS = 60; //How many seconds in a day. 60 for testing, 86400 for Production
+    uint public constant FIRE_DAYS_THRESDHOLD = 3 ;  //Number of consecutive days without fire data to be defined as a drought
+    uint256 private oraclePaymentAmount;
+
+    address payable public insurer;
+    address payable client;
+    uint startDate;
+    uint duration;
+    uint premium;
+    uint payoutValue;
+    
+    
+    uint daysWithFire;                   //how many days there has been with 0 fire
+    bool contractActive;                    //is the contract currently active, or has it ended
+    bool contractPaid = false;
+    uint currentFire = 0;               //what is the current fire for the location
+    uint currentFireDateChecked = block.timestamp;  //when the last fire check was performed
+    uint requestCount = 0;                  //how many requests for fire data have been made so far for this insurance contract
+    uint dataRequestsSent = 0;             //variable used to determine if both requests have been sent or not
+    
+
+    /**
+     * @dev Prevents a function being run unless it's called by Insurance Provider
+     */
+    modifier onlyOwner() {
+		require(insurer == msg.sender,'Only Insurance provider can do this');
+        _;
+    }
+    
+    /**
+     * @dev Prevents a function being run unless the Insurance Contract duration has been reached
+     */
+    modifier onContractEnded() {
+        if (startDate + duration < block.timestamp) {
+          _;  
+        } 
+    }
+    
+    /**
+     * @dev Prevents a function being run unless contract is still active
+     */
+    modifier onContractActive() {
+        require(contractActive == true ,'Contract has ended, cant interact with it anymore');
+        _;
+    }
+
+    /**
+     * @dev Prevents a data request to be called unless it's been a day since the last call (to avoid spamming and spoofing results)
+     * apply a tolerance of 2/24 of a day or 2 hours.
+     */    
+    modifier callFrequencyOncePerDay() {
+        require((block.timestamp - currentFireDateChecked) > (DAY_IN_SECONDS - (DAY_IN_SECONDS / 12)),'Can only check fire once per day');
+        _;
+    }
+    
+    event contractCreated(address _insurer, address _client, uint _duration, uint _premium, uint _totalCover);
+    event contractPaidOut(uint _paidTime, uint _totalPaid, uint _finalFire);
+    event contractEnded(uint _endTime, uint _totalReturned);
+    event fireThresholdReset(uint _fire);
+    event dataRequestSent(bytes32 requestId);
+    event dataReceived(uint _fire);
+    
+
+    int256 private fire_data;
+    string private cid;
+
+    mapping(uint256 => string) private cids;
+
+
+     /**
+     * @dev Creates a new Insurance contract
+     */ 
+    constructor(address payable _client, uint _duration, uint _premium, uint _payoutValue, 
+                address _link, uint256 _oraclePaymentAmount)  payable {
+        
+        //set ETH/USD Price Feed
+        priceFeed = AggregatorV3Interface(0x9326BFA02ADD2366b30bacB125260Af641031331);
+        
+        //initialize variables required for Chainlink Network interaction
+        setChainlinkToken(_link);
+        
+        oraclePaymentAmount = _oraclePaymentAmount;
+        
+        //first ensure insurer has fully funded the contract
+        require(msg.value >= _payoutValue / uint(getLatestPrice()), "Not enough funds sent to contract");
+        
+        //now initialize values for the contract
+        insurer= payable(msg.sender);
+        client = _client;
+        startDate = block.timestamp; //contract will be effective immediately on creation
+        duration = _duration;
+        premium = _premium;
+        payoutValue = _payoutValue;
+        daysWithFire = 0;
+        contractActive = true;
+        
+        
+        emit contractCreated(insurer,
+                             client,
+                             duration,
+                             premium,
+                             payoutValue);
+    }
+    
+   /**
+     * @dev Calls out to an Oracle to obtain weather data
+     */ 
+    function updateContract(
+        string memory dataset_code,
+        string memory selected_band,
+        string memory image_scale,
+        string memory start_date,
+        string memory end_date,
+        ShambaFireConsumer.Geometry[] memory geometry
+    ) public onContractActive() returns (bytes32 requestId)   {
+        //first call end contract in case of insurance contract duration expiring, if it hasn't then this functin execution will resume
+        checkEndContract();
+        
+        //contract may have been marked inactive above, only do request if needed
+        if (contractActive) {
+            dataRequestsSent = 0;    
+            checkFire(dataset_code, selected_band, image_scale, start_date, end_date, geometry);
+        }
+
+        return requestId;
+    }
+    
+    /**
+     * @dev Calls the requestFireData function of the imported ShambaFireConsumer contract with the corresponding parameters
+     */ 
+    function checkFire(
+        string memory dataset_code,
+        string memory selected_band,
+        string memory image_scale,
+        string memory start_date,
+        string memory end_date,
+        Geometry[] memory geometry
+    ) private onContractActive()   {
+
+
+        //First build up a request to get the current fire
+        ShambaFireConsumer.requestFireData(dataset_code, selected_band, image_scale, start_date, end_date, geometry);
+
+    }
+    
+
+    /**
+     * @dev 
+     * This function will return the latest content id of the metadata that is being stored on the filecoin ipfs
+     */ 
+
+    function getLatestCid() public view returns (string memory) {
+        return ShambaFireConsumer.getCid(total_oracle_calls - 1);
+    }
+
+    /**
+     * @dev 
+     * This function will return the current fire data returned by the getFireData function of the imported ShambaFireConsumer contract
+     */ 
+
+    function getShambaFireData(uint256 propertyID) public returns (uint256) {
+
+        currentFire = ShambaFireConsumer.getFireData(propertyID);
+
+        if (currentFire == 1) { //temp threshold has been  met, add a day of over threshold
+              daysWithFire += 1;
+        } 
+        
+        else {
+              //there was no fire today, so reset daysWithFire parameter 
+              daysWithFire = 0;
+              emit fireThresholdReset(currentFire);
+        }
+       
+        if (daysWithFire >= FIRE_DAYS_THRESDHOLD) {  // day threshold has been met
+              //need to pay client out insurance amount
+              payOutContract();
+        } 
+
+        emit dataReceived(currentFire);
+
+        return currentFire;
+
+    }
+    
+    
+    /**
+     * @dev Insurance conditions have been met, do payout of total cover amount to client
+     */ 
+    function payOutContract() private onContractActive()  {
+        
+        //Transfer agreed amount to client
+        client.transfer(address(this).balance);
+        
+        //Transfer any remaining funds (premium) back to Insurer
+        LinkTokenInterface link = LinkTokenInterface(chainlinkTokenAddress());
+        require(link.transfer(insurer, link.balanceOf(address(this))), "Unable to transfer");
+        
+        emit contractPaidOut(block.timestamp, payoutValue, currentFire);
+        
+        //now that amount has been transferred, can end the contract 
+        //mark contract as ended, so no future calls can be done
+        contractActive = false;
+        contractPaid = true;
+    
+    }  
+    
+    /**
+     * @dev Insurance conditions have not been met, and contract expired, end contract and return funds
+     */ 
+    function checkEndContract() private onContractEnded()   {
+        //Insurer needs to have performed at least 1 weather call per day to be eligible to retrieve funds back.
+        //We will allow for 1 missed weather call to account for unexpected issues on a given day.
+        if (requestCount >= (duration / DAY_IN_SECONDS) - 2) {
+            //return funds back to insurance provider then end/kill the contract
+            insurer.transfer(address(this).balance);
+        } else { //insurer hasn't done the minimum number of data requests, client is eligible to receive his premium back
+            // need to use ETH/USD price feed to calculate ETH amount
+            client.transfer(premium / uint(getLatestPrice()));
+            insurer.transfer(address(this).balance);
+        }
+        
+        //transfer any remaining LINK tokens back to the insurer
+        LinkTokenInterface link = LinkTokenInterface(chainlinkTokenAddress());
+        require(link.transfer(insurer, link.balanceOf(address(this))), "Unable to transfer remaining LINK tokens");
+        
+        //mark contract as ended, so no future state changes can occur on the contract
+        contractActive = false;
+        emit contractEnded(block.timestamp, address(this).balance);
+    }
+    event latestPriceReceived(uint80 roundID, 
+            int price,
+            uint startedAt,
+            uint timeStamp,
+            uint80 answeredInRound);
+    /**
+     * Returns the latest price
+     */
+    function getLatestPrice() public returns (int) {
+        (
+            uint80 roundID, 
+            int price,
+            uint startedAt,
+            uint timeStamp,
+            uint80 answeredInRound
+        ) = priceFeed.latestRoundData();
+        // If the round is not complete yet, timestamp is 0
+        emit latestPriceReceived(roundID, price, startedAt, timeStamp, answeredInRound);
+        require(timeStamp > 0, "Round not complete");
+        return price;
+    }
+    
+    
+    /**
+     * @dev Get the balance of the contract
+     */ 
+    function getContractBalance() external view returns (uint) {
+        return address(this).balance;
+    } 
+    
+    
+    /**
+     * @dev Get the Total Cover
+     */ 
+    function getPayoutValue() external view returns (uint) {
+        return payoutValue;
+    } 
+    
+    
+    /**
+     * @dev Get the Premium paid
+     */ 
+    function getPremium() external view returns (uint) {
+        return premium;
+    } 
+    
+    /**
+     * @dev Get the status of the contract
+     */ 
+    function getContractStatus() external view returns (bool) {
+        return contractActive;
+    }
+    
+    /**
+     * @dev Get whether the contract has been paid out or not
+     */ 
+    function getContractPaid() external view returns (bool) {
+        return contractPaid;
+    }
+    
+    
+    /**
+     * @dev Get the current recorded fire for the contract
+     */ 
+    function getCurrentFire() external view returns (uint) {
+        return currentFire;
+    }
+    
+    /**
+     * @dev Get the recorded number of days without fire
+     */ 
+    function getDaysWithFire() external view returns (uint) {
+        return daysWithFire;
+    }
+    
+    /**
+     * @dev Get the count of requests that has occured for the Insurance Contract
+     */ 
+    function getRequestCount() external view returns (uint) {
+        return requestCount;
+    }
+    
+    /**
+     * @dev Get the last time that the fire was checked for the contract
+     */ 
+    function getCurrentFireDateChecked() external view returns (uint) {
+        return currentFireDateChecked;
+    }
+    
+    /**
+     * @dev Get the contract duration
+     */ 
+    function getDuration() external view returns (uint) {
+        return duration;
+    }
+    
+    /**
+     * @dev Get the contract start date
+     */ 
+    function getContractStartDate() external view returns (uint) {
+        return startDate;
+    }
+    
+    /**
+     * @dev Get the current date/time according to the blockchain
+     */ 
+    function getNow() external view returns (uint) {
+        return block.timestamp;
+    }
+    
+    /**
+     * @dev Get address of the chainlink token
+     */ 
+    function getChainlinkToken() public view returns (address) {
+        return chainlinkTokenAddress();
+    }
+    
+    /**
+     * @dev Helper function for converting a string to a bytes32 object
+     */ 
+    function stringToBytes32(string memory source) private pure returns (bytes32 result) {
+        bytes memory tempEmptyStringTest = bytes(source);
+        if (tempEmptyStringTest.length == 0) {
+         return 0x0;
+        }
+
+        assembly { // solhint-disable-line no-inline-assembly
+        result := mload(add(source, 32))
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface LinkTokenInterface {
+  function allowance(address owner, address spender) external view returns (uint256 remaining);
+
+  function approve(address spender, uint256 value) external returns (bool success);
+
+  function balanceOf(address owner) external view returns (uint256 balance);
+
+  function decimals() external view returns (uint8 decimalPlaces);
+
+  function decreaseApproval(address spender, uint256 addedValue) external returns (bool success);
+
+  function increaseApproval(address spender, uint256 subtractedValue) external;
+
+  function name() external view returns (string memory tokenName);
+
+  function symbol() external view returns (string memory tokenSymbol);
+
+  function totalSupply() external view returns (uint256 totalTokensIssued);
+
+  function transfer(address to, uint256 value) external returns (bool success);
+
+  function transferAndCall(
+    address to,
+    uint256 value,
+    bytes calldata data
+  ) external returns (bool success);
+
+  function transferFrom(
+    address from,
+    address to,
+    uint256 value
+  ) external returns (bool success);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface AggregatorInterface {
+  function latestAnswer() external view returns (int256);
+
+  function latestTimestamp() external view returns (uint256);
+
+  function latestRound() external view returns (uint256);
+
+  function getAnswer(uint256 roundId) external view returns (int256);
+
+  function getTimestamp(uint256 roundId) external view returns (uint256);
+
+  event AnswerUpdated(int256 indexed current, uint256 indexed roundId, uint256 updatedAt);
+
+  event NewRound(uint256 indexed roundId, address indexed startedBy, uint256 startedAt);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface AggregatorV3Interface {
+  function decimals() external view returns (uint8);
+
+  function description() external view returns (string memory);
+
+  function version() external view returns (uint256);
+
+  // getRoundData and latestRoundData should both raise "No data present"
+  // if they do not have data to report, instead of returning unset values
+  // which could be misinterpreted as actual reported values.
+  function getRoundData(uint80 _roundId)
+    external
+    view
+    returns (
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
+    );
+
+  function latestRoundData()
+    external
+    view
+    returns (
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
+    );
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Strings.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev String operations.
+ */
+library Strings {
+    bytes16 private constant _HEX_SYMBOLS = "0123456789abcdef";
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation.
+     */
+    function toHexString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0x00";
+        }
+        uint256 temp = value;
+        uint256 length = 0;
+        while (temp != 0) {
+            length++;
+            temp >>= 8;
+        }
+        return toHexString(value, length);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation with fixed length.
+     */
+    function toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+        bytes memory buffer = new bytes(2 * length + 2);
+        buffer[0] = "0";
+        buffer[1] = "x";
+        for (uint256 i = 2 * length + 1; i > 1; --i) {
+            buffer[i] = _HEX_SYMBOLS[value & 0xf];
+            value >>= 4;
+        }
+        require(value == 0, "Strings: hex length insufficient");
+        return string(buffer);
+    }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
+
+import "ChainlinkClient.sol";
+import "Strings.sol";
+
+contract ShambaFireConsumer is ChainlinkClient {
+    using Chainlink for Chainlink.Request;
+
+    mapping(uint256 => uint256) private fire_data;
+    string private cid;
+    uint256 public total_oracle_calls = 0;
+
+    mapping(uint256 => string) private cids;
+
+    struct Geometry {
+        uint256 property_id;
+        string coordinates;
+    }
+
+    mapping(uint256 => string) geometry_map;
+
+
+    function getGeometry(uint256 property_id)
+        public
+        view
+        returns (string memory)
+    {
+        return geometry_map[property_id];
+    }
+
+    function getCid(uint256 index)
+        public
+        view
+        returns (string memory)
+    {
+        return cids[index];
+    }
+
+    constructor() {
+        setChainlinkToken(0xa36085F69e2889c224210F603D836748e7dC0088);
+        setChainlinkOracle(0xA623107254c575105139C499d4869b69582340cB);
+    }
+
+    function concat(string memory a, string memory b)
+        private
+        pure
+        returns (string memory)
+    {
+        return (string(abi.encodePacked(a, "", b)));
+    }
+
+    function requestFireData(
+        string memory dataset_code,
+        string memory selected_band,
+        string memory image_scale,
+        string memory start_date,
+        string memory end_date,
+        Geometry[] memory geometry
+
+    ) public {
+        bytes32 specId = "86d169c2904e487f954807313a20effa";
+
+        uint256 payment = 1000000000000000000;
+        Chainlink.Request memory req = buildChainlinkRequest(
+            specId,
+            address(this),
+            this.fulfillFireData.selector
+        );
+
+       
+
+        string memory concatenated_data = concat(
+            '{"dataset_code":"',
+            dataset_code
+        );
+        concatenated_data = concat(concatenated_data, '", "selected_band":"');
+        concatenated_data = concat(concatenated_data, selected_band);
+        concatenated_data = concat(concatenated_data, '", "image_scale":');
+        concatenated_data = concat(concatenated_data, image_scale);
+        concatenated_data = concat(concatenated_data, ', "start_date":"');
+        concatenated_data = concat(concatenated_data, start_date);
+        concatenated_data = concat(concatenated_data, '", "end_date":"');
+        concatenated_data = concat(concatenated_data, end_date);
+        concatenated_data = concat(
+            concatenated_data,
+            '", "geometry":{"type":"FeatureCollection","features":['
+        );
+
+        for (uint256 i = 0; i < geometry.length; i++) {
+
+            geometry_map[geometry[i].property_id] = geometry[i].coordinates;
+
+            concatenated_data = concat(
+                concatenated_data,
+                '{"type":"Feature","properties":{"id":'
+            );
+            concatenated_data = concat(
+                concatenated_data,
+                Strings.toString(geometry[i].property_id)
+            );
+            concatenated_data = concat(
+                concatenated_data,
+                '},"geometry":{"type":"Polygon","coordinates":'
+            );
+            concatenated_data = concat(
+                concatenated_data,
+                geometry[i].coordinates
+            );
+            concatenated_data = concat(concatenated_data, "}}");
+
+            if (i != geometry.length - 1) {
+                concatenated_data = concat(concatenated_data, ",");
+            }
+        }
+        concatenated_data = concat(concatenated_data, "]}}");
+        string memory req_data = concatenated_data;
+
+        req.add("data", req_data);
+
+        sendOperatorRequest(req, payment);
+    }
+
+    function fulfillFireData(bytes32 requestId, uint256[] memory fireData, string calldata cidValue)
+        public
+        recordChainlinkFulfillment(requestId)
+    {
+        for (uint256 i = 0; i < fireData.length; i++) {
+        fire_data[i + 1] = fireData[i];
+        }
+
+        cid = cidValue;
+        cids[total_oracle_calls] = cid;
+        total_oracle_calls = total_oracle_calls + 1;
+    }
+    
+
+    function getFireData(uint256 propertyID)
+        public
+        view
+        returns (uint256)
+    {
+        return fire_data[propertyID];
+    }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "Chainlink.sol";
+import "ENSInterface.sol";
+import "LinkTokenInterface.sol";
+import "ChainlinkRequestInterface.sol";
+import "OperatorInterface.sol";
+import "PointerInterface.sol";
+import {ENSResolver as ENSResolver_Chainlink} from "ENSResolver.sol";
+
+/**
+ * @title The ChainlinkClient contract
+ * @notice Contract writers can inherit this contract in order to create requests for the
+ * Chainlink network
+ */
+abstract contract ChainlinkClient {
+  using Chainlink for Chainlink.Request;
+
+  uint256 internal constant LINK_DIVISIBILITY = 10**18;
+  uint256 private constant AMOUNT_OVERRIDE = 0;
+  address private constant SENDER_OVERRIDE = address(0);
+  uint256 private constant ORACLE_ARGS_VERSION = 1;
+  uint256 private constant OPERATOR_ARGS_VERSION = 2;
+  bytes32 private constant ENS_TOKEN_SUBNAME = keccak256("link");
+  bytes32 private constant ENS_ORACLE_SUBNAME = keccak256("oracle");
+  address private constant LINK_TOKEN_POINTER = 0xC89bD4E1632D3A43CB03AAAd5262cbe4038Bc571;
+
+  ENSInterface private s_ens;
+  bytes32 private s_ensNode;
+  LinkTokenInterface private s_link;
+  OperatorInterface private s_oracle;
+  uint256 private s_requestCount = 1;
+  mapping(bytes32 => address) private s_pendingRequests;
+
+  event ChainlinkRequested(bytes32 indexed id);
+  event ChainlinkFulfilled(bytes32 indexed id);
+  event ChainlinkCancelled(bytes32 indexed id);
+
+  /**
+   * @notice Creates a request that can hold additional parameters
+   * @param specId The Job Specification ID that the request will be created for
+   * @param callbackAddr address to operate the callback on
+   * @param callbackFunctionSignature function signature to use for the callback
+   * @return A Chainlink Request struct in memory
+   */
+  function buildChainlinkRequest(
+    bytes32 specId,
+    address callbackAddr,
+    bytes4 callbackFunctionSignature
+  ) internal pure returns (Chainlink.Request memory) {
+    Chainlink.Request memory req;
+    return req.initialize(specId, callbackAddr, callbackFunctionSignature);
+  }
+
+  /**
+   * @notice Creates a request that can hold additional parameters
+   * @param specId The Job Specification ID that the request will be created for
+   * @param callbackFunctionSignature function signature to use for the callback
+   * @return A Chainlink Request struct in memory
+   */
+  function buildOperatorRequest(bytes32 specId, bytes4 callbackFunctionSignature)
+    internal
+    view
+    returns (Chainlink.Request memory)
+  {
+    Chainlink.Request memory req;
+    return req.initialize(specId, address(this), callbackFunctionSignature);
+  }
+
+  /**
+   * @notice Creates a Chainlink request to the stored oracle address
+   * @dev Calls `chainlinkRequestTo` with the stored oracle address
+   * @param req The initialized Chainlink Request
+   * @param payment The amount of LINK to send for the request
+   * @return requestId The request ID
+   */
+  function sendChainlinkRequest(Chainlink.Request memory req, uint256 payment) internal returns (bytes32) {
+    return sendChainlinkRequestTo(address(s_oracle), req, payment);
+  }
+
+  /**
+   * @notice Creates a Chainlink request to the specified oracle address
+   * @dev Generates and stores a request ID, increments the local nonce, and uses `transferAndCall` to
+   * send LINK which creates a request on the target oracle contract.
+   * Emits ChainlinkRequested event.
+   * @param oracleAddress The address of the oracle for the request
+   * @param req The initialized Chainlink Request
+   * @param payment The amount of LINK to send for the request
+   * @return requestId The request ID
+   */
+  function sendChainlinkRequestTo(
+    address oracleAddress,
+    Chainlink.Request memory req,
+    uint256 payment
+  ) internal returns (bytes32 requestId) {
+    uint256 nonce = s_requestCount;
+    s_requestCount = nonce + 1;
+    bytes memory encodedRequest = abi.encodeWithSelector(
+      ChainlinkRequestInterface.oracleRequest.selector,
+      SENDER_OVERRIDE, // Sender value - overridden by onTokenTransfer by the requesting contract's address
+      AMOUNT_OVERRIDE, // Amount value - overridden by onTokenTransfer by the actual amount of LINK sent
+      req.id,
+      address(this),
+      req.callbackFunctionId,
+      nonce,
+      ORACLE_ARGS_VERSION,
+      req.buf.buf
+    );
+    return _rawRequest(oracleAddress, nonce, payment, encodedRequest);
+  }
+
+  /**
+   * @notice Creates a Chainlink request to the stored oracle address
+   * @dev This function supports multi-word response
+   * @dev Calls `sendOperatorRequestTo` with the stored oracle address
+   * @param req The initialized Chainlink Request
+   * @param payment The amount of LINK to send for the request
+   * @return requestId The request ID
+   */
+  function sendOperatorRequest(Chainlink.Request memory req, uint256 payment) internal returns (bytes32) {
+    return sendOperatorRequestTo(address(s_oracle), req, payment);
+  }
+
+  /**
+   * @notice Creates a Chainlink request to the specified oracle address
+   * @dev This function supports multi-word response
+   * @dev Generates and stores a request ID, increments the local nonce, and uses `transferAndCall` to
+   * send LINK which creates a request on the target oracle contract.
+   * Emits ChainlinkRequested event.
+   * @param oracleAddress The address of the oracle for the request
+   * @param req The initialized Chainlink Request
+   * @param payment The amount of LINK to send for the request
+   * @return requestId The request ID
+   */
+  function sendOperatorRequestTo(
+    address oracleAddress,
+    Chainlink.Request memory req,
+    uint256 payment
+  ) internal returns (bytes32 requestId) {
+    uint256 nonce = s_requestCount;
+    s_requestCount = nonce + 1;
+    bytes memory encodedRequest = abi.encodeWithSelector(
+      OperatorInterface.operatorRequest.selector,
+      SENDER_OVERRIDE, // Sender value - overridden by onTokenTransfer by the requesting contract's address
+      AMOUNT_OVERRIDE, // Amount value - overridden by onTokenTransfer by the actual amount of LINK sent
+      req.id,
+      req.callbackFunctionId,
+      nonce,
+      OPERATOR_ARGS_VERSION,
+      req.buf.buf
+    );
+    return _rawRequest(oracleAddress, nonce, payment, encodedRequest);
+  }
+
+  /**
+   * @notice Make a request to an oracle
+   * @param oracleAddress The address of the oracle for the request
+   * @param nonce used to generate the request ID
+   * @param payment The amount of LINK to send for the request
+   * @param encodedRequest data encoded for request type specific format
+   * @return requestId The request ID
+   */
+  function _rawRequest(
+    address oracleAddress,
+    uint256 nonce,
+    uint256 payment,
+    bytes memory encodedRequest
+  ) private returns (bytes32 requestId) {
+    requestId = keccak256(abi.encodePacked(this, nonce));
+    s_pendingRequests[requestId] = oracleAddress;
+    emit ChainlinkRequested(requestId);
+    require(s_link.transferAndCall(oracleAddress, payment, encodedRequest), "unable to transferAndCall to oracle");
+  }
+
+  /**
+   * @notice Allows a request to be cancelled if it has not been fulfilled
+   * @dev Requires keeping track of the expiration value emitted from the oracle contract.
+   * Deletes the request from the `pendingRequests` mapping.
+   * Emits ChainlinkCancelled event.
+   * @param requestId The request ID
+   * @param payment The amount of LINK sent for the request
+   * @param callbackFunc The callback function specified for the request
+   * @param expiration The time of the expiration for the request
+   */
+  function cancelChainlinkRequest(
+    bytes32 requestId,
+    uint256 payment,
+    bytes4 callbackFunc,
+    uint256 expiration
+  ) internal {
+    OperatorInterface requested = OperatorInterface(s_pendingRequests[requestId]);
+    delete s_pendingRequests[requestId];
+    emit ChainlinkCancelled(requestId);
+    requested.cancelOracleRequest(requestId, payment, callbackFunc, expiration);
+  }
+
+  /**
+   * @notice the next request count to be used in generating a nonce
+   * @dev starts at 1 in order to ensure consistent gas cost
+   * @return returns the next request count to be used in a nonce
+   */
+  function getNextRequestCount() internal view returns (uint256) {
+    return s_requestCount;
+  }
+
+  /**
+   * @notice Sets the stored oracle address
+   * @param oracleAddress The address of the oracle contract
+   */
+  function setChainlinkOracle(address oracleAddress) internal {
+    s_oracle = OperatorInterface(oracleAddress);
+  }
+
+  /**
+   * @notice Sets the LINK token address
+   * @param linkAddress The address of the LINK token contract
+   */
+  function setChainlinkToken(address linkAddress) internal {
+    s_link = LinkTokenInterface(linkAddress);
+  }
+
+  /**
+   * @notice Sets the Chainlink token address for the public
+   * network as given by the Pointer contract
+   */
+  function setPublicChainlinkToken() internal {
+    setChainlinkToken(PointerInterface(LINK_TOKEN_POINTER).getAddress());
+  }
+
+  /**
+   * @notice Retrieves the stored address of the LINK token
+   * @return The address of the LINK token
+   */
+  function chainlinkTokenAddress() internal view returns (address) {
+    return address(s_link);
+  }
+
+  /**
+   * @notice Retrieves the stored address of the oracle contract
+   * @return The address of the oracle contract
+   */
+  function chainlinkOracleAddress() internal view returns (address) {
+    return address(s_oracle);
+  }
+
+  /**
+   * @notice Allows for a request which was created on another contract to be fulfilled
+   * on this contract
+   * @param oracleAddress The address of the oracle contract that will fulfill the request
+   * @param requestId The request ID used for the response
+   */
+  function addChainlinkExternalRequest(address oracleAddress, bytes32 requestId) internal notPendingRequest(requestId) {
+    s_pendingRequests[requestId] = oracleAddress;
+  }
+
+  /**
+   * @notice Sets the stored oracle and LINK token contracts with the addresses resolved by ENS
+   * @dev Accounts for subnodes having different resolvers
+   * @param ensAddress The address of the ENS contract
+   * @param node The ENS node hash
+   */
+  function useChainlinkWithENS(address ensAddress, bytes32 node) internal {
+    s_ens = ENSInterface(ensAddress);
+    s_ensNode = node;
+    bytes32 linkSubnode = keccak256(abi.encodePacked(s_ensNode, ENS_TOKEN_SUBNAME));
+    ENSResolver_Chainlink resolver = ENSResolver_Chainlink(s_ens.resolver(linkSubnode));
+    setChainlinkToken(resolver.addr(linkSubnode));
+    updateChainlinkOracleWithENS();
+  }
+
+  /**
+   * @notice Sets the stored oracle contract with the address resolved by ENS
+   * @dev This may be called on its own as long as `useChainlinkWithENS` has been called previously
+   */
+  function updateChainlinkOracleWithENS() internal {
+    bytes32 oracleSubnode = keccak256(abi.encodePacked(s_ensNode, ENS_ORACLE_SUBNAME));
+    ENSResolver_Chainlink resolver = ENSResolver_Chainlink(s_ens.resolver(oracleSubnode));
+    setChainlinkOracle(resolver.addr(oracleSubnode));
+  }
+
+  /**
+   * @notice Ensures that the fulfillment is valid for this contract
+   * @dev Use if the contract developer prefers methods instead of modifiers for validation
+   * @param requestId The request ID for fulfillment
+   */
+  function validateChainlinkCallback(bytes32 requestId)
+    internal
+    recordChainlinkFulfillment(requestId)
+  // solhint-disable-next-line no-empty-blocks
+  {
+
+  }
+
+  /**
+   * @dev Reverts if the sender is not the oracle of the request.
+   * Emits ChainlinkFulfilled event.
+   * @param requestId The request ID for fulfillment
+   */
+  modifier recordChainlinkFulfillment(bytes32 requestId) {
+    require(msg.sender == s_pendingRequests[requestId], "Source must be the oracle of the request");
+    delete s_pendingRequests[requestId];
+    emit ChainlinkFulfilled(requestId);
+    _;
+  }
+
+  /**
+   * @dev Reverts if the request is already pending
+   * @param requestId The request ID for fulfillment
+   */
+  modifier notPendingRequest(bytes32 requestId) {
+    require(s_pendingRequests[requestId] == address(0), "Request is already pending");
+    _;
+  }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {CBORChainlink} from "CBORChainlink.sol";
+import {BufferChainlink} from "BufferChainlink.sol";
+
+/**
+ * @title Library for common Chainlink functions
+ * @dev Uses imported CBOR library for encoding to buffer
+ */
+library Chainlink {
+  uint256 internal constant defaultBufferSize = 256; // solhint-disable-line const-name-snakecase
+
+  using CBORChainlink for BufferChainlink.buffer;
+
+  struct Request {
+    bytes32 id;
+    address callbackAddress;
+    bytes4 callbackFunctionId;
+    uint256 nonce;
+    BufferChainlink.buffer buf;
+  }
+
+  /**
+   * @notice Initializes a Chainlink request
+   * @dev Sets the ID, callback address, and callback function signature on the request
+   * @param self The uninitialized request
+   * @param jobId The Job Specification ID
+   * @param callbackAddr The callback address
+   * @param callbackFunc The callback function signature
+   * @return The initialized request
+   */
+  function initialize(
+    Request memory self,
+    bytes32 jobId,
+    address callbackAddr,
+    bytes4 callbackFunc
+  ) internal pure returns (Chainlink.Request memory) {
+    BufferChainlink.init(self.buf, defaultBufferSize);
+    self.id = jobId;
+    self.callbackAddress = callbackAddr;
+    self.callbackFunctionId = callbackFunc;
+    return self;
+  }
+
+  /**
+   * @notice Sets the data for the buffer without encoding CBOR on-chain
+   * @dev CBOR can be closed with curly-brackets {} or they can be left off
+   * @param self The initialized request
+   * @param data The CBOR data
+   */
+  function setBuffer(Request memory self, bytes memory data) internal pure {
+    BufferChainlink.init(self.buf, data.length);
+    BufferChainlink.append(self.buf, data);
+  }
+
+  /**
+   * @notice Adds a string value to the request with a given key name
+   * @param self The initialized request
+   * @param key The name of the key
+   * @param value The string value to add
+   */
+  function add(
+    Request memory self,
+    string memory key,
+    string memory value
+  ) internal pure {
+    self.buf.encodeString(key);
+    self.buf.encodeString(value);
+  }
+
+  /**
+   * @notice Adds a bytes value to the request with a given key name
+   * @param self The initialized request
+   * @param key The name of the key
+   * @param value The bytes value to add
+   */
+  function addBytes(
+    Request memory self,
+    string memory key,
+    bytes memory value
+  ) internal pure {
+    self.buf.encodeString(key);
+    self.buf.encodeBytes(value);
+  }
+
+  /**
+   * @notice Adds a int256 value to the request with a given key name
+   * @param self The initialized request
+   * @param key The name of the key
+   * @param value The int256 value to add
+   */
+  function addInt(
+    Request memory self,
+    string memory key,
+    int256 value
+  ) internal pure {
+    self.buf.encodeString(key);
+    self.buf.encodeInt(value);
+  }
+
+  /**
+   * @notice Adds a uint256 value to the request with a given key name
+   * @param self The initialized request
+   * @param key The name of the key
+   * @param value The uint256 value to add
+   */
+  function addUint(
+    Request memory self,
+    string memory key,
+    uint256 value
+  ) internal pure {
+    self.buf.encodeString(key);
+    self.buf.encodeUInt(value);
+  }
+
+  /**
+   * @notice Adds an array of strings to the request with a given key name
+   * @param self The initialized request
+   * @param key The name of the key
+   * @param values The array of string values to add
+   */
+  function addStringArray(
+    Request memory self,
+    string memory key,
+    string[] memory values
+  ) internal pure {
+    self.buf.encodeString(key);
+    self.buf.startArray();
+    for (uint256 i = 0; i < values.length; i++) {
+      self.buf.encodeString(values[i]);
+    }
+    self.buf.endSequence();
+  }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.4.19;
+
+import {BufferChainlink} from "BufferChainlink.sol";
+
+library CBORChainlink {
+  using BufferChainlink for BufferChainlink.buffer;
+
+  uint8 private constant MAJOR_TYPE_INT = 0;
+  uint8 private constant MAJOR_TYPE_NEGATIVE_INT = 1;
+  uint8 private constant MAJOR_TYPE_BYTES = 2;
+  uint8 private constant MAJOR_TYPE_STRING = 3;
+  uint8 private constant MAJOR_TYPE_ARRAY = 4;
+  uint8 private constant MAJOR_TYPE_MAP = 5;
+  uint8 private constant MAJOR_TYPE_TAG = 6;
+  uint8 private constant MAJOR_TYPE_CONTENT_FREE = 7;
+
+  uint8 private constant TAG_TYPE_BIGNUM = 2;
+  uint8 private constant TAG_TYPE_NEGATIVE_BIGNUM = 3;
+
+  function encodeFixedNumeric(BufferChainlink.buffer memory buf, uint8 major, uint64 value) private pure {
+    if(value <= 23) {
+      buf.appendUint8(uint8((major << 5) | value));
+    } else if (value <= 0xFF) {
+      buf.appendUint8(uint8((major << 5) | 24));
+      buf.appendInt(value, 1);
+    } else if (value <= 0xFFFF) {
+      buf.appendUint8(uint8((major << 5) | 25));
+      buf.appendInt(value, 2);
+    } else if (value <= 0xFFFFFFFF) {
+      buf.appendUint8(uint8((major << 5) | 26));
+      buf.appendInt(value, 4);
+    } else {
+      buf.appendUint8(uint8((major << 5) | 27));
+      buf.appendInt(value, 8);
+    }
+  }
+
+  function encodeIndefiniteLengthType(BufferChainlink.buffer memory buf, uint8 major) private pure {
+    buf.appendUint8(uint8((major << 5) | 31));
+  }
+
+  function encodeUInt(BufferChainlink.buffer memory buf, uint value) internal pure {
+    if(value > 0xFFFFFFFFFFFFFFFF) {
+      encodeBigNum(buf, value);
+    } else {
+      encodeFixedNumeric(buf, MAJOR_TYPE_INT, uint64(value));
+    }
+  }
+
+  function encodeInt(BufferChainlink.buffer memory buf, int value) internal pure {
+    if(value < -0x10000000000000000) {
+      encodeSignedBigNum(buf, value);
+    } else if(value > 0xFFFFFFFFFFFFFFFF) {
+      encodeBigNum(buf, uint(value));
+    } else if(value >= 0) {
+      encodeFixedNumeric(buf, MAJOR_TYPE_INT, uint64(uint256(value)));
+    } else {
+      encodeFixedNumeric(buf, MAJOR_TYPE_NEGATIVE_INT, uint64(uint256(-1 - value)));
+    }
+  }
+
+  function encodeBytes(BufferChainlink.buffer memory buf, bytes memory value) internal pure {
+    encodeFixedNumeric(buf, MAJOR_TYPE_BYTES, uint64(value.length));
+    buf.append(value);
+  }
+
+  function encodeBigNum(BufferChainlink.buffer memory buf, uint value) internal pure {
+    buf.appendUint8(uint8((MAJOR_TYPE_TAG << 5) | TAG_TYPE_BIGNUM));
+    encodeBytes(buf, abi.encode(value));
+  }
+
+  function encodeSignedBigNum(BufferChainlink.buffer memory buf, int input) internal pure {
+    buf.appendUint8(uint8((MAJOR_TYPE_TAG << 5) | TAG_TYPE_NEGATIVE_BIGNUM));
+    encodeBytes(buf, abi.encode(uint256(-1 - input)));
+  }
+
+  function encodeString(BufferChainlink.buffer memory buf, string memory value) internal pure {
+    encodeFixedNumeric(buf, MAJOR_TYPE_STRING, uint64(bytes(value).length));
+    buf.append(bytes(value));
+  }
+
+  function startArray(BufferChainlink.buffer memory buf) internal pure {
+    encodeIndefiniteLengthType(buf, MAJOR_TYPE_ARRAY);
+  }
+
+  function startMap(BufferChainlink.buffer memory buf) internal pure {
+    encodeIndefiniteLengthType(buf, MAJOR_TYPE_MAP);
+  }
+
+  function endSequence(BufferChainlink.buffer memory buf) internal pure {
+    encodeIndefiniteLengthType(buf, MAJOR_TYPE_CONTENT_FREE);
+  }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+/**
+ * @dev A library for working with mutable byte buffers in Solidity.
+ *
+ * Byte buffers are mutable and expandable, and provide a variety of primitives
+ * for writing to them. At any time you can fetch a bytes object containing the
+ * current contents of the buffer. The bytes object should not be stored between
+ * operations, as it may change due to resizing of the buffer.
+ */
+library BufferChainlink {
+  /**
+   * @dev Represents a mutable buffer. Buffers have a current value (buf) and
+   *      a capacity. The capacity may be longer than the current value, in
+   *      which case it can be extended without the need to allocate more memory.
+   */
+  struct buffer {
+    bytes buf;
+    uint256 capacity;
+  }
+
+  /**
+   * @dev Initializes a buffer with an initial capacity.
+   * @param buf The buffer to initialize.
+   * @param capacity The number of bytes of space to allocate the buffer.
+   * @return The buffer, for chaining.
+   */
+  function init(buffer memory buf, uint256 capacity) internal pure returns (buffer memory) {
+    if (capacity % 32 != 0) {
+      capacity += 32 - (capacity % 32);
+    }
+    // Allocate space for the buffer data
+    buf.capacity = capacity;
+    assembly {
+      let ptr := mload(0x40)
+      mstore(buf, ptr)
+      mstore(ptr, 0)
+      mstore(0x40, add(32, add(ptr, capacity)))
+    }
+    return buf;
+  }
+
+  /**
+   * @dev Initializes a new buffer from an existing bytes object.
+   *      Changes to the buffer may mutate the original value.
+   * @param b The bytes object to initialize the buffer with.
+   * @return A new buffer.
+   */
+  function fromBytes(bytes memory b) internal pure returns (buffer memory) {
+    buffer memory buf;
+    buf.buf = b;
+    buf.capacity = b.length;
+    return buf;
+  }
+
+  function resize(buffer memory buf, uint256 capacity) private pure {
+    bytes memory oldbuf = buf.buf;
+    init(buf, capacity);
+    append(buf, oldbuf);
+  }
+
+  function max(uint256 a, uint256 b) private pure returns (uint256) {
+    if (a > b) {
+      return a;
+    }
+    return b;
+  }
+
+  /**
+   * @dev Sets buffer length to 0.
+   * @param buf The buffer to truncate.
+   * @return The original buffer, for chaining..
+   */
+  function truncate(buffer memory buf) internal pure returns (buffer memory) {
+    assembly {
+      let bufptr := mload(buf)
+      mstore(bufptr, 0)
+    }
+    return buf;
+  }
+
+  /**
+   * @dev Writes a byte string to a buffer. Resizes if doing so would exceed
+   *      the capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param off The start offset to write to.
+   * @param data The data to append.
+   * @param len The number of bytes to copy.
+   * @return The original buffer, for chaining.
+   */
+  function write(
+    buffer memory buf,
+    uint256 off,
+    bytes memory data,
+    uint256 len
+  ) internal pure returns (buffer memory) {
+    require(len <= data.length);
+
+    if (off + len > buf.capacity) {
+      resize(buf, max(buf.capacity, len + off) * 2);
+    }
+
+    uint256 dest;
+    uint256 src;
+    assembly {
+      // Memory address of the buffer data
+      let bufptr := mload(buf)
+      // Length of existing buffer data
+      let buflen := mload(bufptr)
+      // Start address = buffer address + offset + sizeof(buffer length)
+      dest := add(add(bufptr, 32), off)
+      // Update buffer length if we're extending it
+      if gt(add(len, off), buflen) {
+        mstore(bufptr, add(len, off))
+      }
+      src := add(data, 32)
+    }
+
+    // Copy word-length chunks while possible
+    for (; len >= 32; len -= 32) {
+      assembly {
+        mstore(dest, mload(src))
+      }
+      dest += 32;
+      src += 32;
+    }
+
+    // Copy remaining bytes
+    unchecked {
+      uint256 mask = (256**(32 - len)) - 1;
+      assembly {
+        let srcpart := and(mload(src), not(mask))
+        let destpart := and(mload(dest), mask)
+        mstore(dest, or(destpart, srcpart))
+      }
+    }
+
+    return buf;
+  }
+
+  /**
+   * @dev Appends a byte string to a buffer. Resizes if doing so would exceed
+   *      the capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param data The data to append.
+   * @param len The number of bytes to copy.
+   * @return The original buffer, for chaining.
+   */
+  function append(
+    buffer memory buf,
+    bytes memory data,
+    uint256 len
+  ) internal pure returns (buffer memory) {
+    return write(buf, buf.buf.length, data, len);
+  }
+
+  /**
+   * @dev Appends a byte string to a buffer. Resizes if doing so would exceed
+   *      the capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param data The data to append.
+   * @return The original buffer, for chaining.
+   */
+  function append(buffer memory buf, bytes memory data) internal pure returns (buffer memory) {
+    return write(buf, buf.buf.length, data, data.length);
+  }
+
+  /**
+   * @dev Writes a byte to the buffer. Resizes if doing so would exceed the
+   *      capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param off The offset to write the byte at.
+   * @param data The data to append.
+   * @return The original buffer, for chaining.
+   */
+  function writeUint8(
+    buffer memory buf,
+    uint256 off,
+    uint8 data
+  ) internal pure returns (buffer memory) {
+    if (off >= buf.capacity) {
+      resize(buf, buf.capacity * 2);
+    }
+
+    assembly {
+      // Memory address of the buffer data
+      let bufptr := mload(buf)
+      // Length of existing buffer data
+      let buflen := mload(bufptr)
+      // Address = buffer address + sizeof(buffer length) + off
+      let dest := add(add(bufptr, off), 32)
+      mstore8(dest, data)
+      // Update buffer length if we extended it
+      if eq(off, buflen) {
+        mstore(bufptr, add(buflen, 1))
+      }
+    }
+    return buf;
+  }
+
+  /**
+   * @dev Appends a byte to the buffer. Resizes if doing so would exceed the
+   *      capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param data The data to append.
+   * @return The original buffer, for chaining.
+   */
+  function appendUint8(buffer memory buf, uint8 data) internal pure returns (buffer memory) {
+    return writeUint8(buf, buf.buf.length, data);
+  }
+
+  /**
+   * @dev Writes up to 32 bytes to the buffer. Resizes if doing so would
+   *      exceed the capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param off The offset to write at.
+   * @param data The data to append.
+   * @param len The number of bytes to write (left-aligned).
+   * @return The original buffer, for chaining.
+   */
+  function write(
+    buffer memory buf,
+    uint256 off,
+    bytes32 data,
+    uint256 len
+  ) private pure returns (buffer memory) {
+    if (len + off > buf.capacity) {
+      resize(buf, (len + off) * 2);
+    }
+
+    unchecked {
+      uint256 mask = (256**len) - 1;
+      // Right-align data
+      data = data >> (8 * (32 - len));
+      assembly {
+        // Memory address of the buffer data
+        let bufptr := mload(buf)
+        // Address = buffer address + sizeof(buffer length) + off + len
+        let dest := add(add(bufptr, off), len)
+        mstore(dest, or(and(mload(dest), not(mask)), data))
+        // Update buffer length if we extended it
+        if gt(add(off, len), mload(bufptr)) {
+          mstore(bufptr, add(off, len))
+        }
+      }
+    }
+    return buf;
+  }
+
+  /**
+   * @dev Writes a bytes20 to the buffer. Resizes if doing so would exceed the
+   *      capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param off The offset to write at.
+   * @param data The data to append.
+   * @return The original buffer, for chaining.
+   */
+  function writeBytes20(
+    buffer memory buf,
+    uint256 off,
+    bytes20 data
+  ) internal pure returns (buffer memory) {
+    return write(buf, off, bytes32(data), 20);
+  }
+
+  /**
+   * @dev Appends a bytes20 to the buffer. Resizes if doing so would exceed
+   *      the capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param data The data to append.
+   * @return The original buffer, for chhaining.
+   */
+  function appendBytes20(buffer memory buf, bytes20 data) internal pure returns (buffer memory) {
+    return write(buf, buf.buf.length, bytes32(data), 20);
+  }
+
+  /**
+   * @dev Appends a bytes32 to the buffer. Resizes if doing so would exceed
+   *      the capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param data The data to append.
+   * @return The original buffer, for chaining.
+   */
+  function appendBytes32(buffer memory buf, bytes32 data) internal pure returns (buffer memory) {
+    return write(buf, buf.buf.length, data, 32);
+  }
+
+  /**
+   * @dev Writes an integer to the buffer. Resizes if doing so would exceed
+   *      the capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param off The offset to write at.
+   * @param data The data to append.
+   * @param len The number of bytes to write (right-aligned).
+   * @return The original buffer, for chaining.
+   */
+  function writeInt(
+    buffer memory buf,
+    uint256 off,
+    uint256 data,
+    uint256 len
+  ) private pure returns (buffer memory) {
+    if (len + off > buf.capacity) {
+      resize(buf, (len + off) * 2);
+    }
+
+    uint256 mask = (256**len) - 1;
+    assembly {
+      // Memory address of the buffer data
+      let bufptr := mload(buf)
+      // Address = buffer address + off + sizeof(buffer length) + len
+      let dest := add(add(bufptr, off), len)
+      mstore(dest, or(and(mload(dest), not(mask)), data))
+      // Update buffer length if we extended it
+      if gt(add(off, len), mload(bufptr)) {
+        mstore(bufptr, add(off, len))
+      }
+    }
+    return buf;
+  }
+
+  /**
+   * @dev Appends a byte to the end of the buffer. Resizes if doing so would
+   * exceed the capacity of the buffer.
+   * @param buf The buffer to append to.
+   * @param data The data to append.
+   * @return The original buffer.
+   */
+  function appendInt(
+    buffer memory buf,
+    uint256 data,
+    uint256 len
+  ) internal pure returns (buffer memory) {
+    return writeInt(buf, buf.buf.length, data, len);
+  }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface ENSInterface {
+  // Logged when the owner of a node assigns a new owner to a subnode.
+  event NewOwner(bytes32 indexed node, bytes32 indexed label, address owner);
+
+  // Logged when the owner of a node transfers ownership to a new account.
+  event Transfer(bytes32 indexed node, address owner);
+
+  // Logged when the resolver for a node changes.
+  event NewResolver(bytes32 indexed node, address resolver);
+
+  // Logged when the TTL of a node changes
+  event NewTTL(bytes32 indexed node, uint64 ttl);
+
+  function setSubnodeOwner(
+    bytes32 node,
+    bytes32 label,
+    address owner
+  ) external;
+
+  function setResolver(bytes32 node, address resolver) external;
+
+  function setOwner(bytes32 node, address owner) external;
+
+  function setTTL(bytes32 node, uint64 ttl) external;
+
+  function owner(bytes32 node) external view returns (address);
+
+  function resolver(bytes32 node) external view returns (address);
+
+  function ttl(bytes32 node) external view returns (uint64);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface ChainlinkRequestInterface {
+  function oracleRequest(
+    address sender,
+    uint256 requestPrice,
+    bytes32 serviceAgreementID,
+    address callbackAddress,
+    bytes4 callbackFunctionId,
+    uint256 nonce,
+    uint256 dataVersion,
+    bytes calldata data
+  ) external;
+
+  function cancelOracleRequest(
+    bytes32 requestId,
+    uint256 payment,
+    bytes4 callbackFunctionId,
+    uint256 expiration
+  ) external;
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "OracleInterface.sol";
+import "ChainlinkRequestInterface.sol";
+
+interface OperatorInterface is OracleInterface, ChainlinkRequestInterface {
+  function operatorRequest(
+    address sender,
+    uint256 payment,
+    bytes32 specId,
+    bytes4 callbackFunctionId,
+    uint256 nonce,
+    uint256 dataVersion,
+    bytes calldata data
+  ) external;
+
+  function fulfillOracleRequest2(
+    bytes32 requestId,
+    uint256 payment,
+    address callbackAddress,
+    bytes4 callbackFunctionId,
+    uint256 expiration,
+    bytes calldata data
+  ) external returns (bool);
+
+  function ownerTransferAndCall(
+    address to,
+    uint256 value,
+    bytes calldata data
+  ) external returns (bool success);
+
+  function distributeFunds(address payable[] calldata receivers, uint256[] calldata amounts) external payable;
+
+  function getAuthorizedSenders() external returns (address[] memory);
+
+  function setAuthorizedSenders(address[] calldata senders) external;
+
+  function getForwarder() external returns (address);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface OracleInterface {
+  function fulfillOracleRequest(
+    bytes32 requestId,
+    uint256 payment,
+    address callbackAddress,
+    bytes4 callbackFunctionId,
+    uint256 expiration,
+    bytes32 data
+  ) external returns (bool);
+
+  function isAuthorizedSender(address node) external view returns (bool);
+
+  function withdraw(address recipient, uint256 amount) external;
+
+  function withdrawable() external view returns (uint256);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface PointerInterface {
+  function getAddress() external view returns (address);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+abstract contract ENSResolver {
+  function addr(bytes32 node) public view virtual returns (address);
+}
