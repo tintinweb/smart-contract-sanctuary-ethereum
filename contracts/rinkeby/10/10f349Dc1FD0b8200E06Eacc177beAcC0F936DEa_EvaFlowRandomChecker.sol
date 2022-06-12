@@ -1,0 +1,372 @@
+//SPDX-License-Identifier: MIT
+//Create by Openflow.network core team.
+pragma solidity ^0.8.0;
+import {IEvabaseConfig} from "../interfaces/IEvabaseConfig.sol";
+import {IEvaFlow} from "../interfaces/IEvaFlow.sol";
+import {IEvaFlowController, EvaFlowMeta} from "../interfaces/IEvaFlowController.sol";
+import "../lib/MathConv.sol";
+import {KeepNetWork} from "../lib/EvabaseHelper.sol";
+import {IEvaFlowChecker} from "../interfaces/IEvaFlowChecker.sol";
+
+contract EvaFlowRandomChecker is IEvaFlowChecker {
+    IEvabaseConfig public config;
+
+    uint32 private constant _GAS_SAVE = 60_000;
+    uint256 private constant _TIME_SOLT = 12 seconds;
+
+    constructor(address _config) {
+        require(_config != address(0), "addess is 0x");
+        config = IEvabaseConfig(_config);
+    }
+
+    struct Args {
+        uint256 flowCount;
+        uint256 startIndex;
+        uint256 keeperCount;
+        uint256 keepbotId;
+        uint256 maxCheck;
+        IEvaFlowController controller;
+        KeepNetWork network;
+    }
+
+    function check(
+        uint256 keepbotId,
+        uint256 lastMoveTime,
+        KeepNetWork keepNetWork
+    ) external override returns (bool needExec, bytes memory execData) {
+        // solhint-disable avoid-tx-origin
+        require(tx.origin == address(0), "only for off-chain");
+        Args memory args;
+        args.controller = IEvaFlowController(config.control());
+        args.flowCount = args.controller.getAllVaildFlowSize(keepNetWork);
+
+        if (args.flowCount > 0) {
+            args.keepbotId = keepbotId;
+            args.network = keepNetWork;
+            args.maxCheck = config.batchFlowNum();
+            args.keeperCount = config.keepBotSizes(keepNetWork);
+            require(args.keeperCount > 0, "keeper is zero");
+            require(args.maxCheck > 0, "max check is zero");
+            args.startIndex = _selectBeginIndex(args.flowCount, lastMoveTime);
+
+            (uint256[] memory flows, bytes[] memory datas) = _checkFlows(args);
+
+            if (flows.length > 0) {
+                needExec = true;
+                execData = abi.encode(flows, datas);
+            }
+        }
+    }
+
+    function _selectBeginIndex(uint256 count, uint256 lastMoveTime) internal view returns (uint256) {
+        // solhint-disable
+        if (block.timestamp - lastMoveTime >= _TIME_SOLT) {
+            return uint256(keccak256(abi.encodePacked(block.timestamp))) % count;
+        } else {
+            return uint256(keccak256(abi.encodePacked(lastMoveTime))) % count;
+        }
+    }
+
+    function _checkFlows(Args memory args) internal returns (uint256[] memory flows, bytes[] memory datas) {
+        uint256 mod = (args.flowCount % args.keeperCount);
+        uint256 max = args.flowCount / args.keeperCount;
+        max += mod > 0 && args.keepbotId <= mod ? 1 : 0;
+        if (max > args.maxCheck) {
+            max = args.maxCheck;
+        }
+        uint256[] memory flowsAll = new uint256[](max);
+        bytes[] memory datasAll = new bytes[](max);
+
+        uint256 needExecCount;
+        uint256 keepIndex = args.keepbotId - 1;
+        for (uint256 i = keepIndex; i < max * args.keeperCount; i += args.keeperCount) {
+            uint256 nextIndex = i % args.flowCount;
+            uint256 flowId = args.controller.getIndexVaildFlow(nextIndex, args.network);
+            EvaFlowMeta memory meta = args.controller.getFlowMetas(flowId);
+            try IEvaFlow(meta.lastVersionflow).check(meta.checkData) returns (bool needExec, bytes memory executeData) {
+                if (needExec) {
+                    (bool success, ) = address(args.controller).call{value: 0}(
+                        abi.encodeWithSelector(IEvaFlowController.execFlow.selector, address(this), flowId, executeData)
+                    );
+                    if (success) {
+                        flowsAll[needExecCount] = flowId;
+                        datasAll[needExecCount] = executeData;
+                        needExecCount++;
+                    }
+                }
+                // solhint-disable
+            } catch {} //ignore error
+
+            if (gasleft() <= _GAS_SAVE) {
+                break;
+            }
+        }
+
+        // remove empty item
+        flows = new uint256[](needExecCount);
+        datas = new bytes[](needExecCount);
+        for (uint256 i = 0; i < needExecCount; i++) {
+            flows[i] = flowsAll[i];
+            datas[i] = datasAll[i];
+        }
+    }
+}
+
+//SPDX-License-Identifier: MIT
+//Create by evabase.network core team.
+pragma solidity ^0.8.0;
+import {KeepNetWork} from "../lib/EvabaseHelper.sol";
+
+struct KeepInfo {
+    bool isActive;
+    KeepNetWork keepNetWork;
+}
+
+interface IEvabaseConfig {
+    event AddKeeper(address indexed user, address keeper, KeepNetWork keepNetWork);
+    event RemoveKeeper(address indexed user, address keeper);
+    event AddBatchKeeper(address indexed user, address[] keeper, KeepNetWork[] keepNetWork);
+    event RemoveBatchKeeper(address indexed user, address[] keeper);
+
+    event SetControl(address indexed user, address control);
+    event SetBatchFlowNum(address indexed user, uint32 num);
+
+    function getBytes32Item(bytes32 key) external view returns (bytes32);
+
+    function getAddressItem(bytes32 key) external view returns (address);
+
+    function control() external view returns (address);
+
+    function isKeeper(address query) external view returns (bool);
+
+    function batchFlowNum() external view returns (uint32);
+
+    function keepBotSizes(KeepNetWork keepNetWork) external view returns (uint32);
+
+    function getKeepBot(address add) external view returns (KeepInfo memory);
+
+    function isActiveControler(address add) external view returns (bool);
+}
+
+//SPDX-License-Identifier: MIT
+//Create by evabase.network core team.
+pragma solidity ^0.8.0;
+
+interface IEvaFlow {
+    function check(bytes memory checkData) external view returns (bool needExecute, bytes memory executeData);
+
+    function execute(bytes memory executeData) external returns (bool canDestoryFlow);
+
+    function needClose(bytes memory checkData) external returns (bool yes);
+
+    function close(bytes memory checkData) external;
+}
+
+//SPDX-License-Identifier: MIT
+//Create by evabase.network core team.
+pragma solidity ^0.8.0;
+import {FlowStatus, KeepNetWork} from "../lib/EvabaseHelper.sol";
+
+//struct
+struct EvaFlowMeta {
+    FlowStatus flowStatus;
+    KeepNetWork keepNetWork;
+    address admin;
+    address lastKeeper;
+    address lastVersionflow;
+    uint256 lastExecNumber;
+    uint256 maxVaildBlockNumber;
+    string flowName;
+    bytes checkData;
+}
+
+struct EvaUserMeta {
+    uint120 ethBal;
+    uint120 gasTokenBal; //keep
+    uint8 vaildFlowsNum;
+}
+
+struct MinConfig {
+    address feeRecived;
+    address feeToken;
+    uint64 minGasFundForUser;
+    uint64 minGasFundOneFlow;
+    uint16 ppb;
+    uint16 blockCountPerTurn;
+}
+
+interface IEvaFlowController {
+    event FlowOperatorChanged(address op, bool removed);
+    event FlowCreated(address indexed user, uint256 indexed flowId, address flowAdd, bytes checkData, uint256 fee);
+    event FlowUpdated(address indexed user, uint256 flowId, address flowAdd);
+    event FlowClosed(address indexed user, uint256 flowId);
+    event FlowExecuteSuccess(
+        address indexed user,
+        uint256 indexed flowId,
+        uint120 payAmountByETH,
+        uint120 payAmountByFeeToken,
+        uint256 gasUsed
+    );
+    event FlowExecuteFailed(
+        address indexed user,
+        uint256 indexed flowId,
+        uint120 payAmountByETH,
+        uint120 payAmountByFeeToken,
+        uint256 gasUsed,
+        string reason
+    );
+
+    event SetMinConfig(
+        address indexed user,
+        address feeRecived,
+        address feeToken,
+        uint64 minGasFundForUser,
+        uint64 minGasFundOneFlow,
+        uint16 ppb,
+        uint16 blockCountPerTurn
+    );
+
+    function registerFlow(
+        string memory name,
+        KeepNetWork keepNetWork,
+        address flow,
+        bytes memory checkdata
+    ) external payable returns (uint256 flowId);
+
+    function closeFlow(uint256 flowId) external;
+
+    function closeFlowWithGas(uint256 flowId, uint256 before) external;
+
+    function execFlow(
+        address keeper,
+        uint256 flowId,
+        bytes memory inputData
+    ) external;
+
+    function depositFund(address flowAdmin) external payable;
+
+    function withdrawFund(address recipient, uint256 amount) external;
+
+    function withdrawPayment(uint256 amount) external;
+
+    function getIndexVaildFlow(uint256 index, KeepNetWork keepNetWork) external view returns (uint256 value);
+
+    function getAllVaildFlowSize(KeepNetWork keepNetWork) external view returns (uint256 size);
+
+    function getFlowMetas(uint256 index) external view returns (EvaFlowMeta memory);
+
+    function getFlowMetaSize() external view returns (uint256);
+
+    function batchExecFlow(address keeper, bytes memory data) external;
+
+    function getFlowCheckInfo(uint256 flowId) external view returns (address flow, bytes memory checkData);
+}
+
+//SPDX-License-Identifier: MIT
+//Create by evabase.network core team.
+/* solhint-disable */
+
+pragma solidity ^0.8.0;
+
+library MathConv {
+    function toU120(uint256 value) internal pure returns (uint120) {
+        require(value <= type(uint120).max, "to120-overflow");
+        return uint120(value);
+    }
+
+    function toU96(uint256 value) internal pure returns (uint96) {
+        require(value <= type(uint96).max, "to96-overflow");
+        return uint96(value);
+    }
+
+    function toU64(uint256 value) internal pure returns (uint64) {
+        require(value <= type(uint64).max, "to64-overflow");
+        return uint64(value);
+    }
+
+    function toU8(uint256 value) internal pure returns (uint8) {
+        require(value <= type(uint8).max, "to8-overflow");
+        return uint8(value);
+    }
+}
+
+//SPDX-License-Identifier: MIT
+//Create by evabase.network core team.
+pragma solidity ^0.8.0;
+
+enum CompareOperator {
+    Eq,
+    Ne,
+    Ge,
+    Gt,
+    Le,
+    Lt
+}
+
+enum FlowStatus {
+    Active, //可执行
+    Closed,
+    Expired,
+    Completed,
+    Unknown
+}
+
+enum KeepNetWork {
+    ChainLink,
+    Evabase,
+    Gelato,
+    Others
+}
+
+library EvabaseHelper {
+    struct UintSet {
+        // value ->index value !=0
+        mapping(uint256 => uint256) indexMapping;
+        uint256[] values;
+    }
+
+    function add(UintSet storage self, uint256 value) internal {
+        require(value != uint256(0), "value=0");
+        require(!contains(self, value), "value exists");
+        self.values.push(value);
+        self.indexMapping[value] = self.values.length;
+    }
+
+    function contains(UintSet storage self, uint256 value) internal view returns (bool) {
+        return self.indexMapping[value] != 0;
+    }
+
+    function remove(UintSet storage self, uint256 value) internal {
+        require(contains(self, value), "value doesn't exist");
+        uint256 toDeleteindexMapping = self.indexMapping[value] - 1;
+        uint256 lastindexMapping = self.values.length - 1;
+        uint256 lastValue = self.values[lastindexMapping];
+        self.values[toDeleteindexMapping] = lastValue;
+        self.indexMapping[lastValue] = toDeleteindexMapping + 1;
+        delete self.indexMapping[value];
+        // self.values.length--;
+        self.values.pop();
+    }
+
+    function getSize(UintSet storage self) internal view returns (uint256) {
+        return self.values.length;
+    }
+
+    function get(UintSet storage self, uint256 index) internal view returns (uint256) {
+        return self.values[index];
+    }
+}
+
+//SPDX-License-Identifier: MIT
+//author: Evabase core team
+
+pragma solidity ^0.8.0;
+import {KeepNetWork} from "../lib/EvabaseHelper.sol";
+
+interface IEvaFlowChecker {
+    function check(
+        uint256 keepbotId,
+        uint256 lastMoveTime,
+        KeepNetWork keepNetWork
+    ) external returns (bool needExec, bytes memory execData);
+}
