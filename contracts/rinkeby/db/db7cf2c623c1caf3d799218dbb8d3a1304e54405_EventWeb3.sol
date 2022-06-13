@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract EventWeb3 {
+    uint256 public value;
+    event ValueChanged(uint256 indexed newValue);
+
+    constructor(uint256 val) {
+        value = val;
+    }
+
+    function updateValue(uint256 _newValue) public{
+        value = _newValue;
+        emit ValueChanged(_newValue);
+    }
+}
