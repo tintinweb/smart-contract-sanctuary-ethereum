@@ -1,0 +1,60 @@
+# @version 0.3.1
+"""
+@title Curve Polygon Bridge Wrapper
+"""
+from vyper.interfaces import ERC20
+
+
+interface BridgeManager:
+    def depositFor(_user: address, _root_token: address, _deposit_data: Bytes[32]): nonpayable
+
+
+INSURE: constant(address) = 0x09f0Ad07E7363557D077CF3e3BbaB9365DA533F6
+POLYGON_BRIDGE_MANAGER: constant(address) = 0xBbD7cBFA79faee899Eaf900F13C9065bF03B1A74 #RootChainManagerProxy goerli
+POLYGON_BRIDGE_RECEIVER: constant(address) = 0xdD6596F2029e6233DEFfaCa316e6A95217d4Dc34 #ERC20PredicateProxy goerli
+
+
+# token -> is approval given to bridge
+is_approved: public(HashMap[address, bool])
+
+
+@external
+def __init__():
+    assert ERC20(INSURE).approve(POLYGON_BRIDGE_RECEIVER, MAX_UINT256)
+    self.is_approved[INSURE] = True
+
+
+@external
+def bridge(_token: address, _to: address, _amount: uint256):
+    """
+    @notice Bridge a token to Polygon mainnet
+    @param _token The token to bridge
+    @param _to The address to deposit the token to on polygon
+    @param _amount The amount of the token to bridge
+    """
+    assert ERC20(_token).transferFrom(msg.sender, self, _amount)
+
+    if _token != INSURE and not self.is_approved[_token]:
+        assert ERC20(_token).approve(POLYGON_BRIDGE_RECEIVER, MAX_UINT256)
+        self.is_approved[_token] = True
+
+    BridgeManager(POLYGON_BRIDGE_MANAGER).depositFor(_to, _token, _abi_encode(_amount))
+
+
+@pure
+@external
+def cost() -> uint256:
+    """
+    @notice Cost in ETH to bridge
+    """
+    return 0
+
+
+@pure
+@external
+def check(_account: address) -> bool:
+    """
+    @notice Check if `_account` is allowed to bridge
+    @param _account The account to check
+    """
+    return True
