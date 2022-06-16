@@ -1,0 +1,140 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.11;
+
+import "./ERC721A.sol";
+import "./Ownable.sol";
+/*
+
+⛥ d̷͍̲̮͕̔̏e̴̫̖͒v̵̳̱̈́̊̇̒i̷̦̺͕̪̪̋͂͛l̷̨͕͔̅̌͋̂͘ṽ̶̢͖̬̩̕ạ̶̛͍͕̱͊̊̃̈́l̶̥̭͇̋̋l̷̨̜̯͆́̃̃ẻ̶͙͎͒̉̽y̴͉͈̮̑͆͑̈̕ ̷̫̺̲̘̾͛͠d̸̪̟̈̎e̶̩͙̹͎̾̋̅v̶̘̓̉̊i̶̬͌̃l̶̞̅͛́͘v̵̛̦͙̬̺̿̅a̶͚̐͛̋͜l̶͖̭̋̌̊ḽ̴̎ẻ̴̖̤̖̭͇̇̾ÿ̵̨̹̬̙́ͅ ̸̛̙̥̝͍d̴͙͆̔̅e̸͍͓͎̖̐v̸̡̻͕͓̦̓͋͌͌ï̸̢̨̗̗l̷͚͙̻̈̈́̏̽ͅṽ̶̳̥̗̹̪͗ả̶̱̗͖̏̍͌̊ĺ̷͎͎̰̜̺̔̈ĺ̵̻͚̬̼̈́̄́ë̵̛̱̄͘͝y̵̨̧̮̥̭̐ ̵̗̭̪̣̯̀͌̍d̴̬̜̐́̆͒ë̸̬́̾̓̃̓v̵̺͈͐͐i̴̢̙̙͓̿̓̚ļ̶͗͛̏͘͝v̷͙͎̩͔̏å̷̧̺͚̲̻̾̇́̒ľ̵͖̥̖̽l̴̨̤̝͌͛̇͐é̵̮̜y̷̢̬̜̌̿͆̓́ ̷̥̘̲͓̃̓̉͜͠d̴̼̭̯͇̻̐̀́̌͐ȩ̸͙͖̥͎̃v̶̧͍̗̥̈͊̿̾͝ͅi̴͇̯̟͕͌͋́̾ľ̶͙̘̻̪v̶̺͒͑̇̇͋a̸̳̱̥͋l̷͖̀́͒͊͝l̵̦͍̍̉̿ě̵̹̀y̶̳͋ ̶̝̰̄̈́̊d̵̖̼̗̳̈́͒͑e̷̼̜͑̇̌͝͝v̸̪̮̠̪͊̓̀̿̚ͅí̴̙̯̠l̴̠̠̹͂̐̃̾v̶̛̻̝͛̐̏̊ā̷̢̅̚l̷͚̉̊̈́̆́l̴̡̯̟̽͒̿̕ͅẽ̴͉̺̦̣̓̀̇͝ÿ̵̳̰́̏̀́ ̶̡̉̾̍̂̎
+̸̨̛͍͈̑̓̍͠
+̷̥͍͘͜ͅd̷̖̲̾̐̾̚è̸͍̤̞͇̇́͌ṿ̸̝͎̀ǐ̶̘̗̆̄̈́̈ͅl̷̝̲̤̈́̽͠ṿ̸̱̔̂̕͝à̸͖̣̈̀͆͂l̴͚͙͒̓͑̓̕l̴̝̽͑͝ĕ̴̜̞̽͠͝y̴̰͗͠ ̴̨͔̞̑d̴͉̫̙̣̭̈́ȩ̷̠̩̓ṽ̸͓̦̹̃̀́̍į̶͖̫͉̒̆͘͝͠l̴͎͂̀̕̕͠v̵̬̽ḁ̸̰̓̀͑̅̓l̶̦̱̦͕͓̇̋̈̂l̷̻̔̿̓̉̔ę̶̏̀̽͝y̷͈͕̳̽͌̊̆ ̵̛͇̮̄̀̊̕d̵͈̘͎̳͉̃̆e̴̻̞̙̼̋v̸̻̞̱̙̽̐̀̒̓ͅĩ̵̻͑̈́͘l̶̨̧̙͖̈́̒̀͒v̵̱̣̯͉͋a̴̢̧̹̋̎l̴̳̟̟̿̄͋̃͝l̶̹̱͉̊̿e̶̛͓̱̲͛y̸̧̡̝̙̳̍̕ ̴̹̈̍d̵̳͈̼̘͐̄̑ē̴̘͂̕v̴̨̬̥̋̈̄̓̓ͅi̵̹̺̠͈͆̅̈́l̸̻̼̔̉͠ͅv̵̡̫͍̝͆̈́ͅå̷̢̲̞̟̞͗͂l̶̨̧̛͑̉̿l̵͙̱͓̖̊̽̓ȇ̵͇̙̓̏̾͝y̶̛͕͝ ̴̠͎͍̬̲́̊̈́d̴̛͕̹̺̪̲͆͌̓ẹ̶̛͛̿͆v̶̲̒̕i̵̺̮̬̐̓͐̓l̸̤̩̘̠̊͌̈́̌͜v̵̛̖͕̬̅͑̽a̸͔̣̥͒̑̚̕ļ̵̩̤̎̍l̸̛̖̻͂̑͠e̴̛͚̜͋̃̇y̶̲͔̐̚ ̴̝̻̝̘̉͠d̸̡͔͂̄e̸͚̞̰͐̓̊͝v̴̮̦̔͑͠î̸͓̥͈̱̼͘͠l̷̨̬̘͈̓͝v̶̛̻̩ͅá̷̛͖̲̑l̷̯͎͍̽̒̑͜l̶̹̠͗̉̆͂̈́e̶̼̲̳̒y̵͈̻̹̅̓ ̷̙͈̥͎̼̅̉ ̷̪͂͗ ̴̛̬͔̠͍̈̃͛͗͜
+̵̛̘̝̻̤͕̏͐͝
+̷̧̢̬̤͈̐̉͂ď̵̲e̷̱̺̮̗̫̔́v̵̮̼͉̜̐́i̴͎͙͊͂l̴̮͎͌͆͌v̸͇̗̝̩͋̋̃͜ä̴̻̗͍͠͠l̶̮̰͚̫͐̀̇̋̀l̴̛̦̊̇͗͜e̶̛̟̼̦͇̾̂̚ȳ̶̧̻̪̺͕̌̄̕̕ ̶͓̗̮̰̓̎̅̓͊d̵̛̤͇̳͗̿̎e̸̡͖̦̓́͛͌̓ͅv̷̗̣̑̓̿ì̶̯̋̂ļ̶̼̳͉͚̈́̔̑̀v̵̱̲̩̍̆̑͐a̵̟̠̩͌̽͒̆̂l̶̙̍̾ḽ̴̛̼̺̍͗̍ẹ̸̤͘y̵̝̳͈̔͌́́̋ ̷̡̻͇̯̼͐̍d̴̛͎̐é̵̤̳̐v̷̳̟͝i̶̦̬̣̐̈́̈̏l̶̢̘̖͊̑͂v̶̛̱̭̟́ͅa̶̧̳̖̺̕͜l̷̡͈͚̠̮̍̂̀͠͝l̵̖̜͒̓̑̈́̊e̷̠̫̹͇̿͐͛̚͘y̶̯͙̘͒̈́͒͑͋͜ ̶̺̘̝̬͒̄͜ḑ̷̣͍̞̭͛ę̵̣̝̗̠̽̉̀̈v̷̛̹͔̈́̀ǐ̷̻̼l̸̯̱̚v̵̪̀ä̷̠̟́̋́̓̕ļ̷̱̟͇͛̈l̴̺͖̈́͋̓̍e̵̬͌̈́̅͋y̷͙̎͌͂̍̉ ̶̖͍̌̂͜d̷̻̥̤̦̺͌̂͠͠e̸͇̯̒̐̕v̴̧̔̄͆͜ḯ̶̲͖̅̇̋l̵̼̤̱̉v̴̘̼̍͆̾͝ả̶̜͕͂͂̃͌l̸̡̦̰̩̦̎͌l̶̫͕͆è̶̡̱̭̗͑̎̀y̶͎͒̉̂ ̶̗̓ͅd̵͕̝̻̖̟̏́͆e̴̳̭͛̍̓͗̃v̵̨̖͔̰̈̋̈̕͜i̶̞͔̞̒̿̿̓͝ͅl̴̘̪̜̝̍̏̕͜v̸̞̮̔͛̓a̸̯̹͕͐̀͝l̴̛̯̹͇̩͛̾̓͛ĺ̶̲̳̖̗͗̿ę̸̘̠͐̓̽̚y̵̧̍̑̌͆̀͜ ̶̲͇͂̔̏͝ ̴̡͇͇͇̈́ ̸͚̝̊̒͊̕
+̶̬͛̐́̅͝
+̸̢̫̬̭͖͛̍̓̇̿d̴̥͔̔͘͘͜e̸͍̱̒͘ͅv̴̨̬̘͖̈̄̏i̶̻̯͎̳̲͆l̶̛̲̩̮̲ͅv̶̢̼̪̊̒͒̈́͜ä̶̤́̒ļ̸͔͖͗̆l̴̥͔͓̰͆͌͋ẹ̶͎̦͝y̵͚͙͉̮͕͂͌̃ ̶̣̗́d̶̹͗̉͌e̸̱͎̾̈́̒͂̚v̸̢̿ȉ̶̢̜͍̫̄l̸̰̜̞͒̆͘v̵̰͍̣̪̖͌͂̄͑a̶͖̖͇͒̈͐ĺ̷̲l̸̛̪̬̹̳͕̃̏ȩ̵͔̥͉͐̏̓͝y̸̯͎̮̺̿͌̃̈́ ̶̨̩̀̓͌͒d̸͉̽̑̿e̵̖̻̋̐v̴̖̅̅̔̈̊i̵̱͓̝͝ļ̴̛v̶̫̬̥̦̮̅â̶̢̍l̶̜̎l̸̰̤̰͕͑͗͂̈́e̶̛͕̫̻͌̅̌y̴̼̟͓̓͛̄ ̷͔̍d̴͚̈́̋̾̌̊ḛ̶̪͑v̸̟̠̄̍̅i̴̫̪̽l̷̝͓͚̀͒͝v̷̦̑a̶͔͕̓̆l̴͇̞̍̎̈́̓͐ľ̵̫e̷͓͗͊͛͜y̷̰͓̟͌̏̌͌͝ ̵͙̞̱͚͕́̈̒d̷̺̦̣̘̰͂̈ẹ̵̈́v̵͍̮͖͕͎͘̕͝͝ĩ̵̞̱̏̈́̈́͝l̷͎̈́͒̂̀͝v̶̞̪̩̓̾̍͂͘a̴̠͊͋̔̽͘l̷͇̫̳̙̦̾͌͌͘l̵̙̕e̷͖͕̓́̍̂̇ȳ̷̧̼̜̲͕ ̴̞͖̉͗̈́͒͝d̵̫͊͛͛̎͊ĕ̶͙͇̥̻͉̎̐v̶͕̓̍͑i̵̥͆̍̓͌l̷̜̠̐v̸͉͠a̴̰̪̽̍͊͜l̴̢̮̪͚̙̒̔l̵͎͕̣̩̇ͅȩ̸̢̊̑͝͝y̵̧͌̋̐ͅ ̴̭̔̿ ̸͚͉̜̙̈́̄̄̃ ̶̨̮̥̈́͛̍
+̵̢̨̛͈̥̙̉͑̀̾
+̸̙͎̗̬̇̄͝ḑ̵̮̣̺͙͊̒́͝e̶̢͌v̵̭̜̮͌͐̾͜i̶̝̘͛͑l̸̢̢̬̘͛̚͝ͅv̴̢͇̖̈́̒͗̇ȃ̴̡̡̳̪͜l̷̺͌͊͝l̸͓̰̦̖̗͋e̵̪͖̖̪͗y̴͉̬͚̫̓̀͜ ̷̡̳͈͍͂̾̂̒͠ď̵̥͕̙͐̾͑̚ë̴͙́̏̆v̷̲̗̓͒̓i̴̛̘̖̣̻̿̏̈l̷̤͛́̒v̶͖̳̖̟̞̓͛á̷̰l̸͓͂̀l̸̘̼͚̤̟͗͌̿̀e̷̘̙͉̯͌y̷̦̩̮̻̜͑́ ̴̣̊͊̅͘d̸̬̼͊è̷͇̫̗͋̓ṿ̶̘͈̑̓̌́i̴̭͖͋́̃̕ḻ̵͓̭̗̐̔̎͛̒v̷̞͖̖͖͋͑̈́͊͜͝ą̴̛̮̼͌̍̈́͑l̷̬̃̉̓̈́ļ̶̱̗̦͌ë̵͎͓̣̞̗́̈́y̶̨͚̠̘̯̎́̆͑̕ ̷̢̭̩͒̔̓̈́̃ḑ̷̭̲̲̎͠è̴͚v̵̦͇͕̞̉̂͜i̷̬̊͛ľ̶͖̫̼̉͂v̷͓̲̓a̵̛̭̫̯͕̽͛͆̇ͅl̴͈͙̱̱̀̈l̸̼̰͍͍̔̆̔̓̂e̵̩̔̿̿y̶̧̜̥͊́͛͜ ̷͖́̚͝d̴̹̻͇͂̕͘̚͝e̸̡̫͕̭͒́v̵̨̙̹̭̭̐̀̑͠i̷̻̔͘l̴̦̫͗v̵͍̪̔͐̈́̀͘a̵̙̖͐̎̀̍͠l̷͈̂̏̈́̚ͅl̷̛̰͍̼̯͂͝e̷̝̝̻̕y̴̟̪̜͌ ̷̺̘̭͍͙̅ḑ̸͕͔̳̈́͊̎̏e̵̡̗͆̋̃̈́v̶̜̲̮̘̮͝i̶̱̗̓̋͌l̴̰̔̆̀v̴̧̦̫̭̔ͅa̶̞͉̗͝l̸̹̗͌l̸̢͉͕̿̿̃̒ȩ̷̹͍̀͝ÿ̷̢̨̥̟́͆̓ ̸̦͍͆͠ ̵̫̄͊͛͜ ̵̬̹͔͊̇̓̎
+
+
+*/
+
+
+contract DevilValleyNFT is ERC721A, Ownable {
+  string _baseTokenURI;
+  
+  bool public isActive = false;
+
+  uint256 public mintPrice = 0.00666 ether;
+  uint256 public MAX_SUPPLY = 6666;
+  uint256 public FREE_MAX_SUPPLY = 2222;
+  uint256 private reserveAtATime = 66;
+  uint256 private reservedCount = 0;
+  uint256 private maxReserveCount = 66;
+  uint256 public maxAllowedTokensPerPurchase = 5;
+  uint256 public maxAllowedTokensPerWallet = 5;
+  uint256 public FREE_AllowedTokensPerWallet = 1;
+
+  address private Address1 = 0x3bd21819bB159eA968C812fB8760EFBF987a091B;
+  address private Address2 = 0xfE1cD162F07A70914584c24437Dfa88ef1212807;
+
+
+  constructor(string memory baseURI) ERC721A("Devil Valley", "DV") {
+    setBaseURI(baseURI);
+  }
+
+  modifier saleIsOpen {
+    require(totalSupply() <= MAX_SUPPLY, "Sale has ended.");
+    _;
+  }
+
+  modifier onlyAuthorized() {
+    require(owner() == msg.sender);
+    _;
+  }
+
+  function setPrice(uint256 _price) public onlyAuthorized {
+    mintPrice = _price;
+  }
+  
+  function toggleSale() public onlyAuthorized {
+    isActive = !isActive;
+  }
+
+  function setBaseURI(string memory baseURI) public onlyAuthorized {
+    _baseTokenURI = baseURI;
+  }
+
+  function setReserveAtATime(uint256 val) public onlyAuthorized {
+    reserveAtATime = val;
+  }
+
+  function setMaxReserve(uint256 val) public onlyAuthorized {
+    maxReserveCount = val;
+  }
+
+  function _baseURI() internal view virtual override returns (string memory) {
+    return _baseTokenURI;
+  }
+
+  function setMaximumAllowedTokensPerTx(uint256 _count) public onlyAuthorized {
+    maxAllowedTokensPerPurchase = _count;
+  }
+
+  function setMaximumAllowedTokensPerWallet(uint256 _count) public onlyAuthorized {
+    maxAllowedTokensPerWallet = _count;
+  }
+
+  function setFreeMaximumAllowedTokensPerWallet(uint256 _count) public onlyAuthorized {
+    FREE_AllowedTokensPerWallet = _count;
+  }
+
+  function setMaxMintSupply(uint256 maxMintSupply) external  onlyAuthorized {
+    MAX_SUPPLY = maxMintSupply;
+  }
+
+  function reserveNft() public onlyAuthorized {
+    require(reservedCount <= maxReserveCount, "Max Reserves taken already!");
+
+     _safeMint(msg.sender, reserveAtATime);
+  }
+
+  function batchAirdrop(uint256 _count, address[] calldata addresses) external onlyAuthorized {
+    uint256 supply = totalSupply();
+
+    require(supply <= MAX_SUPPLY, "Total supply spent.");
+    require(supply + _count <= MAX_SUPPLY, "Total supply exceeded.");
+
+    for (uint256 i = 0; i < addresses.length; i++) {
+      require(addresses[i] != address(0), "Can't add a null address");
+      _safeMint(addresses[i],_count);
+    }
+  }
+
+  function mint(uint256 _count) public payable saleIsOpen {
+    uint256 mintIndex = totalSupply();
+
+    if (msg.sender != owner()) {
+      require(isActive, "Sale is not active currently.");
+    }
+
+    require(mintIndex + _count <= MAX_SUPPLY, "Total supply exceeded.");
+    require(_count <= maxAllowedTokensPerPurchase,"Exceeds maximum allowed tokens");
+
+    if(mintIndex <= FREE_MAX_SUPPLY) {
+      require(balanceOf(msg.sender) + _count <= FREE_AllowedTokensPerWallet, "Exceeds Free allowed tokens");
+    }
+
+    if(mintIndex > FREE_MAX_SUPPLY) {
+      require(balanceOf(msg.sender) + _count <= maxAllowedTokensPerWallet, "Exceeds allowed tokens");
+      require(msg.value >= mintPrice * _count, "Insufficient ETH amount sent.");
+    }
+
+     _safeMint(msg.sender, _count);
+  }
+
+  function withdraw() external onlyAuthorized {
+    uint balance = address(this).balance;
+    payable(Address1).transfer((balance * 8500) / 10000);
+    payable(Address2).transfer((balance * 1500) / 10000);
+  }
+}
