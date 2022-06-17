@@ -1,0 +1,424 @@
+/**
+ *Submitted for verification at BscScan.com on 2022-05-11
+*/
+import './ECDSA.sol';
+pragma solidity 0.8.0;
+// SPDX-License-Identifier: MIT
+
+library SafeMath {
+
+    function add(uint256 a, uint256 b) internal pure returns (uint256) {
+        uint256 c = a + b;
+        require(c >= a, "SafeMath: addition overflow");
+
+        return c;
+    }
+
+
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+        return sub(a, b, "SafeMath: subtraction overflow");
+    }
+
+    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b <= a, errorMessage);
+        uint256 c = a - b;
+        return c;
+    }
+
+
+    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
+        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
+        if (a == 0) {
+            return 0;
+        }
+
+        uint256 c = a * b;
+        require(c / a == b, "SafeMath: multiplication overflow");
+
+        return c;
+    }
+
+
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {
+        return div(a, b, "SafeMath: division by zero");
+    }
+
+
+    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b > 0, errorMessage);
+        uint256 c = a / b;
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
+
+        return c;
+    }
+
+
+    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+        return mod(a, b, "SafeMath: modulo by zero");
+    }
+
+
+    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b != 0, errorMessage);
+        return a % b;
+    }
+}
+
+
+interface IWETH {
+  function deposit() external payable;
+
+  function withdraw(uint256) external;
+
+  function approve(address guy, uint256 wad) external returns (bool);
+
+  function transferFrom(
+    address src,
+    address dst,
+    uint256 wad
+  ) external returns (bool);
+}
+
+/**
+ * @dev Required interface of an ERC721 compliant contract.
+ */
+interface IERC721 {
+    function balanceOf(address owner) external view returns (uint256 balance);
+
+   
+    function ownerOf(uint256 tokenId) external view returns (address owner);
+
+    
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    function approve(address to, uint256 tokenId) external;
+
+    function changePaused() external;
+
+    function mint(address to,uint256 tokenId,string calldata uri) external;
+
+    function burn(address user,uint256 tokenId) external;
+
+    function transferOwnership(address newOwner) external;
+    function getApproved(uint256 tokenId) external view returns (address operator);
+
+    
+    function setApprovalForAll(address operator, bool _approved) external;
+
+    
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
+
+    
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes calldata data
+    ) external;
+}
+
+
+
+
+
+interface IERC20 {
+
+    function totalSupply() external view returns (uint256);
+
+    function balanceOf(address account) external view returns (uint256);
+
+    function transfer(address recipient, uint256 amount) external returns (bool);
+
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+
+    function decimals()  view external returns (uint8);
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+
+
+abstract contract Context {
+
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes memory) {
+        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691
+        return msg.data;
+    }
+}
+contract Ownable {
+  address public owner;
+
+
+  event OwnershipRenounced(address indexed previousOwner);
+  event OwnershipTransferred(
+    address indexed previousOwner,
+    address indexed newOwner
+  );
+
+
+
+  /**
+   * @dev Throws if called by any account other than the owner.
+   */
+  modifier onlyOwner() {
+    require(msg.sender == owner);
+    _;
+  }
+
+  /**
+   * @dev Allows the current owner to transfer control of the contract to a newOwner.
+   * @param newOwner The address to transfer ownership to.
+   */
+  function transferOwnership(address newOwner) public onlyOwner {
+    require(newOwner != address(0));
+    emit OwnershipTransferred(owner, newOwner);
+    owner = newOwner;
+  }
+
+  /**
+   * @dev Allows the current owner to relinquish control of the contract.
+   */
+  function renounceOwnership() public onlyOwner {
+    emit OwnershipRenounced(owner);
+    owner = address(0);
+  }
+}
+
+contract AssetManagemnet is Context,Ownable {
+    using SafeMath for uint256;
+    mapping(uint256 => bool) public nonces;
+
+
+    mapping(address => bool) public activeTokens;
+    address[]  private contracts; 
+    mapping(address => bool) public signers;
+    mapping(address => bool) public users;
+
+
+    address public WETH;
+    address public FEEPOOL;
+    address public BANKCARDNFT;
+
+    uint256 public fee;
+
+    uint256 public lastTokenId;
+
+    event Deposit(address sender, address token, uint256 value);
+    event Widthdraw(address reciver, address token, uint256 value);
+    event WidthdrawETH(address reciver, uint256 value);
+    event ActiveToken(address token);
+    event PauseToken(address token);
+    event ChangeSigner(address signer,bool flag);
+    event FeeChange(uint256 fee);
+
+
+    constructor (address _weth,address _bankCardNFT,address _feePool) {
+        owner = msg.sender;
+        activeTokens[_weth] = true;
+        contracts.push(_weth);
+        WETH = _weth;
+        BANKCARDNFT = _bankCardNFT;
+        FEEPOOL = _feePool;
+        fee = 3;    
+    }
+
+
+    function deposit(
+        address token,
+        uint256 amount
+    ) external {
+        require(amount > 0, 'Deposit: amount can not be 0');
+        require(activeTokens[token], 'Deposit: token not support');
+        IERC20(token).transferFrom(msg.sender,address(this),amount);
+        emit Deposit(msg.sender, token,amount);
+    }
+
+     function depositETH() external payable {
+        require(msg.value > 0, 'DepositETH: amount  zero');
+        IWETH(WETH).deposit{value: msg.value}();
+        emit Deposit(msg.sender,WETH,msg.value);
+    }
+
+    function depositETHWithNFT(
+        uint256 nonce,
+        string memory tokenUri,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+     ) external payable {
+        require(msg.value > 0, 'DepositETHWithETH: amount can not be 0');
+        require(!nonces[nonce], 'DepositETHWithETH: nonce had used');
+        bytes32 hash = keccak256(abi.encode(msg.sender,msg.value,nonce,tokenUri));
+        address signer = ECDSA.recover(hash, v, r, s);
+        require(signers[signer], 'DepositETHWithETH: signature error');
+        lastTokenId +=1;
+        nonces[nonce] = true;
+        _mintNFT(msg.sender,lastTokenId,tokenUri);
+        IWETH(WETH).deposit{value: msg.value}();
+        emit Deposit(msg.sender,WETH,msg.value);
+    }
+
+    function depositWithNFT(
+        address token,
+        uint256 amount,
+        uint256 nonce,
+        string memory tokenUri,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external {
+        require(amount > 0, 'DepositWithNFT: amount can not be 0');
+        require(activeTokens[token], 'DepositWithNFT: token not support');
+        require(!nonces[nonce], 'DepositWithNFT: nonce had used');
+        bytes32 hash = keccak256(abi.encode(msg.sender,token,amount,nonce,tokenUri));
+        address signer = ECDSA.recover(hash, v, r, s);
+        require(signers[signer], 'Claim: signature error');
+        lastTokenId +=1;
+        nonces[nonce] = true;
+        _mintNFT(msg.sender,lastTokenId,tokenUri);
+        IERC20(token).transferFrom(msg.sender,address(this),amount);
+        emit Deposit(msg.sender, token,amount);
+    }
+
+    function withdraw(
+        address user,
+        address token,
+        uint256 amount,
+        uint256 nonce,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) public {
+        require(amount > 0, 'Withdraw: nothing to send');
+        require(!nonces[nonce], 'Withdraw: nonce had used');
+        bytes32 hash = keccak256(abi.encode(user,token,amount,nonce));
+        address signer = ECDSA.recover(hash, v, r, s);
+        require(signers[signer], 'Withdraw: signature error');
+        nonces[nonce] = true;
+        uint256 feeAmount = amount.mul(fee).div(1000);
+        uint256 toAmount = amount.sub(feeAmount);
+        IERC20(token).transfer(FEEPOOL,feeAmount);
+        IERC20(token).transfer(user,toAmount);
+        emit Widthdraw(user,token,amount);
+
+    }
+
+    function withdrawETH(
+        address user,
+        uint256 amount,
+        uint256 nonce,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) public {
+        require(amount > 0, 'Withdraw: nothing to send');
+        require(!nonces[nonce], 'Withdraw: nonce had used');
+        bytes32 hash = keccak256(abi.encode(user,amount,nonce));
+        address signer = ECDSA.recover(hash, v, r, s);
+        require(signers[signer], 'Withdraw: signature error');
+        nonces[nonce] = true;
+        IWETH(WETH).withdraw(amount);
+        uint256 feeAmount = amount.mul(fee).div(1000);
+        uint256 toAmount = amount.sub(feeAmount);
+        _safeTransferETH(FEEPOOL, feeAmount);
+        _safeTransferETH(user, toAmount);
+        emit WidthdrawETH(user,amount);
+
+    }
+
+    function activeToken(address token) external onlyOwner {
+        require(!activeTokens[token], 'AddToken: token already supported');
+        contracts.push(token);
+        activeTokens[token] = true;   
+        emit ActiveToken(token);
+    }
+
+    function addSigner(address signer) external onlyOwner {
+        signers[signer] = true;  
+        emit ChangeSigner(signer,true);
+    }
+
+    function removeSigner(address signer) external onlyOwner {
+        signers[signer] = false;  
+        emit ChangeSigner(signer,false);
+    }
+
+    function pauseToken(address token) external onlyOwner {
+        require(activeTokens[token], 'PauseToken: token not active');
+        activeTokens[token] = false;
+        emit PauseToken(token);
+    }
+
+    function burnNFT(address user,uint256 tokenId) external onlyOwner {
+        IERC721(BANKCARDNFT).burn(user,tokenId);
+    }
+
+    function changePaused() external onlyOwner {
+        IERC721(BANKCARDNFT).changePaused();
+    }
+
+    //fee 50-->5%
+    function setFee(uint256 _fee) external onlyOwner {
+        fee = _fee;
+        emit FeeChange(fee);
+    }
+
+
+    function supportTokens() public view returns (address[] memory) {
+        return contracts;  
+    }
+
+
+  function _safeTransferETH(address to, uint256 value) internal {
+    (bool success, ) = to.call{value: value}(new bytes(0));
+    require(success, 'ETH_TRANSFER_FAILED');
+  }
+
+
+  function _mintNFT(address to, uint256 tokenId,string memory tokenUri) internal {
+      IERC721(BANKCARDNFT).mint(to,tokenId,tokenUri);
+    
+  }
+
+  fallback() external payable {
+    revert('Fallback not allowed');
+  }
+
+  /**
+   * @dev Only WETH contract is allowed to transfer ETH here. Prevent other addresses to send Ether to this contract.
+   */
+  receive() external payable {
+    require(msg.sender == address(WETH), 'Receive not allowed');
+  }
+
+   
+
+
+
+
+ 
+
+
+}
