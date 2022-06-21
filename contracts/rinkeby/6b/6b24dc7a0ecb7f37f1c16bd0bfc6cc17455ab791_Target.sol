@@ -1,0 +1,25 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.8.14;
+
+contract Target {
+    /*//////////////////////////////////////////////////////////////
+                                 EVENTS
+    //////////////////////////////////////////////////////////////*/
+    event UpdateCompleted(address sender, uint256 newValue, bool permissioned);
+
+    /*//////////////////////////////////////////////////////////////
+                                  STATE
+    //////////////////////////////////////////////////////////////*/
+
+    uint256 public theValue;
+
+    /*//////////////////////////////////////////////////////////////
+                             EXTERNAL LOGIC
+    //////////////////////////////////////////////////////////////*/
+
+    function updateValue(uint256 aNewValue) external {
+        emit UpdateCompleted(msg.sender, aNewValue, false);        
+
+        theValue = aNewValue;
+    }
+}
