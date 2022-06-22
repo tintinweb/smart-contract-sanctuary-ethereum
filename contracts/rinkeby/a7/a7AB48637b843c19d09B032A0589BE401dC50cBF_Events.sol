@@ -1,0 +1,1171 @@
+// SPDX-License-Identifier: UNLICENSED
+
+pragma solidity 0.8.6;
+
+import "./interfaces/IEvents.sol";
+
+contract Events is IEvents {
+    /// CONSTRUCTOR ///
+
+    function initialize(address _homeFi) external override initializer {
+        require(_homeFi != address(0), "Events::0 address");
+        homeFi = IHomeFiContract(_homeFi);
+    }
+
+    /// FUNCTIONS ///
+
+    function addressSet() external override onlyHomeFi {
+        emit AddressSet();
+    }
+
+    function projectAdded(
+        uint256 _projectID,
+        address _project,
+        address _builder,
+        address _currency,
+        bytes calldata _hash
+    ) external override onlyHomeFi {
+        emit ProjectAdded(_projectID, _project, _builder, _currency, _hash);
+    }
+
+    function nftCreated(uint256 _id, address _owner)
+        external
+        override
+        onlyHomeFi
+    {
+        emit NftCreated(_id, _owner);
+    }
+
+    function adminReplaced(address _newAdmin) external override onlyHomeFi {
+        emit AdminReplaced(_newAdmin);
+    }
+
+    function treasuryReplaced(address _newTreasury)
+        external
+        override
+        onlyHomeFi
+    {
+        emit TreasuryReplaced(_newTreasury);
+    }
+
+    function networkFeeReplaced(uint256 _newBuilderFee, uint256 _newLenderFee)
+        external
+        override
+        onlyHomeFi
+    {
+        emit NetworkFeeReplaced(_newBuilderFee, _newLenderFee);
+    }
+
+    function hashUpdated(bytes calldata _updatedHash)
+        external
+        override
+        validProject
+    {
+        emit HashUpdated(msg.sender, _updatedHash);
+    }
+
+    function contractorInvited(address _contractor)
+        external
+        override
+        validProject
+    {
+        emit ContractorInvited(msg.sender, _contractor);
+    }
+
+    function contractorDelegated(bool _bool) external override validProject {
+        emit ContractorDelegated(msg.sender, _bool);
+    }
+
+    function taskHashUpdated(uint256 _taskID, bytes calldata _taskHash)
+        external
+        override
+        validProject
+    {
+        emit TaskHashUpdated(msg.sender, _taskID, _taskHash);
+    }
+
+    function tasksAdded(
+        uint256[] calldata _taskCosts,
+        bytes[] calldata _taskHashes
+    ) external override validProject {
+        emit TasksAdded(msg.sender, _taskCosts, _taskHashes);
+    }
+
+    function lendToProject(uint256 _cost) external override validProject {
+        emit LendToProject(msg.sender, _cost);
+    }
+
+    function incompleteFund() external override validProject {
+        emit IncompleteFund(msg.sender);
+    }
+
+    function multipleSCInvited(
+        uint256[] calldata _taskList,
+        address[] calldata _scList
+    ) external override validProject {
+        emit MultipleSCInvited(msg.sender, _taskList, _scList);
+    }
+
+    function singleSCInvited(uint256 _taskID, address _sc)
+        external
+        override
+        validProject
+    {
+        emit SingleSCInvited(msg.sender, _taskID, _sc);
+    }
+
+    function scConfirmed(uint256[] calldata _taskList)
+        external
+        override
+        validProject
+    {
+        emit SCConfirmed(msg.sender, _taskList);
+    }
+
+    function taskFunded(uint256[] calldata _taskIDs)
+        external
+        override
+        validProject
+    {
+        emit TaskFunded(msg.sender, _taskIDs);
+    }
+
+    function taskComplete(uint256 _taskID) external override validProject {
+        emit TaskComplete(msg.sender, _taskID);
+    }
+
+    function changeOrderFee(uint256 _taskID, uint256 _newCost)
+        external
+        override
+        validProject
+    {
+        emit ChangeOrderFee(msg.sender, _taskID, _newCost);
+    }
+
+    function changeOrderSC(uint256 _taskID, address _sc)
+        external
+        override
+        validProject
+    {
+        emit ChangeOrderSC(msg.sender, _taskID, _sc);
+    }
+
+    function autoWithdrawn(uint256 _amount) external override validProject {
+        emit AutoWithdrawn(msg.sender, _amount);
+    }
+
+    function disputeRaised(uint256 _disputeID, bytes calldata _reason)
+        external
+        override
+        onlyDisputeContract
+    {
+        emit DisputeRaised(_disputeID, _reason);
+    }
+
+    function disputeResolved(
+        uint256 _disputeID,
+        bool _ratified,
+        bytes calldata _judgement
+    ) external override onlyDisputeContract {
+        emit DisputeResolved(_disputeID, _ratified, _judgement);
+    }
+
+    function disputeAttachmentAdded(
+        uint256 _disputeID,
+        address _user,
+        bytes calldata _attachment
+    ) external override onlyDisputeContract {
+        emit DisputeAttachmentAdded(_disputeID, _user, _attachment);
+    }
+
+    function approveHash(bytes32 _hash, address _signer) external override {
+        require(
+            homeFi.communityContract() == msg.sender ||
+                homeFi.isProjectExist(msg.sender),
+            "Events::!community||!project"
+        );
+        emit ApproveHash(_hash, _signer);
+    }
+
+    function paused(address _account) external override {
+        emit Paused(_account);
+    }
+
+    function unpaused(address _account) external override {
+        emit Unpaused(_account);
+    }
+
+    function communityAdded(
+        uint256 _communityID,
+        address _owner,
+        address _currency,
+        bytes calldata _hash
+    ) external override onlyCommunityContract {
+        emit CommunityAdded(_communityID, _owner, _currency, _hash);
+    }
+
+    function updateCommunityHash(uint256 _communityID, bytes calldata _newHash)
+        external
+        override
+        onlyCommunityContract
+    {
+        emit UpdateCommunityHash(_communityID, _newHash);
+    }
+
+    function memberAdded(
+        uint256 _communityID,
+        address _member,
+        bytes calldata _hash
+    ) external override onlyCommunityContract {
+        emit MemberAdded(_communityID, _member, _hash);
+    }
+
+    function projectPublished(
+        uint256 _communityID,
+        address _project,
+        uint256 _apr,
+        bytes calldata _hash
+    ) external override onlyCommunityContract {
+        emit ProjectPublished(_communityID, _project, _apr, _hash);
+    }
+
+    function projectUnpublished(uint256 _communityID, address _project)
+        external
+        override
+        onlyCommunityContract
+    {
+        emit ProjectUnpublished(_communityID, _project);
+    }
+
+    function publishFeePaid(uint256 _communityID, address _project)
+        external
+        override
+        onlyCommunityContract
+    {
+        emit PublishFeePaid(_communityID, _project);
+    }
+
+    function toggleLendingNeeded(
+        uint256 _communityID,
+        address _project,
+        uint256 _lendingNeeded
+    ) external override onlyCommunityContract {
+        emit ToggleLendingNeeded(_communityID, _project, _lendingNeeded);
+    }
+
+    function lenderLent(
+        uint256 _communityID,
+        address _project,
+        address _lender,
+        uint256 _cost,
+        bytes calldata _hash
+    ) external override onlyCommunityContract {
+        emit LenderLent(_communityID, _project, _lender, _cost, _hash);
+    }
+
+    function repayLender(
+        uint256 _communityID,
+        address _project,
+        address _lender,
+        uint256 _tAmount
+    ) external override onlyCommunityContract {
+        emit RepayLender(_communityID, _project, _lender, _tAmount);
+    }
+
+    function debtReduced(
+        uint256 _communityID,
+        address _project,
+        address _lender,
+        uint256 _tAmount,
+        bytes calldata _details
+    ) external override onlyCommunityContract {
+        emit DebtReduced(_communityID, _project, _lender, _tAmount, _details);
+    }
+
+    function claimedInterest(
+        uint256 _communityID,
+        address _project,
+        address _lender,
+        uint256 _interestEarned
+    ) external override onlyCommunityContract {
+        emit ClaimedInterest(_communityID, _project, _lender, _interestEarned);
+    }
+}
+
+// SPDX-License-Identifier: UNLICENSED
+
+pragma solidity 0.8.6;
+
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+
+interface IHomeFiContract {
+    function isProjectExist(address _project) external returns (bool);
+
+    function communityContract() external returns (address);
+
+    function disputeContract() external returns (address);
+}
+
+abstract contract IEvents is Initializable {
+    /// EVENTS ///
+
+    // HomeFi.sol Events //
+    event AddressSet();
+    event ProjectAdded(
+        uint256 _projectID,
+        address indexed _project,
+        address indexed _builder,
+        address indexed _currency,
+        bytes _hash
+    );
+    event NftCreated(uint256 _id, address _owner);
+    event AdminReplaced(address _newAdmin);
+    event TreasuryReplaced(address _newTreasury);
+    event NetworkFeeReplaced(uint256 _newBuilderFee, uint256 _newLenderFee);
+
+    // Project.sol Events //
+    event HashUpdated(address indexed _project, bytes _hash);
+    event ContractorInvited(
+        address indexed _project,
+        address indexed _newContractor
+    );
+    event ContractorDelegated(address indexed _project, bool _bool);
+    event LendToProject(address indexed _project, uint256 _cost);
+    event IncompleteFund(address indexed _project);
+    event TasksAdded(
+        address indexed _project,
+        uint256[] _taskCosts,
+        bytes[] _taskHashes
+    );
+    event TaskHashUpdated(
+        address indexed _project,
+        uint256 _taskID,
+        bytes _taskHash
+    );
+    event MultipleSCInvited(
+        address indexed _project,
+        uint256[] _taskList,
+        address[] _scList
+    );
+    event SingleSCInvited(
+        address indexed _project,
+        uint256 _taskID,
+        address _sc
+    );
+    event SCConfirmed(address indexed _project, uint256[] _taskList);
+    event TaskFunded(address indexed _project, uint256[] _taskIDs);
+    event TaskComplete(address indexed _project, uint256 _taskID);
+    event ChangeOrderFee(
+        address indexed _project,
+        uint256 _taskID,
+        uint256 _newCost
+    );
+    event ChangeOrderSC(address indexed _project, uint256 _taskID, address _sc);
+    event AutoWithdrawn(address indexed _project, uint256 _amount);
+
+    // Disputes.sol Events //
+    event DisputeRaised(uint256 indexed _disputeID, bytes _reason);
+    event DisputeResolved(
+        uint256 indexed _disputeID,
+        bool _ratified,
+        bytes _judgement
+    );
+    event DisputeAttachmentAdded(
+        uint256 indexed _disputeID,
+        address _user,
+        bytes _attachment
+    );
+
+    // Community.sol Events //
+    event Paused(address account);
+    event Unpaused(address account);
+    event CommunityAdded(
+        uint256 _communityID,
+        address indexed _owner,
+        address indexed _currency,
+        bytes _hash
+    );
+    event UpdateCommunityHash(uint256 _communityID, bytes _newHash);
+    event MemberAdded(
+        uint256 indexed _communityID,
+        address indexed _member,
+        bytes _hash
+    );
+    event ProjectPublished(
+        uint256 indexed _communityID,
+        address indexed _project,
+        uint256 _apr,
+        bytes _hash
+    );
+    event ProjectUnpublished(
+        uint256 indexed _communityID,
+        address indexed _project
+    );
+    event PublishFeePaid(
+        uint256 indexed _communityID,
+        address indexed _project
+    );
+    event ToggleLendingNeeded(
+        uint256 indexed _communityID,
+        address indexed _project,
+        uint256 _lendingNeeded
+    );
+    event LenderLent(
+        uint256 indexed _communityID,
+        address indexed _project,
+        address indexed _lender,
+        uint256 _cost,
+        bytes _hash
+    );
+    event RepayLender(
+        uint256 indexed _communityID,
+        address indexed _project,
+        address indexed _lender,
+        uint256 _tAmount
+    );
+    event DebtReduced(
+        uint256 indexed _communityID,
+        address indexed _project,
+        address indexed _lender,
+        uint256 _tAmount,
+        bytes _details
+    );
+    event ClaimedInterest(
+        uint256 indexed _communityID,
+        address indexed _project,
+        address indexed _lender,
+        uint256 _interestEarned
+    );
+    event ApproveHash(bytes32 _hash, address _signer);
+
+    /// MODIFIERS ///
+    modifier validProject() {
+        // ensure that the caller is an instance of Project.sol
+        require(homeFi.isProjectExist(msg.sender), "Events::!ProjectContract");
+        _;
+    }
+
+    modifier onlyDisputeContract() {
+        // ensure that the caller is deployed instance of Dispute.sol
+        require(
+            homeFi.disputeContract() == msg.sender,
+            "Events::!DisputeContract"
+        );
+        _;
+    }
+
+    modifier onlyHomeFi() {
+        // ensure that the caller is the deployed instance of HomeFi.sol
+        require(address(homeFi) == msg.sender, "Events::!HomeFiContract");
+        _;
+    }
+
+    modifier onlyCommunityContract() {
+        // ensure that the caller is the deployed instance of Community.sol
+        require(
+            homeFi.communityContract() == msg.sender,
+            "Events::!CommunityContract"
+        );
+        _;
+    }
+
+    IHomeFiContract public homeFi;
+
+    /// CONSTRUCTOR ///
+
+    /**
+     * Initialize a new events contract
+     * @notice THIS IS THE CONSTRUCTOR thanks upgradable proxies
+     * @dev modifier initializer
+     *
+     * @param _homeFi IHomeFi - instance of main Rigor contract. Can be accessed with raw address
+     */
+    function initialize(address _homeFi) external virtual;
+
+    /// FUNCTIONS ///
+
+    /**
+     * Call to event when address is set
+     * @dev modifier onlyHomeFi
+     */
+    function addressSet() external virtual;
+
+    /**
+     * Call to emit when a project is created (new NFT is minted)
+     * @dev modifier onlyHomeFi
+     *
+     * @param _projectID uint256 - the ERC721 enumerable index/ uuid of the project
+     * @param _project address - the address of the newly deployed project contract
+     * @param _builder address - the address of the user permissioned as the project's builder
+     */
+    function projectAdded(
+        uint256 _projectID,
+        address _project,
+        address _builder,
+        address _currency,
+        bytes calldata _hash
+    ) external virtual;
+
+    /**
+     * Call to emit when a new project & accompanying ERC721 token have been created
+     * @dev modifier onlyHomeFi
+     *
+     * @param _id uint256 - the ERC721 enumerable serial/ project id
+     * @param _owner address - address permissioned as project's builder/ nft owner
+     */
+    function nftCreated(uint256 _id, address _owner) external virtual;
+
+    /**
+     * Call to emit when HomeFi admin is replaced
+     * @dev modifier onlyHomeFi
+     *
+     * @param _newAdmin address - address of the new admin
+     */
+    function adminReplaced(address _newAdmin) external virtual;
+
+    /**
+     * Call to emit when HomeFi treasury is replaced
+     * @dev modifier onlyHomeFi
+     *
+     * @param _newTreasury address - address of the new treasury
+     */
+    function treasuryReplaced(address _newTreasury) external virtual;
+
+    /**
+     * Call to emit when HomeFi treasury network fee is updated
+     * @dev modifier onlyHomeFi
+     *
+     * @param _newBuilderFee uint256 - percentage of fee builder have to pay to rigor system
+     * @param _newLenderFee uint256 - percentage of fee lender have to pay to rigor system
+     */
+    function networkFeeReplaced(uint256 _newBuilderFee, uint256 _newLenderFee)
+        external
+        virtual;
+
+    /**
+     * Call to emit when the hash of a project is updated
+     *
+     * @param _updatedHash bytes - hash of project metadata used to identify the project
+     */
+    function hashUpdated(bytes calldata _updatedHash) external virtual;
+
+    /**
+     * Call to emit when a new General Contractor is invited and accepted to a HomeFi project
+     * @dev modifier validProject
+     *
+     * @param _contractor address - the address invited to the project as the general contractor
+     */
+    function contractorInvited(address _contractor) external virtual;
+
+    /**
+     * Call to emit when a contractor is either added or removed as delegate for home builder.
+     * @dev modifier validProject
+     *
+     * @param _bool bool - boolean signifying contractor is either added or removed as delegate
+     */
+    function contractorDelegated(bool _bool) external virtual;
+
+    /**
+     * Call to emit when a task's identifying hash is changed
+     * @dev modifier validProject
+     *
+     * @param _taskID uint256 - the uuid of the updated task
+     * @param _taskHash bytes[] - bytes conversion of IPFS hash
+     */
+    function taskHashUpdated(uint256 _taskID, bytes calldata _taskHash)
+        external
+        virtual;
+
+    /**
+     * Call to emit when a new task is created in a project
+     * @dev modifier validProject
+     *
+     * @param _taskCosts uint256[] - array of added tasks' costs
+     * @param _taskHashes bytes[] - bytes array of added tasks' hash part 1
+     */
+    function tasksAdded(
+        uint256[] calldata _taskCosts,
+        bytes[] calldata _taskHashes
+    ) external virtual;
+
+    /**
+     * Call to emit when an lender has loaned funds to a project
+     * @dev modifier validProject
+     *
+     * @param _cost uint256 - the amount of currency lent in the project (depends on project currency)
+     */
+    function lendToProject(uint256 _cost) external virtual;
+
+    /**
+     * Call to emit when an project has incomplete funding
+     * @dev modifier validProject
+     */
+    function incompleteFund() external virtual;
+
+    /**
+     * Call to emit when subcontractors are invited to tasks
+     * @dev modifier validProject
+     *
+     * @param _taskList uint256[] - the list of uuids of the tasks the subcontractors are being invited to
+     * @param _scList address[] - the addresses of the users being invited as subcontractor to the tasks
+     */
+    function multipleSCInvited(
+        uint256[] calldata _taskList,
+        address[] calldata _scList
+    ) external virtual;
+
+    /**
+     * Call to emit when a subcontractor is invited to a task
+     * @dev modifier validProject
+     *
+     * @param _taskID uint256 - the uuid of the task the subcontractor is being invited to
+     * @param _sc address - the address of the user being invited as subcontractor to the task
+     */
+    function singleSCInvited(uint256 _taskID, address _sc) external virtual;
+
+    /**
+     * Call to emit when a subcontractor is confirmed for a task
+     * @dev modifier validProject
+     *
+     * @param _taskList uint256[] - the uuid's of the taskList joined by the subcontractor
+     */
+    function scConfirmed(uint256[] calldata _taskList) external virtual;
+
+    /**
+     * Call to emit when a task is funded
+     * @dev modifier validProject
+     *
+     * @param _taskIDs uint256[] - array of uuid of the funded task
+     */
+    function taskFunded(uint256[] calldata _taskIDs) external virtual;
+
+    /**
+     * Call to emit when a task has been completed
+     * @dev modifier validProject
+     *
+     * @param _taskID uint256 - the uuid of the completed task
+     */
+    function taskComplete(uint256 _taskID) external virtual;
+
+    /**
+     * Call to emit when a task has a change order changing the cost of a task
+     * @dev modifier validProject
+     *
+     * @param _taskID uint256 - the uuid of the task where the change order occurred
+     * @param _newCost uint256 - the new cost of the task (in the project currency)
+     */
+    function changeOrderFee(uint256 _taskID, uint256 _newCost) external virtual;
+
+    /**
+     * Call to emit when a task has a change order that swaps the subcontractor on the task
+     * @dev modifier validProject
+     *
+     * @param _taskID uint256 - the uuid of the task where the change order occurred
+     * @param _sc uint256 - the subcontractor being added to the task in the change order
+     */
+    function changeOrderSC(uint256 _taskID, address _sc) external virtual;
+
+    /**
+     * Call to event when transfer excess funds back to builder wallet
+     * @dev modifier validProject
+     *
+     * @param _amount uint256 - amount of excess fund
+     */
+    function autoWithdrawn(uint256 _amount) external virtual;
+
+    /**
+     * Call to emit when an lender's loan is repaid with interest
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid of the community that the project loan occurred in
+     * @param _project address - the address of the deployed contract address where the loan was escrowed
+     * @param _lender address - the address that supplied the loan/ is receiving repayment
+     * @param _tAmount uint256 - the amount repaid to the lender (principal + interest) in the project currency
+     */
+    function repayLender(
+        uint256 _communityID,
+        address _project,
+        address _lender,
+        uint256 _tAmount
+    ) external virtual;
+
+    /**
+     * Call to emit when an lender's loan is reduced with repayment done off platform
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid of the community that the project loan occurred in
+     * @param _project address - the address of the deployed contract address where the loan was escrowed
+     * @param _lender address - the address that supplied the loan/ is receiving repayment
+     * @param _tAmount uint256 - the amount repaid to the lender (principal + interest) in the project currency
+     * @param _details bytes - some _details on why debt is reduced (off chain documents or images)
+     */
+    function debtReduced(
+        uint256 _communityID,
+        address _project,
+        address _lender,
+        uint256 _tAmount,
+        bytes calldata _details
+    ) external virtual;
+
+    /**
+     * Call to emit when a new dispute is raised
+     * @dev modifier onlyDisputeContract
+     *
+     * @param _disputeID uint256 - the uuid/ serial of the dispute within the dispute contract
+     * @param _reason bytes - ipfs cid of pdf
+     */
+    function disputeRaised(uint256 _disputeID, bytes calldata _reason)
+        external
+        virtual;
+
+    /**
+     * Call to emit when a dispute has been arbitrated and funds have been directed to the correct address
+     * @dev modifier onlyDisputeContract
+     *
+     * @param _disputeID uint256 - the uuid/serial of the dispute within the dispute contract
+     * @param _ratified bool - true if disputed action was enforced by arbitration, and false otherwise
+     * @param _judgement bytes - the URI hash of the document to be used to close the dispute
+     */
+    function disputeResolved(
+        uint256 _disputeID,
+        bool _ratified,
+        bytes calldata _judgement
+    ) external virtual;
+
+    /**
+     * Call to emit when a document is attached to a dispute
+     * @dev modifier onlyDisputeContract
+     *
+     * @param _disputeID uint256 - the uuid/ serial of the dispute
+     * @param _user address - the address of the user uploading the document
+     * @param _attachment bytes - the IPFS cid of the dispute attachment document
+     */
+    function disputeAttachmentAdded(
+        uint256 _disputeID,
+        address _user,
+        bytes calldata _attachment
+    ) external virtual;
+
+    /**
+     * Call to emit when a sender approves a hash
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _hash bytes32 hash that is marked signed
+     * @param _signer address sender that approved
+     */
+    function approveHash(bytes32 _hash, address _signer) external virtual;
+
+    /**
+     * Call to emit when unpaused
+     *
+     * @param _account address - the account unpausing
+     */
+    function unpaused(address _account) external virtual;
+
+    /**
+     * Call to emit when paused
+     *
+     * @param _account address - the account pausing
+     */
+    function paused(address _account) external virtual;
+
+    /**
+     * Call to emit when a new lending community is created
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid/ serial of the created lending community
+     * @param _owner address - the address of the user who manages the lending community
+     * @param _currency address - the address of the currency used as collateral in projects within the community
+     * @param _hash bytes - the hash of community metadata used to identify the community
+     */
+    function communityAdded(
+        uint256 _communityID,
+        address _owner,
+        address _currency,
+        bytes calldata _hash
+    ) external virtual;
+
+    /**
+     * Call to emit when a community's identifying hash is updated
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid/ serial of the lending community whose hash is being updated
+     * @param _newHash bytes - the new hash of community metadata used to identify the community being added
+     */
+    function updateCommunityHash(uint256 _communityID, bytes calldata _newHash)
+        external
+        virtual;
+
+    /**
+     * Call to emit when a member has been added to an lending community as a new lender
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid/ serial of the lending community being joined
+     * @param _member address - the address of the user joining the community as an lender
+     * @param _hash bytes - IPFS hash of community application response or document urls
+     */
+    function memberAdded(
+        uint256 _communityID,
+        address _member,
+        bytes calldata _hash
+    ) external virtual;
+
+    /**
+     * Call to emit when a project is added to an lending community for fund raising
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid/ serial of the community being published to
+     * @param _project address - the address of the deployed project contract where loans are escrowed
+     * @param _apr uint256 - the annual percentage return (interest rate) on loans made to the project
+     * @param _hash bytes - IPFS hash of signed agreements document urls
+     */
+    function projectPublished(
+        uint256 _communityID,
+        address _project,
+        uint256 _apr,
+        bytes calldata _hash
+    ) external virtual;
+
+    /**
+     * Call to emit when a project is unpublished from an lending community for fund raising
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid/ serial of the community being unpublished from
+     * @param _project address - the address of the deployed project contract being unpublished
+     */
+    function projectUnpublished(uint256 _communityID, address _project)
+        external
+        virtual;
+
+    /**
+     * Call to emit when a community's project home builder pay project publish fee.
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid/ serial of the community being unpublished from
+     * @param _project address - the address of the deployed project contract being unpublished
+     */
+    function publishFeePaid(uint256 _communityID, address _project)
+        external
+        virtual;
+
+    /**
+     * Call to emit when a home builder lending needed for his project
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid/ serial of the community being published to
+     * @param _project address - the address of the deployed project contract where loans are escrowed
+     * @param _lendingNeeded uint256 - the new lending need for the project
+     */
+    function toggleLendingNeeded(
+        uint256 _communityID,
+        address _project,
+        uint256 _lendingNeeded
+    ) external virtual;
+
+    /**
+     * Call to emit when an lender loans funds to a project
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid/ serial of the community the project is published in
+     * @param _project address - the address of the deployed project contract the lender loaned funds to
+     * @param _lender address - the address of the lending user
+     * @param _cost uint256 - the amount of funds lent by _lender, in the project currency
+     * @param _hash bytes - IPFS hash of signed agreements document urls
+     */
+    function lenderLent(
+        uint256 _communityID,
+        address _project,
+        address _lender,
+        uint256 _cost,
+        bytes calldata _hash
+    ) external virtual;
+
+    /**
+    // TODO update
+     * Call to emit when an lender claims their repayment with interest
+     * @dev modifier onlyCommunityContract
+     *
+     * @param _communityID uint256 - the uuid/ serial of the community the project is published in
+     * @param _project address - the address of the deployed project contract the lender loaned to
+     * @param _lender address - the address of the lender claiming interest
+     * @param _interestEarned uint256 - the amount of collateral tokens earned in interest (in project's currency)
+     */
+    function claimedInterest(
+        uint256 _communityID,
+        address _project,
+        address _lender,
+        uint256 _interestEarned
+    ) external virtual;
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (proxy/utils/Initializable.sol)
+
+pragma solidity ^0.8.0;
+
+import "../../utils/AddressUpgradeable.sol";
+
+/**
+ * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed
+ * behind a proxy. Since a proxied contract can't have a constructor, it's common to move constructor logic to an
+ * external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer
+ * function so it can only be called once. The {initializer} modifier provided by this contract will have this effect.
+ *
+ * TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as
+ * possible by providing the encoded function call as the `_data` argument to {ERC1967Proxy-constructor}.
+ *
+ * CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure
+ * that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.
+ *
+ * [CAUTION]
+ * ====
+ * Avoid leaving a contract uninitialized.
+ *
+ * An uninitialized contract can be taken over by an attacker. This applies to both a proxy and its implementation
+ * contract, which may impact the proxy. To initialize the implementation contract, you can either invoke the
+ * initializer manually, or you can include a constructor to automatically mark it as initialized when it is deployed:
+ *
+ * [.hljs-theme-light.nopadding]
+ * ```
+ * /// @custom:oz-upgrades-unsafe-allow constructor
+ * constructor() initializer {}
+ * ```
+ * ====
+ */
+abstract contract Initializable {
+    /**
+     * @dev Indicates that the contract has been initialized.
+     */
+    bool private _initialized;
+
+    /**
+     * @dev Indicates that the contract is in the process of being initialized.
+     */
+    bool private _initializing;
+
+    /**
+     * @dev Modifier to protect an initializer function from being invoked twice.
+     */
+    modifier initializer() {
+        // If the contract is initializing we ignore whether _initialized is set in order to support multiple
+        // inheritance patterns, but we only do this in the context of a constructor, because in other contexts the
+        // contract may have been reentered.
+        require(_initializing ? _isConstructor() : !_initialized, "Initializable: contract is already initialized");
+
+        bool isTopLevelCall = !_initializing;
+        if (isTopLevelCall) {
+            _initializing = true;
+            _initialized = true;
+        }
+
+        _;
+
+        if (isTopLevelCall) {
+            _initializing = false;
+        }
+    }
+
+    /**
+     * @dev Modifier to protect an initialization function so that it can only be invoked by functions with the
+     * {initializer} modifier, directly or indirectly.
+     */
+    modifier onlyInitializing() {
+        require(_initializing, "Initializable: contract is not initializing");
+        _;
+    }
+
+    function _isConstructor() private view returns (bool) {
+        return !AddressUpgradeable.isContract(address(this));
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Address.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Collection of functions related to the address type
+ */
+library AddressUpgradeable {
+    /**
+     * @dev Returns true if `account` is a contract.
+     *
+     * [IMPORTANT]
+     * ====
+     * It is unsafe to assume that an address for which this function returns
+     * false is an externally-owned account (EOA) and not a contract.
+     *
+     * Among others, `isContract` will return false for the following
+     * types of addresses:
+     *
+     *  - an externally-owned account
+     *  - a contract in construction
+     *  - an address where a contract will be created
+     *  - an address where a contract lived, but was destroyed
+     * ====
+     */
+    function isContract(address account) internal view returns (bool) {
+        // This method relies on extcodesize, which returns 0 for contracts in
+        // construction, since the code is only stored at the end of the
+        // constructor execution.
+
+        uint256 size;
+        assembly {
+            size := extcodesize(account)
+        }
+        return size > 0;
+    }
+
+    /**
+     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to
+     * `recipient`, forwarding all available gas and reverting on errors.
+     *
+     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost
+     * of certain opcodes, possibly making contracts go over the 2300 gas limit
+     * imposed by `transfer`, making them unable to receive funds via
+     * `transfer`. {sendValue} removes this limitation.
+     *
+     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].
+     *
+     * IMPORTANT: because control is transferred to `recipient`, care must be
+     * taken to not create reentrancy vulnerabilities. Consider using
+     * {ReentrancyGuard} or the
+     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].
+     */
+    function sendValue(address payable recipient, uint256 amount) internal {
+        require(address(this).balance >= amount, "Address: insufficient balance");
+
+        (bool success, ) = recipient.call{value: amount}("");
+        require(success, "Address: unable to send value, recipient may have reverted");
+    }
+
+    /**
+     * @dev Performs a Solidity function call using a low level `call`. A
+     * plain `call` is an unsafe replacement for a function call: use this
+     * function instead.
+     *
+     * If `target` reverts with a revert reason, it is bubbled up by this
+     * function (like regular Solidity function calls).
+     *
+     * Returns the raw returned data. To convert to the expected return value,
+     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].
+     *
+     * Requirements:
+     *
+     * - `target` must be a contract.
+     * - calling `target` with `data` must not revert.
+     *
+     * _Available since v3.1._
+     */
+    function functionCall(address target, bytes memory data) internal returns (bytes memory) {
+        return functionCall(target, data, "Address: low-level call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with
+     * `errorMessage` as a fallback revert reason when `target` reverts.
+     *
+     * _Available since v3.1._
+     */
+    function functionCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, 0, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but also transferring `value` wei to `target`.
+     *
+     * Requirements:
+     *
+     * - the calling contract must have an ETH balance of at least `value`.
+     * - the called Solidity function must be `payable`.
+     *
+     * _Available since v3.1._
+     */
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value
+    ) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but
+     * with `errorMessage` as a fallback revert reason when `target` reverts.
+     *
+     * _Available since v3.1._
+     */
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        require(address(this).balance >= value, "Address: insufficient balance for call");
+        require(isContract(target), "Address: call to non-contract");
+
+        (bool success, bytes memory returndata) = target.call{value: value}(data);
+        return verifyCallResult(success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but performing a static call.
+     *
+     * _Available since v3.3._
+     */
+    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {
+        return functionStaticCall(target, data, "Address: low-level static call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a static call.
+     *
+     * _Available since v3.3._
+     */
+    function functionStaticCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal view returns (bytes memory) {
+        require(isContract(target), "Address: static call to non-contract");
+
+        (bool success, bytes memory returndata) = target.staticcall(data);
+        return verifyCallResult(success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Tool to verifies that a low level call was successful, and revert if it wasn't, either by bubbling the
+     * revert reason using the provided one.
+     *
+     * _Available since v4.3._
+     */
+    function verifyCallResult(
+        bool success,
+        bytes memory returndata,
+        string memory errorMessage
+    ) internal pure returns (bytes memory) {
+        if (success) {
+            return returndata;
+        } else {
+            // Look for revert reason and bubble it up if present
+            if (returndata.length > 0) {
+                // The easiest way to bubble the revert reason is using memory via assembly
+
+                assembly {
+                    let returndata_size := mload(returndata)
+                    revert(add(32, returndata), returndata_size)
+                }
+            } else {
+                revert(errorMessage);
+            }
+        }
+    }
+}
