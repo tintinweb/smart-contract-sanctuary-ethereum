@@ -1,0 +1,244 @@
+// SPDX-License-Identifier: MIT
+
+// Smart contract that lets anyone deposit ETH into the contract
+// Only the owner of the contract can withdraw the ETH
+pragma solidity ^0.6.6;
+// Es correcto esto de abajo aunque lo subraye el editor, ya que los contratos se compilan correctamente
+// y coge los contratos importados bien
+import "AggregatorV3Interface.sol";
+import "SafeMathChainlink.sol";
+
+contract PagameYa {
+    using SafeMathChainlink for uint256;
+
+    mapping(address => uint256) public dinerillopagadoporladireccion;
+    address[] public lospagafantas;
+    address public elpropietariodelcontrato;
+    AggregatorV3Interface public pillaDatos;
+
+    constructor(address _direccionObtenerDatos) public {
+        // la funcion Constructor se llama justo en el momento en el que el contrato es desplegado
+        // aqui dentro cargamos de una vez la dirección del propietario,
+        // y pasamos al constructor la direccion de contrato de donde obtenemos precios (desde script deploy)
+        pillaDatos = AggregatorV3Interface(_direccionObtenerDatos);
+        elpropietariodelcontrato = msg.sender;
+    }
+
+    function dinerillo() public payable {
+        uint256 minimoendolares = 50 * 10**18;
+        // hay que poner el minimoendolares en gwei, por eso lo multiplicamos por 10 y le ponemos 18 ceros
+        require(
+            pillacambio(msg.value) >= minimoendolares,
+            "ERES UN PUTO RATA DE MIERDA"
+        );
+
+        //obtengo la cifra pagada por una cuenta determinada
+        dinerillopagadoporladireccion[msg.sender] += msg.value;
+        lospagafantas.push(msg.sender);
+    }
+
+    function pillaversion() public view returns (uint256) {
+        return pillaDatos.version();
+    }
+
+    function pillaputoprecio() public view returns (uint256) {
+        // en vez de traernos todas las variables, dejamos sólo las comas, para no dejarlas sin usar
+        (, int256 puneteroprecio, , , ) = pillaDatos.latestRoundData();
+        // ETH/USD rate in 18 digit
+        return uint256(puneteroprecio * 10000000000);
+    }
+
+    function pillacambio(uint256 cantidadethercillos)
+        public
+        view
+        returns (uint256)
+    {
+        uint256 preciodeeth = pillaputoprecio();
+        uint256 etherendolares = (preciodeeth.mul(cantidadethercillos)) /
+            1000000000000000000; // usando safemath, aunque no hace falta por la versión del compilador
+        return etherendolares;
+    }
+
+    function cogerTasaEntrada() public view returns (uint256) {
+        // minimo en USD
+        uint256 minimoUSD = 50 * 10**18;
+        uint256 precio = pillaputoprecio();
+        uint256 precision = 1 * 10**18;
+        return ((minimoUSD.mul(precision)).div(precio)).add(1); // aqui uso safemath porque yo lo valgo :-)
+    }
+
+    function saldoactual() public view returns (uint256) {
+        uint256 saldo = address(this).balance;
+        return saldo;
+    }
+
+    modifier SoloPuedoYo() {
+        // sólo dejamos hacer cosas al dueño del contrato. El "_" del final indica que la condición
+        // se prueba antes de ejecutar la función a la que modifica
+        require(
+            msg.sender == elpropietariodelcontrato,
+            "NO ES TU PUTO CONTRATO"
+        );
+        _;
+    }
+
+    // en el ejemplo, esta función aparece con el modificador "payable", pero por lo visto no hace falta
+    // para transferir eth a otra cuenta
+    function retiralapasta() public SoloPuedoYo {
+        msg.sender.transfer(address(this).balance);
+        for (
+            uint256 IndicePagafantas = 0;
+            IndicePagafantas < lospagafantas.length;
+            IndicePagafantas++
+        ) {
+            address elpagafantas = lospagafantas[IndicePagafantas];
+            dinerillopagadoporladireccion[elpagafantas] = 0;
+        }
+        // borramos la matriz de pagadores, una vez que hemos retirado el parné
+        lospagafantas = new address[](0);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.6.0;
+
+interface AggregatorV3Interface {
+
+  function decimals() external view returns (uint8);
+  function description() external view returns (string memory);
+  function version() external view returns (uint256);
+
+  // getRoundData and latestRoundData should both raise "No data present"
+  // if they do not have data to report, instead of returning unset values
+  // which could be misinterpreted as actual reported values.
+  function getRoundData(uint80 _roundId)
+    external
+    view
+    returns (
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
+    );
+  function latestRoundData()
+    external
+    view
+    returns (
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
+    );
+
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.6.0;
+
+/**
+ * @dev Wrappers over Solidity's arithmetic operations with added overflow
+ * checks.
+ *
+ * Arithmetic operations in Solidity wrap on overflow. This can easily result
+ * in bugs, because programmers usually assume that an overflow raises an
+ * error, which is the standard behavior in high level programming languages.
+ * `SafeMath` restores this intuition by reverting the transaction when an
+ * operation overflows.
+ *
+ * Using this library instead of the unchecked operations eliminates an entire
+ * class of bugs, so it's recommended to use it always.
+ */
+library SafeMathChainlink {
+  /**
+    * @dev Returns the addition of two unsigned integers, reverting on
+    * overflow.
+    *
+    * Counterpart to Solidity's `+` operator.
+    *
+    * Requirements:
+    * - Addition cannot overflow.
+    */
+  function add(uint256 a, uint256 b) internal pure returns (uint256) {
+    uint256 c = a + b;
+    require(c >= a, "SafeMath: addition overflow");
+
+    return c;
+  }
+
+  /**
+    * @dev Returns the subtraction of two unsigned integers, reverting on
+    * overflow (when the result is negative).
+    *
+    * Counterpart to Solidity's `-` operator.
+    *
+    * Requirements:
+    * - Subtraction cannot overflow.
+    */
+  function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+    require(b <= a, "SafeMath: subtraction overflow");
+    uint256 c = a - b;
+
+    return c;
+  }
+
+  /**
+    * @dev Returns the multiplication of two unsigned integers, reverting on
+    * overflow.
+    *
+    * Counterpart to Solidity's `*` operator.
+    *
+    * Requirements:
+    * - Multiplication cannot overflow.
+    */
+  function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
+    // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
+    if (a == 0) {
+      return 0;
+    }
+
+    uint256 c = a * b;
+    require(c / a == b, "SafeMath: multiplication overflow");
+
+    return c;
+  }
+
+  /**
+    * @dev Returns the integer division of two unsigned integers. Reverts on
+    * division by zero. The result is rounded towards zero.
+    *
+    * Counterpart to Solidity's `/` operator. Note: this function uses a
+    * `revert` opcode (which leaves remaining gas untouched) while Solidity
+    * uses an invalid opcode to revert (consuming all remaining gas).
+    *
+    * Requirements:
+    * - The divisor cannot be zero.
+    */
+  function div(uint256 a, uint256 b) internal pure returns (uint256) {
+    // Solidity only automatically asserts when dividing by 0
+    require(b > 0, "SafeMath: division by zero");
+    uint256 c = a / b;
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
+
+    return c;
+  }
+
+  /**
+    * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+    * Reverts when dividing by zero.
+    *
+    * Counterpart to Solidity's `%` operator. This function uses a `revert`
+    * opcode (which leaves remaining gas untouched) while Solidity uses an
+    * invalid opcode to revert (consuming all remaining gas).
+    *
+    * Requirements:
+    * - The divisor cannot be zero.
+    */
+  function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+    require(b != 0, "SafeMath: modulo by zero");
+    return a % b;
+  }
+}
