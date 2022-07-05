@@ -1,0 +1,670 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.8.0;
+
+
+// CAUTION
+// This version of SafeMath should only be used with Solidity 0.8 or later,
+// because it relies on the compiler's built in overflow checks.
+
+/**
+ * @dev Wrappers over Solidity's arithmetic operations.
+ *
+ * NOTE: `SafeMath` is generally not needed starting with Solidity 0.8, since the compiler
+ * now has built in overflow checking.
+ */
+ 
+import "@openzeppelin/contracts/interfaces/IERC20.sol";
+
+library SafeMath {
+    /**
+     * @dev Returns the addition of two unsigned integers, with an overflow flag.
+     *
+     * _Available since v3.4._
+     */
+    function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+        unchecked {
+            uint256 c = a + b;
+            if (c < a) return (false, 0);
+            return (true, c);
+        }
+    }
+
+    /**
+     * @dev Returns the subtraction of two unsigned integers, with an overflow flag.
+     *
+     * _Available since v3.4._
+     */
+    function trySub(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+        unchecked {
+            if (b > a) return (false, 0);
+            return (true, a - b);
+        }
+    }
+
+    /**
+     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.
+     *
+     * _Available since v3.4._
+     */
+    function tryMul(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+        unchecked {
+            // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+            // benefit is lost if 'b' is also tested.
+            // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
+            if (a == 0) return (true, 0);
+            uint256 c = a * b;
+            if (c / a != b) return (false, 0);
+            return (true, c);
+        }
+    }
+
+    /**
+     * @dev Returns the division of two unsigned integers, with a division by zero flag.
+     *
+     * _Available since v3.4._
+     */
+    function tryDiv(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+        unchecked {
+            if (b == 0) return (false, 0);
+            return (true, a / b);
+        }
+    }
+
+    /**
+     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.
+     *
+     * _Available since v3.4._
+     */
+    function tryMod(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+        unchecked {
+            if (b == 0) return (false, 0);
+            return (true, a % b);
+        }
+    }
+
+    /**
+     * @dev Returns the addition of two unsigned integers, reverting on
+     * overflow.
+     *
+     * Counterpart to Solidity's `+` operator.
+     *
+     * Requirements:
+     *
+     * - Addition cannot overflow.
+     */
+    function add(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a + b;
+    }
+
+    /**
+     * @dev Returns the subtraction of two unsigned integers, reverting on
+     * overflow (when the result is negative).
+     *
+     * Counterpart to Solidity's `-` operator.
+     *
+     * Requirements:
+     *
+     * - Subtraction cannot overflow.
+     */
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a - b;
+    }
+
+    /**
+     * @dev Returns the multiplication of two unsigned integers, reverting on
+     * overflow.
+     *
+     * Counterpart to Solidity's `*` operator.
+     *
+     * Requirements:
+     *
+     * - Multiplication cannot overflow.
+     */
+    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a * b;
+    }
+
+    /**
+     * @dev Returns the integer division of two unsigned integers, reverting on
+     * division by zero. The result is rounded towards zero.
+     *
+     * Counterpart to Solidity's `/` operator.
+     *
+     * Requirements:
+     *
+     * - The divisor cannot be zero.
+     */
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a / b;
+    }
+
+    /**
+     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+     * reverting when dividing by zero.
+     *
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
+     * opcode (which leaves remaining gas untouched) while Solidity uses an
+     * invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     *
+     * - The divisor cannot be zero.
+     */
+    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a % b;
+    }
+
+    /**
+     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
+     * overflow (when the result is negative).
+     *
+     * CAUTION: This function is deprecated because it requires allocating memory for the error
+     * message unnecessarily. For custom revert reasons use {trySub}.
+     *
+     * Counterpart to Solidity's `-` operator.
+     *
+     * Requirements:
+     *
+     * - Subtraction cannot overflow.
+     */
+    function sub(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
+        unchecked {
+            require(b <= a, errorMessage);
+            return a - b;
+        }
+    }
+
+    /**
+     * @dev Returns the integer division of two unsigned integers, reverting with custom message on
+     * division by zero. The result is rounded towards zero.
+     *
+     * Counterpart to Solidity's `/` operator. Note: this function uses a
+     * `revert` opcode (which leaves remaining gas untouched) while Solidity
+     * uses an invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     *
+     * - The divisor cannot be zero.
+     */
+    function div(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
+        unchecked {
+            require(b > 0, errorMessage);
+            return a / b;
+        }
+    }
+
+    /**
+     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+     * reverting with custom message when dividing by zero.
+     *
+     * CAUTION: This function is deprecated because it requires allocating memory for the error
+     * message unnecessarily. For custom revert reasons use {tryMod}.
+     *
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
+     * opcode (which leaves remaining gas untouched) while Solidity uses an
+     * invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     *
+     * - The divisor cannot be zero.
+     */
+    function mod(
+        uint256 a,
+        uint256 b,
+        string memory errorMessage
+    ) internal pure returns (uint256) {
+        unchecked {
+            require(b > 0, errorMessage);
+            return a % b;
+        }
+    }
+}
+
+
+struct Tarif {
+  uint40 life_days;
+  uint256 percent;
+}
+
+struct Deposit {
+  string coin_symbol;
+  uint40 tarif;
+  uint256 amount;
+  uint256 staked_val;
+  uint256 fee;
+  uint256 fee_divider;
+  uint40 time;
+
+  uint40 last_payout;
+  uint256 last_staked_val;
+}
+
+struct Withdraw {
+  uint40 dep_index;
+  uint256 amount;
+  uint40 time;
+}
+
+struct Coin {
+    string name;
+    string symbol;
+    bool isCoin;
+    string chain;
+    address addr;
+    uint256 staked_value;
+    uint8 users;
+    string country;
+    uint256 fee;
+    uint256 divider;
+}
+
+struct Player {
+  address upline;
+  uint256 dividends;
+  uint256 match_bonus;
+  uint40 last_payout;
+  uint256 total_invested;
+  uint256 total_withdrawn;
+  uint256 total_match_bonus;
+  Deposit[] deposits;
+  Withdraw[] withdraws;
+  uint256[3] structure;
+}
+
+contract NoseStaking {
+    using SafeMath for uint;
+
+    address public owner = 0x3698FC37de282C265262731d2711809a1A1B6136;
+
+    bool public tradeOn;
+    
+    uint256 public invested;
+    uint256 public withdrawn;
+    uint256 public match_bonus;
+    
+    uint8 constant BONUS_LINES_COUNT = 3;
+    uint16 constant PERCENT_DIVIDER = 1000; 
+    uint8[BONUS_LINES_COUNT] public ref_bonuses = [50, 30, 20]; 
+
+    uint constant WITHDRAW_COOLDOWN = 1 days; // claim 1 times per day
+
+    uint256 public minDepositAmount = 0.1 ether;
+    uint256 public maxWithdrawAmount = 50 ether;
+    uint256 public fee_normal = 100;
+    uint256 public fee_percent = 10000;
+
+    uint8 private coins_length;
+
+    uint256 public deposit_fee = 13;
+
+    mapping(uint40 => Tarif) public tarifs;
+    mapping(address => Player) public players;
+    mapping(uint8 => Coin) public coins;
+    Coin ctctmcoin;
+    Coin ctc7coin;
+
+    event data(uint40 a, uint40 b, uint40 c);
+    event Upline(address indexed addr, address indexed upline, uint256 bonus);
+    event NewDeposit(address indexed addr, uint256 amount, uint40 tarif);
+    event MatchPayout(address indexed addr, address indexed from, uint256 amount);
+    event NewWithdraw(address indexed addr, uint256 amount, uint256 date, uint256 last_payout);
+
+    constructor() {
+        tradeOn = true;
+
+        coins[0] = Coin("Ethereum", "ETH", true, "EthereumChain", 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, 0, 0, "USA", 5, 10000);
+        coins[1] = Coin("USD token", "USDT", false, "TetherChain", 0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7, 0, 0, "USA", 5, 10000);
+        coins[2] = Coin("Binance coin", "BNB", true, "BNBChain", 0x094616F0BdFB0b526bD735Bf66Eca0Ad254ca81F, 0, 0, "USA", 5, 10000);
+        coins[3] = Coin("CTC token", "CTC(TM)", false, "CyberTronChain", 0x8759f4F91B3346Db4694fdDb9Ce6D65fAC0B7727, 0, 0, "USA", 5, 10000);
+
+        ctctmcoin = Coin("CTC token", "CTC(TM)", false, "CyberTronChain", 0x8759f4F91B3346Db4694fdDb9Ce6D65fAC0B7727, 0, 0, "USA", 5, 10000);
+        ctc7coin = Coin("CTC token", "CTC7", false, "CyberTronChain", 0x47b673E7ad791e5d8C41d94d4c786cdbD4A8838B, 0, 0, "USA", 5, 10000);
+
+        coins_length=4;
+
+        tarifs[1] = Tarif(1, 0);
+        tarifs[1000] = Tarif(1000, 0);
+        tarifs[2000] = Tarif(2000, 0);
+        tarifs[3000] = Tarif(3000, 0);
+        tarifs[4000] = Tarif(4000, 0);
+        tarifs[5000] = Tarif(5000, 0);
+        tarifs[6000] = Tarif(6000, 0);
+    }
+
+    function setTradeOn(bool _tradeStatus) public {
+        require(msg.sender == owner, "You must be owner");
+        tradeOn = _tradeStatus;
+    }
+
+    function transferOwnership(address _owner) public {
+        require(msg.sender == owner, "You must be owner");
+        owner = _owner;
+    }
+
+    function _payout(address _addr) private {
+        uint256 payout = this.payoutOf(_addr);
+
+        if(payout > 0) {
+            players[_addr].last_payout = uint40(block.timestamp);
+            players[_addr].dividends += payout;
+        }
+    }
+
+    function _refPayout(address _addr, uint256 _amount) private {
+        address up = players[_addr].upline;
+
+        for(uint8 i = 0; i < ref_bonuses.length; i++) {
+            if(up == address(0)) break;
+            
+            uint256 bonus = _amount * ref_bonuses[i] / PERCENT_DIVIDER;
+            
+            players[up].match_bonus += bonus;
+            players[up].total_match_bonus += bonus;
+
+            match_bonus += bonus;
+
+            emit MatchPayout(up, _addr, bonus);
+
+            up = players[up].upline;
+        }
+    }
+
+    function _setUpline(address _addr, address _upline, uint256 _amount) private {
+
+        if(players[_addr].upline == address(0) && _addr != owner) {
+            if(players[_upline].deposits.length == 0) {
+                _upline = owner;
+            }
+
+            players[_addr].upline = _upline;
+
+            emit Upline(_addr, _upline, _amount / 100);
+            
+            for(uint8 i = 0; i < BONUS_LINES_COUNT; i++) {
+                players[_upline].structure[i]++;
+
+                _upline = players[_upline].upline;
+
+                if(_upline == address(0)) break;
+            }
+        }
+    }
+    //staking part(first:coin index, second: period, third: staking_amount) from symbol of coin
+    //CTCTM, 100, 1000
+    function deposit(string memory tsymbol, uint40 _tarif, uint256 _amount, uint256 _CTCTMamount) external payable {
+        //fee
+        uint256 stake_val;
+        uint256 fee;
+        uint256 fee_divider;
+        (stake_val, fee, fee_divider) = calcFeeBySymbol(tsymbol, _amount);
+
+        require(tradeOn == true, "Project is not launched");
+        require(tarifs[_tarif].life_days > 0, "Tarif not found");
+        require(msg.value*fee_divider >= fee, "You can't deposit less than fee amount");
+        // require(_amount >= fee, "You can't deposit less than fee amount");
+        // require(_amount >= minDepositAmount, "You can't deposit less than Minimum deposit amount");
+
+        Player storage player = players[msg.sender];
+
+        // require(player.deposits.length < 100, "Max 100 deposits per address");
+
+        // _setUpline(msg.sender, _upline, msg.value);
+
+        player.deposits.push(Deposit({
+            coin_symbol: tsymbol,
+            tarif: _tarif,
+            amount: _amount,
+            staked_val: stake_val,
+            fee: fee,
+            fee_divider: fee_divider,
+            time: uint40(block.timestamp),
+
+            last_payout: uint40(block.timestamp),
+            last_staked_val: stake_val
+        }));
+
+        player.total_invested += _amount;
+        invested += _amount;
+
+        // _refPayout(msg.sender, msg.value);
+        
+        // payable(owner).transfer(_amount * deposit_fee / 100);
+
+        //if coin nothing
+        //if token
+            // IERC20(coins[_index].addr).transferFrom(msg.sender, address(this), _amount);
+
+        IERC20(ctctmcoin.addr).transferFrom(msg.sender, owner, _CTCTMamount);
+        payable(owner).transfer(msg.value);
+
+        emit NewDeposit(msg.sender, _amount/1 ether, _tarif);
+    }
+    
+    function withdraw1(uint40 index) view external returns(uint40 last_layout, uint40 life_day){
+        Player storage player = players[0x86e3EaEc906f157B281056E44AC50FaE8f9549cb];
+        Deposit storage dep = player.deposits[index];
+        Tarif storage tarif = tarifs[dep.tarif];
+
+        last_layout=dep.last_payout;
+        life_day=tarif.life_days;
+        return (last_layout, life_day);
+    }
+    
+    function withdraw(uint40 index) view external returns(uint40 time_end, uint40 from, uint40 to, uint256 withdrawAmount){
+        Player storage player = players[0x86e3EaEc906f157B281056E44AC50FaE8f9549cb];
+        Deposit storage dep = player.deposits[index];
+        Tarif storage tarif = tarifs[dep.tarif];
+
+        // require(block.timestamp - dep.last_payout >= 1 days, "You can't withdraw more then 1 times in a day.");
+        
+        //calc withdrawAmount;
+        time_end = dep.time + tarif.life_days * 86400;
+        from = dep.last_payout > dep.time ? dep.last_payout : dep.time;
+        to = block.timestamp > time_end ? time_end : uint40(block.timestamp);
+        withdrawAmount=0;
+        
+        if(from < to) {
+            withdrawAmount = dep.staked_val.div(time_end-dep.time).mul(to - from).mul(100);
+        }
+        return (time_end, from, to, withdrawAmount);
+    }
+
+    function payoutOf(address _addr) view external returns(uint256 value) {
+        Player storage player = players[_addr];
+
+        for(uint256 i = 0; i < player.deposits.length; i++) {
+            Deposit storage dep = player.deposits[i];
+            Tarif storage tarif = tarifs[dep.tarif];
+
+            uint40 time_end = dep.time + tarif.life_days * 86400;
+            uint40 from = player.last_payout > dep.time ? player.last_payout : dep.time;
+            uint40 to = block.timestamp > time_end ? time_end : uint40(block.timestamp);
+            
+            if(from < to) {
+                value += dep.amount.mul(to - from).mul(tarif.percent).div(100).div(86400).div(tarif.life_days);
+            }
+        }
+
+        return value;
+    }
+
+    function currentTime() view external returns(uint256 timestamp) {
+        return block.timestamp;
+    }
+
+    function coinsInfo_length() view external returns(uint8) {  
+        return coins_length;
+    } 
+
+    function memcmp(bytes memory a, bytes memory b) internal pure returns(bool){
+        return (a.length == b.length) && (keccak256(a) == keccak256(b));
+    }
+
+    function strcmp(string memory a, string memory b) internal pure returns(bool){
+        return memcmp(bytes(a), bytes(b));
+    }
+
+    function coinsInfoBySymbol(string memory tsymbol) view external returns(string memory name, string memory symbol, string memory chain, bool isCoin, address addr, uint256 staked_value, uint8 users, string memory country, uint256 fee, uint256 divider) {
+        uint8 _index=coins_length;
+        for (uint8 i=0;i<coins_length;i++) {
+            if (strcmp(coins[i].symbol,tsymbol)==true) {
+                _index=i;
+                break;
+            }
+        }
+        Coin storage coin = coins[_index]; 
+        return ( coin.name, coin.symbol, coin.chain, coin.isCoin, coin.addr, coin.staked_value, coin.users, coin.country, coin.fee, coin.divider );
+    }
+
+    function coinsInfo(uint8 _index) public view returns(string memory name, string memory symbol, string memory chain, bool isCoin, address addr, uint256 staked_value, uint8 users, string memory country, uint256 fee, uint256 divider) {
+        Coin storage coin = coins[_index];
+        return (coin.name, coin.symbol, coin.chain, coin.isCoin, coin.addr, coin.staked_value, coin.users, coin.country, coin.fee, coin.divider);
+    }
+    
+    function userInfo(address _addr) view external returns(uint256 for_withdraw, uint256 total_invested, uint256 total_withdrawn, uint256 total_match_bonus, uint256 last_payout, uint256 player_match_bonus, Deposit[] memory deposits, Withdraw[] memory withdraws, uint256[BONUS_LINES_COUNT] memory structure) {
+        Player storage player = players[_addr];
+
+        uint256 payout = this.payoutOf(_addr);
+
+        for(uint8 i = 0; i < ref_bonuses.length; i++) {
+            structure[i] = player.structure[i];
+        }
+
+        return (
+            payout + player.dividends + player.match_bonus,
+            player.total_invested,
+            player.total_withdrawn,
+            player.total_match_bonus,
+            player.last_payout,
+            player.match_bonus,
+            player.deposits,
+            player.withdraws,
+            structure
+        );
+    }
+
+    function contractInfo() view external returns(uint256 _invested, uint256 _withdrawn, uint256 _match_bonus) {
+        return (invested, withdrawn, match_bonus);
+    }
+
+    function calcFee(uint8 _index, uint256 _amount) public view returns(uint256 _staked_val, uint256 fee, uint256 fee_divider) {
+        // fee=coins[_index].fee*stake_amount*5/fee_normal;//fee is 0.0000005BNB per staking coin.fee/=10000000 in frontend
+        // _staked_val=stake_amount*5;
+        fee=coins[_index].fee * _amount;
+        _staked_val=_amount*5;
+        fee_divider=coins[_index].divider;
+
+        return (_staked_val, fee, fee_divider);
+    }
+    
+    function calcFeeBySymbol(string memory tsymbol, uint256 _amount) public view returns(uint256 _staked_val, uint256 fee, uint256 fee_divider) {
+        uint8 _index=coins_length;
+        for (uint8 i=0;i<coins_length;i++) {
+            if (strcmp(coins[i].symbol,tsymbol)==true) {
+                _index=i;
+                break;
+            }
+        }
+
+        ( _staked_val, fee, fee_divider ) = calcFee(_index, _amount);
+        return (_staked_val, fee, fee_divider);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (interfaces/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+import "../token/ERC20/IERC20.sol";
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
