@@ -1,0 +1,709 @@
+/// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.15;
+
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+/// @title Hyperfy Shards Staking Contract
+
+contract Stake is ReentrancyGuard, Ownable {
+
+    address operator;
+    address nftContract;
+    address tokenContract;
+    IERC721 private nft;
+    IERC20 private token;
+
+    struct User {
+        uint256 amtOwed;
+        uint256[] owns;
+        mapping(uint256 => uint256) stakeStart;
+    }
+
+    mapping(address => User) user;
+    mapping(uint256 => address) private tokenOwner;
+    mapping(uint256 => bool) private isLocked;
+
+    address[] private users;
+    uint256 private tokenPerBlock;
+    uint256 private blockStart;
+    uint256 private blockEnd;
+    uint256 private lastHarvest;
+    uint256 private totalHarvestedPeriod;
+    uint256 private maxEmission;
+
+    /// @notice Sets the address of the nft
+    /// @dev Only needed while testing
+    /// @param _nftContract sets the global nft contract address
+
+    function setNFTAddress(address _nftContract) public onlyOwner {
+        nftContract = _nftContract;
+        nft = IERC721(nftContract);
+    }
+
+    /// @notice Sets the address of the market contract
+    /// @dev The market contract which determines whether tokens are locked due to active leases
+    /// @param _operator sets the global operator address
+
+    function setOperator(address _operator) public onlyOwner {
+        operator = _operator;
+    }
+
+    /// @notice Sets the address of the reward token contract
+    /// @dev Approves this contract to spend unlimited amount of the token
+    /// @param _tokenContract sets the global token contract address
+
+    function setRewardToken(address _tokenContract) public onlyOwner {
+        tokenContract = _tokenContract;
+        token = IERC20(tokenContract);
+        token.approve(address(this), 2^255);
+    }
+
+    /// @notice Defines the next period of rewards
+    /// @dev setting values requires the the previous period to have ended
+    /// @param _blockStart defines the start of the next period
+    /// @param _blockEnd defines the end of the next period
+    /// @param _maxEmission defines the maximum amount of tokens to be rewarded per period
+
+    function createPeriod(uint256 _blockStart, uint256 _blockEnd, uint256 _maxEmission) public onlyOwner {
+        require(_blockStart > blockEnd, "Period must start after previous period");
+        require(_blockStart < _blockEnd, "Period must start before it ends");
+        require(_blockStart > block.number, "Period must start after current block");
+        
+        lastHarvest = _blockStart;
+        blockStart = _blockStart;
+        blockEnd = _blockEnd;
+        maxEmission = _maxEmission;
+        tokenPerBlock = _maxEmission / (_blockEnd - _blockStart);
+    }
+
+    /// @notice Can delete the upcoming period if needed
+
+    function deletePeriod() public onlyOwner {
+        require(block.number < blockStart, "Cannot delete after period has started");
+        delete tokenPerBlock;
+        delete blockStart;
+        delete blockEnd;
+        delete maxEmission;
+        delete lastHarvest;
+    }
+
+    /// @notice Needs to be called in order to assign owed tokens to users
+    /// @dev This function can only be called during the current reward period
+    /// @dev Sets lastHarvest variables as the last block of which harvest was called
+
+    function harvest() public nonReentrant {
+        require(block.number >= blockStart && block.number <= blockEnd, "Harvest is not within the period");
+        require(block.number > lastHarvest, "Harvest has already been called");
+
+        uint256 harvestTotal = (block.number - lastHarvest) * tokenPerBlock;
+        uint256 owedPerToken = harvestTotal / nft.balanceOf(address(this));
+
+        if(totalHarvestedPeriod + harvestTotal > maxEmission) {
+            harvestTotal = maxEmission - totalHarvestedPeriod;
+        }
+
+        for(uint256 i = 0; i < users.length; i++) {
+            user[users[i]].amtOwed += (user[users[i]].owns.length * owedPerToken);
+            totalHarvestedPeriod += (user[users[i]].owns.length * owedPerToken);
+        }
+
+        lastHarvest = block.number;
+
+        claim();
+    }
+
+    /// @notice Allows a user to claim owed tokens
+    /// @dev The user simply needs to be owed tokens
+
+    function claim() public {
+        require(user[msg.sender].amtOwed > 0, "No tokens owed");
+
+        token.transfer(msg.sender, user[msg.sender].amtOwed);
+
+        delete user[msg.sender].amtOwed;
+    }
+
+    /// @notice Allows the owner to remove tokens from the contract
+    /// @param addr the address to send the tokens to
+    /// @param amt the amount of tokens to send
+
+    function removeTokens(address addr, uint256 amt) public onlyOwner {
+        require(amt < token.balanceOf(address(this)), "Not enough tokens");
+
+        token.transfer(addr, amt);
+    }
+
+    /// @notice Allows the market contract to lock or unlock a deposited token
+    /// @dev The market contract which determines whether tokens are locked due to active leases
+    /// @param tokenId The token to be locked / unlocked
+    /// @param status Whether the token is locked or unlocked
+
+    function lock(uint256 tokenId, bool status) external {
+        require(nft.ownerOf(tokenId) == address(this), "This token is not staked");
+        require(msg.sender == operator, "Only the operator can lock tokens");
+        isLocked[tokenId] = status;
+    }
+
+    /// @notice Transfers a NFT from the user to the contract
+    /// @dev assigns an owner and staking start time
+    /// @param tokenId The ID of the nft to transfer
+
+    function deposit(uint256 tokenId) public {
+        nft.safeTransferFrom(msg.sender, address(this), tokenId);
+
+        if(user[msg.sender].owns.length == 0) {
+            users.push(msg.sender);
+        }
+
+        tokenOwner[tokenId] = msg.sender;
+        user[msg.sender].owns.push(tokenId);
+        user[msg.sender].stakeStart[tokenId] = block.timestamp;
+    }
+
+    /// @notice Withdraws a NFT from the contract
+    /// @dev Checks to see if locked and if so, returns the token to the user
+    /// @param tokenId The ID of the nft to withdraw
+
+    function withdraw(uint256 tokenId) public nonReentrant {
+        require(tokenOwner[tokenId] == msg.sender, "You are not the owner of this token");
+        require(isLocked[tokenId] == false, "This token is locked");
+
+        nft.safeTransferFrom(address(this), msg.sender, tokenId, "");
+        
+        delete tokenOwner[tokenId];
+        delete user[msg.sender].stakeStart[tokenId];
+
+        if(user[msg.sender].owns.length == 1) {
+            for(uint256 i = 0; i < users.length; i++) {
+                if(users[i] == msg.sender) {
+                    delete users[i];
+                    break;
+                }
+            }
+        }
+        
+        for(uint256 i = 0; i < user[msg.sender].owns.length; i++) {
+            if(user[msg.sender].owns[i] == tokenId) {
+                delete user[msg.sender].owns[i];
+            }
+        }
+    }
+
+    /// @notice Returns the amount of time that a token has been staked
+    /// @param tokenId The ID of the token to return the stakeStart time for
+    /// @param addr The address of the user to return the stakeStart time for
+    /// @return uint256 The unix timestamp which repesents how long the token has been staked for
+
+    function getStakingTime(address addr, uint256 tokenId) external view returns(uint256) {
+        return user[addr].stakeStart[tokenId];
+    }
+
+    /// @notice Returns the address of the owner of a token
+    /// @param tokenId The ID of the token to return the owner for
+    /// @return address The address of the owner of the token
+
+    function getOwner(uint256 tokenId) external view returns(address) {
+        return tokenOwner[tokenId];
+    }
+
+    /// @notice Returns an array of all tokens owned by the user
+    /// @param addr The user address to return owned tokens for
+    /// @return uint256[] An array of all tokens owned by the user
+
+    function getOwned(address addr) external view returns(uint256[] memory) {
+        return user[addr].owns;
+    }
+
+    /// @notice Returns the lock status of a token
+    /// @param tokenId The ID of the token to return the lock status for
+    /// @return bool The lock status of the token
+
+    function getLockStatus(uint256 tokenId) external view returns(bool) {
+        return isLocked[tokenId];
+    }
+
+    /// @notice Returns information about the current or upcoming reward period
+    /// @return tokenPerBlock The amount of tokens rewarded per block
+    /// @return blockStart The block number at which the reward period starts
+    /// @return blockEnd The block number at which the reward period ends
+    /// @return lastHarvest The block number at which the last harvest was made. Defaults to blockStart
+    /// @return totalHarvestedPeriod The number of tokens harvested so far this period
+    /// @return maxEmission the maximum number of tokens that will be rewarded this period
+
+    function getPeriodInfo() external view returns(uint256, uint256, uint256, uint256, uint256, uint256) {
+        return(tokenPerBlock, blockStart, blockEnd, lastHarvest, totalHarvestedPeriod, maxEmission);
+    }
+
+    /// @notice Returns the amount of tokens owed to the user
+    /// @param addr The address of the user to return the owed tokens for
+
+    function getUserOwed(address addr) external view returns(uint256) {
+        return user[addr].amtOwed;
+    }
+
+    /// @notice used to enable safe transfers of the NFT
+
+    function onERC721Received(address, address, uint256, bytes calldata) external pure returns(bytes4) {
+        return bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
+    }
+
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (token/ERC721/IERC721.sol)
+
+pragma solidity ^0.8.0;
+
+import "../../utils/introspection/IERC165.sol";
+
+/**
+ * @dev Required interface of an ERC721 compliant contract.
+ */
+interface IERC721 is IERC165 {
+    /**
+     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.
+     */
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.
+     */
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+
+    /**
+     * @dev Returns the number of tokens in ``owner``'s account.
+     */
+    function balanceOf(address owner) external view returns (uint256 balance);
+
+    /**
+     * @dev Returns the owner of the `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function ownerOf(uint256 tokenId) external view returns (address owner);
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes calldata data
+    ) external;
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
+     * are aware of the ERC721 protocol to prevent tokens from being forever locked.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must have been allowed to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Transfers `tokenId` token from `from` to `to`.
+     *
+     * WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Gives permission to `to` to transfer `tokenId` token to another account.
+     * The approval is cleared when the token is transferred.
+     *
+     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.
+     *
+     * Requirements:
+     *
+     * - The caller must own the token or be an approved operator.
+     * - `tokenId` must exist.
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address to, uint256 tokenId) external;
+
+    /**
+     * @dev Approve or remove `operator` as an operator for the caller.
+     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.
+     *
+     * Requirements:
+     *
+     * - The `operator` cannot be the caller.
+     *
+     * Emits an {ApprovalForAll} event.
+     */
+    function setApprovalForAll(address operator, bool _approved) external;
+
+    /**
+     * @dev Returns the account approved for `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function getApproved(uint256 tokenId) external view returns (address operator);
+
+    /**
+     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.
+     *
+     * See {setApprovalForAll}
+     */
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (security/ReentrancyGuard.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Contract module that helps prevent reentrant calls to a function.
+ *
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
+ * (reentrant) calls to them.
+ *
+ * Note that because there is a single `nonReentrant` guard, functions marked as
+ * `nonReentrant` may not call one another. This can be worked around by making
+ * those functions `private`, and then adding `external` `nonReentrant` entry
+ * points to them.
+ *
+ * TIP: If you would like to learn more about reentrancy and alternative ways
+ * to protect against it, check out our blog post
+ * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ */
+abstract contract ReentrancyGuard {
+    // Booleans are more expensive than uint256 or any type that takes up a full
+    // word because each write operation emits an extra SLOAD to first read the
+    // slot's contents, replace the bits taken up by the boolean, and then write
+    // back. This is the compiler's defense against contract upgrades and
+    // pointer aliasing, and it cannot be disabled.
+
+    // The values being non-zero value makes deployment a bit more expensive,
+    // but in exchange the refund on every call to nonReentrant will be lower in
+    // amount. Since refunds are capped to a percentage of the total
+    // transaction's gas, it is best to keep them low in cases like this one, to
+    // increase the likelihood of the full refund coming into effect.
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        // On the first call to nonReentrant, _notEntered will be true
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+
+        _;
+
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC721/IERC721Receiver.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @title ERC721 token receiver interface
+ * @dev Interface for any contract that wants to support safeTransfers
+ * from ERC721 asset contracts.
+ */
+interface IERC721Receiver {
+    /**
+     * @dev Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom}
+     * by `operator` from `from`, this function is called.
+     *
+     * It must return its Solidity selector to confirm the token transfer.
+     * If any other value is returned or the interface is not implemented by the recipient, the transfer will be reverted.
+     *
+     * The selector can be obtained in Solidity with `IERC721Receiver.onERC721Received.selector`.
+     */
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external returns (bytes4);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)
+
+pragma solidity ^0.8.0;
+
+import "../utils/Context.sol";
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        _checkOwner();
+        _;
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if the sender is not the owner.
+     */
+    function _checkOwner() internal view virtual {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC165 standard, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-165[EIP].
+ *
+ * Implementers can declare support of contract interfaces, which can then be
+ * queried by others ({ERC165Checker}).
+ *
+ * For an implementation, see {ERC165}.
+ */
+interface IERC165 {
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}

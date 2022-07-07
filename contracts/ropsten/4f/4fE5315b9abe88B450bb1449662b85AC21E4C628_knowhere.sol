@@ -1,0 +1,18 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-07-07
+*/
+
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+
+contract knowhere {
+struct Person {
+string name;
+uint age;
+}
+function set(Person memory person) public pure  returns(Person[] memory) {
+    Person[] memory ps = new Person[](1);
+    ps[0] = person;
+    return ps;
+}
+}
