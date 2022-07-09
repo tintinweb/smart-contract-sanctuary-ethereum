@@ -1,0 +1,471 @@
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.12;
+
+import "./NFTContract.sol";
+
+contract Loan is IERC721Receiver {
+  enum State { UNSET, PENDING, REJECTED, APPROVED, PAID }
+ 
+  struct Loan {
+    uint256 nftId;
+    address debtorAddress;
+    uint256 totalAmount;
+    uint256 totalPaid;
+    uint256 timestamp;
+    uint256 maxTime;
+    bool reclaimed;
+  }
+
+  address ierc721Address;
+  IERC721 ierc721;
+  uint256 public interestPercentage;
+  address private ownerAddress;
+  uint256 private maxTime;
+  uint256 private loanId;
+  uint256 private earnings;
+
+  // maps nftId to its state on a loan
+  mapping(uint256 => State) public states;
+
+  // maps address of owner to NFT
+  mapping(address => uint256) public nftOf;
+
+  // maps nftId to loan amount
+  mapping(uint256 => uint256) public loanAmount;
+
+  // maps nftId to paid amount
+  mapping(uint256 => uint256) public paidAmount;
+
+  // maps nftId to loan amount after interest
+  mapping(uint256 => uint256) public loanAmountAfterInterest;
+
+  // maps loanId to loan information
+  mapping(uint256 => Loan) public loanInfoOf;
+
+  // maps nftId to loanId
+  mapping(uint256 => uint256) public loanIdOf;
+
+  constructor(address _ierc721Address) payable {
+    maxTime = 5*60*1000;
+    ierc721Address = _ierc721Address;
+    ierc721 = IERC721(_ierc721Address);
+    interestPercentage = 5;
+    loanId = 0;
+    earnings = 0;
+
+    ownerAddress = msg.sender;
+  }
+
+  function requestLoan(uint256 nftId) public {
+    require(ierc721.ownerOf(nftId) == msg.sender, "You have to be the owner of the NFT.");
+    states[nftId] = State.PENDING;
+
+    if(nftOf[msg.sender] != 0) {
+      states[nftId] = State.REJECTED;
+    }
+  }
+
+  /**
+     * @dev Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom}
+     * by `operator` from `from`, this function is called.
+     *
+     * It must return its Solidity selector to confirm the token transfer.
+     * If any other value is returned or the interface is not implemented by the recipient, the transfer will be reverted.
+     *
+     * The selector can be obtained in Solidity with `IERC721Receiver.onERC721Received.selector`.
+     */
+  function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) external returns (bytes4) {
+    uint256 nftId = tokenId;
+    if(nftOf[from] != 0) {
+      states[nftId] = State.REJECTED;
+    }
+    else if(states[nftId] == State.PENDING) {
+      loanAmountAfterInterest[nftId] = loanAmount[nftId] + (loanAmount[nftId]/100) * interestPercentage;
+      states[nftId] = State.APPROVED;
+      loanId += 1;
+
+      loanIdOf[nftId] = loanId;
+      loanInfoOf[loanId] = Loan(nftId, from, loanAmountAfterInterest[nftId]/100, 0, block.timestamp, maxTime, false);
+
+      nftOf[from] = nftId;
+    }
+  }
+
+  // called by the contract owner
+  function setLoanAmount(uint256 nftId) public onlyOwner() {
+    loanAmount[nftId] = ierc721.getPrice() * 100;
+  }
+
+  function getLoanStatus() public view returns (string memory) {
+    uint256 nftId = nftOf[msg.sender];
+    if (states[nftId] == State.PENDING) {
+      return "Pending";
+    }
+    else if (states[nftId] == State.APPROVED) {
+      return "Approved";
+    }
+    else if (states[nftId] == State.REJECTED) {
+      return "Rejected";
+    }
+    else if (states[nftId] == State.UNSET) {
+      return "Unset";
+    }
+
+    return "Paid";
+  }
+
+  function withdrawLoanAmount() public {
+    uint256 nftId = nftOf[msg.sender];
+    require(states[nftId] == State.APPROVED, "Can't withdraw non approved loan");
+
+    (bool sent,) = payable(msg.sender).call{value: loanAmount[nftId]/100}("");
+    require(sent, "Failure. Ether not sent.");
+  }
+
+  /// Allows the withdrawal of the NFT in case the loan has been paid.
+  /// Called by the original owner of the NFT.
+  function withdrawNFT() public {
+    uint256 nftId = nftOf[msg.sender];
+    require(nftId != 0, "User does not have a loan.");
+    require(states[nftId] == State.PAID, "User did not yet pay his loan.");
+
+    ierc721.safeTransfer(msg.sender, nftId);
+  }
+
+  /// The loan must be paid with a determined interest per quota.
+  /// Called by the owner of the contract.
+  function setInterest(uint8 _interestPercentage) public onlyOwner() {
+    interestPercentage = _interestPercentage;
+  }
+
+  /// The client must pay the quantity they desire in quotas and the interest 
+  /// will be charged at the moment of making effective the payment per quota.
+  function payment() public payable {
+    uint256 nftId = nftOf[msg.sender];
+    require(nftId != 0, "User does not have a loan.");
+    require(states[nftId] == State.APPROVED, "User does not have an approved loan.");
+
+    paidAmount[nftId] += msg.value * 100;
+    loanInfoOf[loanIdOf[nftId]].totalPaid = paidAmount[nftId]/100;
+
+    if (paidAmount[nftId] >= loanAmountAfterInterest[nftId]) {
+      states[nftId] = State.PAID;
+      earnings += (paidAmount[nftId]/100) * interestPercentage;
+    }
+  }
+
+  function getDebt() public view returns (uint256) {
+    uint256 nftId = nftOf[msg.sender];
+    require(nftId != 0, "User does not have a loan.");
+
+    return (loanAmountAfterInterest[nftId] - paidAmount[nftId])/100;
+  }
+
+  function getLoanInformation(uint256 _loanId) public view returns (Loan memory) {
+    return loanInfoOf[_loanId];
+  }
+
+  function setDeadline(uint256 _maxTime) public onlyOwner() {
+    maxTime = _maxTime;
+  }
+
+  function getDeadline() public view returns (uint256) {
+    return maxTime;
+  }
+
+  function takeOwnership(uint256 nftId) public onlyOwner() {
+    Loan memory loan = loanInfoOf[loanIdOf[nftId]];
+    require(!loan.reclaimed, "Loan for this token was already reclaimed.");
+    require(states[nftId] != State.PAID, "Can't take ownership of already paid loan.");
+    require(block.timestamp > loan.maxTime + loan.timestamp, "Loan has not expired yet.");
+
+    loanInfoOf[loanIdOf[nftId]].reclaimed = true;
+  }
+
+  function withdraw(uint256 amount) public onlyOwner() {
+    require(amount < earnings, "You don't have enough earnings.");
+
+    earnings -= amount;
+
+    (bool sent,) = payable(msg.sender).call{value: amount}("");
+    require(sent, "Failure. Ether not sent.");
+  }
+
+  fallback() external payable { }
+
+  modifier onlyOwner() {
+    require(msg.sender == ownerAddress, "You are not the owner");
+    _;
+  }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.12;
+
+// For usage of Strings.toString
+import "@openzeppelin/contracts/utils/Strings.sol";
+
+interface IERC721Receiver {
+  function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) external returns (bytes4);
+}
+
+interface IERC721 {
+  function name() external view returns (string memory);
+
+  function symbol() external view returns (string memory);
+
+  /*event MintedNftId(uint nftId);
+  function safeMint(string memory _name, string memory _description, string memory _imageURI) public payable returns (uint256);
+  function tokenURI(uint256 _nftId) public view returns (string memory);
+  function totalSupply() public view returns (uint256);
+  function balanceOf(address _owner) public view returns (uint256);
+  */
+
+  function ownerOf(uint256 _nftId) external view returns (address);
+
+  function getPrice() external view returns (uint256);
+
+  function safeTransfer(address _to, uint256 _tokenId) external;
+ 
+  /*
+  function setPrice(uint256 _price) external;
+  function getMetadata(uint256 _token_id) external view returns (string memory _name, string memory _description, string memory _imageURI, uint256 _mintDate);
+  */
+}
+
+contract NFTContract is IERC721 {
+  struct NFTMetadata {
+    string name;
+    string description;
+    string imageURI;
+    uint256 timestamp;
+  }
+ 
+  string public _name;
+  string public _symbol;
+  uint256 private nftId;
+  uint256 public price;
+  address private ownerAddress;
+
+  // maps owner address to balance amount
+  mapping(address => uint256) balances;
+
+  // maps nftIDs to owner address
+  mapping(uint256 => address) owners;
+ 
+  // maps nftIDs to its metadata
+  mapping(uint256 => NFTMetadata) metadata;
+
+  uint256[] public _allTokens;
+
+  constructor(string memory name_, string memory symbol_) {
+    _name = name_;
+    _symbol = symbol_;
+    nftId = 0;
+
+    // TODO: Check default price, or maybe require it in the constructor?
+    price = 100000 gwei;
+
+    ownerAddress = msg.sender;
+  }
+
+  function name() public view returns (string memory) {
+    return _name;
+  }
+
+  function symbol() public view returns (string memory) {
+    return _symbol;
+  }
+
+  event MintedNftId(uint nftId);
+
+  function safeMint(string memory _name, string memory _description, string memory _imageURI) public payable returns (uint256) {
+    address owner = msg.sender;
+    require(validOwner(owner), "Minting user must not be address 0");
+    require(msg.value == price, "You should send 'price' ethers");
+
+    nftId += 1;
+    owners[nftId] = owner;
+    balances[owner] += 1;
+    metadata[nftId] = NFTMetadata(_name, _description, _imageURI, block.timestamp);
+
+    _allTokens.push(nftId);
+
+    emit MintedNftId(nftId);
+
+    return nftId;
+  }
+
+  function tokenURI(uint256 _nftId) public view returns (string memory) {
+    require(validOwner(owners[_nftId]), "NFT must be minted");
+
+    return string(abi.encodePacked("baseURI", Strings.toString(_nftId)));
+  }
+
+  /// @notice Count NFTs tracked by this contract
+  /// @return A count of valid NFTs tracked by this contract, where each one of
+  ///  them has an assigned and queryable owner not equal to the zero address
+  function totalSupply() public view returns (uint256) {
+    return _allTokens.length;
+  }
+
+  /// @notice Count all NFTs assigned to an owner
+  /// @dev NFTs assigned to the zero address are considered invalid, and this
+  ///  function throws for queries about the zero address.
+  /// @param _owner An address for whom to query the balance
+  /// @return The number of NFTs owned by `_owner`, possibly zero
+  function balanceOf(address _owner) public view returns (uint256) {
+    require(validOwner(_owner), "Address 0 is reserved");
+
+    return balances[_owner];
+  }
+
+  /// @notice Find the owner of an NFT
+  /// @dev NFTs assigned to zero address are considered invalid, and queries
+  ///  about them do throw.
+  /// @param _nftId The identifier for an NFT
+  /// @return The address of the owner of the NFT
+  function ownerOf(uint256 _nftId) public view returns (address) {
+    require(validOwner(owners[_nftId]), "Query about invalid NFT");
+
+    return owners[_nftId];
+  }
+
+  /// @notice Transfers the ownership of an NFT from one address to another address
+  /// @dev Throws unless `msg.sender` is the current owner, an authorized
+  ///  operator, or the approved address for this NFT. Throws if `_from` is
+  ///  not the current owner. Throws if `_to` is the zero address. Throws if
+  ///  `_tokenId` is not a valid NFT. When transfer is complete, this function
+  ///  checks if `_to` is a smart contract (code size > 0). If so, it calls
+  ///  `onERC721Received` on `_to` and throws if the return value is not
+  ///  `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`.
+  /// @ param _from The current owner of the NFT
+  /// @param _to The new owner
+  /// @param _tokenId The NFT to transfer
+  /// @ param data Additional data with no specified format, sent in call to `_to`
+  function safeTransfer(address _to, uint256 _tokenId) public {
+    require(validOwner(_to), "Address 0 is reserved");
+    address from = msg.sender;
+    require(_to != from, "Can't transfer to itself");
+    address owner = ownerOf(_tokenId);
+    require(from == owner, "Can't transfer if you are not the owner");
+  
+    balances[from] -= 1;
+    balances[_to] += 1;
+
+    owners[_tokenId] = _to;
+
+    if (_to.code.length > 0) { // checks if _to is a contract
+      try IERC721Receiver(_to).onERC721Received(msg.sender, from, _tokenId, bytes("")) returns (bytes4 retval) {
+      } catch (bytes memory reason) {
+        if (reason.length == 0) {
+          revert("ERC721: transfer to non ERC721Receiver implementer");
+        }
+      }
+    }
+  }
+
+  function setPrice(uint256 _price) external onlyOwner() {
+    require(_price > 0, "Price should be greater than 0");
+    price = _price;
+  }
+
+  function getPrice() public view returns (uint256) {
+    return price;
+  }
+
+  function getMetadata(uint256 _token_id) external view onlyNFTOwner(_token_id) returns (string memory _name, string memory _description, string memory _imageURI, uint256 _mintDate) {
+    return (metadata[_token_id].name, metadata[_token_id].description, metadata[_token_id].imageURI, metadata[_token_id].timestamp);
+  }
+ 
+  function validOwner(address _owner) private pure returns (bool) {
+    return _owner != address(0);
+  }
+
+  // TODO: Use ownable interface
+  modifier onlyOwner() {
+    require(msg.sender == ownerAddress, "You are not the owner");
+    _;
+  }
+
+  modifier onlyNFTOwner(uint256 _token_id) {
+    require(msg.sender == owners[_token_id], "You are not the NFT owner");
+    _;
+  }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (utils/Strings.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev String operations.
+ */
+library Strings {
+    bytes16 private constant _HEX_SYMBOLS = "0123456789abcdef";
+    uint8 private constant _ADDRESS_LENGTH = 20;
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation.
+     */
+    function toHexString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0x00";
+        }
+        uint256 temp = value;
+        uint256 length = 0;
+        while (temp != 0) {
+            length++;
+            temp >>= 8;
+        }
+        return toHexString(value, length);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation with fixed length.
+     */
+    function toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+        bytes memory buffer = new bytes(2 * length + 2);
+        buffer[0] = "0";
+        buffer[1] = "x";
+        for (uint256 i = 2 * length + 1; i > 1; --i) {
+            buffer[i] = _HEX_SYMBOLS[value & 0xf];
+            value >>= 4;
+        }
+        require(value == 0, "Strings: hex length insufficient");
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts an `address` with fixed length of 20 bytes to its not checksummed ASCII `string` hexadecimal representation.
+     */
+    function toHexString(address addr) internal pure returns (string memory) {
+        return toHexString(uint256(uint160(addr)), _ADDRESS_LENGTH);
+    }
+}
