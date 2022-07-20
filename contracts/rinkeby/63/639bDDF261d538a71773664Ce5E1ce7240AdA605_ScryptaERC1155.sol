@@ -1,0 +1,84 @@
+// SPDX-License-Identifier: Unlicense
+
+pragma solidity ^0.8.0;
+
+import "./ERC1155Supply.sol";
+import "./Ownable.sol";
+
+contract ScryptaERC1155 is ERC1155Supply, Ownable {
+
+    event ScryptaTransfer(address operator, address indexed from, address indexed to, uint256 indexed id, uint256 value, uint256 timestamp);
+
+    mapping(uint256 => address) public creators;
+    uint256 private _currentTokenId = 0;
+
+    constructor(string memory baseUri) ERC1155(baseUri) {}
+
+    function setCreator(address to, uint256[] memory ids) public onlyOwner {
+        require(to != address(0), "ScryptaERC1155: Null address cannot be the creator.");
+        for (uint256 i = 0; i < ids.length; i++) {
+            uint256 id = ids[i];
+            creators[id] = to;
+        }
+    }
+
+    function create(address creator, uint256 amount) public onlyOwner returns (uint256) {
+        uint256 _id = _currentTokenId++;
+        creators[_id] = creator;
+        _mint(creator, _id, amount, "");
+        return _id;
+    }
+
+    function createBatch(address creator, uint256[] memory amounts) public onlyOwner returns (uint256[] memory) {
+        uint256[] memory ids = new uint256[](amounts.length);
+        for (uint256 i = 0; i < amounts.length; i++) {
+            ids[i] = _currentTokenId++;
+            creators[ids[i]] = creator;
+        }
+        _mintBatch(creator, ids, amounts, "");
+        return ids;
+    }
+
+    function mint(address to, uint256 id, uint256 amount) public onlyOwner {
+        _mint(to, id, amount, "");
+    }
+
+    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts) public onlyOwner {
+        _mintBatch(to, ids, amounts, "");
+    }
+
+    function burn(address from, uint256 id, uint256 amount) public onlyOwner {
+        _burn(from, id, amount);
+    }
+
+    function burnBatch(address from, uint256[] memory ids, uint256[] memory amounts) public onlyOwner {
+        _burnBatch(from, ids, amounts);
+    }
+
+    function setURI(string memory uri) public onlyOwner {
+        _setURI(uri);
+    }
+
+    function safeMultiTransfer(address[] memory from, address[] memory to, uint256[] memory ids, uint256[] memory amounts) public onlyOwner {
+        require(from.length == to.length && from.length == ids.length && from.length == amounts.length, "ScryptaERC1155: All array should be of the same length.");
+        for (uint256 i = 0; i < from.length; i++) {
+            safeTransferFrom(from[i], to[i], ids[i], amounts[i], "");
+        }
+    }
+
+    function isApprovedForAll(address account, address operator) public view virtual override returns (bool) {
+        return operator == owner() || ERC1155.isApprovedForAll(account, operator);
+    }
+
+    function _afterTokenTransfer(
+        address operator,
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        bytes memory data
+    ) internal virtual override {
+        for (uint256 i = 0; i < ids.length; i++)
+            emit ScryptaTransfer(operator, from, to, ids[i], amounts[i], block.timestamp);
+    }
+}
