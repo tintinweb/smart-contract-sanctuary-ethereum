@@ -1,0 +1,2195 @@
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity>=0.8.14;
+
+import "./svgManip.sol";
+import "erc721a/contracts/ERC721A.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/utils/Base64.sol";
+
+interface IAANFT {
+    function _ownerOf(uint256 tokenId) external view returns (address);
+    function _isAlive(uint256 tokenId) external view returns (uint256);
+    function _isMutant(uint256 tokenId) external view returns (uint256);
+    function sacrifice(uint256 tokenId) external;
+    function approve(address to, uint256 tokenId) external;
+}
+
+interface iSVGManip {
+    function random(bytes memory input) external pure returns (uint256);
+    function add_gradients(string memory tokenId, bytes memory output, uint64 eukaryote, uint256 _type) view external returns (bytes memory);
+    function add_filters(string memory tokenId, bytes memory output, uint64 eukaryote, uint64 _type, bool blur) view external returns (bytes memory);
+    function add_nucleus(string memory tokenId, bytes memory output, uint64 _type) view external returns (bytes memory);
+    function add_cell_body(string memory tokenId, bytes memory output, uint64 eukaryote, uint64 _type) external view returns (bytes memory);
+    function add_spooky_overlay(string memory tokenId, bytes memory output, uint64 eukaryote, uint64 _type) view external returns (bytes memory);
+    function add_trait(bytes memory json, string memory trait_type, string memory trait_value) external pure returns (bytes memory);
+    function get_cell_core_color(string memory tokenId) external view returns (uint256);
+    function get_rand_in_range_toStr(uint256 rand, uint256 min, uint256 range) external pure returns (string memory);
+    function _get_seed_phrase() external view returns (string memory);
+    function breedProkaryote(uint256 tokenId, uint256 cell_generation) external view returns (uint256);
+    function breedEukaryotes(uint256 tokenId1, uint256 tokenId2) external view returns (uint256, uint256);
+}
+
+contract cellNFT is ERC721A, Ownable, ReentrancyGuard {
+
+    event ProkaryoteReproductionCycle(uint256 cycles, uint256 mutations, uint256 deaths);
+    event EukaryoteReproductionCycle(string message, string new_cell_type, uint256 new_tokenId);
+
+    struct ReproData {
+        uint64 deaths;
+        uint64 mutations;
+        uint64 cycles;
+        uint64 loop_idx;
+        uint64 repro_count;
+    }
+
+    struct CellData {
+        uint64 eukaryote;
+        uint64 _type;
+        uint64 generation;
+    }
+
+    struct TokenOutput {
+        bytes json;
+        bytes svg_data_bytes;
+    }
+
+    bool public MINT_ACTIVE = true;
+    address public AA_CONTRACT_ADDY = address(0x7B408e4e3bc49d216728484c9e016dD5FE746988);
+    uint256 public TOKENS_MINTED = 0;
+    string[4] internal cell_types = ["Unspecialized Cell", "Epithelial Cell", "Muscle Cell", "Nervous Cell"];
+    string _seed_phrase;
+    address SVGManip_addy = address(0);
+    iSVGManip SVGManip = iSVGManip(SVGManip_addy);
+
+    mapping(uint256 => uint256) token_to_wallet_cells_idx;
+    mapping(uint256 => CellData) cells;
+    mapping(address => uint256[]) wallet_cells;
+
+    modifier isCorrectPayment(uint256 price, uint256 numberOfTokens) {require(price * numberOfTokens == msg.value,"Incorrect ETH value sent");_;}
+
+    constructor(address _iSVGManip_addy) ERC721A("cellNFT", "CL") {
+        SVGManip_addy = _iSVGManip_addy;
+        SVGManip = iSVGManip(SVGManip_addy);
+        _seed_phrase = SVGManip._get_seed_phrase();
+    }
+
+    function sacrifice(uint256 tokenId) external {_burn(tokenId);}
+    function _isEukaryote(uint256 tokenId) external view returns (uint256) {return cells[tokenId].eukaryote;}
+
+    function _sacrifice_protein_for_cell(uint256 tokenId) external nonReentrant {
+        require(MINT_ACTIVE, "not open");
+        require(msg.sender == tx.origin);
+        require(IAANFT(AA_CONTRACT_ADDY)._ownerOf(tokenId) == msg.sender, "don't own");
+        require(IAANFT(AA_CONTRACT_ADDY)._isAlive(tokenId) == 1, "not alive");
+
+        IAANFT(AA_CONTRACT_ADDY).sacrifice(tokenId);
+        _safeMint(msg.sender, 1);
+        cells[TOKENS_MINTED] = CellData({eukaryote: uint64(IAANFT(AA_CONTRACT_ADDY)._isMutant(tokenId)), generation: 1, _type: 0});
+        wallet_cells[msg.sender].push(TOKENS_MINTED);
+        ++TOKENS_MINTED;
+    }
+
+    function breed_n_prokaryotes(uint256 n_cells) external {
+        require(msg.sender == tx.origin);
+        require(n_cells < 50, "too many cells!");
+        ReproData memory repro;
+        uint256[] memory user_cells = wallet_cells[msg.sender];
+        uint256 loop_cell_id;
+        CellData memory loop_cell;
+        require(n_cells < user_cells.length + 1, "more cells than you have!");
+        repro.loop_idx = 0;
+        repro.cycles = 0;
+
+        // breeding_count makes sure no more than 50 reproductions happen per tx
+        // loop_idx prevents an index error in the user_cells[loop_idx] reference
+        while ((repro.cycles < n_cells) && (repro.loop_idx < user_cells.length)) {
+            ++repro.cycles;
+            loop_cell_id = user_cells[repro.loop_idx];
+            loop_cell = cells[loop_cell_id];
+            if (loop_cell.eukaryote == 0) {
+                uint256 repro_outcome = iSVGManip(SVGManip_addy).breedProkaryote(loop_cell_id, loop_cell.generation);
+                if (repro_outcome == 1) {
+                    _burn(loop_cell_id);
+                } else if (repro_outcome == 2) {
+                    ++repro.mutations;
+                    loop_cell.eukaryote = 1;
+                }
+            }
+            ++loop_cell.generation;
+            cells[loop_cell_id] = loop_cell;
+            
+            ++repro.loop_idx;
+        }
+        emit ProkaryoteReproductionCycle(repro.cycles, repro.mutations, repro.deaths);
+    }
+
+    function breed_eukaryotes(uint256 tokenId1, uint256 tokenId2) external {
+        CellData memory cell1 = cells[tokenId1];
+        CellData memory cell2 = cells[tokenId2];
+        CellData memory new_cell = CellData({eukaryote: 1, generation: 1, _type: 0});
+        (uint256 dead_cell, uint256 new_type) = iSVGManip(SVGManip_addy).breedEukaryotes(tokenId1, tokenId2);
+
+        if (dead_cell > 0) {
+            _burn([tokenId1, tokenId2][dead_cell - 1]);
+        } else {
+            wallet_cells[msg.sender].push(TOKENS_MINTED);
+            if (new_type < 3) {
+                new_cell._type = [cell1._type, cell2._type][new_type - 1];
+            } else {
+                uint256 rand = iSVGManip(SVGManip_addy).random(abi.encodePacked("MUTATION", _seed_phrase, Strings.toString(tokenId1), Strings.toString(tokenId2)));
+                new_cell._type = uint64(rand % 3 + 1);
+                
+            }
+            
+            new_cell.generation = 1;
+            cells[TOKENS_MINTED] = new_cell;
+            emit EukaryoteReproductionCycle('First', cell_types[new_cell._type], TOKENS_MINTED);
+            ++TOKENS_MINTED;
+
+
+        }
+    }
+
+    function _get_scale_value(string memory tokenId, uint64 _type) internal view returns (bytes memory) {
+        if (_type == 2) {
+            // Stretch out the muscle cells
+            uint256 rand = SVGManip.random(abi.encodePacked("STRETCH MUSCLE STRETCH", _seed_phrase, tokenId));
+            return abi.encodePacked(
+                "scale(", 
+                Strings.toString(rand % 2 + 1), 
+                ".",
+                SVGManip.get_rand_in_range_toStr(rand, 0, 999), 
+                "1)"
+            );
+        } else {
+            return abi.encodePacked("scale(1,1)");
+        }
+    }
+
+    function _make_svg(string memory tokenId, uint64 eukaryote, uint64 _type) internal view returns (bytes memory) {
+        bytes memory output;
+        output = abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350">\n<rect width="100%" height="100%" fill="black" />');
+        output = SVGManip.add_gradients(tokenId, output, eukaryote, _type);
+        output = SVGManip.add_filters(tokenId, output, eukaryote, _type, false);
+        if (eukaryote == 1) {
+            output = SVGManip.add_filters(tokenId, output, eukaryote, _type, true);
+        }
+        
+        output = abi.encodePacked(
+                output, '\n<g style="transform: rotate(', 
+                SVGManip.get_rand_in_range_toStr(SVGManip.random(abi.encodePacked("CELLS SVG ROTATION", _seed_phrase, tokenId)), 0, 1000), 
+                'deg) ', _get_scale_value(tokenId, _type), ';transform-origin:175px 175px;">'
+            );
+
+        output = SVGManip.add_cell_body(tokenId, output, eukaryote, _type);
+
+        // Nucleus
+        if (eukaryote == 1) {
+            output = SVGManip.add_nucleus(tokenId, output, _type);
+        }
+
+        output = SVGManip.add_spooky_overlay(tokenId, output, eukaryote, _type);
+
+        output = abi.encodePacked(
+            output, '\n</g>\n<rect x="25" y="335" width="300" height="5" style="fill: url(#line_grad); "/>\n</svg>'
+        );
+
+        return output;
+    }
+
+    function _make_json(string memory tokenId_str, uint256 tokenId, uint64 eukaryote, uint64 _type, uint64 generation) internal view returns (bytes memory) {
+        bytes memory output;
+        output = abi.encodePacked('{"name": "Cell #', tokenId_str,
+            '", "description": "Cells are randomly generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use cell NFTs in any way you want.", "attributes": [');
+
+        if (SVGManip.get_cell_core_color(tokenId_str) == 1) { 
+            output = SVGManip.add_trait(output, "Core Color", "Dark");
+        } else {
+            output = SVGManip.add_trait(output, "Core Color", "Light");
+        }
+
+        if (eukaryote == 1) {
+            output = SVGManip.add_trait(output, "Nucleus?", "YES");
+            output = SVGManip.add_trait(output, "Cell Type", cell_types[_type]);
+        } else {
+            output = SVGManip.add_trait(output, "Nucleus?", "no");
+        }
+
+        if (tokenId + 1 > TOKENS_MINTED) {
+            output = SVGManip.add_trait(output, "Found yet?", "No");
+            output = SVGManip.add_trait(output, "In a better place", "No");
+        } else {
+            output = SVGManip.add_trait(output, "Found yet?", "Yes");
+            if (ownerOf(tokenId) == address(0)) {
+                output = SVGManip.add_trait(output, "In a better place", "Yes");
+            } else {
+                output = SVGManip.add_trait(output, "In a better place", "No");
+            }
+        }
+        output = abi.encodePacked(
+            output, 
+            '{"trait_type": "Generation", "value": "',  
+            Strings.toString(generation), '"}'
+        );
+        return output;
+    }
+
+    function tokenURI(uint256 tokenId) override public view returns (string memory) {
+        TokenOutput memory output;
+        CellData memory cell = cells[tokenId];
+
+        string memory tokenId_str = Strings.toString(tokenId);
+
+        output.svg_data_bytes = _make_svg(tokenId_str, cell.eukaryote, cell._type);
+        output.json = _make_json(tokenId_str, tokenId, cell.eukaryote, cell._type, cell.generation);
+        output.json = bytes(string(abi.encodePacked(
+            output.json, 
+            '], "image": "data:image/svg+xml;base64,', 
+            Base64.encode(bytes(string(output.svg_data_bytes))), '"}'
+        )));
+        return string(abi.encodePacked('data:application/json;base64,', Base64.encode(output.json)));
+    }
+
+    function _afterTokenTransfers(address from, address to,uint256 startTokenId,uint256 quantity) internal virtual override {
+        uint256 loop_idx = 0;
+        while (loop_idx < quantity) {
+            _remove_from_wallet_cells(from, startTokenId + loop_idx);
+            update_wallet_cells(to, startTokenId + loop_idx);
+            ++loop_idx;
+        }
+    }
+
+
+    function update_wallet_cells(address to, uint256 tokenId) internal {
+        wallet_cells[to].push(tokenId);
+        token_to_wallet_cells_idx[tokenId] = wallet_cells[to].length - 1;
+    }
+
+    // Owner Only
+    function z_flipMintable() external onlyOwner {MINT_ACTIVE = !MINT_ACTIVE;}
+    function z_updateAAContract(address new_address) external onlyOwner {AA_CONTRACT_ADDY = new_address;}
+    function z_changeSeedPhrase(string memory seed_phrase) external onlyOwner {_seed_phrase = seed_phrase;}
+    function z_make_eukaryote(uint256 tokenId) external onlyOwner {cells[tokenId].eukaryote = 1;}
+    function z_godMint(uint256 amount, uint64 eukaryote, uint64 _type) external onlyOwner {
+        _safeMint(msg.sender, amount);
+        while (amount != 0) {
+            cells[TOKENS_MINTED] = CellData({eukaryote: eukaryote, generation: 1, _type: _type});
+            --amount;
+            ++TOKENS_MINTED;
+        }
+    }
+
+    function withdrawFunds() external payable onlyOwner {
+        (bool success, ) = payable(msg.sender).call{
+            value: address(this).balance
+        }("");
+        require(success);
+    }
+
+    // Remove
+    function z_update_cell_traits(uint256 tokenId, uint64 eukaryote, uint64 new_type) external onlyOwner {
+        CellData memory cell = cells[tokenId];
+        cell.eukaryote = eukaryote;
+        cell._type = new_type;
+        cells[tokenId] = cell;
+    }
+
+    function _remove_from_wallet_cells(address owner_addr, uint256 tokenId) internal {
+        uint[] memory _owner_cells = wallet_cells[owner_addr];
+        if (_owner_cells.length != 0) {
+            for (uint256 i = token_to_wallet_cells_idx[tokenId]; i < _owner_cells.length - 1; ++i) {
+                _owner_cells[i] = _owner_cells[i+1];
+                token_to_wallet_cells_idx[_owner_cells[i+1]]--;
+            }
+            wallet_cells[owner_addr] = _owner_cells;
+            wallet_cells[owner_addr].pop();
+            token_to_wallet_cells_idx[tokenId] = 0;
+        }
+    }
+}
+
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity>=0.8.14;
+
+import "@openzeppelin/contracts/utils/Strings.sol";
+
+contract svgManip {
+    
+    struct AnimateParams {
+        uint32 start_min;
+        uint32 start_range;
+        uint32 end_min;
+        uint32 end_range;
+        uint64 dur_min;
+        uint64 dur_range;
+        string attribute;
+        string value_prefix1;
+        string value_prefix2;
+    }
+    
+    string internal _seed_phrase = "DEVS";
+    function _get_seed_phrase() external view returns (string memory) {return _seed_phrase;}
+    string[2] center_coords = ["150", "175"];
+    
+    mapping(uint64 => string[2]) cell_radii;
+    
+    constructor() {
+        cell_radii[0][0] = "100"; // filter radius
+        cell_radii[0][1] = "150"; // cell radius
+
+        cell_radii[1][0] = "150"; // filter radius
+        cell_radii[1][1] = "200"; // cell radius
+    }
+
+
+    function _get_cell_path(string memory tokenId, uint64 _type, uint64 eukaryote) view internal returns (bytes memory) {
+        if (_type == 1) {
+            return _get_epi_path();
+        } else if (_type == 2) {
+            return _get_muscle_path();
+        } else if (_type == 3) {
+            return _get_nerve_path(tokenId);
+        } else {
+            return _get_unspec_path(eukaryote);
+        }
+    }
+
+    function add_trait(bytes memory json, string memory trait_type, string memory trait_value) external pure returns (bytes memory) {
+        return abi.encodePacked(json, '{"trait_type": "', trait_type, '", "value": "', trait_value, '"}, ');
+    }
+    function add_cell_body(string memory tokenId, bytes memory output, uint64 eukaryote, uint64 _type) external view returns (bytes memory) {
+        output = abi.encodePacked(output, 
+            '\n<g style="fill: url(#radial_grad); filter: url(#displacementFilter);">', 
+            _get_cell_path(tokenId, _type, eukaryote), '\n</g>'
+        );
+        return output;
+    }
+
+    function _add_path_point(string memory prefix, string memory tokenId, string memory points) view internal returns (string memory) {
+        return (_random(abi.encodePacked(prefix, tokenId, "ADD PATH POINT", _seed_phrase)) % 10 == 8) ? '' : points;
+    }
+
+    function _get_nerve_path(string memory tokenId) view internal returns (bytes memory) {
+        return abi.encodePacked(
+            '\n<path d="M -4 155 ', 
+            _add_path_point("FIRST NERVE POINT", tokenId, 'C 66 272 -5 355 4 348 '), 
+            _add_path_point("SECOND NERVE POINT", tokenId, 'C 14 340 105 244 187 241 '), 
+            _add_path_point("THIRD NERVE POINT", tokenId, 'C 269 238 341 329 346 334 '), 
+            _add_path_point("FOURTH NERVE POINT", tokenId, 'C 351 338 288 256 284 176 '), 
+            _add_path_point("FIFTH NERVE POINT", tokenId, 'C 280 96 335 17 328 18 '), 
+            _add_path_point("SIXTH NERVE POINT", tokenId, 'C 321 18 253 98 195 94 '), 
+            _add_path_point("SEVNTH NERVE POINT", tokenId, 'C 136 91 87 5 76 -0 '), 
+            _add_path_point("EGITH NERVE POINT", tokenId, 'C 66 -6 94 66 76 105 '), 
+            'C 58 143 -6 147 -4 155', 
+            '"/>'
+        );
+    }
+    
+    function _get_unspec_path(uint64 eukaryote) view internal returns (bytes memory) {
+        return abi.encodePacked(
+            '\n<ellipse style="fill: url(#radial_grad); filter: url(#displacementFilter);" cx="', 
+            center_coords[eukaryote],  '" cy="', center_coords[eukaryote], 
+            '" rx="', cell_radii[eukaryote][1], '" ry="', cell_radii[eukaryote][1], '"/>'
+        );
+    }
+    
+    function _get_epi_path() pure internal returns (bytes memory) {
+        return abi.encodePacked('\n<path d="M 190 28 C 210 28 250 28 271 75 C 293 123 295 218 276 265 C 256 312 215 312 173 311 C 41 215 41 122 62 75 C 83 28 127 28 148 28 C 170 28 170 28 170 28 C 170 28 170 28 190 28"/>');
+    }
+
+    function _get_muscle_path() pure internal returns (bytes memory) {
+        return abi.encodePacked('\n<path d="M 320 175 C 320 180 250 215 175 215 C 100 215 30 178.049 30 175 C 30 170 100 135 175 135 C 250 135 320 170 320 175 Z"/>');
+    }
+    
+
+    // utils
+    function _random(bytes memory input) internal pure returns (uint256) {return uint256(keccak256(input));}
+    function random(bytes memory input) external pure returns (uint256) {return _random(input);}
+
+    function _get_rand_in_range(uint256 rand, uint256 min, uint256 range) internal pure returns (uint256) {
+        return ((rand % range) + min);
+    }
+
+    function get_rand_in_range_toStr(uint256 rand, uint256 min, uint256 range) external pure returns (string memory) {
+        return _get_rand_in_range_toStr(rand, min, range);
+    }
+    function _get_rand_in_range_toStr(uint256 rand, uint256 min, uint256 range) internal pure returns (string memory) {
+        return Strings.toString(_get_rand_in_range(rand, min, range));
+    }
+
+    function get_rand_rgb(string memory prefix, string memory tokenId, uint256 min, uint256 range) view internal returns (string[3] memory) {
+        return [
+            _get_rand_in_range_toStr(_random(abi.encodePacked(prefix, "RED", _seed_phrase, tokenId)), min, range),
+            _get_rand_in_range_toStr(_random(abi.encodePacked("GREEN", prefix, _seed_phrase, tokenId)), min, range),
+            _get_rand_in_range_toStr(_random(abi.encodePacked(_seed_phrase, "BLUE", tokenId, prefix)), min, range)
+        ];
+    }
+
+    function get_values_and_dur_for_animate(string memory tokenId, string memory prefix, AnimateParams memory a) internal view returns (bytes memory) {
+        return abi.encodePacked('\n<animate repeatCount="indefinite" attributeName="', a.attribute, '" values="', a.value_prefix1,
+            _get_rand_in_range_toStr(_random(abi.encodePacked(prefix, a.attribute, _seed_phrase, "1 One 1 ONE ONE ONE ", tokenId)), a.start_min, a.start_range), ';', a.value_prefix2,
+            _get_rand_in_range_toStr(_random(abi.encodePacked(prefix, a.attribute, _seed_phrase, "TWOOOOOOOO ", tokenId)), a.end_min, a.end_range), ';', a.value_prefix1,
+            _get_rand_in_range_toStr(_random(abi.encodePacked(prefix, a.attribute, _seed_phrase, "1 One 1 ONE ONE ONE ", tokenId)), a.start_min, a.start_range), 
+            '" dur="',
+            _get_rand_in_range_toStr(_random(abi.encodePacked(prefix, a.attribute, _seed_phrase, "DURATION OMG OMG ", tokenId)), a.dur_min, a.dur_range), 's"/>'
+        );
+    }
+
+    function add_rand_rgb_combo(string memory prefix, string memory tokenId, uint256 min, uint256 range) view internal returns (string memory) {
+        return string.concat(
+            get_rand_rgb(prefix, tokenId, min, range)[0], ', ', 
+            get_rand_rgb(prefix, tokenId, min, range)[1], ', ', 
+            get_rand_rgb(prefix, tokenId, min, range)[2]
+        );
+    }
+
+    function _get_cell_core_color(string memory tokenId) internal view returns (uint256){
+        return (_random(abi.encodePacked(_seed_phrase, "CELL CORE COLOR", tokenId)) % 10 == 9) ? 1 : 0;
+    }
+
+    function get_cell_core_color(string memory tokenId) external view returns (uint256){
+        return _get_cell_core_color(tokenId);
+    }
+
+    function add_gradients(string memory tokenId, bytes memory output, uint64 eukaryote, uint256 _type) view external returns (bytes memory) {
+        output = abi.encodePacked(output, '\n<defs>\n<linearGradient id="line_grad" spreadMethod="pad" x1="1" x2="0" y1="0" y2="0">',
+            '\n<stop offset="0" style="stop-color: rgb(',
+            (_get_cell_core_color(tokenId) == 1) ? '69, 69, 69' : '255, 255, 255', 
+            ');"/>\n<stop offset="0.3" style="stop-color: rgb(',
+            add_rand_rgb_combo('GRADIENT NUMBER ONE!!!!!', tokenId, 30, 169), ');">'
+        );
+
+        output = abi.encodePacked(output,
+            '\n<animate repeatCount="indefinite" attributeName="offset" dur="',
+            _get_rand_in_range_toStr(_random(abi.encodePacked(_seed_phrase, "BREAHTING GRADIENT DURATIONNNNNN ", tokenId)), 10, 30),
+            's" values="0.2;0.4;0.2"/>\n</stop>',
+            '\n<stop offset="0.7" style="stop-color: rgb(',
+            add_rand_rgb_combo('SECOND STOP OF GRADIENT', tokenId, 60, 195), ');"/>'
+        );
+        
+        output = abi.encodePacked(output, '\n<stop offset="0.95" style="stop-color: rgba(0, 0, 0, 0);"/>\n</linearGradient>');
+
+        if (_type != 0) { 
+            output = abi.encodePacked(output, '\n<radialGradient cx="175" cy="150" r="175" id="radial_grad" gradientUnits="userSpaceOnUse" xlink:href="#rad_lin_grad">');
+        } else {
+            output = abi.encodePacked(output, '\n<radialGradient cx="', center_coords[eukaryote], '" cy="', center_coords[eukaryote], '" r="', 
+                cell_radii[eukaryote][0], '" id="radial_grad" gradientUnits="userSpaceOnUse" xlink:href="#rad_lin_grad">');
+        }
+
+        output = abi.encodePacked(output, 
+            get_values_and_dur_for_animate(tokenId, "CENTER POINT X COORD", 
+                AnimateParams({start_min: 145, start_range: 30, end_min: 155, end_range: 30, dur_min: 20, dur_range: 100, attribute:"cx", value_prefix1:"", value_prefix2:""})),
+            get_values_and_dur_for_animate(tokenId, "Y COORD CENTER POINTTTTT", 
+                AnimateParams({start_min: 145, start_range: 30, end_min: 155, end_range: 30, dur_min: 20, dur_range: 100, attribute:"cy", value_prefix1:"", value_prefix2:""})));
+        
+        if (_type != 0) {
+            output = abi.encodePacked(output, get_values_and_dur_for_animate(tokenId, "RADIUSSSSS", 
+                AnimateParams({start_min: 100, start_range: 80, end_min: 180, end_range: 220, dur_min: 45, dur_range: 50, attribute:"r", value_prefix1:"", value_prefix2:""})));
+        } else if (eukaryote == 1) {
+            output = abi.encodePacked(output, get_values_and_dur_for_animate(tokenId, "RADIUSSSSS", 
+                AnimateParams({start_min: 130, start_range: 40, end_min: 160, end_range: 40, dur_min: 45, dur_range: 50, attribute:"r", value_prefix1:"", value_prefix2:""})));
+        } else {
+            output = abi.encodePacked(output, get_values_and_dur_for_animate(tokenId, "RADIUSSSSS", 
+                AnimateParams({start_min: 80, start_range: 20, end_min: 110, end_range: 20, dur_min: 45, dur_range: 50, attribute:"r", value_prefix1:"", value_prefix2:""})));
+        }
+        
+        output = abi.encodePacked(output, 
+            '\n</radialGradient>\n<linearGradient id="rad_lin_grad">\n<stop offset="0" style="stop-color: rgb(',
+            (_get_cell_core_color(tokenId) == 1) ? '69, 69, 69' : '255, 255, 255', 
+            ');"/>\n<stop offset="0.3" style="stop-color: rgb(', 
+            add_rand_rgb_combo('GRADIENT NUMBER ONE!!!!!', tokenId, 30, 169), ');">',
+            '\n<animate repeatCount="indefinite" attributeName="offset" dur="',
+            _get_rand_in_range_toStr(_random(abi.encodePacked(_seed_phrase, "BREAHTING GRADIENT DURATIONNNNNN ", tokenId)), 10, 30),
+            's" values="0.2;0.4;0.2"/></stop>\n<stop offset="0.7" style="stop-color: rgb(', 
+            add_rand_rgb_combo('SECOND STOP OF THHE GRADIENT!!!!!', tokenId, 60, 195), ');"/>',
+            '\n<stop offset="0.95" style="stop-color: rgba(0, 0, 0, 0);"/>;</linearGradient></defs>'
+        );
+        return output;
+    }
+
+    function _get_blur_data(bool blur) pure internal returns (string[2] memory) {
+        return (blur == true) ? ['displacementFilter_blur', '\n<feGaussianBlur in="SourceGraphic" stdDeviation="2"/>'] : ['displacementFilter', ''];
+    }
+
+    function add_filters(string memory tokenId, bytes memory output, uint64 eukaryote, uint64 _type, bool blur) view external returns (bytes memory) {
+        return _add_filters(tokenId, output, eukaryote, _type, blur);
+    }
+
+    function _add_filters(string memory tokenId, bytes memory output, uint64 eukaryote, uint64 _type, bool blur) view internal returns (bytes memory) {
+        if ((blur == true) && (eukaryote == 0)) {return output;}
+
+        output = abi.encodePacked(output, '\n<filter id="', _get_blur_data(blur)[0], '">\n<feTurbulence result="turbulence" numOctaves="1" type="turbulence" baseFrequency="0">');
+        if (_type == 3) {
+            output = abi.encodePacked(
+                output, 
+                get_values_and_dur_for_animate(tokenId, string.concat("NOISE GRADIeNTTTTT TURBULANCE", _get_blur_data(blur)[1]),
+                    AnimateParams({start_min: 3, start_range: 6, end_min: 10, end_range: 8, dur_min: 130, dur_range: 90, attribute:"baseFrequency", value_prefix1:"0.0", value_prefix2:"0."})),
+                '\n</feTurbulence>', _get_blur_data(blur)[1], '\n<feDisplacementMap in2="turbulence" in="SourceGraphic" scale="45"/>\n</filter>'
+            );
+        } else if (_type != 0) {
+            output = abi.encodePacked(
+                output, 
+                get_values_and_dur_for_animate(tokenId, string.concat("NOISE GRADIeNTTTTT TURBULANCE", _get_blur_data(blur)[1]),
+                    AnimateParams({start_min: 3, start_range: 6, end_min: 10, end_range: 8, dur_min: 130, dur_range: 90, attribute:"baseFrequency", value_prefix1:"0.00", value_prefix2:"0.0"})),
+                '\n</feTurbulence>', _get_blur_data(blur)[1], '\n<feDisplacementMap in2="turbulence" in="SourceGraphic" scale="45"/>\n</filter>'
+            );
+        } else {
+            output = abi.encodePacked(output, get_values_and_dur_for_animate(tokenId, "NOISE GRADIeNTTTTT TURBULANCE",
+                AnimateParams({start_min: 3, start_range: 6, end_min: 10, end_range: 8, dur_min: 130, dur_range: 90, attribute:"baseFrequency", value_prefix1:"0.00", value_prefix2:"0.0"})),
+                '\n</feTurbulence><feDisplacementMap in2="turbulence" in="SourceGraphic" scale="', cell_radii[eukaryote][0],'" />\n</filter>');
+        }
+        
+        return output;
+    }
+
+    function add_nucleus(string memory tokenId, bytes memory output, uint64 _type) view external returns (bytes memory) {
+        output = abi.encodePacked(output, '\n<ellipse style="fill: rgb(', 
+            (_get_cell_core_color(tokenId) == 1) ? '69, 69, 69' : '255, 255, 255', 
+            ');"'
+        );
+        if (_type == 2) {
+            output = abi.encodePacked(output, 'cx="175" cy="175" rx="20" ry="20">\n</ellipse>'
+            );
+        } else if (_type != 0) {
+            output = abi.encodePacked(output, 'cx="175" cy="175" rx="35" ry="35">',
+                get_values_and_dur_for_animate(tokenId, "CENTER POINT X COORD", 
+                    AnimateParams({start_min: 145, start_range: 30, end_min: 155, end_range: 30, dur_min: 20, dur_range: 100, attribute:"cx", value_prefix1:"", value_prefix2:""})),
+                get_values_and_dur_for_animate(tokenId, "Y COORD CENTER POINTTTTT", 
+                    AnimateParams({start_min: 145, start_range: 30, end_min: 155, end_range: 30, dur_min: 20, dur_range: 100, attribute:"cy", value_prefix1:"", value_prefix2:""})),
+                '\n</ellipse>'
+            );
+
+        } else {
+            output = abi.encodePacked(output, 'cx="100" cy="100" rx="45" ry="45">', 
+                get_values_and_dur_for_animate(tokenId, "CENTER POINT X COORD", 
+                    AnimateParams({start_min: 215, start_range: 5, end_min: 230, end_range: 5, dur_min: 20, dur_range: 100, attribute:"cx", value_prefix1:"", value_prefix2:""})),
+                get_values_and_dur_for_animate(tokenId, "Y COORD CENTER POINTTTTT", 
+                    AnimateParams({start_min: 215, start_range: 5, end_min: 230, end_range: 5, dur_min: 20, dur_range: 100, attribute:"cy", value_prefix1:"", value_prefix2:""})),
+                '\n</ellipse>'
+            );
+        }
+        return output;
+    }
+
+    function add_spooky_overlay(string memory tokenId, bytes memory output, uint64 eukaryote, uint64 _type) view external returns (bytes memory) {
+        if (_type != 0) {
+            output = abi.encodePacked(output, 
+                '\n<g style="transform: scale(1.05, 1.05); transform-origin 170px 170px; fill-opacity:0.6; fill: url(#radial_grad); filter: url(#displacementFilter_blur)">', 
+                _get_cell_path(tokenId, _type, eukaryote), '\n</g>'
+            );
+        } else {
+            output = abi.encodePacked(output, 
+                '\n<ellipse style="fill: url(#radial_grad); filter: url(#displacementFilter); fill-opacity: 0.6;" cx="', 
+                center_coords[eukaryote], '" cy="', center_coords[eukaryote], '" rx="', cell_radii[eukaryote][1], '" ry="', cell_radii[eukaryote][1], '"/>'
+            );
+        }
+        return output;
+    }
+
+    function breedProkaryote(uint256 tokenId, uint256 cell_generation) external view returns (uint256) {
+        uint256 rand = _random(abi.encodePacked(Strings.toString(cell_generation), "BREED CELLS", _seed_phrase, Strings.toString(tokenId)));
+        // Chance of mutatation to eukaryote
+        if (rand % 10 > 4) {
+            return 2;
+        // Chance of death
+        } else if (rand % 10 < 3) {
+            return 1;
+        }
+        return 0;
+    }
+
+
+    function breedEukaryotes(uint256 tokenId1, uint256 tokenId2) external view returns (uint256, uint256) {
+        uint256 rand = _random(abi.encodePacked("BREED EUKARYOTE CELLS", _seed_phrase, Strings.toString(tokenId1), Strings.toString(tokenId2))) % 10;
+        if (rand < 1) { // death
+            rand = _random(abi.encodePacked("CELL DAEATH", _seed_phrase, Strings.toString(tokenId1),Strings.toString(tokenId2)
+            )) % 2;
+            if (rand == 0) {
+                return (1, 0);
+            } else {
+                return (2, 0);
+            }
+        } else if (rand < 4) {
+            return (0, 1);
+        } else if (rand < 8) {
+            return (0, 2);
+        } else { // mutation
+            return (0, 3);
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// ERC721A Contracts v4.1.0
+// Creator: Chiru Labs
+
+pragma solidity ^0.8.4;
+
+/**
+ * @dev Interface of an ERC721A compliant contract.
+ */
+interface IERC721A {
+    /**
+     * The caller must own the token or be an approved operator.
+     */
+    error ApprovalCallerNotOwnerNorApproved();
+
+    /**
+     * The token does not exist.
+     */
+    error ApprovalQueryForNonexistentToken();
+
+    /**
+     * The caller cannot approve to their own address.
+     */
+    error ApproveToCaller();
+
+    /**
+     * Cannot query the balance for the zero address.
+     */
+    error BalanceQueryForZeroAddress();
+
+    /**
+     * Cannot mint to the zero address.
+     */
+    error MintToZeroAddress();
+
+    /**
+     * The quantity of tokens minted must be more than zero.
+     */
+    error MintZeroQuantity();
+
+    /**
+     * The token does not exist.
+     */
+    error OwnerQueryForNonexistentToken();
+
+    /**
+     * The caller must own the token or be an approved operator.
+     */
+    error TransferCallerNotOwnerNorApproved();
+
+    /**
+     * The token must be owned by `from`.
+     */
+    error TransferFromIncorrectOwner();
+
+    /**
+     * Cannot safely transfer to a contract that does not implement the ERC721Receiver interface.
+     */
+    error TransferToNonERC721ReceiverImplementer();
+
+    /**
+     * Cannot transfer to the zero address.
+     */
+    error TransferToZeroAddress();
+
+    /**
+     * The token does not exist.
+     */
+    error URIQueryForNonexistentToken();
+
+    /**
+     * The `quantity` minted with ERC2309 exceeds the safety limit.
+     */
+    error MintERC2309QuantityExceedsLimit();
+
+    /**
+     * The `extraData` cannot be set on an unintialized ownership slot.
+     */
+    error OwnershipNotInitializedForExtraData();
+
+    struct TokenOwnership {
+        // The address of the owner.
+        address addr;
+        // Keeps track of the start time of ownership with minimal overhead for tokenomics.
+        uint64 startTimestamp;
+        // Whether the token has been burned.
+        bool burned;
+        // Arbitrary data similar to `startTimestamp` that can be set through `_extraData`.
+        uint24 extraData;
+    }
+
+    /**
+     * @dev Returns the total amount of tokens stored by the contract.
+     *
+     * Burned tokens are calculated here, use `_totalMinted()` if you want to count just minted tokens.
+     */
+    function totalSupply() external view returns (uint256);
+
+    // ==============================
+    //            IERC165
+    // ==============================
+
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+
+    // ==============================
+    //            IERC721
+    // ==============================
+
+    /**
+     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.
+     */
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.
+     */
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+
+    /**
+     * @dev Returns the number of tokens in ``owner``'s account.
+     */
+    function balanceOf(address owner) external view returns (uint256 balance);
+
+    /**
+     * @dev Returns the owner of the `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function ownerOf(uint256 tokenId) external view returns (address owner);
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes calldata data
+    ) external;
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
+     * are aware of the ERC721 protocol to prevent tokens from being forever locked.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Transfers `tokenId` token from `from` to `to`.
+     *
+     * WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Gives permission to `to` to transfer `tokenId` token to another account.
+     * The approval is cleared when the token is transferred.
+     *
+     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.
+     *
+     * Requirements:
+     *
+     * - The caller must own the token or be an approved operator.
+     * - `tokenId` must exist.
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address to, uint256 tokenId) external;
+
+    /**
+     * @dev Approve or remove `operator` as an operator for the caller.
+     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.
+     *
+     * Requirements:
+     *
+     * - The `operator` cannot be the caller.
+     *
+     * Emits an {ApprovalForAll} event.
+     */
+    function setApprovalForAll(address operator, bool _approved) external;
+
+    /**
+     * @dev Returns the account approved for `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function getApproved(uint256 tokenId) external view returns (address operator);
+
+    /**
+     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.
+     *
+     * See {setApprovalForAll}
+     */
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
+
+    // ==============================
+    //        IERC721Metadata
+    // ==============================
+
+    /**
+     * @dev Returns the token collection name.
+     */
+    function name() external view returns (string memory);
+
+    /**
+     * @dev Returns the token collection symbol.
+     */
+    function symbol() external view returns (string memory);
+
+    /**
+     * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
+     */
+    function tokenURI(uint256 tokenId) external view returns (string memory);
+
+    // ==============================
+    //            IERC2309
+    // ==============================
+
+    /**
+     * @dev Emitted when tokens in `fromTokenId` to `toTokenId` (inclusive) is transferred from `from` to `to`,
+     * as defined in the ERC2309 standard. See `_mintERC2309` for more details.
+     */
+    event ConsecutiveTransfer(uint256 indexed fromTokenId, uint256 toTokenId, address indexed from, address indexed to);
+}
+
+// SPDX-License-Identifier: MIT
+// ERC721A Contracts v4.1.0
+// Creator: Chiru Labs
+
+pragma solidity ^0.8.4;
+
+import './IERC721A.sol';
+
+/**
+ * @dev ERC721 token receiver interface.
+ */
+interface ERC721A__IERC721Receiver {
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external returns (bytes4);
+}
+
+/**
+ * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard,
+ * including the Metadata extension. Built to optimize for lower gas during batch mints.
+ *
+ * Assumes serials are sequentially minted starting at `_startTokenId()`
+ * (defaults to 0, e.g. 0, 1, 2, 3..).
+ *
+ * Assumes that an owner cannot have more than 2**64 - 1 (max value of uint64) of supply.
+ *
+ * Assumes that the maximum token id cannot exceed 2**256 - 1 (max value of uint256).
+ */
+contract ERC721A is IERC721A {
+    // Mask of an entry in packed address data.
+    uint256 private constant BITMASK_ADDRESS_DATA_ENTRY = (1 << 64) - 1;
+
+    // The bit position of `numberMinted` in packed address data.
+    uint256 private constant BITPOS_NUMBER_MINTED = 64;
+
+    // The bit position of `numberBurned` in packed address data.
+    uint256 private constant BITPOS_NUMBER_BURNED = 128;
+
+    // The bit position of `aux` in packed address data.
+    uint256 private constant BITPOS_AUX = 192;
+
+    // Mask of all 256 bits in packed address data except the 64 bits for `aux`.
+    uint256 private constant BITMASK_AUX_COMPLEMENT = (1 << 192) - 1;
+
+    // The bit position of `startTimestamp` in packed ownership.
+    uint256 private constant BITPOS_START_TIMESTAMP = 160;
+
+    // The bit mask of the `burned` bit in packed ownership.
+    uint256 private constant BITMASK_BURNED = 1 << 224;
+
+    // The bit position of the `nextInitialized` bit in packed ownership.
+    uint256 private constant BITPOS_NEXT_INITIALIZED = 225;
+
+    // The bit mask of the `nextInitialized` bit in packed ownership.
+    uint256 private constant BITMASK_NEXT_INITIALIZED = 1 << 225;
+
+    // The bit position of `extraData` in packed ownership.
+    uint256 private constant BITPOS_EXTRA_DATA = 232;
+
+    // Mask of all 256 bits in a packed ownership except the 24 bits for `extraData`.
+    uint256 private constant BITMASK_EXTRA_DATA_COMPLEMENT = (1 << 232) - 1;
+
+    // The mask of the lower 160 bits for addresses.
+    uint256 private constant BITMASK_ADDRESS = (1 << 160) - 1;
+
+    // The maximum `quantity` that can be minted with `_mintERC2309`.
+    // This limit is to prevent overflows on the address data entries.
+    // For a limit of 5000, a total of 3.689e15 calls to `_mintERC2309`
+    // is required to cause an overflow, which is unrealistic.
+    uint256 private constant MAX_MINT_ERC2309_QUANTITY_LIMIT = 5000;
+
+    // The tokenId of the next token to be minted.
+    uint256 private _currentIndex;
+
+    // The number of tokens burned.
+    uint256 private _burnCounter;
+
+    // Token name
+    string private _name;
+
+    // Token symbol
+    string private _symbol;
+
+    // Mapping from token ID to ownership details
+    // An empty struct value does not necessarily mean the token is unowned.
+    // See `_packedOwnershipOf` implementation for details.
+    //
+    // Bits Layout:
+    // - [0..159]   `addr`
+    // - [160..223] `startTimestamp`
+    // - [224]      `burned`
+    // - [225]      `nextInitialized`
+    // - [232..255] `extraData`
+    mapping(uint256 => uint256) private _packedOwnerships;
+
+    // Mapping owner address to address data.
+    //
+    // Bits Layout:
+    // - [0..63]    `balance`
+    // - [64..127]  `numberMinted`
+    // - [128..191] `numberBurned`
+    // - [192..255] `aux`
+    mapping(address => uint256) private _packedAddressData;
+
+    // Mapping from token ID to approved address.
+    mapping(uint256 => address) private _tokenApprovals;
+
+    // Mapping from owner to operator approvals
+    mapping(address => mapping(address => bool)) private _operatorApprovals;
+
+    constructor(string memory name_, string memory symbol_) {
+        _name = name_;
+        _symbol = symbol_;
+        _currentIndex = _startTokenId();
+    }
+
+    /**
+     * @dev Returns the starting token ID.
+     * To change the starting token ID, please override this function.
+     */
+    function _startTokenId() internal view virtual returns (uint256) {
+        return 0;
+    }
+
+    /**
+     * @dev Returns the next token ID to be minted.
+     */
+    function _nextTokenId() internal view returns (uint256) {
+        return _currentIndex;
+    }
+
+    /**
+     * @dev Returns the total number of tokens in existence.
+     * Burned tokens will reduce the count.
+     * To get the total number of tokens minted, please see `_totalMinted`.
+     */
+    function totalSupply() public view override returns (uint256) {
+        // Counter underflow is impossible as _burnCounter cannot be incremented
+        // more than `_currentIndex - _startTokenId()` times.
+        unchecked {
+            return _currentIndex - _burnCounter - _startTokenId();
+        }
+    }
+
+    /**
+     * @dev Returns the total amount of tokens minted in the contract.
+     */
+    function _totalMinted() internal view returns (uint256) {
+        // Counter underflow is impossible as _currentIndex does not decrement,
+        // and it is initialized to `_startTokenId()`
+        unchecked {
+            return _currentIndex - _startTokenId();
+        }
+    }
+
+    /**
+     * @dev Returns the total number of tokens burned.
+     */
+    function _totalBurned() internal view returns (uint256) {
+        return _burnCounter;
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        // The interface IDs are constants representing the first 4 bytes of the XOR of
+        // all function selectors in the interface. See: https://eips.ethereum.org/EIPS/eip-165
+        // e.g. `bytes4(i.functionA.selector ^ i.functionB.selector ^ ...)`
+        return
+            interfaceId == 0x01ffc9a7 || // ERC165 interface ID for ERC165.
+            interfaceId == 0x80ac58cd || // ERC165 interface ID for ERC721.
+            interfaceId == 0x5b5e139f; // ERC165 interface ID for ERC721Metadata.
+    }
+
+    /**
+     * @dev See {IERC721-balanceOf}.
+     */
+    function balanceOf(address owner) public view override returns (uint256) {
+        if (owner == address(0)) revert BalanceQueryForZeroAddress();
+        return _packedAddressData[owner] & BITMASK_ADDRESS_DATA_ENTRY;
+    }
+
+    /**
+     * Returns the number of tokens minted by `owner`.
+     */
+    function _numberMinted(address owner) internal view returns (uint256) {
+        return (_packedAddressData[owner] >> BITPOS_NUMBER_MINTED) & BITMASK_ADDRESS_DATA_ENTRY;
+    }
+
+    /**
+     * Returns the number of tokens burned by or on behalf of `owner`.
+     */
+    function _numberBurned(address owner) internal view returns (uint256) {
+        return (_packedAddressData[owner] >> BITPOS_NUMBER_BURNED) & BITMASK_ADDRESS_DATA_ENTRY;
+    }
+
+    /**
+     * Returns the auxiliary data for `owner`. (e.g. number of whitelist mint slots used).
+     */
+    function _getAux(address owner) internal view returns (uint64) {
+        return uint64(_packedAddressData[owner] >> BITPOS_AUX);
+    }
+
+    /**
+     * Sets the auxiliary data for `owner`. (e.g. number of whitelist mint slots used).
+     * If there are multiple variables, please pack them into a uint64.
+     */
+    function _setAux(address owner, uint64 aux) internal {
+        uint256 packed = _packedAddressData[owner];
+        uint256 auxCasted;
+        // Cast `aux` with assembly to avoid redundant masking.
+        assembly {
+            auxCasted := aux
+        }
+        packed = (packed & BITMASK_AUX_COMPLEMENT) | (auxCasted << BITPOS_AUX);
+        _packedAddressData[owner] = packed;
+    }
+
+    /**
+     * Returns the packed ownership data of `tokenId`.
+     */
+    function _packedOwnershipOf(uint256 tokenId) private view returns (uint256) {
+        uint256 curr = tokenId;
+
+        unchecked {
+            if (_startTokenId() <= curr)
+                if (curr < _currentIndex) {
+                    uint256 packed = _packedOwnerships[curr];
+                    // If not burned.
+                    if (packed & BITMASK_BURNED == 0) {
+                        // Invariant:
+                        // There will always be an ownership that has an address and is not burned
+                        // before an ownership that does not have an address and is not burned.
+                        // Hence, curr will not underflow.
+                        //
+                        // We can directly compare the packed value.
+                        // If the address is zero, packed is zero.
+                        while (packed == 0) {
+                            packed = _packedOwnerships[--curr];
+                        }
+                        return packed;
+                    }
+                }
+        }
+        revert OwnerQueryForNonexistentToken();
+    }
+
+    /**
+     * Returns the unpacked `TokenOwnership` struct from `packed`.
+     */
+    function _unpackedOwnership(uint256 packed) private pure returns (TokenOwnership memory ownership) {
+        ownership.addr = address(uint160(packed));
+        ownership.startTimestamp = uint64(packed >> BITPOS_START_TIMESTAMP);
+        ownership.burned = packed & BITMASK_BURNED != 0;
+        ownership.extraData = uint24(packed >> BITPOS_EXTRA_DATA);
+    }
+
+    /**
+     * Returns the unpacked `TokenOwnership` struct at `index`.
+     */
+    function _ownershipAt(uint256 index) internal view returns (TokenOwnership memory) {
+        return _unpackedOwnership(_packedOwnerships[index]);
+    }
+
+    /**
+     * @dev Initializes the ownership slot minted at `index` for efficiency purposes.
+     */
+    function _initializeOwnershipAt(uint256 index) internal {
+        if (_packedOwnerships[index] == 0) {
+            _packedOwnerships[index] = _packedOwnershipOf(index);
+        }
+    }
+
+    /**
+     * Gas spent here starts off proportional to the maximum mint batch size.
+     * It gradually moves to O(1) as tokens get transferred around in the collection over time.
+     */
+    function _ownershipOf(uint256 tokenId) internal view returns (TokenOwnership memory) {
+        return _unpackedOwnership(_packedOwnershipOf(tokenId));
+    }
+
+    /**
+     * @dev Packs ownership data into a single uint256.
+     */
+    function _packOwnershipData(address owner, uint256 flags) private view returns (uint256 result) {
+        assembly {
+            // Mask `owner` to the lower 160 bits, in case the upper bits somehow aren't clean.
+            owner := and(owner, BITMASK_ADDRESS)
+            // `owner | (block.timestamp << BITPOS_START_TIMESTAMP) | flags`.
+            result := or(owner, or(shl(BITPOS_START_TIMESTAMP, timestamp()), flags))
+        }
+    }
+
+    /**
+     * @dev See {IERC721-ownerOf}.
+     */
+    function ownerOf(uint256 tokenId) public view override returns (address) {
+        return address(uint160(_packedOwnershipOf(tokenId)));
+    }
+
+    /**
+     * @dev See {IERC721Metadata-name}.
+     */
+    function name() public view virtual override returns (string memory) {
+        return _name;
+    }
+
+    /**
+     * @dev See {IERC721Metadata-symbol}.
+     */
+    function symbol() public view virtual override returns (string memory) {
+        return _symbol;
+    }
+
+    /**
+     * @dev See {IERC721Metadata-tokenURI}.
+     */
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        if (!_exists(tokenId)) revert URIQueryForNonexistentToken();
+
+        string memory baseURI = _baseURI();
+        return bytes(baseURI).length != 0 ? string(abi.encodePacked(baseURI, _toString(tokenId))) : '';
+    }
+
+    /**
+     * @dev Base URI for computing {tokenURI}. If set, the resulting URI for each
+     * token will be the concatenation of the `baseURI` and the `tokenId`. Empty
+     * by default, it can be overridden in child contracts.
+     */
+    function _baseURI() internal view virtual returns (string memory) {
+        return '';
+    }
+
+    /**
+     * @dev Returns the `nextInitialized` flag set if `quantity` equals 1.
+     */
+    function _nextInitializedFlag(uint256 quantity) private pure returns (uint256 result) {
+        // For branchless setting of the `nextInitialized` flag.
+        assembly {
+            // `(quantity == 1) << BITPOS_NEXT_INITIALIZED`.
+            result := shl(BITPOS_NEXT_INITIALIZED, eq(quantity, 1))
+        }
+    }
+
+    /**
+     * @dev See {IERC721-approve}.
+     */
+    function approve(address to, uint256 tokenId) public override {
+        address owner = ownerOf(tokenId);
+
+        if (_msgSenderERC721A() != owner)
+            if (!isApprovedForAll(owner, _msgSenderERC721A())) {
+                revert ApprovalCallerNotOwnerNorApproved();
+            }
+
+        _tokenApprovals[tokenId] = to;
+        emit Approval(owner, to, tokenId);
+    }
+
+    /**
+     * @dev See {IERC721-getApproved}.
+     */
+    function getApproved(uint256 tokenId) public view override returns (address) {
+        if (!_exists(tokenId)) revert ApprovalQueryForNonexistentToken();
+
+        return _tokenApprovals[tokenId];
+    }
+
+    /**
+     * @dev See {IERC721-setApprovalForAll}.
+     */
+    function setApprovalForAll(address operator, bool approved) public virtual override {
+        if (operator == _msgSenderERC721A()) revert ApproveToCaller();
+
+        _operatorApprovals[_msgSenderERC721A()][operator] = approved;
+        emit ApprovalForAll(_msgSenderERC721A(), operator, approved);
+    }
+
+    /**
+     * @dev See {IERC721-isApprovedForAll}.
+     */
+    function isApprovedForAll(address owner, address operator) public view virtual override returns (bool) {
+        return _operatorApprovals[owner][operator];
+    }
+
+    /**
+     * @dev See {IERC721-safeTransferFrom}.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override {
+        safeTransferFrom(from, to, tokenId, '');
+    }
+
+    /**
+     * @dev See {IERC721-safeTransferFrom}.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) public virtual override {
+        transferFrom(from, to, tokenId);
+        if (to.code.length != 0)
+            if (!_checkContractOnERC721Received(from, to, tokenId, _data)) {
+                revert TransferToNonERC721ReceiverImplementer();
+            }
+    }
+
+    /**
+     * @dev Returns whether `tokenId` exists.
+     *
+     * Tokens can be managed by their owner or approved accounts via {approve} or {setApprovalForAll}.
+     *
+     * Tokens start existing when they are minted (`_mint`),
+     */
+    function _exists(uint256 tokenId) internal view returns (bool) {
+        return
+            _startTokenId() <= tokenId &&
+            tokenId < _currentIndex && // If within bounds,
+            _packedOwnerships[tokenId] & BITMASK_BURNED == 0; // and not burned.
+    }
+
+    /**
+     * @dev Equivalent to `_safeMint(to, quantity, '')`.
+     */
+    function _safeMint(address to, uint256 quantity) internal {
+        _safeMint(to, quantity, '');
+    }
+
+    /**
+     * @dev Safely mints `quantity` tokens and transfers them to `to`.
+     *
+     * Requirements:
+     *
+     * - If `to` refers to a smart contract, it must implement
+     *   {IERC721Receiver-onERC721Received}, which is called for each safe transfer.
+     * - `quantity` must be greater than 0.
+     *
+     * See {_mint}.
+     *
+     * Emits a {Transfer} event for each mint.
+     */
+    function _safeMint(
+        address to,
+        uint256 quantity,
+        bytes memory _data
+    ) internal {
+        _mint(to, quantity);
+
+        unchecked {
+            if (to.code.length != 0) {
+                uint256 end = _currentIndex;
+                uint256 index = end - quantity;
+                do {
+                    if (!_checkContractOnERC721Received(address(0), to, index++, _data)) {
+                        revert TransferToNonERC721ReceiverImplementer();
+                    }
+                } while (index < end);
+                // Reentrancy protection.
+                if (_currentIndex != end) revert();
+            }
+        }
+    }
+
+    /**
+     * @dev Mints `quantity` tokens and transfers them to `to`.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - `quantity` must be greater than 0.
+     *
+     * Emits a {Transfer} event for each mint.
+     */
+    function _mint(address to, uint256 quantity) internal {
+        uint256 startTokenId = _currentIndex;
+        if (to == address(0)) revert MintToZeroAddress();
+        if (quantity == 0) revert MintZeroQuantity();
+
+        _beforeTokenTransfers(address(0), to, startTokenId, quantity);
+
+        // Overflows are incredibly unrealistic.
+        // `balance` and `numberMinted` have a maximum limit of 2**64.
+        // `tokenId` has a maximum limit of 2**256.
+        unchecked {
+            // Updates:
+            // - `balance += quantity`.
+            // - `numberMinted += quantity`.
+            //
+            // We can directly add to the `balance` and `numberMinted`.
+            _packedAddressData[to] += quantity * ((1 << BITPOS_NUMBER_MINTED) | 1);
+
+            // Updates:
+            // - `address` to the owner.
+            // - `startTimestamp` to the timestamp of minting.
+            // - `burned` to `false`.
+            // - `nextInitialized` to `quantity == 1`.
+            _packedOwnerships[startTokenId] = _packOwnershipData(
+                to,
+                _nextInitializedFlag(quantity) | _nextExtraData(address(0), to, 0)
+            );
+
+            uint256 tokenId = startTokenId;
+            uint256 end = startTokenId + quantity;
+            do {
+                emit Transfer(address(0), to, tokenId++);
+            } while (tokenId < end);
+
+            _currentIndex = end;
+        }
+        _afterTokenTransfers(address(0), to, startTokenId, quantity);
+    }
+
+    /**
+     * @dev Mints `quantity` tokens and transfers them to `to`.
+     *
+     * This function is intended for efficient minting only during contract creation.
+     *
+     * It emits only one {ConsecutiveTransfer} as defined in
+     * [ERC2309](https://eips.ethereum.org/EIPS/eip-2309),
+     * instead of a sequence of {Transfer} event(s).
+     *
+     * Calling this function outside of contract creation WILL make your contract
+     * non-compliant with the ERC721 standard.
+     * For full ERC721 compliance, substituting ERC721 {Transfer} event(s) with the ERC2309
+     * {ConsecutiveTransfer} event is only permissible during contract creation.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - `quantity` must be greater than 0.
+     *
+     * Emits a {ConsecutiveTransfer} event.
+     */
+    function _mintERC2309(address to, uint256 quantity) internal {
+        uint256 startTokenId = _currentIndex;
+        if (to == address(0)) revert MintToZeroAddress();
+        if (quantity == 0) revert MintZeroQuantity();
+        if (quantity > MAX_MINT_ERC2309_QUANTITY_LIMIT) revert MintERC2309QuantityExceedsLimit();
+
+        _beforeTokenTransfers(address(0), to, startTokenId, quantity);
+
+        // Overflows are unrealistic due to the above check for `quantity` to be below the limit.
+        unchecked {
+            // Updates:
+            // - `balance += quantity`.
+            // - `numberMinted += quantity`.
+            //
+            // We can directly add to the `balance` and `numberMinted`.
+            _packedAddressData[to] += quantity * ((1 << BITPOS_NUMBER_MINTED) | 1);
+
+            // Updates:
+            // - `address` to the owner.
+            // - `startTimestamp` to the timestamp of minting.
+            // - `burned` to `false`.
+            // - `nextInitialized` to `quantity == 1`.
+            _packedOwnerships[startTokenId] = _packOwnershipData(
+                to,
+                _nextInitializedFlag(quantity) | _nextExtraData(address(0), to, 0)
+            );
+
+            emit ConsecutiveTransfer(startTokenId, startTokenId + quantity - 1, address(0), to);
+
+            _currentIndex = startTokenId + quantity;
+        }
+        _afterTokenTransfers(address(0), to, startTokenId, quantity);
+    }
+
+    /**
+     * @dev Returns the storage slot and value for the approved address of `tokenId`.
+     */
+    function _getApprovedAddress(uint256 tokenId)
+        private
+        view
+        returns (uint256 approvedAddressSlot, address approvedAddress)
+    {
+        mapping(uint256 => address) storage tokenApprovalsPtr = _tokenApprovals;
+        // The following is equivalent to `approvedAddress = _tokenApprovals[tokenId]`.
+        assembly {
+            // Compute the slot.
+            mstore(0x00, tokenId)
+            mstore(0x20, tokenApprovalsPtr.slot)
+            approvedAddressSlot := keccak256(0x00, 0x40)
+            // Load the slot's value from storage.
+            approvedAddress := sload(approvedAddressSlot)
+        }
+    }
+
+    /**
+     * @dev Returns whether the `approvedAddress` is equals to `from` or `msgSender`.
+     */
+    function _isOwnerOrApproved(
+        address approvedAddress,
+        address from,
+        address msgSender
+    ) private pure returns (bool result) {
+        assembly {
+            // Mask `from` to the lower 160 bits, in case the upper bits somehow aren't clean.
+            from := and(from, BITMASK_ADDRESS)
+            // Mask `msgSender` to the lower 160 bits, in case the upper bits somehow aren't clean.
+            msgSender := and(msgSender, BITMASK_ADDRESS)
+            // `msgSender == from || msgSender == approvedAddress`.
+            result := or(eq(msgSender, from), eq(msgSender, approvedAddress))
+        }
+    }
+
+    /**
+     * @dev Transfers `tokenId` from `from` to `to`.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override {
+        uint256 prevOwnershipPacked = _packedOwnershipOf(tokenId);
+
+        if (address(uint160(prevOwnershipPacked)) != from) revert TransferFromIncorrectOwner();
+
+        (uint256 approvedAddressSlot, address approvedAddress) = _getApprovedAddress(tokenId);
+
+        // The nested ifs save around 20+ gas over a compound boolean condition.
+        if (!_isOwnerOrApproved(approvedAddress, from, _msgSenderERC721A()))
+            if (!isApprovedForAll(from, _msgSenderERC721A())) revert TransferCallerNotOwnerNorApproved();
+
+        if (to == address(0)) revert TransferToZeroAddress();
+
+        _beforeTokenTransfers(from, to, tokenId, 1);
+
+        // Clear approvals from the previous owner.
+        assembly {
+            if approvedAddress {
+                // This is equivalent to `delete _tokenApprovals[tokenId]`.
+                sstore(approvedAddressSlot, 0)
+            }
+        }
+
+        // Underflow of the sender's balance is impossible because we check for
+        // ownership above and the recipient's balance can't realistically overflow.
+        // Counter overflow is incredibly unrealistic as tokenId would have to be 2**256.
+        unchecked {
+            // We can directly increment and decrement the balances.
+            --_packedAddressData[from]; // Updates: `balance -= 1`.
+            ++_packedAddressData[to]; // Updates: `balance += 1`.
+
+            // Updates:
+            // - `address` to the next owner.
+            // - `startTimestamp` to the timestamp of transfering.
+            // - `burned` to `false`.
+            // - `nextInitialized` to `true`.
+            _packedOwnerships[tokenId] = _packOwnershipData(
+                to,
+                BITMASK_NEXT_INITIALIZED | _nextExtraData(from, to, prevOwnershipPacked)
+            );
+
+            // If the next slot may not have been initialized (i.e. `nextInitialized == false`) .
+            if (prevOwnershipPacked & BITMASK_NEXT_INITIALIZED == 0) {
+                uint256 nextTokenId = tokenId + 1;
+                // If the next slot's address is zero and not burned (i.e. packed value is zero).
+                if (_packedOwnerships[nextTokenId] == 0) {
+                    // If the next slot is within bounds.
+                    if (nextTokenId != _currentIndex) {
+                        // Initialize the next slot to maintain correctness for `ownerOf(tokenId + 1)`.
+                        _packedOwnerships[nextTokenId] = prevOwnershipPacked;
+                    }
+                }
+            }
+        }
+
+        emit Transfer(from, to, tokenId);
+        _afterTokenTransfers(from, to, tokenId, 1);
+    }
+
+    /**
+     * @dev Equivalent to `_burn(tokenId, false)`.
+     */
+    function _burn(uint256 tokenId) internal virtual {
+        _burn(tokenId, false);
+    }
+
+    /**
+     * @dev Destroys `tokenId`.
+     * The approval is cleared when the token is burned.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     *
+     * Emits a {Transfer} event.
+     */
+    function _burn(uint256 tokenId, bool approvalCheck) internal virtual {
+        uint256 prevOwnershipPacked = _packedOwnershipOf(tokenId);
+
+        address from = address(uint160(prevOwnershipPacked));
+
+        (uint256 approvedAddressSlot, address approvedAddress) = _getApprovedAddress(tokenId);
+
+        if (approvalCheck) {
+            // The nested ifs save around 20+ gas over a compound boolean condition.
+            if (!_isOwnerOrApproved(approvedAddress, from, _msgSenderERC721A()))
+                if (!isApprovedForAll(from, _msgSenderERC721A())) revert TransferCallerNotOwnerNorApproved();
+        }
+
+        _beforeTokenTransfers(from, address(0), tokenId, 1);
+
+        // Clear approvals from the previous owner.
+        assembly {
+            if approvedAddress {
+                // This is equivalent to `delete _tokenApprovals[tokenId]`.
+                sstore(approvedAddressSlot, 0)
+            }
+        }
+
+        // Underflow of the sender's balance is impossible because we check for
+        // ownership above and the recipient's balance can't realistically overflow.
+        // Counter overflow is incredibly unrealistic as `tokenId` would have to be 2**256.
+        unchecked {
+            // Updates:
+            // - `balance -= 1`.
+            // - `numberBurned += 1`.
+            //
+            // We can directly decrement the balance, and increment the number burned.
+            // This is equivalent to `packed -= 1; packed += 1 << BITPOS_NUMBER_BURNED;`.
+            _packedAddressData[from] += (1 << BITPOS_NUMBER_BURNED) - 1;
+
+            // Updates:
+            // - `address` to the last owner.
+            // - `startTimestamp` to the timestamp of burning.
+            // - `burned` to `true`.
+            // - `nextInitialized` to `true`.
+            _packedOwnerships[tokenId] = _packOwnershipData(
+                from,
+                (BITMASK_BURNED | BITMASK_NEXT_INITIALIZED) | _nextExtraData(from, address(0), prevOwnershipPacked)
+            );
+
+            // If the next slot may not have been initialized (i.e. `nextInitialized == false`) .
+            if (prevOwnershipPacked & BITMASK_NEXT_INITIALIZED == 0) {
+                uint256 nextTokenId = tokenId + 1;
+                // If the next slot's address is zero and not burned (i.e. packed value is zero).
+                if (_packedOwnerships[nextTokenId] == 0) {
+                    // If the next slot is within bounds.
+                    if (nextTokenId != _currentIndex) {
+                        // Initialize the next slot to maintain correctness for `ownerOf(tokenId + 1)`.
+                        _packedOwnerships[nextTokenId] = prevOwnershipPacked;
+                    }
+                }
+            }
+        }
+
+        emit Transfer(from, address(0), tokenId);
+        _afterTokenTransfers(from, address(0), tokenId, 1);
+
+        // Overflow not possible, as _burnCounter cannot be exceed _currentIndex times.
+        unchecked {
+            _burnCounter++;
+        }
+    }
+
+    /**
+     * @dev Internal function to invoke {IERC721Receiver-onERC721Received} on a target contract.
+     *
+     * @param from address representing the previous owner of the given token ID
+     * @param to target address that will receive the tokens
+     * @param tokenId uint256 ID of the token to be transferred
+     * @param _data bytes optional data to send along with the call
+     * @return bool whether the call correctly returned the expected magic value
+     */
+    function _checkContractOnERC721Received(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) private returns (bool) {
+        try ERC721A__IERC721Receiver(to).onERC721Received(_msgSenderERC721A(), from, tokenId, _data) returns (
+            bytes4 retval
+        ) {
+            return retval == ERC721A__IERC721Receiver(to).onERC721Received.selector;
+        } catch (bytes memory reason) {
+            if (reason.length == 0) {
+                revert TransferToNonERC721ReceiverImplementer();
+            } else {
+                assembly {
+                    revert(add(32, reason), mload(reason))
+                }
+            }
+        }
+    }
+
+    /**
+     * @dev Directly sets the extra data for the ownership data `index`.
+     */
+    function _setExtraDataAt(uint256 index, uint24 extraData) internal {
+        uint256 packed = _packedOwnerships[index];
+        if (packed == 0) revert OwnershipNotInitializedForExtraData();
+        uint256 extraDataCasted;
+        // Cast `extraData` with assembly to avoid redundant masking.
+        assembly {
+            extraDataCasted := extraData
+        }
+        packed = (packed & BITMASK_EXTRA_DATA_COMPLEMENT) | (extraDataCasted << BITPOS_EXTRA_DATA);
+        _packedOwnerships[index] = packed;
+    }
+
+    /**
+     * @dev Returns the next extra data for the packed ownership data.
+     * The returned result is shifted into position.
+     */
+    function _nextExtraData(
+        address from,
+        address to,
+        uint256 prevOwnershipPacked
+    ) private view returns (uint256) {
+        uint24 extraData = uint24(prevOwnershipPacked >> BITPOS_EXTRA_DATA);
+        return uint256(_extraData(from, to, extraData)) << BITPOS_EXTRA_DATA;
+    }
+
+    /**
+     * @dev Called during each token transfer to set the 24bit `extraData` field.
+     * Intended to be overridden by the cosumer contract.
+     *
+     * `previousExtraData` - the value of `extraData` before transfer.
+     *
+     * Calling conditions:
+     *
+     * - When `from` and `to` are both non-zero, `from`'s `tokenId` will be
+     * transferred to `to`.
+     * - When `from` is zero, `tokenId` will be minted for `to`.
+     * - When `to` is zero, `tokenId` will be burned by `from`.
+     * - `from` and `to` are never both zero.
+     */
+    function _extraData(
+        address from,
+        address to,
+        uint24 previousExtraData
+    ) internal view virtual returns (uint24) {}
+
+    /**
+     * @dev Hook that is called before a set of serially-ordered token ids are about to be transferred.
+     * This includes minting.
+     * And also called before burning one token.
+     *
+     * startTokenId - the first token id to be transferred
+     * quantity - the amount to be transferred
+     *
+     * Calling conditions:
+     *
+     * - When `from` and `to` are both non-zero, `from`'s `tokenId` will be
+     * transferred to `to`.
+     * - When `from` is zero, `tokenId` will be minted for `to`.
+     * - When `to` is zero, `tokenId` will be burned by `from`.
+     * - `from` and `to` are never both zero.
+     */
+    function _beforeTokenTransfers(
+        address from,
+        address to,
+        uint256 startTokenId,
+        uint256 quantity
+    ) internal virtual {}
+
+    /**
+     * @dev Hook that is called after a set of serially-ordered token ids have been transferred.
+     * This includes minting.
+     * And also called after one token has been burned.
+     *
+     * startTokenId - the first token id to be transferred
+     * quantity - the amount to be transferred
+     *
+     * Calling conditions:
+     *
+     * - When `from` and `to` are both non-zero, `from`'s `tokenId` has been
+     * transferred to `to`.
+     * - When `from` is zero, `tokenId` has been minted for `to`.
+     * - When `to` is zero, `tokenId` has been burned by `from`.
+     * - `from` and `to` are never both zero.
+     */
+    function _afterTokenTransfers(
+        address from,
+        address to,
+        uint256 startTokenId,
+        uint256 quantity
+    ) internal virtual {}
+
+    /**
+     * @dev Returns the message sender (defaults to `msg.sender`).
+     *
+     * If you are writing GSN compatible contracts, you need to override this function.
+     */
+    function _msgSenderERC721A() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function _toString(uint256 value) internal pure returns (string memory ptr) {
+        assembly {
+            // The maximum value of a uint256 contains 78 digits (1 byte per digit),
+            // but we allocate 128 bytes to keep the free memory pointer 32-byte word aliged.
+            // We will need 1 32-byte word to store the length,
+            // and 3 32-byte words to store a maximum of 78 digits. Total: 32 + 3 * 32 = 128.
+            ptr := add(mload(0x40), 128)
+            // Update the free memory pointer to allocate.
+            mstore(0x40, ptr)
+
+            // Cache the end of the memory to calculate the length later.
+            let end := ptr
+
+            // We write the string from the rightmost digit to the leftmost digit.
+            // The following is essentially a do-while loop that also handles the zero case.
+            // Costs a bit more than early returning for the zero case,
+            // but cheaper in terms of deployment and overall runtime costs.
+            for {
+                // Initialize and perform the first pass without check.
+                let temp := value
+                // Move the pointer 1 byte leftwards to point to an empty character slot.
+                ptr := sub(ptr, 1)
+                // Write the character to the pointer. 48 is the ASCII index of '0'.
+                mstore8(ptr, add(48, mod(temp, 10)))
+                temp := div(temp, 10)
+            } temp {
+                // Keep dividing `temp` until zero.
+                temp := div(temp, 10)
+            } {
+                // Body of the for loop.
+                ptr := sub(ptr, 1)
+                mstore8(ptr, add(48, mod(temp, 10)))
+            }
+
+            let length := sub(end, ptr)
+            // Move the pointer 32 bytes leftwards to make room for the length.
+            ptr := sub(ptr, 32)
+            // Store the length.
+            mstore(ptr, length)
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (utils/Strings.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev String operations.
+ */
+library Strings {
+    bytes16 private constant _HEX_SYMBOLS = "0123456789abcdef";
+    uint8 private constant _ADDRESS_LENGTH = 20;
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation.
+     */
+    function toHexString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0x00";
+        }
+        uint256 temp = value;
+        uint256 length = 0;
+        while (temp != 0) {
+            length++;
+            temp >>= 8;
+        }
+        return toHexString(value, length);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation with fixed length.
+     */
+    function toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+        bytes memory buffer = new bytes(2 * length + 2);
+        buffer[0] = "0";
+        buffer[1] = "x";
+        for (uint256 i = 2 * length + 1; i > 1; --i) {
+            buffer[i] = _HEX_SYMBOLS[value & 0xf];
+            value >>= 4;
+        }
+        require(value == 0, "Strings: hex length insufficient");
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts an `address` with fixed length of 20 bytes to its not checksummed ASCII `string` hexadecimal representation.
+     */
+    function toHexString(address addr) internal pure returns (string memory) {
+        return toHexString(uint256(uint160(addr)), _ADDRESS_LENGTH);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (utils/Base64.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides a set of functions to operate with Base64 strings.
+ *
+ * _Available since v4.5._
+ */
+library Base64 {
+    /**
+     * @dev Base64 Encoding/Decoding Table
+     */
+    string internal constant _TABLE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+    /**
+     * @dev Converts a `bytes` to its Bytes64 `string` representation.
+     */
+    function encode(bytes memory data) internal pure returns (string memory) {
+        /**
+         * Inspired by Brecht Devos (Brechtpd) implementation - MIT licence
+         * https://github.com/Brechtpd/base64/blob/e78d9fd951e7b0977ddca77d92dc85183770daf4/base64.sol
+         */
+        if (data.length == 0) return "";
+
+        // Loads the table into memory
+        string memory table = _TABLE;
+
+        // Encoding takes 3 bytes chunks of binary data from `bytes` data parameter
+        // and split into 4 numbers of 6 bits.
+        // The final Base64 length should be `bytes` data length multiplied by 4/3 rounded up
+        // - `data.length + 2`  -> Round up
+        // - `/ 3`              -> Number of 3-bytes chunks
+        // - `4 *`              -> 4 characters for each chunk
+        string memory result = new string(4 * ((data.length + 2) / 3));
+
+        /// @solidity memory-safe-assembly
+        assembly {
+            // Prepare the lookup table (skip the first "length" byte)
+            let tablePtr := add(table, 1)
+
+            // Prepare result pointer, jump over length
+            let resultPtr := add(result, 32)
+
+            // Run over the input, 3 bytes at a time
+            for {
+                let dataPtr := data
+                let endPtr := add(data, mload(data))
+            } lt(dataPtr, endPtr) {
+
+            } {
+                // Advance 3 bytes
+                dataPtr := add(dataPtr, 3)
+                let input := mload(dataPtr)
+
+                // To write each character, shift the 3 bytes (18 bits) chunk
+                // 4 times in blocks of 6 bits for each character (18, 12, 6, 0)
+                // and apply logical AND with 0x3F which is the number of
+                // the previous character in the ASCII table prior to the Base64 Table
+                // The result is then added to the table to get the character to write,
+                // and finally write it in the result pointer but with a left shift
+                // of 256 (1 byte) - 8 (1 ASCII char) = 248 bits
+
+                mstore8(resultPtr, mload(add(tablePtr, and(shr(18, input), 0x3F))))
+                resultPtr := add(resultPtr, 1) // Advance
+
+                mstore8(resultPtr, mload(add(tablePtr, and(shr(12, input), 0x3F))))
+                resultPtr := add(resultPtr, 1) // Advance
+
+                mstore8(resultPtr, mload(add(tablePtr, and(shr(6, input), 0x3F))))
+                resultPtr := add(resultPtr, 1) // Advance
+
+                mstore8(resultPtr, mload(add(tablePtr, and(input, 0x3F))))
+                resultPtr := add(resultPtr, 1) // Advance
+            }
+
+            // When data `bytes` is not exactly 3 bytes long
+            // it is padded with `=` characters at the end
+            switch mod(mload(data), 3)
+            case 1 {
+                mstore8(sub(resultPtr, 1), 0x3d)
+                mstore8(sub(resultPtr, 2), 0x3d)
+            }
+            case 2 {
+                mstore8(sub(resultPtr, 1), 0x3d)
+            }
+        }
+
+        return result;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (security/ReentrancyGuard.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Contract module that helps prevent reentrant calls to a function.
+ *
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
+ * (reentrant) calls to them.
+ *
+ * Note that because there is a single `nonReentrant` guard, functions marked as
+ * `nonReentrant` may not call one another. This can be worked around by making
+ * those functions `private`, and then adding `external` `nonReentrant` entry
+ * points to them.
+ *
+ * TIP: If you would like to learn more about reentrancy and alternative ways
+ * to protect against it, check out our blog post
+ * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ */
+abstract contract ReentrancyGuard {
+    // Booleans are more expensive than uint256 or any type that takes up a full
+    // word because each write operation emits an extra SLOAD to first read the
+    // slot's contents, replace the bits taken up by the boolean, and then write
+    // back. This is the compiler's defense against contract upgrades and
+    // pointer aliasing, and it cannot be disabled.
+
+    // The values being non-zero value makes deployment a bit more expensive,
+    // but in exchange the refund on every call to nonReentrant will be lower in
+    // amount. Since refunds are capped to a percentage of the total
+    // transaction's gas, it is best to keep them low in cases like this one, to
+    // increase the likelihood of the full refund coming into effect.
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        // On the first call to nonReentrant, _notEntered will be true
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+
+        _;
+
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)
+
+pragma solidity ^0.8.0;
+
+import "../utils/Context.sol";
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        _checkOwner();
+        _;
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if the sender is not the owner.
+     */
+    function _checkOwner() internal view virtual {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
