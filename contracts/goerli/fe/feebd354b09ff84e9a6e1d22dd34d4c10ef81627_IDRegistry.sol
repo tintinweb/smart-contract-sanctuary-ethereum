@@ -1,0 +1,370 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.16;
+
+import {ERC2771Context} from "../lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol";
+
+/**
+ * @title IDRegistry
+ * @author varunsrin
+ * @custom:version 0.1
+ *
+ * @notice IDRegistry issues new farcaster account id's (fids) and maintains a mapping between the fid
+ *         and the custody address that owns it. It implements a recovery system which allows a fid
+ *         to be recovered if the address custodying it is lost.
+ *
+ * @dev Function calls use payable to marginally reduce gas usage.
+ */
+contract IDRegistry is ERC2771Context {
+    // solhint-disable-next-line no-empty-blocks
+    constructor(address _trustedForwarder) ERC2771Context(_trustedForwarder) {}
+
+    /*//////////////////////////////////////////////////////////////
+                                 ERRORS
+    //////////////////////////////////////////////////////////////*/
+
+    error Unauthorized(); // The caller does not have the authority to perform this action.
+    error ZeroId(); // The id is zero, which is invalid
+    error HasId(); // The custody address has another id
+
+    error InvalidRecoveryAddr(); // The recovery cannot be the same as the custody address
+    error NoRecovery(); // The recovery request for this id could not be found
+    error Escrow(); // The recovery request is still in escrow
+
+    /*//////////////////////////////////////////////////////////////
+                                 EVENTS
+    //////////////////////////////////////////////////////////////*/
+
+    event Register(address indexed to, uint256 indexed id, address recovery);
+
+    event Transfer(address indexed from, address indexed to, uint256 indexed id);
+
+    event ChangeHome(uint256 indexed id, string url);
+
+    event ChangeRecoveryAddress(address indexed recovery, uint256 indexed id);
+
+    event RequestRecovery(uint256 indexed id, address indexed from, address indexed to);
+
+    event CancelRecovery(uint256 indexed id);
+
+    /*//////////////////////////////////////////////////////////////
+                                 STORAGE
+    //////////////////////////////////////////////////////////////*/
+
+    /**
+     * @notice the most recently issued id
+     *
+     * @dev Id's begin at 1 and are issued sequentially. The zero (0) id is not allowed since zero represent the
+     *      absence of a value in solidity.
+     */
+    uint256 private idCounter;
+
+    // Mapping from custody address to id
+    mapping(address => uint256) public idOf;
+
+    // Mapping from id to recovery address
+    mapping(uint256 => address) public recoveryOf;
+
+    // Mapping from id to recovery start (in blocks)
+    mapping(uint256 => uint256) public recoveryClockOf;
+
+    // Mapping from id to recovery destination address
+    mapping(uint256 => address) public recoveryDestinationOf;
+
+    /*//////////////////////////////////////////////////////////////
+                             REGISTRATION LOGIC
+    //////////////////////////////////////////////////////////////*/
+
+    /**
+     * @notice Register an FID for the caller
+     *
+     * @param recovery the initial recovery address, which can be set to zero to disable recovery
+     */
+    function register(address recovery) external payable {
+        _register(_msgSender(), recovery);
+    }
+
+    /**
+     * @notice Register an FID for the caller and set a Home
+     *
+     * @param recovery the address which can perform recovery operations, set to zero address to disable.
+     * @param homeUrl the home url for the FID
+     */
+    function register(address recovery, string calldata homeUrl) external payable {
+        _register(_msgSender(), recovery);
+
+        // Assumption: we can simply grab the latest value of the idCounter which should always equal the id of the
+        // this user at this point in time.
+        emit ChangeHome(idCounter, homeUrl);
+    }
+
+    /**
+     * @notice Register an FID for the target
+     *
+     * @param target the address to register an FID for
+     * @param recovery the address which can perform recovery operations, set to zero address to disable.
+     */
+    function registerTo(address target, address recovery) external payable {
+        _register(target, recovery);
+    }
+
+    /**
+     * @notice Register an FID for the target and set a Home
+     *
+     * @param target the address to register an FID for
+     * @param recovery the address which can perform recovery operations, set to zero address to disable.
+     * @param homeUrl the home url for the FID
+     */
+    function registerTo(
+        address target,
+        address recovery,
+        string calldata homeUrl
+    ) external payable {
+        _register(target, recovery);
+
+        // Assumption: we can simply grab the latest value of the idCounter which should always equal the id of the
+        // this user at this point in time.
+        emit ChangeHome(idCounter, homeUrl);
+    }
+
+    /**
+     * @notice Update the Home URL by emitting it as an event
+     *
+     * @param url the url to emit
+     */
+    function changeHome(string calldata url) external payable {
+        uint256 _id = idOf[_msgSender()];
+        if (_id == 0) revert ZeroId();
+
+        emit ChangeHome(_id, url);
+    }
+
+    // Optimization: inlining this logic into functions can save ~ 20-40 gas per call at the expense of contract size.
+    function _register(address target, address recovery) private {
+        if (idOf[target] != 0) revert HasId();
+
+        unchecked {
+            // Safety: this is a uint256 value and each transaction increments it by one, which would require
+            // spending ~ 2^81 gas to reach the max value (theoretically possible but not practically possible).
+            idCounter++;
+        }
+
+        idOf[target] = idCounter;
+        recoveryOf[idCounter] = recovery;
+        emit Register(target, idCounter, recovery);
+    }
+
+    /*//////////////////////////////////////////////////////////////
+                             TRANSFER LOGIC
+    //////////////////////////////////////////////////////////////*/
+
+    /**
+     * @notice Transfers an id from the current custodial address to the provided address, as long
+     *         as the caller is the custodian.
+     *
+     * @param to The address to transfer the id to.
+     */
+    function transfer(address to) external payable {
+        address _msgSender = _msgSender();
+        uint256 id = idOf[_msgSender];
+
+        if (id == 0) revert ZeroId();
+
+        if (idOf[to] != 0) revert HasId();
+
+        _unsafeTransfer(id, _msgSender, to);
+    }
+
+    /**
+     * @dev Moves ownership of an id to a new address. This function is unsafe because it does
+     *      not perform any invariant checks.
+     */
+    function _unsafeTransfer(
+        uint256 id,
+        address from,
+        address to
+    ) private {
+        idOf[to] = id;
+        idOf[from] = 0;
+
+        // since this is rarely true, checking before assigning is more gas efficient
+        if (recoveryClockOf[id] != 0) recoveryClockOf[id] = 0;
+        recoveryOf[id] = address(0);
+
+        emit Transfer(from, to, id);
+    }
+
+    /*//////////////////////////////////////////////////////////////
+                             RECOVERY LOGIC
+    //////////////////////////////////////////////////////////////*/
+
+    /**
+     * INVARIANT 1:  idOf[address] != 0 if _msgSender() == recoveryOf[idOf[address]] during
+     * invocation of requestRecovery, completeRecovery and cancelRecovery
+     *
+     * recoveryOf[idOf[address]] != address(0) only if idOf[address] != 0 [changeRecoveryAddress]
+     * when idOf[address] == 0, recoveryof[idOf[address]] also == address(0) [_unsafeTransfer]
+     * _msgSender() != address(0) [by definition]
+     *
+     * INVARIANT 2:  idOf[address] != 0 if recoveryClockOf[idOf[address]] != 0
+     *
+     * recoveryClockOf[idOf[address]] != 0 only if idOf[address] != 0 [requestRecovery]
+     * when idOf[address] == 0, recoveryClockOf[idOf[address]] also == 0 [_unsafeTransfer]
+     */
+
+    /**
+     * @notice Choose a recovery address which has the ability to transfer the caller's id to a new
+     *         address. The transfer happens in two steps - a request, and a complete which must
+     *         occur after the escrow period has passed. During escroew, the custody address can
+     *         cancel the transaction. The recovery address can be changed by the custody address
+     *         at any time, or removed by setting it to 0x0. Changing a recovery address will not
+     *         unset a currently active recovery request, that must be explicitly cancelled.
+     *
+     * @param recovery the address to set as the recovery.
+     */
+    function changeRecoveryAddress(address recovery) external payable {
+        uint256 id = idOf[_msgSender()];
+
+        if (id == 0) revert ZeroId();
+
+        recoveryOf[id] = recovery;
+        emit ChangeRecoveryAddress(recovery, id);
+
+        if (recoveryClockOf[id] != 0) {
+            emit CancelRecovery(id);
+            delete recoveryClockOf[id];
+        }
+    }
+
+    /**
+     * @notice Request a transfer of an existing id to a new address by calling this function from
+     *         the recovery address. The request can be completed after escrow period has passed.
+     *
+     * @dev The id != 0 assertion can be skipped because of invariant 1. The escrow period is
+     *       tracked using a clock which is set to zero when no recovery request is active, and is
+     *       set to the block timestamp when a request is opened.
+     *
+     * @param from the address that currently owns the id.
+     * @param to the address to transfer the id to.
+     */
+    function requestRecovery(address from, address to) external payable {
+        uint256 id = idOf[from];
+
+        if (_msgSender() != recoveryOf[id]) revert Unauthorized();
+        if (idOf[to] != 0) revert HasId();
+
+        recoveryClockOf[id] = block.timestamp;
+        recoveryDestinationOf[id] = to;
+        emit RequestRecovery(id, from, to);
+    }
+
+    /**
+     * @notice Complete a transfer of an existing id to a new address by calling this function from
+     *         the recovery address. The request can be completed if the escrow period has passed.
+     *
+     * @dev The id != 0 assertion can be skipped because of invariant 1 and 2.
+     *
+     * @param from the address that currently owns the id.
+     */
+    function completeRecovery(address from) external payable {
+        uint256 id = idOf[from];
+        address destination = recoveryDestinationOf[id];
+
+        if (_msgSender() != recoveryOf[id]) revert Unauthorized();
+        if (recoveryClockOf[id] == 0) revert NoRecovery();
+
+        if (block.timestamp < recoveryClockOf[id] + 259_200) revert Escrow();
+        if (idOf[destination] != 0) revert HasId();
+
+        _unsafeTransfer(id, from, destination);
+        recoveryClockOf[id] = 0;
+    }
+
+    /**
+     * @notice Cancel the recovery of an existing id by calling this function from the recovery
+     *         or custody address. The request can be completed if the escrow period has passed.
+     *
+     * @dev The id != 0 assertion can be skipped because of invariant 1 and 2.
+     *
+     * @param from the address that currently owns the id.
+     */
+    function cancelRecovery(address from) external payable {
+        uint256 id = idOf[from];
+
+        address _msgSender = _msgSender();
+
+        if (_msgSender != from && _msgSender != recoveryOf[id]) revert Unauthorized();
+        if (recoveryClockOf[id] == 0) revert NoRecovery();
+
+        emit CancelRecovery(id);
+        delete recoveryClockOf[id];
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (metatx/ERC2771Context.sol)
+
+pragma solidity ^0.8.9;
+
+import "../utils/Context.sol";
+
+/**
+ * @dev Context variant with ERC2771 support.
+ */
+abstract contract ERC2771Context is Context {
+    /// @custom:oz-upgrades-unsafe-allow state-variable-immutable
+    address private immutable _trustedForwarder;
+
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor(address trustedForwarder) {
+        _trustedForwarder = trustedForwarder;
+    }
+
+    function isTrustedForwarder(address forwarder) public view virtual returns (bool) {
+        return forwarder == _trustedForwarder;
+    }
+
+    function _msgSender() internal view virtual override returns (address sender) {
+        if (isTrustedForwarder(msg.sender)) {
+            // The assembly code is more direct than the Solidity version using `abi.decode`.
+            /// @solidity memory-safe-assembly
+            assembly {
+                sender := shr(96, calldataload(sub(calldatasize(), 20)))
+            }
+        } else {
+            return super._msgSender();
+        }
+    }
+
+    function _msgData() internal view virtual override returns (bytes calldata) {
+        if (isTrustedForwarder(msg.sender)) {
+            return msg.data[:msg.data.length - 20];
+        } else {
+            return super._msgData();
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
