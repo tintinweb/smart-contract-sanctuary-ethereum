@@ -1,0 +1,18 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-08-28
+*/
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.15;
+
+contract NameRegistry {
+    string _name;
+
+    function getName() public view returns(string memory) {
+        return _name;
+    }
+
+    function setName(string calldata name) public {
+        _name = name;
+    }
+}
