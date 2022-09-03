@@ -1,0 +1,541 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.16;
+
+import "Ownable.sol";
+import "Raffle.sol";
+
+contract RaffleFactory is Ownable {
+
+    Raffle[] public RaffleArray;
+    address public rngesusContractAddress;
+    mapping(address => bool) public promotors; 
+
+    function createNewRaffle(
+        string memory _raffleName, 
+        uint256 _ticketPrice,
+        uint256 _totalTickets,
+        address _promotor
+    ) public {
+
+        require(rngesusContractAddress != address(0), "Please ask the owner to set the RNGesus contract address.");
+        require(promotors[_promotor] == true, "Invalid promotor address, contact the owner.");
+
+        address _developer = owner();
+        address _raffleCreator = msg.sender;
+
+        Raffle raffle = new Raffle(
+            _raffleName,
+            _ticketPrice, 
+            _totalTickets, 
+            rngesusContractAddress,
+            _raffleCreator,
+            _promotor, 
+            _developer
+        );
+
+        RaffleArray.push(raffle);
+
+    }
+
+    function setRNGesusContractAddress(address _rngesusContractAddress) external onlyOwner {
+        
+        rngesusContractAddress = _rngesusContractAddress;
+
+    }
+
+    function addPromotor(address _promotor) external onlyOwner {
+
+        promotors[_promotor] = true;
+
+    }
+
+    function removePromotor(address _promotor) external onlyOwner {
+
+        promotors[_promotor] = false;
+
+    }
+
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)
+
+pragma solidity ^0.8.0;
+
+import "Context.sol";
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        _checkOwner();
+        _;
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if the sender is not the owner.
+     */
+    function _checkOwner() internal view virtual {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.16;
+
+import "Ownable.sol";
+import "IERC721Receiver.sol";
+import "IERC721.sol";
+import "IRNGesus.sol";
+
+contract Raffle is Ownable, IERC721Receiver {
+
+    // raffleCreator will get remaining balance of this contract
+    // after the raffle is finished
+    address payable public raffleCreator;
+    string public raffleName;
+    
+    // set address of promotor and developer
+    address payable public promotor;
+    address payable public developer;
+
+    // set deployment date once NFT is received by contract
+    uint256 public deployDate;
+
+    // set total tickets, ticket price and keep track of how many tickets are left
+    uint256 public totalTickets;
+    uint256 public ticketPrice;
+    uint256 public ticketsLeft;
+
+    // set the contract address and token id of the price
+    address public nftContractAddress;
+    uint256 public nftTokenId;
+
+    // array with all addresses that joined the raffle
+    address[] public raffleBox;
+
+    // request id for rngesus
+    uint256 public rngesusRequestId;
+
+    // keep track of how many tickets (players can have multiple tickets)
+    // requested a refund
+    uint256 public refundRequests;
+
+    address public rngesusContractAddress;
+
+    address public winner;
+
+    // keep a struct with player info
+    struct Player {
+        uint256 ticketsBought;
+        bool refundRequested;
+        bool isRefunded;
+    }
+
+    // mapping from address to Player struct
+    mapping(address => Player) public players;
+
+    // raffle state
+    enum RAFFLE_STATE {
+        WAITING_FOR_NFT,
+        TICKET_SALE_OPEN,
+        DRAW_WINNER,
+        WAITING_FOR_PAYOUT,
+        RAFFLE_FINISHED,
+        REFUND_TICKET
+    }
+
+    // raffleState variable
+    RAFFLE_STATE public raffleState;
+
+    event Winner(address winner);
+
+    constructor(
+        string memory _raffleName,
+        uint256 _ticketPrice, 
+        uint256 _totalTickets, 
+        address _rngesusContractAddress, 
+        address _raffleCreator,
+        address _promotor, 
+        address _developer
+        
+        ) {
+
+        // transfer ownership to the raffleCreator
+        transferOwnership(_raffleCreator);
+
+        // max 1000 ticket per raffle
+        require(_totalTickets <= 1000, "Maximum tickets is 1000");
+        require(_totalTickets >= 10, "Minimum tickets is 10");
+
+        // set raffleCreator, promotor and developer addresses
+        raffleCreator = payable(_raffleCreator);
+        promotor = payable(_promotor);
+        developer = payable(_developer);
+
+        // set contract variables
+        raffleName = _raffleName;
+        totalTickets = _totalTickets;
+        ticketsLeft = _totalTickets;  // no sales yet, same as totalTickets
+        ticketPrice = _ticketPrice;
+        rngesusContractAddress = _rngesusContractAddress;
+
+        // set raffle_state to WAITING_FOR_NFT
+        raffleState = RAFFLE_STATE.WAITING_FOR_NFT;
+
+    }
+
+    // we need this function because we use safeTransferFrom to transfer the NFT to this contract
+    function onERC721Received(address, address, uint256, bytes memory) public virtual override returns (bytes4) {
+        return this.onERC721Received.selector;
+    }
+
+    // the raffle creator transfers the nft price to the contract
+    // NFT must be approved by owner before calling this funcion
+    function transferNftToRaffle(address _nftContractAddress, uint256 _nftTokenId) public onlyOwner {
+        
+        // require correct raffle state
+        require(raffleState == RAFFLE_STATE.WAITING_FOR_NFT, "Can't transfer a NFT a this time.");
+
+        // transfer NFT to raffle contract
+        IERC721(_nftContractAddress).safeTransferFrom(msg.sender, address(this), _nftTokenId);
+
+        // set nftContractAddress and nftTokenId
+        nftContractAddress = _nftContractAddress;
+        nftTokenId = _nftTokenId;
+
+        // set deployDate
+        deployDate = block.timestamp;
+
+        // set raffle_state to TICKET_SALE_OPEN
+        raffleState = RAFFLE_STATE.TICKET_SALE_OPEN;
+
+    }
+
+    function buyTicket(uint256 _amountOfTickets) public payable {
+        
+        // check if raffle state is TICKET_SALE_OPEN
+        require(raffleState == RAFFLE_STATE.TICKET_SALE_OPEN, "You can't buy tickets at this time.");
+        
+        // check if correct amount of ETH is send
+        require(msg.value == _amountOfTickets * ticketPrice, "Incorrect value for the amount of tickets.");
+
+        // check if enough tickets are left
+        require(ticketsLeft >= _amountOfTickets, "Not enough tickets left, try to buy less.");
+
+        // check if the player already request a refund
+        require(players[msg.sender].refundRequested == false, "You requested a refund, you can't buy more tickets.");
+        
+        // loop through amountOfTickets
+        for (uint256 amountOfTicketsIndex = 0; amountOfTicketsIndex < _amountOfTickets; amountOfTicketsIndex++) {
+            
+            // add player address to raffleBox array for each ticket
+            raffleBox.push(payable(msg.sender));
+
+        }
+
+        // increase ticketsBought in Player struct with _amountOfTickets
+        players[msg.sender].ticketsBought += _amountOfTickets;
+
+        // decrease ticketsLeft with _amountOfTickets
+        ticketsLeft -= _amountOfTickets;
+
+        // set raffle_state to DRAW_WINNER when no tickets are left
+        if(ticketsLeft == 0) {
+            raffleState = RAFFLE_STATE.DRAW_WINNER;
+        }
+
+    }
+
+    // when all tickets are sold, draw the winner
+    // request a random number from RNGesus, wait a few minutes
+    // and run the payOut function
+    function drawWinner(uint256 _gweiForFulfillPrayer) public payable onlyOwner returns (uint256) {
+
+        // check if all tickets are sold
+        require(raffleBox.length == totalTickets);
+
+        // check if the raffle_state is DRAW_WINNER
+        require(raffleState == RAFFLE_STATE.DRAW_WINNER, "You can't draw the winner at this time.");
+
+        rngesusRequestId = IRNGesus(rngesusContractAddress).prayToRngesus{value: msg.value}(_gweiForFulfillPrayer);
+
+        raffleState = RAFFLE_STATE.WAITING_FOR_PAYOUT;
+
+        return rngesusRequestId;
+
+    }
+
+    // based on the random number of RNGesus, the winner will be drawn
+    // transfer NFT to the winner, pay the promotor and developer
+    // the remaining balance goes to the raffleCreator
+    function payOut() public onlyOwner {
+
+        // check if the raffle_state is WAITING_FOR_PAYOUT
+        require(raffleState == RAFFLE_STATE.WAITING_FOR_PAYOUT, "You can't pay out at this time.");
+
+        // get random number from RNGesus
+        uint256 _randomNumber = IRNGesus(rngesusContractAddress).randomNumbers(rngesusRequestId); 
+
+        // make sure that RNGesus created a random number, it will return 0 if it has not been created
+        require(_randomNumber != 0, "RNGesus has not created a random number yet, please wait a few minutes.");
+
+        // get the winning ticket (index of raffleBox)
+        uint256 _winning_ticket = _randomNumber % totalTickets;
+
+        // get winner_address from winning ticket from raffleBox 
+        address _winner_address = raffleBox[_winning_ticket];
+
+        winner = _winner_address;
+
+        // emit message to tx logs
+        emit Winner(_winner_address);
+
+        // transfer NFT to winner
+        IERC721(nftContractAddress).safeTransferFrom(address(this), _winner_address, nftTokenId);
+
+        // 10% costs are added to the contract value, which means we have
+        // 11 pieces of 10%. Divide contract value by 11 to get the 10% costs
+        uint256 _costs = ticketPrice * totalTickets / 11; 
+
+        // split costs into royalties for developer and fee for promoter
+        uint256 _developerRoyalties = _costs / 2;
+        uint256 _promotorFee = _costs - _developerRoyalties;
+        
+        // transfer royalties to developer and fees to promotor
+        developer.transfer(_developerRoyalties);
+        promotor.transfer(_promotorFee);
+
+        // transfer ticket sales to contract creator
+        raffleCreator.transfer(address(this).balance);
+
+        // set raffle state to RAFFLE_FINISHED
+        raffleState = RAFFLE_STATE.RAFFLE_FINISHED;
+
+    }
+
+    // when more than 5 tickets (one player can hold multiple tickets) request a refund,
+    // initialze REFUND_TICKET state, so players can refund their ticket price
+    function requestRefund() public {
+
+        // check if 7 days has passed
+        require(block.timestamp >= (deployDate + 7 days), "Refunds can be requested 7 days after the start of the raffle.");
+
+        // check if raffle state is TICKET_SALE_OPEN, refunds can only be requested when not all tickets are sold
+        require(raffleState == RAFFLE_STATE.TICKET_SALE_OPEN, "You can't request a refund at this time.");
+
+        // require that the player hasn't requested a refund yet
+        require(players[msg.sender].refundRequested == false, "You already requested a refund");
+
+        // set refendRequested in Player struct to true
+        players[msg.sender].refundRequested = true;
+
+        // get the amount of tickets the player bought
+        uint256 _ticketsBought = players[msg.sender].ticketsBought;
+
+        // add amount of tickets the player bought to refundRequests
+        refundRequests += _ticketsBought;
+
+        // when at least 5 tickets requested a refund, set raffleState to  REFUND_TICKET
+        // one player can hold multiple tickets, it's possible that only 1 player
+        // can set the raffleState to REFUND_TICKET
+        if (refundRequests >= 5) {
+
+            // set raffle state to REFUND_TICKET
+            raffleState = RAFFLE_STATE.REFUND_TICKET;
+
+        }
+
+    }
+
+
+    // refund ticket 
+    function refundTickets() public {
+
+        // check if raffle state is REFUND_TICKET
+        require(raffleState == RAFFLE_STATE.REFUND_TICKET, "You can't refund your tickets at this time.");
+
+        // check if player already requested a refund
+        require(players[msg.sender].isRefunded == false, "You are already refunded.");
+
+        // set isRefunded to true for this address
+        players[msg.sender].isRefunded = true;
+
+        // check how many tickets this player bought
+        uint256 _ticketsBought = players[msg.sender].ticketsBought;
+
+        // the refund amount is the amount of tickets bought * ticket price
+        uint256 _refundAmount = _ticketsBought * ticketPrice;
+
+        // transfer the refund amount to this address
+        payable(msg.sender).transfer(_refundAmount);
+    }
+
+    // cancel raffle by creator
+    function cancelRaffle() public onlyOwner {
+
+        // check if raffle state is OPEN
+        require(raffleState == RAFFLE_STATE.TICKET_SALE_OPEN, "You can't cancel the raffle at this time.");
+
+        // check if 7 days has passed
+        require(block.timestamp >= (deployDate + 7 days), "You can only cancel a raffle 7 days after the NFT has been recieved by this contract.");
+
+        // set raffle state to REFUND_TICKET
+        raffleState = RAFFLE_STATE.REFUND_TICKET;
+
+        // return NFT to raffleCreator
+        returnNftToRaffleCreator();
+
+    }
+
+    // return NFT to raffleCreator when the raffleState is REFUND_TICKET
+    function returnNftToRaffleCreator() public onlyOwner {
+
+        // check if the raffle state is REFUND_TICKET
+        require(raffleState == RAFFLE_STATE.REFUND_TICKET, "You can only return the NFT to you when the raffle is canceled.");
+
+        // check if this contract is the owner of the NFT        
+        require(address(this) == IERC721(nftContractAddress).ownerOf(nftTokenId), "This contract is not the owner of the NFT.");
+
+        // transfer NFT back to raffleCreator
+        IERC721(nftContractAddress).safeTransferFrom(address(this), raffleCreator, nftTokenId);
+
+    }
+
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC721/IERC721Receiver.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @title ERC721 token receiver interface
+ * @dev Interface for any contract that wants to support safeTransfers
+ * from ERC721 asset contracts.
+ */
+interface IERC721Receiver {
+    /**
+     * @dev Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom}
+     * by `operator` from `from`, this function is called.
+     *
+     * It must return its Solidity selector to confirm the token transfer.
+     * If any other value is returned or the interface is not implemented by the recipient, the transfer will be reverted.
+     *
+     * The selector can be obtained in Solidity with `IERC721Receiver.onERC721Received.selector`.
+     */
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external returns (bytes4);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.16;
+
+interface IERC721 {
+  function ownerOf(uint256 _tokenId) external view returns (address);
+  function safeTransferFrom(address from, address to, uint256 tokenId) external;
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.16;
+
+interface IRNGesus {
+
+    function prayToRngesus(uint256 _gweiForFulfillPrayer) external payable returns (uint256);
+    function randomNumbers(uint256 _requestId) external view returns (uint256);
+
+}
