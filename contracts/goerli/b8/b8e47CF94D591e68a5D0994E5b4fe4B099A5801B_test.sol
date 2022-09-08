@@ -1,0 +1,23 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-09-08
+*/
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.16;
+
+contract test {
+    uint256 public number;
+
+    constructor(uint256 _number){
+        number = _number;
+    }
+
+    function setNumber(uint256 _number) public {
+        number = _number;
+    }
+
+    function getNumber() public view returns(uint256) {
+        return number;
+    }
+}
