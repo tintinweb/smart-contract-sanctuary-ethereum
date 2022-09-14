@@ -1,0 +1,925 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-09-13
+*/
+
+/**
+ *Submitted for verification at Etherscan.io on 2022-09-13
+*/
+
+/**
+ *Submitted for verification at Etherscan.io on 2022-09-13
+*/
+
+/**
+ *Submitted for verification at Etherscan.io on 2022-09-12
+*/
+
+/**
+ *Submitted for verification at Etherscan.io on 2022-09-11
+*/
+
+// SPDX-License-Identifier: MIT
+pragma solidity ~0.7.6;
+pragma abicoder v2;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `recipient`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address recipient, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `sender` to `recipient` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+/*
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with GSN meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address payable) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes memory) {
+        this; // silence state mutability warning without generating bytecode - see https://github.com/ethereum/solidity/issues/2691
+        return msg.data;
+    }
+}
+
+/**
+ * @dev Wrappers over Solidity's arithmetic operations with added overflow
+ * checks.
+ *
+ * Arithmetic operations in Solidity wrap on overflow. This can easily result
+ * in bugs, because programmers usually assume that an overflow raises an
+ * error, which is the standard behavior in high level programming languages.
+ * `SafeMath` restores this intuition by reverting the transaction when an
+ * operation overflows.
+ *
+ * Using this library instead of the unchecked operations eliminates an entire
+ * class of bugs, so it's recommended to use it always.
+ */
+library SafeMath {
+    /**
+     * @dev Returns the addition of two unsigned integers, with an overflow flag.
+     *
+     * _Available since v3.4._
+     */
+    function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+        uint256 c = a + b;
+        if (c < a) return (false, 0);
+        return (true, c);
+    }
+
+    /**
+     * @dev Returns the substraction of two unsigned integers, with an overflow flag.
+     *
+     * _Available since v3.4._
+     */
+    function trySub(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+        if (b > a) return (false, 0);
+        return (true, a - b);
+    }
+
+    /**
+     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.
+     *
+     * _Available since v3.4._
+     */
+    function tryMul(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
+        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
+        if (a == 0) return (true, 0);
+        uint256 c = a * b;
+        if (c / a != b) return (false, 0);
+        return (true, c);
+    }
+
+    /**
+     * @dev Returns the division of two unsigned integers, with a division by zero flag.
+     *
+     * _Available since v3.4._
+     */
+    function tryDiv(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+        if (b == 0) return (false, 0);
+        return (true, a / b);
+    }
+
+    /**
+     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.
+     *
+     * _Available since v3.4._
+     */
+    function tryMod(uint256 a, uint256 b) internal pure returns (bool, uint256) {
+        if (b == 0) return (false, 0);
+        return (true, a % b);
+    }
+
+    /**
+     * @dev Returns the addition of two unsigned integers, reverting on
+     * overflow.
+     *
+     * Counterpart to Solidity's `+` operator.
+     *
+     * Requirements:
+     *
+     * - Addition cannot overflow.
+     */
+    function add(uint256 a, uint256 b) internal pure returns (uint256) {
+        uint256 c = a + b;
+        require(c >= a, "SafeMath: addition overflow");
+        return c;
+    }
+
+    /**
+     * @dev Returns the subtraction of two unsigned integers, reverting on
+     * overflow (when the result is negative).
+     *
+     * Counterpart to Solidity's `-` operator.
+     *
+     * Requirements:
+     *
+     * - Subtraction cannot overflow.
+     */
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+        require(b <= a, "SafeMath: subtraction overflow");
+        return a - b;
+    }
+
+    /**
+     * @dev Returns the multiplication of two unsigned integers, reverting on
+     * overflow.
+     *
+     * Counterpart to Solidity's `*` operator.
+     *
+     * Requirements:
+     *
+     * - Multiplication cannot overflow.
+     */
+    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+        if (a == 0) return 0;
+        uint256 c = a * b;
+        require(c / a == b, "SafeMath: multiplication overflow");
+        return c;
+    }
+
+    /**
+     * @dev Returns the integer division of two unsigned integers, reverting on
+     * division by zero. The result is rounded towards zero.
+     *
+     * Counterpart to Solidity's `/` operator. Note: this function uses a
+     * `revert` opcode (which leaves remaining gas untouched) while Solidity
+     * uses an invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     *
+     * - The divisor cannot be zero.
+     */
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {
+        require(b > 0, "SafeMath: division by zero");
+        return a / b;
+    }
+
+    /**
+     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+     * reverting when dividing by zero.
+     *
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
+     * opcode (which leaves remaining gas untouched) while Solidity uses an
+     * invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     *
+     * - The divisor cannot be zero.
+     */
+    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+        require(b > 0, "SafeMath: modulo by zero");
+        return a % b;
+    }
+
+    /**
+     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
+     * overflow (when the result is negative).
+     *
+     * CAUTION: This function is deprecated because it requires allocating memory for the error
+     * message unnecessarily. For custom revert reasons use {trySub}.
+     *
+     * Counterpart to Solidity's `-` operator.
+     *
+     * Requirements:
+     *
+     * - Subtraction cannot overflow.
+     */
+    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b <= a, errorMessage);
+        return a - b;
+    }
+
+    /**
+     * @dev Returns the integer division of two unsigned integers, reverting with custom message on
+     * division by zero. The result is rounded towards zero.
+     *
+     * CAUTION: This function is deprecated because it requires allocating memory for the error
+     * message unnecessarily. For custom revert reasons use {tryDiv}.
+     *
+     * Counterpart to Solidity's `/` operator. Note: this function uses a
+     * `revert` opcode (which leaves remaining gas untouched) while Solidity
+     * uses an invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     *
+     * - The divisor cannot be zero.
+     */
+    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b > 0, errorMessage);
+        return a / b;
+    }
+
+    /**
+     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+     * reverting with custom message when dividing by zero.
+     *
+     * CAUTION: This function is deprecated because it requires allocating memory for the error
+     * message unnecessarily. For custom revert reasons use {tryMod}.
+     *
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
+     * opcode (which leaves remaining gas untouched) while Solidity uses an
+     * invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     *
+     * - The divisor cannot be zero.
+     */
+    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b > 0, errorMessage);
+        return a % b;
+    }
+}
+
+/**
+ * @dev Implementation of the {IERC20} interface.
+ *
+ * This implementation is agnostic to the way tokens are created. This means
+ * that a supply mechanism has to be added in a derived contract using {_mint}.
+ * For a generic mechanism see {ERC20PresetMinterPauser}.
+ *
+ * TIP: For a detailed writeup see our guide
+ * https://forum.zeppelin.solutions/t/how-to-implement-erc20-supply-mechanisms/226[How
+ * to implement supply mechanisms].
+ *
+ * We have followed general OpenZeppelin guidelines: functions revert instead
+ * of returning `false` on failure. This behavior is nonetheless conventional
+ * and does not conflict with the expectations of ERC20 applications.
+ *
+ * Additionally, an {Approval} event is emitted on calls to {transferFrom}.
+ * This allows applications to reconstruct the allowance for all accounts just
+ * by listening to said events. Other implementations of the EIP may not emit
+ * these events, as it isn't required by the specification.
+ *
+ * Finally, the non-standard {decreaseAllowance} and {increaseAllowance}
+ * functions have been added to mitigate the well-known issues around setting
+ * allowances. See {IERC20-approve}.
+ */
+contract ERC20 is Context, IERC20 {
+    using SafeMath for uint256;
+
+    mapping (address => uint256) private _balances;
+
+    mapping (address => mapping (address => uint256)) private _allowances;
+
+    uint256 private _totalSupply;
+
+    string private _name;
+    string private _symbol;
+    uint8 private _decimals;
+
+    /**
+     * @dev Sets the values for {name} and {symbol}, initializes {decimals} with
+     * a default value of 18.
+     *
+     * To select a different value for {decimals}, use {_setupDecimals}.
+     *
+     * All three of these values are immutable: they can only be set once during
+     * construction.
+     */
+    constructor (string memory name_, string memory symbol_) {
+        _name = name_;
+        _symbol = symbol_;
+        _decimals = 18;
+    }
+
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() public view virtual returns (string memory) {
+        return _name;
+    }
+
+    /**
+     * @dev Returns the symbol of the token, usually a shorter version of the
+     * name.
+     */
+    function symbol() public view virtual returns (string memory) {
+        return _symbol;
+    }
+
+    /**
+     * @dev Returns the number of decimals used to get its user representation.
+     * For example, if `decimals` equals `2`, a balance of `505` tokens should
+     * be displayed to a user as `5,05` (`505 / 10 ** 2`).
+     *
+     * Tokens usually opt for a value of 18, imitating the relationship between
+     * Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is
+     * called.
+     *
+     * NOTE: This information is only used for _display_ purposes: it in
+     * no way affects any of the arithmetic of the contract, including
+     * {IERC20-balanceOf} and {IERC20-transfer}.
+     */
+    function decimals() public view virtual returns (uint8) {
+        return _decimals;
+    }
+
+    /**
+     * @dev See {IERC20-totalSupply}.
+     */
+    function totalSupply() public view virtual override returns (uint256) {
+        return _totalSupply;
+    }
+
+    /**
+     * @dev See {IERC20-balanceOf}.
+     */
+    function balanceOf(address account) public view virtual override returns (uint256) {
+        return _balances[account];
+    }
+
+    /**
+     * @dev See {IERC20-transfer}.
+     *
+     * Requirements:
+     *
+     * - `recipient` cannot be the zero address.
+     * - the caller must have a balance of at least `amount`.
+     */
+    function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
+        _transfer(_msgSender(), recipient, amount);
+        return true;
+    }
+
+    /**
+     * @dev See {IERC20-allowance}.
+     */
+    function allowance(address owner, address spender) public view virtual override returns (uint256) {
+        return _allowances[owner][spender];
+    }
+
+    /**
+     * @dev See {IERC20-approve}.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     */
+    function approve(address spender, uint256 amount) public virtual override returns (bool) {
+        _approve(_msgSender(), spender, amount);
+        return true;
+    }
+
+    /**
+     * @dev See {IERC20-transferFrom}.
+     *
+     * Emits an {Approval} event indicating the updated allowance. This is not
+     * required by the EIP. See the note at the beginning of {ERC20}.
+     *
+     * Requirements:
+     *
+     * - `sender` and `recipient` cannot be the zero address.
+     * - `sender` must have a balance of at least `amount`.
+     * - the caller must have allowance for ``sender``'s tokens of at least
+     * `amount`.
+     */
+    function transferFrom(address sender, address recipient, uint256 amount) public virtual override returns (bool) {
+        _transfer(sender, recipient, amount);
+        _approve(sender, _msgSender(), _allowances[sender][_msgSender()].sub(amount, "ERC20: transfer amount exceeds allowance"));
+        return true;
+    }
+
+    /**
+     * @dev Atomically increases the allowance granted to `spender` by the caller.
+     *
+     * This is an alternative to {approve} that can be used as a mitigation for
+     * problems described in {IERC20-approve}.
+     *
+     * Emits an {Approval} event indicating the updated allowance.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     */
+    function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool) {
+        _approve(_msgSender(), spender, _allowances[_msgSender()][spender].add(addedValue));
+        return true;
+    }
+
+    /**
+     * @dev Atomically decreases the allowance granted to `spender` by the caller.
+     *
+     * This is an alternative to {approve} that can be used as a mitigation for
+     * problems described in {IERC20-approve}.
+     *
+     * Emits an {Approval} event indicating the updated allowance.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     * - `spender` must have allowance for the caller of at least
+     * `subtractedValue`.
+     */
+    function decreaseAllowance(address spender, uint256 subtractedValue) public virtual returns (bool) {
+        _approve(_msgSender(), spender, _allowances[_msgSender()][spender].sub(subtractedValue, "ERC20: decreased allowance below zero"));
+        return true;
+    }
+
+    /**
+     * @dev Moves tokens `amount` from `sender` to `recipient`.
+     *
+     * This is internal function is equivalent to {transfer}, and can be used to
+     * e.g. implement automatic token fees, slashing mechanisms, etc.
+     *
+     * Emits a {Transfer} event.
+     *
+     * Requirements:
+     *
+     * - `sender` cannot be the zero address.
+     * - `recipient` cannot be the zero address.
+     * - `sender` must have a balance of at least `amount`.
+     */
+    function _transfer(address sender, address recipient, uint256 amount) internal virtual {
+        require(sender != address(0), "ERC20: transfer from the zero address");
+        require(recipient != address(0), "ERC20: transfer to the zero address");
+
+        _beforeTokenTransfer(sender, recipient, amount);
+
+        _balances[sender] = _balances[sender].sub(amount, "ERC20: transfer amount exceeds balance");
+        _balances[recipient] = _balances[recipient].add(amount);
+        emit Transfer(sender, recipient, amount);
+    }
+
+    /** @dev Creates `amount` tokens and assigns them to `account`, increasing
+     * the total supply.
+     *
+     * Emits a {Transfer} event with `from` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     */
+    function _mint(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: mint to the zero address");
+
+        _beforeTokenTransfer(address(0), account, amount);
+
+        _totalSupply = _totalSupply.add(amount);
+        _balances[account] = _balances[account].add(amount);
+        emit Transfer(address(0), account, amount);
+    }
+
+    /**
+     * @dev Destroys `amount` tokens from `account`, reducing the
+     * total supply.
+     *
+     * Emits a {Transfer} event with `to` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - `account` cannot be the zero address.
+     * - `account` must have at least `amount` tokens.
+     */
+    function _burn(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: burn from the zero address");
+
+        _beforeTokenTransfer(account, address(0), amount);
+
+        _balances[account] = _balances[account].sub(amount, "ERC20: burn amount exceeds balance");
+        _totalSupply = _totalSupply.sub(amount);
+        emit Transfer(account, address(0), amount);
+    }
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the `owner` s tokens.
+     *
+     * This internal function is equivalent to `approve`, and can be used to
+     * e.g. set automatic allowances for certain subsystems, etc.
+     *
+     * Emits an {Approval} event.
+     *
+     * Requirements:
+     *
+     * - `owner` cannot be the zero address.
+     * - `spender` cannot be the zero address.
+     */
+    function _approve(address owner, address spender, uint256 amount) internal virtual {
+        require(owner != address(0), "ERC20: approve from the zero address");
+        require(spender != address(0), "ERC20: approve to the zero address");
+
+        _allowances[owner][spender] = amount;
+        emit Approval(owner, spender, amount);
+    }
+
+    /**
+     * @dev Sets {decimals} to a value other than the default one of 18.
+     *
+     * WARNING: This function should only be called from the constructor. Most
+     * applications that interact with token contracts will not expect
+     * {decimals} to ever change, and may work incorrectly if it does.
+     */
+    function _setupDecimals(uint8 decimals_) internal virtual {
+        _decimals = decimals_;
+    }
+
+    /**
+     * @dev Hook that is called before any transfer of tokens. This includes
+     * minting and burning.
+     *
+     * Calling conditions:
+     *
+     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
+     * will be to transferred to `to`.
+     * - when `from` is zero, `amount` tokens will be minted for `to`.
+     * - when `to` is zero, `amount` of ``from``'s tokens will be burned.
+     * - `from` and `to` are never both zero.
+     *
+     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     */
+    function _beforeTokenTransfer(address from, address to, uint256 amount) internal virtual { }
+}
+/**
+ * @title UniswapV2Router Interface
+ * @dev See https://uniswap.org/docs/v2/smart-contracts/router02/#swapexactethfortokens. This will allow us to import swapExactETHForTokens and swapExactTokensForTokens functions into our contract, also the getAmountsOut function to calculate the token amount we will swap
+ */
+interface IUniswapV2Router {
+    function swapExactETHForTokens(
+        uint256 amountOutMin, //minimum amount of output token that must be received
+        address[] calldata path, //the different hops between tokens to be made by the exchange
+        address to, //recipient
+        uint256 deadline //unix timestamp after which the transaction will revert
+    )
+        external
+        payable
+        returns (
+            uint256[] memory amounts //amounts of tokens output received
+        );
+
+    function swapExactTokensForETH(
+        uint amountIn,
+        uint amountOutMin,
+        address[] calldata path,
+        address to,
+        uint deadline
+    ) 
+        external
+        returns (
+            uint[] memory amounts
+        );
+
+    function getAmountsOut(
+        uint256 amountIn, //amount of input token
+        address[] memory path //the different hops between tokens to be made by the exchange
+    )
+        external
+        view
+        returns (
+            uint256[] memory amounts //amounts of tokens output calculated to be received
+        );
+}
+
+struct WalletFee {
+    address wallet;
+    uint fee;
+}
+
+interface IMultipleArbitrableTransaction {
+    /** @dev Create a ETH-based transaction.
+     *  @param _timeoutPayment Time after which a party can automatically execute the arbitrable transaction.
+     *  @param _sender The recipient of the transaction.
+     *  @param _receiver The recipient of the transaction.
+     *  @param _metaEvidence Link to the meta-evidence.
+     *  @param _adminWallet Admin fee wallet.
+     *  @param _adminFeeAmount Admin fee amount.
+     *  @param _burnWallet Burn fee wallet.
+     *  @param _burnFeeAmount Burn fee amount.
+     *  @return transactionID The index of the transaction.
+     **/
+    function createETHTransaction(
+        uint _timeoutPayment,
+        address payable _sender,
+        address payable _receiver,
+        string memory _metaEvidence,
+        uint256 _amount,
+        address payable _adminWallet,
+        uint _adminFeeAmount,
+        address payable _burnWallet,
+        uint _burnFeeAmount
+    ) external payable returns (uint transactionID);
+
+    /** @dev Create a token-based transaction.
+     *  @param _timeoutPayment Time after which a party can automatically execute the arbitrable transaction.
+     *  @param _sender The recipient of the transaction.
+     *  @param _receiver The recipient of the transaction.
+     *  @param _metaEvidence Link to the meta-evidence.
+     *  @param _tokenAddress Address of token used for transaction.
+     *  @param _adminWallet Admin fee wallet.
+     *  @param _adminFeeAmount Admin fee amount.
+     *  @param _burnWallet Burn fee wallet.
+     *  @param _burnFeeAmount Burn fee amount.
+     *  @return transactionID The index of the transaction.
+     **/
+    function createTokenTransaction(
+        uint _timeoutPayment,
+        address payable _sender,
+        address payable _receiver,
+        string memory _metaEvidence,
+        uint256 _amount,
+        address _tokenAddress,
+        address payable _adminWallet,
+        uint _adminFeeAmount,
+        address payable _burnWallet,
+        uint _burnFeeAmount
+    ) external payable returns (uint transactionID);
+}
+
+contract PaymentProcessor {
+    IMultipleArbitrableTransaction multipleArbitrableAddress;
+    uint256 public DIVISOR = 100;
+    uint256 public adminFee;
+    address payable public admin; 
+    address payable public burnAddress;
+
+    address private UNISWAP_V2_ROUTER;
+    address private WETH;
+
+
+    struct TransferInfo {
+        address token;
+        bool isToken;
+    }
+
+    struct TransactionData {
+        address payable sender;
+        uint256 timeoutPayment;
+        address payable receiver;
+        string metaEvidence;
+    }
+
+    event MetaEvidence(uint indexed _metaEvidenceID, string _evidence);
+
+    event PaymentDone(
+        address payer,
+        uint amount,
+        uint paymentId,
+        uint date
+    );
+
+    receive() external payable { }
+
+    constructor(
+        address payable adminAddress,
+        uint256 _adminFee, 
+        address payable _burnAddress,
+        address arbitrableAddress,
+        address uniswapAddress,
+        address wETHAddress
+    ) {
+        admin = adminAddress;
+        adminFee = _adminFee;
+        burnAddress = _burnAddress;
+        multipleArbitrableAddress = IMultipleArbitrableTransaction(arbitrableAddress);
+        UNISWAP_V2_ROUTER = uniswapAddress;
+        WETH = wETHAddress;
+    }
+
+    /*
+        Replace properties defined in SC
+    */
+    function getAdminFee() external view returns (uint fee) {
+        return adminFee;
+    }
+
+    function changeArbitrableAddress(address _arbitrableAddress) external {
+        require(msg.sender == address(admin), "Unauthorized");
+        multipleArbitrableAddress = IMultipleArbitrableTransaction(_arbitrableAddress);
+    }
+
+    function changeBurnAddress(address payable _burnAddress) external {
+        require(msg.sender == address(admin), "Unauthorized");
+        burnAddress = _burnAddress;
+    }
+
+    function changeAdminFee(uint256 newAdminFee) external {
+        require(msg.sender == address(admin), "Unauthorized");
+        require(newAdminFee < DIVISOR, "Fee too big");
+        adminFee = newAdminFee;
+    }
+
+    /*
+        Auxiliar function to get ETH from tokens on token-based transaction, and then use them for fees
+    */
+    function getETHFromTokens(
+        address token,
+        uint256 amount,
+        uint256 deadline
+    ) private returns (uint256) {
+        if (amount > 0) {
+            address[] memory path = new address[](2);
+            path[0] = address(token);
+            path[1] = address(WETH);
+
+            IERC20 iToken = IERC20(token);
+            require(
+                iToken.transferFrom(msg.sender, address(this), amount),
+                "Sender does not have enough approved funds."
+            );
+            iToken.approve(UNISWAP_V2_ROUTER, amount * 10);
+
+            uint256[] memory amounts = IUniswapV2Router(UNISWAP_V2_ROUTER).swapExactTokensForETH(
+                amount, 1, path, address(this), deadline);
+
+            return amounts[0];
+        } 
+        return 0;
+    }
+
+
+    /*
+        Entry points to manage payment and create transaction used in Yubiai.
+        manageETHPayment, manageTokenPayment
+    */
+    function manageETHPayment(
+        uint paymentId,
+        uint256 burnFee,
+        TransactionData memory _transactionData
+    ) public payable returns (uint transactionID) {
+        require(burnFee + adminFee < DIVISOR, "Fee too big");
+        uint256 burnAmount = msg.value / DIVISOR * burnFee;
+        uint256 adminAmount = msg.value / DIVISOR * adminFee;
+        uint256 receiverAmount = msg.value - burnAmount - adminAmount;
+
+        uint256 transactionIndex = createTransaction(
+            _transactionData,
+            address(0),
+            receiverAmount,
+            burnAmount,
+            adminAmount
+        );
+
+        emit PaymentDone(msg.sender, receiverAmount, paymentId, block.timestamp);
+        emit MetaEvidence(transactionIndex, _transactionData.metaEvidence);
+
+        return transactionIndex;
+    }
+
+    function manageTokenPayment(
+        uint256 tokenAmount,
+        uint paymentId,
+        uint256 burnFee,
+        TransferInfo memory _transferInfo,
+        TransactionData memory _transactionData
+    ) public returns (uint transactionID) {
+        require(burnFee + adminFee < DIVISOR, "Fee too big");
+        uint256 constDeadline = block.timestamp + 1000000;
+        uint256 burnAmount = getETHFromTokens(_transferInfo.token, tokenAmount / DIVISOR * burnFee, constDeadline);
+        uint256 adminAmount = getETHFromTokens(_transferInfo.token, tokenAmount / DIVISOR * adminFee, constDeadline);
+        uint256 receiverAmount = tokenAmount - burnAmount - adminAmount;
+
+        uint256 transactionIndex = createTransaction(
+            _transactionData,
+            _transferInfo.token,
+            receiverAmount,
+            burnAmount,
+            adminAmount
+        );
+
+        emit PaymentDone(msg.sender, receiverAmount, paymentId, block.timestamp);
+        emit MetaEvidence(transactionIndex, _transactionData.metaEvidence);
+
+        return transactionIndex;
+    }
+
+    /*
+      Kleros-based methods
+    */
+
+    function createTransaction(
+        TransactionData memory _transactionData,
+        address _tokenAddress,
+        uint _amount,
+        uint256 burnAmount,
+        uint256 adminAmount
+    ) public payable returns (uint256 transactionID) {
+        if (_tokenAddress != address(0)) {
+            IERC20 token = IERC20(_tokenAddress);
+            // Transfers token from sender wallet to contract. Permit before transfer
+            require(
+                token.transferFrom(msg.sender, address(this), _amount),
+                "Sender does not have enough approved funds."
+            );
+            token.approve(address(multipleArbitrableAddress), _amount);
+            return multipleArbitrableAddress.createTokenTransaction{value: adminAmount + burnAmount}(
+                _transactionData.timeoutPayment,
+                _transactionData.sender,
+                _transactionData.receiver,
+                _transactionData.metaEvidence,
+                _amount,
+                _tokenAddress,
+                admin,
+                adminAmount,
+                burnAddress,
+                burnAmount
+            );
+        }
+        return multipleArbitrableAddress.createETHTransaction{value: _amount + burnAmount + adminAmount}(
+            _transactionData.timeoutPayment,
+            _transactionData.sender,
+            _transactionData.receiver,
+            _transactionData.metaEvidence,
+            _amount,
+            admin,
+            adminAmount,
+            burnAddress,
+            burnAmount
+        );
+    }
+}
