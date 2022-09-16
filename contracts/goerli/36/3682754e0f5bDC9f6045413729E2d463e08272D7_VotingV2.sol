@@ -1,0 +1,4167 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-09-16
+*/
+
+// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.16;
+// Sources flattened with hardhat v2.9.1 https://hardhat.org
+
+// File contracts/oracle/implementation/ResultComputationV2.sol
+
+
+/**
+ * @title Computes vote results.
+ * @dev The result is the mode of the added votes. Otherwise, the vote is unresolved.
+ */
+library ResultComputationV2 {
+    /****************************************
+     *   INTERNAL LIBRARY DATA STRUCTURE    *
+     ****************************************/
+
+    struct Data {
+        mapping(int256 => uint256) voteFrequency; // Maps price to number of tokens that voted for that price.
+        uint256 totalVotes; // The total votes that have been added.
+        int256 currentMode; // The price that is the current mode, i.e., the price with the highest frequency.
+    }
+
+    /****************************************
+     *            VOTING FUNCTIONS          *
+     ****************************************/
+
+    /**
+     * @notice Adds a new vote to be used when computing the result.
+     * @param data contains information to which the vote is applied.
+     * @param votePrice value specified in the vote for the given `numberTokens`.
+     * @param numberTokens number of tokens that voted on the `votePrice`.
+     */
+    function addVote(
+        Data storage data,
+        int256 votePrice,
+        uint256 numberTokens
+    ) internal {
+        data.totalVotes += numberTokens;
+        data.voteFrequency[votePrice] += numberTokens;
+        if (votePrice != data.currentMode && data.voteFrequency[votePrice] > data.voteFrequency[data.currentMode])
+            data.currentMode = votePrice;
+    }
+
+    /****************************************
+     *        VOTING STATE GETTERS          *
+     ****************************************/
+
+    /**
+     * @notice Returns whether the result is resolved, and if so, what value it resolved to.
+     * @dev `price` should be ignored if `isResolved` is false.
+     * @param data contains information against which the `minVoteThreshold` is applied.
+     * @param minVoteThreshold min (exclusive) number of tokens that must have voted for the result to be valid. Can be
+     * used to enforce a minimum voter participation rate, regardless of how the votes are distributed.
+     * @return isResolved indicates if the price has been resolved correctly.
+     * @return price the price that the dvm resolved to.
+     */
+    function getResolvedPrice(Data storage data, uint256 minVoteThreshold)
+        internal
+        view
+        returns (bool isResolved, int256 price)
+    {
+        uint256 modeThreshold = 5e17 + 1;
+
+        if (
+            data.totalVotes > minVoteThreshold &&
+            (data.voteFrequency[data.currentMode] * 1e18) / data.totalVotes > modeThreshold
+        ) {
+            // `modeThreshold` and `minVoteThreshold` are exceeded, so the current mode is the resolved price.
+            isResolved = true;
+            price = data.currentMode;
+        } else isResolved = false;
+    }
+
+    /**
+     * @notice Checks whether a `voteHash` is considered correct.
+     * @dev Should only be called after a vote is resolved, i.e., via `getResolvedPrice`.
+     * @param data contains information against which the `voteHash` is checked.
+     * @param voteHash committed hash submitted by the voter.
+     * @return bool true if the vote was correct.
+     */
+    function wasVoteCorrect(Data storage data, bytes32 voteHash) internal view returns (bool) {
+        return voteHash == keccak256(abi.encode(data.currentMode));
+    }
+
+    /**
+     * @notice Gets the total number of tokens whose votes are considered correct.
+     * @dev Should only be called after a vote is resolved, i.e., via `getResolvedPrice`.
+     * @param data contains all votes against which the correctly voted tokens are counted.
+     * @return FixedPoint.Unsigned which indicates the frequency of the correctly voted tokens.
+     */
+    function getTotalCorrectlyVotedTokens(Data storage data) internal view returns (uint256) {
+        return data.voteFrequency[data.currentMode];
+    }
+}
+
+
+// File contracts/oracle/implementation/AdminIdentifierLib.sol
+
+
+/**
+ * @title Library to construct admin identifiers.
+ */
+library AdminIdentifierLib {
+    // Returns a UTF-8 identifier representing a particular admin proposal.
+    // The identifier is of the form "Admin n", where n is the proposal id provided.
+    function _constructIdentifier(uint256 id) internal pure returns (bytes32) {
+        bytes32 bytesId = _uintToUtf8(id);
+        return _addPrefix(bytesId, "Admin ", 6);
+    }
+
+    // This method converts the integer `v` into a base-10, UTF-8 representation stored in a `bytes32` type.
+    // If the input cannot be represented by 32 base-10 digits, it returns only the highest 32 digits.
+    // This method is based off of this code: https://ethereum.stackexchange.com/a/6613/47801.
+    function _uintToUtf8(uint256 v) internal pure returns (bytes32) {
+        bytes32 ret;
+        if (v == 0) {
+            // Handle 0 case explicitly.
+            ret = "0";
+        } else {
+            // Constants.
+            uint256 bitsPerByte = 8;
+            uint256 base = 10; // Note: the output should be base-10. The below implementation will not work for bases > 10.
+            uint256 utf8NumberOffset = 48;
+            while (v > 0) {
+                // Downshift the entire bytes32 to allow the new digit to be added at the "front" of the bytes32, which
+                // translates to the beginning of the UTF-8 representation.
+                ret = ret >> bitsPerByte;
+
+                // Separate the last digit that remains in v by modding by the base of desired output representation.
+                uint256 leastSignificantDigit = v % base;
+
+                // Digits 0-9 are represented by 48-57 in UTF-8, so an offset must be added to create the character.
+                bytes32 utf8Digit = bytes32(leastSignificantDigit + utf8NumberOffset);
+
+                // The top byte of ret has already been cleared to make room for the new digit.
+                // Upshift by 31 bytes to put it in position, and OR it with ret to leave the other characters untouched.
+                ret |= utf8Digit << (31 * bitsPerByte);
+
+                // Divide v by the base to remove the digit that was just added.
+                v /= base;
+            }
+        }
+        return ret;
+    }
+
+    // This method takes two UTF-8 strings represented as bytes32 and outputs one as a prefixed by the other.
+    // `input` is the UTF-8 that should have the prefix prepended.
+    // `prefix` is the UTF-8 that should be prepended onto input.
+    // `prefixLength` is number of UTF-8 characters represented by `prefix`.
+    // Notes:
+    // 1. If the resulting UTF-8 is larger than 32 characters, then only the first 32 characters will be represented
+    //    by the bytes32 output.
+    // 2. If `prefix` has more characters than `prefixLength`, the function will produce an invalid result.
+    function _addPrefix(
+        bytes32 input,
+        bytes32 prefix,
+        uint256 prefixLength
+    ) internal pure returns (bytes32) {
+        // Downshift `input` to open space at the "front" of the bytes32
+        bytes32 shiftedInput = input >> (prefixLength * 8);
+        return shiftedInput | prefix;
+    }
+}
+
+
+// File contracts/oracle/implementation/SpamGuardIdentifierLib.sol
+
+
+/**
+ * @title Library to construct SpamGuard identifiers.
+ */
+
+library SpamGuardIdentifierLib {
+    // Returns a UTF-8 identifier representing a particular spam deletion proposal.
+    // The identifier is of the form "SpamDeletionProposal n", where n is the proposal id provided.
+    function _constructIdentifier(uint32 id) internal pure returns (bytes32) {
+        bytes32 bytesId = AdminIdentifierLib._uintToUtf8(id);
+        return AdminIdentifierLib._addPrefix(bytesId, "SpamDeletionProposal ", 21);
+    }
+}
+
+
+// File contracts/common/implementation/Lockable.sol
+
+
+/**
+ * @title A contract that provides modifiers to prevent reentrancy to state-changing and view-only methods. This contract
+ * is inspired by https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/ReentrancyGuard.sol
+ * and https://github.com/balancer-labs/balancer-core/blob/master/contracts/BPool.sol.
+ */
+contract Lockable {
+    bool private _notEntered;
+
+    constructor() {
+        // Storing an initial non-zero value makes deployment a bit more expensive, but in exchange the refund on every
+        // call to nonReentrant will be lower in amount. Since refunds are capped to a percentage of the total
+        // transaction's gas, it is best to keep them low in cases like this one, to increase the likelihood of the full
+        // refund coming into effect.
+        _notEntered = true;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant` function is not supported. It is possible to
+     * prevent this from happening by making the `nonReentrant` function external, and making it call a `private`
+     * function that does the actual state modification.
+     */
+    modifier nonReentrant() {
+        _preEntranceCheck();
+        _preEntranceSet();
+        _;
+        _postEntranceReset();
+    }
+
+    /**
+     * @dev Designed to prevent a view-only method from being re-entered during a call to a `nonReentrant()` state-changing method.
+     */
+    modifier nonReentrantView() {
+        _preEntranceCheck();
+        _;
+    }
+
+    // Internal methods are used to avoid copying the require statement's bytecode to every `nonReentrant()` method.
+    // On entry into a function, `_preEntranceCheck()` should always be called to check if the function is being
+    // re-entered. Then, if the function modifies state, it should call `_postEntranceSet()`, perform its logic, and
+    // then call `_postEntranceReset()`.
+    // View-only methods can simply call `_preEntranceCheck()` to make sure that it is not being re-entered.
+    function _preEntranceCheck() internal view {
+        // On the first call to nonReentrant, _notEntered will be true
+        require(_notEntered, "ReentrancyGuard: reentrant call");
+    }
+
+    function _preEntranceSet() internal {
+        // Any calls to nonReentrant after this point will fail
+        _notEntered = false;
+    }
+
+    function _postEntranceReset() internal {
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _notEntered = true;
+    }
+
+    // These functions are intended to be used by child contracts to temporarily disable and re-enable the guard.
+    // Intended use:
+    // _startReentrantGuardDisabled();
+    // ...
+    // _endReentrantGuardDisabled();
+    //
+    // IMPORTANT: these should NEVER be used in a method that isn't inside a nonReentrant block. Otherwise, it's
+    // possible to permanently lock your contract.
+    function _startReentrantGuardDisabled() internal {
+        _notEntered = true;
+    }
+
+    function _endReentrantGuardDisabled() internal {
+        _notEntered = false;
+    }
+}
+
+
+// File contracts/common/implementation/MultiCaller.sol
+
+// This contract is taken from Uniswap's multi call implementation (https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/base/Multicall.sol)
+// and was modified to be solidity 0.8 compatible. Additionally, the method was restricted to only work with msg.value
+// set to 0 to avoid any nasty attack vectors on function calls that use value sent with deposits.
+
+/// @title MultiCaller
+/// @notice Enables calling multiple methods in a single call to the contract
+contract MultiCaller {
+    function multicall(bytes[] calldata data) external payable returns (bytes[] memory results) {
+        require(msg.value == 0, "Only multicall with 0 value");
+        results = new bytes[](data.length);
+        for (uint256 i = 0; i < data.length; i++) {
+            (bool success, bytes memory result) = address(this).delegatecall(data[i]);
+
+            if (!success) {
+                // Next 5 lines from https://ethereum.stackexchange.com/a/83577
+                if (result.length < 68) revert();
+                assembly {
+                    result := add(result, 0x04)
+                }
+                revert(abi.decode(result, (string)));
+            }
+
+            results[i] = result;
+        }
+    }
+}
+
+
+// File @openzeppelin/contracts/token/ERC20/[email protected]
+
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/IERC20.sol)
+
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `recipient`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address recipient, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `sender` to `recipient` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) external returns (bool);
+
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+
+// File contracts/common/interfaces/ExpandedIERC20.sol
+
+
+/**
+ * @title ERC20 interface that includes burn and mint methods.
+ */
+abstract contract ExpandedIERC20 is IERC20 {
+    /**
+     * @notice Burns a specific amount of the caller's tokens.
+     * @dev Only burns the caller's tokens, so it is safe to leave this method permissionless.
+     */
+    function burn(uint256 value) external virtual;
+
+    /**
+     * @dev Burns `value` tokens owned by `recipient`.
+     * @param recipient address to burn tokens from.
+     * @param value amount of tokens to burn.
+     */
+    function burnFrom(address recipient, uint256 value) external virtual returns (bool);
+
+    /**
+     * @notice Mints tokens and adds them to the balance of the `to` address.
+     * @dev This method should be permissioned to only allow designated parties to mint tokens.
+     */
+    function mint(address to, uint256 value) external virtual returns (bool);
+
+    function addMinter(address account) external virtual;
+
+    function addBurner(address account) external virtual;
+
+    function resetOwner(address account) external virtual;
+}
+
+
+// File @openzeppelin/contracts/token/ERC20/extensions/[email protected]
+
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/IERC20Metadata.sol)
+
+
+/**
+ * @dev Interface for the optional metadata functions from the ERC20 standard.
+ *
+ * _Available since v4.1._
+ */
+interface IERC20Metadata is IERC20 {
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() external view returns (string memory);
+
+    /**
+     * @dev Returns the symbol of the token.
+     */
+    function symbol() external view returns (string memory);
+
+    /**
+     * @dev Returns the decimals places of the token.
+     */
+    function decimals() external view returns (uint8);
+}
+
+
+// File @openzeppelin/contracts/utils/[email protected]
+
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+
+// File @openzeppelin/contracts/token/ERC20/[email protected]
+
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/ERC20.sol)
+
+
+
+
+/**
+ * @dev Implementation of the {IERC20} interface.
+ *
+ * This implementation is agnostic to the way tokens are created. This means
+ * that a supply mechanism has to be added in a derived contract using {_mint}.
+ * For a generic mechanism see {ERC20PresetMinterPauser}.
+ *
+ * TIP: For a detailed writeup see our guide
+ * https://forum.zeppelin.solutions/t/how-to-implement-erc20-supply-mechanisms/226[How
+ * to implement supply mechanisms].
+ *
+ * We have followed general OpenZeppelin Contracts guidelines: functions revert
+ * instead returning `false` on failure. This behavior is nonetheless
+ * conventional and does not conflict with the expectations of ERC20
+ * applications.
+ *
+ * Additionally, an {Approval} event is emitted on calls to {transferFrom}.
+ * This allows applications to reconstruct the allowance for all accounts just
+ * by listening to said events. Other implementations of the EIP may not emit
+ * these events, as it isn't required by the specification.
+ *
+ * Finally, the non-standard {decreaseAllowance} and {increaseAllowance}
+ * functions have been added to mitigate the well-known issues around setting
+ * allowances. See {IERC20-approve}.
+ */
+contract ERC20 is Context, IERC20, IERC20Metadata {
+    mapping(address => uint256) private _balances;
+
+    mapping(address => mapping(address => uint256)) private _allowances;
+
+    uint256 private _totalSupply;
+
+    string private _name;
+    string private _symbol;
+
+    /**
+     * @dev Sets the values for {name} and {symbol}.
+     *
+     * The default value of {decimals} is 18. To select a different value for
+     * {decimals} you should overload it.
+     *
+     * All two of these values are immutable: they can only be set once during
+     * construction.
+     */
+    constructor(string memory name_, string memory symbol_) {
+        _name = name_;
+        _symbol = symbol_;
+    }
+
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() public view virtual override returns (string memory) {
+        return _name;
+    }
+
+    /**
+     * @dev Returns the symbol of the token, usually a shorter version of the
+     * name.
+     */
+    function symbol() public view virtual override returns (string memory) {
+        return _symbol;
+    }
+
+    /**
+     * @dev Returns the number of decimals used to get its user representation.
+     * For example, if `decimals` equals `2`, a balance of `505` tokens should
+     * be displayed to a user as `5.05` (`505 / 10 ** 2`).
+     *
+     * Tokens usually opt for a value of 18, imitating the relationship between
+     * Ether and Wei. This is the value {ERC20} uses, unless this function is
+     * overridden;
+     *
+     * NOTE: This information is only used for _display_ purposes: it in
+     * no way affects any of the arithmetic of the contract, including
+     * {IERC20-balanceOf} and {IERC20-transfer}.
+     */
+    function decimals() public view virtual override returns (uint8) {
+        return 18;
+    }
+
+    /**
+     * @dev See {IERC20-totalSupply}.
+     */
+    function totalSupply() public view virtual override returns (uint256) {
+        return _totalSupply;
+    }
+
+    /**
+     * @dev See {IERC20-balanceOf}.
+     */
+    function balanceOf(address account) public view virtual override returns (uint256) {
+        return _balances[account];
+    }
+
+    /**
+     * @dev See {IERC20-transfer}.
+     *
+     * Requirements:
+     *
+     * - `recipient` cannot be the zero address.
+     * - the caller must have a balance of at least `amount`.
+     */
+    function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
+        _transfer(_msgSender(), recipient, amount);
+        return true;
+    }
+
+    /**
+     * @dev See {IERC20-allowance}.
+     */
+    function allowance(address owner, address spender) public view virtual override returns (uint256) {
+        return _allowances[owner][spender];
+    }
+
+    /**
+     * @dev See {IERC20-approve}.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     */
+    function approve(address spender, uint256 amount) public virtual override returns (bool) {
+        _approve(_msgSender(), spender, amount);
+        return true;
+    }
+
+    /**
+     * @dev See {IERC20-transferFrom}.
+     *
+     * Emits an {Approval} event indicating the updated allowance. This is not
+     * required by the EIP. See the note at the beginning of {ERC20}.
+     *
+     * Requirements:
+     *
+     * - `sender` and `recipient` cannot be the zero address.
+     * - `sender` must have a balance of at least `amount`.
+     * - the caller must have allowance for ``sender``'s tokens of at least
+     * `amount`.
+     */
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) public virtual override returns (bool) {
+        _transfer(sender, recipient, amount);
+
+        uint256 currentAllowance = _allowances[sender][_msgSender()];
+        require(currentAllowance >= amount, "ERC20: transfer amount exceeds allowance");
+        unchecked {
+            _approve(sender, _msgSender(), currentAllowance - amount);
+        }
+
+        return true;
+    }
+
+    /**
+     * @dev Atomically increases the allowance granted to `spender` by the caller.
+     *
+     * This is an alternative to {approve} that can be used as a mitigation for
+     * problems described in {IERC20-approve}.
+     *
+     * Emits an {Approval} event indicating the updated allowance.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     */
+    function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool) {
+        _approve(_msgSender(), spender, _allowances[_msgSender()][spender] + addedValue);
+        return true;
+    }
+
+    /**
+     * @dev Atomically decreases the allowance granted to `spender` by the caller.
+     *
+     * This is an alternative to {approve} that can be used as a mitigation for
+     * problems described in {IERC20-approve}.
+     *
+     * Emits an {Approval} event indicating the updated allowance.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     * - `spender` must have allowance for the caller of at least
+     * `subtractedValue`.
+     */
+    function decreaseAllowance(address spender, uint256 subtractedValue) public virtual returns (bool) {
+        uint256 currentAllowance = _allowances[_msgSender()][spender];
+        require(currentAllowance >= subtractedValue, "ERC20: decreased allowance below zero");
+        unchecked {
+            _approve(_msgSender(), spender, currentAllowance - subtractedValue);
+        }
+
+        return true;
+    }
+
+    /**
+     * @dev Moves `amount` of tokens from `sender` to `recipient`.
+     *
+     * This internal function is equivalent to {transfer}, and can be used to
+     * e.g. implement automatic token fees, slashing mechanisms, etc.
+     *
+     * Emits a {Transfer} event.
+     *
+     * Requirements:
+     *
+     * - `sender` cannot be the zero address.
+     * - `recipient` cannot be the zero address.
+     * - `sender` must have a balance of at least `amount`.
+     */
+    function _transfer(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) internal virtual {
+        require(sender != address(0), "ERC20: transfer from the zero address");
+        require(recipient != address(0), "ERC20: transfer to the zero address");
+
+        _beforeTokenTransfer(sender, recipient, amount);
+
+        uint256 senderBalance = _balances[sender];
+        require(senderBalance >= amount, "ERC20: transfer amount exceeds balance");
+        unchecked {
+            _balances[sender] = senderBalance - amount;
+        }
+        _balances[recipient] += amount;
+
+        emit Transfer(sender, recipient, amount);
+
+        _afterTokenTransfer(sender, recipient, amount);
+    }
+
+    /** @dev Creates `amount` tokens and assigns them to `account`, increasing
+     * the total supply.
+     *
+     * Emits a {Transfer} event with `from` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - `account` cannot be the zero address.
+     */
+    function _mint(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: mint to the zero address");
+
+        _beforeTokenTransfer(address(0), account, amount);
+
+        _totalSupply += amount;
+        _balances[account] += amount;
+        emit Transfer(address(0), account, amount);
+
+        _afterTokenTransfer(address(0), account, amount);
+    }
+
+    /**
+     * @dev Destroys `amount` tokens from `account`, reducing the
+     * total supply.
+     *
+     * Emits a {Transfer} event with `to` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - `account` cannot be the zero address.
+     * - `account` must have at least `amount` tokens.
+     */
+    function _burn(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: burn from the zero address");
+
+        _beforeTokenTransfer(account, address(0), amount);
+
+        uint256 accountBalance = _balances[account];
+        require(accountBalance >= amount, "ERC20: burn amount exceeds balance");
+        unchecked {
+            _balances[account] = accountBalance - amount;
+        }
+        _totalSupply -= amount;
+
+        emit Transfer(account, address(0), amount);
+
+        _afterTokenTransfer(account, address(0), amount);
+    }
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the `owner` s tokens.
+     *
+     * This internal function is equivalent to `approve`, and can be used to
+     * e.g. set automatic allowances for certain subsystems, etc.
+     *
+     * Emits an {Approval} event.
+     *
+     * Requirements:
+     *
+     * - `owner` cannot be the zero address.
+     * - `spender` cannot be the zero address.
+     */
+    function _approve(
+        address owner,
+        address spender,
+        uint256 amount
+    ) internal virtual {
+        require(owner != address(0), "ERC20: approve from the zero address");
+        require(spender != address(0), "ERC20: approve to the zero address");
+
+        _allowances[owner][spender] = amount;
+        emit Approval(owner, spender, amount);
+    }
+
+    /**
+     * @dev Hook that is called before any transfer of tokens. This includes
+     * minting and burning.
+     *
+     * Calling conditions:
+     *
+     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
+     * will be transferred to `to`.
+     * - when `from` is zero, `amount` tokens will be minted for `to`.
+     * - when `to` is zero, `amount` of ``from``'s tokens will be burned.
+     * - `from` and `to` are never both zero.
+     *
+     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     */
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {}
+
+    /**
+     * @dev Hook that is called after any transfer of tokens. This includes
+     * minting and burning.
+     *
+     * Calling conditions:
+     *
+     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
+     * has been transferred to `to`.
+     * - when `from` is zero, `amount` tokens have been minted for `to`.
+     * - when `to` is zero, `amount` of ``from``'s tokens have been burned.
+     * - `from` and `to` are never both zero.
+     *
+     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     */
+    function _afterTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {}
+}
+
+
+// File contracts/common/implementation/MultiRole.sol
+
+
+library Exclusive {
+    struct RoleMembership {
+        address member;
+    }
+
+    function isMember(RoleMembership storage roleMembership, address memberToCheck) internal view returns (bool) {
+        return roleMembership.member == memberToCheck;
+    }
+
+    function resetMember(RoleMembership storage roleMembership, address newMember) internal {
+        require(newMember != address(0x0), "Cannot set an exclusive role to 0x0");
+        roleMembership.member = newMember;
+    }
+
+    function getMember(RoleMembership storage roleMembership) internal view returns (address) {
+        return roleMembership.member;
+    }
+
+    function init(RoleMembership storage roleMembership, address initialMember) internal {
+        resetMember(roleMembership, initialMember);
+    }
+}
+
+library Shared {
+    struct RoleMembership {
+        mapping(address => bool) members;
+    }
+
+    function isMember(RoleMembership storage roleMembership, address memberToCheck) internal view returns (bool) {
+        return roleMembership.members[memberToCheck];
+    }
+
+    function addMember(RoleMembership storage roleMembership, address memberToAdd) internal {
+        require(memberToAdd != address(0x0), "Cannot add 0x0 to a shared role");
+        roleMembership.members[memberToAdd] = true;
+    }
+
+    function removeMember(RoleMembership storage roleMembership, address memberToRemove) internal {
+        roleMembership.members[memberToRemove] = false;
+    }
+
+    function init(RoleMembership storage roleMembership, address[] memory initialMembers) internal {
+        for (uint256 i = 0; i < initialMembers.length; i++) {
+            addMember(roleMembership, initialMembers[i]);
+        }
+    }
+}
+
+/**
+ * @title Base class to manage permissions for the derived class.
+ */
+abstract contract MultiRole {
+    using Exclusive for Exclusive.RoleMembership;
+    using Shared for Shared.RoleMembership;
+
+    enum RoleType { Invalid, Exclusive, Shared }
+
+    struct Role {
+        uint256 managingRole;
+        RoleType roleType;
+        Exclusive.RoleMembership exclusiveRoleMembership;
+        Shared.RoleMembership sharedRoleMembership;
+    }
+
+    mapping(uint256 => Role) private roles;
+
+    event ResetExclusiveMember(uint256 indexed roleId, address indexed newMember, address indexed manager);
+    event AddedSharedMember(uint256 indexed roleId, address indexed newMember, address indexed manager);
+    event RemovedSharedMember(uint256 indexed roleId, address indexed oldMember, address indexed manager);
+
+    /**
+     * @notice Reverts unless the caller is a member of the specified roleId.
+     */
+    modifier onlyRoleHolder(uint256 roleId) {
+        require(holdsRole(roleId, msg.sender), "Sender does not hold required role");
+        _;
+    }
+
+    /**
+     * @notice Reverts unless the caller is a member of the manager role for the specified roleId.
+     */
+    modifier onlyRoleManager(uint256 roleId) {
+        require(holdsRole(roles[roleId].managingRole, msg.sender), "Can only be called by a role manager");
+        _;
+    }
+
+    /**
+     * @notice Reverts unless the roleId represents an initialized, exclusive roleId.
+     */
+    modifier onlyExclusive(uint256 roleId) {
+        require(roles[roleId].roleType == RoleType.Exclusive, "Must be called on an initialized Exclusive role");
+        _;
+    }
+
+    /**
+     * @notice Reverts unless the roleId represents an initialized, shared roleId.
+     */
+    modifier onlyShared(uint256 roleId) {
+        require(roles[roleId].roleType == RoleType.Shared, "Must be called on an initialized Shared role");
+        _;
+    }
+
+    /**
+     * @notice Whether `memberToCheck` is a member of roleId.
+     * @dev Reverts if roleId does not correspond to an initialized role.
+     * @param roleId the Role to check.
+     * @param memberToCheck the address to check.
+     * @return True if `memberToCheck` is a member of `roleId`.
+     */
+    function holdsRole(uint256 roleId, address memberToCheck) public view returns (bool) {
+        Role storage role = roles[roleId];
+        if (role.roleType == RoleType.Exclusive) {
+            return role.exclusiveRoleMembership.isMember(memberToCheck);
+        } else if (role.roleType == RoleType.Shared) {
+            return role.sharedRoleMembership.isMember(memberToCheck);
+        }
+        revert("Invalid roleId");
+    }
+
+    /**
+     * @notice Changes the exclusive role holder of `roleId` to `newMember`.
+     * @dev Reverts if the caller is not a member of the managing role for `roleId` or if `roleId` is not an
+     * initialized, ExclusiveRole.
+     * @param roleId the ExclusiveRole membership to modify.
+     * @param newMember the new ExclusiveRole member.
+     */
+    function resetMember(uint256 roleId, address newMember) public onlyExclusive(roleId) onlyRoleManager(roleId) {
+        roles[roleId].exclusiveRoleMembership.resetMember(newMember);
+        emit ResetExclusiveMember(roleId, newMember, msg.sender);
+    }
+
+    /**
+     * @notice Gets the current holder of the exclusive role, `roleId`.
+     * @dev Reverts if `roleId` does not represent an initialized, exclusive role.
+     * @param roleId the ExclusiveRole membership to check.
+     * @return the address of the current ExclusiveRole member.
+     */
+    function getMember(uint256 roleId) public view onlyExclusive(roleId) returns (address) {
+        return roles[roleId].exclusiveRoleMembership.getMember();
+    }
+
+    /**
+     * @notice Adds `newMember` to the shared role, `roleId`.
+     * @dev Reverts if `roleId` does not represent an initialized, SharedRole or if the caller is not a member of the
+     * managing role for `roleId`.
+     * @param roleId the SharedRole membership to modify.
+     * @param newMember the new SharedRole member.
+     */
+    function addMember(uint256 roleId, address newMember) public onlyShared(roleId) onlyRoleManager(roleId) {
+        roles[roleId].sharedRoleMembership.addMember(newMember);
+        emit AddedSharedMember(roleId, newMember, msg.sender);
+    }
+
+    /**
+     * @notice Removes `memberToRemove` from the shared role, `roleId`.
+     * @dev Reverts if `roleId` does not represent an initialized, SharedRole or if the caller is not a member of the
+     * managing role for `roleId`.
+     * @param roleId the SharedRole membership to modify.
+     * @param memberToRemove the current SharedRole member to remove.
+     */
+    function removeMember(uint256 roleId, address memberToRemove) public onlyShared(roleId) onlyRoleManager(roleId) {
+        roles[roleId].sharedRoleMembership.removeMember(memberToRemove);
+        emit RemovedSharedMember(roleId, memberToRemove, msg.sender);
+    }
+
+    /**
+     * @notice Removes caller from the role, `roleId`.
+     * @dev Reverts if the caller is not a member of the role for `roleId` or if `roleId` is not an
+     * initialized, SharedRole.
+     * @param roleId the SharedRole membership to modify.
+     */
+    function renounceMembership(uint256 roleId) public onlyShared(roleId) onlyRoleHolder(roleId) {
+        roles[roleId].sharedRoleMembership.removeMember(msg.sender);
+        emit RemovedSharedMember(roleId, msg.sender, msg.sender);
+    }
+
+    /**
+     * @notice Reverts if `roleId` is not initialized.
+     */
+    modifier onlyValidRole(uint256 roleId) {
+        require(roles[roleId].roleType != RoleType.Invalid, "Attempted to use an invalid roleId");
+        _;
+    }
+
+    /**
+     * @notice Reverts if `roleId` is initialized.
+     */
+    modifier onlyInvalidRole(uint256 roleId) {
+        require(roles[roleId].roleType == RoleType.Invalid, "Cannot use a pre-existing role");
+        _;
+    }
+
+    /**
+     * @notice Internal method to initialize a shared role, `roleId`, which will be managed by `managingRoleId`.
+     * `initialMembers` will be immediately added to the role.
+     * @dev Should be called by derived contracts, usually at construction time. Will revert if the role is already
+     * initialized.
+     */
+    function _createSharedRole(
+        uint256 roleId,
+        uint256 managingRoleId,
+        address[] memory initialMembers
+    ) internal onlyInvalidRole(roleId) {
+        Role storage role = roles[roleId];
+        role.roleType = RoleType.Shared;
+        role.managingRole = managingRoleId;
+        role.sharedRoleMembership.init(initialMembers);
+        require(
+            roles[managingRoleId].roleType != RoleType.Invalid,
+            "Attempted to use an invalid role to manage a shared role"
+        );
+    }
+
+    /**
+     * @notice Internal method to initialize an exclusive role, `roleId`, which will be managed by `managingRoleId`.
+     * `initialMember` will be immediately added to the role.
+     * @dev Should be called by derived contracts, usually at construction time. Will revert if the role is already
+     * initialized.
+     */
+    function _createExclusiveRole(
+        uint256 roleId,
+        uint256 managingRoleId,
+        address initialMember
+    ) internal onlyInvalidRole(roleId) {
+        Role storage role = roles[roleId];
+        role.roleType = RoleType.Exclusive;
+        role.managingRole = managingRoleId;
+        role.exclusiveRoleMembership.init(initialMember);
+        require(
+            roles[managingRoleId].roleType != RoleType.Invalid,
+            "Attempted to use an invalid role to manage an exclusive role"
+        );
+    }
+}
+
+
+// File contracts/common/implementation/ExpandedERC20.sol
+
+
+
+
+/**
+ * @title An ERC20 with permissioned burning and minting. The contract deployer will initially
+ * be the owner who is capable of adding new roles.
+ */
+contract ExpandedERC20 is ExpandedIERC20, ERC20, MultiRole {
+    enum Roles {
+        // Can set the minter and burner.
+        Owner,
+        // Addresses that can mint new tokens.
+        Minter,
+        // Addresses that can burn tokens that address owns.
+        Burner
+    }
+
+    uint8 _decimals;
+
+    /**
+     * @notice Constructs the ExpandedERC20.
+     * @param _tokenName The name which describes the new token.
+     * @param _tokenSymbol The ticker abbreviation of the name. Ideally < 5 chars.
+     * @param _tokenDecimals The number of decimals to define token precision.
+     */
+    constructor(
+        string memory _tokenName,
+        string memory _tokenSymbol,
+        uint8 _tokenDecimals
+    ) ERC20(_tokenName, _tokenSymbol) {
+        _decimals = _tokenDecimals;
+        _createExclusiveRole(uint256(Roles.Owner), uint256(Roles.Owner), msg.sender);
+        _createSharedRole(uint256(Roles.Minter), uint256(Roles.Owner), new address[](0));
+        _createSharedRole(uint256(Roles.Burner), uint256(Roles.Owner), new address[](0));
+    }
+
+    function decimals() public view virtual override(ERC20) returns (uint8) {
+        return _decimals;
+    }
+
+    /**
+     * @dev Mints `value` tokens to `recipient`, returning true on success.
+     * @param recipient address to mint to.
+     * @param value amount of tokens to mint.
+     * @return True if the mint succeeded, or False.
+     */
+    function mint(address recipient, uint256 value)
+        external
+        override
+        onlyRoleHolder(uint256(Roles.Minter))
+        returns (bool)
+    {
+        _mint(recipient, value);
+        return true;
+    }
+
+    /**
+     * @dev Burns `value` tokens owned by `msg.sender`.
+     * @param value amount of tokens to burn.
+     */
+    function burn(uint256 value) external override onlyRoleHolder(uint256(Roles.Burner)) {
+        _burn(msg.sender, value);
+    }
+
+    /**
+     * @dev Burns `value` tokens owned by `recipient`.
+     * @param recipient address to burn tokens from.
+     * @param value amount of tokens to burn.
+     * @return True if the burn succeeded, or False.
+     */
+    function burnFrom(address recipient, uint256 value)
+        external
+        override
+        onlyRoleHolder(uint256(Roles.Burner))
+        returns (bool)
+    {
+        _burn(recipient, value);
+        return true;
+    }
+
+    /**
+     * @notice Add Minter role to account.
+     * @dev The caller must have the Owner role.
+     * @param account The address to which the Minter role is added.
+     */
+    function addMinter(address account) external virtual override {
+        addMember(uint256(Roles.Minter), account);
+    }
+
+    /**
+     * @notice Add Burner role to account.
+     * @dev The caller must have the Owner role.
+     * @param account The address to which the Burner role is added.
+     */
+    function addBurner(address account) external virtual override {
+        addMember(uint256(Roles.Burner), account);
+    }
+
+    /**
+     * @notice Reset Owner role to account.
+     * @dev The caller must have the Owner role.
+     * @param account The new holder of the Owner role.
+     */
+    function resetOwner(address account) external virtual override {
+        resetMember(uint256(Roles.Owner), account);
+    }
+}
+
+
+// File @openzeppelin/contracts/utils/math/[email protected]
+
+// OpenZeppelin Contracts v4.4.1 (utils/math/Math.sol)
+
+
+/**
+ * @dev Standard math utilities missing in the Solidity language.
+ */
+library Math {
+    /**
+     * @dev Returns the largest of two numbers.
+     */
+    function max(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a >= b ? a : b;
+    }
+
+    /**
+     * @dev Returns the smallest of two numbers.
+     */
+    function min(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a < b ? a : b;
+    }
+
+    /**
+     * @dev Returns the average of two numbers. The result is rounded towards
+     * zero.
+     */
+    function average(uint256 a, uint256 b) internal pure returns (uint256) {
+        // (a + b) / 2 can overflow.
+        return (a & b) + (a ^ b) / 2;
+    }
+
+    /**
+     * @dev Returns the ceiling of the division of two numbers.
+     *
+     * This differs from standard division with `/` in that it rounds up instead
+     * of rounding down.
+     */
+    function ceilDiv(uint256 a, uint256 b) internal pure returns (uint256) {
+        // (a + b - 1) / b can overflow on addition, so we distribute.
+        return a / b + (a % b == 0 ? 0 : 1);
+    }
+}
+
+
+// File @openzeppelin/contracts/utils/[email protected]
+
+// OpenZeppelin Contracts v4.4.1 (utils/Arrays.sol)
+
+
+/**
+ * @dev Collection of functions related to array types.
+ */
+library Arrays {
+    /**
+     * @dev Searches a sorted `array` and returns the first index that contains
+     * a value greater or equal to `element`. If no such index exists (i.e. all
+     * values in the array are strictly less than `element`), the array length is
+     * returned. Time complexity O(log n).
+     *
+     * `array` is expected to be sorted in ascending order, and to contain no
+     * repeated elements.
+     */
+    function findUpperBound(uint256[] storage array, uint256 element) internal view returns (uint256) {
+        if (array.length == 0) {
+            return 0;
+        }
+
+        uint256 low = 0;
+        uint256 high = array.length;
+
+        while (low < high) {
+            uint256 mid = Math.average(low, high);
+
+            // Note that mid will always be strictly less than high (i.e. it will be a valid array index)
+            // because Math.average rounds down (it does integer division with truncation).
+            if (array[mid] > element) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        // At this point `low` is the exclusive upper bound. We will return the inclusive upper bound.
+        if (low > 0 && array[low - 1] == element) {
+            return low - 1;
+        } else {
+            return low;
+        }
+    }
+}
+
+
+// File @openzeppelin/contracts/utils/[email protected]
+
+// OpenZeppelin Contracts v4.4.1 (utils/Counters.sol)
+
+
+/**
+ * @title Counters
+ * @author Matt Condon (@shrugs)
+ * @dev Provides counters that can only be incremented, decremented or reset. This can be used e.g. to track the number
+ * of elements in a mapping, issuing ERC721 ids, or counting request ids.
+ *
+ * Include with `using Counters for Counters.Counter;`
+ */
+library Counters {
+    struct Counter {
+        // This variable should never be directly accessed by users of the library: interactions must be restricted to
+        // the library's function. As of Solidity v0.5.2, this cannot be enforced, though there is a proposal to add
+        // this feature: see https://github.com/ethereum/solidity/issues/4637
+        uint256 _value; // default: 0
+    }
+
+    function current(Counter storage counter) internal view returns (uint256) {
+        return counter._value;
+    }
+
+    function increment(Counter storage counter) internal {
+        unchecked {
+            counter._value += 1;
+        }
+    }
+
+    function decrement(Counter storage counter) internal {
+        uint256 value = counter._value;
+        require(value > 0, "Counter: decrement overflow");
+        unchecked {
+            counter._value = value - 1;
+        }
+    }
+
+    function reset(Counter storage counter) internal {
+        counter._value = 0;
+    }
+}
+
+
+// File @openzeppelin/contracts/token/ERC20/extensions/[email protected]
+
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/ERC20Snapshot.sol)
+
+
+
+
+/**
+ * @dev This contract extends an ERC20 token with a snapshot mechanism. When a snapshot is created, the balances and
+ * total supply at the time are recorded for later access.
+ *
+ * This can be used to safely create mechanisms based on token balances such as trustless dividends or weighted voting.
+ * In naive implementations it's possible to perform a "double spend" attack by reusing the same balance from different
+ * accounts. By using snapshots to calculate dividends or voting power, those attacks no longer apply. It can also be
+ * used to create an efficient ERC20 forking mechanism.
+ *
+ * Snapshots are created by the internal {_snapshot} function, which will emit the {Snapshot} event and return a
+ * snapshot id. To get the total supply at the time of a snapshot, call the function {totalSupplyAt} with the snapshot
+ * id. To get the balance of an account at the time of a snapshot, call the {balanceOfAt} function with the snapshot id
+ * and the account address.
+ *
+ * NOTE: Snapshot policy can be customized by overriding the {_getCurrentSnapshotId} method. For example, having it
+ * return `block.number` will trigger the creation of snapshot at the begining of each new block. When overridding this
+ * function, be careful about the monotonicity of its result. Non-monotonic snapshot ids will break the contract.
+ *
+ * Implementing snapshots for every block using this method will incur significant gas costs. For a gas-efficient
+ * alternative consider {ERC20Votes}.
+ *
+ * ==== Gas Costs
+ *
+ * Snapshots are efficient. Snapshot creation is _O(1)_. Retrieval of balances or total supply from a snapshot is _O(log
+ * n)_ in the number of snapshots that have been created, although _n_ for a specific account will generally be much
+ * smaller since identical balances in subsequent snapshots are stored as a single entry.
+ *
+ * There is a constant overhead for normal ERC20 transfers due to the additional snapshot bookkeeping. This overhead is
+ * only significant for the first transfer that immediately follows a snapshot for a particular account. Subsequent
+ * transfers will have normal cost until the next snapshot, and so on.
+ */
+
+abstract contract ERC20Snapshot is ERC20 {
+    // Inspired by Jordi Baylina's MiniMeToken to record historical balances:
+    // https://github.com/Giveth/minimd/blob/ea04d950eea153a04c51fa510b068b9dded390cb/contracts/MiniMeToken.sol
+
+    using Arrays for uint256[];
+    using Counters for Counters.Counter;
+
+    // Snapshotted values have arrays of ids and the value corresponding to that id. These could be an array of a
+    // Snapshot struct, but that would impede usage of functions that work on an array.
+    struct Snapshots {
+        uint256[] ids;
+        uint256[] values;
+    }
+
+    mapping(address => Snapshots) private _accountBalanceSnapshots;
+    Snapshots private _totalSupplySnapshots;
+
+    // Snapshot ids increase monotonically, with the first value being 1. An id of 0 is invalid.
+    Counters.Counter private _currentSnapshotId;
+
+    /**
+     * @dev Emitted by {_snapshot} when a snapshot identified by `id` is created.
+     */
+    event Snapshot(uint256 id);
+
+    /**
+     * @dev Creates a new snapshot and returns its snapshot id.
+     *
+     * Emits a {Snapshot} event that contains the same id.
+     *
+     * {_snapshot} is `internal` and you have to decide how to expose it externally. Its usage may be restricted to a
+     * set of accounts, for example using {AccessControl}, or it may be open to the public.
+     *
+     * [WARNING]
+     * ====
+     * While an open way of calling {_snapshot} is required for certain trust minimization mechanisms such as forking,
+     * you must consider that it can potentially be used by attackers in two ways.
+     *
+     * First, it can be used to increase the cost of retrieval of values from snapshots, although it will grow
+     * logarithmically thus rendering this attack ineffective in the long term. Second, it can be used to target
+     * specific accounts and increase the cost of ERC20 transfers for them, in the ways specified in the Gas Costs
+     * section above.
+     *
+     * We haven't measured the actual numbers; if this is something you're interested in please reach out to us.
+     * ====
+     */
+    function _snapshot() internal virtual returns (uint256) {
+        _currentSnapshotId.increment();
+
+        uint256 currentId = _getCurrentSnapshotId();
+        emit Snapshot(currentId);
+        return currentId;
+    }
+
+    /**
+     * @dev Get the current snapshotId
+     */
+    function _getCurrentSnapshotId() internal view virtual returns (uint256) {
+        return _currentSnapshotId.current();
+    }
+
+    /**
+     * @dev Retrieves the balance of `account` at the time `snapshotId` was created.
+     */
+    function balanceOfAt(address account, uint256 snapshotId) public view virtual returns (uint256) {
+        (bool snapshotted, uint256 value) = _valueAt(snapshotId, _accountBalanceSnapshots[account]);
+
+        return snapshotted ? value : balanceOf(account);
+    }
+
+    /**
+     * @dev Retrieves the total supply at the time `snapshotId` was created.
+     */
+    function totalSupplyAt(uint256 snapshotId) public view virtual returns (uint256) {
+        (bool snapshotted, uint256 value) = _valueAt(snapshotId, _totalSupplySnapshots);
+
+        return snapshotted ? value : totalSupply();
+    }
+
+    // Update balance and/or total supply snapshots before the values are modified. This is implemented
+    // in the _beforeTokenTransfer hook, which is executed for _mint, _burn, and _transfer operations.
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual override {
+        super._beforeTokenTransfer(from, to, amount);
+
+        if (from == address(0)) {
+            // mint
+            _updateAccountSnapshot(to);
+            _updateTotalSupplySnapshot();
+        } else if (to == address(0)) {
+            // burn
+            _updateAccountSnapshot(from);
+            _updateTotalSupplySnapshot();
+        } else {
+            // transfer
+            _updateAccountSnapshot(from);
+            _updateAccountSnapshot(to);
+        }
+    }
+
+    function _valueAt(uint256 snapshotId, Snapshots storage snapshots) private view returns (bool, uint256) {
+        require(snapshotId > 0, "ERC20Snapshot: id is 0");
+        require(snapshotId <= _getCurrentSnapshotId(), "ERC20Snapshot: nonexistent id");
+
+        // When a valid snapshot is queried, there are three possibilities:
+        //  a) The queried value was not modified after the snapshot was taken. Therefore, a snapshot entry was never
+        //  created for this id, and all stored snapshot ids are smaller than the requested one. The value that corresponds
+        //  to this id is the current one.
+        //  b) The queried value was modified after the snapshot was taken. Therefore, there will be an entry with the
+        //  requested id, and its value is the one to return.
+        //  c) More snapshots were created after the requested one, and the queried value was later modified. There will be
+        //  no entry for the requested id: the value that corresponds to it is that of the smallest snapshot id that is
+        //  larger than the requested one.
+        //
+        // In summary, we need to find an element in an array, returning the index of the smallest value that is larger if
+        // it is not found, unless said value doesn't exist (e.g. when all values are smaller). Arrays.findUpperBound does
+        // exactly this.
+
+        uint256 index = snapshots.ids.findUpperBound(snapshotId);
+
+        if (index == snapshots.ids.length) {
+            return (false, 0);
+        } else {
+            return (true, snapshots.values[index]);
+        }
+    }
+
+    function _updateAccountSnapshot(address account) private {
+        _updateSnapshot(_accountBalanceSnapshots[account], balanceOf(account));
+    }
+
+    function _updateTotalSupplySnapshot() private {
+        _updateSnapshot(_totalSupplySnapshots, totalSupply());
+    }
+
+    function _updateSnapshot(Snapshots storage snapshots, uint256 currentValue) private {
+        uint256 currentId = _getCurrentSnapshotId();
+        if (_lastSnapshotId(snapshots.ids) < currentId) {
+            snapshots.ids.push(currentId);
+            snapshots.values.push(currentValue);
+        }
+    }
+
+    function _lastSnapshotId(uint256[] storage ids) private view returns (uint256) {
+        if (ids.length == 0) {
+            return 0;
+        } else {
+            return ids[ids.length - 1];
+        }
+    }
+}
+
+
+// File contracts/oracle/implementation/VotingToken.sol
+
+
+
+/**
+ * @title Ownership of this token allows a voter to respond to price requests.
+ * @dev Supports snapshotting and allows the Oracle to mint new tokens as rewards.
+ */
+contract VotingToken is ExpandedERC20, ERC20Snapshot {
+    /**
+     * @notice Constructs the VotingToken.
+     */
+    constructor() ExpandedERC20("UMA Voting Token v1", "UMA", 18) ERC20Snapshot() {}
+
+    function decimals() public view virtual override(ERC20, ExpandedERC20) returns (uint8) {
+        return super.decimals();
+    }
+
+    /**
+     * @notice Creates a new snapshot ID.
+     * @return uint256 Thew new snapshot ID.
+     */
+    function snapshot() external returns (uint256) {
+        return _snapshot();
+    }
+
+    // _transfer, _mint and _burn are ERC20 internal methods that are overridden by ERC20Snapshot,
+    // therefore the compiler will complain that VotingToken must override these methods
+    // because the two base classes (ERC20 and ERC20Snapshot) both define the same functions
+
+    function _transfer(
+        address from,
+        address to,
+        uint256 value
+    ) internal override(ERC20) {
+        super._transfer(from, to, value);
+    }
+
+    function _mint(address account, uint256 value) internal virtual override(ERC20) {
+        super._mint(account, value);
+    }
+
+    function _burn(address account, uint256 value) internal virtual override(ERC20) {
+        super._burn(account, value);
+    }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual override(ERC20, ERC20Snapshot) {
+        super._beforeTokenTransfer(from, to, amount);
+    }
+}
+
+
+// File contracts/oracle/interfaces/StakerInterface.sol
+
+
+
+interface StakerInterface {
+    function votingToken() external returns (ExpandedIERC20);
+
+    function stake(uint256 amount) external;
+
+    function requestUnstake(uint256 amount) external;
+
+    function executeUnstake() external;
+
+    function withdrawRewards() external returns (uint256);
+
+    function withdrawAndRestake() external returns (uint256);
+
+    function setEmissionRate(uint256 emissionRate) external;
+
+    function setUnstakeCoolDown(uint64 unstakeCoolDown) external;
+
+    /**
+     * @notice Sets the delegate of a voter. This delegate can vote on behalf of the staker. The staker will still own
+     * all staked balances, receive rewards and be slashed based on the actions of the delegate. Intended use is using a
+     * low-security available wallet for voting while keeping access to staked amounts secure by a more secure wallet.
+     * @param delegate the address of the delegate.
+     */
+    function setDelegate(address delegate) external virtual;
+
+    /**
+     * @notice Sets the delegator of a voter. Acts to accept a delegation. The delegate can only vote for the delegator
+     * if the delegator also selected the delegate to do so (two-way relationship needed).
+     * @param delegator the address of the delegator.
+     */
+    function setDelegator(address delegator) external virtual;
+}
+
+
+// File @openzeppelin/contracts/access/[email protected]
+
+// OpenZeppelin Contracts v4.4.1 (access/Ownable.sol)
+
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+        _;
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+
+// File @openzeppelin/contracts/utils/math/[email protected]
+
+// OpenZeppelin Contracts v4.4.1 (utils/math/SafeCast.sol)
+
+
+/**
+ * @dev Wrappers over Solidity's uintXX/intXX casting operators with added overflow
+ * checks.
+ *
+ * Downcasting from uint256/int256 in Solidity does not revert on overflow. This can
+ * easily result in undesired exploitation or bugs, since developers usually
+ * assume that overflows raise errors. `SafeCast` restores this intuition by
+ * reverting the transaction when such an operation overflows.
+ *
+ * Using this library instead of the unchecked operations eliminates an entire
+ * class of bugs, so it's recommended to use it always.
+ *
+ * Can be combined with {SafeMath} and {SignedSafeMath} to extend it to smaller types, by performing
+ * all math on `uint256` and `int256` and then downcasting.
+ */
+library SafeCast {
+    /**
+     * @dev Returns the downcasted uint224 from uint256, reverting on
+     * overflow (when the input is greater than largest uint224).
+     *
+     * Counterpart to Solidity's `uint224` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 224 bits
+     */
+    function toUint224(uint256 value) internal pure returns (uint224) {
+        require(value <= type(uint224).max, "SafeCast: value doesn't fit in 224 bits");
+        return uint224(value);
+    }
+
+    /**
+     * @dev Returns the downcasted uint128 from uint256, reverting on
+     * overflow (when the input is greater than largest uint128).
+     *
+     * Counterpart to Solidity's `uint128` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 128 bits
+     */
+    function toUint128(uint256 value) internal pure returns (uint128) {
+        require(value <= type(uint128).max, "SafeCast: value doesn't fit in 128 bits");
+        return uint128(value);
+    }
+
+    /**
+     * @dev Returns the downcasted uint96 from uint256, reverting on
+     * overflow (when the input is greater than largest uint96).
+     *
+     * Counterpart to Solidity's `uint96` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 96 bits
+     */
+    function toUint96(uint256 value) internal pure returns (uint96) {
+        require(value <= type(uint96).max, "SafeCast: value doesn't fit in 96 bits");
+        return uint96(value);
+    }
+
+    /**
+     * @dev Returns the downcasted uint64 from uint256, reverting on
+     * overflow (when the input is greater than largest uint64).
+     *
+     * Counterpart to Solidity's `uint64` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 64 bits
+     */
+    function toUint64(uint256 value) internal pure returns (uint64) {
+        require(value <= type(uint64).max, "SafeCast: value doesn't fit in 64 bits");
+        return uint64(value);
+    }
+
+    /**
+     * @dev Returns the downcasted uint32 from uint256, reverting on
+     * overflow (when the input is greater than largest uint32).
+     *
+     * Counterpart to Solidity's `uint32` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 32 bits
+     */
+    function toUint32(uint256 value) internal pure returns (uint32) {
+        require(value <= type(uint32).max, "SafeCast: value doesn't fit in 32 bits");
+        return uint32(value);
+    }
+
+    /**
+     * @dev Returns the downcasted uint16 from uint256, reverting on
+     * overflow (when the input is greater than largest uint16).
+     *
+     * Counterpart to Solidity's `uint16` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 16 bits
+     */
+    function toUint16(uint256 value) internal pure returns (uint16) {
+        require(value <= type(uint16).max, "SafeCast: value doesn't fit in 16 bits");
+        return uint16(value);
+    }
+
+    /**
+     * @dev Returns the downcasted uint8 from uint256, reverting on
+     * overflow (when the input is greater than largest uint8).
+     *
+     * Counterpart to Solidity's `uint8` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 8 bits.
+     */
+    function toUint8(uint256 value) internal pure returns (uint8) {
+        require(value <= type(uint8).max, "SafeCast: value doesn't fit in 8 bits");
+        return uint8(value);
+    }
+
+    /**
+     * @dev Converts a signed int256 into an unsigned uint256.
+     *
+     * Requirements:
+     *
+     * - input must be greater than or equal to 0.
+     */
+    function toUint256(int256 value) internal pure returns (uint256) {
+        require(value >= 0, "SafeCast: value must be positive");
+        return uint256(value);
+    }
+
+    /**
+     * @dev Returns the downcasted int128 from int256, reverting on
+     * overflow (when the input is less than smallest int128 or
+     * greater than largest int128).
+     *
+     * Counterpart to Solidity's `int128` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 128 bits
+     *
+     * _Available since v3.1._
+     */
+    function toInt128(int256 value) internal pure returns (int128) {
+        require(value >= type(int128).min && value <= type(int128).max, "SafeCast: value doesn't fit in 128 bits");
+        return int128(value);
+    }
+
+    /**
+     * @dev Returns the downcasted int64 from int256, reverting on
+     * overflow (when the input is less than smallest int64 or
+     * greater than largest int64).
+     *
+     * Counterpart to Solidity's `int64` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 64 bits
+     *
+     * _Available since v3.1._
+     */
+    function toInt64(int256 value) internal pure returns (int64) {
+        require(value >= type(int64).min && value <= type(int64).max, "SafeCast: value doesn't fit in 64 bits");
+        return int64(value);
+    }
+
+    /**
+     * @dev Returns the downcasted int32 from int256, reverting on
+     * overflow (when the input is less than smallest int32 or
+     * greater than largest int32).
+     *
+     * Counterpart to Solidity's `int32` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 32 bits
+     *
+     * _Available since v3.1._
+     */
+    function toInt32(int256 value) internal pure returns (int32) {
+        require(value >= type(int32).min && value <= type(int32).max, "SafeCast: value doesn't fit in 32 bits");
+        return int32(value);
+    }
+
+    /**
+     * @dev Returns the downcasted int16 from int256, reverting on
+     * overflow (when the input is less than smallest int16 or
+     * greater than largest int16).
+     *
+     * Counterpart to Solidity's `int16` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 16 bits
+     *
+     * _Available since v3.1._
+     */
+    function toInt16(int256 value) internal pure returns (int16) {
+        require(value >= type(int16).min && value <= type(int16).max, "SafeCast: value doesn't fit in 16 bits");
+        return int16(value);
+    }
+
+    /**
+     * @dev Returns the downcasted int8 from int256, reverting on
+     * overflow (when the input is less than smallest int8 or
+     * greater than largest int8).
+     *
+     * Counterpart to Solidity's `int8` operator.
+     *
+     * Requirements:
+     *
+     * - input must fit into 8 bits.
+     *
+     * _Available since v3.1._
+     */
+    function toInt8(int256 value) internal pure returns (int8) {
+        require(value >= type(int8).min && value <= type(int8).max, "SafeCast: value doesn't fit in 8 bits");
+        return int8(value);
+    }
+
+    /**
+     * @dev Converts an unsigned uint256 into a signed int256.
+     *
+     * Requirements:
+     *
+     * - input must be less than or equal to maxInt256.
+     */
+    function toInt256(uint256 value) internal pure returns (int256) {
+        // Note: Unsafe cast below is okay because `type(int256).max` is guaranteed to be positive
+        require(value <= uint256(type(int256).max), "SafeCast: value doesn't fit in an int256");
+        return int256(value);
+    }
+}
+
+
+// File contracts/oracle/implementation/Staker.sol
+
+
+
+
+
+/**
+ * @title Staking contract enabling UMA to be locked up by stakers to earn a pro rata share of a fixed emission rate.
+ * @dev Handles the staking, unstaking and reward retrieval logic.
+ */
+abstract contract Staker is StakerInterface, Ownable, Lockable, MultiCaller {
+    /****************************************
+     *           STAKING TRACKERS           *
+     ****************************************/
+
+    uint256 public emissionRate;
+    uint256 public cumulativeStake;
+    uint256 public rewardPerTokenStored;
+    uint64 public lastUpdateTime;
+    uint64 public unstakeCoolDown;
+
+    ExpandedIERC20 public votingToken;
+
+    struct VoterStake {
+        uint256 stake;
+        uint256 pendingUnstake;
+        mapping(uint256 => uint256) pendingStakes;
+        uint256 rewardsPaidPerToken;
+        uint256 outstandingRewards;
+        int256 unappliedSlash;
+        uint64 nextIndexToProcess;
+        uint64 unstakeRequestTime;
+        address delegate;
+    }
+
+    mapping(address => VoterStake) public voterStakes;
+    mapping(address => address) public delegateToStaker;
+
+    /****************************************
+     *                EVENTS                *
+     ****************************************/
+
+    event Staked(
+        address indexed voter,
+        address indexed from,
+        uint256 amount,
+        uint256 voterStake,
+        uint256 voterPendingUnstake,
+        uint256 cumulativeStake
+    );
+
+    event RequestedUnstake(address indexed voter, uint256 amount, uint256 unstakeTime, uint256 voterStake);
+
+    event ExecutedUnstake(address indexed voter, uint256 tokensSent, uint256 voterStake);
+
+    event WithdrawnRewards(address indexed voter, address indexed delegate, uint256 tokensWithdrawn);
+
+    event UpdatedReward(address indexed voter, uint256 newReward, uint256 lastUpdateTime);
+
+    event SetNewEmissionRate(uint256 newEmissionRate);
+
+    event SetNewUnstakeCoolDown(uint256 newUnstakeCoolDown);
+
+    event DelegateSet(address indexed delegator, address indexed delegate);
+
+    event DelegatorSet(address indexed delegate, address indexed delegator);
+
+    /**
+     * @notice Construct the Staker contract
+     * @param _emissionRate amount of voting tokens that are emitted per second, split pro rata to stakers.
+     * @param _unstakeCoolDown time that a voter must wait to unstake after requesting to unstake.
+     * @param _votingToken address of the UMA token contract used to commit votes.
+     */
+    constructor(
+        uint256 _emissionRate,
+        uint64 _unstakeCoolDown,
+        address _votingToken
+    ) {
+        emissionRate = _emissionRate;
+        unstakeCoolDown = _unstakeCoolDown;
+        votingToken = ExpandedIERC20(_votingToken);
+    }
+
+    /****************************************
+     *           STAKER FUNCTIONS           *
+     ****************************************/
+
+    /**
+     * @notice Pulls tokens from the senders's wallet and stakes them on his behalf.
+     * @param amount the amount of tokens to stake.
+     */
+    function stake(uint256 amount) public {
+        _stakeTo(msg.sender, msg.sender, amount);
+    }
+
+    /**
+     * @notice Pulls tokens from the senders's wallet and stakes them for the recipient.
+     * @param recipient the recipient address.
+     * @param amount the amount of tokens to stake.
+     */
+    function stakeTo(address recipient, uint256 amount) public {
+        _stakeTo(msg.sender, recipient, amount);
+    }
+
+    // Pull an amount of votingToken from the from address and stakes them for the recipient address.
+    // If we are in an active reveal phase the stake amount will be added to the pending stake.
+    // If not, the stake amount will be added to the active stake.
+    function _stakeTo(
+        address from,
+        address recipient,
+        uint256 amount
+    ) internal {
+        VoterStake storage voterStake = voterStakes[recipient];
+
+        // If the staker has a cumulative staked balance of 0 then we can shortcut their lastRequestIndexConsidered to
+        // the most recent index. This means we don't need to traverse requests where the staker was not staked.
+        // _getStartingIndexForStaker returns the appropriate index to start at.
+        if (voterStake.stake == 0) voterStake.nextIndexToProcess = _getStartingIndexForStaker();
+        _updateTrackers(recipient);
+
+        // Compute pending stakes when needed.
+        _computePendingStakes(recipient, amount);
+
+        voterStake.stake += amount;
+        cumulativeStake += amount;
+
+        // Tokens are pulled from the "from" address and sent to this contract.
+        // During withdrawAndRestake, "from" is the same as the address of this contract, so there is no need to transfer.
+        if (from != address(this)) votingToken.transferFrom(from, address(this), amount);
+        emit Staked(recipient, from, amount, voterStake.stake, voterStake.pendingUnstake, cumulativeStake);
+    }
+
+    /**
+     * @notice Request a certain number of tokens to be unstaked. After the unstake time expires, the user may execute
+     * the unstake. Tokens requested to unstake are not slashable nor subject to earning rewards.
+     * This function cannot be called during an active reveal phase.
+     * Note that there is no way to cancel an unstake request, you must wait until after unstakeRequestTime and re-stake.
+     * @param amount the amount of tokens to request to be unstaked.
+     */
+    function requestUnstake(uint256 amount) external override nonReentrant() {
+        require(!_inActiveReveal(), "In an active reveal phase");
+        _updateTrackers(msg.sender);
+        VoterStake storage voterStake = voterStakes[msg.sender];
+
+        require(voterStake.stake >= amount && voterStake.pendingUnstake == 0, "Bad amount or pending unstake");
+
+        cumulativeStake -= amount;
+        voterStake.pendingUnstake = amount;
+        voterStake.stake -= amount;
+        voterStake.unstakeRequestTime = SafeCast.toUint64(getCurrentTime());
+
+        emit RequestedUnstake(msg.sender, amount, voterStake.unstakeRequestTime, voterStake.stake);
+    }
+
+    /**
+     * @notice  Execute a previously requested unstake. Requires the unstake time to have passed.
+     * @dev If a staker requested an unstake and time > unstakeRequestTime then send funds to staker.
+     */
+    function executeUnstake() external override nonReentrant() {
+        VoterStake storage voterStake = voterStakes[msg.sender];
+        require(
+            voterStake.unstakeRequestTime != 0 && getCurrentTime() >= voterStake.unstakeRequestTime + unstakeCoolDown,
+            "Unstake time not passed"
+        );
+        uint256 tokensToSend = voterStake.pendingUnstake;
+
+        if (tokensToSend > 0) {
+            voterStake.pendingUnstake = 0;
+            voterStake.unstakeRequestTime = 0;
+            votingToken.transfer(msg.sender, tokensToSend);
+        }
+
+        emit ExecutedUnstake(msg.sender, tokensToSend, voterStake.stake);
+    }
+
+    /**
+     * @notice Send accumulated rewards to the voter. Note that these rewards do not include slashing balance changes.
+     * @return uint256 the amount of tokens sent to the voter.
+     */
+    function withdrawRewards() public returns (uint256) {
+        return _withdrawRewards(msg.sender, msg.sender);
+    }
+
+    function _withdrawRewards(address voter, address recipient) internal returns (uint256) {
+        _updateTrackers(voter);
+        VoterStake storage voterStake = voterStakes[voter];
+
+        uint256 tokensToMint = voterStake.outstandingRewards;
+        if (tokensToMint > 0) {
+            voterStake.outstandingRewards = 0;
+            require(votingToken.mint(recipient, tokensToMint), "Voting token issuance failed");
+            emit WithdrawnRewards(voter, msg.sender, tokensToMint);
+        }
+        return tokensToMint;
+    }
+
+    /**
+     * @notice Stake accumulated rewards. This is merely a convenience mechanism that combines the voter's withdrawal and stake
+     *  in the same transaction if requested by a delegate or the voter.
+     * @dev This method requires that the msg.sender (voter or delegate) has approved this contract.
+     * @dev The rewarded tokens simply pass through this contract before being staked on the voter's behalf.
+     *  The balance of the delegate remains unchanged.
+     * @return uint256 the amount of tokens that the voter is staking.
+     */
+    function withdrawAndRestake() external returns (uint256) {
+        address voter = getVoterFromDelegate(msg.sender);
+        uint256 rewards = _withdrawRewards(voter, address(this));
+        _stakeTo(address(this), voter, rewards);
+        return rewards;
+    }
+
+    /**
+     * @notice Sets the delegate of a voter. This delegate can vote on behalf of the staker. The staker will still own
+     * all staked balances, receive rewards and be slashed based on the actions of the delegate. Intended use is using a
+     * low-security available wallet for voting while keeping access to staked amounts secure by a more secure wallet.
+     * @param delegate the address of the delegate.
+     */
+    function setDelegate(address delegate) external {
+        voterStakes[msg.sender].delegate = delegate;
+        emit DelegateSet(msg.sender, delegate);
+    }
+
+    /**
+     * @notice Sets the delegator of a voter. Acts to accept a delegation. The delegate can only vote for the delegator
+     * if the delegator also selected the delegate to do so (two-way relationship needed).
+     * @param delegator the address of the delegator.
+     */
+    function setDelegator(address delegator) external {
+        delegateToStaker[msg.sender] = delegator;
+        emit DelegatorSet(msg.sender, delegator);
+    }
+
+    /****************************************
+     *        OWNER ADMIN FUNCTIONS         *
+     ****************************************/
+
+    /**
+     * @notice  Set the token's emission rate, the number of voting tokens that are emitted per second per staked token,
+     * split pro rata to stakers.
+     * @param newEmissionRate the new amount of voting tokens that are emitted per second, split pro rata to stakers.
+     */
+    function setEmissionRate(uint256 newEmissionRate) external onlyOwner {
+        _updateReward(address(0));
+        emissionRate = newEmissionRate;
+        emit SetNewEmissionRate(newEmissionRate);
+    }
+
+    /**
+     * @notice  Set the amount of time a voter must wait to unstake after submitting a request to do so.
+     * @param newUnstakeCoolDown the new duration of the cool down period in seconds.
+     */
+    function setUnstakeCoolDown(uint64 newUnstakeCoolDown) external onlyOwner {
+        unstakeCoolDown = newUnstakeCoolDown;
+        emit SetNewUnstakeCoolDown(newUnstakeCoolDown);
+    }
+
+    // Updates an account internal trackers.
+    function _updateTrackers(address voterAddress) internal virtual {
+        _updateReward(voterAddress);
+    }
+
+    /****************************************
+     *            VIEW FUNCTIONS            *
+     ****************************************/
+
+    /**
+     * @notice Gets the pending stake for a voter for a given round.
+     * @param voterAddress the voter address.
+     * @param roundId round id.
+     * @return uint256 amount of the pending stake.
+     */
+    function getVoterPendingStake(address voterAddress, uint256 roundId) external view returns (uint256) {
+        return voterStakes[voterAddress].pendingStakes[roundId];
+    }
+
+    /**
+     * @notice Gets the voter from the delegate.
+     * @param caller caller of the function or the address to check in the mapping between a voter and their delegate.
+     * @return address voter that corresponds to the delegate.
+     */
+    function getVoterFromDelegate(address caller) public view returns (address) {
+        if (
+            delegateToStaker[caller] != address(0) && // The delegate chose to be a delegate for the staker.
+            voterStakes[delegateToStaker[caller]].delegate == caller // The staker chose the delegate.
+        ) return delegateToStaker[caller];
+        else return caller;
+    }
+
+    /**
+     * @notice  Determine the number of outstanding token rewards that can be withdrawn by a voter.
+     * @param voterAddress the address of the voter.
+     * @return uint256 the outstanding rewards.
+     */
+    function outstandingRewards(address voterAddress) public view returns (uint256) {
+        VoterStake storage voterStake = voterStakes[voterAddress];
+
+        return
+            ((voterStake.stake * (rewardPerToken() - voterStake.rewardsPaidPerToken)) / 1e18) +
+            voterStake.outstandingRewards;
+    }
+
+    /**
+     * @notice  Calculate the reward per token based on the last time the reward was updated.
+     * @return uint256 the reward per token.
+     */
+    function rewardPerToken() public view returns (uint256) {
+        if (cumulativeStake == 0) return rewardPerTokenStored;
+        return rewardPerTokenStored + ((getCurrentTime() - lastUpdateTime) * emissionRate * 1e18) / cumulativeStake;
+    }
+
+    /**
+     * @notice  Returns the total amount of tokens staked by the voter, after applying updateTrackers. Specifically used
+     * by offchain applications to simulate the cumulative stake + unapplied slashing updates without sending a transaction.
+     * @param voterAddress the address of the voter.
+     * @return uint256 the total stake.
+     */
+    function getVoterStakePostUpdate(address voterAddress) external returns (uint256) {
+        _updateTrackers(voterAddress);
+        return voterStakes[voterAddress].stake;
+    }
+
+    /**
+     * @notice Returns the current block timestamp.
+     * @dev Can be overridden to control contract time.
+     */
+    function getCurrentTime() public view virtual returns (uint256) {
+        return block.timestamp;
+    }
+
+    /****************************************
+     *          INTERNAL FUNCTIONS          *
+     ****************************************/
+
+    // This function must be called before any tokens are staked. Update the voter's pending stakes when necessary.
+    // The contract that inherits from Staker (eg VotingV2 contract) must implement this logic by overriding this function.
+    function _computePendingStakes(address voterAddress, uint256 amount) internal virtual;
+
+    // Add a new stake amount to the voter's pending stake for a specific round id.
+    function _setPendingStake(
+        address voterAddress,
+        uint256 roundId,
+        uint256 amount
+    ) internal {
+        voterStakes[voterAddress].pendingStakes[roundId] += amount;
+    }
+
+    // Determine if we are in an active reveal phase. This function should be overridden by the child contract.
+    function _inActiveReveal() internal view virtual returns (bool) {
+        return false;
+    }
+
+    function _getStartingIndexForStaker() internal view virtual returns (uint64) {
+        return 0;
+    }
+
+    // Calculate the reward per token based on last time the reward was updated.
+    function _updateReward(address voterAddress) internal {
+        uint256 newRewardPerToken = rewardPerToken();
+        rewardPerTokenStored = newRewardPerToken;
+        lastUpdateTime = uint64(getCurrentTime());
+        if (voterAddress != address(0)) {
+            VoterStake storage voterStake = voterStakes[voterAddress];
+            voterStake.outstandingRewards = outstandingRewards(voterAddress);
+            voterStake.rewardsPaidPerToken = newRewardPerToken;
+        }
+        emit UpdatedReward(voterAddress, newRewardPerToken, lastUpdateTime);
+    }
+}
+
+
+// File contracts/oracle/interfaces/VotingV2Interface.sol
+
+// TODO: add staking/snapshot interfaces to this interface file.
+
+
+/**
+ * @title Interface that voters must use to Vote on price request resolutions.
+ */
+abstract contract VotingV2Interface {
+    struct PendingRequest {
+        bytes32 identifier;
+        uint256 time;
+    }
+
+    struct PendingRequestAncillary {
+        bytes32 identifier;
+        uint256 time;
+        bytes ancillaryData;
+    }
+
+    struct PendingRequestAncillaryAugmented {
+        bytes32 identifier;
+        uint256 time;
+        bytes ancillaryData;
+        uint64 priceRequestIndex;
+    }
+
+    // Captures the necessary data for making a commitment.
+    // Used as a parameter when making batch commitments.
+    // Not used as a data structure for storage.
+    struct Commitment {
+        bytes32 identifier;
+        uint256 time;
+        bytes32 hash;
+        bytes encryptedVote;
+    }
+
+    // Captures the necessary data for revealing a vote.
+    // Used as a parameter when making batch reveals.
+    // Not used as a data structure for storage.
+    struct Reveal {
+        bytes32 identifier;
+        uint256 time;
+        int256 price;
+        int256 salt;
+    }
+
+    // Captures the necessary data for making a commitment.
+    // Used as a parameter when making batch commitments.
+    // Not used as a data structure for storage.
+    struct CommitmentAncillary {
+        bytes32 identifier;
+        uint256 time;
+        bytes ancillaryData;
+        bytes32 hash;
+        bytes encryptedVote;
+    }
+
+    // Captures the necessary data for revealing a vote.
+    // Used as a parameter when making batch reveals.
+    // Not used as a data structure for storage.
+    struct RevealAncillary {
+        bytes32 identifier;
+        uint256 time;
+        int256 price;
+        bytes ancillaryData;
+        int256 salt;
+    }
+
+    // Note: the phases must be in order. Meaning the first enum value must be the first phase, etc.
+    // `NUM_PHASES` is to get the number of phases. It isn't an actual phase, and it should always be last.
+    enum Phase { Commit, Reveal, NUM_PHASES }
+
+    /**
+     * @notice Commit a vote for a price request for `identifier` at `time`.
+     * @dev `identifier`, `time` must correspond to a price request that's currently in the commit phase.
+     * Commits can be changed.
+     * @dev Since transaction data is public, the salt will be revealed with the vote. While this is the system’s expected behavior,
+     * voters should never reuse salts. If someone else is able to guess the voted price and knows that a salt will be reused, then
+     * they can determine the vote pre-reveal.
+     * @param identifier uniquely identifies the committed vote. EG BTC/USD price pair.
+     * @param time unix timestamp of the price being voted on.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @param hash keccak256 hash of the `price`, `salt`, voter `address`, `time`, current `roundId`, and `identifier`.
+     */
+    function commitVote(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData,
+        bytes32 hash
+    ) public virtual;
+
+    /**
+     * @notice commits a vote and logs an event with a data blob, typically an encrypted version of the vote
+     * @dev An encrypted version of the vote is emitted in an event `EncryptedVote` to allow off-chain infrastructure to
+     * retrieve the commit. The contents of `encryptedVote` are never used on chain: it is purely for convenience.
+     * @param identifier unique price pair identifier. Eg: BTC/USD price pair.
+     * @param time unix timestamp of for the price request.
+     * @param ancillaryData  arbitrary data appended to a price request to give the voters more info from the caller.
+     * @param hash keccak256 hash of the price you want to vote for and a `int256 salt`.
+     * @param encryptedVote offchain encrypted blob containing the voters amount, time and salt.
+     */
+    function commitAndEmitEncryptedVote(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData,
+        bytes32 hash,
+        bytes memory encryptedVote
+    ) public virtual;
+
+    /**
+     * @notice Reveal a previously committed vote for `identifier` at `time`.
+     * @dev The revealed `price`, `salt`, `address`, `time`, `roundId`, and `identifier`, must hash to the latest `hash`
+     * that `commitVote()` was called with. Only the committer can reveal their vote.
+     * @param identifier voted on in the commit phase. EG BTC/USD price pair.
+     * @param time specifies the unix timestamp of the price is being voted on.
+     * @param price voted on during the commit phase.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @param salt value used to hide the commitment price during the commit phase.
+     */
+    function revealVote(
+        bytes32 identifier,
+        uint256 time,
+        int256 price,
+        bytes memory ancillaryData,
+        int256 salt
+    ) public virtual;
+
+    /**
+     * @notice Gets the queries that are being voted on this round.
+     * @return pendingRequests `PendingRequest` array containing identifiers
+     * and timestamps for all pending requests.
+     */
+    function getPendingRequests() external view virtual returns (PendingRequestAncillaryAugmented[] memory);
+
+    /**
+     * @notice Returns the current voting phase, as a function of the current time.
+     * @return Phase to indicate the current phase. Either { Commit, Reveal, NUM_PHASES }.
+     */
+    function getVotePhase() external view virtual returns (Phase);
+
+    /**
+     * @notice Returns the current round ID, as a function of the current time.
+     * @return uint256 representing the unique round ID.
+     */
+    function getCurrentRoundId() external view virtual returns (uint256);
+
+    // Voting Owner functions.
+
+    /**
+     * @notice Disables this Voting contract in favor of the migrated one.
+     * @dev Can only be called by the contract owner.
+     * @param newVotingAddress the newly migrated contract address.
+     */
+    function setMigrated(address newVotingAddress) external virtual;
+
+    /**
+     * @notice Resets the Gat. Note: this change only applies to rounds that have not yet begun.
+     * @param newGat sets the next round's Gat.
+     */
+    function setGat(uint256 newGat) external virtual;
+
+    /**
+     * @notice Resets the rewards expiration timeout.
+     * @dev This change only applies to rounds that have not yet begun.
+     * @param NewRewardsExpirationTimeout how long a caller can wait before choosing to withdraw their rewards.
+     */
+    function setRewardsExpirationTimeout(uint256 NewRewardsExpirationTimeout) external virtual;
+
+    /**
+     * @notice Changes the slashing library used by this contract.
+     * @param _newSlashingLibrary new slashing library address.
+     */
+    function setSlashingLibrary(address _newSlashingLibrary) external virtual;
+}
+
+
+// File contracts/oracle/implementation/VoteTimingV2.sol
+
+
+/**
+ * @title Library to compute rounds and phases for an equal length commit-reveal voting cycle.
+ */
+library VoteTimingV2 {
+    struct Data {
+        uint256 phaseLength;
+        uint256 minRollToNextRoundLength;
+    }
+
+    /**
+     * @notice Initializes the data object. Sets the phase length based on the input.
+     * @param data input data object. When used as a library is left blank.
+     * @param phaseLength how long the commit/reveal duration should be, in seconds.
+     * @param minRollToNextRoundLength time, after which, a request is auto rolled to the subsequent round.
+     */
+    function init(
+        Data storage data,
+        uint256 phaseLength,
+        uint256 minRollToNextRoundLength
+    ) internal {
+        // This should have a require message but this results in an internal Solidity error.
+        require(phaseLength > 0, "Invalid phaseLength");
+        require(minRollToNextRoundLength <= phaseLength, "Invalid minRollToNextRoundLength");
+        data.phaseLength = phaseLength;
+        data.minRollToNextRoundLength = minRollToNextRoundLength;
+    }
+
+    /**
+     * @notice Computes the round ID based off the current time as floor(timestamp/roundLength).
+     * @dev The round ID depends on the global timestamp but not on the lifetime of the system.
+     * The consequence is that the initial round ID starts at an arbitrary number (that increments, as expected, for subsequent rounds) instead of zero or one.
+     * @param data input data object.
+     * @param currentTime input unix timestamp used to compute the current roundId.
+     * @return roundId defined as a function of the currentTime and `phaseLength` from `data`.
+     */
+    function computeCurrentRoundId(Data storage data, uint256 currentTime) internal view returns (uint256) {
+        uint256 roundLength = data.phaseLength * uint256(VotingV2Interface.Phase.NUM_PHASES);
+        return currentTime / roundLength;
+    }
+
+    /**
+     * @notice compute the round end time as a function of the round ID.
+     * @param data input data object.
+     * @param roundId uniquely identifies the current round.
+     * @return timestamp unix time of when the current round will end.
+     */
+    function computeRoundEndTime(Data storage data, uint256 roundId) internal view returns (uint256) {
+        uint256 roundLength = data.phaseLength * uint256(VotingV2Interface.Phase.NUM_PHASES);
+        return roundLength * (roundId + 1);
+    }
+
+    /**
+     * @notice Computes the current phase based only on the current time.
+     * @param data input data object.
+     * @param currentTime input unix timestamp used to compute the current roundId.
+     * @return current voting phase based on current time and vote phases configuration.
+     */
+    function computeCurrentPhase(Data storage data, uint256 currentTime)
+        internal
+        view
+        returns (VotingV2Interface.Phase)
+    {
+        // This employs some hacky casting. We could make this an if-statement if we're worried about type safety.
+        return VotingV2Interface.Phase((currentTime / data.phaseLength) % uint256(VotingV2Interface.Phase.NUM_PHASES));
+    }
+
+    /**
+     * @notice computes the round that a price request should be voted on as a function of the current time. The round
+     * a vote is voted on is either the next round (default case) or the round after that if the time is in the last
+     * minRollToNextRoundLength before the end of the round.
+     * @param data input data object.
+     * @return currentTime unix time used to evaluate when the rolling should or should not occur.
+     */
+    function computeRoundToVoteOnPriceRequest(Data storage data, uint256 currentTime) internal view returns (uint256) {
+        uint256 currentRoundId = computeCurrentRoundId(data, currentTime);
+        uint256 roundEndTime = computeRoundEndTime(data, currentRoundId);
+        if (currentTime >= roundEndTime - data.minRollToNextRoundLength) return currentRoundId + 2;
+        else return currentRoundId + 1;
+    }
+}
+
+
+// File contracts/oracle/implementation/Constants.sol
+
+
+/**
+ * @title Stores common interface names used throughout the DVM by registration in the Finder.
+ */
+library OracleInterfaces {
+    bytes32 public constant Oracle = "Oracle";
+    bytes32 public constant IdentifierWhitelist = "IdentifierWhitelist";
+    bytes32 public constant Store = "Store";
+    bytes32 public constant FinancialContractsAdmin = "FinancialContractsAdmin";
+    bytes32 public constant Registry = "Registry";
+    bytes32 public constant CollateralWhitelist = "CollateralWhitelist";
+    bytes32 public constant OptimisticOracle = "OptimisticOracle";
+    bytes32 public constant OptimisticOracleV2 = "OptimisticOracleV2";
+    bytes32 public constant Bridge = "Bridge";
+    bytes32 public constant GenericHandler = "GenericHandler";
+    bytes32 public constant SkinnyOptimisticOracle = "SkinnyOptimisticOracle";
+    bytes32 public constant ChildMessenger = "ChildMessenger";
+    bytes32 public constant OracleHub = "OracleHub";
+    bytes32 public constant OracleSpoke = "OracleSpoke";
+}
+
+/**
+ * @title Commonly re-used values for contracts associated with the OptimisticOracle.
+ */
+library OptimisticOracleConstraints {
+    // Any price request submitted to the OptimisticOracle must contain ancillary data no larger than this value.
+    // This value must be <= the Voting contract's `ancillaryBytesLimit` constant value otherwise it is possible
+    // that a price can be requested to the OptimisticOracle successfully, but cannot be resolved by the DVM which
+    // refuses to accept a price request made with ancillary data length over a certain size.
+    uint256 public constant ancillaryBytesLimit = 8192;
+}
+
+
+// File contracts/oracle/interfaces/MinimumVotingAncillaryInterface.sol
+
+
+interface MinimumVotingAncillaryInterface {
+    struct Unsigned {
+        uint256 rawValue;
+    }
+
+    struct PendingRequestAncillary {
+        bytes32 identifier;
+        uint256 time;
+        bytes ancillaryData;
+    }
+
+    function retrieveRewards(
+        address voterAddress,
+        uint256 roundId,
+        PendingRequestAncillary[] memory toRetrieve
+    ) external returns (Unsigned memory);
+}
+
+
+// File contracts/oracle/interfaces/FinderInterface.sol
+
+
+/**
+ * @title Provides addresses of the live contracts implementing certain interfaces.
+ * @dev Examples are the Oracle or Store interfaces.
+ */
+interface FinderInterface {
+    /**
+     * @notice Updates the address of the contract that implements `interfaceName`.
+     * @param interfaceName bytes32 encoding of the interface name that is either changed or registered.
+     * @param implementationAddress address of the deployed contract that implements the interface.
+     */
+    function changeImplementationAddress(bytes32 interfaceName, address implementationAddress) external;
+
+    /**
+     * @notice Gets the address of the contract that implements the given `interfaceName`.
+     * @param interfaceName queried interface.
+     * @return implementationAddress address of the deployed contract that implements the interface.
+     */
+    function getImplementationAddress(bytes32 interfaceName) external view returns (address);
+}
+
+
+// File contracts/oracle/interfaces/IdentifierWhitelistInterface.sol
+
+
+/**
+ * @title Interface for whitelists of supported identifiers that the oracle can provide prices for.
+ */
+interface IdentifierWhitelistInterface {
+    /**
+     * @notice Adds the provided identifier as a supported identifier.
+     * @dev Price requests using this identifier will succeed after this call.
+     * @param identifier bytes32 encoding of the string identifier. Eg: BTC/USD.
+     */
+    function addSupportedIdentifier(bytes32 identifier) external;
+
+    /**
+     * @notice Removes the identifier from the whitelist.
+     * @dev Price requests using this identifier will no longer succeed after this call.
+     * @param identifier bytes32 encoding of the string identifier. Eg: BTC/USD.
+     */
+    function removeSupportedIdentifier(bytes32 identifier) external;
+
+    /**
+     * @notice Checks whether an identifier is on the whitelist.
+     * @param identifier bytes32 encoding of the string identifier. Eg: BTC/USD.
+     * @return bool if the identifier is supported (or not).
+     */
+    function isIdentifierSupported(bytes32 identifier) external view returns (bool);
+}
+
+
+// File contracts/oracle/interfaces/OracleAncillaryInterface.sol
+
+
+/**
+ * @title Financial contract facing Oracle interface.
+ * @dev Interface used by financial contracts to interact with the Oracle. Voters will use a different interface.
+ */
+abstract contract OracleAncillaryInterface {
+    /**
+     * @notice Enqueues a request (if a request isn't already present) for the given `identifier`, `time` pair.
+     * @dev Time must be in the past and the identifier must be supported.
+     * @param identifier uniquely identifies the price requested. eg BTC/USD (encoded as bytes32) could be requested.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @param time unix timestamp for the price request.
+     */
+
+    function requestPrice(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) public virtual;
+
+    /**
+     * @notice Whether the price for `identifier` and `time` is available.
+     * @dev Time must be in the past and the identifier must be supported.
+     * @param identifier uniquely identifies the price requested. eg BTC/USD (encoded as bytes32) could be requested.
+     * @param time unix timestamp for the price request.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @return bool if the DVM has resolved to a price for the given identifier and timestamp.
+     */
+    function hasPrice(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) public view virtual returns (bool);
+
+    /**
+     * @notice Gets the price for `identifier` and `time` if it has already been requested and resolved.
+     * @dev If the price is not available, the method reverts.
+     * @param identifier uniquely identifies the price requested. eg BTC/USD (encoded as bytes32) could be requested.
+     * @param time unix timestamp for the price request.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @return int256 representing the resolved price for the given identifier and timestamp.
+     */
+
+    function getPrice(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) public view virtual returns (int256);
+}
+
+
+// File contracts/oracle/interfaces/OracleInterface.sol
+
+
+/**
+ * @title Financial contract facing Oracle interface.
+ * @dev Interface used by financial contracts to interact with the Oracle. Voters will use a different interface.
+ */
+abstract contract OracleInterface {
+    /**
+     * @notice Enqueues a request (if a request isn't already present) for the given `identifier`, `time` pair.
+     * @dev Time must be in the past and the identifier must be supported.
+     * @param identifier uniquely identifies the price requested. eg BTC/USD (encoded as bytes32) could be requested.
+     * @param time unix timestamp for the price request.
+     */
+    function requestPrice(bytes32 identifier, uint256 time) external virtual;
+
+    /**
+     * @notice Whether the price for `identifier` and `time` is available.
+     * @dev Time must be in the past and the identifier must be supported.
+     * @param identifier uniquely identifies the price requested. eg BTC/USD (encoded as bytes32) could be requested.
+     * @param time unix timestamp for the price request.
+     * @return bool if the DVM has resolved to a price for the given identifier and timestamp.
+     */
+    function hasPrice(bytes32 identifier, uint256 time) public view virtual returns (bool);
+
+    /**
+     * @notice Gets the price for `identifier` and `time` if it has already been requested and resolved.
+     * @dev If the price is not available, the method reverts.
+     * @param identifier uniquely identifies the price requested. eg BTC/USD (encoded as bytes32) could be requested.
+     * @param time unix timestamp for the price request.
+     * @return int256 representing the resolved price for the given identifier and timestamp.
+     */
+    function getPrice(bytes32 identifier, uint256 time) external view virtual returns (int256);
+}
+
+
+// File contracts/oracle/interfaces/OracleGovernanceInterface.sol
+
+
+
+/**
+ * @title Financial contract facing extending the Oracle interface with governance actions.
+ * @dev Interface used by financial contracts to interact with the Oracle extending governance actions. Voters will use a different interface.
+ */
+abstract contract OracleGovernanceInterface is OracleInterface, OracleAncillaryInterface {
+    /**
+     * @notice Enqueues a request (if a request isn't already present) for the given `identifier`, `time` pair.
+     * @dev Time must be in the past and the identifier must be supported.
+     * @param identifier uniquely identifies the price requested. eg BTC/USD (encoded as bytes32) could be requested.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @param time unix timestamp for the price request.
+     */
+    function requestGovernanceAction(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) external virtual;
+}
+
+
+// File contracts/oracle/interfaces/RegistryInterface.sol
+
+
+/**
+ * @title Interface for a registry of contracts and contract creators.
+ */
+interface RegistryInterface {
+    /**
+     * @notice Registers a new contract.
+     * @dev Only authorized contract creators can call this method.
+     * @param parties an array of addresses who become parties in the contract.
+     * @param contractAddress defines the address of the deployed contract.
+     */
+    function registerContract(address[] calldata parties, address contractAddress) external;
+
+    /**
+     * @notice Returns whether the contract has been registered with the registry.
+     * @dev If it is registered, it is an authorized participant in the UMA system.
+     * @param contractAddress address of the contract.
+     * @return bool indicates whether the contract is registered.
+     */
+    function isContractRegistered(address contractAddress) external view returns (bool);
+
+    /**
+     * @notice Returns a list of all contracts that are associated with a particular party.
+     * @param party address of the party.
+     * @return an array of the contracts the party is registered to.
+     */
+    function getRegisteredContracts(address party) external view returns (address[] memory);
+
+    /**
+     * @notice Returns all registered contracts.
+     * @return all registered contract addresses within the system.
+     */
+    function getAllRegisteredContracts() external view returns (address[] memory);
+
+    /**
+     * @notice Adds a party to the calling contract.
+     * @dev msg.sender must be the contract to which the party member is added.
+     * @param party address to be added to the contract.
+     */
+    function addPartyToContract(address party) external;
+
+    /**
+     * @notice Removes a party member to the calling contract.
+     * @dev msg.sender must be the contract to which the party member is added.
+     * @param party address to be removed from the contract.
+     */
+    function removePartyFromContract(address party) external;
+
+    /**
+     * @notice checks if an address is a party in a contract.
+     * @param party party to check.
+     * @param contractAddress address to check against the party.
+     * @return bool indicating if the address is a party of the contract.
+     */
+    function isPartyMemberOfContract(address party, address contractAddress) external view returns (bool);
+}
+
+
+// File contracts/oracle/interfaces/SlashingLibraryInterface.sol
+
+
+interface SlashingLibraryInterface {
+    /**
+     * @notice Calculates the wrong vote slash per token.
+     * @param totalStaked The total amount of tokens staked.
+     * @param totalVotes The total amount of votes.
+     * @param totalCorrectVotes The total amount of correct votes.
+     * @return uint256 The amount of tokens to slash per token staked.
+     */
+    function calcWrongVoteSlashPerToken(
+        uint256 totalStaked,
+        uint256 totalVotes,
+        uint256 totalCorrectVotes
+    ) external pure returns (uint256);
+
+    /**
+     * @notice Calculates the wrong vote slash per token for governance requests.
+     * @param totalStaked The total amount of tokens staked.
+     * @param totalVotes The total amount of votes.
+     * @param totalCorrectVotes The total amount of correct votes.
+     * @return uint256 The amount of tokens to slash per token staked.
+     */
+    function calcWrongVoteSlashPerTokenGovernance(
+        uint256 totalStaked,
+        uint256 totalVotes,
+        uint256 totalCorrectVotes
+    ) external pure returns (uint256);
+
+    /**
+     * @notice Calculates the no vote slash per token.
+     * @param totalStaked The total amount of tokens staked.
+     * @param totalVotes The total amount of votes.
+     * @param totalCorrectVotes The total amount of correct votes.
+     * @return uint256 The amount of tokens to slash per token staked.
+     */
+    function calcNoVoteSlashPerToken(
+        uint256 totalStaked,
+        uint256 totalVotes,
+        uint256 totalCorrectVotes
+    ) external pure returns (uint256);
+
+    /**
+     * @notice Calculates all slashing trackers in one go to decrease cross-contract calls needed.
+     * @param totalStaked The total amount of tokens staked.
+     * @param totalVotes The total amount of votes.
+     * @param totalCorrectVotes The total amount of correct votes.
+     * @return wrongVoteSlashPerToken The amount of tokens to slash for voting wrong.
+     * @return noVoteSlashPerToken The amount of tokens to slash for not voting.
+     */
+    function calcSlashing(
+        uint256 totalStaked,
+        uint256 totalVotes,
+        uint256 totalCorrectVotes,
+        bool isGovernance
+    ) external pure returns (uint256 wrongVoteSlashPerToken, uint256 noVoteSlashPerToken);
+}
+
+
+// File contracts/oracle/implementation/VotingV2.sol
+
+// TODO: this whole /oracle/implementation directory should be restructured to separate the DVM and the OO.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @title VotingV2 contract for the UMA DVM.
+ * @dev Handles receiving and resolving price requests via a commit-reveal voting schelling scheme.
+ */
+
+contract VotingV2 is Staker, OracleInterface, OracleAncillaryInterface, OracleGovernanceInterface, VotingV2Interface {
+    using VoteTimingV2 for VoteTimingV2.Data;
+    using ResultComputationV2 for ResultComputationV2.Data;
+
+    /****************************************
+     *        VOTING DATA STRUCTURES        *
+     ****************************************/
+
+    // Identifies a unique price request. Tracks ongoing votes as well as the result of the vote.
+    struct PriceRequest {
+        // If in the past, this was the voting round where this price was resolved. If current or the upcoming round,
+        // this is the voting round where this price will be voted on, but not necessarily resolved.
+        uint32 lastVotingRound;
+        // Denotes whether this is a governance request or not.
+        bool isGovernance;
+        // The pendingRequestIndex in the pendingPriceRequests that references this PriceRequest. A value of UINT64_MAX
+        // means that this PriceRequest is resolved and has been cleaned up from pendingPriceRequests.
+        uint64 pendingRequestIndex;
+        // Each request has a unique requestIndex number that is used to order all requests. This is the index within
+        // the priceRequestIds array and is incremented on each request.
+        uint64 priceRequestIndex;
+        // Timestamp that should be used when evaluating the request.
+        // Note: this is a uint64 to allow better variable packing while still leaving more than ample room for
+        // timestamps to stretch far into the future.
+        uint64 time;
+        // Identifier that defines how the voters should resolve the request.
+        bytes32 identifier;
+        // A map containing all votes for this price in various rounds.
+        mapping(uint256 => VoteInstance) voteInstances;
+        // Additional data used to resolve the request.
+        bytes ancillaryData;
+    }
+
+    struct VoteInstance {
+        mapping(address => VoteSubmission) voteSubmissions; // Maps (voterAddress) to their submission.
+        ResultComputationV2.Data resultComputation; // The data structure containing the computed voting results.
+    }
+
+    struct VoteSubmission {
+        bytes32 commit; // A bytes32 of 0 indicates no commit or a commit that was already revealed.
+        bytes32 revealHash; // The hash of the value that was revealed. This is only used for computation of rewards.
+    }
+
+    struct Round {
+        uint256 gat; // GAT is the required number of tokens to vote to not roll the vote.
+        uint256 cumulativeActiveStakeAtRound; // Total staked tokens at the start of the round.
+    }
+
+    // Represents the status a price request has.
+    enum RequestStatus {
+        NotRequested, // Was never requested.
+        Active, // Is being voted on in the current round.
+        Resolved, // Was resolved in a previous round.
+        Future // Is scheduled to be voted on in a future round.
+    }
+
+    // Only used as a return value in view methods -- never stored in the contract.
+    struct RequestState {
+        RequestStatus status;
+        uint256 lastVotingRound;
+    }
+
+    /****************************************
+     *          INTERNAL TRACKING           *
+     ****************************************/
+
+    // Maps round numbers to the rounds.
+    mapping(uint256 => Round) public rounds;
+
+    // Maps price request IDs to the PriceRequest struct.
+    mapping(bytes32 => PriceRequest) public priceRequests;
+
+    bytes32[] public priceRequestIds;
+
+    mapping(uint64 => uint64) public skippedRequestIndexes;
+
+    // Price request ids for price requests that haven't yet been resolved. These requests may be for future rounds.
+    bytes32[] public pendingPriceRequests;
+
+    VoteTimingV2.Data public voteTiming;
+
+    // Number of tokens that must participate to resolve a vote.
+    uint256 public gat;
+
+    // Reference to the Finder.
+    FinderInterface private immutable finder;
+
+    // Reference to Slashing Library.
+    SlashingLibraryInterface public slashingLibrary;
+
+    // If non-zero, this contract has been migrated to this address.
+    address public migratedAddress;
+
+    // If non-zero, this is the previous voting contract, deployed before this one. Used to facilitate retrieval of
+    // previous price requests from DVM deployments before this one and claiming of rewards.
+    OracleAncillaryInterface public immutable previousVotingContract;
+
+    // Max value of an unsigned integer.
+    uint64 private constant UINT64_MAX = type(uint64).max;
+
+    // Max length in bytes of ancillary data that can be appended to a price request.
+    uint256 public constant ANCILLARY_BYTES_LIMIT = 8192;
+
+    /****************************************
+     *          SLASHING TRACKERS           *
+     ****************************************/
+
+    // Only used as a return value in view methods -- never stored in the contract.
+    struct SlashingTracker {
+        uint256 wrongVoteSlashPerToken;
+        uint256 noVoteSlashPerToken;
+        uint256 totalSlashed;
+        uint256 totalCorrectVotes;
+    }
+
+    /****************************************
+     *        SPAM DELETION TRACKERS        *
+     ****************************************/
+
+    uint256 public spamDeletionProposalBond;
+
+    struct SpamDeletionRequest {
+        uint256[2][] spamRequestIndices;
+        uint256 requestTime;
+        bool executed;
+        address proposer;
+        uint256 bond;
+    }
+
+    SpamDeletionRequest[] internal spamDeletionProposals;
+
+    /****************************************
+     *                EVENTS                *
+     ****************************************/
+
+    event VoteCommitted(
+        address indexed voter,
+        address indexed caller,
+        uint256 roundId,
+        uint256 priceRequestIndex,
+        bytes32 indexed identifier,
+        uint256 time,
+        bytes ancillaryData
+    );
+
+    event EncryptedVote(
+        address indexed caller,
+        uint256 indexed roundId,
+        bytes32 indexed identifier,
+        uint256 time,
+        bytes ancillaryData,
+        bytes encryptedVote
+    );
+
+    event VoteRevealed(
+        address indexed voter,
+        address indexed caller,
+        uint256 roundId,
+        uint256 priceRequestIndex,
+        bytes32 indexed identifier,
+        uint256 time,
+        bytes ancillaryData,
+        int256 price,
+        uint256 numTokens
+    );
+
+    event PriceRequestAdded(
+        address indexed requester,
+        uint256 indexed roundId,
+        uint256 priceRequestIndex,
+        bytes32 indexed identifier,
+        uint256 time,
+        bytes ancillaryData,
+        bool isGovernance
+    );
+
+    event PriceResolved(
+        uint256 indexed roundId,
+        uint256 priceRequestIndex,
+        bytes32 indexed identifier,
+        uint256 time,
+        bytes ancillaryData,
+        int256 price
+    );
+
+    event VotingContractMigrated(address newAddress);
+
+    event GatChanged(uint256 newGat);
+
+    event SlashingLibraryChanged(address newAddress);
+
+    event SpamDeletionProposalBondChanged(uint256 newBond);
+
+    event VoterSlashed(address indexed voter, int256 slashedTokens, uint256 postActiveStake);
+
+    event SignaledRequestsAsSpamForDeletion(
+        uint256 indexed proposalId,
+        address indexed sender,
+        uint256[2][] spamRequestIndices
+    );
+
+    event ExecutedSpamDeletion(uint256 indexed proposalId, bool indexed executed);
+
+    /**
+     * @notice Construct the VotingV2 contract.
+     * @param _emissionRate amount of voting tokens that are emitted per second, split prorate between stakers.
+     * @param _spamDeletionProposalBond amount of voting tokens that are required to propose a spam deletion.
+     * @param _unstakeCoolDown time that a voter must wait to unstake after requesting to unstake.
+     * @param _phaseLength length of the voting phases in seconds.
+     * @param _minRollToNextRoundLength time before the end of a round in which a request must be made for the request
+     *  to be voted on in the next round. If after this, the request is rolled to a round after the next round.
+     * @param _startingRequestIndex offset index to increment the first index in the priceRequestIds array.
+     * @param _gat number of tokens that must participate to resolve a vote.
+     * @param _votingToken address of the UMA token contract used to commit votes.
+     * @param _finder keeps track of all contracts within the system based on their interfaceName.
+     * @param _slashingLibrary contract used to calculate voting slashing penalties based on voter participation.
+     * @param _previousVotingContract previous voting contract address.
+     */
+    constructor(
+        uint256 _emissionRate,
+        uint256 _spamDeletionProposalBond,
+        uint64 _unstakeCoolDown,
+        uint64 _phaseLength,
+        uint64 _minRollToNextRoundLength,
+        uint256 _gat,
+        uint64 _startingRequestIndex,
+        address _votingToken,
+        address _finder,
+        address _slashingLibrary,
+        address _previousVotingContract
+    ) Staker(_emissionRate, _unstakeCoolDown, _votingToken) {
+        voteTiming.init(_phaseLength, _minRollToNextRoundLength);
+        require(_gat < IERC20(_votingToken).totalSupply() && _gat > 0);
+        gat = _gat;
+        finder = FinderInterface(_finder);
+        slashingLibrary = SlashingLibraryInterface(_slashingLibrary);
+        previousVotingContract = OracleAncillaryInterface(_previousVotingContract);
+        setSpamDeletionProposalBond(_spamDeletionProposalBond);
+
+        // We assume indices never get above 2^64. So we should never start with an index above half that range.
+        require(_startingRequestIndex < type(uint64).max / 2);
+
+        assembly {
+            sstore(priceRequestIds.slot, _startingRequestIndex)
+        }
+    }
+
+    /***************************************
+                    MODIFIERS
+    ****************************************/
+
+    modifier onlyRegisteredContract() {
+        _requireRegisteredContract();
+        _;
+    }
+
+    modifier onlyIfNotMigrated() {
+        _requireNotMigrated();
+        _;
+    }
+
+    /****************************************
+     *  PRICE REQUEST AND ACCESS FUNCTIONS  *
+     ****************************************/
+
+    /**
+     * @notice Enqueues a request (if a request isn't already present) for the identifier, time pair.
+     * @dev Time must be in the past and the identifier must be supported. The length of the ancillary data
+     * is limited such that this method abides by the EVM transaction gas limit.
+     * @param identifier uniquely identifies the price requested. E.g. BTC/USD (encoded as bytes32) could be requested.
+     * @param time unix timestamp for the price request.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     */
+    function requestPrice(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) public override nonReentrant() onlyIfNotMigrated() onlyRegisteredContract() {
+        _requestPrice(identifier, time, ancillaryData, false);
+    }
+
+    /**
+     * @notice Enqueues a governance action request (if a request isn't already present) for identifier, time pair.
+     * @dev Time must be in the past and the identifier must be supported. The length of the ancillary data
+     * is limited such that this method abides by the EVM transaction gas limit.
+     * @param identifier uniquely identifies the price requested. E.g. BTC/USD (encoded as bytes32) could be requested.
+     * @param time unix timestamp for the price request.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     */
+    function requestGovernanceAction(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) external override onlyOwner() onlyIfNotMigrated() {
+        _requestPrice(identifier, time, ancillaryData, true);
+    }
+
+    /**
+     * @notice Enqueues a request (if a request isn't already present) for the given identifier, time pair.
+     * @dev Time must be in the past and the identifier must be supported. The length of the ancillary data is limited
+     * such that this method abides by the EVM transaction gas limit.
+     * @param identifier uniquely identifies the price requested. E.g. BTC/USD (encoded as bytes32) could be requested.
+     * @param time unix timestamp for the price request.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @param isGovernance indicates whether the request is for a governance action.
+     */
+    function _requestPrice(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData,
+        bool isGovernance
+    ) internal {
+        uint256 blockTime = getCurrentTime();
+        require(time <= blockTime, "Can only request in past");
+        require(
+            isGovernance || _getIdentifierWhitelist().isIdentifierSupported(identifier),
+            "Unsupported identifier request"
+        );
+        require(ancillaryData.length <= ANCILLARY_BYTES_LIMIT, "Invalid ancillary data");
+
+        bytes32 priceRequestId = _encodePriceRequest(identifier, time, ancillaryData);
+        PriceRequest storage priceRequest = priceRequests[priceRequestId];
+        uint256 currentRoundId = voteTiming.computeCurrentRoundId(blockTime);
+
+        RequestStatus requestStatus = _getRequestStatus(priceRequest, currentRoundId);
+
+        // Price has never been requested.
+        if (requestStatus == RequestStatus.NotRequested) {
+            // If the price request is a governance action then always place it in the following round. If the price
+            // request is a normal request then either place it in the next round or the following round based off
+            // the minRollToNextRoundLength. This limits when a request must be made for it to occur in the next round.
+            uint256 roundIdToVoteOnPriceRequest =
+                isGovernance ? currentRoundId + 1 : voteTiming.computeRoundToVoteOnPriceRequest(blockTime);
+            PriceRequest storage newPriceRequest = priceRequests[priceRequestId];
+            newPriceRequest.identifier = identifier;
+            newPriceRequest.time = SafeCast.toUint64(time);
+            newPriceRequest.lastVotingRound = SafeCast.toUint32(roundIdToVoteOnPriceRequest);
+            newPriceRequest.pendingRequestIndex = SafeCast.toUint64(pendingPriceRequests.length);
+            newPriceRequest.priceRequestIndex = SafeCast.toUint64(priceRequestIds.length);
+            newPriceRequest.ancillaryData = ancillaryData;
+            if (isGovernance) newPriceRequest.isGovernance = isGovernance;
+
+            pendingPriceRequests.push(priceRequestId);
+            priceRequestIds.push(priceRequestId);
+
+            emit PriceRequestAdded(
+                msg.sender,
+                roundIdToVoteOnPriceRequest,
+                newPriceRequest.priceRequestIndex,
+                identifier,
+                time,
+                ancillaryData,
+                isGovernance
+            );
+        }
+    }
+
+    // Overloaded method to enable short term backwards compatibility. Will be deprecated in the next DVM version.
+    function requestPrice(bytes32 identifier, uint256 time) external override {
+        requestPrice(identifier, time, "");
+    }
+
+    /**
+     * @notice Whether the price for identifier and time is available.
+     * @dev Time must be in the past and the identifier must be supported.
+     * @param identifier uniquely identifies the price requested. E.g. BTC/USD (encoded as bytes32) could be requested.
+     * @param time unix timestamp of the price request.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @return _hasPrice bool if the DVM has resolved to a price for the given identifier and timestamp.
+     */
+    function hasPrice(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) public view override onlyRegisteredContract() returns (bool) {
+        (bool _hasPrice, , ) = _getPriceOrError(identifier, time, ancillaryData);
+        return _hasPrice;
+    }
+
+    // Overloaded method to enable short term backwards compatibility. Will be deprecated in the next DVM version.
+    function hasPrice(bytes32 identifier, uint256 time) public view override returns (bool) {
+        return hasPrice(identifier, time, "");
+    }
+
+    /**
+     * @notice Gets the price for identifier and time if it has already been requested and resolved.
+     * @dev If the price is not available, the method reverts.
+     * @param identifier uniquely identifies the price requested. E.g. BTC/USD (encoded as bytes32) could be requested.
+     * @param time unix timestamp of the price request.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @return int256 representing the resolved price for the given identifier and timestamp.
+     */
+    function getPrice(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) public view override onlyRegisteredContract() returns (int256) {
+        (bool _hasPrice, int256 price, string memory message) = _getPriceOrError(identifier, time, ancillaryData);
+
+        // If the price wasn't available, revert with the provided message.
+        require(_hasPrice, message);
+        return price;
+    }
+
+    // Overloaded method to enable short term backwards compatibility. Will be deprecated in the next DVM version.
+    function getPrice(bytes32 identifier, uint256 time) external view override returns (int256) {
+        return getPrice(identifier, time, "");
+    }
+
+    /**
+     * @notice Gets the status of a list of price requests, identified by their identifier and time.
+     * @dev If the status for a particular request is NotRequested, the lastVotingRound will always be 0.
+     * @param requests array of type PendingRequestAncillary which includes an identifier and timestamp for each request.
+     * @return requestStates a list, in the same order as the input list, giving the status of the specified requests.
+     */
+    function getPriceRequestStatuses(PendingRequestAncillary[] memory requests)
+        public
+        view
+        returns (RequestState[] memory)
+    {
+        RequestState[] memory requestStates = new RequestState[](requests.length);
+        uint256 currentRoundId = getCurrentRoundId();
+        for (uint256 i = 0; i < requests.length; i = unsafe_inc(i)) {
+            PriceRequest storage priceRequest =
+                _getPriceRequest(requests[i].identifier, requests[i].time, requests[i].ancillaryData);
+
+            RequestStatus status = _getRequestStatus(priceRequest, currentRoundId);
+
+            // If it's an active request, its true lastVotingRound is the current one, even if it hasn't been updated.
+            if (status == RequestStatus.Active) requestStates[i].lastVotingRound = currentRoundId;
+            else requestStates[i].lastVotingRound = priceRequest.lastVotingRound;
+            requestStates[i].status = status;
+        }
+        return requestStates;
+    }
+
+    /****************************************
+     *          VOTING FUNCTIONS            *
+     ****************************************/
+
+    /**
+     * @notice Commit a vote for a price request for identifier at time.
+     * @dev identifier, time must correspond to a price request that's currently in the commit phase.
+     * Commits can be changed.
+     * @dev Since transaction data is public, the salt will be revealed with the vote. While this is the system’s
+     * expected behavior, voters should never reuse salts. If someone else is able to guess the voted price and knows
+     * that a salt will be reused, then they can determine the vote pre-reveal.
+     * @param identifier uniquely identifies the committed vote. E.g. BTC/USD price pair.
+     * @param time unix timestamp of the price being voted on.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @param hash keccak256 hash of the price, salt, voter address, time, ancillaryData, current roundId, identifier.
+     */
+    function commitVote(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData,
+        bytes32 hash
+    ) public override nonReentrant() onlyIfNotMigrated() {
+        uint256 currentRoundId = getCurrentRoundId();
+        address voter = getVoterFromDelegate(msg.sender);
+        _updateTrackers(voter);
+        require(hash != bytes32(0), "Invalid commit hash");
+        require(getVotePhase() == Phase.Commit, "Cannot commit in reveal phase");
+
+        PriceRequest storage priceRequest = _getPriceRequest(identifier, time, ancillaryData);
+        require(
+            _getRequestStatus(priceRequest, currentRoundId) == RequestStatus.Active,
+            "Cannot commit inactive request"
+        );
+
+        VoteInstance storage voteInstance = priceRequest.voteInstances[currentRoundId];
+        voteInstance.voteSubmissions[voter].commit = hash;
+
+        emit VoteCommitted(
+            voter,
+            msg.sender,
+            currentRoundId,
+            priceRequest.priceRequestIndex,
+            identifier,
+            time,
+            ancillaryData
+        );
+    }
+
+    /**
+     * @notice Reveal a previously committed vote for identifier at time.
+     * @dev The revealed price, salt, voter address, time, ancillaryData, current roundId, identifier must hash to the
+     * latest hash that commitVote() was called with. Only the committer can reveal their vote.
+     * @param identifier voted on in the commit phase. E.g. BTC/USD price pair.
+     * @param time specifies the unix timestamp of the price being voted on.
+     * @param price voted on during the commit phase.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @param salt value used to hide the commitment price during the commit phase.
+     */
+    function revealVote(
+        bytes32 identifier,
+        uint256 time,
+        int256 price,
+        bytes memory ancillaryData,
+        int256 salt
+    ) public override nonReentrant() onlyIfNotMigrated() {
+        // Note: computing the current round is required to disallow people from revealing an old commit after the round is over.
+        uint256 currentRoundId = getCurrentRoundId();
+        _freezeRoundVariables(currentRoundId);
+        VoteInstance storage voteInstance =
+            _getPriceRequest(identifier, time, ancillaryData).voteInstances[currentRoundId];
+        address voter = getVoterFromDelegate(msg.sender);
+        VoteSubmission storage voteSubmission = voteInstance.voteSubmissions[voter];
+
+        // Scoping to get rid of a stack too deep errors for require messages.
+        {
+            // Can only reveal in the reveal phase.
+            require(getVotePhase() == Phase.Reveal, "Reveal phase has not started yet");
+            // 0 hashes are disallowed in the commit phase, so they indicate a different error.
+            // Cannot reveal an uncommitted or previously revealed hash
+            require(voteSubmission.commit != bytes32(0), "Invalid hash reveal");
+
+            // Check that the hash that was committed matches to the one that was revealed. Note that if the voter had
+            // delegated this means that they must reveal with the same account they had committed with.
+            require(
+                keccak256(abi.encodePacked(price, salt, msg.sender, time, ancillaryData, currentRoundId, identifier)) ==
+                    voteSubmission.commit,
+                "Revealed data != commit hash"
+            );
+        }
+
+        delete voteSubmission.commit; // Small gas refund for clearing up storage.
+
+        voteSubmission.revealHash = keccak256(abi.encode(price)); // Set the voter's submission.
+        uint256 stake = voterStakes[voter].stake;
+        voteInstance.resultComputation.addVote(price, stake); // Add vote to the results.
+        emit VoteRevealed(
+            voter,
+            msg.sender,
+            currentRoundId,
+            _getPriceRequest(identifier, time, ancillaryData).pendingRequestIndex,
+            identifier,
+            time,
+            ancillaryData,
+            price,
+            stake
+        );
+    }
+
+    /**
+     * @notice Commits a vote and logs an event with a data blob, typically an encrypted version of the vote
+     * @dev An encrypted version of the vote is emitted in an event EncryptedVote to allow off-chain infrastructure to
+     * retrieve the commit. The contents of encryptedVote are never used on chain: it is purely for convenience.
+     * @param identifier unique price pair identifier. E.g. BTC/USD price pair.
+     * @param time unix timestamp of the price request.
+     * @param ancillaryData arbitrary data appended to a price request to give the voters more info from the caller.
+     * @param hash keccak256 hash of the price you want to vote for and a int256 salt.
+     * @param encryptedVote offchain encrypted blob containing the voter's amount, time and salt.
+     */
+    function commitAndEmitEncryptedVote(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData,
+        bytes32 hash,
+        bytes memory encryptedVote
+    ) public override {
+        commitVote(identifier, time, ancillaryData, hash);
+        emit EncryptedVote(msg.sender, getCurrentRoundId(), identifier, time, ancillaryData, encryptedVote);
+    }
+
+    /****************************************
+     *        VOTING GETTER FUNCTIONS       *
+     ****************************************/
+
+    /**
+     * @notice Gets the queries that are being voted on this round.
+     * @return pendingRequests array containing identifiers of type PendingRequestAncillary.
+     */
+    function getPendingRequests() external view override returns (PendingRequestAncillaryAugmented[] memory) {
+        // Solidity memory arrays aren't resizable (and reading storage is expensive). Hence this hackery to filter
+        // pendingPriceRequests only to those requests that have an Active RequestStatus.
+        PendingRequestAncillaryAugmented[] memory unresolved =
+            new PendingRequestAncillaryAugmented[](pendingPriceRequests.length);
+        uint256 numUnresolved = 0;
+
+        for (uint256 i = 0; i < pendingPriceRequests.length; i = unsafe_inc(i)) {
+            PriceRequest storage priceRequest = priceRequests[pendingPriceRequests[i]];
+            if (_getRequestStatus(priceRequest, getCurrentRoundId()) == RequestStatus.Active) {
+                unresolved[numUnresolved] = PendingRequestAncillaryAugmented({
+                    identifier: priceRequest.identifier,
+                    time: priceRequest.time,
+                    ancillaryData: priceRequest.ancillaryData,
+                    priceRequestIndex: priceRequest.priceRequestIndex
+                });
+                numUnresolved++;
+            }
+        }
+
+        PendingRequestAncillaryAugmented[] memory pendingRequests =
+            new PendingRequestAncillaryAugmented[](numUnresolved);
+        for (uint256 i = 0; i < numUnresolved; i = unsafe_inc(i)) {
+            pendingRequests[i] = unresolved[i];
+        }
+        return pendingRequests;
+    }
+
+    /**
+     * @notice Checks if there are current active requests.
+     * @return bool true if there are active requests, false otherwise.
+     */
+    function currentActiveRequests() public view returns (bool) {
+        uint256 currentRoundId = getCurrentRoundId();
+        for (uint256 i = 0; i < pendingPriceRequests.length; i = unsafe_inc(i)) {
+            if (_getRequestStatus(priceRequests[pendingPriceRequests[i]], currentRoundId) == RequestStatus.Active)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * @notice Returns the current voting phase, as a function of the current time.
+     * @return Phase to indicate the current phase. Either { Commit, Reveal, NUM_PHASES }.
+     */
+    function getVotePhase() public view override returns (Phase) {
+        return voteTiming.computeCurrentPhase(getCurrentTime());
+    }
+
+    /**
+     * @notice Returns the current round ID, as a function of the current time.
+     * @return uint256 the unique round ID.
+     */
+    function getCurrentRoundId() public view override returns (uint256) {
+        return voteTiming.computeCurrentRoundId(getCurrentTime());
+    }
+
+    /**
+     * @notice Returns the round end time, as a function of the round number.
+     * @param roundId representing the unique round ID.
+     * @return uint256 representing the unique round ID.
+     */
+    function getRoundEndTime(uint256 roundId) external view returns (uint256) {
+        return voteTiming.computeRoundEndTime(roundId);
+    }
+
+    /**
+     * @notice Returns the total number of price requests enqueued into the oracle over all time.
+     * Note that a rolled vote is re-enqueued and as such will increment the number of requests, when rolled.
+     * @return uint256 the total number of prices requested.
+     */
+    function getNumberOfPriceRequests() external view returns (uint256) {
+        return priceRequestIds.length;
+    }
+
+    /**
+     * @notice Returns aggregate slashing trackers for a given request index.
+     * @param requestIndex requestIndex the index of the request to fetch slashing trackers for.
+     * @return SlashingTracker Tracker object contains the slashed UMA per staked UMA per wrong vote and no vote, the
+     * total UMA slashed in the round and the total number of correct votes in the round.
+     */
+    function requestSlashingTrackers(uint256 requestIndex) public view returns (SlashingTracker memory) {
+        uint256 currentRoundId = getCurrentRoundId();
+        PriceRequest storage priceRequest = priceRequests[priceRequestIds[requestIndex]];
+
+        // If the request is not resolved return zeros for everything.
+        if (_getRequestStatus(priceRequest, currentRoundId) != RequestStatus.Resolved)
+            return SlashingTracker(0, 0, 0, 0);
+
+        VoteInstance storage voteInstance = priceRequest.voteInstances[priceRequest.lastVotingRound];
+
+        uint256 totalVotes = voteInstance.resultComputation.totalVotes;
+        uint256 totalCorrectVotes = voteInstance.resultComputation.getTotalCorrectlyVotedTokens();
+        uint256 stakedAtRound = rounds[priceRequest.lastVotingRound].cumulativeActiveStakeAtRound;
+
+        (uint256 wrongVoteSlash, uint256 noVoteSlash) =
+            slashingLibrary.calcSlashing(stakedAtRound, totalVotes, totalCorrectVotes, priceRequest.isGovernance);
+
+        uint256 totalSlashed =
+            ((noVoteSlash * (stakedAtRound - totalVotes)) / 1e18) +
+                ((wrongVoteSlash * (totalVotes - totalCorrectVotes)) / 1e18);
+
+        return SlashingTracker(wrongVoteSlash, noVoteSlash, totalSlashed, totalCorrectVotes);
+    }
+
+    /****************************************
+     *        OWNER ADMIN FUNCTIONS         *
+     ****************************************/
+
+    /**
+     * @notice Disables this Voting contract in favor of the migrated one.
+     * @dev Can only be called by the contract owner.
+     * @param newVotingAddress the newly migrated contract address.
+     */
+    function setMigrated(address newVotingAddress) external override onlyOwner {
+        migratedAddress = newVotingAddress;
+        emit VotingContractMigrated(newVotingAddress);
+    }
+
+    /**
+     * @notice Resets the Gat percentage. Note: this change only applies to rounds that have not yet begun.
+     * @param newGat sets the next round's Gat.
+     */
+    function setGat(uint256 newGat) external override onlyOwner {
+        require(newGat < votingToken.totalSupply() && newGat > 0);
+        gat = newGat;
+        emit GatChanged(newGat);
+    }
+
+    // Here for abi compatibility. to be removed.
+    function setRewardsExpirationTimeout(uint256 NewRewardsExpirationTimeout) external override onlyOwner {}
+
+    /**
+     * @notice Changes the slashing library used by this contract.
+     * @param _newSlashingLibrary new slashing library address.
+     */
+    function setSlashingLibrary(address _newSlashingLibrary) external override onlyOwner {
+        slashingLibrary = SlashingLibraryInterface(_newSlashingLibrary);
+        emit SlashingLibraryChanged(_newSlashingLibrary);
+    }
+
+    /****************************************
+     *          STAKING FUNCTIONS           *
+     ****************************************/
+
+    /**
+     * @notice Updates the voter's trackers for staking and slashing.
+     * @dev This function can be called by anyone, but it is not necessary for the contract to work because
+     * it is automatically run in the other functions.
+     * @param voterAddress address of the voter to update the trackers for.
+     */
+    function updateTrackers(address voterAddress) external {
+        _updateTrackers(voterAddress);
+    }
+
+    /**
+     * @notice Updates the voter's trackers for staking and voting in a specific range of priceRequest indexes.
+     * @dev this function can be used in place of updateTrackers to process the trackers in batches, hence avoiding
+     * potential issues if the number of elements to be processed is big.
+     * @param voterAddress address of the voter to update the trackers for.
+     * @param indexTo last price request index to update the trackers for.
+     */
+    function updateTrackersRange(address voterAddress, uint256 indexTo) external {
+        require(
+            voterStakes[voterAddress].nextIndexToProcess < indexTo && indexTo <= priceRequestIds.length,
+            "Invalid indexTo"
+        );
+
+        _updateAccountSlashingTrackers(voterAddress, indexTo);
+    }
+
+    // Updates the global and selected wallet's trackers for staking and voting. Note that the order of these calls is
+    // very important due to the interplay between slashing and inactive/active liquidity.
+    function _updateTrackers(address voterAddress) internal override {
+        _updateAccountSlashingTrackers(voterAddress, priceRequestIds.length);
+        super._updateTrackers(voterAddress);
+    }
+
+    // Starting index for a staker is the first value that nextIndexToProcess is set to and defines the first index that
+    // a staker is suspectable to receiving slashing on. Note that we offset the length of the pendingPriceRequests
+    // array as you are still suspectable to slashing if you stake for the first time in the commit phase of an active
+    //vote. If you stake during an active reveal then your liquidity will be marked as inactive within Staker.sol until
+    // the its activated in the next round and as such you'll miss out on being slashed for that round.
+    function _getStartingIndexForStaker() internal view override returns (uint64) {
+        return SafeCast.toUint64(priceRequestIds.length - pendingPriceRequests.length);
+    }
+
+    // Checks if we are in an active voting reveal phase (currently revealing votes).
+    function _inActiveReveal() internal view override returns (bool) {
+        return (currentActiveRequests() && getVotePhase() == Phase.Reveal);
+    }
+
+    // This function must be called before any tokens are staked. It updates the voter's pending stakes to reflect the new amount
+    // to stake. These updates are only made if we are in a reveal phase with active price requests. This is required in
+    // order to appropriately calculate a voter's trackers and avoid slashing them for amounts staked during an active reveal phase.
+    function _computePendingStakes(address voterAddress, uint256 amount) internal override {
+        if (_inActiveReveal()) {
+            uint256 currentRoundId = getCurrentRoundId();
+            // We now can freeze the round variables as we do not want the cumulativeActiveStakeAtRound to change based on the stakes
+            // during the active reveal phase. This only happens if the first action within the active reveal is someone staking, rather
+            // than someone revealing their vote.
+            _freezeRoundVariables(currentRoundId);
+            // Finally increment the pending stake for the voter by the amount to stake. Together with the omission
+            // of the new stakes from the cumulativeActiveStakeAtRound for this round, this ensures that the
+            // pending stakes of any voter are not included in the slashing calculation for this round.
+            _setPendingStake(voterAddress, currentRoundId, amount);
+        }
+    }
+
+    // Updates the slashing trackers of a given account based on previous voting activity.
+    function _updateAccountSlashingTrackers(address voterAddress, uint256 indexTo) internal {
+        uint256 currentRoundId = getCurrentRoundId();
+        VoterStake storage voterStake = voterStakes[voterAddress];
+        // Note the method below can hit a gas limit of there are a LOT of requests from the last time this was run.
+        // A future version of this should bound how many requests to look at per call to avoid gas limit issues.
+
+        // Traverse all requests from the last considered request. For each request see if the voter voted correctly or
+        // not. Based on the outcome, attribute the associated slash to the voter.
+        int256 slash = voterStake.unappliedSlash; // Load in any unapplied slashing from the previous iteration.
+        uint64 nextIndexToProcess = voterStake.nextIndexToProcess;
+        for (
+            uint64 requestIndex = voterStake.nextIndexToProcess;
+            requestIndex < indexTo;
+            requestIndex = unsafe_inc_64(requestIndex)
+        ) {
+            if (skippedRequestIndexes[requestIndex] != 0) {
+                requestIndex = skippedRequestIndexes[requestIndex];
+                continue;
+            }
+
+            PriceRequest storage priceRequest = priceRequests[priceRequestIds[requestIndex]];
+            VoteInstance storage voteInstance = priceRequest.voteInstances[priceRequest.lastVotingRound];
+
+            // If the request status is not resolved then: a) Either we are still in the current voting round, in which
+            // case break the loop and stop iterating (all subsequent requests will be in the same state by default) or
+            // b) we have gotten to a rolled vote in which case we need to update some internal trackers for this vote
+            // and set this within the skippedRequestIndexes mapping so the next time we hit this it is skipped.
+            if (!_priceRequestResolved(priceRequest, voteInstance, currentRoundId)) {
+                // If the request is not resolved and the lastVotingRound less than the current round then the vote
+                // must have been rolled. In this case, update the internal trackers for this vote.
+                if (priceRequest.lastVotingRound < currentRoundId) {
+                    priceRequest.lastVotingRound = SafeCast.toUint32(currentRoundId);
+                    priceRequest.priceRequestIndex = SafeCast.toUint64(priceRequestIds.length);
+
+                    // This is a subtle operation. This is not setting the skip value for the _current request_ to this
+                    // value. It is setting the skip value for the element after the last processed index to the skip
+                    // value. This causes this skip interval to extend on each subsequent rolled request because no
+                    // new elements are processed on a skip, thereby leaving nextIndexToProcess the same.
+                    skippedRequestIndexes[nextIndexToProcess] = requestIndex;
+
+                    // Re-enqueue the price request so that it'll be traversed later, when settled and slashing then.
+                    priceRequestIds.push(priceRequestIds[requestIndex]);
+                    continue;
+                }
+                // Else, we are simply evaluating a request that is still actively being voted on. In this case, break.
+                // All subsequent requests within the array must be in the same state and can't have slashing applied.
+                break;
+            }
+
+            // If the request we're processing now is not the same round as the last index we processed successfully
+            // (not rolled), then we need to apply slashing because there's been a round change.
+            if (
+                slash != 0 &&
+                nextIndexToProcess != 0 &&
+                priceRequests[priceRequestIds[nextIndexToProcess - 1]].lastVotingRound != priceRequest.lastVotingRound
+            ) {
+                _applySlashToVoter(slash, voterStake, voterAddress);
+                slash = 0;
+            }
+
+            uint256 totalCorrectVotes = voteInstance.resultComputation.getTotalCorrectlyVotedTokens();
+
+            (uint256 wrongVoteSlashPerToken, uint256 noVoteSlashPerToken) =
+                slashingLibrary.calcSlashing(
+                    rounds[priceRequest.lastVotingRound].cumulativeActiveStakeAtRound,
+                    voteInstance.resultComputation.totalVotes,
+                    totalCorrectVotes,
+                    priceRequest.isGovernance
+                );
+
+            // During this round's tracker calculation, we deduct the pending stake from the voter's total stake.
+            // Also, the pending stakes of voters in a given round are excluded from the cumulativeActiveStakeAtRound;
+            // _computePendingStakes handles this. Thus, the voter's stakes during the active reveal phase of this round
+            // won't be included in the slashes calculations.
+            uint256 effectiveStake = voterStake.stake - voterStake.pendingStakes[priceRequest.lastVotingRound];
+
+            // The voter did not reveal or did not commit. Slash at noVote rate.
+            if (voteInstance.voteSubmissions[voterAddress].revealHash == 0)
+                slash -= int256((effectiveStake * noVoteSlashPerToken) / 1e18);
+
+                // The voter did not vote with the majority. Slash at wrongVote rate.
+            else if (
+                !voteInstance.resultComputation.wasVoteCorrect(voteInstance.voteSubmissions[voterAddress].revealHash)
+            )
+                slash -= int256((effectiveStake * wrongVoteSlashPerToken) / 1e18);
+
+                // The voter voted correctly. Receive a pro-rate share of the other voters slashed amounts as a reward.
+            else {
+                // Compute the total amount slashed over all stakers. This is the sum of the total slashed for not voting
+                // and the total slashed for voting incorrectly. Use this to work out the stakers prorate share.
+                uint256 totalSlashed =
+                    ((noVoteSlashPerToken *
+                        (rounds[priceRequest.lastVotingRound].cumulativeActiveStakeAtRound -
+                            voteInstance.resultComputation.totalVotes)) +
+                        ((wrongVoteSlashPerToken * (voteInstance.resultComputation.totalVotes - totalCorrectVotes)))) /
+                        1e18;
+                slash += int256(((effectiveStake * totalSlashed)) / totalCorrectVotes);
+            }
+
+            nextIndexToProcess = requestIndex + 1;
+        }
+
+        // If there is any remaining slashing then apply it. This occurs when there is unapplied slashing in the loop
+        // due to the last unlashed elements all being all from the same round. i.e we only slash within the loop when
+        // transitioning between rounds and the last round is slashed here. Note that there is a special case that needs
+        // to be considered separately: if the nextIndex that we're going to process is >= priceRequestIds, then we
+        // know that there's going to be a round change because new requests never get added to a past round.
+        // If we are not in this case and the next element to be processed has the same round, then we know that
+        // we've bisected a round and should store the unapplied slashing which will seed this method on the next entry
+        // such that the slashing will be applied linearly, not compounding with other slashing within the same round.
+        if (slash != 0) {
+            // The next index could be either the result of the skip for the next value if it's nonzero or just the
+            // next unprocessed index if there is no skip value for it. This ensures that the price request we read has
+            // not been modified by round-changing when rolling.
+            uint256 nextIndex =
+                skippedRequestIndexes[nextIndexToProcess] != 0
+                    ? skippedRequestIndexes[nextIndexToProcess] + 1
+                    : nextIndexToProcess;
+            if (
+                nextIndexToProcess < priceRequestIds.length &&
+                nextIndexToProcess != 0 &&
+                priceRequests[priceRequestIds[nextIndexToProcess - 1]].lastVotingRound ==
+                priceRequests[priceRequestIds[nextIndex]].lastVotingRound
+            ) voterStake.unappliedSlash = slash;
+            else _applySlashToVoter(slash, voterStake, voterAddress);
+        }
+
+        // Set the account's next index to process to the next index so the next entry starts where we left off.
+        voterStake.nextIndexToProcess = nextIndexToProcess;
+    }
+
+    // Applies a given slash to a given voter's stake.
+    function _applySlashToVoter(
+        int256 slash,
+        VoterStake storage voterStake,
+        address voterAddress
+    ) internal {
+        if (slash + int256(voterStake.stake) > 0) voterStake.stake = uint256(int256(voterStake.stake) + slash);
+        else voterStake.stake = 0;
+        voterStake.unappliedSlash = 0;
+        emit VoterSlashed(voterAddress, slash, voterStake.stake);
+    }
+
+    /****************************************
+     *       SPAM DELETION FUNCTIONS        *
+     ****************************************/
+
+    /**
+     * @notice Declare a specific price requests range to be spam and request its deletion.
+     * @dev note that this method should almost never be used. The bond to call this should be set to
+     * a very large number (say 10k UMA) as it could be abused if set too low. Function constructs a price
+     * request that, if passed, enables pending requests to be disregarded by the contract.
+     * @param spamRequestIndices list of request indices to be declared as spam. Each element is a
+     * pair of uint256s representing the start and end of the range.
+     */
+    function signalRequestsAsSpamForDeletion(uint256[2][] calldata spamRequestIndices)
+        external
+        nonReentrant()
+        onlyIfNotMigrated()
+    {
+        votingToken.transferFrom(msg.sender, address(this), spamDeletionProposalBond);
+        uint256 currentTime = getCurrentTime();
+        uint256 runningValidationIndex;
+        uint256 spamRequestIndicesLength = spamRequestIndices.length;
+        for (uint256 i = 0; i < spamRequestIndicesLength; i = unsafe_inc(i)) {
+            uint256[2] memory spamRequestIndex = spamRequestIndices[i];
+
+            // Check request end index is greater than start index, endIndex is less than the total number of requests,
+            // and validate index continuity (each sequential element within the spamRequestIndices array is sequential
+            // and increasing in size).
+            require(
+                spamRequestIndex[0] <= spamRequestIndex[1] &&
+                    spamRequestIndex[1] < priceRequestIds.length &&
+                    spamRequestIndex[1] > runningValidationIndex,
+                "Invalid spam request index"
+            );
+
+            runningValidationIndex = spamRequestIndex[1];
+        }
+
+        spamDeletionProposals.push(
+            SpamDeletionRequest({
+                spamRequestIndices: spamRequestIndices,
+                requestTime: currentTime,
+                executed: false,
+                proposer: msg.sender,
+                bond: spamDeletionProposalBond
+            })
+        );
+
+        uint256 proposalId = spamDeletionProposals.length - 1;
+
+        // Note that for proposalId>= 10^11 the generated identifier will no longer be unique but the manner
+        // in which the priceRequest id is encoded in _encodePriceRequest guarantees its uniqueness.
+        bytes32 identifier = SpamGuardIdentifierLib._constructIdentifier(SafeCast.toUint32(proposalId));
+
+        _requestPrice(identifier, currentTime, "", true);
+
+        emit SignaledRequestsAsSpamForDeletion(proposalId, msg.sender, spamRequestIndices);
+    }
+
+    /**
+     * @notice Execute the spam deletion proposal if it has been approved by voting.
+     * @param proposalId spam deletion proposal id.
+     */
+
+    function executeSpamDeletion(uint256 proposalId) external nonReentrant() {
+        require(spamDeletionProposals[proposalId].executed == false, "Proposal already executed");
+        spamDeletionProposals[proposalId].executed = true;
+
+        bytes32 identifier = SpamGuardIdentifierLib._constructIdentifier(SafeCast.toUint32(proposalId));
+
+        (bool hasPrice, int256 resolutionPrice, ) =
+            _getPriceOrError(identifier, spamDeletionProposals[proposalId].requestTime, "");
+        require(hasPrice, "Spam proposal has not resolved");
+
+        // If the price is non zero then the spam deletion request was voted up to delete the requests. Execute delete.
+        if (resolutionPrice != 0) {
+            // Delete the price requests associated with the spam.
+            for (uint256 i = 0; i < spamDeletionProposals[proposalId].spamRequestIndices.length; i = unsafe_inc(i)) {
+                uint64 startIndex = SafeCast.toUint64(spamDeletionProposals[proposalId].spamRequestIndices[i][0]);
+                uint64 endIndex = SafeCast.toUint64(spamDeletionProposals[proposalId].spamRequestIndices[i][1]);
+                for (uint256 j = startIndex; j <= endIndex; j++) {
+                    bytes32 requestId = priceRequestIds[j];
+                    // Remove from pendingPriceRequests.
+                    _removeRequestFromPendingPriceRequests(priceRequests[requestId].pendingRequestIndex);
+
+                    // Remove the request from the priceRequests mapping.
+                    delete priceRequests[requestId];
+                }
+
+                // Set the deletion request jump mapping. This enables the for loops that iterate over requests to skip
+                // the deleted requests via a "jump" over the removed elements from the array.
+                skippedRequestIndexes[startIndex] = endIndex;
+            }
+
+            // Return the spamDeletionProposalBond.
+            votingToken.transfer(spamDeletionProposals[proposalId].proposer, spamDeletionProposals[proposalId].bond);
+            emit ExecutedSpamDeletion(proposalId, true);
+        }
+        // Else, the spam deletion request was voted down. In this case we send the spamDeletionProposalBond to the store.
+        else {
+            votingToken.transfer(finder.getImplementationAddress(OracleInterfaces.Store), spamDeletionProposalBond);
+            emit ExecutedSpamDeletion(proposalId, false);
+        }
+    }
+
+    /**
+     * @notice Set the spam deletion proposal bond.
+     * @param _spamDeletionProposalBond new spam deletion proposal bond.
+     */
+    function setSpamDeletionProposalBond(uint256 _spamDeletionProposalBond) public onlyOwner() {
+        spamDeletionProposalBond = _spamDeletionProposalBond;
+        emit SpamDeletionProposalBondChanged(_spamDeletionProposalBond);
+    }
+
+    /**
+     * @notice Get the spam deletion request by the proposal id.
+     * @param spamDeletionRequestId spam deletion request id.
+     * @return SpamDeletionRequest the spam deletion request.
+     */
+    function getSpamDeletionRequest(uint256 spamDeletionRequestId) external view returns (SpamDeletionRequest memory) {
+        return spamDeletionProposals[spamDeletionRequestId];
+    }
+
+    /****************************************
+     *      MIGRATION SUPPORT FUNCTIONS     *
+     ****************************************/
+
+    /**
+     * @notice Function to enable retrieval of rewards on a previously migrated away from voting contract. This function
+     * is intended on being removed from a future version of the Voting contract and aims to solve a short term migration
+     * pain point
+     * @param voterAddress voter for which rewards will be retrieved. Does not have to be the caller.
+     * @param roundId the round from which voting rewards will be retrieved from.
+     * @param toRetrieve array of PendingRequests which rewards are retrieved from.
+     * @return uint256 the amount of rewards.
+     */
+    function retrieveRewardsOnMigratedVotingContract(
+        address voterAddress,
+        uint256 roundId,
+        MinimumVotingAncillaryInterface.PendingRequestAncillary[] memory toRetrieve
+    ) public returns (uint256) {
+        uint256 rewards =
+            MinimumVotingAncillaryInterface(address(previousVotingContract))
+                .retrieveRewards(voterAddress, roundId, toRetrieve)
+                .rawValue;
+        return rewards;
+    }
+
+    /****************************************
+     *    PRIVATE AND INTERNAL FUNCTIONS    *
+     ****************************************/
+
+    function _removeRequestFromPendingPriceRequests(uint64 pendingRequestIndex) internal {
+        uint256 lastIndex = pendingPriceRequests.length - 1;
+        PriceRequest storage lastPriceRequest = priceRequests[pendingPriceRequests[lastIndex]];
+        lastPriceRequest.pendingRequestIndex = pendingRequestIndex;
+        pendingPriceRequests[pendingRequestIndex] = pendingPriceRequests[lastIndex];
+        pendingPriceRequests.pop();
+    }
+
+    // Returns the price for a given identifer. Three params are returns: bool if there was an error, int to represent
+    // the resolved price and a string which is filled with an error message, if there was an error or "".
+    function _getPriceOrError(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    )
+        internal
+        view
+        returns (
+            bool,
+            int256,
+            string memory
+        )
+    {
+        PriceRequest storage priceRequest = _getPriceRequest(identifier, time, ancillaryData);
+        uint256 currentRoundId = getCurrentRoundId();
+        RequestStatus requestStatus = _getRequestStatus(priceRequest, currentRoundId);
+
+        if (requestStatus == RequestStatus.Active) return (false, 0, "Current voting round not ended");
+        if (requestStatus == RequestStatus.Resolved) {
+            VoteInstance storage voteInstance = priceRequest.voteInstances[priceRequest.lastVotingRound];
+            (, int256 resolvedPrice) =
+                voteInstance.resultComputation.getResolvedPrice(_computeGat(priceRequest.lastVotingRound));
+            return (true, resolvedPrice, "");
+        }
+
+        if (requestStatus == RequestStatus.Future) return (false, 0, "Price is still to be voted on");
+        (bool previouslyResolved, int256 previousPrice) =
+            _getPriceFromPreviousVotingContract(identifier, time, ancillaryData);
+        if (previouslyResolved) return (true, previousPrice, "");
+        return (false, 0, "Price was never requested");
+    }
+
+    // Check the previousVotingContract to see if a given price request was resolved.
+    // Returns true or false, and the resolved price or zero, depending on whether it was found or not.
+    function _getPriceFromPreviousVotingContract(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) private view returns (bool, int256) {
+        if (address(previousVotingContract) == address(0)) return (false, 0);
+
+        if (previousVotingContract.hasPrice(identifier, time, ancillaryData))
+            return (true, previousVotingContract.getPrice(identifier, time, ancillaryData));
+        return (false, 0);
+    }
+
+    // Returns a price request object for a given identifier, time and ancillary data.
+    function _getPriceRequest(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) private view returns (PriceRequest storage) {
+        return priceRequests[_encodePriceRequest(identifier, time, ancillaryData)];
+    }
+
+    // Returns an encoded bytes32 representing a price request. Used when storing/referencing price requests.
+    function _encodePriceRequest(
+        bytes32 identifier,
+        uint256 time,
+        bytes memory ancillaryData
+    ) private pure returns (bytes32) {
+        return keccak256(abi.encode(identifier, time, ancillaryData));
+    }
+
+    // Stores ("freezes") variables that should not shift within an active voting round. Called on reveal but only makes
+    // a state change if and only if the this is the first reveal.
+    function _freezeRoundVariables(uint256 roundId) private {
+        // Only freeze the round if this is the first request in the round.
+        if (rounds[roundId].gat == 0) {
+            // Set the round gat percentage to the current global gat rate.
+            rounds[roundId].gat = gat;
+
+            // Store the cumulativeStake at this roundId to work out slashing and voting trackers.
+            rounds[roundId].cumulativeActiveStakeAtRound = cumulativeStake;
+        }
+    }
+
+    // Returns if a given price request, with known votingInstance and currentRoundId is resolved.
+    function _priceRequestResolved(
+        PriceRequest storage priceRequest,
+        VoteInstance storage voteInstance,
+        uint256 currentRoundId
+    ) private returns (bool) {
+        // We are currently either in the voting round for the request or voting is yet to begin.
+        if (currentRoundId <= priceRequest.lastVotingRound) return false;
+
+        // If the request has been previously resolved, return true.
+        if (priceRequest.pendingRequestIndex == UINT64_MAX) return true;
+
+        // Else, check if the price can be resolved.
+        (bool isResolvable, int256 resolvedPrice) =
+            voteInstance.resultComputation.getResolvedPrice(_computeGat(priceRequest.lastVotingRound));
+
+        // If it's not resolvable return false.
+        if (!isResolvable) return false;
+
+        // Else, the request is resolvable. Remove the element from the pending requests and update pendingRequestIndex
+        // within the price request struct to make the next entry into this method a no-op for this request.
+        _removeRequestFromPendingPriceRequests(priceRequest.pendingRequestIndex);
+
+        priceRequest.pendingRequestIndex = UINT64_MAX;
+        emit PriceResolved(
+            priceRequest.lastVotingRound,
+            priceRequest.priceRequestIndex,
+            priceRequest.identifier,
+            priceRequest.time,
+            priceRequest.ancillaryData,
+            resolvedPrice
+        );
+        return true;
+    }
+
+    // Return the GAT.
+    function _computeGat(uint256 roundId) internal view returns (uint256) {
+        return rounds[roundId].gat;
+    }
+
+    // Returns a price request status. A request is either: NotRequested, Active, Resolved or Future.
+    function _getRequestStatus(PriceRequest storage priceRequest, uint256 currentRoundId)
+        private
+        view
+        returns (RequestStatus)
+    {
+        if (priceRequest.lastVotingRound == 0) return RequestStatus.NotRequested;
+        else if (priceRequest.lastVotingRound < currentRoundId) {
+            VoteInstance storage voteInstance = priceRequest.voteInstances[priceRequest.lastVotingRound];
+            (bool isResolved, ) =
+                voteInstance.resultComputation.getResolvedPrice(_computeGat(priceRequest.lastVotingRound));
+
+            return isResolved ? RequestStatus.Resolved : RequestStatus.Active;
+        } else if (priceRequest.lastVotingRound == currentRoundId) return RequestStatus.Active;
+        // Means than priceRequest.lastVotingRound > currentRoundId
+        else return RequestStatus.Future;
+    }
+
+    // Gas optimized uint256 increment.
+    function unsafe_inc(uint256 x) internal pure returns (uint256) {
+        unchecked { return x + 1; }
+    }
+
+    // Gas optimized uint256 decrement.
+    function unsafe_inc_64(uint64 x) internal pure returns (uint64) {
+        unchecked { return x + 1; }
+    }
+
+    // Returns the registered identifier whitelist, stored in the finder.
+    function _getIdentifierWhitelist() private view returns (IdentifierWhitelistInterface) {
+        return IdentifierWhitelistInterface(finder.getImplementationAddress(OracleInterfaces.IdentifierWhitelist));
+    }
+
+    // Reverts if the contract has been migrated. Used in a modifier, defined as a private function for gas savings.
+    function _requireNotMigrated() private view {
+        require(migratedAddress == address(0), "Contract migrated");
+    }
+
+    function _requireRegisteredContract() private view {
+        RegistryInterface registry = RegistryInterface(finder.getImplementationAddress(OracleInterfaces.Registry));
+        require(
+            registry.isContractRegistered(msg.sender) || msg.sender == migratedAddress,
+            "Caller must be registered"
+        );
+    }
+}
