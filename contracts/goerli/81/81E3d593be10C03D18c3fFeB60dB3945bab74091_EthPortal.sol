@@ -1,0 +1,530 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+import "contracts/Auth.sol";
+import "../interfaces/IPortal.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "../interfaces/ILayerZeroEndpoint.sol";
+import "../interfaces/ILayerZeroReceiver.sol";
+
+contract EthPortal is IPortal, ILayerZeroReceiver, ILayerZeroUserApplicationConfig, Auth {
+
+    IERC20 POW;
+    ILayerZeroEndpoint ENDPOINT;
+
+    address l2Portal;
+    uint16 l2ChainId;
+
+    error ZeroTokens();
+    error ZeroBalance();
+    error InsufficientBalance();
+    error InvalidSender();
+    error InvalidSourceAddress();
+    error FailedToSendEther();
+
+    event L2PortalSet(address portal);
+    event L2ChainIdSet(uint256 chainId);
+    event EthWithdrawn(address to, uint256 amount);
+
+    constructor(address _pow, address _endpoint) {
+        POW = IERC20(_pow);
+        ENDPOINT = ILayerZeroEndpoint(_endpoint);
+    }
+
+    function setL2Portal(address _portal) external onlyAuth {
+        l2Portal = _portal;
+        emit L2PortalSet(_portal);
+    }
+
+    function setL2ChainId(uint16 _id) external onlyAuth {
+        l2ChainId = _id;
+        emit L2ChainIdSet(_id);
+    }
+
+    function withdrawEth(address to) external onlyAuth {
+        uint256 amount = address(this).balance;
+        (bool sent, ) = to.call{value: amount}("");
+        if (!sent) revert FailedToSendEther();
+        emit EthWithdrawn(to, amount);
+    }
+
+    /**
+     * @notice Used to bridge POW tokens from Ethereum mainnet to L2
+     * @param _amountToBridge Amount of POW tokens to bridge
+     */
+    function bridge(
+        uint256 _amountToBridge
+    ) external {
+        if (address(this).balance == 0) revert ZeroBalance();
+        if (_amountToBridge == 0) revert ZeroTokens();
+
+        // Transfer POW from user to EthPortal contract
+        POW.transferFrom(msg.sender, address(this), _amountToBridge);
+
+        // abi.encode() the payload with the wallet address and amount of tokens to bridge
+        bytes memory payload = abi.encode(msg.sender, _amountToBridge);
+
+        // encode adapterParams to specify more gas for the destination
+        uint16 version = 1;
+        uint gasForDestinationLzReceive = 350000;
+        bytes memory adapterParams = abi.encodePacked(version, gasForDestinationLzReceive);
+
+        // get the fees we need to pay to LayerZero + Relayer to cover message delivery
+        (uint messageFee, ) = ENDPOINT.estimateFees(l2ChainId, address(this), payload, false, adapterParams);
+        if (address(this).balance < messageFee) revert InsufficientBalance();
+
+        // send LayerZero message
+        ENDPOINT.send{value: messageFee}( // {value: messageFee} will be paid out of this contract!
+            l2ChainId, // destination chainId
+            abi.encodePacked(l2Portal), // destination address of Portal
+            payload, // abi.encode()'ed bytes
+            payable(this), // (msg.sender will be this contract) refund address (LayerZero will refund any extra gas back to caller of send())
+            address(0x0), // 'zroPaymentAddress' unused for this
+            adapterParams // unused for this
+        );
+
+        emit Bridged(l2ChainId, msg.sender, _amountToBridge);
+    }
+
+    /**
+     * @notice Unlocks POW tokens and sends to user
+     * @dev Receive the bytes payload from the source chain via LayerZero
+     * @param _srcChainId The chainId that we are receiving the message from
+     * @param _fromAddress the source Portal address
+     */
+    function lzReceive(
+        uint16 _srcChainId,
+        bytes memory _fromAddress,
+        uint64, /*_nonce*/
+        bytes memory _payload
+    ) external override {
+        if (msg.sender != address(ENDPOINT)) revert InvalidSender();
+
+        // use assembly to extract the address from the bytes memory parameter
+        address fromAddress;
+        assembly {
+            fromAddress := mload(add(_fromAddress, 20))
+        }
+        if (fromAddress != l2Portal) revert InvalidSourceAddress();
+
+        // decode the user and amount of POW tokens to release
+        (address _user, uint256 _amount) = abi.decode(_payload, (address, uint256));
+
+        // transfer POW tokens to user
+        POW.transfer(_user, _amount);
+
+        emit Received(_srcChainId, _user, _amount);
+    }
+
+    function setConfig(
+        uint16, /*_version*/
+        uint16 _dstChainId,
+        uint _configType,
+        bytes memory _config
+    ) external override {
+        ENDPOINT.setConfig(_dstChainId, ENDPOINT.getSendVersion(address(this)), _configType, _config);
+    }
+
+    function getConfig(
+        uint16, /*_dstChainId*/
+        uint16 _chainId,
+        address,
+        uint _configType
+    ) external view returns (bytes memory) {
+        return ENDPOINT.getConfig(ENDPOINT.getSendVersion(address(this)), _chainId, address(this), _configType);
+    }
+
+    function setSendVersion(uint16 version) external override {
+        ENDPOINT.setSendVersion(version);
+    }
+
+    function setReceiveVersion(uint16 version) external override {
+        ENDPOINT.setReceiveVersion(version);
+    }
+
+    function getSendVersion() external view returns (uint16) {
+        return ENDPOINT.getSendVersion(address(this));
+    }
+
+    function getReceiveVersion() external view returns (uint16) {
+        return ENDPOINT.getReceiveVersion(address(this));
+    }
+
+    function forceResumeReceive(uint16 _srcChainId, bytes calldata _srcAddress) external override {
+        // do nth
+    }
+
+    // allow this contract to receive ether
+    fallback() external payable {}
+
+    receive() external payable {}
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+interface IPortal {
+    event Bridged(
+        uint16 dstChainId,
+        address userAddress,
+        uint256 powSent
+    );
+
+    event Received(
+        uint16 srcChainId,
+        address user,
+        uint256 powReleased
+    );
+
+    function bridge(uint256 _amountToBridge) external;
+}
+
+// SPDX-License-Identifier: BUSL-1.1
+
+pragma solidity >=0.5.0;
+
+import "./ILayerZeroUserApplicationConfig.sol";
+
+interface ILayerZeroEndpoint is ILayerZeroUserApplicationConfig {
+    // @notice send a LayerZero message to the specified address at a LayerZero endpoint.
+    // @param _dstChainId - the destination chain identifier
+    // @param _destination - the address on destination chain (in bytes). address length/format may vary by chains
+    // @param _payload - a custom bytes payload to send to the destination contract
+    // @param _refundAddress - if the source transaction is cheaper than the amount of value passed, refund the additional amount to this address
+    // @param _zroPaymentAddress - the address of the ZRO token holder who would pay for the transaction
+    // @param _adapterParams - parameters for custom functionality. e.g. receive airdropped native gas from the relayer on destination
+    function send(uint16 _dstChainId, bytes calldata _destination, bytes calldata _payload, address payable _refundAddress, address _zroPaymentAddress, bytes calldata _adapterParams) external payable;
+
+    // @notice used by the messaging library to publish verified payload
+    // @param _srcChainId - the source chain identifier
+    // @param _srcAddress - the source contract (as bytes) at the source chain
+    // @param _dstAddress - the address on destination chain
+    // @param _nonce - the unbound message ordering nonce
+    // @param _gasLimit - the gas limit for external contract execution
+    // @param _payload - verified payload to send to the destination contract
+    function receivePayload(uint16 _srcChainId, bytes calldata _srcAddress, address _dstAddress, uint64 _nonce, uint _gasLimit, bytes calldata _payload) external;
+
+    // @notice get the inboundNonce of a receiver from a source chain which could be EVM or non-EVM chain
+    // @param _srcChainId - the source chain identifier
+    // @param _srcAddress - the source chain contract address
+    function getInboundNonce(uint16 _srcChainId, bytes calldata _srcAddress) external view returns (uint64);
+
+    // @notice get the outboundNonce from this source chain which, consequently, is always an EVM
+    // @param _srcAddress - the source chain contract address
+    function getOutboundNonce(uint16 _dstChainId, address _srcAddress) external view returns (uint64);
+
+    // @notice gets a quote in source native gas, for the amount that send() requires to pay for message delivery
+    // @param _dstChainId - the destination chain identifier
+    // @param _userApplication - the user app address on this EVM chain
+    // @param _payload - the custom message to send over LayerZero
+    // @param _payInZRO - if false, user app pays the protocol fee in native token
+    // @param _adapterParam - parameters for the adapter service, e.g. send some dust native token to dstChain
+    function estimateFees(uint16 _dstChainId, address _userApplication, bytes calldata _payload, bool _payInZRO, bytes calldata _adapterParam) external view returns (uint nativeFee, uint zroFee);
+
+    // @notice get this Endpoint's immutable source identifier
+    function getChainId() external view returns (uint16);
+
+    // @notice the interface to retry failed message on this Endpoint destination
+    // @param _srcChainId - the source chain identifier
+    // @param _srcAddress - the source chain contract address
+    // @param _payload - the payload to be retried
+    function retryPayload(uint16 _srcChainId, bytes calldata _srcAddress, bytes calldata _payload) external;
+
+    // @notice query if any STORED payload (message blocking) at the endpoint.
+    // @param _srcChainId - the source chain identifier
+    // @param _srcAddress - the source chain contract address
+    function hasStoredPayload(uint16 _srcChainId, bytes calldata _srcAddress) external view returns (bool);
+
+    // @notice query if the _libraryAddress is valid for sending msgs.
+    // @param _userApplication - the user app address on this EVM chain
+    function getSendLibraryAddress(address _userApplication) external view returns (address);
+
+    // @notice query if the _libraryAddress is valid for receiving msgs.
+    // @param _userApplication - the user app address on this EVM chain
+    function getReceiveLibraryAddress(address _userApplication) external view returns (address);
+
+    // @notice query if the non-reentrancy guard for send() is on
+    // @return true if the guard is on. false otherwise
+    function isSendingPayload() external view returns (bool);
+
+    // @notice query if the non-reentrancy guard for receive() is on
+    // @return true if the guard is on. false otherwise
+    function isReceivingPayload() external view returns (bool);
+
+    // @notice get the configuration of the LayerZero messaging library of the specified version
+    // @param _version - messaging library version
+    // @param _chainId - the chainId for the pending config change
+    // @param _userApplication - the contract address of the user application
+    // @param _configType - type of configuration. every messaging library has its own convention.
+    function getConfig(uint16 _version, uint16 _chainId, address _userApplication, uint _configType) external view returns (bytes memory);
+
+    // @notice get the send() LayerZero messaging library version
+    // @param _userApplication - the contract address of the user application
+    function getSendVersion(address _userApplication) external view returns (uint16);
+
+    // @notice get the lzReceive() LayerZero messaging library version
+    // @param _userApplication - the contract address of the user application
+    function getReceiveVersion(address _userApplication) external view returns (uint16);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract Auth is Ownable {
+    mapping(address => bool) public authorized;
+
+    event ChangeAuth(
+        address user,
+        bool auth
+    );
+
+    error NotAuthorized();
+
+    modifier onlyAuth() virtual {
+        if (!authorized[msg.sender]) revert NotAuthorized();
+        _;
+    }
+
+    function addAuth(address _user) external onlyOwner {
+        authorized[_user] = true;
+        emit ChangeAuth(_user, true);
+    }
+
+    function removeAuth(address _user) external onlyOwner {
+        authorized[_user] = false;
+        emit ChangeAuth(_user, false);
+    }
+}
+
+// SPDX-License-Identifier: BUSL-1.1
+
+pragma solidity >=0.5.0;
+
+interface ILayerZeroReceiver {
+    // @notice LayerZero endpoint will invoke this function to deliver the message on the destination
+    // @param _srcChainId - the source endpoint identifier
+    // @param _srcAddress - the source sending contract address from the source chain
+    // @param _nonce - the ordered message nonce
+    // @param _payload - the signed payload is the UA bytes has encoded to be sent
+    function lzReceive(uint16 _srcChainId, bytes calldata _srcAddress, uint64 _nonce, bytes calldata _payload) external;
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+// SPDX-License-Identifier: BUSL-1.1
+
+pragma solidity >=0.5.0;
+
+interface ILayerZeroUserApplicationConfig {
+    // @notice set the configuration of the LayerZero messaging library of the specified version
+    // @param _version - messaging library version
+    // @param _chainId - the chainId for the pending config change
+    // @param _configType - type of configuration. every messaging library has its own convention.
+    // @param _config - configuration in the bytes. can encode arbitrary content.
+    function setConfig(uint16 _version, uint16 _chainId, uint _configType, bytes calldata _config) external;
+
+    // @notice set the send() LayerZero messaging library version to _version
+    // @param _version - new messaging library version
+    function setSendVersion(uint16 _version) external;
+
+    // @notice set the lzReceive() LayerZero messaging library version to _version
+    // @param _version - new messaging library version
+    function setReceiveVersion(uint16 _version) external;
+
+    // @notice Only when the UA needs to resume the message flow in blocking mode and clear the stored payload
+    // @param _srcChainId - the chainId of the source chain
+    // @param _srcAddress - the contract address of the source contract at the source chain
+    function forceResumeReceive(uint16 _srcChainId, bytes calldata _srcAddress) external;
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)
+
+pragma solidity ^0.8.0;
+
+import "../utils/Context.sol";
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        _checkOwner();
+        _;
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if the sender is not the owner.
+     */
+    function _checkOwner() internal view virtual {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
