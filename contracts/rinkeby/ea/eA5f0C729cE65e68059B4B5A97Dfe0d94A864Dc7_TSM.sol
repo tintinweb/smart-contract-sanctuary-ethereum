@@ -1,0 +1,747 @@
+// SPDX-License-Identifier: Unlicense
+
+pragma solidity ^0.8.0;
+
+import 'contracts/ITSM.sol';
+import 'contracts/XlaToken.sol';
+import 'contracts/libraries/Math.sol';
+
+/**
+ * @title Token Sale Machine
+ * @notice Contract allowing to buy X.LA tokens and pre-calculate amounts
+ */
+contract TSM is ITSM {
+    /// @notice constant to scale by amount of wei in eth
+    uint256 private constant WEI = 1e18;
+    /// @notice constant to scale by precision; should be 1e18
+    uint256 public immutable PRECISION;
+
+    /// @notice base price ETH per X.LA token; `a` ~ 0.00007 ETH (74042263323905)
+    uint256 public immutable a;
+    /// @notice scale coefficient for price; `k` = 0.000000000000025544 * `PRECISION` (25544)
+    uint256 public immutable k;
+
+    /// @notice RSC-G contract
+    address public immutable rscgContract;
+
+    /// @notice minimum amount of X.LA tokens to purchase (100)
+    uint256 public immutable MIN_AMOUNT;
+
+    /// @notice X.LA token
+    XlaToken public immutable xlaToken;
+
+    constructor(
+        address _rscgContract,
+        uint256 _k,
+        uint256 _a,
+        uint256 _precision,
+        uint256 _min_amount
+    ) {
+        PRECISION = _precision;
+        a = _a;
+        k = _k;
+        rscgContract = _rscgContract;
+        MIN_AMOUNT = _min_amount;
+        xlaToken = new XlaToken(address(this));
+    }
+
+    /** @notice Reject all received ETH
+     *  @dev Funds sent outside of `buy` will be rejected
+     */
+    receive() external payable {
+        revert('All ETH receive calls are rejected');
+    }
+
+    /** @notice Reject all received ETH
+     *  @dev Funds sent outside of `buy` will be rejected
+     */
+    fallback() external payable {
+        revert('All ETH receive calls are rejected');
+    }
+
+    /** @notice Buy X.LA tokens by ETH sent. Will mint some to `affiliate_address`. All incoming ETH will be distributed to RSC-G
+     *  @param affiliate_address Address of affiliate to pay 4% X.LA tokens. Should not be sender. Zero if none affiliate
+     */
+    function buy(address affiliate_address) external payable {
+        require(affiliate_address != msg.sender, 'Affiliate address should not be sender');
+
+        uint256 token_amount = _calc(msg.value);
+        require(token_amount >= MIN_AMOUNT, 'Requested amount is too low');
+
+        xlaToken.mint(msg.sender, token_amount);
+        uint256 avg_price = token_amount / msg.value;
+        emit SoldTokens(msg.sender, msg.value, token_amount, avg_price);
+
+        if (affiliate_address != address(0)) {
+            uint256 referrer_amount = token_amount / 25; // 4%
+            xlaToken.mint(affiliate_address, referrer_amount);
+            emit AffiliatePayed(msg.sender, affiliate_address, referrer_amount);
+        }
+
+        (bool sent, /*bytes memory data*/) = rscgContract.call{value: msg.value}(
+            abi.encodeWithSignature('distributeETH()')
+        );
+        require(sent, 'Failure! Ether not sent');
+    }
+
+    /** @notice Calculate X.LA token amount by provided `eth_amount`
+     *  @param eth_amount Amount of ETH
+     *  @return Amount of X.LA tokens for `eth_amount` ETH
+     */
+    function calc(uint256 eth_amount) external view returns (uint256) {
+        return _calc(eth_amount);
+    }
+
+    /** @notice Calculate expected ETH amount to send for `token_amount` X.LA tokens
+     *  @param token_amount Expected amount of X.LA tokens
+     *  @return Amount of ETH to send for `token_amount` X.LA
+     */
+    function calc_eth(uint256 token_amount) external view returns (uint256) {
+        uint256 x1 = xlaToken.totalSupply();
+        uint256 h = token_amount;
+        uint256 K = k;
+        uint256 P = PRECISION;
+
+        uint256 S = (K*x1*h + P*a*h + K*h*h/2) / P;
+
+        return S / WEI;
+    }
+
+    /** @notice Calculate current price of X.LA token in ETH
+     *  @return Current X.LA price, ETH per X.LA
+     */
+    function price() public view returns (uint256) {
+        uint256 x = xlaToken.totalSupply();
+        return k * x / PRECISION + a; 
+    }
+
+    /** @notice Calculate X.LA token amount by provided `eth_amount`
+     *  @param eth_amount Amount of ETH
+     *  @return Amount of X.LA tokens for `eth_amount` ETH
+     */
+    function _calc(uint256 eth_amount) public view returns (uint256) {
+        uint256 x1 = xlaToken.totalSupply();
+        uint256 S = eth_amount * WEI;
+        uint256 P = PRECISION;
+        uint256 K = k;
+        uint256 A = P * a;
+        uint256 Kx1 = K * x1;
+
+        uint256 s1 = Kx1 * Kx1;
+        uint256 s2 = 2 * Kx1 * A;
+        uint256 s3 = P * 2 * K * S;
+        uint256 s4 = A * A;
+        uint256 s5 = s1 + s2 + s3 + s4;
+        uint256 s6 = Math.sqrt(s5);
+        uint256 s7 = s6 - Kx1 - A;
+        return s7 / K;
+    }
+}
+
+// SPDX-License-Identifier: Unlicense
+
+pragma solidity ^0.8.0;
+
+/**
+ * @title Interface of the TSM contract.
+ */
+interface ITSM {
+    function buy(address affiliate_address) external payable;
+    function calc(uint256 eth_amount) external view returns (uint256);
+    function calc_eth(uint256 token_amount) external view returns (uint256);
+
+    /** @notice emitted after each successful token sell
+     *  @param sender Address of tokens buyer
+     *  @param received_eth_amount Amount of ETH recieved
+     *  @param sold_tokens_amount Amount of X.LA sold to buyer
+     *  @param price Average price tokens were sold
+     */
+    event SoldTokens(
+        address indexed sender,
+        uint256 received_eth_amount,
+        uint256 sold_tokens_amount,
+        uint256 price
+    );
+
+    /** @notice emitted when affiliate was paid
+     *  @param sender Address of tokens buyer
+     *  @param affiliate_address Address of affiliate
+     *  @param payed_amount Amount of X.LA minted to affiliate
+     */
+    event AffiliatePayed(
+        address indexed sender,
+        address indexed affiliate_address,
+        uint256 payed_amount
+    );
+}
+
+// SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.0;
+
+import 'contracts/ITSM.sol';
+import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
+
+/**
+ * @title X.LA Token
+ * @notice Create a ERC20 standard token with mint ability for TSM.
+ */
+contract XlaToken is ERC20 {
+
+    /// @notice address of Token Sale Machine contract
+    address public immutable tsmContract;
+
+    constructor(address _tsmContract) ERC20("X.LA", "X.LA") {
+        tsmContract = _tsmContract;
+    }
+
+    /** @notice Mints `amount` of X.LA tokens and assigns them to `account`
+     *  @dev Only TSM can mint X.LA tokens
+     *  @param account Address to mint tokens
+     *  @param amount Amount X.LA tokens to mint
+     */
+    function mint(address account, uint256 amount) external {
+        require(msg.sender == tsmContract, 'Only TSM contract can mint tokens');
+        _mint(account, amount);
+    }
+}
+
+// SPDX-License-Identifier: Unlicense
+
+pragma solidity ^0.8.0;
+
+library Math {
+    // babylonian method (https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Babylonian_method)
+    function sqrt(uint256 y) internal pure returns (uint256 z) {
+        if (y > 3) {
+            z = y;
+            uint256 x = y / 2 + 1;
+            while (x < z) {
+                z = x;
+                x = (y / x + x) / 2;
+            }
+        } else if (y != 0) {
+            z = 1;
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (token/ERC20/ERC20.sol)
+
+pragma solidity ^0.8.0;
+
+import "./IERC20.sol";
+import "./extensions/IERC20Metadata.sol";
+import "../../utils/Context.sol";
+
+/**
+ * @dev Implementation of the {IERC20} interface.
+ *
+ * This implementation is agnostic to the way tokens are created. This means
+ * that a supply mechanism has to be added in a derived contract using {_mint}.
+ * For a generic mechanism see {ERC20PresetMinterPauser}.
+ *
+ * TIP: For a detailed writeup see our guide
+ * https://forum.zeppelin.solutions/t/how-to-implement-erc20-supply-mechanisms/226[How
+ * to implement supply mechanisms].
+ *
+ * We have followed general OpenZeppelin Contracts guidelines: functions revert
+ * instead returning `false` on failure. This behavior is nonetheless
+ * conventional and does not conflict with the expectations of ERC20
+ * applications.
+ *
+ * Additionally, an {Approval} event is emitted on calls to {transferFrom}.
+ * This allows applications to reconstruct the allowance for all accounts just
+ * by listening to said events. Other implementations of the EIP may not emit
+ * these events, as it isn't required by the specification.
+ *
+ * Finally, the non-standard {decreaseAllowance} and {increaseAllowance}
+ * functions have been added to mitigate the well-known issues around setting
+ * allowances. See {IERC20-approve}.
+ */
+contract ERC20 is Context, IERC20, IERC20Metadata {
+    mapping(address => uint256) private _balances;
+
+    mapping(address => mapping(address => uint256)) private _allowances;
+
+    uint256 private _totalSupply;
+
+    string private _name;
+    string private _symbol;
+
+    /**
+     * @dev Sets the values for {name} and {symbol}.
+     *
+     * The default value of {decimals} is 18. To select a different value for
+     * {decimals} you should overload it.
+     *
+     * All two of these values are immutable: they can only be set once during
+     * construction.
+     */
+    constructor(string memory name_, string memory symbol_) {
+        _name = name_;
+        _symbol = symbol_;
+    }
+
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() public view virtual override returns (string memory) {
+        return _name;
+    }
+
+    /**
+     * @dev Returns the symbol of the token, usually a shorter version of the
+     * name.
+     */
+    function symbol() public view virtual override returns (string memory) {
+        return _symbol;
+    }
+
+    /**
+     * @dev Returns the number of decimals used to get its user representation.
+     * For example, if `decimals` equals `2`, a balance of `505` tokens should
+     * be displayed to a user as `5.05` (`505 / 10 ** 2`).
+     *
+     * Tokens usually opt for a value of 18, imitating the relationship between
+     * Ether and Wei. This is the value {ERC20} uses, unless this function is
+     * overridden;
+     *
+     * NOTE: This information is only used for _display_ purposes: it in
+     * no way affects any of the arithmetic of the contract, including
+     * {IERC20-balanceOf} and {IERC20-transfer}.
+     */
+    function decimals() public view virtual override returns (uint8) {
+        return 18;
+    }
+
+    /**
+     * @dev See {IERC20-totalSupply}.
+     */
+    function totalSupply() public view virtual override returns (uint256) {
+        return _totalSupply;
+    }
+
+    /**
+     * @dev See {IERC20-balanceOf}.
+     */
+    function balanceOf(address account) public view virtual override returns (uint256) {
+        return _balances[account];
+    }
+
+    /**
+     * @dev See {IERC20-transfer}.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - the caller must have a balance of at least `amount`.
+     */
+    function transfer(address to, uint256 amount) public virtual override returns (bool) {
+        address owner = _msgSender();
+        _transfer(owner, to, amount);
+        return true;
+    }
+
+    /**
+     * @dev See {IERC20-allowance}.
+     */
+    function allowance(address owner, address spender) public view virtual override returns (uint256) {
+        return _allowances[owner][spender];
+    }
+
+    /**
+     * @dev See {IERC20-approve}.
+     *
+     * NOTE: If `amount` is the maximum `uint256`, the allowance is not updated on
+     * `transferFrom`. This is semantically equivalent to an infinite approval.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     */
+    function approve(address spender, uint256 amount) public virtual override returns (bool) {
+        address owner = _msgSender();
+        _approve(owner, spender, amount);
+        return true;
+    }
+
+    /**
+     * @dev See {IERC20-transferFrom}.
+     *
+     * Emits an {Approval} event indicating the updated allowance. This is not
+     * required by the EIP. See the note at the beginning of {ERC20}.
+     *
+     * NOTE: Does not update the allowance if the current allowance
+     * is the maximum `uint256`.
+     *
+     * Requirements:
+     *
+     * - `from` and `to` cannot be the zero address.
+     * - `from` must have a balance of at least `amount`.
+     * - the caller must have allowance for ``from``'s tokens of at least
+     * `amount`.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) public virtual override returns (bool) {
+        address spender = _msgSender();
+        _spendAllowance(from, spender, amount);
+        _transfer(from, to, amount);
+        return true;
+    }
+
+    /**
+     * @dev Atomically increases the allowance granted to `spender` by the caller.
+     *
+     * This is an alternative to {approve} that can be used as a mitigation for
+     * problems described in {IERC20-approve}.
+     *
+     * Emits an {Approval} event indicating the updated allowance.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     */
+    function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool) {
+        address owner = _msgSender();
+        _approve(owner, spender, allowance(owner, spender) + addedValue);
+        return true;
+    }
+
+    /**
+     * @dev Atomically decreases the allowance granted to `spender` by the caller.
+     *
+     * This is an alternative to {approve} that can be used as a mitigation for
+     * problems described in {IERC20-approve}.
+     *
+     * Emits an {Approval} event indicating the updated allowance.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     * - `spender` must have allowance for the caller of at least
+     * `subtractedValue`.
+     */
+    function decreaseAllowance(address spender, uint256 subtractedValue) public virtual returns (bool) {
+        address owner = _msgSender();
+        uint256 currentAllowance = allowance(owner, spender);
+        require(currentAllowance >= subtractedValue, "ERC20: decreased allowance below zero");
+        unchecked {
+            _approve(owner, spender, currentAllowance - subtractedValue);
+        }
+
+        return true;
+    }
+
+    /**
+     * @dev Moves `amount` of tokens from `from` to `to`.
+     *
+     * This internal function is equivalent to {transfer}, and can be used to
+     * e.g. implement automatic token fees, slashing mechanisms, etc.
+     *
+     * Emits a {Transfer} event.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `from` must have a balance of at least `amount`.
+     */
+    function _transfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {
+        require(from != address(0), "ERC20: transfer from the zero address");
+        require(to != address(0), "ERC20: transfer to the zero address");
+
+        _beforeTokenTransfer(from, to, amount);
+
+        uint256 fromBalance = _balances[from];
+        require(fromBalance >= amount, "ERC20: transfer amount exceeds balance");
+        unchecked {
+            _balances[from] = fromBalance - amount;
+        }
+        _balances[to] += amount;
+
+        emit Transfer(from, to, amount);
+
+        _afterTokenTransfer(from, to, amount);
+    }
+
+    /** @dev Creates `amount` tokens and assigns them to `account`, increasing
+     * the total supply.
+     *
+     * Emits a {Transfer} event with `from` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - `account` cannot be the zero address.
+     */
+    function _mint(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: mint to the zero address");
+
+        _beforeTokenTransfer(address(0), account, amount);
+
+        _totalSupply += amount;
+        _balances[account] += amount;
+        emit Transfer(address(0), account, amount);
+
+        _afterTokenTransfer(address(0), account, amount);
+    }
+
+    /**
+     * @dev Destroys `amount` tokens from `account`, reducing the
+     * total supply.
+     *
+     * Emits a {Transfer} event with `to` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - `account` cannot be the zero address.
+     * - `account` must have at least `amount` tokens.
+     */
+    function _burn(address account, uint256 amount) internal virtual {
+        require(account != address(0), "ERC20: burn from the zero address");
+
+        _beforeTokenTransfer(account, address(0), amount);
+
+        uint256 accountBalance = _balances[account];
+        require(accountBalance >= amount, "ERC20: burn amount exceeds balance");
+        unchecked {
+            _balances[account] = accountBalance - amount;
+        }
+        _totalSupply -= amount;
+
+        emit Transfer(account, address(0), amount);
+
+        _afterTokenTransfer(account, address(0), amount);
+    }
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the `owner` s tokens.
+     *
+     * This internal function is equivalent to `approve`, and can be used to
+     * e.g. set automatic allowances for certain subsystems, etc.
+     *
+     * Emits an {Approval} event.
+     *
+     * Requirements:
+     *
+     * - `owner` cannot be the zero address.
+     * - `spender` cannot be the zero address.
+     */
+    function _approve(
+        address owner,
+        address spender,
+        uint256 amount
+    ) internal virtual {
+        require(owner != address(0), "ERC20: approve from the zero address");
+        require(spender != address(0), "ERC20: approve to the zero address");
+
+        _allowances[owner][spender] = amount;
+        emit Approval(owner, spender, amount);
+    }
+
+    /**
+     * @dev Updates `owner` s allowance for `spender` based on spent `amount`.
+     *
+     * Does not update the allowance amount in case of infinite allowance.
+     * Revert if not enough allowance is available.
+     *
+     * Might emit an {Approval} event.
+     */
+    function _spendAllowance(
+        address owner,
+        address spender,
+        uint256 amount
+    ) internal virtual {
+        uint256 currentAllowance = allowance(owner, spender);
+        if (currentAllowance != type(uint256).max) {
+            require(currentAllowance >= amount, "ERC20: insufficient allowance");
+            unchecked {
+                _approve(owner, spender, currentAllowance - amount);
+            }
+        }
+    }
+
+    /**
+     * @dev Hook that is called before any transfer of tokens. This includes
+     * minting and burning.
+     *
+     * Calling conditions:
+     *
+     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
+     * will be transferred to `to`.
+     * - when `from` is zero, `amount` tokens will be minted for `to`.
+     * - when `to` is zero, `amount` of ``from``'s tokens will be burned.
+     * - `from` and `to` are never both zero.
+     *
+     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     */
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {}
+
+    /**
+     * @dev Hook that is called after any transfer of tokens. This includes
+     * minting and burning.
+     *
+     * Calling conditions:
+     *
+     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
+     * has been transferred to `to`.
+     * - when `from` is zero, `amount` tokens have been minted for `to`.
+     * - when `to` is zero, `amount` of ``from``'s tokens have been burned.
+     * - `from` and `to` are never both zero.
+     *
+     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     */
+    function _afterTokenTransfer(
+        address from,
+        address to,
+        uint256 amount
+    ) internal virtual {}
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/IERC20Metadata.sol)
+
+pragma solidity ^0.8.0;
+
+import "../IERC20.sol";
+
+/**
+ * @dev Interface for the optional metadata functions from the ERC20 standard.
+ *
+ * _Available since v4.1._
+ */
+interface IERC20Metadata is IERC20 {
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() external view returns (string memory);
+
+    /**
+     * @dev Returns the symbol of the token.
+     */
+    function symbol() external view returns (string memory);
+
+    /**
+     * @dev Returns the decimals places of the token.
+     */
+    function decimals() external view returns (uint8);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
