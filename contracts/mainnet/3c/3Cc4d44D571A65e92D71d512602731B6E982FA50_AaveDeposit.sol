@@ -1,0 +1,1177 @@
+pragma solidity ^0.8.15;
+
+import { Executable } from "../common/Executable.sol";
+import { UseStore, Write, Read } from "../common/UseStore.sol";
+import { OperationStorage } from "../../core/OperationStorage.sol";
+import { ILendingPool } from "../../interfaces/aave/ILendingPool.sol";
+import { DepositData } from "../../core/types/Aave.sol";
+import { SafeERC20, IERC20 } from "../../libs/SafeERC20.sol";
+import { AAVE_LENDING_POOL, DEPOSIT_ACTION } from "../../core/constants/Aave.sol";
+
+contract AaveDeposit is Executable, UseStore {
+  using Write for OperationStorage;
+  using Read for OperationStorage;
+
+  constructor(address _registry) UseStore(_registry) {}
+
+  function execute(bytes calldata data, uint8[] memory paramsMap) external payable override {
+    DepositData memory deposit = parseInputs(data);
+
+    deposit.amount = store().readUint(bytes32(deposit.amount), paramsMap[1], address(this));
+
+    ILendingPool(registry.getRegisteredService(AAVE_LENDING_POOL)).deposit(
+      deposit.asset,
+      deposit.amount,
+      address(this),
+      0
+    );
+
+    store().write(bytes32(deposit.amount));
+    emit Action(DEPOSIT_ACTION, bytes32(deposit.amount));
+  }
+
+  function parseInputs(bytes memory _callData) public pure returns (DepositData memory params) {
+    return abi.decode(_callData, (DepositData));
+  }
+}
+
+pragma solidity ^0.8.15;
+
+interface Executable {
+  function execute(bytes calldata data, uint8[] memory paramsMap) external payable;
+
+  /**
+   * @dev Emitted once an Action has completed execution
+   * @param name The Action name
+   * @param returned The value returned by the Action
+   **/
+  event Action(string name, bytes32 returned);
+}
+
+pragma solidity ^0.8.15;
+
+import { OperationStorage } from "../../core/OperationStorage.sol";
+import { ServiceRegistry } from "../../core/ServiceRegistry.sol";
+import { OPERATION_STORAGE } from "../../core/constants/Common.sol";
+
+abstract contract UseStore {
+  ServiceRegistry internal immutable registry;
+
+  constructor(address _registry) {
+    registry = ServiceRegistry(_registry);
+  }
+
+  function store() internal view returns (OperationStorage) {
+    return OperationStorage(registry.getRegisteredService(OPERATION_STORAGE));
+  }
+}
+
+library Read {
+  function read(
+    OperationStorage _storage,
+    bytes32 param,
+    uint256 paramMapping,
+    address who
+  ) internal view returns (bytes32) {
+    if (paramMapping > 0) {
+      return _storage.at(paramMapping - 1, who);
+    }
+
+    return param;
+  }
+
+  function readUint(
+    OperationStorage _storage,
+    bytes32 param,
+    uint256 paramMapping,
+    address who
+  ) internal view returns (uint256) {
+    return uint256(read(_storage, param, paramMapping, who));
+  }
+}
+
+library Write {
+  function write(OperationStorage _storage, bytes32 value) internal {
+    _storage.push(value);
+  }
+}
+
+pragma solidity ^0.8.15;
+
+import { ServiceRegistry } from "./ServiceRegistry.sol";
+
+contract OperationStorage {
+  uint8 internal action = 0;
+  bytes32[] public actions;
+  mapping(address => bytes32[]) public returnValues;
+  address[] public valuesHolders;
+  bool private locked;
+  address private whoLocked;
+  address public initiator;
+  address immutable operationExecutorAddress;
+
+  ServiceRegistry internal immutable registry;
+
+  constructor(ServiceRegistry _registry, address _operationExecutorAddress) {
+    registry = _registry;
+    operationExecutorAddress = _operationExecutorAddress;
+  }
+
+  function lock() external{
+    locked = true;
+    whoLocked = msg.sender;
+  }
+
+  function unlock() external {
+    require(whoLocked == msg.sender, "Only the locker can unlock");
+    require(locked, "Not locked");
+    locked = false;
+    whoLocked = address(0);
+  }
+
+  function setInitiator(address _initiator) external {
+    require(msg.sender == operationExecutorAddress);
+    initiator = _initiator;
+  }
+
+  function setOperationActions(bytes32[] memory _actions) external {
+    actions = _actions;
+  }
+
+  function verifyAction(bytes32 actionHash) external {
+    require(actions[action] == actionHash, "incorrect-action");
+    registry.getServiceAddress(actionHash);
+    action++;
+  }
+
+  function hasActionsToVerify() external view returns (bool) {
+    return actions.length > 0;
+  }
+
+  function push(bytes32 value) external {
+    address who = msg.sender;
+    if( who == operationExecutorAddress) {
+      who = initiator;
+    }
+
+    if(returnValues[who].length ==0){
+      valuesHolders.push(who);
+    }
+    returnValues[who].push(value);
+  }
+
+  function at(uint256 index, address who) external view returns (bytes32) {
+    if( who == operationExecutorAddress) {
+      who = initiator;
+    }
+    return returnValues[who][index];
+  }
+
+  function len(address who) external view returns (uint256) {
+    if( who == operationExecutorAddress) {
+      who = initiator;
+    }
+    return returnValues[who].length;
+  }
+
+  function clearStorage() external {
+    delete action;
+    delete actions;
+    for(uint256 i = 0; i < valuesHolders.length; i++){
+      delete returnValues[valuesHolders[i]];
+    }
+    delete valuesHolders;
+  }
+}
+
+// SPDX-License-Identifier: agpl-3.0
+pragma solidity ^0.8.15;
+
+pragma experimental ABIEncoderV2;
+
+import { ILendingPoolAddressesProvider } from "./ILendingPoolAddressesProvider.sol";
+import { DataTypes } from "./DataTypes.sol";
+
+interface ILendingPool {
+  /**
+   * @dev Emitted on deposit()
+   * @param reserve The address of the underlying asset of the reserve
+   * @param user The address initiating the deposit
+   * @param onBehalfOf The beneficiary of the deposit, receiving the aTokens
+   * @param amount The amount deposited
+   * @param referral The referral code used
+   **/
+  event Deposit(
+    address indexed reserve,
+    address user,
+    address indexed onBehalfOf,
+    uint256 amount,
+    uint16 indexed referral
+  );
+
+  /**
+   * @dev Emitted on withdraw()
+   * @param reserve The address of the underlyng asset being withdrawn
+   * @param user The address initiating the withdrawal, owner of aTokens
+   * @param to Address that will receive the underlying
+   * @param amount The amount to be withdrawn
+   **/
+  event Withdraw(address indexed reserve, address indexed user, address indexed to, uint256 amount);
+
+  /**
+   * @dev Emitted on borrow() and flashLoan() when debt needs to be opened
+   * @param reserve The address of the underlying asset being borrowed
+   * @param user The address of the user initiating the borrow(), receiving the funds on borrow() or just
+   * initiator of the transaction on flashLoan()
+   * @param onBehalfOf The address that will be getting the debt
+   * @param amount The amount borrowed out
+   * @param borrowRateMode The rate mode: 1 for Stable, 2 for Variable
+   * @param borrowRate The numeric rate at which the user has borrowed
+   * @param referral The referral code used
+   **/
+  event Borrow(
+    address indexed reserve,
+    address user,
+    address indexed onBehalfOf,
+    uint256 amount,
+    uint256 borrowRateMode,
+    uint256 borrowRate,
+    uint16 indexed referral
+  );
+
+  /**
+   * @dev Emitted on repay()
+   * @param reserve The address of the underlying asset of the reserve
+   * @param user The beneficiary of the repayment, getting his debt reduced
+   * @param repayer The address of the user initiating the repay(), providing the funds
+   * @param amount The amount repaid
+   **/
+  event Repay(
+    address indexed reserve,
+    address indexed user,
+    address indexed repayer,
+    uint256 amount
+  );
+
+  /**
+   * @dev Emitted on swapBorrowRateMode()
+   * @param reserve The address of the underlying asset of the reserve
+   * @param user The address of the user swapping his rate mode
+   * @param rateMode The rate mode that the user wants to swap to
+   **/
+  event Swap(address indexed reserve, address indexed user, uint256 rateMode);
+
+  /**
+   * @dev Emitted on setUserUseReserveAsCollateral()
+   * @param reserve The address of the underlying asset of the reserve
+   * @param user The address of the user enabling the usage as collateral
+   **/
+  event ReserveUsedAsCollateralEnabled(address indexed reserve, address indexed user);
+
+  /**
+   * @dev Emitted on setUserUseReserveAsCollateral()
+   * @param reserve The address of the underlying asset of the reserve
+   * @param user The address of the user enabling the usage as collateral
+   **/
+  event ReserveUsedAsCollateralDisabled(address indexed reserve, address indexed user);
+
+  /**
+   * @dev Emitted on rebalanceStableBorrowRate()
+   * @param reserve The address of the underlying asset of the reserve
+   * @param user The address of the user for which the rebalance has been executed
+   **/
+  event RebalanceStableBorrowRate(address indexed reserve, address indexed user);
+
+  /**
+   * @dev Emitted on flashLoan()
+   * @param target The address of the flash loan receiver contract
+   * @param initiator The address initiating the flash loan
+   * @param asset The address of the asset being flash borrowed
+   * @param amount The amount flash borrowed
+   * @param premium The fee flash borrowed
+   * @param referralCode The referral code used
+   **/
+  event FlashLoan(
+    address indexed target,
+    address indexed initiator,
+    address indexed asset,
+    uint256 amount,
+    uint256 premium,
+    uint16 referralCode
+  );
+
+  /**
+   * @dev Emitted when the pause is triggered.
+   */
+  event Paused();
+
+  /**
+   * @dev Emitted when the pause is lifted.
+   */
+  event Unpaused();
+
+  /**
+   * @dev Emitted when a borrower is liquidated. This event is emitted by the LendingPool via
+   * LendingPoolCollateral manager using a DELEGATECALL
+   * This allows to have the events in the generated ABI for LendingPool.
+   * @param collateralAsset The address of the underlying asset used as collateral, to receive as result of the liquidation
+   * @param debtAsset The address of the underlying borrowed asset to be repaid with the liquidation
+   * @param user The address of the borrower getting liquidated
+   * @param debtToCover The debt amount of borrowed `asset` the liquidator wants to cover
+   * @param liquidatedCollateralAmount The amount of collateral received by the liiquidator
+   * @param liquidator The address of the liquidator
+   * @param receiveAToken `true` if the liquidators wants to receive the collateral aTokens, `false` if he wants
+   * to receive the underlying collateral asset directly
+   **/
+  event LiquidationCall(
+    address indexed collateralAsset,
+    address indexed debtAsset,
+    address indexed user,
+    uint256 debtToCover,
+    uint256 liquidatedCollateralAmount,
+    address liquidator,
+    bool receiveAToken
+  );
+
+  /**
+   * @dev Emitted when the state of a reserve is updated. NOTE: This event is actually declared
+   * in the ReserveLogic library and emitted in the updateInterestRates() function. Since the function is internal,
+   * the event will actually be fired by the LendingPool contract. The event is therefore replicated here so it
+   * gets added to the LendingPool ABI
+   * @param reserve The address of the underlying asset of the reserve
+   * @param liquidityRate The new liquidity rate
+   * @param stableBorrowRate The new stable borrow rate
+   * @param variableBorrowRate The new variable borrow rate
+   * @param liquidityIndex The new liquidity index
+   * @param variableBorrowIndex The new variable borrow index
+   **/
+  event ReserveDataUpdated(
+    address indexed reserve,
+    uint256 liquidityRate,
+    uint256 stableBorrowRate,
+    uint256 variableBorrowRate,
+    uint256 liquidityIndex,
+    uint256 variableBorrowIndex
+  );
+
+  /**
+   * @dev Deposits an `amount` of underlying asset into the reserve, receiving in return overlying aTokens.
+   * - E.g. User deposits 100 USDC and gets in return 100 aUSDC
+   * @param asset The address of the underlying asset to deposit
+   * @param amount The amount to be deposited
+   * @param onBehalfOf The address that will receive the aTokens, same as msg.sender if the user
+   *   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens
+   *   is a different wallet
+   * @param referralCode Code used to register the integrator originating the operation, for potential rewards.
+   *   0 if the action is executed directly by the user, without any middle-man
+   **/
+  function deposit(
+    address asset,
+    uint256 amount,
+    address onBehalfOf,
+    uint16 referralCode
+  ) external;
+
+  /**
+   * @dev Withdraws an `amount` of underlying asset from the reserve, burning the equivalent aTokens owned
+   * E.g. User has 100 aUSDC, calls withdraw() and receives 100 USDC, burning the 100 aUSDC
+   * @param asset The address of the underlying asset to withdraw
+   * @param amount The underlying amount to be withdrawn
+   *   - Send the value type(uint256).max in order to withdraw the whole aToken balance
+   * @param to Address that will receive the underlying, same as msg.sender if the user
+   *   wants to receive it on his own wallet, or a different address if the beneficiary is a
+   *   different wallet
+   * @return The final amount withdrawn
+   **/
+  function withdraw(
+    address asset,
+    uint256 amount,
+    address to
+  ) external returns (uint256);
+
+  /**
+   * @dev Allows users to borrow a specific `amount` of the reserve underlying asset, provided that the borrower
+   * already deposited enough collateral, or he was given enough allowance by a credit delegator on the
+   * corresponding debt token (StableDebtToken or VariableDebtToken)
+   * - E.g. User borrows 100 USDC passing as `onBehalfOf` his own address, receiving the 100 USDC in his wallet
+   *   and 100 stable/variable debt tokens, depending on the `interestRateMode`
+   * @param asset The address of the underlying asset to borrow
+   * @param amount The amount to be borrowed
+   * @param interestRateMode The interest rate mode at which the user wants to borrow: 1 for Stable, 2 for Variable
+   * @param referralCode Code used to register the integrator originating the operation, for potential rewards.
+   *   0 if the action is executed directly by the user, without any middle-man
+   * @param onBehalfOf Address of the user who will receive the debt. Should be the address of the borrower itself
+   * calling the function if he wants to borrow against his own collateral, or the address of the credit delegator
+   * if he has been given credit delegation allowance
+   **/
+  function borrow(
+    address asset,
+    uint256 amount,
+    uint256 interestRateMode,
+    uint16 referralCode,
+    address onBehalfOf
+  ) external;
+
+  /**
+   * @notice Repays a borrowed `amount` on a specific reserve, burning the equivalent debt tokens owned
+   * - E.g. User repays 100 USDC, burning 100 variable/stable debt tokens of the `onBehalfOf` address
+   * @param asset The address of the borrowed underlying asset previously borrowed
+   * @param amount The amount to repay
+   * - Send the value type(uint256).max in order to repay the whole debt for `asset` on the specific `debtMode`
+   * @param rateMode The interest rate mode at of the debt the user wants to repay: 1 for Stable, 2 for Variable
+   * @param onBehalfOf Address of the user who will get his debt reduced/removed. Should be the address of the
+   * user calling the function if he wants to reduce/remove his own debt, or the address of any other
+   * other borrower whose debt should be removed
+   * @return The final amount repaid
+   **/
+  function repay(
+    address asset,
+    uint256 amount,
+    uint256 rateMode,
+    address onBehalfOf
+  ) external returns (uint256);
+
+  /**
+   * @dev Allows a borrower to swap his debt between stable and variable mode, or viceversa
+   * @param asset The address of the underlying asset borrowed
+   * @param rateMode The rate mode that the user wants to swap to
+   **/
+  function swapBorrowRateMode(address asset, uint256 rateMode) external;
+
+  /**
+   * @dev Rebalances the stable interest rate of a user to the current stable rate defined on the reserve.
+   * - Users can be rebalanced if the following conditions are satisfied:
+   *     1. Usage ratio is above 95%
+   *     2. the current deposit APY is below REBALANCE_UP_THRESHOLD * maxVariableBorrowRate, which means that too much has been
+   *        borrowed at a stable rate and depositors are not earning enough
+   * @param asset The address of the underlying asset borrowed
+   * @param user The address of the user to be rebalanced
+   **/
+  function rebalanceStableBorrowRate(address asset, address user) external;
+
+  /**
+   * @dev Allows depositors to enable/disable a specific deposited asset as collateral
+   * @param asset The address of the underlying asset deposited
+   * @param useAsCollateral `true` if the user wants to use the deposit as collateral, `false` otherwise
+   **/
+  function setUserUseReserveAsCollateral(address asset, bool useAsCollateral) external;
+
+  /**
+   * @dev Function to liquidate a non-healthy position collateral-wise, with Health Factor below 1
+   * - The caller (liquidator) covers `debtToCover` amount of debt of the user getting liquidated, and receives
+   *   a proportionally amount of the `collateralAsset` plus a bonus to cover market risk
+   * @param collateralAsset The address of the underlying asset used as collateral, to receive as result of the liquidation
+   * @param debtAsset The address of the underlying borrowed asset to be repaid with the liquidation
+   * @param user The address of the borrower getting liquidated
+   * @param debtToCover The debt amount of borrowed `asset` the liquidator wants to cover
+   * @param receiveAToken `true` if the liquidators wants to receive the collateral aTokens, `false` if he wants
+   * to receive the underlying collateral asset directly
+   **/
+  function liquidationCall(
+    address collateralAsset,
+    address debtAsset,
+    address user,
+    uint256 debtToCover,
+    bool receiveAToken
+  ) external;
+
+  /**
+   * @dev Allows smartcontracts to access the liquidity of the pool within one transaction,
+   * as long as the amount taken plus a fee is returned.
+   * IMPORTANT There are security concerns for developers of flashloan receiver contracts that must be kept into consideration.
+   * For further details please visit https://developers.aave.com
+   * @param receiverAddress The address of the contract receiving the funds, implementing the IFlashLoanReceiver interface
+   * @param assets The addresses of the assets being flash-borrowed
+   * @param amounts The amounts amounts being flash-borrowed
+   * @param modes Types of the debt to open if the flash loan is not returned:
+   *   0 -> Don't open any debt, just revert if funds can't be transferred from the receiver
+   *   1 -> Open debt at stable rate for the value of the amount flash-borrowed to the `onBehalfOf` address
+   *   2 -> Open debt at variable rate for the value of the amount flash-borrowed to the `onBehalfOf` address
+   * @param onBehalfOf The address  that will receive the debt in the case of using on `modes` 1 or 2
+   * @param params Variadic packed params to pass to the receiver as extra information
+   * @param referralCode Code used to register the integrator originating the operation, for potential rewards.
+   *   0 if the action is executed directly by the user, without any middle-man
+   **/
+  function flashLoan(
+    address receiverAddress,
+    address[] calldata assets,
+    uint256[] calldata amounts,
+    uint256[] calldata modes,
+    address onBehalfOf,
+    bytes calldata params,
+    uint16 referralCode
+  ) external;
+
+  /**
+   * @dev Returns the user account data across all the reserves
+   * @param user The address of the user
+   * @return totalCollateralETH the total collateral in ETH of the user
+   * @return totalDebtETH the total debt in ETH of the user
+   * @return availableBorrowsETH the borrowing power left of the user
+   * @return currentLiquidationThreshold the liquidation threshold of the user
+   * @return ltv the loan to value of the user
+   * @return healthFactor the current health factor of the user
+   **/
+  function getUserAccountData(address user)
+    external
+    view
+    returns (
+      uint256 totalCollateralETH,
+      uint256 totalDebtETH,
+      uint256 availableBorrowsETH,
+      uint256 currentLiquidationThreshold,
+      uint256 ltv,
+      uint256 healthFactor
+    );
+
+  function initReserve(
+    address reserve,
+    address aTokenAddress,
+    address stableDebtAddress,
+    address variableDebtAddress,
+    address interestRateStrategyAddress
+  ) external;
+
+  function setReserveInterestRateStrategyAddress(address reserve, address rateStrategyAddress)
+    external;
+
+  function setConfiguration(address reserve, uint256 configuration) external;
+
+  /**
+   * @dev Returns the configuration of the reserve
+   * @param asset The address of the underlying asset of the reserve
+   * @return The configuration of the reserve
+   **/
+  function getConfiguration(address asset)
+    external
+    view
+    returns (DataTypes.ReserveConfigurationMap memory);
+
+  /**
+   * @dev Returns the configuration of the user across all the reserves
+   * @param user The user address
+   * @return The configuration of the user
+   **/
+  function getUserConfiguration(address user)
+    external
+    view
+    returns (DataTypes.UserConfigurationMap memory);
+
+  /**
+   * @dev Returns the normalized income normalized income of the reserve
+   * @param asset The address of the underlying asset of the reserve
+   * @return The reserve's normalized income
+   */
+  function getReserveNormalizedIncome(address asset) external view returns (uint256);
+
+  /**
+   * @dev Returns the normalized variable debt per unit of asset
+   * @param asset The address of the underlying asset of the reserve
+   * @return The reserve normalized variable debt
+   */
+  function getReserveNormalizedVariableDebt(address asset) external view returns (uint256);
+
+  /**
+   * @dev Returns the state and configuration of the reserve
+   * @param asset The address of the underlying asset of the reserve
+   * @return The state of the reserve
+   **/
+  function getReserveData(address asset) external view returns (DataTypes.ReserveData memory);
+
+  function finalizeTransfer(
+    address asset,
+    address from,
+    address to,
+    uint256 amount,
+    uint256 balanceFromAfter,
+    uint256 balanceToBefore
+  ) external;
+
+  function getReservesList() external view returns (address[] memory);
+
+  function getAddressesProvider() external view returns (ILendingPoolAddressesProvider);
+
+  function setPause(bool val) external;
+
+  function paused() external view returns (bool);
+}
+
+pragma solidity ^0.8.15;
+
+struct DepositData {
+  address asset;
+  uint256 amount;
+}
+
+struct BorrowData {
+  address asset;
+  uint256 amount;
+  address to;
+}
+
+struct WithdrawData {
+  address asset;
+  uint256 amount;
+  address to;
+}
+
+struct PaybackData {
+  address asset;
+  uint256 amount;
+  bool paybackAll;
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.1;
+
+import { IERC20 } from "../interfaces/tokens/IERC20.sol";
+import { Address } from "./Address.sol";
+import { SafeMath } from "./SafeMath.sol";
+
+library SafeERC20 {
+  using SafeMath for uint256;
+  using Address for address;
+
+  function safeTransfer(
+    IERC20 token,
+    address to,
+    uint256 value
+  ) internal {
+    _callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
+  }
+
+  function safeTransferFrom(
+    IERC20 token,
+    address from,
+    address to,
+    uint256 value
+  ) internal {
+    _callOptionalReturn(
+      token,
+      abi.encodeWithSelector(token.transferFrom.selector, from, to, value)
+    );
+  }
+
+  /**
+   * @dev Deprecated. This function has issues similar to the ones found in
+   * {ERC20-approve}, and its usage is discouraged.
+   */
+  function safeApprove(
+    IERC20 token,
+    address spender,
+    uint256 value
+  ) internal {
+    _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, 0));
+    _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, value));
+  }
+
+  function safeIncreaseAllowance(
+    IERC20 token,
+    address spender,
+    uint256 value
+  ) internal {
+    uint256 newAllowance = token.allowance(address(this), spender).add(value);
+    _callOptionalReturn(
+      token,
+      abi.encodeWithSelector(token.approve.selector, spender, newAllowance)
+    );
+  }
+
+  function safeDecreaseAllowance(
+    IERC20 token,
+    address spender,
+    uint256 value
+  ) internal {
+    uint256 newAllowance = token.allowance(address(this), spender).sub(
+      value,
+      "SafeERC20: decreased allowance below zero"
+    );
+    _callOptionalReturn(
+      token,
+      abi.encodeWithSelector(token.approve.selector, spender, newAllowance)
+    );
+  }
+
+  function _callOptionalReturn(IERC20 token, bytes memory data) private {
+    bytes memory returndata = address(token).functionCall(data, "SafeERC20: low-level call failed");
+    if (returndata.length > 0) {
+      // Return data is optional
+      // solhint-disable-next-line max-line-length
+      require(abi.decode(returndata, (bool)), "SafeERC20: ERC20 operation did not succeed");
+    }
+  }
+}
+
+pragma solidity ^0.8.15;
+
+string constant AAVE_LENDING_POOL = "AaveLendingPool";
+string constant AAVE_WETH_GATEWAY = "AaveWethGateway";
+
+string constant BORROW_ACTION = "AaveBorrow";
+string constant DEPOSIT_ACTION = "AaveDeposit";
+string constant WITHDRAW_ACTION = "AaveWithdraw";
+string constant PAYBACK_ACTION = "AavePayback";
+
+//SPDX-License-Identifier: Unlicense
+pragma solidity >=0.8.1;
+
+contract ServiceRegistry {
+  mapping(address => bool) public trustedAddresses;
+  mapping(bytes32 => uint256) public lastExecuted;
+  mapping(bytes32 => address) private namedService;
+  address public owner;
+
+  uint256 public requiredDelay = 0; // big enough that any power of miner over timestamp does not matter
+
+  modifier validateInput(uint256 len) {
+    require(msg.data.length == len, "illegal-padding");
+    _;
+  }
+
+  modifier delayedExecution() {
+    bytes32 operationHash = keccak256(msg.data);
+    uint256 reqDelay = requiredDelay;
+
+    // solhint-disable-next-line not-rely-on-time
+    uint256 blockTimestamp = block.timestamp;
+    if (lastExecuted[operationHash] == 0 && reqDelay > 0) {
+      // not called before, scheduled for execution
+      lastExecuted[operationHash] = blockTimestamp;
+      emit ChangeScheduled(msg.data, operationHash, blockTimestamp + reqDelay);
+    } else {
+      require(blockTimestamp - reqDelay > lastExecuted[operationHash], "delay-to-small");
+      emit ChangeApplied(msg.data, blockTimestamp);
+      _;
+      lastExecuted[operationHash] = 0;
+    }
+  }
+
+  modifier onlyOwner() {
+    require(msg.sender == owner, "only-owner");
+    _;
+  }
+
+  constructor(uint256 initialDelay) {
+    require(initialDelay < type(uint256).max, "risk-of-overflow");
+    requiredDelay = initialDelay;
+    owner = msg.sender;
+  }
+
+  function transferOwnership(address newOwner) public onlyOwner validateInput(36) delayedExecution {
+    owner = newOwner;
+  }
+
+  function changeRequiredDelay(uint256 newDelay)
+    public
+    onlyOwner
+    validateInput(36)
+    delayedExecution
+  {
+    requiredDelay = newDelay;
+  }
+
+  function addTrustedAddress(address trustedAddress)
+    public
+    onlyOwner
+    validateInput(36)
+    delayedExecution
+  {
+    trustedAddresses[trustedAddress] = true;
+  }
+
+  function removeTrustedAddress(address trustedAddress) public onlyOwner validateInput(36) {
+    trustedAddresses[trustedAddress] = false;
+  }
+
+  function getServiceNameHash(string calldata name) public pure returns (bytes32) {
+    return keccak256(abi.encodePacked(name));
+  }
+
+  function addNamedService(bytes32 serviceNameHash, address serviceAddress)
+    public
+    onlyOwner
+    validateInput(68)
+    delayedExecution
+  {
+    require(namedService[serviceNameHash] == address(0), "service-override");
+    namedService[serviceNameHash] = serviceAddress;
+  }
+
+  function updateNamedService(bytes32 serviceNameHash, address serviceAddress)
+    public
+    onlyOwner
+    validateInput(68)
+    delayedExecution
+  {
+    require(namedService[serviceNameHash] != address(0), "service-does-not-exist");
+    namedService[serviceNameHash] = serviceAddress;
+  }
+
+  function removeNamedService(bytes32 serviceNameHash) public onlyOwner validateInput(36) {
+    require(namedService[serviceNameHash] != address(0), "service-does-not-exist");
+    namedService[serviceNameHash] = address(0);
+    emit RemoveApplied(serviceNameHash);
+  }
+
+  function getRegisteredService(string memory serviceName) public view returns (address) {
+    return getServiceAddress(keccak256(abi.encodePacked(serviceName)));
+  }
+
+  function getServiceAddress(bytes32 serviceNameHash) public view returns (address serviceAddress) {
+    serviceAddress = namedService[serviceNameHash];
+    require(serviceAddress != address(0), "no-such-service");
+  }
+
+  function clearScheduledExecution(bytes32 scheduledExecution) public onlyOwner validateInput(36) {
+    require(lastExecuted[scheduledExecution] > 0, "execution-not-scheduled");
+    lastExecuted[scheduledExecution] = 0;
+    emit ChangeCancelled(scheduledExecution);
+  }
+
+  event ChangeScheduled(bytes data, bytes32 dataHash, uint256 firstPossibleExecutionTime);
+  event ChangeCancelled(bytes32 data);
+  event ChangeApplied(bytes data, uint256 firstPossibleExecutionTime);
+  event RemoveApplied(bytes32 nameHash);
+}
+
+pragma solidity ^0.8.15;
+
+string constant OPERATION_STORAGE = "OperationStorage";
+string constant OPERATION_EXECUTOR = "OperationExecutor";
+string constant OPERATIONS_REGISTRY = "OperationsRegistry";
+string constant ONE_INCH_AGGREGATOR = "OneInchAggregator";
+string constant WETH = "WETH";
+string constant DAI = "DAI";
+uint256 constant RAY = 10**27;
+bytes32 constant NULL = "";
+
+string constant PULL_TOKEN_ACTION = "PullToken";
+string constant SEND_TOKEN_ACTION = "SendToken";
+string constant SET_APPROVAL_ACTION = "SetApproval";
+string constant TAKE_FLASH_LOAN_ACTION = "TakeFlashloan";
+string constant WRAP_ETH = "WrapEth";
+string constant UNWRAP_ETH = "UnwrapEth";
+string constant RETURN_FUNDS_ACTION = "ReturnFunds";
+
+string constant UNISWAP_ROUTER = "UniswapRouter";
+string constant SWAP = "Swap";
+
+address constant ETH = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
+
+// SPDX-License-Identifier: agpl-3.0
+pragma solidity ^0.8.15;
+
+/**
+ * @title LendingPoolAddressesProvider contract
+ * @dev Main registry of addresses part of or connected to the protocol, including permissioned roles
+ * - Acting also as factory of proxies and admin of those, so with right to change its implementations
+ * - Owned by the Aave Governance
+ * @author Aave
+ **/
+interface ILendingPoolAddressesProvider {
+  event MarketIdSet(string newMarketId);
+  event LendingPoolUpdated(address indexed newAddress);
+  event ConfigurationAdminUpdated(address indexed newAddress);
+  event EmergencyAdminUpdated(address indexed newAddress);
+  event LendingPoolConfiguratorUpdated(address indexed newAddress);
+  event LendingPoolCollateralManagerUpdated(address indexed newAddress);
+  event PriceOracleUpdated(address indexed newAddress);
+  event LendingRateOracleUpdated(address indexed newAddress);
+  event ProxyCreated(bytes32 id, address indexed newAddress);
+  event AddressSet(bytes32 id, address indexed newAddress, bool hasProxy);
+
+  function getMarketId() external view returns (string memory);
+
+  function setMarketId(string calldata marketId) external;
+
+  function setAddress(bytes32 id, address newAddress) external;
+
+  function setAddressAsProxy(bytes32 id, address impl) external;
+
+  function getAddress(bytes32 id) external view returns (address);
+
+  function getLendingPool() external view returns (address);
+
+  function setLendingPoolImpl(address pool) external;
+
+  function getLendingPoolConfigurator() external view returns (address);
+
+  function setLendingPoolConfiguratorImpl(address configurator) external;
+
+  function getLendingPoolCollateralManager() external view returns (address);
+
+  function setLendingPoolCollateralManager(address manager) external;
+
+  function getPoolAdmin() external view returns (address);
+
+  function setPoolAdmin(address admin) external;
+
+  function getEmergencyAdmin() external view returns (address);
+
+  function setEmergencyAdmin(address admin) external;
+
+  function getPriceOracle() external view returns (address);
+
+  function setPriceOracle(address priceOracle) external;
+
+  function getLendingRateOracle() external view returns (address);
+
+  function setLendingRateOracle(address lendingRateOracle) external;
+}
+
+// SPDX-License-Identifier: agpl-3.0
+pragma solidity ^0.8.15;
+
+library DataTypes {
+  // refer to the whitepaper, section 1.1 basic concepts for a formal description of these properties.
+  struct ReserveData {
+    //stores the reserve configuration
+    ReserveConfigurationMap configuration;
+    //the liquidity index. Expressed in ray
+    uint128 liquidityIndex;
+    //variable borrow index. Expressed in ray
+    uint128 variableBorrowIndex;
+    //the current supply rate. Expressed in ray
+    uint128 currentLiquidityRate;
+    //the current variable borrow rate. Expressed in ray
+    uint128 currentVariableBorrowRate;
+    //the current stable borrow rate. Expressed in ray
+    uint128 currentStableBorrowRate;
+    uint40 lastUpdateTimestamp;
+    //tokens addresses
+    address aTokenAddress;
+    address stableDebtTokenAddress;
+    address variableDebtTokenAddress;
+    //address of the interest rate strategy
+    address interestRateStrategyAddress;
+    //the id of the reserve. Represents the position in the list of the active reserves
+    uint8 id;
+  }
+
+  struct ReserveConfigurationMap {
+    //bit 0-15: LTV
+    //bit 16-31: Liq. threshold
+    //bit 32-47: Liq. bonus
+    //bit 48-55: Decimals
+    //bit 56: Reserve is active
+    //bit 57: reserve is frozen
+    //bit 58: borrowing is enabled
+    //bit 59: stable rate borrowing enabled
+    //bit 60-63: reserved
+    //bit 64-79: reserve factor
+    uint256 data;
+  }
+
+  struct UserConfigurationMap {
+    uint256 data;
+  }
+
+  enum InterestRateMode {
+    NONE,
+    STABLE,
+    VARIABLE
+  }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.15;
+
+interface IERC20 {
+  function totalSupply() external view returns (uint256 supply);
+
+  function balanceOf(address _owner) external view returns (uint256 balance);
+
+  function transfer(address _to, uint256 _value) external returns (bool success);
+
+  function transferFrom(
+    address _from,
+    address _to,
+    uint256 _value
+  ) external returns (bool success);
+
+  function approve(address _spender, uint256 _value) external returns (bool success);
+
+  function allowance(address _owner, address _spender) external view returns (uint256 remaining);
+
+  function decimals() external view returns (uint256 digits);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.1;
+
+
+library Address {
+  function isContract(address account) internal view returns (bool) {
+    // According to EIP-1052, 0x0 is the value returned for not-yet created accounts
+    // and 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 is returned
+    // for accounts without code, i.e. `keccak256('')`
+    bytes32 codehash;
+    bytes32 accountHash = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
+    // solhint-disable-next-line no-inline-assembly
+    assembly {
+      codehash := extcodehash(account)
+    }
+    return (codehash != accountHash && codehash != 0x0);
+  }
+
+  function sendValue(address payable recipient, uint256 amount) internal {
+    require(address(this).balance >= amount, "Address: insufficient balance");
+
+    // solhint-disable-next-line avoid-low-level-calls, avoid-call-value
+    (bool success, ) = recipient.call{ value: amount }("");
+    require(success, "Address: unable to send value, recipient may have reverted");
+  }
+
+  function functionCall(address target, bytes memory data) internal returns (bytes memory) {
+    return functionCall(target, data, "Address: low-level call failed");
+  }
+
+  function functionCall(
+    address target,
+    bytes memory data,
+    string memory errorMessage
+  ) internal returns (bytes memory) {
+    return _functionCallWithValue(target, data, 0, errorMessage);
+  }
+
+  function functionCallWithValue(
+    address target,
+    bytes memory data,
+    uint256 value
+  ) internal returns (bytes memory) {
+    return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
+  }
+
+  function functionCallWithValue(
+    address target,
+    bytes memory data,
+    uint256 value,
+    string memory errorMessage
+  ) internal returns (bytes memory) {
+    require(address(this).balance >= value, "Address: insufficient balance for call");
+    return _functionCallWithValue(target, data, value, errorMessage);
+  }
+
+  function _functionCallWithValue(
+    address target,
+    bytes memory data,
+    uint256 weiValue,
+    string memory errorMessage
+  ) private returns (bytes memory) {
+    require(isContract(target), "Address: call to non-contract");
+
+    (bool success, bytes memory returndata) = target.call{ value: weiValue }(data);
+    if (success) {
+      return returndata;
+    } else {
+      // Look for revert reason and bubble it up if present
+      if (returndata.length > 0) {
+        // The easiest way to bubble the revert reason is using memory via assembly
+
+        // solhint-disable-next-line no-inline-assembly
+        assembly {
+          let returndata_size := mload(returndata)
+          revert(add(32, returndata), returndata_size)
+        }
+      } else {
+        revert(errorMessage);
+      }
+    }
+  }
+
+  function functionDelegateCall(
+    address target,
+    bytes memory data,
+    string memory errorMessage
+  ) internal returns (bytes memory) {
+    require(isContract(target), "Address: delegate call to non-contract");
+    
+    (bool success, bytes memory returndata) = target.delegatecall(data);
+    if (success) {
+      return returndata;
+    }
+      
+    if (returndata.length > 0) {
+      assembly {
+        let returndata_size := mload(returndata)
+        revert(add(32, returndata), returndata_size)
+      }
+    }
+
+    revert(errorMessage);
+  }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.15;
+
+library SafeMath {
+  function add(uint256 a, uint256 b) internal pure returns (uint256) {
+    uint256 c = a + b;
+    require(c >= a, "SafeMath: addition overflow");
+
+    return c;
+  }
+
+  function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+    return sub(a, b, "SafeMath: subtraction overflow");
+  }
+
+  function sub(
+    uint256 a,
+    uint256 b,
+    string memory errorMessage
+  ) internal pure returns (uint256) {
+    require(b <= a, errorMessage);
+    uint256 c = a - b;
+
+    return c;
+  }
+
+  function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+    // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+    // benefit is lost if 'b' is also tested.
+    // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
+    if (a == 0) {
+      return 0;
+    }
+
+    uint256 c = a * b;
+    require(c / a == b, "SafeMath: multiplication overflow");
+
+    return c;
+  }
+
+  function div(uint256 a, uint256 b) internal pure returns (uint256) {
+    return div(a, b, "SafeMath: division by zero");
+  }
+
+  function div(
+    uint256 a,
+    uint256 b,
+    string memory errorMessage
+  ) internal pure returns (uint256) {
+    require(b > 0, errorMessage);
+    uint256 c = a / b;
+    // assert(a == b * c + a % b); // There is no case in which this doesn't hold
+
+    return c;
+  }
+
+  function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+    return mod(a, b, "SafeMath: modulo by zero");
+  }
+
+  function mod(
+    uint256 a,
+    uint256 b,
+    string memory errorMessage
+  ) internal pure returns (uint256) {
+    require(b != 0, errorMessage);
+    return a % b;
+  }
+}
