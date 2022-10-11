@@ -1,0 +1,900 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.8.13;
+
+import "@violetprotocol/extendable/extensions/extend/ExtendLogic.sol";
+import { HumanboundPermissionState, HumanboundPermissionStorage } from "../../storage/HumanboundPermissionStorage.sol";
+
+contract HumanboundExtendLogic is ExtendLogic {
+    event OperatorInitialised(address initialOperator);
+
+    modifier onlyOperatorOrSelf() virtual {
+        initialise();
+
+        HumanboundPermissionState storage state = HumanboundPermissionStorage._getState();
+
+        // Set the operator to the transaction sender if operator has not been initialised
+        if (state.operator == address(0x0)) {
+            state.operator = _lastCaller();
+            emit OperatorInitialised(_lastCaller());
+        }
+
+        require(
+            _lastCaller() == state.operator || _lastCaller() == address(this),
+            "HumanboundExtendLogic: unauthorised"
+        );
+        _;
+    }
+
+    // Overrides the previous implementation of modifier to remove owner checks
+    modifier onlyOwnerOrSelf() override {
+        _;
+    }
+
+    function extend(address extension) public override onlyOperatorOrSelf {
+        super.extend(extension);
+    }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+import "../Extension.sol";
+import "./IExtendLogic.sol";
+import {ExtendableState, ExtendableStorage} from "../../storage/ExtendableStorage.sol";
+import {RoleState, Permissions} from "../../storage/PermissionStorage.sol";
+import "../../erc165/IERC165Logic.sol";
+import "../permissioning/IPermissioningLogic.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+
+/**
+ * @dev Reference implementation for ExtendLogic which defines the logic to extend
+ *      Extendable contracts
+ *
+ * Uses PermissioningLogic owner pattern to control extensibility. Only the `owner`
+ * can extend using this logic.
+ *
+ * Modify this ExtendLogic extension to change the way that your contract can be
+ * extended: public extendability; DAO-based extendability; governance-vote-based etc.
+*/
+contract ExtendLogic is ExtendExtension {
+    /**
+     * @dev see {Extension-constructor} for constructor
+    */
+
+    /**
+     * @dev modifier that restricts caller of a function to only the most recent caller if they are `owner` or the current contract
+    */
+    modifier onlyOwnerOrSelf virtual {
+        initialise();
+    
+        address owner = Permissions._getState().owner;
+        require(_lastCaller() == owner || _lastCaller() == address(this), "unauthorised");
+        _;
+    }
+
+    /**
+     * @dev see {IExtendLogic-extend}
+     *
+     * Uses PermissioningLogic implementation with `owner` checks.
+     *
+     * Restricts extend to `onlyOwnerOrSelf`.
+     *
+     * If `owner` has not been initialised, assume that this is the initial extend call
+     * during constructor of Extendable and instantiate `owner` as the caller.
+     *
+     * If any single function in the extension has already been extended by another extension,
+     * revert the transaction.
+    */
+    function extend(address extension) override public virtual onlyOwnerOrSelf {
+        require(extension.code.length > 0, "Extend: address is not a contract");
+
+        IERC165 erc165Extension = IERC165(extension);
+        try erc165Extension.supportsInterface(bytes4(0x01ffc9a7)) returns(bool erc165supported) {
+            require(erc165supported, "Extend: extension does not implement eip-165");
+            require(erc165Extension.supportsInterface(type(IExtension).interfaceId), "Extend: extension does not implement IExtension");
+        } catch (bytes memory) {
+            revert("Extend: extension does not implement eip-165");
+        }
+
+        IExtension ext = IExtension(payable(extension));
+
+        Interface[] memory interfaces = ext.getInterface();
+        registerInterfaces(interfaces, extension);
+
+        emit Extended(extension);
+    }
+
+    /**
+     * @dev see {IExtendLogic-getFullInterface}
+    */
+    function getFullInterface() override public view returns(string memory fullInterface) {
+        ExtendableState storage state = ExtendableStorage._getState();
+        uint numberOfInterfacesImplemented = state.implementedInterfaceIds.length;
+
+        // collect unique extension addresses
+        address[] memory extensions = new address[](numberOfInterfacesImplemented);
+        uint numberOfUniqueExtensions;
+        for (uint i = 0; i < numberOfInterfacesImplemented; i++) {
+            bytes4 interfaceId = state.implementedInterfaceIds[i];
+            address extension = state.extensionContracts[interfaceId];
+
+            // if we have seen this extension before, ignore and continue looping
+            if (i != 0 && exists(extension, extensions, numberOfUniqueExtensions)) continue;
+            extensions[numberOfUniqueExtensions] = extension;
+            numberOfUniqueExtensions++;
+            
+            IExtension logic = IExtension(extension);
+            fullInterface = string(abi.encodePacked(fullInterface, logic.getSolidityInterface()));
+        }
+
+        // TO-DO optimise this return to a standardised format with comments for developers
+        return string(abi.encodePacked("interface IExtended {\n", fullInterface, "}"));
+    }
+
+    /**
+     * @dev see {IExtendLogic-getExtensionsInterfaceIds}
+    */
+    function getExtensionsInterfaceIds() override public view returns(bytes4[] memory) {
+        ExtendableState storage state = ExtendableStorage._getState();
+        return state.implementedInterfaceIds;
+    }
+
+    /**
+     * @dev see {IExtendLogic-getExtensionsFunctionSelectors}
+    */
+    function getExtensionsFunctionSelectors() override public view returns(bytes4[] memory functionSelectors) {
+        ExtendableState storage state = ExtendableStorage._getState();
+        bytes4[] storage implementedInterfaces = state.implementedInterfaceIds;
+        
+        uint256 numberOfFunctions = 0;
+        for (uint256 i = 0; i < implementedInterfaces.length; i++) {
+                numberOfFunctions += state.implementedFunctionsByInterfaceId[implementedInterfaces[i]].length;
+        }
+
+        functionSelectors = new bytes4[](numberOfFunctions);
+        uint256 counter = 0;
+        for (uint256 i = 0; i < implementedInterfaces.length; i++) {
+            uint256 functionNumber = state.implementedFunctionsByInterfaceId[implementedInterfaces[i]].length;
+            for (uint256 j = 0; j < functionNumber; j++) {
+                functionSelectors[counter] = state.implementedFunctionsByInterfaceId[implementedInterfaces[i]][j];
+                counter++;
+            }
+        }
+    }
+
+    /**
+     * @dev see {IExtendLogic-getExtensionAddresses}
+    */
+    function getExtensionAddresses() override public view returns(address[] memory) {
+        ExtendableState storage state = ExtendableStorage._getState();
+        uint numberOfInterfacesImplemented = state.implementedInterfaceIds.length;
+
+        // collect unique extension addresses
+        address[] memory extensions = new address[](numberOfInterfacesImplemented);
+        uint numberOfUniqueExtensions;
+        for (uint i = 0; i < numberOfInterfacesImplemented; i++) {
+            bytes4 interfaceId = state.implementedInterfaceIds[i];
+            address extension = state.extensionContracts[interfaceId];
+
+            if (i != 0 && exists(extension, extensions, numberOfUniqueExtensions)) continue;
+            extensions[numberOfUniqueExtensions] = extension;
+            numberOfUniqueExtensions++;
+        }
+
+        address[] memory uniqueExtensions = new address[](numberOfUniqueExtensions);
+        for (uint i = 0; i < numberOfUniqueExtensions; i++) {
+            uniqueExtensions[i] = extensions[i];
+        }
+
+        return uniqueExtensions;
+    }
+
+    function exists(address item, address[] memory addresses, uint256 untilIndex) internal pure returns(bool) {
+        for (uint i = 0; i < untilIndex; i++) {
+            if (addresses[i] == item) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @dev Sets the owner of the contract to the tx origin if unset
+     *
+     * Used by Extendable during first extend to set deployer as the owner that can
+     * extend the contract
+    */
+    function initialise() internal {
+        RoleState storage state = Permissions._getState();
+
+        // Set the owner to the transaction sender if owner has not been initialised
+        if (state.owner == address(0x0)) {
+            state.owner = _lastCaller();
+            emit OwnerInitialised(_lastCaller());
+        }
+    }
+
+    function registerInterfaces(Interface[] memory interfaces, address extension) internal {
+        ExtendableState storage state = ExtendableStorage._getState();
+
+        // Record each interface as implemented by new extension, revert if a function is already implemented by another extension
+        uint256 numberOfInterfacesImplemented = interfaces.length;
+        for (uint256 i = 0; i < numberOfInterfacesImplemented; i++) {
+            bytes4 interfaceId = interfaces[i].interfaceId;
+            address implementer = state.extensionContracts[interfaceId];
+
+            require(
+                implementer == address(0x0),
+                string(abi.encodePacked("Extend: interface ", Strings.toHexString(uint256(uint32(interfaceId)), 4)," is already implemented by ", Strings.toHexString(implementer)))
+            );
+
+            registerFunctions(interfaceId, interfaces[i].functions, extension);
+            state.extensionContracts[interfaceId] = extension;
+            state.implementedInterfaceIds.push(interfaceId);
+
+            if (interfaceId == type(IExtendLogic).interfaceId) {
+                state.extensionContracts[type(IERC165).interfaceId] = extension;
+                state.extensionContracts[type(IERC165Register).interfaceId] = extension;
+            }
+        }
+    }
+
+    function registerFunctions(bytes4 interfaceId, bytes4[] memory functionSelectors, address extension) internal {
+        ExtendableState storage state = ExtendableStorage._getState();
+
+        // Record each function as implemented by new extension, revert if a function is already implemented by another extension
+        uint256 numberOfFunctions = functionSelectors.length;
+        for (uint256 i = 0; i < numberOfFunctions; i++) {
+            address implementer = state.extensionContracts[functionSelectors[i]];
+
+            require(
+                implementer == address(0x0),
+                string(abi.encodePacked("Extend: function ", Strings.toHexString(uint256(uint32(functionSelectors[i])), 4)," is already implemented by ", Strings.toHexString(implementer)))
+            );
+
+            state.extensionContracts[functionSelectors[i]] = extension;
+            state.implementedFunctionsByInterfaceId[interfaceId].push(functionSelectors[i]);
+        }
+    }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+struct HumanboundPermissionState {
+    address operator;
+}
+
+library HumanboundPermissionStorage {
+    bytes32 constant STORAGE_NAME = keccak256("humanboundtoken.v1:permission");
+
+    function _getState() internal view returns (HumanboundPermissionState storage permissionState) {
+        bytes32 position = keccak256(abi.encodePacked(address(this), STORAGE_NAME));
+        assembly {
+            permissionState.slot := position
+        }
+    }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+import "./IExtension.sol";
+import "../errors/Errors.sol";
+import "../utils/CallerContext.sol";
+import "../erc165/IERC165Logic.sol";
+
+/**
+ *  ______  __  __  ______  ______  __   __  _____   ______  ______  __      ______    
+ * /\  ___\/\_\_\_\/\__  _\/\  ___\/\ "-.\ \/\  __-./\  __ \/\  == \/\ \    /\  ___\
+ * \ \  __\\/_/\_\/\/_/\ \/\ \  __\\ \ \-.  \ \ \/\ \ \  __ \ \  __<\ \ \___\ \  __\
+ *  \ \_____\/\_\/\_\ \ \_\ \ \_____\ \_\\"\_\ \____-\ \_\ \_\ \_____\ \_____\ \_____\
+ *   \/_____/\/_/\/_/  \/_/  \/_____/\/_/ \/_/\/____/ \/_/\/_/\/_____/\/_____/\/_____/
+ *
+ *  Base contract for Extensions in the Extendable Framework
+ *  
+ *  Inherit and implement this contract to create Extension contracts!
+ *
+ *  Implements the EIP-165 standard for interface detection of implementations during runtime.
+ *  Uses the ERC165 singleton pattern where the actual implementation logic of the interface is
+ *  deployed in a separate contract. See ERC165Logic. Deterministic deployment guarantees the
+ *  ERC165Logic contract to always exist as static address 0x16C940672fA7820C36b2123E657029d982629070
+ *
+ *  Define your custom Extension interface and implement it whilst inheriting this contract:
+ *      contract YourExtension is IYourExtension, Extension {...}
+ *
+ */
+abstract contract Extension is CallerContext, IExtension, IERC165, IERC165Register {
+    address constant ERC165LogicAddress = 0x16C940672fA7820C36b2123E657029d982629070;
+
+    /**
+     * @dev Constructor registers your custom Extension interface under EIP-165:
+     *      https://eips.ethereum.org/EIPS/eip-165
+    */
+    constructor() {
+        Interface[] memory interfaces = getInterface();
+        for (uint256 i = 0; i < interfaces.length; i++) {
+            Interface memory iface = interfaces[i];
+            registerInterface(iface.interfaceId);
+
+            for (uint256 j = 0; j < iface.functions.length; j++) {
+                registerInterface(iface.functions[j]);
+            }
+        }
+
+        registerInterface(type(IExtension).interfaceId);
+    }
+
+    function supportsInterface(bytes4 interfaceId) external override virtual returns(bool) {
+        (bool success, bytes memory result) = ERC165LogicAddress.delegatecall(abi.encodeWithSignature("supportsInterface(bytes4)", interfaceId));
+
+        if (!success) {
+            assembly {
+                revert(result, returndatasize())
+            }
+        }
+
+        return abi.decode(result, (bool));
+    }
+
+    function registerInterface(bytes4 interfaceId) public override virtual {
+        (bool success, ) = ERC165LogicAddress.delegatecall(abi.encodeWithSignature("registerInterface(bytes4)", interfaceId));
+
+        if (!success) {
+            assembly {
+                returndatacopy(0, 0, returndatasize())
+                revert(0, returndatasize())
+            }
+        }
+    }
+
+    /**
+     * @dev Unidentified function signature calls to any Extension reverts with
+     *      ExtensionNotImplemented error
+    */
+    function _fallback() internal virtual {
+        revert ExtensionNotImplemented();
+    }
+
+    /**
+     * @dev Fallback function passes to internal _fallback() logic
+    */
+    fallback() external payable virtual {
+        _fallback();
+    }
+    
+    /**
+     * @dev Payable fallback function passes to internal _fallback() logic
+    */
+    receive() external payable virtual {
+        _fallback();
+    }
+
+    /**
+     * @dev Virtual override declaration of getFunctionSelectors() function to silence compiler
+     *
+     * Must be implemented in inherited contract.
+    */
+    function getInterface() override public virtual returns(Interface[] memory);
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+import "../Extension.sol";
+import {ExtendableState, ExtendableStorage} from "../../storage/ExtendableStorage.sol";
+
+/**
+ * @dev Interface for ExtendLogic extension
+*/
+interface IExtendLogic {
+    /**
+     * @dev Emitted when `extension` is successfully extended
+     */
+    event Extended(address extension);
+    
+    /**
+     * @dev Emitted when extend() is called and contract owner has not been set
+     */
+    event OwnerInitialised(address newOwner);
+
+    /**
+     * @dev Extend function to extend your extendable contract with new logic
+     *
+     * Integrate with ExtendableStorage to persist state
+     *
+     * Sets the known implementor of each function of `extension` as the current call context
+     * contract.
+     *
+     * Emits `Extended` event upon successful extending.
+     *
+     * Requirements:
+     *  - `extension` contract must implement EIP-165.
+     *  - `extension` must inherit IExtension
+     *  - Must record the `extension` by both its interfaceId and address
+     *  - The functions of `extension` must not already be extended by another attached extension
+    */
+    function extend(address extension) external;
+
+    /**
+     * @dev Returns a string-formatted representation of the full interface of the current
+     *      Extendable contract as an interface named IExtended
+     *
+     * Expects `extension.getSolidityInterface` to return interface-compatible syntax with line-separated
+     * function declarations including visibility, mutability and returns.
+    */
+    function getFullInterface() external view returns(string memory fullInterface);
+
+    /**
+     * @dev Returns an array of interfaceIds that are currently implemented by the current
+     *      Extendable contract
+    */
+    function getExtensionsInterfaceIds() external view returns(bytes4[] memory);
+    /**
+     * @dev Returns an array of function selectors that are currently implemented by the current
+     *      Extendable contract
+    */
+    function getExtensionsFunctionSelectors() external view returns(bytes4[] memory);
+
+    /**
+     * @dev Returns an array of all extension addresses that are currently attached to the
+     *      current Extendable contract
+    */
+    function getExtensionAddresses() external view returns(address[] memory);
+}
+
+/**
+ * @dev Abstract Extension for ExtendLogic
+*/
+abstract contract ExtendExtension is IExtendLogic, Extension {
+    /**
+     * @dev see {IExtension-getSolidityInterface}
+    */
+    function getSolidityInterface() override virtual public pure returns(string memory) {
+        return  "function extend(address extension) external;\n"
+                "function getFullInterface() external view returns(string memory);\n"
+                "function getExtensionsInterfaceIds() external view returns(bytes4[] memory);\n"
+                "function getExtensionsFunctionSelectors() external view returns(bytes4[] memory);\n"
+                "function getExtensionAddresses() external view returns(address[] memory);\n";
+    }
+
+    /**
+     * @dev see {IExtension-getInterface}
+    */
+    function getInterface() override virtual public pure returns(Interface[] memory interfaces) {
+        interfaces = new Interface[](1);
+
+        bytes4[] memory functions = new bytes4[](5);
+        functions[0] = IExtendLogic.extend.selector;
+        functions[1] = IExtendLogic.getFullInterface.selector;
+        functions[2] = IExtendLogic.getExtensionsInterfaceIds.selector;
+        functions[3] = IExtendLogic.getExtensionsFunctionSelectors.selector;
+        functions[4] = IExtendLogic.getExtensionAddresses.selector;
+
+        interfaces[0] = Interface(
+            type(IExtendLogic).interfaceId,
+            functions
+        );
+    }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+/**
+ * @dev Storage struct used to hold state for Extendable contracts
+ */
+struct ExtendableState {
+    // Array of full interfaceIds extended by the Extendable contract instance
+    bytes4[] implementedInterfaceIds;
+
+    // Array of function selectors extended by the Extendable contract instance
+    mapping(bytes4 => bytes4[]) implementedFunctionsByInterfaceId;
+
+    // Mapping of interfaceId/functionSelector to the extension address that implements it
+    mapping(bytes4 => address) extensionContracts;
+}
+
+/**
+ * @dev Storage library to access storage slot for the state struct
+ */
+library ExtendableStorage {
+    bytes32 constant private STORAGE_NAME = keccak256("extendable.framework.v1:extendable-state");
+
+    function _getState()
+        internal 
+        view
+        returns (ExtendableState storage extendableState) 
+    {
+        bytes32 position = keccak256(abi.encodePacked(address(this), STORAGE_NAME));
+        assembly {
+            extendableState.slot := position
+        }
+    }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+/**
+ * @dev Storage struct used to hold state for Permissioning roles
+ */
+struct RoleState {
+    address owner;
+    // Can add more for DAOs/multisigs or more complex role capture for example:
+    // address admin;
+    // address manager:
+}
+
+/**
+ * @dev Storage library to access storage slot for the state struct
+ */
+library Permissions {
+    bytes32 constant private STORAGE_NAME = keccak256("extendable.framework.v1:permissions-state");
+
+    function _getState()
+        internal 
+        view
+        returns (RoleState storage roleState) 
+    {
+        bytes32 position = keccak256(abi.encodePacked(address(this), STORAGE_NAME));
+        assembly {
+            roleState.slot := position
+        }
+    }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+/**
+ * @dev Interface of the ERC165 standard, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-165[EIP].
+ *
+ * Implementers can declare support of contract interfaces, which can then be
+ * queried by others ({ERC165Checker}).
+ *
+ * For an implementation, see {ERC165}.
+ */
+interface IERC165 {
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external returns (bool);
+}
+
+
+/**
+ * @dev Storage based implementation of the {IERC165} interface.
+ *
+ * Uses Extendable storage pattern to populate the registered interfaces storage variable.
+ */
+interface IERC165Register {
+    /**
+     * @dev Registers the contract as an implementer of the interface defined by
+     * `interfaceId`. Support of the actual ERC165 interface is automatic and
+     * registering its interface id is not required.
+     *
+     * Requirements:
+     *
+     * - `interfaceId` cannot be the ERC165 invalid interface (`0xffffffff`).
+     */
+    function registerInterface(bytes4 interfaceId) external;
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+import "../Extension.sol";
+
+/**
+ * @dev Interface for PermissioningLogic extension
+*/
+interface IPermissioningLogic {
+    /**
+     * @dev Emitted when `owner` is updated in any way
+     */
+    event OwnerUpdated(address newOwner);
+
+    /**
+     * @dev Initialises the `owner` of the contract as `msg.sender`
+     *
+     * Requirements:
+     * - `owner` cannot already be assigned
+    */
+    function init() external;
+
+    /**
+     * @notice Updates the `owner` to `newOwner`
+    */
+    function updateOwner(address newOwner) external;
+
+    /**
+     * @notice Give up ownership of the contract.
+     * Proceed with extreme caution as this action is irreversible!!
+     *
+     * Requirements:
+     * - can only be called by the current `owner`
+    */
+    function renounceOwnership() external;
+
+    /**
+     * @notice Returns the current `owner`
+    */
+    function getOwner() external view returns(address);
+}
+
+/**
+ * @dev Abstract Extension for PermissioningLogic
+*/
+abstract contract PermissioningExtension is IPermissioningLogic, Extension {
+    /**
+     * @dev see {IExtension-getSolidityInterface}
+    */
+    function getSolidityInterface() override virtual public pure returns(string memory) {
+        return  "function init() external;\n"
+                "function updateOwner(address newOwner) external;\n"
+                "function renounceOwnership() external;\n"
+                "function getOwner() external view returns(address);\n";
+    }
+
+    /**
+     * @dev see {IExtension-getInterface}
+    */
+    function getInterface() override virtual public returns(Interface[] memory interfaces) {
+        interfaces = new Interface[](1);
+
+        bytes4[] memory functions = new bytes4[](4);
+        functions[0] = IPermissioningLogic.init.selector;
+        functions[1] = IPermissioningLogic.updateOwner.selector;
+        functions[2] = IPermissioningLogic.renounceOwnership.selector;
+        functions[3] = IPermissioningLogic.getOwner.selector;
+
+        interfaces[0] = Interface(
+            type(IPermissioningLogic).interfaceId,
+            functions
+        );
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (utils/Strings.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev String operations.
+ */
+library Strings {
+    bytes16 private constant _HEX_SYMBOLS = "0123456789abcdef";
+    uint8 private constant _ADDRESS_LENGTH = 20;
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation.
+     */
+    function toHexString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0x00";
+        }
+        uint256 temp = value;
+        uint256 length = 0;
+        while (temp != 0) {
+            length++;
+            temp >>= 8;
+        }
+        return toHexString(value, length);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation with fixed length.
+     */
+    function toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+        bytes memory buffer = new bytes(2 * length + 2);
+        buffer[0] = "0";
+        buffer[1] = "x";
+        for (uint256 i = 2 * length + 1; i > 1; --i) {
+            buffer[i] = _HEX_SYMBOLS[value & 0xf];
+            value >>= 4;
+        }
+        require(value == 0, "Strings: hex length insufficient");
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts an `address` with fixed length of 20 bytes to its not checksummed ASCII `string` hexadecimal representation.
+     */
+    function toHexString(address addr) internal pure returns (string memory) {
+        return toHexString(uint256(uint160(addr)), _ADDRESS_LENGTH);
+    }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+struct Interface {
+    bytes4 interfaceId;
+    bytes4[] functions;
+}
+
+/**
+ * @dev Interface for Extension
+*/
+interface IExtension {
+    /**
+     * @dev Returns a full view of the functional interface of the extension
+     *
+     * Must return a list of the functions in the interface of your custom Extension
+     * in the same format and syntax as in the interface itself as a string, 
+     * escaped-newline separated.
+     *
+     * OPEN TO SUGGESTIONS FOR IMPROVEMENT ON THIS METHODOLOGY FOR 
+     * DEEP DESCRIPTIVE RUNTIME INTROSPECTION
+     *
+     * Intent is to allow developers that want to integrate with an Extendable contract
+     * that will have a constantly evolving interface, due to the nature of Extendables,
+     * to be able to easily inspect and query for the current state of the interface and
+     * integrate with it.
+     *
+     * See {ExtendLogic-getSolidityInterface} for an example.
+    */
+    function getSolidityInterface() external pure returns(string memory);
+
+    /**
+     * @dev Returns the interface IDs that are implemented by the Extension
+     *
+     * These are full interface IDs and ARE NOT function selectors. Full interface IDs are
+     * XOR'd function selectors of an interface. For example the interface ID of the ERC721
+     * interface is 0x80ac58cd determined by the XOR or all function selectors of the interface.
+     * 
+     * If an interface only consists of a single function, then the interface ID is identical
+     * to that function selector.
+     * 
+     * Provides a simple abstraction from the developer for any custom Extension to 
+     * be EIP-165 compliant out-of-the-box simply by implementing this function. 
+     *
+     * Excludes any functions either already described by other interface definitions
+     * that are not developed on top of this backbone i.e. EIP-165, IExtension
+    */
+    function getInterface() external returns(Interface[] memory interfaces);
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+/**
+ * @dev  ExtensionNotImplemented error is emitted by Extendable and Extensions
+ *       where no implementation for a specified function signature exists
+ *       in the contract
+*/
+error ExtensionNotImplemented();
+
+
+/**
+ * @dev  Utility library for contracts to catch custom errors
+ *       Pass in a return `result` from a call, and the selector for your error message
+ *       and the `catchCustomError` function will return `true` if the error was found
+ *       or `false` otherwise
+*/
+library Errors {
+    function catchCustomError(bytes memory result, bytes4 errorSelector) internal pure returns(bool) {
+        bytes4 caught;
+        assembly {
+            caught := mload(add(result, 0x20))
+        }
+
+        return caught == errorSelector;
+    }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+import {CallerState, CallerContextStorage} from "../storage/CallerContextStorage.sol";
+
+/**
+ * @dev CallerContext contract provides Extensions with proper caller-scoped contexts.
+ *      Inherit this contract with your Extension to make use of caller references.
+ *
+ * `msg.sender` may not behave as developer intends when using within Extensions as many
+ * calls may be exchanged between intra-contract extensions which result in a `msg.sender` as self.
+ * Instead of using `msg.sender`, replace it with 
+ *      - `_lastExternalCaller()` for the most recent caller in the call chain that is external to this contract
+ *      - `_lastCaller()` for the most recent caller
+ *
+ * CallerContext provides a deep callstack to track the caller of the Extension/Extendable contract
+ * at any point in the execution cycle.
+ *
+*/
+contract CallerContext {
+    /**
+     * @dev Returns the most recent caller of this contract that came from outside this contract.
+     *
+     * Used by extensions that require fetching msg.sender that aren't cross-extension calls.
+     * Cross-extension calls resolve msg.sender as the current contract and so the actual
+     * caller context is obfuscated.
+     * 
+     * This function should be used in place of `msg.sender` where external callers are read.
+     */
+    function _lastExternalCaller() internal view returns(address) {
+        CallerState storage state = CallerContextStorage._getState();
+
+        for (uint i = state.callerStack.length - 1; i >= 0; i--) {
+            address lastSubsequentCaller = state.callerStack[i];
+            if (lastSubsequentCaller != address(this)) {
+                return lastSubsequentCaller;
+            }
+        }
+
+        revert("_lastExternalCaller: end of stack");
+    }
+
+    /**
+     * @dev Returns the most recent caller of this contract.
+     *
+     * Last caller may also be the current contract.
+     *
+     * If the call is directly to the contract, without passing an Extendable, return `msg.sender` instead
+     */
+    function _lastCaller() internal view returns(address) {
+        CallerState storage state = CallerContextStorage._getState();
+        if (state.callerStack.length > 0)
+            return state.callerStack[state.callerStack.length - 1];
+        else
+            return msg.sender;
+    }
+}
+
+//SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+struct CallerState {
+    // Stores a list of callers in the order they are received
+    // The current caller context is always the last-most address
+    address[] callerStack;
+}
+
+library CallerContextStorage {
+    bytes32 constant private STORAGE_NAME = keccak256("extendable.framework.v1:caller-state");
+
+    function _getState()
+        internal 
+        view
+        returns (CallerState storage callerState) 
+    {
+        bytes32 position = keccak256(abi.encodePacked(address(this), STORAGE_NAME));
+        assembly {
+            callerState.slot := position
+        }
+    }
+}
