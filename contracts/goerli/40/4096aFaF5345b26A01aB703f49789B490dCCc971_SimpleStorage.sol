@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
+
+contract SimpleStorage {
+    uint256 public sampleNumber;
+
+    struct People {
+        uint256 number;
+        string name;
+    }
+
+    People[] public people;
+
+    mapping(string => uint256) public nameToFavNumber;
+
+    // People public people = People({number: 5, name: "John"});
+
+    function storeNumber(uint256 _sampleNumber) public {
+        sampleNumber = _sampleNumber;
+    }
+
+    function retrieve() public view returns (uint256) {
+        return sampleNumber;
+    }
+
+    function storeStruct(uint256 _num, string memory _name) public {
+        people.push(People(_num, _name));
+        nameToFavNumber[_name] = _num;
+    }
+}
