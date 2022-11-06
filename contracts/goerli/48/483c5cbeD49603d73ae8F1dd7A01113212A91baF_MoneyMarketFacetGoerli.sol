@@ -1,0 +1,1876 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.17;
+
+import {
+    MarginSwapTradeType, 
+    MarginCallbackData, 
+    ExactInputSingleParamsBase, 
+    ExactInputMultiParamsBase, 
+    MarginSwapParamsExactIn, 
+    ExactOutputSingleParamsBase, 
+    ExactOutputMultiParamsBase, 
+    MarginSwapParamsExactOut, 
+    MarginSwapParamsMultiExactIn,
+    MarginSwapParamsMultiExactOut, 
+    ExactOutputUniswapParams
+    } from "../../dataTypes/InputTypes.sol";
+import {CErc20Interface} from "../../../../external-protocols/compound/CTokenInterfaces.sol";
+import {UniswapData} from "../data-holder/UniswapData.sol";
+import {SafeCast} from "../../../uniswap/core/SafeCast.sol";
+import {TransferHelper} from "../../../uniswap/libraries/TransferHelper.sol";
+import "../../libraries/LibStorage.sol";
+import {PoolAddress} from "../../../uniswap/libraries/PoolAddress.sol";
+import {IUniswapV3Pool} from "../../../uniswap/core/IUniswapV3Pool.sol";
+import {Path} from "../../../uniswap/libraries/Path.sol";
+import {IERC20} from "../../interfaces/IERC20.sol";
+import "../../../../periphery-standalone/interfaces/IMinimalSwapRouter.sol";
+import {GoerliCompoundCTokenData} from "../data-holder/goerli/GoerliCompoundCTokenData.sol";
+
+// solhint-disable max-line-length
+
+/**
+ * @title MoneyMarketOperator contract
+ * @notice Allows interaction of account contract with cTokens as defined by the Compound protocol
+ * @author Achthar
+ */
+contract MoneyMarketFacetGoerli is WithStorage, UniswapData, GoerliCompoundCTokenData {
+    using Path for bytes;
+    using SafeCast for uint256;
+
+    /// @dev MIN_SQRT_RATIO + 1 from Uniswap's TickMath
+    uint160 private immutable MIN_SQRT_RATIO = 4295128740;
+    /// @dev MAX_SQRT_RATIO - 1 from Uniswap's TickMath
+    uint160 private immutable MAX_SQRT_RATIO = 1461446703485210103287273052203988822378723970341;
+
+    modifier onlyOwner() {
+        LibStorage.enforceAccountOwner();
+        _;
+    }
+
+    constructor(address _factory, address _weth, address _router) UniswapData(_factory, _weth, _router) {
+    }
+
+    function approveUnderlyings(address[] memory _underlyings) public onlyOwner {
+        address _router = router;
+        for (uint256 i = 0; i < _underlyings.length; i++) {
+            address _underlying = _underlyings[i];
+            address _cToken = address(cToken(_underlying));
+            TransferHelper.safeApprove(_underlying, _cToken, type(uint256).max);
+            TransferHelper.safeApprove(_underlying, _router, type(uint256).max);
+            TransferHelper.safeApprove(_cToken, _cToken, type(uint256).max);
+        }
+    }
+
+    function enterMarkets(address[] memory cTokens) external onlyOwner {
+        getComptroller().enterMarkets(cTokens);
+    }
+
+    // single actions with the lending protocol
+
+    function mint(
+        address _underlying,
+        uint256 _amountToSupply
+    ) external payable onlyOwner returns (uint256) {
+        TransferHelper.safeTransferFrom(_underlying, msg.sender, address(this), _amountToSupply);
+        CErc20Interface cToken = cToken(_underlying);
+        return cToken.mint(_amountToSupply);
+    }
+
+    function redeem(
+        address _underlying,
+        uint256 _cAmountToRedeem
+    ) external payable onlyOwner returns (uint256 withdrawn) {
+        CErc20Interface cToken = cToken(_underlying);
+        withdrawn = cToken.redeem(_cAmountToRedeem);
+        TransferHelper.safeTransfer(_underlying, msg.sender, withdrawn);
+    }
+
+    function redeemUnderlying(
+        address _underlying,
+        uint256 _amountToRedeem
+    ) external payable onlyOwner returns (uint256) {
+        TransferHelper.safeTransferFrom(_underlying, msg.sender, address(this), _amountToRedeem);
+        return cToken(_underlying).redeemUnderlying(_amountToRedeem);
+    }
+
+    function borrow(
+        address _underlying,
+        uint256 _borrowAmount
+    ) external onlyOwner returns (uint256 borrowed) {
+        borrowed =  cToken(_underlying).borrow(_borrowAmount);
+        TransferHelper.safeTransfer(_underlying, msg.sender, borrowed);
+    }
+
+    function repayBorrow(
+        address _underlying,
+        uint256 _repayAmount
+    ) external onlyOwner returns (uint256) {
+        TransferHelper.safeTransferFrom(_underlying, msg.sender, address(this), _repayAmount);
+        return cToken(_underlying).repayBorrow(_repayAmount);
+    }
+
+    // trade functions combined with single lending protocol action
+
+    /// @dev Returns the pool for the given token pair and fee. The pool contract may or may not exist.
+    function getUniswapV3Pool(
+        address tokenA,
+        address tokenB,
+        uint24 fee
+    ) private view returns (IUniswapV3Pool) {
+        return IUniswapV3Pool(PoolAddress.computeAddress(v3Factory, PoolAddress.getPoolKey(tokenA, tokenB, fee)));
+    }
+
+    function swapAndSupplyExactIn(ExactInputToSelfParams memory uniswapParams) external onlyOwner {
+        TransferHelper.safeTransferFrom(uniswapParams.path.getFirstToken(), msg.sender, address(this), uniswapParams.amountIn);
+        // swap to self
+        uint256 amountToSupply = IMinimalSwapRouter(router).exactInputToSelf(uniswapParams);
+        // deposit received amount to the lending protocol on behalf of user
+        cToken(uniswapParams.path.getLastToken()).mint( amountToSupply);
+    }
+
+    function swapAndSupplyExactOut(uint256 amountInMaximum, MarginSwapParamsMultiExactOut calldata _marginSwapParams)
+        external
+        payable
+        onlyOwner
+        returns (uint256 amountIn)
+    {
+        (address tokenOut, address tokenIn, uint24 fee) = _marginSwapParams.path.decodeFirstPool();
+        MarginCallbackData memory data = MarginCallbackData({
+            path: _marginSwapParams.path,
+            tradeType: MarginSwapTradeType.UNISWAP_EXACT_OUT,
+            user: msg.sender,
+            providedAmount: 0,
+            amount: amountInMaximum
+        });
+
+        uint160 sqrtPriceLimitX96 = _marginSwapParams.sqrtPriceLimitX96;
+
+        bool zeroForOne = tokenIn < tokenOut;
+        (int256 amount0, int256 amount1) = getUniswapV3Pool(tokenIn, tokenOut, fee).swap(
+            address(this),
+            zeroForOne,
+            -_marginSwapParams.amountOut.toInt256(),
+            sqrtPriceLimitX96 == 0 ? (zeroForOne ? MIN_SQRT_RATIO : MAX_SQRT_RATIO) : sqrtPriceLimitX96,
+            abi.encode(data)
+        );
+        uint256 amountOutReceived;
+        (amountIn, amountOutReceived) = zeroForOne ? (uint256(amount0), uint256(-amount1)) : (uint256(amount1), uint256(-amount0));
+        // it's technically possible to not receive the full output amount,
+        // so if no price limit has been specified, require this possibility away
+        if (sqrtPriceLimitX96 == 0) require(amountOutReceived == _marginSwapParams.amountOut);
+
+        // deposit received amount to the lending protocol on behalf of user
+        cToken(tokenOut).mint(amountOutReceived);
+    }
+
+    function withdrawAndSwapExactIn(ExactInputParams memory uniswapParams) external onlyOwner returns (uint256 amountOut) {
+        address tokenIn = uniswapParams.path.getFirstToken();
+        uint256 amountToWithdraw = uniswapParams.amountIn;
+        // withraw and send funds to this address for swaps
+        cToken(tokenIn).redeemUnderlying(amountToWithdraw);
+        amountOut = IMinimalSwapRouter(router).exactInput(uniswapParams);
+    }
+
+    function withdrawAndSwapExactOut(MarginSwapParamsMultiExactOut calldata _marginSwapParams) external payable onlyOwner returns (uint256 amountIn) {
+        (address tokenOut, address tokenIn, uint24 fee) = _marginSwapParams.path.decodeFirstPool();
+        MarginCallbackData memory data = MarginCallbackData({
+            path: _marginSwapParams.path,
+            tradeType: MarginSwapTradeType.UNISWAP_EXACT_OUT_WITHDRAW,
+            user: msg.sender,
+            providedAmount: 0,
+            amount: type(uint256).max
+        });
+
+        uint160 sqrtPriceLimitX96 = _marginSwapParams.sqrtPriceLimitX96;
+
+        bool zeroForOne = tokenIn < tokenOut;
+        (int256 amount0, int256 amount1) = getUniswapV3Pool(tokenIn, tokenOut, fee).swap(
+            msg.sender,
+            zeroForOne,
+            -_marginSwapParams.amountOut.toInt256(),
+            sqrtPriceLimitX96 == 0 ? (zeroForOne ? MIN_SQRT_RATIO : MAX_SQRT_RATIO) : sqrtPriceLimitX96,
+            abi.encode(data)
+        );
+        uint256 amountOutReceived;
+        (amountIn, amountOutReceived) = zeroForOne ? (uint256(amount0), uint256(-amount1)) : (uint256(amount1), uint256(-amount0));
+        // it's technically possible to not receive the full output amount,
+        // so if no price limit has been specified, require this possibility away
+        if (sqrtPriceLimitX96 == 0) require(amountOutReceived == _marginSwapParams.amountOut);
+    }
+
+    function borrowAndSwapExactIn(ExactInputParams memory uniswapParams) external onlyOwner returns (uint256 amountOut) {
+        // borrow and send funds to this address for swaps
+        cToken(uniswapParams.path.getFirstToken()).borrow(uniswapParams.amountIn);
+        // swap exact in with common router
+        amountOut = IMinimalSwapRouter(router).exactInput(uniswapParams);
+    }
+
+    function borrowAndSwapExactOut(MarginSwapParamsMultiExactOut memory _marginSwapParams) external payable onlyOwner returns (uint256 amountIn) {
+        (address tokenOut, address tokenIn, uint24 fee) = _marginSwapParams.path.decodeFirstPool();
+        MarginCallbackData memory data = MarginCallbackData({
+            path: _marginSwapParams.path,
+            tradeType: MarginSwapTradeType.UNISWAP_EXACT_OUT_BORROW,
+            user: msg.sender,
+            providedAmount: 0,
+            amount: type(uint256).max
+        });
+
+        uint160 sqrtPriceLimitX96 = _marginSwapParams.sqrtPriceLimitX96;
+
+        bool zeroForOne = tokenIn < tokenOut;
+        (int256 amount0, int256 amount1) = getUniswapV3Pool(tokenIn, tokenOut, fee).swap(
+            msg.sender,
+            zeroForOne,
+            -_marginSwapParams.amountOut.toInt256(),
+            sqrtPriceLimitX96 == 0 ? (zeroForOne ? MIN_SQRT_RATIO : MAX_SQRT_RATIO) : sqrtPriceLimitX96,
+            abi.encode(data)
+        );
+        uint256 amountOutReceived;
+        (amountIn, amountOutReceived) = zeroForOne ? (uint256(amount0), uint256(-amount1)) : (uint256(amount1), uint256(-amount0));
+        // it's technically possible to not receive the full output amount,
+        // so if no price limit has been specified, require this possibility away
+        if (sqrtPriceLimitX96 == 0) require(amountOutReceived == _marginSwapParams.amountOut);
+    }
+
+    function swapAndRepayExactIn(ExactInputToSelfParams calldata uniswapParams) external onlyOwner returns (uint256 amountOut) {
+        IERC20(uniswapParams.path.getFirstToken()).transferFrom( msg.sender, address(this), uniswapParams.amountIn);
+        // swap to self
+        amountOut = IMinimalSwapRouter(router).exactInputToSelf(uniswapParams);
+        // deposit received amount to the lending protocol on behalf of user
+        cToken(uniswapParams.path.getLastToken()).repayBorrow(amountOut);
+    }
+
+    function swapAndRepayExactOut(MarginSwapParamsMultiExactOut memory _marginSwapParams) external payable onlyOwner returns (uint256 amountIn) {
+        (address tokenOut, address tokenIn, uint24 fee) = _marginSwapParams.path.decodeFirstPool();
+        MarginCallbackData memory data = MarginCallbackData({
+            path: _marginSwapParams.path,
+            tradeType: MarginSwapTradeType.UNISWAP_EXACT_OUT,
+            user: msg.sender,
+            providedAmount: 0,
+            amount: type(uint256).max
+        });
+
+        uint160 sqrtPriceLimitX96 = _marginSwapParams.sqrtPriceLimitX96;
+
+        bool zeroForOne = tokenIn < tokenOut;
+        (int256 amount0, int256 amount1) = getUniswapV3Pool(tokenIn, tokenOut, fee).swap(
+            address(this),
+            zeroForOne,
+            -_marginSwapParams.amountOut.toInt256(),
+            sqrtPriceLimitX96 == 0 ? (zeroForOne ? MIN_SQRT_RATIO : MAX_SQRT_RATIO) : sqrtPriceLimitX96,
+            abi.encode(data)
+        );
+        uint256 amountToRepay;
+        (amountIn, amountToRepay) = zeroForOne ? (uint256(amount0), uint256(-amount1)) : (uint256(amount1), uint256(-amount0));
+        // it's technically possible to not receive the full output amount,
+        // so if no price limit has been specified, require this possibility away
+        if (sqrtPriceLimitX96 == 0) require(amountToRepay == _marginSwapParams.amountOut);
+
+        // deposit received amount to the lending protocol on behalf of user
+        cToken(tokenOut).repayBorrow(amountToRepay);
+    }
+}
+
+// SPDX-License-Identifier: BSD-3-Clause
+pragma solidity ^0.8.10;
+
+import "./ComptrollerInterface.sol";
+import "./InterestRateModel.sol";
+import "./EIP20NonStandardInterface.sol";
+import "./ErrorReporter.sol";
+
+contract CTokenStorage {
+    /**
+     * @dev Guard variable for re-entrancy checks
+     */
+    bool internal _notEntered;
+
+    /**
+     * @notice EIP-20 token name for this token
+     */
+    string public name;
+
+    /**
+     * @notice EIP-20 token symbol for this token
+     */
+    string public symbol;
+
+    /**
+     * @notice EIP-20 token decimals for this token
+     */
+    uint8 public decimals;
+
+    // Maximum borrow rate that can ever be applied (.0005% / block)
+    uint internal constant borrowRateMaxMantissa = 0.0005e16;
+
+    // Maximum fraction of interest that can be set aside for reserves
+    uint internal constant reserveFactorMaxMantissa = 1e18;
+
+    /**
+     * @notice Administrator for this contract
+     */
+    address payable public admin;
+
+    /**
+     * @notice Pending administrator for this contract
+     */
+    address payable public pendingAdmin;
+
+    /**
+     * @notice Contract which oversees inter-cToken operations
+     */
+    ComptrollerInterface public comptroller;
+
+    /**
+     * @notice Model which tells what the current interest rate should be
+     */
+    InterestRateModel public interestRateModel;
+
+    // Initial exchange rate used when minting the first CTokens (used when totalSupply = 0)
+    uint internal initialExchangeRateMantissa;
+
+    /**
+     * @notice Fraction of interest currently set aside for reserves
+     */
+    uint public reserveFactorMantissa;
+
+    /**
+     * @notice Block number that interest was last accrued at
+     */
+    uint public accrualBlockNumber;
+
+    /**
+     * @notice Accumulator of the total earned interest rate since the opening of the market
+     */
+    uint public borrowIndex;
+
+    /**
+     * @notice Total amount of outstanding borrows of the underlying in this market
+     */
+    uint public totalBorrows;
+
+    /**
+     * @notice Total amount of reserves of the underlying held in this market
+     */
+    uint public totalReserves;
+
+    /**
+     * @notice Total number of tokens in circulation
+     */
+    uint public totalSupply;
+
+    // Official record of token balances for each account
+    mapping (address => uint) internal accountTokens;
+
+    // Approved token transfer amounts on behalf of others
+    mapping (address => mapping (address => uint)) internal transferAllowances;
+
+    /**
+     * @notice Container for borrow balance information
+     * @member principal Total balance (with accrued interest), after applying the most recent balance-changing action
+     * @member interestIndex Global borrowIndex as of the most recent balance-changing action
+     */
+    struct BorrowSnapshot {
+        uint principal;
+        uint interestIndex;
+    }
+
+    // Mapping of account addresses to outstanding borrow balances
+    mapping(address => BorrowSnapshot) internal accountBorrows;
+
+    /**
+     * @notice Share of seized collateral that is added to reserves
+     */
+    uint public constant protocolSeizeShareMantissa = 2.8e16; //2.8%
+}
+
+abstract contract CTokenInterface is CTokenStorage {
+    /**
+     * @notice Indicator that this is a CToken contract (for inspection)
+     */
+    bool public constant isCToken = true;
+
+
+    /*** Market Events ***/
+
+    /**
+     * @notice Event emitted when interest is accrued
+     */
+    event AccrueInterest(uint cashPrior, uint interestAccumulated, uint borrowIndex, uint totalBorrows);
+
+    /**
+     * @notice Event emitted when tokens are minted
+     */
+    event Mint(address minter, uint mintAmount, uint mintTokens);
+
+    /**
+     * @notice Event emitted when tokens are redeemed
+     */
+    event Redeem(address redeemer, uint redeemAmount, uint redeemTokens);
+
+    /**
+     * @notice Event emitted when underlying is borrowed
+     */
+    event Borrow(address borrower, uint borrowAmount, uint accountBorrows, uint totalBorrows);
+
+    /**
+     * @notice Event emitted when a borrow is repaid
+     */
+    event RepayBorrow(address payer, address borrower, uint repayAmount, uint accountBorrows, uint totalBorrows);
+
+    /**
+     * @notice Event emitted when a borrow is liquidated
+     */
+    event LiquidateBorrow(address liquidator, address borrower, uint repayAmount, address cTokenCollateral, uint seizeTokens);
+
+
+    /*** Admin Events ***/
+
+    /**
+     * @notice Event emitted when pendingAdmin is changed
+     */
+    event NewPendingAdmin(address oldPendingAdmin, address newPendingAdmin);
+
+    /**
+     * @notice Event emitted when pendingAdmin is accepted, which means admin is updated
+     */
+    event NewAdmin(address oldAdmin, address newAdmin);
+
+    /**
+     * @notice Event emitted when comptroller is changed
+     */
+    event NewComptroller(ComptrollerInterface oldComptroller, ComptrollerInterface newComptroller);
+
+    /**
+     * @notice Event emitted when interestRateModel is changed
+     */
+    event NewMarketInterestRateModel(InterestRateModel oldInterestRateModel, InterestRateModel newInterestRateModel);
+
+    /**
+     * @notice Event emitted when the reserve factor is changed
+     */
+    event NewReserveFactor(uint oldReserveFactorMantissa, uint newReserveFactorMantissa);
+
+    /**
+     * @notice Event emitted when the reserves are added
+     */
+    event ReservesAdded(address benefactor, uint addAmount, uint newTotalReserves);
+
+    /**
+     * @notice Event emitted when the reserves are reduced
+     */
+    event ReservesReduced(address admin, uint reduceAmount, uint newTotalReserves);
+
+    /**
+     * @notice EIP20 Transfer event
+     */
+    event Transfer(address indexed from, address indexed to, uint amount);
+
+    /**
+     * @notice EIP20 Approval event
+     */
+    event Approval(address indexed owner, address indexed spender, uint amount);
+
+
+    /*** User Interface ***/
+
+    function transfer(address dst, uint amount) virtual external returns (bool);
+    function transferFrom(address src, address dst, uint amount) virtual external returns (bool);
+    function approve(address spender, uint amount) virtual external returns (bool);
+    function allowance(address owner, address spender) virtual external view returns (uint);
+    function balanceOf(address owner) virtual external view returns (uint);
+    function balanceOfUnderlying(address owner) virtual external returns (uint);
+    function getAccountSnapshot(address account) virtual external view returns (uint, uint, uint, uint);
+    function borrowRatePerBlock() virtual external view returns (uint);
+    function supplyRatePerBlock() virtual external view returns (uint);
+    function totalBorrowsCurrent() virtual external returns (uint);
+    function borrowBalanceCurrent(address account) virtual external returns (uint);
+    function borrowBalanceStored(address account) virtual external view returns (uint);
+    function exchangeRateCurrent() virtual external returns (uint);
+    function exchangeRateStored() virtual external view returns (uint);
+    function getCash() virtual external view returns (uint);
+    function accrueInterest() virtual external returns (uint);
+    function seize(address liquidator, address borrower, uint seizeTokens) virtual external returns (uint);
+
+
+    /*** Admin Functions ***/
+
+    function _setPendingAdmin(address payable newPendingAdmin) virtual external returns (uint);
+    function _acceptAdmin() virtual external returns (uint);
+    function _setComptroller(ComptrollerInterface newComptroller) virtual external returns (uint);
+    function _setReserveFactor(uint newReserveFactorMantissa) virtual external returns (uint);
+    function _reduceReserves(uint reduceAmount) virtual external returns (uint);
+    function _setInterestRateModel(InterestRateModel newInterestRateModel) virtual external returns (uint);
+}
+
+contract CErc20Storage {
+    /**
+     * @notice Underlying asset for this CToken
+     */
+    address public underlying;
+}
+
+abstract contract CErc20Interface is CErc20Storage {
+
+    /*** User Interface ***/
+
+    function mint(uint mintAmount) virtual external returns (uint);
+    function redeem(uint redeemTokens) virtual external returns (uint);
+    function redeemUnderlying(uint redeemAmount) virtual external returns (uint);
+    function borrow(uint borrowAmount) virtual external returns (uint);
+    function repayBorrow(uint repayAmount) virtual external returns (uint);
+    function repayBorrowBehalf(address borrower, uint repayAmount) virtual external returns (uint);
+    function liquidateBorrow(address borrower, uint repayAmount, CTokenInterface cTokenCollateral) virtual external returns (uint);
+    function sweepToken(EIP20NonStandardInterface token) virtual external;
+
+
+    /*** Admin Functions ***/
+
+    function _addReserves(uint addAmount) virtual external returns (uint);
+}
+
+contract CDelegationStorage {
+    /**
+     * @notice Implementation address for this contract
+     */
+    address public implementation;
+}
+
+abstract contract CDelegatorInterface is CDelegationStorage {
+    /**
+     * @notice Emitted when implementation is changed
+     */
+    event NewImplementation(address oldImplementation, address newImplementation);
+
+    /**
+     * @notice Called by the admin to update the implementation of the delegator
+     * @param implementation_ The address of the new implementation for delegation
+     * @param allowResign Flag to indicate whether to call _resignImplementation on the old implementation
+     * @param becomeImplementationData The encoded bytes data to be passed to _becomeImplementation
+     */
+    function _setImplementation(address implementation_, bool allowResign, bytes memory becomeImplementationData) virtual external;
+}
+
+abstract contract CDelegateInterface is CDelegationStorage {
+    /**
+     * @notice Called by the delegator on a delegate to initialize it for duty
+     * @dev Should revert if any issues arise which make it unfit for delegation
+     * @param data The encoded bytes data for any initialization
+     */
+    function _becomeImplementation(bytes memory data) virtual external;
+
+    /**
+     * @notice Called by the delegator on a delegate to forfeit its responsibility
+     */
+    function _resignImplementation() virtual external;
+}
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity 0.8.17;
+
+import "../dataTypes/UniswapInputTypes.sol";
+
+interface IMinimalSwapRouter {
+    function exactInputSingle(ExactInputSingleParams calldata params) external payable returns (uint256 amountOut);
+
+    function exactInput(ExactInputParams memory params) external payable returns (uint256 amountOut);
+
+    function exactOutputSingle(ExactOutputSingleParams calldata params) external payable returns (uint256 amountIn);
+
+    function exactOutput(ExactOutputParams calldata params) external payable returns (uint256 amountIn);
+
+    function exactInputToSelf(ExactInputToSelfParams memory params) external payable returns (uint256 amountOut);
+
+    function exactOutputToSelf(ExactOutputToSelfParams calldata params) external payable returns (uint256 amountIn);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.17;
+
+enum MarginSwapTradeType {
+    // One-sided loan and collateral operations
+    SWAP_BORROW_SINGLE,
+    SWAP_COLLATERAL_SINGLE,
+    SWAP_BORROW_MULTI_EXACT_IN,
+    SWAP_BORROW_MULTI_EXACT_OUT,
+    SWAP_COLLATERAL_MULTI_EXACT_IN,
+    SWAP_COLLATERAL_MULTI_EXACT_OUT,
+    // Two-sided operations
+    OPEN_MARGIN_SINGLE,
+    TRIM_MARGIN_SINGLE,
+    OPEN_MARGIN_MULTI_EXACT_IN,
+    OPEN_MARGIN_MULTI_EXACT_OUT,
+    TRIM_MARGIN_MULTI_EXACT_IN,
+    TRIM_MARGIN_MULTI_EXACT_OUT,
+    // the following are only used internally
+    UNISWAP_EXACT_IN,
+    UNISWAP_EXACT_OUT,
+    UNISWAP_EXACT_OUT_BORROW,
+    UNISWAP_EXACT_OUT_WITHDRAW
+}
+
+// margin swap input
+struct MarginCallbackData {
+    bytes path;
+    address user;
+    // determines how to interact with the lending protocol
+    MarginSwapTradeType tradeType;
+    // determines the specific money market protocol
+    // provided amount to supply directly
+    uint256 providedAmount;
+    // amount variable used for exact out swaps
+    uint256 amount;
+}
+
+struct ExactInputSingleParamsBase {
+    address tokenIn;
+    address tokenOut;
+    uint24 fee;
+    uint256 amountIn;
+    uint256 amountOutMinimum;
+    uint160 sqrtPriceLimitX96;
+}
+
+struct ExactInputMultiParamsBase {
+    bytes path;
+    uint256 amountIn;
+    uint256 amountOutMinimum;
+    uint160 sqrtPriceLimitX96;
+}
+
+struct MarginSwapParamsExactIn {
+    address tokenIn;
+    address tokenOut;
+    uint24 fee;
+    uint256 userAmountProvided;
+    uint256 amountIn;
+    uint160 sqrtPriceLimitX96;
+}
+
+struct ExactOutputSingleParamsBase {
+    address tokenIn;
+    address tokenOut;
+    uint24 fee;
+    uint256 amountOut;
+    uint256 amountInMaximum;
+    uint160 sqrtPriceLimitX96;
+}
+
+struct ExactOutputMultiParamsBase {
+    bytes path;
+    uint256 amountOut;
+    uint256 amountInMaximum;
+    uint160 sqrtPriceLimitX96;
+}
+
+struct MarginSwapParamsExactOut {
+    address tokenIn;
+    address tokenOut;
+    uint24 fee;
+    uint256 userAmountProvided;
+    uint256 amountOut;
+    uint160 sqrtPriceLimitX96;
+}
+
+struct MarginSwapParamsMultiExactIn {
+    bytes path;
+    uint256 userAmountProvided;
+    uint256 amountIn;
+    uint160 sqrtPriceLimitX96;
+}
+
+struct MarginSwapParamsMultiExactOut {
+    bytes path;
+    uint256 userAmountProvided;
+    uint256 amountOut;
+    uint160 sqrtPriceLimitX96;
+}
+
+struct ExactOutputUniswapParams {
+    bytes path;
+    address recipient;
+    uint256 amountOut;
+    address user;
+    uint256 maximumInputAmount;
+    MarginSwapTradeType tradeType;
+}
+
+// money market input parameters
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity >=0.8.0;
+
+/// @title Safe casting methods
+/// @notice Contains methods for safely casting between types
+library SafeCast {
+    /// @notice Cast a uint256 to a uint160, revert on overflow
+    /// @param y The uint256 to be downcasted
+    /// @return z The downcasted integer, now type uint160
+    function toUint160(uint256 y) internal pure returns (uint160 z) {
+        require((z = uint160(y)) == y);
+    }
+
+    /// @notice Cast a int256 to a int128, revert on overflow or underflow
+    /// @param y The int256 to be downcasted
+    /// @return z The downcasted integer, now type int128
+    function toInt128(int256 y) internal pure returns (int128 z) {
+        require((z = int128(y)) == y);
+    }
+
+    /// @notice Cast a uint256 to a int256, revert on overflow
+    /// @param y The uint256 to be casted
+    /// @return z The casted integer, now type int256
+    function toInt256(uint256 y) internal pure returns (int256 z) {
+        require(y < 2**255);
+        z = int256(y);
+    }
+}
+
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.16;
+
+// We do not use an array of stucts to avoid pointer conflicts
+
+// Management storage that stores the different DAO roles
+struct MarginSwapStorage {
+    uint256 test;
+}
+
+struct GeneralStorage {
+    address factory;
+}
+
+struct UserAccountStorage {
+    address accountOwner;
+    mapping(address => bool) allowedPools;
+    mapping(address => bool) managers;
+}
+
+struct DataProviderStorage {
+    address dataProvider;
+}
+
+struct UniswapStorage {
+    uint256 amountInCached;
+    address swapRouter;
+}
+
+library LibStorage {
+    // Storage are structs where the data gets updated throughout the lifespan of the project
+    bytes32 constant DATA_PROVIDER_STORAGE = keccak256("account.storage.dataProvider");
+    bytes32 constant MARGIN_SWAP_STORAGE = keccak256("account.storage.marginSwap");
+    bytes32 constant GENERAL_STORAGE = keccak256("account.storage.general");
+    bytes32 constant USER_ACCOUNT_STORAGE = keccak256("account.storage.user");
+    bytes32 constant UNISWAP_STORAGE = keccak256("account.storage.uniswap");
+
+    function dataProviderStorage() internal pure returns (DataProviderStorage storage ps) {
+        bytes32 position = DATA_PROVIDER_STORAGE;
+        assembly {
+            ps.slot := position
+        }
+    }
+
+    function marginSwapStorage() internal pure returns (MarginSwapStorage storage ms) {
+        bytes32 position = MARGIN_SWAP_STORAGE;
+        assembly {
+            ms.slot := position
+        }
+    }
+
+    function generalStorage() internal pure returns (GeneralStorage storage gs) {
+        bytes32 position = GENERAL_STORAGE;
+        assembly {
+            gs.slot := position
+        }
+    }
+
+    function userAccountStorage() internal pure returns (UserAccountStorage storage us) {
+        bytes32 position = USER_ACCOUNT_STORAGE;
+        assembly {
+            us.slot := position
+        }
+    }
+
+    function uniswapStorge() internal pure returns (UniswapStorage storage ss) {
+        bytes32 position = UNISWAP_STORAGE;
+        assembly {
+            ss.slot := position
+        }
+    }
+
+    function enforceManager() internal view {
+        require(userAccountStorage().managers[msg.sender], "Only manager can interact.");
+    }
+
+    function enforceAccountOwner() internal view {
+        require(msg.sender == userAccountStorage().accountOwner, "Only the account owner can interact.");
+    }
+}
+
+/**
+ * The `WithStorage` contract provides a base contract for Facet contracts to inherit.
+ *
+ * It mainly provides internal helpers to access the storage structs, which reduces
+ * calls like `LibStorage.treasuryStorage()` to just `ts()`.
+ *
+ * To understand why the storage stucts must be accessed using a function instead of a
+ * state variable, please refer to the documentation above `LibStorage` in this file.
+ */
+abstract contract WithStorage {
+    function ps() internal pure returns (DataProviderStorage storage) {
+        return LibStorage.dataProviderStorage();
+    }
+
+    function ms() internal pure returns (MarginSwapStorage storage) {
+        return LibStorage.marginSwapStorage();
+    }
+
+    function gs() internal pure returns (GeneralStorage storage) {
+        return LibStorage.generalStorage();
+    }
+
+    function us() internal pure returns (UserAccountStorage storage) {
+        return LibStorage.userAccountStorage();
+    }
+
+    function ss() internal pure returns (UniswapStorage storage) {
+        return LibStorage.uniswapStorge();
+    }
+}
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity 0.8.17;
+
+/// @title Provides functions for deriving a pool address from the factory, tokens, and the fee
+library PoolAddress {
+    bytes32 internal constant POOL_INIT_CODE_HASH = 0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54;
+
+    /// @notice The identifying key of the pool
+    struct PoolKey {
+        address token0;
+        address token1;
+        uint24 fee;
+    }
+
+    /// @notice Returns PoolKey: the ordered tokens with the matched fee levels
+    /// @param tokenA The first token of a pool, unsorted
+    /// @param tokenB The second token of a pool, unsorted
+    /// @param fee The fee level of the pool
+    /// @return Poolkey The pool details with ordered token0 and token1 assignments
+    function getPoolKey(
+        address tokenA,
+        address tokenB,
+        uint24 fee
+    ) internal pure returns (PoolKey memory) {
+        if (tokenA > tokenB) (tokenA, tokenB) = (tokenB, tokenA);
+        return PoolKey({token0: tokenA, token1: tokenB, fee: fee});
+    }
+
+    /// @notice Deterministically computes the pool address given the factory and PoolKey
+    /// @param factory The Uniswap V3 factory contract address
+    /// @param key The PoolKey
+    /// @return pool The contract address of the V3 pool
+    function computeAddress(address factory, PoolKey memory key) internal pure returns (address pool) {
+        require(key.token0 < key.token1);
+        pool = address(uint160(
+            uint256(
+                keccak256(
+                    abi.encodePacked(
+                        hex'ff',
+                        factory,
+                        keccak256(abi.encode(key.token0, key.token1, key.fee)),
+                        POOL_INIT_CODE_HASH
+                    )
+                )
+            ))
+        );
+    }
+}
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity >=0.5.0;
+
+import './pool/IUniswapV3PoolImmutables.sol';
+import './pool/IUniswapV3PoolDerivedState.sol';
+import './pool/IUniswapV3PoolActions.sol';
+import './pool/IUniswapV3PoolEvents.sol';
+
+
+interface IUniswapV3Pool is
+    IUniswapV3PoolImmutables,
+    IUniswapV3PoolActions,
+    IUniswapV3PoolEvents
+{
+
+}
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity >=0.8.17;
+
+import "./BytesLib.sol";
+
+/// @title Functions for manipulating path data for multihop swaps
+library Path {
+    using BytesLib for bytes;
+
+    /// @dev The length of the bytes encoded address
+    uint256 private constant ADDR_SIZE = 20;
+    /// @dev The length of the bytes encoded fee
+    uint256 private constant FEE_SIZE = 3;
+
+    /// @dev The offset of a single token address and pool fee
+    uint256 private constant NEXT_OFFSET = ADDR_SIZE + FEE_SIZE;
+    /// @dev The offset of an encoded pool key
+    uint256 private constant POP_OFFSET = NEXT_OFFSET + ADDR_SIZE;
+    /// @dev The minimum length of an encoding that contains 2 or more pools
+    uint256 private constant MULTIPLE_POOLS_MIN_LENGTH = POP_OFFSET + NEXT_OFFSET;
+
+    /// @notice Returns true iff the path contains two or more pools
+    /// @param path The encoded swap path
+    /// @return True if path contains two or more pools, otherwise false
+    function hasMultiplePools(bytes memory path) internal pure returns (bool) {
+        return path.length >= MULTIPLE_POOLS_MIN_LENGTH;
+    }
+
+    /// @notice Returns the number of pools in the path
+    /// @param path The encoded swap path
+    /// @return The number of pools in the path
+    function numPools(bytes memory path) internal pure returns (uint256) {
+        // Ignore the first token address. From then on every fee and token offset indicates a pool.
+        return ((path.length - ADDR_SIZE) / NEXT_OFFSET);
+    }
+
+    /// @notice Decodes the first pool in path
+    /// @param path The bytes encoded swap path
+    /// @return tokenA The first token of the given pool
+    /// @return tokenB The second token of the given pool
+    /// @return fee The fee level of the pool
+    function decodeFirstPool(bytes memory path)
+        internal
+        pure
+        returns (
+            address tokenA,
+            address tokenB,
+            uint24 fee
+        )
+    {
+        tokenA = path.toAddress(0);
+        fee = path.toUint24(ADDR_SIZE);
+        tokenB = path.toAddress(NEXT_OFFSET);
+    }
+
+    /// @notice Gets the segment corresponding to the first pool in the path
+    /// @param path The bytes encoded swap path
+    /// @return The segment containing all data necessary to target the first pool in the path
+    function getFirstPool(bytes memory path) internal pure returns (bytes memory) {
+        return path.slice(0, POP_OFFSET);
+    }
+
+    /// @notice Skips a token + fee element from the buffer and returns the remainder
+    /// @param path The swap path
+    /// @return The remaining token + fee elements in the path
+    function skipToken(bytes memory path) internal pure returns (bytes memory) {
+        return path.slice(NEXT_OFFSET, path.length - NEXT_OFFSET);
+    }
+
+    function getLastToken(bytes memory path) internal pure returns (address) {
+        return path.toAddress(path.length - ADDR_SIZE);
+    }
+
+    function getFirstToken(bytes memory path) internal pure returns (address) {
+        return path.toAddress(0);
+    }
+}
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity 0.8.17;
+
+import '../../../interfaces/IERC20.sol';
+
+library TransferHelper {
+    /// @notice Transfers tokens from the targeted address to the given destination
+    /// @notice Errors with 'STF' if transfer fails
+    /// @param token The contract address of the token to be transferred
+    /// @param from The originating address from which the tokens will be transferred
+    /// @param to The destination address of the transfer
+    /// @param value The amount to be transferred
+    function safeTransferFrom(
+        address token,
+        address from,
+        address to,
+        uint256 value
+    ) internal {
+        (bool success, bytes memory data) =
+            token.call(abi.encodeWithSelector(IERC20.transferFrom.selector, from, to, value));
+        require(success && (data.length == 0 || abi.decode(data, (bool))), 'STF');
+    }
+
+    /// @notice Transfers tokens from msg.sender to a recipient
+    /// @dev Errors with ST if transfer fails
+    /// @param token The contract address of the token which will be transferred
+    /// @param to The recipient of the transfer
+    /// @param value The value of the transfer
+    function safeTransfer(
+        address token,
+        address to,
+        uint256 value
+    ) internal {
+        (bool success, bytes memory data) = token.call(abi.encodeWithSelector(IERC20.transfer.selector, to, value));
+        require(success && (data.length == 0 || abi.decode(data, (bool))), 'ST');
+    }
+
+    /// @notice Approves the stipulated contract to spend the given allowance in the given token
+    /// @dev Errors with 'SA' if transfer fails
+    /// @param token The contract address of the token to be approved
+    /// @param to The target of the approval
+    /// @param value The amount of the given token the target will be allowed to spend
+    function safeApprove(
+        address token,
+        address to,
+        uint256 value
+    ) internal {
+        (bool success, bytes memory data) = token.call(abi.encodeWithSelector(IERC20.approve.selector, to, value));
+        require(success && (data.length == 0 || abi.decode(data, (bool))), 'SA');
+    }
+
+    /// @notice Transfers ETH to the recipient address
+    /// @dev Fails with `STE`
+    /// @param to The destination of the transfer
+    /// @param value The value to be transferred
+    function safeTransferETH(address to, uint256 value) internal {
+        (bool success, ) = to.call{value: value}(new bytes(0));
+        require(success, 'STE');
+    }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface IERC20 {
+    function decimals() external view returns (uint8);
+
+    function totalSupply() external view returns (uint256);
+
+    function balanceOf(address account) external view returns (uint256);
+
+    function transfer(address recipient, uint256 amount) external returns (bool);
+
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.17;
+
+// solhint-disable max-line-length
+
+/**
+ * @title Contract that holds uniswap addresses in bytecode, has to be internal, otherwise facets will cause conflicts
+ * @notice Allows to avoid external calls
+ */
+abstract contract UniswapData {
+    address internal immutable v3Factory;
+    address internal immutable WETH9;
+    address internal immutable router;
+
+    // constructor will not  conflict with proxies due to immutability
+    constructor(address _factory, address _weth, address _router) {
+        v3Factory = _factory;
+        WETH9 = _weth;
+        router = _router;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.17;
+
+import {CErc20Interface, ComptrollerInterface} from "../../../interfaces/IDataProvider.sol";
+
+// solhint-disable max-line-length
+
+/**
+ * @title Contract that holds compund data
+ * @notice facets that use this data should inherit from this contract to prevent external function calls from data
+ * the data is hard coded here and can be upgraded through a diamond cut on the facet using it
+ */
+abstract contract GoerliCompoundCTokenData {
+    // constructor will not conflict with proxies due to immutability
+    constructor() {}
+
+    address private immutable cCOMP = 0x0fF50a12759b081Bb657ADaCf712C52bb015F1Cd;
+    address private immutable cDAI = 0x0545a8eaF7ff6bB6F708CbB544EA55DBc2ad7b2a;
+    address private immutable cETH = 0x64078a6189Bf45f80091c6Ff2fCEe1B15Ac8dbde;
+    address private immutable cUNI = 0x2073d38198511F5Ed8d893AB43A03bFDEae0b1A5;
+    address private immutable cUSDC = 0x73506770799Eb04befb5AaE4734e58C2C624F493;
+    address private immutable cUSDT = 0x5A74332C881Ea4844CcbD8458e0B6a9B04ddb716;
+    address private immutable cWBTC = 0xDa6F609F3636062E06fFB5a1701Df3c5F1ab3C8f;
+    address private immutable COMP = 0x3587b2F7E0E2D6166d6C14230e7Fe160252B0ba4;
+    address private immutable DAI = 0x2899a03ffDab5C90BADc5920b4f53B0884EB13cC;
+    address private immutable UNI = 0x208F73527727bcB2D9ca9bA047E3979559EB08cC;
+    address private immutable USDC = 0x07865c6E87B9F70255377e024ace6630C1Eaa37F;
+    address private immutable USDT = 0x79C950C7446B234a6Ad53B908fBF342b01c4d446;
+    address private immutable WBTC = 0xAAD4992D949f9214458594dF92B44165Fb84dC19;
+
+    // unitroller address
+    address private immutable comptroller = 0x05Df6C772A563FfB37fD3E04C1A279Fb30228621;
+
+    function cToken(address _underlying) internal view returns (CErc20Interface) {
+        if (_underlying == COMP) return CErc20Interface(cCOMP);
+        if (_underlying == DAI) return CErc20Interface(cDAI);
+        if (_underlying == UNI) return CErc20Interface(cUNI);
+        if (_underlying == USDC) return CErc20Interface(cUSDC);
+        if (_underlying == USDT) return CErc20Interface(cUSDT);
+        if (_underlying == WBTC) return CErc20Interface(cWBTC);
+
+        revert("no cToken for this underlying");
+    }
+
+    function getComptroller() internal view returns (ComptrollerInterface) {
+        return ComptrollerInterface(comptroller);
+    }
+}
+
+// SPDX-License-Identifier: BSD-3-Clause
+pragma solidity ^0.8.10;
+
+abstract contract ComptrollerInterface {
+    /// @notice Indicator that this is a Comptroller contract (for inspection)
+    bool public constant isComptroller = true;
+
+    /*** Assets You Are In ***/
+
+    function enterMarkets(address[] calldata cTokens) virtual external returns (uint[] memory);
+    function exitMarket(address cToken) virtual external returns (uint);
+
+    /*** Policy Hooks ***/
+
+    function mintAllowed(address cToken, address minter, uint mintAmount) virtual external returns (uint);
+    function mintVerify(address cToken, address minter, uint mintAmount, uint mintTokens) virtual external;
+
+    function redeemAllowed(address cToken, address redeemer, uint redeemTokens) virtual external returns (uint);
+    function redeemVerify(address cToken, address redeemer, uint redeemAmount, uint redeemTokens) virtual external;
+
+    function borrowAllowed(address cToken, address borrower, uint borrowAmount) virtual external returns (uint);
+    function borrowVerify(address cToken, address borrower, uint borrowAmount) virtual external;
+
+    function repayBorrowAllowed(
+        address cToken,
+        address payer,
+        address borrower,
+        uint repayAmount) virtual external returns (uint);
+    function repayBorrowVerify(
+        address cToken,
+        address payer,
+        address borrower,
+        uint repayAmount,
+        uint borrowerIndex) virtual external;
+
+    function liquidateBorrowAllowed(
+        address cTokenBorrowed,
+        address cTokenCollateral,
+        address liquidator,
+        address borrower,
+        uint repayAmount) virtual external returns (uint);
+    function liquidateBorrowVerify(
+        address cTokenBorrowed,
+        address cTokenCollateral,
+        address liquidator,
+        address borrower,
+        uint repayAmount,
+        uint seizeTokens) virtual external;
+
+    function seizeAllowed(
+        address cTokenCollateral,
+        address cTokenBorrowed,
+        address liquidator,
+        address borrower,
+        uint seizeTokens) virtual external returns (uint);
+    function seizeVerify(
+        address cTokenCollateral,
+        address cTokenBorrowed,
+        address liquidator,
+        address borrower,
+        uint seizeTokens) virtual external;
+
+    function transferAllowed(address cToken, address src, address dst, uint transferTokens) virtual external returns (uint);
+    function transferVerify(address cToken, address src, address dst, uint transferTokens) virtual external;
+
+    /*** Liquidity/Liquidation Calculations ***/
+
+    function liquidateCalculateSeizeTokens(
+        address cTokenBorrowed,
+        address cTokenCollateral,
+        uint repayAmount) virtual external view returns (uint, uint);
+}
+
+// SPDX-License-Identifier: BSD-3-Clause
+pragma solidity ^0.8.10;
+
+/**
+  * @title Compound's InterestRateModel Interface
+  * @author Compound
+  */
+abstract contract InterestRateModel {
+    /// @notice Indicator that this is an InterestRateModel contract (for inspection)
+    bool public constant isInterestRateModel = true;
+
+    /**
+      * @notice Calculates the current borrow interest rate per block
+      * @param cash The total amount of cash the market has
+      * @param borrows The total amount of borrows the market has outstanding
+      * @param reserves The total amount of reserves the market has
+      * @return The borrow rate per block (as a percentage, and scaled by 1e18)
+      */
+    function getBorrowRate(uint cash, uint borrows, uint reserves) virtual external view returns (uint);
+
+    /**
+      * @notice Calculates the current supply interest rate per block
+      * @param cash The total amount of cash the market has
+      * @param borrows The total amount of borrows the market has outstanding
+      * @param reserves The total amount of reserves the market has
+      * @param reserveFactorMantissa The current reserve factor the market has
+      * @return The supply rate per block (as a percentage, and scaled by 1e18)
+      */
+    function getSupplyRate(uint cash, uint borrows, uint reserves, uint reserveFactorMantissa) virtual external view returns (uint);
+}
+
+// SPDX-License-Identifier: BSD-3-Clause
+pragma solidity ^0.8.10;
+
+contract ComptrollerErrorReporter {
+    enum Error {
+        NO_ERROR,
+        UNAUTHORIZED,
+        COMPTROLLER_MISMATCH,
+        INSUFFICIENT_SHORTFALL,
+        INSUFFICIENT_LIQUIDITY,
+        INVALID_CLOSE_FACTOR,
+        INVALID_COLLATERAL_FACTOR,
+        INVALID_LIQUIDATION_INCENTIVE,
+        MARKET_NOT_ENTERED, // no longer possible
+        MARKET_NOT_LISTED,
+        MARKET_ALREADY_LISTED,
+        MATH_ERROR,
+        NONZERO_BORROW_BALANCE,
+        PRICE_ERROR,
+        REJECTION,
+        SNAPSHOT_ERROR,
+        TOO_MANY_ASSETS,
+        TOO_MUCH_REPAY
+    }
+
+    enum FailureInfo {
+        ACCEPT_ADMIN_PENDING_ADMIN_CHECK,
+        ACCEPT_PENDING_IMPLEMENTATION_ADDRESS_CHECK,
+        EXIT_MARKET_BALANCE_OWED,
+        EXIT_MARKET_REJECTION,
+        SET_CLOSE_FACTOR_OWNER_CHECK,
+        SET_CLOSE_FACTOR_VALIDATION,
+        SET_COLLATERAL_FACTOR_OWNER_CHECK,
+        SET_COLLATERAL_FACTOR_NO_EXISTS,
+        SET_COLLATERAL_FACTOR_VALIDATION,
+        SET_COLLATERAL_FACTOR_WITHOUT_PRICE,
+        SET_IMPLEMENTATION_OWNER_CHECK,
+        SET_LIQUIDATION_INCENTIVE_OWNER_CHECK,
+        SET_LIQUIDATION_INCENTIVE_VALIDATION,
+        SET_MAX_ASSETS_OWNER_CHECK,
+        SET_PENDING_ADMIN_OWNER_CHECK,
+        SET_PENDING_IMPLEMENTATION_OWNER_CHECK,
+        SET_PRICE_ORACLE_OWNER_CHECK,
+        SUPPORT_MARKET_EXISTS,
+        SUPPORT_MARKET_OWNER_CHECK,
+        SET_PAUSE_GUARDIAN_OWNER_CHECK
+    }
+
+    /**
+      * @dev `error` corresponds to enum Error; `info` corresponds to enum FailureInfo, and `detail` is an arbitrary
+      * contract-specific code that enables us to report opaque error codes from upgradeable contracts.
+      **/
+    event Failure(uint error, uint info, uint detail);
+
+    /**
+      * @dev use this when reporting a known error from the money market or a non-upgradeable collaborator
+      */
+    function fail(Error err, FailureInfo info) internal returns (uint) {
+        emit Failure(uint(err), uint(info), 0);
+
+        return uint(err);
+    }
+
+    /**
+      * @dev use this when reporting an opaque error from an upgradeable collaborator contract
+      */
+    function failOpaque(Error err, FailureInfo info, uint opaqueError) internal returns (uint) {
+        emit Failure(uint(err), uint(info), opaqueError);
+
+        return uint(err);
+    }
+}
+
+contract TokenErrorReporter {
+    uint public constant NO_ERROR = 0; // support legacy return codes
+
+    error TransferComptrollerRejection(uint256 errorCode);
+    error TransferNotAllowed();
+    error TransferNotEnough();
+    error TransferTooMuch();
+
+    error MintComptrollerRejection(uint256 errorCode);
+    error MintFreshnessCheck();
+
+    error RedeemComptrollerRejection(uint256 errorCode);
+    error RedeemFreshnessCheck();
+    error RedeemTransferOutNotPossible();
+
+    error BorrowComptrollerRejection(uint256 errorCode);
+    error BorrowFreshnessCheck();
+    error BorrowCashNotAvailable();
+
+    error RepayBorrowComptrollerRejection(uint256 errorCode);
+    error RepayBorrowFreshnessCheck();
+
+    error LiquidateComptrollerRejection(uint256 errorCode);
+    error LiquidateFreshnessCheck();
+    error LiquidateCollateralFreshnessCheck();
+    error LiquidateAccrueBorrowInterestFailed(uint256 errorCode);
+    error LiquidateAccrueCollateralInterestFailed(uint256 errorCode);
+    error LiquidateLiquidatorIsBorrower();
+    error LiquidateCloseAmountIsZero();
+    error LiquidateCloseAmountIsUintMax();
+    error LiquidateRepayBorrowFreshFailed(uint256 errorCode);
+
+    error LiquidateSeizeComptrollerRejection(uint256 errorCode);
+    error LiquidateSeizeLiquidatorIsBorrower();
+
+    error AcceptAdminPendingAdminCheck();
+
+    error SetComptrollerOwnerCheck();
+    error SetPendingAdminOwnerCheck();
+
+    error SetReserveFactorAdminCheck();
+    error SetReserveFactorFreshCheck();
+    error SetReserveFactorBoundsCheck();
+
+    error AddReservesFactorFreshCheck(uint256 actualAddAmount);
+
+    error ReduceReservesAdminCheck();
+    error ReduceReservesFreshCheck();
+    error ReduceReservesCashNotAvailable();
+    error ReduceReservesCashValidation();
+
+    error SetInterestRateModelOwnerCheck();
+    error SetInterestRateModelFreshCheck();
+}
+
+// SPDX-License-Identifier: BSD-3-Clause
+pragma solidity ^0.8.10;
+
+/**
+ * @title EIP20NonStandardInterface
+ * @dev Version of ERC20 with no return values for `transfer` and `transferFrom`
+ *  See https://medium.com/coinmonks/missing-return-value-bug-at-least-130-tokens-affected-d67bf08521ca
+ */
+interface EIP20NonStandardInterface {
+
+    /**
+     * @notice Get the total number of tokens in circulation
+     * @return The supply of tokens
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @notice Gets the balance of the specified address
+     * @param owner The address from which the balance will be retrieved
+     * @return balance The balance
+     */
+    function balanceOf(address owner) external view returns (uint256 balance);
+
+    ///
+    /// !!!!!!!!!!!!!!
+    /// !!! NOTICE !!! `transfer` does not return a value, in violation of the ERC-20 specification
+    /// !!!!!!!!!!!!!!
+    ///
+
+    /**
+      * @notice Transfer `amount` tokens from `msg.sender` to `dst`
+      * @param dst The address of the destination account
+      * @param amount The number of tokens to transfer
+      */
+    function transfer(address dst, uint256 amount) external;
+
+    ///
+    /// !!!!!!!!!!!!!!
+    /// !!! NOTICE !!! `transferFrom` does not return a value, in violation of the ERC-20 specification
+    /// !!!!!!!!!!!!!!
+    ///
+
+    /**
+      * @notice Transfer `amount` tokens from `src` to `dst`
+      * @param src The address of the source account
+      * @param dst The address of the destination account
+      * @param amount The number of tokens to transfer
+      */
+    function transferFrom(address src, address dst, uint256 amount) external;
+
+    /**
+      * @notice Approve `spender` to transfer up to `amount` from `src`
+      * @dev This will overwrite the approval amount for `spender`
+      *  and is subject to issues noted [here](https://eips.ethereum.org/EIPS/eip-20#approve)
+      * @param spender The address of the account which may transfer tokens
+      * @param amount The number of tokens that are approved
+      * @return success Whether or not the approval succeeded
+      */
+    function approve(address spender, uint256 amount) external returns (bool success);
+
+    /**
+      * @notice Get the current allowance from `owner` for `spender`
+      * @param owner The address of the account which owns the tokens to be spent
+      * @param spender The address of the account which may transfer tokens
+      * @return remaining The number of tokens allowed to be spent
+      */
+    function allowance(address owner, address spender) external view returns (uint256 remaining);
+
+    event Transfer(address indexed from, address indexed to, uint256 amount);
+    event Approval(address indexed owner, address indexed spender, uint256 amount);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.17;
+
+struct SwapCallbackData {
+    bytes path;
+    address payer;
+}
+
+struct ExactInputSingleParams {
+    address tokenIn;
+    address tokenOut;
+    uint24 fee;
+    address recipient;
+    uint256 amountIn;
+    uint160 sqrtPriceLimitX96;
+}
+
+struct ExactInputParams {
+    bytes path;
+    address recipient;
+    uint256 amountIn;
+}
+
+struct ExactOutputSingleParams {
+    address tokenIn;
+    address tokenOut;
+    uint24 fee;
+    address recipient;
+    uint256 amountOut;
+    uint160 sqrtPriceLimitX96;
+}
+
+struct ExactOutputParams {
+    bytes path;
+    address recipient;
+    uint256 amountOut;
+}
+
+// self swap function params
+
+struct ExactInputToSelfParams {
+    bytes path;
+    uint256 amountIn;
+}
+
+struct ExactOutputToSelfParams {
+    bytes path;
+    address recipient;
+    uint256 amountOut;
+}
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity >=0.5.0;
+
+/// @title Pool state that never changes
+/// @notice These parameters are fixed for a pool forever, i.e., the methods will always return the same values
+interface IUniswapV3PoolImmutables {
+    /// @notice The contract that deployed the pool, which must adhere to the IUniswapV3Factory interface
+    /// @return The contract address
+    function factory() external view returns (address);
+
+    /// @notice The first of the two tokens of the pool, sorted by address
+    /// @return The token contract address
+    function token0() external view returns (address);
+
+    /// @notice The second of the two tokens of the pool, sorted by address
+    /// @return The token contract address
+    function token1() external view returns (address);
+
+    /// @notice The pool's fee in hundredths of a bip, i.e. 1e-6
+    /// @return The fee
+    function fee() external view returns (uint24);
+
+    /// @notice The pool tick spacing
+    /// @dev Ticks can only be used at multiples of this value, minimum of 1 and always positive
+    /// e.g.: a tickSpacing of 3 means ticks can be initialized every 3rd tick, i.e., ..., -6, -3, 0, 3, 6, ...
+    /// This value is an int24 to avoid casting even though it is always positive.
+    /// @return The tick spacing
+    function tickSpacing() external view returns (int24);
+
+    /// @notice The maximum amount of position liquidity that can use any tick in the range
+    /// @dev This parameter is enforced per tick to prevent liquidity from overflowing a uint128 at any point, and
+    /// also prevents out-of-range liquidity from being used to prevent adding in-range liquidity to a pool
+    /// @return The max amount of liquidity per tick
+    function maxLiquidityPerTick() external view returns (uint128);
+}
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity >=0.5.0;
+
+// solhint-disable max-line-length
+
+interface IUniswapV3PoolActions {
+    function initialize(uint160 sqrtPriceX96) external;
+
+    function mint(
+        address recipient,
+        int24 tickLower,
+        int24 tickUpper,
+        uint128 amount,
+        bytes calldata data
+    ) external returns (uint256 amount0, uint256 amount1);
+
+    function collect(
+        address recipient,
+        int24 tickLower,
+        int24 tickUpper,
+        uint128 amount0Requested,
+        uint128 amount1Requested
+    ) external returns (uint128 amount0, uint128 amount1);
+
+    function burn(
+        int24 tickLower,
+        int24 tickUpper,
+        uint128 amount
+    ) external returns (uint256 amount0, uint256 amount1);
+
+    function swap(
+        address recipient,
+        bool zeroForOne,
+        int256 amountSpecified,
+        uint160 sqrtPriceLimitX96,
+        bytes calldata data
+    ) external returns (int256 amount0, int256 amount1);
+
+    function flash(
+        address recipient,
+        uint256 amount0,
+        uint256 amount1,
+        bytes calldata data
+    ) external;
+
+    function increaseObservationCardinalityNext(uint16 observationCardinalityNext) external;
+}
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity >=0.5.0;
+
+// solhint-disable max-line-length
+
+interface IUniswapV3PoolEvents {
+    event Initialize(uint160 sqrtPriceX96, int24 tick);
+
+    event Mint(
+        address sender,
+        address indexed owner,
+        int24 indexed tickLower,
+        int24 indexed tickUpper,
+        uint128 amount,
+        uint256 amount0,
+        uint256 amount1
+    );
+
+    event Collect(address indexed owner, address recipient, int24 indexed tickLower, int24 indexed tickUpper, uint128 amount0, uint128 amount1);
+
+    event Burn(address indexed owner, int24 indexed tickLower, int24 indexed tickUpper, uint128 amount, uint256 amount0, uint256 amount1);
+
+    event Swap(
+        address indexed sender,
+        address indexed recipient,
+        int256 amount0,
+        int256 amount1,
+        uint160 sqrtPriceX96,
+        uint128 liquidity,
+        int24 tick
+    );
+
+    event Flash(address indexed sender, address indexed recipient, uint256 amount0, uint256 amount1, uint256 paid0, uint256 paid1);
+
+    event IncreaseObservationCardinalityNext(uint16 observationCardinalityNextOld, uint16 observationCardinalityNextNew);
+
+    event SetFeeProtocol(uint8 feeProtocol0Old, uint8 feeProtocol1Old, uint8 feeProtocol0New, uint8 feeProtocol1New);
+
+    event CollectProtocol(address indexed sender, address indexed recipient, uint128 amount0, uint128 amount1);
+}
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+pragma solidity >=0.5.0;
+
+interface IUniswapV3PoolDerivedState {
+    function observe(uint32[] calldata secondsAgos)
+        external
+        view
+        returns (int56[] memory tickCumulatives, uint160[] memory secondsPerLiquidityCumulativeX128s);
+
+    function snapshotCumulativesInside(int24 tickLower, int24 tickUpper)
+        external
+        view
+        returns (
+            int56 tickCumulativeInside,
+            uint160 secondsPerLiquidityInsideX128,
+            uint32 secondsInside
+        );
+}
+
+// SPDX-License-Identifier: GPL-2.0-or-later
+/*
+ * @title Solidity Bytes Arrays Utils
+ * @author Gonçalo Sá <[email protected]>
+ *
+ * @dev Bytes tightly packed arrays utility library for ethereum contracts written in Solidity.
+ *      The library lets you concatenate, slice and type cast bytes arrays both in memory and storage.
+ */
+pragma solidity 0.8.17;
+
+library BytesLib {
+    function slice(
+        bytes memory _bytes,
+        uint256 _start,
+        uint256 _length
+    ) internal pure returns (bytes memory) {
+        require(_length + 31 >= _length, 'slice_overflow');
+        require(_start + _length >= _start, 'slice_overflow');
+        require(_bytes.length >= _start + _length, 'slice_outOfBounds');
+
+        bytes memory tempBytes;
+
+        assembly {
+            switch iszero(_length)
+                case 0 {
+                    // Get a location of some free memory and store it in tempBytes as
+                    // Solidity does for memory variables.
+                    tempBytes := mload(0x40)
+
+                    // The first word of the slice result is potentially a partial
+                    // word read from the original array. To read it, we calculate
+                    // the length of that partial word and start copying that many
+                    // bytes into the array. The first word we copy will start with
+                    // data we don't care about, but the last `lengthmod` bytes will
+                    // land at the beginning of the contents of the new array. When
+                    // we're done copying, we overwrite the full first word with
+                    // the actual length of the slice.
+                    let lengthmod := and(_length, 31)
+
+                    // The multiplication in the next line is necessary
+                    // because when slicing multiples of 32 bytes (lengthmod == 0)
+                    // the following copy loop was copying the origin's length
+                    // and then ending prematurely not copying everything it should.
+                    let mc := add(add(tempBytes, lengthmod), mul(0x20, iszero(lengthmod)))
+                    let end := add(mc, _length)
+
+                    for {
+                        // The multiplication in the next line has the same exact purpose
+                        // as the one above.
+                        let cc := add(add(add(_bytes, lengthmod), mul(0x20, iszero(lengthmod))), _start)
+                    } lt(mc, end) {
+                        mc := add(mc, 0x20)
+                        cc := add(cc, 0x20)
+                    } {
+                        mstore(mc, mload(cc))
+                    }
+
+                    mstore(tempBytes, _length)
+
+                    //update free-memory pointer
+                    //allocating the array padded to 32 bytes like the compiler does now
+                    mstore(0x40, and(add(mc, 31), not(31)))
+                }
+                //if we want a zero-length slice let's just return a zero-length array
+                default {
+                    tempBytes := mload(0x40)
+                    //zero out the 32 bytes slice we are about to return
+                    //we need to do it because Solidity does not garbage collect
+                    mstore(tempBytes, 0)
+
+                    mstore(0x40, add(tempBytes, 0x20))
+                }
+        }
+
+        return tempBytes;
+    }
+
+    function toAddress(bytes memory _bytes, uint256 _start) internal pure returns (address) {
+        require(_start + 20 >= _start, 'toAddress_overflow');
+        require(_bytes.length >= _start + 20, 'toAddress_outOfBounds');
+        address tempAddress;
+
+        assembly {
+            tempAddress := div(mload(add(add(_bytes, 0x20), _start)), 0x1000000000000000000000000)
+        }
+
+        return tempAddress;
+    }
+
+    function toUint24(bytes memory _bytes, uint256 _start) internal pure returns (uint24) {
+        require(_start + 3 >= _start, 'toUint24_overflow');
+        require(_bytes.length >= _start + 3, 'toUint24_outOfBounds');
+        uint24 tempUint;
+
+        assembly {
+            tempUint := mload(add(add(_bytes, 0x3), _start))
+        }
+
+        return tempUint;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (interfaces/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+import "../token/ERC20/IERC20.sol";
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import {CErc20Interface, ComptrollerInterface} from "../../../external-protocols/compound/CTokenInterfaces.sol";
+
+interface IDataProvider {
+    function cToken(address _underlying) external returns (CErc20Interface);
+
+    function cTokens(
+        address _underlyingIn,
+        address _underlyingOut
+    ) external returns (CErc20Interface, CErc20Interface);
+
+    function underlying(address _cToken) external returns (address);
+
+    function getCollateralSwapData(
+        address _underlyingFrom,
+        address _underlyingTo,
+        uint24 _fee
+    )
+        external
+        returns (
+            CErc20Interface cTokenFrom,
+            CErc20Interface cTokenTo,
+            address swapPool
+        );
+
+    function getV3Pool(
+        address _underlyingFrom,
+        address _underlyingTo,
+        uint24 _fee
+    ) external returns (address);
+
+    function validatePoolAndFetchCTokens(
+        address _pool,
+        address _underlyingIn,
+        address _underlyingOut
+    ) external returns (CErc20Interface, CErc20Interface);
+
+    function getComptroller() external returns (ComptrollerInterface);
+}
