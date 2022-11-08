@@ -1,0 +1,157 @@
+// SPDX-License-Identifier: MIT
+
+// pragma solidity ^0.6.0;
+pragma solidity ^0.8.7;
+
+import "./Math.sol";
+
+
+contract ERC20 {
+    
+    // Basic Functionality:
+    //   mint -> create new token from nothing
+    //   buyToken, sellToken  -> interact with contract token balance
+    //   send  ->  Transfer from one user to another. 
+    //   ownerPayout -> Claim any ETH in contract
+    //   track owner list
+    //   
+
+    // State Variables 
+    address payable owner;
+    mapping(address => uint256) public balances;
+
+    address[] public hodlers;
+
+    uint256 public hodlerCount;
+    uint256 public total_tokens;
+    uint256 public tokens_remaining;
+
+
+
+   constructor()
+    {
+        tokens_remaining = 1000000;
+        total_tokens = tokens_remaining;
+        owner = payable(msg.sender);
+    }
+
+    event MessageLog(
+        string comment
+    );
+
+
+    // Modifiers
+    modifier onlyOwner(){
+        require(msg.sender == owner);
+        _;
+    }
+
+    // Functions 
+    function mint(uint256 amount) public onlyOwner {
+        total_tokens += amount;
+        tokens_remaining += amount;
+    }
+
+    function getBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
+
+    function ownerPayout() public payable onlyOwner {
+        owner.transfer( getBalance() );
+    }
+
+    function compute_token_value() public pure virtual returns(uint256)
+    {
+        return 1000000000000;
+    }
+
+    function buyToken() public payable {
+        
+        uint256 token_value = compute_token_value();
+        uint256 num_tokens = Math.divide(msg.value, token_value);
+
+        require(num_tokens > 0);
+
+        if (num_tokens >= tokens_remaining){
+            num_tokens = tokens_remaining;
+             emit MessageLog("You bought everything!");
+        }
+
+        uint256 cost = token_value * num_tokens;
+        uint256 change = uint256((msg.value - cost));
+
+        // This contract doesn't have the funds to transfer! 
+        payable(msg.sender).transfer(change);
+
+        balances[msg.sender] += num_tokens;
+        tokens_remaining -= num_tokens;
+
+        hodlerCount ++;
+        hodlers.push(msg.sender);
+    }
+
+
+    function sellToken(uint256 num_tokens) public payable{
+        uint256 token_balance = balances[msg.sender];
+        require(num_tokens <= token_balance);
+        require(num_tokens > 0);
+        balances[msg.sender] -= num_tokens;
+        tokens_remaining += num_tokens;
+
+        payable(msg.sender).transfer(num_tokens * compute_token_value());
+    }
+
+    function send(address wallet, uint256 amount) public {
+        require(amount <= balances[msg.sender]);
+        balances[msg.sender] -= amount;
+        balances[wallet] += amount;
+        hodlerCount ++;
+        hodlers.push(wallet);
+    }
+}
+
+
+contract UChicagoFinMathManyOwners is ERC20 {
+
+    event NotAnOwner(address adr, string message);
+    string public symbol;
+    uint256 public version;
+    address payable token;
+    mapping(address => bool) public owners;
+
+    function deleteOwner(address adr) public onlyOwner {
+        owners[adr] = false;
+    }
+
+    function addOwner(address adr) public {
+        if ( owners[msg.sender]){
+            owners[adr] = true;
+        } else {
+            emit NotAnOwner(msg.sender, "Is not an owner - operation not allowed.");
+        }
+    }
+
+    constructor(address payable wallet, address payable token_) 
+    {
+        tokens_remaining = 10000000;
+        total_tokens = tokens_remaining;
+        owner = wallet;
+        symbol = "UChicagoFinmathManyOwners";
+        token = token_;
+        owner = payable(msg.sender);
+        owners[msg.sender] = true;
+    }
+
+    function buyFromContract() public payable {
+
+        ERC20 tokenClass = ERC20(token);
+        uint256 val = msg.value;
+        uint256 token_value = tokenClass.compute_token_value();
+        require(val > token_value);
+
+        (bool success, bytes memory data)  = token.delegatecall(
+            abi.encodeWithSignature("buyToken()", 0)
+        );
+    }
+
+}
