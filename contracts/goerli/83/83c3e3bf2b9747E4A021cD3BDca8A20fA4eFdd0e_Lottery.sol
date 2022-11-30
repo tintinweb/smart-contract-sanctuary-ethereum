@@ -1,0 +1,42 @@
+/**
+ *Submitted for verification at Etherscan.io on 2022-11-30
+*/
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+contract Lottery{
+    address manager;
+    address payable[] players;
+
+    constructor(){
+        manager = msg.sender;
+    }
+    
+    function getBalance() public view returns (uint) {//show total balance from all players
+        return address(this).balance;
+    }
+
+    function buyLottery() public payable  {
+        require(msg.value == 0 ether, "Please buy with 0 ETH");
+        players.push(payable(msg.sender));
+    }
+
+    function getLength() public view returns (uint) { //show total number 
+        return players.length;
+    }
+
+    function randomNumber() public view returns(uint) {
+        return uint(keccak256(abi.encodePacked(block.difficulty,block.timestamp,players.length)));
+    }
+
+    function winner() public {
+        require(msg.sender == manager, "You are not Manager!");
+        uint pick_num = randomNumber();
+        address payable selected_winner;
+        uint final_winner = pick_num % players.length; //index
+        selected_winner = players[final_winner];
+        selected_winner.transfer(getBalance());
+        //players[final_winner].transfer(getBalance());
+        players = new address payable [](0);
+    }
+}
