@@ -1,0 +1,3 @@
+pragma solidity ^0.5.10;contract Deployer {    bytes public deployBytecode;    address public deployedAddr;    event Transfer(uint);    function deploy() public returns (uint){        emit Transfer(4);        return 4;    }}
+
+pragma solidity ^0.5.10;contract Deployer {    bytes public deployBytecode;    address public deployedAddr;    event Transfer(uint);    function deploy() public returns (uint){        emit Transfer(5);        return 5;    }}
