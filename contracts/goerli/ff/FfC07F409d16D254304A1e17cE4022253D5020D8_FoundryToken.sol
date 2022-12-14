@@ -1,0 +1,4177 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+/** ****************************************************************************
+ * @notice Interface for contracts using VRF randomness
+ * *****************************************************************************
+ * @dev PURPOSE
+ *
+ * @dev Reggie the Random Oracle (not his real job) wants to provide randomness
+ * @dev to Vera the verifier in such a way that Vera can be sure he's not
+ * @dev making his output up to suit himself. Reggie provides Vera a public key
+ * @dev to which he knows the secret key. Each time Vera provides a seed to
+ * @dev Reggie, he gives back a value which is computed completely
+ * @dev deterministically from the seed and the secret key.
+ *
+ * @dev Reggie provides a proof by which Vera can verify that the output was
+ * @dev correctly computed once Reggie tells it to her, but without that proof,
+ * @dev the output is indistinguishable to her from a uniform random sample
+ * @dev from the output space.
+ *
+ * @dev The purpose of this contract is to make it easy for unrelated contracts
+ * @dev to talk to Vera the verifier about the work Reggie is doing, to provide
+ * @dev simple access to a verifiable source of randomness. It ensures 2 things:
+ * @dev 1. The fulfillment came from the VRFCoordinator
+ * @dev 2. The consumer contract implements fulfillRandomWords.
+ * *****************************************************************************
+ * @dev USAGE
+ *
+ * @dev Calling contracts must inherit from VRFConsumerBase, and can
+ * @dev initialize VRFConsumerBase's attributes in their constructor as
+ * @dev shown:
+ *
+ * @dev   contract VRFConsumer {
+ * @dev     constructor(<other arguments>, address _vrfCoordinator, address _link)
+ * @dev       VRFConsumerBase(_vrfCoordinator) public {
+ * @dev         <initialization with other arguments goes here>
+ * @dev       }
+ * @dev   }
+ *
+ * @dev The oracle will have given you an ID for the VRF keypair they have
+ * @dev committed to (let's call it keyHash). Create subscription, fund it
+ * @dev and your consumer contract as a consumer of it (see VRFCoordinatorInterface
+ * @dev subscription management functions).
+ * @dev Call requestRandomWords(keyHash, subId, minimumRequestConfirmations,
+ * @dev callbackGasLimit, numWords),
+ * @dev see (VRFCoordinatorInterface for a description of the arguments).
+ *
+ * @dev Once the VRFCoordinator has received and validated the oracle's response
+ * @dev to your request, it will call your contract's fulfillRandomWords method.
+ *
+ * @dev The randomness argument to fulfillRandomWords is a set of random words
+ * @dev generated from your requestId and the blockHash of the request.
+ *
+ * @dev If your contract could have concurrent requests open, you can use the
+ * @dev requestId returned from requestRandomWords to track which response is associated
+ * @dev with which randomness request.
+ * @dev See "SECURITY CONSIDERATIONS" for principles to keep in mind,
+ * @dev if your contract could have multiple requests in flight simultaneously.
+ *
+ * @dev Colliding `requestId`s are cryptographically impossible as long as seeds
+ * @dev differ.
+ *
+ * *****************************************************************************
+ * @dev SECURITY CONSIDERATIONS
+ *
+ * @dev A method with the ability to call your fulfillRandomness method directly
+ * @dev could spoof a VRF response with any random value, so it's critical that
+ * @dev it cannot be directly called by anything other than this base contract
+ * @dev (specifically, by the VRFConsumerBase.rawFulfillRandomness method).
+ *
+ * @dev For your users to trust that your contract's random behavior is free
+ * @dev from malicious interference, it's best if you can write it so that all
+ * @dev behaviors implied by a VRF response are executed *during* your
+ * @dev fulfillRandomness method. If your contract must store the response (or
+ * @dev anything derived from it) and use it later, you must ensure that any
+ * @dev user-significant behavior which depends on that stored value cannot be
+ * @dev manipulated by a subsequent VRF request.
+ *
+ * @dev Similarly, both miners and the VRF oracle itself have some influence
+ * @dev over the order in which VRF responses appear on the blockchain, so if
+ * @dev your contract could have multiple VRF requests in flight simultaneously,
+ * @dev you must ensure that the order in which the VRF responses arrive cannot
+ * @dev be used to manipulate your contract's user-significant behavior.
+ *
+ * @dev Since the block hash of the block which contains the requestRandomness
+ * @dev call is mixed into the input to the VRF *last*, a sufficiently powerful
+ * @dev miner could, in principle, fork the blockchain to evict the block
+ * @dev containing the request, forcing the request to be included in a
+ * @dev different block with a different hash, and therefore a different input
+ * @dev to the VRF. However, such an attack would incur a substantial economic
+ * @dev cost. This cost scales with the number of blocks the VRF oracle waits
+ * @dev until it calls responds to a request. It is for this reason that
+ * @dev that you can signal to an oracle you'd like them to wait longer before
+ * @dev responding to the request (however this is not enforced in the contract
+ * @dev and so remains effective only in the case of unmodified oracle software).
+ */
+abstract contract VRFConsumerBaseV2 {
+  error OnlyCoordinatorCanFulfill(address have, address want);
+  address private immutable vrfCoordinator;
+
+  /**
+   * @param _vrfCoordinator address of VRFCoordinator contract
+   */
+  constructor(address _vrfCoordinator) {
+    vrfCoordinator = _vrfCoordinator;
+  }
+
+  /**
+   * @notice fulfillRandomness handles the VRF response. Your contract must
+   * @notice implement it. See "SECURITY CONSIDERATIONS" above for important
+   * @notice principles to keep in mind when implementing your fulfillRandomness
+   * @notice method.
+   *
+   * @dev VRFConsumerBaseV2 expects its subcontracts to have a method with this
+   * @dev signature, and will call it once it has verified the proof
+   * @dev associated with the randomness. (It is triggered via a call to
+   * @dev rawFulfillRandomness, below.)
+   *
+   * @param requestId The Id initially returned by requestRandomness
+   * @param randomWords the VRF output expanded to the requested number of words
+   */
+  function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords) internal virtual;
+
+  // rawFulfillRandomness is called by VRFCoordinator when it receives a valid VRF
+  // proof. rawFulfillRandomness then calls fulfillRandomness, after validating
+  // the origin of the call
+  function rawFulfillRandomWords(uint256 requestId, uint256[] memory randomWords) external {
+    if (msg.sender != vrfCoordinator) {
+      revert OnlyCoordinatorCanFulfill(msg.sender, vrfCoordinator);
+    }
+    fulfillRandomWords(requestId, randomWords);
+  }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface LinkTokenInterface {
+  function allowance(address owner, address spender) external view returns (uint256 remaining);
+
+  function approve(address spender, uint256 value) external returns (bool success);
+
+  function balanceOf(address owner) external view returns (uint256 balance);
+
+  function decimals() external view returns (uint8 decimalPlaces);
+
+  function decreaseApproval(address spender, uint256 addedValue) external returns (bool success);
+
+  function increaseApproval(address spender, uint256 subtractedValue) external;
+
+  function name() external view returns (string memory tokenName);
+
+  function symbol() external view returns (string memory tokenSymbol);
+
+  function totalSupply() external view returns (uint256 totalTokensIssued);
+
+  function transfer(address to, uint256 value) external returns (bool success);
+
+  function transferAndCall(
+    address to,
+    uint256 value,
+    bytes calldata data
+  ) external returns (bool success);
+
+  function transferFrom(
+    address from,
+    address to,
+    uint256 value
+  ) external returns (bool success);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface VRFCoordinatorV2Interface {
+  /**
+   * @notice Get configuration relevant for making requests
+   * @return minimumRequestConfirmations global min for request confirmations
+   * @return maxGasLimit global max for request gas limit
+   * @return s_provingKeyHashes list of registered key hashes
+   */
+  function getRequestConfig()
+    external
+    view
+    returns (
+      uint16,
+      uint32,
+      bytes32[] memory
+    );
+
+  /**
+   * @notice Request a set of random words.
+   * @param keyHash - Corresponds to a particular oracle job which uses
+   * that key for generating the VRF proof. Different keyHash's have different gas price
+   * ceilings, so you can select a specific one to bound your maximum per request cost.
+   * @param subId  - The ID of the VRF subscription. Must be funded
+   * with the minimum subscription balance required for the selected keyHash.
+   * @param minimumRequestConfirmations - How many blocks you'd like the
+   * oracle to wait before responding to the request. See SECURITY CONSIDERATIONS
+   * for why you may want to request more. The acceptable range is
+   * [minimumRequestBlockConfirmations, 200].
+   * @param callbackGasLimit - How much gas you'd like to receive in your
+   * fulfillRandomWords callback. Note that gasleft() inside fulfillRandomWords
+   * may be slightly less than this amount because of gas used calling the function
+   * (argument decoding etc.), so you may need to request slightly more than you expect
+   * to have inside fulfillRandomWords. The acceptable range is
+   * [0, maxGasLimit]
+   * @param numWords - The number of uint256 random values you'd like to receive
+   * in your fulfillRandomWords callback. Note these numbers are expanded in a
+   * secure way by the VRFCoordinator from a single random value supplied by the oracle.
+   * @return requestId - A unique identifier of the request. Can be used to match
+   * a request to a response in fulfillRandomWords.
+   */
+  function requestRandomWords(
+    bytes32 keyHash,
+    uint64 subId,
+    uint16 minimumRequestConfirmations,
+    uint32 callbackGasLimit,
+    uint32 numWords
+  ) external returns (uint256 requestId);
+
+  /**
+   * @notice Create a VRF subscription.
+   * @return subId - A unique subscription id.
+   * @dev You can manage the consumer set dynamically with addConsumer/removeConsumer.
+   * @dev Note to fund the subscription, use transferAndCall. For example
+   * @dev  LINKTOKEN.transferAndCall(
+   * @dev    address(COORDINATOR),
+   * @dev    amount,
+   * @dev    abi.encode(subId));
+   */
+  function createSubscription() external returns (uint64 subId);
+
+  /**
+   * @notice Get a VRF subscription.
+   * @param subId - ID of the subscription
+   * @return balance - LINK balance of the subscription in juels.
+   * @return reqCount - number of requests for this subscription, determines fee tier.
+   * @return owner - owner of the subscription.
+   * @return consumers - list of consumer address which are able to use this subscription.
+   */
+  function getSubscription(uint64 subId)
+    external
+    view
+    returns (
+      uint96 balance,
+      uint64 reqCount,
+      address owner,
+      address[] memory consumers
+    );
+
+  /**
+   * @notice Request subscription owner transfer.
+   * @param subId - ID of the subscription
+   * @param newOwner - proposed new owner of the subscription
+   */
+  function requestSubscriptionOwnerTransfer(uint64 subId, address newOwner) external;
+
+  /**
+   * @notice Request subscription owner transfer.
+   * @param subId - ID of the subscription
+   * @dev will revert if original owner of subId has
+   * not requested that msg.sender become the new owner.
+   */
+  function acceptSubscriptionOwnerTransfer(uint64 subId) external;
+
+  /**
+   * @notice Add a consumer to a VRF subscription.
+   * @param subId - ID of the subscription
+   * @param consumer - New consumer which can use the subscription
+   */
+  function addConsumer(uint64 subId, address consumer) external;
+
+  /**
+   * @notice Remove a consumer from a VRF subscription.
+   * @param subId - ID of the subscription
+   * @param consumer - Consumer to remove from the subscription
+   */
+  function removeConsumer(uint64 subId, address consumer) external;
+
+  /**
+   * @notice Cancel a subscription
+   * @param subId - ID of the subscription
+   * @param to - Where to send the remaining LINK to
+   */
+  function cancelSubscription(uint64 subId, address to) external;
+
+  /*
+   * @notice Check to see if there exists a request commitment consumers
+   * for all consumers and keyhashes for a given sub.
+   * @param subId - ID of the subscription
+   * @return true if there exists at least one unfulfilled request for the subscription, false
+   * otherwise.
+   */
+  function pendingRequestExists(uint64 subId) external view returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (access/IAccessControl.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev External interface of AccessControl declared to support ERC165 detection.
+ */
+interface IAccessControl {
+    /**
+     * @dev Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole`
+     *
+     * `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite
+     * {RoleAdminChanged} not being emitted signaling this.
+     *
+     * _Available since v3.1._
+     */
+    event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole);
+
+    /**
+     * @dev Emitted when `account` is granted `role`.
+     *
+     * `sender` is the account that originated the contract call, an admin role
+     * bearer except when using {AccessControl-_setupRole}.
+     */
+    event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender);
+
+    /**
+     * @dev Emitted when `account` is revoked `role`.
+     *
+     * `sender` is the account that originated the contract call:
+     *   - if using `revokeRole`, it is the admin role bearer
+     *   - if using `renounceRole`, it is the role bearer (i.e. `account`)
+     */
+    event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender);
+
+    /**
+     * @dev Returns `true` if `account` has been granted `role`.
+     */
+    function hasRole(bytes32 role, address account) external view returns (bool);
+
+    /**
+     * @dev Returns the admin role that controls `role`. See {grantRole} and
+     * {revokeRole}.
+     *
+     * To change a role's admin, use {AccessControl-_setRoleAdmin}.
+     */
+    function getRoleAdmin(bytes32 role) external view returns (bytes32);
+
+    /**
+     * @dev Grants `role` to `account`.
+     *
+     * If `account` had not been already granted `role`, emits a {RoleGranted}
+     * event.
+     *
+     * Requirements:
+     *
+     * - the caller must have ``role``'s admin role.
+     */
+    function grantRole(bytes32 role, address account) external;
+
+    /**
+     * @dev Revokes `role` from `account`.
+     *
+     * If `account` had been granted `role`, emits a {RoleRevoked} event.
+     *
+     * Requirements:
+     *
+     * - the caller must have ``role``'s admin role.
+     */
+    function revokeRole(bytes32 role, address account) external;
+
+    /**
+     * @dev Revokes `role` from the calling account.
+     *
+     * Roles are often managed via {grantRole} and {revokeRole}: this function's
+     * purpose is to provide a mechanism for accounts to lose their privileges
+     * if they are compromised (such as when a trusted device is misplaced).
+     *
+     * If the calling account had been granted `role`, emits a {RoleRevoked}
+     * event.
+     *
+     * Requirements:
+     *
+     * - the caller must be `account`.
+     */
+    function renounceRole(bytes32 role, address account) external;
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (finance/PaymentSplitter.sol)
+
+pragma solidity ^0.8.0;
+
+import "../token/ERC20/utils/SafeERC20.sol";
+import "../utils/Address.sol";
+import "../utils/Context.sol";
+
+/**
+ * @title PaymentSplitter
+ * @dev This contract allows to split Ether payments among a group of accounts. The sender does not need to be aware
+ * that the Ether will be split in this way, since it is handled transparently by the contract.
+ *
+ * The split can be in equal parts or in any other arbitrary proportion. The way this is specified is by assigning each
+ * account to a number of shares. Of all the Ether that this contract receives, each account will then be able to claim
+ * an amount proportional to the percentage of total shares they were assigned. The distribution of shares is set at the
+ * time of contract deployment and can't be updated thereafter.
+ *
+ * `PaymentSplitter` follows a _pull payment_ model. This means that payments are not automatically forwarded to the
+ * accounts but kept in this contract, and the actual transfer is triggered as a separate step by calling the {release}
+ * function.
+ *
+ * NOTE: This contract assumes that ERC20 tokens will behave similarly to native tokens (Ether). Rebasing tokens, and
+ * tokens that apply fees during transfers, are likely to not be supported as expected. If in doubt, we encourage you
+ * to run tests before sending real value to this contract.
+ */
+contract PaymentSplitter is Context {
+    event PayeeAdded(address account, uint256 shares);
+    event PaymentReleased(address to, uint256 amount);
+    event ERC20PaymentReleased(IERC20 indexed token, address to, uint256 amount);
+    event PaymentReceived(address from, uint256 amount);
+
+    uint256 private _totalShares;
+    uint256 private _totalReleased;
+
+    mapping(address => uint256) private _shares;
+    mapping(address => uint256) private _released;
+    address[] private _payees;
+
+    mapping(IERC20 => uint256) private _erc20TotalReleased;
+    mapping(IERC20 => mapping(address => uint256)) private _erc20Released;
+
+    /**
+     * @dev Creates an instance of `PaymentSplitter` where each account in `payees` is assigned the number of shares at
+     * the matching position in the `shares` array.
+     *
+     * All addresses in `payees` must be non-zero. Both arrays must have the same non-zero length, and there must be no
+     * duplicates in `payees`.
+     */
+    constructor(address[] memory payees, uint256[] memory shares_) payable {
+        require(payees.length == shares_.length, "PaymentSplitter: payees and shares length mismatch");
+        require(payees.length > 0, "PaymentSplitter: no payees");
+
+        for (uint256 i = 0; i < payees.length; i++) {
+            _addPayee(payees[i], shares_[i]);
+        }
+    }
+
+    /**
+     * @dev The Ether received will be logged with {PaymentReceived} events. Note that these events are not fully
+     * reliable: it's possible for a contract to receive Ether without triggering this function. This only affects the
+     * reliability of the events, and not the actual splitting of Ether.
+     *
+     * To learn more about this see the Solidity documentation for
+     * https://solidity.readthedocs.io/en/latest/contracts.html#fallback-function[fallback
+     * functions].
+     */
+    receive() external payable virtual {
+        emit PaymentReceived(_msgSender(), msg.value);
+    }
+
+    /**
+     * @dev Getter for the total shares held by payees.
+     */
+    function totalShares() public view returns (uint256) {
+        return _totalShares;
+    }
+
+    /**
+     * @dev Getter for the total amount of Ether already released.
+     */
+    function totalReleased() public view returns (uint256) {
+        return _totalReleased;
+    }
+
+    /**
+     * @dev Getter for the total amount of `token` already released. `token` should be the address of an IERC20
+     * contract.
+     */
+    function totalReleased(IERC20 token) public view returns (uint256) {
+        return _erc20TotalReleased[token];
+    }
+
+    /**
+     * @dev Getter for the amount of shares held by an account.
+     */
+    function shares(address account) public view returns (uint256) {
+        return _shares[account];
+    }
+
+    /**
+     * @dev Getter for the amount of Ether already released to a payee.
+     */
+    function released(address account) public view returns (uint256) {
+        return _released[account];
+    }
+
+    /**
+     * @dev Getter for the amount of `token` tokens already released to a payee. `token` should be the address of an
+     * IERC20 contract.
+     */
+    function released(IERC20 token, address account) public view returns (uint256) {
+        return _erc20Released[token][account];
+    }
+
+    /**
+     * @dev Getter for the address of the payee number `index`.
+     */
+    function payee(uint256 index) public view returns (address) {
+        return _payees[index];
+    }
+
+    /**
+     * @dev Getter for the amount of payee's releasable Ether.
+     */
+    function releasable(address account) public view returns (uint256) {
+        uint256 totalReceived = address(this).balance + totalReleased();
+        return _pendingPayment(account, totalReceived, released(account));
+    }
+
+    /**
+     * @dev Getter for the amount of payee's releasable `token` tokens. `token` should be the address of an
+     * IERC20 contract.
+     */
+    function releasable(IERC20 token, address account) public view returns (uint256) {
+        uint256 totalReceived = token.balanceOf(address(this)) + totalReleased(token);
+        return _pendingPayment(account, totalReceived, released(token, account));
+    }
+
+    /**
+     * @dev Triggers a transfer to `account` of the amount of Ether they are owed, according to their percentage of the
+     * total shares and their previous withdrawals.
+     */
+    function release(address payable account) public virtual {
+        require(_shares[account] > 0, "PaymentSplitter: account has no shares");
+
+        uint256 payment = releasable(account);
+
+        require(payment != 0, "PaymentSplitter: account is not due payment");
+
+        _released[account] += payment;
+        _totalReleased += payment;
+
+        Address.sendValue(account, payment);
+        emit PaymentReleased(account, payment);
+    }
+
+    /**
+     * @dev Triggers a transfer to `account` of the amount of `token` tokens they are owed, according to their
+     * percentage of the total shares and their previous withdrawals. `token` must be the address of an IERC20
+     * contract.
+     */
+    function release(IERC20 token, address account) public virtual {
+        require(_shares[account] > 0, "PaymentSplitter: account has no shares");
+
+        uint256 payment = releasable(token, account);
+
+        require(payment != 0, "PaymentSplitter: account is not due payment");
+
+        _erc20Released[token][account] += payment;
+        _erc20TotalReleased[token] += payment;
+
+        SafeERC20.safeTransfer(token, account, payment);
+        emit ERC20PaymentReleased(token, account, payment);
+    }
+
+    /**
+     * @dev internal logic for computing the pending payment of an `account` given the token historical balances and
+     * already released amounts.
+     */
+    function _pendingPayment(
+        address account,
+        uint256 totalReceived,
+        uint256 alreadyReleased
+    ) private view returns (uint256) {
+        return (totalReceived * _shares[account]) / _totalShares - alreadyReleased;
+    }
+
+    /**
+     * @dev Add a new payee to the contract.
+     * @param account The address of the payee to add.
+     * @param shares_ The number of shares owned by the payee.
+     */
+    function _addPayee(address account, uint256 shares_) private {
+        require(account != address(0), "PaymentSplitter: account is the zero address");
+        require(shares_ > 0, "PaymentSplitter: shares are 0");
+        require(_shares[account] == 0, "PaymentSplitter: account already has shares");
+
+        _payees.push(account);
+        _shares[account] = shares_;
+        _totalShares = _totalShares + shares_;
+        emit PayeeAdded(account, shares_);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (interfaces/IERC2981.sol)
+
+pragma solidity ^0.8.0;
+
+import "../utils/introspection/IERC165.sol";
+
+/**
+ * @dev Interface for the NFT Royalty Standard.
+ *
+ * A standardized way to retrieve royalty payment information for non-fungible tokens (NFTs) to enable universal
+ * support for royalty payments across all NFT marketplaces and ecosystem participants.
+ *
+ * _Available since v4.5._
+ */
+interface IERC2981 is IERC165 {
+    /**
+     * @dev Returns how much royalty is owed and to whom, based on a sale price that may be denominated in any unit of
+     * exchange. The royalty amount is denominated and should be paid in that same unit of exchange.
+     */
+    function royaltyInfo(uint256 tokenId, uint256 salePrice)
+        external
+        view
+        returns (address receiver, uint256 royaltyAmount);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (security/Pausable.sol)
+
+pragma solidity ^0.8.0;
+
+import "../utils/Context.sol";
+
+/**
+ * @dev Contract module which allows children to implement an emergency stop
+ * mechanism that can be triggered by an authorized account.
+ *
+ * This module is used through inheritance. It will make available the
+ * modifiers `whenNotPaused` and `whenPaused`, which can be applied to
+ * the functions of your contract. Note that they will not be pausable by
+ * simply including this module, only once the modifiers are put in place.
+ */
+abstract contract Pausable is Context {
+    /**
+     * @dev Emitted when the pause is triggered by `account`.
+     */
+    event Paused(address account);
+
+    /**
+     * @dev Emitted when the pause is lifted by `account`.
+     */
+    event Unpaused(address account);
+
+    bool private _paused;
+
+    /**
+     * @dev Initializes the contract in unpaused state.
+     */
+    constructor() {
+        _paused = false;
+    }
+
+    /**
+     * @dev Modifier to make a function callable only when the contract is not paused.
+     *
+     * Requirements:
+     *
+     * - The contract must not be paused.
+     */
+    modifier whenNotPaused() {
+        _requireNotPaused();
+        _;
+    }
+
+    /**
+     * @dev Modifier to make a function callable only when the contract is paused.
+     *
+     * Requirements:
+     *
+     * - The contract must be paused.
+     */
+    modifier whenPaused() {
+        _requirePaused();
+        _;
+    }
+
+    /**
+     * @dev Returns true if the contract is paused, and false otherwise.
+     */
+    function paused() public view virtual returns (bool) {
+        return _paused;
+    }
+
+    /**
+     * @dev Throws if the contract is paused.
+     */
+    function _requireNotPaused() internal view virtual {
+        require(!paused(), "Pausable: paused");
+    }
+
+    /**
+     * @dev Throws if the contract is not paused.
+     */
+    function _requirePaused() internal view virtual {
+        require(paused(), "Pausable: not paused");
+    }
+
+    /**
+     * @dev Triggers stopped state.
+     *
+     * Requirements:
+     *
+     * - The contract must not be paused.
+     */
+    function _pause() internal virtual whenNotPaused {
+        _paused = true;
+        emit Paused(_msgSender());
+    }
+
+    /**
+     * @dev Returns to normal state.
+     *
+     * Requirements:
+     *
+     * - The contract must be paused.
+     */
+    function _unpause() internal virtual whenPaused {
+        _paused = false;
+        emit Unpaused(_msgSender());
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (security/ReentrancyGuard.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Contract module that helps prevent reentrant calls to a function.
+ *
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
+ * (reentrant) calls to them.
+ *
+ * Note that because there is a single `nonReentrant` guard, functions marked as
+ * `nonReentrant` may not call one another. This can be worked around by making
+ * those functions `private`, and then adding `external` `nonReentrant` entry
+ * points to them.
+ *
+ * TIP: If you would like to learn more about reentrancy and alternative ways
+ * to protect against it, check out our blog post
+ * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ */
+abstract contract ReentrancyGuard {
+    // Booleans are more expensive than uint256 or any type that takes up a full
+    // word because each write operation emits an extra SLOAD to first read the
+    // slot's contents, replace the bits taken up by the boolean, and then write
+    // back. This is the compiler's defense against contract upgrades and
+    // pointer aliasing, and it cannot be disabled.
+
+    // The values being non-zero value makes deployment a bit more expensive,
+    // but in exchange the refund on every call to nonReentrant will be lower in
+    // amount. Since refunds are capped to a percentage of the total
+    // transaction's gas, it is best to keep them low in cases like this one, to
+    // increase the likelihood of the full refund coming into effect.
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        // On the first call to nonReentrant, _notEntered will be true
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+
+        _;
+
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/draft-IERC20Permit.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 Permit extension allowing approvals to be made via signatures, as defined in
+ * https://eips.ethereum.org/EIPS/eip-2612[EIP-2612].
+ *
+ * Adds the {permit} method, which can be used to change an account's ERC20 allowance (see {IERC20-allowance}) by
+ * presenting a message signed by the account. By not relying on {IERC20-approve}, the token holder account doesn't
+ * need to send a transaction, and thus is not required to hold Ether at all.
+ */
+interface IERC20Permit {
+    /**
+     * @dev Sets `value` as the allowance of `spender` over ``owner``'s tokens,
+     * given ``owner``'s signed approval.
+     *
+     * IMPORTANT: The same issues {IERC20-approve} has related to transaction
+     * ordering also apply here.
+     *
+     * Emits an {Approval} event.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     * - `deadline` must be a timestamp in the future.
+     * - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner`
+     * over the EIP712-formatted function arguments.
+     * - the signature must use ``owner``'s current nonce (see {nonces}).
+     *
+     * For more information on the signature format, see the
+     * https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP
+     * section].
+     */
+    function permit(
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external;
+
+    /**
+     * @dev Returns the current nonce for `owner`. This value must be
+     * included whenever a signature is generated for {permit}.
+     *
+     * Every successful call to {permit} increases ``owner``'s nonce by one. This
+     * prevents a signature from being used multiple times.
+     */
+    function nonces(address owner) external view returns (uint256);
+
+    /**
+     * @dev Returns the domain separator used in the encoding of the signature for {permit}, as defined by {EIP712}.
+     */
+    // solhint-disable-next-line func-name-mixedcase
+    function DOMAIN_SEPARATOR() external view returns (bytes32);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (token/ERC20/utils/SafeERC20.sol)
+
+pragma solidity ^0.8.0;
+
+import "../IERC20.sol";
+import "../extensions/draft-IERC20Permit.sol";
+import "../../../utils/Address.sol";
+
+/**
+ * @title SafeERC20
+ * @dev Wrappers around ERC20 operations that throw on failure (when the token
+ * contract returns false). Tokens that return no value (and instead revert or
+ * throw on failure) are also supported, non-reverting calls are assumed to be
+ * successful.
+ * To use this library you can add a `using SafeERC20 for IERC20;` statement to your contract,
+ * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
+ */
+library SafeERC20 {
+    using Address for address;
+
+    function safeTransfer(
+        IERC20 token,
+        address to,
+        uint256 value
+    ) internal {
+        _callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
+    }
+
+    function safeTransferFrom(
+        IERC20 token,
+        address from,
+        address to,
+        uint256 value
+    ) internal {
+        _callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));
+    }
+
+    /**
+     * @dev Deprecated. This function has issues similar to the ones found in
+     * {IERC20-approve}, and its usage is discouraged.
+     *
+     * Whenever possible, use {safeIncreaseAllowance} and
+     * {safeDecreaseAllowance} instead.
+     */
+    function safeApprove(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        // safeApprove should only be called when setting an initial allowance,
+        // or when resetting it to zero. To increase and decrease it, use
+        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
+        require(
+            (value == 0) || (token.allowance(address(this), spender) == 0),
+            "SafeERC20: approve from non-zero to non-zero allowance"
+        );
+        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, value));
+    }
+
+    function safeIncreaseAllowance(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        uint256 newAllowance = token.allowance(address(this), spender) + value;
+        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
+    }
+
+    function safeDecreaseAllowance(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        unchecked {
+            uint256 oldAllowance = token.allowance(address(this), spender);
+            require(oldAllowance >= value, "SafeERC20: decreased allowance below zero");
+            uint256 newAllowance = oldAllowance - value;
+            _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
+        }
+    }
+
+    function safePermit(
+        IERC20Permit token,
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) internal {
+        uint256 nonceBefore = token.nonces(owner);
+        token.permit(owner, spender, value, deadline, v, r, s);
+        uint256 nonceAfter = token.nonces(owner);
+        require(nonceAfter == nonceBefore + 1, "SafeERC20: permit did not succeed");
+    }
+
+    /**
+     * @dev Imitates a Solidity high-level call (i.e. a regular function call to a contract), relaxing the requirement
+     * on the return value: the return value is optional (but if data is returned, it must not be false).
+     * @param token The token targeted by the call.
+     * @param data The call data (encoded using abi.encode or one of its variants).
+     */
+    function _callOptionalReturn(IERC20 token, bytes memory data) private {
+        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
+        // we're implementing it ourselves. We use {Address.functionCall} to perform this call, which verifies that
+        // the target address contains contract code and also asserts for success in the low-level call.
+
+        bytes memory returndata = address(token).functionCall(data, "SafeERC20: low-level call failed");
+        if (returndata.length > 0) {
+            // Return data is optional
+            require(abi.decode(returndata, (bool)), "SafeERC20: ERC20 operation did not succeed");
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (utils/Address.sol)
+
+pragma solidity ^0.8.1;
+
+/**
+ * @dev Collection of functions related to the address type
+ */
+library Address {
+    /**
+     * @dev Returns true if `account` is a contract.
+     *
+     * [IMPORTANT]
+     * ====
+     * It is unsafe to assume that an address for which this function returns
+     * false is an externally-owned account (EOA) and not a contract.
+     *
+     * Among others, `isContract` will return false for the following
+     * types of addresses:
+     *
+     *  - an externally-owned account
+     *  - a contract in construction
+     *  - an address where a contract will be created
+     *  - an address where a contract lived, but was destroyed
+     * ====
+     *
+     * [IMPORTANT]
+     * ====
+     * You shouldn't rely on `isContract` to protect against flash loan attacks!
+     *
+     * Preventing calls from contracts is highly discouraged. It breaks composability, breaks support for smart wallets
+     * like Gnosis Safe, and does not provide security since it can be circumvented by calling from a contract
+     * constructor.
+     * ====
+     */
+    function isContract(address account) internal view returns (bool) {
+        // This method relies on extcodesize/address.code.length, which returns 0
+        // for contracts in construction, since the code is only stored at the end
+        // of the constructor execution.
+
+        return account.code.length > 0;
+    }
+
+    /**
+     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to
+     * `recipient`, forwarding all available gas and reverting on errors.
+     *
+     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost
+     * of certain opcodes, possibly making contracts go over the 2300 gas limit
+     * imposed by `transfer`, making them unable to receive funds via
+     * `transfer`. {sendValue} removes this limitation.
+     *
+     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].
+     *
+     * IMPORTANT: because control is transferred to `recipient`, care must be
+     * taken to not create reentrancy vulnerabilities. Consider using
+     * {ReentrancyGuard} or the
+     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].
+     */
+    function sendValue(address payable recipient, uint256 amount) internal {
+        require(address(this).balance >= amount, "Address: insufficient balance");
+
+        (bool success, ) = recipient.call{value: amount}("");
+        require(success, "Address: unable to send value, recipient may have reverted");
+    }
+
+    /**
+     * @dev Performs a Solidity function call using a low level `call`. A
+     * plain `call` is an unsafe replacement for a function call: use this
+     * function instead.
+     *
+     * If `target` reverts with a revert reason, it is bubbled up by this
+     * function (like regular Solidity function calls).
+     *
+     * Returns the raw returned data. To convert to the expected return value,
+     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].
+     *
+     * Requirements:
+     *
+     * - `target` must be a contract.
+     * - calling `target` with `data` must not revert.
+     *
+     * _Available since v3.1._
+     */
+    function functionCall(address target, bytes memory data) internal returns (bytes memory) {
+        return functionCall(target, data, "Address: low-level call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with
+     * `errorMessage` as a fallback revert reason when `target` reverts.
+     *
+     * _Available since v3.1._
+     */
+    function functionCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, 0, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but also transferring `value` wei to `target`.
+     *
+     * Requirements:
+     *
+     * - the calling contract must have an ETH balance of at least `value`.
+     * - the called Solidity function must be `payable`.
+     *
+     * _Available since v3.1._
+     */
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value
+    ) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but
+     * with `errorMessage` as a fallback revert reason when `target` reverts.
+     *
+     * _Available since v3.1._
+     */
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        require(address(this).balance >= value, "Address: insufficient balance for call");
+        require(isContract(target), "Address: call to non-contract");
+
+        (bool success, bytes memory returndata) = target.call{value: value}(data);
+        return verifyCallResult(success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but performing a static call.
+     *
+     * _Available since v3.3._
+     */
+    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {
+        return functionStaticCall(target, data, "Address: low-level static call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a static call.
+     *
+     * _Available since v3.3._
+     */
+    function functionStaticCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal view returns (bytes memory) {
+        require(isContract(target), "Address: static call to non-contract");
+
+        (bool success, bytes memory returndata) = target.staticcall(data);
+        return verifyCallResult(success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but performing a delegate call.
+     *
+     * _Available since v3.4._
+     */
+    function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {
+        return functionDelegateCall(target, data, "Address: low-level delegate call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a delegate call.
+     *
+     * _Available since v3.4._
+     */
+    function functionDelegateCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        require(isContract(target), "Address: delegate call to non-contract");
+
+        (bool success, bytes memory returndata) = target.delegatecall(data);
+        return verifyCallResult(success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Tool to verifies that a low level call was successful, and revert if it wasn't, either by bubbling the
+     * revert reason using the provided one.
+     *
+     * _Available since v4.3._
+     */
+    function verifyCallResult(
+        bool success,
+        bytes memory returndata,
+        string memory errorMessage
+    ) internal pure returns (bytes memory) {
+        if (success) {
+            return returndata;
+        } else {
+            // Look for revert reason and bubble it up if present
+            if (returndata.length > 0) {
+                // The easiest way to bubble the revert reason is using memory via assembly
+                /// @solidity memory-safe-assembly
+                assembly {
+                    let returndata_size := mload(returndata)
+                    revert(add(32, returndata), returndata_size)
+                }
+            } else {
+                revert(errorMessage);
+            }
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (utils/Strings.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev String operations.
+ */
+library Strings {
+    bytes16 private constant _HEX_SYMBOLS = "0123456789abcdef";
+    uint8 private constant _ADDRESS_LENGTH = 20;
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation.
+     */
+    function toHexString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0x00";
+        }
+        uint256 temp = value;
+        uint256 length = 0;
+        while (temp != 0) {
+            length++;
+            temp >>= 8;
+        }
+        return toHexString(value, length);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation with fixed length.
+     */
+    function toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+        bytes memory buffer = new bytes(2 * length + 2);
+        buffer[0] = "0";
+        buffer[1] = "x";
+        for (uint256 i = 2 * length + 1; i > 1; --i) {
+            buffer[i] = _HEX_SYMBOLS[value & 0xf];
+            value >>= 4;
+        }
+        require(value == 0, "Strings: hex length insufficient");
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts an `address` with fixed length of 20 bytes to its not checksummed ASCII `string` hexadecimal representation.
+     */
+    function toHexString(address addr) internal pure returns (string memory) {
+        return toHexString(uint256(uint160(addr)), _ADDRESS_LENGTH);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (utils/cryptography/ECDSA.sol)
+
+pragma solidity ^0.8.0;
+
+import "../Strings.sol";
+
+/**
+ * @dev Elliptic Curve Digital Signature Algorithm (ECDSA) operations.
+ *
+ * These functions can be used to verify that a message was signed by the holder
+ * of the private keys of a given address.
+ */
+library ECDSA {
+    enum RecoverError {
+        NoError,
+        InvalidSignature,
+        InvalidSignatureLength,
+        InvalidSignatureS,
+        InvalidSignatureV
+    }
+
+    function _throwError(RecoverError error) private pure {
+        if (error == RecoverError.NoError) {
+            return; // no error: do nothing
+        } else if (error == RecoverError.InvalidSignature) {
+            revert("ECDSA: invalid signature");
+        } else if (error == RecoverError.InvalidSignatureLength) {
+            revert("ECDSA: invalid signature length");
+        } else if (error == RecoverError.InvalidSignatureS) {
+            revert("ECDSA: invalid signature 's' value");
+        } else if (error == RecoverError.InvalidSignatureV) {
+            revert("ECDSA: invalid signature 'v' value");
+        }
+    }
+
+    /**
+     * @dev Returns the address that signed a hashed message (`hash`) with
+     * `signature` or error string. This address can then be used for verification purposes.
+     *
+     * The `ecrecover` EVM opcode allows for malleable (non-unique) signatures:
+     * this function rejects them by requiring the `s` value to be in the lower
+     * half order, and the `v` value to be either 27 or 28.
+     *
+     * IMPORTANT: `hash` _must_ be the result of a hash operation for the
+     * verification to be secure: it is possible to craft signatures that
+     * recover to arbitrary addresses for non-hashed data. A safe way to ensure
+     * this is by receiving a hash of the original message (which may otherwise
+     * be too long), and then calling {toEthSignedMessageHash} on it.
+     *
+     * Documentation for signature generation:
+     * - with https://web3js.readthedocs.io/en/v1.3.4/web3-eth-accounts.html#sign[Web3.js]
+     * - with https://docs.ethers.io/v5/api/signer/#Signer-signMessage[ethers]
+     *
+     * _Available since v4.3._
+     */
+    function tryRecover(bytes32 hash, bytes memory signature) internal pure returns (address, RecoverError) {
+        // Check the signature length
+        // - case 65: r,s,v signature (standard)
+        // - case 64: r,vs signature (cf https://eips.ethereum.org/EIPS/eip-2098) _Available since v4.1._
+        if (signature.length == 65) {
+            bytes32 r;
+            bytes32 s;
+            uint8 v;
+            // ecrecover takes the signature parameters, and the only way to get them
+            // currently is to use assembly.
+            /// @solidity memory-safe-assembly
+            assembly {
+                r := mload(add(signature, 0x20))
+                s := mload(add(signature, 0x40))
+                v := byte(0, mload(add(signature, 0x60)))
+            }
+            return tryRecover(hash, v, r, s);
+        } else if (signature.length == 64) {
+            bytes32 r;
+            bytes32 vs;
+            // ecrecover takes the signature parameters, and the only way to get them
+            // currently is to use assembly.
+            /// @solidity memory-safe-assembly
+            assembly {
+                r := mload(add(signature, 0x20))
+                vs := mload(add(signature, 0x40))
+            }
+            return tryRecover(hash, r, vs);
+        } else {
+            return (address(0), RecoverError.InvalidSignatureLength);
+        }
+    }
+
+    /**
+     * @dev Returns the address that signed a hashed message (`hash`) with
+     * `signature`. This address can then be used for verification purposes.
+     *
+     * The `ecrecover` EVM opcode allows for malleable (non-unique) signatures:
+     * this function rejects them by requiring the `s` value to be in the lower
+     * half order, and the `v` value to be either 27 or 28.
+     *
+     * IMPORTANT: `hash` _must_ be the result of a hash operation for the
+     * verification to be secure: it is possible to craft signatures that
+     * recover to arbitrary addresses for non-hashed data. A safe way to ensure
+     * this is by receiving a hash of the original message (which may otherwise
+     * be too long), and then calling {toEthSignedMessageHash} on it.
+     */
+    function recover(bytes32 hash, bytes memory signature) internal pure returns (address) {
+        (address recovered, RecoverError error) = tryRecover(hash, signature);
+        _throwError(error);
+        return recovered;
+    }
+
+    /**
+     * @dev Overload of {ECDSA-tryRecover} that receives the `r` and `vs` short-signature fields separately.
+     *
+     * See https://eips.ethereum.org/EIPS/eip-2098[EIP-2098 short signatures]
+     *
+     * _Available since v4.3._
+     */
+    function tryRecover(
+        bytes32 hash,
+        bytes32 r,
+        bytes32 vs
+    ) internal pure returns (address, RecoverError) {
+        bytes32 s = vs & bytes32(0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff);
+        uint8 v = uint8((uint256(vs) >> 255) + 27);
+        return tryRecover(hash, v, r, s);
+    }
+
+    /**
+     * @dev Overload of {ECDSA-recover} that receives the `r and `vs` short-signature fields separately.
+     *
+     * _Available since v4.2._
+     */
+    function recover(
+        bytes32 hash,
+        bytes32 r,
+        bytes32 vs
+    ) internal pure returns (address) {
+        (address recovered, RecoverError error) = tryRecover(hash, r, vs);
+        _throwError(error);
+        return recovered;
+    }
+
+    /**
+     * @dev Overload of {ECDSA-tryRecover} that receives the `v`,
+     * `r` and `s` signature fields separately.
+     *
+     * _Available since v4.3._
+     */
+    function tryRecover(
+        bytes32 hash,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) internal pure returns (address, RecoverError) {
+        // EIP-2 still allows signature malleability for ecrecover(). Remove this possibility and make the signature
+        // unique. Appendix F in the Ethereum Yellow paper (https://ethereum.github.io/yellowpaper/paper.pdf), defines
+        // the valid range for s in (301): 0 < s < secp256k1n ÷ 2 + 1, and for v in (302): v ∈ {27, 28}. Most
+        // signatures from current libraries generate a unique signature with an s-value in the lower half order.
+        //
+        // If your library generates malleable signatures, such as s-values in the upper range, calculate a new s-value
+        // with 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141 - s1 and flip v from 27 to 28 or
+        // vice versa. If your library also generates signatures with 0/1 for v instead 27/28, add 27 to v to accept
+        // these malleable signatures as well.
+        if (uint256(s) > 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0) {
+            return (address(0), RecoverError.InvalidSignatureS);
+        }
+        if (v != 27 && v != 28) {
+            return (address(0), RecoverError.InvalidSignatureV);
+        }
+
+        // If the signature is valid (and not malleable), return the signer address
+        address signer = ecrecover(hash, v, r, s);
+        if (signer == address(0)) {
+            return (address(0), RecoverError.InvalidSignature);
+        }
+
+        return (signer, RecoverError.NoError);
+    }
+
+    /**
+     * @dev Overload of {ECDSA-recover} that receives the `v`,
+     * `r` and `s` signature fields separately.
+     */
+    function recover(
+        bytes32 hash,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) internal pure returns (address) {
+        (address recovered, RecoverError error) = tryRecover(hash, v, r, s);
+        _throwError(error);
+        return recovered;
+    }
+
+    /**
+     * @dev Returns an Ethereum Signed Message, created from a `hash`. This
+     * produces hash corresponding to the one signed with the
+     * https://eth.wiki/json-rpc/API#eth_sign[`eth_sign`]
+     * JSON-RPC method as part of EIP-191.
+     *
+     * See {recover}.
+     */
+    function toEthSignedMessageHash(bytes32 hash) internal pure returns (bytes32) {
+        // 32 is the length in bytes of hash,
+        // enforced by the type signature above
+        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash));
+    }
+
+    /**
+     * @dev Returns an Ethereum Signed Message, created from `s`. This
+     * produces hash corresponding to the one signed with the
+     * https://eth.wiki/json-rpc/API#eth_sign[`eth_sign`]
+     * JSON-RPC method as part of EIP-191.
+     *
+     * See {recover}.
+     */
+    function toEthSignedMessageHash(bytes memory s) internal pure returns (bytes32) {
+        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n", Strings.toString(s.length), s));
+    }
+
+    /**
+     * @dev Returns an Ethereum Signed Typed Data, created from a
+     * `domainSeparator` and a `structHash`. This produces hash corresponding
+     * to the one signed with the
+     * https://eips.ethereum.org/EIPS/eip-712[`eth_signTypedData`]
+     * JSON-RPC method as part of EIP-712.
+     *
+     * See {recover}.
+     */
+    function toTypedDataHash(bytes32 domainSeparator, bytes32 structHash) internal pure returns (bytes32) {
+        return keccak256(abi.encodePacked("\x19\x01", domainSeparator, structHash));
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (utils/cryptography/MerkleProof.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev These functions deal with verification of Merkle Tree proofs.
+ *
+ * The proofs can be generated using the JavaScript library
+ * https://github.com/miguelmota/merkletreejs[merkletreejs].
+ * Note: the hashing algorithm should be keccak256 and pair sorting should be enabled.
+ *
+ * See `test/utils/cryptography/MerkleProof.test.js` for some examples.
+ *
+ * WARNING: You should avoid using leaf values that are 64 bytes long prior to
+ * hashing, or use a hash function other than keccak256 for hashing leaves.
+ * This is because the concatenation of a sorted pair of internal nodes in
+ * the merkle tree could be reinterpreted as a leaf value.
+ */
+library MerkleProof {
+    /**
+     * @dev Returns true if a `leaf` can be proved to be a part of a Merkle tree
+     * defined by `root`. For this, a `proof` must be provided, containing
+     * sibling hashes on the branch from the leaf to the root of the tree. Each
+     * pair of leaves and each pair of pre-images are assumed to be sorted.
+     */
+    function verify(
+        bytes32[] memory proof,
+        bytes32 root,
+        bytes32 leaf
+    ) internal pure returns (bool) {
+        return processProof(proof, leaf) == root;
+    }
+
+    /**
+     * @dev Calldata version of {verify}
+     *
+     * _Available since v4.7._
+     */
+    function verifyCalldata(
+        bytes32[] calldata proof,
+        bytes32 root,
+        bytes32 leaf
+    ) internal pure returns (bool) {
+        return processProofCalldata(proof, leaf) == root;
+    }
+
+    /**
+     * @dev Returns the rebuilt hash obtained by traversing a Merkle tree up
+     * from `leaf` using `proof`. A `proof` is valid if and only if the rebuilt
+     * hash matches the root of the tree. When processing the proof, the pairs
+     * of leafs & pre-images are assumed to be sorted.
+     *
+     * _Available since v4.4._
+     */
+    function processProof(bytes32[] memory proof, bytes32 leaf) internal pure returns (bytes32) {
+        bytes32 computedHash = leaf;
+        for (uint256 i = 0; i < proof.length; i++) {
+            computedHash = _hashPair(computedHash, proof[i]);
+        }
+        return computedHash;
+    }
+
+    /**
+     * @dev Calldata version of {processProof}
+     *
+     * _Available since v4.7._
+     */
+    function processProofCalldata(bytes32[] calldata proof, bytes32 leaf) internal pure returns (bytes32) {
+        bytes32 computedHash = leaf;
+        for (uint256 i = 0; i < proof.length; i++) {
+            computedHash = _hashPair(computedHash, proof[i]);
+        }
+        return computedHash;
+    }
+
+    /**
+     * @dev Returns true if the `leaves` can be proved to be a part of a Merkle tree defined by
+     * `root`, according to `proof` and `proofFlags` as described in {processMultiProof}.
+     *
+     * _Available since v4.7._
+     */
+    function multiProofVerify(
+        bytes32[] memory proof,
+        bool[] memory proofFlags,
+        bytes32 root,
+        bytes32[] memory leaves
+    ) internal pure returns (bool) {
+        return processMultiProof(proof, proofFlags, leaves) == root;
+    }
+
+    /**
+     * @dev Calldata version of {multiProofVerify}
+     *
+     * _Available since v4.7._
+     */
+    function multiProofVerifyCalldata(
+        bytes32[] calldata proof,
+        bool[] calldata proofFlags,
+        bytes32 root,
+        bytes32[] memory leaves
+    ) internal pure returns (bool) {
+        return processMultiProofCalldata(proof, proofFlags, leaves) == root;
+    }
+
+    /**
+     * @dev Returns the root of a tree reconstructed from `leaves` and the sibling nodes in `proof`,
+     * consuming from one or the other at each step according to the instructions given by
+     * `proofFlags`.
+     *
+     * _Available since v4.7._
+     */
+    function processMultiProof(
+        bytes32[] memory proof,
+        bool[] memory proofFlags,
+        bytes32[] memory leaves
+    ) internal pure returns (bytes32 merkleRoot) {
+        // This function rebuild the root hash by traversing the tree up from the leaves. The root is rebuilt by
+        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+        // `hashes` array. At the end of the process, the last hash in the `hashes` array should contain the root of
+        // the merkle tree.
+        uint256 leavesLen = leaves.length;
+        uint256 totalHashes = proofFlags.length;
+
+        // Check proof validity.
+        require(leavesLen + proof.length - 1 == totalHashes, "MerkleProof: invalid multiproof");
+
+        // The xxxPos values are "pointers" to the next value to consume in each array. All accesses are done using
+        // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+        bytes32[] memory hashes = new bytes32[](totalHashes);
+        uint256 leafPos = 0;
+        uint256 hashPos = 0;
+        uint256 proofPos = 0;
+        // At each step, we compute the next hash using two values:
+        // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+        //   get the next hash.
+        // - depending on the flag, either another value for the "main queue" (merging branches) or an element from the
+        //   `proof` array.
+        for (uint256 i = 0; i < totalHashes; i++) {
+            bytes32 a = leafPos < leavesLen ? leaves[leafPos++] : hashes[hashPos++];
+            bytes32 b = proofFlags[i] ? leafPos < leavesLen ? leaves[leafPos++] : hashes[hashPos++] : proof[proofPos++];
+            hashes[i] = _hashPair(a, b);
+        }
+
+        if (totalHashes > 0) {
+            return hashes[totalHashes - 1];
+        } else if (leavesLen > 0) {
+            return leaves[0];
+        } else {
+            return proof[0];
+        }
+    }
+
+    /**
+     * @dev Calldata version of {processMultiProof}
+     *
+     * _Available since v4.7._
+     */
+    function processMultiProofCalldata(
+        bytes32[] calldata proof,
+        bool[] calldata proofFlags,
+        bytes32[] memory leaves
+    ) internal pure returns (bytes32 merkleRoot) {
+        // This function rebuild the root hash by traversing the tree up from the leaves. The root is rebuilt by
+        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+        // `hashes` array. At the end of the process, the last hash in the `hashes` array should contain the root of
+        // the merkle tree.
+        uint256 leavesLen = leaves.length;
+        uint256 totalHashes = proofFlags.length;
+
+        // Check proof validity.
+        require(leavesLen + proof.length - 1 == totalHashes, "MerkleProof: invalid multiproof");
+
+        // The xxxPos values are "pointers" to the next value to consume in each array. All accesses are done using
+        // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+        bytes32[] memory hashes = new bytes32[](totalHashes);
+        uint256 leafPos = 0;
+        uint256 hashPos = 0;
+        uint256 proofPos = 0;
+        // At each step, we compute the next hash using two values:
+        // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+        //   get the next hash.
+        // - depending on the flag, either another value for the "main queue" (merging branches) or an element from the
+        //   `proof` array.
+        for (uint256 i = 0; i < totalHashes; i++) {
+            bytes32 a = leafPos < leavesLen ? leaves[leafPos++] : hashes[hashPos++];
+            bytes32 b = proofFlags[i] ? leafPos < leavesLen ? leaves[leafPos++] : hashes[hashPos++] : proof[proofPos++];
+            hashes[i] = _hashPair(a, b);
+        }
+
+        if (totalHashes > 0) {
+            return hashes[totalHashes - 1];
+        } else if (leavesLen > 0) {
+            return leaves[0];
+        } else {
+            return proof[0];
+        }
+    }
+
+    function _hashPair(bytes32 a, bytes32 b) private pure returns (bytes32) {
+        return a < b ? _efficientHash(a, b) : _efficientHash(b, a);
+    }
+
+    function _efficientHash(bytes32 a, bytes32 b) private pure returns (bytes32 value) {
+        /// @solidity memory-safe-assembly
+        assembly {
+            mstore(0x00, a)
+            mstore(0x20, b)
+            value := keccak256(0x00, 0x40)
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC165 standard, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-165[EIP].
+ *
+ * Implementers can declare support of contract interfaces, which can then be
+ * queried by others ({ERC165Checker}).
+ *
+ * For an implementation, see {ERC165}.
+ */
+interface IERC165 {
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/structs/BitMaps.sol)
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Library for managing uint256 to bool mapping in a compact and efficient way, providing the keys are sequential.
+ * Largelly inspired by Uniswap's https://github.com/Uniswap/merkle-distributor/blob/master/contracts/MerkleDistributor.sol[merkle-distributor].
+ */
+library BitMaps {
+    struct BitMap {
+        mapping(uint256 => uint256) _data;
+    }
+
+    /**
+     * @dev Returns whether the bit at `index` is set.
+     */
+    function get(BitMap storage bitmap, uint256 index) internal view returns (bool) {
+        uint256 bucket = index >> 8;
+        uint256 mask = 1 << (index & 0xff);
+        return bitmap._data[bucket] & mask != 0;
+    }
+
+    /**
+     * @dev Sets the bit at `index` to the boolean `value`.
+     */
+    function setTo(
+        BitMap storage bitmap,
+        uint256 index,
+        bool value
+    ) internal {
+        if (value) {
+            set(bitmap, index);
+        } else {
+            unset(bitmap, index);
+        }
+    }
+
+    /**
+     * @dev Sets the bit at `index`.
+     */
+    function set(BitMap storage bitmap, uint256 index) internal {
+        uint256 bucket = index >> 8;
+        uint256 mask = 1 << (index & 0xff);
+        bitmap._data[bucket] |= mask;
+    }
+
+    /**
+     * @dev Unsets the bit at `index`.
+     */
+    function unset(BitMap storage bitmap, uint256 index) internal {
+        uint256 bucket = index >> 8;
+        uint256 mask = 1 << (index & 0xff);
+        bitmap._data[bucket] &= ~mask;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// ERC721A Contracts v4.1.0
+// Creator: Chiru Labs
+
+pragma solidity ^0.8.4;
+
+import './IERC721A.sol';
+
+/**
+ * @dev ERC721 token receiver interface.
+ */
+interface ERC721A__IERC721Receiver {
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external returns (bytes4);
+}
+
+/**
+ * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard,
+ * including the Metadata extension. Built to optimize for lower gas during batch mints.
+ *
+ * Assumes serials are sequentially minted starting at `_startTokenId()`
+ * (defaults to 0, e.g. 0, 1, 2, 3..).
+ *
+ * Assumes that an owner cannot have more than 2**64 - 1 (max value of uint64) of supply.
+ *
+ * Assumes that the maximum token id cannot exceed 2**256 - 1 (max value of uint256).
+ */
+contract ERC721A is IERC721A {
+    // Mask of an entry in packed address data.
+    uint256 private constant BITMASK_ADDRESS_DATA_ENTRY = (1 << 64) - 1;
+
+    // The bit position of `numberMinted` in packed address data.
+    uint256 private constant BITPOS_NUMBER_MINTED = 64;
+
+    // The bit position of `numberBurned` in packed address data.
+    uint256 private constant BITPOS_NUMBER_BURNED = 128;
+
+    // The bit position of `aux` in packed address data.
+    uint256 private constant BITPOS_AUX = 192;
+
+    // Mask of all 256 bits in packed address data except the 64 bits for `aux`.
+    uint256 private constant BITMASK_AUX_COMPLEMENT = (1 << 192) - 1;
+
+    // The bit position of `startTimestamp` in packed ownership.
+    uint256 private constant BITPOS_START_TIMESTAMP = 160;
+
+    // The bit mask of the `burned` bit in packed ownership.
+    uint256 private constant BITMASK_BURNED = 1 << 224;
+
+    // The bit position of the `nextInitialized` bit in packed ownership.
+    uint256 private constant BITPOS_NEXT_INITIALIZED = 225;
+
+    // The bit mask of the `nextInitialized` bit in packed ownership.
+    uint256 private constant BITMASK_NEXT_INITIALIZED = 1 << 225;
+
+    // The bit position of `extraData` in packed ownership.
+    uint256 private constant BITPOS_EXTRA_DATA = 232;
+
+    // Mask of all 256 bits in a packed ownership except the 24 bits for `extraData`.
+    uint256 private constant BITMASK_EXTRA_DATA_COMPLEMENT = (1 << 232) - 1;
+
+    // The mask of the lower 160 bits for addresses.
+    uint256 private constant BITMASK_ADDRESS = (1 << 160) - 1;
+
+    // The maximum `quantity` that can be minted with `_mintERC2309`.
+    // This limit is to prevent overflows on the address data entries.
+    // For a limit of 5000, a total of 3.689e15 calls to `_mintERC2309`
+    // is required to cause an overflow, which is unrealistic.
+    uint256 private constant MAX_MINT_ERC2309_QUANTITY_LIMIT = 5000;
+
+    // The tokenId of the next token to be minted.
+    uint256 private _currentIndex;
+
+    // The number of tokens burned.
+    uint256 private _burnCounter;
+
+    // Token name
+    string private _name;
+
+    // Token symbol
+    string private _symbol;
+
+    // Mapping from token ID to ownership details
+    // An empty struct value does not necessarily mean the token is unowned.
+    // See `_packedOwnershipOf` implementation for details.
+    //
+    // Bits Layout:
+    // - [0..159]   `addr`
+    // - [160..223] `startTimestamp`
+    // - [224]      `burned`
+    // - [225]      `nextInitialized`
+    // - [232..255] `extraData`
+    mapping(uint256 => uint256) private _packedOwnerships;
+
+    // Mapping owner address to address data.
+    //
+    // Bits Layout:
+    // - [0..63]    `balance`
+    // - [64..127]  `numberMinted`
+    // - [128..191] `numberBurned`
+    // - [192..255] `aux`
+    mapping(address => uint256) private _packedAddressData;
+
+    // Mapping from token ID to approved address.
+    mapping(uint256 => address) private _tokenApprovals;
+
+    // Mapping from owner to operator approvals
+    mapping(address => mapping(address => bool)) private _operatorApprovals;
+
+    constructor(string memory name_, string memory symbol_) {
+        _name = name_;
+        _symbol = symbol_;
+        _currentIndex = _startTokenId();
+    }
+
+    /**
+     * @dev Returns the starting token ID.
+     * To change the starting token ID, please override this function.
+     */
+    function _startTokenId() internal view virtual returns (uint256) {
+        return 0;
+    }
+
+    /**
+     * @dev Returns the next token ID to be minted.
+     */
+    function _nextTokenId() internal view returns (uint256) {
+        return _currentIndex;
+    }
+
+    /**
+     * @dev Returns the total number of tokens in existence.
+     * Burned tokens will reduce the count.
+     * To get the total number of tokens minted, please see `_totalMinted`.
+     */
+    function totalSupply() public view override returns (uint256) {
+        // Counter underflow is impossible as _burnCounter cannot be incremented
+        // more than `_currentIndex - _startTokenId()` times.
+        unchecked {
+            return _currentIndex - _burnCounter - _startTokenId();
+        }
+    }
+
+    /**
+     * @dev Returns the total amount of tokens minted in the contract.
+     */
+    function _totalMinted() internal view returns (uint256) {
+        // Counter underflow is impossible as _currentIndex does not decrement,
+        // and it is initialized to `_startTokenId()`
+        unchecked {
+            return _currentIndex - _startTokenId();
+        }
+    }
+
+    /**
+     * @dev Returns the total number of tokens burned.
+     */
+    function _totalBurned() internal view returns (uint256) {
+        return _burnCounter;
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        // The interface IDs are constants representing the first 4 bytes of the XOR of
+        // all function selectors in the interface. See: https://eips.ethereum.org/EIPS/eip-165
+        // e.g. `bytes4(i.functionA.selector ^ i.functionB.selector ^ ...)`
+        return
+            interfaceId == 0x01ffc9a7 || // ERC165 interface ID for ERC165.
+            interfaceId == 0x80ac58cd || // ERC165 interface ID for ERC721.
+            interfaceId == 0x5b5e139f; // ERC165 interface ID for ERC721Metadata.
+    }
+
+    /**
+     * @dev See {IERC721-balanceOf}.
+     */
+    function balanceOf(address owner) public view override returns (uint256) {
+        if (owner == address(0)) revert BalanceQueryForZeroAddress();
+        return _packedAddressData[owner] & BITMASK_ADDRESS_DATA_ENTRY;
+    }
+
+    /**
+     * Returns the number of tokens minted by `owner`.
+     */
+    function _numberMinted(address owner) internal view returns (uint256) {
+        return (_packedAddressData[owner] >> BITPOS_NUMBER_MINTED) & BITMASK_ADDRESS_DATA_ENTRY;
+    }
+
+    /**
+     * Returns the number of tokens burned by or on behalf of `owner`.
+     */
+    function _numberBurned(address owner) internal view returns (uint256) {
+        return (_packedAddressData[owner] >> BITPOS_NUMBER_BURNED) & BITMASK_ADDRESS_DATA_ENTRY;
+    }
+
+    /**
+     * Returns the auxiliary data for `owner`. (e.g. number of whitelist mint slots used).
+     */
+    function _getAux(address owner) internal view returns (uint64) {
+        return uint64(_packedAddressData[owner] >> BITPOS_AUX);
+    }
+
+    /**
+     * Sets the auxiliary data for `owner`. (e.g. number of whitelist mint slots used).
+     * If there are multiple variables, please pack them into a uint64.
+     */
+    function _setAux(address owner, uint64 aux) internal {
+        uint256 packed = _packedAddressData[owner];
+        uint256 auxCasted;
+        // Cast `aux` with assembly to avoid redundant masking.
+        assembly {
+            auxCasted := aux
+        }
+        packed = (packed & BITMASK_AUX_COMPLEMENT) | (auxCasted << BITPOS_AUX);
+        _packedAddressData[owner] = packed;
+    }
+
+    /**
+     * Returns the packed ownership data of `tokenId`.
+     */
+    function _packedOwnershipOf(uint256 tokenId) private view returns (uint256) {
+        uint256 curr = tokenId;
+
+        unchecked {
+            if (_startTokenId() <= curr)
+                if (curr < _currentIndex) {
+                    uint256 packed = _packedOwnerships[curr];
+                    // If not burned.
+                    if (packed & BITMASK_BURNED == 0) {
+                        // Invariant:
+                        // There will always be an ownership that has an address and is not burned
+                        // before an ownership that does not have an address and is not burned.
+                        // Hence, curr will not underflow.
+                        //
+                        // We can directly compare the packed value.
+                        // If the address is zero, packed is zero.
+                        while (packed == 0) {
+                            packed = _packedOwnerships[--curr];
+                        }
+                        return packed;
+                    }
+                }
+        }
+        revert OwnerQueryForNonexistentToken();
+    }
+
+    /**
+     * Returns the unpacked `TokenOwnership` struct from `packed`.
+     */
+    function _unpackedOwnership(uint256 packed) private pure returns (TokenOwnership memory ownership) {
+        ownership.addr = address(uint160(packed));
+        ownership.startTimestamp = uint64(packed >> BITPOS_START_TIMESTAMP);
+        ownership.burned = packed & BITMASK_BURNED != 0;
+        ownership.extraData = uint24(packed >> BITPOS_EXTRA_DATA);
+    }
+
+    /**
+     * Returns the unpacked `TokenOwnership` struct at `index`.
+     */
+    function _ownershipAt(uint256 index) internal view returns (TokenOwnership memory) {
+        return _unpackedOwnership(_packedOwnerships[index]);
+    }
+
+    /**
+     * @dev Initializes the ownership slot minted at `index` for efficiency purposes.
+     */
+    function _initializeOwnershipAt(uint256 index) internal {
+        if (_packedOwnerships[index] == 0) {
+            _packedOwnerships[index] = _packedOwnershipOf(index);
+        }
+    }
+
+    /**
+     * Gas spent here starts off proportional to the maximum mint batch size.
+     * It gradually moves to O(1) as tokens get transferred around in the collection over time.
+     */
+    function _ownershipOf(uint256 tokenId) internal view returns (TokenOwnership memory) {
+        return _unpackedOwnership(_packedOwnershipOf(tokenId));
+    }
+
+    /**
+     * @dev Packs ownership data into a single uint256.
+     */
+    function _packOwnershipData(address owner, uint256 flags) private view returns (uint256 result) {
+        assembly {
+            // Mask `owner` to the lower 160 bits, in case the upper bits somehow aren't clean.
+            owner := and(owner, BITMASK_ADDRESS)
+            // `owner | (block.timestamp << BITPOS_START_TIMESTAMP) | flags`.
+            result := or(owner, or(shl(BITPOS_START_TIMESTAMP, timestamp()), flags))
+        }
+    }
+
+    /**
+     * @dev See {IERC721-ownerOf}.
+     */
+    function ownerOf(uint256 tokenId) public view override returns (address) {
+        return address(uint160(_packedOwnershipOf(tokenId)));
+    }
+
+    /**
+     * @dev See {IERC721Metadata-name}.
+     */
+    function name() public view virtual override returns (string memory) {
+        return _name;
+    }
+
+    /**
+     * @dev See {IERC721Metadata-symbol}.
+     */
+    function symbol() public view virtual override returns (string memory) {
+        return _symbol;
+    }
+
+    /**
+     * @dev See {IERC721Metadata-tokenURI}.
+     */
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        if (!_exists(tokenId)) revert URIQueryForNonexistentToken();
+
+        string memory baseURI = _baseURI();
+        return bytes(baseURI).length != 0 ? string(abi.encodePacked(baseURI, _toString(tokenId))) : '';
+    }
+
+    /**
+     * @dev Base URI for computing {tokenURI}. If set, the resulting URI for each
+     * token will be the concatenation of the `baseURI` and the `tokenId`. Empty
+     * by default, it can be overridden in child contracts.
+     */
+    function _baseURI() internal view virtual returns (string memory) {
+        return '';
+    }
+
+    /**
+     * @dev Returns the `nextInitialized` flag set if `quantity` equals 1.
+     */
+    function _nextInitializedFlag(uint256 quantity) private pure returns (uint256 result) {
+        // For branchless setting of the `nextInitialized` flag.
+        assembly {
+            // `(quantity == 1) << BITPOS_NEXT_INITIALIZED`.
+            result := shl(BITPOS_NEXT_INITIALIZED, eq(quantity, 1))
+        }
+    }
+
+    /**
+     * @dev See {IERC721-approve}.
+     */
+    function approve(address to, uint256 tokenId) public override {
+        address owner = ownerOf(tokenId);
+
+        if (_msgSenderERC721A() != owner)
+            if (!isApprovedForAll(owner, _msgSenderERC721A())) {
+                revert ApprovalCallerNotOwnerNorApproved();
+            }
+
+        _tokenApprovals[tokenId] = to;
+        emit Approval(owner, to, tokenId);
+    }
+
+    /**
+     * @dev See {IERC721-getApproved}.
+     */
+    function getApproved(uint256 tokenId) public view override returns (address) {
+        if (!_exists(tokenId)) revert ApprovalQueryForNonexistentToken();
+
+        return _tokenApprovals[tokenId];
+    }
+
+    /**
+     * @dev See {IERC721-setApprovalForAll}.
+     */
+    function setApprovalForAll(address operator, bool approved) public virtual override {
+        if (operator == _msgSenderERC721A()) revert ApproveToCaller();
+
+        _operatorApprovals[_msgSenderERC721A()][operator] = approved;
+        emit ApprovalForAll(_msgSenderERC721A(), operator, approved);
+    }
+
+    /**
+     * @dev See {IERC721-isApprovedForAll}.
+     */
+    function isApprovedForAll(address owner, address operator) public view virtual override returns (bool) {
+        return _operatorApprovals[owner][operator];
+    }
+
+    /**
+     * @dev See {IERC721-safeTransferFrom}.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override {
+        safeTransferFrom(from, to, tokenId, '');
+    }
+
+    /**
+     * @dev See {IERC721-safeTransferFrom}.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) public virtual override {
+        transferFrom(from, to, tokenId);
+        if (to.code.length != 0)
+            if (!_checkContractOnERC721Received(from, to, tokenId, _data)) {
+                revert TransferToNonERC721ReceiverImplementer();
+            }
+    }
+
+    /**
+     * @dev Returns whether `tokenId` exists.
+     *
+     * Tokens can be managed by their owner or approved accounts via {approve} or {setApprovalForAll}.
+     *
+     * Tokens start existing when they are minted (`_mint`),
+     */
+    function _exists(uint256 tokenId) internal view returns (bool) {
+        return
+            _startTokenId() <= tokenId &&
+            tokenId < _currentIndex && // If within bounds,
+            _packedOwnerships[tokenId] & BITMASK_BURNED == 0; // and not burned.
+    }
+
+    /**
+     * @dev Equivalent to `_safeMint(to, quantity, '')`.
+     */
+    function _safeMint(address to, uint256 quantity) internal {
+        _safeMint(to, quantity, '');
+    }
+
+    /**
+     * @dev Safely mints `quantity` tokens and transfers them to `to`.
+     *
+     * Requirements:
+     *
+     * - If `to` refers to a smart contract, it must implement
+     *   {IERC721Receiver-onERC721Received}, which is called for each safe transfer.
+     * - `quantity` must be greater than 0.
+     *
+     * See {_mint}.
+     *
+     * Emits a {Transfer} event for each mint.
+     */
+    function _safeMint(
+        address to,
+        uint256 quantity,
+        bytes memory _data
+    ) internal {
+        _mint(to, quantity);
+
+        unchecked {
+            if (to.code.length != 0) {
+                uint256 end = _currentIndex;
+                uint256 index = end - quantity;
+                do {
+                    if (!_checkContractOnERC721Received(address(0), to, index++, _data)) {
+                        revert TransferToNonERC721ReceiverImplementer();
+                    }
+                } while (index < end);
+                // Reentrancy protection.
+                if (_currentIndex != end) revert();
+            }
+        }
+    }
+
+    /**
+     * @dev Mints `quantity` tokens and transfers them to `to`.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - `quantity` must be greater than 0.
+     *
+     * Emits a {Transfer} event for each mint.
+     */
+    function _mint(address to, uint256 quantity) internal {
+        uint256 startTokenId = _currentIndex;
+        if (to == address(0)) revert MintToZeroAddress();
+        if (quantity == 0) revert MintZeroQuantity();
+
+        _beforeTokenTransfers(address(0), to, startTokenId, quantity);
+
+        // Overflows are incredibly unrealistic.
+        // `balance` and `numberMinted` have a maximum limit of 2**64.
+        // `tokenId` has a maximum limit of 2**256.
+        unchecked {
+            // Updates:
+            // - `balance += quantity`.
+            // - `numberMinted += quantity`.
+            //
+            // We can directly add to the `balance` and `numberMinted`.
+            _packedAddressData[to] += quantity * ((1 << BITPOS_NUMBER_MINTED) | 1);
+
+            // Updates:
+            // - `address` to the owner.
+            // - `startTimestamp` to the timestamp of minting.
+            // - `burned` to `false`.
+            // - `nextInitialized` to `quantity == 1`.
+            _packedOwnerships[startTokenId] = _packOwnershipData(
+                to,
+                _nextInitializedFlag(quantity) | _nextExtraData(address(0), to, 0)
+            );
+
+            uint256 tokenId = startTokenId;
+            uint256 end = startTokenId + quantity;
+            do {
+                emit Transfer(address(0), to, tokenId++);
+            } while (tokenId < end);
+
+            _currentIndex = end;
+        }
+        _afterTokenTransfers(address(0), to, startTokenId, quantity);
+    }
+
+    /**
+     * @dev Mints `quantity` tokens and transfers them to `to`.
+     *
+     * This function is intended for efficient minting only during contract creation.
+     *
+     * It emits only one {ConsecutiveTransfer} as defined in
+     * [ERC2309](https://eips.ethereum.org/EIPS/eip-2309),
+     * instead of a sequence of {Transfer} event(s).
+     *
+     * Calling this function outside of contract creation WILL make your contract
+     * non-compliant with the ERC721 standard.
+     * For full ERC721 compliance, substituting ERC721 {Transfer} event(s) with the ERC2309
+     * {ConsecutiveTransfer} event is only permissible during contract creation.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - `quantity` must be greater than 0.
+     *
+     * Emits a {ConsecutiveTransfer} event.
+     */
+    function _mintERC2309(address to, uint256 quantity) internal {
+        uint256 startTokenId = _currentIndex;
+        if (to == address(0)) revert MintToZeroAddress();
+        if (quantity == 0) revert MintZeroQuantity();
+        if (quantity > MAX_MINT_ERC2309_QUANTITY_LIMIT) revert MintERC2309QuantityExceedsLimit();
+
+        _beforeTokenTransfers(address(0), to, startTokenId, quantity);
+
+        // Overflows are unrealistic due to the above check for `quantity` to be below the limit.
+        unchecked {
+            // Updates:
+            // - `balance += quantity`.
+            // - `numberMinted += quantity`.
+            //
+            // We can directly add to the `balance` and `numberMinted`.
+            _packedAddressData[to] += quantity * ((1 << BITPOS_NUMBER_MINTED) | 1);
+
+            // Updates:
+            // - `address` to the owner.
+            // - `startTimestamp` to the timestamp of minting.
+            // - `burned` to `false`.
+            // - `nextInitialized` to `quantity == 1`.
+            _packedOwnerships[startTokenId] = _packOwnershipData(
+                to,
+                _nextInitializedFlag(quantity) | _nextExtraData(address(0), to, 0)
+            );
+
+            emit ConsecutiveTransfer(startTokenId, startTokenId + quantity - 1, address(0), to);
+
+            _currentIndex = startTokenId + quantity;
+        }
+        _afterTokenTransfers(address(0), to, startTokenId, quantity);
+    }
+
+    /**
+     * @dev Returns the storage slot and value for the approved address of `tokenId`.
+     */
+    function _getApprovedAddress(uint256 tokenId)
+        private
+        view
+        returns (uint256 approvedAddressSlot, address approvedAddress)
+    {
+        mapping(uint256 => address) storage tokenApprovalsPtr = _tokenApprovals;
+        // The following is equivalent to `approvedAddress = _tokenApprovals[tokenId]`.
+        assembly {
+            // Compute the slot.
+            mstore(0x00, tokenId)
+            mstore(0x20, tokenApprovalsPtr.slot)
+            approvedAddressSlot := keccak256(0x00, 0x40)
+            // Load the slot's value from storage.
+            approvedAddress := sload(approvedAddressSlot)
+        }
+    }
+
+    /**
+     * @dev Returns whether the `approvedAddress` is equals to `from` or `msgSender`.
+     */
+    function _isOwnerOrApproved(
+        address approvedAddress,
+        address from,
+        address msgSender
+    ) private pure returns (bool result) {
+        assembly {
+            // Mask `from` to the lower 160 bits, in case the upper bits somehow aren't clean.
+            from := and(from, BITMASK_ADDRESS)
+            // Mask `msgSender` to the lower 160 bits, in case the upper bits somehow aren't clean.
+            msgSender := and(msgSender, BITMASK_ADDRESS)
+            // `msgSender == from || msgSender == approvedAddress`.
+            result := or(eq(msgSender, from), eq(msgSender, approvedAddress))
+        }
+    }
+
+    /**
+     * @dev Transfers `tokenId` from `from` to `to`.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override {
+        uint256 prevOwnershipPacked = _packedOwnershipOf(tokenId);
+
+        if (address(uint160(prevOwnershipPacked)) != from) revert TransferFromIncorrectOwner();
+
+        (uint256 approvedAddressSlot, address approvedAddress) = _getApprovedAddress(tokenId);
+
+        // The nested ifs save around 20+ gas over a compound boolean condition.
+        if (!_isOwnerOrApproved(approvedAddress, from, _msgSenderERC721A()))
+            if (!isApprovedForAll(from, _msgSenderERC721A())) revert TransferCallerNotOwnerNorApproved();
+
+        if (to == address(0)) revert TransferToZeroAddress();
+
+        _beforeTokenTransfers(from, to, tokenId, 1);
+
+        // Clear approvals from the previous owner.
+        assembly {
+            if approvedAddress {
+                // This is equivalent to `delete _tokenApprovals[tokenId]`.
+                sstore(approvedAddressSlot, 0)
+            }
+        }
+
+        // Underflow of the sender's balance is impossible because we check for
+        // ownership above and the recipient's balance can't realistically overflow.
+        // Counter overflow is incredibly unrealistic as tokenId would have to be 2**256.
+        unchecked {
+            // We can directly increment and decrement the balances.
+            --_packedAddressData[from]; // Updates: `balance -= 1`.
+            ++_packedAddressData[to]; // Updates: `balance += 1`.
+
+            // Updates:
+            // - `address` to the next owner.
+            // - `startTimestamp` to the timestamp of transfering.
+            // - `burned` to `false`.
+            // - `nextInitialized` to `true`.
+            _packedOwnerships[tokenId] = _packOwnershipData(
+                to,
+                BITMASK_NEXT_INITIALIZED | _nextExtraData(from, to, prevOwnershipPacked)
+            );
+
+            // If the next slot may not have been initialized (i.e. `nextInitialized == false`) .
+            if (prevOwnershipPacked & BITMASK_NEXT_INITIALIZED == 0) {
+                uint256 nextTokenId = tokenId + 1;
+                // If the next slot's address is zero and not burned (i.e. packed value is zero).
+                if (_packedOwnerships[nextTokenId] == 0) {
+                    // If the next slot is within bounds.
+                    if (nextTokenId != _currentIndex) {
+                        // Initialize the next slot to maintain correctness for `ownerOf(tokenId + 1)`.
+                        _packedOwnerships[nextTokenId] = prevOwnershipPacked;
+                    }
+                }
+            }
+        }
+
+        emit Transfer(from, to, tokenId);
+        _afterTokenTransfers(from, to, tokenId, 1);
+    }
+
+    /**
+     * @dev Equivalent to `_burn(tokenId, false)`.
+     */
+    function _burn(uint256 tokenId) internal virtual {
+        _burn(tokenId, false);
+    }
+
+    /**
+     * @dev Destroys `tokenId`.
+     * The approval is cleared when the token is burned.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     *
+     * Emits a {Transfer} event.
+     */
+    function _burn(uint256 tokenId, bool approvalCheck) internal virtual {
+        uint256 prevOwnershipPacked = _packedOwnershipOf(tokenId);
+
+        address from = address(uint160(prevOwnershipPacked));
+
+        (uint256 approvedAddressSlot, address approvedAddress) = _getApprovedAddress(tokenId);
+
+        if (approvalCheck) {
+            // The nested ifs save around 20+ gas over a compound boolean condition.
+            if (!_isOwnerOrApproved(approvedAddress, from, _msgSenderERC721A()))
+                if (!isApprovedForAll(from, _msgSenderERC721A())) revert TransferCallerNotOwnerNorApproved();
+        }
+
+        _beforeTokenTransfers(from, address(0), tokenId, 1);
+
+        // Clear approvals from the previous owner.
+        assembly {
+            if approvedAddress {
+                // This is equivalent to `delete _tokenApprovals[tokenId]`.
+                sstore(approvedAddressSlot, 0)
+            }
+        }
+
+        // Underflow of the sender's balance is impossible because we check for
+        // ownership above and the recipient's balance can't realistically overflow.
+        // Counter overflow is incredibly unrealistic as `tokenId` would have to be 2**256.
+        unchecked {
+            // Updates:
+            // - `balance -= 1`.
+            // - `numberBurned += 1`.
+            //
+            // We can directly decrement the balance, and increment the number burned.
+            // This is equivalent to `packed -= 1; packed += 1 << BITPOS_NUMBER_BURNED;`.
+            _packedAddressData[from] += (1 << BITPOS_NUMBER_BURNED) - 1;
+
+            // Updates:
+            // - `address` to the last owner.
+            // - `startTimestamp` to the timestamp of burning.
+            // - `burned` to `true`.
+            // - `nextInitialized` to `true`.
+            _packedOwnerships[tokenId] = _packOwnershipData(
+                from,
+                (BITMASK_BURNED | BITMASK_NEXT_INITIALIZED) | _nextExtraData(from, address(0), prevOwnershipPacked)
+            );
+
+            // If the next slot may not have been initialized (i.e. `nextInitialized == false`) .
+            if (prevOwnershipPacked & BITMASK_NEXT_INITIALIZED == 0) {
+                uint256 nextTokenId = tokenId + 1;
+                // If the next slot's address is zero and not burned (i.e. packed value is zero).
+                if (_packedOwnerships[nextTokenId] == 0) {
+                    // If the next slot is within bounds.
+                    if (nextTokenId != _currentIndex) {
+                        // Initialize the next slot to maintain correctness for `ownerOf(tokenId + 1)`.
+                        _packedOwnerships[nextTokenId] = prevOwnershipPacked;
+                    }
+                }
+            }
+        }
+
+        emit Transfer(from, address(0), tokenId);
+        _afterTokenTransfers(from, address(0), tokenId, 1);
+
+        // Overflow not possible, as _burnCounter cannot be exceed _currentIndex times.
+        unchecked {
+            _burnCounter++;
+        }
+    }
+
+    /**
+     * @dev Internal function to invoke {IERC721Receiver-onERC721Received} on a target contract.
+     *
+     * @param from address representing the previous owner of the given token ID
+     * @param to target address that will receive the tokens
+     * @param tokenId uint256 ID of the token to be transferred
+     * @param _data bytes optional data to send along with the call
+     * @return bool whether the call correctly returned the expected magic value
+     */
+    function _checkContractOnERC721Received(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) private returns (bool) {
+        try ERC721A__IERC721Receiver(to).onERC721Received(_msgSenderERC721A(), from, tokenId, _data) returns (
+            bytes4 retval
+        ) {
+            return retval == ERC721A__IERC721Receiver(to).onERC721Received.selector;
+        } catch (bytes memory reason) {
+            if (reason.length == 0) {
+                revert TransferToNonERC721ReceiverImplementer();
+            } else {
+                assembly {
+                    revert(add(32, reason), mload(reason))
+                }
+            }
+        }
+    }
+
+    /**
+     * @dev Directly sets the extra data for the ownership data `index`.
+     */
+    function _setExtraDataAt(uint256 index, uint24 extraData) internal {
+        uint256 packed = _packedOwnerships[index];
+        if (packed == 0) revert OwnershipNotInitializedForExtraData();
+        uint256 extraDataCasted;
+        // Cast `extraData` with assembly to avoid redundant masking.
+        assembly {
+            extraDataCasted := extraData
+        }
+        packed = (packed & BITMASK_EXTRA_DATA_COMPLEMENT) | (extraDataCasted << BITPOS_EXTRA_DATA);
+        _packedOwnerships[index] = packed;
+    }
+
+    /**
+     * @dev Returns the next extra data for the packed ownership data.
+     * The returned result is shifted into position.
+     */
+    function _nextExtraData(
+        address from,
+        address to,
+        uint256 prevOwnershipPacked
+    ) private view returns (uint256) {
+        uint24 extraData = uint24(prevOwnershipPacked >> BITPOS_EXTRA_DATA);
+        return uint256(_extraData(from, to, extraData)) << BITPOS_EXTRA_DATA;
+    }
+
+    /**
+     * @dev Called during each token transfer to set the 24bit `extraData` field.
+     * Intended to be overridden by the cosumer contract.
+     *
+     * `previousExtraData` - the value of `extraData` before transfer.
+     *
+     * Calling conditions:
+     *
+     * - When `from` and `to` are both non-zero, `from`'s `tokenId` will be
+     * transferred to `to`.
+     * - When `from` is zero, `tokenId` will be minted for `to`.
+     * - When `to` is zero, `tokenId` will be burned by `from`.
+     * - `from` and `to` are never both zero.
+     */
+    function _extraData(
+        address from,
+        address to,
+        uint24 previousExtraData
+    ) internal view virtual returns (uint24) {}
+
+    /**
+     * @dev Hook that is called before a set of serially-ordered token ids are about to be transferred.
+     * This includes minting.
+     * And also called before burning one token.
+     *
+     * startTokenId - the first token id to be transferred
+     * quantity - the amount to be transferred
+     *
+     * Calling conditions:
+     *
+     * - When `from` and `to` are both non-zero, `from`'s `tokenId` will be
+     * transferred to `to`.
+     * - When `from` is zero, `tokenId` will be minted for `to`.
+     * - When `to` is zero, `tokenId` will be burned by `from`.
+     * - `from` and `to` are never both zero.
+     */
+    function _beforeTokenTransfers(
+        address from,
+        address to,
+        uint256 startTokenId,
+        uint256 quantity
+    ) internal virtual {}
+
+    /**
+     * @dev Hook that is called after a set of serially-ordered token ids have been transferred.
+     * This includes minting.
+     * And also called after one token has been burned.
+     *
+     * startTokenId - the first token id to be transferred
+     * quantity - the amount to be transferred
+     *
+     * Calling conditions:
+     *
+     * - When `from` and `to` are both non-zero, `from`'s `tokenId` has been
+     * transferred to `to`.
+     * - When `from` is zero, `tokenId` has been minted for `to`.
+     * - When `to` is zero, `tokenId` has been burned by `from`.
+     * - `from` and `to` are never both zero.
+     */
+    function _afterTokenTransfers(
+        address from,
+        address to,
+        uint256 startTokenId,
+        uint256 quantity
+    ) internal virtual {}
+
+    /**
+     * @dev Returns the message sender (defaults to `msg.sender`).
+     *
+     * If you are writing GSN compatible contracts, you need to override this function.
+     */
+    function _msgSenderERC721A() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function _toString(uint256 value) internal pure returns (string memory ptr) {
+        assembly {
+            // The maximum value of a uint256 contains 78 digits (1 byte per digit),
+            // but we allocate 128 bytes to keep the free memory pointer 32-byte word aliged.
+            // We will need 1 32-byte word to store the length,
+            // and 3 32-byte words to store a maximum of 78 digits. Total: 32 + 3 * 32 = 128.
+            ptr := add(mload(0x40), 128)
+            // Update the free memory pointer to allocate.
+            mstore(0x40, ptr)
+
+            // Cache the end of the memory to calculate the length later.
+            let end := ptr
+
+            // We write the string from the rightmost digit to the leftmost digit.
+            // The following is essentially a do-while loop that also handles the zero case.
+            // Costs a bit more than early returning for the zero case,
+            // but cheaper in terms of deployment and overall runtime costs.
+            for {
+                // Initialize and perform the first pass without check.
+                let temp := value
+                // Move the pointer 1 byte leftwards to point to an empty character slot.
+                ptr := sub(ptr, 1)
+                // Write the character to the pointer. 48 is the ASCII index of '0'.
+                mstore8(ptr, add(48, mod(temp, 10)))
+                temp := div(temp, 10)
+            } temp {
+                // Keep dividing `temp` until zero.
+                temp := div(temp, 10)
+            } {
+                // Body of the for loop.
+                ptr := sub(ptr, 1)
+                mstore8(ptr, add(48, mod(temp, 10)))
+            }
+
+            let length := sub(end, ptr)
+            // Move the pointer 32 bytes leftwards to make room for the length.
+            ptr := sub(ptr, 32)
+            // Store the length.
+            mstore(ptr, length)
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// ERC721A Contracts v4.1.0
+// Creator: Chiru Labs
+
+pragma solidity ^0.8.4;
+
+/**
+ * @dev Interface of an ERC721A compliant contract.
+ */
+interface IERC721A {
+    /**
+     * The caller must own the token or be an approved operator.
+     */
+    error ApprovalCallerNotOwnerNorApproved();
+
+    /**
+     * The token does not exist.
+     */
+    error ApprovalQueryForNonexistentToken();
+
+    /**
+     * The caller cannot approve to their own address.
+     */
+    error ApproveToCaller();
+
+    /**
+     * Cannot query the balance for the zero address.
+     */
+    error BalanceQueryForZeroAddress();
+
+    /**
+     * Cannot mint to the zero address.
+     */
+    error MintToZeroAddress();
+
+    /**
+     * The quantity of tokens minted must be more than zero.
+     */
+    error MintZeroQuantity();
+
+    /**
+     * The token does not exist.
+     */
+    error OwnerQueryForNonexistentToken();
+
+    /**
+     * The caller must own the token or be an approved operator.
+     */
+    error TransferCallerNotOwnerNorApproved();
+
+    /**
+     * The token must be owned by `from`.
+     */
+    error TransferFromIncorrectOwner();
+
+    /**
+     * Cannot safely transfer to a contract that does not implement the ERC721Receiver interface.
+     */
+    error TransferToNonERC721ReceiverImplementer();
+
+    /**
+     * Cannot transfer to the zero address.
+     */
+    error TransferToZeroAddress();
+
+    /**
+     * The token does not exist.
+     */
+    error URIQueryForNonexistentToken();
+
+    /**
+     * The `quantity` minted with ERC2309 exceeds the safety limit.
+     */
+    error MintERC2309QuantityExceedsLimit();
+
+    /**
+     * The `extraData` cannot be set on an unintialized ownership slot.
+     */
+    error OwnershipNotInitializedForExtraData();
+
+    struct TokenOwnership {
+        // The address of the owner.
+        address addr;
+        // Keeps track of the start time of ownership with minimal overhead for tokenomics.
+        uint64 startTimestamp;
+        // Whether the token has been burned.
+        bool burned;
+        // Arbitrary data similar to `startTimestamp` that can be set through `_extraData`.
+        uint24 extraData;
+    }
+
+    /**
+     * @dev Returns the total amount of tokens stored by the contract.
+     *
+     * Burned tokens are calculated here, use `_totalMinted()` if you want to count just minted tokens.
+     */
+    function totalSupply() external view returns (uint256);
+
+    // ==============================
+    //            IERC165
+    // ==============================
+
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+
+    // ==============================
+    //            IERC721
+    // ==============================
+
+    /**
+     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.
+     */
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.
+     */
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+
+    /**
+     * @dev Returns the number of tokens in ``owner``'s account.
+     */
+    function balanceOf(address owner) external view returns (uint256 balance);
+
+    /**
+     * @dev Returns the owner of the `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function ownerOf(uint256 tokenId) external view returns (address owner);
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes calldata data
+    ) external;
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
+     * are aware of the ERC721 protocol to prevent tokens from being forever locked.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Transfers `tokenId` token from `from` to `to`.
+     *
+     * WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Gives permission to `to` to transfer `tokenId` token to another account.
+     * The approval is cleared when the token is transferred.
+     *
+     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.
+     *
+     * Requirements:
+     *
+     * - The caller must own the token or be an approved operator.
+     * - `tokenId` must exist.
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address to, uint256 tokenId) external;
+
+    /**
+     * @dev Approve or remove `operator` as an operator for the caller.
+     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.
+     *
+     * Requirements:
+     *
+     * - The `operator` cannot be the caller.
+     *
+     * Emits an {ApprovalForAll} event.
+     */
+    function setApprovalForAll(address operator, bool _approved) external;
+
+    /**
+     * @dev Returns the account approved for `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function getApproved(uint256 tokenId) external view returns (address operator);
+
+    /**
+     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.
+     *
+     * See {setApprovalForAll}
+     */
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
+
+    // ==============================
+    //        IERC721Metadata
+    // ==============================
+
+    /**
+     * @dev Returns the token collection name.
+     */
+    function name() external view returns (string memory);
+
+    /**
+     * @dev Returns the token collection symbol.
+     */
+    function symbol() external view returns (string memory);
+
+    /**
+     * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
+     */
+    function tokenURI(uint256 tokenId) external view returns (string memory);
+
+    // ==============================
+    //            IERC2309
+    // ==============================
+
+    /**
+     * @dev Emitted when tokens in `fromTokenId` to `toTokenId` (inclusive) is transferred from `from` to `to`,
+     * as defined in the ERC2309 standard. See `_mintERC2309` for more details.
+     */
+    event ConsecutiveTransfer(uint256 indexed fromTokenId, uint256 toTokenId, address indexed from, address indexed to);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.8;
+
+/*
+
+FoundryRole Contract
+v1.0
+
+The MIT License (MIT)
+Copyright © 2022 <copyright holders>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
+contract FoundryRole {
+	bytes32 public immutable ADMIN_ROLE;
+	bytes32 public immutable MANAGER_ROLE;
+
+	constructor() {
+		ADMIN_ROLE = keccak256("ADMIN_ROLE");
+		MANAGER_ROLE = keccak256("MANAGER_ROLE");
+	}
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.8;
+
+/*
+
+FoundryToken Contract
+v1.0
+
+The MIT License (MIT)
+Copyright © 2022 <copyright holders>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
+import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/interfaces/IERC2981.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/LinkTokenInterface.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
+import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
+import "./FoundryRole.sol";
+import "./common/AccessControlRemote.sol";
+import "./common/Error.sol";
+import "./common/ERC721ATradable.sol";
+import "./common/PaymentSplitterEnumerable.sol";
+import "./common/Redeemable.sol";
+
+struct PaymentSplitterProps {
+	address[] payees;
+	uint256[] shares;
+}
+
+struct RoyaltiesProps {
+	uint256 beforeReveal;
+	uint256 afterReveal;
+	uint256 denominator;
+	address account;
+}
+
+struct ChainlinkVrfProps {
+	bytes32 keyHash;
+	uint16 minimumRequestConfirmations;
+	uint64 subscriptionId;
+	address vrfCoordinatorContract;
+	address linkTokenContract;
+}
+
+/** @title NFT foundry contract */
+contract FoundryToken is
+	IERC2981,
+	ERC721ATradable,
+	Redeemable,
+	Pausable,
+	FoundryRole,
+	AccessControlRemote,
+	PaymentSplitterEnumerable,
+	ReentrancyGuard,
+	VRFConsumerBaseV2
+{
+	// Max number of minted tokens
+	// solhint-disable-next-line var-name-mixedcase
+	uint256 public immutable MAX_SUPPLY;
+
+	// The royalties for secondary markets
+	// solhint-disable-next-line var-name-mixedcase
+	uint256 public immutable ROYALTY_BEFORE_REVEAL;
+	// solhint-disable-next-line var-name-mixedcase
+	uint256 public immutable ROYALTY_AFTER_REVEAL;
+	// solhint-disable-next-line var-name-mixedcase
+	uint256 public immutable ROYALTY_DENOMINATOR;
+	// solhint-disable-next-line var-name-mixedcase
+	address public immutable ROYALTY_ADDRESS;
+
+	// Contract-level metadata
+	string public contractURI; // https://docs.opensea.io/docs/contract-level-metadata
+	//Default empty string: https://docs.soliditylang.org/en/develop/control-structures.html#default-value
+	string public provenanceHash;
+
+	// Redeem
+	uint256 public redeemCost = 0.01 ether;
+
+	// Reveal
+	// solhint-disable-next-line var-name-mixedcase
+	string public baseURI; // the metadata folder URI after reveal
+	string public baseExtension = ".json"; // the metadata files extensions after reveal
+	uint256 public metadataRandomOffset;
+	uint256 public metadataFirstId; // The id for the first metadata file.
+
+	// Chainlink VRF
+	// solhint-disable-next-line var-name-mixedcase
+	uint32 private constant CALLBACK_GAS_LIMIT = 500000; // max is 2500000
+	// solhint-disable-next-line var-name-mixedcase
+	uint16 private immutable MINIMUM_REQUEST_CONFIRMATIONS;
+	// solhint-disable-next-line var-name-mixedcase
+	uint64 private immutable SUBSCRIPTION_ID;
+	// solhint-disable-next-line var-name-mixedcase
+	VRFCoordinatorV2Interface private immutable VRF_COORDINATOR_CONTRACT;
+	// solhint-disable-next-line var-name-mixedcase
+	LinkTokenInterface private immutable LINK_TOKEN_CONTRACT;
+	// solhint-disable-next-line var-name-mixedcase
+	bytes32 private immutable KEY_HASH;
+	uint256 private revealVRFRequest;
+
+	// Events emitted by the contract
+	event RedeemCostChanged(
+		address indexed account,
+		uint256 indexed from,
+		uint256 indexed to
+	);
+	event ContractUriChanged(address indexed account, string from, string to);
+	event ProvenanceHashChanged(
+		address indexed account,
+		string from,
+		string to
+	);
+	event Revealed(
+		address indexed account,
+		string baseUri,
+		string baseExtension,
+		uint256 indexed metadataFirstId,
+		uint256 indexed metadataRandomOffset
+	);
+	event VRFNumberGenerated(uint256 vrfNumber);
+
+	///////////////////////////////////////////////////////////
+	// Errors emitted by the contract
+
+	/// Provenance has not been set yet.
+	error ProvenanceHashNotSet();
+
+	/// Operation is not supported because minting has started.
+	error MintingHasStarted();
+
+	/// Operation not supported due to the reveal state. It's `revealed`
+	/// but should be `!revealed`.
+	/// @param revealed `true` if is revealed; otherwise `false`.
+	error IsRevealed(bool revealed);
+
+	error TokenDoesNotExist(uint256 tokenId);
+
+	error OutOfStock(uint256 requested, uint256 available);
+
+	error MintPaused();
+
+	///////////////////////////////////////////////////////////
+
+	constructor(
+		string memory name,
+		string memory symbol,
+		uint256 maxSupply,
+		string memory _baseURI,
+		address proxyRegistryAddress,
+		address accessControlAddress,
+		PaymentSplitterProps memory paymentSplitter,
+		RoyaltiesProps memory royalties,
+		ChainlinkVrfProps memory chainlink
+	)
+		ERC721ATradable(name, symbol, proxyRegistryAddress)
+		AccessControlRemote(accessControlAddress)
+		PaymentSplitterEnumerable(
+			paymentSplitter.payees,
+			paymentSplitter.shares
+		)
+		VRFConsumerBaseV2(chainlink.vrfCoordinatorContract)
+	{
+		if (maxSupply == 0)
+			revert Error.ArgumentOutOfRange("maxSupply", maxSupply);
+		if (bytes(_baseURI).length == 0) revert Error.ArgumentEmpty("baseURI");
+		if (royalties.denominator == 0)
+			revert Error.ArgumentOutOfRange(
+				"royalties.denominator",
+				royalties.denominator
+			);
+		if (royalties.beforeReveal > royalties.denominator)
+			revert Error.ArgumentOutOfRange(
+				"royalties.beforeReveal",
+				royalties.beforeReveal
+			);
+		if (royalties.afterReveal > royalties.denominator)
+			revert Error.ArgumentOutOfRange(
+				"royalties.afterReveal",
+				royalties.afterReveal
+			);
+		if (chainlink.subscriptionId == 0)
+			revert Error.ArgumentOutOfRange(
+				"chainlink.subscriptionId",
+				chainlink.subscriptionId
+			);
+		if (chainlink.vrfCoordinatorContract == address(0))
+			revert Error.ArgumentNull("chainlink.vrfCoordinatorContract");
+		if (chainlink.linkTokenContract == address(0))
+			revert Error.ArgumentNull("chainlink.linkTokenContract");
+		if (
+			chainlink.minimumRequestConfirmations < 3 ||
+			chainlink.minimumRequestConfirmations > 200
+		)
+			revert Error.ArgumentOutOfRange(
+				"chainlink.minimumRequestConfirmations",
+				chainlink.minimumRequestConfirmations
+			);
+
+		MAX_SUPPLY = maxSupply;
+
+		baseURI = _baseURI;
+
+		ROYALTY_BEFORE_REVEAL = royalties.beforeReveal;
+		ROYALTY_AFTER_REVEAL = royalties.afterReveal;
+		ROYALTY_DENOMINATOR = royalties.denominator;
+		if (royalties.account == address(0)) royalties.account = address(this);
+		ROYALTY_ADDRESS = royalties.account;
+
+		SUBSCRIPTION_ID = chainlink.subscriptionId;
+		VRF_COORDINATOR_CONTRACT = VRFCoordinatorV2Interface(
+			chainlink.vrfCoordinatorContract
+		);
+		LINK_TOKEN_CONTRACT = LinkTokenInterface(chainlink.linkTokenContract);
+		MINIMUM_REQUEST_CONFIRMATIONS = chainlink.minimumRequestConfirmations;
+		KEY_HASH = chainlink.keyHash;
+
+		_pause(); // start paused
+	}
+
+	// Minting
+
+	function mint(address to, uint256 quantity) external onlyRole(ADMIN_ROLE) {
+		_mint(to, quantity);
+	}
+
+	// Redeems a raffle ticket given its id and Merkle tree proof.
+	function redeem(uint256 ticketId, bytes32[] calldata proof)
+		external
+		payable
+		nonReentrant
+	{
+		if (msg.value != redeemCost)
+			revert Error.InvalidPayment(redeemCost, msg.value);
+		_redeem(_msgSenderERC721A(), ticketId, proof);
+		_mint(_msgSenderERC721A(), 1);
+	}
+
+	function _beforeTokenTransfers(
+		address from,
+		address, //to
+		uint256, //startTokenId
+		uint256 quantity
+	) internal virtual override requiresProvenanceHash {
+		if (from == address(0)) {
+			if (paused()) revert MintPaused();
+			if (totalSupply() + quantity > MAX_SUPPLY)
+				revert OutOfStock(quantity, MAX_SUPPLY - totalSupply());
+		}
+	}
+
+	// Royalties
+
+	// Retrieve the royalty info for a given token id and sale price
+	function royaltyInfo(uint256 _tokenId, uint256 _salePrice)
+		external
+		view
+		override
+		tokenExists(_tokenId)
+		returns (address receiver, uint256 royaltyAmount)
+	{
+		if (revealed())
+			return (
+				ROYALTY_ADDRESS,
+				(_salePrice * ROYALTY_AFTER_REVEAL) / ROYALTY_DENOMINATOR
+			);
+
+		return (
+			ROYALTY_ADDRESS,
+			(_salePrice * ROYALTY_BEFORE_REVEAL) / ROYALTY_DENOMINATOR
+		);
+	}
+
+	// Administration
+
+	// Set the URI of the file containing the contract-level metadata.
+	function setContractUri(string calldata _contractUri)
+		external
+		onlyRole(ADMIN_ROLE)
+	{
+		string memory previousContractUri = contractURI;
+		contractURI = _contractUri;
+		emit ContractUriChanged(
+			_msgSenderERC721A(),
+			previousContractUri,
+			contractURI
+		);
+	}
+
+	// Set the provenance hash.
+	// Can only called before the first token is minted.
+	function setProvenanceHash(string calldata provenanceHash_)
+		external
+		beforeMinting
+		onlyRole(ADMIN_ROLE)
+	{
+		if (bytes(provenanceHash_).length == 0)
+			revert Error.ArgumentEmpty("_provenanceHash");
+
+		string memory previousProvenanceHash = provenanceHash;
+		provenanceHash = provenanceHash_;
+		emit ProvenanceHashChanged(
+			_msgSenderERC721A(),
+			previousProvenanceHash,
+			provenanceHash
+		);
+	}
+
+	function reveal(
+		string calldata _baseURI,
+		string calldata _baseExtension,
+		uint256 _metadataFirstId
+	) external whenNotRevealed requiresProvenanceHash onlyRole(ADMIN_ROLE) {
+		if (bytes(_baseURI).length == 0) revert Error.ArgumentEmpty("_baseURI");
+		if (bytes(_baseExtension).length == 0)
+			revert Error.ArgumentEmpty("_baseExtension");
+		baseURI = _baseURI;
+		baseExtension = _baseExtension;
+		metadataFirstId = _metadataFirstId;
+		revealVRFRequest = VRF_COORDINATOR_CONTRACT.requestRandomWords(
+			KEY_HASH,
+			SUBSCRIPTION_ID,
+			MINIMUM_REQUEST_CONFIRMATIONS,
+			CALLBACK_GAS_LIMIT,
+			1
+		);
+	}
+
+	function requestVRF() external onlyRole(ADMIN_ROLE) returns (uint256) {
+		return
+			VRF_COORDINATOR_CONTRACT.requestRandomWords(
+				KEY_HASH,
+				SUBSCRIPTION_ID,
+				MINIMUM_REQUEST_CONFIRMATIONS,
+				CALLBACK_GAS_LIMIT,
+				1
+			);
+	}
+
+	// called by Chainlink VRF to set the random words
+	function fulfillRandomWords(
+		uint256 requestId,
+		uint256[] memory _randomWords
+	) internal override {
+		if (requestId != revealVRFRequest) {
+			emit VRFNumberGenerated(_randomWords[0]);
+		} else {
+			_setMetadataOffset(1 + (_randomWords[0] % MAX_SUPPLY));
+		}
+	}
+
+	function _setMetadataOffset(uint256 offset) private {
+		metadataRandomOffset = offset;
+		emit Revealed(
+			_msgSenderERC721A(),
+			baseURI,
+			baseExtension,
+			metadataFirstId,
+			metadataRandomOffset
+		);
+	}
+
+	function setRedeemCost(uint256 _redeemCost) external onlyRole(ADMIN_ROLE) {
+		uint256 previous = redeemCost;
+		redeemCost = _redeemCost;
+		emit RedeemCostChanged(_msgSenderERC721A(), previous, redeemCost);
+	}
+
+	function setRedeemRoot(bytes32 root) external onlyRole(ADMIN_ROLE) {
+		_setRedeemRoot(_msgSenderERC721A(), root);
+	}
+
+	function pause() external onlyRole(ADMIN_ROLE) {
+		_pause();
+	}
+
+	function unpause() external onlyRole(ADMIN_ROLE) {
+		_unpause();
+	}
+
+	function release(address payable account)
+		public
+		override
+		onlyPayeeOrRole(ADMIN_ROLE)
+	{
+		super.release(account);
+	}
+
+	function release(IERC20 token, address account)
+		public
+		override
+		onlyPayeeOrRole(ADMIN_ROLE)
+	{
+		super.release(token, account);
+	}
+
+	// Getters
+
+	function revealed() public view returns (bool) {
+		return metadataRandomOffset != 0;
+	}
+
+	function tokenURI(uint256 tokenId)
+		public
+		view
+		virtual
+		override
+		tokenExists(tokenId)
+		returns (string memory)
+	{
+		if (!revealed()) return baseURI;
+
+		uint256 metadataId = metadataFirstId +
+			((tokenId + metadataRandomOffset) % MAX_SUPPLY);
+		return
+			string(
+				abi.encodePacked(baseURI, _toString(metadataId), baseExtension)
+			);
+	}
+
+	// Modifiers
+
+	modifier onlyPayeeOrRole(bytes32 role) {
+		address sender = _msgSenderERC721A();
+		if (shares(sender) == 0 && !hasRole(role, sender))
+			revert Error.NoPermission(sender);
+		_;
+	}
+
+	modifier requiresProvenanceHash() {
+		if (bytes(provenanceHash).length == 0) revert ProvenanceHashNotSet();
+		_;
+	}
+
+	modifier beforeMinting() {
+		if (_totalMinted() != 0) revert MintingHasStarted();
+		_;
+	}
+
+	modifier whenNotRevealed() {
+		if (revealed()) revert IsRevealed(true);
+		_;
+	}
+
+	/**
+	 * @dev Reverts when `tokenId` does not exists.
+	 *
+	 * Tokens can be managed by their owner or approved accounts via {approve} or {setApprovalForAll}.
+	 *
+	 * Tokens start existing when they are minted (`_mint`).
+	 */
+	modifier tokenExists(uint256 tokenId) {
+		if (!_exists(tokenId)) revert TokenDoesNotExist(tokenId);
+		_;
+	}
+
+	// The following functions are overrides required by Solidity.
+
+	function supportsInterface(bytes4 interfaceId)
+		public
+		view
+		override(ERC721A, IERC165)
+		returns (bool)
+	{
+		return
+			interfaceId == type(IERC2981).interfaceId ||
+			super.supportsInterface(interfaceId);
+	}
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.8;
+
+/*
+
+RemoteAccessControl Contract
+v1.0
+
+The MIT License (MIT)
+Copyright © 2022 <copyright holders>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
+import "@openzeppelin/contracts/access/IAccessControl.sol";
+import "@openzeppelin/contracts/utils/Context.sol";
+import "./Error.sol";
+
+contract AccessControlRemote is Context {
+	address public immutable ACCESS_CONTROL_ADDRESS;
+
+	constructor(address accessControlAddress) {
+		if (accessControlAddress == address(0))
+			revert Error.ArgumentNull("accessControlAddress");
+		ACCESS_CONTROL_ADDRESS = accessControlAddress;
+	}
+
+	function hasRole(bytes32 role, address account)
+		internal
+		view
+		returns (bool)
+	{
+		IAccessControl accessControl = IAccessControl(ACCESS_CONTROL_ADDRESS);
+		return accessControl.hasRole(role, account);
+	}
+
+	modifier onlyRole(bytes32 role) {
+		if (!hasRole(role, _msgSender()))
+			revert Error.NoPermission(_msgSender());
+		_;
+	}
+}
+
+// SPDX-License-Identifier: MIT
+// based on OpenSea Creatures example
+
+pragma solidity ^0.8.0;
+
+import "erc721a/contracts/ERC721A.sol";
+
+import "./meta-transactions/ContentMixin.sol";
+import "./meta-transactions/NativeMetaTransaction.sol";
+
+contract OwnableDelegateProxy {}
+
+/**
+ * Used to delegate ownership of a contract to another address, to save on unneeded transactions to approve contract use for users
+ */
+contract ProxyRegistry {
+	mapping(address => OwnableDelegateProxy) public proxies;
+}
+
+/**
+ * @title ERC721LiteTradable
+ * ERC721LiteTradable - ERC721 contract that whitelists a trading address, and has minting functionality.
+ */
+abstract contract ERC721ATradable is
+	ERC721A,
+	ContextMixin,
+	NativeMetaTransaction
+{
+	address private immutable proxyRegistryAddress;
+
+	// Workaround for OpenSea requiring the use of Ownable
+	address public owner;
+
+	constructor(
+		string memory name_,
+		string memory symbol_,
+		address proxyRegistryAddress_
+	) ERC721A(name_, symbol_) {
+		proxyRegistryAddress = proxyRegistryAddress_;
+		_initializeEIP712(name_);
+	}
+
+	/**
+	 * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
+	 */
+	function isApprovedForAll(address _owner, address operator)
+		public
+		view
+		virtual
+		override
+		returns (bool)
+	{
+		// Whitelist OpenSea proxy contract for easy trading.
+		ProxyRegistry proxyRegistry = ProxyRegistry(proxyRegistryAddress);
+		if (address(proxyRegistry.proxies(_owner)) == operator) {
+			return true;
+		}
+
+		return super.isApprovedForAll(_owner, operator);
+	}
+
+	/**
+	 * This is used instead of msg.sender as transactions won't be sent by the original token owner, but by OpenSea.
+	 */
+	function _msgSenderERC721A()
+		internal
+		view
+		virtual
+		override
+		returns (address sender)
+	{
+		return ContextMixin.msgSender();
+	}
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+library Error {
+
+	/// Argument `argName` must not be an empty string.
+	/// @param argName Argument name.
+	error ArgumentEmpty(string argName);
+
+	/// Argument `argName` must not be a null address.
+	/// @param argName Argument name.
+	error ArgumentNull(string argName);
+
+	/// The value `actualValue` for `argName` is out of range.
+	/// @param argName Argument name.
+	error ArgumentOutOfRange(string argName, uint256 actualValue);
+
+	/// The account `account` has no permission to perform the operation.
+	/// @param account The account performing the operation.
+	error NoPermission(address account);
+
+	/// Invalid payment amount. Expected `expected` but received `actual`.
+	/// @param expected Amount expected.
+	/// @param actual Amount received.
+	error InvalidPayment(uint256 expected, uint256 actual);
+
+	/// Operations is not supported.
+	error NotSupported();
+
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
+import "./Error.sol";
+
+contract PaymentSplitterEnumerable is PaymentSplitter {
+	uint256 public immutable PAYEE_COUNT;
+
+	error TotalSharesIsZero();
+
+	constructor(address[] memory _payees, uint256[] memory _shares)
+		PaymentSplitter(_payees, _shares)
+	{
+		if (totalShares() == 0) revert TotalSharesIsZero();
+
+		PAYEE_COUNT = _payees.length;
+	}
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.8;
+
+/*
+
+Redeemable Contract
+v1.0
+
+The MIT License (MIT)
+Copyright © 2022 <copyright holders>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import "@openzeppelin/contracts/utils/structs/BitMaps.sol";
+
+contract Redeemable {
+	bytes32 public redeemRoot;
+	mapping(bytes32 => BitMaps.BitMap) private _redeemed;
+
+	event RedeemRootChanged(address indexed account, bytes32 from, bytes32 to);
+
+	event Redeemed(
+		address indexed account,
+		bytes32 root,
+		uint256 indexed ticketId
+	);
+
+	/// Redeem not open. The root proof has not been set.
+	error NothingToRedeem();
+
+	/// Redeeming a ticket already redeemed.
+	/// @param ticketId Identifier of the ticket.
+	error TicketAlreadyRedeemed(uint256 ticketId);
+
+	/// Invalid proof for the ticket. `proof` is not valid for ticket `ticketId`.
+	/// @param ticketId Identifier of the ticket.
+	/// @param proof The proof used to redeem.
+	error TicketNotValid(uint256 ticketId, bytes32[] proof);
+
+	// Redeems a raffle ticket given its id and Merkle tree proof.
+	function _redeem(
+		address redeemer,
+		uint256 ticketId,
+		bytes32[] calldata proof
+	) internal {
+		if (redeemRoot == 0) revert NothingToRedeem();
+		if (redeemed(redeemRoot, ticketId))
+			revert TicketAlreadyRedeemed(ticketId);
+
+		if (!_verify(_leaf(redeemer, ticketId), proof))
+			revert TicketNotValid(ticketId, proof);
+
+		BitMaps.set(_redeemed[redeemRoot], ticketId);
+		emit Redeemed(redeemer, redeemRoot, ticketId);
+	}
+
+	function redeemed(bytes32 root, uint256 ticketId)
+		public
+		view
+		returns (bool)
+	{
+		return BitMaps.get(_redeemed[root], ticketId);
+	}
+
+	function _setRedeemRoot(address account, bytes32 root) internal {
+		bytes32 previous = redeemRoot;
+		redeemRoot = root;
+		emit RedeemRootChanged(account, previous, redeemRoot);
+	}
+
+	// Helpers
+
+	function _leaf(address account, uint256 id) private pure returns (bytes32) {
+		return keccak256(abi.encodePacked(id, account));
+	}
+
+	function _verify(bytes32 leaf, bytes32[] memory proof)
+		private
+		view
+		returns (bool)
+	{
+		return MerkleProof.verify(proof, redeemRoot, leaf);
+	}
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+abstract contract ContextMixin {
+	function msgSender() internal view returns (address payable sender) {
+		if (msg.sender == address(this)) {
+			bytes memory array = msg.data;
+			uint256 index = msg.data.length;
+			assembly {
+				// Load the 32 bytes word from memory with the address on the lower 20 bytes, and mask those.
+				sender := and(
+					mload(add(array, index)),
+					0xffffffffffffffffffffffffffffffffffffffff
+				)
+			}
+		} else {
+			sender = payable(msg.sender);
+		}
+		return sender;
+	}
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import {Initializable} from "./Initializable.sol";
+
+contract EIP712Base is Initializable {
+	struct EIP712Domain {
+		string name;
+		string version;
+		address verifyingContract;
+		bytes32 salt;
+	}
+
+	string public constant ERC712_VERSION = "1";
+
+	bytes32 internal constant EIP712_DOMAIN_TYPEHASH =
+		keccak256(
+			bytes(
+				"EIP712Domain(string name,string version,address verifyingContract,bytes32 salt)"
+			)
+		);
+	bytes32 internal domainSeperator;
+
+	// supposed to be called once while initializing.
+	// one of the contracts that inherits this contract follows proxy pattern
+	// so it is not possible to do this in a constructor
+	function _initializeEIP712(string memory name) internal initializer {
+		_setDomainSeperator(name);
+	}
+
+	function _setDomainSeperator(string memory name) internal {
+		domainSeperator = keccak256(
+			abi.encode(
+				EIP712_DOMAIN_TYPEHASH,
+				keccak256(bytes(name)),
+				keccak256(bytes(ERC712_VERSION)),
+				address(this),
+				bytes32(getChainId())
+			)
+		);
+	}
+
+	function getDomainSeperator() public view returns (bytes32) {
+		return domainSeperator;
+	}
+
+	function getChainId() public view returns (uint256) {
+		uint256 id;
+		assembly {
+			id := chainid()
+		}
+		return id;
+	}
+
+	/**
+	 * Accept message hash and returns hash message in EIP712 compatible form
+	 * So that it can be used to recover signer from signature signed using EIP712 formatted data
+	 * https://eips.ethereum.org/EIPS/eip-712
+	 * "\\x19" makes the encoding deterministic
+	 * "\\x01" is the version byte to make it compatible to EIP-191
+	 */
+	function toTypedMessageHash(bytes32 messageHash)
+		internal
+		view
+		returns (bytes32)
+	{
+		return
+			keccak256(
+				abi.encodePacked("\x19\x01", getDomainSeperator(), messageHash)
+			);
+	}
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+contract Initializable {
+	uint256 private initialized;
+
+	error AlreadyInitialized();
+
+	modifier initializer() {
+		if(initialized != 0) revert AlreadyInitialized();
+		_;
+		initialized = 1;
+	}
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import {EIP712Base} from "./EIP712Base.sol";
+
+contract NativeMetaTransaction is EIP712Base {
+	bytes32 private constant META_TRANSACTION_TYPEHASH =
+		keccak256(
+			bytes(
+				"MetaTransaction(uint256 nonce,address from,bytes functionSignature)"
+			)
+		);
+	event MetaTransactionExecuted(
+		address indexed userAddress,
+		address payable indexed relayerAddress,
+		bytes functionSignature
+	);
+	mapping(address => uint256) nonces;
+
+	/*
+	 * Meta transaction structure.
+	 * No point of including value field here as if user is doing value transfer then he has the funds to pay for gas
+	 * He should call the desired function directly in that case.
+	 */
+	struct MetaTransaction {
+		uint256 nonce;
+		address from;
+		bytes functionSignature;
+	}
+
+	error SignerAndSignatureDoNotMatch(
+		address userAddress, 
+		bytes32 sigR,
+		bytes32 sigS,
+		uint8 sigV);
+	error FunctionCallNotSuccessful(address userAddress, bytes functionSignature);
+	error InvalidSigner(address signer);
+
+	function executeMetaTransaction(
+		address userAddress,
+		bytes memory functionSignature,
+		bytes32 sigR,
+		bytes32 sigS,
+		uint8 sigV
+	) public payable returns (bytes memory) {
+		MetaTransaction memory metaTx = MetaTransaction({
+			nonce: nonces[userAddress],
+			from: userAddress,
+			functionSignature: functionSignature
+		});
+
+		if(!verify(userAddress, metaTx, sigR, sigS, sigV)) 
+			revert SignerAndSignatureDoNotMatch(userAddress, sigR, sigS, sigV);
+
+		// increase nonce for user (to avoid re-use)
+		nonces[userAddress] = nonces[userAddress] + 1;
+
+		emit MetaTransactionExecuted(
+			userAddress,
+			payable(msg.sender),
+			functionSignature
+		);
+
+		// Append userAddress and relayer address at the end to extract it from calling context
+		(bool success, bytes memory returnData) = address(this).call(
+			abi.encodePacked(functionSignature, userAddress)
+		);
+		if(!success) 
+			revert FunctionCallNotSuccessful(userAddress, functionSignature);
+
+		return returnData;
+	}
+
+	function hashMetaTransaction(MetaTransaction memory metaTx)
+		internal
+		pure
+		returns (bytes32)
+	{
+		return
+			keccak256(
+				abi.encode(
+					META_TRANSACTION_TYPEHASH,
+					metaTx.nonce,
+					metaTx.from,
+					keccak256(metaTx.functionSignature)
+				)
+			);
+	}
+
+	function getNonce(address user) public view returns (uint256 nonce) {
+		nonce = nonces[user];
+	}
+
+	function verify(
+		address signer,
+		MetaTransaction memory metaTx,
+		bytes32 sigR,
+		bytes32 sigS,
+		uint8 sigV
+	) internal view returns (bool) {
+		if(signer == address(0)) revert InvalidSigner(signer);
+		return
+			signer ==
+			ECDSA.recover(
+				toTypedMessageHash(hashMetaTransaction(metaTx)),
+				sigV,
+				sigR,
+				sigS
+			);
+	}
+}
