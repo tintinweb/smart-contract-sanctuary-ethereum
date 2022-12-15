@@ -1,0 +1,1753 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+interface IGateway {
+
+    function finalizeWithdraw(
+        address _l1Token,
+        uint256 _tokenId,
+        address _to
+    ) external;
+
+    function finalizeRegistrationFromL1(address l1Address, address l2Address)
+        external;
+
+    function finalizeDeposit(
+        address l1Token,
+        address l2Token,
+        uint256 tokenId,
+        address to
+    ) external;
+
+    function finalizeDepositWithURI(
+        address l1Token,
+        address l2Token,
+        uint256 tokenId,
+        string memory tokenURI,
+        address to
+    ) external;
+}
+
+// SPDX-License-Identifier: Apache-2.0
+
+/*
+ * Copyright 2020, Offchain Labs, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+pragma solidity ^0.8.9;
+
+import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+//import "arb-bridge-eth/contracts/bridge/interfaces/IInboxPatched.sol";
+
+import { IInbox, IBridge} from "@arbitrum/nitro-contracts/src/bridge/IInbox.sol";
+
+import {IOutbox} from "arb-bridge-eth/contracts/bridge/interfaces/IOutbox.sol";
+import "../IGateway.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+// Patch IInbox to add in calculate fee function
+interface IInboxPatched is IInbox {
+  function calculateRetryableSubmissionFee(
+    uint256 dataLength,
+    uint256 baseFee
+  ) external view returns (uint256);
+}
+
+struct L2GasParams {
+    uint256 _maxSubmissionCost;
+    uint256 _maxGas;
+    uint256 _gasPriceBid;
+}
+
+contract ArbiRootGateway is IERC721Receiver, Ownable {
+    address public counterpartL2Gateway;
+    address public inbox;
+    address public bridge;
+    mapping(address => address) public l1ToL2Token;
+
+    event RetryableTicketCreated(uint256 id, uint256 gasMax);
+
+    function initialize(address _counterpartL2Gateway, address _inbox) public {
+        require(counterpartL2Gateway == address(0), "ALREADY_INIT");
+        require(_counterpartL2Gateway != address(0), "BAD_COUNTERPART");
+        require(_inbox != address(0), "BAD_INBOX");
+        address _bridge = address(IInboxPatched(_inbox).bridge());
+
+        counterpartL2Gateway = _counterpartL2Gateway;
+        inbox = _inbox;
+        bridge = _bridge;
+    }
+
+    modifier onlyCounterpartL2Gateway() {
+        // a message coming from the counterpart gateway was executed by the bridge
+        // NOTE: do we really need this?
+        require(msg.sender == bridge, "NOT_FROM_BRIDGE");
+
+        // and the outbox reports that the L2 address of the sender is the counterpart gateway
+        IOutbox outbox = IOutbox(IBridge(bridge).activeOutbox());
+        address l2ToL1Sender = outbox.l2ToL1Sender();
+
+        require(
+            l2ToL1Sender == counterpartL2Gateway,
+            "ONLY_COUNTERPART_GATEWAY"
+        );
+        _;
+    }
+
+    function finalizeWithdraw(
+        address _l1Token,
+        uint256 _tokenId,
+        address _to
+    ) external onlyCounterpartL2Gateway {
+        IERC721(_l1Token).safeTransferFrom(address(this), _to, _tokenId);
+    }
+
+    function getRegisterL2MessageCallData(
+        address _l1Address,
+        address _l2Address
+    ) pure public returns (bytes memory) {
+        return
+            abi.encodeWithSelector(
+                IGateway.finalizeRegistrationFromL1.selector,
+                _l1Address,
+                _l2Address
+            );
+    }
+
+    function registerTokenToL2ByOwner(
+        address _l1Address,
+        address _l2Address
+    ) public onlyOwner {
+        l1ToL2Token[_l1Address] = _l2Address;
+    }
+
+    function registerTokenToL2(
+        address _l2Address,
+        L2GasParams memory _l2GasParams,
+        address _refundAddress
+    ) public payable returns (uint256) {
+        address _l1Address = msg.sender;
+        address currL2Addr = l1ToL2Token[_l1Address];
+        if (currL2Addr != address(0)) {
+            // if token is already set, don't allow it to set a different L2 address
+            require(currL2Addr == _l2Address, "NO_UPDATE_TO_DIFFERENT_ADDR");
+        }
+
+        l1ToL2Token[_l1Address] = _l2Address;
+
+        bytes memory _l2MessageCallData = getRegisterL2MessageCallData(_l1Address, _l2Address);
+
+        uint256 seqNum = IInboxPatched(inbox).createRetryableTicket{value: msg.value}(
+            counterpartL2Gateway,
+            0,
+            _l2GasParams._maxSubmissionCost,
+            _refundAddress,
+            _refundAddress,
+            _l2GasParams._maxGas,
+            _l2GasParams._gasPriceBid,
+            _l2MessageCallData
+        );
+
+        return seqNum;
+    }
+
+
+    function registerTokenToL2(
+        address _l1AddressInput,
+        address _l2Address,
+        L2GasParams memory _l2GasParams,
+        address _refundAddress
+    ) public payable returns (uint256) {
+        address _l1Address = _l1AddressInput;
+        address currL2Addr = l1ToL2Token[_l1Address];
+        if (currL2Addr != address(0)) {
+            // if token is already set, don't allow it to set a different L2 address
+            require(currL2Addr == _l2Address, "NO_UPDATE_TO_DIFFERENT_ADDR");
+        }
+
+        l1ToL2Token[_l1Address] = _l2Address;
+
+        bytes memory _l2MessageCallData = getRegisterL2MessageCallData(_l1Address, _l2Address);
+
+        uint256 seqNum = IInboxPatched(inbox).createRetryableTicket{value: msg.value}(
+            counterpartL2Gateway,
+            0,
+            _l2GasParams._maxSubmissionCost,
+            _refundAddress,
+            _refundAddress,
+            _l2GasParams._maxGas,
+            _l2GasParams._gasPriceBid,
+            _l2MessageCallData
+        );
+
+        //emit TxToL2(_refundAddress, counterpartL2Gateway, seqNum, _l2MessageCallData);
+        return seqNum;
+    }
+
+    function getDepositL2MessageCallData(
+        address _l1Token,
+        address _l2Token,
+        uint256 _tokenId,
+        address _to
+    ) public pure returns (bytes memory) {
+        return
+            abi.encodeWithSelector(
+                IGateway.finalizeDeposit.selector,
+                _l1Token,
+                _l2Token,
+                _tokenId,
+                _to
+            );
+    }
+
+    function getDepositL2MessageCallData2(
+        address _l1Token,
+        address _l2Token,
+        uint256 _tokenId,
+        string memory _tokenURI,
+        address _to
+    ) public pure returns (bytes memory) {
+        return
+            abi.encodeWithSelector(
+                IGateway.finalizeDepositWithURI.selector,
+                _l1Token,
+                _l2Token,
+                _tokenId,
+                _tokenURI,
+                _to
+            );
+    }
+
+    function depositWithGasParaNoURI(
+        address _l1Token,
+        uint256 _tokenId,
+        address _to,
+        L2GasParams memory _l2GasParams,
+        address _refundAddress
+    ) external payable returns (uint256) {
+        address l2Token = l1ToL2Token[_l1Token];
+
+        ERC721(_l1Token).safeTransferFrom(msg.sender, address(this), _tokenId);
+        bytes memory _l2MessageCallData = getDepositL2MessageCallData(
+            _l1Token,
+            l2Token,
+            _tokenId,
+            _to
+        );
+
+        uint256 seqNum = IInboxPatched(inbox).createRetryableTicket{value: msg.value}(
+            counterpartL2Gateway,
+            0,
+            _l2GasParams._maxSubmissionCost,
+            _refundAddress,
+            _refundAddress,
+            _l2GasParams._maxGas,
+            _l2GasParams._gasPriceBid,
+            _l2MessageCallData
+        );
+
+        return seqNum;
+    }
+
+
+    function depositWithGasPara(
+        address _l1Token,
+        uint256 _tokenId,
+        address _to,
+        L2GasParams memory _l2GasParams,
+        address _refundAddress
+    ) external payable returns (uint256) {
+        address l2Token = l1ToL2Token[_l1Token];
+        require(l2Token != address(0), "NOT_REGISTERED");
+        //require(msg.value > 0.0001 ether, "not enough");
+
+        ERC721(_l1Token).safeTransferFrom(msg.sender, address(this), _tokenId);
+        string memory _tokenURI = ERC721(_l1Token).tokenURI(_tokenId);
+        bytes memory _l2MessageCallData = getDepositL2MessageCallData2(
+            _l1Token,
+            l2Token,
+            _tokenId,
+            _tokenURI,
+            _to
+        );
+
+        uint256 seqNum = IInboxPatched(inbox).createRetryableTicket{value: msg.value}(
+            counterpartL2Gateway,
+            0,
+            _l2GasParams._maxSubmissionCost,
+            _refundAddress,
+            _refundAddress,
+            _l2GasParams._maxGas,
+            _l2GasParams._gasPriceBid,
+            _l2MessageCallData
+        );
+
+        return seqNum;
+    }
+
+
+    function depositWithURINoETH(
+        address _l1Token,
+        uint256 _tokenId,
+        address _to
+    ) external returns (uint256) {
+        address l2Token = l1ToL2Token[_l1Token];
+        require(l2Token != address(0), "NOT_REGISTERED");
+
+        ERC721(_l1Token).safeTransferFrom(msg.sender, address(this), _tokenId);
+        string memory _tokenURI = ERC721(_l1Token).tokenURI(_tokenId);
+        bytes memory _l2MessageCallData = getDepositL2MessageCallData2(
+            _l1Token,
+            l2Token,
+            _tokenId,
+            _tokenURI,
+            _to
+        );
+
+        // Get submission fee
+        uint256 submissionFee = IInboxPatched(inbox).calculateRetryableSubmissionFee(
+            _l2MessageCallData.length,
+            block.basefee
+        );
+
+        uint256 seqNum = IInboxPatched(inbox).createRetryableTicket{value: submissionFee}(
+            counterpartL2Gateway,
+            0,
+            submissionFee,
+            msg.sender,
+            msg.sender,
+            0,
+            0,
+            _l2MessageCallData
+        );
+        
+        return seqNum;
+    }
+
+
+    function depositNoAotoRedeem(
+        address _l1Token,
+        uint256 _tokenId,
+        address _to
+    ) external payable returns (uint256) {
+        address l2Token = l1ToL2Token[_l1Token];
+        require(l2Token != address(0), "NOT_REGISTERED");
+
+        ERC721(_l1Token).safeTransferFrom(msg.sender, address(this), _tokenId);
+        string memory _tokenURI = ERC721(_l1Token).tokenURI(_tokenId);
+        bytes memory _l2MessageCallData = getDepositL2MessageCallData2(
+            _l1Token,
+            l2Token,
+            _tokenId,
+            _tokenURI,
+            _to
+        );
+
+        // Get submission fee
+        uint256 submissionFee = IInboxPatched(inbox).calculateRetryableSubmissionFee(
+            _l2MessageCallData.length,
+            block.basefee
+        );
+
+        uint256 seqNum = IInboxPatched(inbox).createRetryableTicket{value: msg.value}(
+            counterpartL2Gateway,
+            0,
+            submissionFee,
+            msg.sender,
+            msg.sender,
+            0,
+            0,
+            _l2MessageCallData
+        );
+        emit RetryableTicketCreated(seqNum, submissionFee);
+        return seqNum;
+    }
+
+    function deposit(
+        address _l1Token,
+        uint256 _tokenId,
+        address _to
+    ) external payable returns (uint256) {
+        address l2Token = l1ToL2Token[_l1Token];
+        require(l2Token != address(0), "NOT_REGISTERED");
+
+        ERC721(_l1Token).safeTransferFrom(msg.sender, address(this), _tokenId);
+        string memory _tokenURI = ERC721(_l1Token).tokenURI(_tokenId);
+        bytes memory _l2MessageCallData = getDepositL2MessageCallData2(
+            _l1Token,
+            l2Token,
+            _tokenId,
+            _tokenURI,
+            _to
+        );
+
+        // Get submission fee
+        uint256 submissionFee = IInboxPatched(inbox).calculateRetryableSubmissionFee(
+            _l2MessageCallData.length,
+            block.basefee
+        );
+
+        uint256 seqNum = IInboxPatched(inbox).createRetryableTicket{value: msg.value}(
+            counterpartL2Gateway,
+            0,
+            submissionFee,
+            msg.sender,
+            msg.sender,
+            910000,
+            3000000000,
+            _l2MessageCallData
+        );
+        emit RetryableTicketCreated(seqNum, submissionFee);
+        return seqNum;
+    }
+
+    function depositWithGasMax(
+        address _l1Token,
+        uint256 _tokenId,
+        address _to,
+        uint256 _masGas
+    ) external payable returns (uint256) {
+        address l2Token = l1ToL2Token[_l1Token];
+        require(l2Token != address(0), "NOT_REGISTERED");
+
+        ERC721(_l1Token).safeTransferFrom(msg.sender, address(this), _tokenId);
+        string memory _tokenURI = ERC721(_l1Token).tokenURI(_tokenId);
+        bytes memory _l2MessageCallData = getDepositL2MessageCallData2(
+            _l1Token,
+            l2Token,
+            _tokenId,
+            _tokenURI,
+            _to
+        );
+
+        // Get submission fee
+        uint256 submissionFee = IInboxPatched(inbox).calculateRetryableSubmissionFee(
+            _l2MessageCallData.length,
+            block.basefee
+        );
+
+        uint256 seqNum = IInboxPatched(inbox).createRetryableTicket{value: msg.value}(
+            counterpartL2Gateway,
+            0,
+            submissionFee,
+            msg.sender,
+            msg.sender,
+            _masGas,
+            3000000000,
+            _l2MessageCallData
+        );
+        emit RetryableTicketCreated(seqNum, submissionFee);
+        return seqNum;
+    }
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external override pure returns (bytes4) {
+        return this.onERC721Received.selector;
+    }
+
+
+    // Allow receiving ETH
+    receive() payable external {}
+}
+
+// Copyright 2021-2022, Offchain Labs, Inc.
+// For license information, see https://github.com/nitro/blob/master/LICENSE
+// SPDX-License-Identifier: BUSL-1.1
+
+// solhint-disable-next-line compiler-version
+pragma solidity >=0.6.9 <0.9.0;
+
+import "./IOwnable.sol";
+
+interface IBridge {
+    event MessageDelivered(
+        uint256 indexed messageIndex,
+        bytes32 indexed beforeInboxAcc,
+        address inbox,
+        uint8 kind,
+        address sender,
+        bytes32 messageDataHash,
+        uint256 baseFeeL1,
+        uint64 timestamp
+    );
+
+    event BridgeCallTriggered(
+        address indexed outbox,
+        address indexed to,
+        uint256 value,
+        bytes data
+    );
+
+    event InboxToggle(address indexed inbox, bool enabled);
+
+    event OutboxToggle(address indexed outbox, bool enabled);
+
+    event SequencerInboxUpdated(address newSequencerInbox);
+
+    function enqueueDelayedMessage(
+        uint8 kind,
+        address sender,
+        bytes32 messageDataHash
+    ) external payable returns (uint256);
+
+    function enqueueSequencerMessage(bytes32 dataHash, uint256 afterDelayedMessagesRead)
+        external
+        returns (
+            uint256 seqMessageIndex,
+            bytes32 beforeAcc,
+            bytes32 delayedAcc,
+            bytes32 acc
+        );
+
+    function submitBatchSpendingReport(address batchPoster, bytes32 dataHash)
+        external
+        returns (uint256 msgNum);
+
+    function executeCall(
+        address to,
+        uint256 value,
+        bytes calldata data
+    ) external returns (bool success, bytes memory returnData);
+
+    // These are only callable by the admin
+    function setDelayedInbox(address inbox, bool enabled) external;
+
+    function setOutbox(address inbox, bool enabled) external;
+
+    function setSequencerInbox(address _sequencerInbox) external;
+
+    // View functions
+
+    function sequencerInbox() external view returns (address);
+
+    function activeOutbox() external view returns (address);
+
+    function allowedDelayedInboxes(address inbox) external view returns (bool);
+
+    function allowedOutboxes(address outbox) external view returns (bool);
+
+    function delayedInboxAccs(uint256 index) external view returns (bytes32);
+
+    function sequencerInboxAccs(uint256 index) external view returns (bytes32);
+
+    function delayedMessageCount() external view returns (uint256);
+
+    function sequencerMessageCount() external view returns (uint256);
+
+    function rollup() external view returns (IOwnable);
+
+    function acceptFundsFromOldBridge() external payable;
+}
+
+// Copyright 2021-2022, Offchain Labs, Inc.
+// For license information, see https://github.com/nitro/blob/master/LICENSE
+// SPDX-License-Identifier: BUSL-1.1
+
+// solhint-disable-next-line compiler-version
+pragma solidity >=0.6.9 <0.9.0;
+
+interface IDelayedMessageProvider {
+    /// @dev event emitted when a inbox message is added to the Bridge's delayed accumulator
+    event InboxMessageDelivered(uint256 indexed messageNum, bytes data);
+
+    /// @dev event emitted when a inbox message is added to the Bridge's delayed accumulator
+    /// same as InboxMessageDelivered but the batch data is available in tx.input
+    event InboxMessageDeliveredFromOrigin(uint256 indexed messageNum);
+}
+
+// Copyright 2021-2022, Offchain Labs, Inc.
+// For license information, see https://github.com/nitro/blob/master/LICENSE
+// SPDX-License-Identifier: BUSL-1.1
+
+// solhint-disable-next-line compiler-version
+pragma solidity >=0.6.9 <0.9.0;
+
+import "./IBridge.sol";
+import "./IDelayedMessageProvider.sol";
+
+interface IInbox is IDelayedMessageProvider {
+    function sendL2Message(bytes calldata messageData) external returns (uint256);
+
+    function sendUnsignedTransaction(
+        uint256 gasLimit,
+        uint256 maxFeePerGas,
+        uint256 nonce,
+        address to,
+        uint256 value,
+        bytes calldata data
+    ) external returns (uint256);
+
+    function sendContractTransaction(
+        uint256 gasLimit,
+        uint256 maxFeePerGas,
+        address to,
+        uint256 value,
+        bytes calldata data
+    ) external returns (uint256);
+
+    function sendL1FundedUnsignedTransaction(
+        uint256 gasLimit,
+        uint256 maxFeePerGas,
+        uint256 nonce,
+        address to,
+        bytes calldata data
+    ) external payable returns (uint256);
+
+    function sendL1FundedContractTransaction(
+        uint256 gasLimit,
+        uint256 maxFeePerGas,
+        address to,
+        bytes calldata data
+    ) external payable returns (uint256);
+
+    /// @dev Gas limit and maxFeePerGas should not be set to 1 as that is used to trigger the RetryableData error
+    function createRetryableTicket(
+        address to,
+        uint256 arbTxCallValue,
+        uint256 maxSubmissionCost,
+        address submissionRefundAddress,
+        address valueRefundAddress,
+        uint256 gasLimit,
+        uint256 maxFeePerGas,
+        bytes calldata data
+    ) external payable returns (uint256);
+
+    /// @dev Gas limit and maxFeePerGas should not be set to 1 as that is used to trigger the RetryableData error
+    function unsafeCreateRetryableTicket(
+        address to,
+        uint256 arbTxCallValue,
+        uint256 maxSubmissionCost,
+        address submissionRefundAddress,
+        address valueRefundAddress,
+        uint256 gasLimit,
+        uint256 maxFeePerGas,
+        bytes calldata data
+    ) external payable returns (uint256);
+
+    function depositEth() external payable returns (uint256);
+
+    /// @notice deprecated in favour of depositEth with no parameters
+    function depositEth(uint256 maxSubmissionCost) external payable returns (uint256);
+
+    function bridge() external view returns (IBridge);
+
+    function postUpgradeInit(IBridge _bridge) external;
+}
+
+// Copyright 2021-2022, Offchain Labs, Inc.
+// For license information, see https://github.com/nitro/blob/master/LICENSE
+// SPDX-License-Identifier: BUSL-1.1
+
+// solhint-disable-next-line compiler-version
+pragma solidity >=0.4.21 <0.9.0;
+
+interface IOwnable {
+    function owner() external view returns (address);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import "../utils/Context.sol";
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _setOwner(_msgSender());
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+        _;
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _setOwner(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _setOwner(newOwner);
+    }
+
+    function _setOwner(address newOwner) private {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import "./IERC721.sol";
+import "./IERC721Receiver.sol";
+import "./extensions/IERC721Metadata.sol";
+import "../../utils/Address.sol";
+import "../../utils/Context.sol";
+import "../../utils/Strings.sol";
+import "../../utils/introspection/ERC165.sol";
+
+/**
+ * @dev Implementation of https://eips.ethereum.org/EIPS/eip-721[ERC721] Non-Fungible Token Standard, including
+ * the Metadata extension, but not including the Enumerable extension, which is available separately as
+ * {ERC721Enumerable}.
+ */
+contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
+    using Address for address;
+    using Strings for uint256;
+
+    // Token name
+    string private _name;
+
+    // Token symbol
+    string private _symbol;
+
+    // Mapping from token ID to owner address
+    mapping(uint256 => address) private _owners;
+
+    // Mapping owner address to token count
+    mapping(address => uint256) private _balances;
+
+    // Mapping from token ID to approved address
+    mapping(uint256 => address) private _tokenApprovals;
+
+    // Mapping from owner to operator approvals
+    mapping(address => mapping(address => bool)) private _operatorApprovals;
+
+    /**
+     * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
+     */
+    constructor(string memory name_, string memory symbol_) {
+        _name = name_;
+        _symbol = symbol_;
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, IERC165) returns (bool) {
+        return
+            interfaceId == type(IERC721).interfaceId ||
+            interfaceId == type(IERC721Metadata).interfaceId ||
+            super.supportsInterface(interfaceId);
+    }
+
+    /**
+     * @dev See {IERC721-balanceOf}.
+     */
+    function balanceOf(address owner) public view virtual override returns (uint256) {
+        require(owner != address(0), "ERC721: balance query for the zero address");
+        return _balances[owner];
+    }
+
+    /**
+     * @dev See {IERC721-ownerOf}.
+     */
+    function ownerOf(uint256 tokenId) public view virtual override returns (address) {
+        address owner = _owners[tokenId];
+        require(owner != address(0), "ERC721: owner query for nonexistent token");
+        return owner;
+    }
+
+    /**
+     * @dev See {IERC721Metadata-name}.
+     */
+    function name() public view virtual override returns (string memory) {
+        return _name;
+    }
+
+    /**
+     * @dev See {IERC721Metadata-symbol}.
+     */
+    function symbol() public view virtual override returns (string memory) {
+        return _symbol;
+    }
+
+    /**
+     * @dev See {IERC721Metadata-tokenURI}.
+     */
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+
+        string memory baseURI = _baseURI();
+        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
+    }
+
+    /**
+     * @dev Base URI for computing {tokenURI}. If set, the resulting URI for each
+     * token will be the concatenation of the `baseURI` and the `tokenId`. Empty
+     * by default, can be overriden in child contracts.
+     */
+    function _baseURI() internal view virtual returns (string memory) {
+        return "";
+    }
+
+    /**
+     * @dev See {IERC721-approve}.
+     */
+    function approve(address to, uint256 tokenId) public virtual override {
+        address owner = ERC721.ownerOf(tokenId);
+        require(to != owner, "ERC721: approval to current owner");
+
+        require(
+            _msgSender() == owner || isApprovedForAll(owner, _msgSender()),
+            "ERC721: approve caller is not owner nor approved for all"
+        );
+
+        _approve(to, tokenId);
+    }
+
+    /**
+     * @dev See {IERC721-getApproved}.
+     */
+    function getApproved(uint256 tokenId) public view virtual override returns (address) {
+        require(_exists(tokenId), "ERC721: approved query for nonexistent token");
+
+        return _tokenApprovals[tokenId];
+    }
+
+    /**
+     * @dev See {IERC721-setApprovalForAll}.
+     */
+    function setApprovalForAll(address operator, bool approved) public virtual override {
+        require(operator != _msgSender(), "ERC721: approve to caller");
+
+        _operatorApprovals[_msgSender()][operator] = approved;
+        emit ApprovalForAll(_msgSender(), operator, approved);
+    }
+
+    /**
+     * @dev See {IERC721-isApprovedForAll}.
+     */
+    function isApprovedForAll(address owner, address operator) public view virtual override returns (bool) {
+        return _operatorApprovals[owner][operator];
+    }
+
+    /**
+     * @dev See {IERC721-transferFrom}.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override {
+        //solhint-disable-next-line max-line-length
+        require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: transfer caller is not owner nor approved");
+
+        _transfer(from, to, tokenId);
+    }
+
+    /**
+     * @dev See {IERC721-safeTransferFrom}.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public virtual override {
+        safeTransferFrom(from, to, tokenId, "");
+    }
+
+    /**
+     * @dev See {IERC721-safeTransferFrom}.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) public virtual override {
+        require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: transfer caller is not owner nor approved");
+        _safeTransfer(from, to, tokenId, _data);
+    }
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
+     * are aware of the ERC721 protocol to prevent tokens from being forever locked.
+     *
+     * `_data` is additional data, it has no specified format and it is sent in call to `to`.
+     *
+     * This internal function is equivalent to {safeTransferFrom}, and can be used to e.g.
+     * implement alternative mechanisms to perform token transfer, such as signature-based.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function _safeTransfer(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) internal virtual {
+        _transfer(from, to, tokenId);
+        require(_checkOnERC721Received(from, to, tokenId, _data), "ERC721: transfer to non ERC721Receiver implementer");
+    }
+
+    /**
+     * @dev Returns whether `tokenId` exists.
+     *
+     * Tokens can be managed by their owner or approved accounts via {approve} or {setApprovalForAll}.
+     *
+     * Tokens start existing when they are minted (`_mint`),
+     * and stop existing when they are burned (`_burn`).
+     */
+    function _exists(uint256 tokenId) internal view virtual returns (bool) {
+        return _owners[tokenId] != address(0);
+    }
+
+    /**
+     * @dev Returns whether `spender` is allowed to manage `tokenId`.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function _isApprovedOrOwner(address spender, uint256 tokenId) internal view virtual returns (bool) {
+        require(_exists(tokenId), "ERC721: operator query for nonexistent token");
+        address owner = ERC721.ownerOf(tokenId);
+        return (spender == owner || getApproved(tokenId) == spender || isApprovedForAll(owner, spender));
+    }
+
+    /**
+     * @dev Safely mints `tokenId` and transfers it to `to`.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must not exist.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function _safeMint(address to, uint256 tokenId) internal virtual {
+        _safeMint(to, tokenId, "");
+    }
+
+    /**
+     * @dev Same as {xref-ERC721-_safeMint-address-uint256-}[`_safeMint`], with an additional `data` parameter which is
+     * forwarded in {IERC721Receiver-onERC721Received} to contract recipients.
+     */
+    function _safeMint(
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) internal virtual {
+        _mint(to, tokenId);
+        require(
+            _checkOnERC721Received(address(0), to, tokenId, _data),
+            "ERC721: transfer to non ERC721Receiver implementer"
+        );
+    }
+
+    /**
+     * @dev Mints `tokenId` and transfers it to `to`.
+     *
+     * WARNING: Usage of this method is discouraged, use {_safeMint} whenever possible
+     *
+     * Requirements:
+     *
+     * - `tokenId` must not exist.
+     * - `to` cannot be the zero address.
+     *
+     * Emits a {Transfer} event.
+     */
+    function _mint(address to, uint256 tokenId) internal virtual {
+        require(to != address(0), "ERC721: mint to the zero address");
+        require(!_exists(tokenId), "ERC721: token already minted");
+
+        _beforeTokenTransfer(address(0), to, tokenId);
+
+        _balances[to] += 1;
+        _owners[tokenId] = to;
+
+        emit Transfer(address(0), to, tokenId);
+    }
+
+    /**
+     * @dev Destroys `tokenId`.
+     * The approval is cleared when the token is burned.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     *
+     * Emits a {Transfer} event.
+     */
+    function _burn(uint256 tokenId) internal virtual {
+        address owner = ERC721.ownerOf(tokenId);
+
+        _beforeTokenTransfer(owner, address(0), tokenId);
+
+        // Clear approvals
+        _approve(address(0), tokenId);
+
+        _balances[owner] -= 1;
+        delete _owners[tokenId];
+
+        emit Transfer(owner, address(0), tokenId);
+    }
+
+    /**
+     * @dev Transfers `tokenId` from `from` to `to`.
+     *  As opposed to {transferFrom}, this imposes no restrictions on msg.sender.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     *
+     * Emits a {Transfer} event.
+     */
+    function _transfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal virtual {
+        require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer of token that is not own");
+        require(to != address(0), "ERC721: transfer to the zero address");
+
+        _beforeTokenTransfer(from, to, tokenId);
+
+        // Clear approvals from the previous owner
+        _approve(address(0), tokenId);
+
+        _balances[from] -= 1;
+        _balances[to] += 1;
+        _owners[tokenId] = to;
+
+        emit Transfer(from, to, tokenId);
+    }
+
+    /**
+     * @dev Approve `to` to operate on `tokenId`
+     *
+     * Emits a {Approval} event.
+     */
+    function _approve(address to, uint256 tokenId) internal virtual {
+        _tokenApprovals[tokenId] = to;
+        emit Approval(ERC721.ownerOf(tokenId), to, tokenId);
+    }
+
+    /**
+     * @dev Internal function to invoke {IERC721Receiver-onERC721Received} on a target address.
+     * The call is not executed if the target address is not a contract.
+     *
+     * @param from address representing the previous owner of the given token ID
+     * @param to target address that will receive the tokens
+     * @param tokenId uint256 ID of the token to be transferred
+     * @param _data bytes optional data to send along with the call
+     * @return bool whether the call correctly returned the expected magic value
+     */
+    function _checkOnERC721Received(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory _data
+    ) private returns (bool) {
+        if (to.isContract()) {
+            try IERC721Receiver(to).onERC721Received(_msgSender(), from, tokenId, _data) returns (bytes4 retval) {
+                return retval == IERC721Receiver(to).onERC721Received.selector;
+            } catch (bytes memory reason) {
+                if (reason.length == 0) {
+                    revert("ERC721: transfer to non ERC721Receiver implementer");
+                } else {
+                    assembly {
+                        revert(add(32, reason), mload(reason))
+                    }
+                }
+            }
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * @dev Hook that is called before any token transfer. This includes minting
+     * and burning.
+     *
+     * Calling conditions:
+     *
+     * - When `from` and `to` are both non-zero, ``from``'s `tokenId` will be
+     * transferred to `to`.
+     * - When `from` is zero, `tokenId` will be minted for `to`.
+     * - When `to` is zero, ``from``'s `tokenId` will be burned.
+     * - `from` and `to` are never both zero.
+     *
+     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     */
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal virtual {}
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import "../../utils/introspection/IERC165.sol";
+
+/**
+ * @dev Required interface of an ERC721 compliant contract.
+ */
+interface IERC721 is IERC165 {
+    /**
+     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.
+     */
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.
+     */
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+
+    /**
+     * @dev Returns the number of tokens in ``owner``'s account.
+     */
+    function balanceOf(address owner) external view returns (uint256 balance);
+
+    /**
+     * @dev Returns the owner of the `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function ownerOf(uint256 tokenId) external view returns (address owner);
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
+     * are aware of the ERC721 protocol to prevent tokens from being forever locked.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Transfers `tokenId` token from `from` to `to`.
+     *
+     * WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Gives permission to `to` to transfer `tokenId` token to another account.
+     * The approval is cleared when the token is transferred.
+     *
+     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.
+     *
+     * Requirements:
+     *
+     * - The caller must own the token or be an approved operator.
+     * - `tokenId` must exist.
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address to, uint256 tokenId) external;
+
+    /**
+     * @dev Returns the account approved for `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function getApproved(uint256 tokenId) external view returns (address operator);
+
+    /**
+     * @dev Approve or remove `operator` as an operator for the caller.
+     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.
+     *
+     * Requirements:
+     *
+     * - The `operator` cannot be the caller.
+     *
+     * Emits an {ApprovalForAll} event.
+     */
+    function setApprovalForAll(address operator, bool _approved) external;
+
+    /**
+     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.
+     *
+     * See {setApprovalForAll}
+     */
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes calldata data
+    ) external;
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+/**
+ * @title ERC721 token receiver interface
+ * @dev Interface for any contract that wants to support safeTransfers
+ * from ERC721 asset contracts.
+ */
+interface IERC721Receiver {
+    /**
+     * @dev Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom}
+     * by `operator` from `from`, this function is called.
+     *
+     * It must return its Solidity selector to confirm the token transfer.
+     * If any other value is returned or the interface is not implemented by the recipient, the transfer will be reverted.
+     *
+     * The selector can be obtained in Solidity with `IERC721.onERC721Received.selector`.
+     */
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external returns (bytes4);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import "../IERC721.sol";
+
+/**
+ * @title ERC-721 Non-Fungible Token Standard, optional metadata extension
+ * @dev See https://eips.ethereum.org/EIPS/eip-721
+ */
+interface IERC721Metadata is IERC721 {
+    /**
+     * @dev Returns the token collection name.
+     */
+    function name() external view returns (string memory);
+
+    /**
+     * @dev Returns the token collection symbol.
+     */
+    function symbol() external view returns (string memory);
+
+    /**
+     * @dev Returns the Uniform Resource Identifier (URI) for `tokenId` token.
+     */
+    function tokenURI(uint256 tokenId) external view returns (string memory);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Collection of functions related to the address type
+ */
+library Address {
+    /**
+     * @dev Returns true if `account` is a contract.
+     *
+     * [IMPORTANT]
+     * ====
+     * It is unsafe to assume that an address for which this function returns
+     * false is an externally-owned account (EOA) and not a contract.
+     *
+     * Among others, `isContract` will return false for the following
+     * types of addresses:
+     *
+     *  - an externally-owned account
+     *  - a contract in construction
+     *  - an address where a contract will be created
+     *  - an address where a contract lived, but was destroyed
+     * ====
+     */
+    function isContract(address account) internal view returns (bool) {
+        // This method relies on extcodesize, which returns 0 for contracts in
+        // construction, since the code is only stored at the end of the
+        // constructor execution.
+
+        uint256 size;
+        assembly {
+            size := extcodesize(account)
+        }
+        return size > 0;
+    }
+
+    /**
+     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to
+     * `recipient`, forwarding all available gas and reverting on errors.
+     *
+     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost
+     * of certain opcodes, possibly making contracts go over the 2300 gas limit
+     * imposed by `transfer`, making them unable to receive funds via
+     * `transfer`. {sendValue} removes this limitation.
+     *
+     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].
+     *
+     * IMPORTANT: because control is transferred to `recipient`, care must be
+     * taken to not create reentrancy vulnerabilities. Consider using
+     * {ReentrancyGuard} or the
+     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].
+     */
+    function sendValue(address payable recipient, uint256 amount) internal {
+        require(address(this).balance >= amount, "Address: insufficient balance");
+
+        (bool success, ) = recipient.call{value: amount}("");
+        require(success, "Address: unable to send value, recipient may have reverted");
+    }
+
+    /**
+     * @dev Performs a Solidity function call using a low level `call`. A
+     * plain `call` is an unsafe replacement for a function call: use this
+     * function instead.
+     *
+     * If `target` reverts with a revert reason, it is bubbled up by this
+     * function (like regular Solidity function calls).
+     *
+     * Returns the raw returned data. To convert to the expected return value,
+     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].
+     *
+     * Requirements:
+     *
+     * - `target` must be a contract.
+     * - calling `target` with `data` must not revert.
+     *
+     * _Available since v3.1._
+     */
+    function functionCall(address target, bytes memory data) internal returns (bytes memory) {
+        return functionCall(target, data, "Address: low-level call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with
+     * `errorMessage` as a fallback revert reason when `target` reverts.
+     *
+     * _Available since v3.1._
+     */
+    function functionCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, 0, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but also transferring `value` wei to `target`.
+     *
+     * Requirements:
+     *
+     * - the calling contract must have an ETH balance of at least `value`.
+     * - the called Solidity function must be `payable`.
+     *
+     * _Available since v3.1._
+     */
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value
+    ) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but
+     * with `errorMessage` as a fallback revert reason when `target` reverts.
+     *
+     * _Available since v3.1._
+     */
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        require(address(this).balance >= value, "Address: insufficient balance for call");
+        require(isContract(target), "Address: call to non-contract");
+
+        (bool success, bytes memory returndata) = target.call{value: value}(data);
+        return _verifyCallResult(success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but performing a static call.
+     *
+     * _Available since v3.3._
+     */
+    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {
+        return functionStaticCall(target, data, "Address: low-level static call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a static call.
+     *
+     * _Available since v3.3._
+     */
+    function functionStaticCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal view returns (bytes memory) {
+        require(isContract(target), "Address: static call to non-contract");
+
+        (bool success, bytes memory returndata) = target.staticcall(data);
+        return _verifyCallResult(success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but performing a delegate call.
+     *
+     * _Available since v3.4._
+     */
+    function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {
+        return functionDelegateCall(target, data, "Address: low-level delegate call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a delegate call.
+     *
+     * _Available since v3.4._
+     */
+    function functionDelegateCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        require(isContract(target), "Address: delegate call to non-contract");
+
+        (bool success, bytes memory returndata) = target.delegatecall(data);
+        return _verifyCallResult(success, returndata, errorMessage);
+    }
+
+    function _verifyCallResult(
+        bool success,
+        bytes memory returndata,
+        string memory errorMessage
+    ) private pure returns (bytes memory) {
+        if (success) {
+            return returndata;
+        } else {
+            // Look for revert reason and bubble it up if present
+            if (returndata.length > 0) {
+                // The easiest way to bubble the revert reason is using memory via assembly
+
+                assembly {
+                    let returndata_size := mload(returndata)
+                    revert(add(32, returndata), returndata_size)
+                }
+            } else {
+                revert(errorMessage);
+            }
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+/*
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev String operations.
+ */
+library Strings {
+    bytes16 private constant _HEX_SYMBOLS = "0123456789abcdef";
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation.
+     */
+    function toHexString(uint256 value) internal pure returns (string memory) {
+        if (value == 0) {
+            return "0x00";
+        }
+        uint256 temp = value;
+        uint256 length = 0;
+        while (temp != 0) {
+            length++;
+            temp >>= 8;
+        }
+        return toHexString(value, length);
+    }
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` hexadecimal representation with fixed length.
+     */
+    function toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+        bytes memory buffer = new bytes(2 * length + 2);
+        buffer[0] = "0";
+        buffer[1] = "x";
+        for (uint256 i = 2 * length + 1; i > 1; --i) {
+            buffer[i] = _HEX_SYMBOLS[value & 0xf];
+            value >>= 4;
+        }
+        require(value == 0, "Strings: hex length insufficient");
+        return string(buffer);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import "./IERC165.sol";
+
+/**
+ * @dev Implementation of the {IERC165} interface.
+ *
+ * Contracts that want to implement ERC165 should inherit from this contract and override {supportsInterface} to check
+ * for the additional interface id that will be supported. For example:
+ *
+ * ```solidity
+ * function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+ *     return interfaceId == type(MyInterface).interfaceId || super.supportsInterface(interfaceId);
+ * }
+ * ```
+ *
+ * Alternatively, {ERC165Storage} provides an easier to use but more expensive implementation.
+ */
+abstract contract ERC165 is IERC165 {
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        return interfaceId == type(IERC165).interfaceId;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC165 standard, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-165[EIP].
+ *
+ * Implementers can declare support of contract interfaces, which can then be
+ * queried by others ({ERC165Checker}).
+ *
+ * For an implementation, see {ERC165}.
+ */
+interface IERC165 {
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+}
+
+// SPDX-License-Identifier: Apache-2.0
+
+/*
+ * Copyright 2021, Offchain Labs, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// solhint-disable-next-line compiler-version
+pragma solidity >=0.6.9 <0.9.0;
+
+interface IOutbox {
+    event OutboxEntryCreated(
+        uint256 indexed batchNum,
+        uint256 outboxEntryIndex,
+        bytes32 outputRoot,
+        uint256 numInBatch
+    );
+    event OutBoxTransactionExecuted(
+        address indexed destAddr,
+        address indexed l2Sender,
+        uint256 indexed outboxEntryIndex,
+        uint256 transactionIndex
+    );
+
+    function l2ToL1Sender() external view returns (address);
+
+    function l2ToL1Block() external view returns (uint256);
+
+    function l2ToL1EthBlock() external view returns (uint256);
+
+    function l2ToL1Timestamp() external view returns (uint256);
+
+    function l2ToL1BatchNum() external view returns (uint256);
+
+    function l2ToL1OutputId() external view returns (bytes32);
+
+    function processOutgoingMessages(bytes calldata sendsData, uint256[] calldata sendLengths)
+        external;
+
+    function outboxEntryExists(uint256 batchNum) external view returns (bool);
+}
