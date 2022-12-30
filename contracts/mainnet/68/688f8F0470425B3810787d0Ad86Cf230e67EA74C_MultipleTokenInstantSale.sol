@@ -1,0 +1,441 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import {IERC1155} from "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
+import {IMultipleToken} from "../token/IMultipleToken.sol";
+import {IMetaUnitTracker} from "../../MetaUnit/Tracker/IMetaUnitTracker.sol";
+import {Pausable} from "../../../Pausable.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {IERC2981} from "@openzeppelin/contracts/interfaces/IERC2981.sol";
+import {IFeeStorage} from "../../Collections/FeeStorage/IFeeStorage.sol";
+
+
+/**
+ * @author MetaPlayerOne DAO
+ * @title MultipleTokenInstantSale
+ */
+contract MultipleTokenInstantSale is Pausable, ReentrancyGuard {
+    struct Item { uint256 uid; address token_address; uint256 token_id; uint256 amount; uint256 sold; address owner_of; uint256 price; bool is_canceled; }
+    Item[] private _items;
+    mapping(address => mapping(uint256 => bool)) private _active_items;
+    address private _meta_unit_tracker_address;
+    address private _creator_fee_storage;
+
+    constructor(address owner_of_, address meta_unit_tracker_address_, address creator_fee_storage_) Pausable(owner_of_) {
+        _meta_unit_tracker_address = meta_unit_tracker_address_;
+        _creator_fee_storage = creator_fee_storage_;
+    }
+
+   
+    event itemSold(uint256 uid, uint256 amount, address buyer);
+    event itemAdded(uint256 uid, address token_address, uint256 token_id, uint256 amount, uint256 sold, address owner_of, uint256 price);
+    event itemRevoked(uint256 uid);
+    event itemEdited(uint256 uid, uint256 value);
+    
+    /**
+     * @dev allows you to put the ERC1155 token up for sale.
+     * @param token_address address of token you pushes to market.
+     * @param token_id id of token you pushes to market. 
+     * @param price the minimum price for which a token can be bought.
+     * @param amount amount of ERC1155 tokens.
+     */
+    function sale(address token_address, uint256 token_id, uint256 price, uint256 amount) public notPaused nonReentrant {
+        IERC1155 token = IERC1155(token_address);
+        require(token.balanceOf(msg.sender, token_id) >= amount, "You are not an owner");
+        require(token.isApprovedForAll(msg.sender, address(this)), "Token is not approved to contact");
+        uint256 newItemId = _items.length;
+        _items.push(Item(newItemId, token_address, token_id, amount, 0, msg.sender, price, false));
+        emit itemAdded(newItemId, token_address, token_id, amount, 0, msg.sender, price);
+    }
+
+    /**
+     * @dev allows you to buy tokens.
+     * @param uid unique order to be resolved.
+     */
+    function buy(uint256 uid, uint256 amount) public payable notPaused nonReentrant {
+        Item memory item = _items[uid];
+        uint256 total_price = item.price * amount;
+        require(total_price <= msg.value, "Not enough funds send");
+        require(msg.sender != item.owner_of, "You are an owner");
+        require(item.sold + amount <= item.amount, "Limit exceeded");
+        uint256 creator_fee_total = 0;
+        address royalty_fee_receiver = address(0);
+        uint256 royalty_fee = 0;
+        try IFeeStorage(_creator_fee_storage).feeInfo(item.token_address, total_price) returns (address[] memory creator_fee_receiver_, uint256[] memory creator_fee_, uint256 total_) {
+            for (uint256 i = 0; i < creator_fee_receiver_.length; i ++) {
+                payable(creator_fee_receiver_[i]).send(creator_fee_[i]);
+            }
+            creator_fee_total = total_;
+        } catch {}
+        try IERC2981(item.token_address).royaltyInfo(item.token_id, item.price) returns (address royalty_fee_receiver_, uint256 royalty_fee_) {
+            royalty_fee_receiver = royalty_fee_receiver_;
+            royalty_fee = royalty_fee_;
+        } catch {}
+        uint256 project_fee = (total_price * 25) / 1000;
+        if (royalty_fee_receiver != address(0)) payable(royalty_fee_receiver).send(royalty_fee);
+        payable(_owner_of).send(project_fee);
+        payable(item.owner_of).send(msg.value - creator_fee_total - royalty_fee - project_fee);
+        IMetaUnitTracker(_meta_unit_tracker_address).track(msg.sender, total_price);
+        IERC1155(item.token_address).safeTransferFrom(item.owner_of, msg.sender, item.token_id, amount, "");
+        _items[uid].sold += amount;
+        emit itemSold(uid, amount, msg.sender);
+    }
+
+    function revoke(uint256 uid) public nonReentrant {
+        Item memory item = _items[uid];
+        require(msg.sender == item.owner_of, "You are not an owner");
+        require(_active_items[item.token_address][item.token_id], "Order does not exist");
+        require(item.sold != item.amount, "Limit exceeded");
+        _active_items[item.token_address][item.token_id] = false;
+        _items[uid].is_canceled = true;
+        emit itemRevoked(uid);
+    }
+
+    function edit(uint256 uid, uint256 value) public nonReentrant {
+        Item memory item = _items[uid];
+        require(msg.sender == item.owner_of, "You are not an owner");
+        require(_active_items[item.token_address][item.token_id], "Order does not exist");
+        require(!item.is_canceled, "Order has been canceled");
+        require(item.sold != item.amount, "Limit exceeded");
+        _items[uid].price = value;
+        emit itemEdited(uid, value);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface IMetaUnitTracker {
+    struct Transaction { address owner_of; uint256 value; uint256 timestamp; }
+
+    function track(address eth_address_, uint256 value_) external;
+    function getUserResalesSum(address eth_address_) external view returns(uint256);
+    function getUserTransactionQuantity(address eth_address_) external view returns(uint256);
+    function getTransactions() external view returns (Transaction[] memory);
+    function getTransactionsForPeriod(uint256 from_, uint256 to_) external view returns (address[] memory, uint256[] memory);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+interface IMultipleToken {
+    function getRoyalty(uint256 tokenId) external returns (uint256);
+
+    function getCreator(uint256 tokenId) external returns (address);
+
+    function mint(string memory token_uri, uint256 amount, uint256 royalty) external;
+
+    function burn(uint256 token_id, uint256 amount) external;
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+interface IFeeStorage {
+    function feeInfo(address token_address, uint256 salePrice) external view returns (address[] memory, uint256[] memory, uint256);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+/**
+ * @author MetaPlayerOne DAO
+ * @title Pausable
+ */
+contract Pausable {
+    address internal _owner_of;
+    bool internal _paused = false;
+
+    /**
+     * @dev setup owner of this contract with paused off state.
+     */
+    constructor(address owner_of_) {
+        _owner_of = owner_of_;
+        _paused = false;
+    }
+
+    /**
+     * @dev modifier which can be used on child contract for checking if contract services are paused.
+     */
+    modifier notPaused() {
+        require(!_paused, "Contract is paused");
+        _;
+    }
+
+    /**
+     * @dev function which setup paused variable.
+     * @param paused_ new boolean value of paused condition.
+     */
+    function setPaused(bool paused_) external {
+        require(_paused == paused_, "Param has been asigned already");
+        require(_owner_of == msg.sender, "Permission address");
+        _paused = paused_;
+    }
+
+    /**
+     * @dev function which setup owner variable.
+     * @param owner_of_ new owner of contract.
+     */
+    function setOwner(address owner_of_) external {
+        require(_owner_of == msg.sender, "Permission address");
+        _owner_of = owner_of_;
+    }
+
+    /**
+     * @dev function returns owner of contract.
+     */
+    function owner() public view returns (address) {
+        return _owner_of;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC165 standard, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-165[EIP].
+ *
+ * Implementers can declare support of contract interfaces, which can then be
+ * queried by others ({ERC165Checker}).
+ *
+ * For an implementation, see {ERC165}.
+ */
+interface IERC165 {
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (token/ERC1155/IERC1155.sol)
+
+pragma solidity ^0.8.0;
+
+import "../../utils/introspection/IERC165.sol";
+
+/**
+ * @dev Required interface of an ERC1155 compliant contract, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-1155[EIP].
+ *
+ * _Available since v3.1._
+ */
+interface IERC1155 is IERC165 {
+    /**
+     * @dev Emitted when `value` tokens of token type `id` are transferred from `from` to `to` by `operator`.
+     */
+    event TransferSingle(address indexed operator, address indexed from, address indexed to, uint256 id, uint256 value);
+
+    /**
+     * @dev Equivalent to multiple {TransferSingle} events, where `operator`, `from` and `to` are the same for all
+     * transfers.
+     */
+    event TransferBatch(
+        address indexed operator,
+        address indexed from,
+        address indexed to,
+        uint256[] ids,
+        uint256[] values
+    );
+
+    /**
+     * @dev Emitted when `account` grants or revokes permission to `operator` to transfer their tokens, according to
+     * `approved`.
+     */
+    event ApprovalForAll(address indexed account, address indexed operator, bool approved);
+
+    /**
+     * @dev Emitted when the URI for token type `id` changes to `value`, if it is a non-programmatic URI.
+     *
+     * If an {URI} event was emitted for `id`, the standard
+     * https://eips.ethereum.org/EIPS/eip-1155#metadata-extensions[guarantees] that `value` will equal the value
+     * returned by {IERC1155MetadataURI-uri}.
+     */
+    event URI(string value, uint256 indexed id);
+
+    /**
+     * @dev Returns the amount of tokens of token type `id` owned by `account`.
+     *
+     * Requirements:
+     *
+     * - `account` cannot be the zero address.
+     */
+    function balanceOf(address account, uint256 id) external view returns (uint256);
+
+    /**
+     * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {balanceOf}.
+     *
+     * Requirements:
+     *
+     * - `accounts` and `ids` must have the same length.
+     */
+    function balanceOfBatch(address[] calldata accounts, uint256[] calldata ids)
+        external
+        view
+        returns (uint256[] memory);
+
+    /**
+     * @dev Grants or revokes permission to `operator` to transfer the caller's tokens, according to `approved`,
+     *
+     * Emits an {ApprovalForAll} event.
+     *
+     * Requirements:
+     *
+     * - `operator` cannot be the caller.
+     */
+    function setApprovalForAll(address operator, bool approved) external;
+
+    /**
+     * @dev Returns true if `operator` is approved to transfer ``account``'s tokens.
+     *
+     * See {setApprovalForAll}.
+     */
+    function isApprovedForAll(address account, address operator) external view returns (bool);
+
+    /**
+     * @dev Transfers `amount` tokens of token type `id` from `from` to `to`.
+     *
+     * Emits a {TransferSingle} event.
+     *
+     * Requirements:
+     *
+     * - `to` cannot be the zero address.
+     * - If the caller is not `from`, it must have been approved to spend ``from``'s tokens via {setApprovalForAll}.
+     * - `from` must have a balance of tokens of type `id` of at least `amount`.
+     * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155Received} and return the
+     * acceptance magic value.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes calldata data
+    ) external;
+
+    /**
+     * @dev xref:ROOT:erc1155.adoc#batch-operations[Batched] version of {safeTransferFrom}.
+     *
+     * Emits a {TransferBatch} event.
+     *
+     * Requirements:
+     *
+     * - `ids` and `amounts` must have the same length.
+     * - If `to` refers to a smart contract, it must implement {IERC1155Receiver-onERC1155BatchReceived} and return the
+     * acceptance magic value.
+     */
+    function safeBatchTransferFrom(
+        address from,
+        address to,
+        uint256[] calldata ids,
+        uint256[] calldata amounts,
+        bytes calldata data
+    ) external;
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.8.0) (security/ReentrancyGuard.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Contract module that helps prevent reentrant calls to a function.
+ *
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
+ * (reentrant) calls to them.
+ *
+ * Note that because there is a single `nonReentrant` guard, functions marked as
+ * `nonReentrant` may not call one another. This can be worked around by making
+ * those functions `private`, and then adding `external` `nonReentrant` entry
+ * points to them.
+ *
+ * TIP: If you would like to learn more about reentrancy and alternative ways
+ * to protect against it, check out our blog post
+ * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ */
+abstract contract ReentrancyGuard {
+    // Booleans are more expensive than uint256 or any type that takes up a full
+    // word because each write operation emits an extra SLOAD to first read the
+    // slot's contents, replace the bits taken up by the boolean, and then write
+    // back. This is the compiler's defense against contract upgrades and
+    // pointer aliasing, and it cannot be disabled.
+
+    // The values being non-zero value makes deployment a bit more expensive,
+    // but in exchange the refund on every call to nonReentrant will be lower in
+    // amount. Since refunds are capped to a percentage of the total
+    // transaction's gas, it is best to keep them low in cases like this one, to
+    // increase the likelihood of the full refund coming into effect.
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        _nonReentrantBefore();
+        _;
+        _nonReentrantAfter();
+    }
+
+    function _nonReentrantBefore() private {
+        // On the first call to nonReentrant, _status will be _NOT_ENTERED
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+    }
+
+    function _nonReentrantAfter() private {
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (interfaces/IERC2981.sol)
+
+pragma solidity ^0.8.0;
+
+import "../utils/introspection/IERC165.sol";
+
+/**
+ * @dev Interface for the NFT Royalty Standard.
+ *
+ * A standardized way to retrieve royalty payment information for non-fungible tokens (NFTs) to enable universal
+ * support for royalty payments across all NFT marketplaces and ecosystem participants.
+ *
+ * _Available since v4.5._
+ */
+interface IERC2981 is IERC165 {
+    /**
+     * @dev Returns how much royalty is owed and to whom, based on a sale price that may be denominated in any unit of
+     * exchange. The royalty amount is denominated and should be paid in that same unit of exchange.
+     */
+    function royaltyInfo(uint256 tokenId, uint256 salePrice)
+        external
+        view
+        returns (address receiver, uint256 royaltyAmount);
+}
