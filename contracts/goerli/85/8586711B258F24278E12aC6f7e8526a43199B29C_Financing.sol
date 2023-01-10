@@ -1,0 +1,860 @@
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Counters.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @title Counters
+ * @author Matt Condon (@shrugs)
+ * @dev Provides counters that can only be incremented, decremented or reset. This can be used e.g. to track the number
+ * of elements in a mapping, issuing ERC721 ids, or counting request ids.
+ *
+ * Include with `using Counters for Counters.Counter;`
+ */
+library Counters {
+    struct Counter {
+        // This variable should never be directly accessed by users of the library: interactions must be restricted to
+        // the library's function. As of Solidity v0.5.2, this cannot be enforced, though there is a proposal to add
+        // this feature: see https://github.com/ethereum/solidity/issues/4637
+        uint256 _value; // default: 0
+    }
+
+    function current(Counter storage counter) internal view returns (uint256) {
+        return counter._value;
+    }
+
+    function increment(Counter storage counter) internal {
+        unchecked {
+            counter._value += 1;
+        }
+    }
+
+    function decrement(Counter storage counter) internal {
+        uint256 value = counter._value;
+        require(value > 0, "Counter: decrement overflow");
+        unchecked {
+            counter._value = value - 1;
+        }
+    }
+
+    function reset(Counter storage counter) internal {
+        counter._value = 0;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+import "openzeppelin-contracts/utils/Counters.sol";
+
+import "./SlotEntry.sol";
+import "../interfaces/IDaoCore.sol";
+import "../helpers/Constants.sol";
+
+/**
+ * @notice abstract contract for Adapters, add guard modifier
+ * to restrict access for only DAO members or contracts.
+ *
+ * NOTE This contract has no state, there is no need to reset it
+ * when the contract is desactived
+ */
+abstract contract Adapter is SlotEntry, Constants {
+    /* //////////////////////////
+            MODIFIER
+    ////////////////////////// */
+    modifier onlyCore() {
+        require(msg.sender == _core, "Adapter: not the core");
+        _;
+    }
+
+    modifier onlyExtension(bytes4 slot) {
+        IDaoCore core = IDaoCore(_core);
+        require(
+            core.isSlotExtension(slot) && core.getSlotContractAddr(slot) == msg.sender,
+            "Adapter: wrong extension"
+        );
+        _;
+    }
+
+    /// NOTE consider using `hasRole(bytes4)` for future role in the DAO => AccessControl.sol
+    modifier onlyMember() {
+        require(IDaoCore(_core).hasRole(msg.sender, ROLE_MEMBER), "Adapter: not a member");
+        _;
+    }
+
+    modifier onlyProposer() {
+        require(IDaoCore(_core).hasRole(msg.sender, ROLE_PROPOSER), "Adapter: not a proposer");
+        _;
+    }
+
+    modifier onlyAdmin() {
+        require(IDaoCore(_core).hasRole(msg.sender, ROLE_ADMIN), "Adapter: not an admin");
+        _;
+    }
+
+    constructor(address core, bytes4 slot) SlotEntry(core, slot, false) {}
+
+    receive() external payable {
+        revert("Adapter: cannot receive funds");
+    }
+
+    /**
+     * @notice internal getter
+     * @return actual contract address associated with `slot`, return
+     * address(0) if there is no contract address
+     */
+    function _slotAddress(bytes4 slot) internal view returns (address) {
+        return IDaoCore(_core).getSlotContractAddr(slot);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+import "../helpers/ProposalState.sol";
+import "../interfaces/IProposerAdapter.sol";
+import "../interfaces/IAgora.sol";
+import "./Adapter.sol";
+
+/**
+ * @notice Extensions of abstract contract Adapters which implement
+ * proposals submissions to Agora.
+ *
+ * @dev Allow contract to manage proposals counters, check vote result and
+ * risk mitigation
+ */
+abstract contract ProposerAdapter is Adapter, IProposerAdapter {
+    using ProposalState for ProposalState.State;
+
+    ProposalState.State private _state;
+
+    modifier paused() {
+        require(!_state.paused(), "Adapter: paused");
+        _;
+    }
+
+    /**
+     * @notice called to finalize and archive a proposal
+     * {_executeProposal} if accepted, this latter
+     * function must be overrided in adapter implementation
+     * with the logic of the adapter
+     *
+     * NOTE This function shouldn't be overrided (virtual), but maybe
+     * it would be an option
+     */
+    function finalizeProposal(bytes32 proposalId) external onlyMember {
+        (bool accepted, IAgora agora) = _checkProposalResult(proposalId);
+
+        if (accepted) {
+            _executeProposal(proposalId);
+        }
+
+        _archiveProposal();
+        agora.finalizeProposal(proposalId, msg.sender, accepted);
+    }
+
+    /**
+     * @notice delete the archive after one year, Agora
+     * store and do check before calling this function
+     */
+    function deleteArchive(bytes32) external virtual onlyExtension(Slot.AGORA) {
+        // implement logic here
+        _state.decrementArchive();
+    }
+
+    /**
+     * @notice allow an admin to pause and unpause the adapter
+     * @dev inverse the current pause state
+     */
+    function pauseToggleAdapter() external onlyAdmin {
+        _state.pauseToggle();
+    }
+
+    /**
+     * @notice desactivate the adapter
+     * @dev CAUTION this function is not reversible,
+     * only triggerable when there is no ongoing proposal
+     */
+    function desactive() external onlyAdmin {
+        require(_state.currentOngoing() == 0, "Proposer: ongoing proposals");
+        _state.desactivate();
+    }
+
+    /**
+     * @notice getter for current numbers of ongoing proposal
+     */
+    function ongoingProposals() external view returns (uint256) {
+        return _state.currentOngoing();
+    }
+
+    /**
+     * @notice getter for current numbers of archived proposal
+     */
+    function archivedProposals() external view returns (uint256) {
+        return _state.currentArchive();
+    }
+
+    function isPaused() external view returns (bool) {
+        return _state.paused();
+    }
+
+    function isDesactived() external view returns (bool) {
+        return _state.desactived();
+    }
+
+    /* //////////////////////////
+        INTERNAL FUNCTIONS
+    ////////////////////////// */
+    /**
+     * @notice decrement ongoing proposal and increment
+     * archived proposal counter
+     *
+     * NOTE should be used when {Adapter::finalizeProposal}
+     */
+    function _archiveProposal() internal paused {
+        _state.decrementOngoing();
+        _state.incrementArchive();
+    }
+
+    /**
+     * @notice called after a proposal is submitted to Agora.
+     * @dev will increase the proposal counter, check if the
+     * adapter has not been paused and check also if the
+     * adapter has not been desactived
+     */
+    function _newProposal() internal paused {
+        require(!_state.desactived(), "Proposer: adapter desactived");
+        _state.incrementOngoing();
+    }
+
+    /**
+     * @notice allow the proposal to check the vote result on
+     * Agora, this function is only used (so far) when the adapter
+     * needs to finalize a proposal
+     *
+     * @dev the function returns the {VoteResult} enum and the
+     * {IAgora} interface to facilitate the result transmission to Agora
+     *
+     * NOTE This function could be transformed into a modifier which act
+     * before and after the function {Adapter::finalizeProposal} as this
+     * latter must call {Agora::finalizeProposal} then.
+     */
+    function _checkProposalResult(bytes32 proposalId)
+        internal
+        view
+        returns (bool accepted, IAgora agora)
+    {
+        agora = IAgora(_slotAddress(Slot.AGORA));
+        require(
+            agora.getProposalStatus(proposalId) == IAgora.ProposalStatus.TO_FINALIZE,
+            "Agora: proposal cannot be finalized"
+        );
+
+        accepted = agora.getVoteResult(proposalId);
+    }
+
+    /**
+     * @notice this function is used as a hook to execute the
+     * adapter logic when a proposal has been accepted.
+     * @dev triggered by {finalizeProposal}
+     */
+    function _executeProposal(bytes32 proposalId) internal virtual {}
+
+    function _readProposalId(bytes32 proposalId) internal pure returns (bytes28) {
+        return bytes28(proposalId << 32);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+import "../helpers/Slot.sol";
+import "../interfaces/ISlotEntry.sol";
+
+/**
+ * @notice abstract contract shared by Adapter, Extensions and
+ * DaoCore, contains informations related to slots.
+ *
+ * @dev states of this contract are called to perform some checks,
+ * especially when a new adapter or extensions is plugged to the
+ * DAO
+ */
+abstract contract SlotEntry is ISlotEntry {
+    address internal immutable _core;
+    bytes4 public immutable override slotId;
+    bool public immutable override isExtension;
+
+    constructor(
+        address core,
+        bytes4 slot,
+        bool isExt
+    ) {
+        require(core != address(0), "SlotEntry: zero address");
+        require(slot != Slot.EMPTY, "SlotEntry: empty slot");
+        _core = core;
+        slotId = slot;
+        isExtension = isExt;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+import "../abstracts/ProposerAdapter.sol";
+import "../interfaces/IBank.sol";
+import "../interfaces/IAgora.sol";
+
+/**
+ * @notice contract which interact with the Bank to manage funds in the DAO
+ */
+contract Financing is ProposerAdapter {
+    using Slot for bytes28;
+
+    // MAY BE: Create an `event` as a receipt?
+
+    /**
+     * @notice Financing proposals are request for transaction
+     * from an existing vault on {Bank} to an address
+     */
+    struct TransactionRequest {
+        address applicant; // the proposal applicant address
+        uint256 amount; // the amount requested for funding => uint128? (no space gained)
+        bytes4 vaultId; // the vault to fund
+        address tokenAddr; // the address of the token related to amount
+    }
+
+    mapping(bytes28 => TransactionRequest) private _requests;
+
+    constructor(address core) Adapter(core, Slot.FINANCING) {}
+
+    /* //////////////////////////
+            PUBLIC FUNCTIONS
+    ////////////////////////// */
+    /**
+     * @notice Creates financing proposal, proposal must be validated by
+     * an admin
+     * @param voteId vote parameters id
+     * @param amount of the proposal
+     * @param applicant of the proposal
+     * @param vaultId vault id
+     * @param tokenAddr token address
+     * requirements :
+     * - Only MEMBER role can create a financing proposal.
+     * - Requested amount must be greater than zero.
+     */
+    function submitTransactionRequest(
+        bytes4 voteId,
+        uint256 amount,
+        address applicant,
+        bytes4 vaultId,
+        address tokenAddr,
+        uint32 minStartTime
+    ) external onlyMember {
+        require(amount > 0, "Financing: insufficiant amount");
+        TransactionRequest memory proposal = TransactionRequest(
+            applicant,
+            amount,
+            vaultId,
+            tokenAddr
+        );
+        bytes28 proposalId = bytes28(keccak256(abi.encode(proposal)));
+
+        _newProposal();
+
+        _requests[proposalId] = proposal;
+        IBank(_slotAddress(Slot.BANK)).vaultCommit(vaultId, tokenAddr, applicant, uint128(amount));
+        IAgora(_slotAddress(Slot.AGORA)).submitProposal(
+            Slot.FINANCING,
+            proposalId,
+            false, // admin validation needed
+            voteId,
+            minStartTime,
+            msg.sender
+        );
+    }
+
+    /**
+     * @notice Create a vault
+     * @param vaultId vault id
+     * @param tokenList array of token addresses
+     * requirements :
+     * - Only Admin can create a vault.
+     *
+     * SECURITY: Agora do not check if this is an ERC20, a check can be done there,
+     * reminder that checking an ERC20 do not prevent an attacker contract to mock it.
+     */
+    function createVault(bytes4 vaultId, address[] memory tokenList) external onlyAdmin {
+        IBank(_slotAddress(Slot.BANK)).createVault(vaultId, tokenList);
+    }
+
+    /**
+     * @notice allow anyone to deposit in a specific vault in the DAO
+     * @dev users cannot deposit for another address because it open a
+     * risk of a misuse of the Bank approval
+     */
+    function vaultDeposit(
+        bytes4 vaultId,
+        address tokenAddr,
+        uint128 amount
+    ) external {
+        IBank(_slotAddress(Slot.BANK)).vaultDeposit(vaultId, tokenAddr, msg.sender, amount);
+    }
+
+    /* //////////////////////////
+        INTERNAL FUNCTIONS
+    ////////////////////////// */
+    /**
+     * @notice Execute a financing proposal.
+     * @param proposalId The proposal id.
+     */
+    function _executeProposal(bytes32 proposalId) internal override {
+        TransactionRequest memory proposal_ = _requests[_readProposalId(proposalId)];
+
+        IBank(_slotAddress(Slot.BANK)).vaultTransfer(
+            proposal_.vaultId,
+            proposal_.tokenAddr,
+            proposal_.applicant,
+            uint128(proposal_.amount)
+        );
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+/**
+ * @dev Constants used in the DAO
+ */
+contract Constants {
+    // CREDIT
+    bytes4 internal constant CREDIT_VOTE = bytes4(keccak256("credit-vote"));
+
+    // VAULTS
+    bytes4 internal constant TREASURY = bytes4(keccak256("treasury"));
+
+    // VOTE PARAMS
+    bytes4 internal constant VOTE_STANDARD = bytes4(keccak256("vote-standard"));
+
+    /**
+     * @dev Collection of roles available for DAO users
+     */
+    bytes32 internal constant ROLE_MEMBER = keccak256("role-member");
+    bytes32 internal constant ROLE_PROPOSER = keccak256("role-proposer");
+    bytes32 internal constant ROLE_ADMIN = keccak256("role-admin");
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+/**
+ * @notice Library which mix up Counters.sol and Pausable.sol from
+ * OpenZeppelin.
+ *
+ * @dev it define and provide utils to manage the state of an adapter
+ */
+
+library ProposalState {
+    error DecrementOverflow();
+
+    /**
+     * @notice overflow is not checked, as the maximum number is
+     * 4_294_967_295, only underflow is checked
+     */
+    struct State {
+        bool isPaused;
+        bool isDesactived;
+        uint32 ongoingProposal;
+        uint32 archivedProposal;
+    }
+
+    /* //////////////////////////
+                FLAGS
+    ////////////////////////// */
+    function desactived(State storage state) internal view returns (bool) {
+        return state.isDesactived;
+    }
+
+    function paused(State storage state) internal view returns (bool) {
+        return state.isPaused;
+    }
+
+    function pauseToggle(State storage state) internal {
+        state.isPaused = state.isPaused ? false : true;
+    }
+
+    function desactivate(State storage state) internal {
+        state.isDesactived = true;
+    }
+
+    /* //////////////////////////
+            COUNTERS
+    ////////////////////////// */
+
+    function currentOngoing(State storage state) internal view returns (uint256) {
+        return state.ongoingProposal;
+    }
+
+    function currentArchive(State storage state) internal view returns (uint256) {
+        return state.archivedProposal;
+    }
+
+    function incrementOngoing(State storage state) internal {
+        unchecked {
+            ++state.ongoingProposal;
+        }
+    }
+
+    function decrementOngoing(State storage state) internal {
+        uint256 value = state.ongoingProposal;
+        if (value == 0) revert DecrementOverflow();
+        unchecked {
+            --state.ongoingProposal;
+        }
+    }
+
+    function incrementArchive(State storage state) internal {
+        unchecked {
+            ++state.archivedProposal;
+        }
+    }
+
+    function decrementArchive(State storage state) internal {
+        uint256 value = state.archivedProposal;
+        if (value == 0) revert DecrementOverflow();
+        unchecked {
+            --state.archivedProposal;
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+/**
+ * @dev DAO Slot access collection
+ */
+library Slot {
+    // GENERAL
+    bytes4 internal constant EMPTY = 0x00000000;
+    bytes4 internal constant CORE = 0xFFFFFFFF;
+
+    // ADAPTERS
+    bytes4 internal constant MANAGING = bytes4(keccak256("managing"));
+    bytes4 internal constant ONBOARDING = bytes4(keccak256("onboarding"));
+    bytes4 internal constant VOTING = bytes4(keccak256("voting"));
+    bytes4 internal constant FINANCING = bytes4(keccak256("financing"));
+
+    // EXTENSIONS
+    bytes4 internal constant BANK = bytes4(keccak256("bank"));
+    bytes4 internal constant AGORA = bytes4(keccak256("agora"));
+
+    function concatWithSlot(bytes28 id, bytes4 slot) internal pure returns (bytes32) {
+        return bytes32(bytes.concat(slot, id));
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+interface IAgora {
+    event VoteParamsChanged(bytes4 indexed voteParamId, bool indexed added); // add consensus?
+
+    event ProposalSubmitted(
+        bytes4 indexed slot,
+        address indexed from,
+        bytes4 indexed voteParam,
+        bytes32 proposalId
+    );
+
+    event ProposalFinalized(
+        bytes32 indexed proposalId,
+        address indexed finalizer,
+        bool indexed accepted
+    );
+
+    event MemberVoted(
+        bytes32 indexed proposalId,
+        address indexed voter,
+        uint256 indexed value,
+        uint256 voteWeight
+    );
+    enum ProposalStatus {
+        UNKNOWN,
+        VALIDATION,
+        STANDBY,
+        ONGOING,
+        CLOSED,
+        SUSPENDED,
+        TO_FINALIZE,
+        ARCHIVED // until last lock period
+    }
+
+    enum Consensus {
+        UNINITIATED,
+        TOKEN, // take vote weight
+        MEMBER // 1 address = 1 vote
+    }
+
+    struct Score {
+        uint128 nbYes;
+        uint128 nbNo;
+        uint128 nbNota; // none of the above
+        // see: https://blog.tally.xyz/understanding-governor-bravo-69b06f1875da
+        uint128 memberVoted;
+    }
+
+    struct VoteParam {
+        Consensus consensus;
+        uint32 votingPeriod;
+        uint32 gracePeriod;
+        uint32 threshold; // 0 to 10000
+        uint32 adminValidationPeriod;
+        uint256 usesCount; // to fit
+    }
+
+    struct Proposal {
+        bool active;
+        bool adminApproved;
+        bool suspended;
+        bool proceeded; // ended or executed
+        uint32 createdAt;
+        uint32 minStartTime;
+        uint32 shiftedTime;
+        uint32 suspendedAt;
+        bytes4 voteParamId;
+        address initiater;
+        Score score;
+    }
+
+    function submitProposal(
+        bytes4 slot,
+        bytes28 proposalId,
+        bool adminValidation,
+        bytes4 voteParamId,
+        uint32 startTime,
+        address initiater
+    ) external;
+
+    function changeVoteParam(
+        bool isToAdd,
+        bytes4 voteParamId,
+        Consensus consensus,
+        uint32 votingPeriod,
+        uint32 gracePeriod,
+        uint32 threshold,
+        uint32 adminValidationPeriod
+    ) external;
+
+    function submitVote(
+        bytes32 proposalId,
+        address voter,
+        uint128 voteWeight,
+        uint256 value
+    ) external;
+
+    function finalizeProposal(
+        bytes32 proposalId,
+        address finalizer,
+        bool accepted
+    ) external;
+
+    function deleteArchive(bytes32 proposalId, address user) external;
+
+    // GETTERS
+    function getProposalStatus(bytes32 proposalId) external view returns (ProposalStatus);
+
+    function getVoteResult(bytes32 proposalId) external view returns (bool);
+
+    function getProposal(bytes32 proposalId) external view returns (Proposal memory);
+
+    function getVoteParams(bytes4 voteParamId) external view returns (VoteParam memory);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+interface IBank {
+    event NewCommitment(
+        bytes32 indexed proposalId,
+        address indexed account,
+        uint256 indexed lockPeriod,
+        uint256 lockedAmount
+    );
+    event Deposit(address indexed account, uint256 amount);
+    event Withdrawn(address indexed account, uint256 amount);
+
+    event VaultCreated(bytes4 indexed vaultId);
+
+    event VaultTransfer(
+        bytes4 indexed vaultId,
+        address indexed tokenAddr,
+        address from,
+        address to,
+        uint128 amount
+    );
+
+    event VaultAmountCommitted(
+        bytes4 indexed vaultId,
+        address indexed tokenAddr,
+        address indexed destinationAddr,
+        uint128 amount
+    );
+
+    struct Account {
+        uint128 availableBalance;
+        uint96 lockedBalance; // until 100_000 proposals
+        uint32 nextRetrieval;
+    }
+
+    /**
+     * @notice Max amount locked per proposal is 50_000
+     * With a x50 multiplier the voteWeight is at 2.5**24
+     * Which is less than 2**96 (uint96)
+     * lockPeriod and retrievalDate can be stored in uint32
+     * the retrieval date would overflow if it is set to 82 years
+     */
+    struct Commitment {
+        uint96 lockedAmount;
+        uint96 voteWeight;
+        uint32 lockPeriod;
+        uint32 retrievalDate;
+    }
+
+    struct Balance {
+        uint128 availableBalance;
+        uint128 commitedBalance;
+    }
+
+    function newCommitment(
+        address user,
+        bytes32 proposalId,
+        uint96 lockedAmount,
+        uint32 lockPeriod,
+        uint96 advanceDeposit
+    ) external returns (uint96 voteWeight);
+
+    function advancedDeposit(address user, uint128 amount) external;
+
+    function withdrawAmount(address user, uint128 amount) external;
+
+    function vaultCommit(
+        bytes4 vaultId,
+        address tokenAddr,
+        address destinationAddr,
+        uint128 amount
+    ) external;
+
+    function vaultDeposit(
+        bytes4 vaultId,
+        address tokenAddr,
+        address tokenOwner,
+        uint128 amount
+    ) external;
+
+    function vaultTransfer(
+        bytes4 vaultId,
+        address tokenAddr,
+        address destinationAddr,
+        uint128 amount
+    ) external returns (bool);
+
+    function createVault(bytes4 vaultId, address[] memory tokenList) external;
+
+    function terraBioToken() external returns (address);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+interface IDaoCore {
+    event SlotEntryChanged(
+        bytes4 indexed slot,
+        bool indexed isExtension,
+        address oldContractAddr,
+        address newContractAddr
+    );
+
+    event MemberStatusChanged(
+        address indexed member,
+        bytes32 indexed roles,
+        bool indexed actualValue
+    );
+
+    struct Entry {
+        bytes4 slot;
+        bool isExtension;
+        address contractAddr;
+    }
+
+    function batchChangeMembersStatus(
+        address[] memory accounts,
+        bytes32[] memory roles,
+        bool[] memory values
+    ) external;
+
+    function batchChangeSlotEntries(bytes4[] memory slots, address[] memory contractsAddr) external;
+
+    function changeSlotEntry(bytes4 slot, address contractAddr) external;
+
+    function changeMemberStatus(
+        address account,
+        bytes32 role,
+        bool value
+    ) external;
+
+    function membersCount() external returns (uint256);
+
+    function hasRole(address account, bytes32 role) external returns (bool);
+
+    function getNumberOfRoles() external view returns (uint256);
+
+    function rolesActive(bytes32 role) external view returns (bool);
+
+    function getRolesByIndex(uint256 index) external view returns (bytes32);
+
+    function isSlotActive(bytes4 slot) external view returns (bool);
+
+    function isSlotExtension(bytes4 slot) external view returns (bool);
+
+    function getSlotContractAddr(bytes4 slot) external view returns (address);
+
+    function legacyManaging() external view returns (address);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+interface IProposerAdapter {
+    function finalizeProposal(bytes32 proposalId) external;
+
+    function deleteArchive(bytes32 proposalId) external;
+
+    function pauseToggleAdapter() external;
+
+    function desactive() external;
+
+    function ongoingProposals() external view returns (uint256);
+
+    function archivedProposals() external view returns (uint256);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.17;
+
+interface ISlotEntry {
+    function isExtension() external view returns (bool);
+
+    function slotId() external view returns (bytes4);
+}
