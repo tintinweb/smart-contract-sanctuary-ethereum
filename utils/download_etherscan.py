@@ -13,7 +13,7 @@ Will eventually being turned into a simple etherscan.io api library. Feel free t
 import os
 import logging
 import argparse
-from connector.etherscan import EtherScanIoApi
+from connector.etherscan import EtherScanIoApi, EtherScanIoApi202302
 import json
 
 logger = logging.getLogger(__name__)
@@ -51,7 +51,10 @@ def main():
     break_on_dupes_threshold_initial = 500
     break_on_dupes_threshold = break_on_dupes_threshold_initial
 
-    e = EtherScanIoApi(baseurl="https://%s"%(args.chain if not args.network else "%s.%s"%(args.network, args.chain)))
+
+    d = EtherScanIoApi202302(baseurl="https://%s"%(args.chain if not args.network else "%s.%s"%(args.network, args.chain)))
+    e = d.getInstance()
+
     print(e.session.baseurl)
     print(output_directory)
     for nr,c in enumerate(e.get_contracts()):
