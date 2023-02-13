@@ -77,6 +77,7 @@ class UserAgent(object):
             raise Exception("Unexpected Status Code: %s!=200" % resp.status_code)
         return resp
 
+
 class EtherScanIoApi(object):
     """
     Base EtherScan.io Api implementation
@@ -186,6 +187,59 @@ class EtherScanIoApi(object):
         return tbodies
 
 
+class EtherScanIoApi202302(EtherScanIoApi):
+
+    @retry(Exception, delay=1, backoff=2, max_delay=10, tries=5, jitter=(1,4), logger=logger)
+    def getInstance(self):
+        resp = self.session.get("/contractsVerified/")
+        pageResult = re.findall(r'Page <strong(?:[^>]+)>(\d+)</strong> of <strong(?:[^>]+)>(\d+)</strong>', resp.text)
+        if len(pageResult)>0:
+            oldApi = EtherScanIoApi()
+            oldApi.session = self.session
+            print(oldApi.__class__.__name__)
+            return oldApi
+        pageResult = re.findall(r'<span Class="page-link">Page (\d+) of (\d+)</span>', resp.text)
+        if len(pageResult)>0:
+            print(self.__class__.__name__)
+            return self
+        raise Exception("Invalid html response: Page marker not found")
+
+    @retry(Exception, delay=1, backoff=2, max_delay=10, tries=5, jitter=(1,4), logger=logger)
+    def _request_contract_list(self, page, amount=100):
+        resp = self.session.get("/contractsVerified/%d?ps=%s" % (page, amount))
+        pageResult = re.findall(r'<span Class="page-link">Page (\d+) of (\d+)</span>', resp.text)
+        if len(pageResult)>0:
+            return resp, pageResult
+        raise Exception("Invalid html response: Page marker not found")
+
+
+    def get_contracts(self, start=0, end=None):
+        page = start
+
+        while not end or page <= end:
+            resp, pageResult = self._request_contract_list(page)                    
+            page, lastpage = pageResult[0]
+            page, lastpage = int(page),int(lastpage)
+            if not end:
+                end = lastpage
+            rows = self._parse_tbodies(resp.text)[0]  # only use first tbody
+            for col in rows:
+
+                addr = re.findall(r"data-clipboard-text=\'(0x[a-fA-F0-9]+)", col[0])
+                if not addr:
+                    raise Exception("address not found")
+
+                contract = {'address': addr[0].strip(),
+                            'name': self._extract_text_from_html(col[1]),
+                            'compiler': self._extract_text_from_html(col[3]),
+                            'balance': self._extract_text_from_html(col[4]),
+                            'txcount': int(self._extract_text_from_html(col[5])),
+                            'settings': self._extract_text_from_html(col[6]),
+                            'date': self._extract_text_from_html(col[7]),
+                            }
+                yield contract
+            page += 1
+
 
 class TronScanApi(object):
     """
@@ -249,7 +303,9 @@ if __name__=="__main__":
     overwrite = False
     amount = 1000000
 
-    e = EtherScanIoApi(baseurl="https://%s.etherscan.io"%(prefix))
+    d = EtherScanIoApi202302(baseurl="https://%s.etherscan.io"%(prefix))
+    e = d.getInstance()
+
     for nr,c in enumerate(e.get_contracts()):
         with open(os.path.join(output_directory,"contracts.json"),'a') as f:
             f.write("%s\n"%json.dumps(c))
