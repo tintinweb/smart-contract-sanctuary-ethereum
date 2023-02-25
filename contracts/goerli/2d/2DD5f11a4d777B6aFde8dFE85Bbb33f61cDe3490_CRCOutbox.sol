@@ -1,0 +1,168 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+import {ICRCOutbox} from "./interfaces/ICRCOutbox.sol";
+import {Types} from "./libraries/Types.sol";
+
+contract CRCOutbox is ICRCOutbox {
+    /// @dev outbox for messages
+    bytes32[] public outbox;
+
+    /// @dev raw version of the messages
+    Types.CRCMessage[] public rawMessages;
+
+    /// @dev getting index by the message hash
+    mapping(bytes32 => uint256) public indexOf;
+
+    /// @dev used to nullify nonces
+    mapping(address => mapping(uint64 => bool)) public noncesNullifier;
+
+    event MessageSent(
+        address indexed sender,
+        uint256 indexed destinationChainId,
+        bytes32 indexed hash,
+        uint256 messageIndex
+    );
+
+    /// @notice sends CRC message. Stores it as keccak hash inside the outbox
+    /// @dev Complete properties of a CRC message used for the hash are
+    ///     uint8 - version
+    ///     uint256 - destination chainId
+    ///     uint64  - nonce to use against replay attacks
+    ///     address - message sender
+    ///     address - user - actual sender
+    ///     address - target - the target contract in the destination chain
+    ///     address - payload - the payload to be delivered to the target contract
+    ///     address - stateRelayFee - the state relay fee
+    ///     address - deliveryFee - the delivery fee
+    ///     address - extra - extra bytes to be interpreted by dapps
+    function sendMessage(Types.CRCMessage calldata message)
+        public
+        returns (bytes32 messageHash)
+    {
+        // TODO fees checks and takes
+        require(
+            !noncesNullifier[msg.sender][message.nonce],
+            "Nonce already used"
+        );
+
+        uint256 messageIndex = outbox.length;
+
+        noncesNullifier[msg.sender][message.nonce] = true;
+
+        messageHash = keccak256(
+            abi.encode(
+                message.version,
+                message.destinationChainId,
+                message.nonce,
+                msg.sender,
+                message.user,
+                message.target,
+                message.payload,
+                message.stateRelayFee,
+                message.deliveryFee,
+                message.extra
+            )
+        );
+
+        outbox.push(messageHash);
+        indexOf[messageHash] = messageIndex;
+        rawMessages.push(message);
+
+        emit MessageSent(
+            msg.sender,
+            message.destinationChainId,
+            messageHash,
+            messageIndex
+        );
+
+        return messageHash;
+    }
+
+    function getMessageByIndex(uint256 index)
+        public
+        view
+        returns (Types.CRCMessage memory message)
+    {
+        return rawMessages[index];
+    }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+import {Types} from "./../libraries/Types.sol";
+
+interface ICRCOutbox {
+    /// @notice getter for message hashes based on their index
+    /// @param outboxIndex the index in the outbox of the message whose hash will be returned
+    /// @return messageHash the hash of the message for this outboxIndex
+    function outbox(uint256 outboxIndex)
+        external
+        view
+        returns (bytes32 messageHash);
+
+    /// @notice getter for message index based on their hash
+    /// @param messageHash the message hash to get the index of
+    /// @return outboxIndex the index in the outbox of this message hash
+    function indexOf(bytes32 messageHash)
+        external
+        view
+        returns (uint256 outboxIndex);
+
+    /// @notice used to check if a nullifier has been used for the specified account
+    /// @param sender the sender of message
+    /// @param nonce the nullifier for this message
+    /// @return used if the nullifier has been used
+    function noncesNullifier(address sender, uint64 nonce)
+        external
+        view
+        returns (bool used);
+
+    /// @notice sends CRCMessage
+    /// @param message the message to be sent
+    /// @return messageHash the hash of the message that was sent
+    function sendMessage(Types.CRCMessage calldata message)
+        external
+        returns (bytes32 messageHash);
+
+    /// @notice gets CRC Message by its index
+    /// @param index the index of the message in the outbox
+    /// @return message the raw CRC Message
+    function getMessageByIndex(uint256 index)
+        external
+        view
+        returns (Types.CRCMessage memory message);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+/**
+ * @title Types
+ * @notice Contains various types used throughout the Optimism contract system.
+ */
+library Types {
+    /**
+     * @notice Input structure for sending a CRC message
+     */
+    struct CRCMessage {
+        uint8 version; // Version of the protocol this message confirms to
+        uint256 destinationChainId; // The “chain id” of the network this message is intended for
+        uint64 nonce; // A nonce used as an anti-replay attack mechanism. Randomly generated by the user.
+        address user; // An arbitrary address that is the actual sender of the message. Can be used by smart contracts that automate the messaging to specify the address of the user or be the same as the msg.sender.
+        address target; // The address of a contract that the CRC Smart contract will send the Payload to when finalizing the CRC.
+        bytes payload; // Arbitrary bytes that will be sent as calldata to the Execution Target address in the destination contract when finalizing the CRC.
+        uint256 stateRelayFee; // Fee in wei that the sender will be locking as a reward for the first relayer that brings the state containing this information inside the destination network.
+        uint256 deliveryFee; // Fee in wei that the sender will be locking as a reward for the first relayer that triggers the execution of the CRC delivery. Could be 0 if the Sender is willing to finalize it itself.
+        bytes extra; // Arbitrary bytes that will be sent alongside the data for dapps to make sense of
+    }
+
+    /**
+     * @notice Complete CRCMessage envelop including the sender. Used upon receiving of CRCMessages
+     */
+    struct CRCMessageEnvelope {
+        CRCMessage message; // CRC Message
+        address sender; // The sender of the message
+    }
+}
