@@ -1,0 +1,1214 @@
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)
+
+pragma solidity ^0.8.0;
+
+import "../utils/Context.sol";
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        _checkOwner();
+        _;
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if the sender is not the owner.
+     */
+    function _checkOwner() internal view virtual {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity 0.8.16;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+
+contract Staking is Ownable {
+    /// @dev Memag ERC20 token address.
+    IERC20 public memagToken;
+
+    /// @dev Max stakes user is allowed to create per pool.
+    uint256 public maxStakePerPool;
+
+    /// @dev Total pools created till now.
+    uint256 public totalPools;
+
+    /// @dev Address from which memag for staking rewards will be sent to users.
+    address public stakingReserveAddress;
+
+    /// @dev All users who have ever staked memag in the contract.
+    address[] private stakeHolders;
+
+    /// @dev Pool info to be stored onchain.
+    struct PoolInfo {
+        string name;
+        uint256 apyPercent;
+        uint256 apyDivisor;
+        uint256 minStakeAmount;
+        uint256 maxStakeAmount;
+        uint256 duration;
+        uint256 startTimestamp;
+        uint256 endTimestamp;
+        bool isActive;
+    }
+    
+    /// @dev Stake info to be stored onchain.
+    struct StakeInfo {
+        uint256 poolId;
+        uint256 startTimestamp;
+        uint256 amount;
+        bool isWithdrawn;
+    }
+
+    /// @dev Stored onchain to keep track of each stake's staker details for a pool.
+    struct StakerInfo {
+        address staker;
+        uint256 stakeId;
+    }
+
+    /// @dev Pool info to be sent offchain in response to view functions.
+    struct PoolInfoResponse {
+        uint256 poolId;
+        string name;
+        uint256 apyPercent;
+        uint256 apyDivisor;
+        uint256 minStakeAmount;
+        uint256 maxStakeAmount;
+        uint256 duration;
+        uint256 startTimestamp;
+        uint256 endTimestamp;
+        bool isActive;
+    }
+
+    /// @dev Stake info to be sent offchain in response to view functions.
+    struct StakeInfoResponse {
+        address staker;
+        uint256 poolId;
+        uint256 stakeId;
+        uint256 apyPercent;
+        uint256 apyDivisor;
+        uint256 startTimestamp;
+        uint256 endTimestamp;
+        uint256 amount;
+        uint256 rewardAmount;
+        bool isWithdrawn;
+    }
+
+    /// @dev Mapping pool ids => pool details.
+    mapping(uint256 => PoolInfo) public poolDetails;
+
+    /// @dev Mapping user => total amount currently staked in contract.
+    mapping(address => uint256) public totalStakedAmount;
+
+    /// @dev Mapping user => pool id => total stakes done in this pool.
+    mapping(address => mapping(uint256 => uint256)) public totalStakesInPoolBy;
+
+    /// @dev Mapping user => pool id => stake id => stake details.
+    mapping(address => mapping(uint256 => mapping(uint256 => StakeInfo))) public stakeDetails;
+
+    /// @dev Mapping Pool id => Total stakes created in this pool.
+    mapping(uint256 => uint256) public totalStakesInPool;
+
+    /// @dev Mapping Pool Id => Stake Num In Pool => Staker Info (Staker Address + Stake Id)
+    mapping(uint256 => mapping(uint256 => StakerInfo)) private stakerInfo;
+
+    /// @dev Mapping user => bool(isStakeHolder).
+    mapping(address => bool) public isStakeholder;
+    
+    // Events 
+    /// @dev Emitted when a new pool is created.
+    event PoolCreated(
+        address indexed by,
+        uint256 indexed poolId,
+        string name,
+        uint256 apyPercent,
+        uint256 apyDivisor,
+        uint256 minStakeAmount,
+        uint256 maxStakeAmount,
+        uint256 duration,
+        uint256 startTimestamp,
+        uint256 endTimestamp,
+        bool isActive,
+        uint256 createdAt
+    );
+
+    /// @dev Emitted when an existing pool is updated.
+    event PoolUpdated(
+        address indexed by,
+        uint256 indexed poolId,
+        string name,
+        uint256 apyPercent,
+        uint256 apyDivisor,
+        uint256 minStakeAmount,
+        uint256 maxStakeAmount,
+        uint256 duration,
+        uint256 startTimestamp,
+        uint256 endTimestamp,
+        bool isActive,
+        uint256 updatedAt
+    );
+
+    /// @dev Emitted when a new stake is created.
+    event StakeCreated(
+        address indexed by,
+        uint256 indexed poolId,
+        uint256 indexed stakeId,
+        uint256 startTimestamp,
+        uint256 endTimestamp,
+        uint256 amount
+    );
+
+    /// @dev Emitted when user withdraws stake.
+    event StakeRemoved(
+        address indexed by,
+        uint256 indexed poolId,
+        uint256 indexed stakeId,
+        uint256 amount,
+        uint256 removedAt
+    );
+
+    /// @dev Emitted when user withdraws stake, and reward is sent. 
+    /// (block.timestamp > stake.startTimestamp + pool.duration)
+    event RewardWithdrawn(
+        address indexed by,
+        uint256 indexed poolId,
+        uint256 indexed stakeId,
+        uint256 amount,
+        uint256 withdrawnAt
+    );
+
+
+    /**
+     * @notice Called at the time of contract deployment.
+     * @dev Verify the contract addresses being passed before deployment.
+     * @param _memagAddress Address of memag ERC20 contract, cannot be updated later.
+     * @param _stakingReserveAddress Address from which memag staking rewards will be paid, can be updated later.
+     * @param _maxStakeLimitPerPool Max stakes user can create in each pool, can be updated later.
+     */
+    constructor(
+        address _memagAddress,
+        address _stakingReserveAddress,
+        uint256 _maxStakeLimitPerPool
+    ) {
+        memagToken = IERC20(_memagAddress);
+        maxStakePerPool = _maxStakeLimitPerPool;
+        stakingReserveAddress = _stakingReserveAddress;
+    }
+
+
+    /**
+     * @notice Function for owner to set new staking reserve address.
+     * @param _reserveAddress New staking reserve address.
+     */
+    function setStakingReserveAddress(address _reserveAddress) external onlyOwner {
+        require(
+            _reserveAddress != address(0),
+            "Error: Address should be valid"
+        );
+        stakingReserveAddress = _reserveAddress;
+    }
+
+
+    /**
+     * @notice Function for owner to set max stake limit per pool.
+     * @param _maxStakeLimit New max stake limit per pool.
+     */
+    function setMaxStakeLimitPerPool(uint256 _maxStakeLimit) external onlyOwner {
+        require(
+            _maxStakeLimit > 0,
+            "Error: The limit should not be 0"
+        );
+        maxStakePerPool = _maxStakeLimit;
+    }
+
+    
+    /**
+     * @notice Function for owner to create a new staking pool.
+     * @param _name Name of the pool.
+     * @param _apyPercent APY Percent Numerator
+     * @param _apyDivisor APY Percent Denominator
+     * @param _minStakeAmount Minimum amount of memag(inclusive) allowed to be staked in this pool.
+     * @param _maxStakeAmount Maximum amount of memag(inclusive) allowed to be staked in this pool.
+     * @param _duration Duration(in seconds), for which memag should be staked in pool to get rewards on withdrawal.
+     * @param _startTimestamp Time after which staking in this pool would start.
+     * @param _endTimestamp Time after which staking in this pool would end.
+     * @param _isActive true: Pool is active, false: Pool is inactive.
+     */
+    function createPool(
+        string memory _name,
+        uint256 _apyPercent,
+        uint256 _apyDivisor,
+        uint256 _minStakeAmount,
+        uint256 _maxStakeAmount,
+        uint256 _duration,
+        uint256 _startTimestamp,
+        uint256 _endTimestamp,
+        bool _isActive
+    ) external onlyOwner {
+        require(
+            _apyPercent > 0,
+            "Error: APY percent should be greater than 0"
+        );
+        require(
+            _apyDivisor >= _apyPercent,
+            "Error: APY divisor should not be less than APY percent"
+        );
+        require(
+            _minStakeAmount > 0,
+            "Error: Min stake amount should be greater than 0"
+        );
+        require(
+            _maxStakeAmount >= _minStakeAmount,
+            "Error: Max stake amount should be greater than min stake amount"
+        );
+        require(
+            _duration > 0,
+            "Error: Duration should be greater than 0"
+        );
+        require(
+            _startTimestamp >= block.timestamp,
+            "Error: Pool start date should not be in past"
+        );
+        require(
+            _endTimestamp > _startTimestamp,
+            "Error: Pool end date should be greater than start date"
+        );
+        
+        /// @dev New pool stored in storage.
+        unchecked { 
+            poolDetails[++totalPools] = PoolInfo(
+                _name,
+                _apyPercent,
+                _apyDivisor,
+                _minStakeAmount,
+                _maxStakeAmount,
+                _duration,
+                _startTimestamp,
+                _endTimestamp,
+                _isActive
+            );
+        }
+
+        emit PoolCreated(
+            msg.sender,
+            totalPools,
+            _name,
+            _apyPercent,
+            _apyDivisor,
+            _minStakeAmount,
+            _maxStakeAmount,
+            _duration,
+            _startTimestamp,
+            _endTimestamp,
+            _isActive,
+            block.timestamp
+        );
+    } 
+
+
+    /**
+     * @notice Function for owner to update an existing pool in which staking has not started yet.
+     * @param _poolId Id of the pool to update, should exist already.
+     * @param _name Name of the pool.
+     * @param _apyPercent APY Percent Numerator
+     * @param _apyDivisor APY Percent Denominator
+     * @param _minStakeAmount Minimum amount of memag(inclusive) allowed to be staked in this pool.
+     * @param _maxStakeAmount Maximum amount of memag(inclusive) allowed to be staked in this pool.
+     * @param _duration Duration(in seconds), for which memag should be staked in pool to get rewards on withdrawal.
+     * @param _startTimestamp Time after which staking in this pool would start.
+     * @param _endTimestamp Time after which staking in this pool would end.
+     * @param _isActive true: Pool is active, false: Pool is inactive.
+     */
+    function updatePool(
+        uint256 _poolId,
+        string memory _name,
+        uint256 _apyPercent,
+        uint256 _apyDivisor,
+        uint256 _minStakeAmount,
+        uint256 _maxStakeAmount,
+        uint256 _duration,
+        uint256 _startTimestamp,
+        uint256 _endTimestamp,
+        bool _isActive
+    ) external onlyOwner {
+        PoolInfo storage poolInfo = poolDetails[_poolId];
+        require(
+            poolInfo.duration != 0,
+            "Error: Pool with this id does not exist"
+        );
+        require(
+            block.timestamp < poolInfo.startTimestamp,
+            "Error: Cannot update the running pool"
+        );
+        require(
+            _apyPercent > 0,
+            "Error: APY percent should be greater than 0"
+        );
+        require(
+            _apyDivisor >= _apyPercent,
+            "Error: APY divisor should not be less than APY percent"
+        );
+        require(
+            _minStakeAmount > 0,
+            "Error: Min stake amount should be greater than 0"
+        );
+        require(
+            _maxStakeAmount >= _minStakeAmount,
+            "Error: Max stake amount should be greater than min stake amount"
+        );
+        require(
+            _duration > 0,
+            "Error: Duration should be greater than 0"
+        );
+        require(
+            _startTimestamp >= block.timestamp,
+            "Error: Pool start date should not be in past"
+        );
+        require(
+            _endTimestamp > _startTimestamp,
+            "Error: Pool end date should be greater than start date"
+        );
+        
+        /// @dev Updated pool stored in storage.
+        poolDetails[_poolId] = PoolInfo(
+            _name,
+            _apyPercent,
+            _apyDivisor,
+            _minStakeAmount,
+            _maxStakeAmount,
+            _duration,
+            _startTimestamp,
+            _endTimestamp,
+            _isActive
+        );
+
+        emit PoolUpdated(
+            msg.sender,
+            _poolId,
+            _name,
+            _apyPercent,
+            _apyDivisor,
+            _minStakeAmount,
+            _maxStakeAmount,
+            _duration,
+            _startTimestamp,
+            _endTimestamp,
+            _isActive,
+            block.timestamp
+        );
+    } 
+
+
+    /**
+     * @notice Function for users to create a new stake in stake pool.
+     * @param _poolId Id of the staking pool in which to create the new stake.
+     * @param _amount Amount of memag to stake.
+     * @return Stake id of the new stake created in this pool. (User address => Pool id => Stake id)
+     */
+    function createStake(
+        uint256 _poolId,
+        uint256 _amount
+    ) external returns (uint256) {
+        PoolInfo storage poolInfo = poolDetails[_poolId];
+        require(
+            poolInfo.duration != 0,
+            "Error: Pool with this id does not exist"
+        );
+        require(
+            poolInfo.isActive,
+            "Error: The pool is inactive"
+        );
+        require(
+            block.timestamp >= poolInfo.startTimestamp,
+            "Error: The pool has not started yet"
+        );
+        require(
+            block.timestamp <= poolInfo.endTimestamp,
+            "Error: The pool is expired"
+        );
+        // Amount checks
+        require(
+            _amount >= poolInfo.minStakeAmount,
+            "Error: Amount should not be less than minimum stake amount"
+        );
+        require(
+            _amount <= poolInfo.maxStakeAmount,
+            "Error: Amount should not be more than maximum stake amount"
+        );
+        require(
+            memagToken.balanceOf(msg.sender) >= _amount,
+            "Error: Insufficient MEMAG balance"
+        );
+        require(
+            memagToken.allowance(msg.sender, address(this)) >= _amount,
+            "Error: Insufficient MEMAG allowance"
+        );
+
+        uint256 stakesInPool;
+        unchecked { stakesInPool = ++totalStakesInPoolBy[msg.sender][_poolId]; }
+        require(
+            stakesInPool <= maxStakePerPool,
+            "Error: Max participation limit for pool reached"
+        );
+
+        if(!isStakeholder[msg.sender]){
+            isStakeholder[msg.sender] = true;
+            stakeHolders.push(msg.sender);
+        }
+
+        unchecked {
+            stakerInfo[_poolId][++totalStakesInPool[_poolId]] = StakerInfo(
+                msg.sender,
+                stakesInPool
+            );
+        }
+
+        /// @dev New stake stored in storage.
+        stakeDetails[msg.sender][_poolId][stakesInPool] = StakeInfo(
+            _poolId,
+            block.timestamp,
+            _amount,
+            false
+        );
+        /// @dev Increase total staked amount for user.
+        unchecked { totalStakedAmount[msg.sender] = totalStakedAmount[msg.sender] + _amount; }
+
+        unchecked {
+            emit StakeCreated(
+                msg.sender,
+                _poolId,
+                stakesInPool,
+                block.timestamp,
+                block.timestamp + poolInfo.duration,
+                _amount
+            );
+        }
+        // Transfer memag tokens from user to this contract.
+        memagToken.transferFrom(msg.sender, address(this), _amount);
+        return stakesInPool;
+    }
+
+
+    /**
+     * @notice Function for users to unstake stake id in given pool id.
+     * @param _poolId Id of the stake pool to withdraw the stake from.
+     * @param _stakeId Id of the stake to withdraw from above pool.
+     */
+    function withdrawStake(uint256 _poolId, uint256 _stakeId) external {
+        StakeInfo storage stakeInfo = stakeDetails[msg.sender][_poolId][_stakeId];
+        require(
+            stakeInfo.amount != 0,
+            "Error: Stake does not exist"
+        );
+        require(
+            !stakeInfo.isWithdrawn,
+            "Error: Already withdrawn"
+        );
+        require(
+            memagToken.balanceOf(address(this)) >= stakeInfo.amount,
+            "Error: Insufficient MEMAG stake funds in liquidity"
+        );
+
+        /// @dev Stake withdrawal status updated in storage.
+        stakeInfo.isWithdrawn = true;
+        /// @dev Decrease total staked amount for user.
+        unchecked { totalStakedAmount[msg.sender] = totalStakedAmount[msg.sender] - stakeInfo.amount; }
+
+        uint256 endTimestamp;
+        unchecked { endTimestamp = stakeInfo.startTimestamp + poolDetails[_poolId].duration; }
+
+        /// @dev Staking rewards are given only if withdrawal is done after endTimestamp.
+        if(block.timestamp >= endTimestamp) {
+            uint256 _rewardAmount = calculateReward(_poolId, stakeInfo.amount);
+           
+            if (_rewardAmount > 0) {
+                require(
+                    memagToken.balanceOf(stakingReserveAddress) >= _rewardAmount,
+                    "Error: Insufficient MEMAG reward funds in liquidity"
+                );
+
+                emit RewardWithdrawn(
+                    msg.sender,
+                    _poolId,
+                    _stakeId,
+                    _rewardAmount,
+                    block.timestamp
+                );
+                // Transfer memag tokens for staking reward to user from stakingReserveAddress.
+                memagToken.transferFrom(stakingReserveAddress, msg.sender, _rewardAmount);
+            }
+        }
+
+        emit StakeRemoved(
+            msg.sender,
+            _poolId,
+            _stakeId,
+            stakeInfo.amount,
+            block.timestamp
+        );
+        // Transfer user's staked memag tokens back from this contract.
+        memagToken.transfer(msg.sender, stakeInfo.amount);
+    }
+
+
+    // |==============================================================================================================|
+    // |---------------------------------------VIEW FUNCTIONS---------------------------------------------------------|
+    // |==============================================================================================================|
+
+    /**
+     * @notice Function to calculate the memag amount user would get as reward for a stake in a particular pool.
+     * @param _poolId Id of the stake pool for which to calculate reward..
+     * @param _amount Memag amount to be staked in this pool.
+     * @return Amount of memag user would get as stake reward for this stake.
+     */
+    function calculateReward(uint256 _poolId, uint256 _amount) public view returns(uint256) {
+        PoolInfo storage _poolDetails = poolDetails[_poolId];
+        if(_amount == 0) {
+            return 0;
+        }
+        /// @dev Staked Amount * (APY Numerator/ APY Denominator) * (Staked duration in seconds/ Seconds in 1 year)
+        return (
+            (_amount * _poolDetails.apyPercent * _poolDetails.duration) /
+            (_poolDetails.apyDivisor * 365 * 86400)
+        );
+    }
+
+
+    /**
+     * @notice Function to return list of aaddresses that have ever staked memag in contract.
+     */
+    function getStakeholders() external view returns(address[] memory) {
+        return stakeHolders;
+    }
+
+
+    // |==============================================================================================================|
+    // |------------------------------------FUNCTIONS RETURNING POOL DETAILS------------------------------------------|
+    // |==============================================================================================================|
+
+    /**
+     * @notice Function to return whether a pool with given id exists or not.
+     * @param _poolId Id of the pool whose existence to check.
+     */
+    function poolExists(uint256 _poolId) public view returns (bool) {
+        return poolDetails[_poolId].duration != 0;
+    }
+
+    /**
+     * @notice Function to return details of multiple pool ids.
+     * @param _poolIDs Array of pool ids for which to return details.
+     */
+    function getPools(uint256[] memory _poolIDs) external view returns(PoolInfoResponse[] memory) {
+        PoolInfoResponse[] memory pools = new PoolInfoResponse[](_poolIDs.length);
+        for(uint256 i=0; i<_poolIDs.length; ++i) {
+            require(poolExists(_poolIDs[i]), "Pool does not exist!");
+            pools[i] = createPoolInfoResponse(_poolIDs[i]);
+        }
+        return pools;
+    }
+
+
+    /**
+     * @notice Function to return total live pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to livePools-1
+     */
+    function getLivePoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 livePools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(
+                block.timestamp >= poolDetails[i].startTimestamp &&
+                block.timestamp <= poolDetails[i].endTimestamp
+            ) {
+                poolIDs[livePools++] = i;
+            }
+        }
+        return (livePools, poolIDs);
+    }
+
+
+    /**
+     * @notice Function to return total past pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to pastPools-1
+     */
+    function getPastPoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 pastPools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(block.timestamp > poolDetails[i].endTimestamp) {
+                poolIDs[pastPools++] = i;
+            }
+        }
+        return (pastPools, poolIDs);
+    }
+
+
+    /**
+     * @notice Function to return total upcoming pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to upcomingPools-1
+     */
+    function getUpcomingPoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 upcomingPools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(block.timestamp < poolDetails[i].startTimestamp) {
+                poolIDs[upcomingPools++] = i;
+            }
+        }
+        return (upcomingPools, poolIDs);
+    }
+
+
+    /**
+     * @notice Function to return total active pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to activePools-1
+     */
+    function getActivePoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 activePools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(poolDetails[i].isActive) {
+                poolIDs[activePools++] = i;
+            }
+        }
+        return (activePools, poolIDs);
+    }
+
+
+    /**
+     * @notice Function to return total inactive pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to inactivePools-1
+     */
+    function getInactivePoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 inactivePools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(!poolDetails[i].isActive) {
+                poolIDs[inactivePools++] = i;
+            }
+        }
+        return (inactivePools, poolIDs);
+    }
+
+
+    /**
+     * @notice Function to return total active+live pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to activeLivePools-1
+     */
+    function getActiveLivePoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 activeLivePools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(
+                poolDetails[i].isActive &&
+                block.timestamp >= poolDetails[i].startTimestamp &&
+                block.timestamp <= poolDetails[i].endTimestamp
+            ) {
+                poolIDs[activeLivePools++] = i;
+            }
+        }
+        return (activeLivePools, poolIDs);
+    }
+
+
+    /**
+     * @notice Function to return total inactive+live pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to inactiveLivePools-1
+     */
+    function getInactiveLivePoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 inactiveLivePools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(
+                !poolDetails[i].isActive &&
+                block.timestamp >= poolDetails[i].startTimestamp &&
+                block.timestamp <= poolDetails[i].endTimestamp
+            ) {
+                poolIDs[inactiveLivePools++] = i;
+            }
+        }
+        return (inactiveLivePools, poolIDs);
+    }
+
+
+    /**
+     * @notice Function to return total active+past pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to activePastPools-1
+     */
+    function getActivePastPoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 activePastPools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(
+                poolDetails[i].isActive &&
+                block.timestamp > poolDetails[i].endTimestamp
+            ) {
+                poolIDs[activePastPools++] = i;
+            }
+        }
+        return (activePastPools, poolIDs);
+    }
+
+
+    /**
+     * @notice Function to return total inactive+past pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to inactivePastPools-1
+     */
+    function getInactivePastPoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 inactivePastPools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(
+                !poolDetails[i].isActive &&
+                block.timestamp > poolDetails[i].endTimestamp
+            ) {
+                poolIDs[inactivePastPools++] = i;
+            }
+        }
+        return (inactivePastPools, poolIDs);
+    }
+
+
+    /**
+     * @notice Function to return total active+upcoming pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to activeUpcomingPools-1
+     */
+    function getActiveUpcomingPoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 activeUpcomingPools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(
+                poolDetails[i].isActive &&
+                block.timestamp < poolDetails[i].startTimestamp
+            ) {
+                poolIDs[activeUpcomingPools++] = i;
+            }
+        }
+        return (activeUpcomingPools, poolIDs);
+    }
+
+
+    /**
+     * @notice Function to return total inactive+upcoming pools count and their ids.
+     * @dev poolIDs array has extra empty values => loop from index: 0 to inactiveUpcomingPools-1
+     */
+    function getInactiveUpcomingPoolIDs() public view returns(uint256, uint256[] memory) {
+        uint256 inactiveUpcomingPools = 0;
+        uint256[] memory poolIDs = new uint256[](totalPools);
+        for(uint256 i=1; i<=totalPools; ++i) {
+            if(
+                !poolDetails[i].isActive &&
+                block.timestamp < poolDetails[i].startTimestamp
+            ) {
+                poolIDs[inactiveUpcomingPools++] = i;
+            }
+        }
+        return (inactiveUpcomingPools, poolIDs);
+    }
+
+    /**
+     * @notice Function to return details of multiple pools starting from one pool id.
+     * @param _startingPoolId Id of the pool from which to start returning data.
+     * @param _numberOfPools No of pools for which to return data.
+     */
+    function getPoolDetailsFrom(
+        uint256 _startingPoolId,
+        uint256 _numberOfPools
+    ) external view returns(PoolInfoResponse[] memory) {
+        require(
+            poolExists(_startingPoolId) &&
+            poolExists(_startingPoolId+_numberOfPools-1),
+            "Pool does not exist!"
+        );
+        PoolInfoResponse[] memory _poolDetails = new PoolInfoResponse[](_numberOfPools);
+        uint256 _index;
+        for(uint256 i=_startingPoolId; i<_startingPoolId+_numberOfPools; ++i) {
+            _poolDetails[_index++] = createPoolInfoResponse(i);
+        }
+        return _poolDetails;
+    }
+
+    // |==============================================================================================================|
+    // |------------------------------------FUNCTIONS RETURNING STAKER DETAILS----------------------------------------|
+    // |==============================================================================================================|
+
+    /**
+     * @notice Function to return staker info (Address + Stake id) for n'th stake created in a pool.
+     * @param _poolId Id of the stake pool.
+     * @param _stakeNum Stake number in pool with given id to return the staker info for.
+     */
+    function getStakerInfo(uint256 _poolId, uint256 _stakeNum) external view returns(StakerInfo memory) {
+        return stakerInfo[_poolId][_stakeNum];
+    }
+
+    /**
+     * @notice Function to return staker details of '_count' stakes in a pool starting from stake no '_startStakeNum'
+     * @param _poolId Id of the pool
+     * @param _startStakeNum Stake no (ex: 5th) in pool from which to start returning Staker data.
+     * @param _count No of stakes for which to return data.
+     */
+    function getStakerInfoFrom(
+        uint256 _poolId,
+        uint256 _startStakeNum,
+        uint256 _count
+    ) external view returns(StakerInfo[] memory) {
+        StakerInfo[] memory stakersInfoInPool = new StakerInfo[](_count);
+        uint256 _index=0;
+        for(uint256 i=_startStakeNum; i<_startStakeNum+_count; ++i) {
+            stakersInfoInPool[_index++] = stakerInfo[_poolId][i];
+        }
+        return stakersInfoInPool;
+    }
+
+    // |==============================================================================================================|
+    // |------------------------------------FUNCTIONS RETURNING STAKE DETAILS-----------------------------------------|
+    // |==============================================================================================================|
+    
+    /**
+     * @notice Function to return whether a stake with given id exists in a pool or not for given address.
+     * @param _address Address of user for whom to check the stake existence.
+     * @param _poolId Id of the pool in which to look for the stake.
+     * @param _stakeId Id of the stake whose existence to check in given pool id for given user address.
+     */
+    function stakeExists(address _address, uint256 _poolId, uint256 _stakeId) external view returns (bool) {
+        return stakeDetails[_address][_poolId][_stakeId].amount != 0;
+    }
+
+    
+    /**
+     * @notice Function to return total stakes done in the contract by an user in all pools collectively.
+     * @param _address Address for which to  return the total stakes amount.
+     */
+    function getTotalStakes(address _address) public view returns(uint256) {
+        uint256 totalStakes = 0;
+        for(uint256 i=1; i<=totalPools; ++i) {
+            totalStakes += totalStakesInPoolBy[_address][i];
+        }
+        return totalStakes;
+    }
+
+
+    /**
+     * @notice Function to return details of all stakes done in one particular pool by an user.
+     * @param _address Address for which to return the stake data.
+     * @param _poolId Id of the pool, from which stake data to return.
+     */
+    function getAllStakeDetails(address _address, uint256 _poolId) public view returns(StakeInfoResponse[] memory) {
+        uint256 stakesInPool = totalStakesInPoolBy[_address][_poolId];
+        StakeInfoResponse[] memory allStakes = new StakeInfoResponse[](stakesInPool);
+
+        for(uint256 i=1; i<=stakesInPool; ++i) {
+            allStakes[i-1] = createStakeInfoResponse(_address, _poolId, i);
+        }
+        return allStakes;
+    }
+
+
+    /**
+     * @notice Function to return details of all stakes done in all pools ever by an user.
+     * @param _address Address for which to return the stake data from all pools.
+     */
+    function getAllStakeDetailsFor(address _address) external view returns(StakeInfoResponse[] memory) {
+        uint256 totalStakes = getTotalStakes(_address);
+        StakeInfoResponse[] memory allStakes = new StakeInfoResponse[](totalStakes);
+        uint256 stakeNum = 0;
+        for(uint256 i=1; i<=totalPools; ++i) {
+            uint256 stakesInPool = totalStakesInPoolBy[_address][i];
+            for(uint256 j=1; j<=stakesInPool; ++j) {
+                allStakes[stakeNum] = createStakeInfoResponse(_address, i, j);
+                stakeNum += 1;
+            }
+        }
+        return allStakes;
+    }
+
+
+    /**
+     * @notice Function to return total stakes user has in given pool ids. (Combined + [Individual pool counts])
+     * @param _address Address for which to return the stake counts.
+     * @param _poolIDs IDs of the pools for which to return the stake counts.
+     */
+    function getStakeCountInPoolsFor(
+        address _address,
+        uint256[] memory _poolIDs
+    ) public view returns(uint256, uint256[] memory) {
+        uint256[] memory _stakeCounts = new uint256[](_poolIDs.length);
+        uint256 _totalStakes = 0;
+        for(uint256 i=0; i<_poolIDs.length; ++i) {
+            _stakeCounts[i] = totalStakesInPoolBy[_address][_poolIDs[i]];
+            _totalStakes += _stakeCounts[i];
+        }
+        return (_totalStakes, _stakeCounts);
+    }
+
+
+    /**
+     * @notice Function to return stake details for user in given pool ids.
+     * @param _address Address for which to return the stake details.
+     * @param _poolIDs IDs of the pools for which to return the stake details of user.
+     */
+    function getStakeDetailsInPoolsFor(
+        address _address,
+        uint256[] memory _poolIDs
+    ) external view returns(StakeInfoResponse[] memory) {
+        (uint256 _totalStakes, uint256[] memory _stakeCounts) = getStakeCountInPoolsFor(_address, _poolIDs);
+        StakeInfoResponse[] memory _stakeDetails = new StakeInfoResponse[](_totalStakes);
+        uint256 _index = 0;
+        for(uint256 i=0; i<_poolIDs.length; ++i) {
+            for(uint256 j=1; j<=_stakeCounts[i]; ++j) {
+                _stakeDetails[_index++] = createStakeInfoResponse(_address, _poolIDs[i], j);
+            }
+        }
+        return _stakeDetails;
+    }
+
+    /**
+     * @notice Function to return details of '_count' stakes in a pool starting from stake no '_startStakeNum'
+     * @param _poolId Id of the pool
+     * @param _startStakeNum Stake no (ex: 5th) in pool from which to start returning Stake data.
+     * @param _count No of stakes for which to return data.
+     */
+    function getStakeDetailsInPoolFrom(
+        uint256 _poolId,
+        uint256 _startStakeNum,
+        uint256 _count
+    ) external view returns(StakeInfoResponse[] memory) {
+        require(
+            poolExists(_poolId),
+            "Pool does not exist!"
+        );
+        require(
+            _startStakeNum > 0 &&
+            _startStakeNum + _count - 1 <= totalStakesInPool[_poolId],
+            "Invalid stake number!"
+        );
+        uint256 _counter = 0;
+        StakeInfoResponse[] memory _stakeDetails = new StakeInfoResponse[](_count);
+        for(uint256 i=_startStakeNum; i<_startStakeNum+_count; ++i) {
+            StakerInfo memory stake = stakerInfo[_poolId][i];
+            _stakeDetails[_counter++] = createStakeInfoResponse(stake.staker, _poolId, stake.stakeId);
+        }
+        return _stakeDetails;
+    }
+
+    // |==============================================================================================================|
+    // |---------------------------------------PRIVATE FUNCTIONS------------------------------------------------------|
+    // |==============================================================================================================|
+
+    /**
+     * @dev Creates and returns pool data in PoolInfoResponse struct format using PoolInfo from storage.
+     */
+    function createPoolInfoResponse(uint256 _poolId) private view returns (PoolInfoResponse memory) {
+        PoolInfo memory poolInfo = poolDetails[_poolId];
+        return PoolInfoResponse(
+            _poolId,
+            poolInfo.name,
+            poolInfo.apyPercent,
+            poolInfo.apyDivisor,
+            poolInfo.minStakeAmount,
+            poolInfo.maxStakeAmount,
+            poolInfo.duration,
+            poolInfo.startTimestamp,
+            poolInfo.endTimestamp,
+            poolInfo.isActive
+        );
+    }
+
+    /**
+     * @dev Creates and returns stake data in StakeInfoResponse struct format using PoolInfo and StakeInfo from storage
+     */
+    function createStakeInfoResponse(
+        address _address,
+        uint256 _poolId,
+        uint256 _stakeId
+    ) private view returns (StakeInfoResponse memory) {
+        StakeInfo memory stakeInfo = stakeDetails[_address][_poolId][_stakeId];
+        PoolInfo memory poolInfo = poolDetails[_poolId];
+        return StakeInfoResponse(
+            _address,
+            _poolId,
+            _stakeId,
+            poolInfo.apyPercent,
+            poolInfo.apyDivisor,
+            stakeInfo.startTimestamp,
+            stakeInfo.startTimestamp + poolInfo.duration,
+            stakeInfo.amount,
+            calculateReward(_poolId, stakeInfo.amount),
+            stakeInfo.isWithdrawn
+        );
+    }
+}
