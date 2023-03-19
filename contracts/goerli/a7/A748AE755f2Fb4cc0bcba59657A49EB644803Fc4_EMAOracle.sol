@@ -1,0 +1,288 @@
+pragma solidity 0.5.17;
+
+import "@openzeppelin/contracts/math/SafeMath.sol";
+import "../../moneymarkets/IMoneyMarket.sol";
+import "../../libs/DecMath.sol";
+import "./IInterestOracle.sol";
+
+contract EMAOracle is IInterestOracle {
+    using SafeMath for uint256;
+    using DecMath for uint256;
+
+    uint256 internal constant PRECISION = 10**18;
+
+    /**
+        Immutable parameters
+     */
+    uint256 public UPDATE_INTERVAL;
+    uint256 public UPDATE_MULTIPLIER;
+    uint256 public ONE_MINUS_UPDATE_MULTIPLIER;
+
+    /**
+        Public variables
+     */
+    uint256 public emaStored;
+    uint256 public lastIncomeIndex;
+    uint256 public lastUpdateTimestamp;
+
+    /**
+        External contracts
+     */
+    IMoneyMarket public moneyMarket;
+
+    constructor(
+        uint256 _emaInitial,
+        uint256 _updateInterval,
+        uint256 _smoothingFactor,
+        uint256 _averageWindowInIntervals,
+        address _moneyMarket
+    ) public {
+        emaStored = _emaInitial;
+        UPDATE_INTERVAL = _updateInterval;
+        lastUpdateTimestamp = now;
+
+        uint256 updateMultiplier = _smoothingFactor.div(_averageWindowInIntervals.add(1));
+        UPDATE_MULTIPLIER = updateMultiplier;
+        ONE_MINUS_UPDATE_MULTIPLIER = PRECISION.sub(updateMultiplier);
+
+        moneyMarket = IMoneyMarket(_moneyMarket);
+        lastIncomeIndex = moneyMarket.incomeIndex();
+    }
+
+    function updateAndQuery() public returns (bool updated, uint256 value) {
+        uint256 timeElapsed = now - lastUpdateTimestamp;
+        if (timeElapsed < UPDATE_INTERVAL) {
+            return (false, emaStored);
+        }
+
+        // save gas by loading storage variables to memory
+        uint256 _lastIncomeIndex = lastIncomeIndex;
+        uint256 _emaStored = emaStored;
+
+        uint256 newIncomeIndex = moneyMarket.incomeIndex();
+        uint256 incomingValue = newIncomeIndex.sub(_lastIncomeIndex).decdiv(_lastIncomeIndex).div(timeElapsed);
+
+        updated = true;
+        value = incomingValue.mul(UPDATE_MULTIPLIER).add(_emaStored.mul(ONE_MINUS_UPDATE_MULTIPLIER)).div(PRECISION);
+        emaStored = value;
+        lastIncomeIndex = newIncomeIndex;
+        lastUpdateTimestamp = now;
+    }
+
+    function query() public view returns (uint256 value) {
+        return emaStored;
+    }
+}
+
+pragma solidity 0.5.17;
+
+import "@openzeppelin/contracts/math/SafeMath.sol";
+
+// Decimal math library
+library DecMath {
+    using SafeMath for uint256;
+
+    uint256 internal constant PRECISION = 10**18;
+
+    function decmul(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a.mul(b).div(PRECISION);
+    }
+
+    function decdiv(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a.mul(PRECISION).div(b);
+    }
+}
+
+pragma solidity 0.5.17;
+
+// Interface for money market protocols (Compound, Aave, bZx, etc.)
+interface IMoneyMarket {
+    function deposit(uint256 amount) external;
+
+    function withdraw(uint256 amountInUnderlying)
+        external
+        returns (uint256 actualAmountWithdrawn);
+
+    function claimRewards() external; // Claims farmed tokens (e.g. COMP, CRV) and sends it to the rewards pool
+
+    function totalValue() external returns (uint256); // The total value locked in the money market, in terms of the underlying stablecoin
+
+    function incomeIndex() external returns (uint256); // Used for calculating the interest generated (e.g. cDai's price for the Compound market)
+
+    function stablecoin() external view returns (address);
+
+    function setRewards(address newValue) external;
+
+    event ESetParamAddress(
+        address indexed sender,
+        string indexed paramName,
+        address newValue
+    );
+}
+
+pragma solidity 0.5.17;
+
+interface IInterestOracle {
+    function updateAndQuery() external returns (bool updated, uint256 value);
+
+    function query() external view returns (uint256 value);
+
+    function moneyMarket() external view returns (address);
+}
+
+pragma solidity ^0.5.0;
+
+/**
+ * @dev Wrappers over Solidity's arithmetic operations with added overflow
+ * checks.
+ *
+ * Arithmetic operations in Solidity wrap on overflow. This can easily result
+ * in bugs, because programmers usually assume that an overflow raises an
+ * error, which is the standard behavior in high level programming languages.
+ * `SafeMath` restores this intuition by reverting the transaction when an
+ * operation overflows.
+ *
+ * Using this library instead of the unchecked operations eliminates an entire
+ * class of bugs, so it's recommended to use it always.
+ */
+library SafeMath {
+    /**
+     * @dev Returns the addition of two unsigned integers, reverting on
+     * overflow.
+     *
+     * Counterpart to Solidity's `+` operator.
+     *
+     * Requirements:
+     * - Addition cannot overflow.
+     */
+    function add(uint256 a, uint256 b) internal pure returns (uint256) {
+        uint256 c = a + b;
+        require(c >= a, "SafeMath: addition overflow");
+
+        return c;
+    }
+
+    /**
+     * @dev Returns the subtraction of two unsigned integers, reverting on
+     * overflow (when the result is negative).
+     *
+     * Counterpart to Solidity's `-` operator.
+     *
+     * Requirements:
+     * - Subtraction cannot overflow.
+     */
+    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
+        return sub(a, b, "SafeMath: subtraction overflow");
+    }
+
+    /**
+     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
+     * overflow (when the result is negative).
+     *
+     * Counterpart to Solidity's `-` operator.
+     *
+     * Requirements:
+     * - Subtraction cannot overflow.
+     *
+     * _Available since v2.4.0._
+     */
+    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b <= a, errorMessage);
+        uint256 c = a - b;
+
+        return c;
+    }
+
+    /**
+     * @dev Returns the multiplication of two unsigned integers, reverting on
+     * overflow.
+     *
+     * Counterpart to Solidity's `*` operator.
+     *
+     * Requirements:
+     * - Multiplication cannot overflow.
+     */
+    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
+        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
+        // benefit is lost if 'b' is also tested.
+        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
+        if (a == 0) {
+            return 0;
+        }
+
+        uint256 c = a * b;
+        require(c / a == b, "SafeMath: multiplication overflow");
+
+        return c;
+    }
+
+    /**
+     * @dev Returns the integer division of two unsigned integers. Reverts on
+     * division by zero. The result is rounded towards zero.
+     *
+     * Counterpart to Solidity's `/` operator. Note: this function uses a
+     * `revert` opcode (which leaves remaining gas untouched) while Solidity
+     * uses an invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     * - The divisor cannot be zero.
+     */
+    function div(uint256 a, uint256 b) internal pure returns (uint256) {
+        return div(a, b, "SafeMath: division by zero");
+    }
+
+    /**
+     * @dev Returns the integer division of two unsigned integers. Reverts with custom message on
+     * division by zero. The result is rounded towards zero.
+     *
+     * Counterpart to Solidity's `/` operator. Note: this function uses a
+     * `revert` opcode (which leaves remaining gas untouched) while Solidity
+     * uses an invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     * - The divisor cannot be zero.
+     *
+     * _Available since v2.4.0._
+     */
+    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        // Solidity only automatically asserts when dividing by 0
+        require(b > 0, errorMessage);
+        uint256 c = a / b;
+        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
+
+        return c;
+    }
+
+    /**
+     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+     * Reverts when dividing by zero.
+     *
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
+     * opcode (which leaves remaining gas untouched) while Solidity uses an
+     * invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     * - The divisor cannot be zero.
+     */
+    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
+        return mod(a, b, "SafeMath: modulo by zero");
+    }
+
+    /**
+     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
+     * Reverts with custom message when dividing by zero.
+     *
+     * Counterpart to Solidity's `%` operator. This function uses a `revert`
+     * opcode (which leaves remaining gas untouched) while Solidity uses an
+     * invalid opcode to revert (consuming all remaining gas).
+     *
+     * Requirements:
+     * - The divisor cannot be zero.
+     *
+     * _Available since v2.4.0._
+     */
+    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
+        require(b != 0, errorMessage);
+        return a % b;
+    }
+}
