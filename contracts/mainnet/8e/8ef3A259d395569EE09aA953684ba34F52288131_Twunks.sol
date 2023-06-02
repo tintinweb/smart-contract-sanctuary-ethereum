@@ -1,0 +1,1 @@
+contract Twunks{address[10e3] public x;string p='ac39af4793119ee46bbff351d8cb6b5f23da60222126add4268e261199a2921b';function mint(uint i)public{require(x[i]==address(0));x[i]=msg.sender;}function transfer(uint i,address t)public{require(x[i]==msg.sender);x[i]=t;}}
