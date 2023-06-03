@@ -1,0 +1,1 @@
+contract T{address o;bool b;function s(address t){if(!b||o==msg.sender){o=t;b=true;}}}
