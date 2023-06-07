@@ -1,0 +1,2059 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {SafeERC20, IERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+
+import "../libs/IUniRouter02.sol";
+import "../libs/IWETH.sol";
+
+interface WhiteList {
+    function whitelisted(address _address) external view returns (bool);
+}
+
+contract BrewlabsLockupPenaltyInReward is Ownable, ReentrancyGuard {
+    using SafeERC20 for IERC20;
+
+    uint256 private constant PERCENT_PRECISION = 10000;
+    uint256 private constant BLOCKS_PER_DAY = 6426;
+
+    // Whether it is initialized
+    bool public isInitialized;
+    uint256 public duration = 365; // 365 days
+
+    // Whether a limit is set for users
+    bool public hasUserLimit;
+    // The pool limit (0 if none)
+    uint256 public poolLimitPerUser;
+    address public whiteList;
+
+    // The block number when staking starts.
+    uint256 public startBlock;
+    // The block number when staking ends.
+    uint256 public bonusEndBlock;
+
+    bool public activeEmergencyWithdraw = true;
+    bool public autoAdjustableForRewardRate = true;
+
+    // swap router and path, slipPage
+    uint256 public slippageFactor = 8000; // 20% default slippage tolerance
+    uint256 public constant slippageFactorUL = 9950;
+
+    address public uniRouterAddress;
+    address[] public reflectionToStakedPath;
+    address[] public earnedToStakedPath;
+
+    address public walletA;
+    address public treasury = 0x64961Ffd0d84b2355eC2B5d35B0d8D8825A774dc;
+    uint256 public performanceFee = 0.00089 ether;
+
+    bool public enablePenalty = true;
+    uint256 public penaltyFee = 1000;
+
+    // The precision factor
+    uint256 public PRECISION_FACTOR;
+    uint256 public PRECISION_FACTOR_REFLECTION;
+
+    // The staked token
+    IERC20 public stakingToken;
+    // The earned token
+    address public earnedToken;
+    // The dividend token of staking token
+    address public dividendToken;
+
+    // Accrued token per share
+    uint256 public accDividendPerShare;
+    uint256 public totalStaked;
+
+    uint256 private totalEarned;
+    uint256 private totalReflections;
+    uint256 private reflections;
+
+    uint256 private paidRewards;
+    uint256 private shouldTotalPaid;
+    uint256 private totalRewardsPerBlock;
+
+    struct Lockup {
+        uint8 stakeType;
+        uint256 duration;
+        uint256 depositFee;
+        uint256 withdrawFee;
+        uint256 rate;
+        uint256 accTokenPerShare;
+        uint256 lastRewardBlock;
+        uint256 totalStaked;
+        uint256 totalStakedLimit;
+    }
+
+    struct UserInfo {
+        uint256 amount; // How many staked tokens the user has provided
+        uint256 locked;
+        uint256 available;
+    }
+
+    struct Stake {
+        uint8 stakeType;
+        uint256 amount; // amount to stake
+        uint256 duration; // the lockup duration of the stake
+        uint256 end; // when does the staking period end
+        uint256 rewardDebt; // Reward debt
+        uint256 reflectionDebt; // Reflection debt
+    }
+
+    uint256 constant MAX_STAKES = 256;
+
+    Lockup[] public lockups;
+    mapping(address => Stake[]) public userStakes;
+    mapping(address => UserInfo) public userStaked;
+
+    event Deposit(address indexed user, uint256 stakeType, uint256 amount);
+    event Withdraw(address indexed user, uint256 stakeType, uint256 amount);
+    event EmergencyWithdraw(address indexed user, uint256 amount);
+    event AdminTokenRecovered(address tokenRecovered, uint256 amount);
+    event SetEmergencyWithdrawStatus(bool status);
+
+    event NewStartAndEndBlocks(uint256 startBlock, uint256 endBlock);
+    event LockupUpdated(uint8 _type, uint256 _duration, uint256 _fee0, uint256 _fee1, uint256 _rate);
+    event RewardsStop(uint256 blockNumber);
+    event EndBlockUpdated(uint256 blockNumber);
+    event UpdatePoolLimit(uint256 poolLimitPerUser, bool hasLimit);
+
+    event ServiceInfoUpadted(address _addr, uint256 _fee);
+    event DurationUpdated(uint256 _duration);
+    event SetAutoAdjustableForRewardRate(bool status);
+    event SetWhiteList(address _whitelist);
+    event SetPenaltyStatus(bool status, uint256 fee);
+
+    event SetSettings(
+        uint256 _slippageFactor, address _uniRouter, address[] _path0, address[] _path1, address _walletA
+    );
+
+    constructor() {}
+
+    /**
+     * @notice Initialize the contract
+     * @param _stakingToken: staked token address
+     * @param _earnedToken: earned token address
+     * @param _dividendToken: reflection token address
+     * @param _uniRouter: uniswap router address for swap tokens
+     * @param _earnedToStakedPath: swap path to compound (earned -> staking path)
+     * @param _reflectionToStakedPath: swap path to compound (reflection -> staking path)
+     * @param _whiteList: whitelist contract address
+     */
+    function initialize(
+        IERC20 _stakingToken,
+        address _earnedToken,
+        address _dividendToken,
+        address _uniRouter,
+        address[] memory _earnedToStakedPath,
+        address[] memory _reflectionToStakedPath,
+        address _whiteList
+    ) external onlyOwner {
+        require(!isInitialized, "Already initialized");
+
+        // Make this contract initialized
+        isInitialized = true;
+
+        stakingToken = _stakingToken;
+        earnedToken = _earnedToken;
+        dividendToken = _dividendToken;
+
+        walletA = msg.sender;
+
+        uint256 decimalsRewardToken = 18;
+        if (earnedToken != address(0x0)) {
+            decimalsRewardToken = uint256(IERC20Metadata(earnedToken).decimals());
+            require(decimalsRewardToken < 30, "Must be inferior to 30");
+        }
+        PRECISION_FACTOR = uint256(10 ** (40 - decimalsRewardToken));
+
+        uint256 decimalsdividendToken = 18;
+        if (dividendToken != address(0x0)) {
+            decimalsdividendToken = uint256(IERC20Metadata(dividendToken).decimals());
+            require(decimalsdividendToken < 30, "Must be inferior to 30");
+        }
+        PRECISION_FACTOR_REFLECTION = uint256(10 ** (40 - decimalsRewardToken));
+
+        uniRouterAddress = _uniRouter;
+        earnedToStakedPath = _earnedToStakedPath;
+        reflectionToStakedPath = _reflectionToStakedPath;
+        whiteList = _whiteList;
+    }
+
+    /**
+     * @notice Deposit staked tokens and collect reward tokens (if any)
+     * @param _amount: amount to withdraw (in earnedToken)
+     * @param _stakeType: lockup index
+     */
+    function deposit(uint256 _amount, uint8 _stakeType) external payable nonReentrant {
+        require(startBlock > 0 && startBlock < block.number, "Staking hasn't started yet");
+        require(_amount > 0, "Amount should be greator than 0");
+        require(_stakeType < lockups.length, "Invalid stake type");
+        if (whiteList != address(0x0)) {
+            require(WhiteList(whiteList).whitelisted(msg.sender), "not whitelisted");
+        }
+
+        _transferPerformanceFee();
+        _updatePool(_stakeType);
+
+        UserInfo storage user = userStaked[msg.sender];
+        Stake[] storage stakes = userStakes[msg.sender];
+        Lockup storage lockup = lockups[_stakeType];
+
+        if (lockup.totalStakedLimit > 0) {
+            require(lockup.totalStaked < lockup.totalStakedLimit, "Total staked limit exceeded");
+
+            if (lockup.totalStaked + _amount > lockup.totalStakedLimit) {
+                _amount = lockup.totalStakedLimit - lockup.totalStaked;
+            }
+        }
+
+        uint256 pending = 0;
+        uint256 pendingReflection = 0;
+        for (uint256 j = 0; j < stakes.length; j++) {
+            Stake storage stake = stakes[j];
+            if (stake.stakeType != _stakeType) continue;
+            if (stake.amount == 0) continue;
+
+            pending += (stake.amount * lockup.accTokenPerShare) / PRECISION_FACTOR - stake.rewardDebt;
+            pendingReflection +=
+                (stake.amount * accDividendPerShare) / PRECISION_FACTOR_REFLECTION - stake.reflectionDebt;
+
+            stake.rewardDebt = (stake.amount * lockup.accTokenPerShare) / PRECISION_FACTOR;
+            stake.reflectionDebt = (stake.amount * accDividendPerShare) / PRECISION_FACTOR_REFLECTION;
+        }
+
+        if (pending > 0) {
+            require(availableRewardTokens() >= pending, "Insufficient reward tokens");
+            uint256 fee = pending * lockup.withdrawFee / PERCENT_PRECISION;
+            if (fee > 0) _transferToken(earnedToken, walletA, fee);
+
+            _transferToken(earnedToken, msg.sender, pending - fee);
+            _updateEarned(pending);
+            paidRewards = paidRewards + pending;
+        }
+
+        if (pendingReflection > 0) {
+            _transferToken(dividendToken, msg.sender, estimateDividendAmount(pendingReflection));
+            totalReflections = totalReflections - pendingReflection;
+        }
+
+        uint256 beforeAmount = stakingToken.balanceOf(address(this));
+        stakingToken.safeTransferFrom(address(msg.sender), address(this), _amount);
+        uint256 afterAmount = stakingToken.balanceOf(address(this));
+        uint256 realAmount = afterAmount - beforeAmount;
+        if (realAmount > _amount) realAmount = _amount;
+
+        if (hasUserLimit) {
+            require(realAmount + user.amount <= poolLimitPerUser, "User amount above limit");
+        }
+        if (lockup.depositFee > 0) {
+            uint256 fee = (realAmount * lockup.depositFee) / PERCENT_PRECISION;
+            if (fee > 0) {
+                stakingToken.safeTransfer(walletA, fee);
+                realAmount = realAmount - fee;
+            }
+        }
+
+        _addStake(_stakeType, msg.sender, lockup.duration, realAmount);
+
+        user.amount = user.amount + realAmount;
+        lockup.totalStaked = lockup.totalStaked + realAmount;
+        totalStaked = totalStaked + realAmount;
+
+        emit Deposit(msg.sender, _stakeType, realAmount);
+
+        if (autoAdjustableForRewardRate) _updateRewardRate();
+    }
+
+    function _addStake(uint8 _stakeType, address _account, uint256 _duration, uint256 _amount) internal {
+        Stake[] storage stakes = userStakes[_account];
+
+        uint256 end = block.timestamp + _duration * 1 days;
+        uint256 i = stakes.length;
+        require(i < MAX_STAKES, "Max stakes");
+
+        stakes.push(); // grow the array
+        // find the spot where we can insert the current stake
+        // this should make an increasing list sorted by end
+        while (i != 0 && stakes[i - 1].end > end) {
+            // shift it back one
+            stakes[i] = stakes[i - 1];
+            i -= 1;
+        }
+
+        Lockup storage lockup = lockups[_stakeType];
+
+        // insert the stake
+        Stake storage newStake = stakes[i];
+        newStake.stakeType = _stakeType;
+        newStake.duration = _duration;
+        newStake.end = end;
+        newStake.amount = _amount;
+        newStake.rewardDebt = (newStake.amount * lockup.accTokenPerShare) / PRECISION_FACTOR;
+        newStake.reflectionDebt = (newStake.amount * accDividendPerShare) / PRECISION_FACTOR_REFLECTION;
+    }
+
+    /**
+     * @notice Withdraw staked tokens and collect reward tokens
+     * @param _amount: amount to withdraw (in earnedToken)
+     * @param _stakeType: lockup index
+     */
+    function withdraw(uint256 _amount, uint8 _stakeType) external payable nonReentrant {
+        require(_amount > 0, "Amount should be greator than 0");
+        require(_stakeType < lockups.length, "Invalid stake type");
+
+        _transferPerformanceFee();
+        _updatePool(_stakeType);
+
+        UserInfo storage user = userStaked[msg.sender];
+        Stake[] storage stakes = userStakes[msg.sender];
+        Lockup storage lockup = lockups[_stakeType];
+
+        uint256 pending = 0;
+        uint256 pendingReflection = 0;
+        uint256 remained = _amount;
+        uint256 forceWithdrawalAmount = 0;
+        for (uint256 j = 0; j < stakes.length; j++) {
+            Stake storage stake = stakes[j];
+            if (stake.stakeType != _stakeType) continue;
+            if (stake.amount == 0) continue;
+            if (remained == 0) break;
+
+            pending += (stake.amount * lockup.accTokenPerShare) / PRECISION_FACTOR - stake.rewardDebt;
+            pendingReflection +=
+                (stake.amount * accDividendPerShare) / PRECISION_FACTOR_REFLECTION - stake.reflectionDebt;
+
+            if (stake.end < block.timestamp || bonusEndBlock < block.number || enablePenalty) {
+                uint256 _wAmount = stake.amount > remained ? remained : stake.amount;
+
+                stake.amount -= _wAmount;
+                remained -= _wAmount;
+                if (stake.end >= block.timestamp && bonusEndBlock >= block.number) {
+                    forceWithdrawalAmount += _wAmount;
+                }
+            }
+
+            stake.rewardDebt = (stake.amount * lockup.accTokenPerShare) / PRECISION_FACTOR;
+            stake.reflectionDebt = (stake.amount * accDividendPerShare) / PRECISION_FACTOR_REFLECTION;
+        }
+
+        if (pending > 0) {
+            require(availableRewardTokens() >= pending, "Insufficient reward tokens");
+            uint256 fee = pending * lockup.withdrawFee / PERCENT_PRECISION;
+            if (enablePenalty && forceWithdrawalAmount > 0) {
+                fee = (pending * penaltyFee) / PERCENT_PRECISION;
+            }
+            if (fee > 0) _transferToken(earnedToken, walletA, fee);
+
+            _transferToken(earnedToken, msg.sender, pending - fee);
+            _updateEarned(pending);
+            paidRewards = paidRewards + pending;
+        }
+
+        if (pendingReflection > 0) {
+            _transferToken(dividendToken, msg.sender, estimateDividendAmount(pendingReflection));
+            totalReflections = totalReflections - pendingReflection;
+        }
+
+        uint256 realAmount = _amount - remained;
+        user.amount = user.amount - realAmount;
+        lockup.totalStaked = lockup.totalStaked - realAmount;
+        totalStaked = totalStaked - realAmount;
+
+        stakingToken.safeTransfer(address(msg.sender), realAmount);
+        emit Withdraw(msg.sender, _stakeType, realAmount);
+
+        if (autoAdjustableForRewardRate) _updateRewardRate();
+    }
+
+    function claimReward(uint8 _stakeType) external payable nonReentrant {
+        if (_stakeType >= lockups.length) return;
+        if (startBlock == 0) return;
+
+        _transferPerformanceFee();
+        _updatePool(_stakeType);
+
+        Stake[] storage stakes = userStakes[msg.sender];
+        Lockup storage lockup = lockups[_stakeType];
+
+        uint256 pending = 0;
+        for (uint256 j = 0; j < stakes.length; j++) {
+            Stake storage stake = stakes[j];
+            if (stake.stakeType != _stakeType) continue;
+            if (stake.amount == 0) continue;
+
+            pending += (stake.amount * lockup.accTokenPerShare) / PRECISION_FACTOR - stake.rewardDebt;
+            stake.rewardDebt = (stake.amount * lockup.accTokenPerShare) / PRECISION_FACTOR;
+        }
+
+        if (pending > 0) {
+            require(availableRewardTokens() >= pending, "Insufficient reward tokens");
+            uint256 fee = pending * lockup.withdrawFee / PERCENT_PRECISION;
+            if (fee > 0) _transferToken(earnedToken, walletA, fee);
+
+            _transferToken(earnedToken, msg.sender, pending - fee);
+            _updateEarned(pending);
+            paidRewards = paidRewards + pending;
+        }
+    }
+
+    function claimDividend(uint8 _stakeType) external payable nonReentrant {
+        if (_stakeType >= lockups.length) return;
+        if (startBlock == 0) return;
+
+        _transferPerformanceFee();
+        _updatePool(_stakeType);
+
+        Stake[] storage stakes = userStakes[msg.sender];
+
+        uint256 pendingReflection = 0;
+        for (uint256 j = 0; j < stakes.length; j++) {
+            Stake storage stake = stakes[j];
+            if (stake.stakeType != _stakeType) continue;
+            if (stake.amount == 0) continue;
+
+            pendingReflection +=
+                (stake.amount * accDividendPerShare) / PRECISION_FACTOR_REFLECTION - stake.reflectionDebt;
+            stake.reflectionDebt = (stake.amount * accDividendPerShare) / PRECISION_FACTOR_REFLECTION;
+        }
+
+        if (pendingReflection > 0) {
+            _transferToken(dividendToken, msg.sender, estimateDividendAmount(pendingReflection));
+            totalReflections = totalReflections - pendingReflection;
+        }
+    }
+
+    function compoundReward(uint8 _stakeType) external payable nonReentrant {
+        if (_stakeType >= lockups.length) return;
+        if (startBlock == 0) return;
+
+        _transferPerformanceFee();
+        _updatePool(_stakeType);
+
+        UserInfo storage user = userStaked[msg.sender];
+        Stake[] storage stakes = userStakes[msg.sender];
+        Lockup storage lockup = lockups[_stakeType];
+
+        uint256 claimFee = 0;
+        uint256 pending = 0;
+        uint256 compounded = 0;
+        for (uint256 j = 0; j < stakes.length; j++) {
+            Stake storage stake = stakes[j];
+            if (stake.stakeType != _stakeType) continue;
+            if (stake.amount == 0) continue;
+
+            uint256 _pending = (stake.amount * lockup.accTokenPerShare) / PRECISION_FACTOR - stake.rewardDebt;
+            uint256 _fee = _pending * lockup.withdrawFee / PERCENT_PRECISION;
+            pending = pending + _pending;
+            claimFee += _fee;
+
+            _pending = _pending - _fee;
+            if (address(stakingToken) != earnedToken && _pending > 0) {
+                if (earnedToken == address(0x0)) {
+                    address wethAddress = IUniRouter02(uniRouterAddress).WETH();
+                    IWETH(wethAddress).deposit{value: _pending}();
+                }
+
+                uint256 _beforeAmount = stakingToken.balanceOf(address(this));
+                _safeSwap(_pending, earnedToStakedPath, address(this));
+                uint256 _afterAmount = stakingToken.balanceOf(address(this));
+                _pending = _afterAmount - _beforeAmount;
+            }
+            compounded = compounded + _pending;
+
+            stake.amount = stake.amount + _pending;
+            stake.rewardDebt = (stake.amount * lockup.accTokenPerShare) / PRECISION_FACTOR;
+            stake.reflectionDebt = stake.reflectionDebt + (_pending * accDividendPerShare) / PRECISION_FACTOR_REFLECTION;
+        }
+
+        if (pending > 0) {
+            require(availableRewardTokens() >= pending, "Insufficient reward tokens");
+            _updateEarned(pending);
+            paidRewards = paidRewards + pending;
+            if (claimFee > 0) _transferToken(earnedToken, walletA, claimFee);
+
+            user.amount = user.amount + compounded;
+            lockup.totalStaked = lockup.totalStaked + compounded;
+            totalStaked = totalStaked + compounded;
+
+            emit Deposit(msg.sender, _stakeType, compounded);
+        }
+    }
+
+    function compoundDividend(uint8 _stakeType) external payable nonReentrant {
+        if (_stakeType >= lockups.length) return;
+        if (startBlock == 0) return;
+
+        _transferPerformanceFee();
+        _updatePool(_stakeType);
+
+        UserInfo storage user = userStaked[msg.sender];
+        Stake[] storage stakes = userStakes[msg.sender];
+        Lockup storage lockup = lockups[_stakeType];
+
+        uint256 compounded = 0;
+        for (uint256 j = 0; j < stakes.length; j++) {
+            Stake storage stake = stakes[j];
+            if (stake.stakeType != _stakeType) continue;
+            if (stake.amount == 0) continue;
+
+            uint256 pending = (stake.amount * accDividendPerShare) / PRECISION_FACTOR_REFLECTION - stake.reflectionDebt;
+            uint256 _pending = estimateDividendAmount(pending);
+            totalReflections = totalReflections - pending;
+            if (address(stakingToken) != address(dividendToken) && _pending > 0) {
+                if (address(dividendToken) == address(0x0)) {
+                    address wethAddress = IUniRouter02(uniRouterAddress).WETH();
+                    IWETH(wethAddress).deposit{value: _pending}();
+                }
+
+                uint256 _beforeAmount = stakingToken.balanceOf(address(this));
+                _safeSwap(_pending, reflectionToStakedPath, address(this));
+                uint256 _afterAmount = stakingToken.balanceOf(address(this));
+
+                _pending = _afterAmount - _beforeAmount;
+            }
+
+            compounded = compounded + _pending;
+            stake.amount = stake.amount + _pending;
+            stake.rewardDebt += (_pending * lockup.accTokenPerShare) / PRECISION_FACTOR;
+            stake.reflectionDebt = (stake.amount * accDividendPerShare) / PRECISION_FACTOR_REFLECTION;
+        }
+
+        if (compounded > 0) {
+            user.amount = user.amount + compounded;
+            lockup.totalStaked = lockup.totalStaked + compounded;
+            totalStaked = totalStaked + compounded;
+
+            emit Deposit(msg.sender, _stakeType, compounded);
+        }
+    }
+
+    function _transferPerformanceFee() internal {
+        require(msg.value >= performanceFee, "should pay small gas to compound or harvest");
+
+        payable(treasury).transfer(performanceFee);
+        if (msg.value > performanceFee) {
+            payable(msg.sender).transfer(msg.value - performanceFee);
+        }
+    }
+
+    /**
+     * @notice Withdraw staked tokens without caring about rewards
+     * @dev Needs to be for emergency.
+     */
+    function emergencyWithdraw(uint8 _stakeType) external nonReentrant {
+        require(activeEmergencyWithdraw, "Emergnecy withdraw not enabled");
+        if (_stakeType >= lockups.length) return;
+
+        UserInfo storage user = userStaked[msg.sender];
+        Stake[] storage stakes = userStakes[msg.sender];
+        Lockup storage lockup = lockups[_stakeType];
+
+        uint256 amountToTransfer = 0;
+        for (uint256 j = 0; j < stakes.length; j++) {
+            Stake storage stake = stakes[j];
+            if (stake.stakeType != _stakeType) continue;
+            if (stake.amount == 0) continue;
+
+            amountToTransfer = amountToTransfer + stake.amount;
+
+            stake.amount = 0;
+            stake.rewardDebt = 0;
+            stake.reflectionDebt = 0;
+        }
+
+        if (amountToTransfer > 0) {
+            stakingToken.safeTransfer(address(msg.sender), amountToTransfer);
+
+            user.amount = user.amount - amountToTransfer;
+            lockup.totalStaked = lockup.totalStaked - amountToTransfer;
+            totalStaked = totalStaked - amountToTransfer;
+        }
+
+        emit EmergencyWithdraw(msg.sender, amountToTransfer);
+    }
+
+    function rewardPerBlock(uint8 _stakeType) external view returns (uint256) {
+        if (_stakeType >= lockups.length) return 0;
+
+        return lockups[_stakeType].rate;
+    }
+
+    /**
+     * @notice Available amount of reward token
+     */
+    function availableRewardTokens() public view returns (uint256) {
+        if (earnedToken == address(0x0)) return address(this).balance;
+
+        if (address(earnedToken) == address(dividendToken)) return totalEarned;
+
+        uint256 _amount = IERC20(earnedToken).balanceOf(address(this));
+        if (address(earnedToken) == address(stakingToken)) {
+            if (_amount < totalStaked) return 0;
+            return _amount - totalStaked;
+        }
+
+        return _amount;
+    }
+
+    /**
+     * @notice Available amount of reflection token
+     */
+    function availableDividendTokens() public view returns (uint256) {
+        if (earnedToken == address(0x0)) return 0;
+        if (address(dividendToken) == address(0x0)) return address(this).balance;
+
+        uint256 _amount = IERC20(dividendToken).balanceOf(address(this));
+        if (address(dividendToken) == address(earnedToken)) {
+            if (_amount < totalEarned) return 0;
+            _amount = _amount - totalEarned;
+        }
+
+        if (address(dividendToken) == address(stakingToken)) {
+            if (_amount < totalStaked) return 0;
+            _amount = _amount - totalStaked;
+        }
+
+        return _amount;
+    }
+
+    function insufficientRewards() external view returns (uint256) {
+        uint256 adjustedShouldTotalPaid = shouldTotalPaid;
+        uint256 remainRewards = availableRewardTokens() + paidRewards;
+
+        for (uint256 i = 0; i < lockups.length; i++) {
+            if (startBlock == 0) {
+                adjustedShouldTotalPaid = adjustedShouldTotalPaid + lockups[i].rate * duration * BLOCKS_PER_DAY;
+            } else {
+                uint256 remainBlocks = _getMultiplier(lockups[i].lastRewardBlock, bonusEndBlock);
+                adjustedShouldTotalPaid = adjustedShouldTotalPaid + lockups[i].rate * remainBlocks;
+            }
+        }
+
+        if (remainRewards >= adjustedShouldTotalPaid) return 0;
+
+        return adjustedShouldTotalPaid - remainRewards;
+    }
+
+    function userInfo(uint8 _stakeType, address _account)
+        external
+        view
+        returns (uint256 amount, uint256 available, uint256 locked)
+    {
+        Stake[] memory stakes = userStakes[_account];
+
+        for (uint256 i = 0; i < stakes.length; i++) {
+            Stake memory stake = stakes[i];
+
+            if (stake.stakeType != _stakeType) continue;
+            if (stake.amount == 0) continue;
+
+            amount = amount + stake.amount;
+            if (block.timestamp > stake.end || bonusEndBlock < block.number) {
+                available = available + stake.amount;
+            } else {
+                locked = locked + stake.amount;
+            }
+        }
+    }
+
+    /**
+     * @notice View function to see pending reward on frontend.
+     * @param _account: user address
+     * @param _stakeType: lockup index
+     * @return Pending reward for a given user
+     */
+    function pendingReward(address _account, uint8 _stakeType) external view returns (uint256) {
+        if (_stakeType >= lockups.length || startBlock == 0) return 0;
+
+        Stake[] memory stakes = userStakes[_account];
+        Lockup memory lockup = lockups[_stakeType];
+
+        if (lockup.totalStaked == 0) return 0;
+
+        uint256 adjustedTokenPerShare = lockup.accTokenPerShare;
+        if (block.number > lockup.lastRewardBlock && lockup.totalStaked != 0 && lockup.lastRewardBlock > 0) {
+            uint256 multiplier = _getMultiplier(lockup.lastRewardBlock, block.number);
+            uint256 reward = multiplier * lockup.rate;
+
+            adjustedTokenPerShare = lockup.accTokenPerShare + (reward * PRECISION_FACTOR) / lockup.totalStaked;
+        }
+
+        uint256 pending = 0;
+        for (uint256 i = 0; i < stakes.length; i++) {
+            Stake memory stake = stakes[i];
+            if (stake.stakeType != _stakeType) continue;
+            if (stake.amount == 0) continue;
+
+            pending = pending + ((stake.amount * adjustedTokenPerShare) / PRECISION_FACTOR - stake.rewardDebt);
+        }
+        return pending;
+    }
+
+    function pendingDividends(address _account, uint8 _stakeType) external view returns (uint256) {
+        if (_stakeType >= lockups.length) return 0;
+        if (startBlock == 0 || totalStaked == 0) return 0;
+
+        Stake[] memory stakes = userStakes[_account];
+
+        uint256 reflectionAmount = availableDividendTokens();
+        if (reflectionAmount > totalReflections) {
+            reflectionAmount -= totalReflections;
+        } else {
+            reflectionAmount = 0;
+        }
+
+        uint256 sTokenBal = totalStaked;
+        uint256 eTokenBal = availableRewardTokens();
+        if (address(stakingToken) == address(earnedToken)) {
+            sTokenBal = sTokenBal + eTokenBal;
+        }
+
+        uint256 adjustedReflectionPerShare =
+            accDividendPerShare + ((reflectionAmount * PRECISION_FACTOR_REFLECTION) / sTokenBal);
+
+        uint256 pendingReflection = 0;
+        for (uint256 i = 0; i < stakes.length; i++) {
+            Stake memory stake = stakes[i];
+            if (stake.stakeType != _stakeType) continue;
+            if (stake.amount == 0) continue;
+
+            pendingReflection = pendingReflection
+                + ((stake.amount * adjustedReflectionPerShare) / PRECISION_FACTOR_REFLECTION - stake.reflectionDebt);
+        }
+        return pendingReflection;
+    }
+
+    /**
+     * Admin Methods
+     */
+    function harvest() external onlyOwner {
+        _updatePool(0);
+
+        if (reflections > 0) {
+            _transferToken(dividendToken, walletA, estimateDividendAmount(reflections));
+            totalReflections = totalReflections - reflections;
+            reflections = 0;
+        }
+    }
+
+    /**
+     * @notice Deposit reward token
+     * @dev Only call by owner. Needs to be for deposit of reward token when reflection token is same with reward token.
+     */
+    function depositRewards(uint256 _amount) external payable onlyOwner nonReentrant {
+        require(_amount > 0, "invalid amount");
+
+        if (earnedToken == address(0x0)) {
+            totalEarned += msg.value;
+        } else {
+            uint256 beforeAmt = IERC20(earnedToken).balanceOf(address(this));
+            IERC20(earnedToken).safeTransferFrom(msg.sender, address(this), _amount);
+            uint256 afterAmt = IERC20(earnedToken).balanceOf(address(this));
+            totalEarned += afterAmt - beforeAmt;
+        }
+    }
+
+    function increaseEmissionRate(uint8 _stakeType, uint256 _amount) external payable onlyOwner {
+        require(startBlock > 0, "pool is not started");
+        require(bonusEndBlock > block.number, "pool was already finished");
+        require(_amount > 0, "invalid amount");
+
+        _updatePool(_stakeType);
+
+        if (earnedToken == address(0x0)) {
+            totalEarned += msg.value;
+        } else {
+            uint256 beforeAmt = IERC20(earnedToken).balanceOf(address(this));
+            IERC20(earnedToken).safeTransferFrom(msg.sender, address(this), _amount);
+            uint256 afterAmt = IERC20(earnedToken).balanceOf(address(this));
+
+            totalEarned += afterAmt - beforeAmt;
+        }
+
+        uint256 remainRewards = availableRewardTokens() + paidRewards;
+        uint256 adjustedShouldTotalPaid = shouldTotalPaid;
+        for (uint256 i = 0; i < lockups.length; i++) {
+            if (i == _stakeType) continue;
+
+            if (startBlock == 0) {
+                adjustedShouldTotalPaid = adjustedShouldTotalPaid + lockups[i].rate * duration * BLOCKS_PER_DAY;
+            } else {
+                uint256 remainBlocks = _getMultiplier(lockups[i].lastRewardBlock, bonusEndBlock);
+                adjustedShouldTotalPaid = adjustedShouldTotalPaid + lockups[i].rate * remainBlocks;
+            }
+        }
+
+        if (remainRewards > shouldTotalPaid) {
+            remainRewards = remainRewards - adjustedShouldTotalPaid;
+
+            uint256 remainBlocks = bonusEndBlock - block.number;
+            totalRewardsPerBlock = totalRewardsPerBlock - lockups[_stakeType].rate + remainRewards / remainBlocks;
+            lockups[_stakeType].rate = remainRewards / remainBlocks;
+            emit LockupUpdated(
+                _stakeType,
+                lockups[_stakeType].duration,
+                lockups[_stakeType].depositFee,
+                lockups[_stakeType].withdrawFee,
+                lockups[_stakeType].rate
+            );
+        }
+    }
+
+    /**
+     * @notice Withdraw reward token
+     * @dev Only callable by owner. Needs to be for emergency.
+     */
+    function emergencyRewardWithdraw(uint256 _amount) external onlyOwner {
+        require(block.number > bonusEndBlock, "Pool is running");
+        require(availableRewardTokens() >= _amount, "Insufficient reward tokens");
+
+        _transferToken(earnedToken, msg.sender, _amount);
+        if (totalEarned > 0) {
+            if (_amount > totalEarned) {
+                totalEarned = 0;
+            } else {
+                totalEarned = totalEarned - _amount;
+            }
+        }
+    }
+
+    /**
+     * @notice It allows the admin to recover wrong tokens sent to the contract
+     * @param _tokenAddress: the address of the token to withdraw
+     * @param _tokenAmount: the number of tokens to withdraw
+     * @dev This function is only callable by admin.
+     */
+    function recoverWrongTokens(address _tokenAddress, uint256 _tokenAmount) external onlyOwner {
+        require(_tokenAddress != address(earnedToken) || _tokenAddress == dividendToken, "Cannot be reward token");
+
+        if (_tokenAddress == address(stakingToken)) {
+            uint256 tokenBal = stakingToken.balanceOf(address(this));
+            require(_tokenAmount <= tokenBal - totalStaked, "Insufficient balance");
+        }
+
+        if (_tokenAddress == address(0x0)) {
+            payable(msg.sender).transfer(_tokenAmount);
+        } else {
+            IERC20(_tokenAddress).safeTransfer(address(msg.sender), _tokenAmount);
+        }
+
+        emit AdminTokenRecovered(_tokenAddress, _tokenAmount);
+    }
+
+    function startReward() external onlyOwner {
+        require(startBlock == 0, "Pool was already started");
+
+        startBlock = block.number + 100;
+        bonusEndBlock = startBlock + duration * BLOCKS_PER_DAY;
+        for (uint256 i = 0; i < lockups.length; i++) {
+            lockups[i].lastRewardBlock = startBlock;
+        }
+
+        emit NewStartAndEndBlocks(startBlock, bonusEndBlock);
+    }
+
+    function stopReward() external onlyOwner {
+        for (uint8 i = 0; i < lockups.length; i++) {
+            _updatePool(i);
+        }
+
+        uint256 remainRewards = availableRewardTokens() + paidRewards;
+        if (remainRewards > shouldTotalPaid) {
+            remainRewards = remainRewards - shouldTotalPaid;
+            _transferToken(earnedToken, msg.sender, remainRewards);
+            _updateEarned(remainRewards);
+        }
+
+        bonusEndBlock = block.number;
+        emit RewardsStop(bonusEndBlock);
+    }
+
+    function updateEndBlock(uint256 _endBlock) external onlyOwner {
+        require(startBlock > 0, "Pool is not started");
+        require(bonusEndBlock > block.number, "Pool was already finished");
+        require(_endBlock > block.number && _endBlock > startBlock, "Invalid end block");
+        bonusEndBlock = _endBlock;
+        emit EndBlockUpdated(_endBlock);
+    }
+
+    /**
+     * @notice Update pool limit per user
+     * @dev Only callable by owner.
+     * @param _hasUserLimit: whether the limit remains forced
+     * @param _poolLimitPerUser: new pool limit per user
+     */
+    function updatePoolLimitPerUser(bool _hasUserLimit, uint256 _poolLimitPerUser) external onlyOwner {
+        if (_hasUserLimit) {
+            require(_poolLimitPerUser > poolLimitPerUser, "New limit must be higher");
+            poolLimitPerUser = _poolLimitPerUser;
+        } else {
+            poolLimitPerUser = 0;
+        }
+        hasUserLimit = _hasUserLimit;
+
+        emit UpdatePoolLimit(poolLimitPerUser, _hasUserLimit);
+    }
+
+    function updateLockup(
+        uint8 _stakeType,
+        uint256 _duration,
+        uint256 _depositFee,
+        uint256 _withdrawFee,
+        uint256 _rate,
+        uint256 _totalStakedLimit
+    ) external onlyOwner {
+        // require(block.number < startBlock, "Pool was already started");
+        require(_stakeType < lockups.length, "Lockup Not found");
+        require(_depositFee < 2000, "Invalid deposit fee");
+        require(_withdrawFee < 2000, "Invalid withdraw fee");
+
+        _updatePool(_stakeType);
+
+        Lockup storage _lockup = lockups[_stakeType];
+        totalRewardsPerBlock = totalRewardsPerBlock - _lockup.rate + _rate;
+
+        _lockup.duration = _duration;
+        _lockup.depositFee = _depositFee;
+        _lockup.withdrawFee = _withdrawFee;
+        _lockup.rate = _rate;
+        _lockup.totalStakedLimit = _totalStakedLimit;
+
+        emit LockupUpdated(_stakeType, _duration, _depositFee, _withdrawFee, _rate);
+    }
+
+    function addLockup(
+        uint256 _duration,
+        uint256 _depositFee,
+        uint256 _withdrawFee,
+        uint256 _rate,
+        uint256 _totalStakedLimit
+    ) external onlyOwner {
+        require(_depositFee < 2000, "Invalid deposit fee");
+        require(_withdrawFee < 2000, "Invalid withdraw fee");
+
+        lockups.push();
+
+        Lockup storage _lockup = lockups[lockups.length - 1];
+        _lockup.stakeType = uint8(lockups.length - 1);
+        _lockup.duration = _duration;
+        _lockup.depositFee = _depositFee;
+        _lockup.withdrawFee = _withdrawFee;
+        _lockup.rate = _rate;
+        _lockup.lastRewardBlock = block.number;
+        _lockup.totalStakedLimit = _totalStakedLimit;
+
+        totalRewardsPerBlock += _rate;
+
+        emit LockupUpdated(uint8(lockups.length - 1), _duration, _depositFee, _withdrawFee, _rate);
+    }
+
+    function setServiceInfo(address _addr, uint256 _fee) external {
+        require(msg.sender == treasury, "setServiceInfo: FORBIDDEN");
+        require(_addr != address(0x0), "Invalid address");
+
+        treasury = _addr;
+        performanceFee = _fee;
+
+        emit ServiceInfoUpadted(_addr, _fee);
+    }
+
+    function setEmergencyWithdraw(bool _status) external {
+        require(msg.sender == treasury || msg.sender == owner(), "setEmergencyWithdraw: FORBIDDEN");
+
+        activeEmergencyWithdraw = _status;
+        emit SetEmergencyWithdrawStatus(_status);
+    }
+
+    function setPenaltyStatus(bool _status, uint256 _fee) external onlyOwner {
+        require(_fee < 3000, "Invalid penalty");
+
+        enablePenalty = _status;
+        penaltyFee = _fee;
+        emit SetPenaltyStatus(_status, _fee);
+
+        if (_status && !activeEmergencyWithdraw) {
+            activeEmergencyWithdraw = true;
+            emit SetEmergencyWithdrawStatus(_status);
+        }
+    }
+
+    function setDuration(uint256 _duration) external onlyOwner {
+        require(startBlock == 0, "Pool was already started");
+        require(_duration >= 30, "lower limit reached");
+
+        duration = _duration;
+        emit DurationUpdated(_duration);
+    }
+
+    function setAutoAdjustableForRewardRate(bool _status) external onlyOwner {
+        autoAdjustableForRewardRate = _status;
+        emit SetAutoAdjustableForRewardRate(_status);
+    }
+
+    function setSettings(
+        uint256 _slippageFactor,
+        address _uniRouter,
+        address[] memory _earnedToStakedPath,
+        address[] memory _reflectionToStakedPath,
+        address _feeAddr
+    ) external onlyOwner {
+        require(_slippageFactor <= slippageFactorUL, "_slippageFactor too high");
+        require(_feeAddr != address(0x0), "Invalid Address");
+
+        slippageFactor = _slippageFactor;
+        uniRouterAddress = _uniRouter;
+        reflectionToStakedPath = _reflectionToStakedPath;
+        earnedToStakedPath = _earnedToStakedPath;
+        walletA = _feeAddr;
+
+        emit SetSettings(_slippageFactor, _uniRouter, _earnedToStakedPath, _reflectionToStakedPath, _feeAddr);
+    }
+
+    function setWhitelist(address _whitelist) external onlyOwner {
+        whiteList = _whitelist;
+        emit SetWhiteList(_whitelist);
+    }
+
+    function _updateRewardRate() internal {
+        if (bonusEndBlock <= block.number) return;
+
+        uint256 remainRewards = availableRewardTokens() + paidRewards;
+        if (remainRewards > shouldTotalPaid) {
+            remainRewards = remainRewards - shouldTotalPaid;
+
+            uint256 remainBlocks = bonusEndBlock - block.number;
+            uint256 _totalRewardsPerBlock = remainRewards / remainBlocks;
+            if (_totalRewardsPerBlock < lockups.length) return;
+
+            uint256 _temp = 0;
+            Lockup storage _lockup;
+            for (uint256 i = 0; i < lockups.length - 1; i++) {
+                _lockup = lockups[i];
+                _lockup.rate = _totalRewardsPerBlock * _lockup.rate / totalRewardsPerBlock;
+                _temp += _lockup.rate;
+
+                emit LockupUpdated(
+                    _lockup.stakeType, _lockup.duration, _lockup.depositFee, _lockup.withdrawFee, _lockup.rate
+                );
+            }
+            _lockup = lockups[lockups.length - 1];
+            _lockup.rate = _totalRewardsPerBlock - _temp;
+            totalRewardsPerBlock = _totalRewardsPerBlock;
+            emit LockupUpdated(
+                _lockup.stakeType, _lockup.duration, _lockup.depositFee, _lockup.withdrawFee, _lockup.rate
+            );
+        }
+    }
+
+    /**
+     * @notice Update reward variables of the given pool to be up-to-date.
+     */
+    function _updatePool(uint8 _stakeType) internal {
+        // calc reflection rate
+        if (totalStaked > 0) {
+            uint256 reflectionAmount = availableDividendTokens();
+            if (reflectionAmount > totalReflections) {
+                reflectionAmount -= totalReflections;
+            } else {
+                reflectionAmount = 0;
+            }
+
+            uint256 sTokenBal = totalStaked;
+            uint256 eTokenBal = availableRewardTokens();
+            if (address(stakingToken) == address(earnedToken)) {
+                sTokenBal = sTokenBal + eTokenBal;
+            }
+
+            accDividendPerShare += (reflectionAmount * PRECISION_FACTOR_REFLECTION) / sTokenBal;
+
+            reflections += (reflectionAmount * eTokenBal) / sTokenBal;
+            totalReflections += reflectionAmount;
+        }
+
+        Lockup storage lockup = lockups[_stakeType];
+        if (block.number <= lockup.lastRewardBlock || lockup.lastRewardBlock == 0) return;
+
+        if (lockup.totalStaked == 0) {
+            lockup.lastRewardBlock = block.number;
+            return;
+        }
+
+        uint256 multiplier = _getMultiplier(lockup.lastRewardBlock, block.number);
+        uint256 _reward = multiplier * lockup.rate;
+        lockup.accTokenPerShare = lockup.accTokenPerShare + ((_reward * PRECISION_FACTOR) / lockup.totalStaked);
+
+        lockup.lastRewardBlock = block.number;
+        shouldTotalPaid = shouldTotalPaid + _reward;
+    }
+
+    function estimateDividendAmount(uint256 amount) internal view returns (uint256) {
+        uint256 dTokenBal = availableDividendTokens();
+        if (amount > totalReflections) amount = totalReflections;
+        if (amount > dTokenBal) amount = dTokenBal;
+        return amount;
+    }
+
+    /**
+     * @notice Return reward multiplier over the given _from to _to block.
+     * @param _from: block to start
+     * @param _to: block to finish
+     */
+    function _getMultiplier(uint256 _from, uint256 _to) internal view returns (uint256) {
+        if (_to <= bonusEndBlock) {
+            return _to - _from;
+        } else if (_from >= bonusEndBlock) {
+            return 0;
+        } else {
+            return bonusEndBlock - _from;
+        }
+    }
+
+    function _transferToken(address _token, address _to, uint256 _amount) internal {
+        if (_token == address(0x0)) {
+            payable(_to).transfer(_amount);
+        } else {
+            IERC20(_token).safeTransfer(_to, _amount);
+        }
+    }
+
+    function _updateEarned(uint256 _amount) internal {
+        if (totalEarned > _amount) {
+            totalEarned = totalEarned - _amount;
+        } else {
+            totalEarned = 0;
+        }
+    }
+
+    function _safeSwap(uint256 _amountIn, address[] memory _path, address _to) internal {
+        uint256[] memory amounts = IUniRouter02(uniRouterAddress).getAmountsOut(_amountIn, _path);
+        uint256 amountOut = amounts[amounts.length - 1];
+
+        IERC20(_path[0]).safeApprove(uniRouterAddress, _amountIn);
+        IUniRouter02(uniRouterAddress).swapExactTokensForTokensSupportingFeeOnTransferTokens(
+            _amountIn, (amountOut * slippageFactor) / PERCENT_PRECISION, _path, _to, block.timestamp + 600
+        );
+    }
+
+    receive() external payable {}
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)
+
+pragma solidity ^0.8.0;
+
+import "../utils/Context.sol";
+
+/**
+ * @dev Contract module which provides a basic access control mechanism, where
+ * there is an account (an owner) that can be granted exclusive access to
+ * specific functions.
+ *
+ * By default, the owner account will be the one that deploys the contract. This
+ * can later be changed with {transferOwnership}.
+ *
+ * This module is used through inheritance. It will make available the modifier
+ * `onlyOwner`, which can be applied to your functions to restrict their use to
+ * the owner.
+ */
+abstract contract Ownable is Context {
+    address private _owner;
+
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
+    constructor() {
+        _transferOwnership(_msgSender());
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    modifier onlyOwner() {
+        _checkOwner();
+        _;
+    }
+
+    /**
+     * @dev Returns the address of the current owner.
+     */
+    function owner() public view virtual returns (address) {
+        return _owner;
+    }
+
+    /**
+     * @dev Throws if the sender is not the owner.
+     */
+    function _checkOwner() internal view virtual {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+    }
+
+    /**
+     * @dev Leaves the contract without owner. It will not be possible to call
+     * `onlyOwner` functions anymore. Can only be called by the current owner.
+     *
+     * NOTE: Renouncing ownership will leave the contract without an owner,
+     * thereby removing any functionality that is only available to the owner.
+     */
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Can only be called by the current owner.
+     */
+    function transferOwnership(address newOwner) public virtual onlyOwner {
+        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        _transferOwnership(newOwner);
+    }
+
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
+        address oldOwner = _owner;
+        _owner = newOwner;
+        emit OwnershipTransferred(oldOwner, newOwner);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.8.0) (security/ReentrancyGuard.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Contract module that helps prevent reentrant calls to a function.
+ *
+ * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier
+ * available, which can be applied to functions to make sure there are no nested
+ * (reentrant) calls to them.
+ *
+ * Note that because there is a single `nonReentrant` guard, functions marked as
+ * `nonReentrant` may not call one another. This can be worked around by making
+ * those functions `private`, and then adding `external` `nonReentrant` entry
+ * points to them.
+ *
+ * TIP: If you would like to learn more about reentrancy and alternative ways
+ * to protect against it, check out our blog post
+ * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
+ */
+abstract contract ReentrancyGuard {
+    // Booleans are more expensive than uint256 or any type that takes up a full
+    // word because each write operation emits an extra SLOAD to first read the
+    // slot's contents, replace the bits taken up by the boolean, and then write
+    // back. This is the compiler's defense against contract upgrades and
+    // pointer aliasing, and it cannot be disabled.
+
+    // The values being non-zero value makes deployment a bit more expensive,
+    // but in exchange the refund on every call to nonReentrant will be lower in
+    // amount. Since refunds are capped to a percentage of the total
+    // transaction's gas, it is best to keep them low in cases like this one, to
+    // increase the likelihood of the full refund coming into effect.
+    uint256 private constant _NOT_ENTERED = 1;
+    uint256 private constant _ENTERED = 2;
+
+    uint256 private _status;
+
+    constructor() {
+        _status = _NOT_ENTERED;
+    }
+
+    /**
+     * @dev Prevents a contract from calling itself, directly or indirectly.
+     * Calling a `nonReentrant` function from another `nonReentrant`
+     * function is not supported. It is possible to prevent this from happening
+     * by making the `nonReentrant` function external, and making it call a
+     * `private` function that does the actual work.
+     */
+    modifier nonReentrant() {
+        _nonReentrantBefore();
+        _;
+        _nonReentrantAfter();
+    }
+
+    function _nonReentrantBefore() private {
+        // On the first call to nonReentrant, _status will be _NOT_ENTERED
+        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+
+        // Any calls to nonReentrant after this point will fail
+        _status = _ENTERED;
+    }
+
+    function _nonReentrantAfter() private {
+        // By storing the original value once again, a refund is triggered (see
+        // https://eips.ethereum.org/EIPS/eip-2200)
+        _status = _NOT_ENTERED;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/draft-IERC20Permit.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 Permit extension allowing approvals to be made via signatures, as defined in
+ * https://eips.ethereum.org/EIPS/eip-2612[EIP-2612].
+ *
+ * Adds the {permit} method, which can be used to change an account's ERC20 allowance (see {IERC20-allowance}) by
+ * presenting a message signed by the account. By not relying on {IERC20-approve}, the token holder account doesn't
+ * need to send a transaction, and thus is not required to hold Ether at all.
+ */
+interface IERC20Permit {
+    /**
+     * @dev Sets `value` as the allowance of `spender` over ``owner``'s tokens,
+     * given ``owner``'s signed approval.
+     *
+     * IMPORTANT: The same issues {IERC20-approve} has related to transaction
+     * ordering also apply here.
+     *
+     * Emits an {Approval} event.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     * - `deadline` must be a timestamp in the future.
+     * - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner`
+     * over the EIP712-formatted function arguments.
+     * - the signature must use ``owner``'s current nonce (see {nonces}).
+     *
+     * For more information on the signature format, see the
+     * https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP
+     * section].
+     */
+    function permit(
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external;
+
+    /**
+     * @dev Returns the current nonce for `owner`. This value must be
+     * included whenever a signature is generated for {permit}.
+     *
+     * Every successful call to {permit} increases ``owner``'s nonce by one. This
+     * prevents a signature from being used multiple times.
+     */
+    function nonces(address owner) external view returns (uint256);
+
+    /**
+     * @dev Returns the domain separator used in the encoding of the signature for {permit}, as defined by {EIP712}.
+     */
+    // solhint-disable-next-line func-name-mixedcase
+    function DOMAIN_SEPARATOR() external view returns (bytes32);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/IERC20Metadata.sol)
+
+pragma solidity ^0.8.0;
+
+import "../IERC20.sol";
+
+/**
+ * @dev Interface for the optional metadata functions from the ERC20 standard.
+ *
+ * _Available since v4.1._
+ */
+interface IERC20Metadata is IERC20 {
+    /**
+     * @dev Returns the name of the token.
+     */
+    function name() external view returns (string memory);
+
+    /**
+     * @dev Returns the symbol of the token.
+     */
+    function symbol() external view returns (string memory);
+
+    /**
+     * @dev Returns the decimals places of the token.
+     */
+    function decimals() external view returns (uint8);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.8.0) (token/ERC20/utils/SafeERC20.sol)
+
+pragma solidity ^0.8.0;
+
+import "../IERC20.sol";
+import "../extensions/draft-IERC20Permit.sol";
+import "../../../utils/Address.sol";
+
+/**
+ * @title SafeERC20
+ * @dev Wrappers around ERC20 operations that throw on failure (when the token
+ * contract returns false). Tokens that return no value (and instead revert or
+ * throw on failure) are also supported, non-reverting calls are assumed to be
+ * successful.
+ * To use this library you can add a `using SafeERC20 for IERC20;` statement to your contract,
+ * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
+ */
+library SafeERC20 {
+    using Address for address;
+
+    function safeTransfer(
+        IERC20 token,
+        address to,
+        uint256 value
+    ) internal {
+        _callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
+    }
+
+    function safeTransferFrom(
+        IERC20 token,
+        address from,
+        address to,
+        uint256 value
+    ) internal {
+        _callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));
+    }
+
+    /**
+     * @dev Deprecated. This function has issues similar to the ones found in
+     * {IERC20-approve}, and its usage is discouraged.
+     *
+     * Whenever possible, use {safeIncreaseAllowance} and
+     * {safeDecreaseAllowance} instead.
+     */
+    function safeApprove(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        // safeApprove should only be called when setting an initial allowance,
+        // or when resetting it to zero. To increase and decrease it, use
+        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
+        require(
+            (value == 0) || (token.allowance(address(this), spender) == 0),
+            "SafeERC20: approve from non-zero to non-zero allowance"
+        );
+        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, value));
+    }
+
+    function safeIncreaseAllowance(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        uint256 newAllowance = token.allowance(address(this), spender) + value;
+        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
+    }
+
+    function safeDecreaseAllowance(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        unchecked {
+            uint256 oldAllowance = token.allowance(address(this), spender);
+            require(oldAllowance >= value, "SafeERC20: decreased allowance below zero");
+            uint256 newAllowance = oldAllowance - value;
+            _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
+        }
+    }
+
+    function safePermit(
+        IERC20Permit token,
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) internal {
+        uint256 nonceBefore = token.nonces(owner);
+        token.permit(owner, spender, value, deadline, v, r, s);
+        uint256 nonceAfter = token.nonces(owner);
+        require(nonceAfter == nonceBefore + 1, "SafeERC20: permit did not succeed");
+    }
+
+    /**
+     * @dev Imitates a Solidity high-level call (i.e. a regular function call to a contract), relaxing the requirement
+     * on the return value: the return value is optional (but if data is returned, it must not be false).
+     * @param token The token targeted by the call.
+     * @param data The call data (encoded using abi.encode or one of its variants).
+     */
+    function _callOptionalReturn(IERC20 token, bytes memory data) private {
+        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
+        // we're implementing it ourselves. We use {Address-functionCall} to perform this call, which verifies that
+        // the target address contains contract code and also asserts for success in the low-level call.
+
+        bytes memory returndata = address(token).functionCall(data, "SafeERC20: low-level call failed");
+        if (returndata.length > 0) {
+            // Return data is optional
+            require(abi.decode(returndata, (bool)), "SafeERC20: ERC20 operation did not succeed");
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.8.0) (utils/Address.sol)
+
+pragma solidity ^0.8.1;
+
+/**
+ * @dev Collection of functions related to the address type
+ */
+library Address {
+    /**
+     * @dev Returns true if `account` is a contract.
+     *
+     * [IMPORTANT]
+     * ====
+     * It is unsafe to assume that an address for which this function returns
+     * false is an externally-owned account (EOA) and not a contract.
+     *
+     * Among others, `isContract` will return false for the following
+     * types of addresses:
+     *
+     *  - an externally-owned account
+     *  - a contract in construction
+     *  - an address where a contract will be created
+     *  - an address where a contract lived, but was destroyed
+     * ====
+     *
+     * [IMPORTANT]
+     * ====
+     * You shouldn't rely on `isContract` to protect against flash loan attacks!
+     *
+     * Preventing calls from contracts is highly discouraged. It breaks composability, breaks support for smart wallets
+     * like Gnosis Safe, and does not provide security since it can be circumvented by calling from a contract
+     * constructor.
+     * ====
+     */
+    function isContract(address account) internal view returns (bool) {
+        // This method relies on extcodesize/address.code.length, which returns 0
+        // for contracts in construction, since the code is only stored at the end
+        // of the constructor execution.
+
+        return account.code.length > 0;
+    }
+
+    /**
+     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to
+     * `recipient`, forwarding all available gas and reverting on errors.
+     *
+     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost
+     * of certain opcodes, possibly making contracts go over the 2300 gas limit
+     * imposed by `transfer`, making them unable to receive funds via
+     * `transfer`. {sendValue} removes this limitation.
+     *
+     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].
+     *
+     * IMPORTANT: because control is transferred to `recipient`, care must be
+     * taken to not create reentrancy vulnerabilities. Consider using
+     * {ReentrancyGuard} or the
+     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].
+     */
+    function sendValue(address payable recipient, uint256 amount) internal {
+        require(address(this).balance >= amount, "Address: insufficient balance");
+
+        (bool success, ) = recipient.call{value: amount}("");
+        require(success, "Address: unable to send value, recipient may have reverted");
+    }
+
+    /**
+     * @dev Performs a Solidity function call using a low level `call`. A
+     * plain `call` is an unsafe replacement for a function call: use this
+     * function instead.
+     *
+     * If `target` reverts with a revert reason, it is bubbled up by this
+     * function (like regular Solidity function calls).
+     *
+     * Returns the raw returned data. To convert to the expected return value,
+     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].
+     *
+     * Requirements:
+     *
+     * - `target` must be a contract.
+     * - calling `target` with `data` must not revert.
+     *
+     * _Available since v3.1._
+     */
+    function functionCall(address target, bytes memory data) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, 0, "Address: low-level call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with
+     * `errorMessage` as a fallback revert reason when `target` reverts.
+     *
+     * _Available since v3.1._
+     */
+    function functionCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, 0, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but also transferring `value` wei to `target`.
+     *
+     * Requirements:
+     *
+     * - the calling contract must have an ETH balance of at least `value`.
+     * - the called Solidity function must be `payable`.
+     *
+     * _Available since v3.1._
+     */
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value
+    ) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but
+     * with `errorMessage` as a fallback revert reason when `target` reverts.
+     *
+     * _Available since v3.1._
+     */
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        require(address(this).balance >= value, "Address: insufficient balance for call");
+        (bool success, bytes memory returndata) = target.call{value: value}(data);
+        return verifyCallResultFromTarget(target, success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but performing a static call.
+     *
+     * _Available since v3.3._
+     */
+    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {
+        return functionStaticCall(target, data, "Address: low-level static call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a static call.
+     *
+     * _Available since v3.3._
+     */
+    function functionStaticCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal view returns (bytes memory) {
+        (bool success, bytes memory returndata) = target.staticcall(data);
+        return verifyCallResultFromTarget(target, success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but performing a delegate call.
+     *
+     * _Available since v3.4._
+     */
+    function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {
+        return functionDelegateCall(target, data, "Address: low-level delegate call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a delegate call.
+     *
+     * _Available since v3.4._
+     */
+    function functionDelegateCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        (bool success, bytes memory returndata) = target.delegatecall(data);
+        return verifyCallResultFromTarget(target, success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Tool to verify that a low level call to smart-contract was successful, and revert (either by bubbling
+     * the revert reason or using the provided one) in case of unsuccessful call or if target was not a contract.
+     *
+     * _Available since v4.8._
+     */
+    function verifyCallResultFromTarget(
+        address target,
+        bool success,
+        bytes memory returndata,
+        string memory errorMessage
+    ) internal view returns (bytes memory) {
+        if (success) {
+            if (returndata.length == 0) {
+                // only check isContract if the call was successful and the return data is empty
+                // otherwise we already know that it was a contract
+                require(isContract(target), "Address: call to non-contract");
+            }
+            return returndata;
+        } else {
+            _revert(returndata, errorMessage);
+        }
+    }
+
+    /**
+     * @dev Tool to verify that a low level call was successful, and revert if it wasn't, either by bubbling the
+     * revert reason or using the provided one.
+     *
+     * _Available since v4.3._
+     */
+    function verifyCallResult(
+        bool success,
+        bytes memory returndata,
+        string memory errorMessage
+    ) internal pure returns (bytes memory) {
+        if (success) {
+            return returndata;
+        } else {
+            _revert(returndata, errorMessage);
+        }
+    }
+
+    function _revert(bytes memory returndata, string memory errorMessage) private pure {
+        // Look for revert reason and bubble it up if present
+        if (returndata.length > 0) {
+            // The easiest way to bubble the revert reason is using memory via assembly
+            /// @solidity memory-safe-assembly
+            assembly {
+                let returndata_size := mload(returndata)
+                revert(add(32, returndata), returndata_size)
+            }
+        } else {
+            revert(errorMessage);
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Provides information about the current execution context, including the
+ * sender of the transaction and its data. While these are generally available
+ * via msg.sender and msg.data, they should not be accessed in such a direct
+ * manner, since when dealing with meta-transactions the account sending and
+ * paying for execution may not be the actual sender (as far as an application
+ * is concerned).
+ *
+ * This contract is only required for intermediate, library-like contracts.
+ */
+abstract contract Context {
+    function _msgSender() internal view virtual returns (address) {
+        return msg.sender;
+    }
+
+    function _msgData() internal view virtual returns (bytes calldata) {
+        return msg.data;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+interface IUniRouter01 {
+    function factory() external pure returns (address);
+
+    function WETH() external pure returns (address);
+
+    function addLiquidity(
+        address tokenA,
+        address tokenB,
+        uint256 amountADesired,
+        uint256 amountBDesired,
+        uint256 amountAMin,
+        uint256 amountBMin,
+        address to,
+        uint256 deadline
+    ) external returns (uint256 amountA, uint256 amountB, uint256 liquidity);
+
+    function addLiquidityETH(
+        address token,
+        uint256 amountTokenDesired,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
+        address to,
+        uint256 deadline
+    ) external payable returns (uint256 amountToken, uint256 amountETH, uint256 liquidity);
+
+    function removeLiquidity(
+        address tokenA,
+        address tokenB,
+        uint256 liquidity,
+        uint256 amountAMin,
+        uint256 amountBMin,
+        address to,
+        uint256 deadline
+    ) external returns (uint256 amountA, uint256 amountB);
+
+    function removeLiquidityETH(
+        address token,
+        uint256 liquidity,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
+        address to,
+        uint256 deadline
+    ) external returns (uint256 amountToken, uint256 amountETH);
+
+    function removeLiquidityWithPermit(
+        address tokenA,
+        address tokenB,
+        uint256 liquidity,
+        uint256 amountAMin,
+        uint256 amountBMin,
+        address to,
+        uint256 deadline,
+        bool approveMax,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external returns (uint256 amountA, uint256 amountB);
+
+    function removeLiquidityETHWithPermit(
+        address token,
+        uint256 liquidity,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
+        address to,
+        uint256 deadline,
+        bool approveMax,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external returns (uint256 amountToken, uint256 amountETH);
+
+    function swapExactTokensForTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+
+    function swapTokensForExactTokens(
+        uint256 amountOut,
+        uint256 amountInMax,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+
+    function swapExactETHForTokens(uint256 amountOutMin, address[] calldata path, address to, uint256 deadline)
+        external
+        payable
+        returns (uint256[] memory amounts);
+
+    function swapTokensForExactETH(
+        uint256 amountOut,
+        uint256 amountInMax,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+
+    function swapExactTokensForETH(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external returns (uint256[] memory amounts);
+
+    function swapETHForExactTokens(uint256 amountOut, address[] calldata path, address to, uint256 deadline)
+        external
+        payable
+        returns (uint256[] memory amounts);
+
+    function quote(uint256 amountA, uint256 reserveA, uint256 reserveB) external pure returns (uint256 amountB);
+
+    function getAmountOut(uint256 amountIn, uint256 reserveIn, uint256 reserveOut)
+        external
+        pure
+        returns (uint256 amountOut);
+
+    function getAmountIn(uint256 amountOut, uint256 reserveIn, uint256 reserveOut)
+        external
+        pure
+        returns (uint256 amountIn);
+
+    function getAmountsOut(uint256 amountIn, address[] calldata path)
+        external
+        view
+        returns (uint256[] memory amounts);
+
+    function getAmountsIn(uint256 amountOut, address[] calldata path)
+        external
+        view
+        returns (uint256[] memory amounts);
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
+import "./IUniRouter01.sol";
+
+interface IUniRouter02 is IUniRouter01 {
+    function removeLiquidityETHSupportingFeeOnTransferTokens(
+        address token,
+        uint256 liquidity,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
+        address to,
+        uint256 deadline
+    ) external returns (uint256 amountETH);
+
+    function removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
+        address token,
+        uint256 liquidity,
+        uint256 amountTokenMin,
+        uint256 amountETHMin,
+        address to,
+        uint256 deadline,
+        bool approveMax,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external returns (uint256 amountETH);
+
+    function swapExactTokensForTokensSupportingFeeOnTransferTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external;
+
+    function swapExactETHForTokensSupportingFeeOnTransferTokens(
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external payable;
+
+    function swapExactTokensForETHSupportingFeeOnTransferTokens(
+        uint256 amountIn,
+        uint256 amountOutMin,
+        address[] calldata path,
+        address to,
+        uint256 deadline
+    ) external;
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.5.0;
+
+interface IWETH {
+    function deposit() external payable;
+    function transfer(address to, uint256 value) external returns (bool);
+    function withdraw(uint256) external;
+}
