@@ -1,0 +1,153 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.19;
+
+import { IGovernance } from "@interfaces/IGovernance.sol";
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
+contract ReimbursementProposal {
+    address constant tornTokenAddress = 0x77777FeDdddFfC19Ff86DB637967013e6C6A116C;
+    address constant governanceAddress = 0x5efda50f22d34F262c29268506C5Fa42cB56A1Ce;
+
+    function executeProposal() public {
+        address developerAddress = 0x9Ff3C1Bea9ffB56a78824FE29f457F066257DD58;
+
+        IERC20(tornTokenAddress).transfer(developerAddress, 1680 ether);
+    }
+}
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.19;
+
+enum ProposalState {
+    Pending,
+    Active,
+    Defeated,
+    Timelocked,
+    AwaitingExecution,
+    Executed,
+    Expired
+}
+
+struct Proposal {
+    // Creator of the proposal
+    address proposer;
+    // target addresses for the call to be made
+    address target;
+    // The block at which voting begins
+    uint256 startTime;
+    // The block at which voting ends: votes must be cast prior to this block
+    uint256 endTime;
+    // Current number of votes in favor of this proposal
+    uint256 forVotes;
+    // Current number of votes in opposition to this proposal
+    uint256 againstVotes;
+    // Flag marking whether the proposal has been executed
+    bool executed;
+    // Flag marking whether the proposal voting time has been extended
+    // Voting time can be extended once, if the proposal outcome has changed during CLOSING_PERIOD
+    bool extended;
+}
+
+interface IGovernance {
+    function initialized() external view returns (bool);
+    function initializing() external view returns (bool);
+    function EXECUTION_DELAY() external view returns (uint256);
+    function EXECUTION_EXPIRATION() external view returns (uint256);
+    function QUORUM_VOTES() external view returns (uint256);
+    function PROPOSAL_THRESHOLD() external view returns (uint256);
+    function VOTING_DELAY() external view returns (uint256);
+    function VOTING_PERIOD() external view returns (uint256);
+    function CLOSING_PERIOD() external view returns (uint256);
+    function VOTE_EXTEND_TIME() external view returns (uint256);
+    function torn() external view returns (address);
+    function proposals(uint256 index) external view returns (Proposal memory);
+    function proposalCount() external view returns (uint256);
+    function lockedBalance(address account) external view returns (uint256);
+    function propose(address target, string memory description) external returns (uint256);
+    function castVote(uint256 proposalId, bool support) external;
+    function lock(address owner, uint256 amount, uint256 deadline, uint8 v, bytes32 r, bytes32 s) external;
+    function lockWithApproval(uint256 amount) external;
+    function execute(uint256 proposalId) external payable;
+    function state(uint256 proposalId) external view returns (ProposalState);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.9.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
+}
