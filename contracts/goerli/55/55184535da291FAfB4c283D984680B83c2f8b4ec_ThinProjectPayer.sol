@@ -1,0 +1,1747 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
+import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
+
+import '../abstract/JBOperatable.sol';
+import '../interfaces/IJBDirectory.sol';
+import '../interfaces/IJBOperatorStore.sol';
+import '../interfaces/IJBProjects.sol';
+import '../interfaces/IJBProjectPayer.sol';
+import '../libraries/JBOperations.sol';
+import '../libraries/JBTokens.sol';
+
+/**
+ * @notice This contract is compatible with the original JBETHERC20ProjectPayer and conforms to the same interface. Instead of relying on Ownable it uses the Operator mechanism of the platform. This contract requires the JBOperations.MANAGE_PAYMENTS permission for priviledged operations.
+ *
+ * @notice This contract is a shim between the project contributor and the Juicebox payment processing mechanism. It forwards payments to the payment terminal registered for the given project and payment token pair.
+ *
+ * @notice The usecase for this contract is an easy means of accounting for payments. For example, deploying an instance to receive payments for NFT mint fees or deploying an instance to collect contributions for a particular fund-raising campaign. These instances would have different default memos, this data can later be used to categorize receipts.
+ *
+ * @notice see also PaymentProcessor.sol
+ */
+contract ThinProjectPayer is ERC165, JBOperatable, IJBProjectPayer {
+  using SafeERC20 for IERC20;
+
+  //*********************************************************************//
+  // -------------------------- custom errors -------------------------- //
+  //*********************************************************************//
+
+  error INCORRECT_DECIMAL_AMOUNT();
+  error NO_MSG_VALUE_ALLOWED();
+  error TERMINAL_NOT_FOUND();
+  error INVALID_OPERATION();
+
+  //*********************************************************************//
+  // --------------------- public stored properties -------------------- //
+  //*********************************************************************//
+
+  /**
+   * @notice A contract storing directories of terminals and controllers for each project.
+   */
+  IJBDirectory public override directory;
+
+  address public projectPayerDeployer;
+
+  /**
+   * @notice Projects NFT, required for permissions management.
+   */
+  IJBProjects public projects;
+
+  /**
+   * @notice The ID of the project that should be used to forward this contract's received payments.
+   */
+  uint256 public override defaultProjectId;
+
+  /**
+   * @notice The beneficiary that should be used in the payment made when this contract receives payments.
+   */
+  address payable public override defaultBeneficiary;
+
+  /**
+   * @notice A flag indicating whether issued tokens should be automatically claimed into the beneficiary's wallet. Leaving tokens unclaimed saves gas.
+   */
+  bool public override defaultPreferClaimedTokens;
+
+  /**
+   * @notice A flag indicating if received payments should call the `pay` function or the `addToBalance` function of a project.
+   */
+  bool public override defaultPreferAddToBalance;
+
+  /**
+   * @notice The memo that should be used in the payment made when this contract receives payments.
+   */
+  string public override defaultMemo;
+
+  /**
+   * @notice The metadata that should be used in the payment made when this contract receives payments.
+   */
+  bytes public override defaultMetadata;
+
+  //*********************************************************************//
+  // -------------------------- initializer ---------------------------- //
+  //*********************************************************************//
+
+  /**
+   * @notice This contract is meant to be cloned by the deployer contract. The default instance is attached to the platform project during platform deployment.
+   */
+  constructor(uint256 _defaultProjectId) {
+    defaultProjectId = _defaultProjectId; // prevent initialization of default instance
+  }
+
+  /**
+   * @notice This function is called by the deployer contract to attach a cloned instance to a particular project. This happens atomically following the clone operation.
+   *
+   * @dev Note that unlike JBETHERC20ProjectPayer, this contract relies on JBOperatable to authorize privileged operations.
+   *
+   * @param _jbxDirectory Juicebox directory contract.
+   * @param _jbxOperatorStore Juicebox operator store for operation auth.
+   * @param _jbxProjects Juicebox projects NFT for operation auth.
+   * @param _defaultProjectId The ID of the project whose treasury should be forwarded this contract's received payments.
+   * @param _defaultBeneficiary The address that'll receive the project's tokens.
+   * @param _defaultPreferClaimedTokens A flag indicating whether issued tokens should be automatically claimed into the beneficiary's wallet.
+   * @param _defaultPreferAddToBalance A flag indicating if received payments should call the `pay` function or the `addToBalance` function of a project.
+   * @param _defaultMemo A memo to pass along to the emitted event, and passed along the the funding cycle's data source and delegate.  A data source can alter the memo before emitting in the event and forwarding to the delegate.
+   * @param _defaultMetadata Bytes to send along to the project's data source and delegate, if provided.
+   */
+  function initialize(
+    IJBDirectory _jbxDirectory,
+    IJBOperatorStore _jbxOperatorStore,
+    IJBProjects _jbxProjects,
+    uint256 _defaultProjectId,
+    address payable _defaultBeneficiary,
+    bool _defaultPreferClaimedTokens,
+    bool _defaultPreferAddToBalance,
+    string memory _defaultMemo,
+    bytes memory _defaultMetadata
+  ) public {
+    operatorStore = _jbxOperatorStore; // JBOperatable
+
+    directory = _jbxDirectory;
+    projects = _jbxProjects;
+
+    if (defaultProjectId != 0) {
+      // NOTE: prevent re-init
+      revert INVALID_OPERATION();
+    }
+
+    defaultProjectId = _defaultProjectId;
+    defaultBeneficiary = _defaultBeneficiary;
+    defaultPreferClaimedTokens = _defaultPreferClaimedTokens;
+    defaultPreferAddToBalance = _defaultPreferAddToBalance;
+    defaultMemo = _defaultMemo;
+    defaultMetadata = _defaultMetadata;
+  }
+
+  function initialize(
+    uint256 _defaultProjectId,
+    address payable _defaultBeneficiary,
+    bool _defaultPreferClaimedTokens,
+    string memory _defaultMemo,
+    bytes memory _defaultMetadata,
+    bool _defaultPreferAddToBalance,
+    address _owner
+  ) external {
+    //
+  }
+
+  //*********************************************************************//
+  // ------------------------- default receive ------------------------- //
+  //*********************************************************************//
+
+  /**
+   * @notice Received funds are paid to the default project ID using the stored default properties.
+   *
+   * @dev Use the `addToBalance` function if there's a preference to do so. Otherwise use `pay`.
+   *
+   * @dev This function is called automatically when the contract receives an ETH payment.
+   */
+  receive() external payable virtual override {
+    if (defaultPreferAddToBalance)
+      _addToBalanceOf(
+        defaultProjectId,
+        JBTokens.ETH,
+        address(this).balance,
+        18, // balance is a fixed point number with 18 decimals.
+        defaultMemo,
+        defaultMetadata
+      );
+    else
+      _pay(
+        defaultProjectId,
+        JBTokens.ETH,
+        address(this).balance,
+        18, // balance is a fixed point number with 18 decimals.
+        defaultBeneficiary == address(0) ? tx.origin : defaultBeneficiary,
+        0, // Can't determine expectation of returned tokens ahead of time.
+        defaultPreferClaimedTokens,
+        defaultMemo,
+        defaultMetadata
+      );
+  }
+
+  //*********************************************************************//
+  // ---------------------- external transactions ---------------------- //
+  //*********************************************************************//
+
+  /**
+   * @notice Sets the default values that determine how to interact with a protocol treasury when this contract receives ETH directly.
+   *
+   * @param _projectId The ID of the project whose treasury should be forwarded this contract's received payments.
+   * @param _beneficiary The address that'll receive the project's tokens.
+   * @param _preferClaimedTokens A flag indicating whether issued tokens should be automatically claimed into the beneficiary's wallet.
+   * @param _memo The memo to pass to the payment terminal.
+   * @param _metadata The metadata to pass to the payment terminal.
+   * @param _defaultPreferAddToBalance A flag indicating if received payments should call the `pay` function or the `addToBalance` function of a project.
+   */
+  function setDefaultValues(
+    uint256 _projectId,
+    address payable _beneficiary,
+    bool _preferClaimedTokens,
+    string memory _memo,
+    bytes memory _metadata,
+    bool _defaultPreferAddToBalance
+  )
+    external
+    virtual
+    override
+    requirePermissionAllowingOverride(
+      projects.ownerOf(defaultProjectId),
+      defaultProjectId,
+      JBOperations.MANAGE_PAYMENTS,
+      (msg.sender == address(directory.controllerOf(defaultProjectId)))
+    )
+  {
+    // Set the default project ID if it has changed.
+    if (_projectId != defaultProjectId) {
+      defaultProjectId = _projectId;
+    }
+
+    // Set the default beneficiary if it has changed.
+    if (_beneficiary != defaultBeneficiary) {
+      defaultBeneficiary = _beneficiary;
+    }
+
+    // Set the default claimed token preference if it has changed.
+    if (_preferClaimedTokens != defaultPreferClaimedTokens) {
+      defaultPreferClaimedTokens = _preferClaimedTokens;
+    }
+
+    // Set the default memo if it has changed.
+    if (keccak256(abi.encodePacked(_memo)) != keccak256(abi.encodePacked(defaultMemo))) {
+      defaultMemo = _memo;
+    }
+
+    // Set the default metadata if it has changed.
+    if (keccak256(abi.encodePacked(_metadata)) != keccak256(abi.encodePacked(defaultMetadata))) {
+      defaultMetadata = _metadata;
+    }
+
+    // Set the add to balance preference if it has changed.
+    if (_defaultPreferAddToBalance != defaultPreferAddToBalance) {
+      defaultPreferAddToBalance = _defaultPreferAddToBalance;
+    }
+
+    emit SetDefaultValues(
+      _projectId,
+      _beneficiary,
+      _preferClaimedTokens,
+      _memo,
+      _metadata,
+      _defaultPreferAddToBalance,
+      msg.sender
+    );
+  }
+
+  //*********************************************************************//
+  // ----------------------- public transactions ----------------------- //
+  //*********************************************************************//
+
+  /**
+   * @notice Make a payment to the specified project.
+   *
+   * @param _projectId The ID of the project that is being paid.
+   * @param _token The token being paid in.
+   * @param _amount The amount of tokens being paid, as a fixed point number. If the token is ETH, this is ignored and msg.value is used in its place.
+   * @param _decimals The number of decimals in the `_amount` fixed point number. If the token is ETH, this is ignored and 18 is used in its place, which corresponds to the amount of decimals expected in msg.value.
+   * @param _beneficiary The address who will receive tokens from the payment.
+   * @param _minReturnedTokens The minimum number of project tokens expected in return, as a fixed point number with 18 decimals.
+   * @param _preferClaimedTokens A flag indicating whether the request prefers to mint project tokens into the beneficiaries wallet rather than leaving them unclaimed. This is only possible if the project has an attached token contract. Leaving them unclaimed saves gas.
+   * @param _memo A memo to pass along to the emitted event, and passed along the the funding cycle's data source and delegate. A data source can alter the memo before emitting in the event and forwarding to the delegate.
+   * @param _metadata Bytes to send along to the data source, delegate, and emitted event, if provided.
+   */
+  function pay(
+    uint256 _projectId,
+    address _token,
+    uint256 _amount,
+    uint256 _decimals,
+    address _beneficiary,
+    uint256 _minReturnedTokens,
+    bool _preferClaimedTokens,
+    string calldata _memo,
+    bytes calldata _metadata
+  ) public payable virtual override {
+    // ETH shouldn't be sent if the token isn't ETH.
+    if (address(_token) != JBTokens.ETH) {
+      if (msg.value > 0) {
+        revert NO_MSG_VALUE_ALLOWED();
+      }
+
+      // Get a reference to the balance before receiving tokens.
+      uint256 _balanceBefore = IERC20(_token).balanceOf(address(this));
+
+      // Transfer tokens to this contract from the msg sender.
+      IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
+
+      // The amount should reflect the change in balance.
+      _amount = IERC20(_token).balanceOf(address(this)) - _balanceBefore;
+    } else {
+      // If ETH is being paid, set the amount to the message value, and decimals to 18.
+      _amount = msg.value;
+      _decimals = 18;
+    }
+
+    _pay(
+      _projectId,
+      _token,
+      _amount,
+      _decimals,
+      _beneficiary,
+      _minReturnedTokens,
+      _preferClaimedTokens,
+      _memo,
+      _metadata
+    );
+  }
+
+  /**
+   * @notice Add to the balance of the specified project.
+   *
+   * @param _projectId The ID of the project that is being paid.
+   * @param _token The token being paid in.
+   * @param _amount The amount of tokens being paid, as a fixed point number. If the token is ETH, this is ignored and msg.value is used in its place.
+   * @param _decimals The number of decimals in the `_amount` fixed point number. If the token is ETH, this is ignored and 18 is used in its place, which corresponds to the amount of decimals expected in msg.value.
+   * @param _memo A memo to pass along to the emitted event.
+   * @param _metadata Extra data to pass along to the terminal.
+   */
+  function addToBalanceOf(
+    uint256 _projectId,
+    address _token,
+    uint256 _amount,
+    uint256 _decimals,
+    string calldata _memo,
+    bytes calldata _metadata
+  ) public payable virtual override {
+    // ETH shouldn't be sent if the token isn't ETH.
+    if (address(_token) != JBTokens.ETH) {
+      if (msg.value > 0) {
+        revert NO_MSG_VALUE_ALLOWED();
+      }
+
+      // Get a reference to the balance before receiving tokens.
+      uint256 _balanceBefore = IERC20(_token).balanceOf(address(this));
+
+      // Transfer tokens to this contract from the msg sender.
+      IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
+
+      // The amount should reflect the change in balance.
+      _amount = IERC20(_token).balanceOf(address(this)) - _balanceBefore;
+    } else {
+      // If ETH is being paid, set the amount to the message value, and decimals to 18.
+      _amount = msg.value;
+      _decimals = 18;
+    }
+
+    _addToBalanceOf(_projectId, _token, _amount, _decimals, _memo, _metadata);
+  }
+
+  //*********************************************************************//
+  // ----------------------------- IERC165 ----------------------------- //
+  //*********************************************************************//
+
+  /**
+   * @notice Indicates if this contract adheres to the specified interface.
+   *
+   * @dev See {IERC165-supportsInterface}.
+   *
+   * @param _interfaceId The ID of the interface to check for adherance to.
+   */
+  function supportsInterface(
+    bytes4 _interfaceId
+  ) public view virtual override(ERC165, IERC165) returns (bool) {
+    return
+      _interfaceId == type(IJBProjectPayer).interfaceId || super.supportsInterface(_interfaceId);
+  }
+
+  //*********************************************************************//
+  // ---------------------- internal transactions ---------------------- //
+  //*********************************************************************//
+
+  /**
+   * @notice Make a payment to the specified project.
+   *
+   * @param _projectId The ID of the project that is being paid.
+   * @param _token The token being paid in.
+   * @param _amount The amount of tokens being paid, as a fixed point number.
+   * @param _decimals The number of decimals in the `_amount` fixed point number.
+   * @param _beneficiary The address who will receive tokens from the payment.
+   * @param _minReturnedTokens The minimum number of project tokens expected in return, as a fixed point number with 18 decimals.
+   * @param _preferClaimedTokens A flag indicating whether the request prefers to mint project tokens into the beneficiaries wallet rather than leaving them unclaimed. This is only possible if the project has an attached token contract. Leaving them unclaimed saves gas.
+   * @param _memo A memo to pass along to the emitted event, and passed along the the funding cycle's data source and delegate.  A data source can alter the memo before emitting in the event and forwarding to the delegate.
+   * @param _metadata Bytes to send along to the data source and delegate, if provided.
+   */
+  function _pay(
+    uint256 _projectId,
+    address _token,
+    uint256 _amount,
+    uint256 _decimals,
+    address _beneficiary,
+    uint256 _minReturnedTokens,
+    bool _preferClaimedTokens,
+    string memory _memo,
+    bytes memory _metadata
+  ) internal virtual {
+    // Find the terminal for the specified project.
+    IJBPaymentTerminal _terminal = directory.primaryTerminalOf(_projectId, _token);
+
+    // There must be a terminal.
+    if (_terminal == IJBPaymentTerminal(address(0))) {
+      revert TERMINAL_NOT_FOUND();
+    }
+
+    // The amount's decimals must match the terminal's expected decimals.
+    if (_terminal.decimalsForToken(_token) != _decimals) {
+      revert INCORRECT_DECIMAL_AMOUNT();
+    }
+
+    // Approve the `_amount` of tokens from the destination terminal to transfer tokens from this contract.
+    if (_token != JBTokens.ETH) IERC20(_token).safeApprove(address(_terminal), _amount);
+
+    // If the token is ETH, send it in msg.value.
+    uint256 _payableValue = _token == JBTokens.ETH ? _amount : 0;
+
+    // Send funds to the terminal.
+    // If the token is ETH, send it in msg.value.
+    _terminal.pay{value: _payableValue}(
+      _projectId,
+      _amount, // ignored if the token is JBTokens.ETH.
+      _token,
+      _beneficiary != address(0) ? _beneficiary : defaultBeneficiary != address(0)
+        ? defaultBeneficiary
+        : tx.origin,
+      _minReturnedTokens,
+      _preferClaimedTokens,
+      _memo,
+      _metadata
+    );
+  }
+
+  /**
+   * @notice Add to the balance of the specified project.
+   *
+   * @param _projectId The ID of the project that is being paid.
+   * @param _token The token being paid in.
+   * @param _amount The amount of tokens being paid, as a fixed point number. If the token is ETH, this is ignored and msg.value is used in its place.
+   * @param _decimals The number of decimals in the `_amount` fixed point number. If the token is ETH, this is ignored and 18 is used in its place, which corresponds to the amount of decimals expected in msg.value.
+   * @param _memo A memo to pass along to the emitted event.
+   * @param _metadata Extra data to pass along to the terminal.
+   */
+  function _addToBalanceOf(
+    uint256 _projectId,
+    address _token,
+    uint256 _amount,
+    uint256 _decimals,
+    string memory _memo,
+    bytes memory _metadata
+  ) internal virtual {
+    // Find the terminal for the specified project.
+    IJBPaymentTerminal _terminal = directory.primaryTerminalOf(_projectId, _token);
+
+    // There must be a terminal.
+    if (_terminal == IJBPaymentTerminal(address(0))) {
+      revert TERMINAL_NOT_FOUND();
+    }
+
+    // The amount's decimals must match the terminal's expected decimals.
+    if (_terminal.decimalsForToken(_token) != _decimals) {
+      revert INCORRECT_DECIMAL_AMOUNT();
+    }
+
+    // Approve the `_amount` of tokens from the destination terminal to transfer tokens from this contract.
+    if (_token != JBTokens.ETH) IERC20(_token).safeApprove(address(_terminal), _amount);
+
+    // If the token is ETH, send it in msg.value.
+    uint256 _payableValue = _token == JBTokens.ETH ? _amount : 0;
+
+    // Add to balance so tokens don't get issued.
+    _terminal.addToBalanceOf{value: _payableValue}(_projectId, _amount, _token, _memo, _metadata);
+  }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/draft-IERC20Permit.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 Permit extension allowing approvals to be made via signatures, as defined in
+ * https://eips.ethereum.org/EIPS/eip-2612[EIP-2612].
+ *
+ * Adds the {permit} method, which can be used to change an account's ERC20 allowance (see {IERC20-allowance}) by
+ * presenting a message signed by the account. By not relying on {IERC20-approve}, the token holder account doesn't
+ * need to send a transaction, and thus is not required to hold Ether at all.
+ */
+interface IERC20Permit {
+    /**
+     * @dev Sets `value` as the allowance of `spender` over ``owner``'s tokens,
+     * given ``owner``'s signed approval.
+     *
+     * IMPORTANT: The same issues {IERC20-approve} has related to transaction
+     * ordering also apply here.
+     *
+     * Emits an {Approval} event.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     * - `deadline` must be a timestamp in the future.
+     * - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner`
+     * over the EIP712-formatted function arguments.
+     * - the signature must use ``owner``'s current nonce (see {nonces}).
+     *
+     * For more information on the signature format, see the
+     * https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP
+     * section].
+     */
+    function permit(
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) external;
+
+    /**
+     * @dev Returns the current nonce for `owner`. This value must be
+     * included whenever a signature is generated for {permit}.
+     *
+     * Every successful call to {permit} increases ``owner``'s nonce by one. This
+     * prevents a signature from being used multiple times.
+     */
+    function nonces(address owner) external view returns (uint256);
+
+    /**
+     * @dev Returns the domain separator used in the encoding of the signature for {permit}, as defined by {EIP712}.
+     */
+    // solhint-disable-next-line func-name-mixedcase
+    function DOMAIN_SEPARATOR() external view returns (bytes32);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC20 standard as defined in the EIP.
+ */
+interface IERC20 {
+    /**
+     * @dev Emitted when `value` tokens are moved from one account (`from`) to
+     * another (`to`).
+     *
+     * Note that `value` may be zero.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 value);
+
+    /**
+     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
+     * a call to {approve}. `value` is the new allowance.
+     */
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
+    /**
+     * @dev Returns the amount of tokens in existence.
+     */
+    function totalSupply() external view returns (uint256);
+
+    /**
+     * @dev Returns the amount of tokens owned by `account`.
+     */
+    function balanceOf(address account) external view returns (uint256);
+
+    /**
+     * @dev Moves `amount` tokens from the caller's account to `to`.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Returns the remaining number of tokens that `spender` will be
+     * allowed to spend on behalf of `owner` through {transferFrom}. This is
+     * zero by default.
+     *
+     * This value changes when {approve} or {transferFrom} are called.
+     */
+    function allowance(address owner, address spender) external view returns (uint256);
+
+    /**
+     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * IMPORTANT: Beware that changing an allowance with this method brings the risk
+     * that someone may use both the old and the new allowance by unfortunate
+     * transaction ordering. One possible solution to mitigate this race
+     * condition is to first reduce the spender's allowance to 0 and set the
+     * desired value afterwards:
+     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address spender, uint256 amount) external returns (bool);
+
+    /**
+     * @dev Moves `amount` tokens from `from` to `to` using the
+     * allowance mechanism. `amount` is then deducted from the caller's
+     * allowance.
+     *
+     * Returns a boolean value indicating whether the operation succeeded.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 amount
+    ) external returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.8.0) (token/ERC20/utils/SafeERC20.sol)
+
+pragma solidity ^0.8.0;
+
+import "../IERC20.sol";
+import "../extensions/draft-IERC20Permit.sol";
+import "../../../utils/Address.sol";
+
+/**
+ * @title SafeERC20
+ * @dev Wrappers around ERC20 operations that throw on failure (when the token
+ * contract returns false). Tokens that return no value (and instead revert or
+ * throw on failure) are also supported, non-reverting calls are assumed to be
+ * successful.
+ * To use this library you can add a `using SafeERC20 for IERC20;` statement to your contract,
+ * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
+ */
+library SafeERC20 {
+    using Address for address;
+
+    function safeTransfer(
+        IERC20 token,
+        address to,
+        uint256 value
+    ) internal {
+        _callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
+    }
+
+    function safeTransferFrom(
+        IERC20 token,
+        address from,
+        address to,
+        uint256 value
+    ) internal {
+        _callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));
+    }
+
+    /**
+     * @dev Deprecated. This function has issues similar to the ones found in
+     * {IERC20-approve}, and its usage is discouraged.
+     *
+     * Whenever possible, use {safeIncreaseAllowance} and
+     * {safeDecreaseAllowance} instead.
+     */
+    function safeApprove(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        // safeApprove should only be called when setting an initial allowance,
+        // or when resetting it to zero. To increase and decrease it, use
+        // 'safeIncreaseAllowance' and 'safeDecreaseAllowance'
+        require(
+            (value == 0) || (token.allowance(address(this), spender) == 0),
+            "SafeERC20: approve from non-zero to non-zero allowance"
+        );
+        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, value));
+    }
+
+    function safeIncreaseAllowance(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        uint256 newAllowance = token.allowance(address(this), spender) + value;
+        _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
+    }
+
+    function safeDecreaseAllowance(
+        IERC20 token,
+        address spender,
+        uint256 value
+    ) internal {
+        unchecked {
+            uint256 oldAllowance = token.allowance(address(this), spender);
+            require(oldAllowance >= value, "SafeERC20: decreased allowance below zero");
+            uint256 newAllowance = oldAllowance - value;
+            _callOptionalReturn(token, abi.encodeWithSelector(token.approve.selector, spender, newAllowance));
+        }
+    }
+
+    function safePermit(
+        IERC20Permit token,
+        address owner,
+        address spender,
+        uint256 value,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) internal {
+        uint256 nonceBefore = token.nonces(owner);
+        token.permit(owner, spender, value, deadline, v, r, s);
+        uint256 nonceAfter = token.nonces(owner);
+        require(nonceAfter == nonceBefore + 1, "SafeERC20: permit did not succeed");
+    }
+
+    /**
+     * @dev Imitates a Solidity high-level call (i.e. a regular function call to a contract), relaxing the requirement
+     * on the return value: the return value is optional (but if data is returned, it must not be false).
+     * @param token The token targeted by the call.
+     * @param data The call data (encoded using abi.encode or one of its variants).
+     */
+    function _callOptionalReturn(IERC20 token, bytes memory data) private {
+        // We need to perform a low level call here, to bypass Solidity's return data size checking mechanism, since
+        // we're implementing it ourselves. We use {Address-functionCall} to perform this call, which verifies that
+        // the target address contains contract code and also asserts for success in the low-level call.
+
+        bytes memory returndata = address(token).functionCall(data, "SafeERC20: low-level call failed");
+        if (returndata.length > 0) {
+            // Return data is optional
+            require(abi.decode(returndata, (bool)), "SafeERC20: ERC20 operation did not succeed");
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.8.0) (token/ERC721/IERC721.sol)
+
+pragma solidity ^0.8.0;
+
+import "../../utils/introspection/IERC165.sol";
+
+/**
+ * @dev Required interface of an ERC721 compliant contract.
+ */
+interface IERC721 is IERC165 {
+    /**
+     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.
+     */
+    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.
+     */
+    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
+
+    /**
+     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.
+     */
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
+
+    /**
+     * @dev Returns the number of tokens in ``owner``'s account.
+     */
+    function balanceOf(address owner) external view returns (uint256 balance);
+
+    /**
+     * @dev Returns the owner of the `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function ownerOf(uint256 tokenId) external view returns (address owner);
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes calldata data
+    ) external;
+
+    /**
+     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients
+     * are aware of the ERC721 protocol to prevent tokens from being forever locked.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must exist and be owned by `from`.
+     * - If the caller is not `from`, it must have been allowed to move this token by either {approve} or {setApprovalForAll}.
+     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.
+     *
+     * Emits a {Transfer} event.
+     */
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Transfers `tokenId` token from `from` to `to`.
+     *
+     * WARNING: Note that the caller is responsible to confirm that the recipient is capable of receiving ERC721
+     * or else they may be permanently lost. Usage of {safeTransferFrom} prevents loss, though the caller must
+     * understand this adds an external call which potentially creates a reentrancy vulnerability.
+     *
+     * Requirements:
+     *
+     * - `from` cannot be the zero address.
+     * - `to` cannot be the zero address.
+     * - `tokenId` token must be owned by `from`.
+     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.
+     *
+     * Emits a {Transfer} event.
+     */
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) external;
+
+    /**
+     * @dev Gives permission to `to` to transfer `tokenId` token to another account.
+     * The approval is cleared when the token is transferred.
+     *
+     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.
+     *
+     * Requirements:
+     *
+     * - The caller must own the token or be an approved operator.
+     * - `tokenId` must exist.
+     *
+     * Emits an {Approval} event.
+     */
+    function approve(address to, uint256 tokenId) external;
+
+    /**
+     * @dev Approve or remove `operator` as an operator for the caller.
+     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.
+     *
+     * Requirements:
+     *
+     * - The `operator` cannot be the caller.
+     *
+     * Emits an {ApprovalForAll} event.
+     */
+    function setApprovalForAll(address operator, bool _approved) external;
+
+    /**
+     * @dev Returns the account approved for `tokenId` token.
+     *
+     * Requirements:
+     *
+     * - `tokenId` must exist.
+     */
+    function getApproved(uint256 tokenId) external view returns (address operator);
+
+    /**
+     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.
+     *
+     * See {setApprovalForAll}
+     */
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.8.0) (utils/Address.sol)
+
+pragma solidity ^0.8.1;
+
+/**
+ * @dev Collection of functions related to the address type
+ */
+library Address {
+    /**
+     * @dev Returns true if `account` is a contract.
+     *
+     * [IMPORTANT]
+     * ====
+     * It is unsafe to assume that an address for which this function returns
+     * false is an externally-owned account (EOA) and not a contract.
+     *
+     * Among others, `isContract` will return false for the following
+     * types of addresses:
+     *
+     *  - an externally-owned account
+     *  - a contract in construction
+     *  - an address where a contract will be created
+     *  - an address where a contract lived, but was destroyed
+     * ====
+     *
+     * [IMPORTANT]
+     * ====
+     * You shouldn't rely on `isContract` to protect against flash loan attacks!
+     *
+     * Preventing calls from contracts is highly discouraged. It breaks composability, breaks support for smart wallets
+     * like Gnosis Safe, and does not provide security since it can be circumvented by calling from a contract
+     * constructor.
+     * ====
+     */
+    function isContract(address account) internal view returns (bool) {
+        // This method relies on extcodesize/address.code.length, which returns 0
+        // for contracts in construction, since the code is only stored at the end
+        // of the constructor execution.
+
+        return account.code.length > 0;
+    }
+
+    /**
+     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to
+     * `recipient`, forwarding all available gas and reverting on errors.
+     *
+     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost
+     * of certain opcodes, possibly making contracts go over the 2300 gas limit
+     * imposed by `transfer`, making them unable to receive funds via
+     * `transfer`. {sendValue} removes this limitation.
+     *
+     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].
+     *
+     * IMPORTANT: because control is transferred to `recipient`, care must be
+     * taken to not create reentrancy vulnerabilities. Consider using
+     * {ReentrancyGuard} or the
+     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].
+     */
+    function sendValue(address payable recipient, uint256 amount) internal {
+        require(address(this).balance >= amount, "Address: insufficient balance");
+
+        (bool success, ) = recipient.call{value: amount}("");
+        require(success, "Address: unable to send value, recipient may have reverted");
+    }
+
+    /**
+     * @dev Performs a Solidity function call using a low level `call`. A
+     * plain `call` is an unsafe replacement for a function call: use this
+     * function instead.
+     *
+     * If `target` reverts with a revert reason, it is bubbled up by this
+     * function (like regular Solidity function calls).
+     *
+     * Returns the raw returned data. To convert to the expected return value,
+     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].
+     *
+     * Requirements:
+     *
+     * - `target` must be a contract.
+     * - calling `target` with `data` must not revert.
+     *
+     * _Available since v3.1._
+     */
+    function functionCall(address target, bytes memory data) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, 0, "Address: low-level call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with
+     * `errorMessage` as a fallback revert reason when `target` reverts.
+     *
+     * _Available since v3.1._
+     */
+    function functionCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, 0, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but also transferring `value` wei to `target`.
+     *
+     * Requirements:
+     *
+     * - the calling contract must have an ETH balance of at least `value`.
+     * - the called Solidity function must be `payable`.
+     *
+     * _Available since v3.1._
+     */
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value
+    ) internal returns (bytes memory) {
+        return functionCallWithValue(target, data, value, "Address: low-level call with value failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but
+     * with `errorMessage` as a fallback revert reason when `target` reverts.
+     *
+     * _Available since v3.1._
+     */
+    function functionCallWithValue(
+        address target,
+        bytes memory data,
+        uint256 value,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        require(address(this).balance >= value, "Address: insufficient balance for call");
+        (bool success, bytes memory returndata) = target.call{value: value}(data);
+        return verifyCallResultFromTarget(target, success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but performing a static call.
+     *
+     * _Available since v3.3._
+     */
+    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {
+        return functionStaticCall(target, data, "Address: low-level static call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a static call.
+     *
+     * _Available since v3.3._
+     */
+    function functionStaticCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal view returns (bytes memory) {
+        (bool success, bytes memory returndata) = target.staticcall(data);
+        return verifyCallResultFromTarget(target, success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],
+     * but performing a delegate call.
+     *
+     * _Available since v3.4._
+     */
+    function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {
+        return functionDelegateCall(target, data, "Address: low-level delegate call failed");
+    }
+
+    /**
+     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],
+     * but performing a delegate call.
+     *
+     * _Available since v3.4._
+     */
+    function functionDelegateCall(
+        address target,
+        bytes memory data,
+        string memory errorMessage
+    ) internal returns (bytes memory) {
+        (bool success, bytes memory returndata) = target.delegatecall(data);
+        return verifyCallResultFromTarget(target, success, returndata, errorMessage);
+    }
+
+    /**
+     * @dev Tool to verify that a low level call to smart-contract was successful, and revert (either by bubbling
+     * the revert reason or using the provided one) in case of unsuccessful call or if target was not a contract.
+     *
+     * _Available since v4.8._
+     */
+    function verifyCallResultFromTarget(
+        address target,
+        bool success,
+        bytes memory returndata,
+        string memory errorMessage
+    ) internal view returns (bytes memory) {
+        if (success) {
+            if (returndata.length == 0) {
+                // only check isContract if the call was successful and the return data is empty
+                // otherwise we already know that it was a contract
+                require(isContract(target), "Address: call to non-contract");
+            }
+            return returndata;
+        } else {
+            _revert(returndata, errorMessage);
+        }
+    }
+
+    /**
+     * @dev Tool to verify that a low level call was successful, and revert if it wasn't, either by bubbling the
+     * revert reason or using the provided one.
+     *
+     * _Available since v4.3._
+     */
+    function verifyCallResult(
+        bool success,
+        bytes memory returndata,
+        string memory errorMessage
+    ) internal pure returns (bytes memory) {
+        if (success) {
+            return returndata;
+        } else {
+            _revert(returndata, errorMessage);
+        }
+    }
+
+    function _revert(bytes memory returndata, string memory errorMessage) private pure {
+        // Look for revert reason and bubble it up if present
+        if (returndata.length > 0) {
+            // The easiest way to bubble the revert reason is using memory via assembly
+            /// @solidity memory-safe-assembly
+            assembly {
+                let returndata_size := mload(returndata)
+                revert(add(32, returndata), returndata_size)
+            }
+        } else {
+            revert(errorMessage);
+        }
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/ERC165.sol)
+
+pragma solidity ^0.8.0;
+
+import "./IERC165.sol";
+
+/**
+ * @dev Implementation of the {IERC165} interface.
+ *
+ * Contracts that want to implement ERC165 should inherit from this contract and override {supportsInterface} to check
+ * for the additional interface id that will be supported. For example:
+ *
+ * ```solidity
+ * function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+ *     return interfaceId == type(MyInterface).interfaceId || super.supportsInterface(interfaceId);
+ * }
+ * ```
+ *
+ * Alternatively, {ERC165Storage} provides an easier to use but more expensive implementation.
+ */
+abstract contract ERC165 is IERC165 {
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        return interfaceId == type(IERC165).interfaceId;
+    }
+}
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)
+
+pragma solidity ^0.8.0;
+
+/**
+ * @dev Interface of the ERC165 standard, as defined in the
+ * https://eips.ethereum.org/EIPS/eip-165[EIP].
+ *
+ * Implementers can declare support of contract interfaces, which can then be
+ * queried by others ({ERC165Checker}).
+ *
+ * For an implementation, see {ERC165}.
+ */
+interface IERC165 {
+    /**
+     * @dev Returns true if this contract implements the interface defined by
+     * `interfaceId`. See the corresponding
+     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]
+     * to learn more about how these ids are created.
+     *
+     * This function call must use less than 30 000 gas.
+     */
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import './../interfaces/IJBOperatable.sol';
+
+/** 
+  @notice
+  Modifiers to allow access to functions based on the message sender's operator status.
+
+  @dev
+  Adheres to -
+  IJBOperatable: General interface for the methods in this contract that interact with the blockchain's state according to the protocol's rules.
+*/
+abstract contract JBOperatable is IJBOperatable {
+  //*********************************************************************//
+  // --------------------------- custom errors -------------------------- //
+  //*********************************************************************//
+  error UNAUTHORIZED();
+
+  //*********************************************************************//
+  // ---------------------------- modifiers ---------------------------- //
+  //*********************************************************************//
+
+  /** 
+    @notice
+    Only allows the speficied account or an operator of the account to proceed. 
+
+    @param _account The account to check for.
+    @param _domain The domain namespace to look for an operator within. 
+    @param _permissionIndex The index of the permission to check for. 
+  */
+  modifier requirePermission(
+    address _account,
+    uint256 _domain,
+    uint256 _permissionIndex
+  ) {
+    _requirePermission(_account, _domain, _permissionIndex);
+    _;
+  }
+
+  /** 
+    @notice
+    Only allows the speficied account, an operator of the account to proceed, or a truthy override flag. 
+
+    @param _account The account to check for.
+    @param _domain The domain namespace to look for an operator within. 
+    @param _permissionIndex The index of the permission to check for. 
+    @param _override A condition to force allowance for.
+  */
+  modifier requirePermissionAllowingOverride(
+    address _account,
+    uint256 _domain,
+    uint256 _permissionIndex,
+    bool _override
+  ) {
+    _requirePermissionAllowingOverride(_account, _domain, _permissionIndex, _override);
+    _;
+  }
+
+  //*********************************************************************//
+  // ---------------- public immutable stored properties --------------- //
+  //*********************************************************************//
+
+  /** 
+    @notice 
+    A contract storing operator assignments.
+  */
+  IJBOperatorStore public override operatorStore;
+
+  //*********************************************************************//
+  // -------------------------- internal views ------------------------- //
+  //*********************************************************************//
+
+  /** 
+    @notice
+    Require the message sender is either the account or has the specified permission.
+
+    @param _account The account to allow.
+    @param _domain The domain namespace within which the permission index will be checked.
+    @param _permissionIndex The permission index that an operator must have within the specified domain to be allowed.
+  */
+  function _requirePermission(
+    address _account,
+    uint256 _domain,
+    uint256 _permissionIndex
+  ) internal view {
+    if (
+      msg.sender != _account &&
+      !operatorStore.hasPermission(msg.sender, _account, _domain, _permissionIndex) &&
+      !operatorStore.hasPermission(msg.sender, _account, 0, _permissionIndex)
+    ) revert UNAUTHORIZED();
+  }
+
+  /** 
+    @notice
+    Require the message sender is either the account, has the specified permission, or the override condition is true.
+
+    @param _account The account to allow.
+    @param _domain The domain namespace within which the permission index will be checked.
+    @param _domain The permission index that an operator must have within the specified domain to be allowed.
+    @param _override The override condition to allow.
+  */
+  function _requirePermissionAllowingOverride(
+    address _account,
+    uint256 _domain,
+    uint256 _permissionIndex,
+    bool _override
+  ) internal view {
+    if (
+      !_override &&
+      msg.sender != _account &&
+      !operatorStore.hasPermission(msg.sender, _account, _domain, _permissionIndex) &&
+      !operatorStore.hasPermission(msg.sender, _account, 0, _permissionIndex)
+    ) revert UNAUTHORIZED();
+  }
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+enum JBBallotState {
+  Active,
+  Approved,
+  Failed
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import './IJBFundingCycleStore.sol';
+import './IJBPaymentTerminal.sol';
+import './IJBProjects.sol';
+
+interface IJBDirectory {
+  event SetController(uint256 indexed projectId, address indexed controller, address caller);
+
+  event AddTerminal(uint256 indexed projectId, IJBPaymentTerminal indexed terminal, address caller);
+
+  event SetTerminals(uint256 indexed projectId, IJBPaymentTerminal[] terminals, address caller);
+
+  event SetPrimaryTerminal(
+    uint256 indexed projectId,
+    address indexed token,
+    IJBPaymentTerminal indexed terminal,
+    address caller
+  );
+
+  event SetIsAllowedToSetFirstController(address indexed addr, bool indexed flag, address caller);
+
+  function projects() external view returns (IJBProjects);
+
+  function fundingCycleStore() external view returns (IJBFundingCycleStore);
+
+  function controllerOf(uint256 _projectId) external view returns (address);
+
+  function isAllowedToSetFirstController(address _address) external view returns (bool);
+
+  function terminalsOf(uint256 _projectId) external view returns (IJBPaymentTerminal[] memory);
+
+  function isTerminalOf(uint256 _projectId, IJBPaymentTerminal _terminal)
+    external
+    view
+    returns (bool);
+
+  function primaryTerminalOf(uint256 _projectId, address _token)
+    external
+    view
+    returns (IJBPaymentTerminal);
+
+  function setControllerOf(uint256 _projectId, address _controller) external;
+
+  function setTerminalsOf(uint256 _projectId, IJBPaymentTerminal[] calldata _terminals) external;
+
+  function setPrimaryTerminalOf(
+    uint256 _projectId,
+    address _token,
+    IJBPaymentTerminal _terminal
+  ) external;
+
+  function setIsAllowedToSetFirstController(address _address, bool _flag) external;
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import '@openzeppelin/contracts/utils/introspection/IERC165.sol';
+import './../enums/JBBallotState.sol';
+
+interface IJBFundingCycleBallot is IERC165 {
+  function duration() external view returns (uint256);
+
+  function stateOf(
+    uint256 _projectId,
+    uint256 _configuration,
+    uint256 _start
+  ) external view returns (JBBallotState);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import './../enums/JBBallotState.sol';
+import './../structs/JBFundingCycle.sol';
+import './../structs/JBFundingCycleData.sol';
+
+interface IJBFundingCycleStore {
+  event Configure(
+    uint256 indexed configuration,
+    uint256 indexed projectId,
+    JBFundingCycleData data,
+    uint256 metadata,
+    uint256 mustStartAtOrAfter,
+    address caller
+  );
+
+  event Init(uint256 indexed configuration, uint256 indexed projectId, uint256 indexed basedOn);
+
+  function latestConfigurationOf(uint256 _projectId) external view returns (uint256);
+
+  function get(uint256 _projectId, uint256 _configuration)
+    external
+    view
+    returns (JBFundingCycle memory);
+
+  function latestConfiguredOf(uint256 _projectId)
+    external
+    view
+    returns (JBFundingCycle memory fundingCycle, JBBallotState ballotState);
+
+  function queuedOf(uint256 _projectId) external view returns (JBFundingCycle memory fundingCycle);
+
+  function currentOf(uint256 _projectId) external view returns (JBFundingCycle memory fundingCycle);
+
+  function currentBallotStateOf(uint256 _projectId) external view returns (JBBallotState);
+
+  function configureFor(
+    uint256 _projectId,
+    JBFundingCycleData calldata _data,
+    uint256 _metadata,
+    uint256 _mustStartAtOrAfter
+  ) external returns (JBFundingCycle memory fundingCycle);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import './IJBOperatorStore.sol';
+
+interface IJBOperatable {
+  function operatorStore() external view returns (IJBOperatorStore);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import './../structs/JBOperatorData.sol';
+
+interface IJBOperatorStore {
+  event SetOperator(
+    address indexed operator,
+    address indexed account,
+    uint256 indexed domain,
+    uint256[] permissionIndexes,
+    uint256 packed
+  );
+
+  function permissionsOf(
+    address _operator,
+    address _account,
+    uint256 _domain
+  ) external view returns (uint256);
+
+  function hasPermission(
+    address _operator,
+    address _account,
+    uint256 _domain,
+    uint256 _permissionIndex
+  ) external view returns (bool);
+
+  function hasPermissions(
+    address _operator,
+    address _account,
+    uint256 _domain,
+    uint256[] calldata _permissionIndexes
+  ) external view returns (bool);
+
+  function setOperator(JBOperatorData calldata _operatorData) external;
+
+  function setOperators(JBOperatorData[] calldata _operatorData) external;
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import '@openzeppelin/contracts/utils/introspection/IERC165.sol';
+
+interface IJBPaymentTerminal is IERC165 {
+  function acceptsToken(address _token, uint256 _projectId) external view returns (bool);
+
+  function currencyForToken(address _token) external view returns (uint256);
+
+  function decimalsForToken(address _token) external view returns (uint256);
+
+  // Return value must be a fixed point number with 18 decimals.
+  function currentEthOverflowOf(uint256 _projectId) external view returns (uint256);
+
+  function pay(
+    uint256 _projectId,
+    uint256 _amount,
+    address _token,
+    address _beneficiary,
+    uint256 _minReturnedTokens,
+    bool _preferClaimedTokens,
+    string calldata _memo,
+    bytes calldata _metadata
+  ) external payable returns (uint256 beneficiaryTokenCount);
+
+  function addToBalanceOf(
+    uint256 _projectId,
+    uint256 _amount,
+    address _token,
+    string calldata _memo,
+    bytes calldata _metadata
+  ) external payable;
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import '@openzeppelin/contracts/utils/introspection/IERC165.sol';
+import './IJBDirectory.sol';
+
+interface IJBProjectPayer is IERC165 {
+  event SetDefaultValues(
+    uint256 indexed projectId,
+    address indexed beneficiary,
+    bool preferClaimedTokens,
+    string memo,
+    bytes metadata,
+    bool preferAddToBalance,
+    address caller
+  );
+
+  function directory() external view returns (IJBDirectory);
+
+  function projectPayerDeployer() external view returns (address);
+
+  function defaultProjectId() external view returns (uint256);
+
+  function defaultBeneficiary() external view returns (address payable);
+
+  function defaultPreferClaimedTokens() external view returns (bool);
+
+  function defaultMemo() external view returns (string memory);
+
+  function defaultMetadata() external view returns (bytes memory);
+
+  function defaultPreferAddToBalance() external view returns (bool);
+
+  function initialize(
+    uint256 _defaultProjectId,
+    address payable _defaultBeneficiary,
+    bool _defaultPreferClaimedTokens,
+    string memory _defaultMemo,
+    bytes memory _defaultMetadata,
+    bool _defaultPreferAddToBalance,
+    address _owner
+  ) external;
+
+  function setDefaultValues(
+    uint256 _projectId,
+    address payable _beneficiary,
+    bool _preferClaimedTokens,
+    string memory _memo,
+    bytes memory _metadata,
+    bool _defaultPreferAddToBalance
+  ) external;
+
+  function pay(
+    uint256 _projectId,
+    address _token,
+    uint256 _amount,
+    uint256 _decimals,
+    address _beneficiary,
+    uint256 _minReturnedTokens,
+    bool _preferClaimedTokens,
+    string memory _memo,
+    bytes memory _metadata
+  ) external payable;
+
+  function addToBalanceOf(
+    uint256 _projectId,
+    address _token,
+    uint256 _amount,
+    uint256 _decimals,
+    string memory _memo,
+    bytes memory _metadata
+  ) external payable;
+
+  receive() external payable;
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import '@openzeppelin/contracts/token/ERC721/IERC721.sol';
+import './../structs/JBProjectMetadata.sol';
+import './IJBTokenUriResolver.sol';
+
+interface IJBProjects is IERC721 {
+  event Create(
+    uint256 indexed projectId,
+    address indexed owner,
+    JBProjectMetadata metadata,
+    address caller
+  );
+
+  event SetMetadata(uint256 indexed projectId, JBProjectMetadata metadata, address caller);
+
+  event SetTokenUriResolver(IJBTokenUriResolver indexed resolver, address caller);
+
+  function count() external view returns (uint256);
+
+  function metadataContentOf(uint256 _projectId, uint256 _domain)
+    external
+    view
+    returns (string memory);
+
+  function tokenUriResolver() external view returns (IJBTokenUriResolver);
+
+  function createFor(address _owner, JBProjectMetadata calldata _metadata)
+    external
+    returns (uint256 projectId);
+
+  function setMetadataOf(uint256 _projectId, JBProjectMetadata calldata _metadata) external;
+
+  function setTokenUriResolver(IJBTokenUriResolver _newResolver) external;
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface IJBTokenUriResolver {
+  function getUri(uint256 _projectId) external view returns (string memory tokenUri);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+/**
+ * @notice Defines permissions as indicies in a uint256, as such, must be between 1 and 255.
+ */
+library JBOperations {
+  uint256 public constant RECONFIGURE = 1;
+  uint256 public constant REDEEM = 2;
+  uint256 public constant MIGRATE_CONTROLLER = 3;
+  uint256 public constant MIGRATE_TERMINAL = 4;
+  uint256 public constant PROCESS_FEES = 5;
+  uint256 public constant SET_METADATA = 6;
+  uint256 public constant ISSUE = 7;
+  uint256 public constant SET_TOKEN = 8;
+  uint256 public constant MINT = 9;
+  uint256 public constant BURN = 10;
+  uint256 public constant CLAIM = 11;
+  uint256 public constant TRANSFER = 12;
+  uint256 public constant REQUIRE_CLAIM = 13; // unused in v3
+  uint256 public constant SET_CONTROLLER = 14;
+  uint256 public constant SET_TERMINALS = 15;
+  uint256 public constant SET_PRIMARY_TERMINAL = 16;
+  uint256 public constant USE_ALLOWANCE = 17;
+  uint256 public constant SET_SPLITS = 18;
+  uint256 public constant MANAGE_PAYMENTS = 254;
+  uint256 public constant MANAGE_ROLES = 255;
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+library JBTokens {
+  /** 
+    @notice 
+    The ETH token address in Juicebox is represented by 0x000000000000000000000000000000000000EEEe.
+  */
+  address public constant ETH = address(0x000000000000000000000000000000000000EEEe);
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import './../interfaces/IJBFundingCycleBallot.sol';
+
+/** 
+  @member number The funding cycle number for the cycle's project. Each funding cycle has a number that is an increment of the cycle that directly preceded it. Each project's first funding cycle has a number of 1.
+  @member configuration The timestamp when the parameters for this funding cycle were configured. This value will stay the same for subsequent funding cycles that roll over from an originally configured cycle.
+  @member basedOn The `configuration` of the funding cycle that was active when this cycle was created.
+  @member start The timestamp marking the moment from which the funding cycle is considered active. It is a unix timestamp measured in seconds.
+  @member duration The number of seconds the funding cycle lasts for, after which a new funding cycle will start. A duration of 0 means that the funding cycle will stay active until the project owner explicitly issues a reconfiguration, at which point a new funding cycle will immediately start with the updated properties. If the duration is greater than 0, a project owner cannot make changes to a funding cycle's parameters while it is active – any proposed changes will apply to the subsequent cycle. If no changes are proposed, a funding cycle rolls over to another one with the same properties but new `start` timestamp and a discounted `weight`.
+  @member weight A fixed point number with 18 decimals that contracts can use to base arbitrary calculations on. For example, payment terminals can use this to determine how many tokens should be minted when a payment is received.
+  @member discountRate A percent by how much the `weight` of the subsequent funding cycle should be reduced, if the project owner hasn't configured the subsequent funding cycle with an explicit `weight`. If it's 0, each funding cycle will have equal weight. If the number is 90%, the next funding cycle will have a 10% smaller weight. This weight is out of `JBConstants.MAX_DISCOUNT_RATE`.
+  @member ballot An address of a contract that says whether a proposed reconfiguration should be accepted or rejected. It can be used to create rules around how a project owner can change funding cycle parameters over time.
+  @member metadata Extra data that can be associated with a funding cycle.
+*/
+struct JBFundingCycle {
+  uint256 number;
+  uint256 configuration;
+  uint256 basedOn;
+  uint256 start;
+  uint256 duration;
+  uint256 weight;
+  uint256 discountRate;
+  IJBFundingCycleBallot ballot;
+  uint256 metadata;
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import './../interfaces/IJBFundingCycleBallot.sol';
+
+/** 
+  @member duration The number of seconds the funding cycle lasts for, after which a new funding cycle will start. A duration of 0 means that the funding cycle will stay active until the project owner explicitly issues a reconfiguration, at which point a new funding cycle will immediately start with the updated properties. If the duration is greater than 0, a project owner cannot make changes to a funding cycle's parameters while it is active – any proposed changes will apply to the subsequent cycle. If no changes are proposed, a funding cycle rolls over to another one with the same properties but new `start` timestamp and a discounted `weight`.
+  @member weight A fixed point number with 18 decimals that contracts can use to base arbitrary calculations on. For example, payment terminals can use this to determine how many tokens should be minted when a payment is received.
+  @member discountRate A percent by how much the `weight` of the subsequent funding cycle should be reduced, if the project owner hasn't configured the subsequent funding cycle with an explicit `weight`. If it's 0, each funding cycle will have equal weight. If the number is 90%, the next funding cycle will have a 10% smaller weight. This weight is out of `JBConstants.MAX_DISCOUNT_RATE`.
+  @member ballot An address of a contract that says whether a proposed reconfiguration should be accepted or rejected. It can be used to create rules around how a project owner can change funding cycle parameters over time.
+*/
+struct JBFundingCycleData {
+  uint256 duration;
+  uint256 weight;
+  uint256 discountRate;
+  IJBFundingCycleBallot ballot;
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+/** 
+  @member operator The address of the operator.
+  @member domain The domain within which the operator is being given permissions. A domain of 0 is a wildcard domain, which gives an operator access to all domains.
+  @member permissionIndexes The indexes of the permissions the operator is being given.
+*/
+struct JBOperatorData {
+  address operator;
+  uint256 domain;
+  uint256[] permissionIndexes;
+}
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+/** 
+  @member content The metadata content.
+  @member domain The domain within which the metadata applies.
+*/
+struct JBProjectMetadata {
+  string content;
+  uint256 domain;
+}
