@@ -1,0 +1,12 @@
+/**
+ *Submitted for verification at Etherscan.io on 2023-06-12
+*/
+
+// SPDX-License-Identifier: BUSL-1.1
+pragma solidity =0.8.12;
+
+contract EmptyContract {
+    function foo() public pure returns (uint256) {
+        return 0;
+    }
+}
